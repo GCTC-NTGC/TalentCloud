@@ -108,6 +108,7 @@
                                     id="{{ id_prefix }}referenceRelationship"
                                     class="form__input"
                                     name="{{ name_prefix }}[relationship_id]">
+                                    <option value="" disabled selected>{{ reference_template.relationship_default_option }}</option>
                                     {% for relationship in relationships %}
                                         <option
                                             value="{{ relationship.id }}"

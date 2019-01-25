@@ -16,6 +16,7 @@ return [
          "masters" => "Maîtrise",
          "phd" => "Doctorat"
      ],
+     "type_default_option" => "TRANSLATION NEEDED",
      "aoe_label" => "Domaine d'étude",
      "institution_label" => "Institution",
      "thesis_label" => "Titre de thèse (Optionnel)",

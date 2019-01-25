@@ -71,11 +71,13 @@
                             class="form__input"
                             name="{{ name_prefix }}[skill_id]">
 
+                            <option value="" disabled selected>Select a skill...</option>
+
                             {% for id, skill in skillType %}
 
-                            <option
-                                value="{{ id }}"
-                                {% if savedCriteria.skill.id == id %}selected{% endif %}>{{ skill }}</option>
+                                <option
+                                    value="{{ id }}"
+                                    {% if savedCriteria.skill.id == id %}selected{% endif %}>{{ skill }}</option>
 
                             {% endfor %}
 
@@ -102,6 +104,8 @@
                             id="{{ id_prefix }}criteriaLevel"
                             class="form__input"
                             name="{{ name_prefix }}[skill_level_id]">
+
+                            <option value="" disabled selected>Select a level...</option>
 
                             {% for id, level in skillLevel %}
 

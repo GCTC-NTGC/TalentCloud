@@ -11,6 +11,7 @@ return [
     "new_sample_label" => "New Work Sample",
     "name_label" => "Project Name",
     "type_label" => "Project Type",
+    "type_default_option" => "Select a file type...",
     "types" => [
         "word" => "Writing sample or report",
         "powerpoint" => "Presentation or Infographic",

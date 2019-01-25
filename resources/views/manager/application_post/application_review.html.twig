@@ -58,6 +58,7 @@
                 <select
                     class="form__input"
                     name="review_status">
+                    <option value="" disabled selected>Select a status...</option>
                     {% for review_status in review_statuses %}
                         <option
                             value="{{ review_status.id }}"
@@ -76,6 +77,7 @@
                 <select
                     class="form__input"
                     name="review_decision">
+                    <option value="" disabled selected>Select a decision...</option>
                     {% for review_decision in review_decisions %}
                         <option
                             value="{{ review_decision.id }}"

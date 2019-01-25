@@ -11,6 +11,7 @@ return [
     "new_reference_title" => "New Reference",
     "name_label" => "Reference's Name",
     "relationship_label" => "Your Relationship",
+    "relationship_default_option" => "Select your relationship...",
     "relationships" => [
         "coworker" => "Coworker",
         "superior" => "Supervisor",

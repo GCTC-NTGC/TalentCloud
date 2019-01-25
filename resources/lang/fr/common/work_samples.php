@@ -11,6 +11,7 @@ return [
     "new_sample_label" => "Nouvel échantillon de travail",
     "name_label" => "Nom du projet",
     "type_label" => "Type du projet",
+    "type_default_option" => "TRANSLATION NEEDED",
     "types" => [
         "word" => "Échantillon ou rapport écrit",
         "powerpoint" => "Présentation ou infographique",

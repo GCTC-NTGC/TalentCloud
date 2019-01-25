@@ -12,6 +12,7 @@ return [
      "name_label" => "Nom du cours ou de la certification",
      "institution_label" => "Institution",
      "status_label" => "Statut",
+     "status_default_option" => "TRANSLATION NEEDED",
      "statuses" => [
          "certificate_granted" => "Certificat de cours accordé",
          "credits_towards_degree" => "Crédits vers un diplome (Cours réussi)",
@@ -24,4 +25,4 @@ return [
      "end_date_label" => "fin",
      "action_01" => "Supprimer un diplôme",
      "action_02" => "Enregistrer un diplôme"
-];   
+];

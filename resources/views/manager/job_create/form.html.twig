@@ -223,6 +223,7 @@
                                     class="form__input"
                                     id="createJobSecurityClearance"
                                     name="security_clearance">
+                                    <option value="" disabled selected>Select a clearance level...</option>
                                     {% for clearance in security_clearances %}
                                         <option
                                             value="{{ clearance.id }}"
@@ -251,6 +252,7 @@
                                     class="form__input"
                                     id="createJobLanguageRequirement"
                                     name="language_requirement">
+                                    <option value="" disabled selected>Select a language requirement...</option>
                                     {% for language in language_requirments %}
                                         <option
                                             value="{{ language.id }}"
@@ -349,6 +351,7 @@
                                     class="form__input"
                                     id="createJobProvince"
                                     name="province">
+                                    <option value="" disabled selected>Select a province...</option>
                                     {% for province in provinces %}
                                         <option
                                             value="{{ province.id }}"
@@ -549,6 +552,7 @@
                                     class="form__input"
                                     id="createJobDepartment"
                                     name="department">
+                                    <option value="" disabled selected>Select a department...</option>
                                     {% for department in departments %}
                                         <option
                                             value="{{ department.id }}"

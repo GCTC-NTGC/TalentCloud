@@ -12,6 +12,7 @@ return [
     'name_label' => 'Nom du projet',
     'type_label' => 'Type du projet',
     'skill_selection_label' => 'Sélectionner une compétence',
+    'skill_selection_default_option' => "TRANSLATION NEEDED",
     'level_label' => 'Mon niveau de compétence',
     'level_link_title' => 'En savoir plus sur la façon d\'identifier votre niveau de compétence.',
     'level_link_label' => '(Trouvez votre niveau de compétence)',

@@ -17,7 +17,7 @@
 
 <div
     class="form__wrapper">
-    
+
     <div
         class="flex-grid">
 
@@ -48,6 +48,7 @@
                     class="form__select-wrapper fas fa-chevron-down">
                     <select
                         class="form__input">
+                        <option value="" disabled selected>{{ reference_template.relationship_default_option }}</option>
                         {% for relationship in reference_template.relationships|sort %}
                             <option
                                 {% if reference.relationship|capitalize == relationship|capitalize %}selected="selected"{% endif %}
@@ -78,18 +79,18 @@
         <div
             class="box full">
 
-            <div 
+            <div
                 class="form__input-wrapper--float {% if reference.description != null%}active{% endif %}"
                 data-form-id="experience-description">
 
-                <label 
+                <label
                     class="form__label"
                     for="">
                     {{ reference_template.description_label }}
                 </label>
 
-                <textarea 
-                    class="form__textarea" 
+                <textarea
+                    class="form__textarea"
                     id="">{{ reference.description }}</textarea>
 
             </div>
@@ -120,7 +121,7 @@
 
                     <div
                         class="box small-1of2">
-                        
+
                     </div>
 
                 </div>
@@ -135,14 +136,14 @@
 
                 {% set relativeCounter = 0 %}
 
-                <div 
+                <div
                     class="profile-relative-list__wrapper">
 
                     {% for relative in reference.projects %}
 
                         {% set relativeCounter = relativeCounter + 1 %}
 
-                        {% include "common/relatives-projects" %}             
+                        {% include "common/relatives-projects" %}
 
                     {% endfor %}
 
@@ -182,7 +183,7 @@
 
         <div
             class="box small-1of2">
-            
+
             <button
                 class="button--blue light-bg">
                 {{ modal.action_02 }}

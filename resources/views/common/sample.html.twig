@@ -108,6 +108,7 @@
                                     id="{{ id_prefix }}sampleType"
                                     name="{{ name_prefix }}[file_type_id]"
                                     class="form__input">
+                                    <option value="" disabled selected>{{ sample_template.type_default_option }}</option>
                                     {% for option in file_types %}
                                         <option
                                             value="{{ option.id }}"

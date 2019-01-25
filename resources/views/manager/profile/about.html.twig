@@ -128,12 +128,13 @@
                             class="form__input"
                             id="managerProfileDepartment"
                             name="department">
+                            <option value="" disabled selected>Select a department...</option>
                             {% for department in departments %}
                                 <option
                                     value="{{ department.id }}"
-                                    {% if manager.department.name == deparment.name %}selected="selected"{% endif %}
-                                    >{{ department.value }}</option>
-                                    }
+                                    {% if manager.department.name == deparment.name %}selected="selected"{% endif %}>
+                                    {{ department.value }}
+                                </option>
                             {% endfor %}
                         </select>
                     </div>

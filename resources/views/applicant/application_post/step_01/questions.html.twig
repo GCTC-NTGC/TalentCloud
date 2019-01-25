@@ -44,6 +44,7 @@
                                         id="citizenship_declaration_id"
                                         class="form__input"
                                         name="citizenship_declaration_id" >
+                                        <option value="" disabled selected>{{ application_template.select_default_option }}</option>
                                         {% for option in citizenship_options %}
                                             <option
                                                 value="{{ option.id }}"
@@ -95,6 +96,7 @@
                                         id="veteran_status_id"
                                         class="form__input"
                                         name="veteran_status_id">
+                                        <option value="" disabled selected>{{ application_template.select_default_option }}</option>
                                         {% for option in veteran_options %}
                                             <option
                                                 value="{{ option.id }}"
@@ -145,6 +147,7 @@
                                         id="preferred_language_id"
                                         class="form__input"
                                         name="preferred_language_id">
+                                        <option value="" disabled selected>{{ application_template.select_default_option }}</option>
                                         {% for option in language_options %}
                                             <option
                                                 value="{{ option.id }}"
