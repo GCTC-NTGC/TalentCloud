@@ -8,11 +8,12 @@
     class="menu">
 
     <button
+        aria-label="{{ menu.mobile_trigger_label }}"
         class="menu__mobile-trigger"
         onclick="">
         <i class="fas fa-bars"></i>
         <i class="fas fa-times"></i>
-        <span class="hidden">{{ menu.mobile_trigger_label }}</span>
+        <span class="invisible">{{ menu.mobile_trigger_label }}</span>
     </button>
 
     <ul class="menu__list">
