@@ -379,6 +379,10 @@ return [
             'name' => 'Connaissance de l\'ensemble des politiques du gouvernement du Canada sur la gestion de projets',
             'description' => 'Se définissant comme suit : connaissance de l\'ensemble des politiques du gouvernement du Canada sur la gestion de projets.'
         ],
+        'it_project_management' => [
+            'name' => 'Gestion de projets de la TI',
+            'description' => 'Se définit comme suit : Capacité de gérer les projets de transformation de la TI à travers un cycle de vie tout entier du projet.'
+        ],
     ],
     'status' => [
         'claimed' => 'Ajoutée'
