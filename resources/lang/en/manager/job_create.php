@@ -12,11 +12,11 @@ return [
     'title' => 'Create a Job Poster',
     'layout' => [
         'sidebar' => [
-            'poster_sections' => 'Poster Sections meow',
-            'job_details' => 'Job Details meow',
-            'key_tasks' => 'Key Tasks meow',
-            'skills_n_competencies' => 'Skills &amp; Competencies meow',
-            'questions' => 'Questions for the Applicant meow'
+            'poster_sections' => 'Poster Sections',
+            'job_details' => 'Job Details',
+            'key_tasks' => 'Key Tasks',
+            'skills_n_competencies' => 'Skills & Competencies',
+            'questions' => 'Questions for the Applicant'
         ]
     ]
 ];
