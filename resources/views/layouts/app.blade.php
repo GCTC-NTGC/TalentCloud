@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 
 <html
-    lang="en">
+    lang="{{ $appLocale }}">
 
     <head>
 

@@ -5,38 +5,20 @@
 
 ============================================================================= #}
 
-<!DOCTYPE html>
+{% extends "layouts/base" %}
 
-<html
-    lang="en">
+{% block title %}{{ faq.faq_title }}{% endblock %}
 
-    <head>
-        <title>{{ faq.faq_title }}</title>
+{% block body %}
 
-        {% include "common/head" %}
+	{% include "common/alert" %}
 
-        {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
+    {% include "common/goc" %}
 
-    {# /head #}
+    {# FAQ Sections #}
 
-    {# body #}
+        {% include "common/header" with {'header':faq} %}
 
-        {% include "common/alert" %}
+        {% include "applicant/static/credentialing_layout" %}
 
-        {% include "common/goc" %}
-
-        {# FAQ Sections #}
-
-            {% include "common/header" with {'header':faq} %}
-
-            {% include "applicant/static/credentialing_layout" %}
-
-        {% include "common/footer" %}
-
-        {# Scripts #}
-
-        {% include "common/scripts" %}
-
-    </body>
-
-</html>
+{% endblock %}

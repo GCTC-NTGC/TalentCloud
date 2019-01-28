@@ -1,33 +1,24 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Apply - Step 04
+    Applicant: Apply - Step 05
 
 ============================================================================= #}
 
-<!DOCTYPE html>
+{% extends "layouts/base" %}
 
-<html
-    lang="en">
+{% block title %}{{ application_template.step_05_title }}{% endblock %}
 
-    <head>
-        <title>{{ application_template.step_05_title }}</title>
+{% block body %}
 
-        {% include "common/head" %}
+	{% include "common/alert" %}
 
-        {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
+    {% include "common/goc" %}
 
-    {# /head #}
+    {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
 
-    {# body #}
+    {# Form containing all about_me editable elements #}
 
-        {% include "common/alert" %}
-
-        {% include "common/goc" %}
-
-        {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
-
-        {# Form containing all about_me editable elements #}
         <form action="{{ form_submit_action }}" method="post">
 
             {% include "applicant/application_post/common/tracker" %}
@@ -48,18 +39,5 @@
 
         </form>
 
-        {# Login Modals #}
+{% endblock %}
 
-            {% include "common/modal" with {"page":login_modals} %}
-
-        {# Footer #}
-
-            {% include "common/footer" %}
-
-        {# Scripts #}
-
-            {% include "common/scripts" %}
-
-    </body>
-
-</html>
