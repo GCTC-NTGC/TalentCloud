@@ -9,6 +9,7 @@ return [
     *
     */
     "new_sample_label" => "Nouvel échantillon de travail",
+    "accordion_sr_helper" => "TRANSLATION NEEDED",
     "name_label" => "Nom du projet",
     "type_label" => "Type du projet",
     "types" => [

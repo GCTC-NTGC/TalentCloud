@@ -9,6 +9,7 @@ return [
      *
      */
      "new_degree_label" => "Nouveau diplôme ou diplôme universitaire",
+     "accordion_sr_helper" => "TRANSLATION NEEDED",
      "type_label" => "Type",
      "types" => [
          "diploma" => "Diplôme",

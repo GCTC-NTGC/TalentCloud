@@ -9,6 +9,7 @@ return [
     *
     */
     'new_skill_title' => 'Nouvelle compétence',
+    "accordion_sr_helper" => "TRANSLATION NEEDED",
     'name_label' => 'Nom du projet',
     'type_label' => 'Type du projet',
     'skill_selection_label' => 'Sélectionner une compétence',
