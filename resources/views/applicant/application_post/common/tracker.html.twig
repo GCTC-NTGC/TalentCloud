@@ -39,7 +39,6 @@
         {% for item in application_tracker.items %}
 
             <a
-                aria-label="{{ application_tracker.tracker_link_title }} {{ item.step }}."
                 class="application-post__tracker-item
                     {% if item.status == "error" %}
                         error
