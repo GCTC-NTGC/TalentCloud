@@ -18,7 +18,7 @@
     }
 
     &::before {
-        background-color: transparentize($palette--black, .15);
+        background-color: #202023;
         background-image: url("/images/bg_lightning_texture.png");
         background-position: center;
         background-repeat: repeat;
@@ -64,7 +64,7 @@
         &:hover {
 
             &.previous {
-                    
+
                 i {
                     transform: translate(-50%, 0);
                     transition: all .2s ease;
@@ -73,7 +73,7 @@
             }
 
             &.next {
-                
+
                 i {
                     transform: translate(50%, 0);
                     transition: all .2s ease;
@@ -189,7 +189,7 @@
         }
 
         &.complete {
-            
+
             .fa-times-circle {
                 display: none;
             }

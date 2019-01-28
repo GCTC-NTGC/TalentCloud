@@ -76,11 +76,18 @@
             title="{{ relative_template.reference.delete_title }}"
         {% elseif relativetoken == "samples" %}
             title="{{ relative_template.sample.delete_title }}"
-        {% endif %}>
+        {% endif %}
+        type="button">
 
         <i class="fas fa-times"></i>
 
-        <span class="hidden">{{ relative_template.skill.delete_title }}</span>
+        {% if relativeToken == "skills" %}
+            <span class="invisible">{{ relative_template.skill.delete_title }}</span>
+        {% elseif relativeToken == "references" %}
+            <span class="invisible">{{ relative_template.reference.delete_title }}</span>
+        {% elseif relativetoken == "samples" %}
+            <span class="invisible">{{ relative_template.sample.delete_title }}</span>
+        {% endif %}
 
     </button>
 
