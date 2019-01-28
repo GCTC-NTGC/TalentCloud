@@ -248,7 +248,11 @@ class JobController extends Controller
         return view(
             'manager/job_create',
             [
-                'job_heading' => Lang::get($jobHeading),
+                /*Localization Strings*/
+                'job_l18n' => Lang::get('manager/job_create'),
+
+                /* Data */
+                'job' => Lang::get($jobHeading),
                 'manager' => $manager,
                 'provinces' => Province::all(),
                 'departments' => Department::all(),

@@ -25,9 +25,9 @@
 
         {% include "common/goc" %}
 
-        {% include "common/header" with {"header":job_heading} %}
+        {% include "common/header" with {"header": job_l18n} %}
 
-        {% include "manager/job_create/layout" %}
+        {% include "manager/job_create/layout" with {"layout": job.layout} %}
 
         {% include "common/footer" %}
 

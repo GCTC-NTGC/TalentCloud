@@ -38,15 +38,18 @@ class ApplicantProfileController extends Controller
         //             value // The question text
         //             description // Question description text
 
-        return view('manager/applicant_profile', [
-            /* Localized strings*/
-            'profile' => Lang::get('manager/applicant_profile'), // Change text
+        return view(
+            'manager/applicant_profile',
+            [
+                /* Localization Strings*/
+                'profile' => Lang::get('manager/applicant_profile'), // Change text
 
-            /* User Data */
-            'user' => $applicant->user,
-            'applicant' => $applicant,
-            'profile_photo_url' => '/images/user.png', //TODO: get real photos
-        ]);
+                /* User Data */
+                'user' => $applicant->user,
+                'applicant' => $applicant,
+                'profile_photo_url' => '/images/user.png', //TODO: get real photos
+            ]
+        );
     }
 
     /**
