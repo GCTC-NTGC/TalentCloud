@@ -12,7 +12,7 @@ return [
     'name_label' => 'Project Name',
     'type_label' => 'Project Type',
     'skill_selection_label' => 'Select Skill',
-    'skill_selection_default_option' => "Please select a skill...",
+    'skill_selection_default_option' => "Select a skill...",
     'level_label' => 'My Level',
     'level_link_title' => 'Learn more about finding your skill level.',
     'level_link_label' => '(Find Your Level)',

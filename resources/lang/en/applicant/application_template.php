@@ -88,7 +88,7 @@ return [
         "question_label" => "Your Answer",
         "question_title" => "My Fit",
         "claim_title" => "Basic Information",
-        "select_default_option" => "Please select from the following...",
+        "select_default_option" => "Select from the following...",
         "language_title" => "Language Selection",
         "language_copy" => "Which language would you prefer for this application process?",
         "language_label" => "Select One",
