@@ -13,27 +13,27 @@ return [
     */
 
     'header' => [
-        'twitter_title' => 'Visit :name\'s Twitter profile.',
-        'linkedin_title' => 'Visit :name\'s LinkedIn profile.'
+      'twitter_title' => 'Voir le profile twitter de :name.',
+      'linkedin_title' => 'Voir le profile LinkedIn de :name.'
     ],
     'content' => [
-        'job_poster' => 'Job Poster',
+        'job_poster' => 'Affiche d\'emploi',
         'review' => [
-            'name' => 'Name',
+            'name' => 'Prénom et nom',
             'info' => 'Info',
-            'reviewed' => 'Reviewed?',
-            'decision' => 'Decision',
-            'reviewer' => 'Reviewer',
+            'reviewed' => 'Réviser?',
+            'decision' => 'Décision',
+            'reviewer' => 'Réviseur',
             'notes' => 'Notes',
             'form' => [
-                'email' => 'Email',
+                'email' => 'Courriel',
                 'profile' => 'Profile',
                 'application' => 'Application',
                 'placeholder' => [
-                    'reviewer' => 'Reviewer',
-                    'other_notes' => 'Other Notes...'
+                    'reviewer' => 'Réviseur',
+                    'other_notes' => 'Autres notes...'
                 ],
-                'save' => 'Save'
+                'save' => 'Enregistrer'
             ]
         ]
     ]

@@ -12,14 +12,14 @@ return [
     *
     */
 
-    'title' => 'Applicant Profile',
+    'title' => 'Profil du candidat',
     'header' => [
-        'twitter_title' => 'Visit :name\'s Twitter profile.',
-        'linkedin_title' => 'Visit :name\'s LinkedIn profile.'
+        'twitter_title' => 'Voir le profile twitter de :name.',
+        'linkedin_title' => 'Voir le profile LinkedIn de :name.'
     ],
     'content' => [
-        'whose_profile' => 'You are viewing :name\'s profile.',
-        'no_applicant_answers' => 'The applicant hasn\'t answered any questions.',
-        'their_answer' => 'Their Answer:'
+        'whose_profile' => 'Voici le profil de :name.',
+        'no_applicant_answers' => 'Le candidat n\'a répondu à aucune question.',
+        'their_answer' => 'Leur réponse :'
     ]
 ];
