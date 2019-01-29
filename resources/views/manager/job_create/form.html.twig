@@ -20,7 +20,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4>Job Details</h4>
+        <h4>{{form_l18n.job_details}}</h4>
 
         {# Job Title #}
 
@@ -29,7 +29,7 @@
 
                 <legend
                     class="form__legend">
-                    Job Title
+                    {{form_l18n.job_title}}
                 </legend>
 
                 <div
@@ -44,7 +44,7 @@
                             <label
                                 class="form__label"
                                 for="createJobTitleEN">
-                                Job Title (English)
+                                {{form_l18n.job_title_english}}
                             </label>
 
                             <input
@@ -67,7 +67,7 @@
                             <label
                                 class="form__label"
                                 for="createJobTitleFR">
-                                Job Title (Français)
+                                {{form_l18n.job_title_french}}
                             </label>
 
                             <input
@@ -92,7 +92,7 @@
 
                 <legend
                     class="form__legend">
-                    Salary Range
+                    {{form_l18n.salary_range}}
                 </legend>
 
                 <div
@@ -107,7 +107,7 @@
                             <label
                                 class="form__label"
                                 for="createJobSalaryMin">
-                                Minimum Value
+                                {{form_l18n.minimum_value}}
                             </label>
 
                             <input
@@ -130,7 +130,7 @@
                             <label
                                 class="form__label"
                                 for="createJobSalaryMax">
-                                Maximum Value
+                                {{form_l18n.maximum_value}}
                             </label>
 
                             <input
@@ -155,7 +155,7 @@
 
                 <legend
                     class="form__legend">
-                    Classifications
+                    {{form_l18n.classifications}}
                 </legend>
 
                 <div
@@ -170,7 +170,7 @@
                             <label
                                 class="form__label"
                                 for="createJobClassification">
-                                Occupational Group
+                                {{form_l18n.occupational_group}}
                             </label>
 
                             <input
@@ -193,7 +193,7 @@
                             <label
                                 class="form__label"
                                 for="createJobNoc">
-                                NOC Code
+                                {{form_l18n.noc_code}}
                             </label>
 
                             <input
@@ -215,7 +215,7 @@
                             <label
                                 class="form__label"
                                 for="createJobSecurityClearance">
-                                Security Clearance
+                                {{form_l18n.security_clearance}}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
@@ -243,7 +243,7 @@
                             <label
                                 class="form__label"
                                 for="createJobLanguageRequirement">
-                                Language Requirement
+                                {{form_l18n.language_requirement}}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
@@ -274,7 +274,7 @@
 
                 <legend
                     class="form__legend">
-                    Location
+                    {{form_l18n.location}}
                 </legend>
 
                 <div
@@ -292,7 +292,7 @@
 
                                 <span
                                     class="hidden">
-                                    Remote Work Allowed
+                                    {{form_l18n.remote_work_allowed}}
                                 </span>
 
                                 <input
@@ -302,7 +302,7 @@
                                     type="checkbox"
                                     value="true"
                                     {% if job.remote_work_allowed %}checked{% endif%}/>
-                                Remote Work Allowed
+                                {{form_l18n.remote_work_allowed}}
 
                             </label>
 
@@ -319,7 +319,7 @@
                             <label
                                 class="form__label"
                                 for="createJobCity">
-                                City
+                                {{form_l18n.city}}
                             </label>
 
                             <input
@@ -341,7 +341,7 @@
                             <label
                                 class="form__label"
                                 for="createJobProvince">
-                                Province
+                                {{form_l18n.province}}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
@@ -372,7 +372,7 @@
 
                 <legend
                     class="form__legend">
-                    Timetable
+                    {{form_l18n.timetable}}
                 </legend>
 
                 <div
@@ -387,7 +387,7 @@
                             <label
                                 class="form__label"
                                 for="createJobOpenDate">
-                                Accepting Applications From
+                                {{form_l18n.accepting_applications_from}}
                             </label>
 
                             <input
@@ -410,7 +410,7 @@
                             <label
                                 class="form__label"
                                 for="createJobOpenTime">
-                                Opening Time, UTC
+                                {{form_l18n.opening_time}}
                             </label>
 
                             <input
@@ -433,7 +433,7 @@
                             <label
                                 class="form__label"
                                 for="createJobCloseDate">
-                                Accepting Applications To
+                                {{form_l18n.accepting_applications_to}}
                             </label>
 
                             <input
@@ -456,7 +456,7 @@
                             <label
                                 class="form__label"
                                 for="createJobCloseTime">
-                                Close Time, UTC
+                                {{form_l18n.closing_time}}
                             </label>
 
                             <input
@@ -479,7 +479,7 @@
                             <label
                                 class="form__label"
                                 for="createJobStartDate">
-                                Position Start Date
+                                {{form_l18n.position_start}}
                             </label>
 
                             <input
@@ -502,7 +502,7 @@
                             <label
                                 class="form__label"
                                 for="createJobDuration">
-                                Position Duration (Months)
+                                {{form_l18n.position_duration}}
                             </label>
 
                             <input
