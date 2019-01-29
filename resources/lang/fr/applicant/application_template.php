@@ -85,7 +85,7 @@ return [
         "question_label" => "Votre réponse",
         "question_title" => "Ma compatibilité",
         "claim_title" => "Renseignements généraux",
-        "select_default_option" => "TRANSLATION NEEDED",
+        "select_default_option" => "Choisir parmi les options suivantes ...",
         "language_title" => "Sélection de la langue",
         "language_copy" => "Quelle langue officielle préféreriez-vous pour ce processus de candidature?",
         "language_label" => "En choisir un",

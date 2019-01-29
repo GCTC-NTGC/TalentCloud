@@ -11,7 +11,7 @@ return [
     "new_reference_title" => "Nouvelle référence",
     "name_label" => "Nom de référence",
     "relationship_label" => "Votre relation avec votre référence",
-    "relationship_default_option" => "TRANSLATION NEEDED",
+    "relationship_default_option" => "Sélectionner votre relation ...",
     "relationships" => [
         "coworker" => "Collègue",
         "superior" => "Superviseur",
