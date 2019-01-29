@@ -9,5 +9,5 @@ return [
      * View: views/manager/home.html.twig
      *
      */
-    'tagline' => 'People want meaningful work.'
+    'tagline' => 'Les gens veulent un travail valorisant.'
  ];
