@@ -13,5 +13,6 @@ Route::group([
 ], function () : void {
     // custom admin routes
     CRUD::resource('skill', 'SkillCrudController');
+    CRUD::resource('job-poster', 'JobPosterCrudController');
     CRUD::resource('user', 'UserCrudController');
 });
