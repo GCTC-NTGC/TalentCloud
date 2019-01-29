@@ -527,7 +527,7 @@
 
                 <legend
                     class="form__legend">
-                    Departmental Information
+                    {{form_l18n.departmental_information}}
                 </legend>
 
                 <div
@@ -541,7 +541,7 @@
                             <label
                                 class="form__label"
                                 for="createJobDepartment">
-                                Department
+                                {{form_l18n.department}}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
@@ -571,7 +571,7 @@
                             <label
                                 class="form__label"
                                 for="createJobBranchEN">
-                                Branch (English)
+                                {{form_l18n.branch_english}}
                             </label>
                             <input
                                 class="form__input"
@@ -597,7 +597,7 @@
                                 active
                             {% endif %}">
                             <label class="form__label" for="createJobBranchFR">
-                                Branch (Français)
+                                {{form_l18n.branch_french}}
                             </label>
                             <input
                                 class="form__input"
@@ -624,7 +624,7 @@
                             <label
                                 class="form__label"
                                 for="createJobDivisionEN">
-                                Division (English)
+                                {{form_l18n.division_english}}
                             </label>
                             <input
                                 class="form__input"
@@ -652,7 +652,7 @@
                             <label
                                 class="form__label"
                                 for="createJobDivisionFR">
-                                Division (Français)
+                                {{form_l18n.division_french}}
                             </label>
                             <input
                                 class="form__input"
@@ -679,7 +679,7 @@
 
                 <legend
                     class="form__legend">
-                    Impact
+                    {{form_l18n.impact}}
                 </legend>
 
                 <div
@@ -693,7 +693,7 @@
                             <label
                                 class="form__label"
                                 for="createJobImpactEN">
-                                Impact (English)
+                                 {{form_l18n.impact_english}}
                             </label>
                             <textarea
                                 class="form__textarea"
@@ -709,7 +709,7 @@
                         <div class="form__input-wrapper--float
                             {% if job.translate('fr').impact != null %}active{% endif %}">
                             <label class="form__label" for="createJobImpactFR">
-                                Impact (Français)
+                                 {{form_l18n.impact_french}}
                             </label>
                             <textarea
                                 class="form__textarea"
@@ -733,7 +733,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4>Key Tasks</h4>
+        <h4> {{form_l18n.key_tasks}}</h4>
 
         {# Task List #}
 
@@ -746,7 +746,7 @@
 
                     {% set taskCounter = taskCounter + 1 %}
 
-                    {% include "manager/job_create/task" %}
+                    {% include "manager/job_create/task" with { 'task_l18n': form_l18n.task } %}
 
                 {% endfor %}
 
@@ -763,7 +763,7 @@
                     type="button"
                     class="button--blue light-bg"
                     id="addTaskButton">
-                    Add a Task
+                    {{form_l18n.add_a_task}}
                 </button>
 
             </div>
@@ -994,4 +994,4 @@
 
 {# Task Template #}
 
-{% include "manager/job_create/task" %}
+{% include "manager/job_create/task" with { 'task_l18n': form_l18n.task } %}

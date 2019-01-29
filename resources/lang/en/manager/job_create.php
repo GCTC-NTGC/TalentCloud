@@ -48,6 +48,16 @@ return [
             'branch_french' => 'Branch (Français)',
             'division_english' => 'Division (English)',
             'division_french' => 'Division (Français)',
+            'impact' => 'Impact',
+            'impact_english' => 'Impact (English)',
+            'impact_french' => 'Impact (Français)',
+            'key_tasks' => 'Key Tasks',
+            'task' => [
+                'task_information' => 'Task Information',
+                'task_name_english' => 'Task Name (English)',
+                'task_name_french' => 'Task Name (Français)'
+            ],
+            'add_a_task' => 'Add a Task'
 
 
 
