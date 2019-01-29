@@ -15,9 +15,11 @@
 
     {% include "common/goc" %}
 
-    {# FAQ Sections #}
+    {% include "common/header" with {'header':faq} %}
 
-        {% include "common/header" with {'header':faq} %}
+    <a id="skipLink"></a>
+
+    {# FAQ Sections #}
 
         {% include "applicant/static/credentialing_layout" %}
 

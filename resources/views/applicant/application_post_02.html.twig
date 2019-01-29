@@ -17,6 +17,8 @@
 
     {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
 
+    <a id="skipLink"></a>
+
     {# Form containing all about_me editable elements #}
 
         <form action="{{ form_submit_action }}" method="post">

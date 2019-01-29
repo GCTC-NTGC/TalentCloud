@@ -10,7 +10,8 @@ return [
      * in the header.
      *
      */
-
+    "skip_title" => "TRANSLATION NEEDED",
+    "skip_label" => "TRANSLATION NEEDED",
     "logo_link" => "https://www.canada.ca/fr.html",
     "logo_link_title" => "Visiter Canada.ca.",
     "logo_alt" => "Symbole du gouvernement du Canada.",
