@@ -97,7 +97,7 @@ return [
         ],
         'open_source' => [
             'name' => 'Open Source Development',
-            'description' => 'Defined as: Developing applications using open source tools and languages '
+            'description' => 'Defined as: Developing applications using open source tools and languages.'
         ],
         'verbal_communication' => [
             'name' => 'Verbal Communication',
@@ -109,7 +109,7 @@ return [
         ],
         'ability_distributed_team' => [
             'name' => 'Ability to work on a distributed team',
-            'description' => 'Defined as: Ability to communicate and deliver work in a way that engages team members in other locations. Ability to use online tools to collaborate with co-workers in other locations, including project management software, chat and video chat tools. '
+            'description' => 'Defined as: Ability to communicate and deliver work in a way that engages team members in other locations. Ability to use online tools to collaborate with co-workers in other locations, including project management software, chat and video chat tools.'
         ],
         'ability_learn' => [
             'name' => 'Ability to learn',
@@ -358,6 +358,30 @@ return [
         'mobile_development_cloud' => [
             'name' => 'Mobile Development in the Cloud',
             'description' => 'Defined as: Ability to architect, design and develop and/or deploy and test mobile applications on a Cloud (MS Azure or Amazon AWS) platform.'
+        ],
+        'business_process_modelling_software' => [
+            'name' => 'Business process modelling software',
+            'description' => 'Defined as: Ability to work in modelling software or applications, including but not limited to Visio, Powerpoint, Excel, and Dia, to produce workflows.'
+        ],
+        'business_process_modelling' => [
+            'name' => 'Business process modelling',
+            'description' => 'Defined as: Ability to map processes and sub-processes of an enterprise, as well as to create models that visually represents the ways in which operations are carried out to accomplish the intended objectives of an organization.'
+        ],
+        'business_analysis' => [
+            'name' => 'Business analysis',
+            'description' => 'Defined as: Ability to gather, document, and analyze business needs and requirements, and to investigate problems and opportunities to contribute to determining solutions.'
+        ],
+        'project_management_practices' => [
+            'name' => 'Knowledge of project management practices',
+            'description' => 'Defined as: Familiarity with the practices of initiating, planning, executing, controlling, and closing the work of a team to achieve specific goals and meet specific success criteria at the specified time.'
+        ],
+        'goc_policy_project_management' => [
+            'name' => 'Knowledge of Government of Canada policy suite on project management',
+            'description' => 'Defined as: Familiarity with the Government of Canada\'s policy suite on the management of projects.'
+        ],
+        'it_project_management' => [
+            'name' => 'IT project management',
+            'description' => 'Defined as: Ability to manage IT Transformation projects throughout the entire lifecycle of the project.'
         ],
     ],
     'status' => [

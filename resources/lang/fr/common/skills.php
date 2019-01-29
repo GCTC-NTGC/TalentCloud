@@ -359,6 +359,30 @@ return [
             'name' => 'Développement de technologies mobiles en nuage',
             'description' => 'Se définit comme suit : Capacité d\'élaborer l\'architecture, de concevoir et de développer ou de déployer et de mettre à l\'essai des applications mobiles sur une plateforme en nuage (MS Azure ou Amazon AWS).'
         ],
+        'business_process_modelling_software' => [
+            'name' => 'Logiciel de modélisation des processus opérationnels',
+            'description' => 'Se définissant comme suit : capacité d\'utiliser des logiciels ou des applications de modélisation, notamment Visio, PowerPoint, Excel et Dia, pour créer des flux de travail.'
+        ],
+        'business_process_modelling' => [
+            'name' => 'Modélisation des processus opérationnels',
+            'description' => 'Se définissant comme suit : capacité de cartographier les processus et les sous-processus d\'une entreprise, ainsi que de créer des modèles qui offrent une représentation visuelle du déroulement des activités afin d\'atteindre les objectifs visés.'
+        ],
+        'business_analysis' => [
+            'name' => 'Analyse opérationnelle',
+            'description' => 'Se définissant comme suit : capacité de recueillir, de documenter et d\'analyser les besoins et les exigences opérationnels, d\'examiner les problèmes et d\'explorer les occasions de contribuer à la détermination des solutions.'
+        ],
+        'project_management_practices' => [
+            'name' => 'Connaissances des pratiques de gestion de projets',
+            'description' => 'Se définissant comme suit : bonne connaissance des pratiques de lancement, de planification, d\'exécution, de contrôle et de conclusion des travaux d\'une équipe afin d\'atteindre des objectifs précis et de répondre à des critères de réussite particuliers au moment indiqué.'
+        ],
+        'goc_policy_project_management' => [
+            'name' => 'Connaissance de l\'ensemble des politiques du gouvernement du Canada sur la gestion de projets',
+            'description' => 'Se définissant comme suit : connaissance de l\'ensemble des politiques du gouvernement du Canada sur la gestion de projets.'
+        ],
+        'it_project_management' => [
+            'name' => 'Gestion de projets de la TI',
+            'description' => 'Se définit comme suit : Capacité de gérer les projets de transformation de la TI à travers un cycle de vie tout entier du projet.'
+        ],
     ],
     'status' => [
         'claimed' => 'Ajoutée'
