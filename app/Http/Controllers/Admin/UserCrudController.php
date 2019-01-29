@@ -13,6 +13,9 @@ class UserCrudController extends CrudController
         $this->crud->setRoute("admin/user");
         $this->crud->setEntityNameStrings('user', 'users');
 
+        $this->crud->denyAccess('create');
+        $this->crud->denyAccess('delete');
+
         $this->crud->addColumn([
             'name' => 'name',
             'type' => 'text',
@@ -55,6 +58,8 @@ class UserCrudController extends CrudController
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model' => "App\Models\UserRole" // foreign key model
         ]);
+
+        dd($this->crud->query);
     }
 
     public function update($request)
