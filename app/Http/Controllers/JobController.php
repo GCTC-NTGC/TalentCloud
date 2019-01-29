@@ -316,6 +316,28 @@ class JobController extends Controller
         $validatedData = $request->validate([
             'title.en' => 'required',
             'title.fr' => 'required',
+            'salary_min' => 'required|numeric',
+            'salary_max' => 'required|numeric',
+            'classification' => 'required',
+            'noc' => 'required|digits:4',
+            'security_clearance_id' => 'required',
+            'language_requirement_id' => 'required',
+            'city.en' => 'required_if:city.fr,null',
+            'city.fr' => 'required_if:city.en,null',
+            'province_id' => 'required',
+            'open_date_time' => 'required|date|after:tomorrow',
+            'close_date_time' => 'required|date|after:open_date_time',
+            'start_date_time' => 'required|date|after:close_date_time',
+            'term_qty' => 'required|numeric',
+            'department_id' => 'required',
+            'branch.en' => 'required',
+            'branch.fr' => 'required',
+            'divison.en' => 'required',
+            'divison.fr' => 'required',
+            'impact.en' => 'required',
+            'impact.fr' => 'required',
+            'education.en' => 'required',
+            'education.fr' => 'required',
         ]);
 
         // Don't allow edits for published Job Posters
@@ -563,19 +585,5 @@ class JobController extends Controller
         }
 
         return $jobQuestions;
-    }
-
-    /**
-     * Validate job poster input.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    protected function validateJobPoster()
-    {
-        $validatedData = $request->validate([
-            'en.title' => 'required',
-            'fr.title' => 'required',
-        ]);
     }
 }
