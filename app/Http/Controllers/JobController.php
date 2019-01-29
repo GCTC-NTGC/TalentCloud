@@ -313,6 +313,11 @@ class JobController extends Controller
      */
     public function store(Request $request, JobPoster $jobPoster = null)
     {
+        $validatedData = $request->validate([
+            'title.en' => 'required',
+            'title.fr' => 'required',
+        ]);
+
         // Don't allow edits for published Job Posters
         // Also check auth while we're at it
         if (isset($jobPoster)) {
@@ -558,5 +563,19 @@ class JobController extends Controller
         }
 
         return $jobQuestions;
+    }
+
+    /**
+     * Validate job poster input.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    protected function validateJobPoster()
+    {
+        $validatedData = $request->validate([
+            'en.title' => 'required',
+            'fr.title' => 'required',
+        ]);
     }
 }
