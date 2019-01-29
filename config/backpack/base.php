@@ -12,29 +12,29 @@ return [
     */
 
     // Project name. Shown in the breadcrumbs and a few other places.
-    'project_name' => 'Backpack',
+    'project_name' => 'Admin Portal',
 
     // Menu logos
-    'logo_lg'   => '<b>Back</b>pack',
-    'logo_mini' => '<b>B</b>p',
+    'logo_lg'   => 'Admin Portal',
+    'logo_mini' => 'AP',
 
     // Developer or company name. Shown in footer.
-    'developer_name' => 'Cristian Tabacitu',
+    'developer_name' => 'Talent Cloud',
 
     // Developer website. Link in footer.
-    'developer_link' => 'http://tabacitu.ro',
+    'developer_link' => 'https://talent.canada.ca',
 
     // Show powered by Laravel Backpack in the footer?
     'show_powered_by' => true,
 
     // The AdminLTE skin. Affects menu color and primary/secondary colors used throughout the application.
-    'skin' => 'skin-purple',
+    'skin' => 'skin-red',
     // Options: skin-black, skin-blue, skin-purple, skin-red, skin-yellow, skin-green, skin-blue-light, skin-black-light, skin-purple-light, skin-green-light, skin-red-light, skin-yellow-light
 
     // Date & Datetime Format Syntax: https://github.com/jenssegers/date#usage
     // (same as Carbon)
-    'default_date_format'     => 'j F Y',
-    'default_datetime_format' => 'j F Y H:i',
+    'default_date_format'     => 'Y-m-d',
+    'default_datetime_format' => 'Y-m-d H:i:s e',
 
     // Content of the HTML meta robots tag to prevent indexing and link following
     'meta_robots_content' => 'noindex, nofollow',
@@ -88,7 +88,7 @@ return [
     */
 
     // Fully qualified namespace of the User model
-    'user_model_fqn' => App\Models\BackpackUser::class,
+    'user_model_fqn' => App\Models\User::class,
 
     // The classes for the middleware to check if the visitor is an admin
     // Can be a single class or an array of clases
