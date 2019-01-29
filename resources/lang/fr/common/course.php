@@ -9,7 +9,7 @@ return [
      *
      */
      "new_course_label" => "Nouveau cours ou certificat",
-     "accordion_sr_helper" => "TRANSLATION NEEDED",
+     "accordion_sr_helper" => "cliquez pour modifier",
      "name_label" => "Nom du cours ou de la certification",
      "institution_label" => "Institution",
      "status_label" => "Statut",

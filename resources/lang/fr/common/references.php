@@ -9,7 +9,7 @@ return [
     *
     */
     "new_reference_title" => "Nouvelle référence",
-    "accordion_sr_helper" => "TRANSLATION NEEDED",
+    "accordion_sr_helper" => "cliquez pour modifier",
     "name_label" => "Nom de référence",
     "relationship_label" => "Votre relation avec votre référence",
     "relationships" => [

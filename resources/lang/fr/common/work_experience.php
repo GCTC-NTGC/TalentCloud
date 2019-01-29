@@ -9,7 +9,7 @@ return [
     *
     */
     "new_work_label" => "Nouvelle 'expérience équivalente'",
-    "accordion_sr_helper" => "TRANSLATION NEEDED",
+    "accordion_sr_helper" => "cliquez pour modifier",
     "role_label" => "Votre rôle",
     "company_label" => "Entreprise ou groupe",
     "description_label" => "Description",
