@@ -853,9 +853,7 @@
 
                 {% set skillLevel = attribute(skill_levels, skillTypeKey) %}
 
-                <h5>{{ criteriaKey|title }} Criteria ({{ skillTypeKey|title }} Skills)
-                {{ form_l10n.criteria_heading | replace({":criteria_type":criteriaKey|title}) | replace({":skill_type":skillTypeKey|title}) }}
-                </h5>
+                <h5>{{ form_l10n.criteria_heading | replace({":criteria_type":criteriaKey|title}) | replace({":skill_type":skillTypeKey|title}) }}</h5>
 
                 <div
                     class="manager-jobs__skill-wrapper">
@@ -914,7 +912,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4>Questions for the Applicant</h4>
+        <h4>{{form_l10n.questions_for_applicant}}</h4>
 
         {# Question List #}
 
@@ -944,7 +942,7 @@
                     type="button"
                     class="button--blue light-bg"
                     id="addQuestionButton">
-                    Add a Question
+                    {{form_l10n.add_a_question}}
                 </button>
 
             </div>
@@ -965,7 +963,7 @@
                     type="submit"
                     name="submit"
                     value="save">
-                    Save and Quit
+                    {{form_l10n.save_and_quit}}
                 </button>
 
             </div>
@@ -978,7 +976,7 @@
                     type="submit"
                     name="submit"
                     value="publish">
-                    Publish
+                    {{form_l10n.publish}}
                 </button>
 
             </div>
@@ -993,7 +991,7 @@
 
 {# Question Template #}
 
-{% include "manager/job_create/question" %}
+{% include "manager/job_create/question" with {'question_l10n': form_l10n.question } %}
 
 {# Task Template #}
 

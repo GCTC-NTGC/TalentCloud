@@ -70,7 +70,18 @@ return [
                 'skill_context_english' => 'Optional Skill Context (English)',
                 'skill_context_french' => 'Optional Skill Context (Français)'
             ],
-            'add_a_skill' => 'Add an :criteria_type :skill_type Skill'
+            'add_a_skill' => 'Add an :criteria_type :skill_type Skill',
+            'questions_for_applicant' => 'Questions for the Applicant',
+            'question' => [
+                'question_information' => 'Question Information',
+                'question_english' => 'Question (English)',
+                'description_english' => 'Description (English)',
+                'question_french' => 'Question (Français)',
+                'description_french' => 'Description (Français)'
+            ],
+            'add_a_question' => 'Add a Question',
+            'save_and_quit' => 'Save and Quit',
+            'publish' => 'Publish'
 
 
 
