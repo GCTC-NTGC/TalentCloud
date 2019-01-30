@@ -9,6 +9,7 @@ return [
     *
     */
     'new_skill_title' => 'Nouvelle compétence',
+    "accordion_sr_helper" => "cliquez pour modifier",
     'name_label' => 'Nom du projet',
     'type_label' => 'Type du projet',
     'skill_selection_label' => 'Sélectionner une compétence',
@@ -16,8 +17,8 @@ return [
     'level_link_title' => 'En savoir plus sur la façon d\'identifier votre niveau de compétence.',
     'level_link_label' => '(Trouvez votre niveau de compétence)',
     'knowledge_label' => 'Comment j\'ai acquis cette compétence',
-     'skill_status_null_label' => 'Statut: compétence pas ajouté',
-    'skill_status_label' => 'Statut: compétence',
+     'skill_status_null_label' => 'Statut : compétence pas ajouté',
+    'skill_status_label' => 'Statut : ',
     'skill_level_null' => 'Aucun niveau de compétence n\'a été sélectionné.',
     'skill_levels' => [
         'hard' => [
@@ -65,27 +66,27 @@ return [
         ],
         'c_plus_plus' => [
             'name' => 'C++',
-            'description' => 'Défini comme: langage de programmation orienté objet de niveau intermédiaire permettant de développer des applications logicielles de bas à haut niveau.'
+            'description' => 'Défini comme : langage de programmation orienté objet de niveau intermédiaire permettant de développer des applications logicielles de bas à haut niveau.'
         ],
         'sass' => [
             'name' => 'SAS',
-            'description' => 'Signifie « Syntactically Awesome Style Sheets » et se définit comme: un script de préprocesseur, langage de feuille de style interprété ou compilé en CSS pour le développement Web.'
+            'description' => 'Signifie « Syntactically Awesome Style Sheets » et se définit comme : un script de préprocesseur, langage de feuille de style interprété ou compilé en CSS pour le développement Web.'
         ],
         'python' => [
             'name' => 'Python',
-            'description' => 'Défini comme: un langage de programmation interprété, orienté objet et de haut niveau, utilisé avec souplesse pour atteindre divers objectifs de programmation.'
+            'description' => 'Défini comme : un langage de programmation interprété, orienté objet et de haut niveau, utilisé avec souplesse pour atteindre divers objectifs de programmation.'
         ],
         'php' => [
             'name' => 'PHP',
-            'description' => 'Défini comme: langage de programmation utilisé pour développer et exécuter le code d\'application Web traité du côté serveur.'
+            'description' => 'Défini comme : langage de programmation utilisé pour développer et exécuter le code d\'application Web traité du côté serveur.'
         ],
         'git' => [
             'name' => 'Git',
-            'description' => 'Défini comme: un système de contrôle de version utilisé pour suivre les modifications dans les fichiers et coordonner le travail sur des projets impliquant plusieurs utilisateurs.'
+            'description' => 'Défini comme : un système de contrôle de version utilisé pour suivre les modifications dans les fichiers et coordonner le travail sur des projets impliquant plusieurs utilisateurs.'
         ],
         'docker' => [
             'name' => 'Docker',
-            'description' => 'Défini comme: Un environnement virtuel sécurisé pour créer, éditer et développer librement des projets.'
+            'description' => 'Défini comme : Un environnement virtuel sécurisé pour créer, éditer et développer librement des projets.'
         ],
         'html' => [
             'name' => 'HTML',
@@ -358,6 +359,30 @@ return [
         'mobile_development_cloud' => [
             'name' => 'Développement de technologies mobiles en nuage',
             'description' => 'Se définit comme suit : Capacité d\'élaborer l\'architecture, de concevoir et de développer ou de déployer et de mettre à l\'essai des applications mobiles sur une plateforme en nuage (MS Azure ou Amazon AWS).'
+        ],
+        'business_process_modelling_software' => [
+            'name' => 'Logiciel de modélisation des processus opérationnels',
+            'description' => 'Se définissant comme suit : capacité d\'utiliser des logiciels ou des applications de modélisation, notamment Visio, PowerPoint, Excel et Dia, pour créer des flux de travail.'
+        ],
+        'business_process_modelling' => [
+            'name' => 'Modélisation des processus opérationnels',
+            'description' => 'Se définissant comme suit : capacité de cartographier les processus et les sous-processus d\'une entreprise, ainsi que de créer des modèles qui offrent une représentation visuelle du déroulement des activités afin d\'atteindre les objectifs visés.'
+        ],
+        'business_analysis' => [
+            'name' => 'Analyse opérationnelle',
+            'description' => 'Se définissant comme suit : capacité de recueillir, de documenter et d\'analyser les besoins et les exigences opérationnels, d\'examiner les problèmes et d\'explorer les occasions de contribuer à la détermination des solutions.'
+        ],
+        'project_management_practices' => [
+            'name' => 'Connaissances des pratiques de gestion de projets',
+            'description' => 'Se définissant comme suit : bonne connaissance des pratiques de lancement, de planification, d\'exécution, de contrôle et de conclusion des travaux d\'une équipe afin d\'atteindre des objectifs précis et de répondre à des critères de réussite particuliers au moment indiqué.'
+        ],
+        'goc_policy_project_management' => [
+            'name' => 'Connaissance de l\'ensemble des politiques du gouvernement du Canada sur la gestion de projets',
+            'description' => 'Se définissant comme suit : connaissance de l\'ensemble des politiques du gouvernement du Canada sur la gestion de projets.'
+        ],
+        'it_project_management' => [
+            'name' => 'Gestion de projets de la TI',
+            'description' => 'Se définit comme suit : Capacité de gérer les projets de transformation de la TI à travers un cycle de vie tout entier du projet.'
         ],
     ],
     'status' => [

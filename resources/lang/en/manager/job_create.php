@@ -80,7 +80,7 @@ return [
                 'description_french' => 'Description (Français)'
             ],
             'add_a_question' => 'Add a Question',
-            'save_and_quit' => 'Save and Quit',
+            'save_and_preview' => 'Save and Preview',
             'publish' => 'Publish'
 
 

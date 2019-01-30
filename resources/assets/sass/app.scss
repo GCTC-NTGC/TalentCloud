@@ -80,6 +80,15 @@
         visibility: hidden;
     }
 
+    .invisible {
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        top: auto;
+        left: -10000px;
+        width: 1px;
+    }
+
     span.centre,
     span.center {
         display: block;
@@ -215,4 +224,3 @@
         // Manager Screening Plan
 
             @import "components/manager/screening-plan";
-            

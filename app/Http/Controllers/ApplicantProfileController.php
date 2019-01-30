@@ -10,9 +10,8 @@ use App\Models\Lookup\ApplicantProfileQuestion;
 use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
 use App\Http\Controllers\Controller;
-use App\Services\Validation\Rules\PasswordCorrectRule;
-use App\Services\Validation\Rules\PasswordFormatRule;
 use Illuminate\Support\Facades\Hash;
+use App\Services\Validation\Requests\UpdateApplicationProfileValidator;
 
 class ApplicantProfileController extends Controller
 {
@@ -22,8 +21,8 @@ class ApplicantProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Request  $request
-     * @param  \App\Models\Applicant  $applicant
+     * @param  Request               $request
+     * @param  \App\Models\Applicant $applicant
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, Applicant $applicant)
@@ -55,8 +54,8 @@ class ApplicantProfileController extends Controller
     /**
      * Show the form for editing the logged-in user's applicant profile
      *
-     * @param  Request  $request
-     * @param  \App\Models\Applicant  $applicant
+     * @param  Request               $request   Incoming request object.
+     * @param  \App\Models\Applicant $applicant Applicant to view and edit.
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Applicant $applicant)
@@ -67,8 +66,8 @@ class ApplicantProfileController extends Controller
 
         $profileQuestionForms = [];
         foreach ($profileQuestions as $question) {
-            $answerObj = $applicant->applicant_profile_answers->
-                where('applicant_profile_question_id', $question->id)->first();
+            $answerObj = $applicant->applicant_profile_answers
+                ->where('applicant_profile_question_id', $question->id)->first();
             $answer = $answerObj ? $answerObj->answer : null;
 
             $formValues = [
@@ -82,7 +81,8 @@ class ApplicantProfileController extends Controller
             array_push($profileQuestionForms, $formValues);
         }
 
-        return view('applicant/profile_01_about', [
+        return view(
+            'applicant/profile_01_about', [
             /* Localized strings*/
             'profile' => $profileText,
             /* Applicant Profile Questions */
@@ -93,64 +93,31 @@ class ApplicantProfileController extends Controller
             'profile_photo_url' => '/images/user.png', //TODO: get real photos
 
             'form_submit_action' => route('profile.about.update', $applicant)
-        ]);
+            ]
+        );
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Applicant  $applicant
-     * @return \Illuminate\Http\Response
+     * @param  Request               $request   Incoming request.
+     * @param  \App\Models\Applicant $applicant Applicant object to update.
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Applicant $applicant)
     {
-        $messages = Lang::get('validation.custom');
-        $request->validate([
-
-            //Password validation
-            'old_password' => [
-                'nullable',
-                'required_with:new_password',
-                new PasswordCorrectRule
-            ],
-            'new_password' => [
-                'nullable',
-                'min:8',
-                new PasswordFormatRule,
-                'confirmed'
-           ],
-
-           //Social Media Validation
-            'twitter_username' => [
-                'nullable', //Some people may not have a handle.
-                'max:15', //Per Twitter's Terms/Service.
-                'regex:/^[A-Za-z0-9_]+$/', /*
-                 * Twitters Terms of Service only allows ". A username can only contain alphanumeric characters (letters A-Z, numbers 0-9) with the exception of underscores"
-                 * This regex will allow only alphamumeric characters and the underscore.
-                 * Keep this handy if we need to validate other usernames.
-                 */
-            ],
-            'linkedin_url' => [
-                'nullable', // Some people may not be on LinkedIn
-                'regex:/^(https:\\/\\/|http:\\/\\/)?www\\.linkedin\\.com\\/in\\/[^\\/]+(\\/)?$/', // Validation for linkedIn profile URLS only.
-            ],
-
-            //Other Information Tagline
-            'tagline' => [
-                'nullable',
-                'string'
-            ],
-       ], $messages);
-
         $questions = ApplicantProfileQuestion::all();
 
-        foreach($questions as $question) {
+        $validator = new UpdateApplicationProfileValidator($applicant);
+        $validator->validate($request->all());
+
+        foreach ($questions as $question) {
             $answerName = $this->answerFormInputName . '.' . $question->id;
             if ($request->has($answerName)) {
                 $answer = ApplicantProfileAnswer::where(
-                        ['applicant_id' => $applicant->id,
-                            'applicant_profile_question_id' => $question->id])
+                    ['applicant_id' => $applicant->id,
+                    'applicant_profile_question_id' => $question->id]
+                )
                             ->first();
                 if ($answer == null) {
                     $answer = new ApplicantProfileAnswer();
@@ -163,18 +130,22 @@ class ApplicantProfileController extends Controller
         }
 
         $input = $request->input();
-        $applicant->fill([
+        $applicant->fill(
+            [
             'tagline' => $input['tagline'],
             'twitter_username' => $input['twitter_username'],
             'linkedin_url' => $input['linkedin_url'],
-        ]);
+            ]
+        );
         $applicant->save();
 
         $user = $applicant->user;
-        $user->fill([
+        $user->fill(
+            [
             'name' => $input['profile_name'],
             'email' => $input['profile_email'], //TODO make changing email harder!
-        ]);
+            ]
+        );
         if ($input['new_password']) {
             $user->password =  Hash::make($input['new_password']); //TODO: change password in seperate form!
         }
@@ -182,5 +153,4 @@ class ApplicantProfileController extends Controller
 
         return redirect()->route('profile.about.edit', $applicant);
     }
-
 }
