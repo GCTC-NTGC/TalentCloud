@@ -9,7 +9,7 @@ Please name the task using the following information: **Browser - Name**. Give t
 # Description
 A clear and concise description of what the bug is.
 
-[ ] This bug requires a unit test.
+- [ ] This bug requires a unit test.
 
 # Steps to Reproduce
 Steps to reproduce the behavior:
