@@ -57,7 +57,13 @@ return [
                 'task_name_english' => 'Task Name (English)',
                 'task_name_french' => 'Task Name (Français)'
             ],
-            'add_a_task' => 'Add a Task'
+            'add_a_task' => 'Add a Task',
+            'skills_n_competencies' => 'Skills & Competencies',
+            'education_or_equivalency' => 'Education or Equivalency',
+            'education_english' => 'Education (English)',
+            'education_french' => 'Education (Français)'
+
+
 
 
 

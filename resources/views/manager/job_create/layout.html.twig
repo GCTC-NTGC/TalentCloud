@@ -12,7 +12,7 @@
 
             {# Include Sidebar #}
 
-                {% include "manager/job_create/sidebar" with {'sidebar_l18n': layout_l18n.sidebar} %}
+                {% include "manager/job_create/sidebar" with {'sidebar_l10n': layout_l10n.sidebar} %}
 
             {# Poster Content #}
 
@@ -20,7 +20,7 @@
 
                     {% include "errors/form_errors" %}
 
-                    {% include "manager/job_create/form" with {'form_l18n': layout_l18n.form } %}
+                    {% include "manager/job_create/form" with {'form_l10n': layout_l10n.form } %}
 
                 </div>
 

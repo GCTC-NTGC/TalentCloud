@@ -249,7 +249,7 @@ class JobController extends Controller
             'manager/job_create',
             [
                 /*Localization Strings*/
-                'job_l18n' => Lang::get('manager/job_create'),
+                'job_l10n' => Lang::get('manager/job_create'),
 
                 /* Data */
                 'job' => Lang::get($jobHeading),

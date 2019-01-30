@@ -20,7 +20,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4>{{form_l18n.job_details}}</h4>
+        <h4>{{form_l10n.job_details}}</h4>
 
         {# Job Title #}
 
@@ -29,7 +29,7 @@
 
                 <legend
                     class="form__legend">
-                    {{form_l18n.job_title}}
+                    {{form_l10n.job_title}}
                 </legend>
 
                 <div
@@ -44,7 +44,7 @@
                             <label
                                 class="form__label"
                                 for="createJobTitleEN">
-                                {{form_l18n.job_title_english}}
+                                {{form_l10n.job_title_english}}
                             </label>
 
                             <input
@@ -67,7 +67,7 @@
                             <label
                                 class="form__label"
                                 for="createJobTitleFR">
-                                {{form_l18n.job_title_french}}
+                                {{form_l10n.job_title_french}}
                             </label>
 
                             <input
@@ -92,7 +92,7 @@
 
                 <legend
                     class="form__legend">
-                    {{form_l18n.salary_range}}
+                    {{form_l10n.salary_range}}
                 </legend>
 
                 <div
@@ -107,7 +107,7 @@
                             <label
                                 class="form__label"
                                 for="createJobSalaryMin">
-                                {{form_l18n.minimum_value}}
+                                {{form_l10n.minimum_value}}
                             </label>
 
                             <input
@@ -130,7 +130,7 @@
                             <label
                                 class="form__label"
                                 for="createJobSalaryMax">
-                                {{form_l18n.maximum_value}}
+                                {{form_l10n.maximum_value}}
                             </label>
 
                             <input
@@ -155,7 +155,7 @@
 
                 <legend
                     class="form__legend">
-                    {{form_l18n.classifications}}
+                    {{form_l10n.classifications}}
                 </legend>
 
                 <div
@@ -170,7 +170,7 @@
                             <label
                                 class="form__label"
                                 for="createJobClassification">
-                                {{form_l18n.occupational_group}}
+                                {{form_l10n.occupational_group}}
                             </label>
 
                             <input
@@ -193,7 +193,7 @@
                             <label
                                 class="form__label"
                                 for="createJobNoc">
-                                {{form_l18n.noc_code}}
+                                {{form_l10n.noc_code}}
                             </label>
 
                             <input
@@ -215,7 +215,7 @@
                             <label
                                 class="form__label"
                                 for="createJobSecurityClearance">
-                                {{form_l18n.security_clearance}}
+                                {{form_l10n.security_clearance}}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
@@ -243,7 +243,7 @@
                             <label
                                 class="form__label"
                                 for="createJobLanguageRequirement">
-                                {{form_l18n.language_requirement}}
+                                {{form_l10n.language_requirement}}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
@@ -274,7 +274,7 @@
 
                 <legend
                     class="form__legend">
-                    {{form_l18n.location}}
+                    {{form_l10n.location}}
                 </legend>
 
                 <div
@@ -292,7 +292,7 @@
 
                                 <span
                                     class="hidden">
-                                    {{form_l18n.remote_work_allowed}}
+                                    {{form_l10n.remote_work_allowed}}
                                 </span>
 
                                 <input
@@ -302,7 +302,7 @@
                                     type="checkbox"
                                     value="true"
                                     {% if job.remote_work_allowed %}checked{% endif%}/>
-                                {{form_l18n.remote_work_allowed}}
+                                {{form_l10n.remote_work_allowed}}
 
                             </label>
 
@@ -319,7 +319,7 @@
                             <label
                                 class="form__label"
                                 for="createJobCity">
-                                {{form_l18n.city}}
+                                {{form_l10n.city}}
                             </label>
 
                             <input
@@ -341,7 +341,7 @@
                             <label
                                 class="form__label"
                                 for="createJobProvince">
-                                {{form_l18n.province}}
+                                {{form_l10n.province}}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
@@ -372,7 +372,7 @@
 
                 <legend
                     class="form__legend">
-                    {{form_l18n.timetable}}
+                    {{form_l10n.timetable}}
                 </legend>
 
                 <div
@@ -387,7 +387,7 @@
                             <label
                                 class="form__label"
                                 for="createJobOpenDate">
-                                {{form_l18n.accepting_applications_from}}
+                                {{form_l10n.accepting_applications_from}}
                             </label>
 
                             <input
@@ -410,7 +410,7 @@
                             <label
                                 class="form__label"
                                 for="createJobOpenTime">
-                                {{form_l18n.opening_time}}
+                                {{form_l10n.opening_time}}
                             </label>
 
                             <input
@@ -433,7 +433,7 @@
                             <label
                                 class="form__label"
                                 for="createJobCloseDate">
-                                {{form_l18n.accepting_applications_to}}
+                                {{form_l10n.accepting_applications_to}}
                             </label>
 
                             <input
@@ -456,7 +456,7 @@
                             <label
                                 class="form__label"
                                 for="createJobCloseTime">
-                                {{form_l18n.closing_time}}
+                                {{form_l10n.closing_time}}
                             </label>
 
                             <input
@@ -479,7 +479,7 @@
                             <label
                                 class="form__label"
                                 for="createJobStartDate">
-                                {{form_l18n.position_start}}
+                                {{form_l10n.position_start}}
                             </label>
 
                             <input
@@ -502,7 +502,7 @@
                             <label
                                 class="form__label"
                                 for="createJobDuration">
-                                {{form_l18n.position_duration}}
+                                {{form_l10n.position_duration}}
                             </label>
 
                             <input
@@ -527,7 +527,7 @@
 
                 <legend
                     class="form__legend">
-                    {{form_l18n.departmental_information}}
+                    {{form_l10n.departmental_information}}
                 </legend>
 
                 <div
@@ -541,7 +541,7 @@
                             <label
                                 class="form__label"
                                 for="createJobDepartment">
-                                {{form_l18n.department}}
+                                {{form_l10n.department}}
                             </label>
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
@@ -571,7 +571,7 @@
                             <label
                                 class="form__label"
                                 for="createJobBranchEN">
-                                {{form_l18n.branch_english}}
+                                {{form_l10n.branch_english}}
                             </label>
                             <input
                                 class="form__input"
@@ -597,7 +597,7 @@
                                 active
                             {% endif %}">
                             <label class="form__label" for="createJobBranchFR">
-                                {{form_l18n.branch_french}}
+                                {{form_l10n.branch_french}}
                             </label>
                             <input
                                 class="form__input"
@@ -624,7 +624,7 @@
                             <label
                                 class="form__label"
                                 for="createJobDivisionEN">
-                                {{form_l18n.division_english}}
+                                {{form_l10n.division_english}}
                             </label>
                             <input
                                 class="form__input"
@@ -652,7 +652,7 @@
                             <label
                                 class="form__label"
                                 for="createJobDivisionFR">
-                                {{form_l18n.division_french}}
+                                {{form_l10n.division_french}}
                             </label>
                             <input
                                 class="form__input"
@@ -679,7 +679,7 @@
 
                 <legend
                     class="form__legend">
-                    {{form_l18n.impact}}
+                    {{form_l10n.impact}}
                 </legend>
 
                 <div
@@ -693,7 +693,7 @@
                             <label
                                 class="form__label"
                                 for="createJobImpactEN">
-                                 {{form_l18n.impact_english}}
+                                 {{form_l10n.impact_english}}
                             </label>
                             <textarea
                                 class="form__textarea"
@@ -709,7 +709,7 @@
                         <div class="form__input-wrapper--float
                             {% if job.translate('fr').impact != null %}active{% endif %}">
                             <label class="form__label" for="createJobImpactFR">
-                                 {{form_l18n.impact_french}}
+                                 {{form_l10n.impact_french}}
                             </label>
                             <textarea
                                 class="form__textarea"
@@ -733,7 +733,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4> {{form_l18n.key_tasks}}</h4>
+        <h4> {{form_l10n.key_tasks}}</h4>
 
         {# Task List #}
 
@@ -746,7 +746,7 @@
 
                     {% set taskCounter = taskCounter + 1 %}
 
-                    {% include "manager/job_create/task" with { 'task_l18n': form_l18n.task } %}
+                    {% include "manager/job_create/task" with { 'task_l10n': form_l10n.task } %}
 
                 {% endfor %}
 
@@ -763,7 +763,7 @@
                     type="button"
                     class="button--blue light-bg"
                     id="addTaskButton">
-                    {{form_l18n.add_a_task}}
+                    {{form_l10n.add_a_task}}
                 </button>
 
             </div>
@@ -778,7 +778,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4>Skills &amp; Competencies</h4>
+        <h4>{{form_l10n.skills_n_competencies}}</h4>
 
         {# Education #}
 
@@ -787,7 +787,7 @@
 
                 <legend
                     class="form__legend">
-                    Education or Equivalency
+                    {{form_l10n.education_or_equivalency}}
                 </legend>
 
                 <div
@@ -802,7 +802,7 @@
                             <label
                                 class="form__label"
                                 for="createJobEducationEN">
-                                Education (English)
+                                {{form_l10n.education_english}}
                             </label>
 
                             <textarea
@@ -823,7 +823,7 @@
                             <label
                                 class="form__label"
                                 for="createJobEducationFR">
-                                Education (Français)
+                                {{form_l10n.education_french}}
                             </label>
 
                             <textarea
@@ -994,4 +994,4 @@
 
 {# Task Template #}
 
-{% include "manager/job_create/task" with { 'task_l18n': form_l18n.task } %}
+{% include "manager/job_create/task" with { 'task_l10n': form_l10n.task } %}
