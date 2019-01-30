@@ -11,6 +11,7 @@ return [
     */
 
     "new_work_label" => "New Equivalent Experience",
+    "accordion_sr_helper" => "Click to edit...",
     "role_label" => "Role",
     "company_label" => "Company/Group",
     "description_label" => "Description",

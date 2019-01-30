@@ -11,6 +11,7 @@ return [
      */
 
      "new_course_label" => "New Course/Certification",
+     "accordion_sr_helper" => "Click to edit...",
      "name_label" => "Course/Certification Name",
      "institution_label" => "Institution",
      "status_label" => "Status",
