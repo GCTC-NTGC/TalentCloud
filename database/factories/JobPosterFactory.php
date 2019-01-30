@@ -7,6 +7,9 @@ use App\Models\Lookup\LanguageRequirement;
 use App\Models\Manager;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
+use App\Models\Criteria;
+use App\Models\JobPosterKeyTask;
+use App\Models\JobPosterQuestion;
 
 $faker_fr = Faker\Factory::create('fr');
 
@@ -47,6 +50,18 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'division:fr' => $faker_fr->word,
         'education:fr' => $faker_fr->sentence(),
     ];
+});
+
+$factory->afterCreating(JobPoster::class, function ($jp) {
+    $jp->criteria()->saveMany(factory(Criteria::class, 5)->make([
+        'job_poster_id' => $jp->id
+    ]));
+    $jp->job_poster_key_tasks()->saveMany(factory(JobPosterKeyTask::class, 5)->make([
+        'job_poster_id' => $jp->id
+    ]));
+    $jp->job_poster_questions()->saveMany(factory(JobPosterQuestion::class, 2)->make([
+        'job_poster_id' => $jp->id
+    ]));
 });
 
 $factory->state(JobPoster::class, 'published', [
