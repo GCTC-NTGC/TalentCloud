@@ -9,6 +9,7 @@ return [
     *
     */
     'new_skill_title' => 'New Skill',
+    "accordion_sr_helper" => "Click to edit...",
     'name_label' => 'Project Name',
     'type_label' => 'Project Type',
     'skill_selection_label' => 'Select Skill',

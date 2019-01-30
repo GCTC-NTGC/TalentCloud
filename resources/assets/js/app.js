@@ -58,14 +58,6 @@
 
         });
 
-        $(document).on("keyup", ".accordion-trigger", function(e){
-
-            if(e.which == 13) {
-                accordionTrigger(this);
-            }
-
-        });
-
         // Modal Handlers ======================================================
 
         function openModal(trigger) {
