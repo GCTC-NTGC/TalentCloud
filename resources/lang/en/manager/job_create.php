@@ -61,7 +61,17 @@ return [
             'skills_n_competencies' => 'Skills & Competencies',
             'education_or_equivalency' => 'Education or Equivalency',
             'education_english' => 'Education (English)',
-            'education_french' => 'Education (Français)'
+            'education_french' => 'Education (Français)',
+            'criteria_heading' => ':criteria_type Criteria (:skill_type Skills)',
+            'criterion' => [
+                'skill_information' => 'Skill Information',
+                'select_skill' => 'Select Skill',
+                'select_level_required' => 'Select Level Required',
+                'skill_context_english' => 'Optional Skill Context (English)',
+                'skill_context_french' => 'Optional Skill Context (Français)'
+            ],
+            'add_a_skill' => 'Add an :criteria_type :skill_type Skill'
+
 
 
 

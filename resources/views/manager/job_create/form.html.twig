@@ -853,7 +853,9 @@
 
                 {% set skillLevel = attribute(skill_levels, skillTypeKey) %}
 
-                <h5>{{ criteriaKey|title }} Criteria ({{ skillTypeKey|title }} Skills)</h5>
+                <h5>{{ criteriaKey|title }} Criteria ({{ skillTypeKey|title }} Skills)
+                {{ form_l10n.criteria_heading | replace({":criteria_type":criteriaKey|title}) | replace({":skill_type":skillTypeKey|title}) }}
+                </h5>
 
                 <div
                     class="manager-jobs__skill-wrapper">
@@ -865,7 +867,7 @@
 
                             {% if savedCriteria.criteria_type.name == criteriaKey and savedCriteria.skill.skill_type.name == skillTypeKey %}
 
-                                {% include "manager/job_create/criteria" with { 'skillLevel' : skillLevel } %}
+                                {% include "manager/job_create/criteria" with { 'skillLevel' : skillLevel, 'criterion_l10n': form_l10n.criterion } %}
 
                             {% endif %}
 
@@ -877,7 +879,7 @@
 
                     {# Skill Template #}
 
-                    {% include "manager/job_create/criteria" %}
+                    {% include "manager/job_create/criteria" with { 'criterion_l10n': form_l10n.criterion } %}
 
                     {# Skill Controls #}
 
@@ -888,7 +890,8 @@
                             type="button"
                             class="manager-jobs__add-skill-button"
                             id="addSkillButton{{ loopIteration }}">
-                            Add an {{ criteriaKey|title }} {{ skillTypeKey|title }} Skill
+
+                            {{ form_l10n.add_a_skill | replace({":criteria_type":criteriaKey|title}) | replace({":skill_type":skillTypeKey|title}) }}
                         </button>
 
                     </div>
@@ -995,3 +998,4 @@
 {# Task Template #}
 
 {% include "manager/job_create/task" with { 'task_l10n': form_l10n.task } %}
+
