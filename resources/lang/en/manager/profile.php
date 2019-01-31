@@ -22,6 +22,34 @@ return [
             'our_work_environment' => 'Our Work Environment',
             'our_team_culture' => 'Our Team Culture',
             'save_all_sections' => 'Save All Sections'
+        ],
+        'about' => [
+            'about_me' => 'About Me',
+            'my_name' => 'My Name',
+            'position' => 'Position',
+            'position_english' => 'Position (English)',
+            'position_french' => 'Position (Français)',
+            'departmental_information' => 'Departmental Information',
+            'department' => 'Department',
+            'branch_english' => 'Branch (English)',
+            'branch_french' => 'Branch (Français)',
+            'division_english' => 'Division (English)',
+            'division_french' => 'Division (Français)',
+            'personal_information' => 'Personal Information',
+            'education_english' => 'Education (English)',
+            'education_french' => 'Education (Français)',
+            'years_of_experience' => 'Years of Experience',
+            'career_journey_english' => 'My Career Journey So Far (English)',
+            'career_journey_french' => 'My Career Journey So Far (Français)',
+            'learning_path_english' => 'My Learning Path (English)',
+            'learning_path_french' => 'My Learning Path (Français)',
+            'biography_english' => 'A Bit About Me Outside Work (English)',
+            'biography_french' => 'A Bit About Me Outside Work (Français)',
+            'social_media' => 'Social Media',
+            'twitter_username' => 'Twitter Username',
+            'linkedin_url' => 'LinkedIn Profile URL',
+            'save_about_me' => 'Save About Me'
+
         ]
 
     ]
