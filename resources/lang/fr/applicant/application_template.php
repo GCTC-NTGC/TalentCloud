@@ -173,7 +173,7 @@ return [
     /* Step 06 (Integrity Check) */
 
         "integrity" => [
-            "title" => "",
+            "title" => "TRANSLATION NEEDED",
             "confirmation_copy" => "En signant votre nom ci-dessous, vous confirmez:",
             "confirmation_01" => "J'ai examiné ce que j'ai écrit dans ma candidature.",
             "confirmation_02" => "Je comprends que je fais partie d'une collectivité de gens qui se font confiance.",
@@ -181,8 +181,8 @@ return [
             "signature_label" => "Signez (tapez) votre nom complet",
             "date_label" => "La date d'aujourd'hui",
             "review" => "Voici votre dernière occasion d'examiner votre candidature avant de la soumettre. Faites défiler vers le bas pour l'examiner. Si vous souhaitez changer quelque chose, le moment est venu.",
-            "save_label" => "",
-            "submit_label" => ""
+            "save_label" => "TRANSLATION NEEDED",
+            "submit_label" => "TRANSLATION NEEDED"
         ],
 
     /* Step 07 (Complete) */
