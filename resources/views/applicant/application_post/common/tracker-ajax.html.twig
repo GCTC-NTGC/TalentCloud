@@ -19,6 +19,9 @@
     {% set next_url = route('job.application.edit.5', job) %}
 {% elseif application_step == 5 %}
     {% set previous_url = route('job.application.edit.4', job) %}
+    {% set next_url = route('job.application.edit.6') %}
+{% elseif application_step == 6 %}
+    {% set previous_url = route('job.application.edit.5', job) %}
     {% set next_url = route('applications.index') %}
 {% endif %}
 
@@ -82,7 +85,7 @@
 
     </div>
 
-    {% if application_step == "5" %}
+    {% if application_step == "6" %}
 
         {# Show nothing. #}
 

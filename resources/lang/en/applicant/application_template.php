@@ -143,11 +143,7 @@ return [
         "step_05_title" => "Talent Cloud | Applicant: Apply Now - Step 5",
         "preview" => [
             "title" => "Review My Application",
-            "copy_01" => "This is your final chance to review your application before submitting. Scroll down to review. If there’s anything you’d like to change, feel free to go back and do so now.",
-            "copy_02" => "By signing your name below, you’re confirming:",
-            "copy_03" => "I’ve reviewed what I wrote in my application.\nI understand that I am part of a community of people who trust each other.\nI promise that the information I am providing is true.",
-            "integrity_name_label" => "Sign (Type) Your Full Name",
-            "integrity_date_label" => "Today's Date",
+            "copy_01" => "Please review your application below.",
             "sidebar" => [
                 "label" => "Application Sections",
                 "item_01" => "Basic Information",
@@ -156,7 +152,7 @@ return [
                 "item_04" => "Skills That Are Nice to Have",
                 "item_05" => "Submit"
             ],
-            "section_01_title" => "Basic Information",
+            "section_01_title" => "Review My Application",
             "citizenship_null_copy" => "No Citizenship Selected",
             "veteran_null_copy" => "No Veteran Status Selected",
             "language_null_copy" => "No Language Selected",
@@ -175,7 +171,22 @@ return [
             "section_04_title" => "Skills That Are Nice to Have"
         ],
 
-    /* Step 06 (Complete) */
+    /* Step 06 (Integrity Check) */
+
+        "integrity" => [
+            "title" => "Application Confirmation",
+            "confirmation_copy" => "By signing your name below, you’re confirming:",
+            "confirmation_01" => "I’ve reviewed what I wrote in my application.",
+            "confirmation_02" => "I understand that I am part of a community of people who trust each other.",
+            "confirmation_03" => "I promise that the information I am providing is true.",
+            "signature_label" => "Sign (Type) Your Full Name",
+            "date_label" => "Today's Date",
+            "review" => "This is your final chance to review your application before submitting. If there’s anything you’d like to change, feel free to go back and do so now.",
+            "save_label" => "Save & Quit",
+            "submit_label" => "Submit"
+        ],
+
+    /* Step 07 (Complete) */
         "complete" => [
             "step_06_title" => "Talent Cloud | Applicant: Apply Now - Step 6",
             "title" => "Thanks for applying!",
