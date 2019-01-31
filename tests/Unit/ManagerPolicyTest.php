@@ -10,6 +10,8 @@ use App\Policies\ManagerPolicy;
 
 class ManagerPolicyTest extends BasePolicyTest
 {
+    use RefreshDatabase;
+
     protected function getManagerPolicy() {
         return new ManagerPolicy();
     }

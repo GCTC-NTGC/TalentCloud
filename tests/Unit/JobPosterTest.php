@@ -12,6 +12,7 @@ use App\Models\JobPoster;
 class JobPosterTest extends TestCase
 {
     use WithFaker;
+    use RefreshDatabase;
 
     /**
      * Test that JobPoster->isOpen() behaves properly
