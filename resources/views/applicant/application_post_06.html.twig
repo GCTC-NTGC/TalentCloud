@@ -31,7 +31,7 @@
 
     {# Application Tracker #}
 
-        {# {% include "applicant/application_post/common/tracker-ajax" %} #}
+        {% include "applicant/application_post/common/tracker-ajax" %}
 
     {# Body #}
 
@@ -57,6 +57,8 @@
                             <li>{{ application_template.integrity.confirmation_03 }}</li>
                         </ul>
 
+                        {% include "errors/form_errors" %}
+
                         <div class="flex-grid gutter">
 
                             <div class="box med-1of2">
@@ -71,6 +73,7 @@
                                             class="form__input"
                                             id="applicationReviewSignature"
                                             name="submission_signature"
+                                            required
                                             type="text" />
                                     </div>
 
@@ -88,6 +91,7 @@
                                             class="form__input"
                                             id="applicationReviewDate"
                                             name="submission_date"
+                                            required
                                             type="date" />
                                     </div>
 
