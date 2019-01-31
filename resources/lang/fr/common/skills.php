@@ -9,6 +9,7 @@ return [
     *
     */
     'new_skill_title' => 'Nouvelle compétence',
+    "accordion_sr_helper" => "cliquez pour modifier",
     'name_label' => 'Nom du projet',
     'type_label' => 'Type du projet',
     'skill_selection_label' => 'Sélectionner une compétence',
@@ -16,8 +17,8 @@ return [
     'level_link_title' => 'En savoir plus sur la façon d\'identifier votre niveau de compétence.',
     'level_link_label' => '(Trouvez votre niveau de compétence)',
     'knowledge_label' => 'Comment j\'ai acquis cette compétence',
-     'skill_status_null_label' => 'Statut: compétence pas ajouté',
-    'skill_status_label' => 'Statut: compétence',
+     'skill_status_null_label' => 'Statut : compétence pas ajouté',
+    'skill_status_label' => 'Statut : ',
     'skill_level_null' => 'Aucun niveau de compétence n\'a été sélectionné.',
     'skill_levels' => [
         'hard' => [
@@ -65,27 +66,27 @@ return [
         ],
         'c_plus_plus' => [
             'name' => 'C++',
-            'description' => 'Défini comme: langage de programmation orienté objet de niveau intermédiaire permettant de développer des applications logicielles de bas à haut niveau.'
+            'description' => 'Défini comme : langage de programmation orienté objet de niveau intermédiaire permettant de développer des applications logicielles de bas à haut niveau.'
         ],
         'sass' => [
             'name' => 'SAS',
-            'description' => 'Signifie « Syntactically Awesome Style Sheets » et se définit comme: un script de préprocesseur, langage de feuille de style interprété ou compilé en CSS pour le développement Web.'
+            'description' => 'Signifie « Syntactically Awesome Style Sheets » et se définit comme : un script de préprocesseur, langage de feuille de style interprété ou compilé en CSS pour le développement Web.'
         ],
         'python' => [
             'name' => 'Python',
-            'description' => 'Défini comme: un langage de programmation interprété, orienté objet et de haut niveau, utilisé avec souplesse pour atteindre divers objectifs de programmation.'
+            'description' => 'Défini comme : un langage de programmation interprété, orienté objet et de haut niveau, utilisé avec souplesse pour atteindre divers objectifs de programmation.'
         ],
         'php' => [
             'name' => 'PHP',
-            'description' => 'Défini comme: langage de programmation utilisé pour développer et exécuter le code d\'application Web traité du côté serveur.'
+            'description' => 'Défini comme : langage de programmation utilisé pour développer et exécuter le code d\'application Web traité du côté serveur.'
         ],
         'git' => [
             'name' => 'Git',
-            'description' => 'Défini comme: un système de contrôle de version utilisé pour suivre les modifications dans les fichiers et coordonner le travail sur des projets impliquant plusieurs utilisateurs.'
+            'description' => 'Défini comme : un système de contrôle de version utilisé pour suivre les modifications dans les fichiers et coordonner le travail sur des projets impliquant plusieurs utilisateurs.'
         ],
         'docker' => [
             'name' => 'Docker',
-            'description' => 'Défini comme: Un environnement virtuel sécurisé pour créer, éditer et développer librement des projets.'
+            'description' => 'Défini comme : Un environnement virtuel sécurisé pour créer, éditer et développer librement des projets.'
         ],
         'html' => [
             'name' => 'HTML',
