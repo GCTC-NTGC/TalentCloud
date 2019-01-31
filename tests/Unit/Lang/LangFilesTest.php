@@ -45,6 +45,36 @@ class LangFilesTest extends BaseTranslationTest
     }
 
     /**
+     * Tests for lang entries that are set to values that obviously indicate
+     * a missing translation, like 'TRANSLATION NEEDED'.
+     * If tests are run with --verbose, displays wich keys have these values.
+     *
+     * @return void
+     */
+    public function testNoTranslationNeeded()
+    {
+        $checks = ['TRANSLATION NEEDED', 'TRANSLATION', 'TRANSLATION_NEEDED'];
+        $translationNeeded = [];
+        foreach ($this->getAllLangPaths() as $path) {
+            foreach ($this->locales as $locale) {
+                App::setLocale($locale);
+                $value = Lang::get($path);
+                if (in_array($value, $checks)) {
+                    $fullPath = $locale . "/" . $path;
+                    array_push($translationNeeded, $fullPath);
+                }
+            }
+        }
+        if (!empty($translationNeeded)) {
+            print_r("\n");
+            print_r("Translation needed for the following keys:\n");
+            print_r($translationNeeded);
+            print_r("\n");
+        }
+        $this->assertEmpty($translationNeeded);
+    }
+
+    /**
      * Contains lang keys that are expected to be missing in a particular language
      *
      * @var array
