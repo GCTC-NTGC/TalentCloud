@@ -11,7 +11,7 @@
         <div class="flex-grid">
 
             {# Include Sidebar #}
-                {% include "manager/profile/sidebar" %}
+                {% include "manager/profile/sidebar" with {'sidebar_l10n': layout_l10n.sidebar} %}
 
             {# Poster Content #}
 
