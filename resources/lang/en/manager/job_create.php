@@ -81,14 +81,13 @@ return [
             ],
             'add_a_question' => 'Add a Question',
             'save_and_preview' => 'Save and Preview',
-            'publish' => 'Publish'
-
-
-
-
-
-
+            'publish' => 'Publish',
 
         ]
+    ],
+    /* Localizations for Default questions fuction in controller */
+    'questions' => [
+        "00" => "Why are you interested in this job?",
+        "01" => "Why do you think you would be a good fit for this job?"
     ]
 ];
