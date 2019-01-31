@@ -187,6 +187,7 @@ return [
         ],
 
     /* Step 07 (Complete) */
+
         "complete" => [
             "step_06_title" => "Talent Cloud | Applicant: Apply Now - Step 6",
             "title" => "Thanks for applying!",
