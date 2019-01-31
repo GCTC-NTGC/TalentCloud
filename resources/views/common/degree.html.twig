@@ -25,14 +25,15 @@
 
     {# Accordion Trigger #}
 
-        <div
+        <button
             {% if degree == false %}
                 aria-expanded="true"
             {% else %}
                 aria-expanded="false"
             {% endif %}
             class="accordion-trigger"
-            tabindex="0">
+            tabindex="0"
+            type="button">
 
             <span
                 class="accordion-title">
@@ -43,9 +44,11 @@
                 {% endif %}
             </span>
 
+            <span class="invisible">{{ degree_template.accordion_sr_helper }}</span>
+
             <i class="fas fa-chevron-up"></i>
 
-        </div>
+        </button>
 
     {# Accordion Content #}
 

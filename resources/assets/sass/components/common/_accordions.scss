@@ -12,8 +12,12 @@
 
     .accordion-trigger {
         background-color: transparentize($palette--black, .15);
+        border: none;
         cursor: pointer;
+        padding: 0;
         position: relative;
+        text-align: left;
+        width: 100%;
 
         .accordion-status {
             background: $palette--red;

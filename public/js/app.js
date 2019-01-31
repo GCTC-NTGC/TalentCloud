@@ -127,13 +127,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     accordionTrigger(this);
                         });
 
-                        $(document).on("keyup", ".accordion-trigger", function (e) {
-
-                                    if (e.which == 13) {
-                                                accordionTrigger(this);
-                                    }
-                        });
-
                         // Modal Handlers ======================================================
 
                         function openModal(trigger) {
@@ -784,6 +777,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                                     // Reactivate Nested Relatives
                                     loadProfileRelativeDeletion();
+
+                                    var inputs = template.find(":focusable:not(button)");
+
+                                    inputs[0].focus();
                         }
 
                         // Load Function

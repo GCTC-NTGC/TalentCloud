@@ -9,6 +9,7 @@ return [
      *
      */
      "new_course_label" => "Nouveau cours ou certificat",
+     "accordion_sr_helper" => "cliquez pour modifier",
      "name_label" => "Nom du cours ou de la certification",
      "institution_label" => "Institution",
      "status_label" => "Statut",
@@ -24,4 +25,4 @@ return [
      "end_date_label" => "fin",
      "action_01" => "Supprimer un diplôme",
      "action_02" => "Enregistrer un diplôme"
-];   
+];
