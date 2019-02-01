@@ -9,6 +9,7 @@ return [
     *
     */
     "new_sample_label" => "New Work Sample",
+    "accordion_sr_helper" => "Click to edit...",
     "name_label" => "Project Name",
     "type_label" => "Project Type",
     "types" => [

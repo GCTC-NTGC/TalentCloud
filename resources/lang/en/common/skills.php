@@ -9,6 +9,7 @@ return [
     *
     */
     'new_skill_title' => 'New Skill',
+    "accordion_sr_helper" => "Click to edit...",
     'name_label' => 'Project Name',
     'type_label' => 'Project Type',
     'skill_selection_label' => 'Select Skill',
@@ -378,6 +379,10 @@ return [
         'goc_policy_project_management' => [
             'name' => 'Knowledge of Government of Canada policy suite on project management',
             'description' => 'Defined as: Familiarity with the Government of Canada\'s policy suite on the management of projects.'
+        ],
+        'it_project_management' => [
+            'name' => 'IT project management',
+            'description' => 'Defined as: Ability to manage IT Transformation projects throughout the entire lifecycle of the project.'
         ],
     ],
     'status' => [
