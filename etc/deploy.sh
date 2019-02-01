@@ -16,7 +16,7 @@ sudo find TalentCloud -type f -exec chmod 664 {} \;
 echo "Setting SELinux security context...";
 sudo chcon -Rt httpd_sys_content_t TalentCloud;
 
-echo "Setting SELinx security context on writable directories...";
+echo "Setting SELinux security context on writable directories...";
 sudo chcon -Rt httpd_sys_rw_content_t TalentCloud/storage;
 
 echo "Setting nginx as onwer of all files...";
