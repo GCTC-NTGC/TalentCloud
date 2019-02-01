@@ -80,4 +80,19 @@ class LoginControllerTest extends TestCase
         $response->assertViewIs('auth.login');
         $this->assertGuest();
     }
+
+    /**
+     * Ensure logout endpoint un-authenticates user
+     *
+     * @return void
+     */
+    public function testLogout() : void
+    {
+        $user = factory(User::class)->create();
+        $response = $this->actingAs($user)
+            ->post(route('logout'));
+        $response->assertStatus(200);
+        $response->assertViewIs('home');
+        $this->assertGuest();
+    }
 }
