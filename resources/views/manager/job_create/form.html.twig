@@ -23,17 +23,7 @@
 
         <h4>Job Details</h4>
 
-        {% if not form.vars.valid %}
-        <ul>
-            {# Loop through every form item #}
-            {% for child in form.children %}
-                {# Display the errors of the form item #}
-                {% for error in child.vars.errors %}
-                    <li>{{error.message}}</li>
-                {% endfor %}
-            {% endfor %}
-        </ul>
-        {% endif %}
+        {% include "errors/form_errors" %}
 
         {# Job Title #}
 
