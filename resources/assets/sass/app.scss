@@ -96,6 +96,32 @@
         width: 100%;
     }
 
+    .skip-to-main-content {
+        background: $palette--white;
+        color: $palette--font-black;
+        display: block;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        height: 1px;
+        padding: 1rem;
+        position: absolute;
+        top: 0;
+        left: -100vw;
+        text-align: center;
+        transition: none;
+        width: 1px;
+
+        &:focus {
+            height: auto;
+            position: relative;
+            top: 0;
+            left: 0;
+            transition: none;
+            width: 100%;
+        }
+
+    }
+
 // Components ==================================================================
 
     // Common ==================================================================
@@ -191,7 +217,11 @@
 
             // Step 05 (Preview)
 
-            // Step 06 (Complete)
+            // Step 06 (Signature)
+
+                @import "components/applicant/application/post/step-06";
+
+            // Step 07 (Complete)
 
                 @import "components/applicant/application/post/complete";
 
