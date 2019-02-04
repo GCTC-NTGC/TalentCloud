@@ -9,6 +9,6 @@ return [
      * View: views/manager/home.html.twig
      *
      */
-    'logo_alt_text' => 'The GC Talent Cloud Graphic Identifier.',
+    'logo_alt_text' => 'Identifiant graphique du Nuage de talents du GC',
     'tagline' => 'Les gens veulent un travail valorisant.'
  ];
