@@ -15,10 +15,10 @@
 
     {% include "common/goc" %}
 
-    {% include "common/header" with {"header":job_heading} %}
+        {% include "common/header" with {"header": job_l10n} %}
 
     <a id="skipLink"></a>
 
-    {% include "manager/job_create/layout" %}
+        {% include "manager/job_create/layout" with {"layout_l10n": job_l10n.layout} %}
 
 {% endblock %}

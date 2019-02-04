@@ -243,12 +243,7 @@ class ApplicationByJobController extends Controller
 
         $application = $this->getApplicationFromJob($jobPoster);
 
-        //TODO: Right now preview can't have the update gate, because we use the
-            //  same view for viewing even after its been submitted. These should
-            //  be seperate views, and then Preview can require the update permission.
-        //Ensure user has permissions to view and update application
         $this->authorize('view', $application);
-        //$this->authorize('update', $application);
 
         $criteria = [
             'essential' => $jobPoster->criteria->filter(function($value, $key) {
@@ -279,10 +274,35 @@ class ApplicationByJobController extends Controller
             /* Applicant Data */
                 "applicant" => $applicant,
                 "job_application" => $application,
+        ]);
+    }
+
+    /**
+     * Show the Confirm Submit page for the application for the specified job.
+     *
+     * @param  \App\Models\JobPoster  $jobPoster
+     * @return \Illuminate\Http\Response
+     */
+    public function confirm(JobPoster $jobPoster)
+    {
+
+        $applicant = Auth::user()->applicant;
+
+        $application = $this->getApplicationFromJob($jobPoster);
+
+        $this->authorize('update', $application);
+
+        return view('applicant/application_post_06', [
+            /* Application Template Data */
+            "application_step" => 6,
+            "application_template" => Lang::get("applicant/application_template"),
+
+            /* Used by tracker partial */
+            "job" => $jobPoster,
+            "job_application" => $application,
 
             /* Submission */
-                "form_submit_action" => route('job.application.submit', $jobPoster)
-
+            "form_submit_action" => route('job.application.submit', $jobPoster)
         ]);
     }
 
@@ -320,7 +340,6 @@ class ApplicationByJobController extends Controller
                     "job_application" => $application
 
             ]);
-
     }
 
     /**

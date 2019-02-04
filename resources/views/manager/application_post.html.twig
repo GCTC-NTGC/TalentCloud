@@ -15,9 +15,9 @@
 
 		<div class="container--layout-xl">
 			<p>
-				<a href="{{ route('manager.jobs.show', job) }}">Job Poster</a>
+				<a href="{{ route('manager.jobs.show', job) }}">{{post.content.job_poster}}</a>
 			</p>
-			{% include "manager/application_post/application_review" with {'application': job_application} %}
+			{% include "manager/application_post/application_review" with {'application': job_application, 'review': post.content.review} %}
 		</div>
 
     	{% include "common/application/view/view_layout" %}
