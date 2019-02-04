@@ -9,30 +9,30 @@ return [
     * View: views/manager/job_index.html.twig
     */
 
-    'title' => 'My Job Posts',
-    'job_poster' => 'Job Poster',
-    'edit' => 'Edit',
-    'screening_plan_builder' => 'Screening Plan Builder',
-    'veteran_applicants' => 'Veteran Applicants',
-    'citizen_applicants' => 'Citizen Applicants',
-    'other_applicants' => 'Other Applicants',
-    'none' => 'None',
+    'title' => 'Mes affiches d\'emploi',
+    'job_poster' => 'Affiche d\'emploi',
+    'edit' => 'Modifier',
+    'screening_plan_builder' => 'Constructeur de plan d\'évaluation',
+    'veteran_applicants' => 'Candidats vétérans',
+    'citizen_applicants' => 'Candidats citoyens',
+    'other_applicants' => 'Autres candidats',
+    'none' => 'Aucun',
     'review' => [
-        'name' => 'Name',
+        'name' => 'Nom',
         'info' => 'Info',
-        'reviewed' => 'Reviewed?',
-        'decision' => 'Decision',
-        'reviewer' => 'Reviewer',
+        'reviewed' => 'Réviser?',
+        'decision' => 'Décision',
+        'reviewer' => 'Réviseur',
         'notes' => 'Notes',
         'form' => [
-            'email' => 'Email',
+            'email' => 'Courriel',
             'profile' => 'Profile',
             'application' => 'Application',
             'placeholder' => [
-                'reviewer' => 'Reviewer',
-                'other_notes' => 'Other Notes...'
+                'reviewer' => 'Réviseur',
+                'other_notes' => 'Autres notes...'
             ],
-            'save' => 'Save'
+            'save' => 'Enregistrer'
         ]
     ]
 
