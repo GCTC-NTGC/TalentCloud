@@ -29,6 +29,7 @@ Route::group(
             Route::get('jobs', 'JobController@index')->name('jobs.index');
 
             Route::get('jobs/{jobPoster}', 'JobController@show')
+                ->middleware('can:view,jobPoster')
                 ->name('jobs.show');
 
             /* Require being logged in */
@@ -66,6 +67,9 @@ Route::group(
 
                 /* Step 05 */
                 Route::get('jobs/{jobPoster}/application/step-05', 'ApplicationByJobController@preview')->name('job.application.edit.5');
+
+                /* Step 06 */
+                Route::get('jobs/{jobPoster}/application/step-06', 'ApplicationByJobController@confirm')->name('job.application.edit.6');
 
                 /* Step 06: Complete */
                 Route::get('jobs/{jobPoster}/application/complete', 'ApplicationByJobController@complete')->name('job.application.complete');
@@ -216,8 +220,8 @@ Route::group(
                 return view('manager/home', [
                     "hero" => [
                         "hero_logo" => "/images/logo_tc_colour.png",
-                        "hero_logo_alt" => "The GC Talent Cloud Graphic Identifier.",
-                        "hero_tagline" => "People want meaningful work."
+                        "hero_logo_alt" => Lang::get('manager/home_hero')['logo_alt_text'],
+                        "hero_tagline" => Lang::get('manager/home_hero')['tagline']
                     ]
                 ]);
             })->name('manager.home');
@@ -255,6 +259,7 @@ Route::group(
                 /* View Job Poster */
                 Route::get('jobs/{jobPoster}', 'JobController@show')
                     ->where('jobPoster', '[0-9]+')
+                    ->middleware('can:view,jobPoster')
                     ->name('manager.jobs.show');
 
                 /* Create Job */

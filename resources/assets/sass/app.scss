@@ -217,7 +217,11 @@
 
             // Step 05 (Preview)
 
-            // Step 06 (Complete)
+            // Step 06 (Signature)
+
+                @import "components/applicant/application/post/step-06";
+
+            // Step 07 (Complete)
 
                 @import "components/applicant/application/post/complete";
 

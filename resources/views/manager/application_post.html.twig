@@ -19,7 +19,7 @@
 
 				<div class="box full">
 
-					{% include "manager/application_post/application_review" with {'application': job_application} %}
+					{% include "manager/application_post/application_review" with {'application': job_application, 'review': post.content.review} %}
 
 				</div>
 
@@ -27,7 +27,7 @@
 					<a
 						class="button--blue"
 						href="{{ route('manager.jobs.show', job) }}">
-						View Job Poster
+						{{ post.content.job_poster }}
 					</a>
 				</div>
 

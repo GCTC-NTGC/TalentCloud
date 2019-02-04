@@ -40,7 +40,7 @@ class ApplicantProfileController extends Controller
         return view(
             'manager/applicant_profile',
             [
-                /* Localized strings*/
+                /* Localization Strings*/
                 'profile' => Lang::get('manager/applicant_profile'), // Change text
 
                 /* User Data */

@@ -4,27 +4,27 @@
 
 <div class="manager-job-index__temp-labels flex-grid">
     <div class="box small-1of12">
-        <strong>Name</strong>
+        <strong>{{review.name}}</strong>
     </div>
 
     <div class="box small-2of12">
-        <strong>Info</strong>
+        <strong>{{review.info}}</strong>
     </div>
 
     <div class="box small-2of12">
-        <strong>Reviewed?</strong>
+        <strong>{{review.reviewed}}</strong>
     </div>
 
     <div class="box small-2of12">
-        <strong>Decision</strong>
+        <strong>{{review.decision}}</strong>
     </div>
 
     <div class="box small-2of12">
-        <strong>Reviewer</strong>
+        <strong>{{review.reviewer}}</strong>
     </div>
 
     <div class="box small-2of12">
-        <strong>Notes</strong>
+        <strong>{{review.notes}}</strong>
     </div>
 
     <div class="box small-1of12">
@@ -45,10 +45,10 @@
     </div>
 
     <div class="box small-2of12">
-        <a href="mailto:{{ application.applicant.user.email }}">Email</a>,
+        <a href="mailto:{{ application.applicant.user.email }}">{{review.form.email}}</a>,
         <a href="{{ route('manager.applicants.show', application.applicant) }}"
-            >Profile</a>,
-        <a href="{{ route('manager.applications.show', application) }}">Application</a>
+            >{{review.form.profile}}</a>,
+        <a href="{{ route('manager.applications.show', application) }}">{{review.form.application}}}</a>
     </div>
 
     <div class="box small-2of12">
@@ -91,7 +91,7 @@
         <div class="form__input-wrapper--float">
             <input
                 class="form__input"
-                placeholder="Reviewer"
+                placeholder="{{ review.form.placeholder.reviewer }}"
                 name="reviewer"
                 type="text"
                 required
@@ -103,7 +103,7 @@
         <div class="form__input-wrapper--float">
             <input
                 class="form__input"
-                placeholder="Other Notes..."
+                placeholder="{{ review.form.placeholder.other_notes }}"
                 name="notes"
                 type="text"
                 value="{{ application.application_review.notes }}"/>
@@ -116,7 +116,7 @@
             type="submit"
             name="submit"
             value="application_review">
-            Save
+            {{review.form.save}}
         </button>
     </div>
 

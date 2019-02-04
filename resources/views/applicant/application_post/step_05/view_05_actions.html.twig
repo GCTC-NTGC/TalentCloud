@@ -21,26 +21,22 @@
             <div
                 class="box med-1of2">
 
-                <button
+                <a
                     class="button--blue light-bg"
-                    type="submit"
-                    name="submit"
-                    value="save_and_quit">
+                    href={{ route('applications.index') }}>
                     {{ application_template.save_quit_button_label }}
-                </button>
+                </a>
 
             </div>
 
             <div
                 class="box med-1of2">
 
-                <button
+                <a
                     class="button--blue light-bg"
-                    type="submit"
-                    name="submit"
-                    value="submit">
-                    {{ application_template.submit_button_label }}
-                </button>
+                    href={{ route('job.application.edit.6', job) }}>
+                    {{ application_template.save_continue_button_label }}
+                </a>
 
             </div>
 
