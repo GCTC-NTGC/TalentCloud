@@ -67,6 +67,9 @@ Route::group(
                 /* Step 05 */
                 Route::get('jobs/{jobPoster}/application/step-05', 'ApplicationByJobController@preview')->name('job.application.edit.5');
 
+                /* Step 06 */
+                Route::get('jobs/{jobPoster}/application/step-06', 'ApplicationByJobController@confirm')->name('job.application.edit.6');
+
                 /* Step 06: Complete */
                 Route::get('jobs/{jobPoster}/application/complete', 'ApplicationByJobController@complete')->name('job.application.complete');
 

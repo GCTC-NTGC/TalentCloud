@@ -24,6 +24,7 @@ class ApplicationTrackerComposer
         $app_tracker['items']['essential_skills']['url'] = route('job.application.edit.3', $view->getData()['job']);
         $app_tracker['items']['asset_skills']['url'] = route('job.application.edit.4', $view->getData()['job']);
         $app_tracker['items']['preview']['url'] = route('job.application.edit.5', $view->getData()['job']);
+        $app_tracker['items']['confirm']['url'] = route('job.application.edit.6', $view->getData()['job']);
 
         //TODO: all these checks shouldn't be neccessary when controllers are properly set up
         if (isset($view->getData()['job_application'])) {
@@ -34,7 +35,6 @@ class ApplicationTrackerComposer
                 }
             }
         }
-
         $view->with('application_tracker', $app_tracker);
     }
 }

@@ -1,45 +1,55 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Apply - Step 05
+    Applicant: Apply - Step 04
 
 ============================================================================= #}
 
-{% extends "layouts/base" %}
+<!DOCTYPE html>
 
-{% block title %}{{ application_template.step_05_title }}{% endblock %}
+<html
+    lang="en">
 
-{% block body %}
+    <head>
+        <title>{{ application_template.step_05_title }}</title>
 
-	{% include "common/alert" %}
+        {% include "common/head" %}
 
-    {% include "common/goc" %}
+        {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
 
-    {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
+    {# /head #}
 
-    <a id="skipLink"></a>
+    {# body #}
 
-    {# Form containing all about_me editable elements #}
+        {% include "common/alert" %}
 
-        <form action="{{ form_submit_action }}" method="post">
+        {% include "common/goc" %}
 
-            {% include "applicant/application_post/common/tracker" %}
+        {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
 
-            {# Builds an input field for CSRF token validation #}
-            {{ csrf_field() }}
+        {% include "applicant/application_post/common/tracker-ajax" %}
 
-            <section
-                class="application__view-layout">
+        <section
+            class="application__view-layout">
 
-                {% include "applicant/application_post/step_05/signature" %}
+            {% include "common/application/view/view_layout" %}
 
-                {% include "common/application/view/view_layout" %}
+            {% include "applicant/application_post/step_05/view_05_actions" %}
 
-                {% include "common/application/view/view_05_actions" %}
+        </section>
 
-            </section>
+        {# Login Modals #}
 
-        </form>
+            {% include "common/modal" with {"page":login_modals} %}
 
-{% endblock %}
+        {# Footer #}
 
+            {% include "common/footer" %}
+
+        {# Scripts #}
+
+            {% include "common/scripts" %}
+
+    </body>
+
+</html>
