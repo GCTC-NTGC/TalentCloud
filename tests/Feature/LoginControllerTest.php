@@ -76,9 +76,8 @@ class LoginControllerTest extends TestCase
             'password' => 'WRONG_PASSWORD',
         ];
         $response = $this->post(route('login'), $credentials);
-        $response->assertStatus(200);
-        $response->assertViewIs('auth.login');
         $this->assertGuest();
+        $response->assertRedirect(route('login'));
     }
 
     /**
@@ -89,10 +88,11 @@ class LoginControllerTest extends TestCase
     public function testLogout() : void
     {
         $user = factory(User::class)->create();
-        $response = $this->actingAs($user)
+        $response = $this->followingRedirects()
+            ->actingAs($user)
             ->post(route('logout'));
         $response->assertStatus(200);
-        $response->assertViewIs('home');
+        $response->assertViewIs('applicant.home');
         $this->assertGuest();
     }
 }
