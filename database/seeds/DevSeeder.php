@@ -5,6 +5,7 @@ use App\Models\Manager;
 use App\Models\User;
 use App\Models\JobPoster;
 use App\Models\Applicant;
+use App\Models\UserRole;
 
 class DevSeeder extends Seeder
 {
@@ -37,15 +38,24 @@ class DevSeeder extends Seeder
         // Create the test manager if it does not exist yet
         if ($managerUser === null) {
             $managerUser = factory(User::class)->state('manager')->create(['email' => 'manager@test.com']);
+        }
+        if (!$managerUser->hasRole('manager')) {
+            $managerUser->user_role_id = UserRole::where('name', 'manager')->first()->id;
+            $managerUser->save();
+
             $managerUser->manager()->save(factory(Manager::class)->create([
                 'user_id' => $managerUser->id
             ]));
         }
+
         //Always add new jobs to the test manager
         $managerUser->manager->job_posters()->save(factory(JobPoster::class)->state('published')->create([
             'manager_id' => $managerUser->manager->id
         ]));
         $managerUser->manager->job_posters()->save(factory(JobPoster::class)->state('unpublished')->create([
+            'manager_id' => $managerUser->manager->id
+        ]));
+        $managerUser->manager->job_posters()->save(factory(JobPoster::class)->state('closed')->create([
             'manager_id' => $managerUser->manager->id
         ]));
 
