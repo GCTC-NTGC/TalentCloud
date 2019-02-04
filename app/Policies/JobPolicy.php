@@ -16,12 +16,15 @@ class JobPolicy extends BasePolicy
      * @param  \App\Models\JobPoster  $jobPoster
      * @return mixed
      */
-    public function view(User $user, JobPoster $jobPoster)
+    public function view(?User $user, JobPoster $jobPoster)
     {
         //Anyone can view a published job
         //Only the manager that created it can view an unpublished job
         return $jobPoster->published ||
-            $jobPoster->manager->user->id == $user->id;
+            (
+                $user &&
+                $jobPoster->manager->user->id == $user->id
+            );
     }
 
     /**

@@ -61,3 +61,20 @@
     }
 
 }
+
+.job-post__apply-button--closed {
+    background: rgba(200, 200, 200, 1);
+    border-radius: 0 0 3px 3px;
+    color: rgba(100, 100, 100, 1);
+    cursor: initial;
+    display: block;
+    font-family: $font--sans;
+    font-size: $font-scale--h3;
+    font-weight: 600;
+    margin: 0 !important;
+    padding: 2rem 3rem;
+    text-align: center;
+    text-decoration: none;
+    transition: all .2s ease;
+    width: 100%;
+}
