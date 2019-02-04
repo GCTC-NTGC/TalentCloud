@@ -119,5 +119,7 @@ return [
         'login_link_label' => 'Login & Apply',
         'job_closed_title' => 'Competition closed',
         'job_closed_label' => 'Competition closed',
+        'edit_link_title'  => 'Edit this job poster.',
+        'edit_link_label'  => 'Edit'
     ],
 ];

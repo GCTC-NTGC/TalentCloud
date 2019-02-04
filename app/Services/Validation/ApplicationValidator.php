@@ -183,7 +183,7 @@ class ApplicationValidator {
                 'required',
                 'string',
                 'max:191',
-           ]
+            ]
         ];
         return Validator::make($application->toArray(), $rules);
     }
