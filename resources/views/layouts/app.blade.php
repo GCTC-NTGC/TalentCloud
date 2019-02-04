@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 
 <html
-    lang="en">
+    lang="{{ $appLocale }}">
 
     <head>
 
@@ -136,6 +136,15 @@
                 </iframe>
             </noscript>
         <!-- End Google Tag Manager (noscript) -->
+
+        <!-- Skip to Content Link -->
+
+            <a
+                class="skip-to-main-content"
+                href="#skipLink"
+                title="@if ($appLocale == 'en') Click to skip to the main content. @elseif ($appLocale == 'fr') Cliquez pour passer au contenu principal. @endif">
+                @if ($appLocale == 'en') Skip to Main Content @elseif ($appLocale == 'fr') Passer au contenu principal @endif
+            </a>
 
         @yield('content')
 

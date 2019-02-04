@@ -9,5 +9,8 @@ Please name the task using the following information: **Applicant/Manager/Admin/
 # Description
 Enter the task description here.
 
+- [ ] This task requires a unit test.
+- [ ] This task is complex and needs acceptance criteria.
+
 # Images
 Place image attachments (wireframes, etc.) here.
