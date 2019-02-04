@@ -62,15 +62,16 @@
 
         {% if not job.isOpen() %}
             <div class="job-post__apply-button--closed">
-                    {{ job_post.apply.job_closed_label }}
+                {{ job_post.apply.job_closed_label|title }}
             </div>
         {% else %}
             <a
-            class="job-post__apply-button"
+                class="job-post__apply-button"
                 href="{{ apply_button.href }}"
                 title="{{ apply_button.title }}">
                 {{ apply_button.text }}
-        </a>
+            </a>
+        {% endif %}
 
     </div>
 

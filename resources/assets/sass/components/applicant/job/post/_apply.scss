@@ -63,9 +63,10 @@
 }
 
 .job-post__apply-button--closed {
-    background: $palette--yellow;
+    background: rgba(200, 200, 200, 1);
     border-radius: 0 0 3px 3px;
-    color: $palette--font-black;
+    color: rgba(100, 100, 100, 1);
+    cursor: initial;
     display: block;
     font-family: $font--sans;
     font-size: $font-scale--h3;
