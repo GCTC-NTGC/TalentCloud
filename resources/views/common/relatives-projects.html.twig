@@ -40,6 +40,7 @@
                     class="form__input"
                     id="{{ id_prefix }}projectName"
                     type="text"
+                    required
                     name="{{ name_prefix }}[name]"
                     {% if template %}disabled{% endif %}
                     value="{{ relative.name }}" />
@@ -63,6 +64,7 @@
                     class="form__input"
                     id="{{ id_prefix }}relativeStartDate"
                     type="date"
+                    required
                     name="{{ name_prefix }}[start_date]"
                     {% if template %}disabled{% endif %}
                     value="{{ relative.start_date|date("Y-m-d") }}">
@@ -88,6 +90,7 @@
                     id="{{ id_prefix }}relativeEndDate"
                     {% if template %}disabled{% endif %}
                     type="date"
+                    required
                     name="{{ name_prefix }}[end_date]"
                     value="{{ relative.end_date|date("Y-m-d") }}">
 

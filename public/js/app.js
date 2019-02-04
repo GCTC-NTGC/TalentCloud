@@ -493,21 +493,21 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         function showFormErrors(object, response) {
             clearFormErrors(object);
-
-            //TODO: is this correct way of checking if empty?
-            if (response.data.errors) {
-                var list = document.createElement("ul");
-                $.each(response.data.errors, function (key, value) {
-                    //key is the name of the field associated with the error
-                    //value is a list of error messages associated with a single field
-                    $.each(value, function (i, errorMsg) {
-                        list.append(makeErrorElement(errorMsg));
-                    });
-                });
-                var div = document.createElement("div");
-                $(div).addClass("site-error").append(list);
-                $(object).find(".form-error").append(div);
+            var messages = response.data.errors;
+            if (!response.data.errors) {
+                messages = { 'server error': ['Something went wrong.'] }; //TODO: localize
             }
+            var list = document.createElement("ul");
+            $.each(messages, function (key, value) {
+                //key is the name of the field associated with the error
+                //value is a list of error messages associated with a single field
+                $.each(value, function (i, errorMsg) {
+                    list.append(makeErrorElement(errorMsg));
+                });
+            });
+            var div = document.createElement("div");
+            $(div).addClass("site-error").append(list);
+            $(object).find(".form-error").append(div);
         }
 
         // Return an <li> html element displaying the errorMsg

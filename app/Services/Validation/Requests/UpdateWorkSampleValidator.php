@@ -49,8 +49,9 @@ class UpdateWorkSampleValidator extends BaseDataValidator implements DataValidat
                 Rule::in($this->fileTypeIds)
             ],
             'url' => 'required|url',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'relatives.skills.*.id' => [
+                'required',
                 Rule::in($this->skillIds)
             ],
         ];

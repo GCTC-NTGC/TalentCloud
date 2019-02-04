@@ -42,28 +42,29 @@ class UpdateReferenceValidator extends BaseDataValidator implements DataValidato
     public function rules() : array
     {
         return [
-            // Name validation
             'name' => 'required|string|max:191',
-
-            // Email validation
             'email' => [
                 'required',
                 'string',
                 'max:191',
                 'email',
             ],
-
-            //Relationship Id validation
             'relationship_id' => [
                 'required',
                 Rule::in($this->relationshipIds)
             ],
-
             'description' => 'required|string',
 
             'relatives.skills.*.id' => [
+                'required',
                 Rule::in($this->skillIds)
             ],
+
+            'projects.*.name' => 'required|string|max:191',
+            'projects.*.start_date' => 'required|date',
+            'projects.*.end_date' => 'required|date',
+
+
         ];
     }
 
