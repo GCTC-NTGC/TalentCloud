@@ -52,7 +52,7 @@
             }
         }
 
-        $(document).on("click", ".accordion-trigger", function(e){
+        $(document).on("click", ".accordion-trigger", function addAccordionTrigger(e){
 
             accordionTrigger(this);
 
@@ -629,7 +629,7 @@
                 .on("click", removeRepeater);
 
             // Set save trigger on ajax forms
-            if (template.hasClass("ajax-form")) {
+            if (clone.hasClass("ajax-form")) {
                 addSubmitTrigger(clone);
             }
         }
@@ -716,7 +716,7 @@
             // Reactivate Nested Relatives
             loadProfileRelativeDeletion();
 
-            var inputs = template.find(":focusable:not(button)");
+            var inputs = clone.find(":focusable:not(button)");
 
             inputs[0].focus();
 
