@@ -60,9 +60,9 @@
     <div
         class="job-post__button-wrapper">
 
-        {% if not job.isOpen() %}
+        {% if apply_button.href == null %}
             <div class="job-post__apply-button--closed">
-                {{ job_post.apply.job_closed_label|title }}
+                {{ apply_button.text }}
             </div>
         {% else %}
             <a
