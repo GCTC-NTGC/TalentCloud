@@ -67,6 +67,9 @@
 
     {# Accordion Content #}
 
+
+        <div class="form-error"></div>
+
         <div
             {% if sample == false %}
                 aria-hidden="false"
@@ -167,6 +170,7 @@
                                 <textarea
                                     id="{{ id_prefix }}sampleDescription"
                                     name="description"
+                                    required
                                     {% if template %}disabled{% endif %}
                                     class="form__textarea">{{ sample.description }}</textarea>
                             </div>

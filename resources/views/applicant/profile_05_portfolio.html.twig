@@ -21,19 +21,12 @@
 
     {# Menu #}
 
-        {% include "applicant/profile/menu" %}
+    {% include "applicant/profile/menu" %}
 
-    {# Form containing all about_me editable elements #}
+    {% include "applicant/profile/portfolio/index" %}
 
-        {# Menu #}
+    {# Modals #}
 
-        {% include "applicant/profile/menu" %}
-
-
-        {% include "applicant/profile/portfolio/index" %}
-
-        {# Modals #}
-
-        {% include "common/modal" with {"page":profile} %}
+    {% include "common/modal" with {"page":profile} %}
 
 {% endblock %}

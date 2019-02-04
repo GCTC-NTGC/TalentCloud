@@ -20,26 +20,18 @@
     <a id="skipLink"></a>
 
     {# Menu #}
+    {% include "applicant/profile/menu" %}
 
-        {% include "applicant/profile/menu" %}
+    {# References #}
+    {% include "applicant/profile/references/index" %}
 
-    {# Form containing all about_me editable elements #}
+    {# Modals #}
+    {% include "common/modal" with {"page":profile} %}
 
-        {# Menu #}
-        {% include "applicant/profile/menu" %}
+    {# Footer #}
+    {% include "common/footer" %}
 
-        {# References #}
-        {% include "applicant/profile/references/index" %}
+    {# Scripts #}
+    {% include "common/scripts" %}
 
-        {# Modals #}
-        {% include "common/modal" with {"page":profile} %}
-
-        {# Footer #}
-        {% include "common/footer" %}
-
-        {# Scripts #}
-        {% include "common/scripts" %}
-
-    </body>
-
-</html>
+{% endblock %}

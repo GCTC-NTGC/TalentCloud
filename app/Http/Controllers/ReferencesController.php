@@ -10,6 +10,7 @@ use App\Models\Skill;
 use App\Models\Applicant;
 use App\Models\Reference;
 use App\Models\Project;
+use App\Services\Validation\Requests\UpdateReferenceValidator;
 
 class ReferencesController extends Controller
 {
@@ -180,6 +181,9 @@ class ReferencesController extends Controller
      */
     public function update(Request $request, ?Reference $reference = null)
     {
+        $validator = new UpdateReferenceValidator();
+        $validator->validate($request->input());
+
         if ($reference === null) {
             $reference = new Reference();
             $reference->applicant_id = $request->user()->applicant->id;

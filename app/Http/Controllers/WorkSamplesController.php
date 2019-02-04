@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use App\Models\Applicant;
 use App\Models\WorkSample;
+use App\Services\Validation\Requests\UpdateWorkSampleValidator;
 
 class WorkSamplesController extends Controller
 {
@@ -49,6 +50,9 @@ class WorkSamplesController extends Controller
      */
     public function update(Request $request, ?WorkSample $workSample = null)
     {
+        $validator = new UpdateWorkSampleValidator();
+        $validator->validate($request->input());
+
         if ($workSample === null) {
             $workSample = new WorkSample();
             $workSample->applicant_id = $request->user()->applicant->id;
