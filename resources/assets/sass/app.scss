@@ -80,11 +80,46 @@
         visibility: hidden;
     }
 
+    .invisible {
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        top: auto;
+        left: -10000px;
+        width: 1px;
+    }
+
     span.centre,
     span.center {
         display: block;
         text-align: center;
         width: 100%;
+    }
+
+    .skip-to-main-content {
+        background: $palette--white;
+        color: $palette--font-black;
+        display: block;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        height: 1px;
+        padding: 1rem;
+        position: absolute;
+        top: 0;
+        left: -100vw;
+        text-align: center;
+        transition: none;
+        width: 1px;
+
+        &:focus {
+            height: auto;
+            position: relative;
+            top: 0;
+            left: 0;
+            transition: none;
+            width: 100%;
+        }
+
     }
 
 // Components ==================================================================
@@ -215,4 +250,3 @@
         // Manager Screening Plan
 
             @import "components/manager/screening-plan";
-            
