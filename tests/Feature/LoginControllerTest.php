@@ -75,6 +75,7 @@ class LoginControllerTest extends TestCase
             'email' => $user->email,
             'password' => 'WRONG_PASSWORD',
         ];
+        $this->get(route('login')); //Start on login page, to ensure failing redirects BACK here.
         $response = $this->post(route('login'), $credentials);
         $this->assertGuest();
         $response->assertRedirect(route('login'));
