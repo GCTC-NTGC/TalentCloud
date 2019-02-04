@@ -84,9 +84,10 @@ class JobController extends Controller
         }
 
         return view('manager/job_index', [
-            "manager_job_index" => [
-                "title" => "My Job Posts"
-            ],
+            /*Localization Strings*/
+            'jobs_l10n' => Lang::get('manager/job_index'),
+
+            /* Data */
             'jobs' => $manager->job_posters,
             'veteran_applications' => $veteran_applications,
             'citizen_applications' => $citizen_applications,
@@ -291,7 +292,11 @@ class JobController extends Controller
         return view(
             'manager/job_create',
             [
-                'job_heading' => Lang::get($jobHeading),
+                /*Localization Strings*/
+                'job_l10n' => Lang::get('manager/job_create'),
+
+                /* Data */
+                'job' => Lang::get($jobHeading),
                 'manager' => $manager,
                 'provinces' => Province::all(),
                 'departments' => Department::all(),
