@@ -115,6 +115,8 @@ return [
         'apply_link_label' => 'Postuler maintenant.',
         'login_link_title' => 'Ouvrir une session et postuler pour cet emploi.',
         'login_link_label' => 'Ouvrir une session et postuler. ',
+        'job_closed_title' => 'Comptetion fermée',
+        'job_closed_label' => 'Comptetion fermée',
         'edit_link_title' => 'Modifier cette affiche d\'emploi.',
         'edit_link_label' => 'Modifier'
     ],
