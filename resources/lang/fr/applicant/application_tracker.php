@@ -42,7 +42,7 @@ return [
         ],
         "confirm" => [
             "step" => "6",
-            "title" => "TRANSLATION NEEDED",
+            "title" => "Confirmer ma candidature",
             "status" => "incomplete",
         ]
     ],
