@@ -578,7 +578,7 @@
                                         <div
                                             class="box small-1of2">
 
-                                        {# <button
+                                        <button
                                             class="modal-trigger"
                                             data-modal-id="createReference"
                                             title="{{ relative_template.reference.create_title }}"
@@ -586,7 +586,7 @@
 
                                             {{ relative_template.reference.create_label }}
 
-                                        </button> #}
+                                        </button>
 
                                         </div>
 
@@ -596,7 +596,7 @@
 
                                     {% set relativeToken = "references" %}
 
-                                    {% include "common/relatives" with {"prefix":name_prefix} %}
+                                    {% include "common/relatives" with {"template":true } %}
 
                                 {# Relative List #}
 
@@ -609,7 +609,7 @@
 
                                             {% set relativeCounter = relativeCounter + 1 %}
 
-                                            {% include "common/relatives" with {"prefix":name_prefix} %}
+                                            {% include "common/relatives" %}
 
                                         {% endfor %}
 
@@ -660,7 +660,7 @@
                                         <div
                                             class="box small-1of2">
 
-                                        {# <button
+                                        <button
                                             class="modal-trigger"
                                             data-modal-id="createSample"
                                             title="{{ relative_template.sample.create_title }}"
@@ -668,7 +668,7 @@
 
                                             {{ relative_template.sample.create_label }}
 
-                                        </button> #}
+                                        </button>
 
                                         </div>
 
@@ -678,7 +678,7 @@
 
                                     {% set relativeToken = "samples" %}
 
-                                    {% include "common/relatives" with {"prefix":name_prefix} %}
+                                    {% include "common/relatives" with {"template":true } %}
 
                                 {# Relative List #}
 
@@ -691,7 +691,7 @@
 
                                             {% set relativeCounter = relativeCounter + 1 %}
 
-                                            {% include "common/relatives" with {"prefix":name_prefix} %}
+                                            {% include "common/relatives" %}
 
                                         {% endfor %}
 

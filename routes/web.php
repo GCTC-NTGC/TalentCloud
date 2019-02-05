@@ -137,10 +137,6 @@ Route::group(
                     ->middleware('can:update,applicant')
                     ->name('profile.skills.edit');
 
-                Route::post('profile/{applicant}/skills/update', 'SkillsController@updateAll')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.skills.update');
-
                 /* Profile - My References */
                 Route::get('profile/references', function () {
                     $applicant = Auth::user()->applicant;
@@ -152,7 +148,7 @@ Route::group(
                     ->middleware('can:update,applicant')
                     ->name('profile.references.edit');
 
-                Route::post('profile/{applicant}/references/update', 'ReferencesController@update')
+                Route::post('profile/{applicant}/references/update', 'ReferencesController@updateAll')
                     ->middleware('can:update,applicant')
                     ->name('profile.references.update');
 
@@ -166,10 +162,6 @@ Route::group(
                     ->middleware('can:view,applicant')
                     ->middleware('can:update,applicant')
                     ->name('profile.work_samples.edit');
-
-                Route::post('profile/{applicant}/portfolio/update', 'WorkSamplesController@update')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.work_samples.update');
             });
 
             /* Static - FAQ */
@@ -347,9 +339,25 @@ Route::middleware(['auth'])->group(function () : void {
         ->middleware('can:delete,skillDeclaration')
         ->name('skill_declarations.destroy');
 
+    Route::put('references/{reference}', 'ReferencesController@update')
+        ->middleware('can:update,reference')
+        ->name('references.update');
+
+    Route::post('references', 'ReferencesController@update')
+        ->middleware('can:create,App\Models\Reference')
+        ->name('references.create');
+
     Route::delete('references/{reference}', 'ReferencesController@destroy')
         ->middleware('can:delete,reference')
         ->name('references.destroy');
+
+    Route::put('work-samples/{workSample}', 'WorkSamplesController@update')
+        ->middleware('can:update,workSample')
+        ->name('work_samples.update');
+
+    Route::post('work-samples', 'WorkSamplesController@update')
+        ->middleware('can:create,App\Models\WorkSample')
+        ->name('work_samples.create');
 
     Route::delete('work-samples/{workSample}', 'WorkSamplesController@destroy')
         ->middleware('can:delete,workSample')
