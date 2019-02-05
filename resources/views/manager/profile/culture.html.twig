@@ -14,7 +14,7 @@
 
     <h4
         class="manager-profile__section-title">
-        Our Team Culture
+        {{culture_l10n.team_culture}}
     </h4>
 
     <fieldset
@@ -22,7 +22,7 @@
 
         <legend
             class="form__legend">
-            Primary Information
+            {{culture_l10n.primary_information}}
         </legend>
 
         <div
@@ -33,7 +33,7 @@
 
                 <div class="form__input-wrapper--float {% if team_culture.team_size != null %}active{% endif %}">
                     <label class="form__label" for="managerProfileTeamSize">
-                        Team Size
+                        {{culture_l10n.team_size}}
                     </label>
                     <input
                         class="form__input"
@@ -51,7 +51,7 @@
 
                 <div class="form__input-wrapper--float {% if team_culture.gc_directory_url != null %}active{% endif %}">
                     <label class="form__label" for="managerProfileGCLink">
-                        GC Directory Link
+                        {{culture_l10n.gc_directory_link}}
                     </label>
                     <input
                         class="form__input"
@@ -73,7 +73,7 @@
 
         <legend
             class="form__legend">
-            Our Operating Context
+            {{culture_l10n.operating_context}}
         </legend>
 
         <div
@@ -84,7 +84,7 @@
 
                 <div class="form__input-wrapper--float {% if team_culture.translate('en').operating_context != null %}active{% endif %}">
                     <label class="form__label" for="managerProfileOperatingContextEN">
-                        Answer (English)
+                        {{culture_l10n.answer_english}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -99,7 +99,7 @@
 
                 <div class="form__input-wrapper--float {% if team_culture.translate('fr').operating_context != null %}active{% endif %}">
                     <label class="form__label" for="managerProfileOperatingContextFR">
-                        Answer (Français)
+                        {{culture_l10n.answer_french}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -118,7 +118,7 @@
 
         <legend
             class="form__legend">
-            What We Value
+            {{culture_l10n.what_we_value}}
         </legend>
 
         <div
@@ -129,7 +129,7 @@
 
                 <div class="form__input-wrapper--float {% if team_culture.translate('en').what_we_value != null %}active{% endif %}">
                     <label class="form__label" for="managerProfileValuesEN">
-                        Answer (English)
+                        {{culture_l10n.answer_english}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -144,7 +144,7 @@
 
                 <div class="form__input-wrapper--float {% if team_culture.translate('fr').what_we_value != null %}active{% endif %}">
                     <label class="form__label" for="managerProfileValuesFR">
-                        Answer (Français)
+                        {{culture_l10n.answer_french}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -163,7 +163,7 @@
 
         <legend
             class="form__legend">
-            How We Work
+            {{culture_l10n.how_we_work}}
         </legend>
 
         <div
@@ -174,7 +174,7 @@
 
                 <div class="form__input-wrapper--float {% if team_culture.translate('en').how_we_work != null %}active{% endif %}">
                     <label class="form__label" for="managerProfileHowWorkEN">
-                        Answer (English)
+                        {{culture_l10n.answer_english}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -189,7 +189,7 @@
 
                 <div class="form__input-wrapper--float {% if team_culture.translate('fr').how_we_work != null %}active{% endif %}">
                     <label class="form__label" for="managerProfileHowWorkFR">
-                        Answer (Français)
+                        {{culture_l10n.answer_french}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -218,7 +218,7 @@
                 type="submit"
                 name="submit"
                 value="team_culture">
-                Save Our Team Culture
+                {{culture_l10n.save_team_culture}}
             </button>
         </div>
 
