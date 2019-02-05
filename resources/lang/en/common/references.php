@@ -21,5 +21,7 @@ return [
     "email_label" => "Reference's Email",
     "description_label" => "How You Worked Together",
     "action_01" => "Delete Reference",
-    "action_02" => "Save Reference"
+    "action_02"=> "Save Reference",
+    "action_02_working" => "Saving...",
+    "action_02_saved" => "Saved!",
 ];

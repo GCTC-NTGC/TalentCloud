@@ -122,7 +122,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             }
         }
 
-        $(document).on("click", ".accordion-trigger", function (e) {
+        $(document).on("click", ".accordion-trigger", function addAccordionTrigger(e) {
 
             accordionTrigger(this);
         });
@@ -242,7 +242,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                         $(object).remove();
                         $(modal).removeClass('working');
                     }).catch(function (error) {
-                        $(modal).removeClass('working');
+                        $(modal).removeClass("working");
+                        //TODO: deal with error better, localized text at least
+                        window.alert("Something went wrong deleting item!");
                         // Allow for retrying
                         modalDeleteTrigger(trigger, modal, object);
                     });
@@ -472,6 +474,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             //  functions can can if they're already saved
             if ($(object).hasClass('skill')) {
                 setSkillSaved(object, response);
+            } else if ($(object).hasClass('reference')) {
+                setReferenceSaved(object, response);
+            } else if ($(object).hasClass('sample')) {
+                setSampleSaved(object, response);
             }
 
             $(object).removeClass('edited');
@@ -495,10 +501,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         //Update ui for Skill object to reflect that it has been setItem
         function setSkillSaved(object, response) {
-            console.log(response);
             $(object).find('.accordion-title').text(response.data.skill.skill);
             $(object).find('.skill__description').text(response.data.skill.description);
             $(object).find('.skill__status--level').text(response.data.skill_status.status);
+        }
+
+        //Update ui for Reference object to reflect that it has been setItem
+        function setReferenceSaved(object, response) {
+            $(object).find('.accordion-title').text(response.data.name);
+        }
+
+        //Update ui for WorkSample object to reflect that it has been setItem
+        function setSampleSaved(object, response) {
+            $(object).find('.accordion-title').text(response.data.name);
         }
 
         function clearFormErrors(object) {
@@ -507,21 +522,21 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         function showFormErrors(object, response) {
             clearFormErrors(object);
-
-            //TODO: is this correct way of checking if empty?
-            if (response.data.errors) {
-                var list = document.createElement("ul");
-                $.each(response.data.errors, function (key, value) {
-                    //key is the name of the field associated with the error
-                    //value is a list of error messages associated with a single field
-                    $.each(value, function (i, errorMsg) {
-                        list.append(makeErrorElement(errorMsg));
-                    });
-                });
-                var div = document.createElement("div");
-                $(div).addClass("site-error").append(list);
-                $(object).find(".form-error").append(div);
+            var messages = response.data.errors;
+            if (!response.data.errors) {
+                messages = { 'server error': ['Something went wrong.'] }; //TODO: localize
             }
+            var list = document.createElement("ul");
+            $.each(messages, function (key, value) {
+                //key is the name of the field associated with the error
+                //value is a list of error messages associated with a single field
+                $.each(value, function (i, errorMsg) {
+                    list.append(makeErrorElement(errorMsg));
+                });
+            });
+            var div = document.createElement("div");
+            $(div).addClass("site-error").append(list);
+            $(object).find(".form-error").append(div);
         }
 
         // Return an <li> html element displaying the errorMsg
@@ -644,42 +659,45 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         // Repeater Handlers ===================================================
 
-        function addRepeater(trigger) {
-            // Get Parent
-            var parent = $(trigger).parents(".repeater-list");
+        function cloneRepeatingElement(trigger, parentSelector, listWrapperSelector, nullSelector, templateSelector) {
+            var prepend = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
 
+            var parent = $(trigger).parents(parentSelector);
             // Get List Wrapper
-            var wrapper = parent.find(".repeater-element-list");
-
+            var wrapper = parent.find(listWrapperSelector);
             // Set Null to Hidden
-            parent.find(".repeater-null").removeClass("active");
-
+            parent.find(nullSelector).removeClass("active");
             // Get Template
-            var template = parent.find(".repeater-element.template").clone();
-
+            var template = parent.find(templateSelector).clone();
             // Remove Template Class
             template.removeClass("template");
-
-            // un-disable form inputs
-            template.find(".template-disabled").removeAttr("disabled");
-
+            // un-disable form inputs (except in sub-templates)
+            template.find(":input").not(".template :input").removeAttr("disabled");
             //Set ids and form names to be unique
             individualizeFormIdsAndNames(template, wrapper);
-
-            // Prepend Clone to the Wrapper
-            wrapper.append(template);
+            // Add Clone to the Wrapper
+            if (prepend) {
+                wrapper.prepend(template);
+            } else {
+                wrapper.append(template);
+            }
 
             // Reactivate Required Fields
             requiredFields();
-
             // Reactivate Labels
             labelHandlers();
+            return template;
+        }
 
-            template.find(".remove-repeater-button").on("click", removeRepeater);
+        function addRepeater(trigger) {
+            // Get Parent
+            var clone = cloneRepeatingElement(trigger, ".repeater-list", ".repeater-element-list", ".repeater-null", ".repeater-element.template");
+
+            clone.find(".remove-repeater-button").on("click", removeRepeater);
 
             // Set save trigger on ajax forms
-            if (template.hasClass("ajax-form")) {
-                addSubmitTrigger(template);
+            if (clone.hasClass("ajax-form")) {
+                addSubmitTrigger(clone);
             }
         }
 
@@ -705,42 +723,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         // Add Profile Element
         function addProfileElement(trigger) {
 
-            // Get Parent
-            var parent = $(trigger).parents(".profile-list");
-
-            // Get List Wrapper
-            var wrapper = parent.find(".profile-element-list");
-
-            // Set Null to Hidden
-            parent.find(".profile-null").removeClass("active");
-
-            // Get Template
-            var template = parent.find(".profile-element.template").clone();
-
-            // Remove Template Class
-            template.removeClass("template");
-
-            // un-disable form inputs
-            template.find('template-disabled').removeAttr('disabled');
-
-            //Set ids and form names to be unique
-            individualizeFormIdsAndNames(template, wrapper);
-
-            // Prepend Clone to the Wrapper
-            wrapper.prepend(template);
-
-            // Reactivate Required Fields
-            requiredFields();
-
-            // Reactivate Labels
-            labelHandlers();
+            var clone = cloneRepeatingElement(trigger, ".profile-list", ".profile-element-list", ".profile-null", ".profile-element.template", true);
 
             // Reactivate Nested Relatives
             loadProfileRelatives();
 
             // Set save trigger on ajax forms
-            if (template.hasClass('ajax-form')) {
-                addSubmitTrigger(template);
+            if (clone.hasClass("ajax-form")) {
+                addSubmitTrigger(clone);
             }
         }
 
@@ -777,37 +767,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         // Add Profile Relative
         function addProfileRelative(trigger) {
 
-            // Get Parent
-            var parent = $(trigger).parents(".profile-relative-list");
-
-            // Get List Wrapper
-            var wrapper = parent.find(".profile-relative-list__wrapper");
-
-            // Set Null to Hidden
-            // parent.find(".profile-null").removeClass("active");
-
-            // Get Template
-            var template = parent.find(".profile-relative.template").clone();
-
-            // Remove Template Class
-            template.removeClass("template");
-
-            //Set ids and form names to be unique
-            individualizeFormIdsAndNames(template, wrapper);
-
-            // Append Clone to the Wrapper
-            wrapper.append(template);
-
-            // Reactivate Required Fields
-            requiredFields();
-
-            // Reactivate Labels
-            labelHandlers();
+            var clone = cloneRepeatingElement(trigger, ".profile-relative-list", ".profile-relative-list__wrapper", ".profile-null", ".profile-relative.template", false);
 
             // Reactivate Nested Relatives
             loadProfileRelativeDeletion();
 
-            var inputs = template.find(":focusable:not(button)");
+            var inputs = clone.find(":focusable:not(button)");
 
             inputs[0].focus();
         }
@@ -1008,8 +973,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             // Get Template
             var template = $(".manager-jobs__create-task.template").clone();
 
-            console.log(wrapper.find(".manager-jobs__create-task"));
-
             // Get New ID
             if (wrapper.find(".manager-jobs__create-task").length == 0) {
                 var newID = parseInt(template.attr("data-task-id")) + 1;
@@ -1110,8 +1073,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             // Get Template
             var template = parent.find(".manager-jobs__create-skill.template").clone();
 
-            console.log(wrapper.find(".manager-jobs__create-skill"));
-
             // Remove Template Class
             template.removeClass("template");
 
@@ -1177,8 +1138,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
             // Get Template
             var template = $(".manager-jobs__create-question.template").clone();
-
-            console.log(wrapper.find(".manager-jobs__create-question"));
 
             // Get New ID
             if (wrapper.find(".manager-jobs__create-question").length == 0) {

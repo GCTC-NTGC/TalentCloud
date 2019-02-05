@@ -39,7 +39,6 @@ class ApplicantProfileMenuComposer
                 break;
             case('profile.skills'):
             case('profile.skills.edit'):
-            case('profile.skills.update'):
                 $profileMenu['skills']['active'] = true;
                 break;
             case('profile.references'):
@@ -49,7 +48,6 @@ class ApplicantProfileMenuComposer
                 break;
             case('profile.portfolio'):
             case('profile.work_samples.edit'):
-            case('profile.work_samples.update'):
                 $profileMenu['portfolio']['active'] = true;
                 break;
             default:

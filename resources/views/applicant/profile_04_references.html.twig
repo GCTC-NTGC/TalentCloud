@@ -20,24 +20,12 @@
     <a id="skipLink"></a>
 
     {# Menu #}
+    {% include "applicant/profile/menu" %}
 
-        {% include "applicant/profile/menu" %}
-
-    {# Form containing all about_me editable elements #}
-
-        <form action="{{ form_submit_action }}" method="post">
-
-            {# Builds an input field for CSRF token validation #}
-            {{ csrf_field() }}
-
-            {# References #}
-
-                {% include "applicant/profile/references/index" %}
-
-        </form>
+    {# References #}
+    {% include "applicant/profile/references/index" %}
 
     {# Modals #}
-
-        {% include "common/modal" with {"page":profile} %}
+    {% include "common/modal" with {"page":profile} %}
 
 {% endblock %}
