@@ -29,6 +29,7 @@ Route::group(
             Route::get('jobs', 'JobController@index')->name('jobs.index');
 
             Route::get('jobs/{jobPoster}', 'JobController@show')
+                ->middleware('can:view,jobPoster')
                 ->name('jobs.show');
 
             /* Require being logged in */
@@ -250,6 +251,7 @@ Route::group(
                 /* View Job Poster */
                 Route::get('jobs/{jobPoster}', 'JobController@show')
                     ->where('jobPoster', '[0-9]+')
+                    ->middleware('can:view,jobPoster')
                     ->name('manager.jobs.show');
 
                 /* Create Job */
