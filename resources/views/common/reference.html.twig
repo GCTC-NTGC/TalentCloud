@@ -104,7 +104,6 @@
                                 <input
                                     class="form__input"
                                     id="{{ id_prefix }}referenceName"
-
                                     type="text"
                                     name="name"
                                     required
@@ -128,6 +127,7 @@
                                         {% if template %}disabled{% endif %}
                                         name="relationship_id"
                                         required>
+                                            <option value="" disabled selected>{{ reference_template.relationship_default_option }}</option>
                                         {% for relationship in relationships %}
                                             <option
                                                 value="{{ relationship.id }}"
