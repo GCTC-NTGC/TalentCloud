@@ -15,7 +15,6 @@ use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
  * Class Skill
  *
  * @property int $id
- * @property string $key
  * @property string $name
  * @property string $description
  * @property int $skill_type_id
@@ -39,7 +38,6 @@ class Skill extends BaseModel
      * @var $fillable []string
      * */
     protected $fillable = [
-        'key',
         'name',
         'description',
         'skill_type_id'
