@@ -59,8 +59,19 @@ return [
             'expect_from_employees' => "What I Expect from My Employees",
             'approach_learning_development' => "My Approach to Employee Learning and Developmment",
             'save_leadership_style' => "Save My Leadership Style"
-
-
+        ],
+        'environment' => [
+            'work_environment' => "Our Work Environment",
+            'things_to_know' => "Things to Know",
+            'answer_english' => "Answer (English)",
+            'answer_french' => "Answer (Français)",
+            'telework_frequency' => "How Often is Telework Allowed?",
+            'flexible_hour_frequency' => "How Often Are Flexible Hours Allowed?",
+            'environment_photos' => "Work Environment Photos",
+            'upload_image' => "Upload an Image",
+            'alt_text_english' => "Image Alt Text (English)",
+            'alt_text_french' => "Image Alt Text (Français)",
+            'save_work_environment' => "Save Our Work Environment"
         ]
 
     ]

@@ -34,7 +34,7 @@
 
                     {# Include Our Work Environment #}
 
-                        {% include "manager/profile/environment" %}
+                        {% include "manager/profile/environment" with {'environment_l10n': layout_l10n.environment } %}
 
                     {# Include Our Team Culture #}
 
