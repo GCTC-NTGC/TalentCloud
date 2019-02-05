@@ -39,6 +39,11 @@ return [
             "step" => "5",
             "title" => "Review my Application",
             "status" => "incomplete",
+        ],
+        "confirm" => [
+            "step" => "6",
+            "title" => "Confirm my Application",
+            "status" => "incomplete",
         ]
     ],
 ];

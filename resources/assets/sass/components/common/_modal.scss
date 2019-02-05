@@ -26,13 +26,13 @@
 }
 
 .modal {
-    background: $palette--white;
+    // background: $palette--white;
     border-radius: 5px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
     max-height: 80vh;
     opacity: 0;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     position: fixed;
     top: 50%;
     left: -100%;
@@ -46,7 +46,7 @@
     }
 
     .modal-heading {
-        background-color: transparentize($palette--black, .15);
+        background-color: rgb(47, 47, 51);
         background-image: url("/images/bg_lightning_texture.png");
         background-position: center;
         background-repeat: repeat;
@@ -77,6 +77,7 @@
     }
 
     .modal-content {
+        background: $palette--white;
 
         .modal-copy {
             padding: 2rem;

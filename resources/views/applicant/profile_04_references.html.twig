@@ -5,55 +5,27 @@
 
 ============================================================================= #}
 
-<!DOCTYPE html>
+{% extends "layouts/base" %}
 
-<html
-    lang="en">
+{% block title %}{{ profile.reference_section.reference_title }}{% endblock %}
 
-    <head>
-        <title>{{ profile.reference_section.reference_title }}</title>
+{% block body %}
 
-        {% include "common/head" %}
+	{% include "common/alert" %}
 
-        {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
+    {% include "common/goc" %}
 
-    {# /head #}
+    {% include "common/header" with {"header":profile} %}
 
-    {# body #}
+    <a id="skipLink"></a>
 
-        {% include "common/alert" %}
+    {# Menu #}
+    {% include "applicant/profile/menu" %}
 
-        {% include "common/goc" %}
+    {# References #}
+    {% include "applicant/profile/references/index" %}
 
-        {% include "common/header" with {"header":profile} %}
+    {# Modals #}
+    {% include "common/modal" with {"page":profile} %}
 
-        {# Menu #}
-
-            {% include "applicant/profile/menu" %}
-
-        {# Form containing all about_me editable elements #}
-        <form action="{{ form_submit_action }}" method="post">
-
-            {# Builds an input field for CSRF token validation #}
-            {{ csrf_field() }}
-
-            {# References #}
-            {% include "applicant/profile/references/index" %}
-
-        </form>
-
-        {# Modals #}
-
-            {% include "common/modal" with {"page":profile} %}
-
-        {# Footer #}
-
-            {% include "common/footer" %}
-
-        {# Scripts #}
-
-            {% include "common/scripts" %}
-
-    </body>
-
-</html>
+{% endblock %}

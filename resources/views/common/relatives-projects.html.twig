@@ -1,24 +1,29 @@
 {% if prefix %}
-    {% set name_prefix = prefix ~ "[projects][:template][:id]" %}
+    {% set name_prefix = prefix ~ "[projects][:id]" %}
     {% set id_prefix = name_prefix %}
 {% else %}
-    {% set name_prefix = "projects[:template][:id]" %}
+    {% set name_prefix = "projects[:id]" %}
     {% set id_prefix = name_prefix %}
 {% endif %}
 
 {% if relative %}
-    {% set name_prefix = name_prefix|replace({":template":"old", ":id":relative.id}) %}
-    {% set id_prefix = id_prefix|replace({":template":"old", ":id":relative.id}) %}
+    {% set name_prefix = name_prefix|replace({":id": relative.id}) %}
+    {% set id_prefix = id_prefix|replace({":id": relative.id}) %}
+{% elseif item_id %}
+    {% set name_prefix = name_prefix|replace({":id":item_id}) %}
+    {% set id_prefix = id_prefix|replace({":id":item_id}) %}
 {% endif %}
 
 <div
-    class="profile-relative project {% if relative == null %}template{% endif %}"
+    class="profile-relative project {% if template %}template{% endif %}"
     data-item-id="{{ relative ? relative.id : 0 }}">
 
     <button
         class="profile-relative__remove-trigger"
-        title="{{ relative_template.project.delete_title }}">
+        title="{{ relative_template.project.delete_title }}"
+        type="button">
         <i class="fas fa-times"></i>
+        <span class="invisible">{{ relative_template.project.delete_title }}</span>
     </button>
 
     <div
@@ -27,7 +32,7 @@
         <div
             class="box full">
 
-            <div class="form__input-wrapper--float {% if relative.name == true %}active{% endif %}">
+            <div class="form__input-wrapper--float {% if relative.name %}active{% endif %}">
                 <label class="form__label" for="{{ id_prefix }}projectName">
                     {{ relative_template.project.name_label }}
                 </label>
@@ -35,7 +40,9 @@
                     class="form__input"
                     id="{{ id_prefix }}projectName"
                     type="text"
+                    required
                     name="{{ name_prefix }}[name]"
+                    {% if template %}disabled{% endif %}
                     value="{{ relative.name }}" />
             </div>
 
@@ -57,7 +64,9 @@
                     class="form__input"
                     id="{{ id_prefix }}relativeStartDate"
                     type="date"
+                    required
                     name="{{ name_prefix }}[start_date]"
+                    {% if template %}disabled{% endif %}
                     value="{{ relative.start_date|date("Y-m-d") }}">
 
             </div>
@@ -79,7 +88,9 @@
                 <input
                     class="form__input"
                     id="{{ id_prefix }}relativeEndDate"
+                    {% if template %}disabled{% endif %}
                     type="date"
+                    required
                     name="{{ name_prefix }}[end_date]"
                     value="{{ relative.end_date|date("Y-m-d") }}">
 

@@ -38,7 +38,7 @@
                     target="_blank"
                     title="{{ job_post.manager.photo_title|replace({":name":manager.user.name}) }}"
                     style="background-image:url('{{ manager_profile_photo_url }}');">
-                    <span class="hidden">{{ job_post.manager.photo_title|replace({":name":manager.user.name}) }}</span>
+                    <span class="invisible">{{ job_post.manager.photo_title|replace({":name":manager.user.name}) }}</span>
                 </a>
             </div>
 

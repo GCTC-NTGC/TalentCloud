@@ -142,8 +142,6 @@ return [
         "preview" => [
             "title" => "Revoir ma candidature",
             "copy_01" => "Voici votre dernière occasion d'examiner votre candidature avant de la soumettre. Faites défiler vers le bas pour l'examiner. Si vous souhaitez changer quelque chose, le moment est venu.",
-            "copy_02" => "En signant votre nom ci-dessous, vous confirmez:",
-            "copy_03" => "J'ai examiné ce que j'ai écrit dans ma candidature.\nJe comprends que je fais partie d'une collectivité de gens qui se font confiance.\nJe jure que l’information que je fournis est vraie.",
             "integrity_name_label" => "Signez (tapez) votre nom complet",
             "integrity_date_label" => "La date d'aujourd'hui",
             "sidebar" => [
@@ -173,7 +171,23 @@ return [
             "section_04_title" => "Des compétences qu'il est bon à avoir",
         ],
 
-    /* Step 06 (Complete) */
+    /* Step 06 (Integrity Check) */
+
+        "integrity" => [
+            "title" => "Confirmation de candidature",
+            "confirmation_copy" => "En signant votre nom ci-dessous, vous confirmez:",
+            "confirmation_01" => "J'ai examiné ce que j'ai écrit dans ma candidature.",
+            "confirmation_02" => "Je comprends que je fais partie d'une collectivité de gens qui se font confiance.",
+            "confirmation_03" => "Je jure que l’information que je fournis est vraie.",
+            "signature_label" => "Signez (tapez) votre nom complet",
+            "date_label" => "La date d'aujourd'hui",
+            "review" => "Voici votre dernière occasion d'examiner votre candidature avant de la soumettre. Faites défiler vers le bas pour l'examiner. Si vous souhaitez changer quelque chose, le moment est venu.",
+            "save_label" => "Sauvegarder et quitter",
+            "submit_label" => "Soumettre"
+        ],
+
+    /* Step 07 (Complete) */
+
         "complete" => [
             "step_06_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 6",
             "title" => "Merci d'avoir postulé!",

@@ -60,12 +60,18 @@
     <div
         class="job-post__button-wrapper">
 
-        <a
-            class="job-post__apply-button"
+        {% if apply_button.href == null %}
+            <div class="job-post__apply-button--closed">
+                {{ apply_button.text }}
+            </div>
+        {% else %}
+            <a
+                class="job-post__apply-button"
                 href="{{ apply_button.href }}"
                 title="{{ apply_button.title }}">
                 {{ apply_button.text }}
-        </a>
+            </a>
+        {% endif %}
 
     </div>
 

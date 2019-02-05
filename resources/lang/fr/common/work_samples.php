@@ -9,6 +9,7 @@ return [
     *
     */
     "new_sample_label" => "Nouvel échantillon de travail",
+    "accordion_sr_helper" => "cliquez pour modifier",
     "name_label" => "Nom du projet",
     "type_label" => "Type du projet",
     "type_default_option" => "Sélectionner le type de fichier ...",
@@ -26,5 +27,7 @@ return [
     "skill_label" => "Sélectionner une compétence",
     "add_skill_label" => "Ajouter une compétence",
     "action_01" => "Supprimer cet exemple de travail",
-    "action_02" => "Enregistrer cet exemple de travail"
+    "action_02" => "Enregistrer cet exemple de travail",
+    'action_02_working' => 'Pensant...',
+    'action_02_saved' => 'Enregistré!',
 ];

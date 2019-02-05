@@ -1,0 +1,40 @@
+.manager-application-preview-actions {
+    padding: 2rem 0;
+
+    .box {
+
+        // States --------------------------------------------------------------
+
+            &:last-child {
+                text-align: right;
+            }
+
+        button {
+
+            .expand {
+                display: block;
+            }
+
+            .collapse {
+                display: none;
+            }
+
+            // States ----------------------------------------------------------
+
+                &.active {
+
+                    .expand {
+                        display: none;
+                    }
+
+                    .collapse {
+                        display: block;
+                    }
+
+                }
+
+        }
+
+    }
+
+}

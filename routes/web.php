@@ -29,6 +29,7 @@ Route::group(
             Route::get('jobs', 'JobController@index')->name('jobs.index');
 
             Route::get('jobs/{jobPoster}', 'JobController@show')
+                ->middleware('can:view,jobPoster')
                 ->name('jobs.show');
 
             /* Require being logged in */
@@ -66,6 +67,9 @@ Route::group(
 
                 /* Step 05 */
                 Route::get('jobs/{jobPoster}/application/step-05', 'ApplicationByJobController@preview')->name('job.application.edit.5');
+
+                /* Step 06 */
+                Route::get('jobs/{jobPoster}/application/step-06', 'ApplicationByJobController@confirm')->name('job.application.edit.6');
 
                 /* Step 06: Complete */
                 Route::get('jobs/{jobPoster}/application/complete', 'ApplicationByJobController@complete')->name('job.application.complete');
@@ -133,10 +137,6 @@ Route::group(
                     ->middleware('can:update,applicant')
                     ->name('profile.skills.edit');
 
-                Route::post('profile/{applicant}/skills/update', 'SkillsController@updateAll')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.skills.update');
-
                 /* Profile - My References */
                 Route::get('profile/references', function () {
                     $applicant = Auth::user()->applicant;
@@ -148,7 +148,7 @@ Route::group(
                     ->middleware('can:update,applicant')
                     ->name('profile.references.edit');
 
-                Route::post('profile/{applicant}/references/update', 'ReferencesController@update')
+                Route::post('profile/{applicant}/references/update', 'ReferencesController@updateAll')
                     ->middleware('can:update,applicant')
                     ->name('profile.references.update');
 
@@ -162,10 +162,6 @@ Route::group(
                     ->middleware('can:view,applicant')
                     ->middleware('can:update,applicant')
                     ->name('profile.work_samples.edit');
-
-                Route::post('profile/{applicant}/portfolio/update', 'WorkSamplesController@update')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.work_samples.update');
             });
 
             /* Static - FAQ */
@@ -216,8 +212,8 @@ Route::group(
                 return view('manager/home', [
                     "hero" => [
                         "hero_logo" => "/images/logo_tc_colour.png",
-                        "hero_logo_alt" => "The GC Talent Cloud Graphic Identifier.",
-                        "hero_tagline" => "People want meaningful work."
+                        "hero_logo_alt" => Lang::get('manager/home_hero')['logo_alt_text'],
+                        "hero_tagline" => Lang::get('manager/home_hero')['tagline']
                     ]
                 ]);
             })->name('manager.home');
@@ -255,6 +251,7 @@ Route::group(
                 /* View Job Poster */
                 Route::get('jobs/{jobPoster}', 'JobController@show')
                     ->where('jobPoster', '[0-9]+')
+                    ->middleware('can:view,jobPoster')
                     ->name('manager.jobs.show');
 
                 /* Create Job */
@@ -342,9 +339,25 @@ Route::middleware(['auth'])->group(function () : void {
         ->middleware('can:delete,skillDeclaration')
         ->name('skill_declarations.destroy');
 
+    Route::put('references/{reference}', 'ReferencesController@update')
+        ->middleware('can:update,reference')
+        ->name('references.update');
+
+    Route::post('references', 'ReferencesController@update')
+        ->middleware('can:create,App\Models\Reference')
+        ->name('references.create');
+
     Route::delete('references/{reference}', 'ReferencesController@destroy')
         ->middleware('can:delete,reference')
         ->name('references.destroy');
+
+    Route::put('work-samples/{workSample}', 'WorkSamplesController@update')
+        ->middleware('can:update,workSample')
+        ->name('work_samples.update');
+
+    Route::post('work-samples', 'WorkSamplesController@update')
+        ->middleware('can:create,App\Models\WorkSample')
+        ->name('work_samples.create');
 
     Route::delete('work-samples/{workSample}', 'WorkSamplesController@destroy')
         ->middleware('can:delete,workSample')

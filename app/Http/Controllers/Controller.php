@@ -16,15 +16,8 @@ class Controller extends BaseController
         if (isset($input['relatives'])) {
             $relatives = $input['relatives'];
             if (isset($relatives[$relativeType])) {
-                if (isset($relatives[$relativeType]['new'])) {
-                    foreach($relatives[$relativeType]['new'] as $relativeInput) {
-                        $relativeIds[] = $relativeInput['id'];
-                    }
-                }
-                if (isset($relatives[$relativeType]['old'])) {
-                    foreach($relatives[$relativeType]['old'] as $relativeInput) {
-                        $relativeIds[] = $relativeInput['id'];
-                    }
+                foreach ($relatives[$relativeType] as $relativeInput) {
+                    $relativeIds[] = $relativeInput['id'];
                 }
             }
         }
