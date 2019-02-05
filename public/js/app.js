@@ -127,6 +127,35 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     accordionTrigger(this);
                         });
 
+                        // Accordion Expansion -------------------------------------------------
+
+                        $("[data-button-type='expand-all']").on("click", function () {
+
+                                    if ($(this).hasClass("active")) {
+
+                                                $(this).removeClass("active");
+
+                                                var accordions = $(".accordion-trigger");
+
+                                                accordions.each(function () {
+                                                            $(this).attr("aria-expanded", "false");
+                                                            $(this).parent(".accordion").removeClass("active");
+                                                            $(this).parent(".accordion").find(".accordion-content").attr("aria-hidden", "true");
+                                                });
+                                    } else {
+
+                                                $(this).addClass("active");
+
+                                                var accordions = $(".accordion-trigger");
+
+                                                accordions.each(function () {
+                                                            $(this).attr("aria-expanded", "true");
+                                                            $(this).parent(".accordion").addClass("active");
+                                                            $(this).parent(".accordion").find(".accordion-content").attr("aria-hidden", "false");
+                                                });
+                                    }
+                        });
+
                         // Modal Handlers ======================================================
 
                         function openModal(trigger) {
