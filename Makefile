@@ -1,7 +1,5 @@
 # Makefile for Docker Nginx PHP Composer
 
-ROOT=/var/www
-
 build-db:
 	@docker exec talentcloud sh -c "php artisan migrate"
 	@docker exec talentcloud sh -c "php artisan db:seed"
@@ -48,10 +46,9 @@ phpmd:
 phpunit:
 	@docker exec talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
-#set-root-perms:
-#@docker exec talentcloud sh -c "chgrp -R www-data ${ROOT}/storage/logs ${ROOT}/bootstrap/cache"
-#docker exec talentcloud sh -c "chmod -R g+w ${ROOT}/storage/logs ${ROOT}/bootstrap/cache"
+test:
+	@docker exec talentcloud sh -c "vendor/bin/phpunit"
 
 test-all: code-sniff phpmd phpunit
 
-.PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data fresh-db gen-certs laravel-init logs phpmd phpunit test-all
+.PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data fresh-db gen-certs laravel-init logs phpmd phpunit test test-all
