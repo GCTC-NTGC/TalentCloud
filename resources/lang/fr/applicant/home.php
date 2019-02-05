@@ -10,6 +10,7 @@ return [
      *
      */
     "home_title" => "Nuage de talents | Candidat : Accueil",
+    "cred_title" => "",
     "about_card_copy_01" => "Les emplois sont réels.",
     "about_card_copy_02" => "La plateforme est expérimentale.",
     "about_cta" => "Le Nuage de talents est la plateforme d’embauche expérimentale du gouvernement du Canada, pour des emplois fondés sur certains projets. Au cours des prochains mois, le gouvernement publiera quelques avis d’emplois intéressants dans les domaines numérique, technologique, et de la conception de l’expérience utilisateur.",

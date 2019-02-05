@@ -163,7 +163,6 @@ return [
         'submisstion_signature' => 'signature',
         'submission_date'       => 'date',
         'skill_declaration_id'  => 'skill declaration',
-
         'name'                  => 'nom',
         'username'              => "nom d'utilisateur",
         'email'                 => 'adresse courriel',

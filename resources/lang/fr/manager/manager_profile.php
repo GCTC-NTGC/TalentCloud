@@ -9,6 +9,7 @@ return [
     *
     */
     //TODO: complete sections other than about_me and header
+
     'title' => 'Mon profil',
     'header' => [
         'twitter_title' => 'Voir le profile Twitter de :name.',
@@ -71,4 +72,12 @@ return [
             'always' => 'Presque toujours',
         ],
     ],
+    // Fake Data
+    "radio_levels" => [
+        "00" => "",
+        "01" => "",
+        "02" => "",
+        "03" => "",
+        "04" => ""
+    ]
 ];

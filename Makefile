@@ -47,7 +47,7 @@ phpunit:
 	@docker exec talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
 test:
-	@docker exec talentcloud sh -c "vendor/bin/phpunit"
+	@docker exec talentcloud sh -c "vendor/bin/phpunit --no-coverage"
 
 test-all: code-sniff phpmd phpunit
 

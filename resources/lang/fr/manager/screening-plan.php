@@ -25,10 +25,12 @@ return [
             "plan_title" => "Assessment Plan",
             "skill_description_label" => "Skill Description",
             "assessment_types_label" => "Assessment Types",
+            "skills_label" => "Skills to be Assessed",
             "assessment_selection_label" => "Select an Assessment",
             "assessment_removal_title" => "Removes the assessment above.",
             "assessment_removal_label" => "Remove",
-            "add_assessment_title" => "Add another assessment to this criteria."
+            "add_assessment_title" => "Add another assessment to this criteria.",
+            "narrative_assessment_label" => "Assessment of Narrative Provided via Talent Cloud"
         ]
     ],
     "delete_plan_modal" => [
