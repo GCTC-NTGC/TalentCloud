@@ -9,6 +9,7 @@ return [
     *
     */
     "new_reference_title" => "Nouvelle référence",
+    "accordion_sr_helper" => "cliquez pour modifier",
     "name_label" => "Nom de référence",
     "relationship_label" => "Votre relation avec votre référence",
     "relationship_default_option" => "Sélectionner votre relation ...",

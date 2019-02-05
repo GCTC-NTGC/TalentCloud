@@ -7,6 +7,9 @@ use App\Models\Lookup\LanguageRequirement;
 use App\Models\Manager;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
+use App\Models\Criteria;
+use App\Models\JobPosterKeyTask;
+use App\Models\JobPosterQuestion;
 
 $faker_fr = Faker\Factory::create('fr');
 
@@ -26,7 +29,9 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'security_clearance_id' => SecurityClearance::inRandomOrder()->first()->id,
         'language_requirement_id' => LanguageRequirement::inRandomOrder()->first()->id,
         'remote_work_allowed' => $faker->boolean(50),
-        'manager_id' => Manager::inRandomOrder()->first()->id,
+        'manager_id' => function () {
+            return factory(Manager::class)->create()->id;
+        },
         'published' => $faker->boolean(50),
         'city:en' => $faker->city,
         'title:en' => $faker->word,
@@ -49,6 +54,18 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
     ];
 });
 
+$factory->afterCreating(JobPoster::class, function ($jp) {
+    $jp->criteria()->saveMany(factory(Criteria::class, 5)->make([
+        'job_poster_id' => $jp->id
+    ]));
+    $jp->job_poster_key_tasks()->saveMany(factory(JobPosterKeyTask::class, 5)->make([
+        'job_poster_id' => $jp->id
+    ]));
+    $jp->job_poster_questions()->saveMany(factory(JobPosterQuestion::class, 2)->make([
+        'job_poster_id' => $jp->id
+    ]));
+});
+
 $factory->state(JobPoster::class, 'published', [
     'published' => true
 ]);
@@ -56,6 +73,17 @@ $factory->state(JobPoster::class, 'published', [
 $factory->state(JobPoster::class, 'unpublished', [
     'published' => false
 ]);
+
+$factory->state(
+    JobPoster::class,
+    'closed',
+    function (Faker\Generator $faker) {
+        return [
+            'published' => true,
+            'close_date_time' => $faker->dateTimeBetween('-2 days', '-1 days'),
+        ];
+    }
+);
 
 $factory->state(JobPoster::class, 'remote', [
     'remote_work_allowed' => true

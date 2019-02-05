@@ -10,7 +10,8 @@ return [
      * in the header.
      *
      */
-
+    "skip_title" => "Click to skip to the main content.",
+    "skip_label" => "Skip to Main Content",
     "logo_link" => "https://www.canada.ca/en.html",
     "logo_link_title" => "Visit Canada.ca.",
     "logo_alt" => "The Government of Canada Logo.",

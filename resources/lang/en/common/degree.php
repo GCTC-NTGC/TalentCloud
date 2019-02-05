@@ -11,6 +11,7 @@ return [
      */
 
      "new_degree_label" => "New Diploma/Degree",
+     "accordion_sr_helper" => "Click to edit...",
      "type_label" => "Type",
      "types" => [
          "diploma" => "Diploma",
