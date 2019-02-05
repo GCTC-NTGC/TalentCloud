@@ -50,6 +50,17 @@ return [
             'linkedin_url' => 'LinkedIn Profile URL',
             'save_about_me' => 'Save About Me'
 
+        ],
+        'leadership' => [
+            'my_leadership_style' => "My Leadership Style",
+            'my_style_values' => "My Leadership Style and Management Values",
+            'answer_english' => "Answer (English)",
+            'answer_french' => "Answer (Français)",
+            'expect_from_employees' => "What I Expect from My Employees",
+            'approach_learning_development' => "My Approach to Employee Learning and Developmment",
+            'save_leadership_style' => "Save My Leadership Style"
+
+
         ]
 
     ]
