@@ -71,7 +71,15 @@ return [
             'upload_image' => "Upload an Image",
             'alt_text_english' => "Image Alt Text (English)",
             'alt_text_french' => "Image Alt Text (Français)",
-            'save_work_environment' => "Save Our Work Environment"
+            'save_work_environment' => "Save Our Work Environment",
+            'frequency' => [
+                'never' => 'Never',
+                'rarely' => 'Occasionally',
+                'sometimes' => 'Sometimes',
+                'often' => 'Frequently',
+                'always' => 'Always',
+            ]
+
         ],
         'culture' => [
             'team_culture' => "Our Team Culture",
