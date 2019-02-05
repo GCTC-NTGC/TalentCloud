@@ -62,6 +62,15 @@ class ExperienceController extends Controller
 
         $degrees = $input['degrees'];
 
+        $validatedDegreeData = $request->validate([
+            'degrees.new.*.degree_type_id' => 'required',
+            'degrees.new.*.area_of_study'  => 'required',
+            'degrees.new.*.institution'    => 'required',
+            'degrees.new.*.thesis'         => 'nullable',
+            'degrees.new.*.start_date'     => 'required|date',
+            'degrees.new.*.end_date'       => 'required|date',
+        ]);
+
         //Delete old degrees that weren't resubmitted
         //Note: this must be done before adding new degrees, so we don't delete
         // them right after adding them
@@ -113,6 +122,14 @@ class ExperienceController extends Controller
 
         $courses = $input['courses'];
 
+        $validatedCourseData = $request->validate([
+            'courses.new.*.name'             => 'required',
+            'courses.new.*.institution'      => 'required',
+            'courses.new.*.course_status_id' => 'required',
+            'courses.new.*.start_date'       => 'required|date',
+            'courses.new.*.end_date'         => 'required|date',
+        ]);
+
         //Delete old courses that weren't resubmitted
         //Note: this must be done before adding new ones, so we don't delete
         // them right after adding them
@@ -161,6 +178,14 @@ class ExperienceController extends Controller
         }
 
         $work_experiences = $input['work_experiences'] ;
+
+        $validatedWorkData = $request->validate([
+            'work_experiences.new.*.role'        => 'required',
+            'work_experiences.new.*.company'     => 'required',
+            'work_experiences.new.*.description' => 'required',
+            'work_experiences.new.*.start_date'  => 'required|date',
+            'work_experiences.new.*.end_date'    => 'required|date',
+        ]);
 
         //Delete old work_experiences that weren't resubmitted
         //Note: this must be done before adding new ones, so we don't delete

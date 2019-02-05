@@ -419,6 +419,15 @@ class ApplicationByJobController extends Controller
 
         $degrees = $request->input('degrees');
 
+        $validatedDegreeData = $request->validate([
+            'degrees.new.*.degree_type_id' => 'required',
+            'degrees.new.*.area_of_study'  => 'required',
+            'degrees.new.*.institution'    => 'required',
+            'degrees.new.*.thesis'         => 'nullable',
+            'degrees.new.*.start_date'     => 'required|date',
+            'degrees.new.*.end_date'       => 'required|date',
+        ]);
+
         //Save new degrees
         if (isset($degrees['new'])) {
             foreach($degrees['new'] as $degreeInput) {
@@ -459,6 +468,14 @@ class ApplicationByJobController extends Controller
 
         $courses = $request->input('courses');
 
+        $validatedCourseData = $request->validate([
+            'courses.new.*.name'             => 'required',
+            'courses.new.*.institution'      => 'required',
+            'courses.new.*.course_status_id' => 'required',
+            'courses.new.*.start_date'       => 'required|date',
+            'courses.new.*.end_date'         => 'required|date',
+        ]);
+
         //Save new courses
         if (isset($courses['new'])) {
             foreach($courses['new'] as $courseInput) {
@@ -496,6 +513,14 @@ class ApplicationByJobController extends Controller
         }
 
         $work_experiences = $request->input('work_experiences');
+
+        $validatedWorkData = $request->validate([
+            'work_experiences.new.*.role'        => 'required',
+            'work_experiences.new.*.company'     => 'required',
+            'work_experiences.new.*.description' => 'required',
+            'work_experiences.new.*.start_date'  => 'required|date',
+            'work_experiences.new.*.end_date'    => 'required|date',
+        ]);
 
         //Save new work_experiences
         if (isset($work_experiences['new'])) {
