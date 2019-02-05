@@ -313,35 +313,6 @@ class JobController extends Controller
      */
     public function store(Request $request, JobPoster $jobPoster = null)
     {
-        // Job Poster validation rules
-        $validatedData = $request->validate([
-            'title.en' => 'required',
-            'title.fr' => 'required',
-            'salary_min' => 'required|integer|digits_between:4,6',
-            'salary_max' => 'required|integer|digits_between:4,6',
-            'classification' => 'required|alpha_dash|between:4,5',
-            'noc' => 'required|integer|digits:4',
-            'security_clearance' => 'required|integer|between:1,3',
-            'language_requirement' => 'required|integer|between:1,4',
-            'city' => 'required',
-            'province' => 'required|integer|between:1,13',
-            'open_date' => 'required|date|after:tomorrow',
-            'open_time' => 'required',
-            'close_date' => 'required|date|after:open_date',
-            'close_time' => 'required',
-            'start_date_time' => 'required|date|after:close_date',
-            'term_qty' => 'required|digits_between:1,2',
-            'department' => 'required|integer|between:1,10',
-            'branch.en' => 'required',
-            'branch.fr' => 'required',
-            'divison.en' => 'required',
-            'divison.fr' => 'required',
-            'impact.en' => 'required',
-            'impact.fr' => 'required',
-            'education.en' => 'required',
-            'education.fr' => 'required',
-        ]);
-
         // Don't allow edits for published Job Posters
         // Also check auth while we're at it
         if (isset($jobPoster)) {
@@ -357,6 +328,37 @@ class JobController extends Controller
 
         $job->manager_id = $request->user()->manager->id;
         $job->published = ($input['submit'] == 'publish');
+
+        if ($job->published) {
+            // Job Poster validation rules
+            $validatedData = $request->validate([
+                'title.en' => 'required',
+                'title.fr' => 'required',
+                'salary_min' => 'required|integer|digits_between:4,6',
+                'salary_max' => 'required|integer|digits_between:4,6',
+                'classification' => 'required|alpha_dash|between:4,5',
+                'noc' => 'required|integer|digits:4',
+                'security_clearance' => 'required|integer|between:1,3',
+                'language_requirement' => 'required|integer|between:1,4',
+                'city' => 'required',
+                'province' => 'required|integer|between:1,13',
+                'open_date' => 'required|date|after:tomorrow',
+                'open_time' => 'required',
+                'close_date' => 'required|date|after:open_date',
+                'close_time' => 'required',
+                'start_date_time' => 'required|date|after:close_date',
+                'term_qty' => 'required|digits_between:1,2',
+                'department' => 'required|integer|between:1,10',
+                'branch.en' => 'required',
+                'branch.fr' => 'required',
+                'divison.en' => 'required',
+                'divison.fr' => 'required',
+                'impact.en' => 'required',
+                'impact.fr' => 'required',
+                'education.en' => 'required',
+                'education.fr' => 'required',
+            ]);
+        }
 
         $this->fillAndSaveJobPoster($input, $job);
 
