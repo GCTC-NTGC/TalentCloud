@@ -5,38 +5,22 @@
 
 ============================================================================= #}
 
-<!DOCTYPE html>
+{% extends "layouts/base" %}
 
-<html
-    lang="en">
+{% block title %}{{ menu.profile_title }}{% endblock %}
 
-    <head>
-        <title>{{ menu.profile_title }}</title>
+{% block body %}
 
-        {% include "common/head" %}
+	{% include "common/alert" %}
 
-        {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
+    {% include "common/goc" %}
 
-    {# /head #}
+    {% include "common/header" with {"header":profile_l10n} %}
 
-    {# body #}
+    <a id="skipLink"></a>
 
-        {% include "common/alert" %}
+    {% include "manager/profile/header" with {'header_l10n': profile_l10n.profile_header} %}
 
-        {% include "common/goc" %}
+    {% include "manager/profile/layout" with {'layout_l10n': profile_l10n.layout} %}
 
-        {% include "common/header" with {"header":profile_l10n} %}
-
-        {% include "manager/profile/header" with {'header_l10n': profile_l10n.profile_header} %}
-
-        {% include "manager/profile/layout" with {'layout_l10n': profile_l10n.layout} %}
-
-        {% include "common/footer" %}
-
-        {# Scripts #}
-
-        {% include "common/scripts" %}
-
-    </body>
-
-</html>
+{% endblock %}

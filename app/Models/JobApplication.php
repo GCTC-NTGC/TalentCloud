@@ -162,6 +162,14 @@ class JobApplication extends BaseModel {
                 }
                 break;
             case 'preview':
+                if ($validator->basicsComplete($this) &&
+                    $validator->experienceComplete($this) &&
+                    $validator->essentialSkillsComplete($this) &&
+                    $validator->assetSkillsComplete($this)) {
+                    $status = 'complete';
+                }
+                break;
+            case 'confirm':
                 if ($validator->affirmationComplete($this)) {
                     $status = 'complete';
                 }

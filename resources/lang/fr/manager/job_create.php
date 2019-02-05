@@ -3,86 +3,86 @@
 return [
     /*
     * --------------------------------------------------------------------------
-    * Manager Portal Job Create Localization
+    * FR  Manager Portal Job Create Localization
     * --------------------------------------------------------------------------
     * Route: /manager/jobs/create
     * Controller: Controllers\JobController.php
     * View: views/manager/job_create.html.twig
     */
 
-    'title' => 'Create a Job Poster',
+    'title' => 'Créer une affiche d\'emploi',
     'layout' => [
         'sidebar' => [
-            'poster_sections' => 'Poster Sections',
-            'job_details' => 'Job Details',
-            'key_tasks' => 'Key Tasks',
-            'skills_n_competencies' => 'Skills & Competencies',
-            'questions' => 'Questions for the Applicant'
+            'poster_sections' => 'Sections de l\'affiche',
+            'job_details' => 'Détails du travail',
+            'key_tasks' => 'Tâches principales',
+            'skills_n_competencies' => 'Compétences',
+            'questions' => 'Questions pour le candidat'
         ],
         'form' => [
-            'job_details' => 'Job Details',
-            'job_title' => 'Job Title',
-            'job_title_english' => 'Job Title (English)',
-            'job_title_french' => 'Job Title (Français)',
-            'salary_range' => 'Salary Range',
-            'minimum_value' => 'Minimum Value',
-            'maximum_value' => 'Maximum Value',
+            'job_details' => 'Détails du travail',
+            'job_title' => 'Titre d\'emploi',
+            'job_title_english' => 'Titre d\'emploi (English)',
+            'job_title_french' => 'Titre d\'emploi (Français)',
+            'salary_range' => 'Échelle salariale',
+            'minimum_value' => 'Valeur minimum',
+            'maximum_value' => 'Valeur maximum',
             'classifications' => 'Classifications',
-            'occupational_group' => 'Occupational Group',
-            'noc_code' => 'NOC Code',
-            'security_clearance' => 'Security Clearance',
-            'language_requirement' => 'Language Requirement',
-            'location' => 'Location',
-            'remote_work_allowed' => 'Remote Work Allowed',
-            'city' => 'City',
+            'occupational_group' => 'Catégorie professionnelle',
+            'noc_code' => 'Code de Classification nationale des professions (CNP)',
+            'security_clearance' => 'Habilitation de sécurité',
+            'language_requirement' => 'Exigence linguistique',
+            'location' => 'Lieu',
+            'remote_work_allowed' => 'Travail à distance autorisé',
+            'city' => 'Ville',
             'province' => 'Province',
-            'timetable' => 'Timetable',
-            'accepting_applications_from' => 'Accepting Applications From',
-            'opening_time' => 'Opening Time, UTC',
-            'accepting_applications_to' => 'Accepting Applications To',
-            'closing_time' => 'Closing Time, UTC',
-            'position_start' => 'Position Start Date',
-            'position_duration' => 'Position Duration (Months)',
-            'departmental_information' => 'Departmental Information',
-            'department' => 'Department',
-            'branch_english' => 'Branch (English)',
-            'branch_french' => 'Branch (Français)',
+            'timetable' => 'Horaire',
+            'accepting_applications_from' => 'Accepter les applications à partir de',
+            'opening_time' => 'Heure d\'ouverture, UTC',
+            'accepting_applications_to' => 'Accepter les applications jusqu\'au',
+            'closing_time' => 'Heure de clôture, UTC',
+            'position_start' => 'Date de début du poste',
+            'position_duration' => 'Durée du poste (mois)',
+            'departmental_information' => 'Information ministériel',
+            'department' => 'Département',
+            'branch_english' => 'Branche (English)',
+            'branch_french' => 'Branche (Français)',
             'division_english' => 'Division (English)',
             'division_french' => 'Division (Français)',
             'impact' => 'Impact',
             'impact_english' => 'Impact (English)',
             'impact_french' => 'Impact (Français)',
-            'key_tasks' => 'Key Tasks',
+            'key_tasks' => 'Tâches principales',
             'task' => [
-                'task_information' => 'Task Information',
-                'task_name_english' => 'Task Name (English)',
-                'task_name_french' => 'Task Name (Français)'
+                'task_information' => 'Information pour la tâche',
+                'task_name_english' => 'Nom de la tâche (English)',
+                'task_name_french' => 'Nom de la tâche (Français)'
             ],
-            'add_a_task' => 'Add a Task',
-            'skills_n_competencies' => 'Skills & Competencies',
-            'education_or_equivalency' => 'Education or Equivalency',
+            'add_a_task' => 'Ajouter une tâche',
+            'skills_n_competencies' => 'Compétences',
+            'education_or_equivalency' => 'Education ou équivalence',
             'education_english' => 'Education (English)',
             'education_french' => 'Education (Français)',
-            'criteria_heading' => ':criteria_type Criteria (:skill_type Skills)',
+            'criteria_heading' => 'Critère :criteria_type (Compétences :skill_type)',
             'criterion' => [
-                'skill_information' => 'Skill Information',
-                'select_skill' => 'Select Skill',
-                'select_level_required' => 'Select Level Required',
-                'skill_context_english' => 'Optional Skill Context (English)',
-                'skill_context_french' => 'Optional Skill Context (Français)'
+                'skill_information' => 'Information de la compétences',
+                'select_skill' => 'Choisir la compétences',
+                'select_level_required' => 'Choisir le niveau requis',
+                'skill_context_english' => 'Contexte facultatif des compétences (English)',
+                'skill_context_french' => 'Contexte facultatif des compétences (Français)'
             ],
-            'add_a_skill' => 'Add an :criteria_type :skill_type Skill',
-            'questions_for_applicant' => 'Questions for the Applicant',
+            'add_a_skill' => 'Ajouter un compétences :criteria_type :skill_type',
+            'questions_for_applicant' => 'Questions pour le candidat',
             'question' => [
-                'question_information' => 'Question Information',
+                'question_information' => 'Information pour la question',
                 'question_english' => 'Question (English)',
                 'description_english' => 'Description (English)',
                 'question_french' => 'Question (Français)',
                 'description_french' => 'Description (Français)'
             ],
-            'add_a_question' => 'Add a Question',
-            'save_and_preview' => 'Save and Preview',
-            'publish' => 'Publish'
+            'add_a_question' => 'Ajouter une question',
+            'save_and_preview' => 'Enregistrer et visualiser',
+            'publish' => 'Publier'
 
         ]
     ],
