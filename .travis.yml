@@ -13,9 +13,9 @@ services:
 addons:
   postgresql: "9.6"
 
-#env:
-#  global:
-#  - PGPORT=5433
+env:
+  global:
+  - PGPORT=5433
 
 cache:
   directories:
