@@ -1,57 +1,55 @@
 version: '2'
 services:
-    # Web Server / Nginx
+    # Web server
     nginx:
-        image: nginx:1.13.9-alpine
+        image: nginx:1.14-alpine
         container_name: nginx
-        working_dir: /var/www
-        volumes_from:
-            - talentcloud
         restart: always
+        working_dir: /var/www
         depends_on:
             - talentcloud
             - postgres
+        volumes_from:
+            - talentcloud
         ports:
             - "80:80"
             - "443:443"
-    # Application / PHP-FPM
+    # Application
     talentcloud:
-        build: .
-        # image: gctcntgc/talentcloud
+        image: gctcntgc/talentcloud:latest
         container_name: talentcloud
-        working_dir: /var/www
         restart: always
         volumes:
             - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
             - "./etc/ssl:/etc/ssl"
             - "./:/var/www"
-        environment:
-            - "DB_PORT=5432"
-            - "DB_HOST=postgres"
         ports:
             - "9000:9000"
-    # Database / Postgres
+    # Database
     postgres:
         image: postgres:9.6-alpine
         container_name: postgres
         restart: always
         volumes:
             - "pgdata:/var/lib/postgresql/data"
-        environment:
-            - "POSTGRES_DB=talentcloud"
-            - "POSTGRES_USER=talentcloud"
-            - "POSTGRES_PASSWORD=talentcloud"
         ports:
-            - "5434-5432"
-    # Adminer
+            - "5432:5432"
+            - "5433:5432"
+    # Database admin
     adminer:
         image: adminer
         container_name: adminer
         restart: always
-        links:
-            - postgres
         ports:
             - "8080:8080"
+    # Dependencies
+    composer:
+        image: composer:latest
+        container_name: composer
+        command: install --ignore-platform-reqs
+        volumes:
+            - ./:/app
+# Data
 volumes:
     pgdata:
