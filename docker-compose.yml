@@ -24,15 +24,22 @@ services:
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
             - "./etc/ssl:/etc/ssl"
             - "./:/var/www"
+        environment:
+            - "DB_PORT=5432"
+            - "DB_HOST=postgres"
         ports:
             - "9000:9000"
-    # Database
+    # Database / Postgres
     postgres:
-        image: postgres:10-alpine
+        image: postgres:9.6-alpine
         container_name: postgres
         restart: always
         volumes:
             - "pgdata:/var/lib/postgresql/data"
+        environment:
+            - "POSTGRES_DB=talentcloud"
+            - "POSTGRES_USER=talentcloud"
+            - "POSTGRES_PASSWORD=talentcloud"
         ports:
             - "5433:5433"
             - "5432:5432"
