@@ -19,9 +19,9 @@ cache:
 
 before_install:
   - cp .env.example .env
-  - sudo service postgresql restart
+  # sudo service postgresql restart
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-  - psql -c 'create database talentcloud;' -U postgres
+  # psql -c 'create database talentcloud;' -U postgres
 
 install:
   - make docker-start
