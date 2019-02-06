@@ -18,7 +18,10 @@ code-sniff:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -d memory_limit=512M -v --standard=PSR2 --extensions=php app/
 
 composer-install:
-	@docker run --rm -v $(shell pwd):/app composer install
+	@docker run --rm --interactive --tty \
+    	--volume $(PWD):/app \
+    	--volume $COMPOSER_HOME:/tmp \
+    	composer install
 
 docker-start:
 	@docker-compose up -d
@@ -48,7 +51,7 @@ logs:
 
 phpmd:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpmd ./app \
-	html codesize,naming,unusedcode --reportfile report/phpmd.html --ignore-violations-on-exit
+		html codesize,naming,unusedcode --reportfile report/phpmd.html --ignore-violations-on-exit
 
 phpunit:
 	@docker exec talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
