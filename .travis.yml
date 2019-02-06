@@ -8,6 +8,10 @@ dist: trusty
 
 services:
   - docker
+  - postgresql
+
+addons:
+  postgresql: "9.6"
 
 cache:
   directories:
@@ -22,6 +26,7 @@ install:
   - make docker-start
   - make gen-certs
   - make laravel-init
+  - sudo service postgresql start
   - make build-db
 
 script:
