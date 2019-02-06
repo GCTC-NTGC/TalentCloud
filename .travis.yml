@@ -10,18 +10,20 @@ services:
   - docker
   - postgresql
 
-env:
-  global:
-  - PGPORT=5433
-
 addons:
   postgresql: "9.6"
-  chrome: stable
-  #chrome: beta
+
+#env:
+#  global:
+#  - PGPORT=5433
 
 cache:
   directories:
     - vendor
+
+before_install:
+  - sudo service postgresql stop
+  - while lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
 
 install:
   - cp .env.example .env
