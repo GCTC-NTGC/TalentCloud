@@ -8,14 +8,7 @@ dist: trusty
 
 services:
   - docker
-  - postgresql
 
-addons:
-  postgresql: "10"
-  apt:
-    packages:
-      - postgresql-10
-      - postgresql-client-10
 env:
   global:
     - PGPORT=5433
@@ -26,7 +19,8 @@ cache:
 
 before_install:
   - cp .env.example .env
-  # sudo service postgresql restart
+  - sudo service postgresql stop
+  - while lsof -Pi :5433 -sTCP:LISTEN -t; do sleep 1; done
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   # psql -c 'create database talentcloud;' -U postgres
 
