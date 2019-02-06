@@ -13,20 +13,24 @@ services:
 addons:
   postgresql: "9.6"
 
+env:
+  global:
+    - PGPORT=5433
+
 cache:
   directories:
     - vendor
 
 before_install:
-  - sudo service postgresql stop
+  - cp .env.example .env
+  - sudo service postgresql restart
+  - psql -c 'create database talentcloud;' -U postgres
+  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
 
 install:
-  - cp .env.example .env
-  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - make docker-start
   - make gen-certs
   - make laravel-init
-  - sudo service postgresql start
   - make build-db
 
 script:
