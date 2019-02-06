@@ -1,21 +1,14 @@
-language: php
-
-php:
-  - 7.2
+language: generic
 
 sudo: required
 dist: trusty
 
 services:
   - docker
-  - postgresql
 
-addons:
-  postgresql: "9.6"
-
-cache:
-  directories:
-    - vendor
+#cache:
+#  directories:
+#    - vendor
 
 install:
   - cp .env.example .env
@@ -24,7 +17,7 @@ install:
   - make gen-certs
   - make laravel-init
   - make build-db
-  
+
 script:
   - ci_env=`bash <(curl -s https://codecov.io/env)`
   - docker run $ci_env gctcntgc/talentcloud sh
