@@ -8,22 +8,19 @@ dist: trusty
 
 services:
   - docker
-  - postgresql
+  # postgresql
 
-addons:
-  postgresql: "9.6"
+#addons:
+#  postgresql: "9.6"
 
-env:
-  global:
-  - PGPORT=5433
+#env:
+#  global:
+#  - PGHOST=127.0.0.1
+#  - PGPORT=5433
 
 cache:
   directories:
     - vendor
-
-before_install:
-  - sudo service postgresql stop
-  - while lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
 
 install:
   - cp .env.example .env
@@ -33,15 +30,10 @@ install:
   - make laravel-init
   - make build-db
 
-#before_script:
-  # google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
-  # php artisan serve &
-
 script:
   - ci_env=`bash <(curl -s https://codecov.io/env)`
   - docker run $ci_env talentcloud_talentcloud sh
   - make phpunit
-  # php artisan dusk
 
 after_script:
   - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
