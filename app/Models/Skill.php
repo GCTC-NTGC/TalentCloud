@@ -28,14 +28,13 @@ class Skill extends BaseModel
     use HasTranslations;
 
     /**
-     * @var $casts []string
+     * @var $casts string[]
      * */
     protected $casts = [
-        'name' => 'string',
         'skill_type_id' => 'int'
     ];
     /**
-     * @var $fillable []string
+     * @var $fillable string[]
      * */
     protected $fillable = [
         'name',
@@ -43,7 +42,7 @@ class Skill extends BaseModel
         'skill_type_id'
     ];
     /**
-     * @var $translatable []string
+     * @var $translatable string[]
      * */
     public $translatable = [
         'name',
