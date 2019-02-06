@@ -1,4 +1,6 @@
-language: ruby
+language: php
+php:
+  - 7.2
 
 sudo: required
 dist: trusty
@@ -6,13 +8,13 @@ dist: trusty
 services:
   - docker
 
-cache:
-  directories:
-    - vendor
+#cache:
+#  directories:
+#    - vendor
 
 install:
   - cp .env.example .env
-  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist --no-interaction
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --ignore-platform-reqs --prefer-dist --no-interaction
   - make docker-start
   - make gen-certs
   - make laravel-init
