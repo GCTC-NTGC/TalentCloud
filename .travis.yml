@@ -9,17 +9,16 @@ dist: trusty
 services:
   - docker
 
-env:
-  global:
-    - PGPORT=5433
-
 cache:
   directories:
     - vendor
 
 before_install:
-  - sudo service postgresql stop
-  - while lsof -Pi :5433 -sTCP:LISTEN -t; do sleep 1; done
+  # sudo service postgresql stop
+  # while lsof -Pi :5433 -sTCP:LISTEN -t; do sleep 1; done
+
+  # Stop the postgres instance travis sets up automatically
+  - sudo /etc/init.d/postgresql stop
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   # psql -c 'create database talentcloud;' -U postgres
 
