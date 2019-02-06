@@ -6,6 +6,7 @@
         "php": "7.2.*",
         "backpack/crud": "^3.5",
         "barryvdh/laravel-debugbar": "^3.2.1",
+        "codezero/laravel-unique-translation": "^1.1",
         "dimsav/laravel-translatable": "^9.0",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
