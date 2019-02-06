@@ -12,7 +12,7 @@ services:
 
 install:
   - cp .env.example .env
-  - travis_retry composer install --ignore-platform-reqs --no-interaction --prefer-dist --no-suggest
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist --no-interaction
   - make docker-start
   - make gen-certs
   - make laravel-init
