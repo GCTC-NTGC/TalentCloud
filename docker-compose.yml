@@ -31,12 +31,10 @@ services:
         image: postgres:9.6-alpine
         container_name: postgres
         restart: always
-        end
         volumes:
             - "pgdata:/var/lib/postgresql/data"
         ports:
-            - "5432"
-
+            - "5432:5432"
     # Database admin
     adminer:
         image: adminer
