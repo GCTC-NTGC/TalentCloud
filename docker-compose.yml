@@ -28,14 +28,14 @@ services:
             - "9000:9000"
     # Database
     postgres:
-        image: postgres:9.6-alpine
+        image: postgres:10-alpine
         container_name: postgres
         restart: always
         volumes:
             - "pgdata:/var/lib/postgresql/data"
         ports:
-            - '5432:5432'
-            - '5433:5433'
+            - "5433:5433"
+            - "5432:5432"
     # Database admin
     adminer:
         image: adminer
