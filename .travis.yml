@@ -8,24 +8,17 @@ dist: trusty
 
 services:
   - docker
-  - postgresql
-
-addons:
-  postgresql: "9.6"
 
 cache:
   directories:
     - vendor
 
 before_install:
-  # Shut down postgres because it blocks our db container's port map to :5432
   - sudo service postgresql stop
-  # Wait for it to stop
-  - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 2; done
 
 install:
   - cp .env.example .env
-  # travis_retry composer install --no-interaction --prefer-dist --no-suggest
+  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - make docker-start
   - make gen-certs
   - make laravel-init
@@ -33,7 +26,8 @@ install:
 
 script:
   - ci_env=`bash <(curl -s https://codecov.io/env)`
-  - docker run $ci_env talentcloud_talentcloud sh
+  - docker run $ci_env gctcntgc/talentcloud sh
+  # docker run $ci_env talentcloud_talentcloud sh
   - make phpunit
 
 after_script:
@@ -44,7 +38,8 @@ after_script:
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
+  - docker tag gctcntgc/talentcloud gctcntgc/talentcloud:travis
+  # docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
 
 # Slack notifications / do not send emails
