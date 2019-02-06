@@ -10,10 +10,6 @@ dist: trusty
 services:
   - docker
 
-env:
-  global:
-    - "PGPORT=5433"
-
 cache:
   directories:
     - vendor
