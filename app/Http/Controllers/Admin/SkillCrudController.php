@@ -3,18 +3,38 @@
 namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Illuminate\Support\Facades\App;
+use App\Models\Lookup\SkillType;
 // Validation
 use App\Http\Requests\SkillCrudRequest as StoreRequest;
 use App\Http\Requests\SkillCrudRequest as UpdateRequest;
 
 class SkillCrudController extends CrudController
 {
-    public function setup()
+    /**
+     * Prepare the admin interface by setting the associated
+     * model, setting the route, and adding custom columns/fields.
+     *
+     * @return void
+     */
+    public function setup() : void
     {
-        $this->crud->setModel("App\Models\Skill");
-        $this->crud->setRoute("admin/skill");
-        $this->crud->setEntityNameStrings('skill', 'skills');
+        $locale = 'en';
+        if (null !== $this->request->input('locale')) {
+            $locale = $this->request->input('locale');
+        }
+        App::setLocale($locale);
 
+        // Eloquent model to associate with this collection
+        // of views and controller actions.
+        $this->crud->setModel("App\Models\Skill");
+        // Custom backpack route.
+        $this->crud->setRoute("admin/skill");
+        // Custom strings to display within the backpack UI,
+        // things like Create Skill, Delete Skills, etc.
+        $this->crud->setEntityNameStrings('Skill', 'Skills');
+
+        // Add custom columns to the Skill index view
         $this->crud->addColumn([
             'name' => 'name',
             'type' => 'text',
@@ -31,10 +51,11 @@ class SkillCrudController extends CrudController
             'label' => 'Type'
         ]);
 
+        // Add custom fields to the create/update views
         $this->crud->addField([
             'name' => 'name',
             'type' => 'text',
-            'label' => "Name"
+            'label' => "Name",
         ]);
         $this->crud->addField([
             'name' => 'description',
@@ -42,20 +63,34 @@ class SkillCrudController extends CrudController
             'label' => "Description"
         ]);
         $this->crud->addField([
+            'name' => 'skill_type_id',
             'label' => "Type",
-            'type' => 'select',
-            'name' => 'skill_type_id', // the db column for the foreign key
-            'entity' => 'skill_type', // the method that defines the relationship in your Model
-            'attribute' => 'name', // foreign key attribute that is shown to user
+            'type' => 'select_from_array',
+            'options' => SkillType::all()->pluck('name', 'id')->toArray(),
+            'allow_null' => false,
         ]);
     }
 
-    public function store(StoreRequest $request)
+    /**
+     * Action for creating a new Skill in the database.
+     *
+     * @param SkillCrudRequest $request Incoming form request.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(StoreRequest $request) // phpcs:ignore
     {
         return parent::storeCrud();
     }
 
-    public function update(UpdateRequest $request)
+    /**
+     * Action for creating a new Skill in the database.
+     *
+     * @param SkillCrudRequest $request Incoming form request.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(UpdateRequest $request) // phpcs:ignore
     {
         return parent::updateCrud();
     }
