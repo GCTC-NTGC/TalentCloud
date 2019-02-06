@@ -6,9 +6,9 @@ dist: trusty
 services:
   - docker
 
-#cache:
-#  directories:
-#    - vendor
+cache:
+  directories:
+    - vendor
 
 install:
   - cp .env.example .env
