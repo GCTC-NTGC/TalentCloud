@@ -22,6 +22,10 @@ cache:
   directories:
     - vendor
 
+before_install:
+  - sudo service postgresql stop
+  - while lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
+
 install:
   - cp .env.example .env
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
