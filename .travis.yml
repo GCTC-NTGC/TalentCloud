@@ -29,7 +29,7 @@ before_install:
 
 install:
   - cp .env.example .env
-  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
+  # travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - make docker-start
   - make gen-certs
   - make laravel-init
