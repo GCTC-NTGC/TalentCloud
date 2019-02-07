@@ -54,5 +54,6 @@ export default class JobPoster extends Component {
 }
 
 if (document.getElementById("react-jobs")) {
+    console.log("I MADE IT JOB");
     ReactDOM.render(<JobPoster />, document.getElementById("react-jobs"));
 }

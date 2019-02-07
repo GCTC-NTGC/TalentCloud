@@ -1752,6 +1752,68 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/classnames/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/classnames/index.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+  Copyright (c) 2017 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg) && arg.length) {
+				var inner = classNames.apply(null, arg);
+				if (inner) {
+					classes.push(inner);
+				}
+			} else if (argType === 'object') {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if ( true && module.exports) {
+		classNames.default = classNames;
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return classNames;
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+}());
+
+
+/***/ }),
+
 /***/ "./node_modules/es6-promise/dist/es6-promise.js":
 /*!******************************************************!*\
   !*** ./node_modules/es6-promise/dist/es6-promise.js ***!
@@ -27529,6 +27591,7 @@ function (_Component) {
 
 
 if (document.getElementById("react-jobs")) {
+  console.log("I MADE IT JOB");
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(JobPoster, null), document.getElementById("react-jobs"));
 }
 
@@ -27538,10 +27601,213 @@ if (document.getElementById("react-jobs")) {
 /*!*****************************************************!*\
   !*** ./resources/assets/js/components/Reference.js ***!
   \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\dev\\TalentCloud\\resources\\assets\\js\\components\\Reference.js: Unexpected token, expected \",\" (39:17)\n\n\u001b[0m \u001b[90m 37 | \u001b[39m        \u001b[36mreturn\u001b[39m (\u001b[0m\n\u001b[0m \u001b[90m 38 | \u001b[39m            {\u001b[90m/* Accordion Trigger */\u001b[39m}\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 39 | \u001b[39m            \u001b[33m<\u001b[39m\u001b[33mdiv\u001b[39m className\u001b[33m=\u001b[39m{triggerClass}\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 40 | \u001b[39m                \u001b[33m<\u001b[39m\u001b[33mbutton\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 41 | \u001b[39m                    aria\u001b[33m-\u001b[39mexpanded\u001b[33m=\u001b[39m{ \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mstate\u001b[33m.\u001b[39mactive }\u001b[0m\n\u001b[0m \u001b[90m 42 | \u001b[39m                    className\u001b[33m=\u001b[39m\u001b[32m\"accordion-trigger\"\u001b[39m\u001b[0m\n    at Object.raise (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:3831:17)\n    at Object.unexpected (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:5143:16)\n    at Object.expect (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:5135:28)\n    at Object.parseParenAndDistinguishExpression (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:6419:14)\n    at Object.parseExprAtom (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:6215:21)\n    at Object.parseExprAtom (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:3552:20)\n    at Object.parseExprSubscripts (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:5862:23)\n    at Object.parseMaybeUnary (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:5842:21)\n    at Object.parseExprOps (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:5729:23)\n    at Object.parseMaybeConditional (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:5702:23)\n    at Object.parseMaybeAssign (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:5647:21)\n    at Object.parseExpression (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:5595:23)\n    at Object.parseReturnStatement (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:7614:28)\n    at Object.parseStatementContent (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:7292:21)\n    at Object.parseStatement (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:7248:17)\n    at Object.parseBlockOrModuleBlockBody (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:7812:25)\n    at Object.parseBlockBody (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:7799:10)\n    at Object.parseBlock (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:7788:10)\n    at Object.parseFunctionBody (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:6876:24)\n    at Object.parseFunctionBodyAndFinish (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:6860:10)\n    at Object.parseMethod (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:6804:10)\n    at Object.pushClassMethod (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:8202:30)\n    at Object.parseClassMemberWithIsStatic (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:8127:12)\n    at Object.parseClassMember (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:8069:10)\n    at withTopicForbiddingContext (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:8024:14)\n    at Object.withTopicForbiddingContext (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:7150:14)\n    at Object.parseClassBody (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:8001:10)\n    at Object.parseClass (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:7975:10)\n    at Object.parseExportDefaultExpression (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:8396:19)\n    at Object.parseExport (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:8301:31)\n    at Object.parseStatementContent (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:7344:27)\n    at Object.parseStatement (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:7248:17)\n    at Object.parseBlockOrModuleBlockBody (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:7812:25)\n    at Object.parseBlockBody (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:7799:10)\n    at Object.parseTopLevel (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:7181:10)\n    at Object.parse (C:\\dev\\TalentCloud\\node_modules\\@babel\\parser\\lib\\index.js:8660:17)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Reference; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
+
+function _typeof(obj) {
+  if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
+    _typeof = function _typeof(obj) {
+      return _typeof2(obj);
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof2(obj);
+    };
+  }
+
+  return _typeof(obj);
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+
+
+
+
+var Reference =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Reference, _Component);
+
+  function Reference(props) {
+    var _this;
+
+    _classCallCheck(this, Reference);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Reference).call(this, props));
+    _this.state = {
+      active: false,
+      name: props.initName
+    };
+    _this.handleTriggerClick = _this.handleTriggerClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleNameChange = _this.handleNameChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(Reference, [{
+    key: "handleTriggerClick",
+    value: function handleTriggerClick() {
+      this.setState(function (state) {
+        return {
+          active: !state.active
+        };
+      });
+    }
+  }, {
+    key: "handleNameChange",
+    value: function handleNameChange(event) {
+      this.setState({
+        name: event.target.value
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var triggerClass = classnames__WEBPACK_IMPORTED_MODULE_2___default()('profile-element', 'accordion', 'reference', 'modal-target-object', {
+        active: this.state.active
+      });
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: triggerClass
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        "aria-expanded": this.state.active,
+        className: "accordion-trigger",
+        tabIndex: "0",
+        type: "button",
+        onClick: this.handleTriggerClick
+      }, this.props.locale === "profile" && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "accordion-status"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-check"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-exclamation-circle"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "accordion-title"
+      }, this.state.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        "aria-hidden": this.state.active,
+        className: "accordion-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        action: this.props.url,
+        method: "POST"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form__wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-error box"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "flex-grid"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box med-1of2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('form__input- wrapper--float', {
+          'active': this.state.name
+        })
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "form__label",
+        htmlFor: "referenceName" + this.props.id
+      }, "Name Label"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form__input",
+        id: "referenceName" + this.props.id,
+        type: "text",
+        name: "name",
+        required: true,
+        value: this.state.name,
+        onChange: this.handleNameChange
+      }))))))));
+    }
+  }]);
+
+  return Reference;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+if (document.getElementById("react-reference")) {
+  console.log("I MADE IT REF");
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Reference, {
+    key: "1",
+    id: "1",
+    url: "/",
+    initName: "Joe Bob",
+    locale: "profile"
+  }), document.getElementById("react-reference"));
+}
 
 /***/ }),
 

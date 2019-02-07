@@ -1,21 +1,16 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-// import classNames from "classnames";
+import classNames from "classnames";
 
 export default class Reference extends Component {
-    /**
-     * Expected props:
-     *  name (reference.name or new_reference_title)
-     *  url
-     *  key
-     * @param {*} props
-     */
     constructor(props) {
         super(props);
         this.state = {
             active: false,
             name: props.initName
         };
+        this.handleTriggerClick = this.handleTriggerClick.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
     }
 
     handleTriggerClick() {
@@ -35,12 +30,11 @@ export default class Reference extends Component {
             { active: this.state.active }
         );
         return (
-            {/* Accordion Trigger */}
             <div className={triggerClass}>
                 <button
                     aria-expanded={ this.state.active }
                     className="accordion-trigger"
-                    tabindex = "0"
+                    tabIndex = "0"
                     type = "button"
                     onClick={this.handleTriggerClick}
                     >
@@ -55,7 +49,6 @@ export default class Reference extends Component {
                     <span className="accordion-title">{this.state.name }</span>
                 </button>
 
-                {/* Accordion Content */ }
                 <div
                     aria-hidden={ this.state.active }
                     className="accordion-content" >
@@ -69,14 +62,14 @@ export default class Reference extends Component {
                                 <div className="box med-1of2">
                                     <div className={ classNames(
                                             'form__input- wrapper--float',
-                                            { 'active': this.state.name }
-                                        ); }>
-                                        <label className="form__label" for={ "referenceName" + this.props.key }>
-                                            { reference_template.name_label }
+                                            {'active': this.state.name}
+                                        )}>
+                                        <label className="form__label" htmlFor={ "referenceName" + this.props.id }>
+                                            Name Label
                                         </label>
                                         <input
                                             className="form__input"
-                                            id={"referenceName" + this.props.key}
+                                            id={"referenceName" + this.props.id}
                                             type="text"
                                             name="name"
                                             required
@@ -96,5 +89,9 @@ export default class Reference extends Component {
 }
 
 if (document.getElementById("react-reference")) {
-    ReactDOM.render(<Reference key="1" url="/" initName="Joe Bob" locale="profile" />, document.getElementById("react-reference"));
+    console.log("I MADE IT REF");
+    ReactDOM.render(
+        <Reference key="1" id="1" url="/" initName="Joe Bob" locale="profile" />,
+        document.getElementById("react-reference")
+    );
 }
