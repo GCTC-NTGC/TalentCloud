@@ -16,6 +16,7 @@ services:
             - "443:443"
     # Application
     talentcloud:
+        # build: .
         image: gctcntgc/talentcloud:latest
         container_name: talentcloud
         restart: always

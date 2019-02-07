@@ -1,4 +1,4 @@
-# Global
+## Global
 .*.swp
 .DS_Store
 applet
@@ -19,12 +19,13 @@ tmtags
 Thumbs.db
 Desktop.ini
 npm-debug.log
-.tags
+.tags*
 *~
 
 ## TalentCloud
 /etc/ssl/
-!/etc/ssl/.gitkeep
+/etc/ssl/certs/
+!/etc/ssl/certs/.gitkeep
 /report
 
 ## Laravel
@@ -45,7 +46,6 @@ yarn-error.log
 
 ## Composer
 /vendor
-composer.lock
 
 ## node.js
 /node_modules
