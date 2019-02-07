@@ -1,4 +1,4 @@
-# Global
+## Global
 .*.swp
 .DS_Store
 applet
@@ -28,13 +28,10 @@ npm-debug.log
 /report
 
 ## Laravel
-/node_modules
 /public/hot
 /public/storage
 /storage/*.key
-/vendor
 /.idea
-/.vscode
 /.vagrant
 Homestead.json
 Homestead.yaml
@@ -45,7 +42,7 @@ yarn-error.log
 
 ## Composer
 /vendor
-composer.lock
+# composer.lock
 
 ## node.js
 /node_modules
