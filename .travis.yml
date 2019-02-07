@@ -8,12 +8,6 @@ dist: trusty
 
 services:
   - docker
-  - postgresql
-
-addons:
-  postgresql: "9.6"
-  chrome: stable
-  #chrome: beta
 
 cache:
   directories:
@@ -27,15 +21,10 @@ install:
   - make laravel-init
   - make build-db
 
-#before_script:
-  # google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
-  # php artisan serve &
-
 script:
   - ci_env=`bash <(curl -s https://codecov.io/env)`
-  - docker run $ci_env talentcloud_talentcloud sh
+  - docker run $ci_env gctcntgc/talentcloud sh
   - make phpunit
-  # php artisan dusk
 
 after_script:
   - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
@@ -45,7 +34,7 @@ after_script:
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
+  - docker tag gctcntgc/talentcloud gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
 
 # Slack notifications / do not send emails
