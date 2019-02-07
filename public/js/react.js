@@ -27591,7 +27591,6 @@ function (_Component) {
 
 
 if (document.getElementById("react-jobs")) {
-  console.log("I MADE IT JOB");
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(JobPoster, null), document.getElementById("react-jobs"));
 }
 
@@ -27725,11 +27724,12 @@ function (_Component) {
   _createClass(Reference, [{
     key: "handleTriggerClick",
     value: function handleTriggerClick() {
+      console.log('click');
       this.setState(function (state) {
         return {
           active: !state.active
         };
-      });
+      }); // this.setState({active: !this.state.active});
     }
   }, {
     key: "handleNameChange",
@@ -27739,9 +27739,15 @@ function (_Component) {
       });
     }
   }, {
+    key: "componentDidCatch",
+    value: function componentDidCatch(error, info) {
+      console.log(error);
+      console.log(info);
+    }
+  }, {
     key: "render",
     value: function render() {
-      var triggerClass = classnames__WEBPACK_IMPORTED_MODULE_2___default()('profile-element', 'accordion', 'reference', 'modal-target-object', {
+      var triggerClass = classnames__WEBPACK_IMPORTED_MODULE_2___default()("profile-element", "accordion", "reference", "modal-target-object", {
         active: this.state.active
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -27752,7 +27758,7 @@ function (_Component) {
         tabIndex: "0",
         type: "button",
         onClick: this.handleTriggerClick
-      }, this.props.locale === "profile" && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.props.showStatus && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "accordion-status"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-check"
@@ -27760,8 +27766,8 @@ function (_Component) {
         className: "fas fa-exclamation-circle"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "accordion-title"
-      }, this.state.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "aria-hidden": this.state.active,
+      }, this.props.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        "aria-hidden": !this.state.active,
         className: "accordion-content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         action: this.props.url,
@@ -27775,13 +27781,13 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "box med-1of2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('form__input- wrapper--float', {
-          'active': this.state.name
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()("form__input- wrapper--float", {
+          active: this.state.name
         })
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "form__label",
         htmlFor: "referenceName" + this.props.id
-      }, "Name Label"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, this.props.lang.name_label), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "form__input",
         id: "referenceName" + this.props.id,
         type: "text",
@@ -27799,7 +27805,6 @@ function (_Component) {
 
 
 if (document.getElementById("react-reference")) {
-  console.log("I MADE IT REF");
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Reference, {
     key: "1",
     id: "1",
@@ -27807,6 +27812,236 @@ if (document.getElementById("react-reference")) {
     initName: "Joe Bob",
     locale: "profile"
   }), document.getElementById("react-reference"));
+}
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/ReferenceList.js":
+/*!*********************************************************!*\
+  !*** ./resources/assets/js/components/ReferenceList.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ReferenceList; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Reference__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Reference */ "./resources/assets/js/components/Reference.js");
+function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
+
+function _typeof(obj) {
+  if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
+    _typeof = function _typeof(obj) {
+      return _typeof2(obj);
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof2(obj);
+    };
+  }
+
+  return _typeof(obj);
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+
+
+
+
+
+var ReferenceList =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(ReferenceList, _Component);
+
+  function ReferenceList(props) {
+    var _this;
+
+    _classCallCheck(this, ReferenceList);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ReferenceList).call(this, props));
+    _this.state = {
+      references: props.initialRefs
+    };
+    _this.handleAddItemClick = _this.handleAddItemClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(ReferenceList, [{
+    key: "componentDidCatch",
+    value: function componentDidCatch(error, info) {
+      console.log(error);
+      console.log(info);
+    }
+  }, {
+    key: "nextId",
+    value: function nextId(objs) {
+      var ids = objs.map(function (x) {
+        return x.id;
+      });
+
+      var maxReducer = function maxReducer(a, b) {
+        return Math.max(a, b);
+      };
+
+      return ids.reduce(maxReducer, 0) + 1;
+    }
+  }, {
+    key: "createEmptyReference",
+    value: function createEmptyReference(id) {
+      return {
+        id: id,
+        name: "",
+        email: "",
+        relationship_id: null,
+        description: ""
+      };
+    }
+  }, {
+    key: "handleAddItemClick",
+    value: function handleAddItemClick() {
+      var refs = this.state.references.slice();
+      var nextId = this.nextId(this.state.references);
+      refs.push(this.createEmptyReference(nextId));
+      this.setState({
+        references: refs
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      if (this.state.references.length > 0) {
+        var content = this.state.references.map(function (reference) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Reference__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            key: reference.id,
+            id: reference.id,
+            url: "/",
+            title: reference.name ? reference.name : _this2.props.langReference.new_reference_title,
+            lang: _this2.props.langReference,
+            initName: reference.name,
+            showStatus: false
+          });
+        });
+      } else {
+        var content = this.state.references.map(function (reference) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "profile-null active"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, _this2.props.lang.reference_section.null_copy));
+        });
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "profile-list"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "profile-list__header flex-grid middle"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box med-1of2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.props.lang.reference_section.section_title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box med-1of2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "profile-list__add-element-trigger",
+        type: "button",
+        onClick: this.handleAddItemClick
+      }, this.props.lang.reference_section.add_button_label)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box full"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.lang.reference_section.section_description))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "profile-element-list"
+      }, content));
+    }
+  }]);
+
+  return ReferenceList;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+if (document.getElementById("react-reference-list")) {
+  var container = document.getElementById("react-reference-list"); // const props = Object.assign({}, domContainer.dataset);
+
+  var lang = JSON.parse(container.getAttribute("data-lang"));
+  var langReference = JSON.parse(container.getAttribute("data-reference-lang"));
+  var initialRefs = JSON.parse(container.getAttribute("data-references"));
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ReferenceList, {
+    lang: lang,
+    langReference: langReference,
+    initialRefs: initialRefs
+  }), container);
 }
 
 /***/ }),
@@ -27834,6 +28069,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/assets/js/bootstrap.js");
 __webpack_require__(/*! ./components/JobPoster */ "./resources/assets/js/components/JobPoster.js");
 
 __webpack_require__(/*! ./components/Reference */ "./resources/assets/js/components/Reference.js");
+
+__webpack_require__(/*! ./components/ReferenceList */ "./resources/assets/js/components/ReferenceList.js");
 
 /***/ }),
 

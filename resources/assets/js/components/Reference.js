@@ -14,74 +14,97 @@ export default class Reference extends Component {
     }
 
     handleTriggerClick() {
-        this.setState((state) => ({active: !state.active}) );
+        console.log('click');
+        this.setState(state => ({
+            active: !state.active
+        }));
+        // this.setState({active: !this.state.active});
     }
 
     handleNameChange(event) {
-        this.setState({ name: event.target.value });
+        this.setState({
+            name: event.target.value
+        });
+    }
+
+    componentDidCatch(error, info) {
+        console.log(error);
+        console.log(info);
     }
 
     render() {
         var triggerClass = classNames(
-            'profile-element',
-            'accordion',
-            'reference',
-            'modal-target-object',
+            "profile-element",
+            "accordion",
+            "reference",
+            "modal-target-object",
             { active: this.state.active }
         );
         return (
             <div className={triggerClass}>
                 <button
-                    aria-expanded={ this.state.active }
+                    aria-expanded={this.state.active}
                     className="accordion-trigger"
-                    tabIndex = "0"
-                    type = "button"
+                    tabIndex="0"
+                    type="button"
                     onClick={this.handleTriggerClick}
-                    >
-
-                    { this.props.locale === "profile" &&
-                        <div
-                            className="accordion-status">
-                            <i className="fas fa-check"></i>
-                            <i className="fas fa-exclamation-circle"></i>
+                >
+                    {this.props.showStatus && (
+                        <div className="accordion-status">
+                            <i className="fas fa-check" />
+                            <i className="fas fa-exclamation-circle" />
                         </div>
-                    }
-                    <span className="accordion-title">{this.state.name }</span>
+                    )}
+                    <span className="accordion-title">
+                        {this.props.title}
+                    </span>
                 </button>
 
                 <div
-                    aria-hidden={ this.state.active }
-                    className="accordion-content" >
-
-                    <form
-                        action={ this.props.url }
-                        method="POST">
+                    aria-hidden={!this.state.active}
+                    className="accordion-content"
+                >
+                    <form action={this.props.url} method="POST">
                         <div className="form__wrapper">
-                            <div className="form-error box"></div>
+                            <div className="form-error box" />
                             <div className="flex-grid">
                                 <div className="box med-1of2">
-                                    <div className={ classNames(
-                                            'form__input- wrapper--float',
-                                            {'active': this.state.name}
-                                        )}>
-                                        <label className="form__label" htmlFor={ "referenceName" + this.props.id }>
-                                            Name Label
+                                    <div
+                                        className={classNames(
+                                            "form__input- wrapper--float",
+                                            {
+                                                active: this.state.name
+                                            }
+                                        )}
+                                    >
+                                        <label
+                                            className="form__label"
+                                            htmlFor={
+                                                "referenceName" +
+                                                this.props.id
+                                            }
+                                        >
+                                            {this.props.lang.name_label}
                                         </label>
                                         <input
                                             className="form__input"
-                                            id={"referenceName" + this.props.id}
+                                            id={
+                                                "referenceName" +
+                                                this.props.id
+                                            }
                                             type="text"
                                             name="name"
                                             required
-                                            value={ this.state.name }
-                                            onChange={this.handleNameChange}
-                                            />
+                                            value={this.state.name}
+                                            onChange={
+                                                this.handleNameChange
+                                            }
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         );
@@ -89,9 +112,14 @@ export default class Reference extends Component {
 }
 
 if (document.getElementById("react-reference")) {
-    console.log("I MADE IT REF");
     ReactDOM.render(
-        <Reference key="1" id="1" url="/" initName="Joe Bob" locale="profile" />,
+        <Reference
+            key="1"
+            id="1"
+            url="/"
+            initName="Joe Bob"
+            locale="profile"
+        />,
         document.getElementById("react-reference")
     );
 }
