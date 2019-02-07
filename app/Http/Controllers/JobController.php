@@ -236,9 +236,9 @@ class JobController extends Controller
             }
         )->get()
             ->mapWithKeys(
-                function ($skill) use ($skillLangs) {
+                function ($skill) {
                     return [
-                        $skill->id => $skillLangs['skills'][$skill->name]['name']
+                        $skill->id => $skill->name
                     ];
                 }
             )
@@ -251,9 +251,9 @@ class JobController extends Controller
             }
         )->get()
             ->mapWithKeys(
-                function ($skill) use ($skillLangs) {
+                function ($skill) {
                     return [
-                        $skill->id => $skillLangs['skills'][$skill->name]['name']
+                        $skill->id => $skill->name
                     ];
                 }
             )

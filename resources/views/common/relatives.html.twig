@@ -41,7 +41,7 @@
                             <option
                                 value="{{ skillDeclaration.id }}"
                                 {% if relative.id == skillDeclaration.id %}selected="selected"{% endif %}
-                                >{{ skill_template.skills[skillDeclaration.skill.name].name }}</option>
+                                >{{ skillDeclaration.skill.name }}</option>
                         {% endfor %}
                     {% endif %}
 
