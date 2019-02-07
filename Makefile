@@ -1,7 +1,5 @@
 # Makefile for Docker Nginx PHP Composer
 
-ROOT=/var/www
-
 build-db:
 	@docker exec talentcloud sh -c "php artisan migrate"
 	@docker exec talentcloud sh -c "php artisan db:seed"
@@ -9,8 +7,10 @@ build-db:
 clean:
 	@rm -Rf vendor/
 	@rm -Rf composer.lock
-	@rm -Rf etc/ssl/*
 	@rm -Rf report/*
+
+clean-certs:
+	@rm -Rf etc/ssl/certs/*
 
 code-sniff:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_errors_on_exit 1
@@ -18,7 +18,10 @@ code-sniff:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -d memory_limit=512M -v --standard=PSR2 --extensions=php app/
 
 composer-install:
-	@docker run --rm -v $(shell pwd):/app composer install
+	@docker run --rm --interactive --tty \
+    	--volume $(PWD):/app \
+    	--volume $COMPOSER_HOME:/tmp \
+    	composer install
 
 docker-start:
 	@docker-compose up -d
@@ -33,7 +36,12 @@ fresh-db:
 	@docker exec talentcloud sh -c "php artisan migrate:fresh"
 
 gen-certs:
-	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
+	@docker run --rm -v $(shell pwd)/etc/ssl/certs:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
+
+laravel-clear:
+	@php artisan route:clear
+	@php artisan cache:clear
+	@php artisan config:clear
 
 laravel-init:
 	@docker exec talentcloud sh -c "php artisan key:generate"
@@ -43,15 +51,14 @@ logs:
 
 phpmd:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpmd ./app \
-	html codesize,naming,unusedcode --reportfile report/phpmd.html --ignore-violations-on-exit
+		html codesize,naming,unusedcode --reportfile report/phpmd.html --ignore-violations-on-exit
 
 phpunit:
 	@docker exec talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
-#set-root-perms:
-#@docker exec talentcloud sh -c "chgrp -R www-data ${ROOT}/storage/logs ${ROOT}/bootstrap/cache"
-#docker exec talentcloud sh -c "chmod -R g+w ${ROOT}/storage/logs ${ROOT}/bootstrap/cache"
+tests:
+	@docker exec talentcloud sh -c "vendor/bin/phpunit --no-coverage"
 
 test-all: code-sniff phpmd phpunit
 
-.PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data fresh-db gen-certs laravel-init logs phpmd phpunit test-all
+.PHONY: build-db clean clean-certs code-sniff composer-install docker-start docker-stop fake-data fresh-db gen-certs laravel-clear laravel-init logs phpmd phpunit tests test-all
