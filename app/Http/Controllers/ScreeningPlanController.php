@@ -44,7 +44,7 @@ class ScreeningPlanController extends Controller
         return view(
             'manager/screening-plan',
             [
-                'screening' => Lang::get('manager/screening-plan'),
+                'screening_l10n' => Lang::get('manager/screening-plan'),
                 'job' => $jobPoster,
                 'skill_template' => Lang::get('common/skills'),
                 'assessment_types' => AssessmentType::all(),
