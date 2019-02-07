@@ -5,42 +5,25 @@
 
 ============================================================================= #}
 
-<!DOCTYPE html>
+{% extends "layouts/base" %}
 
-<html
-    lang="en">
+{% block title %}{{ home.home_title }}{% endblock %}
 
-    <head>
-        <title>{{ home.home_title }}</title>
+{% block body %}
 
-        {% include "common/head" %}
+	{% include "common/alert" %}
 
-        {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
+    {% include "common/goc" %}
 
-    {# /head #}
+    {% include "common/home/hero" %}
 
-    {# body #}
+    <a id="skipLink"></a>
 
-        {% include "common/alert" %}
+    {% include "applicant/home/about" %}
 
-        {% include "common/goc" %}
+    {% include "applicant/home/how" %}
 
-        {% include "common/home/hero" %}
+    {% include "applicant/home/team" %}
 
-        {% include "applicant/home/about" %}
+{% endblock %}
 
-        {% include "applicant/home/how" %}
-
-        {% include "applicant/home/team" %}
-
-        {# Login Modals #}
-
-        {% include "common/footer" %}
-
-        {# Scripts #}
-
-        {% include "common/scripts" %}
-
-    </body>
-
-</html>

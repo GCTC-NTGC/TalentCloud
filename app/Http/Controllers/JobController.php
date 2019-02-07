@@ -84,9 +84,10 @@ class JobController extends Controller
         }
 
         return view('manager/job_index', [
-            "manager_job_index" => [
-                "title" => "My Job Posts"
-            ],
+            /*Localization Strings*/
+            'jobs_l10n' => Lang::get('manager/job_index'),
+
+            /* Data */
             'jobs' => $manager->job_posters,
             'veteran_applications' => $veteran_applications,
             'citizen_applications' => $citizen_applications,
@@ -133,26 +134,29 @@ class JobController extends Controller
         $jobLang = Lang::get('applicant/job_post');
 
         $applyButton = [];
-
-        if (isset($user)) {
-            if (!$jobPoster->published && $this->authorize('update', $jobPoster)) {
-                $applyButton = [
-                    'href' => route('manager.jobs.edit', $jobPoster->id),
-                    'title' => $jobLang['apply']['edit_link_title'],
-                    'text' => $jobLang['apply']['edit_link_label'],
-                ];
-            } else {
-                $applyButton = [
-                    'href' => route('job.application.edit.1', $jobPoster->id),
-                    'title' => $jobLang['apply']['apply_link_title'],
-                    'text' => $jobLang['apply']['apply_link_label'],
-                ];
-            }
-        } else {
+        if (!$jobPoster->published && $this->authorize('update', $jobPoster)) {
+            $applyButton = [
+                'href' => route('manager.jobs.edit', $jobPoster->id),
+                'title' => $jobLang['apply']['edit_link_title'],
+                'text' => $jobLang['apply']['edit_link_label'],
+            ];
+        } elseif (Auth::check() && $jobPoster->isOpen()) {
+            $applyButton = [
+                'href' => route('job.application.edit.1', $jobPoster->id),
+                'title' => $jobLang['apply']['apply_link_title'],
+                'text' => $jobLang['apply']['apply_link_label'],
+            ];
+        } elseif (Auth::guest() && $jobPoster->isOpen()) {
             $applyButton = [
                 'href' => route('job.application.edit.1', $jobPoster->id),
                 'title' => $jobLang['apply']['login_link_title'],
                 'text' => $jobLang['apply']['login_link_label'],
+            ];
+        } else {
+            $applyButton = [
+                'href' => null,
+                'title' => null,
+                'text' => $jobLang['apply']['job_closed_label'],
             ];
         }
 
@@ -288,7 +292,11 @@ class JobController extends Controller
         return view(
             'manager/job_create',
             [
-                'job_heading' => Lang::get($jobHeading),
+                /*Localization Strings*/
+                'job_l10n' => Lang::get('manager/job_create'),
+
+                /* Data */
+                'job' => Lang::get($jobHeading),
                 'manager' => $manager,
                 'provinces' => Province::all(),
                 'departments' => Department::all(),

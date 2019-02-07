@@ -51,6 +51,9 @@ class ApplicationController extends Controller
             'applicant/application_preview';
 
         return view($view, [
+            /* Localized strings*/
+            'post' => Lang::get('manager/application_post'), // Change text
+
 
             /* Application Template Data */
                 "application_template" => Lang::get("applicant/application_template"),
