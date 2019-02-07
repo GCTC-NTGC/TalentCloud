@@ -22,7 +22,7 @@ services:
         volumes:
             - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
             - "./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
-            - "./etc/ssl:/etc/ssl"
+            - "./etc/ssl/certs:/etc/ssl/certs"
             - "./:/var/www"
         environment:
             - "DB_PORT=5432"
@@ -50,12 +50,12 @@ services:
         ports:
             - "8080:8080"
     # Dependencies
-    composer:
-        image: composer:latest
-        container_name: composer
-        command: install --ignore-platform-reqs
-        volumes:
-            - ./:/app
+    #composer:
+        #image: composer:latest
+        #container_name: composer
+        #command: install --ignore-platform-reqs
+        #volumes:
+            #- ./:/app
 # Data
 volumes:
     pgdata:

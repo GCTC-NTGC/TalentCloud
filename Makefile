@@ -10,7 +10,7 @@ clean:
 	@rm -Rf report/*
 
 clean-certs:
-	@rm -Rf etc/ssl/*
+	@rm -Rf etc/ssl/certs/*
 
 code-sniff:
 	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_errors_on_exit 1
@@ -36,7 +36,7 @@ fresh-db:
 	@docker exec talentcloud sh -c "php artisan migrate:fresh"
 
 gen-certs:
-	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
+	@docker run --rm -v $(shell pwd)/etc/ssl/certs:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
 
 laravel-clear:
 	@php artisan route:clear
