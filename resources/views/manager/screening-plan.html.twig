@@ -29,17 +29,6 @@
 
             <div class="container--layout-xl">
 
-                {# Templates #}
-
-                    {# Assessment Selection #}
-
-                        {% include "manager/components/skill-assessment-select" with {"template":true} %}
-
-                    {# Screening Plan #}
-
-                        {# Screening Plan Layout #}
-
-                            {# {% include "manager/components/screening-plan" with {"template":true} %} #}
 
                 {# Plan Generator #}
 
@@ -64,7 +53,7 @@
 
                                 {% if criterion.criteria_type.name == "essential" %}
 
-                                    {% include "manager/components/skill-assessment-builder" %}
+                                    {% include "manager/components/skill-assessment-builder" with { 'skill_builder_l10n':screening_l10n.skill_builder } %}
 
                                     {% set essentialCriteria = essentialCriteria + 1 %}
 

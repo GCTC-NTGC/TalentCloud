@@ -18,26 +18,35 @@ return [
     "build_new_plan" => "Build New Screening Plan",
     "my_screening_plans" => "My Screening Plans",
     "screening_plan_here" => "The screening plan that you generate using the button above will appear here.",
+    "skill_builder" =>[
+        "description" => "Description",
+        "assessment_types" => "Assessment Types",
+        "add_assessment" => "Add another assessment to this criteria."
+    ],
+    "select" => [
+        "select_an_assessment" => "Select an Assessment",
+        "assessment_removal" => "Removes the assessment above.",
+        "remove" => "Remove"
+    ],
     "plan" => [
-        'copy' => "Copy meow",
-        'delete' => "Delete meow",
-        "essential_criteria" => "Essential Criteria meow",
-        "asset_criteria" => "Asset Criteria meow",
-        "plan" => "Assessment Plan meow",
-        'colour_explanation' => "Skills below are colour coded so that :open_green_span Essential Skills :close_span are green and :open_blue_span Asset Skills :close_span are blue. meow",
-        "skill_description_label" => "Skill Description meow",
+        'copy' => "Copy",
+        'delete' => "Delete",
+        "essential_criteria" => "Essential Criteria",
+        "asset_criteria" => "Asset Criteria",
+        "plan" => "Assessment Plan",
+        'colour_explanation' => "Skills below are colour coded so that :open_green_span Essential Skills :close_span are green and :open_blue_span Asset Skills :close_span are blue.",
+        "skill_description_label" => "Skill Description",
         'summary' => [
-            "assessment_types" => "Assessment Types meow",
-            "skills_to_assess" => "Skills to be Assessed meow"
+            "assessment_types" => "Assessment Types",
+            "skills_to_assess" => "Skills to be Assessed"
         ],
         'skill' => [
-            "assessment_types" => "Assessment Types meow",
-            "narrative_assessment" => "Assessment of Narrative Provided via Talent Cloud meow"
+            "assessment_types" => "Assessment Types",
+            "narrative_assessment" => "Assessment of Narrative Provided via Talent Cloud"
         ],
-        "assessment_selection_label" => "Select an Assessment meow",
-        "assessment_removal" => "Removes the assessment above. meow",
-        "assessment_removal_label" => "Remove meow",
-        "add_assessment" => "Add another assessment to this criteria. meow"
+        "my_screening_plans" => "My Screening Plans",
+        "assessment_types" => "Assessment Types",
+        "narrative_assessment" => "Assessment of Narrative Provided via Talent Cloud"
     ],
     "delete_plan_modal" => [
         "title" => "Delete this Screening Plan?",

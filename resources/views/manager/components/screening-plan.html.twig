@@ -80,7 +80,7 @@
             </tr>
 
             <tr class="plan-table__title">
-                <td colspan="3"><h2>{{ screening.interface.screening_plan_section_label }} (#{{ plan.id }})</h2></td>
+                <td colspan="3"><h2>{{ plan_l10n.my_screening_plans }} (#{{ plan.id }})</h2></td>
             </tr>
 
         </thead>
@@ -92,7 +92,7 @@
             </tr>
 
             <tr>
-                <td>{{ plan_l10n.narrative_assessment_label }}</td>
+                <td>{{ plan_l10n.narrative_assessment }}</td>
                 <td colspan="2">
                     <ul>
                         {% for criterion in job.criteria %}
@@ -139,7 +139,7 @@
                             {{ criterion.level_description|nl2br }}
                         </td>
                         <td>
-                            <h4>{{ plan_l10n.assessment_types_label }}</h4>
+                            <h4>{{ plan_l10n.assessment_types }}</h4>
                             <ul>
                                 <li>{{ plan_l10n.narrative_assessment_label }}</li>
                                 {% for assessment in criterion.assessments.where("screening_plan_id", plan.id) %}
