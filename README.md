@@ -54,7 +54,7 @@ B) If prompted, allow Docker through Windows Firewall.
     If using Docker Toolbox, open the Docker Quickstart Terminal. Navigate to the TalentCloud directory. Run the rest of the commands in this terminal.
 
 6. Execute gen_certs.bat or run
-	`docker run --rm -v $PWD/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate`
+	`docker run --rm -v $PWD/etc/ssl/certs:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate`
 
 	If that doesn't work, try manually replacing $PWD with the absolute path to the TalentCloud directory.
 
@@ -133,7 +133,7 @@ And you are done.
 ## Useful Commands:
 ```
 Generate site certificate
-	docker run --rm -v $PWD/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
+	docker run --rm -v $PWD/etc/ssl/certs:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
 
 Run composer install
 	docker run --rm -v $PWD:/app composer/composer install
@@ -147,7 +147,7 @@ To stop and delete all existing Docker containers (can fix some errors)
 
 To set up your database manually (PostGres)
 	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
-    
+
 To add fake data to your database
 	docker-compose exec talentcloud sh -c "php artisan db:seed"
 ```
