@@ -6,11 +6,17 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 class JobPosterCrudController extends CrudController
 {
-    public function setup()
+    /**
+     * Prepare the admin interface by setting the associated
+     * model, setting the route, and adding custom columns/fields.
+     *
+     * @return void
+     */
+    public function setup() : void
     {
         $this->crud->setModel("App\Models\JobPoster");
         $this->crud->setRoute("admin/job-poster");
-        $this->crud->setEntityNameStrings('job poster', 'job posters');
+        $this->crud->setEntityNameStrings('Job Poster', 'Job Posters');
 
         $this->crud->denyAccess('create');
         $this->crud->denyAccess('delete');
@@ -73,11 +79,22 @@ class JobPosterCrudController extends CrudController
                 'format' => 'YYYY-MM-DD HH:mm:ss',
             ],
         ]);
+        if ($this->crud->getCurrentEntry() && !$this->crud->getCurrentEntry()->published) {
+            $this->crud->addField([
+                'name' => 'published',
+                'label' => 'Publish',
+                'type' => 'checkbox'
+            ]);
+        }
     }
 
-    public function update($request)
+    /**
+     * Action for updating an existing Job Poster in the database.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update($request) // phpcs:ignore
     {
-        $response = parent::updateCrud();
-        return $response;
+        return parent::updateCrud();
     }
 }
