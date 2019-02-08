@@ -71,7 +71,14 @@ class JobPoster extends BaseModel
     use \Dimsav\Translatable\Translatable;
     use Notifiable;
 
-    const DATE_FORMAT = 'Y-m-d h:i T';
+    const DATE_FORMAT = [
+        'en' => 'M dS, Y',
+        'fr' => 'd M Y',
+    ];
+    const TIME_FORMAT = [
+        'en' => 'h:i A T',
+        'fr' => 'H \h i T',
+    ];
     const TIMEZONE = 'America/Toronto';
 
     /**
@@ -225,15 +232,18 @@ class JobPoster extends BaseModel
     /**
      * Formatted and localized date and time the Job Poster closes.
      *
-     * @return string
+     * @return string[]
      */
-    public function applyBy() : string
+    public function applyBy() : array
     {
         $localCloseDate = new Date($this->close_date_time, new \DateTimeZone(self::TIMEZONE));
-        $displayDate = $localCloseDate->format(self::DATE_FORMAT);
+        $displayDate = [
+            'date' => $localCloseDate->format(self::DATE_FORMAT[App::getLocale()]),
+            'time' => $localCloseDate->format(self::TIME_FORMAT[App::getLocale()])
+        ];
 
         if (App::isLocale('fr')) {
-            $displayDate = str_replace(['EST', 'EDT'], ['HNE', 'HAE'], $displayDate);
+            $displayDate['time'] = str_replace(['EST', 'EDT'], ['HNE', 'HAE'], $displayDate['time']);
         }
 
         return $displayDate;

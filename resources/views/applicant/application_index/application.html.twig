@@ -28,9 +28,10 @@
 
             <span>
                 {% if item.job_poster.close_date_time.isFuture() %}
-                    {{ application_index.apply_by_label|trans }}
+                    {{ application_index.apply_by_label|trans }} {{ item.job_poster.applyBy().date }}, {{ item.job_poster.applyBy().time }}
+                {% else %}
+                    {{ application_index.job_closed }}
                 {% endif %}
-                {% include "common/job_time_remaining" with {template:application_index, job:item.job_poster} %}
             </span>
 
         </span>

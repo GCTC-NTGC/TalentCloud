@@ -19,7 +19,11 @@
                 <p
                     class="job-post__header-meta">
                     <span>
-                        {{ job_post.header.apply_by_label|trans }} {% include "common/job_time_remaining" with {template:job_post.header} %}
+                        {% if job.close_date_time.isFuture() %}
+                           {{ job_post.header.apply_by_label|trans }} {{ job.applyBy().date }}, {{ job.applyBy().time }}
+                        {% else %}
+                            {{ job_post.header.job_closed }}
+                        {% endif %}
                     </span>
                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                     <span>

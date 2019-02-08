@@ -98,7 +98,12 @@
 
                             <div class="box small-1of2">
                                 <span>{{ job_index.index.apply_by_label|trans }}</span>
-                                <p>{% include "common/job_time_remaining" with {template:job_index.index} %}</p>
+                                {% if job.close_date_time.isFuture() %}
+                                    <p><i class="fas fa-calendar"></i> {{ job.applyBy().date }}</p>
+                                    <p><i class="fas fa-clock"></i> {{ job.applyBy().time }}</p>
+                                {% else %}
+                                    {{ job_index.index.job_closed }}
+                                {% endif %}
                             </div>
                             <div class="box small-1of2">
                                 <span>
