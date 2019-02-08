@@ -65,14 +65,30 @@ use Jenssegers\Date\Date;
  * @method boolean isOpen()
  * @method string timeRemaining()
  */
-class JobPoster extends BaseModel {
+class JobPoster extends BaseModel
+{
 
     use \Dimsav\Translatable\Translatable;
     use Notifiable;
 
+    const DATE_FORMAT = 'Y-m-d h:i T';
     const TIMEZONE = 'America/Toronto';
 
-    public $translatedAttributes = ['city', 'title', 'impact', 'branch', 'division', 'education'];
+    /**
+     * @var string[] $translatedAttributes
+     */
+    public $translatedAttributes = [
+        'city',
+        'title',
+        'impact',
+        'branch',
+        'division',
+        'education'
+    ];
+
+    /**
+     * @var string[] $casts
+     */
     protected $casts = [
         'job_term_id' => 'int',
         'department_id' => 'int',
@@ -86,11 +102,19 @@ class JobPoster extends BaseModel {
         'manager_id' => 'int',
         'published' => 'boolean'
     ];
+
+    /**
+     * @var string[] $dates
+     */
     protected $dates = [
         'open_date_time',
         'close_date_time',
         'start_date_time'
     ];
+
+    /**
+     * @var string[] $fillable
+     */
     protected $fillable = [
         'job_term_id',
         'term_qty',
@@ -108,77 +132,84 @@ class JobPoster extends BaseModel {
         'remote_work_allowed',
         'published'
     ];
+
+    /**
+     * @var string[] $withCount
+     */
     protected $withCount = ['submitted_applications'];
 
+    /**
+     * @var mixed[] $dispatchesEvents
+     */
     protected $dispatchesEvents = [
         'saved' => JobSaved::class,
     ];
 
     // @codeCoverageIgnoreStart
 
-    public function department()
+    public function department() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\Department::class);
     }
 
-    public function job_term()
+    public function job_term() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\JobTerm::class);
     }
 
-    public function language_requirement()
+    public function language_requirement() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\LanguageRequirement::class);
     }
 
-    public function manager()
+    public function manager() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Manager::class);
     }
 
-    public function province()
+    public function province() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\Province::class);
     }
 
-    public function security_clearance()
+    public function security_clearance() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\SecurityClearance::class);
     }
 
-    public function criteria()
+    public function criteria() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\Criteria::class);
     }
 
-    public function job_applications()
+    public function job_applications() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobApplication::class);
     }
 
-    public function job_poster_key_tasks()
+    public function job_poster_key_tasks() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobPosterKeyTask::class);
     }
 
-    public function job_poster_questions()
+    public function job_poster_questions() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobPosterQuestion::class);
     }
 
-    public function job_poster_translations()
+    public function job_poster_translations() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobPosterTranslation::class);
     }
 
-    public function screening_plans()
+    public function screening_plans() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\ScreeningPlan::class);
     }
 
     // Artificial Relations
 
-    public function submitted_applications()
+    public function submitted_applications() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobApplication::class)->whereHas('application_status', function ($query) {
             $query->where('name', '!=', 'draft');
@@ -198,19 +229,14 @@ class JobPoster extends BaseModel {
      */
     public function applyBy() : string
     {
-        $format = "%B, %Y, %p";
+        $localCloseDate = new Date($this->close_date_time, new \DateTimeZone(self::TIMEZONE));
+        $displayDate = $localCloseDate->format(self::DATE_FORMAT);
 
         if (App::isLocale('fr')) {
-            $format = '';
+            $displayDate = str_replace(['EST', 'EDT'], ['HNE', 'HAE'], $displayDate);
         }
 
-        $displayDate = $this->close_date_time;
-        date_default_timezone_set(self::TIMEZONE);
-        dump($format);
-        dump(strtotime($displayDate));
-        dump(strftime($format, strtotime($displayDate)));
-
-        return strftime($format, strtotime($displayDate));
+        return $displayDate;
     }
 
     /**
@@ -242,10 +268,10 @@ class JobPoster extends BaseModel {
         if ($d > 0) {
             $unit = 'day';
             $count = $d;
-        } else if ($h > 0) {
+        } elseif ($h > 0) {
             $unit = 'hour';
             $count = $h;
-        } else if ($m > 0) {
+        } elseif ($m > 0) {
             $unit = 'minute';
             $count = $m;
         } else {
