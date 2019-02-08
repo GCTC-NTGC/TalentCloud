@@ -70,7 +70,7 @@
                     }
 
                 }
-                
+
             }
 
         }
@@ -166,7 +166,7 @@
     }
 
     &.saved {
-        
+
         .submit-default {
             display: none;
         }
@@ -179,6 +179,12 @@
             display: block;
         }
 
+    }
+
+    &.disabled {
+        background: rgba(0, 0, 0, .05);
+        color: rgba(0, 0, 0, .6);
+        pointer-events: none;
     }
 
 }

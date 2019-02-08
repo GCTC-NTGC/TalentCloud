@@ -4,59 +4,308 @@
     Manager - Job Index Layout
 
 ============================================================================= #}
-<div class="manager-job-index__section-wrapper manager-job-index__temp">
 
-    <div class="container--layout-xl">
+{# New Manager Poster Index #}
 
-        {% for job in jobs %}
+    <section class="manager-poster-index">
 
-            <div>
+        <div class="container--layout-xl">
 
-                <h3>{{ job.title }}</h3>
+            {# Legend & New Draft Button #}
 
-                <a href="{{ route('manager.jobs.show', job) }}">{{jobs_l10n.job_poster}}</a>
-                {% if not job.published %}<a href="{{ route('manager.jobs.edit', job) }}">{{jobs_l10n.edit}}</a>{% endif %}
-                {% if job.published %}<a href="{{ route('manager.jobs.screening_plan', job) }}">{{jobs_l10n.screen_plan_builder}}</a>{% endif %}
+                <div class="flex-grid gutter middle">
 
-                <div class="container--layout-xl">
+                    <div class="box med-1of2">
 
-                <h4>{{jobs_l10n.veteran_applicants}}</h4>
-                    <div class="container--layout-xl">
-                        {% if veteran_applications[job.id]|length > 0 %}
-                            {% for application in veteran_applications[job.id] %}
-                                    {% include "manager/application_post/application_review" with {'review': jobs_l10n.review} %}
-                            {% endfor %}
-                        {% else %}
-                            <p>{{jobs_l10n.none}}</p>
-                        {% endif %}
+                        <div class="poster-legend">
+                            <div class="flex-grid middle">
+                                <div class="">
+                                    <span>Legend:</span>
+                                </div>
+                                <div class="">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    <span>Draft Poster</span>
+                                </div>
+                                <div class="">
+                                    <i class="fas fa-hourglass-half"></i>
+                                    <span>Submitted/Published</span>
+                                </div>
+                                <div class=" action-required">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <span>Action Required</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
-                <h4>{{jobs_l10n.citizen_applicants}}</h4>
-                    <div class="container--layout-xl">
-                        {% if citizen_applications[job.id]|length > 0 %}
-                            {% for application in citizen_applications[job.id] %}
-                                    {% include "manager/application_post/application_review" with {'review': jobs_l10n.review} %}
-                            {% endfor %}
-                        {% else %}
-                            <p>{{jobs_l10n.none}}</p>
-                        {% endif %}
+                    <div class="box med-1of2 new-poster-button-wrapper">
+
+                        <a
+                            class="button--blue"
+                            href="{{ route('manager.jobs.create', job) }}"
+                            title="Create a new job poster.">
+                            + Create a New Poster
+                        </a>
+
                     </div>
 
-                <h4>{{jobs_l10n.other_applicants}}</h4>
+                </div>
+
+            {# Active Poster Section #}
+
+                <h3 class="heading--03">My Active Posters</h3>
+
+                <div class="active-posters">
+
+                    {% if jobs is empty %}
+
+                        <div class="posters-null-state active">
+                            <span>You don't currently have any active posters! Create a new one using the button above.</span>
+                        </div>
+
+                    {% else %}
+
+                        {% for job in jobs %}
+
+                            {# Note:
+                                - Posters must have 1 of 4 classes: draft, submitted, published, closed.
+                                - These states must be changed through certain interactions outlined below as well as updated server side to prevent certain actions on the user's behalf.
+                            #}
+                            <div class="poster">
+
+                                <div class="flex-grid middle gutter">
+
+                                    <div class="box med-1of12 poster-status">
+                                        {# These icons are aesthetic status indicators and are shown/hidden through the poster's parent class. #}
+                                        <i class="fas fa-pencil-alt"></i>
+                                        <i class="fas fa-hourglass-half"></i>
+                                        <i class="fas fa-exclamation-circle action-required"></i>
+                                    </div>
+
+                                    <div class="box med-4of12">
+                                        {# Note:
+                                            - This link only appears when the poster has the draft or submitted classes.
+                                        #}
+                                        <h4 class="heading--04 poster-title--preview">
+                                            <a
+                                                href="{# TODO: Needs preview route. #}"
+                                                title="View a preview of this job poster.">
+                                                {{ job.title }} (Preview)
+                                            </a>
+                                        </h4>
+                                        {# Note:
+                                            - This link only appears when the poster has the published or closed classes.
+                                        #}
+                                        <h4 class="heading--04 poster-title--link">
+                                            <a
+                                                href="{{ route('manager.jobs.show', job) }}"
+                                                title="View this job poster.">
+                                                {{ job.title }}
+                                            </a>
+                                        </h4>
+                                        <span class="poster-date-time--draft">{{ job.classification }} - Created on: {# TODO: Needs associated date in this format: MMM DD, YYYY #}</span>
+                                        <span class="poster-date-time--submitted">{{ job.classification }} - Submitted on: {# TODO: Needs associated date in this format: MMM DD, YYYY #}</span>
+                                        <span class="poster-date-time--published">{{ job.classification }} - Published on: {# TODO: Needs associated date in this format: MMM DD, YYYY #}</span>
+                                        <span class="poster-date-time--closed">{{ job.classification }} - Closed on: {# TODO: Needs associated date in this format: MMM DD, YYYY #}</span>
+                                    </div>
+
+                                    <div class="box med-2of12 poster-measurements">
+
+                                        {# Note: The "measurement--comments element is removed from the UI until commenting is built. There is nothing to do with this element until then. #}
+                                        {#<div class="measurement--comments">
+                                            <i class="fas fa-comments"></i>
+                                            <span>3 Comments</span>
+                                        </div>#}
+
+                                        {# Note:
+                                            - This element only appears once a poster has been submitted, through the submitted class.
+                                            - This element requires the value of time since submission to be displayed.
+                                        #}
+                                        <div class="measurement--timer">
+                                            <i class="fas fa-stopwatch"></i>
+                                            <span>In Review for {# TODO: Value of Time (hours, days, or weeks) #}</span>
+                                        </div>
+
+                                        {# Note:
+                                            - This element only shows when a job status has reached published, through the published class.
+                                            - This element requires the value of time remaining in the publication window.
+                                        #}
+                                        <div class="measurement--countdown">
+                                            <i class="fas fa-clock"></i>
+                                            <span>{# TODO: Value of Time (days, hours, or minutes) #} Remaining</span>
+                                        </div>
+
+                                        {# Note:
+                                            - This element appears during two stages: published and closed.
+                                            - This element should display the total number of applicants to the job at any given point in time.
+                                        #}
+                                        <div class="measurement--applicants">
+                                            <i class="fas fa-users"></i>
+                                            <span>{# TODO: Number #} Applicants</span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="box med-2of12 edit-actions">
+
+                                        {# Note:
+                                            - This button is only shown when the poster is in draft state.
+                                            - This button and route should be disabled server side unless the post is in this state.
+                                        #}
+                                        <a
+                                            class="edit-actions--edit-draft"
+                                            href="{{ route('manager.jobs.edit', job) }}"
+                                            title="Edit this job poster.">
+                                            Edit Job Poster
+                                        </a>
+
+                                        {# Note:
+                                            - This button is always shown.
+                                        #}
+                                        <a
+                                            href="{{ route('manager.jobs.screening_plan', job) }}"
+                                            title="Edit screening plans for this job.">
+                                            Edit Screening Plans
+                                        </a>
+
+                                        {# Note:
+                                            - This button is unnecessary until assessment tools are a platform feature.
+                                        #}
+                                        {#<a
+                                            href="Note: Needs Assessment Tool route."
+                                            title="Edit the assessment tools for this job.">
+                                            Edit Assessment Tools
+                                        </a>#}
+
+                                    </div>
+
+                                    <div class="box med-2of12">
+
+                                        {# Note:
+                                            - This button needs to trigger a confirmation dialogue, email Talent Cloud upon confirmation, and then change the status of the job to submitted via AJAX.
+                                            - This interaction should also remove the draft, class from the poster and add the submitted class.
+                                        #}
+                                        <button
+                                            class="button--blue submit-button"
+                                            title="Send this job poster for submission review."
+                                            type="button">
+                                            Send for Review
+                                        </button>
+
+                                        {# Note:
+                                            - This button only appears when the job poster has the class of "submitted".
+                                            - This button should be disabled server side if the job poster is not yet closed.
+                                            - Please fill out the Twig pseudo code I've included below based on the state.
+                                        #}
+                                        <a
+                                            class="button--blue review-button
+                                            {# TODO: if job.status == submitted or published #}disabled{# endif #}"
+                                            href="{# TODO: Needs route to new job-specific applicant index. #}"
+                                            title="Review the applicants who applied to this job.">
+                                            Review Applicants
+                                        </a>
+
+                                    </div>
+
+                                    <div class="box med-1of12 poster-deletion">
+
+                                        {# Note:
+                                            - This needs to trigger a confirmation modal and then delete the draft job poster via an AJAX call.
+                                            - This button is only visible when the job poster has the "draft" class on it.
+                                            - This button should be disabled server side if the job is not in a draft state.
+                                        #}
+                                        <button
+                                            title="Delete this job poster draft."
+                                            type="button">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+                </div>
+
+            {# Active Poster Section #}
+
+                {# Note: this section is temporarily faked until archiving becomes a real thing. #}
+
+                <h3 class="heading--03">My Archived Posters</h3>
+
+                <div class="archived-posters">
+
+                    <div class="posters-null-state active">
+                        <span>The ability to archive your posters is coming soon!</span>
+                    </div>
+
+                </div>
+
+        </div>
+
+    </section>
+
+{# Old Manager Poster Index #}
+
+    <div class="manager-job-index__section-wrapper manager-job-index__temp">
+
+        <div class="container--layout-xl">
+
+            {% for job in jobs %}
+
+                <div>
+
+                    <h3>{{ job.title }}</h3>
+
+                    <a href="{{ route('manager.jobs.show', job) }}">{{jobs_l10n.job_poster}}</a>
+                    {% if not job.published %}<a href="{{ route('manager.jobs.edit', job) }}">{{jobs_l10n.edit}}</a>{% endif %}
+                    {% if job.published %}<a href="{{ route('manager.jobs.screening_plan', job) }}">{{jobs_l10n.screen_plan_builder}}</a>{% endif %}
+
                     <div class="container--layout-xl">
-                        {% if other_applications[job.id]|length > 0 %}
-                            {% for application in other_applications[job.id] %}
-                                    {% include "manager/application_post/application_review" with {'review': jobs_l10n.review} %}
-                            {% endfor %}
-                        {% else %}
-                            <p>{{jobs_l10n.none}}</p>
-                        {% endif %}
+
+                    <h4>{{jobs_l10n.veteran_applicants}}</h4>
+                        <div class="container--layout-xl">
+                            {% if veteran_applications[job.id]|length > 0 %}
+                                {% for application in veteran_applications[job.id] %}
+                                        {% include "manager/application_post/application_review" with {'review': jobs_l10n.review} %}
+                                {% endfor %}
+                            {% else %}
+                                <p>{{jobs_l10n.none}}</p>
+                            {% endif %}
+                        </div>
+
+                    <h4>{{jobs_l10n.citizen_applicants}}</h4>
+                        <div class="container--layout-xl">
+                            {% if citizen_applications[job.id]|length > 0 %}
+                                {% for application in citizen_applications[job.id] %}
+                                        {% include "manager/application_post/application_review" with {'review': jobs_l10n.review} %}
+                                {% endfor %}
+                            {% else %}
+                                <p>{{jobs_l10n.none}}</p>
+                            {% endif %}
+                        </div>
+
+                    <h4>{{jobs_l10n.other_applicants}}</h4>
+                        <div class="container--layout-xl">
+                            {% if other_applications[job.id]|length > 0 %}
+                                {% for application in other_applications[job.id] %}
+                                        {% include "manager/application_post/application_review" with {'review': jobs_l10n.review} %}
+                                {% endfor %}
+                            {% else %}
+                                <p>{{jobs_l10n.none}}</p>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        {% endfor %}
+            {% endfor %}
+
+        </div>
 
     </div>
-
-</div>
