@@ -19,6 +19,8 @@ class SkillCrudController extends CrudController
      */
     public function setup() : void
     {
+        // Workaround for how the unique_translation validation
+        // works in App\Http\Requests\SkillCrudRequest
         $locale = 'en';
         if (null !== $this->request->input('locale')) {
             $locale = $this->request->input('locale');
@@ -38,12 +40,18 @@ class SkillCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'name',
             'type' => 'text',
-            'label' => 'Name'
+            'label' => 'Name',
+            'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
+                $query->orWhere('name->' . $locale, 'like', "%$searchTerm%");
+            }
         ]);
         $this->crud->addColumn([
             'name' => 'description',
             'type' => 'text',
-            'label' => 'Description'
+            'label' => 'Description',
+            'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
+                $query->orWhere('description->' . $locale, 'like', "%$searchTerm%");
+            }
         ]);
         $this->crud->addColumn([
             'name' => 'skill_type.name',
