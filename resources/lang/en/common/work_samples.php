@@ -9,6 +9,7 @@ return [
     *
     */
     "new_sample_label" => "New Work Sample",
+    "accordion_sr_helper" => "Click to edit...",
     "name_label" => "Project Name",
     "type_label" => "Project Type",
     "types" => [
@@ -25,5 +26,7 @@ return [
     "skill_label" => "Select a Skill",
     "add_skill_label" => "Add a Skill",
     "action_01" => "Delete Sample",
-    "action_02" => "Save Sample"
+    "action_02" => "Save Sample",
+    "action_02_working" => "Saving...",
+    "action_02_saved" => "Saved!",
 ];

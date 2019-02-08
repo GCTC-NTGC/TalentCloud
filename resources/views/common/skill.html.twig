@@ -89,14 +89,15 @@
 
     {# Accordion Trigger #}
 
-        <div
+        <button
             {% if skill_declaration == false %}
                 aria-expanded="true"
             {% else %}
                 aria-expanded="false"
             {% endif %}
             class="accordion-trigger"
-            tabindex="0">
+            tabindex="0"
+            type="button">
 
             {% if locale == "profile" %}
 
@@ -130,6 +131,8 @@
                 {% endif %}
             </span>
 
+            <span class="invisible">{{ skill_template.accordion_sr_helper }}</span>
+
             {% if locale == "profile" and skill_declaration == true %}
 
                 <div
@@ -145,7 +148,7 @@
 
             <i class="fas fa-chevron-up"></i>
 
-        </div>
+        </button>
 
     {# Accordion Content #}
 
@@ -575,15 +578,16 @@
                                         <div
                                             class="box small-1of2">
 
-                                        {# <button
+                                        {# Create Reference Modals not ready yet
+                                        <button
                                             class="modal-trigger"
                                             data-modal-id="createReference"
                                             title="{{ relative_template.reference.create_title }}"
                                             type="button">
 
                                             {{ relative_template.reference.create_label }}
-
-                                        </button> #}
+                                        </button>
+                                        #}
 
                                         </div>
 
@@ -593,7 +597,7 @@
 
                                     {% set relativeToken = "references" %}
 
-                                    {% include "common/relatives" with {"prefix":name_prefix} %}
+                                    {% include "common/relatives" with {"template":true } %}
 
                                 {# Relative List #}
 
@@ -606,7 +610,7 @@
 
                                             {% set relativeCounter = relativeCounter + 1 %}
 
-                                            {% include "common/relatives" with {"prefix":name_prefix} %}
+                                            {% include "common/relatives" %}
 
                                         {% endfor %}
 
@@ -657,7 +661,8 @@
                                         <div
                                             class="box small-1of2">
 
-                                        {# <button
+                                        {# Create Sample Modals not ready yet
+                                        <button
                                             class="modal-trigger"
                                             data-modal-id="createSample"
                                             title="{{ relative_template.sample.create_title }}"
@@ -665,7 +670,8 @@
 
                                             {{ relative_template.sample.create_label }}
 
-                                        </button> #}
+                                        </button>
+                                        #}
 
                                         </div>
 
@@ -675,7 +681,7 @@
 
                                     {% set relativeToken = "samples" %}
 
-                                    {% include "common/relatives" with {"prefix":name_prefix} %}
+                                    {% include "common/relatives" with {"template":true } %}
 
                                 {# Relative List #}
 
@@ -688,7 +694,7 @@
 
                                             {% set relativeCounter = relativeCounter + 1 %}
 
-                                            {% include "common/relatives" with {"prefix":name_prefix} %}
+                                            {% include "common/relatives" %}
 
                                         {% endfor %}
 

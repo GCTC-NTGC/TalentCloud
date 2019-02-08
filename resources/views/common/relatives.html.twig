@@ -1,18 +1,18 @@
 {% if prefix %}
-    {% set name_prefix = prefix ~ "[relatives][:relativeType][:template][:id]"|replace({":relativeType":relativeToken}) %}
+    {% set name_prefix = prefix ~ "[relatives][:relativeType][:id]"|replace({":relativeType":relativeToken}) %}
     {% set id_prefix = name_prefix %}
 {% else %}
-    {% set name_prefix = "relatives[:relativeType][:template][:id]"|replace({":relativeType":relativeToken}) %}
+    {% set name_prefix = "relatives[:relativeType][:id]"|replace({":relativeType":relativeToken}) %}
     {% set id_prefix = name_prefix %}
 {% endif %}
 
 {% if relative %}
-    {% set name_prefix = name_prefix|replace({":template":"old", ":id":relative.id}) %}
-    {% set id_prefix = id_prefix|replace({":template":"old", ":id":relative.id}) %}
+    {% set name_prefix = name_prefix|replace({":id":relative.id}) %}
+    {% set id_prefix = id_prefix|replace({":id":relative.id}) %}
 {% endif %}
 
 <div
-    class="profile-relative {% if relative == null %}template{% endif %}"
+    class="profile-relative {% if template %}template{% endif %}"
     data-item-id="{{ relative ? relative.id : 0 }}">
 
     <div class="form__input-wrapper--select">
@@ -32,6 +32,7 @@
             <select
                 class="form__input"
                 id="{{ id_prefix }}relativeId"
+                {% if template %}disabled{% endif %}
                 name="{{ name_prefix }}[id]">
 
                 {# Skills #}
@@ -76,11 +77,18 @@
             title="{{ relative_template.reference.delete_title }}"
         {% elseif relativetoken == "samples" %}
             title="{{ relative_template.sample.delete_title }}"
-        {% endif %}>
+        {% endif %}
+        type="button">
 
         <i class="fas fa-times"></i>
 
-        <span class="hidden">{{ relative_template.skill.delete_title }}</span>
+        {% if relativeToken == "skills" %}
+            <span class="invisible">{{ relative_template.skill.delete_title }}</span>
+        {% elseif relativeToken == "references" %}
+            <span class="invisible">{{ relative_template.reference.delete_title }}</span>
+        {% elseif relativetoken == "samples" %}
+            <span class="invisible">{{ relative_template.sample.delete_title }}</span>
+        {% endif %}
 
     </button>
 

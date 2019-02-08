@@ -20,6 +20,8 @@
 
         {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
 
+        <a id="skipLink"></a>
+
     {# Page Content #}
 
     	{% include "applicant/application_post/complete" %}

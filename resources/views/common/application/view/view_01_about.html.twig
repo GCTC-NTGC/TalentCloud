@@ -13,16 +13,16 @@
 <section
     class="application-preview__section-01">
 
-    <h3>
+    <h4>
         {{ application_template.preview.section_01_title }}
-    </h3>
+    </h4>
 
     {# Applicant Name #}
 
         {% if auth_check() and auth_user().hasAnyRole(['manager', 'admin']) %}
             <div
                 class="application-preview__status">
-            
+
                 <span>Applicant: {{ applicant.user.name }}</span>
 
             </div>
@@ -87,10 +87,10 @@
                 <p>
 
                     {% set questionCounter = 0 %}
-                        
+
                     {% for applicantQuestion in application_template.application.questions %}
                         {% if applicantQuestion.id == question.id %}
-                            {% set questionCounter = questionCounter + 1 %} 
+                            {% set questionCounter = questionCounter + 1 %}
                             {{ applicantQuestion.answer }}
                         {% endif %}
                     {% endfor %}

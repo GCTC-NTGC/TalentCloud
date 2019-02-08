@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
+
 use Carbon\Carbon;
+
 use App\Models\JobPoster;
+use App\Models\JobPosterQuestion;
 use App\Models\Lookup\JobTerm;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
@@ -23,8 +27,8 @@ use App\Models\Lookup\VeteranStatus;
 use App\Models\JobApplication;
 use App\Models\Criteria;
 use App\Models\Skill;
-use App\Models\JobPosterQuestion;
 use App\Models\JobPosterKeyTask;
+
 use App\Services\Validation\JobPosterValidator;
 use Jenssegers\Date\Date;
 
@@ -33,25 +37,28 @@ class JobController extends Controller
     /**
      * Display a listing of JobPosters.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function index()
     {
         $now = Carbon::now();
+
         //Find published jobs that are currently open for applications
         $jobs = JobPoster::where('open_date_time', '<=', $now)
             ->where('close_date_time', '>=', $now)
             ->where('published', true)
             ->get();
         $jobs->load('manager.work_environment');
-        return view('applicant/job_index', ['job_index' => Lang::get('applicant/job_index'),
-            'jobs' => $jobs]);
+        return view('applicant/job_index', [
+            'job_index' => Lang::get('applicant/job_index'),
+            'jobs' => $jobs
+        ]);
     }
 
     /**
      * Display a listing of a manager's JobPosters.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function managerIndex()
     {
@@ -61,25 +68,26 @@ class JobController extends Controller
         $citizen_applications = [];
         $other_applications = [];
 
-        foreach($manager->job_posters as $job) {
+        foreach ($manager->job_posters as $job) {
             $job->submitted_applications->load(['veteran_status', 'citizenship_declaration']);
-            $veteran_applications[$job->id] = $job->submitted_applications->filter(function($application) {
+            $veteran_applications[$job->id] = $job->submitted_applications->filter(function ($application) {
                 return $application->veteran_status->name !== "none" &&
-                        $application->citizenship_declaration->name === "citizen";
+                    $application->citizenship_declaration->name === "citizen";
             });
-            $citizen_applications[$job->id] = $job->submitted_applications->filter(function($application) {
+            $citizen_applications[$job->id] = $job->submitted_applications->filter(function ($application) {
                 return $application->veteran_status->name === "none" &&
-                        $application->citizenship_declaration->name === "citizen";
+                    $application->citizenship_declaration->name === "citizen";
             });
-            $other_applications[$job->id] = $job->submitted_applications->filter(function($application) {
+            $other_applications[$job->id] = $job->submitted_applications->filter(function ($application) {
                 return $application->citizenship_declaration->name !== "citizen";
             });
         }
 
         return view('manager/job_index', [
-            "manager_job_index" => [
-                "title" => "My Job Posts"
-            ],
+            /*Localization Strings*/
+            'jobs_l10n' => Lang::get('manager/job_index'),
+
+            /* Data */
             'jobs' => $manager->job_posters,
             'veteran_applications' => $veteran_applications,
             'citizen_applications' => $citizen_applications,
@@ -93,10 +101,12 @@ class JobController extends Controller
      * @param \Illuminate\Http\Request $request   Incoming request object.
      * @param \App\Models\JobPoster    $jobPoster Job Poster object.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function show(Request $request, JobPoster $jobPoster) : View
+    public function show(Request $request, JobPoster $jobPoster)
     {
+        $user = Auth::user();
+
         //TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model
         $workplacePhotos = [];
         foreach ($jobPoster->manager->work_environment->workplace_photo_captions as $photoCaption) {
@@ -121,10 +131,39 @@ class JobController extends Controller
             ),
         ];
 
+        $jobLang = Lang::get('applicant/job_post');
+
+        $applyButton = [];
+        if (!$jobPoster->published && $this->authorize('update', $jobPoster)) {
+            $applyButton = [
+                'href' => route('manager.jobs.edit', $jobPoster->id),
+                'title' => $jobLang['apply']['edit_link_title'],
+                'text' => $jobLang['apply']['edit_link_label'],
+            ];
+        } elseif (Auth::check() && $jobPoster->isOpen()) {
+            $applyButton = [
+                'href' => route('job.application.edit.1', $jobPoster->id),
+                'title' => $jobLang['apply']['apply_link_title'],
+                'text' => $jobLang['apply']['apply_link_label'],
+            ];
+        } elseif (Auth::guest() && $jobPoster->isOpen()) {
+            $applyButton = [
+                'href' => route('job.application.edit.1', $jobPoster->id),
+                'title' => $jobLang['apply']['login_link_title'],
+                'text' => $jobLang['apply']['login_link_label'],
+            ];
+        } else {
+            $applyButton = [
+                'href' => null,
+                'title' => null,
+                'text' => $jobLang['apply']['job_closed_label'],
+            ];
+        }
+
         return view(
             'applicant/job_post',
             [
-                'job_post' => Lang::get('applicant/job_post'),
+                'job_post' => $jobLang,
                 'manager' => $jobPoster->manager,
                 'manager_profile_photo_url' => '/images/user.png', //TODO get real photo
                 'team_culture' => $jobPoster->manager->team_culture,
@@ -132,6 +171,7 @@ class JobController extends Controller
                 'workplace_photos' => $workplacePhotos,
                 'job' => $jobPoster,
                 'criteria' => $criteria,
+                'apply_button' => $applyButton,
                 'skill_template' => Lang::get('common/skills'),
             ]
         );
@@ -142,9 +182,9 @@ class JobController extends Controller
      *
      * @param \Illuminate\Http\Request $request Incoming request object.
      *
-     * @return \Illuminate\View\View Job Create view
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory Job Create view
      */
-    public function create(Request $request) : View
+    public function create(Request $request)
     {
         return $this->populateCreateView($request);
     }
@@ -155,9 +195,9 @@ class JobController extends Controller
      * @param \Illuminate\Http\Request $request   Incoming request object.
      * @param \App\Models\JobPoster    $jobPoster Job Poster object.
      *
-     * @return \Illuminate\View\View Job Create view
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory Job Create view
      */
-    public function edit(Request $request, JobPoster $jobPoster) : View
+    public function edit(Request $request, JobPoster $jobPoster)
     {
         return $this->populateCreateView($request, $jobPoster);
     }
@@ -168,9 +208,9 @@ class JobController extends Controller
      * @param \Illuminate\Http\Request $request   Incoming request object.
      * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object.
      *
-     * @return \Illuminate\View\View Job Create view
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory Job Create view
      */
-    public function populateCreateView(Request $request, JobPoster $jobPoster = null) : View
+    public function populateCreateView(Request $request, JobPoster $jobPoster = null)
     {
         $manager = $request->user() ? $request->user()->manager : null;
         if (isset($jobPoster)) {
@@ -179,6 +219,10 @@ class JobController extends Controller
             $jobHeading = 'manager/job_edit';
         } else {
             $job = [];
+            $defaultQuestions = $this->populateDefaultQuestions();
+            if (!empty($defaultQuestions)) {
+                $job['job_poster_questions'] = $defaultQuestions;
+            }
             $route = ['manager.jobs.store'];
             $jobHeading = 'manager/job_create';
         }
@@ -187,7 +231,7 @@ class JobController extends Controller
 
         $softSkills = Skill::whereHas(
             'skill_type',
-            function ($query) {
+            function ($query) : void {
                 $query->where('name', '=', 'soft');
             }
         )->get()
@@ -202,7 +246,7 @@ class JobController extends Controller
 
         $hardSkills = Skill::whereHas(
             'skill_type',
-            function ($query) {
+            function ($query) : void {
                 $query->where('name', '=', 'hard');
             }
         )->get()
@@ -248,7 +292,11 @@ class JobController extends Controller
         return view(
             'manager/job_create',
             [
-                'job_heading' => Lang::get($jobHeading),
+                /*Localization Strings*/
+                'job_l10n' => Lang::get('manager/job_create'),
+
+                /* Data */
+                'job' => Lang::get($jobHeading),
                 'manager' => $manager,
                 'provinces' => Province::all(),
                 'departments' => Department::all(),
@@ -269,9 +317,9 @@ class JobController extends Controller
      * @param \Illuminate\Http\Request $request   Incoming request object.
      * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object.
      *
-     * @return \Illuminate\Http\RedirectResponse A redirect to the Job Index
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse A redirect to the Job Index
      */
-    public function store(Request $request, JobPoster $jobPoster = null) : RedirectResponse
+    public function store(Request $request, JobPoster $jobPoster = null)
     {
         // Don't allow edits for published Job Posters
         // Also check auth while we're at it
@@ -297,7 +345,9 @@ class JobController extends Controller
 
         $this->fillAndSaveJobPosterCriteria($input, $job, isset($jobPoster));
 
-        return redirect(route('manager.jobs.index'));
+        $route = $job->published ? route('manager.jobs.index') : route('manager.jobs.show', $job->id);
+
+        return redirect($route);
     }
 
     /**
@@ -308,7 +358,7 @@ class JobController extends Controller
      *
      * @return void
      */
-    protected function fillAndSaveJobPoster(array $input, JobPoster $jobPoster)
+    protected function fillAndSaveJobPoster(array $input, JobPoster $jobPoster) : void
     {
         $jobPoster->fill(
             [
@@ -356,7 +406,7 @@ class JobController extends Controller
      *
      * @return void
      */
-    protected function fillAndSaveJobPosterTasks(array $input, JobPoster $jobPoster, bool $replace)
+    protected function fillAndSaveJobPosterTasks(array $input, JobPoster $jobPoster, bool $replace) : void
     {
         if ($replace) {
             $jobPoster->job_poster_key_tasks()->delete();
@@ -392,7 +442,7 @@ class JobController extends Controller
      *
      * @return void
      */
-    protected function fillAndSaveJobPosterQuestions(array $input, JobPoster $jobPoster, bool $replace)
+    protected function fillAndSaveJobPosterQuestions(array $input, JobPoster $jobPoster, bool $replace) : void
     {
         if ($replace) {
             $jobPoster->job_poster_questions()->delete();
@@ -430,7 +480,7 @@ class JobController extends Controller
      *
      * @return void
      */
-    protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster, bool $replace)
+    protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster, bool $replace) : void
     {
         if ($replace) {
             $jobPoster->criteria()->delete();
@@ -474,5 +524,47 @@ class JobController extends Controller
                 }
             }
         }
+    }
+
+    /**
+     * Get the localized default questions and add them to an array.
+     *
+     * @return mixed[]|void
+     */
+    protected function populateDefaultQuestions()
+    {
+        $defaultQuestions = [
+            'en' => array_values(Lang::get('manager/job_create', [], 'en')['questions']),
+            'fr' => array_values(Lang::get('manager/job_create', [], 'fr')['questions']),
+        ];
+
+        if (count($defaultQuestions['en']) !== count($defaultQuestions['fr'])) {
+            Log::warning('There must be the same number of French and English default questions for a Job Poster.');
+            return;
+        }
+
+        $jobQuestions = [];
+
+        for ($i = 0; $i < count($defaultQuestions['en']); $i++) {
+            $jobQuestion = new JobPosterQuestion();
+            $jobQuestion->fill(
+                [
+                    'en' => [
+                        'question' => $defaultQuestions['en'][$i],
+                    ],
+                    'fr' => [
+                        'question' => $defaultQuestions['fr'][$i],
+                    ]
+                ]
+            );
+            // Workaround for Default Questions with empty descriptions
+            // throwing an error during save.
+            // The id isn't actually used during the fillAndSaveJobPosterQuestions
+            // method call.
+            $jobQuestion->id = $i + 1;
+            $jobQuestions[] = $jobQuestion;
+        }
+
+        return $jobQuestions;
     }
 }

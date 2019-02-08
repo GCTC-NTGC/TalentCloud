@@ -1,0 +1,23 @@
+.application-06__wrapper {
+    background: $palette--white;
+    padding: 4rem 0;
+
+    h3 {
+        border-bottom: 1px solid rgba(10,10,15,.85);
+        font-size: $font-scale--h3;
+        font-weight: 400;
+        margin: 0 0 3rem;
+        padding: 0 0 2rem;
+        text-align: left;
+    }
+
+    h3, p, ul, li {
+        font-family: $font--sans;
+        line-height: 1.5;
+    }
+
+    .application-post__action-wrapper {
+        margin-top: 2rem;
+    }
+
+}
