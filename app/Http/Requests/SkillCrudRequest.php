@@ -27,7 +27,7 @@ class SkillCrudRequest extends FormRequest
     public function rules() : array
     {
         return [
-            'name' => "required|unique_translation:skills,name,{$this->id}",
+            'name' => 'required|unique_translation:skills,name' . (isset($this->id) ? ",{$this->id}" : ''),
             'description' => 'required',
             'skill_type_id' => 'exists:skill_types,id'
         ];
