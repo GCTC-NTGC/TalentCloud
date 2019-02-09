@@ -16,7 +16,10 @@ The Talent Cloud site uses:
 * An image from Unsplash.com (Photo by José Martín Ramírez C on Unsplash)
 
 ## Running the Talent Cloud server with Docker on a Windows machine:
-1. PHP 7.2 is required. Install PHP 7.2 on your system.
+1. PHP 7.2 is required. Install PHP 7.2 on your system with the following extensions
+	- curl
+	- mbstring
+	- xml
 
 2. Install Docker for Windows
 
@@ -147,7 +150,7 @@ To stop and delete all existing Docker containers (can fix some errors)
 
 To set up your database manually (PostGres)
 	docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
-    
+
 To add fake data to your database
 	docker-compose exec talentcloud sh -c "php artisan db:seed"
 ```
