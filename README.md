@@ -165,6 +165,25 @@ npm run dev
 
 And you are done.
 
+## Seeding data
+
+Laravel Data Seeders can be used to quickly generate fake data and add it to the database for testing purposes.
+
+Use the following command to run the seeder within your docker container:
+```
+docker-compose exec talentcloud sh -c "php artisan db:seed --class=DevSeeder"
+```
+This will create:
+- An applicant with email='applicant@test.com' and password='password'
+- A manager with email='manager@test.com' and password='password'
+- 3 JobPosters attached to this manager: one still a draft, one currently open, one already closed.
+Running the command again will create 3 more JobPosters without affecting the users or their profiles.
+
+This functionality lies in the `database\seeds\DevSeeder.php` file.
+
+See https://laravel.com/docs/5.7/seeding for more documentation on seeders.
+
+
 ## Useful Commands:
 
 ```bash
@@ -181,9 +200,9 @@ docker run --rm --interactive --tty --volume $PWD/:/app composer "update"
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 
-# To set up your database manually (PostGres)
+#To set up your database manually (PostGres)
 docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
 
-# To add fake data to your database
+#To add fake data to your database
 docker-compose exec talentcloud sh -c "php artisan db:seed"
 ```
