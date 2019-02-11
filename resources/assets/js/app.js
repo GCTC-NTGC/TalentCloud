@@ -596,7 +596,7 @@
             return maxId + 1;
         }
 
-        //The all in one function to set proper ids and form names
+        //The all in one function to set proper ids and form names`
         function individualizeFormIdsAndNames(template, wrapper) {
             // Get New ID
             var newId = getNextItemId(wrapper);
@@ -607,7 +607,7 @@
             //Differentiate real forms from templates
 
             // filter, if we only want to affect certain results
-            var filter = '';
+            var filter = ':not(.no-prefix *)';
 
             replaceInAttributes(template, 'id', ':template', 'new', filter);
             replaceInAttributes(template, 'for', ':template', 'new', filter);
