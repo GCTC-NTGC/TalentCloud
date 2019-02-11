@@ -123,6 +123,7 @@ return [
     'contains_object_with_attribute' => ':attribute ne contient pas la :relation egal à :attributeValue',
     'user_skill_unique' => 'cette compétence est déjà ajoutée',
     'password_correct' => 'mot de passe incorrect',
+    'user_owns_skill_declaration' => ':attribute doit spécifier une déclaration de compétence qui appartient à l\' utilisateur actuel',
 
     /*
     |--------------------------------------------------------------------------

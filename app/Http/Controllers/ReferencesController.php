@@ -36,7 +36,6 @@ class ReferencesController extends Controller
      */
     public function edit(Request $request, Applicant $applicant)
     {
-        debugbar()->debug($applicant->references[0]->skill_declarations);
         return view('applicant/profile_04_references', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_references'),
