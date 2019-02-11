@@ -119,6 +119,19 @@ If the tests fail, or you get a Segmentation Fault, remove the Example.php or Sa
 
 For further customization to your tests investigate the php.xml file and include or exclude options at your leisure.
 
+## Managing your database with Adminer
+
+Adminer is a tool to manage your database through a browser interface. It can be accessed at `localhost:8080`. The database credentials and settings are set in your `.env` file. Here the settings provided by the `.env.example.`
+
+```env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=talentcloud
+DB_USERNAME=talentcloud
+DB_PASSWORD=talentcloud
+```
+
 ## Editing Frontend Assets (CSS/SASS and JavaScript files)
 
 Laravel Mix is used to compile frontend assets (CSS, SASS, and JS).
