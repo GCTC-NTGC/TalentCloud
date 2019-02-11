@@ -38,12 +38,6 @@ class DevSeeder extends Seeder
         // Create the test manager if it does not exist yet
         if ($managerUser === null) {
             $managerUser = factory(User::class)->state('manager')->create(['email' => 'manager@test.com']);
-        }
-        if (!$managerUser->hasRole('manager')) {
-            $managerUser->user_role_id = UserRole::where('name', 'manager')->first()->id;
-            $managerUser->save();
-        }
-        if (!$managerUser->manager) {
             $managerUser->manager()->save(factory(Manager::class)->create([
                 'user_id' => $managerUser->id
             ]));
