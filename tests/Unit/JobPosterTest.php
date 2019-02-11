@@ -31,6 +31,44 @@ class JobPosterTest extends TestCase
     }
 
     /**
+     * Test that JobPoster->isClosed() behaves properly
+     *
+     * @return void
+     */
+    public function testJobPosterIsClosed()
+    {
+        $jobPoster = factory(JobPoster::class)->states('published')->make();
+        $this->assertFalse($jobPoster->isClosed());
+
+        $jobPoster->close_date_time = $this->faker->dateTimeBetween('-1 weeks', '-5 minutes');
+        $this->assertTrue($jobPoster->isClosed());
+
+        $jobPoster = factory(JobPoster::class)->states('unpublished')->make();
+        $this->assertFalse($jobPoster->isClosed());
+    }
+
+    /**
+     * Test that JobPoster->status() behaves properly
+     *
+     * @return void
+     */
+    public function testJobPosterStatus()
+    {
+        $jobPoster = factory(JobPoster::class)->states('unpublished')->make();
+        $this->assertEquals('draft', $jobPoster->status());
+
+        $jobPoster = factory(JobPoster::class)->states('published')->make();
+        $this->assertEquals('posted', $jobPoster->status());
+
+        $jobPoster = factory(JobPoster::class)->states('closed')->make();
+        $this->assertEquals('closed', $jobPoster->status());
+
+        $jobPoster = factory(JobPoster::class)->states('review_requested')->make();
+        $this->assertEquals('submitted', $jobPoster->status());
+    }
+
+
+    /**
      * Test that JobPoster->timeRemaining() behaves properly
      *
      * @return void

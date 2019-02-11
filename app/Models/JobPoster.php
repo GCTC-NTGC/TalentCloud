@@ -22,6 +22,7 @@ use Jenssegers\Date\Date;
  * @property \Jenssegers\Date\Date $open_date_time
  * @property \Jenssegers\Date\Date $close_date_time
  * @property \Jenssegers\Date\Date $start_date_time
+ * @property \Jenssegers\Date\Date $review_requested_at
  * @property int $department_id
  * @property int $province_id
  * @property int $salary_min
@@ -86,7 +87,8 @@ class JobPoster extends BaseModel {
     protected $dates = [
         'open_date_time',
         'close_date_time',
-        'start_date_time'
+        'start_date_time',
+        'review_requested_at'
     ];
     protected $fillable = [
         'job_term_id',
@@ -178,6 +180,12 @@ class JobPoster extends BaseModel {
             && $this->close_date_time->isFuture();
     }
 
+    public function isClosed() {
+        return $this->published
+            && $this->open_date_time->isPast()
+            && $this->close_date_time->isPast();
+    }
+
     public function timeRemaining() {
         $interval = $this->close_date_time->diff(Date::now());
 
@@ -203,5 +211,21 @@ class JobPoster extends BaseModel {
         $key = "common/time.$unit";
 
         return Lang::choice($key, $count);
+    }
+
+    public function status()
+    {
+        $status = 'draft';
+        if ($this->isOpen()) {
+            $status = 'posted';
+        } else if ($this->isClosed()) {
+            $status = 'closed';
+        } else if ($this->review_requested_at !== null) {
+            $status = 'submitted';
+        } else {
+            $status = 'draft';
+        }
+
+        return $status;
     }
 }
