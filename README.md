@@ -16,7 +16,7 @@ L'initiative de Nuage de talent est un projet de base proposé par un groupe d'e
 
 The Talent Cloud site uses:
 
-* [Icons from Font-Awesome](https://fontawesome.com/free) [Creative Commons License](https://creativecommons.org/licenses/by/4.0/)
+* [Icons from Font-Awesome](https://fontawesome.com/free) - [Creative Commons License](https://creativecommons.org/licenses/by/4.0/)
 * An image from [Unsplash.com](https://unsplash.com/) (Photo by José Martín Ramírez C on Unsplash)
 
 ## Running the Talent Cloud server with Docker on a Windows machine
@@ -109,9 +109,9 @@ Second, you will want to run `docker-compose up -d` if you have not already done
 
 Finally, once you've connected to the TalentCloud server use the command below to run the tests in your tests folder.
 
-    ```bash
-    docker-compose exec talentcloud sh -c "vendor/bin/phpunit"
-    ```
+```bash
+docker-compose exec talentcloud sh -c "vendor/bin/phpunit"
+```
 
 Or specify wherever you keep your tests saved if saved elsewhere on your filesystem.
 
