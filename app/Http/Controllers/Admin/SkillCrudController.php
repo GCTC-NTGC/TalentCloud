@@ -43,6 +43,9 @@ class SkillCrudController extends CrudController
             'label' => 'Name',
             'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
                 $query->orWhere('name->' . $locale, 'like', "%$searchTerm%");
+            },
+            'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {
+                return $query->orderBy('name->' . $locale, $columnDirection)->select('*');
             }
         ]);
         $this->crud->addColumn([
@@ -51,12 +54,17 @@ class SkillCrudController extends CrudController
             'label' => 'Description',
             'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
                 $query->orWhere('description->' . $locale, 'like', "%$searchTerm%");
-            }
+            },
+            'orderable' => false,
         ]);
         $this->crud->addColumn([
             'name' => 'skill_type.name',
             'type' => 'text',
-            'label' => 'Type'
+            'label' => 'Type',
+            'orderable' => true,
+            'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {
+                return $query->orderBy('skill_type_id', $columnDirection)->select('*');
+            }
         ]);
 
         // Add custom fields to the create/update views
