@@ -13,6 +13,7 @@ return [
     "job_link_title" => "Voir l'affiche pour cet emploi.",
     "tracker_label" => "Étape",
     "tracker_link_title" => "Aller à l'étape",
+    "confirm_message" => "Les données non sauvegardées seront perdues. Es-tu sur de vouloir continuer?",
     "items" => [
         "basics" => [
             "step" => "1",
@@ -38,6 +39,11 @@ return [
             "step" => "5",
             "title" => "Revoir ma candidature",
             "status" => "incomplet",
+        ],
+        "confirm" => [
+            "step" => "6",
+            "title" => "Confirmer ma candidature",
+            "status" => "incomplete",
         ]
     ],
 ];

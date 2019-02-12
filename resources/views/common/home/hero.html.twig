@@ -8,7 +8,7 @@
     class="home__hero"
     style="background-image: url('/images/bg_crowd.jpg');">
 
-    {% include "../common/menu" %}
+    {% include "common/menu" %}
 
     {# Hero Content #}
 
@@ -21,6 +21,7 @@
                     alt="{{ hero.hero_logo_alt }}"
                     class=""
                     src="{{ hero.hero_logo }}">
+                <h1 class="invisible">{{ hero.hero_title }}</h1>
             </div>
 
             <div

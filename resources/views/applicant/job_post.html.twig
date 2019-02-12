@@ -5,42 +5,22 @@
 
 ============================================================================= #}
 
-<!DOCTYPE html>
+{% extends "layouts/base" %}
 
-<html
-    lang="en">
+{% block title %}{{ job_post.job_post_title }}{% endblock %}
 
-    <head>
-        <title>{{ job_post.job_post_title }}</title>
+{% block body %}
 
-        {% include "common/head" %}
+	{% include "common/alert" %}
 
-        {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
+    {% include "common/goc" %}
 
-    {# /head #}
+    {% include "common/header" with {'header':job_post} %}
 
-    {# body #}
+    <a id="skipLink"></a>
 
-        {% include "common/alert" %}
+    {% include "applicant/job_post/header" %}
 
-        {% include "common/goc" %}
+    {% include "applicant/job_post/layout" %}
 
-        {% include "common/header" with {'header':job_post} %}
-
-        {% include "applicant/job_post/header" %}
-
-        {% include "applicant/job_post/layout" %}
-
-        {# Login Modals #}
-
-        {% include "common/modal" with {"page":login_modals} %}
-
-        {% include "common/footer" %}
-
-        {# Scripts #}
-
-        {% include "common/scripts" %}
-
-    </body>
-
-</html>
+{% endblock %}

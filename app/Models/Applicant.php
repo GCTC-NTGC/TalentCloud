@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+
 use App\Models\WorkSample;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -34,7 +35,8 @@ use Illuminate\Database\Eloquent\Collection;
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
  * @property \Illuminate\Database\Eloquent\Collection $projects
  */
-class Applicant extends BaseModel {
+class Applicant extends BaseModel
+{
 
     protected $casts = [
         'user_id' => 'int',
@@ -51,60 +53,56 @@ class Applicant extends BaseModel {
         'linkedin_url'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(\App\Models\User::class);
     }
 
-    public function applicant_profile_answers() {
+    public function applicant_profile_answers()
+    {
         return $this->hasMany(\App\Models\ApplicantProfileAnswer::class);
     }
 
-    public function job_applications() {
+    public function job_applications()
+    {
         if ($this->is_snapshot) {
             return $this->hasMany(\App\Models\JobApplication::class, 'applicant_snapshot_id');
         }
         return $this->hasMany(\App\Models\JobApplication::class);
     }
 
-    public function degrees() {
-        return $this->hasMany(\App\Models\Degree::class);
+    public function degrees()
+    {
+        return $this->hasMany(\App\Models\Degree::class)->orderBy('end_date', 'desc');
     }
 
-    public function courses() {
-        return $this->hasMany(\App\Models\Course::class);
+    public function courses()
+    {
+        return $this->hasMany(\App\Models\Course::class)->orderBy('end_date', 'desc');
     }
 
-    public function work_experiences() {
-        return $this->hasMany(\App\Models\WorkExperience::class);
+    public function work_experiences()
+    {
+        return $this->hasMany(\App\Models\WorkExperience::class)->orderBy('end_date', 'desc');
     }
 
-    public function skill_declarations() {
+    public function skill_declarations()
+    {
         return $this->hasMany(\App\Models\SkillDeclaration::class);
     }
 
-    public function references() {
+    public function references()
+    {
         return $this->hasMany(\App\Models\Reference::class);
     }
 
-    public function work_samples() {
+    public function work_samples()
+    {
         return $this->hasMany(\App\Models\WorkSample::class);
     }
 
-    public function projects() {
+    public function projects()
+    {
         return $this->hasMany(\App\Models\Project::class);
     }
-
-    //Accessors
-
-    // Always return profile answers in the order the questions appear in
-    // public function getApplicantProfileAnswersAttribute($applicant_profile_answers) {
-    //     debugbar()->debug($applicant_profile_answers);
-    //     if ($applicant_profile_answers !== null) {
-    //         return $applicant_profile_answers->sortBy(function ($answer){
-    //             return $answer->applicant_profile_question->id;
-    //         });
-    //     } else {
-    //         return collect($applicant_profile_answers);
-    //     }
-    // }
 }

@@ -11,6 +11,16 @@
         margin: calc(#{$unit} * -1);
     }
 
+    .browse__index-job-null {
+        text-align: center;
+
+        span {
+            @extend %paragraph;
+            margin: 0;
+        }
+
+    }
+
     .browse__index-job {
         cursor: pointer;
         display: flex;
@@ -41,8 +51,7 @@
             transition: all .2s ease;
 
             .browse__index-job-card-title {
-                background-color: $palette--black;
-                background: transparentize($palette--black, .15);
+                background-color: #202023;
                 background-image: url("/images/bg_lightning_texture.png");
 
                 background-position: center;

@@ -58,9 +58,9 @@ return [
         ],
         "04" => [
             "type" => "confirmation",
-            "title" => "Delete this Lived Experience?",
+            "title" => "Delete this Equivalent Experience?",
             "content" => [
-                "00" => "Are you sure you want to permanently delete this lived experience from your profile?",
+                "00" => "Are you sure you want to permanently delete this equivalent experience from your profile?",
                 "01" => "All previously submitted applications will retain this experience."
             ],
             "id" => "deleteWork",

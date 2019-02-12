@@ -20,6 +20,8 @@
 
     	{% include "common/header" with {"header":profile} %}
 
+		<a id="skipLink"></a>
+
     {# Content #}
 
     	<section
@@ -28,23 +30,27 @@
 	    	<div
 	    		class="container--copy">
 
-	    		<h3>You are viewing {{ applicant.user.name }}'s profile.</h3>
+	    		<h3>{{ profile.content.whose_profile | replace({":name":applicant.user.name}) }}</h3>
 
 	    		{# {{ applicant }} #}
 
 	    		{% if applicant.applicant_profile_answers is empty %}
 
-	    			<p>The applicant hasn't answered any questions.</p>
+	    			<p>{{profile.content.no_applicant_answers}}</p>
 
 		    	{% else %}
 
 		    		{% for question in applicant.applicant_profile_answers %}
 
-		    			<h4>{{ question.applicant_profile_question.value }}</h4>
+						<div class="question">
 
-		    			<p>{{ question.applicant_profile_question.description }}</p>
+							<h4>{{ question.applicant_profile_question.question }}</h4>
 
-		    			<p>{{ question.answer }}</p>
+							<p>{{ question.applicant_profile_question.description }}</p>
+
+							<p><span class="bold">{{ profile.content.their_answer }}</span>{{ question.answer }}</p>
+
+						</div>
 
 		    		{% endfor %}
 

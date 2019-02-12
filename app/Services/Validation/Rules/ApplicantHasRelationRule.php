@@ -41,6 +41,6 @@ class ApplicantHasRelationRule implements Rule
 
     public function message()
     {
-        return Lang::get('validation.custom.applicant_has_relation');
+        return Lang::get('validation.applicant_has_relation');
     }
 }

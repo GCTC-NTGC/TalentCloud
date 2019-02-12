@@ -5,46 +5,24 @@
 
 ============================================================================= #}
 
-<!DOCTYPE html>
+{% extends "layouts/base" %}
 
-<html
-    lang="en">
+{% block title %}{{ application_index.application_index_title }}{% endblock %}
 
-    <head>
-        <title>{{ application_index.application_index_title }}</title>
+{% block body %}
 
-        {% include "common/head" %}
+	{% include "common/alert" %}
 
-        {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
+    {% include "common/goc" %}
 
-    {# /head #}
+    {% include "common/header" with {'header':application_index} %}
 
-    {# body #}
+    <a id="skipLink"></a>
 
-        {% include "common/alert" %}
+    {% include "applicant/application_index/index" %}
 
-        {% include "common/goc" %}
-
-        {% include "common/header" with {'header':application_index} %}
-
-        {# include "applicant/application_index/filters" #}
-
-        {% include "applicant/application_index/index" %}
-
-        {# Modals #}
+    {# Modals #}
 
         {% include "common.modal" with {"page":application_index} %}
 
-        {# Login Modals #}
-
-        {% include "common/modal" with {"page":login_modals} %}
-
-        {% include "common/footer" %}
-
-        {# Scripts #}
-
-        {% include "common/scripts" %}
-
-    </body>
-
-</html>
+{% endblock %}

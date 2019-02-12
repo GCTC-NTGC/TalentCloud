@@ -1,56 +1,30 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Apply - Step 02
+    Applicant: Apply - Step 03
 
 ============================================================================= #}
 
-<!DOCTYPE html>
+{% extends "layouts/base" %}
 
-<html
-    lang="en">
+{% block title %}{{ application_template.step_03_title }}{% endblock %}
 
-    <head>
-        <title>{{ application_template.step_03_title }}</title>
+{% block body %}
 
-        {% include "common/head" %}
+	{% include "common/alert" %}
 
-        {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
+    {% include "common/goc" %}
 
-    {# /head #}
+    {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
 
-    {# body #}
+    <a id="skipLink"></a>
 
-        {% include "common/alert" %}
+    {% include "applicant/application_post/common/tracker-ajax" %}
 
-        {% include "common/goc" %}
+    {% include "applicant/application_post/common/skill-layout" %}
 
-        {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
-
-        {# Form containing all about_me editable elements #}
-        <form action="{{ form_submit_action }}" method="post">
-
-            {% include "applicant/application_post/common/tracker" %}
-
-            {# Builds an input field for CSRF token validation #}
-            {{ csrf_field() }}
-
-            {% include "applicant/application_post/common/skill-layout" %}
-
-        </form>
-
-        {% include "common/footer" %}
-
-        {# Login Modals #}
-
-        {% include "common/modal" with {"page":login_modals} %}
+    {# Modals #}
 
         {% include "common/modal" with {"page":application} %}
 
-        {# Scripts #}
-
-        {% include "common/scripts" %}
-
-    </body>
-
-</html>
+{% endblock %}

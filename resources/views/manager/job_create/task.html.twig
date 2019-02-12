@@ -18,7 +18,7 @@
 
                 <div
                     class="box small-2of3">
-                    Task Information
+                    {{task_l10n.task_information}}
                 </div>
 
                 <div
@@ -47,14 +47,14 @@
                     <label
                         class="form__label"
                         for="createJobTaskEN">
-                        Task Name (English)
+                         {{task_l10n.task_name_english}}
                     </label>
 
                     <input
                         class="form__input"
                         id="createJobTaskEN"
                         type="text"
-                        name="task[:id][en]"
+                        name="task[{{ task ? task.id : ':id' }}][en]"
                         value="{{ task.translate('en').description }}">
 
                 </div>
@@ -71,14 +71,14 @@
                     <label
                         class="form__label"
                         for="createJobTaskFR">
-                        Task Name (Français)
+                         {{task_l10n.task_name_french}}
                     </label>
 
                     <input
                         class="form__input"
                         id="createJobTaskFR"
                         type="text"
-                        name="task[:id][fr]"
+                        name="task[{{ task ? task.id : ':id' }}][fr]"
                         value="{{ task.translate('fr').description }}">
 
                 </div>

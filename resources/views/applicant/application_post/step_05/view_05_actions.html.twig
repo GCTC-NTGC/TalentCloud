@@ -1,0 +1,45 @@
+{# =============================================================================
+
+    Talent Cloud
+    Application View - Step 05
+
+============================================================================= #}
+<a
+    aria-hidden="true"
+    class="application__view-anchor"
+    id="applicationView05">
+</a>
+
+<div
+    class="container--copy">
+
+    {# Save Buttons #}
+
+        <div
+            class="flex-grid middle application-post__action-wrapper">
+
+            <div
+                class="box med-1of2">
+
+                <a
+                    class="button--blue light-bg"
+                    href={{ route('applications.index') }}>
+                    {{ application_template.save_quit_button_label }}
+                </a>
+
+            </div>
+
+            <div
+                class="box med-1of2">
+
+                <a
+                    class="button--blue light-bg"
+                    href={{ route('job.application.edit.6', job) }}>
+                    {{ application_template.save_continue_button_label }}
+                </a>
+
+            </div>
+
+        </div>
+
+</div>

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use App\Http\ViewComposers\ApplicationReviewComposer;
 
@@ -19,6 +20,9 @@ class ViewComposerServiceProvider extends ServiceProvider
         View::composer(
             'common/alert', 'App\Http\ViewComposers\AlertComposer'
         );
+
+        // Pass App locale to all views
+        View::share('appLocale', App::getLocale());
 
         //Governement of Canada header bar
         View::composer(
@@ -63,7 +67,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         );
 
         View::composer(
-            'applicant/application_post/common/tracker', 'App\Http\ViewComposers\ApplicationTrackerComposer'
+            ['applicant/application_post/common/tracker', 'applicant/application_post/common/tracker-ajax'], 'App\Http\ViewComposers\ApplicationTrackerComposer'
         );
 
         View::composer(

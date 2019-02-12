@@ -11,6 +11,7 @@ return [
      */
 
      "new_course_label" => "New Course/Certification",
+     "accordion_sr_helper" => "Click to edit...",
      "name_label" => "Course/Certification Name",
      "institution_label" => "Institution",
      "status_label" => "Status",
@@ -24,6 +25,6 @@ return [
      ],
      "start_date_label" => "Start Date",
      "end_date_label" => "End Date",
-     "action_01" => "Delete Diploma/Degree",
-     "action_02" => "Save Diploma/Degree"
+     "action_01" => "Delete Course/Certification",
+     "action_02" => "Save Course/Certification"
 ];

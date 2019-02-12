@@ -1,0 +1,12 @@
+{
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "files.watcherExclude": {
+        "**/vendor/**": true
+    },
+    "php.suggest.basic": false,
+    "phpcbf.executablePath": "./vendor/bin/phpcbf",
+    "phpcbf.standard": "./ruleset.xml",
+    "phpcs.standard": "./ruleset.xml"
+}

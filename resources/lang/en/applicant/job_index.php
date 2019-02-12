@@ -12,9 +12,10 @@ return [
     "title" => "Browse Jobs",
     "job_index_title" => "Talent Cloud | Applicant: Browse Jobs",
     "index" => [
+        "null_state" => "We're sorry, there aren't any jobs currently posted on Talent Cloud. Come back soon!",
         "view_title" => "View the job post for",
         "location_label" => "Location",
-        "salary_label" => "Salary",
+        "salary_label" => "Annual Salary Range",
         "duration" => [
             'week' => ':count week.|:count weeks.',
             'month' => ':count month.|:count months.',
@@ -22,8 +23,8 @@ return [
             'permanent' => 'Permanent.'
         ],
         'remote_work_allowed' => [
-            true => 'Remote Work Allowed',
-            false => 'Remote Work Not Allowed',
+            true => 'Allowed',
+            false => 'Not Allowed',
         ],
         "duration_label" => "Duration",
         "remote_label" => "Remote Work",

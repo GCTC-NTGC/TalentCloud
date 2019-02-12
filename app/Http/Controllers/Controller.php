@@ -16,15 +16,8 @@ class Controller extends BaseController
         if (isset($input['relatives'])) {
             $relatives = $input['relatives'];
             if (isset($relatives[$relativeType])) {
-                if (isset($relatives[$relativeType]['new'])) {
-                    foreach($relatives[$relativeType]['new'] as $relativeInput) {
-                        $relativeIds[] = $relativeInput['id'];
-                    }
-                }
-                if (isset($relatives[$relativeType]['old'])) {
-                    foreach($relatives[$relativeType]['old'] as $relativeInput) {
-                        $relativeIds[] = $relativeInput['id'];
-                    }
+                foreach ($relatives[$relativeType] as $relativeInput) {
+                    $relativeIds[] = $relativeInput['id'];
                 }
             }
         }
@@ -114,5 +107,16 @@ class Controller extends BaseController
             $rotatedArray[] = $item;
         }
         return $rotatedArray;
+    }
+
+    /**
+     * Formats the $content array into JSON.
+     *
+     * @param string[] $content The array being returned in response.
+     * @return \Illuminate\Http\Response
+     */
+    protected function formatAjaxResponse(array $content)
+    {
+        return response()->json($content);
     }
 }

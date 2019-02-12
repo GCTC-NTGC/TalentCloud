@@ -1,44 +1,24 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Home
+    Manager: Create Job Poster
 
 ============================================================================= #}
 
-<!DOCTYPE html>
+{% extends "layouts/base" %}
 
-<html
-    lang="en">
+{% block title %}{{ menu.job_create_title }}{% endblock %}
 
-    <head>
-        <title>{{ menu.job_create_title }}</title>
+{% block body %}
 
-        {% include "common/head" %}
+	{% include "common/alert" %}
 
-        {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
+    {% include "common/goc" %}
 
-    {# /head #}
+        {% include "common/header" with {"header": job_l10n} %}
 
-    {# body #}
+    <a id="skipLink"></a>
 
-        {% include "common/alert" %}
+        {% include "manager/job_create/layout" with {"layout_l10n": job_l10n.layout} %}
 
-        {% include "common/goc" %}
-
-        {% include "common/header" with {"header":job_create} %}
-
-        {% include "manager/job_create/layout" %}
-
-        {# Login Modals #}
-
-        {% include "common/modal" with {"page":login_modals} %}
-
-        {% include "common/footer" %}
-
-        {# Scripts #}
-
-        {% include "common/scripts" %}
-
-    </body>
-
-</html>
+{% endblock %}

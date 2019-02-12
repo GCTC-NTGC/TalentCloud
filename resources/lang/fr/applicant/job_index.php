@@ -12,9 +12,10 @@ return [
     "title" => "Parcourir les emplois",
     "job_index_title" => "Nuage de talents | Candidat : Parcourir les emplois",
     "index" => [
+        "null_state" => "Nous sommes désolés, il n'y a actuellement aucune offre d'emploi publiée sur Nuage de talents. Revenez bientôt!",
         "view_title" => "Voir l'affiche de travail pour",
         "location_label" => "Emplacement",
-        "salary_label" => "Salaire",
+        "salary_label" => "Échelle de salaire annuel",
         "duration" => [
             'week' => ':count semaine.|:count semaines.',
             'month' => ':count mois.|:count mois.',
@@ -22,8 +23,8 @@ return [
             'permanent' => 'Permanent.'
         ],
         'remote_work_allowed' => [
-            true => 'Travail à distance autorisé',
-            false => 'travail à distance non autorisé',
+            true => 'Autorisé',
+            false => 'Non autorisé',
         ],
         "duration_label" => "Durée",
         "remote_label" => "Travail à distance",

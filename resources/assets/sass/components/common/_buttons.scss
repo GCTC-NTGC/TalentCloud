@@ -139,4 +139,48 @@
 
     }
 
+    .submit-default {
+        display: block;
+    }
+
+    .submit-working {
+        display: none;
+    }
+
+    .submit-saved {
+        display: none;
+    }
+
+    &.working {
+
+        .submit-default {
+            display: none;
+        }
+
+        .submit-working {
+            display: block;
+        }
+
+        .submit-saved {
+            display: none;
+        }
+
+    }
+
+    &.saved {
+        
+        .submit-default {
+            display: none;
+        }
+
+        .submit-working {
+            display: none;
+        }
+
+        .submit-saved {
+            display: block;
+        }
+
+    }
+
 }

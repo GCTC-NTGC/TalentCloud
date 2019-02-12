@@ -9,6 +9,7 @@ return [
     *
     */
     'new_skill_title' => 'Nouvelle compétence',
+    "accordion_sr_helper" => "cliquez pour modifier",
     'name_label' => 'Nom du projet',
     'type_label' => 'Type du projet',
     'skill_selection_label' => 'Sélectionner une compétence',
@@ -16,8 +17,8 @@ return [
     'level_link_title' => 'En savoir plus sur la façon d\'identifier votre niveau de compétence.',
     'level_link_label' => '(Trouvez votre niveau de compétence)',
     'knowledge_label' => 'Comment j\'ai acquis cette compétence',
-     'skill_status_null_label' => 'Statut: compétence pas ajouté',
-    'skill_status_label' => 'Statut: compétence',
+     'skill_status_null_label' => 'Statut : compétence pas ajouté',
+    'skill_status_label' => 'Statut : ',
     'skill_level_null' => 'Aucun niveau de compétence n\'a été sélectionné.',
     'skill_levels' => [
         'hard' => [
@@ -36,6 +37,8 @@ return [
     'skill_description_null' => 'Vous n\'avez pas encore décrit comment cette compétence s\'applique à vous.',
     'action_01' => 'Supprimer cette compétence',
     'action_02' => 'Enregistrer cette compétence',
+    'action_02_working' => 'Pensant...',
+    'action_02_saved' => 'Enregistré!',
     'skills' => [
         'front_end_dev' => [
             'name' => 'Développement frontal',
@@ -63,27 +66,27 @@ return [
         ],
         'c_plus_plus' => [
             'name' => 'C++',
-            'description' => 'Défini comme: langage de programmation orienté objet de niveau intermédiaire permettant de développer des applications logicielles de bas à haut niveau.'
+            'description' => 'Défini comme : langage de programmation orienté objet de niveau intermédiaire permettant de développer des applications logicielles de bas à haut niveau.'
         ],
         'sass' => [
             'name' => 'SAS',
-            'description' => 'Signifie « Syntactically Awesome Style Sheets » et se définit comme: un script de préprocesseur, langage de feuille de style interprété ou compilé en CSS pour le développement Web.'
+            'description' => 'Signifie « Syntactically Awesome Style Sheets » et se définit comme : un script de préprocesseur, langage de feuille de style interprété ou compilé en CSS pour le développement Web.'
         ],
         'python' => [
             'name' => 'Python',
-            'description' => 'Défini comme: un langage de programmation interprété, orienté objet et de haut niveau, utilisé avec souplesse pour atteindre divers objectifs de programmation.'
+            'description' => 'Défini comme : un langage de programmation interprété, orienté objet et de haut niveau, utilisé avec souplesse pour atteindre divers objectifs de programmation.'
         ],
         'php' => [
             'name' => 'PHP',
-            'description' => 'Défini comme: langage de programmation utilisé pour développer et exécuter le code d\'application Web traité du côté serveur.'
+            'description' => 'Défini comme : langage de programmation utilisé pour développer et exécuter le code d\'application Web traité du côté serveur.'
         ],
         'git' => [
             'name' => 'Git',
-            'description' => 'Défini comme: un système de contrôle de version utilisé pour suivre les modifications dans les fichiers et coordonner le travail sur des projets impliquant plusieurs utilisateurs.'
+            'description' => 'Défini comme : un système de contrôle de version utilisé pour suivre les modifications dans les fichiers et coordonner le travail sur des projets impliquant plusieurs utilisateurs.'
         ],
         'docker' => [
             'name' => 'Docker',
-            'description' => 'Défini comme: Un environnement virtuel sécurisé pour créer, éditer et développer librement des projets.'
+            'description' => 'Défini comme : Un environnement virtuel sécurisé pour créer, éditer et développer librement des projets.'
         ],
         'html' => [
             'name' => 'HTML',
@@ -275,7 +278,7 @@ return [
         ],
         'results_oriented' => [
             'name' => 'Axé sur les résultats',
-            'description' => 'Se définit comme suit : Capacité d’axer les efforts pour atteindre des résultats de qualité conformes à la vision globale.'
+            'description' => 'Se définit comme suit : Capacité d\'axer les efforts pour atteindre des résultats de qualité conformes à la vision globale.'
         ],
         'relationship_management' => [
             'name' => 'Gestion des relations',
@@ -283,15 +286,15 @@ return [
         ],
         'data_analysis' => [
             'name' => 'Analyse de données',
-            'description' => 'Se définit comme suit : Capacité d’inspecter, d’épurer, de transformer et de modéliser des données, dans le but de découvrir des renseignements utiles, d’atteindre des conclusions informées, et d’appuyer la prise de décision.'
+            'description' => 'Se définit comme suit : Capacité d\'inspecter, d\'épurer, de transformer et de modéliser des données, dans le but de découvrir des renseignements utiles, d\'atteindre des conclusions informées, et d\'appuyer la prise de décision.'
         ],
         'data_mining' => [
             'name' => 'Extraction de données',
-            'description' => 'Se définit comme suit : Capacité d’utiliser une technique d’analyse de données axée sur la modélisation et la découverte de connaissances à des fins de prédiction plutôt que des fins purement descriptives.'
+            'description' => 'Se définit comme suit : Capacité d\'utiliser une technique d\'analyse de données axée sur la modélisation et la découverte de connaissances à des fins de prédiction plutôt que des fins purement descriptives.'
         ],
         'r_programming' => [
             'name' => 'Programmation R',
-            'description' => 'Se définit comme suit : un langage de programmation voué à l’informatique statistique et aux graphiques. Le langage R est largement utilisé par les statisticiens et les extracteurs de données pour l’élaboration de logiciels statistiques et l’analyse de données.'
+            'description' => 'Se définit comme suit : un langage de programmation voué à l\'informatique statistique et aux graphiques. Le langage R est largement utilisé par les statisticiens et les extracteurs de données pour l\'élaboration de logiciels statistiques et l\'analyse de données.'
         ],
         'database_design_and_management' => [
             'name' => 'Conception et gestion de bases de données',
@@ -299,35 +302,87 @@ return [
         ],
         'scrum' => [
             'name' => 'Méthodologie SCRUM',
-            'description' => 'Se définissant comme suit : Capacité de travailler selon la méthodologie Scrum, un cadre Agile pour des projets complexes qui aide à décomposer un projet en objectifs tangibles par la tenue de réunions quotidiennes, l’établissement d’échéanciers de projet détaillés et la détermination des obstacles éventuels au projet.'
+            'description' => 'Se définissant comme suit : Capacité de travailler selon la méthodologie Scrum, un cadre Agile pour des projets complexes qui aide à décomposer un projet en objectifs tangibles par la tenue de réunions quotidiennes, l\'établissement d\'échéanciers de projet détaillés et la détermination des obstacles éventuels au projet.'
         ],
         'team_foundation_server' => [
             'name' => 'Éléments de travail du TFS',
-            'description' => 'Se définissant comme suit : Capacité d’utiliser Team Foundation Server (communément appelé TFS), qui couvre la totalité du cycle de vie de l’application et permet les capacités de développement et d’exploitation.'
+            'description' => 'Se définissant comme suit : Capacité d\'utiliser Team Foundation Server (communément appelé TFS), qui couvre la totalité du cycle de vie de l\'application et permet les capacités de développement et d\'exploitation.'
         ],
         'n_unit_testing' => [
             'name' => 'Essais de N-Unit',
-            'description' => 'Se définissant comme suit : Capacité d’utiliser N-Unit, un cadre source ouverte en évolution conçu pour la rédaction et l’exécution d’essais dans les langages de programmation de Microsoft.NET.'
+            'description' => 'Se définissant comme suit : Capacité d\'utiliser N-Unit, un cadre source ouverte en évolution conçu pour la rédaction et l\'exécution d\'essais dans les langages de programmation de Microsoft.NET.'
         ],
         'asp_net_mvc' => [
             'name' => 'ASP.NET MVC',
-            'description' => 'Se définissant comme suit : Capacité d’utiliser ASP.NET MVC, un cadre d’application Web élaboré par Microsoft, qui met en application le parcours Modèle-Vue-Contrôleur (MVC).'
+            'description' => 'Se définissant comme suit : Capacité d\'utiliser ASP.NET MVC, un cadre d\'application Web élaboré par Microsoft, qui met en application le parcours Modèle-Vue-Contrôleur (MVC).'
         ],
         'ef6' => [
             'name' => 'EF6',
-            'description' => 'Se définissant comme suit : Capacité d’utiliser Entity Framework (EF), un cadre source ouverte de mappage objet-relationnel (ORM) pour ADO.NET.'
+            'description' => 'Se définissant comme suit : Capacité d\'utiliser Entity Framework (EF), un cadre source ouverte de mappage objet-relationnel (ORM) pour ADO.NET.'
         ],
         'cloud_architecture_for_mobile_and_applications' => [
             'name' => 'Architecture en nuage pour dispositifs mobiles et applications',
-            'description' => 'Définition : Capacité à structurer, à concevoir et à mettre en œuvre des technologies, des solutions et des services d’infrastructure, par exemple calcul, stockage, réseaux, infrastructures physiques, logiciels, logiciels disponibles sur le marché, trousses et solutions de sources ouvertes, infrastructure virtuelle et en nuage, y compris PaaS, SaaS, en utilisant Azure, AWS, Xamarin, Java, C#, CSS ou Python.'
+            'description' => 'Définition : Capacité à structurer, à concevoir et à mettre en œuvre des technologies, des solutions et des services d\'infrastructure, par exemple calcul, stockage, réseaux, infrastructures physiques, logiciels, logiciels disponibles sur le marché, trousses et solutions de sources ouvertes, infrastructure virtuelle et en nuage, y compris PaaS, SaaS, en utilisant Azure, AWS, Xamarin, Java, C#, CSS ou Python.'
         ],
         'cloud_computing_platform_configuration' => [
-            'name' => 'Configuration d’une plateforme en nuage',
-            'description' => 'Définition : Capacité à travailler avec Azure et AWS pour définir tous les détails propres au matériel et aux logiciels des éléments d’un environnement en nuage afin d’en assurer l’interopérabilité et de faire en sorte qu’ils puissent communiquer ensemble.'
+            'name' => 'Configuration d\'une plateforme en nuage',
+            'description' => 'Définition : Capacité à travailler avec Azure et AWS pour définir tous les détails propres au matériel et aux logiciels des éléments d\'un environnement en nuage afin d\'en assurer l\'interopérabilité et de faire en sorte qu\'ils puissent communiquer ensemble.'
         ],
         'strategy_development' => [
             'name' => 'Élaboration de la stratégie',
-            'description' => 'Se définit comme suit : Capacité à définir des objectifs précis, puis des buts réalisables, à établir l’ordre des priorités, à répartir efficacement les efforts et les ressources et à travailler avec les parties concernées à l’atteinte des résultats escomptés, tout en évaluant et en rajustant, au besoin, l’orientation de l’organisation pour qu’elle puisse s’adapter à un environnement en constante évolution.'
+            'description' => 'Se définit comme suit : Capacité à définir des objectifs précis, puis des buts réalisables, à établir l\'ordre des priorités, à répartir efficacement les efforts et les ressources et à travailler avec les parties concernées à l\'atteinte des résultats escomptés, tout en évaluant et en rajustant, au besoin, l\'orientation de l\'organisation pour qu\'elle puisse s\'adapter à un environnement en constante évolution.'
+        ],
+        'requirements_analysis' => [
+            'name' => 'Analyse des exigences',
+            'description' => 'Se définit comme suit : capacité à recueillir et à utiliser des données qualitatives et quantitatives pour prendre des décisions en matière de conception et trouver des solutions appropriées, et pour éclairer la préparation de documents fonctionnels et techniques.'
+        ],
+        'quality_assurance' => [
+            'name' => 'Assurance de la qualité',
+            'description' => 'Se définit comme suit : capacité à concevoir un vaste éventail de techniques d\'essai, à cerner les techniques, jeux de données et outils les plus efficaces, et à communiquer les méthodes d\'essai à des intervenants techniques et non techniques.'
+        ],
+        'accessibility_assessment_apps' => [
+            'name' => 'Évaluation de l\'accessibilité pour les demandes',
+            'description' => 'Se définit comme suit : connaissance des lignes directrices en matière d\'accessibilité et des pratiques exemplaires de l\'industrie et du secteur public.'
+        ],
+        'community_engagement' => [
+            'name' => 'Mobilisation communautaire',
+            'description' => 'Se définit comme suit : capacité à communiquer de façon efficace avec une communauté de parties intéressées ou d\'intervenants.'
+        ],
+        'solution_architecture_mobile' => [
+            'name' => 'Architecture de solutions pour l\'environnement mobile',
+            'description' => 'Se définit comme suit : Capacité d\'élaborer l\'architecture, de concevoir et de mettre en œuvre des technologies, des solutions et des services d\'infrastructure pour l\'environnement mobile à l\'aide de langages comme Xamarin, Java, C#, CSS, Python, Objective-C, Swift, Apple Xcode, ADT, Android SDK, React Native, JavaScript, ou HTML 5.'
+        ],
+        'mobile_app_design' => [
+            'name' => 'Conception, architecture et développement d\'applications mobiles',
+            'description' => 'Se définit comme suit : Capacité d\'élaborer, de concevoir et de développer des applications mobiles à l\'aide de solutions hybrides ou d\'origine.'
+        ],
+        'mobile_development_cloud' => [
+            'name' => 'Développement de technologies mobiles en nuage',
+            'description' => 'Se définit comme suit : Capacité d\'élaborer l\'architecture, de concevoir et de développer ou de déployer et de mettre à l\'essai des applications mobiles sur une plateforme en nuage (MS Azure ou Amazon AWS).'
+        ],
+        'business_process_modelling_software' => [
+            'name' => 'Logiciel de modélisation des processus opérationnels',
+            'description' => 'Se définissant comme suit : capacité d\'utiliser des logiciels ou des applications de modélisation, notamment Visio, PowerPoint, Excel et Dia, pour créer des flux de travail.'
+        ],
+        'business_process_modelling' => [
+            'name' => 'Modélisation des processus opérationnels',
+            'description' => 'Se définissant comme suit : capacité de cartographier les processus et les sous-processus d\'une entreprise, ainsi que de créer des modèles qui offrent une représentation visuelle du déroulement des activités afin d\'atteindre les objectifs visés.'
+        ],
+        'business_analysis' => [
+            'name' => 'Analyse opérationnelle',
+            'description' => 'Se définissant comme suit : capacité de recueillir, de documenter et d\'analyser les besoins et les exigences opérationnels, d\'examiner les problèmes et d\'explorer les occasions de contribuer à la détermination des solutions.'
+        ],
+        'project_management_practices' => [
+            'name' => 'Connaissances des pratiques de gestion de projets',
+            'description' => 'Se définissant comme suit : bonne connaissance des pratiques de lancement, de planification, d\'exécution, de contrôle et de conclusion des travaux d\'une équipe afin d\'atteindre des objectifs précis et de répondre à des critères de réussite particuliers au moment indiqué.'
+        ],
+        'goc_policy_project_management' => [
+            'name' => 'Connaissance de l\'ensemble des politiques du gouvernement du Canada sur la gestion de projets',
+            'description' => 'Se définissant comme suit : connaissance de l\'ensemble des politiques du gouvernement du Canada sur la gestion de projets.'
+        ],
+        'it_project_management' => [
+            'name' => 'Gestion de projets de la TI',
+            'description' => 'Se définit comme suit : Capacité de gérer les projets de transformation de la TI à travers un cycle de vie tout entier du projet.'
         ],
     ],
     'status' => [

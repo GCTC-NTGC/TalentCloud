@@ -81,13 +81,13 @@
             // border-top: 1px solid darken($palette--white, 20%);
             border-bottom: 1px solid darken($palette--white, 20%);
             // margin-top: calc(#{$unit} * 5);
-            margin-bottom: calc(#{$unit} * 5);
+            // margin-bottom: calc(#{$unit} * 5);
 
             section {
 
                 &:first-of-type {
 
-                    h3 {
+                    h4 {
                         margin-top: 0;
                     }
 
@@ -95,20 +95,20 @@
 
             }
 
-            h3 {
+            h4 {
                 border-bottom: 1px solid $palette--font-black;
                 color: $palette--black;
                 font-family: $font--sans;
-                font-size: $font-scale--h3;
-                font-weight: 400;
+                font-size: $font-scale--h4;
+                font-weight: 600;
                 margin: calc(#{$unit} * 4) 0 calc(#{$unit} * 2) 0;
                 padding: 0 0 2rem 0;
             }
 
-            h4 {
+            h5 {
                 color: $palette--blue;
                 font-family: $font--sans;
-                font-size: $font-scale--h4;
+                font-size: $font-scale--h5;
                 font-weight: 600;
                 margin: 3rem 0 0 0;
             }
@@ -145,12 +145,12 @@
 
         .application-post__anchor {
 
-            &::before { 
-                display: block; 
-                content: " "; 
-                margin-top: -13rem; 
-                height: 13rem; 
-                visibility: hidden; 
+            &::before {
+                display: block;
+                content: " ";
+                margin-top: -13rem;
+                height: 13rem;
+                visibility: hidden;
                 pointer-events: none;
             }
 
@@ -161,7 +161,7 @@
     // About
 
         .application-preview__section-01 {
-            
+
             .container--copy {
                 text-align: left;
             }
@@ -195,14 +195,15 @@
             }
 
             .application-preview__long-question {
-                margin: 0 0 2rem 0;
+                margin: 3rem 0 2rem 0;
 
                 span {
                     color: $palette--blue;
                     display: block;
                     font-family: $font--sans;
-                    font-size: $font-scale--h4;
+                    font-size: $font-scale--h5;
                     font-weight: 600;
+                    line-height: 1.5;
                     margin: 0 0 1rem 0;
                 }
 
