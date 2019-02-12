@@ -14,10 +14,10 @@ class PopulateSkillsJan8 extends Migration
     public function up()
     {
         DB::table('skills')->insert([
-            ['id' => 74, 'skill_type_id' => 2, 'name' => 'requirements_analysis'],
-            ['id' => 75, 'skill_type_id' => 2, 'name' => 'quality_assurance'],
-            ['id' => 76, 'skill_type_id' => 2, 'name' => 'accessibility_assessment_apps'],
-            ['id' => 77, 'skill_type_id' => 2, 'name' => 'community_engagement'],
+            ['skill_type_id' => 2, 'name' => 'requirements_analysis'],
+            ['skill_type_id' => 2, 'name' => 'quality_assurance'],
+            ['skill_type_id' => 2, 'name' => 'accessibility_assessment_apps'],
+            ['skill_type_id' => 2, 'name' => 'community_engagement'],
         ]);
     }
 
@@ -28,6 +28,11 @@ class PopulateSkillsJan8 extends Migration
     */
     public function down()
     {
-        DB::table('skills')->whereIn('id', [74, 75, 76, 77])->delete();
+        DB::table('skills')->whereIn('name', [
+            'requirements_analysis',
+            'quality_assurance',
+            'accessibility_assessment_apps',
+            'community_engagement'
+        ])->delete();
     }
 }
