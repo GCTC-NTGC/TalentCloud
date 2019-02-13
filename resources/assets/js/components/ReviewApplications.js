@@ -3,6 +3,15 @@ import ReactDOM from "react-dom";
 import classNames from "classnames";
 import Reference from "./Reference";
 
+const ApplicationReview = (props) => {
+    return (
+        <p>
+            There is an applicant named{" "}
+            {props.application.applicant.user.name}
+        </p>
+    );
+}
+
 export default class ReviewApplications extends Component {
     constructor(props) {
         super(props);
@@ -16,17 +25,12 @@ export default class ReviewApplications extends Component {
                 <ul>
                     {this.props.applications.map(application => (
                         <li>
-                            <p>
-                                There is an applicant named{" "}
-                                {application.applicant.user.name}
-                            </p>
+                            <ApplicationReview applicant={applicaiton}></ApplicationReview>
                         </li>
                     ))}
                 </ul>
             );
         }
-        console.log(this.props.applications);
-        console.log(this.props.applications.length);
 
         return (
             <div className="container--layout">

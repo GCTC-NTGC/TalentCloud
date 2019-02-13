@@ -28164,6 +28164,10 @@ function _setPrototypeOf(o, p) {
 
 
 
+var ApplicationReview = function ApplicationReview(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "There is an applicant named", " ", props.application.applicant.user.name);
+};
+
 var ReviewApplications =
 /*#__PURE__*/
 function (_Component) {
@@ -28182,12 +28186,12 @@ function (_Component) {
         var content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "There are no applicants yet");
       } else {
         var content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.applications.map(function (application) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "There is an applicant named", " ", application.applicant.user.name));
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ApplicationReview, {
+            applicant: applicaiton
+          }));
         }));
       }
 
-      console.log(this.props.applications);
-      console.log(this.props.applications.length);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container--layout"
       }, "Hello World. I'm the Review Applications page.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.job.title));
