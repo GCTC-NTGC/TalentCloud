@@ -29,17 +29,6 @@
 
             <div class="container--layout-xl">
 
-                {# Templates #}
-
-                    {# Assessment Selection #}
-
-                        {% include "manager/components/skill-assessment-select" with {"template":true} %}
-
-                    {# Screening Plan #}
-
-                        {# Screening Plan Layout #}
-
-                            {# {% include "manager/components/screening-plan" with {"template":true} %} #}
 
                 {# Plan Generator #}
 
@@ -64,7 +53,7 @@
 
                                 {% if criterion.criteria_type.name == "essential" %}
 
-                                    {% include "manager/components/skill-assessment-builder" %}
+                                    {% include "manager/components/skill-assessment-builder" with { 'skill_builder_l10n':screening_l10n.skill_builder } %}
 
                                     {% set essentialCriteria = essentialCriteria + 1 %}
 
@@ -128,13 +117,13 @@
 
                         {% for plan in job.screening_plans %}
 
-                            {% include "manager/components/screening-plan" %}
+                            {% include "manager/components/screening-plan" with { 'plan_l10n': screening_l10n.plan } %}
 
                         {% endfor %}
 
                     </div>
 
-                    {% include "common/modals/delete_confirmation" with {"modal_id":"deleteScreeningPlan", "modal":screening.delete_plan_modal} %}
+                    {% include "common/modals/delete_confirmation" with {"modal_id":"deleteScreeningPlan", "modal":screening_l10n.delete_plan_modal} %}
 
             </div>
 

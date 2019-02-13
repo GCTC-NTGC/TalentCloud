@@ -1,35 +1,52 @@
 <?php
 return [
     /*
-     * --------------------------------------------------------------------------
-     * Screening Plan Language Lines
-     * --------------------------------------------------------------------------
-     *
-     * The following language lines are used in the manager screening plan.
-     *
-     */
+    * --------------------------------------------------------------------------
+    * Manager Job Screening Plan
+    * --------------------------------------------------------------------------
+    * Route: /manager/jobs/#/screening-plan
+    * Controller: Controllers\ScreeningPlanController.php
+    * View: views/manager/screening-plan.html.twig
+    */
     "title" => "Screening Plan Builder",
-    "interface" => [
-        "job_id_copy" => "Generate a screening plan for:",
-        "narrative_warning" => "Please note that all screening plans will include an assessment of the narrative evidence provided by the applicant via Talent Cloud.",
-        "essential_skills_label" => "Essential Skills",
-        "essential_skills_null_copy" => "No Essential Criteria Exist",
-        "asset_skills_label" => "Asset Skills",
-        "asset_skills_null_copy" => "No Asset Criteria Exist",
-        "build_button_label" => "Build New Screening Plan",
-        "screening_plan_section_label" => "My Screening Plan",
-        "screening_plan_section_context" => "The screening plan that you generate using the button above will appear here.",
-        "plan" => [
-            "essential_criteria_title" => "Essential Criteria",
-            "asset_criteria_title" => "Asset Criteria",
-            "plan_title" => "Assessment Plan",
-            "skill_description_label" => "Skill Description",
-            "assessment_types_label" => "Assessment Types",
-            "assessment_selection_label" => "Select an Assessment",
-            "assessment_removal_title" => "Removes the assessment above.",
-            "assessment_removal_label" => "Remove",
-            "add_assessment_title" => "Add another assessment to this criteria."
-        ]
+    "generate_plan_for" => "Generate a screening plan for:",
+    "narrative_warning" => "Please note that all screening plans will include an assessment of the narrative evidence provided by the applicant via Talent Cloud.",
+    "essential_skills" => "Essential Skills",
+    "essential_skills_empty" => "No Essential Criteria Exist",
+    "asset_skills" => "Asset Skills",
+    "asset_skills_empty" => "No Asset Criteria Exist",
+    "build_new_plan" => "Build New Screening Plan",
+    "my_screening_plans" => "My Screening Plans",
+    "screening_plan_here" => "The screening plan that you generate using the button above will appear here.",
+    "skill_builder" =>[
+        "description" => "Description",
+        "assessment_types" => "Assessment Types",
+        "add_assessment" => "Add another assessment to this criteria."
+    ],
+    "select" => [
+        "select_an_assessment" => "Select an Assessment",
+        "assessment_removal" => "Removes the assessment above.",
+        "remove" => "Remove"
+    ],
+    "plan" => [
+        'copy' => "Copy",
+        'delete' => "Delete",
+        "essential_criteria" => "Essential Criteria",
+        "asset_criteria" => "Asset Criteria",
+        "plan" => "Assessment Plan",
+        'colour_explanation' => "Skills below are colour coded so that :open_green_span Essential Skills :close_span are green and :open_blue_span Asset Skills :close_span are blue.",
+        "skill_description_label" => "Skill Description",
+        'summary' => [
+            "assessment_types" => "Assessment Types",
+            "skills_to_assess" => "Skills to be Assessed"
+        ],
+        'skill' => [
+            "assessment_types" => "Assessment Types",
+            "narrative_assessment" => "Assessment of Narrative Provided via Talent Cloud"
+        ],
+        "my_screening_plans" => "My Screening Plans",
+        "assessment_types" => "Assessment Types",
+        "narrative_assessment" => "Assessment of Narrative Provided via Talent Cloud"
     ],
     "delete_plan_modal" => [
         "title" => "Delete this Screening Plan?",
