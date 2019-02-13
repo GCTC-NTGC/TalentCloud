@@ -10,7 +10,7 @@ return [
     */
     "title" => "Assessment Plan Builder",
     "generate_plan_for" => "Generate an assessment plan for:",
-    "narrative_warning" => "Please note that all assessment plans will include an review of the narrative evidence provided by the applicant via Talent Cloud.",
+    "narrative_warning" => "Please note that all assessment plans will include a review of the narrative evidence provided by the applicant.",
     "essential_skills" => "Essential Skills",
     "essential_skills_empty" => "No Essential Criteria Exist",
     "asset_skills" => "Asset Skills",
@@ -42,11 +42,11 @@ return [
         ],
         'skill' => [
             "assessment_types" => "Assessment Types",
-            "narrative_assessment" => "Assessment of Narrative Provided via Talent Cloud"
+            "narrative_assessment" => "Review of narrative evidence provided by applicant"
         ],
         "my_screening_plans" => "My Assessment Plans",
         "assessment_types" => "Assessment Types",
-        "narrative_assessment" => "Assessment of Narrative Provided via Talent Cloud"
+        "narrative_assessment" => "Review of narrative evidence provided by applicant"
     ],
     "delete_plan_modal" => [
         "title" => "Delete this Assessment Plan?",
