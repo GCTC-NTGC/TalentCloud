@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Lang;
+use Jenssegers\Date\Date;
 
 use App\Models\Applicant;
 use App\Models\Criteria;
@@ -85,6 +86,24 @@ class JobControllerTest extends TestCase
 
         $response->assertSee('<h3>' . $this->jobPoster->title . '</h3>');
         $response->assertDontSee('<h3>' . $this->otherJobPoster->title . '</h3>');
+    }
+
+    /**
+     * Ensure a Job Poster can be submitted for review.
+     *
+     * @return void
+     */
+    public function testSubmitForReview() : void
+    {
+        $response = $this->actingAs($this->manager->user)
+            ->get('manager/jobs/' . $this->jobPoster->id . '/review');
+
+        $response->assertStatus(200);
+
+        $this->jobPoster->refresh();
+
+        $response->assertSee($this->manager->user->name . ' has submitted ' . $this->jobPoster->title . ' job poster for review.');
+        $this->assertInstanceOf(Date::class, $this->jobPoster->review_requested_at);
     }
 
     /**
