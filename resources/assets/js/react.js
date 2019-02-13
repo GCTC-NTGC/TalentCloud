@@ -15,3 +15,4 @@ require("./bootstrap");
 require("./components/JobPoster");
 require("./components/Reference");
 require("./components/ReferenceList");
+require("./components/ReviewApplications");

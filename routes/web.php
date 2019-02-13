@@ -294,6 +294,10 @@ Route::group(
 
         Route::group(['prefix' => config('app.manager_prefix')], $managerGroup);
 
+        Route::group(['prefix' => 'demo'], function () : void {
+            Route::get('review-applications', 'DemoController@reviewApplications')->name('demo.review_applications');
+        });
+
         /* Language ============================================================= */
 
         Route::get('fr', function () {
