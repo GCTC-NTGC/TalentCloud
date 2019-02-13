@@ -186,12 +186,12 @@
                                             - This button needs to trigger a confirmation dialogue, email Talent Cloud upon confirmation, and then change the status of the job to submitted via AJAX.
                                             - This interaction should also remove the draft, class from the poster and add the submitted class.
                                         #}
-                                        <button
+                                        <a
                                             class="button--blue submit-button"
-                                            title="Send this job poster for submission review."
-                                            type="button">
+                                            href="{{ route('manager.jobs.review', job) }}"
+                                            title="Send this job poster for submission review..">
                                             Send for Review
-                                        </button>
+                                        </a>
 
                                         {# Note:
                                             - This button only appears when the job poster has the class of "submitted".
