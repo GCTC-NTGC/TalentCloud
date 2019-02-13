@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -12,6 +13,8 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 
 use Carbon\Carbon;
+
+use App\Mail\JobPosterReviewRequested;
 
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
@@ -93,6 +96,25 @@ class JobController extends Controller
             'citizen_applications' => $citizen_applications,
             'other_applications' => $other_applications,
         ]);
+    }
+
+    /**
+     * Submit the Job Poster for review.
+     *
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function submitForReview(Request $request, JobPoster $jobPoster)
+    {
+        // Update review request timestamp
+        $jobPoster->review_requested_at = new Date();
+        $jobPoster->save();
+
+        // Send email
+        // Mail::to(config('mail.reviewer_email'))->send(new JobPosterReviewRequested($jobPoster, Auth::user()));
+        return (new JobPosterReviewRequested($jobPoster, Auth::user()))->render();
     }
 
     /**

@@ -268,6 +268,11 @@ Route::group(
                     ->where('jobPoster', '[0-9]+')
                     ->middleware('can:update,jobPoster')
                     ->name('manager.jobs.edit');
+
+                /* Request Review */
+                Route::get('jobs/{jobPoster}/review', 'JobController@submitForReview')
+                    ->where('jobPoster', '[0-9]+')
+                    ->name('manager.jobs.review');
             });
 
             Route::get('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@createForJob')
