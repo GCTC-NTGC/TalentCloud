@@ -1,18 +1,79 @@
 {# =============================================================================
-
     Talent Cloud
     Applicant: Profile - References Index
-
 ============================================================================= #}
 <section
     class="applicant-profile__portfolio">
 
     <div
-        id="react-reference-list"
-        data-lang="{{ trans('applicant/profile_references')|json_encode() }}"
-        data-reference-lang="{{ trans('common/references')|json_encode() }}"
-        data-references="{{ applicant.references|json_encode() }}"
         class="container--layout">
+
+        {# Profile List #}
+
+        <div
+            class="profile-list">
+
+            {# Profile List Header #}
+
+                <div
+                    class="profile-list__header flex-grid middle">
+
+                    <div
+                        class="box med-1of2">
+
+                        <h3>{{ profile.reference_section.section_title }}</h3>
+
+                    </div>
+
+                    <div
+                        class="box med-1of2">
+
+                        <button
+                            class="profile-list__add-element-trigger"
+                            type="button">
+                            {{ profile.reference_section.add_button_label }}
+                        </button>
+
+                    </div>
+
+                    <div
+                        class="box full">
+
+                        <p>{{ profile.reference_section.section_description }}</p>
+
+                    </div>
+
+                </div>
+
+            {# Set Locale #}
+
+                {% set locale = "profile" %}
+
+            {# Profile Element Template (Sample) #}
+
+                {% include "common/reference" with {'template': true} %}
+
+            {# Profile Element List #}
+
+                <div
+                    class="profile-element-list">
+
+                    <div
+                        class="profile-null {% if (applicant.references|length) == 0 %}active{% endif %}">
+
+                        <p>{{ profile.reference_section.null_copy }}</p>
+
+                    </div>
+
+                    {% for reference in applicant.references %}
+
+                        {% include "common/reference" %}
+
+                    {% endfor %}
+
+                </div>
+
+        </div>
 
     </div>
 
