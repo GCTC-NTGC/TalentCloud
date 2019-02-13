@@ -44,6 +44,10 @@ $factory->state(User::class, 'applicant', [
     'user_role_id' => UserRole::where('name', 'applicant')->first()->id
 ]);
 
+$factory->state(User::class, 'admin', [
+    'user_role_id' => UserRole::where('name', 'admin')->first()->id
+]);
+
 $factory->define(Applicant::class, function (Faker\Generator $faker) {
     return [
         'twitter_username' => $faker->firstName(),
