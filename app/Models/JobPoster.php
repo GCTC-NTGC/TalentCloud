@@ -72,7 +72,7 @@ class JobPoster extends BaseModel
     use Notifiable;
 
     const DATE_FORMAT = [
-        'en' => 'M dS, Y',
+        'en' => 'M jS, Y',
         'fr' => 'd M Y',
     ];
     const TIME_FORMAT = [
