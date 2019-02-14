@@ -39,63 +39,41 @@
     </div>
 
     <div
-        class="application-index__item-content flex-grid middle">
+        class="application-index__item-content flex-grid gutter">
 
         <div
-            class="box lg-1of3 flex-grid middle">
-
-            <div
-                class="box small-1of2">
-                <span>{{ application_index.edit_date_label }}</span>
-                <p>{{ item.updated_at }}</p>
-            </div>
-
-            <div
-                class="box small-1of2">
-                <span>{{ application_index.post_label }}</span>
-                <a
-                    href="{{ route('jobs.show', item.job_poster) }}"
-                    target="_blank"
-                    title="{{ application_index.post_link_title }}">
-                    {{ application_index.post_link_label }}
-                </a>
-            </div>
-
+            class="box lg-2of9">
+            <span>{{ application_index.edit_date_label }}</span>
+            <p>{{ item.updated_at }}</p>
         </div>
 
         <div
-            class="box lg-1of3 flex-grid middle">
-
-            {# <div
-                class="box small-1of3">
-                <a
-                    class="application-index__item-manager-photo"
-                    href="{{ route('managers.show', item.job_poster.manager) }}"
-                    target="_blank"
-                    title="{{ application_index.manager_profile_link_title }}"
-                    style="background-image:url('{{ manager_profile_photo }}');">
-                </a>
-            </div> #}
-
-            <div
-                class="box full">
-                <span>
-                    {{ item.job_poster.manager.user.name }}
-                </span>
-                <a
-                    href="{{ route('managers.show', item.job_poster.manager) }}"
-                    target="_blank"
-                    title="{{ application_index.manager_profile_link_title }}">
-                    {{ application_index.manager_profile_link_label }}
-                </a>
-            </div>
-
+            class="box lg-2of9">
+            <span>{{ application_index.post_label }}</span>
+            <a
+                href="{{ route('jobs.show', item.job_poster) }}"
+                target="_blank"
+                title="{{ application_index.post_link_title }}">
+                {{ application_index.post_link_label }}
+            </a>
         </div>
 
         <div
-            class="box lg-1of3">
+            class="box lg-2of9">
+            <span>
+                {{ item.job_poster.manager.user.name }}
+            </span>
+            <a
+                href="{{ route('managers.show', item.job_poster.manager) }}"
+                target="_blank"
+                title="{{ application_index.manager_profile_link_title }}">
+                {{ application_index.manager_profile_link_label }}
+            </a>
+        </div>
 
-            {% if item.application_status.name == "draft" %}
+        {% if item.application_status.name == "draft" %}
+
+            <div class="box lg-2of9">
 
                 <a
                     class="button--blue light-bg"
@@ -104,7 +82,11 @@
                     {{ application_index.draft_link_label }}
                 </a>
 
-            {% else %}
+            </div>
+
+        {% else %}
+
+            <div class="box lg-2of9">
 
                 <a
                     class="button--blue light-bg"
@@ -113,9 +95,13 @@
                     {{ application_index.view_link_label }}
                 </a>
 
-            {% endif %}
+            </div>
 
-            {% if item.application_status.name == "draft" %}
+        {% endif %}
+
+        {% if item.application_status.name == "draft" %}
+
+            <div class="box lg-1of9">
 
                 <button
                     class="modal-trigger"
@@ -126,13 +112,17 @@
                     <span class="invisible">{{ application_index.delete_label }}</span>
                 </button>
 
-            {% else %}
+            </div>
+
+        {% else %}
+
+            <div class="box lg-1of9">
 
                 <i class="fas fa-check"></i>
 
-            {% endif %}
+            </div>
 
-        </div>
+        {% endif %}
 
     </div>
 

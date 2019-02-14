@@ -141,6 +141,21 @@
                     margin: 0;
                     width: 90%;
 
+                    i {
+                        color: $palette--blue;
+                        font-size: .707rem;
+                        vertical-align: middle;
+
+                        &.fa-calendar {
+                            margin: 0 .5rem 0 0;
+                        }
+
+                        &.fa-clock {
+                            margin: 0 .4rem 0 0;
+                        }
+
+                    }
+
                     span {
                         display: inline-block;
                         font-family: $font--sans;
