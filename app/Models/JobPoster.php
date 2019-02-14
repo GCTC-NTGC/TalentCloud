@@ -236,7 +236,8 @@ class JobPoster extends BaseModel
      */
     public function applyBy() : array
     {
-        $localCloseDate = new Date($this->close_date_time, new \DateTimeZone(self::TIMEZONE));
+        $localCloseDate = new Date($this->close_date_time); // This initializes the date object in UTC time
+        $localCloseDate->setTimezone(new \DateTimeZone(self::TIMEZONE)); // Then set the time zone for display
         $displayDate = [
             'date' => $localCloseDate->format(self::DATE_FORMAT[App::getLocale()]),
             'time' => $localCloseDate->format(self::TIME_FORMAT[App::getLocale()])
