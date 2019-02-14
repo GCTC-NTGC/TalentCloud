@@ -72,7 +72,7 @@
                                 - Posters must have 1 of 4 classes: draft, submitted, published, closed.
                                 - These states must be changed through certain interactions outlined below as well as updated server side to prevent certain actions on the user's behalf.
                             #}
-                            <div class="poster">
+                            <div class="poster {{ job.status() }}">
 
                                 <div class="flex-grid middle gutter">
 
@@ -89,7 +89,7 @@
                                         #}
                                         <h4 class="heading--04 poster-title--preview">
                                             <a
-                                                href="{# TODO: Needs preview route. #}"
+                                                href="{{ route('manager.jobs.show', job) }}"
                                                 title="View a preview of this job poster.">
                                                 {{ job.title }} (Preview)
                                             </a>
@@ -104,10 +104,10 @@
                                                 {{ job.title }}
                                             </a>
                                         </h4>
-                                        <span class="poster-date-time--draft">{{ job.classification }} - Created on: {# TODO: Needs associated date in this format: MMM DD, YYYY #}</span>
-                                        <span class="poster-date-time--submitted">{{ job.classification }} - Submitted on: {# TODO: Needs associated date in this format: MMM DD, YYYY #}</span>
-                                        <span class="poster-date-time--published">{{ job.classification }} - Published on: {# TODO: Needs associated date in this format: MMM DD, YYYY #}</span>
-                                        <span class="poster-date-time--closed">{{ job.classification }} - Closed on: {# TODO: Needs associated date in this format: MMM DD, YYYY #}</span>
+                                        <span class="poster-date-time--draft">{{ job.classification }} - Created on: {{ job.created_at }}{# TODO: Needs associated date in this format: MMM DD, YYYY #}</span>
+                                        <span class="poster-date-time--submitted">{{ job.classification }} - Submitted on: {{ job.review_requested_at }}{# TODO: Needs associated date in this format: MMM DD, YYYY #}</span>
+                                        <span class="poster-date-time--published">{{ job.classification }} - Published on: {{ job.published_at }}{# TODO: Needs associated date in this format: MMM DD, YYYY #}</span>
+                                        <span class="poster-date-time--closed">{{ job.classification }} - Closed on: {{ job.close_date_time }}{# TODO: Needs associated date in this format: MMM DD, YYYY #}</span>
                                     </div>
 
                                     <div class="box med-2of12 poster-measurements">
@@ -133,7 +133,7 @@
                                         #}
                                         <div class="measurement--countdown">
                                             <i class="fas fa-clock"></i>
-                                            <span>{# TODO: Value of Time (days, hours, or minutes) #} Remaining</span>
+                                            <span>{{ job.timeRemaining() }} Remaining</span>
                                         </div>
 
                                         {# Note:
@@ -142,7 +142,7 @@
                                         #}
                                         <div class="measurement--applicants">
                                             <i class="fas fa-users"></i>
-                                            <span>{# TODO: Number #} Applicants</span>
+                                            <span>{{ job.submitted_applications_count }} Applicants</span>
                                         </div>
 
                                     </div>
