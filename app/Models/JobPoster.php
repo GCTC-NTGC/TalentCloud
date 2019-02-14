@@ -186,7 +186,6 @@ class JobPoster extends BaseModel {
     }
 
     // Methods
-
     public function isOpen() {
         return $this->published
             && $this->open_date_time->isPast()
@@ -230,7 +229,7 @@ class JobPoster extends BaseModel {
     {
         $status = 'draft';
         if ($this->isOpen()) {
-            $status = 'posted';
+            $status = 'published';
         } else if ($this->isClosed()) {
             $status = 'closed';
         } else if ($this->review_requested_at !== null) {

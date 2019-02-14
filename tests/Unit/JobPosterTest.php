@@ -59,7 +59,7 @@ class JobPosterTest extends TestCase
         $this->assertEquals('draft', $jobPoster->status());
 
         $jobPoster = factory(JobPoster::class)->states('published')->make();
-        $this->assertEquals('posted', $jobPoster->status());
+        $this->assertEquals('published', $jobPoster->status());
 
         $jobPoster = factory(JobPoster::class)->states('closed')->make();
         $this->assertEquals('closed', $jobPoster->status());
