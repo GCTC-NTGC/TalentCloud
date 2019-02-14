@@ -133,7 +133,7 @@
                                         #}
                                         <div class="measurement--countdown">
                                             <i class="fas fa-clock"></i>
-                                            <span>{{ job.timeRemaining() }} Remaining</span>
+                                            <span>{{ humanizeDateDiff(job.close_date_time) }} Remaining</span>
                                         </div>
 
                                         {# Note:
