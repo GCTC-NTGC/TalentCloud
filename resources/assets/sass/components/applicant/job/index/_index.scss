@@ -53,6 +53,7 @@
             .browse__index-job-card-title {
                 background-color: #202023;
                 background-image: url("/images/bg_lightning_texture.png");
+
                 background-position: center;
                 background-repeat: repeat;
                 background-size: 75px;
@@ -61,13 +62,13 @@
                 h3 {
                     color: $palette--font-white;
                     display: block;
-                    font-weight: 600;
+                    font-weight: 700;
                     margin: 0 0 $unit 0;
                     width: 100%;
                 }
 
                 span {
-                    color: $palette--blue;
+                    color: $palette--font-white;
                     display: block;
                     font-family: $font--sans;
                     font-size: $font-scale--regular;
