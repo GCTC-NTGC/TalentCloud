@@ -23,6 +23,7 @@ use Jenssegers\Date\Date;
  * @property \Jenssegers\Date\Date $close_date_time
  * @property \Jenssegers\Date\Date $start_date_time
  * @property \Jenssegers\Date\Date $review_requested_at
+ * @property \Jessengers\Date\Date $published_at
  * @property int $department_id
  * @property int $province_id
  * @property int $salary_min
@@ -88,7 +89,8 @@ class JobPoster extends BaseModel {
         'open_date_time',
         'close_date_time',
         'start_date_time',
-        'review_requested_at'
+        'review_requested_at',
+        'published_at'
     ];
     protected $fillable = [
         'job_term_id',
@@ -171,6 +173,17 @@ class JobPoster extends BaseModel {
     }
 
     // Accessors
+
+    // Mutators
+    public function setPublishedAttribute($value)
+    {
+        if ($value && $this->open_date_time->isPast()) {
+            $this->attributes['published_at'] = new Date();
+        } elseif ($value && $this->open_date_time->isFuture()) {
+            $this->attributes['published_at'] = $this->open_date_time;
+        }
+        $this->attributes['published'] = $value;
+    }
 
     // Methods
 

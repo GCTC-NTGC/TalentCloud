@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
+use Jenssegers\Date\Date;
 
 use App\Models\JobPoster;
 
@@ -89,5 +90,38 @@ class JobPosterTest extends TestCase
         );
         $langString = Lang::choice('common/time.day', 2);
         $this->assertEquals($langString, $jobPoster->timeRemaining());
+    }
+
+    /**
+     * Ensure the published mutator functions correctly.
+     *
+     * @return void
+     */
+    public function testJobPosterPublishedMutator() : void
+    {
+        // Open but not yet published
+        $jobPoster = factory(JobPoster::class)->states('unpublished')->make();
+        $this->assertEquals(null, $jobPoster->published_at);
+
+        $jobPoster->published = true;
+        $jobPoster->save();
+        $jobPoster->refresh();
+
+        $this->assertInstanceOf(Date::class, $jobPoster->published_at);
+        $this->assertNotEquals($jobPoster->open_date_time, $jobPoster->published_at);
+
+        // Not yet open and not yet published
+        $jobPoster = factory(JobPoster::class)->states('unpublished')->make([
+            'open_date_time' => $this->faker->dateTimeBetween('now', '1 weeks'),
+            'close_date_time' => $this->faker->dateTimeBetween('2 weeks', '4 weeks')
+        ]);
+        $this->assertEquals(null, $jobPoster->published_at);
+
+        $jobPoster->published = true;
+        $jobPoster->save();
+        $jobPoster->refresh();
+
+        $this->assertInstanceOf(Date::class, $jobPoster->published_at);
+        $this->assertEquals($jobPoster->open_date_time, $jobPoster->published_at);
     }
 }
