@@ -104,7 +104,7 @@ class JobController extends Controller
      * @param \Illuminate\Http\Request $request   Incoming request object.
      * @param \App\Models\JobPoster    $jobPoster Job Poster object.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function submitForReview(Request $request, JobPoster $jobPoster)
     {
@@ -113,8 +113,13 @@ class JobController extends Controller
         $jobPoster->save();
 
         // Send email
-        // Mail::to(config('mail.reviewer_email'))->send(new JobPosterReviewRequested($jobPoster, Auth::user()));
-        return (new JobPosterReviewRequested($jobPoster, Auth::user()))->render();
+        $reviewer_email = config('mail.reviewer_email');
+        if (isset($reviewer_email)) {
+            Mail::to($reviewer_email)->send(new JobPosterReviewRequested($jobPoster, Auth::user()));
+        } else {
+            Log::error('The reviewer email environment variable is not set.');
+        }
+        return redirect(route('manager.jobs.index'));
     }
 
     /**
