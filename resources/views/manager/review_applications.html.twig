@@ -50,11 +50,22 @@
 
             </div>
 
+            {# Applicant Categories
+                Categories have 3 class determined states:
+                    - primary (priority, veteran, and citizen candidates)
+                    - secondary (non-canadians, unqualified canadians)
+                    - tertiary (all candidates who have been screened out)
+            #}
+
             <div class="applicant-category primary">
 
-                <h3 class="heading--03"><i class="fas fa-ban"></i> Under Consideration</h3>
+                <h3 class="heading--03"><i class="fas fa-ban"></i> {# Category Title #}</h3>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus fermentum lorem, vel rhoncus velit vehicula imperdiet. Integer ullamcorper iaculis justo, quis tincidunt ex vulputate ut. Vivamus molestie augue turpis, ut egestas ante aliquam id. Quisque efficitur, metus imperdiet rhoncus pharetra, velit ligula lobortis tortor, vitae imperdiet leo augue ac velit. Vivamus sollicitudin dictum est a tempus. Fusce tempus finibus elit sed lacinia.</p>
+                <p>{# Category Description #}</p>
+
+                {# Category Action
+                    This section only exists for the "secondary" category, and should generate a confirmation dialogue that prompts the user to decide whether to screen ALL of the candidates in this category out or not.
+                #}
 
                 <span class="category-action">
                     <button
@@ -63,6 +74,18 @@
                         <i class="fas fa-ban"></i> Screen All Optional Candidates Out
                     </button>
                 </span>
+
+                {# Applicant Buckets
+                    There are 4 applicant buckets:
+                        - [1] Priority Applicants (this bucket will not be used at first and is replaced by the "temporary priority alert outlined above.)
+                        - [2] Veteran & Citzen Applicants
+                        - [3] Non-Canadian Applicants
+                        - [4] Unqualified Applicants (These applicants claimed to have the required essential criteria at a lower level than the job poster asked for.)
+                    The larger page categories outlined earlier contain unique combinations of these buckets:
+                        - 1 and 2 appear in the "primary" category
+                        - 3 and 4 appear in the "secondary" category
+                        - The "tertiary" category contains all 4, each displaying only the candidates that have been screened out in that bucket.
+                #}
 
                 <div class="accordion applicant-bucket">
 
@@ -74,7 +97,7 @@
                             tabindex="0"
                             type="button">
 
-                            <span class="bucket-title"><i class="fas fa-ban"></i> Step {# Number  #}: {# Step Name #} ({# Number of Applicants #})</span>
+                            <span class="bucket-title"><i class="fas fa-ban"></i> Step {# Number  #}: {# Bucket Title #} ({# Real-time Number of Applicants #})</span>
 
                             <span class="invisible">Toggle this step to view relevant applicants.</span>
 
@@ -88,7 +111,22 @@
                             aria-hidden="true"
                             class="accordion-content">
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus fermentum lorem, vel rhoncus velit vehicula imperdiet. Integer ullamcorper iaculis justo, quis tincidunt ex vulputate ut. Vivamus molestie augue turpis, ut egestas ante aliquam id. Quisque efficitur, metus imperdiet rhoncus pharetra, velit ligula lobortis tortor, vitae imperdiet leo augue ac velit. Vivamus sollicitudin dictum est a tempus. Fusce tempus finibus elit sed lacinia.</p>
+                            <p>{# Bucket Description #}</p>
+
+                            {# Applicants and Their States
+                                Applicants contain 3 different points of data that can alter their state:
+                                    - Their current status:
+                                        - in (screened in)
+                                        - out (screened out)
+                                        - maybe (saved for review)
+                                        - null (the manager hasn't yet taken an action on this applicant)
+                                    - Whether a note has been created regarding their application:
+                                        - true
+                                        - false
+                                    - Whether that applicant is a veteran:
+                                        - true
+                                        - false
+                            #}
 
                             <form
                                 class="applicant-summary"
@@ -106,11 +144,11 @@
                                     </div>
 
                                     <div class="box lg-2of11 applicant-information">
-                                        <span class="name">Joshua Beveridge</span>
+                                        <span class="name">{# Applicant Name #}</span>
                                         <a
-                                            href=""
-                                            title="">
-                                            josh@joshbeveridge.ca
+                                            href="mailto:{# Applicant Email #}"
+                                            title="Email this candidate.">
+                                            {# Applicant Email #}
                                         </a>
                                         <span class="veteran-status">
                                             <img
@@ -122,13 +160,13 @@
 
                                     <div class="box lg-2of11 applicant-links">
                                         <a
-                                            href=""
-                                            title="">
+                                            href="{# Link to Applicant's Application #}"
+                                            title="View this applicant's application.">
                                             <i class="fas fa-file-alt"></i>View Application
                                         </a>
                                         <a
-                                            href=""
-                                            title="">
+                                            href="{# Link to Applicant's Profile #}"
+                                            title="View this applicant's profile.">
                                             <i class="fas fa-user"></i>View Profile
                                         </a>
                                     </div>
@@ -142,22 +180,28 @@
                                             </label>
                                             <div class="form__select-wrapper fas fa-chevron-down">
                                                 <select class="form__input">
-                                                    <option>Option 01</option>
-                                                    <option>Option 02</option>
-                                                    <option>Option 03</option>
-                                                    <option>Option 04</option>
-                                                    <option>Option 05</option>
+                                                    {# Decisions
+                                                        A manager can select one of four options from this select element, which should then leverage React to assign the appropriate classes, update the database, AND move this applicant to the correct spot in the UI if necessary:
+                                                            - "Still In"
+                                                            - "Screened Out"
+                                                            - "Still Thinking"
+                                                            - "Not Reviewed" (This should be the default selection.)
+                                                    #}
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="box lg-2of11 applicant-notes">
+                                        {# Add a Note
+                                            This button should trigger a dialogue that allows the manager to edit and save a textarea element unique to this applicant/application. This dialoue should contain a "Cancel" and "Save" button.
+                                        #}
                                         <button
                                             class="button--outline create-note"
                                             type="button">
                                             + Add a Note
                                         </button>
+                                        {# This button should essentially do the same thing, but shows up when there's an existing note. #}
                                         <button
                                             class="button--outline edit-note"
                                             type="button">
@@ -166,11 +210,14 @@
                                     </div>
 
                                     <div class="box lg-2of11 applicant-save-button">
+                                        {# Save Button
+                                            This button should be given a "saved" class when React is finished submitting the data. This class should then be removed when any element for this applicant has been changed, prompting the user to save again.
+                                        #}
                                         <button
                                             class="button--blue light-bg"
                                             type="button">
-                                            <span>Save</span>
-                                            <span>Saved</span>
+                                            <span class="default-copy">Save</span>
+                                            <span class="saved-copy">Saved</span>
                                         </button>
                                     </div>
 
