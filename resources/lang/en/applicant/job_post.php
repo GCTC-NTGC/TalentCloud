@@ -15,6 +15,7 @@ return [
         'time_remaining' => ':time until close',
         "job_closed" => "Job has closed",
         'days_remaining' => ':count day until close|:count days until close',
+        "apply_by_label" => "Apply by",
         'applicants_so_far' => ':count applicant so far|:count applicants so far',
         'location_icon_label' => 'Location Icon.',
         'remote_work_icon_label' => 'Remote Work Icon.',
