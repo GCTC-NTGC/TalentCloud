@@ -67,7 +67,8 @@ class JobPosterTest extends TestCase
     public function testJobPosterApplyBy() : void
     {
         $jobPoster = factory(JobPoster::class)->make();
-        $date = new Date($jobPoster->close_date_time, JobPoster::TIMEZONE);
+        $date = new Date($jobPoster->close_date_time);
+        $date->setTimezone(JobPoster::TIMEZONE);
         $this->assertEquals(
             $date->format(JobPoster::DATE_FORMAT['en']) . $date->format(JobPoster::TIME_FORMAT['en']),
             $jobPoster->applyBy()['date'] . $jobPoster->applyBy()['time']
