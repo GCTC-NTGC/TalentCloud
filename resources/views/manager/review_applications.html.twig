@@ -19,11 +19,171 @@
 
     <a id="skipLink"></a>
 
-    <div
+    {# <div
         id="review-applications"
         data-job="{{ job|json_encode() }}"
         data-applications="{{ applications|json_encode() }}"
     >
-    </div>
+    </div> #}
+
+    {# Static Applicant Index Mockup ======================================== #}
+
+        <section class="applicant-review container--layout-xl">
+
+            <div class="flex-grid gutter">
+
+                <div class="box med-1of2 job-title-wrapper">
+                    <span>Viewing Applicants for: {# Todo: Job Title #} ({# Job Classification Code #})</span>
+                </div>
+
+                <div class="box med-1of2 timer-wrapper">
+                    <span><i class="fas fa-stopwatch"></i> {# Number #} Days Since Close</span>
+                </div>
+
+            </div>
+
+            <div class="priority-alert">
+
+                <h3><i class="fas fa-bell"></i> Temporary Priority Alert</h3>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus fermentum lorem, vel rhoncus velit vehicula imperdiet. Integer ullamcorper iaculis justo, quis tincidunt ex vulputate ut. Vivamus molestie augue turpis, ut egestas ante aliquam id. Quisque efficitur, metus imperdiet rhoncus pharetra, velit ligula lobortis tortor, vitae imperdiet leo augue ac velit. Vivamus sollicitudin dictum est a tempus. Fusce tempus finibus elit sed lacinia.</p>
+
+            </div>
+
+            <div class="applicant-category primary">
+
+                <h3 class="heading--03"><i class="fas fa-ban"></i> Under Consideration</h3>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus fermentum lorem, vel rhoncus velit vehicula imperdiet. Integer ullamcorper iaculis justo, quis tincidunt ex vulputate ut. Vivamus molestie augue turpis, ut egestas ante aliquam id. Quisque efficitur, metus imperdiet rhoncus pharetra, velit ligula lobortis tortor, vitae imperdiet leo augue ac velit. Vivamus sollicitudin dictum est a tempus. Fusce tempus finibus elit sed lacinia.</p>
+
+                <span class="category-action">
+                    <button
+                        class="button--outline"
+                        type="button">
+                        <i class="fas fa-ban"></i> Screen All Optional Candidates Out
+                    </button>
+                </span>
+
+                <div class="accordion applicant-bucket">
+
+                    {# Accordion Trigger #}
+
+                        <button
+                            aria-expanded="false"
+                            class="accordion-trigger"
+                            tabindex="0"
+                            type="button">
+
+                            <span class="bucket-title"><i class="fas fa-ban"></i> Step {# Number  #}: {# Step Name #} ({# Number of Applicants #})</span>
+
+                            <span class="invisible">Toggle this step to view relevant applicants.</span>
+
+                            <i class="fas fa-chevron-up"></i>
+
+                        </button>
+
+                    {# Accordion Content #}
+
+                        <div
+                            aria-hidden="true"
+                            class="accordion-content">
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus fermentum lorem, vel rhoncus velit vehicula imperdiet. Integer ullamcorper iaculis justo, quis tincidunt ex vulputate ut. Vivamus molestie augue turpis, ut egestas ante aliquam id. Quisque efficitur, metus imperdiet rhoncus pharetra, velit ligula lobortis tortor, vitae imperdiet leo augue ac velit. Vivamus sollicitudin dictum est a tempus. Fusce tempus finibus elit sed lacinia.</p>
+
+                            <form
+                                class="applicant-summary"
+                                data-applicant-status="in"
+                                data-note-status="true"
+                                data-veteran-status="true">
+
+                                <div class="flex-grid middle gutter">
+
+                                    <div class="box lg-1of11 applicant-status">
+                                        <i class="fas fa-check-circle"></i>
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <i class="fas fa-question-circle"></i>
+                                        <i class="fas fa-ban"></i>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-information">
+                                        <span class="name">Joshua Beveridge</span>
+                                        <a
+                                            href=""
+                                            title="">
+                                            josh@joshbeveridge.ca
+                                        </a>
+                                        <span class="veteran-status">
+                                            <img
+                                                alt="The Talent Cloud veteran icon."
+                                                src="/images/icon_veteran.svg">
+                                            Veteran
+                                        </span>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-links">
+                                        <a
+                                            href=""
+                                            title="">
+                                            <i class="fas fa-file-alt"></i>View Application
+                                        </a>
+                                        <a
+                                            href=""
+                                            title="">
+                                            <i class="fas fa-user"></i>View Profile
+                                        </a>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-decision">
+                                        <div class="form__input-wrapper--select">
+                                            <label
+                                                class="form__label"
+                                                for="">
+                                                Decision
+                                            </label>
+                                            <div class="form__select-wrapper fas fa-chevron-down">
+                                                <select class="form__input">
+                                                    <option>Option 01</option>
+                                                    <option>Option 02</option>
+                                                    <option>Option 03</option>
+                                                    <option>Option 04</option>
+                                                    <option>Option 05</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-notes">
+                                        <button
+                                            class="button--outline create-note"
+                                            type="button">
+                                            + Add a Note
+                                        </button>
+                                        <button
+                                            class="button--outline edit-note"
+                                            type="button">
+                                            Edit Note
+                                        </button>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-save-button">
+                                        <button
+                                            class="button--blue light-bg"
+                                            type="button">
+                                            <span>Save</span>
+                                            <span>Saved</span>
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                </div>
+
+            </div>
+
+        </section>
 
 {% endblock %}
