@@ -90,7 +90,11 @@
 
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus fermentum lorem, vel rhoncus velit vehicula imperdiet. Integer ullamcorper iaculis justo, quis tincidunt ex vulputate ut. Vivamus molestie augue turpis, ut egestas ante aliquam id. Quisque efficitur, metus imperdiet rhoncus pharetra, velit ligula lobortis tortor, vitae imperdiet leo augue ac velit. Vivamus sollicitudin dictum est a tempus. Fusce tempus finibus elit sed lacinia.</p>
 
-                            <form class="applicant-summary">
+                            <form
+                                class="applicant-summary"
+                                data-applicant-status="in"
+                                data-note-status="true"
+                                data-veteran-status="true">
 
                                 <div class="flex-grid middle gutter">
 
@@ -150,9 +154,14 @@
 
                                     <div class="box lg-2of11 applicant-notes">
                                         <button
-                                            class="button--outline"
+                                            class="button--outline create-note"
                                             type="button">
                                             + Add a Note
+                                        </button>
+                                        <button
+                                            class="button--outline edit-note"
+                                            type="button">
+                                            Edit Note
                                         </button>
                                     </div>
 
@@ -169,81 +178,18 @@
 
                             </form>
 
-                            <form class="applicant-summary">
+                            <form
+                                class="applicant-summary"
+                                data-applicant-status="out"
+                                data-note-status="false"
+                                data-veteran-status="false">
 
                                 <div class="flex-grid middle gutter">
 
                                     <div class="box lg-1of11 applicant-status">
+                                        <i class="fas fa-check-circle"></i>
+                                        <i class="fas fa-exclamation-circle"></i>
                                         <i class="fas fa-question-circle"></i>
-                                    </div>
-
-                                    <div class="box lg-2of11 applicant-information">
-                                        <span class="name">Joshua Beveridge</span>
-                                        <a
-                                            href=""
-                                            title="">
-                                            josh@joshbeveridge.ca
-                                        </a>
-                                    </div>
-
-                                    <div class="box lg-2of11 applicant-links">
-                                        <a
-                                            href=""
-                                            title="">
-                                            <i class="fas fa-file-alt"></i>View Application
-                                        </a>
-                                        <a
-                                            href=""
-                                            title="">
-                                            <i class="fas fa-user"></i>View Profile
-                                        </a>
-                                    </div>
-
-                                    <div class="box lg-2of11 applicant-decision">
-                                        <div class="form__input-wrapper--select">
-                                            <label
-                                                class="form__label"
-                                                for="">
-                                                Decision
-                                            </label>
-                                            <div class="form__select-wrapper fas fa-chevron-down">
-                                                <select class="form__input">
-                                                    <option>Option 01</option>
-                                                    <option>Option 02</option>
-                                                    <option>Option 03</option>
-                                                    <option>Option 04</option>
-                                                    <option>Option 05</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="box lg-2of11 applicant-notes">
-                                        <button
-                                            class="button--outline"
-                                            type="button">
-                                            + Add a Note
-                                        </button>
-                                    </div>
-
-                                    <div class="box lg-2of11 applicant-save-button">
-                                        <button
-                                            class="button--blue light-bg"
-                                            type="button">
-                                            <span>Save</span>
-                                            <span>Saved</span>
-                                        </button>
-                                    </div>
-
-                                </div>
-
-                            </form>
-
-                            <form class="applicant-summary">
-
-                                <div class="flex-grid middle gutter">
-
-                                    <div class="box lg-1of11 applicant-status">
                                         <i class="fas fa-ban"></i>
                                     </div>
 
@@ -254,6 +200,12 @@
                                             title="">
                                             josh@joshbeveridge.ca
                                         </a>
+                                        <span class="veteran-status">
+                                            <img
+                                                alt="The Talent Cloud veteran icon."
+                                                src="/images/icon_veteran.svg">
+                                            Veteran
+                                        </span>
                                     </div>
 
                                     <div class="box lg-2of11 applicant-links">
@@ -290,9 +242,190 @@
 
                                     <div class="box lg-2of11 applicant-notes">
                                         <button
-                                            class="button--outline"
+                                            class="button--outline create-note"
                                             type="button">
                                             + Add a Note
+                                        </button>
+                                        <button
+                                            class="button--outline edit-note"
+                                            type="button">
+                                            Edit Note
+                                        </button>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-save-button">
+                                        <button
+                                            class="button--blue light-bg"
+                                            type="button">
+                                            <span>Save</span>
+                                            <span>Saved</span>
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                            <form
+                                class="applicant-summary"
+                                data-applicant-status="maybe"
+                                data-note-status="false"
+                                data-veteran-status="false">
+
+                                <div class="flex-grid middle gutter">
+
+                                    <div class="box lg-1of11 applicant-status">
+                                        <i class="fas fa-check-circle"></i>
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <i class="fas fa-question-circle"></i>
+                                        <i class="fas fa-ban"></i>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-information">
+                                        <span class="name">Joshua Beveridge</span>
+                                        <a
+                                            href=""
+                                            title="">
+                                            josh@joshbeveridge.ca
+                                        </a>
+                                        <span class="veteran-status">
+                                            <img
+                                                alt="The Talent Cloud veteran icon."
+                                                src="/images/icon_veteran.svg">
+                                            Veteran
+                                        </span>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-links">
+                                        <a
+                                            href=""
+                                            title="">
+                                            <i class="fas fa-file-alt"></i>View Application
+                                        </a>
+                                        <a
+                                            href=""
+                                            title="">
+                                            <i class="fas fa-user"></i>View Profile
+                                        </a>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-decision">
+                                        <div class="form__input-wrapper--select">
+                                            <label
+                                                class="form__label"
+                                                for="">
+                                                Decision
+                                            </label>
+                                            <div class="form__select-wrapper fas fa-chevron-down">
+                                                <select class="form__input">
+                                                    <option>Option 01</option>
+                                                    <option>Option 02</option>
+                                                    <option>Option 03</option>
+                                                    <option>Option 04</option>
+                                                    <option>Option 05</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-notes">
+                                        <button
+                                            class="button--outline create-note"
+                                            type="button">
+                                            + Add a Note
+                                        </button>
+                                        <button
+                                            class="button--outline edit-note"
+                                            type="button">
+                                            Edit Note
+                                        </button>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-save-button">
+                                        <button
+                                            class="button--blue light-bg"
+                                            type="button">
+                                            <span>Save</span>
+                                            <span>Saved</span>
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                            <form
+                                class="applicant-summary"
+                                data-applicant-status="null"
+                                data-note-status="false"
+                                data-veteran-status="false">
+
+                                <div class="flex-grid middle gutter">
+
+                                    <div class="box lg-1of11 applicant-status">
+                                        <i class="fas fa-check-circle"></i>
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <i class="fas fa-question-circle"></i>
+                                        <i class="fas fa-ban"></i>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-information">
+                                        <span class="name">Joshua Beveridge</span>
+                                        <a
+                                            href=""
+                                            title="">
+                                            josh@joshbeveridge.ca
+                                        </a>
+                                        <span class="veteran-status">
+                                            <img
+                                                alt="The Talent Cloud veteran icon."
+                                                src="/images/icon_veteran.svg">
+                                            Veteran
+                                        </span>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-links">
+                                        <a
+                                            href=""
+                                            title="">
+                                            <i class="fas fa-file-alt"></i>View Application
+                                        </a>
+                                        <a
+                                            href=""
+                                            title="">
+                                            <i class="fas fa-user"></i>View Profile
+                                        </a>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-decision">
+                                        <div class="form__input-wrapper--select">
+                                            <label
+                                                class="form__label"
+                                                for="">
+                                                Decision
+                                            </label>
+                                            <div class="form__select-wrapper fas fa-chevron-down">
+                                                <select class="form__input">
+                                                    <option>Option 01</option>
+                                                    <option>Option 02</option>
+                                                    <option>Option 03</option>
+                                                    <option>Option 04</option>
+                                                    <option>Option 05</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="box lg-2of11 applicant-notes">
+                                        <button
+                                            class="button--outline create-note"
+                                            type="button">
+                                            + Add a Note
+                                        </button>
+                                        <button
+                                            class="button--outline edit-note"
+                                            type="button">
+                                            Edit Note
                                         </button>
                                     </div>
 

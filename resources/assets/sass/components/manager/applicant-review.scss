@@ -68,9 +68,13 @@
         border-radius: 5px;
         padding: 2rem;
 
+        >p {
+            margin: 2rem 0;
+        }
+
         .category-action {
             display: block;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             text-align: center;
 
             @media #{$l-tablet} {
@@ -204,6 +208,114 @@
                         &:last-child {
                             border-bottom: 0;
                             padding-bottom: 0;
+                        }
+
+                    // Variations ----------------------------------------------
+
+                        &[data-applicant-status="in"] {
+                            .applicant-status {
+                                .fa-check-circle {
+                                    display: block
+                                }
+                                .fa-exclamation-circle {
+                                    display: none;
+                                }
+                                .fa-question-circle {
+                                    display: none;
+                                }
+                                .fa-ban {
+                                    display: none;
+                                }
+                            }
+                        }
+
+                        &[data-applicant-status="out"] {
+                            .applicant-status {
+                                .fa-check-circle {
+                                    display: none
+                                }
+                                .fa-exclamation-circle {
+                                    display: none;
+                                }
+                                .fa-question-circle {
+                                    display: none;
+                                }
+                                .fa-ban {
+                                    display: block;
+                                }
+                            }
+                        }
+
+                        &[data-applicant-status="maybe"] {
+                            .applicant-status {
+                                .fa-check-circle {
+                                    display: none
+                                }
+                                .fa-exclamation-circle {
+                                    display: none;
+                                }
+                                .fa-question-circle {
+                                    display: block;
+                                }
+                                .fa-ban {
+                                    display: none;
+                                }
+                            }
+                        }
+
+                        &[data-applicant-status="null"] {
+                            .applicant-status {
+                                .fa-check-circle {
+                                    display: none
+                                }
+                                .fa-exclamation-circle {
+                                    display: block;
+                                }
+                                .fa-question-circle {
+                                    display: none;
+                                }
+                                .fa-ban {
+                                    display: none;
+                                }
+                            }
+                        }
+
+                        &[data-note-status="true"] {
+                            .applicant-notes {
+                                .create-note {
+                                    display: none;
+                                }
+                                .edit-note {
+                                    display: block;
+                                }
+                            }
+                        }
+
+                        &[data-note-status="false"] {
+                            .applicant-notes {
+                                .create-note {
+                                    display: block;
+                                }
+                                .edit-note {
+                                    display: none;
+                                }
+                            }
+                        }
+
+                        &[data-veteran-status="true"] {
+                            .applicant-information {
+                                .veteran-status {
+                                    display: block;
+                                }
+                            }
+                        }
+
+                        &[data-veteran-status="false"] {
+                            .applicant-information {
+                                .veteran-status {
+                                    display: none;
+                                }
+                            }
                         }
 
                 }
