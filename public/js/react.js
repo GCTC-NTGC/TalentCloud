@@ -28522,7 +28522,7 @@ function _setPrototypeOf(o, p) {
 
 
 var ApplicationReview = function ApplicationReview(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "There is an applicant named", " ", props.application.applicant.user.name);
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "There is an applicant named ", props.application.applicant.user.name);
 };
 
 var ReviewApplications =
@@ -28539,19 +28539,116 @@ function (_Component) {
   _createClass(ReviewApplications, [{
     key: "render",
     value: function render() {
-      if (this.props.applications.length == 0) {
-        var content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "There are no applicants yet");
-      } else {
-        var content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.applications.map(function (application) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ApplicationReview, {
-            applicant: applicaiton
-          }));
-        }));
-      }
-
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container--layout"
-      }, "Hello World. I'm the Review Applications page.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.job.title));
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "applicant-review container--layout-xl"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "flex-grid gutter"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box med-1of2 job-title-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Viewing Applicants for: ", " (", ")")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box med-1of2 timer-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-stopwatch"
+      }), " ", " Days Since Close"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "priority-alert"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-bell"
+      }), " Temporary Priority Alert"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus fermentum lorem, vel rhoncus velit vehicula imperdiet. Integer ullamcorper iaculis justo, quis tincidunt ex vulputate ut. Vivamus molestie augue turpis, ut egestas ante aliquam id. Quisque efficitur, metus imperdiet rhoncus pharetra, velit ligula lobortis tortor, vitae imperdiet leo augue ac velit. Vivamus sollicitudin dictum est a tempus. Fusce tempus finibus elit sed lacinia.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "applicant-category"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        className: "heading--03"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-ban"
+      }), " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "category-action"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "button--outline",
+        type: "button"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-ban"
+      }), " Screen All Optional Candidates Out")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "accordion applicant-bucket"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        "aria-expanded": "false",
+        className: "accordion-trigger",
+        tabindex: "0",
+        type: "button"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "bucket-title"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-ban"
+      }), " Step ", ":", " ", " (", ")"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "invisible"
+      }, "Toggle this step to view relevant applicants."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-chevron-up"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        "aria-hidden": "true",
+        className: "accordion-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "applicant-summary"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "flex-grid middle gutter"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box lg-1of11 applicant-status"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-check-circle"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-exclamation-circle"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-question-circle"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-ban"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box lg-2of11 applicant-information"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "name"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "mailto:{/* Applicant Email */}",
+        title: "Email this candidate."
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "veteran-status"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        alt: "The Talent Cloud veteran icon.",
+        src: "/images/icon_veteran.svg"
+      }), "Veteran")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box lg-2of11 applicant-links"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "{/* Link to Applicant's Application */}",
+        title: "View this applicant's application."
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-file-alt"
+      }), "View Application"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "{/* Link to Applicant's Profile */}",
+        title: "View this applicant's profile."
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-user"
+      }), "View Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box lg-2of11 applicant-decision"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form__input-wrapper--select"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "form__label",
+        htmlFor: ""
+      }, "Decision"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form__select-wrapper fas fa-chevron-down"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        id: "",
+        className: "form__input"
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box lg-2of11 applicant-notes"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "button--outline",
+        type: "button"
+      }, "+ Add a Note / Edit Note")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box lg-2of11 applicant-save-button"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "button--blue light-bg",
+        type: "button"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "default-copy"
+      }, "Save"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "saved-copy"
+      }, "Saved")))))))));
     }
   }]);
 
@@ -28609,7 +28706,7 @@ __webpack_require__(/*! ./components/ReviewApplications */ "./resources/assets/j
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\joshdrink\Projects\Talent Cloud\resources\assets\js\react.js */"./resources/assets/js/react.js");
+module.exports = __webpack_require__(/*! C:\dev\TalentCloud\resources\assets\js\react.js */"./resources/assets/js/react.js");
 
 
 /***/ })

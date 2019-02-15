@@ -3281,8 +3281,8 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\joshdrink\Projects\Talent Cloud\resources\assets\js\bootstrap.js */"./resources/assets/js/bootstrap.js");
-module.exports = __webpack_require__(/*! C:\Users\joshdrink\Projects\Talent Cloud\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! C:\dev\TalentCloud\resources\assets\js\bootstrap.js */"./resources/assets/js/bootstrap.js");
+module.exports = __webpack_require__(/*! C:\dev\TalentCloud\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
 
 
 /***/ })
