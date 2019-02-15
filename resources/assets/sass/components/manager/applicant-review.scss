@@ -195,6 +195,27 @@
                         button {
                             text-align: center;
                             width: 100%;
+
+                            .default-copy {
+                                display: block;
+                            }
+                            .saved-copy {
+                                display: none;
+                            }
+
+                            // States ------------------------------------------
+
+                                &.saved {
+
+                                    .default-copy {
+                                        display: none;
+                                    }
+                                    .saved-copy {
+                                        display: block;
+                                    }
+
+                                }
+
                         }
 
                     }
