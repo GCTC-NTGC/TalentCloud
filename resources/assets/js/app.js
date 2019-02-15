@@ -425,12 +425,16 @@
         }
 
         //Add setItemEdited handlers to all ajax forms
-        $(".ajax-form").each(function(){
-            const object = $(this);
-            object.find(":input").change(function() {
-                setItemEdited(object);
+        function addOnChangeEditedWatchers() {
+            $(".ajax-form").each(function () {
+                const object = $(this);
+                object.find(":input").change(function () {
+                    setItemEdited(object);
+                });
             });
-        });
+        }
+        addOnChangeEditedWatchers();
+
 
         //Set object attributes to reflect that it has been saved on server
         function setItemSaved(object, response) {
@@ -651,6 +655,8 @@
             requiredFields();
             // Reactivate Labels
             labelHandlers();
+            // Reactive 'edited' watchers
+            addOnChangeEditedWatchers();
             return template;
         }
 
@@ -752,6 +758,11 @@
             loadProfileRelativeDeletion();
 
             var inputs = clone.find(":focusable:not(button)");
+
+            var parentForm = $(trigger).parents('.ajax-form');
+            if (parentForm) {
+                setItemEdited(parentForm);
+            }
 
             inputs[0].focus();
 
