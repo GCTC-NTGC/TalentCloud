@@ -330,6 +330,80 @@
 
         }
 
+        // Variations ----------------------------------------------------------
+
+            &.primary {
+
+                >h3 {
+
+                    i {
+                        display: none;
+                    }
+
+                }
+
+                .category-action {
+                    display: none;
+                }
+
+                .applicant-bucket {
+                    .bucket-title {
+                        i {
+                            display: none;
+                        }
+                    }
+                }
+
+            }
+
+            &.secondary {
+
+                >h3 {
+
+                    i {
+                        display: none;
+                    }
+
+                }
+
+                .category-action {
+                    display: block;
+                }
+
+                .applicant-bucket {
+                    .bucket-title {
+                        i {
+                            display: none;
+                        }
+                    }
+                }
+
+            }
+
+            &.tertiary {
+
+                >h3 {
+
+                    i {
+                        display: inline;
+                    }
+
+                }
+
+                .category-action {
+                    display: none;
+                }
+
+                .applicant-bucket {
+                    .bucket-title {
+                        i {
+                            display: inline;
+                        }
+                    }
+                }
+
+            }
+
     }
 
 }
