@@ -12,7 +12,7 @@ use App\Models\SkillDeclaration;
 
 $factory->define(JobApplication::class, function (Faker\Generator $faker) {
     return [
-        'job_poster_id' => function() {
+        'job_poster_id' => function () {
             return factory(JobPoster::class)->state('published')->create()->id;
         },
         'application_status_id' => ApplicationStatus::where('name', 'submitted')->firstOrFail()->id,
@@ -21,13 +21,19 @@ $factory->define(JobApplication::class, function (Faker\Generator $faker) {
         'preferred_language_id' => PreferredLanguage::inRandomOrder()->first()->id,
         'submission_signature' => $faker->name(),
         'submission_date' => $faker->dateTimeBetween('yesterday', 'tomorrow')->format('Y-m-d H:i:s'),
-        'applicant_id' => function() {
+        'applicant_id' => function () {
             return factory(Applicant::class)->create()->id;
         }
     ];
 });
 
-$factory->afterCreating(JobApplication::class, function ($application) {
+$factory->state(JobApplication::class, 'draft', [
+    'application_status_id' => ApplicationStatus::where('name', 'draft')->firstOrFail()->id,
+    'submission_signature' => null,
+    'submission_date' => null
+]);
+
+$factory->afterCreating(JobApplication::class, function ($application) : void {
     foreach ($application->job_poster->job_poster_questions as $question) {
         $answer = factory(JobApplicationAnswer::class)->create([
             'job_poster_question_id' => $question->id,
