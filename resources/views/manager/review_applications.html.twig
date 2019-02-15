@@ -57,7 +57,7 @@
                     - tertiary (all candidates who have been screened out)
             #}
 
-            <div class="applicant-category primary">
+            <div class="applicant-category">
 
                 <h3 class="heading--03"><i class="fas fa-ban"></i> {# Category Title #}</h3>
 
@@ -129,14 +129,12 @@
                             #}
 
                             <form
-                                class="applicant-summary"
-                                data-applicant-status="in"
-                                data-note-status="true"
-                                data-veteran-status="true">
+                                class="applicant-summary">
 
                                 <div class="flex-grid middle gutter">
 
                                     <div class="box lg-1of11 applicant-status">
+                                    {# These should be shown/hidden based on status #}
                                         <i class="fas fa-check-circle"></i>
                                         <i class="fas fa-exclamation-circle"></i>
                                         <i class="fas fa-question-circle"></i>
@@ -150,6 +148,7 @@
                                             title="Email this candidate.">
                                             {# Applicant Email #}
                                         </a>
+                                        {# This span only shown for veters #}
                                         <span class="veteran-status">
                                             <img
                                                 alt="The Talent Cloud veteran icon."
@@ -195,17 +194,12 @@
                                     <div class="box lg-2of11 applicant-notes">
                                         {# Add a Note
                                             This button should trigger a dialogue that allows the manager to edit and save a textarea element unique to this applicant/application. This dialoue should contain a "Cancel" and "Save" button.
+                                            Change the text depending on whether note exists yet
                                         #}
                                         <button
-                                            class="button--outline create-note"
+                                            class="button--outline"
                                             type="button">
-                                            + Add a Note
-                                        </button>
-                                        {# This button should essentially do the same thing, but shows up when there's an existing note. #}
-                                        <button
-                                            class="button--outline edit-note"
-                                            type="button">
-                                            Edit Note
+                                            + Add a Note / Edit Note
                                         </button>
                                     </div>
 
