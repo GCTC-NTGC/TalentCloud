@@ -28516,13 +28516,241 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
 
 
 
 
 
-var ApplicationReview = function ApplicationReview(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "There is an applicant named ", props.application.applicant.user.name);
+
+var ReviewApplicationApplicant = function ReviewApplicationApplicant(props) {
+  {
+    /* Applicants and Their States
+        Applicants contain 3 different points of data that can alter their state:
+            - Their current status:
+                - in (screened in)
+                - out (screened out)
+                - maybe (saved for review)
+                - null (the manager hasn't yet taken an action on this applicant)
+            - Whether a note has been created regarding their application:
+                - true
+                - false
+            - Whether that applicant is a veteran:
+                - true
+                - false
+    */
+  }
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    className: "applicant-summary"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "flex-grid middle gutter"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "box lg-1of11 applicant-status"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-check-circle"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-exclamation-circle"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-question-circle"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-ban"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "box lg-2of11 applicant-information"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "name"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "mailto:{/* Applicant Email */}",
+    title: "Email this candidate."
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "veteran-status"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    alt: "The Talent Cloud veteran icon.",
+    src: "/images/icon_veteran.svg"
+  }), "Veteran")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "box lg-2of11 applicant-links"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "{/* Link to Applicant's Application */}",
+    title: "View this applicant's application."
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-file-alt"
+  }), "View Application"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "{/* Link to Applicant's Profile */}",
+    title: "View this applicant's profile."
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-user"
+  }), "View Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "box lg-2of11 applicant-decision"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form__input-wrapper--select"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    className: "form__label",
+    htmlFor: ""
+  }, "Decision"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form__select-wrapper fas fa-chevron-down"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    id: "",
+    className: "form__input"
+  })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "box lg-2of11 applicant-notes"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "button--outline",
+    type: "button"
+  }, "+ Add a Note / Edit Note")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "box lg-2of11 applicant-save-button"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "button--blue light-bg",
+    type: "button"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "default-copy"
+  }, "Save"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "saved-copy"
+  }, "Saved")))));
+};
+/**
+ *
+ * @param {*} props
+ * title
+ * description
+ * applications
+ */
+
+
+var ReviewApplicationBucket = function ReviewApplicationBucket(props) {
+  {
+    /* Applicant Buckets
+        There are 4 applicant buckets:
+            - [1] Priority Applicants (this bucket will not be used at first and is replaced by the "temporary priority alert outlined above.)
+            - [2] Veteran & Citzen Applicants
+            - [3] Non-Canadian Applicants
+            - [4] Unqualified Applicants (These applicants claimed to have the required essential criteria at a lower level than the job poster asked for.)
+        The larger page categories outlined earlier contain unique combinations of these buckets:
+            - 1 and 2 appear in the "primary" category
+            - 3 and 4 appear in the "secondary" category
+            - The "tertiary" category contains all 4, each displaying only the candidates that have been screened out in that bucket.
+    */
+  }
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "accordion applicant-bucket"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    "aria-expanded": "false",
+    className: "accordion-trigger",
+    tabindex: "0",
+    type: "button"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "bucket-title"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-ban"
+  }), " ", props.title, " (", props.applications.length, ")"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "invisible"
+  }, "Toggle this step to view relevant applicants."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-chevron-up"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    "aria-hidden": "true",
+    className: "accordion-content"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, props.description)), props.applications.map(function (application) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ReviewApplicationApplicant, _extends({
+      key: application.id
+    }, application));
+  }));
+};
+/**
+ *
+ * @param {} props
+ * title (string)
+ * description (string)
+ * showScreenOutAll (boolean)
+ * buckets {}
+ *  title
+ *  description
+ *  applications
+ *
+ */
+
+
+var ReviewApplicationCategory = function ReviewApplicationCategory(props) {
+  {
+    /* Applicant Categories
+        Categories have 3 class determined states:
+            - primary (priority, veteran, and citizen candidates)
+            - secondary (non-canadians, unqualified canadians)
+            - tertiary (all candidates who have been screened out)
+    */
+  }
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "applicant-category"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+    className: "heading--03"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-ban"
+  }), " ", props.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, props.description), props.showScreenOutAll && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "category-action"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "button--outline",
+    type: "button"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-ban"
+  }), " Screen All Optional Candidates Out")), props.buckets.map(function (bucket) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ReviewApplicationBucket, _extends({
+      key: bucket.title
+    }, bucket));
+  }));
+};
+/**
+ *
+ * @param {*} props
+ * job {}
+ *  title
+ *  classification
+ *  days since close?
+ *
+ * categories
+ *  title
+ *  description
+ *  showScreenOutAll
+ *  buckets
+ *      title
+ *      description
+ *      applications
+ *
+ */
+
+
+var ReviewApplicationsView = function ReviewApplicationsView(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+    className: "applicant-review container--layout-xl"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "flex-grid gutter"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "box med-1of2 job-title-wrapper"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Viewing Applicants for: ", props.title, " (", props.classification, ")")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "box med-1of2 timer-wrapper"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-stopwatch"
+  }), " ", " Days Since Close"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "priority-alert"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-bell"
+  }), " Temporary Priority Alert"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus fermentum lorem, vel rhoncus velit vehicula imperdiet. Integer ullamcorper iaculis justo, quis tincidunt ex vulputate ut. Vivamus molestie augue turpis, ut egestas ante aliquam id. Quisque efficitur, metus imperdiet rhoncus pharetra, velit ligula lobortis tortor, vitae imperdiet leo augue ac velit. Vivamus sollicitudin dictum est a tempus. Fusce tempus finibus elit sed lacinia.")), props.categories.map(function (category) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ReviewApplicationCategory, _extends({
+      key: category.title
+    }, category));
+  }));
 };
 
 var ReviewApplications =
@@ -28531,124 +28759,150 @@ function (_Component) {
   _inherits(ReviewApplications, _Component);
 
   function ReviewApplications(props) {
+    var _this;
+
     _classCallCheck(this, ReviewApplications);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ReviewApplications).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ReviewApplications).call(this, props));
+    _this.state = {
+      applications: props.initApplications
+    };
+    return _this;
   }
+  /**
+   * Returns true if application has been screened out.
+   * @param {Application} application
+   */
+
 
   _createClass(ReviewApplications, [{
+    key: "isScreenedOut",
+    value: function isScreenedOut(application) {
+      return false; //TODO: decide how to determin
+    }
+    /**
+     * Return the bucket this application belongs to. Either:
+     *  priority
+     *  citizen
+     *  secondary
+     *  unqualified
+     *
+     * @param {Application} application
+     * @return {string}
+     */
+
+  }, {
+    key: "applicationBucket",
+    value: function applicationBucket(application) {
+      if (false) {} else if (application.citizenship_declaration.name == "citizen") {
+        return "citizen";
+      } else {
+        return "secondary";
+      } //TODO: decide how to determine unqualified
+
+    }
+    /**
+     * Return the category this application belongs to. Either:
+     *  primary
+     *  optional
+     *  screened-out
+     * @param {Application} application
+     */
+
+  }, {
+    key: "applicationCategory",
+    value: function applicationCategory(application) {
+      if (isScreenedOut(application)) {
+        return "screened-out";
+      }
+
+      var bucket = applicationBucket(application);
+
+      switch (bucket) {
+        case "priority":
+        case "citizen":
+          return "primary";
+
+        case "secondary":
+        case "unqualified":
+        default:
+          return "optional";
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "applicant-review container--layout-xl"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "flex-grid gutter"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box med-1of2 job-title-wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Viewing Applicants for: ", " (", ")")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box med-1of2 timer-wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-stopwatch"
-      }), " ", " Days Since Close"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "priority-alert"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-bell"
-      }), " Temporary Priority Alert"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus fermentum lorem, vel rhoncus velit vehicula imperdiet. Integer ullamcorper iaculis justo, quis tincidunt ex vulputate ut. Vivamus molestie augue turpis, ut egestas ante aliquam id. Quisque efficitur, metus imperdiet rhoncus pharetra, velit ligula lobortis tortor, vitae imperdiet leo augue ac velit. Vivamus sollicitudin dictum est a tempus. Fusce tempus finibus elit sed lacinia.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "applicant-category"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
-        className: "heading--03"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-ban"
-      }), " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "category-action"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "button--outline",
-        type: "button"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-ban"
-      }), " Screen All Optional Candidates Out")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "accordion applicant-bucket"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        "aria-expanded": "false",
-        className: "accordion-trigger",
-        tabindex: "0",
-        type: "button"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "bucket-title"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-ban"
-      }), " Step ", ":", " ", " (", ")"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "invisible"
-      }, "Toggle this step to view relevant applicants."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-chevron-up"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "aria-hidden": "true",
-        className: "accordion-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        className: "applicant-summary"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "flex-grid middle gutter"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box lg-1of11 applicant-status"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-check-circle"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-exclamation-circle"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-question-circle"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-ban"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box lg-2of11 applicant-information"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "name"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "mailto:{/* Applicant Email */}",
-        title: "Email this candidate."
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "veteran-status"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        alt: "The Talent Cloud veteran icon.",
-        src: "/images/icon_veteran.svg"
-      }), "Veteran")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box lg-2of11 applicant-links"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "{/* Link to Applicant's Application */}",
-        title: "View this applicant's application."
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-file-alt"
-      }), "View Application"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "{/* Link to Applicant's Profile */}",
-        title: "View this applicant's profile."
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-user"
-      }), "View Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box lg-2of11 applicant-decision"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form__input-wrapper--select"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        className: "form__label",
-        htmlFor: ""
-      }, "Decision"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form__select-wrapper fas fa-chevron-down"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-        id: "",
-        className: "form__input"
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box lg-2of11 applicant-notes"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "button--outline",
-        type: "button"
-      }, "+ Add a Note / Edit Note")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box lg-2of11 applicant-save-button"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "button--blue light-bg",
-        type: "button"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "default-copy"
-      }, "Save"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "saved-copy"
-      }, "Saved")))))))));
+      var _this2 = this;
+
+      var categories = [{
+        title: "Under Consideration",
+        description: "Blah blah",
+        showScreenOutAll: false,
+        buckets: [{
+          title: "Priority Applicants",
+          description: "blah",
+          applications: this.state.applications.filter(function (application) {
+            return !_this2.isScreenedOut(application) && _this2.applicationBucket(application) == "priority";
+          })
+        }, {
+          title: "Veterans and Canadian Citizens",
+          description: "blah",
+          applications: this.state.applications.filter(function (application) {
+            return !_this2.isScreenedOut(application) && _this2.applicationBucket(application) == "citizen";
+          })
+        }]
+      }, {
+        title: "Optional Consideration",
+        description: "Blah blah",
+        showScreenOutAll: true,
+        buckets: [{
+          title: "Non-Canadian Citizens",
+          description: "blah",
+          applications: this.state.applications.filter(function (application) {
+            return !_this2.isScreenedOut(application) && _this2.applicationBucket(application) == "secondary";
+          })
+        }, {
+          title: "Don't Meed Essential Criteria",
+          description: "blah",
+          applications: this.state.applications.filter(function (application) {
+            return !_this2.isScreenedOut(application) && _this2.applicationBucket(application) == "unqualified";
+          })
+        }]
+      }, {
+        title: "No Longer Under Consideration",
+        description: "Blah blah",
+        showScreenOutAll: false,
+        buckets: [{
+          title: "Priority Applicants",
+          description: "blah",
+          applications: this.state.applications.filter(function (application) {
+            return _this2.isScreenedOut(application) && _this2.applicationBucket(application) == "priority";
+          })
+        }, {
+          title: "Veterans and Canadian Citizens",
+          description: "blah",
+          applications: this.state.applications.filter(function (application) {
+            return _this2.isScreenedOut(application) && _this2.applicationBucket(application) == "citizen";
+          })
+        }, {
+          title: "Non-Canadian Citizens",
+          description: "blah",
+          applications: this.state.applications.filter(function (application) {
+            return _this2.isScreenedOut(application) && _this2.applicationBucket(application) == "secondary";
+          })
+        }, {
+          title: "Don't Meed Essential Criteria",
+          description: "blah",
+          applications: this.state.applications.filter(function (application) {
+            return _this2.isScreenedOut(application) && _this2.applicationBucket(application) == "unqualified";
+          })
+        }]
+      }];
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ReviewApplicationsView, {
+        title: this.props.job.title,
+        classification: this.props.job.classification,
+        categories: categories
+      });
     }
   }]);
 
@@ -28663,7 +28917,7 @@ if (document.getElementById("review-applications")) {
   var applications = JSON.parse(container.getAttribute("data-applications"));
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ReviewApplications, {
     job: job,
-    applications: applications
+    initApplications: applications
   }), container);
 }
 
