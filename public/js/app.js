@@ -1080,7 +1080,7 @@ function _typeof(obj) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\dev\TalentCloud\resources\assets\js\app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\joshdrink\Projects\Talent Cloud\resources\assets\js\app.js */"./resources/assets/js/app.js");
 
 
 /***/ })
