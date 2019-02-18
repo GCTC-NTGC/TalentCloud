@@ -227,7 +227,7 @@
                                 {% if skill_declaration == false %}
                                     {{ skill_template.skill_description_null }}
                                 {% else %}
-                                    {{ skill_declaration.description }}
+                                    {{ skill_declaration.description|nl2br }}
                                 {% endif %}
                             </p>
 
