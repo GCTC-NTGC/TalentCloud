@@ -136,7 +136,7 @@ const ReviewApplicationBucket = props => {
             <button
                 aria-expanded="false"
                 className="accordion-trigger"
-                tabindex="0"
+                tabIndex="0"
                 type="button"
             >
                 <span className="bucket-title">
@@ -154,11 +154,11 @@ const ReviewApplicationBucket = props => {
             {/* Accordion Content */}
             <div aria-hidden="true" className="accordion-content">
                 <p>{props.description}</p>
-            </div>
 
-            {props.applications.map(application => (
-                <ReviewApplicationApplicant key={application.id} {...application} />
-            ))}
+                {props.applications.map(application => (
+                    <ReviewApplicationApplicant key={application.id} {...application} />
+                ))}
+            </div>
         </div>
     );
 };

@@ -28650,7 +28650,7 @@ var ReviewApplicationBucket = function ReviewApplicationBucket(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     "aria-expanded": "false",
     className: "accordion-trigger",
-    tabindex: "0",
+    tabIndex: "0",
     type: "button"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "bucket-title"
@@ -28663,11 +28663,11 @@ var ReviewApplicationBucket = function ReviewApplicationBucket(props) {
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     "aria-hidden": "true",
     className: "accordion-content"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, props.description)), props.applications.map(function (application) {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, props.description), props.applications.map(function (application) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ReviewApplicationApplicant, _extends({
       key: application.id
     }, application));
-  }));
+  })));
 };
 /**
  *
