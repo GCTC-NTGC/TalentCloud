@@ -97,12 +97,19 @@
                             class="browse__index-job-card-metadata flex-grid">
 
                             <div class="box small-1of2">
-                                {% include "common/job_time_remaining" with {template:job_index.index} %}
+                                <span>{{ job_index.index.apply_by_label|trans }}</span>
+                                {% if job.close_date_time.isFuture() %}
+                                    <p><i class="fas fa-calendar"></i> {{ job.applyBy().date }}</p>
+                                    <p><i class="fas fa-clock"></i> {{ job.applyBy().time }}</p>
+                                {% else %}
+                                    {{ job_index.index.job_closed }}
+                                {% endif %}
                             </div>
                             <div class="box small-1of2">
                                 <span>
                                     {{ job_index.index.applicants_label|trans_choice(job.submitted_applications_count()) }}
                                 </span>
+                                <p>{{ job.submitted_applications_count }}</p>
                             </div>
 
                         </div>

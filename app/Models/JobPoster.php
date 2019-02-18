@@ -10,6 +10,7 @@ namespace App\Models;
 use App\Events\JobSaved;
 use App\Models\JobApplication;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Jenssegers\Date\Date;
 use \Backpack\CRUD\CrudTrait;
@@ -65,13 +66,38 @@ use \Backpack\CRUD\CrudTrait;
  * @method boolean isOpen()
  * @method string timeRemaining()
  */
-class JobPoster extends BaseModel {
+class JobPoster extends BaseModel
+{
 
     use CrudTrait;
     use \Dimsav\Translatable\Translatable;
     use Notifiable;
 
-    public $translatedAttributes = ['city', 'title', 'impact', 'branch', 'division', 'education'];
+    const DATE_FORMAT = [
+        'en' => 'M jS, Y',
+        'fr' => 'd M Y',
+    ];
+    const TIME_FORMAT = [
+        'en' => 'h:i A T',
+        'fr' => 'H \h i T',
+    ];
+    const TIMEZONE = 'America/Toronto';
+
+    /**
+     * @var string[] $translatedAttributes
+     */
+    public $translatedAttributes = [
+        'city',
+        'title',
+        'impact',
+        'branch',
+        'division',
+        'education'
+    ];
+
+    /**
+     * @var string[] $casts
+     */
     protected $casts = [
         'job_term_id' => 'int',
         'department_id' => 'int',
@@ -85,11 +111,19 @@ class JobPoster extends BaseModel {
         'manager_id' => 'int',
         'published' => 'boolean'
     ];
+
+    /**
+     * @var string[] $dates
+     */
     protected $dates = [
         'open_date_time',
         'close_date_time',
         'start_date_time'
     ];
+
+    /**
+     * @var string[] $fillable
+     */
     protected $fillable = [
         'job_term_id',
         'term_qty',
@@ -109,66 +143,85 @@ class JobPoster extends BaseModel {
     ];
     // protected $withCount = ['submitted_applications'];
 
+    /**
+     * @var mixed[] $dispatchesEvents
+     */
     protected $dispatchesEvents = [
         'saved' => JobSaved::class,
     ];
 
-    public function department() {
+    // @codeCoverageIgnoreStart
+
+    public function department() // phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\Department::class);
     }
 
-    public function job_term() {
+    public function job_term() // phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\JobTerm::class);
     }
 
-    public function language_requirement() {
+    public function language_requirement() // phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\LanguageRequirement::class);
     }
 
-    public function manager() {
+    public function manager() // phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Manager::class);
     }
 
-    public function province() {
+    public function province() // phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\Province::class);
     }
 
-    public function security_clearance() {
+    public function security_clearance() // phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\SecurityClearance::class);
     }
 
-    public function criteria() {
+    public function criteria() // phpcs:ignore
+    {
         return $this->hasMany(\App\Models\Criteria::class);
     }
 
-    public function job_applications() {
+    public function job_applications() // phpcs:ignore
+    {
         return $this->hasMany(\App\Models\JobApplication::class);
     }
 
-    public function job_poster_key_tasks() {
+    public function job_poster_key_tasks() // phpcs:ignore
+    {
         return $this->hasMany(\App\Models\JobPosterKeyTask::class);
     }
 
-    public function job_poster_questions() {
+    public function job_poster_questions() // phpcs:ignore
+    {
         return $this->hasMany(\App\Models\JobPosterQuestion::class);
     }
 
-    public function job_poster_translations() {
+    public function job_poster_translations() // phpcs:ignore
+    {
         return $this->hasMany(\App\Models\JobPosterTranslation::class);
     }
 
-    public function screening_plans()
+    public function screening_plans() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\ScreeningPlan::class);
     }
 
     // Artificial Relations
 
-    public function submitted_applications() {
+    public function submitted_applications()
+    {
         return $this->job_applications()->whereDoesntHave('application_status', function ($query) {
             $query->where('name', 'draft');
         });
     }
+
+    // @codeCoverageIgnoreEnd
 
     // Accessors
 
@@ -179,18 +232,51 @@ class JobPoster extends BaseModel {
         return $this->submitted_applications()->count();
     }
 
+    /**
+     * Formatted and localized date and time the Job Poster closes.
+     *
+     * @return string[]
+     */
+    public function applyBy() : array
+    {
+        $localCloseDate = new Date($this->close_date_time); // This initializes the date object in UTC time
+        $localCloseDate->setTimezone(new \DateTimeZone(self::TIMEZONE)); // Then set the time zone for display
+        $displayDate = [
+            'date' => $localCloseDate->format(self::DATE_FORMAT[App::getLocale()]),
+            'time' => $localCloseDate->format(self::TIME_FORMAT[App::getLocale()])
+        ];
+
+        if (App::isLocale('fr')) {
+            $displayDate['time'] = str_replace(['EST', 'EDT'], ['HNE', 'HAE'], $displayDate['time']);
+        }
+
+        return $displayDate;
+    }
+
     public function status()
     {
         return $this->isOpen() ? 'Open' : 'Closed';
     }
 
-    public function isOpen() {
+    /**
+     * Check if a Job Poster is open for applications.
+     *
+     * @return boolean
+     */
+    public function isOpen() : bool
+    {
         return $this->published
             && $this->open_date_time->isPast()
             && $this->close_date_time->isFuture();
     }
 
-    public function timeRemaining() {
+    /**
+     * Calculate the remaining time a Job Poster is open.
+     *
+     * @return string
+     */
+    public function timeRemaining() : string
+    {
         $interval = $this->close_date_time->diff(Date::now());
 
         $d = $interval->d;
@@ -201,10 +287,10 @@ class JobPoster extends BaseModel {
         if ($d > 0) {
             $unit = 'day';
             $count = $d;
-        } else if ($h > 0) {
+        } elseif ($h > 0) {
             $unit = 'hour';
             $count = $h;
-        } else if ($m > 0) {
+        } elseif ($m > 0) {
             $unit = 'minute';
             $count = $m;
         } else {

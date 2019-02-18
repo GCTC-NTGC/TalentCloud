@@ -33,7 +33,11 @@
 
                     {# Assessment Selection #}
 
+                    {# no-prefix marks that partials in this div aren't passed an id prefix. #}
+                    {# This is used in app.js individualizeFormIdsAndNames() to avoid overwriting :id in template id. #}
+                    <div class="no-prefix">
                         {% include "manager/components/skill-assessment-select" with {"template":true} %}
+                    </dev>
 
                     {# Screening Plan #}
 

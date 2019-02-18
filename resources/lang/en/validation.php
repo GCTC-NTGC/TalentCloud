@@ -124,6 +124,7 @@ return [
     'contains_object_with_attribute' => ':attribute doesn\'t contain required :relation equal to :attributeValue',
     'user_skill_unique' => 'You may only add each skill once',
     'password_correct' => 'Old password isn\'t correct',
+    'user_owns_skill_declaration' => ':attribute must specify a Skill Declaration that belongs to the current user.',
 
     /*
     |--------------------------------------------------------------------------
