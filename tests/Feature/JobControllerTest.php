@@ -87,8 +87,8 @@ class JobControllerTest extends TestCase
             ->get('manager/jobs');
         $response->assertStatus(200);
 
-        $response->assertSee('<h3>' . $this->jobPoster->title . '</h3>');
-        $response->assertDontSee('<h3>' . $this->otherJobPoster->title . '</h3>');
+        $response->assertSee($this->jobPoster->title);
+        $response->assertDontSee($this->otherJobPoster->title);
     }
 
     /**
