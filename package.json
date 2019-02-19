@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@babel/preset-react": "^7.0.0",
-        "ajv": "^6.5.5",
+        "ajv": "^6.9.1",
         "axios": "^0.17",
         "babel-eslint": "^10.0.1",
         "babel-preset-react": "^6.24.1",
@@ -19,6 +19,7 @@
         "cross-env": "^5.2.0",
         "cssnano": "^4.1.7",
         "eslint": "^5.14.1",
+        "eslint-config-semistandard": "^13.0.0",
         "eslint-config-standard": "^12.0.0",
         "eslint-plugin-import": "^2.16.0",
         "eslint-plugin-node": "^8.0.1",
@@ -36,7 +37,6 @@
         "resolve-url-loader": "^2.0.0",
         "sass": "^1.17.0",
         "sass-loader": "^6.0.0",
-        "semistandard": "^13.0.1",
         "vue-template-compiler": "^2.6.3",
         "webpack": "^4.29.3"
     },
