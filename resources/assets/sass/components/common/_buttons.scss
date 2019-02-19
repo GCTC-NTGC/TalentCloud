@@ -93,6 +93,8 @@
     &[class*="blue"] {
         @extend %gradient--vertical;
         color: $palette--font-white;
+        background-color: $palette--black;
+        background-clip: padding-box;
         transition: none;
 
         &:focus,
@@ -111,8 +113,8 @@
     }
 
     &[class*="red"] {
-        background: $palette--red;
-        color: $palette--font-white;
+        background: darken($palette--red, 20%);
+        color: $palette--white;
         transition: none;
 
         &:focus,

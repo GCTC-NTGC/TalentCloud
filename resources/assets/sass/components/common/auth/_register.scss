@@ -23,6 +23,7 @@
     }
 
     .register {
+        background: $palette--black;
         box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
         height: auto;
         margin: 0 auto;
@@ -70,7 +71,7 @@
         .register-heading {
             background: $palette--white;
             border-radius: 5px 5px 0 0;
-            overflow: hidden;
+            //overflow: hidden;
             padding: calc(#{$unit} * 2) calc(#{$unit} * 6) calc(#{$unit} * 2) calc(#{$unit} * 2);
             position: relative;
 

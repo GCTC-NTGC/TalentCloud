@@ -1826,7 +1826,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
  * @license   Licensed under MIT license
  *            See https://raw.githubusercontent.com/stefanpenner/es6-promise/master/LICENSE
- * @version   v4.2.5+7f2b526d
+ * @version   v4.2.6+9869a4bc
  */
 
 (function (global, factory) {
@@ -3359,7 +3359,6 @@ var printWarning = function() {};
 if (true) {
   var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ "./node_modules/prop-types/lib/ReactPropTypesSecret.js");
   var loggedTypeFailures = {};
-  var has = Function.call.bind(Object.prototype.hasOwnProperty);
 
   printWarning = function(text) {
     var message = 'Warning: ' + text;
@@ -3389,7 +3388,7 @@ if (true) {
 function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
   if (true) {
     for (var typeSpecName in typeSpecs) {
-      if (has(typeSpecs, typeSpecName)) {
+      if (typeSpecs.hasOwnProperty(typeSpecName)) {
         var error;
         // Prop type validation may throw. In case they do, we don't want to
         // fail the render phase where it didn't fail before. So we log it.
@@ -3417,7 +3416,8 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
             'You may have forgotten to pass an argument to the type checker ' +
             'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' +
             'shape all require an argument).'
-          );
+          )
+
         }
         if (error instanceof Error && !(error.message in loggedTypeFailures)) {
           // Only monitor this failure once because there tends to be a lot of the
@@ -3432,17 +3432,6 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
         }
       }
     }
-  }
-}
-
-/**
- * Resets warning cache when testing.
- *
- * @private
- */
-checkPropTypes.resetWarningCache = function() {
-  if (true) {
-    loggedTypeFailures = {};
   }
 }
 
@@ -28033,6 +28022,14 @@ function _getPrototypeOf(o) {
   return _getPrototypeOf(o);
 }
 
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
@@ -28057,14 +28054,6 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
 
 
 
@@ -28084,8 +28073,8 @@ function (_Component) {
       active: false,
       name: props.initName
     };
-    _this.handleTriggerClick = _this.handleTriggerClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleNameChange = _this.handleNameChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleTriggerClick = _this.handleTriggerClick.bind(_assertThisInitialized(_this));
+    _this.handleNameChange = _this.handleNameChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -28200,7 +28189,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Reference__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Reference */ "./resources/assets/js/components/Reference.js");
 function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
 
 function _typeof(obj) {
@@ -28254,6 +28242,14 @@ function _getPrototypeOf(o) {
   return _getPrototypeOf(o);
 }
 
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
@@ -28278,15 +28274,6 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-
 
 
 
@@ -28305,7 +28292,7 @@ function (_Component) {
     _this.state = {
       references: props.initialRefs
     };
-    _this.handleAddItemClick = _this.handleAddItemClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleAddItemClick = _this.handleAddItemClick.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -28333,10 +28320,10 @@ function (_Component) {
     value: function createEmptyReference(id) {
       return {
         id: id,
-        name: "",
-        email: "",
+        name: '',
+        email: '',
         relationship_id: null,
-        description: ""
+        description: ''
       };
     }
   }, {
@@ -28356,7 +28343,7 @@ function (_Component) {
 
       if (this.state.references.length > 0) {
         var content = this.state.references.map(function (reference) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Reference__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Reference, {
             key: reference.id,
             id: reference.id,
             url: "/",
@@ -28399,12 +28386,12 @@ function (_Component) {
 
 
 
-if (document.getElementById("react-reference-list")) {
-  var container = document.getElementById("react-reference-list"); // const props = Object.assign({}, domContainer.dataset);
+if (document.getElementById('react-reference-list')) {
+  var container = document.getElementById('react-reference-list'); // const props = Object.assign({}, domContainer.dataset);
 
-  var lang = JSON.parse(container.getAttribute("data-lang"));
-  var langReference = JSON.parse(container.getAttribute("data-reference-lang"));
-  var initialRefs = JSON.parse(container.getAttribute("data-references"));
+  var lang = JSON.parse(container.getAttribute('data-lang'));
+  var langReference = JSON.parse(container.getAttribute('data-reference-lang'));
+  var initialRefs = JSON.parse(container.getAttribute('data-references'));
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ReferenceList, {
     lang: lang,
     langReference: langReference,
@@ -28430,7 +28417,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Reference__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Reference */ "./resources/assets/js/components/Reference.js");
 function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
 
 function _typeof(obj) {
@@ -28538,23 +28524,22 @@ function _extends() {
 
 
 
-
 var ReviewApplicationApplicant = function ReviewApplicationApplicant(props) {
   {
     /* Applicants and Their States
-        Applicants contain 3 different points of data that can alter their state:
-            - Their current status:
-                - in (screened in)
-                - out (screened out)
-                - maybe (saved for review)
-                - null (the manager hasn't yet taken an action on this applicant)
-            - Whether a note has been created regarding their application:
-                - true
-                - false
-            - Whether that applicant is a veteran:
-                - true
-                - false
-    */
+            Applicants contain 3 different points of data that can alter their state:
+                - Their current status:
+                    - in (screened in)
+                    - out (screened out)
+                    - maybe (saved for review)
+                    - null (the manager hasn't yet taken an action on this applicant)
+                - Whether a note has been created regarding their application:
+                    - true
+                    - false
+                - Whether that applicant is a veteran:
+                    - true
+                    - false
+        */
   }
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     className: "applicant-summary"
@@ -28634,16 +28619,16 @@ var ReviewApplicationApplicant = function ReviewApplicationApplicant(props) {
 var ReviewApplicationBucket = function ReviewApplicationBucket(props) {
   {
     /* Applicant Buckets
-        There are 4 applicant buckets:
-            - [1] Priority Applicants (this bucket will not be used at first and is replaced by the "temporary priority alert outlined above.)
-            - [2] Veteran & Citzen Applicants
-            - [3] Non-Canadian Applicants
-            - [4] Unqualified Applicants (These applicants claimed to have the required essential criteria at a lower level than the job poster asked for.)
-        The larger page categories outlined earlier contain unique combinations of these buckets:
-            - 1 and 2 appear in the "primary" category
-            - 3 and 4 appear in the "secondary" category
-            - The "tertiary" category contains all 4, each displaying only the candidates that have been screened out in that bucket.
-    */
+            There are 4 applicant buckets:
+                - [1] Priority Applicants (this bucket will not be used at first and is replaced by the "temporary priority alert outlined above.)
+                - [2] Veteran & Citzen Applicants
+                - [3] Non-Canadian Applicants
+                - [4] Unqualified Applicants (These applicants claimed to have the required essential criteria at a lower level than the job poster asked for.)
+            The larger page categories outlined earlier contain unique combinations of these buckets:
+                - 1 and 2 appear in the "primary" category
+                - 3 and 4 appear in the "secondary" category
+                - The "tertiary" category contains all 4, each displaying only the candidates that have been screened out in that bucket.
+        */
   }
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "accordion applicant-bucket"
@@ -28686,11 +28671,11 @@ var ReviewApplicationBucket = function ReviewApplicationBucket(props) {
 var ReviewApplicationCategory = function ReviewApplicationCategory(props) {
   {
     /* Applicant Categories
-        Categories have 3 class determined states:
-            - primary (priority, veteran, and citizen candidates)
-            - secondary (non-canadians, unqualified canadians)
-            - tertiary (all candidates who have been screened out)
-    */
+            Categories have 3 class determined states:
+                - primary (priority, veteran, and citizen candidates)
+                - secondary (non-canadians, unqualified canadians)
+                - tertiary (all candidates who have been screened out)
+        */
   }
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "applicant-category"
@@ -28770,63 +28755,63 @@ function (_Component) {
     return _this;
   }
   /**
-   * Returns true if application has been screened out.
-   * @param {Application} application
-   */
+     * Returns true if application has been screened out.
+     * @param {Application} application
+     */
 
 
   _createClass(ReviewApplications, [{
     key: "isScreenedOut",
     value: function isScreenedOut(application) {
-      return false; //TODO: decide how to determin
+      return false; // TODO: decide how to determin
     }
     /**
-     * Return the bucket this application belongs to. Either:
-     *  priority
-     *  citizen
-     *  secondary
-     *  unqualified
-     *
-     * @param {Application} application
-     * @return {string}
-     */
+       * Return the bucket this application belongs to. Either:
+       *  priority
+       *  citizen
+       *  secondary
+       *  unqualified
+       *
+       * @param {Application} application
+       * @return {string}
+       */
 
   }, {
     key: "applicationBucket",
     value: function applicationBucket(application) {
-      if (false) {} else if (application.citizenship_declaration.name == "citizen") {
-        return "citizen";
+      if (false) {} else if (application.citizenship_declaration.name === 'citizen') {
+        return 'citizen';
       } else {
-        return "secondary";
-      } //TODO: decide how to determine unqualified
+        return 'secondary';
+      } // TODO: decide how to determine unqualified
 
     }
     /**
-     * Return the category this application belongs to. Either:
-     *  primary
-     *  optional
-     *  screened-out
-     * @param {Application} application
-     */
+       * Return the category this application belongs to. Either:
+       *  primary
+       *  optional
+       *  screened-out
+       * @param {Application} application
+       */
 
   }, {
     key: "applicationCategory",
     value: function applicationCategory(application) {
-      if (isScreenedOut(application)) {
-        return "screened-out";
+      if (this.isScreenedOut(application)) {
+        return 'screened-out';
       }
 
-      var bucket = applicationBucket(application);
+      var bucket = this.applicationBucket(application);
 
       switch (bucket) {
-        case "priority":
-        case "citizen":
-          return "primary";
+        case 'priority':
+        case 'citizen':
+          return 'primary';
 
-        case "secondary":
-        case "unqualified":
+        case 'secondary':
+        case 'unqualified':
         default:
-          return "optional";
+          return 'optional';
       }
     }
   }, {
@@ -28835,66 +28820,66 @@ function (_Component) {
       var _this2 = this;
 
       var categories = [{
-        title: "Under Consideration",
-        description: "Blah blah",
+        title: 'Under Consideration',
+        description: 'Blah blah',
         showScreenOutAll: false,
         buckets: [{
-          title: "Priority Applicants",
-          description: "blah",
+          title: 'Priority Applicants',
+          description: 'blah',
           applications: this.state.applications.filter(function (application) {
-            return !_this2.isScreenedOut(application) && _this2.applicationBucket(application) == "priority";
+            return !_this2.isScreenedOut(application) && _this2.applicationBucket(application) === 'priority';
           })
         }, {
-          title: "Veterans and Canadian Citizens",
-          description: "blah",
+          title: 'Veterans and Canadian Citizens',
+          description: 'blah',
           applications: this.state.applications.filter(function (application) {
-            return !_this2.isScreenedOut(application) && _this2.applicationBucket(application) == "citizen";
+            return !_this2.isScreenedOut(application) && _this2.applicationBucket(application) === 'citizen';
           })
         }]
       }, {
-        title: "Optional Consideration",
-        description: "Blah blah",
+        title: 'Optional Consideration',
+        description: 'Blah blah',
         showScreenOutAll: true,
         buckets: [{
-          title: "Non-Canadian Citizens",
-          description: "blah",
+          title: 'Non-Canadian Citizens',
+          description: 'blah',
           applications: this.state.applications.filter(function (application) {
-            return !_this2.isScreenedOut(application) && _this2.applicationBucket(application) == "secondary";
+            return !_this2.isScreenedOut(application) && _this2.applicationBucket(application) === 'secondary';
           })
         }, {
           title: "Don't Meed Essential Criteria",
-          description: "blah",
+          description: 'blah',
           applications: this.state.applications.filter(function (application) {
-            return !_this2.isScreenedOut(application) && _this2.applicationBucket(application) == "unqualified";
+            return !_this2.isScreenedOut(application) && _this2.applicationBucket(application) === 'unqualified';
           })
         }]
       }, {
-        title: "No Longer Under Consideration",
-        description: "Blah blah",
+        title: 'No Longer Under Consideration',
+        description: 'Blah blah',
         showScreenOutAll: false,
         buckets: [{
-          title: "Priority Applicants",
-          description: "blah",
+          title: 'Priority Applicants',
+          description: 'blah',
           applications: this.state.applications.filter(function (application) {
-            return _this2.isScreenedOut(application) && _this2.applicationBucket(application) == "priority";
+            return _this2.isScreenedOut(application) && _this2.applicationBucket(application) === 'priority';
           })
         }, {
-          title: "Veterans and Canadian Citizens",
-          description: "blah",
+          title: 'Veterans and Canadian Citizens',
+          description: 'blah',
           applications: this.state.applications.filter(function (application) {
-            return _this2.isScreenedOut(application) && _this2.applicationBucket(application) == "citizen";
+            return _this2.isScreenedOut(application) && _this2.applicationBucket(application) === 'citizen';
           })
         }, {
-          title: "Non-Canadian Citizens",
-          description: "blah",
+          title: 'Non-Canadian Citizens',
+          description: 'blah',
           applications: this.state.applications.filter(function (application) {
-            return _this2.isScreenedOut(application) && _this2.applicationBucket(application) == "secondary";
+            return _this2.isScreenedOut(application) && _this2.applicationBucket(application) === 'secondary';
           })
         }, {
           title: "Don't Meed Essential Criteria",
-          description: "blah",
+          description: 'blah',
           applications: this.state.applications.filter(function (application) {
-            return _this2.isScreenedOut(application) && _this2.applicationBucket(application) == "unqualified";
+            return _this2.isScreenedOut(application) && _this2.applicationBucket(application) === 'unqualified';
           })
         }]
       }];
@@ -28911,10 +28896,10 @@ function (_Component) {
 
 
 
-if (document.getElementById("review-applications")) {
-  var container = document.getElementById("review-applications");
-  var job = JSON.parse(container.getAttribute("data-job"));
-  var applications = JSON.parse(container.getAttribute("data-applications"));
+if (document.getElementById('review-applications')) {
+  var container = document.getElementById('review-applications');
+  var job = JSON.parse(container.getAttribute('data-job'));
+  var applications = JSON.parse(container.getAttribute('data-applications'));
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ReviewApplications, {
     job: job,
     initApplications: applications
@@ -28960,7 +28945,7 @@ __webpack_require__(/*! ./components/ReviewApplications */ "./resources/assets/j
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\joshdrink\Projects\Talent Cloud\resources\assets\js\react.js */"./resources/assets/js/react.js");
+module.exports = __webpack_require__(/*! C:\dev\htdocs\GCTC-NTGC\TalentCloud\resources\assets\js\react.js */"./resources/assets/js/react.js");
 
 
 /***/ })

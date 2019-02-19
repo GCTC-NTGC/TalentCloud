@@ -423,12 +423,16 @@ function _typeof(obj) {
     } //Add setItemEdited handlers to all ajax forms
 
 
-    $(".ajax-form").each(function () {
-      var object = $(this);
-      object.find(":input").change(function () {
-        setItemEdited(object);
+    function addOnChangeEditedWatchers() {
+      $(".ajax-form").each(function () {
+        var object = $(this);
+        object.find(":input").change(function () {
+          setItemEdited(object);
+        });
       });
-    }); //Set object attributes to reflect that it has been saved on server
+    }
+
+    addOnChangeEditedWatchers(); //Set object attributes to reflect that it has been saved on server
 
     function setItemSaved(object, response) {
       var id = response.data.id; // Run model specific ui updates
@@ -582,7 +586,7 @@ function _typeof(obj) {
         }
       });
       return maxId + 1;
-    } //The all in one function to set proper ids and form names
+    } //The all in one function to set proper ids and form names`
 
 
     function individualizeFormIdsAndNames(template, wrapper) {
@@ -592,7 +596,7 @@ function _typeof(obj) {
       template.attr('data-item-id', newId); //Differentiate real forms from templates
       // filter, if we only want to affect certain results
 
-      var filter = '';
+      var filter = ':not(.no-prefix *)';
       replaceInAttributes(template, 'id', ':template', 'new', filter);
       replaceInAttributes(template, 'for', ':template', 'new', filter);
       replaceInAttributes(template, 'name', ':template', 'new', filter);
@@ -631,7 +635,9 @@ function _typeof(obj) {
 
       requiredFields(); // Reactivate Labels
 
-      labelHandlers();
+      labelHandlers(); // Reactive 'edited' watchers
+
+      addOnChangeEditedWatchers();
       return template;
     }
 
@@ -700,6 +706,12 @@ function _typeof(obj) {
 
       loadProfileRelativeDeletion();
       var inputs = clone.find(":focusable:not(button)");
+      var parentForm = $(trigger).parents('.ajax-form');
+
+      if (parentForm) {
+        setItemEdited(parentForm);
+      }
+
       inputs[0].focus();
     } // Load Function
 
@@ -1080,7 +1092,7 @@ function _typeof(obj) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\joshdrink\Projects\Talent Cloud\resources\assets\js\app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! C:\dev\htdocs\GCTC-NTGC\TalentCloud\resources\assets\js\app.js */"./resources/assets/js/app.js");
 
 
 /***/ })
