@@ -20,19 +20,19 @@
                         <div class="poster-legend">
                             <div class="flex-grid middle">
                                 <div class="">
-                                    <span>Legend:</span>
+                                    <span>{{ jobs_l10n.legend }}</span>
                                 </div>
                                 <div class="">
                                     <i class="fas fa-pencil-alt"></i>
-                                    <span>Draft Poster</span>
+                                    <span>{{ jobs_l10n.draft_poster }}</span>
                                 </div>
                                 <div class="">
                                     <i class="fas fa-hourglass-half"></i>
-                                    <span>Submitted/Published</span>
+                                    <span>{{ jobs_l10n.submitted_published }}</span>
                                 </div>
                                 <div class=" action-required">
                                     <i class="fas fa-exclamation-circle"></i>
-                                    <span>Action Required</span>
+                                    <span>{{ jobs_l10n.action_required }}</span>
                                 </div>
                             </div>
                         </div>
@@ -44,8 +44,8 @@
                         <a
                             class="button--blue"
                             href="{{ route('manager.jobs.create', job) }}"
-                            title="Create a new job poster.">
-                            + Create a New Poster
+                            title="{{jobs_l10n.create_job_poster}}">
+                            + {{ jobs_l10n.create_poster }}
                         </a>
 
                     </div>
@@ -54,14 +54,14 @@
 
             {# Active Poster Section #}
 
-                <h3 class="heading--03">My Active Posters</h3>
+                <h3 class="heading--03">{{ jobs_l10n.active_posters }}</h3>
 
                 <div class="active-posters">
 
                     {% if jobs is empty %}
 
                         <div class="posters-null-state active">
-                            <span>You don't currently have any active posters! Create a new one using the button above.</span>
+                            <span>{{ jobs_l10n.no_active_posters }}</span>
                         </div>
 
                     {% else %}
@@ -89,7 +89,7 @@
                                             <a
                                                 href="{{ route('manager.jobs.show', job) }}"
                                                 title="View a preview of this job poster.">
-                                                {{ job.title }} (Preview)
+                                                {{ job.title }} {{ jobs_l10n.preview }}
                                             </a>
                                         </h4>
                                         {% endif %}
@@ -103,10 +103,10 @@
                                             </a>
                                         </h4>
                                         {% endif %}
-                                        {% if job.created_at %}<span class="poster-date-time--draft">{{ job.classification }} - Created on: {{ humanizeDate(job.created_at) }}</span>{% endif %}
-                                        {% if job.review_requested_at %}<span class="poster-date-time--submitted">{{ job.classification }} - Submitted on: {{ humanizeDate(job.review_requested_at) }}</span>{% endif %}
-                                        {% if job.published_at %}<span class="poster-date-time--published">{{ job.classification }} - Published on: {{ humanizeDate(job.published_at) }}</span>{% endif %}
-                                        {% if job.close_date_time %}<span class="poster-date-time--closed">{{ job.classification }} - Closed on: {{ humanizeDate(job.close_date_time) }}</span>{% endif %}
+                                        {% if job.created_at %}<span class="poster-date-time--draft">{{ job.classification }} - {{ jobs_l10n.created_on }} {{ humanizeDate(job.created_at) }}</span>{% endif %}
+                                        {% if job.review_requested_at %}<span class="poster-date-time--submitted">{{ job.classification }} - {{ jobs_l10n.submitted_on }} {{ humanizeDate(job.review_requested_at) }}</span>{% endif %}
+                                        {% if job.published_at %}<span class="poster-date-time--published">{{ job.classification }} - {{ jobs_l10n.published_on }} {{ humanizeDate(job.published_at) }}</span>{% endif %}
+                                        {% if job.close_date_time %}<span class="poster-date-time--closed">{{ job.classification }} - {{ jobs_l10n.closed_on }} {{ humanizeDate(job.close_date_time) }}</span>{% endif %}
                                     </div>
 
                                     <div class="box med-2of12 poster-measurements">
@@ -120,21 +120,21 @@
                                         {% if job.review_requested_at %}
                                         <div class="measurement--timer">
                                             <i class="fas fa-stopwatch"></i>
-                                            <span>In Review for {{ humanizeDateDiff(job.review_requested_at) }}</span>
+                                            <span>{{ jobs_l10n.in_review_for }} {{ humanizeDateDiff(job.review_requested_at) }}</span>
                                         </div>
                                         {% endif %}
 
                                         {% if job.close_date_time %}
                                         <div class="measurement--countdown">
                                             <i class="fas fa-clock"></i>
-                                            <span>{{ humanizeDateDiff(job.close_date_time) }} Remaining</span>
+                                            <span>{{ humanizeDateDiff(job.close_date_time) }} {{ jobs_l10n.in_review_for }}</span>
                                         </div>
                                         {% endif %}
 
                                         {% if job.submitted_applications_count %}
                                         <div class="measurement--applicants">
                                             <i class="fas fa-users"></i>
-                                            <span>{{ job.submitted_applications_count }} Applicants</span>
+                                            <span>{{ job.submitted_applications_count }} {{ jobs_l10n.remaining }}</span>
                                         </div>
                                         {% endif %}
                                     </div>
@@ -145,15 +145,15 @@
                                         <a
                                             class="edit-actions--edit-draft"
                                             href="{{ route('manager.jobs.edit', job) }}"
-                                            title="Edit this job poster.">
-                                            Edit Job Poster
+                                            title="{{ jobs_l10n.edit_this_poster }}">
+                                            {{ jobs_l10n.edit_job_poster }}
                                         </a>
                                         {% endif %}
 
                                         <a
                                             href="{{ route('manager.jobs.screening_plan', job) }}"
-                                            title="Edit screening plans for this job.">
-                                            Edit Screening Plans
+                                            title="{{ jobs_l10n.edit_this_plans }}">
+                                            {{ jobs_l10n.edit_screening_plans }}
                                         </a>
 
                                         {# Note:
@@ -176,16 +176,16 @@
                                         <a
                                             class="button--blue submit-button"
                                             href="{{ route('manager.jobs.review', job) }}"
-                                            title="Send this job poster for submission review..">
-                                            Send for Review
+                                            title="{{ jobs_l10n.send_this_review }}">
+                                            {{ jobs_l10n.send_for_review }}
                                         </a>
 
                                         {% if job.status() != 'draft' %}
                                         <a
                                             class="button--blue review-button{% if job.status() == 'submitted' or job.status() == 'published' %} disabled{% endif %}"
                                             href="{# TODO: Needs route to new job-specific applicant index. #}#"
-                                            title="Review the applicants who applied to this job.">
-                                            Review Applicants
+                                            title="{{ jobs_l10n.review_this_applicants }}">
+                                            {{ jobs_l10n.review_applicants }}
                                         </a>
                                         {% endif %}
                                     </div>
@@ -199,7 +199,7 @@
                                         #}
                                         {% if job.status() == 'draft' %}
                                         <button
-                                            title="Delete this job poster draft."
+                                            title="{{ jobs_l10n.delete_this_poster }}"
                                             type="button">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
@@ -220,12 +220,12 @@
 
                 {# Note: this section is temporarily faked until archiving becomes a real thing. #}
 
-                <h3 class="heading--03">My Archived Posters</h3>
+                <h3 class="heading--03">{{ jobs_l10n.archived_posters }}</h3>
 
                 <div class="archived-posters">
 
                     <div class="posters-null-state active">
-                        <span>The ability to archive your posters is coming soon!</span>
+                        <span>{{ jobs_l10n.no_archived_poasters }}</span>
                     </div>
 
                 </div>
