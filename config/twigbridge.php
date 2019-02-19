@@ -179,7 +179,9 @@ return [
             'head',
             'last',
             'mix',
-            'humanizeDateDiff'
+            'humanizeDateDiff',
+            'humanizeDate',
+            'humanizeTime'
         ],
 
         /*
