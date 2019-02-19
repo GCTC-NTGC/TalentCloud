@@ -13,6 +13,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Jenssegers\Date\Date;
+use \Backpack\CRUD\CrudTrait;
 
 /**
  * Class JobPoster
@@ -68,6 +69,7 @@ use Jenssegers\Date\Date;
 class JobPoster extends BaseModel
 {
 
+    use CrudTrait;
     use \Dimsav\Translatable\Translatable;
     use Notifiable;
 
@@ -139,11 +141,7 @@ class JobPoster extends BaseModel
         'remote_work_allowed',
         'published'
     ];
-
-    /**
-     * @var string[] $withCount
-     */
-    protected $withCount = ['submitted_applications'];
+    // protected $withCount = ['submitted_applications'];
 
     /**
      * @var mixed[] $dispatchesEvents
@@ -216,10 +214,10 @@ class JobPoster extends BaseModel
 
     // Artificial Relations
 
-    public function submitted_applications() // phpcs:ignore
+    public function submitted_applications()
     {
-        return $this->hasMany(\App\Models\JobApplication::class)->whereHas('application_status', function ($query) {
-            $query->where('name', '!=', 'draft');
+        return $this->job_applications()->whereDoesntHave('application_status', function ($query) {
+            $query->where('name', 'draft');
         });
     }
 
@@ -228,6 +226,11 @@ class JobPoster extends BaseModel
     // Accessors
 
     // Methods
+
+    public function submitted_applications_count()
+    {
+        return $this->submitted_applications()->count();
+    }
 
     /**
      * Formatted and localized date and time the Job Poster closes.
@@ -248,6 +251,11 @@ class JobPoster extends BaseModel
         }
 
         return $displayDate;
+    }
+
+    public function status()
+    {
+        return $this->isOpen() ? 'Open' : 'Closed';
     }
 
     /**
