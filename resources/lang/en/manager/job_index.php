@@ -25,7 +25,7 @@ return [
     'closed_on' => 'Closed On:',
     'in_review_for' => 'In Review for', //time since marked for review
     'remaining' => 'Remaining', //time remaining
-    'applicants' => 'applicants', //count of applicants
+    'applicants' => 'Applicants', //count of applicants
     'edit_this_poster' => 'Edit this job poster.',
     'edit_job_poster' => 'Edit Job Poster',
     'edit_this_plans' => 'Edit screening plans for this job.',
