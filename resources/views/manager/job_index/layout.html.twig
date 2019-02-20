@@ -131,10 +131,10 @@
                                         </div>
                                         {% endif %}
 
-                                        {% if job.submitted_applications_count %}
+                                        {% if job.submitted_applications_count() %}
                                         <div class="measurement--applicants">
                                             <i class="fas fa-users"></i>
-                                            <span>{{ job.submitted_applications_count }} {{ jobs_l10n.applicants }}</span>
+                                            <span>{{ job.submitted_applications_count() }} {{ jobs_l10n.applicants }}</span>
                                         </div>
                                         {% endif %}
                                     </div>
@@ -225,7 +225,7 @@
                 <div class="archived-posters">
 
                     <div class="posters-null-state active">
-                        <span>{{ jobs_l10n.no_archived_poasters }}</span>
+                        <span>{{ jobs_l10n.no_archived_posters }}</span>
                     </div>
 
                 </div>
