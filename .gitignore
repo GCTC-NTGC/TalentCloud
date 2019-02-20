@@ -58,3 +58,12 @@ package-lock.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+## Compiled Assets
+/public/css
+/public/js/app.js
+/public/js/autocomplete.js
+/public/bootstrap.js
+/public/jquery-ui.min.js
+/public/jquery.validate.min.js
+/public/modernizr.js
