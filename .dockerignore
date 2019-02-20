@@ -1,14 +1,15 @@
-Dockerfile
-docker-compose.yml
-app.docker
-web.docker
-
-.tags
-.env
 .git
 .gitignore
-.dockerignore
+.env.*
+.DS_Store
 
-data
-tests
+Dockerfile
+docker-compose.yml
+README.md
+
+node_modules
 vendor
+
+# To prevent storing dev/temporary container data
+*.csv
+tmp
