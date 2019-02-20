@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import classNames from 'classnames';
 
 const ReviewApplicationApplicant = props => {
   {
@@ -115,7 +114,7 @@ const ReviewApplicationApplicant = props => {
  * description
  * applications
  */
-const ReviewApplicationBucket = props => {
+const ReviewApplicationBucket = (props: any) => {
   {
     /* Applicant Buckets
             There are 4 applicant buckets:
@@ -135,7 +134,7 @@ const ReviewApplicationBucket = props => {
       <button
         aria-expanded="false"
         className="accordion-trigger"
-        tabIndex="0"
+        tabIndex={0}
         type="button"
       >
         <span className="bucket-title">
@@ -174,7 +173,7 @@ const ReviewApplicationBucket = props => {
  *  applications
  *
  */
-const ReviewApplicationCategory = props => {
+const ReviewApplicationCategory = (props) => {
   {
     /* Applicant Categories
             Categories have 3 class determined states:
@@ -229,7 +228,7 @@ const ReviewApplicationCategory = props => {
  *      applications
  *
  */
-const ReviewApplicationsView = props => {
+const ReviewApplicationsView = (props: any) => {
   return (
     <section className="applicant-review container--layout-xl">
       <div className="flex-grid gutter">
@@ -271,8 +270,46 @@ const ReviewApplicationsView = props => {
   );
 };
 
-export default class ReviewApplications extends Component {
-  constructor (props) {
+interface Job {
+    id: number,
+    title: string,
+    classification: string
+}
+
+interface Application {
+    id: number,
+    job_poster_id: number,
+    application_status_id: number,
+    citizenship_declaration_id: number,
+    veteran_status_id: number,
+    preferred_language_id: number,
+    applicant_id: number,
+    applicant_snapshot_id: number,
+    submission_signature: string,
+    submission_date: string,
+    exerience_saved: boolean,
+    created_at: Date,
+    updated_at: Date,
+    citizenship_declaration: CitizeshipDeclaration
+}
+
+interface CitizeshipDeclaration {
+    id: number,
+    name: string
+}
+
+interface ReviewApplicationsProps {
+    job: Job,
+    initApplications: Application[]
+}
+
+interface ReviewApplicationsState {
+    applications: Application[]
+}
+
+
+export default class ReviewApplications extends Component<ReviewApplicationsProps, ReviewApplicationsState> {
+    constructor(props: ReviewApplicationsProps) {
     super(props);
     this.state = {
       applications: props.initApplications
@@ -281,9 +318,8 @@ export default class ReviewApplications extends Component {
 
   /**
      * Returns true if application has been screened out.
-     * @param {Application} application
      */
-  isScreenedOut (application) {
+  isScreenedOut (application: Application): boolean {
     return false; // TODO: decide how to determin
   }
 
@@ -294,10 +330,8 @@ export default class ReviewApplications extends Component {
      *  secondary
      *  unqualified
      *
-     * @param {Application} application
-     * @return {string}
      */
-  applicationBucket (application) {
+  applicationBucket (application: Application): string {
     if (false) {
       return 'priority'; // TODO: decide how to determine priority
     } else if (application.citizenship_declaration.name === 'citizen') {
@@ -305,6 +339,7 @@ export default class ReviewApplications extends Component {
     } else {
       return 'secondary';
     }
+    return 'unqualified';
     // TODO: decide how to determine unqualified
   }
 
@@ -315,7 +350,7 @@ export default class ReviewApplications extends Component {
      *  screened-out
      * @param {Application} application
      */
-  applicationCategory (application) {
+  applicationCategory (application: Application): string {
     if (this.isScreenedOut(application)) {
       return 'screened-out';
     }
