@@ -47,7 +47,7 @@
                             href="{{ urls.twitter|replace({":username":manager.twitter_username}) }}"
                             target="_blank"
                             rel="noopener noreferrer"
-                            title="{{ profile.twitter_link_title|replace(":name":user.name) }}">
+                            title="{{ profile.twitter_link_title|replace({":name":user.name}) }}">
                             <i class="fab fa-twitter"></i>
                         </a>
                     </li>
@@ -57,7 +57,7 @@
                             href="{{ applicant.linkedin_url }}"
                             target="_blank"
                             rel="noopener noreferrer"
-                            title="{{ profile.linkedin_link_title|replace(":name":user.name) }}">
+                            title="{{ profile.linkedin_link_title|replace({":name":user.name}) }}">
                             <i class="fab fa-linkedin"></i>
                         </a>
                     </li>
