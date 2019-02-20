@@ -3,34 +3,35 @@ codecov:
   branch: dev
 
 coverage:
-  precision: 2
+  precision: 1
+  range: 10...50
+  round: up
 
   status:
     project:
       default:
-        target: null
-        threshold: null
-        base: auto
+        against: parent
+        target: 15%
+        threshold: 2%
+        branches: null
+        only_pulls: false
+    changes: no
 
   notify:
     slack:
       default:
         url: "https://hooks.slack.com/services/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"
-        threshold: null
-        branches: null  # all branches by default
-        attachments: "sunburst, diff"
+        threshold: 2%
+        branches: null
         only_pulls: false
-        flags: null
-        paths: null
+        attachments: "sunburst, diff"
 
-parsers:
-  javascript:
-    enable_partials: yes
+  parsers:
+    javascript:
+      enable_partials: yes
 
 comment:
-  layout: "header, diff, tree, changes"
+  layout: "header, diff"
   behavior: default
-  require_changes: false  # if true: only post the comment if coverage changes
+  require_changes: no
   branches: *
-  flags: null
-  paths: null
