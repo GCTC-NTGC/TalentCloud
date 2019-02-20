@@ -263,9 +263,9 @@ class JobController extends Controller
             }
         )->get()
             ->mapWithKeys(
-                function ($skill) use ($skillLangs) {
+                function ($skill) {
                     return [
-                        $skill->id => $skillLangs['skills'][$skill->name]['name']
+                        $skill->id => $skill->name
                     ];
                 }
             )
@@ -278,9 +278,9 @@ class JobController extends Controller
             }
         )->get()
             ->mapWithKeys(
-                function ($skill) use ($skillLangs) {
+                function ($skill) {
                     return [
-                        $skill->id => $skillLangs['skills'][$skill->name]['name']
+                        $skill->id => $skill->name
                     ];
                 }
             )
@@ -362,7 +362,6 @@ class JobController extends Controller
         $job = (isset($jobPoster) ? $jobPoster : new JobPoster());
 
         $job->manager_id = $request->user()->manager->id;
-        $job->published = ($input['submit'] == 'publish');
 
         $this->fillAndSaveJobPoster($input, $job);
 
@@ -372,9 +371,7 @@ class JobController extends Controller
 
         $this->fillAndSaveJobPosterCriteria($input, $job, isset($jobPoster));
 
-        $route = $job->published ? route('manager.jobs.index') : route('manager.jobs.show', $job->id);
-
-        return redirect($route);
+        return redirect(route('manager.jobs.show', $job->id));
     }
 
     /**

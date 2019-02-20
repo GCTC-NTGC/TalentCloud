@@ -13,6 +13,6 @@ $factory->define(SkillDeclaration::class, function (Faker\Generator $faker) {
         'applicant_id' => function () {
             return factory(Applicant::class)->create()->id;
         },
-        'description' => $faker->paragraph(),
+        'description' => $faker->paragraphs(3, true),
     ];
 });

@@ -4,26 +4,232 @@
     Manager - Job Index Layout
 
 ============================================================================= #}
-<div class="manager-job-index__section-wrapper">
 
-    <div class="container--layout">
+{# New Manager Poster Index #}
 
-        <div class="flex-grid">
+    <section class="manager-poster-index">
 
-            {# Include Sidebar #}
+        <div class="container--layout-xl">
 
-                {% include "manager/job_index/sidebar" %}
+            {# Legend & New Draft Button #}
 
-            {# Poster Content #}
+                <div class="flex-grid gutter middle">
 
-                <div class="manager-job-index__content-wrapper box lg-3of4">
+                    <div class="box med-1of2">
 
-                    {% include "manager/job_index/index" %}
+                        <div class="poster-legend">
+                            <div class="flex-grid middle">
+                                <div class="">
+                                    <span>{{ jobs_l10n.legend }}</span>
+                                </div>
+                                <div class="">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    <span>{{ jobs_l10n.draft_poster }}</span>
+                                </div>
+                                <div class="">
+                                    <i class="fas fa-hourglass-half"></i>
+                                    <span>{{ jobs_l10n.submitted_published }}</span>
+                                </div>
+                                <div class=" action-required">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <span>{{ jobs_l10n.action_required }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="box med-1of2 new-poster-button-wrapper">
+
+                        <a
+                            class="button--blue"
+                            href="{{ route('manager.jobs.create', job) }}"
+                            title="{{jobs_l10n.create_job_poster}}">
+                            + {{ jobs_l10n.create_poster }}
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {# Active Poster Section #}
+
+                <h3 class="heading--03">{{ jobs_l10n.active_posters }}</h3>
+
+                <div class="active-posters">
+
+                    {% if jobs is empty %}
+
+                        <div class="posters-null-state active">
+                            <span>{{ jobs_l10n.no_active_posters }}</span>
+                        </div>
+
+                    {% else %}
+
+                        {% for job in jobs %}
+
+                            {# Note:
+                                - Posters must have 1 of 4 classes: draft, submitted, published, closed.
+                                - These states must be changed through certain interactions outlined below as well as updated server side to prevent certain actions on the user's behalf.
+                            #}
+                            <div class="poster {{ job.status() }}">
+
+                                <div class="flex-grid middle gutter">
+
+                                    <div class="box med-1of12 poster-status">
+                                        <i class="fas fa-pencil-alt"></i>
+                                        <i class="fas fa-hourglass-half"></i>
+                                        <i class="fas fa-exclamation-circle action-required"></i>
+                                    </div>
+
+                                    <div class="box med-4of12">
+
+                                        {% if job.status() == 'draft' or job.status() == 'submitted' %}
+                                        <h4 class="heading--04 poster-title--preview">
+                                            <a
+                                                href="{{ route('manager.jobs.show', job) }}"
+                                                title="View a preview of this job poster.">
+                                                {{ job.title }} {{ jobs_l10n.preview }}
+                                            </a>
+                                        </h4>
+                                        {% endif %}
+
+                                        {% if job.status() == 'published' or job.status() == 'closed' %}
+                                        <h4 class="heading--04 poster-title--link">
+                                            <a
+                                                href="{{ route('manager.jobs.show', job) }}"
+                                                title="View this job poster.">
+                                                {{ job.title }}
+                                            </a>
+                                        </h4>
+                                        {% endif %}
+                                        {% if job.created_at %}<span class="poster-date-time--draft">{{ job.classification }} - {{ jobs_l10n.created_on }} {{ humanizeDate(job.created_at) }}</span>{% endif %}
+                                        {% if job.review_requested_at %}<span class="poster-date-time--submitted">{{ job.classification }} - {{ jobs_l10n.submitted_on }} {{ humanizeDate(job.review_requested_at) }}</span>{% endif %}
+                                        {% if job.published_at %}<span class="poster-date-time--published">{{ job.classification }} - {{ jobs_l10n.published_on }} {{ humanizeDate(job.published_at) }}</span>{% endif %}
+                                        {% if job.close_date_time %}<span class="poster-date-time--closed">{{ job.classification }} - {{ jobs_l10n.closed_on }} {{ humanizeDate(job.close_date_time) }}</span>{% endif %}
+                                    </div>
+
+                                    <div class="box med-2of12 poster-measurements">
+
+                                        {# Note: The "measurement--comments element is removed from the UI until commenting is built. There is nothing to do with this element until then. #}
+                                        {#<div class="measurement--comments">
+                                            <i class="fas fa-comments"></i>
+                                            <span>3 Comments</span>
+                                        </div>#}
+
+                                        {% if job.review_requested_at %}
+                                        <div class="measurement--timer">
+                                            <i class="fas fa-stopwatch"></i>
+                                            <span>{{ jobs_l10n.in_review_for }} {{ humanizeDateDiff(job.review_requested_at) }}</span>
+                                        </div>
+                                        {% endif %}
+
+                                        {% if job.close_date_time %}
+                                        <div class="measurement--countdown">
+                                            <i class="fas fa-clock"></i>
+                                            <span>{{ humanizeDateDiff(job.close_date_time) }} {{ jobs_l10n.remaining }}</span>
+                                        </div>
+                                        {% endif %}
+
+                                        {% if job.submitted_applications_count %}
+                                        <div class="measurement--applicants">
+                                            <i class="fas fa-users"></i>
+                                            <span>{{ job.submitted_applications_count }} {{ jobs_l10n.applicants }}</span>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="box med-2of12 edit-actions">
+
+                                        {% if job.status() == 'draft' %}
+                                        <a
+                                            class="edit-actions--edit-draft"
+                                            href="{{ route('manager.jobs.edit', job) }}"
+                                            title="{{ jobs_l10n.edit_this_poster }}">
+                                            {{ jobs_l10n.edit_job_poster }}
+                                        </a>
+                                        {% endif %}
+
+                                        <a
+                                            href="{{ route('manager.jobs.screening_plan', job) }}"
+                                            title="{{ jobs_l10n.edit_this_plans }}">
+                                            {{ jobs_l10n.edit_screening_plans }}
+                                        </a>
+
+                                        {# Note:
+                                            - This button is unnecessary until assessment tools are a platform feature.
+                                        #}
+                                        {#<a
+                                            href="Note: Needs Assessment Tool route."
+                                            title="Edit the assessment tools for this job.">
+                                            Edit Assessment Tools
+                                        </a>#}
+
+                                    </div>
+
+                                    <div class="box med-2of12">
+
+                                        {# Note:
+                                            - This button needs to trigger a confirmation dialogue, email Talent Cloud upon confirmation, and then change the status of the job to submitted via AJAX.
+                                            - This interaction should also remove the draft, class from the poster and add the submitted class.
+                                        #}
+                                        <a
+                                            class="button--blue submit-button"
+                                            href="{{ route('manager.jobs.review', job) }}"
+                                            title="{{ jobs_l10n.send_this_review }}">
+                                            {{ jobs_l10n.send_for_review }}
+                                        </a>
+
+                                        {% if job.status() != 'draft' %}
+                                        <a
+                                            class="button--blue review-button{% if job.status() == 'submitted' or job.status() == 'published' %} disabled{% endif %}"
+                                            href="{# TODO: Needs route to new job-specific applicant index. #}#"
+                                            title="{{ jobs_l10n.review_this_applicants }}">
+                                            {{ jobs_l10n.review_applicants }}
+                                        </a>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="box med-1of12 poster-deletion">
+
+                                        {# Note:
+                                            - This needs to trigger a confirmation modal and then delete the draft job poster via an AJAX call.
+                                            - This button is only visible when the job poster has the "draft" class on it.
+                                            - This button should be disabled server side if the job is not in a draft state.
+                                        #}
+                                        {% if job.status() == 'draft' %}
+                                        <button
+                                            title="{{ jobs_l10n.delete_this_poster }}"
+                                            type="button">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+                </div>
+
+            {# Active Poster Section #}
+
+                {# Note: this section is temporarily faked until archiving becomes a real thing. #}
+
+                <h3 class="heading--03">{{ jobs_l10n.archived_posters }}</h3>
+
+                <div class="archived-posters">
+
+                    <div class="posters-null-state active">
+                        <span>{{ jobs_l10n.no_archived_poasters }}</span>
+                    </div>
 
                 </div>
 
         </div>
 
-    </div>
-
-</div>
+    </section>
