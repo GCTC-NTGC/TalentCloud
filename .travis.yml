@@ -36,6 +36,8 @@ install:
 
 script:
   - ci_env=`bash <(curl -s https://codecov.io/env)`
+  - npm install
+  - npm update
   - npm run dev
   - docker run $ci_env talentcloud_talentcloud sh
   - make phpunit
