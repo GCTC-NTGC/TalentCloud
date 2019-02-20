@@ -120,21 +120,21 @@
                                         {% if job.review_requested_at %}
                                         <div class="measurement--timer">
                                             <i class="fas fa-stopwatch"></i>
-                                            <span>{{ jobs_l10n.in_review_for }} {{ humanizeDateDiff(job.review_requested_at) }}</span>
+                                            <span>{{ jobs_l10n.in_review_for }} {{ job.status() }} review_requested_at {{ humanizeDateDiff(job.review_requested_at) }}</span>
                                         </div>
                                         {% endif %}
 
                                         {% if job.close_date_time %}
                                         <div class="measurement--countdown">
                                             <i class="fas fa-clock"></i>
-                                            <span>{{ humanizeDateDiff(job.close_date_time) }} {{ jobs_l10n.in_review_for }}</span>
+                                            <span> {{ humanizeDateDiff(job.close_date_time) }} {{ jobs_l10n.remaining }}</span>
                                         </div>
                                         {% endif %}
 
                                         {% if job.submitted_applications_count %}
                                         <div class="measurement--applicants">
                                             <i class="fas fa-users"></i>
-                                            <span>{{ job.submitted_applications_count }} {{ jobs_l10n.remaining }}</span>
+                                            <span>{{ job.submitted_applications_count }} {{ jobs_l10n.applicants }}</span>
                                         </div>
                                         {% endif %}
                                     </div>

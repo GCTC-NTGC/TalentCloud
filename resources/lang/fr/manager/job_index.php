@@ -23,7 +23,7 @@ return [
     'published_on' => 'Publié :',
     'closed_on' => 'Fermé :',
     'in_review_for' => 'En révision pour', //time since marked for review
-    'remaining' => 'Restante', //time remaining
+    'remaining' => 'restante', //time remaining
     'applicants' => 'Candidats', //count of applicants
     'edit_this_poster' => 'Modifier cette affiche d\'emploi.',
     'edit_job_poster' => 'Modifier cette affiche d\'emploi.',
