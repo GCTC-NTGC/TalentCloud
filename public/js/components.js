@@ -27883,7 +27883,7 @@ const ReviewApplicationBucket = (props) => {
  *  applications
  *
  */
-const ReviewApplicationCategory = (props) => {
+const ReviewApplicationCategory = props => {
     {
         /* Applicant Categories
                 Categories have 3 class determined states:
@@ -27952,118 +27952,120 @@ class ReviewApplications extends react__WEBPACK_IMPORTED_MODULE_0__["Component"]
         };
     }
     /**
-       * Returns true if application has been screened out.
-       */
+     * Returns true if application has been screened out.
+     */
     isScreenedOut(application) {
         return false; // TODO: decide how to determin
     }
     /**
-       * Return the bucket this application belongs to. Either:
-       *  priority
-       *  citizen
-       *  secondary
-       *  unqualified
-       *
-       */
+     * Return the bucket this application belongs to. Either:
+     *  priority
+     *  citizen
+     *  secondary
+     *  unqualified
+     *
+     */
     applicationBucket(application) {
         if (false) {}
-        else if (application.citizenship_declaration.name === 'citizen') {
-            return 'citizen';
+        else if (application.citizenship_declaration.name === "citizen") {
+            return "citizen";
         }
         else {
-            return 'secondary';
+            return "secondary";
         }
-        return 'unqualified';
+        return "unqualified";
         // TODO: decide how to determine unqualified
     }
     /**
-       * Return the category this application belongs to. Either:
-       *  primary
-       *  optional
-       *  screened-out
-       * @param {Application} application
-       */
+     * Return the category this application belongs to. Either:
+     *  primary
+     *  optional
+     *  screened-out
+     * @param {Application} application
+     */
     applicationCategory(application) {
         if (this.isScreenedOut(application)) {
-            return 'screened-out';
+            return "screened-out";
         }
         const bucket = this.applicationBucket(application);
         switch (bucket) {
-            case 'priority':
-            case 'citizen':
-                return 'primary';
-            case 'secondary':
-            case 'unqualified':
+            case "priority":
+            case "citizen":
+                return "primary";
+            case "secondary":
+            case "unqualified":
             default:
-                return 'optional';
+                return "optional";
         }
     }
     render() {
         const categories = [
             {
-                title: 'Under Consideration',
-                description: 'Blah blah',
+                title: "Under Consideration",
+                description: "Blah blah",
                 showScreenOutAll: false,
                 buckets: [
                     {
-                        title: 'Priority Applicants',
-                        description: 'blah',
-                        applications: this.state.applications.filter(application => !this.isScreenedOut(application) && this.applicationBucket(application) === 'priority')
+                        title: "Priority Applicants",
+                        description: "blah",
+                        applications: this.state.applications.filter(application => !this.isScreenedOut(application) &&
+                            this.applicationBucket(application) === "priority")
                     },
                     {
-                        title: 'Veterans and Canadian Citizens',
-                        description: 'blah',
-                        applications: this.state.applications.filter(application => !this.isScreenedOut(application) && this.applicationBucket(application) === 'citizen')
+                        title: "Veterans and Canadian Citizens",
+                        description: "blah",
+                        applications: this.state.applications.filter(application => !this.isScreenedOut(application) &&
+                            this.applicationBucket(application) === "citizen")
                     }
                 ]
             },
             {
-                title: 'Optional Consideration',
-                description: 'Blah blah',
+                title: "Optional Consideration",
+                description: "Blah blah",
                 showScreenOutAll: true,
                 buckets: [
                     {
-                        title: 'Non-Canadian Citizens',
-                        description: 'blah',
+                        title: "Non-Canadian Citizens",
+                        description: "blah",
                         applications: this.state.applications.filter(application => !this.isScreenedOut(application) &&
-                            this.applicationBucket(application) === 'secondary')
+                            this.applicationBucket(application) === "secondary")
                     },
                     {
                         title: "Don't Meed Essential Criteria",
-                        description: 'blah',
+                        description: "blah",
                         applications: this.state.applications.filter(application => !this.isScreenedOut(application) &&
-                            this.applicationBucket(application) === 'unqualified')
+                            this.applicationBucket(application) === "unqualified")
                     }
                 ]
             },
             {
-                title: 'No Longer Under Consideration',
-                description: 'Blah blah',
+                title: "No Longer Under Consideration",
+                description: "Blah blah",
                 showScreenOutAll: false,
                 buckets: [
                     {
-                        title: 'Priority Applicants',
-                        description: 'blah',
+                        title: "Priority Applicants",
+                        description: "blah",
                         applications: this.state.applications.filter(application => this.isScreenedOut(application) &&
-                            this.applicationBucket(application) === 'priority')
+                            this.applicationBucket(application) === "priority")
                     },
                     {
-                        title: 'Veterans and Canadian Citizens',
-                        description: 'blah',
+                        title: "Veterans and Canadian Citizens",
+                        description: "blah",
                         applications: this.state.applications.filter(application => this.isScreenedOut(application) &&
-                            this.applicationBucket(application) === 'citizen')
+                            this.applicationBucket(application) === "citizen")
                     },
                     {
-                        title: 'Non-Canadian Citizens',
-                        description: 'blah',
+                        title: "Non-Canadian Citizens",
+                        description: "blah",
                         applications: this.state.applications.filter(application => this.isScreenedOut(application) &&
-                            this.applicationBucket(application) === 'secondary')
+                            this.applicationBucket(application) === "secondary")
                     },
                     {
                         title: "Don't Meed Essential Criteria",
-                        description: 'blah',
+                        description: "blah",
                         applications: this.state.applications.filter(application => this.isScreenedOut(application) &&
-                            this.applicationBucket(application) === 'unqualified')
+                            this.applicationBucket(application) === "unqualified")
                     }
                 ]
             }
@@ -28071,10 +28073,10 @@ class ReviewApplications extends react__WEBPACK_IMPORTED_MODULE_0__["Component"]
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ReviewApplicationsView, { title: this.props.job.title, classification: this.props.job.classification, categories: categories }));
     }
 }
-if (document.getElementById('review-applications')) {
-    const container = document.getElementById('review-applications');
-    const job = JSON.parse(container.getAttribute('data-job'));
-    const applications = JSON.parse(container.getAttribute('data-applications'));
+if (document.getElementById("review-applications")) {
+    const container = document.getElementById("review-applications");
+    const job = JSON.parse(container.getAttribute("data-job"));
+    const applications = JSON.parse(container.getAttribute("data-applications"));
     react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ReviewApplications, { job: job, initApplications: applications }), container);
 }
 

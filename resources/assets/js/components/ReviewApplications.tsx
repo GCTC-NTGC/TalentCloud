@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 
 const ReviewApplicationApplicant = props => {
   {
@@ -43,7 +43,7 @@ const ReviewApplicationApplicant = props => {
               alt="The Talent Cloud veteran icon."
               src="/images/icon_veteran.svg"
             />
-                        Veteran
+            Veteran
           </span>
         </div>
 
@@ -53,21 +53,21 @@ const ReviewApplicationApplicant = props => {
             title="View this applicant's application."
           >
             <i className="fas fa-file-alt" />
-                        View Application
+            View Application
           </a>
           <a
             href="{/* Link to Applicant's Profile */}"
             title="View this applicant's profile."
           >
             <i className="fas fa-user" />
-                        View Profile
+            View Profile
           </a>
         </div>
 
         <div className="box lg-2of11 applicant-decision">
           <div className="form__input-wrapper--select">
             <label className="form__label" htmlFor="">
-                            Decision
+              Decision
             </label>
             <div className="form__select-wrapper fas fa-chevron-down">
               <select id="" className="form__input">
@@ -89,7 +89,7 @@ const ReviewApplicationApplicant = props => {
                         Change the text depending on whether note exists yet
                     */}
           <button className="button--outline" type="button">
-                        + Add a Note / Edit Note
+            + Add a Note / Edit Note
           </button>
         </div>
 
@@ -143,7 +143,7 @@ const ReviewApplicationBucket = (props: any) => {
         </span>
 
         <span className="invisible">
-                    Toggle this step to view relevant applicants.
+          Toggle this step to view relevant applicants.
         </span>
 
         <i className="fas fa-chevron-up" />
@@ -173,7 +173,7 @@ const ReviewApplicationBucket = (props: any) => {
  *  applications
  *
  */
-const ReviewApplicationCategory = (props) => {
+const ReviewApplicationCategory = props => {
   {
     /* Applicant Categories
             Categories have 3 class determined states:
@@ -197,8 +197,7 @@ const ReviewApplicationCategory = (props) => {
       {props.showScreenOutAll && (
         <span className="category-action">
           <button className="button--outline" type="button">
-            <i className="fas fa-ban" /> Screen All Optional
-                        Candidates Out
+            <i className="fas fa-ban" /> Screen All Optional Candidates Out
           </button>
         </span>
       )}
@@ -234,15 +233,13 @@ const ReviewApplicationsView = (props: any) => {
       <div className="flex-grid gutter">
         <div className="box med-1of2 job-title-wrapper">
           <span>
-                        Viewing Applicants for: {props.title} (
-            {props.classification})
+            Viewing Applicants for: {props.title} ({props.classification})
           </span>
         </div>
 
         <div className="box med-1of2 timer-wrapper">
           <span>
-            <i className="fas fa-stopwatch" /> {/* Number */} Days
-                        Since Close
+            <i className="fas fa-stopwatch" /> {/* Number */} Days Since Close
           </span>
         </div>
       </div>
@@ -253,14 +250,13 @@ const ReviewApplicationsView = (props: any) => {
         </h3>
 
         <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse luctus fermentum lorem, vel rhoncus velit
-                    vehicula imperdiet. Integer ullamcorper iaculis justo, quis
-                    tincidunt ex vulputate ut. Vivamus molestie augue turpis, ut
-                    egestas ante aliquam id. Quisque efficitur, metus imperdiet
-                    rhoncus pharetra, velit ligula lobortis tortor, vitae
-                    imperdiet leo augue ac velit. Vivamus sollicitudin dictum
-                    est a tempus. Fusce tempus finibus elit sed lacinia.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          luctus fermentum lorem, vel rhoncus velit vehicula imperdiet. Integer
+          ullamcorper iaculis justo, quis tincidunt ex vulputate ut. Vivamus
+          molestie augue turpis, ut egestas ante aliquam id. Quisque efficitur,
+          metus imperdiet rhoncus pharetra, velit ligula lobortis tortor, vitae
+          imperdiet leo augue ac velit. Vivamus sollicitudin dictum est a
+          tempus. Fusce tempus finibus elit sed lacinia.
         </p>
       </div>
       {props.categories.map(category => (
@@ -271,45 +267,48 @@ const ReviewApplicationsView = (props: any) => {
 };
 
 interface Job {
-    id: number,
-    title: string,
-    classification: string
+  id: number;
+  title: string;
+  classification: string;
 }
 
 interface Application {
-    id: number,
-    job_poster_id: number,
-    application_status_id: number,
-    citizenship_declaration_id: number,
-    veteran_status_id: number,
-    preferred_language_id: number,
-    applicant_id: number,
-    applicant_snapshot_id: number,
-    submission_signature: string,
-    submission_date: string,
-    exerience_saved: boolean,
-    created_at: Date,
-    updated_at: Date,
-    citizenship_declaration: CitizeshipDeclaration
+  id: number;
+  job_poster_id: number;
+  application_status_id: number;
+  citizenship_declaration_id: number;
+  veteran_status_id: number;
+  preferred_language_id: number;
+  applicant_id: number;
+  applicant_snapshot_id: number;
+  submission_signature: string;
+  submission_date: string;
+  exerience_saved: boolean;
+  created_at: Date;
+  updated_at: Date;
+  citizenship_declaration: CitizeshipDeclaration;
 }
 
 interface CitizeshipDeclaration {
-    id: number,
-    name: string
+  id: number;
+  name: string;
 }
 
 interface ReviewApplicationsProps {
-    job: Job,
-    initApplications: Application[]
+  job: Job;
+
+  initApplications: Application[];
 }
 
 interface ReviewApplicationsState {
-    applications: Application[]
+  applications: Application[];
 }
 
-
-export default class ReviewApplications extends Component<ReviewApplicationsProps, ReviewApplicationsState> {
-    constructor(props: ReviewApplicationsProps) {
+export default class ReviewApplications extends Component<
+  ReviewApplicationsProps,
+  ReviewApplicationsState
+> {
+  protected constructor(props: ReviewApplicationsProps) {
     super(props);
     this.state = {
       applications: props.initApplications
@@ -317,144 +316,146 @@ export default class ReviewApplications extends Component<ReviewApplicationsProp
   }
 
   /**
-     * Returns true if application has been screened out.
-     */
-  isScreenedOut (application: Application): boolean {
+   * Returns true if application has been screened out.
+   */
+  protected isScreenedOut(application: Application): boolean {
     return false; // TODO: decide how to determin
   }
 
   /**
-     * Return the bucket this application belongs to. Either:
-     *  priority
-     *  citizen
-     *  secondary
-     *  unqualified
-     *
-     */
-  applicationBucket (application: Application): string {
+   * Return the bucket this application belongs to. Either:
+   *  priority
+   *  citizen
+   *  secondary
+   *  unqualified
+   *
+   */
+  applicationBucket(application: Application): string {
     if (false) {
-      return 'priority'; // TODO: decide how to determine priority
-    } else if (application.citizenship_declaration.name === 'citizen') {
-      return 'citizen';
+      return "priority"; // TODO: decide how to determine priority
+    } else if (application.citizenship_declaration.name === "citizen") {
+      return "citizen";
     } else {
-      return 'secondary';
+      return "secondary";
     }
-    return 'unqualified';
+    return "unqualified";
     // TODO: decide how to determine unqualified
   }
 
   /**
-     * Return the category this application belongs to. Either:
-     *  primary
-     *  optional
-     *  screened-out
-     * @param {Application} application
-     */
-  applicationCategory (application: Application): string {
+   * Return the category this application belongs to. Either:
+   *  primary
+   *  optional
+   *  screened-out
+   * @param {Application} application
+   */
+  applicationCategory(application: Application): string {
     if (this.isScreenedOut(application)) {
-      return 'screened-out';
+      return "screened-out";
     }
     const bucket = this.applicationBucket(application);
     switch (bucket) {
-      case 'priority':
-      case 'citizen':
-        return 'primary';
-      case 'secondary':
-      case 'unqualified':
+      case "priority":
+      case "citizen":
+        return "primary";
+      case "secondary":
+      case "unqualified":
       default:
-        return 'optional';
+        return "optional";
     }
   }
 
-  render () {
+  render() {
     const categories = [
       {
-        title: 'Under Consideration',
-        description: 'Blah blah',
+        title: "Under Consideration",
+        description: "Blah blah",
         showScreenOutAll: false,
         buckets: [
           {
-            title: 'Priority Applicants',
-            description: 'blah',
+            title: "Priority Applicants",
+            description: "blah",
             applications: this.state.applications.filter(
               application =>
-                !this.isScreenedOut(application) && this.applicationBucket(application) === 'priority'
+                !this.isScreenedOut(application) &&
+                this.applicationBucket(application) === "priority"
             )
           },
           {
-            title: 'Veterans and Canadian Citizens',
-            description: 'blah',
+            title: "Veterans and Canadian Citizens",
+            description: "blah",
             applications: this.state.applications.filter(
               application =>
-                !this.isScreenedOut(application) && this.applicationBucket(application) === 'citizen'
+                !this.isScreenedOut(application) &&
+                this.applicationBucket(application) === "citizen"
             )
           }
         ]
       },
       {
-        title: 'Optional Consideration',
-        description: 'Blah blah',
+        title: "Optional Consideration",
+        description: "Blah blah",
         showScreenOutAll: true,
         buckets: [
           {
-            title: 'Non-Canadian Citizens',
-            description: 'blah',
+            title: "Non-Canadian Citizens",
+            description: "blah",
             applications: this.state.applications.filter(
               application =>
                 !this.isScreenedOut(application) &&
-                                this.applicationBucket(application) === 'secondary'
+                this.applicationBucket(application) === "secondary"
             )
           },
           {
             title: "Don't Meed Essential Criteria",
-            description: 'blah',
+            description: "blah",
             applications: this.state.applications.filter(
               application =>
                 !this.isScreenedOut(application) &&
-                                this.applicationBucket(application) === 'unqualified'
+                this.applicationBucket(application) === "unqualified"
             )
           }
         ]
       },
       {
-        title: 'No Longer Under Consideration',
-        description: 'Blah blah',
+        title: "No Longer Under Consideration",
+        description: "Blah blah",
         showScreenOutAll: false,
         buckets: [
           {
-            title: 'Priority Applicants',
-            description: 'blah',
+            title: "Priority Applicants",
+            description: "blah",
             applications: this.state.applications.filter(
               application =>
                 this.isScreenedOut(application) &&
-                                this.applicationBucket(application) === 'priority'
+                this.applicationBucket(application) === "priority"
             )
           },
           {
-            title: 'Veterans and Canadian Citizens',
-            description: 'blah',
+            title: "Veterans and Canadian Citizens",
+            description: "blah",
             applications: this.state.applications.filter(
               application =>
                 this.isScreenedOut(application) &&
-                                this.applicationBucket(application) === 'citizen'
+                this.applicationBucket(application) === "citizen"
             )
           },
           {
-            title: 'Non-Canadian Citizens',
-            description: 'blah',
+            title: "Non-Canadian Citizens",
+            description: "blah",
             applications: this.state.applications.filter(
               application =>
                 this.isScreenedOut(application) &&
-                                this.applicationBucket(application) === 'secondary'
+                this.applicationBucket(application) === "secondary"
             )
           },
           {
             title: "Don't Meed Essential Criteria",
-            description: 'blah',
+            description: "blah",
             applications: this.state.applications.filter(
               application =>
                 this.isScreenedOut(application) &&
-                                this.applicationBucket(application) === 'unqualified'
+                this.applicationBucket(application) === "unqualified"
             )
           }
         ]
@@ -470,12 +471,10 @@ export default class ReviewApplications extends Component<ReviewApplicationsProp
   }
 }
 
-if (document.getElementById('review-applications')) {
-  const container = document.getElementById('review-applications');
-  const job = JSON.parse(container.getAttribute('data-job'));
-  const applications = JSON.parse(
-    container.getAttribute('data-applications')
-  );
+if (document.getElementById("review-applications")) {
+  const container = document.getElementById("review-applications");
+  const job = JSON.parse(container.getAttribute("data-job"));
+  const applications = JSON.parse(container.getAttribute("data-applications"));
   ReactDOM.render(
     <ReviewApplications job={job} initApplications={applications} />,
     container
