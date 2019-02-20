@@ -425,12 +425,16 @@
         }
 
         //Add setItemEdited handlers to all ajax forms
-        $(".ajax-form").each(function(){
-            const object = $(this);
-            object.find(":input").change(function() {
-                setItemEdited(object);
+        function addOnChangeEditedWatchers() {
+            $(".ajax-form").each(function () {
+                const object = $(this);
+                object.find(":input").change(function () {
+                    setItemEdited(object);
+                });
             });
-        });
+        }
+        addOnChangeEditedWatchers();
+
 
         //Set object attributes to reflect that it has been saved on server
         function setItemSaved(object, response) {
@@ -596,7 +600,7 @@
             return maxId + 1;
         }
 
-        //The all in one function to set proper ids and form names
+        //The all in one function to set proper ids and form names`
         function individualizeFormIdsAndNames(template, wrapper) {
             // Get New ID
             var newId = getNextItemId(wrapper);
@@ -607,7 +611,7 @@
             //Differentiate real forms from templates
 
             // filter, if we only want to affect certain results
-            var filter = '';
+            var filter = ':not(.no-prefix *)';
 
             replaceInAttributes(template, 'id', ':template', 'new', filter);
             replaceInAttributes(template, 'for', ':template', 'new', filter);
@@ -651,6 +655,8 @@
             requiredFields();
             // Reactivate Labels
             labelHandlers();
+            // Reactive 'edited' watchers
+            addOnChangeEditedWatchers();
             return template;
         }
 
@@ -752,6 +758,11 @@
             loadProfileRelativeDeletion();
 
             var inputs = clone.find(":focusable:not(button)");
+
+            var parentForm = $(trigger).parents('.ajax-form');
+            if (parentForm) {
+                setItemEdited(parentForm);
+            }
 
             inputs[0].focus();
 

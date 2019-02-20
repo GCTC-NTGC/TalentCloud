@@ -47,15 +47,15 @@
             }
 
             h4 {
-                color: $palette--font-white;
+                color: $palette--white;
                 font-family: $font--sans;
                 font-size: $font-scale--h3;
-                font-weight: 600;
+                font-weight: 700;
                 margin: 0 0 $unit;
             }
 
             .application-index__item-department {
-                color: $palette--blue;
+                color: $palette--font-white;
                 display: inline-block;
                 font-family: $font--sans;
                 font-size: $font-scale--regular;
@@ -90,6 +90,7 @@
         }
 
         .application-index__item-content {
+            padding: 2rem;
             position: relative;
 
             @media #{$l-tablet} {
@@ -100,25 +101,32 @@
                     display: block;
                     height: calc(100% + (#{$unit} * 4));
                     position: absolute;
-                    top: 0;
-                    left: 33%;
+                    top: 1rem;
+                    left: calc(4/9 * 100%);
                     width: 1px;
                 }
 
             }
 
             >.box {
-                padding: calc(#{$unit} * 1) calc(#{$unit} * 2);
+                // padding: calc(#{$unit} * 1) calc(#{$unit} * 2);
                 text-align: center;
 
                 @media #{$l-tablet} {
                     text-align: left;
                 }
 
+                [class*="button--"] {
+                    text-align: center;
+                }
+
                 &:last-child {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
 
                     @media #{$l-tablet} {
-                        text-align: right;
+                        justify-content: flex-start;
                     }
 
                 }

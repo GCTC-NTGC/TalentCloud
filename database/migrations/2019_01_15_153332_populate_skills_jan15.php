@@ -14,9 +14,9 @@ class PopulateSkillsJan15 extends Migration
     public function up()
     {
         DB::table('skills')->insert([
-            ['id' => 78, 'skill_type_id' => 2, 'name' => 'solution_architecture_mobile'],
-            ['id' => 79, 'skill_type_id' => 2, 'name' => 'mobile_app_design'],
-            ['id' => 80, 'skill_type_id' => 2, 'name' => 'mobile_development_cloud'],
+            ['skill_type_id' => 2, 'name' => 'solution_architecture_mobile'],
+            ['skill_type_id' => 2, 'name' => 'mobile_app_design'],
+            ['skill_type_id' => 2, 'name' => 'mobile_development_cloud'],
         ]);
     }
 
@@ -27,6 +27,10 @@ class PopulateSkillsJan15 extends Migration
     */
     public function down()
     {
-        DB::table('skills')->whereIn('id', [78, 79, 80])->delete();
+        DB::table('skills')->whereIn('name', [
+            'solution_architecture_mobile',
+            'mobile_app_design',
+            'mobile_development_cloud'
+        ])->delete();
     }
 }

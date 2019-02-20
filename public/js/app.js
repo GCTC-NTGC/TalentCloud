@@ -458,12 +458,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                         }
 
                         //Add setItemEdited handlers to all ajax forms
-                        $(".ajax-form").each(function () {
-                                    var object = $(this);
-                                    object.find(":input").change(function () {
-                                                setItemEdited(object);
+                        function addOnChangeEditedWatchers() {
+                                    $(".ajax-form").each(function () {
+                                                var object = $(this);
+                                                object.find(":input").change(function () {
+                                                            setItemEdited(object);
+                                                });
                                     });
-                        });
+                        }
+                        addOnChangeEditedWatchers();
 
                         //Set object attributes to reflect that it has been saved on server
                         function setItemSaved(object, response) {
@@ -631,7 +634,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     return maxId + 1;
                         }
 
-                        //The all in one function to set proper ids and form names
+                        //The all in one function to set proper ids and form names`
                         function individualizeFormIdsAndNames(template, wrapper) {
                                     // Get New ID
                                     var newId = getNextItemId(wrapper);
@@ -642,7 +645,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     //Differentiate real forms from templates
 
                                     // filter, if we only want to affect certain results
-                                    var filter = '';
+                                    var filter = ':not(.no-prefix *)';
 
                                     replaceInAttributes(template, 'id', ':template', 'new', filter);
                                     replaceInAttributes(template, 'for', ':template', 'new', filter);
@@ -686,6 +689,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     requiredFields();
                                     // Reactivate Labels
                                     labelHandlers();
+                                    // Reactive 'edited' watchers
+                                    addOnChangeEditedWatchers();
                                     return template;
                         }
 
@@ -773,6 +778,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     loadProfileRelativeDeletion();
 
                                     var inputs = clone.find(":focusable:not(button)");
+
+                                    var parentForm = $(trigger).parents('.ajax-form');
+                                    if (parentForm) {
+                                                setItemEdited(parentForm);
+                                    }
 
                                     inputs[0].focus();
                         }

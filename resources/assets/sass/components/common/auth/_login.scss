@@ -5,6 +5,7 @@
 
 ============================================================================= */
 .auth {
+    background: $palette--black;
     background-postion: center;
     background-size: cover;
     min-height: 100vh;
@@ -70,7 +71,7 @@
         .login-heading {
             background: $palette--white;
             border-radius: 5px 5px 0 0;
-            overflow: hidden;
+            //overflow: hidden;
             padding: calc(#{$unit} * 2) calc(#{$unit} * 6) calc(#{$unit} * 2) calc(#{$unit} * 2);
             position: relative;
 

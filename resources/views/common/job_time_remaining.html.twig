@@ -1,7 +1,5 @@
-<span>
-    {% if job.close_date_time.isFuture() %}
-        {{ template.time_remaining|replace({":time":job.timeRemaining()}) }}
-    {% else %}
-        {{ template.job_closed }}
-    {% endif %}
-</span>
+{% if job.close_date_time.isFuture() %}
+    {{ job.applyBy() }}
+{% else %}
+    {{ template.job_closed }}
+{% endif %}

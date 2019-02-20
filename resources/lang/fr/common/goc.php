@@ -17,6 +17,6 @@ return [
     "logo_alt" => "Symbole du gouvernement du Canada.",
     "logo_url" => "/images/logo_goc_white.svg",
     "talent_cloud" => "Nuage de talents du GC",
-    "portal" => "Portail demandeur",
+    "portal" => "Portail candidat",
     "admin_portal" => "Portail gestionnaire",
 ];

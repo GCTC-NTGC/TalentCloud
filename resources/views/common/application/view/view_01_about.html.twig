@@ -98,7 +98,7 @@
                     {% for userAnswer in job_application.job_application_answers %}
                         {% if userAnswer.job_poster_question.id == question.id %}
                             {% set questionCounter = questionCounter + 1 %}
-                            {{ userAnswer.answer }}
+                            {{ userAnswer.answer|nl2br }}
                         {% endif %}
                     {% endfor %}
 
