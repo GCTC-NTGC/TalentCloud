@@ -17,6 +17,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Events\UserCreated;
 use App\Events\UserUpdated;
 use App\Notifications\ResetPasswordNotification;
+use \Backpack\CRUD\CrudTrait;
 
 /**
  * Class User
@@ -51,6 +52,8 @@ class User extends BaseModel implements
     use Authorizable;
     // Trait for notifications
     use Notifiable;
+    // Trait for Backpack
+    use CrudTrait;
 
     protected $casts = [
         'is_confirmed' => 'bool',
