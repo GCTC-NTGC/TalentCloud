@@ -1,23 +1,27 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import {Job, Application} from "interfaces";
 
-const ReviewApplicationApplicant = props => {
-  {
-    /* Applicants and Their States
-            Applicants contain 3 different points of data that can alter their state:
-                - Their current status:
-                    - in (screened in)
-                    - out (screened out)
-                    - maybe (saved for review)
-                    - null (the manager hasn't yet taken an action on this applicant)
-                - Whether a note has been created regarding their application:
-                    - true
-                    - false
-                - Whether that applicant is a veteran:
-                    - true
-                    - false
-        */
-  }
+interface ApplicationViewProps {
+  application: Application
+}
+
+/**
+ * Applicants and Their States
+ * Applicants contain 3 different points of data that can alter their state:
+ *   - Their current status:
+ *     - in (screened in)
+ *     - out (screened out)
+ *     - maybe (saved for review)
+ *     - null (the manager hasn't yet taken an action on this applicant)
+ *   - Whether a note has been created regarding their application:
+ *     - true
+ *     - false
+ *   - Whether that applicant is a veteran:
+ *     - true
+ *     - false
+ */
+const ApplicationView: React.StatelessComponent<ApplicationViewProps> = props => {
   return (
     <form className="applicant-summary">
       <div className="flex-grid middle gutter">
@@ -107,30 +111,27 @@ const ReviewApplicationApplicant = props => {
   );
 };
 
+interface BucketViewProps {
+  title: string,
+  description: string,
+  applications: Application[]
+}
+
 /**
- *
- * @param {*} props
- * title
- * description
- * applications
+ * Applicant Buckets
+ * There are 4 applicant buckets:
+ *  - [1] Priority Applicants (this bucket will not be used at first and is replaced by the "temporary priority alert outlined above.)
+ *  - [2] Veteran & Citzen Applicants
+ *  - [3] Non-Canadian Applicants
+ *  - [4] Unqualified Applicants (These applicants claimed to have the required essential criteria at a lower level than the job poster asked for.)
+ * The larger page categories outlined earlier contain unique combinations of these buckets:
+ *  - 1 and 2 appear in the "primary" category
+ *  - 3 and 4 appear in the "secondary" category
+ *  - The "tertiary" category contains all 4, each displaying only the candidates that have been screened out in that bucket.
  */
-const ReviewApplicationBucket = (props: any) => {
-  {
-    /* Applicant Buckets
-            There are 4 applicant buckets:
-                - [1] Priority Applicants (this bucket will not be used at first and is replaced by the "temporary priority alert outlined above.)
-                - [2] Veteran & Citzen Applicants
-                - [3] Non-Canadian Applicants
-                - [4] Unqualified Applicants (These applicants claimed to have the required essential criteria at a lower level than the job poster asked for.)
-            The larger page categories outlined earlier contain unique combinations of these buckets:
-                - 1 and 2 appear in the "primary" category
-                - 3 and 4 appear in the "secondary" category
-                - The "tertiary" category contains all 4, each displaying only the candidates that have been screened out in that bucket.
-        */
-  }
+const BucketView: React.StatelessComponent<BucketViewProps> = (props: any) => {
   return (
     <div className="accordion applicant-bucket">
-      {/* Accordion Trigger */}
       <button
         aria-expanded="false"
         className="accordion-trigger"
@@ -154,12 +155,19 @@ const ReviewApplicationBucket = (props: any) => {
         <p>{props.description}</p>
 
         {props.applications.map(application => (
-          <ReviewApplicationApplicant key={application.id} {...application} />
+          <ApplicationView key={application.id} {...application} />
         ))}
       </div>
     </div>
   );
 };
+
+interface CategoryViewProps {
+  title: string,
+  description: string
+  showScreenOutAll: boolean
+  buckets: BucketViewProps[]
+}
 
 /**
  *
@@ -173,7 +181,7 @@ const ReviewApplicationBucket = (props: any) => {
  *  applications
  *
  */
-const ReviewApplicationCategory = props => {
+const CategoryView: React.StatelessComponent<CategoryViewProps> = props => {
   {
     /* Applicant Categories
             Categories have 3 class determined states:
@@ -203,31 +211,19 @@ const ReviewApplicationCategory = props => {
       )}
 
       {props.buckets.map(bucket => (
-        <ReviewApplicationBucket key={bucket.title} {...bucket} />
+        <BucketView key={bucket.title} {...bucket} />
       ))}
     </div>
   );
 };
 
-/**
- *
- * @param {*} props
- * job {}
- *  title
- *  classification
- *  days since close?
- *
- * categories
- *  title
- *  description
- *  showScreenOutAll
- *  buckets
- *      title
- *      description
- *      applications
- *
- */
-const ReviewApplicationsView = (props: any) => {
+interface ReviewApplicationsViewProps {
+  title: string,
+  classification: string,
+  categories: CategoryViewProps[]
+}
+
+const ReviewApplicationsView: React.StatelessComponent<ReviewApplicationsViewProps> = (props) => {
   return (
     <section className="applicant-review container--layout-xl">
       <div className="flex-grid gutter">
@@ -260,39 +256,11 @@ const ReviewApplicationsView = (props: any) => {
         </p>
       </div>
       {props.categories.map(category => (
-        <ReviewApplicationCategory key={category.title} {...category} />
+        <CategoryView key={category.title} {...category} />
       ))}
     </section>
   );
 };
-
-interface Job {
-  id: number;
-  title: string;
-  classification: string;
-}
-
-interface Application {
-  id: number;
-  job_poster_id: number;
-  application_status_id: number;
-  citizenship_declaration_id: number;
-  veteran_status_id: number;
-  preferred_language_id: number;
-  applicant_id: number;
-  applicant_snapshot_id: number;
-  submission_signature: string;
-  submission_date: string;
-  exerience_saved: boolean;
-  created_at: Date;
-  updated_at: Date;
-  citizenship_declaration: CitizeshipDeclaration;
-}
-
-interface CitizeshipDeclaration {
-  id: number;
-  name: string;
-}
 
 interface ReviewApplicationsProps {
   job: Job;
@@ -304,11 +272,8 @@ interface ReviewApplicationsState {
   applications: Application[];
 }
 
-export default class ReviewApplications extends Component<
-  ReviewApplicationsProps,
-  ReviewApplicationsState
-> {
-  protected constructor(props: ReviewApplicationsProps) {
+export default class ReviewApplications extends React.Component<ReviewApplicationsProps, ReviewApplicationsState> {
+  constructor(props: ReviewApplicationsProps) {
     super(props);
     this.state = {
       applications: props.initApplications
