@@ -272,6 +272,7 @@ Route::group(
                 /* Request Review */
                 Route::post('jobs/{jobPoster}/review', 'JobController@submitForReview')
                     ->where('jobPoster', '[0-9]+')
+                    ->middleware('can:update,jobPoster')
                     ->name('manager.jobs.review');
             });
 
