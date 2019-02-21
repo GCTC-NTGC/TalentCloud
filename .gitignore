@@ -61,10 +61,5 @@ package-lock.json
 
 ## Compiled Assets
 /public/css
-/public/js/app.js
-/public/js/autocomplete.js
-/public/js/bootstrap.js
-/public/js/jquery-ui.min.js
-/public/js/jquery.validate.min.js
-/public/js/modernizr.js
+/public/js
 /public/mix-manifest.json
