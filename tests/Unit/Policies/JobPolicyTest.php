@@ -97,4 +97,20 @@ class JobPolicyTest extends TestCase
         ]);
         $this->assertTrue($this->policy->view($this->manager, $job));
     }
+
+    public function testManagerCanNotPublishJob()
+    {
+        $job = factory(JobPoster::class)->states('published')->make([
+            'manager_id' => $this->manager->manager->id
+        ]);
+        $this->assertFalse($this->policy->update($this->manager, $job));
+    }
+
+    public function testManagerCanUpdateDraftJob()
+    {
+        $job = factory(JobPoster::class)->states('unpublished')->make([
+            'manager_id' => $this->manager->manager->id
+        ]);
+        $this->assertTrue($this->policy->update($this->manager, $job));
+    }
 }
