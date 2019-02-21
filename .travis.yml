@@ -9,8 +9,9 @@ dist: trusty
 services:
   - docker
 
+cache: npm
+
 cache:
-  - npm
   directories:
     - vendor
 
