@@ -222,4 +222,17 @@ class JobControllerTest extends TestCase
         $response->assertSee($this->jobPoster->division);
         $response->assertSee($this->jobPoster->education);
     }
+
+        /**
+     * Ensure a manager cannot edit a published Job Poster they created.
+     *
+     * @return void
+     */
+    public function testManagerCanNotEditViewPublished() : void
+    {
+        $response = $this->actingAs($this->manager->user)
+            ->get('manager/jobs/' . $this->publishedJob->id . '/edit');
+
+        $response->assertStatus(500);
+    }
 }

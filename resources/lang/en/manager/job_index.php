@@ -2,7 +2,7 @@
 return [
     /*
     * --------------------------------------------------------------------------
-    * Manager Portal Job Index Localization
+    * Manager Portal Job Index Localizations
     * --------------------------------------------------------------------------
     * Route: /manager/jobs
     * Controller: Controllers\JobController.php
@@ -63,6 +63,4 @@ return [
             'save' => 'Save'
         ]
     ]
-
-
 ];

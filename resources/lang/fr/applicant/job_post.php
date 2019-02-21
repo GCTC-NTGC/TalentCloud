@@ -75,7 +75,7 @@ return [
         'team_narrative_label' => 'Ce qu\'il faut savoir',
         'team_culture_label' => 'Culture d\'équipe',
         'team_size_label' => 'Taille de l\'équipe',
-        'gcdirectory_label' => 'Rencontre l\'équipe dans GCdirectory',
+        'gcdirectory_label' => 'Rencontre l\'équipe dans GCannuaire',
         'team_link_title' => 'Voir le profil de l\'équipe.',
         'team_link_label' => 'Profil de l\'équipe',
         'operating_label' => 'Notre contexte opérationnel',
