@@ -87,10 +87,11 @@ class DevSeeder extends Seeder
         }
 
         // Create several applications for test user.
-        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 5)->create([
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 3)->create([
             'applicant_id' => $applicantUser->applicant->id,
         ]));
-
-
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 2)->states('draft')->create([
+            'applicant_id' => $applicantUser->applicant->id,
+        ]));
     }
 }

@@ -9,39 +9,33 @@
         <button
             class="screening-plan-action__copy"
             type="button">
-            Copy
+            {{plan_l10n.copy}}
         </button>
 
         <button
             class="screening-plan-action__delete modal-trigger"
             data-modal-id="deleteScreeningPlan"
             type="button">
-            Delete
+            {{plan_l10n.delete}}
         </button>
 
     </div>
 
-    <h3 class="screening-plan-title">{{ screening.interface.plan.plan_title }}</h3>
+    <h3 class="screening-plan-title">{{ plan_l10n.plan }}</h3>
 
-    <p class="screening-plan-context">Skills below are colour coded so that <span class="green">Essential Skills</span> are green and <span class="blue">Asset Skills</span> are blue.</p>
+    <p class="screening-plan-context"> {{ plan_l10n.colour_explanation | replace({":open_green_span":"<span class='green'>",":open_blue_span":"<span class='blue'>",":close_span":'</span>'})|raw }} </p>
 
     <div class="assessment-plan">
 
         <div class="assessment-summary">
 
-            {# {% include "manager/components/assessment-summary" with {"narrative":true} %} #}
-
-            {# {% for assessment_type, skills in assessment_plans[plan.id] %}
-                {% include "manager/components/assessment-summary" %}
-            {% endfor %} #}
-
-            {% include "manager/components/assessment-summary" %}
+            {% include "manager/components/assessment-summary" with { 'summary_l10n': plan_l10n.summary } %}
 
         </div>
 
     </div>
 
-    <h3 class="screening-plan-title">{{ screening.interface.plan.essential_criteria_title }}</h3>
+    <h3 class="screening-plan-title">{{ plan_l10n.essential_criteria }}</h3>
 
     <div class="criteria-grid">
 
@@ -49,7 +43,7 @@
 
             {% if criterion.criteria_type.name == "essential" %}
 
-                {% include "manager/components/skill-assessment-preview" %}
+                {% include "manager/components/skill-assessment-preview" with { 'skill_l10n': plan_l10n.skill } %}
 
             {% endif %}
 
@@ -57,7 +51,7 @@
 
     </div>
 
-    <h3 class="screening-plan-title">{{ screening.interface.plan.asset_criteria_title }}</h3>
+    <h3 class="screening-plan-title">{{ plan_l10n.asset_criteria }}</h3>
 
     <div class="criteria-grid">
 
@@ -65,7 +59,7 @@
 
             {% if criterion.criteria_type.name == "asset" %}
 
-                {% include "manager/components/skill-assessment-preview" %}
+                {% include "manager/components/skill-assessment-preview" with { 'skill_l10n': plan_l10n.skill } %}
 
             {% endif %}
 
@@ -86,7 +80,7 @@
             </tr>
 
             <tr class="plan-table__title">
-                <td colspan="3"><h2>{{ screening.interface.screening_plan_section_label }} (#{{ plan.id }})</h2></td>
+                <td colspan="3"><h2>{{ plan_l10n.my_screening_plans }} (#{{ plan.id }})</h2></td>
             </tr>
 
         </thead>
@@ -94,11 +88,11 @@
         <tbody>
 
             <tr class="plan-table__section-title">
-                <td colspan="3"><h3>{{ screening.interface.plan.plan_title }}</h3></td>
+                <td colspan="3"><h3>{{ plan_l10n.plan }}</h3></td>
             </tr>
 
             <tr>
-                <td>{{ screening.interface.plan.narrative_assessment_label }}</td>
+                <td>{{ plan_l10n.narrative_assessment }}</td>
                 <td colspan="2">
                     <ul>
                         {% for criterion in job.criteria %}
@@ -128,7 +122,7 @@
             {% endfor %}
 
             <tr class="plan-table__section-title">
-                <td colspan="3"><h3>{{ screening.interface.plan.essential_criteria_title }}</h3></td>
+                <td colspan="3"><h3>{{ plan_l10n.essential_criteria }}</h3></td>
             </tr>
 
             {% for criterion in job.criteria %}
@@ -145,9 +139,9 @@
                             {{ criterion.level_description|nl2br }}
                         </td>
                         <td>
-                            <h4>{{ screening.interface.plan.assessment_types_label }}</h4>
+                            <h4>{{ plan_l10n.assessment_types }}</h4>
                             <ul>
-                                <li>{{ screening.interface.plan.narrative_assessment_label }}</li>
+                                <li>{{ plan_l10n.narrative_assessment_label }}</li>
                                 {% for assessment in criterion.assessments.where("screening_plan_id", plan.id) %}
                                     <li>{{ assessment.assessment_type.name }}</li>
                                 {% endfor %}
@@ -160,7 +154,7 @@
             {% endfor %}
 
             <tr class="plan-table__section-title">
-                <td colspan="3"><h3>{{ screening.interface.plan.asset_criteria_title }}</h3></td>
+                <td colspan="3"><h3>{{ plan_l10n.asset_criteria }}</h3></td>
             </tr>
 
             {% for criterion in job.criteria %}
@@ -177,9 +171,9 @@
                             {{ criterion.level_description|nl2br }}
                         </td>
                         <td>
-                            <h4>{{ screening.interface.plan.assessment_types_label }}</h4>
+                            <h4>{{ plan_l10n.assessment_types_label }}</h4>
                             <ul>
-                                <li>{{ screening.interface.plan.narrative_assessment_label }}</li>
+                                <li>{{ plan_l10n.narrative_assessment_label }}</li>
                                 {% for assessment in criterion.assessments.where("screening_plan_id", plan.id) %}
                                     <li>{{ assessment.assessment_type.name }}</li>
                                 {% endfor %}

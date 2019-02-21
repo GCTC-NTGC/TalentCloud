@@ -35,7 +35,7 @@
 }
 
 .job-post__header-meta {
-    color: $palette--blue;
+    color: lighten($palette--blue, 10%);
     display: block;
     font-size: $font-scale--regular;
     line-height: 1.5;
@@ -61,10 +61,10 @@
     margin: 0;
 
     >span {
-        color: $palette--blue;
+        color: $palette--font-white;
         display: inline-block;
         font-family: $font--sans;
-        font-size: $font-scale--h3;
+        font-size: $font-scale--h4;
         font-weight: 400;
         margin: 0 0 calc(#{$unit} * 1.5) 0;
     }

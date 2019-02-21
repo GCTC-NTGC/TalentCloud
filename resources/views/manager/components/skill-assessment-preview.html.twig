@@ -11,9 +11,9 @@
     </div>
 
     <div class="box small-3of5">
-        <span class="skill-label">{{ screening.interface.plan.assessment_types_label }}</span>
+        <span class="skill-label">{{ skill_l10n.assessment_types }}</span>
         <ul class="skill-list">
-            <li>- {{ screening.interface.plan.narrative_assessment_label }}</li>
+            <li>- {{ skill_l10n.narrative_assessment }}</li>
             {% for assessment in criterion.assessments.where("screening_plan_id", plan.id) %}
                 <li>- {{ assessment.assessment_type.name }}</li>
             {% endfor %}

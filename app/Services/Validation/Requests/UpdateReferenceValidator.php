@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\Lookup\Relationship;
 use App\Models\Skill;
+use App\Services\Validation\Rules\SkillDeclarationBelongsToUserRule;
 
 class UpdateReferenceValidator extends BaseDataValidator implements DataValidator
 {
@@ -57,7 +58,7 @@ class UpdateReferenceValidator extends BaseDataValidator implements DataValidato
 
             'relatives.skills.*.id' => [
                 'required',
-                Rule::in($this->skillIds)
+                new SkillDeclarationBelongsToUserRule
             ],
 
             'projects.*.name' => 'required|string|max:191',

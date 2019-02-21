@@ -8,34 +8,30 @@ dist: trusty
 
 services:
   - docker
-  - postgresql
 
-addons:
-  postgresql: "9.6"
-  chrome: stable
-  #chrome: beta
+cache: npm
 
 cache:
   directories:
     - vendor
 
+before_install:
+  - npm i -g npm@^6
+
 install:
   - cp .env.example .env
+  - npm install
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - make docker-start
   - make gen-certs
   - make laravel-init
   - make build-db
-
-#before_script:
-  # google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
-  # php artisan serve &
+  - npm run dev
 
 script:
   - ci_env=`bash <(curl -s https://codecov.io/env)`
   - docker run $ci_env talentcloud_talentcloud sh
   - make phpunit
-  # php artisan dusk
 
 after_script:
   - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'

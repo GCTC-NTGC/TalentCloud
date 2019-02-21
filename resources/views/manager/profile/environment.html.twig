@@ -14,7 +14,7 @@
 
     <h4
         class="manager-profile__section-title">
-        Our Work Environment
+        {{environment_l10n.work_environment}}
     </h4>
 
     <fieldset
@@ -22,7 +22,7 @@
 
         <legend
             class="form__legend">
-            Things to Know
+            {{environment_l10n.things_to_know}}
         </legend>
 
         <div
@@ -33,7 +33,7 @@
 
                 <div class="form__input-wrapper--float {% if work_environment.translate('en').things_to_know %}active{% endif %}">
                     <label class="form__label" for="managerProfileEnvContextEN">
-                        Answer (English)
+                        {{environment_l10n.answer_english}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -50,7 +50,7 @@
 
                 <div class="form__input-wrapper--float {% if work_environment.translate('fr').things_to_know %}active{% endif %}">
                     <label class="form__label" for="managerProfileEnvContextFR">
-                        Answer (Français)
+                        {{environment_l10n.answer_french}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -73,7 +73,7 @@
                     <label
                         class="form__label"
                         for="">
-                        How Often is Telework Allowed?
+                        {{environment_l10n.telework_frequency}}
                     </label>
 
                     <div class="flex-grid">
@@ -102,7 +102,7 @@
                                     {% endif %} />
                                 <span
                                     class="form__radio-group-span">
-                                    {{ profile.work_environment.telework_allowed[option.name] }}
+                                    {{ environment_l10n.frequency[option.name] }}
                                 </span>
                             </label>
 
@@ -125,7 +125,7 @@
                     <label
                         class="form__label"
                         for="">
-                        How Often Are Flexible Hours Allowed?
+                        {{environment_l10n.flexible_hour_frequency}}
                     </label>
 
                     <div class="flex-grid">
@@ -154,7 +154,7 @@
                                     {% endif %} />
                                 <span
                                     class="form__radio-group-span">
-                                    {{ profile.work_environment.flex_hours_allowed[option.name] }}
+                                    {{ environment_l10n.frequency[option.name] }}
                                 </span>
                             </label>
 
@@ -170,7 +170,7 @@
                 class="box full">
                 <h4
                     class="manager-profile__legend">
-                    Work Environment Photos
+                    {{environment_l10n.environment_photos}}
                 </h4>
             </div>
 
@@ -191,7 +191,7 @@
 
                     <div class="form__input-wrapper--upload">
                         <label class="form__label" for="managerEnvPhoto01">
-                            Upload an Image
+                            {{environment_l10n.upload_image}}
                             <input
                                 class="form__input"
                                 id="managerEnvPhoto01"
@@ -204,7 +204,7 @@
 
                     <div class="form__input-wrapper--float {% if photo.alt != null %}active{% endif %}">
                         <label class="form__label" for="manageProfileAltEN{{ photo.id }}">
-                            Image Alt Text (English)
+                            {{environment_l10n.alt_text_english}}
                         </label>
                         <input
                             class="form__input"
@@ -217,7 +217,7 @@
 
                     <div class="form__input-wrapper--float {% if photo.alt_fr != null %}active{% endif %}">
                         <label class="form__label" for="manageProfileAltFR{{ photo.id }}">
-                            Image Alt Text (Français)
+                            {{environment_l10n.alt_text_french}}
                         </label>
                         <input
                             class="form__input"
@@ -251,7 +251,7 @@
                 type="submit"
                 name="submit"
                 value="work_environment">
-                Save Our Work Environment
+                {{environment_l10n.save_work_environment}}
             </button>
         </div>
 
