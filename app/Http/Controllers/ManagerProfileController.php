@@ -95,7 +95,10 @@ class ManagerProfileController extends Controller {
         $frequencies = Frequency::all();
 
         return view('manager/profile', [
-            'profile' => Lang::get('manager/manager_profile'),
+            /* Localization */
+            'profile_l10n' => Lang::get('manager/profile'),
+
+            /* Data */
             'urls' => Lang::get('common/urls'),
             'user' => $manager->user,
             'manager' => $manager,

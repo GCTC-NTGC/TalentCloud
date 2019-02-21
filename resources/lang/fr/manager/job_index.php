@@ -10,29 +10,31 @@ return [
     */
 
     'title' => 'Mes affiches d\'emploi',
-    'job_poster' => 'Affiche d\'emploi',
-    'edit' => 'Modifier',
-    'screening_plan_builder' => 'Constructeur de plan d\'évaluation',
-    'veteran_applicants' => 'Candidats vétérans',
-    'citizen_applicants' => 'Candidats citoyens',
-    'other_applicants' => 'Autres candidats',
-    'none' => 'Aucun',
-    'review' => [
-        'name' => 'Nom',
-        'info' => 'Info',
-        'reviewed' => 'Réviser?',
-        'decision' => 'Décision',
-        'reviewer' => 'Réviseur',
-        'notes' => 'Notes',
-        'form' => [
-            'email' => 'Courriel',
-            'profile' => 'Profile',
-            'application' => 'Application',
-            'placeholder' => [
-                'reviewer' => 'Réviseur',
-                'other_notes' => 'Autres notes...'
-            ],
-            'save' => 'Enregistrer'
+    'temp_layout' => [
+        'job_poster' => 'Affiche d\'emploi',
+        'edit' => 'Modifier',
+        'screening_plan_builder' => 'Constructeur de plan d\'évaluation',
+        'veteran_applicants' => 'Candidats vétérans',
+        'citizen_applicants' => 'Candidats citoyens',
+        'other_applicants' => 'Autres candidats',
+        'none' => 'Aucun',
+        'review' => [
+            'name' => 'Nom',
+            'info' => 'Info',
+            'reviewed' => 'Réviser?',
+            'decision' => 'Décision',
+            'reviewer' => 'Réviseur',
+            'notes' => 'Notes',
+            'form' => [
+                'email' => 'Courriel',
+                'profile' => 'Profile',
+                'application' => 'Application',
+                'placeholder' => [
+                    'reviewer' => 'Réviseur',
+                    'other_notes' => 'Autres notes...'
+                ],
+                'save' => 'Enregistrer'
+            ]
         ]
     ]
 
