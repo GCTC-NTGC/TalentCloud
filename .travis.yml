@@ -13,7 +13,6 @@ cache:
   - npm
   directories:
     - vendor
-    - node_modules
 
 before_install:
   - npm i -g npm@^6
