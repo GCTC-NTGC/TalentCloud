@@ -270,7 +270,7 @@ Route::group(
                     ->name('manager.jobs.edit');
 
                 /* Request Review */
-                Route::get('jobs/{jobPoster}/review', 'JobController@submitForReview')
+                Route::post('jobs/{jobPoster}/review', 'JobController@submitForReview')
                     ->where('jobPoster', '[0-9]+')
                     ->name('manager.jobs.review');
             });

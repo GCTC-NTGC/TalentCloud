@@ -104,7 +104,7 @@ class JobControllerTest extends TestCase
 
         $response = $this->followingRedirects()
             ->actingAs($this->manager->user)
-            ->get("manager/jobs/$jobPoster->id/review");
+            ->post("manager/jobs/$jobPoster->id/review");
 
         $response->assertStatus(200);
 
