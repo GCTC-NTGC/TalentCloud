@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Mail;
 
@@ -24,6 +25,8 @@ use App\Mail\JobPosterReviewRequested;
 
 class JobControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * Run parent setup and provide reusable factories.
      *
@@ -37,14 +40,18 @@ class JobControllerTest extends TestCase
         $this->faker_fr = \Faker\Factory::create('fr_FR');
 
         $this->manager = factory(Manager::class)->create();
-        $this->jobPoster = factory(JobPoster::class)->create([
-            'manager_id' => $this->manager->id
-        ]);
+        $this->jobPoster = factory(JobPoster::class)
+            ->states('unpublished')
+            ->create([
+                'manager_id' => $this->manager->id
+            ]);
 
         $this->otherManager = factory(Manager::class)->create();
-        $this->otherJobPoster = factory(JobPoster::class)->create([
-            'manager_id' => $this->otherManager->id
-        ]);
+        $this->otherJobPoster = factory(JobPoster::class)
+            ->states('unpublished')
+            ->create([
+                'manager_id' => $this->otherManager->id
+            ]);
 
         $this->publishedJob = factory(JobPoster::class)->states('published')->create();
     }
