@@ -44,11 +44,9 @@ yarn-error.log
 .phpunit.result.cache
 
 ## Composer
-#composer.lock
 /vendor
 
 ## node.js
-#package-lock.json
 /node_modules
 
 ## Visual Studio Code
