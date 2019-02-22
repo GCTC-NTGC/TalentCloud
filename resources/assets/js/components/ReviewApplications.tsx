@@ -169,18 +169,6 @@ interface CategoryViewProps {
   buckets: BucketViewProps[]
 }
 
-/**
- *
- * @param {} props
- * title (string)
- * description (string)
- * showScreenOutAll (boolean)
- * buckets {}
- *  title
- *  description
- *  applications
- *
- */
 const CategoryView: React.StatelessComponent<CategoryViewProps> = props => {
   {
     /* Applicant Categories
@@ -272,6 +260,19 @@ interface ReviewApplicationsState {
   applications: Application[];
 }
 
+enum Bucket {
+  Priority,
+  Citizen,
+  Noncitizen,
+  Unqualified
+}
+
+enum Category {
+  Primary,
+  Optional,
+  ScreenedOut
+}
+
 export default class ReviewApplications extends React.Component<ReviewApplicationsProps, ReviewApplicationsState> {
   constructor(props: ReviewApplicationsProps) {
     super(props);
@@ -295,15 +296,15 @@ export default class ReviewApplications extends React.Component<ReviewApplicatio
    *  unqualified
    *
    */
-  applicationBucket(application: Application): string {
+  applicationBucket(application: Application): Bucket {
     if (false) {
-      return "priority"; // TODO: decide how to determine priority
+      return Bucket.Priority; // TODO: decide how to determine priority
     } else if (application.citizenship_declaration.name === "citizen") {
-      return "citizen";
+      return Bucket.Citizen;
     } else {
-      return "secondary";
+      return Bucket.Noncitizen;
     }
-    return "unqualified";
+    return Bucket.Unqualified;
     // TODO: decide how to determine unqualified
   }
 
@@ -314,19 +315,19 @@ export default class ReviewApplications extends React.Component<ReviewApplicatio
    *  screened-out
    * @param {Application} application
    */
-  applicationCategory(application: Application): string {
+  applicationCategory(application: Application): Category {
     if (this.isScreenedOut(application)) {
-      return "screened-out";
+      return Category.ScreenedOut;
     }
     const bucket = this.applicationBucket(application);
     switch (bucket) {
-      case "priority":
-      case "citizen":
-        return "primary";
-      case "secondary":
-      case "unqualified":
+      case Bucket.Priority:
+      case Bucket.Citizen:
+        return Category.Primary;
+      case Bucket.Noncitizen:
+      case Bucket.Unqualified:
       default:
-        return "optional";
+        return Category.Optional;
     }
   }
 
@@ -343,7 +344,7 @@ export default class ReviewApplications extends React.Component<ReviewApplicatio
             applications: this.state.applications.filter(
               application =>
                 !this.isScreenedOut(application) &&
-                this.applicationBucket(application) === "priority"
+                this.applicationBucket(application) === Bucket.Priority
             )
           },
           {
@@ -352,7 +353,7 @@ export default class ReviewApplications extends React.Component<ReviewApplicatio
             applications: this.state.applications.filter(
               application =>
                 !this.isScreenedOut(application) &&
-                this.applicationBucket(application) === "citizen"
+                this.applicationBucket(application) === Bucket.Citizen
             )
           }
         ]
@@ -368,7 +369,7 @@ export default class ReviewApplications extends React.Component<ReviewApplicatio
             applications: this.state.applications.filter(
               application =>
                 !this.isScreenedOut(application) &&
-                this.applicationBucket(application) === "secondary"
+                this.applicationBucket(application) === Bucket.Noncitizen
             )
           },
           {
@@ -377,7 +378,7 @@ export default class ReviewApplications extends React.Component<ReviewApplicatio
             applications: this.state.applications.filter(
               application =>
                 !this.isScreenedOut(application) &&
-                this.applicationBucket(application) === "unqualified"
+                this.applicationBucket(application) === Bucket.Unqualified
             )
           }
         ]
@@ -393,7 +394,7 @@ export default class ReviewApplications extends React.Component<ReviewApplicatio
             applications: this.state.applications.filter(
               application =>
                 this.isScreenedOut(application) &&
-                this.applicationBucket(application) === "priority"
+                this.applicationBucket(application) === Bucket.Priority
             )
           },
           {
@@ -402,7 +403,7 @@ export default class ReviewApplications extends React.Component<ReviewApplicatio
             applications: this.state.applications.filter(
               application =>
                 this.isScreenedOut(application) &&
-                this.applicationBucket(application) === "citizen"
+                this.applicationBucket(application) === Bucket.Citizen
             )
           },
           {
@@ -411,7 +412,7 @@ export default class ReviewApplications extends React.Component<ReviewApplicatio
             applications: this.state.applications.filter(
               application =>
                 this.isScreenedOut(application) &&
-                this.applicationBucket(application) === "secondary"
+                this.applicationBucket(application) === Bucket.Noncitizen
             )
           },
           {
@@ -420,7 +421,7 @@ export default class ReviewApplications extends React.Component<ReviewApplicatio
             applications: this.state.applications.filter(
               application =>
                 this.isScreenedOut(application) &&
-                this.applicationBucket(application) === "unqualified"
+                this.applicationBucket(application) === Bucket.Unqualified
             )
           }
         ]
