@@ -27,11 +27,28 @@ build:
             - vendor/
 
 filter:
+    paths:
+        - app/
+        - database/factories/
+        - database/seeds/
+        - resources/assets/js/app
+        - routes/
+    dependency_paths:
+        - node_modules/
+        - vendor/
     excluded_paths:
-        - '*/database/*'
-        - '*/node_modules/*'
-        - '*/tests/*'
-        - '*/vendor/*'
+        - bootstrap/
+        - config/
+        - database/db/
+        - database/migrations/
+        - etc/
+        - public/
+        - node_modules/
+        - report/
+        - resources/
+        - storage/
+        - tests/
+        - vendor/
 
 checks:
     php: true

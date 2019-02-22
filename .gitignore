@@ -45,11 +45,12 @@ yarn-error.log
 .phpunit.result.cache
 
 ## Composer
+# composer.lock
 /vendor
 
 ## node.js
+# package-lock.json
 /node_modules
-package-lock.json
 
 ## Visual Studio Code
 .vs/*
@@ -58,3 +59,13 @@ package-lock.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+## Compiled Assets
+/public/css
+/public/js/app.js
+/public/js/autocomplete.js
+/public/js/bootstrap.js
+/public/js/jquery-ui.min.js
+/public/js/jquery.validate.min.js
+/public/js/modernizr.js
+/public/mix-manifest.json

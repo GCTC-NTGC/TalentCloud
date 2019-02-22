@@ -14,7 +14,7 @@ class PopulateSkillsJan28 extends Migration
     public function up()
     {
         DB::table('skills')->insert([
-            ['id' => 86, 'skill_type_id' => 2, 'name' => 'it_project_management'],
+            ['skill_type_id' => 2, 'name' => 'it_project_management'],
         ]);
     }
 
@@ -25,6 +25,6 @@ class PopulateSkillsJan28 extends Migration
     */
     public function down()
     {
-        DB::table('skills')->whereIn('id', [86])->delete();
+        DB::table('skills')->whereIn('name', ['it_project_management'])->delete();
     }
 }

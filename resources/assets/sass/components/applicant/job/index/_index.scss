@@ -53,6 +53,7 @@
             .browse__index-job-card-title {
                 background-color: #202023;
                 background-image: url("/images/bg_lightning_texture.png");
+
                 background-position: center;
                 background-repeat: repeat;
                 background-size: 75px;
@@ -61,13 +62,13 @@
                 h3 {
                     color: $palette--font-white;
                     display: block;
-                    font-weight: 600;
+                    font-weight: 700;
                     margin: 0 0 $unit 0;
                     width: 100%;
                 }
 
                 span {
-                    color: $palette--blue;
+                    color: $palette--font-white;
                     display: block;
                     font-family: $font--sans;
                     font-size: $font-scale--regular;
@@ -121,6 +122,48 @@
                     font-size: $font-scale--regular;
                     padding: 0;
                     text-align: left;
+                }
+
+                span {
+                    color: $palette--font-black;
+                    display: block;
+                    font-family: $font--sans;
+                    font-size: $font-scale--regular;
+                    font-weight: 600;
+                    line-height: 1.2;
+                    margin: 0 0 calc(#{$unit} /2) 0;
+                }
+
+                p {
+                    color: $palette--font-black;
+                    font-family: $font--sans;
+                    font-size: $font-scale--regular;
+                    line-height: 1.5;
+                    margin: 0;
+                    width: 90%;
+
+                    i {
+                        color: $palette--blue;
+                        font-size: .707rem;
+                        vertical-align: middle;
+
+                        &.fa-calendar {
+                            margin: 0 .5rem 0 0;
+                        }
+
+                        &.fa-clock {
+                            margin: 0 .4rem 0 0;
+                        }
+
+                    }
+
+                    span {
+                        display: inline-block;
+                        font-family: $font--sans;
+                        font-weight: 400;
+                        line-height: 1.5;
+                    }
+
                 }
 
             }

@@ -11,17 +11,23 @@ services:
 
 cache:
   directories:
-    - vendor
+    - $HOME/.composer/cache/files
+    - $HOME/.npm
+
+before_install:
+  - npm i -g npm@^6
 
 install:
   - cp .env.example .env
-  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
+  - travis_retry composer install --no-interaction --prefer-dist
+  - npm ci
+
+script:
   - make docker-start
   - make gen-certs
   - make laravel-init
   - make build-db
-
-script:
+  - npm run dev
   - ci_env=`bash <(curl -s https://codecov.io/env)`
   - docker run $ci_env gctcntgc/talentcloud sh
   - make phpunit

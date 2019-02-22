@@ -15,12 +15,12 @@
 
     {% include "common/goc" %}
 
-    {% include "common/header" with {"header":profile} %}
+    {% include "common/header" with {"header":profile_l10n} %}
 
     <a id="skipLink"></a>
 
-    {% include "manager/profile/header" %}
+    {% include "manager/profile/header" with {'header_l10n': profile_l10n.profile_header} %}
 
-    {% include "manager/profile/layout" %}
+    {% include "manager/profile/layout" with {'layout_l10n': profile_l10n.layout} %}
 
 {% endblock %}

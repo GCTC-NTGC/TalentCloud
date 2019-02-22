@@ -1,4 +1,5 @@
 <?php
+
 return [
     /*
     * --------------------------------------------------------------------------
@@ -12,7 +13,9 @@ return [
     'job_post_title' => 'Nuage de talents | Candidat : Affiche d\'emploi',
     'header' => [
         'time_remaining' => ':time jusqu\'à la date de clôture',
+        "job_closed" => "L'affiche est fermée",
         'days_remaining' => ':count jour jusqu\'à la date de clôture|:count jours jusqu\'à la date de clôture',
+        "apply_by_label" => "Postuler avant le",
         'applicants_so_far' => ':count candidat jusqu\'à présent|:count candidats jusqu\'à présent',
         'location_icon_label' => 'Symbole d\'emplacement.',
         'remote_work_icon_label' => 'Symbole de travail à distance.',
@@ -72,7 +75,7 @@ return [
         'team_narrative_label' => 'Ce qu\'il faut savoir',
         'team_culture_label' => 'Culture d\'équipe',
         'team_size_label' => 'Taille de l\'équipe',
-        'gcdirectory_label' => 'Rencontre l\'équipe dans GCdirectory',
+        'gcdirectory_label' => 'Rencontre l\'équipe dans GCannuaire',
         'team_link_title' => 'Voir le profil de l\'équipe.',
         'team_link_label' => 'Profil de l\'équipe',
         'operating_label' => 'Notre contexte opérationnel',

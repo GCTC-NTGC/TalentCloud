@@ -54,6 +54,8 @@
 
         .sidebar-button {
             @extend %gradient--vertical;
+            background-color: $palette--black;
+            background-clip: padding-box;
             border: none;
             border-radius: 5px;
             box-shadow: none;

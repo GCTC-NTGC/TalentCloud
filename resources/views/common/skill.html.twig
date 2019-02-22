@@ -119,12 +119,12 @@
                 {% if locale == "profile" and skill_declaration == false %}
                     {{ skill_template.new_skill_title }}
                 {% elseif locale == "profile" and skill_declaration == true %}
-                    {{ skill_template.skills[skill_declaration.skill.name].name }}
+                    {{ skill_declaration.skill.name }}
                 {% elseif locale == "application" %}
-                    {{ skill_template.skills[criterion.skill.name].name }}
+                    {{ criterion.skill.name }}
                     <span>{{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }} {{ skill_template.application_asset_requirement_label }}</span>
                 {% elseif locale == "application-view" %}
-                    {{ skill_template.skills[criterion.skill.name].name }}
+                    {{ criterion.skill.name }}
                     <span>
                         {{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }} {{ skill_template.application_essential_requirement_label }}
                     </span>
@@ -174,9 +174,9 @@
 
                             <p>
                                 {% if criterion.description == false %}
-                                    {{ skill_template.skills[criterion.skill.name].description }}
+                                    {{ criterion.skill.description|nl2br }}
                                 {% else %}
-                                    {{ criterion.description }}
+                                    {{ criterion.description|nl2br }}
                                 {% endif %}
                             </p>
 
@@ -227,7 +227,7 @@
                                 {% if skill_declaration == false %}
                                     {{ skill_template.skill_description_null }}
                                 {% else %}
-                                    {{ skill_declaration.description }}
+                                    {{ skill_declaration.description|nl2br }}
                                 {% endif %}
                             </p>
 
@@ -261,7 +261,7 @@
 
                                                 <p>{{ relative.relationship.name|title }}</p>
 
-                                                <p>{{ relative.description }}</p>
+                                                <p>{{ relative.description|nl2br }}</p>
 
                                                 <div
                                                     class="flex-grid">
@@ -322,7 +322,7 @@
 
                                                 <p>{{ relative.url }}</p>
 
-                                                <p>{{ relative.description }}</p>
+                                                <p>{{ relative.description|nl2br }}</p>
 
                                             </div>
 
@@ -392,7 +392,7 @@
 
                                                             {% if declarationStatus == false %}
 
-                                                               <option value="{{ skill.id }}">{{ skill_template.skills[skill.name].name }}</option>
+                                                               <option value="{{ skill.id }}">{{ skill.name }}</option>
 
                                                             {% endif %}
 
@@ -410,7 +410,7 @@
                                         class="box full">
                                         {# Tristan, this is where we need to dynamically load the skill's description. #}
                                         <p
-                                            class="skill__description">{{ skill_template.skills[skill_declaration.skill.name].description }}</p>
+                                            class="skill__description">{{ skill_declaration.skill.description|nl2br }}</p>
 
                                         <p
                                             class="skill__status reveal-on-save hidden">{{ skill_template.skill_status_label }} <span class="skill__status--level"></span></p>
@@ -425,7 +425,7 @@
                                     <div
                                         class="box full">
                                         <p
-                                            class="skill__description">{{ skill_template.skills[skill_declaration.skill.name].description }}</p>
+                                            class="skill__description">{{ skill_declaration.skill.description|nl2br }}</p>
                                         <p
                                             class="skill__status">{{ skill_template.skill_status_label }} {{ skill_template.status[skill_declaration.skill_status.name] }}</p>
                                     </div>
@@ -445,7 +445,7 @@
                                         class="box full">
 
                                             <p
-                                                class="skill__description">{{ skill_template.skills[criterion.skill.name].description }}</p>
+                                                class="skill__description">{{ criterion.skill.description|nl2br }}</p>
 
 
                                         {% if skill_declaration == true %}
@@ -595,9 +595,13 @@
 
                                 {# Relative Template #}
 
+                                {# no-prefix marks that partials in this div aren't passed an id prefix. #}
+                                {# This is used in app.js individualizeFormIdsAndNames() to avoid overwriting :id in template id. #}
+                                <div class="no-prefix">
                                     {% set relativeToken = "references" %}
 
                                     {% include "common/relatives" with {"template":true } %}
+                                </div>
 
                                 {# Relative List #}
 
@@ -681,7 +685,11 @@
 
                                     {% set relativeToken = "samples" %}
 
+                                {# no-prefix marks that partials in this div aren't passed an id prefix. #}
+                                {# This is used in app.js individualizeFormIdsAndNames() to avoid overwriting :id in template id. #}
+                                <div class="no-prefix">
                                     {% include "common/relatives" with {"template":true } %}
+                                </div>
 
                                 {# Relative List #}
 
