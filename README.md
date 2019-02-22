@@ -193,22 +193,32 @@ See https://laravel.com/docs/5.7/seeding for more documentation on seeders.
 ## Useful Commands:
 
 ```bash
+# Get an interactive shell prompt in a running container,
+# $container being the name of a running container, like talentcloud.
+docker exec -it $container /bin/sh
+
 # Generate site certificate
 docker run --rm -v $PWD/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
 
 # Run composer install
 docker run --rm -v $PWD:/app composer/composer install
 
+# Run composer dump-autoload
+docker run --rm -it --volume $PWD/:/app composer "dump-autoload"
+
 # Run composer update
-docker run --rm --interactive --tty --volume $PWD/:/app composer "update"
+docker run --rm -it --volume $PWD/:/app composer "update"
 
 # To stop and delete all existing Docker containers (can fix some errors)
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 
-#To set up your database manually (PostGres)
-docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
+# Drop all tables and recreate from migrations
+docker exec talentcloud sh -c "php artisan migrate:fresh"
 
-#To add fake data to your database
-docker-compose exec talentcloud sh -c "php artisan db:seed"
+# Generate mock data from included seeders
+docker exec talentcloud sh -c "php artisan db:seed"
+
+# Single command for two above
+docker exec talentcloud sh -c "php artisan migrate:fresh && php artisan db:seed"
 ```
