@@ -4,7 +4,6 @@ codecov:
 
 coverage:
   precision: 1
-  range: 10...50
   round: up
 
   status:
@@ -34,4 +33,4 @@ comment:
   layout: "header, diff"
   behavior: default
   require_changes: no
-  branches: *
+  branches: "*"
