@@ -1,10 +1,6 @@
 # GC Talent Cloud
 
-[![Build Status](https://travis-ci.org/GCTC-NTGC/TalentCloud.svg?branch=dev)](https://travis-ci.org/GCTC-NTGC/TalentCloud)
-
-![Codecov](https://img.shields.io/codecov/c/github/GCTC-NTGC/TalentCloud.svg)
-
-![Scrutinizer code quality](https://img.shields.io/scrutinizer/g/GCTC-NTGC/TalentCloud.svg)
+[![Build Status](https://travis-ci.com/GCTC-NTGC/TalentCloud.svg?branch=dev)](https://travis-ci.com/GCTC-NTGC/TalentCloud) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/?branch=dev) [![codecov](https://codecov.io/gh/GCTC-NTGC/TalentCloud/branch/dev/graph/badge.svg)](https://codecov.io/gh/GCTC-NTGC/TalentCloud/?branch=dev)
 
 ## Summary
 
