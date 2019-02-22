@@ -15,19 +15,22 @@ class DemoController extends Controller
      */
     public function reviewApplications()
     {
-        $jobPoster = factory(JobPoster::class)->state('closed')->create();
-        $applications = factory(JobApplication::class, 10)->create([
-            'job_poster_id' => $jobPoster->id
-        ]);
-        $jobPoster->job_applications()->saveMany($applications);
-        $applications->load(['veteran_status', 'citizenship_declaration']);
-        return view('manager/review_applications', [
-            /*Localization Strings*/
-            'jobs_l10n' => Lang::get('manager/job_index'),
+        if (\App::environment('local')) {
+            $jobPoster = factory(JobPoster::class)->state('closed')->create();
+            $applications = factory(JobApplication::class, 10)->create([
+                'job_poster_id' => $jobPoster->id
+            ]);
+            $jobPoster->job_applications()->saveMany($applications);
+            $applications->load(['veteran_status', 'citizenship_declaration']);
+            return view('manager/review_applications', [
+                /*Localization Strings*/
+                'jobs_l10n' => Lang::get('manager/job_index'),
 
-            /* Data */
-            'job' => $jobPoster,
-            'applications' => $applications,
-        ]);
+                /* Data */
+                'job' => $jobPoster,
+                'applications' => $applications,
+            ]);
+        }
+        return null;
     }
 }
