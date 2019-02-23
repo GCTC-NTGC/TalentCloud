@@ -4,7 +4,8 @@
     "dev": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "hot": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "production": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "production": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "lh": "lighthousebot"
   },
   "devDependencies": {
     "ajv": "^6.5.5",
@@ -16,6 +17,7 @@
     "jquery": "^3.1.0",
     "jquery-accessible-autocomplete-list-aria": "^1.6.1",
     "laravel-mix": "^2.1.14",
+    "lighthousebot": "git+https://github.com/GoogleChromeLabs/lighthousebot.git",
     "lodash": "^4.17.11",
     "resolve-url-loader": "^2.0.0",
     "sass-loader": "^6.0.0",

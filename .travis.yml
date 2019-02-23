@@ -39,6 +39,8 @@ after_script:
   - make docker-stop
 
 after_success:
+  # TODO: Script to deploy PRs to staging server for more accurate Lighthouse results
+  - npm run lh http://localhost
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
   - docker push gctcntgc/talentcloud:travis
