@@ -30,7 +30,7 @@ class HelperTest extends TestCase
      */
     public function testHumanizeDateDiff() : void
     {
-        $dateToTest = Date::parse('+5 days');
+        $dateToTest = Date::parse('+5 days +1 hour');
         $diff = humanizeDateDiff($dateToTest);
         $this->assertEquals('5 Days', $diff);
 
