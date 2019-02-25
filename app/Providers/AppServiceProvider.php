@@ -20,8 +20,6 @@ class AppServiceProvider extends ServiceProvider
         // versions of MySQL < 5.7.7
         Schema::defaultStringLength(191);
 
-        //Test commit directly on dev
-
         //Force all routes and requests to use HTTPS
         $this->app['request']->server->set('HTTPS', config('app.force_https'));
     }
