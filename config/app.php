@@ -65,7 +65,7 @@ return [
     | Should all app routes use https:// instead of http://
     */
 
-    'force_https' => env('FORCE_HTTPS', true),
+    'force_https' => env('FORCE_HTTPS', false),
 
 
     /*
