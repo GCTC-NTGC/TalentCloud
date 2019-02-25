@@ -14,7 +14,7 @@
 
     <h4
         class="manager-profile__section-title">
-        {{ profile.about_me.title}}
+        {{about_l10n.about_me}}
     </h4>
 
     <fieldset
@@ -22,7 +22,7 @@
 
         <legend
             class="form__legend">
-            {{ profile.about_me.name_label}}
+            {{about_l10n.my_name}}
         </legend>
 
         <div
@@ -33,7 +33,7 @@
 
                 <div class="form__input-wrapper--float active">
                     <label class="form__label" for="managerProfileName">
-                        {{ profile.about_me.name_label }}
+                        {{about_l10n.my_name}}
                     </label>
                     <input
                         class="form__input"
@@ -55,7 +55,7 @@
 
         <legend
             class="form__legend">
-            {{ profile.about_me.position_form_legend }}
+            {{about_l10n.position}}
         </legend>
 
         <div
@@ -66,7 +66,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('en').position %}active{% endif %}">
                     <label class="form__label" for="managerProfileTitleEN">
-                        {{ profile.about_me.position_label.en }}
+                        {{about_l10n.position_english}}
                     </label>
                     <input
                         class="form__input"
@@ -84,7 +84,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('fr').position %}active{% endif %}">
                     <label class="form__label" for="managerProfileTitleFR">
-                        {{ profile.about_me.position_label.fr }}
+                        {{about_l10n.position_french}}
                     </label>
                     <input
                         class="form__input"
@@ -106,7 +106,7 @@
 
         <legend
             class="form__legend">
-            {{ profile.about_me.department_form_legend }}
+            {{about_l10n.departmental_information}}
         </legend>
 
         <div
@@ -120,7 +120,7 @@
                     <label
                         class="form__label"
                         for="managerProfileDepartment">
-                        {{ profile.about_me.department_label }}
+                        {{about_l10n.department}}
                     </label>
                     <div
                         class="form__select-wrapper">
@@ -147,7 +147,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('en').branch %}active{% endif %}">
                     <label class="form__label" for="managerProfileBranchEN">
-                        {{ profile.about_me.branch_label.en }}
+                        {{about_l10n.branch_english}}
                     </label>
                     <input
                         class="form__input"
@@ -165,7 +165,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('fr').branch %}active{% endif %}">
                     <label class="form__label" for="managerProfileBranchFR">
-                        {{ profile.about_me.branch_label.fr }}
+                        {{about_l10n.branch_french}}
                     </label>
                     <input
                         class="form__input"
@@ -183,7 +183,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('en').division %}active{% endif %}">
                     <label class="form__label" for="managerProfileDivision">
-                        {{ profile.about_me.division_label.en }}
+                        {{about_l10n.division_english}}
                     </label>
                     <input
                         class="form__input"
@@ -201,7 +201,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('fr').division %}active{% endif %}">
                     <label class="form__label" for="managerProfileDivisionFr">
-                        {{ profile.about_me.division_label.fr }}
+                        {{about_l10n.division_french}}
                     </label>
                     <input
                         class="form__input"
@@ -223,7 +223,7 @@
 
         <legend
             class="form__legend">
-            {{ profile.about_me.personal_information_form_legend }}
+            {{about_l10n.personal_information}}
         </legend>
 
         <div
@@ -234,7 +234,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('en').education %}active{% endif %}">
                     <label class="form__label" for="managerProfileEducationEN">
-                        {{ profile.about_me.education_label.en }}
+                        {{about_l10n.education_english}}
                     </label>
                     <input
                         class="form__input"
@@ -252,7 +252,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('fr').education %}active{% endif %}">
                     <label class="form__label" for="managerProfileEducationFR">
-                        {{ profile.about_me.education_label.fr }}
+                        {{about_l10n.education_french}}
                     </label>
                     <input
                         class="form__input"
@@ -270,7 +270,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.years_experience %}active{% endif %}">
                     <label class="form__label" for="managerProfileExperience">
-                        Years of Experience
+                        {{about_l10n.years_of_experience}}
                     </label>
                     <input
                         class="form__input"
@@ -288,7 +288,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('en').career_journey %}active{% endif %}">
                     <label class="form__label" for="managerProfileCareerJourneyEN">
-                        {{ profile.about_me.career_journey_label.en }}
+                        {{about_l10n.career_journey_english}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -303,7 +303,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('fr').career_journey %}active{% endif %}">
                     <label class="form__label" for="managerProfileCareerJourneyFR">
-                        {{ profile.about_me.career_journey_label.fr }}
+                        {{about_l10n.career_journey_french}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -318,7 +318,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('en').learning_path %}active{% endif %}">
                     <label class="form__label" for="managerProfileLearningPathEN">
-                        {{ profile.about_me.learning_path_label.en }}
+                        {{about_l10n.learning_path_english}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -333,7 +333,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('fr').learning_path %}active{% endif %}">
                     <label class="form__label" for="managerProfileLearningPathFR">
-                        {{ profile.about_me.learning_path_label.fr }}
+                        {{about_l10n.learning_path_french}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -348,7 +348,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('en').about_me %}active{% endif %}">
                     <label class="form__label" for="managerProfileBiographyEN">
-                        {{ profile.about_me.biography_label.en }}
+                        {{about_l10n.biography_english}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -363,7 +363,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('fr').about_me %}active{% endif %}">
                     <label class="form__label" for="managerProfileBiographyFR">
-                        {{ profile.about_me.biography_label.fr }}
+                        {{about_l10n.biography_french}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -382,7 +382,7 @@
 
         <legend
             class="form__legend">
-            {{ profile.about_me.social_media_form_legend }}
+            {{about_l10n.social_media}}
         </legend>
 
         <div
@@ -393,7 +393,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.twitter_username %}active{% endif %}">
                     <label class="form__label" for="managerProfileTwitter">
-                        {{ profile.about_me.twitter_label }}
+                        {{about_l10n.twitter_username}}
                     </label>
                     <input
                         class="form__input"
@@ -411,7 +411,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.linkedin_url %}active{% endif %}">
                     <label class="form__label" for="managerProfileLinkedin">
-                        {{ profile.about_me.linkedin_label }}
+                        {{about_l10n.linkedin_url}}
                     </label>
                     <input
                         class="form__input"
@@ -443,7 +443,7 @@
                 type="submit"
                 name="submit"
                 value="about_me">
-                {{ profile.about_me.save_button_label }}
+                {{about_l10n.save_about_me}}
             </button>
         </div>
 

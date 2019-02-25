@@ -153,7 +153,7 @@ return [
                 "item_04" => "Skills That Are Nice to Have",
                 "item_05" => "Submit"
             ],
-            "section_01_title" => "Review My Application",
+            "section_01_title" => "Basic Information",
             "citizenship_null_copy" => "No Citizenship Selected",
             "veteran_null_copy" => "No Veteran Status Selected",
             "language_null_copy" => "No Language Selected",

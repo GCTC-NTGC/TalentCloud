@@ -21,9 +21,9 @@
 
     {# Page Header #}
 
-        {% include "common/header" %}
+        {# {% include "common/header" %} #}
 
-        {# {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %} #}
+        {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
 
     {# Skip to Content Link #}
 
@@ -99,7 +99,7 @@
 
                         </div>
 
-                        <p>{{ application_template.integrity.review }}</p>
+                        {# <p>{{ application_template.integrity.review }}</p> #}
 
                         <div class="flex-grid middle application-post__action-wrapper">
 
