@@ -104,13 +104,14 @@ class JobController extends Controller
      * @param \Illuminate\Http\Request $request   Incoming request object.
      * @param \App\Models\JobPoster    $jobPoster Job Poster object.
      *
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function submitForReview(Request $request, JobPoster $jobPoster)
     {
         // Update review request timestamp
         $jobPoster->review_requested_at = new Date();
         $jobPoster->save();
+        $jobPoster->refresh();
 
         // Send email
         $reviewer_email = config('mail.reviewer_email');
@@ -119,7 +120,25 @@ class JobController extends Controller
         } else {
             Log::error('The reviewer email environment variable is not set.');
         }
-        return redirect(route('manager.jobs.index'));
+
+        return view('manager/job_index/job', [
+            /*Localization Strings*/
+            'jobs_l10n' => Lang::get('manager/job_index'),
+            'job' => $jobPoster
+        ]);
+    }
+
+    /**
+     * Delete a draft Job Poster.
+     *
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
+     *
+     * @return void
+     */
+    public function destroy(Request $request, JobPoster $jobPoster) : void
+    {
+        $jobPoster->delete();
     }
 
     /**

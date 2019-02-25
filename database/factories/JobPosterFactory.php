@@ -32,7 +32,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'manager_id' => function () {
             return factory(Manager::class)->create()->id;
         },
-        'published' => $faker->boolean(50),
+        'published' => false,
         'city:en' => $faker->city,
         'title:en' => $faker->unique()->word,
         'impact:en' => $faker->paragraphs(
