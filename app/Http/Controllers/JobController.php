@@ -129,6 +129,19 @@ class JobController extends Controller
     }
 
     /**
+     * Delete a draft Job Poster.
+     *
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
+     *
+     * @return void
+     */
+    public function destroy(Request $request, JobPoster $jobPoster) : void
+    {
+        $jobPoster->delete();
+    }
+
+    /**
      * Display the specified job poster.
      *
      * @param \Illuminate\Http\Request $request   Incoming request object.

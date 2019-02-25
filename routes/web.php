@@ -269,6 +269,12 @@ Route::group(
                     ->middleware('can:update,jobPoster')
                     ->name('manager.jobs.edit');
 
+                /* Delete Job */
+                Route::delete('jobs/{jobPoster}', 'JobController@destroy')
+                    ->where('jobPoster', '[0-9]+')
+                    ->middleware('can:delete,jobPoster')
+                    ->name('manager.jobs.destroy');
+
                 /* Request Review */
                 Route::post('jobs/{jobPoster}/review', 'JobController@submitForReview')
                     ->where('jobPoster', '[0-9]+')
