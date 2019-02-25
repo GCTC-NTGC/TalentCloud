@@ -133,6 +133,9 @@
             #}
             {% if job.status() == 'draft' %}
             <button
+                data-action="delete"
+                data-jobid="{{ job.id }}"
+                href="{{ route('manager.jobs.destroy', job) }}"
                 title="{{ jobs_l10n.delete_this_poster }}"
                 type="button">
                 <i class="fas fa-trash-alt"></i>
