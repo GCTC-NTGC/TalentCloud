@@ -24,11 +24,11 @@ before_install:
   - npm i -g npm@^6
 
 install:
-  - cp .env.example .env
+  - cp .env.travis .env
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-  - npm ci
   - php artisan key:generate
   - php artisan config:clear
+  - npm ci
 
 before_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -48,7 +48,7 @@ script:
 after_success:
   # docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
   # docker push gctcntgc/talentcloud:travis
-  - npm run lighthouse
+  - '[ "${TRAVIS_PULL_REQUEST}" = "true" ] && npm run lighthouse'
 
 after_script:
   - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'

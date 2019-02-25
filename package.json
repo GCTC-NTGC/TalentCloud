@@ -29,8 +29,7 @@
     "lighthouse-github-reporter": {
       "urls": [
         "http://localhost:8000",
-        "http://talent.canada.ca",
-        "http://talentcloud-nuagedetalents.gccollab.ca"
+        "http://talent.canada.ca"
       ],
       "apiUrl": "https://api.github.com",
       "owner": "GCTC-NTGC",
@@ -38,11 +37,11 @@
       "reporterUserName": "gggrant",
       "noiseLevel": "low",
       "scoreThresholds": {
-        "performance": "25",
-        "pwa": "25",
+        "performance": "0",
+        "pwa": "0",
         "accessibility": "100",
-        "bestPractices": "25",
-        "seo": "25"
+        "bestPractices": "0",
+        "seo": "0"
       }
     }
   },
