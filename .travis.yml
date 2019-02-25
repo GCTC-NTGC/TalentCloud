@@ -48,7 +48,7 @@ script:
 after_success:
   # docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
   # docker push gctcntgc/talentcloud:travis
-  - '[ "${TRAVIS_PULL_REQUEST}" = "true" ] && npm run lighthouse'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lighthouse'
 
 after_script:
   - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
