@@ -1,6 +1,8 @@
 1. Prepare dependencies:
 composer update --no-dev --optimize-autoloader
 npm install --production
+php artisan ziggy:generate
+npm run production
 
 2. Zip the TalentCloud folder, copy to server on TBS device.
 
