@@ -22,14 +22,9 @@ class ApplicationReviewController extends Controller
     {
         $request->validate([
             'review_status' => [
-                'required',
+                'nullable',
                 Rule::in(ReviewStatus::all()->pluck('id')->toArray())
             ],
-            'review_decision' => [
-                'required',
-                Rule::in(ReviewDecision::all()->pluck('id')->toArray())
-            ],
-            'reviewer' => 'required|string',
             'notes' => 'nullable|string'
         ]);
 
@@ -40,8 +35,6 @@ class ApplicationReviewController extends Controller
         }
         $review->fill([
             'review_status_id' => $request->input('review_status'),
-            'review_decision_id' => $request->input('review_decision'),
-            'reviewer' => $request->input('reviewer'),
             'notes' => $request->input('notes'),
         ]);
         $review->save();

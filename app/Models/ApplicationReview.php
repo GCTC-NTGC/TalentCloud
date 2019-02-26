@@ -27,7 +27,6 @@ class ApplicationReview extends Model
 {
     protected $fillable = [
         'review_status_id',
-        'reviewer',
         'notes',
     ];
 
