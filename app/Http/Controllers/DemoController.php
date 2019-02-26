@@ -21,7 +21,8 @@ class DemoController extends Controller
                 'job_poster_id' => $jobPoster->id
             ]);
             $jobPoster->job_applications()->saveMany($applications);
-            $applications->load(['veteran_status', 'citizenship_declaration']);
+
+            $applications->load(['veteran_status', 'citizenship_declaration', 'application_review', "applicant.user"]);
             return view('manager/review_applications', [
                 /*Localization Strings*/
                 'jobs_l10n' => Lang::get('manager/job_index'),

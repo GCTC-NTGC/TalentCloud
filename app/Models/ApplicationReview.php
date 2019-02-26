@@ -31,6 +31,13 @@ class ApplicationReview extends Model
         'notes',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['review_status'];
+
     public function job_application() {
         return $this->belongsTo(JobApplication::class);
     }

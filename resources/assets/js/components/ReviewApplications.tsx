@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Job, Application } from "interfaces";
+import { Job, Application } from "./types";
+import className from "classnames";
 
 interface ApplicationViewProps {
   application: Application;
@@ -24,38 +25,49 @@ interface ApplicationViewProps {
 const ApplicationView: React.FunctionComponent<ApplicationViewProps> = (
   props
 ): React.ReactElement => {
+  const reviewStatus =
+    props.application.application_review &&
+    props.application.application_review.review_status
+      ? props.application.application_review.review_status.name
+      : null;
+  const statusIconClass = className("fas", {
+    "fa-ban": reviewStatus == "screened_out",
+    "fa-question-circle": reviewStatus == "still_thinking",
+    "fa-check-circle": reviewStatus == "still_in",
+    "fa-exclamation-circle": reviewStatus == null
+  });
+
   return (
     <form className="applicant-summary">
       <div className="flex-grid middle gutter">
         <div className="box lg-1of11 applicant-status">
-          {/* These should be shown/hidden based on status */}
-          <i className="fas fa-check-circle" />
-          <i className="fas fa-exclamation-circle" />
-          <i className="fas fa-question-circle" />
-          <i className="fas fa-ban" />
+          <i className={statusIconClass} />
         </div>
 
         <div className="box lg-2of11 applicant-information">
           <span className="name">{/* Applicant Name */}</span>
           <a
-            href={"mailto:" + props.application.user.email}
+            href={"mailto:" + props.application.applicant.user.email}
             title="Email this candidate."
           >
             {/* Applicant Email */}
           </a>
-          {/* This span only shown for veters */}
-          <span className="veteran-status">
-            <img
-              alt="The Talent Cloud veteran icon."
-              src="/images/icon_veteran.svg"
-            />
-            Veteran
-          </span>
+          {/* This span only shown for veterans */}
+          {(props.application.veteran_status.name == "current" ||
+            props.application.veteran_status.name == "past") && (
+            <span className="veteran-status">
+              <img
+                alt="The Talent Cloud veteran icon."
+                src="/images/icon_veteran.svg"
+              />
+              Veteran
+            </span>
+          )}
         </div>
 
         <div className="box lg-2of11 applicant-links">
           <a
-            href="{/* Link to Applicant's Application */}"
+            href={"/manager/applicants/" + props.application.applicant_id}
             title="View this applicant's application."
           >
             <i className="fas fa-file-alt" />
@@ -408,7 +420,7 @@ export default class ReviewApplications extends React.Component<
             )
           },
           {
-            title: "Veterans and Canadian Citizens",
+            title: "Canadian Citizens and Veterans",
             description: "blah",
             applications: this.state.applications.filter(
               application =>

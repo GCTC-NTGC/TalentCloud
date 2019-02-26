@@ -10,6 +10,7 @@
         "lighthouse": "lighthouse-github-reporter run -- --prId=${TRAVIS_PULL_REQUEST}"
     },
     "devDependencies": {
+        "@types/classnames": "^2.2.7",
         "@types/node": "^11.9.4",
         "@types/react": "^16.8.4",
         "@types/react-dom": "^16.8.2",

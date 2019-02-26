@@ -28,13 +28,22 @@ use Illuminate\Support\Facades\Log;
 class ApplicationByJobController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the applications for given jobPoster.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(JobPoster $jobPoster)
     {
-        //
+        $applications = $jobPoster->job_applications;
+        $applications->load(['veteran_status', 'citizenship_declaration', 'application_review', "applicant.user"]);
+        return view('manager/review_applications', [
+            /*Localization Strings*/
+            'jobs_l10n' => Lang::get('manager/job_index'),
+
+            /* Data */
+            'job' => $jobPoster,
+            'applications' => $applications,
+        ]);
     }
 
     protected function getApplicationFromJob(JobPoster $jobPoster) {
