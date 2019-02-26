@@ -3,12 +3,10 @@
         "jsx": "react",
         "esModuleInterop": true,
         "target": "es6",
+        "strictNullChecks": true
     },
     // "include": [
     //     "resources/assets/js/**/*"
     // ],
-    "exclude": [
-        "node_modules",
-        "vendor"
-    ]
+    "exclude": ["node_modules", "vendor"]
 }

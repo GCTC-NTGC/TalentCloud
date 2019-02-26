@@ -19,9 +19,20 @@ export interface Application {
   created_at: Date;
   updated_at: Date;
   citizenship_declaration: CitizeshipDeclaration;
+  user: User;
 }
 
 export interface CitizeshipDeclaration {
   id: number;
   name: string;
+}
+
+export interface User {
+  id: number;
+  email: string;
+  name: string;
+  is_confirmed: boolean;
+  user_role_id: number;
+  created_at: Date;
+  updated_at: Date;
 }

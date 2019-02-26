@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import {Job, Application} from "interfaces";
+import { Job, Application } from "interfaces";
 
 interface ApplicationViewProps {
-  application: Application
+  application: Application;
 }
 
 /**
@@ -21,7 +21,9 @@ interface ApplicationViewProps {
  *     - true
  *     - false
  */
-const ApplicationView: React.StatelessComponent<ApplicationViewProps> = props => {
+const ApplicationView: React.FunctionComponent<ApplicationViewProps> = (
+  props
+): React.ReactElement => {
   return (
     <form className="applicant-summary">
       <div className="flex-grid middle gutter">
@@ -36,7 +38,7 @@ const ApplicationView: React.StatelessComponent<ApplicationViewProps> = props =>
         <div className="box lg-2of11 applicant-information">
           <span className="name">{/* Applicant Name */}</span>
           <a
-            href="mailto:{/* Applicant Email */}"
+            href={"mailto:" + props.application.user.email}
             title="Email this candidate."
           >
             {/* Applicant Email */}
@@ -76,12 +78,12 @@ const ApplicationView: React.StatelessComponent<ApplicationViewProps> = props =>
             <div className="form__select-wrapper fas fa-chevron-down">
               <select id="" className="form__input">
                 {/* Decisions
-                                    A manager can select one of four options from this select element, which should then leverage React to assign the appropriate classes, update the database, AND move this applicant to the correct spot in the UI if necessary:
-                                        - "Still In"
-                                        - "Screened Out"
-                                        - "Still Thinking"
-                                        - "Not Reviewed" (This should be the default selection.)
-                                */}
+                  A manager can select one of four options from this select element, which should then leverage React to assign the appropriate classes, update the database, AND move this applicant to the correct spot in the UI if necessary:
+                      - "Still In"
+                      - "Screened Out"
+                      - "Still Thinking"
+                      - "Not Reviewed" (This should be the default selection.)
+              */}
               </select>
             </div>
           </div>
@@ -112,9 +114,9 @@ const ApplicationView: React.StatelessComponent<ApplicationViewProps> = props =>
 };
 
 interface BucketViewProps {
-  title: string,
-  description: string,
-  applications: Application[]
+  title: string;
+  description: string;
+  applications: Application[];
 }
 
 /**
@@ -129,7 +131,9 @@ interface BucketViewProps {
  *  - 3 and 4 appear in the "secondary" category
  *  - The "tertiary" category contains all 4, each displaying only the candidates that have been screened out in that bucket.
  */
-const BucketView: React.StatelessComponent<BucketViewProps> = (props: any) => {
+const BucketView: React.StatelessComponent<BucketViewProps> = (
+  props
+): React.ReactElement => {
   return (
     <div className="accordion applicant-bucket">
       <button
@@ -155,7 +159,7 @@ const BucketView: React.StatelessComponent<BucketViewProps> = (props: any) => {
         <p>{props.description}</p>
 
         {props.applications.map(application => (
-          <ApplicationView key={application.id} {...application} />
+          <ApplicationView key={application.id} application={application} />
         ))}
       </div>
     </div>
@@ -163,13 +167,15 @@ const BucketView: React.StatelessComponent<BucketViewProps> = (props: any) => {
 };
 
 interface CategoryViewProps {
-  title: string,
-  description: string
-  showScreenOutAll: boolean
-  buckets: BucketViewProps[]
+  title: string;
+  description: string;
+  showScreenOutAll: boolean;
+  buckets: BucketViewProps[];
 }
 
-const CategoryView: React.StatelessComponent<CategoryViewProps> = props => {
+const CategoryView: React.StatelessComponent<CategoryViewProps> = (
+  props
+): React.ReactElement => {
   {
     /* Applicant Categories
             Categories have 3 class determined states:
@@ -206,12 +212,14 @@ const CategoryView: React.StatelessComponent<CategoryViewProps> = props => {
 };
 
 interface ReviewApplicationsViewProps {
-  title: string,
-  classification: string,
-  categories: CategoryViewProps[]
+  title: string;
+  classification: string;
+  categories: CategoryViewProps[];
 }
 
-const ReviewApplicationsView: React.StatelessComponent<ReviewApplicationsViewProps> = (props) => {
+const ReviewApplicationsView: React.StatelessComponent<
+  ReviewApplicationsViewProps
+> = (props): React.ReactElement => {
   return (
     <section className="applicant-review container--layout-xl">
       <div className="flex-grid gutter">
@@ -252,7 +260,6 @@ const ReviewApplicationsView: React.StatelessComponent<ReviewApplicationsViewPro
 
 interface ReviewApplicationsProps {
   job: Job;
-
   initApplications: Application[];
 }
 
@@ -273,8 +280,11 @@ enum Category {
   ScreenedOut
 }
 
-export default class ReviewApplications extends React.Component<ReviewApplicationsProps, ReviewApplicationsState> {
-  constructor(props: ReviewApplicationsProps) {
+export default class ReviewApplications extends React.Component<
+  ReviewApplicationsProps,
+  ReviewApplicationsState
+> {
+  public constructor(props: ReviewApplicationsProps) {
     super(props);
     this.state = {
       applications: props.initApplications
@@ -296,7 +306,7 @@ export default class ReviewApplications extends React.Component<ReviewApplicatio
    *  unqualified
    *
    */
-  applicationBucket(application: Application): Bucket {
+  protected applicationBucket(application: Application): Bucket {
     if (false) {
       return Bucket.Priority; // TODO: decide how to determine priority
     } else if (application.citizenship_declaration.name === "citizen") {
@@ -315,7 +325,7 @@ export default class ReviewApplications extends React.Component<ReviewApplicatio
    *  screened-out
    * @param {Application} application
    */
-  applicationCategory(application: Application): Category {
+  protected applicationCategory(application: Application): Category {
     if (this.isScreenedOut(application)) {
       return Category.ScreenedOut;
     }
@@ -331,7 +341,7 @@ export default class ReviewApplications extends React.Component<ReviewApplicatio
     }
   }
 
-  render() {
+  public render(): React.ReactElement {
     const categories = [
       {
         title: "Under Consideration",
@@ -438,11 +448,20 @@ export default class ReviewApplications extends React.Component<ReviewApplicatio
 }
 
 if (document.getElementById("review-applications")) {
-  const container = document.getElementById("review-applications");
-  const job = JSON.parse(container.getAttribute("data-job"));
-  const applications = JSON.parse(container.getAttribute("data-applications"));
-  ReactDOM.render(
-    <ReviewApplications job={job} initApplications={applications} />,
-    container
-  );
+  const container = document.getElementById(
+    "review-applications"
+  ) as HTMLElement;
+  if (
+    container.hasAttribute("data-job") &&
+    container.hasAttribute("data-applications")
+  ) {
+    const job = JSON.parse(container.getAttribute("data-job") as string);
+    const applications = JSON.parse(container.getAttribute(
+      "data-applications"
+    ) as string);
+    ReactDOM.render(
+      <ReviewApplications job={job} initApplications={applications} />,
+      container
+    );
+  }
 }
