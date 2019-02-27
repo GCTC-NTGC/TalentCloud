@@ -1,16 +1,9 @@
 build:
-    nodes:
-        analysis:
-            tests:
-                override:
-                    - php-scrutinizer-run
-                    - js-scrutinizer-run
-                    - phpcs-run ./app
 
     dependencies:
         before:
-            - composer install
-            - npm install
+            # composer install
+            # npm install
 
     environment:
         php:
@@ -18,8 +11,7 @@ build:
             ini:
                 memory_limit: "-1"
         ruby: 2.5.1
-        node: v6.2.0
-        # docker: true
+        node: v10.14.2
 
     cache:
         directories:
