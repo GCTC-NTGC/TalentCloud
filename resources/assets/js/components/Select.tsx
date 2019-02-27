@@ -12,6 +12,7 @@ export interface SelectProps<T extends string | number> {
   selected: T | undefined;
   nullSelection: string | undefined;
   options: SelectOption<T>[];
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export default function Select<T extends string | number>(
@@ -27,6 +28,7 @@ export default function Select<T extends string | number>(
           id={props.htmlId}
           className="form__input"
           value={props.selected}
+          onChange={e => props.onChange(e)}
         >
           {props.nullSelection && <option>{props.nullSelection}</option>}
           {props.options.map(option => (
