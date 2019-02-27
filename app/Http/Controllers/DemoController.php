@@ -30,6 +30,7 @@ class DemoController extends Controller
                 /* Data */
                 'job' => $jobPoster,
                 'applications' => $applications,
+                'review_statuses' => ReviewStatus::all(),
             ]);
         }
         return null;

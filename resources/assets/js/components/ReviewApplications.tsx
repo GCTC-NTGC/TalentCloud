@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Job, Application } from "./types";
+import { Job, Application, ReviewStatus } from "./types";
 import className from "classnames";
+import route from "../helpers/route";
+import Select, { SelectOption } from "./Select";
 
 interface ApplicationViewProps {
   application: Application;
+  reviewStatusOptions: SelectOption<number>[];
 }
 
 /**
@@ -16,9 +19,6 @@ interface ApplicationViewProps {
  *     - maybe (saved for review)
  *     - null (the manager hasn't yet taken an action on this applicant)
  *   - Whether a note has been created regarding their application:
- *     - true
- *     - false
- *   - Whether that applicant is a veteran:
  *     - true
  *     - false
  */
@@ -45,12 +45,12 @@ const ApplicationView: React.FunctionComponent<ApplicationViewProps> = (
         </div>
 
         <div className="box lg-2of11 applicant-information">
-          <span className="name">{/* Applicant Name */}</span>
+          <span className="name">{props.application.applicant.user.name}</span>
           <a
             href={"mailto:" + props.application.applicant.user.email}
             title="Email this candidate."
           >
-            {/* Applicant Email */}
+            {props.application.applicant.user.email}
           </a>
           {/* This span only shown for veterans */}
           {(props.application.veteran_status.name == "current" ||
@@ -67,14 +67,14 @@ const ApplicationView: React.FunctionComponent<ApplicationViewProps> = (
 
         <div className="box lg-2of11 applicant-links">
           <a
-            href={"/manager/applicants/" + props.application.applicant_id}
+            href={route("manager.applications.show", props.application)}
             title="View this applicant's application."
           >
             <i className="fas fa-file-alt" />
             View Application
           </a>
           <a
-            href="{/* Link to Applicant's Profile */}"
+            href={route("manager.applicants.show", props.application.applicant)}
             title="View this applicant's profile."
           >
             <i className="fas fa-user" />
@@ -83,22 +83,18 @@ const ApplicationView: React.FunctionComponent<ApplicationViewProps> = (
         </div>
 
         <div className="box lg-2of11 applicant-decision">
-          <div className="form__input-wrapper--select">
-            <label className="form__label" htmlFor="">
-              Decision
-            </label>
-            <div className="form__select-wrapper fas fa-chevron-down">
-              <select id="" className="form__input">
-                {/* Decisions
-                  A manager can select one of four options from this select element, which should then leverage React to assign the appropriate classes, update the database, AND move this applicant to the correct spot in the UI if necessary:
-                      - "Still In"
-                      - "Screened Out"
-                      - "Still Thinking"
-                      - "Not Reviewed" (This should be the default selection.)
-              */}
-              </select>
-            </div>
-          </div>
+          <Select
+            formName="review_status"
+            htmlId={"review_status_" + props.application.id}
+            label="Decision"
+            selected={
+              props.application.application_review
+                ? props.application.application_review.review_status_id
+                : null
+            }
+            nullSelection="Not Reviewed"
+            options={props.reviewStatusOptions}
+          />
         </div>
 
         <div className="box lg-2of11 applicant-notes">
@@ -129,6 +125,7 @@ interface BucketViewProps {
   title: string;
   description: string;
   applications: Application[];
+  reviewStatusOptions: SelectOption<number>[];
 }
 
 /**
@@ -171,7 +168,11 @@ const BucketView: React.StatelessComponent<BucketViewProps> = (
         <p>{props.description}</p>
 
         {props.applications.map(application => (
-          <ApplicationView key={application.id} application={application} />
+          <ApplicationView
+            key={application.id}
+            application={application}
+            reviewStatusOptions={props.reviewStatusOptions}
+          />
         ))}
       </div>
     </div>
@@ -273,6 +274,7 @@ const ReviewApplicationsView: React.StatelessComponent<
 interface ReviewApplicationsProps {
   job: Job;
   initApplications: Application[];
+  reviewStatuses: ReviewStatus[];
 }
 
 interface ReviewApplicationsState {
@@ -354,6 +356,9 @@ export default class ReviewApplications extends React.Component<
   }
 
   public render(): React.ReactElement {
+    const reviewStatusOptions = this.props.reviewStatuses.map(status => {
+      return { value: status.id, label: status.name };
+    });
     const categories = [
       {
         title: "Under Consideration",
@@ -367,7 +372,8 @@ export default class ReviewApplications extends React.Component<
               application =>
                 !this.isScreenedOut(application) &&
                 this.applicationBucket(application) === Bucket.Priority
-            )
+            ),
+            reviewStatusOptions: reviewStatusOptions
           },
           {
             title: "Veterans and Canadian Citizens",
@@ -376,7 +382,8 @@ export default class ReviewApplications extends React.Component<
               application =>
                 !this.isScreenedOut(application) &&
                 this.applicationBucket(application) === Bucket.Citizen
-            )
+            ),
+            reviewStatusOptions: reviewStatusOptions
           }
         ]
       },
@@ -392,7 +399,8 @@ export default class ReviewApplications extends React.Component<
               application =>
                 !this.isScreenedOut(application) &&
                 this.applicationBucket(application) === Bucket.Noncitizen
-            )
+            ),
+            reviewStatusOptions: reviewStatusOptions
           },
           {
             title: "Don't Meed Essential Criteria",
@@ -401,7 +409,8 @@ export default class ReviewApplications extends React.Component<
               application =>
                 !this.isScreenedOut(application) &&
                 this.applicationBucket(application) === Bucket.Unqualified
-            )
+            ),
+            reviewStatusOptions: reviewStatusOptions
           }
         ]
       },
@@ -417,7 +426,8 @@ export default class ReviewApplications extends React.Component<
               application =>
                 this.isScreenedOut(application) &&
                 this.applicationBucket(application) === Bucket.Priority
-            )
+            ),
+            reviewStatusOptions: reviewStatusOptions
           },
           {
             title: "Canadian Citizens and Veterans",
@@ -426,7 +436,8 @@ export default class ReviewApplications extends React.Component<
               application =>
                 this.isScreenedOut(application) &&
                 this.applicationBucket(application) === Bucket.Citizen
-            )
+            ),
+            reviewStatusOptions: reviewStatusOptions
           },
           {
             title: "Non-Canadian Citizens",
@@ -435,7 +446,8 @@ export default class ReviewApplications extends React.Component<
               application =>
                 this.isScreenedOut(application) &&
                 this.applicationBucket(application) === Bucket.Noncitizen
-            )
+            ),
+            reviewStatusOptions: reviewStatusOptions
           },
           {
             title: "Don't Meed Essential Criteria",
@@ -444,7 +456,8 @@ export default class ReviewApplications extends React.Component<
               application =>
                 this.isScreenedOut(application) &&
                 this.applicationBucket(application) === Bucket.Unqualified
-            )
+            ),
+            reviewStatusOptions: reviewStatusOptions
           }
         ]
       }
@@ -465,14 +478,22 @@ if (document.getElementById("review-applications")) {
   ) as HTMLElement;
   if (
     container.hasAttribute("data-job") &&
-    container.hasAttribute("data-applications")
+    container.hasAttribute("data-applications") &&
+    container.hasAttribute("data-review-statuses")
   ) {
     const job = JSON.parse(container.getAttribute("data-job") as string);
     const applications = JSON.parse(container.getAttribute(
       "data-applications"
     ) as string);
+    const reviewStatuses = JSON.parse(container.getAttribute(
+      "data-review-statuses"
+    ) as string);
     ReactDOM.render(
-      <ReviewApplications job={job} initApplications={applications} />,
+      <ReviewApplications
+        job={job}
+        initApplications={applications}
+        reviewStatuses={reviewStatuses}
+      />,
       container
     );
   }

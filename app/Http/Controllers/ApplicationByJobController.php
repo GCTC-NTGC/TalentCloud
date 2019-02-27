@@ -23,6 +23,7 @@ use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Models\Lookup\ReviewStatus;
 
 
 class ApplicationByJobController extends Controller
@@ -43,6 +44,7 @@ class ApplicationByJobController extends Controller
             /* Data */
             'job' => $jobPoster,
             'applications' => $applications,
+            'review_statuses' => ReviewStatus::all(),
         ]);
     }
 

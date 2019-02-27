@@ -65,7 +65,7 @@ export interface User {
 
 export interface ApplicationReview {
   id: number;
-  review_status_id: number;
+  review_status_id: number | null;
   review_status: ReviewStatus;
   notes: string;
   created_at: Date;
@@ -76,5 +76,5 @@ type ReviewStatusName = "screened_out" | "still_thinking" | "still_in";
 
 export interface ReviewStatus {
   id: number;
-  name: ReviewStatusName | null;
+  name: ReviewStatusName;
 }
