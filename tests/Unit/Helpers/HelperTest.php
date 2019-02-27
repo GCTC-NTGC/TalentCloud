@@ -92,7 +92,9 @@ class HelperTest extends TestCase
         $dateToTest = Date::parse('2019-01-05 8:00:00');
         $dateToTest->setTimezone($this->timezone);
 
-        $expected = 'Jan 4th, 2019';
+        $expected = Date::parse('2019-01-04 8:00:00');
+        $expected->setTimezone($this->timezone);
+        $expected = $expected->format($this->dateFormat);
 
         $this->assertEquals($expected, humanizeLastDay($dateToTest));
     }
