@@ -96,39 +96,14 @@ if (!function_exists('humanizeLastDay')) {
     /**
      * Returns the date of the last full day a person has before a deadline time.
      *
-     * @param Date $datetime DateTime object to measure.
-     * @param Date $origin   DateTime object to use as a reference.
+     * @param Date $datetime DateTime object to transform to date of last day.
      *
      * @return string
      */
     function humanizeLastDay(Date $datetime) : string
     {
-        if (!isset($origin)) {
-            $origin = new Date();
-        }
-        $interval = $datetime->diff($origin);
+        $lastday = $datetime->sub("1 day");
 
-        $d = $interval->d;
-        $h = $interval->h;
-        $m = $interval->i;
-        $s = $interval->s;
-
-        if ($d > 0) {
-            $unit = 'day';
-            $count = $d;
-        } elseif ($h > 0) {
-            $unit = 'hour';
-            $count = $h;
-        } elseif ($m > 0) {
-            $unit = 'minute';
-            $count = $m;
-        } else {
-            $unit = 'second';
-            $count = $s;
-        }
-
-        $key = "common/time.$unit";
-
-        return Lang::choice($key, $count);
+        return humanizeDate($lastday);
     }
 }
