@@ -112,6 +112,50 @@
 
             </div>
 
+        {# Language Requirement Declaration #}
+        <div class="application-post__language-declaration">
+            <span>{{ application_template.language_declaration }}</span>
+            <div class="wrapper">
+            {% if job.language_requirement.id == 1 %}
+                <div>
+                    <label
+                        class="flex-grid"
+                        for="">
+                        <input id="" type="checkbox" />
+                        <p class="box fit">{{ application_template.english_essential }}</p>
+                    </label>
+                </div>
+            {% elseif job.language_requirement.id == 2 %}
+                <div>
+                    <label
+                        class="flex-grid"
+                        for="">
+                        <input id="" type="checkbox" />
+                        <p class="box fit">{{ application_template.french_essential }}</p>
+                    </label>
+                </div>
+            {% elseif job.language_requirement.id == 3 %}
+                <div>
+                    <label
+                        class="flex-grid"
+                        for="">
+                        <input id="" type="checkbox" />
+                        <p class="box fit">{{ application_template.bilingual }}</p>
+                    </label>
+                </div>
+            {% elseif job.language_requirement.id == 4 %}
+                <div>
+                    <label
+                        class="flex-grid"
+                        for="">
+                        <input id="" type="checkbox" />
+                        <p class="box fit">{{ application_template.english_french }}</p>
+                    </label>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+
         {# Language #}
 
             <div
@@ -168,26 +212,30 @@
 
         {% for question in job.job_poster_questions %}
 
-            <span>
-                {{ question.question }}
-            </span>
+            <div class="application-post__long-form-question">
 
-            <p>
-                {{ question.description }}
-            </p>
+                <span>
+                    {{ question.question }}
+                </span>
 
-            <div
-                class="form__input-wrapper--float {% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}active{% endif %}{% endfor %}">
-                <label
-                    class="form__label"
-                    for="questions[{{ question.id }}]">
-                    {{ application_template.question_label }}
-                </label>
-                <textarea
-                    id="questions[{{ question.id }}]"
-                    class="form__textarea"
-                    name="questions[{{ question.id }}]"
-                    required>{% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}{{ userAnswer.answer }}{% endif %}{% endfor %}</textarea>
+                <p>
+                    {{ question.description }}
+                </p>
+
+                <div
+                    class="form__input-wrapper--float {% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}active{% endif %}{% endfor %}">
+                    <label
+                        class="form__label"
+                        for="questions[{{ question.id }}]">
+                        {{ application_template.question_label }}
+                    </label>
+                    <textarea
+                        id="questions[{{ question.id }}]"
+                        class="form__textarea"
+                        name="questions[{{ question.id }}]"
+                        required>{% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}{{ userAnswer.answer }}{% endif %}{% endfor %}</textarea>
+                </div>
+
             </div>
 
         {% endfor %}

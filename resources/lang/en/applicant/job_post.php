@@ -64,6 +64,16 @@ return [
         'requirement_label' => 'Level Required: ',
         'level_link_title' => 'Visit the FAQ to learn about this and other skill levels.'
     ],
+    'language' => [
+        'sidebar_title' => 'View this job\'s language requirements.',
+        'title' => 'Language Requirements',
+        'english_essential_context' => 'This position has an English essential requirement. The manager may choose to test your proficiency in English.',
+        'french_essential_context' => 'This position has an French essential requirement. The manager may choose to test your proficiency in French.',
+        'bilingual_context_01' => 'This position has a bilingual requirement. This means that you must meet the proficiency levels required, in both English and French, in each of the 3 language skills: comprehension, writing, and oral communication.',
+        'bilingual_context_02' => 'You can try out a self-assessment test to give yourself an idea of the level (A, B, or C) you might attain.',
+        'bilingual_context_03' => 'If your first official language is English, you will be tested on your French, and vice versa.',
+        'english_french_context' => 'NEEDS COPY'
+    ],
     'culture' => [
         'sidebar_title' => 'View this job\'s culture information.',
         'title' => 'Team Culture',

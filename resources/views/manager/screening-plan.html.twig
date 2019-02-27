@@ -96,7 +96,7 @@
 
                                 {% if criterion.criteria_type.name == "asset" %}
 
-                                    {% include "manager/components/skill-assessment-builder" %}
+                                    {% include "manager/components/skill-assessment-builder" with { 'skill_builder_l10n':screening_l10n.skill_builder } %}
 
                                     {% set assetCriteria = assetCriteria + 1 %}
 

@@ -64,6 +64,16 @@ return [
         'requirement_label' => 'Niveau requis: ',
         'level_link_title' => 'Visitez la FAQ pour en savoir plus sur ce niveau et les autres.'
     ],
+    'language' => [
+        'sidebar_title' => 'TRANSLATION NEEDED: View this job\'s language requirements.',
+        'title' => 'TRANSLATION NEEDED: Language Requirements',
+        'english_essential_context' => 'TRANSLATION NEEDED: This position has an English essential requirement. The manager may choose to test your proficiency in English.',
+        'french_essential_context' => 'TRANSLATION NEEDED: This position has an French essential requirement. The manager may choose to test your proficiency in French.',
+        'bilingual_context_01' => 'TRANSLATION NEEDED: This position has a bilingual requirement. This means that you must meet the proficiency levels required, in both English and French, in each of the 3 language skills: comprehension, writing, and oral communication.',
+        'bilingual_context_02' => 'TRANSLATION NEEDED: You can try out a self-assessment test to give yourself an idea of the level (A, B, or C) you might attain.',
+        'bilingual_context_03' => 'TRANSLATION NEEDED: If your first official language is English, you will be tested on your French, and vice versa.',
+        'english_french_context' => 'TRANSLATION NEEDED: NEEDS COPY'
+    ],
     'culture' => [
         'sidebar_title' => 'Voir la culture à cet emploi.',
         'title' => 'Culture d\'équipe',
