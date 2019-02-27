@@ -4,12 +4,12 @@ import route from "../../helpers/route";
 import Select, { SelectOption } from "../Select";
 import { Application } from "../types";
 
-interface ApplicationViewProps {
+interface ApplicationReviewProps {
   application: Application;
   reviewStatusOptions: SelectOption<number>[];
 }
 
-interface ApplicationViewState {
+interface ApplicationReviewState {
   selectedStatusId: number | undefined;
 }
 
@@ -25,11 +25,11 @@ interface ApplicationViewState {
  *     - true
  *     - false
  */
-export default class ApplicationView extends React.Component<
-  ApplicationViewProps,
-  ApplicationViewState
+export default class ApplicationReview extends React.Component<
+  ApplicationReviewProps,
+  ApplicationReviewState
   > {
-  public constructor(props: ApplicationViewProps) {
+  public constructor(props: ApplicationReviewProps) {
     super(props);
     this.state = {
       selectedStatusId:

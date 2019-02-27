@@ -1,9 +1,9 @@
 import React from "react";
 import { Application } from "../types";
 import { SelectOption } from "../Select";
-import ApplicationView from "./Application";
+import ApplicationReview from "./ApplicationReview";
 
-interface BucketViewProps {
+interface ApplicantBucketProps {
   title: string;
   description: string;
   applications: Application[];
@@ -22,7 +22,7 @@ interface BucketViewProps {
  *  - 3 and 4 appear in the "secondary" category
  *  - The "tertiary" category contains all 4, each displaying only the candidates that have been screened out in that bucket.
  */
-const BucketView: React.StatelessComponent<BucketViewProps> = (
+const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = (
   props
 ): React.ReactElement | null => {
   if (props.applications.length === 0) {
@@ -54,7 +54,7 @@ const BucketView: React.StatelessComponent<BucketViewProps> = (
         <p>{props.description}</p>
 
         {props.applications.map(application => (
-          <ApplicationView
+          <ApplicationReview
             key={application.id}
             application={application}
             reviewStatusOptions={props.reviewStatusOptions}
@@ -65,4 +65,4 @@ const BucketView: React.StatelessComponent<BucketViewProps> = (
   );
 };
 
-export default BucketView;
+export default ApplicantBucket;

@@ -1,10 +1,10 @@
 import React from "react";
 import { Application } from "../types";
 import { SelectOption } from "../Select";
-import { applicationBucket } from "./application-helpers";
-import BucketView from "./ReviewBucket";
+import { applicationBucket } from "./helpers";
+import ApplicantBucket from "./ApplicantBucket";
 
-interface CategoryViewProps {
+interface ReviewCategoryProps {
   title: string;
   description: string;
   showScreenOutAll: boolean;
@@ -12,7 +12,7 @@ interface CategoryViewProps {
   reviewStatusOptions: SelectOption<number>[];
 }
 
-const CategoryView: React.StatelessComponent<CategoryViewProps> = (
+const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = (
   props
 ): React.ReactElement | null => {
   if (props.applications.length === 0) {
@@ -70,7 +70,7 @@ const CategoryView: React.StatelessComponent<CategoryViewProps> = (
       )}
 
       {buckets.map(bucket => (
-        <BucketView
+        <ApplicantBucket
           key={bucket.title}
           {...bucket}
           reviewStatusOptions={props.reviewStatusOptions}
@@ -80,4 +80,4 @@ const CategoryView: React.StatelessComponent<CategoryViewProps> = (
   );
 };
 
-export default CategoryView;
+export default ReviewCategory;
