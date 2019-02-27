@@ -85,6 +85,17 @@ $factory->state(
     }
 );
 
+$factory->state(
+    JobPoster::class,
+    'review_requested',
+    function (Faker\Generator $faker) {
+        return [
+            'published' => false,
+            'review_requested_at' => $faker->dateTimeBetween('-2 days', '-1 days')
+        ];
+    }
+);
+
 $factory->state(JobPoster::class, 'remote', [
     'remote_work_allowed' => true
 ]);
