@@ -46,6 +46,7 @@
     }
   },
   "dependencies": {
-    "es6-promise": "^4.2.5"
+    "es6-promise": "^4.2.5",
+    "sweetalert2": "^8.2.2"
   }
 }

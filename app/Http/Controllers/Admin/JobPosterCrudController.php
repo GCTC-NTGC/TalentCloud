@@ -44,7 +44,7 @@ class JobPosterCrudController extends CrudController
             'name' => "status",
             'label' => "Status",
             'type' => "model_function",
-            'function_name' => 'status',
+            'function_name' => 'displayStatus',
         ]);
         $this->crud->addColumn([
             'name' => "published",

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -12,6 +13,8 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 
 use Carbon\Carbon;
+
+use App\Mail\JobPosterReviewRequested;
 
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
@@ -93,6 +96,49 @@ class JobController extends Controller
             'citizen_applications' => $citizen_applications,
             'other_applications' => $other_applications,
         ]);
+    }
+
+    /**
+     * Submit the Job Poster for review.
+     *
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function submitForReview(Request $request, JobPoster $jobPoster)
+    {
+        // Update review request timestamp
+        $jobPoster->review_requested_at = new Date();
+        $jobPoster->save();
+        $jobPoster->refresh();
+
+        // Send email
+        $reviewer_email = config('mail.reviewer_email');
+        if (isset($reviewer_email)) {
+            Mail::to($reviewer_email)->send(new JobPosterReviewRequested($jobPoster, Auth::user()));
+        } else {
+            Log::error('The reviewer email environment variable is not set.');
+        }
+
+        return view('manager/job_index/job', [
+            /*Localization Strings*/
+            'jobs_l10n' => Lang::get('manager/job_index'),
+            'job' => $jobPoster
+        ]);
+    }
+
+    /**
+     * Delete a draft Job Poster.
+     *
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
+     *
+     * @return void
+     */
+    public function destroy(Request $request, JobPoster $jobPoster) : void
+    {
+        $jobPoster->delete();
     }
 
     /**

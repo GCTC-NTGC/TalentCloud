@@ -24,6 +24,8 @@ use \Backpack\CRUD\CrudTrait;
  * @property \Jenssegers\Date\Date $open_date_time
  * @property \Jenssegers\Date\Date $close_date_time
  * @property \Jenssegers\Date\Date $start_date_time
+ * @property \Jenssegers\Date\Date $review_requested_at
+ * @property \Jessengers\Date\Date $published_at
  * @property int $department_id
  * @property int $province_id
  * @property int $salary_min
@@ -68,7 +70,6 @@ use \Backpack\CRUD\CrudTrait;
  */
 class JobPoster extends BaseModel
 {
-
     use CrudTrait;
     use \Dimsav\Translatable\Translatable;
     use Notifiable;
@@ -118,7 +119,9 @@ class JobPoster extends BaseModel
     protected $dates = [
         'open_date_time',
         'close_date_time',
-        'start_date_time'
+        'start_date_time',
+        'review_requested_at',
+        'published_at'
     ];
 
     /**
@@ -216,7 +219,7 @@ class JobPoster extends BaseModel
 
     public function submitted_applications()
     {
-        return $this->job_applications()->whereDoesntHave('application_status', function ($query) {
+        return $this->job_applications()->whereDoesntHave('application_status', function ($query) : void {
             $query->where('name', 'draft');
         });
     }
@@ -224,6 +227,26 @@ class JobPoster extends BaseModel
     // @codeCoverageIgnoreEnd
 
     // Accessors
+
+    // Mutators
+
+    /**
+     * Intercept setting the "published" attribute, and set the
+     * "published_at" timestamp if true.
+     *
+     * @param mixed $value Incoming value for the 'published' attribute.
+     *
+     * @return void
+     */
+    public function setPublishedAttribute($value) : void
+    {
+        if ($value && $this->open_date_time->isPast()) {
+            $this->attributes['published_at'] = new Date();
+        } elseif ($value && $this->open_date_time->isFuture()) {
+            $this->attributes['published_at'] = $this->open_date_time;
+        }
+        $this->attributes['published'] = $value;
+    }
 
     // Methods
 
@@ -253,7 +276,13 @@ class JobPoster extends BaseModel
         return $displayDate;
     }
 
-    public function status()
+    /**
+     * Return whether the Job is Open or Closed.
+     * Used by the Admin Portal JobPosterCrudController.
+     *
+     * @return string
+     */
+    public function displayStatus() : string
     {
         return $this->isOpen() ? 'Open' : 'Closed';
     }
@@ -268,6 +297,18 @@ class JobPoster extends BaseModel
         return $this->published
             && $this->open_date_time->isPast()
             && $this->close_date_time->isFuture();
+    }
+
+    /**
+     * Check if a Job Poster is closed for applications.
+     *
+     * @return boolean
+     */
+    public function isClosed() : bool
+    {
+        return $this->published
+            && $this->open_date_time->isPast()
+            && $this->close_date_time->isPast();
     }
 
     /**
@@ -301,5 +342,27 @@ class JobPoster extends BaseModel
         $key = "common/time.$unit";
 
         return Lang::choice($key, $count);
+    }
+
+    /**
+     * Return the current status for the Job Poster.
+     * Possible values are "draft", "submitted", "published" and "closed".
+     *
+     * @return string
+     */
+    public function status() : string
+    {
+        $status = 'draft';
+        if ($this->isOpen()) {
+            $status = 'published';
+        } elseif ($this->isClosed()) {
+            $status = 'closed';
+        } elseif ($this->review_requested_at !== null) {
+            $status = 'submitted';
+        } else {
+            $status = 'draft';
+        }
+
+        return $status;
     }
 }
