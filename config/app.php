@@ -108,8 +108,8 @@ return [
     */
 
     'date_format' => [
-        'en' => 'M jS, Y',
-        'fr' => 'd M Y'
+        'en' => 'F j, Y',
+        'fr' => 'd F Y'
     ],
 
     'time_format' => [

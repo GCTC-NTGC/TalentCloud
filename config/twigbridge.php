@@ -181,7 +181,8 @@ return [
             'mix',
             'humanizeDateDiff',
             'humanizeDate',
-            'humanizeTime'
+            'humanizeTime',
+            'humanizeLastDay'
         ],
 
         /*
