@@ -5,6 +5,61 @@ import className from "classnames";
 import route from "../helpers/route";
 import Select, { SelectOption } from "./Select";
 
+type Bucket = "priority" | "citizen" | "non-citizen" | "unqualified";
+
+type Category = "primary" | "optional" | "screened-out";
+
+/* Functions used by multiple sub-components */
+/**
+ * Returns true if application has been screened out.
+ */
+function isScreenedOut(application: Application): boolean {
+  return false; // TODO: decide how to determin
+}
+
+/**
+ * Return the bucket this application belongs to. Either:
+ *  priority
+ *  citizen
+ *  secondary
+ *  unqualified
+ *
+ */
+function applicationBucket(application: Application): Bucket {
+  if (false) {
+    return "priority"; // TODO: decide how to determine priority
+  } else if (application.citizenship_declaration.name === "citizen") {
+    return "citizen";
+  } else {
+    return "non-citizen";
+  }
+  return "unqualified";
+  // TODO: decide how to determine unqualified
+}
+
+/**
+ * Return the category this application belongs to. Either:
+ *  primary
+ *  optional
+ *  screened-out
+ * @param {Application} application
+ */
+function applicationCategory(application: Application): Category {
+  if (isScreenedOut(application)) {
+    return "screened-out";
+  }
+  const bucket = applicationBucket(application);
+  switch (bucket) {
+    case "priority":
+    case "citizen":
+      return "primary";
+    case "non-citizen":
+    case "unqualified":
+    default:
+      return "optional";
+  }
+}
+
 interface ApplicationViewProps {
   application: Application;
   reviewStatusOptions: SelectOption<number>[];
@@ -88,9 +143,10 @@ const ApplicationView: React.FunctionComponent<ApplicationViewProps> = (
             htmlId={"review_status_" + props.application.id}
             label="Decision"
             selected={
-              props.application.application_review
+              props.application.application_review &&
+              props.application.application_review.review_status_id
                 ? props.application.application_review.review_status_id
-                : null
+                : undefined
             }
             nullSelection="Not Reviewed"
             options={props.reviewStatusOptions}
@@ -183,7 +239,8 @@ interface CategoryViewProps {
   title: string;
   description: string;
   showScreenOutAll: boolean;
-  buckets: BucketViewProps[];
+  applications: Application[];
+  reviewStatusOptions: SelectOption<number>[];
 }
 
 const CategoryView: React.StatelessComponent<CategoryViewProps> = (
@@ -197,6 +254,37 @@ const CategoryView: React.StatelessComponent<CategoryViewProps> = (
                 - tertiary (all candidates who have been screened out)
         */
   }
+
+  const buckets = [
+    {
+      title: "Priority Applicants",
+      description: "blah",
+      applications: props.applications.filter(
+        application => applicationBucket(application) === "priority"
+      )
+    },
+    {
+      title: "Canadian Citizens and Veterans",
+      description: "blah",
+      applications: props.applications.filter(
+        application => applicationBucket(application) === "citizen"
+      )
+    },
+    {
+      title: "Non-Canadian Citizens",
+      description: "blah",
+      applications: props.applications.filter(
+        application => applicationBucket(application) === "non-citizen"
+      )
+    },
+    {
+      title: "Don't Meed Essential Criteria",
+      description: "blah",
+      applications: props.applications.filter(
+        application => applicationBucket(application) === "unqualified"
+      )
+    }
+  ];
 
   return (
     <div className="applicant-category">
@@ -217,8 +305,12 @@ const CategoryView: React.StatelessComponent<CategoryViewProps> = (
         </span>
       )}
 
-      {props.buckets.map(bucket => (
-        <BucketView key={bucket.title} {...bucket} />
+      {buckets.map(bucket => (
+        <BucketView
+          key={bucket.title}
+          {...bucket}
+          reviewStatusOptions={props.reviewStatusOptions}
+        />
       ))}
     </div>
   );
@@ -227,12 +319,40 @@ const CategoryView: React.StatelessComponent<CategoryViewProps> = (
 interface ReviewApplicationsViewProps {
   title: string;
   classification: string;
-  categories: CategoryViewProps[];
+  applications: Application[];
+  reviewStatusOptions: SelectOption<number>[];
 }
 
 const ReviewApplicationsView: React.StatelessComponent<
   ReviewApplicationsViewProps
 > = (props): React.ReactElement => {
+  const categories = [
+    {
+      title: "Under Consideration",
+      description: "Blah blah",
+      showScreenOutAll: false,
+      applications: props.applications.filter(
+        application => applicationCategory(application) == "primary"
+      )
+    },
+    {
+      title: "Optional Consideration",
+      description: "Blah blah",
+      showScreenOutAll: true,
+      applications: props.applications.filter(
+        application => applicationCategory(application) == "optional"
+      )
+    },
+    {
+      title: "No Longer Under Consideration",
+      description: "Blah blah",
+      showScreenOutAll: false,
+      applications: props.applications.filter(
+        application => applicationCategory(application) == "screened-out"
+      )
+    }
+  ];
+
   return (
     <section className="applicant-review container--layout-xl">
       <div className="flex-grid gutter">
@@ -264,8 +384,12 @@ const ReviewApplicationsView: React.StatelessComponent<
           tempus. Fusce tempus finibus elit sed lacinia.
         </p>
       </div>
-      {props.categories.map(category => (
-        <CategoryView key={category.title} {...category} />
+      {categories.map(category => (
+        <CategoryView
+          key={category.title}
+          {...category}
+          reviewStatusOptions={props.reviewStatusOptions}
+        />
       ))}
     </section>
   );
@@ -281,19 +405,6 @@ interface ReviewApplicationsState {
   applications: Application[];
 }
 
-enum Bucket {
-  Priority,
-  Citizen,
-  Noncitizen,
-  Unqualified
-}
-
-enum Category {
-  Primary,
-  Optional,
-  ScreenedOut
-}
-
 export default class ReviewApplications extends React.Component<
   ReviewApplicationsProps,
   ReviewApplicationsState
@@ -305,168 +416,17 @@ export default class ReviewApplications extends React.Component<
     };
   }
 
-  /**
-   * Returns true if application has been screened out.
-   */
-  protected isScreenedOut(application: Application): boolean {
-    return false; // TODO: decide how to determin
-  }
-
-  /**
-   * Return the bucket this application belongs to. Either:
-   *  priority
-   *  citizen
-   *  secondary
-   *  unqualified
-   *
-   */
-  protected applicationBucket(application: Application): Bucket {
-    if (false) {
-      return Bucket.Priority; // TODO: decide how to determine priority
-    } else if (application.citizenship_declaration.name === "citizen") {
-      return Bucket.Citizen;
-    } else {
-      return Bucket.Noncitizen;
-    }
-    return Bucket.Unqualified;
-    // TODO: decide how to determine unqualified
-  }
-
-  /**
-   * Return the category this application belongs to. Either:
-   *  primary
-   *  optional
-   *  screened-out
-   * @param {Application} application
-   */
-  protected applicationCategory(application: Application): Category {
-    if (this.isScreenedOut(application)) {
-      return Category.ScreenedOut;
-    }
-    const bucket = this.applicationBucket(application);
-    switch (bucket) {
-      case Bucket.Priority:
-      case Bucket.Citizen:
-        return Category.Primary;
-      case Bucket.Noncitizen:
-      case Bucket.Unqualified:
-      default:
-        return Category.Optional;
-    }
-  }
-
   public render(): React.ReactElement {
     const reviewStatusOptions = this.props.reviewStatuses.map(status => {
       return { value: status.id, label: status.name };
     });
-    const categories = [
-      {
-        title: "Under Consideration",
-        description: "Blah blah",
-        showScreenOutAll: false,
-        buckets: [
-          {
-            title: "Priority Applicants",
-            description: "blah",
-            applications: this.state.applications.filter(
-              application =>
-                !this.isScreenedOut(application) &&
-                this.applicationBucket(application) === Bucket.Priority
-            ),
-            reviewStatusOptions: reviewStatusOptions
-          },
-          {
-            title: "Veterans and Canadian Citizens",
-            description: "blah",
-            applications: this.state.applications.filter(
-              application =>
-                !this.isScreenedOut(application) &&
-                this.applicationBucket(application) === Bucket.Citizen
-            ),
-            reviewStatusOptions: reviewStatusOptions
-          }
-        ]
-      },
-      {
-        title: "Optional Consideration",
-        description: "Blah blah",
-        showScreenOutAll: true,
-        buckets: [
-          {
-            title: "Non-Canadian Citizens",
-            description: "blah",
-            applications: this.state.applications.filter(
-              application =>
-                !this.isScreenedOut(application) &&
-                this.applicationBucket(application) === Bucket.Noncitizen
-            ),
-            reviewStatusOptions: reviewStatusOptions
-          },
-          {
-            title: "Don't Meed Essential Criteria",
-            description: "blah",
-            applications: this.state.applications.filter(
-              application =>
-                !this.isScreenedOut(application) &&
-                this.applicationBucket(application) === Bucket.Unqualified
-            ),
-            reviewStatusOptions: reviewStatusOptions
-          }
-        ]
-      },
-      {
-        title: "No Longer Under Consideration",
-        description: "Blah blah",
-        showScreenOutAll: false,
-        buckets: [
-          {
-            title: "Priority Applicants",
-            description: "blah",
-            applications: this.state.applications.filter(
-              application =>
-                this.isScreenedOut(application) &&
-                this.applicationBucket(application) === Bucket.Priority
-            ),
-            reviewStatusOptions: reviewStatusOptions
-          },
-          {
-            title: "Canadian Citizens and Veterans",
-            description: "blah",
-            applications: this.state.applications.filter(
-              application =>
-                this.isScreenedOut(application) &&
-                this.applicationBucket(application) === Bucket.Citizen
-            ),
-            reviewStatusOptions: reviewStatusOptions
-          },
-          {
-            title: "Non-Canadian Citizens",
-            description: "blah",
-            applications: this.state.applications.filter(
-              application =>
-                this.isScreenedOut(application) &&
-                this.applicationBucket(application) === Bucket.Noncitizen
-            ),
-            reviewStatusOptions: reviewStatusOptions
-          },
-          {
-            title: "Don't Meed Essential Criteria",
-            description: "blah",
-            applications: this.state.applications.filter(
-              application =>
-                this.isScreenedOut(application) &&
-                this.applicationBucket(application) === Bucket.Unqualified
-            ),
-            reviewStatusOptions: reviewStatusOptions
-          }
-        ]
-      }
-    ];
+
     return (
       <ReviewApplicationsView
         title={this.props.job.title}
         classification={this.props.job.classification}
-        categories={categories}
+        applications={this.state.applications}
+        reviewStatusOptions={reviewStatusOptions}
       />
     );
   }

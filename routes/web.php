@@ -263,7 +263,7 @@ Route::group(
                     ->where('jobPoster', '[0-9]+')
                     ->name('manager.jobs.store');
 
-                Route::get('jobs{jobPoster}/applications', 'ApplicationByJobController@index')
+                Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
                     ->where('jobPoster', '[0-9]+')
                     ->name('manager.jobs.applications');
 
