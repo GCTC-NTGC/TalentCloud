@@ -4,26 +4,96 @@
     Manager - Job Index Layout
 
 ============================================================================= #}
-<div class="manager-job-index__section-wrapper">
 
-    <div class="container--layout">
+{# New Manager Poster Index #}
 
-        <div class="flex-grid">
+    <section class="manager-poster-index">
 
-            {# Include Sidebar #}
+        <div class="container--layout-xl">
 
-                {% include "manager/job_index/sidebar" %}
+            {# Legend & New Draft Button #}
 
-            {# Poster Content #}
+                <div class="flex-grid gutter middle">
 
-                <div class="manager-job-index__content-wrapper box lg-3of4">
+                    <div class="box med-1of2">
 
-                    {% include "manager/job_index/index" %}
+                        <div class="poster-legend">
+                            <div class="flex-grid middle">
+                                <div class="">
+                                    <span>{{ jobs_l10n.legend }}</span>
+                                </div>
+                                <div class="">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    <span>{{ jobs_l10n.draft_poster }}</span>
+                                </div>
+                                <div class="">
+                                    <i class="fas fa-hourglass-half"></i>
+                                    <span>{{ jobs_l10n.submitted_published }}</span>
+                                </div>
+                                <div class=" action-required">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <span>{{ jobs_l10n.action_required }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="box med-1of2 new-poster-button-wrapper">
+
+                        <a
+                            class="button--blue"
+                            href="{{ route('manager.jobs.create', job) }}"
+                            title="{{jobs_l10n.create_job_poster}}">
+                            + {{ jobs_l10n.create_poster }}
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {# Active Poster Section #}
+
+                <h3 class="heading--03">{{ jobs_l10n.active_posters }}</h3>
+
+                <div class="active-posters">
+
+                    {% if jobs is empty %}
+
+                        <div class="posters-null-state active">
+                            <span>{{ jobs_l10n.no_active_posters }}</span>
+                        </div>
+
+                    {% else %}
+
+                        {% for job in jobs %}
+
+                            {# Note:
+                                - Posters must have 1 of 4 classes: draft, submitted, published, closed.
+                                - These states must be changed through certain interactions outlined below as well as updated server side to prevent certain actions on the user's behalf.
+                            #}
+                            {% include "manager/job_index/job" %}
+
+                        {% endfor %}
+
+                    {% endif %}
+
+                </div>
+
+            {# Active Poster Section #}
+
+                {# Note: this section is temporarily faked until archiving becomes a real thing. #}
+
+                <h3 class="heading--03">{{ jobs_l10n.archived_posters }}</h3>
+
+                <div class="archived-posters">
+
+                    <div class="posters-null-state active">
+                        <span>{{ jobs_l10n.no_archived_posters }}</span>
+                    </div>
 
                 </div>
 
         </div>
 
-    </div>
-
-</div>
+    </section>

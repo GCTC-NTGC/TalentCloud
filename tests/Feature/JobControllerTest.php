@@ -6,6 +6,9 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Mail;
+
+use Jenssegers\Date\Date;
 
 use App\Models\Applicant;
 use App\Models\Criteria;
@@ -18,6 +21,7 @@ use App\Models\Manager;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
 use Doctrine\Common\Cache\VoidCache;
+use App\Mail\JobPosterReviewRequested;
 
 class JobControllerTest extends TestCase
 {
@@ -90,8 +94,34 @@ class JobControllerTest extends TestCase
             ->get('manager/jobs');
         $response->assertStatus(200);
 
-        $response->assertSee('<h3>' . $this->jobPoster->title . '</h3>');
-        $response->assertDontSee('<h3>' . $this->otherJobPoster->title . '</h3>');
+        $response->assertSee($this->jobPoster->title);
+        $response->assertDontSee($this->otherJobPoster->title);
+    }
+
+    /**
+     * Ensure a Job Poster can be submitted for review.
+     *
+     * @return void
+     */
+    public function testSubmitForReview() : void
+    {
+        Mail::fake();
+
+        $jobPoster = $this->jobPoster;
+
+        $response = $this->followingRedirects()
+            ->actingAs($this->manager->user)
+            ->post("manager/jobs/$jobPoster->id/review");
+
+        $response->assertStatus(200);
+
+        $jobPoster->refresh();
+
+        $this->assertInstanceOf(Date::class, $jobPoster->review_requested_at);
+
+        Mail::assertSent(JobPosterReviewRequested::class, function ($mail) use ($jobPoster) {
+            return $mail->jobPoster->id === $jobPoster->id;
+        });
     }
 
     /**
