@@ -198,7 +198,11 @@ interface BucketViewProps {
  */
 const BucketView: React.StatelessComponent<BucketViewProps> = (
   props
-): React.ReactElement => {
+): React.ReactElement | null => {
+  if (props.applications.length === 0) {
+    return null;
+  }
+
   return (
     <div className="accordion applicant-bucket">
       <button
@@ -245,14 +249,9 @@ interface CategoryViewProps {
 
 const CategoryView: React.StatelessComponent<CategoryViewProps> = (
   props
-): React.ReactElement => {
-  {
-    /* Applicant Categories
-            Categories have 3 class determined states:
-                - primary (priority, veteran, and citizen candidates)
-                - secondary (non-canadians, unqualified canadians)
-                - tertiary (all candidates who have been screened out)
-        */
+): React.ReactElement | null => {
+  if (props.applications.length === 0) {
+    return null;
   }
 
   const buckets = [
