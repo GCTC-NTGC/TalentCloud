@@ -120,4 +120,8 @@ return [
         ],
     ],
 
+    // Email of Job Posting Reviewer
+
+    'reviewer_email' => env('REVIEWER_EMAIL')
+
 ];
