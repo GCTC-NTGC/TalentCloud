@@ -66,10 +66,10 @@ export interface User {
 export interface ApplicationReview {
   id: number;
   review_status_id: number | null;
-  review_status: ReviewStatus;
-  notes: string;
+  notes: string | null;
   created_at: Date;
   updated_at: Date;
+  review_status: ReviewStatus | null;
 }
 
 type ReviewStatusName = "screened_out" | "still_thinking" | "still_in";

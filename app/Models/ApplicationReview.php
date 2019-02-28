@@ -35,7 +35,7 @@ class ApplicationReview extends Model
      *
      * @var array
      */
-    protected $appends = ['review_status'];
+    protected $with = ['review_status'];
 
     public function job_application() {
         return $this->belongsTo(JobApplication::class);

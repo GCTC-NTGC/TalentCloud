@@ -4,52 +4,53 @@ import route from "../../helpers/route";
 import Select, { SelectOption } from "../Select";
 import { Application } from "../types";
 
-interface ApplicationReviewProps {
+interface ApplicationViewProps {
   application: Application;
   reviewStatusOptions: SelectOption<number>[];
+  onStatusChange: (applicationId: number, statusId: number | null) => void;
+  onNotesChange: (applicationId: number, notes: string | null) => void;
 }
 
-interface ApplicationReviewState {
+interface ApplicationViewState {
   selectedStatusId: number | undefined;
 }
 
-/**
- * Applicants and Their States
- * Applicants contain 3 different points of data that can alter their state:
- *   - Their current status:
- *     - in (screened in)
- *     - out (screened out)
- *     - maybe (saved for review)
- *     - null (the manager hasn't yet taken an action on this applicant)
- *   - Whether a note has been created regarding their application:
- *     - true
- *     - false
- */
-export default class ApplicationReview extends React.Component<
-  ApplicationReviewProps,
-  ApplicationReviewState
-  > {
-  public constructor(props: ApplicationReviewProps) {
+export default class ApplicationView extends React.Component<
+  ApplicationViewProps,
+  ApplicationViewState
+> {
+  public constructor(props: ApplicationViewProps) {
     super(props);
     this.state = {
       selectedStatusId:
         this.props.application.application_review &&
-          this.props.application.application_review.review_status_id
+        this.props.application.application_review.review_status_id
           ? this.props.application.application_review.review_status_id
           : undefined
     };
-    this.onStatusChange = this.onStatusChange.bind(this);
+    this.handleStatusChange = this.handleStatusChange.bind(this);
   }
 
-  onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+  handleStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     const value = event.target.value ? parseInt(event.target.value) : undefined;
     this.setState({ selectedStatusId: value });
+  }
+
+  /**
+   * When save is clicked, it is only necessary to save the status
+   * @param event
+   */
+  handleSaveClicked(): void {
+    const status = this.state.selectedStatusId
+      ? this.state.selectedStatusId
+      : null;
+    this.props.onStatusChange(this.props.application.id, status);
   }
 
   render() {
     const reviewStatus =
       this.props.application.application_review &&
-        this.props.application.application_review.review_status
+      this.props.application.application_review.review_status
         ? this.props.application.application_review.review_status.name
         : null;
     const statusIconClass = className("fas", {
@@ -78,14 +79,14 @@ export default class ApplicationReview extends React.Component<
             {/* This span only shown for veterans */}
             {(this.props.application.veteran_status.name == "current" ||
               this.props.application.veteran_status.name == "past") && (
-                <span className="veteran-status">
-                  <img
-                    alt="The Talent Cloud veteran icon."
-                    src="/images/icon_veteran.svg"
-                  />
-                  Veteran
+              <span className="veteran-status">
+                <img
+                  alt="The Talent Cloud veteran icon."
+                  src="/images/icon_veteran.svg"
+                />
+                Veteran
               </span>
-              )}
+            )}
           </div>
 
           <div className="box lg-2of11 applicant-links">
@@ -116,7 +117,7 @@ export default class ApplicationReview extends React.Component<
               selected={this.state.selectedStatusId}
               nullSelection="Not Reviewed"
               options={this.props.reviewStatusOptions}
-              onChange={this.onStatusChange}
+              onChange={this.handleStatusChange}
             />
           </div>
 
@@ -134,7 +135,11 @@ export default class ApplicationReview extends React.Component<
             {/* Save Button
                         This button should be given a "saved" class when React is finished submitting the data. This class should then be removed when any element for this applicant has been changed, prompting the user to save again.
                     */}
-            <button className="button--blue light-bg" type="button">
+            <button
+              className="button--blue light-bg"
+              type="button"
+              onClick={() => this.handleSaveClicked()}
+            >
               <span className="default-copy">Save</span>
               <span className="saved-copy">Saved</span>
             </button>

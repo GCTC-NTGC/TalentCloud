@@ -15,6 +15,6 @@ require('./bootstrap');
 //require('./components/JobPoster');
 //require('./components/Reference');
 //require('./components/ReferenceList');
-require('./components/ApplicationReview/ReviewApplications');
+require('./components/ApplicationReview/ReviewApplicationsContainer');
 
 //import ReviewApplications from './components/ReviewApplications';

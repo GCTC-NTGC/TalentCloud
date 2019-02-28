@@ -24,7 +24,6 @@
         "@types/react-dom": "^16.8.2",
         "@typescript-eslint/eslint-plugin": "^1.4.0",
         "@typescript-eslint/parser": "^1.4.0",
-        "axios": "^0.18",
         "cross-env": "^5.2.0",
         "cssnano": "^4.1.7",
         "eslint": "^5.14.1",
@@ -70,6 +69,7 @@
         }
     },
     "dependencies": {
+        "axios": "^0.18.0",
         "classnames": "^2.2.6",
         "es6-promise": "^4.2.5",
         "sweetalert2": "^8.2.2"

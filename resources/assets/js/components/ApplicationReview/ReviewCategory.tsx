@@ -1,5 +1,5 @@
 import React from "react";
-import { Application } from "../types";
+import { Application, ApplicationReview } from "../types";
 import { SelectOption } from "../Select";
 import { applicationBucket } from "./helpers";
 import ApplicantBucket from "./ApplicantBucket";
@@ -10,6 +10,8 @@ interface ReviewCategoryProps {
   showScreenOutAll: boolean;
   applications: Application[];
   reviewStatusOptions: SelectOption<number>[];
+  onStatusChange: (applicationId: number, statusId: number | null) => void;
+  onNotesChange: (applicationId: number, notes: string | null) => void;
 }
 
 const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = (
@@ -74,6 +76,8 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = (
           key={bucket.title}
           {...bucket}
           reviewStatusOptions={props.reviewStatusOptions}
+          onStatusChange={props.onStatusChange}
+          onNotesChange={props.onNotesChange}
         />
       ))}
     </div>

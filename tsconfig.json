@@ -3,7 +3,8 @@
         "jsx": "react",
         "esModuleInterop": true,
         "target": "es6",
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "moduleResolution": "node"
     },
     // "include": [
     //     "resources/assets/js/**/*"

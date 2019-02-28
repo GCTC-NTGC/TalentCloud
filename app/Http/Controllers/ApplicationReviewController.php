@@ -34,12 +34,12 @@ class ApplicationReviewController extends Controller
             $review->job_application()->associate($application);
         }
         $review->fill([
-            'review_status_id' => $request->input('review_status'),
+            'review_status_id' => $request->input('review_status_id'),
             'notes' => $request->input('notes'),
         ]);
         $review->save();
 
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return $review->toJson();
         }
 

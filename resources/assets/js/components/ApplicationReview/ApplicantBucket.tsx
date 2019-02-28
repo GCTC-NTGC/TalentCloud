@@ -1,13 +1,15 @@
 import React from "react";
-import { Application } from "../types";
+import { Application, ApplicationReview } from "../types";
 import { SelectOption } from "../Select";
-import ApplicationReview from "./ApplicationReview";
+import ApplicationView from "./ApplicationView";
 
 interface ApplicantBucketProps {
   title: string;
   description: string;
   applications: Application[];
   reviewStatusOptions: SelectOption<number>[];
+  onStatusChange: (applicationId: number, statusId: number | null) => void;
+  onNotesChange: (applicationId: number, notes: string | null) => void;
 }
 
 /**
@@ -54,10 +56,12 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = (
         <p>{props.description}</p>
 
         {props.applications.map(application => (
-          <ApplicationReview
+          <ApplicationView
             key={application.id}
             application={application}
             reviewStatusOptions={props.reviewStatusOptions}
+            onStatusChange={props.onStatusChange}
+            onNotesChange={props.onNotesChange}
           />
         ))}
       </div>
