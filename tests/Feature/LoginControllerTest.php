@@ -64,6 +64,25 @@ class LoginControllerTest extends TestCase
     }
 
     /**
+     * Ensure a user can log in, is case insensitive.
+     *
+     * @return void
+     */
+    public function testLoginIsCaseInsensitive() : void
+    {
+        $user = factory(User::class)->create([
+            'email' => 'TEST@test.com'
+        ]);
+        $credentials = [
+            'email' => 'test@TEST.com',
+            'password' => 'password',
+        ];
+        $response = $this->post(route('login'), $credentials);
+        $response->assertRedirect(route('home'));
+        $this->assertAuthenticatedAs($user);
+    }
+
+    /**
      * Ensure login fails with wrong credentials.
      *
      * @return void
