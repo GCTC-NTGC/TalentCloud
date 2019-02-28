@@ -80,6 +80,3 @@ export interface ReviewStatus {
   id: number;
   name: ReviewStatusName;
 }
-
-export type SavedStatus = "saved" | "saving" | "unsaved";
-export interface SavedStatusList {id: number, savedStatus: SavedStatus}[];

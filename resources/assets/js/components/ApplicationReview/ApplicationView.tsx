@@ -2,7 +2,7 @@ import React from "react";
 import className from "classnames";
 import route from "../../helpers/route";
 import Select, { SelectOption } from "../Select";
-import { Application, SavedStatus } from "../types";
+import { Application } from "../types";
 import Swal from "sweetalert2";
 
 interface ApplicationViewProps {
@@ -10,11 +10,7 @@ interface ApplicationViewProps {
   reviewStatusOptions: SelectOption<number>[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
-  savedStatus: SavedStatus;
-  onSavedStatusChange: (
-    applicationId: number,
-    savedStatus: SavedStatus
-  ) => void;
+  isSaving: boolean;
 }
 
 interface ApplicationViewState {
@@ -45,7 +41,6 @@ export default class ApplicationView extends React.Component<
         ? parseInt(event.target.value)
         : undefined;
     this.setState({ selectedStatusId: value });
-    this.props.onSavedStatusChange(this.props.application.id, "unsaved");
   }
 
   /**
@@ -97,17 +92,34 @@ export default class ApplicationView extends React.Component<
       "fa-exclamation-circle": reviewStatus == null
     });
 
-    const getSaveButtonText = (savedStatus: SavedStatus): string => {
-      switch (this.props.savedStatus) {
-        case "saved":
-          return "Saved";
-        case "saving":
-          return "Saving...";
-        case "unsaved":
-          return "Save";
+    /**
+     * Returns true only if this.state.selectedStatusId matches the review
+     * status of props.application
+     */
+    const isUnchanged = (): boolean => {
+      if (
+        this.props.application.application_review === null ||
+        this.props.application.application_review.review_status_id === null
+      ) {
+        return this.state.selectedStatusId === undefined;
+      } else {
+        return (
+          this.props.application.application_review.review_status_id ===
+          this.state.selectedStatusId
+        );
       }
     };
-    const saveButtonText = getSaveButtonText(this.props.savedStatus);
+
+    const getSaveButtonText = (): string => {
+      if (this.props.isSaving) {
+        return "Saving...";
+      } else if (isUnchanged()) {
+        return "Saved";
+      } else {
+        return "Save";
+      }
+    };
+    const saveButtonText = getSaveButtonText();
     const noteButtonText =
       this.props.application.application_review &&
       this.props.application.application_review.notes

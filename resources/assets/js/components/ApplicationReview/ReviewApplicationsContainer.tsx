@@ -1,12 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {
-  Job,
-  Application,
-  ReviewStatus,
-  ApplicationReview,
-  SavedStatus
-} from "../types";
+import { Job, Application, ReviewStatus, ApplicationReview } from "../types";
 import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
 import route from "../../helpers/route";
@@ -20,12 +14,12 @@ interface ReviewApplicationsProps {
 
 interface ReviewApplicationsState {
   applications: Application[];
-  savedStatuses: { applicationId: number; savedStatus: SavedStatus }[];
+  savingStatuses: { applicationId: number; isSaving: boolean }[];
 }
 
 interface ReviewSubmitForm {
-  review_status_id ?: number | null;
-  notes ?: string | null;
+  review_status_id?: number | null;
+  notes?: string | null;
 }
 
 export default class ReviewApplicationsContainer extends React.Component<
@@ -36,17 +30,17 @@ export default class ReviewApplicationsContainer extends React.Component<
     super(props);
     this.state = {
       applications: props.initApplications,
-      savedStatuses: props.initApplications.map(application => {
+      savingStatuses: props.initApplications.map(application => {
         return {
           applicationId: application.id,
-          savedStatus: "saved" as SavedStatus
+          isSaving: false
         };
       })
     };
     this.handleStatusChange = this.handleStatusChange.bind(this);
     this.handleNotesChange = this.handleNotesChange.bind(this);
     this.updateReviewState = this.updateReviewState.bind(this);
-    this.handleSavedStatusChange = this.handleSavedStatusChange.bind(this);
+    this.handleSavingStatusChange = this.handleSavingStatusChange.bind(this);
   }
 
   updateReviewState(applicationId: number, review: ApplicationReview): void {
@@ -62,32 +56,29 @@ export default class ReviewApplicationsContainer extends React.Component<
     );
   }
 
-  handleSavedStatusChange(
-    applicationId: number,
-    savedStatus: SavedStatus
-  ): void {
-    const statuses = this.state.savedStatuses.map(item => {
+  handleSavingStatusChange(applicationId: number, isSaving: boolean): void {
+    const statuses = this.state.savingStatuses.map(item => {
       return item.applicationId == applicationId
-        ? { applicationId: applicationId, savedStatus: savedStatus }
+        ? { applicationId: applicationId, isSaving: isSaving }
         : Object.assign({}, item);
     });
-    this.setState({ savedStatuses: statuses });
+    this.setState({ savingStatuses: statuses });
   }
 
   submitReview(applicationId: number, review: ReviewSubmitForm): void {
-    this.handleSavedStatusChange(applicationId, "saving");
+    this.handleSavingStatusChange(applicationId, true);
     axios
       .put(route("application_reviews.update", applicationId), review)
       .then(response => {
         const newReview = response.data as ApplicationReview;
         this.updateReviewState(applicationId, newReview);
-        this.handleSavedStatusChange(applicationId, "saved");
+        this.handleSavingStatusChange(applicationId, false);
       })
       .catch(error => {
         //TODO: show errors nicer
         console.log(error);
         alert("Something went wrong, please try again later");
-        this.handleSavedStatusChange(applicationId, "unsaved");
+        this.handleSavingStatusChange(applicationId, false);
       });
   }
 
@@ -132,8 +123,7 @@ export default class ReviewApplicationsContainer extends React.Component<
         reviewStatusOptions={reviewStatusOptions}
         onStatusChange={this.handleStatusChange}
         onNotesChange={this.handleNotesChange}
-        savedStatuses={this.state.savedStatuses}
-        onSavedStatusChange={this.handleSavedStatusChange}
+        savingStatuses={this.state.savingStatuses}
       />
     );
   }
