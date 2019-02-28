@@ -179,6 +179,10 @@ return [
             'head',
             'last',
             'mix',
+            'humanizeDateDiff',
+            'humanizeDate',
+            'humanizeTime',
+            'humanizeLastDay'
         ],
 
         /*
