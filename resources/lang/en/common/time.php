@@ -9,8 +9,8 @@ return [
     * The following language lines are used when displaying relative timestamps.
     *
     */
-    'day' => ':count day|:count days',
-    'hour' => ':count hour|:count hours',
-    'minute' => ':count minute|:count minutes',
-    'second' => ':count second|:count seconds',
+    'day' => ':count Day|:count Days',
+    'hour' => ':count Hour|:count Hours',
+    'minute' => ':count Minute|:count Minutes',
+    'second' => ':count Second|:count Seconds',
 ];

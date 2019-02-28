@@ -8,19 +8,20 @@
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
-            "version": "v2.4.3",
+            "version": "v2.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/almasaeed2010/AdminLTE.git",
-                "reference": "b3acb63ac56b13eb45b36e628b384a9a2507b50e"
+                "reference": "d9e68301848a95dff2e2dbef6569e617a9b3fa30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/almasaeed2010/AdminLTE/zipball/b3acb63ac56b13eb45b36e628b384a9a2507b50e",
-                "reference": "b3acb63ac56b13eb45b36e628b384a9a2507b50e",
+                "url": "https://api.github.com/repos/almasaeed2010/AdminLTE/zipball/d9e68301848a95dff2e2dbef6569e617a9b3fa30",
+                "reference": "d9e68301848a95dff2e2dbef6569e617a9b3fa30",
                 "shasum": ""
             },
             "require": {
+                "bower-asset/jquery": ">=1.9.0 <4.0.0",
                 "composer/installers": "1.*"
             },
             "type": "template",
@@ -47,7 +48,7 @@
                 "theme",
                 "web"
             ],
-            "time": "2018-02-04T12:54:57+00:00"
+            "time": "2018-07-15T18:48:11+00:00"
         },
         {
             "name": "backpack/base",
@@ -256,6 +257,38 @@
                 "webprofiler"
             ],
             "time": "2019-02-04T10:23:43+00:00"
+        },
+        {
+            "name": "bower-asset/jquery",
+            "version": "3.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jquery/jquery-dist.git",
+                "reference": "9e8ec3d10fad04748176144f108d7355662ae75e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/9e8ec3d10fad04748176144f108d7355662ae75e",
+                "reference": "9e8ec3d10fad04748176144f108d7355662ae75e",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "dist/jquery.js",
+                "bower-asset-ignore": [
+                    "package.json"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "keywords": [
+                "browser",
+                "javascript",
+                "jquery",
+                "library"
+            ],
+            "time": "2018-01-20T17:26:57+00:00"
         },
         {
             "name": "codezero/laravel-unique-translation",
@@ -2093,16 +2126,16 @@
         },
         {
             "name": "mcamara/laravel-localization",
-            "version": "1.3.16",
+            "version": "1.3.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mcamara/laravel-localization.git",
-                "reference": "e82a6c9d809b82afb7ae226f18ac3cb077a18754"
+                "reference": "933df7f51130ef6345cc38ee97e22b134edd1dbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/e82a6c9d809b82afb7ae226f18ac3cb077a18754",
-                "reference": "e82a6c9d809b82afb7ae226f18ac3cb077a18754",
+                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/933df7f51130ef6345cc38ee97e22b134edd1dbe",
+                "reference": "933df7f51130ef6345cc38ee97e22b134edd1dbe",
                 "shasum": ""
             },
             "require": {
@@ -2151,7 +2184,7 @@
                 "localization",
                 "php"
             ],
-            "time": "2018-10-30T06:33:55+00:00"
+            "time": "2019-02-20T15:04:36+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -4124,7 +4157,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
