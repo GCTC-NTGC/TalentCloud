@@ -3,6 +3,7 @@ import className from "classnames";
 import route from "../../helpers/route";
 import Select, { SelectOption } from "../Select";
 import { Application, SavedStatus } from "../types";
+import Swal from "sweetalert2";
 
 interface ApplicationViewProps {
   application: Application;
@@ -34,6 +35,8 @@ export default class ApplicationView extends React.Component<
           : undefined
     };
     this.handleStatusChange = this.handleStatusChange.bind(this);
+    this.handleSaveClicked = this.handleSaveClicked.bind(this);
+    this.showNotes = this.showNotes.bind(this);
   }
 
   handleStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
@@ -54,6 +57,31 @@ export default class ApplicationView extends React.Component<
       ? this.state.selectedStatusId
       : null;
     this.props.onStatusChange(this.props.application.id, status);
+  }
+
+  showNotes(): void {
+    const notes =
+      this.props.application.application_review &&
+      this.props.application.application_review &&
+      this.props.application.application_review.notes
+        ? this.props.application.application_review.notes
+        : "";
+    Swal.fire({
+      title: "Edit notes",
+      type: "question",
+      input: "textarea",
+      showCancelButton: true,
+      confirmButtonColor: "#0A6CBC",
+      cancelButtonColor: "#F94D4D",
+      confirmButtonText: "Save",
+      inputValue: notes
+    }).then(result => {
+      console.log(result);
+      if (result && result.value != undefined) {
+        const value = result.value ? result.value : null;
+        this.props.onNotesChange(this.props.application.id, value);
+      }
+    });
   }
 
   render() {
@@ -80,7 +108,11 @@ export default class ApplicationView extends React.Component<
       }
     };
     const saveButtonText = getSaveButtonText(this.props.savedStatus);
-
+    const noteButtonText =
+      this.props.application.application_review &&
+      this.props.application.application_review.notes
+        ? "Edit Note"
+        : "+ Add a Note";
     return (
       <form className="applicant-summary">
         <div className="flex-grid middle gutter">
@@ -144,12 +176,12 @@ export default class ApplicationView extends React.Component<
           </div>
 
           <div className="box lg-2of11 applicant-notes">
-            {/* Add a Note
-                        This button should trigger a dialogue that allows the manager to edit and save a textarea element unique to this applicant/application. This dialoue should contain a "Cancel" and "Save" button.
-                        Change the text depending on whether note exists yet
-                    */}
-            <button className="button--outline" type="button">
-              + Add a Note / Edit Note
+            <button
+              className="button--outline"
+              type="button"
+              onClick={this.showNotes}
+            >
+              {noteButtonText}
             </button>
           </div>
 

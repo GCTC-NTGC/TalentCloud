@@ -23,6 +23,11 @@ interface ReviewApplicationsState {
   savedStatuses: { applicationId: number; savedStatus: SavedStatus }[];
 }
 
+interface ReviewSubmitForm {
+  review_status_id ?: number | null;
+  notes ?: string | null;
+}
+
 export default class ReviewApplicationsContainer extends React.Component<
   ReviewApplicationsProps,
   ReviewApplicationsState
@@ -40,11 +45,11 @@ export default class ReviewApplicationsContainer extends React.Component<
     };
     this.handleStatusChange = this.handleStatusChange.bind(this);
     this.handleNotesChange = this.handleNotesChange.bind(this);
-    this.updateReview = this.updateReview.bind(this);
+    this.updateReviewState = this.updateReviewState.bind(this);
     this.handleSavedStatusChange = this.handleSavedStatusChange.bind(this);
   }
 
-  updateReview(applicationId: number, review: ApplicationReview): void {
+  updateReviewState(applicationId: number, review: ApplicationReview): void {
     const updatedApplications = this.state.applications.map(application => {
       if (application.id === applicationId) {
         return Object.assign(application, { application_review: review });
@@ -57,13 +62,33 @@ export default class ReviewApplicationsContainer extends React.Component<
     );
   }
 
-  handleSavedStatusChange(applicationId: number, savedStatus: SavedStatus):void {
+  handleSavedStatusChange(
+    applicationId: number,
+    savedStatus: SavedStatus
+  ): void {
     const statuses = this.state.savedStatuses.map(item => {
       return item.applicationId == applicationId
         ? { applicationId: applicationId, savedStatus: savedStatus }
         : Object.assign({}, item);
     });
-    this.setState({savedStatuses: statuses});
+    this.setState({ savedStatuses: statuses });
+  }
+
+  submitReview(applicationId: number, review: ReviewSubmitForm): void {
+    this.handleSavedStatusChange(applicationId, "saving");
+    axios
+      .put(route("application_reviews.update", applicationId), review)
+      .then(response => {
+        const newReview = response.data as ApplicationReview;
+        this.updateReviewState(applicationId, newReview);
+        this.handleSavedStatusChange(applicationId, "saved");
+      })
+      .catch(error => {
+        //TODO: show errors nicer
+        console.log(error);
+        alert("Something went wrong, please try again later");
+        this.handleSavedStatusChange(applicationId, "unsaved");
+      });
   }
 
   handleStatusChange(applicationId: number, statusId: number | null): void {
@@ -77,24 +102,21 @@ export default class ReviewApplicationsContainer extends React.Component<
     const submitReview = Object.assign(oldReview, {
       review_status_id: statusId
     });
-    this.handleSavedStatusChange(applicationId, "saving");
-    axios
-      .put(route("application_reviews.update", applicationId), submitReview)
-      .then(response => {
-        const newReview = response.data as ApplicationReview;
-        this.updateReview(applicationId, newReview);
-        this.handleSavedStatusChange(applicationId, "saved");
-      })
-      .catch(error => {
-        //TODO: show errors nicer
-        console.log(error);
-        alert("Something went wrong, please try again later");
-        this.handleSavedStatusChange(applicationId, "unsaved");
-      });
+    this.submitReview(applicationId, submitReview);
   }
 
   handleNotesChange(applicationId: number, notes: string | null): void {
-    //TODO: finish me
+    const application = find(this.state.applications, applicationId);
+    if (application === null) {
+      return;
+    }
+    const oldReview = application.application_review
+      ? application.application_review
+      : {};
+    const submitReview = Object.assign(oldReview, {
+      notes: notes
+    });
+    this.submitReview(applicationId, submitReview);
   }
 
   render(): React.ReactElement {
