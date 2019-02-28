@@ -35,10 +35,10 @@ export default class ReviewApplicationsContainer extends React.Component<
       if (application.id === applicationId) {
         return Object.assign(application, {application_review: review});
       } else {
-        return application;
+        return Object.assign({}, application);
       }
     });
-    this.setState({applications: updatedApplications});
+    this.setState({applications: updatedApplications}, ()=>console.log("update happening"));
   }
 
   handleStatusChange(applicationId: number, statusId: number | null): void {

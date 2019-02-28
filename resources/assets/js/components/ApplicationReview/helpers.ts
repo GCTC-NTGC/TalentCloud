@@ -8,7 +8,10 @@ type Category = "primary" | "optional" | "screened-out";
  * Returns true if application has been screened out.
  */
 export function isScreenedOut(application: Application): boolean {
-  return false; // TODO: decide how to determin
+  return application.application_review &&
+    application.application_review.review_status
+    ? application.application_review.review_status.name == "screened_out"
+    : false; // non-reviewed applicaitons have not been screened-out yet
 }
 
 /**

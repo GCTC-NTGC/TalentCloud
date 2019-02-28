@@ -32,7 +32,10 @@ export default class ApplicationView extends React.Component<
   }
 
   handleStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    const value = event.target.value ? parseInt(event.target.value) : undefined;
+    const value =
+      event.target.value && !isNaN(parseInt(event.target.value))
+        ? parseInt(event.target.value)
+        : undefined;
     this.setState({ selectedStatusId: value });
   }
 

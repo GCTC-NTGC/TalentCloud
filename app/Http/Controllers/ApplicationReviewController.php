@@ -21,7 +21,7 @@ class ApplicationReviewController extends Controller
     public function updateForApplication(Request $request, JobApplication $application)
     {
         $request->validate([
-            'review_status' => [
+            'review_status_id' => [
                 'nullable',
                 Rule::in(ReviewStatus::all()->pluck('id')->toArray())
             ],
@@ -40,7 +40,7 @@ class ApplicationReviewController extends Controller
         $review->save();
 
         if ($request->ajax()) {
-            return $review->toJson();
+            return $review->fresh()->toJson();
         }
 
         return redirect()->back();
