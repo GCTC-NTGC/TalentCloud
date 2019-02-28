@@ -67,6 +67,8 @@ return [
     'language' => [
         'sidebar_title' => 'View this job\'s language requirements.',
         'title' => 'Language Requirements',
+        'english_icon_title' => 'An icon representing an English language requirement.',
+        'french_icon_title' => 'An icon representing an French language requirement.',
         'english_essential_context' => 'This position has an English essential requirement. The manager may choose to test your proficiency in English.',
         'french_essential_context' => 'This position has an French essential requirement. The manager may choose to test your proficiency in French.',
         'bilingual_context_01' => 'This position has a bilingual requirement. This means that you must meet the proficiency levels required, in both English and French, in each of the 3 language skills: comprehension, writing, and oral communication.',

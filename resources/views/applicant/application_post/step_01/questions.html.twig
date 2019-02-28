@@ -112,7 +112,10 @@
 
             </div>
 
-        {# Language Requirement Declaration #}
+        {# Language Requirement Declaration:
+            - Only one of these checkboxes appears on any given job application.
+            - This checkbox MUST be checked in order to submit the application.
+        #}
         <div class="application-post__language-declaration">
             <span>{{ application_template.language_declaration }}</span>
             <div class="wrapper">
@@ -120,8 +123,8 @@
                 <div>
                     <label
                         class="flex-grid"
-                        for="">
-                        <input id="" type="checkbox" />
+                        for="langDeclaration">
+                        <input id="langDeclaration" type="checkbox" required />
                         <p class="box fit">{{ application_template.english_essential }}</p>
                     </label>
                 </div>
@@ -129,8 +132,8 @@
                 <div>
                     <label
                         class="flex-grid"
-                        for="">
-                        <input id="" type="checkbox" />
+                        for="langDeclaration">
+                        <input id="langDeclaration" type="checkbox" required />
                         <p class="box fit">{{ application_template.french_essential }}</p>
                     </label>
                 </div>
@@ -138,8 +141,8 @@
                 <div>
                     <label
                         class="flex-grid"
-                        for="">
-                        <input id="" type="checkbox" />
+                        for="langDeclaration">
+                        <input id="langDeclaration" type="checkbox" required />
                         <p class="box fit">{{ application_template.bilingual }}</p>
                     </label>
                 </div>
@@ -147,8 +150,8 @@
                 <div>
                     <label
                         class="flex-grid"
-                        for="">
-                        <input id="" type="checkbox" />
+                        for="langDeclaration">
+                        <input id="langDeclaration" type="checkbox" required />
                         <p class="box fit">{{ application_template.english_french }}</p>
                     </label>
                 </div>
@@ -156,7 +159,7 @@
             </div>
         </div>
 
-        {# Language #}
+        {# Language for Process #}
 
             <div
                 class="application-post__veterans">
