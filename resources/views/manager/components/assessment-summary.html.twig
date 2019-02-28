@@ -22,7 +22,7 @@
                     <ul class="skill-list">
                         {% for skill in skills %}
                             {% for criterion in job.criteria %}
-                                {% if skill == criterion.skill.skill %}
+                                {% if skill == criterion.skill.name %}
                                     <li class="{% if criterion.criteria_type.name == "essential" %}green{% else %}blue{% endif %}">{{ skill }} ({{ criterion.level_name|title }})</li>
                                 {% endif %}
                             {% endfor %}
