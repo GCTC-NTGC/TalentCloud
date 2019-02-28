@@ -1,7 +1,8 @@
 import React from "react";
-import { Application, ApplicationReview } from "../types";
+import { Application, SavedStatus } from "../types";
 import { SelectOption } from "../Select";
 import ApplicationView from "./ApplicationView";
+import { whereFirst } from "../../helpers/queries";
 
 interface ApplicantBucketProps {
   title: string;
@@ -10,6 +11,8 @@ interface ApplicantBucketProps {
   reviewStatusOptions: SelectOption<number>[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
+  savedStatuses: { applicationId: number; savedStatus: SavedStatus }[];
+  onSavedStatusChange: (applicationId: number, savedStatus: SavedStatus) => void;
 }
 
 /**
@@ -62,6 +65,11 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = (
             reviewStatusOptions={props.reviewStatusOptions}
             onStatusChange={props.onStatusChange}
             onNotesChange={props.onNotesChange}
+            savedStatus={
+              whereFirst(props.savedStatuses, "applicationId", application.id)
+                .savedStatus
+            }
+            onSavedStatusChange={props.onSavedStatusChange}
           />
         ))}
       </div>

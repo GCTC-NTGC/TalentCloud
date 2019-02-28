@@ -1,5 +1,5 @@
 import React from "react";
-import { Application, ApplicationReview } from "../types";
+import { Application, SavedStatus } from "../types";
 import { SelectOption } from "../Select";
 import { applicationBucket } from "./helpers";
 import ApplicantBucket from "./ApplicantBucket";
@@ -12,6 +12,8 @@ interface ReviewCategoryProps {
   reviewStatusOptions: SelectOption<number>[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
+  savedStatuses: { applicationId: number; savedStatus: SavedStatus }[];
+  onSavedStatusChange: (applicationId: number, savedStatus: SavedStatus) => void;
 }
 
 const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = (
@@ -78,6 +80,8 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = (
           reviewStatusOptions={props.reviewStatusOptions}
           onStatusChange={props.onStatusChange}
           onNotesChange={props.onNotesChange}
+          savedStatuses={props.savedStatuses}
+          onSavedStatusChange={props.onSavedStatusChange}
         />
       ))}
     </div>

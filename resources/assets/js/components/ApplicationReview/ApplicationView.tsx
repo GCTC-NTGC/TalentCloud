@@ -2,13 +2,18 @@ import React from "react";
 import className from "classnames";
 import route from "../../helpers/route";
 import Select, { SelectOption } from "../Select";
-import { Application } from "../types";
+import { Application, SavedStatus } from "../types";
 
 interface ApplicationViewProps {
   application: Application;
   reviewStatusOptions: SelectOption<number>[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
+  savedStatus: SavedStatus;
+  onSavedStatusChange: (
+    applicationId: number,
+    savedStatus: SavedStatus
+  ) => void;
 }
 
 interface ApplicationViewState {
@@ -37,6 +42,7 @@ export default class ApplicationView extends React.Component<
         ? parseInt(event.target.value)
         : undefined;
     this.setState({ selectedStatusId: value });
+    this.props.onSavedStatusChange(this.props.application.id, "unsaved");
   }
 
   /**
@@ -62,6 +68,19 @@ export default class ApplicationView extends React.Component<
       "fa-check-circle": reviewStatus == "still_in",
       "fa-exclamation-circle": reviewStatus == null
     });
+
+    const getSaveButtonText = (savedStatus: SavedStatus): string => {
+      switch (this.props.savedStatus) {
+        case "saved":
+          return "Saved";
+        case "saving":
+          return "Saving...";
+        case "unsaved":
+          return "Save";
+      }
+    };
+    const saveButtonText = getSaveButtonText(this.props.savedStatus);
+
     return (
       <form className="applicant-summary">
         <div className="flex-grid middle gutter">
@@ -135,16 +154,12 @@ export default class ApplicationView extends React.Component<
           </div>
 
           <div className="box lg-2of11 applicant-save-button">
-            {/* Save Button
-                        This button should be given a "saved" class when React is finished submitting the data. This class should then be removed when any element for this applicant has been changed, prompting the user to save again.
-                    */}
             <button
               className="button--blue light-bg"
               type="button"
               onClick={() => this.handleSaveClicked()}
             >
-              <span className="default-copy">Save</span>
-              <span className="saved-copy">Saved</span>
+              <span>{saveButtonText}</span>
             </button>
           </div>
         </div>

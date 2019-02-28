@@ -1,7 +1,7 @@
 import React from "react";
-import { Application, ApplicationReview } from "../types";
+import { Application, SavedStatus } from "../types";
 import { SelectOption } from "../Select";
-import {applicationCategory} from "./helpers";
+import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
 
 interface ReviewApplicationsProps {
@@ -11,11 +11,13 @@ interface ReviewApplicationsProps {
   reviewStatusOptions: SelectOption<number>[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
+  savedStatuses: { applicationId: number; savedStatus: SavedStatus }[];
+  onSavedStatusChange: (applicationId: number, savedStatus: SavedStatus) => void;
 }
 
-const ReviewApplications: React.StatelessComponent<
-  ReviewApplicationsProps
-> = (props): React.ReactElement => {
+const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
+  props
+): React.ReactElement => {
   const categories = [
     {
       title: "Under Consideration",
@@ -81,6 +83,8 @@ const ReviewApplications: React.StatelessComponent<
           reviewStatusOptions={props.reviewStatusOptions}
           onStatusChange={props.onStatusChange}
           onNotesChange={props.onNotesChange}
+          savedStatuses={props.savedStatuses}
+          onSavedStatusChange={props.onSavedStatusChange}
         />
       ))}
     </section>
