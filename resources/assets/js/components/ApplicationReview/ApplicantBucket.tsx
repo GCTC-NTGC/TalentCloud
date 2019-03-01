@@ -1,7 +1,7 @@
 import React from "react";
 import { Application } from "../types";
 import { SelectOption } from "../Select";
-import ApplicationView from "./ApplicationView";
+import ApplicationReview from "./ApplicationReview";
 import { whereFirst } from "../../helpers/queries";
 import {
   applicationCompare,
@@ -66,7 +66,7 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = (
         <p>{props.description}</p>
 
         {sortedApplications.map(application => (
-          <ApplicationView
+          <ApplicationReview
             key={application.id}
             application={application}
             reviewStatusOptions={props.reviewStatusOptions}

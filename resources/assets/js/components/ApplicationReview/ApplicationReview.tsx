@@ -6,7 +6,7 @@ import { Application } from "../types";
 import { ReviewStatusId } from "../lookupConstants";
 import Swal from "sweetalert2";
 
-interface ApplicationViewProps {
+interface ApplicationReviewProps {
   application: Application;
   reviewStatusOptions: SelectOption<number>[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
@@ -14,15 +14,15 @@ interface ApplicationViewProps {
   isSaving: boolean;
 }
 
-interface ApplicationViewState {
+interface ApplicationReviewState {
   selectedStatusId: number | undefined;
 }
 
-export default class ApplicationView extends React.Component<
-  ApplicationViewProps,
-  ApplicationViewState
+export default class ApplicationReview extends React.Component<
+  ApplicationReviewProps,
+  ApplicationReviewState
 > {
-  public constructor(props: ApplicationViewProps) {
+  public constructor(props: ApplicationReviewProps) {
     super(props);
     this.state = {
       selectedStatusId:

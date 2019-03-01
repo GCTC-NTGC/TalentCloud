@@ -51,9 +51,7 @@ export default class ReviewApplicationsContainer extends React.Component<
         return Object.assign({}, application);
       }
     });
-    this.setState({ applications: updatedApplications }, () =>
-      console.log("update happening")
-    );
+    this.setState({ applications: updatedApplications });
   }
 
   handleSavingStatusChange(applicationId: number, isSaving: boolean): void {
