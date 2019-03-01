@@ -34,7 +34,7 @@ class ScreeningPlanController extends Controller
                 if (!$plan_type_assessments->isEmpty()) {
                     $assessment_plan[$type->name] = [];
                     foreach ($plan_type_assessments as $assessment) {
-                        $assessment_plan[$type->name][] = $assessment->criterion->skill->skill;
+                        $assessment_plan[$type->name][] = $assessment->criterion->skill->name;
                     }
                 }
             }
