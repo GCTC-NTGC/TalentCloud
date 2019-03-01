@@ -3,10 +3,12 @@ import { Application } from "../types";
 import { SelectOption } from "../Select";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
+import moment from "moment";
 
 interface ReviewApplicationsProps {
   title: string;
   classification: string;
+  closeDateTime: Date;
   applications: Application[];
   reviewStatusOptions: SelectOption<number>[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
@@ -58,7 +60,9 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
 
         <div className="box med-1of2 timer-wrapper">
           <span>
-            <i className="fas fa-stopwatch" /> {/* Number */} Days Since Close
+            <i className="fas fa-stopwatch" />{" "}
+            {moment().diff(moment(props.closeDateTime), "days")} Days Since
+            Close
           </span>
         </div>
       </div>

@@ -119,6 +119,7 @@ export default class ReviewApplicationsContainer extends React.Component<
       <ReviewApplications
         title={this.props.job.title}
         classification={this.props.job.classification}
+        closeDateTime={this.props.job.close_date_time}
         applications={this.state.applications}
         reviewStatusOptions={reviewStatusOptions}
         onStatusChange={this.handleStatusChange}
