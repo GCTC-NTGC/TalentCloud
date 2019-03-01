@@ -22,7 +22,8 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
   const categories = [
     {
       title: "Under Consideration",
-      description: "Blah blah",
+      description:
+        "Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non- candian - citizen applications in the Optional Consideration section",
       showScreenOutAll: false,
       applications: props.applications.filter(
         application => applicationCategory(application) == "primary"
@@ -31,7 +32,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
     },
     {
       title: "Optional Consideration",
-      description: "Blah blah",
+      description: "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
       showScreenOutAll: true,
       applications: props.applications.filter(
         application => applicationCategory(application) == "optional"
@@ -40,7 +41,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
     },
     {
       title: "No Longer Under Consideration",
-      description: "Blah blah",
+      description: "These applications have allready been screened out.",
       showScreenOutAll: false,
       applications: props.applications.filter(
         application => applicationCategory(application) == "screened-out"
@@ -73,13 +74,8 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
         </h3>
 
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          luctus fermentum lorem, vel rhoncus velit vehicula imperdiet. Integer
-          ullamcorper iaculis justo, quis tincidunt ex vulputate ut. Vivamus
-          molestie augue turpis, ut egestas ante aliquam id. Quisque efficitur,
-          metus imperdiet rhoncus pharetra, velit ligula lobortis tortor, vitae
-          imperdiet leo augue ac velit. Vivamus sollicitudin dictum est a
-          tempus. Fusce tempus finibus elit sed lacinia.
+          Contact Talent Cloud to get a list of priorities that applied to this
+          position. They must be reviewed and considered first.
         </p>
       </div>
       {categories.map(category => (

@@ -26,28 +26,30 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = (
   const buckets = [
     {
       title: "Priority Applicants",
-      description: "blah",
+      description:
+        "These are priority applicants for this position. They must be reviewed and considered first.",
       applications: props.applications.filter(
         application => applicationBucket(application) === "priority"
       )
     },
     {
-      title: "Canadian Citizens and Veterans",
-      description: "blah",
+      title: "Veterans and Canadian Citizens",
+      description:
+        "",
       applications: props.applications.filter(
         application => applicationBucket(application) === "citizen"
       )
     },
     {
       title: "Non-Canadian Citizens",
-      description: "blah",
+      description: "",
       applications: props.applications.filter(
         application => applicationBucket(application) === "non-citizen"
       )
     },
     {
       title: "Don't Meed Essential Criteria",
-      description: "blah",
+      description: "",
       applications: props.applications.filter(
         application => applicationBucket(application) === "unqualified"
       )
