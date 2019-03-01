@@ -23,15 +23,15 @@ export function isScreenedOut(application: Application): boolean {
  *
  */
 export function applicationBucket(application: Application): Bucket {
-  if (false) {
+  if (!application.meets_essential_criteria) {
+    return "unqualified";
+  } else if (false) {
     return "priority"; // TODO: decide how to determine priority
   } else if (application.citizenship_declaration.name === "citizen") {
     return "citizen";
   } else {
     return "non-citizen";
   }
-  return "unqualified";
-  // TODO: decide how to determine unqualified
 }
 
 /**

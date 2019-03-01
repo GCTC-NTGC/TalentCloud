@@ -75,6 +75,13 @@ class JobApplication extends BaseModel {
         'experience_saved',
     ];
 
+    /**
+     * The accessors to append to the model's array/json form.
+     *
+     * @var array
+     */
+    protected $appends = ['meets_essential_criteria'];
+
     protected function createApplicantSnapshot($applicant_id) {
         $applicant = Applicant::where('id', $applicant_id)->firstOrFail();
 
@@ -203,5 +210,16 @@ class JobApplication extends BaseModel {
             }
         }
         return true;
+    }
+
+    /**
+     * Accessor for meetsEssentialCriteria function, which
+     * allows this value to be automtacially appended to array/json representation.
+     *
+     * @return boolean
+     */
+    public function getMeetsEssentialCriteriaAttribute():bool
+    {
+        return $this->meetsEssentialCriteria();
     }
 }

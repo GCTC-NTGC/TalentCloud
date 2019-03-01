@@ -24,6 +24,7 @@ export interface Application {
   citizenship_declaration: CitizeshipDeclaration;
   applicant: Applicant;
   application_review: ApplicationReview | null;
+  meets_essential_criteria: boolean;
 }
 
 type VeteranStatusName = "none" | "current" | "past";
