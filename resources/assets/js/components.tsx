@@ -16,5 +16,6 @@ require('./bootstrap');
 //require('./components/Reference');
 //require('./components/ReferenceList');
 require('./components/ApplicationReview/ReviewApplicationsContainer');
+require('./components/ApplicationReview/ApplicationReviewContainer');
 
 //import ReviewApplications from './components/ReviewApplications';

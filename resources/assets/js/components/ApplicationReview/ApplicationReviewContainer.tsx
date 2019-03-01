@@ -37,14 +37,19 @@ export default class ApplicationReviewContainer extends React.Component<
   }
 
   updateReviewState(review: ApplicationReview): void {
-    const updatedApplication = Object.assign(this.state.application, { application_review: review });
+    const updatedApplication = Object.assign(this.state.application, {
+      application_review: review
+    });
     this.setState({ application: updatedApplication });
   }
 
   submitReview(review: ReviewSubmitForm): void {
-    this.setState({isSaving: true});
+    this.setState({ isSaving: true });
     axios
-      .put(route("application_reviews.update", this.state.application.id), review)
+      .put(
+        route("application_reviews.update", this.state.application.id),
+        review
+      )
       .then(response => {
         const newReview = response.data as ApplicationReview;
         this.updateReviewState(newReview);
@@ -82,14 +87,16 @@ export default class ApplicationReviewContainer extends React.Component<
       return { value: status.id, label: status.name };
     });
     return (
-      <ApplicationReview
-        key={this.state.application.id}
-        application={this.state.application}
-        reviewStatusOptions={reviewStatusOptions}
-        onStatusChange={this.handleStatusChange}
-        onNotesChange={this.handleNotesChange}
-        isSaving={this.state.isSaving}
-      />
+      <div className="applicant-review container--layout-xl">
+        <ApplicationReview
+          key={this.state.application.id}
+          application={this.state.application}
+          reviewStatusOptions={reviewStatusOptions}
+          onStatusChange={this.handleStatusChange}
+          onNotesChange={this.handleNotesChange}
+          isSaving={this.state.isSaving}
+        />
+      </div>
     );
   }
 }
@@ -106,7 +113,7 @@ if (document.getElementById("application-review-container")) {
       "data-application"
     ) as string);
     const reviewStatuses = JSON.parse(container.getAttribute(
-      "data-review-statuse"
+      "data-review-statuses"
     ) as string);
     ReactDOM.render(
       <ApplicationReviewContainer

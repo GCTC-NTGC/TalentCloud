@@ -74,7 +74,6 @@ export default class ReviewApplicationsContainer extends React.Component<
       })
       .catch(error => {
         //TODO: show errors nicer
-        console.log(error);
         alert("Something went wrong, please try again later");
         this.handleSavingStatusChange(applicationId, false);
       });

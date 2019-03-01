@@ -67,9 +67,10 @@ export default class ApplicationReview extends React.Component<
       ? this.props.application.application_review.review_status_id
       : null;
     if (sectionChange(oldStatus, status)) {
-      const confirmText = (status === ReviewStatusId.ScreenedOut) ?
-        "Screen out the candidate?" :
-        "Screen the candidate back in?";
+      const confirmText =
+        status === ReviewStatusId.ScreenedOut
+          ? "Screen out the candidate?"
+          : "Screen the candidate back in?";
       Swal.fire({
         title: confirmText,
         type: "question",
@@ -130,15 +131,15 @@ export default class ApplicationReview extends React.Component<
      */
     const isUnchanged = (): boolean => {
       if (
-        this.props.application.application_review === null ||
-        this.props.application.application_review.review_status_id === null
+        this.props.application.application_review &&
+        this.props.application.application_review.review_status_id
       ) {
-        return this.state.selectedStatusId === undefined;
-      } else {
         return (
           this.props.application.application_review.review_status_id ===
           this.state.selectedStatusId
         );
+      } else {
+        return this.state.selectedStatusId === undefined;
       }
     };
 

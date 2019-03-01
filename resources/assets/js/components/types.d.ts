@@ -24,7 +24,7 @@ export interface Application {
   veteran_status: VeteranStatus;
   citizenship_declaration: CitizeshipDeclaration;
   applicant: Applicant;
-  application_review: ApplicationReview | null;
+  application_review: ApplicationReview | undefined;
   meets_essential_criteria: boolean;
 }
 
