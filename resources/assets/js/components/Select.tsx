@@ -27,10 +27,14 @@ export default function Select<T extends string | number>(
         <select
           id={props.htmlId}
           className="form__input"
-          value={props.selected}
+          value={props.selected ? props.selected : ""}
           onChange={e => props.onChange(e)}
         >
-          {props.nullSelection && <option>{props.nullSelection}</option>}
+          {props.nullSelection && (
+            <option value="" disabled={true}>
+              {props.nullSelection}
+            </option>
+          )}
           {props.options.map(option => (
             <option key={option.value} value={option.value}>
               {option.label}
