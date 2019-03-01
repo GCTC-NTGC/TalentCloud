@@ -265,6 +265,7 @@ Route::group(
 
                 Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
                     ->where('jobPoster', '[0-9]+')
+                    ->middleware('can:review,jobPoster')
                     ->name('manager.jobs.applications');
 
                 /* Edit Job */
