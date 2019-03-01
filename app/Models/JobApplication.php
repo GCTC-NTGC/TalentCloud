@@ -180,4 +180,28 @@ class JobApplication extends BaseModel {
         }
         return $status;
     }
+
+    /**
+     * Returns true if this application meets all the essential criteria.
+     * That means it has attached an SkillDeclaration for each essential criterion,
+     * with a level at least as high as the required level.
+     *
+     * @return boolean
+     */
+    public function meetsEssentialCriteria(): bool
+    {
+        $essentialCriteria = $this->job_poster->criteria->filter(
+            function ($value, $key) {
+                return $value->criteria_type->name == 'essential';
+            }
+        );
+        foreach ($essentialCriteria as $criterion) {
+            $skillDeclaration = $this->skill_declarations->where("skill_id", $criterion->skill_id)->first();
+            if ($skillDeclaration === null ||
+                $skillDeclaration->skill_level_id < $criterion->skill_level_id) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
