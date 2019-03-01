@@ -3,6 +3,7 @@ import className from "classnames";
 import route from "../../helpers/route";
 import Select, { SelectOption } from "../Select";
 import { Application } from "../types";
+import { ReviewStatusId } from "../lookupConstants";
 import Swal from "sweetalert2";
 
 interface ApplicationViewProps {
@@ -51,7 +52,39 @@ export default class ApplicationView extends React.Component<
     const status = this.state.selectedStatusId
       ? this.state.selectedStatusId
       : null;
-    this.props.onStatusChange(this.props.application.id, status);
+
+    const sectionChange = (
+      oldStatus: number | null,
+      newStatus: number | null
+    ): boolean => {
+      const oldIsScreenedOut: boolean =
+        oldStatus === ReviewStatusId.ScreenedOut;
+      const newIsScreenedOut: boolean =
+        newStatus === ReviewStatusId.ScreenedOut;
+      return oldIsScreenedOut != newIsScreenedOut;
+    };
+    const oldStatus = this.props.application.application_review
+      ? this.props.application.application_review.review_status_id
+      : null;
+    if (sectionChange(oldStatus, status)) {
+      const confirmText = (status === ReviewStatusId.ScreenedOut) ?
+        "Screen out the candidate?" :
+        "Screen the candidate back in?";
+      Swal.fire({
+        title: confirmText,
+        type: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#0A6CBC",
+        cancelButtonColor: "#F94D4D",
+        confirmButtonText: "Conirm"
+      }).then(result => {
+        if (result.value) {
+          this.props.onStatusChange(this.props.application.id, status);
+        }
+      });
+    } else {
+      this.props.onStatusChange(this.props.application.id, status);
+    }
   }
 
   showNotes(): void {
@@ -71,7 +104,6 @@ export default class ApplicationView extends React.Component<
       confirmButtonText: "Save",
       inputValue: notes
     }).then(result => {
-      console.log(result);
       if (result && result.value != undefined) {
         const value = result.value ? result.value : null;
         this.props.onNotesChange(this.props.application.id, value);

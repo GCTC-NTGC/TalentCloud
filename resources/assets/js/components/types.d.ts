@@ -1,4 +1,4 @@
-import { number } from "prop-types";
+import {ReviewStatusId, ReviewStatusName} from "./lookupConstants";
 
 export interface Job {
   id: number;
@@ -67,16 +67,14 @@ export interface User {
 
 export interface ApplicationReview {
   id: number;
-  review_status_id: number | null;
+  review_status_id: ReviewStatusId | null;
   notes: string | null;
   created_at: Date;
   updated_at: Date;
   review_status: ReviewStatus | null;
 }
 
-type ReviewStatusName = "screened_out" | "still_thinking" | "still_in";
-
 export interface ReviewStatus {
-  id: number;
+  id: ReviewStatusId;
   name: ReviewStatusName;
 }
