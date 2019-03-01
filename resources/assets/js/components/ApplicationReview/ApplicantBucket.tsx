@@ -3,6 +3,10 @@ import { Application } from "../types";
 import { SelectOption } from "../Select";
 import ApplicationView from "./ApplicationView";
 import { whereFirst } from "../../helpers/queries";
+import {
+  applicationCompare,
+  applicationComparePrioritizeVeterans
+} from "./helpers";
 
 interface ApplicantBucketProps {
   title: string;
@@ -12,6 +16,7 @@ interface ApplicantBucketProps {
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   savingStatuses: { applicationId: number; isSaving: boolean }[];
+  prioritizeVeterans: boolean;
 }
 
 /**
@@ -32,7 +37,10 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = (
   if (props.applications.length === 0) {
     return null;
   }
-
+  const compareFunction = props.prioritizeVeterans
+    ? applicationComparePrioritizeVeterans
+    : applicationCompare;
+  const sortedApplications = props.applications.slice().sort(compareFunction);
   return (
     <div className="accordion applicant-bucket">
       <button
@@ -57,7 +65,7 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = (
       <div aria-hidden="true" className="accordion-content">
         <p>{props.description}</p>
 
-        {props.applications.map(application => (
+        {sortedApplications.map(application => (
           <ApplicationView
             key={application.id}
             application={application}

@@ -24,7 +24,8 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
       showScreenOutAll: false,
       applications: props.applications.filter(
         application => applicationCategory(application) == "primary"
-      )
+      ),
+      prioritizeVeterans: false
     },
     {
       title: "Optional Consideration",
@@ -32,7 +33,8 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
       showScreenOutAll: true,
       applications: props.applications.filter(
         application => applicationCategory(application) == "optional"
-      )
+      ),
+      prioritizeVeterans: true
     },
     {
       title: "No Longer Under Consideration",
@@ -40,7 +42,8 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
       showScreenOutAll: false,
       applications: props.applications.filter(
         application => applicationCategory(application) == "screened-out"
-      )
+      ),
+      prioritizeVeterans: true
     }
   ];
 

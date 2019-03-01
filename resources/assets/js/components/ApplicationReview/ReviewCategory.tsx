@@ -13,6 +13,7 @@ interface ReviewCategoryProps {
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   savingStatuses: { applicationId: number; isSaving: boolean }[];
+  prioritizeVeterans: boolean;
 }
 
 const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = (
@@ -80,6 +81,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = (
           onStatusChange={props.onStatusChange}
           onNotesChange={props.onNotesChange}
           savingStatuses={props.savingStatuses}
+          prioritizeVeterans={props.prioritizeVeterans}
         />
       ))}
     </div>
