@@ -67,4 +67,20 @@ class ApplicationPolicy extends BasePolicy
             $user->applicant->id === $jobApplication->applicant_id &&
             $jobApplication->application_status->name == "draft";
     }
+
+    /**
+     * Determine whether the user can review the jobApplication.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\JobApplication  $jobApplication
+     * @return mixed
+     */
+    public function review(User $user, JobApplication $jobApplication)
+    {
+        //Only the manager in charge of the accompanying job can review an application,
+        // and only if it has been submitted
+        return $user->hasRole('manager') &&
+            $jobApplication->job_poster->manager->user->id == $user->id &&
+            $jobApplication->application_status->name != "draft";
+    }
 }
