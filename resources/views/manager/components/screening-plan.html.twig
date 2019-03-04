@@ -96,7 +96,7 @@
                 <td colspan="2">
                     <ul>
                         {% for criterion in job.criteria %}
-                            <li>{{ criterion.skill.skill }} ({% if criterion.criteria_type.name == "essential" %}Essential{% else %}Asset{% endif %}, {{ criterion.level_name|title }})</li>
+                            <li>{{ criterion.skill.name }} ({% if criterion.criteria_type.name == "essential" %}Essential{% else %}Asset{% endif %}, {{ criterion.level_name|title }})</li>
                         {% endfor %}
                     </ul>
                 </td>
@@ -110,7 +110,7 @@
                         <ul>
                             {% for skill in skills %}
                                 {% for criterion in job.criteria %}
-                                    {% if skill == criterion.skill.skill %}
+                                    {% if skill == criterion.skill.name %}
                                         <li>{{ skill }} ({% if criterion.criteria_type.name == "essential" %}Essential{% else %}Asset{% endif %}, {{ criterion.level_name|title }})</li>
                                     {% endif %}
                                 {% endfor %}
@@ -131,7 +131,7 @@
 
                     <tr>
                         <td>
-                            <h4>{{ criterion.skill.skill }}</h4>
+                            <h4>{{ criterion.skill.name }}</h4>
                             {{ criterion.skill.description }}
                         </td>
                         <td>
@@ -163,7 +163,7 @@
 
                     <tr>
                         <td>
-                            <h4>{{ criterion.skill.skill }}</h4>
+                            <h4>{{ criterion.skill.name }}</h4>
                             {{ criterion.skill.description }}
                         </td>
                         <td>
