@@ -23,10 +23,13 @@ The Talent Cloud site uses:
 
 ## Running the Talent Cloud server with Docker on a Windows machine
 
-1. PHP 7.2 is required. Install PHP 7.2 on your system with the following extensions:
+1. PHP 7.2 is required. Install PHP 7.2 on your system, create a php.ini file in root and copy the contents of php.ini-development file. Next, open up the file in a text editor and uncomment (eg. remove ';' before ';extention=curl') the following extensions:
+
     * curl
     * mbstring
     * xml
+    * fileinfo
+    * openssl
 
 2. Install Docker for Windows
 
