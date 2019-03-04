@@ -35,7 +35,7 @@ class ApplicationByJobController extends Controller
      */
     public function index(JobPoster $jobPoster)
     {
-        $applications = $jobPoster->job_applications;
+        $applications = $jobPoster->submitted_applications;
         $applications->load(['veteran_status', 'citizenship_declaration', 'application_review', "applicant.user"]);
         return view('manager/review_applications', [
             /*Localization Strings*/
