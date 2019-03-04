@@ -1,7 +1,12 @@
 language: php
 
 php:
-  - 7.2
+  # testing multiple versions
+  - '7.2'
+  - '7.3'
+  # on Trusty only
+  - hhvm
+  - nightly
 
 sudo: required
 dist: trusty
@@ -10,6 +15,7 @@ services:
   - docker
 
 addons:
+  # required for lighthouse reports / lightcrawler
   chrome: stable
   hosts:
     - talent.local.ca
@@ -20,40 +26,60 @@ cache:
     - $HOME/.npm
 
 before_install:
+  # free port 5432
   - sudo service postgresql stop
+  # install npm
   - npm i -g npm@^6
+  # accessibility tests
+  - npm i -g lightcrawler
 
 install:
+  # environment
   - cp .env.travis .env
+  # dependencies
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-  - php artisan key:generate
-  - php artisan config:clear
-  - npm ci
+  - travis_retry npm ci
+# php artisan key:generate
+# php artisan config:clear
 
 before_script:
+  # docker login (for tagging/pushing images to our hub repo)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  # setup headless browser for tests
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+  # start web server port 8000
   - php artisan serve &
 
 script:
+  # build application / database
   - make docker-start
   - make gen-certs
-  - make build-db
+  - travis_retry make build-db
   - make set-perms
+  # laravel mix
   - npm run dev
+  # prepare code coverage
   - ci_env=`bash <(curl -s https://codecov.io/env)`
   - docker run $ci_env gctcntgc/talentcloud sh
+  # unit tests
   - make phpunit
 
 after_success:
-  # docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
-  # docker push gctcntgc/talentcloud:travis
+  # test single page with lighthouse on PR
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lighthouse'
+  # test all pages with lighthouse
+  - lightcrawler -u http://localhost:8000 -c lightcrawler.json
+  - lightcrawler -u https://talent.canada.ca -c lightcrawler.json
+# docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
+# docker push gctcntgc/talentcloud:travis
 
 after_script:
+  # send report to codecov.io
   - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
+  # send report to scrutinizer
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
+  # tear down
   - make docker-stop
 
 # Slack notifications / do not send emails
