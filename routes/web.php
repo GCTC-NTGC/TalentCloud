@@ -393,7 +393,7 @@ Route::middleware(['auth'])->group(function () : void {
     //  policy would be better, but I'm not sure how to set it up for now.
     Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
         ->middleware('role:manager')
-        ->middleware('can:view,application')
+        ->middleware('can:review,application')
         ->name('application_reviews.update');
 
     Route::delete('screening-plans/{screeningPlan}', 'ScreeningPlanController@destroy')
