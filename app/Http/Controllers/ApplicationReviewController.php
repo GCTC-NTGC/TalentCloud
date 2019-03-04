@@ -21,15 +21,10 @@ class ApplicationReviewController extends Controller
     public function updateForApplication(Request $request, JobApplication $application)
     {
         $request->validate([
-            'review_status' => [
-                'required',
+            'review_status_id' => [
+                'nullable',
                 Rule::in(ReviewStatus::all()->pluck('id')->toArray())
             ],
-            'review_decision' => [
-                'required',
-                Rule::in(ReviewDecision::all()->pluck('id')->toArray())
-            ],
-            'reviewer' => 'required|string',
             'notes' => 'nullable|string'
         ]);
 
@@ -39,15 +34,13 @@ class ApplicationReviewController extends Controller
             $review->job_application()->associate($application);
         }
         $review->fill([
-            'review_status_id' => $request->input('review_status'),
-            'review_decision_id' => $request->input('review_decision'),
-            'reviewer' => $request->input('reviewer'),
+            'review_status_id' => $request->input('review_status_id'),
             'notes' => $request->input('notes'),
         ]);
         $review->save();
 
-        if($request->ajax()) {
-            return $review->toJson();
+        if ($request->ajax()) {
+            return $review->fresh()->toJson();
         }
 
         return redirect()->back();

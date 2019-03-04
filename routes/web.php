@@ -263,6 +263,11 @@ Route::group(
                     ->where('jobPoster', '[0-9]+')
                     ->name('manager.jobs.store');
 
+                Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
+                    ->where('jobPoster', '[0-9]+')
+                    ->middleware('can:review,jobPoster')
+                    ->name('manager.jobs.applications');
+
                 /* Edit Job */
                 Route::get('jobs/{jobPoster}/edit', 'JobController@edit')
                     ->where('jobPoster', '[0-9]+')
@@ -305,6 +310,10 @@ Route::group(
         };
 
         Route::group(['prefix' => config('app.manager_prefix')], $managerGroup);
+
+        Route::group(['prefix' => 'demo', 'middleware' => 'localOnly'], function () : void {
+            Route::get('review-applications', 'DemoController@reviewApplications')->name('demo.review_applications');
+        });
 
         /* Language ============================================================= */
 
