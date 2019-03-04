@@ -3,6 +3,8 @@ import { Application } from "../types";
 import { SelectOption } from "../Select";
 import { applicationBucket } from "./helpers";
 import ApplicantBucket from "./ApplicantBucket";
+import { ReviewStatusId } from "../lookupConstants";
+import Swal from "sweetalert2";
 
 interface ReviewCategoryProps {
   title: string;
@@ -21,6 +23,27 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = (
 ): React.ReactElement | null => {
   if (props.applications.length === 0) {
     return null;
+  }
+
+  const screenOutAll = ():void => {
+    props.applications.forEach(application => {
+      props.onStatusChange(application.id, ReviewStatusId.ScreenedOut);
+    })
+  };
+
+  const handleScreenOutAllClick = ():void => {
+    Swal.fire({
+      title: "Are you sure you want to screen out all Optional candidates?",
+      type: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#0A6CBC",
+      cancelButtonColor: "#F94D4D",
+      confirmButtonText: "Conirm"
+    }).then(result => {
+      if (result.value) {
+        screenOutAll();
+      }
+    });
   }
 
   const buckets = [
@@ -69,7 +92,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = (
             */}
       {props.showScreenOutAll && (
         <span className="category-action">
-          <button className="button--outline" type="button">
+          <button className="button--outline" type="button" onClick={handleScreenOutAllClick}>
             <i className="fas fa-ban" /> Screen All Optional Candidates Out
           </button>
         </span>
