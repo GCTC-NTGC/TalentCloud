@@ -5,6 +5,7 @@ import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
 import route from "../../helpers/route";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface ReviewApplicationsProps {
   job: Job;
@@ -74,7 +75,11 @@ export default class ReviewApplicationsContainer extends React.Component<
       })
       .catch(error => {
         //TODO: show errors nicer
-        alert("Something went wrong, please try again later");
+        Swal.fire({
+          type: 'error',
+          title: 'Oops...',
+          text: 'Something went while saving a review. Try again later.',
+        })
         this.handleSavingStatusChange(applicationId, false);
       });
   }
