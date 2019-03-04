@@ -4,7 +4,11 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Mail;
+
+use Jenssegers\Date\Date;
 
 use App\Models\Applicant;
 use App\Models\Criteria;
@@ -17,9 +21,12 @@ use App\Models\Manager;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
 use Doctrine\Common\Cache\VoidCache;
+use App\Mail\JobPosterReviewRequested;
 
 class JobControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * Run parent setup and provide reusable factories.
      *
@@ -33,14 +40,18 @@ class JobControllerTest extends TestCase
         $this->faker_fr = \Faker\Factory::create('fr_FR');
 
         $this->manager = factory(Manager::class)->create();
-        $this->jobPoster = factory(JobPoster::class)->create([
-            'manager_id' => $this->manager->id
-        ]);
+        $this->jobPoster = factory(JobPoster::class)
+            ->states('unpublished')
+            ->create([
+                'manager_id' => $this->manager->id
+            ]);
 
         $this->otherManager = factory(Manager::class)->create();
-        $this->otherJobPoster = factory(JobPoster::class)->create([
-            'manager_id' => $this->otherManager->id
-        ]);
+        $this->otherJobPoster = factory(JobPoster::class)
+            ->states('unpublished')
+            ->create([
+                'manager_id' => $this->otherManager->id
+            ]);
 
         $this->publishedJob = factory(JobPoster::class)->states('published')->create();
     }
@@ -83,8 +94,34 @@ class JobControllerTest extends TestCase
             ->get('manager/jobs');
         $response->assertStatus(200);
 
-        $response->assertSee('<h3>' . $this->jobPoster->title . '</h3>');
-        $response->assertDontSee('<h3>' . $this->otherJobPoster->title . '</h3>');
+        $response->assertSee($this->jobPoster->title);
+        $response->assertDontSee($this->otherJobPoster->title);
+    }
+
+    /**
+     * Ensure a Job Poster can be submitted for review.
+     *
+     * @return void
+     */
+    public function testSubmitForReview() : void
+    {
+        Mail::fake();
+
+        $jobPoster = $this->jobPoster;
+
+        $response = $this->followingRedirects()
+            ->actingAs($this->manager->user)
+            ->post("manager/jobs/$jobPoster->id/review");
+
+        $response->assertStatus(200);
+
+        $jobPoster->refresh();
+
+        $this->assertInstanceOf(Date::class, $jobPoster->review_requested_at);
+
+        Mail::assertSent(JobPosterReviewRequested::class, function ($mail) use ($jobPoster) {
+            return $mail->jobPoster->id === $jobPoster->id;
+        });
     }
 
     /**
@@ -191,5 +228,18 @@ class JobControllerTest extends TestCase
         $response->assertSee($this->jobPoster->branch);
         $response->assertSee($this->jobPoster->division);
         $response->assertSee($this->jobPoster->education);
+    }
+
+        /**
+     * Ensure a manager cannot edit a published Job Poster they created.
+     *
+     * @return void
+     */
+    public function testManagerCanNotEditViewPublished() : void
+    {
+        $response = $this->actingAs($this->manager->user)
+            ->get('manager/jobs/' . $this->publishedJob->id . '/edit');
+
+        $response->assertStatus(500);
     }
 }

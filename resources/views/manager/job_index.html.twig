@@ -19,6 +19,14 @@
 
     <a id="skipLink"></a>
 
-    {% include "manager/job_index/temp_layout" %}
+    {% include "manager/job_index/layout" %}
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script
+        src="{{ mix('/js/alerts.js') }}">
+    </script>
 
 {% endblock %}

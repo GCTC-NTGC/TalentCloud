@@ -14,7 +14,7 @@
 
     <h4
         class="manager-profile__section-title">
-        My Leadership Style
+        {{leadership_l10n.my_leadership_style}}
     </h4>
 
     <fieldset
@@ -22,7 +22,7 @@
 
         <legend
             class="form__legend">
-            My Leadership Style and Management Values
+            {{leadership_l10n.my_style_values}}
         </legend>
 
         <div
@@ -33,7 +33,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('en').leadership_style %}active{% endif %}">
                     <label class="form__label" for="managerProfileLeadershipStyleEN">
-                        Answer (English)
+                        {{leadership_l10n.answer_english}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -48,7 +48,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('fr').leadership_style %}active{% endif %}">
                     <label class="form__label" for="managerProfileLeadershipStyleFR">
-                        Answer (Français)
+                        {{leadership_l10n.answer_french}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -67,7 +67,7 @@
 
         <legend
             class="form__legend">
-            What I Expect from My Employees
+            {{leadership_l10n.expect_from_employees}}
         </legend>
 
         <div
@@ -78,7 +78,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('en').expectations %}active{% endif %}">
                     <label class="form__label" for="managerProfileExpectationsEN">
-                        Answer (English)
+                        {{leadership_l10n.answer_english}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -93,7 +93,7 @@
                 <div class="form__input-wrapper--float {% if manager.translate('fr').expectations %}active{% endif %}">
                     <label class="form__label" for="managerProfileExpectationsFR">
 
-                        Answer (Français)
+                        {{leadership_l10n.answer_french}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -112,7 +112,7 @@
 
         <legend
             class="form__legend">
-            My Approach to Employee Learning and Development
+            {{leadership_l10n.approach_learning_development}}
         </legend>
 
         <div
@@ -123,7 +123,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('en').employee_learning %}active{% endif %}">
                     <label class="form__label" for="managerProfileApproachEN">
-                        Answer (English)
+                        {{leadership_l10n.answer_english}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -138,7 +138,7 @@
 
                 <div class="form__input-wrapper--float {% if manager.translate('fr').employee_learning %}active{% endif %}">
                     <label class="form__label" for="managerProfileApproachFR">
-                        Answer (Français)
+                        {{leadership_l10n.answer_french}}
                     </label>
                     <textarea
                         class="form__textarea"
@@ -153,10 +153,10 @@
 
                 <div
                     aria-orientation="horizontal"
-                    class="form__radio-group" 
+                    class="form__radio-group"
                     role="radiogroup">
 
-                    <label 
+                    <label
                         class="form__label"
                         for="">
                         How often do you review your team's work before it is shared?
@@ -170,14 +170,14 @@
 
                             {% set counter = counter + 1 %}
 
-                            <label 
+                            <label
                                 class="box form__radio-group-label small-1of{{ leadership.radio_levels|length }}"
                                 for="">
-                                <span 
+                                <span
                                     class="hidden">
                                     {{ level }}
                                 </span>
-                                <input 
+                                <input
                                     class="form__radio-group-input"
                                     id=""
                                     name=""
@@ -185,7 +185,7 @@
                                     {% if manager.shared_work|capitalize == level|capitalize %}
                                         checked
                                     {% endif %}>
-                                <span 
+                                <span
                                     class="form__radio-group-span">
                                     {{ level }}
                                 </span>
@@ -218,7 +218,7 @@
                 type="submit"
                 name="submit"
                 value="leadership">
-                Save My Leadership Style
+                {{leadership_l10n.save_leadership_style}}
             </button>
         </div>
 

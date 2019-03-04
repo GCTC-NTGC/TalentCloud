@@ -77,6 +77,19 @@
 
     }
 
+    &[class*="outline"] {
+        background: none;
+        border: 1px solid $palette--blue;
+        color: $palette--blue;
+        transition: all .2s ease;
+
+        &:hover {
+            background: rgba($palette--blue, .3);
+            transition: all .2s ease;
+        }
+
+    }
+
     &[class*="blue"] {
         @extend %gradient--vertical;
         color: $palette--font-white;
@@ -168,7 +181,7 @@
     }
 
     &.saved {
-        
+
         .submit-default {
             display: none;
         }
@@ -181,6 +194,12 @@
             display: block;
         }
 
+    }
+
+    &.disabled {
+        background: rgba(0, 0, 0, .05);
+        color: rgba(0, 0, 0, .6);
+        pointer-events: none;
     }
 
 }

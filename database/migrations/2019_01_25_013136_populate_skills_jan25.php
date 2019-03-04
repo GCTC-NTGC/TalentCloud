@@ -14,11 +14,11 @@ class PopulateSkillsJan25 extends Migration
     public function up()
     {
         DB::table('skills')->insert([
-            ['id' => 81, 'skill_type_id' => 2, 'name' => 'business_process_modelling_software'],
-            ['id' => 82, 'skill_type_id' => 2, 'name' => 'business_process_modelling'],
-            ['id' => 83, 'skill_type_id' => 2, 'name' => 'business_analysis'],
-            ['id' => 84, 'skill_type_id' => 2, 'name' => 'project_management_practices'],
-            ['id' => 85, 'skill_type_id' => 2, 'name' => 'goc_policy_project_management'],
+            ['skill_type_id' => 2, 'name' => 'business_process_modelling_software'],
+            ['skill_type_id' => 2, 'name' => 'business_process_modelling'],
+            ['skill_type_id' => 2, 'name' => 'business_analysis'],
+            ['skill_type_id' => 2, 'name' => 'project_management_practices'],
+            ['skill_type_id' => 2, 'name' => 'goc_policy_project_management'],
         ]);
     }
 
@@ -29,6 +29,12 @@ class PopulateSkillsJan25 extends Migration
     */
     public function down()
     {
-        DB::table('skills')->whereIn('id', [81, 82, 83, 84, 85])->delete();
+        DB::table('skills')->whereIn('name', [
+            'business_process_modelling_software',
+            'business_process_modelling',
+            'business_analysis',
+            'project_management_practices',
+            'goc_policy_project_management'
+        ])->delete();
     }
 }

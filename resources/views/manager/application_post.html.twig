@@ -17,12 +17,6 @@
 
 			<div class="manager-application-preview-actions flex-grid gutter">
 
-				<div class="box full">
-
-					{% include "manager/application_post/application_review" with {'application': job_application, 'review': post.content.review} %}
-
-				</div>
-
 				<div class="box small-1of2">
 					<a
 						class="button--blue"
@@ -42,8 +36,14 @@
 				</div>
 
 			</div>
-
 		</div>
+
+        <div id="application-review-container"
+            data-application="{{ job_application|json_encode() }}"
+            data-review-statuses="{{ review_statuses|json_encode() }}"
+        >
+        </div>
+
 
     	{% include "common/application/view/view_layout" %}
 

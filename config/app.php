@@ -80,6 +80,7 @@ return [
     */
 
     'timezone' => 'UTC',
+    'local_timezone' => 'America/Toronto',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,6 +94,28 @@ return [
     */
 
     'locale' => 'en',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Date and Time formats
+    |--------------------------------------------------------------------------
+    |
+    | The application date and time formats are used to display human
+    | readable dates and times on the front end of the application, along
+    | with the 'local_timezone' setting. See App\Helpers\Helper.php for
+    | useful formatting functions.
+    |
+    */
+
+    'date_format' => [
+        'en' => 'F j, Y',
+        'fr' => 'd F Y'
+    ],
+
+    'time_format' => [
+        'en' => 'h:i A T',
+        'fr' => 'H \h i T'
+    ],
 
     /*
     |--------------------------------------------------------------------------

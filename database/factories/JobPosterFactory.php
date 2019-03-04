@@ -32,9 +32,9 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'manager_id' => function () {
             return factory(Manager::class)->create()->id;
         },
-        'published' => $faker->boolean(50),
+        'published' => false,
         'city:en' => $faker->city,
-        'title:en' => $faker->word,
+        'title:en' => $faker->unique()->word,
         'impact:en' => $faker->paragraphs(
             2,
             true
@@ -43,7 +43,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'division:en' => $faker->word,
         'education:en' => $faker->sentence(),
         'city:fr' => $faker_fr->city,
-        'title:fr' => $faker_fr->word,
+        'title:fr' => $faker_fr->unique()->word,
         'impact:fr' => $faker_fr->paragraphs(
             2,
             true
@@ -81,6 +81,17 @@ $factory->state(
         return [
             'published' => true,
             'close_date_time' => $faker->dateTimeBetween('-2 days', '-1 days'),
+        ];
+    }
+);
+
+$factory->state(
+    JobPoster::class,
+    'review_requested',
+    function (Faker\Generator $faker) {
+        return [
+            'published' => false,
+            'review_requested_at' => $faker->dateTimeBetween('-2 days', '-1 days')
         ];
     }
 );

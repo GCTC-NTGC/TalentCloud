@@ -34,7 +34,7 @@ class ScreeningPlanController extends Controller
                 if (!$plan_type_assessments->isEmpty()) {
                     $assessment_plan[$type->name] = [];
                     foreach ($plan_type_assessments as $assessment) {
-                        $assessment_plan[$type->name][] = $assessment->criterion->skill->skill;
+                        $assessment_plan[$type->name][] = $assessment->criterion->skill->name;
                     }
                 }
             }
@@ -44,7 +44,7 @@ class ScreeningPlanController extends Controller
         return view(
             'manager/screening-plan',
             [
-                'screening' => Lang::get('manager/screening-plan'),
+                'screening_l10n' => Lang::get('manager/screening-plan'),
                 'job' => $jobPoster,
                 'skill_template' => Lang::get('common/skills'),
                 'assessment_types' => AssessmentType::all(),

@@ -30,7 +30,7 @@
                         class="application-post__subnav-item"
                         href="#skill{{ criterion.skill.name }}"
                         title="{{ application_template.sidebar_item_title }}">
-                        {{ skill_template.skills[criterion.skill.name].name }}
+                        {{ criterion.skill.name }}
                     </a>
 
                 {% endfor %}
@@ -43,7 +43,7 @@
                         class="application-post__subnav-item"
                         href="#skill{{ criterion.skill.name }}"
                         title="{{ application_template.sidebar_item_title }}">
-                        {{ skill_template.skills[criterion.skill.name].name }}
+                        {{ criterion.skill.name }}
                     </a>
 
                 {% endfor %}
