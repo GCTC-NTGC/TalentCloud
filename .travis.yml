@@ -41,8 +41,9 @@ install:
   # dependencies
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - travis_retry npm ci
-# php artisan key:generate
-# php artisan config:clear
+  # unused for now
+  # php artisan key:generate
+  # php artisan config:clear
 
 before_script:
   # docker login (for tagging/pushing images to our hub repo)
@@ -67,13 +68,13 @@ script:
   - make phpunit
 
 after_success:
-  # test single page with lighthouse on PR
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lighthouse'
-  # test all pages with lighthouse
-  - lightcrawler -u http://localhost:8000 -c lightcrawler.json
-  - lightcrawler -u https://talent.canada.ca -c lightcrawler.json
-# docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
-# docker push gctcntgc/talentcloud:travis
+  # crawl local site with lighthouse on PR
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u http://localhost:8000 -c lightcrawler.json'
+  # crawl live site with lighthouse on PR
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u https://talent.canada.ca -c lightcrawler.json'
+  # unused for now
+  # docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
+  # docker push gctcntgc/talentcloud:travis
 
 after_script:
   # send report to codecov.io

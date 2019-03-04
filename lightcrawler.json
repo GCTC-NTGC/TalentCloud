@@ -2,7 +2,7 @@
     "extends": "lighthouse:default",
     "settings": {
         "crawler": {
-            "maxDepth": 7,
+            "maxDepth": 77,
             "maxChromeInstances": 7
         },
         "onlyCategories": [
