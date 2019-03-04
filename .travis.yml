@@ -15,7 +15,7 @@ services:
   - docker
 
 addons:
-  # required for lighthouse reports / lightcrawler
+  # required for lightcrawler
   chrome: stable
   hosts:
     - talent.local.ca
@@ -41,9 +41,6 @@ install:
   # dependencies
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - travis_retry npm ci
-  # unused for now
-  # php artisan key:generate
-  # php artisan config:clear
 
 before_script:
   # docker login (for tagging/pushing images to our hub repo)
@@ -54,7 +51,7 @@ before_script:
   - php artisan serve &
 
 script:
-  # build application / database
+  # build application / database containers
   - make docker-start
   - make gen-certs
   - travis_retry make build-db
@@ -72,7 +69,7 @@ after_success:
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u http://localhost:8000 -c lightcrawler.json'
   # crawl live site with lighthouse on PR
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u https://talent.canada.ca -c lightcrawler.json'
-  # unused for now
+  # tag/push build to docker hub / pulling repo much faster than building from Dockerfile
   # docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
   # docker push gctcntgc/talentcloud:travis
 
