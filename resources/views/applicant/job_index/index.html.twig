@@ -18,8 +18,7 @@
 
         {% endif %}
 
-        <div
-            div class="flex-grid">
+        <div id="react-jobs" class="flex-grid">
 
             {% for job in jobs %}
 
@@ -99,8 +98,7 @@
                             <div class="box small-1of2">
                                 <span>{{ job_index.index.apply_by_label|trans }}</span>
                                 {% if job.close_date_time.isFuture() %}
-                                    <p><i class="fas fa-calendar"></i> {{ job.applyBy().date }}</p>
-                                    <p><i class="fas fa-clock"></i> {{ job.applyBy().time }}</p>
+                                    <p><i class="fas fa-calendar"></i> {{ humanizeLastDay(job.close_date_time) }}</p>
                                 {% else %}
                                     {{ job_index.index.job_closed }}
                                 {% endif %}

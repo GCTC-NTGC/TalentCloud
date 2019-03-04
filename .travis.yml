@@ -9,39 +9,52 @@ dist: trusty
 services:
   - docker
 
+addons:
+  chrome: stable
+  hosts:
+    - talent.local.ca
+
 cache:
   directories:
     - $HOME/.composer/cache/files
     - $HOME/.npm
 
 before_install:
+  - sudo service postgresql stop
   - npm i -g npm@^6
 
 install:
-  - cp .env.example .env
-  - travis_retry composer install --no-interaction --prefer-dist
+  - cp .env.travis .env
+  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
+  - php artisan key:generate
+  - php artisan config:clear
   - npm ci
+
+before_script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+  - php artisan serve &
 
 script:
   - make docker-start
   - make gen-certs
-  - make laravel-init
   - make build-db
+  - make set-perms
   - npm run dev
   - ci_env=`bash <(curl -s https://codecov.io/env)`
-  - docker run $ci_env talentcloud_talentcloud sh
+  - docker run $ci_env gctcntgc/talentcloud sh
   - make phpunit
+
+after_success:
+  # docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
+  # docker push gctcntgc/talentcloud:travis
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lighthouse'
 
 after_script:
   - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
   - make docker-stop
-
-after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
-  - docker push gctcntgc/talentcloud:travis
 
 # Slack notifications / do not send emails
 notifications:

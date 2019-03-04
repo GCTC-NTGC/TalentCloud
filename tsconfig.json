@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "esModuleInterop": true,
+        "target": "es6",
+        "strictNullChecks": true,
+        "moduleResolution": "node"
+    },
+    // "include": [
+    //     "resources/assets/js/**/*"
+    // ],
+    "exclude": ["node_modules", "vendor"]
+}
