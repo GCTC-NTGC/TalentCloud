@@ -81,11 +81,6 @@ class ViewComposerServiceProvider extends ServiceProvider
         View::composer(
             'common/work', 'App\Http\ViewComposers\WorkExperienceComposer'
         );
-
-        View::composer(
-            'manager/application_post/application_review', ApplicationReviewComposer::class
-        );
-
     }
 
     /**
