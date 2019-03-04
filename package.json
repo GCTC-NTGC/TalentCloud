@@ -14,8 +14,7 @@
         "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "lighthouse": "lighthouse-github-reporter run -- --prId=${TRAVIS_PULL_REQUEST}"
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
         "@types/classnames": "^2.2.7",
@@ -46,26 +45,6 @@
         "typescript": "^3.3.3",
         "vue-template-compiler": "^2.6.7",
         "webpack": "^4.29.5"
-    },
-    "config": {
-        "lighthouse-github-reporter": {
-            "urls": [
-                "http://localhost:8000",
-                "http://talent.canada.ca"
-            ],
-            "apiUrl": "https://api.github.com",
-            "owner": "GCTC-NTGC",
-            "repository": "TalentCloud",
-            "reporterUserName": "gggrant",
-            "noiseLevel": "low",
-            "scoreThresholds": {
-                "performance": "0",
-                "pwa": "0",
-                "accessibility": "100",
-                "bestPractices": "0",
-                "seo": "0"
-            }
-        }
     },
     "dependencies": {
         "axios": "^0.18.0",
