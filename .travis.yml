@@ -1,14 +1,14 @@
 language: php
 
 php:
-  # testing multiple versions
-  - '7.2'
+  - '7.2' # test multiple versions
   - '7.3'
-  # on Trusty only
-  - hhvm
-  - nightly
 
-sudo: required
+matrix:
+    allow_failures:
+        - php: '7.3'
+
+sudo: false # faster than required?
 dist: trusty
 
 services:
@@ -28,7 +28,9 @@ cache:
 before_install:
   # free port 5432
   - sudo service postgresql stop
-  # install npm
+  # latest composer version
+  - travis_retry composer self-update
+  # latest npm@6 version
   - npm i -g npm@^6
   # accessibility tests
   - npm i -g lightcrawler
