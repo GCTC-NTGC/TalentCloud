@@ -13,10 +13,10 @@ class CaseInsensitiveEmails extends Migration
     */
     public function up()
     {
-        DB::unprepared(
-            'CREATE EXTENSION IF NOT EXISTS citext',
-            'ALTER TABLE users ALTER COLUMN email TYPE citext'
-        );
+        DB::unprepared('
+            CREATE EXTENSION IF NOT EXISTS citext;
+            ALTER TABLE users ALTER COLUMN email TYPE citext;
+        ');
     }
 
     /**
@@ -26,9 +26,9 @@ class CaseInsensitiveEmails extends Migration
     */
     public function down()
     {
-        DB::unprepared(
-            'DROP EXTENSION citext',
-            'ALTER TABLE users ALTER COLUMN email TYPE character varying(191)'
-        );
+        DB::unprepared('
+            DROP EXTENSION citext;
+            ALTER TABLE users ALTER COLUMN email TYPE character varying(191);
+        ');
     }
 }
