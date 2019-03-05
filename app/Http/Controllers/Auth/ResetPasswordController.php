@@ -60,7 +60,7 @@ class ResetPasswordController extends AuthController
             'token' => $token,
             'email' => $request->email,
             'routes' => $this->auth_routes(),
-            'reset_password_template' => Lang::get('common/auth/reset_password'),
+            'reset_password' => Lang::get('common/auth/reset_password'),
         ]);
     }
 
