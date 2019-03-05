@@ -2765,7 +2765,7 @@ if (typeof indexWrapper != 'undefined' && indexWrapper != null) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\yonik\Documents\TalentCloud\resources\assets\js\alerts.js */"./resources/assets/js/alerts.js");
+module.exports = __webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/js/alerts.js */"./resources/assets/js/alerts.js");
 
 
 /***/ })
