@@ -5,6 +5,7 @@ import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
 import route from "../../helpers/route";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface ReviewApplicationsProps {
   job: Job;
@@ -38,12 +39,16 @@ export default class ReviewApplicationsContainer extends React.Component<
       })
     };
     this.handleStatusChange = this.handleStatusChange.bind(this);
+    this.handleBulkStatusChange = this.handleBulkStatusChange.bind(this);
     this.handleNotesChange = this.handleNotesChange.bind(this);
     this.updateReviewState = this.updateReviewState.bind(this);
     this.handleSavingStatusChange = this.handleSavingStatusChange.bind(this);
   }
 
-  updateReviewState(applicationId: number, review: ApplicationReview): void {
+  protected updateReviewState(
+    applicationId: number,
+    review: ApplicationReview
+  ): void {
     const updatedApplications = this.state.applications.map(application => {
       if (application.id === applicationId) {
         return Object.assign(application, { application_review: review });
@@ -54,7 +59,10 @@ export default class ReviewApplicationsContainer extends React.Component<
     this.setState({ applications: updatedApplications });
   }
 
-  handleSavingStatusChange(applicationId: number, isSaving: boolean): void {
+  protected handleSavingStatusChange(
+    applicationId: number,
+    isSaving: boolean
+  ): void {
     const statuses = this.state.savingStatuses.map(item => {
       return item.applicationId == applicationId
         ? { applicationId: applicationId, isSaving: isSaving }
@@ -63,7 +71,10 @@ export default class ReviewApplicationsContainer extends React.Component<
     this.setState({ savingStatuses: statuses });
   }
 
-  submitReview(applicationId: number, review: ReviewSubmitForm): void {
+  protected submitReview(
+    applicationId: number,
+    review: ReviewSubmitForm
+  ): void {
     this.handleSavingStatusChange(applicationId, true);
     axios
       .put(route("application_reviews.update", applicationId), review)
@@ -73,13 +84,19 @@ export default class ReviewApplicationsContainer extends React.Component<
         this.handleSavingStatusChange(applicationId, false);
       })
       .catch(error => {
-        //TODO: show errors nicer
-        alert("Something went wrong, please try again later");
+        Swal.fire({
+          type: "error",
+          title: "Oops...",
+          text: "Something went while saving a review. Try again later."
+        });
         this.handleSavingStatusChange(applicationId, false);
       });
   }
 
-  handleStatusChange(applicationId: number, statusId: number | null): void {
+  protected handleStatusChange(
+    applicationId: number,
+    statusId: number | null
+  ): void {
     const application = find(this.state.applications, applicationId);
     if (application === null) {
       return;
@@ -93,7 +110,49 @@ export default class ReviewApplicationsContainer extends React.Component<
     this.submitReview(applicationId, submitReview);
   }
 
-  handleNotesChange(applicationId: number, notes: string | null): void {
+  protected handleBulkStatusChange(
+    applicationIds: number[],
+    statusId: number | null
+  ): void {
+    const applications = this.state.applications.filter(
+      application => applicationIds.includes(application.id)
+    );
+    var errorThrown = false;
+    const requests = applications.map(application => {
+      const oldReview = application.application_review
+        ? application.application_review
+        : {};
+      const submitReview = Object.assign(oldReview, {
+        review_status_id: statusId
+      });
+      this.handleSavingStatusChange(application.id, true);
+      const request = axios
+        .put(route("application_reviews.update", application.id), submitReview)
+        .then(response => {
+          const newReview = response.data as ApplicationReview;
+          this.updateReviewState(application.id, newReview);
+          this.handleSavingStatusChange(application.id, false);
+        })
+        .catch(error => {
+          this.handleSavingStatusChange(application.id, false);
+          // Only show error modal first time a request fails
+          if (!errorThrown) {
+            errorThrown = true;
+            Swal.fire({
+              type: "error",
+              title: "Oops...",
+              text: "Something went while saving a review. Try again later."
+            });
+          }
+        });
+      return request;
+    });
+  }
+
+  protected handleNotesChange(
+    applicationId: number,
+    notes: string | null
+  ): void {
     const application = find(this.state.applications, applicationId);
     if (application === null) {
       return;
@@ -107,7 +166,7 @@ export default class ReviewApplicationsContainer extends React.Component<
     this.submitReview(applicationId, submitReview);
   }
 
-  render(): React.ReactElement {
+  public render(): React.ReactElement {
     const reviewStatusOptions = this.props.reviewStatuses.map(status => {
       return { value: status.id, label: status.name };
     });
@@ -120,6 +179,7 @@ export default class ReviewApplicationsContainer extends React.Component<
         applications={this.state.applications}
         reviewStatusOptions={reviewStatusOptions}
         onStatusChange={this.handleStatusChange}
+        onBulkStatusChange={this.handleBulkStatusChange}
         onNotesChange={this.handleNotesChange}
         savingStatuses={this.state.savingStatuses}
       />
