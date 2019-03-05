@@ -392,6 +392,7 @@ Route::middleware(['auth'])->group(function () : void {
     //  with view permissions for the applicaiton. Using an ApplicationReview
     //  policy would be better, but I'm not sure how to set it up for now.
     Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
+        ->middleware('role:admin')
         ->middleware('can:review,application')
         ->name('application_reviews.update');
 
