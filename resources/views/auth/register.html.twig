@@ -14,17 +14,17 @@
     style="background-image: url('/images/bg_crowd.jpg');">
 
     <div
-        class="register">
+        class="auth-register">
 
         <a
-            class="register-return-link"
+            class="auth-return-link"
             href="/"
             title="Return Home">
             <i class="fas fa-chevron-left"></i>{{ register.return }}
         </a>
 
         <div
-            class="register-heading">
+            class="auth-heading">
 
             <h1>{{ register.title }}</h1>
 
@@ -38,19 +38,19 @@
             {{ csrf_field() }}
 
             <div
-                class="register-content">
+                class="auth-content">
 
                 <div
-                    class="register-scroll-wrapper">
+                    class="auth-scroll-wrapper">
 
                     <div
-                        class="register-copy">
+                        class="auth-copy">
 
                         <div
                             class="flex-grid">
 
                             {% if errors.any() %}
-                                <div class="box full register-alert">
+                                <div class="box full auth-alert">
                                     {% for error in errors.all() %}
                                         <span class="help-block">
                                             <strong>{{ error }}</strong>
@@ -159,7 +159,7 @@
             </div>
 
             <div
-                class="register-action-wrapper">
+                class="auth-action-wrapper">
 
                 <div
                     class="flex-grid">
@@ -189,7 +189,7 @@
     </div>
 
     <a
-        class="register-logo"
+        class="auth-logo"
         href="/"
         title="Return to Talent Cloud.">
         <img

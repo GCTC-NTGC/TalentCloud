@@ -1,11 +1,10 @@
 /* =============================================================================
 
     Talent Cloud
-    Authentication - Login
+    Authentication - Register
 
 ============================================================================= */
 .auth {
-    background: $palette--black;
     background-postion: center;
     background-size: cover;
     min-height: 100vh;
@@ -23,7 +22,8 @@
         width: 100%;
     }
 
-    .login {
+    .auth-register, .auth-login {
+        background: $palette--black;
         box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
         height: auto;
         margin: 0 auto;
@@ -38,7 +38,7 @@
             width: 50%;
         }
 
-        .login-return-link {
+        .auth-return-link {
             color: $palette--font-white;
             font-family: $font--sans;
             font-size: $font-scale--regular;
@@ -68,7 +68,7 @@
 
         }
 
-        .login-heading {
+        .auth-heading {
             background: $palette--white;
             border-radius: 5px 5px 0 0;
             //overflow: hidden;
@@ -100,26 +100,26 @@
             }
         }
 
-        .login-content {
+        .auth-content {
             background: $palette--white;
             overflow: hidden;
 
-            .login-copy {
+            .auth-copy {
                 padding: 0 2rem 2rem 2rem;
 
                 .form__checkbox-wrapper {
-                    font-family: $font--sans;
-                    font-size: $font-scale--regular;
-                    margin: 0 -1rem;
+                  font-family: $font--sans;
+                  font-size: $font-scale--regular;
+                  margin: 0 -1rem;
                 }
 
-                //  .flex-grid {
-                //     margin: 0 -1rem;
+                .flex-grid {
+                    margin: 0 -1rem;
 
                     .box {
                         padding: 0 1rem;
 
-                        &.login-alert span {
+                        &.auth-alert span {
                             background: rgba(255, 0, 0, .2);
                             color: rgba(150, 0, 0, 1);
                             font-family: $font--sans;
@@ -149,13 +149,13 @@
 
                     }
 
-                // }
+                }
 
             }
 
         }
 
-        .login-action-wrapper {
+        .auth-action-wrapper {
             background: $palette--white;
             border-radius: 0 0 5px 5px;
             border-top: 1px solid darken($palette--white, 30%);
@@ -180,7 +180,7 @@
 
     }
 
-    .login-logo {
+    .auth-logo {
         display: block;
         margin: 0 auto;
         max-width: 60%;

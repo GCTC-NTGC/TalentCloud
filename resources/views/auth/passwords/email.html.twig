@@ -14,17 +14,17 @@
     style="background-image: url('/images/bg_crowd.jpg');">
 
     <div
-        class="login">
+        class="auth-email">
 
         <a
-            class="login-return-link"
+            class="auth-return-link"
             href="/"
             title="Return Home">
             <i class="fas fa-chevron-left"></i>{{ forgot_password.return }}
         </a>
 
         <div
-            class="login-heading">
+            class="auth-heading">
 
             <h1>{{ forgot_password.title }}</h1>
 
@@ -38,25 +38,32 @@
             {{ csrf_field() }}
 
             <div
-                class="login-content">
+                class="auth-content">
 
                 <div
-                    class="login-scroll-wrapper">
+                    class="auth-scroll-wrapper">
 
                     <div
-                        class="login-copy">
+                        class="auth-copy">
 
-                        {% if session('status') is not empty %}
-                            <div class="alert alert-success">
-                                {{ session('status') }}
-                            </div>
-                        {% endif %}
+                        <div class="flex-grid">
+                            {% if session('status') is not empty %}
+                                <div class="box full">
+                                    <span>
+                                        {{ session('status') }}
+                                    </span>
+                                </div>
+                            {% endif %}
 
-                        {% if errors.has('email') %}
-                            <span class="help-block">
-                                <strong>{{ errors.first('email') }}</strong>
-                            </span>
-                        {% endif %}
+                            {% if errors.has('email') %}
+                                <div class="box full auth-alert">
+                                    <span class="help-block">
+                                        <strong>{{ errors.first('email') }}</strong>
+                                    </span>
+                                </div>
+                            {% endif %}
+                        </div>
+
 
                         <div
                             class="form__input-wrapper--float {% if old('email') %} active {% endif %}">
