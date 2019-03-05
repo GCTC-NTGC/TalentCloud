@@ -117,7 +117,7 @@
             {% if job.status() != 'draft' %}
             <a
                 class="button--blue review-button{% if job.status() == 'submitted' or job.status() == 'published' %} disabled{% endif %}"
-                href="{# TODO: Needs route to new job-specific applicant index. #}#"
+                href="{{ route('manager.jobs.applications', job) }}"
                 title="{{ jobs_l10n.review_this_applicants }}">
                 {{ jobs_l10n.review_applicants }}
             </a>

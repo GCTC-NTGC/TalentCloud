@@ -75,6 +75,13 @@ class JobApplication extends BaseModel {
         'experience_saved',
     ];
 
+    /**
+     * The accessors to append to the model's array/json form.
+     *
+     * @var array
+     */
+    protected $appends = ['meets_essential_criteria'];
+
     protected function createApplicantSnapshot($applicant_id) {
         $applicant = Applicant::where('id', $applicant_id)->firstOrFail();
 
@@ -179,5 +186,40 @@ class JobApplication extends BaseModel {
                 break;
         }
         return $status;
+    }
+
+    /**
+     * Returns true if this application meets all the essential criteria.
+     * That means it has attached an SkillDeclaration for each essential criterion,
+     * with a level at least as high as the required level.
+     *
+     * @return boolean
+     */
+    public function meetsEssentialCriteria(): bool
+    {
+        $essentialCriteria = $this->job_poster->criteria->filter(
+            function ($value, $key) {
+                return $value->criteria_type->name == 'essential';
+            }
+        );
+        foreach ($essentialCriteria as $criterion) {
+            $skillDeclaration = $this->skill_declarations->where("skill_id", $criterion->skill_id)->first();
+            if ($skillDeclaration === null ||
+                $skillDeclaration->skill_level_id < $criterion->skill_level_id) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Accessor for meetsEssentialCriteria function, which
+     * allows this value to be automtacially appended to array/json representation.
+     *
+     * @return boolean
+     */
+    public function getMeetsEssentialCriteriaAttribute():bool
+    {
+        return $this->meetsEssentialCriteria();
     }
 }

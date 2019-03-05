@@ -1,0 +1,30 @@
+{# =============================================================================
+
+    Talent Cloud
+    Review Applicants
+
+============================================================================= #}
+
+{% extends "layouts/base" %}
+
+{% block title %}Review Applicants{% endblock %}
+
+{% block body %}
+
+	{% include "common/alert" %}
+
+    {% include "common/goc" %}
+
+    {% include "common/header" with {'header': {'title': job.title}} %}
+
+    <a id="skipLink"></a>
+
+    <div
+        id="review-applications-container"
+        data-job="{{ job|json_encode() }}"
+        data-applications="{{ applications|json_encode() }}"
+        data-review-statuses="{{ review_statuses|json_encode() }}"
+    >
+    </div>
+
+{% endblock %}

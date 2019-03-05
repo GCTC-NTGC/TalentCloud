@@ -10,6 +10,7 @@ use App\Models\Skill;
 use App\Models\Applicant;
 use App\Models\Reference;
 use App\Models\Project;
+use App\Models\Lookup\Relationship;
 use App\Services\Validation\Requests\UpdateReferenceValidator;
 
 class ReferencesController extends Controller
@@ -39,6 +40,8 @@ class ReferencesController extends Controller
         return view('applicant/profile_04_references', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_references'),
+            'reference_template' => Lang::get('common/references'),
+            'relationships' => Relationship::all(),
             'form_submit_action' => route('profile.references.update', $applicant),
         ]);
     }
