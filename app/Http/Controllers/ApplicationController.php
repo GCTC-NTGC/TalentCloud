@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use App\Models\JobApplication;
 use App\Models\Skill;
+use App\Models\Lookup\ReviewStatus;
 use Facades\App\Services\WhichPortal;
 
 class ApplicationController extends Controller
@@ -50,6 +51,11 @@ class ApplicationController extends Controller
             'manager/application_post' :
             'applicant/application_preview';
 
+        if (WhichPortal::isManagerPortal()) {
+            //Load things required for review component
+            $application->load(['veteran_status', 'citizenship_declaration', 'application_review', "applicant.user"]);
+        }
+
         return view($view, [
             /* Localized strings*/
             'post' => Lang::get('manager/application_post'), // Change text
@@ -75,6 +81,7 @@ class ApplicationController extends Controller
             /* Applicant Data */
                 "applicant" => $application->applicant,
                 "job_application" => $application,
+                "review_statuses" => ReviewStatus::all(),
         ]);
     }
 

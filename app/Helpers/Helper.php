@@ -91,3 +91,19 @@ if (!function_exists('humanizeDateDiff')) {
         return Lang::choice($key, $count);
     }
 }
+
+if (!function_exists('humanizeLastDay')) {
+    /**
+     * Returns the date of the last full day a person has before a deadline time.
+     *
+     * @param Date $datetime DateTime object to transform to date of last day.
+     *
+     * @return string
+     */
+    function humanizeLastDay(Date $datetime) : string
+    {
+        $lastday = $datetime->sub("1 day");
+
+        return humanizeDate($lastday);
+    }
+}

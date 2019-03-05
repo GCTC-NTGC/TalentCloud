@@ -23,10 +23,13 @@ The Talent Cloud site uses:
 
 ## Running the Talent Cloud server with Docker on a Windows machine
 
-1. PHP 7.2 is required. Install PHP 7.2 on your system with the following extensions:
+1. PHP 7.2 is required. Install PHP 7.2 on your system, create a php.ini file in root and copy the contents of php.ini-development file. Next, open up the file in a text editor and uncomment (eg. remove ';' before ';extention=curl') the following extensions:
+
     * curl
     * mbstring
     * xml
+    * fileinfo
+    * openssl
 
 2. Install Docker for Windows
 
@@ -77,31 +80,33 @@ The Talent Cloud site uses:
 
 7. In Task Manager > Services, stop any MySQL and Apache services you have running.
 
-8. in root folder run `docker-compose up --build --force-recreate`
+8. In root folder run `docker-compose up --build --force-recreate`
 
-9. Copy `.env.example` to `.env`. Configure it with the following steps:
+9. Run `composer install`
+
+10. Copy `.env.example` to `.env`. Configure it with the following steps:
 
     * run `docker-compose exec talentcloud sh -c "php artisan key:generate"` to create a random APP_KEY variable.
     * If testing, consider setting `FORCE_ADMIN` and/or `DEBUGBAR_ENABLED` to true.
 
-10. Run the following command so that the database will persist across containers being brought and down:
+11. Run the following command so that the database will persist across containers being brought and down:
 
     `docker volume create pgdata`
     You can run `docker-compose down -v` to erase this data volume.
 
-11. Run the following commands to manually set up database
+12. Run the following commands to manually set up database
 
     ```bash
     docker-compose exec talentcloud sh -c "php artisan migrate:fresh"
     ```
 
-12. For testing, you may want to create fake data with the following command:
+13. For testing, you may want to create fake data with the following command:
 
     ```bash
     docker-compose exec talentcloud sh -c "php artisan db:seed"
     ```
 
-13. After the first-time set up, you should be able to start up the server simply by running `docker-compose up`, as long as other MySQL and Apache services are stopped.
+14. After the first-time set up, you should be able to start up the server simply by running `docker-compose up`, as long as other MySQL and Apache services are stopped.
 
 ## OPTIONAL Installing and Running PHPUnit via composer in your docker container
 

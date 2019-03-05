@@ -42,7 +42,7 @@ class ForgotPasswordController extends AuthController
     {
         return view('auth.passwords.email', [
             'routes' => $this->auth_routes(),
-            'forgot_password_template' => Lang::get('common/auth/forgot_password'),
+            'forgot_password' => Lang::get('common/auth/forgot_password'),
         ]);
     }
 }

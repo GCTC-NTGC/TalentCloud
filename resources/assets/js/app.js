@@ -474,7 +474,7 @@
 
         //Update ui for Skill object to reflect that it has been setItem
         function setSkillSaved(object, response) {
-            $(object).find('.accordion-title').text(response.data.skill.skill);
+            $(object).find('.accordion-title').text(response.data.skill.name);
             $(object).find('.skill__description').text(response.data.skill.description);
             $(object).find('.skill__status--level').text(response.data.skill_status.status);
         }

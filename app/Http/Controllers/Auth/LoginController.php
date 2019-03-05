@@ -66,9 +66,9 @@ class LoginController extends AuthController
      */
     public function showLoginForm()
     {
-        return view('auth.login', [
+        return view('auth/login', [
             'routes' => $this->auth_routes(),
-            'login_template' => Lang::get('common/auth/login'),
+            'login' => Lang::get('common/auth/login'),
         ]);
     }
 

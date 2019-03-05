@@ -34,7 +34,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         },
         'published' => false,
         'city:en' => $faker->city,
-        'title:en' => $faker->unique()->word,
+        'title:en' => $faker->unique()->realText(27, 1),
         'impact:en' => $faker->paragraphs(
             2,
             true
@@ -43,7 +43,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'division:en' => $faker->word,
         'education:en' => $faker->sentence(),
         'city:fr' => $faker_fr->city,
-        'title:fr' => $faker_fr->unique()->word,
+        'title:fr' => $faker_fr->unique()->realText(27, 1),
         'impact:fr' => $faker_fr->paragraphs(
             2,
             true

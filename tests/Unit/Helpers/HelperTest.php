@@ -79,4 +79,23 @@ class HelperTest extends TestCase
 
         $this->assertEquals($expected, humanizeTime($timeToTest));
     }
+
+    /**
+     * Test that humanizeLastDay functions correctly.
+     *
+     * Job closing dates are set to midnight PST. 8:00:00 UTC
+     *
+     * @return void
+     */
+    public function testHumanizeLastDay() : void
+    {
+        $dateToTest = Date::parse('2019-01-05 8:00:00');
+        $dateToTest->setTimezone($this->timezone);
+
+        $expected = Date::parse('2019-01-04 8:00:00');
+        $expected->setTimezone($this->timezone);
+        $expected = $expected->format($this->dateFormat);
+
+        $this->assertEquals($expected, humanizeLastDay($dateToTest));
+    }
 }

@@ -59,7 +59,7 @@ class RegisterController extends AuthController
     {
         return view('auth.register', [
             'routes' => $this->auth_routes(),
-            'register_template' => Lang::get('common/auth/register'),
+            'register' => Lang::get('common/auth/register'),
         ]);
     }
 
