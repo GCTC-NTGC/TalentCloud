@@ -142,7 +142,7 @@ return [
         'application_step_3.accepted' => 'L\'étape 3 doit être complétée',
         'published' => [
             'in' => 'You cannot edit a Job Poster that has been published'
-        ]
+        ],
     ],
     /*
     |--------------------------------------------------------------------------
@@ -158,7 +158,6 @@ return [
         'submisstion_signature' => 'signature',
         'submission_date'       => 'date',
         'skill_declaration_id'  => 'skill declaration',
-
         'name'                  => 'nom',
         'username'              => "nom d'utilisateur",
         'email'                 => 'adresse courriel',
@@ -190,5 +189,20 @@ return [
         'time'                  => 'heure',
         'available'             => 'disponible',
         'size'                  => 'taille',
+        'courses.new.*.name' => '',
+        'courses.new.*.institution' => '',
+        'courses.new.*.course_status_id' => '',
+        'courses.new.*.start_date' => '',
+        'courses.new.*.end_date' => '',
+        'degrees.new.*.degree_type_id' => '',
+        'degrees.new.*.area_of_study' => '',
+        'degrees.new.*.institution' => '',
+        'degrees.new.*.start_date' => '',
+        'degrees.new.*.end_date' => '',
+        'work_experiences.new.*.role' => '',
+        'work_experiences.new.*.company' => '',
+        'work_experiences.new.*.description' => '',
+        'work_experiences.new.*.start_date' => '',
+        'work_experiences.new.*.end_date' => '',
     ],
 ];

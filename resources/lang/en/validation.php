@@ -144,7 +144,7 @@ return [
         'application_step_3.accepted' => 'Step 3 must be completed',
         'published' => [
             'in' => 'You cannot edit a Job Poster that has been published'
-        ]
+        ],
     ],
 
     /*
@@ -162,6 +162,21 @@ return [
         'submisstion_signature' => 'signature',
         'submission_date' => 'date',
         'skill_declaration_id' => 'skill declaration',
+        'courses.new.*.name' => 'Course/Certification Name',
+        'courses.new.*.institution' => 'Course/Certification Institution',
+        'courses.new.*.course_status_id' => 'Course/Certification Status',
+        'courses.new.*.start_date' => 'Course/Certification Start Date',
+        'courses.new.*.end_date' => 'Course/Certification End Date',
+        'degrees.new.*.degree_type_id' => 'Diploma/Degree Type',
+        'degrees.new.*.area_of_study' => 'Diploma/Degree Area of Study',
+        'degrees.new.*.institution' => 'Diploma/Degree Institution',
+        'degrees.new.*.start_date' => 'Diploma/Degree Start Date',
+        'degrees.new.*.end_date' => 'Diploma/Degree End Date',
+        'work_experiences.new.*.role' => 'Equivalent Experience Role',
+        'work_experiences.new.*.company' => 'Equivalent Experience Company',
+        'work_experiences.new.*.description' => 'Equivalent Experience Description',
+        'work_experiences.new.*.start_date' => 'Equivalent Experience Start Date',
+        'work_experiences.new.*.end_date' => 'Equivalent Experience End Date',
     ],
 
 ];
