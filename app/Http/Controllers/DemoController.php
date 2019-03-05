@@ -20,7 +20,7 @@ class DemoController extends Controller
             $applications = factory(JobApplication::class, 10)->create([
                 'job_poster_id' => $jobPoster->id
             ]);
-            $jobPoster->job_applications()->saveMany($applications);
+            $jobPoster->submitted_applications()->saveMany($applications);
 
             $applications->load(['veteran_status', 'citizenship_declaration', 'application_review', "applicant.user"]);
             return view('manager/review_applications', [

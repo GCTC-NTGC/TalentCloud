@@ -105,6 +105,10 @@ class MenuComposer
                     break;
                 case 'manager.jobs.index':
                 case 'manager.jobs.show':
+                case 'manager.jobs.applications':
+                case 'manager.jobs.review':
+                case 'manager.applications.show':
+                case 'manager.applicants.show':
                     $menu['items']['jobs']['active'] = true;
                     break;
                 case 'manager.jobs.create':
