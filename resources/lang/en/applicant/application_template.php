@@ -92,7 +92,7 @@ return [
         "english_essential" => "I understand that this position has an English essential language requirement. This means that the manager may choose to test my proficiency in English.",
         "french_essential" => "I understand that this position has a French essential language requirement. This means that the manager may choose to test my proficiency in French.",
         "bilingual" => 'I understand that this position has a bilingual language requirement. Knowledge of both English and French are required. I am entitled to be assessed on the "Need to Have" and "Nice to Have" criteria for this position in the Official Language of my choice (English or French), however the bilingual requirement means I will have to do additional testing in my second language to confirm my language ability.',
-        "english_french" => "COPY NEEDED",
+        "english_french" => "COPY NEEDED This should not be seen",
         "language_title" => "Language Selection",
         "language_copy" => "Which language would you prefer for this application process?",
         "language_label" => "Select One",
