@@ -25,9 +25,11 @@ filter:
         - database/seeds/
         - resources/assets/js/app
         - routes/
+
     dependency_paths:
         - node_modules/
         - vendor/
+
     excluded_paths:
         - bootstrap/
         - config/
@@ -48,7 +50,7 @@ checks:
 tools:
     external_code_coverage:
         timeout: 777
-        runs: 2
+        runs: 1
     custom_commands:
         -
             scope: project
