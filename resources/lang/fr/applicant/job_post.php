@@ -65,17 +65,17 @@ return [
         'level_link_title' => 'Visitez la FAQ pour en savoir plus sur ce niveau et les autres.'
     ],
     'language' => [
-        'sidebar_title' => 'TRANSLATION NEEDED: View this job\'s language requirements.',
-        'title' => 'TRANSLATION NEEDED: Language Requirements',
-        'english_essential_context' => 'TRANSLATION NEEDED: This position has an English essential requirement. The manager may choose to test your proficiency in English.',
-        'french_essential_context' => 'TRANSLATION NEEDED: This position has an French essential requirement. The manager may choose to test your proficiency in French.',
-        'bilingual_context_01' => 'TRANSLATION NEEDED: This position has a bilingual requirement. This means that you must meet the %proficiency% required, in both English and French, in each of the 3 language skills: comprehension, writing, and oral communication.',
-        'proficiency_link' => 'TRANSLATION NEEDED: https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/information-candidates/language-requirements-candidates.html',
-        'proficiency_copy' => 'TRANSLATION NEEDED: proficiency levels',
-        'bilingual_context_02' => 'TRANSLATION NEEDED: You can try out a %assessment% to give yourself an idea of the level (A, B, or C) you might attain.',
-        'assessment_link' => 'TRANSLATION NEEDED: https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html',
-        'assessment_copy' => 'TRANSLATION NEEDED: self-assessment test',
-        'bilingual_context_03' => 'TRANSLATION NEEDED: If your first official language is English, you will be tested on your French, and vice versa.',
+        'sidebar_title' => 'Voir les exigences linguistiques de ce travail.',
+        'title' => 'Exigences linguistiques',
+        'english_essential_context' => 'Ce poste a une exigence linguistique anglais essentiel. Le gestionnaire peut choisir d\'évaluer ma maîtrise de l\'anglais.',
+        'french_essential_context' => 'Ce poste a une exigence linguistique français essentiel. Cela signifie que le gestionnaire peut choisir d\'évaluer ma maîtrise du français.',
+        'bilingual_context_01' => 'Ce poste a une exigence linguistique bilingue. Cela signifie que vous devez posséder la %maîtrise% requise, en anglais et en français, dans chacune des trois compétences linguistiques: compréhension, écriture et communication orale.',
+        'proficiency_link' => 'https://www.canada.ca/fr/commission-fonction-publique/emplois/services/emplois-gc/renseignements-candidats/exigences-linguistiques.html',
+        'proficiency_copy' => 'niveaux de compétence',
+        'bilingual_context_02' => 'Vous pouvez essayer une %évaluation% pour vous donner une idée du niveau (A, B ou C) que vous pourriez atteindre.',
+        'assessment_link' => 'https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde/tests-autoevaluation.html',
+        'assessment_copy' => 'tests d’autoévaluation',
+        'bilingual_context_03' => 'Si votre première langue officielle est le français, vous serez testé en anglais, et vice versa.',
         'english_french_context' => 'TRANSLATION NEEDED: NEEDS COPY'
     ],
     'culture' => [
