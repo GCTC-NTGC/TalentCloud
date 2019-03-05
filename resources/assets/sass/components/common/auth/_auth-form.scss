@@ -22,7 +22,7 @@
         width: 100%;
     }
 
-    .auth-register, .auth-login {
+    .auth-register, .auth-login, .auth-email, .auth-reset {
         background: $palette--black;
         box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
         height: auto;
@@ -133,12 +133,26 @@
                             border: 1px solid red;
                         }
 
+                        &.auth-success span {
+                            background: rgba(0, 255, 0, .2);
+                            color: rgba(0, 150, 0, 1);
+                            font-family: $font--sans;
+                            font-size: $font-scale--regular;
+                            font-weight: 400;
+                            width: 100%;
+                            padding: 2rem;
+                            display: block;
+                            margin: 2rem 0 0 0;
+                            border-radius: 5px;
+                            border: 1px solid green;
+                        }
+
                         p {
                             @extend %paragraph;
                             margin: 2rem 0 0 0;
                         }
 
-                        &:last-child {
+                        &.small-1of2:last-child {
                             text-align: right;
                         }
 

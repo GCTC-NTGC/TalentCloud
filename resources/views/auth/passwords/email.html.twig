@@ -1,8 +1,6 @@
 {# =============================================================================
-
     Talent Cloud
     Auth: Password -  Email
-
 ============================================================================= #}
 
 {% extends "layouts/base" %}
@@ -46,10 +44,12 @@
                     <div
                         class="auth-copy">
 
-                        <div class="flex-grid">
+                        <div
+                            class="flex-grid">
+
                             {% if session('status') is not empty %}
-                                <div class="box full">
-                                    <span>
+                                <div class="box full auth-success">
+                                    <span class="help-block">
                                         {{ session('status') }}
                                     </span>
                                 </div>
@@ -62,8 +62,8 @@
                                     </span>
                                 </div>
                             {% endif %}
-                        </div>
 
+                        </div>
 
                         <div
                             class="form__input-wrapper--float {% if old('email') %} active {% endif %}">
@@ -88,7 +88,7 @@
             </div>
 
             <div
-                class="login-action-wrapper">
+                class="auth-action-wrapper">
 
                 <div
                     class="flex-grid">
@@ -118,7 +118,7 @@
     </div>
 
     <a
-        class="login-logo"
+        class="auth-logo"
         href="/"
         title="Return to Talent Cloud.">
         <img

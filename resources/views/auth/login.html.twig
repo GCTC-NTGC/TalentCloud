@@ -14,17 +14,17 @@
     style="background-image: url('/images/bg_crowd.jpg');">
 
     <div
-        class="auth-login">
+        class="login">
 
         <a
-            class="auth-return-link"
+            class="login-return-link"
             href="/"
             title="Return Home">
             <i class="fas fa-chevron-left"></i> {{ login.return }}
         </a>
 
         <div
-            class="auth-heading">
+            class="login-heading">
 
             <h1>{{ login.title }}</h1>
 
@@ -38,27 +38,23 @@
             {{ csrf_field() }}
 
             <div
-                class="auth-content">
+                class="login-content">
 
                 <div
-                    class="auth-scroll-wrapper">
-
+                    class="login-scroll-wrapper">
                     <div
-                        class="auth-copy">
+                        class="login-copy">
 
-                        <div class="flex-grid">
-                            {% if errors.any() %}
+                        {% if errors.any() %}
 
-                                <div class="box full auth-alert">
-                                    {% for error in errors.all() %}
-                                        <span class="help-block">
-                                            <strong>{{ error }}</strong>
-                                        </span>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-
+                            <div class="box full login-alert">
+                                {% for error in errors.all() %}
+                                    <span class="help-block">
+                                        <strong>{{ error }}</strong>
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
 
                         <div
                             class="form__input-wrapper--float @if (old('email'))active @endif">
@@ -130,7 +126,7 @@
             </div>
 
             <div
-                class="auth-action-wrapper">
+                class="login-action-wrapper">
 
                 <div
                     class="flex-grid">
@@ -166,7 +162,7 @@
     </div>
 
     <a
-        class="auth-logo"
+        class="login-logo"
         href="/"
         title="Return to Talent Cloud.">
         <img
