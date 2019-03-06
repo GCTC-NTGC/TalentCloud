@@ -10,7 +10,8 @@ return [
      *
      */
 
-    'title' => 'Register for Talent Cloud',
+    'title' => 'Talent Cloud | Register for Talent Cloud',
+    'header' => 'Register for Talent Cloud',
     'return' => "Return Home",
     'name' => 'First and Last Name',
     'email' => 'E-Mail Address',

@@ -7,6 +7,8 @@
 
 {% extends "layouts/base" %}
 
+{% block title %}{{ login.title }}{% endblock %}
+
 {% block body %}
 
 <section
@@ -26,7 +28,7 @@
         <div
             class="auth-heading">
 
-            <h1>{{ login.title }}</h1>
+            <h1>{{ login.header }}</h1>
 
         </div>
 
