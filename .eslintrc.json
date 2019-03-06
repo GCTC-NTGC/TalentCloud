@@ -7,13 +7,15 @@
     "extends": [
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
+        "airbnb",
         "plugin:prettier/recommended",
+        "prettier",
         "prettier/@typescript-eslint",
         "prettier/react"
     ],
     "globals": {
-        "Atomics": "readable",
-        "SharedArrayBuffer": "readable"
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
     },
     "parserOptions": {
         "ecmaFeatures": {
@@ -25,6 +27,13 @@
     },
     "plugins": ["react", "@typescript-eslint"],
     "rules": {
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [".jsx", ".tsx"]
+            }
+        ],
+        "jsx-a11y/label-has-for": "off"
     }
 }
