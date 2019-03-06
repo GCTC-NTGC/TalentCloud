@@ -388,11 +388,7 @@ Route::middleware(['auth'])->group(function () : void {
         ->middleware('can:delete,application')
         ->name('applications.destroy');
 
-    //TODO: Because this is for reviews indexed by application, it checks that user is a manager
-    //  with view permissions for the applicaiton. Using an ApplicationReview
-    //  policy would be better, but I'm not sure how to set it up for now.
     Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
-        ->middleware('role:manager')
         ->middleware('can:review,application')
         ->name('application_reviews.update');
 
