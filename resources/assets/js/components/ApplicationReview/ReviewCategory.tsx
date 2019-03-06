@@ -3,6 +3,8 @@ import { Application } from "../types";
 import { SelectOption } from "../Select";
 import { applicationBucket } from "./helpers";
 import ApplicantBucket from "./ApplicantBucket";
+import { ReviewStatusId } from "../lookupConstants";
+import Swal from "sweetalert2";
 
 interface ReviewCategoryProps {
   title: string;
@@ -11,6 +13,10 @@ interface ReviewCategoryProps {
   applications: Application[];
   reviewStatusOptions: SelectOption<number>[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
+  onBulkStatusChange: (
+    applicationIds: number[],
+    statusId: number | null
+  ) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   savingStatuses: { applicationId: number; isSaving: boolean }[];
   prioritizeVeterans: boolean;
@@ -23,6 +29,28 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = (
     return null;
   }
 
+  const screenOutAll = (): void => {
+    const applicationIds = props.applications.map(
+      application => application.id
+    );
+    props.onBulkStatusChange(applicationIds, ReviewStatusId.ScreenedOut);
+  };
+
+  const handleScreenOutAllClick = (): void => {
+    Swal.fire({
+      title: "Are you sure you want to screen out all Optional candidates?",
+      type: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#0A6CBC",
+      cancelButtonColor: "#F94D4D",
+      confirmButtonText: "Conirm"
+    }).then(result => {
+      if (result.value) {
+        screenOutAll();
+      }
+    });
+  };
+
   const buckets = [
     {
       title: "Priority Applicants",
@@ -34,8 +62,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = (
     },
     {
       title: "Veterans and Canadian Citizens",
-      description:
-        "",
+      description: "",
       applications: props.applications.filter(
         application => applicationBucket(application) === "citizen"
       )
@@ -69,7 +96,11 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = (
             */}
       {props.showScreenOutAll && (
         <span className="category-action">
-          <button className="button--outline" type="button">
+          <button
+            className="button--outline"
+            type="button"
+            onClick={handleScreenOutAllClick}
+          >
             <i className="fas fa-ban" /> Screen All Optional Candidates Out
           </button>
         </span>

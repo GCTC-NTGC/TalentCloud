@@ -12,6 +12,10 @@ interface ReviewApplicationsProps {
   applications: Application[];
   reviewStatusOptions: SelectOption<number>[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
+  onBulkStatusChange: (
+    applicationIds: number[],
+    statusId: number | null
+  ) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   savingStatuses: { applicationId: number; isSaving: boolean }[];
 }
@@ -86,6 +90,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
           onStatusChange={props.onStatusChange}
           onNotesChange={props.onNotesChange}
           savingStatuses={props.savingStatuses}
+          onBulkStatusChange={props.onBulkStatusChange}
         />
       ))}
     </section>
