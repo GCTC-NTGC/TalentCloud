@@ -147,7 +147,7 @@ return [
             'accepted' => 'L\'étape 3 doit être complétée',
         ],
         'published' => [
-            'in' => 'You cannot edit a Job Poster that has been published'
+            'in' => ''
         ]
     ],
     /*
@@ -163,7 +163,7 @@ return [
     'attributes' => [
         'submisstion_signature' => 'signature',
         'submission_date'       => 'date',
-        'skill_declaration_id'  => 'skill declaration',
+        'skill_declaration_id'  => 'déclaration de compétence',
         'name'                  => 'nom',
         'username'              => "nom d'utilisateur",
         'email'                 => 'adresse courriel',

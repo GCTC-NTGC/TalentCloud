@@ -12,7 +12,7 @@ return [
     'about_section' => [
         'about_title' => 'Mes renseignements',
         'profile_title' => 'Nuage de talents | Candidat : Profil - À propos de moi',
-        'about_gc_disclaimer' => 'Please note that your name can be changed through your GC Account settings. Profile photos will be added as a feature at a later time.',
+        'about_gc_disclaimer' => '',
         'gc_link' => 'https://account.gccollab.ca/profile/',
         'gc_link_title' => '',
         'gc_link_label' => '',

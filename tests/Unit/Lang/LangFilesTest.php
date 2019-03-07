@@ -130,7 +130,65 @@ class LangFilesTest extends BaseTranslationTest
     * @var array
     */
     protected $permittedEqual = [
-        'applicant/applicant_profile.about_section.gc_link'
+        "", // empty strings will be reported by testNoEmptyStrings
+        'https://gccollab.ca/groups/profile/19750/talent-cloud-nuage-de-talent',
+        'https://account.gccollab.ca/profile/',
+        'https://twitter.com/GC_Talent',
+        'talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
+        '/images/logo_canada_white.png',
+        '/images/logo_goc_white.svg',
+        '1', '2', '3', '4', '5', '6',
+        ':count Minute|:count Minutes',
+        '/tos/',
+        '/privacy/',
+        'Canada.ca',
+        'GCcollab',
+        'Twitter',
+        'Permanent',
+        'Application',
+        'Institution',
+        'Initiative',
+        'Facilitation',
+        'Passion',
+        'Courage',
+        'signature',
+        'date',
+        'Minute',
+        'minute',
+        'description',
+        'FAQ',
+        'Linux',
+        'CSS',
+        'Javascript',
+        'C++',
+        'SASS',
+        'Python',
+        'PHP',
+        'Git',
+        'Docker',
+        'HTML',
+        'SQL',
+        'Microsoft Dynamics',
+        'EF6',
+        'Info',
+        'Notes',
+        'Education',
+        'Education (English)',
+        'Education (Français)',
+        'Impact',
+        'Impact (English)',
+        'Impact (Français)',
+        'Division',
+        'Division (English)',
+        'Division (Français)',
+        'Question',
+        'Question (English)',
+        'Question (Français)',
+        'Description',
+        'Description (English)',
+        'Description (Français)',
+        'Province',
+        'Classifications',
     ];
     /**
     * Tests lang files for identical values in multiple languages.
@@ -151,9 +209,9 @@ class LangFilesTest extends BaseTranslationTest
                     // exclude from results
                 } elseif (strpos($path, '.type')) {
                     // exclude from results
-                } elseif (in_array($value, $this->permittedEqual)) {
+                } elseif (strpos($path, '_anchor')) {
                     // exclude from results
-                } elseif (in_array($path, $this->permittedEqual)) {
+                } elseif (in_array($value, $this->permittedEqual)) {
                     // exclude from results
                 } elseif (Lang::has($path) && in_array($value, $prevValues)) {
                     array_push($identicalEntries, $path);
