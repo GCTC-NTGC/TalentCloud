@@ -74,9 +74,7 @@ return [
         "createSample" => [
             "type" => "createSample",
             "title" => "Ajouter un nouvel échantillon de travail",
-            "content" => [
-                "00" => ""
-            ],
+            //"content" => [],
             "id" => "createSample",
             "action_01" => "Annuler",
             "action_02" => "Enregistrer"

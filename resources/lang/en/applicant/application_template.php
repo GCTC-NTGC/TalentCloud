@@ -72,9 +72,7 @@ return [
         "createSample" => [
             "type" => "createSample",
             "title" => "Create a New Work Sample",
-            "content" => [
-                "00" => ""
-            ],
+            //"content" => [],
             "id" => "createSample",
             "action_01" => "Cancel",
             "action_02" => "Save"

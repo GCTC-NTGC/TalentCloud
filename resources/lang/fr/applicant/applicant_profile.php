@@ -12,10 +12,10 @@ return [
     'about_section' => [
         'about_title' => 'Mes renseignements',
         'profile_title' => 'Nuage de talents | Candidat : Profil - À propos de moi',
-        'about_gc_disclaimer' => '',
+        //'about_gc_disclaimer' => '',
         'gc_link' => 'https://account.gccollab.ca/profile/',
-        'gc_link_title' => '',
-        'gc_link_label' => '',
+        //'gc_link_title' => '',
+        //'gc_link_label' => '',
         'account_form_legend' => 'Renseignements du compte',
         'user_name_label' => 'Mon nom',
         'user_email_label' => 'Mon courriel',
