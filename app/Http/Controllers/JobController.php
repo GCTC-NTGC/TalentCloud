@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -12,6 +13,8 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 
 use Carbon\Carbon;
+
+use App\Mail\JobPosterReviewRequested;
 
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
@@ -84,14 +87,58 @@ class JobController extends Controller
         }
 
         return view('manager/job_index', [
-            "manager_job_index" => [
-                "title" => "My Job Posts"
-            ],
+            /*Localization Strings*/
+            'jobs_l10n' => Lang::get('manager/job_index'),
+
+            /* Data */
             'jobs' => $manager->job_posters,
             'veteran_applications' => $veteran_applications,
             'citizen_applications' => $citizen_applications,
             'other_applications' => $other_applications,
         ]);
+    }
+
+    /**
+     * Submit the Job Poster for review.
+     *
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function submitForReview(Request $request, JobPoster $jobPoster)
+    {
+        // Update review request timestamp
+        $jobPoster->review_requested_at = new Date();
+        $jobPoster->save();
+        $jobPoster->refresh();
+
+        // Send email
+        $reviewer_email = config('mail.reviewer_email');
+        if (isset($reviewer_email)) {
+            Mail::to($reviewer_email)->send(new JobPosterReviewRequested($jobPoster, Auth::user()));
+        } else {
+            Log::error('The reviewer email environment variable is not set.');
+        }
+
+        return view('manager/job_index/job', [
+            /*Localization Strings*/
+            'jobs_l10n' => Lang::get('manager/job_index'),
+            'job' => $jobPoster
+        ]);
+    }
+
+    /**
+     * Delete a draft Job Poster.
+     *
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
+     *
+     * @return void
+     */
+    public function destroy(Request $request, JobPoster $jobPoster) : void
+    {
+        $jobPoster->delete();
     }
 
     /**
@@ -133,26 +180,29 @@ class JobController extends Controller
         $jobLang = Lang::get('applicant/job_post');
 
         $applyButton = [];
-
-        if (isset($user)) {
-            if (!$jobPoster->published && $this->authorize('update', $jobPoster)) {
-                $applyButton = [
-                    'href' => route('manager.jobs.edit', $jobPoster->id),
-                    'title' => $jobLang['apply']['edit_link_title'],
-                    'text' => $jobLang['apply']['edit_link_label'],
-                ];
-            } else {
-                $applyButton = [
-                    'href' => route('job.application.edit.1', $jobPoster->id),
-                    'title' => $jobLang['apply']['apply_link_title'],
-                    'text' => $jobLang['apply']['apply_link_label'],
-                ];
-            }
-        } else {
+        if (!$jobPoster->published && $this->authorize('update', $jobPoster)) {
+            $applyButton = [
+                'href' => route('manager.jobs.edit', $jobPoster->id),
+                'title' => $jobLang['apply']['edit_link_title'],
+                'text' => $jobLang['apply']['edit_link_label'],
+            ];
+        } elseif (Auth::check() && $jobPoster->isOpen()) {
+            $applyButton = [
+                'href' => route('job.application.edit.1', $jobPoster->id),
+                'title' => $jobLang['apply']['apply_link_title'],
+                'text' => $jobLang['apply']['apply_link_label'],
+            ];
+        } elseif (Auth::guest() && $jobPoster->isOpen()) {
             $applyButton = [
                 'href' => route('job.application.edit.1', $jobPoster->id),
                 'title' => $jobLang['apply']['login_link_title'],
                 'text' => $jobLang['apply']['login_link_label'],
+            ];
+        } else {
+            $applyButton = [
+                'href' => null,
+                'title' => null,
+                'text' => $jobLang['apply']['job_closed_label'],
             ];
         }
 
@@ -232,9 +282,9 @@ class JobController extends Controller
             }
         )->get()
             ->mapWithKeys(
-                function ($skill) use ($skillLangs) {
+                function ($skill) {
                     return [
-                        $skill->id => $skillLangs['skills'][$skill->name]['name']
+                        $skill->id => $skill->name
                     ];
                 }
             )
@@ -247,9 +297,9 @@ class JobController extends Controller
             }
         )->get()
             ->mapWithKeys(
-                function ($skill) use ($skillLangs) {
+                function ($skill) {
                     return [
-                        $skill->id => $skillLangs['skills'][$skill->name]['name']
+                        $skill->id => $skill->name
                     ];
                 }
             )
@@ -288,7 +338,11 @@ class JobController extends Controller
         return view(
             'manager/job_create',
             [
-                'job_heading' => Lang::get($jobHeading),
+                /*Localization Strings*/
+                'job_l10n' => Lang::get('manager/job_create'),
+
+                /* Data */
+                'job' => Lang::get($jobHeading),
                 'manager' => $manager,
                 'provinces' => Province::all(),
                 'departments' => Department::all(),
@@ -327,7 +381,6 @@ class JobController extends Controller
         $job = (isset($jobPoster) ? $jobPoster : new JobPoster());
 
         $job->manager_id = $request->user()->manager->id;
-        $job->published = ($input['submit'] == 'publish');
 
         $this->fillAndSaveJobPoster($input, $job);
 
@@ -337,9 +390,7 @@ class JobController extends Controller
 
         $this->fillAndSaveJobPosterCriteria($input, $job, isset($jobPoster));
 
-        $route = $job->published ? route('manager.jobs.index') : route('manager.jobs.show', $job->id);
-
-        return redirect($route);
+        return redirect(route('manager.jobs.show', $job->id));
     }
 
     /**

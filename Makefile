@@ -11,9 +11,9 @@ clean:
 	@rm -Rf report/*
 
 code-sniff:
-	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_errors_on_exit 1
-	@docker-compose exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_warnings_on_exit 1
-	@docker-compose exec -T talentcloud ./vendor/bin/phpcs -d memory_limit=512M -v --standard=PSR2 --extensions=php app/
+	@docker exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_errors_on_exit 1
+	@docker exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_warnings_on_exit 1
+	@docker exec -T talentcloud ./vendor/bin/phpcs -d memory_limit=512M -v --standard=PSR2 --extensions=php app/
 
 composer-install:
 	@docker run --rm -v $(shell pwd):/app composer install
@@ -33,14 +33,11 @@ fresh-db:
 gen-certs:
 	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
 
-laravel-init:
-	@docker exec talentcloud sh -c "php artisan key:generate"
-
 logs:
 	@docker-compose logs -f
 
 phpmd:
-	@docker-compose exec -T talentcloud ./vendor/bin/phpmd ./app \
+	@docker exec -T talentcloud ./vendor/bin/phpmd ./app \
 	html codesize,naming,unusedcode --reportfile report/phpmd.html --ignore-violations-on-exit
 
 phpunit:
@@ -48,6 +45,9 @@ phpunit:
 
 test:
 	@docker exec talentcloud sh -c "vendor/bin/phpunit --no-coverage"
+set-perms:
+	@docker exec talentcloud sh -c "chown -R www-data /var/www/storage /var/www/vendor /var/www/bootstrap/cache"
+	@docker exec talentcloud sh -c "chmod -R 775 /var/www"
 
 test-all: code-sniff phpmd phpunit
 

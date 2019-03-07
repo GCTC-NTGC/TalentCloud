@@ -20,5 +20,7 @@ return [
     "email_label" => "Courriel de référence",
     "description_label" => "Comment avez-vous travaillé ensemble?",
     "action_01" => "Supprimer une référence",
-    "action_02" => "Enregistrer une référence"
+    "action_02" => "Enregistrer une référence",
+    "action_02_working" => "Pensant...",
+    "action_02_saved" => "Enregistré!",
 ];

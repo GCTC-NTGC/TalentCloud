@@ -84,22 +84,27 @@ return [
     ],
 
     /* Step 01 */
-    "step_01_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 1",
-    "question_label" => "Votre réponse",
-    "question_title" => "Ma compatibilité",
-    "claim_title" => "Renseignements généraux",
-    "language_title" => "Sélection de la langue",
-    "language_copy" => "Quelle langue officielle préféreriez-vous pour ce processus de candidature?",
-    "language_label" => "En choisir un",
-    "citizenship_title" => "Statut de citoyenneté",
-    "citizenship_content" => "Lequel des cas suivants s'applique à vous?",
-    "citizenship_label" => "En choisir un",
-    "veterans_title" => "Statut Vétéran",
-    "veterans_content" => "Êtes-vous membre des Forces armées canadiennes?",
-    "veterans_label" => "En choisir un",
-    "language_title" => "Exigence linguistique",
-    "language_copy" => "Quelle langue officielle préféreriez-vous pour ce processus de candidature?",
-    "language_label" => "En choisir un",
+        "step_01_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 1",
+        "question_label" => "Votre réponse",
+        "question_title" => "Ma compatibilité",
+        "claim_title" => "Renseignements généraux",
+        "language_declaration" => "Répondez-vous aux exigences linguistiques pour ce poste?",
+        "english_essential" => "Je comprends que ce poste a une exigence linguistique anglais essentiel. Cela signifie que le gestionnaire peut choisir d'évaluer ma maîtrise de l'anglais.",
+        "french_essential" => "Je comprends que ce poste a une exigence linguistique français essentiel. Cela signifie que le gestionnaire peut choisir d'évaluer ma maîtrise du français.",
+        "bilingual" => "Je comprends que ce poste a une exigence linguistique bilingue. La connaissance de l'anglais et du français est requise. J'ai le droit d'être évalué selon les critères « Nécessaires d'avoir » et de « Bon à avoir » pour ce poste dans la langue officielle de mon choix (anglais ou français). Toutefois, l'exigence de bilinguisme m'oblige à faire des tests supplémentaires dans ma langue seconde pour confirmer mes compétences linguistiques.",
+        "english_french" => "TRANSLATION NEEDED: COPY NEEDED",
+        "language_title" => "Sélection de la langue",
+        "language_copy" => "Quelle langue officielle préféreriez-vous pour ce processus de candidature?",
+        "language_label" => "En choisir un",
+        "citizenship_title" => "Statut de citoyenneté",
+        "citizenship_content" => "Lequel des cas suivants s'applique à vous?",
+        "citizenship_label" => "En choisir un",
+        "veterans_title" => "Statut Vétéran",
+        "veterans_content" => "Êtes-vous membre des Forces armées canadiennes?",
+        "veterans_label" => "En choisir un",
+        "language_title" => "Exigence linguistique",
+        "language_copy" => "Quelle langue officielle préféreriez-vous pour ce processus de candidature?",
+        "language_label" => "En choisir un",
 
     /* Step 02 */
     "step_02_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 2",
@@ -140,21 +145,37 @@ return [
     "asset_sidebar_label" => "Liste de compétences",
 
     /* Step 05 */
-    "step_05_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 5",
-    "preview" => [
-        "title" => "Revoir ma candidature",
-        "copy_01" => "Voici votre dernière occasion d'examiner votre candidature avant de la soumettre. Faites défiler vers le bas pour l'examiner. Si vous souhaitez changer quelque chose, le moment est venu.",
-        "copy_02" => "En signant votre nom ci-dessous, vous confirmez:",
-        "copy_03" => "J'ai examiné ce que j'ai écrit dans ma candidature.\nJe comprends que je fais partie d'une collectivité de gens qui se font confiance.\nJe jure que l’information que je fournis est vraie.",
-        "integrity_name_label" => "Signez (tapez) votre nom complet",
-        "integrity_date_label" => "La date d'aujourd'hui",
-        "sidebar" => [
-            "label" => "Sections d'application",
-            "item_01" => "Renseignements généraux",
-            "item_02" => "Mon expérience",
-            "item_03" => "Les compétences que vous devez avoir",
-            "item_04" => "Des compétences qu'il est bon à avoir",
-            "item_05" => "Soumettre"
+        "step_05_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 5",
+        "preview" => [
+            "title" => "Revoir ma candidature",
+            "copy_01" => "Voici votre dernière occasion d'examiner votre candidature avant de la soumettre. Faites défiler vers le bas pour l'examiner. Si vous souhaitez changer quelque chose, le moment est venu.",
+            "integrity_name_label" => "Signez (tapez) votre nom complet",
+            "integrity_date_label" => "La date d'aujourd'hui",
+            "sidebar" => [
+                "label" => "Sections d'application",
+                "item_01" => "Renseignements généraux",
+                "item_02" => "Mon expérience",
+                "item_03" => "Les compétences que vous devez avoir",
+                "item_04" => "Des compétences qu'il est bon à avoir",
+                "item_05" => "Soumettre"
+            ],
+            "section_01_title" => "Renseignements généraux",
+            "citizenship_null_copy" => "Aucun statut de citoyenneté sélectionné",
+            "veteran_null_copy" => "Aucun statut de vétéran sélectionné",
+            "language_null_copy" => "Aucune langue sélectionnée",
+            "long_question_null" => "Cette question n'a pas de réponse.",
+            "section_02_title" => "Mon expérience",
+            "experience" => [
+                "requirement_label" => "Expérience nécessaire pour ce poste:",
+                "degree_label" => "Mes diplômes et diplômes universitaires",
+                "null_degree_copy" => "Vous n'avez actuellement aucun diplôme sur votre profil.",
+                "course_label" => "Mes cours et certifications",
+                "null_course_copy" => "Vous n'avez actuellement aucun cours ou certification sur votre profil.",
+                "work_label" => "Mon expérience équivalente",
+                "null_work_copy" => "Vous n'avez actuellement aucune expérience équivalente listée dans votre profil."
+            ],
+            "section_03_title" => "Les compétences que vous devez avoir",
+            "section_04_title" => "Des compétences qu'il est bon à avoir",
         ],
         "section_01_title" => "Renseignements généraux",
         "citizenship_null_copy" => "Aucun statut de citoyenneté sélectionné",
@@ -175,19 +196,35 @@ return [
         "section_04_title" => "Des compétences qu'il est bon à avoir",
     ],
 
-    /* Step 06 (Complete) */
-    "complete" => [
-        "step_06_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 6",
-        "title" => "Merci d'avoir postulé!",
-        "copy_01" => "Nuage de talents est un site expérimental. Aidez-nous à améliorer le processus de dotation au fédéral en répondant à un bref sondage d'expérience. Cette information sera anonyme. En participant, vous nous aiderez directement à améliorer la plateforme.",
-        "survey_link" => "GOOGLE",
-        "survey_title" => "Participer à l'enquête.",
-        "survey_label" => "Participer à l'enquête",
-        "copy_02" => "Curieux de savoir quelle est la prochaine étape pour votre application?Pour en savoir plus sur le processus de dotation, consultez notre page foire aux questions.",
-        "return_title" => "Aller à la page d'accueil de Nuage de talents.",
-        "return_label" => "Retour à la page d'accueil",
-        "faq_title" => "Accéder à la foire aux questions du Talent Cloud.",
-        "faq_label" => "Voir la foire aux questions"
-    ]
+    /* Step 06 (Integrity Check) */
+
+        "integrity" => [
+            "title" => "Confirmation de candidature",
+            "confirmation_copy" => "En signant votre nom ci-dessous, vous confirmez:",
+            "confirmation_01" => "J'ai examiné ce que j'ai écrit dans ma candidature.",
+            "confirmation_02" => "Je comprends que je fais partie d'une collectivité de gens qui se font confiance.",
+            "confirmation_03" => "Je jure que l’information que je fournis est vraie.",
+            "signature_label" => "Signez (tapez) votre nom complet",
+            "date_label" => "La date d'aujourd'hui",
+            "review" => "Voici votre dernière occasion d'examiner votre candidature avant de la soumettre. Faites défiler vers le bas pour l'examiner. Si vous souhaitez changer quelque chose, le moment est venu.",
+            "save_label" => "Sauvegarder et quitter",
+            "submit_label" => "Soumettre"
+        ],
+
+    /* Step 07 (Complete) */
+
+        "complete" => [
+            "step_06_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 6",
+            "title" => "Merci d'avoir postulé!",
+            "copy_01" => "Nuage de talents est un site expérimental. Aidez-nous à améliorer le processus de dotation au fédéral en répondant à un bref sondage d'expérience. Cette information sera anonyme. En participant, vous nous aiderez directement à améliorer la plateforme.",
+            "survey_link" => "GOOGLE",
+            "survey_title" => "Participer à l'enquête.",
+            "survey_label" => "Participer à l'enquête",
+            "copy_02" => "Curieux de savoir quelle est la prochaine étape pour votre application?Pour en savoir plus sur le processus de dotation, consultez notre page foire aux questions.",
+            "return_title" => "Aller à la page d'accueil de Nuage de talents.",
+            "return_label" => "Retour à la page d'accueil",
+            "faq_title" => "Accéder à la foire aux questions du Talent Cloud.",
+            "faq_label" => "Voir la foire aux questions"
+        ]
 
 ];

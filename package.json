@@ -1,28 +1,64 @@
 {
-  "private": true,
-  "scripts": {
-    "dev": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "hot": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "production": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-  },
-  "devDependencies": {
-    "ajv": "^6.5.5",
-    "axios": "^0.17",
-    "bootstrap-sass": "^3.3.7",
-    "cross-env": "^5.2.0",
-    "cssnano": "^4.1.7",
-    "imagemin": "^5.3.1",
-    "jquery": "^3.1.0",
-    "jquery-accessible-autocomplete-list-aria": "^1.6.1",
-    "laravel-mix": "^2.1.14",
-    "lodash": "^4.17.11",
-    "resolve-url-loader": "^2.0.0",
-    "sass-loader": "^6.0.0",
-    "vue": "^2.0.1",
-    "webpack": "^3.12.0"
-  },
-  "dependencies": {
-    "es6-promise": "^4.2.5"
-  }
+    "private": true,
+    "name": "gc-talentcloud",
+    "description": "A cloud for talent!",
+    "version": "1.0.0",
+    "license": "MIT",
+    "keywords": [
+        "talent",
+        "cloud"
+    ],
+    "scripts": {
+        "dev": "npm run development",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "devDependencies": {
+        "@types/classnames": "^2.2.7",
+        "@types/node": "^11.9.4",
+        "@types/react": "^16.8.4",
+        "@types/react-dom": "^16.8.2",
+        "@typescript-eslint/eslint-plugin": "^1.4.0",
+        "@typescript-eslint/parser": "^1.4.0",
+        "cross-env": "^5.2.0",
+        "cssnano": "^4.1.7",
+        "eslint": "^5.14.1",
+        "eslint-config-prettier": "^4.0.0",
+        "eslint-plugin-import": "^2.16.0",
+        "eslint-plugin-node": "^8.0.1",
+        "eslint-plugin-prettier": "^3.0.1",
+        "eslint-plugin-promise": "^4.0.1",
+        "eslint-plugin-react": "^7.12.4",
+        "imagemin": "^6.1.0",
+        "jquery": "^3.1.0",
+        "laravel-mix": "^4.0.14",
+        "node-sass": "^4.11.0",
+        "prettier": "^1.16.4",
+        "react": "^16.8.3",
+        "react-dom": "^16.2.0",
+        "resolve-url-loader": "^3.0.1",
+        "sass-loader": "^7.1.0",
+        "ts-loader": "^5.3.3",
+        "typescript": "^3.3.3",
+        "vue-template-compiler": "^2.6.7",
+        "webpack": "^4.29.5"
+    },
+    "dependencies": {
+        "axios": "^0.18.0",
+        "classnames": "^2.2.6",
+        "es6-promise": "^4.2.5",
+        "moment": "^2.24.0",
+        "sweetalert2": "^8.2.2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/GCTC-NTGC/TalentCloud.git"
+    },
+    "bugs": {
+        "url": "https://github.com/GCTC-NTGC/TalentCloud/issues"
+    },
+    "homepage": "https://github.com/GCTC-NTGC/TalentCloud#readme"
 }

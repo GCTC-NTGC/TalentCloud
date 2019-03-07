@@ -38,7 +38,7 @@ return [
             // When set to true, the generated templates have a __toString() method
             // that you can use to display the generated nodes.
             // default: false
-            'debug' => env('APP_DEBUG', false),
+            'debug' => env('APP_DEBUG', true),
 
             // The charset used by the templates.
             // default: utf-8
@@ -51,7 +51,7 @@ return [
             // An absolute path where to store the compiled templates, or false to disable caching. If null
             // then the cache file path is used.
             // default: cache file storage path
-            'cache' => null,
+            'cache' => env('TWIG_CACHE', null),
 
             // When developing with Twig, it's useful to recompile the template
             // whenever the source code changes. If you don't provide a value
@@ -179,6 +179,10 @@ return [
             'head',
             'last',
             'mix',
+            'humanizeDateDiff',
+            'humanizeDate',
+            'humanizeTime',
+            'humanizeLastDay'
         ],
 
         /*
@@ -210,7 +214,7 @@ return [
         |
         */
         'filters' => [
-            'get' => 'data_get',    
+            'get' => 'data_get',
         ],
-    ],  
+    ],
 ];

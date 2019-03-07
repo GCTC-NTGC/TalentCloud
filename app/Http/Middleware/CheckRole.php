@@ -19,16 +19,16 @@ class CheckRole
     public function handle($request, Closure $next, $role)
     {
         //If user logged in as admin, always pass, regardless of $role
-        if (Auth::check() && Auth::user()->user_role->name == 'admin') {
+        if (Auth::check() && Auth::user()->hasRole('admin')) {
             Log::info('CheckRole Bypassed as Admin');
             return $next($request);
         }
 
         //Redirect if not logged in, or if not the correct role
-        if (Auth::guest() || Auth::user()->user_role->name != $role) {
+        if (Auth::guest() || !Auth::user()->hasRole($role)) {
             Log::info('CheckRole Failed');
             //TODO: redirect to some sort of error messag
-            if ($role == 'manager') {
+            if (Auth::check() && Auth::user()->hasRole('manager')) {
                 return redirect(route('manager.home'));
             } else {
                 return redirect(route('home'));

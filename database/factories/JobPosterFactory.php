@@ -29,10 +29,12 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'security_clearance_id' => SecurityClearance::inRandomOrder()->first()->id,
         'language_requirement_id' => LanguageRequirement::inRandomOrder()->first()->id,
         'remote_work_allowed' => $faker->boolean(50),
-        'manager_id' => Manager::inRandomOrder()->first()->id,
-        'published' => $faker->boolean(50),
+        'manager_id' => function () {
+            return factory(Manager::class)->create()->id;
+        },
+        'published' => false,
         'city:en' => $faker->city,
-        'title:en' => $faker->word,
+        'title:en' => $faker->unique()->realText(27, 1),
         'impact:en' => $faker->paragraphs(
             2,
             true
@@ -41,7 +43,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'division:en' => $faker->word,
         'education:en' => $faker->sentence(),
         'city:fr' => $faker_fr->city,
-        'title:fr' => $faker_fr->word,
+        'title:fr' => $faker_fr->unique()->realText(27, 1),
         'impact:fr' => $faker_fr->paragraphs(
             2,
             true
@@ -71,6 +73,28 @@ $factory->state(JobPoster::class, 'published', [
 $factory->state(JobPoster::class, 'unpublished', [
     'published' => false
 ]);
+
+$factory->state(
+    JobPoster::class,
+    'closed',
+    function (Faker\Generator $faker) {
+        return [
+            'published' => true,
+            'close_date_time' => $faker->dateTimeBetween('-2 days', '-1 days'),
+        ];
+    }
+);
+
+$factory->state(
+    JobPoster::class,
+    'review_requested',
+    function (Faker\Generator $faker) {
+        return [
+            'published' => false,
+            'review_requested_at' => $faker->dateTimeBetween('-2 days', '-1 days')
+        ];
+    }
+);
 
 $factory->state(JobPoster::class, 'remote', [
     'remote_work_allowed' => true

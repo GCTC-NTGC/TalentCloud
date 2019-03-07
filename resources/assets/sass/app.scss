@@ -27,7 +27,7 @@
 
     html,
     body {
-        background: darken($palette--white, 10%);
+        background: darken($palette--white, 5%);
         margin: 0;
 
         >form {
@@ -96,6 +96,32 @@
         width: 100%;
     }
 
+    .skip-to-main-content {
+        background: $palette--white;
+        color: $palette--font-black;
+        display: block;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        height: 1px;
+        padding: 1rem;
+        position: absolute;
+        top: 0;
+        left: -100vw;
+        text-align: center;
+        transition: none;
+        width: 1px;
+
+        &:focus {
+            height: auto;
+            position: relative;
+            top: 0;
+            left: 0;
+            transition: none;
+            width: 100%;
+        }
+
+    }
+
 // Components ==================================================================
 
     // Common ==================================================================
@@ -160,6 +186,7 @@
             @import "components/applicant/job/post/impact";
             @import "components/applicant/job/post/work";
             @import "components/applicant/job/post/criteria";
+            @import "components/applicant/job/post/language";
             @import "components/applicant/job/post/culture";
             @import "components/applicant/job/post/extras";
             @import "components/applicant/job/post/apply";
@@ -191,7 +218,11 @@
 
             // Step 05 (Preview)
 
-            // Step 06 (Complete)
+            // Step 06 (Signature)
+
+                @import "components/applicant/application/post/step-06";
+
+            // Step 07 (Complete)
 
                 @import "components/applicant/application/post/complete";
 
@@ -217,6 +248,10 @@
 
             @import "components/manager/job_create/form";
 
+        // Application Review
+
+            @import "components/manager/application_post";
+
         // Applicant Profile Preview
 
             @import "components/manager/applicant_profile";
@@ -224,3 +259,7 @@
         // Manager Screening Plan
 
             @import "components/manager/screening-plan";
+
+        // Applicant Review
+
+            @import "components/manager/applicant-review";

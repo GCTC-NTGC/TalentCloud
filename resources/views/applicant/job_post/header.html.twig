@@ -18,10 +18,16 @@
 
                 <p
                     class="job-post__header-meta">
-                    {% include "common/job_time_remaining" with {template:job_post.header} %}
+                    <span>
+                        {% if job.close_date_time.isFuture() %}
+                           {{ job_post.header.apply_by_label|trans }} {{ humanizeLastDay(job.close_date_time) }}
+                        {% else %}
+                            {{ job_post.header.job_closed }}
+                        {% endif %}
+                    </span>
                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                     <span>
-                        {{ job_post.header.applicants_so_far|trans_choice(job.submitted_applications_count) }}
+                        {{ job_post.header.applicants_so_far|trans_choice(job.submitted_applications_count()) }}
                     </span>
                 </p>
 

@@ -4,7 +4,12 @@
 
 // =============================================================================
 .application-post__tracker {
-    background: $palette--white;
+    background-color: $palette--black;
+    background: transparentize($palette--black, .15);
+    background-image: url("/images/bg_lightning_texture.png");
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 75px;
     position: relative;
     z-index: 10;
 

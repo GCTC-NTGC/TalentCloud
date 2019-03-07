@@ -51,7 +51,7 @@ class SkillDeclarationValidator
                 'required',
                 Rule::in($this->skill_level_ids->toArray()),
             ],
-            'description' => 'string|required',
+            'description' => 'required|string',
         ]);
         return $validator;
     }

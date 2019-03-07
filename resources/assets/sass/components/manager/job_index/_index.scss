@@ -1,8 +1,343 @@
 // =============================================================================
 
-    // Manager: Job Index - Index
+    // Manager: Poster Index
 
 // =============================================================================
+.manager-poster-index {
+    padding: 4rem 0;
+
+    *:not(i) {
+        font-family: $font--sans;
+        line-height: 1.5;
+    }
+
+    .poster-legend {
+        background: rgba(0, 0, 0, .1);
+        border-radius: 3rem;
+        padding: 1.5rem 2rem;
+        // text-align: center;
+
+        .flex-grid {
+            justify-content: space-around;
+        }
+
+    }
+
+    .action-required {
+        color: $palette--blue;
+    }
+
+    .new-poster-button-wrapper {
+
+        @media #{$l-tablet} {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+    }
+
+    .heading--03 {
+        margin: 4rem 0 2rem;
+    }
+
+    .posters-null-state {
+        background: $palette--white;
+        border-radius: 5px;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+        display: none;
+        margin: 0 0 2rem 0;
+        padding: 2rem;
+        text-align: center;
+
+        span {
+            color: rgba(0, 0, 0, .3);
+            font-family: $font--sans;
+            font-size: $font-scale--regular;
+            font-weight: 600;
+        }
+
+        // States --------------------------------------------------------------
+
+            &.active {
+                display: block;
+            }
+
+    }
+
+    .active-posters {
+
+    }
+
+    .poster {
+        background: $palette--white;
+        border-radius: 5px;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+        margin: 0 0 2rem 0;
+        padding: 1.5rem 1rem;
+
+        .heading--04 {
+            font-weight: 600;
+            margin: 0 0 .5rem 0;
+
+            a {
+
+            }
+
+        }
+
+        .poster-status {
+            text-align: center;
+        }
+
+        .poster-deletion {
+            text-align: center;
+
+            button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: $font-scale--h4;
+                padding: 1rem;
+                transition: color .2s ease;
+
+                &:hover {
+                    color: $palette--red;
+                    transition: color .2s ease;
+                }
+
+            }
+
+        }
+
+        .poster-measurements {
+
+            [class*="measurement--"] {
+                margin: 0 0 .5rem 0;
+
+                span {
+
+                }
+
+                // States ------------------------------------------------------
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+            }
+
+        }
+
+        .edit-actions {
+
+            a {
+                display: block;
+                margin: 0 0 .5rem;
+
+                // States ------------------------------------------------------
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+            }
+
+        }
+
+        // States --------------------------------------------------------------
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            &.draft {
+
+                .poster-status {
+                    .fa-pencil-alt {display: block;}
+                    .fa-hourglass-half {display: none;}
+                    .fa-exclamation-circle {display: none;}
+                }
+
+                [class*="poster-title--"] {
+                    &[class*="preview"] {display: block;}
+                    &[class*="link"] {display: none;}
+                }
+
+                [class*="poster-date-time--"] {
+                    &[class*="draft"] {display: block;}
+                    &[class*="submitted"] {display: none;}
+                    &[class*="published"] {display: none;}
+                    &[class*="closed"] {display: none;}
+                }
+
+                [class*="measurement--"] {
+                    &[class*="timer"] {display: none;}
+                    &[class*="countdown"] {display: none;}
+                    &[class*="applicants"] {display: none;}
+                }
+
+                .edit-actions--edit-draft {
+                    display: block;
+                }
+
+                .submit-button {
+                    display: block;
+                    text-align: center;
+                }
+
+                .review-button {
+                    display: none;
+                    text-align: center;
+                }
+
+                .poster-deletion {
+                    display: block;
+                }
+
+            }
+
+            &.submitted {
+
+                .poster-status {
+                    .fa-pencil-alt {display: none;}
+                    .fa-hourglass-half {display: block;}
+                    .fa-exclamation-circle {display: none;}
+                }
+
+                [class*="poster-title--"] {
+                    &[class*="preview"] {display: block;}
+                    &[class*="link"] {display: none;}
+                }
+
+                [class*="poster-date-time--"] {
+                    &[class*="draft"] {display: none;}
+                    &[class*="submitted"] {display: block;}
+                    &[class*="published"] {display: none;}
+                    &[class*="closed"] {display: none;}
+                }
+
+                [class*="measurement--"] {
+                    &[class*="timer"] {display: block;}
+                    &[class*="countdown"] {display: none;}
+                    &[class*="applicants"] {display: none;}
+                }
+
+                .edit-actions--edit-draft {
+                    display: none;
+                }
+
+                .submit-button {
+                    display: none;
+                    text-align: center;
+                }
+
+                .review-button {
+                    display: block;
+                    text-align: center;
+                }
+
+                .poster-deletion {
+                    display: none;
+                }
+
+            }
+
+            &.published {
+
+                .poster-status {
+                    .fa-pencil-alt {display: none;}
+                    .fa-hourglass-half {display: block;}
+                    .fa-exclamation-circle {display: none;}
+                }
+
+                [class*="poster-title--"] {
+                    &[class*="preview"] {display: none;}
+                    &[class*="link"] {display: block;}
+                }
+
+                [class*="poster-date-time--"] {
+                    &[class*="draft"] {display: none;}
+                    &[class*="submitted"] {display: none;}
+                    &[class*="published"] {display: block;}
+                    &[class*="closed"] {display: none;}
+                }
+
+                [class*="measurement--"] {
+                    &[class*="timer"] {display: none;}
+                    &[class*="countdown"] {display: block;}
+                    &[class*="applicants"] {display: block;}
+                }
+
+                .edit-actions--edit-draft {
+                    display: none;
+                }
+
+                .submit-button {
+                    display: none;
+                    text-align: center;
+                }
+
+                .review-button {
+                    display: block;
+                    text-align: center;
+                }
+
+                .poster-deletion {
+                    display: none;
+                }
+
+            }
+
+            &.closed {
+
+                .poster-status {
+                    .fa-pencil-alt {display: none;}
+                    .fa-hourglass-half {display: none;}
+                    .fa-exclamation-circle {display: block;}
+                }
+
+                [class*="poster-title--"] {
+                    &[class*="preview"] {display: none;}
+                    &[class*="link"] {display: block;}
+                }
+
+                [class*="poster-date-time--"] {
+                    &[class*="draft"] {display: none;}
+                    &[class*="submitted"] {display: none;}
+                    &[class*="published"] {display: none;}
+                    &[class*="closed"] {display: block;}
+                }
+
+                [class*="measurement--"] {
+                    &[class*="timer"] {display: none;}
+                    &[class*="countdown"] {display: none;}
+                    &[class*="applicants"] {display: block;}
+                }
+
+                .edit-actions--edit-draft {
+                    display: none;
+                }
+
+                .submit-button {
+                    display: none;
+                    text-align: center;
+                }
+
+                .review-button {
+                    display: block;
+                    text-align: center;
+                }
+
+                .poster-deletion {
+                    display: none;
+                }
+
+            }
+
+    }
+
+}
+
 .manager-jobs__list-wrapper {
     padding: 5rem 0 0 0;
 

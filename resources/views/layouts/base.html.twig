@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 
 <html
-    lang="en">
+    lang="{{ appLocale }}">
 
     <head>
         <title>{% block title %}{% endblock %}</title>
@@ -30,6 +30,8 @@
         {# Scripts #}
 
             {% include "common/scripts" %}
+
+        {% block scripts %}{% endblock %}
 
     </body>
 
