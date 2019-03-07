@@ -17,11 +17,11 @@ class LangFilesTest extends BaseTranslationTest
     }
 
     /**
-     * Tests for lang entries that are empty strings.
-     * If tests are run with --verbose, displays wich keys have empty values.
-     *
-     * @return void
-     */
+    * Tests for lang entries that are empty strings.
+    * If tests are run with --verbose, displays wich keys have empty values.
+    *
+    * @return void
+    */
     public function testNoEmptyStrings()
     {
         $emptyEntries = [];
@@ -45,12 +45,12 @@ class LangFilesTest extends BaseTranslationTest
     }
 
     /**
-     * Tests for lang entries that are set to values that obviously indicate
-     * a missing translation, like 'TRANSLATION NEEDED'.
-     * If tests are run with --verbose, displays wich keys have these values.
-     *
-     * @return void
-     */
+    * Tests for lang entries that are set to values that obviously indicate
+    * a missing translation, like 'TRANSLATION NEEDED'.
+    * If tests are run with --verbose, displays wich keys have these values.
+    *
+    * @return void
+    */
     public function testNoTranslationNeeded()
     {
         $checks = ['TRANSLATION NEEDED', 'TRANSLATION', 'TRANSLATION_NEEDED'];
@@ -75,10 +75,10 @@ class LangFilesTest extends BaseTranslationTest
     }
 
     /**
-     * Contains lang keys that are expected to be missing in a particular language
-     *
-     * @var array
-     */
+    * Contains lang keys that are expected to be missing in a particular language
+    *
+    * @var array
+    */
     protected $permittedMissing = [
         'en' => [
             'validation.attributes.name'
@@ -87,14 +87,14 @@ class LangFilesTest extends BaseTranslationTest
     ];
 
     /**
-     * Tests for lang entries that are an empty array instead of a string,
-     * or that are present in one language but not another. Ignores keys
-     * in $this->permittedMissing.
-     *
-     * If tests are run with --verbose, displays wich keys are missing.
-     *
-     * @return void
-     */
+    * Tests for lang entries that are an empty array instead of a string,
+    * or that are present in one language but not another. Ignores keys
+    * in $this->permittedMissing.
+    *
+    * If tests are run with --verbose, displays wich keys are missing.
+    *
+    * @return void
+    */
     public function testNoMissingStrings()
     {
         $missingEntries = [];
@@ -124,12 +124,21 @@ class LangFilesTest extends BaseTranslationTest
     }
 
     /**
-     * The list of keys that are expected to have identical values in multiple languages.
-     * If tests are run with --verbose, displays wich keys have identical values.
-     *
-     * @var array
-     */
-    protected $sameTranslations = [];
+    * The list of keys that are expected to have identical values in multiple languages.
+    * If tests are run with --verbose, displays wich keys have identical values.
+    *
+    * @var array
+    */
+    protected $permittedEqual = [
+        'applicant/applicant_profile.about_section.gc_link'
+    ];
+    /**
+    * Tests lang files for identical values in multiple languages.
+    *
+    * If tests are run with --verbose, displays wich keys have identical values.
+    *
+    * @return void
+    */
     public function testAllLangValuesDifferentInFrenchAndEnglish()
     {
         $identicalEntries = [];
@@ -138,11 +147,16 @@ class LangFilesTest extends BaseTranslationTest
             foreach ($this->locales as $locale) {
                 App::setLocale($locale);
                 $value = Lang::get($path);
-                if (in_array($value, $this->sameTranslations)) {
-                //TODO: do nothing?
+                if (strpos($path, '.id')) {
+                    // exclude from results
+                } elseif (strpos($path, '.type')) {
+                    // exclude from results
+                } elseif (in_array($value, $this->permittedEqual)) {
+                    // exclude from results
+                } elseif (in_array($path, $this->permittedEqual)) {
+                    // exclude from results
                 } elseif (Lang::has($path) && in_array($value, $prevValues)) {
                     array_push($identicalEntries, $path);
-                // $this->assertNotContains($value, $prevValues);
                 }
                 array_push($prevValues, $value);
             }
