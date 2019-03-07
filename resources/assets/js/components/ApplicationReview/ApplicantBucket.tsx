@@ -37,6 +37,7 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = (
   if (props.applications.length === 0) {
     return null;
   }
+
   const compareFunction = props.prioritizeVeterans
     ? applicationComparePrioritizeVeterans
     : applicationCompare;

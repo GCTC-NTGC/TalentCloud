@@ -26,13 +26,14 @@ export function isScreenedOut(application: Application): boolean {
 export function applicationBucket(application: Application): Bucket {
   if (!application.meets_essential_criteria) {
     return "unqualified";
-  } else if (false) {
-    return "priority"; // TODO: decide how to determine priority
-  } else if (application.citizenship_declaration.name === "citizen") {
-    return "citizen";
-  } else {
-    return "non-citizen";
   }
+  if (false) {
+    return "priority"; // TODO: decide how to determine priority
+  }
+  if (application.citizenship_declaration.name === "citizen") {
+    return "citizen";
+  }
+  return "non-citizen";
 }
 
 /**
@@ -89,9 +90,8 @@ export function applicationCompare(
   };
 
   // Add a preference for veterans within each status group
-  const scoreVet = (application: Application): number => {
-    return score(application) - (isVet(application) ? 0.1 : 0);
-  };
+  const scoreVet = (application: Application): number =>
+    score(application) - (isVet(application) ? 0.1 : 0);
   const scoreDiff = scoreVet(first) - scoreVet(second);
 
   if (scoreDiff != 0) {
@@ -109,10 +109,11 @@ export function applicationComparePrioritizeVeterans(
   first: Application,
   second: Application
 ): number {
-  //Veterans come before others
+  // Veterans come before others
   if (isVet(first) && !isVet(second)) {
     return -1;
-  } else if (!isVet(first) && isVet(second)) {
+  }
+  if (!isVet(first) && isVet(second)) {
     return 1;
   }
   return applicationCompare(first, second);

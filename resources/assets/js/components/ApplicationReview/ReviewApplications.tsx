@@ -1,9 +1,9 @@
 import React from "react";
+import moment from "moment";
 import { Application } from "../types";
 import { SelectOption } from "../Select";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
-import moment from "moment";
 
 interface ReviewApplicationsProps {
   title: string;
@@ -36,7 +36,8 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
     },
     {
       title: "Optional Consideration",
-      description: "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
+      description:
+        "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
       showScreenOutAll: true,
       applications: props.applications.filter(
         application => applicationCategory(application) == "optional"

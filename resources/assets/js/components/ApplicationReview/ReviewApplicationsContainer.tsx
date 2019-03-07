@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import axios from 'axios';
+import Swal from 'sweetalert2';
 import { Job, Application, ReviewStatus, ApplicationReview } from "../types";
 import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
 import route from "../../helpers/route";
-import axios from "axios";
-import Swal from "sweetalert2";
 
 interface ReviewApplicationsProps {
   job: Job;
@@ -31,12 +31,10 @@ export default class ReviewApplicationsContainer extends React.Component<
     super(props);
     this.state = {
       applications: props.initApplications,
-      savingStatuses: props.initApplications.map(application => {
-        return {
-          applicationId: application.id,
-          isSaving: false
-        };
-      })
+      savingStatuses: props.initApplications.map(application => ({
+        applicationId: application.id,
+        isSaving: false,
+      })),
     };
     this.handleStatusChange = this.handleStatusChange.bind(this);
     this.handleBulkStatusChange = this.handleBulkStatusChange.bind(this);
@@ -63,11 +61,10 @@ export default class ReviewApplicationsContainer extends React.Component<
     applicationId: number,
     isSaving: boolean
   ): void {
-    const statuses = this.state.savingStatuses.map(item => {
-      return item.applicationId == applicationId
-        ? { applicationId: applicationId, isSaving: isSaving }
-        : Object.assign({}, item);
-    });
+    const statuses = this.state.savingStatuses.map(item => (item.applicationId == applicationId
+        ? { applicationId, isSaving }
+        : Object.assign({}, item)
+    );
     this.setState({ savingStatuses: statuses });
   }
 
@@ -114,10 +111,10 @@ export default class ReviewApplicationsContainer extends React.Component<
     applicationIds: number[],
     statusId: number | null
   ): void {
-    const applications = this.state.applications.filter(
-      application => applicationIds.includes(application.id)
+    const applications = this.state.applications.filter(application =>
+      applicationIds.includes(application.id)
     );
-    var errorThrown = false;
+    let errorThrown = false;
     const requests = applications.map(application => {
       const oldReview = application.application_review
         ? application.application_review
@@ -161,15 +158,16 @@ export default class ReviewApplicationsContainer extends React.Component<
       ? application.application_review
       : {};
     const submitReview = Object.assign(oldReview, {
-      notes: notes
+      notes,
     });
     this.submitReview(applicationId, submitReview);
   }
 
   public render(): React.ReactElement {
-    const reviewStatusOptions = this.props.reviewStatuses.map(status => {
-      return { value: status.id, label: status.name };
-    });
+    const reviewStatusOptions = this.props.reviewStatuses.map(status => ({
+      value: status.id,
+      label: status.name,
+    }));
 
     return (
       <ReviewApplications

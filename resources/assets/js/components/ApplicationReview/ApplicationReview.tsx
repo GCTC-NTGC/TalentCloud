@@ -1,10 +1,10 @@
 import React from "react";
 import className from "classnames";
-import route from "../../helpers/route";
-import Select, { SelectOption } from "../Select";
-import { Application } from "../types";
-import { ReviewStatusId } from "../lookupConstants";
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
+import route from '../../helpers/route';
+import Select, { SelectOption } from '../Select';
+import { Application } from '../types';
+import { ReviewStatusId } from '../lookupConstants';
 
 interface ApplicationReviewProps {
   application: Application;
@@ -39,8 +39,8 @@ export default class ApplicationReview extends React.Component<
   handleStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     const value =
       event.target.value && !isNaN(parseInt(event.target.value))
-        ? parseInt(event.target.value)
-        : undefined;
+      ? parseInt(event.target.value)
+      : undefined;
     this.setState({ selectedStatusId: value });
   }
 
@@ -69,8 +69,8 @@ export default class ApplicationReview extends React.Component<
     if (sectionChange(oldStatus, status)) {
       const confirmText =
         status === ReviewStatusId.ScreenedOut
-          ? "Screen out the candidate?"
-          : "Screen the candidate back in?";
+        ? "Screen out the candidate?"
+        : "Screen the candidate back in?";
       Swal.fire({
         title: confirmText,
         type: "question",
@@ -89,12 +89,11 @@ export default class ApplicationReview extends React.Component<
   }
 
   showNotes(): void {
-    const notes =
-      this.props.application.application_review &&
-      this.props.application.application_review &&
-      this.props.application.application_review.notes
-        ? this.props.application.application_review.notes
-        : "";
+    const notes = this.props.application.application_review;
+    this.props.application.application_review &&
+    this.props.application.application_review.notes
+      ? this.props.application.application_review.notes
+      : "";
     Swal.fire({
       title: "Edit notes",
       type: "question",
@@ -113,11 +112,10 @@ export default class ApplicationReview extends React.Component<
   }
 
   render() {
-    const reviewStatus =
-      this.props.application.application_review &&
-      this.props.application.application_review.review_status
-        ? this.props.application.application_review.review_status.name
-        : null;
+    const reviewStatus = this.props.application.application_review;
+    this.props.application.application_review.review_status
+      ? this.props.application.application_review.review_status.name
+      : null;
     const statusIconClass = className("fas", {
       "fa-ban": reviewStatus == "screened_out",
       "fa-question-circle": reviewStatus == "still_thinking",
@@ -131,33 +129,31 @@ export default class ApplicationReview extends React.Component<
      */
     const isUnchanged = (): boolean => {
       if (
-        this.props.application.application_review &&
-        this.props.application.application_review.review_status_id
+        this.props.application.application_review
+        && this.props.application.application_review.review_status_id
       ) {
         return (
-          this.props.application.application_review.review_status_id ===
-          this.state.selectedStatusId
+          this.props.application.application_review.review_status_id
+          === this.state.selectedStatusId
         );
-      } else {
-        return this.state.selectedStatusId === undefined;
       }
+      return this.state.selectedStatusId === undefined;
     };
 
     const getSaveButtonText = (): string => {
       if (this.props.isSaving) {
         return "Saving...";
-      } else if (isUnchanged()) {
-        return "Saved";
-      } else {
-        return "Save";
       }
+      if (isUnchanged()) {
+        return "Saved";
+      }
+      return "Save";
     };
     const saveButtonText = getSaveButtonText();
-    const noteButtonText =
-      this.props.application.application_review &&
-      this.props.application.application_review.notes
-        ? "Edit Note"
-        : "+ Add a Note";
+    const noteButtonText = this.props.application.application_review;
+    this.props.application.application_review.notes
+      ? "Edit Note"
+      : "+ Add a Note";
     return (
       <form className="applicant-summary">
         <div className="flex-grid middle gutter">

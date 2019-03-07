@@ -33,7 +33,7 @@ export default class Reference extends Component {
   }
 
   render() {
-    var triggerClass = classNames(
+    const triggerClass = classNames(
       "profile-element",
       "accordion",
       "reference",

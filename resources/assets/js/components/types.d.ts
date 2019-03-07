@@ -1,4 +1,4 @@
-import {ReviewStatusId, ReviewStatusName} from "./lookupConstants";
+import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 
 export interface Job {
   id: number;

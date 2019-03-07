@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Application, ReviewStatus } from "../types";
-import ApplicationReview from "./ApplicationReview";
-import axios from "axios";
+import axios from 'axios';
+import { Application, ReviewStatus } from '../types';
+import ApplicationReview from './ApplicationReview';
 import route from "../../helpers/route";
 
 interface ApplicationReviewContainerProps {
@@ -56,7 +56,7 @@ export default class ApplicationReviewContainer extends React.Component<
         this.setState({ isSaving: false });
       })
       .catch(error => {
-        //TODO: show errors nicer
+        // TODO: show errors nicer
         alert("Something went wrong, please try again later");
         this.setState({ isSaving: false });
       });
@@ -77,15 +77,16 @@ export default class ApplicationReviewContainer extends React.Component<
       ? this.state.application.application_review
       : {};
     const submitReview = Object.assign(oldReview, {
-      notes: notes
+      notes,
     });
     this.submitReview(submitReview);
   }
 
   render() {
-    const reviewStatusOptions = this.props.reviewStatuses.map(status => {
-      return { value: status.id, label: status.name };
-    });
+    const reviewStatusOptions = this.props.reviewStatuses.map(status => ({
+      value: status.id,
+      label: status.name,
+    }));
     return (
       <div className="applicant-review container--layout-xl">
         <ApplicationReview
