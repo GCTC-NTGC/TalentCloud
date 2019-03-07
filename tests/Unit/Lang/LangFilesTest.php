@@ -134,7 +134,7 @@ class LangFilesTest extends BaseTranslationTest
         ':count Minute|:count Minutes', '/tos/', '/privacy/', 'Canada.ca', 'GCcollab', 'Twitter', 'Permanent', 'Application', 'Institution', 'Initiative', 'Facilitation', 'Passion', 'Courage', 'signature', 'date', 'Minute', 'minute', 'description',
         'FAQ', 'Linux', 'CSS', 'Javascript', 'C++', 'SASS', 'Python', 'PHP', 'Git', 'Docker', 'HTML', 'SQL', 'Microsoft Dynamics', 'EF6', 'Info', 'Notes', 'Education',
         'Education (English)', 'Education (Français)', 'Impact', 'Impact (English)', 'Impact (Français)', 'Division', 'Division (English)', 'Division (Français)', 'Question',
-        'Question (English)', 'Question (Français)', 'Description', 'Description (English)', 'Description (Français)', 'Province', 'Classifications',
+        'Question (English)', 'Question (Français)', 'Description', 'Description (English)', 'Description (Français)', 'Province', 'Classifications', 'to-know', 'levels', 'post-application', 'skill-recognition',
         'https://gccollab.ca/groups/profile/19750/talent-cloud-nuage-de-talent',
         'https://account.gccollab.ca/profile/',
         'https://twitter.com/GC_Talent',
@@ -158,13 +158,9 @@ class LangFilesTest extends BaseTranslationTest
             foreach ($this->locales as $locale) {
                 App::setLocale($locale);
                 $value = Lang::get($path);
-                if (strpos($path, '.id')) {
+                if (in_array($value, $this->permittedEqual)) {
                     // exclude from results
-                } elseif (strpos($path, '.type')) {
-                    // exclude from results
-                } elseif (strpos($path, '_anchor')) {
-                    // exclude from results
-                } elseif (in_array($value, $this->permittedEqual)) {
+                } elseif (strpos($path, '.type') || (strpos($path, '.id'))) {
                     // exclude from results
                 } elseif (Lang::has($path) && in_array($value, $prevValues)) {
                     array_push($identicalEntries, $path);
