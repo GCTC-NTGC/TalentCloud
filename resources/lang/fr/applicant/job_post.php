@@ -67,6 +67,8 @@ return [
     'language' => [
         'sidebar_title' => 'Voir les exigences linguistiques de ce travail.',
         'title' => 'Exigences linguistiques',
+        'english_icon_title' => '',
+        'french_icon_title' => '',
         'english_essential_context' => 'Ce poste a une exigence linguistique anglais essentiel. Le gestionnaire peut choisir d\'évaluer ma maîtrise de l\'anglais.',
         'french_essential_context' => 'Ce poste a une exigence linguistique français essentiel. Cela signifie que le gestionnaire peut choisir d\'évaluer ma maîtrise du français.',
         'bilingual_context_01' => 'Ce poste a une exigence linguistique bilingue. Cela signifie que vous devez posséder la %maîtrise% requise, en anglais et en français, dans chacune des trois compétences linguistiques: compréhension, écriture et communication orale.',
