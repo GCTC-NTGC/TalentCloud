@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import axios from "axios";
+import Swal from "sweetalert2";
 import { Job, Application, ReviewStatus, ApplicationReview } from "../types";
 import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
@@ -33,8 +33,8 @@ export default class ReviewApplicationsContainer extends React.Component<
       applications: props.initApplications,
       savingStatuses: props.initApplications.map(application => ({
         applicationId: application.id,
-        isSaving: false,
-      })),
+        isSaving: false
+      }))
     };
     this.handleStatusChange = this.handleStatusChange.bind(this);
     this.handleBulkStatusChange = this.handleBulkStatusChange.bind(this);
@@ -61,7 +61,8 @@ export default class ReviewApplicationsContainer extends React.Component<
     applicationId: number,
     isSaving: boolean
   ): void {
-    const statuses = this.state.savingStatuses.map(item => (item.applicationId == applicationId
+    const statuses = this.state.savingStatuses.map(item =>
+      item.applicationId == applicationId
         ? { applicationId, isSaving }
         : Object.assign({}, item)
     );
@@ -158,7 +159,7 @@ export default class ReviewApplicationsContainer extends React.Component<
       ? application.application_review
       : {};
     const submitReview = Object.assign(oldReview, {
-      notes,
+      notes
     });
     this.submitReview(applicationId, submitReview);
   }
@@ -166,7 +167,7 @@ export default class ReviewApplicationsContainer extends React.Component<
   public render(): React.ReactElement {
     const reviewStatusOptions = this.props.reviewStatuses.map(status => ({
       value: status.id,
-      label: status.name,
+      label: status.name
     }));
 
     return (
