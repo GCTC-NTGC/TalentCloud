@@ -64,6 +64,22 @@ return [
         'requirement_label' => 'Level Required: ',
         'level_link_title' => 'Visit the FAQ to learn about this and other skill levels.'
     ],
+    'language' => [
+        'sidebar_title' => 'View this job\'s language requirements.',
+        'title' => 'Language Requirements',
+        'english_icon_title' => 'An icon representing an English language requirement.',
+        'french_icon_title' => 'An icon representing an French language requirement.',
+        'english_essential_context' => 'This position has an English essential requirement. The manager may choose to test your proficiency in English.',
+        'french_essential_context' => 'This position has an French essential requirement. The manager may choose to test your proficiency in French.',
+        'bilingual_context_01' => 'This position has a bilingual requirement. This means that you must meet the %proficiency% required, in both English and French, in each of the 3 language skills: comprehension, writing, and oral communication.',
+        'proficiency_link' => 'https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/information-candidates/language-requirements-candidates.html',
+        'proficiency_copy' => 'proficiency levels',
+        'bilingual_context_02' => 'You can try out an %assessment% to give yourself an idea of the level (A, B, or C) you might attain.',
+        'assessment_link' => 'https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html',
+        'assessment_copy' => 'self-assessment test',
+        'bilingual_context_03' => 'If your first official language is English, you will be tested on your French, and vice versa.',
+        'english_french_context' => 'NEEDS COPY'
+    ],
     'culture' => [
         'sidebar_title' => 'View this job\'s culture information.',
         'title' => 'Team Culture',
