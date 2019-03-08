@@ -114,6 +114,7 @@
 
                 .flex-grid {
                     margin: 0 -1rem;
+                    justify-content: center;
 
                     .box {
                         padding: 0 1rem;
@@ -130,6 +131,10 @@
                             margin: 2rem 0 0 0;
                             border-radius: 5px;
                             border: 1px solid red;
+
+                            li {
+                                padding: 0.5rem 0;
+                            }
                         }
 
                         .auth-success {
