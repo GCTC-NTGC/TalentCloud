@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Lang;
 use Jenssegers\Date\Date;
 
 use App\Models\JobPoster;
-use Doctrine\Common\Cache\VoidCache;
 
 class JobPosterTest extends TestCase
 {
@@ -29,7 +28,7 @@ class JobPosterTest extends TestCase
         $jobPoster->close_date_time = $this->faker->dateTimeBetween('-1 weeks', 'now');
         $this->assertFalse($jobPoster->isOpen());
 
-        $jobPoster = factory(JobPoster::class)->states('unpublished')->make();
+        $jobPoster = factory(JobPoster::class)->states('draft')->make();
         $this->assertFalse($jobPoster->isOpen());
     }
 
@@ -38,7 +37,7 @@ class JobPosterTest extends TestCase
      *
      * @return void
      */
-    public function testJobPosterIsClosed()
+    public function testJobPosterIsClosed() : void
     {
         $jobPoster = factory(JobPoster::class)->states('published')->make();
         $this->assertFalse($jobPoster->isClosed());
@@ -46,7 +45,7 @@ class JobPosterTest extends TestCase
         $jobPoster->close_date_time = $this->faker->dateTimeBetween('-1 weeks', '-5 minutes');
         $this->assertTrue($jobPoster->isClosed());
 
-        $jobPoster = factory(JobPoster::class)->states('unpublished')->make();
+        $jobPoster = factory(JobPoster::class)->states('draft')->make();
         $this->assertFalse($jobPoster->isClosed());
     }
 
@@ -55,9 +54,9 @@ class JobPosterTest extends TestCase
      *
      * @return void
      */
-    public function testJobPosterStatus()
+    public function testJobPosterStatus() : void
     {
-        $jobPoster = factory(JobPoster::class)->states('unpublished')->make();
+        $jobPoster = factory(JobPoster::class)->states('draft')->make();
         $this->assertEquals('draft', $jobPoster->status());
 
         $jobPoster = factory(JobPoster::class)->states('published')->make();
@@ -122,7 +121,7 @@ class JobPosterTest extends TestCase
     public function testJobPosterPublishedMutator() : void
     {
         // Open but not yet published
-        $jobPoster = factory(JobPoster::class)->states('unpublished')->make();
+        $jobPoster = factory(JobPoster::class)->make();
         $this->assertEquals(null, $jobPoster->published_at);
 
         $jobPoster->published = true;
@@ -133,10 +132,7 @@ class JobPosterTest extends TestCase
         $this->assertNotEquals($jobPoster->open_date_time, $jobPoster->published_at);
 
         // Not yet open and not yet published
-        $jobPoster = factory(JobPoster::class)->states('unpublished')->make([
-            'open_date_time' => $this->faker->dateTimeBetween('now', '1 weeks'),
-            'close_date_time' => $this->faker->dateTimeBetween('2 weeks', '4 weeks')
-        ]);
+        $jobPoster = factory(JobPoster::class)->states('review_requested')->make();
         $this->assertEquals(null, $jobPoster->published_at);
 
         $jobPoster->published = true;

@@ -3,12 +3,10 @@
 namespace Tests\Unit\Policies;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use App\Policies\JobPolicy;
 use App\Models\JobPoster;
-use App\Models\User;
 use App\Models\Applicant;
 use App\Models\Manager;
 
@@ -50,7 +48,7 @@ class JobPolicyTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp() : void
     {
         parent::setUp();
 
@@ -60,13 +58,22 @@ class JobPolicyTest extends TestCase
         $this->guest = null;
     }
 
-
-    protected function policy()
+    /**
+     * Provide a JobPolicy object on demand.
+     *
+     * @return JobPolicy
+     */
+    protected function policy() : JobPolicy
     {
         return new JobPolicy();
     }
 
-    public function testAnyoneCanViewOpenJob()
+    /**
+     * Test the policy around an open Job Poster.
+     *
+     * @return void
+     */
+    public function testAnyoneCanViewOpenJob() : void
     {
         $job = factory(JobPoster::class)->states('published')->make();
         $this->assertTrue($this->policy->view($this->guest, $job));
@@ -74,7 +81,12 @@ class JobPolicyTest extends TestCase
         $this->assertTrue($this->policy->view($this->manager, $job));
     }
 
-    public function testAnyoneCanViewClosedJob()
+    /**
+     * Test the policy around a closed Job Poster.
+     *
+     * @return void
+     */
+    public function testAnyoneCanViewClosedJob() : void
     {
         $job = factory(JobPoster::class)->states('closed')->make();
         $this->assertTrue($this->policy->view($this->guest, $job));
@@ -82,23 +94,38 @@ class JobPolicyTest extends TestCase
         $this->assertTrue($this->policy->view($this->manager, $job));
     }
 
-    public function testNoOneCanViewUnpublishedJob()
+    /**
+     * Test the policy around an unpublished Job Poster.
+     *
+     * @return void
+     */
+    public function testNoOneCanViewUnpublishedJob() : void
     {
-        $job = factory(JobPoster::class)->states('unpublished')->make();
+        $job = factory(JobPoster::class)->make();
         $this->assertFalse($this->policy->view($this->guest, $job));
         $this->assertFalse($this->policy->view($this->applicant, $job));
         $this->assertFalse($this->policy->view($this->manager, $job));
     }
 
-    public function testManagerCanViewOwnUnpublishedJob()
+    /**
+     * Ensure a manager can view their own unpublished Job Poster.
+     *
+     * @return void
+     */
+    public function testManagerCanViewOwnUnpublishedJob() : void
     {
-        $job = factory(JobPoster::class)->states('unpublished')->make([
+        $job = factory(JobPoster::class)->make([
             'manager_id' => $this->manager->manager->id
         ]);
         $this->assertTrue($this->policy->view($this->manager, $job));
     }
 
-    public function testManagerCanNotPublishJob()
+    /**
+     * Ensure a manager cannot publish their own Job Poster.
+     *
+     * @return void
+     */
+    public function testManagerCanNotPublishJob() : void
     {
         $job = factory(JobPoster::class)->states('published')->make([
             'manager_id' => $this->manager->manager->id
@@ -106,9 +133,14 @@ class JobPolicyTest extends TestCase
         $this->assertFalse($this->policy->update($this->manager, $job));
     }
 
-    public function testManagerCanUpdateDraftJob()
+    /**
+     * Ensure a manager can edit their own draft Job Poster.
+     *
+     * @return void
+     */
+    public function testManagerCanUpdateDraftJob() : void
     {
-        $job = factory(JobPoster::class)->states('unpublished')->make([
+        $job = factory(JobPoster::class)->make([
             'manager_id' => $this->manager->manager->id
         ]);
         $this->assertTrue($this->policy->update($this->manager, $job));
