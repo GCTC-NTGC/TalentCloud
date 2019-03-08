@@ -7,7 +7,13 @@ use App\Models\UserRole;
 
 class UserCrudController extends CrudController
 {
-    public function setup()
+    /**
+     * Prepare the admin interface by setting the associated
+     * model, setting the route, and adding custom columns/fields.
+     *
+     * @return void
+     */
+    public function setup() : void
     {
         $this->crud->setModel("App\Models\User");
         $this->crud->setRoute("admin/user");
@@ -31,6 +37,11 @@ class UserCrudController extends CrudController
             'type' => 'text',
             'label' => 'Role'
         ]);
+        $this->crud->addColumn([
+            'name' => 'is_priority',
+            'type' => 'check',
+            'label' => 'Priority'
+        ]);
 
         $this->crud->addFilter([
             'name' => 'user_role',
@@ -38,7 +49,7 @@ class UserCrudController extends CrudController
             'label' => 'Role'
         ], function () {
             return UserRole::all()->keyBy('id')->pluck('name', 'id')->toArray();
-        }, function ($value) {
+        }, function ($value) : void {
             $this->crud->addClause('where', 'user_role_id', $value);
         });
 
@@ -58,9 +69,21 @@ class UserCrudController extends CrudController
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model' => "App\Models\UserRole" // foreign key model
         ]);
+        $this->crud->addField([
+            'name' => 'is_priority',
+            'type' => 'checkbox',
+            'label' => 'Priority'
+        ]);
     }
 
-    public function update($request)
+    /**
+     * Action for updating an existing User in the database.
+     *
+     * @param \Illuminate\Http\Request $request Incoming form request.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update($request) // phpcs:ignore
     {
         $response = parent::updateCrud();
         return $response;

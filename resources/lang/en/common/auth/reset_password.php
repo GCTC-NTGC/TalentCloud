@@ -9,8 +9,9 @@ return [
      * The following language lines are used on the reset password form
      *
      */
-    
-    'title' => 'Reset Password',
+
+    'title' => 'Talent Cloud | Reset Password',
+    'header' => 'Reset Password',
     'return' => "Return Home",
     'email' => 'E-Mail Address',
     'password' => 'Password',

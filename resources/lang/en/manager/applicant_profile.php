@@ -20,6 +20,7 @@ return [
     'content' => [
         'whose_profile' => 'You are viewing :name\'s profile.',
         'no_applicant_answers' => 'The applicant hasn\'t answered any questions.',
+        'no_applicant_answer' => "The applicant has not answered this profile question.",
         'their_answer' => 'Their Answer:'
     ]
 ];

@@ -25,6 +25,9 @@ class JobPosterCrudController extends CrudController
             $this->crud->orderBy('close_date_time', 'desc');
         }
 
+        // Add the custom blade button found in public/vendor/backpack/crud/buttons/full-edit.blade.php
+        $this->crud->addButtonFromView('line', 'full_edit', 'full_edit', 'end');
+
         $this->crud->addColumn([
             'name' => 'title',
             'type' => 'text',
@@ -44,7 +47,7 @@ class JobPosterCrudController extends CrudController
             'name' => "status",
             'label' => "Status",
             'type' => "model_function",
-            'function_name' => 'displayStatus',
+            'function_name' => 'status',
         ]);
         $this->crud->addColumn([
             'name' => "published",
@@ -57,10 +60,15 @@ class JobPosterCrudController extends CrudController
             'label' => 'Manager'
         ]);
         $this->crud->addColumn([
-            'name' => "submitted_applications_count",
-            'label' => "Applications",
-            'type' => "model_function",
-            'function_name' => 'submitted_applications_count',
+            'name' => 'submitted_applications_count',
+            'label' => 'Applications',
+            'type' => 'closure',
+            'function' =>
+                function ($entry) {
+                    return $entry->submitted_applications_count() > 0 ?
+                        '<a href="' . route('manager.jobs.applications', $entry->id) . '">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
+                        $entry->submitted_applications_count();
+                }
         ]);
 
         $this->crud->addField([
@@ -90,6 +98,8 @@ class JobPosterCrudController extends CrudController
 
     /**
      * Action for updating an existing Job Poster in the database.
+     *
+     * @param \Illuminate\Http\Request $request Incoming form request.
      *
      * @return \Illuminate\Http\RedirectResponse
      */
