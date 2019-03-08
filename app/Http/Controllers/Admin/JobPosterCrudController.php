@@ -25,6 +25,9 @@ class JobPosterCrudController extends CrudController
             $this->crud->orderBy('close_date_time', 'desc');
         }
 
+        // Add the custom blade button found in public/vendor/backpack/crud/buttons/full-edit.blade.php
+        $this->crud->addButtonFromView('line', 'full_edit', 'full_edit', 'end');
+
         $this->crud->addColumn([
             'name' => 'title',
             'type' => 'text',
@@ -44,7 +47,7 @@ class JobPosterCrudController extends CrudController
             'name' => "status",
             'label' => "Status",
             'type' => "model_function",
-            'function_name' => 'displayStatus',
+            'function_name' => 'status',
         ]);
         $this->crud->addColumn([
             'name' => "published",
@@ -90,6 +93,8 @@ class JobPosterCrudController extends CrudController
 
     /**
      * Action for updating an existing Job Poster in the database.
+     *
+     * @param \Illuminate\Http\Request $request Incoming form request.
      *
      * @return \Illuminate\Http\RedirectResponse
      */
