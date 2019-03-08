@@ -7,6 +7,8 @@
 
 {% extends "layouts/base" %}
 
+{% block title %}{{ login.title }}{% endblock %}
+
 {% block body %}
 
 <section
@@ -14,19 +16,19 @@
     style="background-image: url('/images/bg_crowd.jpg');">
 
     <div
-        class="login">
+        class="auth-login">
 
         <a
-            class="login-return-link"
+            class="auth-return-link"
             href="/"
             title="Return Home">
             <i class="fas fa-chevron-left"></i> {{ login.return }}
         </a>
 
         <div
-            class="login-heading">
+            class="auth-heading">
 
-            <h1>{{ login.title }}</h1>
+            <h1>{{ login.header }}</h1>
 
         </div>
 
@@ -38,23 +40,30 @@
             {{ csrf_field() }}
 
             <div
-                class="login-content">
+                class="auth-content">
 
                 <div
-                    class="login-scroll-wrapper">
+                    class="auth-scroll-wrapper">
+
                     <div
-                        class="login-copy">
+                        class="auth-copy">
 
-                        {% if errors.any() %}
+                        <div
+                            class="flex-grid">
 
-                            <div class="box full register-alert">
-                                {% for error in errors.all() %}
-                                    <span class="help-block">
-                                        <strong>{{ error }}</strong>
-                                    </span>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
+                            {% if errors.any() %}
+                                <div class="box full">
+                                    <ul class="auth-alert">
+                                        {% for error in errors.all() %}
+                                            <li class="">
+                                                <strong>{{ error }}</strong>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                        </div>
 
                         <div
                             class="form__input-wrapper--float @if (old('email'))active @endif">
@@ -126,7 +135,7 @@
             </div>
 
             <div
-                class="login-action-wrapper">
+                class="auth-action-wrapper">
 
                 <div
                     class="flex-grid">
@@ -162,7 +171,7 @@
     </div>
 
     <a
-        class="login-logo"
+        class="auth-logo"
         href="/"
         title="Return to Talent Cloud.">
         <img
