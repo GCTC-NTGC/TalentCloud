@@ -60,10 +60,15 @@ class JobPosterCrudController extends CrudController
             'label' => 'Manager'
         ]);
         $this->crud->addColumn([
-            'name' => "submitted_applications_count",
-            'label' => "Applications",
-            'type' => "model_function",
-            'function_name' => 'submitted_applications_count',
+            'name' => 'submitted_applications_count',
+            'label' => 'Applications',
+            'type' => 'closure',
+            'function' =>
+                function ($entry) {
+                    return $entry->submitted_applications_count() > 0 ?
+                        '<a href="' . route('manager.jobs.applications', $entry->id) . '">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
+                        $entry->submitted_applications_count();
+                }
         ]);
 
         $this->crud->addField([
