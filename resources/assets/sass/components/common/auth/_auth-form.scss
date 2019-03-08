@@ -118,7 +118,7 @@
                     .box {
                         padding: 0 1rem;
 
-                        &.auth-alert span {
+                        .auth-alert {
                             background: rgba(255, 0, 0, .2);
                             color: rgba(150, 0, 0, 1);
                             font-family: $font--sans;
@@ -132,7 +132,7 @@
                             border: 1px solid red;
                         }
 
-                        &.auth-success span {
+                        .auth-success {
                             background: rgba(0, 255, 0, .2);
                             color: rgba(0, 150, 0, 1);
                             font-family: $font--sans;

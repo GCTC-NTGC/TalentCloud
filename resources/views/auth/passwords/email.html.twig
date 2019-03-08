@@ -52,16 +52,16 @@
                             class="flex-grid">
 
                             {% if session('status') is not empty %}
-                                <div class="box full auth-success">
-                                    <span class="help-block">
+                                <div class="box full">
+                                    <span class="auth-success">
                                         {{ session('status') }}
                                     </span>
                                 </div>
                             {% endif %}
 
                             {% if errors.has('email') %}
-                                <div class="box full auth-alert">
-                                    <span class="help-block">
+                                <div class="box full">
+                                    <span class="auth-alert">
                                         <strong>{{ errors.first('email') }}</strong>
                                     </span>
                                 </div>

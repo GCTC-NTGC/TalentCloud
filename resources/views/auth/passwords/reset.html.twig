@@ -47,15 +47,13 @@
                             class="flex-grid">
 
                             {% if errors.any() %}
-                                <div class="box full auth-alert">
-                                    <ul>
-                                        <span class="help-block">
-                                        {% for error in errors.all() %}
-                                            <li><strong>{{ error }}</strong></li>
-                                        {% endfor %}
-                                        </span>
-                                    </ul>
-                                </div>
+                                <ul class="box full">
+                                    {% for error in errors.all() %}
+                                        <li class="auth-alert">
+                                            <strong>{{ error }}</strong>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
                             {% endif %}
 
                             <div
