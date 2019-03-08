@@ -71,13 +71,13 @@ export default class Reference extends Component {
                   >
                     <label
                       className="form__label"
-                      htmlFor={"referenceName" + this.props.id}
+                      htmlFor={`referenceName${this.props.id}`}
                     >
                       {this.props.lang.name_label}
                     </label>
                     <input
                       className="form__input"
-                      id={"referenceName" + this.props.id}
+                      id={`referenceName${this.props.id}`}
                       type="text"
                       name="name"
                       required

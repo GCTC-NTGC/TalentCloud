@@ -39,7 +39,6 @@
         "laravel-mix": "^4.0.14",
         "node-sass": "^4.11.0",
         "prettier": "^1.16.4",
-        "react-dom": "^16.2.0",
         "resolve-url-loader": "^3.0.1",
         "sass-loader": "^7.1.0",
         "ts-loader": "^5.3.3",
@@ -53,7 +52,8 @@
         "es6-promise": "^4.2.5",
         "moment": "^2.24.0",
         "sweetalert2": "^8.2.2",
-        "react": "^16.8.3"
+        "react": "^16.8.3",
+        "react-dom": "^16.2.0"
     },
     "repository": {
         "type": "git",

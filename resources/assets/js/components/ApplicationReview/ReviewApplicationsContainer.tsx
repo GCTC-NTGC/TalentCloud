@@ -1,3 +1,4 @@
+/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
@@ -47,12 +48,12 @@ export default class ReviewApplicationsContainer extends React.Component<
     applicationId: number,
     review: ApplicationReview
   ): void {
-    const updatedApplications = this.state.applications.map(application => {
+    const { applications } = this.state;
+    const updatedApplications = applications.map(application => {
       if (application.id === applicationId) {
         return Object.assign(application, { application_review: review });
-      } else {
-        return Object.assign({}, application);
       }
+      return Object.assign({}, application);
     });
     this.setState({ applications: updatedApplications });
   }
@@ -61,8 +62,9 @@ export default class ReviewApplicationsContainer extends React.Component<
     applicationId: number,
     isSaving: boolean
   ): void {
-    const statuses = this.state.savingStatuses.map(item =>
-      item.applicationId == applicationId
+    const { savingStatuses } = this.state;
+    const statuses = savingStatuses.map(item =>
+      item.applicationId === applicationId
         ? { applicationId, isSaving }
         : Object.assign({}, item)
     );
@@ -81,7 +83,7 @@ export default class ReviewApplicationsContainer extends React.Component<
         this.updateReviewState(applicationId, newReview);
         this.handleSavingStatusChange(applicationId, false);
       })
-      .catch(error => {
+      .catch(() => {
         Swal.fire({
           type: "error",
           title: "Oops...",
@@ -95,7 +97,8 @@ export default class ReviewApplicationsContainer extends React.Component<
     applicationId: number,
     statusId: number | null
   ): void {
-    const application = find(this.state.applications, applicationId);
+    const { applications } = this.state;
+    const application = find(applications, applicationId);
     if (application === null) {
       return;
     }
@@ -112,11 +115,12 @@ export default class ReviewApplicationsContainer extends React.Component<
     applicationIds: number[],
     statusId: number | null
   ): void {
-    const applications = this.state.applications.filter(application =>
+    const { applications } = this.state;
+    const changedApplications = applications.filter(application =>
       applicationIds.includes(application.id)
     );
     let errorThrown = false;
-    const requests = applications.map(application => {
+    changedApplications.map(application => {
       const oldReview = application.application_review
         ? application.application_review
         : {};
@@ -131,7 +135,7 @@ export default class ReviewApplicationsContainer extends React.Component<
           this.updateReviewState(application.id, newReview);
           this.handleSavingStatusChange(application.id, false);
         })
-        .catch(error => {
+        .catch(() => {
           this.handleSavingStatusChange(application.id, false);
           // Only show error modal first time a request fails
           if (!errorThrown) {
@@ -151,7 +155,8 @@ export default class ReviewApplicationsContainer extends React.Component<
     applicationId: number,
     notes: string | null
   ): void {
-    const application = find(this.state.applications, applicationId);
+    const { applications } = this.state;
+    const application = find(applications, applicationId);
     if (application === null) {
       return;
     }
@@ -165,22 +170,25 @@ export default class ReviewApplicationsContainer extends React.Component<
   }
 
   public render(): React.ReactElement {
-    const reviewStatusOptions = this.props.reviewStatuses.map(status => ({
+    const { applications, savingStatuses } = this.state;
+    const { reviewStatuses, job } = this.props;
+
+    const reviewStatusOptions = reviewStatuses.map(status => ({
       value: status.id,
       label: status.name
     }));
 
     return (
       <ReviewApplications
-        title={this.props.job.title}
-        classification={this.props.job.classification}
-        closeDateTime={this.props.job.close_date_time}
-        applications={this.state.applications}
+        title={job.title}
+        classification={job.classification}
+        closeDateTime={job.close_date_time}
+        applications={applications}
         reviewStatusOptions={reviewStatusOptions}
         onStatusChange={this.handleStatusChange}
         onBulkStatusChange={this.handleBulkStatusChange}
         onNotesChange={this.handleNotesChange}
-        savingStatuses={this.state.savingStatuses}
+        savingStatuses={savingStatuses}
       />
     );
   }

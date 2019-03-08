@@ -11,7 +11,7 @@ type Category = "primary" | "optional" | "screened-out";
 export function isScreenedOut(application: Application): boolean {
   return application.application_review &&
     application.application_review.review_status
-    ? application.application_review.review_status.name == "screened_out"
+    ? application.application_review.review_status.name === "screened_out"
     : false; // non-reviewed applicaitons have not been screened-out yet
 }
 
@@ -60,7 +60,7 @@ export function applicationCategory(application: Application): Category {
 }
 
 function isVet(application: Application): boolean {
-  return application.veteran_status.name != "none";
+  return application.veteran_status.name !== "none";
 }
 
 /**
@@ -86,6 +86,8 @@ export function applicationCompare(
         return 3;
       case ReviewStatusId.ScreenedOut:
         return 4;
+      default:
+        return 2; // Treat default same as "Not Reviewed"
     }
   };
 
@@ -94,7 +96,7 @@ export function applicationCompare(
     score(application) - (isVet(application) ? 0.1 : 0);
   const scoreDiff = scoreVet(first) - scoreVet(second);
 
-  if (scoreDiff != 0) {
+  if (scoreDiff !== 0) {
     return scoreDiff;
   }
 
