@@ -7,9 +7,8 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Lang;
 use \Backpack\CRUD\CrudTrait;
-use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
+use \Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
 
 /**
  * Class Skill
@@ -57,5 +56,19 @@ class Skill extends BaseModel
     public function skill_declarations() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\SkillDeclaration::class);
+    }
+
+    /**
+     * Override the toArray() method to return the localized properties for
+     * name and description. This was causing issues for ajax responses.
+     *
+     * @return mixed[]
+     */
+    public function toArray() : array
+    {
+        $array = parent::toArray();
+        $array['name'] = $this->name;
+        $array['description'] = $this->description;
+        return $array;
     }
 }

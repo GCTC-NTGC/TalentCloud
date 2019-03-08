@@ -474,9 +474,10 @@
 
         //Update ui for Skill object to reflect that it has been setItem
         function setSkillSaved(object, response) {
-            $(object).find('.accordion-title').text(response.data.skill.name);
+            var levelRequirement = $(object).find('.accordion-title span').prop('outerHTML') || '';
+            $(object).find('.accordion-title').html(response.data.skill.name + levelRequirement);
             $(object).find('.skill__description').text(response.data.skill.description);
-            $(object).find('.skill__status--level').text(response.data.skill_status.status);
+            $(object).find('.skill__status--level').text(' ' + response.data.skill_status.status);
         }
 
         //Update ui for Reference object to reflect that it has been setItem
