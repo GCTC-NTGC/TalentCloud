@@ -48,13 +48,13 @@
 
                             {% if errors.any() %}
                                 <div class="box full auth-alert">
-                                    <span class="help-block">
-                                        <ul>
+                                    <ul>
+                                        <span class="help-block">
                                         {% for error in errors.all() %}
                                             <li><strong>{{ error }}</strong></li>
                                         {% endfor %}
-                                        </ul>
-                                    </span>
+                                        </span>
+                                    </ul>
                                 </div>
                             {% endif %}
 
