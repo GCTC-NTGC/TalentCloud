@@ -1,11 +1,13 @@
 {# =============================================================================
 
     Talent Cloud
-    Auth: Password -  Email
+    Auth: Password - Email
 
 ============================================================================= #}
 
 {% extends "layouts/base" %}
+
+{% block title %}{{ forgot_password.title }}{% endblock %}
 
 {% block body %}
 
@@ -14,19 +16,19 @@
     style="background-image: url('/images/bg_crowd.jpg');">
 
     <div
-        class="login">
+        class="auth-email">
 
         <a
-            class="login-return-link"
+            class="auth-return-link"
             href="/"
             title="Return Home">
             <i class="fas fa-chevron-left"></i>{{ forgot_password.return }}
         </a>
 
         <div
-            class="login-heading">
+            class="auth-heading">
 
-            <h1>{{ forgot_password.title }}</h1>
+            <h1>{{ forgot_password.header }}</h1>
 
         </div>
 
@@ -38,25 +40,34 @@
             {{ csrf_field() }}
 
             <div
-                class="login-content">
+                class="auth-content">
 
                 <div
-                    class="login-scroll-wrapper">
+                    class="auth-scroll-wrapper">
 
                     <div
-                        class="login-copy">
+                        class="auth-copy">
 
-                        {% if session('status') is not empty %}
-                            <div class="alert alert-success">
-                                {{ session('status') }}
-                            </div>
-                        {% endif %}
+                        <div
+                            class="flex-grid">
 
-                        {% if errors.has('email') %}
-                            <span class="help-block">
-                                <strong>{{ errors.first('email') }}</strong>
-                            </span>
-                        {% endif %}
+                            {% if session('status') is not empty %}
+                                <div class="box full">
+                                    <span class="auth-success">
+                                        {{ session('status') }}
+                                    </span>
+                                </div>
+                            {% endif %}
+
+                            {% if errors.has('email') %}
+                                <div class="box full">
+                                    <span class="auth-alert">
+                                        <strong>{{ errors.first('email') }}</strong>
+                                    </span>
+                                </div>
+                            {% endif %}
+
+                        </div>
 
                         <div
                             class="form__input-wrapper--float {% if old('email') %} active {% endif %}">
@@ -81,7 +92,7 @@
             </div>
 
             <div
-                class="login-action-wrapper">
+                class="auth-action-wrapper">
 
                 <div
                     class="flex-grid">
@@ -111,13 +122,13 @@
     </div>
 
     <a
-        class="login-logo"
+        class="auth-logo"
         href="/"
         title="Return to Talent Cloud.">
         <img
             alt="The Talent Cloud Logo"
             class=""
-            src="  {{ forgot_password.auth_logo }}">
+            src="{{ forgot_password.auth_logo }}">
     </a>
 
 </section>

@@ -33,7 +33,7 @@
 
     p {
         @extend %paragraph;
-        margin: calc(#{$unit} * 1.5) 0 calc(#{$unit} * 2);
+        margin: calc(#{$unit} * .5) 0 calc(#{$unit} * 1);
     }
 
     button {

@@ -89,6 +89,7 @@ class ApplicationValidator {
     public function basicsValidator(JobApplication $application) {
         // Validate the fields common to every application
         $rules = [
+            'language_requirement_confirmed' => ['required', 'boolean'],
             'citizenship_declaration_id' => ['required', Rule::in($this->citizenship_ids)],
             'veteran_status_id' => ['required', Rule::in($this->veteran_status_ids)],
             'preferred_language_id' => ['required', Rule::in($this->preferred_language_ids)],
