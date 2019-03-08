@@ -147,7 +147,7 @@ return [
             'accepted' => 'L\'étape 3 doit être complétée',
         ],
         'published' => [
-            'in' => ''
+            'in' => 'Vous ne pouvez pas modifier une affiche d\'emploi qui a été publié'
         ]
     ],
     /*

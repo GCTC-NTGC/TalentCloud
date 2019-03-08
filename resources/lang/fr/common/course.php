@@ -16,7 +16,7 @@ return [
      "statuses" => [
          "certificate_granted" => "Certificat de cours accordé",
          "credits_towards_degree" => "Crédits vers un diplome (Cours réussi)",
-         "audited" => "",
+         "audited" => "Audité",
          "online_no_proof" => "Cours en ligne (Aucune preuve d'achèvement)",
          "online_certificate" => "Cours en ligne (Avec certificat / licence)",
          "learning_in_progress" => "Apprentissage en cours"
