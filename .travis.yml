@@ -20,7 +20,6 @@ addons:
     - talent.local.ca
 
 before_install:
-  - wget -q -O https://updates.atomicorp.com/channels/atomic/ubuntu/dists/trusty | bash
   # free port 5432
   - sudo service postgresql stop
   # latest composer version
@@ -31,9 +30,8 @@ before_install:
   - npm i -g lightcrawler
 
 install:
-  # send accessibility tests to Slack
-  # sudo git clone https://github.com/course-hero/slacktee.git
-  # sudo bash ./slacktee/install.sh
+  # install slacktee (accessibility tests to Slack)
+  - sudo bash ./etc/scripts/slacktee-install.sh
   # environment
   - cp .env.travis .env
   # dependencies
@@ -64,10 +62,9 @@ script:
 
 after_success:
   # crawl local site with lighthouse on PR
-  - lightcrawler -u http://localhost:8000 -c lightcrawler.json | ./slacktee.sh -t "Accessibility test results"
-  # '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u http://localhost:8000 -c lightcrawler.json'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u http://talent.canada.ca -c lightcrawler.json'
   # crawl live site with lighthouse on PR
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u https://talent.canada.ca -c lightcrawler.json'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || ightcrawler -u http://localhost:8000 -c lightcrawler.json | ./slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"'
 
 after_script:
   # send report to codecov.io
