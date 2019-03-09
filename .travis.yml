@@ -3,24 +3,24 @@ language: php
 php:
   - '7.2'
 
-sudo: false # faster than required?
+sudo: required
 dist: trusty
 
 services:
   - docker
-
-addons:
-  # required for lightcrawler
-  chrome: stable
-  hosts:
-    - talent.local.ca
 
 cache:
   directories:
     - $HOME/.composer/cache/files
     - $HOME/.npm
 
+addons:
+  chrome: stable # required for lightcrawler
+  hosts:
+    - talent.local.ca
+
 before_install:
+  - wget -q -O - https://updates.atomicorp.com/channels/atomic/ubuntu/dists/trusty | bash
   # free port 5432
   - sudo service postgresql stop
   # latest composer version
@@ -31,6 +31,9 @@ before_install:
   - npm i -g lightcrawler
 
 install:
+  # send accessibility tests to Slack
+  # sudo git clone https://github.com/course-hero/slacktee.git
+  # sudo bash ./slacktee/install.sh
   # environment
   - cp .env.travis .env
   # dependencies
@@ -61,12 +64,10 @@ script:
 
 after_success:
   # crawl local site with lighthouse on PR
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u http://localhost:8000 -c lightcrawler.json'
+  - lightcrawler -u http://localhost:8000 -c lightcrawler.json | ./slacktee.sh -t "Accessibility test results"
+  # '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u http://localhost:8000 -c lightcrawler.json'
   # crawl live site with lighthouse on PR
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u https://talent.canada.ca -c lightcrawler.json'
-  # tag/push build to docker hub / pulling repo much faster than building from Dockerfile
-  # docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
-  # docker push gctcntgc/talentcloud:travis
 
 after_script:
   # send report to codecov.io
@@ -80,6 +81,8 @@ after_script:
 # Slack notifications / do not send emails
 notifications:
   email: never
-  slack: talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg
-  on_success: always
-  on_failure: change
+  slack:
+    rooms:
+      - talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg
+    on_success: always
+    on_failure: change
