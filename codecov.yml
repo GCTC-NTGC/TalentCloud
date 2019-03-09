@@ -1,6 +1,6 @@
 coverage:
   precision: 3
-  range: 0...50
+  range: 0..40
   round: up
 
   status:
@@ -11,14 +11,7 @@ coverage:
         only_pulls: false
     patch: no
 
-parsers:
-  javascript:
-    enable_partials: yes
-
-ignore:
-  - "tests/"
-
 comment:
   layout: "reach, files, diff"
-  behavior: new
+  behavior: default
   branches: null
