@@ -20,7 +20,7 @@ addons:
     - talent.local.ca
 
 before_install:
-  - wget -q -O - https://updates.atomicorp.com/channels/atomic/ubuntu/dists/trusty | bash
+  - wget -q -O https://updates.atomicorp.com/channels/atomic/ubuntu/dists/trusty | bash
   # free port 5432
   - sudo service postgresql stop
   # latest composer version
