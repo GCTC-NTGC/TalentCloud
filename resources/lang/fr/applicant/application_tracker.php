@@ -43,7 +43,7 @@ return [
         "confirm" => [
             "step" => "6",
             "title" => "Confirmer ma candidature",
-            "status" => "incomplete",
+            "status" => "incomplet",
         ]
     ],
 ];

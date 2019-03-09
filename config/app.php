@@ -128,7 +128,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => env('FALLBACK_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------

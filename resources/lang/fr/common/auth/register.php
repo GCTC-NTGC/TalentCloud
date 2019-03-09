@@ -11,6 +11,7 @@ return [
      */
 
     'title' => 'Nuage de talents | Inscrivez-vous',
+    'header' => 'Inscrivez-vous',
     'return' => "Retour à la page d'accueil",
     'name' => 'Prénom et nom',
     'email' => 'Courriel',
