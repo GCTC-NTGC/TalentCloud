@@ -1,36 +1,17 @@
-codecov:
-  bot: gggrant
-  branch: dev
-
 coverage:
-  precision: 2
+  precision: 3
+  range: 0..40
+  round: up
 
   status:
     project:
       default:
-        target: null
         threshold: null
-        base: auto
-
-  notify:
-    slack:
-      default:
-        url: "https://hooks.slack.com/services/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"
-        threshold: null
-        branches: null  # all branches by default
-        attachments: "sunburst, diff"
+        branches: null
         only_pulls: false
-        flags: null
-        paths: null
-
-parsers:
-  javascript:
-    enable_partials: yes
+    patch: no
 
 comment:
-  layout: "header, diff, tree, changes"
+  layout: "reach, files, diff"
   behavior: default
-  require_changes: false  # if true: only post the comment if coverage changes
-  branches: *
-  flags: null
-  paths: null
+  branches: null
