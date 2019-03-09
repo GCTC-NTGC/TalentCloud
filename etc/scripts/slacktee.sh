@@ -138,7 +138,7 @@ function send_message()
 
 			message_attr="\"attachments\": [{ \
                           \"color\": \"$message_color\", \
-                          \"mrkdwn_in\": [\"text\", \"fields\"], \
+                          \"mrkdwn_in\": \"text\", \"fields\"], \
                           \"text\": \"$wrapped_message\""
 
 			if [[ -n $found_pattern_prefix ]]; then
