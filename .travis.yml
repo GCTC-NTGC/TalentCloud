@@ -64,7 +64,7 @@ after_success:
   # crawl live site with lighthouse on PR
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u http://talent.canada.ca -c lightcrawler.json'
   # crawl local site with lighthouse on PR
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || ightcrawler -u http://localhost:8000 -c lightcrawler.json | ./slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u http://localhost:8000 -c lightcrawler.json | ./slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"'
 
 after_script:
   # send report to codecov.io
