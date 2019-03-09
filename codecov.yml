@@ -1,0 +1,24 @@
+coverage:
+  precision: 3
+  range: 0...50
+  round: up
+
+  status:
+    project:
+      default:
+        threshold: null
+        branches: null
+        only_pulls: false
+    patch: no
+
+parsers:
+  javascript:
+    enable_partials: yes
+
+ignore:
+  - "tests/"
+
+comment:
+  layout: "reach, files, diff"
+  behavior: new
+  branches: null

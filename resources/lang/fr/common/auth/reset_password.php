@@ -10,7 +10,7 @@ return [
      *
      */
 
-    'title' => 'Réinitialiser le mot de passe',
+    'title' => 'Nuage de talents | Réinitialiser le mot de passe',
     'return' => "Retour à la page d'accueil",
     'email' => 'Courriel',
     'password' => 'Mot de passe',

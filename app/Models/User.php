@@ -26,7 +26,8 @@ use \Backpack\CRUD\CrudTrait;
  * @property string $email
  * @property string $name
  * @property string $password
- * @property bool $is_confirmed
+ * @property boolean $is_confirmed
+ * @property boolean $is_priority
  * @property int $user_role_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -56,11 +57,12 @@ class User extends BaseModel implements
     use CrudTrait;
 
     protected $casts = [
-        'is_confirmed' => 'bool',
+        'is_confirmed' => 'boolean',
+        'is_priority' => 'boolean',
         'user_role_id' => 'int'
     ];
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'is_priority'
     ];
     protected $with = ['user_role'];
     protected $hidden = [

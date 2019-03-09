@@ -23,18 +23,29 @@ use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Models\Lookup\ReviewStatus;
 
 
 class ApplicationByJobController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the applications for given jobPoster.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(JobPoster $jobPoster)
     {
-        //
+        $applications = $jobPoster->submitted_applications;
+        $applications->load(['veteran_status', 'citizenship_declaration', 'application_review', "applicant.user"]);
+        return view('manager/review_applications', [
+            /*Localization Strings*/
+            'jobs_l10n' => Lang::get('manager/job_index'),
+
+            /* Data */
+            'job' => $jobPoster,
+            'applications' => $applications,
+            'review_statuses' => ReviewStatus::all(),
+        ]);
     }
 
     protected function getApplicationFromJob(JobPoster $jobPoster) {
@@ -361,6 +372,7 @@ class ApplicationByJobController extends Controller
             'citizenship_declaration_id' => $request->input('citizenship_declaration_id'),
             'veteran_status_id' => $request->input('veteran_status_id'),
             'preferred_language_id' => $request->input('preferred_language_id'),
+            'language_requirement_confirmed' => $request->input('language_requirement_confirmed')
         ]);
         $application->save();
 

@@ -1,7 +1,8 @@
 <?php
 
 return [
-    "not_reviewed" => "Non",
-    "partially_reviewed" => "Partiellement",
-    "reviewed" => "Oui",
+    "screened_out" => "",
+    "still_thinking" => "",
+    "still_in" => "",
+    "not_reviewed" => "",
 ];

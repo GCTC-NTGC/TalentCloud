@@ -20,6 +20,8 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'open_date_time' => $faker->dateTimeBetween('-1 months', 'now'),
         'close_date_time' => $faker->dateTimeBetween('now', '1 months'),
         'start_date_time' => $faker->dateTimeBetween('1 months', '2 months'),
+        'review_requested_at' => $faker->dateTimeBetween('-2 months', '-1 months'),
+        'published_at' => null,
         'department_id' => Department::inRandomOrder()->first()->id,
         'province_id' => Province::inRandomOrder()->first()->id,
         'salary_min' => $faker->numberBetween(60000, 80000),
@@ -34,7 +36,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         },
         'published' => false,
         'city:en' => $faker->city,
-        'title:en' => $faker->unique()->word,
+        'title:en' => $faker->unique()->realText(27, 1),
         'impact:en' => $faker->paragraphs(
             2,
             true
@@ -43,7 +45,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'division:en' => $faker->word,
         'education:en' => $faker->sentence(),
         'city:fr' => $faker_fr->city,
-        'title:fr' => $faker_fr->unique()->word,
+        'title:fr' => $faker_fr->unique()->realText(27, 1),
         'impact:fr' => $faker_fr->paragraphs(
             2,
             true
@@ -54,7 +56,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
     ];
 });
 
-$factory->afterCreating(JobPoster::class, function ($jp) {
+$factory->afterCreating(JobPoster::class, function ($jp) : void {
     $jp->criteria()->saveMany(factory(Criteria::class, 5)->make([
         'job_poster_id' => $jp->id
     ]));
@@ -66,13 +68,16 @@ $factory->afterCreating(JobPoster::class, function ($jp) {
     ]));
 });
 
-$factory->state(JobPoster::class, 'published', [
-    'published' => true
-]);
-
-$factory->state(JobPoster::class, 'unpublished', [
-    'published' => false
-]);
+$factory->state(
+    JobPoster::class,
+    'published',
+    function (Faker\Generator $faker) {
+        return [
+            'published' => true,
+            'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks')
+        ];
+    }
+);
 
 $factory->state(
     JobPoster::class,
@@ -80,7 +85,22 @@ $factory->state(
     function (Faker\Generator $faker) {
         return [
             'published' => true,
+            'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks'),
             'close_date_time' => $faker->dateTimeBetween('-2 days', '-1 days'),
+        ];
+    }
+);
+
+$factory->state(
+    JobPoster::class,
+    'draft',
+    function (Faker\Generator $faker) {
+        return [
+            'published' => false,
+            'open_date_time' => $faker->dateTimeBetween('5 days', '10 days'),
+            'close_date_time' => $faker->dateTimeBetween('3 weeks', '5 weeks'),
+            'review_requested_at' => null,
+            'published_at' => null,
         ];
     }
 );
@@ -91,6 +111,8 @@ $factory->state(
     function (Faker\Generator $faker) {
         return [
             'published' => false,
+            'open_date_time' => $faker->dateTimeBetween('5 days', '10 days'),
+            'close_date_time' => $faker->dateTimeBetween('3 weeks', '5 weeks'),
             'review_requested_at' => $faker->dateTimeBetween('-2 days', '-1 days')
         ];
     }
