@@ -35,6 +35,8 @@ install:
   # dependencies
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - travis_retry npm ci
+  # lightcrawler output formatting
+  - cp etc/scripts/lightcrawler-index.js node_modules/lightcrawler/index.js
 
 before_script:
   # docker login (for tagging/pushing images to our hub repo)
@@ -59,10 +61,8 @@ script:
   - make phpunit
 
 after_success:
-  # crawl live site with lighthouse on PR
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u http://talent.canada.ca -c lightcrawler.json'
-  # crawl local site with lighthouse on PR
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lightcrawler'
+  # pull requests run lightcrawler on local site
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u http://localhost:8000 -c lightcrawler.json | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"'
 
 after_script:
   # send report to codecov.io
