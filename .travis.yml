@@ -26,8 +26,6 @@ before_install:
   - travis_retry composer self-update
   # latest npm@6 version
   - npm i -g npm@^6
-  # accessibility tests
-  - npm i -g lightcrawler
 
 install:
   # install slacktee (send lightcrawler output to slack)
@@ -64,7 +62,7 @@ after_success:
   # crawl live site with lighthouse on PR
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u http://talent.canada.ca -c lightcrawler.json'
   # crawl local site with lighthouse on PR
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u http://localhost:8000 -c lightcrawler.json | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lightcrawler'
 
 after_script:
   # send report to codecov.io
