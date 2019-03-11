@@ -152,20 +152,19 @@ function runLighthouse (url, configPath, callback) {
 
 function printStats() {
   console.log();
-  console.log(`Lighthouse Summary`);
-  console.log(`  Total Pages Scanned: ${stats.pageCount}`);
-  console.log(`  Total Auditing Time: ${new Date() - stats.startTime} ms`);
+  console.log(`Total Pages Scanned: ${stats.pageCount}`);
+  console.log(`Total Auditing Time: ${new Date() - stats.startTime} ms`);
   const totalTime = Object.keys(stats.auditTimesByPageUrl).reduce((sum, url) => {
     const {endTime, startTime} = stats.auditTimesByPageUrl[url]
     return (endTime - startTime) + sum
   }, 0)
-  console.log(`  Total Audits Passed: ${stats.passedAuditsCount}`, '\u2713');
+  console.log(`Total Audits Passed: ${stats.passedAuditsCount}`, '\u2713');
   if (Object.keys(stats.violationCounts).length === 0) {
-    console.log(`  Total Violations: None! \\o/ 🎉`);
+    console.log(`Total Violations: None! \\o/ 🎉`);
   } else {
-    console.log(`  Total Violations:`);
+    console.log(`Total Violations:`);
     Object.keys(stats.violationCounts).forEach(category => {
-      console.log(`    ${category}: ${stats.violationCounts[category]}`, '\u2717'.red);
+      console.log(`  ${category}: ${stats.violationCounts[category]}`, '\u2717'.red);
     })
   }
 }
