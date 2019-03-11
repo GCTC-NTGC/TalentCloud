@@ -137,11 +137,17 @@ return [
     */
     'custom' => [
         'password' => 'Le mot de passe doit contenir un caractère appartenant à chacun des catégories suivantes: minuscules (az), majuscules (AZ), chiffres (0-9) et symboles non alphanumériques (%, $,!, etc.). ',
-        'experience_saved.accepted' => 'Vous devez revoir et sauvegarder l\'étape 2.',
-        'application_step_1.accepted' => 'L\'étape 1 doit être complétée',
-        'application_step_3.accepted' => 'L\'étape 3 doit être complétée',
+        'experience_saved' => [
+            'accepted' => ' Vous devez revoir et sauvegarder l \'étape 2.',
+        ],
+        'application_step_1' => [
+            'accepted' => 'L\'étape 1 doit être complétée',
+        ],
+        'application_step_3' => [
+            'accepted' => 'L\'étape 3 doit être complétée',
+        ],
         'published' => [
-            'in' => 'You cannot edit a Job Poster that has been published'
+            'in' => 'Vous ne pouvez pas modifier une affiche d\'emploi qui a été publié'
         ]
     ],
     /*
@@ -157,8 +163,7 @@ return [
     'attributes' => [
         'submisstion_signature' => 'signature',
         'submission_date'       => 'date',
-        'skill_declaration_id'  => 'skill declaration',
-
+        'skill_declaration_id'  => 'déclaration de compétence',
         'name'                  => 'nom',
         'username'              => "nom d'utilisateur",
         'email'                 => 'adresse courriel',

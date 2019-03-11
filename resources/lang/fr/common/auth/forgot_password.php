@@ -11,6 +11,7 @@ return [
      */
 
     'title' => 'Nuage de talents | Réinitialiser votre mot de passe',
+    'header' => 'Réinitialiser votre mot de passe',
     'return' => "Retour à la page d'accueil",
     'email' => 'Courriel',
     'submit' => 'Envoyer le lien de réinitialisation du mot de passe',

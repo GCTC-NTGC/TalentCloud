@@ -315,6 +315,74 @@ Route::group(
             Route::get('review-applications', 'DemoController@reviewApplications')->name('demo.review_applications');
         });
 
+        /* AJAX calls =============================================================== */
+
+        /* Require being logged in */
+        Route::middleware(['auth'])->group(function () : void {
+
+            Route::delete('courses/{course}', 'CourseController@destroy')
+                ->middleware('can:delete,course')
+                ->name('courses.destroy');
+
+            Route::delete('degrees/{degree}', 'DegreeController@destroy')
+                ->middleware('can:delete,degree')
+                ->name('degrees.destroy');
+
+            Route::delete('work-experiences/{workExperience}', 'WorkExperienceController@destroy')
+                ->middleware('can:delete,workExperience')
+                ->name('work_experiences.destroy');
+
+            Route::post('skill-declarations', 'SkillsController@create')
+                ->middleware('can:create,App\Models\SkillDeclaration')
+                ->name('skill_declarations.create');
+
+            Route::put('skill-declarations/{skillDeclaration}', 'SkillsController@update')
+                ->middleware('can:update,skillDeclaration')
+                ->name('skill_declarations.update');
+
+            Route::delete('skill-declarations/{skillDeclaration}', 'SkillsController@destroy')
+                ->middleware('can:delete,skillDeclaration')
+                ->name('skill_declarations.destroy');
+
+            Route::put('references/{reference}', 'ReferencesController@update')
+                ->middleware('can:update,reference')
+                ->name('references.update');
+
+            Route::post('references', 'ReferencesController@update')
+                ->middleware('can:create,App\Models\Reference')
+                ->name('references.create');
+
+            Route::delete('references/{reference}', 'ReferencesController@destroy')
+                ->middleware('can:delete,reference')
+                ->name('references.destroy');
+
+            Route::put('work-samples/{workSample}', 'WorkSamplesController@update')
+                ->middleware('can:update,workSample')
+                ->name('work_samples.update');
+
+            Route::post('work-samples', 'WorkSamplesController@update')
+                ->middleware('can:create,App\Models\WorkSample')
+                ->name('work_samples.create');
+
+            Route::delete('work-samples/{workSample}', 'WorkSamplesController@destroy')
+                ->middleware('can:delete,workSample')
+                ->name('work_samples.destroy');
+
+            Route::delete('applications/{application}', 'ApplicationController@destroy')
+                ->middleware('can:delete,application')
+                ->name('applications.destroy');
+
+            Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
+                ->middleware('can:review,application')
+                ->name('application_reviews.update');
+
+            Route::delete('screening-plans/{screeningPlan}', 'ScreeningPlanController@destroy')
+                ->middleware('role:manager')
+                ->middleware('can:delete,screeningPlan')
+                //TODO: add can:delete middleware for screening plan
+                ->name('screening_plans.destroy');
+        });
+
         /* Language ============================================================= */
 
         Route::get('fr', function () {
@@ -330,71 +398,3 @@ Route::group(
 );
 
 /** ALL NON-LOCALIZED ROUTES **/
-
-/* AJAX calls =============================================================== */
-
-/* Require being logged in */
-Route::middleware(['auth'])->group(function () : void {
-
-    Route::delete('courses/{course}', 'CourseController@destroy')
-        ->middleware('can:delete,course')
-        ->name('courses.destroy');
-
-    Route::delete('degrees/{degree}', 'DegreeController@destroy')
-        ->middleware('can:delete,degree')
-        ->name('degrees.destroy');
-
-    Route::delete('work-experiences/{workExperience}', 'WorkExperienceController@destroy')
-        ->middleware('can:delete,workExperience')
-        ->name('work_experiences.destroy');
-
-    Route::post('skill-declarations', 'SkillsController@create')
-        ->middleware('can:create,App\Models\SkillDeclaration')
-        ->name('skill_declarations.create');
-
-    Route::put('skill-declarations/{skillDeclaration}', 'SkillsController@update')
-        ->middleware('can:update,skillDeclaration')
-        ->name('skill_declarations.update');
-
-    Route::delete('skill-declarations/{skillDeclaration}', 'SkillsController@destroy')
-        ->middleware('can:delete,skillDeclaration')
-        ->name('skill_declarations.destroy');
-
-    Route::put('references/{reference}', 'ReferencesController@update')
-        ->middleware('can:update,reference')
-        ->name('references.update');
-
-    Route::post('references', 'ReferencesController@update')
-        ->middleware('can:create,App\Models\Reference')
-        ->name('references.create');
-
-    Route::delete('references/{reference}', 'ReferencesController@destroy')
-        ->middleware('can:delete,reference')
-        ->name('references.destroy');
-
-    Route::put('work-samples/{workSample}', 'WorkSamplesController@update')
-        ->middleware('can:update,workSample')
-        ->name('work_samples.update');
-
-    Route::post('work-samples', 'WorkSamplesController@update')
-        ->middleware('can:create,App\Models\WorkSample')
-        ->name('work_samples.create');
-
-    Route::delete('work-samples/{workSample}', 'WorkSamplesController@destroy')
-        ->middleware('can:delete,workSample')
-        ->name('work_samples.destroy');
-
-    Route::delete('applications/{application}', 'ApplicationController@destroy')
-        ->middleware('can:delete,application')
-        ->name('applications.destroy');
-
-    Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
-        ->middleware('can:review,application')
-        ->name('application_reviews.update');
-
-    Route::delete('screening-plans/{screeningPlan}', 'ScreeningPlanController@destroy')
-        ->middleware('role:manager')
-        ->middleware('can:delete,screeningPlan')
-        //TODO: add can:delete middleware for screening plan
-        ->name('screening_plans.destroy');
-});
