@@ -29,7 +29,7 @@ before_install:
 
 install:
   # install slacktee (send lightcrawler output to slack)
-  - sudo bash ./etc/scripts/slacktee-install.sh
+  - sudo bash ./etc/scripts/install-slacktee.sh
   # environment
   - cp .env.travis .env
   # dependencies
@@ -37,6 +37,7 @@ install:
   - travis_retry npm ci
   # lightcrawler output formatting
   - cp etc/scripts/lightcrawler-index.js node_modules/lightcrawler/index.js
+
 
 before_script:
   # docker login (for tagging/pushing images to our hub repo)
@@ -62,7 +63,7 @@ script:
 
 after_success:
   # pull requests run lightcrawler on local site
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u http://localhost:8000 -c lightcrawler.json | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lightcrawler --silent | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"'
 
 after_script:
   # send report to codecov.io
