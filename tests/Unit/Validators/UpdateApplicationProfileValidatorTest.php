@@ -14,6 +14,8 @@ use App\Services\Validation\Requests\UpdateApplicationProfileValidator;
 class UpdateApplicationProfileValidatorTest extends TestCase
 {
 
+    use RefreshDatabase;
+
     /**
      * Run parent setup and provide reusable factories.
      *
