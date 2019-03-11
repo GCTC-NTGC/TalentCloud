@@ -27,7 +27,7 @@ return [
             'notes' => 'Notes',
             'form' => [
                 'email' => 'Courriel',
-                'profile' => 'Profile',
+                'profile' => 'Profil',
                 'application' => 'Application',
                 'placeholder' => [
                     'reviewer' => 'Réviseur',

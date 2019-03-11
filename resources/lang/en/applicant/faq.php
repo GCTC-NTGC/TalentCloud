@@ -12,62 +12,6 @@ return [
     "title" => "Talent Cloud User Guide",
     "faq_title" => "Talent Cloud | Applicant: FAQ",
     "sidebar_label" => "On This Page",
-    "modals" => [
-        "00" => [
-            "type" => "login",
-            "title" => "Register or Login with GC Account",
-            "content" => [
-                "00" => "Talent Cloud leverages a platform called GC Account that allows you to sign in to a variety of tools using the same account information.",
-                "01" => "If you already have a GC Account, please use the Login link below to sign in. If you don't have an account, please use the Register link to create one."
-            ],
-            "id" => "login",
-            "action_01" => "Register",
-            "action_02" => "Login"
-        ],
-        "01" => [
-            "type" => "logout",
-            "title" => "Logout of Talent Cloud",
-            "content" => [
-                "00" => "Are you sure you want to logout of Talent Cloud?"
-            ],
-            "id" => "logout",
-            "action_01" => "Cancel",
-            "action_02" => "Logout"
-        ],
-        "02" => [
-            "type" => "confirmation",
-            "title" => "Delete this Diploma/Degree?",
-            "content" => [
-                "00" => "Are you sure you want to permanently delete this diploma or degree from your profile?",
-                "01" => "All previously submitted applications will retain this experience."
-            ],
-            "id" => "deleteDegree",
-            "action_01" => "Cancel",
-            "action_02" => "Delete"
-        ],
-        "03" => [
-            "type" => "confirmation",
-            "title" => "Delete this Course/Certification?",
-            "content" => [
-                "00" => "Are you sure you want to permanently delete this course or certification from your profile?",
-                "01" => "All previously submitted applications will retain this experience."
-            ],
-            "id" => "deleteCourse",
-            "action_01" => "Cancel",
-            "action_02" => "Delete"
-        ],
-        "04" => [
-            "type" => "confirmation",
-            "title" => "Delete this Equivalent Experience?",
-            "content" => [
-                "00" => "Are you sure you want to permanently delete this equivalent experience from your profile?",
-                "01" => "All previously submitted applications will retain this experience."
-            ],
-            "id" => "deleteWork",
-            "action_01" => "Cancel",
-            "action_02" => "Delete"
-        ]
-    ],
     "know" => [
         "sidebar_title" => "Things to Know",
         "category_anchor" => "to-know",
