@@ -3,6 +3,7 @@
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "files.watcherExclude": {
+        "**/node_modules/**": true,
         "**/vendor/**": true
     },
     "php.suggest.basic": false,
@@ -16,5 +17,16 @@
         "typescript",
         "typescriptreact"
     ],
+    "[javascriptreact]": {
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true
+    },
+    "[typescript]": {
+        "editor.formatOnPaste": true,
     "editor.formatOnSave": true
+    },
+    "[typescriptreact]": {
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true
+    }
 }
