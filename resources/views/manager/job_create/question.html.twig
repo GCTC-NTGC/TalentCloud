@@ -4,6 +4,12 @@
     Manager: Create Job Question
 
 ============================================================================= #}
+{%
+    set id_question = "question[" ~ question ? question.id : ':id' ~ "][question][en]"
+%}
+{%
+    set id_description = "question[" ~ question ? question.id : ':id' ~ "][description][en]"
+%}
 <div
     class="manager-jobs__create-question {% if question == false %}template{% endif %}"
     data-question-id="{% if question == false %}0{% else %}{{ questionCounter }}{% endif %}">
@@ -24,6 +30,7 @@
                 <div
                     class="box small-1of3">
                     <button
+                        aria-label="{{ menu.delete_label }}"
                         class="manager-jobs__delete-question-button">
                         <i class="fas fa-trash-alt"></i>
                         <span class="hidden">{{ menu.delete_label }}</span>
@@ -51,14 +58,14 @@
 
                             <label
                                 class="form__label"
-                                for="createJobQuestionEN">
+                                for="{{ id_question }}createJobQuestionEN">
                                 {{question_l10n.question_english}}
                             </label>
 
                             <input
                                 required
                                 class="form__input"
-                                id="createJobQuestionEN"
+                                id="{{ id_question }}createJobQuestionEN"
                                 type="text"
                                 name="question[{{ question ? question.id : ':id' }}][question][en]"
                                 value="{{ question.translate('en').question }}">
@@ -75,14 +82,14 @@
 
                             <label
                                 class="form__label"
-                                for="createJobQuestionDescriptionEN">
+                                for="{{ id_description }}createJobQuestionDescriptionEN">
                                 {{question_l10n.description_english}}
                             </label>
 
                             <textarea
                                 required
                                 class="form__textarea"
-                                id="createJobQuestionDescriptionEN"
+                                id="{{ id_description }}createJobQuestionDescriptionEN"
                                 name="question[{{ question ? question.id : ':id' }}][description][en]">{{ question.translate('en').description }}</textarea>
 
                         </div>
@@ -107,14 +114,14 @@
 
                             <label
                                 class="form__label"
-                                for="createJobQuestionFR">
+                                for="{{ id_question }}createJobQuestionFR">
                                 {{question_l10n.question_french}}
                             </label>
 
                             <input
                                 required
                                 class="form__input"
-                                id="createJobQuestionFR"
+                                id="{{ id_question }}createJobQuestionFR"
                                 type="text"
                                 name="question[{{ question ? question.id : ':id' }}][question][fr]"
                                 value="{{ question.translate('fr').question }}">
@@ -131,14 +138,14 @@
 
                             <label
                                 class="form__label"
-                                for="createJobQuestionDescriptionFR">
+                                for="{{ id_description }}createJobQuestionDescriptionFR">
                                 {{question_l10n.description_french}}
                             </label>
 
                             <textarea
                                 required
                                 class="form__textarea"
-                                id="createJobQuestionDescriptionFR"
+                                id="{{ id_description }}createJobQuestionDescriptionFR"
                                 name="question[{{ question ? question.id : ':id' }}][description][fr]">{{ question.translate('fr').description }}</textarea>
 
                         </div>

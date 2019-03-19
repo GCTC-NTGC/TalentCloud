@@ -136,6 +136,7 @@
     .form__input,
     .form__textarea {
         font-family: $font--sans;
+        background-color: white;
     }
 
     &[class*="float"] {
@@ -590,6 +591,7 @@
             padding: $unit 5rem $unit $unit;
             transition: border-color .2s ease;
             width: 100%;
+            background-color: white;
 
             &:focus {
                 border: 1px solid $palette--blue !important;
