@@ -85,6 +85,7 @@ return [
     "question_label" => "Votre réponse",
     "question_title" => "Ma compatibilité",
     "claim_title" => "Renseignements généraux",
+    "select_default_option" => "Choisir parmi les options suivantes ...",
     "language_declaration" => "Répondez-vous aux exigences linguistiques pour ce poste?",
     "english_essential" => "Je comprends que ce poste a une exigence linguistique anglais essentiel. Cela signifie que le gestionnaire peut choisir d'évaluer ma maîtrise de l'anglais.",
     "french_essential" => "Je comprends que ce poste a une exigence linguistique français essentiel. Cela signifie que le gestionnaire peut choisir d'évaluer ma maîtrise du français.",
