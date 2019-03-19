@@ -37,6 +37,7 @@
 
                 {# Skills #}
                     {% if relativeToken == "skills" %}
+                        <option value="" disabled selected>{{ relative_template.skill.default_option }}</option>
                         {% for skillDeclaration in applicant.skill_declarations %}
                             <option
                                 value="{{ skillDeclaration.id }}"
@@ -47,6 +48,7 @@
 
                 {# References #}
                     {% if relativeToken == "references" %}
+                        <option value="" disabled selected>{{ relative_template.reference.default_option }}</option>
                         {% for userReference in applicant.references %}
                             <option
                                 value="{{ userReference.id }}"
@@ -57,6 +59,7 @@
 
                 {# Samples #}
                     {% if relativeToken == "samples" %}
+                        <option value="" disabled selected>{{ relative_template.sample.default_option }}</option>
                         {% for userSample in applicant.work_samples %}
                             <option
                                 value="{{ userSample.id }}"

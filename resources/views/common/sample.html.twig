@@ -129,6 +129,7 @@
                                         required
                                         {% if template %}disabled{% endif %}
                                         class="form__input">
+                                        <option value="" disabled selected>{{ sample_template.type_default_option }}</option>
                                         {% for option in file_types %}
                                             <option
                                                 value="{{ option.id }}"

@@ -373,7 +373,7 @@
                                                     id="{{ id_prefix }}skillSelection"
                                                     name="skill_id"
                                                     required>
-
+                                                    <option value="" disabled selected>{{ skill_template.skill_selection_default_option }}</option>
                                                     {% for skill in skills %}
 
                                                         {% if skillType == skill.skill_type.name %}
