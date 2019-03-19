@@ -5,10 +5,9 @@ use App\Models\Manager;
 use App\Models\User;
 use App\Models\JobPoster;
 use App\Models\Applicant;
-use App\Models\UserRole;
 use App\Models\JobApplication;
 
-class DevSeeder extends Seeder
+class DevSeeder extends Seeder // phpcs:ignore
 {
     /**
      * This seeder uses this email for an admin user.
@@ -41,7 +40,7 @@ class DevSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run() : void
     {
         $adminUser = User::where('email', $this->adminEmail)->first();
         if ($adminUser === null) {
@@ -57,24 +56,26 @@ class DevSeeder extends Seeder
             ]));
         }
 
-        //Add new jobs to the test manager, along with applications if they've been open
-        $managerUser->manager->job_posters()->save(factory(JobPoster::class)->state('published')->create([
+        factory(JobPoster::class, 3)->state('published')->create([
             'manager_id' => $managerUser->manager->id
-        ]))->each(function ($job) : void {
-            $job->job_applications()->saveMany(factory(JobApplication::class, 10)->create([
+        ])->each(function ($job) : void {
+            $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
-            ]));
+            ]);
         });
-        $managerUser->manager->job_posters()->save(factory(JobPoster::class)->state('unpublished')->create([
+        factory(JobPoster::class, 3)->state('closed')->create([
             'manager_id' => $managerUser->manager->id
-        ]));
-        $managerUser->manager->job_posters()->save(factory(JobPoster::class)->state('closed')->create([
-            'manager_id' => $managerUser->manager->id
-        ]))->each(function ($job) : void {
-            $job->job_applications()->saveMany(factory(JobApplication::class, 10)->create([
+        ])->each(function ($job) : void {
+            $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
-            ]));
+            ]);
         });
+        factory(JobPoster::class, 3)->state('draft')->create([
+            'manager_id' => $managerUser->manager->id
+        ]);
+        factory(JobPoster::class, 3)->state('review_requested')->create([
+            'manager_id' => $managerUser->manager->id
+        ]);
 
         $applicantUser = User::where('email', $this->applicantEmail)->first();
         if ($applicantUser === null) {

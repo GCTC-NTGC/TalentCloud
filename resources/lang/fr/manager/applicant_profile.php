@@ -20,6 +20,7 @@ return [
     'content' => [
         'whose_profile' => 'Voici le profil de :name.',
         'no_applicant_answers' => 'Le candidat n\'a répondu à aucune question.',
+        'no_applicant_answer' => "Le candidat n'a pas répondu à cette question de profil.",
         'their_answer' => 'Leur réponse :'
     ]
 ];

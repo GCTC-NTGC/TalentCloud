@@ -11,16 +11,12 @@ use Illuminate\Support\Facades\Mail;
 use Jenssegers\Date\Date;
 
 use App\Models\Applicant;
-use App\Models\Criteria;
 use App\Models\Lookup\Department;
 use App\Models\JobPoster;
-use App\Models\JobPosterKeyTask;
-use App\Models\JobPosterQuestion;
 use App\Models\Lookup\LanguageRequirement;
 use App\Models\Manager;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
-use Doctrine\Common\Cache\VoidCache;
 use App\Mail\JobPosterReviewRequested;
 
 class JobControllerTest extends TestCase
@@ -41,14 +37,12 @@ class JobControllerTest extends TestCase
 
         $this->manager = factory(Manager::class)->create();
         $this->jobPoster = factory(JobPoster::class)
-            ->states('unpublished')
             ->create([
                 'manager_id' => $this->manager->id
             ]);
 
         $this->otherManager = factory(Manager::class)->create();
         $this->otherJobPoster = factory(JobPoster::class)
-            ->states('unpublished')
             ->create([
                 'manager_id' => $this->otherManager->id
             ]);

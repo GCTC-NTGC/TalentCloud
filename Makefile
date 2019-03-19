@@ -43,10 +43,12 @@ phpmd:
 phpunit:
 	@docker exec talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
+test:
+	@docker exec talentcloud sh -c "vendor/bin/phpunit --no-coverage"
 set-perms:
 	@docker exec talentcloud sh -c "chown -R www-data /var/www/storage /var/www/vendor /var/www/bootstrap/cache"
 	@docker exec talentcloud sh -c "chmod -R 775 /var/www"
 
 test-all: code-sniff phpmd phpunit
 
-.PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data fresh-db gen-certs logs phpmd phpunit set-perms test-all
+.PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data fresh-db gen-certs laravel-init logs phpmd phpunit test test-all

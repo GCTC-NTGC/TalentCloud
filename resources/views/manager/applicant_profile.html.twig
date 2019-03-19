@@ -48,7 +48,16 @@
 
 							<p>{{ question.applicant_profile_question.description }}</p>
 
-							<p><span class="bold">{{ profile.content.their_answer }}</span>{{ question.answer }}</p>
+
+							{% if question.answer is empty %}
+
+								<p><em>{{profile.content.no_applicant_answer}}</em></p>
+
+							{% else %}
+
+								<p><span class="bold">{{ profile.content.their_answer }}</span>{{ question.answer }}</p>
+
+							{% endif %}
 
 						</div>
 
