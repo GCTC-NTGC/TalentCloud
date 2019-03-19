@@ -79,6 +79,6 @@ notifications:
   email: never
   slack:
     rooms:
-      - talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg
+      - "$SLACK_CHANNEL"
     on_success: always
     on_failure: change
