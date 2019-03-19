@@ -69,7 +69,7 @@ return [
             'description' => 'Défini comme : langage de programmation orienté objet de niveau intermédiaire permettant de développer des applications logicielles de bas à haut niveau.'
         ],
         'sass' => [
-            'name' => 'SAS',
+            'name' => 'SASS',
             'description' => 'Signifie « Syntactically Awesome Style Sheets » et se définit comme : un script de préprocesseur, langage de feuille de style interprété ou compilé en CSS pour le développement Web.'
         ],
         'python' => [
