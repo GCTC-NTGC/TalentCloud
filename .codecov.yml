@@ -1,0 +1,17 @@
+coverage:
+  precision: 3
+  range: 0..40
+  round: up
+
+  status:
+    project:
+      default:
+        threshold: null
+        branches: null
+        only_pulls: false
+    patch: no
+
+comment:
+  layout: "reach, files, diff"
+  behavior: default
+  branches: null
