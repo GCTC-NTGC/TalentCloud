@@ -71,6 +71,10 @@
                             class="form__input"
                             name="{{ name_prefix }}[skill_id]">
 
+                            <option value="" disabled selected>
+                                {{ criterion_l10n.select_skill_default_option }}
+                            </option>
+
                             {% for id, skill in skillType %}
 
                             <option
@@ -102,6 +106,10 @@
                             id="{{ id_prefix }}criteriaLevel"
                             class="form__input"
                             name="{{ name_prefix }}[skill_level_id]">
+
+                            <option value="" disabled selected>
+                                {{ criterion_l10n.select_level_required_default_option }}
+                            </option>
 
                             {% for id, level in skillLevel %}
 

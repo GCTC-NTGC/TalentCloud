@@ -56,6 +56,7 @@
                             </label>
 
                             <input
+                                required
                                 class="form__input"
                                 id="createJobQuestionEN"
                                 type="text"
@@ -79,6 +80,7 @@
                             </label>
 
                             <textarea
+                                required
                                 class="form__textarea"
                                 id="createJobQuestionDescriptionEN"
                                 name="question[{{ question ? question.id : ':id' }}][description][en]">{{ question.translate('en').description }}</textarea>
@@ -110,6 +112,7 @@
                             </label>
 
                             <input
+                                required
                                 class="form__input"
                                 id="createJobQuestionFR"
                                 type="text"
@@ -133,6 +136,7 @@
                             </label>
 
                             <textarea
+                                required
                                 class="form__textarea"
                                 id="createJobQuestionDescriptionFR"
                                 name="question[{{ question ? question.id : ':id' }}][description][fr]">{{ question.translate('fr').description }}</textarea>

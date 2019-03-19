@@ -31,6 +31,7 @@ return [
             'position_french' => 'Position (Français)',
             'departmental_information' => 'Departmental Information',
             'department' => 'Department',
+            'department_default_option' => 'Select your Department...',
             'branch_english' => 'Branch (English)',
             'branch_french' => 'Branch (Français)',
             'division_english' => 'Division (English)',

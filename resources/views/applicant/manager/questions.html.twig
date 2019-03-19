@@ -4,6 +4,10 @@
     Applicant: Manager - Questions
 
 ============================================================================= #}
+{% set noInfo %}
+    <span class="italic">Information not provided.</span>
+{% endset %}
+
 <div
     class="applicant-profile__questions">
 
@@ -18,17 +22,17 @@
 
             {% for question in section.questions %}
 
+                <span>
+                    {{ question.title }}
+                </span>
+
                 {% if question.answer %}
-
-                    <span>
-                        {{ question.title }}
-                    </span>
-
                     <p
                         class="applicant-manager__answer">
                         {{ question.answer|nl2br }}
                     </p>
-
+                {% else %}
+                    <p>{{ noInfo }}</p>
                 {% endif %}
 
             {% endfor %}

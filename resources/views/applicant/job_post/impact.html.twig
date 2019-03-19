@@ -4,6 +4,7 @@
     Applicant: Jobs - Post: Impact
 
 ============================================================================= #}
+
 <a
     aria-hidden="true"
     class="job-post__anchor"
@@ -18,6 +19,14 @@
         {{ job_post.impact.title }}
     </h4>
 
-    <p>{{ job.impact|nl2br }}</p>
+
+    <p>
+        {{handleOutput(
+            job.impact,
+            job.impact|nl2br,
+            noInfo
+        )}}
+    {# {{ job.impact|nl2br }} #}
+    </p>
 
 </section>

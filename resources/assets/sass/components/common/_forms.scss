@@ -243,7 +243,9 @@
                 color: red;
                 content: "\f06a";
                 display: block;
-                font: normal normal normal 14px/1 FontAwesome;
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                // font: normal normal normal 14px/1 FontAwesome;
                 font-size: $font-scale--regular;
                 position: absolute;
                 top: 50%;
@@ -399,7 +401,9 @@
                     color: red;
                     content: "\f06a";
                     display: block;
-                    font: normal normal normal 14px/1 FontAwesome;
+                    font-family: "Font Awesome 5 Free";
+                    font-weight: 900;
+                    // font: normal normal normal 14px/1 FontAwesome;
                     font-size: $font-scale--regular;
                     position: absolute;
                     top: 50%;
@@ -486,7 +490,9 @@
                 color: red;
                 content: "\f06a";
                 display: block;
-                font: normal normal normal 14px/1 FontAwesome;
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                // font: normal normal normal 14px/1 FontAwesome;
                 font-size: $font-scale--regular;
                 position: absolute;
                 top: 50%;
@@ -535,6 +541,40 @@
                 right: 2rem;
                 transform: translate(0, -50%);;
             }
+
+            &.valid {
+
+                .form__input {
+                    border: 1px solid rgba(67, 197, 69, 1);
+                    transition: border-color .2s ease;
+                }
+
+            }
+
+            &.invalid {
+
+                &:before {
+                    color: red;
+                    content: "\f06a";
+                    display: block;
+                    font-family: "Font Awesome 5 Free";
+                    font-weight: 900;
+                    // font: normal normal normal 14px/1 FontAwesome;
+                    font-size: $font-scale--regular;
+                    position: absolute;
+                    top: 50%;
+                    right: 2rem;
+                    text-rendering: auto;
+                    transform: translate(0, -50%);
+                    -webkit-font-smoothing: antialiased;
+                }
+
+                .form__input {
+                    border: 1px solid red;
+                    transition: border-color .2s ease;
+                }
+
+        }
 
         }
 
@@ -744,6 +784,15 @@
         margin: 0 0 calc(#{$unit} / 2);
     }
 
+    .form__required {
+        color: red;
+        display: inline-block;
+        font-size: 8px;
+        margin: 0 0 0 .3rem;
+        pointer-events: none;
+        vertical-align: middle;
+    }
+
 }
 
 .form__radio-group-label {
@@ -787,9 +836,7 @@
 
 .form__radio-group-span {
     background: $palette--white;
-    border-top: 1px solid rgba(50, 50, 50, 1);
-    border-right: 1px solid rgba(50, 50, 50, 1);
-    border-bottom: 1px solid rgba(50, 50, 50, 1);
+    border: 1px solid rgba(50, 50, 50, 1);
     border-left: none;
     color: $palette--black;
     display: block;

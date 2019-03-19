@@ -31,6 +31,7 @@ return [
             'position_french' => 'Poste (Français)',
             'departmental_information' => 'Renseignements ministériels',
             'department' => 'Ministère',
+            'department_default_option' => 'Sélectionnez votre ministère...',
             'branch_english' => 'Branche (English)',
             'branch_french' => 'Branche (Français)',
             'division_english' => 'Division (English)',
