@@ -46,25 +46,21 @@ class JobController extends Controller
     {
         $now = Carbon::now();
 
-        //Find published jobs that are currently open for applications
+        // Find published jobs that are currently open for applications.
+        // Eager load required relationships: Department, Province, JobTerm.
+        // Eager load the count of submitted applications, to prevent the relationship
+        // from being actually loaded and firing off events.
         $jobs = JobPoster::where('open_date_time', '<=', $now)
             ->where('close_date_time', '>=', $now)
             ->where('published', true)
-            ->with(
-                [
+            ->with([
                 'department',
                 'province',
                 'job_term',
-                'job_applications' => function ($query) : void {
-                    $query->whereDoesntHave(
-                        'application_status',
-                        function ($subquery): void {
-                            $subquery->where('name', 'draft');
-                        }
-                    );
-                }
-                ]
-            )
+            ])
+            ->withCount([
+                'submitted_applications',
+            ])
             ->get();
         return view('applicant/job_index', [
             'job_index' => Lang::get('applicant/job_index'),
