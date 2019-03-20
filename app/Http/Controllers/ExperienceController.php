@@ -62,12 +62,13 @@ class ExperienceController extends Controller
 
         $degrees = $input['degrees'];
 
-        $validatedWorkData = $request->validate([
-            'work_experiences.new.*.role'        => 'required',
-            'work_experiences.new.*.company'     => 'required',
-            'work_experiences.new.*.description' => 'required',
-            'work_experiences.new.*.start_date'  => 'required|date',
-            'work_experiences.new.*.end_date'    => 'required|date',
+        $validatedDegreeData = $request->validate([
+            'degrees.new.*.degree_type_id' => 'required',
+            'degrees.new.*.area_of_study'  => 'required',
+            'degrees.new.*.institution'    => 'required',
+            'degrees.new.*.thesis'         => 'nullable',
+            'degrees.new.*.start_date'     => 'required|date',
+            'degrees.new.*.end_date'       => 'required|date',
         ]);
 
         //Delete old degrees that weren't resubmitted
