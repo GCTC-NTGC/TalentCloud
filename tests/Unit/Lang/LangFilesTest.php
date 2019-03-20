@@ -81,9 +81,39 @@ class LangFilesTest extends BaseTranslationTest
     */
     protected $permittedMissing = [
         'en' => [
-            'validation.attributes.name'
+            'validation.attributes.courses.new.*.name',
+            'validation.attributes.courses.new.*.institution',
+            'validation.attributes.courses.new.*.course_status_id',
+            'validation.attributes.courses.new.*.start_date',
+            'validation.attributes.courses.new.*.end_date',
+            'validation.attributes.degrees.new.*.degree_type_id',
+            'validation.attributes.degrees.new.*.area_of_study',
+            'validation.attributes.degrees.new.*.institution',
+            'validation.attributes.degrees.new.*.start_date',
+            'validation.attributes.degrees.new.*.end_date',
+            'validation.attributes.work_experiences.new.*.role',
+            'validation.attributes.work_experiences.new.*.company',
+            'validation.attributes.work_experiences.new.*.description',
+            'validation.attributes.work_experiences.new.*.start_date',
+            'validation.attributes.work_experiences.new.*.end_date',
         ],
-        'fr' => []
+        'fr' => [
+            'validation.attributes.courses.new.*.name',
+            'validation.attributes.courses.new.*.institution',
+            'validation.attributes.courses.new.*.course_status_id',
+            'validation.attributes.courses.new.*.start_date',
+            'validation.attributes.courses.new.*.end_date',
+            'validation.attributes.degrees.new.*.degree_type_id',
+            'validation.attributes.degrees.new.*.area_of_study',
+            'validation.attributes.degrees.new.*.institution',
+            'validation.attributes.degrees.new.*.start_date',
+            'validation.attributes.degrees.new.*.end_date',
+            'validation.attributes.work_experiences.new.*.role',
+            'validation.attributes.work_experiences.new.*.company',
+            'validation.attributes.work_experiences.new.*.description',
+            'validation.attributes.work_experiences.new.*.start_date',
+            'validation.attributes.work_experiences.new.*.end_date',
+        ]
     ];
 
     /**
