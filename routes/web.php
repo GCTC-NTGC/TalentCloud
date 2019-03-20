@@ -91,15 +91,8 @@ Route::group(
                 /* Step 05 */
                 Route::post('jobs/{jobPoster}/application/submit', 'ApplicationByJobController@submit')->name('job.application.submit');
 
-                Route::get('profile', function () {
-                    $applicant = Auth::user()->applicant;
-                    return redirect(route('profile.about.edit', $applicant));
-                })->name('profile');
-
-                Route::get('profile/about', function () {
-                    $applicant = Auth::user()->applicant;
-                    return redirect(route('profile.about.edit', $applicant));
-                });
+                Route::get('profile', 'ApplicantProfileController@editAuthenticated')->name('profile');
+                Route::get('profile/about', 'ApplicantProfileController@editAuthenticated');
 
                 /* Profile - About Me */
                 Route::get('profile/{applicant}/about', 'ApplicantProfileController@edit')
@@ -112,10 +105,7 @@ Route::group(
                     ->name('profile.about.update');
 
                 /* Profile - My Experience */
-                Route::get('profile/experience', function () {
-                    $applicant = Auth::user()->applicant;
-                    return redirect(route('profile.experience.edit', $applicant));
-                });
+                Route::get('profile/experience', 'ExperienceController@editAuthenticated');
 
                 Route::get('profile/{applicant}/experience', 'ExperienceController@edit')
                     ->middleware('can:view,applicant')
@@ -127,10 +117,7 @@ Route::group(
                     ->name('profile.experience.update');
 
                 /* Profile - My Skills */
-                Route::get('profile/skills', function () {
-                    $applicant = Auth::user()->applicant;
-                    return redirect(route('profile.skills.edit', $applicant));
-                });
+                Route::get('profile/skills', 'SkillsController@editAuthenticated');
 
                 Route::get('profile/{applicant}/skills', 'SkillsController@edit')
                     ->middleware('can:view,applicant')
@@ -138,10 +125,7 @@ Route::group(
                     ->name('profile.skills.edit');
 
                 /* Profile - My References */
-                Route::get('profile/references', function () {
-                    $applicant = Auth::user()->applicant;
-                    return redirect(route('profile.references.edit', $applicant));
-                });
+                Route::get('profile/references', 'ReferencesController@editAuthenticated');
 
                 Route::get('profile/{applicant}/references', 'ReferencesController@edit')
                     ->middleware('can:view,applicant')
@@ -153,10 +137,7 @@ Route::group(
                     ->name('profile.references.update');
 
                 /* Profile - My Portfolio */
-                Route::get('profile/portfolio', function () {
-                    $applicant = Auth::user()->applicant;
-                    return redirect(route('profile.work_samples.edit', $applicant));
-                });
+                Route::get('profile/portfolio', 'WorkSamplesController@editAuthenticated');
 
                 Route::get('profile/{applicant}/portfolio', 'WorkSamplesController@edit')
                     ->middleware('can:view,applicant')

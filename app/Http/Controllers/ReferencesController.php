@@ -17,25 +17,25 @@ class ReferencesController extends Controller
 {
 
     /**
-     * Display the Skills page associated with the applicant.
+     * Show the form for editing the logged-in applicant's references
      *
-     * @param  \App\Models\Applicant  $applicant
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show(Applicant $applicant)
+    public function editAuthenticated(Request $request): \Illuminate\Http\RedirectResponse
     {
-        //
-
+        $applicant = $request->user()->applicant;
+        return redirect(route('profile.references.edit', $applicant));
     }
 
     /**
      * Show the form for editing the applicant's references
      *
-     * @param  Request  $request
-     * @param  \App\Models\Applicant  $applicant
-     * @return \Illuminate\Http\Response
+     * @param  Request               $request
+     * @param  \App\Models\Applicant $applicant
+     * @return \Illuminate\View\View
      */
-    public function edit(Request $request, Applicant $applicant)
+    public function edit(Request $request, Applicant $applicant): \Illuminate\View\View
     {
         return view('applicant/profile_04_references', [
             'applicant' => $applicant,
@@ -49,8 +49,8 @@ class ReferencesController extends Controller
     /**
      * Update all the applicant's references in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Applicant  $applicant
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Applicant    $applicant
      * @return \Illuminate\Http\Response
      */
     public function updateAll(Request $request, Applicant $applicant)
@@ -62,7 +62,7 @@ class ReferencesController extends Controller
         //Delete old references that weren't resubmitted
         //Note: this must be done before adding new references, so we don't delete
         // them right after adding them
-        foreach($applicant->references as $oldReference) {
+        foreach ($applicant->references as $oldReference) {
             //Check if no references were resubmitted, or if this specific one wasn't
             if (!isset($references['old']) ||
                 !isset($references['old'][$oldReference->id])) {
@@ -72,7 +72,7 @@ class ReferencesController extends Controller
 
         //Save new references
         if (isset($references['new'])) {
-            foreach($references['new'] as $referenceInput) {
+            foreach ($references['new'] as $referenceInput) {
                 $reference = new Reference();
                 $reference->applicant_id = $applicant->id;
                 $reference->fill([
@@ -87,7 +87,7 @@ class ReferencesController extends Controller
                 $projectIds = [];
                 $projects = $referenceInput['projects'];
                 if (isset($projects['new'])) {
-                    foreach($projects['new'] as $projectInput) {
+                    foreach ($projects['new'] as $projectInput) {
                         $project = new Project();
                         $project->applicant_id = $applicant->id;
                         $project->fill([
@@ -110,7 +110,7 @@ class ReferencesController extends Controller
 
         //Update old references
         if (isset($references['old'])) {
-            foreach($references['old'] as $id=>$referenceInput) {
+            foreach ($references['old'] as $id => $referenceInput) {
                 //Ensure this reference belongs to this applicant
                 $reference = $applicant->references->firstWhere('id', $id);
                 if ($reference != null) {
@@ -125,7 +125,7 @@ class ReferencesController extends Controller
                     $projectIds = [];
                     $projects = $referenceInput['projects'];
                     if (isset($projects['new'])) {
-                        foreach($projects['new'] as $projectInput) {
+                        foreach ($projects['new'] as $projectInput) {
                             $project = new Project();
                             $project->applicant_id = $applicant->id;
                             $project->fill([
@@ -138,7 +138,7 @@ class ReferencesController extends Controller
                         }
                     }
                     if (isset($projects['old'])) {
-                        foreach($projects['old'] as $projectId=>$projectInput) {
+                        foreach ($projects['old'] as $projectId => $projectInput) {
                             //Ensure this project belongs to this applicant
                             $project = $applicant->projects->firstWhere('id', $projectId);
                             if ($project != null) {
@@ -154,7 +154,7 @@ class ReferencesController extends Controller
                     }
                     //TODO: when projects exists independpently on profile, don't delete them Here
                     // Delete projects that will be detached from this reference
-                    foreach($reference->projects as $project) {
+                    foreach ($reference->projects as $project) {
                         if (!in_array($project->id, $projectIds)) {
                             $project->delete();
                         }
@@ -171,7 +171,7 @@ class ReferencesController extends Controller
             }
         }
 
-        return redirect( route('profile.references.edit', $applicant) );
+        return redirect(route('profile.references.edit', $applicant));
     }
 
     /**
@@ -241,8 +241,8 @@ class ReferencesController extends Controller
     /**
      * Delete the particular reference from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Reference  $reference
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Reference    $reference
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Reference $reference)
@@ -250,13 +250,13 @@ class ReferencesController extends Controller
         $this->authorize('delete', $reference);
 
         //TODO: when projects exist independently on profile, delete seperatley
-        foreach($reference->projects as $project) {
+        foreach ($reference->projects as $project) {
             $project->delete();
         }
 
         $reference->delete();
 
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return [
                 "message" => 'Reference deleted'
             ];
@@ -264,5 +264,4 @@ class ReferencesController extends Controller
 
         return redirect()->back();
     }
-
 }
