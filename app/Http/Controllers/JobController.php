@@ -50,8 +50,22 @@ class JobController extends Controller
         $jobs = JobPoster::where('open_date_time', '<=', $now)
             ->where('close_date_time', '>=', $now)
             ->where('published', true)
+            ->with(
+                [
+                'department',
+                'province',
+                'job_term',
+                'job_applications' => function ($query) : void {
+                    $query->whereDoesntHave(
+                        'application_status',
+                        function ($subquery): void {
+                            $subquery->where('name', 'draft');
+                        }
+                    );
+                }
+                ]
+            )
             ->get();
-        $jobs->load('manager.work_environment');
         return view('applicant/job_index', [
             'job_index' => Lang::get('applicant/job_index'),
             'jobs' => $jobs
