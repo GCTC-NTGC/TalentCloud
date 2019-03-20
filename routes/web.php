@@ -23,7 +23,7 @@ Route::group(
         Route::group(['prefix' => config('app.applicant_prefix')], function () : void {
 
             /* Home */
-            Route::get('/', 'HomepageController')->name('home');
+            Route::get('/', 'HomepageController@applicant')->name('home');
 
             /* Jobs */
             Route::get('jobs', 'JobController@index')->name('jobs.index');
@@ -146,25 +146,14 @@ Route::group(
             });
 
             /* Static - FAQ */
-            Route::get('faq', function () {
-                return view('applicant/static_faq', [
-                    'faq' => Lang::get('applicant/faq')
-                ]);
-            })->name('faq');
+            Route::view('faq', 'applicant/static_faq', ['faq' => Lang::get('applicant/faq')])->name('faq');
 
             /* Static - Privacy Policy */
-            Route::get('privacy', function () {
-                return view('common/static_privacy', [
-                    'privacy' => Lang::get('common/privacy')
-                ]);
-            })->name('privacy');
+            Route::view('privacy', 'common/static_privacy', ['privacy' => Lang::get('common/privacy')])
+                ->name('privacy');
 
             /* Static - Terms of Service */
-            Route::get('tos', function () {
-                return view('common/static_tos', [
-                    'tos' => Lang::get('common/tos')
-                ]);
-            })->name('tos');
+            Route::view('tos', 'common/static_tos', ['tos' => Lang::get('common/tos')])->name('tos');
 
             /* Authentication =========================================================== */
 
@@ -189,22 +178,11 @@ Route::group(
 
         $managerGroup = function () : void {
             /* Home */
-            Route::get('/', function () {
-                return view('manager/home', [
-                    "hero" => [
-                        "hero_logo" => "/images/logo_tc_colour.png",
-                        "hero_logo_alt" => Lang::get('manager/home_hero')['logo_alt_text'],
-                        "hero_tagline" => Lang::get('manager/home_hero')['tagline']
-                    ]
-                ]);
-            })->name('manager.home');
+            Route::get('/', 'HomepageController@manager')->name('manager.home');
 
             Route::middleware(['auth', 'role:manager'])->group(function () : void {
 
-                Route::get('profile', function () {
-                    $manager = Auth::user()->manager;
-                    return redirect()->route('manager.profile.edit', $manager);
-                })->name('manager.profile');
+                Route::get('profile', 'ManagerProfileController@editAuthenticated')->name('manager.profile');
 
                 /* Profile */
                 Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')
@@ -292,10 +270,6 @@ Route::group(
 
         Route::group(['prefix' => config('app.manager_prefix')], $managerGroup);
 
-        Route::group(['prefix' => 'demo', 'middleware' => 'localOnly'], function () : void {
-            Route::get('review-applications', 'DemoController@reviewApplications')->name('demo.review_applications');
-        });
-
         /* AJAX calls =============================================================== */
 
         /* Require being logged in */
@@ -366,15 +340,9 @@ Route::group(
 
         /* Language ============================================================= */
 
-        Route::get('fr', function () {
-        //TODO
-            return redirect()->home();
-        })->name('lang.fr');
+        Route::redirect('fr', '/')->name('lang.fr');
 
-        Route::get('en', function () {
-        //TODO
-            return redirect()->home();
-        })->name('lang.en');
+        Route::redirect('en', '/')->name('lang.en');
     }
 );
 

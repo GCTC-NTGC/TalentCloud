@@ -71,6 +71,18 @@ class ManagerProfileController extends Controller {
     }
 
     /**
+     * Show the form for editing the logged-in manager's profile
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editAuthenticated(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $manager = $request->user()->manager;
+        return redirect(route('manager.profile.edit', $manager));
+    }
+
+    /**
      * Show the form for editing the logged-in user's manager profile
      *
      * @param  Request  $request

@@ -54,11 +54,12 @@ class ApplicantProfileController extends Controller
     /**
      * Show the form for editing the logged-in applicant's profile
      *
+     * @param  Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function editAuthenticated(): \Illuminate\Http\RedirectResponse
+    public function editAuthenticated(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $applicant = Auth::user()->applicant;
+        $applicant = $request->user()->applicant;
         return redirect(route('profile.about.edit', $applicant));
     }
 
