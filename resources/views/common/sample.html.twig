@@ -212,7 +212,7 @@
                             {# no-prefix marks that partials in this div aren't passed an id prefix. #}
                             {# This is used in app.js individualizeFormIdsAndNames() to avoid overwriting :id in template id. #}
                             <div class="no-prefix">
-                                {% include "common/relatives" with {"template":true, "relativeToken": "skills"} %}
+                                {% include "common/relatives" with {"template":true, "relativeToken": "skills", "prefix": id_prefix } %}
                             </div>
 
                             {# Relative List #}
