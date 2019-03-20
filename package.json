@@ -53,6 +53,7 @@
         "classnames": "^2.2.6",
         "es6-promise": "^4.2.5",
         "moment": "^2.24.0",
+        "react-intl": "^2.8.0",
         "sweetalert2": "^8.2.2"
     },
     "repository": {
