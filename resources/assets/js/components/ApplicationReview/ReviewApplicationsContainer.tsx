@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 // Internationalizations
-import {IntlProvider} from "react-intl";
-//import locale_en from 'react-intl/locale-data/en';
-//import locale_fr from 'react-intl/locale-data/fr';
+import {IntlProvider, addLocaleData} from "react-intl";
+import locale_en from 'react-intl/locale-data/en';
+import locale_fr from 'react-intl/locale-data/fr';
 
 import { Job, Application, ReviewStatus, ApplicationReview } from "../types";
 import ReviewApplications from "./ReviewApplications";
@@ -13,7 +13,7 @@ import route from "../../helpers/route";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-//addLocaleData([...locale_en, ...locale_fr]);
+addLocaleData([...locale_en, ...locale_fr]);
 
 import messages_en from "./localizations/en.json";
 import messages_fr from "./localizations/fr.json";

@@ -19,14 +19,14 @@
 
     <a id="skipLink"></a>
 
-    <p>{{locale}}</p>
+    <p>{{App.getLocale()}}</p>
 
     <div
         id="review-applications-container"
         data-job="{{ job|json_encode() }}"
         data-applications="{{ applications|json_encode() }}"
         data-review-statuses="{{ review_statuses|json_encode() }}"
-        data-locale="{{locale}}"
+        data-locale="{{App.getLocale()}}"
     >
     </div>
 

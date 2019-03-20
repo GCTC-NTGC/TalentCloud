@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Lookup\PreferredLanguage;
@@ -45,8 +44,7 @@ class ApplicationByJobController extends Controller
             /* Data */
             'job' => $jobPoster,
             'applications' => $applications,
-            'review_statuses' => ReviewStatus::all(),
-            'locale' => App::getLocale()
+            'review_statuses' => ReviewStatus::all()
         ]);
     }
 
