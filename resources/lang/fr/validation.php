@@ -148,7 +148,7 @@ return [
         ],
         'published' => [
             'in' => 'Vous ne pouvez pas modifier une affiche d\'emploi qui a été publié'
-        ]
+        ],
     ],
     /*
     |--------------------------------------------------------------------------
@@ -195,5 +195,20 @@ return [
         'time'                  => 'heure',
         'available'             => 'disponible',
         'size'                  => 'taille',
+        'courses.new.*.name' => 'nom du cours ou de la certification',
+        'courses.new.*.institution' => 'institution du cours ou de la certification',
+        'courses.new.*.course_status_id' => 'statut du cours ou de la certification',
+        'courses.new.*.start_date' => 'début du cours ou de la certification',
+        'courses.new.*.end_date' => 'fin du cours ou de la certification',
+        'degrees.new.*.degree_type_id' => 'type de diplôme',
+        'degrees.new.*.area_of_study' => 'domaine d\'étude du diplôme',
+        'degrees.new.*.institution' => 'institution du diplôme',
+        'degrees.new.*.start_date' => 'début du diplôme',
+        'degrees.new.*.end_date' => 'fin du diplôme',
+        'work_experiences.new.*.role' => 'rôle pour expérience équivalente',
+        'work_experiences.new.*.company' => 'entreprise ou groupe pour expérience équivalente',
+        'work_experiences.new.*.description' => 'description pour expérience équivalente ',
+        'work_experiences.new.*.start_date' => 'début de l\'expérience équivalente',
+        'work_experiences.new.*.end_date' => 'fin de l\'expérience équivalente',
     ],
 ];

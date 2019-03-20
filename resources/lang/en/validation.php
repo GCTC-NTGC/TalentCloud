@@ -150,7 +150,7 @@ return [
         ],
         'published' => [
             'in' => 'You cannot edit a Job Poster that has been published'
-        ]
+        ],
     ],
 
     /*
@@ -199,6 +199,20 @@ return [
         'time'                  => 'time',
         'available'             => 'available',
         'size'                  => 'size',
+        'courses.new.*.name' => 'course/certification name',
+        'courses.new.*.institution' => 'course/certification institution',
+        'courses.new.*.course_status_id' => 'course/certification status',
+        'courses.new.*.start_date' => 'course/certification start date',
+        'courses.new.*.end_date' => 'course/certification end date',
+        'degrees.new.*.degree_type_id' => 'diploma/degree type',
+        'degrees.new.*.area_of_study' => 'diploma/degree area of study',
+        'degrees.new.*.institution' => 'diploma/degree institution',
+        'degrees.new.*.start_date' => 'diploma/degree start date',
+        'degrees.new.*.end_date' => 'diploma/degree end date',
+        'work_experiences.new.*.role' => 'equivalent experience role',
+        'work_experiences.new.*.company' => 'equivalent experience company',
+        'work_experiences.new.*.description' => 'equivalent experience description',
+        'work_experiences.new.*.start_date' => 'equivalent experience start date',
+        'work_experiences.new.*.end_date' => 'equivalent experience end date',
     ],
-
 ];

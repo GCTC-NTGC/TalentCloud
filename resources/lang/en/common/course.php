@@ -15,6 +15,7 @@ return [
      "name_label" => "Course/Certification Name",
      "institution_label" => "Institution",
      "status_label" => "Status",
+     "status_default_option" => "Select a status...",
      "statuses" => [
          "certificate_granted" => "Course Certificate Granted",
          "credits_towards_degree" => "Credits Towards Degree (Passing Grade)",

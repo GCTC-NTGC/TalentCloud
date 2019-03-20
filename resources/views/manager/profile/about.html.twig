@@ -134,11 +134,10 @@
                             id="managerProfileDepartment"
                             name="department">
 
-
                             <option value="" disabled selected>
                                 {{ about_l10n.department_default_option }}
                             </option>
-
+                            
                             {% for department in departments %}
                                 {% set deparmentName = department.name %}
                                 {% set chosenName = manager.department.name %}

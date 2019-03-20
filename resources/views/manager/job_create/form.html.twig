@@ -233,7 +233,7 @@
                                     <option value="" disabled selected>
                                         {{ form_l10n.security_clearance_default_option}}
                                     </option>
-
+                                    
                                     {% for clearance in security_clearances %}
                                         <option
                                             value="{{ clearance.id }}"
@@ -267,7 +267,7 @@
                                     <option value="" disabled selected>
                                         {{ form_l10n.language_requirement_default_option }}
                                     </option>
-
+                                    
                                     {% for language in language_requirments %}
                                         <option
                                             value="{{ language.id }}"
@@ -372,7 +372,7 @@
                                     <option value="" disabled selected>
                                         {{ form_l10n.province_default_option }}
                                     </option>
-
+                                    
                                     {% for province in provinces %}
                                         <option
                                             value="{{ province.id }}"
@@ -1024,4 +1024,3 @@
 {# Task Template #}
 
 {% include "manager/job_create/task" with { 'task_l10n': form_l10n.task } %}
-
