@@ -128,6 +128,7 @@
                                         {% if template %}disabled{% endif %}
                                         name="relationship_id"
                                         required>
+                                        <option value="" disabled selected>{{ reference_template.relationship_default_option }}</option>
                                         {% for relationship in relationships %}
                                             <option
                                                 value="{{ relationship.id }}"
@@ -218,7 +219,7 @@
                             {# no-prefix marks that partials in this div aren't passed an id prefix. #}
                             {# This is used in app.js individualizeFormIdsAndNames() to avoid overwriting :id in template id. #}
                             <div class="no-prefix">
-                                {% include "common/relatives-projects" with {"template": true} %}
+                                {% include "common/relatives-projects" with {"template": true, "prefix": id_prefix} %}
                             </div>
 
                             {# Relative List #}
@@ -284,7 +285,7 @@
                              {# no-prefix marks that partials in this div aren't passed an id prefix. #}
                             {# This is used in app.js individualizeFormIdsAndNames() to avoid overwriting :id in template id. #}
                             <div class="no-prefix">
-                                {% include "common/relatives" with {"template": true, "relativeToken": "skills"} %}
+                                {% include "common/relatives" with {"template": true, "relativeToken": "skills", "prefix": id_prefix } %}
                             </div>
 
                             {# Relative List #}

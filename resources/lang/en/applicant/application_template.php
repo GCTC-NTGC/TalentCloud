@@ -83,6 +83,7 @@ return [
     "question_label" => "Your Answer",
     "question_title" => "My Fit",
     "claim_title" => "Basic Information",
+    "select_default_option" => "Select from the following...",
     "language_declaration" => "Do you meet the language requirements for this position?",
     "english_essential" => "I understand that this position has an English essential language requirement. This means that the manager may choose to test my proficiency in English.",
     "french_essential" => "I understand that this position has a French essential language requirement. This means that the manager may choose to test my proficiency in French.",
