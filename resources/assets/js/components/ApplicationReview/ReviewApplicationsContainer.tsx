@@ -1,11 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
+// Internationalizations
+import {IntlProvider} from "react-intl";
+//import locale_en from 'react-intl/locale-data/en';
+//import locale_fr from 'react-intl/locale-data/fr';
+
 import { Job, Application, ReviewStatus, ApplicationReview } from "../types";
 import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
 import route from "../../helpers/route";
 import axios from "axios";
 import Swal from "sweetalert2";
+
+//addLocaleData([...locale_en, ...locale_fr]);
+
+import messages_en from "./localizations/en.json";
+import messages_fr from "./localizations/fr.json";
+
+const messages = {
+    'fr': messages_fr,
+    'en': messages_en
+};
+const language = navigator.language.split(/[-_]/)[0];  // language without region code
 
 interface ReviewApplicationsProps {
   job: Job;
@@ -204,11 +221,12 @@ if (document.getElementById("review-applications-container")) {
       "data-review-statuses"
     ) as string);
     ReactDOM.render(
+      <IntlProvider locale={language} messages={messages[language]}>
       <ReviewApplicationsContainer
         job={job}
         initApplications={applications}
         reviewStatuses={reviewStatuses}
-      />,
+      /></IntlProvider>,
       container
     );
   }

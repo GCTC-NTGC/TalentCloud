@@ -3,6 +3,7 @@ import { Application } from "../types";
 import { SelectOption } from "../Select";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
+import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 import moment from "moment";
 
 interface ReviewApplicationsProps {
@@ -59,7 +60,10 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
       <div className="flex-grid gutter">
         <div className="box med-1of2 job-title-wrapper">
           <span>
-            Viewing Applicants for: {props.title} ({props.classification})
+          <FormattedMessage id="app.title"
+                      defaultMessage="Applications for default string: {job_title} {job_classification}"
+                      description="Welcome header on app main page"
+                      values={{ job_title: props.title, job_classification: props.classification }}/>
           </span>
         </div>
 
