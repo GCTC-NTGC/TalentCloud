@@ -134,7 +134,11 @@
                 </span>
                 <p
                     class="job-post__culture-copy">
-                    {{ job_post.work_environment.telework_allowed[work_environment.telework_allowed_frequency.name] }}
+                     {{ handleOutput(
+                        job_post.work_environment.telework_allowed[work_environment.telework_allowed_frequency.name],
+                        job_post.work_environment.telework_allowed[work_environment.telework_allowed_frequency.name],
+                        noInfo
+                    )}}
                 </p>
             </div>
 
@@ -147,6 +151,11 @@
                 <p
                     class="job-post__culture-copy">
                     {{ job_post.work_environment.time_flexibility_allowed[work_environment.flexible_hours_frequency.name] }}
+                    {{ handleOutput(
+                        job_post.work_environment.time_flexibility_allowed[work_environment.flexible_hours_frequency.name],
+                        job_post.work_environment.time_flexibility_allowed[work_environment.flexible_hours_frequency.name],
+                        noInfo
+                    )}}
                 </p>
             </div>
 
