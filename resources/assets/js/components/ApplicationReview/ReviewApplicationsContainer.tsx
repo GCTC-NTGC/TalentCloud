@@ -19,10 +19,9 @@ import messages_en from "./localizations/en.json";
 import messages_fr from "./localizations/fr.json";
 
 const messages = {
-    'fr': messages_fr,
-    'en': messages_en
+  'en': messages_en,
+  'fr': messages_fr
 };
-const language = navigator.language.split(/[-_]/)[0];  // language without region code
 
 interface ReviewApplicationsProps {
   job: Job;
@@ -211,7 +210,8 @@ if (document.getElementById("review-applications-container")) {
   if (
     container.hasAttribute("data-job") &&
     container.hasAttribute("data-applications") &&
-    container.hasAttribute("data-review-statuses")
+    container.hasAttribute("data-review-statuses") &&
+    container.hasAttribute("data-locale")
   ) {
     const job = JSON.parse(container.getAttribute("data-job") as string);
     const applications = JSON.parse(container.getAttribute(
@@ -220,6 +220,9 @@ if (document.getElementById("review-applications-container")) {
     const reviewStatuses = JSON.parse(container.getAttribute(
       "data-review-statuses"
     ) as string);
+    const language = container.getAttribute(
+      "data-locale"
+    ) as string;
     ReactDOM.render(
       <IntlProvider locale={language} messages={messages[language]}>
       <ReviewApplicationsContainer
