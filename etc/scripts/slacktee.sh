@@ -27,7 +27,7 @@ token=""             # The user's API authentication token, only used for file u
 channel="devrobotfam"    # Default channel to post messages. '#' is prepended, if it doesn't start with '#' or '@'.
 tmp_dir="/tmp"       # Temporary file is created in this directory.
 username="Slacktee"  # Default username to post messages.
-icon="badger"         # Default emoji to post messages. Don't wrap it with ':'. See http://www.emoji-cheat-sheet.com; can be a url too.
+icon="catshocked"         # Default emoji to post messages. Don't wrap it with ':'. See http://www.emoji-cheat-sheet.com; can be a url too.
 attachment="#9400D3"        # Default color of the attachments. If an empty string is specified, the attachments are not used.
 
 # ----------
