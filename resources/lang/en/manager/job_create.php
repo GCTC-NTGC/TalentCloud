@@ -37,7 +37,7 @@ return [
             'remote_work_allowed' => 'Remote Work Allowed',
             'city' => 'City',
             'province' => 'Province',
-            'province_default_option' => 'Select a Province...',
+            'province_default_option' => 'Select a province...',
             'timetable' => 'Timetable',
             'accepting_applications_from' => 'Accepting Applications From',
             'opening_time' => 'Opening Time, UTC',
