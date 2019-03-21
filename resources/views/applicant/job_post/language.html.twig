@@ -34,10 +34,9 @@
         <p>{{ job_post.language.french_essential_context }}</p>
     {% elseif job.language_requirement.id == 3 %}
         <p>
-            {{ job_post.language.bilingual_context_01|replace({'%proficiency%': '<a href="' ~ job_post.language.proficiency_link ~ '"> ' ~ job_post.language.proficiency_copy ~'</a>'})|raw }}
+            {{ job_post.language.bilingual_advanced_context_01|replace({'%proficiency%': '<a href="' ~ job_post.language.proficiency_link ~ '"> ' ~ job_post.language.proficiency_copy ~'</a>'})|raw }}
         </p>
-        <p>{{ job_post.language.bilingual_context_02|replace({'%assessment%': '<a href="' ~ job_post.language.assessment_link ~ '"> ' ~ job_post.language.assessment_copy ~'</a>'})|raw }}</p>
-        <p>{{ job_post.language.bilingual_context_03 }}</p>
+        <p>{{ job_post.language.bilingual_advanced_context_02 }}</p>
     {% elseif job.language_requirement.id == 4 %}
         <p>{{ job_post.language.english_french_context }}</p>
     {% endif %}
