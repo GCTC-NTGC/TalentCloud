@@ -140,5 +140,5 @@ return [
         'edit_link_title'  => 'Edit this job poster.',
         'edit_link_label'  => 'Edit'
     ],
-    'no_info' => "No Information provided."
+    'no_info' => "No information provided."
 ];
