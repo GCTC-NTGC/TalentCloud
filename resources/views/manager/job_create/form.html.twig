@@ -48,6 +48,7 @@
                             </label>
 
                             <input
+                                required
                                 class="form__input"
                                 id="createJobTitleEN"
                                 type="text"
@@ -71,6 +72,7 @@
                             </label>
 
                             <input
+                                required
                                 class="form__input"
                                 id="createJobTitleFR"
                                 type="text"
@@ -111,6 +113,7 @@
                             </label>
 
                             <input
+                                required
                                 class="form__input"
                                 id="createJobSalaryMin"
                                 type="number"
@@ -134,6 +137,7 @@
                             </label>
 
                             <input
+                                required
                                 class="form__input"
                                 id="createJobSalaryMax"
                                 type="number"
@@ -174,6 +178,7 @@
                             </label>
 
                             <input
+                                required
                                 class="form__input"
                                 id="createJobClassification"
                                 type="text"
@@ -220,10 +225,15 @@
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
                                 <select
-                                    class="form__input"
+                                    required
+                                    class="form__input form__input__select"
                                     id="createJobSecurityClearance"
                                     name="security_clearance">
-                                    <option value="" disabled selected>Select a clearance level...</option>
+
+                                    <option value="" disabled selected>
+                                        {{ form_l10n.security_clearance_default_option}}
+                                    </option>
+                                    
                                     {% for clearance in security_clearances %}
                                         <option
                                             value="{{ clearance.id }}"
@@ -249,10 +259,15 @@
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
                                 <select
+                                    required
                                     class="form__input"
                                     id="createJobLanguageRequirement"
                                     name="language_requirement">
-                                    <option value="" disabled selected>Select a language requirement...</option>
+
+                                    <option value="" disabled selected>
+                                        {{ form_l10n.language_requirement_default_option }}
+                                    </option>
+                                    
                                     {% for language in language_requirments %}
                                         <option
                                             value="{{ language.id }}"
@@ -325,6 +340,7 @@
                             </label>
 
                             <input
+                                required
                                 class="form__input"
                                 id="createJobCity"
                                 type="text"
@@ -348,10 +364,15 @@
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
                                 <select
+                                    required
                                     class="form__input"
                                     id="createJobProvince"
                                     name="province">
-                                    <option value="" disabled selected>Select a province...</option>
+
+                                    <option value="" disabled selected>
+                                        {{ form_l10n.province_default_option }}
+                                    </option>
+                                    
                                     {% for province in provinces %}
                                         <option
                                             value="{{ province.id }}"
@@ -394,6 +415,7 @@
                             </label>
 
                             <input
+                                required
                                 class="form__input"
                                 id="createJobOpenDate"
                                 type="date"
@@ -417,6 +439,7 @@
                             </label>
 
                             <input
+                                required
                                 class="form__input"
                                 id="createJobOpenTime"
                                 type="time"
@@ -440,6 +463,7 @@
                             </label>
 
                             <input
+                                required
                                 class="form__input"
                                 id="createJobCloseDate"
                                 type="date"
@@ -463,6 +487,7 @@
                             </label>
 
                             <input
+                                required
                                 class="form__input"
                                 id="createJobCloseTime"
                                 type="time"
@@ -486,6 +511,7 @@
                             </label>
 
                             <input
+                                required
                                 class="form__input"
                                 id="createJobStartDate"
                                 type="date"
@@ -509,11 +535,13 @@
                             </label>
 
                             <input
+                                required
                                 class="form__input"
                                 id="createJobDuration"
                                 type="number"
                                 name="term_qty"
-                                value="{{ job.term_qty }}">
+                                value="{{ job.term_qty }}"
+                                >
 
                         </div>
 
@@ -549,10 +577,15 @@
                             <div
                                 class="form__select-wrapper fas fa-chevron-down">
                                 <select
+                                    required
                                     class="form__input"
                                     id="createJobDepartment"
                                     name="department">
-                                    <option value="" disabled selected>Select a department...</option>
+
+                                    <option value="" disabled selected>
+                                        {{ form_l10n.departmental_info_default_option }}
+                                    </option>
+
                                     {% for department in departments %}
                                         <option
                                             value="{{ department.id }}"
@@ -700,6 +733,7 @@
                                  {{form_l10n.impact_english}}
                             </label>
                             <textarea
+                                required
                                 class="form__textarea"
                                 id="createJobImpactEN"
                                 name="impact[en]">{{ job.translate('en').impact }}</textarea>
@@ -716,6 +750,7 @@
                                  {{form_l10n.impact_french}}
                             </label>
                             <textarea
+                                required
                                 class="form__textarea"
                                 id="createJobImpactFR"
                                 name="impact[fr]">{{ job.translate('fr').impact }}</textarea>
@@ -810,6 +845,7 @@
                             </label>
 
                             <textarea
+                                required
                                 class="form__textarea"
                                 id="createJobEducationEN"
                                 name="education[en]">{{ job.translate('en').education }}</textarea>
@@ -831,6 +867,7 @@
                             </label>
 
                             <textarea
+                                required
                                 class="form__textarea"
                                 id="createJobEducationFR"
                                 name="education[fr]">{{ job.translate('fr').education }}</textarea>
@@ -929,7 +966,7 @@
 
                     {% set questionCounter = questionCounter + 1 %}
 
-                    {% include "manager/job_create/question" %}
+                    {% include "manager/job_create/question" with { 'question_l10n': form_l10n.question }%}
 
                 {% endfor %}
 

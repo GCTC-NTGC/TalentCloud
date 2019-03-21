@@ -62,7 +62,8 @@ return [
         'essential_title' => 'Nécessaires d\'avoir',
         'asset_title' => 'Bon à avoir',
         'requirement_label' => 'Niveau requis: ',
-        'level_link_title' => 'Visitez la FAQ pour en savoir plus sur ce niveau et les autres.'
+        'level_link_title' => 'Visitez la FAQ pour en savoir plus sur ce niveau et les autres.',
+        'no_info' => "Aucun critère supplémentaire requis."
     ],
     'language' => [
         'sidebar_title' => 'Voir les exigences linguistiques de ce travail.',
@@ -139,4 +140,5 @@ return [
         'edit_link_title' => 'Modifier cette affiche d\'emploi.',
         'edit_link_label' => 'Modifier'
     ],
+    'no_info' => "Aucune information fournie."
 ];

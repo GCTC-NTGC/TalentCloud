@@ -66,15 +66,17 @@
                 class="box full">
 
                 <div
-                    aria-orientation="horizontal"
+                    role="radiogroup"
                     class="form__radio-group"
-                    role="radiogroup">
+                    aria-orientation="horizontal"
+                    >
 
                     <label
                         class="form__label"
                         for="">
                         {{environment_l10n.telework_frequency}}
                     </label>
+
 
                     <div class="flex-grid">
 
@@ -92,6 +94,7 @@
                                     {{ profile.work_environment.telework_allowed[option.name] }}
                                 </span>
                                 <input
+                                    required
                                     class="form__radio-group-input"
                                     id="telework{{ option.id }}"
                                     name="telework"
