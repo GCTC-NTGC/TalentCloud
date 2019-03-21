@@ -144,7 +144,11 @@ class JobPoster extends BaseModel
         'remote_work_allowed',
         'published'
     ];
-    // protected $withCount = ['submitted_applications'];
+
+    /**
+     * @var string[] $fillable
+     */
+    protected $withCount = ['submitted_applications'];
 
     /**
      * @var mixed[] $dispatchesEvents
