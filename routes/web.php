@@ -338,9 +338,9 @@ Route::group(
 
         /* Language ============================================================= */
 
-        Route::redirect('fr', '/')->name('lang.fr');
+        // Route::redirect('fr', '/')->name('lang.fr');
 
-        Route::redirect('en', '/')->name('lang.en');
+        // Route::redirect('en', '/')->name('lang.en');
     }
 );
 
