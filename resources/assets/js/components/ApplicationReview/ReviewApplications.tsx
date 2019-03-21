@@ -5,7 +5,6 @@ import { SelectOption } from "../Select";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
 import { FormattedMessage, FormattedHTMLMessage } from "react-intl";
-import moment from "moment";
 
 interface ReviewApplicationsProps {
   title: string;
