@@ -176,11 +176,11 @@ Route::group(
 
         /* Manager Portal =========================================================== */
 
-        $managerGroup = function () : void {
+        Route::group(['prefix' => config('app.manager_prefix')], function (): void {
             /* Home */
             Route::get('/', 'HomepageController@manager')->name('manager.home');
 
-            Route::middleware(['auth', 'role:manager'])->group(function () : void {
+            Route::middleware(['auth', 'role:manager'])->group(function (): void {
 
                 Route::get('profile', 'ManagerProfileController@editAuthenticated')->name('manager.profile');
 
@@ -266,9 +266,7 @@ Route::group(
             Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('manager.password.email');
             Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('manager.password.reset');
             Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('manager.password.reset.post');
-        };
-
-        Route::group(['prefix' => config('app.manager_prefix')], $managerGroup);
+        });
 
         /* AJAX calls =============================================================== */
 
