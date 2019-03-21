@@ -373,7 +373,7 @@
                                                     id="{{ id_prefix }}skillSelection"
                                                     name="skill_id"
                                                     required>
-
+                                                    <option value="" disabled selected>{{ skill_template.skill_selection_default_option }}</option>
                                                     {% for skill in skills %}
 
                                                         {% if skillType == skill.skill_type.name %}
@@ -600,7 +600,7 @@
                                 <div class="no-prefix">
                                     {% set relativeToken = "references" %}
 
-                                    {% include "common/relatives" with {"template":true } %}
+                                    {% include "common/relatives" with {"template":true, "prefix": id_prefix } %}
                                 </div>
 
                                 {# Relative List #}
@@ -688,7 +688,7 @@
                                 {# no-prefix marks that partials in this div aren't passed an id prefix. #}
                                 {# This is used in app.js individualizeFormIdsAndNames() to avoid overwriting :id in template id. #}
                                 <div class="no-prefix">
-                                    {% include "common/relatives" with {"template":true } %}
+                                    {% include "common/relatives" with {"template":true, "prefix": id_prefix } %}
                                 </div>
 
                                 {# Relative List #}

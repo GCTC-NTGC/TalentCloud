@@ -17,6 +17,7 @@ return [
          "masters" => "Maîtrise",
          "phd" => "Doctorat"
      ],
+     "type_default_option" => "Sélectionner le type de diplôme ...",
      "aoe_label" => "Domaine d'étude",
      "institution_label" => "Institution",
      "thesis_label" => "Titre de thèse (Optionnel)",

@@ -1,9 +1,10 @@
 import React from "react";
+import moment from "moment";
 import { Application } from "../types";
 import { SelectOption } from "../Select";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
-import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from "react-intl";
 import moment from "moment";
 
 interface ReviewApplicationsProps {
@@ -21,26 +22,35 @@ interface ReviewApplicationsProps {
   savingStatuses: { applicationId: number; isSaving: boolean }[];
 }
 
-const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
-  props
-): React.ReactElement => {
+const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
+  title,
+  classification,
+  closeDateTime,
+  applications,
+  reviewStatusOptions,
+  onStatusChange,
+  onBulkStatusChange,
+  onNotesChange,
+  savingStatuses
+}: ReviewApplicationsProps): React.ReactElement => {
   const categories = [
     {
       title: "Under Consideration",
       description:
         "Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non- candian - citizen applications in the Optional Consideration section",
       showScreenOutAll: false,
-      applications: props.applications.filter(
-        application => applicationCategory(application) == "primary"
+      applications: applications.filter(
+        application => applicationCategory(application) === "primary"
       ),
       prioritizeVeterans: false
     },
     {
       title: "Optional Consideration",
-      description: "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
+      description:
+        "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
       showScreenOutAll: true,
-      applications: props.applications.filter(
-        application => applicationCategory(application) == "optional"
+      applications: applications.filter(
+        application => applicationCategory(application) === "optional"
       ),
       prioritizeVeterans: true
     },
@@ -48,8 +58,8 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
       title: "No Longer Under Consideration",
       description: "These applications have allready been screened out.",
       showScreenOutAll: false,
-      applications: props.applications.filter(
-        application => applicationCategory(application) == "screened-out"
+      applications: applications.filter(
+        application => applicationCategory(application) === "screened-out"
       ),
       prioritizeVeterans: true
     }
@@ -60,18 +70,22 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
       <div className="flex-grid gutter">
         <div className="box med-1of2 job-title-wrapper">
           <span>
-          <FormattedMessage id="app.title"
-                      defaultMessage="Applications for default string: {job_title} {job_classification}"
-                      description="Welcome header on app main page"
-                      values={{ job_title: props.title, job_classification: props.classification }}/>
+            <FormattedMessage
+              id="app.title"
+              defaultMessage="Applications for default string: {job_title} {job_classification}"
+              description="Welcome header on app main page"
+              values={{
+                job_title: props.title,
+                job_classification: props.classification
+              }}
+            />
           </span>
         </div>
 
         <div className="box med-1of2 timer-wrapper">
           <span>
             <i className="fas fa-stopwatch" />{" "}
-            {moment().diff(moment(props.closeDateTime), "days")} Days Since
-            Close
+            {moment().diff(moment(closeDateTime), "days")} Days Since Close
           </span>
         </div>
       </div>
@@ -90,11 +104,11 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = (
         <ReviewCategory
           key={category.title}
           {...category}
-          reviewStatusOptions={props.reviewStatusOptions}
-          onStatusChange={props.onStatusChange}
-          onNotesChange={props.onNotesChange}
-          savingStatuses={props.savingStatuses}
-          onBulkStatusChange={props.onBulkStatusChange}
+          reviewStatusOptions={reviewStatusOptions}
+          onStatusChange={onStatusChange}
+          onNotesChange={onNotesChange}
+          savingStatuses={savingStatuses}
+          onBulkStatusChange={onBulkStatusChange}
         />
       ))}
     </section>

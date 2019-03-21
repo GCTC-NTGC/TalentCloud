@@ -48,6 +48,7 @@
                     class="form__select-wrapper fas fa-chevron-down">
                     <select
                         class="form__input">
+                        <option value="" disabled selected>{{ reference_template.relationship_default_option }}</option>
                         {% for relationship in reference_template.relationships|sort %}
                             <option
                                 {% if reference.relationship|capitalize == relationship|capitalize %}selected="selected"{% endif %}
