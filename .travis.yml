@@ -3,22 +3,21 @@ language: php
 php:
   - '7.2'
 
-sudo: false # faster than required?
+sudo: required
 dist: trusty
 
 services:
   - docker
 
-addons:
-  # required for lightcrawler
-  chrome: stable
-  hosts:
-    - talent.local.ca
-
 cache:
   directories:
     - $HOME/.composer/cache/files
     - $HOME/.npm
+
+addons:
+  chrome: stable # required for lightcrawler
+  hosts:
+    - talent.local.ca
 
 before_install:
   # free port 5432
@@ -27,15 +26,18 @@ before_install:
   - travis_retry composer self-update
   # latest npm@6 version
   - npm i -g npm@^6
-  # accessibility tests
-  - npm i -g lightcrawler
 
 install:
+  # install slacktee (send lightcrawler output to slack)
+  - sudo bash ./etc/scripts/install-slacktee.sh
   # environment
   - cp .env.travis .env
   # dependencies
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - travis_retry npm ci
+  # lightcrawler output formatting
+  - cp etc/scripts/lightcrawler-index.js node_modules/lightcrawler/index.js
+
 
 before_script:
   # docker login (for tagging/pushing images to our hub repo)
@@ -60,13 +62,9 @@ script:
   - make phpunit
 
 after_success:
-  # crawl local site with lighthouse on PR
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u http://localhost:8000 -c lightcrawler.json'
-  # crawl live site with lighthouse on PR
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || lightcrawler -u https://talent.canada.ca -c lightcrawler.json'
-  # tag/push build to docker hub / pulling repo much faster than building from Dockerfile
-  # docker tag talentcloud_talentcloud gctcntgc/talentcloud:travis
-  # docker push gctcntgc/talentcloud:travis
+  # pull requests run lightcrawler on local site
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lightcrawler-a --silent | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results - Applicant :badger:"'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lightcrawler-m --silent | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results - Manager :cooldoge:"'
 
 after_script:
   # send report to codecov.io
@@ -80,6 +78,8 @@ after_script:
 # Slack notifications / do not send emails
 notifications:
   email: never
-  slack: talent-cloud:ASWQRTtW3oT2C2DHYaBzSCJg
-  on_success: always
-  on_failure: change
+  slack:
+    rooms:
+      secure: Vlequ88MkHcyvhoqMzJp0ZJsQVpsdH3YVuVUfzCrzA0u24N8yvK/O5DuNn6QYgfPRmyS9Jgd2+LCjAJUmGFIkrLIVt7NXKtcvyatZMhy5+J7S9+sGLMjas+Jzw12shEenuCPuPAAn2a0tk/mJc3aK4X0cHKGHMkzU+BXPgdhUFUS+2omcktPsp0jauNMkS8lExPk8p8zW1r0SyFsAYUZYTJ2XvvmhFkfnmrahxAPoASndLVT1RFIXO5fsU7HFinmw+7EjObP/IwgbbBZRYwy8V1IW3I3njGPhDXUGTPYWs15w+UzNaf8QCgEhNIbweAslgcERItrFFyy3+IIrHUrmdW556OxKB05+NcdzoTG3BPqYqycdAb6Rrka5cd5A8ohRRXSiJHKJQqjSBH00FvnGbsqqE4EH4AlL8pFc/quisn/4atTS++DZhIGSmIJW8SS9bsvAgND9Z+fbsU261iAJwl173pU1lLhdKbIWIG1s9MP/Mudu3MjKn913J6md01t6h2gxvOKsvZ06UJTMI2Zct5HTpfwilWdKQ/ujQkTlssbKCgQkBpvflJVlhB49Ja9BlFCwn3d1cHHVVDwR0AoZx1s5wamkKa/ZQE3zEBW5UDzaSpCuHF0SBAa4pts3/+6qtf9LYrATcTZjikHCSpBWX0MVyf0J+82ybpHJeW83xM=
+    on_success: always
+    on_failure: change

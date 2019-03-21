@@ -1,0 +1,18 @@
+coverage:
+  precision: '3'
+  range: 0..40
+  round: up
+
+  status:
+    project:
+      default:
+        target: null # coverage ratio required for success
+        threshold: '2%' # coverage drop allowed for success
+        branches: null # reports for all branches
+        only_pulls: false # reports for every CI build
+    patch: no
+
+comment:
+  layout: 'reach, files, diff'
+  behavior: default
+  branches: null

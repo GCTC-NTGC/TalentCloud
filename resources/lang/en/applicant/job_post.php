@@ -62,7 +62,8 @@ return [
         'essential_title' => 'Need to Have',
         'asset_title' => 'Nice to Have',
         'requirement_label' => 'Level Required: ',
-        'level_link_title' => 'Visit the FAQ to learn about this and other skill levels.'
+        'level_link_title' => 'Visit the FAQ to learn about this and other skill levels.',
+        'no_info' => "No additional criteria required."
     ],
     'language' => [
         'sidebar_title' => 'View this job\'s language requirements.',
@@ -139,4 +140,5 @@ return [
         'edit_link_title'  => 'Edit this job poster.',
         'edit_link_label'  => 'Edit'
     ],
+    'no_info' => "No information provided."
 ];
