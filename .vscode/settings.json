@@ -7,7 +7,6 @@
         "**/vendor/**": true
     },
     "php.suggest.basic": false,
-    "phpcbf.standard": "./ruleset.xml",
     "phpcs.standard": "./ruleset.xml",
     "eslint.autoFixOnSave": true,
     "eslint.validate": [
@@ -22,7 +21,7 @@
     },
     "[typescript]": {
         "editor.formatOnPaste": true,
-    "editor.formatOnSave": true
+        "editor.formatOnSave": true
     },
     "[typescriptreact]": {
         "editor.formatOnPaste": true,
