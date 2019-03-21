@@ -261,7 +261,7 @@ class JobController extends Controller
         $manager = $request->user() ? $request->user()->manager : null;
         if (isset($jobPoster)) {
             $job = $jobPoster;
-            $route = ['manager.jobs.store', $jobPoster];
+            $route = ['manager.jobs.update', $jobPoster];
             $jobHeading = 'manager/job_edit';
         } else {
             $job = [];
