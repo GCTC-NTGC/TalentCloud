@@ -5,18 +5,8 @@
 // =============================================================================
 
 // Core Elements ===============================================================
-
-    @import "system/scss/fontawesome.scss";
-    @import "system/scss/fa-solid.scss";
-
-    .user {
-        @include fa-icon;
-        @extend .fas;
-
-        &:before {
-            content: fa-content($fa-var-user);
-        }
-    }
+@import "./fontawesome.scss";
+@import "./solid.scss";
 
     * {
         box-sizing: border-box;

@@ -20,7 +20,11 @@ mix
   .js("resources/assets/js/alerts.js", "public/js")
   .ts("resources/assets/js/components.tsx", "public/js")
   .sass("resources/assets/sass/app.scss", "public/css", {
-    implementation: require("node-sass")
+    implementation: require("node-sass"),
+    includePaths: [
+      "node_modules/@fortawesome/fontawesome-free/scss",
+      "node_modules/@fortawesome/fontawesome-free/webfonts"
+    ]
   })
   .options({
     processCssUrls: false,
