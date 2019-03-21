@@ -13,31 +13,6 @@
     <section
 		class="application__view-layout submitted">
 
-		<div class="container--layout-xl">
-
-			<div class="manager-application-preview-actions flex-grid gutter">
-
-				<div class="box small-1of2">
-					<a
-						class="button--blue"
-						href="{{ route('manager.jobs.show', job) }}">
-						{{ post.content.job_poster }}
-					</a>
-				</div>
-
-				<div class="box small-1of2">
-					<button
-						class="button--blue"
-						data-button-type="expand-all"
-						type="button">
-						<span class="expand">Expand Accordions</span>
-						<span class="collapse">Collapse Accordions</span>
-					</button>
-				</div>
-
-			</div>
-		</div>
-
         <div id="application-review-container"
             data-application="{{ job_application|json_encode() }}"
             data-review-statuses="{{ review_statuses|json_encode() }}"

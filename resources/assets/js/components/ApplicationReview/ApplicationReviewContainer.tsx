@@ -3,9 +3,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Application, ReviewStatus } from "../types";
-import ApplicationReview from "./ApplicationReview";
+import { Application, ReviewStatus, ApplicationReview } from "../types";
 import route from "../../helpers/route";
+import ApplicationReviewWithNav from "./ApplicationReviewWithNav";
 
 interface ApplicationReviewContainerProps {
   initApplication: Application;
@@ -46,10 +46,10 @@ export default class ApplicationReviewContainer extends React.Component<
     this.setState({ application: updatedApplication });
   }
 
-  protected submitReview(review: ReviewSubmitForm): void {
+  protected submitReview(review: ReviewSubmitForm): Promise<void> {
     const { application } = this.state;
     this.setState({ isSaving: true });
-    axios
+    return axios
       .put(route("application_reviews.update", application.id), review)
       .then(response => {
         const newReview = response.data as ApplicationReview;
@@ -69,7 +69,7 @@ export default class ApplicationReviewContainer extends React.Component<
   protected handleStatusChange(
     applicationId: number,
     statusId: number | null
-  ): void {
+  ): Promise<void> {
     const { application } = this.state;
     const oldReview = application.application_review
       ? application.application_review
@@ -77,7 +77,7 @@ export default class ApplicationReviewContainer extends React.Component<
     const submitReview = Object.assign(oldReview, {
       review_status_id: statusId
     });
-    this.submitReview(submitReview);
+    return this.submitReview(submitReview);
   }
 
   protected handleNotesChange(
@@ -103,7 +103,7 @@ export default class ApplicationReviewContainer extends React.Component<
     }));
     return (
       <div className="applicant-review container--layout-xl">
-        <ApplicationReview
+        <ApplicationReviewWithNav
           key={application.id}
           application={application}
           reviewStatusOptions={reviewStatusOptions}
