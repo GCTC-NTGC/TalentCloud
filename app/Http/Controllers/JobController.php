@@ -76,35 +76,16 @@ class JobController extends Controller
     public function managerIndex()
     {
         $manager = Auth::user()->manager;
-
-        $veteran_applications = [];
-        $citizen_applications = [];
-        $other_applications = [];
-
-        foreach ($manager->job_posters as $job) {
-            $job->submitted_applications->load(['veteran_status', 'citizenship_declaration']);
-            $veteran_applications[$job->id] = $job->submitted_applications->filter(function ($application) {
-                return $application->veteran_status->name !== "none" &&
-                    $application->citizenship_declaration->name === "citizen";
-            });
-            $citizen_applications[$job->id] = $job->submitted_applications->filter(function ($application) {
-                return $application->veteran_status->name === "none" &&
-                    $application->citizenship_declaration->name === "citizen";
-            });
-            $other_applications[$job->id] = $job->submitted_applications->filter(function ($application) {
-                return $application->citizenship_declaration->name !== "citizen";
-            });
-        }
+        $jobs = JobPoster::where('manager_id', $manager->id)
+            ->withCount('submitted_applications')
+            ->get();
 
         return view('manager/job_index', [
             /*Localization Strings*/
             'jobs_l10n' => Lang::get('manager/job_index'),
 
             /* Data */
-            'jobs' => $manager->job_posters,
-            'veteran_applications' => $veteran_applications,
-            'citizen_applications' => $citizen_applications,
-            'other_applications' => $other_applications,
+            'jobs' => $jobs,
         ]);
     }
 
