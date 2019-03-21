@@ -37,6 +37,7 @@
                 <div
                     class="box small-1of3">
                     <button
+                        aria-label="{{ menu.delete_label }}"
                         type="button"
                         class="manager-jobs__delete-skill-button">
                         <i class="fas fa-trash-alt"></i>
@@ -71,6 +72,10 @@
                             class="form__input"
                             name="{{ name_prefix }}[skill_id]">
 
+                            <option value="" disabled selected>
+                                {{ criterion_l10n.select_skill_default_option }}
+                            </option>
+
                             {% for id, skill in skillType %}
 
                             <option
@@ -102,6 +107,10 @@
                             id="{{ id_prefix }}criteriaLevel"
                             class="form__input"
                             name="{{ name_prefix }}[skill_level_id]">
+
+                            <option value="" disabled selected>
+                                {{ criterion_l10n.select_level_required_default_option }}
+                            </option>
 
                             {% for id, level in skillLevel %}
 

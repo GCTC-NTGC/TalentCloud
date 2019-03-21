@@ -33,6 +33,7 @@
                 name="{{ name_prefix }}[assessment_type]"
                 {% if template %}disabled{% endif %}
                 >
+                <option value="" disabled selected>Select an assessment...</option>
                 {% for type in assessment_types %}
                     <option value={{ type.id }}>{{ type.name }}</option>
                 {% endfor %}

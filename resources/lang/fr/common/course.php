@@ -13,6 +13,7 @@ return [
      "name_label" => "Nom du cours ou de la certification",
      "institution_label" => "Institution",
      "status_label" => "Statut",
+     "status_default_option" => "Sélectionner un statut...",
      "statuses" => [
          "certificate_granted" => "Certificat de cours accordé",
          "credits_towards_degree" => "Crédits vers un diplome (Cours réussi)",

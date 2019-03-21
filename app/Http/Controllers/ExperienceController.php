@@ -17,24 +17,24 @@ class ExperienceController extends Controller
 {
 
     /**
-     * Display the Experience page associated with the applicant.
-     *
-     * @param  \App\Models\Applicant  $applicant
-     * @return \Illuminate\Http\Response
-     */
+    * Display the Experience page associated with the applicant.
+    *
+    * @param  \App\Models\Applicant  $applicant
+    * @return \Illuminate\Http\Response
+    */
     public function show(Applicant $applicant)
     {
         //
     }
 
     /**
-     * Show the form for editing the applicant's experience
-     *
-     * @param \Illuminate\Http\Request $request   Incoming request object.
-     * @param \App\Models\Applicant    $applicant Incoming applicant object.
-     *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
-     */
+    * Show the form for editing the applicant's experience
+    *
+    * @param \Illuminate\Http\Request $request   Incoming request object.
+    * @param \App\Models\Applicant    $applicant Incoming applicant object.
+    *
+    * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+    */
     public function edit(Request $request, Applicant $applicant)
     {
         return view('applicant/profile_02_experience', [
@@ -50,17 +50,26 @@ class ExperienceController extends Controller
     }
 
     /**
-     * Update the applicant's profile in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Applicant  $applicant
-     * @return \Illuminate\Http\Response
-     */
+    * Update the applicant's profile in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  \App\Models\Applicant  $applicant
+    * @return \Illuminate\Http\Response
+    */
     public function update(Request $request, Applicant $applicant)
     {
         $input = $request->input();
 
         $degrees = $input['degrees'];
+
+        $validatedDegreeData = $request->validate([
+            'degrees.new.*.degree_type_id' => 'required',
+            'degrees.new.*.area_of_study'  => 'required',
+            'degrees.new.*.institution'    => 'required',
+            'degrees.new.*.thesis'         => 'nullable',
+            'degrees.new.*.start_date'     => 'required|date',
+            'degrees.new.*.end_date'       => 'required|date',
+        ]);
 
         //Delete old degrees that weren't resubmitted
         //Note: this must be done before adding new degrees, so we don't delete
@@ -68,7 +77,7 @@ class ExperienceController extends Controller
         foreach($applicant->degrees as $oldDegree) {
             //Check if no degrees were resubmitted, or if this specific one wasn't
             if (!isset($degrees['old']) ||
-                !isset($degrees['old'][$oldDegree->id])) {
+            !isset($degrees['old'][$oldDegree->id])) {
                 $oldDegree->delete();
             }
         }
@@ -113,13 +122,21 @@ class ExperienceController extends Controller
 
         $courses = $input['courses'];
 
+        $validatedCourseData = $request->validate([
+            'courses.new.*.name'             => 'required',
+            'courses.new.*.institution'      => 'required',
+            'courses.new.*.course_status_id' => 'required',
+            'courses.new.*.start_date'       => 'required|date',
+            'courses.new.*.end_date'         => 'required|date',
+        ]);
+
         //Delete old courses that weren't resubmitted
         //Note: this must be done before adding new ones, so we don't delete
         // them right after adding them
         foreach($applicant->courses as $oldCourse) {
             //Check if no courses were resubmitted, or if this specific one wasn't
             if (!isset($courses['old']) ||
-                !isset($courses['old'][$oldCourse->id])) {
+            !isset($courses['old'][$oldCourse->id])) {
                 $oldCourse->delete();
             }
         }
@@ -160,7 +177,15 @@ class ExperienceController extends Controller
             }
         }
 
-        $work_experiences = $input['work_experiences'] ;
+        $work_experiences = $input['work_experiences'];
+
+        $validatedWorkData = $request->validate([
+            'work_experiences.new.*.role'        => 'required',
+            'work_experiences.new.*.company'     => 'required',
+            'work_experiences.new.*.description' => 'required',
+            'work_experiences.new.*.start_date'  => 'required|date',
+            'work_experiences.new.*.end_date'    => 'required|date',
+        ]);
 
         //Delete old work_experiences that weren't resubmitted
         //Note: this must be done before adding new ones, so we don't delete
@@ -168,7 +193,7 @@ class ExperienceController extends Controller
         foreach($applicant->work_experiences as $oldWorkExperience) {
             //Check if no work_experiences were resubmitted, or if this specific one wasn't
             if (!isset($work_experiences['old']) ||
-                !isset($work_experiences['old'][$oldWorkExperience->id])) {
+            !isset($work_experiences['old'][$oldWorkExperience->id])) {
                 $oldWorkExperience->delete();
             }
         }

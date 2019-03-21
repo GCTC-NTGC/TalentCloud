@@ -14,7 +14,9 @@
 
             <button
                 class="applicant-profile__header-photo"
-                onclick="">
+                onclick=""
+                aria-label="{{ manager.user.name }}"
+                >
                 <span class="hidden">{{ manager.user.name }}</span>
                 <div
                     style="background-image:url('{{ manager_profile_photo_url }}')">
