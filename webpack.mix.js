@@ -1,5 +1,8 @@
 const mix = require("laravel-mix");
-
+const sass = require("node-sass");
+const cssnano = require("cssnano");
+const autoprefixer = require("autoprefixer");
+const path = require("path");
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -20,12 +23,12 @@ mix
   .js("resources/assets/js/alerts.js", "public/js")
   .ts("resources/assets/js/components.tsx", "public/js")
   .sass("resources/assets/sass/app.scss", "public/css", {
-    implementation: require("node-sass")
+    implementation: sass
   })
   .options({
     processCssUrls: false,
     postCss: [
-      require("cssnano")({
+      cssnano({
         preset: [
           "default",
           {
@@ -35,9 +38,17 @@ mix
           }
         ]
       }),
-      require("autoprefixer")({
+      autoprefixer({
         browsers: ">0.1%"
       })
     ]
   })
   .version();
+
+mix.webpackConfig({
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "resources/assets/js")
+    }
+  }
+});
