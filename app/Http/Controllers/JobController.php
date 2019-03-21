@@ -161,6 +161,13 @@ class JobController extends Controller
      */
     public function show(Request $request, JobPoster $jobPoster)
     {
+        $jobPoster->load([
+            'department',
+            'criteria.skill.skill_type',
+            'manager.team_culture',
+            'manager.work_environment'
+        ]);
+
         $user = Auth::user();
 
         //TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model
