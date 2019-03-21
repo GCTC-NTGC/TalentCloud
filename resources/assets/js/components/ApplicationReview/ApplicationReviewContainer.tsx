@@ -1,8 +1,10 @@
+/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import React from "react";
 import ReactDOM from "react-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
 import { Application, ReviewStatus } from "../types";
 import ApplicationReview from "./ApplicationReview";
-import axios from "axios";
 import route from "../../helpers/route";
 
 interface ApplicationReviewContainerProps {
@@ -36,35 +38,41 @@ export default class ApplicationReviewContainer extends React.Component<
     this.updateReviewState = this.updateReviewState.bind(this);
   }
 
-  updateReviewState(review: ApplicationReview): void {
-    const updatedApplication = Object.assign(this.state.application, {
+  protected updateReviewState(review: ApplicationReview): void {
+    const { application } = this.state;
+    const updatedApplication = Object.assign(application, {
       application_review: review
     });
     this.setState({ application: updatedApplication });
   }
 
-  submitReview(review: ReviewSubmitForm): void {
+  protected submitReview(review: ReviewSubmitForm): void {
+    const { application } = this.state;
     this.setState({ isSaving: true });
     axios
-      .put(
-        route("application_reviews.update", this.state.application.id),
-        review
-      )
+      .put(route("application_reviews.update", application.id), review)
       .then(response => {
         const newReview = response.data as ApplicationReview;
         this.updateReviewState(newReview);
         this.setState({ isSaving: false });
       })
-      .catch(error => {
-        //TODO: show errors nicer
-        alert("Something went wrong, please try again later");
+      .catch(() => {
         this.setState({ isSaving: false });
+        Swal.fire({
+          type: "error",
+          title: "Oops...",
+          text: "Something went while saving this review. Try again later."
+        });
       });
   }
 
-  handleStatusChange(applicationId: number, statusId: number | null): void {
-    const oldReview = this.state.application.application_review
-      ? this.state.application.application_review
+  protected handleStatusChange(
+    applicationId: number,
+    statusId: number | null
+  ): void {
+    const { application } = this.state;
+    const oldReview = application.application_review
+      ? application.application_review
       : {};
     const submitReview = Object.assign(oldReview, {
       review_status_id: statusId
@@ -72,29 +80,36 @@ export default class ApplicationReviewContainer extends React.Component<
     this.submitReview(submitReview);
   }
 
-  handleNotesChange(applicationId: number, notes: string | null): void {
-    const oldReview = this.state.application.application_review
-      ? this.state.application.application_review
+  protected handleNotesChange(
+    applicationId: number,
+    notes: string | null
+  ): void {
+    const { application } = this.state;
+    const oldReview = application.application_review
+      ? application.application_review
       : {};
     const submitReview = Object.assign(oldReview, {
-      notes: notes
+      notes
     });
     this.submitReview(submitReview);
   }
 
-  render() {
-    const reviewStatusOptions = this.props.reviewStatuses.map(status => {
-      return { value: status.id, label: status.name };
-    });
+  public render(): React.ReactElement {
+    const { reviewStatuses } = this.props;
+    const { application, isSaving } = this.state;
+    const reviewStatusOptions = reviewStatuses.map(status => ({
+      value: status.id,
+      label: status.name
+    }));
     return (
       <div className="applicant-review container--layout-xl">
         <ApplicationReview
-          key={this.state.application.id}
-          application={this.state.application}
+          key={application.id}
+          application={application}
           reviewStatusOptions={reviewStatusOptions}
           onStatusChange={this.handleStatusChange}
           onNotesChange={this.handleNotesChange}
-          isSaving={this.state.isSaving}
+          isSaving={isSaving}
         />
       </div>
     );

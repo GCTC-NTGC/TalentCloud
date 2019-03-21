@@ -1,10 +1,10 @@
 import React from "react";
 import className from "classnames";
+import Swal from "sweetalert2";
 import route from "../../helpers/route";
 import Select, { SelectOption } from "../Select";
 import { Application } from "../types";
 import { ReviewStatusId } from "../lookupConstants";
-import Swal from "sweetalert2";
 
 interface ApplicationReviewProps {
   application: Application;
@@ -26,9 +26,9 @@ export default class ApplicationReview extends React.Component<
     super(props);
     this.state = {
       selectedStatusId:
-        this.props.application.application_review &&
-        this.props.application.application_review.review_status_id
-          ? this.props.application.application_review.review_status_id
+        props.application.application_review &&
+        props.application.application_review.review_status_id
+          ? props.application.application_review.review_status_id
           : undefined
     };
     this.handleStatusChange = this.handleStatusChange.bind(this);
@@ -36,10 +36,12 @@ export default class ApplicationReview extends React.Component<
     this.showNotes = this.showNotes.bind(this);
   }
 
-  handleStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+  protected handleStatusChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
     const value =
-      event.target.value && !isNaN(parseInt(event.target.value))
-        ? parseInt(event.target.value)
+      event.target.value && !Number.isNaN(Number(event.target.value))
+        ? Number(event.target.value)
         : undefined;
     this.setState({ selectedStatusId: value });
   }
@@ -48,10 +50,10 @@ export default class ApplicationReview extends React.Component<
    * When save is clicked, it is only necessary to save the status
    * @param event
    */
-  handleSaveClicked(): void {
-    const status = this.state.selectedStatusId
-      ? this.state.selectedStatusId
-      : null;
+  protected handleSaveClicked(): void {
+    const { selectedStatusId } = this.state;
+    const { application, onStatusChange } = this.props;
+    const status = selectedStatusId || null;
 
     const sectionChange = (
       oldStatus: number | null,
@@ -61,10 +63,10 @@ export default class ApplicationReview extends React.Component<
         oldStatus === ReviewStatusId.ScreenedOut;
       const newIsScreenedOut: boolean =
         newStatus === ReviewStatusId.ScreenedOut;
-      return oldIsScreenedOut != newIsScreenedOut;
+      return oldIsScreenedOut !== newIsScreenedOut;
     };
-    const oldStatus = this.props.application.application_review
-      ? this.props.application.application_review.review_status_id
+    const oldStatus = application.application_review
+      ? application.application_review.review_status_id
       : null;
     if (sectionChange(oldStatus, status)) {
       const confirmText =
@@ -80,20 +82,19 @@ export default class ApplicationReview extends React.Component<
         confirmButtonText: "Conirm"
       }).then(result => {
         if (result.value) {
-          this.props.onStatusChange(this.props.application.id, status);
+          onStatusChange(application.id, status);
         }
       });
     } else {
-      this.props.onStatusChange(this.props.application.id, status);
+      onStatusChange(application.id, status);
     }
   }
 
-  showNotes(): void {
+  protected showNotes(): void {
+    const { application, onNotesChange } = this.props;
     const notes =
-      this.props.application.application_review &&
-      this.props.application.application_review &&
-      this.props.application.application_review.notes
-        ? this.props.application.application_review.notes
+      application.application_review && application.application_review.notes
+        ? application.application_review.notes
         : "";
     Swal.fire({
       title: "Edit notes",
@@ -105,57 +106,56 @@ export default class ApplicationReview extends React.Component<
       confirmButtonText: "Save",
       inputValue: notes
     }).then(result => {
-      if (result && result.value != undefined) {
+      if (result && result.value !== undefined) {
         const value = result.value ? result.value : null;
-        this.props.onNotesChange(this.props.application.id, value);
+        onNotesChange(application.id, value);
       }
     });
   }
 
-  render() {
+  public render(): React.ReactElement {
+    const { application, reviewStatusOptions, isSaving } = this.props;
+    const { selectedStatusId } = this.state;
     const reviewStatus =
-      this.props.application.application_review &&
-      this.props.application.application_review.review_status
-        ? this.props.application.application_review.review_status.name
+      application.application_review &&
+      application.application_review.review_status
+        ? application.application_review.review_status.name
         : null;
     const statusIconClass = className("fas", {
-      "fa-ban": reviewStatus == "screened_out",
-      "fa-question-circle": reviewStatus == "still_thinking",
-      "fa-check-circle": reviewStatus == "still_in",
-      "fa-exclamation-circle": reviewStatus == null
+      "fa-ban": reviewStatus === "screened_out",
+      "fa-question-circle": reviewStatus === "still_thinking",
+      "fa-check-circle": reviewStatus === "still_in",
+      "fa-exclamation-circle": reviewStatus === null
     });
 
     /**
-     * Returns true only if this.state.selectedStatusId matches the review
+     * Returns true only if selectedStatusId matches the review
      * status of props.application
      */
     const isUnchanged = (): boolean => {
       if (
-        this.props.application.application_review &&
-        this.props.application.application_review.review_status_id
+        application.application_review &&
+        application.application_review.review_status_id
       ) {
         return (
-          this.props.application.application_review.review_status_id ===
-          this.state.selectedStatusId
+          application.application_review.review_status_id === selectedStatusId
         );
-      } else {
-        return this.state.selectedStatusId === undefined;
       }
+      return selectedStatusId === undefined;
     };
 
     const getSaveButtonText = (): string => {
-      if (this.props.isSaving) {
+      if (isSaving) {
         return "Saving...";
-      } else if (isUnchanged()) {
-        return "Saved";
-      } else {
-        return "Save";
       }
+      if (isUnchanged()) {
+        return "Saved";
+      }
+      return "Save";
     };
     const saveButtonText = getSaveButtonText();
     const noteButtonText =
-      this.props.application.application_review &&
-      this.props.application.application_review.notes
+      application.application_review && application.application_review.notes
         ? "Edit Note"
         : "+ Add a Note";
     return (
@@ -166,18 +166,16 @@ export default class ApplicationReview extends React.Component<
           </div>
 
           <div className="box lg-2of11 applicant-information">
-            <span className="name">
-              {this.props.application.applicant.user.name}
-            </span>
+            <span className="name">{application.applicant.user.name}</span>
             <a
-              href={"mailto:" + this.props.application.applicant.user.email}
+              href={`mailto: ${application.applicant.user.email}`}
               title="Email this candidate."
             >
-              {this.props.application.applicant.user.email}
+              {application.applicant.user.email}
             </a>
             {/* This span only shown for veterans */}
-            {(this.props.application.veteran_status.name == "current" ||
-              this.props.application.veteran_status.name == "past") && (
+            {(application.veteran_status.name === "current" ||
+              application.veteran_status.name === "past") && (
               <span className="veteran-status">
                 <img
                   alt="The Talent Cloud veteran icon."
@@ -190,17 +188,14 @@ export default class ApplicationReview extends React.Component<
 
           <div className="box lg-2of11 applicant-links">
             <a
-              href={route("manager.applications.show", this.props.application)}
+              href={route("manager.applications.show", application)}
               title="View this applicant's application."
             >
               <i className="fas fa-file-alt" />
               View Application
             </a>
             <a
-              href={route(
-                "manager.applicants.show",
-                this.props.application.applicant
-              )}
+              href={route("manager.applicants.show", application.applicant)}
               title="View this applicant's profile."
             >
               <i className="fas fa-user" />
@@ -211,11 +206,11 @@ export default class ApplicationReview extends React.Component<
           <div className="box lg-2of11 applicant-decision">
             <Select
               formName="review_status"
-              htmlId={"review_status_" + this.props.application.id}
+              htmlId={`review_status_${application.id}`}
               label="Decision"
-              selected={this.state.selectedStatusId}
+              selected={selectedStatusId}
               nullSelection="Not Reviewed"
-              options={this.props.reviewStatusOptions}
+              options={reviewStatusOptions}
               onChange={this.handleStatusChange}
             />
           </div>

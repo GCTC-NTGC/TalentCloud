@@ -271,6 +271,19 @@
                 const label = $(this).parent().find("label:not(:has(.fa-asterisk))");
                 label.append("<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>");
             });
+
+            $("select:required").each(function(e) {
+                $(this).parent().addClass("required");
+                //Find labels that haven't had the asterisk added yet
+                const label = $(this).parent().siblings("label:not(:has(.fa-asterisk))");
+                label.append("<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>");
+            });
+
+            $(".form__radio-group").each(function(e) {
+                $(this).addClass("required");
+                //Find labels that haven't had the asterisk added yet
+                $(this).children(".form__label").append("<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>");
+            });
         }
 
         requiredFields();
@@ -316,7 +329,25 @@
                     }
 
                 }
+            });
 
+            $("[class*= 'form__input-wrapper'] select").change(function(e){
+                // Check for existing value.
+                if ($(this).val() == "") {
+                    $(this).parent().removeClass("active");
+                }
+
+                // check validity
+                if($(this).isValid()) {
+                    $(this).parent().addClass("valid");
+                    $(this).parent().removeClass("invalid");
+                } else {
+                    $(this).parent().removeClass("valid");
+                    $(this).parent().addClass("invalid");
+                }
+
+                // unfocus item to trigger style
+                $(this).blur();
             });
 
         }
@@ -1093,6 +1124,9 @@
 
             // Append Clone to the Wrapper
             wrapper.append(template);
+
+            // Add required attr to hidden input fields
+            wrapper.find(".form__select-wrapper").find("select").prop('required', true);
 
             requiredFields();
             labelHandlers();
