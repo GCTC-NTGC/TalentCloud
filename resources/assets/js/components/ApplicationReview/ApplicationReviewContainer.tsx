@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { Application, ReviewStatus } from "../types";
 import ApplicationReview from "./ApplicationReview";
 import route from "../../helpers/route";
+import ApplicationReviewNav from "./ApplicationReviewNav";
 
 interface ApplicationReviewContainerProps {
   initApplication: Application;
@@ -101,15 +102,21 @@ export default class ApplicationReviewContainer extends React.Component<
       value: status.id,
       label: status.name
     }));
+    const applicationReview = (
+      <ApplicationReview
+        key={application.id}
+        application={application}
+        reviewStatusOptions={reviewStatusOptions}
+        onStatusChange={this.handleStatusChange}
+        onNotesChange={this.handleNotesChange}
+        isSaving={isSaving}
+      />
+    );
     return (
       <div className="applicant-review container--layout-xl">
-        <ApplicationReview
-          key={application.id}
-          application={application}
-          reviewStatusOptions={reviewStatusOptions}
-          onStatusChange={this.handleStatusChange}
-          onNotesChange={this.handleNotesChange}
-          isSaving={isSaving}
+        <ApplicationReviewNav
+          applicationReview={applicationReview}
+          jobPosterId={application.job_poster_id}
         />
       </div>
     );
