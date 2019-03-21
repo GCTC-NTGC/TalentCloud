@@ -92,9 +92,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
 
   return (
     <div className="applicant-category">
-      <h3 className="heading--03">
-        <i className="fas fa-ban" /> {title}
-      </h3>
+      <h3 className="heading--03">{title}</h3>
 
       <p>{description}</p>
 
