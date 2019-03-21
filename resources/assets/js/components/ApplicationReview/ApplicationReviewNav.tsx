@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import ApplicationReview from "./ApplicationReview";
 import route from "../../helpers/route";
 
 interface ApplicationReviewNavProps {
