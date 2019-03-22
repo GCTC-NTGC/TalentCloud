@@ -143,7 +143,11 @@ class JobPoster extends BaseModel
         'language_requirement_id',
         'remote_work_allowed',
     ];
-    // protected $withCount = ['submitted_applications'];
+
+    /**
+     * @var string[] $fillable
+     */
+    protected $withCount = ['submitted_applications'];
 
     /**
      * @var mixed[] $dispatchesEvents
@@ -216,9 +220,15 @@ class JobPoster extends BaseModel
 
     // Artificial Relations
 
-    public function submitted_applications()
+    /**
+     * Get all of the Job Applications submitted to this
+     * Job Poster.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function submitted_applications() // phpcs:ignore
     {
-        return $this->job_applications()->whereDoesntHave('application_status', function ($query) : void {
+        return $this->hasMany(\App\Models\JobApplication::class)->whereDoesntHave('application_status', function ($query) : void {
             $query->where('name', 'draft');
         });
     }

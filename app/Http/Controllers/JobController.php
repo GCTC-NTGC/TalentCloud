@@ -46,12 +46,22 @@ class JobController extends Controller
     {
         $now = Carbon::now();
 
-        //Find published jobs that are currently open for applications
+        // Find published jobs that are currently open for applications.
+        // Eager load required relationships: Department, Province, JobTerm.
+        // Eager load the count of submitted applications, to prevent the relationship
+        // from being actually loaded and firing off events.
         $jobs = JobPoster::where('open_date_time', '<=', $now)
             ->where('close_date_time', '>=', $now)
             ->where('published', true)
+            ->with([
+                'department',
+                'province',
+                'job_term',
+            ])
+            ->withCount([
+                'submitted_applications',
+            ])
             ->get();
-        $jobs->load('manager.work_environment');
         return view('applicant/job_index', [
             'job_index' => Lang::get('applicant/job_index'),
             'jobs' => $jobs
@@ -66,35 +76,16 @@ class JobController extends Controller
     public function managerIndex()
     {
         $manager = Auth::user()->manager;
-
-        $veteran_applications = [];
-        $citizen_applications = [];
-        $other_applications = [];
-
-        foreach ($manager->job_posters as $job) {
-            $job->submitted_applications->load(['veteran_status', 'citizenship_declaration']);
-            $veteran_applications[$job->id] = $job->submitted_applications->filter(function ($application) {
-                return $application->veteran_status->name !== "none" &&
-                    $application->citizenship_declaration->name === "citizen";
-            });
-            $citizen_applications[$job->id] = $job->submitted_applications->filter(function ($application) {
-                return $application->veteran_status->name === "none" &&
-                    $application->citizenship_declaration->name === "citizen";
-            });
-            $other_applications[$job->id] = $job->submitted_applications->filter(function ($application) {
-                return $application->citizenship_declaration->name !== "citizen";
-            });
-        }
+        $jobs = JobPoster::where('manager_id', $manager->id)
+            ->withCount('submitted_applications')
+            ->get();
 
         return view('manager/job_index', [
             /*Localization Strings*/
             'jobs_l10n' => Lang::get('manager/job_index'),
 
             /* Data */
-            'jobs' => $manager->job_posters,
-            'veteran_applications' => $veteran_applications,
-            'citizen_applications' => $citizen_applications,
-            'other_applications' => $other_applications,
+            'jobs' => $jobs,
         ]);
     }
 
@@ -151,6 +142,13 @@ class JobController extends Controller
      */
     public function show(Request $request, JobPoster $jobPoster)
     {
+        $jobPoster->load([
+            'department',
+            'criteria.skill.skill_type',
+            'manager.team_culture',
+            'manager.work_environment'
+        ]);
+
         $user = Auth::user();
 
         //TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model

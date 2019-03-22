@@ -35,8 +35,15 @@ class ApplicationByJobController extends Controller
     */
     public function index(JobPoster $jobPoster)
     {
-        $applications = $jobPoster->submitted_applications;
-        $applications->load(['veteran_status', 'citizenship_declaration', 'application_review', "applicant.user"]);
+        $applications = $jobPoster->submitted_applications()
+            ->with([
+                'veteran_status',
+                'citizenship_declaration',
+                'application_review',
+                "applicant.user",
+                "job_poster.criteria",
+            ])
+            ->get();
         return view('manager/review_applications', [
             /*Localization Strings*/
             'jobs_l10n' => Lang::get('manager/job_index'),
