@@ -5,8 +5,11 @@
 // =============================================================================
 
 // Core Elements ===============================================================
-@import "./fontawesome.scss";
-@import "./solid.scss";
+
+    @import './brands';
+    @import './regular';
+    @import './solid';
+    @import './fontawesome';
 
     * {
         box-sizing: border-box;

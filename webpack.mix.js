@@ -26,7 +26,6 @@ mix
     implementation: require("node-sass"),
     includePaths: [
       "node_modules/@fortawesome/fontawesome-free/scss",
-      "node_modules/@fortawesome/fontawesome-free/webfonts"
     ]
   })
   .options({
