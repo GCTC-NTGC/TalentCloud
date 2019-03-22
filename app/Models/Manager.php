@@ -71,14 +71,6 @@ class Manager extends BaseModel {
         'refuse_low_value_work_frequency_id',
         'years_experience'
     ];
-    protected $with = [
-        'department',
-        'work_review_frequency',
-        'stay_late_frequency',
-        'engage_team_frequency',
-        'development_opportunity_frequency',
-        'refuse_low_value_work_frequency'
-    ];
 
     public function user() {
         return $this->belongsTo(\App\Models\User::class);

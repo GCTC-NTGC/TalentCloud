@@ -63,7 +63,8 @@ script:
 
 after_success:
   # pull requests run lightcrawler on local site
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lightcrawler --silent | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lightcrawler-a --silent | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results - Applicant :badger:"'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lightcrawler-m --silent | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results - Manager :cooldoge:"'
 
 after_script:
   # send report to codecov.io

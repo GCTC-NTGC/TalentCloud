@@ -18,12 +18,21 @@
         {{ job_post.work.title }}
     </h4>
 
-    <ul>
-        {% for task in job.job_poster_key_tasks %}
-            <li>
-                {{ task.description }}
-            </li>
-        {% endfor %}
-    </ul>
+    {% if job.job_poster_key_tasks is defined and
+        job.job_poster_key_tasks is not empty %}
+
+        <ul>
+            {% for task in job.job_poster_key_tasks %}
+                <li>
+                    {{ task.description }}
+                </li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+
+        <p>{{ noInfo }}</p>
+
+    {% endif %}
 
 </section>

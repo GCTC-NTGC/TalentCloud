@@ -1,5 +1,7 @@
 .manager-application-preview-actions {
-    padding: 2rem 0;
+    border-bottom: 1px solid black;
+    padding: 0 0 2rem 0;
+    margin-bottom: 2rem;
 
     .box {
 
@@ -10,6 +12,7 @@
             }
 
         button {
+            margin-right: .5rem;
 
             .expand {
                 display: block;

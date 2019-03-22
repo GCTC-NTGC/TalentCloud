@@ -121,11 +121,11 @@ class JobPolicyTest extends TestCase
     }
 
     /**
-     * Ensure a manager cannot publish their own Job Poster.
+     * Ensure a manager cannot update a published job.
      *
      * @return void
      */
-    public function testManagerCanNotPublishJob() : void
+    public function testManagerCannotUpdatePublishedJob() : void
     {
         $job = factory(JobPoster::class)->states('published')->make([
             'manager_id' => $this->manager->manager->id

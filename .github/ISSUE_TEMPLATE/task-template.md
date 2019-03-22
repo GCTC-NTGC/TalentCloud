@@ -1,10 +1,11 @@
 ---
 name: Task Template
 about: This template is for product development tasks.
+title: 'Applicant/Manager/Admin/Sitewide - '
+labels: ''
+assignees: ''
 
 ---
-
-Please name the task using the following information: **Applicant/Manager/Admin/Sitewide - Name**. Give this task the "Front-end" or "Back-end" label.
 
 # Description
 Enter the task description here.

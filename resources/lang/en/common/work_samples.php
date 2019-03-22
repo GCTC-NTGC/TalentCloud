@@ -12,6 +12,7 @@ return [
     "accordion_sr_helper" => "Click to edit...",
     "name_label" => "Project Name",
     "type_label" => "Project Type",
+    "type_default_option" => "Select a file type...",
     "types" => [
         "word" => "Writing sample or report",
         "powerpoint" => "Presentation or Infographic",

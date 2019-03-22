@@ -6,6 +6,11 @@
 
 // Core Elements ===============================================================
 
+    @import './brands';
+    @import './regular';
+    @import './solid';
+    @import './fontawesome';
+
     * {
         box-sizing: border-box;
     }

@@ -218,9 +218,14 @@ Route::group(
                     ->middleware('can:create,App\Models\JobPoster')
                     ->name('manager.jobs.create');
 
-                Route::post('jobs/{jobPoster?}', 'JobController@store')
-                    ->where('jobPoster', '[0-9]+')
+                Route::post('jobs', 'JobController@store')
+                    ->middleware('can:create,App\Models\JobPoster')
                     ->name('manager.jobs.store');
+
+                Route::post('jobs/{jobPoster}', 'JobController@store')
+                    ->where('jobPoster', '[0-9]+')
+                    ->middleware('can:update,jobPoster')
+                    ->name('manager.jobs.update');
 
                 Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
                     ->where('jobPoster', '[0-9]+')
