@@ -1,4 +1,5 @@
-import {ReviewStatusId, ReviewStatusName} from "./lookupConstants";
+/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 
 export interface Job {
   id: number;

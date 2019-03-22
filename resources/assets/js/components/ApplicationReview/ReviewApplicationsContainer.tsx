@@ -1,11 +1,28 @@
+/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import React from "react";
 import ReactDOM from "react-dom";
+
+// Internationalizations
+import { IntlProvider, addLocaleData } from "react-intl";
+import locale_en from "react-intl/locale-data/en";
+import locale_fr from "react-intl/locale-data/fr";
+
+import axios from "axios";
+import Swal from "sweetalert2";
 import { Job, Application, ReviewStatus, ApplicationReview } from "../types";
 import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
 import route from "../../helpers/route";
-import axios from "axios";
-import Swal from "sweetalert2";
+
+addLocaleData([...locale_en, ...locale_fr]);
+
+import messages_en from "./localizations/en.json";
+import messages_fr from "./localizations/fr.json";
+
+const messages = {
+  en: messages_en,
+  fr: messages_fr
+};
 
 interface ReviewApplicationsProps {
   job: Job;
@@ -31,12 +48,10 @@ export default class ReviewApplicationsContainer extends React.Component<
     super(props);
     this.state = {
       applications: props.initApplications,
-      savingStatuses: props.initApplications.map(application => {
-        return {
-          applicationId: application.id,
-          isSaving: false
-        };
-      })
+      savingStatuses: props.initApplications.map(application => ({
+        applicationId: application.id,
+        isSaving: false
+      }))
     };
     this.handleStatusChange = this.handleStatusChange.bind(this);
     this.handleBulkStatusChange = this.handleBulkStatusChange.bind(this);
@@ -49,12 +64,12 @@ export default class ReviewApplicationsContainer extends React.Component<
     applicationId: number,
     review: ApplicationReview
   ): void {
-    const updatedApplications = this.state.applications.map(application => {
+    const { applications } = this.state;
+    const updatedApplications = applications.map(application => {
       if (application.id === applicationId) {
         return Object.assign(application, { application_review: review });
-      } else {
-        return Object.assign({}, application);
       }
+      return Object.assign({}, application);
     });
     this.setState({ applications: updatedApplications });
   }
@@ -63,11 +78,12 @@ export default class ReviewApplicationsContainer extends React.Component<
     applicationId: number,
     isSaving: boolean
   ): void {
-    const statuses = this.state.savingStatuses.map(item => {
-      return item.applicationId == applicationId
-        ? { applicationId: applicationId, isSaving: isSaving }
-        : Object.assign({}, item);
-    });
+    const { savingStatuses } = this.state;
+    const statuses = savingStatuses.map(item =>
+      item.applicationId === applicationId
+        ? { applicationId, isSaving }
+        : Object.assign({}, item)
+    );
     this.setState({ savingStatuses: statuses });
   }
 
@@ -83,7 +99,7 @@ export default class ReviewApplicationsContainer extends React.Component<
         this.updateReviewState(applicationId, newReview);
         this.handleSavingStatusChange(applicationId, false);
       })
-      .catch(error => {
+      .catch(() => {
         Swal.fire({
           type: "error",
           title: "Oops...",
@@ -97,7 +113,8 @@ export default class ReviewApplicationsContainer extends React.Component<
     applicationId: number,
     statusId: number | null
   ): void {
-    const application = find(this.state.applications, applicationId);
+    const { applications } = this.state;
+    const application = find(applications, applicationId);
     if (application === null) {
       return;
     }
@@ -114,11 +131,12 @@ export default class ReviewApplicationsContainer extends React.Component<
     applicationIds: number[],
     statusId: number | null
   ): void {
-    const applications = this.state.applications.filter(
-      application => applicationIds.includes(application.id)
+    const { applications } = this.state;
+    const changedApplications = applications.filter(application =>
+      applicationIds.includes(application.id)
     );
-    var errorThrown = false;
-    const requests = applications.map(application => {
+    let errorThrown = false;
+    changedApplications.map(application => {
       const oldReview = application.application_review
         ? application.application_review
         : {};
@@ -133,7 +151,7 @@ export default class ReviewApplicationsContainer extends React.Component<
           this.updateReviewState(application.id, newReview);
           this.handleSavingStatusChange(application.id, false);
         })
-        .catch(error => {
+        .catch(() => {
           this.handleSavingStatusChange(application.id, false);
           // Only show error modal first time a request fails
           if (!errorThrown) {
@@ -153,7 +171,8 @@ export default class ReviewApplicationsContainer extends React.Component<
     applicationId: number,
     notes: string | null
   ): void {
-    const application = find(this.state.applications, applicationId);
+    const { applications } = this.state;
+    const application = find(applications, applicationId);
     if (application === null) {
       return;
     }
@@ -161,27 +180,31 @@ export default class ReviewApplicationsContainer extends React.Component<
       ? application.application_review
       : {};
     const submitReview = Object.assign(oldReview, {
-      notes: notes
+      notes
     });
     this.submitReview(applicationId, submitReview);
   }
 
   public render(): React.ReactElement {
-    const reviewStatusOptions = this.props.reviewStatuses.map(status => {
-      return { value: status.id, label: status.name };
-    });
+    const { applications, savingStatuses } = this.state;
+    const { reviewStatuses, job } = this.props;
+
+    const reviewStatusOptions = reviewStatuses.map(status => ({
+      value: status.id,
+      label: status.name
+    }));
 
     return (
       <ReviewApplications
-        title={this.props.job.title}
-        classification={this.props.job.classification}
-        closeDateTime={this.props.job.close_date_time}
-        applications={this.state.applications}
+        title={job.title}
+        classification={job.classification}
+        closeDateTime={job.close_date_time}
+        applications={applications}
         reviewStatusOptions={reviewStatusOptions}
         onStatusChange={this.handleStatusChange}
         onBulkStatusChange={this.handleBulkStatusChange}
         onNotesChange={this.handleNotesChange}
-        savingStatuses={this.state.savingStatuses}
+        savingStatuses={savingStatuses}
       />
     );
   }
@@ -194,7 +217,8 @@ if (document.getElementById("review-applications-container")) {
   if (
     container.hasAttribute("data-job") &&
     container.hasAttribute("data-applications") &&
-    container.hasAttribute("data-review-statuses")
+    container.hasAttribute("data-review-statuses") &&
+    container.hasAttribute("data-locale")
   ) {
     const job = JSON.parse(container.getAttribute("data-job") as string);
     const applications = JSON.parse(container.getAttribute(
@@ -203,12 +227,15 @@ if (document.getElementById("review-applications-container")) {
     const reviewStatuses = JSON.parse(container.getAttribute(
       "data-review-statuses"
     ) as string);
+    const language = container.getAttribute("data-locale") as string;
     ReactDOM.render(
-      <ReviewApplicationsContainer
-        job={job}
-        initApplications={applications}
-        reviewStatuses={reviewStatuses}
-      />,
+      <IntlProvider locale={language} messages={messages[language]}>
+        <ReviewApplicationsContainer
+          job={job}
+          initApplications={applications}
+          reviewStatuses={reviewStatuses}
+        />
+      </IntlProvider>,
       container
     );
   }

@@ -41,7 +41,7 @@ return [
             'year' => ':count ans.|:count années',
             'permanent' => 'Permanent'
         ],
-        'start_date_format' => 'F, Y',
+        'start_date_format' => 'F Y',
     ],
     'manager' => [
         'photo_title' => 'Photo de profile de :name.',
@@ -62,17 +62,20 @@ return [
         'essential_title' => 'Nécessaires d\'avoir',
         'asset_title' => 'Bon à avoir',
         'requirement_label' => 'Niveau requis: ',
-        'level_link_title' => 'Visitez la FAQ pour en savoir plus sur ce niveau et les autres.'
+        'level_link_title' => 'Visitez la FAQ pour en savoir plus sur ce niveau et les autres.',
+        'no_info' => "Aucun critère supplémentaire requis."
     ],
     'language' => [
         'sidebar_title' => 'Voir les exigences linguistiques de ce travail.',
         'title' => 'Exigences linguistiques',
+        'english_icon_title' => 'Un graphique représentant une exigence de langue anglaise',
+        'french_icon_title' => 'Un graphique représentant une exigence de la langue française',
         'english_essential_context' => 'Ce poste a une exigence linguistique anglais essentiel. Le gestionnaire peut choisir d\'évaluer ma maîtrise de l\'anglais.',
         'french_essential_context' => 'Ce poste a une exigence linguistique français essentiel. Cela signifie que le gestionnaire peut choisir d\'évaluer ma maîtrise du français.',
-        'bilingual_context_01' => 'Ce poste a une exigence linguistique bilingue. Cela signifie que vous devez posséder la %maîtrise% requise, en anglais et en français, dans chacune des trois compétences linguistiques: compréhension, écriture et communication orale.',
+        'bilingual_context_01' => 'Ce poste a une exigence linguistique bilingue. Cela signifie que vous devez posséder la %proficiency% requise, en anglais et en français, dans chacune des trois compétences linguistiques: compréhension, écriture et communication orale.',
         'proficiency_link' => 'https://www.canada.ca/fr/commission-fonction-publique/emplois/services/emplois-gc/renseignements-candidats/exigences-linguistiques.html',
         'proficiency_copy' => 'niveaux de compétence',
-        'bilingual_context_02' => 'Vous pouvez essayer une %évaluation% pour vous donner une idée du niveau (A, B ou C) que vous pourriez atteindre.',
+        'bilingual_context_02' => 'Vous pouvez essayer une %assessment% pour vous donner une idée du niveau (A, B ou C) que vous pourriez atteindre.',
         'assessment_link' => 'https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde/tests-autoevaluation.html',
         'assessment_copy' => 'tests d’autoévaluation',
         'bilingual_context_03' => 'Si votre première langue officielle est le français, vous serez testé en anglais, et vice versa.',
@@ -137,4 +140,5 @@ return [
         'edit_link_title' => 'Modifier cette affiche d\'emploi.',
         'edit_link_label' => 'Modifier'
     ],
+    'no_info' => "Aucune information fournie."
 ];

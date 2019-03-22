@@ -11,6 +11,7 @@ return [
      */
 
     'title' => 'Nuage de talents | Overture de session',
+    'header' => 'Overture de session',
     'return' => "Retour à la page d'accueil",
     'email' => 'Courriel',
     'password' => 'Mot de Passe',

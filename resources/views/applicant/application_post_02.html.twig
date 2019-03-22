@@ -25,6 +25,8 @@
 
             {% include "applicant/application_post/common/tracker" %}
 
+			{% include "errors/form_errors" %}
+
             {# Builds an input field for CSRF token validation #}
             {{ csrf_field() }}
 

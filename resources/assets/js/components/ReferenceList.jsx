@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import classNames from 'classnames';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import classNames from "classnames";
 
 export default class ReferenceList extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       references: props.initialRefs
@@ -11,37 +11,35 @@ export default class ReferenceList extends Component {
     this.handleAddItemClick = this.handleAddItemClick.bind(this);
   }
 
-  componentDidCatch (error, info) {
+  componentDidCatch(error, info) {
     console.log(error);
     console.log(info);
   }
 
-  nextId (objs) {
+  nextId(objs) {
     const ids = objs.map(x => x.id);
     const maxReducer = (a, b) => Math.max(a, b);
     return ids.reduce(maxReducer, 0) + 1;
   }
 
-  createEmptyReference (id) {
+  createEmptyReference(id) {
     return {
-      id: id,
-      name: '',
-      email: '',
+      id,
+      name: "",
+      email: "",
       relationship_id: null,
-      description: ''
+      description: ""
     };
   }
 
-  handleAddItemClick () {
+  handleAddItemClick() {
     const refs = this.state.references.slice();
     const nextId = this.nextId(this.state.references);
     refs.push(this.createEmptyReference(nextId));
     this.setState({ references: refs });
   }
 
-  render () {
-    
-
+  render() {
     if (this.state.references.length > 0) {
       var content = this.state.references.map(reference => (
         <Reference
@@ -69,9 +67,7 @@ export default class ReferenceList extends Component {
       <div className="profile-list">
         <div className="profile-list__header flex-grid middle">
           <div className="box med-1of2">
-            <h3>
-              {this.props.lang.reference_section.section_title}
-            </h3>
+            <h3>{this.props.lang.reference_section.section_title}</h3>
           </div>
           <div className="box med-1of2">
             <button
@@ -83,12 +79,7 @@ export default class ReferenceList extends Component {
             </button>
           </div>
           <div className="box full">
-            <p>
-              {
-                this.props.lang.reference_section
-                  .section_description
-              }
-            </p>
+            <p>{this.props.lang.reference_section.section_description}</p>
           </div>
         </div>
         <div className="profile-element-list">{content}</div>
@@ -97,14 +88,14 @@ export default class ReferenceList extends Component {
   }
 }
 
-if (document.getElementById('react-reference-list')) {
-  const container = document.getElementById('react-reference-list');
+if (document.getElementById("react-reference-list")) {
+  const container = document.getElementById("react-reference-list");
   // const props = Object.assign({}, domContainer.dataset);
-  const lang = JSON.parse(container.getAttribute('data-lang'));
+  const lang = JSON.parse(container.getAttribute("data-lang"));
   const langReference = JSON.parse(
-    container.getAttribute('data-reference-lang')
+    container.getAttribute("data-reference-lang")
   );
-  const initialRefs = JSON.parse(container.getAttribute('data-references'));
+  const initialRefs = JSON.parse(container.getAttribute("data-references"));
   ReactDOM.render(
     <ReferenceList
       lang={lang}

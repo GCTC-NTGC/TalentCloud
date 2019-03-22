@@ -271,6 +271,19 @@
                 const label = $(this).parent().find("label:not(:has(.fa-asterisk))");
                 label.append("<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>");
             });
+
+            $("select:required").each(function(e) {
+                $(this).parent().addClass("required");
+                //Find labels that haven't had the asterisk added yet
+                const label = $(this).parent().siblings("label:not(:has(.fa-asterisk))");
+                label.append("<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>");
+            });
+
+            $(".form__radio-group").each(function(e) {
+                $(this).addClass("required");
+                //Find labels that haven't had the asterisk added yet
+                $(this).children(".form__label").append("<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>");
+            });
         }
 
         requiredFields();
@@ -316,7 +329,25 @@
                     }
 
                 }
+            });
 
+            $("[class*= 'form__input-wrapper'] select").change(function(e){
+                // Check for existing value.
+                if ($(this).val() == "") {
+                    $(this).parent().removeClass("active");
+                }
+
+                // check validity
+                if($(this).isValid()) {
+                    $(this).parent().addClass("valid");
+                    $(this).parent().removeClass("invalid");
+                } else {
+                    $(this).parent().removeClass("valid");
+                    $(this).parent().addClass("invalid");
+                }
+
+                // unfocus item to trigger style
+                $(this).blur();
             });
 
         }
@@ -474,9 +505,10 @@
 
         //Update ui for Skill object to reflect that it has been setItem
         function setSkillSaved(object, response) {
-            $(object).find('.accordion-title').text(response.data.skill.name);
+            var levelRequirement = $(object).find('.accordion-title span').prop('outerHTML') || '';
+            $(object).find('.accordion-title').html(response.data.skill.name + levelRequirement);
             $(object).find('.skill__description').text(response.data.skill.description);
-            $(object).find('.skill__status--level').text(response.data.skill_status.status);
+            $(object).find('.skill__status--level').text(' ' + response.data.skill_status.status);
         }
 
         //Update ui for Reference object to reflect that it has been setItem
@@ -1092,6 +1124,9 @@
 
             // Append Clone to the Wrapper
             wrapper.append(template);
+
+            // Add required attr to hidden input fields
+            wrapper.find(".form__select-wrapper").find("select").prop('required', true);
 
             requiredFields();
             labelHandlers();

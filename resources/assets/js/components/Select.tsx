@@ -18,24 +18,35 @@ export interface SelectProps<T extends string | number> {
 export default function Select<T extends string | number>(
   props: SelectProps<T>
 ): React.ReactElement<SelectProps<T>> {
+  const {
+    htmlId,
+    formName,
+    label,
+    selected,
+    nullSelection,
+    options,
+    onChange
+  } = props;
+
   return (
     <div className="form__input-wrapper--select">
-      <label className="form__label" htmlFor={props.htmlId}>
-        {props.label}
+      <label className="form__label" htmlFor={htmlId}>
+        {label}
       </label>
       <div className="form__select-wrapper fas fa-chevron-down">
         <select
-          id={props.htmlId}
+          id={htmlId}
           className="form__input"
-          value={props.selected ? props.selected : ""}
-          onChange={e => props.onChange(e)}
+          name={formName}
+          value={selected || ""}
+          onChange={e => onChange(e)}
         >
-          {props.nullSelection && (
-            <option value="" disabled={true}>
-              {props.nullSelection}
+          {nullSelection && (
+            <option value="" disabled>
+              {nullSelection}
             </option>
           )}
-          {props.options.map(option => (
+          {options.map(option => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>

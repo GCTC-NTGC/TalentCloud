@@ -1,0 +1,4 @@
+{
+    "app.title": "Applications for french string: {job_title} {job_classification}",
+    "app.intro": "Zum Loslegen editiere <code>src/App.js</code>."
+}

@@ -4,7 +4,8 @@
         "esModuleInterop": true,
         "target": "es6",
         "strictNullChecks": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "resolveJsonModule": true
     },
     // "include": [
     //     "resources/assets/js/**/*"
