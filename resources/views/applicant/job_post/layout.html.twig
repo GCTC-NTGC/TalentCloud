@@ -4,6 +4,10 @@
     Applicant: Jobs - Post: Layout
 
 ============================================================================= #}
+{% set noInfo %}
+    <span>{{ job_post.no_info }}</span>
+{% endset %}
+
 <div class="job-poster__section-wrapper container--layout">
 
     <div class="flex-grid">
@@ -31,6 +35,10 @@
                 {# Include Criteria #}
 
                     {% include "applicant/job_post/criteria" %}
+
+                {# Language #}
+
+                    {% include "applicant/job_post/language" %}
 
                 {# Include Culture #}
 

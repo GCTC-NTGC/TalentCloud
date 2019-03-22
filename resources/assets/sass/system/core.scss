@@ -16,7 +16,7 @@ html{
 }
 
 body{
-    
+
 }
 
 /* adds whitespace on Admin Portal index,
@@ -52,4 +52,10 @@ footer{
 .repeater__template {
     display: none !important;
     visibility: hidden;
+}
+
+// Utility classes
+
+.italic {
+    font-style: italic;
 }

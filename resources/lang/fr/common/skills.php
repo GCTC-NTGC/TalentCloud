@@ -13,6 +13,7 @@ return [
     'name_label' => 'Nom du projet',
     'type_label' => 'Type du projet',
     'skill_selection_label' => 'Sélectionner une compétence',
+    'skill_selection_default_option' => "Sélectionner une compétence",
     'level_label' => 'Mon niveau de compétence',
     'level_link_title' => 'En savoir plus sur la façon d\'identifier votre niveau de compétence.',
     'level_link_label' => '(Trouvez votre niveau de compétence)',
@@ -69,7 +70,7 @@ return [
             'description' => 'Défini comme : langage de programmation orienté objet de niveau intermédiaire permettant de développer des applications logicielles de bas à haut niveau.'
         ],
         'sass' => [
-            'name' => 'SAS',
+            'name' => 'SASS',
             'description' => 'Signifie « Syntactically Awesome Style Sheets » et se définit comme : un script de préprocesseur, langage de feuille de style interprété ou compilé en CSS pour le développement Web.'
         ],
         'python' => [

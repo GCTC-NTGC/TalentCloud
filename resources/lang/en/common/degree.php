@@ -19,6 +19,7 @@ return [
          "masters" => "Master's Degree",
          "phd" => "PhD"
      ],
+     "type_default_option" => "Select a degree type...",
      "aoe_label" => "Area of Study",
      "institution_label" => "Institution",
      "thesis_label" => "Thesis Title (Optional)",

@@ -66,7 +66,13 @@
     .applicant-category {
         background: $palette--white;
         border-radius: 5px;
+        border: 1px solid gray;
+        margin-bottom: 2rem;
         padding: 2rem;
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
 
         >p {
             margin: 2rem 0;
@@ -426,5 +432,251 @@
             }
 
     }
+
+}
+
+#application-review-container {
+    background: white;
+}
+
+.applicant-summary {
+    border-bottom: 1px solid rgba(200, 200, 200, 1);
+    padding: 1.5rem 0;
+
+    .applicant-status {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+
+        i {
+            font-size: 1.5rem;
+        }
+
+        .fa-check-circle {
+            color: $palette--green;
+        }
+
+        .fa-exclamation-circle {
+            color: $palette--yellow;
+        }
+
+        .fa-question-circle {
+            color: $palette--orange;
+        }
+
+        .fa-ban {
+            color: $palette--gray;
+        }
+
+    }
+
+    .applicant-information {
+
+        .name {
+            display: block;
+            font-weight: 800;
+            margin-bottom: .5rem;
+        }
+
+        .veteran-status {
+            color: $palette--blue;
+            display: block;
+            margin-top: .7rem;
+
+            img {
+                margin-top: -.2rem;
+                vertical-align: middle;
+                width: 1.3rem;
+            }
+
+        }
+
+    }
+
+    .applicant-links {
+
+        a {
+            display: block;
+            margin-bottom: .5rem;
+
+            i {
+                margin: 0 .5rem 0 0;
+            }
+
+            // States ----------------------------------------------
+
+                &:last-child {
+                    margin: none;
+                }
+
+        }
+
+    }
+
+    .applicant-decision {
+
+        .form__input-wrapper--select {
+            margin: 0;
+        }
+
+    }
+
+    .applicant-notes {
+
+        button {
+            text-align: center;
+            width: 100%;
+        }
+
+    }
+
+    .applicant-save-button {
+
+        button {
+            text-align: center;
+            width: 100%;
+
+            .default-copy {
+                display: block;
+            }
+            .saved-copy {
+                display: none;
+            }
+
+            // States ------------------------------------------
+
+                &.saved {
+
+                    .default-copy {
+                        display: none;
+                    }
+                    .saved-copy {
+                        display: block;
+                    }
+
+                }
+
+        }
+
+    }
+
+    // States --------------------------------------------------
+
+        &:first-of-type {
+            padding-top: 0;
+        }
+
+        &:last-child {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
+
+    // Variations ----------------------------------------------
+
+        &[data-applicant-status="in"] {
+            .applicant-status {
+                .fa-check-circle {
+                    display: block
+                }
+                .fa-exclamation-circle {
+                    display: none;
+                }
+                .fa-question-circle {
+                    display: none;
+                }
+                .fa-ban {
+                    display: none;
+                }
+            }
+        }
+
+        &[data-applicant-status="out"] {
+            .applicant-status {
+                .fa-check-circle {
+                    display: none
+                }
+                .fa-exclamation-circle {
+                    display: none;
+                }
+                .fa-question-circle {
+                    display: none;
+                }
+                .fa-ban {
+                    display: block;
+                }
+            }
+        }
+
+        &[data-applicant-status="maybe"] {
+            .applicant-status {
+                .fa-check-circle {
+                    display: none
+                }
+                .fa-exclamation-circle {
+                    display: none;
+                }
+                .fa-question-circle {
+                    display: block;
+                }
+                .fa-ban {
+                    display: none;
+                }
+            }
+        }
+
+        &[data-applicant-status="null"] {
+            .applicant-status {
+                .fa-check-circle {
+                    display: none
+                }
+                .fa-exclamation-circle {
+                    display: block;
+                }
+                .fa-question-circle {
+                    display: none;
+                }
+                .fa-ban {
+                    display: none;
+                }
+            }
+        }
+
+        &[data-note-status="true"] {
+            .applicant-notes {
+                .create-note {
+                    display: none;
+                }
+                .edit-note {
+                    display: block;
+                }
+            }
+        }
+
+        &[data-note-status="false"] {
+            .applicant-notes {
+                .create-note {
+                    display: block;
+                }
+                .edit-note {
+                    display: none;
+                }
+            }
+        }
+
+        &[data-veteran-status="true"] {
+            .applicant-information {
+                .veteran-status {
+                    display: block;
+                }
+            }
+        }
+
+        &[data-veteran-status="false"] {
+            .applicant-information {
+                .veteran-status {
+                    display: none;
+                }
+            }
+        }
 
 }

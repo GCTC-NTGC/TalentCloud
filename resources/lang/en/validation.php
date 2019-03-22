@@ -139,12 +139,18 @@ return [
 
     'custom' => [
         'password' => 'The password must contain at least one character from each of the following categories: lower-case characters (a-z), upper-case characters (A-Z), digits (0-9), and non-alphanumeric symbols (%, $, !, etc.).',
-        'experience_saved.accepted' => 'You must review and save Step 2.',
-        'application_step_1.accepted' => 'Step 1 must be completed',
-        'application_step_3.accepted' => 'Step 3 must be completed',
+        'experience_saved' => [
+            'accepted' => 'You must review and save Step 2.',
+        ],
+        'application_step_1' => [
+            'accepted' => 'Step 1 must be completed',
+        ],
+        'application_step_3' => [
+            'accepted' => 'Step 3 must be completed',
+        ],
         'published' => [
             'in' => 'You cannot edit a Job Poster that has been published'
-        ]
+        ],
     ],
 
     /*
@@ -160,8 +166,53 @@ return [
 
     'attributes' => [
         'submisstion_signature' => 'signature',
-        'submission_date' => 'date',
-        'skill_declaration_id' => 'skill declaration',
+        'submission_date'       => 'date',
+        'skill_declaration_id'  => 'skill declaration',
+        'name'                  => 'name',
+        'username'              => "username",
+        'email'                 => 'email address',
+        'first_name'            => 'first name',
+        'last_name'             => 'last name',
+        'password'              => 'password',
+        'password_confirmation' => 'password confirmation',
+        'new_password'          => 'new password',
+        'new_password_confirmation' => 'new password confirmation',
+        'city'                  => 'city',
+        'country'               => 'country',
+        'address'               => 'address',
+        'phone'                 => 'phone',
+        'mobile'                => 'mobile',
+        'age'                   => 'age',
+        'sex'                   => 'sex',
+        'gender'                => 'gender',
+        'day'                   => 'day',
+        'month'                 => 'month',
+        'year'                  => 'year',
+        'hour'                  => 'hour',
+        'minute'                => 'minute',
+        'second'                => 'second',
+        'title'                 => 'title',
+        'content'               => 'content',
+        'description'           => 'description',
+        'excerpt'               => 'excerpt',
+        'date'                  => 'date',
+        'time'                  => 'time',
+        'available'             => 'available',
+        'size'                  => 'size',
+        'courses.new.*.name' => 'course/certification name',
+        'courses.new.*.institution' => 'course/certification institution',
+        'courses.new.*.course_status_id' => 'course/certification status',
+        'courses.new.*.start_date' => 'course/certification start date',
+        'courses.new.*.end_date' => 'course/certification end date',
+        'degrees.new.*.degree_type_id' => 'diploma/degree type',
+        'degrees.new.*.area_of_study' => 'diploma/degree area of study',
+        'degrees.new.*.institution' => 'diploma/degree institution',
+        'degrees.new.*.start_date' => 'diploma/degree start date',
+        'degrees.new.*.end_date' => 'diploma/degree end date',
+        'work_experiences.new.*.role' => 'equivalent experience role',
+        'work_experiences.new.*.company' => 'equivalent experience company',
+        'work_experiences.new.*.description' => 'equivalent experience description',
+        'work_experiences.new.*.start_date' => 'equivalent experience start date',
+        'work_experiences.new.*.end_date' => 'equivalent experience end date',
     ],
-
 ];

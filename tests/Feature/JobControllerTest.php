@@ -11,16 +11,12 @@ use Illuminate\Support\Facades\Mail;
 use Jenssegers\Date\Date;
 
 use App\Models\Applicant;
-use App\Models\Criteria;
 use App\Models\Lookup\Department;
 use App\Models\JobPoster;
-use App\Models\JobPosterKeyTask;
-use App\Models\JobPosterQuestion;
 use App\Models\Lookup\LanguageRequirement;
 use App\Models\Manager;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
-use Doctrine\Common\Cache\VoidCache;
 use App\Mail\JobPosterReviewRequested;
 
 class JobControllerTest extends TestCase
@@ -41,19 +37,74 @@ class JobControllerTest extends TestCase
 
         $this->manager = factory(Manager::class)->create();
         $this->jobPoster = factory(JobPoster::class)
-            ->states('unpublished')
-            ->create([
-                'manager_id' => $this->manager->id
-            ]);
+        ->create([
+            'manager_id' => $this->manager->id
+        ]);
 
         $this->otherManager = factory(Manager::class)->create();
         $this->otherJobPoster = factory(JobPoster::class)
-            ->states('unpublished')
-            ->create([
-                'manager_id' => $this->otherManager->id
-            ]);
+        ->create([
+            'manager_id' => $this->otherManager->id
+        ]);
 
         $this->publishedJob = factory(JobPoster::class)->states('published')->create();
+    }
+
+    /**
+     * Generate an array with all the data that would be submitted through a completed edit/create job form.
+     *
+     * @return array
+     */
+    private function generateEditJobFormData() : array
+    {
+        $jobForm = [
+        'term_qty' => $this->faker->numberBetween(1, 4),
+        'salary_min' => $this->faker->numberBetween(60000, 80000),
+        'salary_max' => $this->faker->numberBetween(80000, 100000),
+        'noc' => $this->faker->numberBetween(1, 9999),
+        'classification' => $this->faker->regexify('[A-Z]{2}-0[1-5]'),
+        'manager_id' => $this->manager->id,
+        'published' => false,
+        'remote_work_allowed' => $this->faker->boolean(50),
+        'open_date' => $this->faker->date('Y-m-d', strtotime('+1 day')),
+        'open_time' => $this->faker->time(),
+        'close_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
+        'close_time' => $this->faker->time(),
+        'start_date_time' => $this->faker->date('Y-m-d', strtotime('+2 weeks')) . ' ' . $this->faker->time(),
+        'security_clearance' => SecurityClearance::inRandomOrder()->first()->id,
+        'language_requirement' => LanguageRequirement::inRandomOrder()->first()->id,
+        'department' => Department::inRandomOrder()->first()->id,
+        'province' => Province::inRandomOrder()->first()->id,
+        'city' => $this->faker->city,
+        'title' => [
+            'en' => $this->faker->word,
+            'fr' => $this->faker_fr->word
+        ],
+        'impact' => [
+            'en' => $this->faker->paragraphs(
+                2,
+                true
+            ),
+            'fr' => $this->faker_fr->paragraphs(
+                2,
+                true
+            )
+        ],
+        'branch' => [
+            'en' => $this->faker->word,
+            'fr' => $this->faker_fr->word
+        ],
+        'division' => [
+            'en' => $this->faker->word,
+            'fr' => $this->faker_fr->word
+        ],
+        'education' => [
+            'en' => $this->faker->sentence(),
+            'fr' => $this->faker_fr->sentence()
+        ],
+        'submit' => '',
+        ];
+        return $jobForm;
     }
 
     /**
@@ -65,7 +116,7 @@ class JobControllerTest extends TestCase
     {
         $response = $this->get('jobs/' . $this->publishedJob->id);
         $response->assertStatus(200);
-        $response->assertSee(Lang::get('applicant/job_post')['apply']['login_link_title']);
+        $response->assertSee(e(Lang::get('applicant/job_post')['apply']['login_link_title']));
     }
 
     /**
@@ -78,9 +129,9 @@ class JobControllerTest extends TestCase
         $applicant = factory(Applicant::class)->create();
 
         $response = $this->actingAs($applicant->user)
-            ->get('jobs/' . $this->publishedJob->id);
+        ->get('jobs/' . $this->publishedJob->id);
         $response->assertStatus(200);
-        $response->assertSee(Lang::get('applicant/job_post')['apply']['apply_link_title']);
+        $response->assertSee(e(Lang::get('applicant/job_post')['apply']['apply_link_title']));
     }
 
     /**
@@ -91,11 +142,11 @@ class JobControllerTest extends TestCase
     public function testManagerIndexView() : void
     {
         $response = $this->actingAs($this->manager->user)
-            ->get('manager/jobs');
+        ->get('manager/jobs');
         $response->assertStatus(200);
 
-        $response->assertSee($this->jobPoster->title);
-        $response->assertDontSee($this->otherJobPoster->title);
+        $response->assertSee(e($this->jobPoster->title));
+        $response->assertDontSeeText(e($this->otherJobPoster->title));
     }
 
     /**
@@ -110,8 +161,8 @@ class JobControllerTest extends TestCase
         $jobPoster = $this->jobPoster;
 
         $response = $this->followingRedirects()
-            ->actingAs($this->manager->user)
-            ->post("manager/jobs/$jobPoster->id/review");
+        ->actingAs($this->manager->user)
+        ->post("manager/jobs/$jobPoster->id/review");
 
         $response->assertStatus(200);
 
@@ -132,14 +183,14 @@ class JobControllerTest extends TestCase
     public function testManagerCreateView() : void
     {
         $response = $this->actingAs($this->manager->user)
-            ->get('manager/jobs/create');
+        ->get('manager/jobs/create');
         $response->assertStatus(200);
 
-        $response->assertSee('<h2 class="heading--01">' . Lang::get('manager/job_create')['title'] . '</h2>');
+        $response->assertSee(e(Lang::get('manager/job_create')['title']));
         $response->assertViewIs('manager.job_create');
 
-        $response->assertSee(Lang::get('manager/job_create', [], 'en')['questions']['00']);
-        $response->assertSee(Lang::get('manager/job_create', [], 'fr')['questions']['00']);
+        $response->assertSee(e(Lang::get('manager/job_create', [], 'en')['questions']['00']));
+        $response->assertSee(e(Lang::get('manager/job_create', [], 'fr')['questions']['00']));
     }
 
     /**
@@ -149,63 +200,17 @@ class JobControllerTest extends TestCase
      */
     public function testManagerCreate() : void
     {
-        $newJob = [
-            'term_qty' => $this->faker->numberBetween(1, 4),
-            'salary_min' => $this->faker->numberBetween(60000, 80000),
-            'salary_max' => $this->faker->numberBetween(80000, 100000),
-            'noc' => $this->faker->numberBetween(1, 9999),
-            'classification' => $this->faker->regexify('[A-Z]{2}-0[1-5]'),
-            'manager_id' => $this->manager->id,
-            'published' => false,
-            'remote_work_allowed' => $this->faker->boolean(50),
-            'open_date' => $this->faker->date('Y-m-d', strtotime('+1 day')),
-            'open_time' => $this->faker->time(),
-            'close_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
-            'close_time' => $this->faker->time(),
-            'start_date_time' => $this->faker->date('Y-m-d', strtotime('+2 weeks')) . ' ' . $this->faker->time(),
-            'security_clearance' => SecurityClearance::inRandomOrder()->first()->id,
-            'language_requirement' => LanguageRequirement::inRandomOrder()->first()->id,
-            'department' => Department::inRandomOrder()->first()->id,
-            'province' => Province::inRandomOrder()->first()->id,
-            'city' => $this->faker->city,
-            'title' => [
-                'en' => $this->faker->word,
-                'fr' => $this->faker_fr->word
-            ],
-            'impact' => [
-                'en' => $this->faker->paragraphs(
-                    2,
-                    true
-                ),
-                'fr' => $this->faker_fr->paragraphs(
-                    2,
-                    true
-                )
-            ],
-            'branch' => [
-                'en' => $this->faker->word,
-                'fr' => $this->faker_fr->word
-            ],
-            'division' => [
-                'en' => $this->faker->word,
-                'fr' => $this->faker_fr->word
-            ],
-            'education' => [
-                'en' => $this->faker->sentence(),
-                'fr' => $this->faker_fr->sentence()
-            ],
-            'submit' => '',
-        ];
+        $newJob = $this->generateEditJobFormData();
 
         $dbValues = array_slice($newJob, 0, 8);
 
         $response = $this->followingRedirects()
-            ->actingAs($this->manager->user)
-            ->post('manager/jobs/', $newJob);
+        ->actingAs($this->manager->user)
+        ->post('manager/jobs/', $newJob);
         $response->assertStatus(200);
         $response->assertViewIs('applicant.job_post');
         $this->assertDatabaseHas('job_posters', $dbValues);
-        $response->assertSee(Lang::get('applicant/job_post')['apply']['edit_link_title']);
+        $response->assertSee(e(Lang::get('applicant/job_post')['apply']['edit_link_title']));
     }
 
     /**
@@ -216,21 +221,21 @@ class JobControllerTest extends TestCase
     public function testManagerEditView() : void
     {
         $response = $this->actingAs($this->manager->user)
-            ->get('manager/jobs/' . $this->jobPoster->id . '/edit');
+        ->get('manager/jobs/' . $this->jobPoster->id . '/edit');
 
         $response->assertStatus(200);
         $response->assertViewIs('manager.job_create');
         // Check for a handful of properties
-        $response->assertSee($this->jobPoster->city);
-        $response->assertSee($this->jobPoster->education);
-        $response->assertSee($this->jobPoster->title);
-        $response->assertSee($this->jobPoster->impact);
-        $response->assertSee($this->jobPoster->branch);
-        $response->assertSee($this->jobPoster->division);
-        $response->assertSee($this->jobPoster->education);
+        $response->assertSee(e($this->jobPoster->city));
+        $response->assertSee(e($this->jobPoster->education));
+        $response->assertSee(e($this->jobPoster->title));
+        $response->assertSee(e($this->jobPoster->impact));
+        $response->assertSee(e($this->jobPoster->branch));
+        $response->assertSee(e($this->jobPoster->division));
+        $response->assertSee(e($this->jobPoster->education));
     }
 
-        /**
+    /**
      * Ensure a manager cannot edit a published Job Poster they created.
      *
      * @return void
@@ -238,8 +243,28 @@ class JobControllerTest extends TestCase
     public function testManagerCanNotEditViewPublished() : void
     {
         $response = $this->actingAs($this->manager->user)
-            ->get('manager/jobs/' . $this->publishedJob->id . '/edit');
+        ->get('manager/jobs/' . $this->publishedJob->id . '/edit');
 
         $response->assertStatus(500);
+    }
+
+    /**
+     * Adding a 'published' field to the create job form data should affect the created job.
+     *
+     * @return void
+     */
+    public function testManagerCannotPublishJobThroughEditView() : void
+    {
+        $newJob = $this->generateEditJobFormData();
+        $newJob['published'] = true;
+
+        $dbValues = array_slice($newJob, 0, 8);
+        $dbValues['published'] = false;
+
+        $response = $this->followingRedirects()
+        ->actingAs($this->manager->user)
+        ->post('manager/jobs/', $newJob);
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('job_posters', $dbValues);
     }
 }

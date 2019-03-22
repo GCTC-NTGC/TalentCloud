@@ -137,12 +137,18 @@ return [
     */
     'custom' => [
         'password' => 'Le mot de passe doit contenir un caractère appartenant à chacun des catégories suivantes: minuscules (az), majuscules (AZ), chiffres (0-9) et symboles non alphanumériques (%, $,!, etc.). ',
-        'experience_saved.accepted' => 'Vous devez revoir et sauvegarder l\'étape 2.',
-        'application_step_1.accepted' => 'L\'étape 1 doit être complétée',
-        'application_step_3.accepted' => 'L\'étape 3 doit être complétée',
+        'experience_saved' => [
+            'accepted' => ' Vous devez revoir et sauvegarder l \'étape 2.',
+        ],
+        'application_step_1' => [
+            'accepted' => 'L\'étape 1 doit être complétée',
+        ],
+        'application_step_3' => [
+            'accepted' => 'L\'étape 3 doit être complétée',
+        ],
         'published' => [
-            'in' => 'You cannot edit a Job Poster that has been published'
-        ]
+            'in' => 'Vous ne pouvez pas modifier une affiche d\'emploi qui a été publié'
+        ],
     ],
     /*
     |--------------------------------------------------------------------------
@@ -157,8 +163,7 @@ return [
     'attributes' => [
         'submisstion_signature' => 'signature',
         'submission_date'       => 'date',
-        'skill_declaration_id'  => 'skill declaration',
-
+        'skill_declaration_id'  => 'déclaration de compétence',
         'name'                  => 'nom',
         'username'              => "nom d'utilisateur",
         'email'                 => 'adresse courriel',
@@ -190,5 +195,20 @@ return [
         'time'                  => 'heure',
         'available'             => 'disponible',
         'size'                  => 'taille',
+        'courses.new.*.name' => 'nom du cours ou de la certification',
+        'courses.new.*.institution' => 'institution du cours ou de la certification',
+        'courses.new.*.course_status_id' => 'statut du cours ou de la certification',
+        'courses.new.*.start_date' => 'début du cours ou de la certification',
+        'courses.new.*.end_date' => 'fin du cours ou de la certification',
+        'degrees.new.*.degree_type_id' => 'type de diplôme',
+        'degrees.new.*.area_of_study' => 'domaine d\'étude du diplôme',
+        'degrees.new.*.institution' => 'institution du diplôme',
+        'degrees.new.*.start_date' => 'début du diplôme',
+        'degrees.new.*.end_date' => 'fin du diplôme',
+        'work_experiences.new.*.role' => 'rôle pour expérience équivalente',
+        'work_experiences.new.*.company' => 'entreprise ou groupe pour expérience équivalente',
+        'work_experiences.new.*.description' => 'description pour expérience équivalente ',
+        'work_experiences.new.*.start_date' => 'début de l\'expérience équivalente',
+        'work_experiences.new.*.end_date' => 'fin de l\'expérience équivalente',
     ],
 ];
