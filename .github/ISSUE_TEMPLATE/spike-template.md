@@ -1,13 +1,14 @@
 ---
 name: Research Spike Template
 about: This template is for product development spikes.
+title: 'Spike - '
+labels: Spike
+assignees: ''
 
 ---
-
-Give this task the "Spike" label.
 
 # Description
 Enter the spike description here. What will we be researching?
 
 # Images
-Place image attachments (wireframes, etc.) here.
+Place image attachments here.

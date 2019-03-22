@@ -46,7 +46,7 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = ({
         type="button"
       >
         <span className="bucket-title">
-          <i className="fas fa-ban" /> {title} ({applications.length})
+          {title} ({applications.length})
         </span>
 
         <span className="invisible">
