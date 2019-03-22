@@ -1,4 +1,0 @@
-Resolves # .
-
-### Notes:
--
