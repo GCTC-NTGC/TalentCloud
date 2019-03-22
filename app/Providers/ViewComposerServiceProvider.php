@@ -88,8 +88,9 @@ class ViewComposerServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register() : void
     {
-        //
+        $this->app->singleton(\App\Http\ViewComposers\CourseComposer::class);
+        $this->app->singleton(\App\Http\ViewComposers\DegreeComposer::class);
     }
 }
