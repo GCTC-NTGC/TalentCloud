@@ -1,4 +1,6 @@
 {
-    "app.title": "Applications for english string: {job_title} {job_classification}",
-    "app.intro": "To get started, edit <code>src/App.js</code> and save to reload."
+    "app.title": "EN Applications for: {job_title} {job_classification}",
+    "temporary_priority_alert": "EN Temporary Priority Alert",
+    "get_priority_list":"EN Contact Talent Cloud to get a list of priorities that applied to this position. They must be reviewed and considered first."
+
 }

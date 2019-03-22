@@ -1,4 +1,5 @@
 {
-    "app.title": "Applications for french string: {job_title} {job_classification}",
-    "app.intro": "Zum Loslegen editiere <code>src/App.js</code>."
+    "app.title": "FR Applications for: {job_title} {job_classification}",
+    "temporary_priority_alert": "FR Temporary Priority Alert",
+    "get_priority_list":"FR Contact Talent Cloud to get a list of priorities that applied to this position. They must be reviewed and considered first."
 }
