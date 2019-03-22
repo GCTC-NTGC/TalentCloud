@@ -26,24 +26,27 @@ class SkillsController extends Controller
     public function show(Applicant $applicant)
     {
         //
-
     }
 
     /**
      * Show the form for editing the applicant's skills
      *
-     * @param  Request  $request
-     * @param  \App\Models\Applicant  $applicant
-     * @return \Illuminate\Http\Response
+     * @param Request   $request   Incoming request object.
+     * @param Applicant $applicant Applicant object.
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function edit(Request $request, Applicant $applicant)
     {
-        $skills = Skill::all();
+        $applicant->load([
+            'skill_declarations.skill.skill_type',
+            'skill_declarations.skill_status',
+            'skill_declarations.skill_level',
+        ]);
 
         return view('applicant/profile_03_skills', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_skills'),
-            'skills' => $skills
         ]);
     }
 
