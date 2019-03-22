@@ -19,6 +19,7 @@
         "lightcrawler-m": "lightcrawler -u http://localhost:8000/en/manager -c lightcrawler.json"
     },
     "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.8.0",
         "@types/classnames": "^2.2.7",
         "@types/node": "^11.9.4",
         "@types/react": "^16.8.4",
