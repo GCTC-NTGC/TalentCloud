@@ -92,5 +92,6 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         $this->app->singleton(\App\Http\ViewComposers\CourseComposer::class);
         $this->app->singleton(\App\Http\ViewComposers\DegreeComposer::class);
+        $this->app->singleton(\App\Http\ViewComposers\SkillComposer::class);
     }
 }
