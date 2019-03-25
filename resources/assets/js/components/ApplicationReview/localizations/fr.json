@@ -1,5 +1,11 @@
 {
     "app.title": "FR Applications for: {job_title} {job_classification}",
     "temporary_priority_alert": "FR Temporary Priority Alert",
-    "get_priority_list":"FR Contact Talent Cloud to get a list of priorities that applied to this position. They must be reviewed and considered first."
+    "get_priority_list": "FR Contact Talent Cloud to get a list of priorities that applied to this position. They must be reviewed and considered first.",
+    "underConsideration.description": "FR Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non- candian - citizen applications in the Optional Consideration section",
+    "underConsideration.title": "FR Under Consideration",
+    "optionalConsideration.title": "FR Optional Consideration",
+    "optionalConsideration.description": "FR In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
+    "screenedOut.title": "FR No Longer Under Consideration",
+    "screenedOut.description": "FR These applications have allready been screened out."
 }

@@ -34,9 +34,17 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
 }: ReviewApplicationsProps): React.ReactElement => {
   const categories = [
     {
-      title: "Under Consideration",
-      description:
-        "Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non- candian - citizen applications in the Optional Consideration section",
+      title: {
+        id: "underConsideration.title",
+        defaultMessage: "DT Under Consideration",
+        description: "Under construction category title"
+      },
+      description: {
+        id: "underConsideration.description",
+        defaultMessage:
+          "DT Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non- candian - citizen applications in the Optional Consideration section",
+        description: "Under construction category description"
+      },
       showScreenOutAll: false,
       applications: applications.filter(
         application => applicationCategory(application) === "primary"
@@ -44,9 +52,17 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
       prioritizeVeterans: false
     },
     {
-      title: "Optional Consideration",
-      description:
-        "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
+      title: {
+        id: "optionalConsideration.title",
+        defaultMessage: "DT Optional Consideration",
+        description: "Optional consideration category title"
+      },
+      description: {
+        id: "optionalConsideration.description",
+        defaultMessage:
+          "DT In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
+        description: "Optional consideration category description"
+      },
       showScreenOutAll: true,
       applications: applications.filter(
         application => applicationCategory(application) === "optional"
@@ -54,8 +70,17 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
       prioritizeVeterans: true
     },
     {
-      title: "No Longer Under Consideration",
-      description: "These applications have allready been screened out.",
+      title: {
+        id: "screenedOut.title",
+        defaultMessage: "DT No Longer Under Consideration",
+        description: "Screened out category title"
+      },
+      description: {
+        id: "screenedOut.description",
+        defaultMessage:
+          "DT These applications have allready been screened out.",
+        description: "Screened out category description"
+      },
       showScreenOutAll: false,
       applications: applications.filter(
         application => applicationCategory(application) === "screened-out"

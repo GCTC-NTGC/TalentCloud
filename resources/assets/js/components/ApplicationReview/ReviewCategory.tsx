@@ -1,4 +1,5 @@
 import React from "react";
+import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import Swal from "sweetalert2";
 import { Application } from "../types";
 import { SelectOption } from "../Select";
@@ -7,8 +8,8 @@ import ApplicantBucket from "./ApplicantBucket";
 import { ReviewStatusId } from "../lookupConstants";
 
 interface ReviewCategoryProps {
-  title: string;
-  description: string;
+  title: FormattedMessage.MessageDescriptor;
+  description: FormattedMessage.MessageDescriptor;
   showScreenOutAll: boolean;
   applications: Application[];
   reviewStatusOptions: SelectOption<number>[];
@@ -22,7 +23,9 @@ interface ReviewCategoryProps {
   prioritizeVeterans: boolean;
 }
 
-const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
+const ReviewCategory: React.StatelessComponent<
+  ReviewCategoryProps & InjectedIntlProps
+> = ({
   title,
   description,
   showScreenOutAll,
@@ -32,7 +35,8 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
   onBulkStatusChange,
   onNotesChange,
   savingStatuses,
-  prioritizeVeterans
+  prioritizeVeterans,
+  intl
 }: ReviewCategoryProps): React.ReactElement | null => {
   if (applications.length === 0) {
     return null;
@@ -92,9 +96,9 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
 
   return (
     <div className="applicant-category">
-      <h3 className="heading--03">{title}</h3>
+      <h3 className="heading--03">{intl.formatMessage(title)}</h3>
 
-      <p>{description}</p>
+      <p>{intl.formatMessage(description)}</p>
 
       {/* Category Action
                 This section only exists for the "secondary" category, and should generate a confirmation dialogue that prompts the user to decide whether to screen ALL of the candidates in this category out or not.
@@ -126,4 +130,4 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
   );
 };
 
-export default ReviewCategory;
+export default injectIntl(ReviewCategory);
