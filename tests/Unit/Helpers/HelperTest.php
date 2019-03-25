@@ -98,4 +98,30 @@ class HelperTest extends TestCase
 
         $this->assertEquals($expected, humanizeLastDay($dateToTest));
     }
+
+    /**
+     * Test that pstDayStartToUtcTime generates dates correctly
+     *
+     * @return void
+     */
+    public function testPstDayStartToUtcTime() : void
+    {
+        $date = pstDayStartToUtcTime(2019, 1, 31);
+        $expected = Date::parse('2019-01-31 8:00:00');
+
+        $this->assertEquals($expected, $date);
+    }
+
+    /**
+     * Test that pstDayEndToUtcTime generates dates correctly
+     *
+     * @return void
+     */
+    public function testPstDayEndToUtcTime(): void
+    {
+        $date = pstDayEndToUtcTime(2019, 1, 31);
+        $expected = Date::parse('2019-02-01 7:59:59');
+
+        $this->assertEquals($expected, $date);
+    }
 }

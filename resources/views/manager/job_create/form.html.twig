@@ -233,7 +233,7 @@
                                     <option value="" disabled selected>
                                         {{ form_l10n.security_clearance_default_option}}
                                     </option>
-                                    
+
                                     {% for clearance in security_clearances %}
                                         <option
                                             value="{{ clearance.id }}"
@@ -267,7 +267,7 @@
                                     <option value="" disabled selected>
                                         {{ form_l10n.language_requirement_default_option }}
                                     </option>
-                                    
+
                                     {% for language in language_requirments %}
                                         <option
                                             value="{{ language.id }}"
@@ -372,7 +372,7 @@
                                     <option value="" disabled selected>
                                         {{ form_l10n.province_default_option }}
                                     </option>
-                                    
+
                                     {% for province in provinces %}
                                         <option
                                             value="{{ province.id }}"
@@ -434,30 +434,6 @@
 
                             <label
                                 class="form__label"
-                                for="createJobOpenTime">
-                                {{form_l10n.opening_time}}
-                            </label>
-
-                            <input
-                                required
-                                class="form__input"
-                                id="createJobOpenTime"
-                                type="time"
-                                name="open_time"
-                                value="{{ job.open_date_time|date("H:i") }}">
-
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="box med-1of2">
-
-                        <div
-                            class="form__input-wrapper--date">
-
-                            <label
-                                class="form__label"
                                 for="createJobCloseDate">
                                 {{form_l10n.accepting_applications_to}}
                             </label>
@@ -469,30 +445,6 @@
                                 type="date"
                                 name="close_date"
                                 value="{{ job.close_date_time|date("Y-m-d")}}">
-
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="box med-1of2">
-
-                        <div
-                            class="form__input-wrapper--date">
-
-                            <label
-                                class="form__label"
-                                for="createJobCloseTime">
-                                {{form_l10n.closing_time}}
-                            </label>
-
-                            <input
-                                required
-                                class="form__input"
-                                id="createJobCloseTime"
-                                type="time"
-                                name="close_time"
-                                value="{{ job.close_date_time|date("H:i") }}">
 
                         </div>
 
@@ -515,7 +467,7 @@
                                 class="form__input"
                                 id="createJobStartDate"
                                 type="date"
-                                name="start_date_time"
+                                name="start_date"
                                 value="{{ job.start_date_time|date("Y-m-d") }}">
 
                         </div>
