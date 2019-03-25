@@ -106,7 +106,7 @@
                 </span>
                 <p
                     class="job-post__culture-copy">
-                    {{ handleOutput(
+                    {{ handleNullState(
                         work_environment.things_to_know|nl2br,
                         work_environment.things_to_know|nl2br,
                         noInfo
@@ -134,7 +134,7 @@
                 </span>
                 <p
                     class="job-post__culture-copy">
-                     {{ handleOutput(
+                     {{ handleNullState(
                         job_post.work_environment.telework_allowed[work_environment.telework_allowed_frequency.name],
                         job_post.work_environment.telework_allowed[work_environment.telework_allowed_frequency.name],
                         noInfo
@@ -150,7 +150,7 @@
                 </span>
                 <p
                     class="job-post__culture-copy">
-                    {{ handleOutput(
+                    {{ handleNullState(
                         job_post.work_environment.time_flexibility_allowed[work_environment.flexible_hours_frequency.name],
                         job_post.work_environment.time_flexibility_allowed[work_environment.flexible_hours_frequency.name],
                         noInfo
@@ -186,7 +186,7 @@
                 </span>
                 <p class="job-post__culture-copy">
 
-                    {{ handleOutput(
+                    {{ handleNullState(
                         team_culture.team_size,
                         '<span>' ~ team_culture.team_size ~ '</span>',
                         noInfo
@@ -226,7 +226,7 @@
                 </span>
                 <p
                     class="job-post__culture-copy">
-                    {{ handleOutput(
+                    {{ handleNullState(
                         team_culture.operating_context,
                         team_culture.operating_context|nl2br,
                         noInfo
@@ -242,7 +242,7 @@
                 </span>
                 <p
                     class="job-post__culture-copy">
-                    {{ handleOutput(
+                    {{ handleNullState(
                         team_culture.what_we_value,
                         team_culture.what_we_value|nl2br,
                         noInfo
@@ -258,7 +258,7 @@
                 </span>
                 <p
                     class="job-post__culture-copy final">
-                    {{ handleOutput(
+                    {{ handleNullState(
                         team_culture.how_we_work,
                         team_culture.how_we_work|nl2br,
                         noInfo
