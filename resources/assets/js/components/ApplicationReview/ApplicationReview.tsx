@@ -79,7 +79,7 @@ export default class ApplicationReview extends React.Component<
         showCancelButton: true,
         confirmButtonColor: "#0A6CBC",
         cancelButtonColor: "#F94D4D",
-        confirmButtonText: "Conirm"
+        confirmButtonText: "Confirm"
       }).then(result => {
         if (result.value) {
           onStatusChange(application.id, status);
