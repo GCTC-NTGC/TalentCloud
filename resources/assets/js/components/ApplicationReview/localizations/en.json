@@ -8,5 +8,17 @@
     "optionalConsideration.description": "EN In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
     "screenedOut.title": "EN No Longer Under Consideration",
     "screenedOut.description": "EN These applications have allready been screened out.",
-    "screenOutAll": "EN Screen All Optional Candidates Out"
+    "screenOutAll": "EN Screen All Optional Candidates Out",
+    "priorityApplicants.title": "EN Priority Applicants",
+    "priorityApplicants.description": "EN These are priority applicants for this position. They must be reviewed and considered first.",
+    "veteransAndCitizens.title": "EN Veterans and Canadian Citizens",
+    "veteransAndCitizens.description": "EN ",
+    "nonCitizens.title": "EN Non-Canadian Citizens",
+    "nonCitizens.description": "EN ",
+    "essentialCriteriaFail.title": "EN Don't Meet Essential Criteria",
+    "essentailCriteriaFail.description": "EN ",
+    "toggleAccordion": "EN Toggle this step to view relevant applicants."
+
+
+
 }

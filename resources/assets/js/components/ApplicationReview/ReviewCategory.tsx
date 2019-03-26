@@ -37,7 +37,7 @@ const ReviewCategory: React.StatelessComponent<
   savingStatuses,
   prioritizeVeterans,
   intl
-}: ReviewCategoryProps): React.ReactElement | null => {
+}: ReviewCategoryProps & InjectedIntlProps): React.ReactElement | null => {
   if (applications.length === 0) {
     return null;
   }
@@ -64,30 +64,64 @@ const ReviewCategory: React.StatelessComponent<
 
   const buckets = [
     {
-      title: "Priority Applicants",
-      description:
-        "These are priority applicants for this position. They must be reviewed and considered first.",
+      title: {
+        id: "priorityApplicants.title",
+        defaultMessage: "DT Priority Applicants",
+        description: "title of list of priority applicants"
+      },
+      description: {
+        id: "priorityApplicants.description",
+        defaultMessage:
+          "DT These are priority applicants for this position. They must be reviewed and considered first.",
+        description: "description of list of priority applicants"
+      },
       applications: applications.filter(
         application => applicationBucket(application) === "priority"
       )
     },
     {
-      title: "Veterans and Canadian Citizens",
-      description: "",
+      title: {
+        id: "veteransAndCitizens.title",
+        defaultMessage: "DT Veterans and Canadian Citizens",
+        description: "title of list of Veterans and Canadian citizens"
+      },
+      description: {
+        id: "veteransAndCitizens.description",
+        defaultMessage: "DT ",
+        description: "description of list of Venterans and Canadian citizens"
+      },
       applications: applications.filter(
         application => applicationBucket(application) === "citizen"
       )
     },
     {
-      title: "Non-Canadian Citizens",
-      description: "",
+      title: {
+        id: "nonCitizens.title",
+        defaultMessage: "DT Non-Canadian Citizens",
+        description: "title of list of non-citizen applicants"
+      },
+      description: {
+        id: "nonCitizens.description",
+        defaultMessage: "DT ",
+        description: "description of list of non-citizen applicants"
+      },
       applications: applications.filter(
         application => applicationBucket(application) === "non-citizen"
       )
     },
     {
-      title: "Don't Meed Essential Criteria",
-      description: "",
+      title: {
+        id: "essentialCriteriaFail.title",
+        defaultMessage: "DT Don't Meet Essential Criteria",
+        description:
+          "title of list of applicants who do not meet the essential criteria"
+      },
+      description: {
+        id: "essentialCriteriaFail.description",
+        defaultMessage: "DT ",
+        description:
+          "description of list of applicants who do not meet the essential criteria"
+      },
       applications: applications.filter(
         application => applicationBucket(application) === "unqualified"
       )
@@ -122,7 +156,7 @@ const ReviewCategory: React.StatelessComponent<
 
       {buckets.map(bucket => (
         <ApplicantBucket
-          key={bucket.title}
+          key={bucket.title.id}
           {...bucket}
           reviewStatusOptions={reviewStatusOptions}
           onStatusChange={onStatusChange}

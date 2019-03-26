@@ -135,7 +135,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
       </div>
       {categories.map(category => (
         <ReviewCategory
-          key={category.title}
+          key={category.title.id}
           {...category}
           reviewStatusOptions={reviewStatusOptions}
           onStatusChange={onStatusChange}
