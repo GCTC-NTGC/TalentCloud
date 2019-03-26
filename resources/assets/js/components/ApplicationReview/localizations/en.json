@@ -7,5 +7,6 @@
     "optionalConsideration.title": "EN Optional Consideration",
     "optionalConsideration.description": "EN In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
     "screenedOut.title": "EN No Longer Under Consideration",
-    "screenedOut.description": "EN These applications have allready been screened out."
+    "screenedOut.description": "EN These applications have allready been screened out.",
+    "screenOutAll": "EN Screen All Optional Candidates Out"
 }

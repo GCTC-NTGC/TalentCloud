@@ -110,7 +110,12 @@ const ReviewCategory: React.StatelessComponent<
             type="button"
             onClick={handleScreenOutAllClick}
           >
-            <i className="fas fa-ban" /> Screen All Optional Candidates Out
+            <i className="fas fa-ban" />{" "}
+            <FormattedMessage
+              id="screenOutAll"
+              defaultMessage="DT Screen All Optional Candidates Out"
+              description="Button to screen out all optional candidates from competition with one click"
+            />
           </button>
         </span>
       )}
