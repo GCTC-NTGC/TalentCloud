@@ -5,9 +5,6 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
-use GuzzleHttp\Client;
-use Lcobucci\JWT\Parsing\Decoder;
-use Lcobucci\JWT\Parser;
 use App\Models\Applicant;
 use App\Models\Course;
 use App\Models\Degree;
