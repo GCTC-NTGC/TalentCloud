@@ -20,7 +20,7 @@ $factory->define(Reference::class, function (Faker $faker) {
 
 $factory->define(Project::class, function (Faker $faker) {
     return [
-        'name' => $faker->name(),
+        'name' => $faker->sentence(),
         'start_date' => $faker->dateTimeBetween('-3 years', '-1 years'),
         'end_date' => $faker->dateTimeBetween('-1 years', '-1 day'),
         'applicant_id' => function () {
