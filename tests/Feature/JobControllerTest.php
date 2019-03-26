@@ -305,7 +305,6 @@ class JobControllerTest extends TestCase
         $this->assertDatabaseHas('job_posters', $dbValues);
 
         $savedJob = JobPoster::where($dbValues)->first();
-        print_r($savedJob);
         $this->assertEquals($expectedOpenTime, humanizeTime($savedJob->open_date_time));
         $this->assertEquals($expectedOpenDate, humanizeDate($savedJob->open_date_time));
         $this->assertEquals($expectedCloseDate, humanizeDate($savedJob->close_date_time));
