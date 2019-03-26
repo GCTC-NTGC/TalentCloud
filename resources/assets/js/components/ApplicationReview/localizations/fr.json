@@ -16,6 +16,8 @@
     "nonCitizens.title": "FR Non-Canadian Citizens",
     "nonCitizens.description": "FR ",
     "essentialCriteriaFail.title": "FR Don't Meet Essential Criteria",
-    "essentailCriteriaFail.description": "FR "
+    "essentialCriteriaFail.description": "FR ",
+    "toggleAccordion": "EN Toggle this step to view relevant applicants."
+
 }
 
