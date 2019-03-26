@@ -132,10 +132,6 @@ Route::group(
                     ->middleware('can:update,applicant')
                     ->name('profile.references.edit');
 
-                Route::post('profile/{applicant}/references/update', 'ReferencesController@updateAll')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.references.update');
-
                 /* Profile - My Portfolio */
                 Route::get('profile/portfolio', 'WorkSamplesController@editAuthenticated');
 
