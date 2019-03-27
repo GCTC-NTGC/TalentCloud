@@ -1,4 +1,5 @@
 import React from "react";
+import { FormattedMessage, FormattedHTMLMessage } from "react-intl";
 import className from "classnames";
 import Swal from "sweetalert2";
 import route from "../../helpers/route";
@@ -181,7 +182,11 @@ export default class ApplicationReview extends React.Component<
                   alt="The Talent Cloud veteran icon."
                   src="/images/icon_veteran.svg"
                 />
-                Veteran
+                <FormattedMessage
+                  id="veteran"
+                  defaultMessage="<default/> Veteran"
+                  description="Veteran"
+                />
               </span>
             )}
           </div>
@@ -192,14 +197,22 @@ export default class ApplicationReview extends React.Component<
               title="View this applicant's application."
             >
               <i className="fas fa-file-alt" />
-              View Application
+              <FormattedMessage
+                id="viewApplication"
+                defaultMessage="<default/> View Application"
+                description="Button text View Application"
+              />
             </a>
             <a
               href={route("manager.applicants.show", application.applicant)}
               title="View this applicant's profile."
             >
               <i className="fas fa-user" />
-              View Profile
+              <FormattedMessage
+                id="viewProfile"
+                defaultMessage="<default/> View Profile"
+                description="Button text View Profile"
+              />
             </a>
           </div>
 

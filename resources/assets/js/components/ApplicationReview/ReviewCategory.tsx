@@ -66,13 +66,13 @@ const ReviewCategory: React.StatelessComponent<
     {
       title: {
         id: "priorityApplicants.title",
-        defaultMessage: "DT Priority Applicants",
+        defaultMessage: "<default/> Priority Applicants",
         description: "title of list of priority applicants"
       },
       description: {
         id: "priorityApplicants.description",
         defaultMessage:
-          "DT These are priority applicants for this position. They must be reviewed and considered first.",
+          "<default/> These are priority applicants for this position. They must be reviewed and considered first.",
         description: "description of list of priority applicants"
       },
       applications: applications.filter(
@@ -82,12 +82,12 @@ const ReviewCategory: React.StatelessComponent<
     {
       title: {
         id: "veteransAndCitizens.title",
-        defaultMessage: "DT Veterans and Canadian Citizens",
+        defaultMessage: "<default/> Veterans and Canadian Citizens",
         description: "title of list of Veterans and Canadian citizens"
       },
       description: {
         id: "veteransAndCitizens.description",
-        defaultMessage: "DT ",
+        defaultMessage: "<default/> ",
         description: "description of list of Venterans and Canadian citizens"
       },
       applications: applications.filter(
@@ -97,12 +97,12 @@ const ReviewCategory: React.StatelessComponent<
     {
       title: {
         id: "nonCitizens.title",
-        defaultMessage: "DT Non-Canadian Citizens",
+        defaultMessage: "<default/> Non-Canadian Citizens",
         description: "title of list of non-citizen applicants"
       },
       description: {
         id: "nonCitizens.description",
-        defaultMessage: "DT ",
+        defaultMessage: "<default/> ",
         description: "description of list of non-citizen applicants"
       },
       applications: applications.filter(
@@ -112,13 +112,13 @@ const ReviewCategory: React.StatelessComponent<
     {
       title: {
         id: "essentialCriteriaFail.title",
-        defaultMessage: "DT Don't Meet Essential Criteria",
+        defaultMessage: "<default/> Don't Meet Essential Criteria",
         description:
           "title of list of applicants who do not meet the essential criteria"
       },
       description: {
         id: "essentialCriteriaFail.description",
-        defaultMessage: "DT ",
+        defaultMessage: "<default/> ",
         description:
           "description of list of applicants who do not meet the essential criteria"
       },
@@ -147,7 +147,7 @@ const ReviewCategory: React.StatelessComponent<
             <i className="fas fa-ban" />{" "}
             <FormattedMessage
               id="screenOutAll"
-              defaultMessage="DT Screen All Optional Candidates Out"
+              defaultMessage="<default/> Screen All Optional Candidates Out"
               description="Button to screen out all optional candidates from competition with one click"
             />
           </button>

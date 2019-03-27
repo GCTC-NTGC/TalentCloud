@@ -17,7 +17,10 @@
     "nonCitizens.description": "EN ",
     "essentialCriteriaFail.title": "EN Don't Meet Essential Criteria",
     "essentialCriteriaFail.description": "EN ",
-    "toggleAccordion": "EN Toggle this step to view relevant applicants."
+    "toggleAccordion": "EN Toggle this step to view relevant applicants.",
+    "veteran": "EN Veteran",
+    "viewApplication": "EN View Application",
+    "viewProfile": "EN View Profile"
 
 
 
