@@ -74,9 +74,7 @@ class ReferencesController extends Controller
 
         //TODO: As soon as you can interact with projects outside of references,
         //  this will become a dangerous operation
-        foreach ($reference->projects as $project) {
-            $project->delete();
-        }
+        $reference->projects()->delete();
 
         $newProjects = [];
         if ($request->input('projects')) {
@@ -121,9 +119,7 @@ class ReferencesController extends Controller
         $this->authorize('delete', $reference);
 
         //TODO: when projects exist independently on profile, delete seperatley
-        foreach ($reference->projects as $project) {
-            $project->delete();
-        }
+        $reference->projects()->delete();
 
         $reference->delete();
 
