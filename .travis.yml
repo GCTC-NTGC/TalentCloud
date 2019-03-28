@@ -17,7 +17,7 @@ cache:
 addons:
   chrome: stable # required for lightcrawler
   hosts:
-    - talentcloud.test
+    - talent.test
 
 before_install:
   # free port 5432
