@@ -7,7 +7,6 @@ use App\Services\Validation\Contracts\DataValidator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\Lookup\Relationship;
-use App\Models\Skill;
 use App\Services\Validation\Rules\SkillDeclarationBelongsToUserRule;
 
 class UpdateReferenceValidator extends BaseDataValidator implements DataValidator
@@ -21,19 +20,11 @@ class UpdateReferenceValidator extends BaseDataValidator implements DataValidato
     protected $relationshipIds;
 
     /**
-     * Array of all possible skill ids.
-     *
-     * @var int[]
-     */
-    protected $skillIds;
-
-    /**
      * Construct a new UpdateReferenceValidator
      */
     public function __construct()
     {
         $this->relationshipIds = Relationship::all()->pluck('id')->toArray();
-        $this->skillIds = Skill::all()->pluck('id')->toArray();
     }
     /**
      * Get the validation rules that apply to the request.

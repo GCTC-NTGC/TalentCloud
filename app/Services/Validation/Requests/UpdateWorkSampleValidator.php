@@ -7,7 +7,7 @@ use App\Services\Validation\Contracts\DataValidator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\Lookup\FileType;
-use App\Models\Skill;
+use App\Services\Validation\Rules\SkillDeclarationBelongsToUserRule;
 
 class UpdateWorkSampleValidator extends BaseDataValidator implements DataValidator
 {
@@ -20,19 +20,11 @@ class UpdateWorkSampleValidator extends BaseDataValidator implements DataValidat
     protected $fileTypeIds;
 
     /**
-     * Array of all possible skill ids.
-     *
-     * @var int[]
-     */
-    protected $skillIds;
-
-    /**
      * Construct a new UpdateWorkSampleValidator
      */
     public function __construct()
     {
         $this->fileTypeIds = FileType::all()->pluck('id')->toArray();
-        $this->skillIds = Skill::all()->pluck('id')->toArray();
     }
     /**
      * Get the validation rules that apply to the request.
@@ -52,7 +44,7 @@ class UpdateWorkSampleValidator extends BaseDataValidator implements DataValidat
             'description' => 'required|string',
             'relatives.skills.*.id' => [
                 'required',
-                Rule::in($this->skillIds)
+                new SkillDeclarationBelongsToUserRule
             ],
         ];
     }
