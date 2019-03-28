@@ -142,6 +142,7 @@ class JobPoster extends BaseModel
         'security_clearance_id',
         'language_requirement_id',
         'remote_work_allowed',
+        'published'
     ];
 
     /**
