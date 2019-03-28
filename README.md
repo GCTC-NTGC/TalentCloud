@@ -54,7 +54,7 @@ The Talent Cloud site uses:
 3. If using Docker for Windows, add
 
     ```bash
-    127.0.0.1	talent.local.ca
+    127.0.0.1	talentcloud.test
     ```
 
     to windows hosts file (at `C:\Windows\System32\Drivers\etc\hosts`).
@@ -72,7 +72,7 @@ The Talent Cloud site uses:
 
 6. Execute gen_certs.bat or run
 
-    `docker run --rm -v $PWD/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate`
+    `docker run --rm -v $PWD/etc/ssl:/certificates -e "SERVER=talentcloud.test" jacoelho/generate-certificate`
 
     If that doesn't work, try manually replacing $PWD with the absolute path to the TalentCloud directory.
 
@@ -199,7 +199,7 @@ See https://laravel.com/docs/5.7/seeding for more documentation on seeders.
 docker exec -it $container /bin/sh
 
 # Generate site certificate
-docker run --rm -v $PWD/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
+docker run --rm -v $PWD/etc/ssl:/certificates -e "SERVER=talentcloud.test" jacoelho/generate-certificate
 
 # Run composer install
 docker run --rm -v $PWD:/app composer/composer install

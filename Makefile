@@ -31,7 +31,7 @@ fresh-db:
 	@docker exec talentcloud sh -c "php artisan migrate:fresh"
 
 gen-certs:
-	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=talent.local.ca" jacoelho/generate-certificate
+	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=talentcloud.test" jacoelho/generate-certificate
 
 logs:
 	@docker-compose logs -f
