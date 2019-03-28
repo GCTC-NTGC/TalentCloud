@@ -102,7 +102,9 @@ class JobController extends Controller
         // Update review request timestamp
         $jobPoster->review_requested_at = new Date();
         $jobPoster->save();
-        $jobPoster->refresh();
+
+        // Refresh model instance with updated DB values.
+        $jobPoster = JobPoster::withCount('submitted_applications')->where('id', $jobPoster->id)->first();
 
         // Send email
         $reviewer_email = config('mail.reviewer_email');
