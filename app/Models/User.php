@@ -17,7 +17,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Events\UserCreated;
 use App\Events\UserUpdated;
 use App\Notifications\ResetPasswordNotification;
-use \Backpack\CRUD\CrudTrait;
+use App\CRUD\TalentCloudCrudTrait as CrudTrait;
 
 /**
  * Class User
@@ -39,13 +39,13 @@ use \Backpack\CRUD\CrudTrait;
  */
 class User extends BaseModel implements
     // Laravel contracts for native login
-        AuthenticatableContract,
-        CanResetPasswordContract,
+    AuthenticatableContract,
+    CanResetPasswordContract,
     // Contract for use with Gates and Policies
-        AuthorizableContract
+    AuthorizableContract
     // Custom contract for use with openid login
-    //    \App\Services\Auth\Contracts\OidcAuthenticatable
-        {
+    // \App\Services\Auth\Contracts\OidcAuthenticatable
+{
 
     //Traits for Laravel basic authentication
     use Authenticatable, CanResetPassword;
@@ -59,7 +59,8 @@ class User extends BaseModel implements
     protected $casts = [
         'is_confirmed' => 'boolean',
         'is_priority' => 'boolean',
-        'user_role_id' => 'int'
+        'user_role_id' => 'int',
+        'email' => 'string',
     ];
     protected $fillable = [
         'name', 'email', 'password', 'is_priority'
