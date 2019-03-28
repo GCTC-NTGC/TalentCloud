@@ -32,9 +32,9 @@ class WorkSamplesController extends Controller
      *
      * @param  Request               $request
      * @param  \App\Models\Applicant $applicant
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function edit(Request $request, Applicant $applicant): \Illuminate\View\View
+    public function edit(Request $request, Applicant $applicant)
     {
         return view('applicant/profile_05_portfolio', [
             'applicant' => $applicant,

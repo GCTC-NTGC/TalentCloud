@@ -23,9 +23,9 @@ class ApplicantProfileController extends Controller
      *
      * @param  Request               $request
      * @param  \App\Models\Applicant $applicant
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function show(Request $request, Applicant $applicant): \Illuminate\View\View
+    public function show(Request $request, Applicant $applicant)
     {
         //TODO:
         //Josh, to loop through answers&question data, leverage this data structure:
@@ -68,9 +68,9 @@ class ApplicantProfileController extends Controller
      *
      * @param  Request               $request   Incoming request object.
      * @param  \App\Models\Applicant $applicant Applicant to view and edit.
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function edit(Request $request, Applicant $applicant): \Illuminate\View\View
+    public function edit(Request $request, Applicant $applicant)
     {
         $profileQuestions = ApplicantProfileQuestion::all();
 

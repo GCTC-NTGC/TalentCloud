@@ -10,9 +10,9 @@ class HomepageController extends Controller
 {
     /**
      * Show the applicant home page
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function applicant(): \Illuminate\View\View
+    public function applicant()
     {
         return view('applicant/home', [
             'home' => Lang::get('applicant/home'),
@@ -22,9 +22,9 @@ class HomepageController extends Controller
 
     /**
      * Show the manager home page
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function manager(): \Illuminate\View\View
+    public function manager()
     {
         return view('manager/home', [
             "hero" => [
