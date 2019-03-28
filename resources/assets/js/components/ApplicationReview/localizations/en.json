@@ -20,8 +20,16 @@
     "toggleAccordion": "EN Toggle this step to view relevant applicants.",
     "veteran": "EN Veteran",
     "viewApplication": "EN View Application",
-    "viewProfile": "EN View Profile"
-
-
-
+    "viewApplication.title": "EN View this applicant's application.",
+    "viewProfile": "EN View Profile",
+    "viewProfile.title": "EN View this applicant's profile.",
+    "veteranLogo": "EN Talent cloud veteran logo",
+    "emailCandidate": "EN email this candidate.",
+    "decision": "EN Decision",
+    "notReviewed": "EN Not Reviewed",
+    "addNote": "EN + Add a Note",
+    "editNote": "EN Edit Note",
+    "saving": "EN Saving...",
+    "saved": "EN Saved",
+    "save": "EN Save"
 }
