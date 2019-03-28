@@ -7,6 +7,7 @@ import { IntlProvider, addLocaleData } from "react-intl";
 import locale_en from "react-intl/locale-data/en";
 import locale_fr from "react-intl/locale-data/fr";
 
+import camelCase from "lodash/camelCase";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Job, Application, ReviewStatus, ApplicationReview } from "../types";
@@ -191,7 +192,7 @@ export default class ReviewApplicationsContainer extends React.Component<
 
     const reviewStatusOptions = reviewStatuses.map(status => ({
       value: status.id,
-      label: status.name
+      label: camelCase(status.name)
     }));
 
     return (

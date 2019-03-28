@@ -1,6 +1,7 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import React from "react";
 import ReactDOM from "react-dom";
+import camelCase from "lodash/camelCase";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Application, ReviewStatus, ApplicationReview } from "../types";
@@ -99,7 +100,7 @@ export default class ApplicationReviewContainer extends React.Component<
     const { application, isSaving } = this.state;
     const reviewStatusOptions = reviewStatuses.map(status => ({
       value: status.id,
-      label: status.name
+      label: camelCase(status.name)
     }));
     return (
       <div className="applicant-review container--layout-xl">

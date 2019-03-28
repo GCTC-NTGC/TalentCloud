@@ -175,9 +175,28 @@ class ApplicationReview extends React.Component<
         id: "editNote",
         defaultMessage: "<default/> Edit Note",
         description: "Dynaming Note button label"
+      },
+      screenedOut: {
+        id: "screenedOut",
+        defaultMessage: "<default/> Screened Out",
+        description: "Dynaming Note button label"
+      },
+      stillThinking: {
+        id: "stillThinking",
+        defaultMessage: "<default/> Still Thinking",
+        description: "Dynaming Note button label"
+      },
+      stillIn: {
+        id: "stillIn",
+        defaultMessage: "<default/> Still In",
+        description: "Dynaming Note button label"
       }
     });
     const { application, reviewStatusOptions, isSaving, intl } = this.props;
+    const reviewStatusOptionsL10n = reviewStatusOptions.map(status => ({
+      value: status.value,
+      label: intl.formatMessage(messages[status.label])
+    }));
     const { selectedStatusId } = this.state;
     const reviewStatus =
       application.application_review &&
@@ -286,7 +305,7 @@ class ApplicationReview extends React.Component<
               label={intl.formatMessage(messages.decision)}
               selected={selectedStatusId}
               nullSelection={intl.formatMessage(messages.notReviewed)}
-              options={reviewStatusOptions}
+              options={reviewStatusOptionsL10n}
               onChange={this.handleStatusChange}
             />
           </div>
