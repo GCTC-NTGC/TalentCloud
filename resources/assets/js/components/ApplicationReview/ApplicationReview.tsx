@@ -1,5 +1,11 @@
 import React from "react";
-import { FormattedMessage, FormattedHTMLMessage } from "react-intl";
+import {
+  injectIntl,
+  InjectedIntlProps,
+  FormattedMessage,
+  defineMessages,
+  intlShape
+} from "react-intl";
 import className from "classnames";
 import Swal from "sweetalert2";
 import route from "../../helpers/route";
@@ -19,11 +25,11 @@ interface ApplicationReviewState {
   selectedStatusId: number | undefined;
 }
 
-export default class ApplicationReview extends React.Component<
-  ApplicationReviewProps,
+class ApplicationReview extends React.Component<
+  ApplicationReviewProps & InjectedIntlProps,
   ApplicationReviewState
 > {
-  public constructor(props: ApplicationReviewProps) {
+  public constructor(props: ApplicationReviewProps & InjectedIntlProps) {
     super(props);
     this.state = {
       selectedStatusId:
@@ -115,7 +121,7 @@ export default class ApplicationReview extends React.Component<
   }
 
   public render(): React.ReactElement {
-    const { application, reviewStatusOptions, isSaving } = this.props;
+    const { application, reviewStatusOptions, isSaving, intl } = this.props;
     const { selectedStatusId } = this.state;
     const reviewStatus =
       application.application_review &&
@@ -159,6 +165,13 @@ export default class ApplicationReview extends React.Component<
       application.application_review && application.application_review.notes
         ? "Edit Note"
         : "+ Add a Note";
+    const messages = defineMessages({
+      veteranLogo: {
+        id: "veteranLogo",
+        defaultMessage: "DT Talent cloud veteran logo",
+        description: "Alt Text for Veteran Logo Img"
+      }
+    });
     return (
       <form className="applicant-summary">
         <div className="flex-grid middle gutter">
@@ -179,7 +192,7 @@ export default class ApplicationReview extends React.Component<
               application.veteran_status.name === "past") && (
               <span className="veteran-status">
                 <img
-                  alt="The Talent Cloud veteran icon."
+                  alt={intl.formatMessage(messages.veteranLogo)}
                   src="/images/icon_veteran.svg"
                 />
                 <FormattedMessage
@@ -252,3 +265,5 @@ export default class ApplicationReview extends React.Component<
     );
   }
 }
+
+export default injectIntl(ApplicationReview);
