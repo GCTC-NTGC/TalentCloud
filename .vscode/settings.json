@@ -7,7 +7,6 @@
         "**/vendor/**": true
     },
     "php.suggest.basic": false,
-    "phpcbf.standard": "./ruleset.xml",
     "phpcs.standard": "./ruleset.xml",
     "eslint.autoFixOnSave": true,
     "eslint.validate": [
