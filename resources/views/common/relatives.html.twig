@@ -1,5 +1,5 @@
 {% if prefix %}
-    {% set name_prefix = prefix ~ "[relatives][:relativeType][:id]"|replace({":relativeType":relativeToken}) %}
+    {% set name_prefix = "relatives[:relativeType][:id]"|replace({":relativeType":relativeToken}) %}
     {% set id_prefix = prefix ~ "_relatives_:relativeType_:id"|replace({":relativeType":relativeToken}) %}
 {% else %}
     {% set name_prefix = "relatives[:relativeType][:id]"|replace({":relativeType":relativeToken}) %}
