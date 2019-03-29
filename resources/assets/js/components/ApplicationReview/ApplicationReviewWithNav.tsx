@@ -295,8 +295,8 @@ class ApplicationReviewWithNav extends React.Component<
                 data-button-type="expand-all"
                 type="button"
               >
-                <span className="expand">Expand Accordions</span>
-                <span className="collapse">Collapse Accordions</span>
+                <span className="expand">Expand All Skills</span>
+                <span className="collapse">Collapse All Skills</span>
               </button>
             </div>
           </div>

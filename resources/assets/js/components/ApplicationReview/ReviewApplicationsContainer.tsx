@@ -10,15 +10,14 @@ import locale_fr from "react-intl/locale-data/fr";
 import camelCase from "lodash/camelCase";
 import axios from "axios";
 import Swal from "sweetalert2";
+import messages_en from "./localizations/en.json";
+import messages_fr from "./localizations/fr.json";
 import { Job, Application, ReviewStatus, ApplicationReview } from "../types";
 import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
 import route from "../../helpers/route";
 
 addLocaleData([...locale_en, ...locale_fr]);
-
-import messages_en from "./localizations/en.json";
-import messages_fr from "./localizations/fr.json";
 
 const messages = {
   en: messages_en,
