@@ -23,7 +23,7 @@ class ApplicantProfileController extends Controller
      *
      * @param  Request               $request
      * @param  \App\Models\Applicant $applicant
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function show(Request $request, Applicant $applicant)
     {
@@ -52,11 +52,23 @@ class ApplicantProfileController extends Controller
     }
 
     /**
-     * Show the form for editing the logged-in user's applicant profile
+     * Show the form for editing the logged-in applicant's profile
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editAuthenticated(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $applicant = $request->user()->applicant;
+        return redirect(route('profile.about.edit', $applicant));
+    }
+
+    /**
+     * Show the form for editing an applicant profile
      *
      * @param  Request               $request   Incoming request object.
      * @param  \App\Models\Applicant $applicant Applicant to view and edit.
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function edit(Request $request, Applicant $applicant)
     {
@@ -82,7 +94,8 @@ class ApplicantProfileController extends Controller
         }
 
         return view(
-            'applicant/profile_01_about', [
+            'applicant/profile_01_about',
+            [
             /* Localized strings*/
             'profile' => $profileText,
             /* Applicant Profile Questions */
@@ -104,7 +117,7 @@ class ApplicantProfileController extends Controller
      * @param  \App\Models\Applicant $applicant Applicant object to update.
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Applicant $applicant)
+    public function update(Request $request, Applicant $applicant): \Illuminate\Http\RedirectResponse
     {
         $questions = ApplicantProfileQuestion::all();
 

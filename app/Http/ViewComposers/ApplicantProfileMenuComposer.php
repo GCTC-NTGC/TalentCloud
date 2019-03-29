@@ -43,7 +43,6 @@ class ApplicantProfileMenuComposer
                 break;
             case('profile.references'):
             case('profile.references.edit'):
-            case('profile.references.update'):
                 $profileMenu['references']['active'] = true;
                 break;
             case('profile.portfolio'):

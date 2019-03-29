@@ -243,7 +243,7 @@ class JobControllerTest extends TestCase
         $response = $this->actingAs($this->manager->user)
         ->get('manager/jobs/' . $this->publishedJob->id . '/edit');
 
-        $response->assertStatus(500);
+        $response->assertStatus(403);
     }
 
     /**
