@@ -15,18 +15,15 @@ const path = require("path");
  */
 
 mix
-  .js("resources/assets/js/bootstrap.js", "public/js")
+  .ts("resources/assets/js/bootstrap.js", "public/js")
   .js("resources/assets/js/app.js", "public/js")
   .js("resources/assets/js/autocomplete.js", "public/js")
   .js("resources/assets/js/modernizr.js", "public/js")
   .js("resources/assets/js/jquery-ui.min.js", "public/js")
   .js("resources/assets/js/alerts.js", "public/js")
-  .ts("resources/assets/js/components.tsx", "public/js")
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: require("node-sass"),
-    includePaths: [
-      "node_modules/@fortawesome/fontawesome-free/scss",
-    ]
+    includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"]
   })
   .options({
     processCssUrls: false,
