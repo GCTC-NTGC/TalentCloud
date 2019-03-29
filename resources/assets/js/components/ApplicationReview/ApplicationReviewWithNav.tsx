@@ -231,6 +231,10 @@ class ApplicationReviewWithNav extends React.Component<
 
   public render(): React.ReactElement {
     const { application, reviewStatusOptions, isSaving, intl } = this.props;
+    const l10nReviewStatusOptions = reviewStatusOptions.map(status => ({
+      value: status.value,
+      label: intl.formatMessage(messages[status.label])
+    }));
     const { selectedStatusId } = this.state;
     const reviewStatus =
       application.application_review &&
@@ -365,7 +369,7 @@ class ApplicationReviewWithNav extends React.Component<
                 label={intl.formatMessage(messages.decision)}
                 selected={selectedStatusId}
                 nullSelection={intl.formatMessage(messages.notReviewed)}
-                options={reviewStatusOptions}
+                options={l10nReviewStatusOptions}
                 onChange={this.handleStatusChange}
               />
             </div>
