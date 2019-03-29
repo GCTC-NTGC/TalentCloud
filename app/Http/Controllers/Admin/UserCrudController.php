@@ -22,6 +22,9 @@ class UserCrudController extends CrudController
         $this->crud->denyAccess('create');
         $this->crud->denyAccess('delete');
 
+        // Add the custom blade button found in resources/views/vendor/backpack/crud/buttons/profile_edit.blade.php
+        $this->crud->addButtonFromView('line', 'profile_edit', 'profile_edit', 'end');
+
         $this->crud->addColumn([
             'name' => 'name',
             'type' => 'text',
