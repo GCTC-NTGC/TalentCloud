@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Application, ReviewStatus, ApplicationReview } from "../types";
-import route from "../../helpers/route";
+import * as route from "../../helpers/routes";
 import ApplicationReviewWithNav from "./ApplicationReviewWithNav";
 
 interface ApplicationReviewContainerProps {
@@ -50,7 +50,7 @@ export default class ApplicationReviewContainer extends React.Component<
     const { application } = this.state;
     this.setState({ isSaving: true });
     return axios
-      .put(route("application_reviews.update", application.id), review)
+      .put(route.applicationReviewUpdate("en", application.id), review)
       .then(response => {
         const newReview = response.data as ApplicationReview;
         this.updateReviewState(newReview);
