@@ -38,6 +38,7 @@
     "expandAllSkills": "FR Expand All Skills",
     "collapseAllSkills": "FR Collapse All Skills",
     "viewJobPoster": "FR View Job Poster",
-    "backToApplicantList": "FR < Save and Go Back to Applicant List"
+    "backToApplicantList": "FR < Save and Go Back to Applicant List",
+    "cancelButton": "FR Cancel"
 }
 

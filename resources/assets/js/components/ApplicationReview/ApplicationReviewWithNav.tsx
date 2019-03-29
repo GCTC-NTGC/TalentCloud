@@ -49,7 +49,7 @@ const messages = defineMessages({
     description: "Dynaming Save button label"
   },
   save: {
-    id: "saving",
+    id: "save",
     defaultMessage: "<default/> Save",
     description: "Dynaming Save button label"
   },
@@ -72,6 +72,11 @@ const messages = defineMessages({
     id: "screenedOut",
     defaultMessage: "<default/> Screened Out",
     description: "Dynaming Note button label"
+  },
+  cancel: {
+    id: "cancel",
+    defaultMessage: "<default/> Cancel",
+    description: "Cancel button label"
   },
   stillThinking: {
     id: "stillThinking",
@@ -183,19 +188,20 @@ class ApplicationReviewWithNav extends React.Component<
   }
 
   protected showNotes(): void {
-    const { application, onNotesChange } = this.props;
+    const { application, onNotesChange, intl } = this.props;
     const notes =
       application.application_review && application.application_review.notes
         ? application.application_review.notes
         : "";
     Swal.fire({
-      title: "Edit notes",
+      title: intl.formatMessage(messages.editNote),
       type: "question",
       input: "textarea",
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
       cancelButtonColor: "#F94D4D",
-      confirmButtonText: "Save",
+      cancelButtonText: intl.formatMessage(messages.cancel),
+      confirmButtonText: intl.formatMessage(messages.save),
       inputValue: notes
     }).then(result => {
       if (result && result.value !== undefined) {
