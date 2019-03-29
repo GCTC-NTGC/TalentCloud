@@ -12,6 +12,79 @@ import Select, { SelectOption } from "../Select";
 import { Application } from "../types";
 import { ReviewStatusId } from "../lookupConstants";
 
+const messages = defineMessages({
+  veteranLogo: {
+    id: "veteranLogo",
+    defaultMessage: "<default/> Talent cloud veteran logo",
+    description: "Alt Text for Veteran Logo Img"
+  },
+  emailCandidate: {
+    id: "emailCandidate",
+    defaultMessage: "<default/> Email this candidate.",
+    description: "Title, hover text, for email link."
+  },
+  viewApplicationTitle: {
+    id: "viewApplication.title",
+    defaultMessage: "<default/> View this applicant's application.",
+    description: "Title, hover text, for View Applection Link"
+  },
+  viewProfileTitle: {
+    id: "viewProfile.title",
+    defaultMessage: "<default/> View this applicant's profile.",
+    description: "Title, hover text, for View Profile Link"
+  },
+  decision: {
+    id: "decision",
+    defaultMessage: "<default/> Decision",
+    description: "Decision dropdown label"
+  },
+  notReviewed: {
+    id: "notReviewed",
+    defaultMessage: "<default/> Not Reviewed",
+    description: "Decision dropdown label"
+  },
+  saving: {
+    id: "saving",
+    defaultMessage: "<default/> Saving...",
+    description: "Dynaming Save button label"
+  },
+  save: {
+    id: "saving",
+    defaultMessage: "<default/> Save",
+    description: "Dynaming Save button label"
+  },
+  saved: {
+    id: "saved",
+    defaultMessage: "<default/> Saved",
+    description: "Dynaming Save button label"
+  },
+  addNote: {
+    id: "addNote",
+    defaultMessage: "<default/> + Add a Note",
+    description: "Dynaming Note button label"
+  },
+  editNote: {
+    id: "editNote",
+    defaultMessage: "<default/> Edit Note",
+    description: "Dynaming Note button label"
+  },
+  screenedOut: {
+    id: "screenedOut",
+    defaultMessage: "<default/> Screened Out",
+    description: "Dynaming Note button label"
+  },
+  stillThinking: {
+    id: "stillThinking",
+    defaultMessage: "<default/> Still Thinking",
+    description: "Dynaming Note button label"
+  },
+  stillIn: {
+    id: "stillIn",
+    defaultMessage: "<default/> Still In",
+    description: "Dynaming Note button label"
+  }
+});
+
 interface ApplicationReviewProps {
   application: Application;
   reviewStatusOptions: SelectOption<number>[];
@@ -120,78 +193,6 @@ class ApplicationReview extends React.Component<
   }
 
   public render(): React.ReactElement {
-    const messages = defineMessages({
-      veteranLogo: {
-        id: "veteranLogo",
-        defaultMessage: "<default/> Talent cloud veteran logo",
-        description: "Alt Text for Veteran Logo Img"
-      },
-      emailCandidate: {
-        id: "emailCandidate",
-        defaultMessage: "<default/> Email this candidate.",
-        description: "Title, hover text, for email link."
-      },
-      viewApplicationTitle: {
-        id: "viewApplication.title",
-        defaultMessage: "<default/> View this applicant's application.",
-        description: "Title, hover text, for View Applection Link"
-      },
-      viewProfileTitle: {
-        id: "viewProfile.title",
-        defaultMessage: "<default/> View this applicant's profile.",
-        description: "Title, hover text, for View Profile Link"
-      },
-      decision: {
-        id: "decision",
-        defaultMessage: "<default/> Decision",
-        description: "Decision dropdown label"
-      },
-      notReviewed: {
-        id: "notReviewed",
-        defaultMessage: "<default/> Not Reviewed",
-        description: "Decision dropdown label"
-      },
-      saving: {
-        id: "saving",
-        defaultMessage: "<default/> Saving...",
-        description: "Dynaming Save button label"
-      },
-      save: {
-        id: "saving",
-        defaultMessage: "<default/> Save",
-        description: "Dynaming Save button label"
-      },
-      saved: {
-        id: "saved",
-        defaultMessage: "<default/> Saved",
-        description: "Dynaming Save button label"
-      },
-      addNote: {
-        id: "addNote",
-        defaultMessage: "<default/> + Add a Note",
-        description: "Dynaming Note button label"
-      },
-      editNote: {
-        id: "editNote",
-        defaultMessage: "<default/> Edit Note",
-        description: "Dynaming Note button label"
-      },
-      screenedOut: {
-        id: "screenedOut",
-        defaultMessage: "<default/> Screened Out",
-        description: "Dynaming Note button label"
-      },
-      stillThinking: {
-        id: "stillThinking",
-        defaultMessage: "<default/> Still Thinking",
-        description: "Dynaming Note button label"
-      },
-      stillIn: {
-        id: "stillIn",
-        defaultMessage: "<default/> Still In",
-        description: "Dynaming Note button label"
-      }
-    });
     const { application, reviewStatusOptions, isSaving, intl } = this.props;
     const reviewStatusOptionsL10n = reviewStatusOptions.map(status => ({
       value: status.value,

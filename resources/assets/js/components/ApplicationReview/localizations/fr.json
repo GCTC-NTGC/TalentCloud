@@ -17,7 +17,20 @@
     "nonCitizens.description": "FR ",
     "essentialCriteriaFail.title": "FR Don't Meet Essential Criteria",
     "essentialCriteriaFail.description": "FR ",
-    "toggleAccordion": "EN Toggle this step to view relevant applicants."
-
+    "toggleAccordion": "FR Toggle this step to view relevant applicants.",
+    "veteran": "FR Veteran",
+    "viewApplication": "FR View Application",
+    "viewApplication.title": "FR View this applicant's application.",
+    "viewProfile": "FR View Profile",
+    "viewProfile.title": "FR View this applicant's profile.",
+    "veteranLogo": "FR Talent cloud veteran logo",
+    "emailCandidate": "FR email this candidate.",
+    "decision": "FR Decision",
+    "notReviewed": "FR Not Reviewed",
+    "addNote": "FR + Add a Note",
+    "editNote": "FR Edit Note",
+    "saving": "FR Saving...",
+    "saved": "FR Saved",
+    "save": "FR Save"
 }
 

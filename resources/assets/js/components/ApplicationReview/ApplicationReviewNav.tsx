@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import route from "../../helpers/route";
 
 interface ApplicationReviewNavProps {
@@ -7,11 +8,11 @@ interface ApplicationReviewNavProps {
 }
 
 const ApplicationReviewNav: React.FunctionComponent<
-  ApplicationReviewNavProps
+  ApplicationReviewNavProps & InjectedIntlProps
 > = ({
   applicationReview,
   jobPosterId
-}: ApplicationReviewNavProps): React.ReactElement => {
+}: ApplicationReviewNavProps & InjectedIntlProps): React.ReactElement => {
   return (
     <div>
       <div className="container--layout-xl">
@@ -49,4 +50,4 @@ const ApplicationReviewNav: React.FunctionComponent<
   );
 };
 
-export default ApplicationReviewNav;
+export default injectIntl(ApplicationReviewNav);

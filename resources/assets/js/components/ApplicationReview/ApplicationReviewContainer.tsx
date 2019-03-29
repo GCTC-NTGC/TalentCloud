@@ -1,12 +1,32 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import React from "react";
 import ReactDOM from "react-dom";
+
+// Internationalizations
+import {
+  IntlProvider,
+  addLocaleData,
+  injectIntl,
+  InjectedIntlProps
+} from "react-intl";
+import locale_en from "react-intl/locale-data/en";
+import locale_fr from "react-intl/locale-data/fr";
+
 import camelCase from "lodash/camelCase";
 import axios from "axios";
 import Swal from "sweetalert2";
+import messages_en from "./localizations/en.json";
+import messages_fr from "./localizations/fr.json";
 import { Application, ReviewStatus, ApplicationReview } from "../types";
 import route from "../../helpers/route";
 import ApplicationReviewWithNav from "./ApplicationReviewWithNav";
+
+addLocaleData([...locale_en, ...locale_fr]);
+
+const messages = {
+  en: messages_en,
+  fr: messages_fr
+};
 
 interface ApplicationReviewContainerProps {
   initApplication: Application;
@@ -24,10 +44,12 @@ interface ReviewSubmitForm {
 }
 
 export default class ApplicationReviewContainer extends React.Component<
-  ApplicationReviewContainerProps,
+  ApplicationReviewContainerProps & InjectedIntlProps,
   ApplicationReviewContainerState
 > {
-  public constructor(props: ApplicationReviewContainerProps) {
+  public constructor(
+    props: ApplicationReviewContainerProps & InjectedIntlProps
+  ) {
     super(props);
     this.state = {
       application: props.initApplication,
@@ -44,7 +66,9 @@ export default class ApplicationReviewContainer extends React.Component<
     const updatedApplication = Object.assign(application, {
       application_review: review
     });
-    this.setState({ application: updatedApplication });
+    this.setState({
+      application: updatedApplication
+    });
   }
 
   protected submitReview(review: ReviewSubmitForm): Promise<void> {
@@ -131,11 +155,15 @@ if (document.getElementById("application-review-container")) {
     const reviewStatuses = JSON.parse(container.getAttribute(
       "data-review-statuses"
     ) as string);
+    const language = container.getAttribute("data-locale") as string;
+    const ReviewContainer = injectIntl(ApplicationReviewContainer);
     ReactDOM.render(
-      <ApplicationReviewContainer
-        initApplication={applications}
-        reviewStatuses={reviewStatuses}
-      />,
+      <IntlProvider locale={language} messages={messages[language]}>
+        <ReviewContainer
+          initApplication={applications}
+          reviewStatuses={reviewStatuses}
+        />
+      </IntlProvider>,
       container
     );
   }
