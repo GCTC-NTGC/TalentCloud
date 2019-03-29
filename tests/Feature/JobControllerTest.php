@@ -67,10 +67,8 @@ class JobControllerTest extends TestCase
         'published' => false,
         'remote_work_allowed' => $this->faker->boolean(50),
         'open_date' => $this->faker->date('Y-m-d', strtotime('+1 day')),
-        'open_time' => $this->faker->time(),
         'close_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
-        'close_time' => $this->faker->time(),
-        'start_date_time' => $this->faker->date('Y-m-d', strtotime('+2 weeks')) . ' ' . $this->faker->time(),
+        'start_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
         'security_clearance' => SecurityClearance::inRandomOrder()->first()->id,
         'language_requirement' => LanguageRequirement::inRandomOrder()->first()->id,
         'department' => Department::inRandomOrder()->first()->id,
@@ -245,7 +243,7 @@ class JobControllerTest extends TestCase
         $response = $this->actingAs($this->manager->user)
         ->get('manager/jobs/' . $this->publishedJob->id . '/edit');
 
-        $response->assertStatus(500);
+        $response->assertStatus(403);
     }
 
     /**
@@ -266,5 +264,50 @@ class JobControllerTest extends TestCase
         ->post('manager/jobs/', $newJob);
         $response->assertStatus(200);
         $this->assertDatabaseHas('job_posters', $dbValues);
+    }
+
+    /**
+     * Ensure that open and close datetimes are set to midnight PST
+     * at the start and end of the desired day.
+     *
+     * @return void
+     */
+    public function testSavedJobHasCorrectTimes() : void
+    {
+        $timezone = config('app.local_timezone');
+        $dateFormat = config('app.date_format')['en'];
+        $timeFormat = config('app.time_format')['en'];
+
+        $openDate = Date::parse("2019-01-01");
+        $closeDate = Date::parse("2019-01-31");
+
+        $expectedOpenDateTime = Date::parse("2019-01-01 00:00:00", "PST");
+        $expectedOpenDateTime->timezone($timezone);
+        $expectedOpenDate = $expectedOpenDateTime->format($dateFormat);
+        $expectedOpenTime = $expectedOpenDateTime->format($timeFormat);
+
+        $expectedCloseDateTime = Date::parse("2019-01-31 23:59:59", "PST");
+        $expectedCloseDateTime->timezone($timezone);
+        $expectedCloseDate = $expectedCloseDateTime->format($dateFormat);
+        $expectedCloseTime = $expectedCloseDateTime->format($timeFormat);
+
+        $newJob = $this->generateEditJobFormData();
+        $newJob['open_date'] = $openDate;
+        $newJob['close_date'] = $closeDate;
+
+        //Expected db values
+        $dbValues = array_slice($newJob, 0, 8);
+
+        $response = $this->followingRedirects()
+            ->actingAs($this->manager->user)
+            ->post('manager/jobs/', $newJob);
+
+        $this->assertDatabaseHas('job_posters', $dbValues);
+
+        $savedJob = JobPoster::where($dbValues)->first();
+        $this->assertEquals($expectedOpenTime, humanizeTime($savedJob->open_date_time));
+        $this->assertEquals($expectedOpenDate, humanizeDate($savedJob->open_date_time));
+        $this->assertEquals($expectedCloseDate, humanizeDate($savedJob->close_date_time));
+        $this->assertEquals($expectedCloseTime, humanizeTime($savedJob->close_date_time));
     }
 }

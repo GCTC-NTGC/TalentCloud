@@ -93,7 +93,7 @@ class Handler extends ExceptionHandler
                 'error' => [
                     "title" => "Error"
                 ]
-            ], 500, $e->getHeaders());
+            ], $e->getStatusCode(), $e->getHeaders());
         }
         return parent::renderHttpException($e);
     }

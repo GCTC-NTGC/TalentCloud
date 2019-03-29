@@ -107,3 +107,51 @@ if (!function_exists('humanizeLastDay')) {
         return humanizeDate($lastday);
     }
 }
+
+if (!function_exists('pstDayStartToUtcTime')) {
+    /**
+     * Given a date, creates a datetime object representing the start of day Pacific Standard Time (12:00), but converted to UTC.
+     *
+     * @param integer $year
+     * @param integer $month
+     * @param integer $day
+     * @return Date
+     */
+    function pstDayStartToUtcTime(int $year, int $month, int $day): Date
+    {
+        $date = Date::now();
+        $date->year = $year;
+        $date->month = $month;
+        $date->day = $day;
+        $date->hour = 8;
+        $date->minute = 0;
+        $date->second = 0;
+        return $date;
+    }
+}
+
+if (!function_exists('pstDayEndToUtcTime')) {
+    /**
+     * Given a date, creates a datetime object representing end of day Pacific Standard Time (23:59:59), but converted to UTC.
+     *
+     * @param integer $year
+     * @param integer $month
+     * @param integer $day
+     * @return Date
+     */
+    function pstDayEndToUtcTime(int $year, int $month, int $day): Date
+    {
+        $date = Date::now();
+        $date->year = $year;
+        $date->month = $month;
+        $date->day = $day;
+
+        //23:59 March 1 PST is 7:59 March 2 UTC, so add a day
+        $date->addDay();
+
+        $date->hour = 7;
+        $date->minute = 59;
+        $date->second = 59;
+        return $date;
+    }
+}

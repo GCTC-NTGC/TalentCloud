@@ -15,16 +15,17 @@ class WorkSamplesController extends Controller
 {
 
     /**
-     * Display the Work Samples associated with the applicant.
+     * Show the form for editing the logged-in applicant's Work Samples
      *
-     * @param  \App\Models\Applicant  $applicant
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show(Applicant $applicant)
+    public function editAuthenticated(Request $request): \Illuminate\Http\RedirectResponse
     {
-        //
-
+        $applicant = $request->user()->applicant;
+        return redirect(route('profile.work_samples.edit', $applicant));
     }
+
 
     /**
      * Show the form for editing the applicant's work samples
@@ -50,8 +51,8 @@ class WorkSamplesController extends Controller
     /**
      * Update the workSample in storage, or create new one.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\WorkSample|null  $workSample
+     * @param  \Illuminate\Http\Request    $request
+     * @param  \App\Models\WorkSample|null $workSample
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ?WorkSample $workSample = null)
@@ -87,8 +88,8 @@ class WorkSamplesController extends Controller
     /**
      * Delete the particular work sample from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\WorkSample  $workSample
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\WorkSample   $workSample
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, WorkSample $workSample)
@@ -97,7 +98,7 @@ class WorkSamplesController extends Controller
 
         $workSample->delete();
 
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return [
                 "message" => 'Work sample deleted'
             ];
@@ -105,5 +106,4 @@ class WorkSamplesController extends Controller
 
         return redirect()->back();
     }
-
 }

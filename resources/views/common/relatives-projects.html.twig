@@ -1,9 +1,9 @@
 {% if prefix %}
-    {% set name_prefix = prefix ~ "[projects][:id]" %}
-    {% set id_prefix = name_prefix %}
+    {% set name_prefix = "projects[:id]" %}
+    {% set id_prefix = prefix ~ "[projects][:id]" %}
 {% else %}
     {% set name_prefix = "projects[:id]" %}
-    {% set id_prefix = name_prefix %}
+    {% set id_prefix = "projects[:id]" %}
 {% endif %}
 
 {% if relative %}
