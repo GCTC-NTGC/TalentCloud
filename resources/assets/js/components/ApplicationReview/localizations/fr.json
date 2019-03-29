@@ -31,6 +31,13 @@
     "editNote": "FR Edit Note",
     "saving": "FR Saving...",
     "saved": "FR Saved",
-    "save": "FR Save"
+    "save": "FR Save",
+    "screenedOut": "FR Screened Out",
+    "stillThinking": "FR Still Thinking",
+    "stillIn": "FR Still In",
+    "expandAllSkills": "FR Expand All Skills",
+    "collapseAllSkills": "FR Collapse All Skills",
+    "viewJobPoster": "FR View Job Poster",
+    "backToApplicantList": "FR < Save and Go Back to Applicant List"
 }
 

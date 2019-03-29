@@ -279,7 +279,11 @@ class ApplicationReviewWithNav extends React.Component<
                   )
                 }
               >
-                &#60; Save and Go Back to Applicant List
+                <FormattedMessage
+                  id="backToApplicantList"
+                  defaultMessage="<default/> < Save and Go Back to Applicant List"
+                  description="Back Button text"
+                />
               </button>
             </div>
             <div className="box small-2of3">
@@ -292,15 +296,33 @@ class ApplicationReviewWithNav extends React.Component<
                   )
                 }
               >
-                View JobPoster
+                <FormattedMessage
+                  id="viewJobPoster"
+                  defaultMessage="<default/> View Job Poster"
+                  description="View Job Poster Button text"
+                />
               </button>
               <button
                 className="button--blue light-bg"
                 data-button-type="expand-all"
                 type="button"
               >
-                <span className="expand">Expand All Skills</span>
-                <span className="collapse">Collapse All Skills</span>
+                <span className="expand">
+                  {" "}
+                  <FormattedMessage
+                    id="expandAllSkills"
+                    defaultMessage="<default/> Expand All Skills"
+                    description="Expand All Skills Button text"
+                  />
+                </span>
+                <span className="collapse">
+                  {" "}
+                  <FormattedMessage
+                    id="collapseAllSkills"
+                    defaultMessage="<default/> Collapse All Skills"
+                    description="Collapse All Skills Button text"
+                  />
+                </span>
               </button>
             </div>
           </div>

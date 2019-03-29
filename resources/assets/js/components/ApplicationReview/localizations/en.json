@@ -31,5 +31,12 @@
     "editNote": "EN Edit Note",
     "saving": "EN Saving...",
     "saved": "EN Saved",
-    "save": "EN Save"
+    "save": "EN Save",
+    "screenedOut": "EN Screened Out",
+    "stillThinking": "EN Still Thinking",
+    "stillIn": "EN Still In",
+    "expandAllSkills": "EN Expand All Skills",
+    "collapseAllSkills": "EN Collapse All Skills",
+    "viewJobPoster": "EN View Job Poster",
+    "backToApplicantList": "EN < Save and Go Back to Applicant List"
 }
