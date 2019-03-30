@@ -73,8 +73,8 @@ const messages = defineMessages({
     defaultMessage: "<default/> Screened Out",
     description: "Dynaming Note button label"
   },
-  cancel: {
-    id: "cancel",
+  cancelButton: {
+    id: "cancelButton",
     defaultMessage: "<default/> Cancel",
     description: "Cancel button label"
   },
@@ -200,7 +200,7 @@ class ApplicationReviewWithNav extends React.Component<
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
       cancelButtonColor: "#F94D4D",
-      cancelButtonText: intl.formatMessage(messages.cancel),
+      cancelButtonText: intl.formatMessage(messages.cancelButton),
       confirmButtonText: intl.formatMessage(messages.save),
       inputValue: notes
     }).then(result => {
