@@ -36,6 +36,8 @@ return [
     'delete_this_poster' => 'Supprimer cet affiche ébauche',
     'archived_posters' => 'Mes affiches archivées',
     'no_archived_posters' => 'Vous pourrez bientôt archiver vos affiches!',
+    'view_this_job_poster' => "Voir cette affiche d'emploi.",
+    'view_preview_job_poster' => "Afficher un aperçu de cette affiche d'emploi.",
     // Older version translations, still on page
     'job_poster' => 'Affiche d\'emploi',
     'edit' => 'Modifier',
