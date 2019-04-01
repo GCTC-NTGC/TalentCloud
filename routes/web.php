@@ -346,3 +346,17 @@ Route::group(
 );
 
 /** ALL NON-LOCALIZED ROUTES **/
+
+/* Non-Backpack Admin Portal =========================================================== */
+
+Route::group(
+    [
+        'prefix' => 'admin',
+        'middleware' => ['auth', 'role:admin']
+    ],
+    function (): void {
+        Route::get('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
+            ->middleware('can:create,App\Models\JobPoster')
+            ->name('admin.jobs.create.as_manager');
+    }
+);
