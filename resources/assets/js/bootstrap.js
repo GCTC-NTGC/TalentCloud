@@ -1,4 +1,5 @@
 import "react-app-polyfill/ie11";
+import "./polyfills/includes";
 
 // Number.isNan polyfill
 Number.isNaN =
