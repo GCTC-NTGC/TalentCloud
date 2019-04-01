@@ -15,6 +15,7 @@ use App\Models\Lookup\Department;
 use App\Models\JobPoster;
 use App\Models\Lookup\LanguageRequirement;
 use App\Models\Manager;
+use App\Models\User;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
 use App\Mail\JobPosterReviewRequested;
@@ -173,42 +174,59 @@ class JobControllerTest extends TestCase
         });
     }
 
+    //TODO: Managers cannot create job posters until Job Poster Builder is complete
+
+    // /**
+    //  * Ensure a manager can view the create Job Poster form.
+    //  *
+    //  * @return void
+    //  */
+    // public function testManagerCreateView() : void
+    // {
+    //     $response = $this->actingAs($this->manager->user)
+    //     ->get('manager/jobs/create');
+    //     $response->assertStatus(200);
+
+    //     $response->assertSee(e(Lang::get('manager/job_create')['title']));
+    //     $response->assertViewIs('manager.job_create');
+
+    //     $response->assertSee(e(Lang::get('manager/job_create', [], 'en')['questions']['00']));
+    //     $response->assertSee(e(Lang::get('manager/job_create', [], 'fr')['questions']['00']));
+    // }
+
+    // /**
+    //  * Ensure a manager can create a Job Poster.
+    //  *
+    //  * @return void
+    //  */
+    // public function testManagerCreate() : void
+    // {
+    //     $newJob = $this->generateEditJobFormData();
+
+    //     $dbValues = array_slice($newJob, 0, 8);
+
+    //     $response = $this->followingRedirects()
+    //     ->actingAs($this->manager->user)
+    //     ->post('manager/jobs/', $newJob);
+    //     $response->assertStatus(200);
+    //     $response->assertViewIs('applicant.job_post');
+    //     $this->assertDatabaseHas('job_posters', $dbValues);
+    //     $response->assertSee(e(Lang::get('applicant/job_post')['apply']['edit_link_title']));
+    // }
+
     /**
-     * Ensure a manager can view the create Job Poster form.
+     * Ensure an Admin can create a Job Poster for a manager.
      *
      * @return void
      */
-    public function testManagerCreateView() : void
+    public function testCreateAsManager() : void
     {
-        $response = $this->actingAs($this->manager->user)
-        ->get('manager/jobs/create');
-        $response->assertStatus(200);
+        $admin = factory(User::class)->state('admin')->create();
+        $newManager = factory(Manager::class)->create();
 
-        $response->assertSee(e(Lang::get('manager/job_create')['title']));
-        $response->assertViewIs('manager.job_create');
-
-        $response->assertSee(e(Lang::get('manager/job_create', [], 'en')['questions']['00']));
-        $response->assertSee(e(Lang::get('manager/job_create', [], 'fr')['questions']['00']));
-    }
-
-    /**
-     * Ensure a manager can create a Job Poster.
-     *
-     * @return void
-     */
-    public function testManagerCreate() : void
-    {
-        $newJob = $this->generateEditJobFormData();
-
-        $dbValues = array_slice($newJob, 0, 8);
-
-        $response = $this->followingRedirects()
-        ->actingAs($this->manager->user)
-        ->post('manager/jobs/', $newJob);
-        $response->assertStatus(200);
-        $response->assertViewIs('applicant.job_post');
-        $this->assertDatabaseHas('job_posters', $dbValues);
-        $response->assertSee(e(Lang::get('applicant/job_post')['apply']['edit_link_title']));
+        $response = $this->actingAs($admin)
+            ->get(route('admin.jobs.create.as_manager', $newManager));
+        $this->assertDatabaseHas('job_posters', ['manager_id'=>$newManager->id]);
     }
 
     /**
@@ -253,15 +271,18 @@ class JobControllerTest extends TestCase
      */
     public function testManagerCannotPublishJobThroughEditView() : void
     {
-        $newJob = $this->generateEditJobFormData();
-        $newJob['published'] = true;
+        $job = factory(JobPoster::class)->state('draft')->create([
+            'manager_id' => $this->manager->id
+        ]);
+        $jobEdit = $this->generateEditJobFormData();
+        $jobEdit['published'] = true;
 
-        $dbValues = array_slice($newJob, 0, 8);
+        $dbValues = array_slice($jobEdit, 0, 8);
         $dbValues['published'] = false;
 
         $response = $this->followingRedirects()
-        ->actingAs($this->manager->user)
-        ->post('manager/jobs/', $newJob);
+            ->actingAs($this->manager->user)
+            ->post(route('manager.jobs.update', $job), $jobEdit);
         $response->assertStatus(200);
         $this->assertDatabaseHas('job_posters', $dbValues);
     }
@@ -291,16 +312,20 @@ class JobControllerTest extends TestCase
         $expectedCloseDate = $expectedCloseDateTime->format($dateFormat);
         $expectedCloseTime = $expectedCloseDateTime->format($timeFormat);
 
-        $newJob = $this->generateEditJobFormData();
-        $newJob['open_date'] = $openDate;
-        $newJob['close_date'] = $closeDate;
+        $job = factory(JobPoster::class)->state('draft')->create([
+            'manager_id' => $this->manager->id
+        ]);
+
+        $jobEdit = $this->generateEditJobFormData();
+        $jobEdit['open_date'] = $openDate;
+        $jobEdit['close_date'] = $closeDate;
 
         //Expected db values
-        $dbValues = array_slice($newJob, 0, 8);
+        $dbValues = array_slice($jobEdit, 0, 8);
 
         $response = $this->followingRedirects()
-            ->actingAs($this->manager->user)
-            ->post('manager/jobs/', $newJob);
+            ->actingAs($this->manager)
+            ->post(route('manager.jobs.update', $job), $jobEdit);
 
         $this->assertDatabaseHas('job_posters', $dbValues);
 
