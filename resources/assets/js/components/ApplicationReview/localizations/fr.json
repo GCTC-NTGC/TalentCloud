@@ -39,6 +39,9 @@
     "collapseAllSkills": "FR Collapse All Skills",
     "viewJobPoster": "FR View Job Poster",
     "backToApplicantList": "FR < Save and Go Back to Applicant List",
-    "cancelButton": "Annuler"
+    "cancelButton": "Annuler",
+    "confirmButtion": "FR Confirm",
+    "screenOutConfirm": "FR Screen out the candidate?",
+    "screenInConfirm": "FR Screen the candidate back in?"
 }
 

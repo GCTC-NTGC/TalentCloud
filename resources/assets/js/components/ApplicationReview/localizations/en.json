@@ -39,5 +39,8 @@
     "collapseAllSkills": "EN Collapse All Skills",
     "viewJobPoster": "EN View Job Poster",
     "backToApplicantList": "EN < Save and Go Back to Applicant List",
-    "cancelButton": "Cancel"
+    "cancelButton": "Cancel",
+    "confirmButtion": "EN Confirm",
+    "screenOutConfirm": "EN Screen out the candidate?",
+    "screenInConfirm": "EN Screen the candidate back in?"
 }

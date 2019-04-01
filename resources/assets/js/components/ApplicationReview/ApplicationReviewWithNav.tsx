@@ -87,6 +87,21 @@ const messages = defineMessages({
     id: "stillIn",
     defaultMessage: "<default/> Still In",
     description: "Dynaming Note button label"
+  },
+  confirmButton: {
+    id: "confirmButtion",
+    defaultMessage: "<default/> Confirm",
+    description: "Confirm buttion for modal dialogue boxes"
+  },
+  screenOutConfirm: {
+    id: "screenOutConfirm",
+    defaultMessage: "<default/> Screen out the candidate?",
+    description: "Are you sure you want to screen out the candidate worning"
+  },
+  screenInConfirm: {
+    id: "screenInConfirm",
+    defaultMessage: "<default/> Screen the candidate back in?",
+    description: "Are you sure you want to screen in the candidate warning"
   }
 });
 
@@ -149,7 +164,7 @@ class ApplicationReviewWithNav extends React.Component<
    */
   protected handleSaveClicked(): Promise<void> {
     const { selectedStatusId } = this.state;
-    const { application, onStatusChange } = this.props;
+    const { application, onStatusChange, intl } = this.props;
     const status = selectedStatusId || null;
 
     const sectionChange = (
@@ -168,15 +183,16 @@ class ApplicationReviewWithNav extends React.Component<
     if (sectionChange(oldStatus, status)) {
       const confirmText =
         status === ReviewStatusId.ScreenedOut
-          ? "Screen out the candidate?"
-          : "Screen the candidate back in?";
+          ? intl.formatMessage(messages.screenOutConfirm)
+          : intl.formatMessage(messages.screenInConfirm);
       return Swal.fire({
         title: confirmText,
         type: "question",
         showCancelButton: true,
         confirmButtonColor: "#0A6CBC",
         cancelButtonColor: "#F94D4D",
-        confirmButtonText: "Confirm"
+        confirmButtonText: intl.formatMessage(messages.confirmButton),
+        cancelButtonText: intl.formatMessage(messages.cancelButton)
       }).then(result => {
         if (result.value) {
           return onStatusChange(application.id, status);
