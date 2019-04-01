@@ -96,7 +96,7 @@ const messages = defineMessages({
   screenOutConfirm: {
     id: "screenOutConfirm",
     defaultMessage: "<default/> Screen out the candidate?",
-    description: "Are you sure you want to screen out the candidate worning"
+    description: "Are you sure you want to screen out the candidate warning"
   },
   screenInConfirm: {
     id: "screenInConfirm",

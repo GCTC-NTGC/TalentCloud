@@ -7,7 +7,8 @@ import {
   IntlProvider,
   addLocaleData,
   injectIntl,
-  InjectedIntlProps
+  InjectedIntlProps,
+  defineMessages
 } from "react-intl";
 import locale_en from "react-intl/locale-data/en";
 import locale_fr from "react-intl/locale-data/fr";
@@ -43,7 +44,21 @@ interface ReviewSubmitForm {
   notes?: string | null;
 }
 
-export default class ApplicationReviewContainer extends React.Component<
+const localizations = defineMessages({
+  oops: {
+    id: "oops",
+    defaultMessage: "<default/> Save",
+    description: "Dynaming Save button label"
+  },
+  somethingWrong: {
+    id: "somethingWrong",
+    defaultMessage:
+      "Something went wrong while saving a review. Try again later.",
+    description: "Dynaming Save button label"
+  }
+});
+
+class ApplicationReviewContainer extends React.Component<
   ApplicationReviewContainerProps & InjectedIntlProps,
   ApplicationReviewContainerState
 > {
@@ -73,6 +88,7 @@ export default class ApplicationReviewContainer extends React.Component<
 
   protected submitReview(review: ReviewSubmitForm): Promise<void> {
     const { application } = this.state;
+    const { intl } = this.props;
     this.setState({ isSaving: true });
     return axios
       .put(route("application_reviews.update", application.id), review)
@@ -85,8 +101,8 @@ export default class ApplicationReviewContainer extends React.Component<
         this.setState({ isSaving: false });
         Swal.fire({
           type: "error",
-          title: "Oops...",
-          text: "Something went while saving this review. Try again later."
+          title: intl.formatMessage(localizations.oops),
+          text: intl.formatMessage(localizations.somethingWrong)
         });
       });
   }
@@ -156,10 +172,12 @@ if (document.getElementById("application-review-container")) {
       "data-review-statuses"
     ) as string);
     const language = container.getAttribute("data-locale") as string;
-    const ReviewContainer = injectIntl(ApplicationReviewContainer);
+    const IntelApplicationReviewContainer = injectIntl(
+      ApplicationReviewContainer
+    );
     ReactDOM.render(
       <IntlProvider locale={language} messages={messages[language]}>
-        <ReviewContainer
+        <IntelApplicationReviewContainer
           initApplication={applications}
           reviewStatuses={reviewStatuses}
         />
@@ -168,3 +186,5 @@ if (document.getElementById("application-review-container")) {
     );
   }
 }
+
+export default injectIntl(ApplicationReviewContainer);

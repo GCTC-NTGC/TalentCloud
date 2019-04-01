@@ -1,5 +1,10 @@
 import React from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import {
+  injectIntl,
+  InjectedIntlProps,
+  FormattedMessage,
+  defineMessages
+} from "react-intl";
 import Swal from "sweetalert2";
 import { Application } from "../types";
 import { SelectOption } from "../Select";
@@ -22,6 +27,21 @@ interface ReviewCategoryProps {
   savingStatuses: { applicationId: number; isSaving: boolean }[];
   prioritizeVeterans: boolean;
 }
+
+const localizations = defineMessages({
+  confirmButton: {
+    id: "confirmButtion",
+    defaultMessage: "<default/> Confirm",
+    description: "Confirm buttion for modal dialogue boxes"
+  },
+  screenOutAllConfirm: {
+    id: "screenOutAll.confirm",
+    defaultMessage:
+      "<default/> Are you sure you want to screen out all Optional candidates?",
+    description:
+      "Confirm dialogue test for screening out all optional candidates."
+  }
+});
 
 const ReviewCategory: React.StatelessComponent<
   ReviewCategoryProps & InjectedIntlProps
@@ -49,12 +69,12 @@ const ReviewCategory: React.StatelessComponent<
 
   const handleScreenOutAllClick = (): void => {
     Swal.fire({
-      title: "Are you sure you want to screen out all Optional candidates?",
+      title: intl.formatMessage(localizations.screenOutAllConfirm),
       type: "question",
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
       cancelButtonColor: "#F94D4D",
-      confirmButtonText: "Confirm"
+      confirmButtonText: intl.formatMessage(localizations.confirmButton)
     }).then(result => {
       if (result.value) {
         screenOutAll();
@@ -87,7 +107,7 @@ const ReviewCategory: React.StatelessComponent<
       },
       description: {
         id: "veteransAndCitizens.description",
-        defaultMessage: "<default/> ",
+        defaultMessage: "",
         description: "description of list of Venterans and Canadian citizens"
       },
       applications: applications.filter(
