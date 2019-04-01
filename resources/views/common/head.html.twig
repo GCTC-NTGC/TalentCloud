@@ -30,6 +30,15 @@
             content="{{ csrf_token() }}"
             name="csrf-token">
 
+{# Stylesheets #}
+
+    {# App #}
+
+    <link
+        href="{{ mix('/css/app.css') }}"
+        rel="stylesheet"
+        type="text/css"/>
+
 {# Google Fonts #}
 {#
     NOTE: Google Fonts does not support Subresource Integrity (SRI).
@@ -91,15 +100,6 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#d03e3e">
     <meta name="msapplication-TileColor" content="#d03e3e">
     <meta name="theme-color" content="#ffffff">
-
-{# Stylesheets #}
-
-    {# App #}
-
-        <link
-            href="{{ mix('/css/app.css') }}"
-            rel="stylesheet"
-            type="text/css"/>
 
     </head>
 
