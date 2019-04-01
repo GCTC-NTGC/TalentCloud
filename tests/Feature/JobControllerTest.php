@@ -221,7 +221,7 @@ class JobControllerTest extends TestCase
      */
     public function testCreateAsManager() : void
     {
-        $admin = factory(User::class)->state('admin')->create();
+        $admin = factory(User::class)->states('admin')->create();
         $newManager = factory(Manager::class)->create();
 
         $response = $this->actingAs($admin)
@@ -271,7 +271,7 @@ class JobControllerTest extends TestCase
      */
     public function testManagerCannotPublishJobThroughEditView() : void
     {
-        $job = factory(JobPoster::class)->state('draft')->create([
+        $job = factory(JobPoster::class)->states('draft')->create([
             'manager_id' => $this->manager->id
         ]);
         $jobEdit = $this->generateEditJobFormData();
@@ -312,7 +312,7 @@ class JobControllerTest extends TestCase
         $expectedCloseDate = $expectedCloseDateTime->format($dateFormat);
         $expectedCloseTime = $expectedCloseDateTime->format($timeFormat);
 
-        $job = factory(JobPoster::class)->state('draft')->create([
+        $job = factory(JobPoster::class)->states('draft')->create([
             'manager_id' => $this->manager->id
         ]);
 
@@ -324,7 +324,7 @@ class JobControllerTest extends TestCase
         $dbValues = array_slice($jobEdit, 0, 8);
 
         $response = $this->followingRedirects()
-            ->actingAs($this->manager)
+            ->actingAs($this->manager->user)
             ->post(route('manager.jobs.update', $job), $jobEdit);
 
         $this->assertDatabaseHas('job_posters', $dbValues);
