@@ -1325,6 +1325,23 @@
             }
         });
 
+        // Applicant Review Copy Function ======================================
+        function copyApplicantEmails(button) {
+
+        }
+
+        $(".review-copy-emails").on("click", function(e) {
+            e.preventDefault();
+            copyApplicantEmails(this);
+        });
+
+        $(".review-copy-emails").on("keyup", function(e) {
+            if (e.which == 13) {
+                e.preventDefault();
+                copyApplicantEmails(this);
+            }
+        });
+
     });
 
 })(jQuery);

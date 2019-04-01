@@ -78,13 +78,17 @@
             margin: 2rem 0;
         }
 
-        .category-action {
-            display: block;
+        .category-actions {
             margin-bottom: 2rem;
             text-align: center;
 
-            @media #{$l-tablet} {
-                text-align: right;
+            @media #{$p-tablet} {
+                text-align: left;
+
+                .box:last-child {
+                    text-align: right;
+                }
+
             }
 
         }
