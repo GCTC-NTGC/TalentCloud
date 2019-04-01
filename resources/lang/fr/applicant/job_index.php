@@ -12,7 +12,6 @@ return [
     "title" => "Parcourir les emplois",
     "job_index_title" => "Nuage de talents | Candidat : Parcourir les emplois",
     "index" => [
-        "null_state" => "Nous sommes désolés, il n'y a actuellement aucune offre d'emploi publiée sur Nuage de talents. Revenez bientôt!",
         "null_alert" => [
             "title" => "Nous améliorons la plate-forme.",
             "copy_01" => "Bien qu'il n'y ait pas d'emplois affichés au moment, revenez bientôt pour plus de possibilités.",
