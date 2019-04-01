@@ -99,7 +99,8 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
       <div className="flex-grid middle category-actions">
         <div className="box med-1of2">
           <button className="button--outline review-copy-emails" type="button">
-            Copy This Group's Emails
+            <span>Copy This Group's Emails</span>
+            <span>Copied!</span>
           </button>
         </div>
         <div className="box med-1of2">

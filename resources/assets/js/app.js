@@ -1327,7 +1327,27 @@
 
         // Applicant Review Copy Function ======================================
         function copyApplicantEmails(button) {
-
+            var thisParent = $(button).parents(".applicant-category");
+            var summaries = $(thisParent).find(".applicant-summary");
+            var emails = "";
+            $(summaries).each(function() {
+                var nameVal = $(this).find(".name").attr("data-name");
+                var emailVal = $(this).find(".email").attr("data-email");
+                var userVal = nameVal + "<" + emailVal + ">,";
+                emails = emails + userVal;
+            });
+            var dummy = document.createElement("input");
+            document.body.appendChild(dummy);
+            dummy.setAttribute('value', emails);
+            dummy.select();
+            document.execCommand("copy");
+            $(button).find("span:first-child").css("opacity", "0");
+            $(button).find("span:last-child").css("opacity", "1");
+            setTimeout(function() {
+                $(button).find("span:first-child").css("opacity", "1");
+                $(button).find("span:last-child").css("opacity", "0");
+            }, 1000);
+            document.body.removeChild(dummy);
         }
 
         $(".review-copy-emails").on("click", function(e) {
