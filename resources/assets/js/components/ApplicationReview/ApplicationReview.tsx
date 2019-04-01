@@ -166,10 +166,17 @@ export default class ApplicationReview extends React.Component<
           </div>
 
           <div className="box lg-2of11 applicant-information">
-            <span className="name">{application.applicant.user.name}</span>
+            <span
+              className="name"
+              data-name={`${application.applicant.user.name}`}
+            >
+              {application.applicant.user.name}
+            </span>
             <a
               href={`mailto: ${application.applicant.user.email}`}
+              data-email={`${application.applicant.user.email}`}
               title="Email this candidate."
+              className="email"
             >
               {application.applicant.user.email}
             </a>
