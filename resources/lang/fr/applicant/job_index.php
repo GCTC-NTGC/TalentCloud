@@ -14,11 +14,11 @@ return [
     "index" => [
         "null_state" => "Nous sommes désolés, il n'y a actuellement aucune offre d'emploi publiée sur Nuage de talents. Revenez bientôt!",
         "null_alert" => [
-            "title" => "Nous faisons un petit ménage de printemps!",
-            "copy_01" => "Il n'y a pas d'emplois affichés pour le moment, mais revenez bientôt pour plus d'informations.",
+            "title" => "Nous améliorons la plate-forme.",
+            "copy_01" => "Bien qu'il n'y ait pas d'emplois affichés au moment, revenez bientôt pour plus de possibilités.",
             "copy_02" => "Voulez-vous rester au courant? %link% pour les mises à jour.",
             "link" => "https://twitter.com/GC_Talent",
-            "link_title" => "Suivez Talent Cloud sur Twitter"
+            "link_title" => "Visitez Nuage de talents sur Twitter"
         ],
         "view_title" => "Voir l'affiche de travail pour",
         "location_label" => "Emplacement",
