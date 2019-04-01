@@ -15,9 +15,10 @@ return [
         "jobs" => [
             "name" => "Mes affiches d'emploi",
         ],
-        "create_job" => [
-            "name" => "Créer une affiche d'emploi",
-        ],
+        //TODO: restore when job poster builder complete
+        // "create_job" => [
+        //     "name" => "Créer une affiche d'emploi",
+        // ],
         "profile" => [
             "name" => "Mon profil",
         ],
