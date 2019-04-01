@@ -19,6 +19,40 @@
             margin: 0;
         }
 
+        .null-alert {
+            background: rgba($palette--blue, .1);
+            border: 1px solid $palette--blue;
+            border-radius: 5px;
+            margin: 0 0 2rem 0;
+            padding: 2rem;
+            text-align: left;
+
+            h3 {
+                color: $palette--blue;
+                font-family: $font--sans;
+                font-size: $font-scale--h3;
+                font-weight: 600;
+                margin: 0 0 2rem 0;
+            }
+
+            p {
+                color: $palette--blue;
+                font-family: $font--sans;
+                font-size: $font-scale--regular;
+                font-weight: 400;
+                margin: 0;
+            }
+
+            hr {
+                appearance: none;
+                border: none;
+                border-top: 1px solid $palette--blue;
+                height: 0;
+                margin: 2rem 0;
+            }
+
+        }
+
     }
 
     .browse__index-job {

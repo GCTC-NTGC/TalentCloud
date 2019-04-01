@@ -13,6 +13,13 @@ return [
     "job_index_title" => "Nuage de talents | Candidat : Parcourir les emplois",
     "index" => [
         "null_state" => "Nous sommes désolés, il n'y a actuellement aucune offre d'emploi publiée sur Nuage de talents. Revenez bientôt!",
+        "null_alert" => [
+            "title" => "Nous faisons un petit ménage de printemps!",
+            "copy_01" => "Il n'y a pas d'emplois affichés pour le moment, mais revenez bientôt pour plus d'informations.",
+            "copy_02" => "Voulez-vous rester au courant? %link% pour les mises à jour.",
+            "link" => "https://twitter.com/GC_Talent",
+            "link_title" => "Suivez Talent Cloud sur Twitter"
+        ],
         "view_title" => "Voir l'affiche de travail pour",
         "location_label" => "Emplacement",
         "salary_label" => "Échelle de salaire annuel",
