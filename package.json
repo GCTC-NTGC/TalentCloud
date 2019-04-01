@@ -53,9 +53,9 @@
     "dependencies": {
         "axios": "^0.18.0",
         "classnames": "^2.2.6",
-        "es6-promise": "^4.2.5",
         "moment": "^2.24.0",
         "react": "^16.8.3",
+        "react-app-polyfill": "^0.2.2",
         "react-dom": "^16.8.4",
         "sweetalert2": "^8.2.2"
     },
