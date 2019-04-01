@@ -49,7 +49,7 @@ const messages = defineMessages({
     description: "Dynaming Save button label"
   },
   save: {
-    id: "saving",
+    id: "save",
     defaultMessage: "<default/> Save",
     description: "Dynaming Save button label"
   },
@@ -82,6 +82,26 @@ const messages = defineMessages({
     id: "stillIn",
     defaultMessage: "<default/> Still In",
     description: "Dynaming Note button label"
+  },
+  cancelButton: {
+    id: "cancelButton",
+    defaultMessage: "<default/> Cancel",
+    description: "Cancel button label"
+  },
+  confirmButton: {
+    id: "confirmButtion",
+    defaultMessage: "<default/> Confirm",
+    description: "Confirm buttion for modal dialogue boxes"
+  },
+  screenOutConfirm: {
+    id: "screenOutConfirm",
+    defaultMessage: "<default/> Screen out the candidate?",
+    description: "Are you sure you want to screen out the candidate worning"
+  },
+  screenInConfirm: {
+    id: "screenInConfirm",
+    defaultMessage: "<default/> Screen the candidate back in?",
+    description: "Are you sure you want to screen in the candidate warning"
   }
 });
 
@@ -131,7 +151,7 @@ class ApplicationReview extends React.Component<
    */
   protected handleSaveClicked(): void {
     const { selectedStatusId } = this.state;
-    const { application, onStatusChange } = this.props;
+    const { application, onStatusChange, intl } = this.props;
     const status = selectedStatusId || null;
 
     const sectionChange = (
@@ -150,15 +170,16 @@ class ApplicationReview extends React.Component<
     if (sectionChange(oldStatus, status)) {
       const confirmText =
         status === ReviewStatusId.ScreenedOut
-          ? "Screen out the candidate?"
-          : "Screen the candidate back in?";
+          ? intl.formatMessage(messages.screenOutConfirm)
+          : intl.formatMessage(messages.screenInConfirm);
       Swal.fire({
         title: confirmText,
         type: "question",
         showCancelButton: true,
         confirmButtonColor: "#0A6CBC",
         cancelButtonColor: "#F94D4D",
-        confirmButtonText: "Confirm"
+        confirmButtonText: intl.formatMessage(messages.confirmButton),
+        cancelButtonText: intl.formatMessage(messages.cancelButton)
       }).then(result => {
         if (result.value) {
           onStatusChange(application.id, status);
@@ -170,19 +191,20 @@ class ApplicationReview extends React.Component<
   }
 
   protected showNotes(): void {
-    const { application, onNotesChange } = this.props;
+    const { application, onNotesChange, intl } = this.props;
     const notes =
       application.application_review && application.application_review.notes
         ? application.application_review.notes
         : "";
     Swal.fire({
-      title: "Edit notes",
+      title: intl.formatMessage(messages.editNote),
       type: "question",
       input: "textarea",
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
       cancelButtonColor: "#F94D4D",
-      confirmButtonText: "Save",
+      cancelButtonText: intl.formatMessage(messages.cancelButton),
+      confirmButtonText: intl.formatMessage(messages.save),
       inputValue: notes
     }).then(result => {
       if (result && result.value !== undefined) {
