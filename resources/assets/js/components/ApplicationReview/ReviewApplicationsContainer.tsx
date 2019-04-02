@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { Job, Application, ReviewStatus, ApplicationReview } from "../types";
 import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
-import route from "../../helpers/route";
+import * as routes from "../../helpers/routes";
 
 interface ReviewApplicationsProps {
   job: Job;
@@ -77,7 +77,7 @@ export default class ReviewApplicationsContainer extends React.Component<
   ): void {
     this.handleSavingStatusChange(applicationId, true);
     axios
-      .put(route("application_reviews.update", applicationId), review)
+      .put(routes.applicationReviewUpdate("en", applicationId), review)
       .then(response => {
         const newReview = response.data as ApplicationReview;
         this.updateReviewState(applicationId, newReview);
@@ -129,7 +129,7 @@ export default class ReviewApplicationsContainer extends React.Component<
       });
       this.handleSavingStatusChange(application.id, true);
       const request = axios
-        .put(route("application_reviews.update", application.id), submitReview)
+        .put(routes.applicationReviewUpdate("en", application.id), submitReview)
         .then(response => {
           const newReview = response.data as ApplicationReview;
           this.updateReviewState(application.id, newReview);

@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import route from "../../helpers/route";
+import * as routes from "../../helpers/routes";
 
 interface ApplicationReviewNavProps {
   applicationReview: ReactElement;
@@ -19,7 +19,7 @@ const ApplicationReviewNav: React.FunctionComponent<
           <div className="box small-1of3">
             <a
               className="button--blue"
-              href={route("manager.jobs.applications", jobPosterId)}
+              href={routes.managerJobApplications("en", jobPosterId)}
             >
               Back to Applications
             </a>
@@ -27,7 +27,7 @@ const ApplicationReviewNav: React.FunctionComponent<
           <div className="box small-1of3">
             <a
               className="button--blue"
-              href={route("manager.jobs.show", jobPosterId)}
+              href={routes.managerJobShow("en", jobPosterId)}
             >
               View JobPoster
             </a>

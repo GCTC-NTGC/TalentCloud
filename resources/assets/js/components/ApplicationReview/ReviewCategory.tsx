@@ -96,20 +96,25 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
 
       <p>{description}</p>
 
-      {/* Category Action
-                This section only exists for the "secondary" category, and should generate a confirmation dialogue that prompts the user to decide whether to screen ALL of the candidates in this category out or not.
-            */}
-      {showScreenOutAll && (
-        <span className="category-action">
-          <button
-            className="button--outline"
-            type="button"
-            onClick={handleScreenOutAllClick}
-          >
-            <i className="fas fa-ban" /> Screen All Optional Candidates Out
+      <div className="flex-grid middle category-actions">
+        <div className="box med-1of2">
+          <button className="button--outline review-copy-emails" type="button">
+            <span>Copy This Group's Emails</span>
+            <span>Copied!</span>
           </button>
-        </span>
-      )}
+        </div>
+        <div className="box med-1of2">
+          {showScreenOutAll && (
+            <button
+              className="button--outline"
+              type="button"
+              onClick={handleScreenOutAllClick}
+            >
+              <i className="fas fa-ban" /> Screen All Optional Candidates Out
+            </button>
+          )}
+        </div>
+      </div>
 
       {buckets.map(bucket => (
         <ApplicantBucket
