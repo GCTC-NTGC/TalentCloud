@@ -108,50 +108,48 @@ if (!function_exists('humanizeLastDay')) {
     }
 }
 
-if (!function_exists('pstDayStartToUtcTime')) {
+if (!function_exists('ptDayStartToUtcTime')) {
     /**
-     * Given a date, creates a datetime object representing the start of day Pacific Standard Time (12:00), but converted to UTC.
+     * Given a date, creates a datetime object representing the start of day
+     * in the most Western timezone in Canada (America/Vancouver).
      *
-     * @param integer $year
-     * @param integer $month
-     * @param integer $day
+     * @param string $date ISO standard date YYYY-MM-DD.
+     *
      * @return Date
      */
-    function pstDayStartToUtcTime(int $year, int $month, int $day): Date
+    function ptDayStartToUtcTime(string $date) : Date
     {
-        $date = Date::now();
-        $date->year = $year;
-        $date->month = $month;
-        $date->day = $day;
-        $date->hour = 8;
-        $date->minute = 0;
-        $date->second = 0;
+        $jobTimezone = Config::get('app.job_timezone');
+        $dbTimezone = Config::get('app.timezone');
+        // Create a new date that's the beginning of the day in
+        // Pacific Daylight/Standard Time.
+        $date = new Date("$date 00:00:00", new \DateTimeZone($jobTimezone));
+        // Convert to UTC for correct offset.
+        $date->setTimezone($dbTimezone);
+
         return $date;
     }
 }
 
-if (!function_exists('pstDayEndToUtcTime')) {
+if (!function_exists('ptDayEndToUtcTime')) {
     /**
-     * Given a date, creates a datetime object representing end of day Pacific Standard Time (23:59:59), but converted to UTC.
+     * Given a date, creates a datetime object representing the start of day
+     * in the most Western timezone in Canada (America/Vancouver).
      *
-     * @param integer $year
-     * @param integer $month
-     * @param integer $day
+     * @param string $date ISO standard date YYYY-MM-DD.
+     *
      * @return Date
      */
-    function pstDayEndToUtcTime(int $year, int $month, int $day): Date
+    function ptDayEndToUtcTime(string $date) : Date
     {
-        $date = Date::now();
-        $date->year = $year;
-        $date->month = $month;
-        $date->day = $day;
+        $jobTimezone = Config::get('app.job_timezone');
+        $dbTimezone = Config::get('app.timezone');
+        // Create a new date that's the beginning of the day in
+        // Pacific Daylight/Standard Time.
+        $date = new Date("$date 23:59:59", new \DateTimeZone($jobTimezone));
+        // Convert to UTC for correct offset.
+        $date->setTimezone($dbTimezone);
 
-        //23:59 March 1 PST is 7:59 March 2 UTC, so add a day
-        $date->addDay();
-
-        $date->hour = 7;
-        $date->minute = 59;
-        $date->second = 59;
         return $date;
     }
 }
