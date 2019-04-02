@@ -36,7 +36,8 @@ class JobPolicy extends BasePolicy
     public function create(User $user)
     {
         //Any manager can create a new job poster
-        return $user->user_role->name == 'manager';
+        //TODO: for now, only Admins can create posters. This will change soon.
+        return $user->hasRole('admin');
     }
 
     /**

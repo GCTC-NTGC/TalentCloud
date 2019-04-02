@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\JobPoster;
 use App\Models\Applicant;
 use App\Models\JobApplication;
+use App\Models\Reference;
 
 class DevSeeder extends Seeder // phpcs:ignore
 {
@@ -86,6 +87,11 @@ class DevSeeder extends Seeder // phpcs:ignore
                 'user_id' => $applicantUser->id
             ]));
         }
+
+        // Add to application profile
+        $applicantUser->applicant->references()->saveMany(factory(Reference::class, 3)->create([
+            'applicant_id' => $applicantUser->applicant->id
+        ]));
 
         // Create several applications for test user.
         $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 3)->create([

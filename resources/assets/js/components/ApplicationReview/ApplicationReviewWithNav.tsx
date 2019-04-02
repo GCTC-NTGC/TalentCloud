@@ -1,7 +1,7 @@
 import React from "react";
 import className from "classnames";
 import Swal from "sweetalert2";
-import route from "../../helpers/route";
+import * as routes from "../../helpers/routes";
 import Select, { SelectOption } from "../Select";
 import { Application } from "../types";
 import { ReviewStatusId } from "../lookupConstants";
@@ -189,8 +189,8 @@ export default class ApplicationReviewWithNav extends React.Component<
                 type="button"
                 onClick={() =>
                   this.handleLinkClicked(
-                    route(
-                      "manager.jobs.applications",
+                    routes.managerJobApplications(
+                      "en",
                       application.job_poster_id
                     )
                   )
@@ -205,7 +205,7 @@ export default class ApplicationReviewWithNav extends React.Component<
                 type="button"
                 onClick={() =>
                   this.handleLinkClicked(
-                    route("manager.jobs.show", application.job_poster_id)
+                    routes.managerJobShow("en", application.job_poster_id)
                   )
                 }
               >
@@ -252,14 +252,17 @@ export default class ApplicationReviewWithNav extends React.Component<
 
             <div className="box lg-2of11 applicant-links">
               <a
-                href={route("manager.applications.show", application)}
+                href={routes.managerApplicationShow("en", application.id)}
                 title="View this applicant's application."
               >
                 <i className="fas fa-file-alt" />
                 View Application
               </a>
               <a
-                href={route("manager.applicants.show", application.applicant)}
+                href={routes.managerApplicantShow(
+                  "en",
+                  application.applicant_id
+                )}
                 title="View this applicant's profile."
               >
                 <i className="fas fa-user" />

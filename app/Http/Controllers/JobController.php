@@ -22,14 +22,11 @@ use App\Models\Lookup\JobTerm;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\LanguageRequirement;
-use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\SkillLevel;
 use App\Models\Lookup\CriteriaType;
-use App\Models\Lookup\VeteranStatus;
-use App\Models\JobApplication;
-use App\Models\Criteria;
 use App\Models\Skill;
+use App\Models\Manager;
 use App\Models\JobPosterKeyTask;
 
 use App\Services\Validation\JobPosterValidator;
@@ -221,6 +218,33 @@ class JobController extends Controller
                 'skill_template' => Lang::get('common/skills'),
             ]
         );
+    }
+
+    /**
+     * Create a blank job poster for the specified manager
+     *
+     * @param Manager $manager
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory Job Create view
+     */
+    public function createAsManager(Manager $manager)
+    {
+        $jobPoster = new JobPoster();
+        $jobPoster->manager_id = $manager->id;
+        $managerEn = $manager->translate('en');
+        $managerFr = $manager->translate('fr');
+        $jobPoster->fill([
+            'department_id' => $manager->department_id,
+            'en' => [
+                'branch' => $managerEn->branch,
+                'division' => $managerEn->division,
+            ],
+            'fr' => [
+                'branch' => $managerFr->branch,
+                'division' => $managerFr->division,
+            ]
+        ]);
+        $jobPoster->save();
+        return redirect()->route('manager.jobs.edit', $jobPoster->id);
     }
 
     /**

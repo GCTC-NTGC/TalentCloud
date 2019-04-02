@@ -6,7 +6,8 @@
  */
 
 namespace App\Models;
-use App\Models\TeamCulture;
+
+use App\CRUD\TalentCloudCrudTrait as CrudTrait;
 
 /**
  * Class Manager
@@ -52,6 +53,8 @@ use App\Models\TeamCulture;
 class Manager extends BaseModel {
 
     use \Dimsav\Translatable\Translatable;
+    // Trait for Backpack
+    use CrudTrait;
 
     public $translatedAttributes = ['about_me', 'greatest_accomplishment', 'branch',
         'division', 'position', 'work_experience', 'education','leadership_style',
