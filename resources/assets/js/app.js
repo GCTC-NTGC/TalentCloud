@@ -1365,6 +1365,20 @@
             }
         });
 
+        setTimeout(function() {
+            $(".review-copy-emails").on("click", function(e) {
+                e.preventDefault();
+                copyApplicantEmails(this);
+            });
+
+            $(".review-copy-emails").on("keyup", function(e) {
+                if (e.which == 13) {
+                    e.preventDefault();
+                    copyApplicantEmails(this);
+                }
+            });
+        }, 3000);
+
     });
 
 })(jQuery);
