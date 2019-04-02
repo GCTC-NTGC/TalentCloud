@@ -1377,7 +1377,7 @@
                     copyApplicantEmails(this);
                 }
             });
-        }, 3000);
+        }, 1000);
 
     });
 
