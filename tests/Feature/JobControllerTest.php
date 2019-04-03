@@ -252,6 +252,24 @@ class JobControllerTest extends TestCase
     }
 
     /**
+     * An admin saving edits to the job should not change the jobs manager.
+     *
+     * @return void
+     */
+    public function testAdminEditDoesntChangeManager() : void
+    {
+        $admin = factory(User::class)->states('admin')->create();
+        $manager = factory(Manager::class)->create();
+        $job = factory(JobPoster::class)->create([
+            'manager_id' => $manager->id
+        ]);
+        $jobEdit = $this->generateEditJobFormData();
+        $response = $this->actingAs($admin)->post(route('manager.jobs.update', $job), $jobEdit);
+        $updatedJob = JobPoster::find($job->id);
+        $this->assertEquals($manager->id, $updatedJob->manager_id);
+    }
+
+    /**
      * Ensure a manager cannot edit a published Job Poster they created.
      *
      * @return void
