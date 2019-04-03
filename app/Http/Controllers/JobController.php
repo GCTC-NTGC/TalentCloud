@@ -248,7 +248,6 @@ class JobController extends Controller
         $jobPoster->save();
 
         $defaultQuestions = $this->populateDefaultQuestions();
-        debugbar()->debug($defaultQuestions);
         if (!empty($defaultQuestions)) {
             $jobPoster->job_poster_questions()->saveMany($defaultQuestions);
         }
