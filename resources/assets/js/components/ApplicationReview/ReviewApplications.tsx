@@ -54,7 +54,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
     },
     {
       title: "No Longer Under Consideration",
-      description: "These applications have allready been screened out.",
+      description: "These applications have already been screened out.",
       showScreenOutAll: false,
       applications: applications.filter(
         application => applicationCategory(application) === "screened-out"
@@ -80,7 +80,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
         </div>
       </div>
 
-      <div className="priority-alert">
+      {/* <div className="priority-alert">
         <h3>
           <i className="fas fa-bell" /> Temporary Priority Alert
         </h3>
@@ -89,7 +89,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
           Contact Talent Cloud to get a list of priorities that applied to this
           position. They must be reviewed and considered first.
         </p>
-      </div>
+      </div> */}
       {categories.map(category => (
         <ReviewCategory
           key={category.title}

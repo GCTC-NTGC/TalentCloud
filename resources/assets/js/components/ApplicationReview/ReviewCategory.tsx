@@ -82,7 +82,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
       )
     },
     {
-      title: "Don't Meed Essential Criteria",
+      title: "Don't Need Essential Criteria",
       description: "",
       applications: applications.filter(
         application => applicationBucket(application) === "unqualified"
