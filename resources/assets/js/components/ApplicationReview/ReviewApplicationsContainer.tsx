@@ -87,7 +87,7 @@ export default class ReviewApplicationsContainer extends React.Component<
         Swal.fire({
           type: "error",
           title: "Oops...",
-          text: "Something went while saving a review. Try again later."
+          text: "Something went wrong while saving a review. Try again later."
         });
         this.handleSavingStatusChange(applicationId, false);
       });
@@ -143,7 +143,7 @@ export default class ReviewApplicationsContainer extends React.Component<
             Swal.fire({
               type: "error",
               title: "Oops...",
-              text: "Something went while saving a review. Try again later."
+              text: "Something went wrong while saving a review. Try again later."
             });
           }
         });
