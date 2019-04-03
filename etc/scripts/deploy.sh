@@ -45,7 +45,6 @@ echo "Executing Laravel commands...";
 sudo php artisan route:clear;
 sudo php artisan cache:clear;
 sudo php artisan config:clear;
-sudo php artisan ziggy:generate;
 
 echo "Database migrations...";
 sudo php artisan migrate -n --force;
