@@ -7,7 +7,7 @@
     "optionalConsideration.title": "Optional Consideration",
     "optionalConsideration.description": "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
     "screenedOut.title": "No Longer Under Consideration",
-    "screenedOut.description": "These applications have allready been screened out.",
+    "screenedOut.description": "These applications have already been screened out.",
     "screenOutAll": "Screen All Optional Candidates Out",
     "screenOutAll.confirm": "Are you sure you want to screen out all Optional candidates?",
     "priorityApplicants.title": "Priority Applicants",
@@ -24,7 +24,7 @@
     "viewApplication.title": "View this applicant's application.",
     "viewProfile": "View Profile",
     "viewProfile.title": "View this applicant's profile.",
-    "veteranLogo": "Talent cloud veteran logo",
+    "veteranLogo": "veteran icon",
     "emailCandidate": "email this candidate.",
     "decision": "Decision",
     "notReviewed": "Not Reviewed",
@@ -43,7 +43,7 @@
     "cancelButton": "Cancel",
     "confirmButtion": "Confirm",
     "screenOutConfirm": "Screen out the candidate?",
-    "screenInConfirm": "Screen the candidate back in?",
+    "screenInConfirm": "Put the candidate back in the \"under consideration\" section?",
     "oops": "Oops...",
     "somethingWrong": "Something went wrong while saving a review. Try again later."
 }
