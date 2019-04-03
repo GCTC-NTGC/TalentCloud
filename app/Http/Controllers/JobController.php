@@ -233,6 +233,7 @@ class JobController extends Controller
         $jobPoster->manager_id = $manager->id;
         $managerEn = $manager->translate('en');
         $managerFr = $manager->translate('fr');
+
         $jobPoster->fill([
             'department_id' => $manager->department_id,
             'en' => [
@@ -245,6 +246,12 @@ class JobController extends Controller
             ]
         ]);
         $jobPoster->save();
+
+        $defaultQuestions = $this->populateDefaultQuestions();
+        if (!empty($defaultQuestions)) {
+            $jobPoster->job_poster_questions()->saveMany($defaultQuestions);
+        }
+
         return redirect()->route('manager.jobs.edit', $jobPoster->id);
     }
 
@@ -629,11 +636,6 @@ class JobController extends Controller
                     ]
                 ]
             );
-            // Workaround for Default Questions with empty descriptions
-            // throwing an error during save.
-            // The id isn't actually used during the fillAndSaveJobPosterQuestions
-            // method call.
-            $jobQuestion->id = $i + 1;
             $jobQuestions[] = $jobQuestion;
         }
 

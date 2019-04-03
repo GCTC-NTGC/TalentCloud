@@ -230,6 +230,26 @@ class JobControllerTest extends TestCase
     }
 
     /**
+     * Ensure that createAsManager creates a job that includes the default questions.
+     *
+     * @return void
+     */
+    public function testCreateAsManagerHasDefaultQuestions() : void
+    {
+        $admin = factory(User::class)->states('admin')->create();
+        $newManager = factory(Manager::class)->create();
+
+        $response = $this->actingAs($admin)
+            ->get(route('admin.jobs.create.as_manager', $newManager));
+        $newJob = JobPoster::where('manager_id', $newManager->id)->firstOrFail();
+        $questions = Lang::get('manager/job_create.questions');
+        foreach ($questions as $question) {
+            $match = $newJob->job_poster_questions->where('question', $question);
+            $this->assertNotEmpty($match);
+        }
+    }
+
+    /**
      * Ensure a manager can edit an unpublished Job Poster they created.
      *
      * @return void
