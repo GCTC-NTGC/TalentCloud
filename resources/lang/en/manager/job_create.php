@@ -30,7 +30,7 @@ return [
             'occupational_group' => 'Occupational Group',
             'noc_code' => 'NOC Code',
             'security_clearance' => 'Security Clearance',
-            'security_clearance_default_option' => 'Select a security clearence...',
+            'security_clearance_default_option' => 'Select a security clearance...',
             'language_requirement' => 'Language Requirement',
             'language_requirement_default_option' => 'Select a language requirement...',
             'location' => 'Location',
