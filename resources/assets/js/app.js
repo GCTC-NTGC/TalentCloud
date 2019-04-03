@@ -292,6 +292,10 @@
 
         function labelHandlers() {
 
+            if ( $("[class*='form__input-wrapper'] input, [class*='form__input-wrapper'] textarea").val() != "" ) {
+                $("[class*='form__input-wrapper'] input, [class*='form__input-wrapper'] textarea").parent().addClass("active");
+            }
+
             $("[class*='form__input-wrapper'] input, [class*='form__input-wrapper'] textarea").focusin(function(e) {
                 $(this).parent().addClass("active");
             });
