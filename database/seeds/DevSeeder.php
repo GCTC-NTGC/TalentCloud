@@ -63,6 +63,13 @@ class DevSeeder extends Seeder // phpcs:ignore
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
             ]);
+            //Then create one application with a priority user
+            $job->job_applications()->save(factory(JobApplication::class)->create([
+                'job_poster_id' => $job->id,
+                'applicant_id' => factory(Applicant::class)->create([
+                        'user_id' => factory(User::class)->state('priority')->create()->id
+                    ])->id
+            ]));
         });
         factory(JobPoster::class, 3)->state('closed')->create([
             'manager_id' => $managerUser->manager->id
@@ -70,6 +77,13 @@ class DevSeeder extends Seeder // phpcs:ignore
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
             ]);
+            //Then create one application with a priority user
+            $job->job_applications()->save(factory(JobApplication::class)->create([
+                'job_poster_id' => $job->id,
+                'applicant_id' => factory(Applicant::class)->create([
+                    'user_id' => factory(User::class)->state('priority')->create()->id
+                ])->id
+            ]));
         });
         factory(JobPoster::class, 3)->state('draft')->create([
             'manager_id' => $managerUser->manager->id
