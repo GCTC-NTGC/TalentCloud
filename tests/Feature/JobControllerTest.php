@@ -258,15 +258,26 @@ class JobControllerTest extends TestCase
      */
     public function testAdminEditDoesntChangeManager() : void
     {
+        // In order to simulate actual behaviour, the admin
+        // user needs a related Manager instance. When navigating
+        // around the site as an admin, a middleware will be triggered
+        // to create this relationship. (InitializeUser)
         $admin = factory(User::class)->states('admin')->create();
+        $admin->manager_id = factory(Manager::class)->create([
+            'user_id' => $admin->id
+        ]);
+        $admin->applicant_id = factory(Applicant::class)->create([
+            'user_id' => $admin->id
+        ]);
+
         $manager = factory(Manager::class)->create();
         $job = factory(JobPoster::class)->create([
             'manager_id' => $manager->id
         ]);
         $jobEdit = $this->generateEditJobFormData();
-        $response = $this->actingAs($admin)->post(route('manager.jobs.update', $job), $jobEdit);
-        $updatedJob = JobPoster::find($job->id);
-        $this->assertEquals($manager->id, $updatedJob->manager_id);
+        $this->actingAs($admin)->post(route('manager.jobs.update', $job), $jobEdit);
+        $job->refresh();
+        $this->assertEquals($manager->user->id, $job->manager->user->id);
     }
 
     /**
