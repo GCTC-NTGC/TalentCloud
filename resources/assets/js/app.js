@@ -291,6 +291,15 @@
         // Label Handers ===================================================
 
         function labelHandlers() {
+            $.each($("[class*='form__input-wrapper'] input, [class*='form__input-wrapper'] textarea"), function(e) {
+                if( $(this).val() !== '' ) {
+                    $(this).parent().addClass("active");
+                }
+            });
+
+            $("[class*='form__input-wrapper'] input, [class*='form__input-wrapper'] textarea").change(function(e) {
+                $(this).parent().addClass("active");
+            });
 
             $("[class*='form__input-wrapper'] input, [class*='form__input-wrapper'] textarea").focusin(function(e) {
                 $(this).parent().addClass("active");
