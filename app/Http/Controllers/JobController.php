@@ -283,7 +283,12 @@ class JobController extends Controller
      */
     public function populateCreateView(Request $request, JobPoster $jobPoster = null)
     {
-        $manager = $request->user() ? $request->user()->manager : null;
+        if ($jobPoster == null || $jobPoster->manager == null) {
+            $manager = $request->user() ? $request->user()->manager : null;
+        } else {
+            $manager = $jobPoster->manager;
+        }
+
         if (isset($jobPoster)) {
             $job = $jobPoster;
             $route = ['manager.jobs.update', $jobPoster];
@@ -405,7 +410,10 @@ class JobController extends Controller
 
         $job = (isset($jobPoster) ? $jobPoster : new JobPoster());
 
-        $job->manager_id = $request->user()->manager->id;
+        if ($job->manager_id == null) {
+            $job->manager_id = $request->user()->manager->id;
+            $job->save();
+        }
 
         $this->fillAndSaveJobPoster($input, $job);
 
