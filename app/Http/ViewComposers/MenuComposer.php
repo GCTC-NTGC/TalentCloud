@@ -114,7 +114,8 @@ class MenuComposer
                 case 'manager.jobs.create':
                 case 'manager.jobs.edit':
                 case 'manager.jobs.update':
-                    $menu['items']['create_job']['active'] = true;
+                    //$menu['items']['create_job']['active'] = true;
+                    $menu['items']['jobs']['active'] = true; //TODO: restore when job poster builder complete
                     break;
                 case 'manager.profile':
                 case 'manager.profile.edit':
@@ -141,7 +142,8 @@ class MenuComposer
             //Set route links
             $menu['items']['home']['link'] = route('manager.home');
             $menu['items']['jobs']['link'] = route('manager.jobs.index');
-            $menu['items']['create_job']['link'] = route('manager.jobs.create');
+            //TODO: restore when job poster builder complete
+            //$menu['items']['create_job']['link'] = route('manager.jobs.create');
             $menu['items']['profile']['link'] = route('manager.profile');
 
             //Check if use is logged in, and remove invalid menu items

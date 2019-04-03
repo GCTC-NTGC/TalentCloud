@@ -142,12 +142,8 @@ class JobPoster extends BaseModel
         'security_clearance_id',
         'language_requirement_id',
         'remote_work_allowed',
+        'published'
     ];
-
-    /**
-     * @var string[] $fillable
-     */
-    protected $withCount = ['submitted_applications'];
 
     /**
      * @var mixed[] $dispatchesEvents
@@ -231,6 +227,24 @@ class JobPoster extends BaseModel
         return $this->hasMany(\App\Models\JobApplication::class)->whereDoesntHave('application_status', function ($query) : void {
             $query->where('name', 'draft');
         });
+    }
+
+    // Overrides
+
+    /**
+     * Retrieve the model for a bound value.
+     * Seems to be a useful workaround for providing submitted_applications_count
+     * to any bound routes that receive a jobPoster instance without using the
+     * withCount property on the model itself.
+     * See https://github.com/laravel/framework/issues/23957 for more info.
+     *
+     * @param mixed $value Value used to retrieve the model instance.
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function resolveRouteBinding($value) // phpcs:ignore
+    {
+        return $this->withCount('submitted_applications')->where('id', $value)->first() ?? abort(404);
     }
 
     // @codeCoverageIgnoreEnd

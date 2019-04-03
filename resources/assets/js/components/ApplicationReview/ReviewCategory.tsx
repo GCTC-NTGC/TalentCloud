@@ -154,25 +154,30 @@ const ReviewCategory: React.StatelessComponent<
 
       <p>{intl.formatMessage(description)}</p>
 
-      {/* Category Action
-                This section only exists for the "secondary" category, and should generate a confirmation dialogue that prompts the user to decide whether to screen ALL of the candidates in this category out or not.
-            */}
-      {showScreenOutAll && (
-        <span className="category-action">
-          <button
-            className="button--outline"
-            type="button"
-            onClick={handleScreenOutAllClick}
-          >
-            <i className="fas fa-ban" />{" "}
-            <FormattedMessage
-              id="screenOutAll"
-              defaultMessage="<default/> Screen All Optional Candidates Out"
-              description="Button to screen out all optional candidates from competition with one click"
-            />
+      <div className="flex-grid middle category-actions">
+        <div className="box med-1of2">
+          <button className="button--outline review-copy-emails" type="button">
+            <span>Copy Emails</span>
+            <span>Copied!</span>
           </button>
-        </span>
-      )}
+        </div>
+        <div className="box med-1of2">
+          {showScreenOutAll && (
+            <button
+              className="button--outline"
+              type="button"
+              onClick={handleScreenOutAllClick}
+            >
+              <i className="fas fa-ban" />
+              <FormattedMessage
+                id="screenOutAll"
+                defaultMessage="<default/> Screen All Optional Candidates Out"
+                description="Button to screen out all optional candidates from competition with one click"
+              />
+            </button>
+          )}
+        </div>
+      </div>
 
       {buckets.map(bucket => (
         <ApplicantBucket

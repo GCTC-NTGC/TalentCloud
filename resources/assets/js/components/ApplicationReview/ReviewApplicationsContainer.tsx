@@ -21,7 +21,7 @@ import messages_fr from "./localizations/fr.json";
 import { Job, Application, ReviewStatus, ApplicationReview } from "../types";
 import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
-import route from "../../helpers/route";
+import * as routes from "../../helpers/routes";
 
 addLocaleData([...locale_en, ...locale_fr]);
 
@@ -114,7 +114,7 @@ class ReviewApplicationsContainer extends React.Component<
     const { intl } = this.props;
     this.handleSavingStatusChange(applicationId, true);
     axios
-      .put(route("application_reviews.update", applicationId), review)
+      .put(routes.applicationReviewUpdate(intl.locale, applicationId), review)
       .then(response => {
         const newReview = response.data as ApplicationReview;
         this.updateReviewState(applicationId, newReview);
@@ -167,7 +167,10 @@ class ReviewApplicationsContainer extends React.Component<
       });
       this.handleSavingStatusChange(application.id, true);
       const request = axios
-        .put(route("application_reviews.update", application.id), submitReview)
+        .put(
+          routes.applicationReviewUpdate(intl.locale, application.id),
+          submitReview
+        )
         .then(response => {
           const newReview = response.data as ApplicationReview;
           this.updateReviewState(application.id, newReview);

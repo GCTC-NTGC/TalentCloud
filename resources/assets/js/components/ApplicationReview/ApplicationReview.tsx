@@ -7,7 +7,7 @@ import {
 } from "react-intl";
 import className from "classnames";
 import Swal from "sweetalert2";
-import route from "../../helpers/route";
+import * as routes from "../../helpers/routes";
 import Select, { SelectOption } from "../Select";
 import { Application } from "../types";
 import { ReviewStatusId } from "../lookupConstants";
@@ -272,10 +272,17 @@ class ApplicationReview extends React.Component<
           </div>
 
           <div className="box lg-2of11 applicant-information">
-            <span className="name">{application.applicant.user.name}</span>
+            <span
+              className="name"
+              data-name={`${application.applicant.user.name}`}
+            >
+              {application.applicant.user.name}
+            </span>
             <a
               href={`mailto: ${application.applicant.user.email}`}
               title={intl.formatMessage(messages.emailCandidate)}
+              data-email={`${application.applicant.user.email}`}
+              className="email"
             >
               {application.applicant.user.email}
             </a>
@@ -298,8 +305,8 @@ class ApplicationReview extends React.Component<
 
           <div className="box lg-2of11 applicant-links">
             <a
-              href={route("manager.applications.show", application)}
               title={intl.formatMessage(messages.viewApplicationTitle)}
+              href={routes.managerApplicationShow(intl.locale, application.id)}
             >
               <i className="fas fa-file-alt" />
               <FormattedMessage
@@ -309,8 +316,11 @@ class ApplicationReview extends React.Component<
               />
             </a>
             <a
-              href={route("manager.applicants.show", application.applicant)}
               title={intl.formatMessage(messages.viewProfileTitle)}
+              href={routes.managerApplicantShow(
+                intl.locale,
+                application.applicant_id
+              )}
             >
               <i className="fas fa-user" />
               <FormattedMessage

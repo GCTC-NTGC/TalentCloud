@@ -23,7 +23,7 @@ Route::group(
         Route::group(['prefix' => config('app.applicant_prefix')], function () : void {
 
             /* Home */
-            Route::get('/', 'HomepageController')->name('home');
+            Route::get('/', 'HomepageController@applicant')->name('home');
 
             /* Jobs */
             Route::get('jobs', 'JobController@index')->name('jobs.index');
@@ -91,15 +91,8 @@ Route::group(
                 /* Step 05 */
                 Route::post('jobs/{jobPoster}/application/submit', 'ApplicationByJobController@submit')->name('job.application.submit');
 
-                Route::get('profile', function () {
-                    $applicant = Auth::user()->applicant;
-                    return redirect(route('profile.about.edit', $applicant));
-                })->name('profile');
-
-                Route::get('profile/about', function () {
-                    $applicant = Auth::user()->applicant;
-                    return redirect(route('profile.about.edit', $applicant));
-                });
+                Route::get('profile', 'ApplicantProfileController@editAuthenticated')->name('profile');
+                Route::get('profile/about', 'ApplicantProfileController@editAuthenticated');
 
                 /* Profile - About Me */
                 Route::get('profile/{applicant}/about', 'ApplicantProfileController@edit')
@@ -112,10 +105,7 @@ Route::group(
                     ->name('profile.about.update');
 
                 /* Profile - My Experience */
-                Route::get('profile/experience', function () {
-                    $applicant = Auth::user()->applicant;
-                    return redirect(route('profile.experience.edit', $applicant));
-                });
+                Route::get('profile/experience', 'ExperienceController@editAuthenticated');
 
                 Route::get('profile/{applicant}/experience', 'ExperienceController@edit')
                     ->middleware('can:view,applicant')
@@ -127,10 +117,7 @@ Route::group(
                     ->name('profile.experience.update');
 
                 /* Profile - My Skills */
-                Route::get('profile/skills', function () {
-                    $applicant = Auth::user()->applicant;
-                    return redirect(route('profile.skills.edit', $applicant));
-                });
+                Route::get('profile/skills', 'SkillsController@editAuthenticated');
 
                 Route::get('profile/{applicant}/skills', 'SkillsController@edit')
                     ->middleware('can:view,applicant')
@@ -138,25 +125,15 @@ Route::group(
                     ->name('profile.skills.edit');
 
                 /* Profile - My References */
-                Route::get('profile/references', function () {
-                    $applicant = Auth::user()->applicant;
-                    return redirect(route('profile.references.edit', $applicant));
-                });
+                Route::get('profile/references', 'ReferencesController@editAuthenticated');
 
                 Route::get('profile/{applicant}/references', 'ReferencesController@edit')
                     ->middleware('can:view,applicant')
                     ->middleware('can:update,applicant')
                     ->name('profile.references.edit');
 
-                Route::post('profile/{applicant}/references/update', 'ReferencesController@updateAll')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.references.update');
-
                 /* Profile - My Portfolio */
-                Route::get('profile/portfolio', function () {
-                    $applicant = Auth::user()->applicant;
-                    return redirect(route('profile.work_samples.edit', $applicant));
-                });
+                Route::get('profile/portfolio', 'WorkSamplesController@editAuthenticated');
 
                 Route::get('profile/{applicant}/portfolio', 'WorkSamplesController@edit')
                     ->middleware('can:view,applicant')
@@ -165,25 +142,14 @@ Route::group(
             });
 
             /* Static - FAQ */
-            Route::get('faq', function () {
-                return view('applicant/static_faq', [
-                    'faq' => Lang::get('applicant/faq')
-                ]);
-            })->name('faq');
+            Route::view('faq', 'applicant/static_faq', ['faq' => Lang::get('applicant/faq')])->name('faq');
 
             /* Static - Privacy Policy */
-            Route::get('privacy', function () {
-                return view('common/static_privacy', [
-                    'privacy' => Lang::get('common/privacy')
-                ]);
-            })->name('privacy');
+            Route::view('privacy', 'common/static_privacy', ['privacy' => Lang::get('common/privacy')])
+                ->name('privacy');
 
             /* Static - Terms of Service */
-            Route::get('tos', function () {
-                return view('common/static_tos', [
-                    'tos' => Lang::get('common/tos')
-                ]);
-            })->name('tos');
+            Route::view('tos', 'common/static_tos', ['tos' => Lang::get('common/tos')])->name('tos');
 
             /* Authentication =========================================================== */
 
@@ -206,24 +172,13 @@ Route::group(
 
         /* Manager Portal =========================================================== */
 
-        $managerGroup = function () : void {
+        Route::group(['prefix' => config('app.manager_prefix')], function (): void {
             /* Home */
-            Route::get('/', function () {
-                return view('manager/home', [
-                    "hero" => [
-                        "hero_logo" => "/images/logo_tc_colour.png",
-                        "hero_logo_alt" => Lang::get('manager/home_hero')['logo_alt_text'],
-                        "hero_tagline" => Lang::get('manager/home_hero')['tagline']
-                    ]
-                ]);
-            })->name('manager.home');
+            Route::get('/', 'HomepageController@manager')->name('manager.home');
 
-            Route::middleware(['auth', 'role:manager'])->group(function () : void {
+            Route::middleware(['auth', 'role:manager'])->group(function (): void {
 
-                Route::get('profile', function () {
-                    $manager = Auth::user()->manager;
-                    return redirect()->route('manager.profile.edit', $manager);
-                })->name('manager.profile');
+                Route::get('profile', 'ManagerProfileController@editAuthenticated')->name('manager.profile');
 
                 /* Profile */
                 Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')
@@ -312,12 +267,6 @@ Route::group(
             Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('manager.password.email');
             Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('manager.password.reset');
             Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('manager.password.reset.post');
-        };
-
-        Route::group(['prefix' => config('app.manager_prefix')], $managerGroup);
-
-        Route::group(['prefix' => 'demo', 'middleware' => 'localOnly'], function () : void {
-            Route::get('review-applications', 'DemoController@reviewApplications')->name('demo.review_applications');
         });
 
         /* AJAX calls =============================================================== */
@@ -349,25 +298,25 @@ Route::group(
                 ->middleware('can:delete,skillDeclaration')
                 ->name('skill_declarations.destroy');
 
-            Route::put('references/{reference}', 'ReferencesController@update')
-                ->middleware('can:update,reference')
-                ->name('references.update');
-
             Route::post('references', 'ReferencesController@update')
                 ->middleware('can:create,App\Models\Reference')
                 ->name('references.create');
+
+            Route::put('references/{reference}', 'ReferencesController@update')
+                ->middleware('can:update,reference')
+                ->name('references.update');
 
             Route::delete('references/{reference}', 'ReferencesController@destroy')
                 ->middleware('can:delete,reference')
                 ->name('references.destroy');
 
-            Route::put('work-samples/{workSample}', 'WorkSamplesController@update')
-                ->middleware('can:update,workSample')
-                ->name('work_samples.update');
-
             Route::post('work-samples', 'WorkSamplesController@update')
                 ->middleware('can:create,App\Models\WorkSample')
                 ->name('work_samples.create');
+
+            Route::put('work-samples/{workSample}', 'WorkSamplesController@update')
+                ->middleware('can:update,workSample')
+                ->name('work_samples.update');
 
             Route::delete('work-samples/{workSample}', 'WorkSamplesController@destroy')
                 ->middleware('can:delete,workSample')
@@ -390,16 +339,24 @@ Route::group(
 
         /* Language ============================================================= */
 
-        Route::get('fr', function () {
-        //TODO
-            return redirect()->home();
-        })->name('lang.fr');
+        // Route::redirect('fr', '/')->name('lang.fr');
 
-        Route::get('en', function () {
-        //TODO
-            return redirect()->home();
-        })->name('lang.en');
+        // Route::redirect('en', '/')->name('lang.en');
     }
 );
 
 /** ALL NON-LOCALIZED ROUTES **/
+
+/* Non-Backpack Admin Portal =========================================================== */
+
+Route::group(
+    [
+        'prefix' => 'admin',
+        'middleware' => ['auth', 'role:admin']
+    ],
+    function (): void {
+        Route::get('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
+            ->middleware('can:create,App\Models\JobPoster')
+            ->name('admin.jobs.create.as_manager');
+    }
+);

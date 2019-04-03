@@ -10,16 +10,20 @@ use App\Models\Lookup\SecurityClearance;
 use App\Models\Criteria;
 use App\Models\JobPosterKeyTask;
 use App\Models\JobPosterQuestion;
+use Jenssegers\Date\Date;
 
 $faker_fr = Faker\Factory::create('fr');
 
 $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker_fr) {
+    $closeDate = Date::instance($faker->dateTimeBetween('now', '1 months'));
+    $openDate = Date::instance($faker->dateTimeBetween('-1 months', 'now'));
+    $startDate = Date::instance($faker->dateTimeBetween('1 months', '2 months'));
     return [
         'job_term_id' => JobTerm::inRandomOrder()->first()->id,
         'term_qty' => $faker->numberBetween(1, 4),
-        'open_date_time' => $faker->dateTimeBetween('-1 months', 'now'),
-        'close_date_time' => $faker->dateTimeBetween('now', '1 months'),
-        'start_date_time' => $faker->dateTimeBetween('1 months', '2 months'),
+        'open_date_time' => pstDayStartToUtcTime($openDate->year, $openDate->month, $openDate->day),
+        'close_date_time' => pstDayEndToUtcTime($closeDate->year, $closeDate->month, $closeDate->day),
+        'start_date_time' => pstDayStartToUtcTime($startDate->year, $startDate->month, $startDate->day),
         'review_requested_at' => $faker->dateTimeBetween('-2 months', '-1 months'),
         'published_at' => null,
         'department_id' => Department::inRandomOrder()->first()->id,

@@ -19,7 +19,7 @@ import Swal from "sweetalert2";
 import messages_en from "./localizations/en.json";
 import messages_fr from "./localizations/fr.json";
 import { Application, ReviewStatus, ApplicationReview } from "../types";
-import route from "../../helpers/route";
+import * as route from "../../helpers/routes";
 import ApplicationReviewWithNav from "./ApplicationReviewWithNav";
 
 addLocaleData([...locale_en, ...locale_fr]);
@@ -91,7 +91,7 @@ class ApplicationReviewContainer extends React.Component<
     const { intl } = this.props;
     this.setState({ isSaving: true });
     return axios
-      .put(route("application_reviews.update", application.id), review)
+      .put(route.applicationReviewUpdate(intl.locale, application.id), review)
       .then(response => {
         const newReview = response.data as ApplicationReview;
         this.updateReviewState(newReview);

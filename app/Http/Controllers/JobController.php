@@ -22,14 +22,11 @@ use App\Models\Lookup\JobTerm;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\LanguageRequirement;
-use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\SkillLevel;
 use App\Models\Lookup\CriteriaType;
-use App\Models\Lookup\VeteranStatus;
-use App\Models\JobApplication;
-use App\Models\Criteria;
 use App\Models\Skill;
+use App\Models\Manager;
 use App\Models\JobPosterKeyTask;
 
 use App\Services\Validation\JobPosterValidator;
@@ -102,7 +99,9 @@ class JobController extends Controller
         // Update review request timestamp
         $jobPoster->review_requested_at = new Date();
         $jobPoster->save();
-        $jobPoster->refresh();
+
+        // Refresh model instance with updated DB values.
+        $jobPoster = JobPoster::withCount('submitted_applications')->where('id', $jobPoster->id)->first();
 
         // Send email
         $reviewer_email = config('mail.reviewer_email');
@@ -219,6 +218,33 @@ class JobController extends Controller
                 'skill_template' => Lang::get('common/skills'),
             ]
         );
+    }
+
+    /**
+     * Create a blank job poster for the specified manager
+     *
+     * @param Manager $manager
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory Job Create view
+     */
+    public function createAsManager(Manager $manager)
+    {
+        $jobPoster = new JobPoster();
+        $jobPoster->manager_id = $manager->id;
+        $managerEn = $manager->translate('en');
+        $managerFr = $manager->translate('fr');
+        $jobPoster->fill([
+            'department_id' => $manager->department_id,
+            'en' => [
+                'branch' => $managerEn->branch,
+                'division' => $managerEn->division,
+            ],
+            'fr' => [
+                'branch' => $managerFr->branch,
+                'division' => $managerFr->division,
+            ]
+        ]);
+        $jobPoster->save();
+        return redirect()->route('manager.jobs.edit', $jobPoster->id);
     }
 
     /**
@@ -401,13 +427,17 @@ class JobController extends Controller
      */
     protected function fillAndSaveJobPoster(array $input, JobPoster $jobPoster) : void
     {
+        $closeDate = new Date($input['close_date']);
+        $openDate = new Date($input['open_date']);
+        $startDate = new Date($input['start_date']);
+
         $jobPoster->fill(
             [
                 'job_term_id' => JobTerm::where('name', 'month')->firstOrFail()->id,
                 'term_qty' => $input['term_qty'],
-                'open_date_time' => new Date($input['open_date'] . $input['open_time']),
-                'close_date_time' => new Date($input['close_date'] . $input['close_time']),
-                'start_date_time' => new Date($input['start_date_time']),
+                'open_date_time' => pstDayStartToUtcTime($openDate->year, $openDate->month, $openDate->day),
+                'close_date_time' => pstDayEndToUtcTime($closeDate->year, $closeDate->month, $closeDate->day),
+                'start_date_time' => pstDayStartToUtcTime($startDate->year, $startDate->month, $startDate->day),
                 'department_id' => $input['department'],
                 'province_id' => $input['province'],
                 'salary_min' => $input['salary_min'],

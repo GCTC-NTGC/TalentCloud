@@ -7,7 +7,7 @@ import {
 } from "react-intl";
 import className from "classnames";
 import Swal from "sweetalert2";
-import route from "../../helpers/route";
+import * as routes from "../../helpers/routes";
 import Select, { SelectOption } from "../Select";
 import { Application } from "../types";
 import { ReviewStatusId } from "../lookupConstants";
@@ -294,8 +294,8 @@ class ApplicationReviewWithNav extends React.Component<
                 type="button"
                 onClick={() =>
                   this.handleLinkClicked(
-                    route(
-                      "manager.jobs.applications",
+                    routes.managerJobApplications(
+                      intl.locale,
                       application.job_poster_id
                     )
                   )
@@ -314,7 +314,10 @@ class ApplicationReviewWithNav extends React.Component<
                 type="button"
                 onClick={() =>
                   this.handleLinkClicked(
-                    route("manager.jobs.show", application.job_poster_id)
+                    routes.managerJobShow(
+                      intl.locale,
+                      application.job_poster_id
+                    )
                   )
                 }
               >
@@ -383,8 +386,11 @@ class ApplicationReviewWithNav extends React.Component<
 
             <div className="box lg-2of11 applicant-links">
               <a
-                href={route("manager.applications.show", application)}
                 title={intl.formatMessage(messages.viewApplicationTitle)}
+                href={routes.managerApplicationShow(
+                  intl.locale,
+                  application.id
+                )}
               >
                 <i className="fas fa-file-alt" />
                 <FormattedMessage
@@ -394,8 +400,11 @@ class ApplicationReviewWithNav extends React.Component<
                 />
               </a>
               <a
-                href={route("manager.applicants.show", application.applicant)}
                 title={intl.formatMessage(messages.viewProfileTitle)}
+                href={routes.managerApplicantShow(
+                  intl.locale,
+                  application.applicant_id
+                )}
               >
                 <i className="fas fa-user" />
                 <FormattedMessage

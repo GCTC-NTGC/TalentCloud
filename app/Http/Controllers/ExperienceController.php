@@ -15,16 +15,16 @@ use App\Http\Controllers\Controller;
 
 class ExperienceController extends Controller
 {
-
     /**
-    * Display the Experience page associated with the applicant.
-    *
-    * @param  \App\Models\Applicant  $applicant
-    * @return \Illuminate\Http\Response
-    */
-    public function show(Applicant $applicant)
+     * Show the form for editing the logged-in applicant's experience
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editAuthenticated(Request $request): \Illuminate\Http\RedirectResponse
     {
-        //
+        $applicant = $request->user()->applicant;
+        return redirect(route('profile.experience.edit', $applicant));
     }
 
     /**
@@ -50,12 +50,12 @@ class ExperienceController extends Controller
     }
 
     /**
-    * Update the applicant's profile in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  \App\Models\Applicant  $applicant
-    * @return \Illuminate\Http\Response
-    */
+     * Update the applicant's profile in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Applicant    $applicant
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, Applicant $applicant)
     {
         $input = $request->input();
@@ -74,7 +74,7 @@ class ExperienceController extends Controller
         //Delete old degrees that weren't resubmitted
         //Note: this must be done before adding new degrees, so we don't delete
         // them right after adding them
-        foreach($applicant->degrees as $oldDegree) {
+        foreach ($applicant->degrees as $oldDegree) {
             //Check if no degrees were resubmitted, or if this specific one wasn't
             if (!isset($degrees['old']) ||
             !isset($degrees['old'][$oldDegree->id])) {
@@ -84,7 +84,7 @@ class ExperienceController extends Controller
 
         //Save new degrees
         if (isset($degrees['new'])) {
-            foreach($degrees['new'] as $degreeInput) {
+            foreach ($degrees['new'] as $degreeInput) {
                 $degree = new Degree();
                 $degree->applicant_id = $applicant->id;
                 $degree->fill([
@@ -101,7 +101,7 @@ class ExperienceController extends Controller
 
         //Update old degrees
         if (isset($degrees['old'])) {
-            foreach($degrees['old'] as $id=>$degreeInput) {
+            foreach ($degrees['old'] as $id => $degreeInput) {
                 //Ensure this degree belongs to this applicant
                 $degree = $applicant->degrees->firstWhere('id', $id);
                 if ($degree != null) {
@@ -133,7 +133,7 @@ class ExperienceController extends Controller
         //Delete old courses that weren't resubmitted
         //Note: this must be done before adding new ones, so we don't delete
         // them right after adding them
-        foreach($applicant->courses as $oldCourse) {
+        foreach ($applicant->courses as $oldCourse) {
             //Check if no courses were resubmitted, or if this specific one wasn't
             if (!isset($courses['old']) ||
             !isset($courses['old'][$oldCourse->id])) {
@@ -143,7 +143,7 @@ class ExperienceController extends Controller
 
         //Save new courses
         if (isset($courses['new'])) {
-            foreach($courses['new'] as $courseInput) {
+            foreach ($courses['new'] as $courseInput) {
                 $course = new Course();
                 $course->applicant_id = $applicant->id;
                 $course->fill([
@@ -159,7 +159,7 @@ class ExperienceController extends Controller
 
         //Update old courses
         if (isset($courses['old'])) {
-            foreach($courses['old'] as $id=>$courseInput) {
+            foreach ($courses['old'] as $id => $courseInput) {
                 //Ensure this course belongs to this applicant
                 $course = $applicant->courses->firstWhere('id', $id);
                 if ($course != null) {
@@ -190,7 +190,7 @@ class ExperienceController extends Controller
         //Delete old work_experiences that weren't resubmitted
         //Note: this must be done before adding new ones, so we don't delete
         // them right after adding them
-        foreach($applicant->work_experiences as $oldWorkExperience) {
+        foreach ($applicant->work_experiences as $oldWorkExperience) {
             //Check if no work_experiences were resubmitted, or if this specific one wasn't
             if (!isset($work_experiences['old']) ||
             !isset($work_experiences['old'][$oldWorkExperience->id])) {
@@ -200,7 +200,7 @@ class ExperienceController extends Controller
 
         //Save new work_experiences
         if (isset($work_experiences['new'])) {
-            foreach($work_experiences['new'] as $workExperienceInput) {
+            foreach ($work_experiences['new'] as $workExperienceInput) {
                 $workExperience = new WorkExperience();
                 $workExperience->applicant_id = $applicant->id;
                 $workExperience->fill([
@@ -216,7 +216,7 @@ class ExperienceController extends Controller
 
         //Update old work_experiences
         if (isset($work_experiences['old'])) {
-            foreach($work_experiences['old'] as $id=>$workExperienceInput) {
+            foreach ($work_experiences['old'] as $id => $workExperienceInput) {
                 //Ensure this work_experience belongs to this applicant
                 $workExperience = $applicant->work_experiences->firstWhere('id', $id);
                 if ($workExperience != null) {
@@ -234,7 +234,6 @@ class ExperienceController extends Controller
             }
         }
 
-        return redirect( route('profile.experience.edit', $applicant) );
+        return redirect(route('profile.experience.edit', $applicant));
     }
-
 }
