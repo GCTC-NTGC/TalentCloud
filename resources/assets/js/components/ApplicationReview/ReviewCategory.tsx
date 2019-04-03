@@ -138,7 +138,7 @@ const ReviewCategory: React.StatelessComponent<
       },
       description: {
         id: "essentialCriteriaFail.description",
-        defaultMessage: "<default/> ",
+        defaultMessage: "",
         description:
           "description of list of applicants who do not meet the essential criteria"
       },
