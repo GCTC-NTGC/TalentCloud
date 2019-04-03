@@ -37,6 +37,8 @@ return [
     'delete_this_poster' => 'Delete this job poster draft.',
     'archived_posters' => 'My Archived Posters',
     'no_archived_posters' => 'The ability to archive your posters is coming soon!',
+    'view_this_job_poster' => 'View this job poster.',
+    'view_preview_job_poster' => 'View a preview of this job poster.',
     // Older version translations, still on page
     'job_poster' => 'Job Poster',
     'edit' => 'Edit',

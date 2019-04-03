@@ -20,7 +20,7 @@
             <h4 class="heading--04 poster-title--preview">
                 <a
                     href="{{ route('manager.jobs.show', job) }}"
-                    title="View a preview of this job poster.">
+                    title="{{jobs_l10n.view_preview_job_poster}}">
                     {{ job.title }} {{ jobs_l10n.preview }}
                 </a>
             </h4>
@@ -30,7 +30,7 @@
             <h4 class="heading--04 poster-title--link">
                 <a
                     href="{{ route('manager.jobs.show', job) }}"
-                    title="View this job poster.">
+                    title="{{ jobs_l10n.view_this_job_poster }}">
                     {{ job.title }}
                 </a>
             </h4>

@@ -15,4 +15,5 @@ Route::group([
     CRUD::resource('skill', 'SkillCrudController');
     CRUD::resource('job-poster', 'JobPosterCrudController');
     CRUD::resource('user', 'UserCrudController');
+    CRUD::resource('manager', 'ManagerCrudController');
 });

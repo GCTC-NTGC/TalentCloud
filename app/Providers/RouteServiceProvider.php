@@ -8,6 +8,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class RouteServiceProvider extends ServiceProvider
 {
+    use \Mcamara\LaravelLocalization\Traits\LoadsTranslatedCachedRoutes;
+
     /**
      * This namespace is applied to your controller routes.
      *

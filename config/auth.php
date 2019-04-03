@@ -45,11 +45,6 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
-
-        'oidconnect_applicants' => [
-            'driver' => 'oidconnect',
-            'provider' => 'oidc_make_applicant',
-        ]
     ],
 
     /*
@@ -73,12 +68,6 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
-        ],
-
-        'oidc_make_applicant' => [
-            'driver' => 'oidconnect',
-            'model' => App\Models\User::class,
-            'default_role' => 'applicant'
         ],
     ],
 

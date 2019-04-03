@@ -15,9 +15,10 @@ return [
         "jobs" => [
             "name" => "My Job Posters",
         ],
-        "create_job" => [
-            "name" => "Create Job Poster",
-        ],
+        //TODO: restore when job poster builder complete
+        // "create_job" => [
+        //     "name" => "Create Job Poster",
+        // ],
         "profile" => [
             "name" => "My Profile",
         ],
