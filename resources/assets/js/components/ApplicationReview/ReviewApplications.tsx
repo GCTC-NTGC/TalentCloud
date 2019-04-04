@@ -107,10 +107,20 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
         </div>
 
         <div className="box med-1of2 timer-wrapper">
-          <span>
-            <i className="fas fa-stopwatch" />{" "}
-            {moment().diff(moment(closeDateTime), "days")} Days Since Close
-          </span>
+          <i className="fas fa-stopwatch" />
+          &nbsp;
+          <FormattedMessage
+            id="daysSinceClosed"
+            defaultMessage="<default/> {dayCount, plural,
+              =0 {No Days}
+            one {# Day}
+          other {# Days}
+        } Since Close"
+            description="Welcome header on app main page"
+            values={{
+              dayCount: moment().diff(moment(closeDateTime), "days")
+            }}
+          />
         </div>
       </div>
 

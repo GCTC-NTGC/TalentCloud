@@ -47,5 +47,6 @@
     "oops": "Oops...",
     "somethingWrong": "Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.",
     "copyEmailsButton": "Copier des emails",
-    "copied": "Copié!"
+    "copied": "Copié!",
+    "daysSinceClosed": "{dayCount, plural, =0 {Aucun jour} one {# jour} other {# jours}} depuis la fermeture"
 }

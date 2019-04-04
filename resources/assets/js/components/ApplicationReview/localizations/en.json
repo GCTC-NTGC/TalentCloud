@@ -47,5 +47,6 @@
     "oops": "Oops...",
     "somethingWrong": "Something went wrong while saving a review. Try again later.",
     "copyEmailsButton": "Copy Emails",
-    "copied": "Copied!"
+    "copied": "Copied!",
+    "daysSinceClosed": "EN {dayCount, plural, =0 {No Days} one {# Day} other {# Days}} Since Close"
 }
