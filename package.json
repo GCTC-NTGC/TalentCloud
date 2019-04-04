@@ -16,7 +16,9 @@
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "lightcrawler-a": "lightcrawler -u http://localhost:8000 -c lightcrawler.json",
-        "lightcrawler-m": "lightcrawler -u http://localhost:8000/en/manager -c lightcrawler.json"
+        "lightcrawler-m": "lightcrawler -u http://localhost:8000/en/manager -c lightcrawler.json",
+        "test": "testcafe all tests/Browser/*.js -S -s tests/Browser/screenshots -u -e",
+        "test-ci": "testcafe chrome,firefox tests/Browser/*.js -S -s tests/Browser/screenshots -u -e"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.8.0",
@@ -45,6 +47,7 @@
         "prettier": "^1.16.4",
         "resolve-url-loader": "^3.0.1",
         "sass-loader": "^7.1.0",
+        "testcafe": "^1.1.0",
         "ts-loader": "^5.3.3",
         "typescript": "^3.3.3",
         "vue-template-compiler": "^2.6.7",
