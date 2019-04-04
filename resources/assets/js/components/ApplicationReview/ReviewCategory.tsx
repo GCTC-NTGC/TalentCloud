@@ -157,8 +157,17 @@ const ReviewCategory: React.StatelessComponent<
       <div className="flex-grid middle category-actions">
         <div className="box med-1of2">
           <button className="button--outline review-copy-emails" type="button">
-            <span>Copy Emails</span>
-            <span>Copied!</span>
+            <FormattedMessage
+              id="copyEmailsButton"
+              defaultMessage="<default/> Copy Emails"
+              description="Button to copy all applicant emails in screening category"
+            />
+
+            <FormattedMessage
+              id="copied"
+              defaultMessage="<default/> Copied!"
+              description="Confirmation for Button to copy all applicant emails in screening category"
+            />
           </button>
         </div>
         <div className="box med-1of2">
@@ -169,6 +178,7 @@ const ReviewCategory: React.StatelessComponent<
               onClick={handleScreenOutAllClick}
             >
               <i className="fas fa-ban" />
+              &nbsp;
               <FormattedMessage
                 id="screenOutAll"
                 defaultMessage="<default/> Screen All Optional Candidates Out"

@@ -45,5 +45,7 @@
     "screenOutConfirm": "Screen out the candidate?",
     "screenInConfirm": "Put the candidate back in the \"under consideration\" section?",
     "oops": "Oops...",
-    "somethingWrong": "Something went wrong while saving a review. Try again later."
+    "somethingWrong": "Something went wrong while saving a review. Try again later.",
+    "copyEmailsButton": "Copy Emails",
+    "copied": "Copied!"
 }

@@ -43,5 +43,9 @@
     "cancelButton": "Annuler",
     "confirmButtion": "Confirmer",
     "screenOutConfirm": "Éliminer le candidat?",
-    "screenInConfirm": "Remettre le candidat dans la section à l'étude?"
+    "screenInConfirm": "Remettre le candidat dans la section à l'étude?",
+    "oops": "Oops...",
+    "somethingWrong": "Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.",
+    "copyEmailsButton": "Copier des emails",
+    "copied": "Copié!"
 }
