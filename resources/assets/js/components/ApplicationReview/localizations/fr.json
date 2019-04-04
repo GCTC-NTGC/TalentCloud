@@ -1,5 +1,5 @@
 {
-    "app.title": "Applications pour: {job_title} {job_classification}",
+    "app.title": "Applications pour : {job_title} {job_classification}",
     "temporary_priority_alert": "Alerte temporaire pour les priorité",
     "get_priority_list": "Contactez Nuage de talents pour obtenir une liste des priorités qui ont postulé. Ils doivent être examinés et pris en considération en premier.",
     "underConsideration.description": "Examinez les candidats dans la section Anciens combattants et citoyens canadiens. Si aucun ou très peu de ces candidats ne répondent aux critères, vous pouvez toujours prendre en compte les candidatures non citoyennes dans la section Considérations facultatives.",

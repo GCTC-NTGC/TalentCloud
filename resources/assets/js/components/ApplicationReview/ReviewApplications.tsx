@@ -126,7 +126,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
 
       <div className="priority-alert">
         <h3>
-          <i className="fas fa-bell" />
+          <i className="fas fa-bell" />{" "}
           <FormattedMessage
             id="temporary_priority_alert"
             defaultMessage="<default/> Temporary Priority Alert"
