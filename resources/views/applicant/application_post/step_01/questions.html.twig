@@ -123,43 +123,32 @@
         <div class="application-post__language-declaration">
             <span>{{ application_template.language_declaration }}</span>
             <div class="wrapper">
-            {% if job.language_requirement.id == 1 %}
+                {% if job.language_requirement.id is not empty %}
                 <div>
                     <label
                         class="flex-grid"
                         for="language_requirement_confirmed">
                         <input id="language_requirement_confirmed" name="language_requirement_confirmed" type="checkbox" required />
-                        <p class="box fit">{{ application_template.english_essential }}</p>
+                        <p class="box fit">
+                            {% if job.language_requirement.id == 1 %}
+                                {# English Essential #}
+                                {{ application_template.english_essential }}
+                            {% elseif job.language_requirement.id == 2 %}
+                                {# French Essential #}
+                                {{ application_template.french_essential }}
+                            {% elseif job.language_requirement.id == 3 %}
+                                {# Bilingual #}
+                                {{ application_template.bilingual }}
+                            {% elseif job.language_requirement.id == 4 %}
+                                {# English or French #}
+                                {{ application_template.english_french }}
+                            {% else %}
+                                {# nothing #}
+                            {% endif %}
+                        </p>
                     </label>
                 </div>
-            {% elseif job.language_requirement.id == 2 %}
-                <div>
-                    <label
-                        class="flex-grid"
-                        for="language_requirement_confirmed">
-                        <input id="language_requirement_confirmed" name="language_requirement_confirmed" type="checkbox" required />
-                        <p class="box fit">{{ application_template.french_essential }}</p>
-                    </label>
-                </div>
-            {% elseif job.language_requirement.id == 3 %}
-                <div>
-                    <label
-                        class="flex-grid"
-                        for="language_requirement_confirmed">
-                        <input id="language_requirement_confirmed" name="language_requirement_confirmed" type="checkbox" required />
-                        <p class="box fit">{{ application_template.bilingual }}</p>
-                    </label>
-                </div>
-            {% elseif job.language_requirement.id == 4 %}
-                <div>
-                    <label
-                        class="flex-grid"
-                        for="language_requirement_confirmed">
-                        <input id="language_requirement_confirmed" name="language_requirement_confirmed" type="checkbox" required />
-                        <p class="box fit">{{ application_template.english_french }}</p>
-                    </label>
-                </div>
-            {% endif %}
+                {% endif %}
             </div>
         </div>
 
