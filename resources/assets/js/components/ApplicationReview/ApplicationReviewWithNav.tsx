@@ -26,7 +26,7 @@ const messages = defineMessages({
   viewApplicationTitle: {
     id: "viewApplication.title",
     defaultMessage: "<default/> View this applicant's application.",
-    description: "Title, hover text, for View Applection Link"
+    description: "Title, hover text, for View Application Link"
   },
   viewProfileTitle: {
     id: "viewProfile.title",
@@ -89,9 +89,9 @@ const messages = defineMessages({
     description: "Dynaming Note button label"
   },
   confirmButton: {
-    id: "confirmButtion",
+    id: "confirmButton",
     defaultMessage: "<default/> Confirm",
-    description: "Confirm buttion for modal dialogue boxes"
+    description: "Confirm button for modal dialogue boxes"
   },
   screenOutConfirm: {
     id: "screenOutConfirm",

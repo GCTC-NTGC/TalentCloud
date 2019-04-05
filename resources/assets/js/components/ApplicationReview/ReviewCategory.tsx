@@ -30,16 +30,16 @@ interface ReviewCategoryProps {
 
 const localizations = defineMessages({
   confirmButton: {
-    id: "confirmButtion",
+    id: "confirmButton",
     defaultMessage: "<default/> Confirm",
-    description: "Confirm buttion for modal dialogue boxes"
+    description: "Confirm button for modal dialogue boxes"
   },
   screenOutAllConfirm: {
     id: "screenOutAll.confirm",
     defaultMessage:
       "<default/> Are you sure you want to screen out all Optional candidates?",
     description:
-      "Confirm dialogue test for screening out all optional candidates."
+      "Confirm dialogue text for screening out all optional candidates."
   }
 });
 
@@ -108,7 +108,7 @@ const ReviewCategory: React.StatelessComponent<
       description: {
         id: "veteransAndCitizens.description",
         defaultMessage: "",
-        description: "description of list of Venterans and Canadian citizens"
+        description: "description of list of Veterans and Canadian citizens"
       },
       applications: applications.filter(
         application => applicationBucket(application) === "citizen"
