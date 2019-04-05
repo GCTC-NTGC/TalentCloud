@@ -374,7 +374,7 @@ class ApplicationReviewWithNav extends React.Component<
                   <img
                     alt={intl.formatMessage(messages.viewApplicationTitle)}
                     src="/images/icon_veteran.svg"
-                  />
+                  />{" "}
                   <FormattedMessage
                     id="veteran"
                     defaultMessage="<default/> Veteran"

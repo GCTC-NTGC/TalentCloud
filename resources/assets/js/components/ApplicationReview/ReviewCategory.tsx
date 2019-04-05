@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   injectIntl,
   InjectedIntlProps,
@@ -11,6 +11,7 @@ import { SelectOption } from "../Select";
 import { applicationBucket } from "./helpers";
 import ApplicantBucket from "./ApplicantBucket";
 import { ReviewStatusId } from "../lookupConstants";
+import { copyToClipboard } from "../../helpers/clipboard";
 
 interface ReviewCategoryProps {
   title: FormattedMessage.MessageDescriptor;
@@ -148,6 +149,19 @@ const ReviewCategory: React.StatelessComponent<
     }
   ];
 
+  /* Code related to copying emails to clipboard */
+  const [justCopied, setJustCopied] = useState(false);
+  const nameEmails = applications.map(application => {
+    const { name, email } = application.applicant.user;
+    return `${name}<${email}>`;
+  });
+  const emailList = nameEmails.join(",");
+  const handleCopyClick = (): void => {
+    copyToClipboard(emailList);
+    setJustCopied(true);
+    setTimeout(() => setJustCopied(false), 1000);
+  };
+
   return (
     <div className="applicant-category">
       <h3 className="heading--03">{intl.formatMessage(title)}</h3>
@@ -156,18 +170,24 @@ const ReviewCategory: React.StatelessComponent<
 
       <div className="flex-grid middle category-actions">
         <div className="box med-1of2">
-          <button className="button--outline review-copy-emails" type="button">
-            <FormattedMessage
-              id="copyEmailsButton"
-              defaultMessage="<default/> Copy Emails"
-              description="Button to copy all applicant emails in screening category"
-            />
-
-            <FormattedMessage
-              id="copied"
-              defaultMessage="<default/> Copied!"
-              description="Confirmation for Button to copy all applicant emails in screening category"
-            />
+          <button
+            className="button--outline"
+            type="button"
+            onClick={handleCopyClick}
+          >
+            {justCopied ? (
+              <FormattedMessage
+                id="copied"
+                defaultMessage="<default/> Copied!"
+                description="Confirmation for Button to copy all applicant emails in screening category"
+              />
+            ) : (
+              <FormattedMessage
+                id="copyEmailsButton"
+                defaultMessage="<default/> Copy Emails"
+                description="Button to copy all applicant emails in screening category"
+              />
+            )}
           </button>
         </div>
         <div className="box med-1of2">

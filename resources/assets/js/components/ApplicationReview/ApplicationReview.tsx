@@ -293,7 +293,7 @@ class ApplicationReview extends React.Component<
                 <img
                   alt={intl.formatMessage(messages.veteranLogo)}
                   src="/images/icon_veteran.svg"
-                />
+                />{" "}
                 <FormattedMessage
                   id="veteran"
                   defaultMessage="<default/> Veteran"
