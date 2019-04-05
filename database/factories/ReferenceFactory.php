@@ -29,7 +29,7 @@ $factory->define(Project::class, function (Faker $faker) {
     ];
 });
 
-$factory->afterCreating(Reference::class, function($reference) : void {
+$factory->afterCreating(Reference::class, function ($reference) : void {
     $reference->projects()->saveMany(factory(Project::class, 3)->make([
         'applicant_id' => $reference->applicant_id
     ]));

@@ -105,7 +105,7 @@ $factory->define(Manager::class, function (Faker\Generator $faker) use ($faker_f
     ];
 });
 
-$factory->afterCreating(Manager::class, function ($manager) {
+$factory->afterCreating(Manager::class, function ($manager) : void {
     $manager->team_culture()->save(factory(TeamCulture::class)->create([
         'manager_id' => $manager->id,
     ]));
