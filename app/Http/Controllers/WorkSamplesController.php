@@ -30,12 +30,18 @@ class WorkSamplesController extends Controller
     /**
      * Show the form for editing the applicant's work samples
      *
-     * @param  Request               $request
-     * @param  \App\Models\Applicant $applicant
+     * @param Request   $request   Incoming request object.
+     * @param Applicant $applicant Incoming Applicant object.
+     *
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function edit(Request $request, Applicant $applicant)
     {
+        $applicant->load([
+            'work_samples',
+            'skill_declarations.skill',
+        ]);
+
         return view('applicant/profile_05_portfolio', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_work_samples'),

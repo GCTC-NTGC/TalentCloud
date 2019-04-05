@@ -40,10 +40,6 @@ class ExperienceController extends Controller
         return view('applicant/profile_02_experience', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_experience'),
-            'degree_types' => DegreeType::all(),
-            'course_status' => CourseStatus::all(),
-            'degree_template' => Lang::get('common/degree'),
-            'course_template' => Lang::get('common/course'),
             'work_template' => Lang::get('common/work_experience'),
             'form_submit_action' => route('profile.experience.update', $applicant)
         ]);
