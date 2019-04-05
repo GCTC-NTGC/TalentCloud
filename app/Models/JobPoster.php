@@ -54,7 +54,6 @@ use \Backpack\CRUD\CrudTrait;
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_questions
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_translations
  * @property \Illuminate\Database\Eloquent\Collection $submitted_applications
- * @property \Illuminate\Database\Eloquent\Collection[ScreeningPlan] $screening_plans
  *
  * Localized Properties:
  * @property string $city
@@ -207,11 +206,6 @@ class JobPoster extends BaseModel
     public function job_poster_translations() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobPosterTranslation::class);
-    }
-
-    public function screening_plans() // phpcs:ignore
-    {
-        return $this->hasMany(\App\Models\ScreeningPlan::class);
     }
 
     // Artificial Relations

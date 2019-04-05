@@ -9,7 +9,6 @@ use Illuminate\View\View;
 use App\Models\Skill;
 use App\Models\Lookup\SkillLevel;
 use App\Models\Lookup\AssessmentType;
-use App\Models\ScreeningPlan;
 use App\Models\Assessment;
 
 class ScreeningPlanController extends Controller
