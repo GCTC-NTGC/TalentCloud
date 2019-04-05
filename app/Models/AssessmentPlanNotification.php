@@ -3,7 +3,7 @@
 namespace App\Models;
 
 /**
- * Class Assessment
+ * Class AssessmentPlanNotification
  *
  * @property int $id
  * @property int $job_poster_id
