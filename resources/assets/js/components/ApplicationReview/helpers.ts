@@ -27,13 +27,15 @@ export function applicationBucket(application: Application): Bucket {
   if (!application.meets_essential_criteria) {
     return "unqualified";
   }
-  console.log(application);
-  if (true) {
-    return "priority"; // TODO: decide how to determine priority
+
+  if (application.applicant.user.is_priority) {
+    return "priority";
   }
+
   if (application.citizenship_declaration.name === "citizen") {
     return "citizen";
   }
+
   return "non-citizen";
 }
 
