@@ -9,14 +9,24 @@ use App\Models\Lookup\Relationship;
 class ReferenceComposer
 {
     /**
+     * @var mixed $relationships
+     */
+    private $relationships;
+
+    /**
      * Bind data to the view.
      *
-     * @param  View  $view
+     * @param View $view View being rendered.
+     *
      * @return void
      */
-    public function compose(View $view)
+    public function compose(View $view) : void
     {
-        $view->with('relationships', Relationship::all());
+        if (!$this->relationships) {
+            $this->relationships = Relationship::all();
+        }
+
+        $view->with('relationships', $this->relationships);
         $view->with('reference_template', Lang::get('common/references'));
     }
 }

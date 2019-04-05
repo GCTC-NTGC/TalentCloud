@@ -31,17 +31,21 @@ class ReferencesController extends Controller
     /**
      * Show the form for editing the applicant's references
      *
-     * @param  Request               $request
-     * @param  \App\Models\Applicant $applicant
+     * @param Request   $request   Incoming request object.
+     * @param Applicant $applicant Incoming applicant object.
+     *
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function edit(Request $request, Applicant $applicant)
     {
+        $applicant->load([
+            'references.projects',
+            'skill_declarations.skill',
+        ]);
+
         return view('applicant/profile_04_references', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_references'),
-            'reference_template' => Lang::get('common/references'),
-            'relationships' => Relationship::all(),
         ]);
     }
 

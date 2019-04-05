@@ -9,14 +9,24 @@ use App\Models\Lookup\SkillLevel;
 class SkillComposer
 {
     /**
+     * @var mixed $skillLevels
+     */
+    private $skillLevels;
+
+    /**
      * Bind data to the view.
      *
-     * @param  View  $view
+     * @param View $view View being rendered.
+     *
      * @return void
      */
-    public function compose(View $view)
+    public function compose(View $view) : void
     {
-        $view->with('skill_levels', SkillLevel::all());
+        if (!$this->skillLevels) {
+            $this->skillLevels = SkillLevel::all();
+        }
+
+        $view->with('skill_levels', $this->skillLevels);
         $view->with('skill_template', Lang::get('common/skills'));
     }
 }
