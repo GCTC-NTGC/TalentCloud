@@ -13,7 +13,7 @@ use App\Models\SkillDeclaration;
 $factory->define(JobApplication::class, function (Faker\Generator $faker) {
     return [
         'job_poster_id' => function () {
-            return factory(JobPoster::class)->state('published')->create()->id;
+            return factory(JobPoster::class)->states('published')->create()->id;
         },
         'application_status_id' => ApplicationStatus::where('name', 'submitted')->firstOrFail()->id,
         'citizenship_declaration_id' => CitizenshipDeclaration::inRandomOrder()->first()->id,
