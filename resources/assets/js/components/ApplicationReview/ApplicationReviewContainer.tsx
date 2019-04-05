@@ -61,7 +61,7 @@ export default class ApplicationReviewContainer extends React.Component<
         Swal.fire({
           type: "error",
           title: "Oops...",
-          text: "Something went while saving this review. Try again later."
+          text: "Something went wrong while saving this review. Try again later."
         });
       });
   }

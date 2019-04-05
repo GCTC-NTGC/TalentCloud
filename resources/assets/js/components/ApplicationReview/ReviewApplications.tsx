@@ -35,7 +35,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
     {
       title: "Under Consideration",
       description:
-        "Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non- candian - citizen applications in the Optional Consideration section",
+        "Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non-Canadian Citizen applications in the Optional Considerations section",
       showScreenOutAll: false,
       applications: applications.filter(
         application => applicationCategory(application) === "primary"
@@ -54,7 +54,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
     },
     {
       title: "No Longer Under Consideration",
-      description: "These applications have allready been screened out.",
+      description: "These applications have already been screened out.",
       showScreenOutAll: false,
       applications: applications.filter(
         application => applicationCategory(application) === "screened-out"

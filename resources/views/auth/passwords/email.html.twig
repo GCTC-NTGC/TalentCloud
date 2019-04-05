@@ -70,7 +70,7 @@
                         </div>
 
                         <div
-                            class="form__input-wrapper--float {% if old('email') %} active {% endif %}">
+                            class="form__input-wrapper--float {{ old('email') ? "active" ? '' }}">
                             <label
                                 class="form__label"
                                 for="email">

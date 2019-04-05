@@ -291,6 +291,15 @@
         // Label Handers ===================================================
 
         function labelHandlers() {
+            $.each($("[class*='form__input-wrapper'] input, [class*='form__input-wrapper'] textarea"), function(e) {
+                if( $(this).val() !== '' ) {
+                    $(this).parent().addClass("active");
+                }
+            });
+
+            $("[class*='form__input-wrapper'] input, [class*='form__input-wrapper'] textarea").change(function(e) {
+                $(this).parent().addClass("active");
+            });
 
             $("[class*='form__input-wrapper'] input, [class*='form__input-wrapper'] textarea").focusin(function(e) {
                 $(this).parent().addClass("active");
@@ -1328,13 +1337,16 @@
         // Applicant Review Copy Function ======================================
         function copyApplicantEmails(button) {
             var thisParent = $(button).parents(".applicant-category");
-            var summaries = $(thisParent).find(".applicant-summary");
+            var buckets = $(thisParent).find(".applicant-bucket");
             var emails = "";
-            $(summaries).each(function() {
-                var nameVal = $(this).find(".name").attr("data-name");
-                var emailVal = $(this).find(".email").attr("data-email");
-                var userVal = nameVal + "<" + emailVal + ">,";
-                emails = emails + userVal;
+            $(buckets).each(function() {
+                var summaries = $(this).find(".applicant-summary");
+                $(summaries).each(function() {
+                    var nameVal = $(this).find(".name").attr("data-name");
+                    var emailVal = $(this).find(".email").attr("data-email");
+                    var userVal = nameVal + "<" + emailVal + ">,";
+                    emails = emails + userVal;
+                });
             });
             var dummy = document.createElement("input");
             document.body.appendChild(dummy);
@@ -1361,6 +1373,20 @@
                 copyApplicantEmails(this);
             }
         });
+
+        setTimeout(function() {
+            $(".review-copy-emails").on("click", function(e) {
+                e.preventDefault();
+                copyApplicantEmails(this);
+            });
+
+            $(".review-copy-emails").on("keyup", function(e) {
+                if (e.which == 13) {
+                    e.preventDefault();
+                    copyApplicantEmails(this);
+                }
+            });
+        }, 1000);
 
     });
 

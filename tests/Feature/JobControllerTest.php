@@ -230,6 +230,26 @@ class JobControllerTest extends TestCase
     }
 
     /**
+     * Ensure that createAsManager creates a job that includes the default questions.
+     *
+     * @return void
+     */
+    public function testCreateAsManagerHasDefaultQuestions() : void
+    {
+        $admin = factory(User::class)->states('admin')->create();
+        $newManager = factory(Manager::class)->create();
+
+        $response = $this->actingAs($admin)
+            ->get(route('admin.jobs.create.as_manager', $newManager));
+        $newJob = JobPoster::where('manager_id', $newManager->id)->firstOrFail();
+        $questions = Lang::get('manager/job_create.questions');
+        foreach ($questions as $question) {
+            $match = $newJob->job_poster_questions->where('question', $question);
+            $this->assertNotEmpty($match);
+        }
+    }
+
+    /**
      * Ensure a manager can edit an unpublished Job Poster they created.
      *
      * @return void
@@ -249,6 +269,35 @@ class JobControllerTest extends TestCase
         $response->assertSee(e($this->jobPoster->branch));
         $response->assertSee(e($this->jobPoster->division));
         $response->assertSee(e($this->jobPoster->education));
+    }
+
+    /**
+     * An admin saving edits to the job should not change the jobs manager.
+     *
+     * @return void
+     */
+    public function testAdminEditDoesntChangeManager() : void
+    {
+        // In order to simulate actual behaviour, the admin
+        // user needs a related Manager instance. When navigating
+        // around the site as an admin, a middleware will be triggered
+        // to create this relationship. (InitializeUser)
+        $admin = factory(User::class)->states('admin')->create();
+        $admin->manager_id = factory(Manager::class)->create([
+            'user_id' => $admin->id
+        ]);
+        $admin->applicant_id = factory(Applicant::class)->create([
+            'user_id' => $admin->id
+        ]);
+
+        $manager = factory(Manager::class)->create();
+        $job = factory(JobPoster::class)->create([
+            'manager_id' => $manager->id
+        ]);
+        $jobEdit = $this->generateEditJobFormData();
+        $this->actingAs($admin)->post(route('manager.jobs.update', $job), $jobEdit);
+        $job->refresh();
+        $this->assertEquals($manager->user->id, $job->manager->user->id);
     }
 
     /**
