@@ -589,16 +589,23 @@ class JobController extends Controller
                     foreach ($skillTypeInput as $criteriaInput) {
                         $criteria = new Criteria();
                         $criteria->job_poster_id = $jobPoster->id;
+                        //If no description was provided, use the default skill description
+                        $descriptionEn = $criteriaInput['description']['en'] ?
+                            $criteriaInput['description']['en'] :
+                            Skill::find($criteriaInput['skill_id'])->getTranslation('description', 'en');
+                        $descriptionFr= $criteriaInput['description']['fr'] ?
+                            $criteriaInput['description']['fr'] :
+                            Skill::find($criteriaInput['skill_id'])->getTranslation('description', 'fr');
                         $criteria->fill(
                             [
                                 'criteria_type_id' => CriteriaType::where('name', $criteriaType)->firstOrFail()->id,
                                 'skill_id' => $criteriaInput['skill_id'],
                                 'skill_level_id' => $criteriaInput['skill_level_id'],
                                 'en' => [
-                                    'description' => $criteriaInput['description']['en'],
+                                    'description' => $descriptionEn,
                                 ],
                                 'fr' => [
-                                    'description' => $criteriaInput['description']['fr'],
+                                    'description' => $descriptionFr,
                                 ],
                             ]
                         );
