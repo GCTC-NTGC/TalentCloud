@@ -509,6 +509,8 @@
 
         .priority-status {
             color: $palette--red;
+            display: block;
+            margin-top: .7rem;
 
             i {
                 padding-right: 0.1rem;

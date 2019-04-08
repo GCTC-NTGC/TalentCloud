@@ -180,17 +180,6 @@ export default class ApplicationReview extends React.Component<
             >
               {application.applicant.user.email}
             </a>
-            {/* This span only shown for veterans */}
-            {(application.veteran_status.name === "current" ||
-              application.veteran_status.name === "past") && (
-              <span className="veteran-status">
-                <img
-                  alt="The Talent Cloud veteran icon."
-                  src="/images/icon_veteran.svg"
-                />
-                Veteran
-              </span>
-            )}
             {/* This span only shown for priority applicants */}
             {application.applicant.user.is_priority && (
               <span className="priority-status">
@@ -200,6 +189,17 @@ export default class ApplicationReview extends React.Component<
                   title="The Talent Cloud priority icon"
                 />
                 <span>Priority</span>
+              </span>
+            )}
+            {/* This span only shown for veterans */}
+            {(application.veteran_status.name === "current" ||
+              application.veteran_status.name === "past") && (
+              <span className="veteran-status">
+                <img
+                  alt="The Talent Cloud veteran icon."
+                  src="/images/icon_veteran.svg"
+                />
+                Veteran
               </span>
             )}
           </div>
