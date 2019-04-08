@@ -272,6 +272,35 @@ class JobControllerTest extends TestCase
     }
 
     /**
+     * An admin saving edits to the job should not change the jobs manager.
+     *
+     * @return void
+     */
+    public function testAdminEditDoesntChangeManager() : void
+    {
+        // In order to simulate actual behaviour, the admin
+        // user needs a related Manager instance. When navigating
+        // around the site as an admin, a middleware will be triggered
+        // to create this relationship. (InitializeUser)
+        $admin = factory(User::class)->states('admin')->create();
+        $admin->manager_id = factory(Manager::class)->create([
+            'user_id' => $admin->id
+        ]);
+        $admin->applicant_id = factory(Applicant::class)->create([
+            'user_id' => $admin->id
+        ]);
+
+        $manager = factory(Manager::class)->create();
+        $job = factory(JobPoster::class)->create([
+            'manager_id' => $manager->id
+        ]);
+        $jobEdit = $this->generateEditJobFormData();
+        $this->actingAs($admin)->post(route('manager.jobs.update', $job), $jobEdit);
+        $job->refresh();
+        $this->assertEquals($manager->user->id, $job->manager->user->id);
+    }
+
+    /**
      * Ensure a manager cannot edit a published Job Poster they created.
      *
      * @return void
@@ -308,27 +337,25 @@ class JobControllerTest extends TestCase
     }
 
     /**
-     * Ensure that open and close datetimes are set to midnight PST
+     * Ensure that open and close datetimes are set to midnight PT
      * at the start and end of the desired day.
      *
      * @return void
      */
     public function testSavedJobHasCorrectTimes() : void
     {
-        $timezone = config('app.local_timezone');
+        $localTimezone = config('app.local_timezone');
+        $jobTimezone = config('app.job_timezone');
         $dateFormat = config('app.date_format')['en'];
         $timeFormat = config('app.time_format')['en'];
 
-        $openDate = Date::parse("2019-01-01");
-        $closeDate = Date::parse("2019-01-31");
-
-        $expectedOpenDateTime = Date::parse("2019-01-01 00:00:00", "PST");
-        $expectedOpenDateTime->timezone($timezone);
+        $expectedOpenDateTime = new Date("2019-01-01 00:00:00", new \DateTimeZone($jobTimezone));
+        $expectedOpenDateTime->setTimezone($localTimezone);
         $expectedOpenDate = $expectedOpenDateTime->format($dateFormat);
         $expectedOpenTime = $expectedOpenDateTime->format($timeFormat);
 
-        $expectedCloseDateTime = Date::parse("2019-01-31 23:59:59", "PST");
-        $expectedCloseDateTime->timezone($timezone);
+        $expectedCloseDateTime = new Date("2019-01-31 23:59:59", new \DateTimeZone($jobTimezone));
+        $expectedCloseDateTime->setTimezone($localTimezone);
         $expectedCloseDate = $expectedCloseDateTime->format($dateFormat);
         $expectedCloseTime = $expectedCloseDateTime->format($timeFormat);
 
@@ -337,8 +364,8 @@ class JobControllerTest extends TestCase
         ]);
 
         $jobEdit = $this->generateEditJobFormData();
-        $jobEdit['open_date'] = $openDate;
-        $jobEdit['close_date'] = $closeDate;
+        $jobEdit['open_date'] = '2019-01-01';
+        $jobEdit['close_date'] = '2019-01-31';
 
         //Expected db values
         $dbValues = array_slice($jobEdit, 0, 8);
