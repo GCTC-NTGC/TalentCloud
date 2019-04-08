@@ -31,12 +31,12 @@ interface ReviewCategoryProps {
 
 const localizations = defineMessages({
   confirmButton: {
-    id: "confirmButton",
+    id: "button.confirm",
     defaultMessage: "<default/> Confirm",
     description: "Confirm button for modal dialogue boxes"
   },
   screenOutAllConfirm: {
-    id: "screenOutAll.confirm",
+    id: "apl.screenOutAll.confirm",
     defaultMessage:
       "<default/> Are you sure you want to screen out all Optional candidates?",
     description:
@@ -86,12 +86,12 @@ const ReviewCategory: React.StatelessComponent<
   const buckets = [
     {
       title: {
-        id: "priorityApplicants.title",
+        id: "apl.priorityApplicants.title",
         defaultMessage: "<default/> Priority Applicants",
         description: "title of list of priority applicants"
       },
       description: {
-        id: "priorityApplicants.description",
+        id: "apl.priorityApplicants.description",
         defaultMessage:
           "<default/> These are priority applicants for this position. They must be reviewed and considered first.",
         description: "description of list of priority applicants"
@@ -102,12 +102,12 @@ const ReviewCategory: React.StatelessComponent<
     },
     {
       title: {
-        id: "veteransAndCitizens.title",
+        id: "apl.veteransAndCitizens.title",
         defaultMessage: "<default/> Veterans and Canadian Citizens",
         description: "title of list of Veterans and Canadian citizens"
       },
       description: {
-        id: "veteransAndCitizens.description",
+        id: "apl.veteransAndCitizens.description",
         defaultMessage: "",
         description: "description of list of Veterans and Canadian citizens"
       },
@@ -117,12 +117,12 @@ const ReviewCategory: React.StatelessComponent<
     },
     {
       title: {
-        id: "nonCitizens.title",
+        id: "apl.nonCitizens.title",
         defaultMessage: "<default/> Non-Canadian Citizens",
         description: "title of list of non-citizen applicants"
       },
       description: {
-        id: "nonCitizens.description",
+        id: "apl.nonCitizens.description",
         defaultMessage: "<default/> ",
         description: "description of list of non-citizen applicants"
       },
@@ -132,13 +132,13 @@ const ReviewCategory: React.StatelessComponent<
     },
     {
       title: {
-        id: "essentialCriteriaFail.title",
+        id: "apl.unqualified.title",
         defaultMessage: "<default/> Don't Meet Essential Criteria",
         description:
           "title of list of applicants who do not meet the essential criteria"
       },
       description: {
-        id: "essentialCriteriaFail.description",
+        id: "apl.unqualified.description",
         defaultMessage: "",
         description:
           "description of list of applicants who do not meet the essential criteria"
@@ -177,13 +177,13 @@ const ReviewCategory: React.StatelessComponent<
           >
             {justCopied ? (
               <FormattedMessage
-                id="copied"
+                id="button.copied"
                 defaultMessage="<default/> Copied!"
                 description="Confirmation for Button to copy all applicant emails in screening category"
               />
             ) : (
               <FormattedMessage
-                id="copyEmailsButton"
+                id="button.copyEmails"
                 defaultMessage="<default/> Copy Emails"
                 description="Button to copy all applicant emails in screening category"
               />
@@ -200,7 +200,7 @@ const ReviewCategory: React.StatelessComponent<
               <i className="fas fa-ban" />
               &nbsp;
               <FormattedMessage
-                id="screenOutAll"
+                id="apl.screenOutAll"
                 defaultMessage="<default/> Screen All Optional Candidates Out"
                 description="Button to screen out all optional candidates from competition with one click"
               />

@@ -16,8 +16,8 @@ import locale_fr from "react-intl/locale-data/fr";
 import camelCase from "lodash/camelCase";
 import axios from "axios";
 import Swal from "sweetalert2";
-import messages_en from "./localizations/en.json";
-import messages_fr from "./localizations/fr.json";
+import messages_en from "../../localizations/en.json";
+import messages_fr from "../../localizations/fr.json";
 import { Job, Application, ReviewStatus, ApplicationReview } from "../types";
 import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
@@ -48,12 +48,12 @@ interface ReviewSubmitForm {
 
 const localizations = defineMessages({
   oops: {
-    id: "oops",
+    id: "alert.oops",
     defaultMessage: "<default/> Save",
     description: "Dynamic Save button label"
   },
   somethingWrong: {
-    id: "somethingWrong",
+    id: "apl.reviewSaveFailed",
     defaultMessage:
       "Something went wrong while saving a review. Try again later.",
     description: "Dynamic Save button label"

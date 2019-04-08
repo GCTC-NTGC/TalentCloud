@@ -35,12 +35,12 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
   const categories = [
     {
       title: {
-        id: "underConsideration.title",
+        id: "apl.underConsideration.title",
         defaultMessage: "<default/> Under Consideration",
         description: "Under consideration category title"
       },
       description: {
-        id: "underConsideration.description",
+        id: "apl.underConsideration.description",
         defaultMessage:
           "<default/> Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non-Canadian Citizen applications in the Optional Consideration section",
         description: "Under consideration category description"
@@ -53,12 +53,12 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
     },
     {
       title: {
-        id: "optionalConsideration.title",
+        id: "apl.optionalConsideration.title",
         defaultMessage: "<default/> Optional Consideration",
         description: "Optional consideration category title"
       },
       description: {
-        id: "optionalConsideration.description",
+        id: "apl.optionalConsideration.description",
         defaultMessage:
           "<default/> In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
         description: "Optional consideration category description"
@@ -71,12 +71,12 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
     },
     {
       title: {
-        id: "screenedOut.title",
+        id: "apl.screenedOut.title",
         defaultMessage: "<default/> No Longer Under Consideration",
         description: "Screened out category title"
       },
       description: {
-        id: "screenedOut.description",
+        id: "apl.screenedOut.description",
         defaultMessage:
           "<default/> These applications have already been screened out.",
         description: "Screened out category description"
@@ -95,9 +95,9 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
         <div className="box med-1of2 job-title-wrapper">
           <span>
             <FormattedMessage
-              id="app.title"
-              defaultMessage="Applications for default string: {job_title} {job_classification}"
-              description="Welcome header on app main page"
+              id="apl.indexPageTitle"
+              defaultMessage="Applications for: {job_title} {job_classification}"
+              description="Welcome header on Job Applications index page"
               values={{
                 job_title: title,
                 job_classification: classification
@@ -110,7 +110,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
           <i className="fas fa-stopwatch" />
           &nbsp;
           <FormattedMessage
-            id="daysSinceClosed"
+            id="job.daysSinceClosed"
             defaultMessage="<default/> {dayCount, plural,
               =0 {No Days}
             one {# Day}
@@ -128,7 +128,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
         <h3>
           <i className="fas fa-bell" />{" "}
           <FormattedMessage
-            id="temporary_priority_alert"
+            id="apl.tempPriorityAlert"
             defaultMessage="<default/> Temporary Priority Alert"
             description="Alert Notice Priorites must be reviewed first get a list"
           />
@@ -136,7 +136,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
 
         <p>
           <FormattedMessage
-            id="get_priority_list"
+            id="apl.getPriorityList"
             defaultMessage="<default/> Contact Talent Cloud to get a list of priorities that applied to this
           position. They must be reviewed and considered first."
             description="Alert Notice for Priorities description text"
