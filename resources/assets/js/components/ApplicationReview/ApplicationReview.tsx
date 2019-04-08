@@ -218,7 +218,7 @@ class ApplicationReview extends React.Component<
     const { application, reviewStatusOptions, isSaving, intl } = this.props;
     const l10nReviewStatusOptions = reviewStatusOptions.map(status => ({
       value: status.value,
-      label: intl.formatMessage(messages[`reviewStatus.${status.label}`])
+      label: intl.formatMessage(messages[status.label])
     }));
     const { selectedStatusId } = this.state;
     const reviewStatus =
