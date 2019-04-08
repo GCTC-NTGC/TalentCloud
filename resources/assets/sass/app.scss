@@ -4,6 +4,26 @@
 
 // =============================================================================
 
+$clone-whitespace-multiplier: 1.5;
+
+$clone-black: rgba(20, 20, 35, 1);
+
+$clone-c1: #5B1647;
+
+$clone-c2: #96043E;
+
+$clone-c3: #C90035;
+
+$clone-c4: #0A6CBC;
+
+$clone-c5: #0A6CBC;
+
+$clone-hover-colour: $clone-c5;
+
+$clone-focus-colour: $clone-hover-colour;
+
+@import "../../../node_modules/clone-framework/app/scss/clone";
+
 // Core Elements ===============================================================
 
     @import './brands';
