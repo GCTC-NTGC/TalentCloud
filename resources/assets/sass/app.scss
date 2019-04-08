@@ -18,11 +18,49 @@ $clone-c4: #0A6CBC;
 
 $clone-c5: #0A6CBC;
 
-$clone-hover-colour: $clone-c5;
+$clone-hover-colour: $clone-black;
 
 $clone-focus-colour: $clone-hover-colour;
 
 @import "../../../node_modules/clone-framework/app/scss/clone";
+
+// Post-Clone Utilities (move these to their own import later Josh!
+
+    .button-trash {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: $clone-font-default;
+        padding: 1rem;
+        i {
+            color: $clone-stop;
+        }
+    }
+
+    .button-link {
+        background: none;
+        border: none;
+        color: $clone-c5;
+        cursor: pointer;
+        font-family: $clone-font-default;
+        text-decoration: underline;
+        transition: color .2s ease;
+        &:hover {
+            color: $clone-hover-colour;
+            transition: color .2s ease;
+        }
+    }
+
+    .button-plus {
+        background: none;
+        border: none;
+        color: $clone-c5;
+        cursor: pointer;
+        font-family: $clone-font-default;
+        font-size: calc(1rem*(#{$clone-font-scale}*(#{$clone-font-scale})));;
+        font-weight: 800;
+        padding: 1rem;
+    }
 
 // Core Elements ===============================================================
 
