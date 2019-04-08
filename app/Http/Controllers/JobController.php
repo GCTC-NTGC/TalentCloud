@@ -32,6 +32,7 @@ use App\Models\Manager;
 
 use App\Services\Validation\JobPosterValidator;
 use Jenssegers\Date\Date;
+use App\Models\AssessmentPlanNotification;
 
 class JobController extends Controller
 {
@@ -651,6 +652,16 @@ class JobController extends Controller
         $criteria->skill_id = $skillId;
         $criteria->fill($data);
         $criteria->save();
+
+        $notification = new AssessmentPlanNotification();
+        $notification->job_poster_id = $criteria->job_poster_id;
+        $notification->notification = [
+            'type' => 'CREATE',
+            'skillId' => $criteria->skill_id,
+            'criteriaTypeId' => $criteria->criteria_type_id
+        ];
+        $notification->save();
+
         return $criteria;
     }
 
@@ -663,6 +674,19 @@ class JobController extends Controller
      */
     protected function updateCriteria(Criteria $criteria, $data)
     {
+        if ($criteria->skill_level_id != $data['skill_level_id']) {
+            $notification = new AssessmentPlanNotification();
+            $notification->job_poster_id = $criteria->job_poster_id;
+            $notification->notification = [
+                'type' => 'UPDATE',
+                'skillId' => $criteria->skill_id,
+                'criteriaTypeId' => $criteria->criteria_type_id,
+                'oldSkillLevelId' => $criteria->skill_level_id,
+                'newSkillLevelId' => $data['skill_level_id'],
+            ];
+            $notification->save();
+        }
+
         $criteria->fill($data);
         $criteria->save();
     }
@@ -675,6 +699,15 @@ class JobController extends Controller
      */
     protected function deleteCriteria(Criteria $criteria)
     {
+        $notification = new AssessmentPlanNotification();
+        $notification->job_poster_id = $criteria->job_poster_id;
+        $notification->notification = [
+            'type' => 'DELETE',
+            'skillId' => $criteria->skill_id,
+            'criteriaTypeId' => $criteria->criteria_type_id
+        ];
+        $notification->save();
+
         $criteria->delete();
     }
 
