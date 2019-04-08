@@ -1,27 +1,30 @@
 {% extends "layouts/base" %}
 
+{% block title %}{{ [job_application.applicant.user.name, application_template.view_title]|join(': ') }}{% endblock %}
+
 {% block body %}
 
-	{% include "common/alert" %}
+    {% include "common/alert" %}
 
     {% include "common/goc" %}
 
     {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.view_title, ':job':job.title})}} %}
 
-	<a id="skipLink"></a>
+    <a id="skipLink"></a>
 
     <section
-		class="application__view-layout submitted">
+        class="application__view-layout submitted">
 
         <div id="application-review-container"
             data-application="{{ job_application|json_encode() }}"
             data-review-statuses="{{ review_statuses|json_encode() }}"
+            data-locale="{{App.getLocale()}}"
         >
         </div>
 
 
-    	{% include "common/application/view/view_layout" %}
+        {% include "common/application/view/view_layout" %}
 
-	</section>
+    </section>
 
 {% endblock %}
