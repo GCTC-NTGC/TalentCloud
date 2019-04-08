@@ -564,14 +564,6 @@ class JobController extends Controller
      */
     protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster) : void
     {
-        if ($replace) {
-            $jobPoster->criteria()->delete();
-        }
-
-        if (!array_key_exists('criteria', $input) || !is_array($input['criteria'])) {
-            return;
-        }
-
         $criteria = $input['criteria'];
 
         $affectedCriteriaIds = [];
@@ -580,8 +572,8 @@ class JobController extends Controller
             foreach ($criteria['old'] as $criteriaType => $criteriaTypeInput) {
                 foreach ($criteriaTypeInput as $skillTypeInput) {
                     foreach ($skillTypeInput as $criteriaId => $criteriaInput) {
-                        $criteria = $this->processCriteriaForm($jobPoster, $criteriaType, $criteriaInput, $criteriaId);
-                        $affectedCriteriaIds[] = $criteria->id;
+                        $updatedCriteria = $this->processCriteriaForm($jobPoster, $criteriaType, $criteriaInput, $criteriaId);
+                        $affectedCriteriaIds[] = $updatedCriteria->id;
                     }
                 }
             }
@@ -591,8 +583,9 @@ class JobController extends Controller
             foreach ($criteria['new'] as $criteriaType => $criteriaTypeInput) {
                 foreach ($criteriaTypeInput as $skillTypeInput) {
                     foreach ($skillTypeInput as $criteriaInput) {
-                        $criteria = $this->processCriteriaForm($jobPoster, $criteriaType, $criteriaInput, null);
-                        $affectedCriteriaIds[] = $criteria->id;
+
+                        $newCriteria = $this->processCriteriaForm($jobPoster, $criteriaType, $criteriaInput, null);
+                        $affectedCriteriaIds[] = $newCriteria->id;
                     }
                 }
             }
