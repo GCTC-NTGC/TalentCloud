@@ -100,28 +100,44 @@ class HelperTest extends TestCase
     }
 
     /**
-     * Test that pstDayStartToUtcTime generates dates correctly
+     * Test that ptDayStartToUtcTime generates dates correctly
      *
      * @return void
      */
-    public function testPstDayStartToUtcTime() : void
+    public function testPtDayStartToUtcTime() : void
     {
-        $date = pstDayStartToUtcTime(2019, 1, 31);
-        $expected = Date::parse('2019-01-31 8:00:00');
+        // Outside DST
+        $date = ptDayStartToUtcTime('2019-01-10');
+
+        // Within DST
+        $daylightDate = ptDayStartToUtcTime('2019-04-02');
+
+        $expected = Date::parse('2019-01-10 8:00:00');
+        $expectedDaylight = Date::parse('2019-04-02 07:00:00');
 
         $this->assertEquals($expected, $date);
+        $this->assertEquals($expectedDaylight, $daylightDate);
     }
 
     /**
-     * Test that pstDayEndToUtcTime generates dates correctly
+     * Test that ptDayEndToUtcTime generates dates correctly
      *
      * @return void
      */
-    public function testPstDayEndToUtcTime(): void
+    public function testPtDayEndToUtcTime(): void
     {
-        $date = pstDayEndToUtcTime(2019, 1, 31);
-        $expected = Date::parse('2019-02-01 7:59:59');
+        // Outside DST
+        $date = ptDayEndToUtcTime('2019-01-10');
+
+        // Within DST
+        $daylightDate = ptDayEndToUtcTime('2019-04-02');
+
+        // Pacific Time is UTC -7/8, which puts us into the next
+        // calendar day.
+        $expected = Date::parse('2019-01-11 07:59:59');
+        $expectedDaylight = Date::parse('2019-04-03 06:59:59');
 
         $this->assertEquals($expected, $date);
+        $this->assertEquals($expectedDaylight, $daylightDate);
     }
 }
