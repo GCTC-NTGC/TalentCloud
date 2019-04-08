@@ -32,6 +32,7 @@ use App\Models\Manager;
 
 use App\Services\Validation\JobPosterValidator;
 use Jenssegers\Date\Date;
+use App\Models\AssessmentPlanNotification;
 
 class JobController extends Controller
 {
@@ -559,54 +560,155 @@ class JobController extends Controller
      *
      * @param mixed[]               $input     Field values.
      * @param \App\Models\JobPoster $jobPoster Job Poster object.
-     * @param boolean               $replace   Remove existing relationships.
      *
      * @return void
      */
-    protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster, bool $replace) : void
+    protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster) : void
     {
-        if ($replace) {
-            $jobPoster->criteria()->delete();
-        }
-
-        if (!array_key_exists('criteria', $input) || !is_array($input['criteria'])) {
-            return;
-        }
-
         $criteria = $input['criteria'];
 
-        $combinedCriteria = [];
-        if (isset($criteria['old'])) {
-            $combinedCriteria = array_replace_recursive($combinedCriteria, $criteria['old']);
-        }
-        if (isset($criteria['new'])) {
-            $combinedCriteria = array_replace_recursive($combinedCriteria, $criteria['new']);
-        }
-
-        if (! empty($combinedCriteria)) {
-            foreach ($combinedCriteria as $criteriaType => $criteriaTypeInput) {
-                foreach ($criteriaTypeInput as $skillType => $skillTypeInput) {
-                    foreach ($skillTypeInput as $criteriaInput) {
-                        $criteria = new Criteria();
-                        $criteria->job_poster_id = $jobPoster->id;
-                        $criteria->fill(
-                            [
-                                'criteria_type_id' => CriteriaType::where('name', $criteriaType)->firstOrFail()->id,
-                                'skill_id' => $criteriaInput['skill_id'],
-                                'skill_level_id' => $criteriaInput['skill_level_id'],
-                                'en' => [
-                                    'description' => $criteriaInput['description']['en'],
-                                ],
-                                'fr' => [
-                                    'description' => $criteriaInput['description']['fr'],
-                                ],
-                            ]
-                        );
-                        $criteria->save();
+        $affectedCriteriaIds = [];
+        // Old criteria must be updated, using the criteriaId that comes from the form element names.
+        if (!empty($criteria['old'])) {
+            foreach ($criteria['old'] as $criteriaType => $criteriaTypeInput) {
+                foreach ($criteriaTypeInput as $skillTypeInput) {
+                    foreach ($skillTypeInput as $criteriaId => $criteriaInput) {
+                        $updatedCriteria = $this->processCriteriaForm($jobPoster, $criteriaType, $criteriaInput, $criteriaId);
+                        $affectedCriteriaIds[] = $updatedCriteria->id;
                     }
                 }
             }
         }
+        // New criteria must be created from scratch, and the id in the form element name can be disregarded.
+        if (!empty($criteria['new'])) {
+            foreach ($criteria['new'] as $criteriaType => $criteriaTypeInput) {
+                foreach ($criteriaTypeInput as $skillTypeInput) {
+                    foreach ($skillTypeInput as $criteriaInput) {
+
+                        $newCriteria = $this->processCriteriaForm($jobPoster, $criteriaType, $criteriaInput, null);
+                        $affectedCriteriaIds[] = $newCriteria->id;
+                    }
+                }
+            }
+        }
+        // Existing criteria which were not resubmitted must be deleted.
+        $deleteCriteria = $jobPoster->criteria()->whereNotIn('id', $affectedCriteriaIds)->get();
+        foreach ($deleteCriteria as $criteria) {
+            $this->deleteCriteria($criteria);
+        }
+    }
+
+    /**
+     * Process intput representing a single criteria from Job Poster form.
+     *
+     * @param JobPoster $jobPoster
+     * @param string $criteriaType
+     * @param array $criteriaInput
+     * @param int|null $criteriaId
+     * @return Criteria
+     */
+    protected function processCriteriaForm($jobPoster, $criteriaType, $criteriaInput, $criteriaId)
+    {
+        $skillId = $criteriaInput['skill_id'];
+
+        //If no description was provided, use the default skill description
+        $descriptionEn = $criteriaInput['description']['en'] ?
+            $criteriaInput['description']['en'] : Skill::find($skillId)->getTranslation('description', 'en');
+        $descriptionFr = $criteriaInput['description']['fr'] ?
+            $criteriaInput['description']['fr'] : Skill::find($criteriaInput['skill_id'])->getTranslation('description', 'fr');
+        $data = [
+            'criteria_type_id' => CriteriaType::where('name', $criteriaType)->firstOrFail()->id,
+            'skill_level_id' => $criteriaInput['skill_level_id'],
+            'en' => [
+                'description' => $descriptionEn,
+            ],
+            'fr' => [
+                'description' => $descriptionFr,
+            ],
+        ];
+
+        if ($criteriaId) {
+            $existingCriteria = Criteria::find($criteriaId);
+            $this->updateCriteria($existingCriteria, $data);
+            return $existingCriteria;
+        } else {
+            $newCriteria = $this->createCriteria($jobPoster, $skillId, $data);
+            return $newCriteria;
+        }
+    }
+
+    /**
+     * Create a Job Criteria
+     *
+     * @param JobPoster $jobPoster
+     * @param integer $skillId
+     * @param array $data
+     * @return Criteria
+     */
+    protected function createCriteria(JobPoster $jobPoster,int $skillId,array $data)
+    {
+        $criteria = new Criteria();
+        $criteria->job_poster_id = $jobPoster->id;
+        $criteria->skill_id = $skillId;
+        $criteria->fill($data);
+        $criteria->save();
+
+        $notification = new AssessmentPlanNotification();
+        $notification->job_poster_id = $criteria->job_poster_id;
+        $notification->notification = [
+            'type' => 'CREATE',
+            'skillId' => $criteria->skill_id,
+            'criteriaTypeId' => $criteria->criteria_type_id
+        ];
+        $notification->save();
+
+        return $criteria;
+    }
+
+    /**
+     * Update an existing Job Criteria
+     *
+     * @param Criteria $criteria
+     * @param array $data
+     * @return void
+     */
+    protected function updateCriteria(Criteria $criteria, $data)
+    {
+        if ($criteria->skill_level_id != $data['skill_level_id']) {
+            $notification = new AssessmentPlanNotification();
+            $notification->job_poster_id = $criteria->job_poster_id;
+            $notification->notification = [
+                'type' => 'UPDATE',
+                'skillId' => $criteria->skill_id,
+                'criteriaTypeId' => $criteria->criteria_type_id,
+                'oldSkillLevelId' => $criteria->skill_level_id,
+                'newSkillLevelId' => $data['skill_level_id'],
+            ];
+            $notification->save();
+        }
+
+        $criteria->fill($data);
+        $criteria->save();
+    }
+
+    /**
+     * Delete existing Job Criteria
+     *
+     * @param Criteria $criteria
+     * @return void
+     */
+    protected function deleteCriteria(Criteria $criteria)
+    {
+        $notification = new AssessmentPlanNotification();
+        $notification->job_poster_id = $criteria->job_poster_id;
+        $notification->notification = [
+            'type' => 'DELETE',
+            'skillId' => $criteria->skill_id,
+            'criteriaTypeId' => $criteria->criteria_type_id
+        ];
+        $notification->save();
+
+        $criteria->delete();
     }
 
     /**
