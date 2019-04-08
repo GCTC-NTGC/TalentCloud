@@ -50,13 +50,13 @@ const localizations = defineMessages({
   oops: {
     id: "oops",
     defaultMessage: "<default/> Save",
-    description: "Dynaming Save button label"
+    description: "Dynamic Save button label"
   },
   somethingWrong: {
     id: "somethingWrong",
     defaultMessage:
       "Something went wrong while saving a review. Try again later.",
-    description: "Dynaming Save button label"
+    description: "Dynamic Save button label"
   }
 });
 
