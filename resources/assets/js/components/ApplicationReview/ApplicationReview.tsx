@@ -191,6 +191,17 @@ export default class ApplicationReview extends React.Component<
                 Veteran
               </span>
             )}
+            {/* This span only shown for priority applicants */}
+            {application.applicant.user.is_priority && (
+              <span className="priority-status">
+                <i
+                  aria-hidden="true"
+                  className="fab fa-product-hunt"
+                  title="The Talent Cloud priority icon"
+                />
+                <span>Priority</span>
+              </span>
+            )}
           </div>
 
           <div className="box lg-2of11 applicant-links">

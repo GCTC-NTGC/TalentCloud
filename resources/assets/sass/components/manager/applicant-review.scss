@@ -507,6 +507,14 @@
 
         }
 
+        .priority-status {
+            color: $palette--red;
+
+            i {
+                padding-right: 0.1rem;
+            }
+        }
+
     }
 
     .applicant-links {
