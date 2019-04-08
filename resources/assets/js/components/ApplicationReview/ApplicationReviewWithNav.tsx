@@ -46,32 +46,32 @@ const messages = defineMessages({
   saving: {
     id: "saving",
     defaultMessage: "<default/> Saving...",
-    description: "Dynaming Save button label"
+    description: "Dynamic Save button label"
   },
   save: {
     id: "save",
     defaultMessage: "<default/> Save",
-    description: "Dynaming Save button label"
+    description: "Dynamic Save button label"
   },
   saved: {
     id: "saved",
     defaultMessage: "<default/> Saved",
-    description: "Dynaming Save button label"
+    description: "Dynamic Save button label"
   },
   addNote: {
     id: "addNote",
     defaultMessage: "<default/> + Add a Note",
-    description: "Dynaming Note button label"
+    description: "Dynamic Note button label"
   },
   editNote: {
     id: "editNote",
     defaultMessage: "<default/> Edit Note",
-    description: "Dynaming Note button label"
+    description: "Dynamic Note button label"
   },
   screenedOut: {
     id: "screenedOut",
     defaultMessage: "<default/> Screened Out",
-    description: "Dynaming Note button label"
+    description: "Dynamic Note button label"
   },
   cancelButton: {
     id: "cancelButton",
@@ -81,12 +81,12 @@ const messages = defineMessages({
   stillThinking: {
     id: "stillThinking",
     defaultMessage: "<default/> Still Thinking",
-    description: "Dynaming Note button label"
+    description: "Dynamic Note button label"
   },
   stillIn: {
     id: "stillIn",
     defaultMessage: "<default/> Still In",
-    description: "Dynaming Note button label"
+    description: "Dynamic Note button label"
   },
   confirmButton: {
     id: "confirmButton",
