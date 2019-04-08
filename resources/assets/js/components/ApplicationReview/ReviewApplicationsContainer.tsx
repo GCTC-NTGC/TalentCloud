@@ -1,12 +1,34 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import React from "react";
 import ReactDOM from "react-dom";
+
+// Internationalizations
+import {
+  IntlProvider,
+  addLocaleData,
+  injectIntl,
+  InjectedIntlProps,
+  defineMessages
+} from "react-intl";
+import locale_en from "react-intl/locale-data/en";
+import locale_fr from "react-intl/locale-data/fr";
+
+import camelCase from "lodash/camelCase";
 import axios from "axios";
 import Swal from "sweetalert2";
+import messages_en from "../../localizations/en.json";
+import messages_fr from "../../localizations/fr.json";
 import { Job, Application, ReviewStatus, ApplicationReview } from "../types";
 import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
 import * as routes from "../../helpers/routes";
+
+addLocaleData([...locale_en, ...locale_fr]);
+
+const messages = {
+  en: messages_en,
+  fr: messages_fr
+};
 
 interface ReviewApplicationsProps {
   job: Job;
@@ -24,11 +46,25 @@ interface ReviewSubmitForm {
   notes?: string | null;
 }
 
-export default class ReviewApplicationsContainer extends React.Component<
-  ReviewApplicationsProps,
+const localizations = defineMessages({
+  oops: {
+    id: "alert.oops",
+    defaultMessage: "<default/> Save",
+    description: "Dynamic Save button label"
+  },
+  somethingWrong: {
+    id: "apl.reviewSaveFailed",
+    defaultMessage:
+      "Something went wrong while saving a review. Try again later.",
+    description: "Dynamic Save button label"
+  }
+});
+
+class ReviewApplicationsContainer extends React.Component<
+  ReviewApplicationsProps & InjectedIntlProps,
   ReviewApplicationsState
 > {
-  public constructor(props: ReviewApplicationsProps) {
+  public constructor(props: ReviewApplicationsProps & InjectedIntlProps) {
     super(props);
     this.state = {
       applications: props.initApplications,
@@ -75,9 +111,10 @@ export default class ReviewApplicationsContainer extends React.Component<
     applicationId: number,
     review: ReviewSubmitForm
   ): void {
+    const { intl } = this.props;
     this.handleSavingStatusChange(applicationId, true);
     axios
-      .put(routes.applicationReviewUpdate("en", applicationId), review)
+      .put(routes.applicationReviewUpdate(intl.locale, applicationId), review)
       .then(response => {
         const newReview = response.data as ApplicationReview;
         this.updateReviewState(applicationId, newReview);
@@ -86,8 +123,8 @@ export default class ReviewApplicationsContainer extends React.Component<
       .catch(() => {
         Swal.fire({
           type: "error",
-          title: "Oops...",
-          text: "Something went while saving a review. Try again later."
+          title: intl.formatMessage(localizations.oops),
+          text: intl.formatMessage(localizations.somethingWrong)
         });
         this.handleSavingStatusChange(applicationId, false);
       });
@@ -116,6 +153,7 @@ export default class ReviewApplicationsContainer extends React.Component<
     statusId: number | null
   ): void {
     const { applications } = this.state;
+    const { intl } = this.props;
     const changedApplications = applications.filter(application =>
       applicationIds.includes(application.id)
     );
@@ -129,7 +167,10 @@ export default class ReviewApplicationsContainer extends React.Component<
       });
       this.handleSavingStatusChange(application.id, true);
       const request = axios
-        .put(routes.applicationReviewUpdate("en", application.id), submitReview)
+        .put(
+          routes.applicationReviewUpdate(intl.locale, application.id),
+          submitReview
+        )
         .then(response => {
           const newReview = response.data as ApplicationReview;
           this.updateReviewState(application.id, newReview);
@@ -142,8 +183,8 @@ export default class ReviewApplicationsContainer extends React.Component<
             errorThrown = true;
             Swal.fire({
               type: "error",
-              title: "Oops...",
-              text: "Something went while saving a review. Try again later."
+              title: intl.formatMessage(localizations.oops),
+              text: intl.formatMessage(localizations.somethingWrong)
             });
           }
         });
@@ -175,7 +216,7 @@ export default class ReviewApplicationsContainer extends React.Component<
 
     const reviewStatusOptions = reviewStatuses.map(status => ({
       value: status.id,
-      label: status.name
+      label: camelCase(status.name)
     }));
 
     return (
@@ -201,7 +242,8 @@ if (document.getElementById("review-applications-container")) {
   if (
     container.hasAttribute("data-job") &&
     container.hasAttribute("data-applications") &&
-    container.hasAttribute("data-review-statuses")
+    container.hasAttribute("data-review-statuses") &&
+    container.hasAttribute("data-locale")
   ) {
     const job = JSON.parse(container.getAttribute("data-job") as string);
     const applications = JSON.parse(container.getAttribute(
@@ -210,13 +252,21 @@ if (document.getElementById("review-applications-container")) {
     const reviewStatuses = JSON.parse(container.getAttribute(
       "data-review-statuses"
     ) as string);
+    const language = container.getAttribute("data-locale") as string;
+    const IntlReviewApplicationsContainer = injectIntl(
+      ReviewApplicationsContainer
+    );
     ReactDOM.render(
-      <ReviewApplicationsContainer
-        job={job}
-        initApplications={applications}
-        reviewStatuses={reviewStatuses}
-      />,
+      <IntlProvider locale={language} messages={messages[language]}>
+        <IntlReviewApplicationsContainer
+          job={job}
+          initApplications={applications}
+          reviewStatuses={reviewStatuses}
+        />
+      </IntlProvider>,
       container
     );
   }
 }
+
+export default injectIntl(ReviewApplicationsContainer);
