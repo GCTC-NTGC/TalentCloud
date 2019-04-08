@@ -443,17 +443,13 @@ class JobController extends Controller
      */
     protected function fillAndSaveJobPoster(array $input, JobPoster $jobPoster) : void
     {
-        $closeDate = new Date($input['close_date']);
-        $openDate = new Date($input['open_date']);
-        $startDate = new Date($input['start_date']);
-
         $jobPoster->fill(
             [
                 'job_term_id' => JobTerm::where('name', 'month')->firstOrFail()->id,
                 'term_qty' => $input['term_qty'],
-                'open_date_time' => pstDayStartToUtcTime($openDate->year, $openDate->month, $openDate->day),
-                'close_date_time' => pstDayEndToUtcTime($closeDate->year, $closeDate->month, $closeDate->day),
-                'start_date_time' => pstDayStartToUtcTime($startDate->year, $startDate->month, $startDate->day),
+                'open_date_time' => ptDayStartToUtcTime($input['open_date']),
+                'close_date_time' => ptDayEndToUtcTime($input['close_date']),
+                'start_date_time' => ptDayStartToUtcTime($input['start_date']),
                 'department_id' => $input['department'],
                 'province_id' => $input['province'],
                 'salary_min' => $input['salary_min'],
