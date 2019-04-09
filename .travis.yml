@@ -69,10 +69,10 @@ script:
   # prepare code coverage
   - ci_env=`bash <(curl -s https://codecov.io/env)`
   - docker run $ci_env gctcntgc/talentcloud sh
-  # unit tests
-  - make phpunit
   # browser tests
   - npm run test-ci
+  # unit tests
+  - make phpunit
 
 after_success:
   # pull requests run lightcrawler on local site
