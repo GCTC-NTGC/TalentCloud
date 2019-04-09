@@ -131,6 +131,7 @@
                         id="language_requirement_confirmed" name="language_requirement_confirmed"
                         type="checkbox"
                         required
+                        checked={{ job_application.language_requirement_confirmed ? 'true' : 'false'}}
                     />
                     <div
                         class="checkbox__wrapper"
@@ -157,7 +158,7 @@
                         {# nothing #}
                     {% endif %}
                 </p>
-                <p class="error-message">This box must be checked to proceed.</p>
+                <p class="error-message {{ job_application.language_requirement_confirmed ? 'hidden' : ''}}">This box must be checked to proceed.</p>
             </div>
             {% endif %}
         </div>
