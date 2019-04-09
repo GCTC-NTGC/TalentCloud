@@ -6,6 +6,8 @@
 ============================================================================= #}
 {% extends "layouts/base" %}
 
+{% block title %}{{ [applicant.user.name, profile.title]|join(': ') }}{% endblock %}
+
 {% block body %}
 
 	{# Alert #}

@@ -8,9 +8,9 @@
   },
   "php.suggest.basic": false,
   "phpcs.standard": "./ruleset.xml",
-  // "eslint.autoFixOnSave": true,
+  "eslint.autoFixOnSave": true,
   "eslint.validate": [
-    // "javascript",
+    "javascript",
     "javascriptreact",
     "typescript",
     "typescriptreact"
