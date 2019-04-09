@@ -28,6 +28,7 @@
     {# Assessment Plan Tool #}
 
     <div id="assessment-plan-container"
-        data-job="{{ job|json_encode() }}" />
+        data-job="{{ job|json_encode() }}"
+        data-locale="{{App.getLocale()}}" />
 
 {% endblock %}

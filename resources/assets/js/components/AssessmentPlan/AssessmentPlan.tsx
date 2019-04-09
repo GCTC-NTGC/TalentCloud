@@ -1,13 +1,28 @@
 import React from "react";
-import { Job } from "./types";
+import { Job, Criteria } from "../types";
+import { CriteriaTypeId } from "../lookupConstants";
+import AssessmentPlanSkill from "./AssessmentPlanSkill";
+import { injectIntl, InjectedIntlProps } from "react-intl";
 
 interface AssessmentPlanProps {
   job: Job;
+  criteria: Criteria[];
 }
 
-const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps> = ({
-  job
-}: AssessmentPlanProps): React.ReactElement => {
+const AssessmentPlan: React.FunctionComponent<
+  AssessmentPlanProps & InjectedIntlProps
+> = ({
+  job,
+  criteria,
+  intl
+}: AssessmentPlanProps & InjectedIntlProps): React.ReactElement => {
+  const assetCriteria = criteria.filter(
+    criterion => criterion.criteria_type_id == CriteriaTypeId.Asset
+  );
+  const essentialCriteria = criteria.filter(
+    criterion => criterion.criteria_type_id == CriteriaTypeId.Essential
+  );
+
   return (
     <section data-clone>
       <div
@@ -103,95 +118,23 @@ const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps> = ({
             data-c-alignment="base(center)"
             data-c-margin="top(normal) bottom(normal)"
           >
-            <span data-c-font-colour="black">
-              You have no essential skills selected for this job poster.
-            </span>
-          </div>
-          {/* Example Skill - To be repeated for each tool. ------------ */}
-          <div
-            data-c-border="top(thin, solid, black)"
-            data-c-margin="top(normal) bottom(normal)"
-          >
-            <div data-c-grid="gutter top">
-              <div data-c-grid-item="base(1of1)">
-                <h5 data-c-font-size="h4" data-c-margin="top(normal)">
-                  Skill Name - Selected Level
-                </h5>
-              </div>
-              <div data-c-grid-item="tl(2of7)">
-                <span data-c-font-weight="bold" data-c-margin="bottom(half)">
-                  Description
-                </span>
-                <p data-c-font-size="small">
-                  Defined as: Ability to use a data analysis technique that
-                  focuses on modeling and knowledge discovery for predictive
-                  rather than purely descriptive purposes.
-                </p>
-              </div>
-              <div data-c-grid-item="tl(2of7)">
-                <span data-c-font-weight="bold" data-c-margin="bottom(half)">
-                  Skill Level Selected
-                </span>
-                <p data-c-font-size="small">
-                  Defined as: Ability to use a data analysis technique that
-                  focuses on modeling and knowledge discovery for predictive
-                  rather than purely descriptive purposes.
-                </p>
-              </div>
-              <div data-c-grid-item="tl(3of7)">
-                <div data-c-grid>
-                  <div data-c-grid-item="base(1of2)">
-                    <span
-                      data-c-font-weight="bold"
-                      data-c-margin="bottom(half)"
-                    >
-                      Assessment Types
-                    </span>
-                  </div>
-                  <div
-                    data-c-alignment="base(right)"
-                    data-c-grid-item="base(1of2)"
-                  >
-                    <button className="button-link" type="button">
-                      Add an Assessment
-                    </button>
-                  </div>
-                </div>
-                <div data-c-grid="middle">
-                  <div data-c-grid-item="base(2of3) tl(4of5)">
-                    <div data-c-input="select">
-                      <label htmlFor="SEL1">Select an Assessment</label>
-                      <span>Required</span>
-                      <div>
-                        <i className="fa fa-caret-down" />
-                        <select id="SEL1">
-                          <option selected>Narrative Review</option>
-                          <option>Application screening question</option>
-                          <option>Group test</option>
-                          <option>Informal phone conversation</option>
-                          <option>Interview</option>
-                          <option>Online exam</option>
-                          <option>On site exam</option>
-                          <option>Portfolio review with candidate</option>
-                          <option>Reference check</option>
-                          <option>Serious games</option>
-                          <option>Take home exam</option>
-                        </select>
-                      </div>
-                      <span>This input has an error.</span>
-                    </div>
-                  </div>
-                  <div
-                    data-c-alignment="base(center)"
-                    data-c-grid-item="base(1of3) tl(1of5)"
-                  >
-                    <button className="button-trash" type="button">
-                      <i className="fa fa-trash" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {essentialCriteria.map(criterion => {
+              <AssessmentPlanSkill
+                name={criterion.skill.name}
+                description={
+                  criterion.description
+                    ? criterion.description
+                    : criterion.skill.description
+                }
+                skillTypeId={criterion.skill.skill_type_id}
+                skillLevelId={criterion.skill_level_id}
+              />;
+            })}
+            {essentialCriteria.length == 0 && (
+              <span data-c-font-colour="black">
+                You have no essential skills selected for this job poster.
+              </span>
+            )}
           </div>
           <h4
             data-c-font-colour="c5"
@@ -208,9 +151,23 @@ const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps> = ({
             data-c-alignment="base(center)"
             data-c-margin="top(normal) bottom(normal)"
           >
-            <span data-c-font-colour="black">
-              You have no asset skills selected for this job poster.
-            </span>
+            {assetCriteria.map(criterion => {
+              <AssessmentPlanSkill
+                name={criterion.skill.name}
+                description={
+                  criterion.description
+                    ? criterion.description
+                    : criterion.skill.description
+                }
+                skillTypeId={criterion.skill.skill_type_id}
+                skillLevelId={criterion.skill_level_id}
+              />;
+            })}
+            {assetCriteria.length == 0 && (
+              <span data-c-font-colour="black">
+                You have no asset skills selected for this job poster.
+              </span>
+            )}
           </div>
         </div>
 
@@ -536,4 +493,4 @@ const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps> = ({
   );
 };
 
-export default AssessmentPlan;
+export default injectIntl(AssessmentPlan);

@@ -81,3 +81,20 @@ export interface ReviewStatus {
   id: ReviewStatusId;
   name: ReviewStatusName;
 }
+
+export interface Skill {
+  id: number;
+  name: string;
+  description: string;
+  skill_type_id: number;
+}
+
+export interface Criteria {
+  id: number;
+  criteria_type_id: number; //asset or essential
+  job_poster_id: number;
+  skill_id: number;
+  skill_level_id: number;
+  description: string;
+  skill: Skill;
+}

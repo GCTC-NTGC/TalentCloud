@@ -9,6 +9,6 @@
 //require('./components/ReferenceList');
 require("./components/ApplicationReview/ReviewApplicationsContainer");
 require("./components/ApplicationReview/ApplicationReviewContainer");
-require("./components/AssessmentPlanContainer");
+require("./components/AssessmentPlan/AssessmentPlanContainer");
 
 //import ReviewApplications from './components/ReviewApplications';
