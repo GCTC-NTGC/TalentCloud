@@ -7,7 +7,7 @@
 
 {% extends "layouts/base" %}
 
-{% block title %}Review Applicants{% endblock %}
+{% block title %}{{ jobs_l10n.review_applicants }}{% endblock %}
 
 {% block body %}
 
@@ -24,6 +24,7 @@
         data-job="{{ job|json_encode() }}"
         data-applications="{{ applications|json_encode() }}"
         data-review-statuses="{{ review_statuses|json_encode() }}"
+        data-locale="{{App.getLocale()}}"
     >
     </div>
 
