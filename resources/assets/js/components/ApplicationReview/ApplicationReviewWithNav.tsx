@@ -1,10 +1,109 @@
 import React from "react";
+import {
+  injectIntl,
+  InjectedIntlProps,
+  FormattedMessage,
+  defineMessages
+} from "react-intl";
 import className from "classnames";
 import Swal from "sweetalert2";
 import * as routes from "../../helpers/routes";
 import Select, { SelectOption } from "../Select";
 import { Application } from "../types";
 import { ReviewStatusId } from "../lookupConstants";
+
+const messages = defineMessages({
+  veteranLogo: {
+    id: "veteranStatus.veteranLogoAlt",
+    defaultMessage: "<default/> Talent cloud veteran logo",
+    description: "Alt Text for Veteran Logo Img"
+  },
+  emailCandidate: {
+    id: "apl.emailCandidateLinkTitle",
+    defaultMessage: "<default/> Email this candidate.",
+    description: "Title, hover text, for email link."
+  },
+  viewApplicationTitle: {
+    id: "apl.viewApplicationLinkTitle",
+    defaultMessage: "<default/> View this applicant's application.",
+    description: "Title, hover text, for View Application Link"
+  },
+  viewProfileTitle: {
+    id: "apl.viewProfileLinkTitle",
+    defaultMessage: "<default/> View this applicant's profile.",
+    description: "Title, hover text, for View Profile Link"
+  },
+  decision: {
+    id: "apl.decision",
+    defaultMessage: "<default/> Decision",
+    description: "Decision dropdown label"
+  },
+  notReviewed: {
+    id: "reviewStatus.notReviewed",
+    defaultMessage: "<default/> Not Reviewed",
+    description: "Decision dropdown label"
+  },
+  saving: {
+    id: "button.saving",
+    defaultMessage: "<default/> Saving...",
+    description: "Dynamic Save button label"
+  },
+  save: {
+    id: "button.save",
+    defaultMessage: "<default/> Save",
+    description: "Dynamic Save button label"
+  },
+  saved: {
+    id: "button.saved",
+    defaultMessage: "<default/> Saved",
+    description: "Dynamic Save button label"
+  },
+  addNote: {
+    id: "apl.addNote",
+    defaultMessage: "<default/> + Add a Note",
+    description: "Dynamic Note button label"
+  },
+  editNote: {
+    id: "apl.editNote",
+    defaultMessage: "<default/> Edit Note",
+    description: "Dynamic Note button label"
+  },
+  screenedOut: {
+    id: "reviewStatus.screenedOut",
+    defaultMessage: "<default/> Screened Out",
+    description: "Dynamic Note button label"
+  },
+  cancelButton: {
+    id: "button.cancel",
+    defaultMessage: "<default/> Cancel",
+    description: "Cancel button label"
+  },
+  stillThinking: {
+    id: "reviewStatus.stillThinking",
+    defaultMessage: "<default/> Still Thinking",
+    description: "Dynamic Note button label"
+  },
+  stillIn: {
+    id: "reviewStatus.stillIn",
+    defaultMessage: "<default/> Still In",
+    description: "Dynamic Note button label"
+  },
+  confirmButton: {
+    id: "button.confirm",
+    defaultMessage: "<default/> Confirm",
+    description: "Confirm button for modal dialogue boxes"
+  },
+  screenOutConfirm: {
+    id: "apl.screenOutConfirm",
+    defaultMessage: "<default/> Screen out the candidate?",
+    description: "Are you sure you want to screen out the candidate warning"
+  },
+  screenInConfirm: {
+    id: "apl.screenInConfirm",
+    defaultMessage: "<default/> Screen the candidate back in?",
+    description: "Are you sure you want to screen in the candidate warning"
+  }
+});
 
 interface ApplicationReviewWithNavProps {
   application: Application;
@@ -21,11 +120,11 @@ interface ApplicationReviewWithNavState {
   selectedStatusId: number | undefined;
 }
 
-export default class ApplicationReviewWithNav extends React.Component<
-  ApplicationReviewWithNavProps,
+class ApplicationReviewWithNav extends React.Component<
+  ApplicationReviewWithNavProps & InjectedIntlProps,
   ApplicationReviewWithNavState
 > {
-  public constructor(props: ApplicationReviewWithNavProps) {
+  public constructor(props: ApplicationReviewWithNavProps & InjectedIntlProps) {
     super(props);
     this.state = {
       selectedStatusId:
@@ -65,7 +164,7 @@ export default class ApplicationReviewWithNav extends React.Component<
    */
   protected handleSaveClicked(): Promise<void> {
     const { selectedStatusId } = this.state;
-    const { application, onStatusChange } = this.props;
+    const { application, onStatusChange, intl } = this.props;
     const status = selectedStatusId || null;
 
     const sectionChange = (
@@ -84,15 +183,16 @@ export default class ApplicationReviewWithNav extends React.Component<
     if (sectionChange(oldStatus, status)) {
       const confirmText =
         status === ReviewStatusId.ScreenedOut
-          ? "Screen out the candidate?"
-          : "Screen the candidate back in?";
+          ? intl.formatMessage(messages.screenOutConfirm)
+          : intl.formatMessage(messages.screenInConfirm);
       return Swal.fire({
         title: confirmText,
         type: "question",
         showCancelButton: true,
         confirmButtonColor: "#0A6CBC",
         cancelButtonColor: "#F94D4D",
-        confirmButtonText: "Confirm"
+        confirmButtonText: intl.formatMessage(messages.confirmButton),
+        cancelButtonText: intl.formatMessage(messages.cancelButton)
       }).then(result => {
         if (result.value) {
           return onStatusChange(application.id, status);
@@ -104,19 +204,20 @@ export default class ApplicationReviewWithNav extends React.Component<
   }
 
   protected showNotes(): void {
-    const { application, onNotesChange } = this.props;
+    const { application, onNotesChange, intl } = this.props;
     const notes =
       application.application_review && application.application_review.notes
         ? application.application_review.notes
         : "";
     Swal.fire({
-      title: "Edit notes",
+      title: intl.formatMessage(messages.editNote),
       type: "question",
       input: "textarea",
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
       cancelButtonColor: "#F94D4D",
-      confirmButtonText: "Save",
+      cancelButtonText: intl.formatMessage(messages.cancelButton),
+      confirmButtonText: intl.formatMessage(messages.save),
       inputValue: notes
     }).then(result => {
       if (result && result.value !== undefined) {
@@ -151,7 +252,11 @@ export default class ApplicationReviewWithNav extends React.Component<
   }
 
   public render(): React.ReactElement {
-    const { application, reviewStatusOptions, isSaving } = this.props;
+    const { application, reviewStatusOptions, isSaving, intl } = this.props;
+    const l10nReviewStatusOptions = reviewStatusOptions.map(status => ({
+      value: status.value,
+      label: intl.formatMessage(messages[status.label])
+    }));
     const { selectedStatusId } = this.state;
     const reviewStatus =
       application.application_review &&
@@ -167,18 +272,18 @@ export default class ApplicationReviewWithNav extends React.Component<
 
     const getSaveButtonText = (): string => {
       if (isSaving) {
-        return "Saving...";
+        return intl.formatMessage(messages.saving);
       }
       if (this.isUnchanged()) {
-        return "Saved";
+        return intl.formatMessage(messages.saved);
       }
-      return "Save";
+      return intl.formatMessage(messages.save);
     };
     const saveButtonText = getSaveButtonText();
     const noteButtonText =
       application.application_review && application.application_review.notes
-        ? "Edit Note"
-        : "+ Add a Note";
+        ? intl.formatMessage(messages.editNote)
+        : intl.formatMessage(messages.addNote);
     return (
       <div>
         <div>
@@ -190,13 +295,17 @@ export default class ApplicationReviewWithNav extends React.Component<
                 onClick={() =>
                   this.handleLinkClicked(
                     routes.managerJobApplications(
-                      "en",
+                      intl.locale,
                       application.job_poster_id
                     )
                   )
                 }
               >
-                &#60; Save and Go Back to Applicant List
+                <FormattedMessage
+                  id="apl.backToApplicantList"
+                  defaultMessage="<default/> < Save and Go Back to Applicant List"
+                  description="Back Button text"
+                />
               </button>
             </div>
             <div className="box small-2of3">
@@ -205,19 +314,40 @@ export default class ApplicationReviewWithNav extends React.Component<
                 type="button"
                 onClick={() =>
                   this.handleLinkClicked(
-                    routes.managerJobShow("en", application.job_poster_id)
+                    routes.managerJobShow(
+                      intl.locale,
+                      application.job_poster_id
+                    )
                   )
                 }
               >
-                View JobPoster
+                <FormattedMessage
+                  id="button.viewJobPoster"
+                  defaultMessage="<default/> View Job Poster"
+                  description="View Job Poster Button text"
+                />
               </button>
               <button
                 className="button--blue light-bg"
                 data-button-type="expand-all"
                 type="button"
               >
-                <span className="expand">Expand Accordions</span>
-                <span className="collapse">Collapse Accordions</span>
+                <span className="expand">
+                  {" "}
+                  <FormattedMessage
+                    id="apl.expandAllSkills"
+                    defaultMessage="<default/> Expand All Skills"
+                    description="Expand All Skills Button text"
+                  />
+                </span>
+                <span className="collapse">
+                  {" "}
+                  <FormattedMessage
+                    id="apl.collapseAllSkills"
+                    defaultMessage="<default/> Collapse All Skills"
+                    description="Collapse All Skills Button text"
+                  />
+                </span>
               </button>
             </div>
           </div>
@@ -233,7 +363,7 @@ export default class ApplicationReviewWithNav extends React.Component<
               <span className="name">{application.applicant.user.name}</span>
               <a
                 href={`mailto: ${application.applicant.user.email}`}
-                title="Email this candidate."
+                title={intl.formatMessage(messages.emailCandidate)}
               >
                 {application.applicant.user.email}
               </a>
@@ -242,31 +372,46 @@ export default class ApplicationReviewWithNav extends React.Component<
                 application.veteran_status.name === "past") && (
                 <span className="veteran-status">
                   <img
-                    alt="The Talent Cloud veteran icon."
+                    alt={intl.formatMessage(messages.viewApplicationTitle)}
                     src="/images/icon_veteran.svg"
+                  />{" "}
+                  <FormattedMessage
+                    id="veteranStatus.veteran"
+                    defaultMessage="<default/> Veteran"
+                    description="Veteran"
                   />
-                  Veteran
                 </span>
               )}
             </div>
 
             <div className="box lg-2of11 applicant-links">
               <a
-                href={routes.managerApplicationShow("en", application.id)}
-                title="View this applicant's application."
+                title={intl.formatMessage(messages.viewApplicationTitle)}
+                href={routes.managerApplicationShow(
+                  intl.locale,
+                  application.id
+                )}
               >
                 <i className="fas fa-file-alt" />
-                View Application
+                <FormattedMessage
+                  id="apl.viewApplication"
+                  defaultMessage="<default/> View Application"
+                  description="Button text View Application"
+                />
               </a>
               <a
+                title={intl.formatMessage(messages.viewProfileTitle)}
                 href={routes.managerApplicantShow(
-                  "en",
+                  intl.locale,
                   application.applicant_id
                 )}
-                title="View this applicant's profile."
               >
                 <i className="fas fa-user" />
-                View Profile
+                <FormattedMessage
+                  id="apl.viewProfile"
+                  defaultMessage="<default/> View Profile"
+                  description="Button text View Profile"
+                />
               </a>
             </div>
 
@@ -274,10 +419,10 @@ export default class ApplicationReviewWithNav extends React.Component<
               <Select
                 formName="review_status"
                 htmlId={`review_status_${application.id}`}
-                label="Decision"
+                label={intl.formatMessage(messages.decision)}
                 selected={selectedStatusId}
-                nullSelection="Not Reviewed"
-                options={reviewStatusOptions}
+                nullSelection={intl.formatMessage(messages.notReviewed)}
+                options={l10nReviewStatusOptions}
                 onChange={this.handleStatusChange}
               />
             </div>
@@ -307,3 +452,5 @@ export default class ApplicationReviewWithNav extends React.Component<
     );
   }
 }
+
+export default injectIntl(ApplicationReviewWithNav);
