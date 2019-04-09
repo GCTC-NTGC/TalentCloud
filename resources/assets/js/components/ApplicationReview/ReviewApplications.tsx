@@ -123,26 +123,6 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
           />
         </div>
       </div>
-
-      <div className="priority-alert">
-        <h3>
-          <i className="fas fa-bell" />{" "}
-          <FormattedMessage
-            id="apl.tempPriorityAlert"
-            defaultMessage="<default/> Temporary Priority Alert"
-            description="Alert Notice Priorites must be reviewed first get a list"
-          />
-        </h3>
-
-        <p>
-          <FormattedMessage
-            id="apl.getPriorityList"
-            defaultMessage="<default/> Contact Talent Cloud to get a list of priorities that applied to this
-          position. They must be reviewed and considered first."
-            description="Alert Notice for Priorities description text"
-          />
-        </p>
-      </div>
       {categories.map(category => (
         <ReviewCategory
           key={category.title.id}

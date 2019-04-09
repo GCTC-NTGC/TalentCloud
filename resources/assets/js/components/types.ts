@@ -66,6 +66,7 @@ export interface User {
   user_role_id: number;
   created_at: Date;
   updated_at: Date;
+  is_priority: boolean;
 }
 
 export interface ApplicationReview {
