@@ -23,31 +23,28 @@ class ScreeningPlanController extends Controller
     public function createForJob(JobPoster $jobPoster)
     {
         $jobPoster->load('criteria');
-        $skills = Skill::all();
+        // $skills = Skill::all();
 
-        $assessment_plans = [];
-        foreach ($jobPoster->screening_plans as $plan) {
-            $assessment_plan = [];
-            foreach (AssessmentType::all() as $type) {
-                $plan_type_assessments = $plan->assessments->where('assessment_type_id', $type->id);
-                if (!$plan_type_assessments->isEmpty()) {
-                    $assessment_plan[$type->name] = [];
-                    foreach ($plan_type_assessments as $assessment) {
-                        $assessment_plan[$type->name][] = $assessment->criterion->skill->name;
-                    }
-                }
-            }
-            $assessment_plans[$plan->id] = $assessment_plan;
-        }
+        // $assessment_plans = [];
+        // foreach ($jobPoster->screening_plans as $plan) {
+        //     $assessment_plan = [];
+        //     foreach (AssessmentType::all() as $type) {
+        //         $plan_type_assessments = $plan->assessments->where('assessment_type_id', $type->id);
+        //         if (!$plan_type_assessments->isEmpty()) {
+        //             $assessment_plan[$type->name] = [];
+        //             foreach ($plan_type_assessments as $assessment) {
+        //                 $assessment_plan[$type->name][] = $assessment->criterion->skill->name;
+        //             }
+        //         }
+        //     }
+        //     $assessment_plans[$plan->id] = $assessment_plan;
+        // }
 
         return view(
             'manager/screening-plan',
             [
                 'screening_l10n' => Lang::get('manager/screening-plan'),
                 'job' => $jobPoster,
-                'skill_template' => Lang::get('common/skills'),
-                'assessment_types' => AssessmentType::all(),
-                'assessment_plans' => $assessment_plans,
             ]
         );
     }
