@@ -67,7 +67,7 @@ class DevSeeder extends Seeder // phpcs:ignore
             $job->job_applications()->save(factory(JobApplication::class)->create([
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
-                        'user_id' => factory(User::class)->state('priority')->create()->id
+                        'user_id' => factory(User::class)->states('priority')->create()->id
                     ])->id
             ]));
         });

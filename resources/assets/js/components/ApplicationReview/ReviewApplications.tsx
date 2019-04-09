@@ -79,17 +79,6 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
           </span>
         </div>
       </div>
-
-      {/* <div className="priority-alert">
-        <h3>
-          <i className="fas fa-bell" /> Temporary Priority Alert
-        </h3>
-
-        <p>
-          Contact Talent Cloud to get a list of priorities that applied to this
-          position. They must be reviewed and considered first.
-        </p>
-      </div> */}
       {categories.map(category => (
         <ReviewCategory
           key={category.title}
