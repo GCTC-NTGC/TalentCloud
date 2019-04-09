@@ -13,6 +13,11 @@ import { Application } from "../types";
 import { ReviewStatusId } from "../lookupConstants";
 
 const messages = defineMessages({
+  priorityLogo: {
+    id: "priorityStatus.priorityLogoTitle",
+    defaultMessage: "<default/> Talent cloud priority logo",
+    description: "Title for Priority Logo Img"
+  },
   veteranLogo: {
     id: "veteranStatus.veteranLogoAlt",
     defaultMessage: "<default/> Talent cloud veteran logo",
@@ -292,9 +297,13 @@ class ApplicationReview extends React.Component<
                 <i
                   aria-hidden="true"
                   className="fab fa-product-hunt"
-                  title="The Talent Cloud priority icon"
+                  title={intl.formatMessage(messages.priorityLogo)}
                 />
-                <span>Priority</span>
+                <FormattedMessage
+                  id="priorityStatus.priority"
+                  defaultMessage="<default/> Priority"
+                  description="Priority"
+                />
               </span>
             )}
             {/* This span only shown for veterans */}
@@ -304,7 +313,7 @@ class ApplicationReview extends React.Component<
                 <img
                   alt={intl.formatMessage(messages.veteranLogo)}
                   src="/images/icon_veteran.svg"
-                />{" "}
+                />
                 <FormattedMessage
                   id="veteranStatus.veteran"
                   defaultMessage="<default/> Veteran"
