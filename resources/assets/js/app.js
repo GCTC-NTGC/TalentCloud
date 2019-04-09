@@ -13,11 +13,11 @@
 
   // Root
 
-  let $root = $("html, body");
+  var $root = $("html, body");
 
   // Add has attribute Function
   $.fn.hasAttr = function(name) {
-    let attr = $(this).attr(name);
+    var attr = $(this).attr(name);
     // For some browsers, `attr` is undefined; for others,
     // `attr` is false.  Check for both.
     return typeof attr !== typeof undefined && attr !== false;
@@ -29,7 +29,7 @@
 
   // Second Git Test
 
-  let ua = navigator.userAgent;
+  var ua = navigator.userAgent;
   ua = ua.toString();
   $("body").attr("id", ua);
 
@@ -111,19 +111,19 @@
     // Modal Handlers ======================================================
 
     function openModal(trigger) {
-      let modalID = $(trigger).attr("data-modal-id");
-      let modal = $(`.modal[data-modal-id=${  modalID  }]`);
-      let modalObject = $(trigger).parents(".modal-target-object");
+      var modalID = $(trigger).attr("data-modal-id");
+      var modal = $(".modal[data-modal-id=" + modalID + "]");
+      var modalObject = $(trigger).parents(".modal-target-object");
       $(".modal-overlay").addClass("active");
       modal.addClass("active");
       $("body").css("overflow", "hidden");
 
       // Tab Items
 
-      let focusableItems = modal.find(":focusable");
+      var focusableItems = modal.find(":focusable");
 
-      let firstInput = focusableItems.first();
-      let lastInput = focusableItems.last();
+      var firstInput = focusableItems.first();
+      var lastInput = focusableItems.last();
 
       if (modal.find("form").length == 0) {
         lastInput.focus();
@@ -169,16 +169,16 @@
       // This is important because this modal is reused to delete
       //  different items.
       $(".modal-delete-trigger").one("click", function(e) {
-        // TODO: when items are saved with ajax too, the check
+        //TODO: when items are saved with ajax too, the check
         // will become more complicated than checking for a
         // delete url
 
-        // If object has been saved to server, make an ajax delete
+        //If object has been saved to server, make an ajax delete
         // call to the item url, and only close the modal when it
         // succeeds
         if ($(object).attr("data-item-saved")) {
-          let itemId = $(object).attr("data-item-id");
-          let deleteUrl = $(object)
+          var itemId = $(object).attr("data-item-id");
+          var deleteUrl = $(object)
             .attr("data-item-url")
             .replace(":id", itemId);
           $(modal).addClass("working");
@@ -192,15 +192,16 @@
             })
             .catch(function(error) {
               $(modal).removeClass("working");
-              // TODO: deal with error better, localized text at least
+              //TODO: deal with error better, localized text at least
               window.alert("Something went wrong deleting item!");
               // Allow for retrying
               modalDeleteTrigger(trigger, modal, object);
             });
-          // TODO: catch and present errors
+          //TODO: catch and present errors
         } else {
-          // If item isn't saved on server yet, simply delete the
+          //If item isn't saved on server yet, simply delete the
           // object and close the modal.
+
           closeModal(trigger);
           $(object).remove();
         }
@@ -211,7 +212,7 @@
 
     function modalTabHandler(first, last) {
       $(document).on("keydown", function(e) {
-        let keyCode = e.keyCode || e.which;
+        var keyCode = e.keyCode || e.which;
 
         if (keyCode == 9 && !e.shiftKey) {
           if ($(last).is(":focus")) {
@@ -254,7 +255,7 @@
         $(this)
           .parent()
           .addClass("required");
-        // Find labels that haven't had the asterisk added yet
+        //Find labels that haven't had the asterisk added yet
         const label = $(this)
           .parent()
           .find("label:not(:has(.fa-asterisk))");
@@ -267,7 +268,7 @@
         $(this)
           .parent()
           .addClass("required");
-        // Find labels that haven't had the asterisk added yet
+        //Find labels that haven't had the asterisk added yet
         const label = $(this)
           .parent()
           .siblings("label:not(:has(.fa-asterisk))");
@@ -278,7 +279,7 @@
 
       $(".form__radio-group").each(function(e) {
         $(this).addClass("required");
-        // Find labels that haven't had the asterisk added yet
+        //Find labels that haven't had the asterisk added yet
         $(this)
           .children(".form__label")
           .append(
@@ -365,14 +366,14 @@
         } else {
           if ($(this).attr("type") == "password") {
             return false;
-          } 
+          } else {
             $(this)
               .parent()
               .addClass("invalid");
             $(this)
               .parent()
               .removeClass("valid");
-          
+          }
         }
       });
 
@@ -405,7 +406,6 @@
         $(this).blur();
       });
 
-      // Language Confirmation Checkbox
       $(`#language_requirement_confirmed`).change(function(e) {
         if (
           $(this)
@@ -430,7 +430,7 @@
 
     // AJAX Form Handlers ==========================================
 
-    // Return an onSave function specific to this ajax object
+    //Return an onSave function specific to this ajax object
     function ajaxOnSave(object) {
       return function onSave(response) {
         setItemSaved(object, response);
@@ -438,18 +438,18 @@
         $(object)
           .find("button[type=submit]")
           .removeClass("working");
-        // $(object).find('.accordion-trigger').focus();
+        //$(object).find('.accordion-trigger').focus();
       };
     }
 
-    // Return an onError function specific to this ajax object
+    //Return an onError function specific to this ajax object
     function ajaxOnError(object) {
       return function onError(error) {
         showFormErrors(object, error.response);
         $(object)
           .find("button[type=submit]")
           .removeClass("working");
-        $(object).addClass("active"); // Ensure errors are displayed
+        $(object).addClass("active"); //Ensure errors are displayed
         $(object)
           .find(".accordion-trigger")
           .focus();
@@ -463,7 +463,7 @@
         .first();
       const formData = $(form).serialize();
 
-      // Add working class to submit button
+      //Add working class to submit button
       $(object)
         .find("button[type=submit]")
         .removeClass("saved");
@@ -471,17 +471,17 @@
         .find("button[type=submit]")
         .addClass("working");
 
-      let requestPromise;
-      // If object already exists on server, update it
+      var requestPromise;
+      //If object already exists on server, update it
       if ($(object).attr("data-item-saved")) {
-        let itemId = $(object).attr("data-item-id");
-        let itemUrl = $(object)
+        var itemId = $(object).attr("data-item-id");
+        var itemUrl = $(object)
           .attr("data-item-url")
           .replace(":id", itemId);
         requestPromise = axios.put(itemUrl, formData);
       } else {
-        // If item isn't saved on server yet, create it
-        let resourceUrl = $(object)
+        //If item isn't saved on server yet, create it
+        var resourceUrl = $(object)
           .attr("data-item-url")
           .replace(":id", "");
         requestPromise = axios.post(resourceUrl, formData);
@@ -491,7 +491,7 @@
     }
 
     function submitAllForms(event) {
-      // Add working class to triggering button
+      //Add working class to triggering button
       const button = $(event.currentTarget);
 
       button.removeClass("saved");
@@ -504,18 +504,18 @@
         return request;
       });
 
-      // Define processing for when all requests have returned
+      //Define processing for when all requests have returned
       axios
         .all(requests)
         .then(function(responses) {
-          // If nothing went wrong, continue
+          //If nothing went wrong, continue
           if (button.hasAttr("data-on-success-url")) {
             window.location = button.attr("data-on-success-url");
           }
           button.removeClass("working");
         })
         .catch(function(error) {
-          // If something went wrong, do nothing (individual errors processed seperately)
+          //If something went wrong, do nothing (individual errors processed seperately)
           button.removeClass("working");
         });
     }
@@ -527,7 +527,7 @@
     });
 
     function addSubmitTrigger(object) {
-      let form = $(object)
+      var form = $(object)
         .find("form")
         .first();
 
@@ -539,7 +539,7 @@
       });
     }
 
-    // Update ajax-form to reflect that it has been edited since being saved.
+    //Update ajax-form to reflect that it has been edited since being saved.
     function setItemEdited(object) {
       $(object).removeClass("complete");
       $(object).addClass("edited");
@@ -549,7 +549,7 @@
         .removeClass("saved");
     }
 
-    // Add setItemEdited handlers to all ajax forms
+    //Add setItemEdited handlers to all ajax forms
     function addOnChangeEditedWatchers() {
       $(".ajax-form").each(function() {
         const object = $(this);
@@ -560,9 +560,9 @@
     }
     addOnChangeEditedWatchers();
 
-    // Set object attributes to reflect that it has been saved on server
+    //Set object attributes to reflect that it has been saved on server
     function setItemSaved(object, response) {
-      let {id} = response.data;
+      var id = response.data.id;
 
       // Run model specific ui updates
       // Do this before updating data-item-saved attr, so that
@@ -581,14 +581,14 @@
         .find("button[type=submit]")
         .addClass("saved");
 
-      let itemUrl = $(object)
+      var itemUrl = $(object)
         .attr("data-item-url")
         .replace(":id", id);
 
       $(object).attr("data-item-saved", "true");
       $(object).attr("data-item-id", id);
 
-      let form = $(object)
+      var form = $(object)
         .find("form")
         .first();
       $(form).attr("action", itemUrl);
@@ -603,12 +603,12 @@
         .find(".reveal-on-save")
         .removeClass("hidden");
 
-      // $(object).removeClass('active');
+      //$(object).removeClass('active');
     }
 
-    // Update ui for Skill object to reflect that it has been setItem
+    //Update ui for Skill object to reflect that it has been setItem
     function setSkillSaved(object, response) {
-      let levelRequirement =
+      var levelRequirement =
         $(object)
           .find(".accordion-title span")
           .prop("outerHTML") || "";
@@ -620,17 +620,17 @@
         .text(response.data.skill.description);
       $(object)
         .find(".skill__status--level")
-        .text(` ${  response.data.skill_status.status}`);
+        .text(" " + response.data.skill_status.status);
     }
 
-    // Update ui for Reference object to reflect that it has been setItem
+    //Update ui for Reference object to reflect that it has been setItem
     function setReferenceSaved(object, response) {
       $(object)
         .find(".accordion-title")
         .text(response.data.name);
     }
 
-    // Update ui for WorkSample object to reflect that it has been setItem
+    //Update ui for WorkSample object to reflect that it has been setItem
     function setSampleSaved(object, response) {
       $(object)
         .find(".accordion-title")
@@ -645,19 +645,19 @@
 
     function showFormErrors(object, response) {
       clearFormErrors(object);
-      let messages = response.data.errors;
+      var messages = response.data.errors;
       if (!response.data.errors) {
-        messages = { "server error": ["Something went wrong."] }; // TODO: localize
+        messages = { "server error": ["Something went wrong."] }; //TODO: localize
       }
-      let list = document.createElement("ul");
+      var list = document.createElement("ul");
       $.each(messages, function(key, value) {
-        // key is the name of the field associated with the error
-        // value is a list of error messages associated with a single field
+        //key is the name of the field associated with the error
+        //value is a list of error messages associated with a single field
         $.each(value, function(i, errorMsg) {
           list.append(makeErrorElement(errorMsg));
         });
       });
-      let div = document.createElement("div");
+      var div = document.createElement("div");
       $(div)
         .addClass("site-error")
         .append(list);
@@ -668,15 +668,15 @@
 
     // Return an <li> html element displaying the errorMsg
     function makeErrorElement(errorMsg) {
-      let inner = document.createElement("strong");
+      var inner = document.createElement("strong");
       $(inner).text(errorMsg);
 
-      let block = document.createElement("span");
+      var block = document.createElement("span");
       $(block)
         .addClass("help-block")
         .append(inner);
 
-      let li = document.createElement("li");
+      var li = document.createElement("li");
       $(li).append(block);
 
       return li;
@@ -695,7 +695,7 @@
       event.preventDefault();
       const anchor = $(event.currentTarget);
       const link = anchor.attr("href");
-      let message = "";
+      var message = "";
 
       if (anchor.hasAttr("data-confirm-message")) {
         message = anchor.attr("data-confirm-message");
@@ -711,12 +711,12 @@
 
     // Individualizing repeater name and id attributes======================
 
-    // Individualize template attributes
+    //Individualize template attributes
     function appendToAttributes(parent, attribute, suffix, conditions = null) {
-      let selector = `*[${  attribute  }]`;
+      var selector = "*[" + attribute + "]";
 
-      // If conditions is set, only modify attributes that also
-      // satisfy that selector
+      //If conditions is set, only modify attributes that also
+      //satisfy that selector
       if (conditions) {
         selector = conditions + selector;
       }
@@ -726,7 +726,7 @@
       });
     }
 
-    // Individualize template attributes
+    //Individualize template attributes
     function replaceInAttributes(
       parent,
       attribute,
@@ -734,16 +734,16 @@
       newString,
       conditions = null
     ) {
-      let selector = `*[${  attribute  }]`;
+      var selector = "*[" + attribute + "]";
 
-      // If conditions is set, only modify attributes that also
-      // satisfy that selector
+      //If conditions is set, only modify attributes that also
+      //satisfy that selector
       if (conditions) {
         selector = conditions + selector;
       }
 
       parent.find(selector).each(function() {
-        // replaces only the first instance of a match in a string
+        //replaces only the first instance of a match in a string
         $(this).attr(
           attribute,
           $(this)
@@ -753,11 +753,11 @@
       });
     }
 
-    // Return the next unused idAttr value
+    //Return the next unused idAttr value
     function getNextItemId(parent, idAttr = "data-item-id") {
-      let maxId = 0;
-      parent.find(`*[${  idAttr  }]`).each(function() {
-        let id = parseInt($(this).attr(idAttr));
+      var maxId = 0;
+      parent.find("*[" + idAttr + "]").each(function() {
+        var id = parseInt($(this).attr(idAttr));
         if (id > maxId) {
           maxId = id;
         }
@@ -765,18 +765,18 @@
       return maxId + 1;
     }
 
-    // The all in one function to set proper ids and form names`
+    //The all in one function to set proper ids and form names`
     function individualizeFormIdsAndNames(template, wrapper) {
       // Get New ID
-      let newId = getNextItemId(wrapper);
+      var newId = getNextItemId(wrapper);
 
-      // Set date-item-id, used to track which newId's are taken
+      //Set date-item-id, used to track which newId's are taken
       template.attr("data-item-id", newId);
 
-      // Differentiate real forms from templates
+      //Differentiate real forms from templates
 
       // filter, if we only want to affect certain results
-      let filter = ":not(.no-prefix *)";
+      var filter = ":not(.no-prefix *)";
 
       replaceInAttributes(template, "id", ":template", "new", filter);
       replaceInAttributes(template, "for", ":template", "new", filter);
@@ -787,7 +787,7 @@
         "value",
         ":template",
         "new",
-        `${filter  }[name=submit]`
+        filter + "[name=submit]"
       );
 
       replaceInAttributes(template, "id", ":id", newId, filter);
@@ -799,7 +799,7 @@
         "value",
         ":id",
         newId,
-        `${filter  }[name=submit]`
+        filter + "[name=submit]"
       );
     }
 
@@ -813,13 +813,13 @@
       templateSelector,
       prepend = false
     ) {
-      let parent = $(trigger).parents(parentSelector);
+      var parent = $(trigger).parents(parentSelector);
       // Get List Wrapper
-      let wrapper = parent.find(listWrapperSelector);
+      var wrapper = parent.find(listWrapperSelector);
       // Set Null to Hidden
       parent.find(nullSelector).removeClass("active");
       // Get Template
-      let template = parent.find(templateSelector).clone();
+      var template = parent.find(templateSelector).clone();
       // Remove Template Class
       template.removeClass("template");
       // un-disable form inputs (except in sub-templates)
@@ -827,7 +827,7 @@
         .find(":input")
         .not(".template :input")
         .removeAttr("disabled");
-      // Set ids and form names to be unique
+      //Set ids and form names to be unique
       individualizeFormIdsAndNames(template, wrapper);
       // Add Clone to the Wrapper
       if (prepend) {
@@ -847,7 +847,7 @@
 
     function addRepeater(trigger) {
       // Get Parent
-      let clone = cloneRepeatingElement(
+      var clone = cloneRepeatingElement(
         trigger,
         ".repeater-list",
         ".repeater-element-list",
@@ -865,7 +865,7 @@
 
     function removeRepeater(event) {
       event.preventDefault();
-      let repeater = $(this).parents(".repeater-element");
+      var repeater = $(this).parents(".repeater-element");
       if (!repeater.hasClass("template")) {
         repeater.remove();
       }
@@ -884,7 +884,7 @@
 
     // Add Profile Element
     function addProfileElement(trigger) {
-      let clone = cloneRepeatingElement(
+      var clone = cloneRepeatingElement(
         trigger,
         ".profile-list",
         ".profile-element-list",
@@ -931,7 +931,7 @@
 
     // Add Profile Relative
     function addProfileRelative(trigger) {
-      let clone = cloneRepeatingElement(
+      var clone = cloneRepeatingElement(
         trigger,
         ".profile-relative-list",
         ".profile-relative-list__wrapper",
@@ -943,9 +943,9 @@
       // Reactivate Nested Relatives
       loadProfileRelativeDeletion();
 
-      let inputs = clone.find(":focusable:not(button)");
+      var inputs = clone.find(":focusable:not(button)");
 
-      let parentForm = $(trigger).parents(".ajax-form");
+      var parentForm = $(trigger).parents(".ajax-form");
       if (parentForm) {
         setItemEdited(parentForm);
       }
@@ -1020,15 +1020,15 @@
 
     function addDegree(trigger) {
       // Get Wrapper
-      let wrapper = $(".application-post__experience-wrapper");
+      var wrapper = $(".application-post__experience-wrapper");
 
       // Get Template
-      let template = $(".application-post__accordion--degree.template").clone();
+      var template = $(".application-post__accordion--degree.template").clone();
 
       // Remove Template Class
       template.removeClass("template");
 
-      // Set ids and form names to be unique
+      //Set ids and form names to be unique
       individualizeFormIdsAndNames(template, wrapper);
 
       // Append Clone to the Wrapper
@@ -1055,15 +1055,15 @@
 
     function addCourse(trigger) {
       // Get Wrapper
-      let wrapper = $(".application-post__experience-wrapper");
+      var wrapper = $(".application-post__experience-wrapper");
 
       // Get Template
-      let template = $(".application-post__accordion--course.template").clone();
+      var template = $(".application-post__accordion--course.template").clone();
 
       // Remove Template Class
       template.removeClass("template");
 
-      // Set ids and form names to be unique
+      //Set ids and form names to be unique
       individualizeFormIdsAndNames(template, wrapper);
 
       // Append Clone to the Wrapper
@@ -1090,15 +1090,15 @@
 
     function addWork(trigger) {
       // Get Wrapper
-      let wrapper = $(".application-post__experience-wrapper");
+      var wrapper = $(".application-post__experience-wrapper");
 
       // Get Template
-      let template = $(".application-post__accordion--work.template").clone();
+      var template = $(".application-post__accordion--work.template").clone();
 
       // Remove Template Class
       template.removeClass("template");
 
-      // Set ids and form names to be unique
+      //Set ids and form names to be unique
       individualizeFormIdsAndNames(template, wrapper);
 
       // Append Clone to the Wrapper
@@ -1127,10 +1127,10 @@
 
     function addTask(trigger) {
       // Get Wrapper
-      let wrapper = $(".manager-jobs__create-task-wrapper");
+      var wrapper = $(".manager-jobs__create-task-wrapper");
 
       // Get Template
-      let template = $(".manager-jobs__create-task.template").clone();
+      var template = $(".manager-jobs__create-task.template").clone();
 
       // Get New ID
       if (wrapper.find(".manager-jobs__create-task").length == 0) {
@@ -1148,8 +1148,8 @@
       // Remove Template Class
       template.removeClass("template");
 
-      // TODO: replace with call to individualizeFormIdsAndNames(template, wrapper);
-      // TODO: This requires changes to JobController@create, because the id would change places
+      //TODO: replace with call to individualizeFormIdsAndNames(template, wrapper);
+      //TODO: This requires changes to JobController@create, because the id would change places
 
       // Assign the New ID
       template.attr("data-task-id", newID);
@@ -1173,12 +1173,12 @@
       });
 
       // Task (English)
-      // template.find("[data-form-id*='task-english']").find("label").attr("for", "taskEN" + newID);
-      // template.find("[data-form-id*='task-english']").find("input").attr("id", "taskEN" + newID);
+      //template.find("[data-form-id*='task-english']").find("label").attr("for", "taskEN" + newID);
+      //template.find("[data-form-id*='task-english']").find("input").attr("id", "taskEN" + newID);
 
       // Task (French)
-      // template.find("[data-form-id*='task-french']").find("label").attr("for", "taskFR" + newID);
-      // template.find("[data-form-id*='task-french']").find("input").attr("id", "taskFR" + newID);
+      //template.find("[data-form-id*='task-french']").find("label").attr("for", "taskFR" + newID);
+      //template.find("[data-form-id*='task-french']").find("input").attr("id", "taskFR" + newID);
 
       // Append Clone to the Wrapper
       wrapper.append(template);
@@ -1230,20 +1230,20 @@
 
     function addSkill(trigger) {
       // Get Parent
-      let parent = $(trigger).parents(".manager-jobs__skill-wrapper");
+      var parent = $(trigger).parents(".manager-jobs__skill-wrapper");
 
       // Get Wrapper
-      let wrapper = parent.find(".manager-jobs__create-skill-wrapper");
+      var wrapper = parent.find(".manager-jobs__create-skill-wrapper");
 
       // Get Template
-      let template = parent
+      var template = parent
         .find(".manager-jobs__create-skill.template")
         .clone();
 
       // Remove Template Class
       template.removeClass("template");
 
-      // Set ids and form names to be unique
+      //Set ids and form names to be unique
       individualizeFormIdsAndNames(template, wrapper);
 
       // Append Clone to the Wrapper
@@ -1302,10 +1302,10 @@
 
     function addQuestion(trigger) {
       // Get Wrapper
-      let wrapper = $(".manager-jobs__create-question-wrapper");
+      var wrapper = $(".manager-jobs__create-question-wrapper");
 
       // Get Template
-      let template = $(".manager-jobs__create-question.template").clone();
+      var template = $(".manager-jobs__create-question.template").clone();
 
       // Get New ID
       if (wrapper.find(".manager-jobs__create-question").length == 0) {
@@ -1323,8 +1323,8 @@
       // Remove Template Class
       template.removeClass("template");
 
-      // TODO: replace with call to individualizeFormIdsAndNames(template, wrapper);
-      // TODO: This requires changes to JobController@create, because the id would change places
+      //TODO: replace with call to individualizeFormIdsAndNames(template, wrapper);
+      //TODO: This requires changes to JobController@create, because the id would change places
 
       // Assign the New ID
       template.attr("data-question-id", newID);
@@ -1406,16 +1406,16 @@
     // Screening Plan Copy Function =====================================================
 
     function copyScreeningPlan(copyButton) {
-      let {body} = document;
-        var range;
-        var sel;
-      let tableID = $(copyButton)
+      var body = document.body,
+        range,
+        sel;
+      var tableID = $(copyButton)
         .parents(".screening-plan")
         .attr("data-item-id");
-      let tableArray = document.querySelectorAll(
-        `[data-table-id='${  tableID  }']`
+      var tableArray = document.querySelectorAll(
+        "[data-table-id='" + tableID + "']"
       );
-      let table = tableArray[0];
+      var table = tableArray[0];
       if (document.createRange && window.getSelection) {
         range = document.createRange();
         sel = window.getSelection();
