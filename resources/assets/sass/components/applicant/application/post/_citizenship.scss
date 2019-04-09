@@ -133,24 +133,36 @@
     }
 
     @keyframes check {
-        10% {
-            opacity: 0.1;
-            background: rgba(0,0,0,0.2);
-        }
-        12% {
-            opacity: 0.4;
-            background: rgba(0,0,0,0.1);
-        }
-        50% {
-            background: $palette--blue;
-            border: 0;
-            opacity: 0.6;
-        }
-        100% {
-            background: $palette--blue;
-            border: 0;
-            opacity: 1;
-        }
+      10% {
+          width: 1.5em;
+          height: 1.5em;
+          opacity: 0.1;
+          border: 50%;
+          background: rgba(0,0,0,0.2);
+          border-width: 15px;
+      }
+      12% {
+          width: 1.5em;
+          height: 1.5em;
+          opacity: 0.4;
+          border: 50%;
+          background: rgba(0,0,0,0.1);
+          border-width: 0;
+      }
+      50% {
+          width: 2em;
+          height: 2em;
+          background: $palette--blue;
+          border: 0;
+          opacity: 0.6;
+      }
+      100% {
+          width: 2em;
+          height: 2em;
+          background: $palette--blue;
+          border: 0;
+          opacity: 1;
+      }
     }
   }
 }
