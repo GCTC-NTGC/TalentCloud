@@ -4,15 +4,7 @@
         "browser": true,
         "es6": true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended",
-        "airbnb",
-        "plugin:prettier/recommended",
-        "prettier",
-        "prettier/@typescript-eslint",
-        "prettier/react"
-    ],
+    "extends": [],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -25,13 +17,19 @@
         "sourceType": "module",
         "project": "./tsconfig.json"
     },
-    "plugins": ["react", "@typescript-eslint"],
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
     "rules": {
         "react/prop-types": "off",
         "react/jsx-filename-extension": [
             1,
             {
-                "extensions": [".jsx", ".tsx"]
+                "extensions": [
+                    ".jsx",
+                    ".tsx"
+                ]
             }
         ],
         "jsx-a11y/label-has-for": "off"
@@ -39,7 +37,12 @@
     "settings": {
         "import/resolver": {
             "node": {
-                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
             }
         }
     }

@@ -25,6 +25,9 @@ Route::group(
             /* Home */
             Route::get('/', 'HomepageController@applicant')->name('home');
 
+            /* Redux */
+            Route::view('redux', 'common/redux');
+
             /* Jobs */
             Route::get('jobs', 'JobController@index')->name('jobs.index');
 

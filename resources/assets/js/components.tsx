@@ -10,4 +10,5 @@
 require("./components/ApplicationReview/ReviewApplicationsContainer");
 require("./components/ApplicationReview/ApplicationReviewContainer");
 
+require('./redux_index.tsx');
 //import ReviewApplications from './components/ReviewApplications';
