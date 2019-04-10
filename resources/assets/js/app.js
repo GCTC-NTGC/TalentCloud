@@ -288,7 +288,7 @@
       });
 
       // Required field for checkbox input
-      $(`input[type="checkbox"]:required`).each(function(e) {
+      $("input[type="checkbox"]:required").each(function(e) {
         $(this)
           .parent()
           .addClass("required");
@@ -406,7 +406,7 @@
         $(this).blur();
       });
 
-      $(`#language_requirement_confirmed`).change(function(e) {
+      $("#language_requirement_confirmed").change(function(e) {
         if (
           $(this)
             .parent()
