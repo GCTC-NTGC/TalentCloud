@@ -16,21 +16,19 @@ use Carbon\Carbon;
 
 use App\Mail\JobPosterReviewRequested;
 
+use App\Models\Criteria;
 use App\Models\JobPoster;
+use App\Models\JobPosterKeyTask;
 use App\Models\JobPosterQuestion;
 use App\Models\Lookup\JobTerm;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\LanguageRequirement;
-use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\SkillLevel;
 use App\Models\Lookup\CriteriaType;
-use App\Models\Lookup\VeteranStatus;
-use App\Models\JobApplication;
-use App\Models\Criteria;
 use App\Models\Skill;
-use App\Models\JobPosterKeyTask;
+use App\Models\Manager;
 
 use App\Services\Validation\JobPosterValidator;
 use Jenssegers\Date\Date;
@@ -102,7 +100,9 @@ class JobController extends Controller
         // Update review request timestamp
         $jobPoster->review_requested_at = new Date();
         $jobPoster->save();
-        $jobPoster->refresh();
+
+        // Refresh model instance with updated DB values.
+        $jobPoster = JobPoster::withCount('submitted_applications')->where('id', $jobPoster->id)->first();
 
         // Send email
         $reviewer_email = config('mail.reviewer_email');
@@ -222,6 +222,40 @@ class JobController extends Controller
     }
 
     /**
+     * Create a blank job poster for the specified manager
+     *
+     * @param Manager $manager
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory Job Create view
+     */
+    public function createAsManager(Manager $manager)
+    {
+        $jobPoster = new JobPoster();
+        $jobPoster->manager_id = $manager->id;
+        $managerEn = $manager->translate('en');
+        $managerFr = $manager->translate('fr');
+
+        $jobPoster->fill([
+            'department_id' => $manager->department_id,
+            'en' => [
+                'branch' => $managerEn->branch,
+                'division' => $managerEn->division,
+            ],
+            'fr' => [
+                'branch' => $managerFr->branch,
+                'division' => $managerFr->division,
+            ]
+        ]);
+        $jobPoster->save();
+
+        $defaultQuestions = $this->populateDefaultQuestions();
+        if (!empty($defaultQuestions)) {
+            $jobPoster->job_poster_questions()->saveMany($defaultQuestions);
+        }
+
+        return redirect()->route('manager.jobs.edit', $jobPoster->id);
+    }
+
+    /**
      * Display the form for creating a new Job Poster
      *
      * @param \Illuminate\Http\Request $request Incoming request object.
@@ -256,7 +290,12 @@ class JobController extends Controller
      */
     public function populateCreateView(Request $request, JobPoster $jobPoster = null)
     {
-        $manager = $request->user() ? $request->user()->manager : null;
+        if ($jobPoster == null || $jobPoster->manager == null) {
+            $manager = $request->user() ? $request->user()->manager : null;
+        } else {
+            $manager = $jobPoster->manager;
+        }
+
         if (isset($jobPoster)) {
             $job = $jobPoster;
             $route = ['manager.jobs.update', $jobPoster];
@@ -378,7 +417,10 @@ class JobController extends Controller
 
         $job = (isset($jobPoster) ? $jobPoster : new JobPoster());
 
-        $job->manager_id = $request->user()->manager->id;
+        if ($job->manager_id == null) {
+            $job->manager_id = $request->user()->manager->id;
+            $job->save();
+        }
 
         $this->fillAndSaveJobPoster($input, $job);
 
@@ -405,9 +447,9 @@ class JobController extends Controller
             [
                 'job_term_id' => JobTerm::where('name', 'month')->firstOrFail()->id,
                 'term_qty' => $input['term_qty'],
-                'open_date_time' => new Date($input['open_date'] . $input['open_time']),
-                'close_date_time' => new Date($input['close_date'] . $input['close_time']),
-                'start_date_time' => new Date($input['start_date_time']),
+                'open_date_time' => ptDayStartToUtcTime($input['open_date']),
+                'close_date_time' => ptDayEndToUtcTime($input['close_date']),
+                'start_date_time' => ptDayStartToUtcTime($input['start_date']),
                 'department_id' => $input['department'],
                 'province_id' => $input['province'],
                 'salary_min' => $input['salary_min'],
@@ -598,11 +640,6 @@ class JobController extends Controller
                     ]
                 ]
             );
-            // Workaround for Default Questions with empty descriptions
-            // throwing an error during save.
-            // The id isn't actually used during the fillAndSaveJobPosterQuestions
-            // method call.
-            $jobQuestion->id = $i + 1;
             $jobQuestions[] = $jobQuestion;
         }
 

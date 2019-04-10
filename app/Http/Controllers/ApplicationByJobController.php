@@ -51,7 +51,7 @@ class ApplicationByJobController extends Controller
             /* Data */
             'job' => $jobPoster,
             'applications' => $applications,
-            'review_statuses' => ReviewStatus::all(),
+            'review_statuses' => ReviewStatus::all()
         ]);
     }
 

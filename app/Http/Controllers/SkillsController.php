@@ -18,32 +18,36 @@ class SkillsController extends Controller
 {
 
     /**
-     * Display the Skills page associated with the applicant.
+     * Show the form for editing the logged-in applicant's skills
      *
-     * @param  \App\Models\Applicant  $applicant
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show(Applicant $applicant)
+    public function editAuthenticated(Request $request): \Illuminate\Http\RedirectResponse
     {
-        //
-
+        $applicant = $request->user()->applicant;
+        return redirect(route('profile.skills.edit', $applicant));
     }
 
     /**
      * Show the form for editing the applicant's skills
      *
-     * @param  Request  $request
-     * @param  \App\Models\Applicant  $applicant
-     * @return \Illuminate\Http\Response
+     * @param Request   $request   Incoming request object.
+     * @param Applicant $applicant Applicant object.
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function edit(Request $request, Applicant $applicant)
     {
-        $skills = Skill::all();
+        $applicant->load([
+            'skill_declarations.skill.skill_type',
+            'skill_declarations.skill_status',
+            'skill_declarations.skill_level',
+        ]);
 
         return view('applicant/profile_03_skills', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_skills'),
-            'skills' => $skills
         ]);
     }
 
@@ -113,7 +117,7 @@ class SkillsController extends Controller
         // $skillDeclaration->save();
 
         // If an ajax request, return the new object
-        if($request->ajax()) {
+        if ($request->ajax()) {
             $skillDeclaration->load('references');
             $skillDeclaration->load('work_samples');
             $skillDeclaration->load('skill');

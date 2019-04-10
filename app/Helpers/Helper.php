@@ -107,3 +107,49 @@ if (!function_exists('humanizeLastDay')) {
         return humanizeDate($lastday);
     }
 }
+
+if (!function_exists('ptDayStartToUtcTime')) {
+    /**
+     * Given a date, creates a datetime object representing the start of day
+     * in the most Western timezone in Canada (America/Vancouver).
+     *
+     * @param string $date ISO standard date YYYY-MM-DD.
+     *
+     * @return Date
+     */
+    function ptDayStartToUtcTime(string $date) : Date
+    {
+        $jobTimezone = Config::get('app.job_timezone');
+        $dbTimezone = Config::get('app.timezone');
+        // Create a new date that's the beginning of the day in
+        // Pacific Daylight/Standard Time.
+        $date = new Date("$date 00:00:00", new \DateTimeZone($jobTimezone));
+        // Convert to UTC for correct offset.
+        $date->setTimezone($dbTimezone);
+
+        return $date;
+    }
+}
+
+if (!function_exists('ptDayEndToUtcTime')) {
+    /**
+     * Given a date, creates a datetime object representing the start of day
+     * in the most Western timezone in Canada (America/Vancouver).
+     *
+     * @param string $date ISO standard date YYYY-MM-DD.
+     *
+     * @return Date
+     */
+    function ptDayEndToUtcTime(string $date) : Date
+    {
+        $jobTimezone = Config::get('app.job_timezone');
+        $dbTimezone = Config::get('app.timezone');
+        // Create a new date that's the beginning of the day in
+        // Pacific Daylight/Standard Time.
+        $date = new Date("$date 23:59:59", new \DateTimeZone($jobTimezone));
+        // Convert to UTC for correct offset.
+        $date->setTimezone($dbTimezone);
+
+        return $date;
+    }
+}

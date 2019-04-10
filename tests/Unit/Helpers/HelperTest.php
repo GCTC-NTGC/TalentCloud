@@ -98,4 +98,46 @@ class HelperTest extends TestCase
 
         $this->assertEquals($expected, humanizeLastDay($dateToTest));
     }
+
+    /**
+     * Test that ptDayStartToUtcTime generates dates correctly
+     *
+     * @return void
+     */
+    public function testPtDayStartToUtcTime() : void
+    {
+        // Outside DST
+        $date = ptDayStartToUtcTime('2019-01-10');
+
+        // Within DST
+        $daylightDate = ptDayStartToUtcTime('2019-04-02');
+
+        $expected = Date::parse('2019-01-10 8:00:00');
+        $expectedDaylight = Date::parse('2019-04-02 07:00:00');
+
+        $this->assertEquals($expected, $date);
+        $this->assertEquals($expectedDaylight, $daylightDate);
+    }
+
+    /**
+     * Test that ptDayEndToUtcTime generates dates correctly
+     *
+     * @return void
+     */
+    public function testPtDayEndToUtcTime(): void
+    {
+        // Outside DST
+        $date = ptDayEndToUtcTime('2019-01-10');
+
+        // Within DST
+        $daylightDate = ptDayEndToUtcTime('2019-04-02');
+
+        // Pacific Time is UTC -7/8, which puts us into the next
+        // calendar day.
+        $expected = Date::parse('2019-01-11 07:59:59');
+        $expectedDaylight = Date::parse('2019-04-03 06:59:59');
+
+        $this->assertEquals($expected, $date);
+        $this->assertEquals($expectedDaylight, $daylightDate);
+    }
 }

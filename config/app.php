@@ -81,6 +81,7 @@ return [
 
     'timezone' => 'UTC',
     'local_timezone' => 'America/Toronto',
+    'job_timezone' => 'America/Vancouver',
 
     /*
     |--------------------------------------------------------------------------

@@ -1,4 +1,5 @@
 import React from "react";
+import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { Application } from "../types";
 import { SelectOption } from "../Select";
 import ApplicationReview from "./ApplicationReview";
@@ -9,8 +10,8 @@ import {
 } from "./helpers";
 
 interface ApplicantBucketProps {
-  title: string;
-  description: string;
+  title: FormattedMessage.MessageDescriptor;
+  description: FormattedMessage.MessageDescriptor;
   applications: Application[];
   reviewStatusOptions: SelectOption<number>[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
@@ -19,7 +20,9 @@ interface ApplicantBucketProps {
   prioritizeVeterans: boolean;
 }
 
-const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = ({
+const ApplicantBucket: React.StatelessComponent<
+  ApplicantBucketProps & InjectedIntlProps
+> = ({
   title,
   description,
   applications,
@@ -27,8 +30,9 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = ({
   onStatusChange,
   onNotesChange,
   savingStatuses,
-  prioritizeVeterans
-}: ApplicantBucketProps): React.ReactElement | null => {
+  prioritizeVeterans,
+  intl
+}: ApplicantBucketProps & InjectedIntlProps): React.ReactElement | null => {
   if (applications.length === 0) {
     return null;
   }
@@ -46,11 +50,15 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = ({
         type="button"
       >
         <span className="bucket-title">
-          {title} ({applications.length})
+          {intl.formatMessage(title)} ({applications.length})
         </span>
 
         <span className="invisible">
-          Toggle this step to view relevant applicants.
+          <FormattedMessage
+            id="button.toggleAccordion"
+            defaultMessage="<default/> Toggle this step to view relevant applicants."
+            description="Instructions to reveal hidden list data."
+          />
         </span>
 
         <i className="fas fa-chevron-up" />
@@ -58,7 +66,7 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = ({
 
       {/* Accordion Content */}
       <div aria-hidden="true" className="accordion-content">
-        <p>{description}</p>
+        <p>{intl.formatMessage(description)}</p>
 
         {sortedApplications.map(application => (
           <ApplicationReview
@@ -78,4 +86,4 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = ({
   );
 };
 
-export default ApplicantBucket;
+export default injectIntl(ApplicantBucket);

@@ -129,6 +129,13 @@
                         justify-content: flex-start;
                     }
 
+                    @media #{$desktop} {
+                        &.expired {
+                            flex: 1 0 auto;
+                            justify-content: flex-end;
+                        }
+                    }
+
                 }
 
             }
@@ -181,12 +188,20 @@
                 cursor: pointer;
                 font-size: $font-scale--h4;
                 line-height: 1;
-                margin: 0 0 0 calc(#{$unit} *2);
+                margin: 0;
                 outline: none;
                 padding: 0;
                 position: relative;
                 top: .05rem;
                 transition: color .2s ease;
+
+                @media #{$desktop} {
+                    margin: 0 0 0 calc(#{$unit} *2);
+
+                    &.expired {
+                        margin-right: calc(#{$unit} *2);
+                    }
+                }
 
                 &:hover,
                 &:focus {

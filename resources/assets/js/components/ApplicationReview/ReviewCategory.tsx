@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  injectIntl,
+  InjectedIntlProps,
+  FormattedMessage,
+  defineMessages
+} from "react-intl";
 import Swal from "sweetalert2";
 import { Application } from "../types";
 import { SelectOption } from "../Select";
 import { applicationBucket } from "./helpers";
 import ApplicantBucket from "./ApplicantBucket";
 import { ReviewStatusId } from "../lookupConstants";
+import { copyToClipboard } from "../../helpers/clipboard";
 
 interface ReviewCategoryProps {
-  title: string;
-  description: string;
+  title: FormattedMessage.MessageDescriptor;
+  description: FormattedMessage.MessageDescriptor;
   showScreenOutAll: boolean;
   applications: Application[];
   reviewStatusOptions: SelectOption<number>[];
@@ -22,7 +29,24 @@ interface ReviewCategoryProps {
   prioritizeVeterans: boolean;
 }
 
-const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
+const localizations = defineMessages({
+  confirmButton: {
+    id: "button.confirm",
+    defaultMessage: "<default/> Confirm",
+    description: "Confirm button for modal dialogue boxes"
+  },
+  screenOutAllConfirm: {
+    id: "apl.screenOutAll.confirm",
+    defaultMessage:
+      "<default/> Are you sure you want to screen out all Optional candidates?",
+    description:
+      "Confirm dialogue text for screening out all optional candidates."
+  }
+});
+
+const ReviewCategory: React.StatelessComponent<
+  ReviewCategoryProps & InjectedIntlProps
+> = ({
   title,
   description,
   showScreenOutAll,
@@ -32,8 +56,9 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
   onBulkStatusChange,
   onNotesChange,
   savingStatuses,
-  prioritizeVeterans
-}: ReviewCategoryProps): React.ReactElement | null => {
+  prioritizeVeterans,
+  intl
+}: ReviewCategoryProps & InjectedIntlProps): React.ReactElement | null => {
   if (applications.length === 0) {
     return null;
   }
@@ -45,12 +70,12 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
 
   const handleScreenOutAllClick = (): void => {
     Swal.fire({
-      title: "Are you sure you want to screen out all Optional candidates?",
+      title: intl.formatMessage(localizations.screenOutAllConfirm),
       type: "question",
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
       cancelButtonColor: "#F94D4D",
-      confirmButtonText: "Confirm"
+      confirmButtonText: intl.formatMessage(localizations.confirmButton)
     }).then(result => {
       if (result.value) {
         screenOutAll();
@@ -60,60 +85,133 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
 
   const buckets = [
     {
-      title: "Priority Applicants",
-      description:
-        "These are priority applicants for this position. They must be reviewed and considered first.",
+      title: {
+        id: "apl.priorityApplicants.title",
+        defaultMessage: "<default/> Priority Applicants",
+        description: "title of list of priority applicants"
+      },
+      description: {
+        id: "apl.priorityApplicants.description",
+        defaultMessage:
+          "<default/> These are priority applicants for this position. They must be reviewed and considered first.",
+        description: "description of list of priority applicants"
+      },
       applications: applications.filter(
         application => applicationBucket(application) === "priority"
       )
     },
     {
-      title: "Veterans and Canadian Citizens",
-      description: "",
+      title: {
+        id: "apl.veteransAndCitizens.title",
+        defaultMessage: "<default/> Veterans and Canadian Citizens",
+        description: "title of list of Veterans and Canadian citizens"
+      },
+      description: {
+        id: "apl.veteransAndCitizens.description",
+        defaultMessage: "",
+        description: "description of list of Veterans and Canadian citizens"
+      },
       applications: applications.filter(
         application => applicationBucket(application) === "citizen"
       )
     },
     {
-      title: "Non-Canadian Citizens",
-      description: "",
+      title: {
+        id: "apl.nonCitizens.title",
+        defaultMessage: "<default/> Non-Canadian Citizens",
+        description: "title of list of non-citizen applicants"
+      },
+      description: {
+        id: "apl.nonCitizens.description",
+        defaultMessage: "<default/> ",
+        description: "description of list of non-citizen applicants"
+      },
       applications: applications.filter(
         application => applicationBucket(application) === "non-citizen"
       )
     },
     {
-      title: "Don't Meed Essential Criteria",
-      description: "",
+      title: {
+        id: "apl.unqualified.title",
+        defaultMessage: "<default/> Don't Meet Essential Criteria",
+        description:
+          "title of list of applicants who do not meet the essential criteria"
+      },
+      description: {
+        id: "apl.unqualified.description",
+        defaultMessage: "",
+        description:
+          "description of list of applicants who do not meet the essential criteria"
+      },
       applications: applications.filter(
         application => applicationBucket(application) === "unqualified"
       )
     }
   ];
 
+  /* Code related to copying emails to clipboard */
+  const [justCopied, setJustCopied] = useState(false);
+  const nameEmails = applications.map(application => {
+    const { name, email } = application.applicant.user;
+    return `${name}<${email}>`;
+  });
+  const emailList = nameEmails.join(",");
+  const handleCopyClick = (): void => {
+    copyToClipboard(emailList);
+    setJustCopied(true);
+    setTimeout(() => setJustCopied(false), 1000);
+  };
+
   return (
     <div className="applicant-category">
-      <h3 className="heading--03">{title}</h3>
+      <h3 className="heading--03">{intl.formatMessage(title)}</h3>
 
-      <p>{description}</p>
+      <p>{intl.formatMessage(description)}</p>
 
-      {/* Category Action
-                This section only exists for the "secondary" category, and should generate a confirmation dialogue that prompts the user to decide whether to screen ALL of the candidates in this category out or not.
-            */}
-      {showScreenOutAll && (
-        <span className="category-action">
+      <div className="flex-grid middle category-actions">
+        <div className="box med-1of2">
           <button
             className="button--outline"
             type="button"
-            onClick={handleScreenOutAllClick}
+            onClick={handleCopyClick}
           >
-            <i className="fas fa-ban" /> Screen All Optional Candidates Out
+            {justCopied ? (
+              <FormattedMessage
+                id="button.copied"
+                defaultMessage="<default/> Copied!"
+                description="Confirmation for Button to copy all applicant emails in screening category"
+              />
+            ) : (
+              <FormattedMessage
+                id="button.copyEmails"
+                defaultMessage="<default/> Copy Emails"
+                description="Button to copy all applicant emails in screening category"
+              />
+            )}
           </button>
-        </span>
-      )}
+        </div>
+        <div className="box med-1of2">
+          {showScreenOutAll && (
+            <button
+              className="button--outline"
+              type="button"
+              onClick={handleScreenOutAllClick}
+            >
+              <i className="fas fa-ban" />
+              &nbsp;
+              <FormattedMessage
+                id="apl.screenOutAll"
+                defaultMessage="<default/> Screen All Optional Candidates Out"
+                description="Button to screen out all optional candidates from competition with one click"
+              />
+            </button>
+          )}
+        </div>
+      </div>
 
       {buckets.map(bucket => (
         <ApplicantBucket
-          key={bucket.title}
+          key={bucket.title.id}
           {...bucket}
           reviewStatusOptions={reviewStatusOptions}
           onStatusChange={onStatusChange}
@@ -126,4 +224,4 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
   );
 };
 
-export default ReviewCategory;
+export default injectIntl(ReviewCategory);

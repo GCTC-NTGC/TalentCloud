@@ -14,12 +14,15 @@ use App\Models\JobPosterQuestion;
 $faker_fr = Faker\Factory::create('fr');
 
 $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker_fr) {
+    $closeDate = $faker->dateTimeBetween('now', '1 months')->format('Y-m-d');
+    $openDate = $faker->dateTimeBetween('-1 months', 'now')->format('Y-m-d');
+    $startDate = $faker->dateTimeBetween('1 months', '2 months')->format('Y-m-d');
     return [
         'job_term_id' => JobTerm::inRandomOrder()->first()->id,
         'term_qty' => $faker->numberBetween(1, 4),
-        'open_date_time' => $faker->dateTimeBetween('-1 months', 'now'),
-        'close_date_time' => $faker->dateTimeBetween('now', '1 months'),
-        'start_date_time' => $faker->dateTimeBetween('1 months', '2 months'),
+        'open_date_time' => ptDayStartToUtcTime($openDate),
+        'close_date_time' => ptDayEndToUtcTime($closeDate),
+        'start_date_time' => ptDayStartToUtcTime($startDate),
         'review_requested_at' => $faker->dateTimeBetween('-2 months', '-1 months'),
         'published_at' => null,
         'department_id' => Department::inRandomOrder()->first()->id,
@@ -86,7 +89,7 @@ $factory->state(
         return [
             'published' => true,
             'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks'),
-            'close_date_time' => $faker->dateTimeBetween('-2 days', '-1 days'),
+            'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-2 days', '-1 days')->format('Y-m-d')),
         ];
     }
 );
@@ -97,8 +100,8 @@ $factory->state(
     function (Faker\Generator $faker) {
         return [
             'published' => false,
-            'open_date_time' => $faker->dateTimeBetween('5 days', '10 days'),
-            'close_date_time' => $faker->dateTimeBetween('3 weeks', '5 weeks'),
+            'open_date_time' => ptDayStartToUtcTime($faker->dateTimeBetween('5 days', '10 days')->format('Y-m-d')),
+            'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('3 weeks', '5 weeks')->format('Y-m-d')),
             'review_requested_at' => null,
             'published_at' => null,
         ];
@@ -111,8 +114,8 @@ $factory->state(
     function (Faker\Generator $faker) {
         return [
             'published' => false,
-            'open_date_time' => $faker->dateTimeBetween('5 days', '10 days'),
-            'close_date_time' => $faker->dateTimeBetween('3 weeks', '5 weeks'),
+            'open_date_time' => ptDayStartToUtcTime($faker->dateTimeBetween('5 days', '10 days')->format('Y-m-d')),
+            'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('3 weeks', '5 weeks')->format('Y-m-d')),
             'review_requested_at' => $faker->dateTimeBetween('-2 days', '-1 days')
         ];
     }

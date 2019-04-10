@@ -115,7 +115,7 @@ return [
             // 'TwigBridge\Extension\Laravel\Form',
             // 'TwigBridge\Extension\Laravel\Html',
             // 'TwigBridge\Extension\Laravel\Legacy\Facades',
-            'App\Utilities\HandleOutput'
+            'App\Utilities\HandleNullState'
         ],
 
         /*
@@ -145,7 +145,7 @@ return [
         | in order to be marked as safe.
         |
         */
-        'facades' => [],
+        'facades' => ['App'],
 
         /*
         |--------------------------------------------------------------------------

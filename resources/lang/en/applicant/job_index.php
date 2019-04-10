@@ -12,7 +12,13 @@ return [
     "title" => "Browse Jobs",
     "job_index_title" => "Talent Cloud | Applicant: Browse Jobs",
     "index" => [
-        "null_state" => "We're sorry, there aren't any jobs currently posted on Talent Cloud. Come back soon!",
+        "null_alert" => [
+            "title" => "We're improving the platform.",
+            "copy_01" => "While there aren't any jobs posted at the moment, check back soon for more opportunities.",
+            "copy_02" => "Want to stay in the know? %link% for updates.",
+            "link" => "https://twitter.com/GC_Talent",
+            "link_title" => "Follow Talent Cloud on Twitter"
+        ],
         "view_title" => "View the job post for",
         "location_label" => "Location",
         "salary_label" => "Annual Salary Range",
