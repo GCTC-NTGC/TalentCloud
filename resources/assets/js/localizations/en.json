@@ -56,5 +56,8 @@
     "alert.title.review": "EN Send this Job Poster for Review?",
     "button.sendToTalentCloud": "EN Send to Talent Cloud",
     "alert.title.sent": "EN Sent!",
-    "alert.text.sent": "EN Your Job Poster has been sent to Talent Cloud for review."
+    "alert.text.sent": "EN Your Job Poster has been sent to Talent Cloud for review.",
+    "alert.title.error": "EN Error",
+    "alert.text.error": "EN Something went wrong, please try again later.",
+    "alert.text.irreversible": "EN This action cannot be undone."
 }

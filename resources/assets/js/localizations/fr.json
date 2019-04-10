@@ -48,5 +48,16 @@
     "reviewStatus.stillIn": "Encore considérée",
     "reviewStatus.stillThinking": "Incertain",
     "veteranStatus.veteran": "Anciens combattants",
-    "veteranStatus.veteranLogoAlt": "icône pour anciens combattants"
+    "veteranStatus.veteranLogoAlt": "icône pour anciens combattants",
+    "alert.title.delete": "FR Delete this draft Job Poster?",
+    "button.delete": "FR Effacer",
+    "alert.title.deleted": "FR Supprimé",
+    "alert.text.deleted": "FR Le brouillon a été supprimé avec succès.",
+    "alert.title.review": "FR Envoyer cette offre d'emploi pour révision?",
+    "button.sendToTalentCloud": "FR Envoyer au Talent Cloud",
+    "alert.title.sent": "FR Envoyé!",
+    "alert.text.sent": "FR Votre offre d'emploi a été envoyée à Talent Cloud pour examen.",
+    "alert.title.error": "FR Erreur",
+    "alert.text.error": "FR Quelque chose c'est mal passé. Merci d'essayer plus tard.",
+    "alert.text.irreversible": "FR Cette action ne peut pas être annulée."
 }

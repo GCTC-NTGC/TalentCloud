@@ -44,11 +44,12 @@ function handleClick(e) {
   Swal.queue([
     {
       title: alertConfig.title,
-      text: "This action cannot be undone.",
+      text: localize(locale, "alert.text.irreversible"),
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
       cancelButtonColor: "#F94D4D",
+      cancelButtonText: localize(locale, "button.cancel"),
       confirmButtonText: alertConfig.confirmButtonText,
       showLoaderOnConfirm: true,
       preConfirm: () => {
@@ -72,8 +73,8 @@ function handleClick(e) {
           })
           .catch(() => {
             Swal.insertQueueStep({
-              title: "Error",
-              text: "Something went wrong, please try again later.",
+              title: localize(locale, "alert.title.error"),
+              text: localize(locale, "alert.text.error"),
               type: "error"
             });
           });
