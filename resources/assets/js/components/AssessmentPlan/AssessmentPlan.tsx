@@ -1,19 +1,43 @@
 import React from "react";
 import { injectIntl, InjectedIntlProps } from "react-intl";
-import { Job, Criteria } from "../types";
+import { Job, Criteria, Assessment } from "../types";
 import { CriteriaTypeId } from "../lookupConstants";
 import AssessmentPlanSkill from "./AssessmentPlanSkill";
 
 interface AssessmentPlanProps {
   job: Job;
   criteria: Criteria[];
+  assessments: Assessment[];
 }
+
+const renderAssessmentPlanSkill = (
+  criterion: Criteria,
+  assessments: Assessment[]
+): React.ReactElement => {
+  const assementTypeIds = assessments
+    .filter(assessment => assessment.criterion_id === criterion.id)
+    .map(assessment => assessment.assessment_type_id);
+  return (
+    <AssessmentPlanSkill
+      key={criterion.id}
+      criterion={criterion}
+      assessmentTypeIds={assementTypeIds}
+      addAssessmentType={(assessmentTypeId: number) =>
+        console.log(assessmentTypeId)
+      }
+      removeAssessmentType={(assessmentTypeId: number) =>
+        console.log(assessmentTypeId)
+      }
+    />
+  );
+};
 
 const AssessmentPlan: React.FunctionComponent<
   AssessmentPlanProps & InjectedIntlProps
 > = ({
   job,
   criteria,
+  assessments,
   intl
 }: AssessmentPlanProps & InjectedIntlProps): React.ReactElement => {
   const assetCriteria = criteria.filter(
@@ -118,18 +142,9 @@ const AssessmentPlan: React.FunctionComponent<
             data-c-alignment="base(center)"
             data-c-margin="top(normal) bottom(normal)"
           >
-            {essentialCriteria.map(criterion => (
-              <AssessmentPlanSkill
-                criterion={criterion}
-                assessmentTypeIds={[1, 2]}
-                addAssessmentType={(assessmentTypeId: number) =>
-                  console.log(assessmentTypeId)
-                }
-                removeAssessmentType={(assessmentTypeId: number) =>
-                  console.log(assessmentTypeId)
-                }
-              />
-            ))}
+            {essentialCriteria.map(criterion =>
+              renderAssessmentPlanSkill(criterion, assessments)
+            )}
             {essentialCriteria.length === 0 && (
               <span data-c-font-colour="black">
                 You have no essential skills selected for this job poster.
@@ -151,18 +166,9 @@ const AssessmentPlan: React.FunctionComponent<
             data-c-alignment="base(center)"
             data-c-margin="top(normal) bottom(normal)"
           >
-            {assetCriteria.map(criterion => (
-              <AssessmentPlanSkill
-                criterion={criterion}
-                assessmentTypeIds={[]}
-                addAssessmentType={(assessmentTypeId: number) =>
-                  console.log(assessmentTypeId)
-                }
-                removeAssessmentType={(assessmentTypeId: number) =>
-                  console.log(assessmentTypeId)
-                }
-              />
-            ))}
+            {assetCriteria.map(criterion =>
+              renderAssessmentPlanSkill(criterion, assessments)
+            )}
             {assetCriteria.length === 0 && (
               <span data-c-font-colour="black">
                 You have no asset skills selected for this job poster.

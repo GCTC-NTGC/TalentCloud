@@ -13,6 +13,7 @@ import messagesEn from "../../localizations/en.json";
 import messagesFr from "../../localizations/fr.json";
 import AssessmentPlan from "./AssessmentPlan";
 import { Job } from "../types";
+import { assessmentType } from "../localizedConstants.js";
 
 interface AssessmentPlanContainerProps {
   job: Job;
@@ -37,8 +38,17 @@ const AssessmentPlanContainer: React.FunctionComponent<
       }
     }
   ];
+  const assessments = [
+    {
+      id: 1,
+      criterion_id: 1,
+      assessment_type_id: 2
+    }
+  ];
 
-  return <AssessmentPlan job={job} criteria={criteria} />;
+  return (
+    <AssessmentPlan job={job} criteria={criteria} assessments={assessments} />
+  );
 };
 
 addLocaleData([...localeEn, ...localeFr]);
