@@ -9,5 +9,6 @@
 //require('./components/ReferenceList');
 require("./components/ApplicationReview/ReviewApplicationsContainer");
 require("./components/ApplicationReview/ApplicationReviewContainer");
+import "./components/WordCount";
 
 //import ReviewApplications from './components/ReviewApplications';
