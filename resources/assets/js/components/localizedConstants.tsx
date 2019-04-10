@@ -1,5 +1,5 @@
-import { SkillLevelId, SkillTypeId } from "./lookupConstants";
 import { defineMessages, FormattedMessage } from "react-intl";
+import { SkillLevelId, SkillTypeId, AssessmentTypeId } from "./lookupConstants";
 
 const skillLevelDescriptions = defineMessages({
   hardBasic: {
@@ -76,5 +76,30 @@ export const skillLevelName = (
       default:
         return skillLevelNames.softAdvanced;
     }
+  }
+};
+
+const assessmentTypes = defineMessages({
+  narrativeAssessment: {
+    id: "assessmentType.narrativeAssessment",
+    defaultMessage: "Narrative Assessment",
+    description: "Title of an assessment type."
+  },
+  applicationScreeningQuestion: {
+    id: "assessmentType.applicationScreeningQuestion",
+    defaultMessage: "Application Screening Question",
+    description: "Title of an assessment type."
+  }
+});
+
+export const assessmentType = (
+  assessmentTypeId: number
+): FormattedMessage.MessageDescriptor => {
+  switch (assessmentTypeId) {
+    case AssessmentTypeId.ApplicationScreeningQuestion:
+      return assessmentTypes.applicationScreeningQuestion;
+    case AssessmentTypeId.NarrativeAssessment:
+    default:
+      return assessmentTypes.narrativeAssessment;
   }
 };

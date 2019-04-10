@@ -1,26 +1,46 @@
 import React from "react";
 import { FormattedMessage, injectIntl, InjectedIntlProps } from "react-intl";
-import { skillLevelDescription, skillLevelName } from "../localizedConstants";
+import {
+  skillLevelDescription,
+  skillLevelName,
+  assessmentType
+} from "../localizedConstants";
+import Select from "../Select";
+import { AssessmentTypeId, enumToIds } from "../lookupConstants";
 
 interface AssessmentPlanSkillProps {
+  id: number;
   name: string;
   description: string;
   skillTypeId: number;
   skillLevelId: number;
+  assessmentTypeIds: number[];
+  addAssessmentType: (assessmentTypeId: number) => void;
+  removeAssessmentType: (assessmentTypeId: number) => void;
 }
 
 const AssessmentPlanSkill: React.FunctionComponent<
   AssessmentPlanSkillProps & InjectedIntlProps
 > = ({
+  id,
   name,
   description,
   skillTypeId,
   skillLevelId,
+  assessmentTypeIds,
+  addAssessmentType,
+  removeAssessmentType,
   intl
 }: AssessmentPlanSkillProps & InjectedIntlProps): React.ReactElement => {
   const skillLevel = intl.formatMessage(
     skillLevelName(skillLevelId, skillTypeId)
   );
+  const assessmentTypeOptions = enumToIds(AssessmentTypeId).map(typeId => {
+    return {
+      value: typeId,
+      label: intl.formatMessage(assessmentType(typeId))
+    };
+  });
   return (
     <div
       data-c-border="top(thin, solid, black)"
@@ -61,29 +81,40 @@ const AssessmentPlanSkill: React.FunctionComponent<
               </button>
             </div>
           </div>
+          {assessmentTypeIds.map(assessmentTypeId => (
+            <div data-c-grid="middle">
+              <div data-c-grid-item="base(2of3) tl(4of5)">
+                {`Assessment Type: ${assessmentTypeId}`}
+              </div>
+              <div
+                data-c-alignment="base(center)"
+                data-c-grid-item="base(1of3) tl(1of5)"
+              >
+                <button
+                  className="button-trash"
+                  type="button"
+                  onClick={() => removeAssessmentType(assessmentTypeId)}
+                >
+                  <i className="fa fa-trash" />
+                </button>
+              </div>
+            </div>
+          ))}
+
           <div data-c-grid="middle">
             <div data-c-grid-item="base(2of3) tl(4of5)">
-              <div data-c-input="select">
-                <label htmlFor="SEL1">Select an Assessment</label>
-                <span>Required</span>
-                <div>
-                  <i className="fa fa-caret-down" />
-                  <select id="SEL1">
-                    <option selected>Narrative Review</option>
-                    <option>Application screening question</option>
-                    <option>Group test</option>
-                    <option>Informal phone conversation</option>
-                    <option>Interview</option>
-                    <option>Online exam</option>
-                    <option>On site exam</option>
-                    <option>Portfolio review with candidate</option>
-                    <option>Reference check</option>
-                    <option>Serious games</option>
-                    <option>Take home exam</option>
-                  </select>
-                </div>
-                <span>This input has an error.</span>
-              </div>
+              <Select
+                htmlId={`assessmentSelect_${id}`}
+                formName="assessmentTypeId"
+                label="Select an Assessment"
+                required={false}
+                options={assessmentTypeOptions}
+                onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                  addAssessmentType(Number(event.target.value));
+                }}
+                selected={undefined}
+                nullSelection={undefined}
+              />
             </div>
             <div
               data-c-alignment="base(center)"

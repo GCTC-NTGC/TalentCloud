@@ -420,6 +420,7 @@ class ApplicationReviewWithNav extends React.Component<
                 formName="review_status"
                 htmlId={`review_status_${application.id}`}
                 label={intl.formatMessage(messages.decision)}
+                required={false}
                 selected={selectedStatusId}
                 nullSelection={intl.formatMessage(messages.notReviewed)}
                 options={l10nReviewStatusOptions}

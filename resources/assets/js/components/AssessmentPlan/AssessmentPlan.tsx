@@ -1,8 +1,8 @@
 import React from "react";
+import { injectIntl, InjectedIntlProps } from "react-intl";
 import { Job, Criteria } from "../types";
 import { CriteriaTypeId } from "../lookupConstants";
 import AssessmentPlanSkill from "./AssessmentPlanSkill";
-import { injectIntl, InjectedIntlProps } from "react-intl";
 
 interface AssessmentPlanProps {
   job: Job;
@@ -118,8 +118,9 @@ const AssessmentPlan: React.FunctionComponent<
             data-c-alignment="base(center)"
             data-c-margin="top(normal) bottom(normal)"
           >
-            {essentialCriteria.map(criterion => {
+            {essentialCriteria.map(criterion => (
               <AssessmentPlanSkill
+                id={criterion.id}
                 name={criterion.skill.name}
                 description={
                   criterion.description
@@ -128,9 +129,16 @@ const AssessmentPlan: React.FunctionComponent<
                 }
                 skillTypeId={criterion.skill.skill_type_id}
                 skillLevelId={criterion.skill_level_id}
-              />;
-            })}
-            {essentialCriteria.length == 0 && (
+                assessmentTypeIds={[1, 2]}
+                addAssessmentType={(assessmentTypeId: number) =>
+                  console.log(assessmentTypeId)
+                }
+                removeAssessmentType={(assessmentTypeId: number) =>
+                  console.log(assessmentTypeId)
+                }
+              />
+            ))}
+            {essentialCriteria.length === 0 && (
               <span data-c-font-colour="black">
                 You have no essential skills selected for this job poster.
               </span>
@@ -151,8 +159,9 @@ const AssessmentPlan: React.FunctionComponent<
             data-c-alignment="base(center)"
             data-c-margin="top(normal) bottom(normal)"
           >
-            {assetCriteria.map(criterion => {
+            {assetCriteria.map(criterion => (
               <AssessmentPlanSkill
+                id={criterion.id}
                 name={criterion.skill.name}
                 description={
                   criterion.description
@@ -161,9 +170,16 @@ const AssessmentPlan: React.FunctionComponent<
                 }
                 skillTypeId={criterion.skill.skill_type_id}
                 skillLevelId={criterion.skill_level_id}
-              />;
-            })}
-            {assetCriteria.length == 0 && (
+                assessmentTypeIds={[]}
+                addAssessmentType={(assessmentTypeId: number) =>
+                  console.log(assessmentTypeId)
+                }
+                removeAssessmentType={(assessmentTypeId: number) =>
+                  console.log(assessmentTypeId)
+                }
+              />
+            ))}
+            {assetCriteria.length === 0 && (
               <span data-c-font-colour="black">
                 You have no asset skills selected for this job poster.
               </span>

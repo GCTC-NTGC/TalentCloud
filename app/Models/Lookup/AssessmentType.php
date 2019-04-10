@@ -15,21 +15,15 @@ use App\Models\BaseModel;
  * Relations:
  * @property Collection[Assessment] $assessments
  * @property Collection[AssessmentTypeTranslation] $assessment_type_translations
- * Localized Properties:
- * @property string $name
  */
 class AssessmentType extends BaseModel
 {
-    use \Dimsav\Translatable\Translatable;
-
     /**
      * The columns that can be filled with mass-assignment
      *
      * @var string[]
      */
     protected $fillable = [];
-
-    public $translatedAttributes = ['name'];
 
     /**
      * Get the collection of Assessments of this type.
@@ -39,10 +33,5 @@ class AssessmentType extends BaseModel
     public function assessments() // phpcs:ignore
     {
         return $this->hasMany(Assessment::class);
-    }
-
-    public function assessment_type_translations()
-    {
-        return $this->hasMany(App\Models\Lookup\AssessmentTypeTranslation::class);
     }
 }

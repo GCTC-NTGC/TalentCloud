@@ -9,6 +9,7 @@ export interface SelectProps<T extends string | number> {
   htmlId: string;
   formName: string;
   label: string;
+  required: boolean;
   selected: T | undefined;
   nullSelection: string | undefined;
   options: SelectOption<T>[];
@@ -22,6 +23,7 @@ export default function Select<T extends string | number>(
     htmlId,
     formName,
     label,
+    required,
     selected,
     nullSelection,
     options,
@@ -29,14 +31,13 @@ export default function Select<T extends string | number>(
   } = props;
 
   return (
-    <div className="form__input-wrapper--select">
-      <label className="form__label" htmlFor={htmlId}>
-        {label}
-      </label>
-      <div className="form__select-wrapper fas fa-chevron-down">
+    <div data-c-input="select">
+      <label htmlFor={htmlId}>{label}</label>
+      {required && <span>Required</span>}
+      <div>
+        <i className="fa fa-caret-down" />
         <select
           id={htmlId}
-          className="form__input"
           name={formName}
           value={selected || ""}
           onChange={e => onChange(e)}
@@ -53,6 +54,7 @@ export default function Select<T extends string | number>(
           ))}
         </select>
       </div>
+      <span>This input has an error.</span>
     </div>
   );
 }
