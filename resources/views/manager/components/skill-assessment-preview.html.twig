@@ -15,7 +15,7 @@
         <ul class="skill-list">
             <li>- {{ skill_l10n.narrative_assessment }}</li>
             {% for assessment in criterion.assessments.where("screening_plan_id", plan.id) %}
-                <li>- {{ assessment.assessment_type.name }}</li>
+                <li>- {{ assessment.assessment_type.key }}</li>
             {% endfor %}
         </ul>
     </div>
