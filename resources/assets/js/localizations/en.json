@@ -48,5 +48,6 @@
     "reviewStatus.stillIn": "Still In",
     "reviewStatus.stillThinking": "Still Thinking",
     "veteranStatus.veteran": "Veteran",
-    "veteranStatus.veteranLogoAlt": "veteran icon"
+    "veteranStatus.veteranLogoAlt": "veteran icon",
+    "alert.title.delete": "EN Delete this draft Job Poster?"
 }
