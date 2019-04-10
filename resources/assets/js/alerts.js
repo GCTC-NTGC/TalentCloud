@@ -23,18 +23,18 @@ function handleClick(e) {
   let alertConfig = {
     delete: {
       title: localize(locale, "alert.title.delete"),
-      confirmButtonText: "Delete",
+      confirmButtonText: localize(locale, "button.delete"),
       success: {
-        title: "Deleted",
-        text: "The draft has been successfully removed."
+        title: localize(locale, "alert.title.deleted"),
+        text: localize(locale, "alert.text.deleted")
       }
     },
     review: {
-      title: "Send this Job Poster for Review?",
-      confirmButtonText: "Send to Talent Cloud",
+      title: localize(locale, "alert.title.review"),
+      confirmButtonText: localize(locale, "button.sendToTalentCloud"),
       success: {
-        title: "Sent!",
-        text: "Your Job Poster has been sent to Talent Cloud for review."
+        title: localize(locale, "alert.title.sent"),
+        text: localize(locale, "alert.text.sent")
       }
     }
   };

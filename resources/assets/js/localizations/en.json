@@ -49,5 +49,12 @@
     "reviewStatus.stillThinking": "Still Thinking",
     "veteranStatus.veteran": "Veteran",
     "veteranStatus.veteranLogoAlt": "veteran icon",
-    "alert.title.delete": "EN Delete this draft Job Poster?"
+    "alert.title.delete": "EN Delete this draft Job Poster?",
+    "button.delete": "EN Delete",
+    "alert.title.deleted": "EN Deleted",
+    "alert.text.deleted": "EN The draft has been successfully removed.",
+    "alert.title.review": "EN Send this Job Poster for Review?",
+    "button.sendToTalentCloud": "EN Send to Talent Cloud",
+    "alert.title.sent": "EN Sent!",
+    "alert.text.sent": "EN Your Job Poster has been sent to Talent Cloud for review."
 }
