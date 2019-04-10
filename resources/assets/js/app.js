@@ -288,7 +288,7 @@
       });
 
       // Required field for checkbox input
-      $("input[type="checkbox"]:required").each(function(e) {
+      $("input[type='checkbox']:required").each(function(e) {
         $(this)
           .parent()
           .addClass("required");
