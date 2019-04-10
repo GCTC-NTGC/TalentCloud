@@ -120,15 +120,7 @@ const AssessmentPlan: React.FunctionComponent<
           >
             {essentialCriteria.map(criterion => (
               <AssessmentPlanSkill
-                id={criterion.id}
-                name={criterion.skill.name}
-                description={
-                  criterion.description
-                    ? criterion.description
-                    : criterion.skill.description
-                }
-                skillTypeId={criterion.skill.skill_type_id}
-                skillLevelId={criterion.skill_level_id}
+                criterion={criterion}
                 assessmentTypeIds={[1, 2]}
                 addAssessmentType={(assessmentTypeId: number) =>
                   console.log(assessmentTypeId)
@@ -161,15 +153,7 @@ const AssessmentPlan: React.FunctionComponent<
           >
             {assetCriteria.map(criterion => (
               <AssessmentPlanSkill
-                id={criterion.id}
-                name={criterion.skill.name}
-                description={
-                  criterion.description
-                    ? criterion.description
-                    : criterion.skill.description
-                }
-                skillTypeId={criterion.skill.skill_type_id}
-                skillLevelId={criterion.skill_level_id}
+                criterion={criterion}
                 assessmentTypeIds={[]}
                 addAssessmentType={(assessmentTypeId: number) =>
                   console.log(assessmentTypeId)

@@ -1,24 +1,16 @@
 import React, { useState } from "react";
+import { injectIntl, InjectedIntlProps, defineMessages } from "react-intl";
 import {
-  FormattedMessage,
-  injectIntl,
-  InjectedIntlProps,
-  defineMessages
-} from "react-intl";
-import {
-  skillLevelDescription,
+  skillLevelDescription as SkillLevelDescriptionMessage,
   skillLevelName,
   assessmentType
 } from "../localizedConstants";
 import Select from "../Select";
 import { AssessmentTypeId, enumToIds } from "../lookupConstants";
+import { Criteria } from "../types";
 
 interface AssessmentPlanSkillProps {
-  id: number;
-  name: string;
-  description: string;
-  skillTypeId: number;
-  skillLevelId: number;
+  criterion: Criteria;
   assessmentTypeIds: number[];
   addAssessmentType: (assessmentTypeId: number) => void;
   removeAssessmentType: (assessmentTypeId: number) => void;
@@ -36,19 +28,24 @@ const localizations = defineMessages({
 const AssessmentPlanSkill: React.FunctionComponent<
   AssessmentPlanSkillProps & InjectedIntlProps
 > = ({
-  id,
-  name,
-  description,
-  skillTypeId,
-  skillLevelId,
+  criterion,
   assessmentTypeIds,
   addAssessmentType,
   removeAssessmentType,
   intl
 }: AssessmentPlanSkillProps & InjectedIntlProps): React.ReactElement => {
   const skillLevel = intl.formatMessage(
-    skillLevelName(skillLevelId, skillTypeId)
+    skillLevelName(criterion.skill_level_id, criterion.skill.skill_type_id)
   );
+  const skillLevelDescription = intl.formatMessage(
+    SkillLevelDescriptionMessage(
+      criterion.skill_level_id,
+      criterion.skill.skill_type_id
+    )
+  );
+  const skillDescription = criterion.description
+    ? criterion.description
+    : criterion.skill.description;
   const assessmentTypeOptions = enumToIds(AssessmentTypeId).map(typeId => {
     return {
       value: typeId,
@@ -84,7 +81,7 @@ const AssessmentPlanSkill: React.FunctionComponent<
       <div data-c-grid="middle" key={key}>
         <div data-c-grid-item="base(2of3) tl(4of5)">
           <Select
-            htmlId={`assessmentSelect_${id}_${selectedId}`}
+            htmlId={`assessmentSelect_${criterion.id}_${selectedId}`}
             formName="assessmentTypeId"
             label="Select an Assessment"
             required
@@ -127,24 +124,20 @@ const AssessmentPlanSkill: React.FunctionComponent<
       <div data-c-grid="gutter top">
         <div data-c-grid-item="base(1of1)">
           <h5 data-c-font-size="h4" data-c-margin="top(normal)">
-            {`${name} - ${skillLevel}`}
+            {`${criterion.skill.name} - ${skillLevel}`}
           </h5>
         </div>
         <div data-c-grid-item="tl(2of7)">
           <span data-c-font-weight="bold" data-c-margin="bottom(half)">
             Description
           </span>
-          <p data-c-font-size="small">{description}</p>
+          <p data-c-font-size="small">{skillDescription}</p>
         </div>
         <div data-c-grid-item="tl(2of7)">
           <span data-c-font-weight="bold" data-c-margin="bottom(half)">
             Skill Level Selected
           </span>
-          <p data-c-font-size="small">
-            {intl.formatMessage(
-              skillLevelDescription(skillLevelId, skillTypeId)
-            )}
-          </p>
+          <p data-c-font-size="small">{skillLevelDescription}</p>
         </div>
         <div data-c-grid-item="tl(3of7)">
           <div data-c-grid>
