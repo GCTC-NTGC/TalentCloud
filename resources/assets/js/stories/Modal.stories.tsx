@@ -1,15 +1,25 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
+import { withKnobs, text } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import Modal from '../components/Modal';
 
-const stories = storiesOf('Modal', module).addDecorator(withInfo);
+const stories = storiesOf('Modal', module)
+  .addDecorator(withInfo)
+  .addDecorator(withKnobs);
 
 stories.add(
   'Plain Modal',
   () => (
-    <Modal id="sample-modal" title="Hey what a Modal">
+    <Modal
+      id={text('ID', 'sample-modal')}
+      title={text('Title', 'Hey what a Modal')}
+      openText={text('Open Text', 'Check this out')}
+      closeText={text('Close Text', 'close')}
+      confirmText={text('Confirm Text', 'Cool')}
+      cancelText={text('Cancel Text', 'No Thanks')}
+    >
       <p data-c-margin="bottom(half)">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec mi
         non dui sodales pellentesque. Sed non est nec lacus malesuada sodales.
