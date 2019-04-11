@@ -19,6 +19,7 @@ stories.add(
       closeText={text('Close Text', 'close')}
       confirmText={text('Confirm Text', 'Cool')}
       cancelText={text('Cancel Text', 'No Thanks')}
+      handleConfirm={action('Confirm clicked')}
     >
       <p data-c-margin="bottom(half)">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec mi
