@@ -5,6 +5,7 @@ interface ProgressRingProps {
   stroke: number;
   progress: number;
   strokeColor: string;
+  max: number;
 }
 
 interface ProgressRingState {
@@ -23,15 +24,16 @@ class ProgressRing extends React.Component<
 
     this.state = {
       normalizedRadius: radius - stroke * 2,
-      circumference: radius * 2 * Math.PI
+      circumference: (radius - stroke * 2) * (2 * Math.PI)
     };
   }
 
   public render(): React.ReactElement {
-    const { radius, stroke, progress, strokeColor } = this.props;
+    const { radius, stroke, progress, strokeColor, max } = this.props;
     const { normalizedRadius, circumference } = this.state;
-    let strokeDashoffset = circumference - (progress / 200) * circumference;
 
+    let strokeDashoffset = circumference - (progress / max) * circumference;
+    console.log(strokeDashoffset);
     if (strokeDashoffset < 0) {
       strokeDashoffset = 0;
     }

@@ -4,6 +4,8 @@ import ProgressRing from "./ProgressRing";
 
 interface WordCounterProps {
   elementId: string;
+  maxWords: number;
+  minWords: number;
 }
 
 interface WordCounterState {
@@ -24,21 +26,23 @@ class WordCounter extends React.Component<WordCounterProps, WordCounterState> {
     this.getTotalWords(elementId);
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     const { elementId } = this.props;
     const element = document.getElementById(elementId) as HTMLInputElement;
     this.updateColor(this.getNumberOfWords(element.value));
   }
 
-  // This method calculates the total number of words within
+  // This method calculates the total number of words (and the color of the progressRing) within the input element and updates the state on any input changes
   protected getTotalWords(elementId: string): void {
     const element = document.getElementById(elementId) as HTMLInputElement;
 
     if (element !== null) {
       element.addEventListener("input", e => {
         const target = e.target as HTMLInputElement;
-        const totalWords = this.getNumberOfWords(target.value);
+        const totalWords = this.getNumberOfWords(target.value) - 1;
+        // update total words state
         this.updateTotalWords(totalWords);
+        // update the color
         this.updateColor(totalWords);
       });
     }
@@ -49,58 +53,88 @@ class WordCounter extends React.Component<WordCounterProps, WordCounterState> {
     return innerText.replace(/[ ]{2,}/gi, " ").split(" ").length;
   }
 
+  // update the totalWord count
   protected updateTotalWords(totalWords: number): void {
-    // update the totalWord count
     this.setState({ totalWords });
   }
 
   protected updateColor(totalWords: number): void {
+    const { maxWords, minWords } = this.props;
     let hue = totalWords;
 
     // Danger Zone
-    if (totalWords > 200) {
-      hue = 0;
-      // Goldy lock zone
-    } else if (totalWords > 100 && totalWords < 150) {
-      hue = 118;
+    if (totalWords > maxWords) {
+      // Get difference and subtract from total words to gradualy move back to danger color
+      const difference = totalWords - maxWords;
+      hue = maxWords - difference;
+
+      if (hue > 120) {
+        hue = 120;
+      }
+
+      if (hue < 0) {
+        hue = 0;
+      }
+    } else if (totalWords > minWords && totalWords < maxWords) {
+      // the goldy lock zone, this will set the stroke to green
+      hue = 120;
     } else {
       // nothing
     }
 
+    // set the stroke color
     this.setState({
-      strokeColor: "hsl(" + hue + ", 100%, 50%)"
+      strokeColor: "hsl(" + hue + ", 90%, 50%)"
     });
   }
 
   public render(): React.ReactElement {
     const { totalWords, strokeColor } = this.state;
+    const { maxWords, minWords } = this.props;
     return (
       <div
         className="progress-bar"
         role="progressbar"
-        aria-valuenow={totalWords - 1}
-        aria-valuemin={0}
-        aria-valuemax={100}
+        aria-valuenow={totalWords}
+        aria-valuemin={minWords}
+        aria-valuemax={maxWords}
       >
         <ProgressRing
           radius={25}
           stroke={5}
-          progress={totalWords - 1}
+          progress={totalWords}
           strokeColor={strokeColor}
+          max={maxWords}
         />
+        <span>{totalWords}</span>
       </div>
     );
   }
 }
 
-// Find all skill form textarea elements
-if (document.querySelectorAll("div[data-id]")) {
-  const list = document.querySelectorAll("div[data-id]");
+// Find all skills textarea elements
+if (document.querySelectorAll("div[data-word-counter-id]")) {
+  const list = document.querySelectorAll("div[data-word-counter-id]");
 
-  list.forEach(function(container) {
-    if (container != null && container.hasAttribute("data-id")) {
-      const elementId = JSON.parse(container.getAttribute("data-id") as string);
-      ReactDOM.render(<WordCounter elementId={elementId} />, container);
+  list.forEach(container => {
+    if (container != null && container.hasAttribute("data-word-counter-id")) {
+      const elementId = JSON.parse(container.getAttribute(
+        "data-word-counter-id"
+      ) as string);
+      const maxWords = JSON.parse(container.getAttribute(
+        "data-max-words"
+      ) as string);
+      const minWords = JSON.parse(container.getAttribute(
+        "data-min-words"
+      ) as string);
+      ReactDOM.render(
+        <WordCounter
+          elementId={elementId}
+          maxWords={maxWords}
+          minWords={minWords}
+        />,
+        container
+      );
     }
   });
 }
