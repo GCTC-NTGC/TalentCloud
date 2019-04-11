@@ -180,6 +180,13 @@
                     transition: border-color .2s ease;
                 }
 
+                ~span.password-caps-warning {
+                    color: red;
+                    margin-top: 0.2rem;
+                    position: absolute;
+                    font-size: 1rem;
+                }
+
             }
 
         }
