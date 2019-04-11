@@ -49,18 +49,6 @@ const RatingsGuideAnswer: React.FunctionComponent<RatingsGuideAnswerProps> = ({
             onChange({ ...answer, expected_answer: event.target.value })
           }
         />
-        <div data-c-input="text">
-          <label htmlFor="TI3">Acceptable Passing Answer</label>
-          <span>Required</span>
-          <div>
-            <input
-              id="TI3"
-              placeholder="Write the expected answer to pass the applicant on this skill..."
-              type="text"
-            />
-          </div>
-          <span>This input has an error.</span>
-        </div>
       </div>
       <div data-c-alignment="center" data-c-grid-item="base(1of1) tp(1of8)">
         <button

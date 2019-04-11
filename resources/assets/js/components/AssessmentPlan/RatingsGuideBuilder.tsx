@@ -109,6 +109,7 @@ const RatingsGuideBuilder: React.FunctionComponent<
             requiredCriteria={requiredCriteria}
             ratingsGuideAnswers={answers}
             onQuestionCreate={/** TODO: */ () => {}}
+            onAnswerCreate={/** TODO: */ () => {}}
           />
         );
       })}

@@ -5,6 +5,7 @@ import { assessmentType } from "../localizedConstants";
 import { CriteriaTypeId } from "../lookupConstants";
 import { where } from "../../helpers/queries";
 import RatingsGuideQuestionComponent from "./RatingsGuideQuestion";
+import RatingsGuideAnswerComponent from "./RatingsGuideAnswer";
 
 interface RatingsGuideAssessmentProps {
   /** Display index of this ratings guide assessment compared to others on the page */
@@ -20,6 +21,9 @@ interface RatingsGuideAssessmentProps {
 
   /** Handler function for creating a new RatingsGuideQuestion */
   onQuestionCreate: () => void;
+
+  /** Handle function for creating a new RatingsGuideAnswer */
+  onAnswerCreate: () => void;
 }
 
 const RatingsGuideAssessment: React.FunctionComponent<
@@ -31,6 +35,7 @@ const RatingsGuideAssessment: React.FunctionComponent<
   requiredCriteria,
   ratingsGuideAnswers,
   onQuestionCreate,
+  onAnswerCreate,
   intl
 }): React.ReactElement => {
   const missingCriteria = requiredCriteria.filter(
@@ -66,29 +71,62 @@ const RatingsGuideAssessment: React.FunctionComponent<
         competence.
       </p>
 
-      <div
-        data-c-background="black(10)"
-        data-c-border="all(thin, solid, black)"
-        data-c-margin="top(normal) bottom(normal)"
-        data-c-padding="bottom(normal)"
-      >
-        {questions.map((question, index) => {
-          return (
+      {questions.map((question, index) => {
+        const answers = ratingsGuideAnswers.filter(
+          answer => answer.rating_guide_question_id === question.id
+        );
+        const selectedSkillIds = answers.map(answer => answer.skill_id);
+        return (
+          <div
+            data-c-background="black(10)"
+            data-c-border="all(thin, solid, black)"
+            data-c-margin="top(normal) bottom(normal)"
+            data-c-padding="bottom(normal)"
+          >
             <RatingsGuideQuestionComponent
               key={question.id}
               question={question}
               questionIndex={index + 1}
-              assessedSkills={requiredSkills}
-              answers={ratingsGuideAnswers.filter(
-                answer => answer.rating_guide_question_id === question.id
-              )}
               onQuestionChange={/** TODO: */ () => {}}
               onQuestionDelete={/** TODO: */ () => {}}
-              onAnswerCreate={/** TODO: */ () => {}}
             />
-          );
-        })}
-      </div>
+
+            <div data-c-padding="top(normal)">
+              {answers.map(answer => {
+                const availableSkills = requiredSkills.filter(skill => {
+                  return (
+                    answer.skill_id === skill.id ||
+                    !selectedSkillIds.includes(skill.id)
+                  );
+                });
+                return (
+                  <RatingsGuideAnswerComponent
+                    answer={answer}
+                    availableSkills={availableSkills}
+                    onChange={/** TODO: setup */ () => {}}
+                    onDelete={/** TODO: setup */ () => {}}
+                  />
+                );
+              })}
+
+              <div data-c-grid="gutter middle">
+                <div
+                  data-c-alignment="center"
+                  data-c-grid-item="base(1of1) tp(1of8)"
+                >
+                  <button
+                    className="button-plus"
+                    type="button"
+                    onClick={() => onAnswerCreate()}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
 
       <div data-c-alignment="center" data-c-margin="bottom(normal)">
         <span data-c-font-weight="bold">

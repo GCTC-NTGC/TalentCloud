@@ -71,6 +71,12 @@ const AssessmentPlanContainer: React.FunctionComponent<
       job_poster_id: 1,
       assessment_type_id: 2,
       question: "Prove however you want that you know this."
+    },
+    {
+      id: 2,
+      job_poster_id: 1,
+      assessment_type_id: 2,
+      question: "On second thought, show me your best work example."
     }
   ];
 
@@ -80,6 +86,12 @@ const AssessmentPlanContainer: React.FunctionComponent<
       rating_guide_question_id: 1,
       skill_id: 1,
       expected_answer: "My mastery is complete."
+    },
+    {
+      id: 2,
+      rating_guide_question_id: 1,
+      skill_id: 2,
+      expected_answer: "My mastery is complete for this skill also."
     }
   ];
 
