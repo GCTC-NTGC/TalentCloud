@@ -286,6 +286,18 @@
             "<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>"
           );
       });
+
+      // Required field for checkbox input
+      $("input[type='checkbox']:required").each(function(e) {
+        $(this)
+          .parent()
+          .addClass("required");
+
+        const label = $(this).parent(":not(:has(.fa-asterisk))");
+        label.append(
+          "<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>"
+        );
+      });
     }
 
     requiredFields();
@@ -392,6 +404,25 @@
 
         // unfocus item to trigger style
         $(this).blur();
+      });
+
+      $("#language_requirement_confirmed").change(function(e) {
+        if (
+          $(this)
+            .parent()
+            .siblings(".error-message")
+            .hasClass("hidden")
+        ) {
+          $(this)
+            .parent()
+            .siblings(".error-message")
+            .removeClass("hidden");
+        } else {
+          $(this)
+            .parent()
+            .siblings(".error-message")
+            .addClass("hidden");
+        }
       });
     }
 
