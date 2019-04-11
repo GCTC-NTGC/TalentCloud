@@ -104,3 +104,17 @@ export interface Assessment {
   criterion_id: number;
   assessment_type_id: number;
 }
+
+export interface RatingsGuideAnswer {
+  id: number;
+  rating_guide_question_id: number;
+  skill_id: number;
+  expected_answer: string;
+}
+
+export interface RatingsGuideQuestion {
+  id: number;
+  job_poster_id: number;
+  assessment_type_id: number;
+  question: string;
+}

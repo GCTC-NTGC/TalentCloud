@@ -1,0 +1,78 @@
+import React from "react";
+import { RatingsGuideAnswer as RatingsGuideAnswerModel, Skill } from "../types";
+import Select from "../Select";
+import Input from "../Input";
+
+interface RatingsGuideAnswerProps {
+  answer: RatingsGuideAnswerModel;
+  availableSkills: Skill[];
+  onChange: (updatedAnswer: RatingsGuideAnswerModel) => void;
+  onDelete: () => void;
+}
+
+const RatingsGuideAnswer: React.FunctionComponent<RatingsGuideAnswerProps> = ({
+  answer,
+  availableSkills,
+  onChange,
+  onDelete
+}): React.ReactElement => {
+  const options = availableSkills.map(skill => {
+    return { value: skill.id, label: skill.name };
+  });
+  return (
+    <div data-c-grid="gutter middle">
+      <div data-c-grid-item="base(1of1) tp(1of8)" />
+      <div data-c-grid-item="base(1of1) tp(2of8)">
+        <Select
+          htmlId={`ratingGuideSelectSkill_${answer.id}`}
+          formName="ratingGuideSelectSkill"
+          label="Select a Skill"
+          required
+          options={options}
+          onChange={event =>
+            onChange({ ...answer, skill_id: Number(event.target.value) })
+          }
+          selected={answer.skill_id}
+          nullSelection="Select a Skill..."
+        />
+      </div>
+      <div data-c-grid-item="base(1of1) tp(4of8)">
+        <Input
+          htmlId={`ratingGuideAnswer${answer.id}`}
+          formName="ratingGuideAnswer"
+          label="Acceptable Passing Answer"
+          required
+          placeholder="Write the expected answer to pass the applicant on this skill..."
+          type="text"
+          value={answer.expected_answer}
+          onChange={event =>
+            onChange({ ...answer, expected_answer: event.target.value })
+          }
+        />
+        <div data-c-input="text">
+          <label htmlFor="TI3">Acceptable Passing Answer</label>
+          <span>Required</span>
+          <div>
+            <input
+              id="TI3"
+              placeholder="Write the expected answer to pass the applicant on this skill..."
+              type="text"
+            />
+          </div>
+          <span>This input has an error.</span>
+        </div>
+      </div>
+      <div data-c-alignment="center" data-c-grid-item="base(1of1) tp(1of8)">
+        <button
+          className="button-trash"
+          type="button"
+          onClick={() => onDelete()}
+        >
+          <i className="fa fa-trash" />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default RatingsGuideAnswer;
