@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent } from 'react';
 
 export interface ModalProps {
   /** HTML ID for modal attributes */
@@ -13,7 +13,7 @@ const Modal: FunctionComponent<ModalProps> = ({
   id,
   title,
   subtitle,
-  children
+  children,
 }): React.ReactElement<ModalProps> => (
   <>
     <div data-c-alignment="center">

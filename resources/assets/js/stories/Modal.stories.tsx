@@ -1,13 +1,13 @@
-import * as React from "react";
-import { storiesOf } from "@storybook/react";
-import { withInfo } from "@storybook/addon-info";
-import { action } from "@storybook/addon-actions";
-import Modal from "../components/Modal";
+import * as React from 'react';
+import { storiesOf } from '@storybook/react';
+import { withInfo } from '@storybook/addon-info';
+import { action } from '@storybook/addon-actions';
+import Modal from '../components/Modal';
 
-const stories = storiesOf("Modal", module).addDecorator(withInfo);
+const stories = storiesOf('Modal', module).addDecorator(withInfo);
 
 stories.add(
-  "Plain Modal",
+  'Plain Modal',
   () => (
     <Modal id="sample-modal" title="Hey what a Modal">
       <p data-c-margin="bottom(half)">
@@ -32,5 +32,5 @@ stories.add(
       </p>
     </Modal>
   ),
-  { info: { inline: true } }
+  { info: { inline: true } },
 );
