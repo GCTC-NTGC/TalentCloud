@@ -1,5 +1,5 @@
 import React from "react";
-import { injectIntl, InjectedIntlProps } from "react-intl";
+import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { Criteria, Assessment } from "../types";
 import { find } from "../../helpers/queries";
 import { CriteriaTypeId } from "../lookupConstants";
@@ -98,15 +98,19 @@ const AssessmentPlanTable: React.FunctionComponent<
         data-c-margin="top(triple) bottom(normal)"
       >
         <FormattedMessage
-          id="assessmentPlan.summaryTitle"
+          id="assessmentPlan.summary.title"
           defaultMessage="l10n.missing 2. Assessment Plan Summary"
           description="Title of Assessment Plan Summary Section"
         />
       </h3>
       <p data-c-margin="bottom(normal)">
-        This is a summary of the work you{"'"}ve done above. You{"'"}ll find
-        each assessment accompanied by a consolidated list of the essential and
-        asset skills attached to it.
+        <FormattedMessage
+          id="assessmentPlan.summary.description"
+          defaultMessage="l10n.missing This is a summary of the work you've done above. You'll find
+      each assessment accompanied by a consolidated list of the essential and
+      asset skills attached to it."
+          description="Description of Assessment Plan Summary Section"
+        />
       </p>
       <div
         data-c-background="black(10)"
@@ -120,11 +124,23 @@ const AssessmentPlanTable: React.FunctionComponent<
           data-c-font-size="h4"
           data-c-margin="bottom"
         >
-          Assessment Summary
+          <FormattedMessage
+            id="assessmentPlan.summary.assessmentSummary.title"
+            defaultMessage="l10n.missing Assessment Summary"
+            description="Title of Assessment Plan Summary, Assessment Summary Section"
+          />
         </h4>
         <p data-c-margin="bottom(normal)">
-          Your plan uses <strong>{uniqueAssessmentTypes.length}</strong> tools
-          to assess <strong>{criteria.length}</strong> skills.
+          <FormattedMessage
+            id="assessmentPlan.summary.assessmentSummary.noAssessments"
+            defaultMessage="l10n.missing Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}
+            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}."
+            description="Place holder text for when there are no assessment summary details"
+            values={{
+              toolCount: uniqueAssessmentTypes.length,
+              skillCount: criteria.length
+            }}
+          />
         </p>
         {/* Assessment Null State ------------------------------------ */}
         {assessments.length === 0 && (
@@ -137,8 +153,12 @@ const AssessmentPlanTable: React.FunctionComponent<
             data-c-margin="bottom(normal)"
           >
             <span data-c-font-colour="black">
-              You have no assessments selected for this job poster. Add them
-              above.
+              <FormattedMessage
+                id="assessmentPlan.summary.assessmentSummary.noAssessments"
+                defaultMessage="l10n.missing You have no assessments selected for this job poster. Add them
+              above."
+                description="Place holder text for when there are no assessment summary details"
+              />
             </span>
           </div>
         )}
