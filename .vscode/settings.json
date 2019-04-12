@@ -12,19 +12,20 @@
   "eslint.validate": [
     "javascript",
     "javascriptreact",
-    "typescript",
-    "typescriptreact"
+    { "language": "typescript", "autoFix": true },
+    { "language": "typescriptreact", "autoFix": true }
   ],
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
   "[javascriptreact]": {
-    "editor.formatOnPaste": true,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": false
   },
   "[typescript]": {
-    "editor.formatOnPaste": true,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": false
   },
   "[typescriptreact]": {
-    "editor.formatOnPaste": true,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": false
   }
 }
