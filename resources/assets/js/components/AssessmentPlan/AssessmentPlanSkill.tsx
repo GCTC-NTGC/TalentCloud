@@ -19,7 +19,7 @@ interface AssessmentPlanSkillProps {
 const localizations = defineMessages({
   assessmentTypeNullSelection: {
     id: "assessmentPlan.assessmentTypeNull",
-    defaultMessage: "Select an Assessment",
+    defaultMessage: "l10n.missing Select an Assessment",
     description:
       "Default select element before an assessment type has been chosen"
   }
