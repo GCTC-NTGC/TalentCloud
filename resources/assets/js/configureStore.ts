@@ -3,15 +3,9 @@ import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { createLogger } from "redux-logger";
 import rootReducer from "./reducers";
-import { ActionType } from "./model/model";
 
-const actionTypeEnumToString = (action: any): any => typeof action.type === 'number' && ActionType[action.type] ? ({
-  type: ActionType[action.type],
-  payload: action.payload,
-}) : action;
-
-const logger = (createLogger as any)({ actionTransformer: actionTypeEnumToString });
-const history = createBrowserHistory({ actionSanitizer: actionTypeEnumToString });
+const logger = createLogger();
+const history = createBrowserHistory();
 
 const dev = process.env.NODE_ENV === "development";
 

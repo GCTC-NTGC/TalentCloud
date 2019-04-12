@@ -25,9 +25,6 @@ Route::group(
             /* Home */
             Route::get('/', 'HomepageController@applicant')->name('home');
 
-            /* Redux */
-            Route::view('redux', 'common/redux');
-
             /* Jobs */
             Route::get('jobs', 'JobController@index')->name('jobs.index');
 
@@ -250,7 +247,8 @@ Route::group(
                     ->name('manager.jobs.review');
             });
 
-            Route::get('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@createForJob')
+            Route::view('jobs/{jobPoster}/assessment-plan', 'common/redux')
+                ->where('jobPoster', '[0-9]+')
                 ->name('manager.jobs.screening_plan');
 
             Route::post('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@store')

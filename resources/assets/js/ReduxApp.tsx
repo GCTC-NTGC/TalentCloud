@@ -1,24 +1,64 @@
 import React from "react";
-import { Route, Router } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  RouteComponentProps,
+} from "react-router-dom";
+import { IntlProvider, addLocaleData } from "react-intl";
+import localeEn from "react-intl/locale-data/en";
+import localeFr from "react-intl/locale-data/fr";
+import messagesEn from "./localizations/en.json";
+import messagesFr from "./localizations/fr.json";
+import AssessmentPlanContainer from "./components/AssessmentPlan/AssessmentPlanContainer";
 
-import { history } from "./configureStore";
-import ReduxHome from "./pages/ReduxHome";
-import Page2 from "./pages/Page2";
+interface AssessmentPlanParams {
+  jobId: string;
+}
 
-
-const Routes = () => (
-  <React.Fragment>
-    <Route exact={true} path="/" component={ReduxHome} />
-    <Route exact={true} path="/page2" component={Page2} />
-  </React.Fragment>
+const AssessmentPlan: React.FunctionComponent<
+  RouteComponentProps<AssessmentPlanParams>
+> = ({ match }): React.ReactElement => (
+  <AssessmentPlanContainer jobId={Number(match.params.jobId)} />
 );
 
-export default () => (
-  <Router history={history}>
-    <ul>
-      <li><a onClick={() => history.push('/')}>Root</a></li>
-      <li><a onClick={() => history.push('/page2')}>page2</a></li>
-    </ul>
-    <Routes />
+const ManagerPortal: React.FunctionComponent<RouteComponentProps> = ({
+  match,
+}): React.ReactElement => {
+  return (
+    <>
+      <Route
+        exact
+        path={`${match.path}/jobs/:jobId/assessment-plan`}
+        component={AssessmentPlan}
+      />
+    </>
+  );
+};
+
+interface IntlParams {
+  locale: "en" | "fr";
+}
+
+const IntlContainer: React.FunctionComponent<
+  RouteComponentProps<IntlParams>
+> = ({ match }): React.ReactElement => {
+  addLocaleData([...localeEn, ...localeFr]);
+  const messages = {
+    en: messagesEn,
+    fr: messagesFr,
+  };
+  const { locale } = match.params;
+  return (
+    <IntlProvider locale={locale} messages={messages[locale]}>
+      <Route path={`${match.path}/manager`} component={ManagerPortal} />
+    </IntlProvider>
+  );
+};
+
+const ReduxApp = (): React.ReactElement => (
+  <Router>
+    <Route path="/:locale(en|fr)" component={IntlContainer} />
   </Router>
 );
+
+export default ReduxApp;

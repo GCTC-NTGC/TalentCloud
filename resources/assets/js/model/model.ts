@@ -3,9 +3,7 @@ export interface Sample {
   name: string;
 }
 
-export enum ActionType {
-  ADD_SAMPLE,
-}
+export type ActionType = "ADD_SAMPLE";
 
 export interface Action<T> {
   type: ActionType;
