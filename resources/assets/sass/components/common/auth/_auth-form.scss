@@ -112,6 +112,13 @@
                   font-size: $font-scale--regular;
                 }
 
+                .password-caps-warning {
+                    color: red;
+                    margin-top: 0.3rem;
+                    position: absolute;
+                    font-size: 0.9rem;
+                }
+
                 .flex-grid {
                     margin: 0 -1rem;
                     justify-content: center;

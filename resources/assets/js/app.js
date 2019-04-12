@@ -430,21 +430,27 @@
 
     // Caps Lock Warning
     function capsLockWarning() {
+      // Display/remove caps lock warning on toggle
       $("#password, #password-confirm").keydown(function(e) {
         if(e.originalEvent.getModifierState("CapsLock")) {
           $(this).siblings(".password-caps-warning").removeClass("hidden");
+          $(".auth-register").find(".password-caps-warning").removeClass("hidden");
         } else {
           $(this).siblings(".password-caps-warning").addClass("hidden");
+          $(".auth-register").find(".password-caps-warning").addClass("hidden");
         }
       });
+      // remove caps lock warning on focusout
       $("#password, #password-confirm").focusout(function (e) {
         if (!$(this).siblings(".password-caps-warning").hasClass("hidden")) {
           $(this).siblings(".password-caps-warning").addClass("hidden");
         }
+        $(".auth-register").find(".password-caps-warning").addClass("hidden");
       });
     }
 
     capsLockWarning();
+
     // AJAX Form Handlers ==========================================
 
     //Return an onSave function specific to this ajax object
