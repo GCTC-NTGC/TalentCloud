@@ -14,7 +14,7 @@ const RatingsGuideAnswer: React.FunctionComponent<RatingsGuideAnswerProps> = ({
   answer,
   availableSkills,
   onChange,
-  onDelete
+  onDelete,
 }): React.ReactElement => {
   const options = availableSkills.map(skill => {
     return { value: skill.id, label: skill.name };

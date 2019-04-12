@@ -3,7 +3,7 @@ import {
   Criteria,
   Assessment,
   RatingsGuideQuestion,
-  RatingsGuideAnswer
+  RatingsGuideAnswer,
 } from "../types";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import RatingsGuideAssessment from "./RatingsGuideAssessment";
@@ -93,7 +93,7 @@ const RatingsGuideBuilder: React.FunctionComponent<
 
       {getUniqueAssessmentTypes(assessments).map((assessmentTypeId, index) => {
         const matchingAssessments = assessments.filter(
-          assessment => assessment.assessment_type_id === assessmentTypeId
+          assessment => assessment.assessment_type_id === assessmentTypeId,
         );
         const requiredCriteria = matchingAssessments
           .map(assessment => find(criteria, assessment.criterion_id))
@@ -104,7 +104,7 @@ const RatingsGuideBuilder: React.FunctionComponent<
             assessmentIndex={index + 1}
             assessmentTypeId={assessmentTypeId}
             questions={questions.filter(
-              question => question.assessment_type_id === assessmentTypeId
+              question => question.assessment_type_id === assessmentTypeId,
             )}
             requiredCriteria={requiredCriteria}
             ratingsGuideAnswers={answers}

@@ -5,7 +5,7 @@ import {
   Criteria,
   Assessment,
   RatingsGuideQuestion,
-  RatingsGuideAnswer
+  RatingsGuideAnswer,
 } from "../types";
 import { CriteriaTypeId } from "../lookupConstants";
 import AssessmentPlanSkill from "./AssessmentPlanSkill";
@@ -22,7 +22,7 @@ interface AssessmentPlanProps {
 
 const renderAssessmentPlanSkill = (
   criterion: Criteria,
-  assessments: Assessment[]
+  assessments: Assessment[],
 ): React.ReactElement => {
   // Get the assessment type ids associated with this criterion
   const assementTypeIds = assessments
@@ -51,13 +51,13 @@ const AssessmentPlan: React.FunctionComponent<
   assessments,
   questions,
   answers,
-  intl
+  intl,
 }): React.ReactElement => {
   const assetCriteria = criteria.filter(
-    criterion => criterion.criteria_type_id === CriteriaTypeId.Asset
+    criterion => criterion.criteria_type_id === CriteriaTypeId.Asset,
   );
   const essentialCriteria = criteria.filter(
-    criterion => criterion.criteria_type_id === CriteriaTypeId.Essential
+    criterion => criterion.criteria_type_id === CriteriaTypeId.Essential,
   );
 
   return (
@@ -155,7 +155,7 @@ const AssessmentPlan: React.FunctionComponent<
             data-c-margin="top(normal) bottom(normal)"
           >
             {essentialCriteria.map(criterion =>
-              renderAssessmentPlanSkill(criterion, assessments)
+              renderAssessmentPlanSkill(criterion, assessments),
             )}
             {essentialCriteria.length === 0 && (
               <span data-c-font-colour="black">
@@ -179,7 +179,7 @@ const AssessmentPlan: React.FunctionComponent<
             data-c-margin="top(normal) bottom(normal)"
           >
             {assetCriteria.map(criterion =>
-              renderAssessmentPlanSkill(criterion, assessments)
+              renderAssessmentPlanSkill(criterion, assessments),
             )}
             {assetCriteria.length === 0 && (
               <span data-c-font-colour="black">

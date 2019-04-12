@@ -36,16 +36,16 @@ const RatingsGuideAssessment: React.FunctionComponent<
   ratingsGuideAnswers,
   onQuestionCreate,
   onAnswerCreate,
-  intl
+  intl,
 }): React.ReactElement => {
   const missingCriteria = requiredCriteria.filter(
     criterion =>
       /** Filter out any criteria that have at least one expected answer  */
-      where(ratingsGuideAnswers, "skill_id", criterion.skill.id).length === 0
+      where(ratingsGuideAnswers, "skill_id", criterion.skill.id).length === 0,
   );
   const missingEssentialSkills = missingCriteria
     .filter(
-      criterion => criterion.criteria_type_id === CriteriaTypeId.Essential
+      criterion => criterion.criteria_type_id === CriteriaTypeId.Essential,
     )
     .map(criterion => criterion.skill);
   const missingAssetSkills = missingCriteria
@@ -73,7 +73,7 @@ const RatingsGuideAssessment: React.FunctionComponent<
 
       {questions.map((question, index) => {
         const answers = ratingsGuideAnswers.filter(
-          answer => answer.rating_guide_question_id === question.id
+          answer => answer.rating_guide_question_id === question.id,
         );
         const selectedSkillIds = answers.map(answer => answer.skill_id);
         return (

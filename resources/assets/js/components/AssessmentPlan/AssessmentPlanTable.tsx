@@ -16,11 +16,11 @@ interface AssessmentPlanTableProps {
 const renderAssessmentTypeBlock = (
   assessmentTypeId: number,
   assessmentTypeName: string,
-  criteria: Criteria[]
+  criteria: Criteria[],
 ): React.ReactElement => {
   const essentialSkills = criteria
     .filter(
-      criterion => criterion.criteria_type_id === CriteriaTypeId.Essential
+      criterion => criterion.criteria_type_id === CriteriaTypeId.Essential,
     )
     .map(criterion => criterion.skill);
   const assetSkills = criteria
@@ -86,7 +86,7 @@ const AssessmentPlanTable: React.FunctionComponent<
 > = ({
   criteria,
   assessments,
-  intl
+  intl,
 }: AssessmentPlanTableProps & InjectedIntlProps): React.ReactElement => {
   const uniqueAssessmentTypes: number[] = getUniqueAssessmentTypes(assessments);
 
@@ -138,7 +138,7 @@ const AssessmentPlanTable: React.FunctionComponent<
             description="Place holder text for when there are no assessment summary details"
             values={{
               toolCount: uniqueAssessmentTypes.length,
-              skillCount: criteria.length
+              skillCount: criteria.length,
             }}
           />
         </p>
@@ -165,7 +165,7 @@ const AssessmentPlanTable: React.FunctionComponent<
         {/* Assessment Tool - To be repeated for each tool. ---------- */}
         {uniqueAssessmentTypes.map(assessmentTypeId => {
           const assessmentsOfThisType = assessments.filter(
-            assessment => assessment.assessment_type_id === assessmentTypeId
+            assessment => assessment.assessment_type_id === assessmentTypeId,
           );
           const associatedCriteria = assessmentsOfThisType
             .map(assessment => find(criteria, assessment.criterion_id))
@@ -173,7 +173,7 @@ const AssessmentPlanTable: React.FunctionComponent<
           return renderAssessmentTypeBlock(
             assessmentTypeId,
             intl.formatMessage(assessmentType(assessmentTypeId)),
-            associatedCriteria
+            associatedCriteria,
           );
         })}
       </div>

@@ -19,7 +19,7 @@ const Input: React.FunctionComponent<InputProps> = ({
   placeholder,
   type,
   value,
-  onChange
+  onChange,
 }): React.ReactElement => {
   return (
     <div data-c-input="text">

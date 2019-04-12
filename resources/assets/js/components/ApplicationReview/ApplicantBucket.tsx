@@ -6,7 +6,7 @@ import ApplicationReview from "./ApplicationReview";
 import { whereFirst } from "../../helpers/queries";
 import {
   applicationCompare,
-  applicationComparePrioritizeVeterans
+  applicationComparePrioritizeVeterans,
 } from "./helpers";
 
 interface ApplicantBucketProps {
@@ -31,7 +31,7 @@ const ApplicantBucket: React.StatelessComponent<
   onNotesChange,
   savingStatuses,
   prioritizeVeterans,
-  intl
+  intl,
 }: ApplicantBucketProps & InjectedIntlProps): React.ReactElement | null => {
   if (applications.length === 0) {
     return null;

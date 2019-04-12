@@ -18,7 +18,7 @@ const RatingsGuideQuestion: React.FunctionComponent<
   question,
   questionIndex,
   onQuestionChange,
-  onQuestionDelete
+  onQuestionDelete,
 }): React.ReactElement => {
   return (
     <div

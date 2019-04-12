@@ -3,7 +3,7 @@ import {
   injectIntl,
   InjectedIntlProps,
   FormattedMessage,
-  defineMessages
+  defineMessages,
 } from "react-intl";
 import Swal from "sweetalert2";
 import { Application } from "../types";
@@ -22,7 +22,7 @@ interface ReviewCategoryProps {
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onBulkStatusChange: (
     applicationIds: number[],
-    statusId: number | null
+    statusId: number | null,
   ) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   savingStatuses: { applicationId: number; isSaving: boolean }[];
@@ -33,15 +33,15 @@ const localizations = defineMessages({
   confirmButton: {
     id: "button.confirm",
     defaultMessage: "l10n.missing Confirm",
-    description: "Confirm button for modal dialogue boxes"
+    description: "Confirm button for modal dialogue boxes",
   },
   screenOutAllConfirm: {
     id: "apl.screenOutAll.confirm",
     defaultMessage:
       "l10n.missing Are you sure you want to screen out all Optional candidates?",
     description:
-      "Confirm dialogue text for screening out all optional candidates."
-  }
+      "Confirm dialogue text for screening out all optional candidates.",
+  },
 });
 
 const ReviewCategory: React.StatelessComponent<
@@ -57,7 +57,7 @@ const ReviewCategory: React.StatelessComponent<
   onNotesChange,
   savingStatuses,
   prioritizeVeterans,
-  intl
+  intl,
 }: ReviewCategoryProps & InjectedIntlProps): React.ReactElement | null => {
   if (applications.length === 0) {
     return null;
@@ -75,7 +75,7 @@ const ReviewCategory: React.StatelessComponent<
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
       cancelButtonColor: "#F94D4D",
-      confirmButtonText: intl.formatMessage(localizations.confirmButton)
+      confirmButtonText: intl.formatMessage(localizations.confirmButton),
     }).then(result => {
       if (result.value) {
         screenOutAll();
@@ -88,65 +88,65 @@ const ReviewCategory: React.StatelessComponent<
       title: {
         id: "apl.priorityApplicants.title",
         defaultMessage: "l10n.missing Priority Applicants",
-        description: "title of list of priority applicants"
+        description: "title of list of priority applicants",
       },
       description: {
         id: "apl.priorityApplicants.description",
         defaultMessage:
           "l10n.missing These are priority applicants for this position. They must be reviewed and considered first.",
-        description: "description of list of priority applicants"
+        description: "description of list of priority applicants",
       },
       applications: applications.filter(
-        application => applicationBucket(application) === "priority"
-      )
+        application => applicationBucket(application) === "priority",
+      ),
     },
     {
       title: {
         id: "apl.veteransAndCitizens.title",
         defaultMessage: "l10n.missing Veterans and Canadian Citizens",
-        description: "title of list of Veterans and Canadian citizens"
+        description: "title of list of Veterans and Canadian citizens",
       },
       description: {
         id: "apl.veteransAndCitizens.description",
         defaultMessage: "",
-        description: "description of list of Veterans and Canadian citizens"
+        description: "description of list of Veterans and Canadian citizens",
       },
       applications: applications.filter(
-        application => applicationBucket(application) === "citizen"
-      )
+        application => applicationBucket(application) === "citizen",
+      ),
     },
     {
       title: {
         id: "apl.nonCitizens.title",
         defaultMessage: "l10n.missing Non-Canadian Citizens",
-        description: "title of list of non-citizen applicants"
+        description: "title of list of non-citizen applicants",
       },
       description: {
         id: "apl.nonCitizens.description",
         defaultMessage: "l10n.missing ",
-        description: "description of list of non-citizen applicants"
+        description: "description of list of non-citizen applicants",
       },
       applications: applications.filter(
-        application => applicationBucket(application) === "non-citizen"
-      )
+        application => applicationBucket(application) === "non-citizen",
+      ),
     },
     {
       title: {
         id: "apl.unqualified.title",
         defaultMessage: "l10n.missing Don't Meet Essential Criteria",
         description:
-          "title of list of applicants who do not meet the essential criteria"
+          "title of list of applicants who do not meet the essential criteria",
       },
       description: {
         id: "apl.unqualified.description",
         defaultMessage: "",
         description:
-          "description of list of applicants who do not meet the essential criteria"
+          "description of list of applicants who do not meet the essential criteria",
       },
       applications: applications.filter(
-        application => applicationBucket(application) === "unqualified"
-      )
-    }
+        application => applicationBucket(application) === "unqualified",
+      ),
+    },
   ];
 
   /* Code related to copying emails to clipboard */
