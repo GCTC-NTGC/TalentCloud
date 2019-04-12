@@ -407,18 +407,28 @@
       });
 
       $("#language_requirement_confirmed").change(function(e) {
+        const checkbox = $(this);
+        const content = checkbox.next('.checkbox__wrapper').find('.checkbox__content > i');
+
+        if (content.hasClass('hidden')) {
+          content.removeClass('hidden');
+        } else {
+          content.addClass('hidden');
+        }
+
         if (
-          $(this)
+          checkbox
             .parent()
             .siblings(".error-message")
             .hasClass("hidden")
         ) {
-          $(this)
+          checkbox
             .parent()
             .siblings(".error-message")
             .removeClass("hidden");
+
         } else {
-          $(this)
+          checkbox
             .parent()
             .siblings(".error-message")
             .addClass("hidden");
