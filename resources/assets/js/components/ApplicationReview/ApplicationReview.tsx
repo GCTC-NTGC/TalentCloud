@@ -15,97 +15,97 @@ import { ReviewStatusId } from "../lookupConstants";
 const messages = defineMessages({
   priorityLogo: {
     id: "priorityStatus.priorityLogoTitle",
-    defaultMessage: "<default/> Talent cloud priority logo",
+    defaultMessage: "l10n.missing Talent cloud priority logo",
     description: "Title for Priority Logo Img"
   },
   veteranLogo: {
     id: "veteranStatus.veteranLogoAlt",
-    defaultMessage: "<default/> Talent cloud veteran logo",
+    defaultMessage: "l10n.missing Talent cloud veteran logo",
     description: "Alt Text for Veteran Logo Img"
   },
   emailCandidate: {
     id: "apl.emailCandidateLinkTitle",
-    defaultMessage: "<default/> Email this candidate.",
+    defaultMessage: "l10n.missing Email this candidate.",
     description: "Title, hover text, for email link."
   },
   viewApplicationTitle: {
     id: "apl.viewApplicationLinkTitle",
-    defaultMessage: "<default/> View this applicant's application.",
+    defaultMessage: "l10n.missing View this applicant's application.",
     description: "Title, hover text, for View Application Link"
   },
   viewProfileTitle: {
     id: "apl.viewProfileLinkTitle",
-    defaultMessage: "<default/> View this applicant's profile.",
+    defaultMessage: "l10n.missing View this applicant's profile.",
     description: "Title, hover text, for View Profile Link"
   },
   decision: {
     id: "apl.decision",
-    defaultMessage: "<default/> Decision",
+    defaultMessage: "l10n.missing Decision",
     description: "Decision dropdown label"
   },
   notReviewed: {
     id: "reviewStatus.notReviewed",
-    defaultMessage: "<default/> Not Reviewed",
+    defaultMessage: "l10n.missing Not Reviewed",
     description: "Decision dropdown label"
   },
   saving: {
     id: "button.saving",
-    defaultMessage: "<default/> Saving...",
+    defaultMessage: "l10n.missing Saving...",
     description: "Dynamic Save button label"
   },
   save: {
     id: "button.save",
-    defaultMessage: "<default/> Save",
+    defaultMessage: "l10n.missing Save",
     description: "Dynamic Save button label"
   },
   saved: {
     id: "button.saved",
-    defaultMessage: "<default/> Saved",
+    defaultMessage: "l10n.missing Saved",
     description: "Dynamic Save button label"
   },
   addNote: {
     id: "apl.addNote",
-    defaultMessage: "<default/> + Add a Note",
+    defaultMessage: "l10n.missing + Add a Note",
     description: "Dynamic Note button label"
   },
   editNote: {
     id: "apl.editNote",
-    defaultMessage: "<default/> Edit Note",
+    defaultMessage: "l10n.missing Edit Note",
     description: "Dynamic Note button label"
   },
   screenedOut: {
     id: "reviewStatus.screenedOut",
-    defaultMessage: "<default/> Screened Out",
+    defaultMessage: "l10n.missing Screened Out",
     description: "Dynamic Note button label"
   },
   stillThinking: {
     id: "reviewStatus.stillThinking",
-    defaultMessage: "<default/> Still Thinking",
+    defaultMessage: "l10n.missing Still Thinking",
     description: "Dynamic Note button label"
   },
   stillIn: {
     id: "reviewStatus.stillIn",
-    defaultMessage: "<default/> Still In",
+    defaultMessage: "l10n.missing Still In",
     description: "Dynamic Note button label"
   },
   cancelButton: {
     id: "button.cancel",
-    defaultMessage: "<default/> Cancel",
+    defaultMessage: "l10n.missing Cancel",
     description: "Cancel button label"
   },
   confirmButton: {
     id: "button.confirm",
-    defaultMessage: "<default/> Confirm",
+    defaultMessage: "l10n.missing Confirm",
     description: "Confirm button for modal dialogue boxes"
   },
   screenOutConfirm: {
     id: "apl.screenOutConfirm",
-    defaultMessage: "<default/> Screen out the candidate?",
+    defaultMessage: "l10n.missing Screen out the candidate?",
     description: "Are you sure you want to screen out the candidate worning"
   },
   screenInConfirm: {
     id: "apl.screenInConfirm",
-    defaultMessage: "<default/> Screen the candidate back in?",
+    defaultMessage: "l10n.missing Screen the candidate back in?",
     description: "Are you sure you want to screen in the candidate warning"
   }
 });
@@ -301,7 +301,7 @@ class ApplicationReview extends React.Component<
                 />
                 <FormattedMessage
                   id="priorityStatus.priority"
-                  defaultMessage="<default/> Priority"
+                  defaultMessage="l10n.missing Priority"
                   description="Priority"
                 />
               </span>
@@ -316,7 +316,7 @@ class ApplicationReview extends React.Component<
                 />
                 <FormattedMessage
                   id="veteranStatus.veteran"
-                  defaultMessage="<default/> Veteran"
+                  defaultMessage="l10n.missing Veteran"
                   description="Veteran"
                 />
               </span>
@@ -331,7 +331,7 @@ class ApplicationReview extends React.Component<
               <i className="fas fa-file-alt" />
               <FormattedMessage
                 id="apl.viewApplication"
-                defaultMessage="<default/> View Application"
+                defaultMessage="l10n.missing View Application"
                 description="Button text View Application"
               />
             </a>
@@ -345,7 +345,7 @@ class ApplicationReview extends React.Component<
               <i className="fas fa-user" />
               <FormattedMessage
                 id="apl.viewProfile"
-                defaultMessage="<default/> View Profile"
+                defaultMessage="l10n.missing View Profile"
                 description="Button text View Profile"
               />
             </a>

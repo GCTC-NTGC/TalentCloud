@@ -97,7 +97,11 @@ const AssessmentPlanTable: React.FunctionComponent<
         data-c-font-weight="bold"
         data-c-margin="top(triple) bottom(normal)"
       >
-        2. Assessment Plan Summary
+        <FormattedMessage
+          id="assessmentPlan.summaryTitle"
+          defaultMessage="l10n.missing 2. Assessment Plan Summary"
+          description="Title of Assessment Plan Summary Section"
+        />
       </h3>
       <p data-c-margin="bottom(normal)">
         This is a summary of the work you{"'"}ve done above. You{"'"}ll find

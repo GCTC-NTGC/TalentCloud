@@ -49,7 +49,7 @@ interface ReviewSubmitForm {
 const localizations = defineMessages({
   oops: {
     id: "alert.oops",
-    defaultMessage: "<default/> Save",
+    defaultMessage: "l10n.missing Save",
     description: "Dynamic Save button label"
   },
   somethingWrong: {
