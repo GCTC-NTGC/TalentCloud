@@ -5,7 +5,10 @@
         "target": "es5",
         "strictNullChecks": true,
         "moduleResolution": "node",
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "rootDir": "resources/assets/js",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
     },
     // "include": [
     //     "resources/assets/js/**/*"
