@@ -1,5 +1,5 @@
 import React from "react";
-import { RatingsGuideQuestion as RatingsGuideQuestionModel } from "../types";
+import { RatingsGuideQuestion as RatingsGuideQuestionModel } from "../../models/types";
 import Input from "../Input";
 
 interface RatingsGuideQuestionProps {

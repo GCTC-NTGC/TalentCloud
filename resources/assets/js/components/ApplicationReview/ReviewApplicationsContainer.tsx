@@ -18,7 +18,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import messages_en from "../../localizations/en.json";
 import messages_fr from "../../localizations/fr.json";
-import { Job, Application, ReviewStatus, ApplicationReview } from "../types";
+import { Job, Application, ReviewStatus, ApplicationReview } from "../../models/types";
 import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
 import * as routes from "../../helpers/routes";

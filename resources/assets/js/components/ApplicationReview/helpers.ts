@@ -1,5 +1,5 @@
-import { Application } from "../types";
-import { ReviewStatusId } from "../lookupConstants";
+import { Application } from "../../models/types";
+import { ReviewStatusId } from "../../models/lookupConstants";
 
 type Bucket = "priority" | "citizen" | "non-citizen" | "unqualified";
 

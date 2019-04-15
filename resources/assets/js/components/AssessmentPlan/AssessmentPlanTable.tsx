@@ -1,9 +1,9 @@
 import React from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
-import { Criteria, Assessment } from "../types";
+import { Criteria, Assessment } from "../../models/types";
 import { find } from "../../helpers/queries";
-import { CriteriaTypeId } from "../lookupConstants";
-import { assessmentType } from "../localizedConstants";
+import { CriteriaTypeId } from "../../models/lookupConstants";
+import { assessmentType } from "../../models/localizedConstants";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 
 interface AssessmentPlanTableProps {

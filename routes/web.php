@@ -247,7 +247,8 @@ Route::group(
                     ->name('manager.jobs.review');
             });
 
-            Route::get('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@createForJob')
+            Route::view('jobs/{jobPoster}/assessment-plan', 'common/redux')
+                ->where('jobPoster', '[0-9]+')
                 ->name('manager.jobs.screening_plan');
 
             Route::post('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@store')

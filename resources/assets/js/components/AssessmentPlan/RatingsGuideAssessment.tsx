@@ -1,8 +1,12 @@
 import React from "react";
 import { InjectedIntlProps, injectIntl } from "react-intl";
-import { RatingsGuideAnswer, Criteria, RatingsGuideQuestion } from "../types";
-import { assessmentType } from "../localizedConstants";
-import { CriteriaTypeId } from "../lookupConstants";
+import {
+  RatingsGuideAnswer,
+  Criteria,
+  RatingsGuideQuestion,
+} from "../../models/types";
+import { assessmentType } from "../../models/localizedConstants";
+import { CriteriaTypeId } from "../../models/lookupConstants";
 import { where } from "../../helpers/queries";
 import RatingsGuideQuestionComponent from "./RatingsGuideQuestion";
 import RatingsGuideAnswerComponent from "./RatingsGuideAnswer";

@@ -9,8 +9,8 @@ import className from "classnames";
 import Swal from "sweetalert2";
 import * as routes from "../../helpers/routes";
 import Select, { SelectOption } from "../Select";
-import { Application } from "../types";
-import { ReviewStatusId } from "../lookupConstants";
+import { Application } from "../../models/types";
+import { ReviewStatusId } from "../../models/lookupConstants";
 
 const messages = defineMessages({
   veteranLogo: {

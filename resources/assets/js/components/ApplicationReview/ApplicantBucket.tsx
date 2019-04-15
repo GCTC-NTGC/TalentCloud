@@ -1,6 +1,6 @@
 import React from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
-import { Application } from "../types";
+import { Application } from "../../models/types";
 import { SelectOption } from "../Select";
 import ApplicationReview from "./ApplicationReview";
 import { whereFirst } from "../../helpers/queries";

@@ -1,4 +1,4 @@
-import { Assessment } from "../types";
+import { Assessment } from "../../models/types";
 
 const getUniqueAssessmentTypes = (assessments: Assessment[]): number[] => {
   const uniqueIds: number[] = [];
