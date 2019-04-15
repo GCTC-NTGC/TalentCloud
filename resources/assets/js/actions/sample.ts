@@ -1,4 +1,4 @@
-import { Action, Sample } from "../model/model";
+import { Action, Sample } from "../models/app";
 
 export function addSample(id: number): Action<Sample> {
   return {

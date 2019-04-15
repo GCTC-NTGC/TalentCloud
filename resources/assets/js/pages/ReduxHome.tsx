@@ -5,7 +5,7 @@ import * as SampleActions from '../actions/sample';
 import * as samples from '../selectors/sample';
 import { RootState } from "../reducers";
 import { Dispatch, bindActionCreators } from "redux";
-import { Sample } from "../model/model";
+import { Sample } from "../models/app";
 
 interface IReduxHomeProps {
   samples: Sample[];

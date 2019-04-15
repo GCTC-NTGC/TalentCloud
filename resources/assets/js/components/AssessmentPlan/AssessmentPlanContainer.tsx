@@ -12,8 +12,7 @@ import localeFr from "react-intl/locale-data/fr";
 import messagesEn from "../../localizations/en.json";
 import messagesFr from "../../localizations/fr.json";
 import AssessmentPlan from "./AssessmentPlan";
-import { Job } from "../types";
-import { assessmentType } from "../localizedConstants.js";
+import { Job } from "../../models/types";
 
 interface AssessmentPlanContainerProps {
   jobId: number;

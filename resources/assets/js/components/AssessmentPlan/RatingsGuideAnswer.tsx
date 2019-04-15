@@ -1,5 +1,5 @@
 import React from "react";
-import { RatingsGuideAnswer as RatingsGuideAnswerModel, Skill } from "../types";
+import { RatingsGuideAnswer as RatingsGuideAnswerModel, Skill } from "../../models/types";
 import Select from "../Select";
 import Input from "../Input";
 

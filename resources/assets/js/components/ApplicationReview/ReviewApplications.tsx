@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import { FormattedMessage } from "react-intl";
-import { Application } from "../types";
+import { Application } from "../../models/types";
 import { SelectOption } from "../Select";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";

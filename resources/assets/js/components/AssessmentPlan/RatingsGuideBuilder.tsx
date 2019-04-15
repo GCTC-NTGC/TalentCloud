@@ -4,7 +4,7 @@ import {
   Assessment,
   RatingsGuideQuestion,
   RatingsGuideAnswer,
-} from "../types";
+} from "../../models/types";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import RatingsGuideAssessment from "./RatingsGuideAssessment";
 import { find } from "../../helpers/queries";

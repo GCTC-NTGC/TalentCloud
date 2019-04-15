@@ -3,11 +3,11 @@ import { injectIntl, InjectedIntlProps, defineMessages } from "react-intl";
 import {
   skillLevelDescription as SkillLevelDescriptionMessage,
   skillLevelName,
-  assessmentType
-} from "../localizedConstants";
+  assessmentType,
+} from "../../models/localizedConstants";
 import Select from "../Select";
-import { AssessmentTypeId, enumToIds } from "../lookupConstants";
-import { Criteria } from "../types";
+import { AssessmentTypeId, enumToIds } from "../../models/lookupConstants";
+import { Criteria } from "../../models/types";
 
 interface AssessmentPlanSkillProps {
   criterion: Criteria;
@@ -21,8 +21,8 @@ const localizations = defineMessages({
     id: "assessmentPlan.assessmentTypeNull",
     defaultMessage: "l10n.missing Select an Assessment",
     description:
-      "Default select element before an assessment type has been chosen"
-  }
+      "Default select element before an assessment type has been chosen",
+  },
 });
 
 const AssessmentPlanSkill: React.FunctionComponent<
@@ -32,16 +32,16 @@ const AssessmentPlanSkill: React.FunctionComponent<
   assessmentTypeIds,
   addAssessmentType,
   removeAssessmentType,
-  intl
+  intl,
 }: AssessmentPlanSkillProps & InjectedIntlProps): React.ReactElement => {
   const skillLevel = intl.formatMessage(
-    skillLevelName(criterion.skill_level_id, criterion.skill.skill_type_id)
+    skillLevelName(criterion.skill_level_id, criterion.skill.skill_type_id),
   );
   const skillLevelDescription = intl.formatMessage(
     SkillLevelDescriptionMessage(
       criterion.skill_level_id,
-      criterion.skill.skill_type_id
-    )
+      criterion.skill.skill_type_id,
+    ),
   );
   const skillDescription = criterion.description
     ? criterion.description
@@ -49,11 +49,11 @@ const AssessmentPlanSkill: React.FunctionComponent<
   const assessmentTypeOptions = enumToIds(AssessmentTypeId).map(typeId => {
     return {
       value: typeId,
-      label: intl.formatMessage(assessmentType(typeId))
+      label: intl.formatMessage(assessmentType(typeId)),
     };
   });
   const assessmentTypeNullSelection = intl.formatMessage(
-    localizations.assessmentTypeNullSelection
+    localizations.assessmentTypeNullSelection,
   );
 
   // a count of the number of new default selectors that have been added
@@ -61,7 +61,7 @@ const AssessmentPlanSkill: React.FunctionComponent<
 
   const selectBlock = (
     selectedId: number | undefined,
-    key: number | string
+    key: number | string,
   ): React.ReactElement => {
     const options = assessmentTypeOptions.filter(option => {
       // Ensure we can't select an option already selected in a sibling selector
@@ -157,7 +157,7 @@ const AssessmentPlanSkill: React.FunctionComponent<
             </div>
           </div>
           {assessmentTypeIds.map(assessmentTypeId =>
-            selectBlock(assessmentTypeId, `selector${assessmentTypeId}`)
+            selectBlock(assessmentTypeId, `selector${assessmentTypeId}`),
           )}
           {newSelectorsBlock(newSelectorsCount)}
         </div>

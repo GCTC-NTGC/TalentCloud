@@ -1,6 +1,6 @@
 import { History } from "history";
 import { combineReducers } from "redux";
-import { Sample } from "../model/model";
+import { Sample } from "../models/app";
 import * as sampleReducer from "./sample";
 
 export interface RootState {

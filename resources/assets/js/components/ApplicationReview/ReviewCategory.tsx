@@ -6,11 +6,11 @@ import {
   defineMessages,
 } from "react-intl";
 import Swal from "sweetalert2";
-import { Application } from "../types";
+import { Application } from "../../models/types";
 import { SelectOption } from "../Select";
 import { applicationBucket } from "./helpers";
 import ApplicantBucket from "./ApplicantBucket";
-import { ReviewStatusId } from "../lookupConstants";
+import { ReviewStatusId } from "../../models/lookupConstants";
 import { copyToClipboard } from "../../helpers/clipboard";
 
 interface ReviewCategoryProps {

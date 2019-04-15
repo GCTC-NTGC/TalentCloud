@@ -6,8 +6,8 @@ import {
   Assessment,
   RatingsGuideQuestion,
   RatingsGuideAnswer,
-} from "../types";
-import { CriteriaTypeId } from "../lookupConstants";
+} from "../../models/types";
+import { CriteriaTypeId } from "../../models/lookupConstants";
 import AssessmentPlanSkill from "./AssessmentPlanSkill";
 import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingsGuideBuilder from "./RatingsGuideBuilder";

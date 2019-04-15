@@ -1,4 +1,4 @@
-import { Action, Sample } from "../model/model";
+import { Action, Sample } from "../models/app";
 import createReducer from "./createReducer";
 
 export const sample = createReducer([], {
