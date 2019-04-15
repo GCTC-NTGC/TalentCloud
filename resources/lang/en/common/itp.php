@@ -75,18 +75,18 @@ return [
         "subtitle_01" => "Blog Posts",
         "posts" => [
             "01" => [
-                "link" => "",
+                "link" => "https://medium.com/@meagan.commonda/june-11-2018-5666bb6876e9",
                 "title" => "Visit this blog post.",
                 "copy" => "Talent Cloud: Indigenous Talent Pilot"
             ],
             "02" => [
-                "link" => "",
+                "link" => "https://medium.com/@meagan.commonda/can-we-talk-about-tokenism-9400c0af55fd",
                 "title" => "Visit this blog post.",
                 "copy" => "Can We Talk About Tokenism?"
             ]
         ],
         "posted_by" => "Published by Meagan Commonda",
-        "subtitle_02" => "Resources",
+        "subtitle_02" => "Resources and References",
         "resources" => [
             "01" => [
                 "link" => "",

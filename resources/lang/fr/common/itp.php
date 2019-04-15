@@ -75,38 +75,38 @@ return [
         "subtitle_01" => "Articles de blogue",
         "posts" => [
             "01" => [
-                "link" => "",
-                "title" => "Visit this blog post.",
-                "copy" => "Talent Cloud: Indigenous Talent Pilot"
+                "link" => "https://medium.com/@meagan.commonda/11-juin-2018-193059000c78",
+                "title" => "Visitez ce blog.",
+                "copy" => "Nuage de talents : Projet pilote sur les talents autochtones"
             ],
             "02" => [
-                "link" => "",
-                "title" => "Visit this blog post.",
-                "copy" => "Can We Talk About Tokenism?"
+                "link" => "https://medium.com/@meagan.commonda/et-si-on-abordait-la-question-de-gestes-purement-symboliques-88990c50d85c",
+                "title" => "Visitez ce blog.",
+                "copy" => "Et si on abordait la question de gestes purement symboliques?"
             ]
         ],
         "posted_by" => "Publié par Meagan Commonda",
-        "subtitle_02" => "Ressources",
+        "subtitle_02" => "Ressources et références",
         "resources" => [
             "01" => [
                 "link" => "",
-                "title" => "Visit this resource.",
+                "title" => "Visitez cette ressource.",
                 "copy" => "Talent Cloud Indigenous Pilot Presentation"
             ],
             "02" => [
                 "link" => "",
-                "title" => "Visit this resource.",
+                "title" => "Visitez cette ressource.",
                 "copy" => "Official Languages Policy on Exemptions"
             ],
             "03" => [
-                "link" => "https://www.canada.ca/en/privy-council/corporate/clerk/publications/many-voices.html",
-                "title" => "Visit this resource.",
-                "copy" => "Many Voices One Mind"
+                "link" => "https://www.canada.ca/fr/conseil-prive/organisation/greffier/publications/unis-diversite.html",
+                "title" => "Visitez cette ressource.",
+                "copy" => "Unis dans la diversité "
             ],
             "04" => [
                 "link" => "http://caid.ca/IndRecRet2017.pdf",
-                "title" => "Visit this resource.",
-                "copy" => "Indigenous Recruitment and Retention"
+                "title" => "Visitez cette ressource.",
+                "copy" => "Indigenous Recruitment and Retention (EN)"
             ]
         ]
     ]
