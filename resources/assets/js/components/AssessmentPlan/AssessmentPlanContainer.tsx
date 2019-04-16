@@ -5,7 +5,7 @@ import localeEn from "react-intl/locale-data/en";
 import localeFr from "react-intl/locale-data/fr";
 import { connect } from "react-redux";
 import { AnyAction, bindActionCreators } from "redux";
-import { ThunkDispatch } from "redux-thunk";
+import { ThunkDispatch, ThunkAction } from "redux-thunk";
 import messagesEn from "../../localizations/en.json";
 import messagesFr from "../../localizations/fr.json";
 import AssessmentPlan from "./AssessmentPlan";
@@ -120,7 +120,14 @@ type DispatchType = Dispatch<AnyAction> & ThunkDispatch<any, any, AnyAction>;
 const mapDispatchToProps = (
   dispatch: DispatchType,
   ownProps: AssessmentPlanContainerProps,
-) => bindActionCreators({ fetchJob: () => fetchJob(ownProps.jobId) }, dispatch);
+): any =>
+  bindActionCreators(
+    {
+      fetchJob: (): ThunkAction<void, RootState, {}, AnyAction> =>
+        fetchJob(ownProps.jobId),
+    },
+    dispatch,
+  );
 
 const AssessmentPlanContainer: React.FunctionComponent<
   AssessmentPlanContainerProps

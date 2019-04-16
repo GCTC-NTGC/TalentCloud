@@ -13,6 +13,7 @@ import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingsGuideBuilder from "./RatingsGuideBuilder";
 
 interface AssessmentPlanProps {
+  jobId: number;
   job: Job | null;
   criteria: Criteria[];
   assessments: Assessment[];
@@ -47,6 +48,7 @@ const renderAssessmentPlanSkill = (
 const AssessmentPlan: React.FunctionComponent<
   AssessmentPlanProps & InjectedIntlProps
 > = ({
+  jobId,
   job,
   criteria,
   assessments,
@@ -55,7 +57,6 @@ const AssessmentPlan: React.FunctionComponent<
   fetchJob,
   intl,
 }): React.ReactElement => {
-  const jobId = job ? job.id : 0;
   // Similar to componentDidMount and componentDidUpdate:
   useEffect((): void => fetchJob(), [jobId]);
 
