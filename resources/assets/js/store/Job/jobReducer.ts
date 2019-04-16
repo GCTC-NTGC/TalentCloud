@@ -10,16 +10,21 @@ import {
 } from "./jobActions";
 
 export interface JobState {
-  [id: number]: {
-    job: Job | null;
-    isLoading: boolean;
+  jobs: {
+    [id: number]: Job;
+  };
+  jobUpdating: {
+    [id: number]: boolean;
   };
 }
 
-const initialState: JobState = {};
+const initialState: JobState = {
+  jobs: {},
+  jobUpdating: {},
+};
 
 /**
- * Set isLoading to true for the specified job
+ * Set jobUpdating to true for the specified job
  * @param state
  * @param action
  */
@@ -30,14 +35,13 @@ export const fetchStarted = (
   const id = action.payload;
   return {
     ...state,
-    [id]: {
-      job: state[id] ? state[id].job : null,
-      isLoading: true,
+    jobUpdating: {
+      [id]: true,
     },
   };
 };
 
-/** Set isLoading to false and replace the job in store */
+/** Set jobUpdating to false and replace the job in store */
 export const fetchSucceeded = (
   state: JobState,
   action: FetchJobSucceededAction,
@@ -45,14 +49,18 @@ export const fetchSucceeded = (
   const { id, job } = action.payload;
   return {
     ...state,
-    [id]: {
-      job,
-      isLoading: false,
+    jobs: {
+      ...state.jobs,
+      [id]: job,
+    },
+    jobUpdating: {
+      ...state.jobUpdating,
+      [id]: false,
     },
   };
 };
 
-/** Set isLoading to false for specified job */
+/** Set jobUpdating to false for specified job */
 export const fetchFailed = (
   state: JobState,
   action: FetchJobFailedAction,
@@ -61,9 +69,8 @@ export const fetchFailed = (
   const { id } = action.payload;
   return {
     ...state,
-    [id]: {
-      job: state[id] ? state[id].job : null,
-      isLoading: false,
+    jobUpdating: {
+      [id]: false,
     },
   };
 };

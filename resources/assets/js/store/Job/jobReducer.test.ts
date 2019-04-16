@@ -51,18 +51,14 @@ describe("Job Reducer tests", (): void => {
     },
   };
 
-  it("Starts loading when FETCH_JOB_STARTED", (): void => {
+  it("Starts updating when FETCH_JOB_STARTED", (): void => {
     const initialState = {
-      "12": {
-        job: fakeJob,
-        isLoading: false,
-      },
+      jobs: {},
+      jobUpdating: {},
     };
     const expectState = {
-      "12": {
-        job: fakeJob,
-        isLoading: true,
-      },
+      jobs: {},
+      jobUpdating: { 12: true },
     };
     const newState = jobReducer(initialState, {
       type: "FETCH_JOB_STARTED",
@@ -73,16 +69,12 @@ describe("Job Reducer tests", (): void => {
 
   it("Saves new job and sets loading to false when FETCH_JOB_SUCCEEDED", (): void => {
     const initialState = {
-      "12": {
-        job: fakeJob,
-        isLoading: true,
-      },
+      jobs: { 12: fakeJob },
+      jobUpdating: { 12: true },
     };
     const expectState = {
-      "12": {
-        job: fakeJob2,
-        isLoading: false,
-      },
+      jobs: { 12: fakeJob2 },
+      jobUpdating: { 12: false },
     };
     const newState = jobReducer(initialState, {
       type: "FETCH_JOB_SUCCEEDED",
@@ -96,16 +88,12 @@ describe("Job Reducer tests", (): void => {
 
   it("Sets loading to false when FETCH_JOB_FAILED", (): void => {
     const initialState = {
-      "12": {
-        job: fakeJob,
-        isLoading: true,
-      },
+      jobs: { 12: fakeJob },
+      jobUpdating: { 12: true },
     };
     const expectState = {
-      "12": {
-        job: fakeJob,
-        isLoading: false,
-      },
+      jobs: { 12: fakeJob },
+      jobUpdating: { 12: false },
     };
     const newState = jobReducer(initialState, {
       type: "FETCH_JOB_FAILED",
