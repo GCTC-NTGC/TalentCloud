@@ -152,23 +152,23 @@ const AssessmentPlan: React.FunctionComponent<
           >
             Essential Skills
           </h4>
-          <div
-            data-c-radius="rounded"
-            data-c-background="black(10)"
-            data-c-border="all(thin, solid, black)"
-            data-c-padding="normal"
-            data-c-alignment="base(center)"
-            data-c-margin="top(normal) bottom(normal)"
-          >
-            {essentialCriteria.map(criterion =>
-              renderAssessmentPlanSkill(criterion, assessments),
-            )}
-            {essentialCriteria.length === 0 && (
+          {essentialCriteria.map(criterion =>
+            renderAssessmentPlanSkill(criterion, assessments),
+          )}
+          {essentialCriteria.length === 0 && (
+            <div
+              data-c-radius="rounded"
+              data-c-background="black(10)"
+              data-c-border="all(thin, solid, black)"
+              data-c-padding="normal"
+              data-c-alignment="base(center)"
+              data-c-margin="top(normal) bottom(normal)"
+            >
               <span data-c-font-colour="black">
                 You have no essential skills selected for this job poster.
               </span>
-            )}
-          </div>
+            </div>
+          )}
           <h4
             data-c-font-colour="c5"
             data-c-font-weight="bold"
@@ -176,23 +176,23 @@ const AssessmentPlan: React.FunctionComponent<
           >
             Asset Skills
           </h4>
-          <div
-            data-c-radius="rounded"
-            data-c-background="black(10)"
-            data-c-border="all(thin, solid, black)"
-            data-c-padding="normal"
-            data-c-alignment="base(center)"
-            data-c-margin="top(normal) bottom(normal)"
-          >
-            {assetCriteria.map(criterion =>
-              renderAssessmentPlanSkill(criterion, assessments),
-            )}
-            {assetCriteria.length === 0 && (
+          {assetCriteria.map(criterion =>
+            renderAssessmentPlanSkill(criterion, assessments),
+          )}
+          {assetCriteria.length === 0 && (
+            <div
+              data-c-radius="rounded"
+              data-c-background="black(10)"
+              data-c-border="all(thin, solid, black)"
+              data-c-padding="normal"
+              data-c-alignment="base(center)"
+              data-c-margin="top(normal) bottom(normal)"
+            >
               <span data-c-font-colour="black">
                 You have no asset skills selected for this job poster.
               </span>
-            )}
-          </div>
+            </div>
+          )}
         </div>
         {/* Generated Assessment Plan ==================================== */}
         <AssessmentPlanTable criteria={criteria} assessments={assessments} />
