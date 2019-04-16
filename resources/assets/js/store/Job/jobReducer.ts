@@ -18,40 +18,55 @@ export interface JobState {
 
 const initialState: JobState = {};
 
+/**
+ * Set isLoading to true for the specified job
+ * @param state
+ * @param action
+ */
 export const fetchStarted = (
   state: JobState,
   action: FetchJobStartedAction,
 ): JobState => {
   const id = action.payload;
-  const oldEntry = state[id] ? state[id] : { job: null, isLoading: false };
-  const newEntry = Object.assign(oldEntry, { isLoading: true });
-  const newState = Object.assign(state);
-  newState[id] = newEntry;
-  return newState;
+  return {
+    ...state,
+    [id]: {
+      job: state[id] ? state[id].job : null,
+      isLoading: true,
+    },
+  };
 };
 
+/** Set isLoading to false and replace the job in store */
 export const fetchSucceeded = (
   state: JobState,
   action: FetchJobSucceededAction,
 ): JobState => {
   const { id } = action.payload;
-  const newEntry = { job: action.payload.response.data, isLoading: false };
-  const newState = Object.assign(state);
-  newState[id] = newEntry;
-  return newState;
+  const job = action.payload.response.data;
+  return {
+    ...state,
+    [id]: {
+      job,
+      isLoading: false,
+    },
+  };
 };
 
+/** Set isLoading to false for specified job */
 export const fetchFailed = (
   state: JobState,
   action: FetchJobFailedAction,
 ): JobState => {
-  // TODO: Add some kind of error notification state
+  // TODO: do something with the error in the payload
   const { id } = action.payload;
-  const oldEntry = state[id] ? state[id] : { job: null, isLoading: false };
-  const newEntry = Object.assign(oldEntry, { isLoading: false });
-  const newState = Object.assign(state);
-  newState[id] = newEntry;
-  return newState;
+  return {
+    ...state,
+    [id]: {
+      job: state[id] ? state[id].job : null,
+      isLoading: false,
+    },
+  };
 };
 
 export const jobsReducer = (

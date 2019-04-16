@@ -29,7 +29,7 @@ it("Returns the correct job", (): void => {
     };
   };
   const job = fakeJob();
-  const jobsState: JobState = { 12: { job, isLoading: false } };
+  const jobsState: JobState = { "12": { job, isLoading: false } };
   const state: RootState = {
     jobs: jobsState,
   };
