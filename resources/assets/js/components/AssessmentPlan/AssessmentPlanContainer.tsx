@@ -1,38 +1,36 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import ReactDOM from "react-dom";
-import {
-  IntlProvider,
-  addLocaleData,
-  injectIntl,
-  InjectedIntlProps,
-  defineMessages,
-} from "react-intl";
+import { IntlProvider, addLocaleData } from "react-intl";
 import localeEn from "react-intl/locale-data/en";
 import localeFr from "react-intl/locale-data/fr";
+import { connect } from "react-redux";
+import { AnyAction, bindActionCreators } from "redux";
+import { ThunkDispatch } from "redux-thunk";
 import messagesEn from "../../localizations/en.json";
 import messagesFr from "../../localizations/fr.json";
 import AssessmentPlan from "./AssessmentPlan";
-import { Job } from "../../models/types";
+import {
+  Job,
+  Criteria,
+  Assessment,
+  RatingsGuideQuestion,
+  RatingsGuideAnswer,
+} from "../../models/types";
+import { RootState } from "../../store/store";
+import { getJob } from "../../store/Job/jobSelector";
+import { fetchJob } from "../../store/Job/jobActions";
 
 interface AssessmentPlanContainerProps {
   jobId: number;
 }
 
-const AssessmentPlanContainer: React.FunctionComponent<
-  AssessmentPlanContainerProps
-> = ({ jobId }: AssessmentPlanContainerProps): React.ReactElement => {
-  const job: Job = {
-    id: jobId,
-    title: "Fake Job Title",
-    classification: "CS-02",
-    close_date_time: new Date(),
-  };
-
+// TODO: remove
+const fakeData = (jobId: number): any => {
   const criteria = [
     {
       id: 1,
       criteria_type_id: 1,
-      job_poster_id: 1,
+      job_poster_id: jobId,
       skill_id: 1,
       skill_level_id: 1,
       description: "",
@@ -46,7 +44,7 @@ const AssessmentPlanContainer: React.FunctionComponent<
     {
       id: 2,
       criteria_type_id: 1,
-      job_poster_id: 1,
+      job_poster_id: jobId,
       skill_id: 2,
       skill_level_id: 1,
       description: "",
@@ -74,13 +72,13 @@ const AssessmentPlanContainer: React.FunctionComponent<
   const questions = [
     {
       id: 1,
-      job_poster_id: 1,
+      job_poster_id: jobId,
       assessment_type_id: 2,
       question: "Prove however you want that you know this.",
     },
     {
       id: 2,
-      job_poster_id: 1,
+      job_poster_id: jobId,
       assessment_type_id: 2,
       question: "On second thought, show me your best work example.",
     },
@@ -101,16 +99,35 @@ const AssessmentPlanContainer: React.FunctionComponent<
     },
   ];
 
-  return (
-    <AssessmentPlan
-      job={job}
-      criteria={criteria}
-      assessments={assessments}
-      questions={questions}
-      answers={answers}
-    />
-  );
+  return { criteria, assessments, questions, answers };
 };
+
+const mapStateToProps = (
+  state: RootState,
+  ownProps: AssessmentPlanContainerProps,
+): {
+  job: Job | null;
+  criteria: Criteria[];
+  assessments: Assessment[];
+  questions: RatingsGuideQuestion[];
+  answers: RatingsGuideAnswer[];
+} => ({
+  ...fakeData(ownProps.jobId),
+  job: getJob(state, ownProps.jobId),
+});
+
+type DispatchType = Dispatch<AnyAction> & ThunkDispatch<any, any, AnyAction>;
+const mapDispatchToProps = (
+  dispatch: DispatchType,
+  ownProps: AssessmentPlanContainerProps,
+) => bindActionCreators({ fetchJob: () => fetchJob(ownProps.jobId) }, dispatch);
+
+const AssessmentPlanContainer: React.FunctionComponent<
+  AssessmentPlanContainerProps
+> = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AssessmentPlan);
 
 addLocaleData([...localeEn, ...localeFr]);
 const messages = {

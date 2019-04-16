@@ -18,7 +18,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import messages_en from "../../localizations/en.json";
 import messages_fr from "../../localizations/fr.json";
-import { Application, ReviewStatus, ApplicationReview } from "../../models/types";
+import {
+  Application,
+  ReviewStatus,
+  ApplicationReview,
+} from "../../models/types";
 import * as route from "../../helpers/routes";
 import ApplicationReviewWithNav from "./ApplicationReviewWithNav";
 

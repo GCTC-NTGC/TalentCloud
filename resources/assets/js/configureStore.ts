@@ -1,25 +1,24 @@
-import { createBrowserHistory } from "history";
-import { applyMiddleware, createStore } from "redux";
+import { applyMiddleware, createStore, AnyAction, Store } from "redux";
+import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { createLogger } from "redux-logger";
-import rootReducer from "./reducers";
+import rootReducer, { RootState } from "./store/store";
 
-const logger = createLogger();
-const history = createBrowserHistory();
+export const configureStore = (): Store<RootState, AnyAction> => {
+  const logger = createLogger();
 
-const dev = process.env.NODE_ENV === "development";
+  const isDev = process.env.NODE_ENV === "development";
 
-let middleware = dev ? applyMiddleware(logger) : applyMiddleware();
+  let middleware = isDev
+    ? applyMiddleware(thunk, logger)
+    : applyMiddleware(thunk);
 
-if (dev) {
-  middleware = composeWithDevTools(middleware);
-}
+  if (isDev) {
+    middleware = composeWithDevTools(middleware);
+  }
 
-const reducer = rootReducer(history);
-
-export default () => {
-  const store = createStore(reducer, {}, middleware);
-  return { store };
+  const reducer = rootReducer();
+  return createStore(reducer, middleware);
 };
 
-export { history };
+export default configureStore;

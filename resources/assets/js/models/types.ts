@@ -1,11 +1,22 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 
+export interface JobTranslation {
+  city: string;
+  title: string;
+  impact: string;
+  branch: string;
+  division: string;
+  education: string;
+}
+
 export interface Job {
   id: number;
   title: string;
   classification: string;
   close_date_time: Date;
+  en: JobTranslation;
+  fr: JobTranslation;
 }
 
 export interface Application {

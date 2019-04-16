@@ -361,3 +361,9 @@ Route::group(
             ->name('admin.jobs.create.as_manager');
     }
 );
+
+/** API routes - currently using same default http auth, but not localized */
+Route::group(['prefix' => 'api'], function (): void {
+    Route::get("jobs/{jobPoster}", "JobController@get")
+        ->middleware('can:view,jobPoster');
+});

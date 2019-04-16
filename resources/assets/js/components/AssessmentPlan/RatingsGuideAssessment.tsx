@@ -82,6 +82,7 @@ const RatingsGuideAssessment: React.FunctionComponent<
         const selectedSkillIds = answers.map(answer => answer.skill_id);
         return (
           <div
+            key={question.id}
             data-c-background="black(10)"
             data-c-border="all(thin, solid, black)"
             data-c-margin="top(normal) bottom(normal)"
@@ -105,6 +106,7 @@ const RatingsGuideAssessment: React.FunctionComponent<
                 });
                 return (
                   <RatingsGuideAnswerComponent
+                    key={answer.id}
                     answer={answer}
                     availableSkills={availableSkills}
                     onChange={/** TODO: setup */ () => {}}

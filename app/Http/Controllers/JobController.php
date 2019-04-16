@@ -36,6 +36,21 @@ use App\Models\AssessmentPlanNotification;
 
 class JobController extends Controller
 {
+
+    /**
+     * Get array representation of specified job poster
+     *
+     * @param \Illuminate\Http\Request $request   Incoming request object.
+     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
+     *
+     * @return mixed[]
+     */
+    public function get(Request $request, JobPoster $jobPoster)
+    {
+        $jobWithTranslations = array_merge($jobPoster->toArray(), $jobPoster->getTranslationsArray());
+        return $jobWithTranslations;
+    }
+
     /**
      * Display a listing of JobPosters.
      *
@@ -584,7 +599,6 @@ class JobController extends Controller
             foreach ($criteria['new'] as $criteriaType => $criteriaTypeInput) {
                 foreach ($criteriaTypeInput as $skillTypeInput) {
                     foreach ($skillTypeInput as $criteriaInput) {
-
                         $newCriteria = $this->processCriteriaForm($jobPoster, $criteriaType, $criteriaInput, null);
                         $affectedCriteriaIds[] = $newCriteria->id;
                     }
@@ -601,13 +615,13 @@ class JobController extends Controller
     /**
      * Process intput representing a single criteria from Job Poster form.
      *
-     * @param JobPoster $jobPoster
-     * @param string $criteriaType
-     * @param array $criteriaInput
-     * @param int|null $criteriaId
+     * @param JobPoster    $jobPoster
+     * @param string       $criteriaType
+     * @param array        $criteriaInput
+     * @param integer|null $criteriaId
      * @return Criteria
      */
-    protected function processCriteriaForm($jobPoster, $criteriaType, $criteriaInput, $criteriaId)
+    protected function processCriteriaForm(JobPoster $jobPoster, string $criteriaType, array $criteriaInput, ?int $criteriaId): Criteria
     {
         $skillId = $criteriaInput['skill_id'];
 
@@ -641,11 +655,11 @@ class JobController extends Controller
      * Create a Job Criteria
      *
      * @param JobPoster $jobPoster
-     * @param integer $skillId
-     * @param array $data
+     * @param integer   $skillId
+     * @param array     $data
      * @return Criteria
      */
-    protected function createCriteria(JobPoster $jobPoster,int $skillId,array $data)
+    protected function createCriteria(JobPoster $jobPoster, int $skillId, array $data): Criteria
     {
         $criteria = new Criteria();
         $criteria->job_poster_id = $jobPoster->id;
@@ -669,10 +683,10 @@ class JobController extends Controller
      * Update an existing Job Criteria
      *
      * @param Criteria $criteria
-     * @param array $data
+     * @param array    $data
      * @return void
      */
-    protected function updateCriteria(Criteria $criteria, $data)
+    protected function updateCriteria(Criteria $criteria, array $data): void
     {
         if ($criteria->skill_level_id != $data['skill_level_id']) {
             $notification = new AssessmentPlanNotification();
@@ -697,7 +711,7 @@ class JobController extends Controller
      * @param Criteria $criteria
      * @return void
      */
-    protected function deleteCriteria(Criteria $criteria)
+    protected function deleteCriteria(Criteria $criteria): void
     {
         $notification = new AssessmentPlanNotification();
         $notification->job_poster_id = $criteria->job_poster_id;

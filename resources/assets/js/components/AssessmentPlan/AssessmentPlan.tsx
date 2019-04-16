@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { injectIntl, InjectedIntlProps } from "react-intl";
 import {
   Job,
@@ -13,11 +13,12 @@ import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingsGuideBuilder from "./RatingsGuideBuilder";
 
 interface AssessmentPlanProps {
-  job: Job;
+  job: Job | null;
   criteria: Criteria[];
   assessments: Assessment[];
   questions: RatingsGuideQuestion[];
   answers: RatingsGuideAnswer[];
+  fetchJob: () => void;
 }
 
 const renderAssessmentPlanSkill = (
@@ -51,8 +52,13 @@ const AssessmentPlan: React.FunctionComponent<
   assessments,
   questions,
   answers,
+  fetchJob,
   intl,
 }): React.ReactElement => {
+  const jobId = job ? job.id : 0;
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect((): void => fetchJob(), [jobId]);
+
   const assetCriteria = criteria.filter(
     criterion => criterion.criteria_type_id === CriteriaTypeId.Asset,
   );
@@ -74,7 +80,7 @@ const AssessmentPlan: React.FunctionComponent<
         >
           Generate an assessment plan for:
           <span data-c-font-colour="c5" data-c-font-size="h3">
-            {job.title}
+            {job && job.title}
           </span>
         </h3>
         <p data-c-margin="bottom(normal)">
