@@ -1,6 +1,7 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { Action } from "../createAction";
-import { JobResponse, getJob } from "../../api/job";
+import { getJob } from "../../api/job";
+import { Job } from "../../models/types";
 
 export const FETCH_JOB_STARTED = "FETCH_JOB_STARTED";
 export const FETCH_JOB_SUCCEEDED = "FETCH_JOB_SUCCEEDED";
@@ -9,7 +10,7 @@ export const FETCH_JOB_FAILED = "FETCH_JOB_FAILED";
 export type FetchJobStartedAction = Action<typeof FETCH_JOB_STARTED, number>;
 export type FetchJobSucceededAction = Action<
   typeof FETCH_JOB_SUCCEEDED,
-  { id: number; response: JobResponse }
+  { id: number; job: Job }
 >;
 export type FetchJobFailedAction = Action<
   typeof FETCH_JOB_FAILED,
@@ -30,13 +31,13 @@ export const fetchJobStarted = (id: number): FetchJobStartedAction => {
 
 export const fetchJobSucceeded = (
   id: number,
-  response: JobResponse,
+  job: Job,
 ): FetchJobSucceededAction => {
   return {
     type: FETCH_JOB_SUCCEEDED,
     payload: {
       id,
-      response,
+      job,
     },
   };
 };
@@ -61,8 +62,8 @@ export const fetchJob = (
     dispatch(fetchJobStarted(id));
     getJob(id)
       .then(
-        (response: JobResponse): void => {
-          dispatch(fetchJobSucceeded(id, response));
+        (job: Job): void => {
+          dispatch(fetchJobSucceeded(id, job));
         },
       )
       .catch(

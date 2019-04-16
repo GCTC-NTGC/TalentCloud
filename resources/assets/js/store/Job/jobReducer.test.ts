@@ -88,9 +88,7 @@ describe("Job Reducer tests", (): void => {
       type: "FETCH_JOB_SUCCEEDED",
       payload: {
         id: 12,
-        response: {
-          data: fakeJob2,
-        },
+        job: fakeJob2,
       },
     });
     expect(newState).toEqual(expectState);

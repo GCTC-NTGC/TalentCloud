@@ -42,8 +42,7 @@ export const fetchSucceeded = (
   state: JobState,
   action: FetchJobSucceededAction,
 ): JobState => {
-  const { id } = action.payload;
-  const job = action.payload.response.data;
+  const { id, job } = action.payload;
   return {
     ...state,
     [id]: {
