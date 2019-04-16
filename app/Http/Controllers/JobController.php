@@ -255,8 +255,8 @@ class JobController extends Controller
                 500,
                 null,
                 [
-                    'Back to Admin' => '/admin',
-                    'Manager Profile' => "/manager/profile/$manager->id/edit"
+                    'Back to Admin' => route('backpack'),
+                    'Manager Profile' => route('manager.profile.edit', $manager->id)
                 ]
             );
         }
