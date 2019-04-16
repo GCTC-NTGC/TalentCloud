@@ -93,11 +93,6 @@ return [
                 "title" => "Visit this resource.",
                 "copy" => "Talent Cloud Indigenous Pilot Presentation"
             ],
-            "02" => [
-                "link" => "",
-                "title" => "Visit this resource.",
-                "copy" => "Official Languages Policy on Exemptions"
-            ],
             "03" => [
                 "link" => "https://www.canada.ca/en/privy-council/corporate/clerk/publications/many-voices.html",
                 "title" => "Visit this resource.",

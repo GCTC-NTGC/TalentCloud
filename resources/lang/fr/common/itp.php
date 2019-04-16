@@ -93,11 +93,6 @@ return [
                 "title" => "Visitez cette ressource.",
                 "copy" => "Talent Cloud Indigenous Pilot Presentation"
             ],
-            "02" => [
-                "link" => "",
-                "title" => "Visitez cette ressource.",
-                "copy" => "Official Languages Policy on Exemptions"
-            ],
             "03" => [
                 "link" => "https://www.canada.ca/fr/conseil-prive/organisation/greffier/publications/unis-diversite.html",
                 "title" => "Visitez cette ressource.",
