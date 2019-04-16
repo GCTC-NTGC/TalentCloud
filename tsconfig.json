@@ -4,7 +4,11 @@
         "esModuleInterop": true,
         "target": "es5",
         "strictNullChecks": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "rootDir": "resources/assets/js",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
     },
     // "include": [
     //     "resources/assets/js/**/*"

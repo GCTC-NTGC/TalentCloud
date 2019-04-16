@@ -747,6 +747,15 @@
             z-index: 1;
         }
 
+        .form__required {
+            color: red;
+            display: inline-block;
+            font-size: 8px;
+            margin: 0 0 1rem .3rem;
+            pointer-events: none;
+            vertical-align: middle;
+        }
+
     }
 
     .form__radio-wrapper {
