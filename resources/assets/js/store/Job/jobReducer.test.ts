@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-undef */
-import jobReducer from "./jobReducer";
+import jobReducer, { initState } from "./jobReducer";
 import { Job } from "../../models/types";
 
 describe("Job Reducer tests", (): void => {
@@ -52,11 +52,9 @@ describe("Job Reducer tests", (): void => {
   };
 
   it("Starts updating when FETCH_JOB_STARTED", (): void => {
-    const initialState = {
-      jobs: {},
-      jobUpdating: {},
-    };
+    const initialState = initState();
     const expectState = {
+      ...initState(),
       jobs: {},
       jobUpdating: { 12: true },
     };
@@ -69,10 +67,12 @@ describe("Job Reducer tests", (): void => {
 
   it("Saves new job and sets loading to false when FETCH_JOB_SUCCEEDED", (): void => {
     const initialState = {
+      ...initState(),
       jobs: { 12: fakeJob },
       jobUpdating: { 12: true },
     };
     const expectState = {
+      ...initState(),
       jobs: { 12: fakeJob2 },
       jobUpdating: { 12: false },
     };
@@ -88,10 +88,12 @@ describe("Job Reducer tests", (): void => {
 
   it("Sets loading to false when FETCH_JOB_FAILED", (): void => {
     const initialState = {
+      ...initState(),
       jobs: { 12: fakeJob },
       jobUpdating: { 12: true },
     };
     const expectState = {
+      ...initState(),
       jobs: { 12: fakeJob },
       jobUpdating: { 12: false },
     };

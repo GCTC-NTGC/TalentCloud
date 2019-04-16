@@ -1,6 +1,6 @@
 import { getJob } from "./jobSelector";
-import { RootState } from "../store";
-import { JobState } from "./jobReducer";
+import { RootState, initState } from "../store";
+import { JobState, initState as initJobs } from "./jobReducer";
 import { Job } from "../../models/types";
 
 it("Returns the correct job", (): void => {
@@ -29,9 +29,13 @@ it("Returns the correct job", (): void => {
     };
   };
   const job = fakeJob();
-  const jobsState: JobState = { jobs: { 12: job }, jobUpdating: {} };
   const state: RootState = {
-    jobs: jobsState,
+    ...initState(),
+    jobs: {
+      ...initJobs(),
+      jobs: { 12: job },
+      jobUpdating: {},
+    },
   };
   expect(getJob(state, 12)).toEqual(job);
 });

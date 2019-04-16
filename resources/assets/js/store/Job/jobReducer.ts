@@ -1,4 +1,4 @@
-import { Job } from "../../models/types";
+import { Job, Criteria } from "../../models/types";
 import {
   JobAction,
   FETCH_JOB_STARTED,
@@ -16,12 +16,20 @@ export interface JobState {
   jobUpdating: {
     [id: number]: boolean;
   };
+  criteria: {
+    [id: number]: Criteria;
+  };
+  criteriaUpdating: {
+    [id: number]: boolean;
+  };
 }
 
-const initialState: JobState = {
+export const initState = (): JobState => ({
   jobs: {},
   jobUpdating: {},
-};
+  criteria: {},
+  criteriaUpdating: {},
+});
 
 /**
  * Set jobUpdating to true for the specified job
@@ -76,7 +84,7 @@ export const fetchFailed = (
 };
 
 export const jobsReducer = (
-  state = initialState,
+  state = initState(),
   action: JobAction,
 ): JobState => {
   switch (action.type) {
