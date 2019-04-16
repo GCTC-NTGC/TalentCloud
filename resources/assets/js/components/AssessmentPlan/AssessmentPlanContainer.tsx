@@ -17,7 +17,7 @@ import {
   RatingsGuideAnswer,
 } from "../../models/types";
 import { RootState } from "../../store/store";
-import { getJob } from "../../store/Job/jobSelector";
+import { getJob, getCriteriaByJob } from "../../store/Job/jobSelector";
 import { fetchJob } from "../../store/Job/jobActions";
 
 interface AssessmentPlanContainerProps {
@@ -114,6 +114,7 @@ const mapStateToProps = (
 } => ({
   ...fakeData(ownProps.jobId),
   job: getJob(state, ownProps.jobId),
+  criteria: getCriteriaByJob(state, ownProps.jobId),
 });
 
 type DispatchType = Dispatch<AnyAction> & ThunkDispatch<any, any, AnyAction>;
