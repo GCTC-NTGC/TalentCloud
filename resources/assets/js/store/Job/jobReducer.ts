@@ -54,7 +54,14 @@ export const fetchSucceeded = (
   state: JobState,
   action: FetchJobSucceededAction,
 ): JobState => {
-  const { id, job } = action.payload;
+  const { id, job, criteria } = action.payload;
+  const newCriteria: { [id: number]: Criteria } = criteria.reduce((map, obj): {
+    [id: number]: Criteria;
+  } => {
+    // eslint-disable-next-line no-param-reassign
+    map[obj.id] = obj;
+    return map;
+  }, {});
   return {
     ...state,
     jobs: {
@@ -64,6 +71,10 @@ export const fetchSucceeded = (
     jobUpdating: {
       ...state.jobUpdating,
       [id]: false,
+    },
+    criteria: {
+      ...state.criteria,
+      ...newCriteria,
     },
   };
 };

@@ -48,11 +48,17 @@ class JobController extends Controller
     public function get(Request $request, JobPoster $jobPoster)
     {
         $jobWithTranslations = array_merge($jobPoster->toArray(), $jobPoster->getTranslationsArray());
-        return $jobWithTranslations;
+        $criteria = Criteria::where('job_poster_id', $jobPoster->id)->get();
+        $criteriaTranslated = [];
+        foreach ($criteria as $criterion) {
+            // TODO: getTranslationsArray probably makes DB calls every loop. Find a way to profile & optimize.
+            $criteriaTranslated[] = array_merge($criterion->toArray(), $criterion->getTranslationsArray());
+        }
+        return array_merge($jobWithTranslations, ['criteria' => $criteriaTranslated]);
     }
 
     /**
-     * Display a listing of JobPosters.
+ * Display a listing of JobPosters.
      *
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */

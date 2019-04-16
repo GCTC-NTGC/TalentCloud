@@ -107,8 +107,14 @@ export interface Criteria {
   job_poster_id: number;
   skill_id: number;
   skill_level_id: number;
-  description: string;
-  skill: Skill;
+  description: string; // TODO: remove un-localized description
+  skill: Skill; // TODO: remove skill from here
+  en: {
+    description: string;
+  };
+  fr: {
+    description: string;
+  };
 }
 
 export interface Assessment {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-undef */
 import jobReducer, { initState } from "./jobReducer";
-import { Job } from "../../models/types";
+import { Job, Criteria } from "../../models/types";
 
 describe("Job Reducer tests", (): void => {
   const fakeJob: Job = {
@@ -51,6 +51,28 @@ describe("Job Reducer tests", (): void => {
     },
   };
 
+  const fakeCriteria: Criteria = {
+    id: 1,
+    criteria_type_id: 1,
+    job_poster_id: 12,
+    skill_id: 1,
+    skill_level_id: 1,
+    description: "Test criteria description",
+    // TODO: remove skill
+    skill: {
+      id: 1,
+      name: "Test Skill",
+      description: "Description of a test skill",
+      skill_type_id: 1,
+    },
+    en: {
+      description: "Test criteria description",
+    },
+    fr: {
+      description: "FR Test criteria description",
+    },
+  };
+
   it("Starts updating when FETCH_JOB_STARTED", (): void => {
     const initialState = initState();
     const expectState = {
@@ -65,7 +87,7 @@ describe("Job Reducer tests", (): void => {
     expect(newState).toEqual(expectState);
   });
 
-  it("Saves new job and sets loading to false when FETCH_JOB_SUCCEEDED", (): void => {
+  it("Saves new job and criteria and sets loading to false when FETCH_JOB_SUCCEEDED", (): void => {
     const initialState = {
       ...initState(),
       jobs: { 12: fakeJob },
@@ -75,12 +97,14 @@ describe("Job Reducer tests", (): void => {
       ...initState(),
       jobs: { 12: fakeJob2 },
       jobUpdating: { 12: false },
+      criteria: { 1: fakeCriteria },
     };
     const newState = jobReducer(initialState, {
       type: "FETCH_JOB_SUCCEEDED",
       payload: {
         id: 12,
         job: fakeJob2,
+        criteria: [fakeCriteria],
       },
     });
     expect(newState).toEqual(expectState);
