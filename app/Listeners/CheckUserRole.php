@@ -4,7 +4,6 @@ namespace App\Listeners;
 
 use App\Events\UserUpdated;
 use App\Models\Manager;
-use Illuminate\Support\Facades\Log;
 
 class CheckUserRole
 {
@@ -29,8 +28,7 @@ class CheckUserRole
         if ($event->user->hasRole('manager') ||
             $event->user->hasRole('admin')
         ) {
-            $managerProfile = $event->user->manager;
-            Log::notice("User " . $event->user->id . " manager account: " . $event->user->manager);
+            $managerProfile = Manager::where('user_id', $event->user->id)->first();
             if ($managerProfile === null) {
                 $managerProfile = new Manager();
                 $managerProfile->user_id = $event->user->id;
