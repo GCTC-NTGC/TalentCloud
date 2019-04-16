@@ -245,11 +245,11 @@ Route::group(
                     ->where('jobPoster', '[0-9]+')
                     ->middleware('can:update,jobPoster')
                     ->name('manager.jobs.review');
-            });
 
-            Route::view('jobs/{jobPoster}/assessment-plan', 'common/redux')
-                ->where('jobPoster', '[0-9]+')
-                ->name('manager.jobs.screening_plan');
+                Route::view('jobs/{jobPoster}/assessment-plan', 'common/redux')
+                    ->where('jobPoster', '[0-9]+')
+                    ->name('manager.jobs.screening_plan');
+            });
 
             Route::post('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@store')
                 ->name('manager.jobs.screening_plan.store');
