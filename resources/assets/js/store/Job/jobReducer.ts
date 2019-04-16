@@ -18,7 +18,7 @@ export interface JobState {
 
 const initialState: JobState = {};
 
-const fetchStarted = (
+export const fetchStarted = (
   state: JobState,
   action: FetchJobStartedAction,
 ): JobState => {
@@ -30,7 +30,7 @@ const fetchStarted = (
   return newState;
 };
 
-const fetchSucceeded = (
+export const fetchSucceeded = (
   state: JobState,
   action: FetchJobSucceededAction,
 ): JobState => {
@@ -41,7 +41,7 @@ const fetchSucceeded = (
   return newState;
 };
 
-const fetchFailed = (
+export const fetchFailed = (
   state: JobState,
   action: FetchJobFailedAction,
 ): JobState => {
@@ -69,3 +69,5 @@ export const jobsReducer = (
       return state;
   }
 };
+
+export default jobsReducer;

@@ -21,14 +21,14 @@ export type JobAction =
   | FetchJobSucceededAction
   | FetchJobFailedAction;
 
-const fetchJobStarted = (id: number): FetchJobStartedAction => {
+export const fetchJobStarted = (id: number): FetchJobStartedAction => {
   return {
     type: FETCH_JOB_STARTED,
     payload: id,
   };
 };
 
-const fetchJobSucceeded = (
+export const fetchJobSucceeded = (
   id: number,
   response: JobResponse,
 ): FetchJobSucceededAction => {
@@ -41,7 +41,10 @@ const fetchJobSucceeded = (
   };
 };
 
-const fetchJobFailed = (id: number, error: Error): FetchJobFailedAction => {
+export const fetchJobFailed = (
+  id: number,
+  error: Error,
+): FetchJobFailedAction => {
   return {
     type: FETCH_JOB_FAILED,
     payload: {
