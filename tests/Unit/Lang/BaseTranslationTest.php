@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Lang;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\Lang;
