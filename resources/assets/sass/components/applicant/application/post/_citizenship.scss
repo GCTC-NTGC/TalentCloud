@@ -53,115 +53,111 @@
     align-items: flex-start;
 
     label {
-        display: flex;
+      display: flex;
     }
 
-    input[type="checkbox"] {
-        position: absolute;
-        top: 25px;
-        left: 25px;
-        z-index: -1;
+    input[type='checkbox'] {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      z-index: -1;
     }
 
     p {
-        margin: 0 0 0 1rem;
+      margin: 0 0 0 1rem;
     }
 
     .error-message {
-        color: red;
-        display: inline-block;
-        font-size: 0.9rem;
-        flex: 100%;
-        margin-left: 0;
-        margin-top: 1rem;
-
-        @media #{$p-tablet} {
-            margin-top: 0;
-        }
+      color: red;
+      display: inline-block;
+      font-size: 0.9rem;
+      flex: 100%;
+      margin-left: 0;
+      margin-top: 1rem;
     }
 
     .checkbox__wrapper {
-        margin: 0;
+      margin: 0;
     }
 
     .checkbox__content {
-        display: inline-block;
-        border-radius: 5px;
-        border: 5px solid rgba(0,0,0,0.1);
-        background: white;
-        vertical-align: middle;
-        margin-right: 0.5rem;
-        height: 2em;
-        min-width: 44px;
-        min-height: 44px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: border .3s ease;
+      display: inline-block;
+      border-radius: 5px;
+      border: 5px solid rgba(0, 0, 0, 0.1);
+      background: white;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+      height: 2em;
+      min-width: 44px;
+      min-height: 44px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border 0.3s ease;
 
-            &:hover {
-            border: 5px solid rgba(0,0,0,0.2);
-        }
+      &:hover {
+        border: 5px solid rgba(0, 0, 0, 0.2);
+      }
     }
 
     input:focus + .checkbox__wrapper .checkbox__content {
-        border-color: rgba(0,0,0,0.5);
+      border-color: rgba(0, 0, 0, 0.5);
     }
 
     input:checked + .checkbox__wrapper .checkbox__content {
-        animation: check .5s cubic-bezier(0.895, 0.030, 0.685, 0.220) forwards;
+      animation: check 0.5s cubic-bezier(0.895, 0.03, 0.685, 0.22) forwards;
 
-        i {
-            opacity: 1;
-            transform: scale(0);
-            color: white;
-            -webkit-text-stroke: 0;
-            animation: icon .3s cubic-bezier(1.000, 0.008, 0.565, 1.650) .1s 1 forwards;
-        }
+      i {
+        opacity: 1;
+        transform: scale(0);
+        color: white;
+        -webkit-text-stroke: 0;
+        animation: icon 0.3s cubic-bezier(1, 0.008, 0.565, 1.65) 0.1s 1 forwards;
+      }
     }
 
     @keyframes icon {
-        from {
-            opacity: 0;
-            transform: scale(0.3);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
+      from {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     @keyframes check {
       10% {
-          width: 1.5em;
-          height: 1.5em;
-          opacity: 0.1;
-          border: 50%;
-          background: rgba(0,0,0,0.2);
-          border-width: 15px;
+        width: 1.5em;
+        height: 1.5em;
+        opacity: 0.1;
+        border: 50%;
+        background: rgba(0, 0, 0, 0.2);
+        border-width: 15px;
       }
       12% {
-          width: 1.5em;
-          height: 1.5em;
-          opacity: 0.4;
-          border: 50%;
-          background: rgba(0,0,0,0.1);
-          border-width: 0;
+        width: 1.5em;
+        height: 1.5em;
+        opacity: 0.4;
+        border: 50%;
+        background: rgba(0, 0, 0, 0.1);
+        border-width: 0;
       }
       50% {
-          width: 2em;
-          height: 2em;
-          background: $palette--blue;
-          border: 0;
-          opacity: 0.6;
+        width: 2em;
+        height: 2em;
+        background: $palette--blue;
+        border: 0;
+        opacity: 0.6;
       }
       100% {
-          width: 2em;
-          height: 2em;
-          background: $palette--blue;
-          border: 0;
-          opacity: 1;
+        width: 2em;
+        height: 2em;
+        background: $palette--blue;
+        border: 0;
+        opacity: 1;
       }
     }
   }
