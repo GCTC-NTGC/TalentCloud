@@ -13,13 +13,11 @@ import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingsGuideBuilder from "./RatingsGuideBuilder";
 
 interface AssessmentPlanProps {
-  jobId: number;
   job: Job | null;
   criteria: Criteria[];
   assessments: Assessment[];
   questions: RatingsGuideQuestion[];
   answers: RatingsGuideAnswer[];
-  fetchJob: () => void;
 }
 
 const renderAssessmentPlanSkill = (
@@ -48,18 +46,13 @@ const renderAssessmentPlanSkill = (
 const AssessmentPlan: React.FunctionComponent<
   AssessmentPlanProps & InjectedIntlProps
 > = ({
-  jobId,
   job,
   criteria,
   assessments,
   questions,
   answers,
-  fetchJob,
   intl,
 }): React.ReactElement => {
-  // Similar to componentDidMount and componentDidUpdate:
-  useEffect((): void => fetchJob(), [jobId]);
-
   const assetCriteria = criteria.filter(
     criterion => criterion.criteria_type_id === CriteriaTypeId.Asset,
   );

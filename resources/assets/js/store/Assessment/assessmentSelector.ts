@@ -13,7 +13,7 @@ const stateSlice = (state: RootState): AssessmentState => state.assessment;
 export const getAssessments = (state: RootState): Assessment[] =>
   Object.values(stateSlice(state).assessments);
 
-export const getAssessmentsForJob = (
+export const getAssessmentsByJob = (
   state: RootState,
   jobId: number,
 ): Assessment[] => {
@@ -28,7 +28,7 @@ export const getRatingsGuideQuestions = (
 ): RatingsGuideQuestion[] =>
   Object.values(stateSlice(state).ratingsGuideQuestions);
 
-export const getRatingsGuideQuestionsForJob = (
+export const getRatingsGuideQuestionsByJob = (
   state: RootState,
   jobId: number,
 ): RatingsGuideQuestion[] => {
@@ -41,11 +41,11 @@ export const getRatingsGuideAnswers = (
   state: RootState,
 ): RatingsGuideAnswer[] => Object.values(stateSlice(state).ratingsGuideAnswers);
 
-export const getRatingsGuideAnswersForJob = (
+export const getRatingsGuideAnswersByJob = (
   state: RootState,
   jobId: number,
 ): RatingsGuideAnswer[] => {
-  const questionIds = getRatingsGuideQuestionsForJob(state, jobId).map(getId);
+  const questionIds = getRatingsGuideQuestionsByJob(state, jobId).map(getId);
   return getRatingsGuideAnswers(state).filter(
     (answer): boolean => questionIds.includes(answer.rating_guide_question_id),
   );
