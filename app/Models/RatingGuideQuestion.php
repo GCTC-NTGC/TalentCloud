@@ -14,6 +14,7 @@ namespace App\Models;
  *
  * @property \App\Models\JobPoster $job_poster
  * @property \App\Models\Lookup\AssessmentType $assessment_type
+ * @property \Illuminate\Database\Eloquent\Collection $rating_guide_answers
  */
 class RatingGuideQuestion extends BaseModel
 {
@@ -29,7 +30,7 @@ class RatingGuideQuestion extends BaseModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function job_poster()
+    public function job_poster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
@@ -39,8 +40,18 @@ class RatingGuideQuestion extends BaseModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function assessment_type()
+    public function assessment_type(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\AssessmentType::class);
+    }
+
+    /**
+     * Get the RatingGuideAnswers relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rating_guide_answers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\RatingGuideAnswer::class);
     }
 }
