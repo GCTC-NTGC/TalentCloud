@@ -15,7 +15,7 @@ namespace App\Models;
  * @property \App\Models\RatingGuideQuestion $rating_guide_question
  * @property \App\Models\Skill $skill
  */
-class RatingGuideQuestion extends BaseModel
+class RatingGuideAnswer extends BaseModel
 {
     /**
      * The columns that can be filled with mass-assignment
@@ -29,7 +29,7 @@ class RatingGuideQuestion extends BaseModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function rating_guide_question()
+    public function rating_guide_question(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\RatingGuideQuestion::class);
     }
@@ -39,7 +39,7 @@ class RatingGuideQuestion extends BaseModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function skill()
+    public function skill(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\Skill::class);
     }

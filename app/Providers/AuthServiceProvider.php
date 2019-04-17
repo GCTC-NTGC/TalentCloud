@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-
+use Illuminate\Support\Facades\Gate;
 use App\Models\Applicant;
 use App\Models\Course;
 use App\Models\Degree;
@@ -46,6 +46,19 @@ class AuthServiceProvider extends ServiceProvider
         WorkSample::class => WorkSamplePolicy::class
     ];
 
+    /**
+     * Define any authorization gates
+     *
+     * @return void
+     */
+    protected function defineGates(): void
+    {
+        Gate::define('view-assessment-plan', function ($user, $jobPoster) {
+            return $user->hasRole('admin') ||
+                $user->hasRole('manager') && $jobPoster->manager->user_id === $user->id;
+        });
+    }
+
     public function register(): void
     {
     }
@@ -58,5 +71,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
+
+        $this->defineGates();
     }
 }
