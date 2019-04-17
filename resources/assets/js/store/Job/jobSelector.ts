@@ -13,10 +13,7 @@ export const getJobIsLoading = (state: RootState, id: number): boolean => {
 };
 
 export const getCriteria = (state: RootState): Criteria[] =>
-  objectMap(
-    state.jobs.criteria,
-    (key, criterion: Criteria): Criteria => criterion,
-  );
+  Object.values(state.jobs.criteria);
 
 export const getCriteriaById = (
   state: RootState,

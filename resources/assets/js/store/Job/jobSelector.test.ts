@@ -1,41 +1,86 @@
-import { getJob } from "./jobSelector";
+/* eslint-disable @typescript-eslint/camelcase */
+import { getJob, getCriteria } from "./jobSelector";
 import { RootState, initState } from "../store";
 import { JobState, initState as initJobs } from "./jobReducer";
-import { Job } from "../../models/types";
+import { Job, Criteria } from "../../models/types";
 
-it("Returns the correct job", (): void => {
-  const fakeJob = (): Job => {
-    return {
-      id: 12,
-      title: "Test Job",
-      classification: "NOC-02",
-      close_date_time: new Date(),
-      en: {
-        city: "Toronto",
+describe("getJob", (): void => {
+  it("Returns the correct job", (): void => {
+    const fakeJob = (): Job => {
+      return {
+        id: 12,
         title: "Test Job",
-        impact: "lorem ipsum",
-        branch: "Treasury Board",
-        division: "CIOB",
-        education: "blah blah",
-      },
-      fr: {
-        city: "Toronto",
-        title: "Test Job",
-        impact: "lorem ipsum",
-        branch: "Treasury Board",
-        division: "CIOB",
-        education: "blah blah",
+        classification: "NOC-02",
+        close_date_time: new Date(),
+        en: {
+          city: "Toronto",
+          title: "Test Job",
+          impact: "lorem ipsum",
+          branch: "Treasury Board",
+          division: "CIOB",
+          education: "blah blah",
+        },
+        fr: {
+          city: "Toronto",
+          title: "Test Job",
+          impact: "lorem ipsum",
+          branch: "Treasury Board",
+          division: "CIOB",
+          education: "blah blah",
+        },
+      };
+    };
+    const job = fakeJob();
+    const state: RootState = {
+      ...initState(),
+      jobs: {
+        ...initJobs(),
+        jobs: { 12: job },
+        jobUpdating: {},
       },
     };
-  };
-  const job = fakeJob();
-  const state: RootState = {
-    ...initState(),
-    jobs: {
-      ...initJobs(),
-      jobs: { 12: job },
-      jobUpdating: {},
+    expect(getJob(state, 12)).toEqual(job);
+  });
+});
+
+describe("getCriteria", (): void => {
+  const fakeCriterion = (id: number): Criteria => ({
+    id,
+    criteria_type_id: 1, // asset or essential
+    job_poster_id: 1,
+    skill_id: 1,
+    skill_level_id: 1,
+    description: `This is criteria number ${id}`, // TODO: remove un-localized description
+    skill: {
+      id,
+      name: `Skill number ${id}`,
+      description: `Description of skill number ${id}`,
+      skill_type_id: 1,
+    }, // TODO: remove skill from here
+    en: {
+      description: `This is criteria number ${id}`,
     },
-  };
-  expect(getJob(state, 12)).toEqual(job);
+    fr: {
+      description: `FR This is criteria number ${id}`,
+    },
+  });
+
+  it("returns all criteria", (): void => {
+    const crit1 = fakeCriterion(1);
+    const crit2 = fakeCriterion(2);
+    const crit3 = fakeCriterion(3);
+
+    const state: RootState = {
+      ...initState(),
+      jobs: {
+        ...initJobs(),
+        criteria: {
+          1: crit1,
+          2: crit2,
+          3: crit3,
+        },
+      },
+    };
+    expect(getCriteria(state)).toEqual([crit1, crit2, crit3]);
+  });
 });

@@ -6,10 +6,8 @@ import {
   RatingsGuideQuestion,
   RatingsGuideAnswer,
 } from "../models/types";
-import RatingsGuideQuestion from "../components/AssessmentPlan/RatingsGuideQuestion";
-import RatingsGuideAnswer from "../components/AssessmentPlan/RatingsGuideAnswer";
 
-interface AssessmentPlan {
+export interface AssessmentPlan {
   assessments: Assessment[];
   questions: RatingsGuideQuestion[];
   answers: RatingsGuideAnswer[];
