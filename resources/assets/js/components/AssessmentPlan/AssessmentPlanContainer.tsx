@@ -1,13 +1,7 @@
 import React, { Dispatch, useEffect } from "react";
-import ReactDOM from "react-dom";
-import { IntlProvider, addLocaleData } from "react-intl";
-import localeEn from "react-intl/locale-data/en";
-import localeFr from "react-intl/locale-data/fr";
 import { connect } from "react-redux";
 import { AnyAction, bindActionCreators } from "redux";
 import { ThunkDispatch, ThunkAction } from "redux-thunk";
-import messagesEn from "../../localizations/en.json";
-import messagesFr from "../../localizations/fr.json";
 import AssessmentPlan from "./AssessmentPlan";
 import {
   Job,
@@ -109,30 +103,5 @@ const AssessmentPlanContainer: React.FunctionComponent<
   mapStateToProps,
   mapDispatchToProps,
 )(AssessmentPlanFetchContainer);
-
-addLocaleData([...localeEn, ...localeFr]);
-const messages = {
-  en: messagesEn,
-  fr: messagesFr,
-};
-
-if (document.getElementById("assessment-plan-container")) {
-  const container = document.getElementById(
-    "assessment-plan-container",
-  ) as HTMLElement;
-  if (
-    container.hasAttribute("data-job") &&
-    container.hasAttribute("data-locale")
-  ) {
-    const job = JSON.parse(container.getAttribute("data-job") as string);
-    const language = container.getAttribute("data-locale") as string;
-    ReactDOM.render(
-      <IntlProvider locale={language} messages={messages[language]}>
-        <AssessmentPlanContainer jobId={job.id} />
-      </IntlProvider>,
-      container,
-    );
-  }
-}
 
 export default AssessmentPlanContainer;

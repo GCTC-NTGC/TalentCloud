@@ -1,7 +1,4 @@
 <?php
-
-use App\Http\Controllers\ScreeningPlanController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -251,9 +248,6 @@ Route::group(
                     ->name('manager.jobs.screening_plan');
             });
 
-            Route::post('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@store')
-                ->name('manager.jobs.screening_plan.store');
-
             //Laravel default login, logout, register, and reset routes
             Route::get('login', 'Auth\LoginController@showLoginForm')->name('manager.login');
             Route::post('login', 'Auth\LoginController@login')->name('manager.login.post');
@@ -330,12 +324,6 @@ Route::group(
             Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
                 ->middleware('can:review,application')
                 ->name('application_reviews.update');
-
-            Route::delete('screening-plans/{screeningPlan}', 'ScreeningPlanController@destroy')
-                ->middleware('role:manager')
-                ->middleware('can:delete,screeningPlan')
-                //TODO: add can:delete middleware for screening plan
-                ->name('screening_plans.destroy');
         });
 
         /* Language ============================================================= */
