@@ -25,7 +25,10 @@ class Assessment extends BaseModel
      *
      * @var string[]
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'criterion_id',
+        'assessment_type_id'
+    ];
 
     /**
      * Get the single Criteria object this assessment applies to.
