@@ -22,7 +22,7 @@ class AssessmentController extends Controller
         try {
             $criterion_id = (int)$request->json('criterion_id');
             $assessment_type_id = (int)$request->json('assessment_type_id');
-            Criteria::findOrFail($criterion_id);
+            $criteria = Criteria::findOrFail($criterion_id);
             AssessmentType::findOrFail($assessment_type_id);
 
             $assessment = new Assessment([
@@ -31,6 +31,7 @@ class AssessmentController extends Controller
             ]);
             $assessment->save();
             $assessment->refresh();
+            $assessment['criteria'] = $criteria->toArray();
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage()
@@ -39,7 +40,7 @@ class AssessmentController extends Controller
 
         return [
             'success' => "Successfully created assessment $assessment->id",
-            'assessment' => $assessment->toArray(),
+            'assessment' => $assessment->toArray()
         ];
     }
 
@@ -51,6 +52,8 @@ class AssessmentController extends Controller
      */
     public function show(Assessment $assessment)
     {
+        $criteria = Criteria::find($assessment->id);
+        $assessment['criteria'] = $criteria->toArray();
         return $assessment->toArray();
     }
 
@@ -66,12 +69,13 @@ class AssessmentController extends Controller
         try {
             $criterion_id = (int)$request->json('criterion_id');
             $assessment_type_id = (int)$request->json('assessment_type_id');
-            Criteria::findOrFail($criterion_id);
+            $criteria = Criteria::findOrFail($criterion_id);
             AssessmentType::findOrFail($assessment_type_id);
 
             $assessment->criterion_id = $criterion_id;
             $assessment->assessment_type_id = $assessment_type_id;
             $assessment->save();
+            $assessment['criteria'] = $criteria->toArray();
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage()
