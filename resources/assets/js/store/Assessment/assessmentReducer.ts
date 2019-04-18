@@ -1,4 +1,5 @@
 import isEqual from "lodash/isEqual";
+import { statement } from "@babel/template";
 import {
   Assessment,
   RatingsGuideQuestion,
@@ -20,6 +21,12 @@ import {
   UPDATE_ASSESSMENT_SUCCEEDED,
   UPDATE_ASSESSMENT_FAILED,
   EDIT_ASSESSMENT,
+  STORE_NEW_ASSESSMENT_FAILED,
+  STORE_NEW_ASSESSMENT_STARTED,
+  STORE_NEW_ASSESSMENT_SUCCEEDED,
+  CREATE_TEMP_ASSESSMENT,
+  EDIT_TEMP_ASSESSMENT,
+  DELETE_TEMP_ASSESSMENT,
 } from "./assessmentActions";
 
 export interface AssessmentState {
@@ -34,6 +41,10 @@ export interface AssessmentState {
   tempAssessments: {
     // For storing local assessments that have never been saved to server
     [id: number]: TempAssessment;
+  };
+  tempAssessmentSaving: {
+    // Tracks whether a tempAssessment is currently being saved to server
+    [id: number]: boolean;
   };
   assessmentUpdates: {
     [id: number]: number; // Tracks the number of pending updates
@@ -53,6 +64,7 @@ export const initState = (): AssessmentState => ({
   assessments: {},
   editedAssessments: {},
   tempAssessments: {},
+  tempAssessmentSaving: {},
   assessmentUpdates: {},
   ratingsGuideQuestions: {},
   ratingsGuideAnswers: {},
@@ -98,6 +110,33 @@ const decrementUpdates = (
   return {
     ...updates,
     [id]: newVal,
+  };
+};
+
+function hasIdenticalItem<T extends { id: number }>(
+  items: { [id: number]: T },
+  item: T,
+): boolean {
+  return hasKey(items, item.id) && isEqual(items[item.id]);
+}
+
+const addTempAssessment = (
+  state: AssessmentState,
+  criterionId: number,
+  assessmentTypeId: number | null,
+): AssessmentState => {
+  const currentIds = Object.values(state.tempAssessments).map(getId);
+  const newId = Math.max(...currentIds, 0) + 1;
+  return {
+    ...state,
+    tempAssessments: {
+      ...state.tempAssessments,
+      [newId]: {
+        id: newId,
+        criterion_id: criterionId,
+        assessment_type_id: assessmentTypeId,
+      },
+    },
   };
 };
 
@@ -187,6 +226,74 @@ export const assessmentReducer = (
           state.assessmentUpdates,
           action.payload.assessment.id,
         ),
+      };
+    case CREATE_TEMP_ASSESSMENT:
+      return addTempAssessment(
+        state,
+        action.payload.criterionId,
+        action.payload.assessmentTypeId,
+      );
+    case EDIT_TEMP_ASSESSMENT:
+      return {
+        ...state,
+        tempAssessments: {
+          ...state.tempAssessments,
+          [action.payload.assessment.id]: action.payload.assessment,
+        },
+      };
+    case DELETE_TEMP_ASSESSMENT:
+      return {
+        ...state,
+        tempAssessments: deleteProperty<TempAssessment>(
+          state.tempAssessments,
+          action.payload.id,
+        ),
+      };
+    case STORE_NEW_ASSESSMENT_STARTED:
+      return {
+        ...state,
+        tempAssessmentSaving: {
+          ...state.tempAssessmentSaving,
+          [action.payload.assessment.id]: true,
+        },
+      };
+    case STORE_NEW_ASSESSMENT_SUCCEEDED:
+      return {
+        ...state,
+        assessments: {
+          ...state.assessments,
+          [action.payload.assessment.id]: action.payload.assessment,
+        },
+        tempAssessmentSaving: deleteProperty<boolean>(
+          state.tempAssessmentSaving,
+          action.payload.assessment.id,
+        ),
+        // If temp assessment differs from saved, move it to edited (with updated id)
+        // If temp assessment is equal to new saved, simply remove it from temp.
+        editedAssessments: hasIdenticalItem(
+          state.tempAssessments,
+          action.payload.oldAssessment,
+        )
+          ? state.editedAssessments
+          : {
+              ...state.editedAssessments,
+              [action.payload.assessment.id]: {
+                ...action.payload.oldAssessment,
+                id: action.payload.assessment.id,
+              },
+            },
+        tempAssessments: deleteProperty<TempAssessment>(
+          state.tempAssessments,
+          action.payload.oldAssessment.id,
+        ),
+      };
+    case STORE_NEW_ASSESSMENT_FAILED:
+      return {
+        ...state,
+        tempAssessmentSaving: {
+          ...state.tempAssessmentSaving,
+          [action.payload.oldAssessment.id]: false,
+        },
       };
     default:
       return state;

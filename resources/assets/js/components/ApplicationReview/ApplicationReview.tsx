@@ -7,6 +7,7 @@ import {
 } from "react-intl";
 import className from "classnames";
 import Swal from "sweetalert2";
+import { min } from "moment";
 import * as routes from "../../helpers/routes";
 import Select, { SelectOption } from "../Select";
 import { Application } from "../../models/types";
@@ -357,7 +358,7 @@ class ApplicationReview extends React.Component<
               htmlId={`review_status_${application.id}`}
               label={intl.formatMessage(messages.decision)}
               required={false}
-              selected={selectedStatusId}
+              selected={selectedStatusId || null}
               nullSelection={intl.formatMessage(messages.notReviewed)}
               options={l10nReviewStatusOptions}
               onChange={this.handleStatusChange}

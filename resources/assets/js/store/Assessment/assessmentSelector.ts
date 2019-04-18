@@ -4,6 +4,7 @@ import {
   Assessment,
   RatingsGuideQuestion,
   RatingsGuideAnswer,
+  TempAssessment,
 } from "../../models/types";
 import { getCriteriaByJob } from "../Job/jobSelector";
 import { getId, hasKey, mapToObjectTrans } from "../../helpers/queries";
@@ -18,6 +19,10 @@ export const getAssessments = (state: RootState): Assessment[] => {
     ...stateSlice(state).editedAssessments,
   };
   return Object.values(currentAssessments);
+};
+
+export const getTempAssessments = (state: RootState): TempAssessment[] => {
+  return Object.values(stateSlice(state).tempAssessments);
 };
 
 /** Returns current (ie edited, if possible) verisons of all assessments */
@@ -39,6 +44,31 @@ export const getAssessmentsByCriterion = (
   getAssessments(state).filter(
     (assessment): boolean => assessment.criterion_id === criterionId,
   );
+
+export const getTempAssessmentsByCriterion = (
+  state: RootState,
+  criterionId: number,
+): TempAssessment[] =>
+  getTempAssessments(state).filter(
+    (assessment): boolean => assessment.criterion_id === criterionId,
+  );
+
+export const tempAssessmentIsSaving = (state: RootState, id: number): boolean =>
+  hasKey(stateSlice(state).tempAssessmentSaving, id)
+    ? stateSlice(state).tempAssessmentSaving[id]
+    : false;
+
+export const tempAssessmentsAreSavingByCriterion = (
+  state: RootState,
+  criteriaId: number,
+): { [id: number]: boolean } => {
+  const assessments = getTempAssessmentsByCriterion(state, criteriaId);
+  return mapToObjectTrans(
+    assessments,
+    getId,
+    (assessment): boolean => tempAssessmentIsSaving(state, assessment.id),
+  );
+};
 
 /** Returns current (ie edited, if possible) verisons of assessment */
 export const getAssessmentById = (

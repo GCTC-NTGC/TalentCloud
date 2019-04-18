@@ -10,14 +10,14 @@ export interface SelectProps<T extends string | number> {
   formName: string;
   label: string;
   required: boolean;
-  selected: T | undefined;
+  selected: T | null;
   nullSelection: string | undefined;
   options: SelectOption<T>[];
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export default function Select<T extends string | number>(
-  props: SelectProps<T>
+  props: SelectProps<T>,
 ): React.ReactElement<SelectProps<T>> {
   const {
     htmlId,
@@ -27,7 +27,7 @@ export default function Select<T extends string | number>(
     selected,
     nullSelection,
     options,
-    onChange
+    onChange,
   } = props;
 
   return (

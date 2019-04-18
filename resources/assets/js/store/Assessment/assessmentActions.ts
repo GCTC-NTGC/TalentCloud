@@ -68,35 +68,23 @@ export type EditAssessmentAction = Action<
 
 /** Actions for manipulating Temp Assessments */
 export const CREATE_TEMP_ASSESSMENT = "CREATE_TEMP_ASSESSMENT";
-export const UPDATE_TEMP_ASSESSMENT = "UPDATE_TEMP_ASSESSMENT";
+export const EDIT_TEMP_ASSESSMENT = "EDIT_TEMP_ASSESSMENT";
 export const DELETE_TEMP_ASSESSMENT = "DELETE_TEMP_ASSESSMENT";
 
 export type CreateTempAssessmentAction = Action<
   typeof CREATE_TEMP_ASSESSMENT,
-  { assessment: TempAssessment }
+  { criterionId: number; assessmentTypeId: number | null }
 >;
 
-export type UpdateTempAssessmentAction = Action<
-  typeof UPDATE_TEMP_ASSESSMENT,
+export type EditTempAssessmentAction = Action<
+  typeof EDIT_TEMP_ASSESSMENT,
   { assessment: TempAssessment }
 >;
 
 export type DeleteTempAssessmentAction = Action<
   typeof DELETE_TEMP_ASSESSMENT,
-  { assessment: TempAssessment }
+  { id: number }
 >;
-
-export type AssessmentPlanAction =
-  | FetchAssessmentPlanStartedAction
-  | FetchAssessmentPlanSucceededAction
-  | FetchAssessmentPlanFailedAction
-  | EditAssessmentAction
-  | UpdateAssessmentStartedAction
-  | UpdateAssessmentSucceededAction
-  | UpdateAssessmentFailedAction
-  | CreateTempAssessmentAction
-  | UpdateTempAssessmentAction
-  | DeleteTempAssessmentAction;
 
 /** Fetching all Assessment Plan Items at once */
 
@@ -176,24 +164,25 @@ export const editAssessment = (
 /** Manipulating Temp Assessment */
 
 export const createTempAssessment = (
-  assessment: TempAssessment,
+  criterionId: number,
+  assessmentTypeId: number | null,
 ): CreateTempAssessmentAction => ({
   type: CREATE_TEMP_ASSESSMENT,
-  payload: { assessment },
+  payload: { criterionId, assessmentTypeId },
 });
 
-export const updateTempAssessment = (
+export const editTempAssessment = (
   assessment: TempAssessment,
-): UpdateTempAssessmentAction => ({
-  type: UPDATE_TEMP_ASSESSMENT,
+): EditTempAssessmentAction => ({
+  type: EDIT_TEMP_ASSESSMENT,
   payload: { assessment },
 });
 
 export const deleteTempAssessment = (
-  assessment: TempAssessment,
+  id: number,
 ): DeleteTempAssessmentAction => ({
   type: DELETE_TEMP_ASSESSMENT,
-  payload: { assessment },
+  payload: { id },
 });
 
 /** Updating Assessment */
@@ -251,3 +240,73 @@ export const updateAssessment = (
       );
   };
 };
+
+/** Actions for saving a new assessment to server */
+export const STORE_NEW_ASSESSMENT_STARTED = "STORE_ASSESSMENT_STARTED";
+export const STORE_NEW_ASSESSMENT_SUCCEEDED = "STORE_ASSESSMENT_SUCCEEDED";
+export const STORE_NEW_ASSESSMENT_FAILED = "STORE_ASSESSMENT_FAILED";
+
+export type StoreNewAssessmentStartedAction = Action<
+  typeof STORE_NEW_ASSESSMENT_STARTED,
+  { assessment: Assessment }
+>;
+
+export type StoreNewAssessmentSucceededAction = Action<
+  typeof STORE_NEW_ASSESSMENT_SUCCEEDED,
+  { assessment: Assessment; oldAssessment: Assessment }
+>;
+
+export type StoreNewAssessmentFailedAction = Action<
+  typeof STORE_NEW_ASSESSMENT_FAILED,
+  { oldAssessment: Assessment; error: Error }
+>;
+
+export const storeNewAssessmentStarted = (
+  assessment: Assessment,
+): StoreNewAssessmentStartedAction => {
+  return {
+    type: STORE_NEW_ASSESSMENT_STARTED,
+    payload: {
+      assessment,
+    },
+  };
+};
+
+export const storeNewAssessmentSucceeded = (
+  assessment: Assessment,
+  oldAssessment: Assessment,
+): StoreNewAssessmentSucceededAction => {
+  return {
+    type: STORE_NEW_ASSESSMENT_SUCCEEDED,
+    payload: {
+      assessment,
+      oldAssessment,
+    },
+  };
+};
+
+export const storeNewAssessmentFailed = (
+  oldAssessment: Assessment,
+  error: Error,
+): StoreNewAssessmentFailedAction => ({
+  type: STORE_NEW_ASSESSMENT_FAILED,
+  payload: {
+    oldAssessment,
+    error,
+  },
+});
+
+export type AssessmentPlanAction =
+  | FetchAssessmentPlanStartedAction
+  | FetchAssessmentPlanSucceededAction
+  | FetchAssessmentPlanFailedAction
+  | EditAssessmentAction
+  | UpdateAssessmentStartedAction
+  | UpdateAssessmentSucceededAction
+  | UpdateAssessmentFailedAction
+  | CreateTempAssessmentAction
+  | EditTempAssessmentAction
+  | DeleteTempAssessmentAction
+  | StoreNewAssessmentStartedAction
+  | StoreNewAssessmentSucceededAction
+  | StoreNewAssessmentFailedAction;

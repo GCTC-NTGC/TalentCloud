@@ -421,7 +421,7 @@ class ApplicationReviewWithNav extends React.Component<
                 htmlId={`review_status_${application.id}`}
                 label={intl.formatMessage(messages.decision)}
                 required={false}
-                selected={selectedStatusId}
+                selected={selectedStatusId || null}
                 nullSelection={intl.formatMessage(messages.notReviewed)}
                 options={l10nReviewStatusOptions}
                 onChange={this.handleStatusChange}
