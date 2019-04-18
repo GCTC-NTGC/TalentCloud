@@ -164,15 +164,79 @@ const assessmentTypes = defineMessages({
     defaultMessage: "Application Screening Question",
     description: "Title of an assessment type.",
   },
+  groupTest: {
+    id: "assessmentType.groupTest",
+    defaultMessage: "Group Test",
+    description: "Title of an assessment type.",
+  },
+  informalPhoneConversation: {
+    id: "assessmentType.informalPhoneConversation",
+    defaultMessage: "Informal Phone Conversation",
+    description: "Title of an assessment type.",
+  },
+  interview: {
+    id: "assessmentType.interview",
+    defaultMessage: "Intervew",
+    description: "Title of an assessment type.",
+  },
+  onlineExam: {
+    id: "assessmentType.onlineExam",
+    defaultMessage: "Online Exam",
+    description: "Title of an assessment type.",
+  },
+  onSiteExam: {
+    id: "assessmentType.onSiteExam",
+    defaultMessage: "On-Site Exam",
+    description: "Title of an assessment type.",
+  },
+  takeHomeExam: {
+    id: "assessmentType.takeHomeExam",
+    defaultMessage: "Take Home Exam",
+    description: "Title of an assessment type.",
+  },
+  portfolioReview: {
+    id: "assessmentType.portfolioReview",
+    defaultMessage: "Portfolio Review",
+    description: "Title of an assessment type.",
+  },
+  referenceCheck: {
+    id: "assessmentType.referenceCheck",
+    defaultMessage: "Reference Check",
+    description: "Title of an assessment type.",
+  },
+  seriousGames: {
+    id: "assessmentType.seriousGames",
+    defaultMessage: "Serious Games",
+    description: "Title of an assessment type.",
+  },
 });
 
 export const assessmentType = (
   assessmentTypeId: number,
 ): FormattedMessage.MessageDescriptor => {
   switch (assessmentTypeId) {
+    case AssessmentTypeId.NarrativeAssessment:
+      return assessmentTypes.narrativeAssessment;
     case AssessmentTypeId.ApplicationScreeningQuestion:
       return assessmentTypes.applicationScreeningQuestion;
-    case AssessmentTypeId.NarrativeAssessment:
+    case AssessmentTypeId.GroupTest:
+      return assessmentTypes.groupTest;
+    case AssessmentTypeId.InformalPhoneConversation:
+      return assessmentTypes.informalPhoneConversation;
+    case AssessmentTypeId.Interview:
+      return assessmentTypes.interview;
+    case AssessmentTypeId.OnlineExam:
+      return assessmentTypes.onlineExam;
+    case AssessmentTypeId.OnSiteExam:
+      return assessmentTypes.onSiteExam;
+    case AssessmentTypeId.TakeHomeExam:
+      return assessmentTypes.takeHomeExam;
+    case AssessmentTypeId.PortfolioReview:
+      return assessmentTypes.portfolioReview;
+    case AssessmentTypeId.ReferenceCheck:
+      return assessmentTypes.referenceCheck;
+    case AssessmentTypeId.SeriousGames:
+      return assessmentTypes.seriousGames;
     default:
       return assessmentTypes.narrativeAssessment;
   }
