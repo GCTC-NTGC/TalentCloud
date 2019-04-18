@@ -15,6 +15,7 @@ import {
   assessmentsAreUpdatingByCriteria,
   assessmentsAreEditedByCriteria,
   getTempAssessmentsByCriterion,
+  tempAssessmentsAreSavingByCriterion,
 } from "../../store/Assessment/assessmentSelector";
 import { DispatchType } from "../../configureStore";
 import {
@@ -23,6 +24,7 @@ import {
   editTempAssessment as editTempAssessmentAction,
   deleteTempAssessment as deleteTempAssessmentAction,
   createTempAssessment,
+  storeNewAssessment,
 } from "../../store/Assessment/assessmentActions";
 
 interface AssessmentPlanSkillProps {
@@ -31,11 +33,13 @@ interface AssessmentPlanSkillProps {
   assessmentsEdited: { [id: number]: boolean };
   assessmentsUpdating: { [id: number]: boolean };
   tempAssessments: TempAssessment[];
+  tempAssessmentsSaving: { [id: number]: boolean };
   createAssessment: () => void;
   editAssessment: (newAssessment: Assessment) => void;
   updateAssessment: (newAssessment: Assessment) => void;
   removeAssessment: (assessmentId: number) => void;
   editTempAssessment: (newAssessment: TempAssessment) => void;
+  saveTempAssessment: (assessment: Assessment) => void;
   removeTempAssessment: (id: number) => void;
 }
 
@@ -56,28 +60,45 @@ export const AssessmentPlanSkill: React.FunctionComponent<
   assessmentsEdited,
   assessmentsUpdating,
   tempAssessments,
+  tempAssessmentsSaving,
   createAssessment,
   editAssessment,
   updateAssessment,
   removeAssessment,
   editTempAssessment,
+  saveTempAssessment,
   removeTempAssessment,
   intl,
 }: AssessmentPlanSkillProps & InjectedIntlProps): React.ReactElement => {
-  useEffect(() => {
-    assessments.forEach(
-      assessment => {
-        if (
-          assessmentsEdited[assessment.id] &&
-          !assessmentsUpdating[assessment.id]
-        ) {
+  useEffect(
+    (): void => {
+      assessments.forEach(
+        (assessment): void => {
           // If assessment has been edited, and is not currently being updated, start an update.
-          updateAssessment(assessment);
+          if (
+            assessmentsEdited[assessment.id] &&
+            !assessmentsUpdating[assessment.id]
+          ) {
+            updateAssessment(assessment);
+          }
+        },
+        [assessments, assessmentsEdited, assessmentsUpdating],
+      );
+    },
+  );
+  useEffect((): void => {
+    tempAssessments.forEach(
+      (temp): void => {
+        // If any temp assessments exist, we want to save them as soon as they're valid
+        if (
+          !tempAssessmentsSaving[temp.id] &&
+          temp.assessment_type_id !== null
+        ) {
+          saveTempAssessment(temp as Assessment);
         }
       },
-      [assessments, assessmentsEdited, assessmentsUpdating],
     );
-  });
+  }, [tempAssessments, tempAssessmentsSaving]);
 
   const skillLevel = intl.formatMessage(
     skillLevelName(criterion.skill_level_id, criterion.skill.skill_type_id),
@@ -220,13 +241,13 @@ export const AssessmentPlanSkill: React.FunctionComponent<
             ),
           )}
           {tempAssessments.map(
-            (assessment): React.ReactElement => (
+            (tempAssessment): React.ReactElement => (
               <SelectBlock
                 key={`assessmentPlanSkillSelectorTempAssessment${
-                  assessment.id
+                  tempAssessment.id
                 }`}
-                assessment={assessment}
-                isUpdating={assessmentsUpdating[assessment.id]}
+                assessment={tempAssessment}
+                isUpdating={tempAssessmentsSaving[tempAssessment.id]}
                 onChange={editTempAssessment}
                 onDelete={removeTempAssessment}
               />
@@ -250,6 +271,7 @@ const mapStateToProps = (
   assessmentsEdited: { [id: number]: boolean };
   assessmentsUpdating: { [id: number]: boolean };
   tempAssessments: TempAssessment[];
+  tempAssessmentsSaving: { [id: number]: boolean };
 } => ({
   assessments: getAssessmentsByCriterion(state, ownProps.criterion.id),
   assessmentsEdited: assessmentsAreEditedByCriteria(
@@ -261,6 +283,10 @@ const mapStateToProps = (
     ownProps.criterion.id,
   ),
   tempAssessments: getTempAssessmentsByCriterion(state, ownProps.criterion.id),
+  tempAssessmentsSaving: tempAssessmentsAreSavingByCriterion(
+    state,
+    ownProps.criterion.id,
+  ),
 });
 
 const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
@@ -278,6 +304,9 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
   },
   removeTempAssessment: (id: number): void => {
     dispatch(deleteTempAssessmentAction(id));
+  },
+  saveTempAssessment: (assessment: Assessment): void => {
+    dispatch(storeNewAssessment(assessment));
   },
 });
 

@@ -1,9 +1,11 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { AnyAction } from "redux";
 import { Action } from "../createAction";
+import { getAssessmentPlan } from "../../api/assessmentPlan";
 import {
-  getAssessmentPlan,
   updateAssessment as updateAssessmentApi,
-} from "../../api/assessmentPlan";
+  createAssessment as createAssessmentApi,
+} from "../../api/assessment";
 import {
   RatingsGuideAnswer,
   RatingsGuideQuestion,
@@ -295,6 +297,25 @@ export const storeNewAssessmentFailed = (
     error,
   },
 });
+
+export const storeNewAssessment = (
+  assessment: Assessment,
+): ThunkAction<void, {}, {}, AnyAction> => {
+  return (dispatch: ThunkDispatch<{}, {}, AnyAction>): void => {
+    dispatch(storeNewAssessmentStarted(assessment));
+    createAssessmentApi(assessment)
+      .then(
+        (updatedAssessment): void => {
+          dispatch(storeNewAssessmentSucceeded(updatedAssessment, assessment));
+        },
+      )
+      .catch(
+        (error: Error): void => {
+          dispatch(storeNewAssessmentFailed(assessment, error));
+        },
+      );
+  };
+};
 
 export type AssessmentPlanAction =
   | FetchAssessmentPlanStartedAction

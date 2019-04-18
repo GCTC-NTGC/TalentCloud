@@ -266,7 +266,7 @@ export const assessmentReducer = (
         },
         tempAssessmentSaving: deleteProperty<boolean>(
           state.tempAssessmentSaving,
-          action.payload.assessment.id,
+          action.payload.oldAssessment.id,
         ),
         // If temp assessment differs from saved, move it to edited (with updated id)
         // If temp assessment is equal to new saved, simply remove it from temp.

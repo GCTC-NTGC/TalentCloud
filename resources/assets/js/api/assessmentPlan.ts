@@ -6,6 +6,7 @@ import {
   RatingsGuideQuestion,
   RatingsGuideAnswer,
 } from "../models/types";
+import { parseAssessment } from "./assessment";
 
 export interface AssessmentPlan {
   assessments: Assessment[];
@@ -29,12 +30,6 @@ const parseRatingGuideQuestion = (
   question: data.question,
 });
 
-const parseAssessment = (data: ResponseData): Assessment => ({
-  id: Number(data.id),
-  criterion_id: Number(data.criterion_id),
-  assessment_type_id: Number(data.assessment_type_id),
-});
-
 const parseAssessmentPlan = (data: ResponseData): AssessmentPlan => ({
   assessments: data.assessments.map(
     (assessmentData): Assessment => parseAssessment(assessmentData),
@@ -54,17 +49,6 @@ export const getAssessmentPlan = (jobId: number): Promise<AssessmentPlan> => {
     .then(
       (response: ApiResponse): AssessmentPlan =>
         parseAssessmentPlan(response.data),
-    );
-};
-
-export const updateAssessment = (
-  assessment: Assessment,
-): Promise<Assessment> => {
-  return axios
-    .put(`${baseUrl()}/assessments/${assessment.id}`, assessment)
-    .then(
-      (response: ApiResponse): Assessment =>
-        parseAssessment(response.data.assessment),
     );
 };
 
