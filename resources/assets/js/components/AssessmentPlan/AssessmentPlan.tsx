@@ -176,7 +176,8 @@ const AssessmentPlan: React.FunctionComponent<
           )}
         </div>
         {/* Generated Assessment Plan ==================================== */}
-        <AssessmentPlanTable criteria={criteria} assessments={assessments} />
+        {job !== null && <AssessmentPlanTable jobId={job.id} />}
+
         {/* Ratings Guide Builder ======================================== */}
         <RatingsGuideBuilder
           criteria={criteria}
