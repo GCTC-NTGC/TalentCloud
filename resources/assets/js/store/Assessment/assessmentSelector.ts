@@ -138,31 +138,3 @@ export const assessmentsAreUpdatingByCriteria = (
     {},
   );
 };
-
-export const getRatingsGuideQuestions = (
-  state: RootState,
-): RatingsGuideQuestion[] =>
-  Object.values(stateSlice(state).ratingsGuideQuestions);
-
-export const getRatingsGuideQuestionsByJob = (
-  state: RootState,
-  jobId: number,
-): RatingsGuideQuestion[] => {
-  return getRatingsGuideQuestions(state).filter(
-    (question): boolean => question.job_poster_id === jobId,
-  );
-};
-
-export const getRatingsGuideAnswers = (
-  state: RootState,
-): RatingsGuideAnswer[] => Object.values(stateSlice(state).ratingsGuideAnswers);
-
-export const getRatingsGuideAnswersByJob = (
-  state: RootState,
-  jobId: number,
-): RatingsGuideAnswer[] => {
-  const questionIds = getRatingsGuideQuestionsByJob(state, jobId).map(getId);
-  return getRatingsGuideAnswers(state).filter(
-    (answer): boolean => questionIds.includes(answer.rating_guide_question_id),
-  );
-};

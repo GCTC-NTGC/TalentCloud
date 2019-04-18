@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import isEqual from "lodash/isEqual";
-import { statement } from "@babel/template";
-import {
-  Assessment,
-  RatingsGuideQuestion,
-  RatingsGuideAnswer,
-  TempAssessment,
-} from "../../models/types";
+import { Assessment, TempAssessment } from "../../models/types";
 import {
   getId,
   mapToObject,
@@ -14,10 +8,6 @@ import {
   hasKey,
 } from "../../helpers/queries";
 import {
-  AssessmentPlanAction,
-  FETCH_ASSESSMENT_PLAN_STARTED,
-  FETCH_ASSESSMENT_PLAN_SUCCEEEDED,
-  FETCH_ASSESSMENT_PLAN_FAILED,
   UPDATE_ASSESSMENT_STARTED,
   UPDATE_ASSESSMENT_SUCCEEDED,
   UPDATE_ASSESSMENT_FAILED,
@@ -28,7 +18,9 @@ import {
   CREATE_TEMP_ASSESSMENT,
   EDIT_TEMP_ASSESSMENT,
   DELETE_TEMP_ASSESSMENT,
+  AssessmentAction,
 } from "./assessmentActions";
+import { AssessmentPlanAction, FETCH_ASSESSMENT_PLAN_STARTED, FETCH_ASSESSMENT_PLAN_SUCCEEEDED, FETCH_ASSESSMENT_PLAN_FAILED } from "../AssessmentPlan/assessmentPlanActions";
 
 export interface AssessmentState {
   assessments: {
@@ -50,15 +42,6 @@ export interface AssessmentState {
   assessmentUpdates: {
     [id: number]: number; // Tracks the number of pending updates
   };
-  ratingsGuideQuestions: {
-    [id: number]: RatingsGuideQuestion;
-  };
-  ratingsGuideAnswers: {
-    [id: number]: RatingsGuideAnswer;
-  };
-  updatingForJob: {
-    [jobId: number]: boolean;
-  };
 }
 
 export const initState = (): AssessmentState => ({
@@ -67,9 +50,6 @@ export const initState = (): AssessmentState => ({
   tempAssessments: {},
   tempAssessmentSaving: {},
   assessmentUpdates: {},
-  ratingsGuideQuestions: {},
-  ratingsGuideAnswers: {},
-  updatingForJob: {},
 });
 
 /**
@@ -143,17 +123,11 @@ const addTempAssessment = (
 
 export const assessmentReducer = (
   state = initState(),
-  action: AssessmentPlanAction,
+  action: AssessmentAction | AssessmentPlanAction,
 ): AssessmentState => {
   switch (action.type) {
     case FETCH_ASSESSMENT_PLAN_STARTED:
-      return {
-        ...state,
-        updatingForJob: {
-          ...state.updatingForJob,
-          [action.payload.jobId]: true,
-        },
-      };
+      return state;
     case FETCH_ASSESSMENT_PLAN_SUCCEEEDED:
       return {
         ...state,
@@ -161,27 +135,9 @@ export const assessmentReducer = (
           ...state.assessments,
           ...mapToObject(action.payload.assessments, getId),
         },
-        ratingsGuideQuestions: {
-          ...state.ratingsGuideQuestions,
-          ...mapToObject(action.payload.ratingsGuideQuestions, getId),
-        },
-        ratingsGuideAnswers: {
-          ...state.ratingsGuideAnswers,
-          ...mapToObject(action.payload.ratingsGuideAnswers, getId),
-        },
-        updatingForJob: {
-          ...state.updatingForJob,
-          [action.payload.jobId]: false,
-        },
       };
     case FETCH_ASSESSMENT_PLAN_FAILED:
-      return {
-        ...state,
-        updatingForJob: {
-          ...state.updatingForJob,
-          [action.payload.jobId]: false,
-        },
-      };
+      return state;
     case EDIT_ASSESSMENT:
       return {
         ...state,
