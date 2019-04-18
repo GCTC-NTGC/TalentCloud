@@ -22,7 +22,12 @@ class RatingGuideAnswer extends BaseModel
      *
      * @var string[]
      */
-    protected $fillable = ['question'];
+    protected $fillable = [
+        'rating_guide_question_id',
+        'skill_id',
+        'expected_answer',
+        'question'
+    ];
 
     /**
      * Get the RatingGuideQuestion relation.
