@@ -45,7 +45,8 @@ class RatingGuideQuestionController extends Controller
         }
 
         return [
-            'success' => "Successfully created rating guide question $ratingGuideQuestion->id"
+            'success' => "Successfully created rating guide question $ratingGuideQuestion->id",
+            'rating_guide_question' => $ratingGuideQuestion->toArray(),
         ];
     }
 
@@ -97,7 +98,8 @@ class RatingGuideQuestionController extends Controller
         }
 
         return [
-            'success' => "Successfully updated rating guide question $ratingGuideQuestion->id"
+            'success' => "Successfully updated rating guide question $ratingGuideQuestion->id",
+            'rating_guide_question' => $ratingGuideQuestion->toArray(),
         ];
     }
 
