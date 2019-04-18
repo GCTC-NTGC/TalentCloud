@@ -94,3 +94,12 @@ export function hasKey<T>(
 ): boolean {
   return Object.prototype.hasOwnProperty.call(object, key);
 }
+
+/** Return a copy of the object with specific property removed */
+export function deleteProperty<T>(
+  obj: IndexedObject<T>,
+  key: string | number,
+): IndexedObject<T> {
+  const { [key]: _, ...newObj } = obj;
+  return newObj;
+}

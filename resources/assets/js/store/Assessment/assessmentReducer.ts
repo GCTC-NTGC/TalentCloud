@@ -3,7 +3,12 @@ import {
   RatingsGuideQuestion,
   RatingsGuideAnswer,
 } from "../../models/types";
-import { getId, mapToObject } from "../../helpers/queries";
+import {
+  getId,
+  mapToObject,
+  deleteProperty,
+  hasKey,
+} from "../../helpers/queries";
 import {
   AssessmentPlanAction,
   FETCH_ASSESSMENT_PLAN_STARTED,
@@ -18,8 +23,11 @@ export interface AssessmentState {
   assessments: {
     [id: number]: Assessment;
   };
-  assessmentUpdating: {
-    [id: number]: boolean;
+  tempAssessments: {
+    [id: number]: Assessment; // For storing edited assessments that haven't ben saved to server
+  };
+  assessmentUpdates: {
+    [id: number]: number; // Tracks the number of pending updates
   };
   ratingsGuideQuestions: {
     [id: number]: RatingsGuideQuestion;
@@ -34,11 +42,28 @@ export interface AssessmentState {
 
 export const initState = (): AssessmentState => ({
   assessments: {},
-  assessmentUpdating: {},
+  tempAssessments: {},
+  assessmentUpdates: {},
   ratingsGuideQuestions: {},
   ratingsGuideAnswers: {},
   updatingForJob: {},
 });
+
+/**
+ * Return tempAssessments, with assessment removed if it is present and identical.
+ * This is useful for not deleting a temp state when the first of several queued async updates completes.
+ *
+ */
+const deleteAssessmentIfIdentical = (
+  tempAssessments: { [id: number]: Assessment },
+  assessment: Assessment,
+): { [id: number]: Assessment } => {
+  const { id } = assessment;
+  if (hasKey(tempAssessments, id) && tempAssessments[id] === assessment) {
+    return deleteProperty<Assessment>(tempAssessments, id);
+  }
+  return tempAssessments;
+};
 
 export const assessmentReducer = (
   state = initState(),
@@ -84,9 +109,13 @@ export const assessmentReducer = (
     case UPDATE_ASSESSMENT_STARTED:
       return {
         ...state,
-        assessmentUpdating: {
-          ...state.assessmentUpdating,
-          [action.payload.assessment.id]: true,
+        tempAssessments: {
+          ...state.tempAssessments,
+          [action.payload.assessment.id]: action.payload.assessment,
+        },
+        assessmentUpdates: {
+          ...state.assessmentUpdates,
+          [action.payload.assessment.id]: 1,
         },
       };
     case UPDATE_ASSESSMENT_SUCCEEDED:
@@ -96,18 +125,27 @@ export const assessmentReducer = (
           ...state.assessments,
           [action.payload.assessment.id]: action.payload.assessment,
         },
-        assessmentUpdating: {
-          ...state.assessmentUpdating,
-          [action.payload.assessment.id]: false,
+        tempAssessments: deleteAssessmentIfIdentical(
+          state.tempAssessments,
+          action.payload.assessment,
+        ),
+        assessmentUpdates: {
+          ...state.assessmentUpdates,
+          [action.payload.assessment.id]: 0,
         },
       };
     case UPDATE_ASSESSMENT_FAILED:
       // TODO: do something with error
+      // TODO: should the temp state really be deleted?
       return {
         ...state,
-        assessmentUpdating: {
-          ...state.assessmentUpdating,
-          [action.payload.assessmentId]: false,
+        tempAssessments: deleteAssessmentIfIdentical(
+          state.tempAssessments,
+          action.payload.assessment,
+        ),
+        assessmentUpdates: {
+          ...state.assessmentUpdates,
+          [action.payload.assessment.id]: 0,
         },
       };
     default:

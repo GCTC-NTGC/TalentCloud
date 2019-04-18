@@ -10,13 +10,18 @@ import Select, { SelectOption } from "../Select";
 import { AssessmentTypeId, enumToIds } from "../../models/lookupConstants";
 import { Criteria, Assessment } from "../../models/types";
 import { RootState } from "../../store/store";
-import { getAssessmentsByCriterion } from "../../store/Assessment/assessmentSelector";
+import {
+  getAssessmentsByCriterion,
+  assessmentsAreUpdatngByCriteria,
+} from "../../store/Assessment/assessmentSelector";
 import { DispatchType } from "../../configureStore";
 import { updateAssessment as updateAssessmentAction } from "../../store/Assessment/assessmentActions";
+import { whereFirst } from "../../helpers/queries";
 
 interface AssessmentPlanSkillProps {
   criterion: Criteria;
   assessments: Assessment[];
+  assessmentsUpdating: { [id: number]: boolean };
   createAssessment: () => void;
   updateAssessment: (newAssessment: Assessment) => void;
   removeAssessment: (assessmentId: number) => void;
@@ -36,6 +41,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
 > = ({
   criterion,
   assessments,
+  assessmentsUpdating,
   createAssessment,
   updateAssessment,
   removeAssessment,
@@ -69,9 +75,10 @@ export const AssessmentPlanSkill: React.FunctionComponent<
     (assessment): number => assessment.assessment_type_id,
   );
 
-  const SelectBlock: React.FunctionComponent<{ assessment: Assessment }> = ({
-    assessment,
-  }): React.ReactElement => {
+  const SelectBlock: React.FunctionComponent<{
+    assessment: Assessment;
+    isUpdating: boolean;
+  }> = ({ assessment, isUpdating }): React.ReactElement => {
     const options = assessmentTypeOptions.filter(
       (option): boolean => {
         // Ensure we can't select an option already selected in a sibling selector
@@ -106,6 +113,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
           data-c-alignment="base(center)"
           data-c-grid-item="base(1of3) tl(1of5)"
         >
+          {isUpdating ? <p>SAVING!!!</p> : <p>Up to date</p>}
           <button
             className="button-trash"
             type="button"
@@ -164,6 +172,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
             (assessment): React.ReactElement => (
               <SelectBlock
                 assessment={assessment}
+                isUpdating={assessmentsUpdating[assessment.id]}
                 key={`assessmentPlanSkillSelector${assessment.id}`}
               />
             ),
@@ -181,8 +190,15 @@ interface AssessmentPlanSkillContainerProps {
 const mapStateToProps = (
   state: RootState,
   ownProps: AssessmentPlanSkillContainerProps,
-): { assessments: Assessment[] } => ({
+): {
+  assessments: Assessment[];
+  assessmentsUpdating: { [id: number]: boolean };
+} => ({
   assessments: getAssessmentsByCriterion(state, ownProps.criterion.id),
+  assessmentsUpdating: assessmentsAreUpdatngByCriteria(
+    state,
+    ownProps.criterion.id,
+  ),
 });
 
 const mapDispatchToProps = (dispatch: DispatchType): any => ({
