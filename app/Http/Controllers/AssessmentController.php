@@ -7,13 +7,14 @@ use App\Models\Criteria;
 use App\Models\Lookup\AssessmentType;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AssessmentController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request $request Incoming request.
      * @return mixed
      */
     public function store(Request $request)
@@ -23,19 +24,21 @@ class AssessmentController extends Controller
             $assessment_type_id = (int)$request->json('assessment_type_id');
             Criteria::findOrFail($criterion_id);
             AssessmentType::findOrFail($assessment_type_id);
+
+            $assessment = new Assessment([
+                'criterion_id' => $criterion_id,
+                'assessment_type_id' => $assessment_type_id
+            ]);
+            $assessment->save();
+            $assessment->refresh();
         } catch (\Exception $e) {
-            abort(401);
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 400);
         }
 
-        $assessment = new Assessment([
-            'criterion_id' => $criterion_id,
-            'assessment_type_id' => $assessment_type_id
-        ]);
-        $assessment->save();
-        $assessment->refresh();
-
         return [
-            'message' => "Successfully created assessment $assessment->id",
+            'success' => "Successfully created assessment $assessment->id",
             'assessment' => $assessment->toArray(),
         ];
     }
@@ -43,7 +46,7 @@ class AssessmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Assessment $assessment
+     * @param  \App\Models\Assessment $assessment Incoming object.
      * @return mixed
      */
     public function show(Assessment $assessment)
@@ -54,8 +57,8 @@ class AssessmentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Assessment          $assessment
+     * @param  \Illuminate\Http\Request $request    Incoming request.
+     * @param  \App\Models\Assessment   $assessment Incoming object.
      * @return mixed
      */
     public function update(Request $request, Assessment $assessment)
@@ -65,16 +68,18 @@ class AssessmentController extends Controller
             $assessment_type_id = (int)$request->json('assessment_type_id');
             Criteria::findOrFail($criterion_id);
             AssessmentType::findOrFail($assessment_type_id);
+
+            $assessment->criterion_id = $criterion_id;
+            $assessment->assessment_type_id = $assessment_type_id;
+            $assessment->save();
         } catch (\Exception $e) {
-            abort(401, $e);
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 400);
         }
 
-        $assessment->criterion_id = $criterion_id;
-        $assessment->assessment_type_id = $assessment_type_id;
-        $assessment->save();
-
         return [
-            'message' => "Successfully updated assessment $assessment->id",
+            'success' => "Successfully updated assessment $assessment->id",
             'assessment' => $assessment->toArray(),
         ];
     }
@@ -82,7 +87,7 @@ class AssessmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Assessment $assessment
+     * @param  \App\Models\Assessment $assessment Incoming object.
      * @return mixed
      */
     public function destroy(Assessment $assessment)
@@ -90,7 +95,7 @@ class AssessmentController extends Controller
         $assessment->delete();
 
         return [
-            'message' => "Successfully deleted assessment $assessment->id"
+            'success' => "Successfully deleted assessment $assessment->id"
         ];
     }
 }
