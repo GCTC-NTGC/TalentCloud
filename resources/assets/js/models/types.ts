@@ -123,6 +123,13 @@ export interface Assessment {
   assessment_type_id: number;
 }
 
+// Version of Assessment that hasn't been saved to server yet
+export interface TempAssessment {
+  id: number;
+  criterion_id: number;
+  assessment_type_id: number | null;
+}
+
 export interface RatingsGuideAnswer {
   id: number;
   rating_guide_question_id: number;

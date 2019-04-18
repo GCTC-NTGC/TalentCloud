@@ -6,7 +6,6 @@ import assessmentReducer, {
   AssessmentState,
 } from "./assessmentReducer";
 import {
-  updateAssessment,
   updateAssessmentSucceeded,
   updateAssessmentStarted,
 } from "./assessmentActions";

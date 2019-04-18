@@ -8,6 +8,7 @@ import {
   RatingsGuideAnswer,
   RatingsGuideQuestion,
   Assessment,
+  TempAssessment,
 } from "../../models/types";
 
 /** Actions for Fetch All Assessment Plan items */
@@ -57,27 +58,43 @@ export type UpdateAssessmentFailedAction = Action<
   { assessment: Assessment; error: Error }
 >;
 
+/** Action for editing Assessments */
+export const EDIT_ASSESSMENT = "EDIT_ASSESSMENT";
+
+export type EditAssessmentAction = Action<
+  typeof EDIT_ASSESSMENT,
+  { assessment: Assessment }
+>;
+
 /** Actions for manipulating Temp Assessments */
+export const CREATE_TEMP_ASSESSMENT = "CREATE_TEMP_ASSESSMENT";
 export const UPDATE_TEMP_ASSESSMENT = "UPDATE_TEMP_ASSESSMENT";
 export const DELETE_TEMP_ASSESSMENT = "DELETE_TEMP_ASSESSMENT";
 
+export type CreateTempAssessmentAction = Action<
+  typeof CREATE_TEMP_ASSESSMENT,
+  { assessment: TempAssessment }
+>;
+
 export type UpdateTempAssessmentAction = Action<
   typeof UPDATE_TEMP_ASSESSMENT,
-  { assessment: Assessment }
+  { assessment: TempAssessment }
 >;
 
 export type DeleteTempAssessmentAction = Action<
   typeof DELETE_TEMP_ASSESSMENT,
-  { assessment: Assessment }
+  { assessment: TempAssessment }
 >;
 
 export type AssessmentPlanAction =
   | FetchAssessmentPlanStartedAction
   | FetchAssessmentPlanSucceededAction
   | FetchAssessmentPlanFailedAction
+  | EditAssessmentAction
   | UpdateAssessmentStartedAction
   | UpdateAssessmentSucceededAction
   | UpdateAssessmentFailedAction
+  | CreateTempAssessmentAction
   | UpdateTempAssessmentAction
   | DeleteTempAssessmentAction;
 
@@ -148,17 +165,32 @@ export const fetchAssessmentPlan = (
   };
 };
 
+/** Editing Assessments */
+export const editAssessment = (
+  assessment: Assessment,
+): EditAssessmentAction => ({
+  type: EDIT_ASSESSMENT,
+  payload: { assessment },
+});
+
 /** Manipulating Temp Assessment */
 
+export const createTempAssessment = (
+  assessment: TempAssessment,
+): CreateTempAssessmentAction => ({
+  type: CREATE_TEMP_ASSESSMENT,
+  payload: { assessment },
+});
+
 export const updateTempAssessment = (
-  assessment: Assessment,
+  assessment: TempAssessment,
 ): UpdateTempAssessmentAction => ({
   type: UPDATE_TEMP_ASSESSMENT,
   payload: { assessment },
 });
 
 export const deleteTempAssessment = (
-  assessment: Assessment,
+  assessment: TempAssessment,
 ): DeleteTempAssessmentAction => ({
   type: DELETE_TEMP_ASSESSMENT,
   payload: { assessment },
@@ -189,15 +221,15 @@ export const updateAssessmentSucceeded = (
 };
 
 export const updateAssessmentFailed = (
-         assessment: Assessment,
-         error: Error,
-       ): UpdateAssessmentFailedAction => ({
-         type: UPDATE_ASSESSMENT_FAILED,
-         payload: {
-           assessment,
-           error,
-         },
-       });
+  assessment: Assessment,
+  error: Error,
+): UpdateAssessmentFailedAction => ({
+  type: UPDATE_ASSESSMENT_FAILED,
+  payload: {
+    assessment,
+    error,
+  },
+});
 
 export const updateAssessment = (
   assessment: Assessment,
