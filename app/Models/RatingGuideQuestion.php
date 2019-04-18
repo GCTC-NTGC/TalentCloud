@@ -22,14 +22,18 @@ class RatingGuideQuestion extends BaseModel
      *
      * @var string[]
      */
-    protected $fillable = ['question'];
+    protected $fillable = [
+        'job_poster_id',
+        'assessment_type_id',
+        'question'
+    ];
 
     /**
      * Get the JobPoster relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function job_poster()
+    public function job_poster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
@@ -39,8 +43,8 @@ class RatingGuideQuestion extends BaseModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function assessment_type()
+    public function assessment_type(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\AssessmentType::class);
+        return $this->belongsTo(\App\Models\Lookup\AssessmentType::class);
     }
 }
