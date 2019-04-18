@@ -5,7 +5,7 @@ import {
   RatingsGuideAnswer,
 } from "../../models/types";
 import { getCriteriaByJob } from "../Job/jobSelector";
-import { getId } from "../../helpers/queries";
+import { getId, hasKey } from "../../helpers/queries";
 import { AssessmentState } from "./assessmentReducer";
 
 const stateSlice = (state: RootState): AssessmentState => state.assessment;
@@ -22,6 +22,27 @@ export const getAssessmentsByJob = (
     (assessment): boolean => criteriaIds.includes(assessment.criterion_id),
   );
 };
+
+export const getAssessmentsByCriterion = (
+  state: RootState,
+  criterionId: number,
+): Assessment[] =>
+  getAssessments(state).filter(
+    (assessment): boolean => assessment.criterion_id === criterionId,
+  );
+
+export const getAssessmentById = (
+  state: RootState,
+  id: number,
+): Assessment | null =>
+  hasKey(stateSlice(state).assessments, id)
+    ? stateSlice(state).assessments[id]
+    : null;
+
+export const assessmentIsUpdating = (state: RootState, id: number): boolean =>
+  hasKey(stateSlice(state).assessmentUpdating, id)
+    ? stateSlice(state).assessmentUpdating[id]
+    : false;
 
 export const getRatingsGuideQuestions = (
   state: RootState,

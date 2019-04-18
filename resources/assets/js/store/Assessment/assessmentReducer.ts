@@ -6,15 +6,20 @@ import {
 import { getId, mapToObject } from "../../helpers/queries";
 import {
   AssessmentPlanAction,
-  fetchAssessmentPlanStarted,
   FETCH_ASSESSMENT_PLAN_STARTED,
   FETCH_ASSESSMENT_PLAN_SUCCEEEDED,
   FETCH_ASSESSMENT_PLAN_FAILED,
+  UPDATE_ASSESSMENT_STARTED,
+  UPDATE_ASSESSMENT_SUCCEEDED,
+  UPDATE_ASSESSMENT_FAILED,
 } from "./assessmentActions";
 
 export interface AssessmentState {
   assessments: {
     [id: number]: Assessment;
+  };
+  assessmentUpdating: {
+    [id: number]: boolean;
   };
   ratingsGuideQuestions: {
     [id: number]: RatingsGuideQuestion;
@@ -29,6 +34,7 @@ export interface AssessmentState {
 
 export const initState = (): AssessmentState => ({
   assessments: {},
+  assessmentUpdating: {},
   ratingsGuideQuestions: {},
   ratingsGuideAnswers: {},
   updatingForJob: {},
@@ -49,6 +55,7 @@ export const assessmentReducer = (
       };
     case FETCH_ASSESSMENT_PLAN_SUCCEEEDED:
       return {
+        ...state,
         assessments: {
           ...state.assessments,
           ...mapToObject(action.payload.assessments, getId),
@@ -72,6 +79,35 @@ export const assessmentReducer = (
         updatingForJob: {
           ...state.updatingForJob,
           [action.payload.jobId]: false,
+        },
+      };
+    case UPDATE_ASSESSMENT_STARTED:
+      return {
+        ...state,
+        assessmentUpdating: {
+          ...state.assessmentUpdating,
+          [action.payload.assessment.id]: true,
+        },
+      };
+    case UPDATE_ASSESSMENT_SUCCEEDED:
+      return {
+        ...state,
+        assessments: {
+          ...state.assessments,
+          [action.payload.assessment.id]: action.payload.assessment,
+        },
+        assessmentUpdating: {
+          ...state.assessmentUpdating,
+          [action.payload.assessment.id]: false,
+        },
+      };
+    case UPDATE_ASSESSMENT_FAILED:
+      // TODO: do something with error
+      return {
+        ...state,
+        assessmentUpdating: {
+          ...state.assessmentUpdating,
+          [action.payload.assessmentId]: false,
         },
       };
     default:

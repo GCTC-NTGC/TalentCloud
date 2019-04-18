@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { injectIntl, InjectedIntlProps } from "react-intl";
 import {
   Job,
@@ -19,29 +19,6 @@ interface AssessmentPlanProps {
   questions: RatingsGuideQuestion[];
   answers: RatingsGuideAnswer[];
 }
-
-const renderAssessmentPlanSkill = (
-  criterion: Criteria,
-  assessments: Assessment[],
-): React.ReactElement => {
-  // Get the assessment type ids associated with this criterion
-  const assementTypeIds = assessments
-    .filter(assessment => assessment.criterion_id === criterion.id)
-    .map(assessment => assessment.assessment_type_id);
-  return (
-    <AssessmentPlanSkill
-      key={criterion.id}
-      criterion={criterion}
-      assessmentTypeIds={assementTypeIds}
-      addAssessmentType={(assessmentTypeId: number) =>
-        console.log(assessmentTypeId)
-      }
-      removeAssessmentType={(assessmentTypeId: number) =>
-        console.log(assessmentTypeId)
-      }
-    />
-  );
-};
 
 const AssessmentPlan: React.FunctionComponent<
   AssessmentPlanProps & InjectedIntlProps
@@ -146,8 +123,13 @@ const AssessmentPlan: React.FunctionComponent<
           >
             Essential Skills
           </h4>
-          {essentialCriteria.map(criterion =>
-            renderAssessmentPlanSkill(criterion, assessments),
+          {essentialCriteria.map(
+            (criterion): React.ReactElement => (
+              <AssessmentPlanSkill
+                key={`AssessmentPlanSkill_${criterion.id}`}
+                criterion={criterion}
+              />
+            ),
           )}
           {essentialCriteria.length === 0 && (
             <div
@@ -170,8 +152,13 @@ const AssessmentPlan: React.FunctionComponent<
           >
             Asset Skills
           </h4>
-          {assetCriteria.map(criterion =>
-            renderAssessmentPlanSkill(criterion, assessments),
+          {assetCriteria.map(
+            (criterion): React.ReactElement => (
+              <AssessmentPlanSkill
+                key={`AssessmentPlanSkill_${criterion.id}`}
+                criterion={criterion}
+              />
+            ),
           )}
           {assetCriteria.length === 0 && (
             <div

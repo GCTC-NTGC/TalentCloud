@@ -35,7 +35,8 @@ class AssessmentController extends Controller
         $assessment->refresh();
 
         return [
-            'message' => "Successfully created assessment $assessment->id"
+            'message' => "Successfully created assessment $assessment->id",
+            'assessment' => $assessment->toArray(),
         ];
     }
 
@@ -65,7 +66,7 @@ class AssessmentController extends Controller
             Criteria::findOrFail($criterion_id);
             AssessmentType::findOrFail($assessment_type_id);
         } catch (\Exception $e) {
-            abort(401);
+            abort(401, $e);
         }
 
         $assessment->criterion_id = $criterion_id;
@@ -73,7 +74,8 @@ class AssessmentController extends Controller
         $assessment->save();
 
         return [
-            'message' => "Successfully updated assessment $assessment->id"
+            'message' => "Successfully updated assessment $assessment->id",
+            'assessment' => $assessment->toArray(),
         ];
     }
 
