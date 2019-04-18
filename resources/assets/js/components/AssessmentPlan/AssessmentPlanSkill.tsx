@@ -1,4 +1,4 @@
-import React, { useState, Dispatch } from "react";
+import React, { useState, Dispatch, useEffect } from "react";
 import { injectIntl, InjectedIntlProps, defineMessages } from "react-intl";
 import { connect } from "react-redux";
 import {
@@ -10,14 +10,24 @@ import Select, { SelectOption } from "../Select";
 import { AssessmentTypeId, enumToIds } from "../../models/lookupConstants";
 import { Criteria, Assessment } from "../../models/types";
 import { RootState } from "../../store/store";
-import { getAssessmentsByCriterion } from "../../store/Assessment/assessmentSelector";
+import {
+  getAssessmentsByCriterion,
+  assessmentsAreUpdatingByCriteria,
+  assessmentsAreEditedByCriteria,
+} from "../../store/Assessment/assessmentSelector";
 import { DispatchType } from "../../configureStore";
-import { updateAssessment as updateAssessmentAction } from "../../store/Assessment/assessmentActions";
+import {
+  updateAssessment as updateAssessmentAction,
+  editAssessment as editAssessmentAction,
+} from "../../store/Assessment/assessmentActions";
 
 interface AssessmentPlanSkillProps {
   criterion: Criteria;
   assessments: Assessment[];
+  assessmentsEdited: { [id: number]: boolean };
+  assessmentsUpdating: { [id: number]: boolean };
   createAssessment: () => void;
+  editAssessment: (newAssessment: Assessment) => void;
   updateAssessment: (newAssessment: Assessment) => void;
   removeAssessment: (assessmentId: number) => void;
 }
@@ -36,11 +46,29 @@ export const AssessmentPlanSkill: React.FunctionComponent<
 > = ({
   criterion,
   assessments,
+  assessmentsEdited,
+  assessmentsUpdating,
   createAssessment,
+  editAssessment,
   updateAssessment,
   removeAssessment,
   intl,
 }: AssessmentPlanSkillProps & InjectedIntlProps): React.ReactElement => {
+  useEffect(() => {
+    assessments.forEach(
+      assessment => {
+        if (
+          assessmentsEdited[assessment.id] &&
+          !assessmentsUpdating[assessment.id]
+        ) {
+          // If assessment has been edited, and is not currently being updated, start an update.
+          updateAssessment(assessment);
+        }
+      },
+      [assessments, assessmentsEdited, assessmentsUpdating],
+    );
+  });
+
   const skillLevel = intl.formatMessage(
     skillLevelName(criterion.skill_level_id, criterion.skill.skill_type_id),
   );
@@ -69,9 +97,10 @@ export const AssessmentPlanSkill: React.FunctionComponent<
     (assessment): number => assessment.assessment_type_id,
   );
 
-  const SelectBlock: React.FunctionComponent<{ assessment: Assessment }> = ({
-    assessment,
-  }): React.ReactElement => {
+  const SelectBlock: React.FunctionComponent<{
+    assessment: Assessment;
+    isUpdating: boolean;
+  }> = ({ assessment, isUpdating }): React.ReactElement => {
     const options = assessmentTypeOptions.filter(
       (option): boolean => {
         // Ensure we can't select an option already selected in a sibling selector
@@ -92,7 +121,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
             options={options}
             onChange={(event: React.ChangeEvent<HTMLSelectElement>): void => {
               const selectedType = Number(event.target.value);
-              updateAssessment({
+              editAssessment({
                 ...assessment,
                 // eslint-disable-next-line @typescript-eslint/camelcase
                 assessment_type_id: selectedType,
@@ -112,8 +141,13 @@ export const AssessmentPlanSkill: React.FunctionComponent<
             onClick={(): void => {
               removeAssessment(assessment.id);
             }}
+            disabled={isUpdating}
           >
-            <i className="fa fa-trash" />
+            {isUpdating ? (
+              <i className="fa fa-spinner fa-spin" />
+            ) : (
+              <i className="fa fa-trash" />
+            )}
           </button>
         </div>
       </div>
@@ -164,6 +198,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
             (assessment): React.ReactElement => (
               <SelectBlock
                 assessment={assessment}
+                isUpdating={assessmentsUpdating[assessment.id]}
                 key={`assessmentPlanSkillSelector${assessment.id}`}
               />
             ),
@@ -181,12 +216,27 @@ interface AssessmentPlanSkillContainerProps {
 const mapStateToProps = (
   state: RootState,
   ownProps: AssessmentPlanSkillContainerProps,
-): { assessments: Assessment[] } => ({
+): {
+  assessments: Assessment[];
+  assessmentsEdited: { [id: number]: boolean };
+  assessmentsUpdating: { [id: number]: boolean };
+} => ({
   assessments: getAssessmentsByCriterion(state, ownProps.criterion.id),
+  assessmentsEdited: assessmentsAreEditedByCriteria(
+    state,
+    ownProps.criterion.id,
+  ),
+  assessmentsUpdating: assessmentsAreUpdatingByCriteria(
+    state,
+    ownProps.criterion.id,
+  ),
 });
 
 const mapDispatchToProps = (dispatch: DispatchType): any => ({
   createAssessment: (): void => {}, // TODO: add create
+  editAssessment: (assessment: Assessment): void => {
+    dispatch(editAssessmentAction(assessment));
+  },
   updateAssessment: (assessment: Assessment): void =>
     dispatch(updateAssessmentAction(assessment)),
   removeAssessment: (assessmentId: number): void => {}, // TODO: add delete

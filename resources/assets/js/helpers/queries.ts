@@ -67,6 +67,25 @@ export function objectMap<A, B>(
 interface IndexedObject<T> {
   [key: string]: T;
 }
+
+/**
+ * Maps an array of items into an object, with each transformed into an attribute
+ * @param items array of objects
+ * @param keyFn Function that returns a unique key for each object. Typically the getId function.
+ * @param valFn Function that returns a new value for each object.
+ */
+export function mapToObjectTrans<A, B>(
+  items: A[],
+  keyFn: (item: A) => string | number,
+  valFn: (item: A) => B,
+): IndexedObject<B> {
+  return items.reduce((result: IndexedObject<B>, item: A): IndexedObject<B> => {
+    const key = keyFn(item);
+    result[key] = valFn(item);
+    return result;
+  }, {});
+}
+
 /**
  * Maps an array of items into an object, with each item set as an attribute.
  * @param items array of objects
@@ -76,11 +95,7 @@ export function mapToObject<T>(
   items: T[],
   keyFn: (item: T) => string | number,
 ): IndexedObject<T> {
-  return items.reduce((result: IndexedObject<T>, item: T): IndexedObject<T> => {
-    const key = keyFn(item);
-    result[key] = item;
-    return result;
-  }, {});
+  return mapToObjectTrans(items, keyFn, (item): T => item);
 }
 
 /**
@@ -93,4 +108,13 @@ export function hasKey<T>(
   key: string | number,
 ): boolean {
   return Object.prototype.hasOwnProperty.call(object, key);
+}
+
+/** Return a copy of the object with specific property removed */
+export function deleteProperty<T>(
+  obj: IndexedObject<T>,
+  key: string | number,
+): IndexedObject<T> {
+  const { [key]: _, ...newObj } = obj;
+  return newObj;
 }

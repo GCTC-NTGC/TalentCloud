@@ -1,6 +1,6 @@
 import { RootState } from "../store";
 import { Job, Criteria } from "../../models/types";
-import { objectMap, hasKey } from "../../helpers/queries";
+import { hasKey } from "../../helpers/queries";
 
 export const getJob = (state: RootState, id: number): Job | null => {
   return hasKey(state.jobs.jobs, id) ? state.jobs.jobs[id] : null;
