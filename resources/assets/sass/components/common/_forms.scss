@@ -784,6 +784,7 @@
 .form__radio-group {
     margin: 0 0 calc(#{$unit} * 2);
     position: relative;
+    font-family: $font--sans;
 
     &:first-of-type {
         // margin-top: 2rem;

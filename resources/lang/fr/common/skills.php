@@ -16,9 +16,10 @@ return [
     'skill_selection_default_option' => "Sélectionner une compétence",
     'level_label' => 'Mon niveau de compétence',
     'level_link_title' => 'En savoir plus sur la façon d\'identifier votre niveau de compétence.',
-    'level_link_label' => '(Trouvez votre niveau de compétence)',
+    'level_link_label' => '(Vous ne connaissez pas votre niveau? Découvrez ici.)',
     'knowledge_label' => 'Comment j\'ai acquis cette compétence',
-     'skill_status_null_label' => 'Statut : compétence pas ajouté',
+    'knowledge_link_label' => "Besoin d'aide? Voir exemple.)",
+    'skill_status_null_label' => 'Statut : compétence pas ajouté',
     'skill_status_label' => 'Statut : ',
     'skill_level_null' => 'Aucun niveau de compétence n\'a été sélectionné.',
     'skill_levels' => [

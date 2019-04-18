@@ -479,17 +479,19 @@
                                         class="form__radio-group"
                                         role="radiogroup">
 
-                                        <label
-                                            class="form__label"
-                                            for="{{ id_prefix }}skillLevel">
-                                            {{ skill_template.level_label }}
+                                        <div class="flex-grid space-between">
+                                            <label
+                                                class="form__label"
+                                                for="{{ id_prefix }}skillLevel">
+                                                {{ skill_template.level_label }}
+                                            </label>
                                             <a
                                                 href="/faq#levels"
                                                 title="{{ skill_template.level_link_title }}"
                                                 target="_blank">
                                                 {{ skill_template.level_link_label }}
                                             </a>
-                                        </label>
+                                        </div>
 
                                         <div class="flex-grid">
 
@@ -533,6 +535,10 @@
                                 <div
                                     class="box full">
 
+                                    <div class="skill-textarea-label box inline-right">
+                                        <a href="#" class="">{{ skill_template.knowledge_link_label }}</a>
+                                    </div>
+
                                     <div
                                         class="form__input-wrapper--float {% if skill_declaration.description != null %}active{% endif %}">
 
@@ -550,6 +556,8 @@
                                             >{{ skill_declaration.description }}</textarea>
 
                                     </div>
+
+
 
                                 </div>
 

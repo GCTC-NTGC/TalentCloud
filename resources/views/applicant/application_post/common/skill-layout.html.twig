@@ -10,13 +10,31 @@
     <div
         class="container--copy">
 
+        <div class="timer-wrapper">
+            <i class="fas fa-stopwatch"></i>
+            <span>72 hours left to apply</span>
+        </div>
+
         {% if application_step == "3" %}
             <h3>
                 {{ application_template.essential_title }}
             </h3>
-            <p>
+            <p class="bold">Remeber, that you need ALL these skills to apply for this job!</p>
+
+            <ul>
+                <li>
+                    <p>Q. Really? I have most of these skills and I'm a quick learner</p>
+                    <p class="bold">Sorry, you really need all of them, and at the right level.</p>
+                </li>
+                <li>
+                    <p>Q. What If I stretch the truth a little? Once I'm interviewed they'll change their mind for sure!</p>
+                    <p class="bold">Don't do it. These will be assessed, and you're better than that.</p>
+                </li>
+            </ul>
+            {# <p>
                 {{ application_template.essential_context }}
-            </p>
+            </p> #}
+
         {% elseif application_step == "4" %}
             <h3>
                 {{ application_template.asset_title }}
@@ -26,7 +44,7 @@
             </p>
         {% endif %}
 
-        <a
+        {# <a
             class="button--blue light-bg"
             href="#begin"
             {% if application_step == "3" %}
@@ -35,7 +53,7 @@
                 title="{{ application_template.asset_start_button_title }}"
             {% endif %}>
             {{ application_template.skills_start_button_label }}
-        </a>
+        </a> #}
 
     </div>
 
@@ -192,7 +210,7 @@
                         type="button"
                         name="submit"
                         value="save_and_quit"
-                        data-on-success-url="{{ route('applications.index') }}">                        
+                        data-on-success-url="{{ route('applications.index') }}">
                         <span class="submit-default">{{ application_template.save_quit_button_label }}</span>
                         <span class="submit-working">{{ application_template.save_button_working }}</span>
                     </button>
