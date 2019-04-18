@@ -88,11 +88,6 @@ return [
         "posted_by" => "Publié par Meagan Commonda",
         "subtitle_02" => "Ressources et références",
         "resources" => [
-            "01" => [
-                "link" => "",
-                "title" => "Visitez cette ressource.",
-                "copy" => "Talent Cloud Indigenous Pilot Presentation"
-            ],
             "03" => [
                 "link" => "https://www.canada.ca/fr/conseil-prive/organisation/greffier/publications/unis-diversite.html",
                 "title" => "Visitez cette ressource.",

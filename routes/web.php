@@ -152,7 +152,7 @@ Route::group(
             Route::view('tos', 'common/static_tos', ['tos' => Lang::get('common/tos')])->name('tos');
 
             /* Static - ITP */
-            Route::view('itp', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
+            Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
 
             /* Authentication =========================================================== */
 

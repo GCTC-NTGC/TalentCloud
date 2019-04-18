@@ -88,11 +88,6 @@ return [
         "posted_by" => "Published by Meagan Commonda",
         "subtitle_02" => "Resources and References",
         "resources" => [
-            "01" => [
-                "link" => "",
-                "title" => "Visit this resource.",
-                "copy" => "Talent Cloud Indigenous Pilot Presentation"
-            ],
             "03" => [
                 "link" => "https://www.canada.ca/en/privy-council/corporate/clerk/publications/many-voices.html",
                 "title" => "Visit this resource.",
