@@ -8,6 +8,7 @@ import {
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import RatingsGuideAssessment from "./RatingsGuideAssessment";
 import { find } from "../../helpers/queries";
+import RatingsGuideClipboard from "./RatingsGuideClipboard";
 
 interface RatingsGuildeBuilderProps {
   criteria: Criteria[];
@@ -125,6 +126,12 @@ const RatingsGuideBuilder: React.FunctionComponent<
           Click to Copy This Ratings Guide to Your Clipboard
         </button>
       </div>
+      <RatingsGuideClipboard
+        criteria={criteria}
+        assessments={assessments}
+        questions={questions}
+        answers={answers}
+      />
     </div>
   );
 };
