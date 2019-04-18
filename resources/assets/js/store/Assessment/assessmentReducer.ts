@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import isEqual from "lodash/isEqual";
 import { statement } from "@babel/template";
 import {
@@ -117,7 +118,7 @@ function hasIdenticalItem<T extends { id: number }>(
   items: { [id: number]: T },
   item: T,
 ): boolean {
-  return hasKey(items, item.id) && isEqual(items[item.id]);
+  return hasKey(items, item.id) && isEqual(items[item.id], item);
 }
 
 const addTempAssessment = (
@@ -278,8 +279,13 @@ export const assessmentReducer = (
           : {
               ...state.editedAssessments,
               [action.payload.assessment.id]: {
-                ...action.payload.oldAssessment,
+                ...state.tempAssessments[action.payload.oldAssessment.id],
                 id: action.payload.assessment.id,
+                // When moving temp assessment to edited, ensure assessment_type_id is non-null
+                assessment_type_id:
+                  state.tempAssessments[action.payload.oldAssessment.id]
+                    .assessment_type_id ||
+                  action.payload.assessment.assessment_type_id,
               },
             },
         tempAssessments: deleteProperty<TempAssessment>(
