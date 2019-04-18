@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch } from "react";
 import { injectIntl, InjectedIntlProps, defineMessages } from "react-intl";
+import { connect } from "react-redux";
 import {
   skillLevelDescription as SkillLevelDescriptionMessage,
   skillLevelName,
   assessmentType,
 } from "../../models/localizedConstants";
-import Select from "../Select";
+import Select, { SelectOption } from "../Select";
 import { AssessmentTypeId, enumToIds } from "../../models/lookupConstants";
-import { Criteria } from "../../models/types";
+import { Criteria, Assessment } from "../../models/types";
+import { RootState } from "../../store/store";
+import { getAssessmentsByCriterion } from "../../store/Assessment/assessmentSelector";
+import { DispatchType } from "../../configureStore";
+import { updateAssessment as updateAssessmentAction } from "../../store/Assessment/assessmentActions";
 
 interface AssessmentPlanSkillProps {
   criterion: Criteria;
-  assessmentTypeIds: number[];
-  addAssessmentType: (assessmentTypeId: number) => void;
-  removeAssessmentType: (assessmentTypeId: number) => void;
+  assessments: Assessment[];
+  createAssessment: () => void;
+  updateAssessment: (newAssessment: Assessment) => void;
+  removeAssessment: (assessmentId: number) => void;
 }
 
 const localizations = defineMessages({
@@ -25,13 +31,14 @@ const localizations = defineMessages({
   },
 });
 
-const AssessmentPlanSkill: React.FunctionComponent<
+export const AssessmentPlanSkill: React.FunctionComponent<
   AssessmentPlanSkillProps & InjectedIntlProps
 > = ({
   criterion,
-  assessmentTypeIds,
-  addAssessmentType,
-  removeAssessmentType,
+  assessments,
+  createAssessment,
+  updateAssessment,
+  removeAssessment,
   intl,
 }: AssessmentPlanSkillProps & InjectedIntlProps): React.ReactElement => {
   const skillLevel = intl.formatMessage(
@@ -46,53 +53,52 @@ const AssessmentPlanSkill: React.FunctionComponent<
   const skillDescription = criterion.description
     ? criterion.description
     : criterion.skill.description;
-  const assessmentTypeOptions = enumToIds(AssessmentTypeId).map(typeId => {
-    return {
-      value: typeId,
-      label: intl.formatMessage(assessmentType(typeId)),
-    };
-  });
+  const assessmentTypeOptions = enumToIds(AssessmentTypeId).map(
+    (typeId): SelectOption<number> => {
+      return {
+        value: typeId,
+        label: intl.formatMessage(assessmentType(typeId)),
+      };
+    },
+  );
   const assessmentTypeNullSelection = intl.formatMessage(
     localizations.assessmentTypeNullSelection,
   );
 
-  // a count of the number of new default selectors that have been added
-  const [newSelectorsCount, setNewSelectorsCount] = useState(0);
+  const selectedAssessmentTypes: number[] = assessments.map(
+    (assessment): number => assessment.assessment_type_id,
+  );
 
-  const selectBlock = (
-    selectedId: number | undefined,
-    key: number | string,
-  ): React.ReactElement => {
-    const options = assessmentTypeOptions.filter(option => {
-      // Ensure we can't select an option already selected in a sibling selector
-      return (
-        option.value === selectedId || !assessmentTypeIds.includes(option.value)
-      );
-    });
-    const deleteSelect = (): void => {
-      if (selectedId) {
-        removeAssessmentType(selectedId);
-      } else {
-        setNewSelectorsCount(newSelectorsCount - 1);
-      }
-    };
-
+  const SelectBlock: React.FunctionComponent<{ assessment: Assessment }> = ({
+    assessment,
+  }): React.ReactElement => {
+    const options = assessmentTypeOptions.filter(
+      (option): boolean => {
+        // Ensure we can't select an option already selected in a sibling selector
+        return (
+          option.value === assessment.assessment_type_id ||
+          !selectedAssessmentTypes.includes(option.value)
+        );
+      },
+    );
     return (
-      <div data-c-grid="middle" key={key}>
+      <div data-c-grid="middle">
         <div data-c-grid-item="base(2of3) tl(4of5)">
           <Select
-            htmlId={`assessmentSelect_${criterion.id}_${selectedId}`}
+            htmlId={`assessmentSelect_${criterion.id}_${assessment.id}`}
             formName="assessmentTypeId"
             label="Select an Assessment"
             required
             options={options}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-              if (selectedId) {
-                removeAssessmentType(selectedId);
-              }
-              addAssessmentType(Number(event.target.value));
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>): void => {
+              const selectedType = Number(event.target.value);
+              updateAssessment({
+                ...assessment,
+                // eslint-disable-next-line @typescript-eslint/camelcase
+                assessment_type_id: selectedType,
+              });
             }}
-            selected={selectedId}
+            selected={assessment.assessment_type_id}
             nullSelection={assessmentTypeNullSelection}
           />
         </div>
@@ -100,20 +106,18 @@ const AssessmentPlanSkill: React.FunctionComponent<
           data-c-alignment="base(center)"
           data-c-grid-item="base(1of3) tl(1of5)"
         >
-          <button className="button-trash" type="button" onClick={deleteSelect}>
+          <button
+            className="button-trash"
+            type="button"
+            onClick={(): void => {
+              removeAssessment(assessment.id);
+            }}
+          >
             <i className="fa fa-trash" />
           </button>
         </div>
       </div>
     );
-  };
-
-  const newSelectorsBlock = (count: number): React.ReactElement => {
-    const selectors: React.ReactElement[] = [];
-    for (let i = 0; i < count; i += 1) {
-      selectors.push(selectBlock(undefined, `newSelector${i}`));
-    }
-    return <React.Fragment>{selectors}</React.Fragment>;
   };
 
   return (
@@ -150,20 +154,49 @@ const AssessmentPlanSkill: React.FunctionComponent<
               <button
                 className="button-link"
                 type="button"
-                onClick={() => setNewSelectorsCount(newSelectorsCount + 1)}
+                onClick={(): void => createAssessment()}
               >
                 Add an Assessment
               </button>
             </div>
           </div>
-          {assessmentTypeIds.map(assessmentTypeId =>
-            selectBlock(assessmentTypeId, `selector${assessmentTypeId}`),
+          {assessments.map(
+            (assessment): React.ReactElement => (
+              <SelectBlock
+                assessment={assessment}
+                key={`assessmentPlanSkillSelector${assessment.id}`}
+              />
+            ),
           )}
-          {newSelectorsBlock(newSelectorsCount)}
         </div>
       </div>
     </div>
   );
 };
 
-export default injectIntl(AssessmentPlanSkill);
+interface AssessmentPlanSkillContainerProps {
+  criterion: Criteria;
+}
+
+const mapStateToProps = (
+  state: RootState,
+  ownProps: AssessmentPlanSkillContainerProps,
+): { assessments: Assessment[] } => ({
+  assessments: getAssessmentsByCriterion(state, ownProps.criterion.id),
+});
+
+const mapDispatchToProps = (dispatch: DispatchType): any => ({
+  createAssessment: (): void => {}, // TODO: add create
+  updateAssessment: (assessment: Assessment): void =>
+    dispatch(updateAssessmentAction(assessment)),
+  removeAssessment: (assessmentId: number): void => {}, // TODO: add delete
+});
+
+const AssessmentPlanSkillContainer: React.FunctionComponent<
+  AssessmentPlanSkillContainerProps
+> = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(injectIntl(AssessmentPlanSkill));
+
+export default AssessmentPlanSkillContainer;

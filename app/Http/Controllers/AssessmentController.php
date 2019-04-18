@@ -38,7 +38,8 @@ class AssessmentController extends Controller
         }
 
         return [
-            'success' => "Successfully created assessment $assessment->id"
+            'success' => "Successfully created assessment $assessment->id",
+            'assessment' => $assessment->toArray(),
         ];
     }
 
@@ -78,7 +79,8 @@ class AssessmentController extends Controller
         }
 
         return [
-            'success' => "Successfully updated assessment $assessment->id"
+            'success' => "Successfully updated assessment $assessment->id",
+            'assessment' => $assessment->toArray(),
         ];
     }
 

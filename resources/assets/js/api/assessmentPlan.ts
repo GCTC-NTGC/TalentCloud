@@ -57,4 +57,15 @@ export const getAssessmentPlan = (jobId: number): Promise<AssessmentPlan> => {
     );
 };
 
+export const updateAssessment = (
+  assessment: Assessment,
+): Promise<Assessment> => {
+  return axios
+    .put(`${baseUrl()}/assessments/${assessment.id}`, assessment)
+    .then(
+      (response: ApiResponse): Assessment =>
+        parseAssessment(response.data.assessment),
+    );
+};
+
 export default { getAssessmentPlan };
