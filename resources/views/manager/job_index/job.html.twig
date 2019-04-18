@@ -108,6 +108,7 @@
             <a
                 class="button--blue submit-button"
                 data-action="review"
+                data-locale="{{App.getLocale()}}"
                 data-jobid="{{ job.id }}"
                 href="{{ route('manager.jobs.review', job) }}"
                 title="{{ jobs_l10n.send_this_review }}">
@@ -134,6 +135,7 @@
             {% if job.status() == 'draft' %}
             <button
                 data-action="delete"
+                data-locale="{{App.getLocale()}}"
                 data-jobid="{{ job.id }}"
                 href="{{ route('manager.jobs.destroy', job) }}"
                 title="{{ jobs_l10n.delete_this_poster }}"
