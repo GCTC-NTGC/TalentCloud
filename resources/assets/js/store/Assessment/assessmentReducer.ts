@@ -19,8 +19,16 @@ import {
   EDIT_TEMP_ASSESSMENT,
   DELETE_TEMP_ASSESSMENT,
   AssessmentAction,
+  DELETE_ASSESSMENT_STARTED,
+  DELETE_ASSESSMENT_SUCCEEDED,
+  DELETE_ASSESSMENT_FAILED,
 } from "./assessmentActions";
-import { AssessmentPlanAction, FETCH_ASSESSMENT_PLAN_STARTED, FETCH_ASSESSMENT_PLAN_SUCCEEEDED, FETCH_ASSESSMENT_PLAN_FAILED } from "../AssessmentPlan/assessmentPlanActions";
+import {
+  AssessmentPlanAction,
+  FETCH_ASSESSMENT_PLAN_STARTED,
+  FETCH_ASSESSMENT_PLAN_SUCCEEEDED,
+  FETCH_ASSESSMENT_PLAN_FAILED,
+} from "../AssessmentPlan/assessmentPlanActions";
 
 export interface AssessmentState {
   assessments: {
@@ -42,6 +50,9 @@ export interface AssessmentState {
   assessmentUpdates: {
     [id: number]: number; // Tracks the number of pending updates
   };
+  assessmentDeletes: {
+    [id: number]: number; // Tracks the number of pending delete requests
+  };
 }
 
 export const initState = (): AssessmentState => ({
@@ -50,6 +61,7 @@ export const initState = (): AssessmentState => ({
   tempAssessments: {},
   tempAssessmentSaving: {},
   assessmentUpdates: {},
+  assessmentDeletes: {},
 });
 
 /**
@@ -182,6 +194,40 @@ export const assessmentReducer = (
         assessmentUpdates: decrementUpdates(
           state.assessmentUpdates,
           action.payload.assessment.id,
+        ),
+      };
+    case DELETE_ASSESSMENT_STARTED:
+      return {
+        ...state,
+        assessmentDeletes: incrementUpdates(
+          state.assessmentDeletes,
+          action.payload.id,
+        ),
+      };
+    case DELETE_ASSESSMENT_SUCCEEDED:
+      // TODO: should this delete both canonical and edited assessments?
+      // ...For now, I don't know of any situations where we wouldn't want both.
+      return {
+        ...state,
+        assessments: deleteProperty<Assessment>(
+          state.assessments,
+          action.payload.id,
+        ),
+        editedAssessments: deleteProperty<Assessment>(
+          state.editedAssessments,
+          action.payload.id,
+        ),
+        assessmentDeletes: decrementUpdates(
+          state.assessmentDeletes,
+          action.payload.id,
+        ),
+      };
+    case DELETE_ASSESSMENT_FAILED:
+      return {
+        ...state,
+        assessmentDeletes: decrementUpdates(
+          state.assessmentDeletes,
+          action.payload.id,
         ),
       };
     case CREATE_TEMP_ASSESSMENT:

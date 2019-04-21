@@ -25,6 +25,7 @@ import {
   deleteTempAssessment as deleteTempAssessmentAction,
   createTempAssessment,
   storeNewAssessment,
+  deleteAssessment,
 } from "../../store/Assessment/assessmentActions";
 
 interface AssessmentPlanSkillProps {
@@ -292,13 +293,16 @@ const mapStateToProps = (
 const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
   createAssessment: (): void => {
     dispatch(createTempAssessment(ownProps.criterion.id, null));
-  }, // TODO: add create
+  },
   editAssessment: (assessment: Assessment): void => {
     dispatch(editAssessmentAction(assessment));
   },
   updateAssessment: (assessment: Assessment): void =>
     dispatch(updateAssessmentAction(assessment)),
-  removeAssessment: (assessmentId: number): void => {}, // TODO: add delete
+  removeAssessment: (assessmentId: number): void => {
+    // TODO: Figure out why this delteAssessment action doens't work
+    // dispatch(deleteAssessment(assessmentId));
+  },
   editTempAssessment: (assessment: TempAssessment): void => {
     dispatch(editTempAssessmentAction(assessment));
   },

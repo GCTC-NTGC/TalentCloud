@@ -30,3 +30,7 @@ export const createAssessment = (
         parseAssessment(response.data.assessment),
     );
 };
+
+export const deleteAssessment = async (id: number): Promise<void> => {
+  await axios.delete(`${baseUrl()}/assessments/${id}`);
+};

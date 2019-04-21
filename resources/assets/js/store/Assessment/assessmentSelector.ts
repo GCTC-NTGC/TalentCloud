@@ -1,47 +1,58 @@
 import isEqual from "lodash/isEqual";
 import { RootState } from "../store";
-import {
-  Assessment,
-  RatingsGuideQuestion,
-  RatingsGuideAnswer,
-  TempAssessment,
-} from "../../models/types";
+import { Assessment, TempAssessment } from "../../models/types";
 import { getCriteriaByJob } from "../Job/jobSelector";
 import { getId, hasKey, mapToObjectTrans } from "../../helpers/queries";
 import { AssessmentState } from "./assessmentReducer";
 
 const stateSlice = (state: RootState): AssessmentState => state.assessment;
 
-/** Returns current (ie edited, if possible) verisons of all assessments */
-export const getAssessments = (state: RootState): Assessment[] => {
+/**
+ * Returns current verisons of all assessments.
+ * ie edited version if possible,
+ * and not including those undergoing delete requests
+ */
+export const getCurrentAssessments = (state: RootState): Assessment[] => {
   const currentAssessments = {
     ...stateSlice(state).assessments,
     ...stateSlice(state).editedAssessments,
   };
-  return Object.values(currentAssessments);
+  const deleteCount = stateSlice(state).assessmentDeletes;
+  return Object.values(currentAssessments).filter(
+    (assessment): boolean =>
+      !hasKey(deleteCount, assessment.id) || deleteCount[assessment.id] <= 0,
+  );
 };
 
 export const getTempAssessments = (state: RootState): TempAssessment[] => {
   return Object.values(stateSlice(state).tempAssessments);
 };
 
-/** Returns current (ie edited, if possible) verisons of all assessments */
+/**
+ * Returns current verisons of all assessments.
+ * ie edited version if possible,
+ * and not including those undergoing delete requests
+ */
 export const getAssessmentsByJob = (
   state: RootState,
   jobId: number,
 ): Assessment[] => {
   const criteriaIds = getCriteriaByJob(state, jobId).map(getId);
-  return getAssessments(state).filter(
+  return getCurrentAssessments(state).filter(
     (assessment): boolean => criteriaIds.includes(assessment.criterion_id),
   );
 };
 
-/** Returns current (ie edited, if possible) verisons of all assessments */
+/**
+ * Returns current verisons of all assessments.
+ * ie edited version if possible,
+ * and not including those undergoing delete requests
+ */
 export const getAssessmentsByCriterion = (
   state: RootState,
   criterionId: number,
 ): Assessment[] =>
-  getAssessments(state).filter(
+  getCurrentAssessments(state).filter(
     (assessment): boolean => assessment.criterion_id === criterionId,
   );
 

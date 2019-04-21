@@ -1,10 +1,10 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { Action } from "../createAction";
-
 import {
   updateAssessment as updateAssessmentApi,
   createAssessment as createAssessmentApi,
+  deleteAssessment as deleteAssessmentApi
 } from "../../api/assessment";
 import { Assessment, TempAssessment } from "../../models/types";
 
@@ -131,6 +131,74 @@ export const updateAssessment = (
   };
 };
 
+/** Deleting Assessments on server */
+
+export const DELETE_ASSESSMENT_STARTED = "DELETE_ASSESSMENT_STARTED";
+export const DELETE_ASSESSMENT_SUCCEEDED = "DELETE_ASSESSMENT_SUCCEEDED";
+export const DELETE_ASSESSMENT_FAILED = "DELETE_ASSESSMENT_FAILED";
+
+export type DeleteAssessmentStartedAction = Action<
+  typeof DELETE_ASSESSMENT_STARTED,
+  { id: number }
+>;
+export type DeleteAssessmentSucceededAction = Action<
+  typeof DELETE_ASSESSMENT_SUCCEEDED,
+  { id: number }
+>;
+export type DeleteAssessmentFailedAction = Action<
+  typeof DELETE_ASSESSMENT_FAILED,
+  { id: number; error: Error }
+>;
+
+export const deleteAssessmentStarted = (
+  id: number,
+): DeleteAssessmentStartedAction => {
+  return {
+    type: DELETE_ASSESSMENT_STARTED,
+    payload: {
+      id,
+    },
+  };
+};
+export const deleteAssessmentSucceeded = (
+  id: number,
+): DeleteAssessmentSucceededAction => {
+  return {
+    type: DELETE_ASSESSMENT_SUCCEEDED,
+    payload: {
+      id,
+    },
+  };
+};
+export const deleteAssessmentFailed = (
+  id: number,
+  error: Error,
+): DeleteAssessmentFailedAction => ({
+  type: DELETE_ASSESSMENT_FAILED,
+  payload: {
+    id,
+    error,
+  },
+});
+export const deleteAssessment = (
+  id: number,
+): ThunkAction<void, any, any, AssessmentAction> => {
+  return (dispatch: ThunkDispatch<any, undefined, AssessmentAction>): void => {
+    dispatch(deleteAssessmentStarted(id));
+    deleteAssessmentApi(id)
+      .then(
+        (): void => {
+          dispatch(deleteAssessmentSucceeded(id));
+        },
+      )
+      .catch(
+        (error: Error): void => {
+          dispatch(deleteAssessmentFailed(id, error));
+        },
+      );
+  };
+};
+
 /** Actions for saving a NEW assessment to server */
 export const STORE_NEW_ASSESSMENT_STARTED = "STORE_ASSESSMENT_STARTED";
 export const STORE_NEW_ASSESSMENT_SUCCEEDED = "STORE_ASSESSMENT_SUCCEEDED";
@@ -205,6 +273,9 @@ export type AssessmentAction =
   | UpdateAssessmentStartedAction
   | UpdateAssessmentSucceededAction
   | UpdateAssessmentFailedAction
+  | DeleteAssessmentStartedAction
+  | DeleteAssessmentSucceededAction
+  | DeleteAssessmentFailedAction
   | CreateTempAssessmentAction
   | EditTempAssessmentAction
   | DeleteTempAssessmentAction
