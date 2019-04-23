@@ -131,15 +131,21 @@ return [
         "add_button_label" => "Ajouter une compétence",
         "null_copy" => "Vous n'avez actuellement aucune compétence sur votre profil. Utilisez le bouton ci-dessus pour ajouter une compétence."
     ],
-    "essential_title" => "Les compétences que vous devez avoir",
+    /* Step 3: Essential SKills Header */
+    "essential_title" => "Ce que vous devez avoir",
+    "essential_subtitle" => "Rappelez-vous que vous devez posséder TOUTES ces compétences pour postuler cet emploi!",
+    "essential_question_1" => "Q. Vraiment? J’ai la plupart de ces compétences et j’apprends vite.",
+    "essential_answer_1" => "Désolé, vous devez vraiment toutes les posséder, et au niveau adéquat.",
+    "essential_question_2" => "Q. Et si j’étirais un peu la vérité? Une fois qu’ils m’auront interviewé, ils changeront d’avis, c’est certain!",
+    "essential_answer_2" => "Ne le faites pas. Ces compétences seront évaluées, et vous valez mieux que ça.",
+    "essential_sidebar_label" => "Liste de compétences",
+
     "asset_title" => "Des compétences qu'il est bon à avoir",
-    "essential_context" => "Le poste auquel vous êtes sur le point de postuler requiert les compétences suivantes. Oui, vraiment, toutes. Chacune au niveau minimum d’expertise précisé par le responsable du recrutement. Même si vous êtes incroyable et qu'il ne vous manque qu'une de ces compétences, on ne tiendra pas compte de votre candidature dans le cadre de ce poste. Vous devez également fournir des preuves de toute revendication de compétence que vous faites qui font partie d'un dossier gouvernemental. Donc, ne soyez pas tenté(e) d’étirer la vérité juste pour postuler. Vous êtes meilleur(e) que ça. Gagnez du temps et envisagez plutôt de postuler pour autre chose.",
     "asset_context" => "Vous pouvez postuler à cet emploi si vous ne possédez aucune de ces compétences. Ce sont des atouts qui, selon le responsable du recrutement, viendraient faciliter le travail. Ces compétences servent souvent pour sélectionner le ou la meilleur(e) candidat(e) parmi tous ceux et toutes celles qui répondent à tous les critères du « Besoin d’avoir ». Donc, si vous avez ces compétences, le moment est venu d'en informer le responsable du recrutement.",
-    "essential_start_button_title" => "Faites défiler pour commencer à remplir les compétences que vous devez avoir.",
     "asset_start_button_title" => "Faites défiler pour commencer à remplir les compétences qu'il est bon à avoir.",
     "skills_start_button_label" => "Commencer",
-    "essential_sidebar_label" => "Liste de compétences",
     "asset_sidebar_label" => "Liste de compétences",
+
     /* Step 05 */
     "step_05_title" => "Nuage de talents | Candidat : Postuler maintenant - Étape 5",
     "preview" => [
