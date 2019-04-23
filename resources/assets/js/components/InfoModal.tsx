@@ -47,8 +47,6 @@ class InfoModal extends Component<InfoModalProps, InfoModalState> {
     const viewportHeight = window.outerHeight;
     const { height } = this.state;
 
-    console.log(height);
-
     return height > viewportHeight
       ? 'active--overflowing'
       : 'active--contained';
@@ -63,13 +61,13 @@ class InfoModal extends Component<InfoModalProps, InfoModalState> {
 
   public handleOpen = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    this.setState({ visible: true });
+    this.setState(() => ({ visible: true }));
     this.updateBody(true);
   };
 
   public handleClose = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    this.setState({ visible: false });
+    this.setState(() => ({ visible: false }));
     this.updateBody(false);
   };
 

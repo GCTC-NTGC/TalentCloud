@@ -50,7 +50,6 @@ const SkillsInfoModal: React.FunctionComponent<SkillsInfoModalProps> = ({
               <React.Fragment>
                 <h6 className={i === 0 ? 'color-green' : 'color-red'}>
                   {exampleList.title}
-                  {console.log(exampleList)}
                 </h6>
                 <ul>
                   {Object.values(exampleList.examples).map((example: any) => {
