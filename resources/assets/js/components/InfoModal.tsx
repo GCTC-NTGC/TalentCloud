@@ -81,7 +81,6 @@ class InfoModal extends Component<InfoModalProps, InfoModalState> {
       confirmText,
       cancelText,
       children,
-      // handleConfirm,
     } = this.props;
 
     const { visible } = this.state;

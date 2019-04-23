@@ -68,81 +68,85 @@
     margin-top: calc(#{$unit} * 5);
 
     div[data-skills-info-modal] {
-        .modal-info {
-            &__wrapper {
-                padding: 0.5rem 3rem 0;
-                overflow: hidden;
-                height: 60vh;
-                overflow-y: overlay;
-            }
-
-            &__header {
-                display: flex;
-                justify-content: space-between;
-            }
-
-            &__list-wrapper {
-                padding: 1rem 0;
-                h6 {
-                    font-weight: 900;
-                    font-size: 1.5rem;
-                    &.color-green {
-                        color: $palette--green;
-                    }
-                    &.color-red {
-                        color: $palette--red;
-                    }
-                }
-                ul {
-                    list-style-type: none;
-                    padding-left: 0;
-
-                    li {
-                        margin: 1rem;
-                        margin-left: 0;
-
-                        .list-item__title {
-                            font-weight: 700;
-                            margin-bottom: 0.5rem;
-                            font-size: 1.2rem;
-
-                            i {
-                                margin-right: 0.8rem;
-                                font-size: 1.2rem;
-                            }
-                        }
-
-                        .list-item__content {
-                            padding-left: 2rem;
-                        }
-                    }
-                }
-            }
-
-            &__open-button {
-                color: $palette--black;
-                display: block;
-                font-family: HKGrotesk,sans-serif;
-                font-size: 1rem;
-                line-height: 20px;
-                margin: 0 0 .5rem;
-                z-index: 1;
-                background-color: white;
-                border: none;
-                text-decoration: underline;
-                cursor: pointer;
-                margin-left: auto;
-            }
-
-            &__close-button {
-                position: static !important;
-                i {
-                    color: white;
-                    position: static;
-                    font-size: 1.5rem;
-                }
-            }
+      .modal-info {
+        &__wrapper {
+          padding: 0.5rem 2rem 0;
+          overflow: hidden;
+          height: 60vh;
+          overflow-y: auto;
         }
+
+        &__header {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        &__list-wrapper {
+          padding: 1rem 0;
+          h6 {
+            font-weight: 900;
+            font-size: 1.5rem;
+            &.color-green {
+              color: $palette--green;
+            }
+            &.color-red {
+              color: $palette--red;
+            }
+          }
+          ul {
+            list-style-type: none;
+            padding-left: 0;
+
+            li {
+              margin: 1rem;
+              margin-left: 0;
+
+              .list-item__title {
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+                font-size: 1.2rem;
+
+                i {
+                  margin-right: 0.8rem;
+                  font-size: 1.2rem;
+                }
+              }
+
+              .list-item__content {
+                padding-left: 2rem;
+              }
+            }
+          }
+        }
+
+        &__open-button {
+          color: $palette--black;
+          display: block;
+          font-family: HKGrotesk, sans-serif;
+          font-size: 1rem;
+          line-height: 20px;
+          margin: 0 0 0.5rem;
+          z-index: 1;
+          background-color: white;
+          border: none;
+          text-decoration: underline;
+          cursor: pointer;
+          margin-left: auto;
+
+          :hover {
+            color: $palette--blue;
+          }
+        }
+
+        &__close-button {
+          position: static !important;
+          i {
+            color: white;
+            position: static;
+            font-size: 1.5rem;
+          }
+        }
+      }
     }
   }
 

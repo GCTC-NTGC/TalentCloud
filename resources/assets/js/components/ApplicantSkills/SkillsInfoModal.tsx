@@ -94,6 +94,7 @@ if (document.querySelectorAll('div[data-skills-info-modal]')) {
 
       ReactDOM.render(
         <SkillsInfoModal
+          key={id}
           id={id}
           title={title}
           openText={openText}
