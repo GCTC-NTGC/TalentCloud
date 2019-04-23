@@ -13,12 +13,10 @@ import {
 import { RootState } from "../../store/store";
 import { getJob, getCriteriaByJob } from "../../store/Job/jobSelector";
 import { fetchJob } from "../../store/Job/jobActions";
-import {
-  getAssessmentsByJob,
-  getRatingsGuideQuestionsByJob,
-  getRatingsGuideAnswersByJob,
-} from "../../store/Assessment/assessmentSelector";
-import { fetchAssessmentPlan } from "../../store/Assessment/assessmentActions";
+import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
+import { getRatingsGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
+import { getRatingsGuideAnswersByJob } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
+import { fetchAssessmentPlan } from "../../store/AssessmentPlan/assessmentPlanActions";
 
 interface AssessmentPlanContainerProps {
   jobId: number;

@@ -356,4 +356,13 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:view,jobPoster');
     // Protected by a gate in the controller, instead of policy middleware
     Route::get("jobs/{jobPoster}/assessment-plan", "AssessmentPlanController@getForJob");
+    Route::resource('assessments', 'AssessmentController')->except([
+        'create', 'edit', 'index'
+    ]);
+    Route::resource('rating-guide-answers', 'RatingGuideAnswerController')->except([
+        'create', 'edit', 'index'
+    ]);
+    Route::resource('rating-guide-questions', 'RatingGuideQuestionController')->except([
+        'create', 'edit', 'index'
+    ]);
 });

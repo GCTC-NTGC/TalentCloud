@@ -6,6 +6,7 @@ import {
   RatingsGuideQuestion,
   RatingsGuideAnswer,
 } from "../models/types";
+import { parseAssessment } from "./assessment";
 
 export interface AssessmentPlan {
   assessments: Assessment[];
@@ -27,12 +28,6 @@ const parseRatingGuideQuestion = (
   job_poster_id: Number(data.job_poster_id),
   assessment_type_id: Number(data.assessment_type_id),
   question: data.question,
-});
-
-const parseAssessment = (data: ResponseData): Assessment => ({
-  id: Number(data.id),
-  criterion_id: Number(data.criterion_id),
-  assessment_type_id: Number(data.assessment_type_id),
 });
 
 const parseAssessmentPlan = (data: ResponseData): AssessmentPlan => ({

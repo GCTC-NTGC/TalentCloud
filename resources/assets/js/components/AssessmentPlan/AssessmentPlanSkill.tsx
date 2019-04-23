@@ -1,19 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch, useEffect } from "react";
 import { injectIntl, InjectedIntlProps, defineMessages } from "react-intl";
+import { connect } from "react-redux";
 import {
   skillLevelDescription as SkillLevelDescriptionMessage,
   skillLevelName,
   assessmentType,
 } from "../../models/localizedConstants";
-import Select from "../Select";
+import Select, { SelectOption } from "../Select";
 import { AssessmentTypeId, enumToIds } from "../../models/lookupConstants";
-import { Criteria } from "../../models/types";
+import { Criteria, Assessment, TempAssessment } from "../../models/types";
+import { RootState } from "../../store/store";
+import {
+  getAssessmentsByCriterion,
+  assessmentsAreUpdatingByCriteria,
+  assessmentsAreEditedByCriteria,
+  getTempAssessmentsByCriterion,
+  tempAssessmentsAreSavingByCriterion,
+} from "../../store/Assessment/assessmentSelector";
+import { DispatchType } from "../../configureStore";
+import {
+  updateAssessment as updateAssessmentAction,
+  editAssessment as editAssessmentAction,
+  editTempAssessment as editTempAssessmentAction,
+  deleteTempAssessment as deleteTempAssessmentAction,
+  createTempAssessment,
+  storeNewAssessment,
+  deleteAssessment,
+} from "../../store/Assessment/assessmentActions";
 
 interface AssessmentPlanSkillProps {
   criterion: Criteria;
-  assessmentTypeIds: number[];
-  addAssessmentType: (assessmentTypeId: number) => void;
-  removeAssessmentType: (assessmentTypeId: number) => void;
+  assessments: Assessment[];
+  assessmentsEdited: { [id: number]: boolean };
+  assessmentsUpdating: { [id: number]: boolean };
+  tempAssessments: TempAssessment[];
+  tempAssessmentsSaving: { [id: number]: boolean };
+  createAssessment: () => void;
+  editAssessment: (newAssessment: Assessment) => void;
+  updateAssessment: (newAssessment: Assessment) => void;
+  removeAssessment: (assessmentId: number) => void;
+  editTempAssessment: (newAssessment: TempAssessment) => void;
+  saveTempAssessment: (assessment: Assessment) => void;
+  removeTempAssessment: (id: number) => void;
 }
 
 const localizations = defineMessages({
@@ -25,15 +53,54 @@ const localizations = defineMessages({
   },
 });
 
-const AssessmentPlanSkill: React.FunctionComponent<
+export const AssessmentPlanSkill: React.FunctionComponent<
   AssessmentPlanSkillProps & InjectedIntlProps
 > = ({
   criterion,
-  assessmentTypeIds,
-  addAssessmentType,
-  removeAssessmentType,
+  assessments,
+  assessmentsEdited,
+  assessmentsUpdating,
+  tempAssessments,
+  tempAssessmentsSaving,
+  createAssessment,
+  editAssessment,
+  updateAssessment,
+  removeAssessment,
+  editTempAssessment,
+  saveTempAssessment,
+  removeTempAssessment,
   intl,
 }: AssessmentPlanSkillProps & InjectedIntlProps): React.ReactElement => {
+  useEffect(
+    (): void => {
+      assessments.forEach(
+        (assessment): void => {
+          // If assessment has been edited, and is not currently being updated, start an update.
+          if (
+            assessmentsEdited[assessment.id] &&
+            !assessmentsUpdating[assessment.id]
+          ) {
+            updateAssessment(assessment);
+          }
+        },
+        [assessments, assessmentsEdited, assessmentsUpdating],
+      );
+    },
+  );
+  useEffect((): void => {
+    tempAssessments.forEach(
+      (temp): void => {
+        // If any temp assessments exist, we want to save them as soon as they're valid
+        if (
+          !tempAssessmentsSaving[temp.id] &&
+          temp.assessment_type_id !== null
+        ) {
+          saveTempAssessment(temp as Assessment);
+        }
+      },
+    );
+  }, [tempAssessments, tempAssessmentsSaving]);
+
   const skillLevel = intl.formatMessage(
     skillLevelName(criterion.skill_level_id, criterion.skill.skill_type_id),
   );
@@ -46,53 +113,57 @@ const AssessmentPlanSkill: React.FunctionComponent<
   const skillDescription = criterion.description
     ? criterion.description
     : criterion.skill.description;
-  const assessmentTypeOptions = enumToIds(AssessmentTypeId).map(typeId => {
-    return {
-      value: typeId,
-      label: intl.formatMessage(assessmentType(typeId)),
-    };
-  });
+  const assessmentTypeOptions = enumToIds(AssessmentTypeId).map(
+    (typeId): SelectOption<number> => {
+      return {
+        value: typeId,
+        label: intl.formatMessage(assessmentType(typeId)),
+      };
+    },
+  );
   const assessmentTypeNullSelection = intl.formatMessage(
     localizations.assessmentTypeNullSelection,
   );
 
-  // a count of the number of new default selectors that have been added
-  const [newSelectorsCount, setNewSelectorsCount] = useState(0);
-
-  const selectBlock = (
-    selectedId: number | undefined,
-    key: number | string,
-  ): React.ReactElement => {
-    const options = assessmentTypeOptions.filter(option => {
-      // Ensure we can't select an option already selected in a sibling selector
-      return (
-        option.value === selectedId || !assessmentTypeIds.includes(option.value)
-      );
-    });
-    const deleteSelect = (): void => {
-      if (selectedId) {
-        removeAssessmentType(selectedId);
-      } else {
-        setNewSelectorsCount(newSelectorsCount - 1);
-      }
-    };
-
+  const selectedAssessmentTypes: number[] = [
+    ...assessments.map((assessment): number => assessment.assessment_type_id),
+    ...tempAssessments
+      .filter((temp): boolean => temp.assessment_type_id !== null)
+      .map((temp): number => temp.assessment_type_id as number),
+  ];
+  const SelectBlock: React.FunctionComponent<{
+    assessment: Assessment | TempAssessment;
+    isUpdating: boolean;
+    onChange: (newAssessment: Assessment | TempAssessment) => void;
+    onDelete: (id: number) => void;
+  }> = ({ assessment, isUpdating, onChange, onDelete }): React.ReactElement => {
+    const options = assessmentTypeOptions.filter(
+      (option): boolean => {
+        // Ensure we can't select an option already selected in a sibling selector
+        return (
+          option.value === assessment.assessment_type_id ||
+          !selectedAssessmentTypes.includes(option.value)
+        );
+      },
+    );
     return (
-      <div data-c-grid="middle" key={key}>
+      <div data-c-grid="middle">
         <div data-c-grid-item="base(2of3) tl(4of5)">
           <Select
-            htmlId={`assessmentSelect_${criterion.id}_${selectedId}`}
+            htmlId={`assessmentSelect_${criterion.id}_${assessment.id}`}
             formName="assessmentTypeId"
             label="Select an Assessment"
             required
             options={options}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-              if (selectedId) {
-                removeAssessmentType(selectedId);
-              }
-              addAssessmentType(Number(event.target.value));
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>): void => {
+              const selectedType = Number(event.target.value);
+              onChange({
+                ...assessment,
+                // eslint-disable-next-line @typescript-eslint/camelcase
+                assessment_type_id: selectedType,
+              });
             }}
-            selected={selectedId}
+            selected={assessment.assessment_type_id}
             nullSelection={assessmentTypeNullSelection}
           />
         </div>
@@ -100,20 +171,23 @@ const AssessmentPlanSkill: React.FunctionComponent<
           data-c-alignment="base(center)"
           data-c-grid-item="base(1of3) tl(1of5)"
         >
-          <button className="button-trash" type="button" onClick={deleteSelect}>
-            <i className="fa fa-trash" />
+          <button
+            className="button-trash"
+            type="button"
+            onClick={(): void => {
+              onDelete(assessment.id);
+            }}
+            disabled={isUpdating}
+          >
+            {isUpdating ? (
+              <i className="fa fa-spinner fa-spin" />
+            ) : (
+              <i className="fa fa-trash" />
+            )}
           </button>
         </div>
       </div>
     );
-  };
-
-  const newSelectorsBlock = (count: number): React.ReactElement => {
-    const selectors: React.ReactElement[] = [];
-    for (let i = 0; i < count; i += 1) {
-      selectors.push(selectBlock(undefined, `newSelector${i}`));
-    }
-    return <React.Fragment>{selectors}</React.Fragment>;
   };
 
   return (
@@ -150,20 +224,101 @@ const AssessmentPlanSkill: React.FunctionComponent<
               <button
                 className="button-link"
                 type="button"
-                onClick={() => setNewSelectorsCount(newSelectorsCount + 1)}
+                onClick={(): void => createAssessment()}
               >
                 Add an Assessment
               </button>
             </div>
           </div>
-          {assessmentTypeIds.map(assessmentTypeId =>
-            selectBlock(assessmentTypeId, `selector${assessmentTypeId}`),
+          {assessments.map(
+            (assessment): React.ReactElement => (
+              <SelectBlock
+                key={`assessmentPlanSkillSelectorAssessnent${assessment.id}`}
+                assessment={assessment}
+                isUpdating={assessmentsUpdating[assessment.id]}
+                onChange={editAssessment}
+                onDelete={removeAssessment}
+              />
+            ),
           )}
-          {newSelectorsBlock(newSelectorsCount)}
+          {tempAssessments.map(
+            (tempAssessment): React.ReactElement => (
+              <SelectBlock
+                key={`assessmentPlanSkillSelectorTempAssessment${
+                  tempAssessment.id
+                }`}
+                assessment={tempAssessment}
+                isUpdating={tempAssessmentsSaving[tempAssessment.id]}
+                onChange={editTempAssessment}
+                onDelete={removeTempAssessment}
+              />
+            ),
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default injectIntl(AssessmentPlanSkill);
+interface AssessmentPlanSkillContainerProps {
+  criterion: Criteria;
+}
+
+const mapStateToProps = (
+  state: RootState,
+  ownProps: AssessmentPlanSkillContainerProps,
+): {
+  assessments: Assessment[];
+  assessmentsEdited: { [id: number]: boolean };
+  assessmentsUpdating: { [id: number]: boolean };
+  tempAssessments: TempAssessment[];
+  tempAssessmentsSaving: { [id: number]: boolean };
+} => ({
+  assessments: getAssessmentsByCriterion(state, ownProps.criterion.id),
+  assessmentsEdited: assessmentsAreEditedByCriteria(
+    state,
+    ownProps.criterion.id,
+  ),
+  assessmentsUpdating: assessmentsAreUpdatingByCriteria(
+    state,
+    ownProps.criterion.id,
+  ),
+  tempAssessments: getTempAssessmentsByCriterion(state, ownProps.criterion.id),
+  tempAssessmentsSaving: tempAssessmentsAreSavingByCriterion(
+    state,
+    ownProps.criterion.id,
+  ),
+});
+
+const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
+  createAssessment: (): void => {
+    dispatch(createTempAssessment(ownProps.criterion.id, null));
+  },
+  editAssessment: (assessment: Assessment): void => {
+    dispatch(editAssessmentAction(assessment));
+  },
+  updateAssessment: (assessment: Assessment): void =>
+    dispatch(updateAssessmentAction(assessment)),
+  removeAssessment: (assessmentId: number): void => {
+    // TODO: Figure out why this delteAssessment action doens't work
+    // dispatch(deleteAssessment(assessmentId));
+  },
+  editTempAssessment: (assessment: TempAssessment): void => {
+    dispatch(editTempAssessmentAction(assessment));
+  },
+  removeTempAssessment: (id: number): void => {
+    dispatch(deleteTempAssessmentAction(id));
+  },
+  saveTempAssessment: (assessment: Assessment): void => {
+    dispatch(storeNewAssessment(assessment));
+  },
+});
+
+const AssessmentPlanSkillContainer: React.FunctionComponent<
+  AssessmentPlanSkillContainerProps
+> = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(injectIntl(AssessmentPlanSkill));
+
+export default AssessmentPlanSkillContainer;

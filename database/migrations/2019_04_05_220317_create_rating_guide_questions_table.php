@@ -11,16 +11,15 @@ class CreateRatingGuideQuestionsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('rating_guide_questions', function (Blueprint $table) {
+        Schema::create('rating_guide_questions', function (Blueprint $table): void {
             $table->increments('id');
             $table->timestamps();
             $table->integer('job_poster_id')->unsigned();
             $table->integer('assessment_type_id')->unsigned();
             $table->string('question')->nullable();
 
-            $table->unique(['job_poster_id', 'assessment_type_id']);
             $table->foreign('job_poster_id')->references('id')->on('job_posters')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign('assessment_type_id')->references('id')->on('assessment_types')->onUpdate('CASCADE')->onDelete('NO ACTION');
         });
@@ -31,7 +30,7 @@ class CreateRatingGuideQuestionsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('rating_guide_questions');
     }
