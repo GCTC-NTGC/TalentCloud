@@ -9,12 +9,8 @@ export interface InfoModalProps {
   subtitle?: string;
   /** Text displayed on the button that displays the modal */
   openText: string;
-  /** Text displayed on the button that hides the modal */
-  closeText: string;
   /** Text displayed on the modal confirmation button */
   confirmText: string;
-  /** Text displayed on the modal cancellation button */
-  cancelText: string;
   /** React children */
   children?: React.ReactNode;
 }
@@ -72,16 +68,7 @@ class InfoModal extends Component<InfoModalProps, InfoModalState> {
   };
 
   public render(): React.ReactElement {
-    const {
-      id,
-      title,
-      subtitle,
-      openText,
-      closeText,
-      confirmText,
-      cancelText,
-      children,
-    } = this.props;
+    const { id, title, subtitle, openText, confirmText, children } = this.props;
 
     const { visible } = this.state;
 
