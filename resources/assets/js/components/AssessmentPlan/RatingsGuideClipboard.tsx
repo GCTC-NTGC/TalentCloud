@@ -13,6 +13,7 @@ const dummyData = [
   {
     title: "Assessment",
     question: "My First Question is why?",
+    skillLevel: "3",
     skillType: "Essential",
     skillName: "Hacking",
     modelAnswer: "Hack the Planet",
@@ -20,13 +21,15 @@ const dummyData = [
   },
   {
     skillType: "Asset",
+    skillLevel: "1",
     skillName: "Jedi",
     modelAnswer:
       "Strike me down and I will become more powerful than you can imagine.",
-      id: "jedi",
+    id: "jedi",
   },
   {
     skillType: "Esential",
+    skillLevel: "2",
     skillName: "Detective",
     modelAnswer: "I'll ask the questions here.",
     id: "detective",
@@ -34,12 +37,14 @@ const dummyData = [
   {
     question: "My Second Question is who?",
     skillType: "Essential",
+    skillLevel: "4",
     skillName: "Ninja",
     modelAnswer: "*Silence*",
     id: "ninja",
   },
   {
     skillType: "Asset",
+    skillLevel: "3",
     skillName: "Monk",
     modelAnswer: "Quickly as you can, snatch the pebble from my hand.",
     id: "monk",
@@ -47,6 +52,7 @@ const dummyData = [
   {
     question: "My Third Question is how long?",
     skillType: "Essential",
+    skillLevel: "4",
     skillName: "Jester",
     modelAnswer:
       "A bear there was, a bear, a bear! All black and brown, and covered with hair. The bear! The bear!",
@@ -58,6 +64,7 @@ interface TableRowProps {
   id: string;
   title?: string;
   question?: string;
+  skillLevel: string;
   skillType: string;
   skillName: string;
   modelAnswer: string;
@@ -67,6 +74,7 @@ const TableRow: React.FunctionComponent<TableRowProps> = ({
   title,
   question,
   skillType,
+  skillLevel,
   skillName,
   modelAnswer,
   id,
@@ -75,8 +83,10 @@ const TableRow: React.FunctionComponent<TableRowProps> = ({
     <td>{title}</td>
     <td>{question}</td>
     <td>{skillType}</td>
+    <td>{skillLevel}</td>
     <td>{skillName}</td>
     <td>{modelAnswer}</td>
+    <td />
   </tr>
 );
 
@@ -87,13 +97,26 @@ interface TableProps {
 const Table: React.FunctionComponent<TableProps> = ({
   rows,
 }): React.ReactElement => (
-  <table>
-    {rows.map(
-      (row): React.ReactElement => (
-        <TableRow key={`RatingsGuideTableRow${row.id}`} {...row} />
-      ),
-    )}
-  </table>
+  <div className="screening-plan-layout">
+    <section className="plan-table">
+      <table>
+        <tr>
+          <th>Title</th>
+          <th>Question</th>
+          <th>Skill Type</th>
+          <th>Target Skill Level</th>
+          <th>Skill</th>
+          <th>Rating Guide</th>
+          <th>Applicant Answer</th>
+        </tr>
+        {rows.map(
+          (row): React.ReactElement => (
+            <TableRow key={`RatingsGuideTableRow${row.id}`} {...row} />
+          ),
+        )}
+      </table>
+    </section>
+  </div>
 );
 
 interface RatingsGuildeClipboardProps {
