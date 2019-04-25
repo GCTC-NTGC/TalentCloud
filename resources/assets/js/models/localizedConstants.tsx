@@ -52,34 +52,36 @@ const skillLevelDescriptions = defineMessages({
   },
 });
 
+const skillLevelL10n = (
+  skillLevelId: number,
+  skillTypeId: number,
+  l10nObj: any,
+): FormattedMessage.MessageDescriptor => {
+  const basicKey = SkillLevelId.Basic.toString();
+  const intermediateKey = SkillLevelId.Intermediate.toString();
+  const advancedKey = SkillLevelId.Advanced.toString();
+  const expertKey = SkillLevelId.Expert.toString();
+  return {
+    [SkillTypeId.Hard.toString()]: {
+      [basicKey]: l10nObj.hardBasic,
+      [intermediateKey]: l10nObj.hardIntermediate,
+      [advancedKey]: l10nObj.hardAdvanced,
+      [expertKey]: l10nObj.hardExpert,
+    },
+    [SkillTypeId.Soft.toString()]: {
+      [basicKey]: l10nObj.softBasic,
+      [intermediateKey]: l10nObj.softIntermediate,
+      [advancedKey]: l10nObj.softAdvanced,
+      [expertKey]: l10nObj.softExpert,
+    },
+  }[skillTypeId.toString()][skillLevelId.toString()];
+};
+
 export const skillLevelDescription = (
   skillLevelId: number,
   skillTypeId: number,
-): FormattedMessage.MessageDescriptor => {
-  if (skillTypeId === SkillTypeId.Hard) {
-    switch (skillLevelId) {
-      case SkillLevelId.Basic:
-        return skillLevelDescriptions.hardBasic;
-      case SkillLevelId.Intermediate:
-        return skillLevelDescriptions.hardIntermediate;
-      case SkillLevelId.Advanced:
-        return skillLevelDescriptions.hardAdvanced;
-      default:
-        return skillLevelDescriptions.hardExpert;
-    }
-  } else {
-    switch (skillLevelId) {
-      case SkillLevelId.Basic:
-        return skillLevelDescriptions.softBasic;
-      case SkillLevelId.Intermediate:
-        return skillLevelDescriptions.softIntermediate;
-      case SkillLevelId.Advanced:
-        return skillLevelDescriptions.softAdvanced;
-      default:
-        return skillLevelDescriptions.softExpert;
-    }
-  }
-};
+): FormattedMessage.MessageDescriptor =>
+  skillLevelL10n(skillLevelId, skillTypeId, skillLevelDescriptions);
 
 const skillLevelNames = defineMessages({
   hardBasic: {
@@ -127,31 +129,8 @@ const skillLevelNames = defineMessages({
 export const skillLevelName = (
   skillLevelId: number,
   skillTypeId: number,
-): FormattedMessage.MessageDescriptor => {
-  if (skillTypeId === SkillTypeId.Hard) {
-    switch (skillLevelId) {
-      case SkillLevelId.Basic:
-        return skillLevelNames.hardBasic;
-      case SkillLevelId.Intermediate:
-        return skillLevelNames.hardIntermediate;
-      case SkillLevelId.Advanced:
-        return skillLevelNames.hardAdvanced;
-      default:
-        return skillLevelNames.hardExpert;
-    }
-  } else {
-    switch (skillLevelId) {
-      case SkillLevelId.Basic:
-        return skillLevelNames.softBasic;
-      case SkillLevelId.Intermediate:
-        return skillLevelNames.softIntermediate;
-      case SkillLevelId.Advanced:
-        return skillLevelNames.softAdvanced;
-      default:
-        return skillLevelNames.softExpert;
-    }
-  }
-};
+): FormattedMessage.MessageDescriptor =>
+  skillLevelL10n(skillLevelId, skillTypeId, skillLevelNames);
 
 const assessmentTypes = defineMessages({
   narrativeAssessment: {
