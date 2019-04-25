@@ -8,6 +8,7 @@ use App\Models\Criteria;
 use App\Models\Assessment;
 use App\Models\RatingGuideQuestion;
 use App\Models\RatingGuideAnswer;
+use App\Models\Lookup\AssessmentType;
 
 class AssessmentPlanController extends Controller
 {
@@ -33,6 +34,20 @@ class AssessmentPlanController extends Controller
         }
         $criteriaIds = $criteria->pluck("id");
         $assessments = Assessment::whereIn("criterion_id", $criteriaIds)->get();
+        // Check for newly created assessment plan, and initialize any empty criteria to have the
+        // "Narrative Review" option set.
+        $assessmentCriteriaIds = $assessments->pluck("criterion_id");
+        $emptyAssessments = array_diff($criteriaIds->toArray(), $assessmentCriteriaIds->toArray());
+        if (!empty($emptyAssessments)) {
+            $narrativeReview = AssessmentType::where("key", "narrative_assessment")->first();
+            foreach ($emptyAssessments as $criterionId) {
+                Assessment::create([
+                    'criterion_id' => $criterionId,
+                    'assessment_type_id' => $narrativeReview->id
+                ]);
+            }
+            $assessments = Assessment::whereIn("criterion_id", $criteriaIds)->get();
+        }
         $questions = RatingGuideQuestion::where('job_poster_id', $jobPoster->id)->get();
         $answers = RatingGuideAnswer::whereIn('rating_guide_question_id', $questions->pluck('id'))->get();
         return [
