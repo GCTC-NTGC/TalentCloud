@@ -1,5 +1,11 @@
 import { defineMessages, FormattedMessage } from "react-intl";
-import { SkillLevelId, SkillTypeId, AssessmentTypeId } from "./lookupConstants";
+import {
+  SkillLevelId,
+  SkillTypeId,
+  AssessmentTypeId,
+  SkillLevelIdValues,
+  SkillTypeIdValues,
+} from "./lookupConstants";
 
 const skillLevelDescriptions = defineMessages({
   hardBasic: {
@@ -57,6 +63,12 @@ const skillLevelL10n = (
   skillTypeId: number,
   l10nObj: any,
 ): FormattedMessage.MessageDescriptor => {
+  if (!SkillLevelIdValues.includes(skillLevelId)) {
+    throw new Error("invalid SkillLevelIdValue");
+  }
+  if (!SkillTypeIdValues.includes(skillTypeId)) {
+    throw new Error("invalid SkillTypeIdValue");
+  }
   const basicKey = SkillLevelId.Basic.toString();
   const intermediateKey = SkillLevelId.Intermediate.toString();
   const advancedKey = SkillLevelId.Advanced.toString();

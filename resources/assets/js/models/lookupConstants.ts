@@ -43,3 +43,7 @@ export function enumToIds(enumType: any): number[] {
   const enumIds = enumVals.filter(item => !Number.isNaN(Number(item)));
   return enumIds.map(id => Number(id));
 }
+
+export const SkillLevelIdValues = enumToIds(SkillLevelId);
+
+export const SkillTypeIdValues = enumToIds(SkillTypeId);

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable no-undef */
 import { skillLevelName, skillLevelDescription } from "./localizedConstants";
 import { SkillLevelId, SkillTypeId, enumToIds } from "./lookupConstants";
 
@@ -10,6 +10,20 @@ test("enumToIds works", (): void => {
 describe("skillLevelName", (): void => {
   it("returns a truthy object", (): void => {
     expect(skillLevelName(1, 1)).toBeTruthy();
+  });
+
+  it("raise an error when skill level value is not part of enum", (): void => {
+    function badSkillLevel(): void {
+      skillLevelName(42, SkillTypeId.Soft);
+    }
+    expect(badSkillLevel).toThrow("invalid SkillLevelIdValue");
+  });
+
+  it("raise an error when skill type value is not part of enum", (): void => {
+    function badSkillType(): void {
+      skillLevelName(SkillLevelId.Basic, 42);
+    }
+    expect(badSkillType).toThrow("invalid SkillTypeIdValue");
   });
 
   it("returns a basic soft localization", (): void => {
@@ -64,6 +78,20 @@ describe("skillLevelName", (): void => {
 describe("skillLevelDescription", (): void => {
   it("returns a truthy object", (): void => {
     expect(skillLevelDescription(1, 1)).toBeTruthy();
+  });
+
+  it("raise an error when skill level value is not part of enum", (): void => {
+    function badSkillLevel(): void {
+      skillLevelName(42, SkillTypeId.Soft);
+    }
+    expect(badSkillLevel).toThrow("invalid SkillLevelIdValue");
+  });
+
+  it("raise an error when skill type value is not part of enum", (): void => {
+    function badSkillType(): void {
+      skillLevelName(SkillLevelId.Basic, 42);
+    }
+    expect(badSkillType).toThrow("invalid SkillTypeIdValue");
   });
 
   it("returns a basic soft localization", (): void => {
