@@ -51,16 +51,16 @@ const renderAssessmentTypeBlock = (
             {assessmentTypeName}
           </h5>
           <span data-c-font-weight="bold" data-c-margin="bottom(half)">
-            Assessing {criteria.length} skills.
+            l10n.missing Assessing {criteria.length} skills.
           </span>
         </div>
         <div data-c-grid-item="tl(1of3)">
           <h5 data-c-font-size="h4" data-c-margin="top(normal) bottom(normal)">
-            Essential Skills
+            l10n.missing Essential Skills
           </h5>
           {essentialSkills.length === 0 && (
             <p data-c-font-size="small">
-              No skills being assessed by this tool.
+              l10n.missing No skills being assessed by this tool.
             </p>
           )}
           <ul data-c-font-size="small">
@@ -73,11 +73,11 @@ const renderAssessmentTypeBlock = (
         </div>
         <div data-c-grid-item="tl(1of3)">
           <h5 data-c-font-size="h4" data-c-margin="top(normal) bottom(normal)">
-            Asset Skills
+            l10n.missing Asset Skills
           </h5>
           {assetSkills.length === 0 && (
             <p data-c-font-size="small">
-              No skills being assessed by this tool.
+              l10n.missing No skills being assessed by this tool.
             </p>
           )}
           <ul data-c-font-size="small">

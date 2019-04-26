@@ -3,27 +3,25 @@ import axios from "axios";
 import { ResponseData, baseUrl, ApiResponse } from "./base";
 import {
   Assessment,
-  RatingsGuideQuestion,
-  RatingsGuideAnswer,
+  RatingGuideQuestion,
+  RatingGuideAnswer,
 } from "../models/types";
 import { parseAssessment } from "./assessment";
 
 export interface AssessmentPlan {
   assessments: Assessment[];
-  questions: RatingsGuideQuestion[];
-  answers: RatingsGuideAnswer[];
+  questions: RatingGuideQuestion[];
+  answers: RatingGuideAnswer[];
 }
 
-const parseRatingGuideAnswer = (data: ResponseData): RatingsGuideAnswer => ({
+const parseRatingGuideAnswer = (data: ResponseData): RatingGuideAnswer => ({
   id: Number(data.id),
   rating_guide_question_id: Number(data.rating_guide_question_id),
   skill_id: Number(data.skill_id),
   expected_answer: data.expected_answer,
 });
 
-const parseRatingGuideQuestion = (
-  data: ResponseData,
-): RatingsGuideQuestion => ({
+const parseRatingGuideQuestion = (data: ResponseData): RatingGuideQuestion => ({
   id: Number(data.id),
   job_poster_id: Number(data.job_poster_id),
   assessment_type_id: Number(data.assessment_type_id),
@@ -35,11 +33,11 @@ const parseAssessmentPlan = (data: ResponseData): AssessmentPlan => ({
     (assessmentData): Assessment => parseAssessment(assessmentData),
   ),
   questions: data.rating_guide_questions.map(
-    (questionData): RatingsGuideQuestion =>
+    (questionData): RatingGuideQuestion =>
       parseRatingGuideQuestion(questionData),
   ),
   answers: data.rating_guide_answers.map(
-    (answerData): RatingsGuideAnswer => parseRatingGuideAnswer(answerData),
+    (answerData): RatingGuideAnswer => parseRatingGuideAnswer(answerData),
   ),
 });
 

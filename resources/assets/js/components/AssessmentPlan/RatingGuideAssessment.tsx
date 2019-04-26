@@ -1,43 +1,44 @@
 import React from "react";
 import { InjectedIntlProps, injectIntl } from "react-intl";
 import {
-  RatingsGuideAnswer,
+  RatingGuideAnswer,
   Criteria,
-  RatingsGuideQuestion,
+  RatingGuideQuestion,
+  Skill,
 } from "../../models/types";
 import { assessmentType } from "../../models/localizedConstants";
 import { CriteriaTypeId } from "../../models/lookupConstants";
 import { where } from "../../helpers/queries";
-import RatingsGuideQuestionComponent from "./RatingsGuideQuestion";
-import RatingsGuideAnswerComponent from "./RatingsGuideAnswer";
+import RatingGuideQuestionComponent from "./RatingGuideQuestion";
+import RatingGuideAnswerComponent from "./RatingGuideAnswer";
 
-interface RatingsGuideAssessmentProps {
+interface RatingGuideAssessmentProps {
   /** Display index of this ratings guide assessment compared to others on the page */
   assessmentIndex: number;
   /** The assessment tool used with this assessment question */
   assessmentTypeId: number;
   /** The interview questions to be asked during this assessment */
-  questions: RatingsGuideQuestion[];
+  questions: RatingGuideQuestion[];
   /** The Criteria this question is expected to assess */
   requiredCriteria: Criteria[];
   /** The expecteds answers, for each skill, that will considered a pass */
-  ratingsGuideAnswers: RatingsGuideAnswer[];
+  RatingGuideAnswers: RatingGuideAnswer[];
 
-  /** Handler function for creating a new RatingsGuideQuestion */
+  /** Handler function for creating a new RatingGuideQuestion */
   onQuestionCreate: () => void;
 
-  /** Handle function for creating a new RatingsGuideAnswer */
+  /** Handle function for creating a new RatingGuideAnswer */
   onAnswerCreate: () => void;
 }
 
-const RatingsGuideAssessment: React.FunctionComponent<
-  RatingsGuideAssessmentProps & InjectedIntlProps
+const RatingGuideAssessment: React.FunctionComponent<
+  RatingGuideAssessmentProps & InjectedIntlProps
 > = ({
   assessmentIndex,
   assessmentTypeId,
   questions,
   requiredCriteria,
-  ratingsGuideAnswers,
+  RatingGuideAnswers,
   onQuestionCreate,
   onAnswerCreate,
   intl,
@@ -45,7 +46,7 @@ const RatingsGuideAssessment: React.FunctionComponent<
   const missingCriteria = requiredCriteria.filter(
     criterion =>
       /** Filter out any criteria that have at least one expected answer  */
-      where(ratingsGuideAnswers, "skill_id", criterion.skill.id).length === 0,
+      where(RatingGuideAnswers, "skill_id", criterion.skill.id).length === 0,
   );
   const missingEssentialSkills = missingCriteria
     .filter(
@@ -76,7 +77,7 @@ const RatingsGuideAssessment: React.FunctionComponent<
       </p>
 
       {questions.map((question, index) => {
-        const answers = ratingsGuideAnswers.filter(
+        const answers = RatingGuideAnswers.filter(
           answer => answer.rating_guide_question_id === question.id,
         );
         const selectedSkillIds = answers.map(answer => answer.skill_id);
@@ -88,7 +89,7 @@ const RatingsGuideAssessment: React.FunctionComponent<
             data-c-margin="top(normal) bottom(normal)"
             data-c-padding="bottom(normal)"
           >
-            <RatingsGuideQuestionComponent
+            <RatingGuideQuestionComponent
               key={question.id}
               question={question}
               questionIndex={index + 1}
@@ -105,7 +106,7 @@ const RatingsGuideAssessment: React.FunctionComponent<
                   );
                 });
                 return (
-                  <RatingsGuideAnswerComponent
+                  <RatingGuideAnswerComponent
                     key={answer.id}
                     answer={answer}
                     availableSkills={availableSkills}
@@ -133,22 +134,31 @@ const RatingsGuideAssessment: React.FunctionComponent<
           </div>
         );
       })}
-
-      <div data-c-alignment="center" data-c-margin="bottom(normal)">
-        <span data-c-font-weight="bold">
-          {missingEssentialSkills.length} Essential Missing:{" "}
-          <span data-c-font-colour="stop">
-            {missingEssentialSkills.map(skill => skill.name).join(", ")}
-          </span>
-          {"   "}
-        </span>
-        <span data-c-font-weight="bold">
-          {missingAssetSkills.length} Asset Missing{" "}
-          <span data-c-font-colour="stop">
-            {missingAssetSkills.map(skill => skill.name).join(", ")}
-          </span>
-        </span>
-      </div>
+      {(missingEssentialSkills.length > 0 || missingAssetSkills.length > 0) && (
+        <div data-c-alignment="center" data-c-margin="bottom(normal)">
+          {missingEssentialSkills.length > 0 && (
+            <span data-c-font-weight="bold">
+              {missingEssentialSkills.length} Essential Missing:{" "}
+              <span data-c-font-colour="stop">
+                {missingEssentialSkills
+                  .map((skill: Skill): string => skill.name)
+                  .join(", ")}
+              </span>
+              {"   "}
+            </span>
+          )}
+          {missingAssetSkills.length > 0 && (
+            <span data-c-font-weight="bold">
+              {missingAssetSkills.length} Asset Missing:{" "}
+              <span data-c-font-colour="stop">
+                {missingAssetSkills
+                  .map((skill: Skill): string => skill.name)
+                  .join(", ")}
+              </span>
+            </span>
+          )}
+        </div>
+      )}
       <div data-c-alignment="center">
         <button
           data-c-button="solid(c5)"
@@ -163,4 +173,4 @@ const RatingsGuideAssessment: React.FunctionComponent<
   );
 };
 
-export default injectIntl(RatingsGuideAssessment);
+export default injectIntl(RatingGuideAssessment);

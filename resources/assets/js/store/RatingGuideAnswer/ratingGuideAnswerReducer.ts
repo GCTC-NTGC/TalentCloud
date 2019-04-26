@@ -1,4 +1,4 @@
-import { RatingsGuideAnswer } from "../../models/types";
+import { RatingGuideAnswer } from "../../models/types";
 import {
   AssessmentPlanAction,
   FETCH_ASSESSMENT_PLAN_STARTED,
@@ -8,13 +8,13 @@ import {
 import { mapToObject, getId } from "../../helpers/queries";
 
 export interface RatingGuideAnswerState {
-  ratingsGuideAnswers: {
-    [id: number]: RatingsGuideAnswer;
+  ratingGuideAnswers: {
+    [id: number]: RatingGuideAnswer;
   };
 }
 
 export const initState = (): RatingGuideAnswerState => ({
-  ratingsGuideAnswers: {},
+  ratingGuideAnswers: {},
 });
 
 export const ratingGuideAnswerReducer = (
@@ -27,9 +27,9 @@ export const ratingGuideAnswerReducer = (
     case FETCH_ASSESSMENT_PLAN_SUCCEEEDED:
       return {
         ...state,
-        ratingsGuideAnswers: {
-          ...state.ratingsGuideAnswers,
-          ...mapToObject(action.payload.ratingsGuideAnswers, getId),
+        ratingGuideAnswers: {
+          ...state.ratingGuideAnswers,
+          ...mapToObject(action.payload.ratingGuideAnswers, getId),
         },
       };
     case FETCH_ASSESSMENT_PLAN_FAILED:

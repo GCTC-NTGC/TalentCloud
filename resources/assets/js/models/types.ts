@@ -130,14 +130,14 @@ export interface TempAssessment {
   assessment_type_id: number | null;
 }
 
-export interface RatingsGuideAnswer {
+export interface RatingGuideAnswer {
   id: number;
   rating_guide_question_id: number;
   skill_id: number;
   expected_answer: string;
 }
 
-export interface RatingsGuideQuestion {
+export interface RatingGuideQuestion {
   id: number;
   job_poster_id: number;
   assessment_type_id: number;

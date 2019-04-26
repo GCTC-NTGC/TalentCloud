@@ -4,20 +4,20 @@ import {
   Job,
   Criteria,
   Assessment,
-  RatingsGuideQuestion,
-  RatingsGuideAnswer,
+  RatingGuideQuestion,
+  RatingGuideAnswer,
 } from "../../models/types";
 import { CriteriaTypeId } from "../../models/lookupConstants";
 import AssessmentPlanSkill from "./AssessmentPlanSkill";
 import AssessmentPlanTable from "./AssessmentPlanTable";
-import RatingsGuideBuilder from "./RatingsGuideBuilder";
+import RatingGuideBuilder from "./RatingGuideBuilder";
 
 interface AssessmentPlanProps {
   job: Job | null;
   criteria: Criteria[];
   assessments: Assessment[];
-  questions: RatingsGuideQuestion[];
-  answers: RatingsGuideAnswer[];
+  questions: RatingGuideQuestion[];
+  answers: RatingGuideAnswer[];
 }
 
 const AssessmentPlan: React.FunctionComponent<
@@ -181,11 +181,12 @@ const AssessmentPlan: React.FunctionComponent<
         {job !== null && <AssessmentPlanTable jobId={job.id} />}
 
         {/* Ratings Guide Builder ======================================== */}
-        <RatingsGuideBuilder
+        <RatingGuideBuilder
           criteria={criteria}
           assessments={assessments}
           questions={questions}
           answers={answers}
+          intl={intl}
         />
       </div>
     </section>
