@@ -31,10 +31,12 @@ const AssessmentPlan: React.FunctionComponent<
   intl,
 }): React.ReactElement => {
   const assetCriteria = criteria.filter(
-    criterion => criterion.criteria_type_id === CriteriaTypeId.Asset,
+    (criterion: Criteria): boolean =>
+      criterion.criteria_type_id === CriteriaTypeId.Asset,
   );
   const essentialCriteria = criteria.filter(
-    criterion => criterion.criteria_type_id === CriteriaTypeId.Essential,
+    (criterion: Criteria): boolean =>
+      criterion.criteria_type_id === CriteriaTypeId.Essential,
   );
 
   return (
@@ -51,7 +53,7 @@ const AssessmentPlan: React.FunctionComponent<
         >
           Generate an assessment plan for:
           <span data-c-font-colour="c5" data-c-font-size="h3">
-            {job && job.title}
+            {job && ` ${job.title}`}
           </span>
         </h3>
         <p data-c-margin="bottom(normal)">

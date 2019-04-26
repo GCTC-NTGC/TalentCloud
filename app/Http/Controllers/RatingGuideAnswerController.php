@@ -20,7 +20,6 @@ class RatingGuideAnswerController extends Controller
      */
     public function store(Request $request)
     {
-        dump($request->json());
         try {
             $rating_guide_question_id = (int)$request->json('rating_guide_question_id');
             $skill_id = (int)$request->json('skill_id');
