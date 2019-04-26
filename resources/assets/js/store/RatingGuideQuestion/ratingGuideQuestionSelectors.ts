@@ -1,20 +1,20 @@
 import { RootState } from "../store";
 import { RatingGuideQuestionState } from "./ratingGuideQuestionReducer";
-import { RatingsGuideQuestion } from "../../models/types";
+import { RatingGuideQuestion } from "../../models/types";
 
 const stateSlice = (state: RootState): RatingGuideQuestionState =>
   state.ratingGuideQuestion;
 
-export const getRatingsGuideQuestions = (
+export const getRatingGuideQuestions = (
   state: RootState,
-): RatingsGuideQuestion[] =>
-  Object.values(stateSlice(state).ratingsGuideQuestions);
+): RatingGuideQuestion[] =>
+  Object.values(stateSlice(state).ratingGuideQuestions);
 
-export const getRatingsGuideQuestionsByJob = (
+export const getRatingGuideQuestionsByJob = (
   state: RootState,
   jobId: number,
-): RatingsGuideQuestion[] => {
-  return getRatingsGuideQuestions(state).filter(
+): RatingGuideQuestion[] => {
+  return getRatingGuideQuestions(state).filter(
     (question): boolean => question.job_poster_id === jobId,
   );
 };

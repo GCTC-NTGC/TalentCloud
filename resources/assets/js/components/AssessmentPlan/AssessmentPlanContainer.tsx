@@ -7,15 +7,15 @@ import {
   Job,
   Criteria,
   Assessment,
-  RatingsGuideQuestion,
-  RatingsGuideAnswer,
+  RatingGuideQuestion,
+  RatingGuideAnswer,
 } from "../../models/types";
 import { RootState } from "../../store/store";
 import { getJob, getCriteriaByJob } from "../../store/Job/jobSelector";
 import { fetchJob } from "../../store/Job/jobActions";
 import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
-import { getRatingsGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
-import { getRatingsGuideAnswersByJob } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
+import { getRatingGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
+import { getRatingGuideAnswersByJob } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
 import { fetchAssessmentPlan } from "../../store/AssessmentPlan/assessmentPlanActions";
 
 interface AssessmentPlanContainerProps {
@@ -29,14 +29,14 @@ const mapStateToProps = (
   job: Job | null;
   criteria: Criteria[];
   assessments: Assessment[];
-  questions: RatingsGuideQuestion[];
-  answers: RatingsGuideAnswer[];
+  questions: RatingGuideQuestion[];
+  answers: RatingGuideAnswer[];
 } => ({
   job: getJob(state, ownProps.jobId),
   criteria: getCriteriaByJob(state, ownProps.jobId),
   assessments: getAssessmentsByJob(state, ownProps.jobId),
-  questions: getRatingsGuideQuestionsByJob(state, ownProps.jobId),
-  answers: getRatingsGuideAnswersByJob(state, ownProps.jobId),
+  questions: getRatingGuideQuestionsByJob(state, ownProps.jobId),
+  answers: getRatingGuideAnswersByJob(state, ownProps.jobId),
 });
 
 type DispatchType = Dispatch<AnyAction> & ThunkDispatch<any, any, AnyAction>;
@@ -63,8 +63,8 @@ interface AssessmentPlanFetchContainerProps {
   job: Job | null;
   criteria: Criteria[];
   assessments: Assessment[];
-  questions: RatingsGuideQuestion[];
-  answers: RatingsGuideAnswer[];
+  questions: RatingGuideQuestion[];
+  answers: RatingGuideAnswer[];
   dispatchFetchJob: () => void;
   dispatchFetchAssessmentPlan: () => void;
 }

@@ -1,8 +1,8 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { Action } from "../createAction";
 import {
-  RatingsGuideAnswer,
-  RatingsGuideQuestion,
+  RatingGuideAnswer,
+  RatingGuideQuestion,
   Assessment,
 } from "../../models/types";
 import { getAssessmentPlan } from "../../api/assessmentPlan";
@@ -27,8 +27,8 @@ export type FetchAssessmentPlanSucceededAction = Action<
   {
     jobId: number;
     assessments: Assessment[];
-    ratingsGuideQuestions: RatingsGuideQuestion[];
-    ratingsGuideAnswers: RatingsGuideAnswer[];
+    ratingGuideQuestions: RatingGuideQuestion[];
+    ratingGuideAnswers: RatingGuideAnswer[];
   }
 >;
 
@@ -51,16 +51,16 @@ export const fetchAssessmentPlanStarted = (
 export const fetchAssessmentPlanSucceeded = (
   jobId: number,
   assessments: Assessment[],
-  ratingsGuideQuestions: RatingsGuideQuestion[],
-  ratingsGuideAnswers: RatingsGuideAnswer[],
+  ratingGuideQuestions: RatingGuideQuestion[],
+  ratingGuideAnswers: RatingGuideAnswer[],
 ): FetchAssessmentPlanSucceededAction => {
   return {
     type: FETCH_ASSESSMENT_PLAN_SUCCEEEDED,
     payload: {
       jobId,
       assessments,
-      ratingsGuideQuestions,
-      ratingsGuideAnswers,
+      ratingGuideQuestions,
+      ratingGuideAnswers,
     },
   };
 };

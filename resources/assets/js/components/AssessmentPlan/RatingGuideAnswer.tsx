@@ -1,16 +1,19 @@
 import React from "react";
-import { RatingsGuideAnswer as RatingsGuideAnswerModel, Skill } from "../../models/types";
+import {
+  RatingGuideAnswer as RatingGuideAnswerModel,
+  Skill,
+} from "../../models/types";
 import Select from "../Select";
 import Input from "../Input";
 
-interface RatingsGuideAnswerProps {
-  answer: RatingsGuideAnswerModel;
+interface RatingGuideAnswerProps {
+  answer: RatingGuideAnswerModel;
   availableSkills: Skill[];
-  onChange: (updatedAnswer: RatingsGuideAnswerModel) => void;
+  onChange: (updatedAnswer: RatingGuideAnswerModel) => void;
   onDelete: () => void;
 }
 
-const RatingsGuideAnswer: React.FunctionComponent<RatingsGuideAnswerProps> = ({
+const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps> = ({
   answer,
   availableSkills,
   onChange,
@@ -63,4 +66,4 @@ const RatingsGuideAnswer: React.FunctionComponent<RatingsGuideAnswerProps> = ({
   );
 };
 
-export default RatingsGuideAnswer;
+export default RatingGuideAnswer;

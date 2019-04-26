@@ -1,9 +1,9 @@
 import React from "react";
-import { RatingsGuideQuestion as RatingsGuideQuestionModel } from "../../models/types";
+import { RatingGuideQuestion as RatingGuideQuestionModel } from "../../models/types";
 import Input from "../Input";
 
-interface RatingsGuideQuestionProps {
-  question: RatingsGuideQuestionModel;
+interface RatingGuideQuestionProps {
+  question: RatingGuideQuestionModel;
   /** This questions display index on the page */
   questionIndex: number;
   /** Handler function for when question is changed */
@@ -12,8 +12,8 @@ interface RatingsGuideQuestionProps {
   onQuestionDelete: () => void;
 }
 
-const RatingsGuideQuestion: React.FunctionComponent<
-  RatingsGuideQuestionProps
+const RatingGuideQuestion: React.FunctionComponent<
+  RatingGuideQuestionProps
 > = ({
   question,
   questionIndex,
@@ -56,4 +56,4 @@ const RatingsGuideQuestion: React.FunctionComponent<
   );
 };
 
-export default RatingsGuideQuestion;
+export default RatingGuideQuestion;

@@ -135,7 +135,7 @@ export const skillLevelName = (
 const assessmentTypes = defineMessages({
   narrativeAssessment: {
     id: "assessmentType.narrativeAssessment",
-    defaultMessage: "Narrative Assessment",
+    defaultMessage: "Narrative Review",
     description: "Title of an assessment type.",
   },
   applicationScreeningQuestion: {

@@ -233,7 +233,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
           {assessments.map(
             (assessment): React.ReactElement => (
               <SelectBlock
-                key={`assessmentPlanSkillSelectorAssessnent${assessment.id}`}
+                key={`assessmentPlanSkillSelectorAssessment${assessment.id}`}
                 assessment={assessment}
                 isUpdating={assessmentsUpdating[assessment.id]}
                 onChange={editAssessment}
@@ -300,8 +300,7 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
   updateAssessment: (assessment: Assessment): void =>
     dispatch(updateAssessmentAction(assessment)),
   removeAssessment: (assessmentId: number): void => {
-    // TODO: Figure out why this delteAssessment action doens't work
-    // dispatch(deleteAssessment(assessmentId));
+    dispatch(deleteAssessment(assessmentId));
   },
   editTempAssessment: (assessment: TempAssessment): void => {
     dispatch(editTempAssessmentAction(assessment));

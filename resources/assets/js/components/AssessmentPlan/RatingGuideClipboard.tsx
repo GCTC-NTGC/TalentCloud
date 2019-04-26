@@ -2,11 +2,11 @@ import React from "react";
 import {
   Criteria,
   Assessment,
-  RatingsGuideQuestion,
-  RatingsGuideAnswer,
+  RatingGuideQuestion,
+  RatingGuideAnswer,
 } from "../../models/types";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
-import RatingsGuideAssessment from "./RatingsGuideAssessment";
+import RatingGuideAssessment from "./RatingGuideAssessment";
 import { find } from "../../helpers/queries";
 
 const dummyData = [
@@ -122,14 +122,14 @@ const Table: React.FunctionComponent<TableProps> = ({
 interface RatingsGuildeClipboardProps {
   criteria: Criteria[];
   assessments: Assessment[];
-  questions: RatingsGuideQuestion[];
-  answers: RatingsGuideAnswer[];
+  questions: RatingGuideQuestion[];
+  answers: RatingGuideAnswer[];
 }
 
-const RatingsGuideClipboard: React.FunctionComponent<
+const RatingGuideClipboard: React.FunctionComponent<
   RatingsGuildeClipboardProps
 > = ({ criteria, assessments, questions, answers }): React.ReactElement => {
   return <Table rows={dummyData} />;
 };
 
-export default RatingsGuideClipboard;
+export default RatingGuideClipboard;

@@ -4,7 +4,7 @@ import { Action } from "../createAction";
 import {
   updateAssessment as updateAssessmentApi,
   createAssessment as createAssessmentApi,
-  deleteAssessment as deleteAssessmentApi
+  deleteAssessment as deleteAssessmentApi,
 } from "../../api/assessment";
 import { Assessment, TempAssessment } from "../../models/types";
 
