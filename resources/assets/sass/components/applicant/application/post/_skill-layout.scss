@@ -76,6 +76,10 @@
           overflow-y: auto;
         }
 
+        &__subtext {
+          margin-bottom: 1rem;
+        }
+
         &__header {
           display: flex;
           justify-content: space-between;
@@ -114,6 +118,7 @@
 
               .list-item__content {
                 padding-left: 2rem;
+                margin-bottom: 1rem;
               }
             }
           }

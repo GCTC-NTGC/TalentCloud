@@ -31,7 +31,9 @@ const SkillsInfoModal: React.FunctionComponent<SkillsInfoModalProps> = ({
       confirmText={confirmText}
     >
       <div className="modal-info__wrapper">
-        <p className="modal-info__subtext">{subtext}</p>
+        {Object.values(subtext).map((item: string) => {
+          return <p className="modal-info__subtext">{item}</p>;
+        })}
         <div className="modal-info__list-wrapper">
           {Object.values(example_lists).map((exampleList: any, i: number) => {
             return (
@@ -51,7 +53,15 @@ const SkillsInfoModal: React.FunctionComponent<SkillsInfoModalProps> = ({
                           )}
                           {example.name}
                         </p>
-                        <p className="list-item__content">{example.content}</p>
+                        {Array.isArray(example.content) ? (
+                          Object.values(example.content).map((item: string) => {
+                            return <p className="list-item__content">{item}</p>;
+                          })
+                        ) : (
+                          <p className="list-item__content">
+                            {example.content}
+                          </p>
+                        )}
                       </li>
                     );
                   })}

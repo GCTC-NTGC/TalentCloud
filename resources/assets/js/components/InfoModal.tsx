@@ -92,7 +92,7 @@ class InfoModal extends Component<InfoModalProps, InfoModalState> {
           aria-hidden={visible}
           aria-describedby={`${id}-description`}
           aria-labelledby={`${id}-title`}
-          data-c-dialog={visible && `${this.handleSizing()}`}
+          data-c-dialog=""
           data-c-dialog-id={id}
           data-c-padding="top(double) bottom(double)"
           role="dialog"

@@ -23,10 +23,10 @@ return [
     // Start of Info Modal
     'modal_info' => [
         'title' => 'Rédiger ma candidature',
-        'subtext' => "L’embauche basée sur les compétences signifie qu’AUCUN curriculum vitae et qu’AUCUNE lettre de présentation ne sont requis. (Sérieusement, il n’y aura aucune possibilité de soumettre l’un ou l’autre de ces documents durant le processus de demande.) &nbsp;
-
-        L’embauche basée sur les compétences signifie qu’AUCUN curriculum vitae et qu’AUCUNE lettre de présentation ne sont requis. (Sérieusement, il n’y aura aucune possibilité de soumettre l’un ou l’autre de ces documents durant le processus de demande.)
-        ",
+        'subtext' => [
+            "0" => "L’embauche basée sur les compétences signifie qu’AUCUN curriculum vitae et qu’AUCUNE lettre de présentation ne sont requis. (Sérieusement, il n’y aura aucune possibilité de soumettre l’un ou l’autre de ces documents durant le processus de demande.)",
+            "1" => "L’embauche basée sur les compétences signifie qu’AUCUN curriculum vitae et qu’AUCUNE lettre de présentation ne sont requis. (Sérieusement, il n’y aura aucune possibilité de soumettre l’un ou l’autre de ces documents durant le processus de demande.)"
+        ],
         'close_button_text' => 'J’ai compris!',
         'example_lists' => [
             'dos_example_list' => [
@@ -47,11 +47,13 @@ return [
                     ],
                     'example_2' => [
                         'name' => 'Information trop longue, étirée, ou non pertinente.',
-                        'content' => 'Par exemple : « Quand j’étais à l’école primaire, j’ai suivi mon premier cours d’informatique : Mavis Beacon Teaches Typing. J’ai obtenu la meilleure note de la classe et mon enseignante m’a dit qu’elle n’avait jamais vu un enfant de huit ans taper aussi bien. Pendant le reste de l’école publique et jusqu’à l’université, j’utilisais régulièrement Internet et je m’intéressais au codage et à la conception de sites Web. Quand je suis arrivé à l’université, j’ai créé un site Web de base en HTML et j’ai décidé que je voulais désormais suivre des cours d’informatique. &nbsp;
+                        'content' => [
+                            '0' => 'Par exemple : « Quand j’étais à l’école primaire, j’ai suivi mon premier cours d’informatique : Mavis Beacon Teaches Typing. J’ai obtenu la meilleure note de la classe et mon enseignante m’a dit qu’elle n’avait jamais vu un enfant de huit ans taper aussi bien. Pendant le reste de l’école publique et jusqu’à l’université, j’utilisais régulièrement Internet et je m’intéressais au codage et à la conception de sites Web. Quand je suis arrivé à l’université, j’ai créé un site Web de base en HTML et j’ai décidé que je voulais désormais suivre des cours d’informatique.',
 
-                        Malheureusement, cela aurait ajouté une année avant ma diplomation, alors j’ai plutôt suivi quelques cours à option en informatique. Une fois diplômé, je me suis mis à la recherche d’un emploi en TI, mais on était en 2008 lors de la crise économique mondiale et donc, mes perspectives d’emploi se limitaient à des postes de service. Après avoir travaillé dans plusieurs restaurants et cafés, j’ai obtenu un emploi dans l’équipe du Nuage de talents en tant que développeur de l’interface utilisateur. J’ai passé les 6 premiers mois à travailler sur de petits éléments d’applications côté client. Pendant les premiers mois, je commençais la journée en regardant la liste de travail qui m’avait été assignée. Si je n’étais pas sûr de la façon d’établir l’ordre de priorité de mes tâches, je demandais au développeur principal qui supervisait mon travail. &nbsp;
+                            '1' => 'Malheureusement, cela aurait ajouté une année avant ma diplomation, alors j’ai plutôt suivi quelques cours à option en informatique. Une fois diplômé, je me suis mis à la recherche d’un emploi en TI, mais on était en 2008 lors de la crise économique mondiale et donc, mes perspectives d’emploi se limitaient à des postes de service. Après avoir travaillé dans plusieurs restaurants et cafés, j’ai obtenu un emploi dans l’équipe du Nuage de talents en tant que développeur de l’interface utilisateur. J’ai passé les 6 premiers mois à travailler sur de petits éléments d’applications côté client. Pendant les premiers mois, je commençais la journée en regardant la liste de travail qui m’avait été assignée. Si je n’étais pas sûr de la façon d’établir l’ordre de priorité de mes tâches, je demandais au développeur principal qui supervisait mon travail.',
 
-                        Après, je vérifiais habituellement mes courriels, ce que j’essaie de faire seulement quelques fois par jour pour éviter les distractions. Par la suite, je commençais à travailler sur des projets plus assidûment. Bien que cela m’ait permis de développer certaines compétences, je regrettais de ne pas pouvoir voir toute la variété de projets sur lesquels notre ministère travaillait. Une fois, alors que le développeur principal était en vacances et que son remplaçant était malade, j’ai pu agir comme développeur principal pendant deux jours ».'
+                            '2' => 'Après, je vérifiais habituellement mes courriels, ce que j’essaie de faire seulement quelques fois par jour pour éviter les distractions. Par la suite, je commençais à travailler sur des projets plus assidûment. Bien que cela m’ait permis de développer certaines compétences, je regrettais de ne pas pouvoir voir toute la variété de projets sur lesquels notre ministère travaillait. Une fois, alors que le développeur principal était en vacances et que son remplaçant était malade, j’ai pu agir comme développeur principal pendant deux jours ».'
+                        ]
                     ]
                 ],
             ]
