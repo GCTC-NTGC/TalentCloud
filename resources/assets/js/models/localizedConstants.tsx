@@ -135,57 +135,57 @@ export const skillLevelName = (
 const assessmentTypes = defineMessages({
   narrativeAssessment: {
     id: "assessmentType.narrativeAssessment",
-    defaultMessage: "Narrative Review",
+    defaultMessage: "l10n.missing Narrative Review",
     description: "Title of an assessment type.",
   },
   applicationScreeningQuestion: {
     id: "assessmentType.applicationScreeningQuestion",
-    defaultMessage: "Application Screening Question",
+    defaultMessage: "l10n.missing Application Screening Question",
     description: "Title of an assessment type.",
   },
   groupTest: {
     id: "assessmentType.groupTest",
-    defaultMessage: "Group Test",
+    defaultMessage: "l10n.missing Group Test",
     description: "Title of an assessment type.",
   },
   informalPhoneConversation: {
     id: "assessmentType.informalPhoneConversation",
-    defaultMessage: "Informal Phone Conversation",
+    defaultMessage: "l10n.missing Informal Phone Conversation",
     description: "Title of an assessment type.",
   },
   interview: {
     id: "assessmentType.interview",
-    defaultMessage: "Intervew",
+    defaultMessage: "l10n.missing Intervew",
     description: "Title of an assessment type.",
   },
   onlineExam: {
     id: "assessmentType.onlineExam",
-    defaultMessage: "Online Exam",
+    defaultMessage: "l10n.missing Online Exam",
     description: "Title of an assessment type.",
   },
   onSiteExam: {
     id: "assessmentType.onSiteExam",
-    defaultMessage: "On-Site Exam",
+    defaultMessage: "l10n.missing On-Site Exam",
     description: "Title of an assessment type.",
   },
   takeHomeExam: {
     id: "assessmentType.takeHomeExam",
-    defaultMessage: "Take Home Exam",
+    defaultMessage: "l10n.missing Take Home Exam",
     description: "Title of an assessment type.",
   },
   portfolioReview: {
     id: "assessmentType.portfolioReview",
-    defaultMessage: "Portfolio Review",
+    defaultMessage: "l10n.missing Portfolio Review",
     description: "Title of an assessment type.",
   },
   referenceCheck: {
     id: "assessmentType.referenceCheck",
-    defaultMessage: "Reference Check",
+    defaultMessage: "l10n.missing Reference Check",
     description: "Title of an assessment type.",
   },
   seriousGames: {
     id: "assessmentType.seriousGames",
-    defaultMessage: "Serious Games",
+    defaultMessage: "l10n.missing Serious Games",
     description: "Title of an assessment type.",
   },
 });
