@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { skillLevelName, skillLevelDescription } from "./localizedConstants";
-import { SkillLevelId, SkillTypeId } from "./lookupConstants";
+import { SkillLevelId, SkillTypeId, enumToIds } from "./lookupConstants";
 
-test("This file actually runs tests", (): void => {
-  const one = 1;
-  expect(one).toEqual(1);
+test("enumToIds works", (): void => {
+  const skillLevelIdValues: number[] = enumToIds(SkillLevelId);
+  expect(skillLevelIdValues).toEqual([1, 2, 3, 4]);
 });
 
 describe("skillLevelName", (): void => {
