@@ -151,6 +151,9 @@ Route::group(
             /* Static - Terms of Service */
             Route::view('tos', 'common/static_tos', ['tos' => Lang::get('common/tos')])->name('tos');
 
+            /* Static - ITP */
+            Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
+
             /* Authentication =========================================================== */
 
             // Laravel default login, logout, register, and reset routes
