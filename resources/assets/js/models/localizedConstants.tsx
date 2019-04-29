@@ -5,6 +5,7 @@ import {
   AssessmentTypeId,
   SkillLevelIdValues,
   SkillTypeIdValues,
+  AssessmentTypeIdValues,
 } from "./lookupConstants";
 
 const skillLevelDescriptions = defineMessages({
@@ -205,30 +206,22 @@ const assessmentTypes = defineMessages({
 export const assessmentType = (
   assessmentTypeId: number,
 ): FormattedMessage.MessageDescriptor => {
-  switch (assessmentTypeId) {
-    case AssessmentTypeId.NarrativeAssessment:
-      return assessmentTypes.narrativeAssessment;
-    case AssessmentTypeId.ApplicationScreeningQuestion:
-      return assessmentTypes.applicationScreeningQuestion;
-    case AssessmentTypeId.GroupTest:
-      return assessmentTypes.groupTest;
-    case AssessmentTypeId.InformalPhoneConversation:
-      return assessmentTypes.informalPhoneConversation;
-    case AssessmentTypeId.Interview:
-      return assessmentTypes.interview;
-    case AssessmentTypeId.OnlineExam:
-      return assessmentTypes.onlineExam;
-    case AssessmentTypeId.OnSiteExam:
-      return assessmentTypes.onSiteExam;
-    case AssessmentTypeId.TakeHomeExam:
-      return assessmentTypes.takeHomeExam;
-    case AssessmentTypeId.PortfolioReview:
-      return assessmentTypes.portfolioReview;
-    case AssessmentTypeId.ReferenceCheck:
-      return assessmentTypes.referenceCheck;
-    case AssessmentTypeId.SeriousGames:
-      return assessmentTypes.seriousGames;
-    default:
-      return assessmentTypes.narrativeAssessment;
+  if (!AssessmentTypeIdValues.includes(assessmentTypeId)) {
+    throw new Error("invalid AssessmentTypeValue");
   }
+  return {
+    [AssessmentTypeId.ApplicationScreeningQuestion]:
+      assessmentTypes.applicationScreeningQuestion,
+    [AssessmentTypeId.GroupTest]: assessmentTypes.groupTest,
+    [AssessmentTypeId.InformalPhoneConversation]:
+      assessmentTypes.informalPhoneConversation,
+    [AssessmentTypeId.Interview]: assessmentTypes.interview,
+    [AssessmentTypeId.NarrativeAssessment]: assessmentTypes.narrativeAssessment,
+    [AssessmentTypeId.OnSiteExam]: assessmentTypes.onSiteExam,
+    [AssessmentTypeId.OnlineExam]: assessmentTypes.onlineExam,
+    [AssessmentTypeId.PortfolioReview]: assessmentTypes.portfolioReview,
+    [AssessmentTypeId.ReferenceCheck]: assessmentTypes.referenceCheck,
+    [AssessmentTypeId.SeriousGames]: assessmentTypes.seriousGames,
+    [AssessmentTypeId.TakeHomeExam]: assessmentTypes.takeHomeExam,
+  }[assessmentTypeId.toString()];
 };

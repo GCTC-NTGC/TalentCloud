@@ -1,6 +1,15 @@
 /* eslint-disable no-undef */
-import { skillLevelName, skillLevelDescription } from "./localizedConstants";
-import { SkillLevelId, SkillTypeId, enumToIds } from "./lookupConstants";
+import {
+  skillLevelName,
+  skillLevelDescription,
+  assessmentType,
+} from "./localizedConstants";
+import {
+  SkillLevelId,
+  SkillTypeId,
+  enumToIds,
+  AssessmentTypeId,
+} from "./lookupConstants";
 
 test("enumToIds works", (): void => {
   const skillLevelIdValues: number[] = enumToIds(SkillLevelId);
@@ -140,5 +149,84 @@ describe("skillLevelDescription", (): void => {
     expect(
       skillLevelDescription(SkillLevelId.Expert, SkillTypeId.Hard).id,
     ).toEqual("skillLevel.hard.expert.description");
+  });
+});
+
+describe("assessmentType", (): void => {
+  it("returns a truthy object", (): void => {
+    expect(assessmentType(AssessmentTypeId.NarrativeAssessment)).toBeTruthy();
+  });
+
+  it("raise an error when Assessment Type value is not part of enum", (): void => {
+    function badAssessmentType(): void {
+      assessmentType(42);
+    }
+    expect(badAssessmentType).toThrow("invalid AssessmentTypeValue");
+  });
+
+  it("returns a narrative assessment localization", (): void => {
+    expect(assessmentType(AssessmentTypeId.NarrativeAssessment).id).toEqual(
+      "assessmentType.narrativeAssessment",
+    );
+  });
+
+  it("returns a narrative assessment localization", (): void => {
+    expect(assessmentType(AssessmentTypeId.NarrativeAssessment).id).toEqual(
+      "assessmentType.narrativeAssessment",
+    );
+  });
+
+  it("returns a group test localization", (): void => {
+    expect(assessmentType(AssessmentTypeId.GroupTest).id).toEqual(
+      "assessmentType.groupTest",
+    );
+  });
+
+  it("returns an informal phone conversation localization", (): void => {
+    expect(
+      assessmentType(AssessmentTypeId.InformalPhoneConversation).id,
+    ).toEqual("assessmentType.informalPhoneConversation");
+  });
+
+  it("returns an interview localization", (): void => {
+    expect(assessmentType(AssessmentTypeId.Interview).id).toEqual(
+      "assessmentType.interview",
+    );
+  });
+
+  it("returns an online exam localization", (): void => {
+    expect(assessmentType(AssessmentTypeId.OnlineExam).id).toEqual(
+      "assessmentType.onlineExam",
+    );
+  });
+
+  it("returns an on site exam localization", (): void => {
+    expect(assessmentType(AssessmentTypeId.OnSiteExam).id).toEqual(
+      "assessmentType.onSiteExam",
+    );
+  });
+
+  it("returns a take home exam localization", (): void => {
+    expect(assessmentType(AssessmentTypeId.TakeHomeExam).id).toEqual(
+      "assessmentType.takeHomeExam",
+    );
+  });
+
+  it("returns a portfolio review localization", (): void => {
+    expect(assessmentType(AssessmentTypeId.PortfolioReview).id).toEqual(
+      "assessmentType.portfolioReview",
+    );
+  });
+
+  it("returns a reference check localization", (): void => {
+    expect(assessmentType(AssessmentTypeId.ReferenceCheck).id).toEqual(
+      "assessmentType.referenceCheck",
+    );
+  });
+
+  it("returns a serious Games localization", (): void => {
+    expect(assessmentType(AssessmentTypeId.SeriousGames).id).toEqual(
+      "assessmentType.seriousGames",
+    );
   });
 });

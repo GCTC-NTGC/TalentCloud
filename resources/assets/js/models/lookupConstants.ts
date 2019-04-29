@@ -47,3 +47,5 @@ export function enumToIds(enumType: any): number[] {
 export const SkillLevelIdValues = enumToIds(SkillLevelId);
 
 export const SkillTypeIdValues = enumToIds(SkillTypeId);
+
+export const AssessmentTypeIdValues = enumToIds(AssessmentTypeId);
