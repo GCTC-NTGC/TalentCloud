@@ -50,7 +50,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
 
     label {
       display: flex;
@@ -70,6 +70,8 @@
     .error-message {
       color: red;
       display: inline-block;
+      position: absolute;
+      bottom: -2rem;
       font-size: 0.9rem;
       flex: 100%;
       margin-left: 0;
@@ -95,6 +97,7 @@
       align-items: center;
       justify-content: center;
       transition: border 0.3s ease;
+      margin: 0 0.7rem 0 0;
 
       &:hover {
         border: 5px solid rgba(0, 0, 0, 0.2);

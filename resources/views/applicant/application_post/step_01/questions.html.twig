@@ -149,11 +149,14 @@
                         {# French Essential #}
                         {{ application_template.french_essential }}
                     {% elseif job.language_requirement.id == 3 %}
-                        {# Bilingual #}
-                        {{ application_template.bilingual }}
+                        {# Bilingual Intermediate #}
+                        {{ application_template.bilingual_intermediate }}
                     {% elseif job.language_requirement.id == 4 %}
+                        {# Bilingual Advanced #}
+                        {{ application_template.bilingual_advanced }}
+                    {% elseif job.language_requirement.id == 5 %}
                         {# English or French #}
-                        {{ application_template.english_french }}
+                        {{ application_template.english_or_french }}
                     {% else %}
                         {# nothing #}
                     {% endif %}
