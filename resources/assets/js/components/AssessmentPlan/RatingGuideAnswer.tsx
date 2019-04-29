@@ -38,7 +38,10 @@ const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps> = ({
           { value: selectedSkill.id, label: selectedSkill.name },
         ];
   return (
-    <div data-c-grid="gutter middle">
+    <div
+      data-c-grid="gutter middle"
+      data-c-background={selectionIsValid ? undefined : "c3(30)"}
+    >
       <div data-c-grid-item="base(1of1) tp(1of8)" data-c-alignment="center">
         {!selectionIsValid && <i className="fa fa-exclamation" />}
       </div>
