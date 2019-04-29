@@ -12,12 +12,17 @@ import ratingGuideQuestionReducer, {
   RatingGuideQuestionState,
   initState as initRatingGuideQuestion,
 } from "./RatingGuideQuestion/ratingGuideQuestionReducer";
+import skillReducer, {
+  SkillState,
+  initState as initSkill,
+} from "./Skill/skillReducer";
 
 export interface RootState {
   jobs: JobState;
   assessment: AssessmentState;
   ratingGuideQuestion: RatingGuideQuestionState;
   ratingGuideAnswer: RatingGuideAnswerState;
+  skill: SkillState;
 }
 
 export const initState = (): RootState => ({
@@ -25,6 +30,7 @@ export const initState = (): RootState => ({
   assessment: initAssessment(),
   ratingGuideQuestion: initRatingGuideQuestion(),
   ratingGuideAnswer: initRatingGuideAnswer(),
+  skill: initSkill(),
 });
 
 export const rootReducer = (): Reducer<RootState> =>
@@ -33,6 +39,7 @@ export const rootReducer = (): Reducer<RootState> =>
     assessment: assessmentReducer,
     ratingGuideQuestion: ratingGuideQuestionReducer,
     ratingGuideAnswer: ratingGuideAnswerReducer,
+    skill: skillReducer,
   });
 
 export default rootReducer;

@@ -17,6 +17,7 @@ import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
 import { getRatingGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
 import { getRatingGuideAnswersByJob } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
 import { fetchAssessmentPlan } from "../../store/AssessmentPlan/assessmentPlanActions";
+import { fetchSkills } from "../../store/Skill/skillActions";
 
 interface AssessmentPlanContainerProps {
   jobId: number;
@@ -54,6 +55,7 @@ const mapDispatchToProps = (
         {},
         AnyAction
       > => fetchAssessmentPlan(ownProps.jobId),
+      dispatchFetchSkills: (): ThunkAction<void, RootState, {}, AnyAction> => fetchSkills(),
     },
     dispatch,
   );
@@ -67,6 +69,7 @@ interface AssessmentPlanFetchContainerProps {
   answers: RatingGuideAnswer[];
   dispatchFetchJob: () => void;
   dispatchFetchAssessmentPlan: () => void;
+  dispatchFetchSkills: () => void;
 }
 
 const AssessmentPlanFetchContainer: React.FunctionComponent<
@@ -80,10 +83,12 @@ const AssessmentPlanFetchContainer: React.FunctionComponent<
   answers,
   dispatchFetchJob,
   dispatchFetchAssessmentPlan,
+  dispatchFetchSkills,
 }): React.ReactElement => {
   // Similar to componentDidMount and componentDidUpdate:
   useEffect((): void => dispatchFetchJob(), [jobId]);
   useEffect((): void => dispatchFetchAssessmentPlan(), [jobId]);
+  useEffect((): void => dispatchFetchSkills(), []);
   return (
     <AssessmentPlan
       job={job}
