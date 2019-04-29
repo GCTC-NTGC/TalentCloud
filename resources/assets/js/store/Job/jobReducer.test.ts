@@ -64,6 +64,14 @@ describe("Job Reducer tests", (): void => {
       name: "Test Skill",
       description: "Description of a test skill",
       skill_type_id: 1,
+      en: {
+        name: "Test Skill",
+        description: "Description of a test skill",
+      },
+      fr: {
+        name: "FR Test Skill",
+        description: "FR Description of a test skill",
+      },
     },
     en: {
       description: "Test criteria description",

@@ -2,6 +2,7 @@
 import axios from "axios";
 import { Job, JobTranslation, Criteria } from "../models/types";
 import { baseUrl, ApiResponse, ResponseData } from "./base";
+import { parseSkill } from "./skill";
 
 const parseJobTranslation = (data: ResponseData): JobTranslation => ({
   city: data.city,
@@ -21,12 +22,7 @@ const parseCriterion = (data: ResponseData): Criteria => ({
   description: data.description,
   en: { description: data.en.description },
   fr: { description: data.fr.description },
-  skill: {
-    id: Number(data.skill.id),
-    name: data.skill.name,
-    description: data.skill.description,
-    skill_type_id: Number(data.skill.skill_type_id),
-  },
+  skill: parseSkill(data.skill),
 });
 
 const parseResponse = ({
