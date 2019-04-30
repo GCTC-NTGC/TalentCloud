@@ -72,17 +72,14 @@
 
                                 {# Profile List Header #}
 
+                                {% if application_step == "4" %}
                                     <div
                                         class="profile-list__header flex-grid middle">
 
                                         <div
                                             class="box med-1of2">
 
-                                            {% if application_step == "3" %}
-                                                <h3>{{ application_template.skills_section.essential_title }}</h3>
-                                            {% elseif application_step == "4" %}
                                                 <h3>{{ application_template.skills_section.asset_title }}</h3>
-                                            {% endif %}
 
                                         </div>
 
@@ -92,6 +89,7 @@
                                         </div>
 
                                     </div>
+                                {% endif %}
 
                                 {# Set Locale #}
 
@@ -100,7 +98,7 @@
                                 {# Profile Element List #}
 
                                     <div
-                                        class="profile-element-list">
+                                        class="profile-element-list {{ application_step == "3" ? "step3" : "" }}">
 
                                         {% if application_step == "3" %}
 
