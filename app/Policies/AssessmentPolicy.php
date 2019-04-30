@@ -60,8 +60,7 @@ class AssessmentPolicy extends BasePolicy
     public function delete(User $user, Assessment $assessment) : bool
     {
         // Managers can delete assessments tied to Jobs they own.
-        return $user->user_role->name == 'manager' &&
-            $assessment->manager->user->id == $user->id &&
-            !$assessment->published;
+        return $user->hasRole('manager') &&
+            $assessment->criterion->job_poster->manager->user_id === $user->id;
     }
 }

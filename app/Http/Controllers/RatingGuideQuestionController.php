@@ -20,6 +20,7 @@ class RatingGuideQuestionController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', RatingGuideQuestion::class);
         try {
             $job_poster_id = (int)$request->json('job_poster_id');
             $assessment_type_id = (int)$request->json('assessment_type_id');
@@ -36,6 +37,9 @@ class RatingGuideQuestionController extends Controller
                 'assessment_type_id' => $assessment_type_id,
                 'question' => $question,
             ]);
+            // Check that this user is allowed to create an Assessment for this criterion
+            $this->authorize('update', $ratingGuideQuestion);
+
             $ratingGuideQuestion->save();
             $ratingGuideQuestion->refresh();
         } catch (\Exception $e) {
@@ -58,6 +62,7 @@ class RatingGuideQuestionController extends Controller
      */
     public function show(RatingGuideQuestion $ratingGuideQuestion)
     {
+        $this->authorize('view', $ratingGuideQuestion);
         $ratingGuideQuestion->load([
             'job_poster',
             'assessment_type'
@@ -75,6 +80,7 @@ class RatingGuideQuestionController extends Controller
      */
     public function update(Request $request, RatingGuideQuestion $ratingGuideQuestion)
     {
+        $this->authorize('update', $ratingGuideQuestion);
         try {
             $job_poster_id = (int)$request->json('job_poster_id');
             $assessment_type_id = (int)$request->json('assessment_type_id');
@@ -111,6 +117,7 @@ class RatingGuideQuestionController extends Controller
      */
     public function destroy(RatingGuideQuestion $ratingGuideQuestion)
     {
+        $this->authorize('delete', $ratingGuideQuestion);
         $ratingGuideQuestion->delete();
 
         return [
