@@ -25,7 +25,7 @@ return [
         'title' => 'Rédiger ma candidature',
         'subtext' => [
             "0" => "L’embauche basée sur les compétences signifie qu’AUCUN curriculum vitae et qu’AUCUNE lettre de présentation ne sont requis. (Sérieusement, il n’y aura aucune possibilité de soumettre l’un ou l’autre de ces documents durant le processus de demande.)",
-            "1" => "L’embauche basée sur les compétences signifie qu’AUCUN curriculum vitae et qu’AUCUNE lettre de présentation ne sont requis. (Sérieusement, il n’y aura aucune possibilité de soumettre l’un ou l’autre de ces documents durant le processus de demande.)"
+            "1" => "Cette section de la demande vous donne l’occasion de raconter votre histoire. Utilisez des exemples précis tirés de votre travail et de votre vie personnelle qui démontrent bien que vous possédez ces compétences. Ensuite, soumettez des références ou des échantillons de travail àl’appui de vos affirmations."
         ],
         'close_button_text' => 'J’ai compris!',
         'example_lists' => [
