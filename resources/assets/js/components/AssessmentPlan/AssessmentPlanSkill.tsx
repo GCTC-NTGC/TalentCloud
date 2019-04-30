@@ -1,5 +1,10 @@
 import React, { useState, Dispatch, useEffect } from "react";
-import { injectIntl, InjectedIntlProps, defineMessages } from "react-intl";
+import {
+  injectIntl,
+  InjectedIntlProps,
+  defineMessages,
+  FormattedMessage,
+} from "react-intl";
 import { connect } from "react-redux";
 import {
   skillLevelDescription as SkillLevelDescriptionMessage,
@@ -45,11 +50,16 @@ interface AssessmentPlanSkillProps {
 }
 
 const localizations = defineMessages({
-  assessmentTypeNullSelection: {
-    id: "assessmentPlan.assessmentTypeNull",
-    defaultMessage: "l10n.missing Select an Assessment",
+  selectAssessmentNull: {
+    id: "assessmentPlan.selectAssessment.null",
+    defaultMessage: "Select an Assessment",
     description:
       "Default select element before an assessment type has been chosen",
+  },
+  selectAssessmentLabel: {
+    id: "assessmentPlan.selectAssessment.label",
+    defaultMessage: "Select an Assessment",
+    description: "Label for Assessment Type select element.",
   },
 });
 
@@ -121,8 +131,11 @@ export const AssessmentPlanSkill: React.FunctionComponent<
       };
     },
   );
-  const assessmentTypeNullSelection = intl.formatMessage(
-    localizations.assessmentTypeNullSelection,
+  const selectAssessmentNull = intl.formatMessage(
+    localizations.selectAssessmentNull,
+  );
+  const selectAssessmentLabel = intl.formatMessage(
+    localizations.selectAssessmentLabel,
   );
 
   const selectedAssessmentTypes: number[] = [
@@ -152,7 +165,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
           <Select
             htmlId={`assessmentSelect_${criterion.id}_${assessment.id}`}
             formName="assessmentTypeId"
-            label="Select an Assessment"
+            label={selectAssessmentLabel}
             required
             options={options}
             onChange={(event: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -164,7 +177,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
               });
             }}
             selected={assessment.assessment_type_id}
-            nullSelection={assessmentTypeNullSelection}
+            nullSelection={selectAssessmentNull}
           />
         </div>
         <div
@@ -198,18 +211,34 @@ export const AssessmentPlanSkill: React.FunctionComponent<
       <div data-c-grid="gutter top">
         <div data-c-grid-item="base(1of1)">
           <h5 data-c-font-size="h4" data-c-margin="top(normal)">
-            {`${criterion.skill.name} - ${skillLevel}`}
+            <FormattedMessage
+              id="assessmentPlan.criteriaTitle"
+              defaultMessage="{skillName} - {skillLevel}"
+              description="Title of a skill section in the Assessment Plan Builder."
+              values={{
+                skillName: criterion.skill[intl.locale].name,
+                skillLevel,
+              }}
+            />
           </h5>
         </div>
         <div data-c-grid-item="tl(2of7)">
           <span data-c-font-weight="bold" data-c-margin="bottom(half)">
-            Description
+            <FormattedMessage
+              id="assessmentPlan.skillDescriptionLabel"
+              defaultMessage="Description"
+              description="Label for the text that describes a skill criterion."
+            />
           </span>
           <p data-c-font-size="small">{skillDescription}</p>
         </div>
         <div data-c-grid-item="tl(2of7)">
           <span data-c-font-weight="bold" data-c-margin="bottom(half)">
-            Skill Level Selected
+            <FormattedMessage
+              id="assessmentPlan.skillLevelDescriptionLabel"
+              defaultMessage="Skill Level Selected"
+              description="Label for the text that describes a Skill Level."
+            />
           </span>
           <p data-c-font-size="small">{skillLevelDescription}</p>
         </div>
@@ -217,7 +246,11 @@ export const AssessmentPlanSkill: React.FunctionComponent<
           <div data-c-grid>
             <div data-c-grid-item="base(1of2)">
               <span data-c-font-weight="bold" data-c-margin="bottom(half)">
-                Assessment Types
+                <FormattedMessage
+                  id="assessmentPlan.assessmentTypesLabel"
+                  defaultMessage="Assessment Types"
+                  description="Label for section where you choose assessment types for a criterion."
+                />
               </span>
             </div>
             <div data-c-alignment="base(right)" data-c-grid-item="base(1of2)">
@@ -226,7 +259,11 @@ export const AssessmentPlanSkill: React.FunctionComponent<
                 type="button"
                 onClick={(): void => createAssessment()}
               >
-                Add an Assessment
+                <FormattedMessage
+                  id="assessmentPlan.addAssessmentButton"
+                  defaultMessage="Add an Assessment"
+                  description="Text for the button that adds a new assessment for a criterion."
+                />
               </button>
             </div>
           </div>
