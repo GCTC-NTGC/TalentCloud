@@ -114,9 +114,9 @@ Route::group(
                     ->name('profile.experience.update');
 
                 /* Profile - My Skills */
-                Route::get('profile/skills', 'SkillsController@editAuthenticated');
+                Route::get('profile/skills', 'SkillDeclarationController@editAuthenticated');
 
-                Route::get('profile/{applicant}/skills', 'SkillsController@edit')
+                Route::get('profile/{applicant}/skills', 'SkillDeclarationController@edit')
                     ->middleware('can:view,applicant')
                     ->middleware('can:update,applicant')
                     ->name('profile.skills.edit');
@@ -281,15 +281,15 @@ Route::group(
                 ->middleware('can:delete,workExperience')
                 ->name('work_experiences.destroy');
 
-            Route::post('skill-declarations', 'SkillsController@create')
+            Route::post('skill-declarations', 'SkillDeclarationController@create')
                 ->middleware('can:create,App\Models\SkillDeclaration')
                 ->name('skill_declarations.create');
 
-            Route::put('skill-declarations/{skillDeclaration}', 'SkillsController@update')
+            Route::put('skill-declarations/{skillDeclaration}', 'SkillDeclarationController@update')
                 ->middleware('can:update,skillDeclaration')
                 ->name('skill_declarations.update');
 
-            Route::delete('skill-declarations/{skillDeclaration}', 'SkillsController@destroy')
+            Route::delete('skill-declarations/{skillDeclaration}', 'SkillDeclarationController@destroy')
                 ->middleware('can:delete,skillDeclaration')
                 ->name('skill_declarations.destroy');
 
@@ -365,4 +365,5 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::resource('rating-guide-questions', 'RatingGuideQuestionController')->except([
         'create', 'edit', 'index'
     ]);
+    Route::get("skills", "SkillController@index"); // Public, not protected by policy or gate
 });

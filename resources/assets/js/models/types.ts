@@ -94,11 +94,18 @@ export interface ReviewStatus {
   name: ReviewStatusName;
 }
 
+export interface SkillTranslation {
+  name: string;
+  description: string;
+}
+
 export interface Skill {
   id: number;
   name: string;
   description: string;
   skill_type_id: number;
+  en: SkillTranslation;
+  fr: SkillTranslation;
 }
 
 export interface Criteria {

@@ -33,6 +33,7 @@ use App\Models\Manager;
 use App\Services\Validation\JobPosterValidator;
 use Jenssegers\Date\Date;
 use App\Models\AssessmentPlanNotification;
+use App\Models\Assessment;
 
 class JobController extends Controller
 {
@@ -727,6 +728,9 @@ class JobController extends Controller
             'criteriaTypeId' => $criteria->criteria_type_id
         ];
         $notification->save();
+
+        // Delete assessments related to this criteria
+        Assessment::where("criterion_id", $criteria->id)->delete();
 
         $criteria->delete();
     }

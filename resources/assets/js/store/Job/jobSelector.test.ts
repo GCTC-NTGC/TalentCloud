@@ -56,6 +56,14 @@ describe("getCriteria", (): void => {
       name: `Skill number ${id}`,
       description: `Description of skill number ${id}`,
       skill_type_id: 1,
+      en: {
+        name: `Skill number ${id}`,
+        description: `Description of skill number ${id}`,
+      },
+      fr: {
+        name: `FR Skill number ${id}`,
+        description: `FR Description of skill number ${id}`,
+      },
     }, // TODO: remove skill from here
     en: {
       description: `This is criteria number ${id}`,

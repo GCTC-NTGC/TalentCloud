@@ -14,7 +14,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Validation\BulkSkillDeclarationValidator;
 use App\Services\Validation\SkillDeclarationValidator;
 
-class SkillsController extends Controller
+class SkillDeclarationController extends Controller
 {
 
     /**
@@ -54,10 +54,10 @@ class SkillsController extends Controller
     /**
      * Create the particular skill declaration in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request): \Illuminate\Http\Response
     {
         $this->authorize('create', SkillDeclaration::class);
 
@@ -81,11 +81,11 @@ class SkillsController extends Controller
     /**
      * Update the particular skill declaration in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SkillDeclaration  $skillDeclaration
+     * @param  \Illuminate\Http\Request     $request
+     * @param  \App\Models\SkillDeclaration $skillDeclaration
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SkillDeclaration $skillDeclaration)
+    public function update(Request $request, SkillDeclaration $skillDeclaration): \Illuminate\Http\Response
     {
         $this->authorize('update', $skillDeclaration);
 
@@ -131,20 +131,19 @@ class SkillsController extends Controller
     /**
      * Delete the particular skill declaration in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SkillDeclaration  $skillDeclaration
+     * @param  \Illuminate\Http\Request     $request
+     * @param  \App\Models\SkillDeclaration $skillDeclaration
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, SkillDeclaration $skillDeclaration)
+    public function destroy(Request $request, SkillDeclaration $skillDeclaration): \Illuminate\Http\Response
     {
         $this->authorize('delete', $skillDeclaration);
         $skillDeclaration->delete();
 
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return ['message' => 'Skill deleted'];
         }
 
         return redirect()->back();
     }
-
 }

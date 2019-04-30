@@ -1,14 +1,19 @@
 import React from "react";
+import { connect } from "react-redux";
 import {
   RatingGuideAnswer as RatingGuideAnswerModel,
   Skill,
 } from "../../models/types";
 import Select from "../Select";
 import Input from "../Input";
+import { getId } from "../../helpers/queries";
+import { RootState } from "../../store/store";
+import { getSkillById } from "../../store/Skill/skillSelector";
 
 interface RatingGuideAnswerProps {
   answer: RatingGuideAnswerModel;
   availableSkills: Skill[];
+  selectedSkill: Skill | null;
   onChange: (updatedAnswer: RatingGuideAnswerModel) => void;
   onDelete: () => void;
 }
@@ -16,16 +21,32 @@ interface RatingGuideAnswerProps {
 const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps> = ({
   answer,
   availableSkills,
+  selectedSkill,
   onChange,
   onDelete,
 }): React.ReactElement => {
-  const options = availableSkills.map(skill => {
+  const selectionIsValid = availableSkills.map(getId).includes(answer.skill_id);
+  const availableOptions = availableSkills.map(skill => {
     return { value: skill.id, label: skill.name };
   });
+  // Add the selected skill to options, if its not part of available options
+  const options =
+    selectionIsValid || selectedSkill == null
+      ? availableOptions
+      : [
+          ...availableOptions,
+          { value: selectedSkill.id, label: selectedSkill.name },
+        ];
   return (
-    <div data-c-grid="gutter middle">
-      <div data-c-grid-item="base(1of1) tp(1of8)" />
+    <div
+      data-c-grid="gutter middle"
+      data-c-background={selectionIsValid ? undefined : "c3(30)"}
+    >
+      <div data-c-grid-item="base(1of1) tp(1of8)" data-c-alignment="center">
+        {!selectionIsValid && <i className="fa fa-exclamation" />}
+      </div>
       <div data-c-grid-item="base(1of1) tp(2of8)">
+        {!selectionIsValid && <p>Selected Skill no longer valid</p>}
         <Select
           htmlId={`ratingGuideSelectSkill_${answer.id}`}
           formName="ratingGuideSelectSkill"
@@ -66,4 +87,22 @@ const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps> = ({
   );
 };
 
-export default RatingGuideAnswer;
+interface RatingGuideAnswerContainerProps {
+  answer: RatingGuideAnswerModel;
+  availableSkills: Skill[];
+  onChange: (updatedAnswer: RatingGuideAnswerModel) => void;
+  onDelete: () => void;
+}
+
+const mapStateToProps = (
+  state: RootState,
+  ownProps: RatingGuideAnswerContainerProps,
+): { selectedSkill: Skill | null } => ({
+  selectedSkill: getSkillById(state, ownProps.answer.skill_id),
+});
+
+const RatingGuideAnswerContainer: React.FunctionComponent<
+  RatingGuideAnswerContainerProps
+> = connect(mapStateToProps)(RatingGuideAnswer);
+
+export default RatingGuideAnswerContainer;
