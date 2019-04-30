@@ -1,8 +1,7 @@
 1. Prepare dependencies:
-composer update --no-dev --optimize-autoloader
-npm install --production
-php artisan route:trans:cache
+composer install --no-dev --optimize-autoloader
 npm run production
+npm install --production
 
 2. Zip the TalentCloud folder, copy to server on TBS device.
 

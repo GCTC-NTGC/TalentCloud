@@ -281,10 +281,23 @@
         $(this).addClass("required");
         //Find labels that haven't had the asterisk added yet
         $(this)
-          .children(".form__label")
+          // .children()
+          .find(".form__label")
           .append(
             "<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>"
           );
+      });
+
+      // Required field for checkbox input
+      $("input[type='checkbox']:required").each(function(e) {
+        $(this)
+          .parent()
+          .addClass("required");
+
+        const label = $(this).parent(":not(:has(.fa-asterisk))");
+        label.append(
+          "<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>"
+        );
       });
     }
 
@@ -392,6 +405,35 @@
 
         // unfocus item to trigger style
         $(this).blur();
+      });
+
+      $("#language_requirement_confirmed").change(function(e) {
+        const checkbox = $(this);
+        const content = checkbox.next('.checkbox__wrapper').find('.checkbox__content > i');
+
+        if (content.hasClass('hidden')) {
+          content.removeClass('hidden');
+        } else {
+          content.addClass('hidden');
+        }
+
+        if (
+          checkbox
+            .parent()
+            .siblings(".error-message")
+            .hasClass("hidden")
+        ) {
+          checkbox
+            .parent()
+            .siblings(".error-message")
+            .removeClass("hidden");
+
+        } else {
+          checkbox
+            .parent()
+            .siblings(".error-message")
+            .addClass("hidden");
+        }
       });
     }
 

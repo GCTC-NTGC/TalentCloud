@@ -1,58 +1,171 @@
 // =============================================================================
 
-    // Application Post: Citizenship
+// Application Post: Citizenship
 
 // =============================================================================
 .application-post__citizenship {
-    margin: 0 0 4rem 0;
-    h3 {
-        margin-top: 0;
-    }
-    p {
-        color: $palette--blue;
-        display: block;
-        font-family: $font--sans;
-        font-size: $font-scale--regular;
-        font-weight: 600;
-        margin: 0 !important;
-        width: 100%;
-    }
-    .form__input-wrapper--select {
-        margin-top: 1.5rem;
-        margin-bottom: 0;
-    }
+  margin: 0 0 4rem 0;
+  h3 {
+    margin-top: 0;
+  }
+  p {
+    color: $palette--blue;
+    display: block;
+    font-family: $font--sans;
+    font-size: $font-scale--regular;
+    font-weight: 600;
+    margin: 0 !important;
+    width: 100%;
+  }
+  .form__input-wrapper--select {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+  }
 }
 
 .application-post__veterans {
-    margin: 4rem 0;
-    h3 {
-        margin-top: 4rem !important;
-    }
-    p {
-        color: $palette--blue;
-        display: block;
-        font-family: $font--sans;
-        font-size: $font-scale--regular;
-        font-weight: 600;
-        margin: 0 !important;
-        width: 100%;
-    }
-    .form__input-wrapper--select {
-        margin-top: 1.5rem;
-        margin-bottom: 0;
-    }
+  margin: 4rem 0;
+  h3 {
+    margin-top: 4rem !important;
+  }
+  p {
+    color: $palette--blue;
+    display: block;
+    font-family: $font--sans;
+    font-size: $font-scale--regular;
+    font-weight: 600;
+    margin: 0 !important;
+    width: 100%;
+  }
+  .form__input-wrapper--select {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+  }
 }
 
 .application-post__language-declaration {
-    margin: 4rem 0;
-    .wrapper {
-        margin: 1rem 0 0 0;
-        p {
-            margin: 0 0 0 2rem;
-        }
+  margin: 4rem 0;
+
+  .form__input-wrapper--checkbox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    label {
+      display: flex;
     }
+
+    input[type='checkbox'] {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      z-index: -1;
+    }
+
+    p {
+      margin: 0 0 0 1rem;
+    }
+
+    .error-message {
+      color: red;
+      display: inline-block;
+      position: absolute;
+      bottom: -2rem;
+      font-size: 0.9rem;
+      flex: 100%;
+      margin-left: 0;
+      margin-top: 1rem;
+    }
+
+    .checkbox__wrapper {
+      margin: 0;
+    }
+
+    .checkbox__content {
+      display: inline-block;
+      border-radius: 5px;
+      border: 5px solid rgba(0, 0, 0, 0.1);
+      background: white;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+      height: 2em;
+      min-width: 44px;
+      min-height: 44px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border 0.3s ease;
+      margin: 0 0.7rem 0 0;
+
+      &:hover {
+        border: 5px solid rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    input:focus + .checkbox__wrapper .checkbox__content {
+      border-color: rgba(0, 0, 0, 0.5);
+    }
+
+    input:checked + .checkbox__wrapper .checkbox__content {
+      animation: check 0.5s cubic-bezier(0.895, 0.03, 0.685, 0.22) forwards;
+
+      i {
+        opacity: 1;
+        transform: scale(0);
+        color: white;
+        -webkit-text-stroke: 0;
+        animation: icon 0.3s cubic-bezier(1, 0.008, 0.565, 1.65) 0.1s 1 forwards;
+      }
+    }
+
+    @keyframes icon {
+      from {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes check {
+      10% {
+        width: 1.5em;
+        height: 1.5em;
+        opacity: 0.1;
+        border: 50%;
+        background: rgba(0, 0, 0, 0.2);
+        border-width: 15px;
+      }
+      12% {
+        width: 1.5em;
+        height: 1.5em;
+        opacity: 0.4;
+        border: 50%;
+        background: rgba(0, 0, 0, 0.1);
+        border-width: 0;
+      }
+      50% {
+        width: 2em;
+        height: 2em;
+        background: $palette--blue;
+        border: 0;
+        opacity: 0.6;
+      }
+      100% {
+        width: 2em;
+        height: 2em;
+        background: $palette--blue;
+        border: 0;
+        opacity: 1;
+      }
+    }
+  }
 }
 
 .application-post__long-form-question {
-    margin: 4rem 0;
+  margin: 4rem 0;
 }

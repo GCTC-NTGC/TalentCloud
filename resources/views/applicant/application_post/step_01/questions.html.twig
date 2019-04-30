@@ -122,45 +122,48 @@
         #}
         <div class="application-post__language-declaration">
             <span>{{ application_template.language_declaration }}</span>
-            <div class="wrapper">
-            {% if job.language_requirement.id == 1 %}
-                <div>
-                    <label
-                        class="flex-grid"
-                        for="language_requirement_confirmed">
-                        <input id="language_requirement_confirmed" name="language_requirement_confirmed" type="checkbox" required />
-                        <p class="box fit">{{ application_template.english_essential }}</p>
-                    </label>
-                </div>
-            {% elseif job.language_requirement.id == 2 %}
-                <div>
-                    <label
-                        class="flex-grid"
-                        for="language_requirement_confirmed">
-                        <input id="language_requirement_confirmed" name="language_requirement_confirmed" type="checkbox" required />
-                        <p class="box fit">{{ application_template.french_essential }}</p>
-                    </label>
-                </div>
-            {% elseif job.language_requirement.id == 3 %}
-                <div>
-                    <label
-                        class="flex-grid"
-                        for="language_requirement_confirmed">
-                        <input id="language_requirement_confirmed" name="language_requirement_confirmed" type="checkbox" required />
-                        <p class="box fit">{{ application_template.bilingual }}</p>
-                    </label>
-                </div>
-            {% elseif job.language_requirement.id == 4 %}
-                <div>
-                    <label
-                        class="flex-grid"
-                        for="language_requirement_confirmed">
-                        <input id="language_requirement_confirmed" name="language_requirement_confirmed" type="checkbox" required />
-                        <p class="box fit">{{ application_template.english_french }}</p>
-                    </label>
-                </div>
-            {% endif %}
+            {% if job.language_requirement.id is not empty %}
+            <div class="form__input-wrapper--checkbox">
+                <label
+                    class="form-label"
+                    for="language_requirement_confirmed">
+                    <input
+                        id="language_requirement_confirmed" name="language_requirement_confirmed"
+                        type="checkbox"
+                        required
+                        {{ job_application.language_requirement_confirmed ? 'checked' : ''}}
+                    />
+                    <div
+                        class="checkbox__wrapper"
+                    >
+                        <span class="checkbox__content">
+                            <i class="fa fa-check{{ job_application.language_requirement_confirmed ? '' : ' hidden' }}"></i>
+                        </span>
+                    </div>
+                </label>
+                <p class="box fit">
+                    {% if job.language_requirement.id == 1 %}
+                        {# English Essential #}
+                        {{ application_template.english_essential }}
+                    {% elseif job.language_requirement.id == 2 %}
+                        {# French Essential #}
+                        {{ application_template.french_essential }}
+                    {% elseif job.language_requirement.id == 3 %}
+                        {# Bilingual Intermediate #}
+                        {{ application_template.bilingual_intermediate }}
+                    {% elseif job.language_requirement.id == 4 %}
+                        {# Bilingual Advanced #}
+                        {{ application_template.bilingual_advanced }}
+                    {% elseif job.language_requirement.id == 5 %}
+                        {# English or French #}
+                        {{ application_template.english_or_french }}
+                    {% else %}
+                        {# nothing #}
+                    {% endif %}
+                </p>
+                <p class="error-message {{ job_application.language_requirement_confirmed ? 'hidden' : ''}}">{{ application_template.language_declaration_error_message }}</p>
             </div>
+            {% endif %}
         </div>
 
         {# Language for Process #}

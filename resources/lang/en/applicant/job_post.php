@@ -74,13 +74,16 @@ return [
         'english_essential_context_02' => 'You can submit this initial application in either official language of your choice (English or French).',
         'french_essential_context_01' => 'This position requires fluency in French in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in French, such as interview questions or an exam.',
         'french_essential_context_02' => 'You can submit this initial application in either official language of your choice (English or French).',
-        'bilingual_advanced_context_01' => 'This position requires advanced fluency in both French and English. This means that you have strong reading, writing and verbal communication skills in both official languages, and can take on job duties in either French or English. As part of this selection process, your language abilities will be tested by the %proficiency%.',
+        'english_or_french_context_01' => 'For this position, you meet the language requirements if you have strong reading, writing and verbal communication skills in either English or French, or both (bilingual).',
+        'english_or_french_context_02' => 'You can submit this application in the official language of your choice (English or French).',
+        'bilingual_intermediate_context_01' => 'This position requires working knowledge of both French and English. This means that you can take on job duties in either French or English, and you have intermediate reading, writing and verbal communication skills in both official languages. As part of this selection process, your language abilities will be tested by the %proficiency%.',
+        'bilingual_intermediate_context_02' => 'You can complete all other steps of this assessment process in the official language of your choice, including the initial application, interview, exam and any other evaluation components.',
+        'bilingual_advanced_context_01' => 'This position requires advanced knowledge of both French and English. This means that you can take on job duties in either French or English, and you have strong reading, writing and verbal communication skills in both official languages. As part of this selection process, your language abilities will be tested by the %proficiency%.',
         'bilingual_advanced_context_02' => 'You can complete all other steps of this assessment process in the official language of your choice, including the initial application, interview, exam and any other evaluation components.',
         'proficiency_link' => 'https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/information-candidates/language-requirements-candidates.html',
         'proficiency_copy' => 'Public Service Commission of Canada',
         'assessment_link' => 'https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html',
         'assessment_copy' => 'self-assessment test',
-        'english_french_context' => 'NEEDS COPY'
     ],
     'culture' => [
         'sidebar_title' => 'View this job\'s culture information.',

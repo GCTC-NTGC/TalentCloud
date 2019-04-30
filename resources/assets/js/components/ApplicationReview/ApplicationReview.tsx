@@ -13,6 +13,11 @@ import { Application } from "../types";
 import { ReviewStatusId } from "../lookupConstants";
 
 const messages = defineMessages({
+  priorityLogo: {
+    id: "priorityStatus.priorityLogoTitle",
+    defaultMessage: "<default/> Talent cloud priority logo",
+    description: "Title for Priority Logo Img"
+  },
   veteranLogo: {
     id: "veteranStatus.veteranLogoAlt",
     defaultMessage: "<default/> Talent cloud veteran logo",
@@ -286,6 +291,21 @@ class ApplicationReview extends React.Component<
             >
               {application.applicant.user.email}
             </a>
+            {/* This span only shown for priority applicants */}
+            {application.applicant.user.is_priority && (
+              <span className="priority-status">
+                <i
+                  aria-hidden="true"
+                  className="fab fa-product-hunt"
+                  title={intl.formatMessage(messages.priorityLogo)}
+                />
+                <FormattedMessage
+                  id="priorityStatus.priority"
+                  defaultMessage="<default/> Priority"
+                  description="Priority"
+                />
+              </span>
+            )}
             {/* This span only shown for veterans */}
             {(application.veteran_status.name === "current" ||
               application.veteran_status.name === "past") && (
@@ -293,7 +313,7 @@ class ApplicationReview extends React.Component<
                 <img
                   alt={intl.formatMessage(messages.veteranLogo)}
                   src="/images/icon_veteran.svg"
-                />{" "}
+                />
                 <FormattedMessage
                   id="veteranStatus.veteran"
                   defaultMessage="<default/> Veteran"
