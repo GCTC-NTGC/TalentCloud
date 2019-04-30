@@ -281,7 +281,8 @@
         $(this).addClass("required");
         //Find labels that haven't had the asterisk added yet
         $(this)
-          .children(".form__label")
+          // .children()
+          .find(".form__label")
           .append(
             "<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>"
           );

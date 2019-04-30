@@ -90,7 +90,7 @@ $clone-alert--information: $clone-c1;
 
     .container--layout {
         margin: 0 auto;
-        max-width: calc(#{$unit * 60});
+        max-width: calc(#{$unit * 65});
         width: 90%;
     }
 
@@ -126,6 +126,10 @@ $clone-alert--information: $clone-c1;
         display: block;
         text-align: center;
         width: 100%;
+    }
+
+    .inline-right {
+        text-align: right;
     }
 
     .skip-to-main-content {

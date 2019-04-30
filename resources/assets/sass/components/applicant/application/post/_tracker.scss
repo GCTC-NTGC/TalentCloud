@@ -1,262 +1,242 @@
 // =============================================================================
 
-    // Application Post: Tracker
+// Application Post: Tracker
 
 // =============================================================================
 .application-post__tracker {
-    background-color: $palette--black;
-    background: transparentize($palette--black, .15);
-    background-image: url("/images/bg_lightning_texture.png");
+  background-color: $palette--black;
+  background: transparentize($palette--black, 0.15);
+  background-image: url('/images/bg_lightning_texture.png');
+  background-position: center;
+  background-repeat: repeat;
+  background-size: 75px;
+  position: relative;
+  z-index: 10;
+
+  @media #{$p-tablet} {
+    text-align: left;
+  }
+
+  @media #{$l-tablet} {
+    position: sticky;
+    top: 0;
+  }
+
+  &::before {
+    background-color: #202023;
+    background-image: url('/images/bg_lightning_texture.png');
     background-position: center;
     background-repeat: repeat;
     background-size: 75px;
-    position: relative;
-    z-index: 10;
+    content: ' ';
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 4;
+  }
 
-    @media #{$p-tablet} {
-        text-align: left;
+  .application-post__tracker-button {
+    background: none;
+    border: none;
+    color: $palette--white;
+    cursor: pointer;
+    font-family: $font--sans;
+    font-size: $font-scale--regular;
+    font-weight: 400;
+    padding: 2rem;
+    position: absolute;
+    top: 50%;
+    text-decoration: none;
+    z-index: 6;
+
+    span {
+      display: none;
+
+      @media #{$p-tablet} {
+        display: inline-block;
+      }
+    }
+
+    i {
+      transform: translate(0, 0);
+      transition: all 0.2s ease;
+    }
+
+    &:hover {
+      &.previous {
+        i {
+          transform: translate(-50%, 0);
+          transition: all 0.2s ease;
+        }
+      }
+
+      &.next {
+        i {
+          transform: translate(50%, 0);
+          transition: all 0.2s ease;
+        }
+      }
+    }
+
+    &.previous {
+      left: 0;
+      transform: translate(0, -50%);
+
+      span {
+        margin: 0 0 0 0.5rem;
+      }
+    }
+
+    &.next {
+      right: 0;
+      transform: translate(0, -50%);
+
+      span {
+        margin: 0 0.5rem 0 0;
+      }
+    }
+  }
+
+  .application-post__step-wrapper {
+    display: block;
+    padding: 1rem 0;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    z-index: 5;
+  }
+
+  .application-post__tracker-user-photo {
+    background-position: center;
+    background-size: cover;
+    border: calc(#{$unit} / 4) solid $palette--blue;
+    border-radius: 100%;
+    display: block;
+    height: calc(#{$unit} * 5);
+    width: calc(#{$unit} * 5);
+  }
+
+  .application-post__tracker-job-title {
+    color: $palette--font-white;
+    display: block;
+    font-family: $font--sans;
+    font-size: $font-scale--h3;
+    font-weight: 600;
+    margin: 0 0 $unit;
+  }
+
+  .application-post__tracker-job-department {
+    color: $palette--blue;
+    display: inline-block;
+    font-family: $font--sans;
+    font-size: $font-scale--regular;
+    margin: 0;
+    width: 100%;
+  }
+
+  .application-post__tracker-step {
+    color: $palette--font-white;
+    display: inline-block;
+    font-family: $font--sans;
+    font-size: $font-scale--h3;
+    font-weight: 600;
+    margin: 0 0 $unit;
+    width: 100%;
+  }
+
+  .application-post__tracker-item {
+    color: $palette--red;
+    display: inline-block;
+    margin: 0 calc(#{$unit} / 4);
+    text-decoration: none;
+    transition: all 0.2s ease;
+
+    .fa-times-circle {
+      display: block;
+    }
+    .fa-circle {
+      display: none;
+    }
+    .fa-check-circle {
+      display: none;
     }
 
     @media #{$l-tablet} {
-        position: sticky;
-        top: 0;
+      margin: 0 0 0 calc(#{$unit} / 2);
     }
 
-    &::before {
-        background-color: #202023;
-        background-image: url("/images/bg_lightning_texture.png");
-        background-position: center;
-        background-repeat: repeat;
-        background-size: 75px;
-        content: " ";
-        display: block;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 4;
-    }
-
-    .application-post__tracker-button {
-        background: none;
-        border: none;
-        color: $palette--white;
-        cursor: pointer;
-        font-family: $font--sans;
-        font-size: $font-scale--regular;
-        font-weight: 400;
-        padding: 2rem;
-        position: absolute;
-        top: 50%;
-        text-decoration: none;
-        z-index: 6;
-
-        span {
-            display: none;
-
-            @media #{$p-tablet} {
-                display: inline-block;
-            }
-
-        }
-
-        i {
-            transform: translate(0, 0);
-            transition: all .2s ease;
-        }
-
-        &:hover {
-
-            &.previous {
-
-                i {
-                    transform: translate(-50%, 0);
-                    transition: all .2s ease;
-                }
-
-            }
-
-            &.next {
-
-                i {
-                    transform: translate(50%, 0);
-                    transition: all .2s ease;
-                }
-
-            }
-
-        }
-
-        &.previous {
-            left: 0;
-            transform: translate(0, -50%);
-
-            span {
-                margin: 0 0 0 .5rem;
-            }
-
-        }
-
-        &.next {
-            right: 0;
-            transform: translate(0, -50%);
-
-            span {
-                margin: 0 .5rem 0 0;
-            }
-
-        }
-
-    }
-
-    .application-post__step-wrapper {
-        display: block;
-        padding: 1rem 0;
-        position: relative;
-        text-align: center;
-        width: 100%;
-        z-index: 5;
-    }
-
-    .application-post__tracker-user-photo {
-        background-position: center;
-        background-size: cover;
-        border: calc(#{$unit} / 4) solid $palette--blue;
-        border-radius: 100%;
-        display: block;
-        height: calc(#{$unit} * 5);
-        width: calc(#{$unit} * 5);
-    }
-
-    .application-post__tracker-job-title {
-        color: $palette--font-white;
-        display: block;
-        font-family: $font--sans;
-        font-size: $font-scale--h3;
-        font-weight: 600;
-        margin: 0 0 $unit;
-    }
-
-    .application-post__tracker-job-department {
-        color: $palette--blue;
-        display: inline-block;
-        font-family: $font--sans;
-        font-size: $font-scale--regular;
-        margin: 0;
-        width: 100%;
-    }
-
-    .application-post__tracker-step {
-        color: $palette--font-white;
-        display: inline-block;
-        font-family: $font--sans;
-        font-size: $font-scale--h3;
-        font-weight: 600;
-        margin: 0 0 $unit;
-        width: 100%;
-    }
-
-    .application-post__tracker-item {
+    &.error {
+      .fa-times-circle {
         color: $palette--red;
-        display: inline-block;
-        margin: 0 calc(#{$unit} / 4);
-        text-decoration: none;
-        transition: all .2s ease;
-
-        .fa-times-circle {
-            display: block;
-        }
-        .fa-circle {
-            display: none;
-        }
-        .fa-check-circle {
-            display: none;
-        }
-
-        @media #{$l-tablet} {
-            margin: 0 0 0 calc(#{$unit} / 2);
-        }
-
-        &.error {
-
-            .fa-times-circle {
-                color: $palette--red;
-                display: block;
-            }
-            .fa-circle {
-                display: none;
-            }
-            .fa-check-circle {
-                display: none;
-            }
-
-        }
-
-        &.complete {
-
-            .fa-times-circle {
-                display: none;
-            }
-            .fa-circle {
-                display: none;
-            }
-            .fa-check-circle {
-                color: $palette--green;
-                display: block;
-            }
-
-        }
-
-        &.active {
-            .fa-times-circle {
-                display: none;
-            }
-            .fa-circle {
-                color: $palette--blue;
-                display: block;
-            }
-            .fa-check-circle {
-                display: none;
-            }
-        }
-
-        &:hover {
-            .fa-times-circle {
-                color: $palette--blue;
-                transition: all .2s ease;
-            }
-            .fa-circle {
-                color: $palette--blue;
-                transition: all .2s ease;
-            }
-            .fa-check-circle {
-                color: $palette--blue;
-                transition: all .2s ease;
-            }
-        }
-
+        display: block;
+      }
+      .fa-circle {
+        display: none;
+      }
+      .fa-check-circle {
+        display: none;
+      }
     }
 
+    &.complete {
+      .fa-times-circle {
+        display: none;
+      }
+      .fa-circle {
+        display: none;
+      }
+      .fa-check-circle {
+        color: $palette--green;
+        display: block;
+      }
+    }
+
+    &.active {
+      .fa-times-circle {
+        display: none;
+      }
+      .fa-circle {
+        color: $palette--blue;
+        display: block;
+      }
+      .fa-check-circle {
+        display: none;
+      }
+    }
+
+    &:hover {
+      .fa-times-circle {
+        color: $palette--blue;
+        transition: all 0.2s ease;
+      }
+      .fa-circle {
+        color: $palette--blue;
+        transition: all 0.2s ease;
+      }
+      .fa-check-circle {
+        color: $palette--blue;
+        transition: all 0.2s ease;
+      }
+    }
+  }
 }
 
 .application-post__action-wrapper {
+  > .box {
+    text-align: center;
+    margin-bottom: 1rem;
 
-    >.box {
-        text-align: center;
-
-        @media #{$p-tablet} {
-            text-align: left;
-        }
-
-        &:last-child {
-
-            @media #{$p-tablet} {
-                text-align: right;
-            }
-
-        }
-
+    @media #{$p-tablet} {
+      text-align: left;
     }
 
+    &:last-child {
+      @media #{$p-tablet} {
+        text-align: right;
+      }
+    }
+  }
 }

@@ -106,6 +106,29 @@
 
                 }
 
+                .skill-textarea-label {
+                    color: #0a0a0f;
+                    display: block;
+                    font-family: HKGrotesk,sans-serif;
+                    font-size: 1rem;
+                    line-height: 20px;
+                    margin: 0 0 .5rem;
+                    z-index: 1;
+                }
+
+                .skill-textarea-prompt {
+                    p {
+                        margin: .5rem 0 1rem;
+                        color: $palette--blue;
+                        font-family: HKGrotesk,sans-serif;
+                        font-size: 0.9rem;
+                        font-weight: 600;
+                        line-height: 1.5;
+                        padding: 0 0.2rem;
+
+                    }
+                }
+
             }
 
         }
