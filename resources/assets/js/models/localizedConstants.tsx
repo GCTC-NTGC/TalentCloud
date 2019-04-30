@@ -8,6 +8,17 @@ import {
   AssessmentTypeIdValues,
 } from "./lookupConstants";
 
+interface SkillLevel {
+  hardBasic: FormattedMessage.MessageDescriptor;
+  hardIntermediate: FormattedMessage.MessageDescriptor;
+  hardAdvanced: FormattedMessage.MessageDescriptor;
+  hardExpert: FormattedMessage.MessageDescriptor;
+  softBasic: FormattedMessage.MessageDescriptor;
+  softIntermediate: FormattedMessage.MessageDescriptor;
+  softAdvanced: FormattedMessage.MessageDescriptor;
+  softExpert: FormattedMessage.MessageDescriptor;
+}
+
 const skillLevelDescriptions = defineMessages({
   hardBasic: {
     id: "skillLevel.hard.basic.description",
@@ -59,43 +70,6 @@ const skillLevelDescriptions = defineMessages({
   },
 });
 
-const skillLevelL10n = (
-  skillLevelId: number,
-  skillTypeId: number,
-  l10nObj: any,
-): FormattedMessage.MessageDescriptor => {
-  if (!SkillLevelIdValues.includes(skillLevelId)) {
-    throw new Error("invalid SkillLevelIdValue");
-  }
-  if (!SkillTypeIdValues.includes(skillTypeId)) {
-    throw new Error("invalid SkillTypeIdValue");
-  }
-  const basicKey = SkillLevelId.Basic.toString();
-  const intermediateKey = SkillLevelId.Intermediate.toString();
-  const advancedKey = SkillLevelId.Advanced.toString();
-  const expertKey = SkillLevelId.Expert.toString();
-  return {
-    [SkillTypeId.Hard.toString()]: {
-      [basicKey]: l10nObj.hardBasic,
-      [intermediateKey]: l10nObj.hardIntermediate,
-      [advancedKey]: l10nObj.hardAdvanced,
-      [expertKey]: l10nObj.hardExpert,
-    },
-    [SkillTypeId.Soft.toString()]: {
-      [basicKey]: l10nObj.softBasic,
-      [intermediateKey]: l10nObj.softIntermediate,
-      [advancedKey]: l10nObj.softAdvanced,
-      [expertKey]: l10nObj.softExpert,
-    },
-  }[skillTypeId.toString()][skillLevelId.toString()];
-};
-
-export const skillLevelDescription = (
-  skillLevelId: number,
-  skillTypeId: number,
-): FormattedMessage.MessageDescriptor =>
-  skillLevelL10n(skillLevelId, skillTypeId, skillLevelDescriptions);
-
 const skillLevelNames = defineMessages({
   hardBasic: {
     id: "skillLevel.hard.basic.name",
@@ -138,6 +112,44 @@ const skillLevelNames = defineMessages({
     description: "Single-word descriptor of soft expert skill level.",
   },
 });
+
+
+const skillLevelL10n = (
+  skillLevelId: number,
+  skillTypeId: number,
+  l10nObj: SkillLevel,
+): FormattedMessage.MessageDescriptor => {
+  if (!SkillLevelIdValues.includes(skillLevelId)) {
+    throw new Error("invalid SkillLevelIdValue");
+  }
+  if (!SkillTypeIdValues.includes(skillTypeId)) {
+    throw new Error("invalid SkillTypeIdValue");
+  }
+  const basicKey = SkillLevelId.Basic.toString();
+  const intermediateKey = SkillLevelId.Intermediate.toString();
+  const advancedKey = SkillLevelId.Advanced.toString();
+  const expertKey = SkillLevelId.Expert.toString();
+  return {
+    [SkillTypeId.Hard.toString()]: {
+      [basicKey]: l10nObj.hardBasic,
+      [intermediateKey]: l10nObj.hardIntermediate,
+      [advancedKey]: l10nObj.hardAdvanced,
+      [expertKey]: l10nObj.hardExpert,
+    },
+    [SkillTypeId.Soft.toString()]: {
+      [basicKey]: l10nObj.softBasic,
+      [intermediateKey]: l10nObj.softIntermediate,
+      [advancedKey]: l10nObj.softAdvanced,
+      [expertKey]: l10nObj.softExpert,
+    },
+  }[skillTypeId.toString()][skillLevelId.toString()];
+};
+
+export const skillLevelDescription = (
+  skillLevelId: number,
+  skillTypeId: number,
+): FormattedMessage.MessageDescriptor =>
+  skillLevelL10n(skillLevelId, skillTypeId, skillLevelDescriptions);
 
 export const skillLevelName = (
   skillLevelId: number,
