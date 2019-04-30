@@ -10,13 +10,28 @@
     <div
         class="container--copy">
 
+        {# <div class="timer-wrapper">
+            <i class="fas fa-stopwatch"></i>
+            <span>72 hours left to apply</span>
+        </div> #}
+
         {% if application_step == "3" %}
             <h3>
                 {{ application_template.essential_title }}
             </h3>
-            <p>
-                {{ application_template.essential_context }}
-            </p>
+            <p class="bold">{{ application_template.essential_subtitle }}</p>
+
+            <ul>
+                <li>
+                    <p class="italics">{{ application_template.essential_question_1 }}</p>
+                    <p class="bold">{{ application_template.essential_answer_1 }}</p>
+                </li>
+                <li>
+                    <p>{{ application_template.essential_question_2 }}</p>
+                    <p class="bold">{{ application_template.essential_answer_2 }}</p>
+                </li>
+            </ul>
+
         {% elseif application_step == "4" %}
             <h3>
                 {{ application_template.asset_title }}
@@ -25,17 +40,6 @@
                 {{ application_template.asset_context }}
             </p>
         {% endif %}
-
-        <a
-            class="button--blue light-bg"
-            href="#begin"
-            {% if application_step == "3" %}
-                title="{{ application_template.essential_start_button_title }}"
-            {% elseif application_step == "4" %}
-                title="{{ application_template.asset_start_button_title }}"
-            {% endif %}>
-            {{ application_template.skills_start_button_label }}
-        </a>
 
     </div>
 
@@ -68,17 +72,14 @@
 
                                 {# Profile List Header #}
 
+                                {% if application_step == "4" %}
                                     <div
                                         class="profile-list__header flex-grid middle">
 
                                         <div
                                             class="box med-1of2">
 
-                                            {% if application_step == "3" %}
-                                                <h3>{{ application_template.skills_section.essential_title }}</h3>
-                                            {% elseif application_step == "4" %}
                                                 <h3>{{ application_template.skills_section.asset_title }}</h3>
-                                            {% endif %}
 
                                         </div>
 
@@ -88,6 +89,7 @@
                                         </div>
 
                                     </div>
+                                {% endif %}
 
                                 {# Set Locale #}
 
@@ -96,7 +98,7 @@
                                 {# Profile Element List #}
 
                                     <div
-                                        class="profile-element-list">
+                                        class="profile-element-list {{ application_step == "3" ? "step3" : "" }}">
 
                                         {% if application_step == "3" %}
 
@@ -192,7 +194,7 @@
                         type="button"
                         name="submit"
                         value="save_and_quit"
-                        data-on-success-url="{{ route('applications.index') }}">                        
+                        data-on-success-url="{{ route('applications.index') }}">
                         <span class="submit-default">{{ application_template.save_quit_button_label }}</span>
                         <span class="submit-working">{{ application_template.save_button_working }}</span>
                     </button>
