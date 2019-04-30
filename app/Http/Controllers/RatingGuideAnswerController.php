@@ -20,6 +20,7 @@ class RatingGuideAnswerController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', RatingGuideAnswer::class);
         try {
             $rating_guide_question_id = (int)$request->json('rating_guide_question_id');
             $skill_id = (int)$request->json('skill_id');
@@ -37,6 +38,8 @@ class RatingGuideAnswerController extends Controller
                 'skill_id' => $skill_id,
                 'expected_answer' => $expected_answer,
             ]);
+             // Check that this user is allowed to create an Assessment for this question
+            $this->authorize('update', $ratingGuideAnswer);
             $ratingGuideAnswer->save();
             $ratingGuideAnswer->refresh();
         } catch (\Exception $e) {
@@ -59,6 +62,7 @@ class RatingGuideAnswerController extends Controller
      */
     public function show(RatingGuideAnswer $ratingGuideAnswer)
     {
+        $this->authorize('view', $ratingGuideAnswer);
         $ratingGuideAnswer->load([
             'skill',
             'rating_guide_question'
@@ -76,6 +80,7 @@ class RatingGuideAnswerController extends Controller
      */
     public function update(Request $request, RatingGuideAnswer $ratingGuideAnswer)
     {
+        $this->authorize('update', $ratingGuideAnswer);
         try {
             $rating_guide_question_id = (int)$request->json('rating_guide_question_id');
             $skill_id = (int)$request->json('skill_id');
@@ -111,6 +116,7 @@ class RatingGuideAnswerController extends Controller
      */
     public function destroy(RatingGuideAnswer $ratingGuideAnswer)
     {
+        $this->authorize('delete', $ratingGuideAnswer);
         $ratingGuideAnswer->delete();
 
         return [

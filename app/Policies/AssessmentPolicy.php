@@ -16,7 +16,7 @@ class AssessmentPolicy extends BasePolicy
      * @param  \App\Models\Assessment $assessment
      * @return boolean
      */
-    public function view(?User $user, Assessment $assessment): bool
+    public function view(User $user, Assessment $assessment): bool
     {
         // Managers can view assessments tied to Jobs they own.
         return $user->hasRole('manager') &&

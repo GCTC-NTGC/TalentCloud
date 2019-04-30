@@ -16,7 +16,7 @@ class RatingGuideQuestionPolicy extends BasePolicy
      * @param  \App\Models\RatingGuideQuestion $question
      * @return boolean
      */
-    public function view(?User $user, RatingGuideQuestion $question): bool
+    public function view(User $user, RatingGuideQuestion $question): bool
     {
         // Managers can view questions tied to Jobs they own.
         return $user->hasRole('manager') &&
@@ -31,7 +31,7 @@ class RatingGuideQuestionPolicy extends BasePolicy
      */
     public function create(User $user): bool
     {
-        //Any manager can create a new RatingGuideQuestion, but only for criteria they own.
+        //Any manager can create a new RatingGuideQuestion, but only for jobs they own.
         return $user->hasRole('manager');
     }
 
