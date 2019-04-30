@@ -156,8 +156,6 @@ const RatingGuideBuilder: React.FunctionComponent<
               )}
               requiredCriteria={requiredCriteria}
               RatingGuideAnswers={answers}
-              onQuestionCreate={/** TODO: */ () => {}}
-              onAnswerCreate={/** TODO: */ () => {}}
             />
           );
         },

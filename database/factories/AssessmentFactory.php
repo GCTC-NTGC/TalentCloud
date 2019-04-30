@@ -23,6 +23,6 @@ $factory->afterMakingState(Assessment::class, 'withRatingGuide', function ($asse
     ]);
     factory(RatingGuideAnswer::class)->create([
         'rating_guide_question_id' => $question->id,
-        'skill_id' => $assessment->criterion->skill_id,
+        'criterion_id' => $assessment->criterion_id,
     ]);
 });

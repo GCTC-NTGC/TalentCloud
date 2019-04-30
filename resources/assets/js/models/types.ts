@@ -140,7 +140,7 @@ export interface TempAssessment {
 export interface RatingGuideAnswer {
   id: number;
   rating_guide_question_id: number;
-  skill_id: number;
+  criterion_id: number | null;
   expected_answer: string;
 }
 
@@ -148,7 +148,7 @@ export interface RatingGuideAnswer {
 export interface TempRatingGuideAnswer {
   id: number;
   rating_guide_question_id: number;
-  skill_id: number;
+  criterion_id: number | null;
   expected_answer: string;
 }
 

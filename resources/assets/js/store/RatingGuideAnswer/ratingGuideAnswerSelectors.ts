@@ -2,7 +2,7 @@ import { RootState } from "../store";
 import { RatingGuideAnswerState } from "./ratingGuideAnswerReducer";
 import { RatingGuideAnswer } from "../../models/types";
 import { getRatingGuideQuestionsByJob } from "../RatingGuideQuestion/ratingGuideQuestionSelectors";
-import { getId } from "../../helpers/queries";
+import { getId, hasKey } from "../../helpers/queries";
 
 const stateSlice = (state: RootState): RatingGuideAnswerState =>
   state.ratingGuideAnswer;
@@ -19,3 +19,11 @@ export const getRatingGuideAnswersByJob = (
     (answer): boolean => questionIds.includes(answer.rating_guide_question_id),
   );
 };
+
+export const getRatingGuideAnswerById = (
+  state: RootState,
+  id: number,
+): RatingGuideAnswer | null =>
+  hasKey(stateSlice(state).ratingGuideAnswers, id)
+    ? stateSlice(state).ratingGuideAnswers[id]
+    : null;
