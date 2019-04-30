@@ -15,6 +15,7 @@ use App\Models\WorkSample;
 use App\Models\JobApplication;
 use App\Models\WorkExperience;
 use App\Models\SkillDeclaration;
+use App\Models\Assessment;
 use App\Policies\JobPolicy;
 use App\Policies\CoursePolicy;
 use App\Policies\DegreePolicy;
@@ -25,6 +26,7 @@ use App\Policies\ApplicationPolicy;
 use App\Policies\SkillDeclarationPolicy;
 use App\Policies\WorkExperiencePolicy;
 use App\Policies\WorkSamplePolicy;
+use App\Policies\AssessmentPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -43,7 +45,8 @@ class AuthServiceProvider extends ServiceProvider
         Reference::class => ReferencePolicy::class,
         SkillDeclaration::class => SkillDeclarationPolicy::class,
         WorkExperience::class => WorkExperiencePolicy::class,
-        WorkSample::class => WorkSamplePolicy::class
+        WorkSample::class => WorkSamplePolicy::class,
+        Assessment::class => AssessmentPolicy::class,
     ];
 
     /**
