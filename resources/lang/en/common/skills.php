@@ -34,7 +34,7 @@ return [
                 'examples' => [
                     "example_1" => [
                         "name" => "Relevant, Concise, Thorough.",
-                        "content" => "E.g. “I worked at Talent Cloud for eight years as a front-end developer. For the past three years, I have been the lead front-end developer for two several client-side web applications, including a payment portal and help desk. Both of these web applications were designed using HTLM5 and Javascript. As the lead developer, I assigned work to 6 entry level developers, monitored their progress, and provided guidance complex issues.”"
+                        "content" => "E.g. “I worked at Talent Cloud for eight years as a front-end developer. For the past three years, I have been the lead front-end developer for several client-side web applications, including a payment portal and help desk. Both of these web applications were designed using HTLM5 and Javascript. As the lead developer, I assigned work to 6 entry level developers, monitored their progress, and provided guidance on complex issues.”"
                     ]
                 ]
             ],
