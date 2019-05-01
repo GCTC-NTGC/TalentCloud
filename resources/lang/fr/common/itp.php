@@ -26,7 +26,7 @@ return [
     ],
     "itp_when" => [
         "title_01" => "Quels sont les échéanciers?",
-        "subtitle_01" => "Nous avons fixé l’été 2019 comme échéancier.",
+        "subtitle_01" => "Nous avons fixé l’automne 2019 comme échéancier.",
         "copy_01" => "Nos échéanciers dépendent d’un certain nombre de facteurs, notamment du succès de notre mobilisation communautaire, de la mise à niveau de notre nouvel environnement de serveur en nuage et de l’évaluation des facteurs relatifs à la vie privée de l’équipe."
     ],
     "itp_what" => [
