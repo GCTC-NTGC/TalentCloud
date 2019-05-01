@@ -108,9 +108,9 @@ const AssessmentPlan: React.FunctionComponent<
               />
             </strong>{" "}
             <FormattedMessage
-              id="assessmentPlan.assessmentPlanSummary.shortDescription"
+              id="assessmentPlan.ratingGuideBuilder.shortDescription"
               defaultMessage="(Customize your evaluations)"
-              description="Short description of Assessment Plan Summary"
+              description="Short description of Rating Guide Builder"
             />
           </li>
         </ol>

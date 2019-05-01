@@ -50,10 +50,10 @@ const RatingGuideBuilder: React.FunctionComponent<
           data-c-font-weight="bold"
           data-c-margin="top(double) bottom(normal)"
         >
-          l10n.missing Assessment {sectionCount}: Narrative Review
+          Assessment {sectionCount}: Narrative Review
         </h4>
         <p>
-          l10n.missing The goal of a narrative review is to read the content the
+          The goal of a narrative review is to read the content the
           applicant has provided for each skill to get a better understanding of
           their level and competence.
         </p>
@@ -78,7 +78,7 @@ const RatingGuideBuilder: React.FunctionComponent<
               </div>
               <div data-c-grid-item="base(1of1) tp(7of8)">
                 <p data-c-font-weight="800">
-                  l10n.missing Narrative Review of skill includes all
+                  Narrative Review of skill includes all
                   descriptions added by the applicant in their application.
                 </p>
               </div>
@@ -100,7 +100,7 @@ const RatingGuideBuilder: React.FunctionComponent<
                       {`${criterion.skill.name} - ${skillLevel}`}
                     </div>
                     <div data-c-grid-item="base(1of1) tp(5of8)">
-                      l10n.missing Standardized Evaluation Statement
+                      Standardized Evaluation Statement
                     </div>
                   </div>
                 </div>
@@ -119,10 +119,10 @@ const RatingGuideBuilder: React.FunctionComponent<
         data-c-font-weight="bold"
         data-c-margin="top(triple) bottom(normal)"
       >
-        l10n.missing 3. Ratings Guide Builder
+        3. Ratings Guide Builder
       </h3>
       <p data-c-margin="bottom(normal)">
-        l10n.missing Below you will create your own ratings guide tool to help
+        Below you will create your own ratings guide tool to help
         you assess your candidates. This tool allows you to build your own
         questions/evaluations for each assessment you{"'"}ve selected above, and
         then allows you to jot down the criteria for what a great candidate
@@ -163,13 +163,13 @@ const RatingGuideBuilder: React.FunctionComponent<
 
       <hr data-c-margin="top(double) bottom(double)" />
       <p data-c-margin="top(normal) bottom(normal)">
-        l10n.missing Now that you&apos;ve built your Ratings Guide, you can use
+        Now that you&apos;ve built your Ratings Guide, you can use
         the button below to copy the entire thing to your clipboard, making it
         easy to paste in your favourite Word Processor.
       </p>
       <div data-c-alignment="center">
         <button data-c-button="solid(c5)" type="button">
-          l10n.missing Click to Copy This Ratings Guide to Your Clipboard
+          Click to Copy This Ratings Guide to Your Clipboard
         </button>
       </div>
       <RatingGuideClipboard

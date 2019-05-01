@@ -1,0 +1,12 @@
+[
+  {
+    "id": "apl.indexPageTitle",
+    "description": "Welcome header on Job Applications index page",
+    "defaultMessage": "Applications for: {job_title} {job_classification}"
+  },
+  {
+    "id": "job.daysSinceClosed",
+    "description": "Welcome header on app main page",
+    "defaultMessage": "{dayCount, plural, =0 {No Days} one {# Day} other {# Days}} Since Close"
+  }
+]

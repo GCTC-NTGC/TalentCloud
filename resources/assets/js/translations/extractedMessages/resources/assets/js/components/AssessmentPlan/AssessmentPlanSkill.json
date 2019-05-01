@@ -1,0 +1,37 @@
+[
+  {
+    "id": "assessmentPlan.selectAssessment.null",
+    "description": "Default select element before an assessment type has been chosen",
+    "defaultMessage": "Select an Assessment"
+  },
+  {
+    "id": "assessmentPlan.selectAssessment.label",
+    "description": "Label for Assessment Type select element.",
+    "defaultMessage": "Select an Assessment"
+  },
+  {
+    "id": "assessmentPlan.criteriaTitle",
+    "description": "Title of a skill section in the Assessment Plan Builder.",
+    "defaultMessage": "{skillName} - {skillLevel}"
+  },
+  {
+    "id": "assessmentPlan.skillDescriptionLabel",
+    "description": "Label for the text that describes a skill criterion.",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "assessmentPlan.skillLevelDescriptionLabel",
+    "description": "Label for the text that describes a Skill Level.",
+    "defaultMessage": "Skill Level Selected"
+  },
+  {
+    "id": "assessmentPlan.assessmentTypesLabel",
+    "description": "Label for section where you choose assessment types for a criterion.",
+    "defaultMessage": "Assessment Types"
+  },
+  {
+    "id": "assessmentPlan.addAssessmentButton",
+    "description": "Text for the button that adds a new assessment for a criterion.",
+    "defaultMessage": "Add an Assessment"
+  }
+]

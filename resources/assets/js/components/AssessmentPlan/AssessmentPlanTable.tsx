@@ -148,14 +148,14 @@ const AssessmentPlanTable: React.FunctionComponent<
       >
         <FormattedMessage
           id="assessmentPlan.summary.title"
-          defaultMessage="l10n.missing 2. Assessment Plan Summary"
+          defaultMessage="2. Assessment Plan Summary"
           description="Title of Assessment Plan Summary Section"
         />
       </h3>
       <p data-c-margin="bottom(normal)">
         <FormattedMessage
           id="assessmentPlan.summary.description"
-          defaultMessage="l10n.missing This is a summary of the work you've done above. You'll find
+          defaultMessage="This is a summary of the work you've done above. You'll find
       each assessment accompanied by a consolidated list of the essential and
       asset skills attached to it."
           description="Description of Assessment Plan Summary Section"
@@ -175,16 +175,16 @@ const AssessmentPlanTable: React.FunctionComponent<
         >
           <FormattedMessage
             id="assessmentPlan.summary.assessmentSummary.title"
-            defaultMessage="l10n.missing Assessment Summary"
+            defaultMessage="Assessment Summary"
             description="Title of Assessment Plan Summary, Assessment Summary Section"
           />
         </h4>
         <p data-c-margin="bottom(normal)">
           <FormattedMessage
-            id="assessmentPlan.summary.assessmentSummary.noAssessments"
-            defaultMessage="l10n.missing Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}
+            id="assessmentPlan.summary.assessmentSummary.toolSkillCount"
+            defaultMessage="Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}
             to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}."
-            description="Place holder text for when there are no assessment summary details"
+            description="Describes how many tools and skills your assessment plan involves."
             values={{
               toolCount: uniqueAssessmentTypes.length,
               skillCount: criteria.length,
@@ -204,7 +204,7 @@ const AssessmentPlanTable: React.FunctionComponent<
             <span data-c-font-colour="black">
               <FormattedMessage
                 id="assessmentPlan.summary.assessmentSummary.noAssessments"
-                defaultMessage="l10n.missing You have no assessments selected for this job poster. Add them
+                defaultMessage="You have no assessments selected for this job poster. Add them
               above."
                 description="Place holder text for when there are no assessment summary details"
               />
