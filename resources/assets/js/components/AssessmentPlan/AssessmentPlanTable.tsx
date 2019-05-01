@@ -21,6 +21,7 @@ const renderAssessmentTypeBlock = (
   assessmentTypeId: number,
   assessmentTypeName: string,
   criteria: Criteria[],
+  locale: string,
 ): React.ReactElement => {
   const essentialSkills: Skill[] = criteria
     .filter(
@@ -36,7 +37,7 @@ const renderAssessmentTypeBlock = (
     .map((criterion): Skill => criterion.skill);
   return (
     <div
-      key={assessmentTypeId}
+      key={`assessmentSummary_type${assessmentTypeId}`}
       data-c-border="top(thin, solid, black)"
       data-c-margin="top(normal) bottom(normal)"
     >
@@ -51,39 +52,75 @@ const renderAssessmentTypeBlock = (
             {assessmentTypeName}
           </h5>
           <span data-c-font-weight="bold" data-c-margin="bottom(half)">
-            l10n.missing Assessing {criteria.length} skills.
+            <FormattedMessage
+              id="assessmentPlan.summary.skillCount"
+              defaultMessage={`Assessing {count, plural,
+                one {# skill}
+                other {# skills}
+              }.`}
+              description="Labels how many skills are assessed by this assessment tool."
+              values={{ count: criteria.length }}
+            />
           </span>
         </div>
         <div data-c-grid-item="tl(1of3)">
           <h5 data-c-font-size="h4" data-c-margin="top(normal) bottom(normal)">
-            l10n.missing Essential Skills
+            <FormattedMessage
+              id="criteria.essential"
+              defaultMessage="Essential Skills"
+              description="What essential criteria are called."
+            />
           </h5>
           {essentialSkills.length === 0 && (
             <p data-c-font-size="small">
-              l10n.missing No skills being assessed by this tool.
+              <FormattedMessage
+                id="assessmentPlan.summary.skillsNullState"
+                defaultMessage="No skills being assessed by this tool."
+                description="Replaces list of skills assessed by an assessment tool, if that list is empty."
+              />
             </p>
           )}
           <ul data-c-font-size="small">
             {essentialSkills.map(
               (skill): React.ReactElement => (
-                <li key={skill.id}>{skill.name}</li>
+                <li
+                  key={`assessmentSummary_type${assessmentTypeId}_essential_skill${
+                    skill.id
+                  }`}
+                >
+                  {skill[locale].name}
+                </li>
               ),
             )}
           </ul>
         </div>
         <div data-c-grid-item="tl(1of3)">
           <h5 data-c-font-size="h4" data-c-margin="top(normal) bottom(normal)">
-            l10n.missing Asset Skills
+            <FormattedMessage
+              id="criteria.asset"
+              defaultMessage="Asset Skills"
+              description="What asset criteria are called."
+            />
           </h5>
           {assetSkills.length === 0 && (
             <p data-c-font-size="small">
-              l10n.missing No skills being assessed by this tool.
+              <FormattedMessage
+                id="assessmentPlan.summary.skillsNullState"
+                defaultMessage="No skills being assessed by this tool."
+                description="Replaces list of skills assessed by an assessment tool, if that list is empty."
+              />
             </p>
           )}
           <ul data-c-font-size="small">
             {assetSkills.map(
               (skill): React.ReactElement => (
-                <li key={skill.id}>{skill.name}</li>
+                <li
+                  key={`assessmentSummary_type${assessmentTypeId}_asset_skill${
+                    skill.id
+                  }`}
+                >
+                  {skill[locale].name}
+                </li>
               ),
             )}
           </ul>
@@ -191,6 +228,7 @@ const AssessmentPlanTable: React.FunctionComponent<
               assessmentTypeId,
               intl.formatMessage(assessmentType(assessmentTypeId)),
               associatedCriteria,
+              intl.locale,
             );
           },
         )}
