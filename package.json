@@ -68,7 +68,7 @@
         "lodash": "^4.17.11",
         "moment": "^2.24.0",
         "react": "^16.8.6",
-        "react-app-polyfill": "^0.2.2",
+        "react-app-polyfill": "^1.0.0",
         "react-dom": "^16.8.6",
         "react-intl": "^2.8.0",
         "sweetalert2": "^8.9.0"
