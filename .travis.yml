@@ -26,6 +26,8 @@ before_install:
   - travis_retry composer self-update
   # latest npm@6 version
   - npm i -g npm@^6
+  # for greenkeeper
+  - npm install -g greenkeeper-lockfile
 
 install:
   # install slacktee (send lightcrawler output to slack)
@@ -34,7 +36,7 @@ install:
   - cp .env.travis .env
   # dependencies
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-  - travis_retry npm ci
+  - travis_retry npm install # npm ci conflicts with greenkeeper
   # lightcrawler output formatting
   - cp etc/scripts/lightcrawler-index.js node_modules/lightcrawler/index.js
 
@@ -46,6 +48,8 @@ before_script:
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   # start web server port 8000
   - php artisan serve &
+  # for greenkeeper
+  - greenkeeper-lockfile-update
 
 script:
   # build application / database containers
@@ -72,6 +76,8 @@ after_script:
   # send report to scrutinizer
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
+  # for greenkeeper
+  - greenkeeper-lockfile-upload
   # tear down
   - make docker-stop
 
@@ -83,3 +89,8 @@ notifications:
       secure: Vlequ88MkHcyvhoqMzJp0ZJsQVpsdH3YVuVUfzCrzA0u24N8yvK/O5DuNn6QYgfPRmyS9Jgd2+LCjAJUmGFIkrLIVt7NXKtcvyatZMhy5+J7S9+sGLMjas+Jzw12shEenuCPuPAAn2a0tk/mJc3aK4X0cHKGHMkzU+BXPgdhUFUS+2omcktPsp0jauNMkS8lExPk8p8zW1r0SyFsAYUZYTJ2XvvmhFkfnmrahxAPoASndLVT1RFIXO5fsU7HFinmw+7EjObP/IwgbbBZRYwy8V1IW3I3njGPhDXUGTPYWs15w+UzNaf8QCgEhNIbweAslgcERItrFFyy3+IIrHUrmdW556OxKB05+NcdzoTG3BPqYqycdAb6Rrka5cd5A8ohRRXSiJHKJQqjSBH00FvnGbsqqE4EH4AlL8pFc/quisn/4atTS++DZhIGSmIJW8SS9bsvAgND9Z+fbsU261iAJwl173pU1lLhdKbIWIG1s9MP/Mudu3MjKn913J6md01t6h2gxvOKsvZ06UJTMI2Zct5HTpfwilWdKQ/ujQkTlssbKCgQkBpvflJVlhB49Ja9BlFCwn3d1cHHVVDwR0AoZx1s5wamkKa/ZQE3zEBW5UDzaSpCuHF0SBAa4pts3/+6qtf9LYrATcTZjikHCSpBWX0MVyf0J+82ybpHJeW83xM=
     on_success: always
     on_failure: change
+
+# Greenkeeper token
+env:
+  global:
+    secure: tmdNXHeSkfsDyl5w0qWC+/HfRmIzkx7nmjBt5ntDYbERp2Q4ADqg1TG0VkFafKNuhtbPVVX/1mFRPMcyH7VOqknkvttEdZjty2VRWXEOaI4Xaw2alU5Le7yaV6CVXanz9X5gABDIkAEMgf39BZMQAoVAynNWkgUPJah1X+6gNaNrM0TLuLaw5/tOu4hZVQ9SkkXWNf8gnYI9nsvfzhb7psj3NCUoCDRhv5SV1e9eqOQ+ysxDyfVhflDRh/MN+QRfGKHbjNYGnyRHujwJsOxP0r5u+uMVQz6lPGCYD1aYdc+8aP9I6jv1QHxxlTPa+DDfGrXVGZvwL/X7uCJzKPtIMeXEtsLyUkyWK02mierkVN69R3XSDinJLKITNdwwNYOYwcHGCzFiw/ILo0yEaQFJ6pWOUMld5pstqfowINNsLjv1rlRvUXToS3w5TXtrudj2M8kJvywjVLNmijfPcmHkKENBVk6wHUOIP23/0sMhcwrXDpGSniRFcmqtPKKVygmAIKdVFZ+E3oDKC5nbFxEIXRmrxkA6uA6P6mbhV1jxrFpnOyZ1PXxaBwVTlUw0yLLQMtdFWY8jmIPJvoEEmQXjYakjuudCCca1LP6Gb012CnmIfIuG4HqV2VmwVbeTYFKc+Y5RNuiBwJAE/3V9bxNNG6PDlI0H/xXq9eRUY0YBvBI=

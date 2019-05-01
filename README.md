@@ -1,6 +1,6 @@
 # GC Talent Cloud
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/GCTC-NTGC/TalentCloud.svg)](https://greenkeeper.io/) [![Build Status](https://travis-ci.com/GCTC-NTGC/TalentCloud.svg?branch=dev)](https://travis-ci.com/GCTC-NTGC/TalentCloud) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/?branch=dev) [![codecov](https://codecov.io/gh/GCTC-NTGC/TalentCloud/branch/dev/graph/badge.svg)](https://codecov.io/gh/GCTC-NTGC/TalentCloud/?branch=dev)
+[![Build Status](https://travis-ci.com/GCTC-NTGC/TalentCloud.svg?branch=dev)](https://travis-ci.com/GCTC-NTGC/TalentCloud) [![Greenkeeper badge](https://badges.greenkeeper.io/GCTC-NTGC/TalentCloud.svg)](https://greenkeeper.io/) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/?branch=dev) [![codecov](https://codecov.io/gh/GCTC-NTGC/TalentCloud/branch/dev/graph/badge.svg)](https://codecov.io/gh/GCTC-NTGC/TalentCloud/?branch=dev)
 
 ## Summary
 
