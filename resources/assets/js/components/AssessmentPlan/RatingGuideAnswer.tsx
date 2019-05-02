@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 import {
   RatingGuideAnswer as RatingGuideAnswerModel,
   Skill,
@@ -45,6 +46,20 @@ const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps> = ({
       };
     },
   );
+  const selectLabel = (
+    <FormattedMessage
+      id="ratingGuideAnswer.selectLabel"
+      defaultMessage="Select a Skill"
+      description="Label for the dropdown for selecting the skill this rating guide answer is used to assess."
+    />
+  );
+  const nullSelection = (
+    <FormattedMessage
+      id="ratingGuideAnswer.nullSelection"
+      defaultMessage="Select a Skill..."
+      description="Null selection for the dropdown for selecting a skill this rating guide answer is used to assess."
+    />
+  );
   return (
     <div data-c-grid="gutter middle">
       <div data-c-grid-item="base(1of1) tp(1of8)" data-c-alignment="center" />
@@ -52,14 +67,14 @@ const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps> = ({
         <Select
           htmlId={`ratingGuideSelectSkill_${answer.id}`}
           formName="ratingGuideSelectSkill"
-          label="Select a Skill"
+          label={nullSelection}
           required
           options={options}
           onChange={(event): void =>
             onChange({ ...answer, criterion_id: Number(event.target.value) })
           }
           selected={answer.criterion_id}
-          nullSelection="Select a Skill..."
+          nullSelection={nullSelection}
         />
       </div>
       <div data-c-grid-item="base(1of1) tp(4of8)">

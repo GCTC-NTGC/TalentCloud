@@ -502,6 +502,21 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Select a Skill",
+        "description": "Label for the dropdown for selecting the skill this rating guide answer is used to assess.",
+        "id": "ratingGuideAnswer.selectLabel"
+      },
+      {
+        "defaultMessage": "Select a Skill...",
+        "description": "Null selection for the dropdown for selecting a skill this rating guide answer is used to assess.",
+        "id": "ratingGuideAnswer.nullSelection"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/RatingGuideAnswer.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "You have the ability to accomplish basic tasks with steady supervision and clear direction. The tasks you’re assigned are clear and don’t involve significant complexity. Their impact is usually locally felt. As you advance in this category, you should be developing the ability to accomplish tasks of moderate complexity with steady supervision. You will also need to be able to accomplish basic tasks with little or no supervision. This level is usually associated with tasks that form the bulk of the work for lower level positions, such as junior analysts or entry level developers.",
         "description": "Description of basic hard skill level.",
         "id": "skillLevel.hard.basic.description"
