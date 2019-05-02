@@ -113,7 +113,6 @@ const skillLevelNames = defineMessages({
   },
 });
 
-
 const skillLevelL10n = (
   skillLevelId: number,
   skillTypeId: number,
@@ -236,4 +235,101 @@ export const assessmentType = (
     [AssessmentTypeId.SeriousGames]: assessmentTypes.seriousGames,
     [AssessmentTypeId.TakeHomeExam]: assessmentTypes.takeHomeExam,
   }[assessmentTypeId.toString()];
+};
+
+// TODO: add english text
+const assessmentTypeDescriptions = defineMessages({
+  narrativeAssessment: {
+    id: "assessmentType.narrativeAssessment.description",
+    defaultMessage:
+      "The goal of a narrative review is to read the content the applicant has provided for each skill to get a better understanding of their level and competence.",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  applicationScreeningQuestion: {
+    id: "assessmentType.applicationScreeningQuestion.description",
+    defaultMessage: "",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  groupTest: {
+    id: "assessmentType.groupTest.description",
+    defaultMessage: "",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  informalPhoneConversation: {
+    id: "assessmentType.informalPhoneConversation.description",
+    defaultMessage: "",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  interview: {
+    id: "assessmentType.interview.description",
+    defaultMessage: "",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  onlineExam: {
+    id: "assessmentType.onlineExam.description",
+    defaultMessage: "",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  onSiteExam: {
+    id: "assessmentType.onSiteExam.description",
+    defaultMessage: "",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  takeHomeExam: {
+    id: "assessmentType.takeHomeExam.description",
+    defaultMessage: "",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  portfolioReview: {
+    id: "assessmentType.portfolioReview.description",
+    defaultMessage: "",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  referenceCheck: {
+    id: "assessmentType.referenceCheck.description",
+    defaultMessage: "",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  seriousGames: {
+    id: "assessmentType.seriousGames.description",
+    defaultMessage: "",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+});
+
+export const assessmentTypeDescription = (
+  assessmentTypeId: number,
+): FormattedMessage.MessageDescriptor => {
+  if (!AssessmentTypeIdValues.includes(assessmentTypeId)) {
+    throw new Error("invalid AssessmentTypeValue");
+  }
+  return {
+    [AssessmentTypeId.ApplicationScreeningQuestion]:
+      assessmentTypeDescriptions.applicationScreeningQuestion,
+    [AssessmentTypeId.GroupTest]: assessmentTypeDescriptions.groupTest,
+    [AssessmentTypeId.InformalPhoneConversation]:
+      assessmentTypeDescriptions.informalPhoneConversation,
+    [AssessmentTypeId.Interview]: assessmentTypeDescriptions.interview,
+    [AssessmentTypeId.NarrativeAssessment]:
+      assessmentTypeDescriptions.narrativeAssessment,
+    [AssessmentTypeId.OnSiteExam]: assessmentTypeDescriptions.onSiteExam,
+    [AssessmentTypeId.OnlineExam]: assessmentTypeDescriptions.onlineExam,
+    [AssessmentTypeId.PortfolioReview]:
+      assessmentTypeDescriptions.portfolioReview,
+    [AssessmentTypeId.ReferenceCheck]:
+      assessmentTypeDescriptions.referenceCheck,
+    [AssessmentTypeId.SeriousGames]: assessmentTypeDescriptions.seriousGames,
+    [AssessmentTypeId.TakeHomeExam]: assessmentTypeDescriptions.takeHomeExam,
+  }[assessmentTypeId];
 };
