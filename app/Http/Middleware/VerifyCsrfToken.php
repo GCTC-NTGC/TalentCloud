@@ -32,7 +32,7 @@ class VerifyCsrfToken extends Middleware
      * @param  \Symfony\Component\HttpFoundation\Response $response Outgoing response.
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function addCookieToResponse(\Illuminate\Http\Request $request, \Symfony\Component\HttpFoundation\Response $response): \Symfony\Component\HttpFoundation\Response
+    protected function addCookieToResponse($request, $response)
     {
         if ($this->addHttpCookie) {
             $config = config('session');
