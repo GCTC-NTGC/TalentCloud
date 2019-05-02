@@ -8,7 +8,7 @@ export const parseRatingGuideAnswer = (
 ): RatingGuideAnswer => ({
   id: Number(data.id),
   rating_guide_question_id: Number(data.rating_guide_question_id),
-  skill_id: Number(data.skill_id),
+  criterion_id: Number(data.criterion_id),
   expected_answer: String(data.expected_answer),
 });
 
@@ -18,7 +18,7 @@ export const parseRatingGuideQuestion = (
   id: Number(data.id),
   job_poster_id: Number(data.job_poster_id),
   assessment_type_id: Number(data.assessment_type_id),
-  question: String(data.question),
+  question: String(data.question || ""),
 });
 
 export const updateRatingGuideAnswer = (
@@ -31,7 +31,7 @@ export const updateRatingGuideAnswer = (
     )
     .then(
       (response: ApiResponse): RatingGuideAnswer =>
-        parseRatingGuideAnswer(response.data.ratingGuideAnswer),
+        parseRatingGuideAnswer(response.data.rating_guide_answer),
     );
 };
 
@@ -45,7 +45,7 @@ export const updateRatingGuideQuestion = (
     )
     .then(
       (response: ApiResponse): RatingGuideQuestion =>
-        parseRatingGuideQuestion(response.data.ratingGuideQuestion),
+        parseRatingGuideQuestion(response.data.rating_guide_question),
     );
 };
 
@@ -56,7 +56,7 @@ export const createRatingGuideAnswer = (
     .post(`${baseUrl()}/rating-guide-answers`, ratingGuideAnswer)
     .then(
       (response: ApiResponse): RatingGuideAnswer =>
-        parseRatingGuideAnswer(response.data.ratingGuideAnswer),
+        parseRatingGuideAnswer(response.data.rating_guide_answer),
     );
 };
 
@@ -67,7 +67,7 @@ export const createRatingGuideQuestion = (
     .post(`${baseUrl()}/rating-guide-questions`, ratingGuideQuestion)
     .then(
       (response: ApiResponse): RatingGuideQuestion =>
-        parseRatingGuideQuestion(response.data.ratingGuideQuestion),
+        parseRatingGuideQuestion(response.data.rating_guide_question),
     );
 };
 

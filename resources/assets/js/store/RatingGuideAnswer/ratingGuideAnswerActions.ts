@@ -33,7 +33,7 @@ export type CreateTempRatingGuideAnswerAction = Action<
   {
     id: number;
     ratingGuideQuestionId: number;
-    skillId: number;
+    criterionId: number;
     expectedAnswer: string;
   }
 >;
@@ -51,11 +51,16 @@ export type DeleteTempRatingGuideAnswerAction = Action<
 export const createTempRatingGuideAnswer = (
   id: number,
   ratingGuideQuestionId: number,
-  skillId: number,
+  criterionId: number,
   expectedAnswer: string,
 ): CreateTempRatingGuideAnswerAction => ({
   type: CREATE_TEMP_RATING_GUIDE_ANSWER,
-  payload: { id, ratingGuideQuestionId, skillId, expectedAnswer },
+  payload: {
+    id,
+    ratingGuideQuestionId,
+    criterionId,
+    expectedAnswer,
+  },
 });
 
 export const editTempRatingGuideAnswer = (

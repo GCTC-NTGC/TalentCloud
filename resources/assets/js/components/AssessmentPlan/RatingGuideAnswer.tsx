@@ -3,60 +3,62 @@ import { connect } from "react-redux";
 import {
   RatingGuideAnswer as RatingGuideAnswerModel,
   Skill,
+  Criteria,
 } from "../../models/types";
-import Select from "../Select";
+import Select, { SelectOption } from "../Select";
 import Input from "../Input";
-import { getId } from "../../helpers/queries";
+import { getId, hasKey, mapToObjectTrans } from "../../helpers/queries";
 import { RootState } from "../../store/store";
 import { getSkillById } from "../../store/Skill/skillSelector";
+import { DispatchType } from "../../configureStore";
 
 interface RatingGuideAnswerProps {
   answer: RatingGuideAnswerModel;
-  availableSkills: Skill[];
-  selectedSkill: Skill | null;
+  availableCriteria: Criteria[];
+  criteriaIdToSkill: { [id: number]: Skill | null };
   onChange: (updatedAnswer: RatingGuideAnswerModel) => void;
   onDelete: () => void;
 }
 
 const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps> = ({
   answer,
-  availableSkills,
-  selectedSkill,
+  availableCriteria,
+  criteriaIdToSkill,
   onChange,
   onDelete,
 }): React.ReactElement => {
-  const selectionIsValid = availableSkills.map(getId).includes(answer.skill_id);
-  const availableOptions = availableSkills.map(skill => {
-    return { value: skill.id, label: skill.name };
-  });
-  // Add the selected skill to options, if its not part of available options
-  const options =
-    selectionIsValid || selectedSkill == null
-      ? availableOptions
-      : [
-          ...availableOptions,
-          { value: selectedSkill.id, label: selectedSkill.name },
-        ];
+  // const criteriaIdToSkill = availableCriteria.reduce(
+  //   (map: Dictionary<Skill>, criterion): Dictionary<Skill> => {
+  //     map[criterion.id] = find(skills);
+  //   },
+  //   {},
+  // );
+  const options = availableCriteria.map(
+    (criterion): SelectOption<number> => {
+      return {
+        value: criterion.id,
+        label:
+          hasKey<Skill | null>(criteriaIdToSkill, criterion.id) &&
+          criteriaIdToSkill[criterion.id] !== null
+            ? (criteriaIdToSkill[criterion.id] as Skill).name // TODO: localize
+            : "",
+      };
+    },
+  );
   return (
-    <div
-      data-c-grid="gutter middle"
-      data-c-background={selectionIsValid ? undefined : "c3(30)"}
-    >
-      <div data-c-grid-item="base(1of1) tp(1of8)" data-c-alignment="center">
-        {!selectionIsValid && <i className="fa fa-exclamation" />}
-      </div>
+    <div data-c-grid="gutter middle">
+      <div data-c-grid-item="base(1of1) tp(1of8)" data-c-alignment="center" />
       <div data-c-grid-item="base(1of1) tp(2of8)">
-        {!selectionIsValid && <p>Selected Skill no longer valid</p>}
         <Select
           htmlId={`ratingGuideSelectSkill_${answer.id}`}
           formName="ratingGuideSelectSkill"
           label="Select a Skill"
           required
           options={options}
-          onChange={event =>
-            onChange({ ...answer, skill_id: Number(event.target.value) })
+          onChange={(event): void =>
+            onChange({ ...answer, criterion_id: Number(event.target.value) })
           }
-          selected={answer.skill_id}
+          selected={answer.criterion_id}
           nullSelection="Select a Skill..."
         />
       </div>
@@ -69,7 +71,7 @@ const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps> = ({
           placeholder="Write the expected answer to pass the applicant on this skill..."
           type="text"
           value={answer.expected_answer}
-          onChange={event =>
+          onChange={(event): void =>
             onChange({ ...answer, expected_answer: event.target.value })
           }
         />
@@ -78,7 +80,7 @@ const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps> = ({
         <button
           className="button-trash"
           type="button"
-          onClick={() => onDelete()}
+          onClick={(): void => onDelete()}
         >
           <i className="fa fa-trash" />
         </button>
@@ -89,20 +91,30 @@ const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps> = ({
 
 interface RatingGuideAnswerContainerProps {
   answer: RatingGuideAnswerModel;
-  availableSkills: Skill[];
-  onChange: (updatedAnswer: RatingGuideAnswerModel) => void;
-  onDelete: () => void;
+  availableCriteria: Criteria[];
 }
 
 const mapStateToProps = (
   state: RootState,
   ownProps: RatingGuideAnswerContainerProps,
-): { selectedSkill: Skill | null } => ({
-  selectedSkill: getSkillById(state, ownProps.answer.skill_id),
+): { criteriaIdToSkill: { [id: number]: Skill | null } } => ({
+  criteriaIdToSkill: mapToObjectTrans(
+    ownProps.availableCriteria,
+    getId,
+    (criterion): Skill | null => getSkillById(state, criterion.skill_id),
+  ),
+});
+
+const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
+  onChange: (updatedAnswer: RatingGuideAnswerModel) => {},
+  onDelete: () => {},
 });
 
 const RatingGuideAnswerContainer: React.FunctionComponent<
   RatingGuideAnswerContainerProps
-> = connect(mapStateToProps)(RatingGuideAnswer);
+> = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(RatingGuideAnswer);
 
 export default RatingGuideAnswerContainer;

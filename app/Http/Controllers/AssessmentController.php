@@ -19,6 +19,8 @@ class AssessmentController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Assessment::class);
+
         try {
             $criterion_id = (int)$request->json('criterion_id');
             $assessment_type_id = (int)$request->json('assessment_type_id');
@@ -29,6 +31,9 @@ class AssessmentController extends Controller
                 'criterion_id' => $criterion_id,
                 'assessment_type_id' => $assessment_type_id
             ]);
+            // Check that this user is allowed to create an Assessment for this criterion
+            $this->authorize('update', $assessment);
+
             $assessment->save();
             $assessment->refresh();
             $assessment['criteria'] = $criteria->toArray();
@@ -52,6 +57,7 @@ class AssessmentController extends Controller
      */
     public function show(Assessment $assessment)
     {
+        $this->authorize('view', $assessment);
         $criteria = Criteria::find($assessment->id);
         $assessment['criteria'] = $criteria->toArray();
         return $assessment->toArray();
@@ -66,6 +72,7 @@ class AssessmentController extends Controller
      */
     public function update(Request $request, Assessment $assessment)
     {
+        $this->authorize('update', $assessment);
         try {
             $criterion_id = (int)$request->json('criterion_id');
             $assessment_type_id = (int)$request->json('assessment_type_id');
@@ -96,6 +103,7 @@ class AssessmentController extends Controller
      */
     public function destroy(Assessment $assessment)
     {
+        $this->authorize('delete', $assessment);
         $assessment->delete();
 
         return [

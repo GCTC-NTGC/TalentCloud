@@ -118,7 +118,7 @@ function hasIdenticalItem<T extends { id: number }>(
 const addTempRatingGuideAnswer = (
   state: RatingGuideAnswerState,
   ratingGuideQuestionId: number,
-  skillId: number,
+  criterionId: number,
   expectedAnswer: string,
 ): RatingGuideAnswerState => {
   const currentIds = Object.values(state.tempRatingGuideAnswers).map(getId);
@@ -130,7 +130,7 @@ const addTempRatingGuideAnswer = (
       [newId]: {
         id: newId,
         rating_guide_question_id: ratingGuideQuestionId,
-        skill_id: skillId,
+        criterion_id: criterionId,
         expected_answer: expectedAnswer,
       },
     },
@@ -240,7 +240,7 @@ export const ratingGuideAnswerReducer = (
       return addTempRatingGuideAnswer(
         state,
         action.payload.ratingGuideQuestionId,
-        action.payload.skillId,
+        action.payload.criterionId,
         action.payload.expectedAnswer,
       );
     case EDIT_TEMP_RATING_GUIDE_ANSWER:
@@ -297,7 +297,7 @@ export const ratingGuideAnswerReducer = (
                 // When moving temp ratingGuideAnswer to edited, ensure ratingGuideAnswer_type_id is non-null
                 rating_guide_question_id:
                   action.payload.ratingGuideAnswer.rating_guide_question_id,
-                skill_id: action.payload.ratingGuideAnswer.skill_id,
+                criterion_id: action.payload.ratingGuideAnswer.criterion_id,
                 expected_answer:
                   action.payload.ratingGuideAnswer.expected_answer,
               },

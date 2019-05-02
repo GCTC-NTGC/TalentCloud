@@ -354,8 +354,14 @@ Route::group(
 Route::group(['prefix' => 'api'], function (): void {
     Route::get("jobs/{jobPoster}", "JobController@get")
         ->middleware('can:view,jobPoster');
-    // Protected by a gate in the controller, instead of policy middleware
+
+        // Protected by a gate in the controller, instead of policy middleware
     Route::get("jobs/{jobPoster}/assessment-plan", "AssessmentPlanController@getForJob");
+
+    // Public, not protected by policy or gate
+    Route::get("skills", "SkillController@index");
+
+    // Resource Routes are protected by policies in controllers instead of middleware.
     Route::resource('assessments', 'AssessmentController')->except([
         'create', 'edit', 'index'
     ]);
@@ -365,5 +371,4 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::resource('rating-guide-questions', 'RatingGuideQuestionController')->except([
         'create', 'edit', 'index'
     ]);
-    Route::get("skills", "SkillController@index"); // Public, not protected by policy or gate
 });

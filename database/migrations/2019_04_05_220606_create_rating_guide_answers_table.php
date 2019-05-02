@@ -11,18 +11,18 @@ class CreateRatingGuideAnswersTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('rating_guide_answers', function (Blueprint $table) {
+        Schema::create('rating_guide_answers', function (Blueprint $table): void {
             $table->increments('id');
             $table->timestamps();
             $table->integer('rating_guide_question_id')->unsigned();
-            $table->integer('skill_id')->unsigned();
+            $table->integer('criterion_id')->nullable()->unsigned();
             $table->string('expected_answer')->nullable();
 
-            $table->unique(['rating_guide_question_id', 'skill_id']);
+            $table->unique(['rating_guide_question_id', 'criterion_id']);
             $table->foreign('rating_guide_question_id')->references('id')->on('rating_guide_questions')->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->foreign('skill_id')->references('id')->on('skills')->onUpdate('CASCADE')->onDelete('NO ACTION');
+            $table->foreign('criterion_id')->references('id')->on('criteria')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -31,7 +31,7 @@ class CreateRatingGuideAnswersTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('rating_guide_answers');
     }

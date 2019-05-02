@@ -186,6 +186,7 @@ const AssessmentPlan: React.FunctionComponent<
           assessments={assessments}
           questions={questions}
           answers={answers}
+          jobId={(job && job.id) || null}
           intl={intl}
         />
       </div>
