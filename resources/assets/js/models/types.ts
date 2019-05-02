@@ -57,16 +57,6 @@ export interface CitizeshipDeclaration {
   name: CitizenshipDeclarationName;
 }
 
-export interface ClipboardTableRowProps {
-  id: string;
-  title?: string;
-  question?: string;
-  skillLevel: string;
-  skillType: string;
-  skillName: string;
-  modelAnswer: string;
-}
-
 export interface Applicant {
   id: number;
   personal_website: string;
@@ -124,8 +114,8 @@ export interface Criteria {
   job_poster_id: number;
   skill_id: number;
   skill_level_id: number;
-  description?: string; // TODO: remove un-localized description
-  skill?: Skill; // TODO: remove skill from here
+  description: string; // TODO: remove un-localized description
+  skill: Skill; // TODO: remove skill from here
   en: {
     description: string;
   };
@@ -148,6 +138,13 @@ export interface TempAssessment {
 }
 
 export interface RatingGuideAnswer {
+  id: number;
+  rating_guide_question_id: number;
+  criterion_id: number | null;
+  expected_answer: string;
+}
+
+export interface TempRatingGuideAnswer {
   id: number;
   rating_guide_question_id: number;
   criterion_id: number | null;

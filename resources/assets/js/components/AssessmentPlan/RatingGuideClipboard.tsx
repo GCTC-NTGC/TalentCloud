@@ -4,9 +4,7 @@ import {
   Assessment,
   RatingGuideQuestion,
   RatingGuideAnswer,
-  ClipboardTableRowProps,
 } from "../../models/types";
-import clipboardData from "./RatingsGuideClipboardContainer"
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import RatingGuideAssessment from "./RatingGuideAssessment";
 import { find } from "../../helpers/queries";
@@ -62,6 +60,35 @@ const dummyData: ClipboardTableRowProps[] = [
   },
 ];
 
+export interface ClipboardTableRowProps {
+  id: string;
+  title?: string;
+  question?: string;
+  skillLevel: string;
+  skillType: string;
+  skillName: string;
+  modelAnswer: string;
+}
+
+export const clipboardData = (
+  criteria: Criteria[],
+  ratingGuideQuestions: RatingGuideQuestion[],
+  ratingGuideAnswers: RatingGuideAnswer[],
+): ClipboardTableRowProps[] => {
+  const rootState = 42;
+  const data = criteria.map(
+    (criterion): ClipboardTableRowProps => ({
+      title: "from Assessment",
+      question: "from ratingGuideQuestion",
+      skillLevel: criterion.skill_level_id.toString(),
+      skillType: criterion.criteria_type_id.toString(),
+      skillName: "hacking",
+      modelAnswer: "from Answer",
+      id: "to be decided",
+    }),
+  );
+  return data;
+};
 
 const TableRow: React.FunctionComponent<ClipboardTableRowProps> = ({
   title,
