@@ -70,7 +70,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'role' => \App\Http\Middleware\CheckRole::class,
         'localOnly' => \App\Http\Middleware\LocalOnly::class,
-        'profileJson' => \App\Http\Middleware\ProfileJsonResponse::class,
 
         //Localization Middleware
         'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
