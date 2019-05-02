@@ -29,9 +29,6 @@ class RatingGuideQuestionController extends Controller
             JobPoster::findOrFail($job_poster_id);
             AssessmentType::findOrFail($assessment_type_id);
 
-            if (empty($question)) {
-                throw new \InvalidArgumentException('Question is required.');
-            }
             $ratingGuideQuestion = new RatingGuideQuestion([
                 'job_poster_id' => $job_poster_id,
                 'assessment_type_id' => $assessment_type_id,
