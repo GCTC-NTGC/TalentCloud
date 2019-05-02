@@ -35,10 +35,9 @@ export const DELETE_TEMP_RATING_GUIDE_QUESTION =
 export type CreateTempRatingGuideQuestionAction = Action<
   typeof CREATE_TEMP_RATING_GUIDE_QUESTION,
   {
-    id: number;
     jobPosterId: number;
     assessmentTypeId: number;
-    question: string;
+    question: string | null;
   }
 >;
 
@@ -53,13 +52,12 @@ export type DeleteTempRatingGuideQuestionAction = Action<
 >;
 
 export const createTempRatingGuideQuestion = (
-  id: number,
   jobPosterId: number,
   assessmentTypeId: number,
-  question: string,
+  question: string | null,
 ): CreateTempRatingGuideQuestionAction => ({
   type: CREATE_TEMP_RATING_GUIDE_QUESTION,
-  payload: { id, jobPosterId, assessmentTypeId, question },
+  payload: { jobPosterId, assessmentTypeId, question },
 });
 
 export const editTempRatingGuideQuestion = (

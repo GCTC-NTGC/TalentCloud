@@ -144,7 +144,6 @@ export interface RatingGuideAnswer {
   expected_answer: string;
 }
 
-// Version of Rating Guide Answer that hasn't been saved to server yet
 export interface TempRatingGuideAnswer {
   id: number;
   rating_guide_question_id: number;
@@ -156,7 +155,7 @@ export interface RatingGuideQuestion {
   id: number;
   job_poster_id: number;
   assessment_type_id: number;
-  question: string;
+  question: string | null;
 }
 
 // Version of Rating Guide Question that hasn't been saved to server yet
@@ -164,5 +163,5 @@ export interface TempRatingGuideQuestion {
   id: number;
   job_poster_id: number;
   assessment_type_id: number;
-  question: string;
+  question: string | null;
 }

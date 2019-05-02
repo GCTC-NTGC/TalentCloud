@@ -6,9 +6,13 @@ export interface InputProps {
   label: string;
   required: boolean;
   placeholder: string;
-  type: string;
+  type?: string;
+  minLength?: number;
+  maxLength?: number;
   value: string;
+  errorText?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FunctionComponent<InputProps> = ({
@@ -20,10 +24,14 @@ const Input: React.FunctionComponent<InputProps> = ({
   type,
   value,
   onChange,
+  errorText,
+  minLength,
+  maxLength,
+  onBlur,
 }): React.ReactElement => {
   return (
-    <div data-c-input="text">
-      <label htmlFor="TI2">{label}</label>
+    <div data-c-input={type || "text"}>
+      <label htmlFor={htmlId}>{label}</label>
       {required && <span>Required</span>}
       <div>
         <input
@@ -31,12 +39,15 @@ const Input: React.FunctionComponent<InputProps> = ({
           id={htmlId}
           name={formName}
           placeholder={placeholder}
-          type={type}
+          type={type || "text"}
           value={value}
           onChange={onChange}
+          minLength={minLength}
+          maxLength={maxLength}
+          onBlur={onBlur}
         />
       </div>
-      <span>This input has an error.</span>
+      <span>{errorText || "Something went wrong."}</span>
     </div>
   );
 };

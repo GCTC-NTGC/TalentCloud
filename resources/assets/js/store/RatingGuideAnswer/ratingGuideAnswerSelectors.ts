@@ -27,3 +27,13 @@ export const getRatingGuideAnswerById = (
   hasKey(stateSlice(state).ratingGuideAnswers, id)
     ? stateSlice(state).ratingGuideAnswers[id]
     : null;
+
+export const getRatingGuideAnswersByQuestion = (
+  state: RootState,
+  ratingGuideQuestionId: number,
+): RatingGuideAnswer[] => {
+  return getRatingGuideAnswers(state).filter(
+    (answer): boolean =>
+      answer.rating_guide_question_id === ratingGuideQuestionId,
+  );
+};

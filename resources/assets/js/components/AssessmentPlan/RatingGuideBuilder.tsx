@@ -13,20 +13,22 @@ import RatingGuideAssessment from "./RatingGuideAssessment";
 import { find } from "../../helpers/queries";
 import RatingGuideClipboard from "./RatingGuideClipboard";
 
-interface RatingsGuildeBuilderProps {
+interface RatingsGuideBuilderProps {
   criteria: Criteria[];
   assessments: Assessment[];
   questions: RatingGuideQuestion[];
   answers: RatingGuideAnswer[];
+  jobId: number | null;
 }
 
 const RatingGuideBuilder: React.FunctionComponent<
-  RatingsGuildeBuilderProps & InjectedIntlProps
+  RatingsGuideBuilderProps & InjectedIntlProps
 > = ({
   criteria,
   assessments,
   questions,
   answers,
+  jobId,
   intl,
 }): React.ReactElement => {
   let sectionCount = 0;
@@ -84,21 +86,30 @@ const RatingGuideBuilder: React.FunctionComponent<
               </div>
             </div>
           </div>
-          {criteria.map(
-            (criterion: Criteria): React.ReactElement => {
-              const skillLevel = intl.formatMessage(
-                skillLevelName(
-                  criterion.skill_level_id,
-                  criterion.skill.skill_type_id,
-                ),
-              );
+          {narrativeReview.map(
+            (assessment: Assessment, index: number): React.ReactElement => {
+              const narrativeCriteria = find(criteria, assessment.criterion_id);
+              let skillLevel = "";
+              if (narrativeCriteria) {
+                skillLevel = intl.formatMessage(
+                  skillLevelName(
+                    narrativeCriteria.skill_level_id,
+                    narrativeCriteria.skill.skill_type_id,
+                  ),
+                );
+              }
               return (
-                <div data-c-padding="top(normal) bottom(normal)">
+                <div
+                  key={`narrative-review-${index + 1}`}
+                  data-c-padding="top(normal) bottom(normal)"
+                >
                   <div data-c-grid="gutter middle">
                     <div data-c-grid-item="base(1of1) tp(1of8)" />
-                    <div data-c-grid-item="base(1of1) tp(2of8)">
-                      {`${criterion.skill.name} - ${skillLevel}`}
-                    </div>
+                    {narrativeCriteria && skillLevel.length > 0 && (
+                      <div data-c-grid-item="base(1of1) tp(2of8)">
+                        {`${narrativeCriteria.skill.name} - ${skillLevel}`}
+                      </div>
+                    )}
                     <div data-c-grid-item="base(1of1) tp(5of8)">
                       Standardized Evaluation Statement
                     </div>
@@ -150,12 +161,9 @@ const RatingGuideBuilder: React.FunctionComponent<
               key={assessmentTypeId}
               assessmentIndex={sectionCount}
               assessmentTypeId={assessmentTypeId}
-              questions={questions.filter(
-                (question: RatingGuideQuestion): boolean =>
-                  question.assessment_type_id === assessmentTypeId,
-              )}
+              jobId={jobId}
               requiredCriteria={requiredCriteria}
-              RatingGuideAnswers={answers}
+              ratingGuideAnswers={answers}
             />
           );
         },

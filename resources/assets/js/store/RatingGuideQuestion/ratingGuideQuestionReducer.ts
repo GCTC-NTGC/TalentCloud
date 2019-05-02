@@ -122,7 +122,7 @@ const addTempRatingGuideQuestion = (
   state: RatingGuideQuestionState,
   jobPosterId: number,
   assessmentTypeId: number,
-  question: string,
+  newQuestion: string | null,
 ): RatingGuideQuestionState => {
   const currentIds = Object.values(state.tempRatingGuideQuestions).map(getId);
   const newId = Math.max(...currentIds, 0) + 1;
@@ -134,7 +134,7 @@ const addTempRatingGuideQuestion = (
         id: newId,
         job_poster_id: jobPosterId,
         assessment_type_id: assessmentTypeId,
-        question,
+        question: newQuestion,
       },
     },
   };
