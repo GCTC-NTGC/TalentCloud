@@ -1,6 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
+import {
+  FormattedMessage,
+  defineMessages,
+  InjectedIntlProps,
+  injectIntl,
+} from "react-intl";
 import {
   RatingGuideAnswer as RatingGuideAnswerModel,
   Skill,
@@ -21,19 +26,42 @@ interface RatingGuideAnswerProps {
   onDelete: () => void;
 }
 
-const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps> = ({
+const messages = defineMessages({
+  selectLabel: {
+    id: "ratingGuideAnswer.selectLabel",
+    defaultMessage: "Select a Skill",
+    description:
+      "Label for the dropdown for selecting the skill this rating guide answer is used to assess.",
+  },
+  nullSelection: {
+    id: "ratingGuideAnswer.nullSelection",
+    defaultMessage: "Select a Skill...",
+    description:
+      "Null selection for the dropdown for selecting a skill this rating guide answer is used to assess.",
+  },
+  inputLabel: {
+    id: "ratingGuideAnswer.answerLabel",
+    defaultMessage: "Acceptable Passing Answer / Required to demonstrate",
+    description: "Label for the rating guide answer input.",
+  },
+  inputPlaceholder: {
+    id: "ratingGuideAnswer.answerPlaceholder",
+    defaultMessage:
+      "Write the expected answer to pass the applicant on this skill...",
+    description: "Placeholder text for the rating guide answer.",
+  },
+});
+
+const RatingGuideAnswer: React.FunctionComponent<
+  RatingGuideAnswerProps & InjectedIntlProps
+> = ({
   answer,
   availableCriteria,
   criteriaIdToSkill,
   onChange,
   onDelete,
+  intl,
 }): React.ReactElement => {
-  // const criteriaIdToSkill = availableCriteria.reduce(
-  //   (map: Dictionary<Skill>, criterion): Dictionary<Skill> => {
-  //     map[criterion.id] = find(skills);
-  //   },
-  //   {},
-  // );
   const options = availableCriteria.map(
     (criterion): SelectOption<number> => {
       return {
@@ -46,20 +74,6 @@ const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps> = ({
       };
     },
   );
-  const selectLabel = (
-    <FormattedMessage
-      id="ratingGuideAnswer.selectLabel"
-      defaultMessage="Select a Skill"
-      description="Label for the dropdown for selecting the skill this rating guide answer is used to assess."
-    />
-  );
-  const nullSelection = (
-    <FormattedMessage
-      id="ratingGuideAnswer.nullSelection"
-      defaultMessage="Select a Skill..."
-      description="Null selection for the dropdown for selecting a skill this rating guide answer is used to assess."
-    />
-  );
   return (
     <div data-c-grid="gutter middle">
       <div data-c-grid-item="base(1of1) tp(1of8)" data-c-alignment="center" />
@@ -67,23 +81,23 @@ const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps> = ({
         <Select
           htmlId={`ratingGuideSelectSkill_${answer.id}`}
           formName="ratingGuideSelectSkill"
-          label={nullSelection}
+          label={intl.formatMessage(messages.selectLabel)}
           required
           options={options}
           onChange={(event): void =>
             onChange({ ...answer, criterion_id: Number(event.target.value) })
           }
           selected={answer.criterion_id}
-          nullSelection={nullSelection}
+          nullSelection={intl.formatMessage(messages.nullSelection)}
         />
       </div>
       <div data-c-grid-item="base(1of1) tp(4of8)">
         <Input
           htmlId={`ratingGuideAnswer${answer.id}`}
           formName="ratingGuideAnswer"
-          label="Acceptable Passing Answer"
+          label={intl.formatMessage(messages.inputLabel)}
           required
-          placeholder="Write the expected answer to pass the applicant on this skill..."
+          placeholder={intl.formatMessage(messages.inputPlaceholder)}
           type="text"
           value={answer.expected_answer}
           onChange={(event): void =>
@@ -130,6 +144,6 @@ const RatingGuideAnswerContainer: React.FunctionComponent<
 > = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(RatingGuideAnswer);
+)(injectIntl(RatingGuideAnswer));
 
 export default RatingGuideAnswerContainer;

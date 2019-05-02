@@ -11,7 +11,7 @@ export interface SelectProps<T extends string | number> {
   label: string | ReactElement;
   required: boolean;
   selected: T | null;
-  nullSelection: string | ReactElement | undefined;
+  nullSelection: string | undefined;
   options: SelectOption<T>[];
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
