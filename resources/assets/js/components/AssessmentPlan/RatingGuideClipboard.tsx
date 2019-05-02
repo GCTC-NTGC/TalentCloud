@@ -4,12 +4,14 @@ import {
   Assessment,
   RatingGuideQuestion,
   RatingGuideAnswer,
+  ClipboardTableRowProps,
 } from "../../models/types";
+import clipboardData from "./RatingsGuideClipboardContainer"
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import RatingGuideAssessment from "./RatingGuideAssessment";
 import { find } from "../../helpers/queries";
 
-const dummyData = [
+const dummyData: ClipboardTableRowProps[] = [
   {
     title: "Assessment",
     question: "My First Question is why?",
@@ -60,17 +62,8 @@ const dummyData = [
   },
 ];
 
-interface TableRowProps {
-  id: string;
-  title?: string;
-  question?: string;
-  skillLevel: string;
-  skillType: string;
-  skillName: string;
-  modelAnswer: string;
-}
 
-const TableRow: React.FunctionComponent<TableRowProps> = ({
+const TableRow: React.FunctionComponent<ClipboardTableRowProps> = ({
   title,
   question,
   skillType,
@@ -87,11 +80,12 @@ const TableRow: React.FunctionComponent<TableRowProps> = ({
     <td>{skillName}</td>
     <td>{modelAnswer}</td>
     <td />
+    <td />
   </tr>
 );
 
 interface TableProps {
-  rows: TableRowProps[];
+  rows: ClipboardTableRowProps[];
 }
 
 const Table: React.FunctionComponent<TableProps> = ({
@@ -108,6 +102,7 @@ const Table: React.FunctionComponent<TableProps> = ({
           <th>Skill</th>
           <th>Rating Guide</th>
           <th>Applicant Answer</th>
+          <th>Score</th>
         </tr>
         {rows.map(
           (row): React.ReactElement => (
