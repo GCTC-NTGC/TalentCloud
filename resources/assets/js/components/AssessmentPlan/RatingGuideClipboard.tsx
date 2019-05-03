@@ -4,6 +4,7 @@ import {
   Assessment,
   RatingGuideQuestion,
   RatingGuideAnswer,
+  Skill,
 } from "../../models/types";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import RatingGuideAssessment from "./RatingGuideAssessment";
@@ -72,20 +73,26 @@ export interface ClipboardTableRowProps {
 
 export const clipboardData = (
   criteria: Criteria[],
+  skills: Skill[],
   ratingGuideQuestions: RatingGuideQuestion[],
   ratingGuideAnswers: RatingGuideAnswer[],
+  locale: string,
 ): ClipboardTableRowProps[] => {
-  const rootState = 42;
   const data = criteria.map(
-    (criterion): ClipboardTableRowProps => ({
+    (criterion): ClipboardTableRowProps => {
+      const skill = skills.find(skill => skill.id === criterion.skill_id);
+      if (skill === undefined) {
+        throw new Error(`Skill with id ${criterion.skill_id} not found.`);
+      }
+      return {
       title: "from Assessment",
       question: "from ratingGuideQuestion",
       skillLevel: criterion.skill_level_id.toString(),
       skillType: criterion.criteria_type_id.toString(),
-      skillName: "hacking",
+      skillName: skill[locale].name,
       modelAnswer: "from Answer",
       id: "to be decided",
-    }),
+    }},
   );
   return data;
 };

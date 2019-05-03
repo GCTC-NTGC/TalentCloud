@@ -12,7 +12,7 @@ import {
   AssessmentTypeId,
   CriteriaTypeId,
 } from "../../models/lookupConstants";
-import { clipboardData } from "./RatingGuideClipboard";
+import { clipboardData, ClipboardTableRowProps } from "./RatingGuideClipboard";
 import { CoverageSummary } from "istanbul-lib-coverage";
 // import { getSkillById } from "../../store/skill/skillSelector";
 
@@ -21,15 +21,57 @@ const jediSkill: Skill = {
   name: "jedi",
   description: "laser sword user",
   skill_type_id: SkillTypeId.Hard,
-  en: {name: "English Jedi", description:"English Laser Sword User"},
-  fr: {name: "French Jedi", description:"French Laser Sword User"},
+  en: { name: "English Jedi", description: "English Laser Sword User" },
+  fr: { name: "French Jedi", description: "French Laser Sword User" },
 };
 
 jest.mock("../../store/skill/skillSelector", () => {
-  return {                          // Define Function Mock Return Values
-      getSkillById: jest.fn( (x, y) => jediSkill )
-  }
+  return {
+    // Define Function Mock Return Values
+    getSkillById: jest.fn((x, y) => jediSkill),
+  };
 });
+
+const someSkills: Skill[] = [
+  {
+    id: 1,
+    name: "jedi",
+    description: "laser sword user",
+    skill_type_id: SkillTypeId.Hard,
+    en: { name: "English Jedi", description: "English Laser Sword User" },
+    fr: { name: "French Jedi", description: "French Laser Sword User" },
+  },
+  {
+    id: 2,
+    name: "hacking",
+    description: "manipulator of technology",
+    skill_type_id: SkillTypeId.Hard,
+    en: {
+      name: "English hacking",
+      description: "English manipulator of technology",
+    },
+    fr: {
+      name: "French hacking",
+      description: "French manipulator of technology",
+    },
+  },
+  {
+    id: 3,
+    name: "ninja",
+    description: "silent and stealthy",
+    skill_type_id: SkillTypeId.Hard,
+    en: { name: "English ninja", description: "English silent and stealthy" },
+    fr: { name: "French ninja", description: "French silent and stealthy" },
+  },
+  {
+    id: 4,
+    name: "joker",
+    description: "humorist, teller of jokes",
+    skill_type_id: SkillTypeId.Soft,
+    en: { name: "English joker", description: "English teller of jokes" },
+    fr: { name: "French joker", description: "French teller of jokes" },
+  },
+];
 
 const someCriteria: Criteria[] = [
   {
@@ -93,6 +135,25 @@ const someCriteria: Criteria[] = [
     },
   },
 ];
+
+const badCriteria: Criteria[] = [
+  // Skill ID out of range
+  {
+    id: 4,
+    criteria_type_id: CriteriaTypeId.Essential,
+    job_poster_id: 1,
+    skill_id: 42,
+    skill_level_id: SkillLevelId.Expert,
+    description: "Stringy", // TODO: remove un-localized description
+    skill: jediSkill, // TODO: remove skill from here
+    en: {
+      description: "English for my fourth critical criterion",
+    },
+    fr: {
+      description: "French for my fourth critical criterion",
+    },
+  },
+]
 
 const someAssesments: Assessment[] = [
   {
@@ -167,6 +228,14 @@ const someRatingGuideAnswers: RatingGuideAnswer[] = [
   },
 ];
 
+const defaultClipboardData = clipboardData(
+  someCriteria,
+  someSkills,
+  someRatingGuideQuestions,
+  someRatingGuideAnswers,
+  "en",
+);
+
 test("Test that jest can run typescript", () => {
   const one = 1;
   expect(one).toEqual(1);
@@ -174,45 +243,24 @@ test("Test that jest can run typescript", () => {
 
 describe("ClipboardData", (): void => {
   it("returns a truthy object", (): void => {
-    expect(
+    expect(defaultClipboardData).toBeTruthy();
+  });
+  it("raise an error when a skill is not found from a skill_id", (): void => {
+    function badSkillID(): void {
       clipboardData(
-        someCriteria,
+        badCriteria,
+        someSkills,
         someRatingGuideQuestions,
         someRatingGuideAnswers,
-      ),
-    ).toBeTruthy();
+        "en",
+      );
+    }
+    expect(badSkillID).toThrow("Skill with id 42 not found.");
   });
   it("returns an array equal to the number of Criteria", (): void => {
-    expect(
-      clipboardData(
-        someCriteria,
-        someRatingGuideQuestions,
-        someRatingGuideAnswers,
-      ).length,
-    ).toEqual(someCriteria.length);
+    expect(defaultClipboardData.length).toEqual(someCriteria.length);
   });
   it("returns an array equal to the number of Criteria", (): void => {
-
-    expect(
-      clipboardData(
-        someCriteria,
-        someRatingGuideQuestions,
-        someRatingGuideAnswers,
-      )[0].skillName,
-    ).toEqual("jedi");
+    expect(defaultClipboardData[1].skillName).toEqual("English hacking");
   });
 });
-
-// export interface Skill {
-//   id: number;
-//   name: string;
-//   description: string;
-//   skill_type_id: number;
-//   en: SkillTranslation;
-//   fr: SkillTranslation;
-// }
-
-// export interface SkillTranslation {
-//   name: string;
-//   description: string;
-// }
