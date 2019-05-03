@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-undef */
-import { CoverageSummary } from "istanbul-lib-coverage";
 import {
   Criteria,
   Assessment,
@@ -15,7 +14,6 @@ import {
   CriteriaTypeId,
 } from "../../models/lookupConstants";
 import { clipboardData, ClipboardTableRowProps } from "./RatingGuideClipboard";
-import { CoverageSummary } from "istanbul-lib-coverage";
 // import { getSkillById } from "../../store/skill/skillSelector";
 
 const jediSkill: Skill = {
