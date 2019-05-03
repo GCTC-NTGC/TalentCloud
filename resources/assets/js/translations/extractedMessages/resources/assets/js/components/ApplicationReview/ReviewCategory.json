@@ -1,0 +1,27 @@
+[
+  {
+    "id": "button.confirm",
+    "description": "Confirm button for modal dialogue boxes",
+    "defaultMessage": "Confirm"
+  },
+  {
+    "id": "apl.screenOutAll.confirm",
+    "description": "Confirm dialogue text for screening out all optional candidates.",
+    "defaultMessage": "Are you sure you want to screen out all Optional candidates?"
+  },
+  {
+    "id": "button.copied",
+    "description": "Confirmation for Button to copy all applicant emails in screening category",
+    "defaultMessage": "Copied!"
+  },
+  {
+    "id": "button.copyEmails",
+    "description": "Button to copy all applicant emails in screening category",
+    "defaultMessage": "Copy Emails"
+  },
+  {
+    "id": "apl.screenOutAll",
+    "description": "Button to screen out all optional candidates from competition with one click",
+    "defaultMessage": "Screen All Optional Candidates Out"
+  }
+]

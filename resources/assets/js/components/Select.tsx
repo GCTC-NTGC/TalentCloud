@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 export interface SelectOption<T extends string | number> {
   value: T;
@@ -8,7 +8,7 @@ export interface SelectOption<T extends string | number> {
 export interface SelectProps<T extends string | number> {
   htmlId: string;
   formName: string;
-  label: string;
+  label: string | ReactElement;
   required: boolean;
   selected: T | null;
   nullSelection: string | undefined;

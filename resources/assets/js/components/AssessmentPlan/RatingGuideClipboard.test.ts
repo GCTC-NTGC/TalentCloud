@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-undef */
+import { CoverageSummary } from "istanbul-lib-coverage";
 import {
   Criteria,
   Assessment,

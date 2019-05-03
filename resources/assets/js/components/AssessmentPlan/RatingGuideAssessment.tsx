@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { InjectedIntlProps, injectIntl } from "react-intl";
+import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import {
   RatingGuideAnswer,
@@ -17,7 +17,10 @@ import {
   storeNewRatingGuideQuestion,
   updateRatingGuideQuestion,
 } from "../../store/RatingGuideQuestion/ratingGuideQuestionActions";
-import { assessmentType } from "../../models/localizedConstants";
+import {
+  assessmentType,
+  assessmentTypeDescription,
+} from "../../models/localizedConstants";
 import { CriteriaTypeId } from "../../models/lookupConstants";
 import { where, mapToObjectTrans, getId } from "../../helpers/queries";
 import RatingGuideQuestionComponent from "./RatingGuideQuestion";
@@ -116,15 +119,19 @@ const RatingGuideAssessment: React.FunctionComponent<
         data-c-font-weight="bold"
         data-c-margin="top(double) bottom(normal)"
       >
-        Assessment {assessmentIndex}:{" "}
-        {intl.formatMessage(assessmentType(assessmentTypeId))}
+        <FormattedMessage
+          id="ratingGuideBuilder.sectionTitle"
+          defaultMessage="Assessment {index}: {assessmentType}"
+          description="Subtitle for given assessment type section in the Rating Guide Builder."
+          values={{
+            index: assessmentIndex,
+            assessmentType: intl.formatMessage(
+              assessmentType(assessmentTypeId),
+            ),
+          }}
+        />
       </h4>
-      <p>
-        {/** TODO: this should be assessmentType-specific description. Must be added to localizedConstants file. */}
-        The goal of a narrative review is to read the content the applicant has
-        provided for each skill to get a better understanding of their level and
-        competence.
-      </p>
+      <p>{intl.formatMessage(assessmentTypeDescription(assessmentTypeId))}</p>
 
       {questions.map(
         (question: RatingGuideQuestion, index: number): ReactElement => {
@@ -149,6 +156,7 @@ const RatingGuideAssessment: React.FunctionComponent<
               data-c-margin="top(normal) bottom(normal)"
               data-c-padding="bottom(normal)"
             >
+              {}
               <RatingGuideQuestionComponent
                 key={question.id}
                 question={question}
@@ -289,7 +297,12 @@ const RatingGuideAssessment: React.FunctionComponent<
         <div data-c-alignment="center" data-c-margin="bottom(normal)">
           {missingEssentialCriteria.length > 0 && (
             <span data-c-font-weight="bold">
-              {missingEssentialCriteria.length} Essential Missing:{" "}
+              <FormattedMessage
+                id="ratingGuideBuilder.essentialMissing"
+                defaultMessage="{count} Essential Missing: "
+                description="Label for list of missing essential skills."
+                values={{ count: missingEssentialCriteria.length }}
+              />
               <span data-c-font-colour="stop">
                 {missingEssentialCriteria.map(criteriaSkillName).join(", ")}
               </span>
@@ -298,7 +311,12 @@ const RatingGuideAssessment: React.FunctionComponent<
           )}
           {missingAssetCriteria.length > 0 && (
             <span data-c-font-weight="bold">
-              {missingAssetCriteria.length} Asset Missing:{" "}
+              <FormattedMessage
+                id="ratingGuideBuilder.assetMissing"
+                defaultMessage="{count} Asset Missing: "
+                description="Label for list of missing asset skills."
+                values={{ count: missingAssetCriteria.length }}
+              />
               <span data-c-font-colour="stop">
                 {missingAssetCriteria.map(criteriaSkillName).join(", ")}
               </span>
@@ -313,7 +331,11 @@ const RatingGuideAssessment: React.FunctionComponent<
           type="button"
           onClick={(): void => createQuestion()}
         >
-          Add a Question
+          <FormattedMessage
+            id="ratingGuideBuilder.addQuestion"
+            defaultMessage="Add a Question"
+            description="Button text for adding a new rating guide question."
+          />
         </button>
       </div>
     </div>

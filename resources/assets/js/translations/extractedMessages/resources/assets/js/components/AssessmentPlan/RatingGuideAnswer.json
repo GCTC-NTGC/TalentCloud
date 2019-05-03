@@ -1,0 +1,22 @@
+[
+  {
+    "id": "ratingGuideAnswer.selectLabel",
+    "description": "Label for the dropdown for selecting the skill this rating guide answer is used to assess.",
+    "defaultMessage": "Select a Skill"
+  },
+  {
+    "id": "ratingGuideAnswer.nullSelection",
+    "description": "Null selection for the dropdown for selecting a skill this rating guide answer is used to assess.",
+    "defaultMessage": "Select a Skill..."
+  },
+  {
+    "id": "ratingGuideAnswer.answerLabel",
+    "description": "Label for the rating guide answer input.",
+    "defaultMessage": "Acceptable Passing Answer / Required to demonstrate"
+  },
+  {
+    "id": "ratingGuideAnswer.answerPlaceholder",
+    "description": "Placeholder text for the rating guide answer.",
+    "defaultMessage": "Write the expected answer to pass the applicant on this skill..."
+  }
+]

@@ -1,0 +1,117 @@
+[
+  {
+    "id": "priorityStatus.priorityLogoTitle",
+    "description": "Title for Priority Logo Img",
+    "defaultMessage": "Talent cloud priority logo"
+  },
+  {
+    "id": "veteranStatus.veteranLogoAlt",
+    "description": "Alt Text for Veteran Logo Img",
+    "defaultMessage": "Talent cloud veteran logo"
+  },
+  {
+    "id": "apl.emailCandidateLinkTitle",
+    "description": "Title, hover text, for email link.",
+    "defaultMessage": "Email this candidate."
+  },
+  {
+    "id": "apl.viewApplicationLinkTitle",
+    "description": "Title, hover text, for View Application Link",
+    "defaultMessage": "View this applicant's application."
+  },
+  {
+    "id": "apl.viewProfileLinkTitle",
+    "description": "Title, hover text, for View Profile Link",
+    "defaultMessage": "View this applicant's profile."
+  },
+  {
+    "id": "apl.decision",
+    "description": "Decision dropdown label",
+    "defaultMessage": "Decision"
+  },
+  {
+    "id": "reviewStatus.notReviewed",
+    "description": "Decision dropdown label",
+    "defaultMessage": "Not Reviewed"
+  },
+  {
+    "id": "button.saving",
+    "description": "Dynamic Save button label",
+    "defaultMessage": "Saving..."
+  },
+  {
+    "id": "button.save",
+    "description": "Dynamic Save button label",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "button.saved",
+    "description": "Dynamic Save button label",
+    "defaultMessage": "Saved"
+  },
+  {
+    "id": "apl.addNote",
+    "description": "Dynamic Note button label",
+    "defaultMessage": "+ Add a Note"
+  },
+  {
+    "id": "apl.editNote",
+    "description": "Dynamic Note button label",
+    "defaultMessage": "Edit Note"
+  },
+  {
+    "id": "reviewStatus.screenedOut",
+    "description": "Dynamic Note button label",
+    "defaultMessage": "Screened Out"
+  },
+  {
+    "id": "reviewStatus.stillThinking",
+    "description": "Dynamic Note button label",
+    "defaultMessage": "Still Thinking"
+  },
+  {
+    "id": "reviewStatus.stillIn",
+    "description": "Dynamic Note button label",
+    "defaultMessage": "Still In"
+  },
+  {
+    "id": "button.cancel",
+    "description": "Cancel button label",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "button.confirm",
+    "description": "Confirm button for modal dialogue boxes",
+    "defaultMessage": "Confirm"
+  },
+  {
+    "id": "apl.screenOutConfirm",
+    "description": "Are you sure you want to screen out the candidate worning",
+    "defaultMessage": "Screen out the candidate?"
+  },
+  {
+    "id": "apl.screenInConfirm",
+    "description": "Are you sure you want to screen in the candidate warning",
+    "defaultMessage": "Screen the candidate back in?"
+  },
+  {
+    "id": "priorityStatus.priority",
+    "description": "Priority",
+    "defaultMessage": "Priority"
+  },
+  {
+    "id": "veteranStatus.veteran",
+    "description": "Veteran",
+    "defaultMessage": "Veteran"
+  },
+  {
+    "id": "apl.viewApplication",
+    "description": "Button text View Application",
+    "defaultMessage": "View Application"
+  },
+  {
+    "id": "apl.viewProfile",
+    "description": "Button text View Profile",
+    "defaultMessage": "View Profile"
+  }
+]

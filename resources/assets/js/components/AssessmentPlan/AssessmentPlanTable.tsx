@@ -21,6 +21,7 @@ const renderAssessmentTypeBlock = (
   assessmentTypeId: number,
   assessmentTypeName: string,
   criteria: Criteria[],
+  locale: string,
 ): React.ReactElement => {
   const essentialSkills: Skill[] = criteria
     .filter(
@@ -36,7 +37,7 @@ const renderAssessmentTypeBlock = (
     .map((criterion): Skill => criterion.skill);
   return (
     <div
-      key={assessmentTypeId}
+      key={`assessmentSummary_type${assessmentTypeId}`}
       data-c-border="top(thin, solid, black)"
       data-c-margin="top(normal) bottom(normal)"
     >
@@ -51,39 +52,75 @@ const renderAssessmentTypeBlock = (
             {assessmentTypeName}
           </h5>
           <span data-c-font-weight="bold" data-c-margin="bottom(half)">
-            l10n.missing Assessing {criteria.length} skills.
+            <FormattedMessage
+              id="assessmentPlan.summary.skillCount"
+              defaultMessage={`Assessing {count, plural,
+                one {# skill}
+                other {# skills}
+              }.`}
+              description="Labels how many skills are assessed by this assessment tool."
+              values={{ count: criteria.length }}
+            />
           </span>
         </div>
         <div data-c-grid-item="tl(1of3)">
           <h5 data-c-font-size="h4" data-c-margin="top(normal) bottom(normal)">
-            l10n.missing Essential Skills
+            <FormattedMessage
+              id="criteria.essential"
+              defaultMessage="Essential Skills"
+              description="What essential criteria are called."
+            />
           </h5>
           {essentialSkills.length === 0 && (
             <p data-c-font-size="small">
-              l10n.missing No skills being assessed by this tool.
+              <FormattedMessage
+                id="assessmentPlan.summary.skillsNullState"
+                defaultMessage="No skills being assessed by this tool."
+                description="Replaces list of skills assessed by an assessment tool, if that list is empty."
+              />
             </p>
           )}
           <ul data-c-font-size="small">
             {essentialSkills.map(
               (skill): React.ReactElement => (
-                <li key={skill.id}>{skill.name}</li>
+                <li
+                  key={`assessmentSummary_type${assessmentTypeId}_essential_skill${
+                    skill.id
+                  }`}
+                >
+                  {skill[locale].name}
+                </li>
               ),
             )}
           </ul>
         </div>
         <div data-c-grid-item="tl(1of3)">
           <h5 data-c-font-size="h4" data-c-margin="top(normal) bottom(normal)">
-            l10n.missing Asset Skills
+            <FormattedMessage
+              id="criteria.asset"
+              defaultMessage="Asset Skills"
+              description="What asset criteria are called."
+            />
           </h5>
           {assetSkills.length === 0 && (
             <p data-c-font-size="small">
-              l10n.missing No skills being assessed by this tool.
+              <FormattedMessage
+                id="assessmentPlan.summary.skillsNullState"
+                defaultMessage="No skills being assessed by this tool."
+                description="Replaces list of skills assessed by an assessment tool, if that list is empty."
+              />
             </p>
           )}
           <ul data-c-font-size="small">
             {assetSkills.map(
               (skill): React.ReactElement => (
-                <li key={skill.id}>{skill.name}</li>
+                <li
+                  key={`assessmentSummary_type${assessmentTypeId}_asset_skill${
+                    skill.id
+                  }`}
+                >
+                  {skill[locale].name}
+                </li>
               ),
             )}
           </ul>
@@ -111,14 +148,14 @@ const AssessmentPlanTable: React.FunctionComponent<
       >
         <FormattedMessage
           id="assessmentPlan.summary.title"
-          defaultMessage="l10n.missing 2. Assessment Plan Summary"
+          defaultMessage="2. Assessment Plan Summary"
           description="Title of Assessment Plan Summary Section"
         />
       </h3>
       <p data-c-margin="bottom(normal)">
         <FormattedMessage
           id="assessmentPlan.summary.description"
-          defaultMessage="l10n.missing This is a summary of the work you've done above. You'll find
+          defaultMessage="This is a summary of the work you've done above. You'll find
       each assessment accompanied by a consolidated list of the essential and
       asset skills attached to it."
           description="Description of Assessment Plan Summary Section"
@@ -138,16 +175,16 @@ const AssessmentPlanTable: React.FunctionComponent<
         >
           <FormattedMessage
             id="assessmentPlan.summary.assessmentSummary.title"
-            defaultMessage="l10n.missing Assessment Summary"
+            defaultMessage="Assessment Summary"
             description="Title of Assessment Plan Summary, Assessment Summary Section"
           />
         </h4>
         <p data-c-margin="bottom(normal)">
           <FormattedMessage
-            id="assessmentPlan.summary.assessmentSummary.noAssessments"
-            defaultMessage="l10n.missing Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}
+            id="assessmentPlan.summary.assessmentSummary.toolSkillCount"
+            defaultMessage="Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}
             to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}."
-            description="Place holder text for when there are no assessment summary details"
+            description="Describes how many tools and skills your assessment plan involves."
             values={{
               toolCount: uniqueAssessmentTypes.length,
               skillCount: criteria.length,
@@ -167,7 +204,7 @@ const AssessmentPlanTable: React.FunctionComponent<
             <span data-c-font-colour="black">
               <FormattedMessage
                 id="assessmentPlan.summary.assessmentSummary.noAssessments"
-                defaultMessage="l10n.missing You have no assessments selected for this job poster. Add them
+                defaultMessage="You have no assessments selected for this job poster. Add them
               above."
                 description="Place holder text for when there are no assessment summary details"
               />
@@ -191,6 +228,7 @@ const AssessmentPlanTable: React.FunctionComponent<
               assessmentTypeId,
               intl.formatMessage(assessmentType(assessmentTypeId)),
               associatedCriteria,
+              intl.locale,
             );
           },
         )}

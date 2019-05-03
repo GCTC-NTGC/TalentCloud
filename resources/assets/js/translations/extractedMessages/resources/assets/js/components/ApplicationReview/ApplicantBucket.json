@@ -1,0 +1,7 @@
+[
+  {
+    "id": "button.toggleAccordion",
+    "description": "Instructions to reveal hidden list data.",
+    "defaultMessage": "Toggle this step to view relevant applicants."
+  }
+]
