@@ -208,6 +208,17 @@ const someRatingGuideQuestions: RatingGuideQuestion[] = [
   },
 ];
 
+const badRatingGuideQuestions: RatingGuideQuestion[] = [
+  // No question referenced by RatingGuideAnswers
+  {
+    id: 42,
+    job_poster_id: 1,
+    assessment_type_id: AssessmentTypeId.GroupTest,
+    question:
+      "What is the third question of the meaning of life, the universe and everything?",
+  },
+];
+
 const someRatingGuideAnswers: RatingGuideAnswer[] = [
   {
     id: 1,
@@ -232,7 +243,7 @@ const someRatingGuideAnswers: RatingGuideAnswer[] = [
   },
   {
     id: 4,
-    rating_guide_question_id: 4,
+    rating_guide_question_id: 3,
     criterion_id: 4,
     expected_answer:
       "The fourth answer will make complete sense once you know the question.",
@@ -296,6 +307,32 @@ describe("ClipboardData", (): void => {
     );
     expect(defaultClipboardData[3].modelAnswer).toEqual(
       "The fourth answer will make complete sense once you know the question.",
+    );
+  });
+  it("raise an error when a ratingGuideQuestion is not found from a ratingGuideAnswer", (): void => {
+    function badQuestionId(): void {
+      clipboardData(
+        someCriteria,
+        someSkills,
+        badRatingGuideQuestions,
+        someRatingGuideAnswers,
+        "en",
+      );
+    }
+    expect(badQuestionId).toThrow("RatingGuideQuestion 1 not found.");
+  });
+  it("returns the associated question description for each criteria", (): void => {
+    expect(defaultClipboardData[0].question).toEqual(
+      "What is the first question of the meaning of life, the universe and everything?",
+    );
+    expect(defaultClipboardData[1].question).toEqual(
+      "What is the second question of the meaning of life, the universe and everything?",
+    );
+    expect(defaultClipboardData[2].question).toEqual(
+      "What is the third question of the meaning of life, the universe and everything?",
+    );
+    expect(defaultClipboardData[3].question).toEqual(
+      "What is the third question of the meaning of life, the universe and everything?",
     );
   });
 });
