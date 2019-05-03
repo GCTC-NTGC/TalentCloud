@@ -21,7 +21,7 @@
     "test": "jest test",
     "translations:extract": "cross-env NODE_ENV=development node_modules/.bin/babel ./resources/assets/js --extensions '.js,.jsx,.ts,.tsx'",
     "translations:check": "node ./translationRunner.js",
-    "translations:run": "npm run translations:extract && npm run translations:check"
+    "translations": "npm run translations:extract && npm run translations:check"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",

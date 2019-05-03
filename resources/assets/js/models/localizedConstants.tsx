@@ -333,3 +333,25 @@ export const assessmentTypeDescription = (
     [AssessmentTypeId.TakeHomeExam]: assessmentTypeDescriptions.takeHomeExam,
   }[assessmentTypeId];
 };
+
+const standardAssessmentText = defineMessages({
+  narrativeReviewQuestion: {
+    id: "assessmentType.narrativeReview.standardQuestion",
+    defaultMessage:
+      "Narrative Review of skill includes all descriptions added by the applicant in their application.",
+    description:
+      "Description which replaces 'interview question' for the Narrative Review assessment type.",
+  },
+  narrativeReviewAnswer: {
+    id: "assessmentType.narrativeReview.standardAnswer",
+    defaultMessage: "",
+    description:
+      "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
+  },
+});
+
+export const narrativeReviewStandardQuestion = (): FormattedMessage.MessageDescriptor =>
+  standardAssessmentText.narrativeReviewQuestion;
+
+export const narrativeReviewStandardAnswer = (): FormattedMessage.MessageDescriptor =>
+  standardAssessmentText.narrativeReviewAnswer;

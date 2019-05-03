@@ -27,7 +27,7 @@
   {
     "id": "assessmentPlan.summary.description",
     "description": "Description of Assessment Plan Summary Section",
-    "defaultMessage": "This is a summary of the work you've done above. You'll find\n      each assessment accompanied by a consolidated list of the essential and\n      asset skills attached to it."
+    "defaultMessage": "This is a summary of the work you've done above. You'll find\r\n      each assessment accompanied by a consolidated list of the essential and\r\n      asset skills attached to it."
   },
   {
     "id": "assessmentPlan.summary.assessmentSummary.title",
@@ -37,11 +37,11 @@
   {
     "id": "assessmentPlan.summary.assessmentSummary.toolSkillCount",
     "description": "Describes how many tools and skills your assessment plan involves.",
-    "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}\n            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}."
+    "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}\r\n            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}."
   },
   {
     "id": "assessmentPlan.summary.assessmentSummary.noAssessments",
     "description": "Place holder text for when there are no assessment summary details",
-    "defaultMessage": "You have no assessments selected for this job poster. Add them\n              above."
+    "defaultMessage": "You have no assessments selected for this job poster. Add them\r\n              above."
   }
 ]

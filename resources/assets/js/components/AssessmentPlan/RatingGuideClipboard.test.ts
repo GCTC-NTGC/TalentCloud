@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-undef */
+import { CoverageSummary } from "istanbul-lib-coverage";
 import {
   Criteria,
   Assessment,
@@ -13,7 +15,6 @@ import {
   CriteriaTypeId,
 } from "../../models/lookupConstants";
 import { clipboardData } from "./RatingGuideClipboard";
-import { CoverageSummary } from "istanbul-lib-coverage";
 // import { getSkillById } from "../../store/skill/skillSelector";
 
 const jediSkill: Skill = {
@@ -21,14 +22,15 @@ const jediSkill: Skill = {
   name: "jedi",
   description: "laser sword user",
   skill_type_id: SkillTypeId.Hard,
-  en: {name: "English Jedi", description:"English Laser Sword User"},
-  fr: {name: "French Jedi", description:"French Laser Sword User"},
+  en: { name: "English Jedi", description: "English Laser Sword User" },
+  fr: { name: "French Jedi", description: "French Laser Sword User" },
 };
 
 jest.mock("../../store/skill/skillSelector", () => {
-  return {                          // Define Function Mock Return Values
-      getSkillById: jest.fn( (x, y) => jediSkill )
-  }
+  return {
+    // Define Function Mock Return Values
+    getSkillById: jest.fn((x, y) => jediSkill),
+  };
 });
 
 const someCriteria: Criteria[] = [
@@ -167,7 +169,7 @@ const someRatingGuideAnswers: RatingGuideAnswer[] = [
   },
 ];
 
-test("Test that jest can run typescript", () => {
+test("Test that jest can run typescript", (): void => {
   const one = 1;
   expect(one).toEqual(1);
 });
@@ -192,7 +194,6 @@ describe("ClipboardData", (): void => {
     ).toEqual(someCriteria.length);
   });
   it("returns an array equal to the number of Criteria", (): void => {
-
     expect(
       clipboardData(
         someCriteria,
