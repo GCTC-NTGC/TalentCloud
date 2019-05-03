@@ -84,13 +84,17 @@ export const clipboardData = (
       if (skill === undefined) {
         throw new Error(`Skill with id ${criterion.skill_id} not found.`);
       }
+      const answer = ratingGuideAnswers.find(answer => criterion.id === answer.criterion_id);
+      if (answer === undefined) {
+        throw new Error(`RatingGuideAnswer associated with criterion ${criterion.id} not found.`);
+      }
       return {
       title: "from Assessment",
       question: "from ratingGuideQuestion",
       skillLevel: criterion.skill_level_id.toString(),
       skillType: criterion.criteria_type_id.toString(),
       skillName: skill[locale].name,
-      modelAnswer: "from Answer",
+      modelAnswer: answer.expected_answer,
       id: "to be decided",
     }},
   );
