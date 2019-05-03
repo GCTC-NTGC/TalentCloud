@@ -31,6 +31,8 @@ $clone-alert--information: $clone-c1;
 
 @import "components/common/itp";
 
+@import "components/manager/builder";
+
 // Core Elements ===============================================================
 
     @import './brands';

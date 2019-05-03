@@ -154,6 +154,9 @@ Route::group(
             /* Static - ITP */
             Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
 
+            /* Temp Builder Intro */
+            Route::view('builder-01', 'manager/builder-01')->name('jpb1');
+
             /* Authentication =========================================================== */
 
             // Laravel default login, logout, register, and reset routes

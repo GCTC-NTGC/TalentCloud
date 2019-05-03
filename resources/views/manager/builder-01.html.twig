@@ -1,0 +1,186 @@
+{% extends "layouts/base" %}
+
+{% block title %}
+
+    {{ itp.page_title }}
+
+{% endblock %}
+
+{% block body %}
+
+    {# Sitewide Notice ====================================================== #}
+    {% include "common/alert" %}
+
+    {# Government of Canada Banner ========================================== #}
+    {% include "common/goc" %}
+
+    <div data-clone>
+        <div data-c-background="white(100)">
+            <!-- Heading -->
+            <!-- Progress Indicator -->
+            <!-- Step Body -->
+                <div data-c-container="layout" data-c-padding="top(triple) bottom(triple)"> <h3 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                    Create Your Job Poster
+                </h3>
+                <ul>
+                    <li>This tool will help you create a job poster that attracts the right talent</li>
+                    <li>We designed this process to help you think through what you need in a logical way, so try to complete sections in the order presented.</li>
+                    <li>We’ve also provided instructions and examples to help guide you through the process but if you still have questions, contact contact@talent.canada.ca</li>
+                </ul>
+                <form data-c-grid="gutter">
+                    <div data-c-grid-item="base(1of1)">
+                        <h4 data-c-colour="c3" data-c-font-size="h4" data-c-margin="top(double)">
+                            Departmental Information
+                        </h4>
+                    </div>
+                    <div data-c-grid-item="base(1of1) tp(1of2)" data-c-input="select" data-c-required>
+                        <label for="SEL2">Department</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fa fa-caret-down"></i>
+                            <select id="SEL2">
+                                <option disabled selected>Select a department...</option>
+                                <option>Option 01</option>
+                                <option>Option 02</option>
+                                <option>Option 03</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-grid-item="base(1of1) tp(1of2)" data-c-input="text">
+                        <label for="TI2">Division</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. Digital Change" required type="text"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-grid-item="base(1of1)">
+                        <h4 data-c-colour="c3" data-c-font-size="h4" data-c-margin="top(double)">
+                            Job Details
+                        </h4>
+                    </div>
+                    <div data-c-grid-item="base(1of1) tp(1of2)" data-c-input="text">
+                        <label for="TI2">Job Title</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. User-interface Designer" required type="text"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-grid-item="base(1of1) tp(1of2)" data-c-input="select">
+                        <label for="SEL2">Term Length</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fa fa-caret-down"></i>
+                            <select id="SEL2" required>
+                                <option disabled selected>Select a length...</option>
+                                <option>Option 01</option>
+                                <option>Option 02</option>
+                                <option>Option 03</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-grid-item="base(1of1)" data-c-input="select">
+                        <label for="SEL2">Classification</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fa fa-caret-down"></i>
+                            <select id="SEL2" required>
+                                <option disabled selected>Select a classification...</option>
+                                <option>Option 01</option>
+                                <option>Option 02</option>
+                                <option>Option 03</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-grid-item="base(1of1) tp(1of2)" data-c-input="select">
+                        <label for="SEL2">Security Clearance</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fa fa-caret-down"></i>
+                            <select id="SEL2" required>
+                                <option disabled selected>Select a security level...</option>
+                                <option>Option 01</option>
+                                <option>Option 02</option>
+                                <option>Option 03</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-grid-item="base(1of1) tp(1of2)" data-c-input="select">
+                        <label for="SEL2">Language Requirement</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fa fa-caret-down"></i>
+                            <select id="SEL2" required>
+                                <option disabled selected>Select a language requirement...</option>
+                                <option>Option 01</option>
+                                <option>Option 02</option>
+                                <option>Option 03</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-grid-item="base(1of1)">
+                        <h4 data-c-colour="c3" data-c-font-size="h4" data-c-margin="top(double)">
+                            Work Details
+                        </h4>
+                    </div>
+                    <div data-c-grid-item="base(1of1) tp(1of2)" data-c-input="text">
+                        <label for="TI2">Work Location</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. Ottawa, ON" required type="text"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-grid-item="base(1of1) tp(1of2)" data-c-input="select">
+                        <label for="SEL2">Flexible Hours Options</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fa fa-caret-down"></i>
+                            <select id="SEL2">
+                                <option disabled selected>Select an option...</option>
+                                <option>Option 01</option>
+                                <option>Option 02</option>
+                                <option>Option 03</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-grid-item="base(1of1) tp(1of2)" data-c-input="select">
+                        <label for="SEL2">Remote Work Options</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fa fa-caret-down"></i>
+                            <select id="SEL2">
+                                <option disabled selected>Select an option...</option>
+                                <option>Option 01</option>
+                                <option>Option 02</option>
+                                <option>Option 03</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-grid-item="base(1of1) tp(1of2)" data-c-input="select">
+                        <label for="SEL2">Telework Options</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fa fa-caret-down"></i>
+                            <select id="SEL2">
+                                <option disabled selected>Select an option...</option>
+                                <option>Option 01</option>
+                                <option>Option 02</option>
+                                <option>Option 03</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>{% endblock %}
