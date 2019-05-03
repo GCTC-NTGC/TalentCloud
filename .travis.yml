@@ -26,6 +26,8 @@ before_install:
   - travis_retry composer self-update
   # latest npm@6 version
   - npm i -g npm@^6
+  - npm i -g lighthouse@4.0.0-alpha.2-3.2.1
+  - npm i -g lighthouse-batch
 
 install:
   # install slacktee (send lightcrawler output to slack)
@@ -35,8 +37,6 @@ install:
   # dependencies
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - travis_retry npm ci
-  # lightcrawler output formatting
-  - cp etc/scripts/lightcrawler-index.js node_modules/lightcrawler/index.js
 
 
 before_script:
@@ -62,9 +62,7 @@ script:
   - make phpunit
 
 after_success:
-  # pull requests run lightcrawler on local site
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lightcrawler-a --silent | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results - Applicant :badger:"'
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lightcrawler-m --silent | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results - Manager :cooldoge:"'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] || make lighthouse | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"'
 
 after_script:
   # send report to codecov.io

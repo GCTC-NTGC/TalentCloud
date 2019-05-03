@@ -1,5 +1,9 @@
 # Makefile for Docker Nginx PHP Composer
 
+include .env
+
+URL=$(APP_URL)
+
 build-db:
 	@docker exec talentcloud sh -c "php artisan migrate"
 	@docker exec talentcloud sh -c "php artisan db:seed"
@@ -33,6 +37,9 @@ fresh-db:
 gen-certs:
 	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=talent.test" jacoelho/generate-certificate
 
+lighthouse:
+	@lighthouse-batch --html -g -p '--chrome-flags="--headless" --only-categories=accessibility --only-categories=seo --port=9222' --sites=$(URL),$(URL)/fr,$(URL)/en/jobs,$(URL)/en/faq,$(URL)/en/login,$(URL)/en/register,$(URL)/en/tos,$(URL)/en/privacy,$(URL)/fr/jobs,$(URL)/fr/faq,$(URL)/fr/login,$(URL)/fr/register,$(URL)/en/jobs/23,$(URL)/en/password/reset,$(URL)/fr/tos,$(URL)/fr/privacy,$(URL)/fr/jobs/23,$(URL)/fr/password/reset,$(URL)/en/profile,$(URL)/en/profile/experience,$(URL)/en/profile/skills,$(URL)/en/profile/references,$(URL)/en/profile/portfolio,$(URL)/fr/profile,$(URL)/fr/profile/experience,$(URL)/fr/profile/skills,$(URL)/fr/profile/references,$(URL)/fr/profile/portfolio
+
 logs:
 	@docker-compose logs -f
 
@@ -45,10 +52,11 @@ phpunit:
 
 test:
 	@docker exec talentcloud sh -c "vendor/bin/phpunit --no-coverage"
+
 set-perms:
 	@docker exec talentcloud sh -c "chown -R www-data /var/www/storage /var/www/vendor /var/www/bootstrap/cache"
 	@docker exec talentcloud sh -c "chmod -R 775 /var/www"
 
 test-all: code-sniff phpmd phpunit
 
-.PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data fresh-db gen-certs laravel-init logs phpmd phpunit test test-all
+.PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data fresh-db gen-certs lighthouse logs phpmd phpunit test set-perms test-all
