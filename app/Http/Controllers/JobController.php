@@ -674,13 +674,11 @@ class JobController extends Controller
         $criteria->fill($data);
         $criteria->save();
 
-        $notification = new AssessmentPlanNotification();
-        $notification->job_poster_id = $criteria->job_poster_id;
-        $notification->notification = [
-            'type' => 'CREATE',
-            'skillId' => $criteria->skill_id,
-            'criteriaTypeId' => $criteria->criteria_type_id
-        ];
+        $notification = $this->makeAssessmentPlanNotification(
+            'CREATE',
+            $criteria,
+            null
+        );
         $notification->save();
 
         return $criteria;
@@ -696,18 +694,13 @@ class JobController extends Controller
     protected function updateCriteria(Criteria $criteria, array $data): void
     {
         if ($criteria->skill_level_id != $data['skill_level_id']) {
-            $notification = new AssessmentPlanNotification();
-            $notification->job_poster_id = $criteria->job_poster_id;
-            $notification->notification = [
-                'type' => 'UPDATE',
-                'skillId' => $criteria->skill_id,
-                'criteriaTypeId' => $criteria->criteria_type_id,
-                'oldSkillLevelId' => $criteria->skill_level_id,
-                'newSkillLevelId' => $data['skill_level_id'],
-            ];
+            $notification = $this->makeAssessmentPlanNotification(
+                'UPDATE',
+                $criteria,
+                $data['skill_level_id']
+            );
             $notification->save();
         }
-
         $criteria->fill($data);
         $criteria->save();
     }
@@ -720,19 +713,38 @@ class JobController extends Controller
      */
     protected function deleteCriteria(Criteria $criteria): void
     {
-        $notification = new AssessmentPlanNotification();
-        $notification->job_poster_id = $criteria->job_poster_id;
-        $notification->notification = [
-            'type' => 'DELETE',
-            'skillId' => $criteria->skill_id,
-            'criteriaTypeId' => $criteria->criteria_type_id
-        ];
+        $notification = $notification = $this->makeAssessmentPlanNotification(
+            'DELETE',
+            $criteria,
+            null
+        );
         $notification->save();
 
         // Delete assessments related to this criteria
         Assessment::where("criterion_id", $criteria->id)->delete();
 
         $criteria->delete();
+    }
+
+    /**
+     * Create a new AssessmentPlanNotification for a modification to a Criteria
+     *
+     * @param string $type Can be CREATE, UPDATE or DELETE
+     * @param Criteria $criteria
+     * @param int|null $newSkillLevelId Only used for UPDATE type notifications
+     * @return AssessmentPlanNotification
+     */
+    protected function makeAssessmentPlanNotification(string $type, Criteria $criteria, $newSkillLevelId): AssessmentPlanNotification
+    {
+        $notification = new AssessmentPlanNotification();
+        $notification->job_poster_id = $criteria->job_poster_id;
+        $notification->type = $type;
+        $notification->skill_id = $criteria->skill_id;
+        $notification->criteria_type_id = $criteria->criteria_type_id;
+        $notification->skill_level_id_old = $criteria->skill_level_id;
+        $notification->skill_level_id_new = $newSkillLevelId;
+        $notification->acknowledged = false;
+        return $notification;
     }
 
     /**

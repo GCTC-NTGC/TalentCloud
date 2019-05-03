@@ -165,3 +165,10 @@ export interface TempRatingGuideQuestion {
   assessment_type_id: number;
   question: string | null;
 }
+
+export interface AssessmentPlanNotification {
+  id: number;
+  job_poster_id: number;
+  notification: any;
+  acknowledged: boolean;
+}
