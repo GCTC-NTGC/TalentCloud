@@ -62,8 +62,8 @@ script:
   - make phpunit
 
 after_success:
-  # '[ "${TRAVIS_PULL_REQUEST}" = "false" ] || make lighthouse | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"'
-  - make lighthouse | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"'
+  # '[ "${TRAVIS_PULL_REQUEST}" = "false" ] || make lighthouse | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"
+  - make lighthouse | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"
 
 after_script:
   # send report to codecov.io
