@@ -40,8 +40,8 @@ const someSkills: Skill[] = [
     name: "jedi",
     description: "laser sword user",
     skill_type_id: SkillTypeId.Hard,
-    en: { name: "English Jedi", description: "English Laser Sword User" },
-    fr: { name: "French Jedi", description: "French Laser Sword User" },
+    en: { name: "English jedi", description: "English Laser Sword User" },
+    fr: { name: "French jedi", description: "French Laser Sword User" },
   },
   {
     id: 2,
@@ -155,7 +155,18 @@ const badCriteria: Criteria[] = [
       description: "French for my fourth critical criterion",
     },
   },
-]
+];
+
+const badRatingGuideAnswers: RatingGuideAnswer[] = [
+  // Criterion ID out of range
+  {
+    id: 1,
+    rating_guide_question_id: 1,
+    criterion_id: 42,
+    expected_answer:
+      "The first answer will make complete sense once you know the question.",
+  },
+];
 
 const someAssesments: Assessment[] = [
   {
@@ -199,6 +210,17 @@ const someRatingGuideQuestions: RatingGuideQuestion[] = [
   },
 ];
 
+const badRatingGuideQuestions: RatingGuideQuestion[] = [
+  // No question referenced by RatingGuideAnswers
+  {
+    id: 42,
+    job_poster_id: 1,
+    assessment_type_id: AssessmentTypeId.GroupTest,
+    question:
+      "What is the third question of the meaning of life, the universe and everything?",
+  },
+];
+
 const someRatingGuideAnswers: RatingGuideAnswer[] = [
   {
     id: 1,
@@ -223,7 +245,7 @@ const someRatingGuideAnswers: RatingGuideAnswer[] = [
   },
   {
     id: 4,
-    rating_guide_question_id: 4,
+    rating_guide_question_id: 3,
     criterion_id: 4,
     expected_answer:
       "The fourth answer will make complete sense once you know the question.",
@@ -237,11 +259,6 @@ const defaultClipboardData = clipboardData(
   someRatingGuideAnswers,
   "en",
 );
-
-test("Test that jest can run typescript", () => {
-  const one = 1;
-  expect(one).toEqual(1);
-});
 
 describe("ClipboardData", (): void => {
   it("returns a truthy object", (): void => {
@@ -262,7 +279,62 @@ describe("ClipboardData", (): void => {
   it("returns an array equal to the number of Criteria", (): void => {
     expect(defaultClipboardData.length).toEqual(someCriteria.length);
   });
-  it("returns an array equal to the number of Criteria", (): void => {
+  it("returns the associated localized skill name for each criteria", (): void => {
+    expect(defaultClipboardData[0].skillName).toEqual("English jedi");
     expect(defaultClipboardData[1].skillName).toEqual("English hacking");
+    expect(defaultClipboardData[2].skillName).toEqual("English ninja");
+    expect(defaultClipboardData[3].skillName).toEqual("English joker");
+  });
+  it("raise an error when a ratingGuideAnswer is not found from a criterion id", (): void => {
+    function badCriterionID(): void {
+      clipboardData(
+        someCriteria,
+        someSkills,
+        someRatingGuideQuestions,
+        badRatingGuideAnswers,
+        "en",
+      );
+    }
+    expect(badCriterionID).toThrow("RatingGuideAnswer associated with criterion 1 not found.");
+  });
+  it("returns the associated answer description for each criteria", (): void => {
+    expect(defaultClipboardData[0].modelAnswer).toEqual(
+      "The first answer will make complete sense once you know the question.",
+    );
+    expect(defaultClipboardData[1].modelAnswer).toEqual(
+      "The second answer will make complete sense once you know the question.",
+    );
+    expect(defaultClipboardData[2].modelAnswer).toEqual(
+      "The third answer will make complete sense once you know the question.",
+    );
+    expect(defaultClipboardData[3].modelAnswer).toEqual(
+      "The fourth answer will make complete sense once you know the question.",
+    );
+  });
+  it("raise an error when a ratingGuideQuestion is not found from a ratingGuideAnswer", (): void => {
+    function badQuestionId(): void {
+      clipboardData(
+        someCriteria,
+        someSkills,
+        badRatingGuideQuestions,
+        someRatingGuideAnswers,
+        "en",
+      );
+    }
+    expect(badQuestionId).toThrow("RatingGuideQuestion 1 not found.");
+  });
+  it("returns the associated question description for each criteria", (): void => {
+    expect(defaultClipboardData[0].question).toEqual(
+      "What is the first question of the meaning of life, the universe and everything?",
+    );
+    expect(defaultClipboardData[1].question).toEqual(
+      "What is the second question of the meaning of life, the universe and everything?",
+    );
+    expect(defaultClipboardData[2].question).toEqual(
+      "What is the third question of the meaning of life, the universe and everything?",
+    );
+    expect(defaultClipboardData[3].question).toEqual(
+      "What is the third question of the meaning of life, the universe and everything?",
+    );
   });
 });

@@ -64,7 +64,7 @@ const dummyData: ClipboardTableRowProps[] = [
 export interface ClipboardTableRowProps {
   id: string;
   title?: string;
-  question?: string;
+  question?: string | null;
   skillLevel: string;
   skillType: string;
   skillName: string;
@@ -84,13 +84,21 @@ export const clipboardData = (
       if (skill === undefined) {
         throw new Error(`Skill with id ${criterion.skill_id} not found.`);
       }
+      const answer = ratingGuideAnswers.find(answer => criterion.id === answer.criterion_id);
+      if (answer === undefined) {
+        throw new Error(`RatingGuideAnswer associated with criterion ${criterion.id} not found.`);
+      }
+      const question = ratingGuideQuestions.find(question => question.id === answer.rating_guide_question_id);
+      if (question === undefined) {
+        throw new Error(`RatingGuideQuestion ${answer.rating_guide_question_id} not found.`);
+      }
       return {
       title: "from Assessment",
-      question: "from ratingGuideQuestion",
+      question: question.question,
       skillLevel: criterion.skill_level_id.toString(),
       skillType: criterion.criteria_type_id.toString(),
       skillName: skill[locale].name,
-      modelAnswer: "from Answer",
+      modelAnswer: answer.expected_answer,
       id: "to be decided",
     }},
   );
