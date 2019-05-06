@@ -179,7 +179,7 @@ const assessmentTypes = defineMessages({
   },
   interview: {
     id: "assessmentType.interview",
-    defaultMessage: "Intervew",
+    defaultMessage: "Interview",
     description: "Title of an assessment type.",
   },
   onlineExam: {

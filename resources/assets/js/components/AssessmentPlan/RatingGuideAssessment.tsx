@@ -5,18 +5,9 @@ import {
   RatingGuideAnswer,
   Criteria,
   RatingGuideQuestion,
-  TempRatingGuideQuestion,
   Skill,
 } from "../../models/types";
-import {
-  createTempRatingGuideQuestion,
-  deleteRatingGuideQuestion,
-  deleteTempRatingGuideQuestion,
-  editRatingGuideQuestion,
-  editTempRatingGuideQuestion,
-  storeNewRatingGuideQuestion,
-  updateRatingGuideQuestion,
-} from "../../store/RatingGuideQuestion/ratingGuideQuestionActions";
+import { createTempRatingGuideQuestion } from "../../store/RatingGuideQuestion/ratingGuideQuestionActions";
 import {
   assessmentType,
   assessmentTypeDescription,
@@ -31,9 +22,6 @@ import { DispatchType } from "../../configureStore";
 import {
   getRatingGuideQuestionsByAssessment,
   getTempRatingGuideQuestionsByAssessment,
-  ratingGuideQuestionsAreEditedByAssessment,
-  ratingGuideQuestionsAreUpdatingByAssessment,
-  tempRatingGuideQuestionsAreSavingByAssessment,
 } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
 
 interface RatingGuideAssessmentProps {
@@ -43,22 +31,14 @@ interface RatingGuideAssessmentProps {
   assessmentTypeId: number;
   /** The interview questions to be asked during this assessment */
   questions: RatingGuideQuestion[];
-  questionsEdited: { [id: number]: boolean };
-  questionsUpdating: { [id: number]: boolean };
+  /** Interview questions that have not been saved to the server */
   tempQuestions: RatingGuideQuestion[];
-  tempQuestionsSaving: { [id: number]: boolean };
   /** The expecteds answers, for each skill, that will considered a pass */
   ratingGuideAnswers: RatingGuideAnswer[];
   /** A map of criteria id to skills, useful for skill names and description */
   criteriaIdToSkill: { [id: number]: Skill | null };
   requiredCriteria: Criteria[] | null;
   createQuestion: () => void;
-  editQuestion: (newQuestion: RatingGuideQuestion) => void;
-  updateQuestion: (newQuestion: RatingGuideQuestion) => void;
-  removeQuestion: (questionId: number) => void;
-  editTempQuestion: (newQuestion: RatingGuideQuestion) => void;
-  saveTempQuestion: (question: RatingGuideQuestion) => void;
-  removeTempQuestion: (questionId: number) => void;
   /** Handler function for creating a new RatingGuideQuestion */
   onQuestionCreate: () => void;
   /** Handle function for creating a new RatingGuideAnswer */
@@ -71,18 +51,10 @@ const RatingGuideAssessment: React.FunctionComponent<
   assessmentIndex,
   assessmentTypeId,
   questions,
+  createQuestion,
   tempQuestions,
-  tempQuestionsSaving,
   requiredCriteria,
   ratingGuideAnswers,
-  createQuestion,
-  editQuestion,
-  editTempQuestion,
-  removeQuestion,
-  removeTempQuestion,
-  updateQuestion,
-  saveTempQuestion,
-  questionsUpdating,
   onAnswerCreate,
   criteriaIdToSkill,
   intl,
@@ -156,15 +128,10 @@ const RatingGuideAssessment: React.FunctionComponent<
               data-c-margin="top(normal) bottom(normal)"
               data-c-padding="bottom(normal)"
             >
-              {}
               <RatingGuideQuestionComponent
                 key={question.id}
                 question={question}
                 questionIndex={index + 1}
-                isUpdating={questionsUpdating[question.id]}
-                onChange={editQuestion}
-                onDelete={removeQuestion}
-                onSave={updateQuestion}
               />
 
               <div data-c-padding="top(normal)">
@@ -240,10 +207,6 @@ const RatingGuideAssessment: React.FunctionComponent<
                 key={question.id}
                 question={question}
                 questionIndex={index + 1}
-                isUpdating={tempQuestionsSaving[question.id]}
-                onChange={editTempQuestion}
-                onDelete={removeTempQuestion}
-                onSave={saveTempQuestion}
               />
 
               <div data-c-padding="top(normal)">
@@ -359,10 +322,7 @@ const mapStateToProps = (
   criteriaIdToSkill: { [id: number]: Skill | null };
   jobId: number | null;
   questions: RatingGuideQuestion[];
-  questionsEdited: { [id: number]: boolean };
-  questionsUpdating: { [id: number]: boolean };
   tempQuestions: RatingGuideQuestion[];
-  tempQuestionsSaving: { [id: number]: boolean };
   requiredCriteria: Criteria[] | null;
   ratingGuideAnswers: RatingGuideAnswer[];
 } => ({
@@ -379,19 +339,7 @@ const mapStateToProps = (
     state,
     ownProps.assessmentTypeId,
   ),
-  questionsEdited: ratingGuideQuestionsAreEditedByAssessment(
-    state,
-    ownProps.assessmentTypeId,
-  ),
-  questionsUpdating: ratingGuideQuestionsAreUpdatingByAssessment(
-    state,
-    ownProps.assessmentTypeId,
-  ),
   tempQuestions: getTempRatingGuideQuestionsByAssessment(
-    state,
-    ownProps.assessmentTypeId,
-  ),
-  tempQuestionsSaving: tempRatingGuideQuestionsAreSavingByAssessment(
     state,
     ownProps.assessmentTypeId,
   ),
@@ -408,23 +356,6 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
         null,
       ),
     );
-  },
-  editQuestion: (ratingGuideQuestion: RatingGuideQuestion): void => {
-    dispatch(editRatingGuideQuestion(ratingGuideQuestion));
-  },
-  updateQuestion: (ratingGuideQuestion: RatingGuideQuestion): void =>
-    dispatch(updateRatingGuideQuestion(ratingGuideQuestion)),
-  removeQuestion: (ratingGuideQuestionId: number): void => {
-    dispatch(deleteRatingGuideQuestion(ratingGuideQuestionId));
-  },
-  editTempQuestion: (ratingGuideQuestion: TempRatingGuideQuestion): void => {
-    dispatch(editTempRatingGuideQuestion(ratingGuideQuestion));
-  },
-  removeTempQuestion: (id: number): void => {
-    dispatch(deleteTempRatingGuideQuestion(id));
-  },
-  saveTempQuestion: (ratingGuideQuestion: RatingGuideQuestion): void => {
-    dispatch(storeNewRatingGuideQuestion(ratingGuideQuestion));
   },
 });
 
