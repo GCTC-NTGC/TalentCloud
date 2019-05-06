@@ -24,7 +24,7 @@ return [
         "create_label" => "Create New Reference",
         "label" => "Select a Reference",
         "default_option" => "Select a reference...",
-        "null_copy" => "You don't have to add anything else to this skill in order to apply. But if you'd like to stregnthen your application, you can visit 'My References' in 'My Profile' to connect further evidence to this skill.",
+        "null_copy" => "You don't have to add anything else to this skill in order to apply. But if you'd like to strengthen your application, you can visit 'My References' in 'My Profile' to connect further evidence to this skill.",
         "add_label" => "Add Existing Reference",
         "delete_title" => "Remove this reference."
     ],
@@ -34,7 +34,7 @@ return [
         "create_label" => "Create New Work Sample",
         "label" => "Select a Work Sample",
         "default_option" => "Select a work sample...",
-        "null_copy" => "You don't have to add anything else to this skill in order to apply. But if you'd like to stregnthen your application, you can visit 'My Work Samples' in 'My Profile' to connect further evidence to this skill.",
+        "null_copy" => "You don't have to add anything else to this skill in order to apply. But if you'd like to strengthen your application, you can visit 'My Work Samples' in 'My Profile' to connect further evidence to this skill.",
         "add_label" => "Add Existing Work Sample",
         "delete_title" => "Remove this work sample."
     ],
