@@ -12,10 +12,10 @@
     id="managerProfileSectionAbout"
     class="manager-profile__section">
 
-    <h4
+    <h3
         class="manager-profile__section-title">
         {{about_l10n.about_me}}
-    </h4>
+    </h3>
 
     <fieldset
         class="form__fieldset">
@@ -137,7 +137,7 @@
                             <option value="" disabled selected>
                                 {{ about_l10n.department_default_option }}
                             </option>
-                            
+
                             {% for department in departments %}
                                 {% set deparmentName = department.name %}
                                 {% set chosenName = manager.department.name %}
