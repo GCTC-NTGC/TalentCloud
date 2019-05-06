@@ -164,7 +164,7 @@ const ReviewCategory: React.StatelessComponent<
 
   return (
     <div className="applicant-category">
-      <h3 className="heading--03">{intl.formatMessage(title)}</h3>
+      <h2 className="heading--03">{intl.formatMessage(title)}</h2>
 
       <p>{intl.formatMessage(description)}</p>
 
