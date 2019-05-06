@@ -9,7 +9,7 @@ return [
     * View: views/manager/job_index.html.twig
     */
 
-    'title' => 'My Job Posts',
+    'title' => 'My Job Posters',
     'legend' => 'Legend:',
     'draft_poster' => 'Draft Poster',
     'submitted_published' => 'Submitted/Published',
