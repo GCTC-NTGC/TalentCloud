@@ -27,11 +27,7 @@ class RatingGuideAnswerController extends Controller
             $expected_answer = $request->json('expected_answer');
 
             RatingGuideQuestion::findOrFail($rating_guide_question_id);
-            Crtieria::findOrFail($criterion_id);
-
-            if (empty($expected_answer)) {
-                throw new \InvalidArgumentException('Expected answer is required.');
-            }
+            Criteria::findOrFail($criterion_id);
 
             $ratingGuideAnswer = new RatingGuideAnswer([
                 'rating_guide_question_id' => $rating_guide_question_id,

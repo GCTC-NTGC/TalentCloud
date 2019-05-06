@@ -118,8 +118,8 @@ function hasIdenticalItem<T extends { id: number }>(
 const addTempRatingGuideAnswer = (
   state: RatingGuideAnswerState,
   ratingGuideQuestionId: number,
-  criterionId: number,
-  expectedAnswer: string,
+  criterionId: number | null,
+  expectedAnswer: string | null,
 ): RatingGuideAnswerState => {
   const currentIds = Object.values(state.tempRatingGuideAnswers).map(getId);
   const newId = Math.max(...currentIds, 0) + 1;

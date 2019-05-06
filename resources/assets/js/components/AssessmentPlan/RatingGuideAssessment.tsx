@@ -6,6 +6,8 @@ import {
   Criteria,
   RatingGuideQuestion,
   Skill,
+  TempRatingGuideQuestion,
+  TempRatingGuideAnswer,
 } from "../../models/types";
 import { createTempRatingGuideQuestion } from "../../store/RatingGuideQuestion/ratingGuideQuestionActions";
 import {
@@ -23,6 +25,8 @@ import {
   getRatingGuideQuestionsByAssessment,
   getTempRatingGuideQuestionsByAssessment,
 } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
+import { createTempRatingGuideAnswer } from "../../store/RatingGuideAnswer/ratingGuideAnswerActions";
+import { getTempRatingGuideAnswers } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
 
 interface RatingGuideAssessmentProps {
   /** Display index of this ratings guide assessment compared to others on the page */
@@ -32,17 +36,17 @@ interface RatingGuideAssessmentProps {
   /** The interview questions to be asked during this assessment */
   questions: RatingGuideQuestion[];
   /** Interview questions that have not been saved to the server */
-  tempQuestions: RatingGuideQuestion[];
+  tempQuestions: TempRatingGuideQuestion[];
   /** The expecteds answers, for each skill, that will considered a pass */
   ratingGuideAnswers: RatingGuideAnswer[];
+  tempRatingGuideAnswers: TempRatingGuideAnswer[];
   /** A map of criteria id to skills, useful for skill names and description */
   criteriaIdToSkill: { [id: number]: Skill | null };
   requiredCriteria: Criteria[] | null;
-  createQuestion: () => void;
   /** Handler function for creating a new RatingGuideQuestion */
-  onQuestionCreate: () => void;
-  /** Handle function for creating a new RatingGuideAnswer */
-  onAnswerCreate: () => void;
+  createQuestion: () => void;
+  /** Handler function for creating a new RatingGuideAnswer */
+  createAnswer: (ratingGuideQuestionId: number) => void;
 }
 
 const RatingGuideAssessment: React.FunctionComponent<
@@ -55,7 +59,8 @@ const RatingGuideAssessment: React.FunctionComponent<
   tempQuestions,
   requiredCriteria,
   ratingGuideAnswers,
-  onAnswerCreate,
+  tempRatingGuideAnswers,
+  createAnswer,
   criteriaIdToSkill,
   intl,
 }): React.ReactElement => {
@@ -160,7 +165,32 @@ const RatingGuideAssessment: React.FunctionComponent<
                     );
                   },
                 )}
-
+                {tempRatingGuideAnswers.map(
+                  (answer: RatingGuideAnswer): ReactElement | false => {
+                    // The currently selected criterion, plus anyother unselected criteria
+                    let availableCriteria = [] as Criteria[];
+                    if (requiredCriteria && requiredCriteria.length > 0) {
+                      availableCriteria = requiredCriteria.filter(
+                        (criterion: Criteria): boolean => {
+                          return (
+                            answer.criterion_id === criterion.id ||
+                            !selectedCriteria.includes(criterion.id)
+                          );
+                        },
+                      );
+                    }
+                    return (
+                      availableCriteria.length > 0 && (
+                        <RatingGuideAnswerComponent
+                          key={answer.id}
+                          answer={answer}
+                          availableCriteria={availableCriteria}
+                          temp
+                        />
+                      )
+                    );
+                  },
+                )}
                 <div data-c-grid="gutter middle">
                   <div
                     data-c-alignment="center"
@@ -169,7 +199,7 @@ const RatingGuideAssessment: React.FunctionComponent<
                     <button
                       className="button-plus"
                       type="button"
-                      onClick={(): void => onAnswerCreate()}
+                      onClick={(): void => createAnswer(question.id)}
                     >
                       +
                     </button>
@@ -207,6 +237,7 @@ const RatingGuideAssessment: React.FunctionComponent<
                 key={question.id}
                 question={question}
                 questionIndex={index + 1}
+                temp
               />
 
               <div data-c-padding="top(normal)">
@@ -235,7 +266,32 @@ const RatingGuideAssessment: React.FunctionComponent<
                     );
                   },
                 )}
-
+                {tempRatingGuideAnswers.map(
+                  (answer: RatingGuideAnswer): ReactElement | false => {
+                    // The currently selected criterion, plus anyother unselected criteria
+                    let availableCriteria = [] as Criteria[];
+                    if (requiredCriteria && requiredCriteria.length > 0) {
+                      availableCriteria = requiredCriteria.filter(
+                        (criterion: Criteria): boolean => {
+                          return (
+                            answer.criterion_id === criterion.id ||
+                            !selectedCriteria.includes(criterion.id)
+                          );
+                        },
+                      );
+                    }
+                    return (
+                      availableCriteria.length > 0 && (
+                        <RatingGuideAnswerComponent
+                          key={answer.id}
+                          answer={answer}
+                          availableCriteria={availableCriteria}
+                          temp
+                        />
+                      )
+                    );
+                  },
+                )}
                 <div data-c-grid="gutter middle">
                   <div
                     data-c-alignment="center"
@@ -244,7 +300,7 @@ const RatingGuideAssessment: React.FunctionComponent<
                     <button
                       className="button-plus"
                       type="button"
-                      onClick={(): void => onAnswerCreate()}
+                      onClick={(): void => createAnswer(question.id)}
                     >
                       +
                     </button>
@@ -325,6 +381,7 @@ const mapStateToProps = (
   tempQuestions: RatingGuideQuestion[];
   requiredCriteria: Criteria[] | null;
   ratingGuideAnswers: RatingGuideAnswer[];
+  tempRatingGuideAnswers: TempRatingGuideAnswer[];
 } => ({
   assessmentIndex: ownProps.assessmentIndex,
   assessmentTypeId: ownProps.assessmentTypeId,
@@ -343,6 +400,7 @@ const mapStateToProps = (
     state,
     ownProps.assessmentTypeId,
   ),
+  tempRatingGuideAnswers: getTempRatingGuideAnswers(state),
   requiredCriteria: ownProps.requiredCriteria,
   ratingGuideAnswers: ownProps.ratingGuideAnswers,
 });
@@ -356,6 +414,9 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
         null,
       ),
     );
+  },
+  createAnswer: (ratingGuideQuestionId: number): void => {
+    dispatch(createTempRatingGuideAnswer(ratingGuideQuestionId, null, null));
   },
 });
 
