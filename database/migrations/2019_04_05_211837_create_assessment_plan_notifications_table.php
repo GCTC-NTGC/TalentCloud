@@ -19,19 +19,20 @@ class CreateAssessmentPlanNotificationsTable extends Migration
             $table->integer('job_poster_id')->unsigned();
             $table->string('type');
             $table->integer('criteria_id')->unsigned();
-            $table->integer('skill_id')->unsigned();
             $table->integer('criteria_type_id')->unsigned();
-
-            $table->integer('skill_level_id_old')->unsigned();
-            $table->integer('skill_level_id_new')->unsigned();
+            $table->integer('skill_id')->unsigned();
+            $table->integer('skill_id_new')->unsigned()->nullable();
+            $table->integer('skill_level_id')->unsigned();
+            $table->integer('skill_level_id_new')->unsigned()->nullable();
 
             $table->boolean('acknowledged')->default(false);
 
             // criteria_id cannot have a foreign key constraing, because this object is expected to last after the matching criteria is delete
             $table->foreign('job_poster_id')->references('id')->on('job_posters')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign('skill_id')->references('id')->on('skills')->onUpdate('CASCADE')->onDelete('NO ACTION');
+            $table->foreign('skill_id_new')->references('id')->on('skills')->onUpdate('CASCADE')->onDelete('NO ACTION');
             $table->foreign('criteria_type_id')->references('id')->on('criteria_types')->onUpdate('CASCADE')->onDelete('NO ACTION');
-            $table->foreign('skill_level_id_old')->references('id')->on('skill_levels')->onUpdate('CASCADE')->onDelete('NO ACTION');
+            $table->foreign('skill_level_id')->references('id')->on('skill_levels')->onUpdate('CASCADE')->onDelete('NO ACTION');
             $table->foreign('skill_level_id_new')->references('id')->on('skill_levels')->onUpdate('CASCADE')->onDelete('NO ACTION');
         });
     }

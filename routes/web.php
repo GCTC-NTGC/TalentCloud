@@ -372,6 +372,6 @@ Route::group(['prefix' => 'api'], function (): void {
         'create', 'edit', 'index'
     ]);
     Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
-        'store', 'create', 'edit', 'index'
+        'store', 'create', 'edit'
     ]);
 });

@@ -48,6 +48,7 @@ class Criteria extends BaseModel {
         'skill_level_id' => 'int',
     ];
     protected $fillable = [
+        'skill_id',
         'criteria_type_id',
         'skill_level_id',
     ];

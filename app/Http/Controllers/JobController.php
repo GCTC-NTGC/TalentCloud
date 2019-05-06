@@ -638,6 +638,7 @@ class JobController extends Controller
         $descriptionFr = $criteriaInput['description']['fr'] ?
             $criteriaInput['description']['fr'] : Skill::find($criteriaInput['skill_id'])->getTranslation('description', 'fr');
         $data = [
+            'skill_id' => $criteriaInput['skill_id'],
             'criteria_type_id' => CriteriaType::where('name', $criteriaType)->firstOrFail()->id,
             'skill_level_id' => $criteriaInput['skill_level_id'],
             'en' => [
@@ -676,8 +677,7 @@ class JobController extends Controller
 
         $notification = $this->makeAssessmentPlanNotification(
             'CREATE',
-            $criteria,
-            null
+            $criteria
         );
         $notification->save();
 
@@ -693,10 +693,12 @@ class JobController extends Controller
      */
     protected function updateCriteria(Criteria $criteria, array $data): void
     {
-        if ($criteria->skill_level_id != $data['skill_level_id']) {
+        if ($criteria->skill_level_id != $data['skill_level_id'] ||
+        $criteria->skill_id != $data['skill_id']) {
             $notification = $this->makeAssessmentPlanNotification(
                 'UPDATE',
                 $criteria,
+                $data['skill_id'],
                 $data['skill_level_id']
             );
             $notification->save();
@@ -715,8 +717,7 @@ class JobController extends Controller
     {
         $notification = $notification = $this->makeAssessmentPlanNotification(
             'DELETE',
-            $criteria,
-            null
+            $criteria
         );
         $notification->save();
 
@@ -729,19 +730,22 @@ class JobController extends Controller
     /**
      * Create a new AssessmentPlanNotification for a modification to a Criteria
      *
-     * @param string $type Can be CREATE, UPDATE or DELETE
-     * @param Criteria $criteria
-     * @param int|null $newSkillLevelId Only used for UPDATE type notifications
+     * @param string       $type            Can be CREATE, UPDATE or DELETE.
+     * @param Criteria     $criteria
+     * @param integer|null $newSkillId      Only used for UPDATE type notifications.
+     * @param integer|null $newSkillLevelId Only used for UPDATE type notifications.
      * @return AssessmentPlanNotification
      */
-    protected function makeAssessmentPlanNotification(string $type, Criteria $criteria, $newSkillLevelId): AssessmentPlanNotification
+    protected function makeAssessmentPlanNotification(string $type, Criteria $criteria, $newSkillId = null, $newSkillLevelId = null): AssessmentPlanNotification
     {
         $notification = new AssessmentPlanNotification();
         $notification->job_poster_id = $criteria->job_poster_id;
         $notification->type = $type;
+        $notification->criteria_id = $criteria->id;
         $notification->skill_id = $criteria->skill_id;
         $notification->criteria_type_id = $criteria->criteria_type_id;
-        $notification->skill_level_id_old = $criteria->skill_level_id;
+        $notification->skill_level_id = $criteria->skill_level_id;
+        $notification->skill_id_new = $newSkillId;
         $notification->skill_level_id_new = $newSkillLevelId;
         $notification->acknowledged = false;
         return $notification;

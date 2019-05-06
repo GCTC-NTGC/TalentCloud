@@ -12,13 +12,25 @@ use App\Models\AssessmentPlanNotification;
 class AssessmentPlanNotificationController extends Controller
 {
     /**
-     * Display a list of the specified resource
+     * Display a list of the specified resource. Must specify a job_poster_id,
+     * either as form data or as url query string.
      *
      * @param  \Illuminate\Http\Request $request Incoming request.
      * @return mixed
      */
     public function index(Request $request)
     {
+        $notificationsArray = [];
+        if ($request->has('job_poster_id') && $request->user() != null) {
+            $jobPosterId = $request->input('job_poster_id');
+            $notifications = AssessmentPlanNotification::where('job_poster_id', $jobPosterId)->get();
+            foreach ($notifications as $notification) {
+                if ($request->user()->can('view', $notification)) {
+                    $notificationsArray[] = $notification->toArray();
+                }
+            }
+        }
+        return $notificationsArray;
     }
 
     /**
@@ -44,30 +56,13 @@ class AssessmentPlanNotificationController extends Controller
     public function update(Request $request, AssessmentPlanNotification $assessmentPlanNotification)
     {
         $this->authorize('update', $assessmentPlanNotification);
-        try {
-            $job_poster_id = (int)$request->json('job_poster_id');
-            $assessment_type_id = (int)$request->json('assessment_type_id');
-            $question = $request->json('question');
-
-            JobPoster::findOrFail($job_poster_id);
-            AssessmentType::findOrFail($assessment_type_id);
-
-            if (empty($question)) {
-                throw new \InvalidArgumentException('Question is required.');
-            }
-
-            $assessmentPlanNotification->job_poster_id = $job_poster_id;
-            $assessmentPlanNotification->assessment_type_id = $assessment_type_id;
-            $assessmentPlanNotification->question = $question;
-            $assessmentPlanNotification->save();
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage()
-            ], 400);
-        }
+        $assessmentPlanNotification->fill([
+            'acknowledged' => $request->input('acknowledged')
+        ]);
+        $assessmentPlanNotification->save();
 
         return [
-            'success' => "Successfully updated rating guide question $assessmentPlanNotification->id",
+            'success' => "Successfully updated assessment plan notification $assessmentPlanNotification->id",
             'rating_guide_question' => $assessmentPlanNotification->toArray(),
         ];
     }
@@ -84,7 +79,7 @@ class AssessmentPlanNotificationController extends Controller
         $assessmentPlanNotification->delete();
 
         return [
-            'success' => "Successfully deleted rating guide question $assessmentPlanNotification->id"
+            'success' => "Successfully deleted assessment plan notification $assessmentPlanNotification->id"
         ];
     }
 }

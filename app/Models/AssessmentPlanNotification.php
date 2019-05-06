@@ -9,9 +9,10 @@ namespace App\Models;
  * @property int $job_poster_id
  * @property string $type
  * @property int $criteria_id
- * @property int $skill_id
  * @property int $criteria_type_id
- * @property int $skill_level_id_old
+ * @property int $skill_id
+ * @property int $skill_id_new
+ * @property int $skill_level_id
  * @property int $skill_level_id_new
  * @property boolean $acknowledged
  * @property \Jenssegers\Date\Date $created_at
