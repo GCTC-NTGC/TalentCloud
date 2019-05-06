@@ -52,7 +52,7 @@
         "react-docgen-typescript-loader": "^3.1.0",
         "resolve-url-loader": "^3.1.0",
         "sass-loader": "^7.1.0",
-        "ts-loader": "^5.4.4",
+        "ts-loader": "^6.0.0",
         "typescript": "^3.4.5",
         "vue-template-compiler": "^2.6.10",
         "webpack": "^4.30.0"
