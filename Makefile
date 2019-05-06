@@ -39,9 +39,10 @@ gen-certs:
 
 lighthouse:
 	@lighthouse-batch --html -g -p '--chrome-flags="--headless" --only-categories=accessibility --only-categories=seo --port=9222' --sites=$(URL),$(URL)/fr,$(URL)/en/login,$(URL)/fr/login,$(URL)/en/register,$(URL)/fr/register,$(URL)/en/password/reset,$(URL)/fr/password/reset,\
-	$(URL)/en/jobs,$(URL)/fr/jobs, $(URL)/en/jobs/23,$(URL)/fr/jobs/23,$(URL)/en/applications,$(URL)/fr/applications,\
+	$(URL)/en/jobs,$(URL)/fr/jobs,$(URL)/en/applications,$(URL)/fr/applications,\
+	$(URL)/en/jobs/23,$(URL)/fr/jobs/23,$(URL)/en/jobs/23/application/step-01,$(URL)/fr/jobs/23/application/step-01,$(URL)/en/jobs/23/application/step-02,$(URL)/fr/jobs/23/application/step-02,$(URL)/en/jobs/23/application/step-03,$(URL)/fr/jobs/23/application/step-03,$(URL)/en/jobs/23/application/step-04,$(URL)/fr/jobs/23/application/step-04,$(URL)/en/jobs/23/application/step-05,$(URL)/fr/jobs/23/application/step-05,$(URL)/en/jobs/23/application/step-06,$(URL)/fr/jobs/23/application/step-06,\
 	$(URL)/en/profile,$(URL)/fr/profile,$(URL)/en/profile/experience,$(URL)/fr/profile/experience,$(URL)/en/profile/skills,$(URL)/fr/profile/skills,$(URL)/en/profile/references,$(URL)/fr/profile/references,$(URL)/en/profile/portfolio,$(URL)/fr/profile/portfolio\
-	$(URL)/en/faq,$(URL)/fr/faq,$(URL)/en/tos,$(URL)/fr/tos,$(URL)/en/privacy,$(URL)/fr/privacy,
+	$(URL)/en/faq,$(URL)/fr/faq,$(URL)/en/tos,$(URL)/fr/tos,$(URL)/en/privacy,$(URL)/fr/privacy,$(URL)/en/indigenous,$(URL)/fr/indigenous
 
 logs:
 	@docker-compose logs -f
