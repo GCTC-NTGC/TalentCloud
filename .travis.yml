@@ -26,12 +26,10 @@ before_install:
   - travis_retry composer self-update
   # latest npm@6 version
   - npm i -g npm@^6
-  - npm i -g lighthouse@4.0.0-alpha.2-3.2.1
-  - npm i -g lighthouse-batch
 
 install:
   # install slacktee (send lightcrawler output to slack)
-  - sudo bash ./etc/scripts/install-slacktee.sh
+  # sudo bash ./etc/scripts/install-slacktee.sh
   # environment
   - cp .env.travis .env
   # dependencies
@@ -60,10 +58,6 @@ script:
   - docker run $ci_env gctcntgc/talentcloud sh
   # unit tests
   - make phpunit
-
-after_success:
-  # '[ "${TRAVIS_PULL_REQUEST}" = "false" ] || make lighthouse | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"
-  - make lighthouse | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results :cooldoge:"
 
 after_script:
   # send report to codecov.io
