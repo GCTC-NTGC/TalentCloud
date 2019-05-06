@@ -7,7 +7,14 @@ namespace App\Models;
  *
  * @property int $id
  * @property int $job_poster_id
- * @property array $notification
+ * @property string $type
+ * @property int $criteria_id
+ * @property int $criteria_type_id
+ * @property int $skill_id
+ * @property int $skill_id_new
+ * @property int $skill_level_id
+ * @property int $skill_level_id_new
+ * @property boolean $acknowledged
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -20,15 +27,14 @@ class AssessmentPlanNotification extends BaseModel
      *
      * @var string[]
      */
-    protected $fillable = ['notification'];
+    protected $fillable = [
+        'acknowledged'
+    ];
 
     /**
      * How each column should be cast to a variable
      */
-    protected $casts = [
-        'job_poster_id' => 'int',
-        'notification' => 'array'
-    ];
+    protected $casts = [];
 
     /**
      * Get the JobPoster relationship

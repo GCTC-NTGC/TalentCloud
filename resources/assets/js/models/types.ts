@@ -165,3 +165,17 @@ export interface TempRatingGuideQuestion {
   assessment_type_id: number;
   question: string | null;
 }
+
+export interface AssessmentPlanNotification {
+  id: number;
+  job_poster_id: number;
+  type: string;
+  criteria_id: number;
+  criteria_type_id: number;
+  skill_id: number;
+  skill_id_new: number | null;
+  skill_level_id: number;
+  skill_level_id_new: number | null;
+  acknowledged: boolean;
+  created_at: Date;
+}
