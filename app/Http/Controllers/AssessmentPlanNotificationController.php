@@ -63,7 +63,7 @@ class AssessmentPlanNotificationController extends Controller
 
         return [
             'success' => "Successfully updated assessment plan notification $assessmentPlanNotification->id",
-            'rating_guide_question' => $assessmentPlanNotification->toArray(),
+            'assessment_plan_notification' => $assessmentPlanNotification->toArray(),
         ];
     }
 
