@@ -17,9 +17,13 @@ interface IntlContainerProps {
 
 const IntlContainer: React.FunctionComponent<IntlContainerProps> = ({
   locale,
-  children
+  children,
 }): React.ReactElement => (
-  <IntlProvider locale={locale} messages={messages[locale]} >
+  <IntlProvider
+    textComponent={React.Fragment}
+    locale={locale}
+    messages={messages[locale]}
+  >
     {children}
   </IntlProvider>
 );
