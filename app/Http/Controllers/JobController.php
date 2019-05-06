@@ -587,6 +587,10 @@ class JobController extends Controller
      */
     protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster) : void
     {
+        if (!array_key_exists('criteria', $input) || !is_array($input['criteria'])) {
+            return;
+        }
+
         $criteria = $input['criteria'];
 
         $affectedCriteriaIds = [];

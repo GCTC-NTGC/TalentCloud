@@ -9,7 +9,7 @@ export const parseRatingGuideAnswer = (
   id: Number(data.id),
   rating_guide_question_id: Number(data.rating_guide_question_id),
   criterion_id: Number(data.criterion_id),
-  expected_answer: String(data.expected_answer),
+  expected_answer: String(data.expected_answer || ""),
 });
 
 export const parseRatingGuideQuestion = (

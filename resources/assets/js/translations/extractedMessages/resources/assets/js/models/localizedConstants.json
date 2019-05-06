@@ -102,7 +102,7 @@
   {
     "id": "assessmentType.interview",
     "description": "Title of an assessment type.",
-    "defaultMessage": "Intervew"
+    "defaultMessage": "Interview"
   },
   {
     "id": "assessmentType.onlineExam",

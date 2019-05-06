@@ -617,7 +617,7 @@
         "id": "assessmentType.informalPhoneConversation"
       },
       {
-        "defaultMessage": "Intervew",
+        "defaultMessage": "Interview",
         "description": "Title of an assessment type.",
         "id": "assessmentType.interview"
       },

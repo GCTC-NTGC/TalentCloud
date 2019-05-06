@@ -1,29 +1,42 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { connect } from "react-redux";
-import {
-  FormattedMessage,
-  defineMessages,
-  InjectedIntlProps,
-  injectIntl,
-} from "react-intl";
+import { defineMessages, InjectedIntlProps, injectIntl } from "react-intl";
 import {
   RatingGuideAnswer as RatingGuideAnswerModel,
+  TempRatingGuideAnswer as TempRatingGuideAnswerModel,
   Skill,
   Criteria,
 } from "../../models/types";
 import Select, { SelectOption } from "../Select";
-import Input from "../Input";
+import UpdatingInput from "../UpdatingInput";
 import { getId, hasKey, mapToObjectTrans } from "../../helpers/queries";
 import { RootState } from "../../store/store";
 import { getSkillById } from "../../store/Skill/skillSelector";
 import { DispatchType } from "../../configureStore";
+import {
+  editTempRatingGuideAnswer,
+  editRatingGuideAnswer,
+  updateRatingGuideAnswer,
+  storeNewRatingGuideAnswer,
+  deleteTempRatingGuideAnswer,
+  deleteRatingGuideAnswer,
+} from "../../store/RatingGuideAnswer/ratingGuideAnswerActions";
+import {
+  ratingGuideAnswerIsEdited,
+  ratingGuideAnswerIsUpdating,
+} from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
 
 interface RatingGuideAnswerProps {
   answer: RatingGuideAnswerModel;
   availableCriteria: Criteria[];
   criteriaIdToSkill: { [id: number]: Skill | null };
-  onChange: (updatedAnswer: RatingGuideAnswerModel) => void;
-  onDelete: () => void;
+  temp?: boolean;
+  isUpdating: boolean;
+  isEdited: boolean;
+  editAnswer: (newAnswer: RatingGuideAnswerModel) => void;
+  updateAnswer: (updatedAnswer: RatingGuideAnswerModel) => void;
+  deleteAnswer: (id: number) => void;
 }
 
 const messages = defineMessages({
@@ -58,8 +71,10 @@ const RatingGuideAnswer: React.FunctionComponent<
   answer,
   availableCriteria,
   criteriaIdToSkill,
-  onChange,
-  onDelete,
+  isUpdating,
+  editAnswer,
+  updateAnswer,
+  deleteAnswer,
   intl,
 }): React.ReactElement => {
   const options = availableCriteria.map(
@@ -85,33 +100,48 @@ const RatingGuideAnswer: React.FunctionComponent<
           required
           options={options}
           onChange={(event): void =>
-            onChange({ ...answer, criterion_id: Number(event.target.value) })
+            updateAnswer({
+              ...answer,
+              criterion_id: Number(event.target.value),
+            })
           }
           selected={answer.criterion_id}
           nullSelection={intl.formatMessage(messages.nullSelection)}
         />
       </div>
       <div data-c-grid-item="base(1of1) tp(4of8)">
-        <Input
+        <UpdatingInput
           htmlId={`ratingGuideAnswer${answer.id}`}
           formName="ratingGuideAnswer"
           label={intl.formatMessage(messages.inputLabel)}
           required
           placeholder={intl.formatMessage(messages.inputPlaceholder)}
-          type="text"
-          value={answer.expected_answer}
-          onChange={(event): void =>
-            onChange({ ...answer, expected_answer: event.target.value })
-          }
+          value={answer.expected_answer || ""}
+          updateDelay={500}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+            const newAnswer = String(event.target.value);
+            editAnswer({
+              ...answer,
+              expected_answer: newAnswer,
+            });
+          }}
+          handleSave={(): void => {
+            updateAnswer(answer);
+          }}
         />
       </div>
       <div data-c-alignment="center" data-c-grid-item="base(1of1) tp(1of8)">
         <button
           className="button-trash"
           type="button"
-          onClick={(): void => onDelete()}
+          onClick={(): void => deleteAnswer(answer.id)}
+          disabled={isUpdating}
         >
-          <i className="fa fa-trash" />
+          {isUpdating ? (
+            <i className="fa fa-spinner fa-spin" />
+          ) : (
+            <i className="fa fa-trash" />
+          )}
         </button>
       </div>
     </div>
@@ -121,22 +151,46 @@ const RatingGuideAnswer: React.FunctionComponent<
 interface RatingGuideAnswerContainerProps {
   answer: RatingGuideAnswerModel;
   availableCriteria: Criteria[];
+  temp?: boolean;
 }
 
 const mapStateToProps = (
   state: RootState,
   ownProps: RatingGuideAnswerContainerProps,
-): { criteriaIdToSkill: { [id: number]: Skill | null } } => ({
+): {
+  criteriaIdToSkill: { [id: number]: Skill | null };
+  isEdited: boolean;
+  isUpdating: boolean;
+} => ({
   criteriaIdToSkill: mapToObjectTrans(
     ownProps.availableCriteria,
     getId,
     (criterion): Skill | null => getSkillById(state, criterion.skill_id),
   ),
+  isEdited: ratingGuideAnswerIsEdited(state, ownProps.answer.id),
+  isUpdating: ratingGuideAnswerIsUpdating(state, ownProps.answer.id),
 });
 
 const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
-  onChange: (updatedAnswer: RatingGuideAnswerModel) => {},
-  onDelete: () => {},
+  editAnswer: ownProps.temp
+    ? (ratingGuideAnswer: TempRatingGuideAnswerModel): void => {
+        dispatch(editTempRatingGuideAnswer(ratingGuideAnswer));
+      }
+    : (ratingGuideAnswer: RatingGuideAnswerModel): void => {
+        dispatch(editRatingGuideAnswer(ratingGuideAnswer));
+      },
+  updateAnswer: ownProps.temp
+    ? (ratingGuideAnswer: RatingGuideAnswerModel): void =>
+        dispatch(storeNewRatingGuideAnswer(ratingGuideAnswer))
+    : (ratingGuideAnswer: RatingGuideAnswerModel): void =>
+        dispatch(updateRatingGuideAnswer(ratingGuideAnswer)),
+  deleteAnswer: ownProps.temp
+    ? (id: number): void => {
+        dispatch(deleteTempRatingGuideAnswer(id));
+      }
+    : (ratingGuideAnswerId: number): void => {
+        dispatch(deleteRatingGuideAnswer(ratingGuideAnswerId));
+      },
 });
 
 const RatingGuideAnswerContainer: React.FunctionComponent<
