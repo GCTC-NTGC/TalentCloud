@@ -6,6 +6,8 @@ import {
   UPDATE_ASSESSMENT_PLAN_NOTIFICATION_SUCCEEDED,
   UPDATE_ASSESSMENT_PLAN_NOTIFICATION_STARTED,
   UPDATE_ASSESSMENT_PLAN_NOTIFICATION_FAILED,
+  FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_STARTED,
+  FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_FAILED,
 } from "./assessmentPlanNotificationActions";
 import { mapToObject, getId } from "../../helpers/queries";
 
@@ -22,6 +24,7 @@ interface UiState {
   updatingById: {
     [id: number]: boolean;
   };
+  fetching: boolean;
 }
 
 export interface AssessmentPlanNotificationState {
@@ -36,7 +39,7 @@ const initEntityState = (): EntityState => ({
   },
 });
 
-const initUiState = (): UiState => ({ updatingById: {} });
+const initUiState = (): UiState => ({ updatingById: {}, fetching: false });
 
 export const initState = (): AssessmentPlanNotificationState => ({
   entities: initEntityState(),
@@ -98,8 +101,24 @@ const uiReducer = (
   action: AssessmentPlanNotificationAction,
 ): UiState => {
   switch (action.type) {
+    case FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_STARTED:
+      return {
+        ...state,
+        fetching: true,
+      };
+    case FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_SUCCEEDED:
+      return {
+        ...state,
+        fetching: false,
+      };
+    case FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_FAILED:
+      return {
+        ...state,
+        fetching: false,
+      };
     case UPDATE_ASSESSMENT_PLAN_NOTIFICATION_STARTED:
       return {
+        ...state,
         updatingById: {
           ...state.updatingById,
           [action.payload.id]: true,
@@ -107,6 +126,7 @@ const uiReducer = (
       };
     case UPDATE_ASSESSMENT_PLAN_NOTIFICATION_SUCCEEDED:
       return {
+        ...state,
         updatingById: {
           ...state.updatingById,
           [action.payload.id]: false,
@@ -114,6 +134,7 @@ const uiReducer = (
       };
     case UPDATE_ASSESSMENT_PLAN_NOTIFICATION_FAILED:
       return {
+        ...state,
         updatingById: {
           ...state.updatingById,
           [action.payload.notification.id]: false,

@@ -40,3 +40,6 @@ export const notificationIsUpdating = (
   const { updatingById } = stateSlice(state).ui;
   return hasKey(updatingById, id) ? updatingById[id] : false;
 };
+
+export const notificationsAreFetching = (state: RootState): boolean =>
+  stateSlice(state).ui.fetching;

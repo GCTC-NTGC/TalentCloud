@@ -6,16 +6,19 @@ import {
   Assessment,
   RatingGuideQuestion,
   RatingGuideAnswer,
+  AssessmentPlanNotification,
 } from "../../models/types";
 import { CriteriaTypeId } from "../../models/lookupConstants";
 import AssessmentPlanSkill from "./AssessmentPlanSkill";
 import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingGuideBuilder from "./RatingGuideBuilder";
+import AssessmentPlanAlert from "./AssessmentPlanAlert";
 
 interface AssessmentPlanProps {
   job: Job | null;
   criteria: Criteria[];
   assessments: Assessment[];
+  notifications: AssessmentPlanNotification[];
   questions: RatingGuideQuestion[];
   answers: RatingGuideAnswer[];
 }
@@ -26,6 +29,7 @@ const AssessmentPlan: React.FunctionComponent<
   job,
   criteria,
   assessments,
+  notifications,
   questions,
   answers,
   intl,
@@ -121,27 +125,7 @@ const AssessmentPlan: React.FunctionComponent<
             description="Note that all plans include a review of narrative evidence."
           />
         </p>
-        <div
-          data-c-alert="error"
-          data-c-radius="rounded"
-          data-c-padding="half"
-          role="alert"
-          data-c-margin="top(double)"
-        >
-          <span
-            data-c-margin="bottom(quarter)"
-            data-c-heading="h5"
-            data-c-font-weight="bold"
-          >
-            <i aria-hidden="true" className="fa fa-exclamation-circle" />
-            Optional Alert Title
-          </span>
-
-          <p>
-            This is a sample error alert. These alerts are used to display
-            critical system and form errors.
-          </p>
-        </div>
+        <AssessmentPlanAlert notifications={notifications} />
         {/* Assessment Plan Builder ====================================== */}
         <h3
           data-c-font-size="h3"
@@ -245,7 +229,6 @@ const AssessmentPlan: React.FunctionComponent<
         </div>
         {/* Generated Assessment Plan ==================================== */}
         {job !== null && <AssessmentPlanTable jobId={job.id} />}
-
         {/* Ratings Guide Builder ======================================== */}
         <RatingGuideBuilder
           criteria={criteria}
