@@ -3,12 +3,12 @@ import _ from "lodash";
 import Input, { InputProps } from "./Input";
 
 export interface UpdatingInputProps extends InputProps {
-  updateDelay?: number;
+  updateDelay?: number | null;
   handleSave: () => void;
 }
 
 export interface UpdatingInputState {
-  updateDelay: number;
+  updateDelay: number | null | undefined;
 }
 
 class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
@@ -16,14 +16,17 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
     super(props);
 
     const { updateDelay } = this.props;
-    this.state = {
-      updateDelay: updateDelay || 200,
-    };
 
-    const { updateDelay: bounceDelay } = this.state;
-    // Lodash's debounce doesn't work properly if imported
-    // by itself... something to do with how it handles 'this'
-    this.triggerSave = _.debounce(this.triggerSave, bounceDelay);
+    if (updateDelay) {
+      this.state = {
+        updateDelay,
+      };
+
+      const { updateDelay: bounceDelay } = this.state;
+      // Lodash's debounce doesn't work properly if imported
+      // by itself... something to do with how it handles 'this'
+      this.triggerSave = _.debounce(this.triggerSave, bounceDelay);
+    }
   }
 
   public triggerSave(): void {
@@ -61,7 +64,13 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
         maxLength={maxLength}
         onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
           onChange(event);
-          this.triggerSave();
+          if (this.state) {
+            const { updateDelay } = this.state;
+
+            if (updateDelay) {
+              this.triggerSave();
+            }
+          }
         }}
         onBlur={handleSave}
         errorText={errorText}

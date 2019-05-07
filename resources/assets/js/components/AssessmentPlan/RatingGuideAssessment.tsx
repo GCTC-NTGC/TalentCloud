@@ -219,23 +219,6 @@ const RatingGuideAssessment: React.FunctionComponent<
       )}
       {tempQuestions.map(
         (question: RatingGuideQuestion, index: number): ReactElement => {
-          const answers = ratingGuideAnswers.filter(
-            (answer: RatingGuideAnswer): boolean =>
-              answer.rating_guide_question_id === question.id,
-          );
-          const tempAnswers = tempRatingGuideAnswers.filter(
-            (answer: TempRatingGuideAnswer): boolean =>
-              answer.rating_guide_question_id === question.id,
-          );
-          const selectedCriteria = answers
-            .filter(
-              (answer: RatingGuideAnswer): boolean =>
-                answer.criterion_id !== null,
-            )
-            .map(
-              (answer: RatingGuideAnswer): number =>
-                answer.criterion_id as number,
-            );
           return (
             <div
               key={question.id}
@@ -252,74 +235,16 @@ const RatingGuideAssessment: React.FunctionComponent<
               />
 
               <div data-c-padding="top(normal)">
-                {answers.map(
-                  (answer: RatingGuideAnswer): ReactElement | false => {
-                    // The currently selected criterion, plus anyother unselected criteria
-                    let availableCriteria = [] as Criteria[];
-                    if (requiredCriteria && requiredCriteria.length > 0) {
-                      availableCriteria = requiredCriteria.filter(
-                        (criterion: Criteria): boolean => {
-                          return (
-                            answer.criterion_id === criterion.id ||
-                            !selectedCriteria.includes(criterion.id)
-                          );
-                        },
-                      );
-                    }
-                    return (
-                      availableCriteria.length > 0 && (
-                        <RatingGuideAnswerComponent
-                          key={answer.id}
-                          answer={answer}
-                          availableCriteria={availableCriteria}
-                        />
-                      )
-                    );
-                  },
-                )}
-                {tempAnswers.map(
-                  (answer: RatingGuideAnswer): ReactElement | false => {
-                    // The currently selected criterion, plus anyother unselected criteria
-                    let availableCriteria = [] as Criteria[];
-                    if (requiredCriteria && requiredCriteria.length > 0) {
-                      availableCriteria = requiredCriteria.filter(
-                        (criterion: Criteria): boolean => {
-                          return (
-                            answer.criterion_id === criterion.id ||
-                            !selectedCriteria.includes(criterion.id)
-                          );
-                        },
-                      );
-                    }
-                    return (
-                      availableCriteria.length > 0 && (
-                        <RatingGuideAnswerComponent
-                          key={answer.id}
-                          answer={answer}
-                          availableCriteria={availableCriteria}
-                          temp
-                        />
-                      )
-                    );
-                  },
-                )}
-                {requiredCriteria &&
-                  !(selectedCriteria.length === requiredCriteria.length) && (
-                    <div data-c-grid="gutter middle">
-                      <div
-                        data-c-alignment="center"
-                        data-c-grid-item="base(1of1) tp(1of8)"
-                      >
-                        <button
-                          className="button-plus"
-                          type="button"
-                          onClick={(): void => createAnswer(question.id)}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  )}
+                <div data-c-grid="gutter middle">
+                  <div
+                    data-c-alignment="center"
+                    data-c-grid-item="base(1of1) tp(1of8)"
+                  >
+                    <button className="button-plus" type="button">
+                      +
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           );
