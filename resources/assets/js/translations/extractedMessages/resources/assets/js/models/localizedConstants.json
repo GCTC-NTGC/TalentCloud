@@ -133,5 +133,70 @@
     "id": "assessmentType.seriousGames",
     "description": "Title of an assessment type.",
     "defaultMessage": "Serious Games"
+  },
+  {
+    "id": "assessmentType.narrativeAssessment.description",
+    "description": "Description of an assessment type, to help a manager understand when to use it.",
+    "defaultMessage": "The goal of a narrative review is to read the content the applicant has provided for each skill to get a better understanding of their level and competence."
+  },
+  {
+    "id": "assessmentType.applicationScreeningQuestion.description",
+    "description": "Description of an assessment type, to help a manager understand when to use it.",
+    "defaultMessage": "MISSING"
+  },
+  {
+    "id": "assessmentType.groupTest.description",
+    "description": "Description of an assessment type, to help a manager understand when to use it.",
+    "defaultMessage": "MISSING"
+  },
+  {
+    "id": "assessmentType.informalPhoneConversation.description",
+    "description": "Description of an assessment type, to help a manager understand when to use it.",
+    "defaultMessage": "MISSING"
+  },
+  {
+    "id": "assessmentType.interview.description",
+    "description": "Description of an assessment type, to help a manager understand when to use it.",
+    "defaultMessage": "MISSING"
+  },
+  {
+    "id": "assessmentType.onlineExam.description",
+    "description": "Description of an assessment type, to help a manager understand when to use it.",
+    "defaultMessage": "MISSING"
+  },
+  {
+    "id": "assessmentType.onSiteExam.description",
+    "description": "Description of an assessment type, to help a manager understand when to use it.",
+    "defaultMessage": "MISSING"
+  },
+  {
+    "id": "assessmentType.takeHomeExam.description",
+    "description": "Description of an assessment type, to help a manager understand when to use it.",
+    "defaultMessage": "MISSING"
+  },
+  {
+    "id": "assessmentType.portfolioReview.description",
+    "description": "Description of an assessment type, to help a manager understand when to use it.",
+    "defaultMessage": "MISSING"
+  },
+  {
+    "id": "assessmentType.referenceCheck.description",
+    "description": "Description of an assessment type, to help a manager understand when to use it.",
+    "defaultMessage": "MISSING"
+  },
+  {
+    "id": "assessmentType.seriousGames.description",
+    "description": "Description of an assessment type, to help a manager understand when to use it.",
+    "defaultMessage": "MISSING"
+  },
+  {
+    "id": "assessmentType.narrativeReview.standardQuestion",
+    "description": "Description which replaces 'interview question' for the Narrative Review assessment type.",
+    "defaultMessage": "Narrative Review of skill includes all descriptions added by the applicant in their application."
+  },
+  {
+    "id": "assessmentType.narrativeReview.standardAnswer",
+    "description": "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
+    "defaultMessage": "MISSING"
   }
 ]

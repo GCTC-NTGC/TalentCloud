@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import moment from "moment";
 import { AssessmentPlanNotification } from "../../models/types";
 import { sortNotifications } from "./assessmentPlanNotificationReducer";
-import moment = require("moment");
 
 describe("Assessment Plan Notification Reducer tests", (): void => {
   describe("Sort Notifications", (): void => {

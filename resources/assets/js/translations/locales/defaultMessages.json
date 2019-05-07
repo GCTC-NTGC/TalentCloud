@@ -412,6 +412,51 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Checking if Job changed recently...",
+        "description": "Alert title while notifications are still being loaded.",
+        "id": "assessmentPlan.alert.checking"
+      },
+      {
+        "defaultMessage": "This job changed recently!",
+        "description": "Title for the alert for changes to this job's criteria.",
+        "id": "assessmentPlan.alert.title"
+      },
+      {
+        "defaultMessage": "Parts of the Screening Plan have been changed to match.",
+        "description": "Explanation that the screening plan may have changed.",
+        "id": "assessmentPlan.alert.explanation"
+      },
+      {
+        "defaultMessage": "{skills} {count, plural, one {was} other {were}} added.",
+        "description": "Description of the new criteria that have been added to this job.",
+        "id": "assessmentPlan.alert.created"
+      },
+      {
+        "defaultMessage": "{skills} {count, plural, one {was} other {were}} updated.",
+        "description": "Description of the criteria that had their level changed.",
+        "id": "assessmentPlan.alert.skillLevelUpdated"
+      },
+      {
+        "defaultMessage": "{oldSkill} was changed to {newSkill}.",
+        "description": "Description of a criterion which was changed from one skill to another.",
+        "id": "assessmentPlan.alert.skillUpdated"
+      },
+      {
+        "defaultMessage": "{oldSkill} was changed to {newSkill} and was updated.",
+        "description": "Description of a criterion which was changed from one skill to another and had its level changed.",
+        "id": "assessmentPlan.alert.skillAndLevelUpdated"
+      },
+      {
+        "defaultMessage": "{skills} {count, plural, one {was} other {were}} removed.",
+        "description": "Description of criteria which were removed from the job.",
+        "id": "assessmentPlan.alert.deleted"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/AssessmentPlanAlert.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Select an Assessment",
         "description": "Default select element before an assessment type has been chosen",
         "id": "assessmentPlan.selectAssessment.null"
@@ -477,7 +522,7 @@
         "id": "assessmentPlan.summary.title"
       },
       {
-        "defaultMessage": "This is a summary of the work you've done above. You'll find\n      each assessment accompanied by a consolidated list of the essential and\n      asset skills attached to it.",
+        "defaultMessage": "This is a summary of the work you've done above. You'll find\r\n      each assessment accompanied by a consolidated list of the essential and\r\n      asset skills attached to it.",
         "description": "Description of Assessment Plan Summary Section",
         "id": "assessmentPlan.summary.description"
       },
@@ -487,12 +532,12 @@
         "id": "assessmentPlan.summary.assessmentSummary.title"
       },
       {
-        "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}\n            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}.",
+        "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}\r\n            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}.",
         "description": "Describes how many tools and skills your assessment plan involves.",
         "id": "assessmentPlan.summary.assessmentSummary.toolSkillCount"
       },
       {
-        "defaultMessage": "You have no assessments selected for this job poster. Add them\n              above.",
+        "defaultMessage": "You have no assessments selected for this job poster. Add them\r\n              above.",
         "description": "Place holder text for when there are no assessment summary details",
         "id": "assessmentPlan.summary.assessmentSummary.noAssessments"
       }
@@ -510,9 +555,79 @@
         "defaultMessage": "Select a Skill...",
         "description": "Null selection for the dropdown for selecting a skill this rating guide answer is used to assess.",
         "id": "ratingGuideAnswer.nullSelection"
+      },
+      {
+        "defaultMessage": "Acceptable Passing Answer / Required to demonstrate",
+        "description": "Label for the rating guide answer input.",
+        "id": "ratingGuideAnswer.answerLabel"
+      },
+      {
+        "defaultMessage": "Write the expected answer to pass the applicant on this skill...",
+        "description": "Placeholder text for the rating guide answer.",
+        "id": "ratingGuideAnswer.answerPlaceholder"
       }
     ],
     "path": "resources/assets/js/components/AssessmentPlan/RatingGuideAnswer.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Assessment {index}: {assessmentType}",
+        "description": "Subtitle for given assessment type section in the Rating Guide Builder.",
+        "id": "ratingGuideBuilder.sectionTitle"
+      },
+      {
+        "defaultMessage": "{count} Essential Missing:",
+        "description": "Label for list of missing essential skills.",
+        "id": "ratingGuideBuilder.essentialMissing"
+      },
+      {
+        "defaultMessage": "{count} Asset Missing:",
+        "description": "Label for list of missing asset skills.",
+        "id": "ratingGuideBuilder.assetMissing"
+      },
+      {
+        "defaultMessage": "Add a Question",
+        "description": "Button text for adding a new rating guide question.",
+        "id": "ratingGuideBuilder.addQuestion"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/RatingGuideAssessment.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Assessment {index}: {assessmentType}",
+        "description": "Subtitle for the special Narrative Assessment section in the Rating Guide Builder.",
+        "id": "ratingGuideBuilder.narrativeSectionTitle"
+      },
+      {
+        "defaultMessage": "{skillName} - {skillLevel}",
+        "description": "How each criteria is listed in Rating Guide Builder.",
+        "id": "ratingGuideBuilder.criteriaName"
+      },
+      {
+        "defaultMessage": "3. Ratings Guide Builder",
+        "description": "Title of the Rating Guide Builder section.",
+        "id": "ratingGuideBuilder.title"
+      },
+      {
+        "defaultMessage": "Below you will create your own ratings guide tool to help you assess your candidates. This tool allows you to build your own questions/evaluations for each assessment you've selected above, and then allows you to jot down the criteria for what a great candidate response might be. Please note that \"Narrative Review\" is unique in that the content is generated for you below.",
+        "description": "Instructions for using the Rating Guide Builder",
+        "id": "ratingGuideBuilder.instructions"
+      },
+      {
+        "defaultMessage": "Now that you've built your Ratings Guide, you can use the button below to copy the entire thing to your clipboard, making it easy to paste in your favourite Word Processor.",
+        "description": "Instructions for copying your rating guide.",
+        "id": "ratingGuideBuilder.copyInstructions"
+      },
+      {
+        "defaultMessage": "Click to Copy This Ratings Guide to Your Clipboard",
+        "description": "Text for the 'copy ratings guide' button.",
+        "id": "ratingGuideBuilder.copyButton"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/RatingGuideBuilder.json"
   },
   {
     "descriptors": [
@@ -650,6 +765,71 @@
         "defaultMessage": "Serious Games",
         "description": "Title of an assessment type.",
         "id": "assessmentType.seriousGames"
+      },
+      {
+        "defaultMessage": "The goal of a narrative review is to read the content the applicant has provided for each skill to get a better understanding of their level and competence.",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.narrativeAssessment.description"
+      },
+      {
+        "defaultMessage": "MISSING",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.applicationScreeningQuestion.description"
+      },
+      {
+        "defaultMessage": "MISSING",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.groupTest.description"
+      },
+      {
+        "defaultMessage": "MISSING",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.informalPhoneConversation.description"
+      },
+      {
+        "defaultMessage": "MISSING",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.interview.description"
+      },
+      {
+        "defaultMessage": "MISSING",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.onlineExam.description"
+      },
+      {
+        "defaultMessage": "MISSING",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.onSiteExam.description"
+      },
+      {
+        "defaultMessage": "MISSING",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.takeHomeExam.description"
+      },
+      {
+        "defaultMessage": "MISSING",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.portfolioReview.description"
+      },
+      {
+        "defaultMessage": "MISSING",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.referenceCheck.description"
+      },
+      {
+        "defaultMessage": "MISSING",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.seriousGames.description"
+      },
+      {
+        "defaultMessage": "Narrative Review of skill includes all descriptions added by the applicant in their application.",
+        "description": "Description which replaces 'interview question' for the Narrative Review assessment type.",
+        "id": "assessmentType.narrativeReview.standardQuestion"
+      },
+      {
+        "defaultMessage": "MISSING",
+        "description": "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
+        "id": "assessmentType.narrativeReview.standardAnswer"
       }
     ],
     "path": "resources/assets/js/models/localizedConstants.json"

@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import axios from "axios";
+import moment from "moment";
 import { ResponseData, baseUrl, ApiResponse } from "./base";
 import { AssessmentPlanNotification } from "../models/types";
-
-import moment = require("moment");
 
 export const parseAssessmentPlanNotification = (
   data: ResponseData,

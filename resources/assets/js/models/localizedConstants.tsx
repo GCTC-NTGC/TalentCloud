@@ -248,61 +248,61 @@ const assessmentTypeDescriptions = defineMessages({
   },
   applicationScreeningQuestion: {
     id: "assessmentType.applicationScreeningQuestion.description",
-    defaultMessage: "",
+    defaultMessage: "MISSING",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   groupTest: {
     id: "assessmentType.groupTest.description",
-    defaultMessage: "",
+    defaultMessage: "MISSING",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   informalPhoneConversation: {
     id: "assessmentType.informalPhoneConversation.description",
-    defaultMessage: "",
+    defaultMessage: "MISSING",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   interview: {
     id: "assessmentType.interview.description",
-    defaultMessage: "",
+    defaultMessage: "MISSING",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   onlineExam: {
     id: "assessmentType.onlineExam.description",
-    defaultMessage: "",
+    defaultMessage: "MISSING",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   onSiteExam: {
     id: "assessmentType.onSiteExam.description",
-    defaultMessage: "",
+    defaultMessage: "MISSING",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   takeHomeExam: {
     id: "assessmentType.takeHomeExam.description",
-    defaultMessage: "",
+    defaultMessage: "MISSING",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   portfolioReview: {
     id: "assessmentType.portfolioReview.description",
-    defaultMessage: "",
+    defaultMessage: "MISSING",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   referenceCheck: {
     id: "assessmentType.referenceCheck.description",
-    defaultMessage: "",
+    defaultMessage: "MISSING",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   seriousGames: {
     id: "assessmentType.seriousGames.description",
-    defaultMessage: "",
+    defaultMessage: "MISSING",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
@@ -344,7 +344,7 @@ const standardAssessmentText = defineMessages({
   },
   narrativeReviewAnswer: {
     id: "assessmentType.narrativeReview.standardAnswer",
-    defaultMessage: "",
+    defaultMessage: "MISSING",
     description:
       "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
   },
