@@ -33,7 +33,7 @@ interface RatingGuideQuestionProps {
   /** Handler function for when question is changed */
   editQuestion: (newQuestion: RatingGuideQuestionModel) => void;
   /** Handler function for when this question is deleted */
-  deleteQuestion: (id: number) => void;
+  removeQuestion: (id: number) => void;
   /** Handler function for when this question is saved */
   updateQuestion: (question: RatingGuideQuestionModel) => void;
 }
@@ -45,7 +45,7 @@ const RatingGuideQuestion: React.FunctionComponent<
   questionIndex,
   isUpdating,
   editQuestion,
-  deleteQuestion,
+  removeQuestion,
   updateQuestion,
 }): React.ReactElement => {
   return (
@@ -84,7 +84,7 @@ const RatingGuideQuestion: React.FunctionComponent<
             className="button-trash"
             type="button"
             onClick={(): void => {
-              deleteQuestion(question.id);
+              removeQuestion(question.id);
             }}
             disabled={isUpdating}
           >
