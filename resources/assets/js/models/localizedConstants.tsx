@@ -1,11 +1,13 @@
 import { defineMessages, FormattedMessage } from "react-intl";
 import {
-  SkillLevelId,
-  SkillTypeId,
   AssessmentTypeId,
-  SkillLevelIdValues,
-  SkillTypeIdValues,
   AssessmentTypeIdValues,
+  CriteriaTypeId,
+  CriteriaTypeIdValues,
+  SkillLevelId,
+  SkillLevelIdValues,
+  SkillTypeId,
+  SkillTypeIdValues,
 } from "./lookupConstants";
 
 interface SkillLevel {
@@ -112,7 +114,6 @@ const skillLevelNames = defineMessages({
     description: "Single-word descriptor of soft expert skill level.",
   },
 });
-
 
 const skillLevelL10n = (
   skillLevelId: number,
@@ -236,4 +237,29 @@ export const assessmentType = (
     [AssessmentTypeId.SeriousGames]: assessmentTypes.seriousGames,
     [AssessmentTypeId.TakeHomeExam]: assessmentTypes.takeHomeExam,
   }[assessmentTypeId.toString()];
+};
+
+const criteriaTypes = defineMessages({
+  asset: {
+    id: "criteriaType.asset",
+    defaultMessage: "Asset",
+    description: "Title of an asset criteria type.",
+  },
+  essential: {
+    id: "criteriaType.essential",
+    defaultMessage: "Essential",
+    description: "Title of an esential criteria type.",
+  },
+});
+
+export const criteriaType = (
+  criteriaTypeId: number,
+): FormattedMessage.MessageDescriptor => {
+  if (!CriteriaTypeIdValues.includes(criteriaTypeId)) {
+    throw new Error("invalid CriteriaTypeValue");
+  }
+  return {
+    [CriteriaTypeId.Asset]: criteriaTypes.asset,
+    [CriteriaTypeId.Essential]: criteriaTypes.essential,
+  }[criteriaTypeId.toString()];
 };
