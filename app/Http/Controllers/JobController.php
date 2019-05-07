@@ -587,35 +587,35 @@ class JobController extends Controller
      */
     protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster) : void
     {
-        if (!array_key_exists('criteria', $input) || !is_array($input['criteria'])) {
-            return;
-        }
-
-        $criteria = $input['criteria'];
-
         $affectedCriteriaIds = [];
-        // Old criteria must be updated, using the criteriaId that comes from the form element names.
-        if (!empty($criteria['old'])) {
-            foreach ($criteria['old'] as $criteriaType => $criteriaTypeInput) {
-                foreach ($criteriaTypeInput as $skillTypeInput) {
-                    foreach ($skillTypeInput as $criteriaId => $criteriaInput) {
-                        $updatedCriteria = $this->processCriteriaForm($jobPoster, $criteriaType, $criteriaInput, $criteriaId);
-                        $affectedCriteriaIds[] = $updatedCriteria->id;
+
+        if (array_key_exists('criteria', $input) && !is_array($input['criteria'])) {
+            $criteria = $input['criteria'];
+
+            // Old criteria must be updated, using the criteriaId that comes from the form element names.
+            if (!empty($criteria['old'])) {
+                foreach ($criteria['old'] as $criteriaType => $criteriaTypeInput) {
+                    foreach ($criteriaTypeInput as $skillTypeInput) {
+                        foreach ($skillTypeInput as $criteriaId => $criteriaInput) {
+                            $updatedCriteria = $this->processCriteriaForm($jobPoster, $criteriaType, $criteriaInput, $criteriaId);
+                            $affectedCriteriaIds[] = $updatedCriteria->id;
+                        }
+                    }
+                }
+            }
+            // New criteria must be created from scratch, and the id in the form element name can be disregarded.
+            if (!empty($criteria['new'])) {
+                foreach ($criteria['new'] as $criteriaType => $criteriaTypeInput) {
+                    foreach ($criteriaTypeInput as $skillTypeInput) {
+                        foreach ($skillTypeInput as $criteriaInput) {
+                            $newCriteria = $this->processCriteriaForm($jobPoster, $criteriaType, $criteriaInput, null);
+                            $affectedCriteriaIds[] = $newCriteria->id;
+                        }
                     }
                 }
             }
         }
-        // New criteria must be created from scratch, and the id in the form element name can be disregarded.
-        if (!empty($criteria['new'])) {
-            foreach ($criteria['new'] as $criteriaType => $criteriaTypeInput) {
-                foreach ($criteriaTypeInput as $skillTypeInput) {
-                    foreach ($skillTypeInput as $criteriaInput) {
-                        $newCriteria = $this->processCriteriaForm($jobPoster, $criteriaType, $criteriaInput, null);
-                        $affectedCriteriaIds[] = $newCriteria->id;
-                    }
-                }
-            }
-        }
+
         // Existing criteria which were not resubmitted must be deleted.
         $deleteCriteria = $jobPoster->criteria()->whereNotIn('id', $affectedCriteriaIds)->get();
         foreach ($deleteCriteria as $criteria) {
@@ -727,7 +727,6 @@ class JobController extends Controller
 
         // Delete assessments related to this criteria
         Assessment::where("criterion_id", $criteria->id)->delete();
-
         $criteria->delete();
     }
 
