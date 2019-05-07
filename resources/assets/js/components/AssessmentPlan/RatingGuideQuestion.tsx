@@ -44,6 +44,7 @@ const RatingGuideQuestion: React.FunctionComponent<
   question,
   questionIndex,
   isUpdating,
+  temp,
   editQuestion,
   removeQuestion,
   updateQuestion,
@@ -66,7 +67,7 @@ const RatingGuideQuestion: React.FunctionComponent<
             required
             placeholder="Write your interview question here..."
             value={question.question || ""}
-            updateDelay={500}
+            updateDelay={temp ? null : 500}
             onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
               const newQuestion = String(event.target.value);
               editQuestion({
