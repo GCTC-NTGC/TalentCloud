@@ -12,7 +12,6 @@ export interface JobTranslation {
 
 export interface Job {
   id: number;
-  title: string;
   classification: string;
   close_date_time: Date;
   en: JobTranslation;

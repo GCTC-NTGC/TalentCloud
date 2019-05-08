@@ -7,7 +7,6 @@ import {
 } from "react-intl";
 import className from "classnames";
 import Swal from "sweetalert2";
-import { min } from "moment";
 import * as routes from "../../helpers/routes";
 import Select, { SelectOption } from "../Select";
 import { Application } from "../../models/types";
