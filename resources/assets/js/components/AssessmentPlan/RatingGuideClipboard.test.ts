@@ -416,4 +416,18 @@ describe("ClipboardData", (): void => {
       "l10n.missing Group Test",
     );
   });
+  it("returns a unique id", (): void => {
+    expect(defaultClipboardData[0].id).toEqual(
+      "A1-Q1-T1-C1",
+    );
+    expect(defaultClipboardData[1].id).toEqual(
+      "A2-Q2-T2-C2",
+    );
+    expect(defaultClipboardData[2].id).toEqual(
+      "A3-Q3-T1-C3",
+    );
+    expect(defaultClipboardData[3].id).toEqual(
+      "A4-Q3-T1-C4",
+    );
+  });
 });

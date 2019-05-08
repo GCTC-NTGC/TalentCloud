@@ -107,7 +107,7 @@ export const clipboardData = (
       criteriaType: formatMessage(criteriaType(criterion.criteria_type_id)),
       skillName: skill[locale].name,
       modelAnswer: answer.expected_answer,
-      id: "to be decided",
+      id: `A${assessment.id}-Q${question.id}-T${criterion.criteria_type_id}-C${criterion.id}`,
     }},
   );
   return data;
