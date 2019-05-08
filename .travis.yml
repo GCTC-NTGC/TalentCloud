@@ -34,7 +34,7 @@ install:
   - cp .env.travis .env
   # dependencies
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-  - travis_retry npm ci
+  - travis_retry npm install
 
 
 before_script:
