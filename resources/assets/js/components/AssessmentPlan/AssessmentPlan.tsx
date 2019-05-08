@@ -1,13 +1,6 @@
 import React from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
-import {
-  Job,
-  Criteria,
-  Assessment,
-  RatingGuideQuestion,
-  RatingGuideAnswer,
-  AssessmentPlanNotification,
-} from "../../models/types";
+import { Job, Criteria, AssessmentPlanNotification } from "../../models/types";
 import { CriteriaTypeId } from "../../models/lookupConstants";
 import AssessmentPlanSkill from "./AssessmentPlanSkill";
 import AssessmentPlanTable from "./AssessmentPlanTable";
@@ -17,23 +10,12 @@ import AssessmentPlanAlert from "./AssessmentPlanAlert";
 interface AssessmentPlanProps {
   job: Job | null;
   criteria: Criteria[];
-  assessments: Assessment[];
   notifications: AssessmentPlanNotification[];
-  questions: RatingGuideQuestion[];
-  answers: RatingGuideAnswer[];
 }
 
 const AssessmentPlan: React.FunctionComponent<
   AssessmentPlanProps & InjectedIntlProps
-> = ({
-  job,
-  criteria,
-  assessments,
-  notifications,
-  questions,
-  answers,
-  intl,
-}): React.ReactElement => {
+> = ({ job, criteria, notifications }): React.ReactElement => {
   const assetCriteria = criteria.filter(
     (criterion: Criteria): boolean =>
       criterion.criteria_type_id === CriteriaTypeId.Asset,
@@ -230,14 +212,7 @@ const AssessmentPlan: React.FunctionComponent<
         {/* Generated Assessment Plan ==================================== */}
         {job !== null && <AssessmentPlanTable jobId={job.id} />}
         {/* Ratings Guide Builder ======================================== */}
-        <RatingGuideBuilder
-          criteria={criteria}
-          assessments={assessments}
-          questions={questions}
-          answers={answers}
-          jobId={(job && job.id) || null}
-          intl={intl}
-        />
+        {job !== null && <RatingGuideBuilder jobId={job.id} />}
       </div>
     </section>
   );

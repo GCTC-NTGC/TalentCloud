@@ -18,8 +18,6 @@ import { clipboardData, ClipboardTableRowProps } from "./RatingGuideClipboard";
 
 const jediSkill: Skill = {
   id: 1,
-  name: "jedi",
-  description: "laser sword user",
   skill_type_id: SkillTypeId.Hard,
   en: { name: "English Jedi", description: "English Laser Sword User" },
   fr: { name: "French Jedi", description: "French Laser Sword User" },
@@ -35,16 +33,12 @@ jest.mock("../../store/skill/skillSelector", () => {
 const someSkills: Skill[] = [
   {
     id: 1,
-    name: "jedi",
-    description: "laser sword user",
     skill_type_id: SkillTypeId.Hard,
     en: { name: "English jedi", description: "English Laser Sword User" },
     fr: { name: "French jedi", description: "French Laser Sword User" },
   },
   {
     id: 2,
-    name: "hacking",
-    description: "manipulator of technology",
     skill_type_id: SkillTypeId.Hard,
     en: {
       name: "English hacking",
@@ -57,16 +51,12 @@ const someSkills: Skill[] = [
   },
   {
     id: 3,
-    name: "ninja",
-    description: "silent and stealthy",
     skill_type_id: SkillTypeId.Hard,
     en: { name: "English ninja", description: "English silent and stealthy" },
     fr: { name: "French ninja", description: "French silent and stealthy" },
   },
   {
     id: 4,
-    name: "joker",
-    description: "humorist, teller of jokes",
     skill_type_id: SkillTypeId.Soft,
     en: { name: "English joker", description: "English teller of jokes" },
     fr: { name: "French joker", description: "French teller of jokes" },
@@ -80,8 +70,6 @@ const someCriteria: Criteria[] = [
     job_poster_id: 1,
     skill_id: 1,
     skill_level_id: SkillLevelId.Basic,
-    description: "Stringy", // TODO: remove un-localized description
-    skill: jediSkill, // TODO: remove skill from here
     en: {
       description: "English for my first critical criterion",
     },
@@ -95,8 +83,6 @@ const someCriteria: Criteria[] = [
     job_poster_id: 1,
     skill_id: 2,
     skill_level_id: SkillLevelId.Intermediate,
-    description: "Stringy", // TODO: remove un-localized description
-    skill: jediSkill, // TODO: remove skill from here
     en: {
       description: "English for my second critical criterion",
     },
@@ -110,8 +96,6 @@ const someCriteria: Criteria[] = [
     job_poster_id: 1,
     skill_id: 3,
     skill_level_id: SkillLevelId.Advanced,
-    description: "Stringy", // TODO: remove un-localized description
-    skill: jediSkill, // TODO: remove skill from here
     en: {
       description: "English for my third critical criterion",
     },
@@ -125,8 +109,6 @@ const someCriteria: Criteria[] = [
     job_poster_id: 1,
     skill_id: 4,
     skill_level_id: SkillLevelId.Expert,
-    description: "Stringy", // TODO: remove un-localized description
-    skill: jediSkill, // TODO: remove skill from here
     en: {
       description: "English for my fourth critical criterion",
     },
@@ -144,8 +126,6 @@ const badCriteria: Criteria[] = [
     job_poster_id: 1,
     skill_id: 42,
     skill_level_id: SkillLevelId.Expert,
-    description: "Stringy", // TODO: remove un-localized description
-    skill: jediSkill, // TODO: remove skill from here
     en: {
       description: "English for my fourth critical criterion",
     },
@@ -293,7 +273,9 @@ describe("ClipboardData", (): void => {
         "en",
       );
     }
-    expect(badCriterionID).toThrow("RatingGuideAnswer associated with criterion 1 not found.");
+    expect(badCriterionID).toThrow(
+      "RatingGuideAnswer associated with criterion 1 not found.",
+    );
   });
   it("returns the associated answer description for each criteria", (): void => {
     expect(defaultClipboardData[0].modelAnswer).toEqual(

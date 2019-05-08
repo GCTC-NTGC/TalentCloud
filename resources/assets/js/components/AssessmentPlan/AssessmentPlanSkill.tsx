@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   injectIntl,
   InjectedIntlProps,
@@ -13,7 +13,12 @@ import {
 } from "../../models/localizedConstants";
 import Select, { SelectOption } from "../Select";
 import { AssessmentTypeId, enumToIds } from "../../models/lookupConstants";
-import { Criteria, Assessment, TempAssessment } from "../../models/types";
+import {
+  Criteria,
+  Assessment,
+  TempAssessment,
+  Skill,
+} from "../../models/types";
 import { RootState } from "../../store/store";
 import {
   getAssessmentsByCriterion,
@@ -35,6 +40,7 @@ import {
 
 interface AssessmentPlanSkillProps {
   criterion: Criteria;
+  skill: Skill;
   assessments: Assessment[];
   assessmentsEdited: { [id: number]: boolean };
   assessmentsUpdating: { [id: number]: boolean };
@@ -67,6 +73,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
   AssessmentPlanSkillProps & InjectedIntlProps
 > = ({
   criterion,
+  skill,
   assessments,
   assessmentsEdited,
   assessmentsUpdating,
@@ -112,17 +119,14 @@ export const AssessmentPlanSkill: React.FunctionComponent<
   }, [tempAssessments, tempAssessmentsSaving]);
 
   const skillLevel = intl.formatMessage(
-    skillLevelName(criterion.skill_level_id, criterion.skill.skill_type_id),
+    skillLevelName(criterion.skill_level_id, skill.skill_type_id),
   );
   const skillLevelDescription = intl.formatMessage(
-    SkillLevelDescriptionMessage(
-      criterion.skill_level_id,
-      criterion.skill.skill_type_id,
-    ),
+    SkillLevelDescriptionMessage(criterion.skill_level_id, skill.skill_type_id),
   );
-  const skillDescription = criterion.description
-    ? criterion.description
-    : criterion.skill.description;
+  const skillDescription = criterion[intl.locale].description
+    ? criterion[intl.locale].description
+    : skill[intl.locale].description;
   const assessmentTypeOptions = enumToIds(AssessmentTypeId).map(
     (typeId): SelectOption<number> => {
       return {
@@ -216,7 +220,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
               defaultMessage="{skillName} - {skillLevel}"
               description="Title of a skill section in the Assessment Plan Builder."
               values={{
-                skillName: criterion.skill[intl.locale].name,
+                skillName: skill[intl.locale].name,
                 skillLevel,
               }}
             />

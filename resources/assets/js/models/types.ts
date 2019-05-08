@@ -101,8 +101,6 @@ export interface SkillTranslation {
 
 export interface Skill {
   id: number;
-  name: string;
-  description: string;
   skill_type_id: number;
   en: SkillTranslation;
   fr: SkillTranslation;
@@ -114,8 +112,6 @@ export interface Criteria {
   job_poster_id: number;
   skill_id: number;
   skill_level_id: number;
-  description: string; // TODO: remove un-localized description
-  skill: Skill; // TODO: remove skill from here
   en: {
     description: string;
   };
