@@ -1,4 +1,5 @@
 import React from "react";
+import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import {
   Criteria,
   Assessment,
@@ -6,6 +7,7 @@ import {
   RatingGuideAnswer,
   Skill,
 } from "../../models/types";
+import {skillLevelName, criteriaType, assessmentType} from "../../models/localizedConstants";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import RatingGuideAssessment from "./RatingGuideAssessment";
 import { find } from "../../helpers/queries";
@@ -15,13 +17,13 @@ const dummyData: ClipboardTableRowProps[] = [
     title: "Assessment",
     question: "My First Question is why?",
     skillLevel: "3",
-    skillType: "Essential",
+    criteriaType: "Essential",
     skillName: "Hacking",
     modelAnswer: "Hack the Planet",
     id: "hacker",
   },
   {
-    skillType: "Asset",
+    criteriaType: "Asset",
     skillLevel: "1",
     skillName: "Jedi",
     modelAnswer:
@@ -29,7 +31,7 @@ const dummyData: ClipboardTableRowProps[] = [
     id: "jedi",
   },
   {
-    skillType: "Esential",
+    criteriaType: "Esential",
     skillLevel: "2",
     skillName: "Detective",
     modelAnswer: "I'll ask the questions here.",
@@ -37,14 +39,14 @@ const dummyData: ClipboardTableRowProps[] = [
   },
   {
     question: "My Second Question is who?",
-    skillType: "Essential",
+    criteriaType: "Essential",
     skillLevel: "4",
     skillName: "Ninja",
     modelAnswer: "*Silence*",
     id: "ninja",
   },
   {
-    skillType: "Asset",
+    criteriaType: "Asset",
     skillLevel: "3",
     skillName: "Monk",
     modelAnswer: "Quickly as you can, snatch the pebble from my hand.",
@@ -52,7 +54,7 @@ const dummyData: ClipboardTableRowProps[] = [
   },
   {
     question: "My Third Question is how long?",
-    skillType: "Essential",
+    criteriaType: "Essential",
     skillLevel: "4",
     skillName: "Jester",
     modelAnswer:
@@ -66,17 +68,19 @@ export interface ClipboardTableRowProps {
   title?: string;
   question?: string | null;
   skillLevel: string;
-  skillType: string;
+  criteriaType: string;
   skillName: string;
   modelAnswer: string;
 }
 
 export const clipboardData = (
+  assessments: Assessment[],
   criteria: Criteria[],
   skills: Skill[],
   ratingGuideQuestions: RatingGuideQuestion[],
   ratingGuideAnswers: RatingGuideAnswer[],
   locale: string,
+  formatMessage: (message: FormattedMessage.MessageDescriptor) => string
 ): ClipboardTableRowProps[] => {
   const data = criteria.map(
     (criterion): ClipboardTableRowProps => {
@@ -92,11 +96,15 @@ export const clipboardData = (
       if (question === undefined) {
         throw new Error(`RatingGuideQuestion ${answer.rating_guide_question_id} not found.`);
       }
+      const assessment = assessments.find(assessment => criterion.id === assessment.criterion_id);
+      if (assessment === undefined) {
+        throw new Error(`Assessment associated with criterion ${criterion.id} not found.`);
+      }
       return {
-      title: "from Assessment",
+      title: formatMessage(assessmentType(assessment.assessment_type_id)),
       question: question.question,
-      skillLevel: criterion.skill_level_id.toString(),
-      skillType: criterion.criteria_type_id.toString(),
+      skillLevel: formatMessage(skillLevelName(criterion.skill_level_id, skill.skill_type_id)),
+      criteriaType: formatMessage(criteriaType(criterion.criteria_type_id)),
       skillName: skill[locale].name,
       modelAnswer: answer.expected_answer,
       id: "to be decided",
@@ -108,7 +116,7 @@ export const clipboardData = (
 const TableRow: React.FunctionComponent<ClipboardTableRowProps> = ({
   title,
   question,
-  skillType,
+  criteriaType,
   skillLevel,
   skillName,
   modelAnswer,
@@ -117,7 +125,7 @@ const TableRow: React.FunctionComponent<ClipboardTableRowProps> = ({
   <tr>
     <td>{title}</td>
     <td>{question}</td>
-    <td>{skillType}</td>
+    <td>{criteriaType}</td>
     <td>{skillLevel}</td>
     <td>{skillName}</td>
     <td>{modelAnswer}</td>
@@ -139,8 +147,8 @@ const Table: React.FunctionComponent<TableProps> = ({
         <tr>
           <th>Title</th>
           <th>Question</th>
-          <th>Skill Type</th>
-          <th>Target Skill Level</th>
+          <th>Criteria Type</th>
+          <th>Target Level</th>
           <th>Skill</th>
           <th>Rating Guide</th>
           <th>Applicant Answer</th>
