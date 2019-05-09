@@ -21,7 +21,7 @@ $clone-c4: #0A6CBC;
 
 $clone-c5: #0A6CBC;
 
-$clone-hover-colour: $clone-black;
+$clone-hover-colour: $clone-c5;
 
 $clone-focus-colour: $clone-hover-colour;
 
@@ -30,6 +30,7 @@ $clone-alert--information: $clone-c1;
 @import "../../../node_modules/clone-framework/app/scss/clone";
 
 @import "components/common/itp";
+@import "components/common/tracker";
 
 @import "components/manager/builder";
 
