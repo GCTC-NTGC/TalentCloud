@@ -13,10 +13,6 @@ import {
   criteriaType,
   assessmentType,
 } from "../../models/localizedConstants";
-import { getUniqueAssessmentTypes } from "./assessmentHelpers";
-import RatingGuideAssessment from "./RatingGuideAssessment";
-import { find } from "../../helpers/queries";
-import { number } from "prop-types";
 import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
 import { getCriteriaByJob } from "../../store/Job/jobSelector";
 import { getSkills } from "../../store/Skill/skillSelector";
@@ -102,11 +98,28 @@ export const clipboardData = (
   locale: string,
   formatMessage: (message: FormattedMessage.MessageDescriptor) => string,
 ): ClipboardTableRowProps[] => {
-  ratingGuideAnswers = ratingGuideAnswers.filter(answer => answer.criterion_id !== null);
+  ratingGuideAnswers = ratingGuideAnswers.filter(
+    answer => answer.criterion_id !== null,
+  );
+  // ratingGuideAnswers = ratingGuideAnswers.filter(answer => {
+  //   const question = ratingGuideQuestions.find(
+  //     question => question.id === answer.rating_guide_question_id,
+  //   );
+  //   return (
+  //     question !== undefined &&
+  //     assessments.find(
+  //       assessment =>
+  //         assessment.criterion_id === answer.criterion_id &&
+  //         question.assessment_type_id === assessment.assessment_type_id,
+  //     ) !== undefined
+  //   );
+  // });
   const data = ratingGuideAnswers.map(
     (answer): ClipboardTableRowProps => {
-      const criterion = criteria.find(criterion => criterion.id === answer.criterion_id);
-      if (criterion === undefined){
+      const criterion = criteria.find(
+        criterion => criterion.id === answer.criterion_id,
+      );
+      if (criterion === undefined) {
         throw new Error(`Criteria with id ${answer.criterion_id} not found`);
       }
       const skill = skills.find(skill => skill.id === criterion.skill_id);
@@ -121,16 +134,8 @@ export const clipboardData = (
           `RatingGuideQuestion ${answer.rating_guide_question_id} not found.`,
         );
       }
-      const assessment = assessments.find(
-        assessment => criterion.id === assessment.criterion_id,
-      );
-      if (assessment === undefined) {
-        throw new Error(
-          `Assessment associated with criterion ${criterion.id} not found.`,
-        );
-      }
       return {
-        title: formatMessage(assessmentType(assessment.assessment_type_id)),
+        title: formatMessage(assessmentType(question.assessment_type_id)),
         question: question.question,
         skillLevel: formatMessage(
           skillLevelName(criterion.skill_level_id, skill.skill_type_id),
@@ -138,9 +143,9 @@ export const clipboardData = (
         criteriaType: formatMessage(criteriaType(criterion.criteria_type_id)),
         skillName: skill[locale].name,
         modelAnswer: answer.expected_answer,
-        id: `A${assessment.id}-Q${question.id}-T${
+        id: `A${question.assessment_type_id}-Q${question.id}-T${
           criterion.criteria_type_id
-        }-C${criterion.id}`,
+        }-AN${answer.id}`,
       };
     },
   );
@@ -203,7 +208,9 @@ interface TableProps {
   ratingGuideAnswers: RatingGuideAnswer[];
 }
 
-const RatingGuideClipboard: React.FunctionComponent<TableProps & InjectedIntlProps> = ({
+const RatingGuideClipboard: React.FunctionComponent<
+  TableProps & InjectedIntlProps
+> = ({
   assessments,
   criteria,
   skills,
@@ -211,37 +218,41 @@ const RatingGuideClipboard: React.FunctionComponent<TableProps & InjectedIntlPro
   ratingGuideAnswers,
   intl,
 }): React.ReactElement => {
-  //const rows = clipboardData(assessments, criteria, skills, ratingGuideQuestions, ratingGuideAnswers, intl.locale, intl.formatMessage)
-  const rows = dummyData;
+  const rows = clipboardData(assessments, criteria, skills, ratingGuideQuestions, ratingGuideAnswers, intl.locale, intl.formatMessage)
+  //const rows = dummyData;
   return (
-  <div className="screening-plan-layout">
-    <section className="plan-table">
-      <table>
-        <tr>
-          <th>Title</th>
-          <th>Question</th>
-          <th>Criteria Type</th>
-          <th>Target Level</th>
-          <th>Skill</th>
-          <th>Rating Guide</th>
-          <th>Applicant Answer</th>
-          <th>Score</th>
-        </tr>
-        {rows.map(
-          (row): React.ReactElement => (
-            <TableRow key={`RatingsGuideTableRow${row.id}`} {...row} />
-          ),
-        )}
-      </table>
-    </section>
-  </div>
-)};
+    <div className="screening-plan-layout">
+      <section className="plan-table">
+        <table>
+          <tr>
+            <th>Title</th>
+            <th>Question</th>
+            <th>Criteria Type</th>
+            <th>Target Level</th>
+            <th>Skill</th>
+            <th>Rating Guide</th>
+            <th>Applicant Answer</th>
+            <th>Score</th>
+          </tr>
+          {rows.map(
+            (row): React.ReactElement => (
+              <TableRow key={`RatingsGuideTableRow${row.id}`} {...row} />
+            ),
+          )}
+        </table>
+      </section>
+    </div>
+  );
+};
 
 interface RatingGuideClipboardContainerProps {
   jobId: number;
 }
 
-const mapStateToProps = (state: RootState, ownProps: RatingGuideClipboardContainerProps): TableProps => ({
+const mapStateToProps = (
+  state: RootState,
+  ownProps: RatingGuideClipboardContainerProps,
+): TableProps => ({
   assessments: getAssessmentsByJob(state, ownProps.jobId),
   criteria: getCriteriaByJob(state, ownProps.jobId),
   skills: getSkills(state),
@@ -249,9 +260,8 @@ const mapStateToProps = (state: RootState, ownProps: RatingGuideClipboardContain
   ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps.jobId),
 });
 
-const RatingGuideClipboardContainer: React.FunctionComponent<RatingGuideClipboardContainerProps> = connect(mapStateToProps)(injectIntl(RatingGuideClipboard));
-
-
-
+const RatingGuideClipboardContainer: React.FunctionComponent<
+  RatingGuideClipboardContainerProps
+> = connect(mapStateToProps)(injectIntl(RatingGuideClipboard));
 
 export default RatingGuideClipboardContainer;

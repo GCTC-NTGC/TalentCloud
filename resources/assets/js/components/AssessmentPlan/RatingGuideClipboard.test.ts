@@ -209,14 +209,14 @@ const someRatingGuideQuestions: RatingGuideQuestion[] = [
   {
     id: 1,
     job_poster_id: 1,
-    assessment_type_id: AssessmentTypeId.GroupTest,
+    assessment_type_id: AssessmentTypeId.NarrativeAssessment,
     question:
       "What is the first question of the meaning of life, the universe and everything?",
   },
   {
     id: 2,
     job_poster_id: 1,
-    assessment_type_id: AssessmentTypeId.GroupTest,
+    assessment_type_id: AssessmentTypeId.ApplicationScreeningQuestion,
     question:
       "What is the second question of the meaning of life, the universe and everything?",
   },
@@ -226,6 +226,13 @@ const someRatingGuideQuestions: RatingGuideQuestion[] = [
     assessment_type_id: AssessmentTypeId.GroupTest,
     question:
       "What is the third question of the meaning of life, the universe and everything?",
+  },
+  {
+    id: 4,
+    job_poster_id: 1,
+    assessment_type_id: AssessmentTypeId.GroupTest,
+    question:
+      "What is the fourth question of the meaning of life, the universe and everything?",
   },
 ];
 
@@ -264,7 +271,7 @@ const someRatingGuideAnswers: RatingGuideAnswer[] = [
   },
   {
     id: 4,
-    rating_guide_question_id: 3,
+    rating_guide_question_id: 4,
     criterion_id: 4,
     expected_answer:
       "The fourth answer will make complete sense once you know the question.",
@@ -393,9 +400,9 @@ describe("ClipboardData", (): void => {
     "l10n.missing Narrative Review",
   );
   it("returns a unique id", (): void => {
-    expect(defaultClipboardData[0].id).toEqual("A2-Q2-T2-C2");
-    expect(defaultClipboardData[1].id).toEqual("A3-Q3-T1-C3");
-    expect(defaultClipboardData[2].id).toEqual("A4-Q3-T1-C4");
-    expect(defaultClipboardData[3].id).toEqual("A1-Q1-T1-C1");
+    expect(defaultClipboardData[0].id).toEqual("A2-Q2-T2-AN2");
+    expect(defaultClipboardData[1].id).toEqual("A3-Q3-T1-AN3");
+    expect(defaultClipboardData[2].id).toEqual("A4-Q3-T1-AN4");
+    expect(defaultClipboardData[3].id).toEqual("A1-Q1-T1-AN1");
   });
 });
