@@ -16,8 +16,6 @@ use Carbon\Carbon;
 
 use App\Mail\JobPosterReviewRequested;
 
-use App\Exceptions\AdminException;
-
 use App\Models\Criteria;
 use App\Models\JobPoster;
 use App\Models\JobPosterKeyTask;
@@ -226,40 +224,16 @@ class JobController extends Controller
     /**
      * Create a blank job poster for the specified manager
      *
-     * @param Manager $manager
+     * @param Manager $manager Incoming Manager object.
+     *
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory Job Create view
      */
     public function createAsManager(Manager $manager)
     {
         $jobPoster = new JobPoster();
         $jobPoster->manager_id = $manager->id;
-        $managerEn = $manager->translate('en');
-        $managerFr = $manager->translate('fr');
 
-        try {
-            $jobPoster->fill([
-                'department_id' => $manager->department_id,
-                'en' => [
-                    'branch' => $managerEn->branch,
-                    'division' => $managerEn->division,
-                ],
-                'fr' => [
-                    'branch' => $managerFr->branch,
-                    'division' => $managerFr->division,
-                ]
-            ]);
-            $jobPoster->save();
-        } catch (\Exception $e) {
-            throw new AdminException(
-                'Manager missing the following required fields: Department, Branch and Division.',
-                500,
-                null,
-                [
-                    'Back to Admin' => route('backpack'),
-                    'Manager Profile' => route('manager.profile.edit', $manager->id)
-                ]
-            );
-        }
+        $jobPoster->save();
 
         $defaultQuestions = $this->populateDefaultQuestions();
         if (!empty($defaultQuestions)) {
