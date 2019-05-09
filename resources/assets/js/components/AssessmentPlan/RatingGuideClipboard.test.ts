@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-undef */
 import { IntlProvider, FormattedMessage } from "react-intl";
 import {
@@ -18,7 +19,6 @@ import {
   skillLevelName,
 } from "../../models/localizedConstants";
 import { clipboardData, ClipboardTableRowProps } from "./RatingGuideClipboard";
-import { CoverageSummary } from "istanbul-lib-coverage";
 // import { getSkillById } from "../../store/skill/skillSelector";
 
 const jediSkill: Skill = {

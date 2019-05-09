@@ -25,49 +25,49 @@ const skillLevelDescriptions = defineMessages({
   hardBasic: {
     id: "skillLevel.hard.basic.description",
     defaultMessage:
-      "l10n.missing You have the ability to accomplish basic tasks with steady supervision and clear direction. The tasks you’re assigned are clear and don’t involve significant complexity. Their impact is usually locally felt. As you advance in this category, you should be developing the ability to accomplish tasks of moderate complexity with steady supervision. You will also need to be able to accomplish basic tasks with little or no supervision. This level is usually associated with tasks that form the bulk of the work for lower level positions, such as junior analysts or entry level developers.",
+      "You have the ability to accomplish basic tasks with steady supervision and clear direction. The tasks you’re assigned are clear and don’t involve significant complexity. Their impact is usually locally felt. As you advance in this category, you should be developing the ability to accomplish tasks of moderate complexity with steady supervision. You will also need to be able to accomplish basic tasks with little or no supervision. This level is usually associated with tasks that form the bulk of the work for lower level positions, such as junior analysts or entry level developers.",
     description: "Description of basic hard skill level.",
   },
   hardIntermediate: {
     id: "skillLevel.hard.intermediate.description",
     defaultMessage:
-      "l10n.missing You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision.The approach to the tasks, and how they are delivered, is determined by the supervisor.You contribute input and advice.You are able to advance the task, even in the face of small to moderate hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision. This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers.",
+      "You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision.The approach to the tasks, and how they are delivered, is determined by the supervisor.You contribute input and advice.You are able to advance the task, even in the face of small to moderate hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision. This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers.",
     description: "Description of intermediate skill level.",
   },
   hardAdvanced: {
     id: "skillLevel.hard.advanced.description",
     defaultMessage:
-      "l10n.missing You have the ability to accomplish tasks of significant complexity or impact with supervision.You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor’s consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels. This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers.",
+      "You have the ability to accomplish tasks of significant complexity or impact with supervision.You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor’s consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels. This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers.",
     description: "Description of advanced hard skill level.",
   },
   hardExpert: {
     id: "skillLevel.hard.expert.description",
     defaultMessage:
-      "l10n.missing You have the ability to accomplish tasks of significant complexity or impact, where you call the shots and answer to the organization’s senior management for your decisions. You bring forward the tasks, the approach and the delivery plan for senior management consideration. You often supervise others (individuals or teams) in delivering tasks of high complexity or system wide impact. You are able to advance these tasks, even in the face of significant unforeseen hurdles and complications. As you advance in this category, you should be developing the ability to assess others at more junior levels, becoming able to clearly identify the difference between beginner, intermediate and advanced tasks. You should be able to build teams, set direction and provide supervision. This level is usually associated with tasks that form the bulk of the work for management and executive level positions.",
+      "You have the ability to accomplish tasks of significant complexity or impact, where you call the shots and answer to the organization’s senior management for your decisions. You bring forward the tasks, the approach and the delivery plan for senior management consideration. You often supervise others (individuals or teams) in delivering tasks of high complexity or system wide impact. You are able to advance these tasks, even in the face of significant unforeseen hurdles and complications. As you advance in this category, you should be developing the ability to assess others at more junior levels, becoming able to clearly identify the difference between beginner, intermediate and advanced tasks. You should be able to build teams, set direction and provide supervision. This level is usually associated with tasks that form the bulk of the work for management and executive level positions.",
     description: "Description of expert hard skill level.",
   },
   softBasic: {
     id: "skillLevel.soft.basic.description",
     defaultMessage:
-      "l10n.missing You’re working on acquiring this skill or attribute. You are able to demonstrate it under favourable conditions (low stress, minimal difficulty) and can apply it in a work context intermittently.",
+      "You’re working on acquiring this skill or attribute. You are able to demonstrate it under favourable conditions (low stress, minimal difficulty) and can apply it in a work context intermittently.",
     description: "Description of soft basic skill level.",
   },
   softIntermediate: {
     id: "skillLevel.soft.intermediate.description",
     defaultMessage:
-      "l10n.missing You’re able to consistently demonstrate this skill or attribute in the workplace, including under conditions of low-to-moderate stress or difficulty. Your peers and supervisors are able to attest to the fact that you have been able to demonstrate this skill or attribute on a regular basis.",
+      "You’re able to consistently demonstrate this skill or attribute in the workplace, including under conditions of low-to-moderate stress or difficulty. Your peers and supervisors are able to attest to the fact that you have been able to demonstrate this skill or attribute on a regular basis.",
     description: "Description of soft intermediate skill level.",
   },
   softAdvanced: {
     id: "skillLevel.soft.advanced.description",
     defaultMessage:
-      "l10n.missing You’re able to consistently demonstrate this skill or attribute in the workplace, including under conditions of high stress or difficulty. Your peers and supervisors recognize this as a strength you demonstrate in the workplace.",
+      "You’re able to consistently demonstrate this skill or attribute in the workplace, including under conditions of high stress or difficulty. Your peers and supervisors recognize this as a strength you demonstrate in the workplace.",
     description: "Description of soft advanced skill level.",
   },
   softExpert: {
     id: "skillLevel.soft.expert.description",
     defaultMessage:
-      "l10n.missing This is a foundational part of who you are. You consistently demonstrate this skill or attribute, even under conditions of extreme stress or difficulty. Your peers and supervisors recognize this as a significant strength you demonstrate in the workplace, providing an example to others.",
+      "This is a foundational part of who you are. You consistently demonstrate this skill or attribute, even under conditions of extreme stress or difficulty. Your peers and supervisors recognize this as a significant strength you demonstrate in the workplace, providing an example to others.",
     description: "Description of expert soft skill level.",
   },
 });
@@ -75,42 +75,42 @@ const skillLevelDescriptions = defineMessages({
 const skillLevelNames = defineMessages({
   hardBasic: {
     id: "skillLevel.hard.basic.name",
-    defaultMessage: "l10n.missing Beginner",
+    defaultMessage: "Beginner",
     description: "Single-word descriptor of basic hard skill level.",
   },
   hardIntermediate: {
     id: "skillLevel.hard.intermediate.name",
-    defaultMessage: "l10n.missing Intermediate",
+    defaultMessage: "Intermediate",
     description: "Single-word descriptor of intermediate hard skill level.",
   },
   hardAdvanced: {
     id: "skillLevel.hard.advanced.name",
-    defaultMessage: "l10n.missing Advanced",
+    defaultMessage: "Advanced",
     description: "Single-word descriptor of advanced hard skill level.",
   },
   hardExpert: {
     id: "skillLevel.hard.expert.name",
-    defaultMessage: "l10n.missing Expert",
+    defaultMessage: "Expert",
     description: "Single-word descriptor of expert hard skill level.",
   },
   softBasic: {
     id: "skillLevel.soft.basic.name",
-    defaultMessage: "l10n.missing In Early Development",
+    defaultMessage: "In Early Development",
     description: "Single-word descriptor of soft basic skill level.",
   },
   softIntermediate: {
     id: "skillLevel.soft.intermediate.name",
-    defaultMessage: "l10n.missing Moderately in Evidence",
+    defaultMessage: "Moderately in Evidence",
     description: "Single-word descriptor of soft intermediate skill level.",
   },
   softAdvanced: {
     id: "skillLevel.soft.advanced.name",
-    defaultMessage: "l10n.missing Strongly in Evidence",
+    defaultMessage: "Strongly in Evidence",
     description: "Single-word descriptor of soft advanced skill level.",
   },
   softExpert: {
     id: "skillLevel.soft.expert.name",
-    defaultMessage: "l10n.missing Deep Level Demonstration",
+    defaultMessage: "Deep Level Demonstration",
     description: "Single-word descriptor of soft expert skill level.",
   },
 });
@@ -161,57 +161,57 @@ export const skillLevelName = (
 const assessmentTypes = defineMessages({
   narrativeAssessment: {
     id: "assessmentType.narrativeAssessment",
-    defaultMessage: "l10n.missing Narrative Review",
+    defaultMessage: "Narrative Review",
     description: "Title of an assessment type.",
   },
   applicationScreeningQuestion: {
     id: "assessmentType.applicationScreeningQuestion",
-    defaultMessage: "l10n.missing Application Screening Question",
+    defaultMessage: "Application Screening Question",
     description: "Title of an assessment type.",
   },
   groupTest: {
     id: "assessmentType.groupTest",
-    defaultMessage: "l10n.missing Group Test",
+    defaultMessage: "Group Test",
     description: "Title of an assessment type.",
   },
   informalPhoneConversation: {
     id: "assessmentType.informalPhoneConversation",
-    defaultMessage: "l10n.missing Informal Phone Conversation",
+    defaultMessage: "Informal Phone Conversation",
     description: "Title of an assessment type.",
   },
   interview: {
     id: "assessmentType.interview",
-    defaultMessage: "l10n.missing Intervew",
+    defaultMessage: "Interview",
     description: "Title of an assessment type.",
   },
   onlineExam: {
     id: "assessmentType.onlineExam",
-    defaultMessage: "l10n.missing Online Exam",
+    defaultMessage: "Online Exam",
     description: "Title of an assessment type.",
   },
   onSiteExam: {
     id: "assessmentType.onSiteExam",
-    defaultMessage: "l10n.missing On-Site Exam",
+    defaultMessage: "On-Site Exam",
     description: "Title of an assessment type.",
   },
   takeHomeExam: {
     id: "assessmentType.takeHomeExam",
-    defaultMessage: "l10n.missing Take Home Exam",
+    defaultMessage: "Take Home Exam",
     description: "Title of an assessment type.",
   },
   portfolioReview: {
     id: "assessmentType.portfolioReview",
-    defaultMessage: "l10n.missing Portfolio Review",
+    defaultMessage: "Portfolio Review",
     description: "Title of an assessment type.",
   },
   referenceCheck: {
     id: "assessmentType.referenceCheck",
-    defaultMessage: "l10n.missing Reference Check",
+    defaultMessage: "Reference Check",
     description: "Title of an assessment type.",
   },
   seriousGames: {
     id: "assessmentType.seriousGames",
-    defaultMessage: "l10n.missing Serious Games",
+    defaultMessage: "Serious Games",
     description: "Title of an assessment type.",
   },
 });
@@ -263,3 +263,121 @@ export const criteriaType = (
     [CriteriaTypeId.Essential]: criteriaTypes.essential,
   }[criteriaTypeId.toString()];
 };
+// TODO: add english text
+const assessmentTypeDescriptions = defineMessages({
+  narrativeAssessment: {
+    id: "assessmentType.narrativeAssessment.description",
+    defaultMessage:
+      "The goal of a narrative review is to read the content the applicant has provided for each skill to get a better understanding of their level and competence.",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  applicationScreeningQuestion: {
+    id: "assessmentType.applicationScreeningQuestion.description",
+    defaultMessage: "MISSING",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  groupTest: {
+    id: "assessmentType.groupTest.description",
+    defaultMessage: "MISSING",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  informalPhoneConversation: {
+    id: "assessmentType.informalPhoneConversation.description",
+    defaultMessage: "MISSING",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  interview: {
+    id: "assessmentType.interview.description",
+    defaultMessage: "MISSING",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  onlineExam: {
+    id: "assessmentType.onlineExam.description",
+    defaultMessage: "MISSING",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  onSiteExam: {
+    id: "assessmentType.onSiteExam.description",
+    defaultMessage: "MISSING",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  takeHomeExam: {
+    id: "assessmentType.takeHomeExam.description",
+    defaultMessage: "MISSING",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  portfolioReview: {
+    id: "assessmentType.portfolioReview.description",
+    defaultMessage: "MISSING",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  referenceCheck: {
+    id: "assessmentType.referenceCheck.description",
+    defaultMessage: "MISSING",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+  seriousGames: {
+    id: "assessmentType.seriousGames.description",
+    defaultMessage: "MISSING",
+    description:
+      "Description of an assessment type, to help a manager understand when to use it.",
+  },
+});
+
+export const assessmentTypeDescription = (
+  assessmentTypeId: number,
+): FormattedMessage.MessageDescriptor => {
+  if (!AssessmentTypeIdValues.includes(assessmentTypeId)) {
+    throw new Error("invalid AssessmentTypeValue");
+  }
+  return {
+    [AssessmentTypeId.ApplicationScreeningQuestion]:
+      assessmentTypeDescriptions.applicationScreeningQuestion,
+    [AssessmentTypeId.GroupTest]: assessmentTypeDescriptions.groupTest,
+    [AssessmentTypeId.InformalPhoneConversation]:
+      assessmentTypeDescriptions.informalPhoneConversation,
+    [AssessmentTypeId.Interview]: assessmentTypeDescriptions.interview,
+    [AssessmentTypeId.NarrativeAssessment]:
+      assessmentTypeDescriptions.narrativeAssessment,
+    [AssessmentTypeId.OnSiteExam]: assessmentTypeDescriptions.onSiteExam,
+    [AssessmentTypeId.OnlineExam]: assessmentTypeDescriptions.onlineExam,
+    [AssessmentTypeId.PortfolioReview]:
+      assessmentTypeDescriptions.portfolioReview,
+    [AssessmentTypeId.ReferenceCheck]:
+      assessmentTypeDescriptions.referenceCheck,
+    [AssessmentTypeId.SeriousGames]: assessmentTypeDescriptions.seriousGames,
+    [AssessmentTypeId.TakeHomeExam]: assessmentTypeDescriptions.takeHomeExam,
+  }[assessmentTypeId];
+};
+
+const standardAssessmentText = defineMessages({
+  narrativeReviewQuestion: {
+    id: "assessmentType.narrativeReview.standardQuestion",
+    defaultMessage:
+      "Narrative Review of skill includes all descriptions added by the applicant in their application.",
+    description:
+      "Description which replaces 'interview question' for the Narrative Review assessment type.",
+  },
+  narrativeReviewAnswer: {
+    id: "assessmentType.narrativeReview.standardAnswer",
+    defaultMessage: "MISSING",
+    description:
+      "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
+  },
+});
+
+export const narrativeReviewStandardQuestion = (): FormattedMessage.MessageDescriptor =>
+  standardAssessmentText.narrativeReviewQuestion;
+
+export const narrativeReviewStandardAnswer = (): FormattedMessage.MessageDescriptor =>
+  standardAssessmentText.narrativeReviewAnswer;

@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\Lang;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -243,9 +246,12 @@ Route::group(
                     ->middleware('can:update,jobPoster')
                     ->name('manager.jobs.review');
 
-                Route::view('jobs/{jobPoster}/assessment-plan', 'common/redux')
-                    ->where('jobPoster', '[0-9]+')
-                    ->name('manager.jobs.screening_plan');
+                Route::view(
+                    'jobs/{jobPoster}/assessment-plan',
+                    'common/redux',
+                    ['title' => Lang::get('manager/screening-plan')['title']]
+                )->where('jobPoster', '[0-9]+')
+                ->name('manager.jobs.screening_plan');
             });
 
             //Laravel default login, logout, register, and reset routes
@@ -370,5 +376,8 @@ Route::group(['prefix' => 'api'], function (): void {
     ]);
     Route::resource('rating-guide-questions', 'RatingGuideQuestionController')->except([
         'create', 'edit', 'index'
+    ]);
+    Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
+        'store', 'create', 'edit'
     ]);
 });

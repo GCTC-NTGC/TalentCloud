@@ -1,12 +1,18 @@
 import React from "react";
-import { InjectedIntlProps } from "react-intl";
+import { InjectedIntlProps, FormattedMessage } from "react-intl";
 import {
   Criteria,
   Assessment,
   RatingGuideQuestion,
   RatingGuideAnswer,
 } from "../../models/types";
-import { skillLevelName } from "../../models/localizedConstants";
+import {
+  skillLevelName,
+  assessmentTypeDescription,
+  assessmentType,
+  narrativeReviewStandardQuestion,
+  narrativeReviewStandardAnswer,
+} from "../../models/localizedConstants";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import { AssessmentTypeId } from "../../models/lookupConstants";
 import RatingGuideAssessment from "./RatingGuideAssessment";
@@ -40,7 +46,6 @@ const RatingGuideBuilder: React.FunctionComponent<
     (assessment: Assessment): boolean =>
       assessment.assessment_type_id !== AssessmentTypeId.NarrativeAssessment,
   );
-
   const renderNarrativeReview = (): React.ReactElement => {
     sectionCount = +1;
 
@@ -52,12 +57,24 @@ const RatingGuideBuilder: React.FunctionComponent<
           data-c-font-weight="bold"
           data-c-margin="top(double) bottom(normal)"
         >
-          l10n.missing Assessment {sectionCount}: Narrative Review
+          {/** TODO: This FormattedMessage is identical to one in RatingGuideAssessment.
+                    This special Narrative Review section should be refactored to there. */}
+          <FormattedMessage
+            id="ratingGuideBuilder.narrativeSectionTitle"
+            defaultMessage="Assessment {index}: {assessmentType}"
+            description="Subtitle for the special Narrative Assessment section in the Rating Guide Builder."
+            values={{
+              index: sectionCount,
+              assessmentType: intl.formatMessage(
+                assessmentType(AssessmentTypeId.NarrativeAssessment),
+              ),
+            }}
+          />
         </h4>
         <p>
-          l10n.missing The goal of a narrative review is to read the content the
-          applicant has provided for each skill to get a better understanding of
-          their level and competence.
+          {intl.formatMessage(
+            assessmentTypeDescription(AssessmentTypeId.NarrativeAssessment),
+          )}
         </p>
 
         <div
@@ -80,8 +97,7 @@ const RatingGuideBuilder: React.FunctionComponent<
               </div>
               <div data-c-grid-item="base(1of1) tp(7of8)">
                 <p data-c-font-weight="800">
-                  l10n.missing Narrative Review of skill includes all
-                  descriptions added by the applicant in their application.
+                  {intl.formatMessage(narrativeReviewStandardQuestion())}
                 </p>
               </div>
             </div>
@@ -107,11 +123,20 @@ const RatingGuideBuilder: React.FunctionComponent<
                     <div data-c-grid-item="base(1of1) tp(1of8)" />
                     {narrativeCriteria && skillLevel.length > 0 && (
                       <div data-c-grid-item="base(1of1) tp(2of8)">
-                        {`${narrativeCriteria.skill.name} - ${skillLevel}`}
+                        <FormattedMessage
+                          id="ratingGuideBuilder.criteriaName"
+                          defaultMessage="{skillName} - {skillLevel}"
+                          description="How each criteria is listed in Rating Guide Builder."
+                          values={{
+                            skillName:
+                              narrativeCriteria.skill[intl.locale].name,
+                            skillLevel,
+                          }}
+                        />
                       </div>
                     )}
                     <div data-c-grid-item="base(1of1) tp(5of8)">
-                      l10n.missing Standardized Evaluation Statement
+                      {intl.formatMessage(narrativeReviewStandardAnswer())}
                     </div>
                   </div>
                 </div>
@@ -130,15 +155,18 @@ const RatingGuideBuilder: React.FunctionComponent<
         data-c-font-weight="bold"
         data-c-margin="top(triple) bottom(normal)"
       >
-        l10n.missing 3. Ratings Guide Builder
+        <FormattedMessage
+          id="ratingGuideBuilder.title"
+          defaultMessage="3. Ratings Guide Builder"
+          description="Title of the Rating Guide Builder section."
+        />
       </h3>
       <p data-c-margin="bottom(normal)">
-        l10n.missing Below you will create your own ratings guide tool to help
-        you assess your candidates. This tool allows you to build your own
-        questions/evaluations for each assessment you{"'"}ve selected above, and
-        then allows you to jot down the criteria for what a great candidate
-        response might be. Please note that {'"'}Narrative Review
-        {'"'} is unique in that the content is generated for you below.
+        <FormattedMessage
+          id="ratingGuideBuilder.instructions"
+          defaultMessage={`Below you will create your own ratings guide tool to help you assess your candidates. This tool allows you to build your own questions/evaluations for each assessment you've selected above, and then allows you to jot down the criteria for what a great candidate response might be. Please note that "Narrative Review" is unique in that the content is generated for you below.`}
+          description="Instructions for using the Rating Guide Builder"
+        />
       </p>
       {narrativeReview.length > 0 && renderNarrativeReview()}
       {getUniqueAssessmentTypes(otherAssessments).map(
@@ -171,13 +199,19 @@ const RatingGuideBuilder: React.FunctionComponent<
 
       <hr data-c-margin="top(double) bottom(double)" />
       <p data-c-margin="top(normal) bottom(normal)">
-        l10n.missing Now that you&apos;ve built your Ratings Guide, you can use
-        the button below to copy the entire thing to your clipboard, making it
-        easy to paste in your favourite Word Processor.
+        <FormattedMessage
+          id="ratingGuideBuilder.copyInstructions"
+          defaultMessage="Now that you've built your Ratings Guide, you can use the button below to copy the entire thing to your clipboard, making it easy to paste in your favourite Word Processor."
+          description="Instructions for copying your rating guide."
+        />
       </p>
       <div data-c-alignment="center">
         <button data-c-button="solid(c5)" type="button">
-          l10n.missing Click to Copy This Ratings Guide to Your Clipboard
+          <FormattedMessage
+            id="ratingGuideBuilder.copyButton"
+            defaultMessage="Click to Copy This Ratings Guide to Your Clipboard"
+            description="Text for the 'copy ratings guide' button."
+          />
         </button>
       </div>
       {jobId !== null && <RatingGuideClipboard jobId={jobId} />}

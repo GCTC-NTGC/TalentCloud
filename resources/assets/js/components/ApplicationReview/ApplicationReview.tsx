@@ -16,97 +16,97 @@ import { ReviewStatusId } from "../../models/lookupConstants";
 const messages = defineMessages({
   priorityLogo: {
     id: "priorityStatus.priorityLogoTitle",
-    defaultMessage: "l10n.missing Talent cloud priority logo",
+    defaultMessage: "Talent cloud priority logo",
     description: "Title for Priority Logo Img",
   },
   veteranLogo: {
     id: "veteranStatus.veteranLogoAlt",
-    defaultMessage: "l10n.missing Talent cloud veteran logo",
+    defaultMessage: "Talent cloud veteran logo",
     description: "Alt Text for Veteran Logo Img",
   },
   emailCandidate: {
     id: "apl.emailCandidateLinkTitle",
-    defaultMessage: "l10n.missing Email this candidate.",
+    defaultMessage: "Email this candidate.",
     description: "Title, hover text, for email link.",
   },
   viewApplicationTitle: {
     id: "apl.viewApplicationLinkTitle",
-    defaultMessage: "l10n.missing View this applicant's application.",
+    defaultMessage: "View this applicant's application.",
     description: "Title, hover text, for View Application Link",
   },
   viewProfileTitle: {
     id: "apl.viewProfileLinkTitle",
-    defaultMessage: "l10n.missing View this applicant's profile.",
+    defaultMessage: "View this applicant's profile.",
     description: "Title, hover text, for View Profile Link",
   },
   decision: {
     id: "apl.decision",
-    defaultMessage: "l10n.missing Decision",
+    defaultMessage: "Decision",
     description: "Decision dropdown label",
   },
   notReviewed: {
     id: "reviewStatus.notReviewed",
-    defaultMessage: "l10n.missing Not Reviewed",
+    defaultMessage: "Not Reviewed",
     description: "Decision dropdown label",
   },
   saving: {
     id: "button.saving",
-    defaultMessage: "l10n.missing Saving...",
+    defaultMessage: "Saving...",
     description: "Dynamic Save button label",
   },
   save: {
     id: "button.save",
-    defaultMessage: "l10n.missing Save",
+    defaultMessage: "Save",
     description: "Dynamic Save button label",
   },
   saved: {
     id: "button.saved",
-    defaultMessage: "l10n.missing Saved",
+    defaultMessage: "Saved",
     description: "Dynamic Save button label",
   },
   addNote: {
     id: "apl.addNote",
-    defaultMessage: "l10n.missing + Add a Note",
+    defaultMessage: "+ Add a Note",
     description: "Dynamic Note button label",
   },
   editNote: {
     id: "apl.editNote",
-    defaultMessage: "l10n.missing Edit Note",
+    defaultMessage: "Edit Note",
     description: "Dynamic Note button label",
   },
   screenedOut: {
     id: "reviewStatus.screenedOut",
-    defaultMessage: "l10n.missing Screened Out",
+    defaultMessage: "Screened Out",
     description: "Dynamic Note button label",
   },
   stillThinking: {
     id: "reviewStatus.stillThinking",
-    defaultMessage: "l10n.missing Still Thinking",
+    defaultMessage: "Still Thinking",
     description: "Dynamic Note button label",
   },
   stillIn: {
     id: "reviewStatus.stillIn",
-    defaultMessage: "l10n.missing Still In",
+    defaultMessage: "Still In",
     description: "Dynamic Note button label",
   },
   cancelButton: {
     id: "button.cancel",
-    defaultMessage: "l10n.missing Cancel",
+    defaultMessage: "Cancel",
     description: "Cancel button label",
   },
   confirmButton: {
     id: "button.confirm",
-    defaultMessage: "l10n.missing Confirm",
+    defaultMessage: "Confirm",
     description: "Confirm button for modal dialogue boxes",
   },
   screenOutConfirm: {
     id: "apl.screenOutConfirm",
-    defaultMessage: "l10n.missing Screen out the candidate?",
+    defaultMessage: "Screen out the candidate?",
     description: "Are you sure you want to screen out the candidate worning",
   },
   screenInConfirm: {
     id: "apl.screenInConfirm",
-    defaultMessage: "l10n.missing Screen the candidate back in?",
+    defaultMessage: "Screen the candidate back in?",
     description: "Are you sure you want to screen in the candidate warning",
   },
 });
@@ -302,7 +302,7 @@ class ApplicationReview extends React.Component<
                 />
                 <FormattedMessage
                   id="priorityStatus.priority"
-                  defaultMessage="l10n.missing Priority"
+                  defaultMessage="Priority"
                   description="Priority"
                 />
               </span>
@@ -317,7 +317,7 @@ class ApplicationReview extends React.Component<
                 />
                 <FormattedMessage
                   id="veteranStatus.veteran"
-                  defaultMessage="l10n.missing Veteran"
+                  defaultMessage="Veteran"
                   description="Veteran"
                 />
               </span>
@@ -332,7 +332,7 @@ class ApplicationReview extends React.Component<
               <i className="fas fa-file-alt" />
               <FormattedMessage
                 id="apl.viewApplication"
-                defaultMessage="l10n.missing View Application"
+                defaultMessage="View Application"
                 description="Button text View Application"
               />
             </a>
@@ -346,7 +346,7 @@ class ApplicationReview extends React.Component<
               <i className="fas fa-user" />
               <FormattedMessage
                 id="apl.viewProfile"
-                defaultMessage="l10n.missing View Profile"
+                defaultMessage="View Profile"
                 description="Button text View Profile"
               />
             </a>

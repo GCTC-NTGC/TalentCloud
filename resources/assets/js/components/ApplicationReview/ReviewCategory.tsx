@@ -32,13 +32,13 @@ interface ReviewCategoryProps {
 const localizations = defineMessages({
   confirmButton: {
     id: "button.confirm",
-    defaultMessage: "l10n.missing Confirm",
+    defaultMessage: "Confirm",
     description: "Confirm button for modal dialogue boxes",
   },
   screenOutAllConfirm: {
     id: "apl.screenOutAll.confirm",
     defaultMessage:
-      "l10n.missing Are you sure you want to screen out all Optional candidates?",
+      "Are you sure you want to screen out all Optional candidates?",
     description:
       "Confirm dialogue text for screening out all optional candidates.",
   },
@@ -87,13 +87,13 @@ const ReviewCategory: React.StatelessComponent<
     {
       title: {
         id: "apl.priorityApplicants.title",
-        defaultMessage: "l10n.missing Priority Applicants",
+        defaultMessage: "Priority Applicants",
         description: "title of list of priority applicants",
       },
       description: {
         id: "apl.priorityApplicants.description",
         defaultMessage:
-          "l10n.missing These are priority applicants for this position. They must be reviewed and considered first.",
+          "These are priority applicants for this position. They must be reviewed and considered first.",
         description: "description of list of priority applicants",
       },
       applications: applications.filter(
@@ -103,7 +103,7 @@ const ReviewCategory: React.StatelessComponent<
     {
       title: {
         id: "apl.veteransAndCitizens.title",
-        defaultMessage: "l10n.missing Veterans and Canadian Citizens",
+        defaultMessage: "Veterans and Canadian Citizens",
         description: "title of list of Veterans and Canadian citizens",
       },
       description: {
@@ -118,12 +118,12 @@ const ReviewCategory: React.StatelessComponent<
     {
       title: {
         id: "apl.nonCitizens.title",
-        defaultMessage: "l10n.missing Non-Canadian Citizens",
+        defaultMessage: "Non-Canadian Citizens",
         description: "title of list of non-citizen applicants",
       },
       description: {
         id: "apl.nonCitizens.description",
-        defaultMessage: "l10n.missing ",
+        defaultMessage: "",
         description: "description of list of non-citizen applicants",
       },
       applications: applications.filter(
@@ -133,7 +133,7 @@ const ReviewCategory: React.StatelessComponent<
     {
       title: {
         id: "apl.unqualified.title",
-        defaultMessage: "l10n.missing Don't Meet Essential Criteria",
+        defaultMessage: "Don't Meet Essential Criteria",
         description:
           "title of list of applicants who do not meet the essential criteria",
       },
@@ -178,13 +178,13 @@ const ReviewCategory: React.StatelessComponent<
             {justCopied ? (
               <FormattedMessage
                 id="button.copied"
-                defaultMessage="l10n.missing Copied!"
+                defaultMessage="Copied!"
                 description="Confirmation for Button to copy all applicant emails in screening category"
               />
             ) : (
               <FormattedMessage
                 id="button.copyEmails"
-                defaultMessage="l10n.missing Copy Emails"
+                defaultMessage="Copy Emails"
                 description="Button to copy all applicant emails in screening category"
               />
             )}
@@ -201,7 +201,7 @@ const ReviewCategory: React.StatelessComponent<
               &nbsp;
               <FormattedMessage
                 id="apl.screenOutAll"
-                defaultMessage="l10n.missing Screen All Optional Candidates Out"
+                defaultMessage="Screen All Optional Candidates Out"
                 description="Button to screen out all optional candidates from competition with one click"
               />
             </button>

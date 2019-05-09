@@ -56,7 +56,7 @@ const ApplicantBucket: React.StatelessComponent<
         <span className="invisible">
           <FormattedMessage
             id="button.toggleAccordion"
-            defaultMessage="l10n.missing Toggle this step to view relevant applicants."
+            defaultMessage="Toggle this step to view relevant applicants."
             description="Instructions to reveal hidden list data."
           />
         </span>

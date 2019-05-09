@@ -1,0 +1,47 @@
+[
+  {
+    "id": "assessmentPlan.summary.skillCount",
+    "description": "Labels how many skills are assessed by this assessment tool.",
+    "defaultMessage": "Assessing {count, plural, one {# skill} other {# skills}}."
+  },
+  {
+    "id": "criteria.essential",
+    "description": "What essential criteria are called.",
+    "defaultMessage": "Essential Skills"
+  },
+  {
+    "id": "assessmentPlan.summary.skillsNullState",
+    "description": "Replaces list of skills assessed by an assessment tool, if that list is empty.",
+    "defaultMessage": "No skills being assessed by this tool."
+  },
+  {
+    "id": "criteria.asset",
+    "description": "What asset criteria are called.",
+    "defaultMessage": "Asset Skills"
+  },
+  {
+    "id": "assessmentPlan.summary.title",
+    "description": "Title of Assessment Plan Summary Section",
+    "defaultMessage": "2. Assessment Plan Summary"
+  },
+  {
+    "id": "assessmentPlan.summary.description",
+    "description": "Description of Assessment Plan Summary Section",
+    "defaultMessage": "This is a summary of the work you've done above. You'll find\r\n      each assessment accompanied by a consolidated list of the essential and\r\n      asset skills attached to it."
+  },
+  {
+    "id": "assessmentPlan.summary.assessmentSummary.title",
+    "description": "Title of Assessment Plan Summary, Assessment Summary Section",
+    "defaultMessage": "Assessment Summary"
+  },
+  {
+    "id": "assessmentPlan.summary.assessmentSummary.toolSkillCount",
+    "description": "Describes how many tools and skills your assessment plan involves.",
+    "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}\r\n            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}."
+  },
+  {
+    "id": "assessmentPlan.summary.assessmentSummary.noAssessments",
+    "description": "Place holder text for when there are no assessment summary details",
+    "defaultMessage": "You have no assessments selected for this job poster. Add them\r\n              above."
+  }
+]
