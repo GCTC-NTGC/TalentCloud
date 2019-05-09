@@ -10,17 +10,17 @@
   },
   "dependences": {},
   "devDependencies": {
-    "gulp": "3.5.x",
-    "gulp-concat": "~2.1.x",
-    "gulp-connect": "~2.0.5",
-    "gulp-jshint": "~1.5.1",
-    "gulp-replace": "^0.4.0",
-    "gulp-size": "~0.4.0",
-    "gulp-uglify": "~0.2.x",
-    "gulp-util": "~2.2.x",
-    "gulp-html-validator": "^0.0.2",
-    "inquirer": "^0.5.1",
-    "semver": "^3.0.1"
+    "gulp": "^4.0.1",
+    "gulp-concat": "~2.6.1",
+    "gulp-connect": "~5.7.0",
+    "gulp-jshint": "^2.1.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-size": "~3.0.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-util": "~3.0.8",
+    "gulp-html-validator": "^0.0.5",
+    "inquirer": "^6.3.1",
+    "semver": "^6.0.0"
   },
   "spm": {
     "main": "Chart.js"

@@ -58,6 +58,42 @@
             {% endif %}
         </div>
 
+    {# Language Confirmation Status #}
+
+        {% if job.language_requirement.id == 1 %}
+            {# English Essential #}
+            {% set language_requirement = application_template.english_essential %}
+        {% elseif job.language_requirement.id == 2 %}
+            {# French Essential #}
+            {% set language_requirement = application_template.french_essential %}
+        {% elseif job.language_requirement.id == 3 %}
+            {# Bilingual Intermediate #}
+            {% set language_requirement = application_template.bilingual_intermediate %}
+        {% elseif job.language_requirement.id == 4 %}
+            {# Bilingual Advanced #}
+            {{ application_template.bilingual_advanced }}
+        {% elseif job.language_requirement.id == 5 %}
+            {# English or French #}
+            {% set language_requirement = application_template.english_or_french %}
+        {% else %}
+            {# nothing #}
+        {% endif %}
+
+        <div
+            class="application-preview__status">
+            {% if job.language_requirement.id != false %}
+                <i class="fas fa-check"></i>
+                <span>
+                    {{ language_requirement }}
+                </span>
+            {% else %}
+                <i class="fas fa-times"></i>
+                <span>
+                    {{ language_requirement }}
+                </span>
+            {% endif %}
+        </div>
+
     {# Language Choice #}
 
         <div

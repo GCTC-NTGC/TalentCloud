@@ -479,17 +479,19 @@
                                         class="form__radio-group"
                                         role="radiogroup">
 
-                                        <label
-                                            class="form__label"
-                                            for="{{ id_prefix }}skillLevel">
-                                            {{ skill_template.level_label }}
+                                        <div class="flex-grid space-between">
+                                            <label
+                                                class="form__label"
+                                                for="{{ id_prefix }}skillLevel">
+                                                {{ skill_template.level_label }}
+                                            </label>
                                             <a
                                                 href="/faq#levels"
                                                 title="{{ skill_template.level_link_title }}"
                                                 target="_blank">
                                                 {{ skill_template.level_link_label }}
                                             </a>
-                                        </label>
+                                        </div>
 
                                         <div class="flex-grid">
 
@@ -533,6 +535,20 @@
                                 <div
                                     class="box full">
 
+                                    {# <div class="skill-textarea-label box inline-right">
+                                        <a href="#" class="">{{ skill_template.knowledge_link_label }}</a>
+                                    </div> #}
+
+
+                                    <div
+                                        data-clone
+                                        data-skills-info-modal="{{ id_prefix }}skillDescription"
+                                        data-title="{{ skill_template.modal_info.title}}"
+                                        data-open-text="{{ skill_template.knowledge_link_label }}"
+                                        data-confirm-text="{{skill_template.modal_info.close_button_text }}"
+                                        data-modal-info="{{ skill_template.modal_info|json_encode() }}">
+                                    </div>
+
                                     <div
                                         class="form__input-wrapper--float {% if skill_declaration.description != null %}active{% endif %}">
 
@@ -551,6 +567,20 @@
 
                                     </div>
 
+                                    {% if skill_declaration.description  %}
+                                    <div class="skill-textarea-prompt box">
+                                        <p>{{ skill_template.knowledge_prompt }}</p>
+                                    </div>
+                                    {% endif %}
+
+
+                                    {# Word Counter #}
+                                    {# <div
+                                        data-word-counter-id={{ "#{id_prefix}skillDescription"|json_encode() }}
+                                        data-max-words={{ "100"|json_encode()  }}
+                                        data-min-words={{ "75"|json_encode()  }}
+                                        >
+                                    </div> #}
                                 </div>
 
                         </div>

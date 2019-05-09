@@ -40,6 +40,10 @@
 
     }
 
+    &.space-between {
+        justify-content: space-between;
+    }
+
 }
 
 .box {
@@ -60,6 +64,10 @@
 
     &.fit {
         flex: 1;
+    }
+
+    &.right {
+        justify-content: flex-end;
     }
 
     /* Small Boxes: Portrait & Landscape Mobile Devices ===================== */

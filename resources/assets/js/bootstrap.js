@@ -1,5 +1,6 @@
 import "react-app-polyfill/ie11";
 import "./polyfills/includes";
+import "core-js/features/object/values";
 
 // Number.isNan polyfill
 Number.isNaN =
