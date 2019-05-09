@@ -1,5 +1,6 @@
 import React from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import { RootState } from "../../store/store";
 import {
   Criteria,
   Assessment,
@@ -7,10 +8,21 @@ import {
   RatingGuideAnswer,
   Skill,
 } from "../../models/types";
-import {skillLevelName, criteriaType, assessmentType} from "../../models/localizedConstants";
+import {
+  skillLevelName,
+  criteriaType,
+  assessmentType,
+} from "../../models/localizedConstants";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import RatingGuideAssessment from "./RatingGuideAssessment";
 import { find } from "../../helpers/queries";
+import { number } from "prop-types";
+import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
+import { getCriteriaByJob } from "../../store/Job/jobSelector";
+import { getSkills } from "../../store/Skill/skillSelector";
+import { getRatingGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
+import { getRatingGuideAnswersByJob } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
+import { connect } from "react-redux";
 
 const dummyData: ClipboardTableRowProps[] = [
   {
@@ -23,6 +35,8 @@ const dummyData: ClipboardTableRowProps[] = [
     id: "hacker",
   },
   {
+    title: "Assessment",
+    question: "My First Question is why?",
     criteriaType: "Asset",
     skillLevel: "1",
     skillName: "Jedi",
@@ -31,6 +45,8 @@ const dummyData: ClipboardTableRowProps[] = [
     id: "jedi",
   },
   {
+    title: "Assessment",
+    question: "My First Question is why?",
     criteriaType: "Esential",
     skillLevel: "2",
     skillName: "Detective",
@@ -38,6 +54,7 @@ const dummyData: ClipboardTableRowProps[] = [
     id: "detective",
   },
   {
+    title: "Assessment",
     question: "My Second Question is who?",
     criteriaType: "Essential",
     skillLevel: "4",
@@ -46,6 +63,8 @@ const dummyData: ClipboardTableRowProps[] = [
     id: "ninja",
   },
   {
+    title: "Assessment",
+    question: "My First Question is why?",
     criteriaType: "Asset",
     skillLevel: "3",
     skillName: "Monk",
@@ -53,6 +72,7 @@ const dummyData: ClipboardTableRowProps[] = [
     id: "monk",
   },
   {
+    title: "Assessment",
     question: "My Third Question is how long?",
     criteriaType: "Essential",
     skillLevel: "4",
@@ -65,8 +85,8 @@ const dummyData: ClipboardTableRowProps[] = [
 
 export interface ClipboardTableRowProps {
   id: string;
-  title?: string;
-  question?: string | null;
+  title: string;
+  question: string | null;
   skillLevel: string;
   criteriaType: string;
   skillName: string;
@@ -80,7 +100,7 @@ export const clipboardData = (
   ratingGuideQuestions: RatingGuideQuestion[],
   ratingGuideAnswers: RatingGuideAnswer[],
   locale: string,
-  formatMessage: (message: FormattedMessage.MessageDescriptor) => string
+  formatMessage: (message: FormattedMessage.MessageDescriptor) => string,
 ): ClipboardTableRowProps[] => {
   const data = criteria.map(
     (criterion): ClipboardTableRowProps => {
@@ -88,28 +108,74 @@ export const clipboardData = (
       if (skill === undefined) {
         throw new Error(`Skill with id ${criterion.skill_id} not found.`);
       }
-      const answer = ratingGuideAnswers.find(answer => criterion.id === answer.criterion_id);
+      const answer = ratingGuideAnswers.find(
+        answer => criterion.id === answer.criterion_id,
+      );
       if (answer === undefined) {
-        throw new Error(`RatingGuideAnswer associated with criterion ${criterion.id} not found.`);
+        throw new Error(
+          `RatingGuideAnswer associated with criterion ${
+            criterion.id
+          } not found.`,
+        );
       }
-      const question = ratingGuideQuestions.find(question => question.id === answer.rating_guide_question_id);
+      const question = ratingGuideQuestions.find(
+        question => question.id === answer.rating_guide_question_id,
+      );
       if (question === undefined) {
-        throw new Error(`RatingGuideQuestion ${answer.rating_guide_question_id} not found.`);
+        throw new Error(
+          `RatingGuideQuestion ${answer.rating_guide_question_id} not found.`,
+        );
       }
-      const assessment = assessments.find(assessment => criterion.id === assessment.criterion_id);
+      const assessment = assessments.find(
+        assessment => criterion.id === assessment.criterion_id,
+      );
       if (assessment === undefined) {
-        throw new Error(`Assessment associated with criterion ${criterion.id} not found.`);
+        throw new Error(
+          `Assessment associated with criterion ${criterion.id} not found.`,
+        );
       }
       return {
-      title: formatMessage(assessmentType(assessment.assessment_type_id)),
-      question: question.question,
-      skillLevel: formatMessage(skillLevelName(criterion.skill_level_id, skill.skill_type_id)),
-      criteriaType: formatMessage(criteriaType(criterion.criteria_type_id)),
-      skillName: skill[locale].name,
-      modelAnswer: answer.expected_answer,
-      id: `A${assessment.id}-Q${question.id}-T${criterion.criteria_type_id}-C${criterion.id}`,
-    }},
+        title: formatMessage(assessmentType(assessment.assessment_type_id)),
+        question: question.question,
+        skillLevel: formatMessage(
+          skillLevelName(criterion.skill_level_id, skill.skill_type_id),
+        ),
+        criteriaType: formatMessage(criteriaType(criterion.criteria_type_id)),
+        skillName: skill[locale].name,
+        modelAnswer: answer.expected_answer,
+        id: `A${assessment.id}-Q${question.id}-T${
+          criterion.criteria_type_id
+        }-C${criterion.id}`,
+      };
+    },
   );
+  const compareRowProps = (
+    a: ClipboardTableRowProps,
+    b: ClipboardTableRowProps,
+  ): number => {
+    let num: number = 0;
+    if (a.title > b.title) {
+      num = 1;
+    } else if (a.title < b.title) {
+      num = -1;
+    } else {
+      if (a.question === null || b.question === null) {
+        num = 0;
+      } else if (a.question > b.question) {
+        num = 1;
+      } else if (a.question < b.question) {
+        num = -1;
+      } else {
+        if (a.criteriaType > b.criteriaType) {
+          num = 1;
+        } else if (a.criteriaType < b.criteriaType) {
+          num = -1;
+        }
+      }
+    }
+    return num;
+  };
+  data.sort(compareRowProps);
   return data;
 };
 
@@ -135,12 +201,24 @@ const TableRow: React.FunctionComponent<ClipboardTableRowProps> = ({
 );
 
 interface TableProps {
-  rows: ClipboardTableRowProps[];
+  assessments: Assessment[];
+  criteria: Criteria[];
+  skills: Skill[];
+  ratingGuideQuestions: RatingGuideQuestion[];
+  ratingGuideAnswers: RatingGuideAnswer[];
 }
 
-const Table: React.FunctionComponent<TableProps> = ({
-  rows,
-}): React.ReactElement => (
+const RatingGuideClipboard: React.FunctionComponent<TableProps & InjectedIntlProps> = ({
+  assessments,
+  criteria,
+  skills,
+  ratingGuideQuestions,
+  ratingGuideAnswers,
+  intl,
+}): React.ReactElement => {
+  //const rows = clipboardData(assessments, criteria, skills, ratingGuideQuestions, ratingGuideAnswers, intl.locale, intl.formatMessage)
+  const rows = dummyData;
+  return (
   <div className="screening-plan-layout">
     <section className="plan-table">
       <table>
@@ -162,19 +240,23 @@ const Table: React.FunctionComponent<TableProps> = ({
       </table>
     </section>
   </div>
-);
+)};
 
-interface RatingsGuildeClipboardProps {
-  criteria: Criteria[];
-  assessments: Assessment[];
-  questions: RatingGuideQuestion[];
-  answers: RatingGuideAnswer[];
+interface RatingGuideClipboardContainerProps {
+  jobId: number;
 }
 
-const RatingGuideClipboard: React.FunctionComponent<
-  RatingsGuildeClipboardProps
-> = ({ criteria, assessments, questions, answers }): React.ReactElement => {
-  return <Table rows={dummyData} />;
-};
+const mapStateToProps = (state: RootState, ownProps: RatingGuideClipboardContainerProps): TableProps => ({
+  assessments: getAssessmentsByJob(state, ownProps.jobId),
+  criteria: getCriteriaByJob(state, ownProps.jobId),
+  skills: getSkills(state),
+  ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps.jobId),
+  ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps.jobId),
+});
 
-export default RatingGuideClipboard;
+const RatingGuideClipboardContainer: React.FunctionComponent<RatingGuideClipboardContainerProps> = connect(mapStateToProps)(injectIntl(RatingGuideClipboard));
+
+
+
+
+export default RatingGuideClipboardContainer;

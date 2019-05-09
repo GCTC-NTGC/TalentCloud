@@ -180,12 +180,7 @@ const RatingGuideBuilder: React.FunctionComponent<
           l10n.missing Click to Copy This Ratings Guide to Your Clipboard
         </button>
       </div>
-      <RatingGuideClipboard
-        criteria={criteria}
-        assessments={assessments}
-        questions={questions}
-        answers={answers}
-      />
+      {jobId !== null && <RatingGuideClipboard jobId={jobId} />}
     </div>
   );
 };
