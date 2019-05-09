@@ -211,7 +211,9 @@
             .form__label {
                 background: white;
                 font-size: 12px;
-                top: -1.15rem;
+                top: -0.20rem;
+                line-height: 0;
+                padding: 0.1rem 0.5rem;
                 transition: background 0s ease .1s, font-size .2s ease, top .2s ease;
             }
 
@@ -784,6 +786,7 @@
 .form__radio-group {
     margin: 0 0 calc(#{$unit} * 2);
     position: relative;
+    font-family: $font--sans;
 
     &:first-of-type {
         // margin-top: 2rem;

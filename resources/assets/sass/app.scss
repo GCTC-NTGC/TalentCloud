@@ -4,27 +4,32 @@
 
 // =============================================================================
 
-// Clone =======================================================================
+$clone-wide-layout: 100rem;
+$clone-copy-layout: 39rem;
 
-    $clone-whitespace-multiplier: 1.5;
+$clone-whitespace-multiplier: 1.25;
 
-    $clone-black: rgba(20, 20, 35, 1);
+$clone-black: rgba(20, 20, 35, 1);
 
-    $clone-c1: #5B1647;
+$clone-c1: #5B1647;
 
-    $clone-c2: #96043E;
+$clone-c2: #96043E;
 
-    $clone-c3: #C90035;
+$clone-c3: #C90035;
 
-    $clone-c4: #0A6CBC;
+$clone-c4: #0A6CBC;
 
-    $clone-c5: #0A6CBC;
+$clone-c5: #0A6CBC;
 
-    $clone-hover-colour: $clone-black;
+$clone-hover-colour: $clone-black;
 
-    $clone-focus-colour: $clone-hover-colour;
+$clone-focus-colour: $clone-hover-colour;
 
-    @import "../../../node_modules/clone-framework/app/scss/clone";
+$clone-alert--information: $clone-c1;
+
+@import "../../../node_modules/clone-framework/app/scss/clone";
+
+@import "components/common/itp";
 
 // Core Elements ===============================================================
 
@@ -85,7 +90,7 @@
 
     .container--layout {
         margin: 0 auto;
-        max-width: calc(#{$unit * 60});
+        max-width: calc(#{$unit * 65});
         width: 90%;
     }
 
@@ -121,6 +126,10 @@
         display: block;
         text-align: center;
         width: 100%;
+    }
+
+    .inline-right {
+        text-align: right;
     }
 
     .skip-to-main-content {
