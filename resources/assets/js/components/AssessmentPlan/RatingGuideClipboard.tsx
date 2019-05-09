@@ -102,21 +102,16 @@ export const clipboardData = (
   locale: string,
   formatMessage: (message: FormattedMessage.MessageDescriptor) => string,
 ): ClipboardTableRowProps[] => {
-  const data = criteria.map(
-    (criterion): ClipboardTableRowProps => {
+  ratingGuideAnswers = ratingGuideAnswers.filter(answer => answer.criterion_id !== null);
+  const data = ratingGuideAnswers.map(
+    (answer): ClipboardTableRowProps => {
+      const criterion = criteria.find(criterion => criterion.id === answer.criterion_id);
+      if (criterion === undefined){
+        throw new Error(`Criteria with id ${answer.criterion_id} not found`);
+      }
       const skill = skills.find(skill => skill.id === criterion.skill_id);
       if (skill === undefined) {
         throw new Error(`Skill with id ${criterion.skill_id} not found.`);
-      }
-      const answer = ratingGuideAnswers.find(
-        answer => criterion.id === answer.criterion_id,
-      );
-      if (answer === undefined) {
-        throw new Error(
-          `RatingGuideAnswer associated with criterion ${
-            criterion.id
-          } not found.`,
-        );
       }
       const question = ratingGuideQuestions.find(
         question => question.id === answer.rating_guide_question_id,

@@ -147,7 +147,7 @@ const someCriteria: Criteria[] = [
 const badCriteria: Criteria[] = [
   // Skill ID out of range
   {
-    id: 4,
+    id: 1,
     criteria_type_id: CriteriaTypeId.Essential,
     job_poster_id: 1,
     skill_id: 42,
@@ -307,22 +307,6 @@ describe("ClipboardData", (): void => {
     expect(defaultClipboardData[1].skillName).toEqual("English ninja");
     expect(defaultClipboardData[2].skillName).toEqual("English joker");
     expect(defaultClipboardData[3].skillName).toEqual("English jedi");
-  });
-  it("raise an error when a ratingGuideAnswer is not found from a criterion id", (): void => {
-    function badCriterionID(): void {
-      clipboardData(
-        someAssesments,
-        someCriteria,
-        someSkills,
-        someRatingGuideQuestions,
-        badRatingGuideAnswers,
-        "en",
-        formatMessage,
-      );
-    }
-    expect(badCriterionID).toThrow(
-      "RatingGuideAnswer associated with criterion 1 not found.",
-    );
   });
   it("returns the associated answer description for each criteria", (): void => {
     expect(defaultClipboardData[0].modelAnswer).toEqual(
