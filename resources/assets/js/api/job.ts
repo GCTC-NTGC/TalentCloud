@@ -25,7 +25,7 @@ const parseCriterion = (data: ResponseData): Criteria => ({
   skill: parseSkill(data.skill),
 });
 
-const parseResponse = ({
+export const parseJobResponse = ({
   data,
 }: ApiResponse): { job: Job; criteria: Criteria[] } => {
   const job = {
@@ -45,14 +45,16 @@ const parseResponse = ({
   };
 };
 
+export const getJobEndpoint = (id: number): string => `${baseUrl()}/jobs/${id}`;
+
 export const getJob = (
   id: number,
 ): Promise<{ job: Job; criteria: Criteria[] }> => {
   return axios
-    .get(`${baseUrl()}/jobs/${id}`)
+    .get(getJobEndpoint(id))
     .then(
       (jobResponse: ApiResponse): { job: Job; criteria: Criteria[] } =>
-        parseResponse(jobResponse),
+        parseJobResponse(jobResponse),
     );
 };
 

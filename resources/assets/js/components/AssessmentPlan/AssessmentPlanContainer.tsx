@@ -57,8 +57,7 @@ const mapDispatchToProps = (
 } =>
   bindActionCreators(
     {
-      dispatchFetchJob: (): ThunkAction<void, RootState, {}, AnyAction> =>
-        fetchJob(ownProps.jobId),
+      dispatchFetchJob: () => fetchJob(ownProps.jobId),
       dispatchFetchAssessmentPlan: (): ThunkAction<
         void,
         RootState,

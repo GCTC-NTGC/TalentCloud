@@ -1,113 +1,111 @@
+import { combineReducers } from "redux";
 import { Job, Criteria } from "../../models/types";
-import {
+import jobActions, {
   JobAction,
   FETCH_JOB_STARTED,
-  FetchJobStartedAction,
   FETCH_JOB_SUCCEEDED,
   FETCH_JOB_FAILED,
-  FetchJobSucceededAction,
-  FetchJobFailedAction,
 } from "./jobActions";
+import { mapToObject, getId } from "../../helpers/queries";
 
-export interface JobState {
+export interface EntityState {
   jobs: {
-    [id: number]: Job;
-  };
-  jobUpdating: {
-    [id: number]: boolean;
+    byId: {
+      [id: number]: Job;
+    };
   };
   criteria: {
-    [id: number]: Criteria;
+    byId: {
+      [id: number]: Criteria;
+    };
+  };
+}
+
+export interface UiState {
+  jobUpdating: {
+    [id: number]: boolean;
   };
   criteriaUpdating: {
     [id: number]: boolean;
   };
 }
 
-export const initState = (): JobState => ({
-  jobs: {},
+export interface JobState {
+  entities: EntityState;
+  ui: UiState;
+}
+
+export const initEntities = (): EntityState => ({
+  jobs: { byId: {} },
+  criteria: { byId: {} },
+});
+
+export const initUi = (): UiState => ({
   jobUpdating: {},
-  criteria: {},
   criteriaUpdating: {},
 });
 
-/**
- * Set jobUpdating to true for the specified job
- * @param state
- * @param action
- */
-export const fetchStarted = (
-  state: JobState,
-  action: FetchJobStartedAction,
-): JobState => {
-  const id = action.payload;
-  return {
-    ...state,
-    jobUpdating: {
-      [id]: true,
-    },
-  };
-};
+export const initState = (): JobState => ({
+  entities: initEntities(),
+  ui: initUi(),
+});
 
-/** Set jobUpdating to false and replace the job in store */
-export const fetchSucceeded = (
-  state: JobState,
-  action: FetchJobSucceededAction,
-): JobState => {
-  const { id, job, criteria } = action.payload;
-  const newCriteria: { [id: number]: Criteria } = criteria.reduce((map, obj): {
-    [id: number]: Criteria;
-  } => {
-    // eslint-disable-next-line no-param-reassign
-    map[obj.id] = obj;
-    return map;
-  }, {});
-  return {
-    ...state,
-    jobs: {
-      ...state.jobs,
-      [id]: job,
-    },
-    jobUpdating: {
-      ...state.jobUpdating,
-      [id]: false,
-    },
-    criteria: {
-      ...state.criteria,
-      ...newCriteria,
-    },
-  };
-};
-
-/** Set jobUpdating to false for specified job */
-export const fetchFailed = (
-  state: JobState,
-  action: FetchJobFailedAction,
-): JobState => {
-  // TODO: do something with the error in the payload
-  const { id } = action.payload;
-  return {
-    ...state,
-    jobUpdating: {
-      [id]: false,
-    },
-  };
-};
-
-export const jobsReducer = (
-  state = initState(),
+export const entitiesReducer = (
+  state = initEntities(),
   action: JobAction,
-): JobState => {
+): EntityState => {
   switch (action.type) {
-    case FETCH_JOB_STARTED:
-      return fetchStarted(state, action);
     case FETCH_JOB_SUCCEEDED:
-      return fetchSucceeded(state, action);
-    case FETCH_JOB_FAILED:
-      return fetchFailed(state, action);
+      return {
+        jobs: {
+          byId: {
+            ...state.jobs.byId,
+            [action.payload.job.id]: action.payload.job,
+          },
+        },
+        criteria: {
+          byId: {
+            ...state.criteria.byId,
+            ...mapToObject(action.payload.criteria, getId),
+          },
+        },
+      };
     default:
       return state;
   }
 };
+
+export const uiReducer = (state = initUi(), action: JobAction): UiState => {
+  switch (action.type) {
+    case FETCH_JOB_STARTED:
+      return {
+        ...state,
+        jobUpdating: {
+          [action.meta.id]: true,
+        },
+      };
+    case FETCH_JOB_SUCCEEDED:
+      return {
+        ...state,
+        jobUpdating: {
+          [action.meta.id]: false,
+        },
+      };
+    case FETCH_JOB_FAILED:
+      return {
+        ...state,
+        jobUpdating: {
+          [action.meta.id]: false,
+        },
+      };
+    default:
+      return state;
+  }
+};
+
+export const jobsReducer = combineReducers({
+  entities: entitiesReducer,
+  ui: uiReducer,
+});
 
 export default jobsReducer;
