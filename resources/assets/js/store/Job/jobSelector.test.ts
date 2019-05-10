@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { getJob, getCriteria } from "./jobSelector";
 import { RootState, initState } from "../store";
-import { JobState, initState as initJobs, initEntities } from "./jobReducer";
+import { initState as initJobs, initEntities } from "./jobReducer";
 import { Job, Criteria } from "../../models/types";
 
 describe("getJob", (): void => {

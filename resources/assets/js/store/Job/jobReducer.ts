@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { Job, Criteria } from "../../models/types";
-import jobActions, {
+import {
   JobAction,
   FETCH_JOB_STARTED,
   FETCH_JOB_SUCCEEDED,

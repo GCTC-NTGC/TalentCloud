@@ -12,22 +12,15 @@ export const STARTED = "STARTED";
 export const SUCCEEDED = "SUCCEEDED";
 export const FAILED = "FAILED";
 
-// TODO: is this the best way to get this?
-const csrfElement = document.head.querySelector('meta[name="csrf-token"]');
-const csrfToken: string =
-  csrfElement && csrfElement.textContent ? csrfElement.textContent : "";
-
 export interface StartedAction<T extends string, M> {
   type: T;
   meta: M;
-  error: false;
 }
 
 export interface SucceededAction<T extends string, P, M> {
   type: T;
   payload: P;
   meta: M;
-  error: false;
 }
 
 export interface FailedAction<T extends string, M> {
@@ -77,6 +70,11 @@ export type RSAActionTemplate<
   SucceededActionCreator<S, P, M>,
   FailedActionCreator<F, M>
 >;
+
+// TODO: is this the best way to get this?
+const csrfElement = document.head.querySelector('meta[name="csrf-token"]');
+const csrfToken: string =
+  csrfElement && csrfElement.textContent ? csrfElement.textContent : "";
 
 export const asyncAction = <
   R extends string,

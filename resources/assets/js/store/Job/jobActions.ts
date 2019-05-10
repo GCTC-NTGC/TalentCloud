@@ -1,4 +1,3 @@
-import { Action } from "../createAction";
 import { getJobEndpoint, parseJobResponse } from "../../api/job";
 import { Job, Criteria } from "../../models/types";
 import asyncAction, {
