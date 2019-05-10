@@ -101,19 +101,19 @@ export const clipboardData = (
   ratingGuideAnswers = ratingGuideAnswers.filter(
     answer => answer.criterion_id !== null,
   );
-  // ratingGuideAnswers = ratingGuideAnswers.filter(answer => {
-  //   const question = ratingGuideQuestions.find(
-  //     question => question.id === answer.rating_guide_question_id,
-  //   );
-  //   return (
-  //     question !== undefined &&
-  //     assessments.find(
-  //       assessment =>
-  //         assessment.criterion_id === answer.criterion_id &&
-  //         question.assessment_type_id === assessment.assessment_type_id,
-  //     ) !== undefined
-  //   );
-  // });
+  ratingGuideAnswers = ratingGuideAnswers.filter(answer => {
+    const question = ratingGuideQuestions.find(
+      question => question.id === answer.rating_guide_question_id,
+    );
+    return (
+      question !== undefined &&
+      assessments.find(
+        assessment =>
+          assessment.criterion_id === answer.criterion_id &&
+          question.assessment_type_id === assessment.assessment_type_id,
+      ) !== undefined
+    );
+  });
   const data = ratingGuideAnswers.map(
     (answer): ClipboardTableRowProps => {
       const criterion = criteria.find(
@@ -167,9 +167,9 @@ export const clipboardData = (
         num = -1;
       } else {
         if (a.criteriaType > b.criteriaType) {
-          num = 1;
+          num = -1; // Essential should be listed before Asset
         } else if (a.criteriaType < b.criteriaType) {
-          num = -1;
+          num = 1;
         }
       }
     }
@@ -178,6 +178,27 @@ export const clipboardData = (
   data.sort(compareRowProps);
   return data;
 };
+
+const cloneAndCleanTableRowProps = (data: ClipboardTableRowProps[]): ClipboardTableRowProps[] => {
+  const cleanedData: ClipboardTableRowProps[] = JSON.parse(JSON.stringify(data))
+  // const lastIndex: number = data.length - 1;
+  // for (let i: number = 0; i <= lastIndex; i++) {
+  //   let row = data[i]
+  //   if (i > 0) {
+  //     let lastRow = data[i - 1]
+  //     if {}
+  //   }
+  // }
+  const lastIndex: number = cleanedData.length - 1; // Takes out duplicate titles and questions
+  for (let i: number = lastIndex; i >= 0; --i) {
+    let j: number = i + 1;
+    if (j <= lastIndex && cleanedData[j] !== undefined) {
+      if (cleanedData[i].title === cleanedData[j].title) {cleanedData[j].title = "";}
+      if (cleanedData[i].question === cleanedData[j].question) {cleanedData[j].question = "";}
+    }
+  }
+  return cleanedData;
+}
 
 const TableRow: React.FunctionComponent<ClipboardTableRowProps> = ({
   title,
@@ -218,7 +239,7 @@ const RatingGuideClipboard: React.FunctionComponent<
   ratingGuideAnswers,
   intl,
 }): React.ReactElement => {
-  const rows = clipboardData(assessments, criteria, skills, ratingGuideQuestions, ratingGuideAnswers, intl.locale, intl.formatMessage)
+  const rows = cloneAndCleanTableRowProps(clipboardData(assessments, criteria, skills, ratingGuideQuestions, ratingGuideAnswers, intl.locale, intl.formatMessage))
   //const rows = dummyData;
   return (
     <div className="screening-plan-layout">
