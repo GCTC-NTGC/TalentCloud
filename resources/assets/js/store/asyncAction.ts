@@ -5,8 +5,9 @@ import {
   RequestError,
   ApiError,
   InternalError,
+  getJSON,
 } from "redux-api-middleware"; // RSAA = '@@redux-api-middleware/RSAA'
-import { ApiResponse } from "../api/base";
+import { ResponseData } from "../api/base";
 
 export const STARTED = "STARTED";
 export const SUCCEEDED = "SUCCEEDED";
@@ -48,7 +49,7 @@ interface StartedActionCreator<T extends string, M> {
 /** Internal definition, that doesn't quite represent final dispatched actions */
 interface SucceededActionCreator<T extends string, P, M> {
   type: T;
-  payload: (action, state, res) => P;
+  payload: (action, state, res) => PromiseLike<P>;
   meta: M;
 }
 
@@ -88,7 +89,7 @@ export const asyncAction = <
   startedType: R,
   succeededType: S,
   failedType: F,
-  parseResponse: (response: ApiResponse) => P,
+  parseResponse: (response: ResponseData) => P,
   metaData: M,
 ): RSAActionTemplate<R, S, F, P, M> => {
   return {
@@ -103,7 +104,8 @@ export const asyncAction = <
         },
         {
           type: succeededType,
-          payload: (action, state, res): P => parseResponse(res),
+          payload: (action, state, res: Response): PromiseLike<P> =>
+            getJSON(res).then(parseResponse),
           meta: metaData,
         },
         {

@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import axios from "axios";
 import { Job, JobTranslation, Criteria } from "../models/types";
-import { baseUrl, ApiResponse, ResponseData } from "./base";
+import { baseUrl, parseDate } from "./base";
 import { parseSkill } from "./skill";
 
-const parseJobTranslation = (data: ResponseData): JobTranslation => ({
+const parseJobTranslation = (data: any): JobTranslation => ({
   city: data.city,
   title: data.title,
   impact: data.impact,
@@ -13,7 +12,7 @@ const parseJobTranslation = (data: ResponseData): JobTranslation => ({
   education: data.education,
 });
 
-const parseCriterion = (data: ResponseData): Criteria => ({
+const parseCriterion = (data: any): Criteria => ({
   id: Number(data.id),
   criteria_type_id: Number(data.criteria_type_id),
   job_poster_id: Number(data.job_poster_id),
@@ -25,16 +24,17 @@ const parseCriterion = (data: ResponseData): Criteria => ({
   skill: parseSkill(data.skill),
 });
 
-export const parseJobResponse = ({
-  data,
-}: ApiResponse): { job: Job; criteria: Criteria[] } => {
+export const parseJobResponse = (
+  data: any,
+): { job: Job; criteria: Criteria[] } => {
   const job = {
     id: Number(data.id),
     title: data.title,
     classification: data.classification,
-    close_date_time: new Date(data.close_date_time),
+    close_date_time: parseDate(data.close_date_time),
     en: parseJobTranslation(data.en),
     fr: parseJobTranslation(data.fr),
+    test: String(data.kjahsdkfjh),
   };
   const criteria = data.criteria.map(
     (critData: any): Criteria => parseCriterion(critData),
@@ -46,16 +46,3 @@ export const parseJobResponse = ({
 };
 
 export const getJobEndpoint = (id: number): string => `${baseUrl()}/jobs/${id}`;
-
-export const getJob = (
-  id: number,
-): Promise<{ job: Job; criteria: Criteria[] }> => {
-  return axios
-    .get(getJobEndpoint(id))
-    .then(
-      (jobResponse: ApiResponse): { job: Job; criteria: Criteria[] } =>
-        parseJobResponse(jobResponse),
-    );
-};
-
-export default { getJob };

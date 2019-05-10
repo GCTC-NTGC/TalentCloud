@@ -125,7 +125,7 @@ declare module "redux-api-middleware" {
   /**
    * Extract JSON body from a server response
    */
-  export function getJSON(res: Response): PromiseLike<any> | undefined;
+  export function getJSON(res: Response): PromiseLike<any>;
 
   export type RSAActionTypeTuple = [
     string | symbol,
