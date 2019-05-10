@@ -7,7 +7,6 @@ import {
   InternalError,
   getJSON,
 } from "redux-api-middleware"; // RSAA = '@@redux-api-middleware/RSAA'
-import { ResponseData } from "../api/base";
 
 export const STARTED = "STARTED";
 export const SUCCEEDED = "SUCCEEDED";
@@ -89,7 +88,7 @@ export const asyncAction = <
   startedType: R,
   succeededType: S,
   failedType: F,
-  parseResponse: (response: ResponseData) => P,
+  parseResponse: (response: any) => P,
   metaData: M,
 ): RSAActionTemplate<R, S, F, P, M> => {
   return {
