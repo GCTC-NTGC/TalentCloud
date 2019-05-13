@@ -1,5 +1,6 @@
 import React from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import { connect } from "react-redux";
 import { RootState } from "../../store/store";
 import {
   Criteria,
@@ -18,66 +19,7 @@ import { getCriteriaByJob } from "../../store/Job/jobSelector";
 import { getSkills } from "../../store/Skill/skillSelector";
 import { getRatingGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
 import { getRatingGuideAnswersByJob } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
-import { connect } from "react-redux";
-
-const dummyData: ClipboardTableRowProps[] = [
-  {
-    title: "Assessment",
-    question: "My First Question is why?",
-    skillLevel: "3",
-    criteriaType: "Essential",
-    skillName: "Hacking",
-    modelAnswer: "Hack the Planet",
-    id: "hacker",
-  },
-  {
-    title: "Assessment",
-    question: "My First Question is why?",
-    criteriaType: "Asset",
-    skillLevel: "1",
-    skillName: "Jedi",
-    modelAnswer:
-      "Strike me down and I will become more powerful than you can imagine.",
-    id: "jedi",
-  },
-  {
-    title: "Assessment",
-    question: "My First Question is why?",
-    criteriaType: "Esential",
-    skillLevel: "2",
-    skillName: "Detective",
-    modelAnswer: "I'll ask the questions here.",
-    id: "detective",
-  },
-  {
-    title: "Assessment",
-    question: "My Second Question is who?",
-    criteriaType: "Essential",
-    skillLevel: "4",
-    skillName: "Ninja",
-    modelAnswer: "*Silence*",
-    id: "ninja",
-  },
-  {
-    title: "Assessment",
-    question: "My First Question is why?",
-    criteriaType: "Asset",
-    skillLevel: "3",
-    skillName: "Monk",
-    modelAnswer: "Quickly as you can, snatch the pebble from my hand.",
-    id: "monk",
-  },
-  {
-    title: "Assessment",
-    question: "My Third Question is how long?",
-    criteriaType: "Essential",
-    skillLevel: "4",
-    skillName: "Jester",
-    modelAnswer:
-      "A bear there was, a bear, a bear! All black and brown, and covered with hair. The bear! The bear!",
-    id: "jester",
-  },
-];
+import { copyElementContents } from "../../helpers/clipboard";
 
 export interface ClipboardTableRowProps {
   id: string;
@@ -179,8 +121,12 @@ export const clipboardData = (
   return data;
 };
 
-const cloneAndCleanTableRowProps = (data: ClipboardTableRowProps[]): ClipboardTableRowProps[] => {
-  const cleanedData: ClipboardTableRowProps[] = JSON.parse(JSON.stringify(data))
+const cloneAndCleanTableRowProps = (
+  data: ClipboardTableRowProps[],
+): ClipboardTableRowProps[] => {
+  const cleanedData: ClipboardTableRowProps[] = JSON.parse(
+    JSON.stringify(data),
+  );
   // const lastIndex: number = data.length - 1;
   // for (let i: number = 0; i <= lastIndex; i++) {
   //   let row = data[i]
@@ -193,12 +139,16 @@ const cloneAndCleanTableRowProps = (data: ClipboardTableRowProps[]): ClipboardTa
   for (let i: number = lastIndex; i >= 0; --i) {
     let j: number = i + 1;
     if (j <= lastIndex && cleanedData[j] !== undefined) {
-      if (cleanedData[i].title === cleanedData[j].title) {cleanedData[j].title = "";}
-      if (cleanedData[i].question === cleanedData[j].question) {cleanedData[j].question = "";}
+      if (cleanedData[i].title === cleanedData[j].title) {
+        cleanedData[j].title = "";
+      }
+      if (cleanedData[i].question === cleanedData[j].question) {
+        cleanedData[j].question = "";
+      }
     }
   }
   return cleanedData;
-}
+};
 
 const TableRow: React.FunctionComponent<ClipboardTableRowProps> = ({
   title,
@@ -239,29 +189,59 @@ const RatingGuideClipboard: React.FunctionComponent<
   ratingGuideAnswers,
   intl,
 }): React.ReactElement => {
-  const rows = cloneAndCleanTableRowProps(clipboardData(assessments, criteria, skills, ratingGuideQuestions, ratingGuideAnswers, intl.locale, intl.formatMessage))
-  //const rows = dummyData;
+  const rows = cloneAndCleanTableRowProps(
+    clipboardData(
+      assessments,
+      criteria,
+      skills,
+      ratingGuideQuestions,
+      ratingGuideAnswers,
+      intl.locale,
+      intl.formatMessage,
+    ),
+  );
+  const tableRef = React.createRef<HTMLTableElement>();
   return (
-    <div className="screening-plan-layout">
-      <section className="plan-table">
-        <table>
-          <tr>
-            <th>Title</th>
-            <th>Question</th>
-            <th>Criteria Type</th>
-            <th>Target Level</th>
-            <th>Skill</th>
-            <th>Rating Guide</th>
-            <th>Applicant Answer</th>
-            <th>Score</th>
-          </tr>
-          {rows.map(
-            (row): React.ReactElement => (
-              <TableRow key={`RatingsGuideTableRow${row.id}`} {...row} />
-            ),
-          )}
-        </table>
-      </section>
+    <div data-c-alignment="center">
+      <button
+        data-c-button="solid(c5)"
+        type="button"
+        onClick={(): void => {
+          if (tableRef.current !== null) {
+            copyElementContents(tableRef.current);
+          }
+        }}
+      >
+        <FormattedMessage
+          id="ratingGuideBuilder.copyButton"
+          defaultMessage="Click to Copy This Ratings Guide to Your Clipboard"
+          description="Text for the 'copy ratings guide' button."
+        />
+      </button>
+
+      <div className="screening-plan-layout">
+        <section className="plan-table">
+          <table ref={tableRef}>
+            <tr>
+              <th>Title</th>
+              <th>Question</th>
+              <th>Criteria Type</th>
+              <th>Target Level</th>
+              <th>Skill</th>
+              <th>Rating Guide</th>
+              <th>Applicant Answer</th>
+              <th>Score</th>
+            </tr>
+            <tbody>
+              {rows.map(
+                (row): React.ReactElement => (
+                  <TableRow key={`RatingsGuideTableRow${row.id}`} {...row} />
+                ),
+              )}
+            </tbody>
+          </table>
+        </section>
+      </div>
     </div>
   );
 };

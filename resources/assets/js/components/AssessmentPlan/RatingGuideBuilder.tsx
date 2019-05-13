@@ -205,15 +205,7 @@ const RatingGuideBuilder: React.FunctionComponent<
           description="Instructions for copying your rating guide."
         />
       </p>
-      <div data-c-alignment="center">
-        <button data-c-button="solid(c5)" type="button">
-          <FormattedMessage
-            id="ratingGuideBuilder.copyButton"
-            defaultMessage="Click to Copy This Ratings Guide to Your Clipboard"
-            description="Text for the 'copy ratings guide' button."
-          />
-        </button>
-      </div>
+
       {jobId !== null && <RatingGuideClipboard jobId={jobId} />}
     </div>
   );
