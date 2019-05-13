@@ -2,11 +2,13 @@
 .word-counter {
   display: flex;
   align-items: center;
+  margin-top: 1rem;
 
   span {
     font-family: $font--sans;
     font-size: $font-scale--regular;
     font-weight: 700;
+    margin-left: 0.5rem;
   }
 }
 

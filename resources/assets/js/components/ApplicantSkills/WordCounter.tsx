@@ -41,7 +41,7 @@ class WordCounter extends React.Component<WordCounterProps, WordCounterState> {
     if (element !== null) {
       element.addEventListener('input', e => {
         const target = e.target as HTMLInputElement;
-        const totalWords = this.getNumberOfWords(target.value) - 1;
+        const totalWords = this.getNumberOfWords(target.value);
         // update total words state
         this.updateTotalWords(totalWords);
         // update the color
@@ -52,7 +52,7 @@ class WordCounter extends React.Component<WordCounterProps, WordCounterState> {
 
   // This method takes a string and returns the total number of words.
   protected getNumberOfWords(innerText: string): number {
-    return innerText.replace(/[ ]{2,}/gi, ' ').split(' ').length;
+    return innerText.replace(/[ ]{2,}/gi, ' ').split(' ').length - 1;
   }
 
   // update the totalWord count
@@ -114,7 +114,7 @@ class WordCounter extends React.Component<WordCounterProps, WordCounterState> {
           strokeColor={strokeColor}
           max={maxWords}
         />
-        <span>{message}</span>
+        <span>{totalWords > 0 && message}</span>
       </div>
     );
   }

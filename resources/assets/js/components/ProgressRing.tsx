@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface ProgressRingProps {
   radius: number;
@@ -24,7 +24,7 @@ class ProgressRing extends React.Component<
 
     this.state = {
       normalizedRadius: radius - stroke * 2,
-      circumference: (radius - stroke * 2) * (2 * Math.PI)
+      circumference: (radius - stroke * 2) * (2 * Math.PI),
     };
   }
 
@@ -33,7 +33,6 @@ class ProgressRing extends React.Component<
     const { normalizedRadius, circumference } = this.state;
 
     let strokeDashoffset = circumference - (progress / max) * circumference;
-    console.log(strokeDashoffset);
     if (strokeDashoffset < 0) {
       strokeDashoffset = 0;
     }
@@ -44,7 +43,7 @@ class ProgressRing extends React.Component<
           stroke={strokeColor}
           fill="transparent"
           strokeWidth={stroke}
-          strokeDasharray={circumference + " " + circumference}
+          strokeDasharray={`${circumference} ${circumference}`}
           style={{ strokeDashoffset }}
           r={normalizedRadius}
           cx={radius}
