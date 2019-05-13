@@ -191,7 +191,6 @@ const RatingGuideBuilder: React.FunctionComponent<
               assessmentTypeId={assessmentTypeId}
               jobId={jobId}
               requiredCriteria={requiredCriteria}
-              ratingGuideAnswers={answers}
             />
           );
         },

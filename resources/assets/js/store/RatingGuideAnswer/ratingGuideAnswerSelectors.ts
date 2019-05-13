@@ -1,8 +1,15 @@
 import isEqual from "lodash/isEqual";
 import { RootState } from "../store";
 import { RatingGuideAnswerState } from "./ratingGuideAnswerReducer";
-import { RatingGuideAnswer, TempRatingGuideAnswer } from "../../models/types";
-import { getRatingGuideQuestionsByJob } from "../RatingGuideQuestion/ratingGuideQuestionSelectors";
+import {
+  RatingGuideAnswer,
+  TempRatingGuideAnswer,
+  RatingGuideQuestion,
+} from "../../models/types";
+import {
+  getRatingGuideQuestionsByJob,
+  getRatingGuideQuestionsByAssessment,
+} from "../RatingGuideQuestion/ratingGuideQuestionSelectors";
 import { getId, hasKey } from "../../helpers/queries";
 
 const stateSlice = (state: RootState): RatingGuideAnswerState =>
@@ -63,6 +70,26 @@ export const getRatingGuideAnswersByQuestion = (
     (answer): boolean =>
       answer.rating_guide_question_id === ratingGuideQuestionId,
   );
+};
+
+export const getRatingGuideAnswersByAssessment = (
+  state: RootState,
+  assessmentTypeId: number,
+): RatingGuideAnswer[] => {
+  const availableAnswers = [] as RatingGuideAnswer[];
+  const ratingGuideQuestions = getRatingGuideQuestionsByAssessment(
+    state,
+    assessmentTypeId,
+  );
+  ratingGuideQuestions.map(
+    // eslint-disable-next-line array-callback-return
+    (question: RatingGuideQuestion): void => {
+      availableAnswers.push(
+        ...getRatingGuideAnswersByQuestion(state, question.id),
+      );
+    },
+  );
+  return availableAnswers;
 };
 
 export const getTempRatingGuideAnswersByQuestion = (

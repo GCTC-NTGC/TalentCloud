@@ -26,7 +26,10 @@ import {
   getTempRatingGuideQuestionsByAssessment,
 } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
 import { createTempRatingGuideAnswer } from "../../store/RatingGuideAnswer/ratingGuideAnswerActions";
-import { getTempRatingGuideAnswers } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
+import {
+  getTempRatingGuideAnswers,
+  getRatingGuideAnswersByAssessment,
+} from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
 
 interface RatingGuideAssessmentProps {
   /** Display index of this ratings guide assessment compared to others on the page */
@@ -305,7 +308,6 @@ interface RatingGuideAssessmentContainerProps {
   assessmentTypeId: number;
   jobId: number | null;
   requiredCriteria: Criteria[];
-  ratingGuideAnswers: RatingGuideAnswer[];
 }
 
 const mapStateToProps = (
@@ -341,7 +343,10 @@ const mapStateToProps = (
   ),
   tempRatingGuideAnswers: getTempRatingGuideAnswers(state),
   requiredCriteria: ownProps.requiredCriteria,
-  ratingGuideAnswers: ownProps.ratingGuideAnswers,
+  ratingGuideAnswers: getRatingGuideAnswersByAssessment(
+    state,
+    ownProps.assessmentTypeId,
+  ),
 });
 
 const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
