@@ -3,12 +3,14 @@ import {
   skillLevelName,
   skillLevelDescription,
   assessmentType,
+  criteriaType,
 } from "./localizedConstants";
 import {
+  AssessmentTypeId,
+  CriteriaTypeId,
   SkillLevelId,
   SkillTypeId,
   enumToIds,
-  AssessmentTypeId,
 } from "./lookupConstants";
 
 test("enumToIds works", (): void => {
@@ -230,3 +232,29 @@ describe("assessmentType", (): void => {
     );
   });
 });
+
+describe("criteriaType", (): void => {
+  it("returns a truthy object", (): void => {
+    expect(criteriaType(CriteriaTypeId.Asset)).toBeTruthy();
+  });
+
+  it("raise an error when Assessment Type value is not part of enum", (): void => {
+    function badCriteriaType(): void {
+      criteriaType(42);
+    }
+    expect(badCriteriaType).toThrow("invalid CriteriaTypeValue");
+  });
+
+  it("returns an asset localization", (): void => {
+    expect(criteriaType(CriteriaTypeId.Asset).id).toEqual(
+      "criteriaType.asset",
+    );
+  });
+
+  it("returns an essential localization", (): void => {
+    expect(criteriaType(CriteriaTypeId.Essential).id).toEqual(
+      "criteriaType.essential",
+    );
+  });
+});
+
