@@ -34,7 +34,6 @@ export const parseJobResponse = (
     close_date_time: parseDate(data.close_date_time),
     en: parseJobTranslation(data.en),
     fr: parseJobTranslation(data.fr),
-    test: String(data.kjahsdkfjh),
   };
   const criteria = data.criteria.map(
     (critData: any): Criteria => parseCriterion(critData),
