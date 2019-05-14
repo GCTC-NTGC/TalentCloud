@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use App\Models\JobPoster;
+use App\Models\User;
 
 class JobApiControllerTest extends TestCase
 {
@@ -102,6 +103,16 @@ class JobApiControllerTest extends TestCase
         $translations = $newJob->getTranslationsArray();
         $this->assertEquals($jobUpdate['en'], $translations['en']);
         $this->assertEquals($jobUpdate['fr'], $translations['fr']);
+    }
+
+    public function testUpdateAsWrongManager()
+    {
+        $job = factory(JobPoster::class)->create();
+        $otherManager = factory(User::class)->state('manager')->create();
+        $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
+        $response = $this->actingAs($otherManager)
+            ->put("api/jobs/$job->id", $jobUpdate);
+        $response->assertForbidden();
     }
 
 }
