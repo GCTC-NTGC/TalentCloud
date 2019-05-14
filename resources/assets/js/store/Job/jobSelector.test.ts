@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { getJob, getCriteria } from "./jobSelector";
 import { RootState, initState } from "../store";
-import { JobState, initState as initJobs } from "./jobReducer";
+import { initState as initJobs, initEntities } from "./jobReducer";
 import { Job, Criteria } from "../../models/types";
 
 describe("getJob", (): void => {
@@ -35,8 +35,14 @@ describe("getJob", (): void => {
       ...initState(),
       jobs: {
         ...initJobs(),
-        jobs: { 12: job },
-        jobUpdating: {},
+        entities: {
+          ...initEntities(),
+          jobs: {
+            byId: {
+              12: job,
+            },
+          },
+        },
       },
     };
     expect(getJob(state, 12)).toEqual(job);
@@ -82,10 +88,15 @@ describe("getCriteria", (): void => {
       ...initState(),
       jobs: {
         ...initJobs(),
-        criteria: {
-          1: crit1,
-          2: crit2,
-          3: crit3,
+        entities: {
+          ...initEntities(),
+          criteria: {
+            byId: {
+              1: crit1,
+              2: crit2,
+              3: crit3,
+            },
+          },
         },
       },
     };

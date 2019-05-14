@@ -1,76 +1,119 @@
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { AnyAction } from "redux";
+import {
+  RSAA,
+  RSAAction,
+  HTTPVerb,
+  RequestError,
+  ApiError,
+  InternalError,
+  getJSON,
+} from "redux-api-middleware"; // RSAA = '@@redux-api-middleware/RSAA'
 
-export type AsyncActionStatus =
-  | "UNSTARTED"
-  | "STARTED"
-  | "SUCCEEDED"
-  | "FAILED";
+export const STARTED = "STARTED";
+export const SUCCEEDED = "SUCCEEDED";
+export const FAILED = "FAILED";
 
-interface StartedAsyncAction<T> {
+export interface StartedAction<T extends string, M> {
   type: T;
-  status: "STARTED";
+  meta: M;
 }
 
-interface SucceededAsyncAction<T, P> {
+export interface SucceededAction<T extends string, P, M> {
   type: T;
-  status: "SUCCEEDED";
   payload: P;
+  meta: M;
 }
 
-interface FailedAsyncAction<T> {
+export interface FailedAction<T extends string, M> {
   type: T;
-  status: "FAILED";
-  payload: Error;
+  payload: RequestError | ApiError | InternalError;
+  meta: M;
+  error: true;
 }
 
-export type AsyncAction<T, P> =
-  | StartedAsyncAction<T>
-  | SucceededAsyncAction<T, P>
-  | FailedAsyncAction<T>;
+/** The set of Flux Standard Actions which may result from an async request */
+export type AsyncFsaActions<
+  R extends string,
+  S extends string,
+  F extends string,
+  P,
+  M
+> = StartedAction<R, M> | SucceededAction<S, P, M> | FailedAction<F, M>;
 
-function startedAsyncAction<T>(type: T): StartedAsyncAction<T> {
+/** Internal definition, that doesn't quite represent final dispatched actions */
+interface StartedActionCreator<T extends string, M> {
+  type: T;
+  meta: M;
+}
+
+/** Internal definition, that doesn't quite represent final dispatched actions */
+interface SucceededActionCreator<T extends string, P, M> {
+  type: T;
+  payload: (action, state, res) => PromiseLike<P>;
+  meta: M;
+}
+
+/** Internal definition, that doesn't quite represent final dispatched actions */
+interface FailedActionCreator<T extends string, M> {
+  type: T;
+  meta: M;
+}
+
+/** A convenience type, for defining the return value of the rsa action generator. */
+export type RSAActionTemplate<
+  R extends string,
+  S extends string,
+  F extends string,
+  P,
+  M
+> = RSAAction<
+  StartedActionCreator<R, M>,
+  SucceededActionCreator<S, P, M>,
+  FailedActionCreator<F, M>
+>;
+
+// TODO: is this the best way to get this?
+const csrfElement = document.head.querySelector('meta[name="csrf-token"]');
+const csrfToken: string =
+  csrfElement && csrfElement.textContent ? csrfElement.textContent : "";
+
+export const asyncAction = <
+  R extends string,
+  S extends string,
+  F extends string,
+  P,
+  M
+>(
+  endpoint: string,
+  method: HTTPVerb,
+  startedType: R,
+  succeededType: S,
+  failedType: F,
+  parseResponse: (response: any) => P,
+  metaData: M,
+): RSAActionTemplate<R, S, F, P, M> => {
   return {
-    type,
-    status: "STARTED",
-  };
-}
-
-function succeededAsyncAction<T, P>(
-  type: T,
-  payload: P,
-): SucceededAsyncAction<T, P> {
-  return {
-    type,
-    status: "SUCCEEDED",
-    payload,
-  };
-}
-
-function failedAsyncAction<T>(type: T, error: Error): FailedAsyncAction<T> {
-  return {
-    type,
-    status: "FAILED",
-    payload: error,
-  };
-}
-
-export default function asyncAction<T, P>(
-  type: T,
-  effect: () => Promise<P>,
-): ThunkAction<Promise<void>, any, {}, AnyAction> {
-  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
-    dispatch(startedAsyncAction(type));
-    return effect()
-      .then(
-        (payload: P): void => {
-          dispatch(succeededAsyncAction(type, payload));
+    [RSAA]: {
+      endpoint,
+      method,
+      headers: { "X-CSRF-TOKEN": csrfToken },
+      types: [
+        {
+          type: startedType,
+          meta: metaData,
         },
-      )
-      .catch(
-        (error: Error): void => {
-          dispatch(failedAsyncAction(type, error));
+        {
+          type: succeededType,
+          payload: (action, state, res: Response): PromiseLike<P> =>
+            getJSON(res).then(parseResponse),
+          meta: metaData,
         },
-      );
+        {
+          type: failedType,
+          meta: metaData,
+        },
+      ],
+    },
   };
-}
+};
+
+export default asyncAction;

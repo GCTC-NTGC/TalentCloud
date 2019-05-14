@@ -13,7 +13,7 @@ import {
 } from "../../models/types";
 import { RootState } from "../../store/store";
 import { getJob, getCriteriaByJob } from "../../store/Job/jobSelector";
-import { fetchJob } from "../../store/Job/jobActions";
+import { fetchJob, JobAction } from "../../store/Job/jobActions";
 import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
 import { getRatingGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
 import { getRatingGuideAnswersByJob } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
@@ -21,6 +21,7 @@ import { fetchAssessmentPlan } from "../../store/AssessmentPlan/assessmentPlanAc
 import { fetchSkills } from "../../store/Skill/skillActions";
 import { getUnreadNotificationsByJob } from "../../store/AssessmentPlanNotification/assessmentPlanNotificationSelectors";
 import { fetchAssessmentPlanNotifications } from "../../store/AssessmentPlanNotification/assessmentPlanNotificationActions";
+import { RSAAction } from "redux-api-middleware";
 
 interface AssessmentPlanContainerProps {
   jobId: number;
@@ -57,7 +58,7 @@ const mapDispatchToProps = (
 } =>
   bindActionCreators(
     {
-      dispatchFetchJob: (): ThunkAction<void, RootState, {}, AnyAction> =>
+      dispatchFetchJob: (): RSAAction<any, any, any> =>
         fetchJob(ownProps.jobId),
       dispatchFetchAssessmentPlan: (): ThunkAction<
         void,
