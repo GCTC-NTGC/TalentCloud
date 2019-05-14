@@ -1,51 +1,67 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { injectIntl } from "react-intl";
+import { ErrorEntity } from "../store/Error/errorReducer";
+import { clearErrors } from "../store/Error/errorActions";
+import { getRecentError } from "../store/Error/errorSelector";
+import { RootState } from "../store/store";
+import { DispatchType } from "../configureStore";
 
-interface ErrorToastState {
-  errorMessage: string | null;
-}
-
-interface ErrorToastProps {
-  errorMessage: string | null;
-}
-
-class ErrorToast extends React.Component<ErrorToastProps, ErrorToastState> {
-  public constructor(props) {
-    super(props);
-
-    const { errorMessage } = props;
-
-    this.state = {
-      errorMessage: errorMessage || null,
+const ErrorToast = (props): React.ReactElement => {
+  const { error, dispatchClearErrors } = props;
+  useEffect((): (() => void) => {
+    const timer = setInterval((): void => {
+      dispatchClearErrors();
+      clearInterval(timer);
+    }, 2000);
+    return (): void => {
+      clearInterval(timer);
     };
-  }
-
-  public handleDismiss = (): void => {
-    this.setState({ errorMessage: null });
-  };
-
-  public render(): React.ReactElement {
-    const { errorMessage } = this.state;
-    return (
-      <div
-        data-c-alert="error(toast)"
-        data-c-radius="rounded"
-        data-c-padding="half"
-        role="alert"
-        data-c-visibility={errorMessage ? null : "hidden"}
-      >
-        <div>
-          <p>{errorMessage}</p>
-        </div>
-        <button
-          type="button"
-          onClick={this.handleDismiss}
-          data-c-alert="close-trigger"
+  }, [error]);
+  return (
+    <>
+      {error !== undefined && (
+        <div
+          data-c-alert="error(toast)"
+          data-c-radius="rounded"
+          data-c-padding="half"
+          role="alert"
         >
-          <i className="material-icons">close</i>
-        </button>
-      </div>
-    );
-  }
-}
+          <div>
+            <p>{error.message}</p>
+          </div>
+          <button
+            type="button"
+            onClick={(): void => {
+              dispatchClearErrors();
+            }}
+            data-c-alert="close-trigger"
+          >
+            <i className="fa fa-times-circle" />
+          </button>
+        </div>
+      )}
+    </>
+  );
+};
 
-export default ErrorToast;
+const mapStateToProps = (
+  state: RootState,
+): {
+  error: ErrorEntity;
+} => ({
+  error: getRecentError(state),
+});
+
+const mapDispatchToProps = (dispatch: DispatchType): any => ({
+  dispatchClearErrors: (): void => {
+    dispatch(clearErrors());
+  },
+});
+
+const ErrorToastContainer: React.FunctionComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(injectIntl(ErrorToast));
+
+export default ErrorToastContainer;

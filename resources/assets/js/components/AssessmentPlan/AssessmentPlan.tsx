@@ -13,6 +13,7 @@ import AssessmentPlanSkill from "./AssessmentPlanSkill";
 import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingGuideBuilder from "./RatingGuideBuilder";
 import AssessmentPlanAlert from "./AssessmentPlanAlert";
+import ErrorToast from "../ErrorToast";
 
 interface AssessmentPlanProps {
   job: Job | null;
@@ -50,6 +51,7 @@ const AssessmentPlan: React.FunctionComponent<
   );
   return (
     <section data-clone>
+      <ErrorToast />
       <div
         data-c-padding="top(triple) bottom(triple)"
         data-c-container="layout"
