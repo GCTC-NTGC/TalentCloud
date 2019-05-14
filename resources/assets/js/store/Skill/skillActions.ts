@@ -35,7 +35,7 @@ export const FetchSkillsFailed = (error: Error): FetchSkillsFailedAction => {
     type: FETCH_SKILLS_FAILED,
     payload: error,
     error: true,
-    meta: undefined,
+    meta: {},
   };
 };
 

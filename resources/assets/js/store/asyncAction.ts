@@ -7,6 +7,7 @@ import {
   InternalError,
   getJSON,
 } from "redux-api-middleware"; // RSAA = '@@redux-api-middleware/RSAA'
+import { ErrorAction } from "./createAction";
 
 export const STARTED = "STARTED";
 export const SUCCEEDED = "SUCCEEDED";
@@ -15,15 +16,18 @@ export const FAILED = "FAILED";
 export interface StartedAction<T extends string, M> {
   type: T;
   meta: M;
+  error?: boolean;
 }
 
 export interface SucceededAction<T extends string, P, M> {
   type: T;
   payload: P;
   meta: M;
+  error?: boolean;
 }
 
-export interface FailedAction<T extends string, M = undefined> {
+export interface FailedAction<T extends string, M = {}>
+  extends ErrorAction<T, M> {
   type: T;
   payload: RequestError | ApiError | InternalError | Error; // TODO: remove normal error when all async actions using this
   meta: M;
