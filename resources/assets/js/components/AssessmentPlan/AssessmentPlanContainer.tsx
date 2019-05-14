@@ -2,6 +2,7 @@ import React, { Dispatch, useEffect } from "react";
 import { connect } from "react-redux";
 import { AnyAction, bindActionCreators } from "redux";
 import { ThunkDispatch, ThunkAction } from "redux-thunk";
+import { RSAAction } from "redux-api-middleware";
 import AssessmentPlan from "./AssessmentPlan";
 import {
   Job,
@@ -13,7 +14,7 @@ import {
 } from "../../models/types";
 import { RootState } from "../../store/store";
 import { getJob, getCriteriaByJob } from "../../store/Job/jobSelector";
-import { fetchJob, JobAction } from "../../store/Job/jobActions";
+import { fetchJob } from "../../store/Job/jobActions";
 import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
 import { getRatingGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
 import { getRatingGuideAnswersByJob } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
@@ -21,7 +22,6 @@ import { fetchAssessmentPlan } from "../../store/AssessmentPlan/assessmentPlanAc
 import { fetchSkills } from "../../store/Skill/skillActions";
 import { getUnreadNotificationsByJob } from "../../store/AssessmentPlanNotification/assessmentPlanNotificationSelectors";
 import { fetchAssessmentPlanNotifications } from "../../store/AssessmentPlanNotification/assessmentPlanNotificationActions";
-import { RSAAction } from "redux-api-middleware";
 
 interface AssessmentPlanContainerProps {
   jobId: number;
@@ -108,10 +108,18 @@ const AssessmentPlanFetchContainer: React.FunctionComponent<
   dispatchFetchNotifications,
 }): React.ReactElement => {
   // Similar to componentDidMount and componentDidUpdate:
-  useEffect((): void => dispatchFetchJob(), [jobId]);
-  useEffect((): void => dispatchFetchAssessmentPlan(), [jobId]);
-  useEffect((): void => dispatchFetchSkills(), []);
-  useEffect((): void => dispatchFetchNotifications(), []);
+  useEffect((): void => {
+    dispatchFetchJob();
+  }, [jobId]);
+  useEffect((): void => {
+    dispatchFetchAssessmentPlan();
+  }, [jobId]);
+  useEffect((): void => {
+    dispatchFetchSkills();
+  }, []);
+  useEffect((): void => {
+    dispatchFetchNotifications();
+  }, []);
   return (
     <AssessmentPlan
       job={job}

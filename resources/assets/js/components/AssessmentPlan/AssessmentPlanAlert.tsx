@@ -213,7 +213,7 @@ export const AssessmentPlanAlert: React.FunctionComponent<
       </div>
 
       <div
-        data-c-alignment="base(center)"
+        data-c-alignment="base(right)"
         data-c-grid-item="base(1of3) tl(1of5)"
       >
         <button
