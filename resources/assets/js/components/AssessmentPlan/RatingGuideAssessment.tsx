@@ -95,7 +95,7 @@ const RatingGuideAssessment: React.FunctionComponent<
     <div>
       <h4
         data-c-font-size="h4"
-        data-c-font-colour="c5"
+        data-c-colour="c5"
         data-c-font-weight="bold"
         data-c-margin="top(double) bottom(normal)"
       >
@@ -264,7 +264,7 @@ const RatingGuideAssessment: React.FunctionComponent<
                 description="Label for list of missing essential skills."
                 values={{ count: missingEssentialCriteria.length }}
               />
-              <span data-c-font-colour="stop">
+              <span data-c-colour="stop">
                 {missingEssentialCriteria.map(criteriaSkillName).join(", ")}
               </span>
               {"   "}
@@ -278,7 +278,7 @@ const RatingGuideAssessment: React.FunctionComponent<
                 description="Label for list of missing asset skills."
                 values={{ count: missingAssetCriteria.length }}
               />
-              <span data-c-font-colour="stop">
+              <span data-c-colour="stop">
                 {missingAssetCriteria.map(criteriaSkillName).join(", ")}
               </span>
             </span>
