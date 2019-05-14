@@ -6,6 +6,7 @@ import {
   Assessment,
 } from "../../models/types";
 import { getAssessmentPlan } from "../../api/assessmentPlan";
+import { FailedAction } from "../asyncAction";
 
 /**
  * NOTE: There is no AssessmentPlan Reducer.
@@ -32,9 +33,9 @@ export type FetchAssessmentPlanSucceededAction = Action<
   }
 >;
 
-export type FetchAssessmentPlanFailedAction = Action<
+export type FetchAssessmentPlanFailedAction = FailedAction<
   typeof FETCH_ASSESSMENT_PLAN_FAILED,
-  { jobId: number; error: Error }
+  { jobId: number }
 >;
 
 export const fetchAssessmentPlanStarted = (
@@ -70,10 +71,9 @@ export const fetchAssessmentPlanFailed = (
   error: Error,
 ): FetchAssessmentPlanFailedAction => ({
   type: FETCH_ASSESSMENT_PLAN_FAILED,
-  payload: {
-    jobId,
-    error,
-  },
+  payload: error,
+  meta: { jobId },
+  error: true,
 });
 
 export const fetchAssessmentPlan = (

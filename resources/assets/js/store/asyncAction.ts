@@ -23,9 +23,9 @@ export interface SucceededAction<T extends string, P, M> {
   meta: M;
 }
 
-export interface FailedAction<T extends string, M> {
+export interface FailedAction<T extends string, M = undefined> {
   type: T;
-  payload: RequestError | ApiError | InternalError;
+  payload: RequestError | ApiError | InternalError | Error; // TODO: remove normal error when all async actions using this
   meta: M;
   error: true;
 }
