@@ -44,7 +44,7 @@ const AssessmentPlan: React.FunctionComponent<
   );
 
   const jobTitle = (
-    <span data-c-font-colour="c5" data-c-font-size="h3">
+    <span data-c-colour="c5" data-c-font-size="h3">
       {job && ` ${job.title}`}
     </span>
   );
@@ -153,7 +153,7 @@ const AssessmentPlan: React.FunctionComponent<
           data-c-margin="top(normal) bottom(normal)"
         >
           <h4
-            data-c-font-colour="c5"
+            data-c-colour="c5"
             data-c-font-weight="bold"
             data-c-font-size="h4"
           >
@@ -180,7 +180,7 @@ const AssessmentPlan: React.FunctionComponent<
               data-c-alignment="base(center)"
               data-c-margin="top(normal) bottom(normal)"
             >
-              <span data-c-font-colour="black">
+              <span data-c-colour="black">
                 <FormattedMessage
                   id="assessmentPlan.essentialCriteria.nullState"
                   defaultMessage="You have no essential skills selected for this job poster."
@@ -190,7 +190,7 @@ const AssessmentPlan: React.FunctionComponent<
             </div>
           )}
           <h4
-            data-c-font-colour="c5"
+            data-c-colour="c5"
             data-c-font-weight="bold"
             data-c-font-size="h4"
           >
@@ -217,7 +217,7 @@ const AssessmentPlan: React.FunctionComponent<
               data-c-alignment="base(center)"
               data-c-margin="top(normal) bottom(normal)"
             >
-              <span data-c-font-colour="black">
+              <span data-c-colour="black">
                 <FormattedMessage
                   id="assessmentPlan.assetCriteria.nullState"
                   defaultMessage="You have no asset skills selected for this job poster."

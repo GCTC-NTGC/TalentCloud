@@ -29,14 +29,7 @@ interface RatingsGuideBuilderProps {
 
 const RatingGuideBuilder: React.FunctionComponent<
   RatingsGuideBuilderProps & InjectedIntlProps
-> = ({
-  criteria,
-  assessments,
-  questions,
-  answers,
-  jobId,
-  intl,
-}): React.ReactElement => {
+> = ({ criteria, assessments, jobId, intl }): React.ReactElement => {
   let sectionCount = 0;
   const narrativeReview = assessments.filter(
     (assessment: Assessment): boolean =>
@@ -53,7 +46,7 @@ const RatingGuideBuilder: React.FunctionComponent<
       <div>
         <h4
           data-c-font-size="h4"
-          data-c-font-colour="c5"
+          data-c-colour="c5"
           data-c-font-weight="bold"
           data-c-margin="top(double) bottom(normal)"
         >
@@ -191,7 +184,6 @@ const RatingGuideBuilder: React.FunctionComponent<
               assessmentTypeId={assessmentTypeId}
               jobId={jobId}
               requiredCriteria={requiredCriteria}
-              ratingGuideAnswers={answers}
             />
           );
         },
@@ -205,21 +197,8 @@ const RatingGuideBuilder: React.FunctionComponent<
           description="Instructions for copying your rating guide."
         />
       </p>
-      <div data-c-alignment="center">
-        <button data-c-button="solid(c5)" type="button">
-          <FormattedMessage
-            id="ratingGuideBuilder.copyButton"
-            defaultMessage="Click to Copy This Ratings Guide to Your Clipboard"
-            description="Text for the 'copy ratings guide' button."
-          />
-        </button>
-      </div>
-      <RatingGuideClipboard
-        criteria={criteria}
-        assessments={assessments}
-        questions={questions}
-        answers={answers}
-      />
+
+      {/* {jobId !== null && <RatingGuideClipboard jobId={jobId} />} */}
     </div>
   );
 };

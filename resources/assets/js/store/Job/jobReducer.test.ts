@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-undef */
-import jobReducer, { initState } from "./jobReducer";
+import { initUi, uiReducer, initEntities, entitiesReducer, EntityState } from "./jobReducer";
 import { Job, Criteria } from "../../models/types";
+import {
+  FETCH_JOB_STARTED,
+  FETCH_JOB_SUCCEEDED,
+  JobAction,
+  FETCH_JOB_FAILED,
+} from "./jobActions";
 
 describe("Job Reducer tests", (): void => {
   const fakeJob: Job = {
@@ -28,11 +34,11 @@ describe("Job Reducer tests", (): void => {
       education: "Dolorem laborum vel sequi quo autem.",
     },
   };
-  const fakeJob2: Job = {
+  const fakeJobUpdated: Job = {
     id: 12,
     title: "Test Job",
     classification: "NOC-02",
-    close_date_time: new Date(),
+    close_date_time: new Date("2019-05-20 06:59:59"),
     en: {
       city: "Toronto",
       title: "Test Job",
@@ -81,61 +87,105 @@ describe("Job Reducer tests", (): void => {
     },
   };
 
-  it("Starts updating when FETCH_JOB_STARTED", (): void => {
-    const initialState = initState();
-    const expectState = {
-      ...initState(),
-      jobs: {},
-      jobUpdating: { 12: true },
-    };
-    const newState = jobReducer(initialState, {
-      type: "FETCH_JOB_STARTED",
-      payload: 12,
+  describe("UiReducer", (): void => {
+    it("Starts updating when FETCH_JOB_STARTED", (): void => {
+      const initialState = initUi();
+      const expectState = {
+        ...initialState,
+        jobUpdating: { 12: true },
+      };
+      const newState = uiReducer(initialState, {
+        type: FETCH_JOB_STARTED,
+        meta: { id: 12 },
+      });
+      expect(newState).toEqual(expectState);
     });
-    expect(newState).toEqual(expectState);
+
+    it("Sets updating to false when FETCH_JOB_SUCCEEDED or FETCH_JOB_FAILED", (): void => {
+      const initialState = initUi();
+      const expectState = {
+        ...initialState,
+        jobUpdating: { 12: false },
+      };
+      const succeededAction: JobAction = {
+        type: FETCH_JOB_SUCCEEDED,
+        payload: {
+          job: fakeJob,
+          criteria: [fakeCriteria],
+        },
+        meta: { id: 12 },
+      };
+      const failedAction: JobAction = {
+        type: FETCH_JOB_FAILED,
+        error: true,
+        payload: { name: "Internal Error", message: "error" },
+        meta: { id: 12 },
+      };
+      expect(uiReducer(initialState, succeededAction)).toEqual(expectState);
+      expect(uiReducer(initialState, failedAction)).toEqual(expectState);
+    });
   });
 
-  it("Saves new job and criteria and sets loading to false when FETCH_JOB_SUCCEEDED", (): void => {
-    const initialState = {
-      ...initState(),
-      jobs: { 12: fakeJob },
-      jobUpdating: { 12: true },
+  describe("EntitiesReducer", (): void => {
+    it("Adds new job and criteria when FETCH_JOB_SUCCEEDED", (): void => {
+      const initialState: EntityState = initEntities();
+      const succeededAction: JobAction = {
+        type: FETCH_JOB_SUCCEEDED,
+        payload: {
+          job: fakeJob,
+          criteria: [fakeCriteria],
+        },
+        meta: { id: fakeJob.id },
+      };
+      const expectState: EntityState = {
+        ...initialState,
+        jobs: {
+          byId: {
+            [fakeJob.id]: fakeJob,
+          },
+        },
+        criteria: {
+          byId: {
+            [fakeCriteria.id]: fakeCriteria,
+          },
+        },
+      };
+      expect(entitiesReducer(initialState, succeededAction)).toEqual(
+        expectState,
+      );
+    });
+  });
+
+  it("Updates existing job when FETCH_JOB_SUCCEEDED", (): void => {
+    const initialState: EntityState = {
+      ...initEntities(),
+      jobs: {
+        byId: {
+          [fakeJob.id]: fakeJob,
+        },
+      },
+      criteria: {
+        byId: {
+          [fakeCriteria.id]: fakeCriteria,
+        },
+      },
     };
-    const expectState = {
-      ...initState(),
-      jobs: { 12: fakeJob2 },
-      jobUpdating: { 12: false },
-      criteria: { 1: fakeCriteria },
-    };
-    const newState = jobReducer(initialState, {
-      type: "FETCH_JOB_SUCCEEDED",
+    const succeededAction: JobAction = {
+      type: FETCH_JOB_SUCCEEDED,
       payload: {
-        id: 12,
-        job: fakeJob2,
+        job: fakeJobUpdated, // Job has changed, but has same id
         criteria: [fakeCriteria],
       },
-    });
-    expect(newState).toEqual(expectState);
-  });
-
-  it("Sets loading to false when FETCH_JOB_FAILED", (): void => {
-    const initialState = {
-      ...initState(),
-      jobs: { 12: fakeJob },
-      jobUpdating: { 12: true },
+      meta: { id: fakeJob.id },
     };
-    const expectState = {
-      ...initState(),
-      jobs: { 12: fakeJob },
-      jobUpdating: { 12: false },
-    };
-    const newState = jobReducer(initialState, {
-      type: "FETCH_JOB_FAILED",
-      payload: {
-        id: 12,
-        error: new Error("Testing"),
+    const expectState: EntityState = {
+      ...initialState,
+      jobs: {
+        byId: {
+          [fakeJob.id]: fakeJobUpdated,
+        },
       },
-    });
-    expect(newState).toEqual(expectState);
+    };
+    expect(entitiesReducer(initialState, succeededAction)).toEqual(expectState);
   });
 });

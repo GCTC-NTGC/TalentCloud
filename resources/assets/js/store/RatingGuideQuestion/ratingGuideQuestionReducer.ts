@@ -198,11 +198,11 @@ export const ratingGuideQuestionReducer = (
         ...state,
         editedRatingGuideQuestions: deleteEditedIfIdentical(
           state.editedRatingGuideQuestions,
-          action.payload.ratingGuideQuestion,
+          action.meta,
         ),
         ratingGuideQuestionUpdates: decrementUpdates(
           state.ratingGuideQuestionUpdates,
-          action.payload.ratingGuideQuestion.id,
+          action.meta.id,
         ),
       };
     case DELETE_RATING_GUIDE_QUESTION_STARTED:
@@ -236,7 +236,7 @@ export const ratingGuideQuestionReducer = (
         ...state,
         ratingGuideQuestionDeletes: decrementUpdates(
           state.ratingGuideQuestionDeletes,
-          action.payload.id,
+          action.meta.id,
         ),
       };
     case CREATE_TEMP_RATING_GUIDE_QUESTION:
@@ -314,7 +314,7 @@ export const ratingGuideQuestionReducer = (
         ...state,
         tempRatingGuideQuestionSaving: {
           ...state.tempRatingGuideQuestionSaving,
-          [action.payload.oldRatingGuideQuestion.id]: false,
+          [action.meta.id]: false,
         },
       };
     default:

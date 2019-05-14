@@ -7,6 +7,7 @@ import {
   deleteAssessment as deleteAssessmentApi,
 } from "../../api/assessment";
 import { Assessment, TempAssessment } from "../../models/types";
+import { FailedAction } from "../asyncAction";
 
 /** Action for editing Assessments (without saving to server) */
 export const EDIT_ASSESSMENT = "EDIT_ASSESSMENT";
@@ -77,9 +78,9 @@ export type UpdateAssessmentSucceededAction = Action<
   typeof UPDATE_ASSESSMENT_SUCCEEDED,
   { assessment: Assessment }
 >;
-export type UpdateAssessmentFailedAction = Action<
+export type UpdateAssessmentFailedAction = FailedAction<
   typeof UPDATE_ASSESSMENT_FAILED,
-  { assessment: Assessment; error: Error }
+  Assessment
 >;
 
 export const updateAssessmentStarted = (
@@ -107,10 +108,9 @@ export const updateAssessmentFailed = (
   error: Error,
 ): UpdateAssessmentFailedAction => ({
   type: UPDATE_ASSESSMENT_FAILED,
-  payload: {
-    assessment,
-    error,
-  },
+  payload: error,
+  meta: assessment,
+  error: true,
 });
 export const updateAssessment = (
   assessment: Assessment,
@@ -145,9 +145,9 @@ export type DeleteAssessmentSucceededAction = Action<
   typeof DELETE_ASSESSMENT_SUCCEEDED,
   { id: number }
 >;
-export type DeleteAssessmentFailedAction = Action<
+export type DeleteAssessmentFailedAction = FailedAction<
   typeof DELETE_ASSESSMENT_FAILED,
-  { id: number; error: Error }
+  { id: number }
 >;
 
 export const deleteAssessmentStarted = (
@@ -175,10 +175,9 @@ export const deleteAssessmentFailed = (
   error: Error,
 ): DeleteAssessmentFailedAction => ({
   type: DELETE_ASSESSMENT_FAILED,
-  payload: {
-    id,
-    error,
-  },
+  payload: error,
+  meta: { id },
+  error: true,
 });
 export const deleteAssessment = (
   id: number,
@@ -212,9 +211,9 @@ export type StoreNewAssessmentSucceededAction = Action<
   typeof STORE_NEW_ASSESSMENT_SUCCEEDED,
   { assessment: Assessment; oldAssessment: Assessment }
 >;
-export type StoreNewAssessmentFailedAction = Action<
+export type StoreNewAssessmentFailedAction = FailedAction<
   typeof STORE_NEW_ASSESSMENT_FAILED,
-  { oldAssessment: Assessment; error: Error }
+  Assessment
 >;
 
 export const storeNewAssessmentStarted = (
@@ -244,10 +243,9 @@ export const storeNewAssessmentFailed = (
   error: Error,
 ): StoreNewAssessmentFailedAction => ({
   type: STORE_NEW_ASSESSMENT_FAILED,
-  payload: {
-    oldAssessment,
-    error,
-  },
+  payload: error,
+  meta: oldAssessment,
+  error: true,
 });
 export const storeNewAssessment = (
   assessment: Assessment,

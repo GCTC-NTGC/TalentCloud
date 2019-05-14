@@ -2,6 +2,7 @@ import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { Action } from "../createAction";
 import { Skill } from "../../models/types";
 import { getSkills } from "../../api/skill";
+import { FailedAction } from "../asyncAction";
 
 export const FETCH_SKILLS_STARTED = "FETCH_SKILLS_STARTED";
 export const FETCH_SKILLS_SUCCEEDED = "FETCH_SKILLS_SUCCEEDED";
@@ -17,10 +18,7 @@ export type FetchSkillsSucceededAction = Action<
   Skill[]
 >;
 
-export type FetchSkillsFailedAction = Action<
-  typeof FETCH_SKILLS_FAILED,
-  { error: Error }
->;
+export type FetchSkillsFailedAction = FailedAction<typeof FETCH_SKILLS_FAILED>;
 
 export const fetchSkillsStarted = (): FetchSkillsStartedAction => {
   return { type: FETCH_SKILLS_STARTED, payload: undefined };
@@ -33,7 +31,12 @@ export const FetchSkillsSucceeded = (
 };
 
 export const FetchSkillsFailed = (error: Error): FetchSkillsFailedAction => {
-  return { type: FETCH_SKILLS_FAILED, payload: { error } };
+  return {
+    type: FETCH_SKILLS_FAILED,
+    payload: error,
+    error: true,
+    meta: {},
+  };
 };
 
 export const fetchSkills = (): ThunkAction<void, any, {}, SkillAction> => {

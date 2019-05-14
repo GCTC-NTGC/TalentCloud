@@ -137,7 +137,7 @@ const uiReducer = (
         ...state,
         updatingById: {
           ...state.updatingById,
-          [action.payload.notification.id]: false,
+          [action.meta.id]: false,
         },
       };
     default:

@@ -2,6 +2,7 @@ import React, { Dispatch, useEffect } from "react";
 import { connect } from "react-redux";
 import { AnyAction, bindActionCreators } from "redux";
 import { ThunkDispatch, ThunkAction } from "redux-thunk";
+import { RSAAction } from "redux-api-middleware";
 import AssessmentPlan from "./AssessmentPlan";
 import {
   Job,
@@ -57,7 +58,7 @@ const mapDispatchToProps = (
 } =>
   bindActionCreators(
     {
-      dispatchFetchJob: (): ThunkAction<void, RootState, {}, AnyAction> =>
+      dispatchFetchJob: (): RSAAction<any, any, any> =>
         fetchJob(ownProps.jobId),
       dispatchFetchAssessmentPlan: (): ThunkAction<
         void,
@@ -107,10 +108,18 @@ const AssessmentPlanFetchContainer: React.FunctionComponent<
   dispatchFetchNotifications,
 }): React.ReactElement => {
   // Similar to componentDidMount and componentDidUpdate:
-  useEffect((): void => dispatchFetchJob(), [jobId]);
-  useEffect((): void => dispatchFetchAssessmentPlan(), [jobId]);
-  useEffect((): void => dispatchFetchSkills(), []);
-  useEffect((): void => dispatchFetchNotifications(), []);
+  useEffect((): void => {
+    dispatchFetchJob();
+  }, [jobId]);
+  useEffect((): void => {
+    dispatchFetchAssessmentPlan();
+  }, [jobId]);
+  useEffect((): void => {
+    dispatchFetchSkills();
+  }, []);
+  useEffect((): void => {
+    dispatchFetchNotifications();
+  }, []);
   return (
     <AssessmentPlan
       job={job}
