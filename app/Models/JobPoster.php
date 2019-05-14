@@ -66,6 +66,7 @@ use \Backpack\CRUD\CrudTrait;
  * Methods
  * @method boolean isOpen()
  * @method string timeRemaining()
+ * @method string toApiArray()
  */
 class JobPoster extends BaseModel
 {
@@ -381,5 +382,36 @@ class JobPoster extends BaseModel
         }
 
         return $status;
+    }
+
+    /**
+     * Return the array of values used to represent this object in an api response.
+     * This array should contain no nested objects (besides translations).
+     *
+     * @return mixed[]
+     */
+    public function toApiArray()
+    {
+        $jobWithTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
+        $jobCollection = collect($jobWithTranslations)->only([
+            'id',
+            'term_qty',
+            'open_date_time',
+            'close_date_time',
+            'start_date_time',
+            'department_id',
+            'province_id',
+            'salary_min',
+            'salary_max',
+            'noc',
+            'classification',
+            'security_clearance_id',
+            'language_requirement_id',
+            'remote_work_allowed',
+            'en',
+            'fr',
+            'criteria',
+        ])->all();
+        return $jobCollection;
     }
 }
