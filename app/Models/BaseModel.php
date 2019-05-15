@@ -66,4 +66,15 @@ abstract class BaseModel extends Eloquent {
         // that is returned back out to the developers after we convert it here.
         return Date::createFromFormat($this->getDateFormat(), $value, $timezone);
     }
+
+    /**
+     * // Ensure that models serialized using toArray() or toJson() use the api-specific date format
+     *
+     * @param DateTimeInterface $date
+     * @return void
+     */
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format(Config::get('app.api_datetime_format'));
+    }
 }
