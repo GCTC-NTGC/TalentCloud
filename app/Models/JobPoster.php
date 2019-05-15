@@ -410,7 +410,6 @@ class JobPoster extends BaseModel
             'remote_work_allowed',
             'en',
             'fr',
-            'criteria',
         ])->all();
         return $jobCollection;
     }

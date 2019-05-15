@@ -124,6 +124,7 @@ return [
     'user_skill_unique' => 'cette compétence est déjà ajoutée',
     'password_correct' => 'mot de passe incorrect',
     'user_owns_skill_declaration' => ':attribute doit spécifier une déclaration de compétence qui appartient à l\' utilisateur actuel',
+    'invalid_id' => ":attribute n'est pas un identifiant valide.",
 
     /*
     |--------------------------------------------------------------------------

@@ -76,7 +76,7 @@ class JobApiControllerTest extends TestCase
     public function testGetAsPublic()
     {
         $job = factory(JobPoster::class)->state('published')->create();
-        $response = $this->get("api/jobs/$job->id");
+        $response = $this->json("get", "api/jobs/$job->id");
         $response->assertOk();
 
         $expected = $job->toApiArray();
@@ -90,8 +90,7 @@ class JobApiControllerTest extends TestCase
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $response = $this->followingRedirects()
             ->actingAs($job->manager->user)
-            ->put("api/jobs/$job->id", $jobUpdate);
-        dump($response->baseResponse->exception);
+            ->json("put", "api/jobs/$job->id", $jobUpdate);
         $response->assertOk();
         $expectedDb = array_merge(
             array_slice($jobUpdate, 0, 15),
@@ -111,8 +110,18 @@ class JobApiControllerTest extends TestCase
         $otherManager = factory(User::class)->state('manager')->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $response = $this->actingAs($otherManager)
-            ->put("api/jobs/$job->id", $jobUpdate);
+            ->json("put", "api/jobs/$job->id", $jobUpdate);
         $response->assertForbidden();
+    }
+
+    public function testUpdateInvalidInput()
+    {
+        $job = factory(JobPoster::class)->create();
+        $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
+        $jobUpdate['term_qty'] = "three months"; // String is invalid here
+        $response = $this->actingAs($job->manager->user)
+            ->json("put", "api/jobs/$job->id", $jobUpdate);
+        $response->assertStatus(422);
     }
 
 }

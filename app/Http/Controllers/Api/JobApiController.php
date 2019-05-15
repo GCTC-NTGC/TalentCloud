@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\JobPoster;
 use App\Models\Criteria;
 use App\Services\Validation\JobPosterValidator;
+use App\Http\Requests\UpdateJobPoster;
 
 class JobApiController extends Controller
 {
@@ -24,7 +25,7 @@ class JobApiController extends Controller
      * @param JobPoster $job
      * @return mixed[]
      */
-    public static function jobToArray(JobPoster $job)
+    private function jobToArray(JobPoster $job)
     {
         $criteria = Criteria::where('job_poster_id', $job->id)->get();
         $criteriaTranslated = [];
@@ -70,12 +71,13 @@ class JobApiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\UpdateJobPoster  $request Validates input.
      * @param  JobPoster $jobPoser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JobPoster $job)
+    public function update(UpdateJobPoster $request, JobPoster $job)
     {
+        $request->validated();
         JobPosterValidator::validateUnpublished($job);
         // Only values in the JobPoster->fillable array will be set
         $job->fill($request->input());
