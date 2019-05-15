@@ -16,6 +16,9 @@
     { "language": "typescriptreact", "autoFix": true }
   ],
   "editor.formatOnSave": false,
+  "[php]": {
+    "editor.formatOnSave": false
+  },
   "[javascript]": {
     "editor.formatOnSave": false
   },
