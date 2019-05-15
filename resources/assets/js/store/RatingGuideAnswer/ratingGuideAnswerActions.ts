@@ -7,6 +7,7 @@ import {
   deleteRatingGuideAnswer as deleteRatingGuideAnswerApi,
 } from "../../api/ratingGuide";
 import { RatingGuideAnswer, TempRatingGuideAnswer } from "../../models/types";
+import { FailedAction } from "../asyncAction";
 
 /** Action for editing Rating Guide Q&A (without saving to server) */
 export const EDIT_RATING_GUIDE_ANSWER = "EDIT_RATING_GUIDE_ANSWER";
@@ -91,9 +92,9 @@ export type UpdateRatingGuideAnswerSucceededAction = Action<
   typeof UPDATE_RATING_GUIDE_ANSWER_SUCCEEDED,
   { ratingGuideAnswer: RatingGuideAnswer }
 >;
-export type UpdateRatingGuideAnswerFailedAction = Action<
+export type UpdateRatingGuideAnswerFailedAction = FailedAction<
   typeof UPDATE_RATING_GUIDE_ANSWER_FAILED,
-  { ratingGuideAnswer: RatingGuideAnswer; error: Error }
+  RatingGuideAnswer
 >;
 
 export const updateRatingGuideAnswerStarted = (
@@ -121,10 +122,9 @@ export const updateRatingGuideAnswerFailed = (
   error: Error,
 ): UpdateRatingGuideAnswerFailedAction => ({
   type: UPDATE_RATING_GUIDE_ANSWER_FAILED,
-  payload: {
-    ratingGuideAnswer,
-    error,
-  },
+  payload: error,
+  meta: ratingGuideAnswer,
+  error: true,
 });
 export const updateRatingGuideAnswer = (
   ratingGuideAnswer: RatingGuideAnswer,
@@ -164,9 +164,9 @@ export type DeleteRatingGuideAnswerSucceededAction = Action<
   typeof DELETE_RATING_GUIDE_ANSWER_SUCCEEDED,
   { id: number }
 >;
-export type DeleteRatingGuideAnswerFailedAction = Action<
+export type DeleteRatingGuideAnswerFailedAction = FailedAction<
   typeof DELETE_RATING_GUIDE_ANSWER_FAILED,
-  { id: number; error: Error }
+  { id: number }
 >;
 
 export const deleteRatingGuideAnswerStarted = (
@@ -194,10 +194,9 @@ export const deleteRatingGuideAnswerFailed = (
   error: Error,
 ): DeleteRatingGuideAnswerFailedAction => ({
   type: DELETE_RATING_GUIDE_ANSWER_FAILED,
-  payload: {
-    id,
-    error,
-  },
+  payload: error,
+  meta: { id },
+  error: true,
 });
 export const deleteRatingGuideAnswer = (
   id: number,
@@ -239,9 +238,9 @@ export type StoreNewRatingGuideAnswerSucceededAction = Action<
     oldRatingGuideAnswer: RatingGuideAnswer;
   }
 >;
-export type StoreNewRatingGuideAnswerFailedAction = Action<
+export type StoreNewRatingGuideAnswerFailedAction = FailedAction<
   typeof STORE_NEW_RATING_GUIDE_ANSWER_FAILED,
-  { oldRatingGuideAnswer: RatingGuideAnswer; error: Error }
+  RatingGuideAnswer
 >;
 
 export const storeNewRatingGuideAnswerStarted = (
@@ -271,10 +270,9 @@ export const storeNewRatingGuideAnswerFailed = (
   error: Error,
 ): StoreNewRatingGuideAnswerFailedAction => ({
   type: STORE_NEW_RATING_GUIDE_ANSWER_FAILED,
-  payload: {
-    oldRatingGuideAnswer,
-    error,
-  },
+  payload: error,
+  meta: oldRatingGuideAnswer,
+  error: true,
 });
 export const storeNewRatingGuideAnswer = (
   ratingGuideAnswer: RatingGuideAnswer,

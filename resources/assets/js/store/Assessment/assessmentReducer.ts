@@ -189,11 +189,11 @@ export const assessmentReducer = (
         ...state,
         editedAssessments: deleteEditedIfIdentical(
           state.editedAssessments,
-          action.payload.assessment,
+          action.meta,
         ),
         assessmentUpdates: decrementUpdates(
           state.assessmentUpdates,
-          action.payload.assessment.id,
+          action.meta.id,
         ),
       };
     case DELETE_ASSESSMENT_STARTED:
@@ -227,7 +227,7 @@ export const assessmentReducer = (
         ...state,
         assessmentDeletes: decrementUpdates(
           state.assessmentDeletes,
-          action.payload.id,
+          action.meta.id,
         ),
       };
     case CREATE_TEMP_ASSESSMENT:
@@ -300,7 +300,7 @@ export const assessmentReducer = (
         ...state,
         tempAssessmentSaving: {
           ...state.tempAssessmentSaving,
-          [action.payload.oldAssessment.id]: false,
+          [action.meta.id]: false,
         },
       };
     default:

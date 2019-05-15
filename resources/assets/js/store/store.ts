@@ -20,6 +20,26 @@ import assessmentPlanNotificationReducer, {
   AssessmentPlanNotificationState,
   initState as initAssessmentPlanNotification,
 } from "./AssessmentPlanNotification/assessmentPlanNotificationReducer";
+import errorReducer, {
+  ErrorState,
+  initState as initErrors,
+} from "./Error/errorReducer";
+import { JobAction } from "./Job/jobActions";
+import { AssessmentAction } from "./Assessment/assessmentActions";
+import { RatingGuideQuestionAction } from "./RatingGuideQuestion/ratingGuideQuestionActions";
+import { RatingGuideAnswerAction } from "./RatingGuideAnswer/ratingGuideAnswerActions";
+import { SkillAction } from "./Skill/skillActions";
+import { AssessmentPlanNotificationAction } from "./AssessmentPlanNotification/assessmentPlanNotificationActions";
+import { AppErrorAction } from "./Error/errorActions";
+
+export type AppAction =
+  | JobAction
+  | AssessmentAction
+  | RatingGuideQuestionAction
+  | RatingGuideAnswerAction
+  | SkillAction
+  | AssessmentPlanNotificationAction
+  | AppErrorAction;
 
 export interface RootState {
   jobs: JobState;
@@ -28,6 +48,7 @@ export interface RootState {
   ratingGuideAnswer: RatingGuideAnswerState;
   skill: SkillState;
   assessmentPlanNotification: AssessmentPlanNotificationState;
+  error: ErrorState;
 }
 
 export const initState = (): RootState => ({
@@ -37,6 +58,7 @@ export const initState = (): RootState => ({
   ratingGuideAnswer: initRatingGuideAnswer(),
   skill: initSkill(),
   assessmentPlanNotification: initAssessmentPlanNotification(),
+  error: initErrors(),
 });
 
 export const rootReducer = (): Reducer<RootState> =>
@@ -47,6 +69,7 @@ export const rootReducer = (): Reducer<RootState> =>
     ratingGuideAnswer: ratingGuideAnswerReducer,
     skill: skillReducer,
     assessmentPlanNotification: assessmentPlanNotificationReducer,
+    error: errorReducer,
   });
 
 export default rootReducer;

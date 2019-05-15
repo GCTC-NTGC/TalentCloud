@@ -29,14 +29,7 @@ interface RatingsGuideBuilderProps {
 
 const RatingGuideBuilder: React.FunctionComponent<
   RatingsGuideBuilderProps & InjectedIntlProps
-> = ({
-  criteria,
-  assessments,
-  questions,
-  answers,
-  jobId,
-  intl,
-}): React.ReactElement => {
+> = ({ criteria, assessments, jobId, intl }): React.ReactElement => {
   let sectionCount = 0;
   const narrativeReview = assessments.filter(
     (assessment: Assessment): boolean =>
@@ -53,7 +46,7 @@ const RatingGuideBuilder: React.FunctionComponent<
       <div>
         <h4
           data-c-font-size="h4"
-          data-c-font-colour="c5"
+          data-c-colour="c5"
           data-c-font-weight="bold"
           data-c-margin="top(double) bottom(normal)"
         >
@@ -205,7 +198,7 @@ const RatingGuideBuilder: React.FunctionComponent<
         />
       </p>
 
-      {jobId !== null && <RatingGuideClipboard jobId={jobId} />}
+      {/* {jobId !== null && <RatingGuideClipboard jobId={jobId} />} */}
     </div>
   );
 };

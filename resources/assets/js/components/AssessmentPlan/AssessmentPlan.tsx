@@ -13,6 +13,7 @@ import AssessmentPlanSkill from "./AssessmentPlanSkill";
 import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingGuideBuilder from "./RatingGuideBuilder";
 import AssessmentPlanAlert from "./AssessmentPlanAlert";
+import ErrorToast from "../ErrorToast";
 
 interface AssessmentPlanProps {
   job: Job | null;
@@ -44,12 +45,13 @@ const AssessmentPlan: React.FunctionComponent<
   );
 
   const jobTitle = (
-    <span data-c-font-colour="c5" data-c-font-size="h3">
+    <span data-c-colour="c5" data-c-font-size="h3">
       {job && ` ${job.title}`}
     </span>
   );
   return (
     <section data-clone>
+      <ErrorToast />
       <div
         data-c-padding="top(triple) bottom(triple)"
         data-c-container="layout"
@@ -153,7 +155,7 @@ const AssessmentPlan: React.FunctionComponent<
           data-c-margin="top(normal) bottom(normal)"
         >
           <h4
-            data-c-font-colour="c5"
+            data-c-colour="c5"
             data-c-font-weight="bold"
             data-c-font-size="h4"
           >
@@ -180,7 +182,7 @@ const AssessmentPlan: React.FunctionComponent<
               data-c-alignment="base(center)"
               data-c-margin="top(normal) bottom(normal)"
             >
-              <span data-c-font-colour="black">
+              <span data-c-colour="black">
                 <FormattedMessage
                   id="assessmentPlan.essentialCriteria.nullState"
                   defaultMessage="You have no essential skills selected for this job poster."
@@ -190,7 +192,7 @@ const AssessmentPlan: React.FunctionComponent<
             </div>
           )}
           <h4
-            data-c-font-colour="c5"
+            data-c-colour="c5"
             data-c-font-weight="bold"
             data-c-font-size="h4"
           >
@@ -217,7 +219,7 @@ const AssessmentPlan: React.FunctionComponent<
               data-c-alignment="base(center)"
               data-c-margin="top(normal) bottom(normal)"
             >
-              <span data-c-font-colour="black">
+              <span data-c-colour="black">
                 <FormattedMessage
                   id="assessmentPlan.assetCriteria.nullState"
                   defaultMessage="You have no asset skills selected for this job poster."

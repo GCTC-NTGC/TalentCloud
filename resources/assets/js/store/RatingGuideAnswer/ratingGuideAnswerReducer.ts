@@ -195,11 +195,11 @@ export const ratingGuideAnswerReducer = (
         ...state,
         editedRatingGuideAnswers: deleteEditedIfIdentical(
           state.editedRatingGuideAnswers,
-          action.payload.ratingGuideAnswer,
+          action.meta,
         ),
         ratingGuideAnswerUpdates: decrementUpdates(
           state.ratingGuideAnswerUpdates,
-          action.payload.ratingGuideAnswer.id,
+          action.meta.id,
         ),
       };
     case DELETE_RATING_GUIDE_ANSWER_STARTED:
@@ -233,7 +233,7 @@ export const ratingGuideAnswerReducer = (
         ...state,
         ratingGuideAnswerDeletes: decrementUpdates(
           state.ratingGuideAnswerDeletes,
-          action.payload.id,
+          action.meta.id,
         ),
       };
     case CREATE_TEMP_RATING_GUIDE_ANSWER:
@@ -312,7 +312,7 @@ export const ratingGuideAnswerReducer = (
         ...state,
         tempRatingGuideAnswerSaving: {
           ...state.tempRatingGuideAnswerSaving,
-          [action.payload.oldRatingGuideAnswer.id]: false,
+          [action.meta.id]: false,
         },
       };
     default:

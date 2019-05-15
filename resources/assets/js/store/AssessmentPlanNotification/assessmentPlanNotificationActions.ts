@@ -5,6 +5,7 @@ import {
   getAssessmentPlanNotificationsByJob,
   updateAssessmentPlanNotification as updateAssessmentPlanNotificationApi,
 } from "../../api/assessmentPlanNotifications";
+import { FailedAction } from "../asyncAction";
 
 /** Fetcing all Assessment Plan Notifications for a job */
 
@@ -25,12 +26,9 @@ export type FetchAssessmentPlanNotificationSucceededAction = Action<
   typeof FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_SUCCEEDED,
   AssessmentPlanNotification[]
 >;
-export type FetchAssessmentPlanNotificationFailedAction = Action<
+export type FetchAssessmentPlanNotificationFailedAction = FailedAction<
   typeof FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_FAILED,
-  {
-    jobId: number;
-    error: Error;
-  }
+  { jobId: number }
 >;
 
 export const fetchAssessmentPlanNotifications = (
@@ -56,10 +54,11 @@ export const fetchAssessmentPlanNotifications = (
         (error): void => {
           dispatch({
             type: FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_FAILED,
-            payload: {
+            payload: error,
+            meta: {
               jobId,
-              error,
             },
+            error: true,
           });
         },
       );
@@ -83,12 +82,9 @@ export type UpdateAssessmentPlanNotificationSucceededAction = Action<
   typeof UPDATE_ASSESSMENT_PLAN_NOTIFICATION_SUCCEEDED,
   AssessmentPlanNotification
 >;
-export type UpdateAssessmentPlanNotificationFailedAction = Action<
+export type UpdateAssessmentPlanNotificationFailedAction = FailedAction<
   typeof UPDATE_ASSESSMENT_PLAN_NOTIFICATION_FAILED,
-  {
-    error: Error;
-    notification: AssessmentPlanNotification;
-  }
+  AssessmentPlanNotification
 >;
 
 export const updateAssessmentPlanNotification = (
@@ -114,10 +110,9 @@ export const updateAssessmentPlanNotification = (
         (error): void => {
           dispatch({
             type: UPDATE_ASSESSMENT_PLAN_NOTIFICATION_FAILED,
-            payload: {
-              error,
-              notification,
-            },
+            payload: error,
+            meta: notification,
+            error: true,
           });
         },
       );

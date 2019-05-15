@@ -47,7 +47,7 @@ const renderAssessmentTypeBlock = (
             data-c-font-size="h4"
             data-c-margin="top(normal) bottom(normal)"
             data-c-font-weight="600"
-            data-c-font-colour="c5"
+            data-c-colour="c5"
           >
             {assessmentTypeName}
           </h5>
@@ -168,7 +168,7 @@ const AssessmentPlanTable: React.FunctionComponent<
         data-c-margin="top(normal) bottom(normal)"
       >
         <h4
-          data-c-font-colour="c5"
+          data-c-colour="c5"
           data-c-font-weight="bold"
           data-c-font-size="h4"
           data-c-margin="bottom"
@@ -201,7 +201,7 @@ const AssessmentPlanTable: React.FunctionComponent<
             data-c-alignment="base(center)"
             data-c-margin="bottom(normal)"
           >
-            <span data-c-font-colour="black">
+            <span data-c-colour="black">
               <FormattedMessage
                 id="assessmentPlan.summary.assessmentSummary.noAssessments"
                 defaultMessage="You have no assessments selected for this job poster. Add them
