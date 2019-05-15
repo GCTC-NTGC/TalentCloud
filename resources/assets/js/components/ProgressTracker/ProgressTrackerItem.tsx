@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface ProgressTrackerItemProps {
-  state: string;
+  state: 'active' | 'complete' | 'error' | 'null';
   label: string;
   title: string;
 }

@@ -1,5 +1,5 @@
 export interface ProgressTrackerItem {
-  state: string;
+  state: 'active' | 'complete' | 'error' | 'null';
   label: string;
   title: string;
 }
