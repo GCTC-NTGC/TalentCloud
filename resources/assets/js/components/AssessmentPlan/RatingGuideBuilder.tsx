@@ -129,7 +129,7 @@ const RatingGuideBuilder: React.FunctionComponent<
                       </div>
                     )}
                     <div data-c-grid-item="base(1of1) tp(5of8)">
-                      {intl.formatMessage(narrativeReviewStandardAnswer())}
+                      {/* {intl.formatMessage(narrativeReviewStandardAnswer())} */}
                     </div>
                   </div>
                 </div>
