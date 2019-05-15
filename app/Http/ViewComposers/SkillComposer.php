@@ -4,6 +4,7 @@ namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Lang;
+use App\Models\Skill;
 use App\Models\Lookup\SkillLevel;
 
 class SkillComposer
@@ -12,6 +13,11 @@ class SkillComposer
      * @var mixed $skillLevels
      */
     private $skillLevels;
+
+    /**
+     * @var mixed $skills
+     */
+    private $skills;
 
     /**
      * Bind data to the view.
@@ -26,6 +32,11 @@ class SkillComposer
             $this->skillLevels = SkillLevel::all();
         }
 
+        if (!$this->skills) {
+            $this->skills = Skill::all();
+        }
+
+        $view->with('skills', $this->skills);
         $view->with('skill_levels', $this->skillLevels);
         $view->with('skill_template', Lang::get('common/skills'));
     }

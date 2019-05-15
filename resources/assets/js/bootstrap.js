@@ -2,6 +2,7 @@ import "react-app-polyfill/ie11";
 import "./polyfills/includes";
 import "es6-promise/auto";
 import "isomorphic-fetch";
+import "core-js/features/object/values";
 
 // Number.isNan polyfill
 Number.isNaN =

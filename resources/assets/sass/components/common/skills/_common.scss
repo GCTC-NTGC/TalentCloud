@@ -1,312 +1,287 @@
 // =============================================================================
 
-    // Skills - Common Features
+// Skills - Common Features
 
 // =============================================================================
 
-    // Lists ===================================================================
-    .profile-list {
+// Lists ===================================================================
+.profile-list {
+  .profile-list__header {
+    .box {
+      text-align: center;
 
-        .profile-list__header {
+      @media #{$p-tablet} {
+        text-align: left;
+      }
 
-            .box {
-                text-align: center;
+      h3 {
+        color: $palette--black;
+        font-family: $font--sans;
+        font-size: $font-scale--h3;
+        font-weight: 400;
+        margin: 0;
+        padding: 0;
+        text-align: center;
 
-                @media #{$p-tablet} {
-                    text-align: left;
-                }
+        @media #{$p-tablet} {
+          text-align: left;
+        }
+      }
 
-                h3 {
-                    color: $palette--black;
-                    font-family: $font--sans;
-                    font-size: $font-scale--h3;
-                    font-weight: 400;
-                    margin: 0;
-                    padding: 0;
-                    text-align: center;
+      button {
+        background-color: $palette--black;
+        background-clip: padding-box;
+        @extend %gradient--vertical;
+        border: none;
+        border-radius: 5px;
+        box-shadow: none;
+        cursor: pointer;
+        display: inline-block;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        font-weight: 400;
+        margin: 2rem 0 0 0;
+        outline: none;
+        padding: $unit calc(#{$unit} * 2);
+        text-decoration: none;
+        color: $palette--font-white;
+        transition: none;
 
-                    @media #{$p-tablet} {
-                        text-align: left;
-                    }
-
-                }
-
-                button {
-                    background-color: $palette--black;
-                    background-clip: padding-box;
-                    @extend %gradient--vertical;
-                    border: none;
-                    border-radius: 5px;
-                    box-shadow: none;
-                    cursor: pointer;
-                    display: inline-block;
-                    font-family: $font--sans;
-                    font-size: $font-scale--regular;
-                    font-weight: 400;
-                    margin: 2rem 0 0 0;
-                    outline: none;
-                    padding: $unit calc(#{$unit} * 2);
-                    text-decoration: none;
-                    color: $palette--font-white;
-                    transition: none;
-
-                    @media #{$p-tablet} {
-                        margin: 0;
-                    }
-
-                    &:focus,
-                    &:hover {
-                        border: 2px solid $palette--black;
-                        outline: none;
-                        padding: calc(#{$unit} - 2px) calc((#{$unit} * 2) - 2px);
-                        transition: none;
-                    }
-
-                }
-
-                p {
-                    color: $palette--font-black;
-                    font-family: $font--sans;
-                    font-size: $font-scale--regular;
-                    font-weight: 400;
-                    line-height: 1.5;
-                    margin: 2rem 0 0 0;
-                }
-
-                &:nth-child(2) {
-
-                    @media #{$p-tablet} {
-                        text-align: right;
-                    }
-
-                }
-
-            }
-
+        @media #{$p-tablet} {
+          margin: 0;
         }
 
-        &+.profile-list {
-            margin-top: 5rem;
+        &:focus,
+        &:hover {
+          border: 2px solid $palette--black;
+          outline: none;
+          padding: calc(#{$unit} - 2px) calc((#{$unit} * 2) - 2px);
+          transition: none;
         }
+      }
 
+      p {
+        color: $palette--font-black;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        font-weight: 400;
+        line-height: 1.5;
+        margin: 2rem 0 0 0;
+      }
+
+      &:nth-child(2) {
+        @media #{$p-tablet} {
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  & + .profile-list {
+    margin-top: 5rem;
+  }
+}
+
+// Null State ==========================================================
+.profile-null {
+  background: $palette--white;
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+  display: none;
+  padding: calc(#{$unit} * 2);
+  text-align: center;
+
+  p {
+    color: $palette--font-black;
+    font-family: $font--sans;
+    font-size: $font-scale--h4;
+    font-weight: 400;
+  }
+
+  &.active {
+    display: block;
+  }
+}
+
+// Elements ============================================================
+.profile-element-list {
+  padding: 2rem 0 0 0;
+
+  &.step3 {
+    padding-top: 0;
+  }
+}
+
+.profile-element {
+  .profile-element__preview {
+    padding: 1rem;
+
+    .box {
+      padding: 1rem;
+
+      span {
+        color: $palette--blue;
+        display: block;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+      }
+
+      p {
+        @extend %paragraph;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Relatives =======================================================
+.profile-relative-list {
+  border-top: 1px solid darken($palette--white, 20%);
+  margin: 2rem 0;
+  padding: 2rem 2rem 0;
+
+  &:last-of-type {
+    // margin-bottom: 0;
+  }
+
+  .profile-relative-list__header {
+    padding: 0 1rem !important;
+
+    .box {
+      .profile-relative-list__label {
+        color: $palette--font-black;
+        display: block;
+        font-family: $font--sans;
+        font-size: $font-scale--h5;
+        font-weight: 600;
+        margin: 0;
+
+        i {
+          color: $palette--blue;
+          margin: 0 0.2rem 0 0;
+        }
+      }
+
+      button {
+        background: $palette--black;
+        border: none;
+        color: $palette--blue;
+        cursor: pointer;
+        font-family: $font--sans;
+        font-size: $font-scale--h5;
+        font-weight: 600;
+        text-decoration: underline;
+      }
+
+      &:last-child {
+        @media #{$p-tablet} {
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  .profile-relative-list__wrapper {
+  }
+
+  .profile-relative {
+    position: relative;
+
+    &:last-child {
+      margin-bottom: -2rem;
     }
 
-        // Null State ==========================================================
-        .profile-null {
-            background: $palette--white;
-            border-radius: 3px;
-            box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
-            display: none;
-            padding: calc(#{$unit} * 2);
-            text-align: center;
+    .form__input-wrapper--select {
+      width: 90%;
+    }
 
-            p {
-                color: $palette--font-black;
-                font-family: $font--sans;
-                font-size: $font-scale--h4;
-                font-weight: 400;
-            }
+    .profile-relative__remove-trigger {
+      background: none;
+      border: none;
+      color: $palette--red;
+      cursor: pointer;
+      font-size: $font-scale--h3;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translate(0, -50%);
+    }
 
-            &.active {
-                display: block;
-            }
+    &.project {
+      border: 1px solid darken($palette--white, 20%);
+      border-radius: 5px;
+      margin: 2rem 0;
+      padding: 0.5rem 2rem 2rem 2rem;
 
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .profile-relative__remove-trigger {
+        background: white;
+        padding: 1rem;
+        top: 0;
+        right: 1.5rem;
+        transform: translate(0, -50%);
+      }
+
+      .flex-grid {
+        padding: 0;
+
+        .box {
+          padding: 0 1rem;
         }
+      }
+    }
+  }
 
-        // Elements ============================================================
-        .profile-element-list {
-            padding: 2rem 0 0 0;
+  .profile-relative__add-trigger-wrapper {
+    padding: 2rem 0 0;
+    text-align: center;
 
-        }
+    .profile-relative__add-trigger {
+      background: none;
+      border: 2px dashed darken($palette--white, 20%);
+      border-radius: 5px;
+      color: $palette--font-black;
+      cursor: pointer;
+      font-family: $font--sans;
+      font-size: $font-scale--regular;
+      font-weight: 600;
+      padding: 1rem;
+      text-decoration: none;
+    }
 
-        .profile-element {
+    .profile-relative__null {
+      color: rgba(90, 90, 90, 1);
+      font-family: $font--sans;
+      font-size: $font-scale--regular;
+      font-weight: 600;
+      margin: 1rem 0 2.5rem 0;
+    }
+  }
+}
 
-            .profile-element__preview {
-                padding: 1rem;
+.profile-relative__reference-name,
+.profile-relative__sample-name {
+  font-weight: 700 !important;
+}
 
-                .box {
-                    padding: 1rem;
+.profile-relative__reference,
+.profile-relative__sample {
+  margin: 1rem 0;
 
-                    span {
-                        color: $palette--blue;
-                        display: block;
-                        font-family: $font--sans;
-                        font-size: $font-scale--regular;
-                        font-weight: 600;
-                        margin: 0 0 .5rem 0;
-                    }
+  &:last-child {
+    margin-bottom: 0 !important;
+  }
 
-                    p {
-                        @extend %paragraph;
-                        margin: 0;
-                    }
+  .flex-grid {
+    margin: 0 -1rem;
 
-                }
-
-            }
-
-        }
-
-            // Relatives =======================================================
-            .profile-relative-list {
-                border-top: 1px solid darken($palette--white, 20%);
-                margin: 2rem 0;
-                padding: 2rem 2rem 0;
-
-                &:last-of-type {
-                    // margin-bottom: 0;
-                }
-
-                .profile-relative-list__header {
-                    padding: 0 1rem !important;
-
-                    .box {
-
-                        .profile-relative-list__label {
-                            color: $palette--font-black;
-                            display: block;
-                            font-family: $font--sans;
-                            font-size: $font-scale--h5;
-                            font-weight: 600;
-                            margin: 0;
-
-                            i {
-                                color: $palette--blue;
-                                margin: 0 .2rem 0 0;
-                            }
-
-                        }
-
-                        button {
-                            background: $palette--black;
-                            border: none;
-                            color: $palette--blue;
-                            cursor: pointer;
-                            font-family: $font--sans;
-                            font-size: $font-scale--h5;
-                            font-weight: 600;
-                            text-decoration: underline;
-                        }
-
-                        &:last-child {
-
-                            @media #{$p-tablet} {
-                                text-align: right;
-                            }
-
-                        }
-
-                    }
-
-                }
-
-                .profile-relative-list__wrapper {
-
-                }
-
-                .profile-relative {
-                    position: relative;
-
-                    &:last-child {
-                        margin-bottom: -2rem;
-                    }
-
-                    .form__input-wrapper--select {
-                        width: 90%;
-                    }
-
-                    .profile-relative__remove-trigger {
-                        background: none;
-                        border: none;
-                        color: $palette--red;
-                        cursor: pointer;
-                        font-size: $font-scale--h3;
-                        position: absolute;
-                        top: 50%;
-                        right: 0;
-                        transform: translate(0, -50%);
-                    }
-
-                    &.project {
-                        border: 1px solid darken($palette--white, 20%);
-                        border-radius: 5px;
-                        margin: 2rem 0;
-                        padding: .5rem 2rem 2rem 2rem;
-
-                        &:last-child {
-                            margin-bottom: 0;
-                        }
-
-                        .profile-relative__remove-trigger {
-                            background: white;
-                            padding: 1rem;
-                            top: 0;
-                            right: 1.5rem;
-                            transform: translate(0, -50%);
-                        }
-
-                        .flex-grid {
-                            padding: 0;
-
-                            .box {
-                                padding: 0 1rem;
-                            }
-
-                        }
-
-                    }
-
-                }
-
-                .profile-relative__add-trigger-wrapper {
-                    padding: 2rem 0 0;
-                    text-align: center;
-
-                    .profile-relative__add-trigger {
-                        background: none;
-                        border: 2px dashed darken($palette--white, 20%);
-                        border-radius: 5px;
-                        color: $palette--font-black;
-                        cursor: pointer;
-                        font-family: $font--sans;
-                        font-size: $font-scale--regular;
-                        font-weight: 600;
-                        padding: 1rem;
-                        text-decoration: none;
-                    }
-
-                    .profile-relative__null {
-                        color: rgba(90, 90, 90, 1);
-                        font-family: $font--sans;
-                        font-size: $font-scale--regular;
-                        font-weight: 600;
-                        margin: 1rem 0 2.5rem 0;
-                    }
-
-                }
-
-            }
-
-            .profile-relative__reference-name,
-            .profile-relative__sample-name {
-                font-weight: 700 !important;
-            }
-
-            .profile-relative__reference,
-            .profile-relative__sample {
-                margin: 1rem 0;
-
-                &:last-child {
-                    margin-bottom: 0 !important;
-                }
-
-                .flex-grid {
-                    margin: 0 -1rem;
-
-                    .box {
-                        padding-bottom: 0;
-                    }
-
-                }
-
-            }
+    .box {
+      padding-bottom: 0;
+    }
+  }
+}

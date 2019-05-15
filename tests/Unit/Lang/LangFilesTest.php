@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Unit;
+namespace Tests\Unit\Lang;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\Lang;
@@ -172,6 +172,10 @@ class LangFilesTest extends BaseTranslationTest
         '/images/logo_canada_white.png',
         '/images/logo_goc_white.svg',
         '1', '2', '3', '4', '5', '6',
+        'Meagan Commonda',
+        'mailto:meagan.commonda@tbs-sct.gc.ca',
+        'https://twitter.com/meagancommonda/',
+        'http://caid.ca/IndRecRet2017.pdf',
     ];
     /**
     * Tests lang files for identical values in multiple languages.
