@@ -270,7 +270,7 @@ const mapDispatchToProps = (
     );
   },
 });
-
+// @ts-ignore
 export const AssessmentPlanAlertContainer: React.FunctionComponent<
   AssessmentPlanAlertContainerProps
 > = connect(

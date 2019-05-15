@@ -363,7 +363,7 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
     dispatch(createTempRatingGuideAnswer(ratingGuideQuestionId, null, null));
   },
 });
-
+// @ts-ignore
 const RatingGuideAssessmentContainer: React.FunctionComponent<
   RatingGuideAssessmentContainerProps
 > = connect(

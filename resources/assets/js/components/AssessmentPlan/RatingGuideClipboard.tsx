@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 import React from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
@@ -26,7 +27,7 @@ export interface ClipboardTableRowProps {
   title: string;
   question: string | null;
   skillLevel: string;
-  criteriaType: string;
+  criteriaTypeName: string;
   skillName: string;
   modelAnswer: string;
 }
@@ -40,54 +41,72 @@ export const clipboardData = (
   locale: string,
   formatMessage: (message: FormattedMessage.MessageDescriptor) => string,
 ): ClipboardTableRowProps[] => {
-  ratingGuideAnswers = ratingGuideAnswers.filter(
-    answer => answer.criterion_id !== null,
+  let availableAnswers = ratingGuideAnswers.filter(
+    (answer: RatingGuideAnswer): boolean => answer.criterion_id !== null,
   );
-  ratingGuideAnswers = ratingGuideAnswers.filter(answer => {
-    const question = ratingGuideQuestions.find(
-      question => question.id === answer.rating_guide_question_id,
-    );
-    return (
-      question !== undefined &&
-      assessments.find(
-        assessment =>
-          assessment.criterion_id === answer.criterion_id &&
-          question.assessment_type_id === assessment.assessment_type_id,
-      ) !== undefined
-    );
-  });
-  const data = ratingGuideAnswers.map(
+  availableAnswers = availableAnswers.filter(
+    (answer: RatingGuideAnswer): boolean => {
+      const questionByAnswer = ratingGuideQuestions.find(
+        (question: RatingGuideQuestion): boolean =>
+          question.id === answer.rating_guide_question_id,
+      );
+      return (
+        questionByAnswer !== undefined &&
+        assessments.find(
+          (assessment: Assessment): boolean =>
+            assessment.criterion_id === answer.criterion_id &&
+            questionByAnswer.assessment_type_id ===
+              assessment.assessment_type_id,
+        ) !== undefined
+      );
+    },
+  );
+  const data = availableAnswers.map(
     (answer): ClipboardTableRowProps => {
-      const criterion = criteria.find(
-        criterion => criterion.id === answer.criterion_id,
+      const criterionByAnswer = criteria.find(
+        (criterion: Criteria): boolean => criterion.id === answer.criterion_id,
       );
-      if (criterion === undefined) {
-        throw new Error(`Criteria with id ${answer.criterion_id} not found`);
-      }
-      const skill = skills.find(skill => skill.id === criterion.skill_id);
-      if (skill === undefined) {
-        throw new Error(`Skill with id ${criterion.skill_id} not found.`);
-      }
-      const question = ratingGuideQuestions.find(
-        question => question.id === answer.rating_guide_question_id,
+      const skillByCriterion = skills.find(
+        (skill: Skill): boolean => {
+          if (criterionByAnswer === undefined) return false;
+          return skill.id === criterionByAnswer.skill_id;
+        },
       );
-      if (question === undefined) {
-        throw new Error(
-          `RatingGuideQuestion ${answer.rating_guide_question_id} not found.`,
-        );
-      }
+      const questionByAnswer = ratingGuideQuestions.find(
+        (question: RatingGuideQuestion): boolean =>
+          question.id === answer.rating_guide_question_id,
+      );
       return {
-        title: formatMessage(assessmentType(question.assessment_type_id)),
-        question: question.question,
-        skillLevel: formatMessage(
-          skillLevelName(criterion.skill_level_id, skill.skill_type_id),
-        ),
-        criteriaType: formatMessage(criteriaType(criterion.criteria_type_id)),
-        skillName: skill[locale].name,
+        title:
+          questionByAnswer === undefined
+            ? ""
+            : formatMessage(
+                assessmentType(questionByAnswer.assessment_type_id),
+              ),
+        question:
+          questionByAnswer === undefined ? null : questionByAnswer.question,
+        skillLevel:
+          criterionByAnswer === undefined || skillByCriterion === undefined
+            ? ""
+            : formatMessage(
+                skillLevelName(
+                  criterionByAnswer.skill_level_id,
+                  skillByCriterion.skill_type_id,
+                ),
+              ),
+        criteriaTypeName:
+          criterionByAnswer === undefined
+            ? ""
+            : formatMessage(criteriaType(criterionByAnswer.criteria_type_id)),
+        skillName:
+          skillByCriterion === undefined ? "" : skillByCriterion[locale].name,
         modelAnswer: answer.expected_answer,
-        id: `A${question.assessment_type_id}-Q${question.id}-T${
-          criterion.criteria_type_id
-        }-AN${answer.id}`,
+        id:
+          questionByAnswer === undefined || criterionByAnswer === undefined
+            ? ""
+            : `A${questionByAnswer.assessment_type_id}-Q${
+                questionByAnswer.id
+              }-T${criterionByAnswer.criteria_type_id}-AN${answer.id}`,
       };
     },
   );
@@ -95,7 +114,7 @@ export const clipboardData = (
     a: ClipboardTableRowProps,
     b: ClipboardTableRowProps,
   ): number => {
-    let num: number = 0;
+    let num = 0;
     if (a.title > b.title) {
       num = 1;
     } else if (a.title < b.title) {
@@ -108,9 +127,9 @@ export const clipboardData = (
       } else if (a.question < b.question) {
         num = -1;
       } else {
-        if (a.criteriaType > b.criteriaType) {
+        if (a.criteriaTypeName > b.criteriaTypeName) {
           num = -1; // Essential should be listed before Asset
-        } else if (a.criteriaType < b.criteriaType) {
+        } else if (a.criteriaTypeName < b.criteriaTypeName) {
           num = 1;
         }
       }
@@ -127,17 +146,9 @@ const cloneAndCleanTableRowProps = (
   const cleanedData: ClipboardTableRowProps[] = JSON.parse(
     JSON.stringify(data),
   );
-  // const lastIndex: number = data.length - 1;
-  // for (let i: number = 0; i <= lastIndex; i++) {
-  //   let row = data[i]
-  //   if (i > 0) {
-  //     let lastRow = data[i - 1]
-  //     if {}
-  //   }
-  // }
   const lastIndex: number = cleanedData.length - 1; // Takes out duplicate titles and questions
-  for (let i: number = lastIndex; i >= 0; --i) {
-    let j: number = i + 1;
+  for (let i: number = lastIndex; i >= 0; i -= 1) {
+    const j: number = i + 1;
     if (j <= lastIndex && cleanedData[j] !== undefined) {
       if (cleanedData[i].title === cleanedData[j].title) {
         cleanedData[j].title = "";
@@ -153,16 +164,15 @@ const cloneAndCleanTableRowProps = (
 const TableRow: React.FunctionComponent<ClipboardTableRowProps> = ({
   title,
   question,
-  criteriaType,
+  criteriaTypeName,
   skillLevel,
   skillName,
   modelAnswer,
-  id,
 }): React.ReactElement => (
   <tr>
-    <td>{title}</td>
+    <th scope="row">{title}</th>
     <td>{question}</td>
-    <td>{criteriaType}</td>
+    <td>{criteriaTypeName}</td>
     <td>{skillLevel}</td>
     <td>{skillName}</td>
     <td>{modelAnswer}</td>
@@ -222,16 +232,18 @@ const RatingGuideClipboard: React.FunctionComponent<
       <div className="screening-plan-layout">
         <section className="plan-table">
           <table ref={tableRef}>
-            <tr>
-              <th>Title</th>
-              <th>Question</th>
-              <th>Criteria Type</th>
-              <th>Target Level</th>
-              <th>Skill</th>
-              <th>Rating Guide</th>
-              <th>Applicant Answer</th>
-              <th>Score</th>
-            </tr>
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Question</th>
+                <th scope="col">Criteria Type</th>
+                <th scope="col">Target Level</th>
+                <th scope="col">Skill</th>
+                <th scope="col">Rating Guide</th>
+                <th scope="col">Applicant Answer</th>
+                <th scope="col">Score</th>
+              </tr>
+            </thead>
             <tbody>
               {rows.map(
                 (row): React.ReactElement => (
@@ -260,7 +272,7 @@ const mapStateToProps = (
   ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps.jobId),
   ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps.jobId),
 });
-
+// @ts-ignore
 const RatingGuideClipboardContainer: React.FunctionComponent<
   RatingGuideClipboardContainerProps
 > = connect(mapStateToProps)(injectIntl(RatingGuideClipboard));

@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   injectIntl,
   InjectedIntlProps,
@@ -349,7 +349,7 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
     dispatch(storeNewAssessment(assessment));
   },
 });
-
+// @ts-ignore
 const AssessmentPlanSkillContainer: React.FunctionComponent<
   AssessmentPlanSkillContainerProps
 > = connect(

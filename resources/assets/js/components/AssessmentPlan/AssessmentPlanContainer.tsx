@@ -131,7 +131,7 @@ const AssessmentPlanFetchContainer: React.FunctionComponent<
     />
   );
 };
-
+// @ts-ignore
 const AssessmentPlanContainer: React.FunctionComponent<
   AssessmentPlanContainerProps
 > = connect(

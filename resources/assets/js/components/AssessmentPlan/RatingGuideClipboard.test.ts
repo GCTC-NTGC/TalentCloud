@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-undef */
-import { IntlProvider, FormattedMessage } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import {
   Criteria,
   Assessment,
@@ -14,12 +14,7 @@ import {
   AssessmentTypeId,
   CriteriaTypeId,
 } from "../../models/lookupConstants";
-import {
-  skillLevelDescription,
-  skillLevelName,
-} from "../../models/localizedConstants";
-import { clipboardData, ClipboardTableRowProps } from "./RatingGuideClipboard";
-// import { getSkillById } from "../../store/skill/skillSelector";
+import { clipboardData } from "./RatingGuideClipboard";
 
 const jediSkill: Skill = {
   id: 1,
@@ -144,36 +139,6 @@ const someCriteria: Criteria[] = [
   },
 ];
 
-const badCriteria: Criteria[] = [
-  // Skill ID out of range
-  {
-    id: 1,
-    criteria_type_id: CriteriaTypeId.Essential,
-    job_poster_id: 1,
-    skill_id: 42,
-    skill_level_id: SkillLevelId.Expert,
-    description: "Stringy", // TODO: remove un-localized description
-    skill: jediSkill, // TODO: remove skill from here
-    en: {
-      description: "English for my fourth critical criterion",
-    },
-    fr: {
-      description: "French for my fourth critical criterion",
-    },
-  },
-];
-
-const badRatingGuideAnswers: RatingGuideAnswer[] = [
-  // Criterion ID out of range
-  {
-    id: 1,
-    rating_guide_question_id: 1,
-    criterion_id: 42,
-    expected_answer:
-      "The first answer will make complete sense once you know the question.",
-  },
-];
-
 const someAssesments: Assessment[] = [
   {
     id: 1,
@@ -194,14 +159,6 @@ const someAssesments: Assessment[] = [
     id: 4,
     criterion_id: 4,
     assessment_type_id: AssessmentTypeId.GroupTest,
-  },
-];
-
-const badAssesments: Assessment[] = [
-  {
-    id: 1,
-    criterion_id: 42,
-    assessment_type_id: AssessmentTypeId.NarrativeAssessment,
   },
 ];
 
@@ -233,17 +190,6 @@ const someRatingGuideQuestions: RatingGuideQuestion[] = [
     assessment_type_id: AssessmentTypeId.GroupTest,
     question:
       "What is the fourth question of the meaning of life, the universe and everything?",
-  },
-];
-
-const badRatingGuideQuestions: RatingGuideQuestion[] = [
-  // No question referenced by RatingGuideAnswers
-  {
-    id: 42,
-    job_poster_id: 1,
-    assessment_type_id: AssessmentTypeId.GroupTest,
-    question:
-      "What is the third question of the meaning of life, the universe and everything?",
   },
 ];
 
@@ -292,27 +238,13 @@ describe("ClipboardData", (): void => {
   it("returns a truthy object", (): void => {
     expect(defaultClipboardData).toBeTruthy();
   });
-  it("raise an error when a skill is not found from a skill_id", (): void => {
-    function badSkillID(): void {
-      clipboardData(
-        someAssesments,
-        badCriteria,
-        someSkills,
-        someRatingGuideQuestions,
-        someRatingGuideAnswers,
-        "en",
-        formatMessage,
-      );
-    }
-    expect(badSkillID).toThrow("Skill with id 42 not found.");
-  });
   it("returns an array equal to the number of Criteria", (): void => {
     expect(defaultClipboardData.length).toEqual(someCriteria.length);
   });
   it("returns the associated localized skill name for each criteria", (): void => {
     expect(defaultClipboardData[0].skillName).toEqual("English hacking");
-    expect(defaultClipboardData[1].skillName).toEqual("English ninja");
-    expect(defaultClipboardData[2].skillName).toEqual("English joker");
+    expect(defaultClipboardData[1].skillName).toEqual("English joker");
+    expect(defaultClipboardData[2].skillName).toEqual("English ninja");
     expect(defaultClipboardData[3].skillName).toEqual("English jedi");
   });
   it("returns the associated answer description for each criteria", (): void => {
@@ -320,35 +252,21 @@ describe("ClipboardData", (): void => {
       "The second answer will make complete sense once you know the question.",
     );
     expect(defaultClipboardData[1].modelAnswer).toEqual(
-      "The third answer will make complete sense once you know the question.",
+      "The fourth answer will make complete sense once you know the question.",
     );
     expect(defaultClipboardData[2].modelAnswer).toEqual(
-      "The fourth answer will make complete sense once you know the question.",
+      "The third answer will make complete sense once you know the question.",
     );
     expect(defaultClipboardData[3].modelAnswer).toEqual(
       "The first answer will make complete sense once you know the question.",
     );
-  });
-  it("raise an error when a ratingGuideQuestion is not found from a ratingGuideAnswer", (): void => {
-    function badQuestionId(): void {
-      clipboardData(
-        someAssesments,
-        someCriteria,
-        someSkills,
-        badRatingGuideQuestions,
-        someRatingGuideAnswers,
-        "en",
-        formatMessage,
-      );
-    }
-    expect(badQuestionId).toThrow("RatingGuideQuestion 1 not found.");
   });
   it("returns the associated question description for each criteria", (): void => {
     expect(defaultClipboardData[0].question).toEqual(
       "What is the second question of the meaning of life, the universe and everything?",
     );
     expect(defaultClipboardData[1].question).toEqual(
-      "What is the third question of the meaning of life, the universe and everything?",
+      "What is the fourth question of the meaning of life, the universe and everything?",
     );
     expect(defaultClipboardData[2].question).toEqual(
       "What is the third question of the meaning of life, the universe and everything?",
@@ -359,50 +277,32 @@ describe("ClipboardData", (): void => {
   });
   it("returns the proper skill level name as the target skill level", (): void => {
     expect(defaultClipboardData[0].skillLevel).toEqual(
-      "l10n.missing Moderately in Evidence",
+      "Moderately in Evidence",
     );
-    expect(defaultClipboardData[1].skillLevel).toEqual("l10n.missing Advanced");
-    expect(defaultClipboardData[2].skillLevel).toEqual(
-      "l10n.missing Deep Level Demonstration",
+    expect(defaultClipboardData[1].skillLevel).toEqual(
+      "Deep Level Demonstration",
     );
-    expect(defaultClipboardData[3].skillLevel).toEqual("l10n.missing Beginner");
+    expect(defaultClipboardData[2].skillLevel).toEqual("Advanced");
+    expect(defaultClipboardData[3].skillLevel).toEqual("Beginner");
   });
   it("returns the proper criteria type", (): void => {
-    expect(defaultClipboardData[0].criteriaType).toEqual("Asset");
-    expect(defaultClipboardData[1].criteriaType).toEqual("Essential");
-    expect(defaultClipboardData[2].criteriaType).toEqual("Essential");
-    expect(defaultClipboardData[3].criteriaType).toEqual("Essential");
-  });
-  it("raise an error when an assessment associated with a criteria is not found", (): void => {
-    function badAssessmentId(): void {
-      clipboardData(
-        badAssesments,
-        someCriteria,
-        someSkills,
-        someRatingGuideQuestions,
-        someRatingGuideAnswers,
-        "en",
-        formatMessage,
-      );
-    }
-    expect(badAssessmentId).toThrow(
-      "Assessment associated with criterion 1 not found.",
-    );
+    expect(defaultClipboardData[0].criteriaTypeName).toEqual("Asset");
+    expect(defaultClipboardData[1].criteriaTypeName).toEqual("Essential");
+    expect(defaultClipboardData[2].criteriaTypeName).toEqual("Essential");
+    expect(defaultClipboardData[3].criteriaTypeName).toEqual("Essential");
   });
   it("returns the proper assessment type", (): void => {
     expect(defaultClipboardData[0].title).toEqual(
-      "l10n.missing Application Screening Question",
+      "Application Screening Question",
     );
-    expect(defaultClipboardData[1].title).toEqual("l10n.missing Group Test");
-    expect(defaultClipboardData[2].title).toEqual("l10n.missing Group Test");
+    expect(defaultClipboardData[1].title).toEqual("Group Test");
+    expect(defaultClipboardData[2].title).toEqual("Group Test");
+    expect(defaultClipboardData[3].title).toEqual("Narrative Review");
   });
-  expect(defaultClipboardData[3].title).toEqual(
-    "l10n.missing Narrative Review",
-  );
   it("returns a unique id", (): void => {
     expect(defaultClipboardData[0].id).toEqual("A2-Q2-T2-AN2");
-    expect(defaultClipboardData[1].id).toEqual("A3-Q3-T1-AN3");
-    expect(defaultClipboardData[2].id).toEqual("A4-Q3-T1-AN4");
+    expect(defaultClipboardData[1].id).toEqual("A3-Q4-T1-AN4");
+    expect(defaultClipboardData[2].id).toEqual("A3-Q3-T1-AN3");
     expect(defaultClipboardData[3].id).toEqual("A1-Q1-T1-AN1");
   });
 });

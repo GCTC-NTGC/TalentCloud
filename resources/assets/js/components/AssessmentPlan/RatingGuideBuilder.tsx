@@ -11,7 +11,6 @@ import {
   assessmentTypeDescription,
   assessmentType,
   narrativeReviewStandardQuestion,
-  narrativeReviewStandardAnswer,
 } from "../../models/localizedConstants";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import { AssessmentTypeId } from "../../models/lookupConstants";
@@ -129,7 +128,7 @@ const RatingGuideBuilder: React.FunctionComponent<
                       </div>
                     )}
                     <div data-c-grid-item="base(1of1) tp(5of8)">
-                      {intl.formatMessage(narrativeReviewStandardAnswer())}
+                      {/* {intl.formatMessage(narrativeReviewStandardAnswer())} */}
                     </div>
                   </div>
                 </div>
@@ -198,7 +197,7 @@ const RatingGuideBuilder: React.FunctionComponent<
         />
       </p>
 
-      {/* {jobId !== null && <RatingGuideClipboard jobId={jobId} />} */}
+      {jobId !== null && <RatingGuideClipboard jobId={jobId} />}
     </div>
   );
 };
