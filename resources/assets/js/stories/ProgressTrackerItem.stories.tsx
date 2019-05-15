@@ -12,7 +12,7 @@ const stories = storiesOf('ProgressTracker/ProgressTracker Items', module)
 
 stories.add(
   'Active',
-  () => (
+  (): React.ReactElement => (
     <ProgressTracker backgroundColor="white">
       <ProgressTrackerItem
         state={text('State', 'active')}
@@ -28,7 +28,7 @@ stories.add(
 
 stories.add(
   'Complete',
-  () => (
+  (): React.ReactElement => (
     <ProgressTracker backgroundColor="white">
       <ProgressTrackerItem
         state={text('State', 'complete')}
@@ -44,7 +44,7 @@ stories.add(
 
 stories.add(
   'Error',
-  () => (
+  (): React.ReactElement => (
     <ProgressTracker backgroundColor="white">
       <ProgressTrackerItem
         state={text('State', 'error')}
@@ -60,7 +60,7 @@ stories.add(
 
 stories.add(
   'Null',
-  () => (
+  (): React.ReactElement => (
     <ProgressTracker backgroundColor="white">
       <ProgressTrackerItem
         state={text('State', 'null')}
