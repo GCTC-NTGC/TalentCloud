@@ -198,7 +198,7 @@ const RatingGuideBuilder: React.FunctionComponent<
         />
       </p>
 
-      {/* {jobId !== null && <RatingGuideClipboard jobId={jobId} />} */}
+      {jobId !== null && <RatingGuideClipboard jobId={jobId} />}
     </div>
   );
 };
