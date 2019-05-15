@@ -272,7 +272,7 @@ const mapStateToProps = (
   ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps.jobId),
   ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps.jobId),
 });
-
+// @ts-ignore
 const RatingGuideClipboardContainer: React.FunctionComponent<
   RatingGuideClipboardContainerProps
 > = connect(mapStateToProps)(injectIntl(RatingGuideClipboard));

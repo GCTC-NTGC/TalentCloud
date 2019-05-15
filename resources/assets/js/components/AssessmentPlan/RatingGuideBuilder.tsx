@@ -11,7 +11,6 @@ import {
   assessmentTypeDescription,
   assessmentType,
   narrativeReviewStandardQuestion,
-  narrativeReviewStandardAnswer,
 } from "../../models/localizedConstants";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import { AssessmentTypeId } from "../../models/lookupConstants";

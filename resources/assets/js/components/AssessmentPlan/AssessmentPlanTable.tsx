@@ -251,7 +251,7 @@ const mapStateToProps = (
   criteria: getCriteriaByJob(state, ownProps.jobId),
   assessments: getAssessmentsByJob(state, ownProps.jobId),
 });
-
+// @ts-ignore
 const AssessmentPlanTableContainer: React.FunctionComponent<
   AssessmentPlanTableContainerProps
 > = connect(mapStateToProps)(injectIntl(AssessmentPlanTable));

@@ -58,7 +58,7 @@ const mapDispatchToProps = (dispatch: DispatchType): any => ({
     dispatch(clearErrors());
   },
 });
-
+// @ts-ignore
 const ErrorToastContainer: React.FunctionComponent = connect(
   mapStateToProps,
   mapDispatchToProps,
