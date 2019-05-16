@@ -52,61 +52,76 @@
                     </div>
                     <div data-c-margin="top(double)">
                         <div data-c-grid="gutter">
+                        {% if job_count > 0 %}
+                        {% for i in 0..job_count - 1 %}
                             <div data-c-grid-item="tl(1of3) equal-col">
                                 <div class="card" data-c-background="white(100)" data-c-radius="rounded">
                                     <div data-c-background="black(100)" data-c-padding="normal">
                                         <h3>
-                                            <a data-c-colour="white" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(half)" href="" title="">
-                                                Front-end Developer
+                                            <a data-c-colour="white" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(half)" href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
+                                                {{ jobs[i].title }}
                                             </a>
                                         </h3>
-                                        <p data-c-colour="white">Treasury Board Secretariat of Canada</p>
+                                        <p data-c-colour="white">{{ jobs[i].department.value }}</p>
                                     </div>
                                     <div data-c-background="white(100)" data-c-padding="normal">
                                         <div data-c-grid="gutter">
                                             <div data-c-grid-item="base(1of1)">
                                                 <span data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                                                    Apply By
+                                                    {{ job_index.index.apply_by_label|trans }}
                                                 </span>
-                                                <span>August 1st, 2016</span>
+                                                <span>{{ humanizeLastDay(jobs[i].close_date_time) }}</span>
                                             </div>
                                             <div data-c-grid-item="base(1of2)">
                                                 <span data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                                                    Location
+                                                    {{ job_index.index.location_label }}
                                                 </span>
-                                                <span>Ottawa, Ontario</span>
+                                                <span>{{ jobs[i].city }}, {{ jobs[i].province.value }}</span>
                                             </div>
                                             <div data-c-grid-item="base(1of2)">
                                                 <span data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                                                    Average Annual Salary
+                                                    {{ job_index.index.salary_label }}
                                                 </span>
-                                                <span>$100,000</span>
+                                                {% if (app.getLocale() == "en") %}
+                                                    <span>
+                                                        ${{ jobs[i].salary_min|number_format }} - ${{ jobs[i].salary_max|number_format }}
+                                                    </span>
+                                                {% else %}
+                                                    <span>
+                                                        {{ jobs[i].salary_min|number_format('0',' ',' ') }}&nbsp;$ - {{ jobs[i].salary_max|number_format('0',' ',' ') }}&nbsp;$
+                                                    </span>
+                                                {% endif %}
                                             </div>
                                             <div data-c-grid-item="base(1of1)">
                                                 <span data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                                                    Impact
+                                                    {{ job_post.impact.title }}
                                                 </span>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor.</p>
+                                                <p>{{handleNullState(
+                                                    jobs[i].impact,
+                                                    jobs[i].impact|nl2br,
+                                                    job_post.no_info
+                                                )}}</p>
                                             </div>
                                             <div data-c-alignment="base(right)" data-c-grid-item="base(1of1)">
-                                                <a href="" title="">
-                                                    Learn More
+                                                <a href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
+                                                    {{ home.slogan.link.label }}
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        {% endfor %}
+                        {% endif %}
+                        {% if job_count < 3 %}
+                        {% for i in job_count..2 %}
                             <div data-c-grid-item="tl(1of3) equal-col">
                                 <div class="home-browse-null" data-c-padding="normal" data-c-radius="rounded">
                                     <span data-c-font-size="h4" data-c-font-weight="bold">{{ home.browse.null }}</span>
                                 </div>
                             </div>
-                            <div data-c-grid-item="tl(1of3) equal-col">
-                                <div class="home-browse-null" data-c-padding="normal" data-c-radius="rounded">
-                                    <span data-c-font-size="h4" data-c-font-weight="bold">{{ home.browse.null }}</span>
-                                </div>
-                            </div>
+                        {% endfor %}
+                        {% endif %}
                         </div>
                     </div>
                 </div>
