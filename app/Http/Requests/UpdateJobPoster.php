@@ -42,7 +42,8 @@ class UpdateJobPoster extends FormRequest
             'salary_min' => 'required|numeric',
             'salary_max' => 'required|numeric',
             'noc' => 'required|numeric',
-            'classification' => 'required|regex:/[A-Z]{2}-[0-9]{2}/',
+            'classification_code' => 'required|regex:/[A-Z]{2}/',
+            'classification_level' => 'required|numeric',
             'remote_work_allowed' => 'required|boolean',
         ];
     }

@@ -36,7 +36,8 @@ class JobApiControllerTest extends TestCase
             'salary_min' => $this->faker->numberBetween(60000, 80000),
             'salary_max' => $this->faker->numberBetween(80000, 100000),
             'noc' => $this->faker->numberBetween(1, 9999),
-            'classification' => $this->faker->regexify('[A-Z]{2}-0[1-5]'),
+            'classification_code' => $this->faker->regexify('[A-Z]{2}'),
+            'classification_level' => $this->faker->numberBetween(1, 6),
             'manager_id' => $managerId,
             'published' => $published,
             'remote_work_allowed' => $this->faker->boolean(50),
@@ -50,10 +51,8 @@ class JobApiControllerTest extends TestCase
             'en' => [
                 'city' => $this->faker->city,
                 'title' => $this->faker->word,
-                'impact' => $this->faker->paragraphs(
-                    2,
-                    true
-                ),
+                'team_impact' => $this->faker->paragraph(),
+                'hire_impact' => $this->faker->paragraph(),
                 'branch' => $this->faker->word,
                 'division' => $this->faker->word,
                 'education' => $this->faker->word,
@@ -61,10 +60,8 @@ class JobApiControllerTest extends TestCase
             'fr' => [
                 'city' => $this->faker->city,
                 'title' => $this->faker->word,
-                'impact' => $this->faker->paragraphs(
-                    2,
-                    true
-                ),
+                'team_impact' => $this->faker->paragraph(),
+                'hire_impact' => $this->faker->paragraph(),
                 'branch' => $this->faker->word,
                 'division' => $this->faker->word,
                 'education' => $this->faker->word,
