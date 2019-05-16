@@ -9,6 +9,61 @@ return [
      * The following language lines are used in the applicant home page.
      *
      */
+    /* New Content for Homepage */
+    "hero" => [
+        "title" => "Talent Cloud",
+        "tagline" => "Your next gig: making Canada better.",
+        "pilot" => "PILOT/BETA"
+    ],
+    "slogan" => [
+        "copy" => "No cover letter. No resume. Create a reusable profile of your skills and save time applying to government jobs that fit. ",
+        "link" => [
+            "title" => "Learn more about how Talent Cloud works.",
+            "href" => "#how",
+            "label" => "Learn more"
+        ]
+    ],
+    "browse" => [
+        "title" => "Recently Posted Jobs",
+        "browse_link" => [
+            "title" => "View all jobs posted to Talent Cloud.",
+            "href" => "/jobs",
+            "label" => "Browse All Jobs"
+        ],
+        "null" => "More Jobs Coming Soon!"
+    ],
+    "hiw" => [
+        "title" => "How Talent Cloud Works",
+        "steps" => [
+            "1" => "1. Create an Account",
+            "2" => "2. Apply",
+            "3" => "3. Get Recognized",
+            "4" => "4. Reuse"
+        ],
+        "step_content" => [
+            "1" => [
+                "title" => "Step 1: Create an Account",
+                "summary" => "Your account contains your experience, skills, references, and samples of your work.",
+                "copy" => "When you complete areas of your account or add content during an application, everything is saved so that you can reuse it next time you apply. This means that entering your experience, education, skill expertise, references, and work samples all only ever happens once - from there you can update your account to reflect your personal and professional growth while saving a bunch of time on each consecutive opportunity you apply for."
+            ],
+            "2" => [
+                "title" => "Step 2: Apply",
+                "summary" => "TBD",
+                "copy" => "TBD"
+            ],
+            "3" => [
+                "title" => "Step 3: Get Recognized",
+                "summary" => "TBD",
+                "copy" => "TBD"
+            ],
+            "4" => [
+                "title" => "Step 4: Reuse",
+                "summary" => "TBD",
+                "copy" => "TBD"
+            ]
+        ]
+    ],
+    /* Old Content */
     "home_title" => "Talent Cloud | Applicant: Home",
     "about_card_copy_01" => "The jobs are real.",
     "about_card_copy_02" => "The platform is experimental.",

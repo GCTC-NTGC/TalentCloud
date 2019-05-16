@@ -9,7 +9,7 @@ $clone-copy-layout: 39rem;
 
 $clone-whitespace-multiplier: 1.25;
 
-$clone-black: rgba(20, 20, 35, 1);
+$clone-black: rgba(15, 15, 25, 1);
 
 $clone-c1: #5B1647;
 
@@ -21,7 +21,7 @@ $clone-c4: #0A6CBC;
 
 $clone-c5: #0A6CBC;
 
-$clone-hover-colour: $clone-black;
+$clone-hover-colour: $clone-c5;
 
 $clone-focus-colour: $clone-hover-colour;
 
@@ -30,6 +30,10 @@ $clone-alert--information: $clone-c1;
 @import "../../../node_modules/clone-framework/app/scss/clone";
 
 @import "components/common/itp";
+
+.card {
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
 
 // Core Elements ===============================================================
 

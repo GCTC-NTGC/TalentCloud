@@ -1,68 +1,24 @@
 {# =============================================================================
 
     Talent Cloud
-    Alert
+    Sitewide Notice
 
 ============================================================================= #}
-<section
-    class="alert default active">
-
-    <div
-        class="alert__grid flex-grid">
-
-        {# Alert Copy #}
-
-            <div
-                class="box med-1of2">
-
-                <span>
-                    <i class="fas fa-bug"></i>
-                    {{ alert.copy }}
-                </span>
-
+<div data-clone>
+    <section data-c-alignment="base(centre)" data-c-background="white(100)" data-c-padding="top(half) bottom(half)">
+        <div data-c-container="layout">
+            <div data-c-grid="gutter">
+                <div data-c-alignment="tp(left)" data-c-grid-item="tp(5of7)">
+                    <i class="fas fa-info-circle" data-c-colour="c3"></i>
+                    &nbsp;&nbsp;&nbsp;{{ alert.copy }}
+                </div>
+                <div data-c-alignment="tp(right)" data-c-grid-item="tp(2of7)">
+                    <i class="fas fa-comment-alt" data-c-colour="c3"></i>&nbsp;&nbsp;&nbsp;
+                    <a href="mailto:{{ alert.feedback_link }}" target="" title="{{ alert.feedback_link_title }}">
+                        {{ alert.feedback_link_copy }}
+                    </a>
+                </div>
             </div>
-
-        {# Feedback Link #}
-
-            <div
-                class="box med-1of2">
-
-                <span>
-                    {{ alert.feedback_copy }}
-                </span>
-
-                <a
-                    class=""
-                    href="mailto:{{ alert.feedback_link }}"
-                    target=""
-                    title="{{ alert.feedback_link_title }}">
-                    {{ alert.feedback_link_copy }}
-                </a>
-
-            </div>
-
-    </div>
-
-</section>
-
-<section
-    class="alert warning">
-
-    <div
-        class="alert__grid flex-grid">
-
-        {# Alert Copy #}
-
-            <div
-                class="box full">
-
-                <span>
-                    <i class="fas fa-exclamation-circle"></i>
-                    {{ alert.warning_copy }}
-                </span>
-
-            </div>
-
-    </div>
-
-</section>
+        </div>
+    </section>
+</div>

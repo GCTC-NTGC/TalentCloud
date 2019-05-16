@@ -4,69 +4,25 @@
     Footer
 
 ============================================================================= #}
-<footer
-    class="footer">
-
-    <div
-        class="footer__grid flex-grid middle">
-
-        {# SubMenu Links #}
-
-            <nav
-                class="box med-1of2">
-
-                <ul>
-
-                    <li>
-                        <a
-                            class=""
-                            href="{{ footer.terms.link }}"
-                            title="{{ footer.terms.link_title }}">
-                            {{ footer.terms.link_label }}
-                        </a>
-                    </li>
-
-                    <li>&bull;
-                        <a
-                            class=""
-                            href="{{ footer.privacy.link }}"
-                            title="{{ footer.privacy.link_title }}">
-                            {{ footer.privacy.link_label }}
-                        </a>
-                    </li>
-
-                    <li>&bull;
-                        <a
-                            class=""
-                            href="{{ footer.canada.link }}"
-                            title="{{ footer.canada.link_title }}">
-                            {{ footer.canada.link_label }}
-                        </a>
-                    </li>
-
-                </ul>
-
-            </nav>
-
-        {# Feedback Link #}
-
-            <div
-                class="box med-1of2">
-
-                <a
-                    class=""
-                    href="{{ footer.logo_link }}"
-                    target="_blank"
-                    title="{{ footer.logo_link_title }}"
-                    rel="noopener noreferrer">
-                    <img
-                        alt="{{ footer.logo_alt }}"
-                        class=""
-                        src="{{ footer.logo_url }}">
-                </a>
-
+<div data-clone>
+    <footer data-c-alignment="base(centre)" data-c-background="black(100)" data-c-padding="top(double) bottom(double)">
+        <div data-c-container="layout">
+            <div data-c-grid="gutter middle">
+                <div data-c-alignment="tp(left)" data-c-grid-item="tp(5of7)">
+                    <nav class="footer-nav" data-c-colour="white">
+                        <ul>
+                            <li><a class=""href="{{ footer.terms.link }}"title="{{ footer.terms.link_title }}">{{ footer.terms.link_label }}</a></li>
+                            <li><a class=""href="{{ footer.privacy.link }}"title="{{ footer.privacy.link_title }}">{{ footer.privacy.link_label }}</a></li>
+                            <li><a class=""href="{{ footer.canada.link }}"title="{{ footer.canada.link_title }}">{{ footer.canada.link_label }}</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div data-c-alignment="tp(right)" data-c-grid-item="tp(2of7)">
+                    <a class="footer-logo" href="{{ footer.logo_link }}" target="_blank" title="{{ footer.logo_link_title }}" rel="noopener noreferrer">
+                        <img alt="{{ footer.logo_alt }}" class="" src="{{ footer.logo_url }}">
+                    </a>
+                </div>
             </div>
-
-    </div>
-
-</footer>
+        </div>
+    </footer>
+</div>
