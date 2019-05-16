@@ -28,6 +28,32 @@
     width: 2.5rem;
 }
 
+.blog-grid {
+    [data-c-grid-item] {
+        &:nth-child(even) {
+            background: rgba($clone-grey, .1);
+        }
+        @media #{$clone-tablet-portrait} {
+            &:nth-child(even) {
+                background: none;
+            }
+            &:nth-child(4n+2),
+            &:nth-child(4n+3) {
+                background: rgba($clone-grey, .1);
+            }
+        }
+        @media #{$clone-tablet-landscape} {
+            &:nth-child(4n+2),
+            &:nth-child(4n+3) {
+                background: none;
+            }
+            &:nth-child(even) {
+                background: rgba($clone-grey, .1);
+            }
+        }
+    }
+}
+
 .itp-why {
     overflow: hidden;
     position: relative;

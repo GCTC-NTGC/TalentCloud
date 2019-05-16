@@ -1,0 +1,210 @@
+{% extends "layouts/base" %}
+
+{% block title %}
+
+    {{ itp.page_title }}
+
+{% endblock %}
+
+{% block body %}
+
+    {# Sitewide Notice ====================================================== #}
+    {% include "common/alert" %}
+
+    {# Government of Canada Banner ========================================== #}
+    {% include "common/goc" %}
+
+    <div data-clone>
+        <div
+            data-c-background="white(100)">
+            <div style="background-image: url('/images/bg_crowd.jpg');" data-c-overlay="black(80)" data-c-padding="bottom(triple)">
+                <div data-c-margin="bottom(triple)">
+                    {% include "common/menu" %}
+                </div>
+                <div data-c-container="layout">
+                    <h2 data-c-colour="white" data-c-font-size="h2" data-c-font-weight="bold" data-c-margin="bottom(double)">
+                        Our Blog
+                    </h2>
+                    <nav aria-label="breadcrumb" data-c-breadcrumbs data-c-colour="white" data-c-margin="bottom(normal)">
+                        <ol>
+                            <li>
+                                <a href="#link-to-page" title="This is the title of the page link.">
+                                    Home
+                                </a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                            <li>
+                                <a href="#link-to-page" title="This is the title of the page link.">
+                                    Our Blog
+                                </a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            {# Filters ====================================================== #}
+            <div data-c-background="c2(100)" data-c-padding="top(double) bottom(double)">
+                <div data-c-container="layout">
+                    <h3 data-c-font-size="h3" data-c-color="white" data-c-margin="bottom(normal)">Filter Posts</h3>
+                    <form>
+                        <div data-c-grid="gutter">
+                            <div data-c-grid-item="tp(1of3) tl(2of5)" data-c-input="select">
+                                <label data-c-colour="white" for="SEL2">Tag</label>
+                                <span>Required</span>
+                                <div>
+                                    <i class="fa fa-caret-down"></i>
+                                    <select id="SEL2">
+                                        <option disabled selected>Select a tag...</option>
+                                        <option>Option 01</option>
+                                        <option>Option 02</option>
+                                        <option>Option 03</option>
+                                    </select>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-grid-item="tp(1of3) tl(1of5)" data-c-input="select">
+                                <label data-c-colour="white" for="SEL2">Author</label>
+                                <span>Required</span>
+                                <div>
+                                    <i class="fa fa-caret-down"></i>
+                                    <select id="SEL2">
+                                        <option disabled selected>Select a author...</option>
+                                        <option>Option 01</option>
+                                        <option>Option 02</option>
+                                        <option>Option 03</option>
+                                    </select>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-grid-item="tp(1of3) tl(1of5)" data-c-input="select">
+                                <label data-c-colour="white" for="SEL2">Month</label>
+                                <span>Required</span>
+                                <div>
+                                    <i class="fa fa-caret-down"></i>
+                                    <select id="SEL2">
+                                        <option disabled selected>Select a month...</option>
+                                        <option>Option 01</option>
+                                        <option>Option 02</option>
+                                        <option>Option 03</option>
+                                    </select>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-grid-item="tp(1of3) tl(1of5)" data-c-input="select">
+                                <label data-c-colour="white" for="SEL2">Year</label>
+                                <span>Required</span>
+                                <div>
+                                    <i class="fa fa-caret-down"></i>
+                                    <select id="SEL2">
+                                        <option disabled selected>Select a year...</option>
+                                        <option>Option 01</option>
+                                        <option>Option 02</option>
+                                        <option>Option 03</option>
+                                    </select>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {# Blog Index =================================================== #}
+            <div data-c-background="white(100)">
+                <div data-c-grid="" class="blog-grid">
+                    <div data-c-grid-item="tp(1of2) tl(1of3) equal-col" data-c-padding="triple">
+                        <span data-c-font-weight="bold" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</span>
+                        <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                            <a href="" title="">How to Find a Job that Fits</a>
+                        </h3>
+                        <span data-c-margin="bottom(normal)" data-c-font-weight="bold">Authored by: Meagan Commonda</span>
+                        <span data-c-margin="bottom(normal)">About a 5 minute read.</span>
+                        <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
+                        <a data-c-font-weight="bold" href="" title="">Read More</a>
+                    </div>
+                    <div data-c-grid-item="tp(1of2) tl(1of3) equal-col" data-c-padding="triple">
+                        <span data-c-font-weight="bold" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</span>
+                        <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                            <a href="" title="">How to Find a Job that Fits</a>
+                        </h3>
+                        <span data-c-margin="bottom(normal)" data-c-font-weight="bold">Authored by: Meagan Commonda</span>
+                        <span data-c-margin="bottom(normal)">About a 5 minute read.</span>
+                        <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
+                        <a data-c-font-weight="bold" href="" title="">Read More</a>
+                    </div>
+                    <div data-c-grid-item="tp(1of2) tl(1of3) equal-col" data-c-padding="triple">
+                        <span data-c-font-weight="bold" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</span>
+                        <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                            <a href="" title="">How to Find a Job that Fits</a>
+                        </h3>
+                        <span data-c-margin="bottom(normal)" data-c-font-weight="bold">Authored by: Meagan Commonda</span>
+                        <span data-c-margin="bottom(normal)">About a 5 minute read.</span>
+                        <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
+                        <a data-c-font-weight="bold" href="" title="">Read More</a>
+                    </div>
+                    <div data-c-grid-item="tp(1of2) tl(1of3) equal-col" data-c-padding="triple">
+                        <span data-c-font-weight="bold" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</span>
+                        <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                            <a href="" title="">How to Find a Job that Fits</a>
+                        </h3>
+                        <span data-c-margin="bottom(normal)" data-c-font-weight="bold">Authored by: Meagan Commonda</span>
+                        <span data-c-margin="bottom(normal)">About a 5 minute read.</span>
+                        <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
+                        <a data-c-font-weight="bold" href="" title="">Read More</a>
+                    </div>
+                    <div data-c-grid-item="tp(1of2) tl(1of3) equal-col" data-c-padding="triple">
+                        <span data-c-font-weight="bold" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</span>
+                        <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                            <a href="" title="">How to Find a Job that Fits</a>
+                        </h3>
+                        <span data-c-margin="bottom(normal)" data-c-font-weight="bold">Authored by: Meagan Commonda</span>
+                        <span data-c-margin="bottom(normal)">About a 5 minute read.</span>
+                        <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
+                        <a data-c-font-weight="bold" href="" title="">Read More</a>
+                    </div>
+                    <div data-c-grid-item="tp(1of2) tl(1of3) equal-col" data-c-padding="triple">
+                        <span data-c-font-weight="bold" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</span>
+                        <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                            <a href="" title="">How to Find a Job that Fits</a>
+                        </h3>
+                        <span data-c-margin="bottom(normal)" data-c-font-weight="bold">Authored by: Meagan Commonda</span>
+                        <span data-c-margin="bottom(normal)">About a 5 minute read.</span>
+                        <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
+                        <a data-c-font-weight="bold" href="" title="">Read More</a>
+                    </div>
+                    <div data-c-grid-item="tp(1of2) tl(1of3) equal-col" data-c-padding="triple">
+                        <span data-c-font-weight="bold" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</span>
+                        <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                            <a href="" title="">How to Find a Job that Fits</a>
+                        </h3>
+                        <span data-c-margin="bottom(normal)" data-c-font-weight="bold">Authored by: Meagan Commonda</span>
+                        <span data-c-margin="bottom(normal)">About a 5 minute read.</span>
+                        <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
+                        <a data-c-font-weight="bold" href="" title="">Read More</a>
+                    </div>
+                    <div data-c-grid-item="tp(1of2) tl(1of3) equal-col" data-c-padding="triple">
+                        <span data-c-font-weight="bold" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</span>
+                        <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                            <a href="" title="">How to Find a Job that Fits</a>
+                        </h3>
+                        <span data-c-margin="bottom(normal)" data-c-font-weight="bold">Authored by: Meagan Commonda</span>
+                        <span data-c-margin="bottom(normal)">About a 5 minute read.</span>
+                        <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
+                        <a data-c-font-weight="bold" href="" title="">Read More</a>
+                    </div>
+                    <div data-c-grid-item="tp(1of2) tl(1of3) equal-col" data-c-padding="triple">
+                        <span data-c-font-weight="bold" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</span>
+                        <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                            <a href="" title="">How to Find a Job that Fits</a>
+                        </h3>
+                        <span data-c-margin="bottom(normal)" data-c-font-weight="bold">Authored by: Meagan Commonda</span>
+                        <span data-c-margin="bottom(normal)">About a 5 minute read.</span>
+                        <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
+                        <a data-c-font-weight="bold" href="" title="">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
