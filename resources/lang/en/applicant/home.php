@@ -63,6 +63,68 @@ return [
             ]
         ]
     ],
+    "bts" => [
+        "title" => "Behind the Scenes",
+        "intro" => "Talent Cloud is different in a lot of ways. We're %os%, %iterative%, trying to %bias%, and do our best to %design% in mind.",
+        "intro_link" => [
+            "os" => "<a href='' title='' target='_blank'>open source</a>",
+            "iterative" => "<a href='' title='' target='_blank'>iterative</a>",
+            "bias" => "<a href='' title='' target='_blank'>transform bias in hiring</a>",
+            "design" => "<a href='' title='' target='_blank'>design with everyone</a>",
+        ],
+        "items" => [
+            "1" => [
+                "title" => "How it's designed:",
+                "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis.",
+                "links" => [
+                    "1" => [
+                        "link" => "https://github.com/GCTC-NTGC/TalentCloud",
+                        "title" => "Visit the Talent Cloud Github page.",
+                        "label" => "Our Code on Github"
+                    ]
+                ]
+            ],
+            "2" => [
+                "title" => "How it's funded:",
+                "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis.",
+                "links" => [
+                    "1" => [
+                        "link" => "https://github.com/GCTC-NTGC/TalentCloud",
+                        "title" => "Learn more about how Talent Cloud is funded and how that money is spent.",
+                        "label" => "Learn More"
+                    ]
+                ]
+            ],
+            "3" => [
+                "title" => "How we communicate:",
+                "copy" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis.",
+                "links" => [
+                    "1" => [
+                        "link" => "https://twitter.com/gc_talent",
+                        "title" => "Visit Talent Cloud on Twitter.",
+                        "label" => "Twitter"
+                    ],
+                    "2" => [
+                        "link" => "https://gccollab.ca/groups/profile/19750/entalent-cloud-nuage-de-talentsfrnuage-de-talents-talent-cloud",
+                        "title" => "Visit Talent Cloud on GCcollab.",
+                        "label" => "GCcollab"
+                    ],
+                    "3" => [
+                        "link" => "mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
+                        "title" => "Email Talent Cloud.",
+                        "label" => "Email"
+                    ]
+                ]
+            ]
+        ]
+    ],
+    "cta" => [
+        "copy" => "Can't find the job you're looking for on Talent Cloud? %gcjobs% for more public sector opportunities. Students, be sure to %fswep% too!",
+        "copy_links" => [
+            "gcjobs" => "<a href='https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en' title='Visit GC Jobs for more information.' target='_blank'>Check out GC Jobs</a>",
+            "fswep" => "<a href='https://www.canada.ca/en/public-service-commission/jobs/services/recruitment/students/federal-student-work-program.html' title='Visit FSWEP for more information on student opportunities.' target='_blank'>check out FSWEP</a>"
+        ]
+    ],
     /* Old Content */
     "home_title" => "Talent Cloud | Applicant: Home",
     "about_card_copy_01" => "The jobs are real.",

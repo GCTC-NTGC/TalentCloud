@@ -166,33 +166,23 @@
             <div data-c-overlay="black(80)" data-c-padding="top(triple) bottom(triple)" style="background-image: url('/images/bg_crowd.jpg');">
                 <div data-c-container="layout">
                     <h2 data-c-colour="white" data-c-font-size="h2" data-c-margin="bottom(double)">
-                        Behind the Scenes
+                        {{ home.bts.title }}
                     </h2>
-                    <p data-c-colour="white" data-c-margin="bottom(normal)">Talent Cloud is different in a lot of ways. We're open source, iterative, trying to transform bias in hiring, and do our best to design with everyone in mind.</p>
+                    <p data-c-colour="white" data-c-margin="bottom(normal)">
+                        {{ home.bts.intro|replace({'%os%': home.bts.intro_link.os, '%iterative%': home.bts.intro_link.iterative, '%bias%': home.bts.intro_link.bias, "%design%": home.bts.intro_link.design})|raw }}
+                    </p>
                     <div data-c-grid="gutter">
-                        <div data-c-grid-item="tl(1of3) equal-col">
-                            <div data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
-                                <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">How it's designed:</h3>
-                                <p data-c-margin="bottom(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis.</p>
-                                <a data-c-font-weight="bold" href="" title="">Our Code on Github</a>
+                        {% for item in home.bts.items %}
+                            <div data-c-grid-item="tl(1of3) equal-col">
+                                <div data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
+                                    <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">{{ item.title }}</h3>
+                                    <p data-c-margin="bottom(normal)">{{ item.copy }}</p>
+                                    {% for link in item.links %}
+                                        <a data-c-font-weight="bold" href="{{ link.link }}" title="{{ link.title }}">{{ link.label }}</a>&nbsp;&nbsp;&nbsp;
+                                    {% endfor %}
+                                </div>
                             </div>
-                        </div>
-                        <div data-c-grid-item="tl(1of3) equal-col">
-                            <div data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
-                                <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">How it's funded:</h3>
-                                <p data-c-margin="bottom(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis.</p>
-                                <a data-c-font-weight="bold" href="" title="">Read More</a>
-                            </div>
-                        </div>
-                        <div data-c-grid-item="tl(1of3) equal-col">
-                            <div data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
-                                <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">How we communicate:</h3>
-                                <p data-c-margin="bottom(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis.</p>
-                                <a data-c-font-weight="bold" href="" title="">Twitter</a>&nbsp;&nbsp;&nbsp;
-                                <a data-c-font-weight="bold" href="" title="">GCcollab</a>&nbsp;&nbsp;&nbsp;
-                                <a data-c-font-weight="bold" href="" title="">Email</a>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -248,11 +238,9 @@
             {# GC Jobs Banner =============================================== #}
             <div class="gradient-right-left" data-c-padding="normal">
                 <div data-c-alignment="center" data-c-container="layout">
-                    <p data-c-colour="white" data-c-margin="top(half) bottom(half)">Can't find the job you're looking for on Talent Cloud?
-                        <a href="" title="">Check out GC Jobs</a>
-                        for more public sector opportunities. Students, be sure to
-                        <a href="" title="">check out FSWEP</a>
-                        too!</p>
+                    <p data-c-colour="white" data-c-margin="top(half) bottom(half)">
+                        {{ home.cta.copy|replace({"%gcjobs%": home.cta.copy_links.gcjobs, "%fswep%": home.cta.copy_links.fswep})|raw }}
+                    </p>
                 </div>
             </div>
         </div>
