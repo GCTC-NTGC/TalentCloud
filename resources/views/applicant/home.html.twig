@@ -135,7 +135,7 @@
                             {% set stepContentCounter = 0 %}
                             {% for item in home.hiw.step_content %}
                                 {% set stepContentCounter = stepContentCounter + 1 %}
-                                <div class="home-hiw-content {% if stepContentCounter == 1 %}active{% endif %}" data-c-alignment="left" data-c-background="c1(100)" data-c-padding="normal" data-c-radius="rounded" data-tc-hiw-id="{{ stepContentCounter }}">
+                                <div class="home-hiw-content {% if stepContentCounter == 1 %}active{% endif %}" data-c-alignment="left" data-c-background="c1(100)" data-c-padding="double" data-c-radius="rounded" data-tc-hiw-id="{{ stepContentCounter }}">
                                     <span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(normal)">
                                         {{ item.title }}
                                     </span>

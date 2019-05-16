@@ -11,9 +11,34 @@
                 <div data-c-alignment="tp(left)" data-c-grid-item="tp(5of7)">
                     <nav class="footer-nav" data-c-colour="white">
                         <ul>
-                            <li><a class=""href="{{ footer.terms.link }}"title="{{ footer.terms.link_title }}">{{ footer.terms.link_label }}</a></li>
-                            <li><a class=""href="{{ footer.privacy.link }}"title="{{ footer.privacy.link_title }}">{{ footer.privacy.link_label }}</a></li>
-                            <li><a class=""href="{{ footer.canada.link }}"title="{{ footer.canada.link_title }}">{{ footer.canada.link_label }}</a></li>
+                            <li>
+                                <a
+                                    href="mailto:{{ footer.feedback.link }}"
+                                    title="{{ footer.feedback.title }}">
+                                    {{ footer.feedback.label }}
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{{ footer.terms.link }}"
+                                    title="{{ footer.terms.title }}">
+                                    {{ footer.terms.label }}
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{{ footer.privacy.link }}"
+                                    title="{{ footer.privacy.title }}">
+                                    {{ footer.privacy.label }}
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{{ footer.canada.link }}"
+                                    title="{{ footer.canada.title }}">
+                                    {{ footer.canada.label }}
+                                </a>
+                            </li>
                         </ul>
                     </nav>
                 </div>

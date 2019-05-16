@@ -12,7 +12,7 @@ return [
     /* New Content for Homepage */
     "hero" => [
         "title" => "Talent Cloud",
-        "tagline" => "Your next gig: making Canada better.",
+        "tagline" => "A new way to make your mark on Canada.",
         "pilot" => "PILOT/BETA"
     ],
     "slogan" => [

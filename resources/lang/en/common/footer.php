@@ -9,21 +9,25 @@ return [
      * The following language lines are used in the site Footer.
      *
      */
-
+    "feedback" => [
+        "link" => "talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
+        "title" => "Submit feedback to GC Talent Cloud via email.",
+        "label" => "Feedback"
+    ],
     "terms" => [
         "link" => "/tos/",
-        "link_title" => "View our terms and conditions.",
-        "link_label" => "Terms & Conditions"
+        "title" => "View our terms and conditions.",
+        "label" => "Terms & Conditions"
     ],
     "privacy" => [
         "link" => "/privacy/",
-        "link_title" => "View our privacy policy.",
-        "link_label" => "Privacy Policy"
+        "title" => "View our privacy policy.",
+        "label" => "Privacy Policy"
     ],
     "canada" => [
         "link" => "https://www.canada.ca/en.html",
-        "link_title" => "Visit Canada.ca.",
-        "link_label" => "Canada.ca"
+        "title" => "Visit Canada.ca.",
+        "label" => "Canada.ca"
     ],
     "logo_link" => "https://www.canada.ca/en.html",
     "logo_link_title" => "Visit Canada.ca.",
