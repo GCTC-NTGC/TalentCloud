@@ -1,0 +1,7 @@
+[
+  {
+    "id": "errorToast.title",
+    "description": "Title displayed on the Error Toast component.",
+    "defaultMessage": "Something went wrong!"
+  }
+]

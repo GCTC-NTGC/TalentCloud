@@ -135,6 +135,16 @@
     "defaultMessage": "Serious Games"
   },
   {
+    "id": "criteriaType.asset",
+    "description": "Title of an asset criteria type.",
+    "defaultMessage": "Asset"
+  },
+  {
+    "id": "criteriaType.essential",
+    "description": "Title of an esential criteria type.",
+    "defaultMessage": "Essential"
+  },
+  {
     "id": "assessmentType.narrativeAssessment.description",
     "description": "Description of an assessment type, to help a manager understand when to use it.",
     "defaultMessage": "The goal of a narrative review is to read the content the applicant has provided for each skill to get a better understanding of their level and competence."
