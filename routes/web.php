@@ -361,13 +361,6 @@ Route::group(
 
 /** API routes - currently using same default http auth, but not localized */
 Route::group(['prefix' => 'api'], function (): void {
-    Route::resource('jobs', 'Api\JobApiController')->only([
-        'show', 'update'
-    ])->names([ // Specify custom names because default names collied with existing routes
-        'show' => 'api.jobs.show',
-        'update' => 'api.jobs.update'
-    ]);
-
         // Protected by a gate in the controller, instead of policy middleware
     Route::get("jobs/{jobPoster}/assessment-plan", "AssessmentPlanController@getForJob");
 
@@ -386,5 +379,17 @@ Route::group(['prefix' => 'api'], function (): void {
     ]);
     Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
         'store', 'create', 'edit'
+    ]);
+    Route::resource('jobs', 'Api\JobApiController')->only([
+        'show', 'update'
+    ])->names([ // Specify custom names because default names collied with existing routes
+        'show' => 'api.jobs.show',
+        'update' => 'api.jobs.update'
+    ]);
+    Route::resource('managers', 'Api\ManagerApiController')->only([
+        'show', 'update'
+    ])->names([ // Specify custom names because default names collied with existing routes
+        'show' => 'api.managers.show',
+        'update' => 'api.managers.update'
     ]);
 });
