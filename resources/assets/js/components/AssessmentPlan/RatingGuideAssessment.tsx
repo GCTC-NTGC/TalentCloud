@@ -243,7 +243,10 @@ const RatingGuideAssessment: React.FunctionComponent<
                     data-c-alignment="center"
                     data-c-grid-item="base(1of1) tp(1of8)"
                   >
-                    <button className="button-plus" type="button">
+                    <button
+                      className="button-plus button-plus--disabled"
+                      type="button"
+                    >
                       +
                     </button>
                   </div>
