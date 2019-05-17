@@ -233,7 +233,7 @@ const RatingGuideAssessment: React.FunctionComponent<
               <RatingGuideQuestionComponent
                 key={question.id}
                 question={question}
-                questionIndex={index + 1}
+                questionIndex={questions.length + index + 1}
                 temp
               />
 
