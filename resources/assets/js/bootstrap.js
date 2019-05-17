@@ -1,5 +1,7 @@
 import "react-app-polyfill/ie11";
 import "./polyfills/includes";
+import "es6-promise/auto";
+import "isomorphic-fetch";
 import "core-js/features/object/values";
 
 // Number.isNan polyfill
@@ -32,7 +34,7 @@ if (token) {
   window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
 } else {
   console.error(
-    "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token"
+    "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token",
   );
 }
 

@@ -9,7 +9,9 @@
 //require('./components/ReferenceList');
 require('./components/ApplicationReview/ReviewApplicationsContainer');
 require('./components/ApplicationReview/ApplicationReviewContainer');
+require("./components/AssessmentPlan/AssessmentPlanContainer");
 require('./components/ApplicantSkills/WordCounter');
 require('./components/ApplicantSkills/SkillsInfoModal');
 
+require('./redux_index.tsx');
 //import ReviewApplications from './components/ReviewApplications';
