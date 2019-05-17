@@ -65,8 +65,6 @@ class Manager extends BaseModel {
         'branch',
         'division',
         'position',
-        'work_experience',
-        'education',
         'leadership_style',
         'employee_learning',
         'expectations',
