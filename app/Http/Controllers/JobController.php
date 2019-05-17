@@ -224,27 +224,15 @@ class JobController extends Controller
     /**
      * Create a blank job poster for the specified manager
      *
-     * @param Manager $manager
+     * @param Manager $manager Incoming Manager object.
+     *
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory Job Create view
      */
     public function createAsManager(Manager $manager)
     {
         $jobPoster = new JobPoster();
         $jobPoster->manager_id = $manager->id;
-        $managerEn = $manager->translate('en');
-        $managerFr = $manager->translate('fr');
 
-        $jobPoster->fill([
-            'department_id' => $manager->department_id,
-            'en' => [
-                'branch' => $managerEn->branch,
-                'division' => $managerEn->division,
-            ],
-            'fr' => [
-                'branch' => $managerFr->branch,
-                'division' => $managerFr->division,
-            ]
-        ]);
         $jobPoster->save();
 
         $defaultQuestions = $this->populateDefaultQuestions();

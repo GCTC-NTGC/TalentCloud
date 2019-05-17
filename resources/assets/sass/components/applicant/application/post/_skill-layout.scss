@@ -128,7 +128,6 @@
           color: $palette--black;
           display: block;
           font-family: HKGrotesk, sans-serif;
-          font-size: 1rem;
           line-height: 20px;
           margin: 0 0 0.5rem;
           z-index: 1;
@@ -137,8 +136,22 @@
           text-decoration: underline;
           cursor: pointer;
           margin-left: auto;
+          transition: all 0.2s ease;
+          font-size: 80%;
 
-          :hover {
+          @media screen and (min-width: 412px) {
+            font-size: 90%;
+          }
+
+          @media #{$p-tablet} {
+            font-size: 100%;
+          }
+
+          @media #{$cinema} {
+            font-size: 110%;
+          }
+
+          &:hover {
             color: $palette--blue;
           }
         }

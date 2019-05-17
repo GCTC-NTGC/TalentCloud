@@ -20,6 +20,7 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\LogUserCreated',
         ],
         'App\Events\UserUpdated' => [
+            'App\Listeners\CheckUserRole',
             'App\Listeners\LogUserUpdated',
         ],
         'App\Events\JobSaved' => [
@@ -38,7 +39,7 @@ class EventServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         parent::boot();
 

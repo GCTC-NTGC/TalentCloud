@@ -1,0 +1,10 @@
+{% extends "errors/default" %}
+
+{% block error %}
+<h2>{{ exception.getMessage() }}</h2>
+{% if links %}
+{% for title, link in links %}
+<a class="button--blue" href="{{ link }}">{{ title }}</a>
+{% endfor %}
+{% endif %}
+{% endblock %}
