@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Progress Tracker should render ProgressTracker with background color and opacity 1`] = `
+<div
+  data-c-alignment="base(centre) tl(right)"
+  data-c-background="black(100)"
+>
+  <div
+    data-c-container="layout"
+    data-c-padding="top(quarter) bottom(quarter)"
+  >
+    <div
+      className="tracker"
+    >
+      <ProgressTrackerItem
+        label="Step 01"
+        state="active"
+        title="Job Info"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Progress Tracker should render ProgressTracker with children 1`] = `
+<div
+  data-c-alignment="base(centre) tl(right)"
+  data-c-background="undefined(undefined)"
+>
+  <div
+    data-c-container="layout"
+    data-c-padding="top(quarter) bottom(quarter)"
+  >
+    <div
+      className="tracker"
+    >
+      <ProgressTrackerItem
+        label="Step 01"
+        state="active"
+        title="Job Info"
+      />
+      <ProgressTrackerItem
+        label="Step 02"
+        state="complete"
+        title="Work Env."
+      />
+      <ProgressTrackerItem
+        label="Step 03"
+        state="error"
+        title="Impact"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Progress Tracker should render ProgressTracker with items 1`] = `
+<div
+  data-c-alignment="base(centre) tl(right)"
+  data-c-background="undefined(undefined)"
+>
+  <div
+    data-c-container="layout"
+    data-c-padding="top(quarter) bottom(quarter)"
+  >
+    <div
+      className="tracker"
+    >
+      <ProgressTrackerItem
+        key="0"
+        label="Step 01"
+        state="active"
+        title="Job Info"
+      />
+      <ProgressTrackerItem
+        key="1"
+        label="Step 02"
+        state="complete"
+        title="Work Env."
+      />
+      <ProgressTrackerItem
+        key="2"
+        label="Step 03"
+        state="error"
+        title="Impact"
+      />
+    </div>
+  </div>
+</div>
+`;

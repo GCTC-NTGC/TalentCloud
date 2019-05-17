@@ -4,7 +4,7 @@ import ProgressTrackerItemComponent from './ProgressTrackerItem';
 
 export interface ProgressTrackerProps {
   items?: ProgressTrackerItem[];
-  children?: React.ReactElement;
+  children?: React.ReactNode;
   backgroundColor?: string;
   backgroundOpacity?: string;
 }
@@ -28,10 +28,11 @@ const ProgressTracker: React.FunctionComponent<ProgressTrackerProps> = ({
           {/* If items list exists, then return list of progress tracker item components. Also, progress tracker items can be passed down to the children props, and will be printed out below.*/}
           {items &&
             items.map(
-              (item): React.ReactElement => {
+              (item, index): React.ReactElement => {
                 const { state, label, title } = item;
                 return (
                   <ProgressTrackerItemComponent
+                    key={index}
                     state={state}
                     label={label}
                     title={title}
