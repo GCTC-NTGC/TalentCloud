@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-
+use Illuminate\Support\Facades\Gate;
 use App\Models\Applicant;
 use App\Models\Course;
 use App\Models\Degree;
@@ -15,6 +15,10 @@ use App\Models\WorkSample;
 use App\Models\JobApplication;
 use App\Models\WorkExperience;
 use App\Models\SkillDeclaration;
+use App\Models\Assessment;
+use App\Models\RatingGuideQuestion;
+use App\Models\RatingGuideAnswer;
+use App\Models\AssessmentPlanNotification;
 use App\Policies\JobPolicy;
 use App\Policies\CoursePolicy;
 use App\Policies\DegreePolicy;
@@ -25,8 +29,10 @@ use App\Policies\ApplicationPolicy;
 use App\Policies\SkillDeclarationPolicy;
 use App\Policies\WorkExperiencePolicy;
 use App\Policies\WorkSamplePolicy;
-use App\Models\ScreeningPlan;
-use App\Policies\ScreeningPlanPolicy;
+use App\Policies\AssessmentPolicy;
+use App\Policies\RatingGuideQuestionPolicy;
+use App\Policies\RatingGuideAnswerPolicy;
+use App\Policies\AssessmentPlanNotificationPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -46,8 +52,24 @@ class AuthServiceProvider extends ServiceProvider
         SkillDeclaration::class => SkillDeclarationPolicy::class,
         WorkExperience::class => WorkExperiencePolicy::class,
         WorkSample::class => WorkSamplePolicy::class,
-        ScreeningPlan::class => ScreeningPlanPolicy::class
+        Assessment::class => AssessmentPolicy::class,
+        RatingGuideQuestion::class => RatingGuideQuestionPolicy::class,
+        RatingGuideAnswer::class => RatingGuideAnswerPolicy::class,
+        AssessmentPlanNotification::class =>  AssessmentPlanNotificationPolicy::class,
     ];
+
+    /**
+     * Define any authorization gates
+     *
+     * @return void
+     */
+    protected function defineGates(): void
+    {
+        Gate::define('view-assessment-plan', function ($user, $jobPoster) {
+            return $user->hasRole('admin') ||
+                $user->hasRole('manager') && $jobPoster->manager->user_id === $user->id;
+        });
+    }
 
     public function register(): void
     {
@@ -61,5 +83,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
+
+        $this->defineGates();
     }
 }
