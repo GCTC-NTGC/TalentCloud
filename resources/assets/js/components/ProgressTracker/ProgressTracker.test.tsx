@@ -1,14 +1,8 @@
 import React from "react";
 import { shallow } from "enzyme";
 import ProgressTracker from "./ProgressTracker";
-import { ProgressTrackerItem } from "./types";
-import ProgressTrackerItemComponent from './ProgressTrackerItem';
-
-const items: ProgressTrackerItem[] = [
-  { state: 'active', label: 'Step 01', title: 'Job Info' },
-  { state: 'complete', label: 'Step 02', title: 'Work Env.' },
-  { state: 'error', label: 'Step 03', title: 'Impact' },
-];
+import ProgressTrackerItem from './ProgressTrackerItem';
+import { items } from './fixtures/progressItems';
 
 describe("Progress Tracker", (): void => {
   it("should render ProgressTracker with items", (): void => {
@@ -19,9 +13,9 @@ describe("Progress Tracker", (): void => {
   it("should render ProgressTracker with children", (): void => {
     const wrapper = shallow(
     <ProgressTracker>
-      <ProgressTrackerItemComponent {...items[0]} />
-      <ProgressTrackerItemComponent {...items[1]} />
-      <ProgressTrackerItemComponent {...items[2]} />
+      <ProgressTrackerItem {...items[0]} />
+      <ProgressTrackerItem {...items[1]} />
+      <ProgressTrackerItem {...items[2]} />
     </ProgressTracker>);
     expect(wrapper).toMatchSnapshot();
   });
@@ -29,7 +23,7 @@ describe("Progress Tracker", (): void => {
   it("should render ProgressTracker with background color and opacity", (): void => {
     const wrapper = shallow(
     <ProgressTracker backgroundColor={'black'} backgroundOpacity={'100'}>
-      <ProgressTrackerItemComponent {...items[0]} />
+      <ProgressTrackerItem {...items[0]} />
     </ProgressTracker>);
     expect(wrapper).toMatchSnapshot();
   });
