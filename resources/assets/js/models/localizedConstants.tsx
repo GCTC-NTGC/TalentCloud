@@ -263,72 +263,82 @@ export const criteriaType = (
     [CriteriaTypeId.Essential]: criteriaTypes.essential,
   }[criteriaTypeId.toString()];
 };
-// TODO: add english text
+
 const assessmentTypeDescriptions = defineMessages({
   narrativeAssessment: {
     id: "assessmentType.narrativeAssessment.description",
     defaultMessage:
-      "The goal of a narrative review is to read the content the applicant has provided for each skill to get a better understanding of their level and competence.",
+      "This is a description requested during the application process, in which applicants to self-identify and describe their experience and level of expertise with a skill.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   applicationScreeningQuestion: {
     id: "assessmentType.applicationScreeningQuestion.description",
-    defaultMessage: "MISSING",
+    defaultMessage:
+      "These questions appear in the application form, and are submitted through Talent Cloud, they allow a first glance at the applicant’s understanding, process, knowledge, or cultural fit for the position.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   groupTest: {
     id: "assessmentType.groupTest.description",
-    defaultMessage: "MISSING",
+    defaultMessage:
+      "Applicants perform this test in real-time in conjunction with other applicants, team members, or facilitators, to determine their skill prowess, team communication, and performance in a collaborative environment.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   informalPhoneConversation: {
     id: "assessmentType.informalPhoneConversation.description",
-    defaultMessage: "MISSING",
+    defaultMessage:
+      "A loose structure chat between a member of the hiring board and an applicant, aimed at discovering the applicant’s knowledge, aptitudes, or personality traits, conversations may vary between applicants.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   interview: {
     id: "assessmentType.interview.description",
-    defaultMessage: "MISSING",
+    defaultMessage:
+      "A formal question-and-answer examination performed in real-time between the hiring-board and an applicant, questions are aimed at assessing skill expertise, level, and approach. Each question is crafted beforehand and follows the same structure between all interviewed applicants.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   onlineExam: {
     id: "assessmentType.onlineExam.description",
-    defaultMessage: "MISSING",
+    defaultMessage:
+      "Prepared examination that does not require supervision, and can be performed from any location through internet access, with a defined time-frame for completion.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   onSiteExam: {
     id: "assessmentType.onSiteExam.description",
-    defaultMessage: "MISSING",
+    defaultMessage:
+      "Prepared examination that requires the applicant to perform a test at a specific location under supervision, aimed at assessing skill expertise and technique.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   takeHomeExam: {
     id: "assessmentType.takeHomeExam.description",
-    defaultMessage: "MISSING",
+    defaultMessage:
+      "Applicants receive a physical package containing the assessment tools, they complete the assessment at their own leisure and at their preferred location without supervision, and must return the materials before a specific deadline.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   portfolioReview: {
     id: "assessmentType.portfolioReview.description",
-    defaultMessage: "MISSING",
+    defaultMessage:
+      "During the application process, applicants provide access to samples of their work to exhibit their skill level, and back-up their skill claims. ",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   referenceCheck: {
     id: "assessmentType.referenceCheck.description",
-    defaultMessage: "MISSING",
+    defaultMessage:
+      "During the application process, applicants provide contact information to an acquaintance who can validate and confirm their skill expertise, knowledge or aptitude.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
   seriousGames: {
     id: "assessmentType.seriousGames.description",
-    defaultMessage: "MISSING",
+    defaultMessage:
+      "Test involving the use of games to explore a candidate’s communication skills, resilience, emotional intelligence, among many other soft skills.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
@@ -370,7 +380,8 @@ const standardAssessmentText = defineMessages({
   },
   narrativeReviewAnswer: {
     id: "assessmentType.narrativeReview.standardAnswer",
-    defaultMessage: "MISSING",
+    defaultMessage:
+      "The provided description contains sufficient evidence to advance this candidate to the next screening steps.",
     description:
       "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
   },
