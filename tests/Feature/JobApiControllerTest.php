@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use App\Models\JobPoster;
 use App\Models\User;
+use Illuminate\Support\Facades\Config;
 
 class JobApiControllerTest extends TestCase
 {
@@ -31,6 +32,7 @@ class JobApiControllerTest extends TestCase
      */
     private function generateFrontendJob($managerId, $published = false): array
     {
+        $dateFormat = Config::get('app.api_datetime_format');
         $job = [
             'term_qty' => $this->faker->numberBetween(1, 4),
             'salary_min' => $this->faker->numberBetween(60000, 80000),
@@ -41,9 +43,9 @@ class JobApiControllerTest extends TestCase
             'manager_id' => $managerId,
             'published' => $published,
             'remote_work_allowed' => $this->faker->boolean(50),
-            'open_date_time' => $this->faker->date( 'Y-m-d H:i:s', strtotime('+1 day')),
-            'close_date_time' => $this->faker->date( 'Y-m-d H:i:s', strtotime('+2 weeks')),
-            'start_date_time' => $this->faker->date( 'Y-m-d H:i:s', strtotime('+2 weeks')),
+            'open_date_time' => $this->faker->date($dateFormat, strtotime('+1 day')),
+            'close_date_time' => $this->faker->date($dateFormat, strtotime('+2 weeks')),
+            'start_date_time' => $this->faker->date($dateFormat, '+2 weeks'),
             'security_clearance_id' => 1,
             'language_requirement_id' => 1,
             'department_id' => 1,
@@ -97,8 +99,8 @@ class JobApiControllerTest extends TestCase
 
         $newJob = $job->fresh();
         $translations = $newJob->getTranslationsArray();
-        $this->assertEquals($jobUpdate['en'], $translations['en']);
-        $this->assertEquals($jobUpdate['fr'], $translations['fr']);
+        $this->assertArraySubset($jobUpdate['en'], $translations['en']);
+        $this->assertArraySubset($jobUpdate['fr'], $translations['fr']);
     }
 
     public function testUpdateAsWrongManager()

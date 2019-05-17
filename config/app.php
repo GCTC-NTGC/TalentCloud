@@ -1,5 +1,4 @@
 <?php
-use App\Facades\WhichPortal;
 
 return [
 
@@ -128,7 +127,7 @@ return [
     |
     */
 
-    'api_datetime_format' => 'c', // c specifies ISO 8601, eg 2004-02-12T15:19:21+00:00
+    'api_datetime_format' => 'Y-m-d\TH:i:sP', // specifies ISO 8601, eg 2004-02-12T15:19:21+00:00
 
     /*
     |--------------------------------------------------------------------------

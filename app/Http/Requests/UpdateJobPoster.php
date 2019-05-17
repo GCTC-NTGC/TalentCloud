@@ -29,7 +29,7 @@ class UpdateJobPoster extends FormRequest
     public function rules()
     {
         $dateFormat = Config::get('app.api_datetime_format');
-        $dateFormatRule = "date_format:\"$dateFormat\"";
+        $dateFormatRule = "date_format:$dateFormat";
         return [
             'term_qty' => 'required|numeric',
             'open_date_time' =>["required", $dateFormatRule],
