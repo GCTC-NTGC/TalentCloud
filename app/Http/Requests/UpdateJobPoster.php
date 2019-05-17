@@ -45,6 +45,19 @@ class UpdateJobPoster extends FormRequest
             'classification_code' => 'required|regex:/[A-Z]{2}/',
             'classification_level' => 'required|numeric',
             'remote_work_allowed' => 'required|boolean',
+            'en.city' => 'required|string',
+            'en.title' => 'required|string',
+            'en.team_impact' => 'required|string',
+            'en.hire_impact' => 'required|string',
+            'en.division' => 'required|string',
+            'en.education' => 'required|string',
+            'fr.city' => 'required|string',
+            'fr.title' => 'required|string',
+            'fr.team_impact' => 'required|string',
+            'fr.hire_impact' => 'required|string',
+            'fr.division' => 'required|string',
+            'fr.education' => 'required|string',
+
         ];
     }
 }
