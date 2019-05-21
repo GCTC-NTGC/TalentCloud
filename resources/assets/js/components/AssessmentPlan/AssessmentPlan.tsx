@@ -16,7 +16,7 @@ interface AssessmentPlanProps {
 
 const AssessmentPlan: React.FunctionComponent<
   AssessmentPlanProps & InjectedIntlProps
-> = ({ job, criteria, notifications }): React.ReactElement => {
+> = ({ job, criteria, notifications, intl }): React.ReactElement => {
   const assetCriteria = criteria.filter(
     (criterion: Criteria): boolean =>
       criterion.criteria_type_id === CriteriaTypeId.Asset,
@@ -28,7 +28,7 @@ const AssessmentPlan: React.FunctionComponent<
 
   const jobTitle = (
     <span data-c-colour="c5" data-c-font-size="h3">
-      {job && ` ${job.title}`}
+      {job && ` ${job[intl.locale].title}`}
     </span>
   );
   return (

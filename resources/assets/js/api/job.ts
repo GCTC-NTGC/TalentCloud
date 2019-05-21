@@ -1,14 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/camelcase */
 import { Job, JobTranslation, Criteria } from "../models/types";
 import { baseUrl, parseDate } from "./base";
 
 const parseJobTranslation = (data: any): JobTranslation => ({
-  city: data.city,
-  title: data.title,
-  impact: data.impact,
-  branch: data.branch,
-  division: data.division,
-  education: data.education,
+  city: String(data.city),
+  title: String(data.title),
+  team_impact: String(data.team_impact),
+  hire_impact: String(data.hire_impact),
+  branch: String(data.branch),
+  division: String(data.division),
+  education: String(data.education),
 });
 
 const parseCriterion = (data: any): Criteria => ({
@@ -21,18 +23,32 @@ const parseCriterion = (data: any): Criteria => ({
   fr: { description: data.fr.description },
 });
 
+const parseJob = (data: any): Job => ({
+  id: Number(data.id),
+
+  term_qty: Number(data.term_qty),
+  open_date_time: parseDate(data.open_date_time),
+  close_date_time: parseDate(data.close_date_time),
+  start_date_time: parseDate(data.start_date_time),
+  department_id: Number(data.department_id),
+  province_id: Number(data.province_id),
+  salary_min: Number(data.salary_min),
+  salary_max: Number(data.salary_max),
+  noc: Number(data.noc),
+  classification_code: String(data.classification_code),
+  classification_level: Number(data.classification_level),
+  security_clearance_id: Number(data.security_clearance_id),
+  language_requirement_id: Number(data.language_requirement_id),
+  remote_work_allowed: Boolean(data.remote_work_allowed),
+  en: parseJobTranslation(data.en),
+  fr: parseJobTranslation(data.fr),
+});
+
 export const parseJobResponse = (
   data: any,
 ): { job: Job; criteria: Criteria[] } => {
-  const job = {
-    id: Number(data.id),
-    title: data.title,
-    classification: data.classification,
-    close_date_time: parseDate(data.close_date_time),
-    en: parseJobTranslation(data.en),
-    fr: parseJobTranslation(data.fr),
-  };
-  const criteria = data.criteria.map(
+  const job: Job = parseJob(data);
+  const criteria: Criteria[] = data.criteria.map(
     (critData: any): Criteria => parseCriterion(critData),
   );
   return {

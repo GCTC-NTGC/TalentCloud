@@ -4,7 +4,8 @@ import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 export interface JobTranslation {
   city: string;
   title: string;
-  impact: string;
+  team_impact: string;
+  hire_impact: string;
   branch: string;
   division: string;
   education: string;
@@ -12,8 +13,20 @@ export interface JobTranslation {
 
 export interface Job {
   id: number;
-  classification: string;
+  term_qty: number;
+  open_date_time: Date;
   close_date_time: Date;
+  start_date_time: Date;
+  department_id: number;
+  province_id: number;
+  salary_min: number;
+  salary_max: number;
+  noc: number;
+  classification_code: string;
+  classification_level: number;
+  security_clearance_id: number;
+  language_requirement_id: number;
+  remote_work_allowed: boolean;
   en: JobTranslation;
   fr: JobTranslation;
 }
