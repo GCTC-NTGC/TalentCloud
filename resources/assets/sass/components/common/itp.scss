@@ -28,28 +28,87 @@
     width: 2.5rem;
 }
 
-.blog-grid {
-    [data-c-grid-item] {
-        &:nth-child(even) {
-            background: rgba($clone-grey, .1);
+.blog-layout {
+    overflow: hidden;
+    position: relative;
+    >*,
+    >* >*,
+    >* >* >*,
+    >* >* >* >*,
+    >* >* >* >* >* {
+        position: relative;
+    }
+    .blog-filter-background {
+        background: $clone-c2;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: -50vw;
+        width: 200vw;
+        @media #{$clone-tablet-landscape} {
+            left: auto;
+            right: 0;
+            width: 100vw;
         }
+    }
+    >div >div >[data-c-grid-item]:first-child >div >div:not(.blog-filter-background) {
+        padding-bottom: calc(#{$clone-padding} * 2);
         @media #{$clone-tablet-portrait} {
-            &:nth-child(even) {
-                background: none;
-            }
-            &:nth-child(4n+2),
-            &:nth-child(4n+3) {
-                background: rgba($clone-grey, .1);
-            }
+            padding-bottom: calc((#{$clone-padding} * 2) * #{$clone-whitespace-multiplier});
         }
         @media #{$clone-tablet-landscape} {
-            &:nth-child(4n+2),
-            &:nth-child(4n+3) {
-                background: none;
+            padding-bottom: 0;
+            padding-right: calc((#{$clone-padding} * 3) * #{$clone-whitespace-multiplier});
+        }
+        @media #{$clone-desktop-large} {
+            padding-right: calc(((#{$clone-padding} * 3) * #{$clone-whitespace-multiplier}) * #{$clone-whitespace-multiplier});
+        }
+    }
+    >div >div >[data-c-grid-item]:last-child >div >div:not(.blog-filter-background) {
+        @media #{$clone-tablet-landscape} {
+            padding-left: calc((#{$clone-padding} * 3) * #{$clone-whitespace-multiplier});
+        }
+        @media #{$clone-desktop-large} {
+            padding-left: calc(((#{$clone-padding} * 3) * #{$clone-whitespace-multiplier}) * #{$clone-whitespace-multiplier});
+        }
+    }
+    .blog-grid {
+        >div:not(:last-child) {
+            padding-bottom: 4rem;
+        }
+        >div:not(:first-child) {
+            padding-top: 4rem;
+            position: relative;
+            &:before {
+                background: rgba($clone-grey, .2);
+                content: " ";
+                display: block;
+                height: 1px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 90vw;
+                @media #{$clone-tablet-landscape} {
+                    left: calc((#{$clone-padding} * 3) * #{$clone-whitespace-multiplier});
+                    width: 53vw;
+                }
+                @media #{$clone-desktop-medium} {
+                    width: 62vw;
+                }
+                @media #{$clone-desktop-large} {
+                    left: calc(((#{$clone-padding} * 3) * #{$clone-whitespace-multiplier}) * #{$clone-whitespace-multiplier});
+                }
             }
-            &:nth-child(even) {
-                background: rgba($clone-grey, .1);
-            }
+        }
+    }
+    .blog-tag-list {
+        list-style: none;
+        margin: -1rem;
+        padding: 0;
+        li {
+            display: inline-block;
+            margin: 1rem;
+            padding: 0;
         }
     }
 }
