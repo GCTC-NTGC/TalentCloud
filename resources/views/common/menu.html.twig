@@ -45,7 +45,6 @@
                              document.getElementById('logout-form').submit();">
                     {{ menu.logout }}
                 </a>
-
                 <form id="logout-form" action="{{ login_modals.logout_link }}" method="POST" style="display: none;">
                     {{ csrf_field() }}
                 </form>

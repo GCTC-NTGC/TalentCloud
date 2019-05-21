@@ -154,6 +154,12 @@ Route::group(
             /* Static - ITP */
             Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
 
+            /* Temporary Blog Index */
+            Route::view('blog', 'common/blog-index')->name('blog');
+
+            /* Temporary Blog Post */
+            Route::view('post', 'common/blog-post')->name('post');
+
             /* Authentication =========================================================== */
 
             // Laravel default login, logout, register, and reset routes
