@@ -28,6 +28,52 @@
     width: 2.5rem;
 }
 
+.menu * {
+    color: white !important;
+}
+
+.menu-itp {
+    vertical-align: middle;
+    &::before {
+        background: $clone-white;
+        content: " ";
+        display: block;
+        height: 30%;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(-50%, -50%);
+        width: 1px;
+    }
+    a {
+        overflow: hidden;
+        position: relative;
+        span {
+            position: relative;
+            z-index: 2;
+        }
+        img {
+            max-width: none;
+            opacity: 0;
+            position: absolute !important;
+            top: -50%;
+            left: -50%;
+            transition: opacity .2s ease;
+            width: 200%;
+            z-index: 1;
+        }
+        &:hover {
+            img {
+                opacity: .5;
+                transition: opacity .2s ease;
+            }
+        }
+        &::before {
+            display: none !important;
+        }
+    }
+}
+
 .itp-why {
     overflow: hidden;
     position: relative;
