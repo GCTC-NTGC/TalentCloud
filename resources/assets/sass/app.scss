@@ -69,6 +69,11 @@ $clone-alert--information: $clone-c1;
   padding: 1rem;
 }
 
+.button-plus--disabled {
+  cursor: not-allowed;
+  color: #7a7a7a;
+}
+
 // Core Elements ===============================================================
 
 @import "./brands";
