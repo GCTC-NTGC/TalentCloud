@@ -34,17 +34,17 @@
 
 .menu-itp {
     vertical-align: middle;
-    &::before {
-        background: $clone-white;
-        content: " ";
-        display: block;
-        height: 30%;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translate(-50%, -50%);
-        width: 1px;
-    }
+    // &::before {
+    //     background: $clone-white;
+    //     content: " ";
+    //     display: block;
+    //     height: 30%;
+    //     position: absolute;
+    //     top: 50%;
+    //     left: 0;
+    //     transform: translate(-50%, -50%);
+    //     width: 1px;
+    // }
     a {
         overflow: hidden;
         position: relative;
