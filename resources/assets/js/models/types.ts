@@ -12,7 +12,6 @@ export interface JobTranslation {
 
 export interface Job {
   id: number;
-  title: string;
   classification: string;
   close_date_time: Date;
   en: JobTranslation;
@@ -101,8 +100,6 @@ export interface SkillTranslation {
 
 export interface Skill {
   id: number;
-  name: string;
-  description: string;
   skill_type_id: number;
   en: SkillTranslation;
   fr: SkillTranslation;
@@ -114,8 +111,6 @@ export interface Criteria {
   job_poster_id: number;
   skill_id: number;
   skill_level_id: number;
-  description: string; // TODO: remove un-localized description
-  skill: Skill; // TODO: remove skill from here
   en: {
     description: string;
   };

@@ -63,22 +63,6 @@ describe("Job Reducer tests", (): void => {
     job_poster_id: 12,
     skill_id: 1,
     skill_level_id: 1,
-    description: "Test criteria description",
-    // TODO: remove skill
-    skill: {
-      id: 1,
-      name: "Test Skill",
-      description: "Description of a test skill",
-      skill_type_id: 1,
-      en: {
-        name: "Test Skill",
-        description: "Description of a test skill",
-      },
-      fr: {
-        name: "FR Test Skill",
-        description: "FR Description of a test skill",
-      },
-    },
     en: {
       description: "Test criteria description",
     },

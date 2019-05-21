@@ -277,7 +277,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Applications for: {job_title} {job_classification}",
+        "defaultMessage": "Applications for: {jobTitle} {jobClassification}",
         "description": "Welcome header on Job Applications index page",
         "id": "apl.indexPageTitle"
       },

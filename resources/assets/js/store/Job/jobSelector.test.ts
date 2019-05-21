@@ -56,21 +56,6 @@ describe("getCriteria", (): void => {
     job_poster_id: 1,
     skill_id: 1,
     skill_level_id: 1,
-    description: `This is criteria number ${id}`, // TODO: remove un-localized description
-    skill: {
-      id,
-      name: `Skill number ${id}`,
-      description: `Description of skill number ${id}`,
-      skill_type_id: 1,
-      en: {
-        name: `Skill number ${id}`,
-        description: `Description of skill number ${id}`,
-      },
-      fr: {
-        name: `FR Skill number ${id}`,
-        description: `FR Description of skill number ${id}`,
-      },
-    }, // TODO: remove skill from here
     en: {
       description: `This is criteria number ${id}`,
     },

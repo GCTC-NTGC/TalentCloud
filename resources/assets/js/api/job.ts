@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Job, JobTranslation, Criteria } from "../models/types";
 import { baseUrl, parseDate } from "./base";
-import { parseSkill } from "./skill";
 
 const parseJobTranslation = (data: any): JobTranslation => ({
   city: data.city,
@@ -18,10 +17,8 @@ const parseCriterion = (data: any): Criteria => ({
   job_poster_id: Number(data.job_poster_id),
   skill_id: Number(data.skill_id),
   skill_level_id: Number(data.skill_level_id),
-  description: data.description,
   en: { description: data.en.description },
   fr: { description: data.fr.description },
-  skill: parseSkill(data.skill),
 });
 
 export const parseJobResponse = (

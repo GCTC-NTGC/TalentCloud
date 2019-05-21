@@ -14,15 +14,9 @@ export const parseSkillTranslation = (
 export const parseSkill = (data: ResponseData): Skill => ({
   id: Number(data.id),
   skill_type_id: Number(data.skill_type_id),
-  name: data.name,
-  description: data.description,
   // TODO: remove the hasKey hack when removing skill from Criteria
-  en: hasKey(data, "en")
-    ? parseSkillTranslation(data.en)
-    : parseSkillTranslation(data),
-  fr: hasKey(data, "fr")
-    ? parseSkillTranslation(data.fr)
-    : parseSkillTranslation(data),
+  en: parseSkillTranslation(data.en),
+  fr: parseSkillTranslation(data.fr),
 });
 
 export const getSkills = (): Promise<Skill[]> => {
