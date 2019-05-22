@@ -1,7 +1,6 @@
 .tracker {
+    display: flex;
     .tracker-item {
-        display: inline-block;
-        vertical-align: middle;
     }
     .tracker-icon {
         border-radius: 100%;
@@ -11,10 +10,6 @@
         position: relative;
         width: 1.5rem;
         vertical-align: middle;
-        &+div {
-            display: inline-block;
-            vertical-align: middle;
-        }
         i {
             font-size: $clone-font-scale--small;
             position: absolute;
@@ -26,10 +21,14 @@
             margin: -.05rem 0 0 -.04rem;
         }
     }
+    .tracker-title {
+        display: flex;
+        flex-direction: column;
+    }
     [data-tc-tracker-state="null"] {
-        display: none;
+        // display: none;
         @media #{$clone-tablet-landscape} {
-            display: inline-block;
+            // display: inline-block;
         }
         .tracker-icon {
             background: $clone-grey;
@@ -45,9 +44,9 @@
         }
     }
     [data-tc-tracker-state="active"] {
-        display: inline-block;
+        // display: inline-block;
         @media #{$clone-tablet-landscape} {
-            display: inline-block;
+            // display: inline-block;
         }
         .tracker-icon {
             background: $clone-c1;
@@ -63,9 +62,9 @@
         }
     }
     [data-tc-tracker-state="complete"] {
-        display: none;
+        // display: none;
         @media #{$clone-tablet-landscape} {
-            display: inline-block;
+            // display: inline-block;
         }
         .tracker-icon {
             background: $clone-go;
@@ -81,9 +80,9 @@
         }
     }
     [data-tc-tracker-state="error"] {
-        display: none;
+        // display: none;
         @media #{$clone-tablet-landscape} {
-            display: inline-block;
+            // display: inline-block;
         }
         .tracker-icon {
             background: $clone-stop;

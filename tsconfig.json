@@ -13,5 +13,5 @@
     // "include": [
     //     "resources/assets/js/**/*"
     // ],
-    "exclude": ["node_modules", "vendor"]
+    "exclude": ["node_modules", "!node_modules/@types", "resources/assets/js/**/*.test.ts", "resources/assets/js/**/*.test.tsx", "vendor"]
 }
