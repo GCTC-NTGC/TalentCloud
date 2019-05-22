@@ -18,11 +18,6 @@ import {
 } from "./jobActions";
 
 describe("Job Reducer tests", (): void => {
-  const job: Job = fakeJob(12);
-  const fakeJobUpdated: Job = fakeJob2(12);
-
-  const fakeCriteria: Criteria = fakeCriterion(12);
-
   describe("UiReducer", (): void => {
     it("Starts updating when FETCH_JOB_STARTED", (): void => {
       const initialState = initUi();
@@ -38,6 +33,8 @@ describe("Job Reducer tests", (): void => {
     });
 
     it("Sets updating to false when FETCH_JOB_SUCCEEDED or FETCH_JOB_FAILED", (): void => {
+      const job: Job = fakeJob(12);
+      const fakeCriteria: Criteria = fakeCriterion(12);
       const initialState = initUi();
       const expectState = {
         ...initialState,
@@ -64,6 +61,8 @@ describe("Job Reducer tests", (): void => {
 
   describe("EntitiesReducer", (): void => {
     it("Adds new job and criteria when FETCH_JOB_SUCCEEDED", (): void => {
+      const job: Job = fakeJob(12);
+      const fakeCriteria: Criteria = fakeCriterion(12);
       const initialState: EntityState = initEntities();
       const succeededAction: JobAction = {
         type: FETCH_JOB_SUCCEEDED,
@@ -93,6 +92,9 @@ describe("Job Reducer tests", (): void => {
   });
 
   it("Updates existing job when FETCH_JOB_SUCCEEDED", (): void => {
+    const job: Job = fakeJob(12);
+    const fakeJobUpdated: Job = fakeJob2(12);
+    const fakeCriteria: Criteria = fakeCriterion(12);
     const initialState: EntityState = {
       ...initEntities(),
       jobs: {
