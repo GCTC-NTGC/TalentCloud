@@ -5,6 +5,9 @@ import {
   FETCH_JOB_STARTED,
   FETCH_JOB_SUCCEEDED,
   FETCH_JOB_FAILED,
+  UPDATE_JOB_SUCCEEDED,
+  UPDATE_JOB_STARTED,
+  UPDATE_JOB_FAILED,
 } from "./jobActions";
 import { mapToObject, getId } from "../../helpers/queries";
 
@@ -70,6 +73,16 @@ export const entitiesReducer = (
           },
         },
       };
+    case UPDATE_JOB_SUCCEEDED:
+      return {
+        ...state,
+        jobs: {
+          byId: {
+            ...state.jobs.byId,
+            [action.meta.id]: action.payload,
+          },
+        },
+      };
     default:
       return state;
   }
@@ -78,6 +91,7 @@ export const entitiesReducer = (
 export const uiReducer = (state = initUi(), action: JobAction): UiState => {
   switch (action.type) {
     case FETCH_JOB_STARTED:
+    case UPDATE_JOB_STARTED:
       return {
         ...state,
         jobUpdating: {
@@ -85,13 +99,9 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
         },
       };
     case FETCH_JOB_SUCCEEDED:
-      return {
-        ...state,
-        jobUpdating: {
-          [action.meta.id]: false,
-        },
-      };
+    case UPDATE_JOB_SUCCEEDED:
     case FETCH_JOB_FAILED:
+    case UPDATE_JOB_FAILED:
       return {
         ...state,
         jobUpdating: {
