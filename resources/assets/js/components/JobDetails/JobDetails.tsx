@@ -166,10 +166,18 @@ const JobDetails = (): React.ReactElement => {
             nullSelection="Select a province..."
             options={[
               { value: "AB", label: "Alberta" },
-              { value: "AB", label: "French - Essential" },
-              { value: "AB", label: "Bilingual - Advanced (CBC)" },
-              { value: "AB", label: "Bilingual - Intermediate (BBB)" },
-              { value: "AB", label: "English or French" },
+              { value: "BC", label: "British Columbia" },
+              { value: "MB", label: "Manitoba" },
+              { value: "NB", label: "New Brunswick" },
+              { value: "NL", label: "Newfoundland and Labrador" },
+              { value: "NS", label: "Nova Scotia" },
+              { value: "NT", label: "Northwest Territories" },
+              { value: "NU", label: "Nunavut" },
+              { value: "ON", label: "Ontario" },
+              { value: "PE", label: "Prince Edward Island" },
+              { value: "QC", label: "Quebec" },
+              { value: "SK", label: "Saskatchewan" },
+              { value: "YT", label: "Yukon" },
             ]}
             onChange={e => setProvince(e.target.value)}
             errorText="This input has an error."
