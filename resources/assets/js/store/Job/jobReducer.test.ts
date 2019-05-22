@@ -14,6 +14,7 @@ import {
   FETCH_JOB_SUCCEEDED,
   JobAction,
   FETCH_JOB_FAILED,
+  clearJobEdit,
 } from "./jobActions";
 
 describe("Job Reducer tests", (): void => {
@@ -122,5 +123,24 @@ describe("Job Reducer tests", (): void => {
       },
     };
     expect(entitiesReducer(initialState, succeededAction)).toEqual(expectState);
+  });
+
+  it("Removes jobEdit when CLEAR_JOB_EDIT", (): void => {
+    const job: Job = fakeJob(1);
+    const job2: Job = fakeJob2(2);
+    const initialState: EntityState = {
+      ...initEntities(),
+      jobEdits: {
+        1: job,
+        2: job2,
+      },
+    };
+    const expectState: EntityState = {
+      ...initEntities(),
+      jobEdits: {
+        1: job,
+      },
+    };
+    expect(entitiesReducer(initialState, clearJobEdit(2))).toEqual(expectState);
   });
 });

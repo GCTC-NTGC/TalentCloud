@@ -8,8 +8,10 @@ import {
   UPDATE_JOB_SUCCEEDED,
   UPDATE_JOB_STARTED,
   UPDATE_JOB_FAILED,
+  EDIT_JOB,
+  CLEAR_JOB_EDIT,
 } from "./jobActions";
-import { mapToObject, getId } from "../../helpers/queries";
+import { mapToObject, getId, deleteProperty } from "../../helpers/queries";
 
 export interface EntityState {
   jobs: {
@@ -21,6 +23,9 @@ export interface EntityState {
     byId: {
       [id: number]: Criteria;
     };
+  };
+  jobEdits: {
+    [id: number]: Job;
   };
 }
 
@@ -41,6 +46,7 @@ export interface JobState {
 export const initEntities = (): EntityState => ({
   jobs: { byId: {} },
   criteria: { byId: {} },
+  jobEdits: {},
 });
 
 export const initUi = (): UiState => ({
@@ -60,6 +66,7 @@ export const entitiesReducer = (
   switch (action.type) {
     case FETCH_JOB_SUCCEEDED:
       return {
+        ...state,
         jobs: {
           byId: {
             ...state.jobs.byId,
@@ -82,6 +89,19 @@ export const entitiesReducer = (
             [action.meta.id]: action.payload,
           },
         },
+      };
+    case EDIT_JOB:
+      return {
+        ...state,
+        jobEdits: {
+          ...state.jobEdits,
+          [action.payload.id]: action.payload,
+        },
+      };
+    case CLEAR_JOB_EDIT:
+      return {
+        ...state,
+        jobEdits: deleteProperty<Job>(state.jobEdits, action.payload),
       };
     default:
       return state;

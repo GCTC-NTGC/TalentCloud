@@ -6,6 +6,7 @@ import {
   asyncGet,
   asyncPut,
 } from "../asyncAction";
+import createAction, { Action } from "../createAction";
 
 export const FETCH_JOB_STARTED = "JOB: GET STARTED";
 export const FETCH_JOB_SUCCEEDED = "JOB: GET SUCCEEDED";
@@ -68,6 +69,24 @@ export const updateJob = (
     { id: job.id },
   );
 
-export type JobAction = FetchJobAction | UpdateJobAction;
+export const EDIT_JOB = "JOB: EDIT";
+export type EditJobAction = Action<typeof EDIT_JOB, Job>;
+export const editJob = (job: Job): EditJobAction => ({
+  type: EDIT_JOB,
+  payload: job,
+});
+
+export const CLEAR_JOB_EDIT = "JOB: CLEAR EDITS";
+export type ClearEditJobAction = Action<typeof CLEAR_JOB_EDIT, number>;
+export const clearJobEdit = (jobId: number): ClearEditJobAction => ({
+  type: CLEAR_JOB_EDIT,
+  payload: jobId,
+});
+
+export type JobAction =
+  | FetchJobAction
+  | UpdateJobAction
+  | EditJobAction
+  | ClearEditJobAction;
 
 export default { fetchJob };
