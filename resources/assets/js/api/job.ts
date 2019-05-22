@@ -23,9 +23,8 @@ const parseCriterion = (data: any): Criteria => ({
   fr: { description: data.fr.description },
 });
 
-const parseJob = (data: any): Job => ({
+export const parseJob = (data: any): Job => ({
   id: Number(data.id),
-
   term_qty: Number(data.term_qty),
   open_date_time: parseDate(data.open_date_time),
   close_date_time: parseDate(data.close_date_time),
