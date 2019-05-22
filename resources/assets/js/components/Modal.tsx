@@ -46,7 +46,7 @@ class Modal extends Component<ModalProps, ModalState> {
   };
 
   protected handleSizing = (): string => {
-    const viewportHeight = window.outerHeight;
+    const viewportHeight = window.innerHeight;
     const { height } = this.state;
 
     return height > viewportHeight
@@ -58,7 +58,7 @@ class Modal extends Component<ModalProps, ModalState> {
     const body = document.querySelector("body");
     const { visible } = this.state;
     if (body) {
-      body.style.overflow = visible ? "hidden" : "visible";
+      body.style.overflow = visible ? "visible" : "hidden";
     }
   };
 
@@ -114,9 +114,12 @@ class Modal extends Component<ModalProps, ModalState> {
           data-c-dialog-id={id}
           data-c-padding="top(double) bottom(double)"
           role="dialog"
-          ref={this.divElement}
         >
-          <div data-c-background="white(100)" data-c-radius="rounded">
+          <div
+            data-c-background="white(100)"
+            data-c-radius="rounded"
+            ref={this.divElement}
+          >
             <div
               data-c-padding="normal"
               data-c-border="bottom(thin, solid, black)"
