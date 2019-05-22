@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Input from "../Input";
+import Modal from "../Modal";
 import Select from "../Select";
 
 const JobDetails = (): React.ReactElement => {
@@ -367,17 +368,109 @@ const JobDetails = (): React.ReactElement => {
           </div>
           <span>This input has an error.</span>
         </div>
-        <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
-          {/* <!-- This triggers the modal, but you'll probably want to add React-y stuff. This might include back-end validation? --> */}
-          <button
-            data-c-button="solid(c1)"
-            data-c-dialog-action="open"
-            data-c-dialog-id="example-dialog-02"
-            data-c-radius="rounded"
-            type="button"
+        <div data-c-grid-item="base(1of1)">
+          <Modal
+            id="job-details-preview"
+            title="You're off to a great start!"
+            subtitle="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+            openText="Next"
+            cancelText="Go Back"
+            confirmText="Next Step"
+            handleConfirm={() => console.log("Confirmed")}
           >
-            Next
-          </button>
+            <div
+              data-c-background="grey(20)"
+              data-c-border="bottom(thin, solid, black)"
+              data-c-padding="normal"
+            >
+              <div
+                className="manager-job-card"
+                data-c-background="white(100)"
+                data-c-padding="normal"
+                data-c-radius="rounded"
+              >
+                <h3
+                  data-c-font-size="h3"
+                  data-c-font-weight="bold"
+                  data-c-margin="bottom(half)"
+                >
+                  {title}
+                </h3>
+                <p data-c-font-size="h4" data-c-margin="bottom(normal)">
+                  Department
+                </p>
+                <p data-c-margin="bottom(half)">
+                  <i
+                    data-c-colour="c1"
+                    className="fas fa-map-marker-alt"
+                    title="Location Icon."
+                  >
+                    &nbsp;&nbsp;
+                  </i>
+                  {city}, {province}
+                </p>
+                {remoteWork !== "none" && (
+                  <p>
+                    <i
+                      data-c-colour="c1"
+                      className="fas fa-home"
+                      title="Remote Work Icon."
+                    >
+                      &nbsp;&nbsp;
+                    </i>
+                    Remote Work Allowed
+                  </p>
+                )}
+                <h4
+                  data-c-font-size="h4"
+                  data-c-font-weight="bold"
+                  data-c-margin="top(double) bottom(normal)"
+                >
+                  Basic Information
+                </h4>
+                <div data-c-grid="gutter">
+                  <div data-c-grid-item="tp(1of2)">
+                    <span data-c-colour="c1" data-c-margin="bottom(quarter)">
+                      Average Annual Salary
+                    </span>
+                    <span>Talent Cloud will add this.</span>
+                  </div>
+                  <div data-c-grid-item="tp(1of2)">
+                    <span data-c-colour="c1" data-c-margin="bottom(quarter)">
+                      Language Profile
+                    </span>
+                    <span>{language}</span>
+                  </div>
+                  <div data-c-grid-item="tp(1of2)">
+                    <span data-c-colour="c1" data-c-margin="bottom(quarter)">
+                      Duration
+                    </span>
+                    <span>{termLength} Months</span>
+                  </div>
+                  <div data-c-grid-item="tp(1of2)">
+                    <span data-c-colour="c1" data-c-margin="bottom(quarter)">
+                      Security Clearance
+                    </span>
+                    <span>{securityLevel}</span>
+                  </div>
+                  <div data-c-grid-item="tp(1of2)">
+                    <span data-c-colour="c1" data-c-margin="bottom(quarter)">
+                      Target Start Date
+                    </span>
+                    <span>This comes later.</span>
+                  </div>
+                  <div data-c-grid-item="tp(1of2)">
+                    <span data-c-colour="c1" data-c-margin="bottom(quarter)">
+                      Government Classification
+                    </span>
+                    <span>
+                      {classification}-{level}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Modal>
         </div>
       </form>
     </div>

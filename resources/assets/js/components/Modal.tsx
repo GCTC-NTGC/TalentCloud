@@ -10,7 +10,7 @@ export interface ModalProps {
   /** Text displayed on the button that displays the modal */
   openText: string;
   /** Text displayed on the button that hides the modal */
-  closeText: string;
+  closeText?: string;
   /** Text displayed on the modal confirmation button */
   confirmText: string;
   /** Text displayed on the modal cancellation button */
@@ -131,14 +131,16 @@ class Modal extends Component<ModalProps, ModalState> {
                 </span>
               )}
 
-              <button
-                data-c-dialog-action="close"
-                data-c-dialog-id={id}
-                type="button"
-                onClick={this.handleClose}
-              >
-                <i className="material-icons">{closeText}</i>
-              </button>
+              {closeText && (
+                <button
+                  data-c-dialog-action="close"
+                  data-c-dialog-id={id}
+                  type="button"
+                  onClick={this.handleClose}
+                >
+                  <i className="material-icons">{closeText}</i>
+                </button>
+              )}
             </div>
 
             <div
