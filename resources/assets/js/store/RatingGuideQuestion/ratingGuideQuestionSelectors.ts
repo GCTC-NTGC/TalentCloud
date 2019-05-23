@@ -3,10 +3,7 @@ import { createSelector } from "reselect";
 import createCachedSelector from "re-reselect";
 import { RootState } from "../store";
 import { RatingGuideQuestionState } from "./ratingGuideQuestionReducer";
-import {
-  RatingGuideQuestion,
-  TempRatingGuideQuestion,
-} from "../../models/types";
+import { RatingGuideQuestion } from "../../models/types";
 import { getId, hasKey, mapToObjectTrans } from "../../helpers/queries";
 
 const stateSlice = (state: RootState): RatingGuideQuestionState =>
@@ -36,6 +33,15 @@ const getTempQuestionSaving = (state: RootState): { [id: number]: boolean } =>
 const getQuestionUpdates = (state: RootState): { [id: number]: number } =>
   stateSlice(state).ratingGuideQuestionUpdates;
 
+const getCurrentQuestionState = createSelector(
+  getCanonQuestionState,
+  getEditedQuestionState,
+  (canonQuestions, editedQuestions): { [id: number]: RatingGuideQuestion } => ({
+    ...canonQuestions,
+    ...editedQuestions,
+  }),
+);
+
 /**
  * Returns current verisons of all assessments.
  * ie edited version if possible,
@@ -56,15 +62,31 @@ export const getCurrentRatingGuideQuestions = createSelector(
   },
 );
 
-export const getRatingGuideQuestions = createSelector(
-  getCanonQuestionState,
-  (questionState): RatingGuideQuestion[] => Object.values(questionState),
-);
-
 export const getTempRatingGuideQuestions = createSelector(
   getTempQuestionState,
-  (tempQuestionState): TempRatingGuideQuestion[] =>
+  (tempQuestionState): RatingGuideQuestion[] =>
     Object.values(tempQuestionState),
+);
+
+export const getRatingGuideQuestionIds = createSelector(
+  getCurrentQuestionState,
+  (currentQuestions): number[] =>
+    Object.keys(currentQuestions).map(id => Number(id)),
+);
+
+export const getTempRatingGuideQuestionIds = createSelector(
+  getTempQuestionState,
+  (tempQuestions): number[] => Object.keys(tempQuestions).map(id => Number(id)),
+);
+
+/**
+ * Returns edited version, if available
+ * */
+export const getCurrentRatingGuideQuestionById = createSelector(
+  getCurrentQuestionState,
+  (state: RootState, id: number) => id,
+  (questions, id): RatingGuideQuestion | null =>
+    hasKey(questions, id) ? questions[id] : null,
 );
 
 export const getCanonRatingGuideQuestionById = createCachedSelector(
@@ -81,19 +103,21 @@ export const getEditRatingGuideQuestionById = createCachedSelector(
     hasKey(questions, id) ? questions[id] : null,
 )((state, id) => id);
 
-type getRatingGuideQuestionsByIdSignature = (
-  state: RootState,
-  id: number,
-) => RatingGuideQuestion[];
+export const getTempRatingGuideQuestionById = createCachedSelector(
+  getTempQuestionState,
+  (state: RootState, id: number): number => id,
+  (questions, id): RatingGuideQuestion | null =>
+    hasKey(questions, id) ? questions[id] : null,
+)((state, id) => id);
 
-export const getRatingGuideQuestionsByJob: getRatingGuideQuestionsByIdSignature = createCachedSelector(
+export const getRatingGuideQuestionsByJob = createCachedSelector(
   getCurrentRatingGuideQuestions,
   (state: RootState, jobId: number): number => jobId,
   (questions, jobId): RatingGuideQuestion[] =>
     questions.filter((question): boolean => question.job_poster_id === jobId),
 )((state, jobId) => jobId);
 
-export const getRatingGuideQuestionsByAssessment: getRatingGuideQuestionsByIdSignature = createCachedSelector(
+export const getRatingGuideQuestionsByAssessment = createCachedSelector(
   getCurrentRatingGuideQuestions,
   (state: RootState, assessmentTypeId: number): number => assessmentTypeId,
   (questions, assessmentTypeId): RatingGuideQuestion[] =>
@@ -102,15 +126,10 @@ export const getRatingGuideQuestionsByAssessment: getRatingGuideQuestionsByIdSig
     ),
 )((state, assessmentTypeId) => assessmentTypeId);
 
-type getTempRatingGuideQuestionsByIdSignature = (
-  state: RootState,
-  id: number,
-) => TempRatingGuideQuestion[];
-
-export const getTempRatingGuideQuestionsByAssessment: getTempRatingGuideQuestionsByIdSignature = createCachedSelector(
+export const getTempRatingGuideQuestionsByAssessment = createCachedSelector(
   getTempRatingGuideQuestions,
   (state: RootState, assessmentTypeId: number): number => assessmentTypeId,
-  (questions, assessmentTypeId): TempRatingGuideQuestion[] =>
+  (questions, assessmentTypeId): RatingGuideQuestion[] =>
     questions.filter(
       (question): boolean => question.assessment_type_id === assessmentTypeId,
     ),

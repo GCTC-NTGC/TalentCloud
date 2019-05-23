@@ -158,14 +158,6 @@ export interface RatingGuideQuestion {
   question: string | null;
 }
 
-// Version of Rating Guide Question that hasn't been saved to server yet
-export interface TempRatingGuideQuestion {
-  id: number;
-  job_poster_id: number;
-  assessment_type_id: number;
-  question: string | null;
-}
-
 export interface AssessmentPlanNotification {
   id: number;
   job_poster_id: number;

@@ -2,7 +2,6 @@
 import isEqual from "lodash/isEqual";
 import {
   RatingGuideQuestion,
-  TempRatingGuideQuestion,
 } from "../../models/types";
 import {
   AssessmentPlanAction,
@@ -44,10 +43,10 @@ export interface RatingGuideQuestionState {
   };
   tempRatingGuideQuestions: {
     // For storing local rating guide answers that have never been saved to server
-    [id: number]: TempRatingGuideQuestion;
+    [id: number]: RatingGuideQuestion;
   };
   tempRatingGuideQuestionSaving: {
-    // Tracks whether a tempRatingGuideQuestion is currently being saved to server
+    // Tracks whether a RatingGuideQuestion is currently being saved to server
     [id: number]: boolean;
   };
   ratingGuideQuestionUpdates: {
@@ -258,7 +257,7 @@ export const ratingGuideQuestionReducer = (
     case DELETE_TEMP_RATING_GUIDE_QUESTION:
       return {
         ...state,
-        tempRatingGuideQuestions: deleteProperty<TempRatingGuideQuestion>(
+        tempRatingGuideQuestions: deleteProperty<RatingGuideQuestion>(
           state.tempRatingGuideQuestions,
           action.payload.id,
         ),
@@ -304,7 +303,7 @@ export const ratingGuideQuestionReducer = (
                 question: action.payload.ratingGuideQuestion.question,
               },
             },
-        tempRatingGuideQuestions: deleteProperty<TempRatingGuideQuestion>(
+        tempRatingGuideQuestions: deleteProperty<RatingGuideQuestion>(
           state.tempRatingGuideQuestions,
           action.payload.oldRatingGuideQuestion.id,
         ),

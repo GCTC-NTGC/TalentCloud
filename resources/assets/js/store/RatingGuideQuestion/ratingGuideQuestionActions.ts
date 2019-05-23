@@ -6,10 +6,7 @@ import {
   createRatingGuideQuestion as createRatingGuideQuestionApi,
   deleteRatingGuideQuestion as deleteRatingGuideQuestionApi,
 } from "../../api/ratingGuide";
-import {
-  RatingGuideQuestion,
-  TempRatingGuideQuestion,
-} from "../../models/types";
+import { RatingGuideQuestion } from "../../models/types";
 import { FailedAction } from "../asyncAction";
 
 /** Action for editing Rating Guide Q&A (without saving to server) */
@@ -44,7 +41,7 @@ export type CreateTempRatingGuideQuestionAction = Action<
 
 export type EditTempRatingGuideQuestionAction = Action<
   typeof EDIT_TEMP_RATING_GUIDE_QUESTION,
-  { ratingGuideQuestion: TempRatingGuideQuestion }
+  { ratingGuideQuestion: RatingGuideQuestion }
 >;
 
 export type DeleteTempRatingGuideQuestionAction = Action<
@@ -62,7 +59,7 @@ export const createTempRatingGuideQuestion = (
 });
 
 export const editTempRatingGuideQuestion = (
-  ratingGuideQuestion: TempRatingGuideQuestion,
+  ratingGuideQuestion: RatingGuideQuestion,
 ): EditTempRatingGuideQuestionAction => ({
   type: EDIT_TEMP_RATING_GUIDE_QUESTION,
   payload: { ratingGuideQuestion },

@@ -6,7 +6,6 @@ import {
   Criteria,
   RatingGuideQuestion,
   Skill,
-  TempRatingGuideQuestion,
   TempRatingGuideAnswer,
 } from "../../models/types";
 import { createTempRatingGuideQuestion } from "../../store/RatingGuideQuestion/ratingGuideQuestionActions";
@@ -36,10 +35,10 @@ interface RatingGuideAssessmentProps {
   assessmentIndex: number;
   /** The assessment tool used with this assessment question */
   assessmentTypeId: number;
-  /** The interview questions to be asked during this assessment */
-  questions: RatingGuideQuestion[];
-  /** Interview questions that have not been saved to the server */
-  tempQuestions: TempRatingGuideQuestion[];
+  /** The ids of interview questions to be asked during this assessment */
+  questionIds: number[];
+  /** Ids of interview questions that have not been saved to the server */
+  tempQuestionIds: number[];
   /** The expecteds answers, for each skill, that will considered a pass */
   ratingGuideAnswers: RatingGuideAnswer[];
   tempRatingGuideAnswers: TempRatingGuideAnswer[];
@@ -57,9 +56,9 @@ const RatingGuideAssessment: React.FunctionComponent<
 > = ({
   assessmentIndex,
   assessmentTypeId,
-  questions,
+  questionIds,
   createQuestion,
-  tempQuestions,
+  tempQuestionIds,
   requiredCriteria,
   ratingGuideAnswers,
   tempRatingGuideAnswers,
@@ -113,15 +112,15 @@ const RatingGuideAssessment: React.FunctionComponent<
       </h4>
       <p>{intl.formatMessage(assessmentTypeDescription(assessmentTypeId))}</p>
 
-      {questions.map(
-        (question: RatingGuideQuestion, index: number): ReactElement => {
+      {questionIds.map(
+        (questionId: number, index: number): ReactElement => {
           const answers = ratingGuideAnswers.filter(
             (answer: RatingGuideAnswer): boolean =>
-              answer.rating_guide_question_id === question.id,
+              answer.rating_guide_question_id === questionId,
           );
           const tempAnswers = tempRatingGuideAnswers.filter(
             (answer: TempRatingGuideAnswer): boolean =>
-              answer.rating_guide_question_id === question.id,
+              answer.rating_guide_question_id === questionId,
           );
           const selectedCriteria = answers
             .filter(
@@ -134,15 +133,15 @@ const RatingGuideAssessment: React.FunctionComponent<
             );
           return (
             <div
-              key={question.id}
+              key={questionId}
               data-c-background="black(10)"
               data-c-border="all(thin, solid, black)"
               data-c-margin="top(normal) bottom(normal)"
               data-c-padding="bottom(normal)"
             >
               <RatingGuideQuestionComponent
-                key={question.id}
-                question={question}
+                key={questionId}
+                ratingGuideQuestionId={questionId}
                 questionIndex={index + 1}
               />
 
@@ -208,7 +207,7 @@ const RatingGuideAssessment: React.FunctionComponent<
                         <button
                           className="button-plus"
                           type="button"
-                          onClick={(): void => createAnswer(question.id)}
+                          onClick={(): void => createAnswer(questionId)}
                         >
                           +
                         </button>
@@ -220,20 +219,20 @@ const RatingGuideAssessment: React.FunctionComponent<
           );
         },
       )}
-      {tempQuestions.map(
-        (question: RatingGuideQuestion, index: number): ReactElement => {
+      {tempQuestionIds.map(
+        (questionId: number, index: number): ReactElement => {
           return (
             <div
-              key={question.id}
+              key={questionId}
               data-c-background="black(10)"
               data-c-border="all(thin, solid, black)"
               data-c-margin="top(normal) bottom(normal)"
               data-c-padding="bottom(normal)"
             >
               <RatingGuideQuestionComponent
-                key={question.id}
-                question={question}
-                questionIndex={questions.length + index + 1}
+                key={questionId}
+                ratingGuideQuestionId={questionId}
+                questionIndex={questionIds.length + index + 1}
                 temp
               />
 
@@ -321,8 +320,8 @@ const mapStateToProps = (
   assessmentTypeId: number;
   criteriaIdToSkill: { [id: number]: Skill | null };
   jobId: number | null;
-  questions: RatingGuideQuestion[];
-  tempQuestions: RatingGuideQuestion[];
+  questionIds: number[];
+  tempQuestionIds: number[];
   requiredCriteria: Criteria[] | null;
   ratingGuideAnswers: RatingGuideAnswer[];
   tempRatingGuideAnswers: TempRatingGuideAnswer[];
@@ -336,14 +335,14 @@ const mapStateToProps = (
       getSkillById(state, criterion.skill_id),
   ),
   jobId: ownProps.jobId,
-  questions: getRatingGuideQuestionsByAssessment(
+  questionIds: getRatingGuideQuestionsByAssessment(
     state,
     ownProps.assessmentTypeId,
-  ),
-  tempQuestions: getTempRatingGuideQuestionsByAssessment(
+  ).map(question => question.id),
+  tempQuestionIds: getTempRatingGuideQuestionsByAssessment(
     state,
     ownProps.assessmentTypeId,
-  ),
+  ).map(question => question.id),
   tempRatingGuideAnswers: getTempRatingGuideAnswers(state),
   requiredCriteria: ownProps.requiredCriteria,
   ratingGuideAnswers: getRatingGuideAnswersByAssessment(
