@@ -41,11 +41,15 @@ class Modal extends Component<ModalProps, ModalState> {
     const node = this.divElement.current;
     if (node) {
       const height = node.clientHeight;
-      this.setState({ height });
+      this.setState({ height }, this.updateBody);
     }
   };
 
-  protected handleSizing = (): string => {
+  protected handleSizing = (): string | boolean => {
+    const { visible } = this.state;
+    if (!visible) {
+      return false;
+    }
     const viewportHeight = window.innerHeight;
     const { height } = this.state;
 
@@ -58,20 +62,18 @@ class Modal extends Component<ModalProps, ModalState> {
     const body = document.querySelector("body");
     const { visible } = this.state;
     if (body) {
-      body.style.overflow = visible ? "visible" : "hidden";
+      body.style.overflow = visible ? "hidden" : "visible";
     }
   };
 
   public handleOpen = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    this.setState({ visible: true });
-    this.updateBody();
+    this.setState({ visible: true }, this.updateBody);
   };
 
   public handleClose = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    this.setState({ visible: false });
-    this.updateBody();
+    this.setState({ visible: false }, this.updateBody);
   };
 
   public render(): React.ReactElement {
@@ -110,7 +112,7 @@ class Modal extends Component<ModalProps, ModalState> {
           aria-hidden={!visible}
           aria-describedby={`${id}-description`}
           aria-labelledby={`${id}-title`}
-          data-c-dialog={visible && `${this.handleSizing()}`}
+          data-c-dialog={this.handleSizing()}
           data-c-dialog-id={id}
           data-c-padding="top(double) bottom(double)"
           role="dialog"
