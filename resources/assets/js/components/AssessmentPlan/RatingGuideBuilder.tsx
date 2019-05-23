@@ -1,10 +1,12 @@
 import React from "react";
-import { InjectedIntlProps, FormattedMessage } from "react-intl";
+import { InjectedIntlProps, FormattedMessage, injectIntl } from "react-intl";
+import { connect } from "react-redux";
 import {
   Criteria,
   Assessment,
   RatingGuideQuestion,
   RatingGuideAnswer,
+  Skill,
 } from "../../models/types";
 import {
   skillLevelName,
@@ -18,18 +20,31 @@ import { AssessmentTypeId } from "../../models/lookupConstants";
 import RatingGuideAssessment from "./RatingGuideAssessment";
 import { find } from "../../helpers/queries";
 import RatingGuideClipboard from "./RatingGuideClipboard";
+import { RootState } from "../../store/store";
+import { getSkills } from "../../store/Skill/skillSelector";
+import { getCriteriaByJob } from "../../store/Job/jobSelector";
+import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
+import { getRatingGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
+import { getRatingGuideAnswersByJob } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
 
 interface RatingsGuideBuilderProps {
   criteria: Criteria[];
+  skills: Skill[];
   assessments: Assessment[];
   questions: RatingGuideQuestion[];
   answers: RatingGuideAnswer[];
-  jobId: number | null;
+  jobId: number;
 }
 
 const RatingGuideBuilder: React.FunctionComponent<
   RatingsGuideBuilderProps & InjectedIntlProps
-> = ({ criteria, assessments, jobId, intl }): React.ReactElement => {
+> = ({
+  criteria,
+  skills,
+  assessments,
+  jobId,
+  intl,
+}): React.ReactElement | null => {
   let sectionCount = 0;
   const narrativeReview = assessments.filter(
     (assessment: Assessment): boolean =>
@@ -96,17 +111,26 @@ const RatingGuideBuilder: React.FunctionComponent<
             </div>
           </div>
           {narrativeReview.map(
-            (assessment: Assessment, index: number): React.ReactElement => {
+            (
+              assessment: Assessment,
+              index: number,
+            ): React.ReactElement | null => {
               const narrativeCriteria = find(criteria, assessment.criterion_id);
-              let skillLevel = "";
-              if (narrativeCriteria) {
-                skillLevel = intl.formatMessage(
-                  skillLevelName(
-                    narrativeCriteria.skill_level_id,
-                    narrativeCriteria.skill.skill_type_id,
-                  ),
+              const narrativeSkill = narrativeCriteria
+                ? find(skills, narrativeCriteria.skill_id)
+                : null;
+              if (narrativeCriteria === null || narrativeSkill === null) {
+                throw new Error(
+                  "Narrative Criterion or Skill cannot be found.",
                 );
               }
+              let skillLevel = "";
+              skillLevel = intl.formatMessage(
+                skillLevelName(
+                  narrativeCriteria.skill_level_id,
+                  narrativeSkill.skill_type_id,
+                ),
+              );
               return (
                 <div
                   key={`narrative-review-${index + 1}`}
@@ -121,8 +145,7 @@ const RatingGuideBuilder: React.FunctionComponent<
                           defaultMessage="{skillName} - {skillLevel}"
                           description="How each criteria is listed in Rating Guide Builder."
                           values={{
-                            skillName:
-                              narrativeCriteria.skill[intl.locale].name,
+                            skillName: narrativeSkill[intl.locale].name,
                             skillLevel,
                           }}
                         />
@@ -205,4 +228,30 @@ const RatingGuideBuilder: React.FunctionComponent<
   );
 };
 
-export default RatingGuideBuilder;
+interface RatingGuideBuilderContainerProps {
+  jobId: number;
+}
+
+const mapStateToProps = (
+  state: RootState,
+  ownProps: RatingGuideBuilderContainerProps,
+): {
+  criteria: Criteria[];
+  skills: Skill[];
+  assessments: Assessment[];
+  questions: RatingGuideQuestion[];
+  answers: RatingGuideAnswer[];
+} => ({
+  criteria: getCriteriaByJob(state, ownProps.jobId),
+  skills: getSkills(state),
+  assessments: getAssessmentsByJob(state, ownProps.jobId),
+  questions: getRatingGuideQuestionsByJob(state, ownProps.jobId),
+  answers: getRatingGuideAnswersByJob(state, ownProps.jobId),
+});
+
+// @ts-ignore
+export const RatingGuideBuilderContainer: React.FunctionComponent<
+  RatingGuideBuilderContainerProps
+> = connect(mapStateToProps)(injectIntl(RatingGuideBuilder));
+
+export default RatingGuideBuilderContainer;

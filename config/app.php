@@ -1,5 +1,4 @@
 <?php
-use App\Facades\WhichPortal;
 
 return [
 
@@ -117,6 +116,18 @@ return [
         'en' => 'h:i A T',
         'fr' => 'H \h i T'
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | API datetime format
+    |--------------------------------------------------------------------------
+    |
+    | The api datetime format specifies the format used for incoming or outgoing
+    | dates while processing or responding to api requests.
+    |
+    */
+
+    'api_datetime_format' => 'Y-m-d\TH:i:sP', // specifies ISO 8601, eg 2004-02-12T15:19:21+00:00
 
     /*
     |--------------------------------------------------------------------------

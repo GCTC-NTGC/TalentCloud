@@ -84,22 +84,30 @@ export const asyncAction = <
   R extends string,
   S extends string,
   F extends string,
+  B,
   P,
   M
 >(
   endpoint: string,
   method: HTTPVerb,
+  body: B | null,
   startedType: R,
   succeededType: S,
   failedType: F,
   parseResponse: (response: any) => P,
   metaData: M,
 ): RSAActionTemplate<R, S, F, P, M> => {
+  const tokenHeader = { "X-CSRF-TOKEN": csrfToken };
+  const jsonBodyHeader = { "Content-Type": "application/json" }; // informs server that the body is a json encoded string
+  const headers =
+    body === null ? tokenHeader : { ...tokenHeader, ...jsonBodyHeader };
   return {
     [RSAA]: {
       endpoint,
       method,
-      headers: { "X-CSRF-TOKEN": csrfToken },
+      body,
+      headers,
+      fetch, // Ensure the global fetch function is being used
       types: [
         {
           type: startedType,
@@ -119,5 +127,57 @@ export const asyncAction = <
     },
   };
 };
+
+export const asyncGet = <
+  R extends string,
+  S extends string,
+  F extends string,
+  P,
+  M
+>(
+  endpoint: string,
+  startedType: R,
+  succeededType: S,
+  failedType: F,
+  parseResponse: (response: any) => P,
+  metaData: M,
+): RSAActionTemplate<R, S, F, P, M> =>
+  asyncAction(
+    endpoint,
+    "GET",
+    null,
+    startedType,
+    succeededType,
+    failedType,
+    parseResponse,
+    metaData,
+  );
+
+export const asyncPut = <
+  R extends string,
+  S extends string,
+  F extends string,
+  B,
+  P,
+  M
+>(
+  endpoint: string,
+  body: B,
+  startedType: R,
+  succeededType: S,
+  failedType: F,
+  parseResponse: (response: any) => P,
+  metaData: M,
+): RSAActionTemplate<R, S, F, P, M> =>
+  asyncAction(
+    endpoint,
+    "PUT",
+    body,
+    startedType,
+    succeededType,
+    failedType,
+    parseResponse,
+    metaData,
+  );
 
 export default asyncAction;

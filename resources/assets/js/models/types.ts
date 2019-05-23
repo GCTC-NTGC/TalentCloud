@@ -4,7 +4,8 @@ import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 export interface JobTranslation {
   city: string;
   title: string;
-  impact: string;
+  team_impact: string;
+  hire_impact: string;
   branch: string;
   division: string;
   education: string;
@@ -12,9 +13,20 @@ export interface JobTranslation {
 
 export interface Job {
   id: number;
-  title: string;
-  classification: string;
+  term_qty: number;
+  open_date_time: Date;
   close_date_time: Date;
+  start_date_time: Date;
+  department_id: number;
+  province_id: number;
+  salary_min: number;
+  salary_max: number;
+  noc: number;
+  classification_code: string;
+  classification_level: number;
+  security_clearance_id: number;
+  language_requirement_id: number;
+  remote_work_allowed: boolean;
   en: JobTranslation;
   fr: JobTranslation;
 }
@@ -101,8 +113,6 @@ export interface SkillTranslation {
 
 export interface Skill {
   id: number;
-  name: string;
-  description: string;
   skill_type_id: number;
   en: SkillTranslation;
   fr: SkillTranslation;
@@ -114,8 +124,6 @@ export interface Criteria {
   job_poster_id: number;
   skill_id: number;
   skill_level_id: number;
-  description: string; // TODO: remove un-localized description
-  skill: Skill; // TODO: remove skill from here
   en: {
     description: string;
   };
