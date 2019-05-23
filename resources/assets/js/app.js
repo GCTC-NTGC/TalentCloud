@@ -34,6 +34,35 @@
   $("body").attr("id", ua);
 
   $(document).ready(function() {
+
+    // Clone Specific UI Handlers ==============================================
+
+      // Job Builder - Work Environment ----------------------------------------
+      function hiwTrigger(trigger) {
+        const wEnv = $(trigger).attr("data-tc-wEnv-id");
+        $(trigger).parents(".job-builder-culture-block").find("[data-tc-wEnv-trigger").removeClass("active");
+        $(trigger).addClass("active");
+        $(trigger).parents(".job-builder-culture-block").find(".job-builder-context-item").removeClass("active");
+        $(trigger).parents(".job-builder-culture-block").find(".job-builder-context-item[data-tc-wEnv-id='" + wEnv + "']").addClass("active");
+        if (window.matchMedia("screen and (min-width: 48em)").matches) {
+          // Nothing
+        } else {
+          $([document.documentElement, document.body]).animate({
+            scrollTop: $(trigger).parents(".home-hiw").find(".job-builder-context-item[data-tc-wEnv-id='" + wEnv + "']").offset().top
+        }, 10);
+        }
+      }
+
+      $(document).on("click", "[data-tc-wEnv-trigger]", function(e) {
+        hiwTrigger(this);
+      });
+
+      $(document).on("keyup", "[data-tc-wEnv-trigger]", function(e) {
+        if (e.which == 13) {
+          hiwTrigger(this);
+        }
+      });
+
     // Accordion Handlers ==================================================
 
     function accordionTrigger(trigger) {

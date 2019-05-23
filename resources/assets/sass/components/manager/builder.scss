@@ -1,22 +1,22 @@
 [data-c-input] label .form__required {
-    display: none;
-}
-
-.manager-jpb-tracker {
-    .manager-jpb-tracker-wrapper {
-        @media #{$clone-tablet-landscape} {
-            margin-right: calc(((#{$clone-margin}) * #{$clone-whitespace-multiplier}) * -1);
-        }
-        @media #{$clone-desktop-large} {
-            margin-right: calc((((#{$clone-margin}) * #{$clone-whitespace-multiplier}) * #{$clone-whitespace-multiplier}) * -1);
-        }
-    }
+    display: none !important;
 }
 
 .manager-job-card {
     box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
     >div:last-child {
         cursor: pointer;
+    }
+}
+
+.job-builder-context-block {
+    padding-top: 1.65rem;
+
+    .job-builder-context-item {
+        display: none;
+        &.active {
+            display: block;
+        }
     }
 }
 
