@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import { FormattedMessage } from "react-intl";
-import { Application } from "../types";
+import { Application } from "../../models/types";
 import { SelectOption } from "../Select";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
@@ -15,7 +15,7 @@ interface ReviewApplicationsProps {
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onBulkStatusChange: (
     applicationIds: number[],
-    statusId: number | null
+    statusId: number | null,
   ) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   savingStatuses: { applicationId: number; isSaving: boolean }[];
@@ -30,63 +30,63 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
   onStatusChange,
   onBulkStatusChange,
   onNotesChange,
-  savingStatuses
+  savingStatuses,
 }: ReviewApplicationsProps): React.ReactElement => {
   const categories = [
     {
       title: {
         id: "apl.underConsideration.title",
-        defaultMessage: "<default/> Under Consideration",
-        description: "Under consideration category title"
+        defaultMessage: "Under Consideration",
+        description: "Under consideration category title",
       },
       description: {
         id: "apl.underConsideration.description",
         defaultMessage:
-          "<default/> Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non-Canadian Citizen applications in the Optional Consideration section",
-        description: "Under consideration category description"
+          "Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non-Canadian Citizen applications in the Optional Consideration section",
+        description: "Under consideration category description",
       },
       showScreenOutAll: false,
       applications: applications.filter(
-        application => applicationCategory(application) === "primary"
+        application => applicationCategory(application) === "primary",
       ),
-      prioritizeVeterans: false
+      prioritizeVeterans: false,
     },
     {
       title: {
         id: "apl.optionalConsideration.title",
-        defaultMessage: "<default/> Optional Consideration",
-        description: "Optional consideration category title"
+        defaultMessage: "Optional Consideration",
+        description: "Optional consideration category title",
       },
       description: {
         id: "apl.optionalConsideration.description",
         defaultMessage:
-          "<default/> In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
-        description: "Optional consideration category description"
+          "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
+        description: "Optional consideration category description",
       },
       showScreenOutAll: true,
       applications: applications.filter(
-        application => applicationCategory(application) === "optional"
+        application => applicationCategory(application) === "optional",
       ),
-      prioritizeVeterans: true
+      prioritizeVeterans: true,
     },
     {
       title: {
         id: "apl.screenedOut.title",
-        defaultMessage: "<default/> No Longer Under Consideration",
-        description: "Screened out category title"
+        defaultMessage: "No Longer Under Consideration",
+        description: "Screened out category title",
       },
       description: {
         id: "apl.screenedOut.description",
         defaultMessage:
-          "<default/> These applications have already been screened out.",
-        description: "Screened out category description"
+          "These applications have already been screened out.",
+        description: "Screened out category description",
       },
       showScreenOutAll: false,
       applications: applications.filter(
-        application => applicationCategory(application) === "screened-out"
+        application => applicationCategory(application) === "screened-out",
       ),
-      prioritizeVeterans: true
-    }
+      prioritizeVeterans: true,
+    },
   ];
 
   return (
@@ -100,7 +100,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
               description="Welcome header on Job Applications index page"
               values={{
                 job_title: title,
-                job_classification: classification
+                job_classification: classification,
               }}
             />
           </span>
@@ -111,14 +111,14 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
           &nbsp;
           <FormattedMessage
             id="job.daysSinceClosed"
-            defaultMessage="<default/> {dayCount, plural,
+            defaultMessage="{dayCount, plural,
               =0 {No Days}
             one {# Day}
           other {# Days}
         } Since Close"
             description="Welcome header on app main page"
             values={{
-              dayCount: moment().diff(moment(closeDateTime), "days")
+              dayCount: moment().diff(moment(closeDateTime), "days"),
             }}
           />
         </div>

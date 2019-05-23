@@ -1,5 +1,5 @@
-import { Application } from "../types";
-import { ReviewStatusId } from "../lookupConstants";
+import { Application } from "../../models/types";
+import { ReviewStatusId } from "../../models/lookupConstants";
 
 type Bucket = "priority" | "citizen" | "non-citizen" | "unqualified";
 
@@ -71,7 +71,7 @@ function isVet(application: Application): boolean {
  */
 export function applicationCompare(
   first: Application,
-  second: Application
+  second: Application,
 ): number {
   // Sort by status in the following order:
   // "still_in", "Not Reviewed", "still_thinking", "screened_out",
@@ -112,7 +112,7 @@ export function applicationCompare(
  */
 export function applicationComparePrioritizeVeterans(
   first: Application,
-  second: Application
+  second: Application,
 ): number {
   // Veterans come before others
   if (isVet(first) && !isVet(second)) {

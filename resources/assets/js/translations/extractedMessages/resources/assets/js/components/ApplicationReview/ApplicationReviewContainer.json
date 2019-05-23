@@ -1,0 +1,12 @@
+[
+  {
+    "id": "alert.oops",
+    "description": "Modal notification text indicating something went wrong.",
+    "defaultMessage": "Oops..."
+  },
+  {
+    "id": "apl.reviewSaveFailed",
+    "description": "Error message for error while saving an application review.",
+    "defaultMessage": "Something went wrong while saving a review. Try again later."
+  }
+]
