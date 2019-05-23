@@ -141,13 +141,6 @@ export interface RatingGuideAnswer {
   id: number;
   rating_guide_question_id: number;
   criterion_id: number | null;
-  expected_answer: string;
-}
-
-export interface TempRatingGuideAnswer {
-  id: number;
-  rating_guide_question_id: number;
-  criterion_id: number | null;
   expected_answer: string | null;
 }
 

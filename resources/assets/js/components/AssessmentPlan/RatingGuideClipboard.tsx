@@ -146,7 +146,7 @@ export const clipboardData = (
             : formatMessage(criteriaType(criterionByAnswer.criteria_type_id)),
         skillName:
           skillByCriterion === undefined ? "" : skillByCriterion[locale].name,
-        modelAnswer: answer.expected_answer,
+        modelAnswer: answer.expected_answer ? answer.expected_answer : "",
         id:
           questionByAnswer === undefined || criterionByAnswer === undefined
             ? ""

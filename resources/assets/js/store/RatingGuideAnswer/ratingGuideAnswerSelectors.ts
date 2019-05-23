@@ -1,11 +1,7 @@
 import isEqual from "lodash/isEqual";
 import { RootState } from "../store";
 import { RatingGuideAnswerState } from "./ratingGuideAnswerReducer";
-import {
-  RatingGuideAnswer,
-  TempRatingGuideAnswer,
-  RatingGuideQuestion,
-} from "../../models/types";
+import { RatingGuideAnswer, RatingGuideQuestion } from "../../models/types";
 import {
   getRatingGuideQuestionsByJob,
   getRatingGuideQuestionsByAssessment,
@@ -40,7 +36,7 @@ export const getRatingGuideAnswers = (state: RootState): RatingGuideAnswer[] =>
 
 export const getTempRatingGuideAnswers = (
   state: RootState,
-): TempRatingGuideAnswer[] => {
+): RatingGuideAnswer[] => {
   return Object.values(stateSlice(state).tempRatingGuideAnswers);
 };
 
@@ -60,6 +56,14 @@ export const getRatingGuideAnswerById = (
 ): RatingGuideAnswer | null =>
   hasKey(stateSlice(state).ratingGuideAnswers, id)
     ? stateSlice(state).ratingGuideAnswers[id]
+    : null;
+
+export const getTempRatingGuideAnswerById = (
+  state: RootState,
+  id: number,
+): RatingGuideAnswer | null =>
+  hasKey(stateSlice(state).tempRatingGuideAnswers, id)
+    ? stateSlice(state).tempRatingGuideAnswers[id]
     : null;
 
 export const getRatingGuideAnswersByQuestion = (
@@ -95,7 +99,7 @@ export const getRatingGuideAnswersByAssessment = (
 export const getTempRatingGuideAnswersByQuestion = (
   state: RootState,
   ratingGuideQuestionId: number,
-): TempRatingGuideAnswer[] =>
+): RatingGuideAnswer[] =>
   getTempRatingGuideAnswers(state).filter(
     (ratingGuideAnswer: RatingGuideAnswer): boolean =>
       ratingGuideAnswer.rating_guide_question_id === ratingGuideQuestionId,

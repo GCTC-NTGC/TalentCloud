@@ -1,22 +1,14 @@
 import React, { ReactElement } from "react";
 import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
-import {
-  RatingGuideAnswer,
-  Criteria,
-  RatingGuideQuestion,
-  Skill,
-  TempRatingGuideAnswer,
-} from "../../models/types";
+import { Criteria, Skill } from "../../models/types";
 import { createTempRatingGuideQuestion } from "../../store/RatingGuideQuestion/ratingGuideQuestionActions";
 import {
   assessmentType,
   assessmentTypeDescription,
 } from "../../models/localizedConstants";
 import { CriteriaTypeId } from "../../models/lookupConstants";
-import { where, mapToObjectTrans, getId } from "../../helpers/queries";
-import RatingGuideQuestionComponent from "./RatingGuideQuestion";
-import RatingGuideAnswerComponent from "./RatingGuideAnswer";
+import { mapToObjectTrans, getId } from "../../helpers/queries";
 import { RootState } from "../../store/store";
 import { getSkillById } from "../../store/Skill/skillSelector";
 import { DispatchType } from "../../configureStore";
@@ -24,11 +16,7 @@ import {
   getRatingGuideQuestionsByAssessment,
   getTempRatingGuideQuestionsByAssessment,
 } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
-import { createTempRatingGuideAnswer } from "../../store/RatingGuideAnswer/ratingGuideAnswerActions";
-import {
-  getTempRatingGuideAnswers,
-  getRatingGuideAnswersByAssessment,
-} from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
+import RatingGuideQuestionWithAnswers from "./RatingGuideQuestionWithAnswers";
 
 interface RatingGuideAssessmentProps {
   /** Display index of this ratings guide assessment compared to others on the page */
@@ -39,16 +27,10 @@ interface RatingGuideAssessmentProps {
   questionIds: number[];
   /** Ids of interview questions that have not been saved to the server */
   tempQuestionIds: number[];
-  /** The expecteds answers, for each skill, that will considered a pass */
-  ratingGuideAnswers: RatingGuideAnswer[];
-  tempRatingGuideAnswers: TempRatingGuideAnswer[];
   /** A map of criteria id to skills, useful for skill names and description */
   criteriaIdToSkill: { [id: number]: Skill | null };
-  requiredCriteria: Criteria[] | null;
   /** Handler function for creating a new RatingGuideQuestion */
   createQuestion: () => void;
-  /** Handler function for creating a new RatingGuideAnswer */
-  createAnswer: (ratingGuideQuestionId: number) => void;
 }
 
 const RatingGuideAssessment: React.FunctionComponent<
@@ -59,21 +41,17 @@ const RatingGuideAssessment: React.FunctionComponent<
   questionIds,
   createQuestion,
   tempQuestionIds,
-  requiredCriteria,
-  ratingGuideAnswers,
-  tempRatingGuideAnswers,
-  createAnswer,
   criteriaIdToSkill,
   intl,
 }): React.ReactElement => {
-  let missingCriteria = [] as Criteria[];
-  if (requiredCriteria && requiredCriteria.length > 0) {
-    missingCriteria = requiredCriteria.filter(
-      (criterion: Criteria): boolean =>
-        /** Filter out any criteria that have at least one expected answer  */
-        where(ratingGuideAnswers, "criterion_id", criterion.id).length === 0,
-    );
-  }
+  const missingCriteria: Criteria[] = [];
+  // if (requiredCriteria && requiredCriteria.length > 0) {
+  //   missingCriteria = requiredCriteria.filter(
+  //     (criterion: Criteria): boolean =>
+  //       /** Filter out any criteria that have at least one expected answer  */
+  //       where(ratingGuideAnswers, "criterion_id", criterion.id).length === 0,
+  //   );
+  // }
   let missingEssentialCriteria = [] as Criteria[];
   let missingAssetCriteria = [] as Criteria[];
   if (missingCriteria.length > 0) {
@@ -113,147 +91,23 @@ const RatingGuideAssessment: React.FunctionComponent<
       <p>{intl.formatMessage(assessmentTypeDescription(assessmentTypeId))}</p>
 
       {questionIds.map(
-        (questionId: number, index: number): ReactElement => {
-          const answers = ratingGuideAnswers.filter(
-            (answer: RatingGuideAnswer): boolean =>
-              answer.rating_guide_question_id === questionId,
-          );
-          const tempAnswers = tempRatingGuideAnswers.filter(
-            (answer: TempRatingGuideAnswer): boolean =>
-              answer.rating_guide_question_id === questionId,
-          );
-          const selectedCriteria = answers
-            .filter(
-              (answer: RatingGuideAnswer): boolean =>
-                answer.criterion_id !== null,
-            )
-            .map(
-              (answer: RatingGuideAnswer): number =>
-                answer.criterion_id as number,
-            );
-          return (
-            <div
-              key={questionId}
-              data-c-background="black(10)"
-              data-c-border="all(thin, solid, black)"
-              data-c-margin="top(normal) bottom(normal)"
-              data-c-padding="bottom(normal)"
-            >
-              <RatingGuideQuestionComponent
-                key={questionId}
-                ratingGuideQuestionId={questionId}
-                questionIndex={index + 1}
-              />
-
-              <div data-c-padding="top(normal)">
-                {answers.map(
-                  (answer: RatingGuideAnswer): ReactElement | false => {
-                    // The currently selected criterion, plus anyother unselected criteria
-                    let availableCriteria = [] as Criteria[];
-                    if (requiredCriteria && requiredCriteria.length > 0) {
-                      availableCriteria = requiredCriteria.filter(
-                        (criterion: Criteria): boolean => {
-                          return (
-                            answer.criterion_id === criterion.id ||
-                            !selectedCriteria.includes(criterion.id)
-                          );
-                        },
-                      );
-                    }
-                    return (
-                      availableCriteria.length > 0 && (
-                        <RatingGuideAnswerComponent
-                          key={answer.id}
-                          answer={answer}
-                          availableCriteria={availableCriteria}
-                        />
-                      )
-                    );
-                  },
-                )}
-                {tempAnswers.map(
-                  (answer: RatingGuideAnswer): ReactElement | false => {
-                    // The currently selected criterion, plus anyother unselected criteria
-                    let availableCriteria = [] as Criteria[];
-                    if (requiredCriteria && requiredCriteria.length > 0) {
-                      availableCriteria = requiredCriteria.filter(
-                        (criterion: Criteria): boolean => {
-                          return (
-                            answer.criterion_id === criterion.id ||
-                            !selectedCriteria.includes(criterion.id)
-                          );
-                        },
-                      );
-                    }
-                    return (
-                      availableCriteria.length > 0 && (
-                        <RatingGuideAnswerComponent
-                          key={answer.id}
-                          answer={answer}
-                          availableCriteria={availableCriteria}
-                          temp
-                        />
-                      )
-                    );
-                  },
-                )}
-                {requiredCriteria &&
-                  !(selectedCriteria.length === requiredCriteria.length) && (
-                    <div data-c-grid="gutter middle">
-                      <div
-                        data-c-alignment="center"
-                        data-c-grid-item="base(1of1) tp(1of8)"
-                      >
-                        <button
-                          className="button-plus"
-                          type="button"
-                          onClick={(): void => createAnswer(questionId)}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  )}
-              </div>
-            </div>
-          );
-        },
+        (questionId: number, index: number): ReactElement => (
+          <RatingGuideQuestionWithAnswers
+            key={`question${questionId}`}
+            questionId={questionId}
+            questionIndex={index}
+          />
+        ),
       )}
       {tempQuestionIds.map(
-        (questionId: number, index: number): ReactElement => {
-          return (
-            <div
-              key={questionId}
-              data-c-background="black(10)"
-              data-c-border="all(thin, solid, black)"
-              data-c-margin="top(normal) bottom(normal)"
-              data-c-padding="bottom(normal)"
-            >
-              <RatingGuideQuestionComponent
-                key={questionId}
-                ratingGuideQuestionId={questionId}
-                questionIndex={questionIds.length + index + 1}
-                temp
-              />
-
-              <div data-c-padding="top(normal)">
-                <div data-c-grid="gutter middle">
-                  <div
-                    data-c-alignment="center"
-                    data-c-grid-item="base(1of1) tp(1of8)"
-                  >
-                    <button
-                      className="button-plus button-plus--disabled"
-                      type="button"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        },
+        (questionId: number, index: number): ReactElement => (
+          <RatingGuideQuestionWithAnswers
+            key={`tempQuestion${questionId}`}
+            questionId={questionId}
+            questionIndex={questionIds.length + index}
+            temp
+          />
+        ),
       )}
       {(missingEssentialCriteria.length > 0 ||
         missingAssetCriteria.length > 0) && (
@@ -323,8 +177,6 @@ const mapStateToProps = (
   questionIds: number[];
   tempQuestionIds: number[];
   requiredCriteria: Criteria[] | null;
-  ratingGuideAnswers: RatingGuideAnswer[];
-  tempRatingGuideAnswers: TempRatingGuideAnswer[];
 } => ({
   assessmentIndex: ownProps.assessmentIndex,
   assessmentTypeId: ownProps.assessmentTypeId,
@@ -343,15 +195,15 @@ const mapStateToProps = (
     state,
     ownProps.assessmentTypeId,
   ).map(question => question.id),
-  tempRatingGuideAnswers: getTempRatingGuideAnswers(state),
   requiredCriteria: ownProps.requiredCriteria,
-  ratingGuideAnswers: getRatingGuideAnswersByAssessment(
-    state,
-    ownProps.assessmentTypeId,
-  ),
 });
 
-const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
+const mapDispatchToProps = (
+  dispatch: DispatchType,
+  ownProps,
+): {
+  createQuestion: () => void;
+} => ({
   createQuestion: (): void => {
     dispatch(
       createTempRatingGuideQuestion(
@@ -360,9 +212,6 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
         null,
       ),
     );
-  },
-  createAnswer: (ratingGuideQuestionId: number): void => {
-    dispatch(createTempRatingGuideAnswer(ratingGuideQuestionId, null, null));
   },
 });
 // @ts-ignore

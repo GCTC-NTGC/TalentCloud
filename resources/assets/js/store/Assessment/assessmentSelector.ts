@@ -56,6 +56,19 @@ export const getAssessmentsByCriterion = (
     (assessment): boolean => assessment.criterion_id === criterionId,
   );
 
+/**
+ * Returns current verisons of all assessments.
+ * ie edited version if possible,
+ * and not including those undergoing delete requests
+ */
+export const getAssessmentsByType = (
+  state: RootState,
+  assessmentTypeId: number,
+): Assessment[] =>
+  getCurrentAssessments(state).filter(
+    (assessment): boolean => assessment.assessment_type_id === assessmentTypeId,
+  );
+
 export const getTempAssessmentsByCriterion = (
   state: RootState,
   criterionId: number,

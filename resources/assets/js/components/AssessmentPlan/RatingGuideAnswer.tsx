@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { defineMessages, InjectedIntlProps, injectIntl } from "react-intl";
 import {
   RatingGuideAnswer as RatingGuideAnswerModel,
-  TempRatingGuideAnswer as TempRatingGuideAnswerModel,
   Skill,
   Criteria,
 } from "../../models/types";
@@ -25,10 +24,16 @@ import {
 import {
   ratingGuideAnswerIsEdited,
   ratingGuideAnswerIsUpdating,
+  getRatingGuideAnswerById,
+  getTempRatingGuideAnswerById,
 } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
+import {
+  getCriteriaById,
+  getCriteriaUnansweredForQuestion,
+} from "../../store/Job/jobSelector";
 
 interface RatingGuideAnswerProps {
-  answer: RatingGuideAnswerModel;
+  answer: RatingGuideAnswerModel | null;
   availableCriteria: Criteria[];
   criteriaIdToSkill: { [id: number]: Skill | null };
   temp?: boolean;
@@ -76,7 +81,10 @@ const RatingGuideAnswer: React.FunctionComponent<
   updateAnswer,
   deleteAnswer,
   intl,
-}): React.ReactElement => {
+}): React.ReactElement | null => {
+  if (answer === null || availableCriteria.length === 0) {
+    return null;
+  }
   const options = availableCriteria.map(
     (criterion): SelectOption<number> => {
       return {
@@ -148,9 +156,44 @@ const RatingGuideAnswer: React.FunctionComponent<
   );
 };
 
+const getAnswer = (
+  state: RootState,
+  answerId: number,
+  temp?: boolean,
+): RatingGuideAnswerModel | null =>
+  temp
+    ? getTempRatingGuideAnswerById(state, answerId)
+    : getRatingGuideAnswerById(state, answerId);
+
+const getAvailableCriteria = (
+  state: RootState,
+  answer: RatingGuideAnswerModel | null,
+): Criteria[] => {
+  if (answer === null) {
+    return [];
+  }
+  const availableCriteria = getCriteriaUnansweredForQuestion(
+    state,
+    answer.rating_guide_question_id,
+  );
+  const availableCriteriaIds = availableCriteria.map(getId);
+  const answerCriteria =
+    answer.criterion_id !== null
+      ? getCriteriaById(state, answer.criterion_id)
+      : null;
+  // If this answer has a selected criteria, it should be considered available
+  if (
+    answer.criterion_id === null ||
+    availableCriteriaIds.includes(answer.criterion_id) ||
+    answerCriteria === null
+  ) {
+    return availableCriteria;
+  }
+  return [...availableCriteria, answerCriteria];
+};
+
 interface RatingGuideAnswerContainerProps {
-  answer: RatingGuideAnswerModel;
-  availableCriteria: Criteria[];
+  answerId: number;
   temp?: boolean;
 }
 
@@ -158,22 +201,30 @@ const mapStateToProps = (
   state: RootState,
   ownProps: RatingGuideAnswerContainerProps,
 ): {
+  answer: RatingGuideAnswerModel | null;
+  availableCriteria: Criteria[];
   criteriaIdToSkill: { [id: number]: Skill | null };
   isEdited: boolean;
   isUpdating: boolean;
-} => ({
-  criteriaIdToSkill: mapToObjectTrans(
-    ownProps.availableCriteria,
-    getId,
-    (criterion): Skill | null => getSkillById(state, criterion.skill_id),
-  ),
-  isEdited: ratingGuideAnswerIsEdited(state, ownProps.answer.id),
-  isUpdating: ratingGuideAnswerIsUpdating(state, ownProps.answer.id),
-});
+} => {
+  const answer = getAnswer(state, ownProps.answerId, ownProps.temp);
+  const availableCriteria = getAvailableCriteria(state, answer);
+  return {
+    answer,
+    availableCriteria,
+    criteriaIdToSkill: mapToObjectTrans(
+      availableCriteria,
+      getId,
+      (criterion): Skill | null => getSkillById(state, criterion.skill_id),
+    ),
+    isEdited: ratingGuideAnswerIsEdited(state, ownProps.answerId),
+    isUpdating: ratingGuideAnswerIsUpdating(state, ownProps.answerId),
+  };
+};
 
 const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
   editAnswer: ownProps.temp
-    ? (ratingGuideAnswer: TempRatingGuideAnswerModel): void => {
+    ? (ratingGuideAnswer: RatingGuideAnswerModel): void => {
         dispatch(editTempRatingGuideAnswer(ratingGuideAnswer));
       }
     : (ratingGuideAnswer: RatingGuideAnswerModel): void => {
