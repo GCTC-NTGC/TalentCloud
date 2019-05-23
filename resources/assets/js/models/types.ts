@@ -13,20 +13,23 @@ export interface JobTranslation {
 
 export interface Job {
   id: number;
-  term_qty: number;
-  open_date_time: Date;
-  close_date_time: Date;
-  start_date_time: Date;
-  department_id: number;
-  province_id: number;
-  salary_min: number;
-  salary_max: number;
-  noc: number;
-  classification_code: string;
-  classification_level: number;
-  security_clearance_id: number;
-  language_requirement_id: number;
-  remote_work_allowed: boolean;
+  manager_id: number;
+  term_qty: number | null;
+  open_date_time: Date | null;
+  close_date_time: Date | null;
+  start_date_time: Date | null;
+  department_id: number | null;
+  province_id: number | null;
+  salary_min: number | null;
+  salary_max: number | null;
+  noc: number | null;
+  classification_code: string | null;
+  classification_level: number | null;
+  security_clearance_id: number | null;
+  language_requirement_id: number | null;
+  remote_work_allowed: boolean | null;
+  published_at: Date | null;
+  review_requested_at: Date | null;
   en: JobTranslation;
   fr: JobTranslation;
 }

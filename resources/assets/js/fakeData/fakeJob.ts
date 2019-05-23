@@ -3,6 +3,7 @@ import { Job, Criteria } from "../models/types";
 
 export const fakeJob = (id = 1): Job => ({
   id,
+  manager_id: 1,
   term_qty: 12,
   open_date_time: new Date("2019-05-20T07:00:00"),
   close_date_time: new Date("2019-05-30T06:59:59"),
@@ -17,6 +18,8 @@ export const fakeJob = (id = 1): Job => ({
   security_clearance_id: 1,
   language_requirement_id: 1,
   remote_work_allowed: true,
+  published_at: null,
+  review_requested_at: null,
   en: {
     city: "Rempelfort",
     title: "I wonder if I'm on the.",
@@ -43,6 +46,7 @@ export const fakeJob = (id = 1): Job => ({
 
 export const fakeJob2 = (id = 1): Job => ({
   id,
+  manager_id: 1,
   term_qty: 18,
   open_date_time: new Date("2019-05-01T07:00:00"),
   close_date_time: new Date("2019-05-15T06:59:59"),
@@ -57,6 +61,8 @@ export const fakeJob2 = (id = 1): Job => ({
   security_clearance_id: 1,
   language_requirement_id: 1,
   remote_work_allowed: true,
+  published_at: null,
+  review_requested_at: null,
   en: {
     city: "Ottawa",
     title: "UX Designer",

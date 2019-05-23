@@ -9,7 +9,7 @@ import ReviewCategory from "./ReviewCategory";
 interface ReviewApplicationsProps {
   title: string;
   classification: string;
-  closeDateTime: Date;
+  closeDateTime: Date | null;
   applications: Application[];
   reviewStatusOptions: SelectOption<number>[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
@@ -119,7 +119,8 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
         } Since Close"
             description="Welcome header on app main page"
             values={{
-              dayCount: moment().diff(moment(closeDateTime), "days"),
+              // TODO: Think more carefully about how to handle null fields
+              dayCount: moment().diff(closeDateTime ? moment(closeDateTime) : moment(), "days"),
             }}
           />
         </div>

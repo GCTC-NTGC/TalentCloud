@@ -77,10 +77,11 @@ class JobApiController extends Controller
      */
     public function update(UpdateJobPoster $request, JobPoster $job)
     {
-        $request->validated();
+        $data = $request->validated();
         JobPosterValidator::validateUnpublished($job);
-        // Only values in the JobPoster->fillable array will be set
-        $job->fill($request->input());
+        // Only values both in the JobPoster->fillable array,
+        //  and returned by UpdateJobPoster->validatedData(), will be set
+        $job->fill($data);
         $job->save();
         return $this->jobToArray($job);
     }

@@ -72,7 +72,7 @@ class JobApiControllerTest extends TestCase
         return $job;
     }
 
-    public function testGetAsPublic()
+    public function testGetAsPublic(): void
     {
         $job = factory(JobPoster::class)->state('published')->create();
         $response = $this->json("get", "api/jobs/$job->id");
@@ -83,7 +83,7 @@ class JobApiControllerTest extends TestCase
         $response->assertJson($expected);
     }
 
-    public function testUpdateAsManager()
+    public function testUpdateAsManager(): void
     {
         $job = factory(JobPoster::class)->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
@@ -103,7 +103,7 @@ class JobApiControllerTest extends TestCase
         $this->assertArraySubset($jobUpdate['fr'], $translations['fr']);
     }
 
-    public function testUpdateAsWrongManager()
+    public function testUpdateAsWrongManager(): void
     {
         $job = factory(JobPoster::class)->create();
         $otherManager = factory(User::class)->state('manager')->create();
@@ -113,7 +113,7 @@ class JobApiControllerTest extends TestCase
         $response->assertForbidden();
     }
 
-    public function testUpdateInvalidInput()
+    public function testUpdateInvalidInput(): void
     {
         $job = factory(JobPoster::class)->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
@@ -123,4 +123,21 @@ class JobApiControllerTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * Even while job.published is 'fillable', it shouldn't be
+     * possible to modify published or published_at through an update request.
+     */
+    public function testCannotUpdatePublished(): void
+    {
+        $job = factory(JobPoster::class)->state('draft')->create();
+        $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
+        $jobUpdate['published'] = true;
+        $response = $this->followingRedirects()
+            ->actingAs($job->manager->user)
+            ->json("put", "api/jobs/$job->id", $jobUpdate);
+        $response->assertOk();
+        $newJob = $job->fresh();
+        $this->assertFalse($newJob->published);
+        $this->assertNull($newJob->published_at);
+    }
 }

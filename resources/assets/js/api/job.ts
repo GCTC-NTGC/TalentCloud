@@ -25,6 +25,7 @@ const parseCriterion = (data: any): Criteria => ({
 
 export const parseJob = (data: any): Job => ({
   id: Number(data.id),
+  manager_id: Number(data.manager_id),
   term_qty: Number(data.term_qty),
   open_date_time: parseDate(data.open_date_time),
   close_date_time: parseDate(data.close_date_time),
@@ -39,6 +40,8 @@ export const parseJob = (data: any): Job => ({
   security_clearance_id: Number(data.security_clearance_id),
   language_requirement_id: Number(data.language_requirement_id),
   remote_work_allowed: Boolean(data.remote_work_allowed),
+  published_at: parseDate(data.published_at),
+  review_requested_at: parseDate(data.published_at),
   en: parseJobTranslation(data.en),
   fr: parseJobTranslation(data.fr),
 });
