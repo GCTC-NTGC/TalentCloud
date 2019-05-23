@@ -12,11 +12,11 @@ return [
     /* New Content for Homepage */
     "hero" => [
         "title" => "Talent Cloud",
-        "tagline" => "A new way to make your mark on Canada.",
+        "tagline" => "How will you make your mark on Canada?",
         "pilot" => "PILOT/BETA"
     ],
     "slogan" => [
-        "copy" => "No cover letter. No resume. Create a reusable profile of your skills and save time applying to government jobs that fit. ",
+        "copy" => "No cover letter. No resume. Build a profile of your skills and experience while saving time applying to government jobs that inspire you. ",
         "link" => [
             "title" => "Learn more about how Talent Cloud works.",
             "href" => "#how",
