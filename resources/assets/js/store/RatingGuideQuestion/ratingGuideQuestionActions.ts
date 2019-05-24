@@ -8,6 +8,8 @@ import {
 } from "../../api/ratingGuide";
 import { RatingGuideQuestion } from "../../models/types";
 import { FailedAction } from "../asyncAction";
+import { RootState } from "../store";
+import { tempRatingGuideQuestionIsSaving } from "./ratingGuideQuestionSelectors";
 
 /** Action for editing Rating Guide Q&A (without saving to server) */
 export const EDIT_RATING_GUIDE_QUESTION = "EDIT_RATING_GUIDE_QUESTION";
@@ -275,8 +277,15 @@ export const storeNewRatingGuideQuestionFailed = (
 });
 export const storeNewRatingGuideQuestion = (
   ratingGuideQuestion: RatingGuideQuestion,
-): ThunkAction<void, {}, {}, AnyAction> => {
-  return (dispatch: ThunkDispatch<{}, {}, AnyAction>): void => {
+): ThunkAction<void, RootState, {}, AnyAction> => {
+  return (dispatch, getState): void => {
+    // If a store request for this resource is already in progress, we cannot submit
+    //  a second one. We can only edit the temp version.
+    if (tempRatingGuideQuestionIsSaving(getState(), ratingGuideQuestion.id)) {
+      dispatch(editTempRatingGuideQuestion(ratingGuideQuestion));
+      return;
+    }
+
     dispatch(storeNewRatingGuideQuestionStarted(ratingGuideQuestion));
     createRatingGuideQuestionApi(ratingGuideQuestion)
       .then(
