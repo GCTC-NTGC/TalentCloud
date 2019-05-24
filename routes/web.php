@@ -166,6 +166,9 @@ Route::group(
             /* Temp Builder 04 (Impact) */
             Route::view('builder-04', 'manager/builder-04')->name('jpb4');
 
+            /* Temp Builder 05 (Tasks) */
+            Route::view('builder-05', 'manager/builder-05')->name('jpb5');
+
             /* Authentication =========================================================== */
 
             // Laravel default login, logout, register, and reset routes
