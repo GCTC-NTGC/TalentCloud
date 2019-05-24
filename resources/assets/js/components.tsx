@@ -9,7 +9,7 @@
 //require('./components/ReferenceList');
 require('./components/ApplicationReview/ReviewApplicationsContainer');
 require('./components/ApplicationReview/ApplicationReviewContainer');
-require('./components/ApplicantSkills/WordCounter');
+require('./components/WordCounter/WordCounter');
 require('./components/ApplicantSkills/SkillsInfoModal');
 
 //import ReviewApplications from './components/ReviewApplications';
