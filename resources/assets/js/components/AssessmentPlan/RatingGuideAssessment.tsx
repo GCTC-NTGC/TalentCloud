@@ -45,6 +45,7 @@ const RatingGuideAssessment: React.FunctionComponent<
   intl,
 }): React.ReactElement => {
   const missingCriteria: Criteria[] = [];
+  // TODO: get required criteria
   // if (requiredCriteria && requiredCriteria.length > 0) {
   //   missingCriteria = requiredCriteria.filter(
   //     (criterion: Criteria): boolean =>
