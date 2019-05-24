@@ -65,7 +65,10 @@ export const getCriteriaUnansweredForQuestion = (
   );
   // All the criteria this question may test
   const assessmentCriteria: Criteria[] = questionAssessments
-    .map((q): Criteria | null => getCriteriaById(state, q.id))
+    .map(
+      (assessment): Criteria | null =>
+        getCriteriaById(state, assessment.criterion_id),
+    )
     .filter((criterion): boolean => criterion !== null) as Criteria[];
 
   // All the current answers to this question

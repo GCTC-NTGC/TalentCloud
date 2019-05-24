@@ -11,6 +11,12 @@ import { getId, hasKey } from "../../helpers/queries";
 const stateSlice = (state: RootState): RatingGuideAnswerState =>
   state.ratingGuideAnswer;
 
+const getCurrentAnswerState = (
+  state: RootState,
+): { [id: number]: RatingGuideAnswer } => ({
+  ...stateSlice(state).ratingGuideAnswers,
+  ...stateSlice(state).editedRatingGuideAnswers,
+});
 /**
  * Returns current verisons of all answers.
  * ie edited version if possible,
@@ -31,8 +37,9 @@ export const getCurrentRatingGuideAnswers = (
   );
 };
 
-export const getRatingGuideAnswers = (state: RootState): RatingGuideAnswer[] =>
-  Object.values(stateSlice(state).ratingGuideAnswers);
+export const getCanonRatingGuideAnswers = (
+  state: RootState,
+): RatingGuideAnswer[] => Object.values(stateSlice(state).ratingGuideAnswers);
 
 export const getTempRatingGuideAnswers = (
   state: RootState,
@@ -40,6 +47,11 @@ export const getTempRatingGuideAnswers = (
   return Object.values(stateSlice(state).tempRatingGuideAnswers);
 };
 
+/**
+ * Returns current verisons of all answers.
+ * ie edited version if possible,
+ * and not including those undergoing delete requests
+ */
 export const getRatingGuideAnswersByJob = (
   state: RootState,
   jobId: number,
@@ -50,13 +62,16 @@ export const getRatingGuideAnswersByJob = (
   );
 };
 
+/**
+ * Returns current verison of answer, ie edited version if possible.
+ */
 export const getRatingGuideAnswerById = (
   state: RootState,
   id: number,
-): RatingGuideAnswer | null =>
-  hasKey(stateSlice(state).ratingGuideAnswers, id)
-    ? stateSlice(state).ratingGuideAnswers[id]
-    : null;
+): RatingGuideAnswer | null => {
+  const answers = getCurrentAnswerState(state);
+  return hasKey(answers, id) ? answers[id] : null;
+};
 
 export const getTempRatingGuideAnswerById = (
   state: RootState,
@@ -139,4 +154,12 @@ export const ratingGuideAnswerIsUpdating = (
 ): boolean =>
   hasKey(stateSlice(state).ratingGuideAnswerUpdates, id)
     ? stateSlice(state).ratingGuideAnswerUpdates[id] > 0
+    : false;
+
+export const tempRatingGuideAnswerIsSaving = (
+  state: RootState,
+  id: number,
+): boolean =>
+  hasKey(stateSlice(state).tempRatingGuideAnswerSaving, id)
+    ? stateSlice(state).tempRatingGuideAnswerSaving[id]
     : false;

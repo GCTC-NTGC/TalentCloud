@@ -96,7 +96,7 @@ const RatingGuideAssessment: React.FunctionComponent<
           <RatingGuideQuestionWithAnswers
             key={`question${questionId}`}
             questionId={questionId}
-            questionIndex={index}
+            questionIndex={index + 1}
           />
         ),
       )}
@@ -105,7 +105,7 @@ const RatingGuideAssessment: React.FunctionComponent<
           <RatingGuideQuestionWithAnswers
             key={`tempQuestion${questionId}`}
             questionId={questionId}
-            questionIndex={questionIds.length + index}
+            questionIndex={questionIds.length + index + 1}
             temp
           />
         ),

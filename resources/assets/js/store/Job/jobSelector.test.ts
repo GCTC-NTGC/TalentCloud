@@ -120,30 +120,30 @@ describe("getCriteriaUnansweredForQuestion", (): void => {
     const crit2 = fakeCriterion(2);
     const crit3 = fakeCriterion(3);
 
-    const question = fakeQuestion(1);
+    const question = fakeQuestion(4);
     question.assessment_type_id = 1;
 
     // Associate 3 criteria with the question's assessment_type
     const assessment1: Assessment = {
-      id: 1,
+      id: 5,
       criterion_id: 1,
       assessment_type_id: 1,
     };
     const assessment2: Assessment = {
-      id: 2,
+      id: 6,
       criterion_id: 2,
       assessment_type_id: 1,
     };
     const assessment3: Assessment = {
-      id: 3,
+      id: 7,
       criterion_id: 3,
       assessment_type_id: 1,
     };
 
     // create an answer for one of the criteria
     const answer: RatingGuideAnswer = {
-      id: 1,
-      rating_guide_question_id: 1,
+      id: 8,
+      rating_guide_question_id: question.id,
       criterion_id: 2,
       expected_answer: "This is an expected test answer.",
     };
@@ -169,21 +169,21 @@ describe("getCriteriaUnansweredForQuestion", (): void => {
       ratingGuideQuestion: {
         ...initialState.ratingGuideQuestion,
         ratingGuideQuestions: {
-          1: question,
+          [question.id]: question,
         },
       },
       assessment: {
         ...initialState.assessment,
         assessments: {
-          1: assessment1,
-          2: assessment2,
-          3: assessment3,
+          [assessment1.id]: assessment1,
+          [assessment2.id]: assessment2,
+          [assessment3.id]: assessment3,
         },
       },
       ratingGuideAnswer: {
         ...initialState.ratingGuideAnswer,
         ratingGuideAnswers: {
-          1: answer,
+          [answer.id]: answer,
         },
       },
     };

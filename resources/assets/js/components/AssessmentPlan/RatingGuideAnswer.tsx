@@ -26,6 +26,7 @@ import {
   ratingGuideAnswerIsUpdating,
   getRatingGuideAnswerById,
   getTempRatingGuideAnswerById,
+  tempRatingGuideAnswerIsSaving,
 } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
 import {
   getCriteriaById,
@@ -218,7 +219,9 @@ const mapStateToProps = (
       (criterion): Skill | null => getSkillById(state, criterion.skill_id),
     ),
     isEdited: ratingGuideAnswerIsEdited(state, ownProps.answerId),
-    isUpdating: ratingGuideAnswerIsUpdating(state, ownProps.answerId),
+    isUpdating: ownProps.temp
+      ? tempRatingGuideAnswerIsSaving(state, ownProps.answerId)
+      : ratingGuideAnswerIsUpdating(state, ownProps.answerId),
   };
 };
 

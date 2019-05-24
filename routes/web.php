@@ -374,8 +374,10 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::resource('assessments', 'AssessmentController')->except([
         'create', 'edit', 'index'
     ]);
-    Route::resource('rating-guide-answers', 'RatingGuideAnswerController')->except([
-        'create', 'edit', 'index'
+    Route::apiResource('rating-guide-answers', 'RatingGuideAnswerController')->except([
+        'index'
+    ])->parameters([
+        'rating-guide-answers' => 'ratingGuideAnswer'
     ]);
     Route::resource('rating-guide-questions', 'RatingGuideQuestionController')->except([
         'create', 'edit', 'index'
