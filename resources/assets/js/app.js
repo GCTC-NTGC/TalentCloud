@@ -25,10 +25,6 @@
 
   // User Agent Data Attributes ==============================================
 
-  // Sample Git Commit Test
-
-  // Second Git Test
-
   var ua = navigator.userAgent;
   ua = ua.toString();
   $("body").attr("id", ua);
@@ -62,6 +58,87 @@
           hiwTrigger(this);
         }
       });
+
+      // Job Builder - Tasks ---------------------------------------------------
+
+        // Move Up
+        function taskUpTrigger(trigger) {
+          var thisEl = $(trigger).parents(".job-builder-task");
+          var previousEl = $(trigger).parents(".job-builder-task").prev();
+          var nextEl = $(trigger).parents(".job-builder-task").next();
+          if ($(previousEl).hasClass("job-builder-task-warning")) {
+            var displaced = $(previousEl).prev();
+            $(thisEl).removeClass("invalid");
+            $(thisEl).insertBefore(previousEl);
+            $(displaced).insertAfter(previousEl).addClass("invalid");
+            $(thisEl).focus();
+          }
+          else if (previousEl == null) {
+            $(thisEl).focus();
+            // Do Nothing
+          }
+          else {
+            $(thisEl).insertBefore(previousEl);
+            $(thisEl).focus();
+          }
+        }
+
+        $(document).on("click", "[data-tc-builder-task-up-trigger]", function(e) {
+          taskUpTrigger(this);
+        });
+
+        $(document).on("keyup", "[data-tc-builder-task-up-trigger]", function(e) {
+          if (e.which == 13) {
+            taskUpTrigger(this);
+          }
+        });
+
+        // Move Down
+        function taskDownTrigger(trigger) {
+          var thisEl = $(trigger).parents(".job-builder-task");
+          var previousEl = $(trigger).parents(".job-builder-task").prev();
+          var nextEl = $(trigger).parents(".job-builder-task").next();
+          if ($(nextEl).hasClass("job-builder-task-warning")) {
+            var displaced = $(nextEl).next();
+            $(thisEl).addClass("invalid");
+            $(thisEl).insertAfter(nextEl);
+            $(displaced).insertBefore(nextEl).removeClass("invalid");
+            $(thisEl).focus();
+          }
+          else if (nextEl == null) {
+            $(thisEl).focus();
+            // Do Nothing
+          }
+          else {
+            $(thisEl).insertAfter(nextEl);
+            $(thisEl).focus();
+          }
+        }
+
+        $(document).on("click", "[data-tc-builder-task-down-trigger]", function(e) {
+          taskDownTrigger(this);
+        });
+
+        $(document).on("keyup", "[data-tc-builder-task-down-trigger]", function(e) {
+          if (e.which == 13) {
+            taskDownTrigger(this);
+          }
+        });
+
+        // Delete
+        function taskDeleteTrigger(trigger) {
+          $(trigger).parents(".job-builder-task").remove();
+        }
+
+        $(document).on("click", "[data-tc-builder-task-delete-trigger]", function(e) {
+          taskDeleteTrigger(this);
+        });
+
+        $(document).on("keyup", "[data-tc-builder-task-delete-trigger]", function(e) {
+          if (e.which == 13) {
+            taskDeleteTrigger(this);
+          }
+        });
 
     // Accordion Handlers ==================================================
 
