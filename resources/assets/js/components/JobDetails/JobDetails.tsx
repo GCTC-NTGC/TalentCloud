@@ -157,7 +157,7 @@ const RadioGroup = ({
   grid,
   info,
   children,
-  value,
+  value, // eslint-disable-line
   error,
   touched,
 }): React.ReactElement => {
@@ -242,9 +242,9 @@ const JobDetails = (): React.ReactElement => (
         language: "",
         city: "",
         province: "",
-        remoteWork: "",
-        telework: "",
-        flexHours: "",
+        remoteWork: "remoteWorkCanada",
+        telework: "teleworkFrequently",
+        flexHours: "flexHoursFrequently",
       }}
       validationSchema={JobSchema}
       onSubmit={(values): void => console.log(values)}
