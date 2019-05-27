@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import isEqual from "lodash/isEqual";
-import {
-  RatingGuideQuestion,
-} from "../../models/types";
+import { RatingGuideQuestion } from "../../models/types";
 import {
   AssessmentPlanAction,
   FETCH_ASSESSMENT_PLAN_STARTED,
@@ -296,11 +294,6 @@ export const ratingGuideQuestionReducer = (
                   action.payload.oldRatingGuideQuestion.id
                 ],
                 id: action.payload.ratingGuideQuestion.id,
-                // When moving temp ratingGuideQuestion to edited, ensure ratingGuideQuestion_type_id is non-null
-                job_poster_id: action.payload.ratingGuideQuestion.job_poster_id,
-                assessment_type_id:
-                  action.payload.ratingGuideQuestion.assessment_type_id,
-                question: action.payload.ratingGuideQuestion.question,
               },
             },
         tempRatingGuideQuestions: deleteProperty<RatingGuideQuestion>(
