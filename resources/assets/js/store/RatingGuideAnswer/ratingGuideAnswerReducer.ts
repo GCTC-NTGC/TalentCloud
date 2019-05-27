@@ -294,12 +294,6 @@ export const ratingGuideAnswerReducer = (
                   action.payload.oldRatingGuideAnswer.id
                 ],
                 id: action.payload.ratingGuideAnswer.id,
-                // When moving temp ratingGuideAnswer to edited, ensure ratingGuideAnswer_type_id is non-null
-                rating_guide_question_id:
-                  action.payload.ratingGuideAnswer.rating_guide_question_id,
-                criterion_id: action.payload.ratingGuideAnswer.criterion_id,
-                expected_answer:
-                  action.payload.ratingGuideAnswer.expected_answer,
               },
             },
         tempRatingGuideAnswers: deleteProperty<RatingGuideAnswer>(

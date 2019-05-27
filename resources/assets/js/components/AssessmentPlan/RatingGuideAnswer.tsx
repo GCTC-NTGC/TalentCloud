@@ -247,6 +247,16 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
     : (ratingGuideAnswerId: number): void => {
         dispatch(deleteRatingGuideAnswer(ratingGuideAnswerId));
       },
+  // This is only possibly used by mergeProps
+  editTempAnswer: (ratingGuideAnswer: RatingGuideAnswerModel): void => {dispatch(editTempRatingGuideAnswer(ratingGuideAnswer))},
+});
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  ...stateProps,
+  ...dispatchProps,
+  // If this is a currently saving temp answer, ensure we don't launch another store request
+  updateAnswer: ownProps.temp && stateProps.isUpdating ? dispatchProps.editTempAnswer : dispatchProps.updateAnswer,
 });
 // @ts-ignore
 const RatingGuideAnswerContainer: React.FunctionComponent<
@@ -254,6 +264,7 @@ const RatingGuideAnswerContainer: React.FunctionComponent<
 > = connect(
   mapStateToProps,
   mapDispatchToProps,
+  mergeProps
 )(injectIntl(RatingGuideAnswer));
 
 export default RatingGuideAnswerContainer;
