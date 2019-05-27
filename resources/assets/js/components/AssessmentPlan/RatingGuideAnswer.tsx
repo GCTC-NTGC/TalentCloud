@@ -236,8 +236,12 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
         dispatch(editRatingGuideAnswer(ratingGuideAnswer));
       },
   updateAnswer: ownProps.temp
-    ? (ratingGuideAnswer: RatingGuideAnswerModel): void =>
-        dispatch(storeNewRatingGuideAnswer(ratingGuideAnswer))
+    ? (ratingGuideAnswer: RatingGuideAnswerModel): void => {
+        // We must also edit the local temp answer, because it will be checked
+        // against the updated version when the store request succeeds.
+        dispatch(editTempRatingGuideAnswer(ratingGuideAnswer));
+        dispatch(storeNewRatingGuideAnswer(ratingGuideAnswer));
+      }
     : (ratingGuideAnswer: RatingGuideAnswerModel): void =>
         dispatch(updateRatingGuideAnswer(ratingGuideAnswer)),
   deleteAnswer: ownProps.temp
@@ -248,7 +252,9 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
         dispatch(deleteRatingGuideAnswer(ratingGuideAnswerId));
       },
   // This is only possibly used by mergeProps
-  editTempAnswer: (ratingGuideAnswer: RatingGuideAnswerModel): void => {dispatch(editTempRatingGuideAnswer(ratingGuideAnswer))},
+  editTempAnswer: (ratingGuideAnswer: RatingGuideAnswerModel): void => {
+    dispatch(editTempRatingGuideAnswer(ratingGuideAnswer));
+  },
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -256,7 +262,10 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...stateProps,
   ...dispatchProps,
   // If this is a currently saving temp answer, ensure we don't launch another store request
-  updateAnswer: ownProps.temp && stateProps.isUpdating ? dispatchProps.editTempAnswer : dispatchProps.updateAnswer,
+  updateAnswer:
+    ownProps.temp && stateProps.isUpdating
+      ? dispatchProps.editTempAnswer
+      : dispatchProps.updateAnswer,
 });
 // @ts-ignore
 const RatingGuideAnswerContainer: React.FunctionComponent<
@@ -264,7 +273,7 @@ const RatingGuideAnswerContainer: React.FunctionComponent<
 > = connect(
   mapStateToProps,
   mapDispatchToProps,
-  mergeProps
+  mergeProps,
 )(injectIntl(RatingGuideAnswer));
 
 export default RatingGuideAnswerContainer;

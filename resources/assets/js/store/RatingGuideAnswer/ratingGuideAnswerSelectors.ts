@@ -93,11 +93,13 @@ export const getRatingGuideAnswersByQuestion = (
 
 export const getRatingGuideAnswersByAssessment = (
   state: RootState,
+  jobId: number,
   assessmentTypeId: number,
 ): RatingGuideAnswer[] => {
   const availableAnswers = [] as RatingGuideAnswer[];
   const ratingGuideQuestions = getRatingGuideQuestionsByAssessment(
     state,
+    jobId,
     assessmentTypeId,
   );
   ratingGuideQuestions.map(

@@ -20,8 +20,6 @@ interface AssessmentPlanProps {
   criteria: Criteria[];
   assessments: Assessment[];
   notifications: AssessmentPlanNotification[];
-  questions: RatingGuideQuestion[];
-  answers: RatingGuideAnswer[];
 }
 
 const AssessmentPlan: React.FunctionComponent<
@@ -31,8 +29,6 @@ const AssessmentPlan: React.FunctionComponent<
   criteria,
   assessments,
   notifications,
-  questions,
-  answers,
   intl,
 }): React.ReactElement => {
   const assetCriteria = criteria.filter(
@@ -233,12 +229,8 @@ const AssessmentPlan: React.FunctionComponent<
         {job !== null && <AssessmentPlanTable jobId={job.id} />}
         {/* Ratings Guide Builder ======================================== */}
         <RatingGuideBuilder
-          criteria={criteria}
           assessments={assessments}
-          questions={questions}
-          answers={answers}
           jobId={(job && job.id) || null}
-          intl={intl}
         />
       </div>
     </section>

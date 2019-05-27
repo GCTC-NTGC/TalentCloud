@@ -1,35 +1,22 @@
 import React from "react";
-import { InjectedIntlProps, FormattedMessage } from "react-intl";
-import {
-  Criteria,
-  Assessment,
-  RatingGuideQuestion,
-  RatingGuideAnswer,
-} from "../../models/types";
-import {
-  skillLevelName,
-  assessmentTypeDescription,
-  assessmentType,
-  narrativeReviewStandardQuestion,
-  narrativeReviewStandardAnswer,
-} from "../../models/localizedConstants";
+import { FormattedMessage } from "react-intl";
+import { Assessment } from "../../models/types";
+
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import { AssessmentTypeId } from "../../models/lookupConstants";
 import RatingGuideAssessment from "./RatingGuideAssessment";
-import { find } from "../../helpers/queries";
 import RatingGuideClipboard from "./RatingGuideClipboard";
+import RatingGuideNarrativeAssessment from "./RatingGuideNarrativeAssessment";
 
 interface RatingsGuideBuilderProps {
-  criteria: Criteria[];
   assessments: Assessment[];
-  questions: RatingGuideQuestion[];
-  answers: RatingGuideAnswer[];
   jobId: number | null;
 }
 
-const RatingGuideBuilder: React.FunctionComponent<
-  RatingsGuideBuilderProps & InjectedIntlProps
-> = ({ criteria, assessments, jobId, intl }): React.ReactElement => {
+const RatingGuideBuilder: React.FunctionComponent<RatingsGuideBuilderProps> = ({
+  assessments,
+  jobId,
+}): React.ReactElement => {
   let sectionCount = 0;
   const narrativeReview = assessments.filter(
     (assessment: Assessment): boolean =>
@@ -39,108 +26,10 @@ const RatingGuideBuilder: React.FunctionComponent<
     (assessment: Assessment): boolean =>
       assessment.assessment_type_id !== AssessmentTypeId.NarrativeAssessment,
   );
-  const renderNarrativeReview = (): React.ReactElement => {
-    sectionCount = +1;
-
-    return (
-      <div>
-        <h4
-          data-c-font-size="h4"
-          data-c-colour="c5"
-          data-c-font-weight="bold"
-          data-c-margin="top(double) bottom(normal)"
-        >
-          {/** TODO: This FormattedMessage is identical to one in RatingGuideAssessment.
-                    This special Narrative Review section should be refactored to there. */}
-          <FormattedMessage
-            id="ratingGuideBuilder.narrativeSectionTitle"
-            defaultMessage="Assessment {index}: {assessmentType}"
-            description="Subtitle for the special Narrative Assessment section in the Rating Guide Builder."
-            values={{
-              index: sectionCount,
-              assessmentType: intl.formatMessage(
-                assessmentType(AssessmentTypeId.NarrativeAssessment),
-              ),
-            }}
-          />
-        </h4>
-        <p>
-          {intl.formatMessage(
-            assessmentTypeDescription(AssessmentTypeId.NarrativeAssessment),
-          )}
-        </p>
-
-        <div
-          data-c-background="black(10)"
-          data-c-border="all(thin, solid, black)"
-          data-c-margin="top(normal) bottom(normal)"
-          data-c-padding="bottom(normal)"
-        >
-          <div
-            data-c-background="black(10)"
-            data-c-border="bottom(thin, solid, black)"
-            data-c-padding="top(normal) bottom(normal)"
-          >
-            <div data-c-grid="gutter middle">
-              <div
-                data-c-alignment="center"
-                data-c-grid-item="base(1of1) tp(1of8)"
-              >
-                <strong>{sectionCount}.</strong>
-              </div>
-              <div data-c-grid-item="base(1of1) tp(7of8)">
-                <p data-c-font-weight="800">
-                  {intl.formatMessage(narrativeReviewStandardQuestion())}
-                </p>
-              </div>
-            </div>
-          </div>
-          {narrativeReview.map(
-            (assessment: Assessment, index: number): React.ReactElement => {
-              const narrativeCriteria = find(criteria, assessment.criterion_id);
-              let skillLevel = "";
-              if (narrativeCriteria) {
-                skillLevel = intl.formatMessage(
-                  skillLevelName(
-                    narrativeCriteria.skill_level_id,
-                    narrativeCriteria.skill.skill_type_id,
-                  ),
-                );
-              }
-              return (
-                <div
-                  key={`narrative-review-${index + 1}`}
-                  data-c-padding="top(normal) bottom(normal)"
-                >
-                  <div data-c-grid="gutter middle">
-                    <div data-c-grid-item="base(1of1) tp(1of8)" />
-                    {narrativeCriteria && skillLevel.length > 0 && (
-                      <div data-c-grid-item="base(1of1) tp(2of8)">
-                        <FormattedMessage
-                          id="ratingGuideBuilder.criteriaName"
-                          defaultMessage="{skillName} - {skillLevel}"
-                          description="How each criteria is listed in Rating Guide Builder."
-                          values={{
-                            skillName:
-                              narrativeCriteria.skill[intl.locale].name,
-                            skillLevel,
-                          }}
-                        />
-                      </div>
-                    )}
-                    <div data-c-grid-item="base(1of1) tp(5of8)">
-                      {intl.formatMessage(narrativeReviewStandardAnswer())}
-                    </div>
-                  </div>
-                </div>
-              );
-            },
-          )}
-        </div>
-      </div>
-    );
-  };
-
+  const isNarrativeAssessments = narrativeReview.length > 0;
+  const narrativeAssessments = (
+    <RatingGuideNarrativeAssessment jobId={jobId} assessmentIndex={1} />
+  );
   return (
     <div>
       <h3
@@ -161,29 +50,16 @@ const RatingGuideBuilder: React.FunctionComponent<
           description="Instructions for using the Rating Guide Builder"
         />
       </p>
-      {narrativeReview.length > 0 && renderNarrativeReview()}
+      {narrativeAssessments}
       {getUniqueAssessmentTypes(otherAssessments).map(
-        (assessmentTypeId: number): React.ReactElement => {
-          const matchingAssessments = otherAssessments.filter(
-            (assessment: Assessment): boolean =>
-              assessment.assessment_type_id === assessmentTypeId,
-          );
-          const requiredCriteria = matchingAssessments
-            .map(
-              (assessment: Assessment): Criteria | null =>
-                find(criteria, assessment.criterion_id),
-            )
-            .filter(
-              (criterion: Criteria): boolean => criterion != null,
-            ) as Criteria[];
-          sectionCount += 1;
+        (assessmentTypeId: number, index: number): React.ReactElement => {
+          sectionCount = isNarrativeAssessments ? index + 2 : index + 1;
           return (
             <RatingGuideAssessment
               key={assessmentTypeId}
               assessmentIndex={sectionCount}
               assessmentTypeId={assessmentTypeId}
               jobId={jobId}
-              requiredCriteria={requiredCriteria}
             />
           );
         },

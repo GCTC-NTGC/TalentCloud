@@ -17,8 +17,11 @@ import {
   getTempRatingGuideQuestionsByAssessment,
 } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
 import RatingGuideQuestionWithAnswers from "./RatingGuideQuestionWithAnswers";
+import RatingGuideMissing from "./RatingGuideMissing";
 
 interface RatingGuideAssessmentProps {
+  /** The id of the job Job Poster this is part of */
+  jobId: number | null;
   /** Display index of this ratings guide assessment compared to others on the page */
   assessmentIndex: number;
   /** The assessment tool used with this assessment question */
@@ -27,8 +30,6 @@ interface RatingGuideAssessmentProps {
   questionIds: number[];
   /** Ids of interview questions that have not been saved to the server */
   tempQuestionIds: number[];
-  /** A map of criteria id to skills, useful for skill names and description */
-  criteriaIdToSkill: { [id: number]: Skill | null };
   /** Handler function for creating a new RatingGuideQuestion */
   createQuestion: () => void;
 }
@@ -36,39 +37,17 @@ interface RatingGuideAssessmentProps {
 const RatingGuideAssessment: React.FunctionComponent<
   RatingGuideAssessmentProps & InjectedIntlProps
 > = ({
+  jobId,
   assessmentIndex,
   assessmentTypeId,
   questionIds,
   createQuestion,
   tempQuestionIds,
-  criteriaIdToSkill,
   intl,
-}): React.ReactElement => {
-  const missingCriteria: Criteria[] = [];
-  // TODO: get required criteria
-  // if (requiredCriteria && requiredCriteria.length > 0) {
-  //   missingCriteria = requiredCriteria.filter(
-  //     (criterion: Criteria): boolean =>
-  //       /** Filter out any criteria that have at least one expected answer  */
-  //       where(ratingGuideAnswers, "criterion_id", criterion.id).length === 0,
-  //   );
-  // }
-  let missingEssentialCriteria = [] as Criteria[];
-  let missingAssetCriteria = [] as Criteria[];
-  if (missingCriteria.length > 0) {
-    missingEssentialCriteria = missingCriteria.filter(
-      (criterion: Criteria): boolean =>
-        criterion.criteria_type_id === CriteriaTypeId.Essential,
-    );
-    missingAssetCriteria = missingCriteria.filter(
-      (criterion: Criteria): boolean =>
-        criterion.criteria_type_id === CriteriaTypeId.Asset,
-    );
+}): React.ReactElement | null => {
+  if (jobId === null) {
+    return null;
   }
-  const criteriaSkillName = (criterion: Criteria): string =>
-    criteriaIdToSkill[criterion.id] !== null
-      ? (criteriaIdToSkill[criterion.id] as Skill)[intl.locale].name
-      : "UNKNOWN SKILL";
   return (
     <div>
       <h4
@@ -110,38 +89,7 @@ const RatingGuideAssessment: React.FunctionComponent<
           />
         ),
       )}
-      {(missingEssentialCriteria.length > 0 ||
-        missingAssetCriteria.length > 0) && (
-        <div data-c-alignment="center" data-c-margin="bottom(normal)">
-          {missingEssentialCriteria.length > 0 && (
-            <span data-c-font-weight="bold">
-              <FormattedMessage
-                id="ratingGuideBuilder.essentialMissing"
-                defaultMessage="{count} Essential Missing: "
-                description="Label for list of missing essential skills."
-                values={{ count: missingEssentialCriteria.length }}
-              />
-              <span data-c-colour="stop">
-                {missingEssentialCriteria.map(criteriaSkillName).join(", ")}
-              </span>
-              {"   "}
-            </span>
-          )}
-          {missingAssetCriteria.length > 0 && (
-            <span data-c-font-weight="bold">
-              <FormattedMessage
-                id="ratingGuideBuilder.assetMissing"
-                defaultMessage="{count} Asset Missing: "
-                description="Label for list of missing asset skills."
-                values={{ count: missingAssetCriteria.length }}
-              />
-              <span data-c-colour="stop">
-                {missingAssetCriteria.map(criteriaSkillName).join(", ")}
-              </span>
-            </span>
-          )}
-        </div>
-      )}
+      <RatingGuideMissing jobId={jobId} assessmentTypeId={assessmentTypeId} />
       <div data-c-alignment="center">
         <button
           data-c-button="solid(c5)"
@@ -164,7 +112,6 @@ interface RatingGuideAssessmentContainerProps {
   assessmentIndex: number;
   assessmentTypeId: number;
   jobId: number | null;
-  requiredCriteria: Criteria[];
 }
 
 const mapStateToProps = (
@@ -173,30 +120,27 @@ const mapStateToProps = (
 ): {
   assessmentIndex: number;
   assessmentTypeId: number;
-  criteriaIdToSkill: { [id: number]: Skill | null };
   jobId: number | null;
   questionIds: number[];
   tempQuestionIds: number[];
-  requiredCriteria: Criteria[] | null;
 } => ({
   assessmentIndex: ownProps.assessmentIndex,
   assessmentTypeId: ownProps.assessmentTypeId,
-  criteriaIdToSkill: mapToObjectTrans(
-    ownProps.requiredCriteria,
-    getId,
-    (criterion: Criteria): Skill | null =>
-      getSkillById(state, criterion.skill_id),
-  ),
   jobId: ownProps.jobId,
-  questionIds: getRatingGuideQuestionsByAssessment(
-    state,
-    ownProps.assessmentTypeId,
-  ).map(question => question.id),
-  tempQuestionIds: getTempRatingGuideQuestionsByAssessment(
-    state,
-    ownProps.assessmentTypeId,
-  ).map(question => question.id),
-  requiredCriteria: ownProps.requiredCriteria,
+  questionIds: ownProps.jobId
+    ? getRatingGuideQuestionsByAssessment(
+        state,
+        ownProps.jobId,
+        ownProps.assessmentTypeId,
+      ).map(question => question.id)
+    : [],
+  tempQuestionIds: ownProps.jobId
+    ? getTempRatingGuideQuestionsByAssessment(
+        state,
+        ownProps.jobId,
+        ownProps.assessmentTypeId,
+      ).map(question => question.id)
+    : [],
 });
 
 const mapDispatchToProps = (

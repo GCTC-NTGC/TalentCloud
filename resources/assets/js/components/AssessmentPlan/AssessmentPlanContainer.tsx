@@ -1,8 +1,5 @@
-import React, { Dispatch, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { AnyAction, bindActionCreators } from "redux";
-import { ThunkDispatch, ThunkAction } from "redux-thunk";
-import { RSAAction } from "redux-api-middleware";
 import AssessmentPlan from "./AssessmentPlan";
 import {
   Job,
@@ -15,13 +12,11 @@ import {
 import { RootState } from "../../store/store";
 import { getJob, getCriteriaByJob } from "../../store/Job/jobSelector";
 import { fetchJob } from "../../store/Job/jobActions";
-import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
-import { getRatingGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
-import { getRatingGuideAnswersByJob } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
-import { fetchAssessmentPlan } from "../../store/AssessmentPlan/assessmentPlanActions";
+import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";import { fetchAssessmentPlan } from "../../store/AssessmentPlan/assessmentPlanActions";
 import { fetchSkills } from "../../store/Skill/skillActions";
 import { getUnreadNotificationsByJob } from "../../store/AssessmentPlanNotification/assessmentPlanNotificationSelectors";
 import { fetchAssessmentPlanNotifications } from "../../store/AssessmentPlanNotification/assessmentPlanNotificationActions";
+import { DispatchType } from "../../configureStore";
 
 interface AssessmentPlanContainerProps {
   jobId: number;
@@ -35,18 +30,13 @@ const mapStateToProps = (
   criteria: Criteria[];
   assessments: Assessment[];
   notifications: AssessmentPlanNotification[];
-  questions: RatingGuideQuestion[];
-  answers: RatingGuideAnswer[];
 } => ({
   job: getJob(state, ownProps.jobId),
   criteria: getCriteriaByJob(state, ownProps.jobId),
   assessments: getAssessmentsByJob(state, ownProps.jobId),
   notifications: getUnreadNotificationsByJob(state, ownProps.jobId),
-  questions: getRatingGuideQuestionsByJob(state, ownProps.jobId),
-  answers: getRatingGuideAnswersByJob(state, ownProps.jobId),
 });
 
-type DispatchType = Dispatch<AnyAction> & ThunkDispatch<any, any, AnyAction>;
 const mapDispatchToProps = (
   dispatch: DispatchType,
   ownProps: AssessmentPlanContainerProps,
@@ -55,28 +45,16 @@ const mapDispatchToProps = (
   dispatchFetchAssessmentPlan: () => void;
   dispatchFetchSkills: () => void;
   dispatchFetchNotifications: () => void;
-} =>
-  bindActionCreators(
-    {
-      dispatchFetchJob: (): RSAAction<any, any, any> =>
-        fetchJob(ownProps.jobId),
-      dispatchFetchAssessmentPlan: (): ThunkAction<
-        void,
-        RootState,
-        {},
-        AnyAction
-      > => fetchAssessmentPlan(ownProps.jobId),
-      dispatchFetchSkills: (): ThunkAction<void, RootState, {}, AnyAction> =>
-        fetchSkills(),
-      dispatchFetchNotifications: (): ThunkAction<
-        void,
-        RootState,
-        {},
-        AnyAction
-      > => fetchAssessmentPlanNotifications(ownProps.jobId),
-    },
-    dispatch,
-  );
+} => ({
+  dispatchFetchJob: () => {
+    dispatch(fetchJob(ownProps.jobId));
+  },
+  dispatchFetchAssessmentPlan: () =>
+    dispatch(fetchAssessmentPlan(ownProps.jobId)),
+  dispatchFetchSkills: () => dispatch(fetchSkills()),
+  dispatchFetchNotifications: () =>
+    dispatch(fetchAssessmentPlanNotifications(ownProps.jobId)),
+});
 
 interface AssessmentPlanFetchContainerProps {
   jobId: number;
@@ -100,8 +78,6 @@ const AssessmentPlanFetchContainer: React.FunctionComponent<
   criteria,
   assessments,
   notifications,
-  questions,
-  answers,
   dispatchFetchJob,
   dispatchFetchAssessmentPlan,
   dispatchFetchSkills,
@@ -126,8 +102,6 @@ const AssessmentPlanFetchContainer: React.FunctionComponent<
       criteria={criteria}
       assessments={assessments}
       notifications={notifications}
-      questions={questions}
-      answers={answers}
     />
   );
 };

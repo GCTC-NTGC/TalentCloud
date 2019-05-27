@@ -1,5 +1,11 @@
 import { RootState } from "../store";
-import { Job, Criteria } from "../../models/types";
+import { uniq, difference } from "lodash";
+import {
+  Job,
+  Criteria,
+  Assessment,
+  RatingGuideAnswer,
+} from "../../models/types";
 import { hasKey } from "../../helpers/queries";
 import { EntityState, UiState } from "./jobReducer";
 import {
@@ -10,6 +16,7 @@ import { getAssessmentsByType } from "../Assessment/assessmentSelector";
 import {
   getRatingGuideAnswersByQuestion,
   getTempRatingGuideAnswersByQuestion,
+  getRatingGuideAnswersByAssessment,
 } from "../RatingGuideAnswer/ratingGuideAnswerSelectors";
 
 const entities = (state: RootState): EntityState => state.jobs.entities;
@@ -41,6 +48,69 @@ export const getCriteriaByJob = (state: RootState, jobId: number): Criteria[] =>
     (criteria): boolean => criteria.job_poster_id === jobId,
   );
 
+export const getCriteriaIdsByJobAndAssessmentType = (
+  state: RootState,
+  jobId: number,
+  assessmentTypeId: number,
+): number[] => {
+  const assessments = getAssessmentsByType(state, jobId, assessmentTypeId);
+  return assessments.map(
+    (assessment: Assessment): number => assessment.criterion_id,
+  );
+};
+
+export const getCriteriaByJobAndAssessmentType = (
+  state: RootState,
+  jobId: number,
+  assessmentTypeId: number,
+): Criteria[] =>
+  getCriteriaIdsByJobAndAssessmentType(state, jobId, assessmentTypeId)
+    .map((id: number): Criteria | null => getCriteriaById(state, id))
+    .filter(
+      (criterion: Criteria | null): boolean => criterion !== null,
+    ) as Criteria[];
+
+/**
+ * Select a job's Criteria associated with an assessmentType, that
+ * don't have a matching RatingGuideAnswer yet.
+ * @param state
+ * @param questionId RatingGuideQuestion id
+ */
+export const getCriteriaIdsUnansweredForAssessmentType = (
+  state: RootState,
+  jobId: number,
+  assessmentTypeId: number,
+): number[] => {
+  const requiredCriteriaIds = getCriteriaIdsByJobAndAssessmentType(
+    state,
+    jobId,
+    assessmentTypeId,
+  );
+  const assessmentAnswers = getRatingGuideAnswersByAssessment(
+    state,
+    jobId,
+    assessmentTypeId,
+  );
+  const answeredCriteriaIds: number[] = uniq(assessmentAnswers
+    .map((answer: RatingGuideAnswer): number | null => answer.criterion_id)
+    .filter(id => id !== null) as number[]);
+  return difference(requiredCriteriaIds, answeredCriteriaIds);
+};
+
+export const getCriteriaUnansweredForAssessmentType = (
+  state: RootState,
+  jobId: number,
+  assessmentTypeId: number,
+): Criteria[] => {
+  return getCriteriaIdsUnansweredForAssessmentType(
+    state,
+    jobId,
+    assessmentTypeId,
+  )
+    .map(id => getCriteriaById(state, id))
+    .filter(criterion => criterion !== null) as Criteria[];
+};
+
 /**
  * Select all the Criteria associated with a RatingGuideQuestion's assessmentType, that
  * don't have a matching RatingGuideAnswer yet.
@@ -61,6 +131,7 @@ export const getCriteriaUnansweredForQuestion = (
   // All the assessments this question may test
   const questionAssessments = getAssessmentsByType(
     state,
+    question.job_poster_id,
     question.assessment_type_id,
   );
   // All the criteria this question may test

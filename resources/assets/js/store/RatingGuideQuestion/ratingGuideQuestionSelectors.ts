@@ -119,19 +119,27 @@ export const getRatingGuideQuestionsByJob = createCachedSelector(
 
 export const getRatingGuideQuestionsByAssessment = createCachedSelector(
   getCurrentRatingGuideQuestions,
-  (state: RootState, assessmentTypeId: number): number => assessmentTypeId,
-  (questions, assessmentTypeId): RatingGuideQuestion[] =>
+  (state: RootState, jobId: number, assessmentTypeId: number): number => jobId,
+  (state: RootState, jobId: number, assessmentTypeId: number): number =>
+    assessmentTypeId,
+  (questions, jobId, assessmentTypeId): RatingGuideQuestion[] =>
     questions.filter(
-      (question): boolean => question.assessment_type_id === assessmentTypeId,
+      (question): boolean =>
+        question.job_poster_id === jobId &&
+        question.assessment_type_id === assessmentTypeId,
     ),
-)((state, assessmentTypeId) => assessmentTypeId);
+)((state, jobId, assessmentTypeId) => `${jobId} ${assessmentTypeId}`);
 
 export const getTempRatingGuideQuestionsByAssessment = createCachedSelector(
   getTempRatingGuideQuestions,
-  (state: RootState, assessmentTypeId: number): number => assessmentTypeId,
-  (questions, assessmentTypeId): RatingGuideQuestion[] =>
+  (state: RootState, jobId: number, assessmentTypeId: number): number => jobId,
+  (state: RootState, jobId: number, assessmentTypeId: number): number =>
+    assessmentTypeId,
+  (questions, jobId, assessmentTypeId): RatingGuideQuestion[] =>
     questions.filter(
-      (question): boolean => question.assessment_type_id === assessmentTypeId,
+      (question): boolean =>
+        question.job_poster_id === jobId &&
+        question.assessment_type_id === assessmentTypeId,
     ),
 )((state, assessmentTypeId) => assessmentTypeId);
 
@@ -151,15 +159,17 @@ export const ratingGuideQuestionIsEdited = createCachedSelector(
 export const ratingGuideQuestionsAreEditedByAssessment = createCachedSelector(
   (state: RootState) => state,
   getRatingGuideQuestionsByAssessment,
-  (state: RootState, assessmentTypeId: number) => assessmentTypeId,
-  (state, questions, id): { [id: number]: boolean } =>
+  (state, questions): { [id: number]: boolean } =>
     mapToObjectTrans(
       questions,
       getId,
       (ratingGuideQuestion): boolean =>
         ratingGuideQuestionIsEdited(state, ratingGuideQuestion.id),
     ),
-)((state: RootState, assessmentTypeId: number) => assessmentTypeId);
+)(
+  (state: RootState, jobId: number, assessmentTypeId: number) =>
+    `${jobId} ${assessmentTypeId}`,
+);
 
 export const tempRatingGuideQuestionIsSaving = createCachedSelector(
   getTempQuestionSaving,
@@ -178,7 +188,10 @@ export const tempRatingGuideQuestionsAreSavingByAssessment = createCachedSelecto
       (ratingGuideQuestion: RatingGuideQuestion): boolean =>
         tempRatingGuideQuestionIsSaving(state, ratingGuideQuestion.id),
     ),
-)((state: RootState, assessmentTypeId: number) => assessmentTypeId);
+)(
+  (state: RootState, jobId: number, assessmentTypeId: number) =>
+    `${jobId} ${assessmentTypeId}`,
+);
 
 export const ratingGuideQuestionIsUpdating = createCachedSelector(
   getQuestionUpdates,
@@ -204,4 +217,4 @@ export const ratingGuideQuestionsAreUpdatingByAssessment = createCachedSelector(
       },
       {},
     ),
-)((state, id) => id);
+)((state, jobId, assessmentTypeId) => `${jobId} ${assessmentTypeId}`);
