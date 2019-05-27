@@ -3,8 +3,8 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import ProgressTrackerItem from '../components/ProgressTracker/ProgressTrackerItem';
-import ProgressTracker from '../components/ProgressTracker/ProgressTracker';
+import ProgressTrackerItem from '../../components/ProgressTracker/ProgressTrackerItem';
+import ProgressTracker from '../../components/ProgressTracker/ProgressTracker';
 
 const stories = storiesOf('ProgressTracker/ProgressTracker Items', module)
   .addDecorator(withInfo)
