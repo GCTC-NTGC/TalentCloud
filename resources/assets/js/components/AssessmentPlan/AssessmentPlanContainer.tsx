@@ -23,7 +23,7 @@ const mapStateToProps = (
   notifications: AssessmentPlanNotification[];
 } => ({
   job: getJob(state, ownProps.jobId),
-  notifications: getUnreadNotificationsByJob(state, ownProps.jobId),
+  notifications: getUnreadNotificationsByJob(state, ownProps),
 });
 
 const mapDispatchToProps = (

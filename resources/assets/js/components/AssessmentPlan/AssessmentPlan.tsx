@@ -1,10 +1,6 @@
 import React from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
-import {
-  Job,
-  Assessment,
-  AssessmentPlanNotification,
-} from "../../models/types";
+import { FormattedMessage } from "react-intl";
+import { Job, AssessmentPlanNotification } from "../../models/types";
 import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingGuideBuilder from "./RatingGuideBuilder";
 import AssessmentPlanAlert from "./AssessmentPlanAlert";
