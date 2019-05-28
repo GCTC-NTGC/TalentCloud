@@ -9,9 +9,7 @@ exports[`Progress Tracker should render ProgressTracker with background color an
     data-c-container="layout"
     data-c-padding="top(quarter) bottom(quarter)"
   >
-    <div
-      className="tracker"
-    >
+    <div>
       <ProgressTrackerItem
         label="Step 01"
         state="active"
@@ -25,15 +23,13 @@ exports[`Progress Tracker should render ProgressTracker with background color an
 exports[`Progress Tracker should render ProgressTracker with children 1`] = `
 <div
   data-c-alignment="base(centre) tl(right)"
-  data-c-background="undefined(undefined)"
+  data-c-background="undefined(100)"
 >
   <div
     data-c-container="layout"
     data-c-padding="top(quarter) bottom(quarter)"
   >
-    <div
-      className="tracker"
-    >
+    <div>
       <ProgressTrackerItem
         label="Step 01"
         state="active"
@@ -57,29 +53,27 @@ exports[`Progress Tracker should render ProgressTracker with children 1`] = `
 exports[`Progress Tracker should render ProgressTracker with items 1`] = `
 <div
   data-c-alignment="base(centre) tl(right)"
-  data-c-background="undefined(undefined)"
+  data-c-background="undefined(100)"
 >
   <div
     data-c-container="layout"
     data-c-padding="top(quarter) bottom(quarter)"
   >
-    <div
-      className="tracker"
-    >
+    <div>
       <ProgressTrackerItem
-        key="0"
+        key="Job Info"
         label="Step 01"
         state="active"
         title="Job Info"
       />
       <ProgressTrackerItem
-        key="1"
+        key="Work Env."
         label="Step 02"
         state="complete"
         title="Work Env."
       />
       <ProgressTrackerItem
-        key="2"
+        key="Impact"
         label="Step 03"
         state="error"
         title="Impact"

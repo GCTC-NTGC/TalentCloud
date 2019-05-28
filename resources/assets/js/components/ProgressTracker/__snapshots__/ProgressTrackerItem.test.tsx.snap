@@ -10,7 +10,6 @@ exports[`Progress Tracker should render ProgressTrackerItem correctly 1`] = `
 >
   <div
     className="tracker-icon"
-    data-c-color="white"
   >
     <i
       className="fas fa-arrow-down"
@@ -18,7 +17,6 @@ exports[`Progress Tracker should render ProgressTrackerItem correctly 1`] = `
   </div>
   <div
     className="tracker-title"
-    data-c-color="black"
   >
     <span
       data-c-font-size="small"
