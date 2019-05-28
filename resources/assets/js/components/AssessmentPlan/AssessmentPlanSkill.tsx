@@ -32,9 +32,10 @@ import {
   storeNewAssessment,
   deleteAssessment,
 } from "../../store/Assessment/assessmentActions";
+import { getCriteriaById } from "../../store/Job/jobSelector";
 
 interface AssessmentPlanSkillProps {
-  criterion: Criteria;
+  criterion: Criteria | null;
   assessments: Assessment[];
   assessmentsEdited: { [id: number]: boolean };
   assessmentsUpdating: { [id: number]: boolean };
@@ -80,7 +81,10 @@ export const AssessmentPlanSkill: React.FunctionComponent<
   saveTempAssessment,
   removeTempAssessment,
   intl,
-}: AssessmentPlanSkillProps & InjectedIntlProps): React.ReactElement => {
+}: AssessmentPlanSkillProps & InjectedIntlProps): React.ReactElement | null => {
+  if (criterion === null) {
+    return null;
+  }
   useEffect(
     (): void => {
       assessments.forEach(
@@ -298,32 +302,28 @@ export const AssessmentPlanSkill: React.FunctionComponent<
 };
 
 interface AssessmentPlanSkillContainerProps {
-  criterion: Criteria;
+  criterionId: number;
 }
 
 const mapStateToProps = (
   state: RootState,
-  ownProps: AssessmentPlanSkillContainerProps,
+  { criterionId }: AssessmentPlanSkillContainerProps,
 ): {
+  criterion: Criteria | null;
   assessments: Assessment[];
   assessmentsEdited: { [id: number]: boolean };
   assessmentsUpdating: { [id: number]: boolean };
   tempAssessments: TempAssessment[];
   tempAssessmentsSaving: { [id: number]: boolean };
 } => ({
-  assessments: getAssessmentsByCriterion(state, ownProps.criterion.id),
-  assessmentsEdited: assessmentsAreEditedByCriteria(
-    state,
-    ownProps.criterion.id,
-  ),
-  assessmentsUpdating: assessmentsAreUpdatingByCriteria(
-    state,
-    ownProps.criterion.id,
-  ),
-  tempAssessments: getTempAssessmentsByCriterion(state, ownProps.criterion.id),
+  criterion: getCriteriaById(state, criterionId),
+  assessments: getAssessmentsByCriterion(state, criterionId),
+  assessmentsEdited: assessmentsAreEditedByCriteria(state, criterionId),
+  assessmentsUpdating: assessmentsAreUpdatingByCriteria(state, criterionId),
+  tempAssessments: getTempAssessmentsByCriterion(state, criterionId),
   tempAssessmentsSaving: tempAssessmentsAreSavingByCriterion(
     state,
-    ownProps.criterion.id,
+    criterionId,
   ),
 });
 
