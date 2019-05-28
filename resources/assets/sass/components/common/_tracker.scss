@@ -1,7 +1,16 @@
 .tracker {
     display: flex;
-    .tracker-item {
+    justify-content: center;
+    align-items: center;
+
+    @media #{$clone-tablet-landscape} {
+        justify-content: flex-end;
     }
+
+    .tracker-item {
+
+    }
+
     .tracker-icon {
         border-radius: 100%;
         display: inline-block;
@@ -26,9 +35,9 @@
         flex-direction: column;
     }
     [data-tc-tracker-state="null"] {
-        // display: none;
+        display: none;
         @media #{$clone-tablet-landscape} {
-            // display: inline-block;
+            display: inline-block;
         }
         .tracker-icon {
             background: $clone-grey;
@@ -44,9 +53,9 @@
         }
     }
     [data-tc-tracker-state="active"] {
-        // display: inline-block;
+        display: inline-block;
         @media #{$clone-tablet-landscape} {
-            // display: inline-block;
+            display: inline-block;
         }
         .tracker-icon {
             background: $clone-c1;
@@ -62,9 +71,9 @@
         }
     }
     [data-tc-tracker-state="complete"] {
-        // display: none;
+        display: none;
         @media #{$clone-tablet-landscape} {
-            // display: inline-block;
+            display: inline-block;
         }
         .tracker-icon {
             background: $clone-go;
@@ -80,9 +89,9 @@
         }
     }
     [data-tc-tracker-state="error"] {
-        // display: none;
+        display: none;
         @media #{$clone-tablet-landscape} {
-            // display: inline-block;
+            display: inline-block;
         }
         .tracker-icon {
             background: $clone-stop;
