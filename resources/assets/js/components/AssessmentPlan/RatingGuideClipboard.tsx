@@ -323,7 +323,7 @@ const mapStateToProps = (
   ownProps: RatingGuideClipboardContainerProps,
 ): TableProps => ({
   assessments: getAssessmentsByJob(state, ownProps.jobId),
-  criteria: getCriteriaByJob(state, ownProps.jobId),
+  criteria: getCriteriaByJob(state, ownProps),
   skills: getSkills(state),
   ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps.jobId),
   ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps.jobId),

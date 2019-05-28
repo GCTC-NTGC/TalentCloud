@@ -146,11 +146,10 @@ const mapStateToProps = (
 } => {
   const narrativeCriteria: Criteria[] =
     ownProps.jobId !== null
-      ? getCriteriaByJobAndAssessmentType(
-          state,
-          ownProps.jobId,
-          AssessmentTypeId.NarrativeAssessment,
-        )
+      ? getCriteriaByJobAndAssessmentType(state, {
+          jobId: ownProps.jobId,
+          assessmentTypeId: AssessmentTypeId.NarrativeAssessment,
+        })
       : [];
   return {
     assessedCriteria: narrativeCriteria,

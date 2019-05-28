@@ -125,7 +125,7 @@ const mapStateToProps = (
   essentialCriteriaIds: number[];
   assetCriteriaIds: number[];
 } => {
-  const criteria = getCriteriaByJob(state, jobId);
+  const criteria = getCriteriaByJob(state, { jobId });
   const assetCriteria = criteria.filter(
     (criterion: Criteria): boolean =>
       criterion.criteria_type_id === CriteriaTypeId.Asset,

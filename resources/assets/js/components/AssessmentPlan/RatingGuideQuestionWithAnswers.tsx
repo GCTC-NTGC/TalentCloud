@@ -112,11 +112,10 @@ const mapStateToProps = (
       ownProps.questionId,
     ).map((answer): number => answer.id),
     allowMoreAnswers:
-      getCriteriaUnansweredForQuestion(
-        state,
-        ownProps.questionId,
-        ownProps.temp,
-      ).length > 0,
+      getCriteriaUnansweredForQuestion(state, {
+        questionId: ownProps.questionId,
+        isTempQuestion: ownProps.temp ? ownProps.temp : false,
+      }).length > 0,
   };
 };
 

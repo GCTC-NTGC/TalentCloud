@@ -248,7 +248,7 @@ const mapStateToProps = (
   assessments: Assessment[];
   criteria: Criteria[];
 } => ({
-  criteria: getCriteriaByJob(state, ownProps.jobId),
+  criteria: getCriteriaByJob(state, ownProps),
   assessments: getAssessmentsByJob(state, ownProps.jobId),
 });
 // @ts-ignore

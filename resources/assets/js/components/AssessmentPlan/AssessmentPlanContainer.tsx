@@ -22,7 +22,7 @@ const mapStateToProps = (
   job: Job | null;
   notifications: AssessmentPlanNotification[];
 } => ({
-  job: getJob(state, ownProps.jobId),
+  job: getJob(state, ownProps),
   notifications: getUnreadNotificationsByJob(state, ownProps),
 });
 

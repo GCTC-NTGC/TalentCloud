@@ -76,35 +76,30 @@ const mapStateToProps = (
   missingEssentialSkills: Skill[];
   missingAssetSkills: Skill[];
 } => {
-  const criteriaToSkills: (
-    state: RootState,
-    criteria: Criteria[],
-  ) => Skill[] = (state, criteria) =>
+  const criteriaToSkills: (criteria: Criteria[]) => Skill[] = (
+    criteria,
+  ): Skill[] =>
     criteria
       .map(
-        (criteria: Criteria): Skill | null =>
-          getSkillById(state, criteria.skill_id),
+        (criterion: Criteria): Skill | null =>
+          getSkillById(state, criterion.skill_id),
       )
-      .filter(skill => skill !== null) as Skill[];
+      .filter((skill): boolean => skill !== null) as Skill[];
   const missingCriteria = getCriteriaUnansweredForAssessmentType(
     state,
-    ownProps.jobId,
-    ownProps.assessmentTypeId,
+    ownProps,
   );
   const missingEssentialCriteria = missingCriteria.filter(
-    criterion => criterion.criteria_type_id === CriteriaTypeId.Essential,
+    (criterion): boolean =>
+      criterion.criteria_type_id === CriteriaTypeId.Essential,
   );
   const missingAssetCriteria = missingCriteria.filter(
-    criterion => criterion.criteria_type_id === CriteriaTypeId.Asset,
+    (criterion): boolean => criterion.criteria_type_id === CriteriaTypeId.Asset,
   );
   const missingEssentialSkills: Skill[] = criteriaToSkills(
-    state,
     missingEssentialCriteria,
   );
-  const missingAssetSkills: Skill[] = criteriaToSkills(
-    state,
-    missingAssetCriteria,
-  );
+  const missingAssetSkills: Skill[] = criteriaToSkills(missingAssetCriteria);
   return {
     missingEssentialSkills,
     missingAssetSkills,

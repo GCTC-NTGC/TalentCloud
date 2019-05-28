@@ -175,10 +175,10 @@ const getAvailableCriteria = (
   if (answer === null) {
     return [];
   }
-  const availableCriteria = getCriteriaUnansweredForQuestion(
-    state,
-    answer.rating_guide_question_id,
-  );
+  const availableCriteria = getCriteriaUnansweredForQuestion(state, {
+    questionId: answer.rating_guide_question_id,
+    isTempQuestion: false,
+  });
   const availableCriteriaIds = availableCriteria.map(getId);
   const answerCriteria =
     answer.criterion_id !== null

@@ -93,14 +93,13 @@ export const getRatingGuideAnswersByQuestion = (
 
 export const getRatingGuideAnswersByAssessment = (
   state: RootState,
-  jobId: number,
-  assessmentTypeId: number,
+  props: { jobId: number; assessmentTypeId: number },
 ): RatingGuideAnswer[] => {
   const availableAnswers = [] as RatingGuideAnswer[];
   const ratingGuideQuestions = getRatingGuideQuestionsByAssessment(
     state,
-    jobId,
-    assessmentTypeId,
+    props.jobId,
+    props.assessmentTypeId,
   );
   ratingGuideQuestions.map(
     // eslint-disable-next-line array-callback-return

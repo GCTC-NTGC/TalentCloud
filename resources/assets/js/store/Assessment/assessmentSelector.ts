@@ -37,7 +37,7 @@ export const getAssessmentsByJob = (
   state: RootState,
   jobId: number,
 ): Assessment[] => {
-  const criteriaIds = getCriteriaByJob(state, jobId).map(getId);
+  const criteriaIds = getCriteriaByJob(state, { jobId }).map(getId);
   return getCurrentAssessments(state).filter(
     (assessment): boolean => criteriaIds.includes(assessment.criterion_id),
   );
@@ -63,8 +63,7 @@ export const getAssessmentsByCriterion = (
  */
 export const getAssessmentsByType = (
   state: RootState,
-  jobId: number,
-  assessmentTypeId: number,
+  { jobId, assessmentTypeId }: { jobId: number; assessmentTypeId: number },
 ): Assessment[] =>
   getAssessmentsByJob(state, jobId).filter(
     (assessment): boolean => assessment.assessment_type_id === assessmentTypeId,
