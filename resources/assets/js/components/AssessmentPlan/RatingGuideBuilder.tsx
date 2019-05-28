@@ -1,5 +1,6 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
+import { connect } from "react-redux";
 import { Assessment } from "../../models/types";
 
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
@@ -7,10 +8,12 @@ import { AssessmentTypeId } from "../../models/lookupConstants";
 import RatingGuideAssessment from "./RatingGuideAssessment";
 import RatingGuideClipboard from "./RatingGuideClipboard";
 import RatingGuideNarrativeAssessment from "./RatingGuideNarrativeAssessment";
+import { RootState } from "../../store/store";
+import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
 
 interface RatingsGuideBuilderProps {
   assessments: Assessment[];
-  jobId: number | null;
+  jobId: number;
 }
 
 const RatingGuideBuilder: React.FunctionComponent<RatingsGuideBuilderProps> = ({
@@ -81,4 +84,20 @@ const RatingGuideBuilder: React.FunctionComponent<RatingsGuideBuilderProps> = ({
   );
 };
 
-export default RatingGuideBuilder;
+interface RatingGuideBuilderContainerProps {
+  jobId: number;
+}
+
+const mapStateToProps = (
+  state: RootState,
+  { jobId }: RatingGuideBuilderContainerProps,
+): { assessments: Assessment[] } => ({
+  assessments: getAssessmentsByJob(state, jobId),
+});
+
+// @ts-ignore
+export const RatingGuideBuilderContainer: React.FunctionComponent<
+  RatingGuideBuilderContainerProps
+> = connect(mapStateToProps)(RatingGuideBuilder);
+
+export default RatingGuideBuilderContainer;

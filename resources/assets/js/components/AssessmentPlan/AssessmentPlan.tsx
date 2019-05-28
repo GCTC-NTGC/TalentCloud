@@ -13,13 +13,11 @@ import AssessmentPlanBuilder from "./AssessmentPlanBuilder";
 
 interface AssessmentPlanProps {
   job: Job | null;
-  assessments: Assessment[];
   notifications: AssessmentPlanNotification[];
 }
 
 const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps> = ({
   job,
-  assessments,
   notifications,
 }): React.ReactElement => {
   const jobTitle = (
@@ -106,15 +104,13 @@ const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps> = ({
           />
         </p>
         <AssessmentPlanAlert notifications={notifications} />
-        {/* Assessment Plan Builder ====================================== */}
-        {job !== null && <AssessmentPlanBuilder jobId={job.id} />}
-        {/* Generated Assessment Plan ==================================== */}
-        {job !== null && <AssessmentPlanTable jobId={job.id} />}
-        {/* Ratings Guide Builder ======================================== */}
-        <RatingGuideBuilder
-          assessments={assessments}
-          jobId={(job && job.id) || null}
-        />
+        {job !== null && (
+          <>
+            <AssessmentPlanBuilder jobId={job.id} />
+            <AssessmentPlanTable jobId={job.id} />
+            <RatingGuideBuilder jobId={job.id} />
+          </>
+        )}
       </div>
     </section>
   );

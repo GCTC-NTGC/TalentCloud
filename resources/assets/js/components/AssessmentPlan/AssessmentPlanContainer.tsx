@@ -1,15 +1,10 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import AssessmentPlan from "./AssessmentPlan";
-import {
-  Job,
-  Assessment,
-  AssessmentPlanNotification,
-} from "../../models/types";
+import { Job, AssessmentPlanNotification } from "../../models/types";
 import { RootState } from "../../store/store";
 import { getJob } from "../../store/Job/jobSelector";
 import { fetchJob } from "../../store/Job/jobActions";
-import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
 import { fetchAssessmentPlan } from "../../store/AssessmentPlan/assessmentPlanActions";
 import { fetchSkills } from "../../store/Skill/skillActions";
 import { getUnreadNotificationsByJob } from "../../store/AssessmentPlanNotification/assessmentPlanNotificationSelectors";
@@ -25,11 +20,9 @@ const mapStateToProps = (
   ownProps: AssessmentPlanContainerProps,
 ): {
   job: Job | null;
-  assessments: Assessment[];
   notifications: AssessmentPlanNotification[];
 } => ({
   job: getJob(state, ownProps.jobId),
-  assessments: getAssessmentsByJob(state, ownProps.jobId),
   notifications: getUnreadNotificationsByJob(state, ownProps.jobId),
 });
 
@@ -55,7 +48,6 @@ const mapDispatchToProps = (
 interface AssessmentPlanFetchContainerProps {
   jobId: number;
   job: Job | null;
-  assessments: Assessment[];
   notifications: AssessmentPlanNotification[];
   dispatchFetchJob: () => void;
   dispatchFetchAssessmentPlan: () => void;
@@ -68,7 +60,6 @@ const AssessmentPlanFetchContainer: React.FunctionComponent<
 > = ({
   jobId,
   job,
-  assessments,
   notifications,
   dispatchFetchJob,
   dispatchFetchAssessmentPlan,
@@ -88,13 +79,7 @@ const AssessmentPlanFetchContainer: React.FunctionComponent<
   useEffect((): void => {
     dispatchFetchNotifications();
   }, []);
-  return (
-    <AssessmentPlan
-      job={job}
-      assessments={assessments}
-      notifications={notifications}
-    />
-  );
+  return <AssessmentPlan job={job} notifications={notifications} />;
 };
 // @ts-ignore
 const AssessmentPlanContainer: React.FunctionComponent<
