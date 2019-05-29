@@ -154,17 +154,17 @@ Route::group(
             /* Static - ITP */
             Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
 
-            /* Temp Builder 01 (Intro) */
-            Route::view('builder-01', 'manager/builder-01')->name('jpb1');
+            // /* Temp Builder 01 (Intro) */
+            // Route::view('builder-01', 'manager/builder-01')->name('jpb1');
 
-            /* Temp Builder 02 (Job info) */
-            Route::view('builder-02', 'manager/builder-02')->name('jpb2');
+            // /* Temp Builder 02 (Job info) */
+            // Route::view('builder-02', 'manager/builder-02')->name('jpb2');
 
-            /* Temp Builder 03 (Work Environment) */
-            Route::view('builder-03', 'manager/builder-03')->name('jpb3');
+            // /* Temp Builder 03 (Work Environment) */
+            // Route::view('builder-03', 'manager/builder-03')->name('jpb3');
 
-            /* Temp Builder 04 (Impact) */
-            Route::view('builder-04', 'manager/builder-04')->name('jpb4');
+            // /* Temp Builder 04 (Impact) */
+            // Route::view('builder-04', 'manager/builder-04')->name('jpb4');
 
             /* Authentication =========================================================== */
 
