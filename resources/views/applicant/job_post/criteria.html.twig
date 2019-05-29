@@ -19,18 +19,18 @@
 
         <div
             class="box full">
-            <h4
+            <h3
                 class="job-post__criteria-title">
                 {{ job_post.criteria.title }}
-            </h4>
+            </h3>
         </div>
 
         <div
             class="box full">
-            <h5
+            <h4
                 class="job-post__criteria-subtitle">
                 {{ job_post.criteria.education_title }}
-            </h5>
+            </h4>
             <p>
                 {{ handleNullState(
                     job.education,
@@ -42,10 +42,10 @@
 
         <div
             class="box full">
-            <h5
+            <h4
                 class="job-post__criteria-subtitle">
                 {{ job_post.criteria.essential_title }}
-            </h5>
+            </h4>
             {% if criteria.essential is defined and criteria.essential is not empty %}
                 <ul
                     class="job-post__criteria-list">
@@ -67,10 +67,10 @@
 
             <div
                 class="box full">
-                <h5
+                <h4
                     class="job-post__criteria-subtitle">
                     {{ job_post.criteria.asset_title }}
-                </h5>
+                </h4>
                 {% if criteria.asset is defined and criteria.asset is not empty %}
                     <ul
                         class="job-post__criteria-list">

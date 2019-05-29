@@ -14,7 +14,7 @@ import {
   AssessmentTypeId,
   CriteriaTypeId,
 } from "../../models/lookupConstants";
-import { clipboardData } from "./RatingGuideClipboard";
+import { clipboardData, ClipboardTableRowProps } from "./RatingGuideClipboard";
 
 const jediSkill: Skill = {
   id: 1,
@@ -234,6 +234,56 @@ const defaultClipboardData = clipboardData(
   formatMessage,
 );
 
+const expectedOutput: ClipboardTableRowProps[] = [
+  {
+    id: "A2-Q2-T2-AN2",
+    title: "Application Screening Question",
+    question:
+      "What is the second question of the meaning of life, the universe and everything?",
+    skillLevel: "Moderately in Evidence",
+    criteriaTypeName: "Asset",
+    skillName: "English hacking",
+    skillDescription: "English manipulator of technology",
+    modelAnswer:
+      "The second answer will make complete sense once you know the question.",
+  },
+  {
+    id: "A3-Q4-T1-AN4",
+    title: "Group Test",
+    question:
+      "What is the fourth question of the meaning of life, the universe and everything?",
+    skillLevel: "Deep Level Demonstration",
+    criteriaTypeName: "Essential",
+    skillName: "English joker",
+    skillDescription: "English teller of jokes",
+    modelAnswer:
+      "The fourth answer will make complete sense once you know the question.",
+  },
+  {
+    id: "A3-Q3-T1-AN3",
+    title: "Group Test",
+    question:
+      "What is the third question of the meaning of life, the universe and everything?",
+    skillLevel: "Advanced",
+    criteriaTypeName: "Essential",
+    skillName: "English ninja",
+    skillDescription: "English silent and stealthy",
+    modelAnswer:
+      "The third answer will make complete sense once you know the question.",
+  },
+  {
+    id: "A1-Q1-T1-AN1",
+    title: "Narrative Review",
+    question:
+      "What is the first question of the meaning of life, the universe and everything?",
+    skillLevel: "Beginner",
+    criteriaTypeName: "Essential",
+    skillName: "English jedi",
+    skillDescription: "English Laser Sword User",
+    modelAnswer:
+      "The first answer will make complete sense once you know the question.",
+  },
+];
 describe("ClipboardData", (): void => {
   it("returns a truthy object", (): void => {
     expect(defaultClipboardData).toBeTruthy();
@@ -242,67 +292,99 @@ describe("ClipboardData", (): void => {
     expect(defaultClipboardData.length).toEqual(someCriteria.length);
   });
   it("returns the associated localized skill name for each criteria", (): void => {
-    expect(defaultClipboardData[0].skillName).toEqual("English hacking");
-    expect(defaultClipboardData[1].skillName).toEqual("English joker");
-    expect(defaultClipboardData[2].skillName).toEqual("English ninja");
-    expect(defaultClipboardData[3].skillName).toEqual("English jedi");
+    expect(defaultClipboardData[0].skillName).toEqual(
+      expectedOutput[0].skillName,
+    );
+    expect(defaultClipboardData[1].skillName).toEqual(
+      expectedOutput[1].skillName,
+    );
+    expect(defaultClipboardData[2].skillName).toEqual(
+      expectedOutput[2].skillName,
+    );
+    expect(defaultClipboardData[3].skillName).toEqual(
+      expectedOutput[3].skillName,
+    );
+  });
+  it("returns the associated localized skill description for each criteria", (): void => {
+    expect(defaultClipboardData[0].skillDescription).toEqual(
+      expectedOutput[0].skillDescription,
+    );
+    expect(defaultClipboardData[1].skillDescription).toEqual(
+      expectedOutput[1].skillDescription,
+    );
+    expect(defaultClipboardData[2].skillDescription).toEqual(
+      expectedOutput[2].skillDescription,
+    );
+    expect(defaultClipboardData[3].skillDescription).toEqual(
+      expectedOutput[3].skillDescription,
+    );
   });
   it("returns the associated answer description for each criteria", (): void => {
     expect(defaultClipboardData[0].modelAnswer).toEqual(
-      "The second answer will make complete sense once you know the question.",
+      expectedOutput[0].modelAnswer,
     );
     expect(defaultClipboardData[1].modelAnswer).toEqual(
-      "The fourth answer will make complete sense once you know the question.",
+      expectedOutput[1].modelAnswer,
     );
     expect(defaultClipboardData[2].modelAnswer).toEqual(
-      "The third answer will make complete sense once you know the question.",
+      expectedOutput[2].modelAnswer,
     );
     expect(defaultClipboardData[3].modelAnswer).toEqual(
-      "The first answer will make complete sense once you know the question.",
+      expectedOutput[3].modelAnswer,
     );
   });
   it("returns the associated question description for each criteria", (): void => {
     expect(defaultClipboardData[0].question).toEqual(
-      "What is the second question of the meaning of life, the universe and everything?",
+      expectedOutput[0].question,
     );
     expect(defaultClipboardData[1].question).toEqual(
-      "What is the fourth question of the meaning of life, the universe and everything?",
+      expectedOutput[1].question,
     );
     expect(defaultClipboardData[2].question).toEqual(
-      "What is the third question of the meaning of life, the universe and everything?",
+      expectedOutput[2].question,
     );
     expect(defaultClipboardData[3].question).toEqual(
-      "What is the first question of the meaning of life, the universe and everything?",
+      expectedOutput[3].question,
     );
   });
   it("returns the proper skill level name as the target skill level", (): void => {
     expect(defaultClipboardData[0].skillLevel).toEqual(
-      "Moderately in Evidence",
+      expectedOutput[0].skillLevel,
     );
     expect(defaultClipboardData[1].skillLevel).toEqual(
-      "Deep Level Demonstration",
+      expectedOutput[1].skillLevel,
     );
-    expect(defaultClipboardData[2].skillLevel).toEqual("Advanced");
-    expect(defaultClipboardData[3].skillLevel).toEqual("Beginner");
+    expect(defaultClipboardData[2].skillLevel).toEqual(
+      expectedOutput[2].skillLevel,
+    );
+    expect(defaultClipboardData[3].skillLevel).toEqual(
+      expectedOutput[3].skillLevel,
+    );
   });
   it("returns the proper criteria type", (): void => {
-    expect(defaultClipboardData[0].criteriaTypeName).toEqual("Asset");
-    expect(defaultClipboardData[1].criteriaTypeName).toEqual("Essential");
-    expect(defaultClipboardData[2].criteriaTypeName).toEqual("Essential");
-    expect(defaultClipboardData[3].criteriaTypeName).toEqual("Essential");
+    expect(defaultClipboardData[0].criteriaTypeName).toEqual(
+      expectedOutput[0].criteriaTypeName,
+    );
+    expect(defaultClipboardData[1].criteriaTypeName).toEqual(
+      expectedOutput[1].criteriaTypeName,
+    );
+    expect(defaultClipboardData[2].criteriaTypeName).toEqual(
+      expectedOutput[2].criteriaTypeName,
+    );
+    expect(defaultClipboardData[3].criteriaTypeName).toEqual(
+      expectedOutput[3].criteriaTypeName,
+    );
   });
   it("returns the proper assessment type", (): void => {
-    expect(defaultClipboardData[0].title).toEqual(
-      "Application Screening Question",
-    );
-    expect(defaultClipboardData[1].title).toEqual("Group Test");
-    expect(defaultClipboardData[2].title).toEqual("Group Test");
-    expect(defaultClipboardData[3].title).toEqual("Narrative Review");
+    expect(defaultClipboardData[0].title).toEqual(expectedOutput[0].title);
+    expect(defaultClipboardData[1].title).toEqual(expectedOutput[1].title);
+    expect(defaultClipboardData[2].title).toEqual(expectedOutput[2].title);
+    expect(defaultClipboardData[3].title).toEqual(expectedOutput[3].title);
   });
   it("returns a unique id", (): void => {
-    expect(defaultClipboardData[0].id).toEqual("A2-Q2-T2-AN2");
-    expect(defaultClipboardData[1].id).toEqual("A3-Q4-T1-AN4");
-    expect(defaultClipboardData[2].id).toEqual("A3-Q3-T1-AN3");
-    expect(defaultClipboardData[3].id).toEqual("A1-Q1-T1-AN1");
+    expect(defaultClipboardData[0].id).toEqual(expectedOutput[0].id);
+    expect(defaultClipboardData[1].id).toEqual(expectedOutput[1].id);
+    expect(defaultClipboardData[2].id).toEqual(expectedOutput[2].id);
+    expect(defaultClipboardData[3].id).toEqual(expectedOutput[3].id);
   });
 });

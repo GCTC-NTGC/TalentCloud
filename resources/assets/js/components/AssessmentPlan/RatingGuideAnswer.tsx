@@ -8,7 +8,7 @@ import {
   Criteria,
 } from "../../models/types";
 import Select, { SelectOption } from "../Select";
-import UpdatingInput from "../UpdatingInput";
+import UpdatingTextArea from "../UpdatingTextArea";
 import { getId, hasKey, mapToObjectTrans } from "../../helpers/queries";
 import { RootState } from "../../store/store";
 import { getSkillById } from "../../store/Skill/skillSelector";
@@ -97,7 +97,7 @@ const RatingGuideAnswer: React.FunctionComponent<
     },
   );
   return (
-    <div data-c-grid="gutter middle">
+    <div data-c-grid="gutter top">
       <div data-c-grid-item="base(1of1) tp(1of8)" data-c-alignment="center" />
       <div data-c-grid-item="base(1of1) tp(2of8)">
         <Select
@@ -119,7 +119,7 @@ const RatingGuideAnswer: React.FunctionComponent<
         />
       </div>
       <div data-c-grid-item="base(1of1) tp(4of8)">
-        <UpdatingInput
+        <UpdatingTextArea
           htmlId={`ratingGuideAnswer${answer.id}`}
           formName="ratingGuideAnswer"
           label={intl.formatMessage(messages.inputLabel)}
@@ -127,7 +127,7 @@ const RatingGuideAnswer: React.FunctionComponent<
           placeholder={intl.formatMessage(messages.inputPlaceholder)}
           value={answer.expected_answer || ""}
           updateDelay={500}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+          onChange={(event: React.ChangeEvent<HTMLTextAreaElement>): void => {
             const newAnswer = String(event.target.value);
             editAnswer({
               ...answer,
