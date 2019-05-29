@@ -15,7 +15,7 @@ import {
   criteriaType,
   assessmentType,
 } from "../../models/localizedConstants";
-import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
+import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelectorComplex";
 import { getCriteriaByJob } from "../../store/Job/jobSelector";
 import { getSkills } from "../../store/Skill/skillSelector";
 import { getRatingGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
@@ -322,7 +322,7 @@ const mapStateToProps = (
   state: RootState,
   ownProps: RatingGuideClipboardContainerProps,
 ): TableProps => ({
-  assessments: getAssessmentsByJob(state, ownProps.jobId),
+  assessments: getAssessmentsByJob(state, ownProps),
   criteria: getCriteriaByJob(state, ownProps),
   skills: getSkills(state),
   ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps.jobId),

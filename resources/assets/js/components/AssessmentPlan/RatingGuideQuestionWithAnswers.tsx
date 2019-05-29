@@ -7,7 +7,7 @@ import {
   getRatingGuideAnswersByQuestion,
   getTempRatingGuideAnswersByQuestion,
 } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
-import { getCriteriaUnansweredForQuestion } from "../../store/Job/jobSelector";
+import { getCriteriaUnansweredForQuestion } from "../../store/Job/jobSelectorComplex";
 import { DispatchType } from "../../configureStore";
 import { createTempRatingGuideAnswer } from "../../store/RatingGuideAnswer/ratingGuideAnswerActions";
 

@@ -1,6 +1,7 @@
 import React from "react";
-import { Criteria, Skill } from "../../models/types";
+import { connect } from "react-redux";
 import { FormattedMessage, InjectedIntlProps, injectIntl } from "react-intl";
+import { Criteria, Skill } from "../../models/types";
 import {
   assessmentType,
   assessmentTypeDescription,
@@ -10,10 +11,9 @@ import {
 } from "../../models/localizedConstants";
 import { AssessmentTypeId } from "../../models/lookupConstants";
 import { RootState } from "../../store/store";
-import { getCriteriaByJobAndAssessmentType } from "../../store/Job/jobSelector";
+import { getCriteriaByJobAndAssessmentType } from "../../store/Job/jobSelectorComplex";
 import { getCriteriaToSkills } from "../../store/Skill/skillSelector";
 import { getId } from "../../helpers/queries";
-import { connect } from "react-redux";
 
 interface RatingGuideNarrativeAssessmentProps {
   /** The id of the job Job Poster this is part of */

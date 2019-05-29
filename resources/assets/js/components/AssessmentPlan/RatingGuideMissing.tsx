@@ -1,15 +1,11 @@
-import React, { ReactElement } from "react";
+import React from "react";
+import { connect } from "react-redux";
 import { FormattedMessage, InjectedIntlProps, injectIntl } from "react-intl";
 import { Skill, Criteria } from "../../models/types";
-import {
-  AssessmentTypeId,
-  SkillTypeId,
-  CriteriaTypeId,
-} from "../../models/lookupConstants";
+import { CriteriaTypeId } from "../../models/lookupConstants";
 import { RootState } from "../../store/store";
-import { getCriteriaUnansweredForAssessmentType } from "../../store/Job/jobSelector";
+import { getCriteriaUnansweredForAssessmentType } from "../../store/Job/jobSelectorComplex";
 import { getSkillById } from "../../store/Skill/skillSelector";
-import { connect } from "react-redux";
 
 interface RatingGuideMissingProps {
   missingEssentialSkills: Skill[];

@@ -16,8 +16,11 @@ export const getCriteriaToSkills = (
   criteriaIds: number[],
 ): { [criteriaId: number]: Skill } => {
   const criteria: Criteria[] = criteriaIds
-    .map((id: number): Criteria | null => getCriteriaById(state, id))
-    .filter(criteria => criteria !== null) as Criteria[];
+    .map(
+      (id: number): Criteria | null =>
+        getCriteriaById(state, { criterionId: id }),
+    )
+    .filter((criterion): boolean => criterion !== null) as Criteria[];
   return criteria.reduce(
     (
       result: { [criteriaId: number]: Skill },

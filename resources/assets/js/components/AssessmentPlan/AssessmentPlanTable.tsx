@@ -8,7 +8,7 @@ import { assessmentType } from "../../models/localizedConstants";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import { RootState } from "../../store/store";
 import { getCriteriaByJob } from "../../store/Job/jobSelector";
-import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
+import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelectorComplex";
 
 interface AssessmentPlanTableProps {
   /** All assessments to be displayed in this table */
@@ -249,7 +249,7 @@ const mapStateToProps = (
   criteria: Criteria[];
 } => ({
   criteria: getCriteriaByJob(state, ownProps),
-  assessments: getAssessmentsByJob(state, ownProps.jobId),
+  assessments: getAssessmentsByJob(state, ownProps),
 });
 // @ts-ignore
 const AssessmentPlanTableContainer: React.FunctionComponent<

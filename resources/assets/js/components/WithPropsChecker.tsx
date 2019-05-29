@@ -28,6 +28,7 @@ export default function withPropsChecker<P>(
         .forEach(
           (key): void => {
             console.log(
+              WrappedComponent.name,
               "changed property:",
               key,
               "from",

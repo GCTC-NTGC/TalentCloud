@@ -9,7 +9,7 @@ import RatingGuideAssessment from "./RatingGuideAssessment";
 import RatingGuideClipboard from "./RatingGuideClipboard";
 import RatingGuideNarrativeAssessment from "./RatingGuideNarrativeAssessment";
 import { RootState } from "../../store/store";
-import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
+import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelectorComplex";
 
 interface RatingsGuideBuilderProps {
   assessments: Assessment[];
@@ -90,9 +90,9 @@ interface RatingGuideBuilderContainerProps {
 
 const mapStateToProps = (
   state: RootState,
-  { jobId }: RatingGuideBuilderContainerProps,
+  ownProps: RatingGuideBuilderContainerProps,
 ): { assessments: Assessment[] } => ({
-  assessments: getAssessmentsByJob(state, jobId),
+  assessments: getAssessmentsByJob(state, ownProps),
 });
 
 // @ts-ignore

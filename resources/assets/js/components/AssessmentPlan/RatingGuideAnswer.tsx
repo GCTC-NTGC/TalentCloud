@@ -28,10 +28,8 @@ import {
   getTempRatingGuideAnswerById,
   tempRatingGuideAnswerIsSaving,
 } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
-import {
-  getCriteriaById,
-  getCriteriaUnansweredForQuestion,
-} from "../../store/Job/jobSelector";
+import { getCriteriaById } from "../../store/Job/jobSelector";
+import { getCriteriaUnansweredForQuestion } from "../../store/Job/jobSelectorComplex";
 
 interface RatingGuideAnswerProps {
   answer: RatingGuideAnswerModel | null;
@@ -182,7 +180,7 @@ const getAvailableCriteria = (
   const availableCriteriaIds = availableCriteria.map(getId);
   const answerCriteria =
     answer.criterion_id !== null
-      ? getCriteriaById(state, answer.criterion_id)
+      ? getCriteriaById(state, { criterionId: answer.criterion_id })
       : null;
   // If this answer has a selected criteria, it should be considered available
   if (

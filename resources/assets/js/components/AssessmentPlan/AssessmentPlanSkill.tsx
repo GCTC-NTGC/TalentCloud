@@ -33,6 +33,7 @@ import {
   deleteAssessment,
 } from "../../store/Assessment/assessmentActions";
 import { getCriteriaById } from "../../store/Job/jobSelector";
+import withPropsChecker from "../WithPropsChecker";
 
 interface AssessmentPlanSkillProps {
   criterion: Criteria | null;
@@ -307,7 +308,7 @@ interface AssessmentPlanSkillContainerProps {
 
 const mapStateToProps = (
   state: RootState,
-  { criterionId }: AssessmentPlanSkillContainerProps,
+  ownProps: AssessmentPlanSkillContainerProps,
 ): {
   criterion: Criteria | null;
   assessments: Assessment[];
@@ -316,20 +317,28 @@ const mapStateToProps = (
   tempAssessments: TempAssessment[];
   tempAssessmentsSaving: { [id: number]: boolean };
 } => ({
-  criterion: getCriteriaById(state, criterionId),
-  assessments: getAssessmentsByCriterion(state, criterionId),
-  assessmentsEdited: assessmentsAreEditedByCriteria(state, criterionId),
-  assessmentsUpdating: assessmentsAreUpdatingByCriteria(state, criterionId),
-  tempAssessments: getTempAssessmentsByCriterion(state, criterionId),
-  tempAssessmentsSaving: tempAssessmentsAreSavingByCriterion(
-    state,
-    criterionId,
-  ),
+  criterion: getCriteriaById(state, ownProps),
+  assessments: getAssessmentsByCriterion(state, ownProps),
+  assessmentsEdited: assessmentsAreEditedByCriteria(state, ownProps),
+  assessmentsUpdating: assessmentsAreUpdatingByCriteria(state, ownProps),
+  tempAssessments: getTempAssessmentsByCriterion(state, ownProps),
+  tempAssessmentsSaving: tempAssessmentsAreSavingByCriterion(state, ownProps),
 });
 
-const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
+const mapDispatchToProps = (
+  dispatch: DispatchType,
+  ownProps: AssessmentPlanSkillContainerProps,
+): {
+  createAssessment: () => void;
+  editAssessment: (newAssessment: Assessment) => void;
+  updateAssessment: (newAssessment: Assessment) => void;
+  removeAssessment: (assessmentId: number) => void;
+  editTempAssessment: (newAssessment: TempAssessment) => void;
+  saveTempAssessment: (assessment: Assessment) => void;
+  removeTempAssessment: (id: number) => void;
+} => ({
   createAssessment: (): void => {
-    dispatch(createTempAssessment(ownProps.criterion.id, null));
+    dispatch(createTempAssessment(ownProps.criterionId, null));
   },
   editAssessment: (assessment: Assessment): void => {
     dispatch(editAssessmentAction(assessment));
