@@ -20,7 +20,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4>{{form_l10n.job_details}}</h4>
+        <h2>{{form_l10n.job_details}}</h2>
 
         {# Job Title #}
 
@@ -734,7 +734,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4> {{form_l10n.key_tasks}}</h4>
+        <h2> {{form_l10n.key_tasks}}</h2>
 
         {# Task List #}
 
@@ -779,7 +779,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4>{{form_l10n.skills_n_competencies}}</h4>
+        <h2>{{form_l10n.skills_n_competencies}}</h2>
 
         {# Education #}
 
@@ -856,7 +856,7 @@
 
                 {% set skillLevel = attribute(skill_levels, skillTypeKey) %}
 
-                <h5>{{ form_l10n.criteria_heading | replace({":criteria_type":criteriaKey|title}) | replace({":skill_type":skillTypeKey|title}) }}</h5>
+                <h3>{{ form_l10n.criteria_heading | replace({":criteria_type":criteriaKey|title}) | replace({":skill_type":skillTypeKey|title}) }}</h3>
 
                 <div
                     class="manager-jobs__skill-wrapper">
@@ -915,7 +915,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4>{{form_l10n.questions_for_applicant}}</h4>
+        <h2>{{form_l10n.questions_for_applicant}}</h2>
 
         {# Question List #}
 
