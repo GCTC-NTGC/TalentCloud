@@ -13,18 +13,20 @@ export interface UpdatingTextAreaState {
   updateDelay: number | null | undefined;
 }
 
-class UpdatingTextArea extends Component<UpdatingTextAreaProps, UpdatingTextAreaState> {
+class UpdatingTextArea extends Component<
+  UpdatingTextAreaProps,
+  UpdatingTextAreaState
+> {
   public constructor(props) {
     super(props);
 
     const { updateDelay } = this.props;
 
     if (updateDelay) {
+      const bounceDelay: number = updateDelay;
       this.state = {
-        updateDelay,
+        updateDelay: bounceDelay,
       };
-
-      const { updateDelay: bounceDelay } = this.state;
       // Lodash's debounce doesn't work properly if imported
       // by itself... something to do with how it handles 'this'
       this.triggerSave = _.debounce(this.triggerSave, bounceDelay);
