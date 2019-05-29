@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 export interface SelectOption<T extends string | number> {
   value: T;
@@ -8,35 +8,36 @@ export interface SelectOption<T extends string | number> {
 export interface SelectProps<T extends string | number> {
   htmlId: string;
   formName: string;
-  label: string;
-  selected: T | undefined;
+  label: string | ReactElement;
+  required: boolean;
+  selected: T | null;
   nullSelection: string | undefined;
   options: SelectOption<T>[];
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export default function Select<T extends string | number>(
-  props: SelectProps<T>
+  props: SelectProps<T>,
 ): React.ReactElement<SelectProps<T>> {
   const {
     htmlId,
     formName,
     label,
+    required,
     selected,
     nullSelection,
     options,
-    onChange
+    onChange,
   } = props;
 
   return (
-    <div className="form__input-wrapper--select">
-      <label className="form__label" htmlFor={htmlId}>
-        {label}
-      </label>
-      <div className="form__select-wrapper fas fa-chevron-down">
+    <div data-c-input="select">
+      <label htmlFor={htmlId}>{label}</label>
+      {required && <span>Required</span>}
+      <div>
+        <i className="fa fa-caret-down" />
         <select
           id={htmlId}
-          className="form__input"
           name={formName}
           value={selected || ""}
           onChange={e => onChange(e)}
@@ -53,6 +54,7 @@ export default function Select<T extends string | number>(
           ))}
         </select>
       </div>
+      <span>This input has an error.</span>
     </div>
   );
 }
