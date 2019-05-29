@@ -163,8 +163,8 @@ const getAnswer = (
   temp?: boolean,
 ): RatingGuideAnswerModel | null =>
   temp
-    ? getTempRatingGuideAnswerById(state, answerId)
-    : getRatingGuideAnswerById(state, answerId);
+    ? getTempRatingGuideAnswerById(state, { answerId })
+    : getRatingGuideAnswerById(state, { answerId });
 
 const getAvailableCriteria = (
   state: RootState,
@@ -218,7 +218,7 @@ const mapStateToProps = (
       getId,
       (criterion): Skill | null => getSkillById(state, criterion.skill_id),
     ),
-    isEdited: ratingGuideAnswerIsEdited(state, ownProps.answerId),
+    isEdited: ratingGuideAnswerIsEdited(state, ownProps),
     isUpdating: ownProps.temp
       ? tempRatingGuideAnswerIsSaving(state, ownProps.answerId)
       : ratingGuideAnswerIsUpdating(state, ownProps.answerId),

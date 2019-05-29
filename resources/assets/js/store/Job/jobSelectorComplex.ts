@@ -133,8 +133,10 @@ export const getCriteriaUnansweredForQuestion = createCachedSelector(
 
     // All the current answers to this question
     const questionAnswers = [
-      ...getRatingGuideAnswersByQuestion(state, question.id),
-      ...getTempRatingGuideAnswersByQuestion(state, question.id),
+      ...getRatingGuideAnswersByQuestion(state, { questionId: question.id }),
+      ...getTempRatingGuideAnswersByQuestion(state, {
+        questionId: question.id,
+      }),
     ];
 
     // The criteria already selected by an answer

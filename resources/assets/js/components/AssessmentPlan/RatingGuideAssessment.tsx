@@ -1,27 +1,23 @@
 import React, { ReactElement } from "react";
 import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
-import { Criteria, Skill } from "../../models/types";
 import { createTempRatingGuideQuestion } from "../../store/RatingGuideQuestion/ratingGuideQuestionActions";
 import {
   assessmentType,
   assessmentTypeDescription,
 } from "../../models/localizedConstants";
-import { CriteriaTypeId } from "../../models/lookupConstants";
-import { mapToObjectTrans, getId } from "../../helpers/queries";
 import { RootState } from "../../store/store";
-import { getSkillById } from "../../store/Skill/skillSelector";
 import { DispatchType } from "../../configureStore";
 import {
-  getRatingGuideQuestionsByAssessment,
   getTempRatingGuideQuestionsByAssessment,
+  getRatingGuideQuestionIdsByJobAndAssessmentType,
 } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
 import RatingGuideQuestionWithAnswers from "./RatingGuideQuestionWithAnswers";
 import RatingGuideMissing from "./RatingGuideMissing";
 
 interface RatingGuideAssessmentProps {
   /** The id of the job Job Poster this is part of */
-  jobId: number | null;
+  jobId: number;
   /** Display index of this ratings guide assessment compared to others on the page */
   assessmentIndex: number;
   /** The assessment tool used with this assessment question */
@@ -44,10 +40,7 @@ const RatingGuideAssessment: React.FunctionComponent<
   createQuestion,
   tempQuestionIds,
   intl,
-}): React.ReactElement | null => {
-  if (jobId === null) {
-    return null;
-  }
+}): React.ReactElement => {
   return (
     <div>
       <h4
@@ -111,7 +104,7 @@ const RatingGuideAssessment: React.FunctionComponent<
 interface RatingGuideAssessmentContainerProps {
   assessmentIndex: number;
   assessmentTypeId: number;
-  jobId: number | null;
+  jobId: number;
 }
 
 const mapStateToProps = (
@@ -120,27 +113,17 @@ const mapStateToProps = (
 ): {
   assessmentIndex: number;
   assessmentTypeId: number;
-  jobId: number | null;
+  jobId: number;
   questionIds: number[];
   tempQuestionIds: number[];
 } => ({
   assessmentIndex: ownProps.assessmentIndex,
   assessmentTypeId: ownProps.assessmentTypeId,
   jobId: ownProps.jobId,
-  questionIds: ownProps.jobId
-    ? getRatingGuideQuestionsByAssessment(
-        state,
-        ownProps.jobId,
-        ownProps.assessmentTypeId,
-      ).map(question => question.id)
-    : [],
-  tempQuestionIds: ownProps.jobId
-    ? getTempRatingGuideQuestionsByAssessment(
-        state,
-        ownProps.jobId,
-        ownProps.assessmentTypeId,
-      ).map(question => question.id)
-    : [],
+  questionIds: getRatingGuideQuestionIdsByJobAndAssessmentType(state, ownProps),
+  tempQuestionIds: getTempRatingGuideQuestionsByAssessment(state, ownProps).map(
+    question => question.id,
+  ),
 });
 
 const mapDispatchToProps = (

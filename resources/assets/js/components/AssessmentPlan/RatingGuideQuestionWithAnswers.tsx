@@ -104,13 +104,12 @@ const mapStateToProps = (
   allowMoreAnswers: boolean;
 } => {
   return {
-    answerIds: getRatingGuideAnswersByQuestion(state, ownProps.questionId).map(
+    answerIds: getRatingGuideAnswersByQuestion(state, ownProps).map(
       (answer): number => answer.id,
     ),
-    tempAnswerIds: getTempRatingGuideAnswersByQuestion(
-      state,
-      ownProps.questionId,
-    ).map((answer): number => answer.id),
+    tempAnswerIds: getTempRatingGuideAnswersByQuestion(state, ownProps).map(
+      (answer): number => answer.id,
+    ),
     allowMoreAnswers:
       getCriteriaUnansweredForQuestion(state, {
         questionId: ownProps.questionId,

@@ -325,8 +325,8 @@ const mapStateToProps = (
   assessments: getAssessmentsByJob(state, ownProps),
   criteria: getCriteriaByJob(state, ownProps),
   skills: getSkills(state),
-  ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps.jobId),
-  ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps.jobId),
+  ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps),
+  ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps),
 });
 // @ts-ignore
 const RatingGuideClipboardContainer: React.FunctionComponent<
