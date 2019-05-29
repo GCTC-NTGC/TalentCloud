@@ -30,12 +30,14 @@ const getAssessmentUpdatingState = (
   state: RootState,
 ): { [id: number]: number } => stateSlice(state).assessmentUpdates;
 
-const getCurrentAssessmentState = (
-  state: RootState,
-): { [id: number]: Assessment } => ({
-  ...getCanonAssessmentState(state),
-  ...getEditedAssessmentState(state),
-});
+const getCurrentAssessmentState = createSelector(
+  getCanonAssessmentState,
+  getEditedAssessmentState,
+  (canon, edited): { [id: number]: Assessment } => ({
+    ...canon,
+    ...edited,
+  }),
+);
 
 /**
  * Returns current verisons of all assessments.
