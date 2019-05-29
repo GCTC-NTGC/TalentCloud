@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {
-  getJob,
-  getCriteria,
-  getCriteriaUnansweredForQuestion,
-} from "./jobSelector";
+import { getJob, getCriteria } from "./jobSelector";
+import { getCriteriaUnansweredForQuestion } from "./jobSelectorComplex";
 import { RootState, initState } from "../store";
 import { initState as initJobs, initEntities } from "./jobReducer";
 import {
@@ -84,7 +81,7 @@ describe("getJob", (): void => {
         },
       },
     };
-    expect(getJob(state, 12)).toEqual(job);
+    expect(getJob(state, { jobId: 12 })).toEqual(job);
   });
 });
 
@@ -188,8 +185,8 @@ describe("getCriteriaUnansweredForQuestion", (): void => {
       },
     };
     const expectedCriteria = [crit1, crit3];
-    expect(getCriteriaUnansweredForQuestion(store, question.id)).toEqual(
-      expectedCriteria,
-    );
+    expect(
+      getCriteriaUnansweredForQuestion(store, { questionId: question.id, isTempQuestion: false }),
+    ).toEqual(expectedCriteria);
   });
 });
