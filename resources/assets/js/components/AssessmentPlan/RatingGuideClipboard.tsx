@@ -175,17 +175,17 @@ export const clipboardData = (
     } else if (a.title < b.title) {
       num = -1;
     } else {
-      if (a.question === null || b.question === null) {
-        num = 0;
-      } else if (a.question > b.question) {
+      if (a.criteriaTypeName > b.criteriaTypeName) {
+        num = -1; // Essential should be listed before Asset
+      } else if (a.criteriaTypeName < b.criteriaTypeName) {
         num = 1;
-      } else if (a.question < b.question) {
-        num = -1;
       } else {
-        if (a.criteriaTypeName > b.criteriaTypeName) {
-          num = -1; // Essential should be listed before Asset
-        } else if (a.criteriaTypeName < b.criteriaTypeName) {
+        if (a.question === null || b.question === null) {
+          num = 0;
+        } else if (a.question > b.question) {
           num = 1;
+        } else if (a.question < b.question) {
+          num = -1;
         }
       }
     }
