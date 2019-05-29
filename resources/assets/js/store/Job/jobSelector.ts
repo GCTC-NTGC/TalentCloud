@@ -50,6 +50,22 @@ export const getCriteriaByJob = createCachedSelector(
     criteria.filter((criterion): boolean => criterion.job_poster_id === jobId),
 )((state, ownProps): number => ownProps.jobId);
 
+export const getCriteriaOfTypeByJob = createCachedSelector(
+  getCriteriaByJob,
+  (state: RootState, props: { criteriaTypeId: number }): number =>
+    props.criteriaTypeId,
+  (criteria, criteriaTypeId): Criteria[] =>
+    criteria.filter(
+      (criterion: Criteria): boolean =>
+        criterion.criteria_type_id === criteriaTypeId,
+    ),
+)((state, props): string => `${props.jobId}:${props.criteriaTypeId}`);
+
+export const getCriteriaIdsOfTypeByJob = createCachedSelector(
+  getCriteriaOfTypeByJob,
+  (criteria): number[] => criteria.map(getId),
+)((state, props): string => `${props.jobId}:${props.criteriaTypeId}`);
+
 export const getCriteriaIdsByJob = createCachedSelector(
   getCriteriaByJob,
   (criteria): number[] => criteria.map(getId),

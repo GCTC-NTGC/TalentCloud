@@ -3,10 +3,8 @@ import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import AssessmentPlanSkill from "./AssessmentPlanSkill";
 import { RootState } from "../../store/store";
-import { getCriteriaByJob } from "../../store/Job/jobSelector";
-import { Criteria } from "../../models/types";
+import { getCriteriaIdsOfTypeByJob } from "../../store/Job/jobSelector";
 import { CriteriaTypeId } from "../../models/lookupConstants";
-import { getId } from "../../helpers/queries";
 
 interface AssessmentPlanBuilderProps {
   essentialCriteriaIds: number[];
@@ -125,20 +123,15 @@ const mapStateToProps = (
   essentialCriteriaIds: number[];
   assetCriteriaIds: number[];
 } => {
-  const criteria = getCriteriaByJob(state, { jobId });
-  const assetCriteria = criteria.filter(
-    (criterion: Criteria): boolean =>
-      criterion.criteria_type_id === CriteriaTypeId.Asset,
-  );
-  const essentialCriteria = criteria.filter(
-    (criterion: Criteria): boolean =>
-      criterion.criteria_type_id === CriteriaTypeId.Essential,
-  );
-  const assetCriteriaIds = assetCriteria.map(getId);
-  const essentialCriteriaIds = essentialCriteria.map(getId);
   return {
-    essentialCriteriaIds,
-    assetCriteriaIds,
+    essentialCriteriaIds: getCriteriaIdsOfTypeByJob(state, {
+      jobId,
+      criteriaTypeId: CriteriaTypeId.Essential,
+    }),
+    assetCriteriaIds: getCriteriaIdsOfTypeByJob(state, {
+      jobId,
+      criteriaTypeId: CriteriaTypeId.Asset,
+    }),
   };
 };
 
