@@ -1,0 +1,42 @@
+[
+  {
+    "id": "assessmentPlan.alert.checking",
+    "description": "Alert title while notifications are still being loaded.",
+    "defaultMessage": "Checking if Job changed recently..."
+  },
+  {
+    "id": "assessmentPlan.alert.title",
+    "description": "Title for the alert for changes to this job's criteria.",
+    "defaultMessage": "This job changed recently!"
+  },
+  {
+    "id": "assessmentPlan.alert.explanation",
+    "description": "Explanation that the screening plan may have changed.",
+    "defaultMessage": "Parts of the Screening Plan have been changed to match."
+  },
+  {
+    "id": "assessmentPlan.alert.created",
+    "description": "Description of the new criteria that have been added to this job.",
+    "defaultMessage": "{skills} {count, plural, one {was} other {were}} added."
+  },
+  {
+    "id": "assessmentPlan.alert.skillLevelUpdated",
+    "description": "Description of the criteria that had their level changed.",
+    "defaultMessage": "{skills} {count, plural, one {was} other {were}} updated."
+  },
+  {
+    "id": "assessmentPlan.alert.skillUpdated",
+    "description": "Description of a criterion which was changed from one skill to another.",
+    "defaultMessage": "{oldSkill} was changed to {newSkill}."
+  },
+  {
+    "id": "assessmentPlan.alert.skillAndLevelUpdated",
+    "description": "Description of a criterion which was changed from one skill to another and had its level changed.",
+    "defaultMessage": "{oldSkill} was changed to {newSkill} and was updated."
+  },
+  {
+    "id": "assessmentPlan.alert.deleted",
+    "description": "Description of criteria which were removed from the job.",
+    "defaultMessage": "{skills} {count, plural, one {was} other {were}} removed."
+  }
+]

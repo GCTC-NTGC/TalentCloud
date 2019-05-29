@@ -65,38 +65,43 @@
             gtag('config', 'UA-115747902-1');
         </script>
 
-    <!-- Google Tag Manager -->
-
+    <!-- Google Tag Manager
         <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-MW8P8KB');</script>
+    -->
 
 {# Modernizr #}
 
     <script
+        async defer
+        type="text/javascript"
         src="{{ mix('/js/modernizr.js') }}">
     </script>
 
 {# jQuery & UI #}
 
     <script
-        src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        type="text/javascript"
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
         crossorigin="anonymous">
     </script>
 
     <script
+        type="text/javascript"
         src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        integrity="sha384-Dziy8F2VlJQLMShA6FHWNul/veM9bCkRUaLqr199K94ntO5QUrLJBEbYegdSkkqX"
         crossorigin="anonymous">
     </script>
 
 {# Clone JS #}
 
-    {# Temporarily removed clone js. It is interfering with SkillsInfoModal component.  #}
     <script
+        async
+        type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/clone-framework@2.2.6/dist/js/clone.min.js"
         integrity="sha384-4jLdQeaO86/Hidy14QFni2Jky1QEWGCrdC5YuOG3hHYefRFDUF1CSatTUOlcajv4"
         crossorigin="anonymous">

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ScreeningPlanController;
+use Illuminate\Support\Facades\Lang;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,9 +117,9 @@ Route::group(
                     ->name('profile.experience.update');
 
                 /* Profile - My Skills */
-                Route::get('profile/skills', 'SkillsController@editAuthenticated');
+                Route::get('profile/skills', 'SkillDeclarationController@editAuthenticated');
 
-                Route::get('profile/{applicant}/skills', 'SkillsController@edit')
+                Route::get('profile/{applicant}/skills', 'SkillDeclarationController@edit')
                     ->middleware('can:view,applicant')
                     ->middleware('can:update,applicant')
                     ->name('profile.skills.edit');
@@ -248,13 +248,14 @@ Route::group(
                     ->where('jobPoster', '[0-9]+')
                     ->middleware('can:update,jobPoster')
                     ->name('manager.jobs.review');
-            });
 
-            Route::get('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@createForJob')
+                Route::view(
+                    'jobs/{jobPoster}/assessment-plan',
+                    'common/redux',
+                    ['title' => Lang::get('manager/screening-plan')['title']]
+                )->where('jobPoster', '[0-9]+')
                 ->name('manager.jobs.screening_plan');
-
-            Route::post('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@store')
-                ->name('manager.jobs.screening_plan.store');
+            });
 
             //Laravel default login, logout, register, and reset routes
             Route::get('login', 'Auth\LoginController@showLoginForm')->name('manager.login');
@@ -289,15 +290,15 @@ Route::group(
                 ->middleware('can:delete,workExperience')
                 ->name('work_experiences.destroy');
 
-            Route::post('skill-declarations', 'SkillsController@create')
+            Route::post('skill-declarations', 'SkillDeclarationController@create')
                 ->middleware('can:create,App\Models\SkillDeclaration')
                 ->name('skill_declarations.create');
 
-            Route::put('skill-declarations/{skillDeclaration}', 'SkillsController@update')
+            Route::put('skill-declarations/{skillDeclaration}', 'SkillDeclarationController@update')
                 ->middleware('can:update,skillDeclaration')
                 ->name('skill_declarations.update');
 
-            Route::delete('skill-declarations/{skillDeclaration}', 'SkillsController@destroy')
+            Route::delete('skill-declarations/{skillDeclaration}', 'SkillDeclarationController@destroy')
                 ->middleware('can:delete,skillDeclaration')
                 ->name('skill_declarations.destroy');
 
@@ -332,12 +333,6 @@ Route::group(
             Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
                 ->middleware('can:review,application')
                 ->name('application_reviews.update');
-
-            Route::delete('screening-plans/{screeningPlan}', 'ScreeningPlanController@destroy')
-                ->middleware('role:manager')
-                ->middleware('can:delete,screeningPlan')
-                //TODO: add can:delete middleware for screening plan
-                ->name('screening_plans.destroy');
         });
 
         /* Language ============================================================= */
@@ -363,3 +358,29 @@ Route::group(
             ->name('admin.jobs.create.as_manager');
     }
 );
+
+/** API routes - currently using same default http auth, but not localized */
+Route::group(['prefix' => 'api'], function (): void {
+    Route::get("jobs/{jobPoster}", "JobController@get")
+        ->middleware('can:view,jobPoster');
+
+        // Protected by a gate in the controller, instead of policy middleware
+    Route::get("jobs/{jobPoster}/assessment-plan", "AssessmentPlanController@getForJob");
+
+    // Public, not protected by policy or gate
+    Route::get("skills", "SkillController@index");
+
+    // Resource Routes are protected by policies in controllers instead of middleware.
+    Route::resource('assessments', 'AssessmentController')->except([
+        'create', 'edit', 'index'
+    ]);
+    Route::resource('rating-guide-answers', 'RatingGuideAnswerController')->except([
+        'create', 'edit', 'index'
+    ]);
+    Route::resource('rating-guide-questions', 'RatingGuideQuestionController')->except([
+        'create', 'edit', 'index'
+    ]);
+    Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
+        'store', 'create', 'edit'
+    ]);
+});

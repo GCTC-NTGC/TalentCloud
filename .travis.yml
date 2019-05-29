@@ -15,7 +15,8 @@ cache:
     - $HOME/.npm
 
 addons:
-  chrome: stable # required for lightcrawler
+  # required for lightcrawler
+  # chrome: stable
   hosts:
     - talent.test
 
@@ -34,16 +35,16 @@ install:
   - cp .env.travis .env
   # dependencies
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-  - travis_retry npm ci
+  - travis_retry npm install
 
 
 before_script:
   # docker login (for tagging/pushing images to our hub repo)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   # setup headless browser for tests
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+  # google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   # start web server port 8000
-  - php artisan serve &
+  # php artisan serve &
 
 script:
   # build application / database containers
