@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import _ from "lodash";
+// Lodash's debounce doesn't work properly if imported
+// by itself... something to do with how it handles 'this'
 import Input, { InputProps } from "./Input";
 
 export interface UpdatingInputProps extends InputProps {
