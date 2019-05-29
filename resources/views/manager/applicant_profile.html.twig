@@ -32,7 +32,7 @@
 	    	<div
 	    		class="container--copy">
 
-	    		<h3>{{ profile.content.whose_profile | replace({":name":applicant.user.name}) }}</h3>
+	    		<h2>{{ profile.content.whose_profile | replace({":name":applicant.user.name}) }}</h2>
 
 	    		{# {{ applicant }} #}
 
@@ -46,7 +46,7 @@
 
 						<div class="question">
 
-							<h4>{{ question.applicant_profile_question.question }}</h4>
+							<h3>{{ question.applicant_profile_question.question }}</h3>
 
 							<p>{{ question.applicant_profile_question.description }}</p>
 
