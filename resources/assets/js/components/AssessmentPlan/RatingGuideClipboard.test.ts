@@ -243,6 +243,7 @@ const expectedOutput: ClipboardTableRowProps[] = [
     skillLevel: "Moderately in Evidence",
     criteriaTypeName: "Asset",
     skillName: "English hacking",
+    skillDescription: "English manipulator of technology",
     modelAnswer:
       "The second answer will make complete sense once you know the question.",
   },
@@ -254,6 +255,7 @@ const expectedOutput: ClipboardTableRowProps[] = [
     skillLevel: "Deep Level Demonstration",
     criteriaTypeName: "Essential",
     skillName: "English joker",
+    skillDescription: "English teller of jokes",
     modelAnswer:
       "The fourth answer will make complete sense once you know the question.",
   },
@@ -265,6 +267,7 @@ const expectedOutput: ClipboardTableRowProps[] = [
     skillLevel: "Advanced",
     criteriaTypeName: "Essential",
     skillName: "English ninja",
+    skillDescription: "English silent and stealthy",
     modelAnswer:
       "The third answer will make complete sense once you know the question.",
   },
@@ -276,6 +279,7 @@ const expectedOutput: ClipboardTableRowProps[] = [
     skillLevel: "Beginner",
     criteriaTypeName: "Essential",
     skillName: "English jedi",
+    skillDescription: "English Laser Sword User",
     modelAnswer:
       "The first answer will make complete sense once you know the question.",
   },
@@ -299,6 +303,20 @@ describe("ClipboardData", (): void => {
     );
     expect(defaultClipboardData[3].skillName).toEqual(
       expectedOutput[3].skillName,
+    );
+  });
+  it("returns the associated localized skill description for each criteria", (): void => {
+    expect(defaultClipboardData[0].skillDescription).toEqual(
+      expectedOutput[0].skillDescription,
+    );
+    expect(defaultClipboardData[1].skillDescription).toEqual(
+      expectedOutput[1].skillDescription,
+    );
+    expect(defaultClipboardData[2].skillDescription).toEqual(
+      expectedOutput[2].skillDescription,
+    );
+    expect(defaultClipboardData[3].skillDescription).toEqual(
+      expectedOutput[3].skillDescription,
     );
   });
   it("returns the associated answer description for each criteria", (): void => {
