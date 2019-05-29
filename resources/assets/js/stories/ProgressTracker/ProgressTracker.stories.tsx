@@ -24,8 +24,8 @@ stories.add(
   (): React.ReactElement => (
     <ProgressTracker
       items={items}
-      backgroundColor="black"
-      fontColor="white"
+      backgroundColor={text("Background Color", "black")}
+      fontColor={text("Font Color", "white")}
       classNames="manager-jpb-tracker"
       itemsWrapperClassNames="tracker manager-jpb-tracker-wrapper"
     />

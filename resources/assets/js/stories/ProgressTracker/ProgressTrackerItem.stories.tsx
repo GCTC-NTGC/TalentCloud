@@ -6,21 +6,34 @@ import { action } from "@storybook/addon-actions";
 import ProgressTrackerItem from "../../components/ProgressTracker/ProgressTrackerItem";
 import ProgressTracker from "../../components/ProgressTracker/ProgressTracker";
 
+const ProgressTrackerWrapper = (
+  children: React.ReactElement,
+): React.ReactElement => {
+  return (
+    <ProgressTracker
+      backgroundColor={text("Background Color", "white")}
+      itemsWrapperClassNames="tracker"
+    >
+      {children}
+    </ProgressTracker>
+  );
+};
+
 const stories = storiesOf("ProgressTracker", module)
   .addDecorator(withInfo)
   .addDecorator(withKnobs);
 
 stories.add(
   "Active",
-  (): React.ReactElement => (
-    <ProgressTracker backgroundColor="white" itemsWrapperClassNames="tracker">
+  (): React.ReactElement =>
+    ProgressTrackerWrapper(
       <ProgressTrackerItem
         state={text("State", "active")}
         label={text("Label", "Step 01")}
         title={text("Title", "Job Info")}
-      />
-    </ProgressTracker>
-  ),
+        fontColor={text("Font Color", "black")}
+      />,
+    ),
   {
     info: { inline: true },
   },
@@ -28,15 +41,15 @@ stories.add(
 
 stories.add(
   "Complete",
-  (): React.ReactElement => (
-    <ProgressTracker backgroundColor="white" itemsWrapperClassNames="tracker">
+  (): React.ReactElement =>
+    ProgressTrackerWrapper(
       <ProgressTrackerItem
         state={text("State", "complete")}
         label={text("Label", "Step 02")}
         title={text("Title", "Work Env.")}
-      />
-    </ProgressTracker>
-  ),
+        fontColor={text("Font Color", "black")}
+      />,
+    ),
   {
     info: { inline: true },
   },
@@ -44,15 +57,15 @@ stories.add(
 
 stories.add(
   "Error",
-  (): React.ReactElement => (
-    <ProgressTracker backgroundColor="white" itemsWrapperClassNames="tracker">
+  (): React.ReactElement =>
+    ProgressTrackerWrapper(
       <ProgressTrackerItem
         state={text("State", "error")}
         label={text("Label", "Step 03")}
-        title={text("Title", "Impact")}
-      />
-    </ProgressTracker>
-  ),
+        title={text("Title", "impact")}
+        fontColor={text("Font Color", "black")}
+      />,
+    ),
   {
     info: { inline: true },
   },
@@ -60,15 +73,15 @@ stories.add(
 
 stories.add(
   "Null",
-  (): React.ReactElement => (
-    <ProgressTracker backgroundColor="white" itemsWrapperClassNames="tracker">
+  (): React.ReactElement =>
+    ProgressTrackerWrapper(
       <ProgressTrackerItem
         state={text("State", "null")}
         label={text("Label", "Step 04")}
         title={text("Title", "Tasks")}
-      />
-    </ProgressTracker>
-  ),
+        fontColor={text("Font Color", "black")}
+      />,
+    ),
   {
     info: { inline: true },
   },
