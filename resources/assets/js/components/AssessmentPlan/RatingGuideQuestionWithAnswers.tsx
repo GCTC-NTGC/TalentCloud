@@ -107,6 +107,11 @@ const allowMoreAnswers = (
   state: RootState,
   ownProps: RatingGuideQuestionWithAnswersContainerProps,
 ): boolean => {
+  // Require questions to save before adding answers
+  if (ownProps.temp) {
+    return false;
+  }
+
   const answerIds = getRatingGuideAnswerIdsByQuestion(state, ownProps);
   const tempAnswerIds = getTempRatingGuideAnswerIdsByQuestion(state, ownProps);
   const allAnswerIds = answerIds.concat(tempAnswerIds);

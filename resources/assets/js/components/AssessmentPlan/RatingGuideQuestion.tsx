@@ -9,6 +9,7 @@ import {
   ratingGuideQuestionIsUpdating,
   getTempRatingGuideQuestionById,
   getCurrentRatingGuideQuestionById,
+  tempRatingGuideQuestionIsSaving,
 } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
 import {
   editRatingGuideQuestion,
@@ -121,10 +122,9 @@ const mapStateToProps = (
     ? getTempRatingGuideQuestionById(state, ownProps.ratingGuideQuestionId)
     : getCurrentRatingGuideQuestionById(state, ownProps.ratingGuideQuestionId),
   isEdited: ratingGuideQuestionIsEdited(state, ownProps.ratingGuideQuestionId),
-  isUpdating: ratingGuideQuestionIsUpdating(
-    state,
-    ownProps.ratingGuideQuestionId,
-  ),
+  isUpdating: ownProps.temp
+    ? tempRatingGuideQuestionIsSaving(state, ownProps.ratingGuideQuestionId)
+    : ratingGuideQuestionIsUpdating(state, ownProps.ratingGuideQuestionId),
 });
 
 const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
