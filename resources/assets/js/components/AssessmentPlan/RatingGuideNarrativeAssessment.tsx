@@ -9,20 +9,21 @@ import {
   skillLevelName,
   narrativeReviewStandardAnswer,
 } from "../../models/localizedConstants";
-import { AssessmentTypeId } from "../../models/lookupConstants";
+import { AssessmentTypeId, SkillTypeId } from "../../models/lookupConstants";
 import { RootState } from "../../store/store";
-import { getCriteriaByJobAndAssessmentType } from "../../store/Job/jobSelectorComplex";
-import { getCriteriaToSkills } from "../../store/Skill/skillSelector";
-import { getId } from "../../helpers/queries";
+import {
+  getCriteriaByJobAndAssessmentType,
+  getCriteriaToSkills,
+} from "../../store/Job/jobSelectorComplex";
 
 interface RatingGuideNarrativeAssessmentProps {
   /** The id of the job Job Poster this is part of */
-  jobId: number | null;
+  jobId: number;
   /** Display index of this ratings guide assessment compared to others on the page */
   assessmentIndex: number;
   assessedCriteria: Criteria[];
   /** A map of criteria to their associated skills */
-  criteriaToSkill: { [criteriaId: number]: Skill };
+  criteriaToSkill: { [criteriaId: number]: Skill | null };
 }
 
 export const RatingGuideNarrativeAssessment: React.FunctionComponent<
@@ -37,6 +38,14 @@ export const RatingGuideNarrativeAssessment: React.FunctionComponent<
   if (jobId === null) {
     return null;
   }
+  const getCriteriaSkillType = (criterionId: number): number => {
+    const skill = criteriaToSkill[criterionId];
+    return skill ? skill.skill_type_id : SkillTypeId.Hard; // return hard type by default
+  };
+  const getCriteriaSkillName = (criterionId: number): string => {
+    const skill = criteriaToSkill[criterionId];
+    return skill ? skill[intl.locale].name : "";
+  };
   return (
     <div>
       <h4
@@ -97,7 +106,7 @@ export const RatingGuideNarrativeAssessment: React.FunctionComponent<
               skillLevel = intl.formatMessage(
                 skillLevelName(
                   criterion.skill_level_id,
-                  criteriaToSkill[criterion.id].skill_type_id,
+                  getCriteriaSkillType(criterion.id),
                 ),
               );
             }
@@ -115,8 +124,7 @@ export const RatingGuideNarrativeAssessment: React.FunctionComponent<
                         defaultMessage="{skillName} - {skillLevel}"
                         description="How each criteria is listed in Rating Guide Builder."
                         values={{
-                          skillName:
-                            criteriaToSkill[criterion.id][intl.locale].name,
+                          skillName: getCriteriaSkillName(criterion.id),
                           skillLevel,
                         }}
                       />
@@ -136,7 +144,7 @@ export const RatingGuideNarrativeAssessment: React.FunctionComponent<
 };
 
 interface RatingGuideNarrativeAssessmentContainerProps {
-  jobId: number | null;
+  jobId: number;
   assessmentIndex: number;
 }
 
@@ -145,18 +153,18 @@ const mapStateToProps = (
   ownProps: RatingGuideNarrativeAssessmentContainerProps,
 ): {
   assessedCriteria: Criteria[];
-  criteriaToSkill: { [criteriaId: number]: Skill };
+  criteriaToSkill: { [criteriaId: number]: Skill | null };
 } => {
-  const narrativeCriteria: Criteria[] =
-    ownProps.jobId !== null
-      ? getCriteriaByJobAndAssessmentType(state, {
-          jobId: ownProps.jobId,
-          assessmentTypeId: AssessmentTypeId.NarrativeAssessment,
-        })
-      : [];
+  const narrativeCriteria: Criteria[] = getCriteriaByJobAndAssessmentType(
+    state,
+    {
+      jobId: ownProps.jobId,
+      assessmentTypeId: AssessmentTypeId.NarrativeAssessment,
+    },
+  );
   return {
     assessedCriteria: narrativeCriteria,
-    criteriaToSkill: getCriteriaToSkills(state, narrativeCriteria.map(getId)),
+    criteriaToSkill: getCriteriaToSkills(state),
   };
 };
 

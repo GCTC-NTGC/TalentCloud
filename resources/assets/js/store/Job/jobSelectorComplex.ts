@@ -1,9 +1,11 @@
 import createCachedSelector from "re-reselect";
 import { uniq, difference, intersection } from "lodash";
+import { createSelector } from "reselect";
 import {
   getCriteriaById,
   getCriteriaIdsByJob,
   getCriteriaState,
+  getCriteria,
 } from "./jobSelector";
 import {
   getRatingGuideAnswersByAssessment,
@@ -14,6 +16,7 @@ import {
   RatingGuideAnswer,
   RatingGuideQuestion,
   Criteria,
+  Skill,
 } from "../../models/types";
 import { RootState } from "../store";
 import {
@@ -24,7 +27,13 @@ import {
   getCurrentAssessments,
   getAssessmentsByType,
 } from "../Assessment/assessmentSelector";
-import { hasKey, notEmpty } from "../../helpers/queries";
+import {
+  hasKey,
+  notEmpty,
+  mapToObjectTrans,
+  getId,
+} from "../../helpers/queries";
+import { getSkillState } from "../Skill/skillSelector";
 
 /**
  * This file is for defining selectors that depend on selectors in other modules,
@@ -174,4 +183,16 @@ export const getCriteriaUnansweredForAssessmentType = createCachedSelector(
 )(
   (state, props): string =>
     `${props.assessmentTypeId} ${props.assessmentTypeId}`,
+);
+
+export const getCriteriaToSkills = createSelector(
+  getSkillState,
+  getCriteria,
+  (skills, criteria): { [criteriaId: number]: Skill | null } =>
+    mapToObjectTrans(
+      criteria,
+      getId,
+      (criterion): Skill | null =>
+        hasKey(skills, criterion.skill_id) ? skills[criterion.skill_id] : null,
+    ),
 );
