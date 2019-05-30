@@ -4,21 +4,47 @@ import { FormattedMessage, InjectedIntlProps, injectIntl } from "react-intl";
 import { Skill, Criteria } from "../../models/types";
 import { CriteriaTypeId } from "../../models/lookupConstants";
 import { RootState } from "../../store/store";
-import { getCriteriaUnansweredForAssessmentType } from "../../store/Job/jobSelectorComplex";
-import { getSkillById } from "../../store/Skill/skillSelector";
+import {
+  getCriteriaUnansweredForAssessmentType,
+  getCriteriaToSkills,
+} from "../../store/Job/jobSelectorComplex";
+import { notEmpty } from "../../helpers/queries";
 
 interface RatingGuideMissingProps {
-  missingEssentialSkills: Skill[];
-  missingAssetSkills: Skill[];
+  missingCriteria: Criteria[];
+  criteriaToSkills: { [criteriaId: number]: Skill | null };
 }
 
 export const RatingGuideMissing: React.FunctionComponent<
   RatingGuideMissingProps & InjectedIntlProps
 > = ({
-  missingEssentialSkills,
-  missingAssetSkills,
+  missingCriteria,
+  criteriaToSkills,
   intl,
 }): React.ReactElement | null => {
+  const getSkillsForCriteria: (criteria: Criteria[]) => Skill[] = (
+    criteria,
+  ): Skill[] =>
+    criteria
+      .map(
+        (criterion: Criteria): Skill | null => criteriaToSkills[criterion.id],
+      )
+      .filter(notEmpty);
+
+  const missingEssentialCriteria = missingCriteria.filter(
+    (criterion): boolean =>
+      criterion.criteria_type_id === CriteriaTypeId.Essential,
+  );
+  const missingAssetCriteria = missingCriteria.filter(
+    (criterion): boolean => criterion.criteria_type_id === CriteriaTypeId.Asset,
+  );
+  const missingEssentialSkills: Skill[] = getSkillsForCriteria(
+    missingEssentialCriteria,
+  );
+  const missingAssetSkills: Skill[] = getSkillsForCriteria(
+    missingAssetCriteria,
+  );
+
   if (missingEssentialSkills.length === 0 && missingAssetSkills.length === 0) {
     return null;
   }
@@ -69,36 +95,12 @@ const mapStateToProps = (
   state: RootState,
   ownProps: RatingGuideMissingContainerProps,
 ): {
-  missingEssentialSkills: Skill[];
-  missingAssetSkills: Skill[];
+  missingCriteria: Criteria[];
+  criteriaToSkills: { [criteriaId: number]: Skill | null };
 } => {
-  const criteriaToSkills: (criteria: Criteria[]) => Skill[] = (
-    criteria,
-  ): Skill[] =>
-    criteria
-      .map(
-        (criterion: Criteria): Skill | null =>
-          getSkillById(state, criterion.skill_id),
-      )
-      .filter((skill): boolean => skill !== null) as Skill[];
-  const missingCriteria = getCriteriaUnansweredForAssessmentType(
-    state,
-    ownProps,
-  );
-  const missingEssentialCriteria = missingCriteria.filter(
-    (criterion): boolean =>
-      criterion.criteria_type_id === CriteriaTypeId.Essential,
-  );
-  const missingAssetCriteria = missingCriteria.filter(
-    (criterion): boolean => criterion.criteria_type_id === CriteriaTypeId.Asset,
-  );
-  const missingEssentialSkills: Skill[] = criteriaToSkills(
-    missingEssentialCriteria,
-  );
-  const missingAssetSkills: Skill[] = criteriaToSkills(missingAssetCriteria);
   return {
-    missingEssentialSkills,
-    missingAssetSkills,
+    missingCriteria: getCriteriaUnansweredForAssessmentType(state, ownProps),
+    criteriaToSkills: getCriteriaToSkills(state),
   };
 };
 

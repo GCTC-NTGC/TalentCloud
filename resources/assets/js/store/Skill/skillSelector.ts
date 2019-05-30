@@ -1,11 +1,10 @@
 import { createSelector } from "reselect";
-import { Skill, Criteria } from "../../models/types";
+import { Skill } from "../../models/types";
 import { RootState } from "../store";
 import { hasKey } from "../../helpers/queries";
-import { getCriteriaById } from "../Job/jobSelector";
 
 export const getSkillState = (state: RootState): { [id: number]: Skill } =>
-  state.skill.entities.skills;
+  state.skill.entities.skills.byId;
 
 export const getSkills = createSelector(
   getSkillState,

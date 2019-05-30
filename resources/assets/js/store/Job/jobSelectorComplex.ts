@@ -188,11 +188,13 @@ export const getCriteriaUnansweredForAssessmentType = createCachedSelector(
 export const getCriteriaToSkills = createSelector(
   getSkillState,
   getCriteria,
-  (skills, criteria): { [criteriaId: number]: Skill | null } =>
+  (skillState, criteria): { [criteriaId: number]: Skill | null } =>
     mapToObjectTrans(
       criteria,
       getId,
       (criterion): Skill | null =>
-        hasKey(skills, criterion.skill_id) ? skills[criterion.skill_id] : null,
+        hasKey(skillState, criterion.skill_id)
+          ? skillState[criterion.skill_id]
+          : null,
     ),
 );
