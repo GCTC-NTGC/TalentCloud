@@ -1,4 +1,4 @@
-import isEqual from "lodash/isEqual";
+import { isEqual } from "lodash";
 import { createSelector } from "reselect";
 import createCachedSelector from "re-reselect";
 import { RootState } from "../store";
@@ -74,6 +74,11 @@ export const getAssessmentsByCriterion = createCachedSelector(
     ),
 )((state, props): number => props.criterionId);
 
+export const getAssessmentIdsByCriterion = createCachedSelector(
+  getAssessmentsByCriterion,
+  (assessments): number[] => assessments.map(getId),
+)((state, props): number => props.criterionId);
+
 export const getTempAssessmentsByCriterion = createCachedSelector(
   getTempAssessments,
   (state: RootState, props: { criterionId: number }): number =>
@@ -84,20 +89,25 @@ export const getTempAssessmentsByCriterion = createCachedSelector(
     ),
 )((state, props): number => props.criterionId);
 
+export const getTempAssessmentIdsByCriterion = createCachedSelector(
+  getTempAssessmentsByCriterion,
+  (assessments): number[] => assessments.map(getId),
+)((state, props): number => props.criterionId);
+
 export const tempAssessmentIsSaving = (state: RootState, id: number): boolean =>
   hasKey(stateSlice(state).tempAssessmentSaving, id)
     ? stateSlice(state).tempAssessmentSaving[id]
     : false;
 
 export const tempAssessmentsAreSavingByCriterion = createCachedSelector(
-  (state: RootState): RootState => state,
-  getTempAssessmentsByCriterion,
-  getTempSavingState, // Here because if saving state changes, we need to recompute
-  (state, assessments): { [id: number]: boolean } =>
+  getTempAssessmentIdsByCriterion,
+  getTempSavingState,
+  (assessmentIds, savingState): { [id: number]: boolean } =>
     mapToObjectTrans(
-      assessments,
-      getId,
-      (assessment): boolean => tempAssessmentIsSaving(state, assessment.id),
+      assessmentIds,
+      (id): number => id,
+      (assessmentId): boolean =>
+        hasKey(savingState, assessmentId) ? savingState[assessmentId] : false,
     ),
 )((state, props): number => props.criterionId);
 
@@ -146,15 +156,24 @@ export const assessmentIsEdited = createCachedSelector(
 )((state, props): number => props.assessmentId);
 
 export const assessmentsAreEditedByCriteria = createCachedSelector(
-  (state): RootState => state,
-  getAssessmentsByCriterion,
-  (state, assessments): { [id: number]: boolean } =>
-    mapToObjectTrans(
-      assessments,
-      getId,
-      (assessment): boolean =>
-        assessmentIsEdited(state, { assessmentId: assessment.id }),
-    ),
+  getAssessmentIdsByCriterion,
+  getCanonAssessmentState,
+  getEditedAssessmentState,
+  (assessmentIds, canonState, editedState): { [id: number]: boolean } => {
+    return mapToObjectTrans(
+      assessmentIds,
+      (id): number => id,
+      (assessmentId): boolean => {
+        const canon = hasKey(canonState, assessmentId)
+          ? canonState[assessmentId]
+          : null;
+        const edited = hasKey(editedState, assessmentId)
+          ? editedState[assessmentId]
+          : null;
+        return edited !== null && !isEqual(edited, canon);
+      },
+    );
+  },
 )((state, props): number => props.criterionId);
 
 export const assessmentIsUpdating = (state: RootState, id: number): boolean =>
@@ -163,13 +182,15 @@ export const assessmentIsUpdating = (state: RootState, id: number): boolean =>
     : false;
 
 export const assessmentsAreUpdatingByCriteria = createCachedSelector(
-  (state: RootState): RootState => state,
-  getAssessmentsByCriterion,
-  getAssessmentUpdatingState, // Here because if updating state changes, we need to recompute
-  (state, assessments): { [id: number]: boolean } =>
+  getAssessmentIdsByCriterion,
+  getAssessmentUpdatingState,
+  (assessmentIds, updateState): { [id: number]: boolean } =>
     mapToObjectTrans(
-      assessments,
-      getId,
-      (assessment): boolean => assessmentIsUpdating(state, assessment.id),
+      assessmentIds,
+      (id): number => id,
+      (assessmentId): boolean =>
+        hasKey(updateState, assessmentId)
+          ? updateState[assessmentId] > 0
+          : false,
     ),
 )((state, props): number => props.criterionId);
