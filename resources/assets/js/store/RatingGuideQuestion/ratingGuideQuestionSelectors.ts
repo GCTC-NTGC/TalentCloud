@@ -163,6 +163,12 @@ export const getTempRatingGuideQuestionsByAssessment = createCachedSelector(
     ),
 )((state, props): string => `${props.jobId} ${props.assessmentTypeId}`);
 
+export const getTempRatingGuideQuestionIdsByAssessment = createCachedSelector(
+  getTempRatingGuideQuestionsByAssessment,
+
+  (questions): number[] => questions.map(getId),
+)((state, props): string => `${props.jobId} ${props.assessmentTypeId}`);
+
 // TODO: test that this works like I think it does -- Tristan
 /** Returns true if there is an edited verision which differs from canonical version */
 export const ratingGuideQuestionIsEdited = createCachedSelector(
@@ -177,16 +183,24 @@ export const ratingGuideQuestionIsEdited = createCachedSelector(
 )((state: RootState, id: number): number => id);
 
 export const ratingGuideQuestionsAreEditedByAssessment = createCachedSelector(
-  (state: RootState): RootState => state,
-  getRatingGuideQuestionsByJobAndAssessmentType,
-  (state, questions): { [id: number]: boolean } =>
+  getRatingGuideQuestionIdsByJobAndAssessmentType,
+  getCanonQuestionState,
+  getEditedQuestionState,
+  (questionIds, canonState, editedState): { [id: number]: boolean } =>
     mapToObjectTrans(
-      questions,
-      getId,
-      (ratingGuideQuestion): boolean =>
-        ratingGuideQuestionIsEdited(state, ratingGuideQuestion.id),
+      questionIds,
+      (id): number => id,
+      (questionId): boolean => {
+        const canon = hasKey(canonState, questionId)
+          ? canonState[questionId]
+          : null;
+        const edited = hasKey(editedState, questionId)
+          ? editedState[questionId]
+          : null;
+        return edited !== null && !isEqual(edited, canon);
+      },
     ),
-)((state, props): string => `${props.jobId} ${props.assessmentTypeId}`);
+)((state, props): string => `${props.jobId}:${props.assessmentTypeId}`);
 
 export const tempRatingGuideQuestionIsSaving = createCachedSelector(
   getTempQuestionSaving,
@@ -196,16 +210,16 @@ export const tempRatingGuideQuestionIsSaving = createCachedSelector(
 )((state: RootState, id: number): number => id);
 
 export const tempRatingGuideQuestionsAreSavingByAssessment = createCachedSelector(
-  (state: RootState): RootState => state,
-  getTempRatingGuideQuestionsByAssessment,
-  (state, questions): { [id: number]: boolean } =>
+  getTempRatingGuideQuestionIdsByAssessment,
+  getTempQuestionSaving,
+  (questionIds, savingState): { [id: number]: boolean } =>
     mapToObjectTrans(
-      questions,
-      getId,
-      (ratingGuideQuestion: RatingGuideQuestion): boolean =>
-        tempRatingGuideQuestionIsSaving(state, ratingGuideQuestion.id),
+      questionIds,
+      (id): number => id,
+      (questionId): boolean =>
+        hasKey(savingState, questionId) ? savingState[questionId] : false,
     ),
-)((state, props): string => `${props.jobId} ${props.assessmentTypeId}`);
+)((state, props): string => `${props.jobId}:${props.assessmentTypeId}`);
 
 export const ratingGuideQuestionIsUpdating = createCachedSelector(
   getQuestionUpdates,
@@ -215,19 +229,18 @@ export const ratingGuideQuestionIsUpdating = createCachedSelector(
 )((state: RootState, id: number): number => id);
 
 export const ratingGuideQuestionsAreUpdatingByAssessment = createCachedSelector(
-  (state: RootState): RootState => state,
-  getRatingGuideQuestionsByJobAndAssessmentType,
-  (state, questions): { [id: number]: boolean } =>
-    questions.reduce(
+  getRatingGuideQuestionIdsByJobAndAssessmentType,
+  getQuestionUpdates,
+  (questionIds, updateCounts): { [id: number]: boolean } =>
+    questionIds.reduce(
       (
         result: { [id: number]: boolean },
-        ratingGuideQuestion: RatingGuideQuestion,
+        questionId: number,
       ): { [id: number]: boolean } => {
         // eslint-disable-next-line no-param-reassign
-        result[ratingGuideQuestion.id] = ratingGuideQuestionIsUpdating(
-          state,
-          ratingGuideQuestion.id,
-        );
+        result[questionId] = hasKey(updateCounts, questionId)
+          ? updateCounts[questionId] > 0
+          : false;
         return result;
       },
       {},
