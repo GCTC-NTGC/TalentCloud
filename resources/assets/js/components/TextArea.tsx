@@ -41,9 +41,8 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
           minLength={minLength}
           maxLength={maxLength}
           onBlur={onBlur}
-        >
-          {value}
-        </textarea>
+          value={value}
+        />
       </div>
       <span>{errorText || "Something went wrong."}</span>
     </div>

@@ -91,13 +91,16 @@ export const RatingGuideNarrativeAssessment: React.FunctionComponent<
           </div>
         </div>
         {assessedCriteria.map(
-          (criterion: Criteria, index: number): React.ReactElement => {
-            const skillLevel = intl.formatMessage(
-              skillLevelName(
-                criterion.skill_level_id,
-                criteriaToSkill[criterion.id].skill_type_id,
-              ),
-            );
+          (criterion: Criteria): React.ReactElement => {
+            let skillLevel = "";
+            if (criteriaToSkill[criterion.id] !== undefined) {
+              skillLevel = intl.formatMessage(
+                skillLevelName(
+                  criterion.skill_level_id,
+                  criteriaToSkill[criterion.id].skill_type_id,
+                ),
+              );
+            }
             return (
               <div
                 key={`narrative-review-criteria-${criterion.criteria_type_id}`}
