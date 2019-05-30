@@ -9,8 +9,8 @@ import {
 import { RootState } from "../../store/store";
 import { DispatchType } from "../../configureStore";
 import {
-  getTempRatingGuideQuestionsByAssessment,
   getRatingGuideQuestionIdsByJobAndAssessmentType,
+  getTempRatingGuideQuestionIdsByAssessment,
 } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
 import RatingGuideQuestionWithAnswers from "./RatingGuideQuestionWithAnswers";
 import RatingGuideMissing from "./RatingGuideMissing";
@@ -111,24 +111,16 @@ const mapStateToProps = (
   state: RootState,
   ownProps: RatingGuideAssessmentContainerProps,
 ): {
-  assessmentIndex: number;
-  assessmentTypeId: number;
-  jobId: number;
   questionIds: number[];
   tempQuestionIds: number[];
 } => ({
-  assessmentIndex: ownProps.assessmentIndex,
-  assessmentTypeId: ownProps.assessmentTypeId,
-  jobId: ownProps.jobId,
   questionIds: getRatingGuideQuestionIdsByJobAndAssessmentType(state, ownProps),
-  tempQuestionIds: getTempRatingGuideQuestionsByAssessment(state, ownProps).map(
-    question => question.id,
-  ),
+  tempQuestionIds: getTempRatingGuideQuestionIdsByAssessment(state, ownProps),
 });
 
 const mapDispatchToProps = (
   dispatch: DispatchType,
-  ownProps,
+  ownProps: RatingGuideAssessmentContainerProps,
 ): {
   createQuestion: () => void;
 } => ({
