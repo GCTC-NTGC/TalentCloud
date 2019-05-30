@@ -4,12 +4,16 @@ import RatingGuideQuestionComponent from "./RatingGuideQuestion";
 import RatingGuideAnswerComponent from "./RatingGuideAnswer";
 import { RootState } from "../../store/store";
 import {
-  getRatingGuideAnswersByQuestion,
-  getTempRatingGuideAnswersByQuestion,
+  getRatingGuideAnswerIdsByQuestion,
+  getTempRatingGuideAnswerIdsByQuestion,
 } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
-import { getCriteriaUnansweredForQuestion } from "../../store/Job/jobSelectorComplex";
+import { getCriteriaIdsByJobAndAssessmentType } from "../../store/Job/jobSelectorComplex";
 import { DispatchType } from "../../configureStore";
 import { createTempRatingGuideAnswer } from "../../store/RatingGuideAnswer/ratingGuideAnswerActions";
+import {
+  getCurrentRatingGuideQuestionById,
+  getTempRatingGuideQuestionById,
+} from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
 
 interface RatingGuideQuestionWithAnswersProps {
   questionId: number;
@@ -94,6 +98,31 @@ interface RatingGuideQuestionWithAnswersContainerProps {
   temp?: boolean;
 }
 
+/**
+ * Only allow more answers to be added, if there are currently less answers than criteria to be answered.
+ * @param state
+ * @param ownProps
+ */
+const allowMoreAnswers = (
+  state: RootState,
+  ownProps: RatingGuideQuestionWithAnswersContainerProps,
+): boolean => {
+  const answerIds = getRatingGuideAnswerIdsByQuestion(state, ownProps);
+  const tempAnswerIds = getTempRatingGuideAnswerIdsByQuestion(state, ownProps);
+  const allAnswerIds = answerIds.concat(tempAnswerIds);
+  const question = ownProps.temp
+    ? getTempRatingGuideQuestionById(state, ownProps.questionId)
+    : getCurrentRatingGuideQuestionById(state, ownProps.questionId);
+  if (question === null) {
+    return false;
+  }
+  const criteriaIdsForQuestion = getCriteriaIdsByJobAndAssessmentType(state, {
+    jobId: question.job_poster_id,
+    assessmentTypeId: question.assessment_type_id,
+  });
+  return allAnswerIds.length < criteriaIdsForQuestion.length;
+};
+
 const mapStateToProps = (
   state: RootState,
   ownProps: RatingGuideQuestionWithAnswersContainerProps,
@@ -104,17 +133,9 @@ const mapStateToProps = (
   allowMoreAnswers: boolean;
 } => {
   return {
-    answerIds: getRatingGuideAnswersByQuestion(state, ownProps).map(
-      (answer): number => answer.id,
-    ),
-    tempAnswerIds: getTempRatingGuideAnswersByQuestion(state, ownProps).map(
-      (answer): number => answer.id,
-    ),
-    allowMoreAnswers:
-      getCriteriaUnansweredForQuestion(state, {
-        questionId: ownProps.questionId,
-        isTempQuestion: ownProps.temp ? ownProps.temp : false,
-      }).length > 0,
+    answerIds: getRatingGuideAnswerIdsByQuestion(state, ownProps),
+    tempAnswerIds: getTempRatingGuideAnswerIdsByQuestion(state, ownProps),
+    allowMoreAnswers: allowMoreAnswers(state, ownProps),
   };
 };
 

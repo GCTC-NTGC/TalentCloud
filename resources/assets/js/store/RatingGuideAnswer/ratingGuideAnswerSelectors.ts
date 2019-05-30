@@ -8,7 +8,8 @@ import {
   getRatingGuideQuestionIdsByJob,
   getRatingGuideQuestionIdsByJobAndAssessmentType,
 } from "../RatingGuideQuestion/ratingGuideQuestionSelectors";
-import { hasKey } from "../../helpers/queries";
+import { hasKey, getId } from "../../helpers/queries";
+import { deepEqualSelectorOptions } from "../cachedSelectors";
 
 const stateSlice = (state: RootState): RatingGuideAnswerState =>
   state.ratingGuideAnswer;
@@ -107,6 +108,12 @@ export const getRatingGuideAnswersByQuestion = createCachedSelector(
     ),
 )((state, props): number => props.questionId);
 
+export const getRatingGuideAnswerIdsByQuestion = createCachedSelector(
+  (state: RootState, props: { questionId: number }): number[] =>
+    getRatingGuideAnswersByQuestion(state, props).map(getId),
+  (answerIds): number[] => answerIds,
+)((state, props): number => props.questionId, deepEqualSelectorOptions);
+
 // TODO: rename to ByAssessmentType
 export const getRatingGuideAnswersByAssessment = createCachedSelector(
   getRatingGuideQuestionIdsByJobAndAssessmentType,
@@ -126,6 +133,12 @@ export const getTempRatingGuideAnswersByQuestion = createCachedSelector(
       (answer): boolean => answer.rating_guide_question_id === questionId,
     ),
 )((state, props): number => props.questionId);
+
+export const getTempRatingGuideAnswerIdsByQuestion = createCachedSelector(
+  (state: RootState, props: { questionId: number }): number[] =>
+    getTempRatingGuideAnswersByQuestion(state, props).map(getId),
+  (answerIds): number[] => answerIds,
+)((state, props): number => props.questionId, deepEqualSelectorOptions);
 
 export const getCanonRatingGuideAnswerById = createCachedSelector(
   getCanonAnswerState,

@@ -112,7 +112,7 @@ export const RatingGuideNarrativeAssessment: React.FunctionComponent<
             }
             return (
               <div
-                key={`narrative-review-criteria-${criterion.criteria_type_id}`}
+                key={`narrative-review-criteria-${criterion.id}`}
                 data-c-padding="top(normal) bottom(normal)"
               >
                 <div data-c-grid="gutter middle">
