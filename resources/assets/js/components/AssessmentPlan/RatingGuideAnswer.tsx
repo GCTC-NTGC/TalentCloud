@@ -218,7 +218,7 @@ const mapStateToProps = (
     unansweredCriteria: answer
       ? getCachedCriteriaUnansweredForQuestion(state, {
           questionId: answer.rating_guide_question_id,
-          isTempQuestion: ownProps.temp || false,
+          isTempQuestion: false,
         })
       : emptyCriteria,
     answerCriterion:
