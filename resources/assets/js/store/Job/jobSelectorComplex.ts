@@ -34,6 +34,7 @@ import {
   getId,
 } from "../../helpers/queries";
 import { getSkillState } from "../Skill/skillSelector";
+import { deepEqualSelectorOptions } from "../cachedSelectors";
 
 /**
  * This file is for defining selectors that depend on selectors in other modules,
@@ -169,6 +170,14 @@ export const getCriteriaUnansweredForQuestion = createCachedSelector(
     );
   },
 )((state, props): string => `${props.questionId} ${props.isTempQuestion}`);
+
+export const getCachedCriteriaUnansweredForQuestion = createCachedSelector(
+  getCriteriaUnansweredForQuestion,
+  (criteria): Criteria[] => criteria,
+)(
+  (state, props): string => `${props.questionId} ${props.isTempQuestion}`,
+  deepEqualSelectorOptions,
+);
 
 export const getCriteriaUnansweredForAssessmentType = createCachedSelector(
   getCriteriaIdsUnansweredForAssessmentType,

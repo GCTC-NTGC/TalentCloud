@@ -186,7 +186,10 @@ describe("getCriteriaUnansweredForQuestion", (): void => {
     };
     const expectedCriteria = [crit1, crit3];
     expect(
-      getCriteriaUnansweredForQuestion(store, { questionId: question.id, isTempQuestion: false }),
+      getCriteriaUnansweredForQuestion(store, {
+        questionId: question.id,
+        isTempQuestion: false,
+      }),
     ).toEqual(expectedCriteria);
   });
 });

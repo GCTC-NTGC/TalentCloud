@@ -9,9 +9,8 @@ import {
 } from "../../models/types";
 import Select, { SelectOption } from "../Select";
 import UpdatingTextArea from "../UpdatingTextArea";
-import { getId, hasKey, mapToObjectTrans } from "../../helpers/queries";
+import { getId, hasKey } from "../../helpers/queries";
 import { RootState } from "../../store/store";
-import { getSkillById } from "../../store/Skill/skillSelector";
 import { DispatchType } from "../../configureStore";
 import {
   editTempRatingGuideAnswer,
@@ -29,11 +28,16 @@ import {
   tempRatingGuideAnswerIsSaving,
 } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
 import { getCriteriaById } from "../../store/Job/jobSelector";
-import { getCriteriaUnansweredForQuestion } from "../../store/Job/jobSelectorComplex";
+import {
+  getCriteriaToSkills,
+  getCachedCriteriaUnansweredForQuestion,
+} from "../../store/Job/jobSelectorComplex";
+import withPropsChecker from "../WithPropsChecker";
 
 interface RatingGuideAnswerProps {
   answer: RatingGuideAnswerModel | null;
-  availableCriteria: Criteria[];
+  unansweredCriteria: Criteria[];
+  answerCriterion: Criteria | null;
   criteriaIdToSkill: { [id: number]: Skill | null };
   temp?: boolean;
   isUpdating: boolean;
@@ -69,11 +73,27 @@ const messages = defineMessages({
   },
 });
 
+const getAvailableCriteria = (
+  availableCriteria: Criteria[],
+  answerCriterion: Criteria | null,
+): Criteria[] => {
+  const availableCriteriaIds = availableCriteria.map(getId);
+  // If this answer has a selected criteria, it should be considered available
+  if (
+    answerCriterion === null ||
+    availableCriteriaIds.includes(answerCriterion.id)
+  ) {
+    return availableCriteria;
+  }
+  return [...availableCriteria, answerCriterion];
+};
+
 const RatingGuideAnswer: React.FunctionComponent<
   RatingGuideAnswerProps & InjectedIntlProps
 > = ({
   answer,
-  availableCriteria,
+  unansweredCriteria,
+  answerCriterion,
   criteriaIdToSkill,
   isUpdating,
   editAnswer,
@@ -81,7 +101,14 @@ const RatingGuideAnswer: React.FunctionComponent<
   deleteAnswer,
   intl,
 }): React.ReactElement | null => {
-  if (answer === null || availableCriteria.length === 0) {
+  if (answer === null) {
+    return null;
+  }
+  const availableCriteria = getAvailableCriteria(
+    unansweredCriteria,
+    answerCriterion,
+  );
+  if (availableCriteria.length === 0) {
     return null;
   }
   const options = availableCriteria.map(
@@ -166,58 +193,39 @@ const getAnswer = (
     ? getTempRatingGuideAnswerById(state, { answerId })
     : getRatingGuideAnswerById(state, { answerId });
 
-const getAvailableCriteria = (
-  state: RootState,
-  answer: RatingGuideAnswerModel | null,
-): Criteria[] => {
-  if (answer === null) {
-    return [];
-  }
-  const availableCriteria = getCriteriaUnansweredForQuestion(state, {
-    questionId: answer.rating_guide_question_id,
-    isTempQuestion: false,
-  });
-  const availableCriteriaIds = availableCriteria.map(getId);
-  const answerCriteria =
-    answer.criterion_id !== null
-      ? getCriteriaById(state, { criterionId: answer.criterion_id })
-      : null;
-  // If this answer has a selected criteria, it should be considered available
-  if (
-    answer.criterion_id === null ||
-    availableCriteriaIds.includes(answer.criterion_id) ||
-    answerCriteria === null
-  ) {
-    return availableCriteria;
-  }
-  return [...availableCriteria, answerCriteria];
-};
-
 interface RatingGuideAnswerContainerProps {
   answerId: number;
   temp?: boolean;
 }
+
+const emptyCriteria: Criteria[] = [];
 
 const mapStateToProps = (
   state: RootState,
   ownProps: RatingGuideAnswerContainerProps,
 ): {
   answer: RatingGuideAnswerModel | null;
-  availableCriteria: Criteria[];
+  unansweredCriteria: Criteria[];
+  answerCriterion: Criteria | null;
   criteriaIdToSkill: { [id: number]: Skill | null };
-  isEdited: boolean;
+  temp?: boolean;
   isUpdating: boolean;
+  isEdited: boolean;
 } => {
   const answer = getAnswer(state, ownProps.answerId, ownProps.temp);
-  const availableCriteria = getAvailableCriteria(state, answer);
   return {
     answer,
-    availableCriteria,
-    criteriaIdToSkill: mapToObjectTrans(
-      availableCriteria,
-      getId,
-      (criterion): Skill | null => getSkillById(state, criterion.skill_id),
-    ),
+    unansweredCriteria: answer
+      ? getCachedCriteriaUnansweredForQuestion(state, {
+          questionId: answer.rating_guide_question_id,
+          isTempQuestion: ownProps.temp || false,
+        })
+      : emptyCriteria,
+    answerCriterion:
+      answer && answer.criterion_id
+        ? getCriteriaById(state, { criterionId: answer.criterion_id })
+        : null,
+    criteriaIdToSkill: getCriteriaToSkills(state),
     isEdited: ratingGuideAnswerIsEdited(state, ownProps),
     isUpdating: ownProps.temp
       ? tempRatingGuideAnswerIsSaving(state, ownProps.answerId)
@@ -272,6 +280,6 @@ const RatingGuideAnswerContainer: React.FunctionComponent<
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
-)(injectIntl(RatingGuideAnswer));
+)(withPropsChecker(injectIntl(RatingGuideAnswer)));
 
 export default RatingGuideAnswerContainer;
