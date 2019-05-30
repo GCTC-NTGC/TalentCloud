@@ -16,6 +16,8 @@ namespace App\Models;
  * @property string $city
  * @property string $title
  * @property string $impact
+ * @property string $team_impact
+ * @property string $hire_impact
  * @property string $branch
  * @property string $division
  * @property string $education
@@ -32,6 +34,8 @@ class JobPosterTranslation extends BaseModel {
         'city' => 'string',
         'title' => 'string',
         'impact' => 'string',
+        'team_impact' => 'string',
+        'hire_impact' => 'string',
         'branch' => 'string',
         'division' => 'string',
         'education' => 'string',
@@ -41,6 +45,8 @@ class JobPosterTranslation extends BaseModel {
         'city',
         'title',
         'impact',
+        'team_impact',
+        'hire_impact',
         'branch',
         'division',
         'education'

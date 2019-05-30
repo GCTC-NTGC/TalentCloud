@@ -8,15 +8,15 @@ use App\Models\Applicant;
 use App\Services\Validation\Rules\UniqueApplicantSkillRule;
 class DegreeValidator
 {
-    
+
     protected $applicant;
     protected $degree_type_id;
-    
+
     public function __construct(Applicant $applicant)
     {
         $this->applicant = $applicant;
         $this->degree_type_id = DegreeType::all()->pluck('id');
-    
+
     }
     public function validate(DegreeValidator $degreeValidator)
     {
@@ -28,13 +28,13 @@ class DegreeValidator
             'applicant_id' => [
             'required',
                Rule::in($applicant_ids->toArray()),
-        ],  
+        ],
             'degree_type_id' => [
             'required',
                Rule::in($this->degree_type_id->toArray()),
-        ]               
-       
+        ]
+
         ])->validate();
     }
-     
+
 }

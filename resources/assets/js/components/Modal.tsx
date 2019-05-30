@@ -10,7 +10,7 @@ export interface ModalProps {
   /** Text displayed on the button that displays the modal */
   openText: string;
   /** Text displayed on the button that hides the modal */
-  closeText: string;
+  closeText?: string;
   /** Text displayed on the modal confirmation button */
   confirmText: string;
   /** Text displayed on the modal cancellation button */
@@ -41,12 +41,16 @@ class Modal extends Component<ModalProps, ModalState> {
     const node = this.divElement.current;
     if (node) {
       const height = node.clientHeight;
-      this.setState({ height });
+      this.setState({ height }, this.updateBody);
     }
   };
 
-  protected handleSizing = (): string => {
-    const viewportHeight = window.outerHeight;
+  protected handleSizing = (): string | boolean => {
+    const { visible } = this.state;
+    if (!visible) {
+      return false;
+    }
+    const viewportHeight = window.innerHeight;
     const { height } = this.state;
 
     return height > viewportHeight
@@ -64,14 +68,12 @@ class Modal extends Component<ModalProps, ModalState> {
 
   public handleOpen = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    this.setState({ visible: true });
-    this.updateBody();
+    this.setState({ visible: true }, this.updateBody);
   };
 
   public handleClose = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    this.setState({ visible: false });
-    this.updateBody();
+    this.setState({ visible: false }, this.updateBody);
   };
 
   public render(): React.ReactElement {
@@ -110,13 +112,16 @@ class Modal extends Component<ModalProps, ModalState> {
           aria-hidden={!visible}
           aria-describedby={`${id}-description`}
           aria-labelledby={`${id}-title`}
-          data-c-dialog={visible && `${this.handleSizing()}`}
+          data-c-dialog={this.handleSizing()}
           data-c-dialog-id={id}
           data-c-padding="top(double) bottom(double)"
           role="dialog"
-          ref={this.divElement}
         >
-          <div data-c-background="white(100)" data-c-radius="rounded">
+          <div
+            data-c-background="white(100)"
+            data-c-radius="rounded"
+            ref={this.divElement}
+          >
             <div
               data-c-padding="normal"
               data-c-border="bottom(thin, solid, black)"
@@ -131,14 +136,16 @@ class Modal extends Component<ModalProps, ModalState> {
                 </span>
               )}
 
-              <button
-                data-c-dialog-action="close"
-                data-c-dialog-id={id}
-                type="button"
-                onClick={this.handleClose}
-              >
-                <i className="material-icons">{closeText}</i>
-              </button>
+              {closeText && (
+                <button
+                  data-c-dialog-action="close"
+                  data-c-dialog-id={id}
+                  type="button"
+                  onClick={this.handleClose}
+                >
+                  <i className="material-icons">{closeText}</i>
+                </button>
+              )}
             </div>
 
             <div
