@@ -7,6 +7,14 @@ export function getId<T extends { id: number }>(item: T): number {
 }
 
 /**
+ * Shortcut function used to filter nulls and undefined values out of an array.
+ * @param item
+ */
+export function notEmpty<T>(value: T | null | undefined): value is T {
+  return value !== null && value !== undefined;
+}
+
+/**
  * From an array of objects, return the first object with a specific id value.
  * @param objs
  * @param id

@@ -1,5 +1,4 @@
 import createCachedSelector from "re-reselect";
-
 import { uniq, difference, intersection } from "lodash";
 import {
   getCriteriaById,
@@ -9,8 +8,7 @@ import {
 import {
   getRatingGuideAnswersByAssessment,
   getCurrentRatingGuideAnswers,
-  getRatingGuideAnswersByQuestion,
-  getTempRatingGuideAnswersByQuestion,
+  getTempRatingGuideAnswers,
 } from "../RatingGuideAnswer/ratingGuideAnswerSelectors";
 import {
   RatingGuideAnswer,
@@ -26,6 +24,7 @@ import {
   getCurrentAssessments,
   getAssessmentsByType,
 } from "../Assessment/assessmentSelector";
+import { hasKey, notEmpty } from "../../helpers/queries";
 
 /**
  * This file is for defining selectors that depend on selectors in other modules,
@@ -46,20 +45,18 @@ export const getCriteriaIdsByJobAndAssessmentType = createCachedSelector(
 )((state, props): string => `${props.jobId}:${props.assessmentTypeId}`);
 
 export const getCriteriaByJobAndAssessmentType = createCachedSelector(
-  (state): RootState => state,
   getCriteriaIdsByJobAndAssessmentType,
-  (state, criteriaIds: number[]): Criteria[] =>
+  getCriteriaState,
+  (criteriaIds: number[], criteriaState): Criteria[] =>
     criteriaIds
       .map(
         (id: number): Criteria | null =>
-          getCriteriaById(state, { criterionId: id }),
+          hasKey(criteriaState, id) ? criteriaState[id] : null,
       )
-      .filter(
-        (criterion: Criteria | null): boolean => criterion !== null,
-      ) as Criteria[],
+      .filter(notEmpty),
 )(
   (state, props): string =>
-    `${props.assessmentTypeId} ${props.assessmentTypeId}`,
+    `${props.assessmentTypeId}:${props.assessmentTypeId}`,
 );
 
 /**
@@ -87,7 +84,6 @@ export const getCriteriaIdsUnansweredForAssessmentType = createCachedSelector(
  * don't have a matching RatingGuideAnswer yet.
  */
 export const getCriteriaUnansweredForQuestion = createCachedSelector(
-  (state: RootState): RootState => state,
   (
     state: RootState,
     props: {
@@ -106,38 +102,52 @@ export const getCriteriaUnansweredForQuestion = createCachedSelector(
     getTempRatingGuideQuestionById(state, props.questionId),
   (state, props: { questionId: number; isTempQuestion: boolean }): boolean =>
     props.isTempQuestion,
-  getCurrentAssessments, // This is here to ensure cache refresh when assessments change
-  getCriteriaState, // This is here to ensure cache refresh when criteria change
-  getCurrentRatingGuideAnswers, // This is here to ensure cache refresh when answers change
-  (state, currentQuestion, tempQuestion, isTempQuestion): Criteria[] => {
+  getCurrentAssessments,
+  getCriteriaState,
+  getCurrentRatingGuideAnswers,
+  getTempRatingGuideAnswers,
+  (
+    currentQuestion,
+    tempQuestion,
+    isTempQuestion,
+    assessments,
+    criteriaState,
+    answers,
+    tempAnswers,
+  ): Criteria[] => {
     const question = isTempQuestion ? tempQuestion : currentQuestion;
     if (question === null) {
       return [];
     }
     // All the assessments this question may test - BUT FROM ANY JOB
-    const questionTypeAssessments = getAssessmentsByType(state, {
-      assessmentTypeId: question.assessment_type_id,
-    });
+    const questionTypeAssessments = assessments.filter(
+      (assessment): boolean =>
+        assessment.assessment_type_id === question.assessment_type_id,
+    );
 
-    // All the criteria this question may test
+    // All the criteria this question may test -
     const assessmentCriteria: Criteria[] = questionTypeAssessments
       .map(
         (assessment): Criteria | null =>
-          getCriteriaById(state, { criterionId: assessment.criterion_id }),
+          hasKey(criteriaState, assessment.criterion_id)
+            ? criteriaState[assessment.criterion_id]
+            : null,
       )
+      .filter(notEmpty)
       .filter(
         (criterion): boolean =>
-          criterion !== null &&
           criterion.job_poster_id === question.job_poster_id,
-      ) as Criteria[];
+      );
+
+    const questionCurrentAnswers = answers.filter(
+      (answer): boolean => answer.rating_guide_question_id === question.id,
+    );
+    const questionTempAnswers = tempAnswers.filter(
+      (answer): boolean => answer.rating_guide_question_id === question.id,
+    );
 
     // All the current answers to this question
-    const questionAnswers = [
-      ...getRatingGuideAnswersByQuestion(state, { questionId: question.id }),
-      ...getTempRatingGuideAnswersByQuestion(state, {
-        questionId: question.id,
-      }),
-    ];
+    const questionAnswers = questionCurrentAnswers.concat(questionTempAnswers);
 
     // The criteria already selected by an answer
     const selectedCriteriaIds: number[] = questionAnswers
@@ -152,17 +162,15 @@ export const getCriteriaUnansweredForQuestion = createCachedSelector(
 )((state, props): string => `${props.questionId} ${props.isTempQuestion}`);
 
 export const getCriteriaUnansweredForAssessmentType = createCachedSelector(
-  (state): RootState => state,
   getCriteriaIdsUnansweredForAssessmentType,
-  (state, criteriaIds: number[]): Criteria[] =>
+  getCriteriaState,
+  (criteriaIds: number[], criteriaState): Criteria[] =>
     criteriaIds
       .map(
         (id: number): Criteria | null =>
-          getCriteriaById(state, { criterionId: id }),
+          hasKey(criteriaState, id) ? criteriaState[id] : null,
       )
-      .filter(
-        (criterion: Criteria | null): boolean => criterion !== null,
-      ) as Criteria[],
+      .filter(notEmpty),
 )(
   (state, props): string =>
     `${props.assessmentTypeId} ${props.assessmentTypeId}`,
