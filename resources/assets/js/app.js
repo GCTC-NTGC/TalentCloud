@@ -140,6 +140,34 @@
           }
         });
 
+      // Job Builder Work Environment ======================================
+
+        // Culture Copy
+        function copyCulture(trigger) {
+          var temp = $("<input>");
+          var copy = $("#jobBuilderCultureCopy").text();
+          $("body").append(temp);
+          temp.val(copy).select();
+          document.execCommand("copy");
+          temp.remove();
+          $(trigger).find(".default").hide();
+          $(trigger).find(".copied").show();
+          setTimeout(function() {
+            $(trigger).find(".default").show();
+            $(trigger).find(".copied").hide();
+          }, 1400);
+        }
+
+        $(document).on("click", "[data-tc-job-builder-culture-copy-trigger]", function(e) {
+          copyCulture(this);
+        });
+
+        $(document).on("keyup", "[data-tc-job-builder-culture-copy-trigger]", function(e) {
+          if (e.which == 13) {
+            copyCulture(this);
+          }
+        });
+
     // Accordion Handlers ==================================================
 
     function accordionTrigger(trigger) {

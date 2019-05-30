@@ -383,6 +383,7 @@
                     </div>
                     <div data-c-input="textarea" data-c-grid-item="base(1of1)">
                         <p data-c-margin="bottom(normal)" data-c-font-weight="bold">More about your Environment</p>
+                        <p data-c-margin="bottom(normal)">This is optional.</p>
                         <p data-c-margin="bottom(normal)">Anything else you’d like to add about your work environment? Highlight features of the physical environment, technology and amenities specific to your team.</p>
                         <label for="TA2">More About Your Environment</label>
                         <span>Required</span>
@@ -646,7 +647,13 @@
                         <p data-c-margin="bottom(normal)" data-c-font-weight="bold">Culture Summary</p>
                         <p data-c-margin="bottom(normal)">Here is the short paragraph summarizing your work culture which will appear on the job poster. Copy and paste it into the text box below if you want to customize it to the personality of your team and the way you work.</p>
                         <div class="job-builder-context-item" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded" data-c-margin="bottom(normal)">
-                            <p data-c-font-size="small">TBD</p>
+                            <p data-c-font-size="small" id="jobBuilderCultureCopy">TBD</p>
+                        </div>
+                        <div data-c-alignment="base(centre) tl(right)">
+                            <button type="button" data-tc-job-builder-culture-copy-trigger data-c-button="solid(c1)" data-c-radius="rounded">
+                                <span class="default">Copy to Clipboard</span>
+                                <span class="copied" style="display: none;">Copied</span>
+                            </button>
                         </div>
                         <label for="TA2">Customize your culture summary:</label>
                         <span>Required</span>
@@ -657,7 +664,8 @@
                     </div>
                     {# More About Culture #}
                     <div data-c-input="textarea" data-c-grid-item="base(1of1)">
-                        <p data-c-margin="bottom(normal)" data-c-font-weight="bold">More About Your Work Culture</p>
+                        <p data-c-margin="bottom(normal)" data-c-font-weight="bold">Anything Special About Your Work Culture?</p>
+                        <p data-c-margin="bottom(normal)">This is optional.</p>
                         <p data-c-margin="bottom(normal)">Does your team care a lot about something else? Proud of the team’s record of getting results? Strong commitment to mental wellness? Actively involved in advancing diversity and inclusion? LGBTQ+ champions? Here’s a chance to let applicants know about the culture of the team they’ll potentially be joining.</p>
                         <label for="TA2">More About Your Work Culture</label>
                         <span>Required</span>
@@ -850,10 +858,12 @@
                                 </div>
                                 <div data-c-grid-item="base(1of1)">
                                     <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">More About Your Environment</span>
-                                    <span>Lorem ipsum.</span>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur luctus porta ante at ornare. Nam pulvinar ultrices tellus eget lobortis. Etiam efficitur in nibh eget ornare. Duis vel porta ante, at ornare lorem. Sed est eros, dignissim ac auctor eget, pretium at mauris. Nullam vitae lacus id eros hendrerit sollicitudin ac at lectus. Fusce neque odio, facilisis vitae augue in, feugiat pulvinar neque. Nulla pretium et lectus at molestie. Ut eleifend efficitur venenatis. Curabitur non eros at eros finibus condimentum. Nam fringilla auctor quam ut egestas.</p>
                                 </div>
                             </div>
                             <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="top(double) bottom(normal)" data-c-padding="bottom(normal)">Work Culture</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur luctus porta ante at ornare. Nam pulvinar ultrices tellus eget lobortis. Etiam efficitur in nibh eget ornare. Duis vel porta ante, at ornare lorem. Sed est eros, dignissim ac auctor eget, pretium at mauris. Nullam vitae lacus id eros hendrerit sollicitudin ac at lectus. Fusce neque odio, facilisis vitae augue in, feugiat pulvinar neque. Nulla pretium et lectus at molestie. Ut eleifend efficitur venenatis. Curabitur non eros at eros finibus condimentum. Nam fringilla auctor quam ut egestas.</p>
+                            <p data-c-margin="top(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur luctus porta ante at ornare. Nam pulvinar ultrices tellus eget lobortis. Etiam efficitur in nibh eget ornare. Duis vel porta ante, at ornare lorem. Sed est eros, dignissim ac auctor eget, pretium at mauris. Nullam vitae lacus id eros hendrerit sollicitudin ac at lectus. Fusce neque odio, facilisis vitae augue in, feugiat pulvinar neque. Nulla pretium et lectus at molestie. Ut eleifend efficitur venenatis. Curabitur non eros at eros finibus condimentum. Nam fringilla auctor quam ut egestas.</p>
                         </div>
                     </div>
                 </div>
