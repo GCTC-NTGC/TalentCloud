@@ -16,11 +16,11 @@ import { AssessmentTypeId, enumToIds } from "../../models/lookupConstants";
 import { Criteria, Assessment, TempAssessment } from "../../models/types";
 import { RootState } from "../../store/store";
 import {
-  getAssessmentsByCriterion,
-  assessmentsAreUpdatingByCriteria,
-  assessmentsAreEditedByCriteria,
   getTempAssessmentsByCriterion,
   tempAssessmentsAreSavingByCriterion,
+  getCachedAssessmentsByCriterion,
+  getCachedAssessmentsAreEditedByCriteria,
+  getCachedAssessmentsAreUpdatingByCriteria,
 } from "../../store/Assessment/assessmentSelector";
 import { DispatchType } from "../../configureStore";
 import {
@@ -33,7 +33,6 @@ import {
   deleteAssessment,
 } from "../../store/Assessment/assessmentActions";
 import { getCriteriaById } from "../../store/Job/jobSelector";
-import withPropsChecker from "../WithPropsChecker";
 
 interface AssessmentPlanSkillProps {
   criterion: Criteria | null;
@@ -318,9 +317,12 @@ const mapStateToProps = (
   tempAssessmentsSaving: { [id: number]: boolean };
 } => ({
   criterion: getCriteriaById(state, ownProps),
-  assessments: getAssessmentsByCriterion(state, ownProps),
-  assessmentsEdited: assessmentsAreEditedByCriteria(state, ownProps),
-  assessmentsUpdating: assessmentsAreUpdatingByCriteria(state, ownProps),
+  assessments: getCachedAssessmentsByCriterion(state, ownProps),
+  assessmentsEdited: getCachedAssessmentsAreEditedByCriteria(state, ownProps),
+  assessmentsUpdating: getCachedAssessmentsAreUpdatingByCriteria(
+    state,
+    ownProps,
+  ),
   tempAssessments: getTempAssessmentsByCriterion(state, ownProps),
   tempAssessmentsSaving: tempAssessmentsAreSavingByCriterion(state, ownProps),
 });

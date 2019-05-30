@@ -5,6 +5,7 @@ import { RootState } from "../store";
 import { Assessment, TempAssessment } from "../../models/types";
 import { getId, hasKey, mapToObjectTrans } from "../../helpers/queries";
 import { AssessmentState } from "./assessmentReducer";
+import { deepEqualSelectorOptions } from "../cachedSelectors";
 
 const stateSlice = (state: RootState): AssessmentState => state.assessment;
 
@@ -73,6 +74,11 @@ export const getAssessmentsByCriterion = createCachedSelector(
       (assessment): boolean => assessment.criterion_id === criterionId,
     ),
 )((state, props): number => props.criterionId);
+
+export const getCachedAssessmentsByCriterion = createCachedSelector(
+  getAssessmentsByCriterion,
+  (assessments): Assessment[] => assessments,
+)((state, props): number => props.criterionId, deepEqualSelectorOptions);
 
 export const getAssessmentIdsByCriterion = createCachedSelector(
   getAssessmentsByCriterion,
@@ -176,6 +182,11 @@ export const assessmentsAreEditedByCriteria = createCachedSelector(
   },
 )((state, props): number => props.criterionId);
 
+export const getCachedAssessmentsAreEditedByCriteria = createCachedSelector(
+  assessmentsAreEditedByCriteria,
+  (map): { [id: number]: boolean } => map,
+)((state, props): number => props.criterionId, deepEqualSelectorOptions);
+
 export const assessmentIsUpdating = (state: RootState, id: number): boolean =>
   hasKey(stateSlice(state).assessmentUpdates, id)
     ? stateSlice(state).assessmentUpdates[id] > 0
@@ -194,3 +205,8 @@ export const assessmentsAreUpdatingByCriteria = createCachedSelector(
           : false,
     ),
 )((state, props): number => props.criterionId);
+
+export const getCachedAssessmentsAreUpdatingByCriteria = createCachedSelector(
+  assessmentsAreUpdatingByCriteria,
+  (map): { [id: number]: boolean } => map,
+)((state, props): number => props.criterionId, deepEqualSelectorOptions);
