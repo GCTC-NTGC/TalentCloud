@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 import createCachedSelector from "re-reselect";
-import isEqual from "lodash/isEqual";
+import { isEqual } from "lodash";
 import { RootState } from "../store";
 import { RatingGuideAnswerState } from "./ratingGuideAnswerReducer";
 import { RatingGuideAnswer } from "../../models/types";
@@ -109,16 +109,13 @@ export const getRatingGuideAnswersByQuestion = createCachedSelector(
 
 // TODO: rename to ByAssessmentType
 export const getRatingGuideAnswersByAssessment = createCachedSelector(
-  (state: RootState): RootState => state,
   getRatingGuideQuestionIdsByJobAndAssessmentType,
   getCurrentRatingGuideAnswers, // This is here to refresh the cache when answers change
-  (state, questionIds): RatingGuideAnswer[] =>
-    questionIds
-      .map(
-        (questionId): RatingGuideAnswer[] =>
-          getRatingGuideAnswersByQuestion(state, { questionId }),
-      )
-      .flat(),
+  (questionIds, answers): RatingGuideAnswer[] =>
+    answers.filter(
+      (answer): boolean =>
+        questionIds.includes(answer.rating_guide_question_id),
+    ),
 )((state, props): string => `${props.jobId} ${props.assessmentTypeId}`);
 
 export const getTempRatingGuideAnswersByQuestion = createCachedSelector(
