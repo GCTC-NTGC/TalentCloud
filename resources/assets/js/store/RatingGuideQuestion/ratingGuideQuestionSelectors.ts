@@ -5,6 +5,7 @@ import { RootState } from "../store";
 import { RatingGuideQuestionState } from "./ratingGuideQuestionReducer";
 import { RatingGuideQuestion } from "../../models/types";
 import { getId, hasKey, mapToObjectTrans } from "../../helpers/queries";
+import { deepEqualSelectorOptions } from "../cachedSelectors";
 
 const stateSlice = (state: RootState): RatingGuideQuestionState =>
   state.ratingGuideQuestion;
@@ -141,9 +142,16 @@ export const getRatingGuideQuestionsByJobAndAssessmentType = createCachedSelecto
 )((state, props): string => `${props.jobId} ${props.assessmentTypeId}`);
 
 export const getRatingGuideQuestionIdsByJobAndAssessmentType = createCachedSelector(
-  getRatingGuideQuestionsByJobAndAssessmentType,
-  (questions): number[] => questions.map(getId),
-)((state, props): string => `${props.jobId} ${props.assessmentTypeId}`);
+  (
+    state: RootState,
+    props: { jobId: number; assessmentTypeId: number },
+  ): number[] =>
+    getRatingGuideQuestionsByJobAndAssessmentType(state, props).map(getId),
+  (questionsIds): number[] => questionsIds,
+)(
+  (state, props): string => `${props.jobId} ${props.assessmentTypeId}`,
+  deepEqualSelectorOptions,
+);
 
 export const getTempRatingGuideQuestionsByAssessment = createCachedSelector(
   getTempRatingGuideQuestions,
@@ -164,10 +172,16 @@ export const getTempRatingGuideQuestionsByAssessment = createCachedSelector(
 )((state, props): string => `${props.jobId} ${props.assessmentTypeId}`);
 
 export const getTempRatingGuideQuestionIdsByAssessment = createCachedSelector(
-  getTempRatingGuideQuestionsByAssessment,
-
-  (questions): number[] => questions.map(getId),
-)((state, props): string => `${props.jobId} ${props.assessmentTypeId}`);
+  (
+    state: RootState,
+    props: { jobId: number; assessmentTypeId: number },
+  ): number[] =>
+    getTempRatingGuideQuestionsByAssessment(state, props).map(getId),
+  (questionsIds): number[] => questionsIds,
+)(
+  (state, props): string => `${props.jobId} ${props.assessmentTypeId}`,
+  deepEqualSelectorOptions,
+);
 
 // TODO: test that this works like I think it does -- Tristan
 /** Returns true if there is an edited verision which differs from canonical version */
