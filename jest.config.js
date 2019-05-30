@@ -3,4 +3,5 @@ module.exports = {
   testEnvironment: "jsdom",
   roots: ["<rootDir>/resources/assets/js"],
   setupFiles: ["./jest.setup.js"],
+  snapshotSerializers: ["enzyme-to-json/serializer"],
 };
