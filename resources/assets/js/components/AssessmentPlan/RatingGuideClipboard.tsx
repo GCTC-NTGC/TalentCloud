@@ -29,6 +29,7 @@ export interface ClipboardTableRowProps {
   skillLevel: string;
   criteriaTypeName: string;
   skillName: string;
+  skillDescription: string;
   modelAnswer: string;
 }
 
@@ -76,6 +77,10 @@ export const clipboardData = (
                 ),
           skillName:
             narrativeSkill === undefined ? "" : narrativeSkill[locale].name,
+          skillDescription:
+            narrativeSkill === undefined
+              ? ""
+              : narrativeSkill[locale].description,
           modelAnswer: "",
           id:
             narrativeCriterion === undefined
@@ -146,6 +151,10 @@ export const clipboardData = (
             : formatMessage(criteriaType(criterionByAnswer.criteria_type_id)),
         skillName:
           skillByCriterion === undefined ? "" : skillByCriterion[locale].name,
+        skillDescription:
+          skillByCriterion === undefined
+            ? ""
+            : skillByCriterion[locale].description,
         modelAnswer: answer.expected_answer,
         id:
           questionByAnswer === undefined || criterionByAnswer === undefined
@@ -166,17 +175,17 @@ export const clipboardData = (
     } else if (a.title < b.title) {
       num = -1;
     } else {
-      if (a.question === null || b.question === null) {
-        num = 0;
-      } else if (a.question > b.question) {
+      if (a.criteriaTypeName > b.criteriaTypeName) {
+        num = -1; // Essential should be listed before Asset
+      } else if (a.criteriaTypeName < b.criteriaTypeName) {
         num = 1;
-      } else if (a.question < b.question) {
-        num = -1;
       } else {
-        if (a.criteriaTypeName > b.criteriaTypeName) {
-          num = -1; // Essential should be listed before Asset
-        } else if (a.criteriaTypeName < b.criteriaTypeName) {
+        if (a.question === null || b.question === null) {
+          num = 0;
+        } else if (a.question > b.question) {
           num = 1;
+        } else if (a.question < b.question) {
+          num = -1;
         }
       }
     }
@@ -219,6 +228,7 @@ const TableRow: React.FunctionComponent<ClipboardTableRowProps> = ({
   criteriaTypeName,
   skillLevel,
   skillName,
+  skillDescription,
   modelAnswer,
 }): React.ReactElement => (
   <tr>
@@ -227,9 +237,8 @@ const TableRow: React.FunctionComponent<ClipboardTableRowProps> = ({
     <td>{criteriaTypeName}</td>
     <td>{skillLevel}</td>
     <td>{skillName}</td>
+    <td>{skillDescription}</td>
     <td>{modelAnswer}</td>
-    <td />
-    <td />
   </tr>
 );
 
@@ -294,9 +303,8 @@ const RatingGuideClipboard: React.FunctionComponent<
                 <th scope="col">Criteria Type</th>
                 <th scope="col">Target Level</th>
                 <th scope="col">Skill</th>
+                <th scope="col">Skill Description</th>
                 <th scope="col">Rating Guide</th>
-                <th scope="col">Applicant Answer</th>
-                <th scope="col">Score</th>
               </tr>
             </thead>
             <tbody>
