@@ -32,9 +32,9 @@ class UpdateJobPoster extends FormRequest
         $dateFormatRule = "date_format:$dateFormat";
         return [
             'term_qty' => 'nullable|numeric',
-            'open_date_time' =>["nullable", $dateFormatRule],
-            'close_date_time' => ["nullable", $dateFormatRule],
-            'start_date_time' =>["nullable", $dateFormatRule],
+            'open_date_time' =>['nullable', $dateFormatRule],
+            'close_date_time' => ['nullable', $dateFormatRule],
+            'start_date_time' =>['nullable', $dateFormatRule],
             'department_id' => ['nullable', new DepartmentRule()],
             'province_id' => ['nullable', new ProvinceRule()],
             'security_clearance_id' => ['nullable', new SecurityClearanceRule()],
