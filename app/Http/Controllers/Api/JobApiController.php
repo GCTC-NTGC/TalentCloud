@@ -8,6 +8,7 @@ use App\Models\JobPoster;
 use App\Models\Criteria;
 use App\Services\Validation\JobPosterValidator;
 use App\Http\Requests\UpdateJobPoster;
+use App\Http\Requests\StoreJobPoster;
 
 class JobApiController extends Controller
 {
@@ -48,12 +49,17 @@ class JobApiController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\StoreJobPoster  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreJobPoster $request)
     {
-        //TODO: complete
+        $data = $request->validated();
+        $job = new JobPoster();
+        $job->manager_id = $request->user()->manager->id;
+        $job->fill($data);
+        $job->save();
+        return $this->jobToArray($job);
     }
 
     /**

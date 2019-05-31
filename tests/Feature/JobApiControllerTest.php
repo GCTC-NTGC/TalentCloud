@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\JobPoster;
 use App\Models\User;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Database\Capsule\Manager;
 
 class JobApiControllerTest extends TestCase
 {
@@ -139,5 +140,34 @@ class JobApiControllerTest extends TestCase
         $newJob = $job->fresh();
         $this->assertFalse($newJob->published);
         $this->assertNull($newJob->published_at);
+    }
+
+    /**
+     * Manager should be able to create an empty job
+     *
+     * @return void
+     */
+    public function testManagerCanStoreEmptyJob(): void
+    {
+        $manager = factory(Manager::class)->create();
+        $response = $this->followingRedirects()
+            ->actingAs($manager->user)
+            ->json('post', 'api/jobs', []);
+        $response->assertOk();
+        $this->assertDatabaseHas('job_posters', ['manager_id' => $manager->id]);
+    }
+
+    /**
+     * Even an admin cannot store a job like this, if they're not also a manager
+     *
+     * @return void
+     */
+    public function testStoreRequiresManagerId(): void
+    {
+        $user = factory(User::class)->state('admin')->create();
+        $response = $this->followingRedirects()
+            ->actingAs($user)
+            ->json('post', 'api/jobs', []);
+        $response->assertForbidden();
     }
 }
