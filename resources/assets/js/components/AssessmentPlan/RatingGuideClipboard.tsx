@@ -40,7 +40,53 @@ export const clipboardData = (
   ratingGuideAnswers: RatingGuideAnswer[],
   locale: string,
   formatMessage: (message: FormattedMessage.MessageDescriptor) => string,
+  narrativeReview?: Assessment[],
 ): ClipboardTableRowProps[] => {
+  let narrativeData = [] as ClipboardTableRowProps[];
+  if (narrativeReview !== undefined) {
+    narrativeData = narrativeReview.map(
+      (narrative: Assessment): ClipboardTableRowProps => {
+        const narrativeCriterion = criteria.find(
+          (criterion: Criteria): boolean =>
+            criterion.id === narrative.criterion_id,
+        );
+        const narrativeSkill = skills.find(
+          (skill: Skill): boolean => {
+            if (narrativeCriterion === undefined) return false;
+            return skill.id === narrativeCriterion.skill_id;
+          },
+        );
+        return {
+          title: formatMessage(assessmentType(narrative.assessment_type_id)),
+          question: null,
+          skillLevel:
+            narrativeCriterion === undefined || narrativeSkill === undefined
+              ? ""
+              : formatMessage(
+                  skillLevelName(
+                    narrativeCriterion.skill_level_id,
+                    narrativeSkill.skill_type_id,
+                  ),
+                ),
+          criteriaTypeName:
+            narrativeCriterion === undefined
+              ? ""
+              : formatMessage(
+                  criteriaType(narrativeCriterion.criteria_type_id),
+                ),
+          skillName:
+            narrativeSkill === undefined ? "" : narrativeSkill[locale].name,
+          modelAnswer: "",
+          id:
+            narrativeCriterion === undefined
+              ? ""
+              : `A${narrative.assessment_type_id}-Q${narrative.id}-T${
+                  narrativeCriterion.criteria_type_id
+                }`,
+        };
+      },
+    );
+  }
   let availableAnswers = ratingGuideAnswers.filter(
     (answer: RatingGuideAnswer): boolean => answer.criterion_id !== null,
   );
@@ -61,7 +107,7 @@ export const clipboardData = (
       );
     },
   );
-  const data = availableAnswers.map(
+  const ratingData = availableAnswers.map(
     (answer): ClipboardTableRowProps => {
       const criterionByAnswer = criteria.find(
         (criterion: Criteria): boolean => criterion.id === answer.criterion_id,
@@ -136,6 +182,12 @@ export const clipboardData = (
     }
     return num;
   };
+  let data = [] as ClipboardTableRowProps[];
+  if (narrativeData.length > 0) {
+    data = narrativeData.concat(ratingData);
+  } else {
+    data = ratingData;
+  }
   data.sort(compareRowProps);
   return data;
 };
@@ -187,6 +239,7 @@ interface TableProps {
   skills: Skill[];
   ratingGuideQuestions: RatingGuideQuestion[];
   ratingGuideAnswers: RatingGuideAnswer[];
+  narrativeReview?: Assessment[];
 }
 
 const RatingGuideClipboard: React.FunctionComponent<
@@ -198,6 +251,7 @@ const RatingGuideClipboard: React.FunctionComponent<
   ratingGuideQuestions,
   ratingGuideAnswers,
   intl,
+  narrativeReview,
 }): React.ReactElement => {
   const rows = cloneAndCleanTableRowProps(
     clipboardData(
@@ -208,6 +262,7 @@ const RatingGuideClipboard: React.FunctionComponent<
       ratingGuideAnswers,
       intl.locale,
       intl.formatMessage,
+      narrativeReview,
     ),
   );
   const tableRef = React.createRef<HTMLTableElement>();
@@ -260,6 +315,7 @@ const RatingGuideClipboard: React.FunctionComponent<
 
 interface RatingGuideClipboardContainerProps {
   jobId: number;
+  narrativeReview?: Assessment[];
 }
 
 const mapStateToProps = (

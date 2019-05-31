@@ -23,10 +23,5 @@
     "id": "ratingGuideBuilder.copyInstructions",
     "description": "Instructions for copying your rating guide.",
     "defaultMessage": "Now that you've built your Ratings Guide, you can use the button below to copy the entire thing to your clipboard, making it easy to paste in your favourite Word Processor."
-  },
-  {
-    "id": "ratingGuideBuilder.copyButton",
-    "description": "Text for the 'copy ratings guide' button.",
-    "defaultMessage": "Click to Copy This Ratings Guide to Your Clipboard"
   }
 ]

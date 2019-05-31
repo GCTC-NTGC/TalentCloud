@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import moment from "moment";
 import { parseJobResponse } from "./job";
-import moment = require("moment");
 
 describe("api/job", (): void => {
   describe("parseJobResponse()", (): void => {
