@@ -2,14 +2,14 @@ import React from "react";
 import moment from "moment";
 import { FormattedMessage } from "react-intl";
 import { Application } from "../../models/types";
-import { SelectOption } from "../Select";
+import { SelectOption } from "../Forms/Select";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
 
 interface ReviewApplicationsProps {
   title: string;
   classification: string;
-  closeDateTime: Date;
+  closeDateTime: Date | null;
   applications: Application[];
   reviewStatusOptions: SelectOption<number>[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
@@ -65,7 +65,8 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
       },
       showScreenOutAll: true,
       applications: applications.filter(
-        application => applicationCategory(application) === "optional",
+        (application): boolean =>
+          applicationCategory(application) === "optional",
       ),
       prioritizeVeterans: true,
     },
@@ -77,13 +78,13 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
       },
       description: {
         id: "apl.screenedOut.description",
-        defaultMessage:
-          "These applications have already been screened out.",
+        defaultMessage: "These applications have already been screened out.",
         description: "Screened out category description",
       },
       showScreenOutAll: false,
       applications: applications.filter(
-        application => applicationCategory(application) === "screened-out",
+        (application): boolean =>
+          applicationCategory(application) === "screened-out",
       ),
       prioritizeVeterans: true,
     },
@@ -96,11 +97,11 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
           <span>
             <FormattedMessage
               id="apl.indexPageTitle"
-              defaultMessage="Applications for: {job_title} {job_classification}"
+              defaultMessage="Applications for: {jobTitle} {jobClassification}"
               description="Welcome header on Job Applications index page"
               values={{
-                job_title: title,
-                job_classification: classification,
+                jobTitle: title,
+                jobClassification: classification,
               }}
             />
           </span>
@@ -118,22 +119,28 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
         } Since Close"
             description="Welcome header on app main page"
             values={{
-              dayCount: moment().diff(moment(closeDateTime), "days"),
+              // TODO: Think more carefully about how to handle null fields
+              dayCount: moment().diff(
+                closeDateTime ? moment(closeDateTime) : moment(),
+                "days",
+              ),
             }}
           />
         </div>
       </div>
-      {categories.map(category => (
-        <ReviewCategory
-          key={category.title.id}
-          {...category}
-          reviewStatusOptions={reviewStatusOptions}
-          onStatusChange={onStatusChange}
-          onNotesChange={onNotesChange}
-          savingStatuses={savingStatuses}
-          onBulkStatusChange={onBulkStatusChange}
-        />
-      ))}
+      {categories.map(
+        (category): React.ReactElement => (
+          <ReviewCategory
+            key={category.title.id}
+            {...category}
+            reviewStatusOptions={reviewStatusOptions}
+            onStatusChange={onStatusChange}
+            onNotesChange={onNotesChange}
+            savingStatuses={savingStatuses}
+            onBulkStatusChange={onBulkStatusChange}
+          />
+        ),
+      )}
     </section>
   );
 };

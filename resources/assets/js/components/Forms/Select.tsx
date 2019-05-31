@@ -14,6 +14,12 @@ export interface SelectProps<T extends string | number> {
   nullSelection: string | undefined;
   options: SelectOption<T>[];
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  errorText?: string;
+  grid?: string;
+
+  // formik
+  field?: any;
+  form?: any;
 }
 
 export default function Select<T extends string | number>(
@@ -28,19 +34,29 @@ export default function Select<T extends string | number>(
     nullSelection,
     options,
     onChange,
+    errorText,
+    grid,
+    field,
+    form: { errors },
   } = props;
 
+  const { name } = field;
+
   return (
-    <div data-c-input="select">
+    <div
+      data-c-input="select"
+      data-c-grid-item={grid}
+      data-c-required={required}
+    >
       <label htmlFor={htmlId}>{label}</label>
       {required && <span>Required</span>}
       <div>
         <i className="fa fa-caret-down" />
         <select
           id={htmlId}
-          name={formName}
+          name={name || formName}
           value={selected || ""}
-          onChange={e => onChange(e)}
+          onChange={field.onChange || (e => onChange(e))}
         >
           {nullSelection && (
             <option value="" disabled>
@@ -54,7 +70,7 @@ export default function Select<T extends string | number>(
           ))}
         </select>
       </div>
-      <span>This input has an error.</span>
+      <span>{errors[name] || errorText || "This input has an error."}</span>
     </div>
   );
 }

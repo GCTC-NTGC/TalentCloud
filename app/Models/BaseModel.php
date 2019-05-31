@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
 use DateTimeInterface;
 use Jenssegers\Date\Date;
+use DateTime;
 
 abstract class BaseModel extends Eloquent {
     //Override date functions to return Jenssegers Data instead of Carbon
@@ -61,9 +62,28 @@ abstract class BaseModel extends Eloquent {
         if (preg_match('/^(\d{4})-(\d{1,2})-(\d{1,2})$/', $value)) {
             return Date::createFromFormat('Y-m-d', $value, $timezone)->startOfDay();
         }
+
+        // If the date follows the api configured date format, use that.
+        $apiFormat = Config::get('app.api_datetime_format');
+        $date = DateTime::createFromFormat($apiFormat, $value);
+        if ($date && $date->format($apiFormat) == $value) {
+            return $date;
+        }
+
         // Finally, we will just assume this date is in the format used by default on
         // the database connection and use that format to create the Carbon object
         // that is returned back out to the developers after we convert it here.
         return Date::createFromFormat($this->getDateFormat(), $value, $timezone);
+    }
+
+    /**
+     * // Ensure that models serialized using toArray() or toJson() use the api-specific date format
+     *
+     * @param DateTimeInterface $date
+     * @return void
+     */
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format(Config::get('app.api_datetime_format'));
     }
 }
