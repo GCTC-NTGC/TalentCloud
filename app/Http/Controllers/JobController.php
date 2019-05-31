@@ -37,29 +37,8 @@ use App\Models\Assessment;
 
 class JobController extends Controller
 {
-
     /**
-     * Get array representation of specified job poster
-     *
-     * @param \Illuminate\Http\Request $request   Incoming request object.
-     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
-     *
-     * @return mixed[]
-     */
-    public function get(Request $request, JobPoster $jobPoster)
-    {
-        $jobWithTranslations = array_merge($jobPoster->toArray(), $jobPoster->getTranslationsArray());
-        $criteria = Criteria::where('job_poster_id', $jobPoster->id)->get();
-        $criteriaTranslated = [];
-        foreach ($criteria as $criterion) {
-            // TODO: getTranslationsArray probably makes DB calls every loop. Find a way to profile & optimize.
-            $criteriaTranslated[] = array_merge($criterion->toArray(), $criterion->getTranslationsArray());
-        }
-        return array_merge($jobWithTranslations, ['criteria' => $criteriaTranslated]);
-    }
-
-    /**
- * Display a listing of JobPosters.
+     * Display a listing of JobPosters.
      *
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
