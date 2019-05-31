@@ -6,7 +6,7 @@ import {
   asyncGet,
   asyncPut,
 } from "../asyncAction";
-import createAction, { Action } from "../createAction";
+import { Action } from "../createAction";
 
 export const FETCH_JOB_STARTED = "JOB: GET STARTED";
 export const FETCH_JOB_SUCCEEDED = "JOB: GET SUCCEEDED";
@@ -36,6 +36,37 @@ export const fetchJob = (
     FETCH_JOB_FAILED,
     parseJobResponse,
     { id },
+  );
+
+export const CREATE_JOB_STARTED = "JOB: CREATE STARTED";
+export const CREATE_JOB_SUCCEEDED = "JOB: CREATE SUCCEEDED";
+export const CREATE_JOB_FAILED = "JOB: CREATE FAILED";
+
+export type CreateJobAction = AsyncFsaActions<
+  typeof CREATE_JOB_STARTED,
+  typeof CREATE_JOB_SUCCEEDED,
+  typeof CREATE_JOB_FAILED,
+  Job,
+  {}
+>;
+
+export const createJob = (
+  job: Job,
+): RSAActionTemplate<
+  typeof CREATE_JOB_STARTED,
+  typeof CREATE_JOB_SUCCEEDED,
+  typeof CREATE_JOB_FAILED,
+  Job,
+  {}
+> =>
+  asyncPut(
+    getJobEndpoint(job.id),
+    job,
+    CREATE_JOB_STARTED,
+    CREATE_JOB_SUCCEEDED,
+    CREATE_JOB_FAILED,
+    parseJob,
+    {},
   );
 
 export const UPDATE_JOB_STARTED = "JOB: UPDATE STARTED";
@@ -85,6 +116,7 @@ export const clearJobEdit = (jobId: number): ClearEditJobAction => ({
 
 export type JobAction =
   | FetchJobAction
+  | CreateJobAction
   | UpdateJobAction
   | EditJobAction
   | ClearEditJobAction;

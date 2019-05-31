@@ -50,3 +50,6 @@ export const getCriteriaByJob = (state: RootState, jobId: number): Criteria[] =>
   getCriteria(state).filter(
     (criteria): boolean => criteria.job_poster_id === jobId,
   );
+
+export const getCreatingJob = (state: RootState): boolean =>
+  ui(state).creatingJob;
