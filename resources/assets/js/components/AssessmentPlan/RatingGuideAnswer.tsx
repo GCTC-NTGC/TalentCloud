@@ -8,7 +8,7 @@ import {
   Skill,
   Criteria,
 } from "../../models/types";
-import Select, { SelectOption } from "../Select";
+import Select, { SelectOption } from "../Forms/Select";
 import UpdatingTextArea from "../UpdatingTextArea";
 import { getId, hasKey, mapToObjectTrans } from "../../helpers/queries";
 import { RootState } from "../../store/store";
