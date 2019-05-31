@@ -17,7 +17,7 @@
   "apl.emailCandidateLinkTitle": "envoyer un courriel à ce candidat.",
   "apl.expandAllSkills": "Élargir les compétences",
   "apl.getPriorityList": "Contactez Nuage de talents pour obtenir une liste des priorités qui ont postulé. Ils doivent être examinés et pris en considération en premier.",
-  "apl.indexPageTitle": "Applications pour : {job_title} {job_classification}",
+  "apl.indexPageTitle": "Applications pour : {jobTitle} {jobClassification}",
   "apl.nonCitizens.description": " ",
   "apl.nonCitizens.title": "Non-Citoyens canadiens",
   "apl.optionalConsideration.description": "Dans ce groupe, vous trouverez les candidats qui ne sont pas citoyens canadiens ou qui ne prétendent pas répondre aux critères essentiels.",
