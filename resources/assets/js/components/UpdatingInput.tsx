@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
-import Input, { InputProps } from "./Input";
+import Input, { InputProps } from "./Forms/Input";
 
 export interface UpdatingInputProps extends InputProps {
   updateDelay?: number | null;
@@ -18,11 +18,10 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
     const { updateDelay } = this.props;
 
     if (updateDelay) {
+      const bounceDelay: number = updateDelay;
       this.state = {
-        updateDelay,
+        updateDelay: bounceDelay,
       };
-
-      const { updateDelay: bounceDelay } = this.state;
       // Lodash's debounce doesn't work properly if imported
       // by itself... something to do with how it handles 'this'
       this.triggerSave = _.debounce(this.triggerSave, bounceDelay);
@@ -31,7 +30,7 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
 
   public triggerSave(): void {
     const { value, minLength, handleSave } = this.props;
-    if (value.length > (minLength || 3) || value.length === 0) {
+    if (Number(value) > (minLength || 3) || Number(value) === 0) {
       handleSave();
     }
   }
@@ -39,7 +38,7 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
   public render(): React.ReactElement {
     const {
       htmlId,
-      formName,
+      name,
       label,
       required,
       placeholder,
@@ -54,7 +53,7 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
     return (
       <Input
         htmlId={htmlId}
-        formName={formName}
+        name={name}
         label={label}
         required={required}
         placeholder={placeholder}

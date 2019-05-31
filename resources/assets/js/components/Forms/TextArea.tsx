@@ -1,27 +1,25 @@
 import React from "react";
 
-export interface InputProps {
+export interface TextAreaProps {
   htmlId: string;
   formName: string;
   label: string;
   required: boolean;
   placeholder: string;
-  type?: string;
   minLength?: number;
   maxLength?: number;
   value: string;
   errorText?: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const Input: React.FunctionComponent<InputProps> = ({
+const TextArea: React.FunctionComponent<TextAreaProps> = ({
   htmlId,
   formName,
   label,
   required,
   placeholder,
-  type,
   value,
   onChange,
   errorText,
@@ -30,26 +28,26 @@ const Input: React.FunctionComponent<InputProps> = ({
   onBlur,
 }): React.ReactElement => {
   return (
-    <div data-c-input={type || "text"}>
+    <div data-c-input="textarea">
       <label htmlFor={htmlId}>{label}</label>
       {required && <span>Required</span>}
       <div>
-        <input
+        <textarea
           data-c-font-weight="800"
           id={htmlId}
           name={formName}
           placeholder={placeholder}
-          type={type || "text"}
-          value={value}
           onChange={onChange}
           minLength={minLength}
           maxLength={maxLength}
           onBlur={onBlur}
-        />
+        >
+          {value}
+        </textarea>
       </div>
       <span>{errorText || "Something went wrong."}</span>
     </div>
   );
 };
 
-export default Input;
+export default TextArea;

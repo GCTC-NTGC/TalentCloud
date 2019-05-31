@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Progress Tracker should render ProgressTrackerItem correctly 1`] = `
+<div
+  className="tracker-item"
+  data-c-alignment="base(left)"
+  data-c-grid="middle"
+  data-c-margin="top(half) right(normal) bottom(half) left(normal)"
+  data-tc-tracker-state="active"
+>
+  <div
+    className="tracker-icon"
+  >
+    <i
+      className="fas fa-arrow-down"
+    />
+  </div>
+  <div
+    className="tracker-title"
+  >
+    <span
+      data-c-font-size="small"
+    >
+      Step 01
+    </span>
+    <span
+      data-c-font-weight="bold"
+    >
+      Job Info
+    </span>
+  </div>
+</div>
+`;

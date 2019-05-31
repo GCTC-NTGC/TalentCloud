@@ -8,8 +8,6 @@ use App\Models\Applicant;
 use App\Models\JobApplication;
 use App\Models\Reference;
 use App\Models\Assessment;
-use App\Models\RatingGuideQuestion;
-use App\Models\RatingGuideAnswer;
 
 class DevSeeder extends Seeder // phpcs:ignore
 {
