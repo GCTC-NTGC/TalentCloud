@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
-import Input, { InputProps } from "./Input";
+import Input, { InputProps } from "./Forms/Input";
 
 export interface UpdatingInputProps extends InputProps {
   updateDelay?: number | null;
@@ -38,7 +38,7 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
   public render(): React.ReactElement {
     const {
       htmlId,
-      formName,
+      name,
       label,
       required,
       placeholder,
@@ -53,7 +53,7 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
     return (
       <Input
         htmlId={htmlId}
-        formName={formName}
+        name={name}
         label={label}
         required={required}
         placeholder={placeholder}
