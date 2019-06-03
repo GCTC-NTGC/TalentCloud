@@ -32,7 +32,6 @@ import {
   getCriteriaToSkills,
   getCachedCriteriaUnansweredForQuestion,
 } from "../../store/Job/jobSelectorComplex";
-import withPropsChecker from "../WithPropsChecker";
 
 interface RatingGuideAnswerProps {
   answer: RatingGuideAnswerModel | null;
@@ -280,6 +279,6 @@ const RatingGuideAnswerContainer: React.FunctionComponent<
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
-)(withPropsChecker(injectIntl(RatingGuideAnswer)));
+)(injectIntl(RatingGuideAnswer));
 
 export default RatingGuideAnswerContainer;
