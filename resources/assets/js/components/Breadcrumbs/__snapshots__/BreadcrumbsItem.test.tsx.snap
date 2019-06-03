@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumbs should render BreadcrumbsItem correctly passing crumbs prop 1`] = `
+<li>
+  <a
+    href="#"
+    title="Manager Portal"
+  >
+    Manager Portal
+  </a>
+  <i
+    className="fa fa-caret-right"
+  />
+</li>
+`;

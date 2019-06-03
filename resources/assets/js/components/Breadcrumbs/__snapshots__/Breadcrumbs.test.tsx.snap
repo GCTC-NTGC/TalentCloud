@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumbs should render Breadcrumbs correctly passing children 1`] = `
+<nav
+  aria-label="breadcrumb"
+  data-c-breadcrumbs={true}
+>
+  <ol>
+    <BreadcrumbItem
+      href="#"
+      title="Manager Portal"
+    />
+    <BreadcrumbItem
+      href="#"
+      title="Job Poster Builder"
+    />
+    <BreadcrumbItem
+      href="#"
+      title="Step 01 (Introduction)"
+    />
+  </ol>
+</nav>
+`;
+
+exports[`Breadcrumbs should render Breadcrumbs correctly passing crumbs prop 1`] = `
+<nav
+  aria-label="breadcrumb"
+  data-c-breadcrumbs={true}
+>
+  <ol>
+    <BreadcrumbItem
+      href="#"
+      key="Manager Portal"
+      title="Manager Portal"
+    />
+    <BreadcrumbItem
+      href="#"
+      key="Job Poster Builder"
+      title="Job Poster Builder"
+    />
+    <BreadcrumbItem
+      href="#"
+      key="Step 01 (Introduction)"
+      title="Step 01 (Introduction)"
+    />
+  </ol>
+</nav>
+`;
