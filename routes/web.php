@@ -154,6 +154,18 @@ Route::group(
             /* Static - ITP */
             Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
 
+            // /* Temp Builder 01 (Intro) */
+            // Route::view('builder-01', 'manager/builder-01')->name('jpb1');
+
+            // /* Temp Builder 02 (Job info) */
+            // Route::view('builder-02', 'manager/builder-02')->name('jpb2');
+
+            // /* Temp Builder 03 (Work Environment) */
+            // Route::view('builder-03', 'manager/builder-03')->name('jpb3');
+
+            // /* Temp Builder 04 (Impact) */
+            // Route::view('builder-04', 'manager/builder-04')->name('jpb4');
+
             /* Authentication =========================================================== */
 
             // Laravel default login, logout, register, and reset routes
@@ -361,9 +373,6 @@ Route::group(
 
 /** API routes - currently using same default http auth, but not localized */
 Route::group(['prefix' => 'api'], function (): void {
-    Route::get("jobs/{jobPoster}", "JobController@get")
-        ->middleware('can:view,jobPoster');
-
         // Protected by a gate in the controller, instead of policy middleware
     Route::get("jobs/{jobPoster}/assessment-plan", "AssessmentPlanController@getForJob");
 
@@ -384,5 +393,17 @@ Route::group(['prefix' => 'api'], function (): void {
     ]);
     Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
         'store', 'create', 'edit'
+    ]);
+    Route::resource('jobs', 'Api\JobApiController')->only([
+        'show', 'update'
+    ])->names([ // Specify custom names because default names collied with existing routes
+        'show' => 'api.jobs.show',
+        'update' => 'api.jobs.update'
+    ]);
+    Route::resource('managers', 'Api\ManagerApiController')->only([
+        'show', 'update'
+    ])->names([ // Specify custom names because default names collied with existing routes
+        'show' => 'api.managers.show',
+        'update' => 'api.managers.update'
     ]);
 });

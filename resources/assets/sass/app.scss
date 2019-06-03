@@ -21,7 +21,7 @@ $clone-c4: #0a6cbc;
 
 $clone-c5: #0a6cbc;
 
-$clone-hover-colour: $clone-black;
+$clone-hover-colour: $clone-c5;
 
 $clone-focus-colour: $clone-hover-colour;
 
@@ -30,6 +30,9 @@ $clone-alert--information: $clone-c1;
 @import "../../../node_modules/clone-framework/app/scss/clone";
 
 @import "components/common/itp";
+@import "components/common/tracker";
+
+@import "components/manager/builder";
 
 // Post-Clone Utilities (move these to their own import later Josh!
 
