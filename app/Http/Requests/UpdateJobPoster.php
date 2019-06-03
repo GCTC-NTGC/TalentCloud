@@ -57,7 +57,6 @@ class UpdateJobPoster extends FormRequest
             'fr.hire_impact' => 'required|string',
             'fr.division' => 'required|string',
             'fr.education' => 'required|string',
-
         ];
     }
 }
