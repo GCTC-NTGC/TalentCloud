@@ -30,7 +30,6 @@ class JobApiController extends Controller
         $criteria = Criteria::where('job_poster_id', $job->id)->get();
         $criteriaTranslated = [];
         foreach ($criteria as $criterion) {
-            // TODO: getTranslationsArray probably makes DB calls every loop. Find a way to profile & optimize.
             $criteriaTranslated[] = array_merge($criterion->toArray(), $criterion->getTranslationsArray());
         }
         $jobArray = array_merge($job->toApiArray(), ['criteria' => $criteriaTranslated]);
