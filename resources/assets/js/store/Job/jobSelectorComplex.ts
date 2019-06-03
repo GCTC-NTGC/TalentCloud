@@ -1,5 +1,7 @@
 import createCachedSelector from "re-reselect";
-import { uniq, difference, intersection } from "lodash";
+import uniq from "lodash/uniq";
+import difference from "lodash/difference";
+import intersection from "lodash/intersection";
 import { createSelector } from "reselect";
 import {
   getCriteriaById,

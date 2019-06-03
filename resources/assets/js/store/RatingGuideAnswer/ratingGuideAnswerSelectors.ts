@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 import createCachedSelector from "re-reselect";
-import { isEqual } from "lodash";
+import isEqual from "lodash/isEqual";
 import { RootState } from "../store";
 import { RatingGuideAnswerState } from "./ratingGuideAnswerReducer";
 import { RatingGuideAnswer } from "../../models/types";

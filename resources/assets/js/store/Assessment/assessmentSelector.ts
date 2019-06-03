@@ -1,4 +1,4 @@
-import { isEqual } from "lodash";
+import isEqual from "lodash/isEqual";
 import { createSelector } from "reselect";
 import createCachedSelector from "re-reselect";
 import { RootState } from "../store";

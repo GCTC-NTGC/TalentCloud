@@ -3,7 +3,7 @@ import {
   defaultMemoize,
   createSelector,
 } from "reselect";
-import { isEqual } from "lodash";
+import isEqual from "lodash/isEqual";
 
 export const defaultSelectorOptions = { selectorCreator: createSelector };
 
