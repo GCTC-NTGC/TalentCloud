@@ -5,8 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\RatingGuideAnswer;
 use App\Models\RatingGuideQuestion;
-use App\Services\Validation\Rules\RatingGuideQuestionRule;
-use App\Services\Validation\Rules\CriterionRule;
+use App\Services\Validation\Rules\ValidIdRule;
+use App\Models\Criteria;
 
 class StoreRatingGuideAnswer extends FormRequest
 {
@@ -36,8 +36,8 @@ class StoreRatingGuideAnswer extends FormRequest
     public function rules()
     {
         return [
-            'rating_guide_question_id' => ['required', new RatingGuideQuestionRule()],
-            'criterion_id' => ['nullable', new CriterionRule()],
+            'rating_guide_question_id' => ['required', new ValidIdRule(RatingGuideQuestion::class)],
+            'criterion_id' => ['nullable', new ValidIdRule(Criteria::class)],
             'expected_answer' => 'nullable|string',
         ];
     }

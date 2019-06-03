@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Services\Validation\Rules\RatingGuideQuestionRule;
-use App\Services\Validation\Rules\CriterionRule;
-use App\Models\RatingGuideAnswer;
+use App\Services\Validation\Rules\ValidIdRule;
+use App\Models\Criteria;
 
 class UpdateRatingGuideAnswer extends FormRequest
 {
@@ -34,7 +33,7 @@ class UpdateRatingGuideAnswer extends FormRequest
         return [
             // RatingGuideQUestionId shouldn't be updated after creation
             //'rating_guide_question_id' => ['required', new RatingGuideQuestionRule()],
-            'criterion_id' => ['nullable', new CriterionRule()],
+            'criterion_id' => ['nullable', new ValidIdRule(Criteria::class)],
             'expected_answer' => 'nullable|string',
         ];
     }

@@ -3,11 +3,12 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Services\Validation\Rules\DepartmentRule;
-use App\Services\Validation\Rules\ProvinceRule;
-use App\Services\Validation\Rules\SecurityClearanceRule;
-use App\Services\Validation\Rules\LanguageRequirementRule;
 use Illuminate\Support\Facades\Config;
+use App\Services\Validation\Rules\ValidIdRule;
+use App\Models\Lookup\Department;
+use App\Models\Lookup\Province;
+use App\Models\Lookup\SecurityClearance;
+use App\Models\Lookup\LanguageRequirement;
 
 class UpdateJobPoster extends FormRequest
 {
@@ -35,10 +36,10 @@ class UpdateJobPoster extends FormRequest
             'open_date_time' =>['required', $dateFormatRule],
             'close_date_time' => ['required', $dateFormatRule],
             'start_date_time' =>['required', $dateFormatRule],
-            'department_id' => ['required', new DepartmentRule()],
-            'province_id' => ['required', new ProvinceRule()],
-            'security_clearance_id' => ['required', new SecurityClearanceRule()],
-            'language_requirement_id' => ['required', new LanguageRequirementRule()],
+            'department_id' => ['required', new ValidIdRule(Department::class)],
+            'province_id' => ['required', new ValidIdRule(Province::class)],
+            'security_clearance_id' => ['required', new ValidIdRule(SecurityClearance::class)],
+            'language_requirement_id' => ['required', new ValidIdRule(LanguageRequirement::class)],
             'salary_min' => 'required|numeric',
             'salary_max' => 'required|numeric',
             'noc' => 'required|numeric',
