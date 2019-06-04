@@ -222,7 +222,7 @@ const expectedOutput: ClipboardTableRowProps[] = [
     title: "Application Screening Question",
     question:
       "What is the second question of the meaning of life, the universe and everything?",
-    skillLevel: "Moderately in Evidence",
+    skillLevel: "Intermediate",
     criteriaTypeName: "Asset",
     skillName: "English hacking",
     skillDescription: "English manipulator of technology",
