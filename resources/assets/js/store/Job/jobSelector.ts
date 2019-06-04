@@ -12,6 +12,9 @@ const ui = (state: RootState): UiState => state.jobs.ui;
 const getJobState = (state: RootState): { [id: number]: Job } =>
   entities(state).jobs.byId;
 
+const getJobEditState = (state: RootState): { [id: number]: Job } =>
+  entities(state).jobEdits;
+
 const getJobUpdatingState = (state: RootState): { [id: number]: boolean } =>
   ui(state).jobUpdating;
 
@@ -26,23 +29,23 @@ export const getJob = createCachedSelector(
     hasKey(jobState, jobId) ? jobState[jobId] : null,
 )((state, ownProps): number => ownProps.jobId);
 
+export const getEditJob = createCachedSelector(
+  getJobEditState,
+  (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
+  (jobState, jobId): Job | null =>
+    hasKey(jobState, jobId) ? jobState[jobId] : null,
+)((state, ownProps): number => ownProps.jobId);
+
 export const getJobIsLoading = (state: RootState, id: number): boolean => {
   const updating = getJobUpdatingState(state);
   return hasKey(updating, id) ? updating[id] : false;
 };
 
-// TODO: rewrite this with selectors
-export const getJobIsEdited = (state: RootState, id: number): boolean => {
-  // If original job does not exist, return true.
-  if (!hasKey(entities(state).jobs.byId, id)) {
-    return true;
-  }
-  const original = entities(state).jobs.byId[id];
-  const edited = hasKey(entities(state).jobEdits, id)
-    ? entities(state).jobEdits[id]
-    : null;
-  return edited !== null && !isEqual(original, edited);
-};
+export const getJobIsEdited = createCachedSelector(
+  getJob,
+  getEditJob,
+  (canon, edited): boolean => edited !== null && !isEqual(canon, edited),
+)((state, ownProps): number => ownProps.jobId);
 
 export const getCriteria = createSelector(
   getCriteriaState,
