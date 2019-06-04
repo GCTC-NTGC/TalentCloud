@@ -556,7 +556,7 @@ class JobController extends Controller
     {
         $affectedCriteriaIds = [];
 
-        if (array_key_exists('criteria', $input) && !is_array($input['criteria'])) {
+        if (array_key_exists('criteria', $input) && is_array($input['criteria'])) {
             $criteria = $input['criteria'];
 
             // Old criteria must be updated, using the criteriaId that comes from the form element names.
