@@ -15,7 +15,7 @@ import { fakeQuestion } from "../../fakeData/fakeRatingGuideQuestion";
 describe("Job Selectors", (): void => {
   describe("getJob", (): void => {
     it("Returns the correct job", (): void => {
-      const job: Job = fakeJob();
+      const job: Job = fakeJob(12);
       const state: RootState = {
         ...initState(),
         jobs: {
@@ -151,11 +151,13 @@ describe("Job Selectors", (): void => {
 
 describe("getCriteriaUnansweredForQuestion", (): void => {
   it("should return the correct criteria", (): void => {
-    const crit1 = fakeCriterion(1);
-    const crit2 = fakeCriterion(2);
-    const crit3 = fakeCriterion(3);
+    const job = fakeJob();
 
-    const question = fakeQuestion(4);
+    const crit1 = fakeCriterion(1, 1);
+    const crit2 = fakeCriterion(2, 1);
+    const crit3 = fakeCriterion(3, 1);
+
+    const question = fakeQuestion(4, 1);
     question.assessment_type_id = 1;
 
     // Associate 3 criteria with the question's assessment_type
@@ -192,6 +194,11 @@ describe("getCriteriaUnansweredForQuestion", (): void => {
         ...initialState.jobs,
         entities: {
           ...initialState.jobs.entities,
+          jobs: {
+            byId: {
+              1: job,
+            },
+          },
           criteria: {
             byId: {
               1: crit1,
@@ -223,13 +230,6 @@ describe("getCriteriaUnansweredForQuestion", (): void => {
       },
     };
     const expectedCriteria = [crit1, crit3];
-    console.table(expectedCriteria);
-    console.table(
-      getCriteriaUnansweredForQuestion(store, {
-        questionId: question.id,
-        isTempQuestion: false,
-      }),
-    );
     expect(
       getCriteriaUnansweredForQuestion(store, {
         questionId: question.id,
