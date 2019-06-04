@@ -59,8 +59,20 @@ describe("Job Selectors", (): void => {
 
   describe("getJobIsEdited", (): void => {
     it("Returns true if unedited job doesn't exist", (): void => {
-      const state: RootState = initState();
-      expect(getJobIsEdited(state, 1)).toEqual(true);
+      const jobEdit: Job = fakeJob2(12);
+      const state: RootState = {
+        ...initState(),
+        jobs: {
+          ...initJobs(),
+          entities: {
+            ...initEntities(),
+            jobEdits: {
+              12: jobEdit,
+            },
+          },
+        },
+      };
+      expect(getJobIsEdited(state, { jobId: 12 })).toEqual(true);
     });
 
     it("Returns true if edited job is different", (): void => {
@@ -83,7 +95,7 @@ describe("Job Selectors", (): void => {
           },
         },
       };
-      expect(getJobIsEdited(state, 1)).toEqual(true);
+      expect(getJobIsEdited(state, { jobId: 1 })).toEqual(true);
     });
 
     it("Returns false if edited job is same as original", (): void => {
@@ -106,7 +118,7 @@ describe("Job Selectors", (): void => {
           },
         },
       };
-      expect(getJobIsEdited(state, 1)).toEqual(false);
+      expect(getJobIsEdited(state, { jobId: 1 })).toEqual(false);
     });
   });
 
@@ -211,6 +223,13 @@ describe("getCriteriaUnansweredForQuestion", (): void => {
       },
     };
     const expectedCriteria = [crit1, crit3];
+    console.table(expectedCriteria);
+    console.table(
+      getCriteriaUnansweredForQuestion(store, {
+        questionId: question.id,
+        isTempQuestion: false,
+      }),
+    );
     expect(
       getCriteriaUnansweredForQuestion(store, {
         questionId: question.id,
