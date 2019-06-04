@@ -8,9 +8,9 @@ describe("api/job", (): void => {
       id: 13,
       job_term_id: 2,
       term_qty: 1,
-      open_date_time: "2019-05-17 07:00:00",
-      close_date_time: "2019-06-01 06:59:59",
-      start_date_time: "2019-06-08 07:00:00",
+      open_date_time: "2019-05-17T07:00:00+00:00",
+      close_date_time: "2019-06-01T06:59:59+00:00",
+      start_date_time: "2019-06-08T07:00:00+00:00",
       department_id: 6,
       province_id: 6,
       salary_min: 79416,
@@ -20,8 +20,8 @@ describe("api/job", (): void => {
       security_clearance_id: 3,
       language_requirement_id: 3,
       manager_id: 1,
-      created_at: "2019-05-08 14:15:04",
-      updated_at: "2019-05-08 14:15:04",
+      created_at: "2019-05-08T14:15:04+00:00",
+      updated_at: "2019-05-08T14:15:04+00:00",
       published: false,
       remote_work_allowed: true,
       review_requested_at: null,
@@ -41,8 +41,8 @@ describe("api/job", (): void => {
         linkedin_url:
           "http://www.feeney.com/qui-qui-dolor-iusto-et-est-maiores",
         user_id: 2,
-        created_at: "2019-05-08 14:14:57",
-        updated_at: "2019-05-08 14:14:57",
+        created_at: "2019-05-08T14:14:57+00:00",
+        updated_at: "2019-05-08T14:14:57+00:00",
         work_review_frequency_id: 2,
         stay_late_frequency_id: 1,
         engage_team_frequency_id: 1,
@@ -75,8 +75,8 @@ describe("api/job", (): void => {
           name: "Giles Orn",
           is_confirmed: true,
           user_role_id: 2,
-          created_at: "2019-05-08 14:14:56",
-          updated_at: "2019-05-08 14:14:56",
+          created_at: "2019-05-08T14:14:56+00:00",
+          updated_at: "2019-05-08T14:14:56+00:00",
           is_priority: false,
           user_role: {
             id: 2,
@@ -105,8 +105,8 @@ describe("api/job", (): void => {
             manager_id: 1,
             education:
               "Quia natus blanditiis nihil recusandae aut optio. Nulla adipisci rerum reiciendis voluptas ea necessitatibus esse. Velit quasi perferendis ut voluptatem consequatur totam.\n\nEt laborum minima omnis reprehenderit quasi pariatur molestiae. Sed doloribus quis et. Consequatur est odit atque non voluptas quo id tempora.\n\nAt ipsam natus harum asperiores fugit ipsa adipisci. Atque aut ut itaque. Ipsam adipisci voluptas quas perspiciatis itaque similique.",
-            created_at: "2019-05-08 14:14:57",
-            updated_at: "2019-05-08 14:14:57",
+            created_at: "2019-05-08T14:14:57+00:00",
+            updated_at: "2019-05-08T14:14:57+00:00",
             career_journey:
               "Atque sunt repellendus accusamus. Quia magnam eos fugit ratione. Praesentium inventore molestias aut et.\n\nMagnam eligendi voluptates optio similique id ut similique. Est fugiat consequatur possimus qui inventore distinctio explicabo quod. Itaque nemo explicabo aliquam et officia.\n\nQui aut saepe quia. Impedit eum sunt velit quae. Architecto qui vel deleniti.",
             learning_path:
@@ -131,8 +131,8 @@ describe("api/job", (): void => {
             manager_id: 1,
             education:
               "Eius veniam modi expedita rem nam ratione. Repellendus animi quam est amet natus. Corrupti et itaque officiis necessitatibus qui qui.\n\nHic eaque quam nulla quia placeat reprehenderit. Dolor ratione deleniti nobis odit cum. Beatae qui et dolor asperiores.\n\nRepellat ea quos fugit praesentium quidem placeat expedita. Hic unde architecto tenetur officia animi atque ut. Temporibus et facere at voluptatum quia.",
-            created_at: "2019-05-08 14:14:57",
-            updated_at: "2019-05-08 14:14:57",
+            created_at: "2019-05-08T14:14:57+00:00",
+            updated_at: "2019-05-08T14:14:57+00:00",
             career_journey:
               "Ut tempora ipsa rerum id odit. Ullam laudantium qui quo odit assumenda voluptatem esse consequuntur. Placeat perferendis rerum facere qui rem et id in. Ut quidem ratione eaque suscipit culpa.\n\nSequi necessitatibus id et dolor eveniet dolorem. Exercitationem explicabo tempore necessitatibus voluptas.\n\nNecessitatibus explicabo non perspiciatis est ipsa. Laboriosam atque eos dolorem magnam perferendis sunt atque. Aspernatur molestias nisi et qui.",
             learning_path:
@@ -152,8 +152,8 @@ describe("api/job", (): void => {
           branch: "omnis",
           division: "omnis",
           education: "Maiores qui eum repellendus ut quisquam ipsa.",
-          created_at: "2019-05-08 14:15:04",
-          updated_at: "2019-05-08 14:15:04",
+          created_at: "2019-05-08T14:15:04+00:00",
+          updated_at: "2019-05-08T14:15:04+00:00",
         },
         {
           id: 25,
@@ -166,8 +166,8 @@ describe("api/job", (): void => {
           branch: "eveniet",
           division: "et",
           education: "Veritatis dolorem soluta doloribus doloribus occaecati.",
-          created_at: "2019-05-08 14:15:04",
-          updated_at: "2019-05-08 14:15:04",
+          created_at: "2019-05-08T14:15:04+00:00",
+          updated_at: "2019-05-08T14:15:04+00:00",
         },
       ],
       fr: {
@@ -195,8 +195,8 @@ describe("api/job", (): void => {
           job_poster_id: 13,
           skill_id: 20,
           skill_level_id: 4,
-          created_at: "2019-05-08 14:15:04",
-          updated_at: "2019-05-08 14:15:04",
+          created_at: "2019-05-08T14:15:04+00:00",
+          updated_at: "2019-05-08T14:15:04+00:00",
           description:
             "Sint eum accusamus perspiciatis molestias. Magnam et sint voluptatem neque labore.\n\nPossimus ea velit ratione repellendus. Est vel minus quia. Laboriosam dolorem minus eius repudiandae et autem aut.",
           criteria_type: {
@@ -231,7 +231,7 @@ describe("api/job", (): void => {
             id: 20,
             skill_type_id: 1,
             created_at: null,
-            updated_at: "2019-05-08 14:14:55",
+            updated_at: "2019-05-08T14:14:55+00:00",
             name: "Integrity",
             description:
               "Defined as: Treating all those in the work environment with fairness, courtesy and respect for differences; performing the job in a manner that upholds the public trust and values co-workers.",
@@ -268,8 +268,8 @@ describe("api/job", (): void => {
               criteria_id: 61,
               description:
                 "Sint eum accusamus perspiciatis molestias. Magnam et sint voluptatem neque labore.\n\nPossimus ea velit ratione repellendus. Est vel minus quia. Laboriosam dolorem minus eius repudiandae et autem aut.",
-              created_at: "2019-05-08 14:15:04",
-              updated_at: "2019-05-08 14:15:04",
+              created_at: "2019-05-08T14:15:04+00:00",
+              updated_at: "2019-05-08T14:15:04+00:00",
             },
             {
               id: 122,
@@ -277,8 +277,8 @@ describe("api/job", (): void => {
               criteria_id: 61,
               description:
                 "Quae aut ipsam nam laborum. Et est non sequi est saepe. Voluptates soluta laudantium est excepturi. Suscipit repudiandae deserunt quod aut.\n\nIpsum natus harum laborum suscipit enim impedit. Voluptatem sequi quam quae sunt quam. Dolores vero sint nihil non qui autem consequuntur quam. Dicta deleniti voluptas et vel.",
-              created_at: "2019-05-08 14:15:04",
-              updated_at: "2019-05-08 14:15:04",
+              created_at: "2019-05-08T14:15:04+00:00",
+              updated_at: "2019-05-08T14:15:04+00:00",
             },
           ],
           en: {
@@ -296,8 +296,8 @@ describe("api/job", (): void => {
           job_poster_id: 13,
           skill_id: 83,
           skill_level_id: 3,
-          created_at: "2019-05-08 14:15:04",
-          updated_at: "2019-05-08 14:15:04",
+          created_at: "2019-05-08T14:15:04+00:00",
+          updated_at: "2019-05-08T14:15:04+00:00",
           description:
             "Non unde sed occaecati odio nemo ea. Rerum voluptas accusamus enim neque repellendus dolore. Magnam tenetur non aut ut sed alias. Impedit rerum perspiciatis tempore reiciendis saepe asperiores dolor.\n\nDeserunt vel quae nisi suscipit. Commodi nemo a asperiores voluptatem. Sunt cupiditate dolor blanditiis aut quia qui aliquid.",
           criteria_type: {
@@ -332,7 +332,7 @@ describe("api/job", (): void => {
             id: 83,
             skill_type_id: 2,
             created_at: null,
-            updated_at: "2019-05-08 14:14:55",
+            updated_at: "2019-05-08T14:14:55+00:00",
             name: "Business analysis",
             description:
               "Defined as: Ability to gather, document, and analyze business needs and requirements, and to investigate problems and opportunities to contribute to determining solutions.",
@@ -369,8 +369,8 @@ describe("api/job", (): void => {
               criteria_id: 62,
               description:
                 "Non unde sed occaecati odio nemo ea. Rerum voluptas accusamus enim neque repellendus dolore. Magnam tenetur non aut ut sed alias. Impedit rerum perspiciatis tempore reiciendis saepe asperiores dolor.\n\nDeserunt vel quae nisi suscipit. Commodi nemo a asperiores voluptatem. Sunt cupiditate dolor blanditiis aut quia qui aliquid.",
-              created_at: "2019-05-08 14:15:04",
-              updated_at: "2019-05-08 14:15:04",
+              created_at: "2019-05-08T14:15:04+00:00",
+              updated_at: "2019-05-08T14:15:04+00:00",
             },
             {
               id: 124,
@@ -378,8 +378,8 @@ describe("api/job", (): void => {
               criteria_id: 62,
               description:
                 "Consequatur voluptatibus consequatur nobis cumque vitae quia dolorum. Iure molestiae cumque sint quisquam voluptates.\n\nImpedit eaque quibusdam quisquam minus animi omnis aut dolorem. Vel sunt nostrum adipisci eius illum quae. Nam reiciendis non quam tempore repudiandae porro voluptatem.",
-              created_at: "2019-05-08 14:15:04",
-              updated_at: "2019-05-08 14:15:04",
+              created_at: "2019-05-08T14:15:04+00:00",
+              updated_at: "2019-05-08T14:15:04+00:00",
             },
           ],
           en: {
@@ -397,8 +397,8 @@ describe("api/job", (): void => {
           job_poster_id: 13,
           skill_id: 75,
           skill_level_id: 2,
-          created_at: "2019-05-08 14:15:04",
-          updated_at: "2019-05-08 14:15:04",
+          created_at: "2019-05-08T14:15:04+00:00",
+          updated_at: "2019-05-08T14:15:04+00:00",
           description:
             "Iste hic laudantium perferendis deserunt quia eos aperiam. Et deleniti expedita architecto. Quis rerum in molestiae quibusdam. Dolor et et quos fuga deleniti enim.\n\nQui distinctio accusamus eos non a impedit rerum. Quidem magni quae voluptatem sint sed ut nihil. Exercitationem ea eos ut vero numquam sed quia officiis.",
           criteria_type: {
@@ -433,7 +433,7 @@ describe("api/job", (): void => {
             id: 75,
             skill_type_id: 2,
             created_at: null,
-            updated_at: "2019-05-08 14:14:55",
+            updated_at: "2019-05-08T14:14:55+00:00",
             name: "Quality Assurance",
             description:
               "Defined as: Ability to design a wide range of testing techniques, identify the most effective techniques, data sets and tools to use, and communicate the testing approaches to both technical and non-technical stakeholders.",
@@ -470,8 +470,8 @@ describe("api/job", (): void => {
               criteria_id: 63,
               description:
                 "Iste hic laudantium perferendis deserunt quia eos aperiam. Et deleniti expedita architecto. Quis rerum in molestiae quibusdam. Dolor et et quos fuga deleniti enim.\n\nQui distinctio accusamus eos non a impedit rerum. Quidem magni quae voluptatem sint sed ut nihil. Exercitationem ea eos ut vero numquam sed quia officiis.",
-              created_at: "2019-05-08 14:15:04",
-              updated_at: "2019-05-08 14:15:04",
+              created_at: "2019-05-08T14:15:05+00:00",
+              updated_at: "2019-05-08T14:15:05+00:00",
             },
             {
               id: 126,
@@ -479,8 +479,8 @@ describe("api/job", (): void => {
               criteria_id: 63,
               description:
                 "Et quod sed atque est sint et. Laudantium praesentium architecto corrupti dolores nobis saepe et. Excepturi laboriosam ea dignissimos harum occaecati at commodi. Fugit nihil possimus pariatur nulla totam eum aut.\n\nAperiam sapiente quia nostrum dolorem explicabo aut nihil. Quo deserunt ut qui incidunt unde ipsa autem. Cupiditate amet molestiae molestiae nostrum rerum. Tenetur pariatur delectus occaecati dolores.",
-              created_at: "2019-05-08 14:15:04",
-              updated_at: "2019-05-08 14:15:04",
+              created_at: "2019-05-08T14:15:05+00:00",
+              updated_at: "2019-05-08T14:15:05+00:00",
             },
           ],
           en: {
@@ -498,8 +498,8 @@ describe("api/job", (): void => {
           job_poster_id: 13,
           skill_id: 36,
           skill_level_id: 1,
-          created_at: "2019-05-08 14:15:04",
-          updated_at: "2019-05-08 14:15:04",
+          created_at: "2019-05-08T14:15:05+00:00",
+          updated_at: "2019-05-08T14:15:05+00:00",
           description:
             "Occaecati id id quidem. Quas commodi tenetur aut occaecati velit at consequatur. Voluptatibus labore deleniti cumque autem.\n\nAtque veniam ut non sequi eum voluptas sunt neque. Dolorem eos quas voluptas quasi. Quia blanditiis error tempore consequatur labore. Amet optio odit quam dolore id.",
           criteria_type: {
@@ -571,8 +571,8 @@ describe("api/job", (): void => {
               criteria_id: 64,
               description:
                 "Occaecati id id quidem. Quas commodi tenetur aut occaecati velit at consequatur. Voluptatibus labore deleniti cumque autem.\n\nAtque veniam ut non sequi eum voluptas sunt neque. Dolorem eos quas voluptas quasi. Quia blanditiis error tempore consequatur labore. Amet optio odit quam dolore id.",
-              created_at: "2019-05-08 14:15:04",
-              updated_at: "2019-05-08 14:15:04",
+              created_at: "2019-05-08T14:15:05+00:00",
+              updated_at: "2019-05-08T14:15:05+00:00",
             },
             {
               id: 128,
@@ -580,8 +580,8 @@ describe("api/job", (): void => {
               criteria_id: 64,
               description:
                 "Possimus animi harum quae a explicabo. Ut fugit ut quia aut aut in optio. Voluptatem molestiae vel iste dolor et. Aut nesciunt quo est et esse.\n\nEum omnis magni molestiae dolorem aut mollitia nam. Quo ducimus quisquam iste autem exercitationem.",
-              created_at: "2019-05-08 14:15:04",
-              updated_at: "2019-05-08 14:15:04",
+              created_at: "2019-05-08T14:15:05+00:00",
+              updated_at: "2019-05-08T14:15:05+00:00",
             },
           ],
           en: {
@@ -599,8 +599,8 @@ describe("api/job", (): void => {
           job_poster_id: 13,
           skill_id: 80,
           skill_level_id: 2,
-          created_at: "2019-05-08 14:15:04",
-          updated_at: "2019-05-08 14:15:04",
+          created_at: "2019-05-08T14:15:05+00:00",
+          updated_at: "2019-05-08T14:15:05+00:00",
           description:
             "Vel repellendus impedit quod exercitationem animi perspiciatis. Maxime fugiat delectus aut incidunt. Aspernatur dolor fugit natus laborum adipisci deleniti. Porro est expedita molestiae similique deserunt ad vel aut.\n\nRepellendus quia corporis fuga. Accusamus voluptas omnis rem. Excepturi pariatur numquam eligendi non est delectus est et. Ut voluptatem nesciunt sit non.",
           criteria_type: {
@@ -672,8 +672,8 @@ describe("api/job", (): void => {
               criteria_id: 65,
               description:
                 "Vel repellendus impedit quod exercitationem animi perspiciatis. Maxime fugiat delectus aut incidunt. Aspernatur dolor fugit natus laborum adipisci deleniti. Porro est expedita molestiae similique deserunt ad vel aut.\n\nRepellendus quia corporis fuga. Accusamus voluptas omnis rem. Excepturi pariatur numquam eligendi non est delectus est et. Ut voluptatem nesciunt sit non.",
-              created_at: "2019-05-08 14:15:04",
-              updated_at: "2019-05-08 14:15:04",
+              created_at: "2019-05-08T14:15:05+00:00",
+              updated_at: "2019-05-08T14:15:05+00:00",
             },
             {
               id: 130,
@@ -681,8 +681,8 @@ describe("api/job", (): void => {
               criteria_id: 65,
               description:
                 "Vero qui id qui est. Rerum quaerat voluptate id similique minus sit quae. Est porro alias earum nam quas excepturi inventore. Ut nesciunt sit temporibus odit quibusdam aut.\n\nRerum velit libero cumque debitis temporibus. Recusandae fuga aut neque repudiandae eum sint.",
-              created_at: "2019-05-08 14:15:04",
-              updated_at: "2019-05-08 14:15:04",
+              created_at: "2019-05-08T14:15:05+00:00",
+              updated_at: "2019-05-08T14:15:05+00:00",
             },
           ],
           en: {
@@ -704,9 +704,7 @@ describe("api/job", (): void => {
       ).not.toThrow();
     });
     it("Parses the close date correctly", (): void => {
-      const expectDate = moment
-        .utc("2019-06-01 06:59:59", "YYYY-M-D H:mm:ss")
-        .toDate();
+      const expectDate = moment("2019-06-01T06:59:59+00:00").toDate();
       expect(parseJobResponse(jobResponse()).job.close_date_time).toEqual(
         expectDate,
       );
