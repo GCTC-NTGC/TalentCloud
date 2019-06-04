@@ -3,11 +3,12 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Services\Validation\Rules\DepartmentRule;
-use App\Services\Validation\Rules\ProvinceRule;
-use App\Services\Validation\Rules\SecurityClearanceRule;
-use App\Services\Validation\Rules\LanguageRequirementRule;
 use Illuminate\Support\Facades\Config;
+use App\Services\Validation\Rules\ValidIdRule;
+use App\Models\Lookup\Department;
+use App\Models\Lookup\Province;
+use App\Models\Lookup\SecurityClearance;
+use App\Models\Lookup\LanguageRequirement;
 
 class UpdateJobPoster extends FormRequest
 {
