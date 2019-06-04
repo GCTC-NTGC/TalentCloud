@@ -25,7 +25,7 @@ class UpdateJobPoster extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return string[]
      */
     public function rules(): array
     {
@@ -36,10 +36,10 @@ class UpdateJobPoster extends FormRequest
             'open_date_time' =>['nullable', $dateFormatRule],
             'close_date_time' => ['nullable', $dateFormatRule],
             'start_date_time' =>['nullable', $dateFormatRule],
-            'department_id' => ['nullable', new DepartmentRule()],
-            'province_id' => ['nullable', new ProvinceRule()],
-            'security_clearance_id' => ['nullable', new SecurityClearanceRule()],
-            'language_requirement_id' => ['nullable', new LanguageRequirementRule()],
+            'department_id' => ['nullable', new ValidIdRule(Department::class)],
+            'province_id' => ['nullable', new ValidIdRule(Province::class)],
+            'security_clearance_id' => ['nullable', new ValidIdRule(SecurityClearance::class)],
+            'language_requirement_id' => ['nullable', new ValidIdRule(LanguageRequirement::class)],
             'salary_min' => 'nullable|numeric',
             'salary_max' => 'nullable|numeric',
             'noc' => 'nullable|numeric',
