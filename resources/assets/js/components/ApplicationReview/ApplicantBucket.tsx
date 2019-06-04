@@ -1,7 +1,7 @@
 import React from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { Application } from "../../models/types";
-import { SelectOption } from "../Select";
+import { SelectOption } from "../Forms/Select";
 import ApplicationReview from "./ApplicationReview";
 import { whereFirst } from "../../helpers/queries";
 import {

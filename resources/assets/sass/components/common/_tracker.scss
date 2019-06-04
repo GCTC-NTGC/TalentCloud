@@ -1,8 +1,16 @@
 .tracker {
-    .tracker-item {
-        display: inline-block;
-        vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media #{$clone-tablet-landscape} {
+        justify-content: flex-end;
     }
+
+    .tracker-item {
+
+    }
+
     .tracker-icon {
         border-radius: 100%;
         display: inline-block;
@@ -11,12 +19,8 @@
         position: relative;
         width: 1.5rem;
         vertical-align: middle;
-        &+div {
-            display: inline-block;
-            vertical-align: middle;
-        }
         i {
-            font-size: $clone-font-scale--small;
+            font-size: $clone-font-scale-small;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -25,6 +29,10 @@
         .fa-exclamation-triangle {
             margin: -.05rem 0 0 -.04rem;
         }
+    }
+    .tracker-title {
+        display: flex;
+        flex-direction: column;
     }
     [data-tc-tracker-state="null"] {
         display: none;

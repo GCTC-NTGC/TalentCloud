@@ -2,7 +2,7 @@ import React from "react";
 
 export interface InputProps {
   htmlId: string;
-  formName: string;
+  name: string;
   label: string;
   required?: boolean;
   placeholder?: string;
@@ -12,13 +12,18 @@ export interface InputProps {
   maxLength?: number;
   value?: string | number;
   errorText?: string;
+  grid?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+
+  // formik
+  field?: any;
+  form?: any;
 }
 
 const Input: React.FunctionComponent<InputProps> = ({
   htmlId,
-  formName,
+  name,
   label,
   required,
   placeholder,
@@ -27,16 +32,19 @@ const Input: React.FunctionComponent<InputProps> = ({
   value,
   onChange,
   errorText,
+  grid,
   minLength,
   maxLength,
   onBlur,
+  field,
+  form,
 }): React.ReactElement => {
   function renderRadio(): React.ReactElement {
     return (
       <label htmlFor={htmlId}>
         <input
           id={htmlId}
-          name={formName}
+          name={name}
           type={type}
           checked={checked}
           value={value}
@@ -50,22 +58,27 @@ const Input: React.FunctionComponent<InputProps> = ({
 
   function renderText(): React.ReactElement {
     return (
-      <div data-c-input={type || "text"}>
+      <div
+        data-c-input={type || "text"}
+        data-c-grid-item={grid}
+        data-c-required={required}
+      >
         <label htmlFor={htmlId}>{label}</label>
         {required && <span>Required</span>}
-        <input
-          data-c-font-weight="800"
-          id={htmlId}
-          name={formName}
-          placeholder={placeholder}
-          type={type || "text"}
-          value={value}
-          onChange={onChange}
-          minLength={minLength}
-          maxLength={maxLength}
-          onBlur={onBlur}
-        />
-        <span>{errorText || "Something went wrong."}</span>
+        <div>
+          <input
+            id={htmlId}
+            name={field.name || name}
+            placeholder={placeholder}
+            type={type || "text"}
+            value={field.value || value}
+            onChange={field.onChange || onChange}
+            minLength={minLength}
+            maxLength={maxLength}
+            onBlur={field.onBlur || onBlur}
+          />
+        </div>
+        <span>{form.errors[name] || errorText || "Something went wrong."}</span>
       </div>
     );
   }
