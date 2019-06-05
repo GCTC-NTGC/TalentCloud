@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use App\Models\Skill;
-use App\Models\Lookup\SkillLevel;
 use App\Models\Lookup\SkillStatus;
 use App\Models\SkillDeclaration;
 use App\Models\Applicant;
 use App\Http\Controllers\Controller;
-use App\Services\Validation\BulkSkillDeclarationValidator;
 use App\Services\Validation\SkillDeclarationValidator;
 
 class SkillDeclarationController extends Controller
@@ -20,10 +16,10 @@ class SkillDeclarationController extends Controller
     /**
      * Show the form for editing the logged-in applicant's skills
      *
-     * @param  Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  Request $request Incoming request.
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-    public function editAuthenticated(Request $request): \Illuminate\Http\RedirectResponse
+    public function editAuthenticated(Request $request)
     {
         $applicant = $request->user()->applicant;
         return redirect(route('profile.skills.edit', $applicant));
@@ -54,10 +50,10 @@ class SkillDeclarationController extends Controller
     /**
      * Create the particular skill declaration in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request Incoming request.
+     * @return \Illuminate\Http\RedirectResponse|string
      */
-    public function create(Request $request): \Illuminate\Http\Response
+    public function create(Request $request)
     {
         $this->authorize('create', SkillDeclaration::class);
 
@@ -79,19 +75,26 @@ class SkillDeclarationController extends Controller
     }
 
     /**
-     * Update the particular skill declaration in storage.
+     * Check authorization and update the skill declaration.
      *
-     * @param  \Illuminate\Http\Request     $request
-     * @param  \App\Models\SkillDeclaration $skillDeclaration
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request     $request          Incoming request.
+     * @param  \App\Models\SkillDeclaration $skillDeclaration Incoming Skill Declaration.
+     * @return \Illuminate\Http\RedirectResponse|string
      */
-    public function update(Request $request, SkillDeclaration $skillDeclaration): \Illuminate\Http\Response
+    public function update(Request $request, SkillDeclaration $skillDeclaration)
     {
         $this->authorize('update', $skillDeclaration);
 
         return $this->updateSkillDeclaration($request, $skillDeclaration);
     }
 
+    /**
+     * Update the particular skill declaration in storage.
+     *
+     * @param  \Illuminate\Http\Request     $request          Incoming request.
+     * @param  \App\Models\SkillDeclaration $skillDeclaration Incoming Skill Declaration.
+     * @return \Illuminate\Http\RedirectResponse|string
+     */
     protected function updateSkillDeclaration(Request $request, SkillDeclaration $skillDeclaration)
     {
         //Fill variable values
@@ -131,11 +134,11 @@ class SkillDeclarationController extends Controller
     /**
      * Delete the particular skill declaration in storage.
      *
-     * @param  \Illuminate\Http\Request     $request
-     * @param  \App\Models\SkillDeclaration $skillDeclaration
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request     $request          Incoming request.
+     * @param  \App\Models\SkillDeclaration $skillDeclaration Incoming Skill Declaration.
+     * @return \Illuminate\Http\RedirectResponse|string[]
      */
-    public function destroy(Request $request, SkillDeclaration $skillDeclaration): \Illuminate\Http\Response
+    public function destroy(Request $request, SkillDeclaration $skillDeclaration)
     {
         $this->authorize('delete', $skillDeclaration);
         $skillDeclaration->delete();
