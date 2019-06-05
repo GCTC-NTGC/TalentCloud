@@ -58,7 +58,12 @@ describe("Job Selectors", (): void => {
   });
 
   describe("getJobIsEdited", (): void => {
-    it("Returns true if unedited job doesn't exist", (): void => {
+    it("Returns false if no version of the job exists", (): void => {
+      const state: RootState = initState();
+      expect(getJobIsEdited(state, { jobId: 12 })).toEqual(false);
+    });
+
+    it("Returns true if only edited job exists", (): void => {
       const jobEdit: Job = fakeJob2(12);
       const state: RootState = {
         ...initState(),
