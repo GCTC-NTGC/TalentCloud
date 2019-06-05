@@ -1,4 +1,5 @@
 import * as React from "react";
+import ReactDOM from "react-dom";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { items } from "../ProgressTracker/fixtures/progressItems";
 import Step0Form from "./Step0Form";
@@ -51,5 +52,10 @@ const JobBuilder: React.FunctionComponent<
     </section>
   );
 };
+
+if (document.getElementById("job-builder-form-0")) {
+  const rootEl = document.getElementById("job-builder-form-0");
+  ReactDOM.render(<Step0Form />, rootEl);
+}
 
 export default JobBuilder;
