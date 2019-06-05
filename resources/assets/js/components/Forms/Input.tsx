@@ -23,7 +23,7 @@ export interface InputProps {
 
 const Input: React.FunctionComponent<InputProps> = ({
   htmlId,
-  name,
+  name: htmlName,
   label,
   required,
   placeholder,
@@ -37,14 +37,14 @@ const Input: React.FunctionComponent<InputProps> = ({
   maxLength,
   onBlur,
   field,
-  form,
+  form: { errors, touched },
 }): React.ReactElement => {
   function renderRadio(): React.ReactElement {
     return (
       <label htmlFor={htmlId}>
         <input
           id={htmlId}
-          name={name}
+          name={htmlName}
           type={type}
           checked={checked}
           value={value}
@@ -62,13 +62,14 @@ const Input: React.FunctionComponent<InputProps> = ({
         data-c-input={type || "text"}
         data-c-grid-item={grid}
         data-c-required={required}
+        data-c-invalid={touched[field.name] && errors[field.name] ? true : null}
       >
         <label htmlFor={htmlId}>{label}</label>
         {required && <span>Required</span>}
         <div>
           <input
             id={htmlId}
-            name={field.name || name}
+            name={field.name || htmlName}
             placeholder={placeholder}
             type={type || "text"}
             value={field.value || value}
@@ -78,7 +79,11 @@ const Input: React.FunctionComponent<InputProps> = ({
             onBlur={field.onBlur || onBlur}
           />
         </div>
-        <span>{form.errors[name] || errorText || "Something went wrong."}</span>
+        <span>
+          {(touched[field.name] && errors[field.name]) ||
+            errorText ||
+            "Something went wrong."}
+        </span>
       </div>
     );
   }

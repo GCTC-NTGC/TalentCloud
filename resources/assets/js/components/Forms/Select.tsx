@@ -14,8 +14,11 @@ export interface SelectProps<T extends string | number> {
   nullSelection: string | undefined;
   options: SelectOption<T>[];
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onBlur?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   errorText?: string;
   grid?: string;
+  children?: React.ReactNode;
+  defaultValue?: string;
 
   // formik
   field?: any;
@@ -34,19 +37,21 @@ export default function Select<T extends string | number>(
     nullSelection,
     options,
     onChange,
+    onBlur,
     errorText,
     grid,
     field,
-    form: { errors },
+    form: { errors, touched },
+    children,
   } = props;
 
   const { name } = field;
-
   return (
     <div
       data-c-input="select"
       data-c-grid-item={grid}
       data-c-required={required}
+      data-c-invalid={touched[name] && errors[name] ? true : null}
     >
       <label htmlFor={htmlId}>{label}</label>
       {required && <span>Required</span>}
@@ -56,21 +61,30 @@ export default function Select<T extends string | number>(
           id={htmlId}
           name={name || formName}
           value={selected || ""}
-          onChange={field.onChange || (e => onChange(e))}
+          onChange={field.onChange || onChange}
+          onBlur={field.onBlur || onBlur}
         >
           {nullSelection && (
             <option value="" disabled>
               {nullSelection}
             </option>
           )}
-          {options.map(option => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
+          {options &&
+            options.map(
+              (option): React.ReactElement => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ),
+            )}
+          {children}
         </select>
       </div>
-      <span>{errors[name] || errorText || "This input has an error."}</span>
+      <span>
+        {(touched[name] && errors[name]) ||
+          errorText ||
+          "This input has an error."}
+      </span>
     </div>
   );
 }
