@@ -51,7 +51,7 @@ class SkillDeclarationController extends Controller
      * Create the particular skill declaration in storage.
      *
      * @param  \Illuminate\Http\Request $request Incoming request.
-     * @return \Illuminate\Http\RedirectResponse|string[]
+     * @return \Illuminate\Http\RedirectResponse|string
      */
     public function create(Request $request)
     {
@@ -79,7 +79,7 @@ class SkillDeclarationController extends Controller
      *
      * @param  \Illuminate\Http\Request     $request          Incoming request.
      * @param  \App\Models\SkillDeclaration $skillDeclaration Incoming Skill Declaration.
-     * @return \Illuminate\Http\RedirectResponse|string[]
+     * @return \Illuminate\Http\RedirectResponse|string
      */
     public function update(Request $request, SkillDeclaration $skillDeclaration)
     {
@@ -93,7 +93,7 @@ class SkillDeclarationController extends Controller
      *
      * @param  \Illuminate\Http\Request     $request          Incoming request.
      * @param  \App\Models\SkillDeclaration $skillDeclaration Incoming Skill Declaration.
-     * @return \Illuminate\Http\RedirectResponse|string[]
+     * @return \Illuminate\Http\RedirectResponse|string
      */
     protected function updateSkillDeclaration(Request $request, SkillDeclaration $skillDeclaration)
     {
@@ -136,7 +136,7 @@ class SkillDeclarationController extends Controller
      *
      * @param  \Illuminate\Http\Request     $request          Incoming request.
      * @param  \App\Models\SkillDeclaration $skillDeclaration Incoming Skill Declaration.
-     * @return \Illuminate\Http\Response|string[]
+     * @return \Illuminate\Http\RedirectResponse|string[]
      */
     public function destroy(Request $request, SkillDeclaration $skillDeclaration)
     {
