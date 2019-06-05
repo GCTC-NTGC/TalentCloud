@@ -259,7 +259,6 @@ const JobDetails = (): React.ReactElement => {
           render={({
             errors,
             touched,
-            status,
             isSubmitting,
             values,
           }): React.ReactElement => (
@@ -551,7 +550,6 @@ const JobDetails = (): React.ReactElement => {
                     label="Almost Never"
                   />
                 </RadioGroup>
-                {status && status.msg && <div>{status.msg}</div>}
                 <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
                   <button
                     data-c-button="solid(c1)"
