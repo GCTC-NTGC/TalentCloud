@@ -39,6 +39,24 @@ const Input: React.FunctionComponent<InputProps> = ({
   field,
   form,
 }): React.ReactElement => {
+  function renderCheckbox(): React.ReactElement {
+    return (
+      <label htmlFor={htmlId}>
+        <input
+          id={htmlId}
+          name={field.name || name}
+          type={type}
+          checked={checked}
+          value={value}
+          onChange={field.onChange || onChange}
+          onBlur={field.onBlur || onBlur}
+          required
+        />
+        <span>{label}</span>
+      </label>
+    );
+  }
+
   function renderRadio(): React.ReactElement {
     return (
       <label htmlFor={htmlId}>
@@ -82,10 +100,15 @@ const Input: React.FunctionComponent<InputProps> = ({
       </div>
     );
   }
-  if (type === "radio") {
-    return renderRadio();
+
+  switch (type) {
+    case "radio":
+      return renderRadio();
+    case "checkbox":
+      return renderCheckbox();
+    default:
+      return renderText();
   }
-  return renderText();
 };
 
 export default Input;
