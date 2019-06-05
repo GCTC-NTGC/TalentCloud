@@ -373,9 +373,6 @@ Route::group(
 
 /** API routes - currently using same default http auth, but not localized */
 Route::group(['prefix' => 'api'], function (): void {
-    Route::get("jobs/{jobPoster}", "JobController@get")
-        ->middleware('can:view,jobPoster');
-
         // Protected by a gate in the controller, instead of policy middleware
     Route::get("jobs/{jobPoster}/assessment-plan", "AssessmentPlanController@getForJob");
 
@@ -386,13 +383,27 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::resource('assessments', 'AssessmentController')->except([
         'create', 'edit', 'index'
     ]);
-    Route::resource('rating-guide-answers', 'RatingGuideAnswerController')->except([
-        'create', 'edit', 'index'
+    Route::apiResource('rating-guide-answers', 'RatingGuideAnswerController')->except([
+        'index'
+    ])->parameters([
+        'rating-guide-answers' => 'ratingGuideAnswer'
     ]);
     Route::resource('rating-guide-questions', 'RatingGuideQuestionController')->except([
         'create', 'edit', 'index'
     ]);
     Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
         'store', 'create', 'edit'
+    ]);
+    Route::resource('jobs', 'Api\JobApiController')->only([
+        'show', 'update'
+    ])->names([ // Specify custom names because default names collied with existing routes
+        'show' => 'api.jobs.show',
+        'update' => 'api.jobs.update'
+    ]);
+    Route::resource('managers', 'Api\ManagerApiController')->only([
+        'show', 'update'
+    ])->names([ // Specify custom names because default names collied with existing routes
+        'show' => 'api.managers.show',
+        'update' => 'api.managers.update'
     ]);
 });

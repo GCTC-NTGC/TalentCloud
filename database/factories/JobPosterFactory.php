@@ -30,7 +30,8 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'salary_min' => $faker->numberBetween(60000, 80000),
         'salary_max' => $faker->numberBetween(80000, 100000),
         'noc' => $faker->numberBetween(1, 9999),
-        'classification' => $faker->regexify('[A-Z]{2}-0[1-5]'),
+        'classification_code' => $faker->regexify('[A-Z]{2}'),
+        'classification_level' => $faker->numberBetween(1, 6),
         'security_clearance_id' => SecurityClearance::inRandomOrder()->first()->id,
         'language_requirement_id' => LanguageRequirement::inRandomOrder()->first()->id,
         'remote_work_allowed' => $faker->boolean(50),
@@ -40,19 +41,15 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'published' => false,
         'city:en' => $faker->city,
         'title:en' => $faker->unique()->realText(27, 1),
-        'impact:en' => $faker->paragraphs(
-            2,
-            true
-        ),
+        'team_impact:en' => $faker->paragraph(),
+        'hire_impact:en' => $faker->paragraph(),
         'branch:en' => $faker->word,
         'division:en' => $faker->word,
         'education:en' => $faker->sentence(),
         'city:fr' => $faker_fr->city,
         'title:fr' => $faker_fr->unique()->realText(27, 1),
-        'impact:fr' => $faker_fr->paragraphs(
-            2,
-            true
-        ),
+        'team_impact:fr' => $faker->paragraph(),
+        'hire_impact:fr' => $faker->paragraph(),
         'branch:fr' => $faker_fr->word,
         'division:fr' => $faker_fr->word,
         'education:fr' => $faker_fr->sentence(),
