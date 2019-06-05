@@ -6,7 +6,7 @@
 // run on Review Applicants page to export all applications to PDF
 // add bookmark to Chrome with this as the URL:
 
-// javascript:function clickAllApplicants(){let t=document.querySelectorAll("div.box.lg-2of11.applicant-links > a:nth-child(1)");!function(t){(t=Array.prototype.slice.call(t)).map(function(t){return t.getAttribute("href")})}(t);for(var e=0;e<t.length;e++){var l=window.open(t[e],"_blank"),n=l.document.createElement("script");n.setAttribute("src",t[e].origin+"/getpdf.js"),l.document.body.appendChild(n)}}clickAllApplicants();
+// javascript:function clickAllApplicants(){let t=document.querySelectorAll("div.box.lg-2of11.applicant-links > a:nth-child(1)");!function(t){(t=Array.prototype.slice.call(t)).map(function(t){return t.getAttribute("href")})}(t);for(var e=0;e<t.length;e++){var l=window.open(t[e],"_blank"),n=l.document.createElement("script");n.setAttribute("src",t[e].origin+"/js/getpdf.js"),l.document.body.appendChild(n)}}clickAllApplicants();
 
 function replaceAll(subject, search, replacement) {
   return subject.split(search).join(replacement);
