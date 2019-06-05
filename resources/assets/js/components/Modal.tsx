@@ -27,6 +27,31 @@ export default function Modal({
   // Internal state to keep track of the overflow setting
   const [overflow, setOverflow] = useState("");
 
+  const handleTabKey = (e: KeyboardEvent): void => {
+    if (modalRef && modalRef.current) {
+      const focusableModalElements = modalRef.current.querySelectorAll(
+        'a[href], button, textarea, input[type="text"], input[type="email"], input[type="radio"], select',
+      );
+      const firstElement = focusableModalElements[0] as HTMLElement;
+      const lastElement = focusableModalElements[
+        focusableModalElements.length - 1
+      ] as HTMLElement;
+
+      if (!e.shiftKey && document.activeElement !== firstElement) {
+        firstElement.focus();
+        e.preventDefault();
+      }
+
+      if (e.shiftKey && document.activeElement !== lastElement) {
+        lastElement.focus();
+        e.preventDefault();
+      }
+    }
+  };
+
+  // Collection of key codes and event listeners
+  const keyListenersMap = new Map([[27, onModalCancel], [9, handleTabKey]]);
+
   // Runs every time visible changes to set the overflow on the modal and update the body overflow
   useEffect((): (() => void) => {
     function setBodyStyle(): void {
@@ -49,6 +74,19 @@ export default function Modal({
       );
     }
   }, [children]);
+
+  // Adds various key commands to the modal
+  useEffect((): (() => void) => {
+    function keyListener(e: KeyboardEvent): void {
+      const listener = keyListenersMap.get(e.keyCode);
+      return listener && listener(e);
+    }
+
+    document.addEventListener("keydown", keyListener);
+
+    return (): void => document.removeEventListener("keydown", keyListener);
+  }, [children]);
+
   return createPortal(
     <div
       aria-describedby={`${id}-description`}
