@@ -13,6 +13,7 @@ require("./components/AssessmentPlan/AssessmentPlanContainer");
 require("./components/ApplicantSkills/WordCounter");
 require("./components/ApplicantSkills/SkillsInfoModal");
 require("./components/JobDetails/JobDetails");
+require("./components/JobBuilder-01/JobBuilder");
 
 require("./redux_index.tsx");
 // import ReviewApplications from './components/ReviewApplications';
