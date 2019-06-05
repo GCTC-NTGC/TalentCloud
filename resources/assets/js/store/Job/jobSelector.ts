@@ -1,3 +1,4 @@
+import isEqual from "lodash/isEqual";
 import { createSelector } from "reselect";
 import createCachedSelector from "re-reselect";
 import { RootState } from "../store";
@@ -10,6 +11,9 @@ const ui = (state: RootState): UiState => state.jobs.ui;
 
 const getJobState = (state: RootState): { [id: number]: Job } =>
   entities(state).jobs.byId;
+
+const getJobEditState = (state: RootState): { [id: number]: Job } =>
+  entities(state).jobEdits;
 
 const getJobUpdatingState = (state: RootState): { [id: number]: boolean } =>
   ui(state).jobUpdating;
@@ -25,10 +29,23 @@ export const getJob = createCachedSelector(
     hasKey(jobState, jobId) ? jobState[jobId] : null,
 )((state, ownProps): number => ownProps.jobId);
 
+export const getEditJob = createCachedSelector(
+  getJobEditState,
+  (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
+  (jobState, jobId): Job | null =>
+    hasKey(jobState, jobId) ? jobState[jobId] : null,
+)((state, ownProps): number => ownProps.jobId);
+
 export const getJobIsLoading = (state: RootState, id: number): boolean => {
   const updating = getJobUpdatingState(state);
   return hasKey(updating, id) ? updating[id] : false;
 };
+
+export const getJobIsEdited = createCachedSelector(
+  getJob,
+  getEditJob,
+  (canon, edited): boolean => edited !== null && !isEqual(canon, edited),
+)((state, ownProps): number => ownProps.jobId);
 
 export const getCriteria = createSelector(
   getCriteriaState,

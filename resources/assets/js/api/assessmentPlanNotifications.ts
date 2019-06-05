@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import axios from "axios";
-import { ResponseData, baseUrl, ApiResponse, parseDate } from "./base";
+import { ResponseData, baseUrl, ApiResponse, parseDateStrict } from "./base";
 import { AssessmentPlanNotification } from "../models/types";
 
 export const parseAssessmentPlanNotification = (
@@ -18,7 +18,7 @@ export const parseAssessmentPlanNotification = (
     ? Number(data.skill_level_id_new)
     : null,
   acknowledged: Boolean(data.acknowledged),
-  created_at: parseDate(data.created_at),
+  created_at: parseDateStrict(data.created_at),
 });
 
 export const getAssessmentPlanNotificationsByJob = (

@@ -117,7 +117,7 @@ const RatingGuideAnswer: React.FunctionComponent<
         label:
           hasKey<Skill | null>(criteriaIdToSkill, criterion.id) &&
           criteriaIdToSkill[criterion.id] !== null
-            ? (criteriaIdToSkill[criterion.id] as Skill).name // TODO: localize
+            ? (criteriaIdToSkill[criterion.id] as Skill)[intl.locale].name
             : "",
       };
     },

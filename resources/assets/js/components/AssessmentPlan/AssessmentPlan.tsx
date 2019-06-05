@@ -1,5 +1,5 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { Job, AssessmentPlanNotification } from "../../models/types";
 import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingGuideBuilder from "./RatingGuideBuilder";
@@ -12,13 +12,12 @@ interface AssessmentPlanProps {
   notifications: AssessmentPlanNotification[];
 }
 
-const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps> = ({
-  job,
-  notifications,
-}): React.ReactElement => {
+const AssessmentPlan: React.FunctionComponent<
+  AssessmentPlanProps & InjectedIntlProps
+> = ({ job, notifications, intl }): React.ReactElement => {
   const jobTitle = (
     <span data-c-colour="c5" data-c-font-size="h3">
-      {job && ` ${job.title}`}
+      {job && ` ${job[intl.locale].title}`}
     </span>
   );
   return (
@@ -112,4 +111,4 @@ const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps> = ({
   );
 };
 
-export default AssessmentPlan;
+export default injectIntl(AssessmentPlan);
