@@ -3,11 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\RatingGuideAnswer;
-use App\Models\RatingGuideQuestion;
-use App\Models\Criteria;
-
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Requests\UpdateRatingGuideAnswer;
 use App\Http\Requests\StoreRatingGuideAnswer;
 
@@ -22,9 +17,8 @@ class RatingGuideAnswerController extends Controller
      */
     public function store(StoreRatingGuideAnswer $request)
     {
-        // Authorization handled by the FormRequest
-
-        // Data validation handled by this line
+        // Authorization handled by the FormRequest.
+        // Data validation handled by this line.
         $data = $request->validated();
         $ratingGuideAnswer = new RatingGuideAnswer($data);
         $ratingGuideAnswer->save();
@@ -50,16 +44,15 @@ class RatingGuideAnswerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Requests\UpdateRatingGuideAnswer $request Incoming request.
-     * @param  \App\Models\RatingGuideAnswer $ratingGuideAnswer Incoming object.
+     * @param  \App\Requests\UpdateRatingGuideAnswer $request           Incoming request.
+     * @param  \App\Models\RatingGuideAnswer         $ratingGuideAnswer Incoming object.
      * @throws \InvalidArgumentException For empty $expected_answer.
      * @return mixed
      */
     public function update(UpdateRatingGuideAnswer $request, RatingGuideAnswer $ratingGuideAnswer)
     {
-        // Authorization handled by the FormRequest
-
-        // Data validation handled by this line
+        // Authorization handled by the FormRequest.
+        // Data validation handled by this line.
         $data = $request->validated();
 
         $ratingGuideAnswer->fill($data);

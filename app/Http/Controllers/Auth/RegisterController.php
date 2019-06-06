@@ -32,7 +32,7 @@ class RegisterController extends AuthController
     /**
      * Where to redirect users after registration.
      *
-     * @var string
+     * @return string
      */
     protected function redirectTo()
     {
@@ -66,7 +66,7 @@ class RegisterController extends AuthController
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data Incoming registration data.
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -79,15 +79,15 @@ class RegisterController extends AuthController
                 'min:8',
                 new PasswordFormatRule,
                 'confirmed'
-           ],
-       ]);
+            ],
+        ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
-     * @return \App\Models\user
+     * @param  array $data Incoming User data.
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
@@ -96,7 +96,7 @@ class RegisterController extends AuthController
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
 
-        //Default to applicant role
+        // Default to applicant role.
         $user->user_role()->associate(UserRole::where('name', 'applicant')->first());
 
         $user->save();
@@ -104,21 +104,15 @@ class RegisterController extends AuthController
         $user->applicant()->save(new Applicant());
 
         return $user;
-
-        // return User::create([
-        //     'name' => $data['name'],
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password']),
-        // ]);
     }
 
     /**
      * OVERRIDE
      * The user has been registered.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
+     * @param  \Illuminate\Http\Request $request Incoming Request.
+     * @param  mixed                    $user    Incoming User data.
+     * @return \Illuminate\Http\Response
      */
     protected function registered(Request $request, $user)
     {

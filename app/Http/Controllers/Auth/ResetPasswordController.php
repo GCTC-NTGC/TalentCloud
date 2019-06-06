@@ -27,7 +27,7 @@ class ResetPasswordController extends AuthController
     /**
      * Where to redirect users after resetting their password.
      *
-     * @var string
+     * @return string
      */
     protected function redirectTo()
     {
@@ -50,9 +50,9 @@ class ResetPasswordController extends AuthController
      *
      * If no token is present, display the link request form.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string|null  $token
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param  \Illuminate\Http\Request $request Incoming Request.
+     * @param  string|null              $token   Validation token.
+     * @return \Illuminate\Http\Response
      */
     public function showResetForm(Request $request, $token = null)
     {
@@ -80,7 +80,7 @@ class ResetPasswordController extends AuthController
                 'min:8',
                 new PasswordFormatRule,
                 'confirmed'
-           ],
+            ],
         ];
     }
 
