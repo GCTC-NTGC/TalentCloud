@@ -21,11 +21,11 @@ import {
 } from "../../models/types";
 import { RootState } from "../../store/store";
 import {
-  getAssessmentsByCriterion,
-  assessmentsAreUpdatingByCriteria,
-  assessmentsAreEditedByCriteria,
   getTempAssessmentsByCriterion,
   tempAssessmentsAreSavingByCriterion,
+  getCachedAssessmentsByCriterion,
+  getCachedAssessmentsAreEditedByCriteria,
+  getCachedAssessmentsAreUpdatingByCriteria,
 } from "../../store/Assessment/assessmentSelector";
 import { DispatchType } from "../../configureStore";
 import {
@@ -37,10 +37,12 @@ import {
   storeNewAssessment,
   deleteAssessment,
 } from "../../store/Assessment/assessmentActions";
+import { getCriteriaById } from "../../store/Job/jobSelector";
+import { getSkillById } from "../../store/Skill/skillSelector";
 
 interface AssessmentPlanSkillProps {
-  criterion: Criteria;
-  skill: Skill;
+  criterion: Criteria | null;
+  skill: Skill | null;
   assessments: Assessment[];
   assessmentsEdited: { [id: number]: boolean };
   assessmentsUpdating: { [id: number]: boolean };
@@ -87,7 +89,10 @@ export const AssessmentPlanSkill: React.FunctionComponent<
   saveTempAssessment,
   removeTempAssessment,
   intl,
-}: AssessmentPlanSkillProps & InjectedIntlProps): React.ReactElement => {
+}: AssessmentPlanSkillProps & InjectedIntlProps): React.ReactElement | null => {
+  if (criterion === null || skill === null) {
+    return null;
+  }
   useEffect(
     (): void => {
       assessments.forEach(
@@ -302,38 +307,49 @@ export const AssessmentPlanSkill: React.FunctionComponent<
 };
 
 interface AssessmentPlanSkillContainerProps {
-  criterion: Criteria;
+  criterionId: number;
 }
 
 const mapStateToProps = (
   state: RootState,
   ownProps: AssessmentPlanSkillContainerProps,
 ): {
+  criterion: Criteria | null;
+  skill: Skill | null;
   assessments: Assessment[];
   assessmentsEdited: { [id: number]: boolean };
   assessmentsUpdating: { [id: number]: boolean };
   tempAssessments: TempAssessment[];
   tempAssessmentsSaving: { [id: number]: boolean };
-} => ({
-  assessments: getAssessmentsByCriterion(state, ownProps.criterion.id),
-  assessmentsEdited: assessmentsAreEditedByCriteria(
+} => {
+  const criterion = getCriteriaById(state, ownProps)
+  return {
+  criterion,
+  skill: criterion ? getSkillById(state, criterion.skill_id) : null,
+  assessments: getCachedAssessmentsByCriterion(state, ownProps),
+  assessmentsEdited: getCachedAssessmentsAreEditedByCriteria(state, ownProps),
+  assessmentsUpdating: getCachedAssessmentsAreUpdatingByCriteria(
     state,
-    ownProps.criterion.id,
+    ownProps,
   ),
-  assessmentsUpdating: assessmentsAreUpdatingByCriteria(
-    state,
-    ownProps.criterion.id,
-  ),
-  tempAssessments: getTempAssessmentsByCriterion(state, ownProps.criterion.id),
-  tempAssessmentsSaving: tempAssessmentsAreSavingByCriterion(
-    state,
-    ownProps.criterion.id,
-  ),
-});
+  tempAssessments: getTempAssessmentsByCriterion(state, ownProps),
+  tempAssessmentsSaving: tempAssessmentsAreSavingByCriterion(state, ownProps),
+};}
 
-const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
+const mapDispatchToProps = (
+  dispatch: DispatchType,
+  ownProps: AssessmentPlanSkillContainerProps,
+): {
+  createAssessment: () => void;
+  editAssessment: (newAssessment: Assessment) => void;
+  updateAssessment: (newAssessment: Assessment) => void;
+  removeAssessment: (assessmentId: number) => void;
+  editTempAssessment: (newAssessment: TempAssessment) => void;
+  saveTempAssessment: (assessment: Assessment) => void;
+  removeTempAssessment: (id: number) => void;
+} => ({
   createAssessment: (): void => {
-    dispatch(createTempAssessment(ownProps.criterion.id, null));
+    dispatch(createTempAssessment(ownProps.criterionId, null));
   },
   editAssessment: (assessment: Assessment): void => {
     dispatch(editAssessmentAction(assessment));

@@ -26,16 +26,15 @@ class RatingGuideAnswer extends BaseModel
         'rating_guide_question_id',
         'criterion_id',
         'expected_answer',
-        'question'
     ];
 
     /**
      * Mutator for criterion_id. Save NULL instead of empty strings.
      *
-     * @param string $value Criterion Id, or empty string
+     * @param string|null $value Criterion Id, or empty string
      * @return void
      */
-    public function setCriterionIdAttribute(string $value): void
+    public function setCriterionIdAttribute($value): void
     {
         if (empty($value)) { // will check for empty string, null values
             $this->attributes['criterion_id'] = null;
