@@ -53,8 +53,8 @@ class ManagerApiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  App\Http\Requests\UpdateManager $request Incoming Form Request.
-     * @param  \App\Models\Manager             $manager Incoming Manager.
+     * @param  \App\Http\Requests\UpdateManager $request Incoming Form Request.
+     * @param  \App\Models\Manager              $manager Incoming Manager.
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateManager $request, Manager $manager)

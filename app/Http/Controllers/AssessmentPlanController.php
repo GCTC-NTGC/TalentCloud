@@ -17,7 +17,7 @@ class AssessmentPlanController extends Controller
      * RatingGuideQuestions, and RatingGuideAnswers associated with a job,
      * as an array.
      *
-     * @param JobPoster $jobPoster Job Poster to retrieve assessment plan for.
+     * @param  \App\Models\JobPoster $jobPoster Job Poster to retrieve assessment plan for.
      * @return mixed[]
      */
     public function getForJob(JobPoster $jobPoster)

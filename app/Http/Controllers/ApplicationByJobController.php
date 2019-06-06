@@ -28,7 +28,7 @@ class ApplicationByJobController extends Controller
     /**
      * Display a listing of the applications for given jobPoster.
      *
-     * @param  JobPoster $jobPoster Incoming JobPoster object.
+     * @param  \App\Models\JobPoster $jobPoster Incoming JobPoster object.
      * @return \Illuminate\Http\Response
      */
     public function index(JobPoster $jobPoster)
@@ -55,8 +55,8 @@ class ApplicationByJobController extends Controller
     /**
      * Return the current applicant's application for a given Job Poster.
      *
-     * @param  JobPoster $jobPoster Incoming JobPoster object.
-     * @return mixed|App\Models\JobApplication
+     * @param  \App\Models\JobPoster $jobPoster Incoming JobPoster object.
+     * @return mixed|\App\Models\JobApplication
      */
     protected function getApplicationFromJob(JobPoster $jobPoster)
     {

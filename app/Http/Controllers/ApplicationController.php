@@ -31,7 +31,6 @@ class ApplicationController extends Controller
         );
     }
 
-
     /**
      * Display specified application
      *

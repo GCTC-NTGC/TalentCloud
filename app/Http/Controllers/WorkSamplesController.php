@@ -71,7 +71,7 @@ class WorkSamplesController extends Controller
         $skillIds = $this->getRelativeIds($request->input(), 'skills');
         $workSample->skill_declarations()->sync($skillIds);
 
-        // if an ajax request, return the new object.
+        // If an ajax request, return the new object.
         if ($request->ajax()) {
             $workSample->load('file_type');
             return $workSample->toJson();

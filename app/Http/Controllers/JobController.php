@@ -88,9 +88,8 @@ class JobController extends Controller
     /**
      * Submit the Job Poster for review.
      *
-     * @param \Illuminate\Http\Request $request   Incoming request object.
-     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
-     *
+     * @param  \Illuminate\Http\Request $request   Incoming request object.
+     * @param  \App\Models\JobPoster    $jobPoster Job Poster object.
      * @return \Illuminate\Http\Response
      */
     public function submitForReview(Request $request, JobPoster $jobPoster)

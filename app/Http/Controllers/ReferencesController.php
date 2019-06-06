@@ -28,8 +28,8 @@ class ReferencesController extends Controller
     /**
      * Show the form for editing the applicant's references
      *
-     * @param \Illuminate\Http\Request $request   Incoming request object.
-     * @param \App\Models\Applicant    $applicant Incoming applicant object.
+     * @param  \Illuminate\Http\Request $request   Incoming request object.
+     * @param  \App\Models\Applicant    $applicant Incoming applicant object.
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Applicant $applicant)
@@ -48,8 +48,8 @@ class ReferencesController extends Controller
     /**
      * Update or create a reference with the supplied data.
      *
-     * @param \Illuminate\Http\Request   $request   The incoming request object.
-     * @param \App\Models\Reference|null $reference The reference to update. If null, a new one should be created.
+     * @param  \Illuminate\Http\Request   $request   The incoming request object.
+     * @param  \App\Models\Reference|null $reference The reference to update. If null, a new one should be created.
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ?Reference $reference = null)
@@ -95,7 +95,7 @@ class ReferencesController extends Controller
         $skillIds = $this->getRelativeIds($request->input(), 'skills');
         $reference->skill_declarations()->sync($skillIds);
 
-        // if an ajax request, return the new object.
+        // If an ajax request, return the new object.
         if ($request->ajax()) {
             $reference->load('relationship');
             $reference->load('projects');

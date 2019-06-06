@@ -25,7 +25,7 @@ class JobApiController extends Controller
      * with all criteria,
      * and with translation arrays in both languages.
      *
-     * @param  JobPoster $job Incoming Job Poster object.
+     * @param  \App\Models\JobPoster $job Incoming Job Poster object.
      * @return mixed[]
      */
     private function jobToArray(JobPoster $job)
@@ -62,7 +62,7 @@ class JobApiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  JobPoster $job Incoming Job Poster.
+     * @param  \App\Models\JobPoster $job Incoming Job Poster.
      * @return \Illuminate\Http\Response
      */
     public function show(JobPoster $job)
