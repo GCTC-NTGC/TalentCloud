@@ -10,14 +10,14 @@ return [
     *
     */
     'title' => 'Browse Jobs',
-    'job_post_title' => 'Talent Cloud | Applicant: Job Poster',
+    'job_post_title' => 'Talent Cloud | Applicant: Job Poster - :title (Reference number: :id)',
     'header' => [
         'time_remaining' => ':time until close',
         "job_closed" => "Job has closed",
         'days_remaining' => ':count day until close|:count days until close',
         "apply_by_label" => "Apply by",
         'applicants_so_far' => ':count applicant so far|:count applicants so far',
-        'reference_id' => 'Reference ID #:id',
+        'reference_id' => 'Reference number: :id',
         'remote_work_allowed' => [
             true => 'Remote Work Allowed',
             false => 'Remote Work Not Allowed',

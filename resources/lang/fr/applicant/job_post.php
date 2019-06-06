@@ -10,14 +10,14 @@ return [
     *
     */
     'title' => 'Parcourir les emplois',
-    'job_post_title' => 'Nuage de talents | Candidat : Affiche d\'emploi',
+    'job_post_title' => 'Nuage de talents | Candidat : Affiche d\'emploi - :title (Numéro de référence : :id)',
     'header' => [
         'time_remaining' => ':time jusqu\'à la date de clôture',
         "job_closed" => "L'affiche est fermée",
         'days_remaining' => ':count jour jusqu\'à la date de clôture|:count jours jusqu\'à la date de clôture',
         "apply_by_label" => "Postuler avant le",
         'applicants_so_far' => ':count candidat jusqu\'à présent|:count candidats jusqu\'à présent',
-        'reference_id' => 'Numéro de référence #:id',
+        'reference_id' => 'Numéro de référence : :id',
         'remote_work_allowed' => [
             true => 'Travail à distance autorisé',
             false => 'Travail à distance non autorisé',
