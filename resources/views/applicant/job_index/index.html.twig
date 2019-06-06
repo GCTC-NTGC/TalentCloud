@@ -14,7 +14,7 @@
 
             <div class="container--copy browse__index-job-null">
                 <div class="null-alert">
-                    <h3>{{ job_index.index.null_alert.title }}</h3>
+                    <h2>{{ job_index.index.null_alert.title }}</h2>
                     <p>{{ job_index.index.null_alert.copy_01 }}</p>
                     <hr>
                     <p>{{ job_index.index.null_alert.copy_02|replace({'%link%': '<a href="' ~ job_index.index.null_alert.link ~ '"> ' ~ job_index.index.null_alert.link_title ~'</a>'})|raw }}</p>
@@ -37,10 +37,10 @@
 
                         <div
                             class="browse__index-job-card-title">
-                            <h3
+                            <h2
                                 class="heading--03">
                                 {{ job.title }}
-                            </h3>
+                            </h2>
                             <span>
                                 {{ job.department.value }}
                             </span>

@@ -32,6 +32,8 @@ use \Backpack\CRUD\CrudTrait;
  * @property int $salary_max
  * @property int $noc
  * @property string $classification
+ * @property string $classification_code
+ * @property int $classification_level
  * @property int $security_clearance_id
  * @property int $language_requirement_id
  * @property boolean $remote_work_allowed
@@ -59,6 +61,8 @@ use \Backpack\CRUD\CrudTrait;
  * @property string $city
  * @property string $title
  * @property string $impact
+ * @property string $team_impact
+ * @property string $hire_impact
  * @property string $branch
  * @property string $division
  * @property string $education
@@ -66,6 +70,7 @@ use \Backpack\CRUD\CrudTrait;
  * Methods
  * @method boolean isOpen()
  * @method string timeRemaining()
+ * @method mixed[] toApiArray()
  */
 class JobPoster extends BaseModel
 {
@@ -90,6 +95,8 @@ class JobPoster extends BaseModel
         'city',
         'title',
         'impact',
+        'team_impact',
+        'hire_impact',
         'branch',
         'division',
         'education'
@@ -105,6 +112,8 @@ class JobPoster extends BaseModel
         'salary_min' => 'int',
         'salary_max' => 'int',
         'noc' => 'int',
+        'classification_code' => 'string',
+        'classification_level' => 'int',
         'security_clearance_id' => 'int',
         'language_requirement_id' => 'int',
         'remote_work_allowed' => 'boolean',
@@ -138,6 +147,8 @@ class JobPoster extends BaseModel
         'salary_max',
         'noc',
         'classification',
+        'classification_code',
+        'classification_level',
         'security_clearance_id',
         'language_requirement_id',
         'remote_work_allowed',
@@ -381,5 +392,39 @@ class JobPoster extends BaseModel
         }
 
         return $status;
+    }
+
+    /**
+     * Return the array of values used to represent this object in an api response.
+     * This array should contain no nested objects (besides translations).
+     *
+     * @return mixed[]
+     */
+    public function toApiArray(): array
+    {
+        $jobWithTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
+        $jobCollection = collect($jobWithTranslations)->only([
+            'id',
+            'manager_id',
+            'term_qty',
+            'open_date_time',
+            'close_date_time',
+            'start_date_time',
+            'department_id',
+            'province_id',
+            'salary_min',
+            'salary_max',
+            'noc',
+            'classification_code',
+            'classification_level',
+            'security_clearance_id',
+            'language_requirement_id',
+            'remote_work_allowed',
+            'published_at',
+            'review_requested_at',
+            'en',
+            'fr',
+        ])->all();
+        return $jobCollection;
     }
 }

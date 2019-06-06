@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { some } from "lodash";
+import some from "lodash/some";
 import { FormattedMessage, InjectedIntlProps, injectIntl } from "react-intl";
 import { AssessmentPlanNotification, Skill } from "../../models/types";
 import {

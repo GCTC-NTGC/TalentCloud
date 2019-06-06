@@ -1,41 +1,24 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/camelcase */
-import { Job, JobTranslation, Criteria } from "../models/types";
+import { Job, Criteria } from "../models/types";
 import { baseUrl, parseDate } from "./base";
-import { parseSkill } from "./skill";
 
-const parseJobTranslation = (data: any): JobTranslation => ({
-  city: data.city,
-  title: data.title,
-  impact: data.impact,
-  branch: data.branch,
-  division: data.division,
-  education: data.education,
-});
+const parseCriterion = (data: any): Criteria => data;
 
-const parseCriterion = (data: any): Criteria => ({
-  id: Number(data.id),
-  criteria_type_id: Number(data.criteria_type_id),
-  job_poster_id: Number(data.job_poster_id),
-  skill_id: Number(data.skill_id),
-  skill_level_id: Number(data.skill_level_id),
-  description: data.description,
-  en: { description: data.en.description },
-  fr: { description: data.fr.description },
-  skill: parseSkill(data.skill),
+export const parseJob = (data: any): Job => ({
+  ...data,
+  open_date_time: parseDate(data.open_date_time),
+  close_date_time: parseDate(data.close_date_time),
+  start_date_time: parseDate(data.start_date_time),
+  published_at: parseDate(data.published_at),
+  review_requested_at: parseDate(data.published_at),
 });
 
 export const parseJobResponse = (
   data: any,
 ): { job: Job; criteria: Criteria[] } => {
-  const job = {
-    id: Number(data.id),
-    title: data.title,
-    classification: data.classification,
-    close_date_time: parseDate(data.close_date_time),
-    en: parseJobTranslation(data.en),
-    fr: parseJobTranslation(data.fr),
-  };
-  const criteria = data.criteria.map(
+  const job: Job = parseJob(data);
+  const criteria: Criteria[] = data.criteria.map(
     (critData: any): Criteria => parseCriterion(critData),
   );
   return {

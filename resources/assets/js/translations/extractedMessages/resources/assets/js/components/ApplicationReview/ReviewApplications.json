@@ -2,7 +2,7 @@
   {
     "id": "apl.indexPageTitle",
     "description": "Welcome header on Job Applications index page",
-    "defaultMessage": "Applications for: {job_title} {job_classification}"
+    "defaultMessage": "Applications for: {jobTitle} {jobClassification}"
   },
   {
     "id": "job.daysSinceClosed",

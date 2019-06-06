@@ -18,10 +18,16 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import messages_en from "../../localizations/en.json";
 import messages_fr from "../../localizations/fr.json";
-import { Job, Application, ReviewStatus, ApplicationReview } from "../../models/types";
+import {
+  Job,
+  Application,
+  ReviewStatus,
+  ApplicationReview,
+} from "../../models/types";
 import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
 import * as routes from "../../helpers/routes";
+import { classificationString } from "../../models/jobUtil";
 
 addLocaleData([...locale_en, ...locale_fr]);
 
@@ -213,6 +219,7 @@ class ReviewApplicationsContainer extends React.Component<
   public render(): React.ReactElement {
     const { applications, savingStatuses } = this.state;
     const { reviewStatuses, job } = this.props;
+    const { intl } = this.props;
 
     const reviewStatusOptions = reviewStatuses.map(status => ({
       value: status.id,
@@ -221,8 +228,8 @@ class ReviewApplicationsContainer extends React.Component<
 
     return (
       <ReviewApplications
-        title={job.title}
-        classification={job.classification}
+        title={job[intl.locale].title}
+        classification={classificationString(job)}
         closeDateTime={job.close_date_time}
         applications={applications}
         reviewStatusOptions={reviewStatusOptions}

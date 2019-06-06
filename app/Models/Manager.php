@@ -49,6 +49,9 @@ use App\CRUD\TalentCloudCrudTrait as CrudTrait;
  * @property string $education
  * @property string $career_journey
  * @property string $learning_path
+ *
+ * Methods
+ * @method string toApiArray()
  */
 class Manager extends BaseModel {
 
@@ -56,9 +59,19 @@ class Manager extends BaseModel {
     // Trait for Backpack
     use CrudTrait;
 
-    public $translatedAttributes = ['about_me', 'greatest_accomplishment', 'branch',
-        'division', 'position', 'work_experience', 'education','leadership_style',
-        'employee_learning','expectations','education','career_journey','learning_path'];
+    public $translatedAttributes = [
+        'about_me',
+        'greatest_accomplishment',
+        'branch',
+        'division',
+        'position',
+        'leadership_style',
+        'employee_learning',
+        'expectations',
+        'education',
+        'career_journey',
+        'learning_path'
+    ];
     protected $casts = [
         'department_id' => 'int',
         'user_id' => 'int'
@@ -125,5 +138,17 @@ class Manager extends BaseModel {
 
     public function refuse_low_value_work_frequency() {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
+    }
+
+    /**
+     * Return the array of values used to represent this object in an api response.
+     * This array should contain no nested objects (besides translations).
+     *
+     * @return mixed[]
+     */
+    public function toApiArray()
+    {
+        $withTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
+        return $withTranslations;
     }
 }
