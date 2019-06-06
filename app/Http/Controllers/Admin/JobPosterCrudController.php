@@ -14,8 +14,8 @@ class JobPosterCrudController extends CrudController
      */
     public function setup() : void
     {
-        $this->crud->setModel("App\Models\JobPoster");
-        $this->crud->setRoute("admin/job-poster");
+        $this->crud->setModel('App\Models\JobPoster');
+        $this->crud->setRoute('admin/job-poster');
         $this->crud->setEntityNameStrings('Job Poster', 'Job Posters');
 
         $this->crud->denyAccess('create');
@@ -44,15 +44,15 @@ class JobPosterCrudController extends CrudController
             'label' => 'Close Date'
         ]);
         $this->crud->addColumn([
-            'name' => "status",
-            'label' => "Status",
-            'type' => "model_function",
+            'name' => 'status',
+            'label' => 'Status',
+            'type' => 'model_function',
             'function_name' => 'status',
         ]);
         $this->crud->addColumn([
-            'name' => "published",
-            'label' => "Published",
-            'type' => "check",
+            'name' => 'published',
+            'label' => 'Published',
+            'type' => 'check',
         ]);
         $this->crud->addColumn([
             'name' => 'manager.user.name',
@@ -73,7 +73,7 @@ class JobPosterCrudController extends CrudController
 
         $this->crud->addField([
             'name' => 'title',
-            'label' => "Title",
+            'label' => 'Title',
             'type' => 'text',
             'attributes' => [
                 'readonly' => 'readonly'
@@ -99,7 +99,7 @@ class JobPosterCrudController extends CrudController
     /**
      * Action for updating an existing Job Poster in the database.
      *
-     * @param \Illuminate\Http\Request $request Incoming form request.
+     * @param  \Illuminate\Http\Request $request Incoming form request.
      *
      * @return \Illuminate\Http\RedirectResponse
      */

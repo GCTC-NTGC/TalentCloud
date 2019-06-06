@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import isEqual from "lodash/isEqual";
-import { RatingGuideAnswer, TempRatingGuideAnswer } from "../../models/types";
+import { RatingGuideAnswer } from "../../models/types";
 import {
   AssessmentPlanAction,
   FETCH_ASSESSMENT_PLAN_STARTED,
@@ -41,10 +41,10 @@ export interface RatingGuideAnswerState {
   };
   tempRatingGuideAnswers: {
     // For storing local rating guide answers that have never been saved to server
-    [id: number]: TempRatingGuideAnswer;
+    [id: number]: RatingGuideAnswer;
   };
   tempRatingGuideAnswerSaving: {
-    // Tracks whether a tempRatingGuideAnswer is currently being saved to server
+    // Tracks whether a RatingGuideAnswer is currently being saved to server
     [id: number]: boolean;
   };
   ratingGuideAnswerUpdates: {
@@ -255,7 +255,7 @@ export const ratingGuideAnswerReducer = (
     case DELETE_TEMP_RATING_GUIDE_ANSWER:
       return {
         ...state,
-        tempRatingGuideAnswers: deleteProperty<TempRatingGuideAnswer>(
+        tempRatingGuideAnswers: deleteProperty<RatingGuideAnswer>(
           state.tempRatingGuideAnswers,
           action.payload.id,
         ),
@@ -294,15 +294,9 @@ export const ratingGuideAnswerReducer = (
                   action.payload.oldRatingGuideAnswer.id
                 ],
                 id: action.payload.ratingGuideAnswer.id,
-                // When moving temp ratingGuideAnswer to edited, ensure ratingGuideAnswer_type_id is non-null
-                rating_guide_question_id:
-                  action.payload.ratingGuideAnswer.rating_guide_question_id,
-                criterion_id: action.payload.ratingGuideAnswer.criterion_id,
-                expected_answer:
-                  action.payload.ratingGuideAnswer.expected_answer,
               },
             },
-        tempRatingGuideAnswers: deleteProperty<TempRatingGuideAnswer>(
+        tempRatingGuideAnswers: deleteProperty<RatingGuideAnswer>(
           state.tempRatingGuideAnswers,
           action.payload.oldRatingGuideAnswer.id,
         ),

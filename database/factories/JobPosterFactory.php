@@ -17,6 +17,8 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
     $closeDate = $faker->dateTimeBetween('now', '1 months')->format('Y-m-d');
     $openDate = $faker->dateTimeBetween('-1 months', 'now')->format('Y-m-d');
     $startDate = $faker->dateTimeBetween('1 months', '2 months')->format('Y-m-d');
+    $classificationCode = $faker->regexify('[A-Z]{2}');
+    $classificationLevel = $faker->numberBetween(1, 6);
     return [
         'job_term_id' => JobTerm::inRandomOrder()->first()->id,
         'term_qty' => $faker->numberBetween(1, 4),
@@ -30,8 +32,9 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'salary_min' => $faker->numberBetween(60000, 80000),
         'salary_max' => $faker->numberBetween(80000, 100000),
         'noc' => $faker->numberBetween(1, 9999),
-        'classification_code' => $faker->regexify('[A-Z]{2}'),
-        'classification_level' => $faker->numberBetween(1, 6),
+        'classification_code' => $classificationCode,
+        'classification_level' => $classificationLevel,
+        'classification' => "$classificationCode-$classificationLevel",
         'security_clearance_id' => SecurityClearance::inRandomOrder()->first()->id,
         'language_requirement_id' => LanguageRequirement::inRandomOrder()->first()->id,
         'remote_work_allowed' => $faker->boolean(50),
