@@ -5,45 +5,27 @@ import TextArea from "../Forms/TextArea";
 
 // shape of values used in Form
 interface FormValues {
-  jobTitleEN: string;
-  jobTitleFR: string;
-  department: string;
-  divisionEN: string;
-  divisionFR: string;
+  teamImpact: string;
+  hireImpact: string;
 }
 
 // The type of props FormikForm receives
 interface FormProps {
-  initJobTitleEN?: string;
-  initJobTitleFR?: string;
-  initDepartment?: string;
-  initDivisionEN?: string;
-  initDivisionFR?: string;
+  initTeamImpact?: string;
+  initHireImpact?: string;
 }
 
 export const mapPropsToValues = ({
-  initJobTitleEN,
-  initJobTitleFR,
-  initDivisionEN,
-  initDivisionFR,
-  initDepartment,
+  initTeamImpact,
+  initHireImpact,
 }): FormValues => ({
-  jobTitleEN: initJobTitleEN || "",
-  jobTitleFR: initJobTitleFR || "",
-  divisionEN: initDivisionEN || "",
-  divisionFR: initDivisionFR || "",
-  department: initDepartment || "",
+  teamImpact: initTeamImpact || "",
+  hireImpact: initHireImpact || "",
 });
 
 export const validationSchema = Yup.object().shape({
-  jobTitleEN: Yup.string().required("This field is required"),
-  jobTitleFR: Yup.string().required("This field is required"),
-  divisionEN: Yup.string().required("This field is required"),
-  divisionFR: Yup.string().required("This field is required"),
-  department: Yup.mixed().oneOf(
-    ["TBS", "ESDC", "ECCC"],
-    "Please select from the available options",
-  ),
+  teamImpact: Yup.string().required("This field is required"),
+  hireImpact: Yup.string().required("This field is required"),
 });
 
 export const handleSubmit = (
