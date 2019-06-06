@@ -8,7 +8,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\JobPoster;
 use App\Models\User;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Database\Capsule\Manager;
 
 class JobApiControllerTest extends TestCase
 {
@@ -73,10 +72,15 @@ class JobApiControllerTest extends TestCase
         return $job;
     }
 
+    /**
+     * A guest user should be able to retreive a published job.
+     *
+     * @return void
+     */
     public function testGetAsPublic(): void
     {
         $job = factory(JobPoster::class)->state('published')->create();
-        $response = $this->json("get", "api/jobs/$job->id");
+        $response = $this->json('get', "api/jobs/$job->id");
         $response->assertOk();
 
         $expected = $job->toApiArray();
@@ -84,13 +88,18 @@ class JobApiControllerTest extends TestCase
         $response->assertJson($expected);
     }
 
+    /**
+     * When logged in as a job's manager, updating the job should be successful.
+     *
+     * @return void
+     */
     public function testUpdateAsManager(): void
     {
         $job = factory(JobPoster::class)->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $response = $this->followingRedirects()
             ->actingAs($job->manager->user)
-            ->json("put", "api/jobs/$job->id", $jobUpdate);
+            ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertOk();
         $expectedDb = array_merge(
             array_slice($jobUpdate, 0, 15),
@@ -104,23 +113,35 @@ class JobApiControllerTest extends TestCase
         $this->assertArraySubset($jobUpdate['fr'], $translations['fr']);
     }
 
+    /**
+     * When logged in as a manager that did not create a particular job,
+     * updating that job should fail.
+     *
+     * @return void
+     */
     public function testUpdateAsWrongManager(): void
     {
         $job = factory(JobPoster::class)->create();
         $otherManager = factory(User::class)->state('manager')->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $response = $this->actingAs($otherManager)
-            ->json("put", "api/jobs/$job->id", $jobUpdate);
+            ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertForbidden();
     }
 
+    /**
+     * Even when logged in as the correct manager, updating a job with illegal values
+     * (eg string where a number should be) should fail.
+     *
+     * @return void
+     */
     public function testUpdateInvalidInput(): void
     {
         $job = factory(JobPoster::class)->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
-        $jobUpdate['term_qty'] = "three months"; // String is invalid here
+        $jobUpdate['term_qty'] = 'three months'; // String is invalid here
         $response = $this->actingAs($job->manager->user)
-            ->json("put", "api/jobs/$job->id", $jobUpdate);
+            ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertStatus(422);
     }
 
@@ -135,7 +156,7 @@ class JobApiControllerTest extends TestCase
         $jobUpdate['published'] = true;
         $response = $this->followingRedirects()
             ->actingAs($job->manager->user)
-            ->json("put", "api/jobs/$job->id", $jobUpdate);
+            ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertOk();
         $newJob = $job->fresh();
         $this->assertFalse($newJob->published);
