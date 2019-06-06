@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import AssessmentPlanContainer from "./components/AssessmentPlan/AssessmentPlanContainer";
 import IntlContainer from "./IntlContainer";
+import { AppLocale } from "./models/types";
 
 interface AssessmentPlanParams {
   jobId: string;
@@ -32,7 +33,7 @@ const ManagerPortal: React.FunctionComponent<RouteComponentProps> = ({
 };
 
 interface IntlParams {
-  locale: "en" | "fr";
+  locale: AppLocale;
 }
 
 const IntlRouteContainer: React.FunctionComponent<

@@ -28,6 +28,7 @@ import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
 import * as routes from "../../helpers/routes";
 import { classificationString } from "../../models/jobUtil";
+import { getTranslatedField } from "../../helpers/translation";
 
 addLocaleData([...locale_en, ...locale_fr]);
 
@@ -228,7 +229,7 @@ class ReviewApplicationsContainer extends React.Component<
 
     return (
       <ReviewApplications
-        title={job[intl.locale].title}
+        title={getTranslatedField(job, intl.locale, "title", "UNKNOWN JOB")}
         classification={classificationString(job)}
         closeDateTime={job.close_date_time}
         applications={applications}

@@ -15,6 +15,7 @@ import {
   getCriteriaByJobAndAssessmentType,
   getCriteriaToSkills,
 } from "../../store/Job/jobSelectorComplex";
+import { getTranslatedField } from "../../helpers/translation";
 
 interface RatingGuideNarrativeAssessmentProps {
   /** The id of the job Job Poster this is part of */
@@ -44,7 +45,7 @@ export const RatingGuideNarrativeAssessment: React.FunctionComponent<
   };
   const getCriteriaSkillName = (criterionId: number): string => {
     const skill = criteriaToSkill[criterionId];
-    return skill ? skill[intl.locale].name : "";
+    return skill ? getTranslatedField(skill, intl.locale, "name") : "";
   };
   return (
     <div>

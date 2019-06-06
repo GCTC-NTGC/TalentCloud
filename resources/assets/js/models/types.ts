@@ -1,6 +1,8 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 
+export type AppLocale = "en" | "fr";
+
 export interface JobTranslation {
   city: string;
   title: string;

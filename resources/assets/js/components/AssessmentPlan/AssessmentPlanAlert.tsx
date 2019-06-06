@@ -11,7 +11,8 @@ import { RootState } from "../../store/store";
 import { DispatchType } from "../../configureStore";
 import { updateAssessmentPlanNotification } from "../../store/AssessmentPlanNotification/assessmentPlanNotificationActions";
 import { getSkills } from "../../store/Skill/skillSelector";
-import { mapToObject, getId } from "../../helpers/queries";
+import { mapToObject, getId, hasKey } from "../../helpers/queries";
+import { getTranslatedField } from "../../helpers/translation";
 
 interface AssessmentPlanAlertProps {
   notifications: AssessmentPlanNotification[];
@@ -60,8 +61,15 @@ export const AssessmentPlanAlert: React.FunctionComponent<
     );
   }
   const skillsById = mapToObject(skills, getId);
-  const skillName = (skillId: number): string =>
-    skillsById[skillId][intl.locale].name;
+  const skillName = (skillId: number): string => {
+    const skill = hasKey(skillsById, skillId) ? skillsById[skillId] : null;
+    const fallback = "UNKNOWN SKILL";
+    if (skill === null) {
+      return fallback;
+    }
+    return getTranslatedField(skill, intl.locale, "name", fallback);
+  };
+
   const createNotifications = notifications.filter(
     (notification): boolean => notification.type === "CREATE",
   );

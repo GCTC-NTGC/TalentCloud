@@ -3,6 +3,7 @@ import { IntlProvider, addLocaleData } from "react-intl";
 import localeEn from "react-intl/locale-data/en";
 import localeFr from "react-intl/locale-data/fr";
 import messagesFr from "./translations/locales/fr.json";
+import { AppLocale } from "./models/types";
 
 addLocaleData([...localeEn, ...localeFr]);
 
@@ -12,7 +13,7 @@ const messages = {
 };
 
 interface IntlContainerProps {
-  locale: "en" | "fr";
+  locale: AppLocale;
 }
 
 const IntlContainer: React.FunctionComponent<IntlContainerProps> = ({

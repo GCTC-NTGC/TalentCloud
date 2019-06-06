@@ -1,11 +1,15 @@
 import React from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
-import { Job, AssessmentPlanNotification } from "../../models/types";
+import {
+  Job,
+  AssessmentPlanNotification,
+} from "../../models/types";
 import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingGuideBuilder from "./RatingGuideBuilder";
 import AssessmentPlanAlert from "./AssessmentPlanAlert";
 import ErrorToast from "../ErrorToast";
 import AssessmentPlanBuilder from "./AssessmentPlanBuilder";
+import { getTranslatedField } from "../../helpers/translation";
 
 interface AssessmentPlanProps {
   job: Job | null;
@@ -17,7 +21,8 @@ const AssessmentPlan: React.FunctionComponent<
 > = ({ job, notifications, intl }): React.ReactElement => {
   const jobTitle = (
     <span data-c-colour="c5" data-c-font-size="h3">
-      {job && ` ${job[intl.locale].title}`}
+      {job &&
+        ` ${getTranslatedField(job, intl.locale, "title", "UNKNOWN JOB")}`}
     </span>
   );
   return (

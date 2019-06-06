@@ -32,6 +32,7 @@ import {
   getCriteriaToSkills,
   getCachedCriteriaUnansweredForQuestion,
 } from "../../store/Job/jobSelectorComplex";
+import { getTranslatedField } from "../../helpers/translation";
 
 interface RatingGuideAnswerProps {
   answer: RatingGuideAnswerModel | null;
@@ -117,7 +118,11 @@ const RatingGuideAnswer: React.FunctionComponent<
         label:
           hasKey<Skill | null>(criteriaIdToSkill, criterion.id) &&
           criteriaIdToSkill[criterion.id] !== null
-            ? (criteriaIdToSkill[criterion.id] as Skill)[intl.locale].name
+            ? getTranslatedField(
+                criteriaIdToSkill[criterion.id] as Skill,
+                intl.locale,
+                "name",
+              )
             : "",
       };
     },

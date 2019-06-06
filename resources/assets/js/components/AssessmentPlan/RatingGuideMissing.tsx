@@ -9,6 +9,7 @@ import {
   getCriteriaToSkills,
 } from "../../store/Job/jobSelectorComplex";
 import { notEmpty } from "../../helpers/queries";
+import { getTranslatedField } from "../../helpers/translation";
 
 interface RatingGuideMissingProps {
   missingCriteria: Criteria[];
@@ -49,10 +50,10 @@ export const RatingGuideMissing: React.FunctionComponent<
     return null;
   }
   const essentialSkillNames = missingEssentialSkills.map(
-    (skill: Skill): string => skill[intl.locale].name,
+    (skill: Skill): string => getTranslatedField(skill, intl.locale, "name"),
   );
   const assetSkillNames = missingAssetSkills.map(
-    (skill: Skill): string => skill[intl.locale].name,
+    (skill: Skill): string => getTranslatedField(skill, intl.locale, "name"),
   );
 
   return (
