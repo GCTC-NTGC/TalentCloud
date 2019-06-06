@@ -17,8 +17,6 @@ return [
         'days_remaining' => ':count day until close|:count days until close',
         "apply_by_label" => "Apply by",
         'applicants_so_far' => ':count applicant so far|:count applicants so far',
-        'location_icon_label' => 'Location Icon.',
-        'remote_work_icon_label' => 'Remote Work Icon.',
         'reference_id' => 'Reference ID #:id',
         'remote_work_allowed' => [
             true => 'Remote Work Allowed',
@@ -68,8 +66,6 @@ return [
     'language' => [
         'sidebar_title' => 'View this job\'s language requirements.',
         'title' => 'Language Requirements',
-        'english_icon_title' => 'An icon representing an English language requirement.',
-        'french_icon_title' => 'An icon representing an French language requirement.',
         'english_essential_context_01' => 'This position requires fluency in English in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in English, such as interview questions or an exam.',
         'english_essential_context_02' => 'You can submit this initial application in either official language of your choice (English or French).',
         'french_essential_context_01' => 'This position requires fluency in French in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in French, such as interview questions or an exam.',
