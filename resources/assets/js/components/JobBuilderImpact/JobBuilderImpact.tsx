@@ -3,10 +3,10 @@ import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { items } from "../ProgressTracker/fixtures/progressItems";
 // import Step4Form from "./Step4Form";
 
-interface JobBuilder04Props {}
+interface JobBuilderImpactProps {}
 
-const JobBuilder04: React.FunctionComponent<
-  JobBuilder04Props
+const JobBuilderImpact: React.FunctionComponent<
+  JobBuilderImpactProps
 > = (): React.ReactElement => {
   return (
     <section>
@@ -113,4 +113,4 @@ const JobBuilder04: React.FunctionComponent<
   );
 };
 
-export default JobBuilder04;
+export default JobBuilderImpact;
