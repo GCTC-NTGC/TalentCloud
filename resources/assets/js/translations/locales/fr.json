@@ -7,7 +7,7 @@
   "apl.editNote": "Modifier la note",
   "apl.emailCandidateLinkTitle": "envoyer un courriel à ce candidat.",
   "apl.expandAllSkills": "Élargir les compétences",
-  "apl.indexPageTitle": "Applications pour : {job_title} {job_classification}",
+  "apl.indexPageTitle": "Applications pour : {jobTitle} {jobClassification}",
   "apl.reviewSaveFailed": "Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.",
   "apl.screenInConfirm": "Remettre le candidat dans la section à l'étude?",
   "apl.screenOutAll": "Éliminer tous les candidats supplémentaires",

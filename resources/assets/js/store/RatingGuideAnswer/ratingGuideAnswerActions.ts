@@ -6,8 +6,10 @@ import {
   createRatingGuideAnswer as createRatingGuideAnswerApi,
   deleteRatingGuideAnswer as deleteRatingGuideAnswerApi,
 } from "../../api/ratingGuide";
-import { RatingGuideAnswer, TempRatingGuideAnswer } from "../../models/types";
+import { RatingGuideAnswer } from "../../models/types";
 import { FailedAction } from "../asyncAction";
+import { RootState } from "../store";
+import { tempRatingGuideAnswerIsSaving } from "./ratingGuideAnswerSelectors";
 
 /** Action for editing Rating Guide Q&A (without saving to server) */
 export const EDIT_RATING_GUIDE_ANSWER = "EDIT_RATING_GUIDE_ANSWER";
@@ -40,7 +42,7 @@ export type CreateTempRatingGuideAnswerAction = Action<
 
 export type EditTempRatingGuideAnswerAction = Action<
   typeof EDIT_TEMP_RATING_GUIDE_ANSWER,
-  { ratingGuideAnswer: TempRatingGuideAnswer }
+  { ratingGuideAnswer: RatingGuideAnswer }
 >;
 
 export type DeleteTempRatingGuideAnswerAction = Action<
@@ -62,7 +64,7 @@ export const createTempRatingGuideAnswer = (
 });
 
 export const editTempRatingGuideAnswer = (
-  ratingGuideAnswer: TempRatingGuideAnswer,
+  ratingGuideAnswer: RatingGuideAnswer,
 ): EditTempRatingGuideAnswerAction => ({
   type: EDIT_TEMP_RATING_GUIDE_ANSWER,
   payload: { ratingGuideAnswer },
@@ -276,8 +278,15 @@ export const storeNewRatingGuideAnswerFailed = (
 });
 export const storeNewRatingGuideAnswer = (
   ratingGuideAnswer: RatingGuideAnswer,
-): ThunkAction<void, {}, {}, AnyAction> => {
-  return (dispatch: ThunkDispatch<{}, {}, AnyAction>): void => {
+): ThunkAction<void, RootState, {}, AnyAction> => {
+  return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState): void => {
+    // If a store request for this resource is already in progress, we cannot submit
+    //  a second one. We can only edit the temp version.
+    if (tempRatingGuideAnswerIsSaving(getState(), ratingGuideAnswer.id)) {
+      dispatch(editTempRatingGuideAnswer(ratingGuideAnswer));
+      return;
+    }
+
     dispatch(storeNewRatingGuideAnswerStarted(ratingGuideAnswer));
     createRatingGuideAnswerApi(ratingGuideAnswer)
       .then(

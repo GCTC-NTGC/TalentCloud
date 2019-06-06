@@ -160,12 +160,13 @@ declare module "redux-api-middleware" {
       credentials?: "omit" | "same-origin" | "include";
       bailout?: boolean; // or function
       types: [R, S, F];
+      fetch?: typeof fetch;
     };
   }
 
   module "redux" {
     export interface Dispatch<S> {
-      <R, S, F>(rsaa: RSAAction<R, S, F>): void;
+      <R, S, F>(rsaa: RSAAction<R, S, F>): Promise<S>;
     }
   }
 }
