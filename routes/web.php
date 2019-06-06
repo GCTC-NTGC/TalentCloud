@@ -54,16 +54,16 @@ Route::group(
                     ->name('applications.show');
 
                 /* Step 01 */
-                Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@edit_basics')->name('job.application.edit.1');
+                Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@editBasics')->name('job.application.edit.1');
 
                 /* Step 02 */
-                Route::get('jobs/{jobPoster}/application/step-02', 'ApplicationByJobController@edit_experience')->name('job.application.edit.2');
+                Route::get('jobs/{jobPoster}/application/step-02', 'ApplicationByJobController@editExperience')->name('job.application.edit.2');
 
                 /* Step 03 */
-                Route::get('jobs/{jobPoster}/application/step-03', 'ApplicationByJobController@edit_essential_skills')->name('job.application.edit.3');
+                Route::get('jobs/{jobPoster}/application/step-03', 'ApplicationByJobController@editEssentialSkills')->name('job.application.edit.3');
 
                 /* Step 04 */
-                Route::get('jobs/{jobPoster}/application/step-04', 'ApplicationByJobController@edit_asset_skills')->name('job.application.edit.4');
+                Route::get('jobs/{jobPoster}/application/step-04', 'ApplicationByJobController@editAssetSkills')->name('job.application.edit.4');
 
                 /* Step 05 */
                 Route::get('jobs/{jobPoster}/application/step-05', 'ApplicationByJobController@preview')->name('job.application.edit.5');
@@ -77,16 +77,16 @@ Route::group(
                 /* Application Update routes */
 
                 /* Step 01 */
-                Route::post('jobs/{jobPoster}/application/step-01/update', 'ApplicationByJobController@update_basics')->name('job.application.update.1');
+                Route::post('jobs/{jobPoster}/application/step-01/update', 'ApplicationByJobController@updateBasics')->name('job.application.update.1');
 
                 /* Step 02 */
-                Route::post('jobs/{jobPoster}/application/step-02/update', 'ApplicationByJobController@update_experience')->name('job.application.update.2');
+                Route::post('jobs/{jobPoster}/application/step-02/update', 'ApplicationByJobController@updateExperience')->name('job.application.update.2');
 
                 /* Step 03 */
-                Route::post('jobs/{jobPoster}/application/step-03/update', 'ApplicationByJobController@update_essential_skills')->name('job.application.update.3');
+                Route::post('jobs/{jobPoster}/application/step-03/update', 'ApplicationByJobController@updateEssentialSkills')->name('job.application.update.3');
 
                 /* Step 04 */
-                Route::post('jobs/{jobPoster}/application/step-04/update', 'ApplicationByJobController@update_asset_skills')->name('job.application.update.4');
+                Route::post('jobs/{jobPoster}/application/step-04/update', 'ApplicationByJobController@updateAssetSkills')->name('job.application.update.4');
 
                 /* Step 05 */
                 Route::post('jobs/{jobPoster}/application/submit', 'ApplicationByJobController@submit')->name('job.application.submit');
@@ -154,17 +154,29 @@ Route::group(
             /* Static - ITP */
             Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
 
-            /* Temp Builder 01 (Intro) */
-            Route::view('builder-01', 'manager/builder-01')->name('jpb1');
+            // /* Temp Builder 01 (Intro) */
+            // Route::view('builder-01', 'manager/builder-01')->name('jpb1');
 
-            /* Temp Builder 02 (Job info) */
-            Route::view('builder-02', 'manager/builder-02')->name('jpb2');
+            // /* Temp Builder 02 (Job info) */
+            // Route::view('builder-02', 'manager/builder-02')->name('jpb2');
 
-            /* Temp Builder 03 (Work Environment) */
-            Route::view('builder-03', 'manager/builder-03')->name('jpb3');
+            // /* Temp Builder 03 (Work Environment) */
+            // Route::view('builder-03', 'manager/builder-03')->name('jpb3');
 
-            /* Temp Builder 04 (Impact) */
-            Route::view('builder-04', 'manager/builder-04')->name('jpb4');
+            // /* Temp Builder 04 (Impact) */
+            // Route::view('builder-04', 'manager/builder-04')->name('jpb4');
+
+            /* Temp Builder 05 (Tasks) */
+            Route::view('builder-05', 'manager/builder-05')->name('jpb5');
+
+            /* Temp Builder 06 (Skills) */
+            Route::view('builder-06', 'manager/builder-06')->name('jpb6');
+
+            /* Temp Builder 07 (Education) */
+            Route::view('builder-07', 'manager/builder-07')->name('jpb7');
+
+            /* Temp Builder 08 (Review) */
+            Route::view('builder-08', 'manager/builder-08')->name('jpb8');
 
             /* Authentication =========================================================== */
 
@@ -383,8 +395,10 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::resource('assessments', 'AssessmentController')->except([
         'create', 'edit', 'index'
     ]);
-    Route::resource('rating-guide-answers', 'RatingGuideAnswerController')->except([
-        'create', 'edit', 'index'
+    Route::apiResource('rating-guide-answers', 'RatingGuideAnswerController')->except([
+        'index'
+    ])->parameters([
+        'rating-guide-answers' => 'ratingGuideAnswer'
     ]);
     Route::resource('rating-guide-questions', 'RatingGuideQuestionController')->except([
         'create', 'edit', 'index'

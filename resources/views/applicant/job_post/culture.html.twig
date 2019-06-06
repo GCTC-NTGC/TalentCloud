@@ -14,10 +14,10 @@
 <section
     class="job-post__culture">
 
-    <h4
+    <h3
         class="job-post__culture-title">
         {{ job_post.culture.title }}
-    </h4>
+    </h3>
 
     <div class="flex-grid middle">
 
@@ -25,26 +25,14 @@
 
             <div
                 class="box full">
-                <h5
+                <h4
                     class="job-post__culture-subtitle">
                     {{ job_post.culture.manager_title }}
-                </h5>
+                </h4>
             </div>
 
             <div
-                class="box med-1of4">
-                <a
-                    class="job-post__culture-manager-profile-photo"
-                    href="{{ route('managers.show',{'manager':manager.id}) }}"
-                    target="_blank"
-                    title="{{ job_post.manager.photo_title|replace({":name":manager.user.name}) }}"
-                    style="background-image:url('{{ manager_profile_photo_url }}');">
-                    <span class="invisible">{{ job_post.manager.photo_title|replace({":name":manager.user.name}) }}</span>
-                </a>
-            </div>
-
-            <div
-                class="box med-3of4 job-post__culture-manager-copy">
+                class="box full job-post__culture-manager-copy">
 
                 <span
                     class="job-post__culture-manager-name">
@@ -92,10 +80,10 @@
 
             <div
                 class="box full">
-                <h5
+                <h4
                     class="job-post__culture-subtitle">
                     {{ job_post.culture.work_environment_label }}
-                </h5>
+                </h4>
             </div>
 
             <div
@@ -158,112 +146,234 @@
                 </p>
             </div>
 
-            {% for photo in workplace_photos %}
-            <div
-                class="box med-1of2 lg-1of3">
+            <!-- I've already made the markup changes here. Not sure if we're planning to React-ify this element while we're here, but feel free. -->
+            <div class="box full" data-clone>
+                <p data-c-margin="bottom(normal)">Want to know more about the team's physical environment, technology, and the ameneties available? Want to learn about the work culture?</p>
+                <button
+                    data-c-button="solid(c5)"
+                    data-c-radius="rounded"
+                    data-c-dialog-id="applicant-work-culture"
+                    data-c-dialog-action="open"
+                    type="button">
+                    View the team's work environment and culture.
+                </button>
+                <div data-c-dialog-overlay></div>
                 <div
-                    class="job-post__work-environment-photo"
-                    style="background-image: url('{{ photo.url }}');"
-                    title=>"{{ photo.description }}"
+                    aria-hidden="true"
+                    aria-describedby="applicant-work-culture-description"
+                    aria-labelledby="applicant-work-culture-title"
+                    data-c-dialog
+                    data-c-dialog-id="applicant-work-culture"
+                    data-c-padding="top(double) bottom(double)"
+                    role="dialog">
+                    <div
+                        data-c-background="white(100)"
+                        data-c-radius="rounded">
+                        <div
+                            data-c-background="c1(100)"
+                            data-c-colour="white"
+                            data-c-padding="normal"
+                            data-c-border="bottom(thin, solid, black)">
+                            <h5
+                                data-c-font-size="h4"
+                                id="applicant-work-culture-title">
+                                Team Environment &amp; Culture
+                            </h5>
+                            <button
+                                data-c-dialog-action="close"
+                                data-c-color="white"
+                                data-c-dialog-id="applicant-work-culture"
+                                type="button">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div data-c-border="bottom(thin, solid, black)">
+                            <div id="applicant-work-culture-description">
+                                <div data-c-background="grey(20)" data-c-padding="normal">
+                                    <div class="manager-job-card" data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
+                                        <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="bottom(normal)" data-c-padding="bottom(normal)">Work Environment</h4>
+                                        <div data-c-grid="gutter">
+                                            <div data-c-grid-item="base(1of1)">
+                                                <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Team Size</span>
+                                                <span>10</span>
+                                            </div>
+                                            <div data-c-grid-item="base(1of1)">
+                                                <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Physical Environment</span>
+                                                <div data-c-margin="left(quarter)">
+                                                    <div data-c-grid="gutter">
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Open Concept</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Private</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Assigned Seating</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Lots of Windows</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Natural Light</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Suitable for Smudging</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>None of the Above</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-c-grid-item="base(1of1)">
+                                                <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Technology</span>
+                                                <div data-c-margin="left(quarter)">
+                                                    <div data-c-grid="gutter">
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Video Conferencing (e.g. Skype, Zoom)</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Collaboration (e.g. Slack, Hangouts)</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>File Sharing (e.g. Google Drive, Dropbox)</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Task Management (e.g. Trello, Asana)</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Version Control (e.g. Github, Gitlab)</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Access to external, unfiltered Wi-Fi.</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>None of the Above</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-c-grid-item="base(1of1)">
+                                                <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Amenities</span>
+                                                <div data-c-margin="left(quarter)">
+                                                    <div data-c-grid="gutter">
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Cafeteria On-site</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Close to Transit</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Walking Distance to Restaurants/Malls</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Downtown</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Nearby Fitness Centre</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Easy Access to Parking</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>None of the Above</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-c-grid-item="base(1of1)">
+                                                <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">More About Your Environment</span>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur luctus porta ante at ornare. Nam pulvinar ultrices tellus eget lobortis. Etiam efficitur in nibh eget ornare. Duis vel porta ante, at ornare lorem. Sed est eros, dignissim ac auctor eget, pretium at mauris. Nullam vitae lacus id eros hendrerit sollicitudin ac at lectus. Fusce neque odio, facilisis vitae augue in, feugiat pulvinar neque. Nulla pretium et lectus at molestie. Ut eleifend efficitur venenatis. Curabitur non eros at eros finibus condimentum. Nam fringilla auctor quam ut egestas.</p>
+                                            </div>
+                                        </div>
+                                        <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="top(double) bottom(normal)" data-c-padding="bottom(normal)">Work Culture</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur luctus porta ante at ornare. Nam pulvinar ultrices tellus eget lobortis. Etiam efficitur in nibh eget ornare. Duis vel porta ante, at ornare lorem. Sed est eros, dignissim ac auctor eget, pretium at mauris. Nullam vitae lacus id eros hendrerit sollicitudin ac at lectus. Fusce neque odio, facilisis vitae augue in, feugiat pulvinar neque. Nulla pretium et lectus at molestie. Ut eleifend efficitur venenatis. Curabitur non eros at eros finibus condimentum. Nam fringilla auctor quam ut egestas.</p>
+                                        <p data-c-margin="top(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur luctus porta ante at ornare. Nam pulvinar ultrices tellus eget lobortis. Etiam efficitur in nibh eget ornare. Duis vel porta ante, at ornare lorem. Sed est eros, dignissim ac auctor eget, pretium at mauris. Nullam vitae lacus id eros hendrerit sollicitudin ac at lectus. Fusce neque odio, facilisis vitae augue in, feugiat pulvinar neque. Nulla pretium et lectus at molestie. Ut eleifend efficitur venenatis. Curabitur non eros at eros finibus condimentum. Nam fringilla auctor quam ut egestas.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-c-padding="normal">
+                            <div data-c-grid="gutter middle">
+                                <div data-c-grid-item="base(1of2)"></div>
+                                <div
+                                    data-c-grid-item="base(1of2)"
+                                    data-c-alignment="base(right)">
+                                    <button
+                                        data-c-button="solid(go)"
+                                        data-c-radius="rounded"
+                                        data-c-dialog-action="close"
+                                        data-c-dialog-id="applicant-work-culture">
+                                        Okay
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            {% endfor %}
-
-        {# Team Culture #}
-
-            <div
-                class="box full">
-                <h5
-                    class="job-post__culture-subtitle">
-                    {{ job_post.culture.team_culture_label }}
-                </h5>
-            </div>
-
-            <div
-                class="box med-1of2">
-                <span class="job-post__culture-heading">
-                    {{ job_post.culture.team_size_label }}
-                </span>
-                <p class="job-post__culture-copy">
-
-                    {{ handleNullState(
-                        team_culture.team_size,
-                        '<span>' ~ team_culture.team_size ~ '</span>',
-                        noInfo
-                    )}}
-
-                </p>
-            </div>
-
-            <div
-                class="box med-1of2">
-                <span
-                    class="job-post__culture-heading">
-                    {{ job_post.culture.gcdirectory_label }}
-                </span>
-                <p
-                    class="job-post__culture-copy">
-                    {% if team_culture.gc_directory_url is defined and
-                        team_culture.gc_directory_url is not empty %}
-                        <a
-                            href="{{ team_culture.gc_directory_url }}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="{{ job_post.culture.team_link_title }}">
-                            {{ job_post.culture.team_link_label }}
-                        </a>
-                    {% else %}
-                        {{ noInfo }}
-                    {% endif %}
-                </p>
-            </div>
-
-            <div
-                class="box full">
-                <span
-                    class="job-post__culture-heading">
-                    {{ job_post.culture.operating_label }}
-                </span>
-                <p
-                    class="job-post__culture-copy">
-                    {{ handleNullState(
-                        team_culture.operating_context,
-                        team_culture.operating_context|nl2br,
-                        noInfo
-                    )}}
-                </p>
-            </div>
-
-            <div
-                class="box full">
-                <span
-                    class="job-post__culture-heading">
-                    {{ job_post.culture.team_value_label }}
-                </span>
-                <p
-                    class="job-post__culture-copy">
-                    {{ handleNullState(
-                        team_culture.what_we_value,
-                        team_culture.what_we_value|nl2br,
-                        noInfo
-                    )}}
-                </p>
-            </div>
-
-            <div
-                class="box full">
-                <span
-                    class="job-post__culture-heading">
-                    {{ job_post.culture.team_work_label }}
-                </span>
-                <p
-                    class="job-post__culture-copy final">
-                    {{ handleNullState(
-                        team_culture.how_we_work,
-                        team_culture.how_we_work|nl2br,
-                        noInfo
-                    )}}
-                </p>
             </div>
 
     </div>

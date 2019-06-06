@@ -18,11 +18,10 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
     const { updateDelay } = this.props;
 
     if (updateDelay) {
+      const bounceDelay: number = updateDelay;
       this.state = {
-        updateDelay,
+        updateDelay: bounceDelay,
       };
-
-      const { updateDelay: bounceDelay } = this.state;
       // Lodash's debounce doesn't work properly if imported
       // by itself... something to do with how it handles 'this'
       this.triggerSave = _.debounce(this.triggerSave, bounceDelay);
