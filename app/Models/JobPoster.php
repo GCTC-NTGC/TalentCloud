@@ -70,7 +70,7 @@ use \Backpack\CRUD\CrudTrait;
  * Methods
  * @method boolean isOpen()
  * @method string timeRemaining()
- * @method string toApiArray()
+ * @method mixed[] toApiArray()
  */
 class JobPoster extends BaseModel
 {
@@ -400,7 +400,7 @@ class JobPoster extends BaseModel
      *
      * @return mixed[]
      */
-    public function toApiArray()
+    public function toApiArray(): array
     {
         $jobWithTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
         $jobCollection = collect($jobWithTranslations)->only([

@@ -7,54 +7,54 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Lookup\Frequency;
 use App\Models\Lookup\Department;
-use App\Models\WorkEnvironment;
-use App\Models\TeamCulture;
 use App\Models\Manager;
 
-class ManagerProfileController extends Controller {
+class ManagerProfileController extends Controller
+{
 
     /**
      * Show a manager profile
      *
-     * @param  Request  $request
-     * @param  \App\Models\Manager  $manager
+     * @param  \Illuminate\Http\Request $request Incoming Request.
+     * @param  \App\Models\Manager      $manager Incoming Manager.
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Manager $manager) {
+    public function show(Request $request, Manager $manager)
+    {
         $manager_profile = Lang::get('applicant/manager_profile');
 
         $manager_profile_sections = [
             [
-                "title" => $manager_profile['section_titles']['approach'],
-                "questions" => [
+                'title' => $manager_profile['section_titles']['approach'],
+                'questions' => [
                     [
-                        "title" => $manager_profile['questions']['leadership_style'],
-                        "answer" => $manager->leadership_style
+                        'title' => $manager_profile['questions']['leadership_style'],
+                        'answer' => $manager->leadership_style
                     ],
                     [
-                        "title" => $manager_profile['questions']['employee_expectations'],
-                        "answer" => $manager->expectations
+                        'title' => $manager_profile['questions']['employee_expectations'],
+                        'answer' => $manager->expectations
                     ],
                     [
-                        "title" => $manager_profile['questions']['employee_learning'],
-                        "answer" => $manager->employee_learning
+                        'title' => $manager_profile['questions']['employee_learning'],
+                        'answer' => $manager->employee_learning
                     ]
                 ]
             ],
             [
-                "title" => $manager_profile['section_titles']['about_me'],
-                "questions" => [
+                'title' => $manager_profile['section_titles']['about_me'],
+                'questions' => [
                     [
-                        "title" => $manager_profile['questions']['career_journey'],
-                        "answer" => $manager->career_journey
+                        'title' => $manager_profile['questions']['career_journey'],
+                        'answer' => $manager->career_journey
                     ],
                     [
-                        "title" => $manager_profile['questions']['learning_path'],
-                        "answer" => $manager->learning_path
+                        'title' => $manager_profile['questions']['learning_path'],
+                        'answer' => $manager->learning_path
                     ],
                     [
-                        "title" => $manager_profile['questions']['about_me'],
-                        "answer" => $manager->about_me
+                        'title' => $manager_profile['questions']['about_me'],
+                        'answer' => $manager->about_me
                     ]
                 ]
             ]
@@ -62,21 +62,21 @@ class ManagerProfileController extends Controller {
 
 
         return view('applicant/manager', [
-            "manager_profile" => $manager_profile,
+            'manager_profile' => $manager_profile,
             'urls' => Lang::get('common/urls'),
             'manager' => $manager,
-            'manager_profile_photo_url' => '/images/user.png', //TODO get real photo
-            "manager_profile_sections" => $manager_profile_sections,
+            'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
+            'manager_profile_sections' => $manager_profile_sections,
         ]);
     }
 
     /**
      * Show the form for editing the logged-in manager's profile
      *
-     * @param  Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  \Illuminate\Http\Request $request Incoming Request.
+     * @return \Illuminate\Http\Response
      */
-    public function editAuthenticated(Request $request): \Illuminate\Http\RedirectResponse
+    public function editAuthenticated(Request $request)
     {
         $manager = $request->user()->manager;
         return redirect(route('manager.profile.edit', $manager));
@@ -85,16 +85,17 @@ class ManagerProfileController extends Controller {
     /**
      * Show the form for editing the logged-in user's manager profile
      *
-     * @param  Request  $request
-     * @param  \App\Models\Manager  $manager
+     * @param  \Illuminate\Http\Request $request Incoming Request.
+     * @param  \App\Models\Manager      $manager Incoming Manager.
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Manager $manager) {
+    public function edit(Request $request, Manager $manager)
+    {
 
-        //TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model
+        // TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model.
         $workplacePhotos = [];
         if ($manager->work_environment != null) {
-            foreach($manager->work_environment->workplace_photo_captions as $photoCaption) {
+            foreach ($manager->work_environment->workplace_photo_captions as $photoCaption) {
                 $workplacePhotos[] = [
                     'id' => $photoCaption->id,
                     'alt' => $photoCaption->description,
@@ -107,14 +108,13 @@ class ManagerProfileController extends Controller {
         $frequencies = Frequency::all();
 
         return view('manager/profile', [
-            /* Localization */
+            // Localization.
             'profile_l10n' => Lang::get('manager/profile'),
-
-            /* Data */
+            // Data.
             'urls' => Lang::get('common/urls'),
             'user' => $manager->user,
             'manager' => $manager,
-            'manager_profile_photo_url' => '/images/user.png', //TODO get real photo
+            'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
             'team_culture' => $manager->team_culture,
             'work_environment' => $manager->work_environment,
             'workplace_photos' => $workplacePhotos,
@@ -128,14 +128,15 @@ class ManagerProfileController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Manager  $manager
+     * @param  \Illuminate\Http\Request $request Incoming Request.
+     * @param  \App\Models\Manager      $manager Incoming Manager.
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Manager $manager) {
+    public function update(Request $request, Manager $manager)
+    {
         $input = $request->input();
 
-        //TODO: remove control of name in production
+        // TODO: remove control of name in production.
         $manager->user->name = $input['name'];
         $manager->user->save();
 
@@ -143,15 +144,9 @@ class ManagerProfileController extends Controller {
             'department_id' => $input['department'],
             'twitter_username' => $input['twitter_username'],
             'linkedin_url' => $input['linkedin_url'],
-            //'work_review_frequency_id' => [],
-            //'stay_late_frequency_id' => [],
-            //'engage_team_frequency_id' => [],
-            //'development_opportunity_frequency_id',
-            //'refuse_low_value_work_frequency_id',
             'years_experience' => $input['years_experience'],
             'en' => [
                 'about_me' => $input['about_me']['en'],
-                //'greatest_accomplishment',
                 'branch' =>  $input['branch']['en'],
                 'division' => $input['division']['en'],
                 'position' => $input['position']['en'],
@@ -164,7 +159,6 @@ class ManagerProfileController extends Controller {
             ],
             'fr' => [
                 'about_me' => $input['about_me']['fr'],
-                //'greatest_accomplishment',
                 'branch' =>  $input['branch']['fr'],
                 'division' => $input['division']['fr'],
                 'position' => $input['position']['fr'],
@@ -188,7 +182,7 @@ class ManagerProfileController extends Controller {
                 'things_to_know' => $input['things_to_know']['fr']
             ]
         ]);
-        //Slider select inputs can be missing from input if nothing was selected
+        // Slider select inputs can be missing from input if nothing was selected.
         if (isset($input['telework'])) {
             $work_environment->telework_allowed_frequency_id = $input['telework'];
         }
@@ -214,9 +208,8 @@ class ManagerProfileController extends Controller {
         ]);
         $team_culture->save();
 
-        //TODO: save workplace Photos
-
-        //Use the button that was clicked to decide which element to redirect to
+        // TODO: save workplace Photos.
+        // Use the button that was clicked to decide which element to redirect to.
         switch ($input['submit']) {
             case 'about_me':
                 $hash = '#managerProfileSectionAbout';
@@ -231,11 +224,10 @@ class ManagerProfileController extends Controller {
                 $hash = '#managerProfileSectionLeadership';
                 break;
             default:
-                $hash = "";
+                $hash = '';
                 break;
         }
 
-        return redirect( route('manager.profile.edit', $manager).$hash );
+        return redirect(route('manager.profile.edit', $manager).$hash);
     }
-
 }
