@@ -1,8 +1,7 @@
 import * as React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
-import Input from "../Forms/Input";
-import Select from "../Forms/Select";
+import TextArea from "../Forms/TextArea";
 
 // shape of values used in Form
 interface FormValues {
@@ -66,68 +65,66 @@ export const handleSubmit = (
   console.log(values);
 };
 
-export const Step0InnerForm = ({ isSubmitting }): React.ReactElement => {
+export const ImpactFormInner = ({ isSubmitting }): React.ReactElement => {
   return (
     <>
-      <Form id="form" data-c-margin="bottom(normal)">
-        <div data-c-grid="gutter">
-          <Field
-            type="text"
-            htmlId="builder01ManagerJobTitleEN"
-            name="jobTitleEN"
-            label="My Job Title (English)"
-            placeholder="e.g. Design Manager"
-            required
-            grid="tl(1of2)"
-            component={Input}
-          />
-          <Field
-            type="text"
-            htmlId="builder01ManagerJobTitleFR"
-            name="jobTitleFR"
-            label="My Job Title (Français)"
-            placeholder="e.g. Gestionnaire de la conception"
-            required
-            grid="tl(1of2)"
-            component={Input}
-          />
-          <Field
-            name="department"
-            id="builder01ManagerDepartment"
-            label="My Department"
-            grid="base(1of1)"
-            component={Select}
-            required
-            nullSelection="Select a department..."
-            options={[
-              { value: "TBS", label: "Treasury Board of Canada Secretariat" },
-              {
-                value: "ESDC",
-                label: "Employment and Social Development Canada",
-              },
-              { value: "ECCC", label: "Environment and Climate Change Canada" },
-            ]}
-          />
-          <Field
-            type="text"
-            htmlId="builder01ManagerDivisionEN"
-            name="divisionEN"
-            label="My Division (English)"
-            placeholder="e.g. Digital Change"
-            required
-            grid="tl(1of2)"
-            component={Input}
-          />
-          <Field
-            type="text"
-            htmlId="builder01ManagerDivisionFR"
-            name="divisionFR"
-            label="My Division (Français)"
-            placeholder="e.g. Changement numérique"
-            required
-            grid="tl(1of2)"
-            component={Input}
-          />
+      <Form id="form" data-c-grid="gutter">
+        <div data-c-grid-item="base(1of1)" data-c-input="textarea">
+          <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
+            How our team makes an impact:
+          </p>
+          <p data-c-margin="bottom(normal)">
+            Describe the value your team/service/initiative brings to Canadians.
+            It doesn’t matter if your work is direct to citizens or back office,
+            innovative or maintenance, top priority or ongoing. Describe how it
+            contributes to making Canada better the way you would to someone who
+            knows nothing about your work.
+          </p>
+          <label htmlFor="builder04TeamImpact">Team Impact Statement</label>
+          <span>Required</span>
+          <div>
+            <Field
+              id="builder04TeamImpact"
+              placeholder="Try for a casual, frank, friendly tone..."
+              required
+              component={TextArea}
+            />
+          </div>
+          <span>This input has an error.</span>
+        </div>
+        <div data-c-grid-item="base(1of1)" data-c-input="textarea">
+          <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
+            How the new hire makes an impact:
+          </p>
+          <p data-c-margin="bottom(normal)">
+            Describe how the new hire will contribute in this role. Focus on the
+            value they’ll bring, not on specific tasks (you’ll provide these
+            later on). For example “In this role, you’ll contribute to…” or, “As
+            a member of this team, you’ll be responsible for helping us…”
+          </p>
+          <label htmlFor="builder04HireImpact">Team Impact Statement</label>
+          <span>Required</span>
+          <div>
+            <Field
+              id="builder04HireImpact"
+              placeholder="Remember, don't use Government speak..."
+              required
+              component={TextArea}
+            />
+          </div>
+          <span>This input has an error.</span>
+        </div>
+        <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
+          {/* <!-- Modal trigger, same as last step. --> */}
+          <button
+            data-c-button="solid(c1)"
+            data-c-dialog-action="open"
+            data-c-dialog-id="example-dialog-01"
+            data-c-radius="rounded"
+            type="button"
+          >
+            Next
+          </button>
         </div>
       </Form>
       <p data-c-margin="bottom(normal)">
@@ -163,8 +160,8 @@ export const Step0InnerForm = ({ isSubmitting }): React.ReactElement => {
 };
 
 export default withFormik<FormProps, FormValues>({
-  displayName: "Step0Form",
+  displayName: "ImpactForm",
   mapPropsToValues,
   validationSchema,
   handleSubmit,
-})(Step0InnerForm);
+})(ImpactFormInner);

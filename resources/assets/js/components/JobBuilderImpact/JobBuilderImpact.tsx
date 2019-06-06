@@ -1,7 +1,7 @@
 import * as React from "react";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { items } from "../ProgressTracker/fixtures/progressItems";
-// import Step4Form from "./Step4Form";
+import ImpactForm from "./ImpactForm";
 
 interface JobBuilderImpactProps {}
 
@@ -50,64 +50,7 @@ const JobBuilderImpact: React.FunctionComponent<
           Canada to modernize environment and regulatory processes and introduce
           new processes that properly serve the public.
         </p>
-        <form data-c-grid="gutter">
-          <div data-c-grid-item="base(1of1)" data-c-input="textarea">
-            <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-              How our team makes an impact:
-            </p>
-            <p data-c-margin="bottom(normal)">
-              Describe the value your team/service/initiative brings to
-              Canadians. It doesn’t matter if your work is direct to citizens or
-              back office, innovative or maintenance, top priority or ongoing.
-              Describe how it contributes to making Canada better the way you
-              would to someone who knows nothing about your work.
-            </p>
-            <label htmlFor="builder04TeamImpact">Team Impact Statement</label>
-            <span>Required</span>
-            <div>
-              <textarea
-                id="builder04TeamImpact"
-                placeholder="Try for a casual, frank, friendly tone..."
-                required
-              />
-            </div>
-            <span>This input has an error.</span>
-          </div>
-          <div data-c-grid-item="base(1of1)" data-c-input="textarea">
-            <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-              How the new hire makes an impact:
-            </p>
-            <p data-c-margin="bottom(normal)">
-              Describe how the new hire will contribute in this role. Focus on
-              the value they’ll bring, not on specific tasks (you’ll provide
-              these later on). For example “In this role, you’ll contribute to…”
-              or, “As a member of this team, you’ll be responsible for helping
-              us…”
-            </p>
-            <label htmlFor="builder04HireImpact">Team Impact Statement</label>
-            <span>Required</span>
-            <div>
-              <textarea
-                id="builder04HireImpact"
-                placeholder="Remember, don't use Government speak..."
-                required
-              />
-            </div>
-            <span>This input has an error.</span>
-          </div>
-          <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
-            {/* <!-- Modal trigger, same as last step. --> */}
-            <button
-              data-c-button="solid(c1)"
-              data-c-dialog-action="open"
-              data-c-dialog-id="example-dialog-01"
-              data-c-radius="rounded"
-              type="button"
-            >
-              Next
-            </button>
-          </div>
-        </form>
+        <ImpactForm />
       </div>
     </section>
   );
