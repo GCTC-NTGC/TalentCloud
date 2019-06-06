@@ -4,7 +4,8 @@ import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 export interface JobTranslation {
   city: string;
   title: string;
-  impact: string;
+  team_impact: string;
+  hire_impact: string;
   branch: string;
   division: string;
   education: string;
@@ -12,9 +13,23 @@ export interface JobTranslation {
 
 export interface Job {
   id: number;
-  title: string;
-  classification: string;
-  close_date_time: Date;
+  manager_id: number;
+  term_qty: number | null;
+  open_date_time: Date | null;
+  close_date_time: Date | null;
+  start_date_time: Date | null;
+  department_id: number | null;
+  province_id: number | null;
+  salary_min: number | null;
+  salary_max: number | null;
+  noc: number | null;
+  classification_code: string | null;
+  classification_level: number | null;
+  security_clearance_id: number | null;
+  language_requirement_id: number | null;
+  remote_work_allowed: boolean | null;
+  published_at: Date | null;
+  review_requested_at: Date | null;
   en: JobTranslation;
   fr: JobTranslation;
 }
@@ -101,8 +116,6 @@ export interface SkillTranslation {
 
 export interface Skill {
   id: number;
-  name: string;
-  description: string;
   skill_type_id: number;
   en: SkillTranslation;
   fr: SkillTranslation;
@@ -114,8 +127,6 @@ export interface Criteria {
   job_poster_id: number;
   skill_id: number;
   skill_level_id: number;
-  description: string; // TODO: remove un-localized description
-  skill: Skill; // TODO: remove skill from here
   en: {
     description: string;
   };
@@ -141,25 +152,10 @@ export interface RatingGuideAnswer {
   id: number;
   rating_guide_question_id: number;
   criterion_id: number | null;
-  expected_answer: string;
-}
-
-export interface TempRatingGuideAnswer {
-  id: number;
-  rating_guide_question_id: number;
-  criterion_id: number | null;
   expected_answer: string | null;
 }
 
 export interface RatingGuideQuestion {
-  id: number;
-  job_poster_id: number;
-  assessment_type_id: number;
-  question: string | null;
-}
-
-// Version of Rating Guide Question that hasn't been saved to server yet
-export interface TempRatingGuideQuestion {
   id: number;
   job_poster_id: number;
   assessment_type_id: number;

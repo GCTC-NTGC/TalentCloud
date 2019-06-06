@@ -16,9 +16,23 @@
     <rule ref="PSR2"/>
     <!-- Use Slevomat's coding standards to sniff docblocks -->
     <config name="installed_paths" value="../../slevomat/coding-standard"/>
-    <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration" phpcs-only="true">
+        <exclude-pattern>*/app/Http/Controllers/*</exclude-pattern>
+        <type>warning</type>
+    </rule>
     <!-- More docblock sniffs -->
-    <rule ref="Squiz.Commenting.FunctionComment" />
-    <rule ref="Squiz.Commenting.FunctionCommentThrowTag" />
-    <rule ref="Squiz.Commenting.VariableComment" />
+    <rule ref="Squiz.Commenting.FunctionComment" phpcs-only="true">
+        <type>warning</type>
+    </rule>
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag">
+        <type>warning</type>
+    </rule>
+    <rule ref="Squiz.Commenting.InlineComment">
+        <type>warning</type>
+    </rule>
+    <rule ref="Squiz.Commenting.VariableComment">
+        <type>warning</type>
+    </rule>
+    <!-- Quote style -->
+    <rule ref="Squiz.Strings.DoubleQuoteUsage.NotRequired" />
 </ruleset>

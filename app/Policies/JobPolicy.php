@@ -23,7 +23,8 @@ class JobPolicy extends BasePolicy
         return $jobPoster->published ||
             (
                 $user &&
-                $jobPoster->manager->user->id == $user->id
+                $user->hasRole('manager') &&
+                $jobPoster->manager_id == $user->manager->id
             );
     }
 
