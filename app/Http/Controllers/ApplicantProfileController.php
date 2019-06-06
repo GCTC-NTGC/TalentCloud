@@ -23,29 +23,31 @@ class ApplicantProfileController extends Controller
      *
      * @param  \Illuminate\Http\Request $request   Incoming Request object.
      * @param  \App\Models\Applicant    $applicant Incoming Applicant object.
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     * @return \Illuminate\Http\Response
      */
     public function show(Request $request, Applicant $applicant)
     {
-        //TODO:
-        //Josh, to loop through answers&question data, leverage this data structure:
-        // applicant
-        //     [applicant_profile_answers]
-        //         answer
-        //         applicant_profile_question
-        //             id
-        //             value // The question text
-        //             description // Question description text
+        /*
+         * TODO:
+         * Josh, to loop through answers&question data, leverage this data structure:
+         * applicant
+         *     [applicant_profile_answers]
+         *         answer
+         *         applicant_profile_question
+         *             id
+         *             value // The question text
+         *             description // Question description text
+         */
 
         return view(
             'manager/applicant_profile',
             [
-                /* Localization Strings*/
+                // Localization Strings.
                 'profile' => Lang::get('manager/applicant_profile'), // Change text
-                /* User Data */
+                // User Data.
                 'user' => $applicant->user,
                 'applicant' => $applicant,
-                'profile_photo_url' => '/images/user.png', //TODO: get real photos
+                'profile_photo_url' => '/images/user.png', // TODO: get real photos.
             ]
         );
     }
@@ -53,8 +55,8 @@ class ApplicantProfileController extends Controller
     /**
      * Show the form for editing the logged-in applicant's profile
      *
-     * @param  Request $request Incoming request.
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @param  \Illuminate\Http\Request $request Incoming request.
+     * @return \Illuminate\Http\Response
      */
     public function editAuthenticated(Request $request)
     {
@@ -65,9 +67,9 @@ class ApplicantProfileController extends Controller
     /**
      * Show the form for editing an applicant profile
      *
-     * @param  Request               $request   Incoming request object.
-     * @param  \App\Models\Applicant $applicant Applicant to view and edit.
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     * @param  \Illuminate\Http\Request $request   Incoming request object.
+     * @param  \App\Models\Applicant    $applicant Applicant to view and edit.
+     * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Applicant $applicant)
     {
@@ -95,14 +97,14 @@ class ApplicantProfileController extends Controller
         return view(
             'applicant/profile_01_about',
             [
-                /* Localized strings*/
+                // Localized strings.
                 'profile' => $profileText,
-                /* Applicant Profile Questions */
+                // Applicant Profile Questions.
                 'applicant_profile_questions' => $profileQuestionForms,
-                /* User Data */
+                // User Data.
                 'user' => $applicant->user,
                 'applicant' => $applicant,
-                'profile_photo_url' => '/images/user.png', //TODO: get real photos
+                'profile_photo_url' => '/images/user.png', // TODO: get real photos.
                 'form_submit_action' => route('profile.about.update', $applicant)
             ]
         );
@@ -111,9 +113,9 @@ class ApplicantProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request               $request   Incoming request.
-     * @param  \App\Models\Applicant $applicant Applicant object to update.
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @param  \Illuminate\Http\Request $request   Incoming request.
+     * @param  \App\Models\Applicant    $applicant Applicant object to update.
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Applicant $applicant)
     {
@@ -155,11 +157,11 @@ class ApplicantProfileController extends Controller
         $user->fill(
             [
                 'name' => $input['profile_name'],
-                'email' => $input['profile_email'], //TODO make changing email harder!
+                'email' => $input['profile_email'], // TODO make changing email harder!
             ]
         );
         if ($input['new_password']) {
-            $user->password =  Hash::make($input['new_password']); //TODO: change password in seperate form!
+            $user->password =  Hash::make($input['new_password']); // TODO: change password in seperate form!
         }
         $user->save();
 

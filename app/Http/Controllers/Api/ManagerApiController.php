@@ -9,10 +9,12 @@ use App\Http\Requests\UpdateManager;
 
 class ManagerApiController extends Controller
 {
-
+    /**
+     * Class constructor.
+     */
     public function __construct()
     {
-        // This applies the appropriate policy to each resource route
+        // This applies the appropriate policy to each resource route.
         $this->authorizeResource(Manager::class, 'manager');
     }
 
@@ -23,24 +25,24 @@ class ManagerApiController extends Controller
      */
     public function index()
     {
-        //TODO:
+        // TODO: complete.
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request Incoming Request.
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //TODO:
+        // TODO: complete.
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Manager  $manager
+     * @param  \App\Models\Manager $manager Incoming Manager.
      * @return \Illuminate\Http\Response
      */
     public function show(Manager $manager)
@@ -51,8 +53,8 @@ class ManagerApiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  App\Http\Requests\UpdateManager  $request
-     * @param  \App\Models\Manager  $manager
+     * @param  App\Http\Requests\UpdateManager $request Incoming Form Request.
+     * @param  \App\Models\Manager             $manager Incoming Manager.
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateManager $request, Manager $manager)
@@ -66,11 +68,11 @@ class ManagerApiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Manager  $manager
+     * @param  \App\Models\Manager $manager Incoming Manager.
      * @return \Illuminate\Http\Response
      */
     public function destroy(Manager $manager)
     {
-        //TODO:
+        // TODO: complete.
     }
 }

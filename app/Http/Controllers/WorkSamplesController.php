@@ -3,37 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Skill;
 use App\Models\Applicant;
 use App\Models\WorkSample;
 use App\Services\Validation\Requests\UpdateWorkSampleValidator;
 
 class WorkSamplesController extends Controller
 {
-
     /**
      * Show the form for editing the logged-in applicant's Work Samples
      *
-     * @param  Request $request
+     * @param  \Illuminate\Http\Request $request Incoming Request.
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function editAuthenticated(Request $request): \Illuminate\Http\RedirectResponse
+    public function editAuthenticated(Request $request)
     {
         $applicant = $request->user()->applicant;
         return redirect(route('profile.work_samples.edit', $applicant));
     }
 
-
     /**
      * Show the form for editing the applicant's work samples
      *
-     * @param Request   $request   Incoming request object.
-     * @param Applicant $applicant Incoming Applicant object.
-     *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     * @param  \Illuminate\Http\Request $request   Incoming request object.
+     * @param  \App\Models\Applicant    $applicant Incoming Applicant object.
+     * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Applicant $applicant)
     {
@@ -51,8 +46,8 @@ class WorkSamplesController extends Controller
     /**
      * Update the workSample in storage, or create new one.
      *
-     * @param  \Illuminate\Http\Request    $request
-     * @param  \App\Models\WorkSample|null $workSample
+     * @param  \Illuminate\Http\Request    $request    Incoming Request.
+     * @param  \App\Models\WorkSample|null $workSample Incoming optional Work Sample.
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ?WorkSample $workSample = null)
@@ -72,11 +67,11 @@ class WorkSamplesController extends Controller
         ]);
         $workSample->save();
 
-        //Attach relatives
+        // Attach relatives.
         $skillIds = $this->getRelativeIds($request->input(), 'skills');
         $workSample->skill_declarations()->sync($skillIds);
 
-        // if an ajax request, return the new object
+        // if an ajax request, return the new object.
         if ($request->ajax()) {
             $workSample->load('file_type');
             return $workSample->toJson();
@@ -88,8 +83,8 @@ class WorkSamplesController extends Controller
     /**
      * Delete the particular work sample from storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\WorkSample   $workSample
+     * @param  \Illuminate\Http\Request $request    Incoming Request.
+     * @param  \App\Models\WorkSample   $workSample Incoming Work Sample.
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, WorkSample $workSample)
@@ -100,7 +95,7 @@ class WorkSamplesController extends Controller
 
         if ($request->ajax()) {
             return [
-                "message" => 'Work sample deleted'
+                'message' => 'Work sample deleted'
             ];
         }
 

@@ -11,7 +11,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function getRelativeIds($input, $relativeType) {
+    public function getRelativeIds($input, $relativeType)
+    {
         $relativeIds = [];
         if (isset($input['relatives'])) {
             $relatives = $input['relatives'];
@@ -24,26 +25,29 @@ class Controller extends BaseController
         return $relativeIds;
     }
 
-    public function shiftFirstLevelArrayKeysToBottom(array $nestedArray) {
+    public function shiftFirstLevelArrayKeysToBottom(array $nestedArray)
+    {
         $expandedArray = $this->expandNestedArraysIntoKeyListAndValue($nestedArray);
         $rotatedArray = $this->rotateKeys($expandedArray, 1);
         $mergedArray = $this->mergeExpandedTrees($rotatedArray);
         return $mergedArray;
     }
 
-    protected function addKeyAsFinalIndex($finalKey, $array) {
+    protected function addKeyAsFinalIndex($finalKey, $array)
+    {
         if (!is_array($array)) {
             return [$finalKey => $array];
         } else {
             $newArray = [];
-            foreach($array as $key => $value) {
+            foreach ($array as $key => $value) {
                 $newArray[$key] = $this->addKeyAsFinalIndex($finalKey, $value);
             }
             return $newArray;
         }
     }
 
-    protected function expandNestedArraysIntoKeyListAndValue($nestedArray) {
+    protected function expandNestedArraysIntoKeyListAndValue($nestedArray)
+    {
         if (!is_array($nestedArray)) {
             $expandedArray = [
                 [
@@ -54,9 +58,9 @@ class Controller extends BaseController
             return $expandedArray;
         } else {
             $expandedArray = [];
-            foreach($nestedArray as $key => $value) {
+            foreach ($nestedArray as $key => $value) {
                 $subArray = $this->expandNestedArraysIntoKeyListAndValue($value);
-                foreach($subArray as $item) {
+                foreach ($subArray as $item) {
                     array_unshift($item['keys'], $key);
                     $expandedArray[] = $item;
                 }
@@ -65,29 +69,30 @@ class Controller extends BaseController
         }
     }
 
-    protected function mergeExpandedTrees($expandedArray) {
+    protected function mergeExpandedTrees($expandedArray)
+    {
         $mergedArray = [];
-        foreach($expandedArray as $item) {
+        foreach ($expandedArray as $item) {
             $tail = &$mergedArray;
             $size = count($item['keys']);
             $i = 0;
-            foreach($item['keys'] as $key) {
+            foreach ($item['keys'] as $key) {
                 $i = ($i + 1);
-                //Check if this is the last key
+                // Check if this is the last key.
                 if ($i == ($size)) {
                     if (!isset($tail[$key])) {
                         $tail[$key] = $item['value'];
-                    } else if (!is_array($tail[$key])) {
+                    } elseif (!is_array($tail[$key])) {
                         $value = $tail[$key];
                         $tail[$key] = [$value, $item['value']];
                     } else {
                         array_push($tail[$key], $item['value']);
                     }
                 } else {
-                    //If this is not the last key, it needs to contain an array
+                    // If this is not the last key, it needs to contain an array.
                     if (!isset($tail[$key])) {
                         $tail[$key] = [];
-                    } else if (!is_array($tail[$key])) {
+                    } elseif (!is_array($tail[$key])) {
                         $value = $tail[$key];
                         $tail[$key] = [$value];
                     }
@@ -98,9 +103,10 @@ class Controller extends BaseController
         return $mergedArray;
     }
 
-    protected function rotateKeys($expandedArray, $steps) {
+    protected function rotateKeys($expandedArray, $steps)
+    {
         $rotatedArray = [];
-        foreach($expandedArray as $item) {
+        foreach ($expandedArray as $item) {
             for ($i=0; $i<$steps; $i++) {
                 array_push($item['keys'], array_shift($item['keys']));
             }
