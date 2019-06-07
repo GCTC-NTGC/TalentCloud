@@ -11,19 +11,19 @@ const stories = storiesOf("Input", module)
 
 stories.add(
   "Text Input",
-  () => (
+  (): React.ReactElement => (
     <Input
-      htmlId={text('ID', 'sample-input')}
-      formName={text('Name', "What a name")}
+      htmlId={text("ID", "sample-input")}
+      formName={text("Name", "What a name")}
       label={text("Label", "Label")}
       required={boolean("Required", "false")}
       placeholder={text("Placeholder", "Write what you will")}
-      type={text("type","text")}
+      type={text("type", "text")}
       minLength={number("Minimum Length", "0")}
       maxLength={number("Maximum Length", "30")}
       value={text("Default Value", "Hello World")}
       errorText={text("Error Text", "")}
-      onChange={action('Confirm clicked')}
+      onChange={action("Contents changed")}
     />
   ),
   { info: { inline: true } },
@@ -31,19 +31,19 @@ stories.add(
 
 stories.add(
   "Email Input",
-  () => (
+  (): React.ReactElement => (
     <Input
-      htmlId={text('ID', 'sample-email-input')}
-      formName={text('Name', "What a name")}
+      htmlId={text("ID", "sample-email-input")}
+      formName={text("Name", "What a name")}
       label={text("Label", "Label")}
       required={boolean("Required", "false")}
       placeholder={text("Placeholder", "Write what you will")}
-      type={text("type","email")}
+      type={text("type", "email")}
       minLength={number("Minimum Length", "0")}
       maxLength={number("Maximum Length", "30")}
       value={text("Default Value", "hello@world.test")}
       errorText={text("Error Text", "")}
-      onChange={action('Confirm clicked')}
+      onChange={action("Contents changed")}
     />
   ),
   { info: { inline: true } },
