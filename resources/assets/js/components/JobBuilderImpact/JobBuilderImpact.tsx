@@ -1,4 +1,5 @@
 import * as React from "react";
+import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { items } from "../ProgressTracker/fixtures/progressItems";
 import ImpactForm from "./ImpactForm";
@@ -6,8 +7,8 @@ import ImpactForm from "./ImpactForm";
 interface JobBuilderImpactProps {}
 
 const JobBuilderImpact: React.FunctionComponent<
-  JobBuilderImpactProps
-> = (): React.ReactElement => {
+  JobBuilderImpactProps & InjectedIntlProps
+> = ({ intl }): React.ReactElement => {
   return (
     <section>
       <ProgressTracker
@@ -23,24 +24,41 @@ const JobBuilderImpact: React.FunctionComponent<
           data-c-font-weight="bold"
           data-c-margin="bottom(double)"
         >
-          Create an Impact Statement
+          <FormattedMessage
+            id="jobBuilder.impact.title"
+            defaultMessage="Create an Impact Statement"
+            description="Header of Job Poster Builder Impact Step"
+          />
         </h3>
         <ul data-c-margin="bottom(double)">
           <li>
-            Working in the federal government offers an important opportunity to
-            have a broad impact for Canadians.
+            <FormattedMessage
+              id="jobBuilder.impact.points.opportunity"
+              defaultMessage="Working in the federal government offers an important opportunity to have a broad impact for Canadians."
+              description="Bullet Point on Job Poster Builder Impact Step"
+            />
           </li>
           <li>
-            This is your chance to highlight what makes your work valuable and
-            interesting.
+            <FormattedMessage
+              id="jobBuilder.impact.points.highlight"
+              defaultMessage="This is your chance to highlight what makes your work valuable and interesting."
+              description="Bullet Point on Job Poster Builder Impact Step"
+            />
           </li>
           <li>
-            Your impact statement is the first thing that applicants will see
-            when they click your job poster so make sure it counts!
+            <FormattedMessage
+              id="jobBuilder.impact.points.counts"
+              defaultMessage="Your impact statement is the first thing that applicants will see when they click your job poster so make sure it counts!"
+              description="Bullet Point on Job Poster Builder Impact Step"
+            />
           </li>
         </ul>
         <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-          How our department makes an impact:
+          <FormattedMessage
+            id="jobBuilder.impact.header.department"
+            defaultMessage="How our department makes an impact:"
+            description="Header of Department Impact Section on Job Poster Builder Impact Step"
+          />
         </p>
         {/* <!-- The p tag below is where the dynamic department text goes (I used text from an old job poster as placeholder, but the real list of data is in the issue. --> */}
         <p data-c-margin="bottom(double)">
@@ -56,4 +74,4 @@ const JobBuilderImpact: React.FunctionComponent<
   );
 };
 
-export default JobBuilderImpact;
+export default injectIntl(JobBuilderImpact);

@@ -3,6 +3,7 @@ import { IntlProvider } from "react-intl";
 import { storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
 import { withKnobs, select } from "@storybook/addon-knobs";
+import IntlContainer from "../../IntlContainer";
 import JobBuilderImpact from "../../components/JobBuilderImpact/JobBuilderImpact";
 import ImpactForm from "../../components/JobBuilderImpact/ImpactForm";
 
@@ -21,11 +22,11 @@ stories
   .add(
     "Job Builder Impact",
     (): React.ReactElement => (
-      <IntlProvider
+      <IntlContainer
         locale={select("Language", langOptions, "en", "Lang-Group")}
       >
         <JobBuilderImpact />
-      </IntlProvider>
+      </IntlContainer>
     ),
     {
       info: { inline: true },
@@ -34,11 +35,11 @@ stories
   .add(
     "Impact Form",
     (): React.ReactElement => (
-      <IntlProvider
+      <IntlContainer
         locale={select("Language", langOptions, "en", "Lang-Group2")}
       >
         <ImpactForm />
-      </IntlProvider>
+      </IntlContainer>
     ),
     {
       info: { inline: true },
