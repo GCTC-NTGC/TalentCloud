@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use App\Models\JobPoster;
+use App\Models\Manager;
 use App\Models\User;
 use Illuminate\Support\Facades\Config;
 
@@ -28,9 +29,11 @@ class JobApiControllerTest extends TestCase
     /**
      * Generate an array with all the data that would be submitted through a completed edit/create job form.
      *
-     * @return array
+     * @param  integer $managerId Manager ID to associate with the Job Poster.
+     * @param  boolean $published Whether this Job is published.
+     * @return string[]
      */
-    private function generateFrontendJob($managerId, $published = false): array
+    private function generateFrontendJob(int $managerId, bool $published = false): array
     {
         $dateFormat = Config::get('app.api_datetime_format');
         $job = [
@@ -82,9 +85,7 @@ class JobApiControllerTest extends TestCase
         $job = factory(JobPoster::class)->state('published')->create();
         $response = $this->json('get', "api/jobs/$job->id");
         $response->assertOk();
-
         $expected = $job->toApiArray();
-
         $response->assertJson($expected);
     }
 
@@ -106,7 +107,6 @@ class JobApiControllerTest extends TestCase
             ['id' => $job->id, 'manager_id' => $job->manager_id]
         );
         $this->assertDatabaseHas('job_posters', $expectedDb);
-
         $newJob = $job->fresh();
         $translations = $newJob->getTranslationsArray();
         $this->assertArraySubset($jobUpdate['en'], $translations['en']);
@@ -125,7 +125,7 @@ class JobApiControllerTest extends TestCase
         $otherManager = factory(User::class)->state('manager')->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $response = $this->actingAs($otherManager)
-            ->json('put', "api/jobs/$job->id", $jobUpdate);
+        ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertForbidden();
     }
 
@@ -139,7 +139,7 @@ class JobApiControllerTest extends TestCase
     {
         $job = factory(JobPoster::class)->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
-        $jobUpdate['term_qty'] = 'three months'; // String is invalid here
+        $jobUpdate['term_qty'] = 'three months'; // String is invalid here.
         $response = $this->actingAs($job->manager->user)
             ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertStatus(422);
@@ -148,6 +148,8 @@ class JobApiControllerTest extends TestCase
     /**
      * Even while job.published is 'fillable', it shouldn't be
      * possible to modify published or published_at through an update request.
+     *
+     * @return void
      */
     public function testCannotUpdatePublished(): void
     {
@@ -173,7 +175,8 @@ class JobApiControllerTest extends TestCase
         $manager = factory(Manager::class)->create();
         $response = $this->followingRedirects()
             ->actingAs($manager->user)
-            ->json('post', 'api/jobs', []);
+            ->json('post', 'api/jobs');
+        $this->assertAuthenticatedAs($manager->user);
         $response->assertOk();
         $this->assertDatabaseHas('job_posters', ['manager_id' => $manager->id]);
     }
@@ -188,7 +191,7 @@ class JobApiControllerTest extends TestCase
         $user = factory(User::class)->state('admin')->create();
         $response = $this->followingRedirects()
             ->actingAs($user)
-            ->json('post', 'api/jobs', []);
+            ->json('post', 'api/jobs');
         $response->assertForbidden();
     }
 }

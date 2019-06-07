@@ -52,7 +52,7 @@ class JobApiController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\StoreJobPoster  $request
+     * @param  \App\Http\Requests\StoreJobPoster $request Incoming request.
      * @return \Illuminate\Http\Response
      */
     public function store(StoreJobPoster $request)
