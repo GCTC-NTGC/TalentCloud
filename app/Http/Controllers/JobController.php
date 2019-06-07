@@ -6,10 +6,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 
 use Carbon\Carbon;
@@ -40,7 +37,7 @@ class JobController extends Controller
     /**
      * Display a listing of JobPosters.
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -71,7 +68,7 @@ class JobController extends Controller
     /**
      * Display a listing of a manager's JobPosters.
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     * @return \Illuminate\Http\Response
      */
     public function managerIndex()
     {
@@ -81,10 +78,9 @@ class JobController extends Controller
             ->get();
 
         return view('manager/job_index', [
-            /*Localization Strings*/
+            // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
-
-            /* Data */
+            // Data.
             'jobs' => $jobs,
         ]);
     }
@@ -92,21 +88,20 @@ class JobController extends Controller
     /**
      * Submit the Job Poster for review.
      *
-     * @param \Illuminate\Http\Request $request   Incoming request object.
-     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
-     *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     * @param  \Illuminate\Http\Request $request   Incoming request object.
+     * @param  \App\Models\JobPoster    $jobPoster Job Poster object.
+     * @return \Illuminate\Http\Response
      */
     public function submitForReview(Request $request, JobPoster $jobPoster)
     {
-        // Update review request timestamp
+        // Update review request timestamp.
         $jobPoster->review_requested_at = new Date();
         $jobPoster->save();
 
         // Refresh model instance with updated DB values.
         $jobPoster = JobPoster::withCount('submitted_applications')->where('id', $jobPoster->id)->first();
 
-        // Send email
+        // Send email.
         $reviewer_email = config('mail.reviewer_email');
         if (isset($reviewer_email)) {
             Mail::to($reviewer_email)->send(new JobPosterReviewRequested($jobPoster, Auth::user()));
@@ -115,7 +110,7 @@ class JobController extends Controller
         }
 
         return view('manager/job_index/job', [
-            /*Localization Strings*/
+            // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
             'job' => $jobPoster
         ]);
@@ -124,12 +119,11 @@ class JobController extends Controller
     /**
      * Delete a draft Job Poster.
      *
-     * @param \Illuminate\Http\Request $request   Incoming request object.
-     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
-     *
-     * @return void
+     * @param  \Illuminate\Http\Request $request   Incoming request object.
+     * @param  \App\Models\JobPoster    $jobPoster Job Poster object.
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, JobPoster $jobPoster) : void
+    public function destroy(Request $request, JobPoster $jobPoster)
     {
         $jobPoster->delete();
     }
@@ -137,10 +131,9 @@ class JobController extends Controller
     /**
      * Display the specified job poster.
      *
-     * @param \Illuminate\Http\Request $request   Incoming request object.
-     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
-     *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     * @param  \Illuminate\Http\Request $request   Incoming request object.
+     * @param  \App\Models\JobPoster    $jobPoster Job Poster object.
+     * @return \Illuminate\Http\Response
      */
     public function show(Request $request, JobPoster $jobPoster)
     {
@@ -153,7 +146,7 @@ class JobController extends Controller
 
         $user = Auth::user();
 
-        //TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model
+        // TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model.
         $workplacePhotos = [];
         foreach ($jobPoster->manager->work_environment->workplace_photo_captions as $photoCaption) {
             $workplacePhotos[] = [
@@ -162,8 +155,7 @@ class JobController extends Controller
             ];
         }
 
-        //TODO: replace route('manager.show',manager.id) in templates with link using slug
-
+        // TODO: replace route('manager.show',manager.id) in templates with link using slug.
         $criteria = [
             'essential' => $jobPoster->criteria->filter(
                 function ($value, $key) {
@@ -211,7 +203,7 @@ class JobController extends Controller
             [
                 'job_post' => $jobLang,
                 'manager' => $jobPoster->manager,
-                'manager_profile_photo_url' => '/images/user.png', //TODO get real photo
+                'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
                 'team_culture' => $jobPoster->manager->team_culture,
                 'work_environment' => $jobPoster->manager->work_environment,
                 'workplace_photos' => $workplacePhotos,
@@ -226,9 +218,8 @@ class JobController extends Controller
     /**
      * Create a blank job poster for the specified manager
      *
-     * @param Manager $manager Incoming Manager object.
-     *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory Job Create view
+     * @param  \App\Models\Manager $manager Incoming Manager object.
+     * @return \Illuminate\Http\Response Job Create view
      */
     public function createAsManager(Manager $manager)
     {
@@ -248,9 +239,8 @@ class JobController extends Controller
     /**
      * Display the form for creating a new Job Poster
      *
-     * @param \Illuminate\Http\Request $request Incoming request object.
-     *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory Job Create view
+     * @param  \Illuminate\Http\Request $request Incoming request object.
+     * @return \Illuminate\Http\Response Job Create view
      */
     public function create(Request $request)
     {
@@ -260,10 +250,9 @@ class JobController extends Controller
     /**
      * Display the form for editing an existing Job Poster
      *
-     * @param \Illuminate\Http\Request $request   Incoming request object.
-     * @param \App\Models\JobPoster    $jobPoster Job Poster object.
-     *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory Job Create view
+     * @param  \Illuminate\Http\Request $request   Incoming request object.
+     * @param  \App\Models\JobPoster    $jobPoster Job Poster object.
+     * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, JobPoster $jobPoster)
     {
@@ -273,10 +262,9 @@ class JobController extends Controller
     /**
      * Get the manager from the request object and check if creating or editing
      *
-     * @param \Illuminate\Http\Request $request   Incoming request object.
-     * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object.
-     *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory Job Create view
+     * @param  \Illuminate\Http\Request $request   Incoming request object.
+     * @param  \App\Models\JobPoster    $jobPoster Optional Job Poster object.
+     * @return \Illuminate\Http\Response
      */
     public function populateCreateView(Request $request, JobPoster $jobPoster = null)
     {
@@ -365,10 +353,9 @@ class JobController extends Controller
         return view(
             'manager/job_create',
             [
-                /*Localization Strings*/
+                // Localization Strings.
                 'job_l10n' => Lang::get('manager/job_create'),
-
-                /* Data */
+                // Data.
                 'job' => Lang::get($jobHeading),
                 'manager' => $manager,
                 'provinces' => Province::all(),
@@ -387,15 +374,14 @@ class JobController extends Controller
     /**
      * Create a new resource in storage
      *
-     * @param \Illuminate\Http\Request $request   Incoming request object.
-     * @param \App\Models\JobPoster    $jobPoster Optional Job Poster object.
-     *
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse A redirect to the Job Index
+     * @param  \Illuminate\Http\Request $request   Incoming request object.
+     * @param  \App\Models\JobPoster    $jobPoster Optional Job Poster object.
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request, JobPoster $jobPoster = null)
     {
         // Don't allow edits for published Job Posters
-        // Also check auth while we're at it
+        // Also check auth while we're at it.
         if (isset($jobPoster)) {
             $this->authorize('update', $jobPoster);
             JobPosterValidator::validateUnpublished($jobPoster);
@@ -426,9 +412,8 @@ class JobController extends Controller
     /**
      * Fill Job Poster model's properties and save
      *
-     * @param mixed[]               $input     Field values.
-     * @param \App\Models\JobPoster $jobPoster Job Poster object.
-     *
+     * @param  mixed[]               $input     Field values.
+     * @param  \App\Models\JobPoster $jobPoster Job Poster object.
      * @return void
      */
     protected function fillAndSaveJobPoster(array $input, JobPoster $jobPoster) : void
@@ -473,10 +458,9 @@ class JobController extends Controller
     /**
      * Fill Job Poster's tasks and save
      *
-     * @param mixed[]               $input     Field values.
-     * @param \App\Models\JobPoster $jobPoster Job Poster object.
-     * @param boolean               $replace   Remove existing relationships.
-     *
+     * @param  mixed[]               $input     Field values.
+     * @param  \App\Models\JobPoster $jobPoster Job Poster object.
+     * @param  boolean               $replace   Remove existing relationships.
      * @return void
      */
     protected function fillAndSaveJobPosterTasks(array $input, JobPoster $jobPoster, bool $replace) : void
@@ -509,10 +493,9 @@ class JobController extends Controller
     /**
      * Fill Job Poster's questions and save
      *
-     * @param mixed[]               $input     Field values.
-     * @param \App\Models\JobPoster $jobPoster Job Poster object.
-     * @param boolean               $replace   Remove existing relationships.
-     *
+     * @param  mixed[]               $input     Field values.
+     * @param  \App\Models\JobPoster $jobPoster Job Poster object.
+     * @param  boolean               $replace   Remove existing relationships.
      * @return void
      */
     protected function fillAndSaveJobPosterQuestions(array $input, JobPoster $jobPoster, bool $replace) : void
@@ -547,9 +530,8 @@ class JobController extends Controller
     /**
      * Fill Job Poster's criteria and save
      *
-     * @param mixed[]               $input     Field values.
-     * @param \App\Models\JobPoster $jobPoster Job Poster object.
-     *
+     * @param  mixed[]               $input     Field values.
+     * @param  \App\Models\JobPoster $jobPoster Job Poster object.
      * @return void
      */
     protected function fillAndSaveJobPosterCriteria(array $input, JobPoster $jobPoster) : void
@@ -593,17 +575,17 @@ class JobController extends Controller
     /**
      * Process intput representing a single criteria from Job Poster form.
      *
-     * @param JobPoster    $jobPoster
-     * @param string       $criteriaType
-     * @param array        $criteriaInput
-     * @param integer|null $criteriaId
-     * @return Criteria
+     * @param  \App\Models\JobPoster $jobPoster     Incoming Job Poster.
+     * @param  string                $criteriaType  Type of Criteria.
+     * @param  array                 $criteriaInput Criteria data.
+     * @param  integer|null          $criteriaId    Criteria ID.
+     * @return \App\Models\Criteria
      */
-    protected function processCriteriaForm(JobPoster $jobPoster, string $criteriaType, array $criteriaInput, ?int $criteriaId): Criteria
+    protected function processCriteriaForm(JobPoster $jobPoster, string $criteriaType, array $criteriaInput, ?int $criteriaId)
     {
         $skillId = $criteriaInput['skill_id'];
 
-        //If no description was provided, use the default skill description
+        // If no description was provided, use the default skill description.
         $descriptionEn = $criteriaInput['description']['en'] ?
             $criteriaInput['description']['en'] : Skill::find($skillId)->getTranslation('description', 'en');
         $descriptionFr = $criteriaInput['description']['fr'] ?
@@ -633,12 +615,12 @@ class JobController extends Controller
     /**
      * Create a Job Criteria
      *
-     * @param JobPoster $jobPoster
-     * @param integer   $skillId
-     * @param array     $data
-     * @return Criteria
+     * @param  \App\Models\JobPoster $jobPoster Incoming Job Poster.
+     * @param  integer               $skillId   Skill ID.
+     * @param  array                 $data      Criteria data.
+     * @return \App\Models\Criteria
      */
-    protected function createCriteria(JobPoster $jobPoster, int $skillId, array $data): Criteria
+    protected function createCriteria(JobPoster $jobPoster, int $skillId, array $data)
     {
         $criteria = new Criteria();
         $criteria->job_poster_id = $jobPoster->id;
@@ -658,8 +640,8 @@ class JobController extends Controller
     /**
      * Update an existing Job Criteria
      *
-     * @param Criteria $criteria
-     * @param array    $data
+     * @param  \App\Models\Criteria $criteria Incoming Critera.
+     * @param  array                $data     Skill data.
      * @return void
      */
     protected function updateCriteria(Criteria $criteria, array $data): void
@@ -681,7 +663,7 @@ class JobController extends Controller
     /**
      * Delete existing Job Criteria
      *
-     * @param Criteria $criteria
+     * @param  \App\Models\Criteria $criteria Incoming Criteria.
      * @return void
      */
     protected function deleteCriteria(Criteria $criteria): void
@@ -692,21 +674,21 @@ class JobController extends Controller
         );
         $notification->save();
 
-        // Delete assessments related to this criteria
-        Assessment::where("criterion_id", $criteria->id)->delete();
+        // Delete assessments related to this criteria.
+        Assessment::where('criterion_id', $criteria->id)->delete();
         $criteria->delete();
     }
 
     /**
      * Create a new AssessmentPlanNotification for a modification to a Criteria
      *
-     * @param string       $type            Can be CREATE, UPDATE or DELETE.
-     * @param Criteria     $criteria
-     * @param integer|null $newSkillId      Only used for UPDATE type notifications.
-     * @param integer|null $newSkillLevelId Only used for UPDATE type notifications.
-     * @return AssessmentPlanNotification
+     * @param  string               $type            Can be CREATE, UPDATE or DELETE.
+     * @param  \App\Models\Criteria $criteria        Incoming Criteria.
+     * @param  integer|null         $newSkillId      Only used for UPDATE type notifications.
+     * @param  integer|null         $newSkillLevelId Only used for UPDATE type notifications.
+     * @return \App\Models\AssessmentPlanNotification
      */
-    protected function makeAssessmentPlanNotification(string $type, Criteria $criteria, $newSkillId = null, $newSkillLevelId = null): AssessmentPlanNotification
+    protected function makeAssessmentPlanNotification(string $type, Criteria $criteria, $newSkillId = null, $newSkillLevelId = null)
     {
         $notification = new AssessmentPlanNotification();
         $notification->job_poster_id = $criteria->job_poster_id;

@@ -7,7 +7,6 @@ use App\Models\JobPoster;
 use App\Models\Lookup\AssessmentType;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class RatingGuideQuestionController extends Controller
 {
@@ -34,7 +33,7 @@ class RatingGuideQuestionController extends Controller
                 'assessment_type_id' => $assessment_type_id,
                 'question' => $question,
             ]);
-            // Check that this user is allowed to create an Assessment for this criterion
+            // Check that this user is allowed to create an Assessment for this criterion.
             $this->authorize('update', $ratingGuideQuestion);
 
             $ratingGuideQuestion->save();
