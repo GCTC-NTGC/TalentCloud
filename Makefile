@@ -54,6 +54,9 @@ phpmd:
 phpunit:
 	@docker exec talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
+jest:
+    @docker exec talentcloud sh -c "npm test"
+
 test:
 	@docker exec talentcloud sh -c "vendor/bin/phpunit --no-coverage"
 
@@ -61,6 +64,6 @@ set-perms:
 	@docker exec talentcloud sh -c "chown -R www-data /var/www/storage /var/www/vendor /var/www/bootstrap/cache"
 	@docker exec talentcloud sh -c "chmod -R 775 /var/www"
 
-test-all: code-sniff phpmd phpunit
+test-all: code-sniff phpmd phpunit jest
 
 .PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data fresh-db gen-certs lighthouse logs phpmd phpunit test set-perms test-all
