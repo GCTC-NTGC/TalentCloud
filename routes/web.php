@@ -43,8 +43,7 @@ Route::group(
             /* Require being logged in as applicant */
             Route::middleware(['auth', 'role:applicant'])->group(function () : void {
 
-            //Application permissions are handled within the controller instead of with middleware
-
+            // Application permissions are handled within the controller instead of with middleware
                 /* Applications */
                 Route::get('applications', 'ApplicationController@index')->name('applications.index');
 
@@ -156,16 +155,20 @@ Route::group(
 
             // /* Temp Builder 01 (Intro) */
             // Route::view('builder-01', 'manager/builder-01')->name('jpb1');
-
             // /* Temp Builder 02 (Job info) */
             // Route::view('builder-02', 'manager/builder-02')->name('jpb2');
-
             // /* Temp Builder 03 (Work Environment) */
             // Route::view('builder-03', 'manager/builder-03')->name('jpb3');
-
             // /* Temp Builder 04 (Impact) */
             // Route::view('builder-04', 'manager/builder-04')->name('jpb4');
-
+            // /* Temp Builder 05 (Tasks) */
+            // Route::view('builder-05', 'manager/builder-05')->name('jpb5');
+            // /* Temp Builder 06 (Skills) */
+            // Route::view('builder-06', 'manager/builder-06')->name('jpb6');
+            // /* Temp Builder 07 (Education) */
+            // Route::view('builder-07', 'manager/builder-07')->name('jpb7');
+            // /* Temp Builder 08 (Review) */
+            // Route::view('builder-08', 'manager/builder-08')->name('jpb8');
             /* Authentication =========================================================== */
 
             // Laravel default login, logout, register, and reset routes
@@ -269,7 +272,7 @@ Route::group(
                 ->name('manager.jobs.screening_plan');
             });
 
-            //Laravel default login, logout, register, and reset routes
+            // Laravel default login, logout, register, and reset routes
             Route::get('login', 'Auth\LoginController@showLoginForm')->name('manager.login');
             Route::post('login', 'Auth\LoginController@login')->name('manager.login.post');
             Route::post('logout', 'Auth\LoginController@logout')->name('manager.logout');
@@ -350,7 +353,6 @@ Route::group(
         /* Language ============================================================= */
 
         // Route::redirect('fr', '/')->name('lang.fr');
-
         // Route::redirect('en', '/')->name('lang.en');
     }
 );
@@ -374,10 +376,10 @@ Route::group(
 /** API routes - currently using same default http auth, but not localized */
 Route::group(['prefix' => 'api'], function (): void {
         // Protected by a gate in the controller, instead of policy middleware
-    Route::get("jobs/{jobPoster}/assessment-plan", "AssessmentPlanController@getForJob");
+    Route::get('jobs/{jobPoster}/assessment-plan', 'AssessmentPlanController@getForJob');
 
     // Public, not protected by policy or gate
-    Route::get("skills", "SkillController@index");
+    Route::get('skills', 'SkillController@index');
 
     // Resource Routes are protected by policies in controllers instead of middleware.
     Route::resource('assessments', 'AssessmentController')->except([
