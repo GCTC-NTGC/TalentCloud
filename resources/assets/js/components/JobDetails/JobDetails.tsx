@@ -565,6 +565,7 @@ const JobDetails = (): React.ReactElement => {
               </Form>
               <Modal
                 id="job-details-preview"
+                parentElement="#job-details"
                 visible={isModalVisible}
                 onModalConfirm={() => {
                   console.log("Confirmed");

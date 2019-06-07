@@ -9,6 +9,7 @@ import { createPortal } from "react-dom";
 
 const modalContext = createContext({
   id: "",
+  parentElement: "",
   visible: false,
   onModalConfirm: undefined,
   onModalCancel: undefined,
@@ -16,6 +17,7 @@ const modalContext = createContext({
 
 export default function Modal({
   id,
+  parentElement,
   visible,
   children,
   onModalConfirm,
@@ -100,13 +102,15 @@ export default function Modal({
     >
       <div data-c-background="white(100)" data-c-radius="rounded">
         <modalContext.Provider
-          value={{ id, visible, onModalConfirm, onModalCancel }}
+          value={{ id, parentElement, visible, onModalConfirm, onModalCancel }}
         >
           {children}
         </modalContext.Provider>
       </div>
     </div>,
-    document.querySelector("#job-details") || document.body,
+    parentElement && parentElement.length > 0
+      ? document.querySelector(parentElement)
+      : document.body,
   );
 }
 
