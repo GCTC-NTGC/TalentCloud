@@ -46,7 +46,7 @@ class ApplicationByJobController extends Controller
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
-            'job' => $jobPoster,
+            'job' => $jobPoster->toApiArray(),
             'applications' => $applications,
             'review_statuses' => ReviewStatus::all()
         ]);
