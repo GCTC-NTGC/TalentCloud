@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { injectIntl } from "react-intl";
 import UpdatingInput from "../UpdatingInput";
 import { RatingGuideQuestion as RatingGuideQuestionModel } from "../../models/types";
 import { RootState } from "../../store/store";
@@ -154,6 +153,6 @@ const RatingGuideQuestionContainer: React.FunctionComponent<
 > = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(injectIntl(RatingGuideQuestion));
+)(RatingGuideQuestion);
 
 export default RatingGuideQuestionContainer;
