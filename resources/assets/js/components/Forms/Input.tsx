@@ -8,6 +8,7 @@ export interface InputProps {
   placeholder?: string;
   checked?: boolean;
   type?: string;
+  inputType?: string;
   minLength?: number;
   maxLength?: number;
   value?: string | number;
@@ -19,16 +20,21 @@ export interface InputProps {
   // formik
   field?: any;
   form?: any;
+
+  // radio context id
+  contextId?: string;
+  trigger?: boolean;
 }
 
 const Input: React.FunctionComponent<InputProps> = ({
   htmlId,
-  name: htmlName,
+  name,
   label,
   required,
   placeholder,
   checked,
   type,
+  inputType,
   value,
   onChange,
   errorText,
@@ -38,36 +44,47 @@ const Input: React.FunctionComponent<InputProps> = ({
   onBlur,
   field,
   form: { errors, touched },
+  contextId,
+  trigger,
 }): React.ReactElement => {
   function renderCheckbox(): React.ReactElement {
     return (
-      <label htmlFor={htmlId}>
-        <input
-          id={htmlId}
-          name={field.name || name}
-          type={type}
-          checked={checked}
-          value={value}
-          onChange={field.onChange || onChange}
-          onBlur={field.onBlur || onBlur}
-          required
-        />
-        <span>{label}</span>
-      </label>
+      <div data-c-grid-item={grid}>
+        <label htmlFor={htmlId}>
+          <input
+            id={htmlId}
+            name={field.name || name}
+            type="checkbox"
+            checked={checked}
+            value={value}
+            onChange={field.onChange || onChange}
+            onBlur={field.onBlur || onBlur}
+            required={required}
+          />
+          <span>{label}</span>
+        </label>
+      </div>
     );
   }
 
   function renderRadio(): React.ReactElement {
+    const clicked: boolean = htmlId === field.value;
     return (
-      <label htmlFor={htmlId}>
+      <label
+        htmlFor={htmlId}
+        data-tc-wenv-id={contextId}
+        data-tc-wenv-trigger={trigger}
+        className={clicked ? "active" : ""}
+      >
         <input
+          data-c-font-weight="800"
           id={htmlId}
-          name={htmlName}
-          type={type}
-          checked={checked}
-          value={value}
-          onChange={onChange}
-          onBlur={onBlur}
+          name={field.name}
+          type="radio"
+          checked={clicked}
+          value={htmlId}
+          onChange={field.onChange}
+          onBlur={field.onBlur}
         />
         <span>{label}</span>
       </label>
@@ -87,7 +104,7 @@ const Input: React.FunctionComponent<InputProps> = ({
         <div>
           <input
             id={htmlId}
-            name={field.name || htmlName}
+            name={field.name || name}
             placeholder={placeholder}
             type={type || "text"}
             value={field.value || value}
@@ -106,7 +123,7 @@ const Input: React.FunctionComponent<InputProps> = ({
     );
   }
 
-  switch (type) {
+  switch (inputType || type) {
     case "radio":
       return renderRadio();
     case "checkbox":

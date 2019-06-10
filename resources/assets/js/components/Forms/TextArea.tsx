@@ -12,6 +12,10 @@ export interface TextAreaProps {
   errorText?: string;
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onBlur?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+
+  // formik
+  field?: any;
+  form?: any;
 }
 
 const TextArea: React.FunctionComponent<TextAreaProps> = ({
@@ -26,26 +30,37 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   minLength,
   maxLength,
   onBlur,
+  field,
+  form: { errors, touched },
 }): React.ReactElement => {
+  const { name } = field;
   return (
-    <div data-c-input="textarea">
+    <div
+      data-c-input="textarea"
+      data-c-required={required}
+      data-c-invalid={touched[field.name] && errors[field.name] ? true : null}
+    >
       <label htmlFor={htmlId}>{label}</label>
       {required && <span>Required</span>}
       <div>
         <textarea
           data-c-font-weight="800"
           id={htmlId}
-          name={formName}
+          name={name || formName}
           placeholder={placeholder}
-          onChange={onChange}
+          onChange={field.onChange || onChange}
           minLength={minLength}
           maxLength={maxLength}
-          onBlur={onBlur}
+          onBlur={field.onBlur || onBlur}
         >
           {value}
         </textarea>
       </div>
-      <span>{errorText || "Something went wrong."}</span>
+      <span>
+        {(touched[field.name] && errors[field.name]) ||
+          errorText ||
+          "Something went wrong."}
+      </span>
     </div>
   );
 };
