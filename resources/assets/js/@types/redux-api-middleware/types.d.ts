@@ -166,7 +166,7 @@ declare module "redux-api-middleware" {
 
   module "redux" {
     export interface Dispatch<S> {
-      <R, S, F>(rsaa: RSAAction<R, S, F>): void;
+      <R, S, F>(rsaa: RSAAction<R, S, F>): Promise<S>;
     }
   }
 }

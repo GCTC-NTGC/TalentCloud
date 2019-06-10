@@ -3,46 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\RatingGuideAnswer;
-use App\Models\RatingGuideQuestion;
-use App\Models\Criteria;
-
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Http\Requests\UpdateRatingGuideAnswer;
+use App\Http\Requests\StoreRatingGuideAnswer;
 
 class RatingGuideAnswerController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request Incoming request.
+     * @param  \App\Requests\StoreRatingGuideAnswer $request Incoming request.
      * @throws \InvalidArgumentException For missing $expected_answer.
      * @return mixed
      */
-    public function store(Request $request)
+    public function store(StoreRatingGuideAnswer $request)
     {
-        $this->authorize('create', RatingGuideAnswer::class);
-        try {
-            $rating_guide_question_id = (int)$request->json('rating_guide_question_id');
-            $criterion_id = (int)$request->json('criterion_id');
-            $expected_answer = $request->json('expected_answer');
-
-            RatingGuideQuestion::findOrFail($rating_guide_question_id);
-            Criteria::findOrFail($criterion_id);
-
-            $ratingGuideAnswer = new RatingGuideAnswer([
-                'rating_guide_question_id' => $rating_guide_question_id,
-                'criterion_id' => $criterion_id,
-                'expected_answer' => $expected_answer,
-            ]);
-             // Check that this user is allowed to create an Assessment for this question
-            $this->authorize('update', $ratingGuideAnswer);
-            $ratingGuideAnswer->save();
-            $ratingGuideAnswer->refresh();
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage()
-            ], 400);
-        }
+        // Authorization handled by the FormRequest.
+        // Data validation handled by this line.
+        $data = $request->validated();
+        $ratingGuideAnswer = new RatingGuideAnswer($data);
+        $ratingGuideAnswer->save();
 
         return [
             'success' => "Successfully created rating guide answer $ratingGuideAnswer->id",
@@ -65,35 +44,20 @@ class RatingGuideAnswerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request      $request           Incoming request.
-     * @param  \App\Models\RatingGuideAnswer $ratingGuideAnswer Incoming object.
+     * @param  \App\Requests\UpdateRatingGuideAnswer $request           Incoming request.
+     * @param  \App\Models\RatingGuideAnswer         $ratingGuideAnswer Incoming object.
      * @throws \InvalidArgumentException For empty $expected_answer.
      * @return mixed
      */
-    public function update(Request $request, RatingGuideAnswer $ratingGuideAnswer)
+    public function update(UpdateRatingGuideAnswer $request, RatingGuideAnswer $ratingGuideAnswer)
     {
-        $this->authorize('update', $ratingGuideAnswer);
-        try {
-            $rating_guide_question_id = (int)$request->json('rating_guide_question_id');
-            $criterion_id = (int)$request->json('criterion_id');
-            $expected_answer = $request->json('expected_answer');
+        // Authorization handled by the FormRequest.
+        // Data validation handled by this line.
+        $data = $request->validated();
 
-            RatingGuideQuestion::findOrFail($rating_guide_question_id);
-            Criteria::findOrFail($criterion_id);
-
-            if (empty($expected_answer)) {
-                throw new \InvalidArgumentException('Expected answer is required.');
-            }
-            $ratingGuideAnswer->rating_guide_question_id = $rating_guide_question_id;
-            $ratingGuideAnswer->criterion_id = $criterion_id;
-            $ratingGuideAnswer->expected_answer = $expected_answer;
-            $ratingGuideAnswer->save();
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage()
-            ], 400);
-        }
-
+        $ratingGuideAnswer->fill($data);
+        $ratingGuideAnswer->save();
+        $ratingGuideAnswer->refresh();
         return [
             'success' => "Successfully updated rating guide answer $ratingGuideAnswer->id",
             'rating_guide_answer' => $ratingGuideAnswer->toArray(),

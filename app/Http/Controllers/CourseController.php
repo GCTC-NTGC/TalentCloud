@@ -10,8 +10,8 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Course  $course
+     * @param  \Illuminate\Http\Request $request Incoming Request.
+     * @param  \App\Models\Course       $course  Incoming Course.
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Course $course)
@@ -19,9 +19,9 @@ class CourseController extends Controller
         $this->authorize('delete', $course);
         $course->delete();
 
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return [
-                "message" => "Course delete",
+                'message' => 'Course delete',
             ];
         }
 

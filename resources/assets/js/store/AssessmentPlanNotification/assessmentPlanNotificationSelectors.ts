@@ -1,3 +1,5 @@
+import { createSelector } from "reselect";
+import createCachedSelector, { CreateSelectorInstance } from "re-reselect";
 import { RootState } from "../store";
 import { AssessmentPlanNotificationState } from "./assessmentPlanNotificationReducer";
 import { AssessmentPlanNotification } from "../../models/types";
@@ -6,32 +8,37 @@ import { hasKey } from "../../helpers/queries";
 const stateSlice = (state: RootState): AssessmentPlanNotificationState =>
   state.assessmentPlanNotification;
 
-export const getNotifications = (
+const getNotificationState = (
   state: RootState,
-): AssessmentPlanNotification[] => {
-  const notificationState = stateSlice(state).entities.notifications;
-  return notificationState.allIds.map(
-    (id): AssessmentPlanNotification => notificationState.byId[id],
-  );
-};
+): {
+  byId: { [id: number]: AssessmentPlanNotification };
+  allIds: number[];
+} => stateSlice(state).entities.notifications;
 
-export const getNotificationsByJob = (
-  state: RootState,
-  jobId: number,
-): AssessmentPlanNotification[] => {
-  return getNotifications(state).filter(
-    (notification): boolean => notification.job_poster_id === jobId,
-  );
-};
+export const getNotifications = createSelector(
+  getNotificationState,
+  (notificationState): AssessmentPlanNotification[] =>
+    notificationState.allIds.map(
+      (id): AssessmentPlanNotification => notificationState.byId[id],
+    ),
+);
 
-export const getUnreadNotificationsByJob = (
-  state: RootState,
-  jobId: number,
-): AssessmentPlanNotification[] => {
-  return getNotificationsByJob(state, jobId).filter(
-    (notification): boolean => notification.acknowledged === false,
-  );
-};
+export const getNotificationsByJob = createCachedSelector(
+  getNotifications,
+  (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
+  (notifications, jobId): AssessmentPlanNotification[] =>
+    notifications.filter(
+      (notification): boolean => notification.job_poster_id === jobId,
+    ),
+)((state, ownProps): number => ownProps.jobId);
+
+export const getUnreadNotificationsByJob = createCachedSelector(
+  getNotificationsByJob,
+  (notifications): AssessmentPlanNotification[] =>
+    notifications.filter(
+      (notification): boolean => notification.acknowledged === false,
+    ),
+)((state, ownProps): number => ownProps.jobId);
 
 export const notificationIsUpdating = (
   state: RootState,
