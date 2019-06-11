@@ -144,6 +144,7 @@
                     }
 
                     .applicant-information {
+                        word-break: break-all;
 
                         .name {
                             display: block;
@@ -496,6 +497,16 @@
                 width: 1.3rem;
             }
 
+        }
+
+        .priority-status {
+            color: $palette--red;
+            display: block;
+            margin-top: .7rem;
+
+            i {
+                padding-right: 0.5rem;
+            }
         }
 
     }

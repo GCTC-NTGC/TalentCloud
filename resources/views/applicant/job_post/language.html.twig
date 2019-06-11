@@ -12,9 +12,9 @@
 
 <section class="job-poster__language">
 
-    <h4 class="job-poster__language-title">
+    <h3 class="job-poster__language-title">
         {{ job_post.language.title }}
-    </h4>
+    </h3>
 
     {# This new UI is strictly displaying information. #}
 
@@ -25,7 +25,9 @@
     {% elseif job.language_requirement.id == 3 %}
         <span><img src="/images/icon_english_requirement.svg" title="{{ job_post.language.english_icon_title }}"> & <img src="/images/icon_french_requirement.svg" title="{{ job_post.language.french_icon_title }}"> {{ job.language_requirement.value|title }}</span>
     {% elseif job.language_requirement.id == 4 %}
-        <span><img src="/images/icon_english_requirement.svg" title="{{ job_post.language.english_icon_title }}"> / <img src="/images/icon_french_requirement.svg" title="{{ job_post.language.french_icon_title }}"> {{ job.language_requirement.value|title }}</span>
+        <span><img src="/images/icon_english_requirement.svg" title="{{ job_post.language.english_icon_title }}"> & <img src="/images/icon_french_requirement.svg" title="{{ job_post.language.french_icon_title }}"> {{ job.language_requirement.value|title }}</span>
+    {% elseif job.language_requirement.id == 5 %}
+        <span><img src="/images/icon_english_requirement.svg" title="{{ job_post.language.english_icon_title }}"> or <img src="/images/icon_french_requirement.svg" title="{{ job_post.language.french_icon_title }}"> {{ job.language_requirement.value }}</span>
     {% endif %}
 
     {% if job.language_requirement.id == 1 %}
@@ -35,10 +37,14 @@
         <p>{{ job_post.language.french_essential_context_01 }}</p>
         <p>{{ job_post.language.french_essential_context_02 }}</p>
     {% elseif job.language_requirement.id == 3 %}
+        <p>{{ job_post.language.bilingual_intermediate_context_01|replace({'%proficiency%': '<a href="' ~ job_post.language.proficiency_link ~ '"> ' ~ job_post.language.proficiency_copy ~'</a>'})|raw }}</p>
+        <p>{{ job_post.language.bilingual_intermediate_context_02 }}</p>
+    {% elseif job.language_requirement.id == 4 %}
         <p>{{ job_post.language.bilingual_advanced_context_01|replace({'%proficiency%': '<a href="' ~ job_post.language.proficiency_link ~ '"> ' ~ job_post.language.proficiency_copy ~'</a>'})|raw }}</p>
         <p>{{ job_post.language.bilingual_advanced_context_02 }}</p>
-    {% elseif job.language_requirement.id == 4 %}
-        <p>{{ job_post.language.english_french_context }}</p>
+    {% elseif job.language_requirement.id == 5 %}
+        <p>{{ job_post.language.english_or_french_context_01 }}</p>
+        <p>{{ job_post.language.english_or_french_context_02 }}</p>
     {% endif %}
 
 </section>

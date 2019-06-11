@@ -7,6 +7,7 @@ use App\Models\JobPoster;
 use App\Models\Applicant;
 use App\Models\JobApplication;
 use App\Models\Reference;
+use App\Models\Assessment;
 
 class DevSeeder extends Seeder // phpcs:ignore
 {
@@ -63,6 +64,13 @@ class DevSeeder extends Seeder // phpcs:ignore
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
             ]);
+            //Then create one application with a priority user
+            $job->job_applications()->save(factory(JobApplication::class)->create([
+                'job_poster_id' => $job->id,
+                'applicant_id' => factory(Applicant::class)->create([
+                        'user_id' => factory(User::class)->states('priority')->create()->id
+                    ])->id
+            ]));
         });
         factory(JobPoster::class, 3)->states('closed')->create([
             'manager_id' => $managerUser->manager->id
@@ -70,6 +78,13 @@ class DevSeeder extends Seeder // phpcs:ignore
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
             ]);
+            //Then create one application with a priority user
+            $job->job_applications()->save(factory(JobApplication::class)->create([
+                'job_poster_id' => $job->id,
+                'applicant_id' => factory(Applicant::class)->create([
+                    'user_id' => factory(User::class)->state('priority')->create()->id
+                ])->id
+            ]));
         });
         factory(JobPoster::class, 3)->states('draft')->create([
             'manager_id' => $managerUser->manager->id
@@ -77,6 +92,17 @@ class DevSeeder extends Seeder // phpcs:ignore
         factory(JobPoster::class, 3)->states('review_requested')->create([
             'manager_id' => $managerUser->manager->id
         ]);
+
+        // Create a Job Poster with an Assessment Plan
+        $jobWithAssessment = factory(JobPoster::class)->states('draft')->create([
+            'manager_id' => $managerUser->manager->id,
+        ]);
+        foreach ($jobWithAssessment->criteria as $criterion) {
+            // Create an assessment for each criterion
+            factory(Assessment::class)->states('withRatingGuide')->create([
+                'criterion_id' => $criterion->id,
+            ]);
+        };
 
         $applicantUser = User::where('email', $this->applicantEmail)->first();
         if ($applicantUser === null) {

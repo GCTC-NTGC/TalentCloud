@@ -7,7 +7,7 @@ export default class Reference extends Component {
     super(props);
     this.state = {
       active: false,
-      name: props.initName
+      name: props.initName,
     };
     this.handleTriggerClick = this.handleTriggerClick.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -16,14 +16,14 @@ export default class Reference extends Component {
   handleTriggerClick() {
     console.log("click");
     this.setState(state => ({
-      active: !state.active
+      active: !state.active,
     }));
     // this.setState({active: !this.state.active});
   }
 
   handleNameChange(event) {
     this.setState({
-      name: event.target.value
+      name: event.target.value,
     });
   }
 
@@ -38,7 +38,7 @@ export default class Reference extends Component {
       "accordion",
       "reference",
       "modal-target-object",
-      { active: this.state.active }
+      { active: this.state.active },
     );
     return (
       <div className={triggerClass}>
@@ -66,7 +66,7 @@ export default class Reference extends Component {
                 <div className="box med-1of2">
                   <div
                     className={classNames("form__input- wrapper--float", {
-                      active: this.state.name
+                      active: this.state.name,
                     })}
                   >
                     <label
@@ -98,6 +98,6 @@ export default class Reference extends Component {
 if (document.getElementById("react-reference")) {
   ReactDOM.render(
     <Reference key="1" id="1" url="/" initName="Joe Bob" locale="profile" />,
-    document.getElementById("react-reference")
+    document.getElementById("react-reference"),
   );
 }

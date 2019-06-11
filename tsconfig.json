@@ -1,14 +1,24 @@
 {
-    "compilerOptions": {
-        "jsx": "react",
-        "esModuleInterop": true,
-        "target": "es5",
-        "strictNullChecks": true,
-        "moduleResolution": "node",
-        "resolveJsonModule": true
-    },
-    // "include": [
-    //     "resources/assets/js/**/*"
-    // ],
-    "exclude": ["node_modules", "vendor"]
+  "compilerOptions": {
+    "jsx": "react",
+    "esModuleInterop": true,
+    "target": "es5",
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "rootDir": "resources/assets/js",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": ["dom", "esnext"]
+  },
+  // "include": [
+  //     "resources/assets/js/**/*"
+  // ],
+  "exclude": [
+    "node_modules",
+    "!node_modules/@types",
+    "resources/assets/js/**/*.test.ts",
+    "resources/assets/js/**/*.test.tsx",
+    "vendor"
+  ]
 }

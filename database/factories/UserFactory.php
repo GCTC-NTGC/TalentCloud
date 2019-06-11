@@ -33,6 +33,7 @@ $factory->define(User::class, function (Faker\Generator $faker) {
         'is_confirmed' => 1,
         'user_role_id' => UserRole::inRandomOrder()->first()->id,
         'remember_token' => str_random(10),
+        'is_priority' => $faker->boolean(10), // 10% chance of true
     ];
 });
 
@@ -46,6 +47,10 @@ $factory->state(User::class, 'applicant', [
 
 $factory->state(User::class, 'admin', [
     'user_role_id' => UserRole::where('name', 'admin')->first()->id
+]);
+
+$factory->state(User::class, 'priority', [
+    'is_priority' => true
 ]);
 
 $factory->define(Applicant::class, function (Faker\Generator $faker) {

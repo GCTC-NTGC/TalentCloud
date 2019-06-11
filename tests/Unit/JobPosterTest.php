@@ -91,10 +91,6 @@ class JobPosterTest extends TestCase
         $jobPoster->close_date_time = date('Y-m-d H:i:s', strtotime('-5 minutes'));
         $langString = Lang::choice('common/time.minute', 5);
         $this->assertEquals($langString, $jobPoster->timeRemaining());
-
-        $jobPoster->close_date_time = date('Y-m-d H:i:s', strtotime('-30 seconds'));
-        $langString = Lang::choice('common/time.second', 30);
-        $this->assertEquals($langString, $jobPoster->timeRemaining());
     }
 
     /**

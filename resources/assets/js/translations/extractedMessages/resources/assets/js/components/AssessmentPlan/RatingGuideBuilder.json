@@ -1,0 +1,27 @@
+[
+  {
+    "id": "ratingGuideBuilder.narrativeSectionTitle",
+    "description": "Subtitle for the special Narrative Assessment section in the Rating Guide Builder.",
+    "defaultMessage": "Assessment {index}: {assessmentType}"
+  },
+  {
+    "id": "ratingGuideBuilder.criteriaName",
+    "description": "How each criteria is listed in Rating Guide Builder.",
+    "defaultMessage": "{skillName} - {skillLevel}"
+  },
+  {
+    "id": "ratingGuideBuilder.title",
+    "description": "Title of the Rating Guide Builder section.",
+    "defaultMessage": "3. Ratings Guide Builder"
+  },
+  {
+    "id": "ratingGuideBuilder.instructions",
+    "description": "Instructions for using the Rating Guide Builder",
+    "defaultMessage": "Below you will create your own ratings guide tool to help you assess your candidates. This tool allows you to build your own questions/evaluations for each assessment you've selected above, and then allows you to jot down the criteria for what a great candidate response might be. Please note that \"Narrative Review\" is unique in that the content is generated for you below."
+  },
+  {
+    "id": "ratingGuideBuilder.copyInstructions",
+    "description": "Instructions for copying your rating guide.",
+    "defaultMessage": "Now that you've built your Ratings Guide, you can use the button below to copy the entire thing to your clipboard, making it easy to paste in your favourite Word Processor."
+  }
+]

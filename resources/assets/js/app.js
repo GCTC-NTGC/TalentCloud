@@ -25,15 +25,149 @@
 
   // User Agent Data Attributes ==============================================
 
-  // Sample Git Commit Test
-
-  // Second Git Test
-
   var ua = navigator.userAgent;
   ua = ua.toString();
   $("body").attr("id", ua);
 
   $(document).ready(function() {
+
+    // Clone Specific UI Handlers ==============================================
+
+      // Job Builder - Work Environment ----------------------------------------
+      function hiwTrigger(trigger) {
+        const wEnv = $(trigger).attr("data-tc-wEnv-id");
+        $(trigger).parents(".job-builder-culture-block").find("[data-tc-wEnv-trigger").removeClass("active");
+        $(trigger).addClass("active");
+        $(trigger).parents(".job-builder-culture-block").find(".job-builder-context-item").removeClass("active");
+        $(trigger).parents(".job-builder-culture-block").find(".job-builder-context-item[data-tc-wEnv-id='" + wEnv + "']").addClass("active");
+        if (window.matchMedia("screen and (min-width: 48em)").matches) {
+          // Nothing
+        } else {
+          $([document.documentElement, document.body]).animate({
+            scrollTop: $(trigger).parents(".home-hiw").find(".job-builder-context-item[data-tc-wEnv-id='" + wEnv + "']").offset().top
+        }, 10);
+        }
+      }
+
+      $(document).on("click", "[data-tc-wEnv-trigger]", function(e) {
+        hiwTrigger(this);
+      });
+
+      $(document).on("keyup", "[data-tc-wEnv-trigger]", function(e) {
+        if (e.which == 13) {
+          hiwTrigger(this);
+        }
+      });
+
+      // Job Builder - Tasks ---------------------------------------------------
+
+        // Move Up
+        function taskUpTrigger(trigger) {
+          var thisEl = $(trigger).parents(".job-builder-task");
+          var previousEl = $(trigger).parents(".job-builder-task").prev();
+          var nextEl = $(trigger).parents(".job-builder-task").next();
+          if ($(previousEl).hasClass("job-builder-task-warning")) {
+            var displaced = $(previousEl).prev();
+            $(thisEl).removeClass("invalid");
+            $(thisEl).insertBefore(previousEl);
+            $(displaced).insertAfter(previousEl).addClass("invalid");
+            $(thisEl).focus();
+          }
+          else if (previousEl == null) {
+            $(thisEl).focus();
+            // Do Nothing
+          }
+          else {
+            $(thisEl).insertBefore(previousEl);
+            $(thisEl).focus();
+          }
+        }
+
+        $(document).on("click", "[data-tc-builder-task-up-trigger]", function(e) {
+          taskUpTrigger(this);
+        });
+
+        $(document).on("keyup", "[data-tc-builder-task-up-trigger]", function(e) {
+          if (e.which == 13) {
+            taskUpTrigger(this);
+          }
+        });
+
+        // Move Down
+        function taskDownTrigger(trigger) {
+          var thisEl = $(trigger).parents(".job-builder-task");
+          var previousEl = $(trigger).parents(".job-builder-task").prev();
+          var nextEl = $(trigger).parents(".job-builder-task").next();
+          if ($(nextEl).hasClass("job-builder-task-warning")) {
+            var displaced = $(nextEl).next();
+            $(thisEl).addClass("invalid");
+            $(thisEl).insertAfter(nextEl);
+            $(displaced).insertBefore(nextEl).removeClass("invalid");
+            $(thisEl).focus();
+          }
+          else if (nextEl == null) {
+            $(thisEl).focus();
+            // Do Nothing
+          }
+          else {
+            $(thisEl).insertAfter(nextEl);
+            $(thisEl).focus();
+          }
+        }
+
+        $(document).on("click", "[data-tc-builder-task-down-trigger]", function(e) {
+          taskDownTrigger(this);
+        });
+
+        $(document).on("keyup", "[data-tc-builder-task-down-trigger]", function(e) {
+          if (e.which == 13) {
+            taskDownTrigger(this);
+          }
+        });
+
+        // Delete
+        function taskDeleteTrigger(trigger) {
+          $(trigger).parents(".job-builder-task").remove();
+        }
+
+        $(document).on("click", "[data-tc-builder-task-delete-trigger]", function(e) {
+          taskDeleteTrigger(this);
+        });
+
+        $(document).on("keyup", "[data-tc-builder-task-delete-trigger]", function(e) {
+          if (e.which == 13) {
+            taskDeleteTrigger(this);
+          }
+        });
+
+      // Job Builder Work Environment ======================================
+
+        // Culture Copy
+        function copyCulture(trigger) {
+          var temp = $("<input>");
+          var copy = $("#jobBuilderCultureCopy").text();
+          $("body").append(temp);
+          temp.val(copy).select();
+          document.execCommand("copy");
+          temp.remove();
+          $(trigger).find(".default").hide();
+          $(trigger).find(".copied").show();
+          setTimeout(function() {
+            $(trigger).find(".default").show();
+            $(trigger).find(".copied").hide();
+          }, 1400);
+        }
+
+        $(document).on("click", "[data-tc-job-builder-culture-copy-trigger]", function(e) {
+          copyCulture(this);
+        });
+
+        $(document).on("keyup", "[data-tc-job-builder-culture-copy-trigger]", function(e) {
+          if (e.which == 13) {
+            copyCulture(this);
+          }
+        });
+
     // Accordion Handlers ==================================================
 
     function accordionTrigger(trigger) {
@@ -281,10 +415,23 @@
         $(this).addClass("required");
         //Find labels that haven't had the asterisk added yet
         $(this)
-          .children(".form__label")
+          // .children()
+          .find(".form__label")
           .append(
             "<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>"
           );
+      });
+
+      // Required field for checkbox input
+      $("input[type='checkbox']:required").each(function(e) {
+        $(this)
+          .parent()
+          .addClass("required");
+
+        const label = $(this).parent(":not(:has(.fa-asterisk))");
+        label.append(
+          "<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>"
+        );
       });
     }
 
@@ -392,6 +539,35 @@
 
         // unfocus item to trigger style
         $(this).blur();
+      });
+
+      $("#language_requirement_confirmed").change(function(e) {
+        const checkbox = $(this);
+        const content = checkbox.next('.checkbox__wrapper').find('.checkbox__content > i');
+
+        if (content.hasClass('hidden')) {
+          content.removeClass('hidden');
+        } else {
+          content.addClass('hidden');
+        }
+
+        if (
+          checkbox
+            .parent()
+            .siblings(".error-message")
+            .hasClass("hidden")
+        ) {
+          checkbox
+            .parent()
+            .siblings(".error-message")
+            .removeClass("hidden");
+
+        } else {
+          checkbox
+            .parent()
+            .siblings(".error-message")
+            .addClass("hidden");
+        }
       });
     }
 

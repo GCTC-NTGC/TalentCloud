@@ -1,0 +1,112 @@
+[data-c-input] label .form__required {
+    display: none !important;
+}
+
+.manager-job-card {
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+    >div:last-child {
+        cursor: pointer;
+    }
+}
+
+.job-builder-context-block {
+    padding-top: 1.65rem;
+
+    .job-builder-context-item {
+        display: none;
+        &.active {
+            display: block;
+        }
+    }
+}
+
+.job-builder-check {
+    border: 1px solid rgba($clone-grey, .5);
+    display: inline-block;
+    height: .75rem;
+    margin: 0 .5rem 0 0;
+    position: relative;
+    width: .75rem;
+    &.checked {
+        i {
+            display: block;
+        }
+    }
+    i {
+        color: $clone-c1;
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.job-builder-task {
+    margin: 0 auto !important;
+    max-width: 80% !important;
+    @media screen and (min-width: 39rem) {
+        margin: 0 auto !important;
+        max-width: none !important;
+    }
+    >div:first-child {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin: 0;
+        transform: translate(-100%, -50%);
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: block;
+            padding: 1rem;
+        }
+    }
+    >div:nth-child(2) {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        margin: 0;
+        transform: translate(100%, -50%);
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: block;
+            padding: 1rem;
+        }
+    }
+    &:first-child {
+        >div:first-child {
+            button:first-child {
+                color: rgba($clone-grey, .5);
+                pointer-events: none;
+            }
+        }
+    }
+    &:last-child {
+        >div:first-child {
+            button:last-child {
+                color: rgba($clone-grey, .5);
+                pointer-events: none;
+            }
+        }
+    }
+    &.invalid {
+        textarea {
+            border-color: $clone-stop !important;
+        }
+        label {
+            color: $clone-stop !important;
+        }
+    }
+}
+
+// Josh, you added this to Clone already, so remove it when you update Clone next.
+
+[data-c-container="form"] {
+    margin: 0 auto;
+    max-width: 60rem;
+    width: 90%;
+}

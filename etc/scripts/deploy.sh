@@ -41,9 +41,7 @@ sudo rm -R TalentCloud;
 echo "Moving to app directory...";
 cd /var/www;
 
-echo "Executing Laravel commands:"
-
-echo "Cleaning up old caches...";
+echo "Executing Laravel commands...";
 sudo php artisan route:clear;
 sudo php artisan cache:clear;
 sudo php artisan config:clear;

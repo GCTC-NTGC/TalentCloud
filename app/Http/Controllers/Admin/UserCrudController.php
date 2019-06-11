@@ -15,15 +15,12 @@ class UserCrudController extends CrudController
      */
     public function setup() : void
     {
-        $this->crud->setModel("App\Models\User");
-        $this->crud->setRoute("admin/user");
+        $this->crud->setModel('App\Models\User');
+        $this->crud->setRoute('admin/user');
         $this->crud->setEntityNameStrings('user', 'users');
 
         $this->crud->denyAccess('create');
         $this->crud->denyAccess('delete');
-
-        // Add the custom blade button found in resources/views/vendor/backpack/crud/buttons/profile_edit.blade.php
-        $this->crud->addButtonFromView('line', 'profile_edit', 'profile_edit', 'end');
 
         $this->crud->addColumn([
             'name' => 'name',
@@ -58,19 +55,19 @@ class UserCrudController extends CrudController
 
         $this->crud->addField([
             'name' => 'name',
-            'label' => "Name",
+            'label' => 'Name',
             'type' => 'text',
             'attributes' => [
                 'readonly'=>'readonly'
             ]
         ]);
         $this->crud->addField([
-            'label' => "Role",
+            'label' => 'Role',
             'type' => 'select',
-            'name' => 'user_role_id', // the db column for the foreign key
-            'entity' => 'user_role', // the method that defines the relationship in your Model
-            'attribute' => 'name', // foreign key attribute that is shown to user
-            'model' => "App\Models\UserRole" // foreign key model
+            'name' => 'user_role_id', // The db column for the foreign key.
+            'entity' => 'user_role', // The method that defines the relationship in your Model.
+            'attribute' => 'name', // Foreign key attribute that is shown to user.
+            'model' => 'App\Models\UserRole' // Foreign key model.
         ]);
         $this->crud->addField([
             'name' => 'is_priority',
@@ -82,8 +79,7 @@ class UserCrudController extends CrudController
     /**
      * Action for updating an existing User in the database.
      *
-     * @param \Illuminate\Http\Request $request Incoming form request.
-     *
+     * @param  \Illuminate\Http\Request $request Incoming form request.
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update($request) // phpcs:ignore

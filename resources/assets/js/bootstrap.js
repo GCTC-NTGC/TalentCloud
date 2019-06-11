@@ -1,13 +1,7 @@
-import "react-app-polyfill/ie11";
-import "./polyfills/includes";
+import "core-js"; // adds almost all polyfills
 
-// Number.isNan polyfill
-Number.isNaN =
-  Number.isNaN ||
-  function numIsNan(value) {
-    // eslint-disable-next-line no-self-compare
-    return value !== value;
-  };
+// Add a global fetch implementation
+require("isomorphic-fetch");
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -24,32 +18,18 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
  * all outgoing HTTP requests automatically have it attached. This is just
  * a simple convenience so we don't have to attach every token manually.
  */
-
 const token = document.head.querySelector('meta[name="csrf-token"]');
-
 if (token) {
   window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
 } else {
   console.error(
-    "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token"
+    "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token",
   );
 }
 
+// Allow the root React app component to mount
+require("./redux_index.tsx");
+
+// Allow any lingering react components, not added from the root, to mount
+// TODO: Move these components into ReduxApp root component
 require("./components");
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from 'laravel-echo'
-
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key',
-//     cluster: 'mt1',
-//     encrypted: true
-// });

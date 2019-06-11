@@ -18,26 +18,26 @@ class JobPolicy extends BasePolicy
      */
     public function view(?User $user, JobPoster $jobPoster)
     {
-        //Anyone can view a published job
-        //Only the manager that created it can view an unpublished job
+        // Anyone can view a published job
+        // Only the manager that created it can view an unpublished job
         return $jobPoster->published ||
             (
                 $user &&
-                $jobPoster->manager->user->id == $user->id
+                $user->hasRole('manager') &&
+                $jobPoster->manager_id == $user->manager->id
             );
     }
 
     /**
      * Determine whether the user can create job posters.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\User $user User to test against.
      * @return mixed
      */
     public function create(User $user)
     {
-        //Any manager can create a new job poster
-        //TODO: for now, only Admins can create posters. This will change soon.
-        return $user->hasRole('admin');
+        // Any manager or admin can create a new job poster.
+        return $user->hasRole('manager') || $user->hasRole('admin');
     }
 
     /**
@@ -49,7 +49,7 @@ class JobPolicy extends BasePolicy
      */
     public function update(User $user, JobPoster $jobPoster)
     {
-        //Only managers can edit jobs, and only their own, managers can't publish jobs or edit published jobs
+        // Only managers can edit jobs, and only their own, managers can't publish jobs or edit published jobs
         return $user->user_role->name == 'manager' &&
             $jobPoster->manager->user->id == $user->id &&
             !$jobPoster->published;
@@ -64,7 +64,7 @@ class JobPolicy extends BasePolicy
      */
     public function review(User $user, JobPoster $jobPoster)
     {
-        //Only managers can edit jobs, and only their own, managers can't publish jobs or edit published jobs
+        // Only managers can edit jobs, and only their own, managers can't publish jobs or edit published jobs
         return $user->user_role->name == 'manager' &&
             $jobPoster->manager->user->id == $user->id &&
             $jobPoster->isClosed();
@@ -97,7 +97,6 @@ class JobPolicy extends BasePolicy
      */
     public function restore(User $user, JobPoster $jobPoster)
     {
-        //
     }
 
     /**
@@ -109,6 +108,5 @@ class JobPolicy extends BasePolicy
      */
     public function forceDelete(User $user, JobPoster $jobPoster)
     {
-        //
     }
 }
