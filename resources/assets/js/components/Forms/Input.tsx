@@ -16,9 +16,9 @@ export interface InputProps {
   checked?: boolean;
   /** The input type */
   type?: string;
-  /** Minimum length the value can be entered at */
+  /** Minimum length of characters the text value can be */
   minLength?: number;
-  /** Maximum length the value can be entered at */
+  /** Maximum length of characters the text value can be */
   maxLength?: number;
   /** The value of the input */
   value?: string | number;
