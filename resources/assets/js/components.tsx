@@ -11,6 +11,6 @@ require("./components/ApplicationReview/ApplicationReviewContainer");
 require("./components/ApplicantSkills/WordCounter");
 require("./components/ApplicantSkills/SkillsInfoModal");
 require("./components/JobDetails/JobDetails");
-require("./components/JobBuilder-01/JobBuilder");
+require("./components/JobBuilder-01/JobBuilderStep1");
 
 // import ReviewApplications from './components/ReviewApplications';
