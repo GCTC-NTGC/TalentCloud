@@ -17,8 +17,8 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "lightcrawler-a": "lightcrawler -u http://localhost:8000 -c lightcrawler.json",
         "lightcrawler-m": "lightcrawler -u http://localhost:8000/en/manager -c lightcrawler.json",
-        "test": "testcafe all tests/Browser/*.js -S -s tests/Browser/screenshots -u -e",
-        "test-ci": "testcafe chrome:headless,firefox:headless tests/Browser/*.js -u -e"
+        "testcafe": "testcafe all tests/Browser/*.js -S -s tests/Browser/screenshots -u -e",
+        "testcafe-ci": "testcafe chrome:headless,firefox:headless tests/Browser/*.js -u -e"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.8.0",

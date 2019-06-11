@@ -1,4 +1,4 @@
-language: php
+wlanguage: php
 
 php:
   - '7.2'
@@ -70,7 +70,7 @@ script:
   - ci_env=`bash <(curl -s https://codecov.io/env)`
   - docker run $ci_env gctcntgc/talentcloud sh
   # browser tests
-  - npm run test-ci
+  - npm run testcafe-ci
   # unit tests
   - make phpunit
 
