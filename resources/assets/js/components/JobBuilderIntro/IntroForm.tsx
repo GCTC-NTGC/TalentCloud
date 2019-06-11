@@ -41,10 +41,9 @@ export const validationSchema = Yup.object().shape({
   jobTitleFR: Yup.string().required("This field is required"),
   divisionEN: Yup.string().required("This field is required"),
   divisionFR: Yup.string().required("This field is required"),
-  department: Yup.mixed().oneOf(
-    ["TBS", "ESDC", "ECCC"],
-    "Please select from the available options",
-  ),
+  department: Yup.mixed()
+    .oneOf(["TBS", "ESDC", "ECCC"], "WTF")
+    .required("Please select from the available options"),
 });
 
 export const handleSubmit = (
@@ -66,7 +65,10 @@ export const handleSubmit = (
   console.log(values);
 };
 
-export const Step0InnerForm = ({ isSubmitting }): React.ReactElement => {
+export const InnerIntroForm = ({
+  isSubmitting,
+  values,
+}): React.ReactElement => {
   return (
     <>
       <Form id="form" data-c-margin="bottom(normal)">
@@ -98,6 +100,7 @@ export const Step0InnerForm = ({ isSubmitting }): React.ReactElement => {
             grid="base(1of1)"
             component={Select}
             required
+            selected={values.department}
             nullSelection="Select a department..."
             options={[
               { value: "TBS", label: "Treasury Board of Canada Secretariat" },
@@ -163,8 +166,8 @@ export const Step0InnerForm = ({ isSubmitting }): React.ReactElement => {
 };
 
 export default withFormik<FormProps, FormValues>({
-  displayName: "Step0Form",
+  displayName: "IntroForm",
   mapPropsToValues,
   validationSchema,
   handleSubmit,
-})(Step0InnerForm);
+})(InnerIntroForm);

@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Services\Validation\Rules\DepartmentRule;
-use App\Services\Validation\Rules\FrequencyRule;
+use App\Services\Validation\Rules\ValidIdRule;
+use App\Models\Lookup\Frequency;
+use App\Models\Lookup\Department;
 
 class UpdateManager extends FormRequest
 {
@@ -25,9 +26,9 @@ class UpdateManager extends FormRequest
      */
     public function rules()
     {
-        $frequencyRule = new FrequencyRule();
+        $frequencyRule = new ValidIdRule(Frequency::class);
         return [
-            'department_id' => ['nullable', new DepartmentRule()],
+            'department_id' => ['nullable', new ValidIdRule(Department::class)],
             /*
              * Twitters Terms of Service only allows ". A username can only contain
              * alphanumeric characters (letters A-Z, numbers 0-9) with the exception

@@ -351,7 +351,7 @@ class ApplicationReview extends React.Component<
             </a>
           </div>
 
-          <div className="box lg-2of11 applicant-decision">
+          <div className="box lg-2of11 applicant-decision" data-clone>
             <Select
               formName="review_status"
               htmlId={`review_status_${application.id}`}

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\ApplicationReview;
 use App\Models\JobApplication;
 use App\Models\Lookup\ReviewStatus;
-use App\Models\Lookup\ReviewDecision;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -14,8 +13,8 @@ class ApplicationReviewController extends Controller
     /**
      * Update the review for the specified application.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\JobApplication  $application
+     * @param  \Illuminate\Http\Request   $request     Incoming Request.
+     * @param  \App\Models\JobApplication $application Incoming Application.
      * @return \Illuminate\Http\Response
      */
     public function updateForApplication(Request $request, JobApplication $application)

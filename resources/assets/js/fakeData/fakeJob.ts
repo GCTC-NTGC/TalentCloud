@@ -87,8 +87,8 @@ export const fakeJob2 = (id = 1): Job => ({
   },
 });
 
-export const fakeCriterion = (jobId: number): Criteria => ({
-  id: jobId,
+export const fakeCriterion = (id: number = 1, jobId: number = 1): Criteria => ({
+  id,
   criteria_type_id: 1,
   job_poster_id: jobId,
   skill_id: 1,
