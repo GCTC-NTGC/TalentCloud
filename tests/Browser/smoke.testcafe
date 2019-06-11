@@ -1197,7 +1197,7 @@
                                             "type": "js-expr",
                                             "value": "Selector('li').withText('My Applications').find('a').visible"
                                         },
-                                        "ruleType": "text-dom"
+                                        "ruleType": "text"
                                     },
                                     {
                                         "rawSelector": {
@@ -2024,7 +2024,7 @@
                                             "type": "js-expr",
                                             "value": "Selector('.manager-poster-index').visible"
                                         },
-                                        "ruleType": "attr"
+                                        "ruleType": "dom"
                                     },
                                     {
                                         "rawSelector": {
