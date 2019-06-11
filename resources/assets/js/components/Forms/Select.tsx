@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import { FieldProps } from "formik";
 
 export interface SelectOption<T extends string | number> {
   value: T;
@@ -21,8 +22,8 @@ export interface SelectProps<T extends string | number> {
   defaultValue?: string;
 
   // formik
-  field?: any;
-  form?: any;
+  field?: FieldProps["field"];
+  form?: FieldProps["form"];
 }
 
 export default function Select<T extends string | number>(
@@ -41,17 +42,19 @@ export default function Select<T extends string | number>(
     errorText,
     grid,
     field,
-    form: { errors, touched },
+    form,
     children,
   } = props;
-
-  const { name } = field;
   return (
     <div
       data-c-input="select"
       data-c-grid-item={grid}
       data-c-required={required}
-      data-c-invalid={touched[name] && errors[name] ? true : null}
+      data-c-invalid={
+        field && form && form.touched[field.name] && form.errors[field.name]
+          ? true
+          : null
+      }
     >
       <label htmlFor={htmlId}>{label}</label>
       {required && <span>Required</span>}
@@ -59,10 +62,10 @@ export default function Select<T extends string | number>(
         <i className="fa fa-caret-down" />
         <select
           id={htmlId}
-          name={name || formName}
+          name={(field && field.name) || formName}
           value={selected || ""}
-          onChange={field.onChange || onChange}
-          onBlur={field.onBlur || onBlur}
+          onChange={(field && field.onChange) || onChange}
+          onBlur={(field && field.onBlur) || onBlur}
         >
           {nullSelection && (
             <option value="" disabled>
@@ -81,7 +84,10 @@ export default function Select<T extends string | number>(
         </select>
       </div>
       <span>
-        {(touched[name] && errors[name]) ||
+        {(form &&
+          field &&
+          form.touched[field.name] &&
+          form.errors[field.name]) ||
           errorText ||
           "This input has an error."}
       </span>
