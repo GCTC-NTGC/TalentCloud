@@ -2,12 +2,12 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { items } from "../ProgressTracker/fixtures/progressItems";
-import Step0Form from "./Step0Form";
+import FormStep1 from "./FormStep1";
 
-interface JobBuilderProps {}
+interface JobBuilderStep1Props {}
 
-const JobBuilder: React.FunctionComponent<
-  JobBuilderProps
+const JobBuilderStep1: React.FunctionComponent<
+  JobBuilderStep1Props
 > = (): React.ReactElement => {
   return (
     <section>
@@ -47,15 +47,10 @@ const JobBuilder: React.FunctionComponent<
         >
           Before we get started please review your information.
         </h4>
-        <Step0Form />
+        <FormStep1 />
       </div>
     </section>
   );
 };
 
-if (document.getElementById("job-builder-form-0")) {
-  const rootEl = document.getElementById("job-builder-form-0");
-  ReactDOM.render(<Step0Form />, rootEl);
-}
-
-export default JobBuilder;
+export default JobBuilderStep1;

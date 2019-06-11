@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Step0Form, { Step0InnerForm } from "./Step0Form";
+import Step0Form, { Step0InnerForm } from "./FormStep1";
 
 describe("Step0Form", (): void => {
   test("should render Step0Form correctly", (): void => {
