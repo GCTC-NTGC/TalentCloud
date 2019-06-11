@@ -32,14 +32,14 @@ test("Language Switch", async t => {
     .expect(
       Selector(".home__hero-content.flex-grid.middle")
         .find("div")
-        .withText("Votre prochain projet").visible
+        .withText("Votre prochain projet").visible,
     )
     .ok()
     .click(Selector("a").withText("English"))
     .expect(
       Selector(".home__hero-content.flex-grid.middle")
         .find("div")
-        .withText("Your next gig").visible
+        .withText("Your next gig").visible,
     )
     .ok();
 });
@@ -51,6 +51,7 @@ test("User Accounts", async t => {
     .pressKey("tab")
     .typeText(Selector("#password"), "password")
     .pressKey("enter")
+    .wait(5)
     .expect(Selector("a").withText("My Applications").visible)
     .ok()
     .expect(Selector("a").withText("My Profile").visible)
@@ -70,11 +71,11 @@ test("Job Posters", async t => {
     .click(
       Selector(".browse__index-job-card")
         .find("div")
-        .withText("View Job")
+        .withText("View Job"),
     )
     .expect(
       Selector('.job-post__apply-button[title="Log in to apply for this job."]')
-        .visible
+        .visible,
     )
     .ok();
 });
@@ -84,6 +85,7 @@ test("Manager Job Posters", async t => {
     .click(Selector("a").withText("Login"))
     .typeText(Selector("#email"), "manager@test.com")
     .typeText(Selector("#password"), "password")
+    .wait(5)
     .click(Selector("button").withText("Login"))
     .navigateTo("/manager/jobs")
     .expect(Selector(".manager-poster-index").visible)
