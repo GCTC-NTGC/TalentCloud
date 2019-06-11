@@ -39,6 +39,13 @@ use \Backpack\CRUD\CrudTrait;
  * @property boolean $remote_work_allowed
  * @property int $manager_id
  * @property boolean $published
+ * @property int $team_size
+ * @property array $work_env_features
+ * @property int $fast_vs_steady
+ * @property int $horizontal_vs_vertical
+ * @property int $experimental_vs_ongoing
+ * @property int $citizen_facing_vs_back_office
+ * @property int $collaborative_vs_independent
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -66,6 +73,8 @@ use \Backpack\CRUD\CrudTrait;
  * @property string $branch
  * @property string $division
  * @property string $education
+ * @property string $culture_summary
+ * @property string $culture_special
  *
  * Methods
  * @method boolean isOpen()
@@ -99,7 +108,9 @@ class JobPoster extends BaseModel
         'hire_impact',
         'branch',
         'division',
-        'education'
+        'education',
+        'culture_summary',
+        'culture_special',
     ];
 
     /**
@@ -118,7 +129,9 @@ class JobPoster extends BaseModel
         'language_requirement_id' => 'int',
         'remote_work_allowed' => 'boolean',
         'manager_id' => 'int',
-        'published' => 'boolean'
+        'published' => 'boolean',
+        'team_size' => 'int',
+        'work_env_features' => 'array'
     ];
 
     /**
@@ -152,7 +165,14 @@ class JobPoster extends BaseModel
         'security_clearance_id',
         'language_requirement_id',
         'remote_work_allowed',
-        'published'
+        'published',
+        'team_size',
+        'work_env_features',
+        'fast_vs_steady',
+        'horizontal_vs_vertical',
+        'experimental_vs_ongoing',
+        'citizen_facing_vs_back_office',
+        'collaborative_vs_independent',
     ];
 
     /**
@@ -163,7 +183,6 @@ class JobPoster extends BaseModel
     ];
 
     // @codeCoverageIgnoreStart
-
     public function department() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\Department::class);
@@ -253,9 +272,7 @@ class JobPoster extends BaseModel
     }
 
     // @codeCoverageIgnoreEnd
-
     // Accessors
-
     // Mutators
 
     /**
@@ -277,7 +294,6 @@ class JobPoster extends BaseModel
     }
 
     // Methods
-
     public function submitted_applications_count()
     {
         return $this->submitted_applications()->count();

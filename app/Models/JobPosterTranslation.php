@@ -21,12 +21,15 @@ namespace App\Models;
  * @property string $branch
  * @property string $division
  * @property string $education
+ * @property string $culture_summary
+ * @property string $culture_special
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\JobPoster $job_poster
  */
-class JobPosterTranslation extends BaseModel {
+class JobPosterTranslation extends BaseModel
+{
 
     protected $casts = [
         'job_poster_id' => 'int',
@@ -39,6 +42,8 @@ class JobPosterTranslation extends BaseModel {
         'branch' => 'string',
         'division' => 'string',
         'education' => 'string',
+        'culture_summary' => 'string',
+        'culture_special' => 'string',
     ];
     protected $fillable = [
         'locale',
@@ -49,11 +54,13 @@ class JobPosterTranslation extends BaseModel {
         'hire_impact',
         'branch',
         'division',
-        'education'
+        'education',
+        'culture_summary',
+        'culture_special',
     ];
 
-    public function job_poster() {
+    public function job_poster()
+    {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
-
 }
