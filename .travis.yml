@@ -11,7 +11,7 @@ services:
 
 cache:
   directories:
-    # $HOME/.composer/cache/files
+    - $HOME/.composer/cache/files
     - $HOME/.npm
 
 addons:
@@ -39,7 +39,7 @@ install:
   # environment
   - cp .env.travis .env
   # dependencies
-  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
+  - travis_retry composer install --no-interaction --prefer-dist --no-suggest --ignore-platform-reqs
   - travis_retry npm install
 
 
