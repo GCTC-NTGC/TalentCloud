@@ -1,5 +1,6 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
+import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { items } from "../ProgressTracker/fixtures/progressItems";
 import IntroForm from "./IntroForm";
@@ -7,7 +8,7 @@ import IntroForm from "./IntroForm";
 interface JobBuilderIntroProps {}
 
 const JobBuilderIntro: React.FunctionComponent<
-  JobBuilderIntroProps
+  JobBuilderIntroProps & InjectedIntlProps
 > = (): React.ReactElement => {
   return (
     <section>
@@ -24,7 +25,11 @@ const JobBuilderIntro: React.FunctionComponent<
           data-c-font-weight="bold"
           data-c-margin="bottom(normal)"
         >
-          Welcome to the Job Poster Builder
+          <FormattedMessage
+            id="jobBuilder.intro.welcome"
+            defaultMessage="EN Welcome to the Job Poster Builder"
+            description="Header of Job Poster Builder Intro Step"
+          />
         </h3>
         <p data-c-margin="bottom(normal)">
           This tool will help you create a job poster that attracts the right
@@ -53,4 +58,4 @@ const JobBuilderIntro: React.FunctionComponent<
   );
 };
 
-export default JobBuilderIntro;
+export default injectIntl(JobBuilderIntro);
