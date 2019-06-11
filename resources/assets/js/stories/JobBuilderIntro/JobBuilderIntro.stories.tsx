@@ -1,13 +1,29 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
-import { withKnobs } from "@storybook/addon-knobs";
+import { withKnobs, select } from "@storybook/addon-knobs";
+import IntlContainer from "../../IntlContainer";
 import JobBuilderIntro from "../../components/JobBuilderIntro/JobBuilderIntro";
 
-const stories = storiesOf("Job Builder - Step 01", module)
+const stories = storiesOf("Job Builder - Intro", module)
   .addDecorator(withInfo)
   .addDecorator(withKnobs);
 
-stories.add("Job Builder Body", (): React.ReactElement => <JobBuilderIntro />, {
-  info: { inline: true },
-});
+const langOptions = {
+  English: "en",
+  French: "fr",
+};
+
+// const selectLang = ;
+
+stories.add(
+  "Job Builder Body",
+  (): React.ReactElement => (
+    <IntlContainer locale={select("Language", langOptions, "en", "Lang-Group")}>
+      <JobBuilderIntro />
+    </IntlContainer>
+  ),
+  {
+    info: { inline: true },
+  },
+);
