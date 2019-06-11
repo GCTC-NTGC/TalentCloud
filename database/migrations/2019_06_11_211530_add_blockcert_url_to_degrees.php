@@ -14,7 +14,7 @@ class AddBlockcertUrlToDegrees extends Migration
     public function up()
     {
         Schema::table('degrees', function (Blueprint $table) {
-            $table->string('blockcert_url')->nullable()->after('thesis');
+            $table->text('blockcert_url')->nullable()->after('thesis');
         });
     }
 
