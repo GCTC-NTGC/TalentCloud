@@ -15,7 +15,7 @@ class SkillController extends Controller
     {
         $skills = Skill::all();
         $skillsArray = [];
-        //TODO: improve effiency of getting translations
+        // TODO: improve effiency of getting translations.
         foreach ($skills as $skill) {
             $translations = [
                 'en' => [

@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use App\Models\JobPoster;
+use App\Models\Manager;
 use App\Models\User;
 use Illuminate\Support\Facades\Config;
 
@@ -28,9 +29,11 @@ class JobApiControllerTest extends TestCase
     /**
      * Generate an array with all the data that would be submitted through a completed edit/create job form.
      *
-     * @return array
+     * @param  integer $managerId Manager ID to associate with the Job Poster.
+     * @param  boolean $published Whether this Job is published.
+     * @return string[]
      */
-    private function generateFrontendJob($managerId, $published = false): array
+    private function generateFrontendJob(int $managerId, bool $published = false): array
     {
         $dateFormat = Config::get('app.api_datetime_format');
         $job = [
@@ -72,55 +75,123 @@ class JobApiControllerTest extends TestCase
         return $job;
     }
 
-    public function testGetAsPublic()
+    /**
+     * A guest user should be able to retreive a published job.
+     *
+     * @return void
+     */
+    public function testGetAsPublic(): void
     {
         $job = factory(JobPoster::class)->state('published')->create();
-        $response = $this->json("get", "api/jobs/$job->id");
+        $response = $this->json('get', "api/jobs/$job->id");
         $response->assertOk();
-
         $expected = $job->toApiArray();
-
         $response->assertJson($expected);
     }
 
-    public function testUpdateAsManager()
+    /**
+     * When logged in as a job's manager, updating the job should be successful.
+     *
+     * @return void
+     */
+    public function testUpdateAsManager(): void
     {
         $job = factory(JobPoster::class)->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $response = $this->followingRedirects()
             ->actingAs($job->manager->user)
-            ->json("put", "api/jobs/$job->id", $jobUpdate);
+            ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertOk();
         $expectedDb = array_merge(
             array_slice($jobUpdate, 0, 15),
             ['id' => $job->id, 'manager_id' => $job->manager_id]
         );
         $this->assertDatabaseHas('job_posters', $expectedDb);
-
         $newJob = $job->fresh();
         $translations = $newJob->getTranslationsArray();
         $this->assertArraySubset($jobUpdate['en'], $translations['en']);
         $this->assertArraySubset($jobUpdate['fr'], $translations['fr']);
     }
 
-    public function testUpdateAsWrongManager()
+    /**
+     * When logged in as a manager that did not create a particular job,
+     * updating that job should fail.
+     *
+     * @return void
+     */
+    public function testUpdateAsWrongManager(): void
     {
         $job = factory(JobPoster::class)->create();
         $otherManager = factory(User::class)->state('manager')->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $response = $this->actingAs($otherManager)
-            ->json("put", "api/jobs/$job->id", $jobUpdate);
+        ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertForbidden();
     }
 
-    public function testUpdateInvalidInput()
+    /**
+     * Even when logged in as the correct manager, updating a job with illegal values
+     * (eg string where a number should be) should fail.
+     *
+     * @return void
+     */
+    public function testUpdateInvalidInput(): void
     {
         $job = factory(JobPoster::class)->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
-        $jobUpdate['term_qty'] = "three months"; // String is invalid here
+        $jobUpdate['term_qty'] = 'three months'; // String is invalid here.
         $response = $this->actingAs($job->manager->user)
-            ->json("put", "api/jobs/$job->id", $jobUpdate);
+            ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertStatus(422);
     }
 
+    /**
+     * Even while job.published is 'fillable', it shouldn't be
+     * possible to modify published or published_at through an update request.
+     *
+     * @return void
+     */
+    public function testCannotUpdatePublished(): void
+    {
+        $job = factory(JobPoster::class)->state('draft')->create();
+        $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
+        $jobUpdate['published'] = true;
+        $response = $this->followingRedirects()
+            ->actingAs($job->manager->user)
+            ->json('put', "api/jobs/$job->id", $jobUpdate);
+        $response->assertOk();
+        $newJob = $job->fresh();
+        $this->assertFalse($newJob->published);
+        $this->assertNull($newJob->published_at);
+    }
+
+    /**
+     * Manager should be able to create an empty job
+     *
+     * @return void
+     */
+    public function testManagerCanStoreEmptyJob(): void
+    {
+        $manager = factory(Manager::class)->create();
+        $response = $this->followingRedirects()
+            ->actingAs($manager->user)
+            ->json('post', 'api/jobs');
+        $this->assertAuthenticatedAs($manager->user);
+        $response->assertOk();
+        $this->assertDatabaseHas('job_posters', ['manager_id' => $manager->id]);
+    }
+
+    /**
+     * Even an admin cannot store a job like this, if they're not also a manager
+     *
+     * @return void
+     */
+    public function testStoreRequiresManagerId(): void
+    {
+        $user = factory(User::class)->state('admin')->create();
+        $response = $this->followingRedirects()
+            ->actingAs($user)
+            ->json('post', 'api/jobs');
+        $response->assertForbidden();
+    }
 }

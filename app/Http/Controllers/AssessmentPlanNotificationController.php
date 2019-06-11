@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JobPoster;
-use App\Models\Lookup\AssessmentType;
-
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\AssessmentPlanNotification;
 
 class AssessmentPlanNotificationController extends Controller
@@ -48,7 +44,7 @@ class AssessmentPlanNotificationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request        $request             Incoming request.
+     * @param  \Illuminate\Http\Request               $request                    Incoming request.
      * @param  \App\Models\AssessmentPlanNotification $assessmentPlanNotification Incoming object.
      * @throws \InvalidArgumentException For missing $question.
      * @return mixed

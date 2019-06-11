@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { getJob, getCriteria } from "./jobSelector";
+import { getJob, getCriteria, getJobIsEdited } from "./jobSelector";
 import { getCriteriaUnansweredForQuestion } from "./jobSelectorComplex";
 import { RootState, initState } from "../store";
 import { initState as initJobs, initEntities } from "./jobReducer";
@@ -9,115 +9,160 @@ import {
   Assessment,
   RatingGuideAnswer,
 } from "../../models/types";
+import { fakeJob, fakeJob2, fakeCriterion } from "../../fakeData/fakeJob";
 import { fakeQuestion } from "../../fakeData/fakeRatingGuideQuestion";
 
-const fakeCriterion = (id: number): Criteria => ({
-  id,
-  criteria_type_id: 1, // asset or essential
-  job_poster_id: 1,
-  skill_id: 1,
-  skill_level_id: 1,
-  description: `This is criteria number ${id}`, // TODO: remove un-localized description
-  skill: {
-    id,
-    name: `Skill number ${id}`,
-    description: `Description of skill number ${id}`,
-    skill_type_id: 1,
-    en: {
-      name: `Skill number ${id}`,
-      description: `Description of skill number ${id}`,
-    },
-    fr: {
-      name: `FR Skill number ${id}`,
-      description: `FR Description of skill number ${id}`,
-    },
-  }, // TODO: remove skill from here
-  en: {
-    description: `This is criteria number ${id}`,
-  },
-  fr: {
-    description: `FR This is criteria number ${id}`,
-  },
-});
-
-describe("getJob", (): void => {
-  it("Returns the correct job", (): void => {
-    const fakeJob = (): Job => {
-      return {
-        id: 12,
-        title: "Test Job",
-        classification: "NOC-02",
-        close_date_time: new Date(),
-        en: {
-          city: "Toronto",
-          title: "Test Job",
-          impact: "lorem ipsum",
-          branch: "Treasury Board",
-          division: "CIOB",
-          education: "blah blah",
-        },
-        fr: {
-          city: "Toronto",
-          title: "Test Job",
-          impact: "lorem ipsum",
-          branch: "Treasury Board",
-          division: "CIOB",
-          education: "blah blah",
+describe("Job Selectors", (): void => {
+  describe("getJob", (): void => {
+    it("Returns the correct job", (): void => {
+      const job: Job = fakeJob(12);
+      const state: RootState = {
+        ...initState(),
+        jobs: {
+          ...initJobs(),
+          entities: {
+            ...initEntities(),
+            jobs: {
+              byId: {
+                12: job,
+              },
+            },
+          },
         },
       };
-    };
-    const job = fakeJob();
-    const state: RootState = {
-      ...initState(),
-      jobs: {
-        ...initJobs(),
-        entities: {
-          ...initEntities(),
-          jobs: {
-            byId: {
-              12: job,
+      expect(getJob(state, { jobId: 12 })).toEqual(job);
+    });
+
+    it("Returns the edited version of the job", (): void => {
+      const job: Job = fakeJob(12);
+      const jobEdit: Job = fakeJob2(12);
+      const state: RootState = {
+        ...initState(),
+        jobs: {
+          ...initJobs(),
+          entities: {
+            ...initEntities(),
+            jobs: {
+              byId: {
+                12: job,
+              },
+            },
+            jobEdits: {
+              12: jobEdit,
             },
           },
         },
-      },
-    };
-    expect(getJob(state, { jobId: 12 })).toEqual(job);
+      };
+      expect(getJob(state, { jobId: 12 })).toEqual(job);
+    });
   });
-});
 
-describe("getCriteria", (): void => {
-  it("returns all criteria", (): void => {
-    const crit1 = fakeCriterion(1);
-    const crit2 = fakeCriterion(2);
-    const crit3 = fakeCriterion(3);
+  describe("getJobIsEdited", (): void => {
+    it("Returns false if no version of the job exists", (): void => {
+      const state: RootState = initState();
+      expect(getJobIsEdited(state, { jobId: 12 })).toEqual(false);
+    });
 
-    const state: RootState = {
-      ...initState(),
-      jobs: {
-        ...initJobs(),
-        entities: {
-          ...initEntities(),
-          criteria: {
-            byId: {
-              1: crit1,
-              2: crit2,
-              3: crit3,
+    it("Returns true if only edited job exists", (): void => {
+      const jobEdit: Job = fakeJob2(12);
+      const state: RootState = {
+        ...initState(),
+        jobs: {
+          ...initJobs(),
+          entities: {
+            ...initEntities(),
+            jobEdits: {
+              12: jobEdit,
             },
           },
         },
-      },
-    };
-    expect(getCriteria(state)).toEqual([crit1, crit2, crit3]);
+      };
+      expect(getJobIsEdited(state, { jobId: 12 })).toEqual(true);
+    });
+
+    it("Returns true if edited job is different", (): void => {
+      const job: Job = fakeJob(1);
+      const jobEdit: Job = fakeJob2(1);
+      const state: RootState = {
+        ...initState(),
+        jobs: {
+          ...initJobs(),
+          entities: {
+            ...initEntities(),
+            jobs: {
+              byId: {
+                1: job,
+              },
+            },
+            jobEdits: {
+              1: jobEdit,
+            },
+          },
+        },
+      };
+      expect(getJobIsEdited(state, { jobId: 1 })).toEqual(true);
+    });
+
+    it("Returns false if edited job is same as original", (): void => {
+      const job: Job = fakeJob(1);
+      const jobEdit: Job = fakeJob(1);
+      const state: RootState = {
+        ...initState(),
+        jobs: {
+          ...initJobs(),
+          entities: {
+            ...initEntities(),
+            jobs: {
+              byId: {
+                1: job,
+              },
+            },
+            jobEdits: {
+              1: jobEdit,
+            },
+          },
+        },
+      };
+      expect(getJobIsEdited(state, { jobId: 1 })).toEqual(false);
+    });
+  });
+
+  describe("getCriteria", (): void => {
+    it("returns all criteria", (): void => {
+      const crit1: Criteria = fakeCriterion(1);
+      const crit2: Criteria = fakeCriterion(2);
+      const crit3: Criteria = fakeCriterion(3);
+
+      const state: RootState = {
+        ...initState(),
+        jobs: {
+          ...initJobs(),
+          entities: {
+            ...initEntities(),
+            criteria: {
+              byId: {
+                1: crit1,
+                2: crit2,
+                3: crit3,
+              },
+            },
+          },
+        },
+      };
+      expect(getCriteria(state)).toEqual([crit1, crit2, crit3]);
+    });
   });
 });
 
 describe("getCriteriaUnansweredForQuestion", (): void => {
   it("should return the correct criteria", (): void => {
-    const crit1 = fakeCriterion(1);
-    const crit2 = fakeCriterion(2);
-    const crit3 = fakeCriterion(3);
+    const job = fakeJob();
 
-    const question = fakeQuestion(4);
+    const crit1 = fakeCriterion(1, 1);
+    const crit2 = fakeCriterion(2, 1);
+    const crit3 = fakeCriterion(3, 1);
+
+    const question = fakeQuestion(4, 1);
     question.assessment_type_id = 1;
 
     // Associate 3 criteria with the question's assessment_type
@@ -154,6 +199,11 @@ describe("getCriteriaUnansweredForQuestion", (): void => {
         ...initialState.jobs,
         entities: {
           ...initialState.jobs.entities,
+          jobs: {
+            byId: {
+              1: job,
+            },
+          },
           criteria: {
             byId: {
               1: crit1,

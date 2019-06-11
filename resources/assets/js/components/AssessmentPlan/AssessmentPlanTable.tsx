@@ -8,6 +8,7 @@ import { assessmentType } from "../../models/localizedConstants";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import { RootState } from "../../store/store";
 import { getCriteriaByJob } from "../../store/Job/jobSelector";
+import { getSkills } from "../../store/Skill/skillSelector";
 import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelectorComplex";
 
 interface AssessmentPlanTableProps {
@@ -15,12 +16,15 @@ interface AssessmentPlanTableProps {
   assessments: Assessment[];
   /** All criteria associated with assessments  */
   criteria: Criteria[];
+  /** All skills */
+  skills: Skill[];
 }
 
 const renderAssessmentTypeBlock = (
   assessmentTypeId: number,
   assessmentTypeName: string,
   criteria: Criteria[],
+  skills: Skill[],
   locale: string,
 ): React.ReactElement => {
   const essentialSkills: Skill[] = criteria
@@ -28,13 +32,13 @@ const renderAssessmentTypeBlock = (
       (criterion): boolean =>
         criterion.criteria_type_id === CriteriaTypeId.Essential,
     )
-    .map((criterion): Skill => criterion.skill);
+    .map((criterion): Skill => find(skills, criterion.skill_id) as Skill);
   const assetSkills: Skill[] = criteria
     .filter(
       (criterion): boolean =>
         criterion.criteria_type_id === CriteriaTypeId.Asset,
     )
-    .map((criterion): Skill => criterion.skill);
+    .map((criterion): Skill => find(skills, criterion.skill_id) as Skill);
   return (
     <div
       key={`assessmentSummary_type${assessmentTypeId}`}
@@ -135,6 +139,7 @@ const AssessmentPlanTable: React.FunctionComponent<
 > = ({
   criteria,
   assessments,
+  skills,
   intl,
 }: AssessmentPlanTableProps & InjectedIntlProps): React.ReactElement => {
   const uniqueAssessmentTypes: number[] = getUniqueAssessmentTypes(assessments);
@@ -228,6 +233,7 @@ const AssessmentPlanTable: React.FunctionComponent<
               assessmentTypeId,
               intl.formatMessage(assessmentType(assessmentTypeId)),
               associatedCriteria,
+              skills,
               intl.locale,
             );
           },
@@ -247,9 +253,11 @@ const mapStateToProps = (
 ): {
   assessments: Assessment[];
   criteria: Criteria[];
+  skills: Skill[];
 } => ({
   criteria: getCriteriaByJob(state, ownProps),
   assessments: getAssessmentsByJob(state, ownProps),
+  skills: getSkills(state),
 });
 // @ts-ignore
 const AssessmentPlanTableContainer: React.FunctionComponent<

@@ -160,6 +160,7 @@ declare module "redux-api-middleware" {
       credentials?: "omit" | "same-origin" | "include";
       bailout?: boolean; // or function
       types: [R, S, F];
+      fetch?: typeof fetch;
     };
   }
 
