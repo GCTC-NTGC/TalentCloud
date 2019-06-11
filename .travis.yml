@@ -59,6 +59,7 @@ script:
   - docker run $ci_env gctcntgc/talentcloud sh
   # unit tests
   - make phpunit
+  - make jest
 
 after_script:
   # send report to codecov.io
