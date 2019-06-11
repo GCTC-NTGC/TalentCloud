@@ -51,7 +51,6 @@ test("User Accounts", async t => {
     .pressKey("tab")
     .typeText(Selector("#password"), "password")
     .pressKey("enter")
-    .ok()
     .expect(Selector("a").withText("My Applications").visible)
     .ok()
     .expect(Selector("a").withText("My Profile").visible)
@@ -86,7 +85,6 @@ test("Manager Job Posters", async t => {
     .typeText(Selector("#email"), "manager@test.com")
     .typeText(Selector("#password"), "password")
     .click(Selector("button").withText("Login"))
-    .ok()
     .navigateTo("/manager/jobs")
     .expect(Selector(".manager-poster-index").visible)
     .ok();
