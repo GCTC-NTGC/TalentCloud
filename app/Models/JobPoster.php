@@ -73,6 +73,7 @@ use \Backpack\CRUD\CrudTrait;
  * @property string $branch
  * @property string $division
  * @property string $education
+ * @property string $work_env_description
  * @property string $culture_summary
  * @property string $culture_special
  *
@@ -109,6 +110,7 @@ class JobPoster extends BaseModel
         'branch',
         'division',
         'education',
+        'work_env_description',
         'culture_summary',
         'culture_special',
     ];

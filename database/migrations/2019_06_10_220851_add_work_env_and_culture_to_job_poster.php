@@ -47,6 +47,7 @@ class AddWorkEnvAndCultureToJobPoster extends Migration
         });
 
         Schema::table('job_poster_translations', function (Blueprint $table) {
+            $table->text('work_env_description')->nullable();
             $table->text('culture_summary')->nullable();
             $table->text('culture_special')->nullable();
         });
@@ -59,7 +60,7 @@ class AddWorkEnvAndCultureToJobPoster extends Migration
      */
     public function down()
     {
-        Schema::table('job_poster', function (Blueprint $table) {
+        Schema::table('job_posters', function (Blueprint $table) {
             $table->dropColumn('team_size');
 
             $table->dropColumn('work_env_features');
@@ -89,6 +90,7 @@ class AddWorkEnvAndCultureToJobPoster extends Migration
         });
 
          Schema::table('job_poster_translations', function (Blueprint $table) {
+            $table->dropColumn('work_env_description');
             $table->dropColumn('culture_summary');
             $table->dropColumn('culture_special');
          });
