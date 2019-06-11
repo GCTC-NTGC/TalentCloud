@@ -47,7 +47,7 @@ before_script:
   # docker login (for tagging/pushing images to our hub repo)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   # setup headless browser for tests
-  # google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   # start web server port 8000
   - php artisan serve &
   # required for Test Cafe
