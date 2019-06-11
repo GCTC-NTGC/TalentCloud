@@ -2,7 +2,6 @@ language: php
 
 php:
   - '7.2'
-  - '7.3'
 
 sudo: required
 dist: trusty
@@ -69,7 +68,7 @@ script:
   - ci_env=`bash <(curl -s https://codecov.io/env)`
   - docker run $ci_env gctcntgc/talentcloud sh
   # browser tests
-  - npm run testcafe-ci
+  - npm run testcafe
   # unit tests
   - make phpunit
   - make jest
