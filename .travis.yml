@@ -68,7 +68,7 @@ script:
   - ci_env=`bash <(curl -s https://codecov.io/env)`
   - docker run $ci_env gctcntgc/talentcloud sh
   # browser tests
-  - npm run testcafe
+  - npm run testcafe-ci
   # unit tests
   - make phpunit
   - make jest
