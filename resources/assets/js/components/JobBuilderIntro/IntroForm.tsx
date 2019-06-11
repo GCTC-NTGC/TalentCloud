@@ -65,7 +65,7 @@ export const handleSubmit = (
   console.log(values);
 };
 
-export const InnerFormStep1 = ({
+export const InnerIntroForm = ({
   isSubmitting,
   values,
 }): React.ReactElement => {
@@ -166,8 +166,8 @@ export const InnerFormStep1 = ({
 };
 
 export default withFormik<FormProps, FormValues>({
-  displayName: "Step0Form",
+  displayName: "IntroForm",
   mapPropsToValues,
   validationSchema,
   handleSubmit,
-})(InnerFormStep1);
+})(InnerIntroForm);

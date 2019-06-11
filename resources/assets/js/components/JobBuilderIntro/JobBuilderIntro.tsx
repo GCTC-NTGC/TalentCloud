@@ -2,12 +2,12 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { items } from "../ProgressTracker/fixtures/progressItems";
-import FormStep1 from "./FormStep1";
+import IntroForm from "./IntroForm";
 
-interface JobBuilderStep1Props {}
+interface JobBuilderIntroProps {}
 
-const JobBuilderStep1: React.FunctionComponent<
-  JobBuilderStep1Props
+const JobBuilderIntro: React.FunctionComponent<
+  JobBuilderIntroProps
 > = (): React.ReactElement => {
   return (
     <section>
@@ -47,10 +47,10 @@ const JobBuilderStep1: React.FunctionComponent<
         >
           Before we get started please review your information.
         </h4>
-        <FormStep1 />
+        <IntroForm />
       </div>
     </section>
   );
 };
 
-export default JobBuilderStep1;
+export default JobBuilderIntro;
