@@ -331,6 +331,7 @@ class ApplicationReviewWithNav extends React.Component<
                 className="button--blue light-bg"
                 data-button-type="expand-all"
                 type="button"
+                id="expand-all"
               >
                 <span className="expand">
                   {" "}
