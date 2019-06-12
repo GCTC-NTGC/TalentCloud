@@ -62,6 +62,7 @@ class ExperienceController extends Controller
             'degrees.new.*.thesis'         => 'nullable',
             'degrees.new.*.start_date'     => 'required|date',
             'degrees.new.*.end_date'       => 'required|date',
+            'degrees.new.*.blockcert_url'       => 'nullable|string',
         ]);
 
         // Delete old degrees that weren't resubmitted.
@@ -86,7 +87,8 @@ class ExperienceController extends Controller
                     'institution' => $degreeInput['institution'],
                     'thesis' => $degreeInput['thesis'],
                     'start_date' => $degreeInput['start_date'],
-                    'end_date' => $degreeInput['end_date']
+                    'end_date' => $degreeInput['end_date'],
+                    'blockcert_url' => $degreeInput['blockcert_url'],
                 ]);
                 $degree->save();
             }
@@ -104,7 +106,8 @@ class ExperienceController extends Controller
                         'institution' => $degreeInput['institution'],
                         'thesis' => $degreeInput['thesis'],
                         'start_date' => $degreeInput['start_date'],
-                        'end_date' => $degreeInput['end_date']
+                        'end_date' => $degreeInput['end_date'],
+                        'blockcert_url' => $degreeInput['blockcert_url'],
                     ]);
                     $degree->save();
                 } else {
