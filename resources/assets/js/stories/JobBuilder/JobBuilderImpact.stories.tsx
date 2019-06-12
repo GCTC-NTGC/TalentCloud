@@ -1,5 +1,4 @@
 import React from "react";
-import { IntlProvider } from "react-intl";
 import { storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
 import { withKnobs, select } from "@storybook/addon-knobs";
