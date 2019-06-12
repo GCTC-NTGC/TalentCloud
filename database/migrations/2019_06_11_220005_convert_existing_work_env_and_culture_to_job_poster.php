@@ -38,7 +38,7 @@ class ConvertExistingWorkEnvAndCultureToJobPoster extends Migration
             $culture = DB::table('team_cultures')->where('manager_id', $job->manager_id)->first();
             if ($culture) {
                 // Add non-localized team culture fields to job
-                DB::table('jobs')->where('id', $job->id)->update(['team_size' => $culture->team_size]);
+                DB::table('job_posters')->where('id', $job->id)->update(['team_size' => $culture->team_size]);
                 // Add translated team culture fields to job translations
                 foreach ($locales as $locale) {
                     $cultureTrans = DB::table('team_culture_translations')->where('team_culture_id', $culture->id)->where('locale', $locale)->first();

@@ -13,7 +13,7 @@ class AddWorkEnvAndCultureToJobPoster extends Migration
      */
     public function up()
     {
-        Schema::table('job_poster', function (Blueprint $table) {
+        Schema::table('job_posters', function (Blueprint $table) {
             $table->integer('team_size')->nullable();
 
             // Work Env checkboxes
