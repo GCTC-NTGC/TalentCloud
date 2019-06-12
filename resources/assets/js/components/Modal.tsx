@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { Component, createRef } from "react";
 
 export interface ModalProps {
   /** HTML ID for modal attributes */
@@ -50,15 +50,15 @@ class Modal extends Component<ModalProps, ModalState> {
     const { height } = this.state;
 
     return height > viewportHeight
-      ? 'active--overflowing'
-      : 'active--contained';
+      ? "active--overflowing"
+      : "active--contained";
   };
 
   private updateBody = (): void => {
-    const body = document.querySelector('body');
+    const body = document.querySelector("body");
     const { visible } = this.state;
     if (body) {
-      body.style.overflow = visible ? 'hidden' : 'visible';
+      body.style.overflow = visible ? "hidden" : "visible";
     }
   };
 
@@ -104,7 +104,7 @@ class Modal extends Component<ModalProps, ModalState> {
           </button>
         </div>
 
-        <div data-c-dialog-overlay={visible && 'active'} />
+        <div data-c-dialog-overlay={visible && "active"} />
 
         <div
           aria-hidden={!visible}

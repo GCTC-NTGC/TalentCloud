@@ -88,7 +88,7 @@ return [
     "english_essential" => "I have strong reading, writing and verbal communication skills in English.",
     "french_essential" => "I have strong reading, writing and verbal communication skills in French.",
     "english_or_french" => 'I have strong reading, writing and verbal communication skills in English or French.',
-    "bilingual_intermediate" => 'I have intermediate or better reading, writing and verbal communication skills in English or French.',
+    "bilingual_intermediate" => 'I have intermediate or better reading, writing and verbal communication skills in English and French.',
     "bilingual_advanced" => 'I have strong reading, writing and verbal communication skills in English and French.',
     "language_declaration_error_message" => "This box must be checked to proceed.",
     "language_title" => "Language Selection",

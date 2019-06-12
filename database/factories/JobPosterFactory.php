@@ -17,6 +17,8 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
     $closeDate = $faker->dateTimeBetween('now', '1 months')->format('Y-m-d');
     $openDate = $faker->dateTimeBetween('-1 months', 'now')->format('Y-m-d');
     $startDate = $faker->dateTimeBetween('1 months', '2 months')->format('Y-m-d');
+    $classificationCode = $faker->regexify('[A-Z]{2}');
+    $classificationLevel = $faker->numberBetween(1, 6);
     return [
         'job_term_id' => JobTerm::inRandomOrder()->first()->id,
         'term_qty' => $faker->numberBetween(1, 4),
@@ -30,7 +32,9 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'salary_min' => $faker->numberBetween(60000, 80000),
         'salary_max' => $faker->numberBetween(80000, 100000),
         'noc' => $faker->numberBetween(1, 9999),
-        'classification' => $faker->regexify('[A-Z]{2}-0[1-5]'),
+        'classification_code' => $classificationCode,
+        'classification_level' => $classificationLevel,
+        'classification' => "$classificationCode-$classificationLevel",
         'security_clearance_id' => SecurityClearance::inRandomOrder()->first()->id,
         'language_requirement_id' => LanguageRequirement::inRandomOrder()->first()->id,
         'remote_work_allowed' => $faker->boolean(50),
@@ -40,19 +44,15 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'published' => false,
         'city:en' => $faker->city,
         'title:en' => $faker->unique()->realText(27, 1),
-        'impact:en' => $faker->paragraphs(
-            2,
-            true
-        ),
+        'team_impact:en' => $faker->paragraph(),
+        'hire_impact:en' => $faker->paragraph(),
         'branch:en' => $faker->word,
         'division:en' => $faker->word,
         'education:en' => $faker->sentence(),
         'city:fr' => $faker_fr->city,
         'title:fr' => $faker_fr->unique()->realText(27, 1),
-        'impact:fr' => $faker_fr->paragraphs(
-            2,
-            true
-        ),
+        'team_impact:fr' => $faker->paragraph(),
+        'hire_impact:fr' => $faker->paragraph(),
         'branch:fr' => $faker_fr->word,
         'division:fr' => $faker_fr->word,
         'education:fr' => $faker_fr->sentence(),

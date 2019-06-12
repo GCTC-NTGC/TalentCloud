@@ -16,6 +16,12 @@ cache:
 
 addons:
   chrome: stable # required for lightcrawler
+  firefox: latest # following required for Test Cafe
+  apt:
+    sources:
+     - google-chrome
+    packages:
+     - google-chrome-stable fluxbox
   hosts:
     - talent.test
 
@@ -29,14 +35,12 @@ before_install:
 
 install:
   # install slacktee (send lightcrawler output to slack)
-  - sudo bash ./etc/scripts/install-slacktee.sh
+  # sudo bash ./etc/scripts/install-slacktee.sh
   # environment
   - cp .env.travis .env
   # dependencies
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-  - travis_retry npm ci
-  # lightcrawler output formatting
-  - cp etc/scripts/lightcrawler-index.js node_modules/lightcrawler/index.js
+  - travis_retry npm install
 
 
 before_script:
@@ -46,6 +50,11 @@ before_script:
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   # start web server port 8000
   - php artisan serve &
+  # required for Test Cafe
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3
+  - fluxbox >/dev/null 2>&1 &
 
 script:
   # build application / database containers
@@ -58,13 +67,11 @@ script:
   # prepare code coverage
   - ci_env=`bash <(curl -s https://codecov.io/env)`
   - docker run $ci_env gctcntgc/talentcloud sh
+  # browser tests
+  - npm run testcafe-ci
   # unit tests
   - make phpunit
-
-after_success:
-  # pull requests run lightcrawler on local site
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lightcrawler-a --silent | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results - Applicant :badger:"'
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && echo "Not a pull request" || npm run lightcrawler-m --silent | ./etc/scripts/slacktee.sh -t "Lightcrawler Accessibility Test Results - Manager :cooldoge:"'
+  - make jest
 
 after_script:
   # send report to codecov.io

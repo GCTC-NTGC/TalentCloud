@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -32,7 +32,7 @@ class ReferencesControllerTest extends TestCase
      */
     public function testViewEditForm(): void
     {
-        // Save several references to applicant
+        // Save several references to applicant.
         $this->applicant->references()->saveMany(factory(Reference::class, 3)->create([
             'applicant_id' => $this->applicant->id
         ]));
@@ -43,7 +43,7 @@ class ReferencesControllerTest extends TestCase
         $response->assertSee(e(Lang::get('applicant/profile_references.reference_section.section_description')));
 
         foreach ($this->applicant->references as $reference) {
-            $response->assertSee($reference->name);
+            $response->assertSee(e($reference->name));
         }
     }
 
@@ -94,8 +94,8 @@ class ReferencesControllerTest extends TestCase
         for ($i=0; $i<3; $i++) {
             $projects[] = [
                 'name' => $faker->sentence(),
-                'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')->format("Y-m-d"),
-                'end_date' => $faker->dateTimeBetween('-1 years', '-1 day')->format("Y-m-d")
+                'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')->format('Y-m-d'),
+                'end_date' => $faker->dateTimeBetween('-1 years', '-1 day')->format('Y-m-d')
             ];
         }
         return [
@@ -115,8 +115,8 @@ class ReferencesControllerTest extends TestCase
     public function testCreateReference(): void
     {
         $input = $this->makeReferenceForm();
-        $response = $this->actingAs($this->applicant->user)->json("POST", "references", $input);
-        $refDb = collect($input)->forget("projects")->toArray();
+        $response = $this->actingAs($this->applicant->user)->json('POST', 'references', $input);
+        $refDb = collect($input)->forget('projects')->toArray();
         $refDb['applicant_id'] = $this->applicant->id;
         $this->assertDatabaseHas('references', $refDb);
         foreach ($input['projects'] as $project) {
@@ -135,8 +135,8 @@ class ReferencesControllerTest extends TestCase
         $ref = factory(Reference::class)->create(['applicant_id' => $this->applicant->id]);
         $oldProjects = $ref->projects;
         $input = $this->makeReferenceForm();
-        $response = $this->actingAs($this->applicant->user)->json("PUT", "references/$ref->id", $input);
-        $refDb = collect($input)->forget("projects")->toArray();
+        $response = $this->actingAs($this->applicant->user)->json('PUT', "references/$ref->id", $input);
+        $refDb = collect($input)->forget('projects')->toArray();
         $refDb['id'] = $ref->id;
         $refDb['applicant_id'] = $this->applicant->id;
         // Ensure reference with same id but new values exists in db
@@ -162,8 +162,8 @@ class ReferencesControllerTest extends TestCase
         $ref = factory(Reference::class)->create(['applicant_id' => $this->applicant->id]);
         $oldProjects = $ref->projects;
         $input = $this->makeReferenceForm();
-        $response = $this->actingAs($this->applicant->user)->json("DELETE", "references/$ref->id");
-        $this->assertDatabaseMissing('references', ["id" => $ref->id]);
+        $response = $this->actingAs($this->applicant->user)->json('DELETE', "references/$ref->id");
+        $this->assertDatabaseMissing('references', ['id' => $ref->id]);
         // Ensure projects have been deleted along with reference
         foreach ($oldProjects as $project) {
             $this->assertDatabaseMissing('projects', ['id' => $project->id]);

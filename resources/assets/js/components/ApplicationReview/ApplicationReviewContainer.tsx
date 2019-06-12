@@ -8,7 +8,7 @@ import {
   addLocaleData,
   injectIntl,
   InjectedIntlProps,
-  defineMessages
+  defineMessages,
 } from "react-intl";
 import locale_en from "react-intl/locale-data/en";
 import locale_fr from "react-intl/locale-data/fr";
@@ -18,7 +18,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import messages_en from "../../localizations/en.json";
 import messages_fr from "../../localizations/fr.json";
-import { Application, ReviewStatus, ApplicationReview } from "../types";
+import {
+  Application,
+  ReviewStatus,
+  ApplicationReview,
+} from "../../models/types";
 import * as route from "../../helpers/routes";
 import ApplicationReviewWithNav from "./ApplicationReviewWithNav";
 
@@ -26,7 +30,7 @@ addLocaleData([...locale_en, ...locale_fr]);
 
 const messages = {
   en: messages_en,
-  fr: messages_fr
+  fr: messages_fr,
 };
 
 interface ApplicationReviewContainerProps {
@@ -48,14 +52,14 @@ const localizations = defineMessages({
   oops: {
     id: "alert.oops",
     defaultMessage: "Oops...",
-    description: "Modal notification text indicating something went wrong."
+    description: "Modal notification text indicating something went wrong.",
   },
   somethingWrong: {
     id: "apl.reviewSaveFailed",
     defaultMessage:
       "Something went wrong while saving a review. Try again later.",
-    description: "Error message for error while saving an application review."
-  }
+    description: "Error message for error while saving an application review.",
+  },
 });
 
 class ApplicationReviewContainer extends React.Component<
@@ -63,12 +67,12 @@ class ApplicationReviewContainer extends React.Component<
   ApplicationReviewContainerState
 > {
   public constructor(
-    props: ApplicationReviewContainerProps & InjectedIntlProps
+    props: ApplicationReviewContainerProps & InjectedIntlProps,
   ) {
     super(props);
     this.state = {
       application: props.initApplication,
-      isSaving: false
+      isSaving: false,
     };
     this.submitReview = this.submitReview.bind(this);
     this.handleStatusChange = this.handleStatusChange.bind(this);
@@ -79,10 +83,10 @@ class ApplicationReviewContainer extends React.Component<
   protected updateReviewState(review: ApplicationReview): void {
     const { application } = this.state;
     const updatedApplication = Object.assign(application, {
-      application_review: review
+      application_review: review,
     });
     this.setState({
-      application: updatedApplication
+      application: updatedApplication,
     });
   }
 
@@ -102,35 +106,35 @@ class ApplicationReviewContainer extends React.Component<
         Swal.fire({
           type: "error",
           title: intl.formatMessage(localizations.oops),
-          text: intl.formatMessage(localizations.somethingWrong)
+          text: intl.formatMessage(localizations.somethingWrong),
         });
       });
   }
 
   protected handleStatusChange(
     applicationId: number,
-    statusId: number | null
+    statusId: number | null,
   ): Promise<void> {
     const { application } = this.state;
     const oldReview = application.application_review
       ? application.application_review
       : {};
     const submitReview = Object.assign(oldReview, {
-      review_status_id: statusId
+      review_status_id: statusId,
     });
     return this.submitReview(submitReview);
   }
 
   protected handleNotesChange(
     applicationId: number,
-    notes: string | null
+    notes: string | null,
   ): void {
     const { application } = this.state;
     const oldReview = application.application_review
       ? application.application_review
       : {};
     const submitReview = Object.assign(oldReview, {
-      notes
+      notes,
     });
     this.submitReview(submitReview);
   }
@@ -140,7 +144,7 @@ class ApplicationReviewContainer extends React.Component<
     const { application, isSaving } = this.state;
     const reviewStatusOptions = reviewStatuses.map(status => ({
       value: status.id,
-      label: camelCase(status.name)
+      label: camelCase(status.name),
     }));
     return (
       <div className="applicant-review container--layout-xl">
@@ -159,21 +163,21 @@ class ApplicationReviewContainer extends React.Component<
 
 if (document.getElementById("application-review-container")) {
   const container = document.getElementById(
-    "application-review-container"
+    "application-review-container",
   ) as HTMLElement;
   if (
     container.hasAttribute("data-application") &&
     container.hasAttribute("data-review-statuses")
   ) {
     const applications = JSON.parse(container.getAttribute(
-      "data-application"
+      "data-application",
     ) as string);
     const reviewStatuses = JSON.parse(container.getAttribute(
-      "data-review-statuses"
+      "data-review-statuses",
     ) as string);
     const language = container.getAttribute("data-locale") as string;
     const IntelApplicationReviewContainer = injectIntl(
-      ApplicationReviewContainer
+      ApplicationReviewContainer,
     );
     ReactDOM.render(
       <IntlProvider locale={language} messages={messages[language]}>
@@ -182,7 +186,7 @@ if (document.getElementById("application-review-container")) {
           reviewStatuses={reviewStatuses}
         />
       </IntlProvider>,
-      container
+      container,
     );
   }
 }

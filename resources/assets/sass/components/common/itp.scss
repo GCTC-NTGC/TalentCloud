@@ -70,6 +70,13 @@
     }
 }
 
+.itp-profile-photo {
+    min-height: 50vh;
+    @media #{$clone-tablet-portrait} {
+        min-height: 0;
+    }
+}
+
 .itp-goals {
     overflow: hidden;
     position: relative;

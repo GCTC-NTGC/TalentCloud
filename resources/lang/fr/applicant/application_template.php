@@ -18,9 +18,9 @@ return [
 
     /* Tracker */
     "tracker_label" => "Étape",
-    "tracker_previous_title" => "Aller à l'étape précédente de la demande d'emploi.",
+    "tracker_previous_title" => "Aller à l'étape précédente de l'application.",
     "tracker_previous_label" => "Précédente",
-    "tracker_next_title" => "Passez à l'étape suivante de la demande d'emploi.",
+    "tracker_next_title" => "Passez à l'étape suivante de l'application.",
     "tracker_next_label" => "Suivante",
 
     /* Modals */
@@ -199,7 +199,7 @@ return [
         "survey_link" => "GOOGLE",
         "survey_title" => "Participer à l'enquête.",
         "survey_label" => "Participer à l'enquête",
-        "copy_02" => "Curieux de savoir quelle est la prochaine étape pour votre application?Pour en savoir plus sur le processus de dotation, consultez notre page foire aux questions.",
+        "copy_02" => "Curieux de savoir quelle est la prochaine étape pour votre application? Pour en savoir plus sur le processus de dotation, consultez notre page foire aux questions.",
         "return_title" => "Aller à la page d'accueil de Nuage de talents.",
         "return_label" => "Retour à la page d'accueil",
         "faq_title" => "Accéder à la foire aux questions du Talent Cloud.",

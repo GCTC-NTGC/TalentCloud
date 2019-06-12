@@ -20,7 +20,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4>{{form_l10n.job_details}}</h4>
+        <h2>{{form_l10n.job_details}}</h2>
 
         {# Job Title #}
 
@@ -504,7 +504,6 @@
             </fieldset>
 
         {# Departmental Information #}
-
             <fieldset
                 class="form__fieldset">
 
@@ -537,12 +536,17 @@
                                     <option value="" disabled selected>
                                         {{ form_l10n.departmental_info_default_option }}
                                     </option>
-
                                     {% for department in departments %}
+                                        {% if (job.department_id == null and manager.department_id == null) %}
+                                            {% set template_department_id = null %}
+                                        {% elseif job.department_id != null %}
+                                            {% set template_department_id = job.department_id %}
+                                        {% else %}
+                                            {% set template_department_id = manager.department_id %}
+                                        {% endif %}
                                         <option
                                             value="{{ department.id }}"
-                                            {% if (department.id == job.department_id) or
-                                                (job.department_id == null and department.id == manager.department_id) %}selected="selected"{% endif %}>
+                                            {% if (template_department_id != null and template_department_id == department.id) %}selected="selected"{% endif %}>
                                             {{ department.value }}
                                         </option>
                                     {% endfor %}
@@ -554,9 +558,15 @@
 
                     <div
                         class="box med-1of2">
-
+                        {% if (job.translate('en').branch == null and manager.translate('en').branch == null) %}
+                            {% set template_en_branch = null %}
+                        {% elseif (job.translate('en').branch != null) %}
+                            {% set template_en_branch = job.translate('en').branch %}
+                        {% else %}
+                            {% set template_en_branch = manager.translate('en').branch %}
+                        {% endif %}
                         <div
-                            class="form__input-wrapper--float {% if job.translate('en').branch != null or manager.translate('en').branch %}active{% endif %}">
+                            class="form__input-wrapper--float {% if template_en_branch != null %}active{% endif %}">
                             <label
                                 class="form__label"
                                 for="createJobBranchEN">
@@ -568,9 +578,7 @@
                                 type="text"
                                 name="branch[en]"
                                 {# Default value comes from job, if set. Otherwise, comes from manager #}
-                                value="{{ job.translate('en').branch ?
-                                    job.translate('en').branch :
-                                    manager.translate('en').branch }}">
+                                value="{{ template_en_branch ? template_en_branch : '' }}">
                             </input>
                         </div>
 
@@ -578,13 +586,16 @@
 
                     <div
                         class="box med-1of2">
-
+                        {% if (job.translate('fr').branch == null and manager.translate('fr').branch == null) %}
+                            {% set template_fr_branch = null %}
+                        {% elseif (job.translate('fr').branch != null) %}
+                            {% set template_fr_branch = job.translate('fr').branch %}
+                        {% else %}
+                            {% set template_fr_branch = manager.translate('fr').branch %}
+                        {% endif %}
                         <div
                             class="form__input-wrapper--float
-                            {% if job.translate('fr').branch != null or
-                                manager.translate('fr').branch %}
-                                active
-                            {% endif %}">
+                            {% if template_fr_branch != null %} active{% endif %}">
                             <label class="form__label" for="createJobBranchFR">
                                 {{form_l10n.branch_french}}
                             </label>
@@ -594,9 +605,7 @@
                                 type="text"
                                 name="branch[fr]"
                                 {# Default value comes from job, if set. Otherwise, comes from manager #}
-                                value="{{ job.translate('fr').branch ?
-                                    job.translate('fr').branch :
-                                    manager.translate('fr').branch }}">
+                                value="{{ template_fr_branch ? template_fr_branch : '' }}">
                             </input>
                         </div>
 
@@ -604,12 +613,15 @@
 
                     <div
                         class="box med-1of2">
-
+                        {% if (job.translate('en').division == null and manager.translate('en').division == null) %}
+                            {% set template_en_division = null %}
+                        {% elseif (job.translate('en').division != null) %}
+                            {% set template_en_division = job.translate('en').division %}
+                        {% else %}
+                            {% set template_en_division = manager.translate('en').division %}
+                        {% endif %}
                         <div class="form__input-wrapper--float
-                            {% if job.translate('en').divison != null or
-                                manager.translate('en').division != null %}
-                                active
-                            {% endif %}">
+                            {% if template_en_division != null %} active{% endif %}">
                             <label
                                 class="form__label"
                                 for="createJobDivisionEN">
@@ -621,9 +633,7 @@
                                 type="text"
                                 name="division[en]"
                                 {# Default value comes from job, if set. Otherwise, comes from manager #}
-                                value="{{ job.translate('en').division ?
-                                    job.translate('en').division :
-                                    manager.translate('en').division }}">
+                                value="{{ template_en_division ? template_en_division : '' }}">
                             </input>
                         </div>
 
@@ -631,13 +641,15 @@
 
                     <div
                         class="box med-1of2">
-
+                        {% if (job.translate('fr').division == null and manager.translate('fr').division == null) %}
+                            {% set template_fr_division = null %}
+                        {% elseif (job.translate('fr').division != null) %}
+                            {% set template_fr_division = job.translate('fr').division %}
+                        {% else %}
+                            {% set template_fr_division = manager.translate('fr').division %}
+                        {% endif %}
                         <div class="form__input-wrapper--float
-                            {% if job.translate('fr').divison != null or
-                                manager.translate('fr').division %}
-                                active
-                            {% endif %}
-                            ">
+                            {% if template_fr_division != null %} active{% endif %}">
                             <label
                                 class="form__label"
                                 for="createJobDivisionFR">
@@ -649,9 +661,7 @@
                                 type="text"
                                 name="division[fr]"
                                 {# Default value comes from job, if set. Otherwise, comes from manager #}
-                                value="{{ job.translate('fr').division ?
-                                    job.translate('fr').division :
-                                    manager.translate('fr').division }}">
+                                value="{{ template_fr_division ? template_fr_division : '' }}">
                             </input>
                         </div>
 
@@ -724,7 +734,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4> {{form_l10n.key_tasks}}</h4>
+        <h2> {{form_l10n.key_tasks}}</h2>
 
         {# Task List #}
 
@@ -769,7 +779,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4>{{form_l10n.skills_n_competencies}}</h4>
+        <h2>{{form_l10n.skills_n_competencies}}</h2>
 
         {# Education #}
 
@@ -846,7 +856,7 @@
 
                 {% set skillLevel = attribute(skill_levels, skillTypeKey) %}
 
-                <h5>{{ form_l10n.criteria_heading | replace({":criteria_type":criteriaKey|title}) | replace({":skill_type":skillTypeKey|title}) }}</h5>
+                <h3>{{ form_l10n.criteria_heading | replace({":criteria_type":criteriaKey|title}) | replace({":skill_type":skillTypeKey|title}) }}</h3>
 
                 <div
                     class="manager-jobs__skill-wrapper">
@@ -905,7 +915,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4>{{form_l10n.questions_for_applicant}}</h4>
+        <h2>{{form_l10n.questions_for_applicant}}</h2>
 
         {# Question List #}
 

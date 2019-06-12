@@ -31,7 +31,7 @@
                     </span>
                 </p>
 
-                <h3 class="job-post__job-title">{{ job.title }}</h3>
+                <h2 class="job-post__job-title">{{ job.title }}</h2>
 
                 <div class="job-post__department">
 
@@ -42,7 +42,7 @@
                     <br>
 
                     <div>
-                        <i class="fas fa-map-marker-alt" title="{{ job_post.header.location_icon_label }}"></i>
+                        <i class="fas fa-map-marker-alt"></i>
                         <span>{{ job.city }}</span>,
                         <span>{{ job.province.value }}</span>
                     </div>
@@ -50,7 +50,7 @@
                     <br>
 
                     <div>
-                        <i class="fas fa-home" title="{{ job_post.header.remote_work_icon_label }}"></i>
+                        <i class="fas fa-home"></i>
                         <span>{{ job_post.header.remote_work_allowed[job.remote_work_allowed] }}</span>
                     </div>
 

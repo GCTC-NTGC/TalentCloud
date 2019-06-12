@@ -1,6 +1,6 @@
 // =============================================================================
 
-    // Authored by: Talent Cloud
+// Authored by: Talent Cloud
 
 // =============================================================================
 
@@ -11,17 +11,17 @@ $clone-whitespace-multiplier: 1.25;
 
 $clone-black: rgba(20, 20, 35, 1);
 
-$clone-c1: #5B1647;
+$clone-c1: #5b1647;
 
-$clone-c2: #96043E;
+$clone-c2: #96043e;
 
-$clone-c3: #C90035;
+$clone-c3: #c90035;
 
-$clone-c4: #0A6CBC;
+$clone-c4: #0a6cbc;
 
-$clone-c5: #0A6CBC;
+$clone-c5: #0a6cbc;
 
-$clone-hover-colour: $clone-black;
+$clone-hover-colour: $clone-c5;
 
 $clone-focus-colour: $clone-hover-colour;
 
@@ -30,289 +30,330 @@ $clone-alert--information: $clone-c1;
 @import "../../../node_modules/clone-framework/app/scss/clone";
 
 @import "components/common/itp";
+@import "components/common/tracker";
+
+@import "components/manager/builder";
+
+// Post-Clone Utilities (move these to their own import later Josh!
+
+.button-trash {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: $clone-font-default;
+  padding: 1rem;
+  i {
+    color: $clone-stop;
+  }
+}
+
+.button-link {
+  background: none;
+  border: none;
+  color: $clone-c5;
+  cursor: pointer;
+  font-family: $clone-font-default;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+  &:hover {
+    color: $clone-hover-colour;
+    transition: color 0.2s ease;
+  }
+}
+
+.button-plus {
+  background: none;
+  border: none;
+  color: $clone-c5;
+  cursor: pointer;
+  font-family: $clone-font-default;
+  font-size: calc(1rem * (#{$clone-font-scale}* (#{$clone-font-scale})));
+  font-weight: 800;
+  padding: 1rem;
+}
+
+.button-plus--disabled {
+  cursor: not-allowed;
+  color: #7a7a7a;
+}
 
 // Core Elements ===============================================================
 
-    @import './brands';
-    @import './regular';
-    @import './solid';
-    @import './fontawesome';
+@import "./brands";
+@import "./regular";
+@import "./solid";
+@import "./fontawesome";
 
-    * {
-        box-sizing: border-box;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    html,
-    body {
-        width: 100%;
-    }
+html,
+body {
+  width: 100%;
+}
 
-    $unit: 1rem;
+$unit: 1rem;
 
-    @import "system/core";
-    @import "system/media-queries";
-    @import "system/grid";
-    @import "system/grid-ie";
-    @import "system/palette";
-    @import "system/typography";
-    @import "system/list-input";
+@import "system/core";
+@import "system/media-queries";
+@import "system/grid";
+@import "system/grid-ie";
+@import "system/palette";
+@import "system/typography";
+@import "system/list-input";
 
-    html,
-    body {
-        background: darken($palette--white, 5%);
-        margin: 0;
+html,
+body {
+  background: darken($palette--white, 5%);
+  margin: 0;
 
-        >form {
-            margin-bottom: 0;
-        }
+  > form {
+    margin-bottom: 0;
+  }
+}
 
-    }
+a,
+span {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  transition: all 0.2s ease;
+}
 
-    a,
-    span {
-        color: inherit;
-        font-family: inherit;
-        font-size: inherit;
-        font-weight: inherit;
-        transition: all .2s ease;
-    }
+a:hover {
+  color: $palette--blue;
+  transition: all 0.2s ease;
+}
 
-    a:hover {
-        color: $palette--blue;
-        transition: all .2s ease;
-    }
+img {
+  max-width: 100%;
+}
 
-    img {
-        max-width: 100%;
-    }
+$section-padding: calc(#{$unit} * 5) 0;
 
-    $section-padding: calc(#{$unit} * 5) 0;
+.container--layout {
+  margin: 0 auto;
+  max-width: calc(#{$unit * 65});
+  width: 90%;
+}
 
-    .container--layout {
-        margin: 0 auto;
-        max-width: calc(#{$unit * 65});
-        width: 90%;
-    }
+.container--layout-xl {
+  margin: 0 auto;
+  max-width: calc(#{$unit * 100});
+  width: 90%;
+}
 
-     .container--layout-xl {
-        margin: 0 auto;
-        max-width: calc(#{$unit * 100});
-        width: 90%;
-    }
+.container--copy {
+  margin: 0 auto;
+  max-width: calc(#{$unit * 40});
+  width: 90%;
+}
 
-    .container--copy {
-        margin: 0 auto;
-        max-width: calc(#{$unit * 40});
-        width: 90%;
-    }
+.hidden {
+  display: none;
+  height: 0;
+  visibility: hidden;
+}
 
-    .hidden {
-        display: none;
-        height: 0;
-        visibility: hidden;
-    }
+.invisible {
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  top: auto;
+  left: -10000px;
+  width: 1px;
+}
 
-    .invisible {
-        height: 1px;
-        overflow: hidden;
-        position: absolute;
-        top: auto;
-        left: -10000px;
-        width: 1px;
-    }
+span.centre,
+span.center {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
 
-    span.centre,
-    span.center {
-        display: block;
-        text-align: center;
-        width: 100%;
-    }
+.inline-right {
+  text-align: right;
+}
 
-    .inline-right {
-        text-align: right;
-    }
+.skip-to-main-content {
+  background: $palette--white;
+  color: $palette--font-black;
+  display: block;
+  font-family: $font--sans;
+  font-size: $font-scale--regular;
+  height: 1px;
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: -100vw;
+  text-align: center;
+  transition: none;
+  width: 1px;
 
-    .skip-to-main-content {
-        background: $palette--white;
-        color: $palette--font-black;
-        display: block;
-        font-family: $font--sans;
-        font-size: $font-scale--regular;
-        height: 1px;
-        padding: 1rem;
-        position: absolute;
-        top: 0;
-        left: -100vw;
-        text-align: center;
-        transition: none;
-        width: 1px;
+  &:focus {
+    height: auto;
+    position: relative;
+    top: 0;
+    left: 0;
+    transition: none;
+    width: 100%;
+  }
+}
 
-        &:focus {
-            height: auto;
-            position: relative;
-            top: 0;
-            left: 0;
-            transition: none;
-            width: 100%;
-        }
-
-    }
-
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus,
-    input:-webkit-autofill:active
-    textarea:-webkit-autofill,
-    textarea:-webkit-autofill:hover
-    textarea:-webkit-autofill:focus,
-    textarea:-webkit-autofill:active,
-    select:-webkit-autofill,
-    select:-webkit-autofill:hover,
-    select:-webkit-autofill:focus,
-    select:-webkit-autofill:active, {
-        background-color: #FFFFFF !important;
-        -webkit-box-shadow: 0 0 0 30px white inset !important;
-        transition: background-color 5000s ease-in-out 0s;
-    }
-
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+  background-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
 
 // Components ==================================================================
 
-    // Common ==================================================================
+// Common ==================================================================
 
-        // Site Chrome
+// Site Chrome
 
-            @import "components/common/alert";
-            @import "components/common/goc";
-            @import "components/common/menu";
-            @import "components/common/header";
-            @import "components/common/footer";
+@import "components/common/alert";
+@import "components/common/goc";
+@import "components/common/menu";
+@import "components/common/header";
+@import "components/common/footer";
 
-        // Site Elements
+// Site Elements
 
-            @import "components/common/sidebar";
-            @import "components/common/modal";
-            @import "components/common/buttons";
-            @import "components/common/forms";
-            @import "components/common/accordions";
-            @import "components/common/error";
+@import "components/common/sidebar";
+@import "components/common/modal";
+@import "components/common/buttons";
+@import "components/common/forms";
+@import "components/common/accordions";
+@import "components/common/error";
 
-        // Authentication
+// Authentication
 
-            @import "components/common/auth/auth-form";
+@import "components/common/auth/auth-form";
 
-        // Skills
+// Skills
 
-            @import "components/common/skills/common";
-            @import "components/common/skills/skill/skill";
+@import "components/common/skills/common";
+@import "components/common/skills/skill/skill";
 
-        // Home
+// Home
 
-            @import "components/common/home/hero";
+@import "components/common/home/hero";
 
-        // Static Content
+// Static Content
 
-            @import "components/common/static/faq";
+@import "components/common/static/faq";
 
-        // Application View
+// Application View
 
-            @import "components/common/application/view";
+@import "components/common/application/view";
 
-    // Applicant ===============================================================
+// Applicant ===============================================================
 
-        // Home
+// Home
 
-            @import "components/applicant/home/about";
-            @import "components/applicant/home/how";
-            @import "components/applicant/home/team";
+@import "components/applicant/home/about";
+@import "components/applicant/home/how";
+@import "components/applicant/home/team";
 
-        // Browse Jobs
+// Browse Jobs
 
-            @import "components/applicant/job/index/filters";
-            @import "components/applicant/job/index/index";
+@import "components/applicant/job/index/filters";
+@import "components/applicant/job/index/index";
 
-        // Job Poster
+// Job Poster
 
-            @import "components/applicant/job/post/header";
-            @import "components/applicant/job/post/sidebar";
-            @import "components/applicant/job/post/basics";
-            @import "components/applicant/job/post/impact";
-            @import "components/applicant/job/post/work";
-            @import "components/applicant/job/post/criteria";
-            @import "components/applicant/job/post/language";
-            @import "components/applicant/job/post/culture";
-            @import "components/applicant/job/post/extras";
-            @import "components/applicant/job/post/apply";
+@import "components/applicant/job/post/header";
+@import "components/applicant/job/post/sidebar";
+@import "components/applicant/job/post/basics";
+@import "components/applicant/job/post/impact";
+@import "components/applicant/job/post/work";
+@import "components/applicant/job/post/criteria";
+@import "components/applicant/job/post/language";
+@import "components/applicant/job/post/culture";
+@import "components/applicant/job/post/extras";
+@import "components/applicant/job/post/apply";
 
-        // My Applications
+// My Applications
 
-            // @import "components/application/filters";
-            @import "components/applicant/application/index/index";
-            @import "components/applicant/application/index/null";
+// @import "components/application/filters";
+@import "components/applicant/application/index/index";
+@import "components/applicant/application/index/null";
 
-        // Application
+// Application
 
-            @import "components/applicant/application/post/tracker";
-            @import "components/applicant/application/post/skill-layout";
-            @import "components/applicant/application/post/sidebar";
+@import "components/applicant/application/post/tracker";
+@import "components/applicant/application/post/skill-layout";
+@import "components/applicant/application/post/sidebar";
 
-            // Step 01 (Open Ended Questions)
+// Step 01 (Open Ended Questions)
 
-                @import "components/applicant/application/post/citizenship";
-                @import "components/applicant/application/post/questions";
+@import "components/applicant/application/post/citizenship";
+@import "components/applicant/application/post/questions";
 
-            // Step 02 (Experience)
+// Step 02 (Experience)
 
-                @import "components/applicant/application/post/experience";
+@import "components/applicant/application/post/experience";
 
-            // Step 03 (Essential Criteria)
+// Step 03 (Essential Criteria)
 
-            // Step 04 (Asset Criteria)
+// Step 04 (Asset Criteria)
 
-            // Step 05 (Preview)
+// Step 05 (Preview)
 
-            // Step 06 (Signature)
+// Step 06 (Signature)
 
-                @import "components/applicant/application/post/step-06";
+@import "components/applicant/application/post/step-06";
 
-            // Step 07 (Complete)
+// Step 07 (Complete)
 
-                @import "components/applicant/application/post/complete";
+@import "components/applicant/application/post/complete";
 
-        // Profile
+// Profile
 
-            @import "components/applicant/profile/header";
-            @import "components/applicant/profile/menu";
-            @import "components/applicant/profile/about/about";
-            @import "components/applicant/profile/about/questions";
-            @import "components/applicant/profile/portfolio/portfolio";
+@import "components/applicant/profile/header";
+@import "components/applicant/profile/menu";
+@import "components/applicant/profile/about/about";
+@import "components/applicant/profile/about/questions";
+@import "components/applicant/profile/portfolio/portfolio";
 
-    // Managers ================================================================
+// Managers ================================================================
 
-        // Profile
+// Profile
 
-            @import "components/manager/profile/layout";
+@import "components/manager/profile/layout";
 
-        // Job Index
+// Job Index
 
-            @import "components/manager/job_index/index";
+@import "components/manager/job_index/index";
 
-        // Create Job
+// Create Job
 
-            @import "components/manager/job_create/form";
+@import "components/manager/job_create/form";
 
-        // Application Review
+// Application Review
 
-            @import "components/manager/application_post";
+@import "components/manager/application_post";
 
-        // Applicant Profile Preview
+// Applicant Profile Preview
 
-            @import "components/manager/applicant_profile";
+@import "components/manager/applicant_profile";
 
-        // Manager Screening Plan
+// Manager Screening Plan
 
-            @import "components/manager/screening-plan";
+@import "components/manager/screening-plan";
 
-        // Applicant Review
+// Applicant Review
 
-            @import "components/manager/applicant-review";
+@import "components/manager/applicant-review";
