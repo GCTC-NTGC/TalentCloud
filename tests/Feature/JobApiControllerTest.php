@@ -33,7 +33,7 @@ class JobApiControllerTest extends TestCase
      * @param  boolean $published Whether this Job is published.
      * @return string[]
      */
-    private function generateFrontendJob(int $managerId, bool $published = false): array
+    private function generateFrontendJob(int $managerId): array
     {
         $dateFormat = Config::get('app.api_datetime_format');
         $job = [
@@ -44,7 +44,6 @@ class JobApiControllerTest extends TestCase
             'classification_code' => $this->faker->regexify('[A-Z]{2}'),
             'classification_level' => $this->faker->numberBetween(1, 6),
             'manager_id' => $managerId,
-            'published' => $published,
             'remote_work_allowed' => $this->faker->boolean(50),
             'open_date_time' => $this->faker->date($dateFormat, strtotime('+1 day')),
             'close_date_time' => $this->faker->date($dateFormat, strtotime('+2 weeks')),
@@ -53,6 +52,19 @@ class JobApiControllerTest extends TestCase
             'language_requirement_id' => 1,
             'department_id' => 1,
             'province_id' => 1,
+            'team_size' => $this->faker->numberBetween(5, 30),
+            'work_env_features' => [
+                'env_open_concept' => true,
+                'env_windows' => true,
+                'amenities_near_transit' => false,
+            ],
+            'fast_vs_steady' => $this->faker->numberBetween(1, 4),
+            'horizontal_vs_vertical' => $this->faker->numberBetween(1, 4),
+            'experimental_vs_ongoing' => $this->faker->numberBetween(1, 4),
+            'citizen_facing_vs_back_office' => $this->faker->numberBetween(1, 4),
+            'collaborative_vs_independent' => $this->faker->numberBetween(1, 4),
+            'telework_allowed_frequency_id' => $this->faker->numberBetween(1, 4),
+            'flexible_hours_frequency_id' => $this->faker->numberBetween(1, 4),
             'en' => [
                 'city' => $this->faker->city(),
                 'title' => $this->faker->word(),
@@ -61,6 +73,9 @@ class JobApiControllerTest extends TestCase
                 'branch' => $this->faker->word(),
                 'division' => $this->faker->word(),
                 'education' => $this->faker->word(),
+                'work_env_description' => $this->faker->paragraph(),
+                'culture_summary' => $this->faker->paragraph(),
+                'culture_special' => $this->faker->paragraph(),
             ],
             'fr' => [
                 'city' => $this->faker->city(),
@@ -70,6 +85,9 @@ class JobApiControllerTest extends TestCase
                 'branch' => $this->faker->word(),
                 'division' => $this->faker->word(),
                 'education' => $this->faker->word(),
+                'work_env_description' => $this->faker->paragraph(),
+                'culture_summary' => $this->faker->paragraph(),
+                'culture_special' => $this->faker->paragraph(),
             ],
         ];
         return $job;
@@ -103,11 +121,13 @@ class JobApiControllerTest extends TestCase
             ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertOk();
         $expectedDb = array_merge(
-            array_slice($jobUpdate, 0, 15),
+            collect($jobUpdate)->except(['en', 'fr', 'work_env_features'])->toArray(),
             ['id' => $job->id, 'manager_id' => $job->manager_id]
         );
         $this->assertDatabaseHas('job_posters', $expectedDb);
         $newJob = $job->fresh();
+        // json columns don't seem to work with normal assertDatabaseHas
+        $this->assertEquals($jobUpdate['work_env_features'], $newJob->work_env_features);
         $translations = $newJob->getTranslationsArray();
         $this->assertArraySubset($jobUpdate['en'], $translations['en']);
         $this->assertArraySubset($jobUpdate['fr'], $translations['fr']);

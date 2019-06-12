@@ -10,6 +10,7 @@ use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\LanguageRequirement;
 use App\Models\JobPoster;
+use App\Models\Lookup\Frequency;
 
 class UpdateJobPoster extends FormRequest
 {
@@ -34,6 +35,7 @@ class UpdateJobPoster extends FormRequest
     {
         $dateFormat = Config::get('app.api_datetime_format');
         $dateFormatRule = "date_format:$dateFormat";
+        $sliderRule = 'between:1,4';
         return [
             'term_qty' => 'nullable|numeric',
             'open_date_time' =>['nullable', $dateFormatRule],
@@ -49,6 +51,15 @@ class UpdateJobPoster extends FormRequest
             'classification_code' => 'nullable|regex:/[A-Z]{2}/',
             'classification_level' => 'nullable|numeric',
             'remote_work_allowed' => 'nullable|boolean',
+            'team_size' => 'nullable|numeric',
+            'work_env_features' => 'nullable|array', // TODO: should this be array or JSON?
+            'fast_vs_steady' => ['nullable', $sliderRule],
+            'horizontal_vs_vertical' => ['nullable', $sliderRule],
+            'experimental_vs_ongoing' => ['nullable', $sliderRule],
+            'citizen_facing_vs_back_office' => ['nullable', $sliderRule],
+            'collaborative_vs_independent' => ['nullable', $sliderRule],
+            'telework_allowed_frequency_id' => ['nullable', new ValidIdRule(Frequency::class)],
+            'flexible_hours_frequency_id' => ['nullable', new ValidIdRule(Frequency::class)],
             'en.city' => 'nullable|string',
             'en.title' => 'nullable|string',
             'en.team_impact' => 'nullable|string',
@@ -56,6 +67,9 @@ class UpdateJobPoster extends FormRequest
             'en.division' => 'nullable|string',
             'en.branch' => 'nullable|string',
             'en.education' => 'nullable|string',
+            'en.work_env_description' => 'nullable|string',
+            'en.culture_summary' => 'nullable|string',
+            'en.culture_special' => 'nullable|string',
             'fr.city' => 'nullable|string',
             'fr.title' => 'nullable|string',
             'fr.team_impact' => 'nullable|string',
@@ -63,6 +77,9 @@ class UpdateJobPoster extends FormRequest
             'fr.division' => 'nullable|string',
             'fr.branch' => 'nullable|string',
             'fr.education' => 'nullable|string',
+            'fr.work_env_description' => 'nullable|string',
+            'fr.culture_summary' => 'nullable|string',
+            'fr.culture_special' => 'nullable|string',
         ];
     }
 }
