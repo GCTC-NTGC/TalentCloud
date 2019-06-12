@@ -44,6 +44,12 @@ class AddWorkEnvAndCultureToJobPoster extends Migration
             $table->integer('experimental_vs_ongoing')->nullable();
             $table->integer('citizen_facing_vs_back_office')->nullable();
             $table->integer('collaborative_vs_independent')->nullable();
+
+            $table->integer('telework_allowed_frequency_id')->unsigned()->nullable();
+            $table->integer('flexible_hours_frequency_id')->unsigned()->nullable();
+            // Add foreign keys for frequencies
+            $table->foreign('telework_allowed_frequency_id')->references('id')->on('frequencies')->onUpdate('CASCADE')->onDelete('NO ACTION');
+            $table->foreign('flexible_hours_frequency_id')->references('id')->on('frequencies')->onUpdate('CASCADE')->onDelete('NO ACTION');
         });
 
         Schema::table('job_poster_translations', function (Blueprint $table) {
@@ -87,6 +93,12 @@ class AddWorkEnvAndCultureToJobPoster extends Migration
             $table->dropColumn('experimental_vs_ongoing');
             $table->dropColumn('citizen_facing_vs_back_office');
             $table->dropColumn('collaborative_vs_independent');
+
+            // Drop foreign keys for frequencies before removing the column itself.
+            $table->dropForeign('work_environments_telework_allowed_frequency_id_foreign');
+            $table->dropForeign('work_environments_flexible_hours_frequency_id_foreign');
+            $table->dropColumn('telework_allowed_frequency_id');
+            $table->dropColumn('flexible_hours_frequency_id');
         });
 
          Schema::table('job_poster_translations', function (Blueprint $table) {

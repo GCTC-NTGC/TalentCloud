@@ -8,7 +8,6 @@
 namespace App\Models;
 
 use App\Events\JobSaved;
-use App\Models\JobApplication;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
@@ -46,6 +45,8 @@ use \Backpack\CRUD\CrudTrait;
  * @property int $experimental_vs_ongoing
  * @property int $citizen_facing_vs_back_office
  * @property int $collaborative_vs_independent
+ * @property int $telework_allowed_frequency_id
+ * @property int $flexible_hours_frequency_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -63,6 +64,8 @@ use \Backpack\CRUD\CrudTrait;
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_questions
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_translations
  * @property \Illuminate\Database\Eloquent\Collection $submitted_applications
+ * @property \App\Models\Lookup\Frequency $telework_allowed_frequency
+ * @property \App\Models\Lookup\Frequency $flexible_hours_frequency
  *
  * Localized Properties:
  * @property string $city
@@ -133,7 +136,14 @@ class JobPoster extends BaseModel
         'manager_id' => 'int',
         'published' => 'boolean',
         'team_size' => 'int',
-        'work_env_features' => 'array'
+        'work_env_features' => 'array',
+        'fast_vs_steady' => 'int',
+        'horizontal_vs_vertical' => 'int',
+        'experimental_vs_ongoing' => 'int',
+        'citizen_facing_vs_back_office' => 'int',
+        'collaborative_vs_independent' => 'int',
+        'telework_allowed_frequency_id' => 'int',
+        'flexible_hours_frequency_id' => 'int',
     ];
 
     /**
@@ -175,6 +185,8 @@ class JobPoster extends BaseModel
         'experimental_vs_ongoing',
         'citizen_facing_vs_back_office',
         'collaborative_vs_independent',
+        'telework_allowed_frequency_id',
+        'flexible_hours_frequency_id',
     ];
 
     /**
@@ -238,6 +250,16 @@ class JobPoster extends BaseModel
     public function job_poster_translations() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobPosterTranslation::class);
+    }
+
+    public function telework_allowed_frequency() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\Frequency::class);
+    }
+
+    public function flexible_hours_frequency() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 
     // Artificial Relations

@@ -19,7 +19,12 @@ class ConvertExistingWorkEnvAndCultureToJobPoster extends Migration
         foreach ($jobs as $job) {
             $workEnv = DB::table('work_environments')->where('manager_id', $job->manager_id)->first();
             if ($workEnv) {
-                // TODO: Add any non-translated fields
+                // Add non-localized work env fields to job
+                DB::table('job_posters')->where('id', $job->id)->update([
+                    'telework_allowed_frequency_id' => $workEnv->telework_allowed_frequency_id,
+                    'flexible_hours_frequency_id' => $workEnv->flexible_hours_frequency_id
+                ]);
+                // Add translated work env fields to job translations
                 foreach ($locales as $locale) {
                     $workEnvTrans = DB::table('work_environment_translations')->where('work_environment_id', $workEnv->id)->where('locale', $locale)->first();
                     if ($workEnvTrans) {
@@ -32,7 +37,9 @@ class ConvertExistingWorkEnvAndCultureToJobPoster extends Migration
             }
             $culture = DB::table('team_cultures')->where('manager_id', $job->manager_id)->first();
             if ($culture) {
+                // Add non-localized team culture fields to job
                 DB::table('jobs')->where('id', $job->id)->update(['team_size' => $culture->team_size]);
+                // Add translated team culture fields to job translations
                 foreach ($locales as $locale) {
                     $cultureTrans = DB::table('team_culture_translations')->where('team_culture_id', $culture->id)->where('locale', $locale)->first();
                     $cultureText = [$cultureTrans->operating_context, $cultureTrans->what_we_value, $cultureTrans->how_we_work];
@@ -53,6 +60,6 @@ class ConvertExistingWorkEnvAndCultureToJobPoster extends Migration
      */
     public function down()
     {
-        // Reversing this not necessary, its just filling fields.
+        // Reversing this not necessary, its just filling fields, not changing the schema
     }
 }
