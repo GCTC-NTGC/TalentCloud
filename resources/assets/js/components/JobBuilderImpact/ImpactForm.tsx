@@ -1,6 +1,7 @@
 import * as React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import TextArea from "../Forms/TextArea";
 
 // shape of values used in Form
@@ -53,21 +54,36 @@ export const ImpactFormInner = ({ isSubmitting }): React.ReactElement => {
       <Form id="form" data-c-grid="gutter">
         <div data-c-grid-item="base(1of1)" data-c-input="textarea">
           <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-            How our team makes an impact:
+            <FormattedMessage
+              id="jobBuilder.impact.teamHeader"
+              defaultMessage="EN How our team makes an impact:"
+              description="Header of Job Poster Builder Team Impact Section"
+            />
           </p>
           <p data-c-margin="bottom(normal)">
-            Describe the value your team/service/initiative brings to Canadians.
-            It doesn’t matter if your work is direct to citizens or back office,
-            innovative or maintenance, top priority or ongoing. Describe how it
-            contributes to making Canada better the way you would to someone who
-            knows nothing about your work.
+            <FormattedMessage
+              id="jobBuilder.impact.teamBody"
+              defaultMessage="EN Describe the value your team/service/initiative brings to Canadians.
+              It doesn’t matter if your work is direct to citizens or back office,
+              innovative or maintenance, top priority or ongoing. Describe how it
+              contributes to making Canada better the way you would to someone who
+              knows nothing about your work."
+              description="Body of Job Poster Builder Team Impact Section"
+            />
           </p>
-          <label htmlFor="builder04TeamImpact">Team Impact Statement</label>
+          <label htmlFor="TeamImpact">
+            <FormattedMessage
+              id="jobBuilder.impact.teamLabel"
+              defaultMessage="EN Team Impact Statement"
+              description="Label for team impact statement text area"
+            />
+          </label>
           <span>Required</span>
           <div>
             <Field
-              id="builder04TeamImpact"
+              id="TeamImpact"
               placeholder="Try for a casual, frank, friendly tone..."
+              label="Something Something"
               required
               component={TextArea}
             />
@@ -76,19 +92,33 @@ export const ImpactFormInner = ({ isSubmitting }): React.ReactElement => {
         </div>
         <div data-c-grid-item="base(1of1)" data-c-input="textarea">
           <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-            How the new hire makes an impact:
+            <FormattedMessage
+              id="jobBuilder.impact.hireHeader"
+              defaultMessage="EN How the new hire makes an impact:"
+              description="Header of Job Poster Builder Hire Impact Section"
+            />
           </p>
           <p data-c-margin="bottom(normal)">
-            Describe how the new hire will contribute in this role. Focus on the
-            value they’ll bring, not on specific tasks (you’ll provide these
-            later on). For example “In this role, you’ll contribute to…” or, “As
-            a member of this team, you’ll be responsible for helping us…”
+            <FormattedMessage
+              id="jobBuilder.impact.hireBody"
+              defaultMessage="EN Describe how the new hire will contribute in this role. Focus on the
+              value they’ll bring, not on specific tasks (you’ll provide these
+              later on). For example “In this role, you’ll contribute to…” or, “As
+              a member of this team, you’ll be responsible for helping us…”"
+              description="Body of Job Poster Builder Hire Impact Section"
+            />
           </p>
-          <label htmlFor="builder04HireImpact">Team Impact Statement</label>
+          <label htmlFor="HireImpact">
+            <FormattedMessage
+              id="jobBuilder.impact.hireLabel"
+              defaultMessage="EN Hire Impact Statement"
+              description="Label for hire impact statement text area"
+            />
+          </label>
           <span>Required</span>
           <div>
             <Field
-              id="builder04HireImpact"
+              id="HireImpact"
               placeholder="Remember, don't use Government speak..."
               required
               component={TextArea}
@@ -114,8 +144,12 @@ export const ImpactFormInner = ({ isSubmitting }): React.ReactElement => {
         change these fields in your Profile.
       </p>
       <p data-c-margin="bottom(double)">
-        Complete the job poster in the language of your choice. We will handle
-        translation.
+        <FormattedMessage
+          id="jobBuilder.impact.languageChoice"
+          defaultMessage="EN Complete the job poster in the language of your choice. We will handle
+              translation."
+          description="User can pick which language they want to use to fill forms out"
+        />
       </p>
       {/* This button continues the user in English. */}
       <button
@@ -141,9 +175,12 @@ export const ImpactFormInner = ({ isSubmitting }): React.ReactElement => {
   );
 };
 
-export default withFormik<FormProps, FormValues>({
+const impactFormik = withFormik<FormProps, FormValues>({
   displayName: "ImpactForm",
   mapPropsToValues,
   validationSchema,
   handleSubmit,
 })(ImpactFormInner);
+
+// @ts-ignore
+export default injectIntl(impactFormik);
