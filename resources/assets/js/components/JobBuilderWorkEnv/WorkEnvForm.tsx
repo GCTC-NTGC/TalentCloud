@@ -8,6 +8,7 @@ import RadioGroup from "../Forms/RadioGroup";
 import ContextBlock from "../ContextBlock/ContextBlock";
 import ContextBlockItem from "../ContextBlock/ContextBlockItem";
 import { copyElementContents } from "../../helpers/clipboard";
+import CopyToClipboardButton from "./CopyToClipboardButton";
 
 const physicalEnvOptions: any = [
   {
@@ -102,13 +103,52 @@ const amenitiesOptions = [
   },
 ];
 
+const culturePaceList = [
+  {
+    id: "culturePace01",
+    title: "Very Fast-paced",
+    subtitle:
+      "Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!",
+  },
+  {
+    id: "culturePace02",
+    title: "Fast-paced",
+    subtitle:
+      "Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes!",
+  },
+  {
+    id: "culturePace03",
+    title: "Steady",
+    subtitle:
+      "Our deadlines are regular and predictable, we balance a couple of tasks at a time, and our priorities change occasionally. We keep things on an even keel.",
+  },
+  {
+    id: "culturePace04",
+    title: "Very Steady",
+    subtitle:
+      "Our work is ongoing so there aren’t very many deadlines. We don’t usually have to balance tasks and our priorities change rarely. We thrive on routine.",
+  },
+];
+
+/** Compiles and returns all the active radio buttons corresponding context box values within the culture section  */
+const buildCultureSummary = values => {
+  const active = culturePaceList.find(({ id }) => id === values.culturePace);
+  return active ? active.subtitle : "";
+};
+
+const copyTest = React.createRef<HTMLParagraphElement>();
+
+console.log(copyTest);
+
 // shape of values used in Form
 interface FormValues {
   physicalEnv: string[];
   technology: string[];
   amenities: string[];
   envDescription: string;
-  builder03Pace: string;
+  culturePace: string;
+  customCultureSummary: string;
+  moreCultureSummary: string;
 }
 
 // The type of props FormikForm receives
@@ -117,7 +157,9 @@ interface FormProps {
   initTechnology?: string[];
   initAmeinties?: string[];
   initEnvDescription?: string;
-  initBuilder03Pace?: string;
+  initCulturePace?: string;
+  initCustumCultureSummary?: string;
+  initMoreCultureSummary?: string;
 }
 
 export const mapPropsToValues = ({
@@ -125,13 +167,17 @@ export const mapPropsToValues = ({
   initTechnology,
   initAmeinties,
   initEnvDescription,
-  initBuilder03Pace,
+  initCulturePace,
+  initCustumCultureSummary,
+  initMoreCultureSummary,
 }): FormValues => ({
   physicalEnv: initPhysicalEnv || [],
   technology: initTechnology || [],
   amenities: initAmeinties || [],
   envDescription: initEnvDescription || "",
-  builder03Pace: initBuilder03Pace || "",
+  culturePace: initCulturePace || "",
+  customCultureSummary: initCustumCultureSummary || "",
+  moreCultureSummary: initMoreCultureSummary || "",
 });
 
 export const validationSchema = Yup.object().shape({
@@ -141,13 +187,8 @@ export const validationSchema = Yup.object().shape({
   envDescription: Yup.string().required(
     "Please describe your workplace environment, or you're never getting to the next step",
   ),
-  builder03Pace: Yup.mixed()
-    .oneOf([
-      "builder03PaceOption01",
-      "builder03PaceOption02",
-      "builder03PaceOption03",
-      "builder03PaceOption04",
-    ])
+  culturePace: Yup.mixed()
+    .oneOf(["culturePace01", "culturePace02", "culturePace03", "culturePace04"])
     .required("At least one checkbox is required"),
 });
 
@@ -304,38 +345,34 @@ export const Step3InnerForm = ({
             >
               <Field
                 inputType="radio"
-                name="builder03Pace"
+                name="culturePace"
                 component={Input}
-                htmlId="builder03PaceOption01"
+                htmlId="culturePace01"
                 label="Very Fast-paced"
-                contextId="Pace1"
                 trigger
               />
               <Field
                 inputType="radio"
-                name="builder03Pace"
+                name="culturePace"
                 component={Input}
-                htmlId="builder03PaceOption02"
+                htmlId="culturePace02"
                 label="Fast-paced"
-                contextId="Pace2"
                 trigger
               />
               <Field
                 inputType="radio"
-                name="builder03Pace"
+                name="culturePace"
                 component={Input}
-                htmlId="builder03PaceOption03"
+                htmlId="culturePace03"
                 label="Steady"
-                contextId="Pace3"
                 trigger
               />
               <Field
                 inputType="radio"
-                name="builder03Pace"
+                name="culturePace"
                 component={Input}
-                htmlId="builder03PaceOption04"
+                htmlId="culturePace04"
                 label="Very Steady"
-                contextId="Pace4"
                 trigger
               />
             </RadioGroup>
@@ -343,38 +380,73 @@ export const Step3InnerForm = ({
               className="job-builder-context-block"
               grid="base(1of1) tl(2of3)"
             >
-              <ContextBlockItem
-                id="Pace1"
-                title="Very Fast-paced"
-                subtext="Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!"
-                className="job-builder-context-item"
-                active={values.builder03Pace === "builder03PaceOption01"}
-              />
-              <ContextBlockItem
-                id="Pace2"
-                title="Fast-paced"
-                subtext="Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes!"
-                className="job-builder-context-item"
-                active={values.builder03Pace === "builder03PaceOption02"}
-              />
-              <ContextBlockItem
-                id="Pace3"
-                title="Steady"
-                subtext="Our deadlines are regular and predictable, we balance a couple of tasks at a time, and our priorities change occasionally. We keep things on an even keel."
-                className="job-builder-context-item"
-                active={values.builder03Pace === "builder03PaceOption03"}
-              />
-              <ContextBlockItem
-                id="Pace4"
-                title="Very Steady"
-                subtext="Our work is ongoing so there aren’t very many deadlines. We don’t usually have to balance tasks and our priorities change rarely. We thrive on routine."
-                className="job-builder-context-item"
-                active={values.builder03Pace === "builder03PaceOption04"}
-              />
+              {culturePaceList.map(
+                ({ id, title, subtitle }): React.ReactElement => {
+                  return (
+                    <ContextBlockItem
+                      contextId={id}
+                      title={title}
+                      subtext={subtitle}
+                      className="job-builder-context-item"
+                      active={values.culturePace === id}
+                    />
+                  );
+                },
+              )}
             </ContextBlock>
           </div>
         </div>
-
+        <div data-c-grid-item="base(1of1)">
+          <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+            Culture Summary
+          </p>
+          <p data-c-margin="bottom(normal)">
+            Here is the short paragraph summarizing your work culture which will
+            appear on the job poster. Copy and paste it into the text box below
+            if you want to customize it to the personality of your team and the
+            way you work.
+          </p>
+          <ContextBlockItem
+            subtext={buildCultureSummary(values)}
+            reference={copyTest}
+          />
+          <div
+            data-c-alignment="base(centre) tl(right)"
+            data-c-margin="top(normal)"
+          >
+            <CopyToClipboardButton reference={copyTest} />
+          </div>
+        </div>
+        <Field
+          type="textarea"
+          htmlId="custom_culture_summary"
+          name="customCultureSummary"
+          label="Customize your culture summary:"
+          placeholder="Paste here to edit the paragraph."
+          component={TextArea}
+          grid="base(1of1)"
+        />
+        <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+          Anything Special About Your Work Culture?
+        </p>
+        <p data-c-margin="bottom(normal)">This is optional.</p>
+        <p data-c-margin="bottom(normal)">
+          Does your team care a lot about something else? Proud of the team’s
+          record of getting results? Strong commitment to mental wellness?
+          Actively involved in advancing diversity and inclusion? LGBTQ+
+          champions? Here’s a chance to let applicants know about the culture of
+          the team they’ll potentially be joining.
+        </p>
+        <Field
+          type="textarea"
+          htmlId="more_culture_summary"
+          name="moreCultureSummary"
+          label="More About Your Work Culture"
+          placeholder="Try for a casual, frank, friendly tone."
+          component={TextArea}
+          grid="base(1of1)"
+        />
+        <div data-c-input="textarea" data-c-grid-item="base(1of1)" />
         <button type="submit">submit</button>
       </Form>
     </>

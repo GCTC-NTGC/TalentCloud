@@ -19,9 +19,13 @@ const ContextBlock: React.FunctionComponent<ContextBlockProps> = ({
       <div className={className}>
         {items &&
           items.map(
-            ({ id, title, subtext }): React.ReactElement => {
+            ({ contextId, title, subtext }): React.ReactElement => {
               return (
-                <ContextBlockItem id={id} title={title} subtext={subtext} />
+                <ContextBlockItem
+                  contextId={contextId}
+                  title={title}
+                  subtext={subtext}
+                />
               );
             },
           )}

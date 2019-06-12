@@ -72,7 +72,7 @@ const Input: React.FunctionComponent<InputProps> = ({
     return (
       <label
         htmlFor={htmlId}
-        data-tc-wenv-id={contextId}
+        data-tc-wenv-id={htmlId}
         data-tc-wenv-trigger={trigger}
         className={clicked ? "active" : ""}
       >

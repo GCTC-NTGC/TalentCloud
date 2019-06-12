@@ -2,11 +2,11 @@ import * as React from "react";
 import { all } from "q";
 
 export interface ContextBlockItemProps {
-  title: string;
-  subtext: string;
+  title?: string;
+  subtext?: string;
   active?: boolean;
   className?: string;
-  id: string;
+  contextId?: string;
   backgroundColor?: string;
   backgroundOpacity?: string;
   padding?: string;
@@ -14,13 +14,14 @@ export interface ContextBlockItemProps {
   fontSize?: string;
   fontWeight?: string;
   margin?: string;
+  reference?: React.RefObject<any>;
 }
 
 const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
   subtext,
   title,
   className,
-  id,
+  contextId,
   backgroundColor,
   backgroundOpacity,
   padding,
@@ -29,11 +30,12 @@ const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
   fontWeight,
   margin,
   active,
+  reference,
 }): React.ReactElement => {
   return (
     <div
       className={`${className} ${active ? "active" : ""}`} //"job-builder-context-item active"
-      data-tc-wenv-id={id} //"Pace1"
+      data-tc-wenv-id={contextId} //"Pace1"
       data-c-background={
         (backgroundColor && `${backgroundColor}(${backgroundOpacity})`) ||
         "grey(20)"
@@ -41,14 +43,20 @@ const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
       data-c-padding={padding || "all(normal)"} //"all(normal)"
       data-c-radius={radius || "rounded"} // "rounded"
     >
-      <p
-        data-c-font-size={fontSize || "small"} //"small"
-        data-c-margin={margin || "bottom(half)"} //"bottom(half)"
-        data-c-font-weight={fontWeight || "bold"} //"bold"
-      >
-        {title}
-      </p>
-      <p data-c-font-size={fontSize || "small"}>{subtext}</p>
+      {title && (
+        <p
+          data-c-font-size={fontSize || "small"} //"small"
+          data-c-margin={margin || "bottom(half)"} //"bottom(half)"
+          data-c-font-weight={fontWeight || "bold"} //"bold"
+        >
+          {title}
+        </p>
+      )}
+      {subtext && (
+        <p ref={reference} data-c-font-size={fontSize || "small"}>
+          {subtext}
+        </p>
+      )}
     </div>
   );
 };
