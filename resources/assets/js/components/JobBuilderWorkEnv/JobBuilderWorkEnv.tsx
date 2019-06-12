@@ -1,12 +1,12 @@
 import * as React from "react";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { items } from "../ProgressTracker/fixtures/progressItems";
-import Step3Form from "./Step3Form";
+import WorkEnvForm from "./WorkEnvForm";
 
-interface JobBuilder03Props {}
+interface JobBuilderWorkEnvProps {}
 
-const JobBuilder03: React.FunctionComponent<
-  JobBuilder03Props
+const JobBuilderWorkEnv: React.FunctionComponent<
+  JobBuilderWorkEnvProps
 > = (): React.ReactElement => {
   return (
     <section data-c-background="white(100)">
@@ -42,10 +42,10 @@ const JobBuilder03: React.FunctionComponent<
             apply.
           </p>
         </div>
-        <Step3Form />
+        <WorkEnvForm />
       </div>
     </section>
   );
 };
 
-export default JobBuilder03;
+export default JobBuilderWorkEnv;

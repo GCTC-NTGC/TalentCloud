@@ -5,9 +5,9 @@ import Input from "../Forms/Input";
 import TextArea from "../Forms/TextArea";
 import CheckboxGroup from "../Forms/CheckboxGroup";
 import RadioGroup from "../Forms/RadioGroup";
-import RadioButton from "../Forms/RadioButton";
 import ContextBlock from "../ContextBlock/ContextBlock";
 import ContextBlockItem from "../ContextBlock/ContextBlockItem";
+import { copyElementContents } from "../../helpers/clipboard";
 
 const physicalEnvOptions: any = [
   {
