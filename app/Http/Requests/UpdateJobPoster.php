@@ -9,6 +9,7 @@ use App\Models\Lookup\Department;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\LanguageRequirement;
+use App\Models\JobPoster;
 
 class UpdateJobPoster extends FormRequest
 {
@@ -19,7 +20,9 @@ class UpdateJobPoster extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $job = $this->route('job');
+        // Published jobs cannot be updated.
+        return $job && $job->published_at === null;
     }
 
     /**

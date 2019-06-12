@@ -190,6 +190,42 @@ class JobPoster extends BaseModel
     ];
 
     /**
+     * The attributes that should be visible in arrays.
+     * In this case, it blocks loaded relations from appearing.
+     *
+     * @var array
+     */
+    protected $visible = [
+        'id',
+        'manager_id',
+        'term_qty',
+        'open_date_time',
+        'close_date_time',
+        'start_date_time',
+        'department_id',
+        'province_id',
+        'salary_min',
+        'salary_max',
+        'noc',
+        'classification_code',
+        'classification_level',
+        'security_clearance_id',
+        'language_requirement_id',
+        'remote_work_allowed',
+        'published_at',
+        'review_requested_at',
+        'team_size',
+        'work_env_features',
+        'fast_vs_steady',
+        'horizontal_vs_vertical',
+        'experimental_vs_ongoing',
+        'citizen_facing_vs_back_office',
+        'collaborative_vs_independent',
+        'telework_allowed_frequency_id',
+        'flexible_hours_frequency_id',
+    ];
+
+    /**
      * @var mixed[] $dispatchesEvents
      */
     protected $dispatchesEvents = [
@@ -443,28 +479,6 @@ class JobPoster extends BaseModel
     public function toApiArray(): array
     {
         $jobWithTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
-        $jobCollection = collect($jobWithTranslations)->only([
-            'id',
-            'manager_id',
-            'term_qty',
-            'open_date_time',
-            'close_date_time',
-            'start_date_time',
-            'department_id',
-            'province_id',
-            'salary_min',
-            'salary_max',
-            'noc',
-            'classification_code',
-            'classification_level',
-            'security_clearance_id',
-            'language_requirement_id',
-            'remote_work_allowed',
-            'published_at',
-            'review_requested_at',
-            'en',
-            'fr',
-        ])->all();
-        return $jobCollection;
+        return $jobWithTranslations;
     }
 }
