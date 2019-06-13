@@ -37,6 +37,22 @@ export enum AssessmentTypeId {
   SeriousGames = 11,
 }
 
+export const ProvinceId = {
+  AB: 1,
+  BC: 2,
+  MB: 3,
+  NL: 4,
+  NB: 5,
+  NS: 6,
+  NU: 7,
+  NT: 8,
+  ON: 9,
+  PE: 10,
+  QC: 11,
+  SK: 12,
+  YT: 13,
+};
+
 export function enumToIds(enumType: any): number[] {
   const enumVals = Object.values(enumType);
   // Note: this first array includes the list of ids as strings, followed by the list of names as strings

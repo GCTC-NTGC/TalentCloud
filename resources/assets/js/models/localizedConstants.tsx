@@ -8,7 +8,9 @@ import {
   SkillLevelIdValues,
   SkillTypeId,
   SkillTypeIdValues,
+  ProvinceId,
 } from "./lookupConstants";
+import { hasKey } from "../helpers/queries";
 
 interface SkillLevel {
   hardBasic: FormattedMessage.MessageDescriptor;
@@ -387,6 +389,131 @@ const standardAssessmentText = defineMessages({
   },
 });
 
+const provinceNames = defineMessages({
+  [ProvinceId.AB]: {
+    id: "province.ab",
+    defaultMessage: "Alberta",
+  },
+  [ProvinceId.BC]: {
+    id: "province.bc",
+    defaultMessage: "British Columbia",
+  },
+  [ProvinceId.MB]: {
+    id: "province.mb",
+    defaultMessage: "Manitoba",
+  },
+  [ProvinceId.NL]: {
+    id: "province.nl",
+    defaultMessage: "Newfoundland and Labrador",
+  },
+  [ProvinceId.NB]: {
+    id: "province.nb",
+    defaultMessage: "New Brunswick",
+  },
+  [ProvinceId.NS]: {
+    id: "province.ns",
+    defaultMessage: "Nova Scotia",
+  },
+  [ProvinceId.NU]: {
+    id: "province.nu",
+    defaultMessage: "Nunavut",
+  },
+  [ProvinceId.NT]: {
+    id: "province.nt",
+    defaultMessage: "Northwest Territories",
+  },
+  [ProvinceId.ON]: {
+    id: "province.on",
+    defaultMessage: "Ontario",
+  },
+  [ProvinceId.PE]: {
+    id: "province.on",
+    defaultMessage: "Prince Edward Island",
+  },
+  [ProvinceId.QC]: {
+    id: "province.qc",
+    defaultMessage: "Quebec",
+  },
+  [ProvinceId.SK]: {
+    id: "province.sk",
+    defaultMessage: "Saskatchewan",
+  },
+  [ProvinceId.YT]: {
+    id: "province.yk",
+    defaultMessage: "Yukon",
+  }
+});
+
+export const provinceName = (provinceId: number): FormattedMessage.MessageDescriptor => {
+  if (!hasKey(provinceNames, provinceId)) {
+    throw new Error("invalid ProvinceId");
+  }
+  return provinceNames[provinceId];
+}
+
+const provinceAbreviations = defineMessages({
+  [ProvinceId.AB]: {
+    id: "province.ab.abreviation",
+    defaultMessage: "Alb.",
+  },
+  [ProvinceId.BC]: {
+    id: "province.bc.abreviation",
+    defaultMessage: "B.C.",
+  },
+  [ProvinceId.MB]: {
+    id: "province.mb.abreviation",
+    defaultMessage: "Man.",
+  },
+  [ProvinceId.NL]: {
+    id: "province.nl.abreviation",
+    defaultMessage: "N.L.",
+  },
+  [ProvinceId.NB]: {
+    id: "province.nb.abreviation",
+    defaultMessage: "N.B.",
+  },
+  [ProvinceId.NS]: {
+    id: "province.ns.abreviation",
+    defaultMessage: "N.S.",
+  },
+  [ProvinceId.NU]: {
+    id: "province.nu.abreviation",
+    defaultMessage: "Nvt.",
+  },
+  [ProvinceId.NT]: {
+    id: "province.nt.abreviation",
+    defaultMessage: "N.W.T.",
+  },
+  [ProvinceId.ON]: {
+    id: "province.on.abreviation",
+    defaultMessage: "Ont.",
+  },
+  [ProvinceId.PE]: {
+    id: "province.on.abreviation",
+    defaultMessage: "P.E.I.",
+  },
+  [ProvinceId.QC]: {
+    id: "province.qc.abreviation",
+    defaultMessage: "Que.",
+  },
+  [ProvinceId.SK]: {
+    id: "province.sk.abreviation",
+    defaultMessage: "Sask.",
+  },
+  [ProvinceId.YT]: {
+    id: "province.yk.abreviation",
+    defaultMessage: "Y.T.",
+  },
+});
+
+export const provinceAbreviation = (
+  provinceId: number,
+): FormattedMessage.MessageDescriptor => {
+  if (!hasKey(provinceAbreviations, provinceId)) {
+    throw new Error("invalid ProvinceId");
+  }
+  return provinceAbreviations[provinceId];
+};
 export const narrativeReviewStandardQuestion = (): FormattedMessage.MessageDescriptor =>
   standardAssessmentText.narrativeReviewQuestion;
 
