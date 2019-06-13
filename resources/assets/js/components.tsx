@@ -11,7 +11,6 @@ require("./components/ApplicationReview/ApplicationReviewContainer");
 require("./components/ApplicantSkills/WordCounter");
 require("./components/ApplicantSkills/SkillsInfoModal");
 require("./components/JobDetails/JobDetails");
-require("./components/JobBuilder-01/JobBuilder");
+require("./components/JobBuilderIntro/JobBuilderIntro");
 
-require("./redux_index.tsx");
 // import ReviewApplications from './components/ReviewApplications';
