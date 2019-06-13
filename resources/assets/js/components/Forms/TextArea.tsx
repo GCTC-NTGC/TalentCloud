@@ -33,7 +33,6 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
       {required && <span>Required</span>}
       <div>
         <textarea
-          data-c-font-weight="800"
           id={htmlId}
           name={formName}
           placeholder={placeholder}
