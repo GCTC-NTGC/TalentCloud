@@ -46,7 +46,7 @@ class ApplicationByJobController extends Controller
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
-            'job' => $jobPoster,
+            'job' => $jobPoster->toApiArray(),
             'applications' => $applications,
             'review_statuses' => ReviewStatus::all()
         ]);
@@ -418,6 +418,7 @@ class ApplicationByJobController extends Controller
             'degrees.new.*.thesis'         => 'nullable',
             'degrees.new.*.start_date'     => 'required|date',
             'degrees.new.*.end_date'       => 'required|date',
+            'degrees.new.*.blockcert_url'  => 'nullable|string',
         ]);
 
         // Save new degrees.
@@ -431,7 +432,8 @@ class ApplicationByJobController extends Controller
                     'institution' => $degreeInput['institution'],
                     'thesis' => $degreeInput['thesis'],
                     'start_date' => $degreeInput['start_date'],
-                    'end_date' => $degreeInput['end_date']
+                    'end_date' => $degreeInput['end_date'],
+                    'blockcert_url' => $degreeInput['blockcert_url'],
                 ]);
                 $degree->save();
             }
@@ -449,7 +451,8 @@ class ApplicationByJobController extends Controller
                         'institution' => $degreeInput['institution'],
                         'thesis' => $degreeInput['thesis'],
                         'start_date' => $degreeInput['start_date'],
-                        'end_date' => $degreeInput['end_date']
+                        'end_date' => $degreeInput['end_date'],
+                        'blockcert_url' => $degreeInput['blockcert_url'],
                     ]);
                     $degree->save();
                 } else {

@@ -397,9 +397,10 @@ Route::group(['prefix' => 'api'], function (): void {
         'store', 'create', 'edit'
     ]);
     Route::resource('jobs', 'Api\JobApiController')->only([
-        'show', 'update'
+        'show', 'store', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes
         'show' => 'api.jobs.show',
+        'store' => 'api.jobs.store',
         'update' => 'api.jobs.update'
     ]);
     Route::resource('managers', 'Api\ManagerApiController')->only([

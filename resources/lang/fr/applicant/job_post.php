@@ -10,16 +10,14 @@ return [
     *
     */
     'title' => 'Parcourir les emplois',
-    'job_post_title' => 'Nuage de talents | Candidat : Affiche d\'emploi',
+    'job_post_title' => 'Nuage de talents | Candidat : Affiche d\'emploi - :title (Numéro de référence : :id)',
     'header' => [
         'time_remaining' => ':time jusqu\'à la date de clôture',
         "job_closed" => "L'affiche est fermée",
         'days_remaining' => ':count jour jusqu\'à la date de clôture|:count jours jusqu\'à la date de clôture',
         "apply_by_label" => "Postuler avant le",
         'applicants_so_far' => ':count candidat jusqu\'à présent|:count candidats jusqu\'à présent',
-        'location_icon_label' => 'Symbole d\'emplacement.',
-        'remote_work_icon_label' => 'Symbole de travail à distance.',
-        'reference_id' => 'Numéro de référence #:id',
+        'reference_id' => 'Numéro de référence : :id',
         'remote_work_allowed' => [
             true => 'Travail à distance autorisé',
             false => 'Travail à distance non autorisé',
@@ -68,8 +66,6 @@ return [
     'language' => [
         'sidebar_title' => 'Voir les exigences linguistiques de ce travail.',
         'title' => 'Exigences linguistiques',
-        'english_icon_title' => 'Un graphique représentant une exigence de langue anglaise',
-        'french_icon_title' => 'Un graphique représentant une exigence de la langue française',
         'english_essential_context_01' => 'Ce poste exige une bonne maîtrise de l’anglais, tant à l’écrit qu’à l’oral. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en anglais, comme des questions d’entrevue ou un examen.',
         'english_essential_context_02' => 'Vous pouvez présenter cette demande initiale dans la langue officielle de votre choix (français ou anglais).',
         'french_essential_context_01' => 'Ce poste exige une bonne maîtrise du français, tant à l’écrit qu’à l’oral. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en français, comme des questions d’entrevue ou un examen.',
