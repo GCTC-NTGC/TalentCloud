@@ -32,12 +32,18 @@ const JobBuilderIntro: React.FunctionComponent<
           />
         </h3>
         <p data-c-margin="bottom(normal)">
-          This tool will help you create a job poster that attracts the right
-          talent.
+          <FormattedMessage
+            id="jobBuilder.intro.subtitle01"
+            defaultMessage="This tool will help you create a job poster that attracts the right talent."
+            description="Subtitle 1 of Job Poster Builder Intro Step"
+          />
         </p>
         <p data-c-margin="bottom(double)">
-          We’ve also provided instructions and examples to help guide you
-          through the process but if you still have questions, contact{" "}
+          <FormattedMessage
+            id="jobBuilder.intro.subtitle02"
+            defaultMessage="We’ve also provided instructions and examples to help guide you through the process but if you still have questions, contact "
+            description="Subtitle 2 of Job Poster Builder Intro Step"
+          />
           <a
             href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
             title="Email Talent Cloud."
@@ -50,7 +56,11 @@ const JobBuilderIntro: React.FunctionComponent<
           data-c-font-size="h4"
           data-c-margin="bottom(double)"
         >
-          Before we get started please review your information.
+          <FormattedMessage
+            id="jobBuilder.intro.beforeWeStart"
+            defaultMessage="Before we get started please review your information."
+            description="Before starting header of Job Poster Builder Intro Step"
+          />
         </h4>
         <IntroForm />
       </div>
