@@ -40,7 +40,7 @@ class LoginController extends AuthController
     /**
      * Where to redirect users after login.
      *
-     * @var string
+     * @return string
      */
     protected function redirectTo()
     {
@@ -76,7 +76,7 @@ class LoginController extends AuthController
      * OVERRIDE
      * Log the user out of the application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request Incoming Request object.
      * @return \Illuminate\Http\Response
      */
     public function logout(Request $request)
@@ -85,7 +85,7 @@ class LoginController extends AuthController
 
         $request->session()->invalidate();
 
-        //This causes logout to redirect to the same page as login
+        // This causes logout to redirect to the same page as login.
         return redirect($this->redirectPath());
     }
 }

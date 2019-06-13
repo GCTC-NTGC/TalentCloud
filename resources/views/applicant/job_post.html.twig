@@ -7,7 +7,7 @@
 
 {% extends "layouts/base" %}
 
-{% block title %}{{ job_post.job_post_title }}{% endblock %}
+{% block title %}{{ job_post.job_post_title|replace({':title':job.title, ':id':job.id}) }}{% endblock %}
 
 {% block body %}
 

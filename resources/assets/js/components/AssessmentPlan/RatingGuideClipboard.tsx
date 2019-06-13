@@ -15,7 +15,7 @@ import {
   criteriaType,
   assessmentType,
 } from "../../models/localizedConstants";
-import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
+import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelectorComplex";
 import { getCriteriaByJob } from "../../store/Job/jobSelector";
 import { getSkills } from "../../store/Skill/skillSelector";
 import { getRatingGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
@@ -155,7 +155,7 @@ export const clipboardData = (
           skillByCriterion === undefined
             ? ""
             : skillByCriterion[locale].description,
-        modelAnswer: answer.expected_answer,
+        modelAnswer: answer.expected_answer ? answer.expected_answer : "",
         id:
           questionByAnswer === undefined || criterionByAnswer === undefined
             ? ""
@@ -330,11 +330,11 @@ const mapStateToProps = (
   state: RootState,
   ownProps: RatingGuideClipboardContainerProps,
 ): TableProps => ({
-  assessments: getAssessmentsByJob(state, ownProps.jobId),
-  criteria: getCriteriaByJob(state, ownProps.jobId),
+  assessments: getAssessmentsByJob(state, ownProps),
+  criteria: getCriteriaByJob(state, ownProps),
   skills: getSkills(state),
-  ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps.jobId),
-  ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps.jobId),
+  ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps),
+  ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps),
 });
 // @ts-ignore
 const RatingGuideClipboardContainer: React.FunctionComponent<

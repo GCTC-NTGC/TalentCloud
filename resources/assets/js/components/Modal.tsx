@@ -1,196 +1,168 @@
-import React, { Component, createRef } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { createPortal } from "react-dom";
 
-export interface ModalProps {
-  /** HTML ID for modal attributes */
-  id: string;
-  /** Title that appears within the modal when open */
-  title: string;
-  /** Optional subtitle that appears within the open modal */
-  subtitle?: string;
-  /** Text displayed on the button that displays the modal */
-  openText: string;
-  /** Text displayed on the button that hides the modal */
-  closeText?: string;
-  /** Text displayed on the modal confirmation button */
-  confirmText: string;
-  /** Text displayed on the modal cancellation button */
-  cancelText: string;
-  /** React children */
-  children?: React.ReactNode;
-  /** Function to run for modal confirmation click */
-  handleConfirm: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}
+const modalContext = createContext({
+  id: "",
+  parentElement: "",
+  visible: false,
+  onModalConfirm: undefined,
+  onModalCancel: undefined,
+});
 
-interface ModalState {
-  /** Height of the modal itself */
-  height: number;
-  /** Visibility of the modal */
-  visible: boolean;
-}
+export default function Modal({
+  id,
+  parentElement,
+  visible,
+  children,
+  onModalConfirm,
+  onModalCancel,
+}): React.ReactPortal {
+  // Set up div ref to measure modal height
+  const modalRef = useRef<HTMLDivElement>(null);
 
-class Modal extends Component<ModalProps, ModalState> {
-  private divElement = createRef<HTMLDivElement>();
+  // Internal state to keep track of the overflow setting
+  const [overflow, setOverflow] = useState("");
 
-  public constructor(props: ModalProps) {
-    super(props);
+  const handleTabKey = (e: KeyboardEvent): void => {
+    if (modalRef && modalRef.current) {
+      const focusableModalElements = modalRef.current.querySelectorAll(
+        'a[href], button, textarea, input[type="text"], input[type="email"], input[type="radio"], select',
+      );
+      const firstElement = focusableModalElements[0] as HTMLElement;
+      const lastElement = focusableModalElements[
+        focusableModalElements.length - 1
+      ] as HTMLElement;
 
-    this.state = { height: 0, visible: false };
-  }
+      if (!e.shiftKey && document.activeElement !== firstElement) {
+        firstElement.focus();
+        e.preventDefault();
+      }
 
-  public componentDidMount = (): void => {
-    const node = this.divElement.current;
-    if (node) {
-      const height = node.clientHeight;
-      this.setState({ height }, this.updateBody);
+      if (e.shiftKey && document.activeElement !== lastElement) {
+        lastElement.focus();
+        e.preventDefault();
+      }
     }
   };
 
-  protected handleSizing = (): string | boolean => {
-    const { visible } = this.state;
-    if (!visible) {
-      return false;
+  // Collection of key codes and event listeners
+  const keyListenersMap = new Map([[27, onModalCancel], [9, handleTabKey]]);
+
+  // Runs every time visible changes to set the overflow on the modal and update the body overflow
+  useEffect((): (() => void) => {
+    function setBodyStyle(): void {
+      document.body.style.overflow = visible ? "hidden" : "visible";
     }
-    const viewportHeight = window.innerHeight;
-    const { height } = this.state;
+    setBodyStyle();
+    // Runs on component unmount
+    return (): void => {
+      setBodyStyle();
+    };
+  }, [visible]);
 
-    return height > viewportHeight
-      ? "active--overflowing"
-      : "active--contained";
-  };
-
-  private updateBody = (): void => {
-    const body = document.querySelector("body");
-    const { visible } = this.state;
-    if (body) {
-      body.style.overflow = visible ? "hidden" : "visible";
+  // Runs when the children of the modal change to ensure proper height calculation
+  useEffect((): void => {
+    if (visible && modalRef && modalRef.current) {
+      const height = modalRef.current.clientHeight;
+      const viewportHeight = window.innerHeight;
+      setOverflow(
+        height > viewportHeight ? "active--overflowing" : "active--contained",
+      );
     }
-  };
+  }, [children]);
 
-  public handleOpen = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    event.preventDefault();
-    this.setState({ visible: true }, this.updateBody);
-  };
+  // Adds various key commands to the modal
+  useEffect((): (() => void) => {
+    function keyListener(e: KeyboardEvent): void {
+      const listener = keyListenersMap.get(e.keyCode);
+      return listener && listener(e);
+    }
 
-  public handleClose = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    event.preventDefault();
-    this.setState({ visible: false }, this.updateBody);
-  };
+    document.addEventListener("keydown", keyListener);
 
-  public render(): React.ReactElement {
-    const {
-      id,
-      title,
-      subtitle,
-      openText,
-      closeText,
-      confirmText,
-      cancelText,
-      children,
-      handleConfirm,
-    } = this.props;
+    return (): void => document.removeEventListener("keydown", keyListener);
+  }, [children]);
 
-    const { visible } = this.state;
-
-    return (
-      <>
-        <div data-c-alignment="center">
-          <button
-            data-c-button="solid(c1)"
-            data-c-radius="rounded"
-            data-c-dialog-id={id}
-            data-c-dialog-action="open"
-            type="button"
-            onClick={this.handleOpen}
-          >
-            {openText}
-          </button>
-        </div>
-
-        <div data-c-dialog-overlay={visible && "active"} />
-
-        <div
-          aria-hidden={!visible}
-          aria-describedby={`${id}-description`}
-          aria-labelledby={`${id}-title`}
-          data-c-dialog={this.handleSizing()}
-          data-c-dialog-id={id}
-          data-c-padding="top(double) bottom(double)"
-          role="dialog"
+  return createPortal(
+    <div
+      aria-describedby={`${id}-description`}
+      aria-hidden={!visible}
+      aria-labelledby={`${id}-title`}
+      data-c-dialog={visible ? overflow : ""}
+      data-c-dialog-id={id}
+      data-c-padding="top(double) bottom(double)"
+      role="dialog"
+      ref={modalRef}
+    >
+      <div data-c-background="white(100)" data-c-radius="rounded">
+        <modalContext.Provider
+          value={{ id, parentElement, visible, onModalConfirm, onModalCancel }}
         >
-          <div
-            data-c-background="white(100)"
-            data-c-radius="rounded"
-            ref={this.divElement}
-          >
-            <div
-              data-c-padding="normal"
-              data-c-border="bottom(thin, solid, black)"
-            >
-              <h5 data-c-font-size="h4" id={`${id}-title`}>
-                {title}
-              </h5>
-
-              {subtitle && (
-                <span data-c-font-size="h5" data-c-margin="top(half)">
-                  {subtitle}
-                </span>
-              )}
-
-              {closeText && (
-                <button
-                  data-c-dialog-action="close"
-                  data-c-dialog-id={id}
-                  type="button"
-                  onClick={this.handleClose}
-                >
-                  <i className="material-icons">{closeText}</i>
-                </button>
-              )}
-            </div>
-
-            <div
-              data-c-border="bottom(thin, solid, black)"
-              data-c-padding="normal"
-            >
-              <div id={`${id}-description`}>{children}</div>
-            </div>
-
-            <div data-c-padding="normal">
-              <div data-c-grid="gutter middle">
-                <div data-c-grid-item="base(1of2)">
-                  <button
-                    data-c-button="outline(slow)"
-                    data-c-radius="rounded"
-                    data-c-dialog-action="close"
-                    data-c-dialog-id={id}
-                    type="button"
-                    onClick={this.handleClose}
-                  >
-                    {cancelText}
-                  </button>
-                </div>
-                <div
-                  data-c-grid-item="base(1of2)"
-                  data-c-alignment="base(right)"
-                >
-                  <button
-                    data-c-button="solid(go)"
-                    data-c-radius="rounded"
-                    data-c-dialog-action="close"
-                    data-c-dialog-id={id}
-                    type="button"
-                    onClick={handleConfirm}
-                  >
-                    {confirmText}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  }
+          {children}
+        </modalContext.Provider>
+      </div>
+    </div>,
+    parentElement && parentElement.length > 0
+      ? document.querySelector(parentElement)
+      : document.body,
+  );
 }
 
-export default Modal;
+Modal.Header = function ModalHeader(props): React.ReactElement {
+  return props.children;
+};
+
+Modal.Body = function ModalBody(props): React.ReactElement {
+  const { children } = props;
+  return <div data-c-border="bottom(thin, solid, black)">{children}</div>;
+};
+
+Modal.Footer = function ModalFooter(props): React.ReactElement {
+  const { children } = props;
+
+  return (
+    <div data-c-padding="normal">
+      <div data-c-grid="gutter middle">{children}</div>
+    </div>
+  );
+};
+
+Modal.FooterConfirmBtn = function ConfirmBtn(props): React.ReactElement {
+  const { id, onModalConfirm } = useContext(modalContext);
+  return (
+    <div data-c-alignment="base(right)" data-c-grid-item="base(1of2)">
+      <button
+        {...props}
+        data-c-button="solid(c1)"
+        data-c-dialog-action="close"
+        data-c-dialog-id={id}
+        data-c-radius="rounded"
+        type="button"
+        onClick={onModalConfirm}
+      />
+    </div>
+  );
+};
+
+Modal.FooterCancelBtn = function CancelBtn(props): React.ReactElement {
+  const { id, onModalCancel } = useContext(modalContext);
+  return (
+    <div data-c-grid-item="base(1of2)">
+      <button
+        {...props}
+        data-c-button="outline(c1)"
+        data-c-dialog-action="close"
+        data-c-dialog-id={id}
+        data-c-radius="rounded"
+        type="button"
+        onClick={onModalCancel}
+      />
+    </div>
+  );
+};

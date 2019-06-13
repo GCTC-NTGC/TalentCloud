@@ -10,8 +10,8 @@ class WorkExperienceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\WorkExperience  $workExperience
+     * @param  \Illuminate\Http\Request   $request        Incoming Request.
+     * @param  \App\Models\WorkExperience $workExperience Incoming Work Experience.
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, WorkExperience $workExperience)
@@ -21,7 +21,7 @@ class WorkExperienceController extends Controller
 
         if ($request->ajax()) {
             return [
-                'message' => "Work Experience delete",
+                'message' => 'Work Experience delete',
             ];
         }
 

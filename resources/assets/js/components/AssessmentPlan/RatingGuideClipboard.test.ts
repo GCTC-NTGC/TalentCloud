@@ -23,10 +23,10 @@ const jediSkill: Skill = {
   fr: { name: "French Jedi", description: "French Laser Sword User" },
 };
 
-jest.mock("../../store/skill/skillSelector", () => {
+jest.mock("../../store/Skill/skillSelector", (): object => {
   return {
     // Define Function Mock Return Values
-    getSkillById: jest.fn((x, y) => jediSkill),
+    getSkillById: jest.fn((): object => jediSkill),
   };
 });
 
@@ -222,7 +222,7 @@ const expectedOutput: ClipboardTableRowProps[] = [
     title: "Application Screening Question",
     question:
       "What is the second question of the meaning of life, the universe and everything?",
-    skillLevel: "Moderately in Evidence",
+    skillLevel: "Intermediate",
     criteriaTypeName: "Asset",
     skillName: "English hacking",
     skillDescription: "English manipulator of technology",
