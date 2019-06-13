@@ -12,7 +12,7 @@
         font-family: $font--sans;
         font-size: $font-scale--h3;
         font-weight: 400;
-        margin: 0;
+        margin: 0 0 2rem;
         padding: 0 0 2rem 0;
     }
 
@@ -22,6 +22,15 @@
         font-size: $font-scale--h4;
         font-weight: 600;
         margin: calc(#{$unit} * 3) 0 calc(#{$unit} * 1) 0;
+
+        &.manager {
+            margin: 0 0 calc(#{$unit} * 1) 0;
+            text-align: center;
+
+            @media #{$l-tablet} {
+                text-align: left;
+            }
+        }
     }
 
     >.flex-grid {
