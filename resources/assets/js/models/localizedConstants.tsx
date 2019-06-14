@@ -9,8 +9,10 @@ import {
   SkillTypeId,
   SkillTypeIdValues,
   ProvinceId,
+  SecurityClearanceId,
+  LanguageRequirementId,
 } from "./lookupConstants";
-import { hasKey } from "../helpers/queries";
+import { hasKey, getOrThrowError } from "../helpers/queries";
 
 interface SkillLevel {
   hardBasic: FormattedMessage.MessageDescriptor;
@@ -441,15 +443,13 @@ const provinceNames = defineMessages({
   [ProvinceId.YT]: {
     id: "province.yk",
     defaultMessage: "Yukon",
-  }
+  },
 });
 
-export const provinceName = (provinceId: number): FormattedMessage.MessageDescriptor => {
-  if (!hasKey(provinceNames, provinceId)) {
-    throw new Error("invalid ProvinceId");
-  }
-  return provinceNames[provinceId];
-}
+export const provinceName = (
+  provinceId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(provinceNames, provinceId, "invalid ProvinceId");
 
 const provinceAbreviations = defineMessages({
   [ProvinceId.AB]: {
@@ -508,12 +508,65 @@ const provinceAbreviations = defineMessages({
 
 export const provinceAbreviation = (
   provinceId: number,
-): FormattedMessage.MessageDescriptor => {
-  if (!hasKey(provinceAbreviations, provinceId)) {
-    throw new Error("invalid ProvinceId");
-  }
-  return provinceAbreviations[provinceId];
-};
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(provinceAbreviations, provinceId, "invalid ProvinceId");
+
+const securityClearances = defineMessages({
+  [SecurityClearanceId.reliability]: {
+    id: "securityClearance.reliability",
+    defaultMessage: "Reliability",
+  },
+  [SecurityClearanceId.secret]: {
+    id: "securityClearance.secret",
+    defaultMessage: "Secret",
+  },
+  [SecurityClearanceId.topSecret]: {
+    id: "securityClearance.topSecret",
+    defaultMessage: "Top Secret",
+  },
+});
+
+export const securityClearance = (
+  securityClearanceId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(
+    securityClearances,
+    securityClearanceId,
+    "invalid security clearance id",
+  );
+
+const languageRequirments = defineMessages({
+  [LanguageRequirementId.english]: {
+    id: "languageRequirment.english",
+    defaultMessage: "English essential",
+  },
+  [LanguageRequirementId.french]: {
+    id: "languageRequirment.french",
+    defaultMessage: "French essential",
+  },
+  [LanguageRequirementId.bilingualIntermediate]: {
+    id: "languageRequirment.bilingualIntermediate",
+    defaultMessage: "Bilingual - Intermediate",
+  },
+  [LanguageRequirementId.bilingualAdvanced]: {
+    id: "languageRequirment.bilingualAdvanced",
+    defaultMessage: "Bilingual - Advanced",
+  },
+  [LanguageRequirementId.englishOrFrench]: {
+    id: "languageRequirment.englishOrFrench",
+    defaultMessage: "English or French",
+  },
+});
+
+export const languageRequirment = (
+  languageRequirementId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(
+    languageRequirments,
+    languageRequirementId,
+    "invalid LanguageRequirementId",
+  );
+
 export const narrativeReviewStandardQuestion = (): FormattedMessage.MessageDescriptor =>
   standardAssessmentText.narrativeReviewQuestion;
 

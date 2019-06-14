@@ -53,6 +53,20 @@ export const ProvinceId = {
   YT: 13,
 };
 
+export const SecurityClearanceId = {
+  reliability: 1,
+  secret: 2,
+  topSecret: 3,
+};
+
+export const LanguageRequirementId = {
+  english: 1,
+  french: 2,
+  bilingualIntermediate: 3,
+  bilingualAdvanced: 4,
+  englishOrFrench: 5,
+};
+
 export function enumToIds(enumType: any): number[] {
   const enumVals = Object.values(enumType);
   // Note: this first array includes the list of ids as strings, followed by the list of names as strings
