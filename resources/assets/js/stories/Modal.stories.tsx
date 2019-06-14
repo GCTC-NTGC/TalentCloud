@@ -1,0 +1,144 @@
+import React from "react";
+import { storiesOf } from "@storybook/react";
+import { withInfo } from "@storybook/addon-info";
+import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
+import { action } from "@storybook/addon-actions";
+import Modal from "../components/Modal";
+import fakeJob from "../fakeData/fakeJob";
+import Input from "../components/Input";
+
+const stories = storiesOf("Modal", module)
+  .addDecorator(withInfo)
+  .addDecorator(withKnobs);
+
+stories.add(
+  "Basic Modal",
+  (): React.ReactElement => {
+    const isModalVisible = boolean("Visible", true);
+    return (
+      <div id="modal-container">
+        <div
+          id="modal-overlay"
+          data-c-dialog-overlay={isModalVisible ? "active" : ""}
+        />
+        <div>
+          <Modal
+            id="job-details-preview"
+            visible={isModalVisible}
+            parentElement="#modal-root"
+            onModalConfirm={action("Confirmed")}
+            onModalCancel={action("Cancelled")}
+          >
+            <Modal.Header>
+              <div
+                data-c-background="c1(100)"
+                data-c-border="bottom(thin, solid, black)"
+                data-c-padding="normal"
+              >
+                <h5
+                  data-c-colour="white"
+                  data-c-font-size="h4"
+                  id="modal-header-title"
+                >
+                  This is the the Modal Header!
+                </h5>
+              </div>
+            </Modal.Header>
+            <Modal.Body>
+              <div
+                data-c-border="bottom(thin, solid, black)"
+                data-c-padding="normal"
+                id="modal-body-text"
+              >
+                This text is in the body of the modal.
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
+              <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
+            </Modal.Footer>
+          </Modal>
+        </div>
+      </div>
+    );
+  },
+);
+stories.add(
+  "Modal with form inputs",
+  (): React.ReactElement => {
+    const isModalVisible = boolean("Visible", true);
+    return (
+      <div id="modal-container">
+        <div
+          id="modal-overlay"
+          data-c-dialog-overlay={isModalVisible ? "active" : ""}
+        />
+        <Modal
+          id="job-details-preview"
+          visible={isModalVisible}
+          parentElement="#modal-root"
+          onModalConfirm={action("Confirmed")}
+          onModalCancel={action("Cancelled")}
+        >
+          <Modal.Header>
+            <div
+              data-c-background="c1(100)"
+              data-c-border="bottom(thin, solid, black)"
+              data-c-padding="normal"
+            >
+              <h5
+                data-c-colour="white"
+                data-c-font-size="h4"
+                id="modal-header-title"
+              >
+                This is the the Modal Header!
+              </h5>
+            </div>
+          </Modal.Header>
+          <Modal.Body>
+            <div
+              data-c-border="bottom(thin, solid, black)"
+              data-c-padding="normal"
+              id="modal-body-text"
+            >
+              This text is in the body of the modal. Try tabbing through all inputs.
+            </div>
+            <form
+              data-c-padding="normal">
+              <Input
+                htmlId="modal-input-1"
+                formName="modal-input-1"
+                label="This is a text input"
+                required={false}
+                placeholder="What will you write here?"
+                type="text"
+                onChange={action("Input 1 changed")}
+              />
+              <button
+                data-c-button="solid(c1)"
+                data-c-radius="rounded"
+                type="submit"
+                onClick={action("Input button clicked")}
+              >
+                Test Button
+              </button>
+              <Input
+                htmlId="modal-input-2"
+                formName="modal-input-2"
+                label="This is a second input"
+                required={false}
+                placeholder="Hello World"
+                type="text"
+                onChange={action("Input 2 changed")}
+              />
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
+            <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
+  },
+);

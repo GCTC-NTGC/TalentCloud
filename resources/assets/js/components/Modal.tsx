@@ -15,6 +15,15 @@ const modalContext = createContext({
   onModalCancel: undefined,
 });
 
+interface ModalProps {
+  id: string,
+  parentElement?: any,
+  visible: boolean;
+  children: any;
+  onModalConfirm: any;
+  onModalCancel: any;
+}
+
 export default function Modal({
   id,
   parentElement,
@@ -22,7 +31,7 @@ export default function Modal({
   children,
   onModalConfirm,
   onModalCancel,
-}): React.ReactPortal {
+}: ModalProps): React.ReactPortal {
   // Set up div ref to measure modal height
   const modalRef = useRef<HTMLDivElement>(null);
 
