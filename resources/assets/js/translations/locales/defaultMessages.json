@@ -847,6 +847,11 @@
         "id": "jobDetails.modalHeader"
       },
       {
+        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
+        "description": "The text displayed in the body of the Job Details modal.",
+        "id": "jobDetails.modalBody"
+      },
+      {
         "defaultMessage": "Go Back",
         "description": "The text displayed on the cancel button of the Job Details modal.",
         "id": "jobDetails.modalCancelLabel"

@@ -111,6 +111,7 @@
   "jobDetails.languageNullSelection": "Select a language profile...",
   "jobDetails.levelLabel": "What is the level?",
   "jobDetails.levelNullSelection": "Select a level...",
+  "jobDetails.modalBody": "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
   "jobDetails.modalCancelLabel": "Go Back",
   "jobDetails.modalConfirmLabel": "Next Step",
   "jobDetails.modalHeader": "You're off to a great start!",

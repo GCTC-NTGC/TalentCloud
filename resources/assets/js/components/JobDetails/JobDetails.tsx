@@ -13,6 +13,7 @@ import locale_en from "react-intl/locale-data/en";
 import locale_fr from "react-intl/locale-data/fr";
 import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from "yup";
+import JobPreview from "../JobPreview";
 import Modal from "../Modal";
 
 addLocaleData([...locale_en, ...locale_fr]);
@@ -864,126 +865,37 @@ const JobDetails = ({
                     </h5>
                   </div>
                 </Modal.Header>
-                {/* TODO: Split out into Job Preview component. */}
                 <Modal.Body>
                   <div
                     data-c-border="bottom(thin, solid, black)"
                     data-c-padding="normal"
                     id="job-details-preview-description"
                   >
-                    Here&apos;s a preview of the Job Information you just
-                    entered. Feel free to go back and edit things or move to the
-                    next step if you&apos;re happy with it.
+                    <FormattedMessage
+                      id="jobDetails.modalBody"
+                      defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+                      description="The text displayed in the body of the Job Details modal."
+                    />
                   </div>
                   <div
                     data-c-background="grey(20)"
                     data-c-border="bottom(thin, solid, black)"
                     data-c-padding="normal"
                   >
-                    <div
-                      className="manager-job-card"
-                      data-c-background="white(100)"
-                      data-c-padding="normal"
-                      data-c-radius="rounded"
-                    >
-                      <h3
-                        data-c-font-size="h3"
-                        data-c-font-weight="bold"
-                        data-c-margin="bottom(half)"
-                      >
-                        {values.title}
-                      </h3>
-                      <p data-c-font-size="h4" data-c-margin="bottom(normal)">
-                        Department
-                      </p>
-                      <p data-c-margin="bottom(half)">
-                        <i
-                          data-c-colour="c1"
-                          className="fas fa-map-marker-alt"
-                          title="Location Icon."
-                        >
-                          &nbsp;&nbsp;
-                        </i>
-                        {values.city}, {values.province}
-                      </p>
-                      {values.remoteWork !== "none" && (
-                        <p>
-                          <i
-                            data-c-colour="c1"
-                            className="fas fa-home"
-                            title="Remote Work Icon."
-                          >
-                            &nbsp;&nbsp;
-                          </i>
-                          Remote Work Allowed
-                        </p>
-                      )}
-                      <h4
-                        data-c-font-size="h4"
-                        data-c-font-weight="bold"
-                        data-c-margin="top(double) bottom(normal)"
-                      >
-                        Basic Information
-                      </h4>
-                      <div data-c-grid="gutter">
-                        <div data-c-grid-item="tp(1of2)">
-                          <span
-                            data-c-colour="c1"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            Average Annual Salary
-                          </span>
-                          <span>Talent Cloud will add this.</span>
-                        </div>
-                        <div data-c-grid-item="tp(1of2)">
-                          <span
-                            data-c-colour="c1"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            Language Profile
-                          </span>
-                          <span>{values.language}</span>
-                        </div>
-                        <div data-c-grid-item="tp(1of2)">
-                          <span
-                            data-c-colour="c1"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            Duration
-                          </span>
-                          <span>{values.termLength} Months</span>
-                        </div>
-                        <div data-c-grid-item="tp(1of2)">
-                          <span
-                            data-c-colour="c1"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            Security Clearance
-                          </span>
-                          <span>{values.securityLevel}</span>
-                        </div>
-                        <div data-c-grid-item="tp(1of2)">
-                          <span
-                            data-c-colour="c1"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            Target Start Date
-                          </span>
-                          <span>This comes later.</span>
-                        </div>
-                        <div data-c-grid-item="tp(1of2)">
-                          <span
-                            data-c-colour="c1"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            Government Classification
-                          </span>
-                          <span>
-                            {values.classification}-{values.level}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    {/* TODO: Pull in the signed-in Manager's department */}
+                    {/* TODO: Get the actual value for things like language and security level */}
+                    <JobPreview
+                      title={values.title}
+                      department="Department"
+                      remoteWork={values.remoteWork !== "none"}
+                      language={values.language}
+                      city={values.city}
+                      province={values.province}
+                      termLength={Number(values.termLength)}
+                      securityLevel={values.securityLevel}
+                      classification={values.classification}
+                      level={values.level}
+                    />
                   </div>
                 </Modal.Body>
                 <Modal.Footer>

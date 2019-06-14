@@ -200,6 +200,11 @@
     "defaultMessage": "You're off to a great start!"
   },
   {
+    "id": "jobDetails.modalBody",
+    "description": "The text displayed in the body of the Job Details modal.",
+    "defaultMessage": "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+  },
+  {
     "id": "jobDetails.modalCancelLabel",
     "description": "The text displayed on the cancel button of the Job Details modal.",
     "defaultMessage": "Go Back"
