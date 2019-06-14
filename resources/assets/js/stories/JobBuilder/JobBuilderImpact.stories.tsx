@@ -15,16 +15,31 @@ const langOptions = {
   French: "fr",
 };
 
+const deptOptions = {
+  "Treasury Board": "treasuryBoard",
+  "Natural Resources": "naturalResources",
+  Transport: "transport",
+  "Environment and Climate Change": "environmentAndClimateChange",
+  "Employment and Social Development": "employmentAndSocialDevelopment",
+  "Global Affairs": "globalAffairs",
+  "Boarder Service Agency": "boarderServicesAgency",
+  "Innovation and Science": "innovationScience",
+  "Public Service Procurement": "publicServiceAndProcurement",
+  "Department National Defence": "departmentNationalDefence",
+  "Shared Services Canada": "sharedServicesCanada",
+  "Health Canada": "healthCanada",
+};
+
 // const selectLang = ;
 
 stories
   .add(
     "Job Builder Impact",
     (): React.ReactElement => (
-      <IntlContainer
-        locale={select("Language", langOptions, "en", "Lang-Group")}
-      >
-        <JobBuilderImpact />
+      <IntlContainer locale={select("Language", langOptions, "en")}>
+        <JobBuilderImpact
+          department={select("Department", deptOptions, "treasuryBoard")}
+        />
       </IntlContainer>
     ),
     {

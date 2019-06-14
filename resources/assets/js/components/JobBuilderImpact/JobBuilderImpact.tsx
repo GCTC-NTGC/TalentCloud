@@ -9,7 +9,9 @@ import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { items } from "../ProgressTracker/fixtures/progressItems";
 import ImpactForm from "./ImpactForm";
 
-interface JobBuilderImpactProps {}
+interface JobBuilderImpactProps {
+  department?: string;
+}
 
 const departmentImpactStatements = defineMessages({
   treasuryBoard: {
@@ -92,7 +94,7 @@ const departmentImpactStatements = defineMessages({
 
 const JobBuilderImpact: React.FunctionComponent<
   JobBuilderImpactProps & InjectedIntlProps
-> = ({ intl }): React.ReactElement => {
+> = ({ intl, department }): React.ReactElement => {
   return (
     <section>
       <ProgressTracker
@@ -146,11 +148,8 @@ const JobBuilderImpact: React.FunctionComponent<
         </p>
         {/* <!-- The p tag below is where the dynamic department text goes (I used text from an old job poster as placeholder, but the real list of data is in the issue. --> */}
         <p data-c-margin="bottom(double)">
-          The Navigable Waters Act Renewal team is responsible for the
-          implementation of the electronic system related to the Canadian
-          Navigable Waters Act (CNWA). This work will help the Government of
-          Canada to modernize environment and regulatory processes and introduce
-          new processes that properly serve the public.
+          {department !== undefined &&
+            intl.formatMessage(departmentImpactStatements[department])}
         </p>
         <ImpactForm />
       </div>
