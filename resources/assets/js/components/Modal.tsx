@@ -48,12 +48,22 @@ export default function Modal({
         focusableModalElements.length - 1
       ] as HTMLElement;
 
-      if (!e.shiftKey && document.activeElement !== firstElement) {
+      const focusableModalElementsArray = Array.from(focusableModalElements);
+
+      if (
+        document.activeElement &&
+        !focusableModalElementsArray.includes(document.activeElement)
+      ) {
         firstElement.focus();
         e.preventDefault();
       }
 
-      if (e.shiftKey && document.activeElement !== lastElement) {
+      if (!e.shiftKey && document.activeElement === lastElement) {
+        firstElement.focus();
+        e.preventDefault();
+      }
+
+      if (e.shiftKey && document.activeElement === firstElement) {
         lastElement.focus();
         e.preventDefault();
       }
@@ -88,15 +98,21 @@ export default function Modal({
 
   // Adds various key commands to the modal
   useEffect((): (() => void) => {
-    function keyListener(e: KeyboardEvent): void {
+    let keyListener;
+    if (visible) {
+      keyListener = (e: KeyboardEvent): void => {
       const listener = keyListenersMap.get(e.keyCode);
       return listener && listener(e);
+      };
+      document.addEventListener("keydown", keyListener);
     }
 
-    document.addEventListener("keydown", keyListener);
-
-    return (): void => document.removeEventListener("keydown", keyListener);
-  }, [children]);
+    return (): void => {
+      if (keyListener !== undefined) {
+        document.removeEventListener("keydown", keyListener);
+      }
+    };
+  }, [visible]);
 
   return createPortal(
     <div
