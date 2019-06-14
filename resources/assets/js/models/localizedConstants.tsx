@@ -11,6 +11,7 @@ import {
   ProvinceId,
   SecurityClearanceId,
   LanguageRequirementId,
+  DepartmentId,
 } from "./lookupConstants";
 import { hasKey, getOrThrowError } from "../helpers/queries";
 
@@ -566,6 +567,53 @@ export const languageRequirment = (
     languageRequirementId,
     "invalid LanguageRequirementId",
   );
+
+export const deparments = defineMessages({
+  [DepartmentId.treasuryBoard]: {
+    id: "department.treasuryBoard",
+    defaultMessage: "Treasury Board of Canada Secretariat",
+  },
+  [DepartmentId.naturalResources]: {
+    id: "department.naturalResources",
+    defaultMessage: "Natural Resources Canada",
+  },
+  [DepartmentId.transport]: {
+    id: "department.transport",
+    defaultMessage: "Transport Canada",
+  },
+  [DepartmentId.environmentAndClimateChange]: {
+    id: "department.environmentAndClimateChange",
+    defaultMessage: "Environment and Climate Change Canada",
+  },
+  [DepartmentId.employmentAndSocialDevelopment]: {
+    id: "department.employmentAndSocialDevelopment",
+    defaultMessage: "Employment and Social Development Canada",
+  },
+  [DepartmentId.globalAffairs]: {
+    id: "department.globalAffairs",
+    defaultMessage: "Global Affairs Canada",
+  },
+  [DepartmentId.borderServices]: {
+    id: "department.borderServices",
+    defaultMessage: "Canada Border Services Agency",
+  },
+  [DepartmentId.fisheriesAndOceans]: {
+    id: "department.fisheriesAndOceans",
+    defaultMessage: "Fisheries and Oceans Canada",
+  },
+  [DepartmentId.innovationScience]: {
+    id: "department.innovationScience",
+    defaultMessage: "Innovation, Science and Economic Development Canada",
+  },
+  [DepartmentId.publicServiceAndProcurement]: {
+    id: "department.publicServiceAndProcurement",
+    defaultMessage: "Public Services and Procurement Canada",
+  },
+  [DepartmentId.nationalDefence]: {
+    id: "department.nationalDefence",
+    defaultMessage: "Deparmtnet of National Defence",
+  },
+});
 
 export const narrativeReviewStandardQuestion = (): FormattedMessage.MessageDescriptor =>
   standardAssessmentText.narrativeReviewQuestion;
