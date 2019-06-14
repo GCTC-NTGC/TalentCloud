@@ -17,7 +17,7 @@ export interface InputProps {
   /** The input type */
   type?: string;
   /** The input type */
-  inputType?:string;
+  inputType?: string;
   /** Minimum length of characters the text value can be */
   minLength?: number;
   /** Maximum length of characters the text value can be */
@@ -32,6 +32,8 @@ export interface InputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /** Event listener which fires when a input loses focus */
   onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+
+  trigger?: boolean;
 
   /*
     Formik Props
@@ -69,6 +71,7 @@ const Input: React.FunctionComponent<InputProps> = ({
   minLength,
   maxLength,
   onBlur,
+  trigger,
   field,
   form,
 }): React.ReactElement => {
@@ -94,18 +97,18 @@ const Input: React.FunctionComponent<InputProps> = ({
 
   function renderRadio(): React.ReactElement {
     const clicked: boolean = htmlId === (field && field.value);
+    console.log(field);
     return (
       <label
         htmlFor={htmlId}
         data-tc-wenv-id={htmlId}
-        // data-tc-wenv-trigger={trigger}
+        data-tc-wenv-trigger={trigger}
         className={clicked ? "active" : ""}
       >
         <input
-          data-c-font-weight="800"
           id={htmlId}
           name={(field && field.name) || formName}
-          type={type}
+          type="radio"
           checked={checked}
           value={value}
           onChange={(field && field.onChange) || onChange}

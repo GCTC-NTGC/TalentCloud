@@ -141,7 +141,7 @@ const copyTest = React.createRef<HTMLParagraphElement>();
 console.log(copyTest);
 
 // shape of values used in Form
-interface FormValues {
+export interface FormValues {
   physicalEnv: string[];
   technology: string[];
   amenities: string[];
@@ -152,7 +152,7 @@ interface FormValues {
 }
 
 // The type of props FormikForm receives
-interface FormProps {
+export interface FormProps {
   initPhysicalEnv?: string[];
   initTechnology?: string[];
   initAmeinties?: string[];
@@ -192,33 +192,13 @@ export const validationSchema = Yup.object().shape({
     .required("At least one checkbox is required"),
 });
 
-export const handleSubmit = (values): void => {
+export const handleSubmit = (values, actions): void => {
   // This is where are async api requests go, example below
-  console.log(values);
+  // The following only triggers after validations pass
+  // setIsModalVisible(true);
+  console.table(values);
+  actions.setSubmitting(false); // Required by Formik to finish the submission cycle
 };
-
-const RadioInput = ({
-  field: { name, value, onChange, onBlur },
-  htmlId,
-  label,
-  ...props
-}): React.ReactElement => (
-  <label htmlFor={htmlId}>
-    {console.log(value)}
-    <input
-      data-c-font-weight="800"
-      id={htmlId}
-      name={name}
-      type="radio"
-      checked={htmlId === value}
-      value={htmlId}
-      onChange={onChange}
-      onBlur={onBlur}
-      {...props}
-    />
-    <span>{label}</span>
-  </label>
-);
 
 export const Step3InnerForm = ({
   values,
@@ -336,11 +316,11 @@ export const Step3InnerForm = ({
         >
           <div data-c-grid="gutter">
             <RadioGroup
-              htmlId="builder03Pace"
+              htmlId="culturePace"
               label="Fast-paced vs. Steady:"
               required
-              touched={touched.builder03Pace}
-              error={errors.builder03Pace}
+              touched={touched.culturePace}
+              error={errors.culturePace}
               grid="base(1of1) tl(1of3)"
             >
               <Field
@@ -349,6 +329,7 @@ export const Step3InnerForm = ({
                 component={Input}
                 htmlId="culturePace01"
                 label="Very Fast-paced"
+                value="culturePace01"
                 trigger
               />
               <Field
@@ -357,6 +338,7 @@ export const Step3InnerForm = ({
                 component={Input}
                 htmlId="culturePace02"
                 label="Fast-paced"
+                value="culturePace02"
                 trigger
               />
               <Field
@@ -365,6 +347,7 @@ export const Step3InnerForm = ({
                 component={Input}
                 htmlId="culturePace03"
                 label="Steady"
+                value="culturePace03"
                 trigger
               />
               <Field
@@ -373,6 +356,7 @@ export const Step3InnerForm = ({
                 component={Input}
                 htmlId="culturePace04"
                 label="Very Steady"
+                value="culturePace04"
                 trigger
               />
             </RadioGroup>
