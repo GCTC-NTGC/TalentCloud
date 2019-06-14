@@ -340,6 +340,7 @@ const JobDetails = ({
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const modalParent = document.querySelector("#job-details");
   const jobSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, intl.formatMessage(validationMessages.tooShort))
@@ -833,7 +834,7 @@ const JobDetails = ({
               </Form>
               <Modal
                 id="job-details-preview"
-                parentElement="#job-details"
+                parentElement={modalParent}
                 visible={isModalVisible}
                 onModalConfirm={(): void => {
                   handleModalConfirm();
@@ -868,7 +869,7 @@ const JobDetails = ({
                   <div
                     data-c-border="bottom(thin, solid, black)"
                     data-c-padding="normal"
-                    id="job-details-preview"
+                    id="job-details-preview-description"
                   >
                     Here&apos;s a preview of the Job Information you just
                     entered. Feel free to go back and edit things or move to the

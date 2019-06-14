@@ -7,22 +7,20 @@ import React, {
 } from "react";
 import { createPortal } from "react-dom";
 
-const modalContext = createContext({
-  id: "",
-  parentElement: "",
-  visible: false,
-  onModalConfirm: undefined,
-  onModalCancel: undefined,
-});
-
 interface ModalProps {
-  id: string,
-  parentElement?: any,
+  id: string;
+  parentElement: Element | null;
   visible: boolean;
-  children: any;
-  onModalConfirm: any;
-  onModalCancel: any;
+  children: React.ReactNode;
+  onModalConfirm: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onModalCancel: (
+    e: React.MouseEvent<HTMLButtonElement> | KeyboardEvent,
+  ) => void;
 }
+
+// Partial helper allows empty defaults in the createContext call:
+// https://fettblog.eu/typescript-react/context/#context-without-default-values
+const modalContext = createContext<Partial<ModalProps>>({});
 
 export default function Modal({
   id,
@@ -101,8 +99,8 @@ export default function Modal({
     let keyListener;
     if (visible) {
       keyListener = (e: KeyboardEvent): void => {
-      const listener = keyListenersMap.get(e.keyCode);
-      return listener && listener(e);
+        const listener = keyListenersMap.get(e.keyCode);
+        return listener && listener(e);
       };
       document.addEventListener("keydown", keyListener);
     }
@@ -133,9 +131,7 @@ export default function Modal({
         </modalContext.Provider>
       </div>
     </div>,
-    parentElement && parentElement.length > 0
-      ? document.querySelector(parentElement)
-      : document.body,
+    parentElement || document.body,
   );
 }
 

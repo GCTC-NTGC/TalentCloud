@@ -1,10 +1,9 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
-import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
+import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import Modal from "../components/Modal";
-import fakeJob from "../fakeData/fakeJob";
 import Input from "../components/Input";
 
 const stories = storiesOf("Modal", module)
@@ -15,6 +14,7 @@ stories.add(
   "Basic Modal",
   (): React.ReactElement => {
     const isModalVisible = boolean("Visible", true);
+    const modalParent = document.querySelector("#modal-root");
     return (
       <div id="modal-container">
         <div
@@ -23,9 +23,9 @@ stories.add(
         />
         <div>
           <Modal
-            id="job-details-preview"
+            id="basic-modal"
             visible={isModalVisible}
-            parentElement="#modal-root"
+            parentElement={modalParent}
             onModalConfirm={action("Confirmed")}
             onModalCancel={action("Cancelled")}
           >
@@ -38,9 +38,9 @@ stories.add(
                 <h5
                   data-c-colour="white"
                   data-c-font-size="h4"
-                  id="modal-header-title"
+                  id="basic-modal-title"
                 >
-                  This is the the Modal Header!
+                  {text("Modal Header", "This is the the Modal Header!")}
                 </h5>
               </div>
             </Modal.Header>
@@ -48,14 +48,18 @@ stories.add(
               <div
                 data-c-border="bottom(thin, solid, black)"
                 data-c-padding="normal"
-                id="modal-body-text"
+                id="basic-modal-description"
               >
-                This text is in the body of the modal.
+                {text("Modal Body", "This text is in the body of the modal.")}
               </div>
             </Modal.Body>
             <Modal.Footer>
-              <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
-              <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
+              <Modal.FooterCancelBtn>
+                {text("Modal Cancel", "Go Back")}
+              </Modal.FooterCancelBtn>
+              <Modal.FooterConfirmBtn>
+                {text("Modal Confirm", "Next Step")}
+              </Modal.FooterConfirmBtn>
             </Modal.Footer>
           </Modal>
         </div>
@@ -67,6 +71,7 @@ stories.add(
   "Modal with form inputs",
   (): React.ReactElement => {
     const isModalVisible = boolean("Visible", true);
+    const modalParent = document.querySelector("#modal-root");
     return (
       <div id="modal-container">
         <div
@@ -74,9 +79,9 @@ stories.add(
           data-c-dialog-overlay={isModalVisible ? "active" : ""}
         />
         <Modal
-          id="job-details-preview"
+          id="form-modal"
           visible={isModalVisible}
-          parentElement="#modal-root"
+          parentElement={modalParent}
           onModalConfirm={action("Confirmed")}
           onModalCancel={action("Cancelled")}
         >
@@ -89,9 +94,9 @@ stories.add(
               <h5
                 data-c-colour="white"
                 data-c-font-size="h4"
-                id="modal-header-title"
+                id="form-modal-title"
               >
-                This is the the Modal Header!
+                {text("Modal Header", "This is the the Modal Header!")}
               </h5>
             </div>
           </Modal.Header>
@@ -99,12 +104,14 @@ stories.add(
             <div
               data-c-border="bottom(thin, solid, black)"
               data-c-padding="normal"
-              id="modal-body-text"
+              id="form-modal-description"
             >
-              This text is in the body of the modal. Try tabbing through all inputs.
+              {text(
+                "Modal Body",
+                "This text is in the body of the modal. Try tabbing through all inputs.",
+              )}
             </div>
-            <form
-              data-c-padding="normal">
+            <form data-c-padding="normal">
               <Input
                 htmlId="modal-input-1"
                 formName="modal-input-1"

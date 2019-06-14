@@ -19,7 +19,7 @@ stories.add(
       required={boolean("Required", false)}
       placeholder={text("Placeholder", "Write what you will")}
       type={text("type", "text")}
-      minLength={number("Minimum Length",0)}
+      minLength={number("Minimum Length", 0)}
       maxLength={number("Maximum Length", 30)}
       value={text("Default Value", "Hello World")}
       errorText={text("Error Text", "")}
