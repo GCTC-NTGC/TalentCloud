@@ -88,14 +88,14 @@ export const ImpactFormInner: React.FunctionComponent<
         <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
           <FormattedMessage
             id="jobBuilder.impact.teamHeader"
-            defaultMessage="EN How our team makes an impact:"
+            defaultMessage="How our team makes an impact:"
             description="Header of Job Poster Builder Team Impact Section"
           />
         </p>
         <p data-c-margin="bottom(normal)">
           <FormattedMessage
             id="jobBuilder.impact.teamBody"
-            defaultMessage="EN Describe the value your team/service/initiative brings to Canadians.
+            defaultMessage="Describe the value your team/service/initiative brings to Canadians.
               It doesn’t matter if your work is direct to citizens or back office,
               innovative or maintenance, top priority or ongoing. Describe how it
               contributes to making Canada better the way you would to someone who
@@ -131,14 +131,14 @@ export const ImpactFormInner: React.FunctionComponent<
         <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
           <FormattedMessage
             id="jobBuilder.impact.hireHeader"
-            defaultMessage="EN How the new hire makes an impact:"
+            defaultMessage="How the new hire makes an impact:"
             description="Header of Job Poster Builder Hire Impact Section"
           />
         </p>
         <p data-c-margin="bottom(normal)">
           <FormattedMessage
             id="jobBuilder.impact.hireBody"
-            defaultMessage="EN Describe how the new hire will contribute in this role. Focus on the
+            defaultMessage="Describe how the new hire will contribute in this role. Focus on the
               value they’ll bring, not on specific tasks (you’ll provide these
               later on). For example “In this role, you’ll contribute to…” or, “As
               a member of this team, you’ll be responsible for helping us…”"
