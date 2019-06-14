@@ -19,15 +19,33 @@
     {# This new UI is strictly displaying information. #}
 
     {% if job.language_requirement.id == 1 %}
-        <span><img src="/images/icon_english_requirement.svg" title="{{ job_post.language.english_icon_title }}"> {{ job.language_requirement.value|title }}</span>
+        <span><img src="/images/icon_english_requirement.svg" alt=""> {{ job.language_requirement.value|title }}</span>
     {% elseif job.language_requirement.id == 2 %}
-        <span><img src="/images/icon_french_requirement.svg" title="{{ job_post.language.french_icon_title }}"> {{ job.language_requirement.value|title }}</span>
+        <span><img src="/images/icon_french_requirement.svg" alt=""> {{ job.language_requirement.value|title }}</span>
+
+    {# Added aria-hidden and empty alt attributes to ensure decorative images and punctuation are ignored by screen readers. #}
+
     {% elseif job.language_requirement.id == 3 %}
-        <span><img src="/images/icon_english_requirement.svg" title="{{ job_post.language.english_icon_title }}"> & <img src="/images/icon_french_requirement.svg" title="{{ job_post.language.french_icon_title }}"> {{ job.language_requirement.value|title }}</span>
+        <span>
+            <img src="/images/icon_english_requirement.svg" alt="">
+            <span aria-hidden="true"> &amp; </span>
+            <img src="/images/icon_french_requirement.svg" alt="">
+            {{ job.language_requirement.value|title }}
+        </span>
     {% elseif job.language_requirement.id == 4 %}
-        <span><img src="/images/icon_english_requirement.svg" title="{{ job_post.language.english_icon_title }}"> & <img src="/images/icon_french_requirement.svg" title="{{ job_post.language.french_icon_title }}"> {{ job.language_requirement.value|title }}</span>
+        <span>
+            <img src="/images/icon_english_requirement.svg" alt="">
+            <span aria-hidden="true"> &amp; </span>
+            <img src="/images/icon_french_requirement.svg" alt="">
+            {{ job.language_requirement.value|title }}
+        </span>
     {% elseif job.language_requirement.id == 5 %}
-        <span><img src="/images/icon_english_requirement.svg" title="{{ job_post.language.english_icon_title }}"> or <img src="/images/icon_french_requirement.svg" title="{{ job_post.language.french_icon_title }}"> {{ job.language_requirement.value }}</span>
+        <span>
+            <img src="/images/icon_english_requirement.svg" alt="">
+            <span aria-hidden="true"> / </span>
+            <img src="/images/icon_french_requirement.svg" alt="">
+            {{ job.language_requirement.value }}
+        </span>
     {% endif %}
 
     {% if job.language_requirement.id == 1 %}

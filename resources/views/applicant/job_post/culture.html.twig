@@ -26,18 +26,13 @@
             <div
                 class="box full">
                 <h4
-                    class="job-post__culture-subtitle">
-                    {{ job_post.culture.manager_title }}
+                    class="job-post__culture-subtitle manager">
+                    {{ job_post.culture.manager_title }}, {{ manager.user.name }}
                 </h4>
             </div>
 
             <div
                 class="box full job-post__culture-manager-copy">
-
-                <span
-                    class="job-post__culture-manager-name">
-                    {{ manager.user.name }}
-                </span>
 
                 <div
                     class="job-post__culture-manager-meta">
@@ -147,7 +142,7 @@
             </div>
 
             <!-- I've already made the markup changes here. Not sure if we're planning to React-ify this element while we're here, but feel free. -->
-            <div class="box full" data-clone>
+            {# <div class="box full" data-clone>
                 <p data-c-margin="bottom(normal)">Want to know more about the team's physical environment, technology, and the ameneties available? Want to learn about the work culture?</p>
                 <button
                     data-c-button="solid(c5)"
@@ -374,7 +369,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> #}
 
     </div>
 
