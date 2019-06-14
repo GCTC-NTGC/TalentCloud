@@ -11,7 +11,7 @@ import {
 } from "react-intl";
 import locale_en from "react-intl/locale-data/en";
 import locale_fr from "react-intl/locale-data/fr";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from "yup";
 import Modal from "../Modal";
 
@@ -327,7 +327,18 @@ const SelectInput = ({
   </div>
 );
 
-const JobDetails = ({ intl }: InjectedIntlProps): React.ReactElement => {
+interface JobDetailsProps {
+  handleSubmit: (values: FormikValues) => void;
+  handleModalCancel: () => void;
+  handleModalConfirm: () => void;
+}
+
+const JobDetails = ({
+  handleSubmit,
+  handleModalCancel,
+  handleModalConfirm,
+  intl,
+}: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const jobSchema = Yup.object().shape({
     title: Yup.string()
@@ -456,7 +467,7 @@ const JobDetails = ({ intl }: InjectedIntlProps): React.ReactElement => {
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
             setIsModalVisible(true);
-            console.table(values);
+            handleSubmit(values);
             actions.setSubmitting(false); // Required by Formik to finish the submission cycle
           }}
           render={({
@@ -824,12 +835,12 @@ const JobDetails = ({ intl }: InjectedIntlProps): React.ReactElement => {
                 id="job-details-preview"
                 parentElement="#job-details"
                 visible={isModalVisible}
-                onModalConfirm={() => {
-                  console.log("Confirmed");
+                onModalConfirm={(): void => {
+                  handleModalConfirm();
                   setIsModalVisible(false);
                 }}
-                onModalCancel={() => {
-                  console.log("Cancelled");
+                onModalCancel={(): void => {
+                  handleModalCancel();
                   setIsModalVisible(false);
                 }}
               >
@@ -1015,7 +1026,11 @@ if (document.getElementById("job-details")) {
   const rootEl = document.getElementById("job-details");
   ReactDOM.render(
     <IntlProvider locale={locale}>
-      <JobDetailsContainer />
+      <JobDetailsContainer
+        handleSubmit={(values): void => console.table(values)}
+        handleModalCancel={(): void => console.log("Modal Cancelled")}
+        handleModalConfirm={(): void => console.log("Modal Confirmed")}
+      />
     </IntlProvider>,
     rootEl,
   );
