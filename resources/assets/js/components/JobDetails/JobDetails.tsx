@@ -1,91 +1,195 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { Formik, Form, Field } from "formik";
+import {
+  injectIntl,
+  InjectedIntlProps,
+  IntlProvider,
+  FormattedMessage,
+  defineMessages,
+  addLocaleData,
+} from "react-intl";
+import locale_en from "react-intl/locale-data/en";
+import locale_fr from "react-intl/locale-data/fr";
+import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from "yup";
 import Modal from "../Modal";
 
-const JobSchema = Yup.object().shape({
-  title: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("This field is required."),
-  termLength: Yup.number()
-    .min(1, "Too Short!")
-    .max(36, "Too Long!")
-    .required("This field is required."),
-  classification: Yup.mixed()
-    .oneOf(
-      ["AS", "BI", "CO", "CR", "CS", "EC", "EX", "FO", "IS", "PC", "PE", "PM"],
-      "Please select from the available options",
-    )
-    .required("This field is required."),
-  level: Yup.number()
-    .min(1, "Levels begin at one")
-    .max(9, "There are only nine levels")
-    .required("This field is required."),
-  securityLevel: Yup.number()
-    .min(1, "")
-    .max(3, "")
-    .required("This field is required."),
-  language: Yup.number()
-    .min(1, "")
-    .max(5, "")
-    .required("This field is required."),
-  city: Yup.string()
-    .min(3, "Too short!")
-    .max(50, "Too long!")
-    .required("This field is required."),
-  province: Yup.mixed()
-    .oneOf(
-      [
-        "AB",
-        "BC",
-        "MB",
-        "NB",
-        "NL",
-        "NS",
-        "NT",
-        "NU",
-        "ON",
-        "PE",
-        "QC",
-        "SK",
-        "YT",
-      ],
-      "Please select from the available options",
-    )
-    .required("This field is required."),
-  remoteWork: Yup.mixed()
-    .oneOf(
-      ["remoteWorkWorld", "remoteWorkCanada", "remoteWorkNone"],
-      "Please select from the available options",
-    )
-    .required("This field is required."),
-  telework: Yup.mixed()
-    .oneOf(
-      [
-        "teleworkAlways",
-        "teleworkFrequently",
-        "teleworkOccasionally",
-        "teleworkSometimes",
-        "teleworkNever",
-      ],
-      "Please select from the available options",
-    )
-    .required("This field is required."),
-  flexHours: Yup.mixed()
-    .oneOf(
-      [
-        "flexHoursAlways",
-        "flexHoursFrequently",
-        "flexHoursOccasionally",
-        "flexHoursSometimes",
-        "flexHoursNever",
-      ],
-      "Please select from the available options",
-    )
-    .required("This field is required."),
+addLocaleData([...locale_en, ...locale_fr]);
+
+const validationMessages = defineMessages({
+  required: {
+    id: "formValidation.required",
+    defaultMessage: "This field is required.",
+    description: "Error message displayed when a required field is empty.",
+  },
+  tooShort: {
+    id: "formValidation.tooShort",
+    defaultMessage: "Too short!",
+    description:
+      "Error message displayed when a field value is below the minimum length.",
+  },
+  tooLong: {
+    id: "formValidation.tooLong",
+    defaultMessage: "Too long!",
+    description:
+      "Error message displayed when a field value is above the maximum length.",
+  },
+  invalidSelection: {
+    id: "formValidation.invalidSelection",
+    defaultMessage: "Please select from the available options.",
+    description:
+      "Error message displayed when a field value is outside of the available selection options.",
+  },
+});
+
+const formMessages = defineMessages({
+  titleLabel: {
+    id: "jobDetails.titleLabel",
+    defaultMessage: "What is the job title?",
+    description: "The form label displayed on the title input.",
+  },
+  titlePlaceholder: {
+    id: "jobDetails.titlePlaceholder",
+    defaultMessage: "e.g. Product Designer",
+    description: "The form placeholder displayed on the title input.",
+  },
+  termLengthLabel: {
+    id: "jobDetails.termLengthLabel",
+    defaultMessage: "How long is the term (in months)?",
+    description: "The form label displayed on the term length input.",
+  },
+  termLengthPlaceholder: {
+    id: "jobDetails.termLengthPlaceholder",
+    defaultMessage: "e.g. 3",
+    description: "The form placeholder displayed on the term length input.",
+  },
+  classificationLabel: {
+    id: "jobDetails.classificationLabel",
+    defaultMessage: "What is the classification?",
+    description: "The form label displayed on the classification input.",
+  },
+  classificationNullSelection: {
+    id: "jobDetails.classificationNullSelection",
+    defaultMessage: "Select a classification...",
+    description:
+      "The default selection option displayed on the classification input.",
+  },
+  levelLabel: {
+    id: "jobDetails.levelLabel",
+    defaultMessage: "What is the level?",
+    description: "The form label displayed on the level input.",
+  },
+  levelNullSelection: {
+    id: "jobDetails.levelNullSelection",
+    defaultMessage: "Select a level...",
+    description: "The default selection option displayed on the level input.",
+  },
+  securityLevelLabel: {
+    id: "jobDetails.securityLevelLabel",
+    defaultMessage: "What is the security level?",
+    description: "The form label displayed on the security level input.",
+  },
+  securityLevelNullSelection: {
+    id: "jobDetails.securityLevelNullSelection",
+    defaultMessage: "Select a security level...",
+    description:
+      "The default selection option displayed on the security level input.",
+  },
+  languageLabel: {
+    id: "jobDetails.languageLabel",
+    defaultMessage: "What is the language profile?",
+    description: "The form label displayed on the language input.",
+  },
+  languageNullSelection: {
+    id: "jobDetails.languageNullSelection",
+    defaultMessage: "Select a language profile...",
+    description:
+      "The default selection option displayed on the language input.",
+  },
+  cityLabel: {
+    id: "jobDetails.cityLabel",
+    defaultMessage: "What city is the team located in?",
+    description: "The form label displayed on the city input.",
+  },
+  cityPlaceholder: {
+    id: "jobDetails.cityPlaceholder",
+    defaultMessage: "e.g. Ottawa",
+    description: "The form placeholder displayed on the city input.",
+  },
+  provinceLabel: {
+    id: "jobDetails.provinceLabel",
+    defaultMessage: "What province is the team located in?",
+    description: "The form label displayed on the province input.",
+  },
+  provinceNullSelection: {
+    id: "jobDetails.provinceNullSelection",
+    defaultMessage: "Select a province...",
+    description:
+      "The default selection option displayed on the province input.",
+  },
+  remoteWorkGroupLabel: {
+    id: "jobDetails.remoteWorkGroupLabel",
+    defaultMessage: "Select a remote work option:",
+    description: "The form label displayed on the remote work radio group.",
+  },
+  remoteWorkWorldLabel: {
+    id: "jobDetails.remoteWorkWorldLabel",
+    defaultMessage:
+      "Yes, I’m willing to supervise employees anywhere in the world.",
+    description:
+      "The form label displayed on the 'world' remote work radio option.",
+  },
+  remoteWorkCanadaLabel: {
+    id: "jobDetails.remoteWorkCanadaLabel",
+    defaultMessage:
+      "Yes, I’m willing to supervise employees in any province or territory in Canada.",
+    description:
+      "The form label displayed on the 'canada' remote work radio option.",
+  },
+  remoteWorkNoneLabel: {
+    id: "jobDetails.remoteWorkNoneLabel",
+    defaultMessage:
+      "No, I require the employee in this position to be in the same geographic location as the office.",
+    description:
+      "The form label displayed on the 'none' remote work radio option.",
+  },
+  teleworkGroupLabel: {
+    id: "jobDetails.teleworkGroupLabel",
+    defaultMessage: "Select a telework option:",
+    description: "The form label displayed on the telework radio group.",
+  },
+  flexHoursGroupLabel: {
+    id: "jobDetails.flexHoursGroupLabel",
+    defaultMessage: "Select a flexible hours option:",
+    description: "The form label displayed on the flex hours radio group.",
+  },
+  frequencyAlwaysLabel: {
+    id: "jobDetails.frequencyAlwaysLabel",
+    defaultMessage: "Almost Always",
+    description: "The form label displayed on 'always' frequency options.",
+  },
+  frequencyFrequentlyLabel: {
+    id: "jobDetails.frequencyFrequentlyLabel",
+    defaultMessage: "Frequently",
+    description: "The form label displayed on 'frequently' frequency options.",
+  },
+  frequencySometimesLabel: {
+    id: "jobDetails.frequencySometimesLabel",
+    defaultMessage: "Sometimes",
+    description: "The form label displayed on 'sometimes' frequency options.",
+  },
+  frequencyOccasionallyLabel: {
+    id: "jobDetails.frequencyOccasionallyLabel",
+    defaultMessage: "Occasionally",
+    description:
+      "The form label displayed on 'occasionally' frequency options.",
+  },
+  frequencyNeverLabel: {
+    id: "jobDetails.frequencyNeverLabel",
+    defaultMessage: "Almost Never",
+    description: "The form label displayed on 'never' frequency options.",
+  },
 });
 
 const TextInput = ({
@@ -223,8 +327,115 @@ const SelectInput = ({
   </div>
 );
 
-const JobDetails = (): React.ReactElement => {
+interface JobDetailsProps {
+  handleSubmit: (values: FormikValues) => void;
+  handleModalCancel: () => void;
+  handleModalConfirm: () => void;
+}
+
+const JobDetails = ({
+  handleSubmit,
+  handleModalCancel,
+  handleModalConfirm,
+  intl,
+}: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const modalParent = document.querySelector("#job-details");
+  const jobSchema = Yup.object().shape({
+    title: Yup.string()
+      .min(2, intl.formatMessage(validationMessages.tooShort))
+      .max(50, intl.formatMessage(validationMessages.tooLong))
+      .required(intl.formatMessage(validationMessages.required)),
+    termLength: Yup.number()
+      .min(1, intl.formatMessage(validationMessages.tooShort))
+      .max(36, intl.formatMessage(validationMessages.tooLong))
+      .required(intl.formatMessage(validationMessages.required)),
+    classification: Yup.mixed()
+      .oneOf(
+        [
+          "AS",
+          "BI",
+          "CO",
+          "CR",
+          "CS",
+          "EC",
+          "EX",
+          "FO",
+          "IS",
+          "PC",
+          "PE",
+          "PM",
+        ],
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
+      .required(intl.formatMessage(validationMessages.required)),
+    level: Yup.number()
+      .min(1, intl.formatMessage(validationMessages.invalidSelection))
+      .max(9, intl.formatMessage(validationMessages.invalidSelection))
+      .required(intl.formatMessage(validationMessages.required)),
+    securityLevel: Yup.number()
+      .min(1, intl.formatMessage(validationMessages.invalidSelection))
+      .max(3, intl.formatMessage(validationMessages.invalidSelection))
+      .required(intl.formatMessage(validationMessages.required)),
+    language: Yup.number()
+      .min(1, intl.formatMessage(validationMessages.invalidSelection))
+      .max(5, intl.formatMessage(validationMessages.invalidSelection))
+      .required(intl.formatMessage(validationMessages.required)),
+    city: Yup.string()
+      .min(3, intl.formatMessage(validationMessages.tooShort))
+      .max(50, intl.formatMessage(validationMessages.tooLong))
+      .required(intl.formatMessage(validationMessages.required)),
+    province: Yup.mixed()
+      .oneOf(
+        [
+          "AB",
+          "BC",
+          "MB",
+          "NB",
+          "NL",
+          "NS",
+          "NT",
+          "NU",
+          "ON",
+          "PE",
+          "QC",
+          "SK",
+          "YT",
+        ],
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
+      .required(intl.formatMessage(validationMessages.required)),
+    remoteWork: Yup.mixed()
+      .oneOf(
+        ["remoteWorkWorld", "remoteWorkCanada", "remoteWorkNone"],
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
+      .required(intl.formatMessage(validationMessages.required)),
+    telework: Yup.mixed()
+      .oneOf(
+        [
+          "teleworkAlways",
+          "teleworkFrequently",
+          "teleworkOccasionally",
+          "teleworkSometimes",
+          "teleworkNever",
+        ],
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
+      .required(intl.formatMessage(validationMessages.required)),
+    flexHours: Yup.mixed()
+      .oneOf(
+        [
+          "flexHoursAlways",
+          "flexHoursFrequently",
+          "flexHoursOccasionally",
+          "flexHoursSometimes",
+          "flexHoursNever",
+        ],
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
+      .required(intl.formatMessage(validationMessages.required)),
+  });
   return (
     <>
       <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
@@ -233,7 +444,11 @@ const JobDetails = (): React.ReactElement => {
           data-c-font-weight="bold"
           data-c-margin="bottom(double)"
         >
-          Job Information
+          <FormattedMessage
+            id="jobDetails.heading"
+            defaultMessage="Job Information"
+            description="Job Details page heading"
+          />
         </h3>
         <Formik
           initialValues={{
@@ -249,11 +464,11 @@ const JobDetails = (): React.ReactElement => {
             telework: "teleworkFrequently",
             flexHours: "flexHoursFrequently",
           }}
-          validationSchema={JobSchema}
+          validationSchema={jobSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
             setIsModalVisible(true);
-            console.table(values);
+            handleSubmit(values);
             actions.setSubmitting(false); // Required by Formik to finish the submission cycle
           }}
           render={({
@@ -271,27 +486,33 @@ const JobDetails = (): React.ReactElement => {
                   required
                   grid="tl(1of2)"
                   id="builder02JobTitle"
-                  label="What is the job title?"
-                  placeholder="e.g. Product Designer"
+                  label={intl.formatMessage(formMessages.titleLabel)}
+                  placeholder={intl.formatMessage(
+                    formMessages.titlePlaceholder,
+                  )}
                 />
                 <Field
                   type="number"
                   name="termLength"
                   component={TextInput}
-                  placeholder="e.g. 3"
+                  placeholder={intl.formatMessage(
+                    formMessages.termLengthPlaceholder,
+                  )}
                   required
                   grid="tl(1of2)"
                   id="builder02TermLength"
-                  label="How long is the term (in months)?"
+                  label={intl.formatMessage(formMessages.termLengthLabel)}
                 />
                 <Field
                   name="classification"
                   id="builder02Classification"
-                  label="What is the classification?"
+                  label={intl.formatMessage(formMessages.classificationLabel)}
                   grid="tl(1of2)"
                   component={SelectInput}
                   required
-                  nullSelection="Select a classification..."
+                  nullSelection={intl.formatMessage(
+                    formMessages.classificationNullSelection,
+                  )}
                   options={[
                     { value: "AS", label: "AS - Administrative Services" },
                     { value: "BI", label: "BI - Biological Sciences" },
@@ -315,9 +536,11 @@ const JobDetails = (): React.ReactElement => {
                   id="builder02Level"
                   component={SelectInput}
                   required
-                  label="What is the level?"
+                  label={intl.formatMessage(formMessages.levelLabel)}
                   grid="tl(1of2)"
-                  nullSelection="Select a level..."
+                  nullSelection={intl.formatMessage(
+                    formMessages.levelNullSelection,
+                  )}
                   options={[
                     { value: "1", label: "1" },
                     { value: "2", label: "2" },
@@ -336,8 +559,10 @@ const JobDetails = (): React.ReactElement => {
                   component={SelectInput}
                   required
                   grid="tl(1of2)"
-                  label="What is the security level?"
-                  nullSelection="Select a security level..."
+                  label={intl.formatMessage(formMessages.securityLevelLabel)}
+                  nullSelection={intl.formatMessage(
+                    formMessages.securityLevelNullSelection,
+                  )}
                   options={[
                     { value: "1", label: "Reliability" },
                     { value: "2", label: "Secret" },
@@ -350,8 +575,10 @@ const JobDetails = (): React.ReactElement => {
                   component={SelectInput}
                   required
                   grid="tl(1of2)"
-                  label="What is the language profile?"
-                  nullSelection="Select a language profile..."
+                  label={intl.formatMessage(formMessages.languageLabel)}
+                  nullSelection={intl.formatMessage(
+                    formMessages.languageNullSelection,
+                  )}
                   options={[
                     { value: "1", label: "English - Essential" },
                     { value: "2", label: "French - Essential" },
@@ -367,8 +594,8 @@ const JobDetails = (): React.ReactElement => {
                   required
                   grid="tl(1of2)"
                   id="builder02City"
-                  label="What city is the team located in?"
-                  placeholder="e.g. Ottawa"
+                  label={intl.formatMessage(formMessages.cityLabel)}
+                  placeholder={intl.formatMessage(formMessages.cityPlaceholder)}
                 />
                 <Field
                   name="province"
@@ -376,8 +603,10 @@ const JobDetails = (): React.ReactElement => {
                   component={SelectInput}
                   required
                   grid="tl(1of2)"
-                  label="What province is the team located in?"
-                  nullSelection="Select a province..."
+                  label={intl.formatMessage(formMessages.provinceLabel)}
+                  nullSelection={intl.formatMessage(
+                    formMessages.provinceNullSelection,
+                  )}
                   options={[
                     { value: "AB", label: "Alberta" },
                     { value: "BC", label: "British Columbia" },
@@ -396,7 +625,7 @@ const JobDetails = (): React.ReactElement => {
                 />
                 <RadioGroup
                   id="remoteWork"
-                  label="Select a remote work option:"
+                  label={intl.formatMessage(formMessages.remoteWorkGroupLabel)}
                   required
                   grid="base(1of1)"
                   error={errors.remoteWork}
@@ -407,14 +636,18 @@ const JobDetails = (): React.ReactElement => {
                         data-c-margin="bottom(normal)"
                         data-c-font-weight="bold"
                       >
-                        Is remote work allowed?
+                        <FormattedMessage
+                          id="jobDetails.remoteWorkGroupHeader"
+                          defaultMessage="Is remote work allowed?"
+                          description="Header message displayed on the remote work group input."
+                        />
                       </p>
                       <p data-c-margin="bottom(normal)">
-                        Want the best talent in Canada? You increase your
-                        chances when you allow those in other parts of Canada to
-                        apply. Regional diversity also adds perspective to your
-                        team culture. Make sure to discuss this in advance with
-                        your HR Advisor.
+                        <FormattedMessage
+                          id="jobDetails.remoteWorkGroupBody"
+                          defaultMessage="Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor."
+                          description="Body message displayed on the remote work group input."
+                        />
                       </p>
                     </>
                   }
@@ -424,26 +657,28 @@ const JobDetails = (): React.ReactElement => {
                     name="remoteWork"
                     component={RadioInput}
                     id="remoteWorkWorld"
-                    label="Yes, I’m willing to supervise employees anywhere in the world."
+                    label={intl.formatMessage(
+                      formMessages.remoteWorkWorldLabel,
+                    )}
                   />
                   <Field
                     name="remoteWork"
                     component={RadioInput}
                     id="remoteWorkCanada"
-                    label="Yes, I’m willing to supervise employees in any province or
-              territory in Canada."
+                    label={intl.formatMessage(
+                      formMessages.remoteWorkCanadaLabel,
+                    )}
                   />
                   <Field
                     name="remoteWork"
                     component={RadioInput}
                     id="remoteWorkNone"
-                    label="No, I require the employee in this position to be in the same
-              geographic location as the office."
+                    label={intl.formatMessage(formMessages.remoteWorkNoneLabel)}
                   />
                 </RadioGroup>
                 <RadioGroup
                   id="telework"
-                  label="Select a telework option:"
+                  label={intl.formatMessage(formMessages.teleworkGroupLabel)}
                   required
                   grid="base(1of1)"
                   info={
@@ -452,11 +687,18 @@ const JobDetails = (): React.ReactElement => {
                         data-c-margin="bottom(normal)"
                         data-c-font-weight="bold"
                       >
-                        How often is telework allowed?
+                        <FormattedMessage
+                          id="jobDetails.teleworkGroupHeader"
+                          defaultMessage="How often is telework allowed?"
+                          description="Header message displayed on the telework group input."
+                        />
                       </p>
                       <p data-c-margin="bottom(normal)">
-                        Demonstrate that you trust your employees and you have a
-                        positive workplace culture. Allow telework as an option.
+                        <FormattedMessage
+                          id="jobDetails.teleworkGroupBody"
+                          defaultMessage="Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option."
+                          description="Body message displayed on the telework group input."
+                        />
                       </p>
                     </>
                   }
@@ -468,31 +710,39 @@ const JobDetails = (): React.ReactElement => {
                     id="teleworkAlways"
                     name="telework"
                     component={RadioInput}
-                    label="Almost Always"
+                    label={intl.formatMessage(
+                      formMessages.frequencyAlwaysLabel,
+                    )}
                   />
                   <Field
                     id="teleworkFrequently"
                     name="telework"
                     component={RadioInput}
-                    label="Frequently"
+                    label={intl.formatMessage(
+                      formMessages.frequencyFrequentlyLabel,
+                    )}
                   />
                   <Field
                     id="teleworkSometimes"
                     name="telework"
                     component={RadioInput}
-                    label="Sometimes"
+                    label={intl.formatMessage(
+                      formMessages.frequencySometimesLabel,
+                    )}
                   />
                   <Field
                     id="teleworkOccasionally"
                     name="telework"
                     component={RadioInput}
-                    label="Occasionally"
+                    label={intl.formatMessage(
+                      formMessages.frequencyOccasionallyLabel,
+                    )}
                   />
                   <Field
                     id="teleworkNever"
                     name="telework"
                     component={RadioInput}
-                    label="Almost Never"
+                    label={intl.formatMessage(formMessages.frequencyNeverLabel)}
                   />
                 </RadioGroup>
                 <RadioGroup
@@ -505,16 +755,23 @@ const JobDetails = (): React.ReactElement => {
                         data-c-margin="bottom(normal)"
                         data-c-font-weight="bold"
                       >
-                        How often are flexible hours allowed?
+                        <FormattedMessage
+                          id="jobDetails.flexHoursGroupHeader"
+                          defaultMessage="How often are flexible hours allowed?"
+                          description="Header message displayed on the flex hours group input."
+                        />
                       </p>
                       <p data-c-margin="bottom(normal)">
-                        Want to support a more gender inclusive workplace?
-                        Studies show allowing flex hours is a great way to
-                        improve opportunities for women and parents.
+                        <FormattedMessage
+                          id="jobDetails.flexHoursGroupBody"
+                          defaultMessage={`Want to support a more gender inclusive workplace?
+                          Studies show allowing flex hours is a great way to improve opportunities for women and parents.`}
+                          description="Body message displayed on the flex hours group input."
+                        />
                       </p>
                     </>
                   }
-                  label="Select a flexible hours option:"
+                  label={intl.formatMessage(formMessages.flexHoursGroupLabel)}
                   error={errors.flexHours}
                   touched={touched.flexHours}
                   value={values.flexHours}
@@ -523,31 +780,39 @@ const JobDetails = (): React.ReactElement => {
                     id="flexHoursAlways"
                     name="flexHours"
                     component={RadioInput}
-                    label="Almost Always"
+                    label={intl.formatMessage(
+                      formMessages.frequencyAlwaysLabel,
+                    )}
                   />
                   <Field
                     id="flexHoursFrequently"
                     name="flexHours"
                     component={RadioInput}
-                    label="Frequently"
+                    label={intl.formatMessage(
+                      formMessages.frequencyFrequentlyLabel,
+                    )}
                   />
                   <Field
                     id="flexHoursSometimes"
                     name="flexHours"
                     component={RadioInput}
-                    label="Sometimes"
+                    label={intl.formatMessage(
+                      formMessages.frequencySometimesLabel,
+                    )}
                   />
                   <Field
                     id="flexHoursOccasionally"
                     name="flexHours"
                     component={RadioInput}
-                    label="Occasionally"
+                    label={intl.formatMessage(
+                      formMessages.frequencyOccasionallyLabel,
+                    )}
                   />
                   <Field
                     id="flexHoursNever"
                     name="flexHours"
                     component={RadioInput}
-                    label="Almost Never"
+                    label={intl.formatMessage(formMessages.frequencyNeverLabel)}
                   />
                 </RadioGroup>
                 <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
@@ -559,20 +824,24 @@ const JobDetails = (): React.ReactElement => {
                     type="submit"
                     disabled={isSubmitting}
                   >
-                    Next
+                    <FormattedMessage
+                      id="jobDetails.submitButtonLabel"
+                      defaultMessage="Next"
+                      description="The text displayed on the submit button for the Job Details form."
+                    />
                   </button>
                 </div>
               </Form>
               <Modal
                 id="job-details-preview"
-                parentElement="#job-details"
+                parentElement={modalParent}
                 visible={isModalVisible}
-                onModalConfirm={() => {
-                  console.log("Confirmed");
+                onModalConfirm={(): void => {
+                  handleModalConfirm();
                   setIsModalVisible(false);
                 }}
-                onModalCancel={() => {
-                  console.log("Cancelled");
+                onModalCancel={(): void => {
+                  handleModalCancel();
                   setIsModalVisible(false);
                 }}
               >
@@ -587,15 +856,20 @@ const JobDetails = (): React.ReactElement => {
                       data-c-font-size="h4"
                       id="job-details-preview-title"
                     >
-                      You&apos;re off to a great start!
+                      <FormattedMessage
+                        id="jobDetails.modalHeader"
+                        defaultMessage="You're off to a great start!"
+                        description="The text displayed in the header of the Job Details modal."
+                      />
                     </h5>
                   </div>
                 </Modal.Header>
+                {/* TODO: Split out into Job Preview component. */}
                 <Modal.Body>
                   <div
                     data-c-border="bottom(thin, solid, black)"
                     data-c-padding="normal"
-                    id="job-details-preview"
+                    id="job-details-preview-description"
                   >
                     Here&apos;s a preview of the Job Information you just
                     entered. Feel free to go back and edit things or move to the
@@ -713,8 +987,20 @@ const JobDetails = (): React.ReactElement => {
                   </div>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
-                  <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
+                  <Modal.FooterCancelBtn>
+                    <FormattedMessage
+                      id="jobDetails.modalCancelLabel"
+                      defaultMessage="Go Back"
+                      description="The text displayed on the cancel button of the Job Details modal."
+                    />
+                  </Modal.FooterCancelBtn>
+                  <Modal.FooterConfirmBtn>
+                    <FormattedMessage
+                      id="jobDetails.modalConfirmLabel"
+                      defaultMessage="Next Step"
+                      description="The text displayed on the confirm button of the Job Details modal."
+                    />
+                  </Modal.FooterConfirmBtn>
                 </Modal.Footer>
               </Modal>
             </>
@@ -726,9 +1012,27 @@ const JobDetails = (): React.ReactElement => {
   );
 };
 
-export default JobDetails;
+const JobDetailsContainer = injectIntl(JobDetails);
+
+export default JobDetailsContainer;
+
+const documentRoot = document.querySelector("html");
+let locale = "en";
+
+if (documentRoot && documentRoot.lang) {
+  locale = documentRoot.lang;
+}
 
 if (document.getElementById("job-details")) {
   const rootEl = document.getElementById("job-details");
-  ReactDOM.render(<JobDetails />, rootEl);
+  ReactDOM.render(
+    <IntlProvider locale={locale}>
+      <JobDetailsContainer
+        handleSubmit={(values): void => console.table(values)}
+        handleModalCancel={(): void => console.log("Modal Cancelled")}
+        handleModalConfirm={(): void => console.log("Modal Confirmed")}
+      />
+    </IntlProvider>,
+    rootEl,
+  );
 }

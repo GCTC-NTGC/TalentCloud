@@ -7,13 +7,20 @@ import React, {
 } from "react";
 import { createPortal } from "react-dom";
 
-const modalContext = createContext({
-  id: "",
-  parentElement: "",
-  visible: false,
-  onModalConfirm: undefined,
-  onModalCancel: undefined,
-});
+interface ModalProps {
+  id: string;
+  parentElement: Element | null;
+  visible: boolean;
+  children: React.ReactNode;
+  onModalConfirm: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onModalCancel: (
+    e: React.MouseEvent<HTMLButtonElement> | KeyboardEvent,
+  ) => void;
+}
+
+// Partial helper allows empty defaults in the createContext call:
+// https://fettblog.eu/typescript-react/context/#context-without-default-values
+const modalContext = createContext<Partial<ModalProps>>({});
 
 export default function Modal({
   id,
@@ -22,7 +29,7 @@ export default function Modal({
   children,
   onModalConfirm,
   onModalCancel,
-}): React.ReactPortal {
+}: ModalProps): React.ReactPortal {
   // Set up div ref to measure modal height
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -39,12 +46,22 @@ export default function Modal({
         focusableModalElements.length - 1
       ] as HTMLElement;
 
-      if (!e.shiftKey && document.activeElement !== firstElement) {
+      const focusableModalElementsArray = Array.from(focusableModalElements);
+
+      if (
+        document.activeElement &&
+        !focusableModalElementsArray.includes(document.activeElement)
+      ) {
         firstElement.focus();
         e.preventDefault();
       }
 
-      if (e.shiftKey && document.activeElement !== lastElement) {
+      if (!e.shiftKey && document.activeElement === lastElement) {
+        firstElement.focus();
+        e.preventDefault();
+      }
+
+      if (e.shiftKey && document.activeElement === firstElement) {
         lastElement.focus();
         e.preventDefault();
       }
@@ -79,15 +96,21 @@ export default function Modal({
 
   // Adds various key commands to the modal
   useEffect((): (() => void) => {
-    function keyListener(e: KeyboardEvent): void {
-      const listener = keyListenersMap.get(e.keyCode);
-      return listener && listener(e);
+    let keyListener;
+    if (visible) {
+      keyListener = (e: KeyboardEvent): void => {
+        const listener = keyListenersMap.get(e.keyCode);
+        return listener && listener(e);
+      };
+      document.addEventListener("keydown", keyListener);
     }
 
-    document.addEventListener("keydown", keyListener);
-
-    return (): void => document.removeEventListener("keydown", keyListener);
-  }, [children]);
+    return (): void => {
+      if (keyListener !== undefined) {
+        document.removeEventListener("keydown", keyListener);
+      }
+    };
+  }, [visible]);
 
   return createPortal(
     <div
@@ -108,9 +131,7 @@ export default function Modal({
         </modalContext.Provider>
       </div>
     </div>,
-    parentElement && parentElement.length > 0
-      ? document.querySelector(parentElement)
-      : document.body,
+    parentElement || document.body,
   );
 }
 
