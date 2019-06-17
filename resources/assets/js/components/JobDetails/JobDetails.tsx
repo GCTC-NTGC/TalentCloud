@@ -1,10 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import {
   injectIntl,
   InjectedIntlProps,
-  IntlProvider,
   FormattedMessage,
   defineMessages,
   addLocaleData,
@@ -15,8 +13,16 @@ import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from "yup";
 import JobPreview from "../JobPreview";
 import Modal from "../Modal";
+import { Job } from "../../models/types";
 
 addLocaleData([...locale_en, ...locale_fr]);
+
+const documentRoot = document.querySelector("html");
+let locale = "en";
+
+if (documentRoot && documentRoot.lang) {
+  locale = documentRoot.lang;
+}
 
 const validationMessages = defineMessages({
   required: {
@@ -329,19 +335,59 @@ const SelectInput = ({
 );
 
 interface JobDetailsProps {
+  // Optional Job to prepopulate form values from.
+  job?: Job;
+  // Parent element to place the modal contents within (uses React Portal).
+  modalParent: Element;
+  // Function to run after successful form validation.
   handleSubmit: (values: FormikValues) => void;
+  // Function to run when modal cancel is clicked.
   handleModalCancel: () => void;
+  // Function to run when modal confirm is clicked.
   handleModalConfirm: () => void;
 }
 
-const JobDetails = ({
+const JobDetails: React.FunctionComponent<
+  JobDetailsProps & InjectedIntlProps
+> = ({
+  job,
+  modalParent,
   handleSubmit,
   handleModalCancel,
   handleModalConfirm,
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const modalParent = document.querySelector("#job-details");
+  let initialValues;
+  if (job !== undefined) {
+    initialValues = {
+      title: job[locale].title,
+      termLength: job.term_qty,
+      classification: job.classification_code,
+      level: job.classification_level,
+      securityLevel: job.security_clearance_id,
+      language: job.language_requirement_id,
+      city: job[locale].city,
+      province: job.province_id,
+      remoteWork: "remoteWorkCanada",
+      telework: "teleworkFrequently",
+      flexHours: "flexHoursFrequently",
+    };
+  } else {
+    initialValues = {
+      title: "",
+      termLength: "",
+      classification: "",
+      level: "",
+      securityLevel: "",
+      language: "",
+      city: "",
+      province: "",
+      remoteWork: "remoteWorkCanada",
+      telework: "teleworkFrequently",
+      flexHours: "flexHoursFrequently",
+    };
+  }
   const jobSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, intl.formatMessage(validationMessages.tooShort))
@@ -452,19 +498,7 @@ const JobDetails = ({
           />
         </h3>
         <Formik
-          initialValues={{
-            title: "",
-            termLength: "",
-            classification: "",
-            level: "",
-            securityLevel: "",
-            language: "",
-            city: "",
-            province: "",
-            remoteWork: "remoteWorkCanada",
-            telework: "teleworkFrequently",
-            flexHours: "flexHoursFrequently",
-          }}
+          initialValues={initialValues}
           validationSchema={jobSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
@@ -924,27 +958,4 @@ const JobDetails = ({
   );
 };
 
-const JobDetailsContainer = injectIntl(JobDetails);
-
-export default JobDetailsContainer;
-
-const documentRoot = document.querySelector("html");
-let locale = "en";
-
-if (documentRoot && documentRoot.lang) {
-  locale = documentRoot.lang;
-}
-
-if (document.getElementById("job-details")) {
-  const rootEl = document.getElementById("job-details");
-  ReactDOM.render(
-    <IntlProvider locale={locale}>
-      <JobDetailsContainer
-        handleSubmit={(values): void => console.table(values)}
-        handleModalCancel={(): void => console.log("Modal Cancelled")}
-        handleModalConfirm={(): void => console.log("Modal Confirmed")}
-      />
-    </IntlProvider>,
-    rootEl,
-  );
-}
+export default injectIntl(JobDetails);
