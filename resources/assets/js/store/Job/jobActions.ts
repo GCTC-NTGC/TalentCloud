@@ -114,11 +114,22 @@ export const clearJobEdit = (jobId: number): ClearEditJobAction => ({
   payload: jobId,
 });
 
+export const CLEAR_JOB_SAVE_SUCCESSFUL = "JOB: CLEAR SAVE SUCCESSFUL FLAG";
+export type ClearJobSaveSuccessfulAction = Action<
+  typeof CLEAR_JOB_SAVE_SUCCESSFUL,
+  {}
+>;
+export const clearJobSaveSuccessful = (): ClearJobSaveSuccessfulAction => ({
+  type: CLEAR_JOB_SAVE_SUCCESSFUL,
+  payload: {},
+});
+
 export type JobAction =
   | FetchJobAction
   | CreateJobAction
   | UpdateJobAction
   | EditJobAction
-  | ClearEditJobAction;
+  | ClearEditJobAction
+  | ClearJobSaveSuccessfulAction;
 
 export default { fetchJob };

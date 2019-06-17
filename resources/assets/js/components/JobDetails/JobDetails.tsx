@@ -13,8 +13,23 @@ import locale_en from "react-intl/locale-data/en";
 import locale_fr from "react-intl/locale-data/fr";
 import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from "yup";
+import { connect } from "react-redux";
 import JobPreview from "../JobPreview";
 import Modal from "../Modal";
+import { RootState } from "../../store/store";
+import {
+  getJob,
+  getJobIsUpdating,
+  getCreatingJob,
+  getJobSaveIsSuccessful,
+} from "../../store/Job/jobSelector";
+import { Job } from "../../models/types";
+import { DispatchType } from "../../configureStore";
+import {
+  updateJob,
+  createJob,
+  clearJobSaveSuccessful,
+} from "../../store/Job/jobActions";
 
 addLocaleData([...locale_en, ...locale_fr]);
 
@@ -924,7 +939,51 @@ const JobDetails = ({
   );
 };
 
-const JobDetailsContainer = injectIntl(JobDetails);
+interface JobDetailsContainerProps {
+  jobId: number | null;
+}
+
+const mapStateToProps = (
+  state: RootState,
+  ownProps: JobDetailsContainerProps,
+): {
+  job: Job | null;
+  isSaving: boolean;
+  saveSuccessful: boolean;
+} => ({
+  job:
+    ownProps.jobId !== null
+      ? getJob(state, ownProps as { jobId: number })
+      : null,
+  isSaving: ownProps.jobId
+    ? getJobIsUpdating(state, ownProps.jobId)
+    : getCreatingJob(state),
+  saveSuccessful: ownProps.jobId ? getJobSaveIsSuccessful(state) : false,
+});
+
+const mapDispatchToProps = (
+  dispatch: DispatchType,
+  ownProps: JobDetailsContainerProps,
+): {
+  handleSubmit: (newJob: Job) => void;
+  clearSaveSuccessful: () => void;
+} => ({
+  handleSubmit: ownProps.jobId
+    ? (newJob: Job): void => {
+        dispatch(updateJob(newJob));
+      }
+    : (newJob: Job): void => {
+        dispatch(createJob(newJob));
+      },
+  clearSaveSuccessful: (): void => {
+    dispatch(clearJobSaveSuccessful());
+  },
+});
+
+const JobDetailsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(injectIntl(JobDetails));
 
 export default JobDetailsContainer;
 
@@ -940,6 +999,7 @@ if (document.getElementById("job-details")) {
   ReactDOM.render(
     <IntlProvider locale={locale}>
       <JobDetailsContainer
+        jobId={null}
         handleSubmit={(values): void => console.table(values)}
         handleModalCancel={(): void => console.log("Modal Cancelled")}
         handleModalConfirm={(): void => console.log("Modal Confirmed")}
