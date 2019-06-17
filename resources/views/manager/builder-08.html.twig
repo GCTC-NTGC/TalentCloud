@@ -1,0 +1,662 @@
+{% extends "layouts/base" %}
+
+{% block title %}
+
+    {{ itp.page_title }}
+
+{% endblock %}
+
+{% block body %}
+
+    {# Sitewide Notice ====================================================== #}
+    {% include "common/alert" %}
+
+    {# Government of Canada Banner ========================================== #}
+    {% include "common/goc" %}
+
+    <div data-clone>
+        <div data-c-background="white(100)">
+            <!-- Heading (see step 00 for info) -->
+            <div style="background-image: url('/images/bg_crowd.jpg');" data-c-overlay="black(80)" data-c-padding="bottom(triple)">
+                <div data-c-margin="bottom(triple)">
+                    {% include "common/menu" %}
+                </div>
+                <div data-c-container="layout" data-c-alignment="centre">
+                    <h2 data-c-colour="white" data-c-font-size="h2" data-c-font-weight="bold" data-c-margin="bottom(double)">
+                        Build a Job Poster
+                    </h2>
+                    <nav aria-label="breadcrumb" data-c-breadcrumbs data-c-colour="white" data-c-margin="bottom(normal)">
+                        <ol>
+                            <li>
+                                <a href="#link-to-page" title="This is the title of the page link.">
+                                    Manager Portal
+                                </a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                            <li>
+                                <a href="#link-to-page" title="This is the title of the page link.">
+                                    Job Poster Builder
+                                </a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                            <li>
+                                <a aria-current="page" href="#link-to-page" title="This is the title of the page link.">
+                                    Step 08 (Review)
+                                </a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- Progress Indicator (see step 00 for info) -->
+            <!-- Note, I've changed the alignment to remain centred. -->
+            <div class="manager-jpb-tracker" data-c-alignment="base(centre)" data-c-background="black(100)" data-c-colour="white">
+                <div data-c-container="layout" data-c-padding="top(quarter) bottom(quarter)">
+                    <div class="tracker manager-jpb-tracker-wrapper">
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 01</span><br>
+                                <span data-c-font-weight="bold">Intro</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 02</span><br>
+                                <span data-c-font-weight="bold">Job Info</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 03</span><br>
+                                <span data-c-font-weight="bold">Work Env.</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 04</span><br>
+                                <span data-c-font-weight="bold">Impact</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 05</span><br>
+                                <span data-c-font-weight="bold">Tasks</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 06</span><br>
+                                <span data-c-font-weight="bold">Skills</span>
+                            </div>
+                        </div>
+                        {# Note that a new step has been added to the tracker. #}
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 07</span><br>
+                                <span data-c-font-weight="bold">Education</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="active" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 08</span><br>
+                                <span data-c-font-weight="bold">Review</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step Body -->
+            <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
+                <h3 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(double)">
+                    Review Your Job Poster for: <span data-c-colour="c2">External Recruiter</span>
+                </h3>
+                <p>Just a heads up! We've rearranged some of your information to help you understand how an applicant will see it once published.</p>
+                <form>
+                    <!-- Review: Job Heading ------------------------------- -->
+                    <div data-c-margin="top(triple) bottom(normal)">
+                        <div data-c-grid="gutter middle">
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(left)">
+                                <h4 data-c-colour="c2" data-c-font-size="h4">Job Page Heading</h4>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(right)">
+                                <a href="/builder-01"><i data-c-colour="c2" class="fas fa-edit"></i>Edit This in Step 02: Job Info</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-c-border="all(thin, solid, grey)" data-c-padding="normal" data-c-radius="rounded">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(half)">External Recruiter</p>
+                        <p data-c-margin="bottom(normal)">Treasury Board of Canada Secretariat</p>
+                        <p data-c-margin="bottom(half)"><i data-c-colour="c2" class="fas fa-map-marker-alt" title="Location Icon.">&nbsp;&nbsp;</i>Ottawa, Ontario</p>
+                        <p><i data-c-colour="c2" class="fas fa-home" title="Remote Work Icon.">&nbsp;&nbsp;</i>Remote Work Allowed</p>
+                    </div>
+                    <!-- Review: Job Info ---------------------------------- -->
+                    <div data-c-margin="top(triple) bottom(normal)">
+                        <div data-c-grid="gutter middle">
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(left)">
+                                <h4 data-c-colour="c2" data-c-font-size="h4">Basic Information</h4>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(right)">
+                                <a href="/builder-01"><i data-c-colour="c2" class="fas fa-edit"></i>Edit This in Step 02: Job Info</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-c-border="all(thin, solid, grey)" data-c-padding="normal" data-c-radius="rounded">
+                        <div data-c-grid="gutter">
+                            <div data-c-grid-item="tp(1of2)">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">Average Annual Salary</p>
+                                <p>Talent Cloud will add this.</p>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">Language Profile</p>
+                                <p>Bilingual - Advanced</p>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">Duration</p>
+                                <p>18 Months</p>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">Security Clearance</p>
+                                <p>Secret</p>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">Target Start Date</p>
+                                <p>This comes later.</p>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">Government Classification</p>
+                                <!-- This is combo of two fields above, just as a heads up (classification, level). -->
+                                <p>AS-06</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Review: Impact ------------------------------------ -->
+                    <div data-c-margin="top(triple) bottom(normal)">
+                        <div data-c-grid="gutter middle">
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(left)">
+                                <h4 data-c-colour="c2" data-c-font-size="h4">Impact</h4>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(right)">
+                                <a href="/builder-04"><i data-c-colour="c2" class="fas fa-edit"></i>Edit This in Step 04: Impact</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-c-border="all(thin, solid, grey)" data-c-padding="normal" data-c-radius="rounded">
+                        <p data-c-margin="bottom(normal)">As the administrative arm of the Treasury Board, the Secretariat has a dual mandate: to support the Treasury Board as a committee of ministers and to fulfil the statutory responsibilities of a central government agency.</p>
+                        <p data-c-margin="bottom(normal)">The team provides government-wide Human Resources support to Chief Information Officers and other senior staff in Government of Canada departments and agencies to attract, develop, and retain digital talent. The team works on important people issues, from defining work and competencies in a digital era to promoting Women in Tech, to recruiting and retaining scarce talent in Cybersecurity and other disciplines.</p>
+                        <p>This specific role will lead a whole-of-government external (head hunter) competition to identify a diverse and representative workforce of CIOs and other IM/IT senior executive candidates in the private sector who are interested in government roles (outlined in the Digital Operations Strategic Plan: 2018-2022.</p>
+                    </div>
+                    <!-- Review: Your Work --------------------------------- -->
+                    <div data-c-margin="top(triple) bottom(normal)">
+                        <div data-c-grid="gutter middle">
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(left)">
+                                <h4 data-c-colour="c2" data-c-font-size="h4">Tasks</h4>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(right)">
+                                <a href="/builder-05"><i data-c-colour="c2" class="fas fa-edit"></i>Edit This in Step 05: Tasks</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-c-border="all(thin, solid, grey)" data-c-padding="normal" data-c-radius="rounded">
+                        <ul>
+                            <li>Consult broadly and recruit executive leadership in digital and technology for federal organizations (e.g., C-Suite level positions like Chief Information Officers, Chief Digital Officers, Chief Technology Officers, and their deputies).</li>
+                                <li>Connect partner organizations (departments, agencies) with top talent (i.e., high-performing executives) with an interest and the potential to assume technology leadership roles.</li>
+                                <li>Identify and attract exceptional executive candidates, including those who haven’t considered government as an option before.</li>
+                                <li>Build a diverse pipeline of candidates and strong partnerships with government departments. This means proactively going out and building a network and strong relationships with senior level external talent (CIOs and similar senior-level positions) across Canada, as well as with senior leaders in departments and agencies who have vacant positions.</li>
+                                <li>Take a human-centered approach to recruitment by understanding users’ needs (hiring executives and candidates) to deliver exceptional user experience.</li>
+                                <li>Work creatively using a broad array of traditional and social media approaches.</li>
+                        </ul>
+                    </div>
+                    <!-- Review: Criteria ---------------------------------- -->
+                    <div data-c-margin="top(triple) bottom(normal)">
+                        <div data-c-grid="gutter middle">
+                            <div data-c-grid-item="base(1of1)" data-c-alignment="base(centre) tp(left)">
+                                <h4 data-c-colour="c2" data-c-font-size="h4">Criteria</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-c-margin="tb(normal)">
+                        <div data-c-grid="gutter middle">
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(left)">
+                                <h5 data-c-font-weight="bold" data-c-font-size="h5">Education Requirements</h5>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(right)">
+                                <a href="/builder-07"><i data-c-colour="c2" class="fas fa-edit"></i>Edit This in Step 07: Education</a>
+                            </div>
+                            <div data-c-grid-item="base(1of1)">
+                                <div data-c-border="all(thin, solid, grey)" data-c-padding="normal" data-c-radius="rounded">
+                                    <p>A secondary school diploma; or<br><br>Equivalent Experience:<br>If you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum education requirement stated above.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-c-margin="tb(normal)">
+                        <div data-c-grid="gutter middle">
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(left)">
+                                <h5 data-c-font-weight="bold" data-c-font-size="h5">Skills You Need to Have</h5>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(right)">
+                                <a href="/builder-06"><i data-c-colour="c2" class="fas fa-edit"></i>Edit This in Step 06: Skills</a>
+                            </div>
+                            <div data-c-grid-item="base(1of1)">
+                                <div class="job-builder-skill-review" data-c-border="all(thin, solid, grey)" data-c-padding="lr(normal)" data-c-radius="rounded">
+                                    <div data-c-margin="tb(double)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(half)">Human Resources: Assessment Tools</p>
+                                        <p data-c-margin="bottom(half)">Required Level: Advanced</p>
+                                        <p>Defined as: Ability to design and administer assessment tools and resources for staffing or academic purposes (e.g. exams, interview guides, course designs, user guides)</p>
+                                    </div>
+                                    <div data-c-margin="tb(double)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(half)">Client Services</p>
+                                        <p data-c-margin="bottom(half)">Required Level: Advanced</p>
+                                        <p>Defined as: Ability to communicate clearly and respectfully with service users, promoting client satisfaction, resolving issues and ensuring that the service is used effectively</p>
+                                    </div>
+                                    <div data-c-margin="tb(double)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(half)">Initiative</p>
+                                        <p data-c-margin="bottom(half)">Required Level: Strongly in Evidence</p>
+                                        <p>Defined as: Willingness to take on responsibilities and going above and beyond to take on challenges.</p>
+                                    </div>
+                                    <div data-c-margin="tb(double)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(half)">Ability to Collaborate</p>
+                                        <p data-c-margin="bottom(half)">Required Level: Strongly in Evidence</p>
+                                        <p>Defined as: Ability to work with others to advance initiatives and build bridges within and across teams, generating mutual trust and respect.</p>
+                                    </div>
+                                    <div data-c-margin="tb(double)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(half)">Networking Abilities</p>
+                                        <p data-c-margin="bottom(half)">Required Level: Moderately in Evidence</p>
+                                        <p>Defined as: Familiarity with the Canadian digital and high-tech community leading to quality of being trusted and having “street credibility”. Preference given to those who already have an established network connected to IT executives and CIO communities in Canada.</p>
+                                    </div>
+                                    <div data-c-margin="tb(double)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(half)">Judgement</p>
+                                        <p data-c-margin="bottom(half)">Required Level: Strongly in Evidence</p>
+                                        <p>Defined as: Ability to make considered decisions and come to sensible conclusions that respect the perspectives of all parties involved.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-c-margin="top(normal)">
+                        <div data-c-grid="gutter middle">
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(left)">
+                                <h5 data-c-font-weight="bold" data-c-font-size="h5">Skills That Are Nice to Have</h5>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(right)">
+                                <a href="/builder-06"><i data-c-colour="c2" class="fas fa-edit"></i>Edit This in Step 06: Skills</a>
+                            </div>
+                            <div data-c-grid-item="base(1of1)">
+                                <div class="job-builder-skill-review" data-c-border="all(thin, solid, grey)" data-c-padding="lr(normal)" data-c-radius="rounded">
+                                    <div data-c-margin="tb(double)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(half)">Social Media Savviness</p>
+                                        <p>Defined as: Ability to use social media platforms effectively to reach a desired target audience.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Review: Language Requirements --------------------- -->
+                    <div data-c-margin="top(triple) bottom(normal)">
+                        <div data-c-grid="gutter middle">
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(left)">
+                                <h4 data-c-colour="c2" data-c-font-size="h4">Language Requirements</h4>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(right)">
+                                <a href="/builder-01"><i data-c-colour="c2" class="fas fa-edit"></i>Edit This in Step 02: Job Info</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-c-border="all(thin, solid, grey)" data-c-padding="normal" data-c-radius="rounded">
+                        <p class="job-builder-review-language" data-c-margin="bottom(normal)"><img src="/images/icon_english_requirement.svg">&amp;&nbsp;&nbsp;<img src="/images/icon_french_requirement.svg"> Bilingual - Advanced</p>
+                        <p data-c-margin="bottom(normal)">This position requires advanced knowledge of both French and English. This means that you can take on job duties in either French or English, and you have strong reading, writing and verbal communication skills in both official languages. As part of this selection process, your language abilities will be tested by the Public Service Commission of Canada.</p>
+                        <p data-c-margin="top(normal)">You can complete all other steps of this assessment process in the official language of your choice, including the initial application, interview, exam and any other evaluation components.</p>
+                    </div>
+                    <!-- Review: Environment & Culture ------------------------------ -->
+                    <div data-c-margin="top(triple) bottom(normal)">
+                        <div data-c-grid="gutter middle">
+                            <div data-c-grid-item="base(1of1)" data-c-alignment="base(centre) tp(left)">
+                                <h4 data-c-colour="c2" data-c-font-size="h4">Environment &amp; Culture</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div data-c-margin="tb(normal)">
+                            <div data-c-grid="gutter middle">
+                                <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(left)">
+                                    <h5 data-c-font-weight="bold" data-c-font-size="h5">Manager Information</h5>
+                                </div>
+                                <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(right)">
+                                    <a href="/profile" target="_blank"><i data-c-colour="c2" class="fas fa-edit"></i>Edit This in Your Profile</a>
+                                </div>
+                                <div data-c-grid-item="base(1of1)">
+                                    <div data-c-border="all(thin, solid, grey)" data-c-padding="normal" data-c-radius="rounded">
+                                        <p data-c-margin="bottom(normal)">Johnny Ratha</p>
+                                        <p data-c-margin="bottom(normal)">Director at Treasury Board of Canada Secretariat</p>
+                                        <p>Ethical leadership and servant manager style. Creating an environment of psychological safety. Integrity, respect, trust, resourcefulness, and continuous learning are key values. Having meaningful work and fun is important too!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-c-margin="tb(normal)">
+                            <div data-c-grid="gutter middle">
+                                <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(left)">
+                                    <h5 data-c-font-weight="bold" data-c-font-size="h5">Work Culture</h5>
+                                </div>
+                                <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(right)">
+                                    <a href="/builder-01"><i data-c-colour="c2" class="fas fa-edit"></i>Edit This in Step 03: Work Environment</a>
+                                </div>
+                                <div data-c-grid-item="base(1of1)">
+                                    <div data-c-border="all(thin, solid, grey)" data-c-padding="normal" data-c-radius="rounded">
+                                        <p>Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes! We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives. Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes. We spend a lot of our time engaging directly with the public, but there is also behind the scenes work to support others. Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-c-margin="tb(normal)">
+                            <div data-c-grid="gutter middle">
+                                <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(left)">
+                                    <h5 data-c-font-weight="bold" data-c-font-size="h5">Work Environment</h5>
+                                </div>
+                                <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(right)">
+                                    <a href="/builder-01"><i data-c-colour="c2" class="fas fa-edit"></i>Edit This in Step 03: Work Environment</a>
+                                </div>
+                                <div data-c-grid-item="base(1of1)">
+                                    <p data-c-margin="bottom(normal)">Please note that some Work Environment information is only presented to the applicant after they've clicked the "View the team's work environment and culture" button that appears on the job poster.</p>
+                                    <div data-c-border="all(thin, solid, grey)" data-c-padding="normal" data-c-radius="rounded">
+                                        <div data-c-grid="gutter">
+                                            <div data-c-grid-item="base(1of1)">
+                                                <p data-c-colour="c2" data-c-margin="top(quarter) bottom(half)">Team Size</p>
+                                                <p>8</p>
+                                            </div>
+                                            <div data-c-grid-item="base(1of1)">
+                                                <p data-c-colour="c2" data-c-margin="top(half) bottom(half)">Physical Environment</p>
+                                                <div data-c-margin="left(quarter)">
+                                                    <div data-c-grid="gutter">
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Open Concept</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Private</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Assigned Seating</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Lots of Windows</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Natural Light</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Suitable for Smudging</span>
+                                                        </div>
+                                                        {# <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>None of the Above</span>
+                                                        </div> #}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-c-grid-item="base(1of1)">
+                                                <p data-c-colour="c2" data-c-margin="top(half) bottom(half)">Technology</p>
+                                                <div data-c-margin="left(quarter)">
+                                                    <div data-c-grid="gutter">
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Video Conferencing (e.g. Skype, Zoom)</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Collaboration (e.g. Slack, Hangouts)</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>File Sharing (e.g. Google Drive, Dropbox)</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Task Management (e.g. Trello, Asana)</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Version Control (e.g. Github, Gitlab)</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Access to external, unfiltered Wi-Fi.</span>
+                                                        </div>
+                                                        {# <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>None of the Above</span>
+                                                        </div> #}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-c-grid-item="base(1of1)">
+                                                <p data-c-colour="c2" data-c-margin="top(half) bottom(half)">Amenities</p>
+                                                <div data-c-margin="left(quarter)">
+                                                    <div data-c-grid="gutter">
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Cafeteria On-site</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Close to Transit</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Walking Distance to Restaurants/Malls</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Downtown</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Nearby Fitness Centre</span>
+                                                        </div>
+                                                        <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check checked">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>Easy Access to Parking</span>
+                                                        </div>
+                                                        {# <div data-c-grid-item="tp(1of2)">
+                                                            <div class="job-builder-check">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                            <span>None of the Above</span>
+                                                        </div> #}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {# <div data-c-grid-item="base(1of1)">
+                                                <p data-c-colour="c2" data-c-margin="top(half) bottom(half)">More About Your Environment</p>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur luctus porta ante at ornare. Nam pulvinar ultrices tellus eget lobortis. Etiam efficitur in nibh eget ornare. Duis vel porta ante, at ornare lorem. Sed est eros, dignissim ac auctor eget, pretium at mauris. Nullam vitae lacus id eros hendrerit sollicitudin ac at lectus. Fusce neque odio, facilisis vitae augue in, feugiat pulvinar neque. Nulla pretium et lectus at molestie. Ut eleifend efficitur venenatis. Curabitur non eros at eros finibus condimentum. Nam fringilla auctor quam ut egestas.</p>
+                                            </div> #}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-c-margin="tb(normal)">
+                            <div data-c-grid="gutter middle">
+                                <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(left)">
+                                    <h5 data-c-font-weight="bold" data-c-font-size="h5">Other Team Information</h5>
+                                </div>
+                                <div data-c-grid-item="tp(1of2)" data-c-alignment="base(centre) tp(right)">
+                                    <a href="/builder-01"><i data-c-colour="c2" class="fas fa-edit"></i>Edit This in Step 02: Job Info</a>
+                                </div>
+                                <div data-c-grid-item="base(1of1)">
+                                    <div data-c-border="all(thin, solid, grey)" data-c-padding="normal" data-c-radius="rounded">
+                                        <div data-c-grid="gutter">
+                                            <div data-c-grid-item="tp(1of2) ds(1of3)">
+                                                <p data-c-colour="c2" data-c-margin="top(quarter)">Remote Work</p>
+                                                <p data-c-font-size="small" data-c-colour="grey" data-c-margin="bottom(half)">Work from anywhere, all the time.</p>
+                                                <p>Always</p>
+                                            </div>
+                                            <div data-c-grid-item="tp(1of2) ds(1of3)">
+                                                <p data-c-colour="c2" data-c-margin="top(quarter)">Telework</p>
+                                                <p data-c-font-size="small" data-c-colour="grey" data-c-margin="bottom(half)">Work from home somedays (within driving distance of the office).</p>
+                                                <p>Almost Always</p>
+                                            </div>
+                                            <div data-c-grid-item="tp(1of2) ds(1of3)">
+                                                <p data-c-colour="c2" data-c-margin="top(quarter)">Flexible Hours</p>
+                                                <p data-c-font-size="small" data-c-colour="grey" data-c-margin="bottom(half)">Set your own start and end times.</p>
+                                                <p>Sometimes</p>
+                                            </div>
+                                            {# <div data-c-grid-item="tp(1of2) ds(1of3)">
+                                                <p data-c-colour="c2" data-c-margin="top(quarter)">Travel</p>
+                                                <p data-c-font-size="small" data-c-colour="grey" data-c-margin="bottom(half)">See more of Canada or the world.</p>
+                                                <p>No Travel</p>
+                                            </div>
+                                            <div data-c-grid-item="tp(1of2) ds(1of3)">
+                                                <p data-c-colour="c2" data-c-margin="top(quarter)">Overtime</p>
+                                                <p data-c-font-size="small" data-c-colour="grey" data-c-margin="bottom(half)">Work extra hours in the evenings/on weekends.</p>
+                                                <p>No Overtime</p>
+                                            </div> #}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-c-grid="gutter">
+                        <div data-c-grid-item="base(1of1)">
+                            <hr data-c-margin="top(normal) bottom(normal)">
+                        </div>
+                        <div data-c-alignment="base(centre) tp(left)" data-c-grid-item="tp(1of2)">
+                            <a href="/builder-05" data-c-button="outline(c2)" data-c-radius="rounded" type="button">
+                                Previous Step
+                            </a>
+                        </div>
+                        <div data-c-alignment="base(centre) tp(right)" data-c-grid-item="tp(1of2)">
+                            <!-- Modal trigger, same as last step. -->
+                            <button data-c-button="solid(c2)" data-c-dialog-action="open" data-c-dialog-id="example-dialog-01" data-c-radius="rounded" type="button">
+                                Send to HR for Review
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Same idea, only once on the page, anywhere inside the data-clone element. -->
+        <div data-c-dialog-overlay></div>
+
+        <!-- Preview modal, same as the last step. -->
+        <div aria-describedby="example-dialog-01-description" aria-hidden="true" aria-labelledby="example-dialog-01-title" data-c-dialog data-c-dialog-id="example-dialog-01" data-c-padding="top(double) bottom(double)" role="dialog">
+            <div data-c-background="white(100)" data-c-radius="rounded">
+                <div data-c-background="c1(100)" data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
+                    <h5 data-c-colour="white" data-c-font-size="h4" id="example-dialog-01-title">Congrats! Are You Ready to Submit?
+                    </h5>
+                </div>
+                <div>
+                    <div data-c-border="bottom(thin, solid, black)" data-c-padding="normal" id="example-dialog-01-description">
+                        <p data-c-margin="bottom(normal)">If you're ready to submit your poster, click the Submit button below.</p>
+                        <p data-c-font-weight="bold" data-c-margin="bottom(normal)">What happens next?</p>
+                        <p data-c-margin="bottom(normal)">Talent Cloud will send your draft to your department's HR advisor who will notify you with comments.</p>
+                        <p>In the meantime, feel free to go ahead and create a screening plan for your selection process. Alternatively, you can wait for comments to come back from HR before you take the next step.</p>
+                    </div>
+                </div>
+                <div data-c-padding="normal">
+                    <div data-c-grid="gutter middle">
+                        <div data-c-grid-item="base(1of2)">
+                            <button data-c-button="outline(c2)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-01" data-c-radius="rounded">
+                                Cancel
+                            </button>
+                        </div>
+                        <div data-c-alignment="base(right)" data-c-grid-item="base(1of2)">
+                            <a href="/builder-08" data-c-button="solid(go)" data-c-radius="rounded">
+                                Yes, Submit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -168,6 +168,80 @@
           }
         });
 
+    // Job Builder Skills Modal ================================================
+
+        function toggleCustomSkillDefinition(trigger) {
+          if ($(trigger).parents().find(".job-builder-custom-skill-definition").hasClass("active")) {
+            $(trigger).removeClass("active");
+            $(trigger).parents().find(".job-builder-custom-skill-definition").removeClass("active");
+          }
+          else {
+            $(trigger).addClass("active");
+            $(trigger).parents().find(".job-builder-custom-skill-definition").addClass("active");
+            $(trigger).parents().find(".job-builder-custom-skill-definition").find("input").focus();
+          }
+        }
+
+        $(document).on("click", ".job-builder-add-skill-definition-trigger", function(e) {
+          toggleCustomSkillDefinition(this);
+        });
+
+        $(document).on("keyup", ".job-builder-add-skill-definition-trigger", function(e) {
+          if (e.which == 13) {
+            toggleCustomSkillDefinition(this);
+          }
+        });
+
+    // Job Builder Education ===================================================
+
+        // Customization Trigger
+        function eduCustomTrigger(trigger) {
+          var firstInput = $(trigger).find("label:first-child input");
+          var secondInput = $(trigger).find("label:last-child input");
+          if($(firstInput).is(':checked')) {
+            $(".job-builder-education-customization").removeClass("active");
+          }
+          else if ($(secondInput).is(':checked')) {
+            $(".job-builder-education-customization").addClass("active");
+          }
+        }
+
+        $(document).on("click", "[data-tc-job-builder-customization-trigger]", function(e) {
+          eduCustomTrigger(this);
+        });
+
+        $(document).on("keyup", "[data-tc-job-builder-customization-trigger]", function(e) {
+          if (e.which == 13) {
+            eduCustomTrigger(this);
+          }
+        });
+
+        // Copy Trigger
+        function copyEducation(trigger) {
+          var temp = $("<textarea>");
+          var copy = $("#jobPosterBuilderEducationCopy").find('br').prepend('\r\n').end().text().trim();
+          $("body").append(temp);
+          temp.val(copy).select();
+          document.execCommand("copy");
+          temp.remove();
+          $(trigger).find(".default").hide();
+          $(trigger).find(".copied").show();
+          setTimeout(function() {
+            $(trigger).find(".default").show();
+            $(trigger).find(".copied").hide();
+          }, 1400);
+        }
+
+        $(document).on("click", "[data-tc-job-builder-education-copy-trigger]", function(e) {
+          copyEducation(this);
+        });
+
+        $(document).on("keyup", "[data-tc-job-builder-education-copy-trigger]", function(e) {
+          if (e.which == 13) {
+            copyEducation(this);
+          }
+        });
+
     // Accordion Handlers ==================================================
 
     function accordionTrigger(trigger) {

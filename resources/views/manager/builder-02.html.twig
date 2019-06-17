@@ -23,7 +23,7 @@
                 <div data-c-margin="bottom(triple)">
                     {% include "common/menu" %}
                 </div>
-                <div data-c-container="layout">
+                <div data-c-container="layout" data-c-alignment="centre">
                     <h2 data-c-colour="white" data-c-font-size="h2" data-c-font-weight="bold" data-c-margin="bottom(double)">
                         Build a Job Poster
                     </h2>
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <!-- Progress Indicator (see step 00 for info) -->
-            <div class="manager-jpb-tracker" data-c-alignment="base(centre) tl(right)" data-c-background="black(100)" data-c-colour="white">
+            <div class="manager-jpb-tracker" data-c-alignment="base(centre)" data-c-background="black(100)" data-c-colour="white">
                 <div data-c-container="layout" data-c-padding="top(quarter) bottom(quarter)">
                     <div class="tracker manager-jpb-tracker-wrapper">
                         <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
@@ -129,6 +129,17 @@
                             </div>
                             <div>
                                 <span data-c-font-size="small">Step 07</span><br>
+                                <span data-c-font-weight="bold">Education</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 08</span><br>
                                 <span data-c-font-weight="bold">Review</span>
                             </div>
                         </div>
@@ -145,7 +156,7 @@
                         <label for="builder02JobTitle">What is the job title?</label>
                         <span>Required</span>
                         <div>
-                            <input id="builder02JobTitle" placeholder="e.g. Product Designer" required type="text"/>
+                            <input id="builder02JobTitle" placeholder="e.g. Product Designer" value="External Recruiter" required type="text"/>
                         </div>
                         <span>This input has an error.</span>
                     </div>
@@ -153,7 +164,7 @@
                         <label for="builder02TermLength">How long is the term (in months)?</label>
                         <span>Required</span>
                         <div>
-                            <input id="builder02TermLength" min="3" placeholder="e.g. 3" required type="number"/>
+                            <input id="builder02TermLength" min="3" placeholder="e.g. 3" value="18" required type="number"/>
                         </div>
                         <span>This input has an error.</span>
                     </div>
@@ -163,8 +174,9 @@
                         <div>
                             <i class="fa fa-caret-down"></i>
                             <select id="builder02Classification" required>
-                                <option disabled selected>Select a classification...</option>
+                                <option disabled>Select a classification...</option>
                                 <option>CS</option>
+                                <option selected>AS</option>
                                 <option><!-- See doc for all options. --></option>
                             </select>
                         </div>
@@ -176,8 +188,9 @@
                         <div>
                             <i class="fa fa-caret-down"></i>
                             <select id="builder02Level" required>
-                                <option disabled selected>Select a level...</option>
-                                <option>1</option>
+                                <option disabled>Select a level...</option>
+                                <option>01</option>
+                                <option selected>06</option>
                                 <option><!-- See doc for all options. --></option>
                             </select>
                         </div>
@@ -191,6 +204,7 @@
                             <select id="builder02SecurityLevel" required>
                                 <option disabled selected>Select a security level...</option>
                                 <option>Reliability</option>
+                                <option selected>Secret</option>
                                 <option><!-- See doc for all options. --></option>
                             </select>
                         </div>
@@ -204,6 +218,7 @@
                             <select id="builder02Language" required>
                                 <option disabled selected>Select a language profile...</option>
                                 <option>English Essential</option>
+                                <option selected>Bilingual - Advanced</option>
                                 <option><!-- See doc for all options. --></option>
                             </select>
                         </div>
@@ -213,7 +228,7 @@
                         <label for="builder02City">What city is the team located in?</label>
                         <span>Required</span>
                         <div>
-                            <input id="builder02City" placeholder="e.g. Ottawa" required type="text"/>
+                            <input id="builder02City" placeholder="e.g. Ottawa" value="Ottawa" required type="text"/>
                         </div>
                         <span>This input has an error.</span>
                     </div>
@@ -224,7 +239,7 @@
                             <i class="fa fa-caret-down"></i>
                             <select id="builder02Province" required>
                                 <option disabled selected>Select a province...</option>
-                                <option>English Essential</option>
+                                <option selected>Ontario</option>
                                 <option><!-- See doc for all options. --></option>
                             </select>
                         </div>
@@ -259,12 +274,12 @@
                         <span>Required</span>
                         <div id="builder02Telework" role="radiogroup">
                             <label for="builder02TeleworkOption01">
-                                <input id="builder02TeleworkOption01" name="builder02Telework" type="radio"/>
+                                <input checked="checked" id="builder02TeleworkOption01" name="builder02Telework" type="radio"/>
                                 <span>Almost Always</span>
                             </label>
                             <!-- Just a heads up this has a default checked value. -->
                             <label for="builder02TeleworkOption02">
-                                <input checked="checked" id="builder02TeleworkOption02" name="builder02Telework" type="radio"/>
+                                <input id="builder02TeleworkOption02" name="builder02Telework" type="radio"/>
                                 <span>Frequently</span>
                             </label>
                             <label for="builder02TeleworkOption03">
@@ -294,11 +309,11 @@
                             </label>
                             <!-- Just a heads up this has a default checked value. -->
                             <label for="builder02FlexHoursOption02">
-                                <input checked="checked" id="builder02FlexHoursOption02" name="builder02FlexHours" type="radio"/>
+                                <input id="builder02FlexHoursOption02" name="builder02FlexHours" type="radio"/>
                                 <span>Frequently</span>
                             </label>
                             <label for="builder02FlexHoursOption03">
-                                <input id="builder02FlexHoursOption03" name="builder02FlexHours" type="radio"/>
+                                <input checked="checked" id="builder02FlexHoursOption03" name="builder02FlexHours" type="radio"/>
                                 <span>Sometimes</span>
                             </label>
                             <label for="builder02FlexHoursOption04">
@@ -312,10 +327,18 @@
                         </div>
                         <span>This input has an error.</span>
                     </div>
-                    <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
-                        <!-- This triggers the modal, but you'll probably want to add React-y stuff. This might include back-end validation? -->
-                        <button data-c-button="solid(c1)" data-c-dialog-action="open" data-c-dialog-id="example-dialog-02" data-c-radius="rounded" type="button">
-                            Next
+                    <div data-c-grid-item="base(1of1)">
+                        <hr data-c-margin="top(normal) bottom(normal)">
+                    </div>
+                    <div data-c-alignment="base(centre) tp(left)" data-c-grid-item="tp(1of2)">
+                        <a href="/builder-01" data-c-button="outline(c2)" data-c-radius="rounded" type="button">
+                            Previous Step
+                        </a>
+                    </div>
+                    <div data-c-alignment="base(centre) tp(right)" data-c-grid-item="tp(1of2)">
+                        <!-- Modal trigger, same as last step. -->
+                        <button data-c-button="solid(c2)" data-c-dialog-action="open" data-c-dialog-id="example-dialog-01" data-c-radius="rounded" type="button">
+                            Preview
                         </button>
                     </div>
                 </form>
@@ -326,49 +349,49 @@
         <div data-c-dialog-overlay></div>
 
         <!-- This is the preview modal, who's content will need to update on the fly so that the preview makes sense when they click next. -->
-        <div aria-describedby="example-dialog-02-description" aria-hidden="true" aria-labelledby="example-dialog-02-title" data-c-dialog data-c-dialog-id="example-dialog-02" data-c-padding="top(double) bottom(double)" role="dialog">
+        <div aria-describedby="example-dialog-01-description" aria-hidden="true" aria-labelledby="example-dialog-01-title" data-c-dialog data-c-dialog-id="example-dialog-01" data-c-padding="top(double) bottom(double)" role="dialog">
             <div data-c-background="white(100)" data-c-radius="rounded">
                 <div data-c-background="c1(100)" data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
-                    <h5 data-c-colour="white" data-c-font-size="h4" id="example-dialog-02-title">You're off to a great start!
+                    <h5 data-c-colour="white" data-c-font-size="h4" id="example-dialog-01-title">You're off to a great start!
                     </h5>
                 </div>
                 <!-- This is where the modal content begins. -->
                 <div data-c-border="bottom(thin, solid, black)">
-                    <div data-c-border="bottom(thin, solid, black)" data-c-padding="normal" id="example-dialog-02-description">
+                    <div data-c-border="bottom(thin, solid, black)" data-c-padding="normal" id="example-dialog-01-description">
                         Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.
                     </div>
                     <div data-c-background="grey(20)" data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
                         <div class="manager-job-card" data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
-                            <h3 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(half)">This is my Job Title</h3>
-                            <p data-c-font-size="h4" data-c-margin="bottom(normal)">Department</p>
-                            <p data-c-margin="bottom(half)"><i data-c-colour="c1" class="fas fa-map-marker-alt" title="Location Icon.">&nbsp;&nbsp;</i>City, Province</p>
-                            <p><i data-c-colour="c1" class="fas fa-home" title="Remote Work Icon.">&nbsp;&nbsp;</i>Remote Work Allowed</p>
+                            <h3 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(half)">External Recruiter</h3>
+                            <p data-c-font-size="h4" data-c-margin="bottom(normal)">Treasury Board of Canada Secretariat</p>
+                            <p data-c-margin="bottom(half)"><i data-c-colour="c3" class="fas fa-map-marker-alt" title="Location Icon.">&nbsp;&nbsp;</i>Ottawa, Ontario</p>
+                            <p><i data-c-colour="c3" class="fas fa-home" title="Remote Work Icon.">&nbsp;&nbsp;</i>Remote Work Allowed</p>
                             <h4 data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="top(double) bottom(normal)">Basic Information</h4>
                             <div data-c-grid="gutter">
                                 <div data-c-grid-item="tp(1of2)">
-                                    <span data-c-colour="c1" data-c-margin="bottom(quarter)">Average Annual Salary</span>
-                                    <span>Talent Cloud will add this.</span>
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Average Annual Salary</p>
+                                    <p>Talent Cloud will add this.</p>
                                 </div>
                                 <div data-c-grid-item="tp(1of2)">
-                                    <span data-c-colour="c1" data-c-margin="bottom(quarter)">Language Profile</span>
-                                    <span>English Essential</span>
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Language Profile</p>
+                                    <p>Bilingual - Advanced</p>
                                 </div>
                                 <div data-c-grid-item="tp(1of2)">
-                                    <span data-c-colour="c1" data-c-margin="bottom(quarter)">Duration</span>
-                                    <span>12 Months</span>
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Duration</p>
+                                    <p>18 Months</p>
                                 </div>
                                 <div data-c-grid-item="tp(1of2)">
-                                    <span data-c-colour="c1" data-c-margin="bottom(quarter)">Security Clearance</span>
-                                    <span>Reliability</span>
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Security Clearance</p>
+                                    <p>Secret</p>
                                 </div>
                                 <div data-c-grid-item="tp(1of2)">
-                                    <span data-c-colour="c1" data-c-margin="bottom(quarter)">Target Start Date</span>
-                                    <span>This comes later.</span>
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Target Start Date</p>
+                                    <p>This comes later.</p>
                                 </div>
                                 <div data-c-grid-item="tp(1of2)">
-                                    <span data-c-colour="c1" data-c-margin="bottom(quarter)">Government Classification</span>
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Government Classification</p>
                                     <!-- This is combo of two fields above, just as a heads up (classification, level). -->
-                                    <span>CS-02</span>
+                                    <p>AS-06</p>
                                 </div>
                             </div>
                         </div>
@@ -377,15 +400,15 @@
                         <div data-c-grid="gutter middle">
                             <div data-c-grid-item="base(1of2)">
                                 <!-- This simply closes the modal. -->
-                                <button data-c-button="outline(c1)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-02" data-c-radius="rounded">
+                                <button data-c-button="outline(c2)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-01" data-c-radius="rounded">
                                     Go Back
                                 </button>
                             </div>
                             <div data-c-alignment="base(right)" data-c-grid-item="base(1of2)">
                                 <!-- This button needs to be dev'd to take the user to the next step. -->
-                                <button data-c-button="solid(c1)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-02" data-c-radius="rounded">
+                                <a data-c-button="solid(c2)" href="/builder-03" data-c-radius="rounded">
                                     Next Step
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

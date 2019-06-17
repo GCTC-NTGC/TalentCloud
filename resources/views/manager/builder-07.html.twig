@@ -41,7 +41,7 @@
                             </li>
                             <li>
                                 <a aria-current="page" href="#link-to-page" title="This is the title of the page link.">
-                                    Step 04 (Impact)
+                                    Step 07 (Education)
                                 </a>
                                 <i class="fa fa-caret-right"></i>
                             </li>
@@ -50,6 +50,7 @@
                 </div>
             </div>
             <!-- Progress Indicator (see step 00 for info) -->
+            <!-- Note, I've changed the alignment to remain centred. -->
             <div class="manager-jpb-tracker" data-c-alignment="base(centre)" data-c-background="black(100)" data-c-colour="white">
                 <div data-c-container="layout" data-c-padding="top(quarter) bottom(quarter)">
                     <div class="tracker manager-jpb-tracker-wrapper">
@@ -86,7 +87,7 @@
                                 <span data-c-font-weight="bold">Work Env.</span>
                             </div>
                         </div>
-                        <div class="tracker-item" data-tc-tracker-state="active" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
                             <div class="tracker-icon">
                                 <i class="fas fa-arrow-down"></i>
                                 <i class="fas fa-check"></i>
@@ -97,7 +98,7 @@
                                 <span data-c-font-weight="bold">Impact</span>
                             </div>
                         </div>
-                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
                             <div class="tracker-icon">
                                 <i class="fas fa-arrow-down"></i>
                                 <i class="fas fa-check"></i>
@@ -108,7 +109,7 @@
                                 <span data-c-font-weight="bold">Tasks</span>
                             </div>
                         </div>
-                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
                             <div class="tracker-icon">
                                 <i class="fas fa-arrow-down"></i>
                                 <i class="fas fa-check"></i>
@@ -119,7 +120,8 @@
                                 <span data-c-font-weight="bold">Skills</span>
                             </div>
                         </div>
-                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                        {# Note that a new step has been added to the tracker. #}
+                        <div class="tracker-item" data-tc-tracker-state="active" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
                             <div class="tracker-icon">
                                 <i class="fas fa-arrow-down"></i>
                                 <i class="fas fa-check"></i>
@@ -147,42 +149,53 @@
             <!-- Step Body -->
             <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
                 <h3 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(double)">
-                    Create an Impact Statement
+                    Education Requirements
                 </h3>
-                <ul data-c-margin="bottom(double)">
-                    <li>Working in the federal government offers an important opportunity to have a broad impact for Canadians.</li>
-                    <li>This is your chance to highlight what makes your work valuable and interesting.</li>
-                    <li>Your impact statement is the first thing that applicants will see when they click your job poster so make sure it counts!</li>
-                </ul>
-                <p data-c-font-weight="bold" data-c-margin="bottom(normal)">How our department makes an impact:</p>
-                <!-- The p tag below is where the dynamic department text goes (I used text from an old job poster as placeholder, but the real list of data is in the issue. -->
-                <p data-c-margin="bottom(double)">As the administrative arm of the Treasury Board, the Secretariat has a dual mandate: to support the Treasury Board as a committee of ministers and to fulfil the statutory responsibilities of a central government agency.</p>
-                <form data-c-grid="gutter">
-                    <div data-c-grid-item="base(1of1)" data-c-input="textarea">
-                        <p data-c-font-weight="bold" data-c-margin="bottom(normal)">How our team makes an impact:</p>
-                        <p data-c-margin="bottom(normal)">Describe the value your team/service/initiative brings to Canadians. It doesn’t matter if your work is direct to citizens or back office, innovative or maintenance, top priority or ongoing. Describe how it contributes to making Canada better the way you would to someone who knows nothing about your work.</p>
-                        <label for="builder04TeamImpact">Team Impact Statement</label>
+                <p data-c-font-weight="bold" data-c-margin="bottom(normal)">Based on the classification level you selected, this standard paragraph will appear on the job poster.</p>
+                <div id="jobPosterBuilderEducationCopy">
+                    <p data-c-margin="bottom(normal)">A secondary school diploma; or<br><br>Equivalent Experience:<br>If you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum education requirement stated above.</p>
+                </div>
+                <form>
+                    <div data-c-input="radio">
+                        <label for="RG2">Please make a selection:</label>
                         <span>Required</span>
-                        <div>
-                            <textarea id="builder04TeamImpact" placeholder="Try for a casual, frank, friendly tone..." required>The team provides government-wide Human Resources support to Chief Information Officers and other senior staff in Government of Canada departments and agencies to attract, develop, and retain digital talent. The team works on important people issues, from defining work and competencies in a digital era to promoting Women in Tech, to recruiting and retaining scarce talent in Cybersecurity and other disciplines.</textarea>
+                        <div id="RG2" role="radiogroup" data-tc-job-builder-customization-trigger>
+                            <label for="rB1">
+                                <input checked="checked" id="rB1" required name="radioB" type="radio" />
+                                <span>I'm good with this paragraph.</span>
+                            </label>
+                            <label for="rB2">
+                                <input id="rB2" required name="radioB" type="radio" />
+                                <span>I'd like to modify this paragraph.</span>
+                            </label>
                         </div>
                         <span>This input has an error.</span>
                     </div>
-                    <div data-c-grid-item="base(1of1)" data-c-input="textarea">
-                        <p data-c-font-weight="bold" data-c-margin="bottom(normal)">How the new hire makes an impact:</p>
-                        <p data-c-margin="bottom(normal)">Describe how the new hire will contribute in this role. Focus on the value they’ll bring, not on specific tasks (you’ll provide these later on). For example “In this role, you’ll contribute to…” or, “As a member of this team, you’ll be responsible for helping us…”</p>
-                        <label for="builder04HireImpact">Team Impact Statement</label>
-                        <span>Required</span>
-                        <div>
-                            <textarea id="builder04HireImpact" placeholder="Remember, don't use Government speak..." required>This specific role will lead a whole-of-government external (head hunter) competition to identify a diverse and representative workforce of CIOs and other IM/IT senior executive candidates in the private sector who are interested in government roles (outlined in the Digital Operations Strategic Plan: 2018-2022.</textarea>
+                    <div class="job-builder-education-customization">
+                        <p data-c-margin="bottom(normal)">If you want to customize this paragraph, copy and paste it into the textbox below.</p>
+                        <p data-c-font-weight="bold" data-c-margin="bottom(normal)">Your HR advisor will review your changes.</p>
+                        <div data-c-margin="bottom(normal)" data-c-alignment="base(centre) tl(right)">
+                            <button data-c-button="solid(c2)" data-c-radius="rounded" data-tc-job-builder-education-copy-trigger type="button">
+                                <span class="default">Copy to Clipboard</span>
+                                <span class="copied" style="display: none;">Copied</span>
+                            </button>
                         </div>
-                        <span>This input has an error.</span>
+                        <div data-c-input="textarea">
+                            <label for="TA2">Customize the Education Requirement</label>
+                            <span>Required</span>
+                            <div>
+                                <textarea id="TA2" placeholder="Paste the paragraph here to edit..."></textarea>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
                     </div>
+                </form>
+                <div data-c-grid="gutter">
                     <div data-c-grid-item="base(1of1)">
                         <hr data-c-margin="top(normal) bottom(normal)">
                     </div>
                     <div data-c-alignment="base(centre) tp(left)" data-c-grid-item="tp(1of2)">
-                        <a href="/builder-03" data-c-button="outline(c2)" data-c-radius="rounded" type="button">
+                        <a href="/builder-06" data-c-button="outline(c2)" data-c-radius="rounded" type="button">
                             Previous Step
                         </a>
                     </div>
@@ -192,7 +205,7 @@
                             Preview
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
 
@@ -203,20 +216,18 @@
         <div aria-describedby="example-dialog-01-description" aria-hidden="true" aria-labelledby="example-dialog-01-title" data-c-dialog data-c-dialog-id="example-dialog-01" data-c-padding="top(double) bottom(double)" role="dialog">
             <div data-c-background="white(100)" data-c-radius="rounded">
                 <div data-c-background="c1(100)" data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
-                    <h5 data-c-colour="white" data-c-font-size="h4" id="example-dialog-01-title">Awesome work!
+                    <h5 data-c-colour="white" data-c-font-size="h4" id="example-dialog-01-title">Great work!
                     </h5>
                 </div>
                 <div data-c-border="bottom(thin, solid, black)">
                     <div data-c-border="bottom(thin, solid, black)" data-c-padding="normal" id="example-dialog-01-description">
-                            Here's a preview of the Impact Statement you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.
+                            Here's a preview of the Education requirements you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.
                     </div>
                     <!-- This is where the modal content begins. -->
                     <div data-c-background="grey(20)" data-c-padding="normal">
                         <div class="manager-job-card" data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
-                            <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="bottom(normal)" data-c-padding="bottom(normal)">Impact</h4>
-                            <p data-c-margin="bottom(normal)">As the administrative arm of the Treasury Board, the Secretariat has a dual mandate: to support the Treasury Board as a committee of ministers and to fulfil the statutory responsibilities of a central government agency.</p>
-                            <p data-c-margin="bottom(normal)">The team provides government-wide Human Resources support to Chief Information Officers and other senior staff in Government of Canada departments and agencies to attract, develop, and retain digital talent. The team works on important people issues, from defining work and competencies in a digital era to promoting Women in Tech, to recruiting and retaining scarce talent in Cybersecurity and other disciplines.</p>
-                            <p>This specific role will lead a whole-of-government external (head hunter) competition to identify a diverse and representative workforce of CIOs and other IM/IT senior executive candidates in the private sector who are interested in government roles (outlined in the Digital Operations Strategic Plan: 2018-2022.</p>
+                            <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="bottom(normal)" data-c-padding="bottom(normal)">Education</h4>
+                            <p>A secondary school diploma; or<br><br>Equivalent Experience:<br>If you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum education requirement stated above.</p>
                         </div>
                     </div>
                 </div>
@@ -228,7 +239,7 @@
                             </button>
                         </div>
                         <div data-c-alignment="base(right)" data-c-grid-item="base(1of2)">
-                            <a data-c-button="solid(c2)" href="/builder-05" data-c-radius="rounded">
+                            <a href="/builder-08" data-c-button="solid(c2)" data-c-radius="rounded">
                                 Next Step
                             </a>
                         </div>
@@ -236,7 +247,5 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 {% endblock %}

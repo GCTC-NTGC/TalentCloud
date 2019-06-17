@@ -3,61 +3,21 @@
     // Page Footer
 
 // =============================================================================
-.footer {
-    background: $palette--black;
-
-    .footer__grid {
-
-        .box {
-            color: $palette--font-white;
-            font-family: $font--sans;
-            font-size: $font-scale--regular;
-            font-weight: 400;
-            text-align: center;
-
-            &:nth-child(1) {
-                padding: calc(#{$unit} * 2) calc(#{$unit} * 2.5);
-
-                @media #{$p-tablet} {
-                    text-align: left;
-                }
-
-            }
-
-            &:nth-child(2) {
-                padding: 0 calc(#{$unit} * 2.5) calc(#{$unit} * 2);
-
-                @media #{$p-tablet} {
-                    padding: calc(#{$unit} * 2) calc(#{$unit} * 2.5);
-                    text-align: right;
-                }
-
-            }
-
-            ul {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-
-                li {
-                    display: inline-block;
-
-                    a {
-
-                    }
-
-                }
-
-            }
-
-            >a {
-                display: inline-block;
-                max-width: 13rem;
-                width: 80%;
-            }
-
+.footer-nav {
+    ul {
+        margin: -1rem;
+        padding: 0;
+        li {
+            display: inline-block;
+            margin: 1rem;
         }
-
     }
-
+}
+.footer-logo {
+    display: inline-block;
+    max-width: 13rem;
+    width: 75%;
+    img {
+        max-width: 100%;
+    }
 }

@@ -1,0 +1,549 @@
+{% extends "layouts/base" %}
+
+{% block title %}
+
+    {{ itp.page_title }}
+
+{% endblock %}
+
+{% block body %}
+
+    {# Sitewide Notice ====================================================== #}
+    {% include "common/alert" %}
+
+    {# Government of Canada Banner ========================================== #}
+    {% include "common/goc" %}
+
+    <div data-clone>
+        <div data-c-background="white(100)">
+            <!-- Heading (see step 00 for info) -->
+            <div style="background-image: url('/images/bg_crowd.jpg');" data-c-overlay="black(80)" data-c-padding="bottom(triple)">
+                <div data-c-margin="bottom(triple)">
+                    {% include "common/menu" %}
+                </div>
+                <div data-c-container="layout" data-c-alignment="centre">
+                    <h2 data-c-colour="white" data-c-font-size="h2" data-c-font-weight="bold" data-c-margin="bottom(double)">
+                        Build a Job Poster
+                    </h2>
+                    <nav aria-label="breadcrumb" data-c-breadcrumbs data-c-colour="white" data-c-margin="bottom(normal)">
+                        <ol>
+                            <li>
+                                <a href="#link-to-page" title="This is the title of the page link.">
+                                    Manager Portal
+                                </a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                            <li>
+                                <a href="#link-to-page" title="This is the title of the page link.">
+                                    Job Poster Builder
+                                </a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                            <li>
+                                <a aria-current="page" href="#link-to-page" title="This is the title of the page link.">
+                                    Step 06 (Skills)
+                                </a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- Progress Indicator (see step 00 for info) -->
+            <!-- Note, I've changed the alignment to remain centred. -->
+            <div class="manager-jpb-tracker" data-c-alignment="base(centre)" data-c-background="black(100)" data-c-colour="white">
+                <div data-c-container="layout" data-c-padding="top(quarter) bottom(quarter)">
+                    <div class="tracker manager-jpb-tracker-wrapper">
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 01</span><br>
+                                <span data-c-font-weight="bold">Intro</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 02</span><br>
+                                <span data-c-font-weight="bold">Job Info</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 03</span><br>
+                                <span data-c-font-weight="bold">Work Env.</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 04</span><br>
+                                <span data-c-font-weight="bold">Impact</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 05</span><br>
+                                <span data-c-font-weight="bold">Tasks</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="active" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 06</span><br>
+                                <span data-c-font-weight="bold">Skills</span>
+                            </div>
+                        </div>
+                        {# Note that a new step has been added to the tracker. #}
+                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 07</span><br>
+                                <span data-c-font-weight="bold">Education</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 08</span><br>
+                                <span data-c-font-weight="bold">Review</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step Body -->
+            <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
+                <h3 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(double)">
+                    Skills
+                </h3>
+                <p data-c-margin="bottom(double)">This is where you'll select the criteria that are required to do this job effectively. Below are two bars that indicate a measurement of your current skill selection.</p>
+                <div data-c-padding="normal">
+                    <div data-c-grid="gutter">
+                        <div data-c-grid-item="base(1of1)" class="job-builder-skills-range">
+                            <p data-c-font-weight="bold" data-c-margin="bottom(half)">Essential Skills<p>
+                            <div data-c-grid data-c-alignment="center">
+                                <div data-c-grid-item="base(1of5)">
+                                    <div data-c-padding="tb(normal)" data-c-colour="black" data-c-font-weight="bold">
+                                        <span>0 - 1</span>
+                                    </div>
+                                    <i class="fas fa-caret-up"></i>
+                                </div>
+                                <div data-c-grid-item="base(1of5)">
+                                    <div data-c-padding="tb(normal)" data-c-colour="black" data-c-font-weight="bold">
+                                        <span>2 - 3</span>
+                                    </div>
+                                    <i class="fas fa-caret-up"></i>
+                                </div>
+                                <div data-c-grid-item="base(1of5)" class="active">
+                                    <div data-c-padding="tb(normal)" data-c-colour="black" data-c-font-weight="bold">
+                                        <span>4 - 6</span>
+                                    </div>
+                                    <i class="fas fa-caret-up"></i>
+                                </div>
+                                <div data-c-grid-item="base(1of5)">
+                                    <div data-c-padding="tb(normal)" data-c-colour="black" data-c-font-weight="bold">
+                                        <span>7 - 8</span>
+                                    </div>
+                                    <i class="fas fa-caret-up"></i>
+                                </div>
+                                <div data-c-grid-item="base(1of5)">
+                                    <div data-c-padding="tb(normal)" data-c-colour="black" data-c-font-weight="bold">
+                                        <span>9 +</span>
+                                    </div>
+                                    <i class="fas fa-caret-up"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-c-grid-item="base(1of1)" class="job-builder-skills-range">
+                            <p data-c-font-weight="bold" data-c-margin="bottom(half)">Total Skills<p>
+                            <div data-c-grid data-c-alignment="center">
+                                <div data-c-grid-item="base(1of5)">
+                                    <div data-c-padding="tb(normal)" data-c-colour="black" data-c-font-weight="bold">
+                                        <span>0 - 3</span>
+                                    </div>
+                                    <i class="fas fa-caret-up"></i>
+                                </div>
+                                <div data-c-grid-item="base(1of5)">
+                                    <div data-c-padding="tb(normal)" data-c-colour="black" data-c-font-weight="bold">
+                                        <span>4 - 6</span>
+                                    </div>
+                                    <i class="fas fa-caret-up"></i>
+                                </div>
+                                <div data-c-grid-item="base(1of5)" class="active">
+                                    <div data-c-padding="tb(normal)"  data-c-colour="black" data-c-font-weight="bold">
+                                        <span>7 - 8</span>
+                                    </div>
+                                    <i class="fas fa-caret-up"></i>
+                                </div>
+                                <div data-c-grid-item="base(1of5)">
+                                    <div data-c-padding="tb(normal)" data-c-colour="black" data-c-font-weight="bold">
+                                        <span>9 - 10</span>
+                                    </div>
+                                    <i class="fas fa-caret-up"></i>
+                                </div>
+                                <div data-c-grid-item="base(1of5)">
+                                    <div data-c-padding="tb(normal)" data-c-colour="black" data-c-font-weight="bold">
+                                        <span>11 +</span>
+                                    </div>
+                                    <i class="fas fa-caret-up"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form>
+                    {% include "manager/temp-demo/builder-06-work-env" %}
+                    <div data-c-margin="top(triple)">
+                        <h4 data-c-colour="c2" data-c-font-size="h4" data-c-margin="bottom(normal)">Key Tasks</h4>
+                        <p data-c-margin="bottom(normal)">Below you'll pick out some key skill criteria that are necessary for each task you've outlined in the last step. Try to think about which skills are absolutely necessary to accomplish the task, versus which skills are convenient for the work. When you select a skill, you'll have the ability to choose the level you feel is required to get the job done, as well as any other tasks that this skill applies to.</p>
+                        <div data-c-accordion="group" data-c-margin="bottom(normal)">
+                            {% include "manager/temp-demo/builder-06-task-01" %}
+                            {% include "manager/temp-demo/builder-06-task-02" %}
+                            {% include "manager/temp-demo/builder-06-task-03" %}
+                            {% include "manager/temp-demo/builder-06-task-04" %}
+                            {% include "manager/temp-demo/builder-06-task-05" %}
+                            {% include "manager/temp-demo/builder-06-task-06" %}
+                        </div>
+                    </div>
+                    <div data-c-grid="gutter">
+                        <div data-c-grid-item="base(1of1)">
+                            <hr data-c-margin="top(normal) bottom(normal)">
+                        </div>
+                        <div data-c-alignment="base(centre) tp(left)" data-c-grid-item="tp(1of2)">
+                            <a href="/builder-05" data-c-button="outline(c2)" data-c-radius="rounded" type="button">
+                                Previous Step
+                            </a>
+                        </div>
+                        <div data-c-alignment="base(centre) tp(right)" data-c-grid-item="tp(1of2)">
+                            <!-- Modal trigger, same as last step. -->
+                            <button data-c-button="solid(c2)" data-c-dialog-action="open" data-c-dialog-id="example-dialog-02" data-c-radius="rounded" type="button">
+                                Preview
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Same idea, only once on the page, anywhere inside the data-clone element. -->
+        <div data-c-dialog-overlay></div>
+
+        <!-- Preview modal, same as the last step. -->
+        <div aria-describedby="example-dialog-01-description" aria-hidden="true" aria-labelledby="example-dialog-01-title" data-c-dialog data-c-dialog-id="example-dialog-01" data-c-padding="top(double) bottom(double)" role="dialog">
+            <div data-c-background="white(100)" data-c-radius="rounded">
+                <form>
+                    <div data-c-background="c1(100)" data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
+                        <h5 data-c-colour="white" data-c-font-size="h4" id="example-dialog-01-title">Add a Skill to Task 01
+                        </h5>
+                    </div>
+                    <div data-c-border="bottom(thin, solid, black)">
+                        <!-- Category Selection -->
+                        <div data-c-padding="top(normal) lr(normal) bottom(quarter)">
+                            <div data-c-grid="gutter">
+                                <div data-c-grid-item="base(1of1) tl(1of2)">
+                                    <p data-c-font-weight="bold" data-c-margin="bottom(half)">Choose a Category</p>
+                                    <div data-c-input="select">
+                                        <label for="SEL2">Select a Skill Category</label>
+                                        <span>Required</span>
+                                        <div>
+                                            <i class="fas fa-caret-down"></i>
+                                            <select required id="SEL2">
+                                                <option disabled selected>Select a category...</option>
+                                                <option>Classification</option>
+                                                <option>Culture Fit</option>
+                                                <option>Foundational Skills</option>
+                                                <option>Other Skills</option>
+                                            </select>
+                                        </div>
+                                        <span>This input has an error.</span>
+                                    </div>
+                                </div>
+                                <div data-c-grid-item="base(1of1) tl(1of2)">
+                                    <p data-c-font-weight="bold" data-c-margin="bottom(half)">Choose a Skill</p>
+                                    <div data-c-input="select">
+                                        <label for="SEL2">Select a Skill</label>
+                                        <span>Required</span>
+                                        <div>
+                                            <i class="fas fa-caret-down"></i>
+                                            <select required id="SEL2">
+                                                <option disabled selected>Select a skill...</option>
+                                                <option>Digital Collaboration</option>
+                                                <option>Digital Office Software</option>
+                                                <option>Communication Software</option>
+                                                <option>Social Media</option>
+                                            </select>
+                                        </div>
+                                        <span>This input has an error.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Skill Definition -->
+                        <div data-c-padding="all(normal)" data-c-background="grey(10)">
+                            <p data-c-font-weight="bold" data-c-margin="bottom(normal)">Skill Definition</p>
+                            <!-- This is a null state for when the user hasn't yet selected a skill from the dropdown. -->
+                            {# <div data-c-background="grey(10)" data-c-border="all(thin, solid, grey)" data-c-radius="rounded" data-c-padding="normal" data-c-alignment="base(centre)">
+                                Please select a skill above to continue to this step.
+                            </div> #}
+                            <div>
+                                <p data-c-margin="bottom(normal)">Digital Collaboration</p>
+                                <p data-c-margin="bottom(normal)">Defined as: the ability to collaborate using digital tools across platforms to further enable regular tasks and deliverables.</p>
+                                <div class="job-builder-custom-skill-definition">
+                                    <div data-c-input="textarea">
+                                        <label for="TA2">Skill Specificity</label>
+                                        <span>Required</span>
+                                        <div>
+                                            <textarea id="TA2" placeholder="Add specificity to the definition of this skill that will only appear on my job poster but note that this will have be approved prior to posting..."></textarea>
+                                        </div>
+                                        <span>This input has an error.</span>
+                                    </div>
+                                </div>
+                                <button class="job-builder-add-skill-definition-trigger">
+                                    <span class="add"><i class="fas fa-plus-circle" data-c-colour="c1"></i>I'd like to add specificity to this definition. This will only apply to my job poster.</span>
+                                    <span class="remove"><i class="fas fa-minus-circle" data-c-colour="c1"></i>Remove additional specificity.</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Skill Level -->
+                        <div data-c-padding="all(normal)">
+                            <div class="job-builder-culture-block">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(normal)">Choose a Skill Level</p>
+                                <!-- This is a null state for when the user hasn't yet selected a skill from the dropdown. -->
+                                {# <div data-c-background="grey(10)" data-c-border="all(thin, solid, grey)" data-c-radius="rounded" data-c-padding="normal" data-c-alignment="base(centre)">
+                                    Please select a skill above to continue to this step.
+                                </div> #}
+                                <div data-c-grid="gutter">
+                                    <div data-c-grid-item="base(1of1) tl(1of3)" data-c-input="radio">
+                                        <label for="builder06Level">Select a skill level:</label>
+                                        <span>Required</span>
+                                        <div id="builder06Level" role="radiogroup">
+                                            <label data-tc-wEnv-id="Level1" data-tc-wEnv-trigger for="builder06LevelOption01">
+                                                <input required id="builder06LevelOption01" name="builder06Level" type="radio"/>
+                                                <span>Basic</span>
+                                            </label>
+                                            <!-- Just a heads up this has a default checked value. -->
+                                            <label data-tc-wEnv-id="Level2" data-tc-wEnv-trigger for="builder06LevelOption02">
+                                                <input checked id="builder06LevelOption02" name="builder06Level" type="radio"/>
+                                                <span>Intermediate</span>
+                                            </label>
+                                            <label data-tc-wEnv-id="Level3" data-tc-wEnv-trigger for="builder06LevelOption03">
+                                                <input id="builder06LevelOption03" name="builder06Level" type="radio"/>
+                                                <span>Advanced</span>
+                                            </label>
+                                            <label data-tc-wEnv-id="Level4" data-tc-wEnv-trigger for="builder06LevelOption04">
+                                                <input id="builder06LevelOption04" name="builder06Level" type="radio"/>
+                                                <span>Lead</span>
+                                            </label>
+                                            <div class="job-builder-skill-level-or-block" data-c-alignment="base(centre)">
+                                                <div></div>
+                                                <span>or</span>
+                                            </div>
+                                            <label data-tc-wEnv-id="Level5" data-tc-wEnv-trigger for="builder06LevelOption05">
+                                                <input id="builder06LevelOption05" name="builder06Level" type="radio"/>
+                                                <span>Asset Skill / No Level Required</span>
+                                            </label>
+                                        </div>
+                                        <span>This input has an error.</span>
+                                    </div>
+                                    <div data-c-grid-item="base(1of1) tl(2of3)">
+                                        <div class="job-builder-context-block">
+                                            <div class="job-builder-context-item" data-tc-wEnv-id="Level1" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
+                                                <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Basic</p>
+                                                <p data-c-font-size="small" data-c-margin="bottom(quarter)">You have the ability to accomplish basic tasks with steady supervision and clear direction. The tasks you're assigned are clear and don't involve significant complexity. Their impact is usually locally felt.</p>
+                                                <p data-c-font-size="small" data-c-margin="bottom(quarter)">As you advance in this category, you should be developing the ability to accomplish tasks of moderate complexity with steady supervision. You will also need to be able to accomplish basic tasks with little or no supervision.</p>
+                                                <p data-c-font-size="small">This level is usually associated with tasks that form the bulk of the work for lower level positions, such as junior analysts or entry level developers.</p>
+                                            </div>
+                                            <div class="active job-builder-context-item" data-tc-wEnv-id="Level2" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
+                                                <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Intermediate</p>
+                                                <p data-c-font-size="small" data-c-margin="bottom(quarter)">You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision. The approach to the tasks, and how they are delivered, is determined by the supervisor. You contribute input and advice. You are able to advance the task, even in the face of small to moderate hurdles and complications.</p>
+                                                <p data-c-font-size="small" data-c-margin="bottom(quarter)">As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision.</p>
+                                                <p data-c-font-size="small">This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers.</p>
+                                            </div>
+                                            <div class="job-builder-context-item" data-tc-wEnv-id="Level3" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
+                                                <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Advanced</p>
+                                                <p data-c-font-size="small" data-c-margin="bottom(quarter)">You have the ability to accomplish tasks of significant complexity or impact with supervision. You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor's consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications.</p>
+                                                <p data-c-font-size="small" data-c-margin="bottom(quarter)">As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels.</p>
+                                                <p data-c-font-size="small">This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers.</p>
+                                            </div>
+                                            <div class="job-builder-context-item" data-tc-wEnv-id="Level4" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
+                                                <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Lead</p>
+                                                <p data-c-font-size="small" data-c-margin="bottom(quarter)">You have the ability to accomplish tasks of significant complexity or impact, where you call the shots and answer to the organization's senior management for your decisions. You bring forward the tasks, the approach and the delivery plan for senior management consideration. You often supervise others (individuals or teams) in delivering tasks of high complexity or system wide impact. You are able to advance these tasks, even in the face of significant unforeseen hurdles and complications.</p>
+                                                <p data-c-font-size="small" data-c-margin="bottom(quarter)">As you advance in this category, you should be developing the ability to assess others at more junior levels, becoming able to clearly identify the difference between beginner, intermediate and advanced tasks. You should be able to build teams, set direction and provide supervision.</p>
+                                                <p data-c-font-size="small">This level is usually associated with tasks that form the bulk of the work for management and executive level positions.</p>
+                                            </div>
+                                            <div class="job-builder-context-item" data-tc-wEnv-id="Level5" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
+                                                <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Asset / No Level Required</p>
+                                                <p data-c-font-size="small" data-c-margin="bottom(quarter)">This skill isn't required for the employee to do the job, but it provides an added benefit to their skillset and will improve the speed or effectiveness of their work.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Other Tasks -->
+                        <div data-c-background="grey(10)" data-c-padding="top(normal) lr(normal)">
+                            <p data-c-font-weight="bold" data-c-margin="bottom(half)">Other Tasks That Require This Skill</p>
+                            <div data-c-input="checkbox">
+                                <label>Select other tasks this skill applies to:</label>
+                                <span>Required</span>
+                                <div>
+                                    <label for="cA1">
+                                        <input
+                                            id="cA1"
+                                            type="checkbox"/>
+                                        <span>Task 02: Connect partner organizations (departments, agencies) with top talent (i.e., high-performing executives) with an interest and the potential to assume technology leadership roles.</span>
+                                    </label>
+                                    <label for="cA2">
+                                        <input
+                                            id="cA2"
+                                            type="checkbox"/>
+                                        <span>Task 03: Identify and attract exceptional executive candidates, including those who haven’t considered government as an option before.</span>
+                                    </label>
+                                    <label for="cA3">
+                                        <input
+                                            id="cA3"
+                                            type="checkbox"/>
+                                        <span>Task 04: Build a diverse pipeline of candidates and strong partnerships with government departments. This means proactively going out and building a network and strong relationships with senior level external talent (CIOs and similar senior-level positions) across Canada, as well as with senior leaders in departments and agencies who have vacant positions.</span>
+                                    </label>
+                                    <label for="cA4">
+                                        <input
+                                            id="cA4"
+                                            type="checkbox"/>
+                                        <span>Task 05: Take a human-centered approach to recruitment by understanding users’ needs (hiring executives and candidates) to deliver exceptional user experience.</span>
+                                    </label>
+                                    <label for="cA5">
+                                        <input
+                                            id="cA5"
+                                            type="checkbox"/>
+                                        <span>Task 06: Work creatively using a broad array of traditional and social media approaches.</span>
+                                    </label>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-c-padding="normal">
+                        <div data-c-grid="gutter middle">
+                            <div data-c-grid-item="base(1of2)">
+                                <button data-c-button="outline(c2)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-01" data-c-radius="rounded">
+                                    Cancel
+                                </button>
+                            </div>
+                            <div data-c-alignment="base(right)" data-c-grid-item="base(1of2)">
+                                <a href="/builder-07" data-c-button="solid(c2)" data-c-radius="rounded">
+                                    Add Skill
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Preview modal, same as the last step. -->
+        <div aria-describedby="example-dialog-02-description" aria-hidden="true" aria-labelledby="example-dialog-02-title" data-c-dialog data-c-dialog-id="example-dialog-02" data-c-padding="top(double) bottom(double)" role="dialog">
+            <div data-c-background="white(100)" data-c-radius="rounded">
+                <div data-c-background="c1(100)" data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
+                    <h5 data-c-colour="white" data-c-font-size="h4" id="example-dialog-02-title">Keep it up!
+                    </h5>
+                </div>
+                <div data-c-border="bottom(thin, solid, black)">
+                    <div data-c-border="bottom(thin, solid, black)" data-c-padding="normal" id="example-dialog-02-description">
+                            Here's a preview of the Tasks you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.
+                    </div>
+                    <!-- This is where the modal content begins. -->
+                    <div data-c-background="grey(20)" data-c-padding="normal">
+                        <div class="manager-job-card" data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
+                            <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="bottom(normal)" data-c-padding="bottom(normal)">Skills the Employee Needs to Have</h4>
+                            <div data-c-margin="tb(double)">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(half)">Human Resources: Assessment Tools</p>
+                                <p data-c-margin="bottom(half)">Required Level: Advanced</p>
+                                <p>Defined as: Ability to design and administer assessment tools and resources for staffing or academic purposes (e.g. exams, interview guides, course designs, user guides)</p>
+                            </div>
+                            <div data-c-margin="tb(double)">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(half)">Client Services</p>
+                                <p data-c-margin="bottom(half)">Required Level: Advanced</p>
+                                <p>Defined as: Ability to communicate clearly and respectfully with service users, promoting client satisfaction, resolving issues and ensuring that the service is used effectively</p>
+                            </div>
+                            <div data-c-margin="tb(double)">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(half)">Initiative</p>
+                                <p data-c-margin="bottom(half)">Required Level: Strongly in Evidence</p>
+                                <p>Defined as: Willingness to take on responsibilities and going above and beyond to take on challenges.</p>
+                            </div>
+                            <div data-c-margin="tb(double)">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(half)">Ability to Collaborate</p>
+                                <p data-c-margin="bottom(half)">Required Level: Strongly in Evidence</p>
+                                <p>Defined as: Ability to work with others to advance initiatives and build bridges within and across teams, generating mutual trust and respect.</p>
+                            </div>
+                            <div data-c-margin="tb(double)">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(half)">Networking Abilities</p>
+                                <p data-c-margin="bottom(half)">Required Level: Moderately in Evidence</p>
+                                <p>Defined as: Familiarity with the Canadian digital and high-tech community leading to quality of being trusted and having “street credibility”. Preference given to those who already have an established network connected to IT executives and CIO communities in Canada.</p>
+                            </div>
+                            <div data-c-margin="tb(double)">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(half)">Judgement</p>
+                                <p data-c-margin="bottom(half)">Required Level: Strongly in Evidence</p>
+                                <p>Defined as: Ability to make considered decisions and come to sensible conclusions that respect the perspectives of all parties involved.</p>
+                            </div>
+                            <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="bottom(normal)" data-c-padding="bottom(normal)">Skills That Would Be Nice For the Employee to Have</h4>
+                            <div data-c-margin="tb(double)">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(half)">Social Media Savviness</p>
+                                <p>Defined as: Ability to use social media platforms effectively to reach a desired target audience.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-c-padding="normal">
+                    <div data-c-grid="gutter middle">
+                        <div data-c-grid-item="base(1of2)">
+                            <button data-c-button="outline(c2)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-02" data-c-radius="rounded">
+                                Go Back
+                            </button>
+                        </div>
+                        <div data-c-alignment="base(right)" data-c-grid-item="base(1of2)">
+                            <a href="/builder-07" data-c-button="solid(c2)" data-c-radius="rounded">
+                                Next Step
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
