@@ -97,7 +97,6 @@ const Input: React.FunctionComponent<InputProps> = ({
 
   function renderRadio(): React.ReactElement {
     const clicked: boolean = htmlId === (field && field.value);
-    console.log(field);
     return (
       <label
         htmlFor={htmlId}
@@ -132,7 +131,7 @@ const Input: React.FunctionComponent<InputProps> = ({
         }
       >
         <label htmlFor={htmlId}>{label}</label>
-        {required && <span>Required</span>}
+        <span>Required</span>
         <div>
           <input
             id={htmlId}
