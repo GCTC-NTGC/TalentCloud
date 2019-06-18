@@ -32,8 +32,8 @@ const messages = {
 const getMessages = (locale) => messages[locale];
 // Set intl configuration
 setIntlConfig({
-    locales: ['en', 'fr'],
-    defaultLocale: 'en',
+    locales: ["en", "fr"],
+    defaultLocale: "en",
     getMessages,
 });
 

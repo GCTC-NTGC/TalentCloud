@@ -8,6 +8,10 @@ import {
 } from "react-intl";
 import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from "yup";
+import RadioGroup from "../Form/RadioGroup";
+import RadioInput from "../Form/RadioInput";
+import SelectInput from "../Form/SelectInput";
+import TextInput from "../Form/TextInput";
 import JobPreview from "../JobPreview";
 import Modal from "../Modal";
 import { Job } from "../../models/types";
@@ -186,141 +190,6 @@ const formMessages = defineMessages({
     description: "The form label displayed on 'never' frequency options.",
   },
 });
-
-const TextInput = ({
-  field: { name, value, onChange, onBlur },
-  form: { errors },
-  id,
-  label,
-  grid,
-  type,
-  placeholder,
-  required,
-  minLength,
-  maxLength,
-  ...props
-}): React.ReactElement => (
-  <div
-    data-c-grid-item={grid}
-    data-c-input={type}
-    data-c-required={required}
-    data-c-invalid={errors[name] ? true : null}
-  >
-    <label htmlFor={id}>{label}</label>
-    <span>Required</span>
-    <div>
-      <input
-        data-c-font-weight="800"
-        id={id}
-        name={name}
-        placeholder={placeholder}
-        type={type}
-        value={value}
-        onChange={onChange}
-        minLength={minLength}
-        maxLength={maxLength}
-        onBlur={onBlur}
-        {...props}
-      />
-    </div>
-    <span>{errors[name]}</span>
-  </div>
-);
-
-const RadioInput = ({
-  field: { name, value, onChange, onBlur },
-  id,
-  label,
-  ...props
-}): React.ReactElement => (
-  <label htmlFor={id}>
-    <input
-      data-c-font-weight="800"
-      id={id}
-      name={name}
-      type="radio"
-      checked={id === value}
-      value={id}
-      onChange={onChange}
-      onBlur={onBlur}
-      {...props}
-    />
-    <span>{label}</span>
-  </label>
-);
-
-const RadioGroup = ({
-  id,
-  label,
-  required,
-  grid,
-  info,
-  children,
-  value, // eslint-disable-line
-  error,
-  touched,
-}): React.ReactElement => {
-  const hasError = !!error && touched;
-  return (
-    <div
-      data-c-grid-item={grid}
-      data-c-input="radio"
-      data-c-required={required}
-      data-c-invalid={hasError ? true : null}
-    >
-      {info}
-      <label htmlFor={id}>{label}</label>
-      <span>Required</span>
-      <div id={id} role="radiogroup">
-        {children}
-      </div>
-      <span>{error}</span>
-    </div>
-  );
-};
-
-const SelectInput = ({
-  field: { name, value, onChange, onBlur },
-  form: { errors },
-  id,
-  label,
-  grid,
-  required,
-  options,
-  nullSelection,
-  ...props
-}): React.ReactElement => (
-  <div
-    data-c-grid-item={grid}
-    data-c-input="select"
-    data-c-required={required}
-    data-c-invalid={errors[name] ? true : null}
-  >
-    <label htmlFor={id}>{label}</label>
-    <span>Required</span>
-    <div>
-      <i className="fa fa-caret-down" />
-      <select
-        id={id}
-        name={name}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        {...props}
-      >
-        <option value="">{nullSelection}</option>
-        {options.map(
-          (option): React.ReactElement => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ),
-        )}
-      </select>
-    </div>
-    <span>{errors[name]}</span>
-  </div>
-);
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.

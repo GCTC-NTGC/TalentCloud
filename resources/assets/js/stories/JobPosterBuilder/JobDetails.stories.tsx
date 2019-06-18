@@ -1,11 +1,8 @@
 import * as React from "react";
-import { storiesOf, RenderFunction } from "@storybook/react";
+import { storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
-import { withKnobs, select } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import { injectIntl } from "react-intl";
-import IntlContainer from "../../IntlContainer";
 import JobDetails from "../../components/JobDetails/JobDetails";
 import fakeJob from "../../fakeData/fakeJob";
 
@@ -15,13 +12,6 @@ const stories = storiesOf("JobDetails", module);
 
 stories
   .addDecorator(withInfo)
-  .addParameters({
-    info: {
-      propTables: [JobDetails],
-      propTablesExclude: [IntlContainer, injectIntl],
-    },
-  })
-  .addDecorator(withKnobs)
   .addDecorator(withIntl)
   .add(
     "New Job",
