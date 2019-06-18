@@ -39,7 +39,7 @@ use \Backpack\CRUD\CrudTrait;
  * @property int $manager_id
  * @property boolean $published
  * @property int $team_size
- * @property array $work_env_features
+ * @property array $work_env_features This should be an array of boolean flags for features, ie json of shape {[feature: string]: boolean}
  * @property int $fast_vs_steady
  * @property int $horizontal_vs_vertical
  * @property int $experimental_vs_ongoing

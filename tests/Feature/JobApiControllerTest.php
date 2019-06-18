@@ -166,6 +166,27 @@ class JobApiControllerTest extends TestCase
     }
 
     /**
+     * Even when logged in as the correct manager, updating a job with illegal values
+     * (eg string where a number should be) should fail.
+     *
+     * @return void
+     */
+    public function testUpdateWithInvalidWorkEnvFeatures(): void
+    {
+        $job = factory(JobPoster::class)->create();
+        $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
+        $jobUpdate['work_env_features'] = [
+                'env_open_concept' => true,
+                'env_windows' => true,
+                'amenities_near_transit' => false,
+                'invalid_feature' => 'hello world'
+        ];
+        $response = $this->actingAs($job->manager->user)
+            ->json('put', "api/jobs/$job->id", $jobUpdate);
+        $response->assertStatus(422);
+    }
+
+    /**
      * Even while job.published is 'fillable', it shouldn't be
      * possible to modify published or published_at through an update request.
      *

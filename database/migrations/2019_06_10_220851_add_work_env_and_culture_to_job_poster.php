@@ -20,25 +20,6 @@ class AddWorkEnvAndCultureToJobPoster extends Migration
             // Storing as a json because these features are likely to change frequently
             // This way the frontend can store and check whatever tags it wants to.
             $table->json('work_env_features')->nullable();
-            // $table->boolean('env_open_concept')->default(false);
-            // $table->boolean('env_private')->default(false);
-            // $table->boolean('env_windows')->default(false);
-            // $table->boolean('env_natural_light')->default(false);
-            // $table->boolean('env_assigned_seating')->default(false);
-            // $table->boolean('env_smudging')->default(false);
-            // $table->boolean('tech_video_conferencing')->default(false);
-            // $table->boolean('tech_task_management')->default(false);
-            // $table->boolean('tech_collaboration')->default(false);
-            // $table->boolean('tech_version_control')->default(false);
-            // $table->boolean('tech_file_sharing')->default(false);
-            // $table->boolean('tech_unfiltered_wifi')->default(false);
-            // $table->boolean('amenities_cafeteria')->default(false);
-            // $table->boolean('amenities_downtown')->default(false);
-            // $table->boolean('amenities_near_transit')->default(false);
-            // $table->boolean('amenities_near_fitness')->default(false);
-            // $table->boolean('amenities_near_restaurants')->default(false);
-            // $table->boolean('amenities_parking')->default(false);
-            // These represent slider values, should be constrained to 1-4
             $table->integer('fast_vs_steady')->nullable();
             $table->integer('horizontal_vs_vertical')->nullable();
             $table->integer('experimental_vs_ongoing')->nullable();

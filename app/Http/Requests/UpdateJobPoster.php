@@ -52,7 +52,8 @@ class UpdateJobPoster extends FormRequest
             'classification_level' => 'nullable|numeric',
             'remote_work_allowed' => 'nullable|boolean',
             'team_size' => 'nullable|numeric',
-            'work_env_features' => 'nullable|array', // TODO: should this be array or JSON?
+            'work_env_features' => 'nullable|array',
+            'work_env_features.*' => 'boolean', // Ensure work_env_features is an array of boolean flags.
             'fast_vs_steady' => ['nullable', $sliderRule],
             'horizontal_vs_vertical' => ['nullable', $sliderRule],
             'experimental_vs_ongoing' => ['nullable', $sliderRule],

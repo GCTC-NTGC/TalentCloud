@@ -46,7 +46,7 @@ class ConvertExistingWorkEnvAndCultureToJobPoster extends Migration
                     $summaryText = implode("\n", $cultureText);
                     DB::table('job_poster_translations')->updateOrInsert(
                         ['job_poster_id' => $job->id, 'locale' => $locale],
-                        ['work_env_description' => $summaryText]
+                        ['culture_summary' => $summaryText]
                     );
                 }
             }
