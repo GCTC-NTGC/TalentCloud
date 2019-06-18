@@ -667,6 +667,16 @@
         "id": "formValidation.invalidSelection"
       },
       {
+        "defaultMessage": "Required",
+        "description": "Displayed next to required form inputs.",
+        "id": "formInput.required"
+      }
+    ],
+    "path": "resources/assets/js/components/Form/Messages.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "What is the job title?",
         "description": "The form label displayed on the title input.",
         "id": "jobDetails.titleLabel"

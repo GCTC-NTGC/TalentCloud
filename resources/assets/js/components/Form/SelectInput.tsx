@@ -1,5 +1,7 @@
 import React from "react";
 import { FieldProps } from "formik";
+import { FormattedMessage } from "react-intl";
+import { inputMessages } from "./Messages";
 
 interface SelectInputProps {
   // HTML ID of the input.
@@ -38,7 +40,9 @@ const SelectInput: React.FunctionComponent<SelectInputProps> = ({
     data-c-invalid={errors[name] ? true : null}
   >
     <label htmlFor={id}>{label}</label>
-    <span>Required</span>
+    <span>
+      <FormattedMessage {...inputMessages.required} />
+    </span>
     <div>
       <i className="fa fa-caret-down" />
       <select

@@ -1,5 +1,7 @@
 import React from "react";
 import { FieldProps } from "formik";
+import { FormattedMessage } from "react-intl";
+import { inputMessages } from "./Messages";
 
 interface TextInputProps {
   // HTML ID of the input.
@@ -44,7 +46,9 @@ const TextInput = ({
     data-c-invalid={errors[name] ? true : null}
   >
     <label htmlFor={id}>{label}</label>
-    <span>Required</span>
+    <span>
+      <FormattedMessage {...inputMessages.required} />
+    </span>
     <div>
       <input
         data-c-font-weight="800"

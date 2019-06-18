@@ -8,39 +8,17 @@ import {
 } from "react-intl";
 import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from "yup";
+
 import RadioGroup from "../Form/RadioGroup";
 import RadioInput from "../Form/RadioInput";
 import SelectInput from "../Form/SelectInput";
 import TextInput from "../Form/TextInput";
 import JobPreview from "../JobPreview";
 import Modal from "../Modal";
+
 import { Job } from "../../models/types";
 
-const validationMessages = defineMessages({
-  required: {
-    id: "formValidation.required",
-    defaultMessage: "This field is required.",
-    description: "Error message displayed when a required field is empty.",
-  },
-  tooShort: {
-    id: "formValidation.tooShort",
-    defaultMessage: "Too short!",
-    description:
-      "Error message displayed when a field value is below the minimum length.",
-  },
-  tooLong: {
-    id: "formValidation.tooLong",
-    defaultMessage: "Too long!",
-    description:
-      "Error message displayed when a field value is above the maximum length.",
-  },
-  invalidSelection: {
-    id: "formValidation.invalidSelection",
-    defaultMessage: "Please select from the available options.",
-    description:
-      "Error message displayed when a field value is outside of the available selection options.",
-  },
-});
+import { validationMessages } from "../Form/Messages";
 
 const formMessages = defineMessages({
   titleLabel: {

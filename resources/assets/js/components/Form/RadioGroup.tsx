@@ -1,5 +1,7 @@
 import React from "react";
 import { FormikErrors, FormikTouched } from "formik";
+import { FormattedMessage } from "react-intl";
+import { inputMessages } from "./Messages";
 
 interface RadioGroupProps {
   // HTML ID of the input.
@@ -40,7 +42,9 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
     >
       {info}
       <label htmlFor={id}>{label}</label>
-      <span>Required</span>
+      <span>
+        <FormattedMessage {...inputMessages.required} />
+      </span>
       <div id={id} role="radiogroup">
         {children}
       </div>
