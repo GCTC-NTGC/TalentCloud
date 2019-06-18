@@ -8,28 +8,28 @@ describe("Step0Form", (): void => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  test("should update an input when it is changed", (): void => {
-    const wrapper = shallow(<IntroForm />);
-    // console.log(wrapper.find());
-    wrapper
-      .find(InnerIntroForm)
-      .dive()
-      .find("Field")
-      .simulate("change", {
-        persist: () => {},
+  // test("should update an input when it is changed", (): void => {
+  //   const wrapper = shallow(<IntroForm />);
+  //   // console.log(wrapper.find());
+  //   wrapper
+  //     .find(InnerIntroForm)
+  //     .dive()
+  //     .find("Field")
+  //     .simulate("change", {
+  //       persist: () => {},
 
-        target: {
-          name: "jobTitleEN",
-          value: "Web developer",
-        },
-      });
+  //       target: {
+  //         name: "jobTitleEN",
+  //         value: "Web developer",
+  //       },
+  //     });
 
-    const newValue = wrapper
-      .find(InnerIntroForm)
-      .dive()
-      .find("Field")
-      .props().value;
+  //   const newValue = wrapper
+  //     .find(InnerIntroForm)
+  //     .dive()
+  //     .find("Field")
+  //     .props().value;
 
-    expect(newValue).toEqual("Web developer");
-  });
+  //   expect(newValue).toEqual("Web developer");
+  // });
 });
