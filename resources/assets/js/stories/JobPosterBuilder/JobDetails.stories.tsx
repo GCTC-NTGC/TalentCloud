@@ -2,16 +2,12 @@ import * as React from "react";
 import { storiesOf, RenderFunction } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
 import { withKnobs, select } from "@storybook/addon-knobs";
+import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import { injectIntl } from "react-intl";
 import IntlContainer from "../../IntlContainer";
 import JobDetails from "../../components/JobDetails/JobDetails";
 import fakeJob from "../../fakeData/fakeJob";
-
-const langOptions = {
-  english: "en",
-  french: "fr",
-};
 
 const modalRoot = document.querySelector("#modal-root");
 
@@ -26,15 +22,7 @@ stories
     },
   })
   .addDecorator(withKnobs)
-  .addDecorator(
-    (storyFn: RenderFunction): React.ReactElement => (
-      <IntlContainer
-        locale={select("Language", langOptions, "en", "Lang-Group")}
-      >
-        {storyFn()}
-      </IntlContainer>
-    ),
-  )
+  .addDecorator(withIntl)
   .add(
     "New Job",
     (): React.ReactElement => (
