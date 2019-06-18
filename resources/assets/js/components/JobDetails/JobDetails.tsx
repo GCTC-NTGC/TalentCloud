@@ -5,24 +5,12 @@ import {
   InjectedIntlProps,
   FormattedMessage,
   defineMessages,
-  addLocaleData,
 } from "react-intl";
-import locale_en from "react-intl/locale-data/en";
-import locale_fr from "react-intl/locale-data/fr";
 import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from "yup";
 import JobPreview from "../JobPreview";
 import Modal from "../Modal";
 import { Job } from "../../models/types";
-
-addLocaleData([...locale_en, ...locale_fr]);
-
-const documentRoot = document.querySelector("html");
-let locale = "en";
-
-if (documentRoot && documentRoot.lang) {
-  locale = documentRoot.lang;
-}
 
 const validationMessages = defineMessages({
   required: {
@@ -358,6 +346,7 @@ const JobDetails: React.FunctionComponent<
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const { locale } = intl;
   let initialValues;
   if (job !== undefined) {
     initialValues = {
