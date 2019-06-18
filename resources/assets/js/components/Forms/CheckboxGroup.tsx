@@ -9,12 +9,12 @@ interface CheckboxGroupProps {
   items?: [];
   children?: any;
   value: any;
-  error?: string;
-  touched?: boolean;
 
   // formik
   field?: any;
   form?: any;
+  error?: (string | undefined)[];
+  touched?: (boolean | undefined)[];
   onChange: any;
   onBlur?: any;
 }
