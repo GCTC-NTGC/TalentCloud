@@ -213,6 +213,7 @@ class JobPoster extends BaseModel
         'language_requirement_id',
         'remote_work_allowed',
         'published_at',
+        'published',
         'review_requested_at',
         'team_size',
         'work_env_features',
