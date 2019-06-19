@@ -1,18 +1,18 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import {
   injectIntl,
   InjectedIntlProps,
-  IntlProvider,
   FormattedMessage,
   defineMessages,
-  addLocaleData,
 } from "react-intl";
-import locale_en from "react-intl/locale-data/en";
-import locale_fr from "react-intl/locale-data/fr";
 import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from "yup";
+
+import RadioGroup from "../Form/RadioGroup";
+import RadioInput from "../Form/RadioInput";
+import SelectInput from "../Form/SelectInput";
+import TextInput from "../Form/TextInput";
 import { connect } from "react-redux";
 import JobPreview from "../JobPreview";
 import Modal from "../Modal";
@@ -31,33 +31,9 @@ import {
   clearJobSaveSuccessful,
 } from "../../store/Job/jobActions";
 
-addLocaleData([...locale_en, ...locale_fr]);
+import { Job } from "../../models/types";
 
-const validationMessages = defineMessages({
-  required: {
-    id: "formValidation.required",
-    defaultMessage: "This field is required.",
-    description: "Error message displayed when a required field is empty.",
-  },
-  tooShort: {
-    id: "formValidation.tooShort",
-    defaultMessage: "Too short!",
-    description:
-      "Error message displayed when a field value is below the minimum length.",
-  },
-  tooLong: {
-    id: "formValidation.tooLong",
-    defaultMessage: "Too long!",
-    description:
-      "Error message displayed when a field value is above the maximum length.",
-  },
-  invalidSelection: {
-    id: "formValidation.invalidSelection",
-    defaultMessage: "Please select from the available options.",
-    description:
-      "Error message displayed when a field value is outside of the available selection options.",
-  },
-});
+import { validationMessages } from "../Form/Messages";
 
 const formMessages = defineMessages({
   titleLabel: {
@@ -208,155 +184,61 @@ const formMessages = defineMessages({
   },
 });
 
-const TextInput = ({
-  field: { name, value, onChange, onBlur },
-  form: { errors },
-  id,
-  label,
-  grid,
-  type,
-  placeholder,
-  required,
-  minLength,
-  maxLength,
-  ...props
-}): React.ReactElement => (
-  <div
-    data-c-grid-item={grid}
-    data-c-input={type}
-    data-c-required={required}
-    data-c-invalid={errors[name] ? true : null}
-  >
-    <label htmlFor={id}>{label}</label>
-    <span>Required</span>
-    <div>
-      <input
-        data-c-font-weight="800"
-        id={id}
-        name={name}
-        placeholder={placeholder}
-        type={type}
-        value={value}
-        onChange={onChange}
-        minLength={minLength}
-        maxLength={maxLength}
-        onBlur={onBlur}
-        {...props}
-      />
-    </div>
-    <span>{errors[name]}</span>
-  </div>
-);
-
-const RadioInput = ({
-  field: { name, value, onChange, onBlur },
-  id,
-  label,
-  ...props
-}): React.ReactElement => (
-  <label htmlFor={id}>
-    <input
-      data-c-font-weight="800"
-      id={id}
-      name={name}
-      type="radio"
-      checked={id === value}
-      value={id}
-      onChange={onChange}
-      onBlur={onBlur}
-      {...props}
-    />
-    <span>{label}</span>
-  </label>
-);
-
-const RadioGroup = ({
-  id,
-  label,
-  required,
-  grid,
-  info,
-  children,
-  value, // eslint-disable-line
-  error,
-  touched,
-}): React.ReactElement => {
-  const hasError = !!error && touched;
-  return (
-    <div
-      data-c-grid-item={grid}
-      data-c-input="radio"
-      data-c-required={required}
-      data-c-invalid={hasError ? true : null}
-    >
-      {info}
-      <label htmlFor={id}>{label}</label>
-      <span>Required</span>
-      <div id={id} role="radiogroup">
-        {children}
-      </div>
-      <span>{error}</span>
-    </div>
-  );
-};
-
-const SelectInput = ({
-  field: { name, value, onChange, onBlur },
-  form: { errors },
-  id,
-  label,
-  grid,
-  required,
-  options,
-  nullSelection,
-  ...props
-}): React.ReactElement => (
-  <div
-    data-c-grid-item={grid}
-    data-c-input="select"
-    data-c-required={required}
-    data-c-invalid={errors[name] ? true : null}
-  >
-    <label htmlFor={id}>{label}</label>
-    <span>Required</span>
-    <div>
-      <i className="fa fa-caret-down" />
-      <select
-        id={id}
-        name={name}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        {...props}
-      >
-        <option value="">{nullSelection}</option>
-        {options.map(
-          (option): React.ReactElement => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ),
-        )}
-      </select>
-    </div>
-    <span>{errors[name]}</span>
-  </div>
-);
-
 interface JobDetailsProps {
+  // Optional Job to prepopulate form values from.
+  job?: Job;
+  // Parent element to place the modal contents within (uses React Portal).
+  modalParent: Element;
+  // Function to run after successful form validation.
   handleSubmit: (values: FormikValues) => void;
+  // Function to run when modal cancel is clicked.
   handleModalCancel: () => void;
+  // Function to run when modal confirm is clicked.
   handleModalConfirm: () => void;
 }
 
-const JobDetails = ({
+const JobDetails: React.FunctionComponent<
+  JobDetailsProps & InjectedIntlProps
+> = ({
+  job,
+  modalParent,
   handleSubmit,
   handleModalCancel,
   handleModalConfirm,
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const modalParent = document.querySelector("#job-details");
+  const { locale } = intl;
+  let initialValues;
+  if (job !== undefined) {
+    initialValues = {
+      title: job[locale].title,
+      termLength: job.term_qty,
+      classification: job.classification_code,
+      level: job.classification_level,
+      securityLevel: job.security_clearance_id,
+      language: job.language_requirement_id,
+      city: job[locale].city,
+      province: job.province_id,
+      remoteWork: "remoteWorkCanada",
+      telework: "teleworkFrequently",
+      flexHours: "flexHoursFrequently",
+    };
+  } else {
+    initialValues = {
+      title: "",
+      termLength: "",
+      classification: "",
+      level: "",
+      securityLevel: "",
+      language: "",
+      city: "",
+      province: "",
+      remoteWork: "remoteWorkCanada",
+      telework: "teleworkFrequently",
+      flexHours: "flexHoursFrequently",
+    };
+  }
   const jobSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, intl.formatMessage(validationMessages.tooShort))
@@ -467,19 +349,7 @@ const JobDetails = ({
           />
         </h3>
         <Formik
-          initialValues={{
-            title: "",
-            termLength: "",
-            classification: "",
-            level: "",
-            securityLevel: "",
-            language: "",
-            city: "",
-            province: "",
-            remoteWork: "remoteWorkCanada",
-            telework: "teleworkFrequently",
-            flexHours: "flexHoursFrequently",
-          }}
+          initialValues={initialValues}
           validationSchema={jobSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass

@@ -89,6 +89,7 @@
   "criteriaType.asset": "Asset",
   "criteriaType.essential": "Essential",
   "errorToast.title": "Something went wrong!",
+  "formInput.required": "Required",
   "formValidation.invalidSelection": "Please select from the available options.",
   "formValidation.required": "This field is required.",
   "formValidation.tooLong": "Too long!",
