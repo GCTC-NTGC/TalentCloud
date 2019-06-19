@@ -10,6 +10,21 @@ const modalRoot = document.querySelector("#modal-root");
 
 const stories = storiesOf("JobDetails", module);
 
+let isSaving = false;
+let saveSuccessful = false;
+const handleSubmit = (): void => {
+  isSaving = true;
+  setTimeout((): void => {
+    isSaving = false;
+    saveSuccessful = true;
+  }, 1000);
+  // action("Submit")();
+};
+const clearSaveSuccessful = (): void => {
+  saveSuccessful = false;
+  // action("Clear Save Successful")();
+};
+
 stories
   .addDecorator(withInfo)
   .addDecorator(withIntl)
@@ -17,8 +32,11 @@ stories
     "New Job",
     (): React.ReactElement => (
       <JobDetails
+        isSaving={isSaving}
+        saveSuccessful={saveSuccessful}
+        handleSubmit={handleSubmit}
+        clearSaveSuccessful={clearSaveSuccessful}
         modalParent={modalRoot || document.body}
-        handleSubmit={action("Submit")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
       />
@@ -30,8 +48,11 @@ stories
     (): React.ReactElement => (
       <JobDetails
         job={fakeJob()}
+        isSaving={isSaving}
+        saveSuccessful={saveSuccessful}
+        handleSubmit={handleSubmit}
+        clearSaveSuccessful={clearSaveSuccessful}
         modalParent={modalRoot || document.body}
-        handleSubmit={action("Submit Edit")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
       />

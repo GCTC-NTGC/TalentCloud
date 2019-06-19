@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   injectIntl,
   InjectedIntlProps,
@@ -192,6 +192,12 @@ const formMessages = defineMessages({
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
   job?: Job;
+  // True when the the form is currently in the process of submitting
+  isSaving: boolean;
+  // A flag that is set to true when the form has been submitted successfully
+  saveSuccessful: boolean;
+  // Calling this method tells the parent that the successful save has been acknowledged, and saveSuccessful can be set to false again.
+  clearSaveSuccessful: () => void;
   // Parent element to place the modal contents within (uses React Portal).
   modalParent: Element;
   // Function to run after successful form validation.
@@ -285,6 +291,9 @@ const JobDetails: React.FunctionComponent<
   JobDetailsProps & InjectedIntlProps
 > = ({
   job,
+  isSaving,
+  saveSuccessful,
+  clearSaveSuccessful,
   modalParent,
   handleSubmit,
   handleModalCancel,
@@ -292,6 +301,14 @@ const JobDetails: React.FunctionComponent<
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  useEffect((): void => {
+    if (saveSuccessful) {
+      if (!isModalVisible) {
+        setIsModalVisible(true);
+      }
+      clearSaveSuccessful(); // TODO: brainstorm alternative ways of allowing parent to tell this component to put up modal. Should the parent just be in charge of modal visibility? -- Tristan
+    }
+  }, [saveSuccessful]);
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
@@ -406,7 +423,7 @@ const JobDetails: React.FunctionComponent<
           validationSchema={jobSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
-            setIsModalVisible(true);
+            // setIsModalVisible(true);
             handleSubmit(
               updateJobWithValues(job || emptyJob(), locale, values),
             );
@@ -549,19 +566,19 @@ const JobDetails: React.FunctionComponent<
                     formMessages.provinceNullSelection,
                   )}
                   options={[
-                    { value: "AB", label: "Alberta" },
-                    { value: "BC", label: "British Columbia" },
-                    { value: "MB", label: "Manitoba" },
-                    { value: "NB", label: "New Brunswick" },
-                    { value: "NL", label: "Newfoundland and Labrador" },
-                    { value: "NS", label: "Nova Scotia" },
-                    { value: "NT", label: "Northwest Territories" },
-                    { value: "NU", label: "Nunavut" },
-                    { value: "ON", label: "Ontario" },
-                    { value: "PE", label: "Prince Edward Island" },
-                    { value: "QC", label: "Quebec" },
-                    { value: "SK", label: "Saskatchewan" },
-                    { value: "YT", label: "Yukon" },
+                    { value: "1", label: "Alberta" },
+                    { value: "2", label: "British Columbia" },
+                    { value: "3", label: "Manitoba" },
+                    { value: "4", label: "New Brunswick" },
+                    { value: "5", label: "Newfoundland and Labrador" },
+                    { value: "6", label: "Nova Scotia" },
+                    { value: "7", label: "Northwest Territories" },
+                    { value: "8", label: "Nunavut" },
+                    { value: "9", label: "Ontario" },
+                    { value: "10", label: "Prince Edward Island" },
+                    { value: "11", label: "Quebec" },
+                    { value: "12", label: "Saskatchewan" },
+                    { value: "12", label: "Yukon" },
                   ]}
                 />
                 <RadioGroup
