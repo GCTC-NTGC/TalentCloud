@@ -80,7 +80,8 @@ class JobControllerTest extends TestCase
             'en' => $this->faker->word,
             'fr' => $this->faker_fr->word
         ],
-        'hire_impact' => [
+        // The form is named impact, but the controller saves it to the hire_impact field
+        'impact' => [
             'en' => $this->faker->paragraphs(
                 2,
                 true
