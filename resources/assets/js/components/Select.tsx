@@ -14,6 +14,7 @@ export interface SelectProps<T extends string | number> {
   nullSelection: string | undefined;
   options: SelectOption<T>[];
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  errorText?: string;
 }
 
 export default function Select<T extends string | number>(
@@ -28,6 +29,7 @@ export default function Select<T extends string | number>(
     nullSelection,
     options,
     onChange,
+    errorText,
   } = props;
 
   return (
@@ -54,7 +56,7 @@ export default function Select<T extends string | number>(
           ))}
         </select>
       </div>
-      <span>This input has an error.</span>
+      <span>{errorText || "This input has an error."}</span>
     </div>
   );
 }
