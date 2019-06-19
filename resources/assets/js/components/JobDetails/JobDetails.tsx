@@ -9,11 +9,12 @@ import {
 import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from "yup";
 
+import { connect } from "react-redux";
+import { string, number } from "prop-types";
 import RadioGroup from "../Form/RadioGroup";
 import RadioInput from "../Form/RadioInput";
 import SelectInput from "../Form/SelectInput";
 import TextInput from "../Form/TextInput";
-import { connect } from "react-redux";
 import JobPreview from "../JobPreview";
 import Modal from "../Modal";
 import { RootState } from "../../store/store";
@@ -30,8 +31,6 @@ import {
   createJob,
   clearJobSaveSuccessful,
 } from "../../store/Job/jobActions";
-
-import { Job } from "../../models/types";
 
 import { validationMessages } from "../Form/Messages";
 
@@ -197,6 +196,20 @@ interface JobDetailsProps {
   handleModalConfirm: () => void;
 }
 
+interface JobFormValues {
+  title: string;
+  termLength: number | null;
+  classification: string;
+  level: number | null;
+  securityLevel: number | null;
+  language: number | null;
+  city: string;
+  province: number | null;
+  remoteWork: "none" | "yesCanada" | "yesWorld";
+  telework: string;
+  flexHours: string;
+}
+
 const JobDetails: React.FunctionComponent<
   JobDetailsProps & InjectedIntlProps
 > = ({
@@ -209,36 +222,33 @@ const JobDetails: React.FunctionComponent<
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { locale } = intl;
-  let initialValues;
-  if (job !== undefined) {
-    initialValues = {
-      title: job[locale].title,
-      termLength: job.term_qty,
-      classification: job.classification_code,
-      level: job.classification_level,
-      securityLevel: job.security_clearance_id,
-      language: job.language_requirement_id,
-      city: job[locale].city,
-      province: job.province_id,
-      remoteWork: "remoteWorkCanada",
-      telework: "teleworkFrequently",
-      flexHours: "flexHoursFrequently",
-    };
-  } else {
-    initialValues = {
-      title: "",
-      termLength: "",
-      classification: "",
-      level: "",
-      securityLevel: "",
-      language: "",
-      city: "",
-      province: "",
-      remoteWork: "remoteWorkCanada",
-      telework: "teleworkFrequently",
-      flexHours: "flexHoursFrequently",
-    };
-  }
+  const initialValues: JobFormValues = job
+    ? {
+        title: job[locale].title ? String(job[locale].title) : "", // TODO: use utility method
+        termLength: job.term_qty,
+        classification: job.classification_code || "",
+        level: job.classification_level,
+        securityLevel: job.security_clearance_id,
+        language: job.language_requirement_id,
+        city: job[locale].city || "",
+        province: job.province_id,
+        remoteWork: job.remote_work_allowed ? "yesCanada" : "none",
+        telework: "teleworkFrequently",
+        flexHours: "flexHoursFrequently",
+      }
+    : {
+        title: "",
+        termLength: null,
+        classification: "",
+        level: null,
+        securityLevel: null,
+        language: null,
+        city: "",
+        province: null,
+        remoteWork: "yesCanada",
+        telework: "teleworkFrequently",
+        flexHours: "flexHoursFrequently",
+      };
   const jobSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, intl.formatMessage(validationMessages.tooShort))
@@ -773,13 +783,13 @@ const JobDetails: React.FunctionComponent<
                       title={values.title}
                       department="Department"
                       remoteWork={values.remoteWork !== "none"}
-                      language={values.language}
+                      language={String(values.language)} // TODO: remove String() cast
                       city={values.city}
-                      province={values.province}
+                      province={String(values.province)} // TODO: remove String() cast
                       termLength={Number(values.termLength)}
-                      securityLevel={values.securityLevel}
-                      classification={values.classification}
-                      level={values.level}
+                      securityLevel={String(values.securityLevel)} // TODO: remove String() cast
+                      classification={String(values.classification)} // TODO: remove String() cast
+                      level={String(values.level)} // TODO: remove String() cast
                     />
                   </div>
                 </Modal.Body>
@@ -808,6 +818,8 @@ const JobDetails: React.FunctionComponent<
     </>
   );
 };
+
+export const JobDetailsIntl = injectIntl(JobDetails);
 
 interface JobDetailsContainerProps {
   jobId: number | null;
@@ -856,25 +868,3 @@ const JobDetailsContainer = connect(
 )(injectIntl(JobDetails));
 
 export default JobDetailsContainer;
-
-const documentRoot = document.querySelector("html");
-let locale = "en";
-
-if (documentRoot && documentRoot.lang) {
-  locale = documentRoot.lang;
-}
-
-if (document.getElementById("job-details")) {
-  const rootEl = document.getElementById("job-details");
-  ReactDOM.render(
-    <IntlProvider locale={locale}>
-      <JobDetailsContainer
-        jobId={null}
-        handleSubmit={(values): void => console.table(values)}
-        handleModalCancel={(): void => console.log("Modal Cancelled")}
-        handleModalConfirm={(): void => console.log("Modal Confirmed")}
-      />
-    </IntlProvider>,
-    rootEl,
-  );
-}

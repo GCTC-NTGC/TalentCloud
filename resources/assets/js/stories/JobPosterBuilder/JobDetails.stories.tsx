@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import JobDetails from "../../components/JobDetails/JobDetails";
+import { JobDetailsIntl as JobDetails } from "../../components/JobDetails/JobDetails";
 import fakeJob from "../../fakeData/fakeJob";
 
 const modalRoot = document.querySelector("#modal-root");
