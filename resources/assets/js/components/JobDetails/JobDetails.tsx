@@ -33,6 +33,12 @@ import {
 } from "../../store/Job/jobActions";
 
 import { validationMessages } from "../Form/Messages";
+import {
+  LanguageRequirementId,
+  SecurityClearanceId,
+  ProvinceId,
+} from "../../models/lookupConstants";
+import { emptyJob } from "../../models/jobUtil";
 
 const formMessages = defineMessages({
   titleLabel: {
@@ -189,26 +195,91 @@ interface JobDetailsProps {
   // Parent element to place the modal contents within (uses React Portal).
   modalParent: Element;
   // Function to run after successful form validation.
-  handleSubmit: (values: FormikValues) => void;
+  handleSubmit: (values: Job) => void;
   // Function to run when modal cancel is clicked.
   handleModalCancel: () => void;
   // Function to run when modal confirm is clicked.
   handleModalConfirm: () => void;
 }
 
+type RemoteWorkType = "remoteWorkNone" | "remoteWorkCanada" | "remoteWorkWorld";
+
 interface JobFormValues {
   title: string;
-  termLength: number | null;
+  termLength: number | "";
   classification: string;
-  level: number | null;
-  securityLevel: number | null;
-  language: number | null;
+  level: number | "";
+  securityLevel: number | "";
+  language: number | "";
   city: string;
-  province: number | null;
-  remoteWork: "none" | "yesCanada" | "yesWorld";
+  province: number | "";
+  remoteWork: RemoteWorkType;
   telework: string;
   flexHours: string;
 }
+
+const jobToValues = (job: Job | null, locale: string): JobFormValues =>
+  job
+    ? {
+        title: job[locale].title ? String(job[locale].title) : "", // TODO: use utility method
+        termLength: job.term_qty || "",
+        classification: job.classification_code || "",
+        level: job.classification_level || "",
+        securityLevel: job.security_clearance_id || "",
+        language: job.language_requirement_id || "",
+        city: job[locale].city || "",
+        province: job.province_id || "",
+        remoteWork: job.remote_work_allowed
+          ? "remoteWorkCanada"
+          : "remoteWorkNone",
+        telework: "teleworkFrequently",
+        flexHours: "flexHoursFrequently",
+      }
+    : {
+        title: "",
+        termLength: "",
+        classification: "",
+        level: "",
+        securityLevel: "",
+        language: "",
+        city: "",
+        province: "",
+        remoteWork: "remoteWorkCanada",
+        telework: "teleworkFrequently",
+        flexHours: "flexHoursFrequently",
+      };
+
+const updateJobWithValues = (
+  initialJob: Job,
+  locale: "en" | "fr",
+  {
+    title,
+    termLength,
+    classification,
+    level,
+    securityLevel,
+    language,
+    city,
+    province,
+    remoteWork,
+    telework,
+    flexHours,
+  }: JobFormValues,
+): Job => ({
+  ...initialJob,
+  term_qty: termLength || null,
+  classification_code: classification,
+  classification_level: level || null,
+  security_clearance_id: securityLevel || null,
+  language_requirement_id: language || null,
+  province_id: province || null,
+  remote_work_allowed: remoteWork !== "remoteWorkNone",
+  [locale]: {
+    ...initialJob[locale],
+    title,
+    city,
+  },
+});
 
 const JobDetails: React.FunctionComponent<
   JobDetailsProps & InjectedIntlProps
@@ -222,33 +293,15 @@ const JobDetails: React.FunctionComponent<
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { locale } = intl;
-  const initialValues: JobFormValues = job
-    ? {
-        title: job[locale].title ? String(job[locale].title) : "", // TODO: use utility method
-        termLength: job.term_qty,
-        classification: job.classification_code || "",
-        level: job.classification_level,
-        securityLevel: job.security_clearance_id,
-        language: job.language_requirement_id,
-        city: job[locale].city || "",
-        province: job.province_id,
-        remoteWork: job.remote_work_allowed ? "yesCanada" : "none",
-        telework: "teleworkFrequently",
-        flexHours: "flexHoursFrequently",
-      }
-    : {
-        title: "",
-        termLength: null,
-        classification: "",
-        level: null,
-        securityLevel: null,
-        language: null,
-        city: "",
-        province: null,
-        remoteWork: "yesCanada",
-        telework: "teleworkFrequently",
-        flexHours: "flexHoursFrequently",
-      };
+  if (locale !== "en" && locale !== "fr") {
+    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
+  }
+  const initialValues: JobFormValues = jobToValues(job || null, locale);
+  const remoteWorkPossibleValues: RemoteWorkType[] = [
+    "remoteWorkNone",
+    "remoteWorkCanada",
+    "remoteWorkWorld",
+  ];
   const jobSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, intl.formatMessage(validationMessages.tooShort))
@@ -278,16 +331,20 @@ const JobDetails: React.FunctionComponent<
       )
       .required(intl.formatMessage(validationMessages.required)),
     level: Yup.number()
-      .min(1, intl.formatMessage(validationMessages.invalidSelection))
+      .min(1)
       .max(9, intl.formatMessage(validationMessages.invalidSelection))
       .required(intl.formatMessage(validationMessages.required)),
     securityLevel: Yup.number()
-      .min(1, intl.formatMessage(validationMessages.invalidSelection))
-      .max(3, intl.formatMessage(validationMessages.invalidSelection))
+      .oneOf(
+        Object.values(SecurityClearanceId),
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
       .required(intl.formatMessage(validationMessages.required)),
     language: Yup.number()
-      .min(1, intl.formatMessage(validationMessages.invalidSelection))
-      .max(5, intl.formatMessage(validationMessages.invalidSelection))
+      .oneOf(
+        Object.values(LanguageRequirementId),
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
       .required(intl.formatMessage(validationMessages.required)),
     city: Yup.string()
       .min(3, intl.formatMessage(validationMessages.tooShort))
@@ -295,27 +352,13 @@ const JobDetails: React.FunctionComponent<
       .required(intl.formatMessage(validationMessages.required)),
     province: Yup.mixed()
       .oneOf(
-        [
-          "AB",
-          "BC",
-          "MB",
-          "NB",
-          "NL",
-          "NS",
-          "NT",
-          "NU",
-          "ON",
-          "PE",
-          "QC",
-          "SK",
-          "YT",
-        ],
+        Object.values(ProvinceId),
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
     remoteWork: Yup.mixed()
       .oneOf(
-        ["remoteWorkWorld", "remoteWorkCanada", "remoteWorkNone"],
+        remoteWorkPossibleValues,
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
@@ -364,7 +407,9 @@ const JobDetails: React.FunctionComponent<
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
             setIsModalVisible(true);
-            handleSubmit(values);
+            handleSubmit(
+              updateJobWithValues(job || emptyJob(), locale, values),
+            );
             actions.setSubmitting(false); // Required by Formik to finish the submission cycle
           }}
           render={({
@@ -782,7 +827,7 @@ const JobDetails: React.FunctionComponent<
                     <JobPreview
                       title={values.title}
                       department="Department"
-                      remoteWork={values.remoteWork !== "none"}
+                      remoteWork={values.remoteWork !== "remoteWorkNone"}
                       language={String(values.language)} // TODO: remove String() cast
                       city={values.city}
                       province={String(values.province)} // TODO: remove String() cast
