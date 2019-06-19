@@ -51,24 +51,6 @@ class AddWorkEnvAndCultureToJobPoster extends Migration
             $table->dropColumn('team_size');
 
             $table->dropColumn('work_env_features');
-            // $table->dropColumn('env_open_concept');
-            // $table->dropColumn('env_private');
-            // $table->dropColumn('env_windows');
-            // $table->dropColumn('env_natural_light');
-            // $table->dropColumn('env_assigned_seating');
-            // $table->dropColumn('env_smudging');
-            // $table->dropColumn('tech_video_conferencing');
-            // $table->dropColumn('tech_task_management');
-            // $table->dropColumn('tech_collaboration');
-            // $table->dropColumn('tech_version_control');
-            // $table->dropColumn('tech_file_sharing');
-            // $table->dropColumn('tech_unfiltered_wifi');
-            // $table->dropColumn('amenities_cafeteria');
-            // $table->dropColumn('amenities_downtown');
-            // $table->dropColumn('amenities_near_transit');
-            // $table->dropColumn('amenities_near_fitness');
-            // $table->dropColumn('amenities_near_restaurants');
-            // $table->dropColumn('amenities_parking');
             $table->dropColumn('fast_vs_steady');
             $table->dropColumn('horizontal_vs_vertical');
             $table->dropColumn('experimental_vs_ongoing');
