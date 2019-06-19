@@ -56,11 +56,6 @@ export const mapPropsToValues = ({
   hireImpact: initHireImpact || "",
 });
 
-export const validationSchema = Yup.object().shape({
-  teamImpact: Yup.string().required("This field is required"),
-  hireImpact: Yup.string().required("This field is required"),
-});
-
 export const handleSubmit = (
   values,
   { resetForm, setErrors, setSubmitting },
@@ -82,6 +77,10 @@ export const handleSubmit = (
 export const ImpactFormInner: React.FunctionComponent<
   InnerFormProps & InjectedIntlProps
 > = ({ intl }): React.ReactElement => {
+  const validationSchema = Yup.object().shape({
+    teamImpact: Yup.string().required("This field is required"),
+    hireImpact: Yup.string().required("This field is required"),
+  });
   return (
     <Form id="form" data-c-grid="gutter">
       <div data-c-grid-item="base(1of1)" data-c-input="textarea">
