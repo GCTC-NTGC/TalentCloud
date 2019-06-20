@@ -13,4 +13,3 @@ require("./components/ApplicantSkills/SkillsInfoModal");
 require("./components/JobDetails/JobDetails");
 require("./components/JobBuilderIntro/JobBuilderIntro");
 
-// import ReviewApplications from './components/ReviewApplications';

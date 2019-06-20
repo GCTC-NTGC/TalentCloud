@@ -1,0 +1,2053 @@
+{
+    "fixtures": [
+        {
+            "name": "Smoke",
+            "pageUrl": "talent.test",
+            "tests": [
+                {
+                    "name": "Basic Access",
+                    "commands": [
+                        {
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('.home__about-card').visible"
+                            },
+                            "assertionType": "ok",
+                            "callsite": "0",
+                            "options": {},
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectorPostfix": ".visible",
+                                "selectorType": "CSS Selector",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.home__about-card').visible"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.container--copy').find('div').withText('The jobs are real').visible"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('The jobs are real').find('.home__about-card').visible"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.container--copy').find('.home__about-card').visible"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('The jobs are real').nth(1).visible"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('The jobs are real').find('div').visible"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.container--copy').find('div').visible"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('section').nth(3).find('div').find('div').visible"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ]
+                            },
+                            "type": "assertion"
+                        },
+                        {
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('a').withText('Login').visible"
+                            },
+                            "assertionType": "ok",
+                            "callsite": "1",
+                            "options": {},
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectorPostfix": ".visible",
+                                "selectorType": "CSS Selector",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('Login').visible"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('a').withText('Login').visible"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('Login').find('a').visible"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('li').nth(3).find('a').visible"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('nav').find('ul').find('li').nth(3).find('a').visible"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ]
+                            },
+                            "type": "assertion"
+                        },
+                        {
+                            "callsite": "2",
+                            "options": {},
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('a').withText('Browse Jobs')"
+                            },
+                            "studio": {
+                                "offsetX": 82,
+                                "offsetY": 41,
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('Browse Jobs')"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('[title=\"Visit Browse Jobs.\"]')"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('a').withText('Browse Jobs')"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('Browse Jobs').find('[title=\"Visit Browse Jobs.\"]')"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('[title=\"Visit Browse Jobs.\"]')"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('Browse Jobs').find('a')"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('li').nth(1).find('a')"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('nav').find('ul').find('li').nth(1).find('a')"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false
+                            },
+                            "type": "click"
+                        },
+                        {
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('section.browse__index').visible"
+                            },
+                            "assertionType": "ok",
+                            "callsite": "3",
+                            "options": {},
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectorPostfix": ".visible",
+                                "selectorType": "CSS Selector",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('h2').withText('Browse Jobs').visible"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.heading--01').visible"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.header__content').find('h2').withText('Browse Jobs').visible"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Browse Jobs').find('.heading--01').visible"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.header__content').find('.heading--01').visible"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Browse Jobs').find('h2').visible"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.header__content').find('h2').visible"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('div').find('h2').visible"
+                                        },
+                                        "ruleType": "dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('section.browse__index').visible"
+                                        },
+                                        "ruleType": "cust"
+                                    }
+                                ]
+                            },
+                            "type": "assertion"
+                        },
+                        {
+                            "callsite": "4",
+                            "options": {},
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('a').withText('FAQ')"
+                            },
+                            "studio": {
+                                "offsetX": 40,
+                                "offsetY": 35,
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('FAQ')"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('[title=\"Visit FAQ.\"]')"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('a').withText('FAQ')"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('FAQ').find('[title=\"Visit FAQ.\"]')"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('[title=\"Visit FAQ.\"]')"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('FAQ').find('a')"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('li').nth(2).find('a')"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('nav').find('ul').find('li').nth(2).find('a')"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false
+                            },
+                            "type": "click"
+                        },
+                        {
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('section.faq').visible"
+                            },
+                            "assertionType": "ok",
+                            "callsite": "5",
+                            "options": {},
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectorPostfix": ".visible",
+                                "selectorType": "CSS Selector",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('h2').withText('Talent Cloud User Guide').visible"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.heading--01').visible"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.header__content').find('h2').withText('Talent Cloud User Guide').visible"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Talent Cloud User Guide').find('.heading--01').visible"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.header__content').find('.heading--01').visible"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Talent Cloud User Guide').find('h2').visible"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.header__content').find('h2').visible"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('div').find('h2').visible"
+                                        },
+                                        "ruleType": "dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('section.faq').visible"
+                                        },
+                                        "ruleType": "cust"
+                                    }
+                                ]
+                            },
+                            "type": "assertion"
+                        },
+                        {
+                            "callsite": "6",
+                            "options": {},
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('a').withText('Login')"
+                            },
+                            "studio": {
+                                "offsetX": 52,
+                                "offsetY": 39,
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('Login')"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('a').withText('Login')"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('Login').find('a')"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('li').nth(3).find('a')"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('nav').find('ul').find('li').nth(3).find('a')"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false
+                            },
+                            "type": "click"
+                        },
+                        {
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('form > .auth-content').visible"
+                            },
+                            "assertionType": "ok",
+                            "callsite": "7",
+                            "options": {},
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectorPostfix": ".visible",
+                                "selectorType": "CSS Selector",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('h1').withText('Login to Talent Cloud').visible"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.auth-heading').find('h1').withText('Login to Talent Cloud').visible"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.auth-heading').find('h1').visible"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Login to Talent Cloud').nth(1).find('h1').visible"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('section').find('div').find('div').find('h1').visible"
+                                        },
+                                        "ruleType": "dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('form > .auth-content').visible"
+                                        },
+                                        "ruleType": "cust"
+                                    }
+                                ]
+                            },
+                            "type": "assertion"
+                        }
+                    ]
+                },
+                {
+                    "name": "No Access Profile",
+                    "commands": [
+                        {
+                            "type": "navigate-to",
+                            "studio": {},
+                            "callsite": "0",
+                            "url": "/profile/about"
+                        },
+                        {
+                            "type": "assertion",
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.auth-copy').visible"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.auth-scroll-wrapper').find('.auth-copy').visible"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('E').nth(2).find('.auth-copy').visible"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.auth-scroll-wrapper').find('div').withText('E').nth(0).visible"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.auth-scroll-wrapper').find('div').visible"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('E').nth(2).nth(2).find('div').visible"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('E').nth(3).visible"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('section').find('div').find('form').find('div').find('div').find('div').visible"
+                                        },
+                                        "ruleType": "dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('form > .auth-content')()"
+                                        },
+                                        "ruleType": "cust"
+                                    }
+                                ],
+                                "selectorType": "CSS Selector",
+                                "selectorPostfix": ".visible"
+                            },
+                            "callsite": "2",
+                            "assertionType": "ok",
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('form > .auth-content')()"
+                            },
+                            "options": {}
+                        }
+                    ]
+                },
+                {
+                    "name": "Language Switch",
+                    "commands": [
+                        {
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('a').withText('Français')"
+                            },
+                            "studio": {
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('Français')"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('[title=\"Cliquez içi pour le site Français.\"]')"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.box.med-1of3').nth(2).find('a').withText('Français')"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Français').nth(1).find('[title=\"Cliquez içi pour le site Français.\"]')"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.box.med-1of3').nth(2).nth(2).find('[title=\"Cliquez içi pour le site Français.\"]')"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Français').nth(1).nth(1).find('a')"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.box.med-1of3').nth(2).nth(2).nth(2).find('a')"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('section').nth(2).find('div').find('div').nth(2).find('a')"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false,
+                                "offsetX": 206,
+                                "offsetY": 13
+                            },
+                            "options": {},
+                            "type": "click",
+                            "callsite": "1"
+                        },
+                        {
+                            "type": "assertion",
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.home__hero-content.flex-grid.middle').find('div').withText('Votre prochain projet').visible"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Votre prochain projet').nth(1).visible"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Nuage de Talents du GC').find('.box.med-1of2').nth(1).visible"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.home__hero-content.flex-grid.middle').find('.box.med-1of2').nth(1).visible"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.box.med-1of2').nth(3).visible"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Nuage de Talents du GC').find('div').nth(1).visible"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.home__hero-content.flex-grid.middle').find('div').nth(1).visible"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('div').find('div').nth(1).visible"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "selectorType": "CSS Selector",
+                                "selectorPostfix": ".visible"
+                            },
+                            "callsite": "2",
+                            "assertionType": "ok",
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('.home__hero-content.flex-grid.middle').find('div').withText('Votre prochain projet').visible"
+                            },
+                            "options": {}
+                        },
+                        {
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('a').withText('English')"
+                            },
+                            "studio": {
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('English')"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('[title=\"Click here for the English site\"]')"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.box.med-1of3').nth(2).find('a').withText('English')"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('English').nth(1).find('[title=\"Click here for the English site\"]')"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.box.med-1of3').nth(2).nth(2).find('[title=\"Click here for the English site\"]')"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('English').nth(1).nth(1).find('a')"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.box.med-1of3').nth(2).nth(2).nth(2).find('a')"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('section').nth(2).find('div').find('div').nth(2).find('a')"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false,
+                                "offsetX": 219,
+                                "offsetY": 15
+                            },
+                            "options": {},
+                            "type": "click",
+                            "callsite": "3"
+                        },
+                        {
+                            "type": "assertion",
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.home__hero-content.flex-grid.middle').find('div').withText('Your next gig').visible"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Your next gig').nth(1).visible"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.home__hero-content.flex-grid.middle').find('.box.med-1of2').nth(1).visible"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('GC Talent Cloud').nth(4).find('.box.med-1of2').nth(1).visible"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.box.med-1of2').nth(3).visible"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.home__hero-content.flex-grid.middle').find('div').nth(1).visible"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('GC Talent Cloud').nth(4).nth(4).find('div').nth(1).visible"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('div').find('div').nth(1).visible"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "selectorType": "CSS Selector",
+                                "selectorPostfix": ".visible"
+                            },
+                            "callsite": "4",
+                            "assertionType": "ok",
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('.home__hero-content.flex-grid.middle').find('div').withText('Your next gig').visible"
+                            },
+                            "options": {}
+                        }
+                    ]
+                },
+                {
+                    "name": "User Accounts",
+                    "commands": [
+                        {
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('a').withText('Login')"
+                            },
+                            "studio": {
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('Login')"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('a').withText('Login')"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('Login').find('a')"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('li').nth(3).find('a')"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('nav').find('ul').find('li').nth(3).find('a')"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false,
+                                "offsetX": 47,
+                                "offsetY": 44
+                            },
+                            "options": {},
+                            "type": "click",
+                            "callsite": "1"
+                        },
+                        {
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('#email')"
+                            },
+                            "studio": {
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('#email')"
+                                        },
+                                        "ruleType": "id"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__wrapper').find('[name=\"email\"]')"
+                                        },
+                                        "ruleType": "form-input"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__input[name=\"email\"]')"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__input-wrapper--float.required').find('.form__input[name=\"email\"]')"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('E').nth(4).find('.form__input[name=\"email\"]')"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__input-wrapper--float.required').find('input')"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('E').nth(4).nth(4).find('input')"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('section').find('div').find('form').find('div').find('div').find('div').find('div').nth(1).find('input')"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false,
+                                "offsetX": 548,
+                                "offsetY": 22
+                            },
+                            "text": "applicant@test.com",
+                            "options": {},
+                            "type": "type-text",
+                            "callsite": "2"
+                        },
+                        {
+                            "selector": null,
+                            "studio": {
+                                "selectors": null
+                            },
+                            "keys": "tab",
+                            "type": "press-key",
+                            "callsite": "3"
+                        },
+                        {
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('#password')"
+                            },
+                            "studio": {
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('#password')"
+                                        },
+                                        "ruleType": "id"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__wrapper').find('[name=\"password\"]')"
+                                        },
+                                        "ruleType": "form-input"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__input[name=\"password\"]')"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Password').nth(4).find('.form__input[name=\"password\"]')"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__input-wrapper--float.required.active').nth(1).find('.form__input[name=\"password\"]')"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Password').nth(4).nth(4).find('input')"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__input-wrapper--float.required.active').nth(1).nth(1).find('input')"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('section').find('div').find('form').find('div').find('div').find('div').find('div').nth(2).find('input')"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false,
+                                "offsetX": null,
+                                "offsetY": null
+                            },
+                            "text": "password",
+                            "options": {},
+                            "type": "type-text",
+                            "callsite": "4"
+                        },
+                        {
+                            "selector": null,
+                            "studio": {
+                                "selectors": null
+                            },
+                            "keys": "enter",
+                            "type": "press-key",
+                            "callsite": "5"
+                        },
+                        {
+                            "type": "assertion",
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('My Applications').visible"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('[title=\"Visit My Applications.\"]').visible"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('a').withText('My Applications').visible"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('My Applications').find('[title=\"Visit My Applications.\"]').visible"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('[title=\"Visit My Applications.\"]').visible"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('My Applications').find('a').visible"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('li').nth(2).find('a').visible"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('nav').find('ul').find('li').nth(2).find('a').visible"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "selectorType": "CSS Selector",
+                                "selectorPostfix": ".visible"
+                            },
+                            "callsite": "6",
+                            "assertionType": "ok",
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('a').withText('My Applications').visible"
+                            },
+                            "options": {}
+                        },
+                        {
+                            "type": "assertion",
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('My Profile').visible"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('[title=\"Visit My Profile.\"]').visible"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('a').withText('My Profile').visible"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('My Profile').find('[title=\"Visit My Profile.\"]').visible"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('[title=\"Visit My Profile.\"]').visible"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('My Profile').find('a').visible"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('li').nth(3).find('a').visible"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('nav').find('ul').find('li').nth(3).find('a').visible"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "selectorType": "CSS Selector",
+                                "selectorPostfix": ".visible"
+                            },
+                            "callsite": "7",
+                            "assertionType": "ok",
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('a').withText('My Profile').visible"
+                            },
+                            "options": {}
+                        },
+                        {
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('a').withText('Logout')"
+                            },
+                            "studio": {
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('Logout')"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('a').withText('Logout')"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('Logout').find('a')"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('li').nth(5).find('a')"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('nav').find('ul').find('li').nth(5).find('a')"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false,
+                                "offsetX": 37,
+                                "offsetY": 38
+                            },
+                            "options": {},
+                            "type": "click",
+                            "callsite": "8"
+                        },
+                        {
+                            "type": "assertion",
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('Login').visible"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('a').withText('Login').visible"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('Login').find('a').visible"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('li').nth(3).find('a').visible"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('nav').find('ul').find('li').nth(3).find('a').visible"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "selectorType": "CSS Selector",
+                                "selectorPostfix": ".visible"
+                            },
+                            "callsite": "9",
+                            "assertionType": "ok",
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('a').withText('Login').visible"
+                            },
+                            "options": {}
+                        }
+                    ]
+                },
+                {
+                    "name": "Job Posters",
+                    "commands": [
+                        {
+                            "type": "assertion",
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('Browse Jobs').visible"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('[title=\"Visit Browse Jobs.\"]').visible"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('a').withText('Browse Jobs').visible"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('Browse Jobs').find('[title=\"Visit Browse Jobs.\"]').visible"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('[title=\"Visit Browse Jobs.\"]').visible"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('Browse Jobs').find('a').visible"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('li').nth(1).find('a').visible"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('nav').find('ul').find('li').nth(1).find('a').visible"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "selectorType": "CSS Selector",
+                                "selectorPostfix": ".visible"
+                            },
+                            "callsite": "0",
+                            "assertionType": "ok",
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('a').withText('Browse Jobs').visible"
+                            },
+                            "options": {}
+                        },
+                        {
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('a').withText('Browse Jobs')"
+                            },
+                            "studio": {
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('Browse Jobs')"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('[title=\"Visit Browse Jobs.\"]')"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('a').withText('Browse Jobs')"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('Browse Jobs').find('[title=\"Visit Browse Jobs.\"]')"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('[title=\"Visit Browse Jobs.\"]')"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('Browse Jobs').find('a')"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('li').nth(1).find('a')"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('nav').find('ul').find('li').nth(1).find('a')"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false,
+                                "offsetX": 66,
+                                "offsetY": 34
+                            },
+                            "options": {},
+                            "type": "click",
+                            "callsite": "1"
+                        },
+                        {
+                            "type": "assertion",
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.browse__index').visible"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('section').nth(3).visible"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "selectorType": "CSS Selector",
+                                "selectorPostfix": ".visible"
+                            },
+                            "callsite": "2",
+                            "assertionType": "ok",
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('.browse__index').visible"
+                            },
+                            "options": {}
+                        },
+                        {
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('.browse__index-job-card').find('div').withText('View Job')"
+                            },
+                            "studio": {
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.browse__index-job-card').find('div').withText('View Job')"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('I wonder if it put it').nth(2).find('.browse__index-job-card-cta')"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.browse__index-job-card-cta').nth(0)"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('#react-jobs').find('.browse__index-job-card-cta').nth(0)"
+                                        },
+                                        "ruleType": "id-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('#react-jobs').find('div').withText('View Job').nth(1)"
+                                        },
+                                        "ruleType": "id-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('#react-jobs').find('a').find('div').find('div').nth(9)"
+                                        },
+                                        "ruleType": "id-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('View Job').nth(3)"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('I wonder if it put it').nth(2).nth(2).find('div').nth(9)"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('section').nth(3).find('div').find('div').find('a').find('div').find('div').nth(9)"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false,
+                                "offsetX": 228,
+                                "offsetY": 20
+                            },
+                            "options": {},
+                            "type": "click",
+                            "callsite": "3"
+                        },
+                        {
+                            "type": "assertion",
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.job-post__apply-button[title=\"Log in to apply for this job.\"]').visible"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.job-post__button-wrapper').find('a').withText('Login').visible"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.job-post__button-wrapper').find('.job-post__apply-button[title=\"Log in to apply for this job.\"]').visible"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Login').nth(3).find('.job-post__apply-button[title=\"Log in to apply for this job.\"]').visible"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('Login').nth(1).visible"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.job-post__button-wrapper').find('a').visible"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Login').nth(3).nth(3).find('a').visible"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('div').nth(17).find('div').find('div').nth(1).find('section').nth(6).find('div').nth(7).find('a').visible"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "selectorType": "CSS Selector",
+                                "selectorPostfix": ".visible"
+                            },
+                            "callsite": "4",
+                            "assertionType": "ok",
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('.job-post__apply-button[title=\"Log in to apply for this job.\"]').visible"
+                            },
+                            "options": {}
+                        }
+                    ]
+                },
+                {
+                    "name": "Manager Job Posters",
+                    "commands": [
+                        {
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('a').withText('Login')"
+                            },
+                            "studio": {
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('a').withText('Login')"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('a').withText('Login')"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('li').withText('Login').find('a')"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.menu__list').find('li').nth(3).find('a')"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('header').find('nav').find('ul').find('li').nth(3).find('a')"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false,
+                                "offsetX": 39,
+                                "offsetY": 41
+                            },
+                            "options": {},
+                            "type": "click",
+                            "callsite": "1"
+                        },
+                        {
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('#email')"
+                            },
+                            "studio": {
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('#email')"
+                                        },
+                                        "ruleType": "id"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__wrapper').find('[name=\"email\"]')"
+                                        },
+                                        "ruleType": "form-input"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__input[name=\"email\"]')"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__input-wrapper--float.required').find('.form__input[name=\"email\"]')"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('E').nth(4).find('.form__input[name=\"email\"]')"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__input-wrapper--float.required').find('input')"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('E').nth(4).nth(4).find('input')"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('section').find('div').find('form').find('div').find('div').find('div').find('div').nth(1).find('input')"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false,
+                                "offsetX": 528,
+                                "offsetY": 20
+                            },
+                            "text": "manager@test.com",
+                            "options": {},
+                            "type": "type-text",
+                            "callsite": "2"
+                        },
+                        {
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('#password')"
+                            },
+                            "studio": {
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('#password')"
+                                        },
+                                        "ruleType": "id"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__wrapper').find('[name=\"password\"]')"
+                                        },
+                                        "ruleType": "form-input"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__input[name=\"password\"]')"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Password').nth(4).find('.form__input[name=\"password\"]')"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__input-wrapper--float.required').nth(1).find('.form__input[name=\"password\"]')"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Password').nth(4).nth(4).find('input')"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.form__input-wrapper--float.required').nth(1).nth(1).find('input')"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('section').find('div').find('form').find('div').find('div').find('div').find('div').nth(2).find('input')"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false,
+                                "offsetX": 405,
+                                "offsetY": 29
+                            },
+                            "text": "password",
+                            "options": {},
+                            "type": "type-text",
+                            "callsite": "3"
+                        },
+                        {
+                            "selector": {
+                                "type": "js-expr",
+                                "value": "Selector('button').withText('Login')"
+                            },
+                            "studio": {
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('button').withText('Login')"
+                                        },
+                                        "ruleType": "text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.button--blue.light-bg')"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.box.small-1of2').nth(3).find('button').withText('Login')"
+                                        },
+                                        "ruleType": "attr-text"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Login').nth(4).find('.button--blue.light-bg')"
+                                        },
+                                        "ruleType": "text-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.box.small-1of2').nth(3).nth(3).find('.button--blue.light-bg')"
+                                        },
+                                        "ruleType": "attr-attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('div').withText('Login').nth(4).nth(4).find('button')"
+                                        },
+                                        "ruleType": "text-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.box.small-1of2').nth(3).nth(3).nth(3).find('button')"
+                                        },
+                                        "ruleType": "attr-dom"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('section').find('div').find('form').find('div').nth(10).find('div').find('div').nth(1).find('button')"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "useOffsets": false,
+                                "offsetX": 51,
+                                "offsetY": 25
+                            },
+                            "options": {},
+                            "type": "click",
+                            "callsite": "4"
+                        },
+                        {
+                            "type": "navigate-to",
+                            "studio": {},
+                            "callsite": "5",
+                            "url": "/manager/jobs"
+                        },
+                        {
+                            "type": "assertion",
+                            "studio": {
+                                "assertionMode": "checkElement",
+                                "selectors": [
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('.manager-poster-index').visible"
+                                        },
+                                        "ruleType": "attr"
+                                    },
+                                    {
+                                        "rawSelector": {
+                                            "type": "js-expr",
+                                            "value": "Selector('body').find('section').nth(3).visible"
+                                        },
+                                        "ruleType": "dom"
+                                    }
+                                ],
+                                "selectorType": "CSS Selector",
+                                "selectorPostfix": ".visible"
+                            },
+                            "callsite": "6",
+                            "assertionType": "ok",
+                            "actual": {
+                                "type": "js-expr",
+                                "value": "Selector('.manager-poster-index').visible"
+                            },
+                            "options": {}
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
