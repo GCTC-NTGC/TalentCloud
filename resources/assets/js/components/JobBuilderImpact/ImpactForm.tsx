@@ -94,6 +94,7 @@ const ImpactForm: React.FunctionComponent<
             </span>
             <div>
               <Field
+                name="teamImpact"
                 id="TeamImpact"
                 placeholder={intl.formatMessage(messages.teamPlaceholder)}
                 label={intl.formatMessage(messages.teamLabel)}
@@ -138,6 +139,7 @@ const ImpactForm: React.FunctionComponent<
             <div>
               <Field
                 id="HireImpact"
+                name="hireImpact"
                 label={intl.formatMessage(messages.hireLabel)}
                 placeholder={intl.formatMessage(messages.hirePlaceholder)}
                 required
@@ -160,7 +162,8 @@ const ImpactForm: React.FunctionComponent<
               data-c-dialog-id="example-dialog-01"
               data-c-radius="rounded"
               disabled={isSubmitting}
-              type="button"
+              form="form"
+              type="submit"
             >
               <FormattedMessage
                 id="button.next"
