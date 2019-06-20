@@ -380,31 +380,6 @@
         "defaultMessage": "Please note that all assessment plans will include a review of the narrative evidence provided by the applicant.",
         "description": "Note that all plans include a review of narrative evidence.",
         "id": "assessmentPlan.instructions.narrativeNote"
-      },
-      {
-        "defaultMessage": "Your first step is to pick some assessments that will allow you to evaluate the criteria you've selected for your job poster. Below you'll find your essential criteria, followed by your asset criteria if you've selected any. The builder will save as you go, so when you're finished, feel free to move to step 2 to review your work.",
-        "description": "Instructions on how to get started with the Assessment Plan Builder.",
-        "id": "assessmentPlan.assessmentPlanBuilder.instructions"
-      },
-      {
-        "defaultMessage": "Essential Skills",
-        "description": "What essential criteria are called.",
-        "id": "criteria.essential"
-      },
-      {
-        "defaultMessage": "You have no essential skills selected for this job poster.",
-        "description": "Text displayed when there are no essential criteria.",
-        "id": "assessmentPlan.essentialCriteria.nullState"
-      },
-      {
-        "defaultMessage": "Asset Skills",
-        "description": "What asset criteria are called.",
-        "id": "criteria.asset"
-      },
-      {
-        "defaultMessage": "You have no asset skills selected for this job poster.",
-        "description": "Text displayed when there are no asset criteria.",
-        "id": "assessmentPlan.assetCriteria.nullState"
       }
     ],
     "path": "resources/assets/js/components/AssessmentPlan/AssessmentPlan.json"
@@ -453,6 +428,41 @@
       }
     ],
     "path": "resources/assets/js/components/AssessmentPlan/AssessmentPlanAlert.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Assessment Plan Builder",
+        "description": "Title of the Assessment Plan Builder",
+        "id": "assessmentPlan.assessmentPlanBuilder.title"
+      },
+      {
+        "defaultMessage": "Your first step is to pick some assessments that will allow you to evaluate the criteria you've selected for your job poster. Below you'll find your essential criteria, followed by your asset criteria if you've selected any. The builder will save as you go, so when you're finished, feel free to move to step 2 to review your work.",
+        "description": "Instructions on how to get started with the Assessment Plan Builder.",
+        "id": "assessmentPlan.assessmentPlanBuilder.instructions"
+      },
+      {
+        "defaultMessage": "Essential Skills",
+        "description": "What essential criteria are called.",
+        "id": "criteria.essential"
+      },
+      {
+        "defaultMessage": "You have no essential skills selected for this job poster.",
+        "description": "Text displayed when there are no essential criteria.",
+        "id": "assessmentPlan.essentialCriteria.nullState"
+      },
+      {
+        "defaultMessage": "Asset Skills",
+        "description": "What asset criteria are called.",
+        "id": "criteria.asset"
+      },
+      {
+        "defaultMessage": "You have no asset skills selected for this job poster.",
+        "description": "Text displayed when there are no asset criteria.",
+        "id": "assessmentPlan.assetCriteria.nullState"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/AssessmentPlanBuilder.json"
   },
   {
     "descriptors": [
@@ -577,16 +587,6 @@
         "id": "ratingGuideBuilder.sectionTitle"
       },
       {
-        "defaultMessage": "{count} Essential Missing:",
-        "description": "Label for list of missing essential skills.",
-        "id": "ratingGuideBuilder.essentialMissing"
-      },
-      {
-        "defaultMessage": "{count} Asset Missing:",
-        "description": "Label for list of missing asset skills.",
-        "id": "ratingGuideBuilder.assetMissing"
-      },
-      {
         "defaultMessage": "Add a Question",
         "description": "Button text for adding a new rating guide question.",
         "id": "ratingGuideBuilder.addQuestion"
@@ -596,16 +596,6 @@
   },
   {
     "descriptors": [
-      {
-        "defaultMessage": "Assessment {index}: {assessmentType}",
-        "description": "Subtitle for the special Narrative Assessment section in the Rating Guide Builder.",
-        "id": "ratingGuideBuilder.narrativeSectionTitle"
-      },
-      {
-        "defaultMessage": "{skillName} - {skillLevel}",
-        "description": "How each criteria is listed in Rating Guide Builder.",
-        "id": "ratingGuideBuilder.criteriaName"
-      },
       {
         "defaultMessage": "3. Ratings Guide Builder",
         "description": "Title of the Rating Guide Builder section.",
@@ -637,6 +627,36 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "{count} Essential Missing:",
+        "description": "Label for list of missing essential skills.",
+        "id": "ratingGuideBuilder.essentialMissing"
+      },
+      {
+        "defaultMessage": "{count} Asset Missing:",
+        "description": "Label for list of missing asset skills.",
+        "id": "ratingGuideBuilder.assetMissing"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/RatingGuideMissing.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Assessment {index}: {assessmentType}",
+        "description": "Subtitle for the special Narrative Assessment section in the Rating Guide Builder.",
+        "id": "ratingGuideBuilder.narrativeSectionTitle"
+      },
+      {
+        "defaultMessage": "{skillName} - {skillLevel}",
+        "description": "How each criteria is listed in Rating Guide Builder.",
+        "id": "ratingGuideBuilder.criteriaName"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/RatingGuideNarrativeAssessment.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Something went wrong!",
         "description": "Title displayed on the Error Toast component.",
         "id": "errorToast.title"
@@ -646,6 +666,156 @@
   },
   {
     "descriptors": [
+      {
+        "defaultMessage": "This field is required.",
+        "description": "Error message displayed when a required field is empty.",
+        "id": "formValidation.required"
+      },
+      {
+        "defaultMessage": "Too short!",
+        "description": "Error message displayed when a field value is below the minimum length.",
+        "id": "formValidation.tooShort"
+      },
+      {
+        "defaultMessage": "Too long!",
+        "description": "Error message displayed when a field value is above the maximum length.",
+        "id": "formValidation.tooLong"
+      },
+      {
+        "defaultMessage": "Please select from the available options.",
+        "description": "Error message displayed when a field value is outside of the available selection options.",
+        "id": "formValidation.invalidSelection"
+      },
+      {
+        "defaultMessage": "Required",
+        "description": "Displayed next to required form inputs.",
+        "id": "formInput.required"
+      }
+    ],
+    "path": "resources/assets/js/components/Form/Messages.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Hire Impact Statement",
+        "description": "Label for hire impact statement text area",
+        "id": "jobBuilder.impact.hireLabel"
+      },
+      {
+        "defaultMessage": "Team Impact Statement",
+        "description": "Label for team impact statement text area",
+        "id": "jobBuilder.impact.teamLabel"
+      },
+      {
+        "defaultMessage": "Remember, don't use Government speak...",
+        "description": "",
+        "id": "jobBuilder.impact.hirePlaceholder"
+      },
+      {
+        "defaultMessage": "Try for a casual, frank, friendly tone...",
+        "description": "",
+        "id": "jobBuilder.impact.teamPlaceholder"
+      },
+      {
+        "defaultMessage": "How our team makes an impact:",
+        "description": "Header of Job Poster Builder Team Impact Section",
+        "id": "jobBuilder.impact.teamHeader"
+      },
+      {
+        "defaultMessage": "Describe the value your team/service/initiative brings to Canadians.\r\n              It doesn’t matter if your work is direct to citizens or back office,\r\n              innovative or maintenance, top priority or ongoing. Describe how it\r\n              contributes to making Canada better the way you would to someone who\r\n              knows nothing about your work.",
+        "description": "Body of Job Poster Builder Team Impact Section",
+        "id": "jobBuilder.impact.teamBody"
+      },
+      {
+        "defaultMessage": "Required",
+        "description": "Flag text for empty required field",
+        "id": "formField.required"
+      },
+      {
+        "defaultMessage": "This input has an error.",
+        "description": "Flag text for validation error",
+        "id": "formField.error"
+      },
+      {
+        "defaultMessage": "How the new hire makes an impact:",
+        "description": "Header of Job Poster Builder Hire Impact Section",
+        "id": "jobBuilder.impact.hireHeader"
+      },
+      {
+        "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\r\n              value they’ll bring, not on specific tasks (you’ll provide these\r\n              later on). For example “In this role, you’ll contribute to…” or, “As\r\n              a member of this team, you’ll be responsible for helping us…”",
+        "description": "Body of Job Poster Builder Hire Impact Section",
+        "id": "jobBuilder.impact.hireBody"
+      },
+      {
+        "defaultMessage": "Next",
+        "description": "Button text Next",
+        "id": "button.next"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilderImpact/ImpactForm.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "The Treasury Board of Canada Secretariat provides advice and makes recommendations on how the government spends money, how it regulates and how it is managed ensuring tax dollars are spent wisely and effectively for Canadians.",
+        "description": "Department Impact Statement of Treasury Board",
+        "id": "department.impactStatement.treasuryBoard"
+      },
+      {
+        "defaultMessage": "Natural Resources Canada seeks to enhance the responsible development and use of Canada’s natural resources and the competitiveness of Canada’s natural resources products.",
+        "description": "Department Impact Statement of Natural Resources",
+        "id": "department.impactStatement.naturalResources"
+      },
+      {
+        "defaultMessage": "Transport Canada works to serve the public interest through the promotion of a safe and secure, efficient and environmentally responsible transportation system in Canada.",
+        "description": "Department Impact Statement of Transport",
+        "id": "department.impactStatement.transport"
+      },
+      {
+        "defaultMessage": "ECCC informs Canadians about protecting and conserving our natural heritage, and ensuring a clean, safe and sustainable environment for present and future generations.",
+        "description": "Department Impact Statement of Environment and Climate Change",
+        "id": "department.impactStatement.environment"
+      },
+      {
+        "defaultMessage": "Employment and Social Development Canada (ESDC) works to improve the standard of living and quality of life for all Canadians. We do this by promoting a labour force that is highly skilled. We also promote an efficient and inclusive labour market.",
+        "description": "Department Impact Statement of Employment and Social Development",
+        "id": "department.impactStatement.employment"
+      },
+      {
+        "defaultMessage": "Global Affairs Canada manages Canada’s diplomatic relations, provides consular services to Canadians, promotes the country’s international trade, and leads Canada’s international development and humanitarian assistance.",
+        "description": "Department Impact Statement of Global Affairs",
+        "id": "department.impactStatement.globalAffairs"
+      },
+      {
+        "defaultMessage": "The Canada Border Services Agency (CBSA) facilitates the flow of legitimate travellers and trade. The Agency also enforces more than 90 acts and regulations that keep our country and Canadians safe.",
+        "description": "Department Impact Statement of Boarder Services Agency",
+        "id": "department.impactStatement.boarder"
+      },
+      {
+        "defaultMessage": "Innovation, Science and Economic Development Canada (ISED) works with Canadians in all areas of the economy and in all parts of the country to improve conditions for investment, enhance Canada's innovation performance, increase Canada's share of global trade and build a fair, efficient and competitive marketplace.",
+        "description": "Department Impact Statement of Innovation, Science and Economic Development",
+        "id": "department.impactStatement.science"
+      },
+      {
+        "defaultMessage": "Public Services and Procurement Canada serves federal departments and agencies as their central purchasing agent, real property manager, treasurer, accountant, pay and pension administrator, integrity adviser and linguistic authority.",
+        "description": "Department Impact Statement of Public Service and Procurement",
+        "id": "department.impactStatement.procurement"
+      },
+      {
+        "defaultMessage": "The Department of National Defence and the Canadian Armed Forces implement government decisions concerning the defence of Canadians’ interests at home and abroad.",
+        "description": "Department Impact Statement of Department National Defence",
+        "id": "department.impactStatement.defence"
+      },
+      {
+        "defaultMessage": "Shared Services Canada (SSC) delivers digital services to Government of Canada organizations. We provide modern, secure and reliable IT services so federal organizations can deliver digital programs and services that meet Canadians needs.",
+        "description": "Department Impact Statement of Shared Services Canada",
+        "id": "department.impactStatement.sharedServices"
+      },
+      {
+        "defaultMessage": "Health Canada is responsible for helping Canadians maintain and improve their health. It ensures that high-quality health services are accessible, and works to reduce health risks.",
+        "description": "Department Impact Statement of Shared Services Canada",
+        "id": "department.impactStatement.health"
+      },
       {
         "defaultMessage": "Create an Impact Statement",
         "description": "Header of Job Poster Builder Impact Step",
@@ -673,6 +843,216 @@
       }
     ],
     "path": "resources/assets/js/components/JobBuilderImpact/JobBuilderImpact.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "EN Welcome to the Job Poster Builder",
+        "description": "Header of Job Poster Builder Intro Step",
+        "id": "jobBuilder.intro.welcome"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilderIntro/JobBuilderIntro.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "What is the job title?",
+        "description": "The form label displayed on the title input.",
+        "id": "jobDetails.titleLabel"
+      },
+      {
+        "defaultMessage": "e.g. Product Designer",
+        "description": "The form placeholder displayed on the title input.",
+        "id": "jobDetails.titlePlaceholder"
+      },
+      {
+        "defaultMessage": "How long is the term (in months)?",
+        "description": "The form label displayed on the term length input.",
+        "id": "jobDetails.termLengthLabel"
+      },
+      {
+        "defaultMessage": "e.g. 3",
+        "description": "The form placeholder displayed on the term length input.",
+        "id": "jobDetails.termLengthPlaceholder"
+      },
+      {
+        "defaultMessage": "What is the classification?",
+        "description": "The form label displayed on the classification input.",
+        "id": "jobDetails.classificationLabel"
+      },
+      {
+        "defaultMessage": "Select a classification...",
+        "description": "The default selection option displayed on the classification input.",
+        "id": "jobDetails.classificationNullSelection"
+      },
+      {
+        "defaultMessage": "What is the level?",
+        "description": "The form label displayed on the level input.",
+        "id": "jobDetails.levelLabel"
+      },
+      {
+        "defaultMessage": "Select a level...",
+        "description": "The default selection option displayed on the level input.",
+        "id": "jobDetails.levelNullSelection"
+      },
+      {
+        "defaultMessage": "What is the security level?",
+        "description": "The form label displayed on the security level input.",
+        "id": "jobDetails.securityLevelLabel"
+      },
+      {
+        "defaultMessage": "Select a security level...",
+        "description": "The default selection option displayed on the security level input.",
+        "id": "jobDetails.securityLevelNullSelection"
+      },
+      {
+        "defaultMessage": "What is the language profile?",
+        "description": "The form label displayed on the language input.",
+        "id": "jobDetails.languageLabel"
+      },
+      {
+        "defaultMessage": "Select a language profile...",
+        "description": "The default selection option displayed on the language input.",
+        "id": "jobDetails.languageNullSelection"
+      },
+      {
+        "defaultMessage": "What city is the team located in?",
+        "description": "The form label displayed on the city input.",
+        "id": "jobDetails.cityLabel"
+      },
+      {
+        "defaultMessage": "e.g. Ottawa",
+        "description": "The form placeholder displayed on the city input.",
+        "id": "jobDetails.cityPlaceholder"
+      },
+      {
+        "defaultMessage": "What province is the team located in?",
+        "description": "The form label displayed on the province input.",
+        "id": "jobDetails.provinceLabel"
+      },
+      {
+        "defaultMessage": "Select a province...",
+        "description": "The default selection option displayed on the province input.",
+        "id": "jobDetails.provinceNullSelection"
+      },
+      {
+        "defaultMessage": "Select a remote work option:",
+        "description": "The form label displayed on the remote work radio group.",
+        "id": "jobDetails.remoteWorkGroupLabel"
+      },
+      {
+        "defaultMessage": "Yes, I’m willing to supervise employees anywhere in the world.",
+        "description": "The form label displayed on the 'world' remote work radio option.",
+        "id": "jobDetails.remoteWorkWorldLabel"
+      },
+      {
+        "defaultMessage": "Yes, I’m willing to supervise employees in any province or territory in Canada.",
+        "description": "The form label displayed on the 'canada' remote work radio option.",
+        "id": "jobDetails.remoteWorkCanadaLabel"
+      },
+      {
+        "defaultMessage": "No, I require the employee in this position to be in the same geographic location as the office.",
+        "description": "The form label displayed on the 'none' remote work radio option.",
+        "id": "jobDetails.remoteWorkNoneLabel"
+      },
+      {
+        "defaultMessage": "Select a telework option:",
+        "description": "The form label displayed on the telework radio group.",
+        "id": "jobDetails.teleworkGroupLabel"
+      },
+      {
+        "defaultMessage": "Select a flexible hours option:",
+        "description": "The form label displayed on the flex hours radio group.",
+        "id": "jobDetails.flexHoursGroupLabel"
+      },
+      {
+        "defaultMessage": "Almost Always",
+        "description": "The form label displayed on 'always' frequency options.",
+        "id": "jobDetails.frequencyAlwaysLabel"
+      },
+      {
+        "defaultMessage": "Frequently",
+        "description": "The form label displayed on 'frequently' frequency options.",
+        "id": "jobDetails.frequencyFrequentlyLabel"
+      },
+      {
+        "defaultMessage": "Sometimes",
+        "description": "The form label displayed on 'sometimes' frequency options.",
+        "id": "jobDetails.frequencySometimesLabel"
+      },
+      {
+        "defaultMessage": "Occasionally",
+        "description": "The form label displayed on 'occasionally' frequency options.",
+        "id": "jobDetails.frequencyOccasionallyLabel"
+      },
+      {
+        "defaultMessage": "Almost Never",
+        "description": "The form label displayed on 'never' frequency options.",
+        "id": "jobDetails.frequencyNeverLabel"
+      },
+      {
+        "defaultMessage": "Job Information",
+        "description": "Job Details page heading",
+        "id": "jobDetails.heading"
+      },
+      {
+        "defaultMessage": "Is remote work allowed?",
+        "description": "Header message displayed on the remote work group input.",
+        "id": "jobDetails.remoteWorkGroupHeader"
+      },
+      {
+        "defaultMessage": "Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor.",
+        "description": "Body message displayed on the remote work group input.",
+        "id": "jobDetails.remoteWorkGroupBody"
+      },
+      {
+        "defaultMessage": "How often is telework allowed?",
+        "description": "Header message displayed on the telework group input.",
+        "id": "jobDetails.teleworkGroupHeader"
+      },
+      {
+        "defaultMessage": "Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option.",
+        "description": "Body message displayed on the telework group input.",
+        "id": "jobDetails.teleworkGroupBody"
+      },
+      {
+        "defaultMessage": "How often are flexible hours allowed?",
+        "description": "Header message displayed on the flex hours group input.",
+        "id": "jobDetails.flexHoursGroupHeader"
+      },
+      {
+        "defaultMessage": "Want to support a more gender inclusive workplace?\n                          Studies show allowing flex hours is a great way to improve opportunities for women and parents.",
+        "description": "Body message displayed on the flex hours group input.",
+        "id": "jobDetails.flexHoursGroupBody"
+      },
+      {
+        "defaultMessage": "Next",
+        "description": "The text displayed on the submit button for the Job Details form.",
+        "id": "jobDetails.submitButtonLabel"
+      },
+      {
+        "defaultMessage": "You're off to a great start!",
+        "description": "The text displayed in the header of the Job Details modal.",
+        "id": "jobDetails.modalHeader"
+      },
+      {
+        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
+        "description": "The text displayed in the body of the Job Details modal.",
+        "id": "jobDetails.modalBody"
+      },
+      {
+        "defaultMessage": "Go Back",
+        "description": "The text displayed on the cancel button of the Job Details modal.",
+        "id": "jobDetails.modalCancelLabel"
+      },
+      {
+        "defaultMessage": "Next Step",
+        "description": "The text displayed on the confirm button of the Job Details modal.",
+        "id": "jobDetails.modalConfirmLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobDetails/JobDetails.json"
   },
   {
     "descriptors": [
@@ -885,6 +1265,186 @@
         "defaultMessage": "The provided description contains sufficient evidence to advance this candidate to the next screening steps.",
         "description": "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
         "id": "assessmentType.narrativeReview.standardAnswer"
+      },
+      {
+        "defaultMessage": "Alberta",
+        "id": "province.ab"
+      },
+      {
+        "defaultMessage": "British Columbia",
+        "id": "province.bc"
+      },
+      {
+        "defaultMessage": "Manitoba",
+        "id": "province.mb"
+      },
+      {
+        "defaultMessage": "Newfoundland and Labrador",
+        "id": "province.nl"
+      },
+      {
+        "defaultMessage": "New Brunswick",
+        "id": "province.nb"
+      },
+      {
+        "defaultMessage": "Nova Scotia",
+        "id": "province.ns"
+      },
+      {
+        "defaultMessage": "Nunavut",
+        "id": "province.nu"
+      },
+      {
+        "defaultMessage": "Northwest Territories",
+        "id": "province.nt"
+      },
+      {
+        "defaultMessage": "Ontario",
+        "id": "province.on"
+      },
+      {
+        "defaultMessage": "Prince Edward Island",
+        "id": "province.pe"
+      },
+      {
+        "defaultMessage": "Quebec",
+        "id": "province.qc"
+      },
+      {
+        "defaultMessage": "Saskatchewan",
+        "id": "province.sk"
+      },
+      {
+        "defaultMessage": "Yukon",
+        "id": "province.yk"
+      },
+      {
+        "defaultMessage": "Alb.",
+        "id": "province.ab.abreviation"
+      },
+      {
+        "defaultMessage": "B.C.",
+        "id": "province.bc.abreviation"
+      },
+      {
+        "defaultMessage": "Man.",
+        "id": "province.mb.abreviation"
+      },
+      {
+        "defaultMessage": "N.L.",
+        "id": "province.nl.abreviation"
+      },
+      {
+        "defaultMessage": "N.B.",
+        "id": "province.nb.abreviation"
+      },
+      {
+        "defaultMessage": "N.S.",
+        "id": "province.ns.abreviation"
+      },
+      {
+        "defaultMessage": "Nvt.",
+        "id": "province.nu.abreviation"
+      },
+      {
+        "defaultMessage": "N.W.T.",
+        "id": "province.nt.abreviation"
+      },
+      {
+        "defaultMessage": "Ont.",
+        "id": "province.on.abreviation"
+      },
+      {
+        "defaultMessage": "P.E.I.",
+        "id": "province.pe.abreviation"
+      },
+      {
+        "defaultMessage": "Que.",
+        "id": "province.qc.abreviation"
+      },
+      {
+        "defaultMessage": "Sask.",
+        "id": "province.sk.abreviation"
+      },
+      {
+        "defaultMessage": "Y.T.",
+        "id": "province.yk.abreviation"
+      },
+      {
+        "defaultMessage": "Reliability",
+        "id": "securityClearance.reliability"
+      },
+      {
+        "defaultMessage": "Secret",
+        "id": "securityClearance.secret"
+      },
+      {
+        "defaultMessage": "Top Secret",
+        "id": "securityClearance.topSecret"
+      },
+      {
+        "defaultMessage": "English essential",
+        "id": "languageRequirment.english"
+      },
+      {
+        "defaultMessage": "French essential",
+        "id": "languageRequirment.french"
+      },
+      {
+        "defaultMessage": "Bilingual - Intermediate",
+        "id": "languageRequirment.bilingualIntermediate"
+      },
+      {
+        "defaultMessage": "Bilingual - Advanced",
+        "id": "languageRequirment.bilingualAdvanced"
+      },
+      {
+        "defaultMessage": "English or French",
+        "id": "languageRequirment.englishOrFrench"
+      },
+      {
+        "defaultMessage": "Treasury Board of Canada Secretariat",
+        "id": "department.treasuryBoard"
+      },
+      {
+        "defaultMessage": "Natural Resources Canada",
+        "id": "department.naturalResources"
+      },
+      {
+        "defaultMessage": "Transport Canada",
+        "id": "department.transport"
+      },
+      {
+        "defaultMessage": "Environment and Climate Change Canada",
+        "id": "department.environmentAndClimateChange"
+      },
+      {
+        "defaultMessage": "Employment and Social Development Canada",
+        "id": "department.employmentAndSocialDevelopment"
+      },
+      {
+        "defaultMessage": "Global Affairs Canada",
+        "id": "department.globalAffairs"
+      },
+      {
+        "defaultMessage": "Canada Border Services Agency",
+        "id": "department.borderServices"
+      },
+      {
+        "defaultMessage": "Fisheries and Oceans Canada",
+        "id": "department.fisheriesAndOceans"
+      },
+      {
+        "defaultMessage": "Innovation, Science and Economic Development Canada",
+        "id": "department.innovationScience"
+      },
+      {
+        "defaultMessage": "Public Services and Procurement Canada",
+        "id": "department.publicServiceAndProcurement"
+      },
+      {
+        "defaultMessage": "Deparmtnet of National Defence",
+        "id": "department.nationalDefence"
       }
     ],
     "path": "resources/assets/js/models/localizedConstants.json"
