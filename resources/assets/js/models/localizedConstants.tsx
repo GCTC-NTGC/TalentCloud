@@ -430,7 +430,7 @@ const provinceNames = defineMessages({
     defaultMessage: "Ontario",
   },
   [ProvinceId.PE]: {
-    id: "province.on",
+    id: "province.pe",
     defaultMessage: "Prince Edward Island",
   },
   [ProvinceId.QC]: {
@@ -490,7 +490,7 @@ const provinceAbreviations = defineMessages({
     defaultMessage: "Ont.",
   },
   [ProvinceId.PE]: {
-    id: "province.on.abreviation",
+    id: "province.pe.abreviation",
     defaultMessage: "P.E.I.",
   },
   [ProvinceId.QC]: {

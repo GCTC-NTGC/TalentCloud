@@ -192,7 +192,6 @@ export const ImpactFormInner: React.FunctionComponent<
 const impactFormik = withFormik<FormProps, FormValues>({
   displayName: "ImpactForm",
   mapPropsToValues,
-  validationSchema,
   handleSubmit,
   // @ts-ignore
 })(ImpactFormInner);
