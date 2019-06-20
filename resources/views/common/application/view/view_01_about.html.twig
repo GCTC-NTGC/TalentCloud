@@ -71,7 +71,7 @@
             {% set language_requirement = application_template.bilingual_intermediate %}
         {% elseif job.language_requirement.id == 4 %}
             {# Bilingual Advanced #}
-            {{ application_template.bilingual_advanced }}
+            {% set language_requirement = application_template.bilingual_advanced %}
         {% elseif job.language_requirement.id == 5 %}
             {# English or French #}
             {% set language_requirement = application_template.english_or_french %}
