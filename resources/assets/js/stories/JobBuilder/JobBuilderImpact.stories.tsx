@@ -2,6 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
 import { withIntl } from "storybook-addon-intl";
+import { action } from "@storybook/addon-actions";
 import { withKnobs, select } from "@storybook/addon-knobs";
 import JobBuilderImpact from "../../components/JobBuilderImpact/JobBuilderImpact";
 import ImpactForm from "../../components/JobBuilderImpact/ImpactForm";
@@ -34,12 +35,19 @@ stories
     (): React.ReactElement => (
       <JobBuilderImpact
         department={select("Department", deptOptions, "treasuryBoard")}
+        job={null}
       />
     ),
     {
       info: { inline: true },
     },
   )
-  .add("Impact Form", (): React.ReactElement => <ImpactForm />, {
-    info: { inline: true },
-  });
+  .add(
+    "Impact Form",
+    (): React.ReactElement => (
+      <ImpactForm job={null} handleSubmit={action("Submit")} />
+    ),
+    {
+      info: { inline: true },
+    },
+  );

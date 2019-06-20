@@ -8,9 +8,11 @@ import {
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { items } from "../ProgressTracker/fixtures/progressItems";
 import ImpactForm from "./ImpactForm";
+import { Job } from "../../models/types";
 
 interface JobBuilderImpactProps {
   department?: string;
+  job: Job | null;
 }
 
 const departmentImpactStatements = defineMessages({
@@ -94,7 +96,7 @@ const departmentImpactStatements = defineMessages({
 
 const JobBuilderImpact: React.FunctionComponent<
   JobBuilderImpactProps & InjectedIntlProps
-> = ({ intl, department }): React.ReactElement => {
+> = ({ intl, department, job }): React.ReactElement => {
   return (
     <section>
       <ProgressTracker
@@ -151,7 +153,13 @@ const JobBuilderImpact: React.FunctionComponent<
           {department !== undefined &&
             intl.formatMessage(departmentImpactStatements[department])}
         </p>
-        <ImpactForm />
+        <ImpactForm
+          job={job}
+          // TODO: Make this into a real function
+          handleSubmit={job => {
+            console.log(job);
+          }}
+        />
       </div>
     </section>
   );
