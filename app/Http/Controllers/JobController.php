@@ -437,7 +437,7 @@ class JobController extends Controller
                 'en' => [
                     'city' => $input['city'],
                     'title' => $input['title']['en'],
-                    'impact' => $input['impact']['en'],
+                    'hire_impact' => $input['impact']['en'],
                     'branch' => $input['branch']['en'],
                     'division' => $input['division']['en'],
                     'education' => $input['education']['en'],
@@ -445,7 +445,7 @@ class JobController extends Controller
                 'fr' => [
                     'city' => $input['city'],
                     'title' => $input['title']['fr'],
-                    'impact' => $input['impact']['fr'],
+                    'hire_impact' => $input['impact']['fr'],
                     'branch' => $input['branch']['fr'],
                     'division' => $input['division']['fr'],
                     'education' => $input['education']['fr'],

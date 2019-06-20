@@ -43,7 +43,7 @@ export const clipboardData = (
   formatMessage: (message: FormattedMessage.MessageDescriptor) => string,
   narrativeReview?: Assessment[],
 ): ClipboardTableRowProps[] => {
-  let narrativeData = [] as ClipboardTableRowProps[];
+  let narrativeData: ClipboardTableRowProps[] = [];
   if (narrativeReview !== undefined) {
     narrativeData = narrativeReview.map(
       (narrative: Assessment): ClipboardTableRowProps => {
@@ -191,7 +191,7 @@ export const clipboardData = (
     }
     return num;
   };
-  let data = [] as ClipboardTableRowProps[];
+  let data: ClipboardTableRowProps[] = [];
   if (narrativeData.length > 0) {
     data = narrativeData.concat(ratingData);
   } else {

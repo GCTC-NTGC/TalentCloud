@@ -112,13 +112,12 @@ const RatingGuideAnswer: React.FunctionComponent<
   }
   const options = availableCriteria.map(
     (criterion): SelectOption<number> => {
+      const skill = hasKey<Skill | null>(criteriaIdToSkill, criterion.id)
+        ? criteriaIdToSkill[criterion.id]
+        : null;
       return {
         value: criterion.id,
-        label:
-          hasKey<Skill | null>(criteriaIdToSkill, criterion.id) &&
-          criteriaIdToSkill[criterion.id] !== null
-            ? (criteriaIdToSkill[criterion.id] as Skill)[intl.locale].name
-            : "",
+        label: skill ? skill[intl.locale].name : "",
       };
     },
   );
