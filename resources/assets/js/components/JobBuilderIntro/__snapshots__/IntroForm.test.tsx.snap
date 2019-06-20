@@ -2,7 +2,7 @@
 
 exports[`Step0Form should render Step0Form correctly 1`] = `
 <Formik
-  displayName="Step0Form"
+  displayName="IntroForm"
   enableReinitialize={false}
   handleSubmit={[Function]}
   initialValues={
