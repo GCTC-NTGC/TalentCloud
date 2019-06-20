@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { copyElementContents } from "../../helpers/clipboard";
 
 interface CopyToClipboardProps {
-  reference?: React.RefObject<any>;
+  reference: React.RefObject<any>;
 }
 
 const CopyToClipboard: React.FunctionComponent<CopyToClipboardProps> = ({
   reference,
-}) => {
+}): React.ReactElement => {
   const [hidden, hideText] = useState(false);
 
   return (
@@ -16,9 +16,9 @@ const CopyToClipboard: React.FunctionComponent<CopyToClipboardProps> = ({
       data-c-button="solid(c1)"
       data-c-radius="rounded"
       onClick={(): void => {
-        reference && copyElementContents(reference.current);
+        copyElementContents(reference.current);
         hideText(!hidden);
-        setTimeout(() => {
+        setTimeout((): void => {
           hideText(hidden);
         }, 1000);
       }}

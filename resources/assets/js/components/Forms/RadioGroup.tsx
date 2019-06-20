@@ -8,10 +8,10 @@ interface RadioGroupProps {
   grid?: string;
   children?: React.ReactNode;
 
-  // formik
+  /** Formik prop "touched" - if the radio group has been clicked on touched is set to true, otherwise it is false. */
   touched?: boolean;
+  /** Formik prop "error" - error message for radio group validation */
   error?: string;
-  value?: string;
 }
 
 const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
@@ -20,7 +20,6 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   required,
   grid,
   children,
-  value,
   error,
   touched,
 }): React.ReactElement => {

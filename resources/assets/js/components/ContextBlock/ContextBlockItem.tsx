@@ -1,5 +1,4 @@
 import * as React from "react";
-import { all } from "q";
 
 export interface ContextBlockItemProps {
   title?: string;
@@ -34,20 +33,20 @@ const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
 }): React.ReactElement => {
   return (
     <div
-      className={`${className} ${active ? "active" : ""}`} //"job-builder-context-item active"
-      data-tc-wenv-id={contextId} //"Pace1"
+      className={`${className} ${active ? "active" : ""}`}
+      data-tc-wenv-id={contextId}
       data-c-background={
         (backgroundColor && `${backgroundColor}(${backgroundOpacity})`) ||
         "grey(20)"
-      } //"grey(20)"
-      data-c-padding={padding || "all(normal)"} //"all(normal)"
-      data-c-radius={radius || "rounded"} // "rounded"
+      }
+      data-c-padding={padding || "all(normal)"}
+      data-c-radius={radius || "rounded"}
     >
       {title && (
         <p
-          data-c-font-size={fontSize || "small"} //"small"
-          data-c-margin={margin || "bottom(half)"} //"bottom(half)"
-          data-c-font-weight={fontWeight || "bold"} //"bold"
+          data-c-font-size={fontSize || "small"}
+          data-c-margin={margin || "bottom(half)"}
+          data-c-font-weight={fontWeight || "bold"}
         >
           {title}
         </p>

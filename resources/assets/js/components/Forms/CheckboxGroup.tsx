@@ -1,5 +1,4 @@
 import * as React from "react";
-import Input from "./Input";
 
 interface CheckboxGroupProps {
   id: string;
@@ -13,8 +12,8 @@ interface CheckboxGroupProps {
   // formik
   field?: any;
   form?: any;
-  error?: (string | undefined)[];
-  touched?: (boolean | undefined)[];
+  error?: any;
+  touched?: any;
   onChange: any;
   onBlur?: any;
 }
@@ -49,6 +48,7 @@ const CheckboxGroup: React.FunctionComponent<CheckboxGroupProps> = ({
   const handleBlur = () => {
     onBlur(id, true);
   };
+
   return (
     <div
       data-c-grid-item={grid}

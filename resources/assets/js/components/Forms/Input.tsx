@@ -87,7 +87,7 @@ const Input: React.FunctionComponent<InputProps> = ({
             value={value}
             onChange={(field && field.onChange) || onChange}
             onBlur={(field && field.onBlur) || onBlur}
-            required={required}
+            // required
           />
           <span>{label}</span>
         </label>
@@ -112,6 +112,7 @@ const Input: React.FunctionComponent<InputProps> = ({
           value={value}
           onChange={(field && field.onChange) || onChange}
           onBlur={(field && field.onBlur) || onBlur}
+          // required
         />
         <span>{label}</span>
       </label>
@@ -143,6 +144,7 @@ const Input: React.FunctionComponent<InputProps> = ({
             maxLength={maxLength}
             onChange={(field && field.onChange) || onChange}
             onBlur={(field && field.onBlur) || onBlur}
+            // required
           />
         </div>
         <span>

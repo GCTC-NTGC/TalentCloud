@@ -41,7 +41,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
       data-c-invalid={touched[field.name] && errors[field.name] ? true : null}
     >
       <label htmlFor={htmlId}>{label}</label>
-      {required && <span>Required</span>}
+      <span>Required</span>
       <div>
         <textarea
           data-c-font-weight="800"
@@ -52,6 +52,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
           minLength={minLength}
           maxLength={maxLength}
           onBlur={field.onBlur || onBlur}
+          // required
         >
           {value}
         </textarea>
