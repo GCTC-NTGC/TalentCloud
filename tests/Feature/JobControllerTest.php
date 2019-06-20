@@ -80,6 +80,7 @@ class JobControllerTest extends TestCase
             'en' => $this->faker->word,
             'fr' => $this->faker_fr->word
         ],
+        // The form is named impact, but the controller saves it to the hire_impact field
         'impact' => [
             'en' => $this->faker->paragraphs(
                 2,
@@ -118,7 +119,7 @@ class JobControllerTest extends TestCase
      */
     private function generateCriteriaFormData(int $criteria_type_id, int $skill_id, int $skill_level_id, ?int $crtiteria_id = null)
     {
-        $age = $crtiteria_id ? "old" : "new";
+        $age = $crtiteria_id ? 'old' : 'new';
         $type = [1 => 'essential', 2 => 'asset'][$criteria_type_id];
         $id = $crtiteria_id ? $crtiteria_id : 1;
         $data['criteria'] = [
@@ -208,44 +209,38 @@ class JobControllerTest extends TestCase
         });
     }
 
-    //TODO: Managers cannot create job posters until Job Poster Builder is complete
-
+    // TODO: Managers cannot create job posters until Job Poster Builder is complete
     // /**
-    //  * Ensure a manager can view the create Job Poster form.
-    //  *
-    //  * @return void
-    //  */
+    // * Ensure a manager can view the create Job Poster form.
+    // *
+    // * @return void
+    // */
     // public function testManagerCreateView() : void
     // {
-    //     $response = $this->actingAs($this->manager->user)
-    //     ->get('manager/jobs/create');
-    //     $response->assertStatus(200);
-
-    //     $response->assertSee(e(Lang::get('manager/job_create')['title']));
-    //     $response->assertViewIs('manager.job_create');
-
-    //     $response->assertSee(e(Lang::get('manager/job_create', [], 'en')['questions']['00']));
-    //     $response->assertSee(e(Lang::get('manager/job_create', [], 'fr')['questions']['00']));
+    // $response = $this->actingAs($this->manager->user)
+    // ->get('manager/jobs/create');
+    // $response->assertStatus(200);
+    // $response->assertSee(e(Lang::get('manager/job_create')['title']));
+    // $response->assertViewIs('manager.job_create');
+    // $response->assertSee(e(Lang::get('manager/job_create', [], 'en')['questions']['00']));
+    // $response->assertSee(e(Lang::get('manager/job_create', [], 'fr')['questions']['00']));
     // }
-
     // /**
-    //  * Ensure a manager can create a Job Poster.
-    //  *
-    //  * @return void
-    //  */
+    // * Ensure a manager can create a Job Poster.
+    // *
+    // * @return void
+    // */
     // public function testManagerCreate() : void
     // {
-    //     $newJob = $this->generateEditJobFormData();
-
-    //     $dbValues = array_slice($newJob, 0, 8);
-
-    //     $response = $this->followingRedirects()
-    //     ->actingAs($this->manager->user)
-    //     ->post('manager/jobs/', $newJob);
-    //     $response->assertStatus(200);
-    //     $response->assertViewIs('applicant.job_post');
-    //     $this->assertDatabaseHas('job_posters', $dbValues);
-    //     $response->assertSee(e(Lang::get('applicant/job_post')['apply']['edit_link_title']));
+    // $newJob = $this->generateEditJobFormData();
+    // $dbValues = array_slice($newJob, 0, 8);
+    // $response = $this->followingRedirects()
+    // ->actingAs($this->manager->user)
+    // ->post('manager/jobs/', $newJob);
+    // $response->assertStatus(200);
+    // $response->assertViewIs('applicant.job_post');
+    // $this->assertDatabaseHas('job_posters', $dbValues);
+    // $response->assertSee(e(Lang::get('applicant/job_post')['apply']['edit_link_title']));
     // }
 
     /**
@@ -299,7 +294,7 @@ class JobControllerTest extends TestCase
         $response->assertSee(e($this->jobPoster->city));
         $response->assertSee(e($this->jobPoster->education));
         $response->assertSee(e($this->jobPoster->title));
-        $response->assertSee(e($this->jobPoster->impact));
+        $response->assertSee(e($this->jobPoster->hire_impact));
         $response->assertSee(e($this->jobPoster->branch));
         $response->assertSee(e($this->jobPoster->division));
         $response->assertSee(e($this->jobPoster->education));
@@ -383,12 +378,12 @@ class JobControllerTest extends TestCase
         $dateFormat = config('app.date_format')['en'];
         $timeFormat = config('app.time_format')['en'];
 
-        $expectedOpenDateTime = new Date("2019-01-01 00:00:00", new \DateTimeZone($jobTimezone));
+        $expectedOpenDateTime = new Date('2019-01-01 00:00:00', new \DateTimeZone($jobTimezone));
         $expectedOpenDateTime->setTimezone($localTimezone);
         $expectedOpenDate = $expectedOpenDateTime->format($dateFormat);
         $expectedOpenTime = $expectedOpenDateTime->format($timeFormat);
 
-        $expectedCloseDateTime = new Date("2019-01-31 23:59:59", new \DateTimeZone($jobTimezone));
+        $expectedCloseDateTime = new Date('2019-01-31 23:59:59', new \DateTimeZone($jobTimezone));
         $expectedCloseDateTime->setTimezone($localTimezone);
         $expectedCloseDate = $expectedCloseDateTime->format($dateFormat);
         $expectedCloseTime = $expectedCloseDateTime->format($timeFormat);
@@ -401,7 +396,7 @@ class JobControllerTest extends TestCase
         $jobEdit['open_date'] = '2019-01-01';
         $jobEdit['close_date'] = '2019-01-31';
 
-        //Expected db values
+        // Expected db values
         $dbValues = array_slice($jobEdit, 0, 8);
 
         $response = $this->followingRedirects()
@@ -440,7 +435,7 @@ class JobControllerTest extends TestCase
 
         // Check the criteria has been added to job
         $criteriaValues = [
-            'criteria_type_id' => 2, //asset
+            'criteria_type_id' => 2, // asset
             'job_poster_id' => $job->id,
             'skill_id' => 28,
             'skill_level_id' => 2
@@ -451,7 +446,7 @@ class JobControllerTest extends TestCase
         $notificationValues = [
             'type' => 'CREATE',
             'job_poster_id' => $job->id,
-            'criteria_type_id' => 2, //asset
+            'criteria_type_id' => 2, // asset
             'job_poster_id' => $job->id,
             'skill_id' => 28,
             'skill_id_new' => null,
@@ -565,13 +560,12 @@ class JobControllerTest extends TestCase
 
         $response = $this->actingAs($this->manager->user)
             ->post(route('manager.jobs.update', $job), $data);
-        //$response->assertStatus(200);
-
+        // $response->assertStatus(200);
         // Check the criteria has been removed
         $criteriaValues = [
             'id' => $criteria->id,
         ];
-        //print_r(Criteria::find($criteria->id) ? Criteria::find($criteria->id)->toArray() : "NULL");
+        // print_r(Criteria::find($criteria->id) ? Criteria::find($criteria->id)->toArray() : "NULL");
         $this->assertDatabaseMissing('criteria', $criteriaValues);
 
         // Check the AssessmentPlanNotification has been created

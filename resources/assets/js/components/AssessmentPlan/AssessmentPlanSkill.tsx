@@ -11,7 +11,7 @@ import {
   skillLevelName,
   assessmentType,
 } from "../../models/localizedConstants";
-import Select, { SelectOption } from "../Select";
+import Select, { SelectOption } from "../Forms/Select";
 import { AssessmentTypeId, enumToIds } from "../../models/lookupConstants";
 import {
   Criteria,
@@ -39,6 +39,7 @@ import {
 } from "../../store/Assessment/assessmentActions";
 import { getCriteriaById } from "../../store/Job/jobSelector";
 import { getSkillById } from "../../store/Skill/skillSelector";
+import { notEmpty } from "../../helpers/queries";
 
 interface AssessmentPlanSkillProps {
   criterion: Criteria | null;
@@ -117,7 +118,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
           !tempAssessmentsSaving[temp.id] &&
           temp.assessment_type_id !== null
         ) {
-          saveTempAssessment(temp as Assessment);
+          saveTempAssessment(temp as Assessment); // TODO: remove TempAssessment type, just use Assessment everywhere
         }
       },
     );
@@ -150,8 +151,8 @@ export const AssessmentPlanSkill: React.FunctionComponent<
   const selectedAssessmentTypes: number[] = [
     ...assessments.map((assessment): number => assessment.assessment_type_id),
     ...tempAssessments
-      .filter((temp): boolean => temp.assessment_type_id !== null)
-      .map((temp): number => temp.assessment_type_id as number),
+      .map((temp): number | null => temp.assessment_type_id)
+      .filter(notEmpty),
   ];
   const SelectBlock: React.FunctionComponent<{
     assessment: Assessment | TempAssessment;
@@ -322,19 +323,20 @@ const mapStateToProps = (
   tempAssessments: TempAssessment[];
   tempAssessmentsSaving: { [id: number]: boolean };
 } => {
-  const criterion = getCriteriaById(state, ownProps)
+  const criterion = getCriteriaById(state, ownProps);
   return {
-  criterion,
-  skill: criterion ? getSkillById(state, criterion.skill_id) : null,
-  assessments: getCachedAssessmentsByCriterion(state, ownProps),
-  assessmentsEdited: getCachedAssessmentsAreEditedByCriteria(state, ownProps),
-  assessmentsUpdating: getCachedAssessmentsAreUpdatingByCriteria(
-    state,
-    ownProps,
-  ),
-  tempAssessments: getTempAssessmentsByCriterion(state, ownProps),
-  tempAssessmentsSaving: tempAssessmentsAreSavingByCriterion(state, ownProps),
-};}
+    criterion,
+    skill: criterion ? getSkillById(state, criterion.skill_id) : null,
+    assessments: getCachedAssessmentsByCriterion(state, ownProps),
+    assessmentsEdited: getCachedAssessmentsAreEditedByCriteria(state, ownProps),
+    assessmentsUpdating: getCachedAssessmentsAreUpdatingByCriteria(
+      state,
+      ownProps,
+    ),
+    tempAssessments: getTempAssessmentsByCriterion(state, ownProps),
+    tempAssessmentsSaving: tempAssessmentsAreSavingByCriterion(state, ownProps),
+  };
+};
 
 const mapDispatchToProps = (
   dispatch: DispatchType,
