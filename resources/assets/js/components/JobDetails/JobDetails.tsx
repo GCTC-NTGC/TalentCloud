@@ -6,7 +6,7 @@ import {
   FormattedMessage,
   defineMessages,
 } from "react-intl";
-import { Formik, Form, Field, FormikValues } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
 import { connect } from "react-redux";
@@ -38,6 +38,11 @@ import {
   ProvinceId,
 } from "../../models/lookupConstants";
 import { emptyJob } from "../../models/jobUtil";
+import {
+  securityClearance,
+  languageRequirment,
+  provinceName,
+} from "../../models/localizedConstants";
 
 const formMessages = defineMessages({
   titleLabel: {
@@ -366,7 +371,7 @@ const JobDetails: React.FunctionComponent<
       .min(3, intl.formatMessage(validationMessages.tooShort))
       .max(50, intl.formatMessage(validationMessages.tooLong))
       .required(intl.formatMessage(validationMessages.required)),
-    province: Yup.mixed()
+    province: Yup.number()
       .oneOf(
         Object.values(ProvinceId),
         intl.formatMessage(validationMessages.invalidSelection),
@@ -499,15 +504,15 @@ const JobDetails: React.FunctionComponent<
                     formMessages.levelNullSelection,
                   )}
                   options={[
-                    { value: "1", label: "1" },
-                    { value: "2", label: "2" },
-                    { value: "3", label: "3" },
-                    { value: "4", label: "4" },
-                    { value: "5", label: "5" },
-                    { value: "6", label: "6" },
-                    { value: "7", label: "7" },
-                    { value: "8", label: "8" },
-                    { value: "9", label: "9" },
+                    { value: 1, label: "1" },
+                    { value: 2, label: "2" },
+                    { value: 3, label: "3" },
+                    { value: 4, label: "4" },
+                    { value: 5, label: "5" },
+                    { value: 6, label: "6" },
+                    { value: 7, label: "7" },
+                    { value: 8, label: "8" },
+                    { value: 9, label: "9" },
                   ]}
                 />
                 <Field
@@ -520,11 +525,12 @@ const JobDetails: React.FunctionComponent<
                   nullSelection={intl.formatMessage(
                     formMessages.securityLevelNullSelection,
                   )}
-                  options={[
-                    { value: "1", label: "Reliability" },
-                    { value: "2", label: "Secret" },
-                    { value: "3", label: "Top Secret" },
-                  ]}
+                  options={Object.values(SecurityClearanceId).map(
+                    (id: number): { value: number; label: string } => ({
+                      value: id,
+                      label: intl.formatMessage(securityClearance(id)),
+                    }),
+                  )}
                 />
                 <Field
                   name="language"
@@ -536,13 +542,12 @@ const JobDetails: React.FunctionComponent<
                   nullSelection={intl.formatMessage(
                     formMessages.languageNullSelection,
                   )}
-                  options={[
-                    { value: "1", label: "English - Essential" },
-                    { value: "2", label: "French - Essential" },
-                    { value: "3", label: "Bilingual - Advanced (CBC)" },
-                    { value: "4", label: "Bilingual - Intermediate (BBB)" },
-                    { value: "5", label: "English or French" },
-                  ]}
+                  options={Object.values(LanguageRequirementId).map(
+                    (id: number): { value: number; label: string } => ({
+                      value: id,
+                      label: intl.formatMessage(languageRequirment(id)),
+                    }),
+                  )}
                 />
                 <Field
                   name="city"
@@ -564,21 +569,13 @@ const JobDetails: React.FunctionComponent<
                   nullSelection={intl.formatMessage(
                     formMessages.provinceNullSelection,
                   )}
-                  options={[
-                    { value: "1", label: "Alberta" },
-                    { value: "2", label: "British Columbia" },
-                    { value: "3", label: "Manitoba" },
-                    { value: "4", label: "New Brunswick" },
-                    { value: "5", label: "Newfoundland and Labrador" },
-                    { value: "6", label: "Nova Scotia" },
-                    { value: "7", label: "Northwest Territories" },
-                    { value: "8", label: "Nunavut" },
-                    { value: "9", label: "Ontario" },
-                    { value: "10", label: "Prince Edward Island" },
-                    { value: "11", label: "Quebec" },
-                    { value: "12", label: "Saskatchewan" },
-                    { value: "12", label: "Yukon" },
-                  ]}
+                  options={Object.values(ProvinceId).map((id: number): {
+                    value: number;
+                    label: string;
+                  } => ({
+                    value: id,
+                    label: intl.formatMessage(provinceName(id)),
+                  }))}
                 />
                 <RadioGroup
                   id="remoteWork"
