@@ -10,7 +10,6 @@ import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from "yup";
 
 import { connect } from "react-redux";
-import { string, number } from "prop-types";
 import RadioGroup from "../Form/RadioGroup";
 import RadioInput from "../Form/RadioInput";
 import SelectInput from "../Form/SelectInput";
