@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState } from "react";
-import { withFormik, Form, Field, FormikProps } from "formik";
+import { Form, Field, Formik, FormikValues } from "formik";
 import * as Yup from "yup";
 import {
   injectIntl,
   InjectedIntlProps,
-  IntlProvider,
   FormattedMessage,
   defineMessages,
   addLocaleData,
@@ -23,6 +22,26 @@ import WorkEnvModal from "./WorkEnvModal";
 
 addLocaleData([...locale_en, ...locale_fr]);
 
+const validationMessages = defineMessages({
+  required: {
+    id: "formValidation.required",
+    defaultMessage: "This field is required.",
+    description: "Error message displayed when a required field is empty.",
+  },
+  checkboxRequired: {
+    id: "formValidation.checkboxRequired",
+    defaultMessage: "At least one checkbox is required.",
+    description:
+      "Error message displayed when a required checkbox group or radio group is empty.",
+  },
+  envDescription: {
+    id: "formValidation.envDescription",
+    defaultMessage: "Please describe your workplace environment.",
+    description:
+      "Error message displayed when work environment description textarea is empty.",
+  },
+});
+
 const formMessages = defineMessages({
   ourWorkEnv: {
     id: "jobBuilder.workEnv.ourWorkEnv",
@@ -35,6 +54,11 @@ const formMessages = defineMessages({
       "Share a little about your physical space, the technology used by your team, and the amenities close to your office. Check all that apply.",
     description:
       "Section 1 description of Job Poster Builder Work Environment Step",
+  },
+  teamSizeLabel: {
+    id: "jobBuilder.workEnv.teamSizeLabel",
+    defaultMessage: "Team Size",
+    description: "The label displayed on the team size input.",
   },
   physicalEnvLabel: {
     id: "jobBuilder.workEnv.physicalEnvLabel",
@@ -103,6 +127,11 @@ const formMessages = defineMessages({
     id: "jobBuilder.workEnv.managementLabel",
     defaultMessage: "Horizontal vs. Vertical:",
     description: "The label for the management radio group",
+  },
+  experimentalLabel: {
+    id: "jobBuilder.workEnv.experimentalLabel",
+    defaultMessage: "Experimental vs. Ongoing Business:",
+    description: "The label for the experimental radio group",
   },
   cultureSummary: {
     id: "jobBuilder.workEnv.cultureSummary",
@@ -302,77 +331,78 @@ const managementList = [
   },
 ];
 
-/** Compiles and returns all the active radio buttons corresponding context box values within the culture section  */
-const buildCultureSummary = (values): string => {
-  const pace = culturePaceList.find(({ id }) => id === values.culturePace);
-  const management = managementList.find(({ id }) => id === values.management);
-
-  let summary = "";
-  if (pace) {
-    summary += pace.subtext;
-  }
-
-  if (management) {
-    summary += ` ${management.subtext}`;
-  }
-  return summary;
-};
-
-const copyTest = React.createRef<HTMLParagraphElement>();
+const experimentalList = [
+  {
+    id: "experimental01",
+    title: "Highly Experimental",
+    subtext:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, veniam.",
+  },
+  {
+    id: "experimental02",
+    title: "Experimental",
+    subtext:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, delectus?",
+  },
+  {
+    id: "experimental03",
+    title: "Ongoing Business",
+    subtext:
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Optio eius voluptates officia, ipsum adipisci nesciunt!",
+  },
+  {
+    id: "experimental04",
+    title: "Mostly Ongoing Business",
+    subtext:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit quibusdam error suscipit.",
+  },
+];
 
 // shape of values used in Form
 export interface FormValues {
+  teamSize?: number;
   physicalEnv: string[];
   technology: string[];
   amenities: string[];
   envDescription?: string;
   culturePace?: string;
   management?: string;
-  customCultureSummary?: string;
+  experimental?: string;
+  cultureSummary?: string;
   moreCultureSummary?: string;
 }
 
-// The type of props FormikForm receives
-export interface FormProps {
-  initPhysicalEnv?: string[];
-  initTechnology?: string[];
-  initAmeinties?: string[];
-  initEnvDescription?: string;
-  initCulturePace?: string;
-  initManagement?: string;
-  initCustumCultureSummary?: string;
-  initMoreCultureSummary?: string;
+interface WorkEnvFormProps {
+  handleSubmit: (values: FormikValues) => void;
+  handleModalCancel: () => void;
+  handleModalConfirm: () => void;
 }
 
-export const mapPropsToValues = ({
-  initPhysicalEnv,
-  initTechnology,
-  initAmeinties,
-  initEnvDescription,
-  initCulturePace,
-  initManagement,
-  initCustumCultureSummary,
-  initMoreCultureSummary,
-}): FormValues => ({
-  physicalEnv: initPhysicalEnv || [],
-  technology: initTechnology || [],
-  amenities: initAmeinties || [],
-  envDescription: initEnvDescription || "",
-  culturePace: initCulturePace || "",
-  management: initManagement || "",
-  customCultureSummary: initCustumCultureSummary || "",
-  moreCultureSummary: initMoreCultureSummary || "",
-});
-
-export const validationSchema = (intl): InjectedIntlProps => {
-  return Yup.object().shape({
-    physicalEnv: Yup.array().required(
-      intl.formatMessage(formMessages.physicalEnvLabel),
+const WorkEnvForm = ({
+  handleSubmit,
+  handleModalCancel,
+  handleModalConfirm,
+  intl,
+}: WorkEnvFormProps & InjectedIntlProps): React.ReactElement => {
+  const copyTest = React.createRef<HTMLParagraphElement>();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const modalParent = document.querySelector("#modal-root");
+  const workEnvSchema = Yup.object().shape({
+    teamSize: Yup.number().min(
+      1,
+      intl.formatMessage(validationMessages.required),
     ),
-    technology: Yup.array().required("At least one checkbox is required"),
-    amenities: Yup.array().required("At least one checkbox is required"),
+    physicalEnv: Yup.array().required(
+      intl.formatMessage(validationMessages.checkboxRequired),
+    ),
+    technology: Yup.array().required(
+      intl.formatMessage(validationMessages.checkboxRequired),
+    ),
+    amenities: Yup.array().required(
+      intl.formatMessage(validationMessages.checkboxRequired),
+    ),
     envDescription: Yup.string().required(
-      "Please describe your workplace environment, or you're never getting to the next step",
+      intl.formatMessage(validationMessages.envDescription),
     ),
     culturePace: Yup.mixed()
       .oneOf([
@@ -381,378 +411,528 @@ export const validationSchema = (intl): InjectedIntlProps => {
         "culturePace03",
         "culturePace04",
       ])
-      .required("At least one checkbox is required"),
+      .required(intl.formatMessage(validationMessages.checkboxRequired)),
+    management: Yup.mixed()
+      .oneOf(["management01", "management02", "management03", "management04"])
+      .required(intl.formatMessage(validationMessages.checkboxRequired)),
+    experimental: Yup.mixed()
+      .oneOf([
+        "experimental01",
+        "experimental02",
+        "experimental03",
+        "experimental04",
+      ])
+      .required(intl.formatMessage(validationMessages.checkboxRequired)),
   });
-};
 
-export const handleSubmit = (values, actions): void => {
-  // This is where are async api requests go, example below
-  // The following only triggers after validations pass
-  console.log(values);
-  actions.setSubmitting(false); // Required by Formik to finish the submission cycle
-};
+  /** Compiles and returns all the active radio buttons corresponding context box values within the culture section  */
+  const buildCultureSummary = (values): string => {
+    const pace = culturePaceList.find(({ id }) => id === values.culturePace);
+    const management = managementList.find(
+      ({ id }) => id === values.management,
+    );
+    const experimental = experimentalList.find(
+      ({ id }) => id === values.experimental,
+    );
 
-export const Step3InnerForm = ({
-  values,
-  errors,
-  touched,
-  setFieldValue,
-  setFieldTouched,
-  isSubmitting,
-  intl,
-}: FormikProps<FormValues> & InjectedIntlProps): React.ReactElement => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const modalParent = document.querySelector("#modal-root");
+    let cultureSummary = "";
+    if (pace) {
+      cultureSummary += pace.subtext;
+    }
+
+    if (management) {
+      cultureSummary += ` ${management.subtext}`;
+    }
+
+    if (experimental) {
+      cultureSummary += ` ${experimental.subtext}`;
+    }
+
+    return cultureSummary;
+  };
+
   return (
-    <>
-      <Form id="form" data-c-margin="bottom(normal)">
-        <Field
-          type="number"
-          name="title"
-          component={Input}
-          required
-          grid="tl(1of2)"
-          id="teamSize"
-          label="Team Size"
-          placeholder="e.g. 10"
+    <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
+      <h3
+        data-c-font-size="h3"
+        data-c-font-weight="bold"
+        data-c-margin="bottom(double)"
+      >
+        <FormattedMessage
+          id="jobBuilder.workEnv.title"
+          defaultMessage="Work Environment"
+          description="Header of job poster builder work environment step."
         />
-        <CheckboxGroup
-          id="physicalEnv"
-          label={intl.formatMessage(formMessages.physicalEnvLabel)}
-          grid="base(1of1)"
-          value={values.physicalEnv}
-          error={errors.physicalEnv}
-          touched={touched.physicalEnv}
-          onChange={setFieldValue}
-          onBlur={setFieldTouched}
-          required
-        >
-          {physicalEnvOptions &&
-            physicalEnvOptions.map(
-              ({ name, label }): React.ReactElement => {
-                return (
-                  <Field
-                    type="checkbox"
-                    htmlId={name}
-                    // htmlId={`physEnv${index}`}
-                    name={name}
-                    label={label}
-                    component={Input}
-                    grid="base(1of2)"
+      </h3>
+      <p>
+        <FormattedMessage
+          id="jobBuilder.workEnv.stepDescription"
+          defaultMessage="Applicants care a lot about the team they’ll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they’ll be a good fit, and can reduce the number of “wishful thinking” applications that slow down the screening process."
+          description="Description of job poster builder work environment step."
+        />
+      </p>
+      <div data-c-grid-item="base(1of1)">
+        <h4 data-c-font-size="h4" data-c-margin="top(triple) bottom(normal)">
+          <FormattedMessage
+            id="jobBuilder.workEnv.ourWorkEnv"
+            defaultMessage="Our Work Environment"
+            description="Section 1 of job poster builder work environment step."
+          />
+        </h4>
+        <p data-c-margin="bottom(normal)">
+          <FormattedMessage
+            id="jobBuilder.workEnv.ourWorkEnvSubtext"
+            defaultMessage="Share a little about your physical space, the technology used by your team, and the amenities close to your office. Check all that apply."
+            description="Section 1 subtext of job poster builder work environment step."
+          />
+        </p>
+      </div>
+
+      <Formik
+        initialValues={{
+          teamSize: 0,
+          physicalEnv: [],
+          technology: [],
+          amenities: [],
+          envDescription: "",
+          culturePace: "",
+          management: "",
+          experimental: "",
+          cultureSummary: "",
+          moreCultureSummary: "",
+        }}
+        validationSchema={workEnvSchema}
+        // TODO: setErrors
+        onSubmit={(values, { setSubmitting }): void => {
+          setIsModalVisible(true);
+          // If custom summary textbox is length is zero, set cultureSummary to generated text
+          const cultureSummary =
+            values.cultureSummary.length === 0
+              ? buildCultureSummary(values)
+              : values.cultureSummary;
+          const formValues = { ...values, cultureSummary };
+
+          handleSubmit(formValues);
+          setSubmitting(false);
+        }}
+        render={({
+          errors,
+          touched,
+          isSubmitting,
+          values,
+          setFieldValue,
+          setFieldTouched,
+        }): React.ReactElement => (
+          <>
+            <Form id="form" data-c-margin="bottom(normal)">
+              <Field
+                type="number"
+                name="teamSize"
+                component={Input}
+                required
+                grid="tl(1of2)"
+                id="teamSize"
+                label={intl.formatMessage(formMessages.teamSizeLabel)}
+                placeholder="e.g. 10"
+              />
+              <CheckboxGroup
+                id="physicalEnv"
+                label={intl.formatMessage(formMessages.physicalEnvLabel)}
+                grid="base(1of1)"
+                value={values.physicalEnv}
+                error={errors.physicalEnv}
+                touched={touched.physicalEnv}
+                onChange={setFieldValue}
+                onBlur={setFieldTouched}
+                required
+              >
+                {physicalEnvOptions &&
+                  physicalEnvOptions.map(
+                    ({ name, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          type="checkbox"
+                          htmlId={name}
+                          name={name}
+                          label={label}
+                          component={Input}
+                          grid="base(1of2)"
+                        />
+                      );
+                    },
+                  )}
+              </CheckboxGroup>
+              <CheckboxGroup
+                id="technology"
+                label="Technology"
+                grid="base(1of1)"
+                value={values.technology}
+                error={errors.technology}
+                touched={touched.technology}
+                onChange={setFieldValue}
+                onBlur={setFieldTouched}
+                required
+              >
+                {technologyOptions &&
+                  technologyOptions.map(
+                    ({ name, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          type="checkbox"
+                          htmlId={name}
+                          name={name}
+                          label={label}
+                          component={Input}
+                          grid="base(1of2)"
+                        />
+                      );
+                    },
+                  )}
+              </CheckboxGroup>
+              <CheckboxGroup
+                id="amenities"
+                label="Amenities"
+                grid="base(1of1)"
+                value={values.amenities}
+                error={errors.amenities}
+                touched={touched.amenities}
+                onChange={setFieldValue}
+                onBlur={setFieldTouched}
+                required
+              >
+                {amenitiesOptions &&
+                  amenitiesOptions.map(
+                    ({ name, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          type="checkbox"
+                          htmlId={name}
+                          name={name}
+                          label={label}
+                          component={Input}
+                          grid="base(1of2)"
+                        />
+                      );
+                    },
+                  )}
+              </CheckboxGroup>
+              <p
+                data-c-margin="bottom(normal) top(normal)"
+                data-c-font-weight="bold"
+              >
+                <FormattedMessage
+                  id="jobBuilder.workEnv.moreOnWorkEnv"
+                  defaultMessage="More about your Environment"
+                  description="The title for the more about your environment textbox."
+                />
+              </p>
+              <p data-c-margin="bottom(normal)">
+                <FormattedMessage
+                  id="jobBuilder.workEnv.thisIsOptional"
+                  defaultMessage="This is optional."
+                  description="Text indicator for optional sections within form."
+                />
+              </p>
+              <p data-c-margin="bottom(normal)">
+                <FormattedMessage
+                  id="jobBuilder.workEnv.moreOnWorkEnvSubtext"
+                  defaultMessage="Anything else you’d like to add about your work environment? Highlight features of the physical environment, technology and amenities specific to your team."
+                  description="Subtext displayed for the more about your environment textbox."
+                />
+              </p>
+              <Field
+                type="textarea"
+                htmlId="enviroment_description"
+                name="envDescription"
+                label={intl.formatMessage(formMessages.moreOnWorkEnvLabel)}
+                placeholder={intl.formatMessage(
+                  formMessages.moreOnWorkEnvPlaceholder,
+                )}
+                component={TextArea}
+                grid="base(1of2)"
+                required
+              />
+              <div data-c-grid-item="base(1of1)">
+                <h4
+                  data-c-font-size="h4"
+                  data-c-margin="top(double) bottom(normal)"
+                >
+                  <FormattedMessage
+                    id="jobBuilder.workEnv.culture"
+                    defaultMessage="Our Culture"
+                    description="Section 2 radio group title of our culture step."
                   />
-                );
-              },
-            )}
-        </CheckboxGroup>
-        <CheckboxGroup
-          id="technology"
-          label="Technology"
-          grid="base(1of1)"
-          value={values.technology}
-          error={errors.technology}
-          touched={touched.technology}
-          onChange={setFieldValue}
-          onBlur={setFieldTouched}
-          required
-        >
-          {technologyOptions &&
-            technologyOptions.map(
-              ({ name, label }): React.ReactElement => {
-                return (
-                  <Field
-                    type="checkbox"
-                    htmlId={name}
-                    name={name}
-                    label={label}
-                    component={Input}
-                    grid="base(1of2)"
+                </h4>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobBuilder.workEnv.cultureSubtext1"
+                    defaultMessage="Now let applicants know more about the personality of your team and the type of work that you usually do."
+                    description="Subtext 1 displayed of the our culture section."
                   />
-                );
-              },
-            )}
-        </CheckboxGroup>
-        <CheckboxGroup
-          id="amenities"
-          label="Amenities"
-          grid="base(1of1)"
-          value={values.amenities}
-          error={errors.amenities}
-          touched={touched.amenities}
-          onChange={setFieldValue}
-          onBlur={setFieldTouched}
-          required
-        >
-          {amenitiesOptions &&
-            amenitiesOptions.map(
-              ({ name, label }): React.ReactElement => {
-                return (
-                  <Field
-                    type="checkbox"
-                    htmlId={name}
-                    name={name}
-                    label={label}
-                    component={Input}
-                    grid="base(1of2)"
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobBuilder.workEnv.cultureSubtext2"
+                    defaultMessage="Based on your selections, we’ll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team."
+                    description="Subtext 2 displayed of the our culture section."
                   />
-                );
-              },
-            )}
-        </CheckboxGroup>
-        <p data-c-margin="bottom(normal) top(normal)" data-c-font-weight="bold">
-          <FormattedMessage
-            id="jobBuilder.workEnv.moreOnWorkEnv"
-            defaultMessage="More about your Environment"
-            description="The title for the more about your environment textbox."
-          />
-        </p>
-        <p data-c-margin="bottom(normal)">
-          <FormattedMessage
-            id="jobBuilder.workEnv.thisIsOptional"
-            defaultMessage="This is optional."
-            description="Text indicator for optional sections within form."
-          />
-        </p>
-        <p data-c-margin="bottom(normal)">
-          <FormattedMessage
-            id="jobBuilder.workEnv.moreOnWorkEnvSubtext"
-            defaultMessage="Anything else you’d like to add about your work environment? Highlight features of the physical environment, technology and amenities specific to your team."
-            description="Subtext displayed for the more about your environment textbox."
-          />
-        </p>
-        <Field
-          type="textarea"
-          htmlId="enviroment_description"
-          name="envDescription"
-          label={intl.formatMessage(formMessages.moreOnWorkEnvLabel)}
-          placeholder={intl.formatMessage(
-            formMessages.moreOnWorkEnvPlaceholder,
-          )}
-          component={TextArea}
-          grid="base(1of2)"
-          required
-        />
-        <div data-c-grid-item="base(1of1)">
-          <h4 data-c-font-size="h4" data-c-margin="top(double) bottom(normal)">
-            <FormattedMessage
-              id="jobBuilder.workEnv.culture"
-              defaultMessage="Our Culture"
-              description="Section 2 radio group title of our culture step."
+                </p>
+              </div>
+              <div
+                className="job-builder-culture-block"
+                data-c-grid-item="base(1of1)"
+              >
+                <div data-c-grid="gutter">
+                  <RadioGroup
+                    htmlId="culturePace"
+                    label={intl.formatMessage(
+                      formMessages.fastPacedSteadyLabel,
+                    )}
+                    required
+                    touched={touched.culturePace}
+                    error={errors.culturePace}
+                    grid="base(1of1) tl(1of3)"
+                  >
+                    {culturePaceList.map(
+                      ({ id, title }): React.ReactElement => {
+                        return (
+                          <Field
+                            inputType="radio"
+                            name="culturePace"
+                            component={Input}
+                            htmlId={id}
+                            label={title}
+                            value={id}
+                            trigger
+                          />
+                        );
+                      },
+                    )}
+                  </RadioGroup>
+                  <ContextBlock
+                    className="job-builder-context-block"
+                    grid="base(1of1) tl(2of3)"
+                  >
+                    {culturePaceList.map(
+                      ({ id, title, subtext }): React.ReactElement => {
+                        return (
+                          <ContextBlockItem
+                            contextId={id}
+                            title={title}
+                            subtext={subtext}
+                            className="job-builder-context-item"
+                            active={values.culturePace === id}
+                          />
+                        );
+                      },
+                    )}
+                  </ContextBlock>
+                </div>
+              </div>
+              <div
+                className="job-builder-culture-block"
+                data-c-grid-item="base(1of1)"
+              >
+                <div data-c-grid="gutter">
+                  <RadioGroup
+                    htmlId="management"
+                    label={intl.formatMessage(formMessages.managementLabel)}
+                    required
+                    touched={touched.management}
+                    error={errors.management}
+                    grid="base(1of1) tl(1of3)"
+                  >
+                    {managementList.map(
+                      ({ id, title }): React.ReactElement => {
+                        return (
+                          <Field
+                            inputType="radio"
+                            name="management"
+                            component={Input}
+                            htmlId={id}
+                            label={title}
+                            value={id}
+                            trigger
+                          />
+                        );
+                      },
+                    )}
+                  </RadioGroup>
+                  <ContextBlock
+                    className="job-builder-context-block"
+                    grid="base(1of1) tl(2of3)"
+                  >
+                    {managementList.map(
+                      ({ id, title, subtext }): React.ReactElement => {
+                        return (
+                          <ContextBlockItem
+                            contextId={id}
+                            title={title}
+                            subtext={subtext}
+                            className="job-builder-context-item"
+                            active={values.management === id}
+                          />
+                        );
+                      },
+                    )}
+                  </ContextBlock>
+                </div>
+              </div>
+              <div
+                className="job-builder-culture-block"
+                data-c-grid-item="base(1of1)"
+              >
+                <div data-c-grid="gutter">
+                  <RadioGroup
+                    htmlId="experimental"
+                    label={intl.formatMessage(formMessages.managementLabel)}
+                    required
+                    touched={touched.experimental}
+                    error={errors.experimental}
+                    grid="base(1of1) tl(1of3)"
+                  >
+                    {experimentalList.map(
+                      ({ id, title }): React.ReactElement => {
+                        return (
+                          <Field
+                            inputType="radio"
+                            name="experimental"
+                            component={Input}
+                            htmlId={id}
+                            label={title}
+                            value={id}
+                            trigger
+                          />
+                        );
+                      },
+                    )}
+                  </RadioGroup>
+                  <ContextBlock
+                    className="job-builder-context-block"
+                    grid="base(1of1) tl(2of3)"
+                  >
+                    {experimentalList.map(
+                      ({ id, title, subtext }): React.ReactElement => {
+                        return (
+                          <ContextBlockItem
+                            contextId={id}
+                            title={title}
+                            subtext={subtext}
+                            className="job-builder-context-item"
+                            active={values.experimental === id}
+                          />
+                        );
+                      },
+                    )}
+                  </ContextBlock>
+                </div>
+              </div>
+              <div data-c-grid-item="base(1of1)">
+                <p
+                  data-c-margin="bottom(normal) top(normal)"
+                  data-c-font-weight="bold"
+                >
+                  <FormattedMessage
+                    id="jobBuilder.workEnv.cultureSummary"
+                    defaultMessage="Culture Summary"
+                    description="The header for the culture summary section."
+                  />
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobBuilder.workEnv.cultureSummarySubtext"
+                    defaultMessage="Here is the short paragraph summarizing your work culture which will appear on the job poster. Copy and paste it into the text box below if you want to customize it to the personality of your team and the way you work."
+                    description="The subtext for the culture summary section."
+                  />
+                </p>
+                <ContextBlockItem
+                  subtext={buildCultureSummary(values)}
+                  reference={copyTest}
+                />
+                <div
+                  data-c-alignment="base(centre) tl(right)"
+                  data-c-margin="top(normal)"
+                >
+                  <CopyToClipboardButton reference={copyTest} />
+                </div>
+              </div>
+              <Field
+                type="textarea"
+                htmlId="custom_culture_summary"
+                name="cultureSummary"
+                label={intl.formatMessage(
+                  formMessages.customCultureSummaryLabel,
+                )}
+                placeholder={intl.formatMessage(
+                  formMessages.customCultureSummaryPlaceholder,
+                )}
+                component={TextArea}
+                grid="base(1of1)"
+              />
+              <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                <FormattedMessage
+                  id="jobBuilder.workEnv.specialWorkCulture"
+                  defaultMessage="Anything Special About Your Work Culture?"
+                  description="Title for subsection in our work culture."
+                />
+              </p>
+              <p data-c-margin="bottom(normal)">
+                <FormattedMessage
+                  id="jobBuilder.workEnv.thisIsOptional"
+                  defaultMessage="This is optional."
+                  description="Text indicator for optional sections within form."
+                />
+              </p>
+              <p data-c-margin="bottom(normal)">
+                <FormattedMessage
+                  id="jobBuilder.workEnv.specialWorkCultureSubtext"
+                  defaultMessage="Does your team care a lot about something else? Proud of the team’s record of getting results? Strong commitment to mental wellness? Actively involved in advancing diversity and inclusion? LGBTQ+ champions? Here’s a chance to let applicants know about the culture of the team they’ll potentially be joining."
+                  description="Subtext for subsection in our work culture."
+                />
+              </p>
+              <Field
+                type="textarea"
+                htmlId="more_culture_summary"
+                name="moreCultureSummary"
+                label={intl.formatMessage(formMessages.specialWorkCultureLabel)}
+                placeholder={intl.formatMessage(
+                  formMessages.textAreaPlaceholder1,
+                )}
+                component={TextArea}
+                grid="base(1of1)"
+              />
+              <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
+                {/* <!-- Modal trigger, same as last step. --> */}
+                <button
+                  form="form"
+                  type="submit"
+                  disabled={isSubmitting}
+                  data-c-button="solid(c1)"
+                  data-c-dialog-action="open"
+                  data-c-dialog-id="example-dialog-01"
+                  data-c-radius="rounded"
+                >
+                  <FormattedMessage
+                    id="jobBuilder.workEnv.submitButtonLabel"
+                    defaultMessage="Preview Work Environment"
+                    description="Label for work environment submit button."
+                  />
+                </button>
+              </div>
+            </Form>
+            <WorkEnvModal
+              modalConfirm={handleModalConfirm}
+              modalCancel={handleModalCancel}
+              isVisible={isModalVisible}
+              parentElement={modalParent}
+              values={values}
             />
-          </h4>
-          <p data-c-margin="bottom(normal)">
-            <FormattedMessage
-              id="jobBuilder.workEnv.cultureSubtext1"
-              defaultMessage="Now let applicants know more about the personality of your team and the type of work that you usually do."
-              description="Subtext 1 displayed of the our culture section."
-            />
-          </p>
-          <p data-c-margin="bottom(normal)">
-            <FormattedMessage
-              id="jobBuilder.workEnv.cultureSubtext2"
-              defaultMessage="Based on your selections, we’ll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team."
-              description="Subtext 2 displayed of the our culture section."
-            />
-          </p>
-        </div>
-        <div
-          className="job-builder-culture-block"
-          data-c-grid-item="base(1of1)"
-        >
-          <div data-c-grid="gutter">
-            <RadioGroup
-              htmlId="culturePace"
-              label={intl.formatMessage(formMessages.fastPacedSteadyLabel)}
-              required
-              touched={touched.culturePace}
-              error={errors.culturePace}
-              grid="base(1of1) tl(1of3)"
-            >
-              {culturePaceList.map(
-                ({ id, title }): React.ReactElement => {
-                  return (
-                    <Field
-                      inputType="radio"
-                      name="culturePace"
-                      component={Input}
-                      htmlId={id}
-                      label={title}
-                      value={id}
-                      trigger
-                    />
-                  );
-                },
-              )}
-            </RadioGroup>
-            <ContextBlock
-              className="job-builder-context-block"
-              grid="base(1of1) tl(2of3)"
-            >
-              {culturePaceList.map(
-                ({ id, title, subtext }): React.ReactElement => {
-                  return (
-                    <ContextBlockItem
-                      contextId={id}
-                      title={title}
-                      subtext={subtext}
-                      className="job-builder-context-item"
-                      active={values.culturePace === id}
-                    />
-                  );
-                },
-              )}
-            </ContextBlock>
-          </div>
-        </div>
-        <div
-          className="job-builder-culture-block"
-          data-c-grid-item="base(1of1)"
-        >
-          <div data-c-grid="gutter">
-            <RadioGroup
-              htmlId="management"
-              label={intl.formatMessage(formMessages.managementLabel)}
-              required
-              touched={touched.management}
-              error={errors.management}
-              grid="base(1of1) tl(1of3)"
-            >
-              {managementList.map(
-                ({ id, title }): React.ReactElement => {
-                  return (
-                    <Field
-                      inputType="radio"
-                      name="management"
-                      component={Input}
-                      htmlId={id}
-                      label={title}
-                      value={id}
-                      trigger
-                    />
-                  );
-                },
-              )}
-            </RadioGroup>
-            <ContextBlock
-              className="job-builder-context-block"
-              grid="base(1of1) tl(2of3)"
-            >
-              {managementList.map(
-                ({ id, title, subtext }): React.ReactElement => {
-                  return (
-                    <ContextBlockItem
-                      contextId={id}
-                      title={title}
-                      subtext={subtext}
-                      className="job-builder-context-item"
-                      active={values.management === id}
-                    />
-                  );
-                },
-              )}
-            </ContextBlock>
-          </div>
-        </div>
-        <div data-c-grid-item="base(1of1)">
-          <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
-            <FormattedMessage
-              id="jobBuilder.workEnv.cultureSummary"
-              defaultMessage="Culture Summary"
-              description="The header for the culture summary section."
-            />
-          </p>
-          <p data-c-margin="bottom(normal)">
-            <FormattedMessage
-              id="jobBuilder.workEnv.cultureSummarySubtext"
-              defaultMessage="Here is the short paragraph summarizing your work culture which will appear on the job poster. Copy and paste it into the text box below if you want to customize it to the personality of your team and the way you work."
-              description="The subtext for the culture summary section."
-            />
-          </p>
-          <ContextBlockItem
-            subtext={buildCultureSummary(values)}
-            reference={copyTest}
-          />
-          <div
-            data-c-alignment="base(centre) tl(right)"
-            data-c-margin="top(normal)"
-          >
-            <CopyToClipboardButton reference={copyTest} />
-          </div>
-        </div>
-        <Field
-          type="textarea"
-          htmlId="custom_culture_summary"
-          name="customCultureSummary"
-          label={intl.formatMessage(formMessages.customCultureSummaryLabel)}
-          placeholder={intl.formatMessage(
-            formMessages.customCultureSummaryPlaceholder,
-          )}
-          component={TextArea}
-          grid="base(1of1)"
-        />
-        <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
-          <FormattedMessage
-            id="jobBuilder.workEnv.specialWorkCulture"
-            defaultMessage="Anything Special About Your Work Culture?"
-            description="Title for subsection in our work culture."
-          />
-        </p>
-        <p data-c-margin="bottom(normal)">
-          <FormattedMessage
-            id="jobBuilder.workEnv.thisIsOptional"
-            defaultMessage="This is optional."
-            description="Text indicator for optional sections within form."
-          />
-        </p>
-        <p data-c-margin="bottom(normal)">
-          <FormattedMessage
-            id="jobBuilder.workEnv.specialWorkCultureSubtext"
-            defaultMessage="Does your team care a lot about something else? Proud of the team’s record of getting results? Strong commitment to mental wellness? Actively involved in advancing diversity and inclusion? LGBTQ+ champions? Here’s a chance to let applicants know about the culture of the team they’ll potentially be joining."
-            description="Subtext for subsection in our work culture."
-          />
-        </p>
-        <Field
-          type="textarea"
-          htmlId="more_culture_summary"
-          name="moreCultureSummary"
-          label={intl.formatMessage(formMessages.specialWorkCultureLabel)}
-          placeholder={intl.formatMessage(formMessages.textAreaPlaceholder1)}
-          component={TextArea}
-          grid="base(1of1)"
-        />
-        <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
-          {/* <!-- Modal trigger, same as last step. --> */}
-          <button
-            form="form"
-            type="submit"
-            disabled={isSubmitting}
-            data-c-button="solid(c1)"
-            data-c-dialog-action="open"
-            data-c-dialog-id="example-dialog-01"
-            data-c-radius="rounded"
-            onClick={(): void => {
-              setIsModalVisible(true);
-            }}
-          >
-            <FormattedMessage
-              id="jobBuilder.workEnv.submitButtonLabel"
-              defaultMessage="Next"
-              description="Label for work environment submit button."
-            />
-          </button>
-        </div>
-      </Form>
-      <WorkEnvModal
-        isVisible={isModalVisible}
-        parentElement={modalParent}
-        values={values}
+          </>
+        )}
       />
-    </>
+    </div>
   );
 };
 
-export default withFormik<FormProps, FormValues>({
-  displayName: "WorkEnvForm",
-  mapPropsToValues,
-  validationSchema,
-  handleSubmit,
-})(injectIntl(Step3InnerForm));
+const WorkEnvFormContainer = injectIntl(WorkEnvForm);
+export default WorkEnvFormContainer;

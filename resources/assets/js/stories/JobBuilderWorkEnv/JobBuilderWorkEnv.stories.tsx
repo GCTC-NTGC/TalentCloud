@@ -39,6 +39,12 @@ stories
       return (
         <div id="modal-container">
           <WorkEnvModal
+            modalConfirm={(): void => {
+              console.log("Confirmed");
+            }}
+            modalCancel={(): void => {
+              console.log("Cancelled");
+            }}
             isVisible={isModalVisible}
             parentElement={modalParent}
             values={{
