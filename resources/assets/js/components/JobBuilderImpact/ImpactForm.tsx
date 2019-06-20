@@ -9,6 +9,7 @@ import {
 } from "react-intl";
 import TextArea from "../Forms/TextArea";
 import { Job } from "../../models/types";
+import { validationMessages } from "../Form/Messages";
 
 const messages = defineMessages({
   hireLabel: {
@@ -52,8 +53,12 @@ const ImpactForm: React.FunctionComponent<
     hireImpact: job ? job[intl.locale].hire_impact : "",
   };
   const validationSchema = Yup.object().shape({
-    teamImpact: Yup.string().required("This field is required"),
-    hireImpact: Yup.string().required("This field is required"),
+    teamImpact: Yup.string().required(
+      intl.formatMessage(validationMessages.required),
+    ),
+    hireImpact: Yup.string().required(
+      intl.formatMessage(validationMessages.required),
+    ),
   });
   return (
     <Formik
