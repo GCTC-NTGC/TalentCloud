@@ -148,57 +148,6 @@
 
             </div>
 
-            {# <div
-                class="box full">
-
-                <div
-                    aria-orientation="horizontal"
-                    class="form__radio-group"
-                    role="radiogroup">
-
-                    <label
-                        class="form__label"
-                        for="">
-                        How often do you review your team's work before it is shared?
-                    </label>
-
-                    <div class="flex-grid">
-
-                        {% set counter = 0 %}
-
-                        {% for level in leadership.radio_levels %}
-
-                            {% set counter = counter + 1 %}
-
-                            <label
-                                class="box form__radio-group-label small-1of{{ leadership.radio_levels|length }}"
-                                for="">
-                                <span
-                                    class="hidden">
-                                    {{ level }}
-                                </span>
-                                <input
-                                    class="form__radio-group-input"
-                                    id=""
-                                    name=""
-                                    type="radio"
-                                    {% if manager.shared_work|capitalize == level|capitalize %}
-                                        checked
-                                    {% endif %}>
-                                <span
-                                    class="form__radio-group-span">
-                                    {{ level }}
-                                </span>
-                            </label>
-
-                        {% endfor %}
-
-                    </div>
-
-                </div>
-
-            </div> #}
-
         </div>
 
     </fieldset>
