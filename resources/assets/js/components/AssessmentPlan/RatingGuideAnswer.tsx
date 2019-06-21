@@ -126,8 +126,8 @@ const RatingGuideAnswer: React.FunctionComponent<
       <div data-c-grid-item="base(1of1) tp(1of8)" data-c-alignment="center" />
       <div data-c-grid-item="base(1of1) tp(2of8)">
         <Select
-          htmlId={`ratingGuideSelectSkill_${answer.id}`}
-          formName="ratingGuideSelectSkill"
+          id={`ratingGuideSelectSkill_${answer.id}`}
+          name="ratingGuideSelectSkill"
           label={intl.formatMessage(messages.selectLabel)}
           required
           options={options}
