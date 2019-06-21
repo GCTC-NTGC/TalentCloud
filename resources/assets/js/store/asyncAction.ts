@@ -64,15 +64,22 @@ interface FailedActionCreator<T extends string, M> {
 
 /** A convenience type, for defining the return value of the rsa action generator. */
 export type RSAActionTemplate<
-  R extends string,
-  S extends string,
-  F extends string,
-  P,
-  M
+  TStarted extends string,
+  TSuccess extends string,
+  TFailed extends string,
+  TPayload,
+  TMeta
 > = RSAAction<
-  StartedActionCreator<R, M>,
-  SucceededActionCreator<S, P, M>,
-  FailedActionCreator<F, M>
+  TStarted,
+  TSuccess,
+  TFailed,
+  PromiseLike<TPayload>,
+  Error,
+  {},
+  TMeta,
+  TMeta,
+  TMeta,
+  any
 >;
 
 // TODO: is this the best way to get this?
@@ -80,23 +87,33 @@ const csrfElement = document.head.querySelector('meta[name="csrf-token"]');
 const csrfToken: string =
   csrfElement && csrfElement.textContent ? csrfElement.textContent : "";
 
+/**
+ *
+ * @param endpoint
+ * @param method
+ * @param body
+ * @param startedType
+ * @param succeededType
+ * @param failedType
+ * @param parseResponse This function must accept the response body and return a payload.
+ * @param metaData
+ */
 export const asyncAction = <
-  R extends string,
-  S extends string,
-  F extends string,
-  B,
-  P,
-  M
+  TStarted extends string,
+  TSuccess extends string,
+  TFailed extends string,
+  TPayload,
+  TMeta
 >(
   endpoint: string,
   method: HTTPVerb,
-  body: B | null,
-  startedType: R,
-  succeededType: S,
-  failedType: F,
-  parseResponse: (response: any) => P,
-  metaData: M,
-): RSAActionTemplate<R, S, F, P, M> => {
+  body: object | string | null,
+  startedType: TStarted,
+  succeededType: TSuccess,
+  failedType: TFailed,
+  parseResponse: (response: any) => TPayload,
+  metaData: TMeta,
+): RSAActionTemplate<TStarted, TSuccess, TFailed, TPayload, TMeta> => {
   const tokenHeader = { "X-CSRF-TOKEN": csrfToken };
   const jsonBodyHeader = { "Content-Type": "application/json" }; // informs server that the body is a json encoded string
   const headers =
@@ -105,8 +122,8 @@ export const asyncAction = <
     [RSAA]: {
       endpoint,
       method,
-      body,
       headers,
+      ...(body && { body }),
       fetch, // Ensure the global fetch function is being used
       types: [
         {
@@ -115,7 +132,7 @@ export const asyncAction = <
         },
         {
           type: succeededType,
-          payload: (action, state, res: Response): PromiseLike<P> =>
+          payload: (action, state, res: Response): PromiseLike<TPayload> =>
             getJSON(res).then(parseResponse),
           meta: metaData,
         },
@@ -129,19 +146,19 @@ export const asyncAction = <
 };
 
 export const asyncGet = <
-  R extends string,
-  S extends string,
-  F extends string,
-  P,
-  M
+  TStarted extends string,
+  TSuccess extends string,
+  TFailed extends string,
+  TPayload,
+  TMeta
 >(
   endpoint: string,
-  startedType: R,
-  succeededType: S,
-  failedType: F,
-  parseResponse: (response: any) => P,
-  metaData: M,
-): RSAActionTemplate<R, S, F, P, M> =>
+  startedType: TStarted,
+  succeededType: TSuccess,
+  failedType: TFailed,
+  parseResponse: (response: any) => TPayload,
+  metaData: TMeta,
+): RSAActionTemplate<TStarted, TSuccess, TFailed, TPayload, TMeta> =>
   asyncAction(
     endpoint,
     "GET",
@@ -154,21 +171,21 @@ export const asyncGet = <
   );
 
 export const asyncPut = <
-  R extends string,
-  S extends string,
-  F extends string,
-  B,
-  P,
-  M
+  TBody extends object | string,
+  TStarted extends string,
+  TSuccess extends string,
+  TFailed extends string,
+  TPayload,
+  TMeta
 >(
   endpoint: string,
-  body: B,
-  startedType: R,
-  succeededType: S,
-  failedType: F,
-  parseResponse: (response: any) => P,
-  metaData: M,
-): RSAActionTemplate<R, S, F, P, M> =>
+  body: TBody,
+  startedType: TStarted,
+  succeededType: TSuccess,
+  failedType: TFailed,
+  parseResponse: (response: any) => TPayload,
+  metaData: TMeta,
+): RSAActionTemplate<TStarted, TSuccess, TFailed, TPayload, TMeta> =>
   asyncAction(
     endpoint,
     "PUT",
