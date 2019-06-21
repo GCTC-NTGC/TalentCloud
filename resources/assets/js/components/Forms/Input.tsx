@@ -99,7 +99,7 @@ const Input: React.FunctionComponent<InputProps> = ({
         }
       >
         <label htmlFor={htmlId}>{label}</label>
-        {required && <span>Required</span>}
+        <span>Required</span>
         <div>
           <input
             id={htmlId}
