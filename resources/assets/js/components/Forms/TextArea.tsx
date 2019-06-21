@@ -5,6 +5,7 @@ export interface TextAreaProps {
   formName: string;
   label: string;
   required: boolean;
+  invalid?: boolean | null;
   placeholder: string;
   minLength?: number;
   maxLength?: number;
@@ -19,6 +20,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   formName,
   label,
   required,
+  invalid,
   placeholder,
   value,
   onChange,
@@ -28,9 +30,13 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   onBlur,
 }): React.ReactElement => {
   return (
-    <div data-c-input="textarea">
+    <div
+      data-c-input="textarea"
+      data-c-required={required}
+      data-c-invalid={invalid}
+    >
       <label htmlFor={htmlId}>{label}</label>
-      {required && <span>Required</span>}
+      <span>Required</span>
       <div>
         <textarea
           data-c-font-weight="800"
