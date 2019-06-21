@@ -1,12 +1,12 @@
 import React from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
-import { Application } from "../types";
-import { SelectOption } from "../Select";
+import { Application } from "../../models/types";
+import { SelectOption } from "../Forms/Select";
 import ApplicationReview from "./ApplicationReview";
 import { whereFirst } from "../../helpers/queries";
 import {
   applicationCompare,
-  applicationComparePrioritizeVeterans
+  applicationComparePrioritizeVeterans,
 } from "./helpers";
 
 interface ApplicantBucketProps {
@@ -31,7 +31,7 @@ const ApplicantBucket: React.StatelessComponent<
   onNotesChange,
   savingStatuses,
   prioritizeVeterans,
-  intl
+  intl,
 }: ApplicantBucketProps & InjectedIntlProps): React.ReactElement | null => {
   if (applications.length === 0) {
     return null;
@@ -56,7 +56,7 @@ const ApplicantBucket: React.StatelessComponent<
         <span className="invisible">
           <FormattedMessage
             id="button.toggleAccordion"
-            defaultMessage="<default/> Toggle this step to view relevant applicants."
+            defaultMessage="Toggle this step to view relevant applicants."
             description="Instructions to reveal hidden list data."
           />
         </span>

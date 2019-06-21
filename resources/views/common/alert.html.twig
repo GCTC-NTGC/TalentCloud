@@ -17,6 +17,47 @@
                     </a>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
+
+        {# Feedback Link #}
+
+            <div
+                class="box med-1of2">
+
+                <span>
+                    {{ alert.feedback_copy }}
+                </span>
+
+                <a
+                    class=""
+                    href="mailto:{{ alert.feedback_link }}"
+                    title="{{ alert.feedback_link_title }}">
+                    {{ alert.feedback_link_copy }}
+                </a>
+
+            </div>
+
+    </div>
+
+</section>
+
+<section
+    class="alert warning">
+
+    <div
+        class="alert__grid flex-grid">
+
+        {# Alert Copy #}
+
+            <div
+                class="box full">
+
+                <span>
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ alert.warning_copy }}
+                </span>
+
+            </div>
+
+    </div>
+
+</section>

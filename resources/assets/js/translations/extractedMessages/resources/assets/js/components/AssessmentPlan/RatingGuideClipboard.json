@@ -1,0 +1,7 @@
+[
+  {
+    "id": "ratingGuideBuilder.copyButton",
+    "description": "Text for the 'copy ratings guide' button.",
+    "defaultMessage": "Click to Copy This Ratings Guide to Your Clipboard"
+  }
+]

@@ -1,0 +1,1092 @@
+[
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Toggle this step to view relevant applicants.",
+        "description": "Instructions to reveal hidden list data.",
+        "id": "button.toggleAccordion"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicationReview/ApplicantBucket.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Talent cloud priority logo",
+        "description": "Title for Priority Logo Img",
+        "id": "priorityStatus.priorityLogoTitle"
+      },
+      {
+        "defaultMessage": "Talent cloud veteran logo",
+        "description": "Alt Text for Veteran Logo Img",
+        "id": "veteranStatus.veteranLogoAlt"
+      },
+      {
+        "defaultMessage": "Email this candidate.",
+        "description": "Title, hover text, for email link.",
+        "id": "apl.emailCandidateLinkTitle"
+      },
+      {
+        "defaultMessage": "View this applicant's application.",
+        "description": "Title, hover text, for View Application Link",
+        "id": "apl.viewApplicationLinkTitle"
+      },
+      {
+        "defaultMessage": "View this applicant's profile.",
+        "description": "Title, hover text, for View Profile Link",
+        "id": "apl.viewProfileLinkTitle"
+      },
+      {
+        "defaultMessage": "Decision",
+        "description": "Decision dropdown label",
+        "id": "apl.decision"
+      },
+      {
+        "defaultMessage": "Not Reviewed",
+        "description": "Decision dropdown label",
+        "id": "reviewStatus.notReviewed"
+      },
+      {
+        "defaultMessage": "Saving...",
+        "description": "Dynamic Save button label",
+        "id": "button.saving"
+      },
+      {
+        "defaultMessage": "Save",
+        "description": "Dynamic Save button label",
+        "id": "button.save"
+      },
+      {
+        "defaultMessage": "Saved",
+        "description": "Dynamic Save button label",
+        "id": "button.saved"
+      },
+      {
+        "defaultMessage": "+ Add a Note",
+        "description": "Dynamic Note button label",
+        "id": "apl.addNote"
+      },
+      {
+        "defaultMessage": "Edit Note",
+        "description": "Dynamic Note button label",
+        "id": "apl.editNote"
+      },
+      {
+        "defaultMessage": "Screened Out",
+        "description": "Dynamic Note button label",
+        "id": "reviewStatus.screenedOut"
+      },
+      {
+        "defaultMessage": "Still Thinking",
+        "description": "Dynamic Note button label",
+        "id": "reviewStatus.stillThinking"
+      },
+      {
+        "defaultMessage": "Still In",
+        "description": "Dynamic Note button label",
+        "id": "reviewStatus.stillIn"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Cancel button label",
+        "id": "button.cancel"
+      },
+      {
+        "defaultMessage": "Confirm",
+        "description": "Confirm button for modal dialogue boxes",
+        "id": "button.confirm"
+      },
+      {
+        "defaultMessage": "Screen out the candidate?",
+        "description": "Are you sure you want to screen out the candidate worning",
+        "id": "apl.screenOutConfirm"
+      },
+      {
+        "defaultMessage": "Screen the candidate back in?",
+        "description": "Are you sure you want to screen in the candidate warning",
+        "id": "apl.screenInConfirm"
+      },
+      {
+        "defaultMessage": "Priority",
+        "description": "Priority",
+        "id": "priorityStatus.priority"
+      },
+      {
+        "defaultMessage": "Veteran",
+        "description": "Veteran",
+        "id": "veteranStatus.veteran"
+      },
+      {
+        "defaultMessage": "View Application",
+        "description": "Button text View Application",
+        "id": "apl.viewApplication"
+      },
+      {
+        "defaultMessage": "View Profile",
+        "description": "Button text View Profile",
+        "id": "apl.viewProfile"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicationReview/ApplicationReview.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Oops...",
+        "description": "Modal notification text indicating something went wrong.",
+        "id": "alert.oops"
+      },
+      {
+        "defaultMessage": "Something went wrong while saving a review. Try again later.",
+        "description": "Error message for error while saving an application review.",
+        "id": "apl.reviewSaveFailed"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicationReview/ApplicationReviewContainer.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Talent cloud veteran logo",
+        "description": "Alt Text for Veteran Logo Img",
+        "id": "veteranStatus.veteranLogoAlt"
+      },
+      {
+        "defaultMessage": "Email this candidate.",
+        "description": "Title, hover text, for email link.",
+        "id": "apl.emailCandidateLinkTitle"
+      },
+      {
+        "defaultMessage": "View this applicant's application.",
+        "description": "Title, hover text, for View Application Link",
+        "id": "apl.viewApplicationLinkTitle"
+      },
+      {
+        "defaultMessage": "View this applicant's profile.",
+        "description": "Title, hover text, for View Profile Link",
+        "id": "apl.viewProfileLinkTitle"
+      },
+      {
+        "defaultMessage": "Decision",
+        "description": "Decision dropdown label",
+        "id": "apl.decision"
+      },
+      {
+        "defaultMessage": "Not Reviewed",
+        "description": "Decision dropdown label",
+        "id": "reviewStatus.notReviewed"
+      },
+      {
+        "defaultMessage": "Saving...",
+        "description": "Dynamic Save button label",
+        "id": "button.saving"
+      },
+      {
+        "defaultMessage": "Save",
+        "description": "Dynamic Save button label",
+        "id": "button.save"
+      },
+      {
+        "defaultMessage": "Saved",
+        "description": "Dynamic Save button label",
+        "id": "button.saved"
+      },
+      {
+        "defaultMessage": "+ Add a Note",
+        "description": "Dynamic Note button label",
+        "id": "apl.addNote"
+      },
+      {
+        "defaultMessage": "Edit Note",
+        "description": "Dynamic Note button label",
+        "id": "apl.editNote"
+      },
+      {
+        "defaultMessage": "Screened Out",
+        "description": "Dynamic Note button label",
+        "id": "reviewStatus.screenedOut"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Cancel button label",
+        "id": "button.cancel"
+      },
+      {
+        "defaultMessage": "Still Thinking",
+        "description": "Dynamic Note button label",
+        "id": "reviewStatus.stillThinking"
+      },
+      {
+        "defaultMessage": "Still In",
+        "description": "Dynamic Note button label",
+        "id": "reviewStatus.stillIn"
+      },
+      {
+        "defaultMessage": "Confirm",
+        "description": "Confirm button for modal dialogue boxes",
+        "id": "button.confirm"
+      },
+      {
+        "defaultMessage": "Screen out the candidate?",
+        "description": "Are you sure you want to screen out the candidate warning",
+        "id": "apl.screenOutConfirm"
+      },
+      {
+        "defaultMessage": "Screen the candidate back in?",
+        "description": "Are you sure you want to screen in the candidate warning",
+        "id": "apl.screenInConfirm"
+      },
+      {
+        "defaultMessage": "< Save and Go Back to Applicant List",
+        "description": "Back Button text",
+        "id": "apl.backToApplicantList"
+      },
+      {
+        "defaultMessage": "View Job Poster",
+        "description": "View Job Poster Button text",
+        "id": "button.viewJobPoster"
+      },
+      {
+        "defaultMessage": "Expand All Skills",
+        "description": "Expand All Skills Button text",
+        "id": "apl.expandAllSkills"
+      },
+      {
+        "defaultMessage": "Collapse All Skills",
+        "description": "Collapse All Skills Button text",
+        "id": "apl.collapseAllSkills"
+      },
+      {
+        "defaultMessage": "Veteran",
+        "description": "Veteran",
+        "id": "veteranStatus.veteran"
+      },
+      {
+        "defaultMessage": "View Application",
+        "description": "Button text View Application",
+        "id": "apl.viewApplication"
+      },
+      {
+        "defaultMessage": "View Profile",
+        "description": "Button text View Profile",
+        "id": "apl.viewProfile"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicationReview/ApplicationReviewWithNav.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Applications for: {jobTitle} {jobClassification}",
+        "description": "Welcome header on Job Applications index page",
+        "id": "apl.indexPageTitle"
+      },
+      {
+        "defaultMessage": "{dayCount, plural, =0 {No Days} one {# Day} other {# Days}} Since Close",
+        "description": "Welcome header on app main page",
+        "id": "job.daysSinceClosed"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicationReview/ReviewApplications.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Save",
+        "description": "Dynamic Save button label",
+        "id": "alert.oops"
+      },
+      {
+        "defaultMessage": "Something went wrong while saving a review. Try again later.",
+        "description": "Dynamic Save button label",
+        "id": "apl.reviewSaveFailed"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicationReview/ReviewApplicationsContainer.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Confirm",
+        "description": "Confirm button for modal dialogue boxes",
+        "id": "button.confirm"
+      },
+      {
+        "defaultMessage": "Are you sure you want to screen out all Optional candidates?",
+        "description": "Confirm dialogue text for screening out all optional candidates.",
+        "id": "apl.screenOutAll.confirm"
+      },
+      {
+        "defaultMessage": "Copied!",
+        "description": "Confirmation for Button to copy all applicant emails in screening category",
+        "id": "button.copied"
+      },
+      {
+        "defaultMessage": "Copy Emails",
+        "description": "Button to copy all applicant emails in screening category",
+        "id": "button.copyEmails"
+      },
+      {
+        "defaultMessage": "Screen All Optional Candidates Out",
+        "description": "Button to screen out all optional candidates from competition with one click",
+        "id": "apl.screenOutAll"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicationReview/ReviewCategory.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Generate an assessment plan for: {jobTitle}",
+        "description": "Title of the Generate Assessment Plan page",
+        "id": "assessmentPlan.pageTitle"
+      },
+      {
+        "defaultMessage": "This tool allows you to build an assessment plan and a ratings guide for your job poster. The tool is used in 3 steps:",
+        "description": "Beginning instructions on using Assessment Plan Builder",
+        "id": "assessmentPlan.instructions.intro"
+      },
+      {
+        "defaultMessage": "Assessment Plan Builder",
+        "description": "Title of the Assessment Plan Builder",
+        "id": "assessmentPlan.assessmentPlanBuilder.title"
+      },
+      {
+        "defaultMessage": "(Select your assessments)",
+        "description": "Short description of Assessment Plan Builder",
+        "id": "assessmentPlan.assessmentPlanBuilder.shortDescription"
+      },
+      {
+        "defaultMessage": "Assessment Plan Summary",
+        "description": "Title of the Assessment Plan Summary",
+        "id": "assessmentPlan.assessmentPlanSummary.title"
+      },
+      {
+        "defaultMessage": "(Review your plan)",
+        "description": "Short description of Assessment Plan Summary",
+        "id": "assessmentPlan.assessmentPlanSummary.shortDescription"
+      },
+      {
+        "defaultMessage": "Ratings Guide Builder",
+        "description": "Title of the Rating Guide Builder section",
+        "id": "assessmentPlan.ratingGuideBuilder.title"
+      },
+      {
+        "defaultMessage": "(Customize your evaluations)",
+        "description": "Short description of Rating Guide Builder",
+        "id": "assessmentPlan.ratingGuideBuilder.shortDescription"
+      },
+      {
+        "defaultMessage": "Please note that all assessment plans will include a review of the narrative evidence provided by the applicant.",
+        "description": "Note that all plans include a review of narrative evidence.",
+        "id": "assessmentPlan.instructions.narrativeNote"
+      },
+      {
+        "defaultMessage": "Your first step is to pick some assessments that will allow you to evaluate the criteria you've selected for your job poster. Below you'll find your essential criteria, followed by your asset criteria if you've selected any. The builder will save as you go, so when you're finished, feel free to move to step 2 to review your work.",
+        "description": "Instructions on how to get started with the Assessment Plan Builder.",
+        "id": "assessmentPlan.assessmentPlanBuilder.instructions"
+      },
+      {
+        "defaultMessage": "Essential Skills",
+        "description": "What essential criteria are called.",
+        "id": "criteria.essential"
+      },
+      {
+        "defaultMessage": "You have no essential skills selected for this job poster.",
+        "description": "Text displayed when there are no essential criteria.",
+        "id": "assessmentPlan.essentialCriteria.nullState"
+      },
+      {
+        "defaultMessage": "Asset Skills",
+        "description": "What asset criteria are called.",
+        "id": "criteria.asset"
+      },
+      {
+        "defaultMessage": "You have no asset skills selected for this job poster.",
+        "description": "Text displayed when there are no asset criteria.",
+        "id": "assessmentPlan.assetCriteria.nullState"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/AssessmentPlan.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Checking if Job changed recently...",
+        "description": "Alert title while notifications are still being loaded.",
+        "id": "assessmentPlan.alert.checking"
+      },
+      {
+        "defaultMessage": "This job changed recently!",
+        "description": "Title for the alert for changes to this job's criteria.",
+        "id": "assessmentPlan.alert.title"
+      },
+      {
+        "defaultMessage": "Parts of the Screening Plan have been changed to match.",
+        "description": "Explanation that the screening plan may have changed.",
+        "id": "assessmentPlan.alert.explanation"
+      },
+      {
+        "defaultMessage": "{skills} {count, plural, one {was} other {were}} added.",
+        "description": "Description of the new criteria that have been added to this job.",
+        "id": "assessmentPlan.alert.created"
+      },
+      {
+        "defaultMessage": "{skills} {count, plural, one {was} other {were}} updated.",
+        "description": "Description of the criteria that had their level changed.",
+        "id": "assessmentPlan.alert.skillLevelUpdated"
+      },
+      {
+        "defaultMessage": "{oldSkill} was changed to {newSkill}.",
+        "description": "Description of a criterion which was changed from one skill to another.",
+        "id": "assessmentPlan.alert.skillUpdated"
+      },
+      {
+        "defaultMessage": "{oldSkill} was changed to {newSkill} and was updated.",
+        "description": "Description of a criterion which was changed from one skill to another and had its level changed.",
+        "id": "assessmentPlan.alert.skillAndLevelUpdated"
+      },
+      {
+        "defaultMessage": "{skills} {count, plural, one {was} other {were}} removed.",
+        "description": "Description of criteria which were removed from the job.",
+        "id": "assessmentPlan.alert.deleted"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/AssessmentPlanAlert.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Select an Assessment",
+        "description": "Default select element before an assessment type has been chosen",
+        "id": "assessmentPlan.selectAssessment.null"
+      },
+      {
+        "defaultMessage": "Select an Assessment",
+        "description": "Label for Assessment Type select element.",
+        "id": "assessmentPlan.selectAssessment.label"
+      },
+      {
+        "defaultMessage": "{skillName} - {skillLevel}",
+        "description": "Title of a skill section in the Assessment Plan Builder.",
+        "id": "assessmentPlan.criteriaTitle"
+      },
+      {
+        "defaultMessage": "Description",
+        "description": "Label for the text that describes a skill criterion.",
+        "id": "assessmentPlan.skillDescriptionLabel"
+      },
+      {
+        "defaultMessage": "Skill Level Selected",
+        "description": "Label for the text that describes a Skill Level.",
+        "id": "assessmentPlan.skillLevelDescriptionLabel"
+      },
+      {
+        "defaultMessage": "Assessment Types",
+        "description": "Label for section where you choose assessment types for a criterion.",
+        "id": "assessmentPlan.assessmentTypesLabel"
+      },
+      {
+        "defaultMessage": "Add an Assessment",
+        "description": "Text for the button that adds a new assessment for a criterion.",
+        "id": "assessmentPlan.addAssessmentButton"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/AssessmentPlanSkill.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Assessing {count, plural, one {# skill} other {# skills}}.",
+        "description": "Labels how many skills are assessed by this assessment tool.",
+        "id": "assessmentPlan.summary.skillCount"
+      },
+      {
+        "defaultMessage": "Essential Skills",
+        "description": "What essential criteria are called.",
+        "id": "criteria.essential"
+      },
+      {
+        "defaultMessage": "No skills being assessed by this tool.",
+        "description": "Replaces list of skills assessed by an assessment tool, if that list is empty.",
+        "id": "assessmentPlan.summary.skillsNullState"
+      },
+      {
+        "defaultMessage": "Asset Skills",
+        "description": "What asset criteria are called.",
+        "id": "criteria.asset"
+      },
+      {
+        "defaultMessage": "2. Assessment Plan Summary",
+        "description": "Title of Assessment Plan Summary Section",
+        "id": "assessmentPlan.summary.title"
+      },
+      {
+        "defaultMessage": "This is a summary of the work you've done above. You'll find\n      each assessment accompanied by a consolidated list of the essential and\n      asset skills attached to it.",
+        "description": "Description of Assessment Plan Summary Section",
+        "id": "assessmentPlan.summary.description"
+      },
+      {
+        "defaultMessage": "Assessment Summary",
+        "description": "Title of Assessment Plan Summary, Assessment Summary Section",
+        "id": "assessmentPlan.summary.assessmentSummary.title"
+      },
+      {
+        "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}\n            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}.",
+        "description": "Describes how many tools and skills your assessment plan involves.",
+        "id": "assessmentPlan.summary.assessmentSummary.toolSkillCount"
+      },
+      {
+        "defaultMessage": "You have no assessments selected for this job poster. Add them\n              above.",
+        "description": "Place holder text for when there are no assessment summary details",
+        "id": "assessmentPlan.summary.assessmentSummary.noAssessments"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/AssessmentPlanTable.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Select a Skill",
+        "description": "Label for the dropdown for selecting the skill this rating guide answer is used to assess.",
+        "id": "ratingGuideAnswer.selectLabel"
+      },
+      {
+        "defaultMessage": "Select a Skill...",
+        "description": "Null selection for the dropdown for selecting a skill this rating guide answer is used to assess.",
+        "id": "ratingGuideAnswer.nullSelection"
+      },
+      {
+        "defaultMessage": "Acceptable Passing Answer / Required to demonstrate",
+        "description": "Label for the rating guide answer input.",
+        "id": "ratingGuideAnswer.answerLabel"
+      },
+      {
+        "defaultMessage": "Write the expected answer to pass the applicant on this skill...",
+        "description": "Placeholder text for the rating guide answer.",
+        "id": "ratingGuideAnswer.answerPlaceholder"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/RatingGuideAnswer.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Assessment {index}: {assessmentType}",
+        "description": "Subtitle for given assessment type section in the Rating Guide Builder.",
+        "id": "ratingGuideBuilder.sectionTitle"
+      },
+      {
+        "defaultMessage": "{count} Essential Missing:",
+        "description": "Label for list of missing essential skills.",
+        "id": "ratingGuideBuilder.essentialMissing"
+      },
+      {
+        "defaultMessage": "{count} Asset Missing:",
+        "description": "Label for list of missing asset skills.",
+        "id": "ratingGuideBuilder.assetMissing"
+      },
+      {
+        "defaultMessage": "Add a Question",
+        "description": "Button text for adding a new rating guide question.",
+        "id": "ratingGuideBuilder.addQuestion"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/RatingGuideAssessment.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Assessment {index}: {assessmentType}",
+        "description": "Subtitle for the special Narrative Assessment section in the Rating Guide Builder.",
+        "id": "ratingGuideBuilder.narrativeSectionTitle"
+      },
+      {
+        "defaultMessage": "{skillName} - {skillLevel}",
+        "description": "How each criteria is listed in Rating Guide Builder.",
+        "id": "ratingGuideBuilder.criteriaName"
+      },
+      {
+        "defaultMessage": "3. Ratings Guide Builder",
+        "description": "Title of the Rating Guide Builder section.",
+        "id": "ratingGuideBuilder.title"
+      },
+      {
+        "defaultMessage": "Below you will create your own ratings guide tool to help you assess your candidates. This tool allows you to build your own questions/evaluations for each assessment you've selected above, and then allows you to jot down the criteria for what a great candidate response might be. Please note that \"Narrative Review\" is unique in that the content is generated for you below.",
+        "description": "Instructions for using the Rating Guide Builder",
+        "id": "ratingGuideBuilder.instructions"
+      },
+      {
+        "defaultMessage": "Now that you've built your Ratings Guide, you can use the button below to copy the entire thing to your clipboard, making it easy to paste in your favourite Word Processor.",
+        "description": "Instructions for copying your rating guide.",
+        "id": "ratingGuideBuilder.copyInstructions"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/RatingGuideBuilder.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Click to Copy This Ratings Guide to Your Clipboard",
+        "description": "Text for the 'copy ratings guide' button.",
+        "id": "ratingGuideBuilder.copyButton"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/RatingGuideClipboard.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Something went wrong!",
+        "description": "Title displayed on the Error Toast component.",
+        "id": "errorToast.title"
+      }
+    ],
+    "path": "resources/assets/js/components/ErrorToast.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "This field is required.",
+        "description": "Error message displayed when a required field is empty.",
+        "id": "formValidation.required"
+      },
+      {
+        "defaultMessage": "Too short!",
+        "description": "Error message displayed when a field value is below the minimum length.",
+        "id": "formValidation.tooShort"
+      },
+      {
+        "defaultMessage": "Too long!",
+        "description": "Error message displayed when a field value is above the maximum length.",
+        "id": "formValidation.tooLong"
+      },
+      {
+        "defaultMessage": "Please select from the available options.",
+        "description": "Error message displayed when a field value is outside of the available selection options.",
+        "id": "formValidation.invalidSelection"
+      },
+      {
+        "defaultMessage": "Required",
+        "description": "Displayed next to required form inputs.",
+        "id": "formInput.required"
+      }
+    ],
+    "path": "resources/assets/js/components/Form/Messages.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "What is the job title?",
+        "description": "The form label displayed on the title input.",
+        "id": "jobDetails.titleLabel"
+      },
+      {
+        "defaultMessage": "e.g. Product Designer",
+        "description": "The form placeholder displayed on the title input.",
+        "id": "jobDetails.titlePlaceholder"
+      },
+      {
+        "defaultMessage": "How long is the term (in months)?",
+        "description": "The form label displayed on the term length input.",
+        "id": "jobDetails.termLengthLabel"
+      },
+      {
+        "defaultMessage": "e.g. 3",
+        "description": "The form placeholder displayed on the term length input.",
+        "id": "jobDetails.termLengthPlaceholder"
+      },
+      {
+        "defaultMessage": "What is the classification?",
+        "description": "The form label displayed on the classification input.",
+        "id": "jobDetails.classificationLabel"
+      },
+      {
+        "defaultMessage": "Select a classification...",
+        "description": "The default selection option displayed on the classification input.",
+        "id": "jobDetails.classificationNullSelection"
+      },
+      {
+        "defaultMessage": "What is the level?",
+        "description": "The form label displayed on the level input.",
+        "id": "jobDetails.levelLabel"
+      },
+      {
+        "defaultMessage": "Select a level...",
+        "description": "The default selection option displayed on the level input.",
+        "id": "jobDetails.levelNullSelection"
+      },
+      {
+        "defaultMessage": "What is the security level?",
+        "description": "The form label displayed on the security level input.",
+        "id": "jobDetails.securityLevelLabel"
+      },
+      {
+        "defaultMessage": "Select a security level...",
+        "description": "The default selection option displayed on the security level input.",
+        "id": "jobDetails.securityLevelNullSelection"
+      },
+      {
+        "defaultMessage": "What is the language profile?",
+        "description": "The form label displayed on the language input.",
+        "id": "jobDetails.languageLabel"
+      },
+      {
+        "defaultMessage": "Select a language profile...",
+        "description": "The default selection option displayed on the language input.",
+        "id": "jobDetails.languageNullSelection"
+      },
+      {
+        "defaultMessage": "What city is the team located in?",
+        "description": "The form label displayed on the city input.",
+        "id": "jobDetails.cityLabel"
+      },
+      {
+        "defaultMessage": "e.g. Ottawa",
+        "description": "The form placeholder displayed on the city input.",
+        "id": "jobDetails.cityPlaceholder"
+      },
+      {
+        "defaultMessage": "What province is the team located in?",
+        "description": "The form label displayed on the province input.",
+        "id": "jobDetails.provinceLabel"
+      },
+      {
+        "defaultMessage": "Select a province...",
+        "description": "The default selection option displayed on the province input.",
+        "id": "jobDetails.provinceNullSelection"
+      },
+      {
+        "defaultMessage": "Select a remote work option:",
+        "description": "The form label displayed on the remote work radio group.",
+        "id": "jobDetails.remoteWorkGroupLabel"
+      },
+      {
+        "defaultMessage": "Yes, I’m willing to supervise employees anywhere in the world.",
+        "description": "The form label displayed on the 'world' remote work radio option.",
+        "id": "jobDetails.remoteWorkWorldLabel"
+      },
+      {
+        "defaultMessage": "Yes, I’m willing to supervise employees in any province or territory in Canada.",
+        "description": "The form label displayed on the 'canada' remote work radio option.",
+        "id": "jobDetails.remoteWorkCanadaLabel"
+      },
+      {
+        "defaultMessage": "No, I require the employee in this position to be in the same geographic location as the office.",
+        "description": "The form label displayed on the 'none' remote work radio option.",
+        "id": "jobDetails.remoteWorkNoneLabel"
+      },
+      {
+        "defaultMessage": "Select a telework option:",
+        "description": "The form label displayed on the telework radio group.",
+        "id": "jobDetails.teleworkGroupLabel"
+      },
+      {
+        "defaultMessage": "Select a flexible hours option:",
+        "description": "The form label displayed on the flex hours radio group.",
+        "id": "jobDetails.flexHoursGroupLabel"
+      },
+      {
+        "defaultMessage": "Almost Always",
+        "description": "The form label displayed on 'always' frequency options.",
+        "id": "jobDetails.frequencyAlwaysLabel"
+      },
+      {
+        "defaultMessage": "Frequently",
+        "description": "The form label displayed on 'frequently' frequency options.",
+        "id": "jobDetails.frequencyFrequentlyLabel"
+      },
+      {
+        "defaultMessage": "Sometimes",
+        "description": "The form label displayed on 'sometimes' frequency options.",
+        "id": "jobDetails.frequencySometimesLabel"
+      },
+      {
+        "defaultMessage": "Occasionally",
+        "description": "The form label displayed on 'occasionally' frequency options.",
+        "id": "jobDetails.frequencyOccasionallyLabel"
+      },
+      {
+        "defaultMessage": "Almost Never",
+        "description": "The form label displayed on 'never' frequency options.",
+        "id": "jobDetails.frequencyNeverLabel"
+      },
+      {
+        "defaultMessage": "Job Information",
+        "description": "Job Details page heading",
+        "id": "jobDetails.heading"
+      },
+      {
+        "defaultMessage": "Is remote work allowed?",
+        "description": "Header message displayed on the remote work group input.",
+        "id": "jobDetails.remoteWorkGroupHeader"
+      },
+      {
+        "defaultMessage": "Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor.",
+        "description": "Body message displayed on the remote work group input.",
+        "id": "jobDetails.remoteWorkGroupBody"
+      },
+      {
+        "defaultMessage": "How often is telework allowed?",
+        "description": "Header message displayed on the telework group input.",
+        "id": "jobDetails.teleworkGroupHeader"
+      },
+      {
+        "defaultMessage": "Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option.",
+        "description": "Body message displayed on the telework group input.",
+        "id": "jobDetails.teleworkGroupBody"
+      },
+      {
+        "defaultMessage": "How often are flexible hours allowed?",
+        "description": "Header message displayed on the flex hours group input.",
+        "id": "jobDetails.flexHoursGroupHeader"
+      },
+      {
+        "defaultMessage": "Want to support a more gender inclusive workplace?\n                          Studies show allowing flex hours is a great way to improve opportunities for women and parents.",
+        "description": "Body message displayed on the flex hours group input.",
+        "id": "jobDetails.flexHoursGroupBody"
+      },
+      {
+        "defaultMessage": "Next",
+        "description": "The text displayed on the submit button for the Job Details form.",
+        "id": "jobDetails.submitButtonLabel"
+      },
+      {
+        "defaultMessage": "You're off to a great start!",
+        "description": "The text displayed in the header of the Job Details modal.",
+        "id": "jobDetails.modalHeader"
+      },
+      {
+        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
+        "description": "The text displayed in the body of the Job Details modal.",
+        "id": "jobDetails.modalBody"
+      },
+      {
+        "defaultMessage": "Go Back",
+        "description": "The text displayed on the cancel button of the Job Details modal.",
+        "id": "jobDetails.modalCancelLabel"
+      },
+      {
+        "defaultMessage": "Next Step",
+        "description": "The text displayed on the confirm button of the Job Details modal.",
+        "id": "jobDetails.modalConfirmLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobDetails/JobDetails.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "You have the ability to accomplish basic tasks with steady supervision and clear direction. The tasks you’re assigned are clear and don’t involve significant complexity. Their impact is usually locally felt. As you advance in this category, you should be developing the ability to accomplish tasks of moderate complexity with steady supervision. You will also need to be able to accomplish basic tasks with little or no supervision. This level is usually associated with tasks that form the bulk of the work for lower level positions, such as junior analysts or entry level developers.",
+        "description": "Description of basic hard skill level.",
+        "id": "skillLevel.hard.basic.description"
+      },
+      {
+        "defaultMessage": "You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision.The approach to the tasks, and how they are delivered, is determined by the supervisor.You contribute input and advice.You are able to advance the task, even in the face of small to moderate hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision. This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers.",
+        "description": "Description of intermediate skill level.",
+        "id": "skillLevel.hard.intermediate.description"
+      },
+      {
+        "defaultMessage": "You have the ability to accomplish tasks of significant complexity or impact with supervision.You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor’s consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels. This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers.",
+        "description": "Description of advanced hard skill level.",
+        "id": "skillLevel.hard.advanced.description"
+      },
+      {
+        "defaultMessage": "You have the ability to accomplish tasks of significant complexity or impact, where you call the shots and answer to the organization’s senior management for your decisions. You bring forward the tasks, the approach and the delivery plan for senior management consideration. You often supervise others (individuals or teams) in delivering tasks of high complexity or system wide impact. You are able to advance these tasks, even in the face of significant unforeseen hurdles and complications. As you advance in this category, you should be developing the ability to assess others at more junior levels, becoming able to clearly identify the difference between beginner, intermediate and advanced tasks. You should be able to build teams, set direction and provide supervision. This level is usually associated with tasks that form the bulk of the work for management and executive level positions.",
+        "description": "Description of expert hard skill level.",
+        "id": "skillLevel.hard.expert.description"
+      },
+      {
+        "defaultMessage": "You’re working on acquiring this skill or attribute. You are able to demonstrate it under favourable conditions (low stress, minimal difficulty) and can apply it in a work context intermittently.",
+        "description": "Description of soft basic skill level.",
+        "id": "skillLevel.soft.basic.description"
+      },
+      {
+        "defaultMessage": "You’re able to consistently demonstrate this skill or attribute in the workplace, including under conditions of low-to-moderate stress or difficulty. Your peers and supervisors are able to attest to the fact that you have been able to demonstrate this skill or attribute on a regular basis.",
+        "description": "Description of soft intermediate skill level.",
+        "id": "skillLevel.soft.intermediate.description"
+      },
+      {
+        "defaultMessage": "You’re able to consistently demonstrate this skill or attribute in the workplace, including under conditions of high stress or difficulty. Your peers and supervisors recognize this as a strength you demonstrate in the workplace.",
+        "description": "Description of soft advanced skill level.",
+        "id": "skillLevel.soft.advanced.description"
+      },
+      {
+        "defaultMessage": "This is a foundational part of who you are. You consistently demonstrate this skill or attribute, even under conditions of extreme stress or difficulty. Your peers and supervisors recognize this as a significant strength you demonstrate in the workplace, providing an example to others.",
+        "description": "Description of expert soft skill level.",
+        "id": "skillLevel.soft.expert.description"
+      },
+      {
+        "defaultMessage": "Beginner",
+        "description": "Single-word descriptor of basic hard skill level.",
+        "id": "skillLevel.hard.basic.name"
+      },
+      {
+        "defaultMessage": "Intermediate",
+        "description": "Single-word descriptor of intermediate hard skill level.",
+        "id": "skillLevel.hard.intermediate.name"
+      },
+      {
+        "defaultMessage": "Advanced",
+        "description": "Single-word descriptor of advanced hard skill level.",
+        "id": "skillLevel.hard.advanced.name"
+      },
+      {
+        "defaultMessage": "Expert",
+        "description": "Single-word descriptor of expert hard skill level.",
+        "id": "skillLevel.hard.expert.name"
+      },
+      {
+        "defaultMessage": "In Early Development",
+        "description": "Single-word descriptor of soft basic skill level.",
+        "id": "skillLevel.soft.basic.name"
+      },
+      {
+        "defaultMessage": "Moderately in Evidence",
+        "description": "Single-word descriptor of soft intermediate skill level.",
+        "id": "skillLevel.soft.intermediate.name"
+      },
+      {
+        "defaultMessage": "Strongly in Evidence",
+        "description": "Single-word descriptor of soft advanced skill level.",
+        "id": "skillLevel.soft.advanced.name"
+      },
+      {
+        "defaultMessage": "Deep Level Demonstration",
+        "description": "Single-word descriptor of soft expert skill level.",
+        "id": "skillLevel.soft.expert.name"
+      },
+      {
+        "defaultMessage": "Narrative Review",
+        "description": "Title of an assessment type.",
+        "id": "assessmentType.narrativeAssessment"
+      },
+      {
+        "defaultMessage": "Application Screening Question",
+        "description": "Title of an assessment type.",
+        "id": "assessmentType.applicationScreeningQuestion"
+      },
+      {
+        "defaultMessage": "Group Test",
+        "description": "Title of an assessment type.",
+        "id": "assessmentType.groupTest"
+      },
+      {
+        "defaultMessage": "Informal Phone Conversation",
+        "description": "Title of an assessment type.",
+        "id": "assessmentType.informalPhoneConversation"
+      },
+      {
+        "defaultMessage": "Interview",
+        "description": "Title of an assessment type.",
+        "id": "assessmentType.interview"
+      },
+      {
+        "defaultMessage": "Online Exam",
+        "description": "Title of an assessment type.",
+        "id": "assessmentType.onlineExam"
+      },
+      {
+        "defaultMessage": "On-Site Exam",
+        "description": "Title of an assessment type.",
+        "id": "assessmentType.onSiteExam"
+      },
+      {
+        "defaultMessage": "Take Home Exam",
+        "description": "Title of an assessment type.",
+        "id": "assessmentType.takeHomeExam"
+      },
+      {
+        "defaultMessage": "Portfolio Review",
+        "description": "Title of an assessment type.",
+        "id": "assessmentType.portfolioReview"
+      },
+      {
+        "defaultMessage": "Reference Check",
+        "description": "Title of an assessment type.",
+        "id": "assessmentType.referenceCheck"
+      },
+      {
+        "defaultMessage": "Serious Games",
+        "description": "Title of an assessment type.",
+        "id": "assessmentType.seriousGames"
+      },
+      {
+        "defaultMessage": "Asset",
+        "description": "Title of an asset criteria type.",
+        "id": "criteriaType.asset"
+      },
+      {
+        "defaultMessage": "Essential",
+        "description": "Title of an esential criteria type.",
+        "id": "criteriaType.essential"
+      },
+      {
+        "defaultMessage": "This is a description requested during the application process, in which applicants to self-identify and describe their experience and level of expertise with a skill.",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.narrativeAssessment.description"
+      },
+      {
+        "defaultMessage": "These questions appear in the application form, and are submitted through Talent Cloud, they allow a first glance at the applicant’s understanding, process, knowledge, or cultural fit for the position.",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.applicationScreeningQuestion.description"
+      },
+      {
+        "defaultMessage": "Applicants perform this test in real-time in conjunction with other applicants, team members, or facilitators, to determine their skill prowess, team communication, and performance in a collaborative environment.",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.groupTest.description"
+      },
+      {
+        "defaultMessage": "A loose structure chat between a member of the hiring board and an applicant, aimed at discovering the applicant’s knowledge, aptitudes, or personality traits, conversations may vary between applicants.",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.informalPhoneConversation.description"
+      },
+      {
+        "defaultMessage": "A formal question-and-answer examination performed in real-time between the hiring-board and an applicant, questions are aimed at assessing skill expertise, level, and approach. Each question is crafted beforehand and follows the same structure between all interviewed applicants.",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.interview.description"
+      },
+      {
+        "defaultMessage": "Prepared examination that does not require supervision, and can be performed from any location through internet access, with a defined time-frame for completion.",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.onlineExam.description"
+      },
+      {
+        "defaultMessage": "Prepared examination that requires the applicant to perform a test at a specific location under supervision, aimed at assessing skill expertise and technique.",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.onSiteExam.description"
+      },
+      {
+        "defaultMessage": "Applicants receive a physical package containing the assessment tools, they complete the assessment at their own leisure and at their preferred location without supervision, and must return the materials before a specific deadline.",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.takeHomeExam.description"
+      },
+      {
+        "defaultMessage": "During the application process, applicants provide access to samples of their work to exhibit their skill level, and back-up their skill claims.",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.portfolioReview.description"
+      },
+      {
+        "defaultMessage": "During the application process, applicants provide contact information to an acquaintance who can validate and confirm their skill expertise, knowledge or aptitude.",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.referenceCheck.description"
+      },
+      {
+        "defaultMessage": "Test involving the use of games to explore a candidate’s communication skills, resilience, emotional intelligence, among many other soft skills.",
+        "description": "Description of an assessment type, to help a manager understand when to use it.",
+        "id": "assessmentType.seriousGames.description"
+      },
+      {
+        "defaultMessage": "Narrative Review of skill includes all descriptions added by the applicant in their application.",
+        "description": "Description which replaces 'interview question' for the Narrative Review assessment type.",
+        "id": "assessmentType.narrativeReview.standardQuestion"
+      },
+      {
+        "defaultMessage": "The provided description contains sufficient evidence to advance this candidate to the next screening steps.",
+        "description": "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
+        "id": "assessmentType.narrativeReview.standardAnswer"
+      }
+    ],
+    "path": "resources/assets/js/models/localizedConstants.json"
+  }
+]
