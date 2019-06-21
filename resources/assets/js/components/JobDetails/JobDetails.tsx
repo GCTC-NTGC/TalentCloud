@@ -9,10 +9,9 @@ import {
 import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from "yup";
 
-import RadioGroup from "../Form/RadioGroup";
-import RadioInput from "../Form/RadioInput";
-import SelectInput from "../Form/SelectInput";
-import TextInput from "../Form/TextInput";
+import RadioGroupFormik from "../Form/RadioGroupFormik";
+import InputFormik from "../Form/InputFormik";
+import SelectFormik from "../Form/SelectFormik";
 import JobPreview from "../JobPreview";
 import Modal from "../Modal";
 
@@ -219,9 +218,9 @@ const JobDetails: React.FunctionComponent<
       language: "",
       city: "",
       province: "",
-      remoteWork: "remoteWorkCanada",
-      telework: "teleworkFrequently",
-      flexHours: "flexHoursFrequently",
+      remoteWork: "",
+      telework: "",
+      flexHours: "",
     };
   }
   const jobSchema = Yup.object().shape({
@@ -319,6 +318,80 @@ const JobDetails: React.FunctionComponent<
       )
       .required(intl.formatMessage(validationMessages.required)),
   });
+
+  const remoteWorkOptions = [
+    {
+      id: "remoteWorkWorld",
+      value: "remoteWorkWorld",
+      label: intl.formatMessage(formMessages.remoteWorkWorldLabel),
+    },
+    {
+      id: "remoteWorkCanada",
+      value: "remoteWorkCanada",
+      label: intl.formatMessage(formMessages.remoteWorkCanadaLabel),
+    },
+    {
+      id: "remoteWorkNone",
+      value: "remoteWorkNone",
+      label: intl.formatMessage(formMessages.remoteWorkNoneLabel),
+    },
+  ];
+
+  const teleworkOptions = [
+    {
+      id: "teleworkAlways",
+      value: "teleworkAlways",
+      label: intl.formatMessage(formMessages.frequencyAlwaysLabel),
+    },
+    {
+      id: "teleworkFrequently",
+      value: "teleworkFrequently",
+      label: intl.formatMessage(formMessages.frequencyFrequentlyLabel),
+    },
+    {
+      id: "teleworkSometimes",
+      value: "teleworkSometimes",
+      label: intl.formatMessage(formMessages.frequencySometimesLabel),
+    },
+    {
+      id: "teleworkOccasionally",
+      value: "teleworkOccasionally",
+      label: intl.formatMessage(formMessages.frequencyOccasionallyLabel),
+    },
+    {
+      id: "teleworkNever",
+      value: "teleworkNever",
+      label: intl.formatMessage(formMessages.frequencyNeverLabel),
+    },
+  ];
+
+  const flexHoursOptions = [
+    {
+      id: "flexHoursAlways",
+      value: "flexHoursAlways",
+      label: intl.formatMessage(formMessages.frequencyAlwaysLabel),
+    },
+    {
+      id: "flexHoursFrequently",
+      value: "flexHoursFrequently",
+      label: intl.formatMessage(formMessages.frequencyFrequentlyLabel),
+    },
+    {
+      id: "flexHoursSometimes",
+      value: "flexHoursSometimes",
+      label: intl.formatMessage(formMessages.frequencySometimesLabel),
+    },
+    {
+      id: "flexHoursOccasionally",
+      value: "flexHoursOccasionally",
+      label: intl.formatMessage(formMessages.frequencyOccasionallyLabel),
+    },
+    {
+      id: "flexHoursNever",
+      value: "flexHoursNever",
+      label: intl.formatMessage(formMessages.frequencyNeverLabel),
+    },
+  ];
   return (
     <>
       <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
@@ -351,9 +424,9 @@ const JobDetails: React.FunctionComponent<
             <>
               <Form id="job-information" data-c-grid="gutter">
                 <Field
-                  type="text"
+                  inputType="text"
                   name="title"
-                  component={TextInput}
+                  component={InputFormik}
                   required
                   grid="tl(1of2)"
                   id="builder02JobTitle"
@@ -363,9 +436,9 @@ const JobDetails: React.FunctionComponent<
                   )}
                 />
                 <Field
-                  type="number"
+                  inputType="number"
                   name="termLength"
-                  component={TextInput}
+                  component={InputFormik}
                   placeholder={intl.formatMessage(
                     formMessages.termLengthPlaceholder,
                   )}
@@ -379,7 +452,7 @@ const JobDetails: React.FunctionComponent<
                   id="builder02Classification"
                   label={intl.formatMessage(formMessages.classificationLabel)}
                   grid="tl(1of2)"
-                  component={SelectInput}
+                  component={SelectFormik}
                   required
                   nullSelection={intl.formatMessage(
                     formMessages.classificationNullSelection,
@@ -405,7 +478,7 @@ const JobDetails: React.FunctionComponent<
                 <Field
                   name="level"
                   id="builder02Level"
-                  component={SelectInput}
+                  component={SelectFormik}
                   required
                   label={intl.formatMessage(formMessages.levelLabel)}
                   grid="tl(1of2)"
@@ -427,7 +500,7 @@ const JobDetails: React.FunctionComponent<
                 <Field
                   name="securityLevel"
                   id="builder02SecurityLevel"
-                  component={SelectInput}
+                  component={SelectFormik}
                   required
                   grid="tl(1of2)"
                   label={intl.formatMessage(formMessages.securityLevelLabel)}
@@ -443,7 +516,7 @@ const JobDetails: React.FunctionComponent<
                 <Field
                   name="language"
                   id="builder02Language"
-                  component={SelectInput}
+                  component={SelectFormik}
                   required
                   grid="tl(1of2)"
                   label={intl.formatMessage(formMessages.languageLabel)}
@@ -460,8 +533,8 @@ const JobDetails: React.FunctionComponent<
                 />
                 <Field
                   name="city"
-                  type="text"
-                  component={TextInput}
+                  inputType="text"
+                  component={InputFormik}
                   required
                   grid="tl(1of2)"
                   id="builder02City"
@@ -471,7 +544,7 @@ const JobDetails: React.FunctionComponent<
                 <Field
                   name="province"
                   id="builder02Province"
-                  component={SelectInput}
+                  component={SelectFormik}
                   required
                   grid="tl(1of2)"
                   label={intl.formatMessage(formMessages.provinceLabel)}
@@ -494,198 +567,118 @@ const JobDetails: React.FunctionComponent<
                     { value: "YT", label: "Yukon" },
                   ]}
                 />
-                <RadioGroup
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobDetails.remoteWorkGroupHeader"
+                    defaultMessage="Is remote work allowed?"
+                    description="Header message displayed on the remote work group input."
+                  />
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobDetails.remoteWorkGroupBody"
+                    defaultMessage="Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor."
+                    description="Body message displayed on the remote work group input."
+                  />
+                </p>
+                <RadioGroupFormik
                   id="remoteWork"
                   label={intl.formatMessage(formMessages.remoteWorkGroupLabel)}
                   required
                   grid="base(1of1)"
                   error={errors.remoteWork}
                   touched={touched.remoteWork}
-                  info={
-                    <>
-                      <p
-                        data-c-margin="bottom(normal)"
-                        data-c-font-weight="bold"
-                      >
-                        <FormattedMessage
-                          id="jobDetails.remoteWorkGroupHeader"
-                          defaultMessage="Is remote work allowed?"
-                          description="Header message displayed on the remote work group input."
-                        />
-                      </p>
-                      <p data-c-margin="bottom(normal)">
-                        <FormattedMessage
-                          id="jobDetails.remoteWorkGroupBody"
-                          defaultMessage="Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor."
-                          description="Body message displayed on the remote work group input."
-                        />
-                      </p>
-                    </>
-                  }
-                  value={values.remoteWork}
                 >
-                  <Field
-                    name="remoteWork"
-                    component={RadioInput}
-                    id="remoteWorkWorld"
-                    label={intl.formatMessage(
-                      formMessages.remoteWorkWorldLabel,
-                    )}
+                  {remoteWorkOptions.map(
+                    ({ id, value, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          name="remoteWork"
+                          component={InputFormik}
+                          id={id}
+                          inputType="radio"
+                          label={label}
+                          value={value}
+                        />
+                      );
+                    },
+                  )}
+                </RadioGroupFormik>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobDetails.teleworkGroupHeader"
+                    defaultMessage="How often is telework allowed?"
+                    description="Header message displayed on the telework group input."
                   />
-                  <Field
-                    name="remoteWork"
-                    component={RadioInput}
-                    id="remoteWorkCanada"
-                    label={intl.formatMessage(
-                      formMessages.remoteWorkCanadaLabel,
-                    )}
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobDetails.teleworkGroupBody"
+                    defaultMessage="Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option."
+                    description="Body message displayed on the telework group input."
                   />
-                  <Field
-                    name="remoteWork"
-                    component={RadioInput}
-                    id="remoteWorkNone"
-                    label={intl.formatMessage(formMessages.remoteWorkNoneLabel)}
-                  />
-                </RadioGroup>
-                <RadioGroup
+                </p>
+                <RadioGroupFormik
                   id="telework"
                   label={intl.formatMessage(formMessages.teleworkGroupLabel)}
                   required
                   grid="base(1of1)"
-                  info={
-                    <>
-                      <p
-                        data-c-margin="bottom(normal)"
-                        data-c-font-weight="bold"
-                      >
-                        <FormattedMessage
-                          id="jobDetails.teleworkGroupHeader"
-                          defaultMessage="How often is telework allowed?"
-                          description="Header message displayed on the telework group input."
-                        />
-                      </p>
-                      <p data-c-margin="bottom(normal)">
-                        <FormattedMessage
-                          id="jobDetails.teleworkGroupBody"
-                          defaultMessage="Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option."
-                          description="Body message displayed on the telework group input."
-                        />
-                      </p>
-                    </>
-                  }
                   error={errors.telework}
                   touched={touched.telework}
-                  value={values.telework}
                 >
-                  <Field
-                    id="teleworkAlways"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyAlwaysLabel,
-                    )}
+                  {teleworkOptions.map(
+                    ({ id, value, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          name="telework"
+                          component={InputFormik}
+                          id={id}
+                          inputType="radio"
+                          label={label}
+                          value={value}
+                        />
+                      );
+                    },
+                  )}
+                </RadioGroupFormik>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobDetails.flexHoursGroupHeader"
+                    defaultMessage="How often are flexible hours allowed?"
+                    description="Header message displayed on the flex hours group input."
                   />
-                  <Field
-                    id="teleworkFrequently"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyFrequentlyLabel,
-                    )}
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobDetails.flexHoursGroupBody"
+                    defaultMessage={`Want to support a more gender inclusive workplace?
+                          Studies show allowing flex hours is a great way to improve opportunities for women and parents.`}
+                    description="Body message displayed on the flex hours group input."
                   />
-                  <Field
-                    id="teleworkSometimes"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencySometimesLabel,
-                    )}
-                  />
-                  <Field
-                    id="teleworkOccasionally"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyOccasionallyLabel,
-                    )}
-                  />
-                  <Field
-                    id="teleworkNever"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(formMessages.frequencyNeverLabel)}
-                  />
-                </RadioGroup>
-                <RadioGroup
+                </p>
+                <RadioGroupFormik
                   id="flexHours"
                   required
                   grid="base(1of1)"
-                  info={
-                    <>
-                      <p
-                        data-c-margin="bottom(normal)"
-                        data-c-font-weight="bold"
-                      >
-                        <FormattedMessage
-                          id="jobDetails.flexHoursGroupHeader"
-                          defaultMessage="How often are flexible hours allowed?"
-                          description="Header message displayed on the flex hours group input."
-                        />
-                      </p>
-                      <p data-c-margin="bottom(normal)">
-                        <FormattedMessage
-                          id="jobDetails.flexHoursGroupBody"
-                          defaultMessage={`Want to support a more gender inclusive workplace?
-                          Studies show allowing flex hours is a great way to improve opportunities for women and parents.`}
-                          description="Body message displayed on the flex hours group input."
-                        />
-                      </p>
-                    </>
-                  }
                   label={intl.formatMessage(formMessages.flexHoursGroupLabel)}
                   error={errors.flexHours}
                   touched={touched.flexHours}
-                  value={values.flexHours}
                 >
-                  <Field
-                    id="flexHoursAlways"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyAlwaysLabel,
-                    )}
-                  />
-                  <Field
-                    id="flexHoursFrequently"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyFrequentlyLabel,
-                    )}
-                  />
-                  <Field
-                    id="flexHoursSometimes"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencySometimesLabel,
-                    )}
-                  />
-                  <Field
-                    id="flexHoursOccasionally"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyOccasionallyLabel,
-                    )}
-                  />
-                  <Field
-                    id="flexHoursNever"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(formMessages.frequencyNeverLabel)}
-                  />
-                </RadioGroup>
+                  {flexHoursOptions.map(
+                    ({ id, value, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          name="flexHours"
+                          component={InputFormik}
+                          id={id}
+                          inputType="radio"
+                          label={label}
+                          value={value}
+                        />
+                      );
+                    },
+                  )}
+                </RadioGroupFormik>
                 <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
                   <button
                     data-c-button="solid(c1)"
