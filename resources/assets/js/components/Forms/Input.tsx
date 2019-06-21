@@ -3,13 +3,15 @@ import { FieldProps } from "formik";
 
 export interface InputProps {
   /** HTML id of the input element */
-  htmlId: string;
+  id: string;
   /** HTML name of the input element */
-  formName: string;
+  name: string;
   /** Holds text for label associated with input element */
   label: string;
   /** boolean indicating if input must have a value, or not */
   required?: boolean;
+  /** Boolean that sets the select input to invalid */
+  invalid?: boolean | null;
   /** Let's you specify example text that appears in input element when empty */
   placeholder?: string;
   /** For type radio and checkbox; a boolean indicating if input is checked, or not */
@@ -30,51 +32,31 @@ export interface InputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /** Event listener which fires when a input loses focus */
   onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-
-  /*
-    Formik Props
-
-    - The props below will be available only when using Formik library.
-    - The <Field /> component passes in these to objects, containing useful props.
-
-  */
-
-  /** Formik field prop is an object which holds the following: OnChange, OnBlur, value, and name.
-   * These props will take precedence over default Input props.
-   */
-  field?: FieldProps["field"];
-  /** Formik form prop is an object which holds the following: errors and touched.
-   * - errors: object which holds the all errors in the formik form, where the key is the name of the form element.
-   * - touched: a boolean which is initially set to false, until the element gains focus.
-   * These props will take precedence over the default Input props.
-   */
-  form?: FieldProps["form"];
 }
 
 const Input: React.FunctionComponent<InputProps> = ({
-  htmlId,
-  formName,
+  id,
+  name,
   label,
   required,
   placeholder,
   checked,
   type,
   value,
-  onChange,
+  invalid,
   errorText,
   grid,
   minLength,
   maxLength,
   onBlur,
-  field,
-  form,
+  onChange,
 }): React.ReactElement => {
   function renderRadio(): React.ReactElement {
     return (
-      <label htmlFor={htmlId}>
+      <label htmlFor={id}>
         <input
-          id={htmlId}
-          name={formName}
+          id={id}
+          name={name}
           type={type}
           checked={checked}
           value={value}
@@ -92,35 +74,24 @@ const Input: React.FunctionComponent<InputProps> = ({
         data-c-input={type || "text"}
         data-c-grid-item={grid}
         data-c-required={required}
-        data-c-invalid={
-          form && field && form.touched[field.name] && form.errors[field.name]
-            ? true
-            : null
-        }
+        data-c-invalid={invalid}
       >
-        <label htmlFor={htmlId}>{label}</label>
+        <label htmlFor={id}>{label}</label>
         <span>Required</span>
         <div>
           <input
-            id={htmlId}
-            name={(field && field.name) || formName}
+            id={id}
+            name={name}
             placeholder={placeholder}
             type={type || "text"}
-            value={(field && field.value) || value}
+            value={value}
             minLength={minLength}
             maxLength={maxLength}
-            onChange={(field && field.onChange) || onChange}
-            onBlur={(field && field.onBlur) || onBlur}
+            onChange={onChange}
+            onBlur={onBlur}
           />
         </div>
-        <span>
-          {(form &&
-            field &&
-            form.touched[field.name] &&
-            form.errors[field.name]) ||
-            errorText ||
-            "Something went wrong."}
-        </span>
+        <span>{errorText || "Something went wrong."}</span>
       </div>
     );
   }

@@ -37,8 +37,8 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
 
   public render(): React.ReactElement {
     const {
-      htmlId,
-      formName,
+      id,
+      name,
       label,
       required,
       placeholder,
@@ -52,8 +52,8 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
     } = this.props;
     return (
       <Input
-        htmlId={htmlId}
-        formName={formName}
+        id={id}
+        name={name}
         label={label}
         required={required}
         placeholder={placeholder}
