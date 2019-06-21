@@ -268,8 +268,19 @@ Route::group(
                     'jobs/{jobPoster}/assessment-plan',
                     'common/redux',
                     ['title' => Lang::get('manager/screening-plan')['title']]
-                )->where('jobPoster', '[0-9]+')
-                ->name('manager.jobs.screening_plan');
+                )
+                    ->where('jobPoster', '[0-9]+')
+                    ->name('manager.jobs.screening_plan');
+                Route::view(
+                    'jobs/builder/details',
+                    'common/redux',
+                    ['title' => 'Job Builder: Details']
+                );
+                Route::view(
+                    'jobs/{jobPoster}/builder/details',
+                    'common/redux',
+                    ['title' => Lang::get('manager/screening-plan')['title']]
+                )->where('jobPoster', '[0-9]+');
             });
 
             // Laravel default login, logout, register, and reset routes

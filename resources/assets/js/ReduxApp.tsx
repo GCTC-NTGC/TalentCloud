@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import AssessmentPlanContainer from "./components/AssessmentPlan/AssessmentPlanContainer";
 import IntlContainer from "./IntlContainer";
+import JobDetailsContainer from "./components/JobDetails/JobDetails";
 
 interface AssessmentPlanParams {
   jobId: string;
@@ -17,6 +18,12 @@ const AssessmentPlan: React.FunctionComponent<
   <AssessmentPlanContainer jobId={Number(match.params.jobId)} />
 );
 
+const JobDetailsRoute: React.FunctionComponent<
+  RouteComponentProps<{ jobId: string }>
+> = ({ match }): React.ReactElement => (
+  <JobDetailsContainer jobId={Number(match.params.jobId)} />
+);
+
 const ManagerPortal: React.FunctionComponent<RouteComponentProps> = ({
   match,
 }): React.ReactElement => {
@@ -26,6 +33,16 @@ const ManagerPortal: React.FunctionComponent<RouteComponentProps> = ({
         exact
         path={`${match.path}/jobs/:jobId/assessment-plan`}
         component={AssessmentPlan}
+      />
+      <Route
+        exact
+        path={`${match.path}/jobs/builder/details`}
+        component={JobDetailsContainer}
+      />
+      <Route
+        exact
+        path={`${match.path}/jobs/:jobId/builder/details`}
+        component={JobDetailsRoute}
       />
     </>
   );

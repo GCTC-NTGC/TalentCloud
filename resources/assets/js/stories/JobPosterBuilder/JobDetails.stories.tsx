@@ -12,6 +12,10 @@ const modalRoot = document.querySelector("#modal-root");
 
 const stories = storiesOf("JobDetails", module);
 
+const handleSubmit = async (): Promise<boolean> => {
+  return true;
+};
+
 stories
   .addDecorator(withInfo)
   .addDecorator(withIntl)
@@ -20,10 +24,9 @@ stories
     "New Job",
     (): React.ReactElement => (
       <JobDetails
+        job={null}
         isSaving={boolean("isSaving", false)}
-        saveSuccessful={boolean("saveSuccessful", false)}
-        handleSubmit={action("Submit Job")}
-        clearSaveSuccessful={action("clearSaveSuccessful")}
+        handleSubmit={handleSubmit}
         modalParent={modalRoot || document.body}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
@@ -37,9 +40,7 @@ stories
       <JobDetails
         job={fakeJob()}
         isSaving={boolean("isSaving", false)}
-        saveSuccessful={boolean("saveSuccessful", false)}
-        handleSubmit={action("Submit Job")}
-        clearSaveSuccessful={action("clearSaveSuccessful")}
+        handleSubmit={handleSubmit}
         modalParent={modalRoot || document.body}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
@@ -53,9 +54,7 @@ stories
       <JobDetails
         job={fakeJob()}
         isSaving={boolean("isSaving", true)}
-        saveSuccessful={boolean("saveSuccessful", false)}
-        handleSubmit={action("Submit Job")}
-        clearSaveSuccessful={action("clearSaveSuccessful")}
+        handleSubmit={handleSubmit}
         modalParent={modalRoot || document.body}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
@@ -69,9 +68,7 @@ stories
       <JobDetails
         job={fakeJob()}
         isSaving={boolean("isSaving", false)}
-        saveSuccessful={boolean("saveSuccessful", true)}
-        handleSubmit={action("Submit Job")}
-        clearSaveSuccessful={action("clearSaveSuccessful")}
+        handleSubmit={handleSubmit}
         modalParent={modalRoot || document.body}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
@@ -86,27 +83,13 @@ stories
   );
 
 const JobDetailsWrapper = (): React.ReactElement => {
-  const [isSaving, setIsSaving] = useState(false);
-  const [saveSuccessful, setSaveSuccessful] = useState(false);
-  const handleSubmit = (): void => {
-    setIsSaving(true);
-    setTimeout((): void => {
-      setIsSaving(false);
-      setSaveSuccessful(true);
-    }, 1000);
-    // action("Submit")();
-  };
-  const clearSaveSuccessful = (): void => {
-    setSaveSuccessful(true);
-    // action("Clear Save Successful")();
-  };
   return (
     <JobDetails
       job={fakeJob()}
-      isSaving={isSaving}
-      saveSuccessful={saveSuccessful}
+      isSaving={false}
+      // saveSuccessful={saveSuccessful}
       handleSubmit={handleSubmit}
-      clearSaveSuccessful={clearSaveSuccessful}
+      // clearSaveSuccessful={clearSaveSuccessful}
       modalParent={modalRoot || document.body}
       handleModalCancel={action("Modal Cancelled")}
       handleModalConfirm={action("Modal Confirmed")}

@@ -43,6 +43,7 @@ import {
   languageRequirment,
   provinceName,
 } from "../../models/localizedConstants";
+import { hasKey } from "../../helpers/queries";
 
 const formMessages = defineMessages({
   titleLabel: {
@@ -195,17 +196,13 @@ const formMessages = defineMessages({
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
-  job?: Job;
+  job: Job | null;
   // True when the the form is currently in the process of submitting
   isSaving: boolean;
-  // A flag that is set to true when the form has been submitted successfully
-  saveSuccessful: boolean;
-  // Calling this method tells the parent that the successful save has been acknowledged, and saveSuccessful can be set to false again.
-  clearSaveSuccessful: () => void;
   // Parent element to place the modal contents within (uses React Portal).
   modalParent: Element;
   // Function to run after successful form validation.
-  handleSubmit: (values: Job) => void;
+  handleSubmit: (values: Job) => Promise<boolean>;
   // Function to run when modal cancel is clicked.
   handleModalCancel: () => void;
   // Function to run when modal confirm is clicked.
@@ -296,23 +293,21 @@ const JobDetails: React.FunctionComponent<
 > = ({
   job,
   isSaving,
-  saveSuccessful,
-  clearSaveSuccessful,
-  modalParent,
   handleSubmit,
+  modalParent,
   handleModalCancel,
   handleModalConfirm,
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  useEffect((): void => {
-    if (saveSuccessful) {
-      if (!isModalVisible) {
-        setIsModalVisible(true);
-      }
-      clearSaveSuccessful(); // TODO: brainstorm alternative ways of allowing parent to tell this component to put up modal. Should the parent just be in charge of modal visibility? -- Tristan
-    }
-  }, [saveSuccessful]);
+  // useEffect((): void => {
+  //   if (saveSuccessful) {
+  //     if (!isModalVisible) {
+  //       setIsModalVisible(true);
+  //     }
+  //     clearSaveSuccessful(); // TODO: brainstorm alternative ways of allowing parent to tell this component to put up modal. Should the parent just be in charge of modal visibility? -- Tristan
+  //   }
+  // }, [saveSuccessful]);
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
@@ -428,10 +423,15 @@ const JobDetails: React.FunctionComponent<
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
             // setIsModalVisible(true);
-            handleSubmit(
-              updateJobWithValues(job || emptyJob(), locale, values),
-            );
-            actions.setSubmitting(false); // Required by Formik to finish the submission cycle
+            handleSubmit(updateJobWithValues(job || emptyJob(), locale, values))
+              .then((isSuccessful: boolean): void => {
+                if (isSuccessful) {
+                  setIsModalVisible(true);
+                }
+              })
+              .finally(
+                (): void => actions.setSubmitting(false), // Required by Formik to finish the submission cycle
+              );
           }}
           render={({
             errors,
@@ -880,7 +880,7 @@ const JobDetails: React.FunctionComponent<
 export const JobDetailsIntl = injectIntl(JobDetails);
 
 interface JobDetailsContainerProps {
-  jobId: number | null;
+  jobId?: number;
 }
 
 const mapStateToProps = (
@@ -890,6 +890,7 @@ const mapStateToProps = (
   job: Job | null;
   isSaving: boolean;
   saveSuccessful: boolean;
+  modalParent: Element; // TODO: why isn't this just part of the component?
 } => ({
   job:
     ownProps.jobId !== null
@@ -899,28 +900,36 @@ const mapStateToProps = (
     ? getJobIsUpdating(state, ownProps.jobId)
     : getCreatingJob(state),
   saveSuccessful: ownProps.jobId ? getJobSaveIsSuccessful(state) : false,
+  modalParent: document.body,
 });
 
 const mapDispatchToProps = (
   dispatch: DispatchType,
   ownProps: JobDetailsContainerProps,
 ): {
-  handleSubmit: (newJob: Job) => void;
+  handleSubmit: (newJob: Job) => Promise<boolean>;
   clearSaveSuccessful: () => void;
 } => ({
   handleSubmit: ownProps.jobId
-    ? (newJob: Job): void => {
-        dispatch(updateJob(newJob));
+    ? async (newJob: Job): Promise<boolean> => {
+        const result = await dispatch(updateJob(newJob));
+        console.log(result);
+        return !result.error;
       }
-    : (newJob: Job): void => {
-        dispatch(createJob(newJob));
+    : async (newJob: Job): Promise<boolean> => {
+        const result = await dispatch(createJob(newJob));
+        console.log(result);
+        return !result.error;
       },
   clearSaveSuccessful: (): void => {
     dispatch(clearJobSaveSuccessful());
   },
 });
 
-const JobDetailsContainer = connect(
+// @ts-ignore
+const JobDetailsContainer: React.FunctionComponent<
+  JobDetailsContainerProps
+> = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(injectIntl(JobDetails));
