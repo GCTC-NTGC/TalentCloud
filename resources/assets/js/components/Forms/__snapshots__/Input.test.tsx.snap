@@ -3,15 +3,19 @@
 exports[`renders correctly 1`] = `
 <div
   data-c-input="text"
+  data-c-invalid={null}
+  data-c-required={false}
 >
   <label
     htmlFor="sample-input"
   >
     label
   </label>
+  <span>
+    Required
+  </span>
   <div>
     <input
-      data-c-font-weight="800"
       id="sample-input"
       maxLength={30}
       minLength={0}

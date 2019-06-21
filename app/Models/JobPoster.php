@@ -60,7 +60,6 @@ use \Backpack\CRUD\CrudTrait;
  * Localized Properties:
  * @property string $city
  * @property string $title
- * @property string $impact
  * @property string $team_impact
  * @property string $hire_impact
  * @property string $branch
@@ -94,7 +93,6 @@ class JobPoster extends BaseModel
     public $translatedAttributes = [
         'city',
         'title',
-        'impact',
         'team_impact',
         'hire_impact',
         'branch',
@@ -163,7 +161,6 @@ class JobPoster extends BaseModel
     ];
 
     // @codeCoverageIgnoreStart
-
     public function department() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\Department::class);
@@ -253,9 +250,7 @@ class JobPoster extends BaseModel
     }
 
     // @codeCoverageIgnoreEnd
-
     // Accessors
-
     // Mutators
 
     /**
@@ -277,7 +272,6 @@ class JobPoster extends BaseModel
     }
 
     // Methods
-
     public function submitted_applications_count()
     {
         return $this->submitted_applications()->count();

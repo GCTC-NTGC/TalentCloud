@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
-import Input, { InputProps } from "./Input";
+import Input, { InputProps } from "./Forms/Input";
 
 export interface UpdatingInputProps extends InputProps {
   updateDelay?: number | null;
@@ -30,7 +30,7 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
 
   public triggerSave(): void {
     const { value, minLength, handleSave } = this.props;
-    if (value.length > (minLength || 3) || value.length === 0) {
+    if (Number(value) > (minLength || 3) || Number(value) === 0) {
       handleSave();
     }
   }
