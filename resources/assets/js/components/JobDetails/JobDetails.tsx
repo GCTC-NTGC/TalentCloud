@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   injectIntl,
   InjectedIntlProps,
@@ -197,8 +197,6 @@ const formMessages = defineMessages({
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
   job: Job | null;
-  // Parent element to place the modal contents within (uses React Portal).
-  modalParent: Element;
   // Function to run after successful form validation.
   // It must return true if the submission was succesful, false otherwise.
   handleSubmit: (values: Job) => Promise<boolean>;
@@ -292,11 +290,12 @@ const JobDetails: React.FunctionComponent<
 > = ({
   job,
   handleSubmit,
-  modalParent,
   handleModalCancel,
   handleModalConfirm,
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
+  const modalParentRef = useRef<HTMLDivElement>(null);
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   // useEffect((): void => {
   //   if (saveSuccessful) {
@@ -403,7 +402,11 @@ const JobDetails: React.FunctionComponent<
   });
   return (
     <>
-      <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
+      <div
+        data-c-container="form"
+        data-c-padding="top(triple) bottom(triple)"
+        ref={modalParentRef}
+      >
         <h3
           data-c-font-size="h3"
           data-c-font-weight="bold"
@@ -416,6 +419,7 @@ const JobDetails: React.FunctionComponent<
           />
         </h3>
         <Formik
+          enableReinitialize
           initialValues={initialValues}
           validationSchema={jobSchema}
           onSubmit={(values, actions): void => {
@@ -786,7 +790,7 @@ const JobDetails: React.FunctionComponent<
               </Form>
               <Modal
                 id="job-details-preview"
-                parentElement={modalParent}
+                parentElement={modalParentRef.current}
                 visible={isModalVisible}
                 onModalConfirm={(): void => {
                   handleModalConfirm();

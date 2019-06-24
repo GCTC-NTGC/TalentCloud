@@ -8,8 +8,6 @@ import { useState } from "react";
 import { JobDetailsIntl as JobDetails } from "../../components/JobDetails/JobDetails";
 import fakeJob from "../../fakeData/fakeJob";
 
-const modalRoot = document.querySelector("#modal-root");
-
 const stories = storiesOf("JobDetails", module);
 
 const handleSubmit = async (): Promise<boolean> => {
@@ -26,7 +24,6 @@ stories
       <JobDetails
         job={null}
         handleSubmit={handleSubmit}
-        modalParent={modalRoot || document.body}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
       />
@@ -39,7 +36,6 @@ stories
       <JobDetails
         job={fakeJob()}
         handleSubmit={handleSubmit}
-        modalParent={modalRoot || document.body}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
       />
