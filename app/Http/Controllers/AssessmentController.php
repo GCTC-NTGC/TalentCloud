@@ -7,7 +7,6 @@ use App\Models\Criteria;
 use App\Models\Lookup\AssessmentType;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class AssessmentController extends Controller
 {
@@ -15,7 +14,7 @@ class AssessmentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request Incoming request.
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -31,7 +30,7 @@ class AssessmentController extends Controller
                 'criterion_id' => $criterion_id,
                 'assessment_type_id' => $assessment_type_id
             ]);
-            // Check that this user is allowed to create an Assessment for this criterion
+            // Check that this user is allowed to create an Assessment for this criterion.
             $this->authorize('update', $assessment);
 
             $assessment->save();
@@ -53,7 +52,7 @@ class AssessmentController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Assessment $assessment Incoming object.
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
     public function show(Assessment $assessment)
     {
@@ -68,7 +67,7 @@ class AssessmentController extends Controller
      *
      * @param  \Illuminate\Http\Request $request    Incoming request.
      * @param  \App\Models\Assessment   $assessment Incoming object.
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Assessment $assessment)
     {
@@ -99,7 +98,7 @@ class AssessmentController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Assessment $assessment Incoming object.
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Assessment $assessment)
     {

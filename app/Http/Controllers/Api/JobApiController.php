@@ -11,9 +11,12 @@ use App\Http\Requests\UpdateJobPoster;
 
 class JobApiController extends Controller
 {
+    /**
+     * Class constructor
+     */
     public function __construct()
     {
-        // This applies the appropriate policy to each resource route
+        // This applies the appropriate policy to each resource route.
         $this->authorizeResource(JobPoster::class, 'job');
     }
 
@@ -22,7 +25,7 @@ class JobApiController extends Controller
      * with all criteria,
      * and with translation arrays in both languages.
      *
-     * @param JobPoster $job
+     * @param  \App\Models\JobPoster $job Incoming Job Poster object.
      * @return mixed[]
      */
     private function jobToArray(JobPoster $job)
@@ -42,24 +45,24 @@ class JobApiController extends Controller
      */
     public function index()
     {
-        //TODO: complete
+        // TODO: complete.
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request Incoming request.
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //TODO: complete
+        // TODO: complete.
     }
 
     /**
      * Display the specified resource.
      *
-     * @param JobPoster $job
+     * @param  \App\Models\JobPoster $job Incoming Job Poster.
      * @return \Illuminate\Http\Response
      */
     public function show(JobPoster $job)
@@ -70,8 +73,8 @@ class JobApiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  App\Http\Requests\UpdateJobPoster  $request Validates input.
-     * @param  JobPoster $jobPoser
+     * @param  \App\Http\Requests\UpdateJobPoster $request Validates input.
+     * @param  \App\Models\JobPoster              $job     Incoming Job Poster.
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateJobPoster $request, JobPoster $job)
@@ -79,7 +82,7 @@ class JobApiController extends Controller
         $data = $request->validated();
         JobPosterValidator::validateUnpublished($job);
         // Only values both in the JobPoster->fillable array,
-        //  and returned by UpdateJobPoster->validatedData(), will be set
+        // and returned by UpdateJobPoster->validatedData(), will be set.
         $job->fill($data);
         $job->save();
         return $this->jobToArray($job);
@@ -88,11 +91,11 @@ class JobApiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  integer $id Job Poster ID.
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        // TODO:
+        // TODO: complete.
     }
 }

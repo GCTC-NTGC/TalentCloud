@@ -9,8 +9,6 @@ use App\Models\Degree;
 use App\Models\Applicant;
 use App\Models\Course;
 use App\Models\WorkExperience;
-use App\Models\Lookup\DegreeType;
-use App\Models\Lookup\CourseStatus;
 use App\Http\Controllers\Controller;
 
 class ExperienceController extends Controller
@@ -18,10 +16,10 @@ class ExperienceController extends Controller
     /**
      * Show the form for editing the logged-in applicant's experience
      *
-     * @param  Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  \Illuminate\Http\Request $request Incoming Request.
+     * @return \Illuminate\Http\Response
      */
-    public function editAuthenticated(Request $request): \Illuminate\Http\RedirectResponse
+    public function editAuthenticated(Request $request)
     {
         $applicant = $request->user()->applicant;
         return redirect(route('profile.experience.edit', $applicant));
@@ -30,10 +28,9 @@ class ExperienceController extends Controller
     /**
     * Show the form for editing the applicant's experience
     *
-    * @param \Illuminate\Http\Request $request   Incoming request object.
-    * @param \App\Models\Applicant    $applicant Incoming applicant object.
-    *
-    * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+    * @param  \Illuminate\Http\Request $request   Incoming request object.
+    * @param  \App\Models\Applicant    $applicant Incoming applicant object.
+    * @return \Illuminate\Http\Response
     */
     public function edit(Request $request, Applicant $applicant)
     {
@@ -48,8 +45,8 @@ class ExperienceController extends Controller
     /**
      * Update the applicant's profile in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\Applicant    $applicant
+     * @param  \Illuminate\Http\Request $request   Incoming Request.
+     * @param  \App\Models\Applicant    $applicant Incoming Applicant.
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Applicant $applicant)
@@ -58,7 +55,7 @@ class ExperienceController extends Controller
 
         $degrees = $input['degrees'];
 
-        $validatedDegreeData = $request->validate([
+        $request->validate([
             'degrees.new.*.degree_type_id' => 'required',
             'degrees.new.*.area_of_study'  => 'required',
             'degrees.new.*.institution'    => 'required',
@@ -67,18 +64,18 @@ class ExperienceController extends Controller
             'degrees.new.*.end_date'       => 'required|date',
         ]);
 
-        //Delete old degrees that weren't resubmitted
-        //Note: this must be done before adding new degrees, so we don't delete
-        // them right after adding them
+        // Delete old degrees that weren't resubmitted.
+        // Note: this must be done before adding new degrees, so we don't delete
+        // them right after adding them.
         foreach ($applicant->degrees as $oldDegree) {
-            //Check if no degrees were resubmitted, or if this specific one wasn't
+            // Check if no degrees were resubmitted, or if this specific one wasn't.
             if (!isset($degrees['old']) ||
             !isset($degrees['old'][$oldDegree->id])) {
                 $oldDegree->delete();
             }
         }
 
-        //Save new degrees
+        // Save new degrees.
         if (isset($degrees['new'])) {
             foreach ($degrees['new'] as $degreeInput) {
                 $degree = new Degree();
@@ -95,10 +92,10 @@ class ExperienceController extends Controller
             }
         }
 
-        //Update old degrees
+        // Update old degrees.
         if (isset($degrees['old'])) {
             foreach ($degrees['old'] as $id => $degreeInput) {
-                //Ensure this degree belongs to this applicant
+                // Ensure this degree belongs to this applicant.
                 $degree = $applicant->degrees->firstWhere('id', $id);
                 if ($degree != null) {
                     $degree->fill([
@@ -111,14 +108,14 @@ class ExperienceController extends Controller
                     ]);
                     $degree->save();
                 } else {
-                    Log::warning('Applicant '.$applicant->id.' attempted to update degree with invalid id '.$id);
+                    Log::warning("Applicant $applicant->id attempted to update degree with invalid id: $id");
                 }
             }
         }
 
         $courses = $input['courses'];
 
-        $validatedCourseData = $request->validate([
+        $request->validate([
             'courses.new.*.name'             => 'required',
             'courses.new.*.institution'      => 'required',
             'courses.new.*.course_status_id' => 'required',
@@ -126,18 +123,18 @@ class ExperienceController extends Controller
             'courses.new.*.end_date'         => 'required|date',
         ]);
 
-        //Delete old courses that weren't resubmitted
-        //Note: this must be done before adding new ones, so we don't delete
-        // them right after adding them
+        // Delete old courses that weren't resubmitted.
+        // Note: this must be done before adding new ones, so we don't delete
+        // them right after adding them.
         foreach ($applicant->courses as $oldCourse) {
-            //Check if no courses were resubmitted, or if this specific one wasn't
+            // Check if no courses were resubmitted, or if this specific one wasn't.
             if (!isset($courses['old']) ||
             !isset($courses['old'][$oldCourse->id])) {
                 $oldCourse->delete();
             }
         }
 
-        //Save new courses
+        // Save new courses.
         if (isset($courses['new'])) {
             foreach ($courses['new'] as $courseInput) {
                 $course = new Course();
@@ -153,10 +150,10 @@ class ExperienceController extends Controller
             }
         }
 
-        //Update old courses
+        // Update old courses.
         if (isset($courses['old'])) {
             foreach ($courses['old'] as $id => $courseInput) {
-                //Ensure this course belongs to this applicant
+                // Ensure this course belongs to this applicant.
                 $course = $applicant->courses->firstWhere('id', $id);
                 if ($course != null) {
                     $course->fill([
@@ -168,14 +165,14 @@ class ExperienceController extends Controller
                     ]);
                     $course->save();
                 } else {
-                    Log::warning('Applicant '.$applicant->id.' attempted to update course with invalid id '.$id);
+                    Log::warning("Applicant $applicant->id attempted to update course with invalid id: $id");
                 }
             }
         }
 
         $work_experiences = $input['work_experiences'];
 
-        $validatedWorkData = $request->validate([
+        $request->validate([
             'work_experiences.new.*.role'        => 'required',
             'work_experiences.new.*.company'     => 'required',
             'work_experiences.new.*.description' => 'required',
@@ -183,18 +180,18 @@ class ExperienceController extends Controller
             'work_experiences.new.*.end_date'    => 'required|date',
         ]);
 
-        //Delete old work_experiences that weren't resubmitted
-        //Note: this must be done before adding new ones, so we don't delete
-        // them right after adding them
+        // Delete old work_experiences that weren't resubmitted.
+        // Note: this must be done before adding new ones, so we don't delete
+        // them right after adding them.
         foreach ($applicant->work_experiences as $oldWorkExperience) {
-            //Check if no work_experiences were resubmitted, or if this specific one wasn't
+            // Check if no work_experiences were resubmitted, or if this specific one wasn't.
             if (!isset($work_experiences['old']) ||
             !isset($work_experiences['old'][$oldWorkExperience->id])) {
                 $oldWorkExperience->delete();
             }
         }
 
-        //Save new work_experiences
+        // Save new work_experiences.
         if (isset($work_experiences['new'])) {
             foreach ($work_experiences['new'] as $workExperienceInput) {
                 $workExperience = new WorkExperience();
@@ -210,10 +207,10 @@ class ExperienceController extends Controller
             }
         }
 
-        //Update old work_experiences
+        // Update old work_experiences.
         if (isset($work_experiences['old'])) {
             foreach ($work_experiences['old'] as $id => $workExperienceInput) {
-                //Ensure this work_experience belongs to this applicant
+                // Ensure this work_experience belongs to this applicant.
                 $workExperience = $applicant->work_experiences->firstWhere('id', $id);
                 if ($workExperience != null) {
                     $workExperience->fill([
@@ -225,7 +222,7 @@ class ExperienceController extends Controller
                     ]);
                     $workExperience->save();
                 } else {
-                    Log::warning('Applicant '.$applicant->id.' attempted to update work_experience with invalid id '.$id);
+                    Log::warning("Applicant $applicant->id attempted to update work_experience with invalid id: $id");
                 }
             }
         }

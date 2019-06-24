@@ -8,8 +8,8 @@ import { assessmentType } from "../../models/localizedConstants";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import { RootState } from "../../store/store";
 import { getCriteriaByJob } from "../../store/Job/jobSelector";
-import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
 import { getSkills } from "../../store/Skill/skillSelector";
+import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelectorComplex";
 
 interface AssessmentPlanTableProps {
   /** All assessments to be displayed in this table */
@@ -255,8 +255,8 @@ const mapStateToProps = (
   criteria: Criteria[];
   skills: Skill[];
 } => ({
-  criteria: getCriteriaByJob(state, ownProps.jobId),
-  assessments: getAssessmentsByJob(state, ownProps.jobId),
+  criteria: getCriteriaByJob(state, ownProps),
+  assessments: getAssessmentsByJob(state, ownProps),
   skills: getSkills(state),
 });
 // @ts-ignore
