@@ -25,7 +25,6 @@ stories
     (): React.ReactElement => (
       <JobDetails
         job={null}
-        isSaving={boolean("isSaving", false)}
         handleSubmit={handleSubmit}
         modalParent={modalRoot || document.body}
         handleModalCancel={action("Modal Cancelled")}
@@ -39,60 +38,11 @@ stories
     (): React.ReactElement => (
       <JobDetails
         job={fakeJob()}
-        isSaving={boolean("isSaving", false)}
         handleSubmit={handleSubmit}
         modalParent={modalRoot || document.body}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
       />
     ),
-    { info: { inline: true } },
-  )
-  .add(
-    "Existing Job While Saving",
-    (): React.ReactElement => (
-      <JobDetails
-        job={fakeJob()}
-        isSaving={boolean("isSaving", true)}
-        handleSubmit={handleSubmit}
-        modalParent={modalRoot || document.body}
-        handleModalCancel={action("Modal Cancelled")}
-        handleModalConfirm={action("Modal Confirmed")}
-      />
-    ),
-    { info: { inline: true } },
-  )
-  .add(
-    "After successful submit",
-    (): React.ReactElement => (
-      <JobDetails
-        job={fakeJob()}
-        isSaving={boolean("isSaving", false)}
-        handleSubmit={handleSubmit}
-        modalParent={modalRoot || document.body}
-        handleModalCancel={action("Modal Cancelled")}
-        handleModalConfirm={action("Modal Confirmed")}
-      />
-    ),
-    { info: { inline: true } },
-  )
-  .add(
-    "With functioning interactions",
-    (): React.ReactElement => <JobDetailsWrapper />,
     { info: { inline: true } },
   );
-
-const JobDetailsWrapper = (): React.ReactElement => {
-  return (
-    <JobDetails
-      job={fakeJob()}
-      isSaving={false}
-      // saveSuccessful={saveSuccessful}
-      handleSubmit={handleSubmit}
-      // clearSaveSuccessful={clearSaveSuccessful}
-      modalParent={modalRoot || document.body}
-      handleModalCancel={action("Modal Cancelled")}
-      handleModalConfirm={action("Modal Confirmed")}
-    />
-  );
-};

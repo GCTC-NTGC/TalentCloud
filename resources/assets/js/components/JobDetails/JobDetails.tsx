@@ -197,11 +197,10 @@ const formMessages = defineMessages({
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
   job: Job | null;
-  // True when the the form is currently in the process of submitting
-  isSaving: boolean;
   // Parent element to place the modal contents within (uses React Portal).
   modalParent: Element;
   // Function to run after successful form validation.
+  // It must return true if the submission was succesful, false otherwise.
   handleSubmit: (values: Job) => Promise<boolean>;
   // Function to run when modal cancel is clicked.
   handleModalCancel: () => void;
@@ -292,7 +291,6 @@ const JobDetails: React.FunctionComponent<
   JobDetailsProps & InjectedIntlProps
 > = ({
   job,
-  isSaving,
   handleSubmit,
   modalParent,
   handleModalCancel,
@@ -888,7 +886,6 @@ const mapStateToProps = (
   ownProps: JobDetailsContainerProps,
 ): {
   job: Job | null;
-  isSaving: boolean;
   saveSuccessful: boolean;
   modalParent: Element; // TODO: why isn't this just part of the component?
 } => ({
@@ -896,9 +893,6 @@ const mapStateToProps = (
     ownProps.jobId !== null
       ? getJob(state, ownProps as { jobId: number })
       : null,
-  isSaving: ownProps.jobId
-    ? getJobIsUpdating(state, ownProps.jobId)
-    : getCreatingJob(state),
   saveSuccessful: ownProps.jobId ? getJobSaveIsSuccessful(state) : false,
   modalParent: document.body,
 });
