@@ -11,7 +11,7 @@ import {
   skillLevelName,
   assessmentType,
 } from "../../models/localizedConstants";
-import Select, { SelectOption } from "../Forms/Select";
+import Select, { SelectOption } from "../Form/Select";
 import { AssessmentTypeId, enumToIds } from "../../models/lookupConstants";
 import {
   Criteria,

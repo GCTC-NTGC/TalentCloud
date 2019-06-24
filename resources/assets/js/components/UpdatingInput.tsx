@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
-import Input, { InputProps } from "./Forms/Input";
+import Input, { InputProps } from "./Form/Input";
 
 export interface UpdatingInputProps extends InputProps {
   updateDelay?: number | null;

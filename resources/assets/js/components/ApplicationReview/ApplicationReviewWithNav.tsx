@@ -8,7 +8,7 @@ import {
 import className from "classnames";
 import Swal from "sweetalert2";
 import * as routes from "../../helpers/routes";
-import Select, { SelectOption } from "../Forms/Select";
+import Select, { SelectOption } from "../Form/Select";
 import { Application } from "../../models/types";
 import { ReviewStatusId } from "../../models/lookupConstants";
 

@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import { FieldProps } from "formik";
 
 export interface SelectOption<T extends string | number> {
   value: T;

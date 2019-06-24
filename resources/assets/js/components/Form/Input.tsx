@@ -1,5 +1,4 @@
 import React from "react";
-import { FieldProps } from "formik";
 
 export interface InputProps {
   /** HTML id of the input element */

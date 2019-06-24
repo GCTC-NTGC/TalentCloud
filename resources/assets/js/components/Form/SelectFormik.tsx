@@ -2,7 +2,7 @@ import React from "react";
 import { FieldProps, FormikActions, FormikErrors } from "formik";
 import { FormattedMessage } from "react-intl";
 import { inputMessages } from "./Messages";
-import Select from "../Forms/Select";
+import Select from "./Select";
 
 interface SelectFormikProps {
   // HTML ID of the input.

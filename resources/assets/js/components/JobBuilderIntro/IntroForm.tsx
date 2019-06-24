@@ -7,8 +7,8 @@ import {
 } from "react-intl";
 import { Form, Field, Formik, FormikValues } from "formik";
 import * as Yup from "yup";
-import Input from "../Forms/Input";
-import Select from "../Forms/Select";
+import Input from "../Form/Input";
+import Select from "../Form/Select";
 import { validationMessages } from "../Form/Messages";
 
 const formMessages = defineMessages({

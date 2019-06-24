@@ -4,7 +4,7 @@ import { withInfo } from "@storybook/addon-info";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import Modal from "../components/Modal";
-import Input from "../components/Forms/Input";
+import Input from "../components/Form/Input";
 
 const stories = storiesOf("Modal", module)
   .addDecorator(withInfo)
