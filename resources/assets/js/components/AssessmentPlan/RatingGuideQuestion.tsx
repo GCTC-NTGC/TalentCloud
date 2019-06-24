@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { injectIntl } from "react-intl";
 import UpdatingInput from "../UpdatingInput";
 import { RatingGuideQuestion as RatingGuideQuestionModel } from "../../models/types";
 import { RootState } from "../../store/store";
@@ -65,7 +64,7 @@ const RatingGuideQuestion: React.FunctionComponent<
         <div data-c-grid-item="base(1of1) tp(6of8)">
           <UpdatingInput
             htmlId={`ratingGuideQuestion${question.assessment_type_id}`}
-            name="ratingGuideQuestion"
+            formName="ratingGuideQuestion"
             label="Interview Question"
             required
             placeholder="Write your interview question here..."
@@ -154,7 +153,6 @@ const RatingGuideQuestionContainer: React.FunctionComponent<
 > = connect(
   mapStateToProps,
   mapDispatchToProps,
-  // @ts-ignore
-)(injectIntl(RatingGuideQuestion));
+)(RatingGuideQuestion);
 
 export default RatingGuideQuestionContainer;

@@ -647,6 +647,236 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "This field is required.",
+        "description": "Error message displayed when a required field is empty.",
+        "id": "formValidation.required"
+      },
+      {
+        "defaultMessage": "Too short!",
+        "description": "Error message displayed when a field value is below the minimum length.",
+        "id": "formValidation.tooShort"
+      },
+      {
+        "defaultMessage": "Too long!",
+        "description": "Error message displayed when a field value is above the maximum length.",
+        "id": "formValidation.tooLong"
+      },
+      {
+        "defaultMessage": "Please select from the available options.",
+        "description": "Error message displayed when a field value is outside of the available selection options.",
+        "id": "formValidation.invalidSelection"
+      },
+      {
+        "defaultMessage": "Required",
+        "description": "Displayed next to required form inputs.",
+        "id": "formInput.required"
+      }
+    ],
+    "path": "resources/assets/js/components/Form/Messages.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "What is the job title?",
+        "description": "The form label displayed on the title input.",
+        "id": "jobDetails.titleLabel"
+      },
+      {
+        "defaultMessage": "e.g. Product Designer",
+        "description": "The form placeholder displayed on the title input.",
+        "id": "jobDetails.titlePlaceholder"
+      },
+      {
+        "defaultMessage": "How long is the term (in months)?",
+        "description": "The form label displayed on the term length input.",
+        "id": "jobDetails.termLengthLabel"
+      },
+      {
+        "defaultMessage": "e.g. 3",
+        "description": "The form placeholder displayed on the term length input.",
+        "id": "jobDetails.termLengthPlaceholder"
+      },
+      {
+        "defaultMessage": "What is the classification?",
+        "description": "The form label displayed on the classification input.",
+        "id": "jobDetails.classificationLabel"
+      },
+      {
+        "defaultMessage": "Select a classification...",
+        "description": "The default selection option displayed on the classification input.",
+        "id": "jobDetails.classificationNullSelection"
+      },
+      {
+        "defaultMessage": "What is the level?",
+        "description": "The form label displayed on the level input.",
+        "id": "jobDetails.levelLabel"
+      },
+      {
+        "defaultMessage": "Select a level...",
+        "description": "The default selection option displayed on the level input.",
+        "id": "jobDetails.levelNullSelection"
+      },
+      {
+        "defaultMessage": "What is the security level?",
+        "description": "The form label displayed on the security level input.",
+        "id": "jobDetails.securityLevelLabel"
+      },
+      {
+        "defaultMessage": "Select a security level...",
+        "description": "The default selection option displayed on the security level input.",
+        "id": "jobDetails.securityLevelNullSelection"
+      },
+      {
+        "defaultMessage": "What is the language profile?",
+        "description": "The form label displayed on the language input.",
+        "id": "jobDetails.languageLabel"
+      },
+      {
+        "defaultMessage": "Select a language profile...",
+        "description": "The default selection option displayed on the language input.",
+        "id": "jobDetails.languageNullSelection"
+      },
+      {
+        "defaultMessage": "What city is the team located in?",
+        "description": "The form label displayed on the city input.",
+        "id": "jobDetails.cityLabel"
+      },
+      {
+        "defaultMessage": "e.g. Ottawa",
+        "description": "The form placeholder displayed on the city input.",
+        "id": "jobDetails.cityPlaceholder"
+      },
+      {
+        "defaultMessage": "What province is the team located in?",
+        "description": "The form label displayed on the province input.",
+        "id": "jobDetails.provinceLabel"
+      },
+      {
+        "defaultMessage": "Select a province...",
+        "description": "The default selection option displayed on the province input.",
+        "id": "jobDetails.provinceNullSelection"
+      },
+      {
+        "defaultMessage": "Select a remote work option:",
+        "description": "The form label displayed on the remote work radio group.",
+        "id": "jobDetails.remoteWorkGroupLabel"
+      },
+      {
+        "defaultMessage": "Yes, I’m willing to supervise employees anywhere in the world.",
+        "description": "The form label displayed on the 'world' remote work radio option.",
+        "id": "jobDetails.remoteWorkWorldLabel"
+      },
+      {
+        "defaultMessage": "Yes, I’m willing to supervise employees in any province or territory in Canada.",
+        "description": "The form label displayed on the 'canada' remote work radio option.",
+        "id": "jobDetails.remoteWorkCanadaLabel"
+      },
+      {
+        "defaultMessage": "No, I require the employee in this position to be in the same geographic location as the office.",
+        "description": "The form label displayed on the 'none' remote work radio option.",
+        "id": "jobDetails.remoteWorkNoneLabel"
+      },
+      {
+        "defaultMessage": "Select a telework option:",
+        "description": "The form label displayed on the telework radio group.",
+        "id": "jobDetails.teleworkGroupLabel"
+      },
+      {
+        "defaultMessage": "Select a flexible hours option:",
+        "description": "The form label displayed on the flex hours radio group.",
+        "id": "jobDetails.flexHoursGroupLabel"
+      },
+      {
+        "defaultMessage": "Almost Always",
+        "description": "The form label displayed on 'always' frequency options.",
+        "id": "jobDetails.frequencyAlwaysLabel"
+      },
+      {
+        "defaultMessage": "Frequently",
+        "description": "The form label displayed on 'frequently' frequency options.",
+        "id": "jobDetails.frequencyFrequentlyLabel"
+      },
+      {
+        "defaultMessage": "Sometimes",
+        "description": "The form label displayed on 'sometimes' frequency options.",
+        "id": "jobDetails.frequencySometimesLabel"
+      },
+      {
+        "defaultMessage": "Occasionally",
+        "description": "The form label displayed on 'occasionally' frequency options.",
+        "id": "jobDetails.frequencyOccasionallyLabel"
+      },
+      {
+        "defaultMessage": "Almost Never",
+        "description": "The form label displayed on 'never' frequency options.",
+        "id": "jobDetails.frequencyNeverLabel"
+      },
+      {
+        "defaultMessage": "Job Information",
+        "description": "Job Details page heading",
+        "id": "jobDetails.heading"
+      },
+      {
+        "defaultMessage": "Is remote work allowed?",
+        "description": "Header message displayed on the remote work group input.",
+        "id": "jobDetails.remoteWorkGroupHeader"
+      },
+      {
+        "defaultMessage": "Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor.",
+        "description": "Body message displayed on the remote work group input.",
+        "id": "jobDetails.remoteWorkGroupBody"
+      },
+      {
+        "defaultMessage": "How often is telework allowed?",
+        "description": "Header message displayed on the telework group input.",
+        "id": "jobDetails.teleworkGroupHeader"
+      },
+      {
+        "defaultMessage": "Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option.",
+        "description": "Body message displayed on the telework group input.",
+        "id": "jobDetails.teleworkGroupBody"
+      },
+      {
+        "defaultMessage": "How often are flexible hours allowed?",
+        "description": "Header message displayed on the flex hours group input.",
+        "id": "jobDetails.flexHoursGroupHeader"
+      },
+      {
+        "defaultMessage": "Want to support a more gender inclusive workplace?\n                          Studies show allowing flex hours is a great way to improve opportunities for women and parents.",
+        "description": "Body message displayed on the flex hours group input.",
+        "id": "jobDetails.flexHoursGroupBody"
+      },
+      {
+        "defaultMessage": "Next",
+        "description": "The text displayed on the submit button for the Job Details form.",
+        "id": "jobDetails.submitButtonLabel"
+      },
+      {
+        "defaultMessage": "You're off to a great start!",
+        "description": "The text displayed in the header of the Job Details modal.",
+        "id": "jobDetails.modalHeader"
+      },
+      {
+        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
+        "description": "The text displayed in the body of the Job Details modal.",
+        "id": "jobDetails.modalBody"
+      },
+      {
+        "defaultMessage": "Go Back",
+        "description": "The text displayed on the cancel button of the Job Details modal.",
+        "id": "jobDetails.modalCancelLabel"
+      },
+      {
+        "defaultMessage": "Next Step",
+        "description": "The text displayed on the confirm button of the Job Details modal.",
+        "id": "jobDetails.modalConfirmLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobDetails/JobDetails.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "You have the ability to accomplish basic tasks with steady supervision and clear direction. The tasks you’re assigned are clear and don’t involve significant complexity. Their impact is usually locally felt. As you advance in this category, you should be developing the ability to accomplish tasks of moderate complexity with steady supervision. You will also need to be able to accomplish basic tasks with little or no supervision. This level is usually associated with tasks that form the bulk of the work for lower level positions, such as junior analysts or entry level developers.",
         "description": "Description of basic hard skill level.",
         "id": "skillLevel.hard.basic.description"

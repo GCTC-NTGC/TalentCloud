@@ -60,6 +60,9 @@ export const getCriteriaById = (
     ? entities(state).criteria.byId[criterionId]
     : null;
 
+export const getCreatingJob = (state: RootState): boolean =>
+  ui(state).creatingJob;
+
 export const getCriteriaByJob = createCachedSelector(
   getCriteria,
   (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,

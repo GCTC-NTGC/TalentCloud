@@ -23,10 +23,10 @@ const jediSkill: Skill = {
   fr: { name: "French Jedi", description: "French Laser Sword User" },
 };
 
-jest.mock("../../store/skill/skillSelector", () => {
+jest.mock("../../store/Skill/skillSelector", (): object => {
   return {
     // Define Function Mock Return Values
-    getSkillById: jest.fn((x, y) => jediSkill),
+    getSkillById: jest.fn((): object => jediSkill),
   };
 });
 
