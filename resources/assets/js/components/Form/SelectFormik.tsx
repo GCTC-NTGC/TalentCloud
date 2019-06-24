@@ -1,7 +1,5 @@
 import React from "react";
-import { FieldProps, FormikActions, FormikErrors } from "formik";
-import { FormattedMessage } from "react-intl";
-import { inputMessages } from "./Messages";
+import { FieldProps } from "formik";
 import Select from "./Select";
 
 interface SelectFormikProps {
@@ -47,9 +45,9 @@ const SelectFormik: React.FunctionComponent<SelectFormikProps> = ({
       label={label}
       name={name}
       nullSelection={nullSelection}
-      selected={selected}
       options={options}
       grid={grid}
+      selected={value}
       onChange={onChange}
       onBlur={onBlur}
       errorText={errorText}

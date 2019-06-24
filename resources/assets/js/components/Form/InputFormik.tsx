@@ -36,7 +36,6 @@ const InputFormik: React.FunctionComponent<InputFormikProps> = ({
   // TODO: find solution for ts error
   //@ts-ignore
   const errorText: string = errors[name] ? errors[name] : undefined;
-  console.log(errors);
   const invalid = touched[name] && errors[name] ? true : null;
   return (
     <Input

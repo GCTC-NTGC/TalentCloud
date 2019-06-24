@@ -1,4 +1,6 @@
 import React from "react";
+import { FormattedMessage } from "react-intl";
+import { inputMessages } from "./Messages";
 
 export interface InputProps {
   /** HTML id of the input element */
@@ -76,7 +78,9 @@ const Input: React.FunctionComponent<InputProps> = ({
         data-c-invalid={invalid}
       >
         <label htmlFor={id}>{label}</label>
-        <span>Required</span>
+        <span>
+        <FormattedMessage {...inputMessages.required} />
+      </span>
         <div>
           <input
             id={id}

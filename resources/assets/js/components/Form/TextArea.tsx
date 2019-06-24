@@ -1,4 +1,6 @@
 import React from "react";
+import { FormattedMessage } from "react-intl";
+import { inputMessages } from "./Messages";
 
 export interface TextAreaProps {
   htmlId: string;
@@ -36,7 +38,9 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
       data-c-invalid={invalid}
     >
       <label htmlFor={htmlId}>{label}</label>
-      <span>Required</span>
+      <span>
+        <FormattedMessage {...inputMessages.required} />
+      </span>
       <div>
         <textarea
           data-c-font-weight="800"

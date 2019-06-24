@@ -1,4 +1,6 @@
 import React, { ReactElement } from "react";
+import { FormattedMessage } from "react-intl";
+import { inputMessages } from "./Messages";
 
 export interface SelectOption<T extends string | number> {
   value: T;
@@ -60,7 +62,9 @@ export default function Select<T extends string | number>(
       data-c-invalid={invalid}
     >
       <label htmlFor={id}>{label}</label>
-      <span>Required</span>
+      <span>
+        <FormattedMessage {...inputMessages.required} />
+      </span>
       <div>
         <i className="fa fa-caret-down" />
         <select
