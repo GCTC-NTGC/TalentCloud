@@ -83,7 +83,7 @@ export default function Select<T extends string | number>(
       }
     >
       <label htmlFor={htmlId}>{label}</label>
-      {required && <span>Required</span>}
+      <span>Required</span>
       <div>
         <i className="fa fa-caret-down" />
         <select
