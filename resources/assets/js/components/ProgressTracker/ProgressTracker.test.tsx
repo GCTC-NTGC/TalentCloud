@@ -23,7 +23,7 @@ describe("Progress Tracker", (): void => {
 
   it("should render ProgressTracker with background color and opacity", (): void => {
     const wrapper = shallow(
-      <ProgressTracker backgroundColor={"black"} backgroundOpacity={"100"}>
+      <ProgressTracker backgroundColor="black" backgroundOpacity="100">
         <ProgressTrackerItem {...items[0]} />
       </ProgressTracker>,
     );
