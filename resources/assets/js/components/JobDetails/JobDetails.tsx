@@ -882,7 +882,9 @@ const JobDetails: React.FunctionComponent<
 export const JobDetailsIntl = injectIntl(JobDetails);
 
 interface JobDetailsContainerProps {
-  jobId?: number;
+  jobId: number | null;
+  handleModalCancel: () => void;
+  handleModalConfirm: () => void;
 }
 
 const mapStateToProps = (
@@ -893,10 +895,7 @@ const mapStateToProps = (
   saveSuccessful: boolean;
   modalParent: Element; // TODO: why isn't this just part of the component?
 } => ({
-  job:
-    ownProps.jobId !== null
-      ? getJob(state, ownProps as { jobId: number })
-      : null,
+  job: ownProps.jobId ? getJob(state, ownProps as { jobId: number }) : null,
   saveSuccessful: ownProps.jobId ? getJobSaveIsSuccessful(state) : false,
   modalParent: document.body,
 });
@@ -910,11 +909,13 @@ const mapDispatchToProps = (
 } => ({
   handleSubmit: ownProps.jobId
     ? async (newJob: Job): Promise<boolean> => {
+        console.log(newJob);
         const result = await dispatch(updateJob(newJob));
         console.log(result);
         return !result.error;
       }
     : async (newJob: Job): Promise<boolean> => {
+        console.log(newJob);
         const result = await dispatch(createJob(newJob));
         console.log(result);
         return !result.error;
