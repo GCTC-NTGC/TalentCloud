@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\JobPoster;
 use App\Models\Criteria;
@@ -25,7 +24,7 @@ class JobApiController extends Controller
      * Convert a job poster to the array expected by API requests,
      * with all criteria,
      * and with translation arrays in both languages.
-     *
+    *
      * @param  \App\Models\JobPoster $job Incoming Job Poster object.
      * @return mixed[]
      */
@@ -62,7 +61,7 @@ class JobApiController extends Controller
         $job->manager_id = $request->user()->manager->id;
         $job->fill($data);
         $job->save();
-        return $this->jobToArray($job);
+        return response()->json($this->jobToArray($job));
     }
 
     /**
@@ -73,7 +72,7 @@ class JobApiController extends Controller
      */
     public function show(JobPoster $job)
     {
-        return $this->jobToArray($job);
+        return response()->json($this->jobToArray($job));
     }
 
     /**
@@ -91,7 +90,8 @@ class JobApiController extends Controller
         // and returned by UpdateJobPoster->validatedData(), will be set.
         $job->fill($data);
         $job->save();
-        return $this->jobToArray($job);
+        // return response()->json($request->input());
+        return response()->json($this->jobToArray($job->fresh()));
     }
 
     /**

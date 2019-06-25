@@ -8,6 +8,7 @@ import {
   getJSON,
 } from "redux-api-middleware"; // RSAA = '@@redux-api-middleware/RSAA'
 import { ErrorAction } from "./createAction";
+import moment = require("moment");
 
 export const STARTED = "STARTED";
 export const SUCCEEDED = "SUCCEEDED";
@@ -85,7 +86,16 @@ export type RSAActionTemplate<
 // TODO: is this the best way to get this?
 const csrfElement = document.head.querySelector('meta[name="csrf-token"]');
 const csrfToken: string =
-  csrfElement && csrfElement.textContent ? csrfElement.textContent : "";
+  csrfElement && csrfElement.getAttribute("content")
+    ? (csrfElement.getAttribute("content") as string)
+    : "";
+
+function jsonDateReplacer(key, value) {
+  if (this[key] instanceof Date) {
+    return moment(value).format("YYYY-MM-DDTHH:mm:ssZ");
+  }
+  return value;
+}
 
 /**
  *
@@ -118,13 +128,23 @@ export const asyncAction = <
   const jsonBodyHeader = { "Content-Type": "application/json" }; // informs server that the body is a json encoded string
   const headers =
     body === null ? tokenHeader : { ...tokenHeader, ...jsonBodyHeader };
+
+  let stringBody: string | null = null;
+  if (body instanceof Object) {
+    // We must stringify any object bodies, and ensure dates are formatted as server expects.
+    stringBody = JSON.stringify(body, jsonDateReplacer);
+  } else {
+    stringBody = body;
+  }
+
   return {
     [RSAA]: {
       endpoint,
       method,
       headers,
-      ...(body && { body }),
+      ...(stringBody && { body: stringBody }),
       fetch, // Ensure the global fetch function is being used
+      credentials: "include", // TODO: this may be removed when we change to token auth
       types: [
         {
           type: startedType,
