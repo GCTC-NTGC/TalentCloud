@@ -1,7 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
-import React, { useState, useEffect, useRef } from "react";
-import ReactDOM from "react-dom";
-import { StandardAction, ErrorAction } from "redux-api-middleware";
+import React, { useState, useRef } from "react";
 import {
   injectIntl,
   InjectedIntlProps,
@@ -10,7 +8,6 @@ import {
 } from "react-intl";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-
 import { connect } from "react-redux";
 import RadioGroup from "../Form/RadioGroup";
 import RadioInput from "../Form/RadioInput";
@@ -20,18 +17,14 @@ import JobPreview from "../JobPreview";
 import Modal from "../Modal";
 import { RootState } from "../../store/store";
 import {
-  getJob as selectJob,
-  getSelectedJob,
+  getJob as selectJob
 } from "../../store/Job/jobSelector";
 import { Job } from "../../models/types";
 import { DispatchType } from "../../configureStore";
 import {
   updateJob,
   createJob,
-  fetchJob,
-  setSelectedJob,
 } from "../../store/Job/jobActions";
-
 import { validationMessages } from "../Form/Messages";
 import {
   LanguageRequirementId,
@@ -44,8 +37,6 @@ import {
   languageRequirment,
   provinceName,
 } from "../../models/localizedConstants";
-import RootContainer from "../RootContainer";
-import IntlContainer from "../../IntlContainer";
 
 const formMessages = defineMessages({
   titleLabel: {
