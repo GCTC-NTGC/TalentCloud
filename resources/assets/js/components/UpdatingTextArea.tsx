@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import _ from "lodash";
 // Lodash's debounce doesn't work properly if imported
 // by itself... something to do with how it handles 'this'
-import TextArea, { TextAreaProps } from "./Form/TextArea";
+import TextArea, { TextAreaProps } from "./TextArea";
 
 export interface UpdatingTextAreaProps extends TextAreaProps {
   updateDelay?: number | null;

@@ -1,6 +1,6 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { inputMessages } from "./Messages";
+import { inputMessages } from "./Form/Messages";
 
 export interface TextAreaProps {
   htmlId: string;
