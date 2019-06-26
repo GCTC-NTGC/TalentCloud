@@ -27,8 +27,6 @@ const deptOptions = {
   "Health Canada": "healthCanada",
 };
 
-// const selectLang = ;
-
 stories
   .add(
     "Job Builder Impact",
