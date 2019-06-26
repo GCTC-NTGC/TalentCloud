@@ -92,13 +92,6 @@ const ImpactForm: React.FunctionComponent<
                 description="Body of Job Poster Builder Team Impact Section"
               />
             </p>
-            <span>
-              <FormattedMessage
-                id="formField.required"
-                defaultMessage="Required"
-                description="Flag text for empty required field"
-              />
-            </span>
             <div>
               <Field
                 name="teamImpact"
@@ -109,13 +102,6 @@ const ImpactForm: React.FunctionComponent<
                 component={TextArea}
               />
             </div>
-            <span>
-              <FormattedMessage
-                id="formField.error"
-                defaultMessage="This input has an error."
-                description="Flag text for validation error"
-              />
-            </span>
           </div>
           <div data-c-grid-item="base(1of1)" data-c-input="textarea">
             <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
@@ -135,14 +121,6 @@ const ImpactForm: React.FunctionComponent<
                 description="Body of Job Poster Builder Hire Impact Section"
               />
             </p>
-
-            <span>
-              <FormattedMessage
-                id="formField.required"
-                defaultMessage="Required"
-                description="Flag text for empty required field"
-              />
-            </span>
             <div>
               <Field
                 id="HireImpact"
@@ -153,13 +131,6 @@ const ImpactForm: React.FunctionComponent<
                 component={TextArea}
               />
             </div>
-            <span>
-              <FormattedMessage
-                id="formField.error"
-                defaultMessage="This input has an error."
-                description="Flag text for validation error"
-              />
-            </span>
           </div>
           <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
             {/* <!-- Modal trigger, same as last step. --> */}

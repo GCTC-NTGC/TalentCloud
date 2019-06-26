@@ -1,4 +1,18 @@
 import React from "react";
+import { injectIntl, InjectedIntlProps, defineMessages } from "react-intl";
+
+const messages = defineMessages({
+  requiredField: {
+    id: "formField.required",
+    defaultMessage: "Required",
+    description: "Flag text for empty required field",
+  },
+  defaultErrorText: {
+    id: "formField.error",
+    defaultMessage: "Something went wrong",
+    description: "Default flag for error message",
+  },
+});
 
 export interface TextAreaProps {
   htmlId: string;
@@ -18,7 +32,7 @@ export interface TextAreaProps {
   form?: any;
 }
 
-const TextArea: React.FunctionComponent<TextAreaProps> = ({
+const TextArea: React.FunctionComponent<TextAreaProps & InjectedIntlProps> = ({
   htmlId,
   formName,
   label,
@@ -31,38 +45,45 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   maxLength,
   onBlur,
   field,
-  form: { errors, touched },
+  form,
+  intl,
 }): React.ReactElement => {
-  const { name } = field;
   return (
     <div
       data-c-input="textarea"
       data-c-required={required}
-      data-c-invalid={touched[field.name] && errors[field.name] ? true : null}
+      data-c-invalid={
+        form && field && form.touched[field.name] && form.errors[field.name]
+          ? true
+          : null
+      }
     >
       <label htmlFor={htmlId}>{label}</label>
-      <span>Required</span>
+      <span>{intl.formatMessage(messages.requiredField)}</span>
       <div>
         <textarea
           id={htmlId}
-          name={name || formName}
+          name={(field && field.name) || formName}
           placeholder={placeholder}
-          onChange={field.onChange || onChange}
+          value={(field && field.value) || value}
           minLength={minLength}
           maxLength={maxLength}
-          onBlur={field.onBlur || onBlur}
-          // required
+          onChange={(field && field.onChange) || onChange}
+          onBlur={(field && field.onBlur) || onBlur}
         >
           {value}
         </textarea>
       </div>
       <span>
-        {(touched[field.name] && errors[field.name]) ||
+        {(form &&
+          field &&
+          form.touched[field.name] &&
+          form.errors[field.name]) ||
           errorText ||
-          "Something went wrong."}
+          intl.formatMessage(messages.defaultErrorText)}
       </span>
     </div>
   );
 };
 
-export default TextArea;
+export default injectIntl(TextArea);
