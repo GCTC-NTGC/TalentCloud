@@ -43,7 +43,7 @@
                             </li>
                             <li>
                                 <a aria-current="page" href="#link-to-page" title="This is the title of the page link.">
-                                    Step 02 (Job Information)
+                                    Step 01: Job Info
                                 </a>
                                 <i class="fa fa-caret-right"></i>
                             </li>
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <!-- Progress Indicator (see step 00 for info) -->
-            <div class="manager-jpb-tracker" data-c-alignment="base(centre)" data-c-background="black(100)" data-c-colour="white">
+            <div class="manager-jpb-tracker" data-c-alignment="base(centre)s" data-c-background="black(100)" data-c-colour="white">
                 <div data-c-container="layout" data-c-padding="top(quarter) bottom(quarter)">
                     <div class="tracker manager-jpb-tracker-wrapper">
                         <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
@@ -62,8 +62,8 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 01</span><br>
-                                <span data-c-font-weight="bold">Intro</span>
+                                <span data-c-font-size="small">Start</span><br>
+                                <span data-c-font-weight="bold">Welcome</span>
                             </div>
                         </div>
                         <div class="tracker-item" data-tc-tracker-state="active" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
@@ -73,7 +73,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 02</span><br>
+                                <span data-c-font-size="small">Step 01</span><br>
                                 <span data-c-font-weight="bold">Job Info</span>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 03</span><br>
+                                <span data-c-font-size="small">Step 02</span><br>
                                 <span data-c-font-weight="bold">Work Env.</span>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 04</span><br>
+                                <span data-c-font-size="small">Step 03</span><br>
                                 <span data-c-font-weight="bold">Impact</span>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 05</span><br>
+                                <span data-c-font-size="small">Step 04</span><br>
                                 <span data-c-font-weight="bold">Tasks</span>
                             </div>
                         </div>
@@ -117,7 +117,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 06</span><br>
+                                <span data-c-font-size="small">Step 05</span><br>
                                 <span data-c-font-weight="bold">Skills</span>
                             </div>
                         </div>
@@ -128,18 +128,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 07</span><br>
-                                <span data-c-font-weight="bold">Education</span>
-                            </div>
-                        </div>
-                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
-                            <div class="tracker-icon">
-                                <i class="fas fa-arrow-down"></i>
-                                <i class="fas fa-check"></i>
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <div>
-                                <span data-c-font-size="small">Step 08</span><br>
+                                <span data-c-font-size="small">Finish</span><br>
                                 <span data-c-font-weight="bold">Review</span>
                             </div>
                         </div>
@@ -165,34 +154,6 @@
                         <span>Required</span>
                         <div>
                             <input id="builder02TermLength" min="3" placeholder="e.g. 3" value="18" required type="number"/>
-                        </div>
-                        <span>This input has an error.</span>
-                    </div>
-                    <div data-c-grid-item="tl(1of2)" data-c-input="select">
-                        <label for="builder02Classification">What is the classification?</label>
-                        <span>Required</span>
-                        <div>
-                            <i class="fa fa-caret-down"></i>
-                            <select id="builder02Classification" required>
-                                <option disabled>Select a classification...</option>
-                                <option>CS</option>
-                                <option selected>AS</option>
-                                <option><!-- See doc for all options. --></option>
-                            </select>
-                        </div>
-                        <span>This input has an error.</span>
-                    </div>
-                    <div data-c-grid-item="tl(1of2)" data-c-input="select">
-                        <label for="builder02Level">What is the level?</label>
-                        <span>Required</span>
-                        <div>
-                            <i class="fa fa-caret-down"></i>
-                            <select id="builder02Level" required>
-                                <option disabled>Select a level...</option>
-                                <option>01</option>
-                                <option selected>06</option>
-                                <option><!-- See doc for all options. --></option>
-                            </select>
                         </div>
                         <span>This input has an error.</span>
                     </div>
@@ -244,6 +205,82 @@
                             </select>
                         </div>
                         <span>This input has an error.</span>
+                    </div>
+                    <div data-c-grid-item="base(1of1)" data-c-alignment="base(centre) tp(left)">
+                        <h4 data-c-colour="c2" data-c-font-size="h4">Classification &amp; Education</h4>
+                    </div>
+                    <div data-c-grid-item="tl(1of2)" data-c-input="select">
+                        <label for="builder02Classification">What is the classification?</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fa fa-caret-down"></i>
+                            <select id="builder02Classification" required>
+                                <option disabled>Select a classification...</option>
+                                <option>CS</option>
+                                <option selected>AS</option>
+                                <option><!-- See doc for all options. --></option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-grid-item="tl(1of2)" data-c-input="select">
+                        <label for="builder02Level">What is the level?</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fa fa-caret-down"></i>
+                            <select id="builder02Level" required>
+                                <option disabled>Select a level...</option>
+                                <option>01</option>
+                                <option selected>06</option>
+                                <option><!-- See doc for all options. --></option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-grid-item="base(1of1)">
+                        <!-- Null state for when no classification has been selected. -->
+                        <p data-c-font-weight="bold" data-c-margin="bottom(normal)" data-c-colour="grey">Please select a classification and level before preparing the education requirements.</p>
+                        <!-- Copy for when a classification has been selected. -->
+                        <p data-c-font-weight="bold" data-c-margin="bottom(normal)">Based on the classification level you selected, this standard paragraph will appear on the job poster.</p>
+                        <div id="jobPosterBuilderEducationCopy" data-c-background="grey(10)" data-c-radius="rounded" data-c-padding="normal" data-c-border="all(thin, solid, grey)" data-c-margin="bottom(normal)">
+                            <p data-c-font-size="small">A secondary school diploma; or<br><br>Equivalent Experience:<br>If you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum education requirement stated above.</p>
+                        </div>
+                        <div data-c-input="radio">
+                            <label for="RG2">Please make a selection:</label>
+                            <span>Required</span>
+                            <div id="RG2" role="radiogroup" data-tc-job-builder-customization-trigger>
+                                <label for="rB1">
+                                    <input checked="checked" id="rB1" required name="radioB" type="radio" />
+                                    <span>I'm good with this paragraph.</span>
+                                </label>
+                                <label for="rB2">
+                                    <input id="rB2" required name="radioB" type="radio" />
+                                    <span>I'd like to modify this paragraph.</span>
+                                </label>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <div class="job-builder-education-customization">
+                            <p data-c-margin="bottom(normal)">If you want to customize this paragraph, copy and paste it into the textbox below.</p>
+                            <p data-c-font-weight="bold" data-c-margin="bottom(normal)">Your HR advisor will review your changes.</p>
+                            <div data-c-margin="bottom(normal)" data-c-alignment="base(centre) tl(right)">
+                                <button data-c-button="solid(c2)" data-c-radius="rounded" data-tc-job-builder-education-copy-trigger type="button">
+                                    <span class="default">Copy to Clipboard</span>
+                                    <span class="copied" style="display: none;">Copied</span>
+                                </button>
+                            </div>
+                            <div data-c-input="textarea">
+                                <label for="TA2">Customize the Education Requirement</label>
+                                <span>Required</span>
+                                <div>
+                                    <textarea id="TA2" placeholder="Paste the paragraph here to edit..."></textarea>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-c-grid-item="base(1of1)" data-c-alignment="base(centre) tp(left)">
+                        <h4 data-c-colour="c2" data-c-font-size="h4">Work Styles</h4>
                     </div>
                     <div data-c-grid-item="base(1of1)" data-c-input="radio">
                         <p data-c-margin="bottom(normal)" data-c-font-weight="bold">Is remote work allowed?</p>
