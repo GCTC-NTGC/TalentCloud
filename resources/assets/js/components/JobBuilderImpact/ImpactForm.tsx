@@ -49,8 +49,10 @@ const ImpactForm: React.FunctionComponent<
   ImpactFormProps & InjectedIntlProps
 > = ({ intl, job, handleSubmit }): React.ReactElement => {
   const initialValues: ImpactFormValues = {
-    teamImpact: job ? job[intl.locale].team_impact : "",
-    hireImpact: job ? job[intl.locale].hire_impact : "",
+    teamImpact:
+      job && job[intl.locale].team_impact ? job[intl.locale].team_impact : "",
+    hireImpact:
+      job && job[intl.locale].hire_impact ? job[intl.locale].hire_impact : "",
   };
   const validationSchema = Yup.object().shape({
     teamImpact: Yup.string().required(
