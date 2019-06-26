@@ -3,14 +3,14 @@ import {
   injectIntl,
   InjectedIntlProps,
   FormattedMessage,
-  defineMessages
+  defineMessages,
 } from "react-intl";
 import Swal from "sweetalert2";
-import { Application } from "../types";
-import { SelectOption } from "../Select";
+import { Application } from "../../models/types";
+import { SelectOption } from "../Forms/Select";
 import { applicationBucket } from "./helpers";
 import ApplicantBucket from "./ApplicantBucket";
-import { ReviewStatusId } from "../lookupConstants";
+import { ReviewStatusId } from "../../models/lookupConstants";
 import { copyToClipboard } from "../../helpers/clipboard";
 
 interface ReviewCategoryProps {
@@ -22,7 +22,7 @@ interface ReviewCategoryProps {
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onBulkStatusChange: (
     applicationIds: number[],
-    statusId: number | null
+    statusId: number | null,
   ) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   savingStatuses: { applicationId: number; isSaving: boolean }[];
@@ -32,16 +32,16 @@ interface ReviewCategoryProps {
 const localizations = defineMessages({
   confirmButton: {
     id: "button.confirm",
-    defaultMessage: "<default/> Confirm",
-    description: "Confirm button for modal dialogue boxes"
+    defaultMessage: "Confirm",
+    description: "Confirm button for modal dialogue boxes",
   },
   screenOutAllConfirm: {
     id: "apl.screenOutAll.confirm",
     defaultMessage:
-      "<default/> Are you sure you want to screen out all Optional candidates?",
+      "Are you sure you want to screen out all Optional candidates?",
     description:
-      "Confirm dialogue text for screening out all optional candidates."
-  }
+      "Confirm dialogue text for screening out all optional candidates.",
+  },
 });
 
 const ReviewCategory: React.StatelessComponent<
@@ -57,7 +57,7 @@ const ReviewCategory: React.StatelessComponent<
   onNotesChange,
   savingStatuses,
   prioritizeVeterans,
-  intl
+  intl,
 }: ReviewCategoryProps & InjectedIntlProps): React.ReactElement | null => {
   if (applications.length === 0) {
     return null;
@@ -75,7 +75,7 @@ const ReviewCategory: React.StatelessComponent<
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
       cancelButtonColor: "#F94D4D",
-      confirmButtonText: intl.formatMessage(localizations.confirmButton)
+      confirmButtonText: intl.formatMessage(localizations.confirmButton),
     }).then(result => {
       if (result.value) {
         screenOutAll();
@@ -87,66 +87,66 @@ const ReviewCategory: React.StatelessComponent<
     {
       title: {
         id: "apl.priorityApplicants.title",
-        defaultMessage: "<default/> Priority Applicants",
-        description: "title of list of priority applicants"
+        defaultMessage: "Priority Applicants",
+        description: "title of list of priority applicants",
       },
       description: {
         id: "apl.priorityApplicants.description",
         defaultMessage:
-          "<default/> These are priority applicants for this position. They must be reviewed and considered first.",
-        description: "description of list of priority applicants"
+          "These are priority applicants for this position. They must be reviewed and considered first.",
+        description: "description of list of priority applicants",
       },
       applications: applications.filter(
-        application => applicationBucket(application) === "priority"
-      )
+        application => applicationBucket(application) === "priority",
+      ),
     },
     {
       title: {
         id: "apl.veteransAndCitizens.title",
-        defaultMessage: "<default/> Veterans and Canadian Citizens",
-        description: "title of list of Veterans and Canadian citizens"
+        defaultMessage: "Veterans and Canadian Citizens",
+        description: "title of list of Veterans and Canadian citizens",
       },
       description: {
         id: "apl.veteransAndCitizens.description",
         defaultMessage: "",
-        description: "description of list of Veterans and Canadian citizens"
+        description: "description of list of Veterans and Canadian citizens",
       },
       applications: applications.filter(
-        application => applicationBucket(application) === "citizen"
-      )
+        application => applicationBucket(application) === "citizen",
+      ),
     },
     {
       title: {
         id: "apl.nonCitizens.title",
-        defaultMessage: "<default/> Non-Canadian Citizens",
-        description: "title of list of non-citizen applicants"
+        defaultMessage: "Non-Canadian Citizens",
+        description: "title of list of non-citizen applicants",
       },
       description: {
         id: "apl.nonCitizens.description",
-        defaultMessage: "<default/> ",
-        description: "description of list of non-citizen applicants"
+        defaultMessage: "",
+        description: "description of list of non-citizen applicants",
       },
       applications: applications.filter(
-        application => applicationBucket(application) === "non-citizen"
-      )
+        application => applicationBucket(application) === "non-citizen",
+      ),
     },
     {
       title: {
         id: "apl.unqualified.title",
-        defaultMessage: "<default/> Don't Meet Essential Criteria",
+        defaultMessage: "Don't Meet Essential Criteria",
         description:
-          "title of list of applicants who do not meet the essential criteria"
+          "title of list of applicants who do not meet the essential criteria",
       },
       description: {
         id: "apl.unqualified.description",
         defaultMessage: "",
         description:
-          "description of list of applicants who do not meet the essential criteria"
+          "description of list of applicants who do not meet the essential criteria",
       },
       applications: applications.filter(
-        application => applicationBucket(application) === "unqualified"
-      )
-    }
+        application => applicationBucket(application) === "unqualified",
+      ),
+    },
   ];
 
   /* Code related to copying emails to clipboard */
@@ -164,7 +164,7 @@ const ReviewCategory: React.StatelessComponent<
 
   return (
     <div className="applicant-category">
-      <h3 className="heading--03">{intl.formatMessage(title)}</h3>
+      <h2 className="heading--03">{intl.formatMessage(title)}</h2>
 
       <p>{intl.formatMessage(description)}</p>
 
@@ -178,13 +178,13 @@ const ReviewCategory: React.StatelessComponent<
             {justCopied ? (
               <FormattedMessage
                 id="button.copied"
-                defaultMessage="<default/> Copied!"
+                defaultMessage="Copied!"
                 description="Confirmation for Button to copy all applicant emails in screening category"
               />
             ) : (
               <FormattedMessage
                 id="button.copyEmails"
-                defaultMessage="<default/> Copy Emails"
+                defaultMessage="Copy Emails"
                 description="Button to copy all applicant emails in screening category"
               />
             )}
@@ -201,7 +201,7 @@ const ReviewCategory: React.StatelessComponent<
               &nbsp;
               <FormattedMessage
                 id="apl.screenOutAll"
-                defaultMessage="<default/> Screen All Optional Candidates Out"
+                defaultMessage="Screen All Optional Candidates Out"
                 description="Button to screen out all optional candidates from competition with one click"
               />
             </button>

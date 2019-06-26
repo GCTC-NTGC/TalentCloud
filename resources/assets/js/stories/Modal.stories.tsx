@@ -1,47 +1,151 @@
-import * as React from 'react';
-import { storiesOf } from '@storybook/react';
-import { withInfo } from '@storybook/addon-info';
-import { withKnobs, text } from '@storybook/addon-knobs';
-import { action } from '@storybook/addon-actions';
-import Modal from '../components/Modal';
+import React from "react";
+import { storiesOf } from "@storybook/react";
+import { withInfo } from "@storybook/addon-info";
+import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import { action } from "@storybook/addon-actions";
+import Modal from "../components/Modal";
+import Input from "../components/Forms/Input";
 
-const stories = storiesOf('Modal', module)
+const stories = storiesOf("Modal", module)
   .addDecorator(withInfo)
   .addDecorator(withKnobs);
 
 stories.add(
-  'Plain Modal',
-  () => (
-    <Modal
-      id={text('ID', 'sample-modal')}
-      title={text('Title', 'Hey what a Modal')}
-      openText={text('Open Text', 'Check this out')}
-      closeText={text('Close Text', 'close')}
-      confirmText={text('Confirm Text', 'Cool')}
-      cancelText={text('Cancel Text', 'No Thanks')}
-      handleConfirm={action('Confirm clicked')}
-    >
-      <p data-c-margin="bottom(half)">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec mi
-        non dui sodales pellentesque. Sed non est nec lacus malesuada sodales.
-        Pellentesque aliquet tristique aliquet. Morbi blandit eros vitae nisi
-        venenatis, vel hendrerit quam blandit. Nulla iaculis blandit ultricies.
-        Etiam posuere lectus non augue aliquet iaculis. Integer consequat, metus
-        nec vehicula suscipit, libero justo tincidunt mi, eget aliquam eros
-        lacus eget est. Nulla congue dolor a viverra luctus.
-      </p>
-      <p>
-        Suspendisse placerat massa justo, ut tempor orci dictum eget. Phasellus
-        a placerat magna. Mauris quis risus quis nisi semper finibus ac
-        dignissim odio. Donec ipsum nunc, porta quis mauris sit amet,
-        ullamcorper varius lacus. Nulla tincidunt metus et neque molestie, sit
-        amet mattis turpis vestibulum. Ut ac leo tempor, dictum magna sed,
-        fringilla massa. Aliquam laoreet non dui ac facilisis. Aenean aliquet,
-        nisi in posuere iaculis, libero turpis molestie orci, sit amet accumsan
-        est sem eu diam. Donec imperdiet leo quam, vel lobortis dui semper sed.
-        Quisque elementum neque viverra velit interdum ultricies.
-      </p>
-    </Modal>
-  ),
-  { info: { inline: true } },
+  "Basic Modal",
+  (): React.ReactElement => {
+    const isModalVisible = boolean("Visible", true);
+    const modalParent = document.querySelector("#modal-root");
+    return (
+      <div id="modal-container">
+        <div
+          id="modal-overlay"
+          data-c-dialog-overlay={isModalVisible ? "active" : ""}
+        />
+        <div>
+          <Modal
+            id="basic-modal"
+            visible={isModalVisible}
+            parentElement={modalParent}
+            onModalConfirm={action("Confirmed")}
+            onModalCancel={action("Cancelled")}
+          >
+            <Modal.Header>
+              <div
+                data-c-background="c1(100)"
+                data-c-border="bottom(thin, solid, black)"
+                data-c-padding="normal"
+              >
+                <h5
+                  data-c-colour="white"
+                  data-c-font-size="h4"
+                  id="basic-modal-title"
+                >
+                  {text("Modal Header", "This is the the Modal Header!")}
+                </h5>
+              </div>
+            </Modal.Header>
+            <Modal.Body>
+              <div
+                data-c-border="bottom(thin, solid, black)"
+                data-c-padding="normal"
+                id="basic-modal-description"
+              >
+                {text("Modal Body", "This text is in the body of the modal.")}
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Modal.FooterCancelBtn>
+                {text("Modal Cancel", "Go Back")}
+              </Modal.FooterCancelBtn>
+              <Modal.FooterConfirmBtn>
+                {text("Modal Confirm", "Next Step")}
+              </Modal.FooterConfirmBtn>
+            </Modal.Footer>
+          </Modal>
+        </div>
+      </div>
+    );
+  },
+);
+stories.add(
+  "Modal with form inputs",
+  (): React.ReactElement => {
+    const isModalVisible = boolean("Visible", true);
+    const modalParent = document.querySelector("#modal-root");
+    return (
+      <div id="modal-container">
+        <div
+          id="modal-overlay"
+          data-c-dialog-overlay={isModalVisible ? "active" : ""}
+        />
+        <Modal
+          id="form-modal"
+          visible={isModalVisible}
+          parentElement={modalParent}
+          onModalConfirm={action("Confirmed")}
+          onModalCancel={action("Cancelled")}
+        >
+          <Modal.Header>
+            <div
+              data-c-background="c1(100)"
+              data-c-border="bottom(thin, solid, black)"
+              data-c-padding="normal"
+            >
+              <h5
+                data-c-colour="white"
+                data-c-font-size="h4"
+                id="form-modal-title"
+              >
+                {text("Modal Header", "This is the the Modal Header!")}
+              </h5>
+            </div>
+          </Modal.Header>
+          <Modal.Body>
+            <div
+              data-c-border="bottom(thin, solid, black)"
+              data-c-padding="normal"
+              id="form-modal-description"
+            >
+              {text(
+                "Modal Body",
+                "This text is in the body of the modal. Try tabbing through all inputs.",
+              )}
+            </div>
+            <form data-c-padding="normal">
+              <Input
+                htmlId="modal-input-1"
+                formName="modal-input-1"
+                label="This is a text input"
+                required={false}
+                placeholder="What will you write here?"
+                type="text"
+                onChange={action("Input 1 changed")}
+              />
+              <button
+                data-c-button="solid(c1)"
+                data-c-radius="rounded"
+                type="submit"
+                onClick={action("Input button clicked")}
+              >
+                Test Button
+              </button>
+              <Input
+                htmlId="modal-input-2"
+                formName="modal-input-2"
+                label="This is a second input"
+                required={false}
+                placeholder="Hello World"
+                type="text"
+                onChange={action("Input 2 changed")}
+              />
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
+            <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
+  },
 );

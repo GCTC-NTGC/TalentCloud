@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+
 use App\Models\Applicant;
 
 /**
@@ -19,6 +20,7 @@ use App\Models\Applicant;
  * @property \Jenssegers\Date\Date $start_date
  * @property \Jenssegers\Date\Date $end_date
  * @property int $applicant_id
+ * @property string $blockcert_url
  *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -26,7 +28,8 @@ use App\Models\Applicant;
  * @property \App\Models\Lookup\DegreeType $degree_type
  * @property \App\Models\Applicant $applicant
  */
-class Degree extends BaseModel {
+class Degree extends BaseModel
+{
 
     protected $casts = [
         'degree_type_id' => 'int',
@@ -35,7 +38,8 @@ class Degree extends BaseModel {
         'thesis' => 'string',
         'start_date' => 'date',
         'end_date' => 'date',
-        'appliant_id' => 'int'
+        'appliant_id' => 'int',
+        'blockcert_url' => 'string',
     ];
     protected $fillable = [
         'degree_type_id',
@@ -43,14 +47,17 @@ class Degree extends BaseModel {
         'institution',
         'thesis',
         'start_date',
-        'end_date'
+        'end_date',
+        'blockcert_url',
     ];
 
-    public function degree_type() {
+    public function degree_type()
+    {
         return $this->belongsTo(\App\Models\Lookup\DegreeType::class);
     }
 
-    public function applicant() {
+    public function applicant()
+    {
         return $this->belongsTo(\App\Models\Applicant::class);
     }
 }

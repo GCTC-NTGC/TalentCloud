@@ -17,7 +17,7 @@
   "apl.emailCandidateLinkTitle": "email this candidate.",
   "apl.expandAllSkills": "Expand All Skills",
   "apl.getPriorityList": "Contact Talent Cloud to get a list of priorities that applied to this position. They must be reviewed and considered first.",
-  "apl.indexPageTitle": "Applications for: {job_title} {job_classification}",
+  "apl.indexPageTitle": "Applications for: {jobTitle} {jobClassification}",
   "apl.nonCitizens.description": " ",
   "apl.nonCitizens.title": "Non-Canadian Citizens",
   "apl.optionalConsideration.description": "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",

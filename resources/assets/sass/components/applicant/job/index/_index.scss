@@ -27,7 +27,8 @@
             padding: 2rem;
             text-align: left;
 
-            h3 {
+            h3,
+            h2 {
                 color: $palette--blue;
                 font-family: $font--sans;
                 font-size: $font-scale--h3;
@@ -93,7 +94,7 @@
                 background-size: 75px;
                 padding: calc(#{$unit} * 1.5);
 
-                h3 {
+                h2 {
                     color: $palette--font-white;
                     display: block;
                     font-weight: 700;

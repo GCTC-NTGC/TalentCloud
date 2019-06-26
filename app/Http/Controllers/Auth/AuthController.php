@@ -5,9 +5,15 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Facades\App\Services\WhichPortal;
 
-class AuthController extends Controller {
-
-    protected function auth_routes() {
+class AuthController extends Controller
+{
+    /**
+     * Sets the route namespace based on the logged in user.
+     *
+     * @return mixed[]
+     */
+    protected function auth_routes()
+    {
         if (WhichPortal::isManagerPortal()) {
             $routes = [
                 'login' => route('manager.login'),
@@ -31,5 +37,4 @@ class AuthController extends Controller {
         }
         return $routes;
     }
-
 }

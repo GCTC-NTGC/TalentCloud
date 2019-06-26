@@ -8,7 +8,7 @@ import {
   addLocaleData,
   injectIntl,
   InjectedIntlProps,
-  defineMessages
+  defineMessages,
 } from "react-intl";
 import locale_en from "react-intl/locale-data/en";
 import locale_fr from "react-intl/locale-data/fr";
@@ -18,16 +18,22 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import messages_en from "../../localizations/en.json";
 import messages_fr from "../../localizations/fr.json";
-import { Job, Application, ReviewStatus, ApplicationReview } from "../types";
+import {
+  Job,
+  Application,
+  ReviewStatus,
+  ApplicationReview,
+} from "../../models/types";
 import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
 import * as routes from "../../helpers/routes";
+import { classificationString } from "../../models/jobUtil";
 
 addLocaleData([...locale_en, ...locale_fr]);
 
 const messages = {
   en: messages_en,
-  fr: messages_fr
+  fr: messages_fr,
 };
 
 interface ReviewApplicationsProps {
@@ -49,15 +55,15 @@ interface ReviewSubmitForm {
 const localizations = defineMessages({
   oops: {
     id: "alert.oops",
-    defaultMessage: "<default/> Save",
-    description: "Dynamic Save button label"
+    defaultMessage: "Save",
+    description: "Dynamic Save button label",
   },
   somethingWrong: {
     id: "apl.reviewSaveFailed",
     defaultMessage:
       "Something went wrong while saving a review. Try again later.",
-    description: "Dynamic Save button label"
-  }
+    description: "Dynamic Save button label",
+  },
 });
 
 class ReviewApplicationsContainer extends React.Component<
@@ -70,8 +76,8 @@ class ReviewApplicationsContainer extends React.Component<
       applications: props.initApplications,
       savingStatuses: props.initApplications.map(application => ({
         applicationId: application.id,
-        isSaving: false
-      }))
+        isSaving: false,
+      })),
     };
     this.handleStatusChange = this.handleStatusChange.bind(this);
     this.handleBulkStatusChange = this.handleBulkStatusChange.bind(this);
@@ -82,7 +88,7 @@ class ReviewApplicationsContainer extends React.Component<
 
   protected updateReviewState(
     applicationId: number,
-    review: ApplicationReview
+    review: ApplicationReview,
   ): void {
     const { applications } = this.state;
     const updatedApplications = applications.map(application => {
@@ -96,20 +102,20 @@ class ReviewApplicationsContainer extends React.Component<
 
   protected handleSavingStatusChange(
     applicationId: number,
-    isSaving: boolean
+    isSaving: boolean,
   ): void {
     const { savingStatuses } = this.state;
     const statuses = savingStatuses.map(item =>
       item.applicationId === applicationId
         ? { applicationId, isSaving }
-        : Object.assign({}, item)
+        : Object.assign({}, item),
     );
     this.setState({ savingStatuses: statuses });
   }
 
   protected submitReview(
     applicationId: number,
-    review: ReviewSubmitForm
+    review: ReviewSubmitForm,
   ): void {
     const { intl } = this.props;
     this.handleSavingStatusChange(applicationId, true);
@@ -124,7 +130,7 @@ class ReviewApplicationsContainer extends React.Component<
         Swal.fire({
           type: "error",
           title: intl.formatMessage(localizations.oops),
-          text: intl.formatMessage(localizations.somethingWrong)
+          text: intl.formatMessage(localizations.somethingWrong),
         });
         this.handleSavingStatusChange(applicationId, false);
       });
@@ -132,7 +138,7 @@ class ReviewApplicationsContainer extends React.Component<
 
   protected handleStatusChange(
     applicationId: number,
-    statusId: number | null
+    statusId: number | null,
   ): void {
     const { applications } = this.state;
     const application = find(applications, applicationId);
@@ -143,19 +149,19 @@ class ReviewApplicationsContainer extends React.Component<
       ? application.application_review
       : {};
     const submitReview = Object.assign(oldReview, {
-      review_status_id: statusId
+      review_status_id: statusId,
     });
     this.submitReview(applicationId, submitReview);
   }
 
   protected handleBulkStatusChange(
     applicationIds: number[],
-    statusId: number | null
+    statusId: number | null,
   ): void {
     const { applications } = this.state;
     const { intl } = this.props;
     const changedApplications = applications.filter(application =>
-      applicationIds.includes(application.id)
+      applicationIds.includes(application.id),
     );
     let errorThrown = false;
     changedApplications.map(application => {
@@ -163,13 +169,13 @@ class ReviewApplicationsContainer extends React.Component<
         ? application.application_review
         : {};
       const submitReview = Object.assign(oldReview, {
-        review_status_id: statusId
+        review_status_id: statusId,
       });
       this.handleSavingStatusChange(application.id, true);
       const request = axios
         .put(
           routes.applicationReviewUpdate(intl.locale, application.id),
-          submitReview
+          submitReview,
         )
         .then(response => {
           const newReview = response.data as ApplicationReview;
@@ -184,7 +190,7 @@ class ReviewApplicationsContainer extends React.Component<
             Swal.fire({
               type: "error",
               title: intl.formatMessage(localizations.oops),
-              text: intl.formatMessage(localizations.somethingWrong)
+              text: intl.formatMessage(localizations.somethingWrong),
             });
           }
         });
@@ -194,7 +200,7 @@ class ReviewApplicationsContainer extends React.Component<
 
   protected handleNotesChange(
     applicationId: number,
-    notes: string | null
+    notes: string | null,
   ): void {
     const { applications } = this.state;
     const application = find(applications, applicationId);
@@ -205,7 +211,7 @@ class ReviewApplicationsContainer extends React.Component<
       ? application.application_review
       : {};
     const submitReview = Object.assign(oldReview, {
-      notes
+      notes,
     });
     this.submitReview(applicationId, submitReview);
   }
@@ -213,16 +219,17 @@ class ReviewApplicationsContainer extends React.Component<
   public render(): React.ReactElement {
     const { applications, savingStatuses } = this.state;
     const { reviewStatuses, job } = this.props;
+    const { intl } = this.props;
 
     const reviewStatusOptions = reviewStatuses.map(status => ({
       value: status.id,
-      label: camelCase(status.name)
+      label: camelCase(status.name),
     }));
 
     return (
       <ReviewApplications
-        title={job.title}
-        classification={job.classification}
+        title={job[intl.locale].title}
+        classification={classificationString(job)}
         closeDateTime={job.close_date_time}
         applications={applications}
         reviewStatusOptions={reviewStatusOptions}
@@ -237,7 +244,7 @@ class ReviewApplicationsContainer extends React.Component<
 
 if (document.getElementById("review-applications-container")) {
   const container = document.getElementById(
-    "review-applications-container"
+    "review-applications-container",
   ) as HTMLElement;
   if (
     container.hasAttribute("data-job") &&
@@ -247,14 +254,14 @@ if (document.getElementById("review-applications-container")) {
   ) {
     const job = JSON.parse(container.getAttribute("data-job") as string);
     const applications = JSON.parse(container.getAttribute(
-      "data-applications"
+      "data-applications",
     ) as string);
     const reviewStatuses = JSON.parse(container.getAttribute(
-      "data-review-statuses"
+      "data-review-statuses",
     ) as string);
     const language = container.getAttribute("data-locale") as string;
     const IntlReviewApplicationsContainer = injectIntl(
-      ReviewApplicationsContainer
+      ReviewApplicationsContainer,
     );
     ReactDOM.render(
       <IntlProvider locale={language} messages={messages[language]}>
@@ -264,7 +271,7 @@ if (document.getElementById("review-applications-container")) {
           reviewStatuses={reviewStatuses}
         />
       </IntlProvider>,
-      container
+      container,
     );
   }
 }

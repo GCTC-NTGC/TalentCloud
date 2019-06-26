@@ -8,7 +8,7 @@
 namespace App\Models;
 
 /**
- * Class Degree
+ * Class WorkExperience
  *
  * @property int $id
  * @property string $role
@@ -23,7 +23,8 @@ namespace App\Models;
  *
  * @property \App\Models\Applicant $applicant
  */
-class WorkExperience extends BaseModel {
+class WorkExperience extends BaseModel
+{
 
     protected $casts = [
         'role' => 'string',
@@ -41,7 +42,8 @@ class WorkExperience extends BaseModel {
         'end_date'
     ];
 
-    public function applicant() {
+    public function applicant()
+    {
         return $this->belongsTo(\App\Models\Applicant::class);
     }
 }
