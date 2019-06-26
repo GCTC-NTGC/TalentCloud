@@ -5,6 +5,7 @@ import {
   RSAActionTemplate,
   asyncGet,
   asyncPut,
+  asyncPost,
 } from "../asyncAction";
 import { Action } from "../createAction";
 
@@ -59,8 +60,8 @@ export const createJob = (
   Job,
   {}
 > =>
-  asyncPut(
-    getJobEndpoint(job.id),
+  asyncPost(
+    getJobEndpoint(null),
     job,
     CREATE_JOB_STARTED,
     CREATE_JOB_SUCCEEDED,
@@ -114,14 +115,14 @@ export const clearJobEdit = (jobId: number): ClearEditJobAction => ({
   payload: jobId,
 });
 
-export const CLEAR_JOB_SAVE_SUCCESSFUL = "JOB: CLEAR SAVE SUCCESSFUL FLAG";
-export type ClearJobSaveSuccessfulAction = Action<
-  typeof CLEAR_JOB_SAVE_SUCCESSFUL,
-  {}
+export const SET_SELECTED_JOB = "JOB: SET SELECTED";
+export type SetSelectedJobAction = Action<
+  typeof SET_SELECTED_JOB,
+  { jobId: number | null }
 >;
-export const clearJobSaveSuccessful = (): ClearJobSaveSuccessfulAction => ({
-  type: CLEAR_JOB_SAVE_SUCCESSFUL,
-  payload: {},
+export const setSelectedJob = (jobId: number | null): SetSelectedJobAction => ({
+  type: SET_SELECTED_JOB,
+  payload: { jobId },
 });
 
 export type JobAction =
@@ -130,6 +131,6 @@ export type JobAction =
   | UpdateJobAction
   | EditJobAction
   | ClearEditJobAction
-  | ClearJobSaveSuccessfulAction;
+  | SetSelectedJobAction;
 
 export default { fetchJob };

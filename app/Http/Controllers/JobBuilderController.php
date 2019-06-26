@@ -11,7 +11,7 @@ class JobBuilderController extends Controller
      * Show the Job Builder Details page
      * @return \Illuminate\Http\Response
      */
-    public function details($jobId)
+    public function details($jobId = null)
     {
         return view(
             'manager/job-builder-details',

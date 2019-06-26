@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
+import { StandardAction, ErrorAction } from "redux-api-middleware";
 import {
   injectIntl,
   InjectedIntlProps,
@@ -18,17 +20,16 @@ import JobPreview from "../JobPreview";
 import Modal from "../Modal";
 import { RootState } from "../../store/store";
 import {
-  getJob,
-  getJobIsUpdating,
-  getCreatingJob,
-  getJobSaveIsSuccessful,
+  getJob as selectJob,
+  getSelectedJob,
 } from "../../store/Job/jobSelector";
 import { Job } from "../../models/types";
 import { DispatchType } from "../../configureStore";
 import {
   updateJob,
   createJob,
-  clearJobSaveSuccessful,
+  fetchJob,
+  setSelectedJob,
 } from "../../store/Job/jobActions";
 
 import { validationMessages } from "../Form/Messages";
@@ -43,7 +44,8 @@ import {
   languageRequirment,
   provinceName,
 } from "../../models/localizedConstants";
-import { hasKey } from "../../helpers/queries";
+import RootContainer from "../RootContainer";
+import IntlContainer from "../../IntlContainer";
 
 const formMessages = defineMessages({
   titleLabel: {
@@ -266,8 +268,6 @@ const updateJobWithValues = (
     city,
     province,
     remoteWork,
-    telework,
-    flexHours,
   }: JobFormValues,
 ): Job => ({
   ...initialJob,
@@ -294,17 +294,9 @@ const JobDetails: React.FunctionComponent<
   handleModalConfirm,
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
-  const modalParentRef = useRef<HTMLDivElement>(null);
-
   const [isModalVisible, setIsModalVisible] = useState(false);
-  // useEffect((): void => {
-  //   if (saveSuccessful) {
-  //     if (!isModalVisible) {
-  //       setIsModalVisible(true);
-  //     }
-  //     clearSaveSuccessful(); // TODO: brainstorm alternative ways of allowing parent to tell this component to put up modal. Should the parent just be in charge of modal visibility? -- Tristan
-  //   }
-  // }, [saveSuccessful]);
+
+  const modalParentRef = useRef<HTMLDivElement>(null);
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
@@ -892,12 +884,8 @@ const mapStateToProps = (
   ownProps: JobDetailsContainerProps,
 ): {
   job: Job | null;
-  saveSuccessful: boolean;
-  modalParent: Element; // TODO: why isn't this just part of the component?
 } => ({
-  job: ownProps.jobId ? getJob(state, ownProps as { jobId: number }) : null,
-  saveSuccessful: ownProps.jobId ? getJobSaveIsSuccessful(state) : false,
-  modalParent: document.body,
+  job: ownProps.jobId ? selectJob(state, ownProps as { jobId: number }) : null,
 });
 
 const mapDispatchToProps = (
@@ -905,28 +893,20 @@ const mapDispatchToProps = (
   ownProps: JobDetailsContainerProps,
 ): {
   handleSubmit: (newJob: Job) => Promise<boolean>;
-  clearSaveSuccessful: () => void;
 } => ({
   handleSubmit: ownProps.jobId
     ? async (newJob: Job): Promise<boolean> => {
-        console.log(newJob);
         const result = await dispatch(updateJob(newJob));
-        console.log(result);
         return !result.error;
       }
     : async (newJob: Job): Promise<boolean> => {
-        console.log(newJob);
         const result = await dispatch(createJob(newJob));
-        console.log(result);
         return !result.error;
       },
-  clearSaveSuccessful: (): void => {
-    dispatch(clearJobSaveSuccessful());
-  },
 });
 
 // @ts-ignore
-const JobDetailsContainer: React.FunctionComponent<
+export const JobDetailsContainer: React.FunctionComponent<
   JobDetailsContainerProps
 > = connect(
   mapStateToProps,

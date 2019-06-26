@@ -254,6 +254,11 @@ Route::group(
                     ->name('manager.jobs.edit');
 
                 Route::get(
+                    'jobs-builder/details',
+                    'JobBuilderController@details'
+                )->where('jobPoster', '[0-9]+');
+
+                Route::get(
                     'jobs/{jobId}/builder/details',
                     'JobBuilderController@details'
                 )->where('jobPoster', '[0-9]+');

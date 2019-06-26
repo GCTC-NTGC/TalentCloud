@@ -217,4 +217,31 @@ export const asyncPut = <
     metaData,
   );
 
+export const asyncPost = <
+  TBody extends object | string,
+  TStarted extends string,
+  TSuccess extends string,
+  TFailed extends string,
+  TPayload,
+  TMeta
+>(
+  endpoint: string,
+  body: TBody,
+  startedType: TStarted,
+  succeededType: TSuccess,
+  failedType: TFailed,
+  parseResponse: (response: any) => TPayload,
+  metaData: TMeta,
+): RSAActionTemplate<TStarted, TSuccess, TFailed, TPayload, TMeta> =>
+  asyncAction(
+    endpoint,
+    "POST",
+    body,
+    startedType,
+    succeededType,
+    failedType,
+    parseResponse,
+    metaData,
+  );
+
 export default asyncAction;

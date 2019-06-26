@@ -13,7 +13,7 @@ import {
   CREATE_JOB_SUCCEEDED,
   CREATE_JOB_STARTED,
   CREATE_JOB_FAILED,
-  CLEAR_JOB_SAVE_SUCCESSFUL,
+  SET_SELECTED_JOB,
 } from "./jobActions";
 import { mapToObject, getId, deleteProperty } from "../../helpers/queries";
 
@@ -41,8 +41,7 @@ export interface UiState {
     [id: number]: boolean;
   };
   creatingJob: boolean;
-  /** A flag that's set to true when any job is successfully created or updated. */
-  jobSaveSuccessful: boolean;
+  selectedJobId: number | null;
 }
 
 export interface JobState {
@@ -60,7 +59,7 @@ export const initUi = (): UiState => ({
   jobUpdating: {},
   criteriaUpdating: {},
   creatingJob: false,
-  jobSaveSuccessful: false,
+  selectedJobId: null,
 });
 
 export const initState = (): JobState => ({
@@ -138,7 +137,6 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
       return {
         ...state,
         creatingJob: false,
-        jobSaveSuccessful: true,
       };
     case CREATE_JOB_FAILED:
       return {
@@ -168,12 +166,11 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
         jobUpdating: {
           [action.meta.id]: false,
         },
-        jobSaveSuccessful: true,
       };
-    case CLEAR_JOB_SAVE_SUCCESSFUL:
+    case SET_SELECTED_JOB:
       return {
         ...state,
-        jobSaveSuccessful: false,
+        selectedJobId: action.payload.jobId,
       };
     default:
       return state;
