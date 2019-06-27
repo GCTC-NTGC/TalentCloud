@@ -18,7 +18,7 @@ interface RadioGroupProps {
   touched: boolean | FormikTouched<any> | undefined;
 }
 
-const RadioGroupFormik: React.FunctionComponent<RadioGroupProps> = ({
+const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   id,
   label,
   grid,
@@ -47,4 +47,4 @@ const RadioGroupFormik: React.FunctionComponent<RadioGroupProps> = ({
   );
 };
 
-export default RadioGroupFormik;
+export default RadioGroup;
