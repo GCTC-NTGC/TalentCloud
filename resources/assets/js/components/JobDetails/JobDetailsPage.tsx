@@ -110,10 +110,6 @@ const mapDispatchToPropsPage = (
   handleCreateJob: async (newJob: Job): Promise<boolean> => {
     const result = await dispatch(createJob(newJob));
     if (!result.error) {
-      console.log("Handling create job result");
-      // result.payload.then(resultJob => {
-      //   dispatch(setSelectedJob(resultJob.id));
-      // });
       const resultJob = await result.payload;
       dispatch(setSelectedJob(resultJob.id));
     }

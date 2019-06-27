@@ -90,7 +90,6 @@ class JobApiController extends Controller
         // and returned by UpdateJobPoster->validatedData(), will be set.
         $job->fill($data);
         $job->save();
-        // return response()->json($request->input());
         return response()->json($this->jobToArray($job->fresh()));
     }
 
