@@ -41,7 +41,7 @@ export interface Job {
   citizen_facing_vs_back_office: number | null;
   collaborative_vs_independent: number | null;
   telework_allowed_frequency_id: number | null;
-  flexible_hours_fequency_id: number | null;
+  flexible_hours_frequency_id: number | null;
   en: JobTranslation;
   fr: JobTranslation;
 }

@@ -19,6 +19,9 @@ const emptyJobTranslation = (): JobTranslation => ({
   branch: "",
   division: "",
   education: "",
+  work_env_description: "",
+  culture_summary: "",
+  culture_special: "",
 });
 
 export const emptyJob = (): Job => {
@@ -41,6 +44,15 @@ export const emptyJob = (): Job => {
     remote_work_allowed: null,
     published_at: null,
     review_requested_at: null,
+    team_size: null,
+    work_env_features: null,
+    fast_vs_steady: null,
+    horizontal_vs_vertical: null,
+    experimental_vs_ongoing: null,
+    citizen_facing_vs_back_office: null,
+    collaborative_vs_independent: null,
+    telework_allowed_frequency_id: null,
+    flexible_hours_frequency_id: null,
     en: emptyJobTranslation(),
     fr: emptyJobTranslation(),
   };

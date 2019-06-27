@@ -210,6 +210,22 @@ interface JobFormValues {
   flexHours: string;
 }
 
+const teleworkFrequencies = [
+  "teleworkNever",
+  "teleworkOccasionally",
+  "teleworkSometimes",
+  "teleworkFrequently",
+  "teleworkAlways",
+];
+
+const flexHourFequencies = [
+  "flexHoursNever",
+  "flexHoursOccasionally",
+  "flexHoursSometimes",
+  "flexHoursFrequently",
+  "flexHoursAlways",
+];
+
 const jobToValues = (job: Job | null, locale: string): JobFormValues =>
   job
     ? {
@@ -224,8 +240,13 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues =>
         remoteWork: job.remote_work_allowed
           ? "remoteWorkCanada"
           : "remoteWorkNone",
-        telework: "teleworkFrequently",
-        flexHours: "flexHoursFrequently",
+        // frequency ids range from 1-5
+        telework: job.telework_allowed_frequency_id
+          ? teleworkFrequencies[job.telework_allowed_frequency_id - 1]
+          : "teleworkFrequently",
+        flexHours: job.flexible_hours_frequency_id
+          ? flexHourFequencies[job.flexible_hours_frequency_id - 1]
+          : "flexHoursFrequently",
       }
     : {
         title: "",
@@ -254,6 +275,8 @@ const updateJobWithValues = (
     city,
     province,
     remoteWork,
+    telework,
+    flexHours,
   }: JobFormValues,
 ): Job => ({
   ...initialJob,
@@ -264,6 +287,8 @@ const updateJobWithValues = (
   language_requirement_id: language || null,
   province_id: province || null,
   remote_work_allowed: remoteWork !== "remoteWorkNone",
+  telework_allowed_frequency_id: teleworkFrequencies.indexOf(telework) + 1,
+  flexible_hours_frequency_id: flexHourFequencies.indexOf(flexHours) + 1,
   [locale]: {
     ...initialJob[locale],
     title,
@@ -288,6 +313,7 @@ const JobDetails: React.FunctionComponent<
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
   const initialValues: JobFormValues = jobToValues(job || null, locale);
+
   const remoteWorkPossibleValues: RemoteWorkType[] = [
     "remoteWorkNone",
     "remoteWorkCanada",
@@ -355,25 +381,13 @@ const JobDetails: React.FunctionComponent<
       .required(intl.formatMessage(validationMessages.required)),
     telework: Yup.mixed()
       .oneOf(
-        [
-          "teleworkAlways",
-          "teleworkFrequently",
-          "teleworkOccasionally",
-          "teleworkSometimes",
-          "teleworkNever",
-        ],
+        teleworkFrequencies,
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
     flexHours: Yup.mixed()
       .oneOf(
-        [
-          "flexHoursAlways",
-          "flexHoursFrequently",
-          "flexHoursOccasionally",
-          "flexHoursSometimes",
-          "flexHoursNever",
-        ],
+        flexHourFequencies,
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
