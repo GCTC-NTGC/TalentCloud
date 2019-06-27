@@ -9,6 +9,9 @@ export interface JobTranslation {
   branch: string;
   division: string;
   education: string;
+  work_env_description: string | null;
+  culture_summary: string | null;
+  culture_special: string | null;
 }
 
 export interface Job {
@@ -30,6 +33,15 @@ export interface Job {
   remote_work_allowed: boolean | null;
   published_at: Date | null;
   review_requested_at: Date | null;
+  team_size: number | null;
+  work_env_features: { [feature: string]: boolean };
+  fast_vs_steady: number;
+  horizontal_vs_vertical: number;
+  experimental_vs_ongoing: number;
+  citizen_facing_vs_back_office: number;
+  collaborative_vs_independent: number;
+  telework_allowed_frequency_id: number;
+  flexible_hours_fequency_id: number;
   en: JobTranslation;
   fr: JobTranslation;
 }
