@@ -7,8 +7,8 @@ import {
   InternalError,
   getJSON,
 } from "redux-api-middleware"; // RSAA = '@@redux-api-middleware/RSAA'
+import moment from "moment";
 import { ErrorAction } from "./createAction";
-import moment = require("moment");
 
 export const STARTED = "STARTED";
 export const SUCCEEDED = "SUCCEEDED";
