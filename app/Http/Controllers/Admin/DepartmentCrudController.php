@@ -39,6 +39,13 @@ class DepartmentCrudController extends CrudController
             'label' => 'Name',
         ]);
 
+        $this->crud->addField([
+            'name' => 'department_id',
+            'label' => 'Dept. ID',
+            'type' => 'number',
+            'allow_null' => false,
+        ]);
+
         // TODO: Impact field.
     }
 
