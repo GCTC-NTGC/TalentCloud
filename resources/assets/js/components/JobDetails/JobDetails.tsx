@@ -322,7 +322,7 @@ const JobDetails: React.FunctionComponent<
       )
       .required(intl.formatMessage(validationMessages.required)),
     level: Yup.number()
-      .min(1)
+      .min(1, intl.formatMessage(validationMessages.invalidSelection))
       .max(9, intl.formatMessage(validationMessages.invalidSelection))
       .required(intl.formatMessage(validationMessages.required)),
     securityLevel: Yup.number()
@@ -402,7 +402,6 @@ const JobDetails: React.FunctionComponent<
           validationSchema={jobSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
-            // setIsModalVisible(true);
             handleSubmit(updateJobWithValues(job || emptyJob(), locale, values))
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {

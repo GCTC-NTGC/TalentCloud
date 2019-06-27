@@ -17,7 +17,5 @@ class WhichPortal
     {
         $url = URL::current();
         return str_is('*/manager/*', $url);
-        // $routeName = Route::currentRouteName();
-        // return str_is('manager.*', $routeName);
     }
 }

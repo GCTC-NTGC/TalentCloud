@@ -18,6 +18,7 @@ import {
 import RootContainer from "../RootContainer";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { ProgressTrackerItem } from "../ProgressTracker/types";
+import { FormattedMessage } from "react-intl";
 
 interface JobDetailsPageProps {
   jobId: number | null;
@@ -70,7 +71,11 @@ const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps> = ({
             data-c-font-weight="bold"
             data-c-margin="bottom(double)"
           >
-            Job Loading...
+            <FormattedMessage
+              id="jobDetailsPage.loading"
+              defaultMessage="Job Loading..."
+              description="Message indicating that the current job is still being loaded."
+            />
           </h3>
         </div>
       ) : (
@@ -110,10 +115,6 @@ const mapDispatchToPropsPage = (
   handleCreateJob: async (newJob: Job): Promise<boolean> => {
     const result = await dispatch(createJob(newJob));
     if (!result.error) {
-      console.log("Handling create job result");
-      // result.payload.then(resultJob => {
-      //   dispatch(setSelectedJob(resultJob.id));
-      // });
       const resultJob = await result.payload;
       dispatch(setSelectedJob(resultJob.id));
     }
