@@ -1,5 +1,6 @@
 import React, { ReactElement } from "react";
-import { FieldProps } from "formik";
+import { FormattedMessage } from "react-intl";
+import { inputMessages } from "./Messages";
 
 export interface SelectOption<T extends string | number> {
   value: T;
@@ -8,13 +9,15 @@ export interface SelectOption<T extends string | number> {
 
 export interface SelectProps<T extends string | number> {
   /** HTML id of the input element */
-  htmlId: string;
+  id: string;
   /** HTML name of the input element */
-  formName: string;
+  name: string;
   /** Holds text for label associated with input element */
   label: string | ReactElement;
   /** Boolean indicating if input must have a value, or not */
   required: boolean;
+  /** Boolean that sets the select input to invalid */
+  invalid?: boolean | null;
   /** Selected string contains the default value of the select box */
   selected: T | null;
   /** Null selection string provides a null value with instructions to user (eg. Select a department...) */
@@ -31,35 +34,17 @@ export interface SelectProps<T extends string | number> {
   grid?: string;
   /** Children should inlcude one or more HTML <option> tag(s) */
   children?: React.ReactNode;
-
-  /*
-    Formik Props
-
-    - The props below will be available only when using Formik library.
-    - The <Field /> component passes in these to objects, containing useful props.
-
-  */
-
-  /** Formik field prop is an object which holds the following: OnChange, OnBlur, value, and name.
-   * These props will take precedence over default Input props.
-   */
-  field?: FieldProps["field"];
-  /** Formik form prop is an object which holds the following: errors and touched.
-   * - errors: object which holds the all errors in the formik form, where the key is the name of the form element.
-   * - touched: a boolean which is initially set to false, until the element gains focus.
-   * These props will take precedence over the default Input props.
-   */
-  form?: FieldProps["form"];
 }
 
 export default function Select<T extends string | number>(
   props: SelectProps<T>,
 ): React.ReactElement<SelectProps<T>> {
   const {
-    htmlId,
-    formName,
+    id,
+    name,
     label,
     required,
+    invalid,
     selected,
     nullSelection,
     options,
@@ -67,8 +52,6 @@ export default function Select<T extends string | number>(
     onBlur,
     errorText,
     grid,
-    field,
-    form,
     children,
   } = props;
   return (
@@ -76,22 +59,20 @@ export default function Select<T extends string | number>(
       data-c-input="select"
       data-c-grid-item={grid}
       data-c-required={required}
-      data-c-invalid={
-        field && form && form.touched[field.name] && form.errors[field.name]
-          ? true
-          : null
-      }
+      data-c-invalid={invalid}
     >
-      <label htmlFor={htmlId}>{label}</label>
-      {required && <span>Required</span>}
+      <label htmlFor={id}>{label}</label>
+      <span>
+        <FormattedMessage {...inputMessages.required} />
+      </span>
       <div>
         <i className="fa fa-caret-down" />
         <select
-          id={htmlId}
-          name={(field && field.name) || formName}
+          id={id}
+          name={name}
           value={selected || ""}
-          onChange={(field && field.onChange) || onChange}
-          onBlur={(field && field.onBlur) || onBlur}
+          onChange={onChange}
+          onBlur={onBlur}
         >
           {nullSelection && (
             <option value="" disabled>
@@ -109,14 +90,7 @@ export default function Select<T extends string | number>(
           {children}
         </select>
       </div>
-      <span>
-        {(form &&
-          field &&
-          form.touched[field.name] &&
-          form.errors[field.name]) ||
-          errorText ||
-          "This input has an error."}
-      </span>
+      <span>{errorText || "This input has an error."}</span>
     </div>
   );
 }

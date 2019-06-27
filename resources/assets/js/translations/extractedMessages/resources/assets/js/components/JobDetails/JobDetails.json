@@ -1,25 +1,5 @@
 [
   {
-    "id": "formValidation.required",
-    "description": "Error message displayed when a required field is empty.",
-    "defaultMessage": "This field is required."
-  },
-  {
-    "id": "formValidation.tooShort",
-    "description": "Error message displayed when a field value is below the minimum length.",
-    "defaultMessage": "Too short!"
-  },
-  {
-    "id": "formValidation.tooLong",
-    "description": "Error message displayed when a field value is above the maximum length.",
-    "defaultMessage": "Too long!"
-  },
-  {
-    "id": "formValidation.invalidSelection",
-    "description": "Error message displayed when a field value is outside of the available selection options.",
-    "defaultMessage": "Please select from the available options."
-  },
-  {
     "id": "jobDetails.titleLabel",
     "description": "The form label displayed on the title input.",
     "defaultMessage": "What is the job title?"
@@ -198,6 +178,11 @@
     "id": "jobDetails.modalHeader",
     "description": "The text displayed in the header of the Job Details modal.",
     "defaultMessage": "You're off to a great start!"
+  },
+  {
+    "id": "jobDetails.modalBody",
+    "description": "The text displayed in the body of the Job Details modal.",
+    "defaultMessage": "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
   },
   {
     "id": "jobDetails.modalCancelLabel",

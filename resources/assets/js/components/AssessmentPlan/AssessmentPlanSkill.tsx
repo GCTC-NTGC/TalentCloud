@@ -11,7 +11,7 @@ import {
   skillLevelName,
   assessmentType,
 } from "../../models/localizedConstants";
-import Select, { SelectOption } from "../Forms/Select";
+import Select, { SelectOption } from "../Form/Select";
 import { AssessmentTypeId, enumToIds } from "../../models/lookupConstants";
 import {
   Criteria,
@@ -39,6 +39,7 @@ import {
 } from "../../store/Assessment/assessmentActions";
 import { getCriteriaById } from "../../store/Job/jobSelector";
 import { getSkillById } from "../../store/Skill/skillSelector";
+import { notEmpty } from "../../helpers/queries";
 
 interface AssessmentPlanSkillProps {
   criterion: Criteria | null;
@@ -93,34 +94,27 @@ export const AssessmentPlanSkill: React.FunctionComponent<
   if (criterion === null || skill === null) {
     return null;
   }
-  useEffect(
-    (): void => {
-      assessments.forEach(
-        (assessment): void => {
-          // If assessment has been edited, and is not currently being updated, start an update.
-          if (
-            assessmentsEdited[assessment.id] &&
-            !assessmentsUpdating[assessment.id]
-          ) {
-            updateAssessment(assessment);
-          }
-        },
-        [assessments, assessmentsEdited, assessmentsUpdating],
-      );
-    },
-  );
   useEffect((): void => {
-    tempAssessments.forEach(
-      (temp): void => {
-        // If any temp assessments exist, we want to save them as soon as they're valid
+    assessments.forEach(
+      (assessment): void => {
+        // If assessment has been edited, and is not currently being updated, start an update.
         if (
-          !tempAssessmentsSaving[temp.id] &&
-          temp.assessment_type_id !== null
+          assessmentsEdited[assessment.id] &&
+          !assessmentsUpdating[assessment.id]
         ) {
-          saveTempAssessment(temp as Assessment);
+          updateAssessment(assessment);
         }
       },
+      [assessments, assessmentsEdited, assessmentsUpdating],
     );
+  });
+  useEffect((): void => {
+    tempAssessments.forEach((temp): void => {
+      // If any temp assessments exist, we want to save them as soon as they're valid
+      if (!tempAssessmentsSaving[temp.id] && temp.assessment_type_id !== null) {
+        saveTempAssessment(temp as Assessment); // TODO: remove TempAssessment type, just use Assessment everywhere
+      }
+    });
   }, [tempAssessments, tempAssessmentsSaving]);
 
   const skillLevel = intl.formatMessage(
@@ -150,8 +144,8 @@ export const AssessmentPlanSkill: React.FunctionComponent<
   const selectedAssessmentTypes: number[] = [
     ...assessments.map((assessment): number => assessment.assessment_type_id),
     ...tempAssessments
-      .filter((temp): boolean => temp.assessment_type_id !== null)
-      .map((temp): number => temp.assessment_type_id as number),
+      .map((temp): number | null => temp.assessment_type_id)
+      .filter(notEmpty),
   ];
   const SelectBlock: React.FunctionComponent<{
     assessment: Assessment | TempAssessment;
@@ -159,21 +153,19 @@ export const AssessmentPlanSkill: React.FunctionComponent<
     onChange: (newAssessment: Assessment | TempAssessment) => void;
     onDelete: (id: number) => void;
   }> = ({ assessment, isUpdating, onChange, onDelete }): React.ReactElement => {
-    const options = assessmentTypeOptions.filter(
-      (option): boolean => {
-        // Ensure we can't select an option already selected in a sibling selector
-        return (
-          option.value === assessment.assessment_type_id ||
-          !selectedAssessmentTypes.includes(option.value)
-        );
-      },
-    );
+    const options = assessmentTypeOptions.filter((option): boolean => {
+      // Ensure we can't select an option already selected in a sibling selector
+      return (
+        option.value === assessment.assessment_type_id ||
+        !selectedAssessmentTypes.includes(option.value)
+      );
+    });
     return (
       <div data-c-grid="middle">
         <div data-c-grid-item="base(2of3) tl(4of5)">
           <Select
-            htmlId={`assessmentSelect_${criterion.id}_${assessment.id}`}
-            formName="assessmentTypeId"
+            id={`assessmentSelect_${criterion.id}_${assessment.id}`}
+            name="assessmentTypeId"
             label={selectAssessmentLabel}
             required
             options={options}
@@ -290,9 +282,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
           {tempAssessments.map(
             (tempAssessment): React.ReactElement => (
               <SelectBlock
-                key={`assessmentPlanSkillSelectorTempAssessment${
-                  tempAssessment.id
-                }`}
+                key={`assessmentPlanSkillSelectorTempAssessment${tempAssessment.id}`}
                 assessment={tempAssessment}
                 isUpdating={tempAssessmentsSaving[tempAssessment.id]}
                 onChange={editTempAssessment}
@@ -322,19 +312,20 @@ const mapStateToProps = (
   tempAssessments: TempAssessment[];
   tempAssessmentsSaving: { [id: number]: boolean };
 } => {
-  const criterion = getCriteriaById(state, ownProps)
+  const criterion = getCriteriaById(state, ownProps);
   return {
-  criterion,
-  skill: criterion ? getSkillById(state, criterion.skill_id) : null,
-  assessments: getCachedAssessmentsByCriterion(state, ownProps),
-  assessmentsEdited: getCachedAssessmentsAreEditedByCriteria(state, ownProps),
-  assessmentsUpdating: getCachedAssessmentsAreUpdatingByCriteria(
-    state,
-    ownProps,
-  ),
-  tempAssessments: getTempAssessmentsByCriterion(state, ownProps),
-  tempAssessmentsSaving: tempAssessmentsAreSavingByCriterion(state, ownProps),
-};}
+    criterion,
+    skill: criterion ? getSkillById(state, criterion.skill_id) : null,
+    assessments: getCachedAssessmentsByCriterion(state, ownProps),
+    assessmentsEdited: getCachedAssessmentsAreEditedByCriteria(state, ownProps),
+    assessmentsUpdating: getCachedAssessmentsAreUpdatingByCriteria(
+      state,
+      ownProps,
+    ),
+    tempAssessments: getTempAssessmentsByCriterion(state, ownProps),
+    tempAssessmentsSaving: tempAssessmentsAreSavingByCriterion(state, ownProps),
+  };
+};
 
 const mapDispatchToProps = (
   dispatch: DispatchType,

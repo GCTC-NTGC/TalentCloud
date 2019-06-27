@@ -1,47 +1,24 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import {
   injectIntl,
   InjectedIntlProps,
-  IntlProvider,
   FormattedMessage,
   defineMessages,
-  addLocaleData,
 } from "react-intl";
-import locale_en from "react-intl/locale-data/en";
-import locale_fr from "react-intl/locale-data/fr";
 import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from "yup";
+
+import RadioGroup from "../Form/RadioGroup";
+import TextInput from "../Form/TextInput";
+import SelectInput from "../Form/SelectInput";
+import JobPreview from "../JobPreview";
 import Modal from "../Modal";
 
-addLocaleData([...locale_en, ...locale_fr]);
+import { Job } from "../../models/types";
 
-const validationMessages = defineMessages({
-  required: {
-    id: "formValidation.required",
-    defaultMessage: "This field is required.",
-    description: "Error message displayed when a required field is empty.",
-  },
-  tooShort: {
-    id: "formValidation.tooShort",
-    defaultMessage: "Too short!",
-    description:
-      "Error message displayed when a field value is below the minimum length.",
-  },
-  tooLong: {
-    id: "formValidation.tooLong",
-    defaultMessage: "Too long!",
-    description:
-      "Error message displayed when a field value is above the maximum length.",
-  },
-  invalidSelection: {
-    id: "formValidation.invalidSelection",
-    defaultMessage: "Please select from the available options.",
-    description:
-      "Error message displayed when a field value is outside of the available selection options.",
-  },
-});
+import { validationMessages } from "../Form/Messages";
+import RadioInput from "../Form/RadioInput";
 
 const formMessages = defineMessages({
   titleLabel: {
@@ -192,155 +169,61 @@ const formMessages = defineMessages({
   },
 });
 
-const TextInput = ({
-  field: { name, value, onChange, onBlur },
-  form: { errors },
-  id,
-  label,
-  grid,
-  type,
-  placeholder,
-  required,
-  minLength,
-  maxLength,
-  ...props
-}): React.ReactElement => (
-  <div
-    data-c-grid-item={grid}
-    data-c-input={type}
-    data-c-required={required}
-    data-c-invalid={errors[name] ? true : null}
-  >
-    <label htmlFor={id}>{label}</label>
-    <span>Required</span>
-    <div>
-      <input
-        data-c-font-weight="800"
-        id={id}
-        name={name}
-        placeholder={placeholder}
-        type={type}
-        value={value}
-        onChange={onChange}
-        minLength={minLength}
-        maxLength={maxLength}
-        onBlur={onBlur}
-        {...props}
-      />
-    </div>
-    <span>{errors[name]}</span>
-  </div>
-);
-
-const RadioInput = ({
-  field: { name, value, onChange, onBlur },
-  id,
-  label,
-  ...props
-}): React.ReactElement => (
-  <label htmlFor={id}>
-    <input
-      data-c-font-weight="800"
-      id={id}
-      name={name}
-      type="radio"
-      checked={id === value}
-      value={id}
-      onChange={onChange}
-      onBlur={onBlur}
-      {...props}
-    />
-    <span>{label}</span>
-  </label>
-);
-
-const RadioGroup = ({
-  id,
-  label,
-  required,
-  grid,
-  info,
-  children,
-  value, // eslint-disable-line
-  error,
-  touched,
-}): React.ReactElement => {
-  const hasError = !!error && touched;
-  return (
-    <div
-      data-c-grid-item={grid}
-      data-c-input="radio"
-      data-c-required={required}
-      data-c-invalid={hasError ? true : null}
-    >
-      {info}
-      <label htmlFor={id}>{label}</label>
-      <span>Required</span>
-      <div id={id} role="radiogroup">
-        {children}
-      </div>
-      <span>{error}</span>
-    </div>
-  );
-};
-
-const SelectInput = ({
-  field: { name, value, onChange, onBlur },
-  form: { errors },
-  id,
-  label,
-  grid,
-  required,
-  options,
-  nullSelection,
-  ...props
-}): React.ReactElement => (
-  <div
-    data-c-grid-item={grid}
-    data-c-input="select"
-    data-c-required={required}
-    data-c-invalid={errors[name] ? true : null}
-  >
-    <label htmlFor={id}>{label}</label>
-    <span>Required</span>
-    <div>
-      <i className="fa fa-caret-down" />
-      <select
-        id={id}
-        name={name}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        {...props}
-      >
-        <option value="">{nullSelection}</option>
-        {options.map(
-          (option): React.ReactElement => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ),
-        )}
-      </select>
-    </div>
-    <span>{errors[name]}</span>
-  </div>
-);
-
 interface JobDetailsProps {
+  // Optional Job to prepopulate form values from.
+  job?: Job;
+  // Parent element to place the modal contents within (uses React Portal).
+  modalParent: Element;
+  // Function to run after successful form validation.
   handleSubmit: (values: FormikValues) => void;
+  // Function to run when modal cancel is clicked.
   handleModalCancel: () => void;
+  // Function to run when modal confirm is clicked.
   handleModalConfirm: () => void;
 }
 
-const JobDetails = ({
+const JobDetails: React.FunctionComponent<
+  JobDetailsProps & InjectedIntlProps
+> = ({
+  job,
+  modalParent,
   handleSubmit,
   handleModalCancel,
   handleModalConfirm,
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const modalParent = document.querySelector("#job-details");
+  const { locale } = intl;
+  let initialValues;
+  if (job !== undefined) {
+    initialValues = {
+      title: job[locale].title,
+      termLength: job.term_qty,
+      classification: job.classification_code,
+      level: job.classification_level,
+      securityLevel: job.security_clearance_id,
+      language: job.language_requirement_id,
+      city: job[locale].city,
+      province: job.province_id,
+      remoteWork: "remoteWorkCanada",
+      telework: "teleworkFrequently",
+      flexHours: "flexHoursFrequently",
+    };
+  } else {
+    initialValues = {
+      title: "",
+      termLength: "",
+      classification: "",
+      level: "",
+      securityLevel: "",
+      language: "",
+      city: "",
+      province: "",
+      remoteWork: "",
+      telework: "",
+      flexHours: "",
+    };
+  }
   const jobSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, intl.formatMessage(validationMessages.tooShort))
@@ -436,6 +319,80 @@ const JobDetails = ({
       )
       .required(intl.formatMessage(validationMessages.required)),
   });
+
+  const remoteWorkOptions = [
+    {
+      id: "remoteWorkWorld",
+      value: "remoteWorkWorld",
+      label: intl.formatMessage(formMessages.remoteWorkWorldLabel),
+    },
+    {
+      id: "remoteWorkCanada",
+      value: "remoteWorkCanada",
+      label: intl.formatMessage(formMessages.remoteWorkCanadaLabel),
+    },
+    {
+      id: "remoteWorkNone",
+      value: "remoteWorkNone",
+      label: intl.formatMessage(formMessages.remoteWorkNoneLabel),
+    },
+  ];
+
+  const teleworkOptions = [
+    {
+      id: "teleworkAlways",
+      value: "teleworkAlways",
+      label: intl.formatMessage(formMessages.frequencyAlwaysLabel),
+    },
+    {
+      id: "teleworkFrequently",
+      value: "teleworkFrequently",
+      label: intl.formatMessage(formMessages.frequencyFrequentlyLabel),
+    },
+    {
+      id: "teleworkSometimes",
+      value: "teleworkSometimes",
+      label: intl.formatMessage(formMessages.frequencySometimesLabel),
+    },
+    {
+      id: "teleworkOccasionally",
+      value: "teleworkOccasionally",
+      label: intl.formatMessage(formMessages.frequencyOccasionallyLabel),
+    },
+    {
+      id: "teleworkNever",
+      value: "teleworkNever",
+      label: intl.formatMessage(formMessages.frequencyNeverLabel),
+    },
+  ];
+
+  const flexHoursOptions = [
+    {
+      id: "flexHoursAlways",
+      value: "flexHoursAlways",
+      label: intl.formatMessage(formMessages.frequencyAlwaysLabel),
+    },
+    {
+      id: "flexHoursFrequently",
+      value: "flexHoursFrequently",
+      label: intl.formatMessage(formMessages.frequencyFrequentlyLabel),
+    },
+    {
+      id: "flexHoursSometimes",
+      value: "flexHoursSometimes",
+      label: intl.formatMessage(formMessages.frequencySometimesLabel),
+    },
+    {
+      id: "flexHoursOccasionally",
+      value: "flexHoursOccasionally",
+      label: intl.formatMessage(formMessages.frequencyOccasionallyLabel),
+    },
+    {
+      id: "flexHoursNever",
+      value: "flexHoursNever",
+      label: intl.formatMessage(formMessages.frequencyNeverLabel),
+    },
+  ];
   return (
     <>
       <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
@@ -451,19 +408,7 @@ const JobDetails = ({
           />
         </h3>
         <Formik
-          initialValues={{
-            title: "",
-            termLength: "",
-            classification: "",
-            level: "",
-            securityLevel: "",
-            language: "",
-            city: "",
-            province: "",
-            remoteWork: "remoteWorkCanada",
-            telework: "teleworkFrequently",
-            flexHours: "flexHoursFrequently",
-          }}
+          initialValues={initialValues}
           validationSchema={jobSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
@@ -480,7 +425,7 @@ const JobDetails = ({
             <>
               <Form id="job-information" data-c-grid="gutter">
                 <Field
-                  type="text"
+                  inputType="text"
                   name="title"
                   component={TextInput}
                   required
@@ -492,7 +437,7 @@ const JobDetails = ({
                   )}
                 />
                 <Field
-                  type="number"
+                  inputType="number"
                   name="termLength"
                   component={TextInput}
                   placeholder={intl.formatMessage(
@@ -589,7 +534,7 @@ const JobDetails = ({
                 />
                 <Field
                   name="city"
-                  type="text"
+                  inputType="text"
                   component={TextInput}
                   required
                   grid="tl(1of2)"
@@ -623,6 +568,20 @@ const JobDetails = ({
                     { value: "YT", label: "Yukon" },
                   ]}
                 />
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobDetails.remoteWorkGroupHeader"
+                    defaultMessage="Is remote work allowed?"
+                    description="Header message displayed on the remote work group input."
+                  />
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobDetails.remoteWorkGroupBody"
+                    defaultMessage="Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor."
+                    description="Body message displayed on the remote work group input."
+                  />
+                </p>
                 <RadioGroup
                   id="remoteWork"
                   label={intl.formatMessage(formMessages.remoteWorkGroupLabel)}
@@ -630,190 +589,93 @@ const JobDetails = ({
                   grid="base(1of1)"
                   error={errors.remoteWork}
                   touched={touched.remoteWork}
-                  info={
-                    <>
-                      <p
-                        data-c-margin="bottom(normal)"
-                        data-c-font-weight="bold"
-                      >
-                        <FormattedMessage
-                          id="jobDetails.remoteWorkGroupHeader"
-                          defaultMessage="Is remote work allowed?"
-                          description="Header message displayed on the remote work group input."
-                        />
-                      </p>
-                      <p data-c-margin="bottom(normal)">
-                        <FormattedMessage
-                          id="jobDetails.remoteWorkGroupBody"
-                          defaultMessage="Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor."
-                          description="Body message displayed on the remote work group input."
-                        />
-                      </p>
-                    </>
-                  }
-                  value={values.remoteWork}
                 >
-                  <Field
-                    name="remoteWork"
-                    component={RadioInput}
-                    id="remoteWorkWorld"
-                    label={intl.formatMessage(
-                      formMessages.remoteWorkWorldLabel,
-                    )}
-                  />
-                  <Field
-                    name="remoteWork"
-                    component={RadioInput}
-                    id="remoteWorkCanada"
-                    label={intl.formatMessage(
-                      formMessages.remoteWorkCanadaLabel,
-                    )}
-                  />
-                  <Field
-                    name="remoteWork"
-                    component={RadioInput}
-                    id="remoteWorkNone"
-                    label={intl.formatMessage(formMessages.remoteWorkNoneLabel)}
-                  />
+                  {remoteWorkOptions.map(
+                    ({ id, value, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          name="remoteWork"
+                          component={RadioInput}
+                          id={id}
+                          label={label}
+                          value={value}
+                        />
+                      );
+                    },
+                  )}
                 </RadioGroup>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobDetails.teleworkGroupHeader"
+                    defaultMessage="How often is telework allowed?"
+                    description="Header message displayed on the telework group input."
+                  />
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobDetails.teleworkGroupBody"
+                    defaultMessage="Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option."
+                    description="Body message displayed on the telework group input."
+                  />
+                </p>
                 <RadioGroup
                   id="telework"
                   label={intl.formatMessage(formMessages.teleworkGroupLabel)}
                   required
                   grid="base(1of1)"
-                  info={
-                    <>
-                      <p
-                        data-c-margin="bottom(normal)"
-                        data-c-font-weight="bold"
-                      >
-                        <FormattedMessage
-                          id="jobDetails.teleworkGroupHeader"
-                          defaultMessage="How often is telework allowed?"
-                          description="Header message displayed on the telework group input."
-                        />
-                      </p>
-                      <p data-c-margin="bottom(normal)">
-                        <FormattedMessage
-                          id="jobDetails.teleworkGroupBody"
-                          defaultMessage="Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option."
-                          description="Body message displayed on the telework group input."
-                        />
-                      </p>
-                    </>
-                  }
                   error={errors.telework}
                   touched={touched.telework}
-                  value={values.telework}
                 >
-                  <Field
-                    id="teleworkAlways"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyAlwaysLabel,
-                    )}
-                  />
-                  <Field
-                    id="teleworkFrequently"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyFrequentlyLabel,
-                    )}
-                  />
-                  <Field
-                    id="teleworkSometimes"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencySometimesLabel,
-                    )}
-                  />
-                  <Field
-                    id="teleworkOccasionally"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyOccasionallyLabel,
-                    )}
-                  />
-                  <Field
-                    id="teleworkNever"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(formMessages.frequencyNeverLabel)}
-                  />
+                  {teleworkOptions.map(
+                    ({ id, value, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          name="telework"
+                          component={RadioInput}
+                          id={id}
+                          label={label}
+                          value={value}
+                        />
+                      );
+                    },
+                  )}
                 </RadioGroup>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobDetails.flexHoursGroupHeader"
+                    defaultMessage="How often are flexible hours allowed?"
+                    description="Header message displayed on the flex hours group input."
+                  />
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobDetails.flexHoursGroupBody"
+                    defaultMessage={`Want to support a more gender inclusive workplace?
+                          Studies show allowing flex hours is a great way to improve opportunities for women and parents.`}
+                    description="Body message displayed on the flex hours group input."
+                  />
+                </p>
                 <RadioGroup
                   id="flexHours"
                   required
                   grid="base(1of1)"
-                  info={
-                    <>
-                      <p
-                        data-c-margin="bottom(normal)"
-                        data-c-font-weight="bold"
-                      >
-                        <FormattedMessage
-                          id="jobDetails.flexHoursGroupHeader"
-                          defaultMessage="How often are flexible hours allowed?"
-                          description="Header message displayed on the flex hours group input."
-                        />
-                      </p>
-                      <p data-c-margin="bottom(normal)">
-                        <FormattedMessage
-                          id="jobDetails.flexHoursGroupBody"
-                          defaultMessage={`Want to support a more gender inclusive workplace?
-                          Studies show allowing flex hours is a great way to improve opportunities for women and parents.`}
-                          description="Body message displayed on the flex hours group input."
-                        />
-                      </p>
-                    </>
-                  }
                   label={intl.formatMessage(formMessages.flexHoursGroupLabel)}
                   error={errors.flexHours}
                   touched={touched.flexHours}
-                  value={values.flexHours}
                 >
-                  <Field
-                    id="flexHoursAlways"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyAlwaysLabel,
-                    )}
-                  />
-                  <Field
-                    id="flexHoursFrequently"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyFrequentlyLabel,
-                    )}
-                  />
-                  <Field
-                    id="flexHoursSometimes"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencySometimesLabel,
-                    )}
-                  />
-                  <Field
-                    id="flexHoursOccasionally"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyOccasionallyLabel,
-                    )}
-                  />
-                  <Field
-                    id="flexHoursNever"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(formMessages.frequencyNeverLabel)}
-                  />
+                  {flexHoursOptions.map(
+                    ({ id, value, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          name="flexHours"
+                          component={RadioInput}
+                          id={id}
+                          label={label}
+                          value={value}
+                        />
+                      );
+                    },
+                  )}
                 </RadioGroup>
                 <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
                   <button
@@ -864,126 +726,37 @@ const JobDetails = ({
                     </h5>
                   </div>
                 </Modal.Header>
-                {/* TODO: Split out into Job Preview component. */}
                 <Modal.Body>
                   <div
                     data-c-border="bottom(thin, solid, black)"
                     data-c-padding="normal"
                     id="job-details-preview-description"
                   >
-                    Here&apos;s a preview of the Job Information you just
-                    entered. Feel free to go back and edit things or move to the
-                    next step if you&apos;re happy with it.
+                    <FormattedMessage
+                      id="jobDetails.modalBody"
+                      defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+                      description="The text displayed in the body of the Job Details modal."
+                    />
                   </div>
                   <div
                     data-c-background="grey(20)"
                     data-c-border="bottom(thin, solid, black)"
                     data-c-padding="normal"
                   >
-                    <div
-                      className="manager-job-card"
-                      data-c-background="white(100)"
-                      data-c-padding="normal"
-                      data-c-radius="rounded"
-                    >
-                      <h3
-                        data-c-font-size="h3"
-                        data-c-font-weight="bold"
-                        data-c-margin="bottom(half)"
-                      >
-                        {values.title}
-                      </h3>
-                      <p data-c-font-size="h4" data-c-margin="bottom(normal)">
-                        Department
-                      </p>
-                      <p data-c-margin="bottom(half)">
-                        <i
-                          data-c-colour="c1"
-                          className="fas fa-map-marker-alt"
-                          title="Location Icon."
-                        >
-                          &nbsp;&nbsp;
-                        </i>
-                        {values.city}, {values.province}
-                      </p>
-                      {values.remoteWork !== "none" && (
-                        <p>
-                          <i
-                            data-c-colour="c1"
-                            className="fas fa-home"
-                            title="Remote Work Icon."
-                          >
-                            &nbsp;&nbsp;
-                          </i>
-                          Remote Work Allowed
-                        </p>
-                      )}
-                      <h4
-                        data-c-font-size="h4"
-                        data-c-font-weight="bold"
-                        data-c-margin="top(double) bottom(normal)"
-                      >
-                        Basic Information
-                      </h4>
-                      <div data-c-grid="gutter">
-                        <div data-c-grid-item="tp(1of2)">
-                          <span
-                            data-c-colour="c1"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            Average Annual Salary
-                          </span>
-                          <span>Talent Cloud will add this.</span>
-                        </div>
-                        <div data-c-grid-item="tp(1of2)">
-                          <span
-                            data-c-colour="c1"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            Language Profile
-                          </span>
-                          <span>{values.language}</span>
-                        </div>
-                        <div data-c-grid-item="tp(1of2)">
-                          <span
-                            data-c-colour="c1"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            Duration
-                          </span>
-                          <span>{values.termLength} Months</span>
-                        </div>
-                        <div data-c-grid-item="tp(1of2)">
-                          <span
-                            data-c-colour="c1"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            Security Clearance
-                          </span>
-                          <span>{values.securityLevel}</span>
-                        </div>
-                        <div data-c-grid-item="tp(1of2)">
-                          <span
-                            data-c-colour="c1"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            Target Start Date
-                          </span>
-                          <span>This comes later.</span>
-                        </div>
-                        <div data-c-grid-item="tp(1of2)">
-                          <span
-                            data-c-colour="c1"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            Government Classification
-                          </span>
-                          <span>
-                            {values.classification}-{values.level}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    {/* TODO: Pull in the signed-in Manager's department */}
+                    {/* TODO: Get the actual value for things like language and security level */}
+                    <JobPreview
+                      title={values.title}
+                      department="Department"
+                      remoteWork={values.remoteWork !== "none"}
+                      language={values.language}
+                      city={values.city}
+                      province={values.province}
+                      termLength={Number(values.termLength)}
+                      securityLevel={values.securityLevel}
+                      classification={values.classification}
+                      level={values.level}
+                    />
                   </div>
                 </Modal.Body>
                 <Modal.Footer>
@@ -1012,27 +785,4 @@ const JobDetails = ({
   );
 };
 
-const JobDetailsContainer = injectIntl(JobDetails);
-
-export default JobDetailsContainer;
-
-const documentRoot = document.querySelector("html");
-let locale = "en";
-
-if (documentRoot && documentRoot.lang) {
-  locale = documentRoot.lang;
-}
-
-if (document.getElementById("job-details")) {
-  const rootEl = document.getElementById("job-details");
-  ReactDOM.render(
-    <IntlProvider locale={locale}>
-      <JobDetailsContainer
-        handleSubmit={(values): void => console.table(values)}
-        handleModalCancel={(): void => console.log("Modal Cancelled")}
-        handleModalConfirm={(): void => console.log("Modal Confirmed")}
-      />
-    </IntlProvider>,
-    rootEl,
-  );
-}
+export default injectIntl(JobDetails);

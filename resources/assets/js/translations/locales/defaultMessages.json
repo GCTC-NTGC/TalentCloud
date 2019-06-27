@@ -667,6 +667,16 @@
         "id": "formValidation.invalidSelection"
       },
       {
+        "defaultMessage": "Required",
+        "description": "Displayed next to required form inputs.",
+        "id": "formInput.required"
+      }
+    ],
+    "path": "resources/assets/js/components/Form/Messages.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "What is the job title?",
         "description": "The form label displayed on the title input.",
         "id": "jobDetails.titleLabel"
@@ -845,6 +855,11 @@
         "defaultMessage": "You're off to a great start!",
         "description": "The text displayed in the header of the Job Details modal.",
         "id": "jobDetails.modalHeader"
+      },
+      {
+        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
+        "description": "The text displayed in the body of the Job Details modal.",
+        "id": "jobDetails.modalBody"
       },
       {
         "defaultMessage": "Go Back",

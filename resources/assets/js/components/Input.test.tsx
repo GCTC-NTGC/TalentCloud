@@ -6,8 +6,8 @@ it("renders correctly", (): void => {
   const tree = renderer
     .create(
       <Input
-        htmlId="sample-input"
-        formName="name"
+        id="sample-input"
+        name="name"
         label="label"
         required={false}
         placeholder="Write stuff"

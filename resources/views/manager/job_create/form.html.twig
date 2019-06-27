@@ -688,7 +688,7 @@
                         class="box med-1of2">
 
                         <div class="form__input-wrapper--float
-                            {% if job.translate('en').impact != null %}active{% endif %}">
+                            {% if job.translate('en').hire_impact != null %}active{% endif %}">
                             <label
                                 class="form__label"
                                 for="createJobImpactEN">
@@ -698,7 +698,7 @@
                                 {# required #}
                                 class="form__textarea"
                                 id="createJobImpactEN"
-                                name="impact[en]">{{ job.translate('en').impact }}</textarea>
+                                name="impact[en]">{{ job.translate('en').hire_impact }}</textarea>
                         </div>
 
                     </div>
@@ -707,7 +707,7 @@
                         class="box med-1of2">
 
                         <div class="form__input-wrapper--float
-                            {% if job.translate('fr').impact != null %}active{% endif %}">
+                            {% if job.translate('fr').hire_impact != null %}active{% endif %}">
                             <label class="form__label" for="createJobImpactFR">
                                  {{form_l10n.impact_french}}
                             </label>
@@ -715,7 +715,7 @@
                                 {# required #}
                                 class="form__textarea"
                                 id="createJobImpactFR"
-                                name="impact[fr]">{{ job.translate('fr').impact }}</textarea>
+                                name="impact[fr]">{{ job.translate('fr').hire_impact }}</textarea>
                         </div>
 
                     </div>

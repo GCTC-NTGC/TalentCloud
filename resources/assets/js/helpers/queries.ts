@@ -118,6 +118,23 @@ export function hasKey<T>(
   return Object.prototype.hasOwnProperty.call(object, key);
 }
 
+/**
+ * Returns the value at the specified key. If the key is not present, throws an error.
+ * @param object
+ * @param key
+ * @param errorMessage
+ */
+export function getOrThrowError<T>(
+  object: { [key: string]: T },
+  key: string | number,
+  errorMessage: string,
+): T {
+  if (!hasKey(object, key)) {
+    throw new Error(errorMessage);
+  }
+  return object[key];
+}
+
 /** Return a copy of the object with specific property removed */
 export function deleteProperty<T>(
   obj: IndexedObject<T>,

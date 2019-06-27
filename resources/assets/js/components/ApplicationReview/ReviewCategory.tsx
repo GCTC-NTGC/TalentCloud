@@ -7,7 +7,7 @@ import {
 } from "react-intl";
 import Swal from "sweetalert2";
 import { Application } from "../../models/types";
-import { SelectOption } from "../Forms/Select";
+import { SelectOption } from "../Form/Select";
 import { applicationBucket } from "./helpers";
 import ApplicantBucket from "./ApplicantBucket";
 import { ReviewStatusId } from "../../models/lookupConstants";
