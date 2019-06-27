@@ -9,15 +9,16 @@ import {
 import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from "yup";
 
-import RadioGroupFormik from "../Form/RadioGroupFormik";
-import InputFormik from "../Form/InputFormik";
-import SelectFormik from "../Form/SelectFormik";
+import RadioGroup from "../Form/RadioGroup";
+import TextInput from "../Form/TextInput";
+import SelectInput from "../Form/SelectInput";
 import JobPreview from "../JobPreview";
 import Modal from "../Modal";
 
 import { Job } from "../../models/types";
 
 import { validationMessages } from "../Form/Messages";
+import RadioInput from "../Form/RadioInput";
 
 const formMessages = defineMessages({
   titleLabel: {
@@ -426,7 +427,7 @@ const JobDetails: React.FunctionComponent<
                 <Field
                   inputType="text"
                   name="title"
-                  component={InputFormik}
+                  component={TextInput}
                   required
                   grid="tl(1of2)"
                   id="builder02JobTitle"
@@ -438,7 +439,7 @@ const JobDetails: React.FunctionComponent<
                 <Field
                   inputType="number"
                   name="termLength"
-                  component={InputFormik}
+                  component={TextInput}
                   placeholder={intl.formatMessage(
                     formMessages.termLengthPlaceholder,
                   )}
@@ -452,7 +453,7 @@ const JobDetails: React.FunctionComponent<
                   id="builder02Classification"
                   label={intl.formatMessage(formMessages.classificationLabel)}
                   grid="tl(1of2)"
-                  component={SelectFormik}
+                  component={SelectInput}
                   required
                   nullSelection={intl.formatMessage(
                     formMessages.classificationNullSelection,
@@ -478,7 +479,7 @@ const JobDetails: React.FunctionComponent<
                 <Field
                   name="level"
                   id="builder02Level"
-                  component={SelectFormik}
+                  component={SelectInput}
                   required
                   label={intl.formatMessage(formMessages.levelLabel)}
                   grid="tl(1of2)"
@@ -500,7 +501,7 @@ const JobDetails: React.FunctionComponent<
                 <Field
                   name="securityLevel"
                   id="builder02SecurityLevel"
-                  component={SelectFormik}
+                  component={SelectInput}
                   required
                   grid="tl(1of2)"
                   label={intl.formatMessage(formMessages.securityLevelLabel)}
@@ -516,7 +517,7 @@ const JobDetails: React.FunctionComponent<
                 <Field
                   name="language"
                   id="builder02Language"
-                  component={SelectFormik}
+                  component={SelectInput}
                   required
                   grid="tl(1of2)"
                   label={intl.formatMessage(formMessages.languageLabel)}
@@ -534,7 +535,7 @@ const JobDetails: React.FunctionComponent<
                 <Field
                   name="city"
                   inputType="text"
-                  component={InputFormik}
+                  component={TextInput}
                   required
                   grid="tl(1of2)"
                   id="builder02City"
@@ -544,7 +545,7 @@ const JobDetails: React.FunctionComponent<
                 <Field
                   name="province"
                   id="builder02Province"
-                  component={SelectFormik}
+                  component={SelectInput}
                   required
                   grid="tl(1of2)"
                   label={intl.formatMessage(formMessages.provinceLabel)}
@@ -581,7 +582,7 @@ const JobDetails: React.FunctionComponent<
                     description="Body message displayed on the remote work group input."
                   />
                 </p>
-                <RadioGroupFormik
+                <RadioGroup
                   id="remoteWork"
                   label={intl.formatMessage(formMessages.remoteWorkGroupLabel)}
                   required
@@ -594,16 +595,15 @@ const JobDetails: React.FunctionComponent<
                       return (
                         <Field
                           name="remoteWork"
-                          component={InputFormik}
+                          component={RadioInput}
                           id={id}
-                          inputType="radio"
                           label={label}
                           value={value}
                         />
                       );
                     },
                   )}
-                </RadioGroupFormik>
+                </RadioGroup>
                 <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
                   <FormattedMessage
                     id="jobDetails.teleworkGroupHeader"
@@ -618,7 +618,7 @@ const JobDetails: React.FunctionComponent<
                     description="Body message displayed on the telework group input."
                   />
                 </p>
-                <RadioGroupFormik
+                <RadioGroup
                   id="telework"
                   label={intl.formatMessage(formMessages.teleworkGroupLabel)}
                   required
@@ -631,16 +631,15 @@ const JobDetails: React.FunctionComponent<
                       return (
                         <Field
                           name="telework"
-                          component={InputFormik}
+                          component={RadioInput}
                           id={id}
-                          inputType="radio"
                           label={label}
                           value={value}
                         />
                       );
                     },
                   )}
-                </RadioGroupFormik>
+                </RadioGroup>
                 <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
                   <FormattedMessage
                     id="jobDetails.flexHoursGroupHeader"
@@ -656,7 +655,7 @@ const JobDetails: React.FunctionComponent<
                     description="Body message displayed on the flex hours group input."
                   />
                 </p>
-                <RadioGroupFormik
+                <RadioGroup
                   id="flexHours"
                   required
                   grid="base(1of1)"
@@ -669,16 +668,15 @@ const JobDetails: React.FunctionComponent<
                       return (
                         <Field
                           name="flexHours"
-                          component={InputFormik}
+                          component={RadioInput}
                           id={id}
-                          inputType="radio"
                           label={label}
                           value={value}
                         />
                       );
                     },
                   )}
-                </RadioGroupFormik>
+                </RadioGroup>
                 <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
                   <button
                     data-c-button="solid(c1)"

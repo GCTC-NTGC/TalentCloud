@@ -8,8 +8,8 @@ import {
 import { Form, Field, Formik, FormikValues } from "formik";
 import * as Yup from "yup";
 import { validationMessages } from "../Form/Messages";
-import InputFormik from "../Form/InputFormik";
-import SelectFormik from "../Form/SelectFormik";
+import SelectInput from "../Form/SelectInput";
+import TextInput from "../Form/TextInput";
 
 const formMessages = defineMessages({
   jobTitleLabelEN: {
@@ -176,7 +176,7 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={InputFormik}
+                    component={TextInput}
                   />
                   <Field
                     type="text"
@@ -188,14 +188,14 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={InputFormik}
+                    component={TextInput}
                   />
                   <Field
                     name="department"
                     id="builder01ManagerDepartment"
                     label={intl.formatMessage(formMessages.departmentLabel)}
                     grid="base(1of1)"
-                    component={SelectFormik}
+                    component={SelectInput}
                     required
                     selected={values.department}
                     nullSelection={intl.formatMessage(
@@ -226,7 +226,7 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={InputFormik}
+                    component={TextInput}
                   />
                   <Field
                     type="text"
@@ -238,7 +238,7 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={InputFormik}
+                    component={TextInput}
                   />
                 </div>
               </Form>
