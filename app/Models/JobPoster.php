@@ -8,7 +8,6 @@
 namespace App\Models;
 
 use App\Events\JobSaved;
-use App\Models\JobApplication;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
@@ -39,6 +38,15 @@ use \Backpack\CRUD\CrudTrait;
  * @property boolean $remote_work_allowed
  * @property int $manager_id
  * @property boolean $published
+ * @property int $team_size
+ * @property array $work_env_features This should be an array of boolean flags for features, ie json of shape {[feature: string]: boolean}
+ * @property int $fast_vs_steady
+ * @property int $horizontal_vs_vertical
+ * @property int $experimental_vs_ongoing
+ * @property int $citizen_facing_vs_back_office
+ * @property int $collaborative_vs_independent
+ * @property int $telework_allowed_frequency_id
+ * @property int $flexible_hours_frequency_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -56,6 +64,8 @@ use \Backpack\CRUD\CrudTrait;
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_questions
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_translations
  * @property \Illuminate\Database\Eloquent\Collection $submitted_applications
+ * @property \App\Models\Lookup\Frequency $telework_allowed_frequency
+ * @property \App\Models\Lookup\Frequency $flexible_hours_frequency
  *
  * Localized Properties:
  * @property string $city
@@ -65,6 +75,9 @@ use \Backpack\CRUD\CrudTrait;
  * @property string $branch
  * @property string $division
  * @property string $education
+ * @property string $work_env_description
+ * @property string $culture_summary
+ * @property string $culture_special
  *
  * Methods
  * @method boolean isOpen()
@@ -97,7 +110,10 @@ class JobPoster extends BaseModel
         'hire_impact',
         'branch',
         'division',
-        'education'
+        'education',
+        'work_env_description',
+        'culture_summary',
+        'culture_special',
     ];
 
     /**
@@ -116,7 +132,16 @@ class JobPoster extends BaseModel
         'language_requirement_id' => 'int',
         'remote_work_allowed' => 'boolean',
         'manager_id' => 'int',
-        'published' => 'boolean'
+        'published' => 'boolean',
+        'team_size' => 'int',
+        'work_env_features' => 'array',
+        'fast_vs_steady' => 'int',
+        'horizontal_vs_vertical' => 'int',
+        'experimental_vs_ongoing' => 'int',
+        'citizen_facing_vs_back_office' => 'int',
+        'collaborative_vs_independent' => 'int',
+        'telework_allowed_frequency_id' => 'int',
+        'flexible_hours_frequency_id' => 'int',
     ];
 
     /**
@@ -150,7 +175,53 @@ class JobPoster extends BaseModel
         'security_clearance_id',
         'language_requirement_id',
         'remote_work_allowed',
-        'published'
+        'published',
+        'team_size',
+        'work_env_features',
+        'fast_vs_steady',
+        'horizontal_vs_vertical',
+        'experimental_vs_ongoing',
+        'citizen_facing_vs_back_office',
+        'collaborative_vs_independent',
+        'telework_allowed_frequency_id',
+        'flexible_hours_frequency_id',
+    ];
+
+    /**
+     * The attributes that should be visible in arrays.
+     * In this case, it blocks loaded relations from appearing.
+     *
+     * @var array
+     */
+    protected $visible = [
+        'id',
+        'manager_id',
+        'term_qty',
+        'open_date_time',
+        'close_date_time',
+        'start_date_time',
+        'department_id',
+        'province_id',
+        'salary_min',
+        'salary_max',
+        'noc',
+        'classification_code',
+        'classification_level',
+        'security_clearance_id',
+        'language_requirement_id',
+        'remote_work_allowed',
+        'published_at',
+        'published',
+        'review_requested_at',
+        'team_size',
+        'work_env_features',
+        'fast_vs_steady',
+        'horizontal_vs_vertical',
+        'experimental_vs_ongoing',
+        'citizen_facing_vs_back_office',
+        'collaborative_vs_independent',
+        'telework_allowed_frequency_id',
+        'flexible_hours_frequency_id',
     ];
 
     /**
@@ -214,6 +285,16 @@ class JobPoster extends BaseModel
     public function job_poster_translations() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobPosterTranslation::class);
+    }
+
+    public function telework_allowed_frequency() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\Frequency::class);
+    }
+
+    public function flexible_hours_frequency() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 
     // Artificial Relations
@@ -397,28 +478,6 @@ class JobPoster extends BaseModel
     public function toApiArray(): array
     {
         $jobWithTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
-        $jobCollection = collect($jobWithTranslations)->only([
-            'id',
-            'manager_id',
-            'term_qty',
-            'open_date_time',
-            'close_date_time',
-            'start_date_time',
-            'department_id',
-            'province_id',
-            'salary_min',
-            'salary_max',
-            'noc',
-            'classification_code',
-            'classification_level',
-            'security_clearance_id',
-            'language_requirement_id',
-            'remote_work_allowed',
-            'published_at',
-            'review_requested_at',
-            'en',
-            'fr',
-        ])->all();
-        return $jobCollection;
+        return $jobWithTranslations;
     }
 }
