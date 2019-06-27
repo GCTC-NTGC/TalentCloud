@@ -1,21 +1,27 @@
 import * as React from "react";
+import { FormikActions } from "formik";
 
 interface CheckboxGroupProps {
+  /** HTML ID of the input. */
   id: string;
+  /** Text for the associated label of the input. */
   label: string;
-  grid?: string;
-  required?: boolean;
-  items?: [];
+  /** data-clone-grid-item value, see https:/;designwithclone.ca/#flexbox-grid. */
+  grid: string;
+  /** If this input is required for submission. */
+  required: boolean;
+  /** Error to display. */
+  error: undefined | undefined[];
+  /** If this group has been affected by user input or a submission. */
+  touched: undefined | undefined[];
+  /** Array of CheckboxInput elements */
   children?: any;
-  value: any;
-
-  // formik
-  field?: any;
-  form?: any;
-  error?: any;
-  touched?: any;
-  onChange: any;
-  onBlur?: any;
+  /** Array of all selected values */
+  value: string[] | number[];
+  /** Function which takes an id and value as arguments, and sets the field (id) to the value */
+  onChange: FormikActions<any>["setFieldValue"];
+  /** Function which takes an id and boolean value as arguments, and sets the field (id) to the boolean value */
+  onBlur: FormikActions<any>["setFieldTouched"];
 }
 
 const CheckboxGroup: React.FunctionComponent<CheckboxGroupProps> = ({
@@ -59,7 +65,7 @@ const CheckboxGroup: React.FunctionComponent<CheckboxGroupProps> = ({
       <label>{checkboxGroupLabel}</label>
       {required && <span>Required</span>}
       <div data-c-grid>
-        {React.Children.map(children, child => {
+        {React.Children.map(children, (child): any => {
           return React.cloneElement(child, {
             field: {
               value: value.includes(child.props.htmlId),
