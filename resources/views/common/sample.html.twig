@@ -39,14 +39,14 @@
 
             {% else %}
 
-                <div
+                <span
                     class="accordion-status">
 
                     <i class="fas fa-check"></i>
 
                     <i class="fas fa-exclamation-circle"></i>
 
-                </div>
+                </span>
 
             {% endif %}
 
@@ -129,7 +129,7 @@
                                         required
                                         {% if template %}disabled{% endif %}
                                         class="form__input">
-                                        <option value="" disabled selected>{{ sample_template.type_default_option }}</option>
+                                        <option value="" disabled {% if sample.file_type_id == option.id %}selected{% endif %}>{{ sample_template.type_default_option }}</option>
                                         {% for option in file_types %}
                                             <option
                                                 value="{{ option.id }}"
