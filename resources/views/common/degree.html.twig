@@ -184,7 +184,7 @@
                                         class="form__input"
                                         id="{{ id_prefix }}degreeType"
                                         name="{{ name_prefix }}[degree_type_id]">
-                                        <option value="" disabled selected>{{ degree_template.type_default_option }}</option>
+                                        <option value="" disabled {% if degree.degree_type.id == degree_type.id %}selected{% endif %}>{{ degree_template.type_default_option }}</option>
                                         {% for degree_type in degree_types %}
                                             <option
                                                 {% if degree.degree_type.id == degree_type.id %}selected="selected"{% endif %}
