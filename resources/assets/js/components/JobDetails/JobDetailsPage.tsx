@@ -1,5 +1,7 @@
-import { Job } from "../../models/types";
 import React, { useEffect } from "react";
+import ReactDOM from "react-dom";
+import { connect } from "react-redux";
+import { Job } from "../../models/types";
 import { JobDetailsIntl } from "./JobDetails";
 import { RootState } from "../../store/store";
 import { DispatchType } from "../../configureStore";
@@ -13,8 +15,6 @@ import {
   getJob as selectJob,
   getSelectedJob,
 } from "../../store/Job/jobSelector";
-import ReactDOM from "react-dom";
-import { connect } from "react-redux";
 import RootContainer from "../RootContainer";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { ProgressTrackerItem } from "../ProgressTracker/types";

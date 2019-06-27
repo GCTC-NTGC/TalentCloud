@@ -16,15 +16,10 @@ import TextInput from "../Form/TextInput";
 import JobPreview from "../JobPreview";
 import Modal from "../Modal";
 import { RootState } from "../../store/store";
-import {
-  getJob as selectJob
-} from "../../store/Job/jobSelector";
+import { getJob as selectJob } from "../../store/Job/jobSelector";
 import { Job } from "../../models/types";
 import { DispatchType } from "../../configureStore";
-import {
-  updateJob,
-  createJob,
-} from "../../store/Job/jobActions";
+import { updateJob, createJob } from "../../store/Job/jobActions";
 import { validationMessages } from "../Form/Messages";
 import {
   LanguageRequirementId,
