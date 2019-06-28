@@ -1,7 +1,6 @@
-import { defineMessages, FormattedMessage } from "react-intl";
-import { ProgressTrackerItem } from "../ProgressTracker/types";
+import { defineMessages } from "react-intl";
 
-const labels = defineMessages({
+export const progressTrackerLabels = defineMessages({
   start: {
     id: "jobBuilder.progressTracker.label.start",
     defaultMessage: "Start",
@@ -32,7 +31,7 @@ const labels = defineMessages({
   },
 });
 
-const titles = defineMessages({
+export const progressTrackerTitles = defineMessages({
   welcome: {
     id: "jobBuilder.progressTracker.title.welcome",
     defaultMessage: "Welcome",
@@ -62,3 +61,5 @@ const titles = defineMessages({
     defaultMessage: "Review",
   },
 });
+
+export default { progressTrackerLabels, progressTrackerTitles };
