@@ -19,7 +19,7 @@ class DepartmentCrudController extends CrudController
     public function setup() : void
     {
         // Eloquent model to associate with this collection of views and controller actions.
-        $this->crud->setModel('App\Models\Lookup\DepartmentTranslation');
+        $this->crud->setModel('App\Models\Lookup\Department');
         // Custom backpack route.
         $this->crud->setRoute('admin/department');
         // Custom strings to display within the backpack UI.
@@ -37,13 +37,6 @@ class DepartmentCrudController extends CrudController
             'name' => 'value',
             'type' => 'text',
             'label' => 'Name',
-        ]);
-
-        $this->crud->addField([
-            'name' => 'department_id',
-            'label' => 'Dept. ID',
-            'type' => 'number',
-            'allow_null' => false,
         ]);
 
         // TODO: Impact field.

@@ -8,7 +8,6 @@
 namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
-use Backpack\CRUD\CrudTrait;
 
 /**
  * Class DepartmentTranslation
@@ -24,8 +23,6 @@ use Backpack\CRUD\CrudTrait;
  */
 class DepartmentTranslation extends BaseModel
 {
-    use CrudTrait;
-
     /**
      *
      * @var $casts
@@ -35,12 +32,9 @@ class DepartmentTranslation extends BaseModel
     ];
 
     /**
-     *
      * @var $fillable
      */
-    protected $fillable = [
-        'value' => 'string'
-    ];
+    protected $fillable = ['value'];
 
     /**
      * Action for updating an existing Department in the database.
