@@ -206,6 +206,8 @@
                         </div>
                         <span>This input has an error.</span>
                     </div>
+                    <!-- UPDATE 06/26 -->
+                    <!-- I've switched some of this UI order and added headings in order to accommodate the education section that has been added here (moved from the version, where it was its own step.) -->
                     <div data-c-grid-item="base(1of1)" data-c-alignment="base(centre) tp(left)">
                         <h4 data-c-colour="c2" data-c-font-size="h4">Classification &amp; Education</h4>
                     </div>
@@ -364,6 +366,56 @@
                         </div>
                         <span>This input has an error.</span>
                     </div>
+                    <!-- UPDATE 06-26 -->
+                    <!-- This question is new. Same format, new content. -->
+                    <div data-c-grid-item="base(1of1)" data-c-input="radio">
+                        <p data-c-margin="bottom(normal)" data-c-font-weight="bold">How often is travel required?</p>
+                        <p data-c-margin="bottom(normal)">TBD</p>
+                        <label for="builder02Travel">Select a travel option:</label>
+                        <span>Required</span>
+                        <div id="builder02Travel" role="radiogroup">
+                            <label for="builder02TravelOption01">
+                                <input id="builder02TravelOption01" name="builder02Travel" type="radio"/>
+                                <span>Frequently</span>
+                            </label>
+                            <label for="builder02TravelOption02">
+                                <input id="builder02TravelOption02" name="builder02Travel" type="radio"/>
+                                <span>Occasionally</span>
+                            </label>
+                            <label for="builder02TravelOption03">
+                                <input checked="checked" id="builder02TravelOption03" name="builder02Travel" type="radio"/>
+                                <span>Travel Opportunities Available</span>
+                            </label>
+                            <label for="builder02TravelOption04">
+                                <input id="builder02TravelOption04" name="builder02Travel" type="radio"/>
+                                <span>No Travel</span>
+                            </label>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <!-- UPDATE 06-26 -->
+                    <!-- This question is new. Same format, new content. -->
+                    <div data-c-grid-item="base(1of1)" data-c-input="radio">
+                        <p data-c-margin="bottom(normal)" data-c-font-weight="bold">How often does your team work overtime?</p>
+                        <p data-c-margin="bottom(normal)">TBD</p>
+                        <label for="builder02Overtime">Select an overtime option:</label>
+                        <span>Required</span>
+                        <div id="builder02Overtime" role="radiogroup">
+                            <label for="builder02OvertimeOption01">
+                                <input id="builder02OvertimeOption01" name="builder02Overtime" type="radio"/>
+                                <span>Frequently</span>
+                            </label>
+                            <label for="builder02OvertimeOption02">
+                                <input id="builder02OvertimeOption02" name="builder02Overtime" type="radio"/>
+                                <span>Overtime Opportunities Available</span>
+                            </label>
+                            <label for="builder02OvertimeOption03">
+                                <input checked="checked" id="builder02OvertimeOption03" name="builder02Overtime" type="radio"/>
+                                <span>No Overtime Required</span>
+                            </label>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
                     <div data-c-grid-item="base(1of1)">
                         <hr data-c-margin="top(normal) bottom(normal)">
                     </div>
@@ -381,11 +433,13 @@
                 </form>
             </div>
         </div>
-{#
+
         <!-- This only needs to be included on the page once, and as long as it's inside the data-clone parent element it'll work. -->
         <div data-c-dialog-overlay></div>
 
         <!-- This is the preview modal, who's content will need to update on the fly so that the preview makes sense when they click next. -->
+        <!-- UPDATE 06-26 -->
+        <!-- This modal has been revamped to accurately represent the new information collected on this page. -->
         <div aria-describedby="example-dialog-01-description" aria-hidden="true" aria-labelledby="example-dialog-01-title" data-c-dialog data-c-dialog-id="example-dialog-01" data-c-padding="top(double) bottom(double)" role="dialog">
             <div data-c-background="white(100)" data-c-radius="rounded">
                 <div data-c-background="c1(100)" data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
@@ -399,36 +453,69 @@
                     </div>
                     <div data-c-background="grey(20)" data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
                         <div class="manager-job-card" data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
-                            <h3 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(half)">External Recruiter</h3>
-                            <p data-c-font-size="h4" data-c-margin="bottom(normal)">Treasury Board of Canada Secretariat</p>
-                            <p data-c-margin="bottom(half)"><i data-c-colour="c3" class="fas fa-map-marker-alt" title="Location Icon.">&nbsp;&nbsp;</i>Ottawa, Ontario</p>
-                            <p><i data-c-colour="c3" class="fas fa-home" title="Remote Work Icon.">&nbsp;&nbsp;</i>Remote Work Allowed</p>
-                            <h4 data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="top(double) bottom(normal)">Basic Information</h4>
+                            <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="bottom(normal)" data-c-padding="bottom(normal)">Job Information</h4>
                             <div data-c-grid="gutter">
                                 <div data-c-grid-item="tp(1of2)">
-                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Average Annual Salary</p>
-                                    <p>Talent Cloud will add this.</p>
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Job Title</p>
+                                    <p>External Recruiter</p>
                                 </div>
                                 <div data-c-grid-item="tp(1of2)">
-                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Language Profile</p>
-                                    <p>Bilingual - Advanced</p>
-                                </div>
-                                <div data-c-grid-item="tp(1of2)">
-                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Duration</p>
-                                    <p>18 Months</p>
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Length of the Term</p>
+                                    <p>18</p>
                                 </div>
                                 <div data-c-grid-item="tp(1of2)">
                                     <p data-c-colour="c3" data-c-margin="bottom(quarter)">Security Clearance</p>
                                     <p>Secret</p>
                                 </div>
                                 <div data-c-grid-item="tp(1of2)">
-                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Target Start Date</p>
-                                    <p>This comes later.</p>
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Language Profile</p>
+                                    <p>Bilingual - Advanced</p>
                                 </div>
                                 <div data-c-grid-item="tp(1of2)">
-                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Government Classification</p>
-                                    <!-- This is combo of two fields above, just as a heads up (classification, level). -->
-                                    <p>AS-06</p>
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">City</p>
+                                    <p>Ottawa</p>
+                                </div>
+                                <div data-c-grid-item="tp(1of2)">
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Province</p>
+                                    <p>Ottawa</p>
+                                </div>
+                            </div>
+                            <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="top(double) bottom(normal)" data-c-padding="bottom(normal)">Classification &amp; Education</h4>
+                            <div data-c-grid="gutter">
+                                <div data-c-grid-item="tp(1of2)">
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Classification</p>
+                                    <p>AS</p>
+                                </div>
+                                <div data-c-grid-item="tp(1of2)">
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Level</p>
+                                    <p>06</p>
+                                </div>
+                                <div data-c-grid-item="base(1of1)">
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Education</p>
+                                    <p>A secondary school diploma; or<br><br>Equivalent Experience:<br>If you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum education requirement stated above.</p>
+                                </div>
+                            </div>
+                            <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="top(double) bottom(normal)" data-c-padding="bottom(normal)">Work Styles</h4>
+                            <div data-c-grid="gutter">
+                                <div data-c-grid-item="tp(1of2)">
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Remote Work</p>
+                                    <p>Yes, I’m willing to supervise employees in any province or territory in Canada.</p>
+                                </div>
+                                <div data-c-grid-item="tp(1of2)">
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Telework</p>
+                                    <p>Almost Always</p>
+                                </div>
+                                <div data-c-grid-item="tp(1of2)">
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Flexible Hours</p>
+                                    <p>Sometimes</p>
+                                </div>
+                                <div data-c-grid-item="tp(1of2)">
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Travel</p>
+                                    <p>Travel Opportunities Available</p>
+                                </div>
+                                <div data-c-grid-item="tp(1of2)">
+                                    <p data-c-colour="c3" data-c-margin="bottom(quarter)">Overtime</p>
+                                    <p>No Overtime Required</p>
                                 </div>
                             </div>
                         </div>
@@ -452,7 +539,7 @@
                 </div>
             </div>
         </div>
-        #}
+
     </div>
 
 {% endblock %}

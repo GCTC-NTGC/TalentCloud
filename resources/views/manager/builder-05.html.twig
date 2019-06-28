@@ -158,9 +158,10 @@
                     <li>Once you have finished entering key tasks, you will move on to identify the individual skills needed to accomplish them.</li>
                 </ul>
                 <p data-c-alignment="tl(right)">You have 8 tasks added.</p>
-                {# <div data-c-margin="top(normal) bottom(double)" data-c-background="grey(20)" data-c-padding="normal" data-c-radius="rounded" data-c-border="all(thin, solid, grey)" data-c-alignment="centre">
+                <!-- This is the task null state. -->
+                <div data-c-margin="top(normal) bottom(double)" data-c-background="grey(20)" data-c-padding="normal" data-c-radius="rounded" data-c-border="all(thin, solid, grey)" data-c-alignment="centre">
                     You don't have any tasks added yet!
-                </div> #}
+                </div>
                 <form>
                     <div data-c-grid="gutter">
                         <div class="job-builder-task" data-c-input="textarea" data-c-grid-item="base(1of1)">
@@ -289,6 +290,7 @@
                             </div>
                             <span>This input has an error.</span>
                         </div>
+                        <!-- This is the task error message. This should appear after 6 tasks. It doesn't prevent tasks from being added, but any task added beyond this will not be saved to the job poster. -->
                         <div class="job-builder-task-warning" data-c-grid-item="base(1of1)">
                             <div
                                 data-c-alert="error"
