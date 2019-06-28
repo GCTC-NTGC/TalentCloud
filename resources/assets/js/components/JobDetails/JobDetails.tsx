@@ -1,24 +1,37 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   injectIntl,
   InjectedIntlProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
-import { Formik, Form, Field, FormikValues } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-
+import { connect } from "react-redux";
 import RadioGroup from "../Form/RadioGroup";
 import RadioInput from "../Form/RadioInput";
 import SelectInput from "../Form/SelectInput";
 import TextInput from "../Form/TextInput";
 import JobPreview from "../JobPreview";
 import Modal from "../Modal";
-
+import { RootState } from "../../store/store";
+import { getJob as selectJob } from "../../store/Job/jobSelector";
 import { Job } from "../../models/types";
-
+import { DispatchType } from "../../configureStore";
+import { updateJob, createJob } from "../../store/Job/jobActions";
 import { validationMessages } from "../Form/Messages";
+import {
+  LanguageRequirementId,
+  SecurityClearanceId,
+  ProvinceId,
+} from "../../models/lookupConstants";
+import { emptyJob } from "../../models/jobUtil";
+import {
+  securityClearance,
+  languageRequirment,
+  provinceName,
+} from "../../models/localizedConstants";
 
 const formMessages = defineMessages({
   titleLabel: {
@@ -171,59 +184,141 @@ const formMessages = defineMessages({
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
-  job?: Job;
-  // Parent element to place the modal contents within (uses React Portal).
-  modalParent: Element;
+  job: Job | null;
   // Function to run after successful form validation.
-  handleSubmit: (values: FormikValues) => void;
+  // It must return true if the submission was succesful, false otherwise.
+  handleSubmit: (values: Job) => Promise<boolean>;
   // Function to run when modal cancel is clicked.
   handleModalCancel: () => void;
   // Function to run when modal confirm is clicked.
   handleModalConfirm: () => void;
 }
 
+type RemoteWorkType = "remoteWorkNone" | "remoteWorkCanada" | "remoteWorkWorld";
+
+interface JobFormValues {
+  title: string;
+  termLength: number | "";
+  classification: string;
+  level: number | "";
+  securityLevel: number | "";
+  language: number | "";
+  city: string;
+  province: number | "";
+  remoteWork: RemoteWorkType;
+  telework: string;
+  flexHours: string;
+}
+
+const teleworkFrequencies = [
+  "teleworkNever",
+  "teleworkOccasionally",
+  "teleworkSometimes",
+  "teleworkFrequently",
+  "teleworkAlways",
+];
+
+const flexHourFequencies = [
+  "flexHoursNever",
+  "flexHoursOccasionally",
+  "flexHoursSometimes",
+  "flexHoursFrequently",
+  "flexHoursAlways",
+];
+
+const jobToValues = (job: Job | null, locale: string): JobFormValues =>
+  job
+    ? {
+        title: job[locale].title ? String(job[locale].title) : "", // TODO: use utility method
+        termLength: job.term_qty || "",
+        classification: job.classification_code || "",
+        level: job.classification_level || "",
+        securityLevel: job.security_clearance_id || "",
+        language: job.language_requirement_id || "",
+        city: job[locale].city || "",
+        province: job.province_id || "",
+        remoteWork: job.remote_work_allowed
+          ? "remoteWorkCanada"
+          : "remoteWorkNone",
+        // frequency ids range from 1-5
+        telework: job.telework_allowed_frequency_id
+          ? teleworkFrequencies[job.telework_allowed_frequency_id - 1]
+          : "teleworkFrequently",
+        flexHours: job.flexible_hours_frequency_id
+          ? flexHourFequencies[job.flexible_hours_frequency_id - 1]
+          : "flexHoursFrequently",
+      }
+    : {
+        title: "",
+        termLength: "",
+        classification: "",
+        level: "",
+        securityLevel: "",
+        language: "",
+        city: "",
+        province: "",
+        remoteWork: "remoteWorkCanada",
+        telework: "teleworkFrequently",
+        flexHours: "flexHoursFrequently",
+      };
+
+const updateJobWithValues = (
+  initialJob: Job,
+  locale: "en" | "fr",
+  {
+    title,
+    termLength,
+    classification,
+    level,
+    securityLevel,
+    language,
+    city,
+    province,
+    remoteWork,
+    telework,
+    flexHours,
+  }: JobFormValues,
+): Job => ({
+  ...initialJob,
+  term_qty: termLength || null,
+  classification_code: classification,
+  classification_level: level || null,
+  security_clearance_id: securityLevel || null,
+  language_requirement_id: language || null,
+  province_id: province || null,
+  remote_work_allowed: remoteWork !== "remoteWorkNone",
+  telework_allowed_frequency_id: teleworkFrequencies.indexOf(telework) + 1,
+  flexible_hours_frequency_id: flexHourFequencies.indexOf(flexHours) + 1,
+  [locale]: {
+    ...initialJob[locale],
+    title,
+    city,
+  },
+});
+
 const JobDetails: React.FunctionComponent<
   JobDetailsProps & InjectedIntlProps
 > = ({
   job,
-  modalParent,
   handleSubmit,
   handleModalCancel,
   handleModalConfirm,
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const modalParentRef = useRef<HTMLDivElement>(null);
   const { locale } = intl;
-  let initialValues;
-  if (job !== undefined) {
-    initialValues = {
-      title: job[locale].title,
-      termLength: job.term_qty,
-      classification: job.classification_code,
-      level: job.classification_level,
-      securityLevel: job.security_clearance_id,
-      language: job.language_requirement_id,
-      city: job[locale].city,
-      province: job.province_id,
-      remoteWork: "remoteWorkCanada",
-      telework: "teleworkFrequently",
-      flexHours: "flexHoursFrequently",
-    };
-  } else {
-    initialValues = {
-      title: "",
-      termLength: "",
-      classification: "",
-      level: "",
-      securityLevel: "",
-      language: "",
-      city: "",
-      province: "",
-      remoteWork: "remoteWorkCanada",
-      telework: "teleworkFrequently",
-      flexHours: "flexHoursFrequently",
-    };
+  if (locale !== "en" && locale !== "fr") {
+    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
+  const initialValues: JobFormValues = jobToValues(job || null, locale);
+
+  const remoteWorkPossibleValues: RemoteWorkType[] = [
+    "remoteWorkNone",
+    "remoteWorkCanada",
+    "remoteWorkWorld",
+  ];
   const jobSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, intl.formatMessage(validationMessages.tooShort))
@@ -257,71 +352,53 @@ const JobDetails: React.FunctionComponent<
       .max(9, intl.formatMessage(validationMessages.invalidSelection))
       .required(intl.formatMessage(validationMessages.required)),
     securityLevel: Yup.number()
-      .min(1, intl.formatMessage(validationMessages.invalidSelection))
-      .max(3, intl.formatMessage(validationMessages.invalidSelection))
+      .oneOf(
+        Object.values(SecurityClearanceId),
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
       .required(intl.formatMessage(validationMessages.required)),
     language: Yup.number()
-      .min(1, intl.formatMessage(validationMessages.invalidSelection))
-      .max(5, intl.formatMessage(validationMessages.invalidSelection))
+      .oneOf(
+        Object.values(LanguageRequirementId),
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
       .required(intl.formatMessage(validationMessages.required)),
     city: Yup.string()
       .min(3, intl.formatMessage(validationMessages.tooShort))
       .max(50, intl.formatMessage(validationMessages.tooLong))
       .required(intl.formatMessage(validationMessages.required)),
-    province: Yup.mixed()
+    province: Yup.number()
       .oneOf(
-        [
-          "AB",
-          "BC",
-          "MB",
-          "NB",
-          "NL",
-          "NS",
-          "NT",
-          "NU",
-          "ON",
-          "PE",
-          "QC",
-          "SK",
-          "YT",
-        ],
+        Object.values(ProvinceId),
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
     remoteWork: Yup.mixed()
       .oneOf(
-        ["remoteWorkWorld", "remoteWorkCanada", "remoteWorkNone"],
+        remoteWorkPossibleValues,
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
     telework: Yup.mixed()
       .oneOf(
-        [
-          "teleworkAlways",
-          "teleworkFrequently",
-          "teleworkOccasionally",
-          "teleworkSometimes",
-          "teleworkNever",
-        ],
+        teleworkFrequencies,
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
     flexHours: Yup.mixed()
       .oneOf(
-        [
-          "flexHoursAlways",
-          "flexHoursFrequently",
-          "flexHoursOccasionally",
-          "flexHoursSometimes",
-          "flexHoursNever",
-        ],
+        flexHourFequencies,
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
   });
   return (
     <>
-      <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
+      <div
+        data-c-container="form"
+        data-c-padding="top(triple) bottom(triple)"
+        ref={modalParentRef}
+      >
         <h3
           data-c-font-size="h3"
           data-c-font-weight="bold"
@@ -334,13 +411,20 @@ const JobDetails: React.FunctionComponent<
           />
         </h3>
         <Formik
+          enableReinitialize
           initialValues={initialValues}
           validationSchema={jobSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
-            setIsModalVisible(true);
-            handleSubmit(values);
-            actions.setSubmitting(false); // Required by Formik to finish the submission cycle
+            handleSubmit(updateJobWithValues(job || emptyJob(), locale, values))
+              .then((isSuccessful: boolean): void => {
+                if (isSuccessful) {
+                  setIsModalVisible(true);
+                }
+              })
+              .finally(
+                (): void => actions.setSubmitting(false), // Required by Formik to finish the submission cycle
+              );
           }}
           render={({
             errors,
@@ -413,15 +497,15 @@ const JobDetails: React.FunctionComponent<
                     formMessages.levelNullSelection,
                   )}
                   options={[
-                    { value: "1", label: "1" },
-                    { value: "2", label: "2" },
-                    { value: "3", label: "3" },
-                    { value: "4", label: "4" },
-                    { value: "5", label: "5" },
-                    { value: "6", label: "6" },
-                    { value: "7", label: "7" },
-                    { value: "8", label: "8" },
-                    { value: "9", label: "9" },
+                    { value: 1, label: "1" },
+                    { value: 2, label: "2" },
+                    { value: 3, label: "3" },
+                    { value: 4, label: "4" },
+                    { value: 5, label: "5" },
+                    { value: 6, label: "6" },
+                    { value: 7, label: "7" },
+                    { value: 8, label: "8" },
+                    { value: 9, label: "9" },
                   ]}
                 />
                 <Field
@@ -434,11 +518,12 @@ const JobDetails: React.FunctionComponent<
                   nullSelection={intl.formatMessage(
                     formMessages.securityLevelNullSelection,
                   )}
-                  options={[
-                    { value: "1", label: "Reliability" },
-                    { value: "2", label: "Secret" },
-                    { value: "3", label: "Top Secret" },
-                  ]}
+                  options={Object.values(SecurityClearanceId).map(
+                    (id: number): { value: number; label: string } => ({
+                      value: id,
+                      label: intl.formatMessage(securityClearance(id)),
+                    }),
+                  )}
                 />
                 <Field
                   name="language"
@@ -450,13 +535,12 @@ const JobDetails: React.FunctionComponent<
                   nullSelection={intl.formatMessage(
                     formMessages.languageNullSelection,
                   )}
-                  options={[
-                    { value: "1", label: "English - Essential" },
-                    { value: "2", label: "French - Essential" },
-                    { value: "3", label: "Bilingual - Advanced (CBC)" },
-                    { value: "4", label: "Bilingual - Intermediate (BBB)" },
-                    { value: "5", label: "English or French" },
-                  ]}
+                  options={Object.values(LanguageRequirementId).map(
+                    (id: number): { value: number; label: string } => ({
+                      value: id,
+                      label: intl.formatMessage(languageRequirment(id)),
+                    }),
+                  )}
                 />
                 <Field
                   name="city"
@@ -478,21 +562,13 @@ const JobDetails: React.FunctionComponent<
                   nullSelection={intl.formatMessage(
                     formMessages.provinceNullSelection,
                   )}
-                  options={[
-                    { value: "AB", label: "Alberta" },
-                    { value: "BC", label: "British Columbia" },
-                    { value: "MB", label: "Manitoba" },
-                    { value: "NB", label: "New Brunswick" },
-                    { value: "NL", label: "Newfoundland and Labrador" },
-                    { value: "NS", label: "Nova Scotia" },
-                    { value: "NT", label: "Northwest Territories" },
-                    { value: "NU", label: "Nunavut" },
-                    { value: "ON", label: "Ontario" },
-                    { value: "PE", label: "Prince Edward Island" },
-                    { value: "QC", label: "Quebec" },
-                    { value: "SK", label: "Saskatchewan" },
-                    { value: "YT", label: "Yukon" },
-                  ]}
+                  options={Object.values(ProvinceId).map((id: number): {
+                    value: number;
+                    label: string;
+                  } => ({
+                    value: id,
+                    label: intl.formatMessage(provinceName(id)),
+                  }))}
                 />
                 <RadioGroup
                   id="remoteWork"
@@ -705,7 +781,7 @@ const JobDetails: React.FunctionComponent<
               </Form>
               <Modal
                 id="job-details-preview"
-                parentElement={modalParent}
+                parentElement={modalParentRef.current}
                 visible={isModalVisible}
                 onModalConfirm={(): void => {
                   handleModalConfirm();
@@ -757,14 +833,14 @@ const JobDetails: React.FunctionComponent<
                     <JobPreview
                       title={values.title}
                       department="Department"
-                      remoteWork={values.remoteWork !== "none"}
-                      language={values.language}
+                      remoteWork={values.remoteWork !== "remoteWorkNone"}
+                      language={String(values.language)} // TODO: remove String() cast
                       city={values.city}
-                      province={values.province}
+                      province={String(values.province)} // TODO: remove String() cast
                       termLength={Number(values.termLength)}
-                      securityLevel={values.securityLevel}
-                      classification={values.classification}
-                      level={values.level}
+                      securityLevel={String(values.securityLevel)} // TODO: remove String() cast
+                      classification={String(values.classification)} // TODO: remove String() cast
+                      level={String(values.level)} // TODO: remove String() cast
                     />
                   </div>
                 </Modal.Body>
@@ -794,4 +870,46 @@ const JobDetails: React.FunctionComponent<
   );
 };
 
-export default injectIntl(JobDetails);
+export const JobDetailsIntl = injectIntl(JobDetails);
+
+interface JobDetailsContainerProps {
+  jobId: number | null;
+  handleModalCancel: () => void;
+  handleModalConfirm: () => void;
+}
+
+const mapStateToProps = (
+  state: RootState,
+  ownProps: JobDetailsContainerProps,
+): {
+  job: Job | null;
+} => ({
+  job: ownProps.jobId ? selectJob(state, ownProps as { jobId: number }) : null,
+});
+
+const mapDispatchToProps = (
+  dispatch: DispatchType,
+  ownProps: JobDetailsContainerProps,
+): {
+  handleSubmit: (newJob: Job) => Promise<boolean>;
+} => ({
+  handleSubmit: ownProps.jobId
+    ? async (newJob: Job): Promise<boolean> => {
+        const result = await dispatch(updateJob(newJob));
+        return !result.error;
+      }
+    : async (newJob: Job): Promise<boolean> => {
+        const result = await dispatch(createJob(newJob));
+        return !result.error;
+      },
+});
+
+// @ts-ignore
+export const JobDetailsContainer: React.FunctionComponent<
+  JobDetailsContainerProps
+> = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(injectIntl(JobDetails));
+
+export default JobDetailsContainer;
