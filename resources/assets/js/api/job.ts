@@ -27,4 +27,5 @@ export const parseJobResponse = (
   };
 };
 
-export const getJobEndpoint = (id: number): string => `${baseUrl()}/jobs/${id}`;
+export const getJobEndpoint = (id: number | null): string =>
+  id ? `${baseUrl()}/jobs/${id}` : `${baseUrl()}/jobs`;

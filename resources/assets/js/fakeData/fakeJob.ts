@@ -32,7 +32,7 @@ export const fakeJob = (id = 1): Job => ({
   citizen_facing_vs_back_office: 4,
   collaborative_vs_independent: 3,
   telework_allowed_frequency_id: 1,
-  flexible_hours_fequency_id: 2,
+  flexible_hours_frequency_id: 2,
   en: {
     city: "Rempelfort",
     title: "I wonder if I'm on the.",
@@ -99,7 +99,7 @@ export const fakeJob2 = (id = 1): Job => ({
   citizen_facing_vs_back_office: 1,
   collaborative_vs_independent: 2,
   telework_allowed_frequency_id: 3,
-  flexible_hours_fequency_id: 1,
+  flexible_hours_frequency_id: 1,
   en: {
     city: "Ottawa",
     title: "UX Designer",
