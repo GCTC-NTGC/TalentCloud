@@ -69,7 +69,7 @@
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.6.1",
     "fetch-mock": "^7.3.3",
-    "imagemin": "^6.1.0",
+    "imagemin": "^7.0.0",
     "jest": "^24.7.1",
     "jest-dom": "^3.3.0",
     "jquery": "^3.4.0",
