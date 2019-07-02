@@ -10,14 +10,54 @@ return [
     *
     */
 
-    "treasury_board" => "Treasury Board of Canada Secretariat",
-    "natural_resources" => "Natural Resources Canada",
-    "transport" => "Transport Canada",
-    "enviroment_and_climate_change" => "Environment and Climate Change Canada",
-    "employment_and_social_development" => "Employment and Social Development Canada",
-    "global_affairs" => "Global Affairs Canada",
-    "fisheries_and_oceans" => "Fisheries and Oceans Canada",
-    "innovation_science" => "Innovation, Science and Economic Development Canada",
-    "public_service_and_procurement" => "Public Services and Procurement Canada",
-    "border_services_agency" => "Canada Border Services Agency",
+    'departments' => [
+        'treasury_board' => [
+            'name' => 'Treasury Board of Canada Secretariat',
+            'impact' => '1'
+        ],
+        'natural_resources' => [
+            'name' => 'Natural Resources Canada',
+            'impact' => '2'
+        ],
+        'transport' => [
+            'name' => 'Transport Canada',
+            'impact' => '3'
+        ],
+        'enviroment_and_climate_change' => [
+            'name' => 'Environment and Climate Change Canada',
+            'impact' => ''
+        ],
+        'employment_and_social_development' => [
+            'name' => 'Employment and Social Development Canada',
+            'impact' => ''
+        ],
+        'global_affairs' => [
+            'name' => 'Global Affairs Canada',
+            'impact' => ''
+        ],
+        'border_services_agency' => [
+            'name' => 'Canada Border Services Agency',
+            'impact' => ''
+        ],
+        'fisheries_and_oceans' => [
+            'name' => 'Fisheries and Oceans Canada',
+            'impact' => ''
+        ],
+        'innovation_science' => [
+            'name' => 'Innovation, Science and Economic Development Canada',
+            'impact' => ''
+        ],
+        'public_service_and_procurement' => [
+            'name' => 'Public Services and Procurement Canada',
+            'impact' => ''
+        ],
+        'department_national_defence' => [
+            'name' => 'Department of National Defence',
+            'impact' => ''
+        ],
+        'office_privacy_comissioner' => [
+            'name' => 'Office of the Privacy Commissioner of Canada',
+            'impact' => ''
+        ],
+    ]
 ];
