@@ -137,7 +137,7 @@ const ImpactForm: React.FunctionComponent<
             <button
               data-c-button="solid(c1)"
               data-c-dialog-action="open"
-              data-c-dialog-id="example-dialog-01"
+              data-c-dialog-id="impact-dialog"
               data-c-radius="rounded"
               disabled={isSubmitting}
               form="form"

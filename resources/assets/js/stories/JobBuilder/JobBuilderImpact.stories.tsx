@@ -6,11 +6,14 @@ import { action } from "@storybook/addon-actions";
 import { withKnobs, select } from "@storybook/addon-knobs";
 import JobBuilderImpact from "../../components/JobBuilderImpact/JobBuilderImpact";
 import ImpactForm from "../../components/JobBuilderImpact/ImpactForm";
+import JobImpactPreview from "../../components/JobBuilderImpact/JobImpactPreview";
 
 const stories = storiesOf("Job Builder - Impact", module)
   .addDecorator(withInfo)
   .addDecorator(withKnobs)
   .addDecorator(withIntl);
+
+const modalRoot = document.querySelector("#modal-root");
 
 const deptOptions = {
   "Treasury Board": "treasuryBoard",
@@ -34,6 +37,9 @@ stories
       <JobBuilderImpact
         department={select("Department", deptOptions, "treasuryBoard")}
         job={null}
+        handleModalCancel={action("Modal Cancelled")}
+        handleModalConfirm={action("Modal Confirmed")}
+        modalParent={modalRoot || document.body}
       />
     ),
     {
@@ -44,6 +50,15 @@ stories
     "Impact Form",
     (): React.ReactElement => (
       <ImpactForm job={null} handleSubmit={action("Submit")} />
+    ),
+    {
+      info: { inline: true },
+    },
+  )
+  .add(
+    "Impact Preview",
+    (): React.ReactElement => (
+      <JobImpactPreview deptImpact="" teamImpact="" hireImpact="" />
     ),
     {
       info: { inline: true },

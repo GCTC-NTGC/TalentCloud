@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   injectIntl,
   InjectedIntlProps,
@@ -9,10 +9,18 @@ import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { items } from "../ProgressTracker/fixtures/progressItems";
 import ImpactForm from "./ImpactForm";
 import { Job } from "../../models/types";
+import JobImpactPreview from "./JobImpactPreview";
+import Modal from "../Modal";
 
 interface JobBuilderImpactProps {
   department?: string;
   job: Job | null;
+  // Function to run when modal cancel is clicked.
+  handleModalCancel: () => void;
+  // Function to run when modal confirm is clicked.
+  handleModalConfirm: () => void;
+  // Parent element to place the modal contents within (uses React Portal).
+  modalParent: Element;
 }
 
 const departmentImpactStatements = defineMessages({
@@ -96,7 +104,15 @@ const departmentImpactStatements = defineMessages({
 
 const JobBuilderImpact: React.FunctionComponent<
   JobBuilderImpactProps & InjectedIntlProps
-> = ({ intl, department, job }): React.ReactElement => {
+> = ({
+  intl,
+  department,
+  job,
+  modalParent,
+  handleModalCancel,
+  handleModalConfirm,
+}): React.ReactElement => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   return (
     <section>
       <ProgressTracker
@@ -156,11 +172,64 @@ const JobBuilderImpact: React.FunctionComponent<
         <ImpactForm
           job={job}
           // TODO: Make this into a real function
-          handleSubmit={job => {
-            console.log(job);
+          handleSubmit={(myJob): void => {
+            console.log(myJob);
           }}
         />
       </div>
+
+      <Modal
+        id="impact-dialog"
+        parentElement={modalParent}
+        visible={isModalVisible}
+        onModalConfirm={(): void => {
+          handleModalConfirm();
+          setIsModalVisible(false);
+        }}
+        onModalCancel={(): void => {
+          handleModalCancel();
+          setIsModalVisible(false);
+        }}
+      >
+        <Modal.Header>
+          <div
+            data-c-background="c1(100)"
+            data-c-border="bottom(thin, solid, black)"
+            data-c-padding="normal"
+          >
+            <h5
+              data-c-colour="white"
+              data-c-font-size="h4"
+              id="job-impact-preview-title"
+            >
+              Awesome work!
+            </h5>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <div
+            data-c-border="bottom(thin, solid, black)"
+            data-c-padding="normal"
+            id="job-details-preview-description"
+          >
+            Here&apos;s a preview of the Impact Statement you just entered. Feel
+            free to go back and edit things or move to the next step if
+            you&apos;re happy with it.
+          </div>
+          <div
+            data-c-background="grey(20)"
+            data-c-border="bottom(thin, solid, black)"
+            data-c-padding="normal"
+          >
+            {/* TODO: Pull in the signed-in Manager's department */}
+            <JobImpactPreview deptImpact="" teamImpact="" hireImpact="" />
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
+          <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
+        </Modal.Footer>
+      </Modal>
     </section>
   );
 };
