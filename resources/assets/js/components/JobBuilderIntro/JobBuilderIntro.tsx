@@ -3,14 +3,16 @@ import { injectIntl, InjectedIntlProps } from "react-intl";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { items } from "../ProgressTracker/fixtures/progressItems";
 import IntroForm from "./IntroForm";
+import { Job } from "../../models/types";
 
 interface JobBuilderIntroProps {
+  job: Job | null;
   handleSubmit: (values) => void;
 }
 
 const JobBuilderIntro: React.FunctionComponent<
   JobBuilderIntroProps & InjectedIntlProps
-> = ({ handleSubmit }): React.ReactElement => {
+> = ({ job, handleSubmit }): React.ReactElement => {
   return (
     <section>
       <ProgressTracker
@@ -21,7 +23,7 @@ const JobBuilderIntro: React.FunctionComponent<
         itemsWrapperClassNames="tracker manager-jpb-tracker-wrapper"
       />
 
-      <IntroForm handleSubmit={handleSubmit} />
+      <IntroForm job={job} handleSubmit={handleSubmit} />
     </section>
   );
 };

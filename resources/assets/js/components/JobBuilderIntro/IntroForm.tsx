@@ -3,6 +3,7 @@ import {
   injectIntl,
   InjectedIntlProps,
   FormattedMessage,
+  FormattedHTMLMessage,
   defineMessages,
 } from "react-intl";
 import { Form, Field, Formik, FormikValues } from "formik";
@@ -10,6 +11,9 @@ import * as Yup from "yup";
 import Input from "../Forms/Input";
 import Select from "../Forms/Select";
 import { validationMessages } from "../Form/Messages";
+import { Job } from "../../models/types";
+import { DepartmentId } from "../../models/lookupConstants";
+import { departmentName } from "../../models/localizedConstants";
 
 const formMessages = defineMessages({
   jobTitleLabelEN: {
@@ -69,28 +73,41 @@ const formMessages = defineMessages({
 interface FormValues {
   jobTitleEN: string;
   jobTitleFR: string;
-  department: string;
+  department: number | "";
   divisionEN: string;
   divisionFR: string;
 }
 
 interface IntroFormProps {
+  job: Job | null;
   handleSubmit: (values: FormikValues) => void;
 }
+
+const jobToValues = (job: Job | null): FormValues =>
+  job
+    ? {
+        jobTitleEN: job.en.title || "",
+        jobTitleFR: job.fr.title || "",
+        department: job.department_id || "",
+        divisionEN: job.en.division || "",
+        divisionFR: job.fr.division || "",
+      }
+    : {
+        jobTitleEN: "",
+        jobTitleFR: "",
+        department: "",
+        divisionEN: "",
+        divisionFR: "",
+      };
 
 const IntroForm: React.FunctionComponent<
   IntroFormProps & InjectedIntlProps
 > = ({
-  intl,
+  job,
   handleSubmit,
+  intl,
 }: IntroFormProps & InjectedIntlProps): React.ReactElement => {
-  const initialValues = {
-    jobTitleEN: "",
-    jobTitleFR: "",
-    department: "",
-    divisionEN: "",
-    divisionFR: "",
-  };
+  const initialValues: FormValues = jobToValues(job);
 
   const introSchema = Yup.object().shape({
     jobTitleEN: Yup.string().required(
@@ -105,9 +122,12 @@ const IntroForm: React.FunctionComponent<
     divisionFR: Yup.string().required(
       intl.formatMessage(validationMessages.required),
     ),
-    department: Yup.mixed()
-      .oneOf(["TBS", "ESDC", "ECCC"], "WTF")
-      .required(intl.formatMessage(validationMessages.invalidSelection)),
+    department: Yup.number()
+      .oneOf(
+        Object.values(DepartmentId),
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
+      .required(intl.formatMessage(validationMessages.required)),
   });
 
   return (
@@ -201,20 +221,13 @@ const IntroForm: React.FunctionComponent<
                     nullSelection={intl.formatMessage(
                       formMessages.departmentNullSelection,
                     )}
-                    options={[
-                      {
-                        value: "TBS",
-                        label: "Treasury Board of Canada Secretariat",
-                      },
-                      {
-                        value: "ESDC",
-                        label: "Employment and Social Development Canada",
-                      },
-                      {
-                        value: "ECCC",
-                        label: "Environment and Climate Change Canada",
-                      },
-                    ]}
+                    options={Object.values(DepartmentId).map((id: number): {
+                      value: number;
+                      label: string;
+                    } => ({
+                      value: id,
+                      label: intl.formatMessage(departmentName(id)),
+                    }))}
                   />
                   <Field
                     type="text"
@@ -243,12 +256,9 @@ const IntroForm: React.FunctionComponent<
                 </div>
               </Form>
               <p data-c-margin="bottom(normal)">
-                {/* how do I add strong tag */}
-                {/* <strong>Note:</strong> Changing your information on this form
-                will also change these fields in your Profile. */}
-                <FormattedMessage
+                <FormattedHTMLMessage
                   id="jobBuilder.intro.note"
-                  defaultMessage="Note: Changing your information on this form will also change these fields in your Profile."
+                  defaultMessage="<strong>Note:</strong> Changing your information on this form will also change these fields in your Profile."
                   description="Ending note for hiring managers."
                 />
               </p>
