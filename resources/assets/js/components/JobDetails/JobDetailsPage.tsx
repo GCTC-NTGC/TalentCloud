@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 import { Job } from "../../models/types";
 import { JobDetailsIntl } from "./JobDetails";
 import { RootState } from "../../store/store";
@@ -18,7 +19,6 @@ import {
 import RootContainer from "../RootContainer";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { ProgressTrackerItem } from "../ProgressTracker/types";
-import { FormattedMessage } from "react-intl";
 
 interface JobDetailsPageProps {
   jobId: number | null;

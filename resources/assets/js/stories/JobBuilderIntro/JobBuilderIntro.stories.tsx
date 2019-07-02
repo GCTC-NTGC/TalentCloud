@@ -4,19 +4,29 @@ import { withInfo } from "@storybook/addon-info";
 import { withIntl } from "storybook-addon-intl";
 import { withKnobs } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import JobBuilderIntro from "../../components/JobBuilderIntro/JobBuilderIntro";
 import fakeJob from "../../fakeData/fakeJob";
+import IntroForm from "../../components/JobBuilderIntro/IntroForm";
 
 const stories = storiesOf("Job Builder - Intro", module)
   .addDecorator(withInfo)
   .addDecorator(withKnobs)
   .addDecorator(withIntl);
 
+const handleSubmit = async (): Promise<boolean> => {
+  action("Submit")();
+  return true;
+};
+
 stories
   .add(
     "Intro Body",
     (): React.ReactElement => (
-      <JobBuilderIntro job={null} handleSubmit={action("Submit")} />
+      <IntroForm
+        job={null}
+        handleSubmit={handleSubmit}
+        handleContinueEn={action("Continue in English")}
+        handleContinueFr={action("Continue in French")}
+      />
     ),
     {
       info: { inline: true },
@@ -25,7 +35,12 @@ stories
   .add(
     "Intro for existing job",
     (): React.ReactElement => (
-      <JobBuilderIntro job={fakeJob()} handleSubmit={action("Submit")} />
+      <IntroForm
+        job={fakeJob()}
+        handleSubmit={handleSubmit}
+        handleContinueEn={action("Continue in English")}
+        handleContinueFr={action("Continue in French")}
+      />
     ),
     {
       info: { inline: true },

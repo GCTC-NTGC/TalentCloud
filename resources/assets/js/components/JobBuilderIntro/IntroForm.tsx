@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   injectIntl,
   InjectedIntlProps,
@@ -14,6 +14,7 @@ import { validationMessages } from "../Form/Messages";
 import { Job } from "../../models/types";
 import { DepartmentId } from "../../models/lookupConstants";
 import { departmentName } from "../../models/localizedConstants";
+import { emptyJob } from "../../models/jobUtil";
 
 const formMessages = defineMessages({
   jobTitleLabelEN: {
@@ -79,8 +80,15 @@ interface FormValues {
 }
 
 interface IntroFormProps {
+  // If not null, used to prepopulate form values
   job: Job | null;
-  handleSubmit: (values: FormikValues) => void;
+  // Runs after successful validation.
+  // It must (asyncronously) return true if the submission was successful, false otherwise.
+  handleSubmit: (job: Job) => Promise<boolean>;
+  // Continues the JobBuilder in English.
+  handleContinueEn: () => void;
+  // Continues the JobBuilder in French.
+  handleContinueFr: () => void;
 }
 
 const jobToValues = (job: Job | null): FormValues =>
@@ -100,14 +108,33 @@ const jobToValues = (job: Job | null): FormValues =>
         divisionFR: "",
       };
 
+const updateJobWithValues = (job: Job, values: FormValues): Job => ({
+  ...job,
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  department_id: values.department || null,
+  en: {
+    ...job.en,
+    title: values.jobTitleEN || null,
+    division: values.divisionEN || null,
+  },
+  fr: {
+    ...job.fr,
+    title: values.jobTitleFR || null,
+    division: values.divisionFR || null,
+  },
+});
+
 const IntroForm: React.FunctionComponent<
   IntroFormProps & InjectedIntlProps
 > = ({
   job,
   handleSubmit,
+  handleContinueEn,
+  handleContinueFr,
   intl,
 }: IntroFormProps & InjectedIntlProps): React.ReactElement => {
   const initialValues: FormValues = jobToValues(job);
+  const [languageSelection, setLanguageSelection] = useState("en");
 
   const introSchema = Yup.object().shape({
     jobTitleEN: Yup.string().required(
@@ -179,10 +206,25 @@ const IntroForm: React.FunctionComponent<
           initialValues={initialValues}
           validationSchema={introSchema}
           onSubmit={(values, { setSubmitting }): void => {
-            handleSubmit(values);
-            setSubmitting(false);
+            handleSubmit(updateJobWithValues(job || emptyJob(), values))
+              .then((isSuccessful: boolean): void => {
+                if (isSuccessful) {
+                  if (languageSelection === "fr") {
+                    handleContinueFr();
+                  } else {
+                    handleContinueEn();
+                  }
+                }
+              })
+              .finally(
+                (): void => setSubmitting(false), // Required by Formik to finish the submission cycle
+              );
           }}
-          render={({ isSubmitting, values }): React.ReactElement => (
+          render={({
+            isSubmitting,
+            values,
+            submitForm,
+          }): React.ReactElement => (
             <>
               <Form id="form" data-c-margin="bottom(normal)">
                 <div data-c-grid="gutter">
@@ -275,8 +317,12 @@ const IntroForm: React.FunctionComponent<
                 form="form"
                 data-c-button="solid(c1)"
                 data-c-radius="rounded"
-                type="submit"
+                type="button"
                 disabled={isSubmitting}
+                onClick={(): void => {
+                  setLanguageSelection("en");
+                  submitForm();
+                }}
               >
                 <FormattedMessage
                   id="jobBuilder.intro.continueButtonLabelEN"
@@ -289,8 +335,12 @@ const IntroForm: React.FunctionComponent<
                 form="form"
                 data-c-button="solid(c1)"
                 data-c-radius="rounded"
-                type="submit"
+                type="button"
                 disabled={isSubmitting}
+                onClick={(): void => {
+                  setLanguageSelection("fr");
+                  submitForm();
+                }}
               >
                 <FormattedMessage
                   id="jobBuilder.intro.continueButtonLabelFR"
