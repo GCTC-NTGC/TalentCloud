@@ -42,7 +42,9 @@ interface ImpactFormValues {
 
 interface ImpactFormProps {
   job: Job | null;
-  handleSubmit: (job: Job) => void;
+  handleSubmit: (
+    clickObj: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => void;
 }
 
 const ImpactForm: React.FunctionComponent<
@@ -142,6 +144,7 @@ const ImpactForm: React.FunctionComponent<
               disabled={isSubmitting}
               form="form"
               type="submit"
+              onClick={handleSubmit}
             >
               <FormattedMessage
                 id="button.next"

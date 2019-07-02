@@ -173,63 +173,65 @@ const JobBuilderImpact: React.FunctionComponent<
           job={job}
           // TODO: Make this into a real function
           handleSubmit={(myJob): void => {
-            console.log(myJob);
+            setIsModalVisible(true);
           }}
         />
       </div>
-
-      <Modal
-        id="impact-dialog"
-        parentElement={modalParent}
-        visible={isModalVisible}
-        onModalConfirm={(): void => {
-          handleModalConfirm();
-          setIsModalVisible(false);
-        }}
-        onModalCancel={(): void => {
-          handleModalCancel();
-          setIsModalVisible(false);
-        }}
-      >
-        <Modal.Header>
-          <div
-            data-c-background="c1(100)"
-            data-c-border="bottom(thin, solid, black)"
-            data-c-padding="normal"
-          >
-            <h5
-              data-c-colour="white"
-              data-c-font-size="h4"
-              id="job-impact-preview-title"
+      {isModalVisible && (
+        <Modal
+          id="impact-dialog"
+          parentElement={modalParent}
+          visible={isModalVisible}
+          onModalConfirm={(): void => {
+            handleModalConfirm();
+            setIsModalVisible(false);
+          }}
+          onModalCancel={(): void => {
+            handleModalCancel();
+            setIsModalVisible(false);
+          }}
+        >
+          <Modal.Header>
+            <div
+              data-c-background="c1(100)"
+              data-c-border="bottom(thin, solid, black)"
+              data-c-padding="normal"
             >
-              Awesome work!
-            </h5>
-          </div>
-        </Modal.Header>
-        <Modal.Body>
-          <div
-            data-c-border="bottom(thin, solid, black)"
-            data-c-padding="normal"
-            id="job-details-preview-description"
-          >
-            Here&apos;s a preview of the Impact Statement you just entered. Feel
-            free to go back and edit things or move to the next step if
-            you&apos;re happy with it.
-          </div>
-          <div
-            data-c-background="grey(20)"
-            data-c-border="bottom(thin, solid, black)"
-            data-c-padding="normal"
-          >
-            {/* TODO: Pull in the signed-in Manager's department */}
-            <JobImpactPreview deptImpact="" teamImpact="" hireImpact="" />
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
-          <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
-        </Modal.Footer>
-      </Modal>
+              <h5
+                data-c-colour="white"
+                data-c-font-size="h4"
+                id="job-impact-preview-title"
+              >
+                Awesome work!
+              </h5>
+            </div>
+          </Modal.Header>
+          <Modal.Body>
+            <div
+              data-c-border="bottom(thin, solid, black)"
+              data-c-padding="normal"
+              id="job-details-preview-description"
+            >
+              Here&apos;s a preview of the Impact Statement you just entered.
+              Feel free to go back and edit things or move to the next step if
+              you&apos;re happy with it.
+            </div>
+            <div
+              data-c-background="grey(20)"
+              data-c-border="bottom(thin, solid, black)"
+              data-c-padding="normal"
+            >
+              {/* TODO: Pull in the signed-in Manager's department */}
+              <JobImpactPreview deptImpact="" teamImpact="" hireImpact="" />
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
+            <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
+          </Modal.Footer>
+        </Modal>
+      )}
+      <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
     </section>
   );
 };
