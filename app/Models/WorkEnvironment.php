@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+
 use App\Models\Lookup\Frequency;
 use Prophecy\Prediction\CallTimesPrediction;
 
@@ -28,7 +29,8 @@ use Prophecy\Prediction\CallTimesPrediction;
  * Localized Properties:
  * @property string $things_to_know
  */
-class WorkEnvironment extends BaseModel {
+class WorkEnvironment extends BaseModel
+{
 
     use \Dimsav\Translatable\Translatable;
 
@@ -46,24 +48,28 @@ class WorkEnvironment extends BaseModel {
         'flexible_hours_frequency'
     ];
 
-    public function manager() {
+    public function manager()
+    {
         return $this->belongsTo(\App\Models\Manager::class);
     }
 
-    public function telework_allowed_frequency() {
+    public function telework_allowed_frequency()
+    {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 
-    public function flexible_hours_frequency() {
+    public function flexible_hours_frequency()
+    {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 
-    public function workplace_photo_captions() {
+    public function workplace_photo_captions()
+    {
         return $this->hasMany(\App\Models\WorkplacePhotoCaption::class);
     }
 
-    public function work_environment_translations() {
+    public function work_environment_translations()
+    {
         return $this->hasMany(\App\Models\WorkEnvironmentTranslation::class);
     }
-
 }

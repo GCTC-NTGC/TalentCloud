@@ -14,12 +14,12 @@
                 class="box full">
 
                 <div class="form__input-wrapper--float {% if sample.name == true %}active{% endif %}">
-                    <label class="form__label" for="">
+                    <label class="form__label" for="sampleName">
                         {{ sample_template.name_label }}
                     </label>
                     <input
                         class="form__input"
-                        id=""
+                        id="sampleName"
                         type="text"
                         value="{{ sample.name }}" />
                 </div>
@@ -30,12 +30,13 @@
                 class="box med-1of2">
 
                 <div class="form__input-wrapper--select">
-                    <label class="form__label" for="">
+                    <label class="form__label" for="sampleType">
                         {{ sample_template.type_label }}
                     </label>
                     <div
                         class="form__select-wrapper fas fa-chevron-down">
                         <select
+                            id="sampleType"
                             class="form__input">
                             <option value="" disabled selected>{{ sample_template.type_default_option }}</option>
                             {% for option in sample_template.types %}
@@ -53,12 +54,12 @@
                 class="box med-1of2">
 
                 <div class="form__input-wrapper--float {% if sample.link == true %}active{% endif %}">
-                    <label class="form__label" for="">
+                    <label class="form__label" for="sampleUrl">
                         {{ sample_template.link_label }}
                     </label>
                     <input
                         class="form__input"
-                        id=""
+                        id="sampleUrl"
                         type="url"
                         value="{{ sample.link }}" />
                 </div>
@@ -69,10 +70,11 @@
                 class="box full">
 
                 <div class="form__input-wrapper--float {% if sample.description == true %}active{% endif %}">
-                    <label class="form__label" for="">
+                    <label class="form__label" for="sampleDescription">
                         {{ sample_template.description_label }}
                     </label>
                     <textarea
+                        id="sampleDescription"
                         class="form__textarea">{{ sample.description }}</textarea>
                 </div>
 
