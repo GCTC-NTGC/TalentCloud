@@ -1,10 +1,3 @@
-{# =============================================================================
-
-    Talent Cloud
-    Redux view
-
-============================================================================= #}
-
 {% extends "layouts/base" %}
 
 {% block title %}{{ title }}{% endblock %}
@@ -21,8 +14,19 @@
 
     <div
         data-clone=""
-        id="home-redux-container"
+        id="job-builder-details"
+        data-job-id="{{jobId}}"
     >
     </div>
 
 {% endblock %}
+
+{% block scripts %}
+
+    <script async defer
+        src="{{ mix('/js/JobDetailsPage.js') }}">
+    </script>
+
+{% endblock %}
+
+

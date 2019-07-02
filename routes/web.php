@@ -252,6 +252,16 @@ Route::group(
                     ->middleware('can:update,jobPoster')
                     ->name('manager.jobs.edit');
 
+                Route::get(
+                    'job-builder/details',
+                    'JobBuilderController@details'
+                )->where('jobPoster', '[0-9]+');
+
+                Route::get(
+                    'jobs/{jobId}/builder/details',
+                    'JobBuilderController@details'
+                )->where('jobPoster', '[0-9]+');
+
                 /* Delete Job */
                 Route::delete('jobs/{jobPoster}', 'JobController@destroy')
                     ->where('jobPoster', '[0-9]+')
@@ -268,8 +278,9 @@ Route::group(
                     'jobs/{jobPoster}/assessment-plan',
                     'common/redux',
                     ['title' => Lang::get('manager/screening-plan')['title']]
-                )->where('jobPoster', '[0-9]+')
-                ->name('manager.jobs.screening_plan');
+                )
+                    ->where('jobPoster', '[0-9]+')
+                    ->name('manager.jobs.screening_plan');
             });
 
             // Laravel default login, logout, register, and reset routes
@@ -375,9 +386,8 @@ Route::group(
 
 /** API routes - currently using same default http auth, but not localized */
 Route::group(['prefix' => 'api'], function (): void {
-        // Protected by a gate in the controller, instead of policy middleware
+    // Protected by a gate in the controller, instead of policy middleware
     Route::get('jobs/{jobPoster}/assessment-plan', 'AssessmentPlanController@getForJob');
-
     // Public, not protected by policy or gate
     Route::get('skills', 'SkillController@index');
 
@@ -396,9 +406,10 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
         'store', 'create', 'edit'
     ]);
+
     Route::resource('jobs', 'Api\JobApiController')->only([
         'show', 'store', 'update'
-    ])->names([ // Specify custom names because default names collied with existing routes
+    ])->names([ // Specify custom names because default names collied with existing routes.
         'show' => 'api.jobs.show',
         'store' => 'api.jobs.store',
         'update' => 'api.jobs.update'

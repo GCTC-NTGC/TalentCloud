@@ -25,12 +25,12 @@
             class="box med-1of2">
 
             <div class="form__input-wrapper--float {% if reference.name == true %}active{% endif %}">
-                <label class="form__label" for="">
+                <label class="form__label" for="referenceName">
                     {{ reference_template.name_label }}
                 </label>
                 <input
                     class="form__input"
-                    id=""
+                    id="referenceName"
                     type="text"
                     value="{{ reference.name }}" />
             </div>
@@ -41,12 +41,13 @@
             class="box med-1of2">
 
             <div class="form__input-wrapper--select">
-                <label class="form__label" for="">
+                <label class="form__label" for="referenceRelationship">
                     {{ reference_template.relationship_label }}
                 </label>
                 <div
                     class="form__select-wrapper fas fa-chevron-down">
                     <select
+                        id="referenceRelationship"
                         class="form__input">
                         <option value="" disabled selected>{{ reference_template.relationship_default_option }}</option>
                         {% for relationship in reference_template.relationships|sort %}
@@ -64,12 +65,12 @@
             class="box full">
 
             <div class="form__input-wrapper--float {% if reference.email == true %}active{% endif %}">
-                <label class="form__label" for="">
+                <label class="form__label" for="referenceEmail">
                     {{ reference_template.email_label }}
                 </label>
                 <input
                     class="form__input"
-                    id=""
+                    id="referenceEmail"
                     type="email"
                     value="{{ reference.email }}" />
             </div>
@@ -85,13 +86,13 @@
 
                 <label
                     class="form__label"
-                    for="">
+                    for="referenceDescription">
                     {{ reference_template.description_label }}
                 </label>
 
                 <textarea
                     class="form__textarea"
-                    id="">{{ reference.description }}</textarea>
+                    id="referenceDescription">{{ reference.description }}</textarea>
 
             </div>
 

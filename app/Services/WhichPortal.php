@@ -3,16 +3,19 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
-class WhichPortal {
+class WhichPortal
+{
 
-    public function isApplicantPortal() {
+    public function isApplicantPortal()
+    {
         return !$this->isManagerPortal();
     }
 
-    public function isManagerPortal() {
-        $routeName = Route::currentRouteName();
-        return str_is('manager.*',$routeName);
+    public function isManagerPortal()
+    {
+        $url = URL::current();
+        return str_is('*/manager/*', $url);
     }
-
 }

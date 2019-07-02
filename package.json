@@ -60,13 +60,14 @@
     "enzyme-to-json": "^3.3.5",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^5.0.0",
+    "eslint-config-prettier": "^5.1.0",
     "eslint-plugin-import": "^2.17.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-node": "^9.0.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.6.1",
     "fetch-mock": "^7.3.3",
     "imagemin": "^6.1.0",
     "jest": "^24.7.1",
@@ -90,6 +91,7 @@
     "webpack": "^4.30.0"
   },
   "dependencies": {
+    "@types/yup": "^0.26.18",
     "axios": "^0.19.0",
     "classnames": "^2.2.6",
     "core-js": "^3.0.1",

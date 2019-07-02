@@ -29,6 +29,11 @@ export const getJob = createCachedSelector(
     hasKey(jobState, jobId) ? jobState[jobId] : null,
 )((state, ownProps): number => ownProps.jobId);
 
+export const getSelectedJob = (state: RootState): Job | null => {
+  const selectedId = ui(state).selectedJobId;
+  return selectedId ? getJob(state, { jobId: selectedId }) : null;
+};
+
 export const getEditJob = createCachedSelector(
   getJobEditState,
   (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
@@ -36,7 +41,7 @@ export const getEditJob = createCachedSelector(
     hasKey(jobState, jobId) ? jobState[jobId] : null,
 )((state, ownProps): number => ownProps.jobId);
 
-export const getJobIsLoading = (state: RootState, id: number): boolean => {
+export const getJobIsUpdating = (state: RootState, id: number): boolean => {
   const updating = getJobUpdatingState(state);
   return hasKey(updating, id) ? updating[id] : false;
 };
