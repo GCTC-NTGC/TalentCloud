@@ -18,6 +18,7 @@ build:
         analysis:
             tests:
                 before:
+                    - 'sudo service postgresql stop'
                     - 'cp .env.example .env'
                     - 'make docker-start'
                     - 'make gen-certs'
