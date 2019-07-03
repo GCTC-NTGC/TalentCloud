@@ -16,6 +16,14 @@ class WhichPortal
     public function isManagerPortal()
     {
         $url = URL::current();
-        return str_is('*/manager/*', $url);
+        return $this->urlIsManagerPortal($url);
+    }
+
+    public function urlIsManagerPortal($url): bool
+    {
+        $baseUrl = config('app.url');
+        $managerPrefix = config('app.manager_prefix');
+        $managerPattern = "#^$baseUrl/(\w+/)?$managerPrefix(/.*)?$#";
+        return preg_match($managerPattern, $url);
     }
 }
