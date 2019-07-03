@@ -5,9 +5,9 @@ build:
             version: "7.2"
             ini:
                 memory_limit: "-1"
-        ruby: 2.5.1
-        node: v12.5.0
         docker: true
+        ruby: 2.5.1
+        node: v10.14.2
 
     cache:
         directories:
@@ -26,6 +26,14 @@ build:
                     - command: 'make phpunit'
                     - command: 'make jest'
                     - command: 'make docker-stop'
+
+        analysis:
+            tests:
+                override:
+                - php-scrutinizer-run
+                - js-scrutinizer-run
+                - phpcs-run --standard=ruleset.xml ./app ./routes ./database/factories ./database/seeds
+                - eslint-run ./resources/assets/js/app
 
 filter:
     paths:
