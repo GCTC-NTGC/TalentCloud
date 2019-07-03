@@ -14,6 +14,19 @@ build:
             - node_modules/
             - vendor/
 
+    nodes:
+        coverage:
+            tests:
+                before:
+                    - command: 'make docker-start'
+                    - command: 'make gen-certs'
+                    - command: 'make build-db'
+                    - command: 'make set-perms'
+                    - command: 'npm run dev'
+                    - command: 'make phpunit'
+                    - command: 'make jest'
+                    - command: 'make docker-stop'
+
 filter:
     paths:
         - app/
