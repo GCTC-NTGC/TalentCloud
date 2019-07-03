@@ -39,7 +39,7 @@ return [
             'name' => 'Canada Border Services Agency',
             'impact' => 'The Canada Border Services Agency (CBSA) facilitates the flow of legitimate travellers and trade. The Agency also enforces more than 90 acts and regulations that keep our country and Canadians safe.'
         ],
-        'shared_services' => [
+        'fisheries_and_oceans' => [
             'name' => 'Shared Services Canada',
             'impact' => 'Shared Services Canada (SSC) delivers digital services to Government of Canada organizations. We provide modern, secure and reliable IT services so federal organizations can deliver digital programs and services that meet Canadians needs.'
         ],
@@ -48,14 +48,14 @@ return [
             'impact' => 'Innovation, Science and Economic Development Canada (ISED) works with Canadians in all areas of the economy and in all parts of the country to improve conditions for investment, enhance Canada\'s innovation performance, increase Canada\'s share of global trade and build a fair, efficient and competitive marketplace.'
         ],
         'public_service_and_procurement' => [
-            'name' => 'public Services and Procurement Canada',
+            'name' => 'Public Services and Procurement Canada',
             'impact' => 'Public Services and Procurement Canada serves federal departments and agencies as their central purchasing agent, real property manager, treasurer, accountant, pay and pension administrator, integrity adviser and linguistic authority.'
         ],
         'department_national_defence' => [
             'name' => 'Department of National Defence',
             'impact' => 'The Department of National Defence and the Canadian Armed Forces implement government decisions concerning the defence of Canadians\' interests at home and abroad.'
         ],
-        'health' => [
+        'office_privacy_comissioner' => [
             'name' => 'Health Canada',
             'impact' => 'Health Canada is responsible for helping Canadians maintain and improve their health. It ensures that high-quality health services are accessible, and works to reduce health risks.'
         ],

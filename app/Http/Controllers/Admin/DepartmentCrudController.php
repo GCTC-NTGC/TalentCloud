@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Illuminate\Support\Facades\App;
 // Validation.
 use App\Http\Requests\DepartmentCrudRequest as StoreRequest;
 use App\Http\Requests\DepartmentCrudRequest as UpdateRequest;
@@ -18,14 +17,6 @@ class DepartmentCrudController extends CrudController
      */
     public function setup() : void
     {
-        // Workaround for how the unique_translation validation
-        // works in App\Http\Requests\DepartmentCrudRequest.
-        $locale = 'en';
-        if (null !== $this->request->input('locale')) {
-            $locale = $this->request->input('locale');
-        }
-        App::setLocale($locale);
-
         // Eloquent model to associate with this collection of views and controller actions.
         $this->crud->setModel('App\Models\Lookup\Department');
         // Custom backpack route.
@@ -44,31 +35,15 @@ class DepartmentCrudController extends CrudController
             'name' => 'name',
             'type' => 'text',
             'label' => 'Name',
-            'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
-                $query->orWhere('name->' . $locale, 'like', "%$searchTerm%");
-            },
-            'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {
-                return $query->orderBy('name->' . $locale, $columnDirection)->select('*');
-            }
         ]);
 
         $this->crud->addColumn([
             'name' => 'impact',
             'type' => 'text',
             'label' => 'Impact',
-            'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
-                $query->orWhere('impact->' . $locale, 'like', "%$searchTerm%");
-            },
-            'orderable' => false,
         ]);
 
         // Add custom fields to the create/update views.
-        $this->crud->addField([
-            'name' => 'id',
-            'type' => 'number',
-            'label' => 'ID',
-        ]);
-
         $this->crud->addField([
             'name' => 'name',
             'type' => 'text',

@@ -40,7 +40,7 @@ return [
             'name' => 'Agence des services frontaliers du Canada',
             'impact' => 'L\'Agence des services frontaliers du Canada (ASFC) facilite la circulation des voyageurs et des marchandises commerciales légitimes. L\'Agence applique aussi plus de 90 lois et règlements qui assurent la sécurité du pays et des Canadiens.'
         ],
-        'shared_services' => [
+        'fisheries_and_oceans' => [
             'name' => 'Services partagés Canada',
             'impact' => 'Services partagés Canada (SPC) offre des services numériques aux organismes du gouvernement du Canada. Nous offrons des services de TI modernes, sécurisés et fiables pour permettre aux organismes fédéraux d\'offrir des programmes et des services numériques qui répondent aux besoins des Canadiens et des Canadiennes.'
         ],
@@ -56,7 +56,7 @@ return [
             'name' => 'Ministère de la Défense nationale',
             'impact' => 'Le ministère de la Défense nationale et les Forces armées canadiennes mettent en œuvre les décisions du gouvernement en ce qui concerne la défense des intérêts canadiens au pays et à l\'étranger.'
         ],
-        'health' => [
+        'office_privacy_comissioner' => [
             'name' => 'Santé Canada',
             'impact' => 'Santé Canada a pour mandat d\'aider les Canadiens à conserver et à améliorer leur santé. Il s\'assure d\'offrir des services de santé de grande qualité, et cherche à réduire les risques pour la santé.'
         ],
