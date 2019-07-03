@@ -6,15 +6,16 @@ import { withKnobs } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import fakeJob from "../../fakeData/fakeJob";
 import IntroForm from "../../components/JobBuilderIntro/IntroForm";
+import { Job } from "../../models/types";
 
 const stories = storiesOf("Job Builder - Intro", module)
   .addDecorator(withInfo)
   .addDecorator(withKnobs)
   .addDecorator(withIntl);
 
-const handleSubmit = async (): Promise<boolean> => {
+const handleSubmit = async (): Promise<Job> => {
   action("Submit")();
-  return true;
+  return fakeJob();
 };
 
 stories

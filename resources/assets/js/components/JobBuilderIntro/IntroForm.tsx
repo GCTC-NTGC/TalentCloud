@@ -83,12 +83,12 @@ interface IntroFormProps {
   // If not null, used to prepopulate form values
   job: Job | null;
   // Runs after successful validation.
-  // It must (asyncronously) return true if the submission was successful, false otherwise.
-  handleSubmit: (job: Job) => Promise<boolean>;
+  // It must (asyncronously) return the resulting job, if successful.
+  handleSubmit: (job: Job) => Promise<Job>;
   // Continues the JobBuilder in English.
-  handleContinueEn: () => void;
+  handleContinueEn: (job: Job) => void;
   // Continues the JobBuilder in French.
-  handleContinueFr: () => void;
+  handleContinueFr: (job: Job) => void;
 }
 
 const jobToValues = (job: Job | null): FormValues =>
@@ -207,13 +207,11 @@ const IntroForm: React.FunctionComponent<
           validationSchema={introSchema}
           onSubmit={(values, { setSubmitting }): void => {
             handleSubmit(updateJobWithValues(job || emptyJob(), values))
-              .then((isSuccessful: boolean): void => {
-                if (isSuccessful) {
-                  if (languageSelection === "fr") {
-                    handleContinueFr();
-                  } else {
-                    handleContinueEn();
-                  }
+              .then((newJob: Job): void => {
+                if (languageSelection === "fr") {
+                  handleContinueFr(newJob);
+                } else {
+                  handleContinueEn(newJob);
                 }
               })
               .finally(

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
@@ -26,10 +26,10 @@ interface JobBuilderIntroProps {
   job: Job | null;
   // This will be called when jobId is set and job is null. It should cause the job data to be loaded and passed in.
   loadJob: (jobId: number) => void;
-  // Creates a new job. Must return true if successful, false otherwise.
-  handleCreateJob: (newJob: Job) => Promise<boolean>;
-  // Updates an existing job. Must return true if successful, false otherwise.
-  handleUpdateJob: (newJob: Job) => Promise<boolean>;
+  // Creates a new job. Must return the new job if successful.
+  handleCreateJob: (newJob: Job) => Promise<Job>;
+  // Updates an existing job. Must return the updated job if successful.
+  handleUpdateJob: (newJob: Job) => Promise<Job>;
 }
 
 const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps> = ({
@@ -46,21 +46,12 @@ const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps> = ({
   }, [jobId, loadJob]);
   const waitingForJob = jobId !== null && job === null;
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
-  const handleContinueEn = (): void => {
-    if (job) {
-      window.location.href = jobBuilderDetails("en", job.id);
-    } else {
-      // TODO: what should we do if the job hasn't loaded?
-      console.log("Cannot continue until job has loaded");
-    }
+
+  const handleContinueEn = (newJob: Job): void => {
+    window.location.href = jobBuilderDetails("en", newJob.id);
   };
-  const handleContinueFr = (): void => {
-    if (job) {
-      window.location.href = jobBuilderDetails("fr", job.id);
-    } else {
-      // TODO: what should we do if the job hasn't loaded?
-      console.log("Cannot continue until job has loaded");
-    }
+  const handleContinueFr = (newJob: Job): void => {
+    window.location.href = jobBuilderDetails("fr", newJob.id);
   };
   const progressTrackerItems: ProgressTrackerItem[] = [
     { state: "active", label: "Step 01", title: "Job Info" },
@@ -118,24 +109,29 @@ const mapDispatchToProps = (
   dispatch: DispatchType,
 ): {
   loadJob: (jobId: number) => void;
-  handleCreateJob: (newJob: Job) => Promise<boolean>;
-  handleUpdateJob: (newJob: Job) => Promise<boolean>;
+  handleCreateJob: (newJob: Job) => Promise<Job>;
+  handleUpdateJob: (newJob: Job) => Promise<Job>;
 } => ({
   loadJob: (jobId: number): void => {
     dispatch(fetchJob(jobId));
     dispatch(setSelectedJob(jobId));
   },
-  handleCreateJob: async (newJob: Job): Promise<boolean> => {
+  handleCreateJob: async (newJob: Job): Promise<Job> => {
     const result = await dispatch(createJob(newJob));
     if (!result.error) {
       const resultJob = await result.payload;
       dispatch(setSelectedJob(resultJob.id));
+      return resultJob;
     }
-    return !result.error;
+    return Promise.reject(result.payload);
   },
-  handleUpdateJob: async (newJob: Job): Promise<boolean> => {
+  handleUpdateJob: async (newJob: Job): Promise<Job> => {
     const result = await dispatch(updateJob(newJob));
-    return !result.error;
+    if (!result.error) {
+      const resultJob = await result.payload;
+      return resultJob;
+    }
+    return Promise.reject(result.payload);
   },
 });
 
