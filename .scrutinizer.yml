@@ -15,25 +15,23 @@ build:
             - vendor/
 
     nodes:
-        coverage:
-            tests:
-                before:
-                    - command: 'make docker-start'
-                    - command: 'make gen-certs'
-                    - command: 'make build-db'
-                    - command: 'make set-perms'
-                    - command: 'npm run dev'
-                    - command: 'make phpunit'
-                    - command: 'make jest'
-                    - command: 'make docker-stop'
-
         analysis:
             tests:
+                before:
+                    - 'make docker-start'
+                    - 'make gen-certs'
+                    - 'make build-db'
+                    - 'make set-perms'
+                    - 'npm run dev'
+                    - 'make phpunit'
+                    - 'make jest'
+                    - 'make docker-stop'
+
                 override:
-                - php-scrutinizer-run
-                - js-scrutinizer-run
-                - phpcs-run --standard=ruleset.xml ./app ./routes ./database/factories ./database/seeds
-                - eslint-run ./resources/assets/js/app
+                    - php-scrutinizer-run
+                    - js-scrutinizer-run
+                    - phpcs-run --standard=ruleset.xml ./app ./routes ./database/factories ./database/seeds
+                    - eslint-run ./resources/assets/js/app
 
 filter:
     paths:
@@ -71,4 +69,4 @@ tools:
     custom_commands:
         -
             scope: project
-            command: vendor/bin/slack --token=https://hooks.slack.com/services/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
+            vendor/bin/slack --token=https://hooks.slack.com/services/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
