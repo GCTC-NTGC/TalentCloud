@@ -27,7 +27,8 @@ class DepartmentCrudRequest extends FormRequest
     public function rules() : array
     {
         return [
-            'value' => 'required'
+            'name' => 'required|unique_translation:departments,name',
+            'impact' => 'required'
         ];
     }
 
@@ -39,7 +40,9 @@ class DepartmentCrudRequest extends FormRequest
     public function messages() : array
     {
         return [
-            'value.required' => 'Please enter a Department name.'
+            'name.required' => 'Please enter a department name.',
+            'name.unique_translation' => 'This department name already exists.',
+            'impact.required' => 'Please enter an impact statement.'
         ];
     }
 }

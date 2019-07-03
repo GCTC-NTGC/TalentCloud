@@ -9,59 +9,63 @@ namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
 use Backpack\CRUD\CrudTrait;
+use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
 
 /**
  * Class Department
  * @property int $id
  * @property string $name
+ * @property string $impact
+ *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  * @property \Illuminate\Database\Eloquent\Collection $managers
- * @property \Illuminate\Database\Eloquent\Collection $department_translations
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
- * Localized Properties:
- * @property string $value
  */
 class Department extends BaseModel
 {
 
     use CrudTrait;
-    use \Dimsav\Translatable\Translatable;
+    use HasTranslations;
 
     /**
-     * @var $translatedAttributes
+     * @var $fillable string[]
      */
-    public $translatedAttributes = ['value'];
+    protected $fillable = [
+        'id',
+        'name',
+        'impact'
+    ];
 
-    /**
-     * @var $fillable
+     /**
+     * @var $translatable string[]
      */
-    protected $fillable = ['id'];
+    public $translatable = [
+        'name',
+        'impact'
+    ];
 
-    /**
-     * Departments belonging to managers.
-     * @return object
-     */
-    public function managers() : object
+    public function managers() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\Manager::class);
     }
 
-    /**
-     * Departments belonging to Job Posters.
-     * @return object
-     */
-    public function job_posters() : object
+    public function job_posters() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobPoster::class);
     }
 
     /**
-     * Localized department names.
-     * @return object
+     * Override the toArray() method to return the localized properties for
+     * name and description. This was causing issues for ajax responses.
+     *
+     * @return mixed[]
      */
-    public function department_translations() : object
+    public function toArray() : array
     {
-        return $this->hasMany(\App\Models\Lookup\DepartmentTranslation::class);
+        $array = parent::toArray();
+        $array['name'] = $this->name;
+        $array['impact'] = $this->impact;
+        return $array;
     }
 }

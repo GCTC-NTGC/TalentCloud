@@ -13,51 +13,51 @@ return [
     'departments' => [
         'treasury_board' => [
             'name' => 'Secrétariat du Conseil du Trésor du Canada',
-            'impact' => '01'
+            'impact' => 'FR01'
         ],
         'natural_resources' => [
             'name' => 'Ressources naturelles Canada',
-            'impact' => '02'
+            'impact' => 'FR02'
         ],
         'transport' => [
             'name' => 'Transports Canada',
-            'impact' => '03'
+            'impact' => 'FR03'
         ],
         'enviroment_and_climate_change' => [
             'name' => 'Environnement et Changement climatique Canada',
-            'impact' => ''
+            'impact' => 'FR04'
         ],
         'employment_and_social_development' => [
             'name' => 'Emploi et Développement social Canada',
-            'impact' => ''
+            'impact' => 'FR05'
         ],
         'global_affairs' => [
             'name' => 'Affaires mondiales Canada',
-            'impact' => ''
+            'impact' => 'FR06'
         ],
         'border_services_agency' => [
             'name' => 'Agence des services frontaliers du Canada',
-            'impact' => ''
+            'impact' => 'FR07'
         ],
         'fisheries_and_oceans' => [
             'name' => 'Pêches et Océans Canada',
-            'impact' => ''
+            'impact' => 'FR08'
         ],
         'innovation_science' => [
             'name' => 'Innovation, Sciences et Développement économique Canada',
-            'impact' => ''
+            'impact' => 'FR09'
         ],
         'public_service_and_procurement' => [
             'name' => 'Services publics et Approvisionnement Canada',
-            'impact' => ''
+            'impact' => 'FR10'
         ],
         'department_national_defence' => [
             'name' => 'Ministère de la Défense nationale',
-            'impact' => ''
+            'impact' => 'FR11'
         ],
         'office_privacy_comissioner' => [
             'name' => 'Commissariat à la protection de la vie privée du Canada',
-            'impact' => ''
+            'impact' => 'FR12'
         ],
     ]
 ];
