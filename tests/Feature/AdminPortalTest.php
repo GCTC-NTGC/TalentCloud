@@ -104,7 +104,7 @@ class AdminPortalTest extends TestCase
     public function testDepartmentCreate() : void
     {
         $response = $this->actingAs($this->admin)
-            ->get("admin/department/$this->departmentId/create");
+            ->get('admin/department/create');
         $response->assertStatus(200);
     }
 }
