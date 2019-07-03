@@ -45,7 +45,7 @@ filter:
         - database/db/
         - database/migrations/
         - etc/
-        - resources/assets/js/jquery-ui
+        - resources/assets/js/jquery-ui.min
         - node_modules/
         - public/
         - report/
