@@ -18,6 +18,7 @@ build:
         analysis:
             tests:
                 before:
+                    - 'cp .env.example .env'
                     - 'make docker-start'
                     - 'make gen-certs'
                     - 'make build-db'
