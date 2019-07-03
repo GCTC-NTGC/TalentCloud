@@ -27,13 +27,15 @@ build:
                     - 'npm run dev'
                     - 'make phpunit'
                     - 'make jest'
-                    - 'make docker-stop'
 
                 override:
                     - php-scrutinizer-run
                     - js-scrutinizer-run
                     - phpcs-run --standard=ruleset.xml ./app ./routes ./database/factories ./database/seeds
                     - eslint-run ./resources/assets/js/app.js
+
+                after:
+                    - 'make docker-stop'
 
 filter:
     paths:
