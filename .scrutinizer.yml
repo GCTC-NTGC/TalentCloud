@@ -32,7 +32,7 @@ filter:
         - app/
         - database/factories/
         - database/seeds/
-        - resources/assets/js/
+        - resources/assets/js/app
         - routes/
 
     dependency_paths:
@@ -45,7 +45,6 @@ filter:
         - database/db/
         - database/migrations/
         - etc/
-        - resources/assets/js/jquery-ui.min
         - node_modules/
         - public/
         - report/
