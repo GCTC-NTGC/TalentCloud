@@ -31,14 +31,14 @@ build:
                     - php-scrutinizer-run
                     - js-scrutinizer-run
                     - phpcs-run --standard=ruleset.xml ./app ./routes ./database/factories ./database/seeds
-                    - eslint-run ./resources/assets/js/app
+                    - eslint-run ./resources/assets/js/app.js
 
 filter:
     paths:
         - app/
         - database/factories/
         - database/seeds/
-        - resources/assets/js/app
+        - resources/assets/js/app.js
         - routes/
 
     dependency_paths:
