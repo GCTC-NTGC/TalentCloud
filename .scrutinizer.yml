@@ -1,17 +1,13 @@
 build:
 
-    dependencies:
-        before:
-            # composer install
-            # npm install
-
     environment:
         php:
             version: "7.2"
             ini:
                 memory_limit: "-1"
         ruby: 2.5.1
-        node: v10.14.2
+        node: v12.5.0
+        docker: true
 
     cache:
         directories:
@@ -23,7 +19,7 @@ filter:
         - app/
         - database/factories/
         - database/seeds/
-        - resources/assets/js/app
+        - resources/assets/js/
         - routes/
 
     dependency_paths:
@@ -36,8 +32,9 @@ filter:
         - database/db/
         - database/migrations/
         - etc/
-        - public/
+        - resources/assets/js/jquery-ui
         - node_modules/
+        - public/
         - report/
         - resources/
         - storage/
