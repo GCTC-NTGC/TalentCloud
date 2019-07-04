@@ -51,7 +51,7 @@ const CheckboxGroup: React.FunctionComponent<CheckboxGroupProps> = ({
     onChange(id, value);
   };
 
-  const handleBlur = () => {
+  const handleBlur = (): void => {
     onBlur(id, true);
   };
 
@@ -65,14 +65,15 @@ const CheckboxGroup: React.FunctionComponent<CheckboxGroupProps> = ({
       <label>{checkboxGroupLabel}</label>
       {required && <span>Required</span>}
       <div data-c-grid>
+        {/* I used any below for now, couldn't find a solution */}
         {React.Children.map(children, (child): any => {
           return React.cloneElement(child, {
             field: {
-              value: value.includes(child.props.htmlId),
+              value: value.includes(child.props.id),
               onChange: handleChange,
               onBlur: handleBlur,
             },
-            checked: value.includes(child.props.htmlId),
+            checked: value.includes(child.props.id),
           });
         })}
       </div>
