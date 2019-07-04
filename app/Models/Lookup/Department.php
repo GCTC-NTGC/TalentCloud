@@ -54,18 +54,4 @@ class Department extends BaseModel
     {
         return $this->hasMany(\App\Models\JobPoster::class);
     }
-
-    /**
-     * Override the toArray() method to return the localized properties for
-     * name and description. This was causing issues for ajax responses.
-     *
-     * @return mixed[]
-     */
-    public function toArray() : array
-    {
-        $array = parent::toArray();
-        $array['name'] = $this->name;
-        $array['impact'] = $this->impact;
-        return $array;
-    }
 }
