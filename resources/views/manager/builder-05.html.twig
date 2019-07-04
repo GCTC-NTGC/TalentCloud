@@ -41,7 +41,7 @@
                             </li>
                             <li>
                                 <a aria-current="page" href="#link-to-page" title="This is the title of the page link.">
-                                    Step 05 (Tasks)
+                                    Step 04: Tasks
                                 </a>
                                 <i class="fa fa-caret-right"></i>
                             </li>
@@ -49,9 +49,9 @@
                     </nav>
                 </div>
             </div>
-            <!-- Progress Indicator (see step 00 for info) -->
-            <!-- Note, I've changed the alignment to remain centred. -->
-            <div class="manager-jpb-tracker" data-c-alignment="base(centre)" data-c-background="black(100)" data-c-colour="white">
+            <!-- UPDATE: 06-26 -->
+            <!-- After a discussion with Lauren and Tristan, we've decided to reduce the number of steps, as well as the nomenclature associated with each one. -->
+            <div class="manager-jpb-tracker" data-c-alignment="base(centre)s" data-c-background="black(100)" data-c-colour="white">
                 <div data-c-container="layout" data-c-padding="top(quarter) bottom(quarter)">
                     <div class="tracker manager-jpb-tracker-wrapper">
                         <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
@@ -61,8 +61,8 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 01</span><br>
-                                <span data-c-font-weight="bold">Intro</span>
+                                <span data-c-font-size="small">Start</span><br>
+                                <span data-c-font-weight="bold">Welcome</span>
                             </div>
                         </div>
                         <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
@@ -72,7 +72,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 02</span><br>
+                                <span data-c-font-size="small">Step 01</span><br>
                                 <span data-c-font-weight="bold">Job Info</span>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 03</span><br>
+                                <span data-c-font-size="small">Step 02</span><br>
                                 <span data-c-font-weight="bold">Work Env.</span>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 04</span><br>
+                                <span data-c-font-size="small">Step 03</span><br>
                                 <span data-c-font-weight="bold">Impact</span>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 05</span><br>
+                                <span data-c-font-size="small">Step 04</span><br>
                                 <span data-c-font-weight="bold">Tasks</span>
                             </div>
                         </div>
@@ -116,11 +116,10 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 06</span><br>
+                                <span data-c-font-size="small">Step 05</span><br>
                                 <span data-c-font-weight="bold">Skills</span>
                             </div>
                         </div>
-                        {# Note that a new step has been added to the tracker. #}
                         <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
                             <div class="tracker-icon">
                                 <i class="fas fa-arrow-down"></i>
@@ -128,18 +127,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 07</span><br>
-                                <span data-c-font-weight="bold">Education</span>
-                            </div>
-                        </div>
-                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
-                            <div class="tracker-icon">
-                                <i class="fas fa-arrow-down"></i>
-                                <i class="fas fa-check"></i>
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <div>
-                                <span data-c-font-size="small">Step 08</span><br>
+                                <span data-c-font-size="small">Finish</span><br>
                                 <span data-c-font-weight="bold">Review</span>
                             </div>
                         </div>
@@ -164,26 +152,30 @@
                 </div>
                 <form>
                     <div data-c-grid="gutter">
-                        <div class="job-builder-task" data-c-input="textarea" data-c-grid-item="base(1of1)">
-                            <div>
-                                <button type="button" data-tc-builder-task-up-trigger>
-                                    <i class="fas fa-long-arrow-alt-up"></i>
-                                </button>
-                                <button type="button" data-tc-builder-task-down-trigger>
-                                    <i class="fas fa-long-arrow-alt-down"></i>
-                                </button>
+                        <div class="job-builder-task" data-c-grid-item="base(1of1)" data-tc-up-down-item>
+                            <div data-c-grid="gutter middle">
+                                <div data-c-grid-item="base(1of7) tl(1of10)" data-c-align="base(centre)">
+                                    <button type="button" data-tc-move-up-trigger>
+                                        <i class="fas fa-angle-up"></i>
+                                    </button>
+                                    <button type="button" data-tc-move-down-trigger>
+                                        <i class="fas fa-angle-down"></i>
+                                    </button>
+                                </div>
+                                <div data-c-input="textarea" data-c-grid-item="base(5of7) tl(8of10)">
+                                    <label for="TA2">Task 01</label>
+                                    <span>Required</span>
+                                    <div>
+                                        <textarea id="TA2" placeholder="Try for a casual, frank, friendly tone...">Consult broadly and recruit executive leadership in digital and technology for federal organizations (e.g., C-Suite level positions like Chief Information Officers, Chief Digital Officers, Chief Technology Officers, and their deputies).</textarea>
+                                    </div>
+                                    <span>This input has an error.</span>
+                                </div>
+                                <div data-c-grid-item="base(1of7) tl(1of10)" data-c-align="base(centre)">
+                                    <button type="button" data-tc-builder-task-delete-trigger>
+                                        <i class="fas fa-trash" data-c-colour="stop"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <div>
-                                <button type="button" data-tc-builder-task-delete-trigger>
-                                    <i class="fas fa-trash" data-c-colour="stop"></i>
-                                </button>
-                            </div>
-                            <label for="TA2">Task 01</label>
-                            <span>Required</span>
-                            <div>
-                                <textarea id="TA2" placeholder="Try for a casual, frank, friendly tone...">Consult broadly and recruit executive leadership in digital and technology for federal organizations (e.g., C-Suite level positions like Chief Information Officers, Chief Digital Officers, Chief Technology Officers, and their deputies).</textarea>
-                            </div>
-                            <span>This input has an error.</span>
                         </div>
                         <div class="job-builder-task" data-c-input="textarea" data-c-grid-item="base(1of1)">
                             <div>

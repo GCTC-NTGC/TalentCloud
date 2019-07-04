@@ -63,9 +63,9 @@
 
         // Move Up
         function taskUpTrigger(trigger) {
-          var thisEl = $(trigger).parents(".job-builder-task");
-          var previousEl = $(trigger).parents(".job-builder-task").prev();
-          var nextEl = $(trigger).parents(".job-builder-task").next();
+          var thisEl = $(trigger).parents("[data-tc-up-down-item]");
+          var previousEl = $(trigger).parents("[data-tc-up-down-item]").prev();
+          var nextEl = $(trigger).parents("[data-tc-up-down-item]").next();
           if ($(previousEl).hasClass("job-builder-task-warning")) {
             var displaced = $(previousEl).prev();
             $(thisEl).removeClass("invalid");
@@ -83,11 +83,11 @@
           }
         }
 
-        $(document).on("click", "[data-tc-builder-task-up-trigger]", function(e) {
+        $(document).on("click", "[data-tc-move-up-trigger]", function(e) {
           taskUpTrigger(this);
         });
 
-        $(document).on("keyup", "[data-tc-builder-task-up-trigger]", function(e) {
+        $(document).on("keyup", "[data-tc-move-up-trigger]", function(e) {
           if (e.which == 13) {
             taskUpTrigger(this);
           }
@@ -95,9 +95,9 @@
 
         // Move Down
         function taskDownTrigger(trigger) {
-          var thisEl = $(trigger).parents(".job-builder-task");
-          var previousEl = $(trigger).parents(".job-builder-task").prev();
-          var nextEl = $(trigger).parents(".job-builder-task").next();
+          var thisEl = $(trigger).parents("[data-tc-up-down-item]");
+          var previousEl = $(trigger).parents("[data-tc-up-down-item]").prev();
+          var nextEl = $(trigger).parents("[data-tc-up-down-item]").next();
           if ($(nextEl).hasClass("job-builder-task-warning")) {
             var displaced = $(nextEl).next();
             $(thisEl).addClass("invalid");
@@ -115,11 +115,11 @@
           }
         }
 
-        $(document).on("click", "[data-tc-builder-task-down-trigger]", function(e) {
+        $(document).on("click", "[data-tc-move-down-trigger]", function(e) {
           taskDownTrigger(this);
         });
 
-        $(document).on("keyup", "[data-tc-builder-task-down-trigger]", function(e) {
+        $(document).on("keyup", "[data-tc-move-down-trigger]", function(e) {
           if (e.which == 13) {
             taskDownTrigger(this);
           }
