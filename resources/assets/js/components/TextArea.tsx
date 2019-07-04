@@ -8,7 +8,7 @@ export interface TextAreaProps {
   label: string;
   required: boolean;
   invalid?: boolean | null;
-  placeholder: string;
+  placeholder?: string;
   minLength?: number;
   maxLength?: number;
   value: string;
