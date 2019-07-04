@@ -24,6 +24,12 @@ export const validationMessages = defineMessages({
     description:
       "Error message displayed when a field value is outside of the available selection options.",
   },
+  checkboxRequired: {
+    id: "formValidation.checkboxRequired",
+    defaultMessage: "At least one checkbox is required.",
+    description:
+      "Error message displayed when a required checkbox group or radio group is empty.",
+  },
 });
 
 export const inputMessages = defineMessages({
