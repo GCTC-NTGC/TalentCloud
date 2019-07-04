@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Form, Field, Formik, FormikValues } from "formik";
 import * as Yup from "yup";
 import {
@@ -73,7 +73,6 @@ const formMessages = defineMessages({
     description:
       "The label displayed for the more about your environment textbox.",
   },
-  // Should we use textAreaPlaceholder1:{...} instead?
   moreOnWorkEnvPlaceholder: {
     id: "jobBuilder.workEnv.moreOnWorkEnvPlaceholder",
     defaultMessage: "Try for a casual, frank, friendly tone.",
@@ -421,7 +420,7 @@ const WorkEnvForm = ({
 
   const cultureSummaryRef = React.createRef<HTMLParagraphElement>();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const modalParent = document.querySelector("#modal-root");
+  const modalParentRef = useRef<HTMLDivElement>(null);
   const workEnvSchema = Yup.object().shape({
     teamSize: Yup.number().min(
       1,
@@ -487,7 +486,7 @@ const WorkEnvForm = ({
   };
 
   return (
-    <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
+    <div data-c-container="form" data-c-padding="top(triple) bottom(triple)" ref={modalParentRef}>
       <h3
         data-c-font-size="h3"
         data-c-font-weight="bold"
@@ -953,7 +952,7 @@ const WorkEnvForm = ({
               modalConfirm={handleSubmit}
               modalCancel={handleModalCancel}
               isVisible={isModalVisible}
-              parentElement={modalParent}
+              parentElement={modalParentRef.current}
               values={values}
               physEnvData={phyEnvData}
               techData={techData}
