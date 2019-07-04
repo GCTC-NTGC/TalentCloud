@@ -22,6 +22,7 @@ mix
   .js("resources/assets/js/jquery-ui.min.js", "public/js")
   .js("resources/assets/js/alerts.js", "public/js")
   .js("resources/assets/js/getpdf.js", "public/js")
+  .js("resources/assets/js/components/JobDetails/JobDetailsPage", "public/js")
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: sass,
     includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"]

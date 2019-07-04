@@ -198,7 +198,7 @@
                                         class="form__input"
                                         id="{{ id_prefix }}courseStatus"
                                         name="{{ name_prefix }}[course_status_id]">
-                                        <option value="" disabled selected>{{ course_template.status_default_option }}</option>
+                                        <option value="" disabled {% if course.course_status.id == status.id %}selected{% endif %}>{{ course_template.status_default_option }}</option>
                                         {% for status in course_status %}
                                             <option
                                                 {% if course.course_status.id == status.id %}selected="selected"{% endif %}

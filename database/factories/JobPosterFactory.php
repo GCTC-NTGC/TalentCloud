@@ -10,6 +10,7 @@ use App\Models\Lookup\SecurityClearance;
 use App\Models\Criteria;
 use App\Models\JobPosterKeyTask;
 use App\Models\JobPosterQuestion;
+use App\Models\Lookup\Frequency;
 
 $faker_fr = Faker\Factory::create('fr');
 
@@ -41,6 +42,15 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'manager_id' => function () {
             return factory(Manager::class)->create()->id;
         },
+        'team_size' => $faker->numberBetween(5, 30),
+        'work_env_features' => null, // TODO: fake features once they're nailed down
+        'fast_vs_steady' => $faker->numberBetween(1, 4),
+        'horizontal_vs_vertical' => $faker->numberBetween(1, 4),
+        'experimental_vs_ongoing' => $faker->numberBetween(1, 4),
+        'citizen_facing_vs_back_office' => $faker->numberBetween(1, 4),
+        'collaborative_vs_independent' => $faker->numberBetween(1, 4),
+        'telework_allowed_frequency_id' => Frequency::inRandomOrder()->first()->id,
+        'flexible_hours_frequency_id' => Frequency::inRandomOrder()->first()->id,
         'published' => false,
         'city:en' => $faker->city,
         'title:en' => $faker->unique()->realText(27, 1),
@@ -49,6 +59,9 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'branch:en' => $faker->word,
         'division:en' => $faker->word,
         'education:en' => $faker->sentence(),
+        'work_env_description:en' => $faker->paragraph(),
+        'culture_summary:en' => $faker->paragraph(),
+        'culture_special:en' => $faker->paragraph(),
         'city:fr' => $faker_fr->city,
         'title:fr' => $faker_fr->unique()->realText(27, 1),
         'team_impact:fr' => $faker->paragraph(),
@@ -56,6 +69,9 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'branch:fr' => $faker_fr->word,
         'division:fr' => $faker_fr->word,
         'education:fr' => $faker_fr->sentence(),
+        'work_env_description:fr' => $faker->paragraph(),
+        'culture_summary:fr' => $faker->paragraph(),
+        'culture_special:fr' => $faker->paragraph(),
     ];
 });
 

@@ -13,6 +13,7 @@ import {
   CREATE_JOB_SUCCEEDED,
   CREATE_JOB_STARTED,
   CREATE_JOB_FAILED,
+  SET_SELECTED_JOB,
 } from "./jobActions";
 import { mapToObject, getId, deleteProperty } from "../../helpers/queries";
 
@@ -40,6 +41,7 @@ export interface UiState {
     [id: number]: boolean;
   };
   creatingJob: boolean;
+  selectedJobId: number | null;
 }
 
 export interface JobState {
@@ -57,6 +59,7 @@ export const initUi = (): UiState => ({
   jobUpdating: {},
   criteriaUpdating: {},
   creatingJob: false,
+  selectedJobId: null,
 });
 
 export const initState = (): JobState => ({
@@ -131,6 +134,10 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
         creatingJob: true,
       };
     case CREATE_JOB_SUCCEEDED:
+      return {
+        ...state,
+        creatingJob: false,
+      };
     case CREATE_JOB_FAILED:
       return {
         ...state,
@@ -145,7 +152,6 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
         },
       };
     case FETCH_JOB_SUCCEEDED:
-    case UPDATE_JOB_SUCCEEDED:
     case FETCH_JOB_FAILED:
     case UPDATE_JOB_FAILED:
       return {
@@ -153,6 +159,18 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
         jobUpdating: {
           [action.meta.id]: false,
         },
+      };
+    case UPDATE_JOB_SUCCEEDED:
+      return {
+        ...state,
+        jobUpdating: {
+          [action.meta.id]: false,
+        },
+      };
+    case SET_SELECTED_JOB:
+      return {
+        ...state,
+        selectedJobId: action.payload.jobId,
       };
     default:
       return state;

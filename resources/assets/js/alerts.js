@@ -55,7 +55,7 @@ function handleClick(e) {
       preConfirm: () => {
         return axios({
           method: action == "delete" ? action : "post",
-          url: this.getAttribute("href")
+          url: this.getAttribute("data-href")
         })
           .then(response => {
             const jobId = this.getAttribute("data-jobid");

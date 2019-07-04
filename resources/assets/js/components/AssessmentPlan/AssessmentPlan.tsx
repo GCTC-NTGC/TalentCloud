@@ -4,7 +4,6 @@ import { Job, AssessmentPlanNotification } from "../../models/types";
 import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingGuideBuilder from "./RatingGuideBuilder";
 import AssessmentPlanAlert from "./AssessmentPlanAlert";
-import ErrorToast from "../ErrorToast";
 import AssessmentPlanBuilder from "./AssessmentPlanBuilder";
 
 interface AssessmentPlanProps {
@@ -22,7 +21,6 @@ const AssessmentPlan: React.FunctionComponent<
   );
   return (
     <section data-clone>
-      <ErrorToast />
       <div
         data-c-padding="top(triple) bottom(triple)"
         data-c-container="layout"
