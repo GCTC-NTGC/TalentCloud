@@ -1,14 +1,16 @@
 import * as React from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import { injectIntl, InjectedIntlProps } from "react-intl";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { items } from "../ProgressTracker/fixtures/progressItems";
 import WorkEnvForm from "./WorkEnvForm";
 
-interface JobBuilderWorkEnvProps {}
+interface JobBuilderWorkEnvProps {
+  handleSubmit: (values) => void;
+}
 
 const JobBuilderWorkEnv: React.FunctionComponent<
   JobBuilderWorkEnvProps & InjectedIntlProps
-> = (): React.ReactElement => {
+> = ({ handleSubmit }): React.ReactElement => {
   return (
     <section data-c-background="white(100)">
       <ProgressTracker
@@ -19,7 +21,7 @@ const JobBuilderWorkEnv: React.FunctionComponent<
         itemsWrapperClassNames="tracker manager-jpb-tracker-wrapper"
       />
       <WorkEnvForm
-        handleSubmit={(values): void => console.dir(values)}
+        handleSubmit={handleSubmit}
         handleModalCancel={(): void => console.log("Modal Cancelled")}
         handleModalConfirm={(): void => console.log("Modal Confirmed")}
       />

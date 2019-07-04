@@ -1,27 +1,28 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import {
-  FormValues,
-  physicalEnvOptions,
-  technologyOptions,
-  amenitiesOptions,
-} from "./WorkEnvForm";
+import { FormValues } from "./WorkEnvForm";
 import Modal from "../Modal";
 
 interface WorkEnvModalProps {
-  modalConfirm: () => void;
+  modalConfirm: (values) => void;
   modalCancel: () => void;
-  values: FormValues;
   isVisible: boolean;
   parentElement: Element | null;
+  values: FormValues;
+  physEnvData: { name: string; label: string }[];
+  techData: { name: string; label: string }[];
+  amenitiesData: { name: string; label: string }[];
 }
 
 const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
   modalConfirm,
   modalCancel,
-  values,
   isVisible,
   parentElement,
+  values,
+  physEnvData,
+  techData,
+  amenitiesData,
 }): React.ReactElement => {
   return (
     <>
@@ -114,8 +115,8 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                   </p>
                   <div data-c-margin="left(quarter)">
                     <div data-c-grid="gutter">
-                      {physicalEnvOptions &&
-                        physicalEnvOptions.map(
+                      {physEnvData &&
+                        physEnvData.map(
                           ({ label, name }): React.ReactElement => {
                             const checkedPhyEnvValues = values.physicalEnv;
                             const checked =
@@ -125,7 +126,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                             return (
                               <div data-c-grid-item="tp(1of2)">
                                 <div className={`job-builder-check ${checked}`}>
-                                  <i className="fa fa-check"></i>
+                                  <i className="fa fa-check" />
                                 </div>
                                 <span>{label}</span>
                               </div>
@@ -149,8 +150,8 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                   </p>
                   <div data-c-margin="left(quarter)">
                     <div data-c-grid="gutter">
-                      {technologyOptions &&
-                        technologyOptions.map(
+                      {techData &&
+                        techData.map(
                           ({ label, name }): React.ReactElement => {
                             const checkedTechValues = values.technology;
                             const checked =
@@ -183,8 +184,8 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                   </p>
                   <div data-c-margin="left(quarter)">
                     <div data-c-grid="gutter">
-                      {amenitiesOptions &&
-                        amenitiesOptions.map(
+                      {amenitiesData &&
+                        amenitiesData.map(
                           ({ label, name }): React.ReactElement => {
                             const amenitiesValues = values.amenities;
                             const checked =

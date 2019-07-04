@@ -7,40 +7,19 @@ import {
   InjectedIntlProps,
   FormattedMessage,
   defineMessages,
-  addLocaleData,
 } from "react-intl";
-import locale_en from "react-intl/locale-data/en";
-import locale_fr from "react-intl/locale-data/fr";
-import Input from "../Forms/Input";
-import TextArea from "../Forms/TextArea";
-import CheckboxGroup from "../Forms/CheckboxGroup";
-import RadioGroup from "../Forms/RadioGroup";
+import TextArea from "../TextArea";
+import CheckboxGroup from "../Form/CheckboxGroup";
+import RadioGroup from "../Form/RadioGroup";
 import ContextBlock from "../ContextBlock/ContextBlock";
 import ContextBlockItem from "../ContextBlock/ContextBlockItem";
 import CopyToClipboardButton from "./CopyToClipboardButton";
 import WorkEnvModal from "./WorkEnvModal";
-
-addLocaleData([...locale_en, ...locale_fr]);
-
-const validationMessages = defineMessages({
-  required: {
-    id: "formValidation.required",
-    defaultMessage: "This field is required.",
-    description: "Error message displayed when a required field is empty.",
-  },
-  checkboxRequired: {
-    id: "formValidation.checkboxRequired",
-    defaultMessage: "At least one checkbox is required.",
-    description:
-      "Error message displayed when a required checkbox group or radio group is empty.",
-  },
-  envDescription: {
-    id: "formValidation.envDescription",
-    defaultMessage: "Please describe your workplace environment.",
-    description:
-      "Error message displayed when work environment description textarea is empty.",
-  },
-});
+import RadioInput from "../Form/RadioInput";
+import NumberInput from "../Form/NumberInput";
+import CheckboxInput from "../Form/CheckboxInput";
+import TextAreaInput from "../Form/TextAreaInput";
+import { validationMessages } from "../Form/Messages";
 
 const formMessages = defineMessages({
   ourWorkEnv: {
@@ -182,99 +161,132 @@ const formMessages = defineMessages({
   },
 });
 
-// Are the options being fetched from API?
+export const physEnvMessages = defineMessages({
+  openConcept: {
+    id: "jobBuilder.workEnv.physEnv.openConcept",
+    defaultMessage: "Open Concept",
+    description: "Physical Environment checkbox group 'open concept' option.",
+  },
+  private: {
+    id: "jobBuilder.workEnv.physEnv.private",
+    defaultMessage: "Private",
+    description: "Physical Environment checkbox group 'private' option.",
+  },
+  assignedSeating: {
+    id: "jobBuilder.workEnv.physEnv.assignedSeating",
+    defaultMessage: "Assigned Seating",
+    description:
+      "Physical Environment checkbox group 'assigned seating' option.",
+  },
+  windows: {
+    id: "jobBuilder.workEnv.physEnv.windows",
+    defaultMessage: "Lots of Windows",
+    description: "Physical Environment checkbox group 'windows' option.",
+  },
+  naturalLight: {
+    id: "jobBuilder.workEnv.physEnv.naturalLight",
+    defaultMessage: "Natural Light",
+    description: "Physical Environment checkbox group 'natural light' option.",
+  },
+  smudging: {
+    id: "jobBuilder.workEnv.physEnv.smudging",
+    defaultMessage: "Suitable for Smudging",
+    description:
+      "Physical Environment checkbox group 'suitable for smudging' option.",
+  },
+});
 
-export const physicalEnvOptions: any = [
-  {
-    label: "Open Concept",
-    name: "open_concept",
-  },
-  {
-    label: "Private",
-    name: "private",
-  },
-  {
-    label: "Assigned Seating",
-    name: "assigned_seating",
-  },
-  {
-    label: "Lots of Windoes",
-    name: "lots_of_windows",
-  },
-  {
-    label: "Natural Light",
-    name: "natural_light",
-  },
-  {
-    label: "Suitable for Smudging",
-    name: "smudging",
-  },
-  {
-    label: "None of the Above",
-    name: "none_env",
-  },
+export const physEnvOptions: string[] = [
+  "openConcept",
+  "private",
+  "assignedSeating",
+  "windows",
+  "naturalLight",
+  "smudging",
 ];
 
-export const technologyOptions = [
-  {
-    label: "Video Conferencing (e.g. Skype, Zoom)",
-    name: "video_confrencing",
+export const techMessages = defineMessages({
+  videoConfrencing: {
+    id: "jobBuilder.workEnv.techonology.videoConfrencing",
+    defaultMessage: "Video Conferencing (e.g. Skype, Zoom)",
+    description: "Technology checkbox group 'video confrencing' option.",
   },
-  {
-    label: "Collaboration (e.g. Slack, Hangouts",
-    name: "collaboration",
+  collaboration: {
+    id: "jobBuilder.workEnv.techonology.collaboration",
+    defaultMessage: "Collaboration (e.g. Slack, Hangouts)",
+    description: "Technology checkbox group 'collaboration' option.",
   },
-  {
-    label: "File Sharing (e.g. Google Drive, Dropbox)",
-    name: "file_sharing",
+  fileSharing: {
+    id: "jobBuilder.workEnv.techonology.fileSharing",
+    defaultMessage: "File Sharing (e.g. Google Drive, Dropbox)",
+    description: "Technology checkbox group 'file sharing' option.",
   },
-  {
-    label: "Task Management (e.g. Trello, Asana)",
-    name: "task_management",
+  taskManagement: {
+    id: "jobBuilder.workEnv.techonology.taskManagement",
+    defaultMessage: "Task Management (e.g. Trello, Asana)",
+    description: "Technology checkbox group 'task management' option.",
   },
-  {
-    label: "Version Control (e.g. Github, Gitlab)",
-    name: "version_control",
+  versionControl: {
+    id: "jobBuilder.workEnv.techonology.videoConfrencing",
+    defaultMessage: "Version Control (e.g. Github, Gitlab)",
+    description: "Technology checkbox group 'version control' option.",
   },
-  {
-    label: "Access to external, unfiltered Wi-Fi.",
-    name: "access_to_external",
+  accessToExternal: {
+    id: "jobBuilder.workEnv.techonology.accessToExternal",
+    defaultMessage: "Access to external, unfiltered Wi-Fi.",
+    description: "Technology checkbox group 'access to external' option.",
   },
-  {
-    label: "None of the Above",
-    name: "none_tech",
-  },
+});
+
+export const techOptions: string[] = [
+  "videoConfrencing",
+  "collaboration",
+  "fileSharing",
+  "taskManagement",
+  "versionControl",
+  "accessToExternal",
 ];
 
-export const amenitiesOptions = [
-  {
-    label: "Cafeteria On-site",
-    name: "cafeteria_on_site",
+export const amenitiesMessages = defineMessages({
+  cafeteria: {
+    id: "jobBuilder.workEnv.amenities.cafeteria",
+    defaultMessage: "Cafeteria On-site",
+    description: "Ameneties checkbox group 'cafeteria' option.",
   },
-  {
-    label: "Close to Transit",
-    name: "close_to_transit",
+  closeToTransit: {
+    id: "jobBuilder.workEnv.amenities.closeToTransit",
+    defaultMessage: "Close to Transit",
+    description: "Ameneties checkbox group 'close to transit' option.",
   },
-  {
-    label: "Walking Distance to Restaurants/Malls",
-    name: "walking_distances_resturants",
+  resturants: {
+    id: "jobBuilder.workEnv.amenities.resturants",
+    defaultMessage: "Walking Distance to Restaurants/Malls",
+    description: "Ameneties checkbox group 'resturants' option.",
   },
-  {
-    label: "Downtown",
-    name: "downtown",
+  downtown: {
+    id: "jobBuilder.workEnv.amenities.downtown",
+    defaultMessage: "Downtown",
+    description: "Ameneties checkbox group 'downtown' option.",
   },
-  {
-    label: "Nearby Fitness Centre",
-    name: "nearly_fitness_center",
+  fitnessCenter: {
+    id: "jobBuilder.workEnv.amenities.fitnessCenter",
+    defaultMessage: "Nearby Fitness Centre",
+    description: "Ameneties checkbox group 'nearby fitness centre' option.",
   },
-  {
-    label: "Easy Access to Parking",
-    name: "easy_access_to_parking",
+  parking: {
+    id: "jobBuilder.workEnv.amenities.parking",
+    defaultMessage: "Easy Access to Parking",
+    description: "Ameneties checkbox group 'parking' option.",
   },
-  {
-    label: "None of the Above",
-    name: "none_amen",
-  },
+});
+
+export const amenitiesOptions: string[] = [
+  "cafeteria",
+  "closeToTransit",
+  "resturants",
+  "downtown",
+  "fitnessCenter",
+  "parking",
 ];
 
 const culturePaceList = [
@@ -384,7 +396,30 @@ const WorkEnvForm = ({
   handleModalConfirm,
   intl,
 }: WorkEnvFormProps & InjectedIntlProps): React.ReactElement => {
-  const copyTest = React.createRef<HTMLParagraphElement>();
+  // This function takes the possible values and the localized messages objects and returns an array. The array contians the name and localized label.
+  const createOptions = (
+    options: string[],
+    messages: ReactIntl.Messages,
+  ): { name: string; label: string }[] => {
+    return options.map((name: string): { name: string; label: string } => ({
+      name,
+      label: intl.formatMessage(messages[name]),
+    }));
+  };
+  const phyEnvData: { name: string; label: string }[] = createOptions(
+    physEnvOptions,
+    physEnvMessages,
+  );
+  const techData: { name: string; label: string }[] = createOptions(
+    techOptions,
+    techMessages,
+  );
+  const amenitiesData: { name: string; label: string }[] = createOptions(
+    amenitiesOptions,
+    amenitiesMessages,
+  );
+
+  const cultureSummaryRef = React.createRef<HTMLParagraphElement>();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const modalParent = document.querySelector("#modal-root");
   const workEnvSchema = Yup.object().shape({
@@ -402,7 +437,7 @@ const WorkEnvForm = ({
       intl.formatMessage(validationMessages.checkboxRequired),
     ),
     envDescription: Yup.string().required(
-      intl.formatMessage(validationMessages.envDescription),
+      intl.formatMessage(validationMessages.required),
     ),
     culturePace: Yup.mixed()
       .oneOf([
@@ -490,7 +525,7 @@ const WorkEnvForm = ({
 
       <Formik
         initialValues={{
-          teamSize: 0,
+          teamSize: undefined,
           physicalEnv: [],
           technology: [],
           amenities: [],
@@ -528,7 +563,7 @@ const WorkEnvForm = ({
               <Field
                 type="number"
                 name="teamSize"
-                component={Input}
+                component={NumberInput}
                 required
                 grid="tl(1of2)"
                 id="teamSize"
@@ -546,16 +581,15 @@ const WorkEnvForm = ({
                 onBlur={setFieldTouched}
                 required
               >
-                {physicalEnvOptions &&
-                  physicalEnvOptions.map(
+                {phyEnvData &&
+                  phyEnvData.map(
                     ({ name, label }): React.ReactElement => {
                       return (
                         <Field
-                          type="checkbox"
-                          htmlId={name}
+                          id={name}
                           name={name}
                           label={label}
-                          component={Input}
+                          component={CheckboxInput}
                           grid="base(1of2)"
                         />
                       );
@@ -573,16 +607,15 @@ const WorkEnvForm = ({
                 onBlur={setFieldTouched}
                 required
               >
-                {technologyOptions &&
-                  technologyOptions.map(
+                {techData &&
+                  techData.map(
                     ({ name, label }): React.ReactElement => {
                       return (
                         <Field
-                          type="checkbox"
-                          htmlId={name}
+                          id={name}
                           name={name}
                           label={label}
-                          component={Input}
+                          component={CheckboxInput}
                           grid="base(1of2)"
                         />
                       );
@@ -600,16 +633,15 @@ const WorkEnvForm = ({
                 onBlur={setFieldTouched}
                 required
               >
-                {amenitiesOptions &&
-                  amenitiesOptions.map(
+                {amenitiesData &&
+                  amenitiesData.map(
                     ({ name, label }): React.ReactElement => {
                       return (
                         <Field
-                          type="checkbox"
-                          htmlId={name}
+                          id={name}
                           name={name}
                           label={label}
-                          component={Input}
+                          component={CheckboxInput}
                           grid="base(1of2)"
                         />
                       );
@@ -648,7 +680,7 @@ const WorkEnvForm = ({
                 placeholder={intl.formatMessage(
                   formMessages.moreOnWorkEnvPlaceholder,
                 )}
-                component={TextArea}
+                component={TextAreaInput}
                 grid="base(1of2)"
                 required
               />
@@ -684,7 +716,7 @@ const WorkEnvForm = ({
               >
                 <div data-c-grid="gutter">
                   <RadioGroup
-                    htmlId="culturePace"
+                    id="culturePace"
                     label={intl.formatMessage(
                       formMessages.fastPacedSteadyLabel,
                     )}
@@ -697,10 +729,9 @@ const WorkEnvForm = ({
                       ({ id, title }): React.ReactElement => {
                         return (
                           <Field
-                            inputType="radio"
                             name="culturePace"
-                            component={Input}
-                            htmlId={id}
+                            component={RadioInput}
+                            id={id}
                             label={title}
                             value={id}
                             trigger
@@ -735,7 +766,7 @@ const WorkEnvForm = ({
               >
                 <div data-c-grid="gutter">
                   <RadioGroup
-                    htmlId="management"
+                    id="management"
                     label={intl.formatMessage(formMessages.managementLabel)}
                     required
                     touched={touched.management}
@@ -746,10 +777,9 @@ const WorkEnvForm = ({
                       ({ id, title }): React.ReactElement => {
                         return (
                           <Field
-                            inputType="radio"
                             name="management"
-                            component={Input}
-                            htmlId={id}
+                            component={RadioInput}
+                            id={id}
                             label={title}
                             value={id}
                             trigger
@@ -784,7 +814,7 @@ const WorkEnvForm = ({
               >
                 <div data-c-grid="gutter">
                   <RadioGroup
-                    htmlId="experimental"
+                    id="experimental"
                     label={intl.formatMessage(formMessages.managementLabel)}
                     required
                     touched={touched.experimental}
@@ -795,10 +825,9 @@ const WorkEnvForm = ({
                       ({ id, title }): React.ReactElement => {
                         return (
                           <Field
-                            inputType="radio"
                             name="experimental"
-                            component={Input}
-                            htmlId={id}
+                            component={RadioInput}
+                            id={id}
                             label={title}
                             value={id}
                             trigger
@@ -847,13 +876,13 @@ const WorkEnvForm = ({
                 </p>
                 <ContextBlockItem
                   subtext={buildCultureSummary(values)}
-                  reference={copyTest}
+                  reference={cultureSummaryRef}
                 />
                 <div
                   data-c-alignment="base(centre) tl(right)"
                   data-c-margin="top(normal)"
                 >
-                  <CopyToClipboardButton reference={copyTest} />
+                  <CopyToClipboardButton reference={cultureSummaryRef} />
                 </div>
               </div>
               <Field
@@ -921,11 +950,14 @@ const WorkEnvForm = ({
               </div>
             </Form>
             <WorkEnvModal
-              modalConfirm={handleModalConfirm}
+              modalConfirm={handleSubmit}
               modalCancel={handleModalCancel}
               isVisible={isModalVisible}
               parentElement={modalParent}
               values={values}
+              physEnvData={phyEnvData}
+              techData={techData}
+              amenitiesData={amenitiesData}
             />
           </>
         )}
