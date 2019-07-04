@@ -13,6 +13,8 @@ interface RadioInputProps {
   value?: string | number;
   /** Formik field prop of the shape { name, value, onChange, onBlur } */
   field: FieldProps["field"];
+  /** For type radio; a boolean that triggers the corresponding contextblock item */
+  trigger?: boolean;
 }
 
 const RadioInput: React.FunctionComponent<RadioInputProps> = ({
@@ -20,6 +22,7 @@ const RadioInput: React.FunctionComponent<RadioInputProps> = ({
   label,
   checked,
   field: { name, onChange, onBlur },
+  trigger,
 }): React.ReactElement => {
   return (
     <Input
@@ -31,6 +34,7 @@ const RadioInput: React.FunctionComponent<RadioInputProps> = ({
       checked={checked}
       onChange={onChange}
       onBlur={onBlur}
+      trigger
     />
   );
 };

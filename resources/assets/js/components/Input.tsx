@@ -17,6 +17,8 @@ export interface InputProps {
   placeholder?: string;
   /** For type radio and checkbox; a boolean indicating if input is checked, or not */
   checked?: boolean;
+  /** For type radio; a boolean that triggers the corresponding contextblock item */
+  trigger?: boolean;
   /** The input type */
   type?: string;
   /** Minimum length of characters the text value can be */
@@ -42,6 +44,7 @@ const Input: React.FunctionComponent<InputProps> = ({
   required,
   placeholder,
   checked,
+  trigger,
   type,
   value,
   invalid,
@@ -52,9 +55,37 @@ const Input: React.FunctionComponent<InputProps> = ({
   onBlur,
   onChange,
 }): React.ReactElement => {
-  function renderRadio(): React.ReactElement {
+  function renderCheckbox(): React.ReactElement {
     return (
-      <label htmlFor={id}>
+      <div data-c-grid-item={grid}>
+        <label htmlFor={id}>
+          <input
+            id={id}
+            name={name}
+            type="checkbox"
+            checked={checked}
+            value={value}
+            onChange={onChange}
+            onBlur={onBlur}
+          />
+          <span>{label}</span>
+        </label>
+      </div>
+    );
+  }
+
+  function renderRadio(): React.ReactElement {
+    const clicked: boolean = id === value;
+    return (
+      <label
+        htmlFor={id}
+        /*
+          data-tc-wenv-id and data-tc-wenv-trigger are needed for the ContextBlock components.
+        */
+        data-tc-wenv-id={id}
+        data-tc-wenv-trigger={trigger}
+        className={clicked ? "active" : ""}
+      >
         <input
           id={id}
           name={name}
@@ -98,10 +129,15 @@ const Input: React.FunctionComponent<InputProps> = ({
       </div>
     );
   }
-  if (type === "radio") {
-    return renderRadio();
+
+  switch (type) {
+    case "radio":
+      return renderRadio();
+    case "checkbox":
+      return renderCheckbox();
+    default:
+      return renderText();
   }
-  return renderText();
 };
 
 export default Input;
