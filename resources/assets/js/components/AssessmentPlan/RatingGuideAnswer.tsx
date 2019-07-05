@@ -7,7 +7,7 @@ import {
   Skill,
   Criteria,
 } from "../../models/types";
-import Select, { SelectOption } from "../Form/Select";
+import Select, { SelectOption } from "../Select";
 import UpdatingTextArea from "../UpdatingTextArea";
 import { getId, hasKey } from "../../helpers/queries";
 import { RootState } from "../../store/store";
@@ -111,7 +111,7 @@ const RatingGuideAnswer: React.FunctionComponent<
     return null;
   }
   const options = availableCriteria.map(
-    (criterion): SelectOption<number> => {
+    (criterion): SelectOption => {
       const skill = hasKey<Skill | null>(criteriaIdToSkill, criterion.id)
         ? criteriaIdToSkill[criterion.id]
         : null;
@@ -145,8 +145,8 @@ const RatingGuideAnswer: React.FunctionComponent<
       </div>
       <div data-c-grid-item="base(1of1) tp(4of8)">
         <UpdatingTextArea
-          htmlId={`ratingGuideAnswer${answer.id}`}
-          formName="ratingGuideAnswer"
+          id={`ratingGuideAnswer${answer.id}`}
+          name="ratingGuideAnswer"
           label={intl.formatMessage(messages.inputLabel)}
           required
           placeholder={intl.formatMessage(messages.inputPlaceholder)}

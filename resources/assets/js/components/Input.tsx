@@ -15,19 +15,20 @@ export interface InputProps {
   invalid?: boolean | null;
   /** Let's you specify example text that appears in input element when empty */
   placeholder?: string;
-  /** For type radio and checkbox; a boolean indicating if input is checked, or not */
-  checked?: boolean;
-  /** The input type */
+  /**
+   * The input type: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types
+   * Defaults to 'text'
+   * */
   type?: string;
   /** Minimum length of characters the text value can be */
   minLength?: number;
   /** Maximum length of characters the text value can be */
   maxLength?: number;
   /** The value of the input */
-  value?: string | number;
-  /** Error text that appers underneath if error occurs (eg. required, ) */
+  value?: string | number | string[];
+  /** Error text that appers underneath if error occurs (eg. required) */
   errorText?: string;
-  /** data-clone-grid-item value (refer to clone-framework docs for details) */
+  /** data-clone-grid-item value: https://designwithclone.ca/#flexbox-grid */
   grid?: string;
   /** Event listener which fires when a change event occurs (varies on input type) */
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -41,7 +42,6 @@ const Input: React.FunctionComponent<InputProps> = ({
   label,
   required,
   placeholder,
-  checked,
   type,
   value,
   invalid,
@@ -51,57 +51,33 @@ const Input: React.FunctionComponent<InputProps> = ({
   maxLength,
   onBlur,
   onChange,
-}): React.ReactElement => {
-  function renderRadio(): React.ReactElement {
-    return (
-      <label htmlFor={id}>
-        <input
-          id={id}
-          name={name}
-          type={type}
-          checked={checked}
-          value={value}
-          onChange={onChange}
-          onBlur={onBlur}
-        />
-        <span>{label}</span>
-      </label>
-    );
-  }
-
-  function renderText(): React.ReactElement {
-    return (
-      <div
-        data-c-input={type || "text"}
-        data-c-grid-item={grid}
-        data-c-required={required}
-        data-c-invalid={invalid}
-      >
-        <label htmlFor={id}>{label}</label>
-        <span>
-          <FormattedMessage {...inputMessages.required} />
-        </span>
-        <div>
-          <input
-            id={id}
-            name={name}
-            placeholder={placeholder}
-            type={type || "text"}
-            value={value}
-            minLength={minLength}
-            maxLength={maxLength}
-            onChange={onChange}
-            onBlur={onBlur}
-          />
-        </div>
-        <span>{errorText || "Something went wrong."}</span>
-      </div>
-    );
-  }
-  if (type === "radio") {
-    return renderRadio();
-  }
-  return renderText();
-};
+}): React.ReactElement => (
+  <div
+    data-c-input={type || "text"}
+    data-c-grid-item={grid}
+    data-c-required={required || null}
+    data-c-invalid={invalid || null}
+  >
+    <label htmlFor={id}>{label}</label>
+    <span>
+      <FormattedMessage {...inputMessages.required} />
+    </span>
+    <div>
+      <input
+        id={id}
+        name={name}
+        required={required}
+        placeholder={placeholder}
+        type={type || "text"}
+        value={value}
+        minLength={minLength}
+        maxLength={maxLength}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+    </div>
+    <span>{errorText || <FormattedMessage {...inputMessages.error} />}</span>
+  </div>
+);
 
 export default Input;

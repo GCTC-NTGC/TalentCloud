@@ -8,7 +8,7 @@ import {
 import className from "classnames";
 import Swal from "sweetalert2";
 import * as routes from "../../helpers/routes";
-import Select, { SelectOption } from "../Form/Select";
+import Select, { SelectOption } from "../Select";
 import { Application } from "../../models/types";
 import { ReviewStatusId } from "../../models/lookupConstants";
 
@@ -107,7 +107,7 @@ const messages = defineMessages({
 
 interface ApplicationReviewWithNavProps {
   application: Application;
-  reviewStatusOptions: SelectOption<number>[];
+  reviewStatusOptions: SelectOption[];
   onStatusChange: (
     applicationId: number,
     statusId: number | null,

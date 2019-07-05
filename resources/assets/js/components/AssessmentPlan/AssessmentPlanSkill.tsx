@@ -11,7 +11,7 @@ import {
   skillLevelName,
   assessmentType,
 } from "../../models/localizedConstants";
-import Select, { SelectOption } from "../Form/Select";
+import Select, { SelectOption } from "../Select";
 import { AssessmentTypeId, enumToIds } from "../../models/lookupConstants";
 import {
   Criteria,
@@ -91,10 +91,10 @@ export const AssessmentPlanSkill: React.FunctionComponent<
   removeTempAssessment,
   intl,
 }: AssessmentPlanSkillProps & InjectedIntlProps): React.ReactElement | null => {
-  if (criterion === null || skill === null) {
-    return null;
-  }
   useEffect((): void => {
+    if (criterion === null || skill === null) {
+      return;
+    }
     assessments.forEach(
       (assessment): void => {
         // If assessment has been edited, and is not currently being updated, start an update.
@@ -109,13 +109,26 @@ export const AssessmentPlanSkill: React.FunctionComponent<
     );
   });
   useEffect((): void => {
+    if (criterion === null || skill === null) {
+      return;
+    }
     tempAssessments.forEach((temp): void => {
       // If any temp assessments exist, we want to save them as soon as they're valid
       if (!tempAssessmentsSaving[temp.id] && temp.assessment_type_id !== null) {
         saveTempAssessment(temp as Assessment); // TODO: remove TempAssessment type, just use Assessment everywhere
       }
     });
-  }, [tempAssessments, tempAssessmentsSaving]);
+  }, [
+    criterion,
+    saveTempAssessment,
+    skill,
+    tempAssessments,
+    tempAssessmentsSaving,
+  ]);
+
+  if (criterion === null || skill === null) {
+    return null;
+  }
 
   const skillLevel = intl.formatMessage(
     skillLevelName(criterion.skill_level_id, skill.skill_type_id),
@@ -127,7 +140,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
     ? criterion[intl.locale].description
     : skill[intl.locale].description;
   const assessmentTypeOptions = enumToIds(AssessmentTypeId).map(
-    (typeId): SelectOption<number> => {
+    (typeId): SelectOption => {
       return {
         value: typeId,
         label: intl.formatMessage(assessmentType(typeId)),
@@ -157,7 +170,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
       // Ensure we can't select an option already selected in a sibling selector
       return (
         option.value === assessment.assessment_type_id ||
-        !selectedAssessmentTypes.includes(option.value)
+        !selectedAssessmentTypes.includes(Number(option.value))
       );
     });
     return (
