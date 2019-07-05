@@ -396,17 +396,14 @@ const JobDetails: React.FunctionComponent<
   const remoteWorkOptions = [
     {
       id: "remoteWorkWorld",
-      value: "remoteWorkWorld",
       label: intl.formatMessage(formMessages.remoteWorkWorldLabel),
     },
     {
       id: "remoteWorkCanada",
-      value: "remoteWorkCanada",
       label: intl.formatMessage(formMessages.remoteWorkCanadaLabel),
     },
     {
       id: "remoteWorkNone",
-      value: "remoteWorkNone",
       label: intl.formatMessage(formMessages.remoteWorkNoneLabel),
     },
   ];
@@ -414,27 +411,22 @@ const JobDetails: React.FunctionComponent<
   const teleworkOptions = [
     {
       id: "teleworkAlways",
-      value: "teleworkAlways",
       label: intl.formatMessage(formMessages.frequencyAlwaysLabel),
     },
     {
       id: "teleworkFrequently",
-      value: "teleworkFrequently",
       label: intl.formatMessage(formMessages.frequencyFrequentlyLabel),
     },
     {
       id: "teleworkSometimes",
-      value: "teleworkSometimes",
       label: intl.formatMessage(formMessages.frequencySometimesLabel),
     },
     {
       id: "teleworkOccasionally",
-      value: "teleworkOccasionally",
       label: intl.formatMessage(formMessages.frequencyOccasionallyLabel),
     },
     {
       id: "teleworkNever",
-      value: "teleworkNever",
       label: intl.formatMessage(formMessages.frequencyNeverLabel),
     },
   ];
@@ -442,27 +434,22 @@ const JobDetails: React.FunctionComponent<
   const flexHoursOptions = [
     {
       id: "flexHoursAlways",
-      value: "flexHoursAlways",
       label: intl.formatMessage(formMessages.frequencyAlwaysLabel),
     },
     {
       id: "flexHoursFrequently",
-      value: "flexHoursFrequently",
       label: intl.formatMessage(formMessages.frequencyFrequentlyLabel),
     },
     {
       id: "flexHoursSometimes",
-      value: "flexHoursSometimes",
       label: intl.formatMessage(formMessages.frequencySometimesLabel),
     },
     {
       id: "flexHoursOccasionally",
-      value: "flexHoursOccasionally",
       label: intl.formatMessage(formMessages.frequencyOccasionallyLabel),
     },
     {
       id: "flexHoursNever",
-      value: "flexHoursNever",
       label: intl.formatMessage(formMessages.frequencyNeverLabel),
     },
   ];
@@ -509,7 +496,7 @@ const JobDetails: React.FunctionComponent<
             <>
               <Form id="job-information" data-c-grid="gutter">
                 <Field
-                  inputType="text"
+                  type="text"
                   name="title"
                   component={TextInput}
                   required
@@ -521,7 +508,7 @@ const JobDetails: React.FunctionComponent<
                   )}
                 />
                 <Field
-                  inputType="number"
+                  type="number"
                   name="termLength"
                   component={TextInput}
                   placeholder={intl.formatMessage(
@@ -618,7 +605,7 @@ const JobDetails: React.FunctionComponent<
                 />
                 <Field
                   name="city"
-                  inputType="text"
+                  type="text"
                   component={TextInput}
                   required
                   grid="tl(1of2)"
@@ -665,16 +652,17 @@ const JobDetails: React.FunctionComponent<
                   grid="base(1of1)"
                   error={errors.remoteWork}
                   touched={touched.remoteWork}
+                  value={values.remoteWork}
                 >
                   {remoteWorkOptions.map(
-                    ({ id, value, label }): React.ReactElement => {
+                    ({ id, label }): React.ReactElement => {
                       return (
                         <Field
+                          key={id}
                           name="remoteWork"
                           component={RadioInput}
                           id={id}
                           label={label}
-                          value={value}
                         />
                       );
                     },
@@ -701,16 +689,17 @@ const JobDetails: React.FunctionComponent<
                   grid="base(1of1)"
                   error={errors.telework}
                   touched={touched.telework}
+                  value={values.telework}
                 >
                   {teleworkOptions.map(
-                    ({ id, value, label }): React.ReactElement => {
+                    ({ id, label }): React.ReactElement => {
                       return (
                         <Field
+                          key={id}
                           name="telework"
                           component={RadioInput}
                           id={id}
                           label={label}
-                          value={value}
                         />
                       );
                     },
@@ -738,16 +727,17 @@ const JobDetails: React.FunctionComponent<
                   label={intl.formatMessage(formMessages.flexHoursGroupLabel)}
                   error={errors.flexHours}
                   touched={touched.flexHours}
+                  value={values.flexHours}
                 >
                   {flexHoursOptions.map(
-                    ({ id, value, label }): React.ReactElement => {
+                    ({ id, label }): React.ReactElement => {
                       return (
                         <Field
+                          key={id}
                           name="flexHours"
                           component={RadioInput}
                           id={id}
                           label={label}
-                          value={value}
                         />
                       );
                     },
@@ -770,88 +760,90 @@ const JobDetails: React.FunctionComponent<
                   </button>
                 </div>
               </Form>
-              <Modal
-                id="job-details-preview"
-                parentElement={modalParentRef.current}
-                visible={isModalVisible}
-                onModalConfirm={(): void => {
-                  handleModalConfirm();
-                  setIsModalVisible(false);
-                }}
-                onModalCancel={(): void => {
-                  handleModalCancel();
-                  setIsModalVisible(false);
-                }}
-              >
-                <Modal.Header>
-                  <div
-                    data-c-background="c1(100)"
-                    data-c-border="bottom(thin, solid, black)"
-                    data-c-padding="normal"
-                  >
-                    <h5
-                      data-c-colour="white"
-                      data-c-font-size="h4"
-                      id="job-details-preview-title"
+              {isModalVisible && (
+                <Modal
+                  id="job-details-preview"
+                  parentElement={modalParentRef.current}
+                  visible={isModalVisible}
+                  onModalConfirm={(): void => {
+                    handleModalConfirm();
+                    setIsModalVisible(false);
+                  }}
+                  onModalCancel={(): void => {
+                    handleModalCancel();
+                    setIsModalVisible(false);
+                  }}
+                >
+                  <Modal.Header>
+                    <div
+                      data-c-background="c1(100)"
+                      data-c-border="bottom(thin, solid, black)"
+                      data-c-padding="normal"
+                    >
+                      <h5
+                        data-c-colour="white"
+                        data-c-font-size="h4"
+                        id="job-details-preview-title"
+                      >
+                        <FormattedMessage
+                          id="jobDetails.modalHeader"
+                          defaultMessage="You're off to a great start!"
+                          description="The text displayed in the header of the Job Details modal."
+                        />
+                      </h5>
+                    </div>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <div
+                      data-c-border="bottom(thin, solid, black)"
+                      data-c-padding="normal"
+                      id="job-details-preview-description"
                     >
                       <FormattedMessage
-                        id="jobDetails.modalHeader"
-                        defaultMessage="You're off to a great start!"
-                        description="The text displayed in the header of the Job Details modal."
+                        id="jobDetails.modalBody"
+                        defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+                        description="The text displayed in the body of the Job Details modal."
                       />
-                    </h5>
-                  </div>
-                </Modal.Header>
-                <Modal.Body>
-                  <div
-                    data-c-border="bottom(thin, solid, black)"
-                    data-c-padding="normal"
-                    id="job-details-preview-description"
-                  >
-                    <FormattedMessage
-                      id="jobDetails.modalBody"
-                      defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
-                      description="The text displayed in the body of the Job Details modal."
-                    />
-                  </div>
-                  <div
-                    data-c-background="grey(20)"
-                    data-c-border="bottom(thin, solid, black)"
-                    data-c-padding="normal"
-                  >
-                    {/* TODO: Pull in the signed-in Manager's department */}
-                    {/* TODO: Get the actual value for things like language and security level */}
-                    <JobPreview
-                      title={values.title}
-                      department="Department"
-                      remoteWork={values.remoteWork !== "remoteWorkNone"}
-                      language={String(values.language)} // TODO: remove String() cast
-                      city={values.city}
-                      province={String(values.province)} // TODO: remove String() cast
-                      termLength={Number(values.termLength)}
-                      securityLevel={String(values.securityLevel)} // TODO: remove String() cast
-                      classification={String(values.classification)} // TODO: remove String() cast
-                      level={String(values.level)} // TODO: remove String() cast
-                    />
-                  </div>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Modal.FooterCancelBtn>
-                    <FormattedMessage
-                      id="jobDetails.modalCancelLabel"
-                      defaultMessage="Go Back"
-                      description="The text displayed on the cancel button of the Job Details modal."
-                    />
-                  </Modal.FooterCancelBtn>
-                  <Modal.FooterConfirmBtn>
-                    <FormattedMessage
-                      id="jobDetails.modalConfirmLabel"
-                      defaultMessage="Next Step"
-                      description="The text displayed on the confirm button of the Job Details modal."
-                    />
-                  </Modal.FooterConfirmBtn>
-                </Modal.Footer>
-              </Modal>
+                    </div>
+                    <div
+                      data-c-background="grey(20)"
+                      data-c-border="bottom(thin, solid, black)"
+                      data-c-padding="normal"
+                    >
+                      {/* TODO: Pull in the signed-in Manager's department */}
+                      {/* TODO: Get the actual value for things like language and security level */}
+                      <JobPreview
+                        title={values.title}
+                        department="Department"
+                        remoteWork={values.remoteWork !== "remoteWorkNone"}
+                        language={String(values.language)} // TODO: remove String() cast
+                        city={values.city}
+                        province={String(values.province)} // TODO: remove String() cast
+                        termLength={Number(values.termLength)}
+                        securityLevel={String(values.securityLevel)} // TODO: remove String() cast
+                        classification={String(values.classification)} // TODO: remove String() cast
+                        level={String(values.level)} // TODO: remove String() cast
+                      />
+                    </div>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Modal.FooterCancelBtn>
+                      <FormattedMessage
+                        id="jobDetails.modalCancelLabel"
+                        defaultMessage="Go Back"
+                        description="The text displayed on the cancel button of the Job Details modal."
+                      />
+                    </Modal.FooterCancelBtn>
+                    <Modal.FooterConfirmBtn>
+                      <FormattedMessage
+                        id="jobDetails.modalConfirmLabel"
+                        defaultMessage="Next Step"
+                        description="The text displayed on the confirm button of the Job Details modal."
+                      />
+                    </Modal.FooterConfirmBtn>
+                  </Modal.Footer>
+                </Modal>
+              )}
             </>
           )}
         />

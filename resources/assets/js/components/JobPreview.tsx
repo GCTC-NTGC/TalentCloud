@@ -1,21 +1,33 @@
 import React from "react";
 
-interface JobPreviewProps {
+export interface JobPreviewProps {
+  /** Title of the Job Poster */
   title: string;
+  /** Department of the manager that created the poster */
   department: string;
+  /** City for the Job Poster */
   city: string;
+  /** Province for the Job Poster */
   province: string;
+  /** If this Job Poster allows remote work */
   remoteWork?: boolean;
+  /** Salary for the Job Poster */
   salary?: string;
+  /** Language requirement, i.e. English Essential */
   language: string;
+  /** Length of the Job term in months */
   termLength: number;
+  /** Security level required for the posting, i.e. reliability */
   securityLevel: string;
+  /** Date the position begins */
   startDate?: string;
+  /** Government classification code for the position, i.e. CS */
   classification: string;
+  /** Level for the classification, i.e. 03 */
   level: string;
 }
 
-const JobPreview = ({
+const JobPreview: React.FunctionComponent<JobPreviewProps> = ({
   title,
   department,
   city,

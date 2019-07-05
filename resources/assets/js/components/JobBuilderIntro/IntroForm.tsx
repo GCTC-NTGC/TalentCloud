@@ -168,7 +168,7 @@ const IntroForm: React.FunctionComponent<
                 <div data-c-grid="gutter">
                   <Field
                     type="text"
-                    htmlId="builder01ManagerJobTitleEN"
+                    id="builder01ManagerJobTitleEN"
                     name="jobTitleEN"
                     label={intl.formatMessage(formMessages.jobTitleLabelEN)}
                     placeholder={intl.formatMessage(
@@ -180,7 +180,7 @@ const IntroForm: React.FunctionComponent<
                   />
                   <Field
                     type="text"
-                    htmlId="builder01ManagerJobTitleFR"
+                    id="builder01ManagerJobTitleFR"
                     name="jobTitleFR"
                     label={intl.formatMessage(formMessages.jobTitleLabelFR)}
                     placeholder={intl.formatMessage(
@@ -218,7 +218,7 @@ const IntroForm: React.FunctionComponent<
                   />
                   <Field
                     type="text"
-                    htmlId="builder01ManagerDivisionEN"
+                    id="builder01ManagerDivisionEN"
                     name="divisionEN"
                     label={intl.formatMessage(formMessages.divisionLabelEN)}
                     placeholder={intl.formatMessage(
@@ -230,7 +230,7 @@ const IntroForm: React.FunctionComponent<
                   />
                   <Field
                     type="text"
-                    htmlId="builder01ManagerDivisionFR"
+                    id="builder01ManagerDivisionFR"
                     name="divisionFR"
                     label={intl.formatMessage(formMessages.divisionLabelFR)}
                     placeholder={intl.formatMessage(
