@@ -1,17 +1,15 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { withInfo } from "@storybook/addon-info";
-import { withKnobs, text, boolean } from "@storybook/addon-knobs";
+import { text, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
+import { withIntl } from "storybook-addon-intl";
 import Modal from "../components/Modal";
 import Input from "../components/Input";
 
-const stories = storiesOf("Modal", module)
-  .addDecorator(withInfo)
-  .addDecorator(withKnobs);
+const stories = storiesOf("Components|Modal", module).addDecorator(withIntl);
 
 stories.add(
-  "Basic Modal",
+  "Basic",
   (): React.ReactElement => {
     const isModalVisible = boolean("Visible", true);
     const modalParent = document.querySelector("#modal-root");
@@ -68,7 +66,7 @@ stories.add(
   },
 );
 stories.add(
-  "Modal with form inputs",
+  "With Inputs",
   (): React.ReactElement => {
     const isModalVisible = boolean("Visible", true);
     const modalParent = document.querySelector("#modal-root");

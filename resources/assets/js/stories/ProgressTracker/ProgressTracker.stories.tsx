@@ -1,8 +1,6 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { withInfo } from "@storybook/addon-info";
-import { withKnobs, text } from "@storybook/addon-knobs";
-import { action } from "@storybook/addon-actions";
+import { text } from "@storybook/addon-knobs";
 import ProgressTracker from "../../components/ProgressTracker/ProgressTracker";
 import { ProgressTrackerItem } from "../../components/ProgressTracker/types";
 
@@ -15,12 +13,10 @@ const items: ProgressTrackerItem[] = [
   { state: "null", label: "Step 05", title: "Review" },
 ];
 
-const stories = storiesOf("ProgressTracker", module)
-  .addDecorator(withInfo)
-  .addDecorator(withKnobs);
+const stories = storiesOf("Job Poster Builder|Progress Tracker", module);
 
 stories.add(
-  "Progress Tracker",
+  "Tracker",
   (): React.ReactElement => (
     <ProgressTracker
       items={items}
@@ -30,5 +26,4 @@ stories.add(
       itemsWrapperClassNames="tracker manager-jpb-tracker-wrapper"
     />
   ),
-  { info: { inline: true } },
 );

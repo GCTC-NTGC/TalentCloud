@@ -1,15 +1,12 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react";
-import { withInfo } from "@storybook/addon-info";
-import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
+import { text, boolean, number } from "@storybook/addon-knobs";
 import JobPreview from "../components/JobPreview";
 
-const stories = storiesOf("JobPreview", module)
-  .addDecorator(withInfo)
-  .addDecorator(withKnobs);
+const stories = storiesOf("Job Poster Builder|Preview", module);
 
 stories.add(
-  "Job builder preview",
+  "Sample",
   (): React.ReactElement => (
     <JobPreview
       title={text("Job Title", "Software Developer")}
@@ -24,5 +21,4 @@ stories.add(
       level={text("Position Level", "03")}
     />
   ),
-  { info: { inline: true } },
 );
