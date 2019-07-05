@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
 import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import Input from "../../components/Forms/Input";
+import Input from "../components/Input";
 
 const stories = storiesOf("Input", module)
   .addDecorator(withInfo)
@@ -13,8 +13,8 @@ stories.add(
   "Text Input",
   (): React.ReactElement => (
     <Input
-      htmlId={text("ID", "sample-input")}
-      formName={text("Name", "What a name")}
+      id={text("ID", "sample-input")}
+      name={text("Name", "What a name")}
       label={text("Label", "Label")}
       required={boolean("Required", false)}
       placeholder={text("Placeholder", "Write what you will")}
@@ -33,8 +33,8 @@ stories.add(
   "Email Input",
   (): React.ReactElement => (
     <Input
-      htmlId={text("ID", "sample-email-input")}
-      formName={text("Name", "What a name")}
+      id={text("ID", "sample-email-input")}
+      name={text("Name", "What a name")}
       label={text("Label", "Label")}
       required={boolean("Required", false)}
       placeholder={text("Placeholder", "Write what you will")}

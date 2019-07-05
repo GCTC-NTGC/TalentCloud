@@ -4,7 +4,7 @@ import { withInfo } from "@storybook/addon-info";
 import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import Modal from "../components/Modal";
-import Input from "../components/Forms/Input";
+import Input from "../components/Input";
 
 const stories = storiesOf("Modal", module)
   .addDecorator(withInfo)
@@ -113,10 +113,10 @@ stories.add(
             </div>
             <form data-c-padding="normal">
               <Input
-                htmlId="modal-input-1"
-                formName="modal-input-1"
+                id="modal-input-1"
+                name="modal-input-1"
                 label="This is a text input"
-                required={false}
+                required
                 placeholder="What will you write here?"
                 type="text"
                 onChange={action("Input 1 changed")}
@@ -130,10 +130,10 @@ stories.add(
                 Test Button
               </button>
               <Input
-                htmlId="modal-input-2"
-                formName="modal-input-2"
+                id="modal-input-2"
+                name="modal-input-2"
                 label="This is a second input"
-                required={false}
+                required
                 placeholder="Hello World"
                 type="text"
                 onChange={action("Input 2 changed")}
