@@ -403,7 +403,7 @@
                             <p>Lorem ipsum.</p>
                         </div>
                         <div data-c-grid-item="tp(1of3) ds(1of4)" data-c-align="base(centre) tp(right)">
-                            <!-- This target value changes depending on the category (occupational has 3 - 4, cultural and future have fewer) - you can see these values in their respective sections below. You can also add a "complete" class to this "jpb-skill-target" element to change the target icon to a checkmark to indicate to the user that they're within the range. -->
+                            <!-- This target value changes depending on the category (occupational has 3 - 4, cultural and future have fewer) - you can see these values in their respective sections below. You can also add a "complete" class to this "jpb-skill-target" element to change the target icon to a checkmark to indicate to the user that they're within the range. Note that the other two categories (cultural and future) start their ranges at 0, so the "complete" class should be on those sections by default. -->
                             <div class="jpb-skill-target">
                                 <i data-c-colour="stop" class="fas fa-bullseye"></i>
                                 <i data-c-colour="go" class="fas fa-check"></i>
@@ -441,7 +441,7 @@
                             <div class="jpb-skill-target complete">
                                 <i data-c-colour="stop" class="fas fa-bullseye"></i>
                                 <i data-c-colour="go" class="fas fa-check"></i>
-                                Aim for 2 - 4 skills.
+                                Aim for 0 - 4 skills.
                             </div>
                         </div>
                         <!-- So here's where culture skills get broken into categories. In theory this logic will be used down the road to break occupational skills into occupations (e.g. CS - UX Designer), but for now this the only instance where it happens. -->
@@ -486,10 +486,10 @@
                             <p>Lorem ipsum.</p>
                         </div>
                         <div data-c-grid-item="tp(1of3) ds(1of4)" data-c-align="base(centre) tp(right)">
-                            <div class="jpb-skill-target">
+                            <div class="jpb-skill-target complete">
                                 <i data-c-colour="stop" class="fas fa-bullseye"></i>
                                 <i data-c-colour="go" class="fas fa-check"></i>
-                                Aim for 1 - 2 skills.
+                                Aim for 0 - 2 skills.
                             </div>
                         </div>
                         <ul class="jpb-skill-cloud" data-c-grid-item="base(1of1)">
