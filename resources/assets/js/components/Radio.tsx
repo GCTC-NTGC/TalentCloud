@@ -26,7 +26,7 @@ const Radio: React.FunctionComponent<RadioProps> = ({
   onBlur,
   onChange,
 }): React.ReactElement => (
-  <label htmlFor={id}>
+  <label>
     <input
       id={id}
       name={name}
