@@ -254,8 +254,14 @@ $future-colour: #AD6EDD;
             margin-right: -.1rem;
         }
     }
+    .jpb-skill-cloud {
+        list-style: none;
+        li {
+            display: inline-block;
+            margin: 0 .5rem .5rem 0;
+        }
+    }
     .jpb-skill-trigger {
-        margin: 0 .5rem .5rem 0;
         .fa-plus-circle {
 
         }
