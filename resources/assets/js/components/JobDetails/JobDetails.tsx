@@ -195,6 +195,20 @@ interface JobDetailsProps {
 }
 
 type RemoteWorkType = "remoteWorkNone" | "remoteWorkCanada" | "remoteWorkWorld";
+const remoteWorkOptions = [
+  {
+    id: "remoteWorkWorld",
+    label: formMessages.remoteWorkWorldLabel,
+  },
+  {
+    id: "remoteWorkCanada",
+    label: formMessages.remoteWorkCanadaLabel,
+  },
+  {
+    id: "remoteWorkNone",
+    label: formMessages.remoteWorkNoneLabel,
+  },
+];
 
 interface JobFormValues {
   title: string;
@@ -206,25 +220,77 @@ interface JobFormValues {
   city: string;
   province: number | "";
   remoteWork: RemoteWorkType;
-  telework: string;
-  flexHours: string;
+  telework: TeleworkOptionType;
+  flexHours: FlexHourOptionType;
 }
 
-const teleworkFrequencies = [
-  "teleworkNever",
-  "teleworkOccasionally",
-  "teleworkSometimes",
-  "teleworkFrequently",
-  "teleworkAlways",
+type TeleworkOptionType =
+  | "teleworkNever"
+  | "teleworkOccasionally"
+  | "teleworkSometimes"
+  | "teleworkFrequently"
+  | "teleworkAlways";
+const teleworkOptions: {
+  id: TeleworkOptionType;
+  label: FormattedMessage.MessageDescriptor;
+}[] = [
+  {
+    id: "teleworkNever",
+    label: formMessages.frequencyNeverLabel,
+  },
+  {
+    id: "teleworkOccasionally",
+    label: formMessages.frequencyOccasionallyLabel,
+  },
+  {
+    id: "teleworkSometimes",
+    label: formMessages.frequencySometimesLabel,
+  },
+  {
+    id: "teleworkFrequently",
+    label: formMessages.frequencyFrequentlyLabel,
+  },
+  {
+    id: "teleworkAlways",
+    label: formMessages.frequencyAlwaysLabel,
+  },
 ];
+const teleworkFrequencies: TeleworkOptionType[] = teleworkOptions.map(
+  option => option.id,
+);
 
-const flexHourFequencies = [
-  "flexHoursNever",
-  "flexHoursOccasionally",
-  "flexHoursSometimes",
-  "flexHoursFrequently",
-  "flexHoursAlways",
+type FlexHourOptionType =
+  | "flexHoursNever"
+  | "flexHoursOccasionally"
+  | "flexHoursSometimes"
+  | "flexHoursFrequently"
+  | "flexHoursAlways";
+const flexHoursOptions: {
+  id: FlexHourOptionType;
+  label: FormattedMessage.MessageDescriptor;
+}[] = [
+  {
+    id: "flexHoursNever",
+    label: formMessages.frequencyNeverLabel,
+  },
+  {
+    id: "flexHoursOccasionally",
+    label: formMessages.frequencyOccasionallyLabel,
+  },
+  {
+    id: "flexHoursSometimes",
+    label: formMessages.frequencySometimesLabel,
+  },
+  {
+    id: "flexHoursFrequently",
+    label: formMessages.frequencyFrequentlyLabel,
+  },
+  {
+    id: "flexHoursAlways",
+    label: formMessages.frequencyAlwaysLabel,
+  },
 ];
+const flexHourFequencies = flexHoursOptions.map(option => option.id);
 
 const jobToValues = (job: Job | null, locale: string): JobFormValues =>
   job
@@ -393,66 +459,6 @@ const JobDetails: React.FunctionComponent<
       .required(intl.formatMessage(validationMessages.required)),
   });
 
-  const remoteWorkOptions = [
-    {
-      id: "remoteWorkWorld",
-      label: intl.formatMessage(formMessages.remoteWorkWorldLabel),
-    },
-    {
-      id: "remoteWorkCanada",
-      label: intl.formatMessage(formMessages.remoteWorkCanadaLabel),
-    },
-    {
-      id: "remoteWorkNone",
-      label: intl.formatMessage(formMessages.remoteWorkNoneLabel),
-    },
-  ];
-
-  const teleworkOptions = [
-    {
-      id: "teleworkAlways",
-      label: intl.formatMessage(formMessages.frequencyAlwaysLabel),
-    },
-    {
-      id: "teleworkFrequently",
-      label: intl.formatMessage(formMessages.frequencyFrequentlyLabel),
-    },
-    {
-      id: "teleworkSometimes",
-      label: intl.formatMessage(formMessages.frequencySometimesLabel),
-    },
-    {
-      id: "teleworkOccasionally",
-      label: intl.formatMessage(formMessages.frequencyOccasionallyLabel),
-    },
-    {
-      id: "teleworkNever",
-      label: intl.formatMessage(formMessages.frequencyNeverLabel),
-    },
-  ];
-
-  const flexHoursOptions = [
-    {
-      id: "flexHoursAlways",
-      label: intl.formatMessage(formMessages.frequencyAlwaysLabel),
-    },
-    {
-      id: "flexHoursFrequently",
-      label: intl.formatMessage(formMessages.frequencyFrequentlyLabel),
-    },
-    {
-      id: "flexHoursSometimes",
-      label: intl.formatMessage(formMessages.frequencySometimesLabel),
-    },
-    {
-      id: "flexHoursOccasionally",
-      label: intl.formatMessage(formMessages.frequencyOccasionallyLabel),
-    },
-    {
-      id: "flexHoursNever",
-      label: intl.formatMessage(formMessages.frequencyNeverLabel),
-    },
-  ];
   return (
     <>
       <div
@@ -662,7 +668,7 @@ const JobDetails: React.FunctionComponent<
                           name="remoteWork"
                           component={RadioInput}
                           id={id}
-                          label={label}
+                          label={intl.formatMessage(label)}
                         />
                       );
                     },
@@ -699,7 +705,7 @@ const JobDetails: React.FunctionComponent<
                           name="telework"
                           component={RadioInput}
                           id={id}
-                          label={label}
+                          label={intl.formatMessage(label)}
                         />
                       );
                     },
@@ -737,7 +743,7 @@ const JobDetails: React.FunctionComponent<
                           name="flexHours"
                           component={RadioInput}
                           id={id}
-                          label={label}
+                          label={intl.formatMessage(label)}
                         />
                       );
                     },
