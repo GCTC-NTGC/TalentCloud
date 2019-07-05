@@ -5,7 +5,6 @@ import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import { withKnobs, select } from "@storybook/addon-knobs";
 import JobBuilderImpact from "../../components/JobBuilderImpact/JobBuilderImpact";
-import ImpactForm from "../../components/JobBuilderImpact/ImpactForm";
 import JobImpactPreview from "../../components/JobBuilderImpact/JobImpactPreview";
 
 const stories = storiesOf("Job Builder - Impact", module)
@@ -14,6 +13,10 @@ const stories = storiesOf("Job Builder - Impact", module)
   .addDecorator(withIntl);
 
 const modalRoot = document.querySelector("#modal-root");
+
+const handleSubmit = async (): Promise<boolean> => {
+  return true;
+};
 
 const deptOptions = {
   "Treasury Board": "treasuryBoard",
@@ -37,19 +40,11 @@ stories
       <JobBuilderImpact
         department={select("Department", deptOptions, "treasuryBoard")}
         job={null}
+        handleSubmit={handleSubmit}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
         modalParent={modalRoot || document.body}
       />
-    ),
-    {
-      info: { inline: true },
-    },
-  )
-  .add(
-    "Impact Form",
-    (): React.ReactElement => (
-      <ImpactForm job={null} handleSubmit={action("Submit")} />
     ),
     {
       info: { inline: true },

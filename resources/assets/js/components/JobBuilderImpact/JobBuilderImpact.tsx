@@ -1,20 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   injectIntl,
   InjectedIntlProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { items } from "../ProgressTracker/fixtures/progressItems";
-import ImpactForm from "./ImpactForm";
 import { Job } from "../../models/types";
+import { emptyJob } from "../../models/jobUtil";
 import JobImpactPreview from "./JobImpactPreview";
 import Modal from "../Modal";
+import TextArea from "../Forms/TextArea";
+import { validationMessages } from "../Form/Messages";
 
 interface JobBuilderImpactProps {
   department?: string;
   job: Job | null;
+  // Function to run after successful form validation.
+  // It must return true if the submission was succesful, false otherwise.
+  handleSubmit: (values: Job) => Promise<boolean>;
   // Function to run when modal cancel is clicked.
   handleModalCancel: () => void;
   // Function to run when modal confirm is clicked.
@@ -22,6 +29,34 @@ interface JobBuilderImpactProps {
   // Parent element to place the modal contents within (uses React Portal).
   modalParent: Element;
 }
+
+interface JobImpactValues {
+  teamImpact: string;
+  hireImpact: string;
+}
+
+const messages = defineMessages({
+  hireLabel: {
+    id: "jobBuilder.impact.hireLabel",
+    defaultMessage: "Hire Impact Statement",
+    description: "Label for hire impact statement text area",
+  },
+  teamLabel: {
+    id: "jobBuilder.impact.teamLabel",
+    defaultMessage: "Team Impact Statement",
+    description: "Label for team impact statement text area",
+  },
+  hirePlaceholder: {
+    id: "jobBuilder.impact.hirePlaceholder",
+    defaultMessage: "Remember, don't use Government speak...",
+    description: "",
+  },
+  teamPlaceholder: {
+    id: "jobBuilder.impact.teamPlaceholder",
+    defaultMessage: "Try for a casual, frank, friendly tone...",
+    description: "",
+  },
+});
 
 const departmentImpactStatements = defineMessages({
   treasuryBoard: {
@@ -102,6 +137,19 @@ const departmentImpactStatements = defineMessages({
   },
 });
 
+const updateJobWithValues = (
+  initialJob: Job,
+  locale: "en" | "fr",
+  { teamImpact, hireImpact }: JobImpactValues,
+): Job => ({
+  ...initialJob,
+  [locale]: {
+    ...initialJob[locale],
+    team_impact: teamImpact,
+    hire_impact: hireImpact,
+  },
+});
+
 const JobBuilderImpact: React.FunctionComponent<
   JobBuilderImpactProps & InjectedIntlProps
 > = ({
@@ -109,12 +157,32 @@ const JobBuilderImpact: React.FunctionComponent<
   department,
   job,
   modalParent,
+  handleSubmit,
   handleModalCancel,
   handleModalConfirm,
 }): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const modalParentRef = useRef<HTMLDivElement>(null);
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
+  }
+  const initialValues: JobImpactValues = {
+    teamImpact:
+      job && job[intl.locale].team_impact ? job[intl.locale].team_impact : "",
+    hireImpact:
+      job && job[intl.locale].hire_impact ? job[intl.locale].hire_impact : "",
+  };
+  const validationSchema = Yup.object().shape({
+    teamImpact: Yup.string().required(
+      intl.formatMessage(validationMessages.required),
+    ),
+    hireImpact: Yup.string().required(
+      intl.formatMessage(validationMessages.required),
+    ),
+  });
   return (
-    <section>
+    <section ref={modalParentRef}>
       <ProgressTracker
         items={items}
         backgroundColor="black"
@@ -169,18 +237,108 @@ const JobBuilderImpact: React.FunctionComponent<
           {department !== undefined &&
             intl.formatMessage(departmentImpactStatements[department])}
         </p>
-        <ImpactForm
-          job={job}
-          // TODO: Make this into a real function
-          handleSubmit={(myJob): void => {
-            setIsModalVisible(true);
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={(values, actions): void => {
+            // The following only triggers after validations pass
+            handleSubmit(updateJobWithValues(job || emptyJob(), locale, values))
+              .then((isSuccessful: boolean): void => {
+                if (isSuccessful) {
+                  setIsModalVisible(true);
+                }
+              })
+              .finally(
+                (): void => actions.setSubmitting(false), // Required by Formik to finish the submission cycle
+              );
           }}
+          render={({ isSubmitting }): React.ReactElement => (
+            <Form id="form" data-c-grid="gutter">
+              <div data-c-grid-item="base(1of1)" data-c-input="textarea">
+                <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobBuilder.impact.teamHeader"
+                    defaultMessage="How our team makes an impact:"
+                    description="Header of Job Poster Builder Team Impact Section"
+                  />
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobBuilder.impact.teamBody"
+                    defaultMessage="Describe the value your team/service/initiative brings to Canadians.
+              It doesn’t matter if your work is direct to citizens or back office,
+              innovative or maintenance, top priority or ongoing. Describe how it
+              contributes to making Canada better the way you would to someone who
+              knows nothing about your work."
+                    description="Body of Job Poster Builder Team Impact Section"
+                  />
+                </p>
+                <div>
+                  <Field
+                    name="teamImpact"
+                    id="TeamImpact"
+                    placeholder={intl.formatMessage(messages.teamPlaceholder)}
+                    label={intl.formatMessage(messages.teamLabel)}
+                    required
+                    component={TextArea}
+                  />
+                </div>
+              </div>
+              <div data-c-grid-item="base(1of1)" data-c-input="textarea">
+                <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobBuilder.impact.hireHeader"
+                    defaultMessage="How the new hire makes an impact:"
+                    description="Header of Job Poster Builder Hire Impact Section"
+                  />
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobBuilder.impact.hireBody"
+                    defaultMessage="Describe how the new hire will contribute in this role. Focus on the
+              value they’ll bring, not on specific tasks (you’ll provide these
+              later on). For example “In this role, you’ll contribute to…” or, “As
+              a member of this team, you’ll be responsible for helping us…”"
+                    description="Body of Job Poster Builder Hire Impact Section"
+                  />
+                </p>
+                <div>
+                  <Field
+                    id="HireImpact"
+                    name="hireImpact"
+                    label={intl.formatMessage(messages.hireLabel)}
+                    placeholder={intl.formatMessage(messages.hirePlaceholder)}
+                    required
+                    component={TextArea}
+                  />
+                </div>
+              </div>
+              <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
+                {/* <!-- Modal trigger, same as last step. --> */}
+                <button
+                  data-c-button="solid(c1)"
+                  data-c-dialog-action="open"
+                  data-c-dialog-id="impact-dialog"
+                  data-c-radius="rounded"
+                  disabled={isSubmitting}
+                  form="form"
+                  type="submit"
+                >
+                  <FormattedMessage
+                    id="button.next"
+                    defaultMessage="Next"
+                    description="Button text Next"
+                  />
+                </button>
+              </div>
+            </Form>
+          )}
         />
       </div>
       {isModalVisible && (
         <Modal
           id="impact-dialog"
-          parentElement={modalParent}
+          parentElement={modalParentRef.current}
           visible={isModalVisible}
           onModalConfirm={(): void => {
             handleModalConfirm();
