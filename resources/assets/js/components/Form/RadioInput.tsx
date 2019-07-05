@@ -2,7 +2,8 @@ import React from "react";
 import { FieldProps } from "formik";
 import Radio, { RadioProps } from "../Radio";
 
-interface RadioInputProps extends RadioProps {
+interface RadioInputProps
+  extends Exclude<RadioProps, "name" | "value" | "onChange" | "onBlur"> {
   /** Formik field prop of the shape { name, value, onChange, onBlur } */
   field: FieldProps["field"];
 }

@@ -2,7 +2,8 @@ import React from "react";
 import { FieldProps } from "formik";
 import TextArea, { TextAreaProps } from "../TextArea";
 
-interface TextAreaInputProps extends TextAreaProps {
+interface TextAreaInputProps
+  extends Exclude<TextAreaProps, "name" | "value" | "onChange" | "onBlur"> {
   // Formik field prop of the shape { name, value, onChange, onBlur }
   field: FieldProps["field"];
   // Formik form prop of the shape { errors }

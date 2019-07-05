@@ -2,7 +2,8 @@ import React from "react";
 import { FieldProps } from "formik";
 import Select, { SelectProps } from "../Select";
 
-interface SelectInputProps extends SelectProps {
+interface SelectInputProps
+  extends Exclude<SelectProps, "name" | "value" | "onChange" | "onBlur"> {
   /** Formik field prop of the shape { name, value, onChange, onBlur } */
   field: FieldProps["field"];
   /** Formik form prop of the shape { errors } */
