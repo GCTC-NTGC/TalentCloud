@@ -1,22 +1,21 @@
-import * as React from "react";
+import React from "react";
 import { FieldProps } from "formik";
-import Input, { InputProps } from "../Input";
+import TextArea, { TextAreaProps } from "../TextArea";
 
-interface TextInputProps extends InputProps {
-  /** Formik field prop of the shape { name, value, onChange, onBlur } */
+interface TextAreaInputProps extends TextAreaProps {
+  // Formik field prop of the shape { name, value, onChange, onBlur }
   field: FieldProps["field"];
-  /** Formik form prop of the shape { errors } */
+  // Formik form prop of the shape { errors }
   form: FieldProps["form"];
 }
 
-const TextInput: React.FunctionComponent<TextInputProps> = ({
+const TextAreaInput: React.FunctionComponent<TextAreaInputProps> = ({
   id,
   label,
+  className,
+  grid,
   required,
   placeholder,
-  grid,
-  minLength,
-  maxLength,
   field: { name, value, onChange, onBlur },
   form: { errors, touched },
   ...props
@@ -26,23 +25,22 @@ const TextInput: React.FunctionComponent<TextInputProps> = ({
   const invalid = touched[name] && errors[name] ? true : null;
 
   return (
-    <Input
+    <TextArea
       id={id}
       label={label}
-      placeholder={placeholder}
+      className={className}
+      grid={grid}
       required={required}
+      placeholder={placeholder}
       name={name}
       value={value}
-      grid={grid}
-      minLength={minLength}
-      maxLength={maxLength}
-      onChange={onChange}
-      onBlur={onBlur}
       errorText={errorText}
       invalid={invalid}
+      onChange={onChange}
+      onBlur={onBlur}
       {...props}
     />
   );
 };
 
-export default TextInput;
+export default TextAreaInput;
