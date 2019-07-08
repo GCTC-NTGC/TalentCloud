@@ -667,6 +667,11 @@
         "id": "formValidation.invalidSelection"
       },
       {
+        "defaultMessage": "Something went wrong.",
+        "description": "Generic error message for inputs.",
+        "id": "formInput.error"
+      },
+      {
         "defaultMessage": "Required",
         "description": "Displayed next to required form inputs.",
         "id": "formInput.required"

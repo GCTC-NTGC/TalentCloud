@@ -426,10 +426,9 @@ const WorkEnvForm = ({
   job,
   handleSubmit,
   handleModalCancel,
-  handleModalConfirm,
   intl,
 }: WorkEnvFormProps & InjectedIntlProps): React.ReactElement => {
-  // This function takes the possible values and the localized messages objects and returns an array. The array contians the name and localized label.
+  // This function takes the possible values and the localized messages objects and returns an array. The array contains the name and localized label.
   const createOptions = (
     options: string[],
     messages: ReactIntl.Messages,
@@ -456,10 +455,9 @@ const WorkEnvForm = ({
   const [isModalVisible, setIsModalVisible] = useState(false);
   const modalParentRef = useRef<HTMLDivElement>(null);
   const workEnvSchema = Yup.object().shape({
-    teamSize: Yup.number().min(
-      1,
-      intl.formatMessage(validationMessages.required),
-    ),
+    teamSize: Yup.number()
+      .min(1, intl.formatMessage(validationMessages.required))
+      .required(intl.formatMessage(validationMessages.required)),
     physicalEnv: Yup.array().required(
       intl.formatMessage(validationMessages.checkboxRequired),
     ),
@@ -469,9 +467,7 @@ const WorkEnvForm = ({
     amenities: Yup.array().required(
       intl.formatMessage(validationMessages.checkboxRequired),
     ),
-    envDescription: Yup.string().required(
-      intl.formatMessage(validationMessages.required),
-    ),
+    envDescription: Yup.string(),
     culturePace: Yup.string()
       .oneOf([
         "culturePace01",
@@ -495,12 +491,14 @@ const WorkEnvForm = ({
 
   /** Compiles and returns all the active radio buttons corresponding context box values within the culture section  */
   const buildCultureSummary = (values): string => {
-    const pace = culturePaceList.find(({ id }) => id === values.culturePace);
+    const pace = culturePaceList.find(
+      ({ id }): boolean => id === values.culturePace,
+    );
     const management = managementList.find(
-      ({ id }) => id === values.management,
+      ({ id }): boolean => id === values.management,
     );
     const experimental = experimentalList.find(
-      ({ id }) => id === values.experimental,
+      ({ id }): boolean => id === values.experimental,
     );
 
     let cultureSummary = "";
@@ -589,7 +587,6 @@ const WorkEnvForm = ({
           <>
             <Form id="form" data-c-margin="bottom(normal)">
               <Field
-                type="number"
                 name="teamSize"
                 component={NumberInput}
                 required
@@ -702,7 +699,7 @@ const WorkEnvForm = ({
               </p>
               <Field
                 type="textarea"
-                htmlId="enviroment_description"
+                id="environment_description"
                 name="envDescription"
                 label={intl.formatMessage(formMessages.moreOnWorkEnvLabel)}
                 placeholder={intl.formatMessage(
@@ -710,7 +707,6 @@ const WorkEnvForm = ({
                 )}
                 component={TextAreaInput}
                 grid="base(1of2)"
-                required
               />
               <div data-c-grid-item="base(1of1)">
                 <h4
@@ -751,6 +747,7 @@ const WorkEnvForm = ({
                     required
                     touched={touched.culturePace}
                     error={errors.culturePace}
+                    value={values.culturePace}
                     grid="base(1of1) tl(1of3)"
                   >
                     {culturePaceList.map(
@@ -799,6 +796,7 @@ const WorkEnvForm = ({
                     required
                     touched={touched.management}
                     error={errors.management}
+                    value={values.management}
                     grid="base(1of1) tl(1of3)"
                   >
                     {managementList.map(
@@ -847,6 +845,7 @@ const WorkEnvForm = ({
                     required
                     touched={touched.experimental}
                     error={errors.experimental}
+                    value={values.experimental}
                     grid="base(1of1) tl(1of3)"
                   >
                     {experimentalList.map(
@@ -915,7 +914,7 @@ const WorkEnvForm = ({
               </div>
               <Field
                 type="textarea"
-                htmlId="custom_culture_summary"
+                id="custom_culture_summary"
                 name="cultureSummary"
                 label={intl.formatMessage(
                   formMessages.customCultureSummaryLabel,
@@ -949,7 +948,7 @@ const WorkEnvForm = ({
               </p>
               <Field
                 type="textarea"
-                htmlId="more_culture_summary"
+                id="more_culture_summary"
                 name="moreCultureSummary"
                 label={intl.formatMessage(formMessages.specialWorkCultureLabel)}
                 placeholder={intl.formatMessage(
@@ -977,16 +976,27 @@ const WorkEnvForm = ({
                 </button>
               </div>
             </Form>
-            <WorkEnvModal
-              modalConfirm={handleSubmit}
-              modalCancel={handleModalCancel}
-              isVisible={isModalVisible}
-              parentElement={modalParentRef.current}
-              values={values}
-              physEnvData={phyEnvData}
-              techData={techData}
-              amenitiesData={amenitiesData}
-            />
+            {isModalVisible && (
+              <WorkEnvModal
+                modalConfirm={(): void => {
+                  setIsModalVisible(false);
+                  handleSubmit(values);
+                }}
+                modalCancel={(): void => {
+                  setIsModalVisible(false);
+                  handleModalCancel();
+                }}
+                isVisible={isModalVisible}
+                parentElement={modalParentRef.current}
+                values={values}
+                cultureSummary={
+                  values.cultureSummary || buildCultureSummary(values)
+                }
+                physEnvData={phyEnvData}
+                techData={techData}
+                amenitiesData={amenitiesData}
+              />
+            )}
           </>
         )}
       />

@@ -4,18 +4,20 @@ import { FormattedMessage } from "react-intl";
 import { inputMessages } from "./Messages";
 
 interface RadioGroupProps {
-  // HTML ID of the input.
+  /** HTML ID of the input. */
   id: string;
-  // Text for the associated label of the input.
+  /** Text for the associated label of the input. */
   label: string;
-  // data-clone-grid-item value, see https://designwithclone.ca/#flexbox-grid.
+  /** data-clone-grid-item value, see https://designwithclone.ca/#flexbox-grid. */
   grid: string;
-  // If this input is required for submission.
+  /** If this input is required for submission. */
   required: boolean;
-  // Error to display.
+  /** Error to display. */
   error: string | FormikErrors<any> | undefined;
-  // If this group has been affected by user input or a submission.
+  /** If this group has been affected by user input or a submission. */
   touched: boolean | FormikTouched<any> | undefined;
+  /** The value set for the contained group of radio inputs */
+  value: string | number | undefined;
 }
 
 const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
