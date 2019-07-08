@@ -56,20 +56,12 @@ export const RatingGuideQuestionWithAnswers: React.FunctionComponent<
       />
 
       <div data-c-padding="top(normal)">
-        {answerIds.map(
-          (answerId: number): ReactElement | null => (
-            <RatingGuideAnswerComponent key={answerId} answerId={answerId} />
-          ),
-        )}
-        {tempAnswerIds.map(
-          (answerId: number): ReactElement | null => (
-            <RatingGuideAnswerComponent
-              key={answerId}
-              answerId={answerId}
-              temp
-            />
-          ),
-        )}
+        {answerIds.map((answerId: number): ReactElement | null => (
+          <RatingGuideAnswerComponent key={answerId} answerId={answerId} />
+        ))}
+        {tempAnswerIds.map((answerId: number): ReactElement | null => (
+          <RatingGuideAnswerComponent key={answerId} answerId={answerId} temp />
+        ))}
         {allowMoreAnswers && (
           <div data-c-grid="gutter middle">
             <div

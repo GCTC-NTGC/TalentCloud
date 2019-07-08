@@ -1,22 +1,9 @@
 import React from "react";
 import { FieldProps } from "formik";
-import Select from "./Select";
+import Select, { SelectProps } from "../Select";
 
-interface SelectInputProps {
-  /** HTML ID of the input. */
-  id: string;
-  /** Text for the associated label of the input. */
-  label: string;
-  /** data-clone-grid-item value, see https:/;designwithclone.ca/#flexbox-grid. */
-  grid: string;
-  /** If this input is required for submission. */
-  required: boolean;
-  /** Selected string contains the default value of the select box */
-  selected: string | number | null;
-  /** Options that are rendered out within the input. */
-  options: { label: string; value: string | number }[];
-  /** Text for an empty selection. */
-  nullSelection: string;
+interface SelectInputProps
+  extends Exclude<SelectProps, "name" | "value" | "onChange" | "onBlur"> {
   /** Formik field prop of the shape { name, value, onChange, onBlur } */
   field: FieldProps["field"];
   /** Formik form prop of the shape { errors } */
@@ -33,10 +20,10 @@ const SelectInput: React.FunctionComponent<SelectInputProps> = ({
   field: { name, value, onChange, onBlur },
   form: { errors, touched },
 }): React.ReactElement => {
-  // TODO: find solution for ts error
-  // @ts-ignore
-  const errorText: string = errors[name] ? errors[name] : undefined;
+  const specificError = errors ? errors[name] : null;
+  const errorText = specificError ? specificError.toString() : undefined;
   const invalid = touched[name] && errors[name] ? true : null;
+
   return (
     <Select
       id={id}

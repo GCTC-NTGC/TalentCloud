@@ -1,22 +1,9 @@
-import * as React from "react";
+import React from "react";
 import { FieldProps } from "formik";
-import Input from "../Input";
+import Input, { InputProps } from "../Input";
 
-interface TextInputProps {
-  /** HTML ID of the input. */
-  id: string;
-  /** Text for the associated label of the input. */
-  label: string;
-  /** data-clone-grid-item value, see https:/;designwithclone.ca/#flexbox-grid. */
-  grid: string;
-  /** If this input is required for submission. */
-  required: boolean;
-  /** Let's you specify example text that appears in input element when empty */
-  placeholder?: string;
-  /** Minimum length of characters the text value can be */
-  minLength?: number;
-  /** Maximum length of characters the text value can be */
-  maxLength?: number;
+interface TextInputProps
+  extends Exclude<InputProps, "name" | "value" | "onChange" | "onBlur"> {
   /** Formik field prop of the shape { name, value, onChange, onBlur } */
   field: FieldProps["field"];
   /** Formik form prop of the shape { errors } */
@@ -33,11 +20,12 @@ const TextInput: React.FunctionComponent<TextInputProps> = ({
   maxLength,
   field: { name, value, onChange, onBlur },
   form: { errors, touched },
+  ...props
 }): React.ReactElement => {
-  // TODO: find solution for ts error
-  // @ts-ignore
-  const errorText: string = errors[name] ? errors[name] : undefined;
+  const specificError = errors ? errors[name] : null;
+  const errorText = specificError ? specificError.toString() : undefined;
   const invalid = touched[name] && errors[name] ? true : null;
+
   return (
     <Input
       id={id}
@@ -53,6 +41,7 @@ const TextInput: React.FunctionComponent<TextInputProps> = ({
       onBlur={onBlur}
       errorText={errorText}
       invalid={invalid}
+      {...props}
     />
   );
 };

@@ -1,50 +1,56 @@
-import * as React from "react";
+import React from "react";
 import { storiesOf } from "@storybook/react";
-import { withInfo } from "@storybook/addon-info";
-import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
+import { text, boolean, number } from "@storybook/addon-knobs";
+import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import Input from "../components/Input";
 
-const stories = storiesOf("Input", module)
-  .addDecorator(withInfo)
-  .addDecorator(withKnobs);
+const stories = storiesOf("Components|Input", module).addDecorator(withIntl);
 
-stories.add(
-  "Text Input",
-  (): React.ReactElement => (
-    <Input
-      id={text("ID", "sample-input")}
-      name={text("Name", "What a name")}
-      label={text("Label", "Label")}
-      required={boolean("Required", false)}
-      placeholder={text("Placeholder", "Write what you will")}
-      type={text("type", "text")}
-      minLength={number("Minimum Length", 0)}
-      maxLength={number("Maximum Length", 30)}
-      value={text("Default Value", "Hello World")}
-      errorText={text("Error Text", "")}
-      onChange={action("Contents changed")}
-    />
-  ),
-  { info: { inline: true } },
-);
-
-stories.add(
-  "Email Input",
-  (): React.ReactElement => (
-    <Input
-      id={text("ID", "sample-email-input")}
-      name={text("Name", "What a name")}
-      label={text("Label", "Label")}
-      required={boolean("Required", false)}
-      placeholder={text("Placeholder", "Write what you will")}
-      type={text("type", "email")}
-      minLength={number("Minimum Length", 0)}
-      maxLength={number("Maximum Length", 30)}
-      value={text("Default Value", "hello@world.test")}
-      errorText={text("Error Text", "")}
-      onChange={action("Contents changed")}
-    />
-  ),
-  { info: { inline: true } },
-);
+stories
+  .add(
+    "Text",
+    (): React.ReactElement => (
+      <div data-c-grid="gutter" data-c-padding="left(double)">
+        <Input
+          id={text("ID", "sample-input")}
+          name={text("Name", "What a name")}
+          label={text("Label", "Label")}
+          required={boolean("Required", false)}
+          invalid={boolean("Invalid", false)}
+          placeholder={text("Placeholder", "Write what you will")}
+          grid="base(1of1) tl(1of3)"
+          type={text("Type", "text")}
+          minLength={number("Minimum Length", 0)}
+          maxLength={number("Maximum Length", 30)}
+          value={text("Value", "Hello World")}
+          errorText={text("Error Text", "")}
+          onChange={action("Contents changed")}
+          onBlur={action("Lost focus")}
+        />
+      </div>
+    ),
+  )
+  .add(
+    "Email",
+    (): React.ReactElement => (
+      <div data-c-grid="gutter" data-c-padding="left(double)">
+        <Input
+          id={text("ID", "sample-email-input")}
+          name={text("Name", "What a name")}
+          label={text("Label", "Label")}
+          required={boolean("Required", false)}
+          invalid={boolean("Invalid", false)}
+          placeholder={text("Placeholder", "Write what you will")}
+          grid="base(1of1) tl(1of3)"
+          type={text("Type", "email")}
+          minLength={number("Minimum Length", 0)}
+          maxLength={number("Maximum Length", 30)}
+          value={text("Value", "hello@world.test")}
+          errorText={text("Error Text", "")}
+          onChange={action("Contents changed")}
+          onBlur={action("Lost focus")}
+        />
+      </div>
+    ),
+  );

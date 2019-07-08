@@ -1,56 +1,45 @@
-import * as React from "react";
+import React from "react";
 import { FieldProps } from "formik";
-import TextArea from "../TextArea";
+import TextArea, { TextAreaProps } from "../TextArea";
 
-interface TextAreaInputProps {
-  /** HTML ID of the input. */
-  id: string;
-  /** Text for the associated label of the input. */
-  label: string;
-  /** data-clone-grid-item value, see https:/;designwithclone.ca/#flexbox-grid. */
-  grid: string;
-  /** If this input is required for submission. */
-  required: boolean;
-  /** Let's you specify example text that appears in input element when empty */
-  placeholder?: string;
-  /** Minimum length of characters the text value can be */
-  minLength?: number;
-  /** Maximum length of characters the text value can be */
-  maxLength?: number;
-  /** Formik field prop of the shape { name, value, onChange, onBlur } */
+interface TextAreaInputProps
+  extends Exclude<TextAreaProps, "name" | "value" | "onChange" | "onBlur"> {
+  // Formik field prop of the shape { name, value, onChange, onBlur }
   field: FieldProps["field"];
-  /** Formik form prop of the shape { errors } */
+  // Formik form prop of the shape { errors }
   form: FieldProps["form"];
 }
 
 const TextAreaInput: React.FunctionComponent<TextAreaInputProps> = ({
   id,
   label,
+  className,
+  grid,
   required,
   placeholder,
-  minLength,
-  maxLength,
   field: { name, value, onChange, onBlur },
   form: { errors, touched },
+  ...props
 }): React.ReactElement => {
-  // TODO: find solution for ts error
-  // @ts-ignore
-  const errorText: string = errors[name] ? errors[name] : undefined;
+  const specificError = errors ? errors[name] : null;
+  const errorText = specificError ? specificError.toString() : undefined;
   const invalid = touched[name] && errors[name] ? true : null;
+
   return (
     <TextArea
-      htmlId={id}
+      id={id}
       label={label}
-      formName={name}
+      className={className}
+      grid={grid}
       required={required}
-      invalid={invalid}
       placeholder={placeholder}
-      minLength={minLength}
-      maxLength={maxLength}
+      name={name}
       value={value}
+      errorText={errorText}
+      invalid={invalid}
       onChange={onChange}
       onBlur={onBlur}
-      errorText={errorText}
+      {...props}
     />
   );
 };

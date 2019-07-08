@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { ProgressTrackerItem } from "./types";
 import ProgressTrackerItemComponent from "./ProgressTrackerItem";
 

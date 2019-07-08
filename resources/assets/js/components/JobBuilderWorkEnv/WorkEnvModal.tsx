@@ -9,6 +9,7 @@ interface WorkEnvModalProps {
   isVisible: boolean;
   parentElement: Element | null;
   values: FormValues;
+  cultureSummary: string;
   physEnvData: { name: string; label: string }[];
   techData: { name: string; label: string }[];
   amenitiesData: { name: string; label: string }[];
@@ -20,6 +21,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
   isVisible,
   parentElement,
   values,
+  cultureSummary,
   physEnvData,
   techData,
   amenitiesData,
@@ -27,7 +29,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
   return (
     <>
       <Modal
-        id="job-details-preview"
+        id="work-environment-preview"
         parentElement={parentElement}
         visible={isVisible}
         onModalConfirm={modalConfirm}
@@ -42,7 +44,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
             <h5
               data-c-colour="white"
               data-c-font-size="h4"
-              id="job-details-preview-title"
+              id="work-environment-preview-title"
             >
               <FormattedMessage
                 id="jobBuilder.workEnv.greatStart"
@@ -56,7 +58,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
           <div
             data-c-border="bottom(thin, solid, black)"
             data-c-padding="normal"
-            id="job-details-preview"
+            id="work-environment-preview-body"
           >
             <FormattedMessage
               id="jobBuilder.workEnv.openingSentence"
@@ -121,7 +123,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                             const checkedPhyEnvValues = values.physicalEnv;
                             const checked =
                               checkedPhyEnvValues.find(
-                                value => name === value,
+                                (value): boolean => name === value,
                               ) && "checked";
                             return (
                               <div data-c-grid-item="tp(1of2)">
@@ -155,12 +157,13 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                           ({ label, name }): React.ReactElement => {
                             const checkedTechValues = values.technology;
                             const checked =
-                              checkedTechValues.find(value => name === value) &&
-                              "checked";
+                              checkedTechValues.find(
+                                (value): boolean => name === value,
+                              ) && "checked";
                             return (
                               <div data-c-grid-item="tp(1of2)">
                                 <div className={`job-builder-check ${checked}`}>
-                                  <i className="fa fa-check"></i>
+                                  <i className="fa fa-check" />
                                 </div>
                                 <span>{label}</span>
                               </div>
@@ -189,12 +192,13 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                           ({ label, name }): React.ReactElement => {
                             const amenitiesValues = values.amenities;
                             const checked =
-                              amenitiesValues.find(value => name === value) &&
-                              "checked";
+                              amenitiesValues.find(
+                                (value): boolean => name === value,
+                              ) && "checked";
                             return (
                               <div data-c-grid-item="tp(1of2)">
                                 <div className={`job-builder-check ${checked}`}>
-                                  <i className="fa fa-check"></i>
+                                  <i className="fa fa-check" />
                                 </div>
                                 <span>{label}</span>
                               </div>
@@ -204,20 +208,22 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                     </div>
                   </div>
                 </div>
-                <div data-c-grid-item="base(1of1)">
-                  <span
-                    data-c-colour="c1"
-                    data-c-margin="top(half) bottom(half)"
-                    data-c-font-weight="bold"
-                  >
-                    <FormattedMessage
-                      id="jobBuilder.workEnv.moreOnWorkEnvLabel"
-                      defaultMessage="More About Your Environment"
-                      description="The label displayed for the more about your environment textbox."
-                    />
-                  </span>
-                  <p data-c-margin="top(half)">{values.envDescription}</p>
-                </div>
+                {values.envDescription && (
+                  <div data-c-grid-item="base(1of1)">
+                    <span
+                      data-c-colour="c1"
+                      data-c-margin="top(half) bottom(half)"
+                      data-c-font-weight="bold"
+                    >
+                      <FormattedMessage
+                        id="jobBuilder.workEnv.moreOnWorkEnvLabel"
+                        defaultMessage="More About Your Environment"
+                        description="The label displayed for the more about your environment textbox."
+                      />
+                    </span>
+                    <p data-c-margin="top(half)">{values.envDescription}</p>
+                  </div>
+                )}
               </div>
               <h4
                 data-c-border="bottom(thin, solid, black)"
@@ -232,8 +238,10 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                   description="The title displayed for the work culture section on modal."
                 />
               </h4>
-              <p>{values.cultureSummary}</p>
-              <p data-c-margin="top(normal)">{values.moreCultureSummary}</p>
+              <p>{cultureSummary}</p>
+              {values.moreCultureSummary && (
+                <p data-c-margin="top(normal)">{values.moreCultureSummary}</p>
+              )}
             </div>
           </div>
         </Modal.Body>

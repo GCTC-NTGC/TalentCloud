@@ -131,8 +131,8 @@ export const AssessmentPlanAlert: React.FunctionComponent<
               description="Description of the new criteria that have been added to this job."
               values={{
                 skills: createNotifications
-                  .map(
-                    (notification): string => skillName(notification.skill_id),
+                  .map((notification): string =>
+                    skillName(notification.skill_id),
                   )
                   .join(", "),
                 count: createNotifications.length,
@@ -148,8 +148,8 @@ export const AssessmentPlanAlert: React.FunctionComponent<
               description="Description of the criteria that had their level changed."
               values={{
                 skills: updateLevelNotifications
-                  .map(
-                    (notification): string => skillName(notification.skill_id),
+                  .map((notification): string =>
+                    skillName(notification.skill_id),
                   )
                   .join(", "),
                 count: updateLevelNotifications.length,
@@ -201,8 +201,8 @@ export const AssessmentPlanAlert: React.FunctionComponent<
               description="Description of criteria which were removed from the job."
               values={{
                 skills: deleteNotifications
-                  .map(
-                    (notification): string => skillName(notification.skill_id),
+                  .map((notification): string =>
+                    skillName(notification.skill_id),
                   )
                   .join(", "),
                 count: deleteNotifications.length,
@@ -247,9 +247,8 @@ const mapStateToProps = (
 } => ({
   skills: getSkills(state),
   isFetching: notificationsAreFetching(state),
-  isUpdating: some(
-    ownProps.notifications,
-    (notification): boolean => notificationIsUpdating(state, notification.id),
+  isUpdating: some(ownProps.notifications, (notification): boolean =>
+    notificationIsUpdating(state, notification.id),
   ),
 });
 
@@ -258,16 +257,14 @@ const mapDispatchToProps = (
   ownProps: AssessmentPlanAlertContainerProps,
 ): { handleDismiss: () => void } => ({
   handleDismiss: (): void => {
-    ownProps.notifications.forEach(
-      (notification): void => {
-        dispatch(
-          updateAssessmentPlanNotification({
-            ...notification,
-            acknowledged: true,
-          }),
-        );
-      },
-    );
+    ownProps.notifications.forEach((notification): void => {
+      dispatch(
+        updateAssessmentPlanNotification({
+          ...notification,
+          acknowledged: true,
+        }),
+      );
+    });
   },
 });
 // @ts-ignore

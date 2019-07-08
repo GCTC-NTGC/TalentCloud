@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment";
 import { FormattedMessage } from "react-intl";
 import { Application } from "../../models/types";
-import { SelectOption } from "../Form/Select";
+import { SelectOption } from "../Select";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
 
@@ -11,7 +11,7 @@ interface ReviewApplicationsProps {
   classification: string;
   closeDateTime: Date | null;
   applications: Application[];
-  reviewStatusOptions: SelectOption<number>[];
+  reviewStatusOptions: SelectOption[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onBulkStatusChange: (
     applicationIds: number[],

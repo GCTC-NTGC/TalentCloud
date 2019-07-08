@@ -1,25 +1,26 @@
 import * as React from "react";
 import { FieldProps } from "formik";
-import Input from "../Input";
+import { FormattedMessage } from "react-intl";
+import { inputMessages } from "./Messages";
 
 interface NumberInputProps {
-  /** HTML ID of the input. */
+  /** HTML id of the input element */
   id: string;
-  /** Text for the associated label of the input. */
+  /** Holds text for label associated with input element */
   label: string;
-  /** data-clone-grid-item value, see https:/;designwithclone.ca/#flexbox-grid. */
-  grid: string;
-  /** If this input is required for submission. */
-  required: boolean;
+  /** boolean indicating if input must have a value, or not */
+  required?: boolean;
   /** Let's you specify example text that appears in input element when empty */
   placeholder?: string;
-  /** Minimum length of characters the text value can be */
-  minLength?: number;
-  /** Maximum length of characters the text value can be */
-  maxLength?: number;
+  /** Minimum value for the input */
+  min?: number;
+  /** Maximum value for the input */
+  max?: number;
+  /** data-clone-grid-item value: https://designwithclone.ca/#flexbox-grid */
+  grid?: string;
   /** Formik field prop of the shape { name, value, onChange, onBlur } */
   field: FieldProps["field"];
-  /** Formik form prop of the shape { errors } */
+  /** Formik form prop of the shape { errors, touched } */
   form: FieldProps["form"];
 }
 
@@ -28,33 +29,44 @@ const NumberInput: React.FunctionComponent<NumberInputProps> = ({
   label,
   required,
   placeholder,
+  min,
+  max,
   grid,
-  minLength,
-  maxLength,
   field: { name, value, onChange, onBlur },
   form: { errors, touched },
+  ...props
 }): React.ReactElement => {
-  // TODO: find solution for ts error
-  // @ts-ignore
-  const errorText: string = errors[name] ? errors[name] : undefined;
+  const specificError = errors ? errors[name] : null;
+  const errorText = specificError ? specificError.toString() : undefined;
   const invalid = touched[name] && errors[name] ? true : null;
+
   return (
-    <Input
-      id={id}
-      label={label}
-      placeholder={placeholder}
-      required={required}
-      type="number"
-      name={name}
-      value={value}
-      grid={grid}
-      minLength={minLength}
-      maxLength={maxLength}
-      onChange={onChange}
-      onBlur={onBlur}
-      errorText={errorText}
-      invalid={invalid}
-    />
+    <div
+      data-c-input="number"
+      data-c-grid-item={grid}
+      data-c-required={required || null}
+      data-c-invalid={invalid}
+    >
+      <label htmlFor={id}>{label}</label>
+      <span>
+        <FormattedMessage {...inputMessages.required} />
+      </span>
+      <div>
+        <input
+          id={id}
+          name={name}
+          placeholder={placeholder}
+          type="number"
+          value={value || undefined}
+          min={min}
+          max={max}
+          onChange={onChange}
+          onBlur={onBlur}
+          {...props}
+        />
+      </div>
+      <span>{errorText || <FormattedMessage {...inputMessages.error} />}</span>
+    </div>
   );
 };
 

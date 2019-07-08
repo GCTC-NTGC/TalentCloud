@@ -51,12 +51,10 @@ export const clipboardData = (
           (criterion: Criteria): boolean =>
             criterion.id === narrative.criterion_id,
         );
-        const narrativeSkill = skills.find(
-          (skill: Skill): boolean => {
-            if (narrativeCriterion === undefined) return false;
-            return skill.id === narrativeCriterion.skill_id;
-          },
-        );
+        const narrativeSkill = skills.find((skill: Skill): boolean => {
+          if (narrativeCriterion === undefined) return false;
+          return skill.id === narrativeCriterion.skill_id;
+        });
         return {
           title: formatMessage(assessmentType(narrative.assessment_type_id)),
           question: null,
@@ -85,9 +83,7 @@ export const clipboardData = (
           id:
             narrativeCriterion === undefined
               ? ""
-              : `A${narrative.assessment_type_id}-Q${narrative.id}-T${
-                  narrativeCriterion.criteria_type_id
-                }`,
+              : `A${narrative.assessment_type_id}-Q${narrative.id}-T${narrativeCriterion.criteria_type_id}`,
         };
       },
     );
@@ -117,12 +113,10 @@ export const clipboardData = (
       const criterionByAnswer = criteria.find(
         (criterion: Criteria): boolean => criterion.id === answer.criterion_id,
       );
-      const skillByCriterion = skills.find(
-        (skill: Skill): boolean => {
-          if (criterionByAnswer === undefined) return false;
-          return skill.id === criterionByAnswer.skill_id;
-        },
-      );
+      const skillByCriterion = skills.find((skill: Skill): boolean => {
+        if (criterionByAnswer === undefined) return false;
+        return skill.id === criterionByAnswer.skill_id;
+      });
       const questionByAnswer = ratingGuideQuestions.find(
         (question: RatingGuideQuestion): boolean =>
           question.id === answer.rating_guide_question_id,
@@ -159,9 +153,7 @@ export const clipboardData = (
         id:
           questionByAnswer === undefined || criterionByAnswer === undefined
             ? ""
-            : `A${questionByAnswer.assessment_type_id}-Q${
-                questionByAnswer.id
-              }-T${criterionByAnswer.criteria_type_id}-AN${answer.id}`,
+            : `A${questionByAnswer.assessment_type_id}-Q${questionByAnswer.id}-T${criterionByAnswer.criteria_type_id}-AN${answer.id}`,
       };
     },
   );
