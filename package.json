@@ -73,7 +73,7 @@
     "fetch-mock": "^7.3.3",
     "intl": "^1.2.5",
     "jest": "^24.7.1",
-    "jest-dom": "^3.3.0",
+    "jest-dom": "^4.0.0",
     "jquery": "^3.4.0",
     "laravel-mix": "^4.0.15",
     "node-sass": "^4.12.0",
