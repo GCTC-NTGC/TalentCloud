@@ -290,30 +290,74 @@ export const amenitiesOptions: string[] = [
   "parking",
 ];
 
-const culturePaceList = [
+const culturePaceMessages = defineMessages({
+  pace01Title: {
+    id: "jobBuilder.culturePace.01.title",
+    defaultMessage: "Very Fast-paced",
+  },
+  pace01Description: {
+    id: "jobBuilder.culturePace.01.description",
+    defaultMessage:
+      "Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!",
+  },
+  pace02Title: {
+    id: "jobBuilder.culturePace.02.title",
+    defaultMessage: "Fast-paced",
+  },
+  pace02Description: {
+    id: "jobBuilder.culturePace.02.description",
+    defaultMessage:
+      "Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes!",
+  },
+  pace03Title: {
+    id: "jobBuilder.culturePace.03.title",
+    defaultMessage: "Steady",
+  },
+  pace03Description: {
+    id: "jobBuilder.culturePace.03.description",
+    defaultMessage:
+      "Our deadlines are regular and predictable, we balance a couple of tasks at a time, and our priorities change occasionally. We keep things on an even keel.",
+  },
+  pace04Title: {
+    id: "jobBuilder.culturePace.04.title",
+    defaultMessage: "Very Steady",
+  },
+  pace04Description: {
+    id: "jobBuilder.culturePace.04.description",
+    defaultMessage:
+      "Our work is ongoing so there aren’t very many deadlines. We don’t usually have to balance tasks and our priorities change rarely. We thrive on routine.",
+  },
+});
+
+type CulturePaceId =
+  | "culturePace01"
+  | "culturePace02"
+  | "culturePace03"
+  | "culturePace04";
+const culturePaceList: {
+  id: CulturePaceId;
+  title: FormattedMessage.MessageDescriptor;
+  subtext: FormattedMessage.MessageDescriptor;
+}[] = [
   {
     id: "culturePace01",
-    title: "Very Fast-paced",
-    subtext:
-      "Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!",
+    title: culturePaceMessages.pace01Title,
+    subtext: culturePaceMessages.pace01Description,
   },
   {
     id: "culturePace02",
-    title: "Fast-paced",
-    subtext:
-      "Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes!",
+    title: culturePaceMessages.pace02Title,
+    subtext: culturePaceMessages.pace02Description,
   },
   {
     id: "culturePace03",
-    title: "Steady",
-    subtext:
-      "Our deadlines are regular and predictable, we balance a couple of tasks at a time, and our priorities change occasionally. We keep things on an even keel.",
+    title: culturePaceMessages.pace03Title,
+    subtext: culturePaceMessages.pace03Description,
   },
   {
     id: "culturePace04",
-    title: "Very Steady",
-    subtext:
-      "Our work is ongoing so there aren’t very many deadlines. We don’t usually have to balance tasks and our priorities change rarely. We thrive on routine.",
+    title: culturePaceMessages.pace04Title,
+    subtext: culturePaceMessages.pace04Description,
   },
 ];
 
@@ -373,33 +417,57 @@ const experimentalList = [
 
 // shape of values used in Form
 export interface FormValues {
-  teamSize: number | undefined;
+  teamSize?: number;
   physicalEnv: string[];
   technology: string[];
   amenities: string[];
   envDescription: string;
-  culturePace: string;
-  management: string;
-  experimental: string;
+  culturePace?: CulturePaceId;
+  management?:
+    | "management01"
+    | "management02"
+    | "management03"
+    | "management04";
+  experimental?:
+    | "experimental01"
+    | "experimental02"
+    | "experimental03"
+    | "experimental04";
   cultureSummary: string;
   moreCultureSummary: string;
 }
 
-const defaultToEmpty = (key: string, value: any) => value && { key: value };
+function convertSliderId<T>(
+  key: string,
+  formSliderArray: { id: T }[],
+  jobSliderId: number | null,
+): { [key: string]: T } | {} {
+  return jobSliderId && jobSliderId > 0 && jobSliderId <= formSliderArray.length
+    ? {
+        [key]: formSliderArray[jobSliderId - 1].id,
+      }
+    : {};
+}
 
-const jobToValues = (job: Job | null, locale: string): FormValues =>
+const jobToValues = (job: Job | null, locale: "en" | "fr"): FormValues =>
   job
     ? {
-        // ...(job.team_size && {teamSize: job.team_size}),
-        ...defaultToEmpty("teamSize", job.team_size),
-        ...(job[locale].work_env_description &&
-          job[locale].work_env_description),
-        // TODO: fill in
+        ...(job.team_size && { teamSize: job.team_size }),
+        physicalEnv: [],
+        technology: [],
+        amenities: [],
+        ...convertSliderId("culturePace", culturePaceList, job.fast_vs_steady),
+        envDescription: job[locale].work_env_description || "",
+        cultureSummary: job[locale].culture_summary || "",
+        moreCultureSummary: job[locale].culture_special || "",
       }
     : {
         physicalEnv: [],
         technology: [],
         amenities: [],
+        envDescription: "",
+        cultureSummary: "",
+        moreCultureSummary: "",
       };
 
 const updateJobWithValues = (job: Job, newValues: FormValues): Job => {
@@ -469,23 +537,13 @@ const WorkEnvForm = ({
     ),
     envDescription: Yup.string(),
     culturePace: Yup.string()
-      .oneOf([
-        "culturePace01",
-        "culturePace02",
-        "culturePace03",
-        "culturePace04",
-      ])
+      .oneOf(culturePaceList.map((item): string => item.id))
       .required(intl.formatMessage(validationMessages.checkboxRequired)),
     management: Yup.string()
-      .oneOf(["management01", "management02", "management03", "management04"])
+      .oneOf(managementList.map((item): string => item.id))
       .required(intl.formatMessage(validationMessages.checkboxRequired)),
     experimental: Yup.string()
-      .oneOf([
-        "experimental01",
-        "experimental02",
-        "experimental03",
-        "experimental04",
-      ])
+      .oneOf(experimentalList.map((item): string => item.id))
       .required(intl.formatMessage(validationMessages.checkboxRequired)),
   });
 
@@ -503,7 +561,7 @@ const WorkEnvForm = ({
 
     let cultureSummary = "";
     if (pace) {
-      cultureSummary += pace.subtext;
+      cultureSummary += intl.formatMessage(pace.subtext);
     }
 
     if (management) {
@@ -517,6 +575,9 @@ const WorkEnvForm = ({
     return cultureSummary;
   };
 
+  if (intl.locale !== "en" && intl.locale !== "fr") {
+    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
+  }
   const initialValues: FormValues = jobToValues(job, intl.locale);
 
   return (
@@ -563,7 +624,6 @@ const WorkEnvForm = ({
       <Formik
         initialValues={initialValues}
         validationSchema={workEnvSchema}
-        // TODO: setErrors
         onSubmit={(values, { setSubmitting }): void => {
           setIsModalVisible(true);
           // If custom summary textbox is length is zero, set cultureSummary to generated text
