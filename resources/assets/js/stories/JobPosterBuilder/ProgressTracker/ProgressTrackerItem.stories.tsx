@@ -1,8 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { text } from "@storybook/addon-knobs";
-import ProgressTrackerItem from "../../components/ProgressTracker/ProgressTrackerItem";
-import ProgressTracker from "../../components/ProgressTracker/ProgressTracker";
+import ProgressTrackerItem from "../../../components/ProgressTracker/ProgressTrackerItem";
+import ProgressTracker from "../../../components/ProgressTracker/ProgressTracker";
 
 const ProgressTrackerWrapper = (
   children: React.ReactElement,

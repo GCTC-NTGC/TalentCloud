@@ -1,7 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { text, boolean, number } from "@storybook/addon-knobs";
-import JobPreview from "../components/JobPreview";
+import JobPreview from "../../components/JobPreview";
 
 const stories = storiesOf("Job Poster Builder|Preview", module);
 

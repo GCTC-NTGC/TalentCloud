@@ -1,8 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { text } from "@storybook/addon-knobs";
-import ProgressTracker from "../../components/ProgressTracker/ProgressTracker";
-import { ProgressTrackerItem } from "../../components/ProgressTracker/types";
+import ProgressTracker from "../../../components/ProgressTracker/ProgressTracker";
+import { ProgressTrackerItem } from "../../../components/ProgressTracker/types";
 
 const items: ProgressTrackerItem[] = [
   { state: "active", label: "Step 01", title: "Job Info" },
