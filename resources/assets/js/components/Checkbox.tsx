@@ -1,45 +1,40 @@
 import React from "react";
 
-export interface RadioProps {
+export interface CheckboxProps {
   /** HTML id of the input element */
   id: string;
   /** HTML name of the input element */
   name: string;
   /** Holds text for label associated with input element */
   label: string;
+  /** data-clone grid sizing value, see: https://designwithclone.ca/#flexbox-grid */
+  grid?: string;
   /** boolean indicating if this radio is selected */
   checked?: boolean;
   /** The value of the input */
   value?: string | number | string[];
-  /** Optional boolean to trigger a related context block. */
-  trigger?: boolean;
   /** Event listener which fires when a change event occurs (varies on input type) */
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  /** Event listener which fires when a input loses focus */
+  /** Event listener which fires when an input loses focus */
   onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Radio: React.FunctionComponent<RadioProps> = ({
+const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   id,
   name,
   label,
+  grid,
   checked,
   value,
-  trigger,
   onBlur,
   onChange,
-}): React.ReactElement => {
-  const clicked: boolean = id === value;
-  return (
-    <label
-      data-tc-wenv-id={id}
-      data-tc-wenv-trigger={trigger}
-      className={clicked ? "active" : ""}
-    >
+}): React.ReactElement => (
+  <div data-c-grid-item={grid}>
+    <label>
       <input
         id={id}
         name={name}
-        type="radio"
+        type="checkbox"
         checked={checked}
         value={value}
         onChange={onChange}
@@ -47,7 +42,7 @@ const Radio: React.FunctionComponent<RadioProps> = ({
       />
       <span>{label}</span>
     </label>
-  );
-};
+  </div>
+);
 
-export default Radio;
+export default Checkbox;
