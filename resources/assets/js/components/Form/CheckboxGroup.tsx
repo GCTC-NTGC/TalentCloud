@@ -13,9 +13,9 @@ interface CheckboxGroupProps {
   /** If this input is required for submission. */
   required: boolean;
   /** Error to display. */
-  error: undefined[] | undefined;
+  error: (string | undefined)[] | undefined;
   /** If this group has been affected by user input or a submission. */
-  touched: undefined[] | undefined;
+  touched: (boolean | undefined)[] | undefined;
   /** Array of all selected values */
   value: string[] | number[];
   /** Function which takes an id and value as arguments, and sets the field (id) to the value */
