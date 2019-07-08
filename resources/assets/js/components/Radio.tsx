@@ -11,6 +11,8 @@ export interface RadioProps {
   checked?: boolean;
   /** The value of the input */
   value?: string | number | string[];
+  /** Optional boolean to trigger a related context block. */
+  trigger?: boolean;
   /** Event listener which fires when a change event occurs (varies on input type) */
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /** Event listener which fires when a input loses focus */

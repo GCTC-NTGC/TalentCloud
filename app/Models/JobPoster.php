@@ -341,9 +341,9 @@ class JobPoster extends BaseModel
      *
      * @param mixed $value Incoming attribute value.
      *
-     * @return string
+     * @return string|null
      */
-    public function getClassificationAttribute($value) : string
+    public function getClassificationAttribute($value)
     {
         if (!empty($this->classification_code) && !empty($this->classification_level)) {
             return "$this->classification_code-$this->classification_level";

@@ -11,6 +11,7 @@ interface RadioInputProps
 const RadioInput: React.FunctionComponent<RadioInputProps> = ({
   id,
   label,
+  trigger,
   field: { name, value, onChange, onBlur },
 }): React.ReactElement => {
   return (
@@ -20,6 +21,7 @@ const RadioInput: React.FunctionComponent<RadioInputProps> = ({
       label={label}
       value={id}
       checked={id === value}
+      trigger={trigger}
       onChange={onChange}
       onBlur={onBlur}
     />
