@@ -517,7 +517,7 @@ export interface FormValues {
   moreCultureSummary: string;
 }
 
-function convertSliderId<T>(
+function convertSliderIdFromJob<T>(
   key: string,
   formSliderArray: { id: T }[],
   jobSliderId: number | null,
@@ -536,13 +536,17 @@ const jobToValues = (job: Job | null, locale: "en" | "fr"): FormValues =>
         physicalEnv: [],
         technology: [],
         amenities: [],
-        ...convertSliderId("culturePace", culturePaceList, job.fast_vs_steady),
-        ...convertSliderId(
+        ...convertSliderIdFromJob(
+          "culturePace",
+          culturePaceList,
+          job.fast_vs_steady,
+        ),
+        ...convertSliderIdFromJob(
           "management",
           managementList,
           job.horizontal_vs_vertical,
         ),
-        ...convertSliderId(
+        ...convertSliderIdFromJob(
           "experimental",
           experimentalList,
           job.experimental_vs_ongoing,
@@ -560,11 +564,42 @@ const jobToValues = (job: Job | null, locale: "en" | "fr"): FormValues =>
         moreCultureSummary: "",
       };
 
-const updateJobWithValues = (job: Job, newValues: FormValues): Job => {
+function convertSliderIdToJob(
+  formSliderArray: { id: string }[],
+  id: string | undefined,
+): number | null {
+  if (id === undefined) {
+    return null;
+  }
+  return formSliderArray.map((item): string => item.id).indexOf(id) + 1;
+}
+
+const updateJobWithValues = (
+  job: Job,
+  locale: "en" | "fr",
+  newValues: FormValues,
+): Job => {
   return {
     ...job,
     team_size: newValues.teamSize || null,
-    // TODO: fill in
+    fast_vs_steady: convertSliderIdToJob(
+      culturePaceList,
+      newValues.culturePace,
+    ),
+    horizontal_vs_vertical: convertSliderIdToJob(
+      managementList,
+      newValues.management,
+    ),
+    experimental_vs_ongoing: convertSliderIdToJob(
+      experimentalList,
+      newValues.experimental,
+    ),
+    [locale]: {
+      ...job[locale],
+      work_env_description: newValues.envDescription || null,
+      culture_summary: newValues.cultureSummary || null,
+      culture_special: newValues.moreCultureSummary || null,
+    },
   };
 };
 
@@ -586,10 +621,11 @@ const WorkEnvForm = ({
   handleModalCancel,
   intl,
 }: WorkEnvFormProps & InjectedIntlProps): React.ReactElement => {
-  if (intl.locale !== "en" && intl.locale !== "fr") {
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
-  const initialValues: FormValues = jobToValues(job, intl.locale);
+  const initialValues: FormValues = jobToValues(job, locale);
 
   // This function takes the possible values and the localized messages objects and returns an array. The array contains the name and localized label.
   const createOptions = (
@@ -713,7 +749,7 @@ const WorkEnvForm = ({
               ? buildCultureSummary(values)
               : values.cultureSummary;
           const formValues: FormValues = { ...values, cultureSummary };
-          console.log(updateJobWithValues(emptyJob(), formValues));
+          console.log(updateJobWithValues(emptyJob(), locale, formValues));
           // handleSubmit();
           setSubmitting(false);
         }}
