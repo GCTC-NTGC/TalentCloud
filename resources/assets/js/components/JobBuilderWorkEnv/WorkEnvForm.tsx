@@ -22,6 +22,7 @@ import TextAreaInput from "../Form/TextAreaInput";
 import { validationMessages } from "../Form/Messages";
 import { Job } from "../../models/types";
 import { emptyJob } from "../../models/jobUtil";
+import { notEmpty } from "../../helpers/queries";
 
 const formMessages = defineMessages({
   ourWorkEnv: {
@@ -361,57 +362,144 @@ const culturePaceList: {
   },
 ];
 
-const managementList = [
+const mgmtStyleMessages = defineMessages({
+  style01Title: {
+    id: "jobBuilder.mgmtStyle.01.title",
+    defaultMessage: "Horizontal",
+  },
+  style01Description: {
+    id: "jobBuilder.mgmtStyle.01.description",
+    defaultMessage:
+      "There’s no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.",
+  },
+  style02Title: {
+    id: "jobBuilder.mgmtStyle.02.title",
+    defaultMessage: "Somewhat Horizontal",
+  },
+  style02Description: {
+    id: "jobBuilder.mgmtStyle.02.description",
+    defaultMessage:
+      "We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives.",
+  },
+  style03Title: {
+    id: "jobBuilder.mgmtStyle.03.title",
+    defaultMessage: "Somewhat Vertical",
+  },
+  style03Description: {
+    id: "jobBuilder.mgmtStyle.03.description",
+    defaultMessage:
+      "Our team has a clearly defined role. We check in regularly with middle-management for approvals and updates on the strategic vision of our executives.",
+  },
+  style04Title: {
+    id: "jobBuilder.mgmtStyle.04.title",
+    defaultMessage: "Vertical",
+  },
+  style04Description: {
+    id: "jobBuilder.mgmtStyle.04.description",
+    defaultMessage:
+      "Our team has a clearly defined role. We check in often with middle-management for approvals and updates on the strategic vision of our executives.",
+  },
+});
+
+type MgmtStyleId =
+  | "mgmtStyle01"
+  | "mgmtStyle02"
+  | "mgmtStyle03"
+  | "mgmtStyle04";
+const managementList: {
+  id: MgmtStyleId;
+  title: FormattedMessage.MessageDescriptor;
+  subtext: FormattedMessage.MessageDescriptor;
+}[] = [
   {
-    id: "management01",
-    title: "Very Horizontal",
-    subtext:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, veniam.",
+    id: "mgmtStyle01",
+    title: mgmtStyleMessages.style01Title,
+    subtext: mgmtStyleMessages.style01Description,
   },
   {
-    id: "management02",
-    title: "Horizontal",
-    subtext:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, delectus?",
+    id: "mgmtStyle02",
+    title: mgmtStyleMessages.style02Title,
+    subtext: mgmtStyleMessages.style02Description,
   },
   {
-    id: "management03",
-    title: "Vertical",
-    subtext:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Optio eius voluptates officia, ipsum adipisci nesciunt!",
+    id: "mgmtStyle03",
+    title: mgmtStyleMessages.style03Title,
+    subtext: mgmtStyleMessages.style03Description,
   },
   {
-    id: "management04",
-    title: "Very Vertical",
-    subtext:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit quibusdam error suscipit.",
+    id: "mgmtStyle04",
+    title: mgmtStyleMessages.style04Title,
+    subtext: mgmtStyleMessages.style04Description,
   },
 ];
 
-const experimentalList = [
+const experimentalMessages = defineMessages({
+  experimental01Title: {
+    id: "jobBuilder.experimental.01.title",
+    defaultMessage: "Experimental",
+  },
+  experimental01Description: {
+    id: "jobBuilder.experimental.01.description",
+    defaultMessage:
+      "Our work is defined by trying out brand new ideas, methods, and activities to address persistent problems that traditional approaches have failed to solve.",
+  },
+  experimental02Title: {
+    id: "jobBuilder.experimental.02.title",
+    defaultMessage: "Somewhat Experimental",
+  },
+  experimental02Description: {
+    id: "jobBuilder.experimental.02.description",
+    defaultMessage:
+      "We try out new and proven ideas, methods, and activities to improve how we do our work.",
+  },
+  experimental03Title: {
+    id: "jobBuilder.experimental.03.title",
+    defaultMessage: "Somewhat Predictable Work",
+  },
+  experimental03Description: {
+    id: "jobBuilder.experimental.03.description",
+    defaultMessage:
+      "Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes.",
+  },
+  experimental04Title: {
+    id: "jobBuilder.experimental.04.title",
+    defaultMessage: "Predictable Work",
+  },
+  experimental04Description: {
+    id: "jobBuilder.experimental.04.description",
+    defaultMessage:
+      "Most of our work involves administrative tasks are repeated on a regular basis. Consistency is key here, so we follow a standard process with tried and true tools.",
+  },
+});
+type ExperiementalId =
+  | "experimental01"
+  | "experimental02"
+  | "experimental03"
+  | "experimental04";
+const experimentalList: {
+  id: ExperiementalId;
+  title: FormattedMessage.MessageDescriptor;
+  subtext: FormattedMessage.MessageDescriptor;
+}[] = [
   {
     id: "experimental01",
-    title: "Highly Experimental",
-    subtext:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, veniam.",
+    title: experimentalMessages.experimental01Title,
+    subtext: experimentalMessages.experimental01Description,
   },
   {
     id: "experimental02",
-    title: "Experimental",
-    subtext:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, delectus?",
+    title: experimentalMessages.experimental02Title,
+    subtext: experimentalMessages.experimental02Description,
   },
   {
     id: "experimental03",
-    title: "Ongoing Business",
-    subtext:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Optio eius voluptates officia, ipsum adipisci nesciunt!",
+    title: experimentalMessages.experimental03Title,
+    subtext: experimentalMessages.experimental03Description,
   },
   {
     id: "experimental04",
-    title: "Mostly Ongoing Business",
-    subtext:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit quibusdam error suscipit.",
+    title: experimentalMessages.experimental04Title,
+    subtext: experimentalMessages.experimental04Description,
   },
 ];
 
@@ -423,16 +511,8 @@ export interface FormValues {
   amenities: string[];
   envDescription: string;
   culturePace?: CulturePaceId;
-  management?:
-    | "management01"
-    | "management02"
-    | "management03"
-    | "management04";
-  experimental?:
-    | "experimental01"
-    | "experimental02"
-    | "experimental03"
-    | "experimental04";
+  management?: MgmtStyleId;
+  experimental?: ExperiementalId;
   cultureSummary: string;
   moreCultureSummary: string;
 }
@@ -457,6 +537,16 @@ const jobToValues = (job: Job | null, locale: "en" | "fr"): FormValues =>
         technology: [],
         amenities: [],
         ...convertSliderId("culturePace", culturePaceList, job.fast_vs_steady),
+        ...convertSliderId(
+          "management",
+          managementList,
+          job.horizontal_vs_vertical,
+        ),
+        ...convertSliderId(
+          "experimental",
+          experimentalList,
+          job.experimental_vs_ongoing,
+        ),
         envDescription: job[locale].work_env_description || "",
         cultureSummary: job[locale].culture_summary || "",
         moreCultureSummary: job[locale].culture_special || "",
@@ -496,6 +586,11 @@ const WorkEnvForm = ({
   handleModalCancel,
   intl,
 }: WorkEnvFormProps & InjectedIntlProps): React.ReactElement => {
+  if (intl.locale !== "en" && intl.locale !== "fr") {
+    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
+  }
+  const initialValues: FormValues = jobToValues(job, intl.locale);
+
   // This function takes the possible values and the localized messages objects and returns an array. The array contains the name and localized label.
   const createOptions = (
     options: string[],
@@ -559,26 +654,12 @@ const WorkEnvForm = ({
       ({ id }): boolean => id === values.experimental,
     );
 
-    let cultureSummary = "";
-    if (pace) {
-      cultureSummary += intl.formatMessage(pace.subtext);
-    }
-
-    if (management) {
-      cultureSummary += ` ${management.subtext}`;
-    }
-
-    if (experimental) {
-      cultureSummary += ` ${experimental.subtext}`;
-    }
-
+    const cultureSummary: string = [pace, management, experimental]
+      .filter(notEmpty)
+      .map((item): string => intl.formatMessage(item.subtext))
+      .join(" ");
     return cultureSummary;
   };
-
-  if (intl.locale !== "en" && intl.locale !== "fr") {
-    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
-  }
-  const initialValues: FormValues = jobToValues(job, intl.locale);
 
   return (
     <div
@@ -817,7 +898,7 @@ const WorkEnvForm = ({
                             name="culturePace"
                             component={RadioInput}
                             id={id}
-                            label={title}
+                            label={intl.formatMessage(title)}
                             value={id}
                             trigger
                           />
@@ -834,8 +915,8 @@ const WorkEnvForm = ({
                         return (
                           <ContextBlockItem
                             contextId={id}
-                            title={title}
-                            subtext={subtext}
+                            title={intl.formatMessage(title)}
+                            subtext={intl.formatMessage(subtext)}
                             className="job-builder-context-item"
                             active={values.culturePace === id}
                           />
@@ -866,7 +947,7 @@ const WorkEnvForm = ({
                             name="management"
                             component={RadioInput}
                             id={id}
-                            label={title}
+                            label={intl.formatMessage(title)}
                             value={id}
                             trigger
                           />
@@ -883,8 +964,8 @@ const WorkEnvForm = ({
                         return (
                           <ContextBlockItem
                             contextId={id}
-                            title={title}
-                            subtext={subtext}
+                            title={intl.formatMessage(title)}
+                            subtext={intl.formatMessage(subtext)}
                             className="job-builder-context-item"
                             active={values.management === id}
                           />
@@ -915,7 +996,7 @@ const WorkEnvForm = ({
                             name="experimental"
                             component={RadioInput}
                             id={id}
-                            label={title}
+                            label={intl.formatMessage(title)}
                             value={id}
                             trigger
                           />
@@ -932,8 +1013,8 @@ const WorkEnvForm = ({
                         return (
                           <ContextBlockItem
                             contextId={id}
-                            title={title}
-                            subtext={subtext}
+                            title={intl.formatMessage(title)}
+                            subtext={intl.formatMessage(subtext)}
                             className="job-builder-context-item"
                             active={values.experimental === id}
                           />
@@ -1040,7 +1121,7 @@ const WorkEnvForm = ({
               <WorkEnvModal
                 modalConfirm={(): void => {
                   setIsModalVisible(false);
-                  handleSubmit(values);
+                  // handleSubmit(values); // TODO: remove line or replace
                 }}
                 modalCancel={(): void => {
                   setIsModalVisible(false);
