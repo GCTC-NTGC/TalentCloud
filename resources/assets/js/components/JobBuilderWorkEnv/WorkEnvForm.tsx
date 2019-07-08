@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef } from "react";
-import { Form, Field, Formik, FormikValues } from "formik";
+import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
 import {
   injectIntl,
@@ -20,6 +20,8 @@ import NumberInput from "../Form/NumberInput";
 import CheckboxInput from "../Form/CheckboxInput";
 import TextAreaInput from "../Form/TextAreaInput";
 import { validationMessages } from "../Form/Messages";
+import { Job } from "../../models/types";
+import { emptyJob } from "../../models/jobUtil";
 
 const formMessages = defineMessages({
   ourWorkEnv: {
@@ -371,25 +373,57 @@ const experimentalList = [
 
 // shape of values used in Form
 export interface FormValues {
-  teamSize?: number;
+  teamSize: number | undefined;
   physicalEnv: string[];
   technology: string[];
   amenities: string[];
-  envDescription?: string;
-  culturePace?: string;
-  management?: string;
-  experimental?: string;
-  cultureSummary?: string;
-  moreCultureSummary?: string;
+  envDescription: string;
+  culturePace: string;
+  management: string;
+  experimental: string;
+  cultureSummary: string;
+  moreCultureSummary: string;
 }
 
+const defaultToEmpty = (key: string, value: any) => value && { key: value };
+
+const jobToValues = (job: Job | null, locale: string): FormValues =>
+  job
+    ? {
+        // ...(job.team_size && {teamSize: job.team_size}),
+        ...defaultToEmpty("teamSize", job.team_size),
+        ...(job[locale].work_env_description &&
+          job[locale].work_env_description),
+        // TODO: fill in
+      }
+    : {
+        physicalEnv: [],
+        technology: [],
+        amenities: [],
+      };
+
+const updateJobWithValues = (job: Job, newValues: FormValues): Job => {
+  return {
+    ...job,
+    team_size: newValues.teamSize || null,
+    // TODO: fill in
+  };
+};
+
 interface WorkEnvFormProps {
-  handleSubmit: (values: FormikValues) => void;
+  // Optional Job to prepopulate form values from.
+  job: Job | null;
+  // Submit function that runs after successful validation.
+  // It must return the submitted job, if successful.
+  handleSubmit: (values: Job) => Promise<Job>;
+  // Function to run when modal cancel is clicked.
   handleModalCancel: () => void;
+  // Function to run when modal confirm is clicked.
   handleModalConfirm: () => void;
 }
 
 const WorkEnvForm = ({
+  job,
   handleSubmit,
   handleModalCancel,
   handleModalConfirm,
@@ -438,7 +472,7 @@ const WorkEnvForm = ({
     envDescription: Yup.string().required(
       intl.formatMessage(validationMessages.required),
     ),
-    culturePace: Yup.mixed()
+    culturePace: Yup.string()
       .oneOf([
         "culturePace01",
         "culturePace02",
@@ -446,10 +480,10 @@ const WorkEnvForm = ({
         "culturePace04",
       ])
       .required(intl.formatMessage(validationMessages.checkboxRequired)),
-    management: Yup.mixed()
+    management: Yup.string()
       .oneOf(["management01", "management02", "management03", "management04"])
       .required(intl.formatMessage(validationMessages.checkboxRequired)),
-    experimental: Yup.mixed()
+    experimental: Yup.string()
       .oneOf([
         "experimental01",
         "experimental02",
@@ -485,8 +519,14 @@ const WorkEnvForm = ({
     return cultureSummary;
   };
 
+  const initialValues: FormValues = jobToValues(job, intl.locale);
+
   return (
-    <div data-c-container="form" data-c-padding="top(triple) bottom(triple)" ref={modalParentRef}>
+    <div
+      data-c-container="form"
+      data-c-padding="top(triple) bottom(triple)"
+      ref={modalParentRef}
+    >
       <h3
         data-c-font-size="h3"
         data-c-font-weight="bold"
@@ -523,18 +563,7 @@ const WorkEnvForm = ({
       </div>
 
       <Formik
-        initialValues={{
-          teamSize: undefined,
-          physicalEnv: [],
-          technology: [],
-          amenities: [],
-          envDescription: "",
-          culturePace: "",
-          management: "",
-          experimental: "",
-          cultureSummary: "",
-          moreCultureSummary: "",
-        }}
+        initialValues={initialValues}
         validationSchema={workEnvSchema}
         // TODO: setErrors
         onSubmit={(values, { setSubmitting }): void => {
@@ -544,9 +573,9 @@ const WorkEnvForm = ({
             values.cultureSummary.length === 0
               ? buildCultureSummary(values)
               : values.cultureSummary;
-          const formValues = { ...values, cultureSummary };
-
-          handleSubmit(formValues);
+          const formValues: FormValues = { ...values, cultureSummary };
+          console.log(updateJobWithValues(emptyJob(), formValues));
+          // handleSubmit();
           setSubmitting(false);
         }}
         render={({
