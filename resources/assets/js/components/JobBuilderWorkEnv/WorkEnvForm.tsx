@@ -22,7 +22,12 @@ import TextAreaInput from "../Form/TextAreaInput";
 import { validationMessages } from "../Form/Messages";
 import { Job } from "../../models/types";
 import { emptyJob } from "../../models/jobUtil";
-import { notEmpty } from "../../helpers/queries";
+import {
+  notEmpty,
+  hasKey,
+  mapToObjectTrans,
+  identity,
+} from "../../helpers/queries";
 
 const formMessages = defineMessages({
   ourWorkEnv: {
@@ -529,40 +534,43 @@ function convertSliderIdFromJob<T>(
     : {};
 }
 
-const jobToValues = (job: Job | null, locale: "en" | "fr"): FormValues =>
-  job
-    ? {
-        ...(job.team_size && { teamSize: job.team_size }),
-        physicalEnv: [],
-        technology: [],
-        amenities: [],
-        ...convertSliderIdFromJob(
-          "culturePace",
-          culturePaceList,
-          job.fast_vs_steady,
-        ),
-        ...convertSliderIdFromJob(
-          "management",
-          managementList,
-          job.horizontal_vs_vertical,
-        ),
-        ...convertSliderIdFromJob(
-          "experimental",
-          experimentalList,
-          job.experimental_vs_ongoing,
-        ),
-        envDescription: job[locale].work_env_description || "",
-        cultureSummary: job[locale].culture_summary || "",
-        moreCultureSummary: job[locale].culture_special || "",
-      }
-    : {
-        physicalEnv: [],
-        technology: [],
-        amenities: [],
-        envDescription: "",
-        cultureSummary: "",
-        moreCultureSummary: "",
-      };
+const jobToValues = (
+  {
+    team_size,
+    fast_vs_steady,
+    horizontal_vs_vertical,
+    experimental_vs_ongoing,
+    work_env_features,
+    ...job
+  }: Job,
+  locale: "en" | "fr",
+): FormValues => {
+  const isTrueInEnvFeatures = (option): boolean =>
+    work_env_features !== null &&
+    hasKey(work_env_features, option) &&
+    work_env_features[option];
+
+  return {
+    ...(team_size && { teamSize: team_size }),
+    physicalEnv: physEnvOptions.filter(isTrueInEnvFeatures),
+    technology: techOptions.filter(isTrueInEnvFeatures),
+    amenities: amenitiesOptions.filter(isTrueInEnvFeatures),
+    ...convertSliderIdFromJob("culturePace", culturePaceList, fast_vs_steady),
+    ...convertSliderIdFromJob(
+      "management",
+      managementList,
+      horizontal_vs_vertical,
+    ),
+    ...convertSliderIdFromJob(
+      "experimental",
+      experimentalList,
+      experimental_vs_ongoing,
+    ),
+    envDescription: job[locale].work_env_description || "",
+    cultureSummary: job[locale].culture_summary || "",
+    moreCultureSummary: job[locale].culture_special || "",
+  };
+};
 
 function convertSliderIdToJob(
   formSliderArray: { id: string }[],
@@ -577,28 +585,54 @@ function convertSliderIdToJob(
 const updateJobWithValues = (
   job: Job,
   locale: "en" | "fr",
-  newValues: FormValues,
+  {
+    teamSize,
+    physicalEnv,
+    technology,
+    amenities,
+    envDescription,
+    culturePace,
+    management,
+    experimental,
+    cultureSummary,
+    moreCultureSummary,
+  }: FormValues,
 ): Job => {
+  const physFeatures = mapToObjectTrans(
+    physEnvOptions,
+    identity,
+    (option): boolean => physicalEnv.includes(option),
+  );
+  const techFeatures = mapToObjectTrans(
+    techOptions,
+    identity,
+    (option): boolean => technology.includes(option),
+  );
+  const amenityFeatures = mapToObjectTrans(
+    amenitiesOptions,
+    identity,
+    (option): boolean => amenities.includes(option),
+  );
+  const workEnvFeatures = {
+    ...physFeatures,
+    ...techFeatures,
+    ...amenityFeatures,
+  };
   return {
     ...job,
-    team_size: newValues.teamSize || null,
-    fast_vs_steady: convertSliderIdToJob(
-      culturePaceList,
-      newValues.culturePace,
-    ),
-    horizontal_vs_vertical: convertSliderIdToJob(
-      managementList,
-      newValues.management,
-    ),
+    team_size: teamSize || null,
+    fast_vs_steady: convertSliderIdToJob(culturePaceList, culturePace),
+    horizontal_vs_vertical: convertSliderIdToJob(managementList, management),
     experimental_vs_ongoing: convertSliderIdToJob(
       experimentalList,
-      newValues.experimental,
+      experimental,
     ),
+    work_env_features: workEnvFeatures,
     [locale]: {
       ...job[locale],
-      work_env_description: newValues.envDescription || null,
-      culture_summary: newValues.cultureSummary || null,
-      culture_special: newValues.moreCultureSummary || null,
+      work_env_description: envDescription || null,
+      culture_summary: cultureSummary || null,
+      culture_special: moreCultureSummary || null,
     },
   };
 };
@@ -625,7 +659,16 @@ const WorkEnvForm = ({
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
-  const initialValues: FormValues = jobToValues(job, locale);
+  const initialValues: FormValues = job
+    ? jobToValues(job, locale)
+    : {
+        physicalEnv: [],
+        technology: [],
+        amenities: [],
+        envDescription: "",
+        cultureSummary: "",
+        moreCultureSummary: "",
+      };
 
   // This function takes the possible values and the localized messages objects and returns an array. The array contains the name and localized label.
   const createOptions = (
