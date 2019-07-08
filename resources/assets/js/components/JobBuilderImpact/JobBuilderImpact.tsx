@@ -325,7 +325,7 @@ const JobBuilderImpact: React.FunctionComponent<
                   type="submit"
                 >
                   <FormattedMessage
-                    id="button.next"
+                    id="jobBuilder.impact.button.next"
                     defaultMessage="Next"
                     description="Button text Next"
                   />

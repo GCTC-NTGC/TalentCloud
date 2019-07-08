@@ -749,7 +749,7 @@
       {
         "defaultMessage": "Next",
         "description": "Button text Next",
-        "id": "button.next"
+        "id": "jobBuilder.impact.button.next"
       }
     ],
     "path": "resources/assets/js/components/JobBuilderImpact/ImpactForm.json"
