@@ -8,13 +8,13 @@ import {
 } from "react-intl";
 import { Form, Field, Formik, FormikValues } from "formik";
 import * as Yup from "yup";
-import Input from "../Forms/Input";
-import Select from "../Forms/Select";
 import { validationMessages } from "../Form/Messages";
 import { Job } from "../../models/types";
 import { DepartmentId } from "../../models/lookupConstants";
 import { departmentName } from "../../models/localizedConstants";
 import { emptyJob } from "../../models/jobUtil";
+import SelectInput from "../Form/SelectInput";
+import TextInput from "../Form/TextInput";
 
 const formMessages = defineMessages({
   jobTitleLabelEN: {
@@ -236,7 +236,7 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={Input}
+                    component={TextInput}
                   />
                   <Field
                     type="text"
@@ -248,14 +248,14 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={Input}
+                    component={TextInput}
                   />
                   <Field
                     name="department"
                     id="builder01ManagerDepartment"
                     label={intl.formatMessage(formMessages.departmentLabel)}
                     grid="base(1of1)"
-                    component={Select}
+                    component={SelectInput}
                     required
                     selected={values.department}
                     nullSelection={intl.formatMessage(
@@ -279,7 +279,7 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={Input}
+                    component={TextInput}
                   />
                   <Field
                     type="text"
@@ -291,7 +291,7 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={Input}
+                    component={TextInput}
                   />
                 </div>
               </Form>

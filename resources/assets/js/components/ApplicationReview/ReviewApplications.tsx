@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment";
 import { FormattedMessage } from "react-intl";
 import { Application } from "../../models/types";
-import { SelectOption } from "../Forms/Select";
+import { SelectOption } from "../Form/Select";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
 

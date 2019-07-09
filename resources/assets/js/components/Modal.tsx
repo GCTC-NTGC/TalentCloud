@@ -86,7 +86,7 @@ export default function Modal({
   // Runs when the children of the modal change to ensure proper height calculation
   useEffect((): void => {
     if (visible && modalRef && modalRef.current) {
-      const height = modalRef.current.clientHeight;
+      const height = modalRef.current.scrollHeight;
       const viewportHeight = window.innerHeight;
       setOverflow(
         height > viewportHeight ? "active--overflowing" : "active--contained",

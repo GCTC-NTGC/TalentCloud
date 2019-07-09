@@ -1,8 +1,8 @@
 import * as React from "react";
 import { FieldProps } from "formik";
-import Input from "../Input";
+import TextArea from "../TextArea";
 
-interface TextInputProps {
+interface TextAreaInputProps {
   /** HTML ID of the input. */
   id: string;
   /** Text for the associated label of the input. */
@@ -23,12 +23,11 @@ interface TextInputProps {
   form: FieldProps["form"];
 }
 
-const TextInput: React.FunctionComponent<TextInputProps> = ({
+const TextAreaInput: React.FunctionComponent<TextAreaInputProps> = ({
   id,
   label,
   required,
   placeholder,
-  grid,
   minLength,
   maxLength,
   field: { name, value, onChange, onBlur },
@@ -39,22 +38,21 @@ const TextInput: React.FunctionComponent<TextInputProps> = ({
   const errorText: string = errors[name] ? errors[name] : undefined;
   const invalid = touched[name] && errors[name] ? true : null;
   return (
-    <Input
-      id={id}
+    <TextArea
+      htmlId={id}
       label={label}
-      placeholder={placeholder}
+      formName={name}
       required={required}
-      name={name}
-      value={value}
-      grid={grid}
+      invalid={invalid}
+      placeholder={placeholder}
       minLength={minLength}
       maxLength={maxLength}
+      value={value}
       onChange={onChange}
       onBlur={onBlur}
       errorText={errorText}
-      invalid={invalid}
     />
   );
 };
 
-export default TextInput;
+export default TextAreaInput;

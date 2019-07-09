@@ -12,14 +12,10 @@ interface RadioGroupProps {
   grid: string;
   // If this input is required for submission.
   required: boolean;
-  // Formatted JSX elements used to display information about the available options.
-  info: React.ReactElement;
   // Error to display.
   error: string | FormikErrors<any> | undefined;
   // If this group has been affected by user input or a submission.
   touched: boolean | FormikTouched<any> | undefined;
-  // Selected value from available options.
-  value: any;
 }
 
 const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
@@ -27,7 +23,6 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   label,
   grid,
   required,
-  info,
   error,
   touched,
   children,
@@ -40,7 +35,6 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
       data-c-required={required}
       data-c-invalid={hasError ? true : null}
     >
-      {info}
       <label htmlFor={id}>{label}</label>
       <span>
         <FormattedMessage {...inputMessages.required} />

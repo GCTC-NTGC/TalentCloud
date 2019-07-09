@@ -2,7 +2,7 @@ import * as React from "react";
 import { FieldProps } from "formik";
 import Input from "../Input";
 
-interface TextInputProps {
+interface NumberInputProps {
   /** HTML ID of the input. */
   id: string;
   /** Text for the associated label of the input. */
@@ -23,7 +23,7 @@ interface TextInputProps {
   form: FieldProps["form"];
 }
 
-const TextInput: React.FunctionComponent<TextInputProps> = ({
+const NumberInput: React.FunctionComponent<NumberInputProps> = ({
   id,
   label,
   required,
@@ -44,6 +44,7 @@ const TextInput: React.FunctionComponent<TextInputProps> = ({
       label={label}
       placeholder={placeholder}
       required={required}
+      type="number"
       name={name}
       value={value}
       grid={grid}
@@ -57,4 +58,4 @@ const TextInput: React.FunctionComponent<TextInputProps> = ({
   );
 };
 
-export default TextInput;
+export default NumberInput;

@@ -1,109 +1,109 @@
 .tracker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media #{$clone-tablet-landscape} {
+    justify-content: flex-end;
+  }
+
+  .tracker-item {
+  }
+
+  .tracker-icon {
+    border-radius: 100%;
+    display: inline-block;
+    height: 1.5rem;
+    margin: 0 0.5rem 0 0;
+    position: relative;
+    width: 1.5rem;
+    vertical-align: middle;
+    margin-top: 0.5rem;
+    i {
+      font-size: $clone-font-scale-small;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .fa-exclamation-triangle {
+      margin: -0.05rem 0 0 -0.04rem;
+    }
+  }
+  .tracker-title {
     display: flex;
-    justify-content: center;
-    align-items: center;
-
+    flex-direction: column;
+  }
+  [data-tc-tracker-state="null"] {
+    display: none;
     @media #{$clone-tablet-landscape} {
-        justify-content: flex-end;
+      display: inline-block;
     }
-
-    .tracker-item {
-
-    }
-
     .tracker-icon {
-        border-radius: 100%;
-        display: inline-block;
-        height: 1.5rem;
-        margin: 0 .5rem 0 0;
-        position: relative;
-        width: 1.5rem;
-        vertical-align: middle;
-        i {
-            font-size: $clone-font-scale-small;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .fa-exclamation-triangle {
-            margin: -.05rem 0 0 -.04rem;
-        }
+      background: $clone-grey;
     }
-    .tracker-title {
-        display: flex;
-        flex-direction: column;
+    .fa-arrow-down {
+      display: none;
     }
-    [data-tc-tracker-state="null"] {
-        display: none;
-        @media #{$clone-tablet-landscape} {
-            display: inline-block;
-        }
-        .tracker-icon {
-            background: $clone-grey;
-        }
-        .fa-arrow-down {
-            display: none;
-        }
-        .fa-check {
-            display: none;
-        }
-        .fa-exclamation-triangle {
-            display: none;
-        }
+    .fa-check {
+      display: none;
     }
-    [data-tc-tracker-state="active"] {
-        display: inline-block;
-        @media #{$clone-tablet-landscape} {
-            display: inline-block;
-        }
-        .tracker-icon {
-            background: $clone-c1;
-        }
-        .fa-arrow-down {
-            display: block;
-        }
-        .fa-check {
-            display: none;
-        }
-        .fa-exclamation-triangle {
-            display: none;
-        }
+    .fa-exclamation-triangle {
+      display: none;
     }
-    [data-tc-tracker-state="complete"] {
-        display: none;
-        @media #{$clone-tablet-landscape} {
-            display: inline-block;
-        }
-        .tracker-icon {
-            background: $clone-go;
-        }
-        .fa-arrow-down {
-            display: none;
-        }
-        .fa-check {
-            display: block;
-        }
-        .fa-exclamation-triangle {
-            display: none;
-        }
+  }
+  [data-tc-tracker-state="active"] {
+    display: inline-block;
+    @media #{$clone-tablet-landscape} {
+      display: inline-block;
     }
-    [data-tc-tracker-state="error"] {
-        display: none;
-        @media #{$clone-tablet-landscape} {
-            display: inline-block;
-        }
-        .tracker-icon {
-            background: $clone-stop;
-        }
-        .fa-arrow-down {
-            display: none;
-        }
-        .fa-check {
-            display: none;
-        }
-        .fa-exclamation-triangle {
-            display: block;
-        }
+    .tracker-icon {
+      background: $clone-c1;
     }
+    .fa-arrow-down {
+      display: block;
+    }
+    .fa-check {
+      display: none;
+    }
+    .fa-exclamation-triangle {
+      display: none;
+    }
+  }
+  [data-tc-tracker-state="complete"] {
+    display: none;
+    @media #{$clone-tablet-landscape} {
+      display: inline-block;
+    }
+    .tracker-icon {
+      background: $clone-go;
+    }
+    .fa-arrow-down {
+      display: none;
+    }
+    .fa-check {
+      display: block;
+    }
+    .fa-exclamation-triangle {
+      display: none;
+    }
+  }
+  [data-tc-tracker-state="error"] {
+    display: none;
+    @media #{$clone-tablet-landscape} {
+      display: inline-block;
+    }
+    .tracker-icon {
+      background: $clone-stop;
+    }
+    .fa-arrow-down {
+      display: none;
+    }
+    .fa-check {
+      display: none;
+    }
+    .fa-exclamation-triangle {
+      display: block;
+    }
+  }
 }
