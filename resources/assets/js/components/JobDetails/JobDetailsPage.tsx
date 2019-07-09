@@ -23,7 +23,7 @@ import {
   progressTrackerLabels,
   progressTrackerTitles,
 } from "../JobBuilder/jobBuilderMessages";
-import { isJobBuilderIntroComplete } from "../JobBuilder/jobBuilderHelpers";
+import { jobBuilderIntroProgressState } from "../JobBuilder/jobBuilderHelpers";
 
 interface JobDetailsPageProps {
   jobId: number | null;
@@ -57,7 +57,7 @@ const JobDetailsPage: React.FunctionComponent<
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
-      state: job && isJobBuilderIntroComplete(job) ? "complete" : "error",
+      state: jobBuilderIntroProgressState(job),
       label: intl.formatMessage(progressTrackerLabels.start),
       title: intl.formatMessage(progressTrackerTitles.welcome),
     },

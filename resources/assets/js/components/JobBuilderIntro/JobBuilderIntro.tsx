@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, InjectedIntlProps, injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
@@ -17,6 +17,11 @@ import {
 } from "../../store/Job/jobActions";
 import RootContainer from "../RootContainer";
 import { jobBuilderDetails } from "../../helpers/routes";
+import {
+  progressTrackerLabels,
+  progressTrackerTitles,
+} from "../JobBuilder/jobBuilderMessages";
+import { jobBuilderDetailsProgressState } from "../JobBuilder/jobBuilderHelpers";
 
 interface JobBuilderIntroProps {
   // The id of the edited job, or null for a new job.
@@ -32,12 +37,15 @@ interface JobBuilderIntroProps {
   handleUpdateJob: (newJob: Job) => Promise<Job>;
 }
 
-const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps> = ({
+const JobBuilderIntro: React.FunctionComponent<
+  JobBuilderIntroProps & InjectedIntlProps
+> = ({
   jobId,
   job,
   loadJob,
   handleCreateJob,
   handleUpdateJob,
+  intl,
 }): React.ReactElement => {
   useEffect((): void => {
     if (jobId) {
@@ -54,9 +62,41 @@ const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps> = ({
     window.location.href = jobBuilderDetails("fr", newJob.id);
   };
   const progressTrackerItems: ProgressTrackerItem[] = [
-    { state: "active", label: "Step 01", title: "Job Info" },
-    { state: "complete", label: "Step 02", title: "Work Env." },
-    { state: "error", label: "Step 03", title: "Impact" },
+    {
+      state: "active",
+      label: intl.formatMessage(progressTrackerLabels.start),
+      title: intl.formatMessage(progressTrackerTitles.welcome),
+    },
+    {
+      state: jobBuilderDetailsProgressState(job, intl.locale, true),
+      label: intl.formatMessage(progressTrackerLabels.step01),
+      title: intl.formatMessage(progressTrackerTitles.jobInfo),
+    },
+    {
+      state: "null",
+      label: intl.formatMessage(progressTrackerLabels.step02),
+      title: intl.formatMessage(progressTrackerTitles.workEnv),
+    },
+    {
+      state: "null",
+      label: intl.formatMessage(progressTrackerLabels.step03),
+      title: intl.formatMessage(progressTrackerTitles.impact),
+    },
+    {
+      state: "null",
+      label: intl.formatMessage(progressTrackerLabels.step04),
+      title: intl.formatMessage(progressTrackerTitles.tasks),
+    },
+    {
+      state: "null",
+      label: intl.formatMessage(progressTrackerLabels.step05),
+      title: intl.formatMessage(progressTrackerTitles.skills),
+    },
+    {
+      state: "null",
+      label: intl.formatMessage(progressTrackerLabels.finish),
+      title: intl.formatMessage(progressTrackerTitles.review),
+    },
   ];
 
   return (
@@ -138,7 +178,7 @@ const mapDispatchToProps = (
 const JobBuilderIntroPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(JobBuilderIntro);
+)(injectIntl(JobBuilderIntro));
 
 if (document.getElementById("job-builder-intro")) {
   const container: HTMLElement = document.getElementById(
