@@ -31,7 +31,7 @@ build:
                     - php-scrutinizer-run
                     - js-scrutinizer-run
                     - phpcs-run --standard=ruleset.xml ./app ./routes ./database/factories ./database/seeds
-                    - eslint-run ./resources/assets/js/app
+                    - eslint-run ./resources/assets/js/app.js
 
                 after:
                     - "make docker-stop"
@@ -41,7 +41,7 @@ filter:
         - app/
         - database/factories/
         - database/seeds/
-        - resources/assets/js/app
+        - resources/assets/js/app.js
         - routes/
 
     dependency_paths:
@@ -61,9 +61,6 @@ filter:
         - storage/
         - tests/
         - vendor/
-
-checks:
-    php: true
 
 tools:
     external_code_coverage:
