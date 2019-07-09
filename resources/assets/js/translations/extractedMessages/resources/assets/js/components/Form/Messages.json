@@ -20,6 +20,11 @@
     "defaultMessage": "Please select from the available options."
   },
   {
+    "id": "formInput.error",
+    "description": "Generic error message for inputs.",
+    "defaultMessage": "Something went wrong."
+  },
+  {
     "id": "formInput.required",
     "description": "Displayed next to required form inputs.",
     "defaultMessage": "Required"

@@ -4,7 +4,7 @@ exports[`renders correctly 1`] = `
 <div
   data-c-input="text"
   data-c-invalid={null}
-  data-c-required={false}
+  data-c-required={null}
 >
   <label
     htmlFor="sample-input"
@@ -12,7 +12,9 @@ exports[`renders correctly 1`] = `
     label
   </label>
   <span>
-    Required
+    <span>
+      Required
+    </span>
   </span>
   <div>
     <input
@@ -27,7 +29,9 @@ exports[`renders correctly 1`] = `
     />
   </div>
   <span>
-    Something went wrong.
+    <span>
+      Something went wrong.
+    </span>
   </span>
 </div>
 `;

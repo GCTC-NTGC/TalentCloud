@@ -63,8 +63,8 @@ const RatingGuideQuestion: React.FunctionComponent<
         </div>
         <div data-c-grid-item="base(1of1) tp(6of8)">
           <UpdatingInput
-            htmlId={`ratingGuideQuestion${question.assessment_type_id}`}
-            formName="ratingGuideQuestion"
+            id={`ratingGuideQuestion${question.assessment_type_id}`}
+            name="ratingGuideQuestion"
             label="Interview Question"
             required
             placeholder="Write your interview question here..."
@@ -153,6 +153,7 @@ const RatingGuideQuestionContainer: React.FunctionComponent<
 > = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(RatingGuideQuestion);
+  // @ts-ignore
+)(injectIntl(RatingGuideQuestion));
 
 export default RatingGuideQuestionContainer;
