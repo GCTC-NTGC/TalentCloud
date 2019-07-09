@@ -1,11 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
-use App\Models\Lookup\Department;
 
 class AddTranslatedNameAndImpactToDepartments extends Migration
 {
@@ -21,20 +18,18 @@ class AddTranslatedNameAndImpactToDepartments extends Migration
             $table->json('impact')->nullable();
         });
 
-        $departments = Department::all();
-        $langEn = Lang::get('common/lookup/departments.departments', [], 'en');
-        $langFr = Lang::get('common/lookup/departments.departments', [], 'fr');
+        $departments = DB::table('departments')->get();
 
         foreach ($departments as $department) {
-            if (!array_key_exists($department->key, $langEn) || !array_key_exists($department->key, $langFr)) {
-                continue;
-            }
-            $department
-                ->setTranslation('name', 'en', $langEn[$department->key]['name'])
-                ->setTranslation('name', 'fr', $langFr[$department->key]['name'])
-                ->setTranslation('impact', 'en', $langEn[$department->key]['impact'])
-                ->setTranslation('impact', 'fr', $langFr[$department->key]['impact'])
-                ->save();
+            $departmentTranslationsEnglish = DB::table('department_translations')->where('department_id', $department->id)->where('locale', 'en')->first();
+            $departmentTranslationsFrench = DB::table('department_translations')->where('department_id', $department->id)->where('locale', 'fr')->first();
+
+            $department->name = collect([$departmentTranslationsEnglish->locale => $departmentTranslationsEnglish->value, $departmentTranslationsFrench->locale => $departmentTranslationsFrench->value])->toJson();
+
+            DB::table('departments')->where('id', $department->id)->update([
+                'name' => $department->name,
+                // 'impact' => $department->id
+            ]);
         }
     }
 
