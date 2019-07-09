@@ -24,14 +24,15 @@ build:
                     - "make build-db"
                     - "make set-perms"
                     - "npm run dev"
-                    - "make phpunit"
-                    - "make jest"
 
                 override:
-                    - php-scrutinizer-run
-                    - js-scrutinizer-run
+                    - php-scrutinizer-run ./app ./routes ./database/factories ./database/seeds
+                    - js-scrutinizer-run ./resources/assets/js/app.js
                     - phpcs-run --standard=ruleset.xml ./app ./routes ./database/factories ./database/seeds
                     - eslint-run ./resources/assets/js/app.js
+                    - "make testcafe"
+                    - "make jest"
+                    - "make phpunit"
 
                 after:
                     - "make docker-stop"
@@ -65,4 +66,4 @@ filter:
 tools:
     external_code_coverage:
         timeout: 777
-        runs: 1
+        runs: 2
