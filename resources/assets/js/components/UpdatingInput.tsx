@@ -30,8 +30,13 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
 
   public triggerSave(): void {
     const { value, minLength, handleSave } = this.props;
-    if (Number(value) > (minLength || 3) || Number(value) === 0) {
-      handleSave();
+    if (value !== undefined) {
+      if (
+        value.toString().length > (minLength || 3) ||
+        value.toString().length === 0
+      ) {
+        handleSave();
+      }
     }
   }
 

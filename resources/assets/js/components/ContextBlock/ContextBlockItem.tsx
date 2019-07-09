@@ -33,7 +33,7 @@ const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
 }): React.ReactElement => {
   return (
     <div
-      className={`${className} ${active ? "active" : ""}`}
+      className={`${className || ""}${active ? " active" : ""}`}
       data-tc-wenv-id={contextId}
       data-c-background={
         (backgroundColor && `${backgroundColor}(${backgroundOpacity})`) ||

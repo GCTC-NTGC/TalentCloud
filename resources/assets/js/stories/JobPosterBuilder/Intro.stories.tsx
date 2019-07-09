@@ -2,15 +2,13 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
 import { withIntl } from "storybook-addon-intl";
-import { withKnobs } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import fakeJob from "../../fakeData/fakeJob";
 import IntroForm from "../../components/JobBuilderIntro/IntroForm";
 import { Job } from "../../models/types";
 
-const stories = storiesOf("Job Builder - Intro", module)
+const stories = storiesOf("Job Poster Builder|Intro", module)
   .addDecorator(withInfo)
-  .addDecorator(withKnobs)
   .addDecorator(withIntl);
 
 const handleSubmit = async (): Promise<Job> => {

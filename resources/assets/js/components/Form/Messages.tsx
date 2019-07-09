@@ -33,6 +33,11 @@ export const validationMessages = defineMessages({
 });
 
 export const inputMessages = defineMessages({
+  error: {
+    id: "formInput.error",
+    defaultMessage: "Something went wrong.",
+    description: "Generic error message for inputs.",
+  },
   required: {
     id: "formInput.required",
     defaultMessage: "Required",

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";

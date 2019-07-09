@@ -1,15 +1,10 @@
 build:
-
-    dependencies:
-        before:
-            # composer install
-            # npm install
-
     environment:
         php:
             version: "7.2"
             ini:
                 memory_limit: "-1"
+        docker: true
         ruby: 2.5.1
         node: v10.14.2
 
@@ -18,12 +13,35 @@ build:
             - node_modules/
             - vendor/
 
+    nodes:
+        analysis:
+            tests:
+                before:
+                    - "sudo service postgresql stop"
+                    - "cp .env.example .env"
+                    - "make docker-start"
+                    - "make gen-certs"
+                    - "make build-db"
+                    - "make set-perms"
+                    - "npm run dev"
+                    - "make phpunit"
+                    - "make jest"
+
+                override:
+                    - php-scrutinizer-run
+                    - js-scrutinizer-run
+                    - phpcs-run --standard=ruleset.xml ./app ./routes ./database/factories ./database/seeds
+                    - eslint-run ./resources/assets/js/app.js
+
+                after:
+                    - "make docker-stop"
+
 filter:
     paths:
         - app/
         - database/factories/
         - database/seeds/
-        - resources/assets/js/app
+        - resources/assets/js/app.js
         - routes/
 
     dependency_paths:
@@ -36,22 +54,15 @@ filter:
         - database/db/
         - database/migrations/
         - etc/
-        - public/
         - node_modules/
+        - public/
         - report/
         - resources/
         - storage/
         - tests/
         - vendor/
 
-checks:
-    php: true
-
 tools:
     external_code_coverage:
         timeout: 777
         runs: 1
-    custom_commands:
-        -
-            scope: project
-            command: vendor/bin/slack --token=https://hooks.slack.com/services/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

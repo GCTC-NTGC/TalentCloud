@@ -1,9 +1,26 @@
-import { configure } from "@storybook/react";
+import { addParameters, configure, addDecorator } from "@storybook/react";
+import { themes } from "@storybook/theming";
 import { addLocaleData } from "react-intl";
+import { withInfo } from "@storybook/addon-info";
+import { withKnobs } from "@storybook/addon-knobs";
 import { setIntlConfig } from "storybook-addon-intl";
 import localeEn from "react-intl/locale-data/en";
 import localeFr from "react-intl/locale-data/fr";
 import messagesFr from "../resources/assets/js/translations/locales/fr.json";
+
+addDecorator(withInfo({
+  inline: true,
+  header: false,
+  source: false, // Source isn't displaying well with clone.
+}));
+addDecorator(withKnobs);
+
+// Option defaults.
+addParameters({
+  options: {
+    theme: themes.light,
+  },
+});
 
 // automatically import all files ending in *.stories.tsx
 const req = require.context(
@@ -17,10 +34,12 @@ const req = require.context(
 // That node needs to exist before the story file runs.
 // See for explanation: https://github.com/storybookjs/storybook/issues/4604
 // TODO: find better workaround
-const modalRoot = document.createElement("div");
-modalRoot.setAttribute("id", "modal-root");
-modalRoot.setAttribute("data-clone", "");
-document.body.append(modalRoot);
+if (document.querySelector("#modal-root") === null) {
+  const modalRoot = document.createElement("div");
+  modalRoot.setAttribute("id", "modal-root");
+  modalRoot.setAttribute("data-clone", "");
+  document.body.append(modalRoot);
+}
 
 // Set up react-intl localization
 // Load the locale data for all your defined locales

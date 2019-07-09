@@ -90,9 +90,7 @@ const renderAssessmentTypeBlock = (
             {essentialSkills.map(
               (skill): React.ReactElement => (
                 <li
-                  key={`assessmentSummary_type${assessmentTypeId}_essential_skill${
-                    skill.id
-                  }`}
+                  key={`assessmentSummary_type${assessmentTypeId}_essential_skill${skill.id}`}
                 >
                   {skill[locale].name}
                 </li>
@@ -121,9 +119,7 @@ const renderAssessmentTypeBlock = (
             {assetSkills.map(
               (skill): React.ReactElement => (
                 <li
-                  key={`assessmentSummary_type${assessmentTypeId}_asset_skill${
-                    skill.id
-                  }`}
+                  key={`assessmentSummary_type${assessmentTypeId}_asset_skill${skill.id}`}
                 >
                   {skill[locale].name}
                 </li>
@@ -226,9 +222,8 @@ const AssessmentPlanTable: React.FunctionComponent<
                 assessment.assessment_type_id === assessmentTypeId,
             );
             const associatedCriteria = assessmentsOfThisType
-              .map(
-                (assessment): Criteria | null =>
-                  find(criteria, assessment.criterion_id),
+              .map((assessment): Criteria | null =>
+                find(criteria, assessment.criterion_id),
               )
               .filter(notEmpty);
             return renderAssessmentTypeBlock(
