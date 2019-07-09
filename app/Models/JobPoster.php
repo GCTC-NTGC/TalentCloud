@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Jenssegers\Date\Date;
 use \Backpack\CRUD\CrudTrait;
+use Astrotomic\Translatable\Translatable;
 
 /**
  * Class JobPoster
@@ -87,7 +88,7 @@ use \Backpack\CRUD\CrudTrait;
 class JobPoster extends BaseModel
 {
     use CrudTrait;
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
     use Notifiable;
 
     const DATE_FORMAT = [
@@ -373,7 +374,7 @@ class JobPoster extends BaseModel
     }
 
     // Methods
-    public function submitted_applications_count()
+    public function submitted_applications_count() //phpcs:ignore
     {
         return $this->submitted_applications()->count();
     }

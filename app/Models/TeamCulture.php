@@ -7,6 +7,9 @@
 
 namespace App\Models;
 
+use App\Models\BaseModel;
+use Astrotomic\Translatable\Translatable as Translatable;
+
 /**
  * Class TeamCulture
  *
@@ -26,11 +29,13 @@ namespace App\Models;
  * @property string $what_we_value
  * @property string $how_we_work
  */
-class TeamCulture extends BaseModel {
 
-    use \Dimsav\Translatable\Translatable;
+class TeamCulture extends BaseModel
+{
+    use Translatable;
 
     public $translatedAttributes = ['narrative_text', 'operating_context', 'what_we_value', 'how_we_work'];
+
     protected $casts = [
         'team_size' => 'int',
         'manager_id' => 'int'
@@ -40,12 +45,13 @@ class TeamCulture extends BaseModel {
         'gc_directory_url'
     ];
 
-    public function manager() {
+    public function manager()
+    {
         return $this->belongsTo(\App\Models\Manager::class);
     }
 
-    public function team_culture_translations() {
-        return $this->hasMany(\App\Models\TeamCultureTranslation::class);
+    public function team_culture_translations() //phpcs:ignore
+    {
+        return $this->hasMany(Astrotomic\Translatable\Translatable::class);
     }
-
 }
