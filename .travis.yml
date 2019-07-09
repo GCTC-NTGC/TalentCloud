@@ -15,7 +15,6 @@ cache:
     - $HOME/.npm
 
 addons:
-  chrome: stable # required for lightcrawler
   firefox: latest # following required for Test Cafe
   apt:
     sources:
@@ -34,8 +33,6 @@ before_install:
   - npm i -g npm@^6
 
 install:
-  # install slacktee (send lightcrawler output to slack)
-  # sudo bash ./etc/scripts/install-slacktee.sh
   # environment
   - cp .env.travis .env
   # dependencies
@@ -44,8 +41,6 @@ install:
 
 
 before_script:
-  # docker login (for tagging/pushing images to our hub repo)
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   # setup headless browser for tests
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   # start web server port 8000
