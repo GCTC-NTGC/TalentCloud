@@ -8,6 +8,18 @@ use App\Http\Controllers\Controller;
 class JobBuilderController extends Controller
 {
     /**
+     * Show the Job Builder Intro page
+     * @return \Illuminate\Http\Response
+     */
+    public function intro($jobId = null)
+    {
+        return view(
+            'manager/job-builder-intro',
+            ['title' => 'Job Builder: Welcome', 'jobId' => $jobId]
+        );
+    }
+
+    /**
      * Show the Job Builder Details page
      * @return \Illuminate\Http\Response
      */
