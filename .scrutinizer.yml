@@ -1,5 +1,4 @@
 build:
-
     environment:
         php:
             version: "7.2"
@@ -18,15 +17,15 @@ build:
         analysis:
             tests:
                 before:
-                    - 'sudo service postgresql stop'
-                    - 'cp .env.example .env'
-                    - 'make docker-start'
-                    - 'make gen-certs'
-                    - 'make build-db'
-                    - 'make set-perms'
-                    - 'npm run dev'
-                    - 'make phpunit'
-                    - 'make jest'
+                    - "sudo service postgresql stop"
+                    - "cp .env.example .env"
+                    - "make docker-start"
+                    - "make gen-certs"
+                    - "make build-db"
+                    - "make set-perms"
+                    - "npm run dev"
+                    - "make phpunit"
+                    - "make jest"
 
                 override:
                     - php-scrutinizer-run
@@ -35,7 +34,7 @@ build:
                     - eslint-run ./resources/assets/js/app.js
 
                 after:
-                    - 'make docker-stop'
+                    - "make docker-stop"
 
 filter:
     paths:
@@ -63,14 +62,7 @@ filter:
         - tests/
         - vendor/
 
-checks:
-    php: true
-
 tools:
     external_code_coverage:
         timeout: 777
         runs: 1
-    custom_commands:
-        -
-            scope: project
-            command: vendor/bin/slack --token=https://hooks.slack.com/services/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
