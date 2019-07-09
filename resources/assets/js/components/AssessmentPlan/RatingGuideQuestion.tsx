@@ -154,7 +154,6 @@ const RatingGuideQuestionContainer: React.FunctionComponent<
 > = connect(
   mapStateToProps,
   mapDispatchToProps,
-  // @ts-ignore
-)(injectIntl(RatingGuideQuestion));
+)(RatingGuideQuestion);
 
 export default RatingGuideQuestionContainer;
