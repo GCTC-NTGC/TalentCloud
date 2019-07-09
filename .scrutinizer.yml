@@ -1,5 +1,4 @@
 build:
-
     dependencies:
         before:
             # composer install
@@ -51,7 +50,3 @@ tools:
     external_code_coverage:
         timeout: 777
         runs: 1
-    custom_commands:
-        -
-            scope: project
-            command: vendor/bin/slack --token=https://hooks.slack.com/services/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
