@@ -16,14 +16,26 @@ const handleSubmit = async (job: Job): Promise<Job> => {
   return job;
 };
 
-stories.add(
-  "Body",
-  (): React.ReactElement => (
-    <WorkEnvForm
-      job={null}
-      handleSubmit={handleSubmit}
-      handleModalConfirm={action("Confirm")}
-      handleModalCancel={action("Cancel")}
-    />
-  ),
-);
+stories
+  .add(
+    "New Job",
+    (): React.ReactElement => (
+      <WorkEnvForm
+        job={null}
+        handleSubmit={handleSubmit}
+        handleModalConfirm={action("Confirm")}
+        handleModalCancel={action("Cancel")}
+      />
+    ),
+  )
+  .add(
+    "Existing Job",
+    (): React.ReactElement => (
+      <WorkEnvForm
+        job={fakeJob()}
+        handleSubmit={handleSubmit}
+        handleModalConfirm={action("Confirm")}
+        handleModalCancel={action("Cancel")}
+      />
+    ),
+  );

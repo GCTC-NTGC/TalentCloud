@@ -701,15 +701,9 @@ const WorkEnvForm = ({
     teamSize: Yup.number()
       .min(1, intl.formatMessage(validationMessages.required))
       .required(intl.formatMessage(validationMessages.required)),
-    physicalEnv: Yup.array().required(
-      intl.formatMessage(validationMessages.checkboxRequired),
-    ),
-    technology: Yup.array().required(
-      intl.formatMessage(validationMessages.checkboxRequired),
-    ),
-    amenities: Yup.array().required(
-      intl.formatMessage(validationMessages.checkboxRequired),
-    ),
+    physicalEnv: Yup.array(),
+    technology: Yup.array(),
+    amenities: Yup.array(),
     envDescription: Yup.string(),
     culturePace: Yup.string()
       .oneOf(culturePaceList.map((item): string => item.id))
@@ -828,7 +822,6 @@ const WorkEnvForm = ({
                 touched={touched.physicalEnv}
                 onChange={setFieldValue}
                 onBlur={setFieldTouched}
-                required
               >
                 {phyEnvData &&
                   phyEnvData.map(
@@ -854,7 +847,6 @@ const WorkEnvForm = ({
                 touched={touched.technology}
                 onChange={setFieldValue}
                 onBlur={setFieldTouched}
-                required
               >
                 {techData &&
                   techData.map(
@@ -880,7 +872,6 @@ const WorkEnvForm = ({
                 touched={touched.amenities}
                 onChange={setFieldValue}
                 onBlur={setFieldTouched}
-                required
               >
                 {amenitiesData &&
                   amenitiesData.map(

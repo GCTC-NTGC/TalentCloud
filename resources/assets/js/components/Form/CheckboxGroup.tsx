@@ -11,7 +11,7 @@ interface CheckboxGroupProps {
   /** data-clone-grid-item value, see https://designwithclone.ca/#flexbox-grid. */
   grid: string;
   /** If this input is required for submission. */
-  required: boolean;
+  required?: boolean;
   /** Error to display. */
   error: (string | undefined)[] | undefined;
   /** If this group has been affected by user input or a submission. */
