@@ -7,7 +7,6 @@ import {
 import AssessmentPlanContainer from "./components/AssessmentPlan/AssessmentPlanContainer";
 import IntlContainer from "./IntlContainer";
 import ErrorToast from "./components/ErrorToast";
-import JobDetailsContainer from "./components/JobDetails/JobDetails";
 
 interface AssessmentPlanParams {
   jobId: string;

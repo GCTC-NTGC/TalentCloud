@@ -1,35 +1,31 @@
 import React from "react";
 import { FieldProps } from "formik";
+import Radio, { RadioProps } from "../Radio";
 
-interface RadioInputProps {
-  // HTML ID of the input.
-  id: string;
-  // Text for the associated label of the input.
-  label: string;
-  // Formik field prop of the shape { name, value, onChange, onBlur }
+interface RadioInputProps
+  extends Exclude<RadioProps, "name" | "value" | "onChange" | "onBlur"> {
+  /** Formik field prop of the shape { name, value, onChange, onBlur } */
   field: FieldProps["field"];
 }
 
 const RadioInput: React.FunctionComponent<RadioInputProps> = ({
   id,
   label,
+  trigger,
   field: { name, value, onChange, onBlur },
-  ...props
-}): React.ReactElement => (
-  <label htmlFor={id}>
-    <input
-      data-c-font-weight="800"
+}): React.ReactElement => {
+  return (
+    <Radio
       id={id}
       name={name}
-      type="radio"
-      checked={id === value}
+      label={label}
       value={id}
+      checked={id === value}
+      trigger={trigger}
       onChange={onChange}
       onBlur={onBlur}
-      {...props}
     />
-    <span>{label}</span>
-  </label>
-);
+  );
+};
 
 export default RadioInput;

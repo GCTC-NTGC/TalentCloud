@@ -1,10 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { withInfo } from "@storybook/addon-info";
-import { withKnobs, text } from "@storybook/addon-knobs";
-import { action } from "@storybook/addon-actions";
-import ProgressTrackerItem from "../../components/ProgressTracker/ProgressTrackerItem";
-import ProgressTracker from "../../components/ProgressTracker/ProgressTracker";
+import { text } from "@storybook/addon-knobs";
+import ProgressTrackerItem from "../../../components/ProgressTracker/ProgressTrackerItem";
+import ProgressTracker from "../../../components/ProgressTracker/ProgressTracker";
 
 const ProgressTrackerWrapper = (
   children: React.ReactElement,
@@ -19,9 +17,7 @@ const ProgressTrackerWrapper = (
   );
 };
 
-const stories = storiesOf("ProgressTracker", module)
-  .addDecorator(withInfo)
-  .addDecorator(withKnobs);
+const stories = storiesOf("Job Poster Builder|Progress Tracker/Item", module);
 
 stories.add(
   "Active",
@@ -34,9 +30,6 @@ stories.add(
         fontColor={text("Font Color", "black")}
       />,
     ),
-  {
-    info: { inline: true },
-  },
 );
 
 stories.add(
@@ -50,9 +43,6 @@ stories.add(
         fontColor={text("Font Color", "black")}
       />,
     ),
-  {
-    info: { inline: true },
-  },
 );
 
 stories.add(
@@ -66,9 +56,6 @@ stories.add(
         fontColor={text("Font Color", "black")}
       />,
     ),
-  {
-    info: { inline: true },
-  },
 );
 
 stories.add(
@@ -82,7 +69,4 @@ stories.add(
         fontColor={text("Font Color", "black")}
       />,
     ),
-  {
-    info: { inline: true },
-  },
 );

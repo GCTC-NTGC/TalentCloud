@@ -10,9 +10,8 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import RadioGroup from "../Form/RadioGroup";
-import RadioInput from "../Form/RadioInput";
-import SelectInput from "../Form/SelectInput";
 import TextInput from "../Form/TextInput";
+import SelectInput from "../Form/SelectInput";
 import JobPreview from "../JobPreview";
 import Modal from "../Modal";
 import { RootState } from "../../store/store";
@@ -21,6 +20,7 @@ import { Job } from "../../models/types";
 import { DispatchType } from "../../configureStore";
 import { updateJob, createJob } from "../../store/Job/jobActions";
 import { validationMessages } from "../Form/Messages";
+import RadioInput from "../Form/RadioInput";
 import {
   LanguageRequirementId,
   SecurityClearanceId,
@@ -195,6 +195,20 @@ interface JobDetailsProps {
 }
 
 type RemoteWorkType = "remoteWorkNone" | "remoteWorkCanada" | "remoteWorkWorld";
+const remoteWorkOptions = [
+  {
+    id: "remoteWorkWorld",
+    label: formMessages.remoteWorkWorldLabel,
+  },
+  {
+    id: "remoteWorkCanada",
+    label: formMessages.remoteWorkCanadaLabel,
+  },
+  {
+    id: "remoteWorkNone",
+    label: formMessages.remoteWorkNoneLabel,
+  },
+];
 
 interface JobFormValues {
   title: string;
@@ -206,25 +220,77 @@ interface JobFormValues {
   city: string;
   province: number | "";
   remoteWork: RemoteWorkType;
-  telework: string;
-  flexHours: string;
+  telework: TeleworkOptionType;
+  flexHours: FlexHourOptionType;
 }
 
-const teleworkFrequencies = [
-  "teleworkNever",
-  "teleworkOccasionally",
-  "teleworkSometimes",
-  "teleworkFrequently",
-  "teleworkAlways",
+type TeleworkOptionType =
+  | "teleworkNever"
+  | "teleworkOccasionally"
+  | "teleworkSometimes"
+  | "teleworkFrequently"
+  | "teleworkAlways";
+const teleworkOptions: {
+  id: TeleworkOptionType;
+  label: FormattedMessage.MessageDescriptor;
+}[] = [
+  {
+    id: "teleworkNever",
+    label: formMessages.frequencyNeverLabel,
+  },
+  {
+    id: "teleworkOccasionally",
+    label: formMessages.frequencyOccasionallyLabel,
+  },
+  {
+    id: "teleworkSometimes",
+    label: formMessages.frequencySometimesLabel,
+  },
+  {
+    id: "teleworkFrequently",
+    label: formMessages.frequencyFrequentlyLabel,
+  },
+  {
+    id: "teleworkAlways",
+    label: formMessages.frequencyAlwaysLabel,
+  },
 ];
+const teleworkFrequencies: TeleworkOptionType[] = teleworkOptions.map(
+  option => option.id,
+);
 
-const flexHourFequencies = [
-  "flexHoursNever",
-  "flexHoursOccasionally",
-  "flexHoursSometimes",
-  "flexHoursFrequently",
-  "flexHoursAlways",
+type FlexHourOptionType =
+  | "flexHoursNever"
+  | "flexHoursOccasionally"
+  | "flexHoursSometimes"
+  | "flexHoursFrequently"
+  | "flexHoursAlways";
+const flexHoursOptions: {
+  id: FlexHourOptionType;
+  label: FormattedMessage.MessageDescriptor;
+}[] = [
+  {
+    id: "flexHoursNever",
+    label: formMessages.frequencyNeverLabel,
+  },
+  {
+    id: "flexHoursOccasionally",
+    label: formMessages.frequencyOccasionallyLabel,
+  },
+  {
+    id: "flexHoursSometimes",
+    label: formMessages.frequencySometimesLabel,
+  },
+  {
+    id: "flexHoursFrequently",
+    label: formMessages.frequencyFrequentlyLabel,
+  },
+  {
+    id: "flexHoursAlways",
+    label: formMessages.frequencyAlwaysLabel,
+  },
 ];
+const flexHourFequencies = flexHoursOptions.map(option => option.id);
 
 const jobToValues = (job: Job | null, locale: string): JobFormValues =>
   job
@@ -392,6 +458,7 @@ const JobDetails: React.FunctionComponent<
       )
       .required(intl.formatMessage(validationMessages.required)),
   });
+
   return (
     <>
       <div
@@ -570,6 +637,20 @@ const JobDetails: React.FunctionComponent<
                     label: intl.formatMessage(provinceName(id)),
                   }))}
                 />
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobDetails.remoteWorkGroupHeader"
+                    defaultMessage="Is remote work allowed?"
+                    description="Header message displayed on the remote work group input."
+                  />
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobDetails.remoteWorkGroupBody"
+                    defaultMessage="Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor."
+                    description="Body message displayed on the remote work group input."
+                  />
+                </p>
                 <RadioGroup
                   id="remoteWork"
                   label={intl.formatMessage(formMessages.remoteWorkGroupLabel)}
@@ -577,190 +658,96 @@ const JobDetails: React.FunctionComponent<
                   grid="base(1of1)"
                   error={errors.remoteWork}
                   touched={touched.remoteWork}
-                  info={
-                    <>
-                      <p
-                        data-c-margin="bottom(normal)"
-                        data-c-font-weight="bold"
-                      >
-                        <FormattedMessage
-                          id="jobDetails.remoteWorkGroupHeader"
-                          defaultMessage="Is remote work allowed?"
-                          description="Header message displayed on the remote work group input."
-                        />
-                      </p>
-                      <p data-c-margin="bottom(normal)">
-                        <FormattedMessage
-                          id="jobDetails.remoteWorkGroupBody"
-                          defaultMessage="Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor."
-                          description="Body message displayed on the remote work group input."
-                        />
-                      </p>
-                    </>
-                  }
                   value={values.remoteWork}
                 >
-                  <Field
-                    name="remoteWork"
-                    component={RadioInput}
-                    id="remoteWorkWorld"
-                    label={intl.formatMessage(
-                      formMessages.remoteWorkWorldLabel,
-                    )}
-                  />
-                  <Field
-                    name="remoteWork"
-                    component={RadioInput}
-                    id="remoteWorkCanada"
-                    label={intl.formatMessage(
-                      formMessages.remoteWorkCanadaLabel,
-                    )}
-                  />
-                  <Field
-                    name="remoteWork"
-                    component={RadioInput}
-                    id="remoteWorkNone"
-                    label={intl.formatMessage(formMessages.remoteWorkNoneLabel)}
-                  />
+                  {remoteWorkOptions.map(
+                    ({ id, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          key={id}
+                          name="remoteWork"
+                          component={RadioInput}
+                          id={id}
+                          label={intl.formatMessage(label)}
+                        />
+                      );
+                    },
+                  )}
                 </RadioGroup>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobDetails.teleworkGroupHeader"
+                    defaultMessage="How often is telework allowed?"
+                    description="Header message displayed on the telework group input."
+                  />
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobDetails.teleworkGroupBody"
+                    defaultMessage="Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option."
+                    description="Body message displayed on the telework group input."
+                  />
+                </p>
                 <RadioGroup
                   id="telework"
                   label={intl.formatMessage(formMessages.teleworkGroupLabel)}
                   required
                   grid="base(1of1)"
-                  info={
-                    <>
-                      <p
-                        data-c-margin="bottom(normal)"
-                        data-c-font-weight="bold"
-                      >
-                        <FormattedMessage
-                          id="jobDetails.teleworkGroupHeader"
-                          defaultMessage="How often is telework allowed?"
-                          description="Header message displayed on the telework group input."
-                        />
-                      </p>
-                      <p data-c-margin="bottom(normal)">
-                        <FormattedMessage
-                          id="jobDetails.teleworkGroupBody"
-                          defaultMessage="Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option."
-                          description="Body message displayed on the telework group input."
-                        />
-                      </p>
-                    </>
-                  }
                   error={errors.telework}
                   touched={touched.telework}
                   value={values.telework}
                 >
-                  <Field
-                    id="teleworkAlways"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyAlwaysLabel,
-                    )}
-                  />
-                  <Field
-                    id="teleworkFrequently"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyFrequentlyLabel,
-                    )}
-                  />
-                  <Field
-                    id="teleworkSometimes"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencySometimesLabel,
-                    )}
-                  />
-                  <Field
-                    id="teleworkOccasionally"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyOccasionallyLabel,
-                    )}
-                  />
-                  <Field
-                    id="teleworkNever"
-                    name="telework"
-                    component={RadioInput}
-                    label={intl.formatMessage(formMessages.frequencyNeverLabel)}
-                  />
+                  {teleworkOptions.map(
+                    ({ id, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          key={id}
+                          name="telework"
+                          component={RadioInput}
+                          id={id}
+                          label={intl.formatMessage(label)}
+                        />
+                      );
+                    },
+                  )}
                 </RadioGroup>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobDetails.flexHoursGroupHeader"
+                    defaultMessage="How often are flexible hours allowed?"
+                    description="Header message displayed on the flex hours group input."
+                  />
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobDetails.flexHoursGroupBody"
+                    defaultMessage={`Want to support a more gender inclusive workplace?
+                          Studies show allowing flex hours is a great way to improve opportunities for women and parents.`}
+                    description="Body message displayed on the flex hours group input."
+                  />
+                </p>
                 <RadioGroup
                   id="flexHours"
                   required
                   grid="base(1of1)"
-                  info={
-                    <>
-                      <p
-                        data-c-margin="bottom(normal)"
-                        data-c-font-weight="bold"
-                      >
-                        <FormattedMessage
-                          id="jobDetails.flexHoursGroupHeader"
-                          defaultMessage="How often are flexible hours allowed?"
-                          description="Header message displayed on the flex hours group input."
-                        />
-                      </p>
-                      <p data-c-margin="bottom(normal)">
-                        <FormattedMessage
-                          id="jobDetails.flexHoursGroupBody"
-                          defaultMessage={`Want to support a more gender inclusive workplace?
-                          Studies show allowing flex hours is a great way to improve opportunities for women and parents.`}
-                          description="Body message displayed on the flex hours group input."
-                        />
-                      </p>
-                    </>
-                  }
                   label={intl.formatMessage(formMessages.flexHoursGroupLabel)}
                   error={errors.flexHours}
                   touched={touched.flexHours}
                   value={values.flexHours}
                 >
-                  <Field
-                    id="flexHoursAlways"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyAlwaysLabel,
-                    )}
-                  />
-                  <Field
-                    id="flexHoursFrequently"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyFrequentlyLabel,
-                    )}
-                  />
-                  <Field
-                    id="flexHoursSometimes"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencySometimesLabel,
-                    )}
-                  />
-                  <Field
-                    id="flexHoursOccasionally"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(
-                      formMessages.frequencyOccasionallyLabel,
-                    )}
-                  />
-                  <Field
-                    id="flexHoursNever"
-                    name="flexHours"
-                    component={RadioInput}
-                    label={intl.formatMessage(formMessages.frequencyNeverLabel)}
-                  />
+                  {flexHoursOptions.map(
+                    ({ id, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          key={id}
+                          name="flexHours"
+                          component={RadioInput}
+                          id={id}
+                          label={intl.formatMessage(label)}
+                        />
+                      );
+                    },
+                  )}
                 </RadioGroup>
                 <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
                   <button
@@ -779,88 +766,90 @@ const JobDetails: React.FunctionComponent<
                   </button>
                 </div>
               </Form>
-              <Modal
-                id="job-details-preview"
-                parentElement={modalParentRef.current}
-                visible={isModalVisible}
-                onModalConfirm={(): void => {
-                  handleModalConfirm();
-                  setIsModalVisible(false);
-                }}
-                onModalCancel={(): void => {
-                  handleModalCancel();
-                  setIsModalVisible(false);
-                }}
-              >
-                <Modal.Header>
-                  <div
-                    data-c-background="c1(100)"
-                    data-c-border="bottom(thin, solid, black)"
-                    data-c-padding="normal"
-                  >
-                    <h5
-                      data-c-colour="white"
-                      data-c-font-size="h4"
-                      id="job-details-preview-title"
+              {isModalVisible && (
+                <Modal
+                  id="job-details-preview"
+                  parentElement={modalParentRef.current}
+                  visible={isModalVisible}
+                  onModalConfirm={(): void => {
+                    handleModalConfirm();
+                    setIsModalVisible(false);
+                  }}
+                  onModalCancel={(): void => {
+                    handleModalCancel();
+                    setIsModalVisible(false);
+                  }}
+                >
+                  <Modal.Header>
+                    <div
+                      data-c-background="c1(100)"
+                      data-c-border="bottom(thin, solid, black)"
+                      data-c-padding="normal"
+                    >
+                      <h5
+                        data-c-colour="white"
+                        data-c-font-size="h4"
+                        id="job-details-preview-title"
+                      >
+                        <FormattedMessage
+                          id="jobDetails.modalHeader"
+                          defaultMessage="You're off to a great start!"
+                          description="The text displayed in the header of the Job Details modal."
+                        />
+                      </h5>
+                    </div>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <div
+                      data-c-border="bottom(thin, solid, black)"
+                      data-c-padding="normal"
+                      id="job-details-preview-description"
                     >
                       <FormattedMessage
-                        id="jobDetails.modalHeader"
-                        defaultMessage="You're off to a great start!"
-                        description="The text displayed in the header of the Job Details modal."
+                        id="jobDetails.modalBody"
+                        defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+                        description="The text displayed in the body of the Job Details modal."
                       />
-                    </h5>
-                  </div>
-                </Modal.Header>
-                <Modal.Body>
-                  <div
-                    data-c-border="bottom(thin, solid, black)"
-                    data-c-padding="normal"
-                    id="job-details-preview-description"
-                  >
-                    <FormattedMessage
-                      id="jobDetails.modalBody"
-                      defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
-                      description="The text displayed in the body of the Job Details modal."
-                    />
-                  </div>
-                  <div
-                    data-c-background="grey(20)"
-                    data-c-border="bottom(thin, solid, black)"
-                    data-c-padding="normal"
-                  >
-                    {/* TODO: Pull in the signed-in Manager's department */}
-                    {/* TODO: Get the actual value for things like language and security level */}
-                    <JobPreview
-                      title={values.title}
-                      department="Department"
-                      remoteWork={values.remoteWork !== "remoteWorkNone"}
-                      language={String(values.language)} // TODO: remove String() cast
-                      city={values.city}
-                      province={String(values.province)} // TODO: remove String() cast
-                      termLength={Number(values.termLength)}
-                      securityLevel={String(values.securityLevel)} // TODO: remove String() cast
-                      classification={String(values.classification)} // TODO: remove String() cast
-                      level={String(values.level)} // TODO: remove String() cast
-                    />
-                  </div>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Modal.FooterCancelBtn>
-                    <FormattedMessage
-                      id="jobDetails.modalCancelLabel"
-                      defaultMessage="Go Back"
-                      description="The text displayed on the cancel button of the Job Details modal."
-                    />
-                  </Modal.FooterCancelBtn>
-                  <Modal.FooterConfirmBtn>
-                    <FormattedMessage
-                      id="jobDetails.modalConfirmLabel"
-                      defaultMessage="Next Step"
-                      description="The text displayed on the confirm button of the Job Details modal."
-                    />
-                  </Modal.FooterConfirmBtn>
-                </Modal.Footer>
-              </Modal>
+                    </div>
+                    <div
+                      data-c-background="grey(20)"
+                      data-c-border="bottom(thin, solid, black)"
+                      data-c-padding="normal"
+                    >
+                      {/* TODO: Pull in the signed-in Manager's department */}
+                      {/* TODO: Get the actual value for things like language and security level */}
+                      <JobPreview
+                        title={values.title}
+                        department="Department"
+                        remoteWork={values.remoteWork !== "remoteWorkNone"}
+                        language={String(values.language)} // TODO: remove String() cast
+                        city={values.city}
+                        province={String(values.province)} // TODO: remove String() cast
+                        termLength={Number(values.termLength)}
+                        securityLevel={String(values.securityLevel)} // TODO: remove String() cast
+                        classification={String(values.classification)} // TODO: remove String() cast
+                        level={String(values.level)} // TODO: remove String() cast
+                      />
+                    </div>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Modal.FooterCancelBtn>
+                      <FormattedMessage
+                        id="jobDetails.modalCancelLabel"
+                        defaultMessage="Go Back"
+                        description="The text displayed on the cancel button of the Job Details modal."
+                      />
+                    </Modal.FooterCancelBtn>
+                    <Modal.FooterConfirmBtn>
+                      <FormattedMessage
+                        id="jobDetails.modalConfirmLabel"
+                        defaultMessage="Next Step"
+                        description="The text displayed on the confirm button of the Job Details modal."
+                      />
+                    </Modal.FooterConfirmBtn>
+                  </Modal.Footer>
+                </Modal>
+              )}
             </>
           )}
         />

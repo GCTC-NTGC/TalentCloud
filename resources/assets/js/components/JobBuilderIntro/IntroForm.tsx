@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import {
   injectIntl,
   InjectedIntlProps,
@@ -7,9 +7,9 @@ import {
 } from "react-intl";
 import { Form, Field, Formik, FormikValues } from "formik";
 import * as Yup from "yup";
-import Input from "../Forms/Input";
-import Select from "../Forms/Select";
 import { validationMessages } from "../Form/Messages";
+import SelectInput from "../Form/SelectInput";
+import TextInput from "../Form/TextInput";
 
 const formMessages = defineMessages({
   jobTitleLabelEN: {
@@ -168,7 +168,7 @@ const IntroForm: React.FunctionComponent<
                 <div data-c-grid="gutter">
                   <Field
                     type="text"
-                    htmlId="builder01ManagerJobTitleEN"
+                    id="builder01ManagerJobTitleEN"
                     name="jobTitleEN"
                     label={intl.formatMessage(formMessages.jobTitleLabelEN)}
                     placeholder={intl.formatMessage(
@@ -176,11 +176,11 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={Input}
+                    component={TextInput}
                   />
                   <Field
                     type="text"
-                    htmlId="builder01ManagerJobTitleFR"
+                    id="builder01ManagerJobTitleFR"
                     name="jobTitleFR"
                     label={intl.formatMessage(formMessages.jobTitleLabelFR)}
                     placeholder={intl.formatMessage(
@@ -188,14 +188,14 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={Input}
+                    component={TextInput}
                   />
                   <Field
                     name="department"
                     id="builder01ManagerDepartment"
                     label={intl.formatMessage(formMessages.departmentLabel)}
                     grid="base(1of1)"
-                    component={Select}
+                    component={SelectInput}
                     required
                     selected={values.department}
                     nullSelection={intl.formatMessage(
@@ -218,7 +218,7 @@ const IntroForm: React.FunctionComponent<
                   />
                   <Field
                     type="text"
-                    htmlId="builder01ManagerDivisionEN"
+                    id="builder01ManagerDivisionEN"
                     name="divisionEN"
                     label={intl.formatMessage(formMessages.divisionLabelEN)}
                     placeholder={intl.formatMessage(
@@ -226,11 +226,11 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={Input}
+                    component={TextInput}
                   />
                   <Field
                     type="text"
-                    htmlId="builder01ManagerDivisionFR"
+                    id="builder01ManagerDivisionFR"
                     name="divisionFR"
                     label={intl.formatMessage(formMessages.divisionLabelFR)}
                     placeholder={intl.formatMessage(
@@ -238,7 +238,7 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={Input}
+                    component={TextInput}
                   />
                 </div>
               </Form>

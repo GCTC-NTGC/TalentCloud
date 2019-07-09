@@ -1,71 +1,49 @@
 import React from "react";
 import { FieldProps } from "formik";
-import { FormattedMessage } from "react-intl";
-import { inputMessages } from "./Messages";
+import Input, { InputProps } from "../Input";
 
-interface TextInputProps {
-  // HTML ID of the input.
-  id: string;
-  // Text for the associated label of the input.
-  label: string;
-  // data-clone-grid-item value, see https://designwithclone.ca/#flexbox-grid.
-  grid: string;
-  // If this input is required for submission.
-  required: boolean;
-  // Type of text input, i.e. "text" or "email".
-  type: string;
-  // Placeholder to display within the input.
-  placeholder: string;
-  // Minimum amount of characters required by the input.
-  minLength: number;
-  // Maximum possible amount of characters in the input.
-  maxLength: number;
-  // Formik field prop of the shape { name, value, onChange, onBlur }
+interface TextInputProps
+  extends Exclude<InputProps, "name" | "value" | "onChange" | "onBlur"> {
+  /** Formik field prop of the shape { name, value, onChange, onBlur } */
   field: FieldProps["field"];
-  // Formik form prop of the shape { errors }
+  /** Formik form prop of the shape { errors } */
   form: FieldProps["form"];
 }
 
-const TextInput = ({
+const TextInput: React.FunctionComponent<TextInputProps> = ({
   id,
   label,
-  grid,
   required,
-  type,
   placeholder,
+  grid,
   minLength,
   maxLength,
   field: { name, value, onChange, onBlur },
-  form: { errors },
+  form: { errors, touched },
   ...props
-}): React.ReactElement => (
-  <div
-    data-c-grid-item={grid}
-    data-c-input={type}
-    data-c-required={required}
-    data-c-invalid={errors[name] ? true : null}
-  >
-    <label htmlFor={id}>{label}</label>
-    <span>
-      <FormattedMessage {...inputMessages.required} />
-    </span>
-    <div>
-      <input
-        data-c-font-weight="800"
-        id={id}
-        name={name}
-        placeholder={placeholder}
-        type={type}
-        value={value}
-        onChange={onChange}
-        minLength={minLength}
-        maxLength={maxLength}
-        onBlur={onBlur}
-        {...props}
-      />
-    </div>
-    <span>{errors[name]}</span>
-  </div>
-);
+}): React.ReactElement => {
+  const specificError = errors ? errors[name] : null;
+  const errorText = specificError ? specificError.toString() : undefined;
+  const invalid = touched[name] && errors[name] ? true : null;
+
+  return (
+    <Input
+      id={id}
+      label={label}
+      placeholder={placeholder}
+      required={required}
+      name={name}
+      value={value}
+      grid={grid}
+      minLength={minLength}
+      maxLength={maxLength}
+      onChange={onChange}
+      onBlur={onBlur}
+      errorText={errorText}
+      invalid={invalid}
+      {...props}
+    />
+  );
+};
 
 export default TextInput;
