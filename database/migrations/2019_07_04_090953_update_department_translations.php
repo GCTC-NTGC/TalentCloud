@@ -13,7 +13,6 @@ class UpdateDepartmentTranslations extends Migration
      */
     public function up()
     {
-        // Schema::dropIfExists('department_translations');
         Schema::table('department_translations', function (Blueprint $table) {
             $table->longText('impact')->nullable();
         });
