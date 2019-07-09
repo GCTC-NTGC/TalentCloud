@@ -26,9 +26,12 @@ class AddTranslatedNameAndImpactToDepartments extends Migration
 
             $department->name = collect([$departmentTranslationsEnglish->locale => $departmentTranslationsEnglish->value, $departmentTranslationsFrench->locale => $departmentTranslationsFrench->value])->toJson();
 
+            $department->impact = collect([$departmentTranslationsEnglish->locale => $departmentTranslationsEnglish->impact, $departmentTranslationsFrench->locale => $departmentTranslationsFrench->impact])->toJson();
+
             DB::table('departments')->where('id', $department->id)->update([
+                'id' => $department->id,
                 'name' => $department->name,
-                // 'impact' => $department->id
+                'impact' => $department->impact
             ]);
         }
     }

@@ -26,12 +26,6 @@ class DepartmentCrudController extends CrudController
 
         // Add custom columns to the Department index view.
         $this->crud->addColumn([
-            'name' => 'id',
-            'type' => 'number',
-            'label' => 'ID',
-        ]);
-
-        $this->crud->addColumn([
             'name' => 'name',
             'type' => 'text',
             'label' => 'Name',
@@ -41,6 +35,7 @@ class DepartmentCrudController extends CrudController
             'name' => 'impact',
             'type' => 'text',
             'label' => 'Impact',
+            'orderable' => false,
         ]);
 
         // Add custom fields to the create/update views.
