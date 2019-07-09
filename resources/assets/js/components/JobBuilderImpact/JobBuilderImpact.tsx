@@ -13,7 +13,7 @@ import { Job } from "../../models/types";
 import { emptyJob } from "../../models/jobUtil";
 import JobImpactPreview from "./JobImpactPreview";
 import Modal from "../Modal";
-import TextArea from "../Forms/TextArea";
+import TextArea from "../TextArea";
 import { validationMessages } from "../Form/Messages";
 
 interface JobBuilderImpactProps {
