@@ -12,10 +12,7 @@ import {
   updateJob,
   setSelectedJob,
 } from "../../store/Job/jobActions";
-import {
-  getJob as selectJob,
-  getSelectedJob,
-} from "../../store/Job/jobSelector";
+import { getSelectedJob } from "../../store/Job/jobSelector";
 import RootContainer from "../RootContainer";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { ProgressTrackerItem } from "../ProgressTracker/types";
@@ -134,11 +131,8 @@ const mapStateToPropsPage = (
   state: RootState,
 ): {
   job: Job | null;
-  getJob: (jobId: number | null) => Job | null;
 } => ({
   job: getSelectedJob(state),
-  getJob: (jobId: number | null): Job | null =>
-    jobId ? selectJob(state, { jobId }) : null,
 });
 
 const mapDispatchToPropsPage = (

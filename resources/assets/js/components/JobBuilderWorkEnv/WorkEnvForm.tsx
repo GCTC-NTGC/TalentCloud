@@ -828,6 +828,7 @@ const WorkEnvForm = ({
                     ({ name, label }): React.ReactElement => {
                       return (
                         <Field
+                          key={name}
                           id={name}
                           name={name}
                           label={label}
@@ -853,6 +854,7 @@ const WorkEnvForm = ({
                     ({ name, label }): React.ReactElement => {
                       return (
                         <Field
+                          key={name}
                           id={name}
                           name={name}
                           label={label}
@@ -878,6 +880,7 @@ const WorkEnvForm = ({
                     ({ name, label }): React.ReactElement => {
                       return (
                         <Field
+                          key={name}
                           id={name}
                           name={name}
                           label={label}
@@ -969,6 +972,7 @@ const WorkEnvForm = ({
                       ({ id, title }): React.ReactElement => {
                         return (
                           <Field
+                            key={id}
                             name="culturePace"
                             component={RadioInput}
                             id={id}
@@ -988,6 +992,7 @@ const WorkEnvForm = ({
                       ({ id, title, subtext }): React.ReactElement => {
                         return (
                           <ContextBlockItem
+                            key={id}
                             contextId={id}
                             title={intl.formatMessage(title)}
                             subtext={intl.formatMessage(subtext)}
@@ -1018,6 +1023,7 @@ const WorkEnvForm = ({
                       ({ id, title }): React.ReactElement => {
                         return (
                           <Field
+                            key={id}
                             name="management"
                             component={RadioInput}
                             id={id}
@@ -1037,6 +1043,7 @@ const WorkEnvForm = ({
                       ({ id, title, subtext }): React.ReactElement => {
                         return (
                           <ContextBlockItem
+                            key={id}
                             contextId={id}
                             title={intl.formatMessage(title)}
                             subtext={intl.formatMessage(subtext)}
@@ -1067,6 +1074,7 @@ const WorkEnvForm = ({
                       ({ id, title }): React.ReactElement => {
                         return (
                           <Field
+                            key={id}
                             name="experimental"
                             component={RadioInput}
                             id={id}
@@ -1086,6 +1094,7 @@ const WorkEnvForm = ({
                       ({ id, title, subtext }): React.ReactElement => {
                         return (
                           <ContextBlockItem
+                            key={id}
                             contextId={id}
                             title={intl.formatMessage(title)}
                             subtext={intl.formatMessage(subtext)}

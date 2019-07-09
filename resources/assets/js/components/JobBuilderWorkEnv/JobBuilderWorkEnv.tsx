@@ -69,7 +69,7 @@ const JobBuilderWorkEnv: React.FunctionComponent<
       title: intl.formatMessage(progressTrackerTitles.welcome),
     },
     {
-      state: jobBuilderDetailsProgressState(job, intl.locale, true),
+      state: jobBuilderDetailsProgressState(job, intl.locale),
       label: intl.formatMessage(progressTrackerLabels.step01),
       title: intl.formatMessage(progressTrackerTitles.jobInfo),
     },
@@ -127,7 +127,7 @@ const JobBuilderWorkEnv: React.FunctionComponent<
         </div>
       ) : (
         <WorkEnvForm
-          job={null}
+          job={job}
           handleSubmit={handleSubmit}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
@@ -188,7 +188,7 @@ if (document.getElementById("job-builder-work-env")) {
   const jobId = jobIdAttr ? Number(jobIdAttr) : null;
   ReactDOM.render(
     <RootContainer>
-      <JobBuilderIntroPageContainer jobId={jobId} />
+      <JobBuilderWorkEnvContainer jobId={jobId} />
     </RootContainer>,
     container,
   );
