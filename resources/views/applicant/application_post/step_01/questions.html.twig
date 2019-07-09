@@ -49,7 +49,6 @@
                                         {% for option in citizenship_options %}
                                             <option
                                                 value="{{ option.id }}"
-                                                {% if option.id == job_application.citizenship_declaration_id %}selected{% endif %}>{{ option.value|title }}</option>
                                                 {% if option.id == job_application.citizenship_declaration_id %}selected{% endif %}>{{ citizenship_declaration_template[option.name] }}</option>
                                         {% endfor %}
                                     </select>
@@ -133,13 +132,13 @@
                         required
                         {{ job_application.language_requirement_confirmed ? 'checked' : ''}}
                     />
-                    <div
+                    <span
                         class="checkbox__wrapper"
                     >
                         <span class="checkbox__content">
                             <i class="fa fa-check{{ job_application.language_requirement_confirmed ? '' : ' hidden' }}"></i>
                         </span>
-                    </div>
+                    </span>
                 </label>
                 <p class="box fit">
                     {% if job.language_requirement.id == 1 %}

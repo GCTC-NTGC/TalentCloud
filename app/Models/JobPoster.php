@@ -331,8 +331,28 @@ class JobPoster extends BaseModel
     }
 
     // @codeCoverageIgnoreEnd
-    // Accessors
-    // Mutators
+    // Accessors.
+
+    /**
+     * The classification property is deprecated. To ensure
+     * Twig template consistency, check for populated
+     * classification_code and classification_level and return
+     * the combination of those instead.
+     *
+     * @param mixed $value Incoming attribute value.
+     *
+     * @return string|null
+     */
+    public function getClassificationAttribute($value)
+    {
+        if (!empty($this->classification_code) && !empty($this->classification_level)) {
+            return "$this->classification_code-$this->classification_level";
+        } else {
+            return $value;
+        }
+    }
+
+    // Mutators.
 
     /**
      * Intercept setting the "published" attribute, and set the

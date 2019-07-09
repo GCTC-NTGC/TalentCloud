@@ -11,7 +11,7 @@ import {
   skillLevelName,
   assessmentType,
 } from "../../models/localizedConstants";
-import Select, { SelectOption } from "../Forms/Select";
+import Select, { SelectOption } from "../Select";
 import { AssessmentTypeId, enumToIds } from "../../models/lookupConstants";
 import {
   Criteria,
@@ -91,38 +91,44 @@ export const AssessmentPlanSkill: React.FunctionComponent<
   removeTempAssessment,
   intl,
 }: AssessmentPlanSkillProps & InjectedIntlProps): React.ReactElement | null => {
+  useEffect((): void => {
+    if (criterion === null || skill === null) {
+      return;
+    }
+    assessments.forEach(
+      (assessment): void => {
+        // If assessment has been edited, and is not currently being updated, start an update.
+        if (
+          assessmentsEdited[assessment.id] &&
+          !assessmentsUpdating[assessment.id]
+        ) {
+          updateAssessment(assessment);
+        }
+      },
+      [assessments, assessmentsEdited, assessmentsUpdating],
+    );
+  });
+  useEffect((): void => {
+    if (criterion === null || skill === null) {
+      return;
+    }
+    tempAssessments.forEach((temp): void => {
+      // If any temp assessments exist, we want to save them as soon as they're valid
+      if (!tempAssessmentsSaving[temp.id] && temp.assessment_type_id !== null) {
+        saveTempAssessment(temp as Assessment); // TODO: remove TempAssessment type, just use Assessment everywhere
+      }
+    });
+  }, [
+    criterion,
+    saveTempAssessment,
+    skill,
+    tempAssessments,
+    tempAssessmentsSaving,
+  ]);
+
   if (criterion === null || skill === null) {
     return null;
   }
-  useEffect(
-    (): void => {
-      assessments.forEach(
-        (assessment): void => {
-          // If assessment has been edited, and is not currently being updated, start an update.
-          if (
-            assessmentsEdited[assessment.id] &&
-            !assessmentsUpdating[assessment.id]
-          ) {
-            updateAssessment(assessment);
-          }
-        },
-        [assessments, assessmentsEdited, assessmentsUpdating],
-      );
-    },
-  );
-  useEffect((): void => {
-    tempAssessments.forEach(
-      (temp): void => {
-        // If any temp assessments exist, we want to save them as soon as they're valid
-        if (
-          !tempAssessmentsSaving[temp.id] &&
-          temp.assessment_type_id !== null
-        ) {
-          saveTempAssessment(temp as Assessment); // TODO: remove TempAssessment type, just use Assessment everywhere
-        }
-      },
-    );
-  }, [tempAssessments, tempAssessmentsSaving]);
 
   const skillLevel = intl.formatMessage(
     skillLevelName(criterion.skill_level_id, skill.skill_type_id),
@@ -134,7 +140,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
     ? criterion[intl.locale].description
     : skill[intl.locale].description;
   const assessmentTypeOptions = enumToIds(AssessmentTypeId).map(
-    (typeId): SelectOption<number> => {
+    (typeId): SelectOption => {
       return {
         value: typeId,
         label: intl.formatMessage(assessmentType(typeId)),
@@ -160,21 +166,19 @@ export const AssessmentPlanSkill: React.FunctionComponent<
     onChange: (newAssessment: Assessment | TempAssessment) => void;
     onDelete: (id: number) => void;
   }> = ({ assessment, isUpdating, onChange, onDelete }): React.ReactElement => {
-    const options = assessmentTypeOptions.filter(
-      (option): boolean => {
-        // Ensure we can't select an option already selected in a sibling selector
-        return (
-          option.value === assessment.assessment_type_id ||
-          !selectedAssessmentTypes.includes(option.value)
-        );
-      },
-    );
+    const options = assessmentTypeOptions.filter((option): boolean => {
+      // Ensure we can't select an option already selected in a sibling selector
+      return (
+        option.value === assessment.assessment_type_id ||
+        !selectedAssessmentTypes.includes(Number(option.value))
+      );
+    });
     return (
       <div data-c-grid="middle">
         <div data-c-grid-item="base(2of3) tl(4of5)">
           <Select
-            htmlId={`assessmentSelect_${criterion.id}_${assessment.id}`}
-            formName="assessmentTypeId"
+            id={`assessmentSelect_${criterion.id}_${assessment.id}`}
+            name="assessmentTypeId"
             label={selectAssessmentLabel}
             required
             options={options}
@@ -291,9 +295,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
           {tempAssessments.map(
             (tempAssessment): React.ReactElement => (
               <SelectBlock
-                key={`assessmentPlanSkillSelectorTempAssessment${
-                  tempAssessment.id
-                }`}
+                key={`assessmentPlanSkillSelectorTempAssessment${tempAssessment.id}`}
                 assessment={tempAssessment}
                 isUpdating={tempAssessmentsSaving[tempAssessment.id]}
                 onChange={editTempAssessment}

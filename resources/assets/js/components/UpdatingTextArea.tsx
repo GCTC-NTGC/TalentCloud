@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import _ from "lodash";
 // Lodash's debounce doesn't work properly if imported
 // by itself... something to do with how it handles 'this'
-import TextArea, { TextAreaProps } from "./Forms/TextArea";
+import TextArea, { TextAreaProps } from "./TextArea";
 
 export interface UpdatingTextAreaProps extends TextAreaProps {
   updateDelay?: number | null;
@@ -35,15 +35,20 @@ class UpdatingTextArea extends Component<
 
   public triggerSave(): void {
     const { value, minLength, handleSave } = this.props;
-    if (value.length > (minLength || 3) || value.length === 0) {
-      handleSave();
+    if (value !== undefined) {
+      if (
+        value.toString().length > (minLength || 3) ||
+        value.toString().length === 0
+      ) {
+        handleSave();
+      }
     }
   }
 
   public render(): React.ReactElement {
     const {
-      htmlId,
-      formName,
+      id,
+      name,
       label,
       required,
       placeholder,
@@ -56,8 +61,8 @@ class UpdatingTextArea extends Component<
     } = this.props;
     return (
       <TextArea
-        htmlId={htmlId}
-        formName={formName}
+        id={id}
+        name={name}
         label={label}
         required={required}
         placeholder={placeholder}
