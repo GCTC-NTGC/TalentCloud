@@ -37,3 +37,10 @@ export function jobBuilderDetails(locale: string, jobId?: number): string {
   }
   return `/${locale}/manager/job-builder/details`;
 }
+
+export function jobBuilderEnv(locale: string, jobId?: number): string {
+  if (jobId) {
+    return `/${locale}/manager/jobs/${jobId}/builder/environment`;
+  }
+  return `/${locale}/manager/job-builder/environment`;
+}
