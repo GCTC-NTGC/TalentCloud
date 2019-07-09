@@ -90,4 +90,37 @@ export const jobBuilderDetailsProgressState = (
   return job && isJobBuilderDetailsComplete(job, locale) ? "complete" : "error";
 };
 
-export default { isJobBuilderIntroComplete, isJobBuilderDetailsComplete };
+const jobEnvValues = (job: Job, locale: string): (string | number | null)[] => [
+  job.team_size,
+  job.fast_vs_steady,
+  job.horizontal_vs_vertical,
+  job.experimental_vs_ongoing,
+  job.citizen_facing_vs_back_office,
+  job.collaborative_vs_independent,
+  job.work_env_features,
+  job[locale].work_env_description,
+  job[locale].culture_summary,
+  job[locale].culture_special,
+];
+const isJobBuilderEnvComplete = (job: Job, locale: string): boolean => {
+  return jobEnvValues(job, locale).every(isFilled);
+};
+const isJobBuilderEnvUntouched = (job: Job, locale: string): boolean => {
+  const nullableValues = jobEnvValues(job, locale).filter(
+    (item): boolean => typeof item !== "boolean",
+  );
+  return nullableValues.every(isEmpty);
+};
+export const jobBuilderEnvProgressState = (
+  job: Job | null,
+  locale: string,
+  allowUntouched = false,
+): "active" | "complete" | "error" | "null" => {
+  if (
+    allowUntouched &&
+    (job === null || isJobBuilderEnvUntouched(job, locale))
+  ) {
+    return "null";
+  }
+  return job && isJobBuilderEnvComplete(job, locale) ? "complete" : "error";
+};

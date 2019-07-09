@@ -64,12 +64,14 @@ const JobBuilderWorkEnv: React.FunctionComponent<
   };
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
-      state: jobBuilderIntroProgressState(job),
+      state: waitingForJob ? "null" : jobBuilderIntroProgressState(job),
       label: intl.formatMessage(progressTrackerLabels.start),
       title: intl.formatMessage(progressTrackerTitles.welcome),
     },
     {
-      state: jobBuilderDetailsProgressState(job, intl.locale),
+      state: waitingForJob
+        ? "null"
+        : jobBuilderDetailsProgressState(job, intl.locale),
       label: intl.formatMessage(progressTrackerLabels.step01),
       title: intl.formatMessage(progressTrackerTitles.jobInfo),
     },
