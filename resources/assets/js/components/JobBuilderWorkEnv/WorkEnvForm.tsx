@@ -653,6 +653,7 @@ const WorkEnvForm = ({
   job,
   handleSubmit,
   handleModalCancel,
+  handleModalConfirm,
   intl,
 }: WorkEnvFormProps & InjectedIntlProps): React.ReactElement => {
   const { locale } = intl;
@@ -785,16 +786,19 @@ const WorkEnvForm = ({
         initialValues={initialValues}
         validationSchema={workEnvSchema}
         onSubmit={(values, { setSubmitting }): void => {
-          setIsModalVisible(true);
           // If custom summary textbox is length is zero, set cultureSummary to generated text
           const cultureSummary =
             values.cultureSummary.length === 0
               ? buildCultureSummary(values)
               : values.cultureSummary;
           const formValues: FormValues = { ...values, cultureSummary };
-          console.log(updateJobWithValues(emptyJob(), locale, formValues));
-          // handleSubmit();
-          setSubmitting(false);
+          const oldJob = job || emptyJob();
+          const updatedJob = updateJobWithValues(oldJob, locale, formValues);
+          handleSubmit(updatedJob)
+            .then((job): void => {
+              setIsModalVisible(true);
+            })
+            .finally((): void => setSubmitting(false));
         }}
         render={({
           errors,
@@ -1200,7 +1204,7 @@ const WorkEnvForm = ({
               <WorkEnvModal
                 modalConfirm={(): void => {
                   setIsModalVisible(false);
-                  // handleSubmit(values); // TODO: remove line or replace
+                  handleModalConfirm();
                 }}
                 modalCancel={(): void => {
                   setIsModalVisible(false);
