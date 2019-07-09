@@ -30,4 +30,16 @@ class JobBuilderController extends Controller
             ['title' => 'Job Builder: Details', 'jobId' => $jobId]
         );
     }
+
+    /**
+     * Show the Job Builder Work Environment page
+     * @return \Illuminate\Http\Response
+     */
+    public function environment($jobId = null)
+    {
+        return view(
+            'manager/job-builder-environment',
+            ['title' => 'Job Builder: Environment', 'jobId' => $jobId]
+        );
+    }
 }
