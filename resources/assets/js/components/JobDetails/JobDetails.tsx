@@ -182,6 +182,69 @@ const formMessages = defineMessages({
   },
 });
 
+const classificationOptionMessages = defineMessages({
+  AdministrativeServices: {
+    id: "jobDetails.classificationOptions.AS",
+    defaultMessage: "AS - Administrative Services",
+    description: "Job Classifiication from list of Classifications",
+  },
+  BiologicalSciences: {
+    id: "jobDetails.classificationOptions.BI",
+    defaultMessage: "BI - Biological Sciences",
+    description: "Job Classifiication from list of Classifications",
+  },
+  Commerce: {
+    id: "jobDetails.classificationOptions.CO",
+    defaultMessage: "CO - Commerce",
+    description: "Job Classifiication from list of Classifications",
+  },
+  ClericalRegulatory: {
+    id: "jobDetails.classificationOptions.CR",
+    defaultMessage: "CR - Clerical and Regulatory",
+    description: "Job Classifiication from list of Classifications",
+  },
+  ComputerSystems: {
+    id: "jobDetails.classificationOptions.CS",
+    defaultMessage: "CS - Computer Systems",
+    description: "Job Classifiication from list of Classifications",
+  },
+  EconomicsSocialSciences: {
+    id: "jobDetails.classificationOptions.EC",
+    defaultMessage: "EC - Economics and Social Science Services",
+    description: "Job Classifiication from list of Classifications",
+  },
+  Executive: {
+    id: "jobDetails.classificationOptions.EX",
+    defaultMessage: "EX - Executive",
+    description: "Job Classifiication from list of Classifications",
+  },
+  Forestry: {
+    id: "jobDetails.classificationOptions.FO",
+    defaultMessage: "FO - Forestry",
+    description: "Job Classifiication from list of Classifications",
+  },
+  InformationServices: {
+    id: "jobDetails.classificationOptions.IS",
+    defaultMessage: "IS - Information Services",
+    description: "Job Classifiication from list of Classifications",
+  },
+  PhysicalSciences: {
+    id: "jobDetails.classificationOptions.PC",
+    defaultMessage: "PC - Physical Sciences",
+    description: "Job Classifiication from list of Classifications",
+  },
+  PersonnelAdminstration: {
+    id: "jobDetails.classificationOptions.PE",
+    defaultMessage: "PE - Personnel Administration",
+    description: "Job Classifiication from list of Classifications",
+  },
+  ProgrammeAdministration: {
+    id: "jobDetails.classificationOptions.PM",
+    defaultMessage: "PM - Programme Administration",
+    description: "Job Classifiication from list of Classifications",
+  },
+});
+
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
   job: Job | null;
@@ -536,21 +599,78 @@ const JobDetails: React.FunctionComponent<
                     formMessages.classificationNullSelection,
                   )}
                   options={[
-                    { value: "AS", label: "AS - Administrative Services" },
-                    { value: "BI", label: "BI - Biological Sciences" },
-                    { value: "CO", label: "CO - Commerce" },
-                    { value: "CR", label: "CR - Clerical and Regulatory" },
-                    { value: "CS", label: "CS - Computer Systems" },
+                    {
+                      value: "AS",
+                      label: intl.formatMessage(
+                        classificationOptionMessages.AdministrativeServices,
+                      ),
+                    },
+                    {
+                      value: "BI",
+                      label: intl.formatMessage(
+                        classificationOptionMessages.BiologicalSciences,
+                      ),
+                    },
+                    {
+                      value: "CO",
+                      label: intl.formatMessage(
+                        classificationOptionMessages.Commerce,
+                      ),
+                    },
+                    {
+                      value: "CR",
+                      label: intl.formatMessage(
+                        classificationOptionMessages.ClericalRegulatory,
+                      ),
+                    },
+                    {
+                      value: "CS",
+                      label: intl.formatMessage(
+                        classificationOptionMessages.ComputerSystems,
+                      ),
+                    },
                     {
                       value: "EC",
-                      label: "EC - Economics and Social Science Services",
+                      label: intl.formatMessage(
+                        classificationOptionMessages.EconomicsSocialSciences,
+                      ),
                     },
-                    { value: "EX", label: "EX - Executive" },
-                    { value: "FO", label: "FO - Forestry" },
-                    { value: "IS", label: "IS - Information Services" },
-                    { value: "PC", label: "PC - Physical Sciences" },
-                    { value: "PE", label: "PE - Personnel Administration" },
-                    { value: "PM", label: "PM - Programme Administration" },
+                    {
+                      value: "EX",
+                      label: intl.formatMessage(
+                        classificationOptionMessages.Executive,
+                      ),
+                    },
+                    {
+                      value: "FO",
+                      label: intl.formatMessage(
+                        classificationOptionMessages.Forestry,
+                      ),
+                    },
+                    {
+                      value: "IS",
+                      label: intl.formatMessage(
+                        classificationOptionMessages.InformationServices,
+                      ),
+                    },
+                    {
+                      value: "PC",
+                      label: intl.formatMessage(
+                        classificationOptionMessages.PhysicalSciences,
+                      ),
+                    },
+                    {
+                      value: "PE",
+                      label: intl.formatMessage(
+                        classificationOptionMessages.PersonnelAdminstration,
+                      ),
+                    },
+                    {
+                      value: "PM",
+                      label: intl.formatMessage(
+                        classificationOptionMessages.ProgrammeAdministration,
+                      ),
+                    },
                   ]}
                 />
                 <Field
