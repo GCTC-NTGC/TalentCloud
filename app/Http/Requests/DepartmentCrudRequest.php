@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SkillCrudRequest extends FormRequest
+class DepartmentCrudRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,8 @@ class SkillCrudRequest extends FormRequest
     public function rules() : array
     {
         return [
-            'name' => 'required|unique_translation:skills,name' . (isset($this->id) ? ",{$this->id}" : ''),
-            'description' => 'required',
-            'skill_type_id' => 'exists:skill_types,id'
+            'name' => 'required',
+            'impact' => 'required'
         ];
     }
 
@@ -39,9 +38,8 @@ class SkillCrudRequest extends FormRequest
     public function messages() : array
     {
         return [
-            'name.required' => 'Please enter a Skill name.',
-            'name.unique_translation' => 'A Skill with this name already exists.',
-            'skill_type_id.exists' => 'Please use an existing Skill Type.'
+            'name.required' => 'Please enter a department name.',
+            'impact.required' => 'Please enter an impact statement.'
         ];
     }
 }

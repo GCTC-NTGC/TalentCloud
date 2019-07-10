@@ -1,68 +1,69 @@
 build:
-    environment:
-        php:
-            version: "7.2"
-            ini:
-                memory_limit: "-1"
-        docker: true
-        ruby: 2.5.1
-        node: v10.14.2
+  environment:
+    php:
+      version: "7.2"
+      ini:
+        memory_limit: "-1"
+    docker: true
+    ruby: 2.5.1
+    node: v10.14.2
 
-    cache:
-        directories:
-            - node_modules/
-            - vendor/
+  cache:
+    directories:
+      - node_modules/
+      - vendor/
 
-    nodes:
-        analysis:
-            tests:
-                before:
-                    - "sudo service postgresql stop"
-                    - "cp .env.example .env"
-                    - "make docker-start"
-                    - "make gen-certs"
-                    - "make build-db"
-                    - "make set-perms"
-                    - "npm run dev"
-                    - "make phpunit"
-                    - "make jest"
+  nodes:
+    analysis:
+      tests:
+        before:
+          - "sudo service postgresql stop"
+          - "cp .env.example .env"
+          - "make docker-start"
+          - "make gen-certs"
+          - "make build-db"
+          - "make set-perms"
+          - "npm run dev"
 
-                override:
-                    - php-scrutinizer-run
-                    - js-scrutinizer-run
-                    - phpcs-run --standard=ruleset.xml ./app ./routes ./database/factories ./database/seeds
-                    - eslint-run ./resources/assets/js/app.js
+        override:
+          - php-scrutinizer-run
+          - js-scrutinizer-run
+          - phpcs-run --standard=ruleset.xml ./app ./routes ./database/factories ./database/seeds
+          - eslint-run ./resources/assets/js/app.js
 
-                after:
-                    - "make docker-stop"
+        after:
+          - "make docker-stop"
 
 filter:
-    paths:
-        - app/
-        - database/factories/
-        - database/seeds/
-        - resources/assets/js/app.js
-        - routes/
+  paths:
+    - app/
+    - database/factories/
+    - database/seeds/
+    - resources/assets/js/app.js
+    - routes/
 
-    dependency_paths:
-        - node_modules/
-        - vendor/
+  dependency_paths:
+    - node_modules/
+    - vendor/
 
-    excluded_paths:
-        - bootstrap/
-        - config/
-        - database/db/
-        - database/migrations/
-        - etc/
-        - node_modules/
-        - public/
-        - report/
-        - resources/
-        - storage/
-        - tests/
-        - vendor/
+  excluded_paths:
+    - bootstrap/
+    - config/
+    - database/db/
+    - database/migrations/
+    - etc/
+    - node_modules/
+    - public/
+    - report/
+    - resources/
+    - storage/
+    - tests/
+    - vendor/
+
+checks:
+  php: true
 
 tools:
-    external_code_coverage:
-        timeout: 777
-        runs: 1
+  external_code_coverage:
+    timeout: 777
+    runs: 1

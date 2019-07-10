@@ -10,16 +10,19 @@ namespace App\Models\Lookup;
 use App\Models\BaseModel;
 use Astrotomic\Translatable\Translatable as Translatable;
 
+use Backpack\CRUD\CrudTrait;
+use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
+
 /**
  * Class Department
- *
  * @property int $id
  * @property string $name
+ * @property string $impact
+ *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \Illuminate\Database\Eloquent\Collection $managers
- * @property \Illuminate\Database\Eloquent\Collection $department_translations
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
  *
  * Localized Properties:
