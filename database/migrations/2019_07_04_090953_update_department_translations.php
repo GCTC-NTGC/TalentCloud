@@ -124,7 +124,6 @@ class UpdateDepartmentTranslations extends Migration
     {
         Schema::create('department_translations', function (Blueprint $table) {
             $table->dropColumn('impact');
-            $table->getChangedColumns('value');
         });
     }
 }
