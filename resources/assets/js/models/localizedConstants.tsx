@@ -568,7 +568,7 @@ export const languageRequirment = (
     "invalid LanguageRequirementId",
   );
 
-const deparments = defineMessages({
+const departments = defineMessages({
   [DepartmentId.treasuryBoard]: {
     id: "department.treasuryBoard",
     defaultMessage: "Treasury Board of Canada Secretariat",
@@ -618,7 +618,7 @@ const deparments = defineMessages({
 export const departmentName = (
   departmentId: number,
 ): FormattedMessage.MessageDescriptor =>
-  getOrThrowError(deparments, departmentId, "invalid DepartmentId");
+  getOrThrowError(departments, departmentId, "invalid DepartmentId");
 
 export const narrativeReviewStandardQuestion = (): FormattedMessage.MessageDescriptor =>
   standardAssessmentText.narrativeReviewQuestion;
