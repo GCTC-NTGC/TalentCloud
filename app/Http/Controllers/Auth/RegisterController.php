@@ -6,8 +6,8 @@ use App\Models\User;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\UserRole;
 use App\Models\Applicant;
@@ -94,7 +94,7 @@ class RegisterController extends AuthController
         $user = new User();
         $user->name = $data['name'];
         $user->email = $data['email'];
-        $user->password = Hash::make($data['password']);
+        $user->password = Hash::make(($data['password']));
 
         // Default to applicant role.
         $user->user_role()->associate(UserRole::where('name', 'applicant')->first());

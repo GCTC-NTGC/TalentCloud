@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Lookup\ApplicantProfileQuestion;
 use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use App\Services\Validation\Requests\UpdateApplicationProfileValidator;
 
 class ApplicantProfileController extends Controller
@@ -161,7 +161,7 @@ class ApplicantProfileController extends Controller
             ]
         );
         if ($input['new_password']) {
-            $user->password =  Hash::make($input['new_password']); // TODO: change password in seperate form!
+            $user->password = Hash::make(($input['new_password'])); // TODO: change password in seperate form!
         }
         $user->save();
 

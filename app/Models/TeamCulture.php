@@ -52,6 +52,6 @@ class TeamCulture extends BaseModel
 
     public function team_culture_translations() //phpcs:ignore
     {
-        return $this->hasMany(Astrotomic\Translatable\Translatable::class);
+        return $this->hasMany(\App\Models\TeamCultureTranslation::class);
     }
 }
