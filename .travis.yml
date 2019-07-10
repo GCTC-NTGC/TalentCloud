@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - '7.2'
+  - "7.2"
 
 sudo: required
 dist: trusty
@@ -14,14 +14,14 @@ cache:
     - $HOME/.composer/cache/files
     - $HOME/.npm
 
+# following required for Test Cafe
 addons:
-  chrome: stable # required for lightcrawler
-  firefox: latest # following required for Test Cafe
+  firefox: latest
   apt:
     sources:
-     - google-chrome
+      - google-chrome
     packages:
-     - google-chrome-stable fluxbox
+      - google-chrome-stable fluxbox
   hosts:
     - talent.test
 
@@ -34,18 +34,13 @@ before_install:
   - npm i -g npm@^6
 
 install:
-  # install slacktee (send lightcrawler output to slack)
-  # sudo bash ./etc/scripts/install-slacktee.sh
   # environment
   - cp .env.travis .env
   # dependencies
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - travis_retry npm install
 
-
 before_script:
-  # docker login (for tagging/pushing images to our hub repo)
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   # setup headless browser for tests
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   # start web server port 8000
