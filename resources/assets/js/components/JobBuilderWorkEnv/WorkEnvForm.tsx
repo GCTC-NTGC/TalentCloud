@@ -226,7 +226,7 @@ export const techMessages = defineMessages({
     description: "Technology checkbox group 'task management' option.",
   },
   versionControl: {
-    id: "jobBuilder.workEnv.techonology.videoConfrencing",
+    id: "jobBuilder.workEnv.techonology.versionControl",
     defaultMessage: "Version Control (e.g. Github, Gitlab)",
     description: "Technology checkbox group 'version control' option.",
   },
