@@ -9,7 +9,7 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 use Illuminate\Support\Facades\Lang;
-use Astronomic\Translatable\Translatable as Translatable;
+use Astrotomic\Translatable\Translatable as Translatable;
 
 /**
  * Class Criteria
