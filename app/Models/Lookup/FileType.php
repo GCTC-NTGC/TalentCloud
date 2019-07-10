@@ -8,7 +8,7 @@
 namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
-use Astronomic\Translatable\Translatable as Translatable;
+use Astrotomic\Translatable\Translatable as Translatable;
 
 /**
  * Class FileType

@@ -2,14 +2,14 @@
 
 namespace Tests\Unit\Validators;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Applicant;
-use App\Models\User;
+
 use App\Services\Validation\Requests\UpdateApplicationProfileValidator;
+use App\Models\User;
+use App\Models\Applicant;
+
+use PHPUnit\Framework\TestCase;
 
 class UpdateApplicationProfileValidatorTest extends TestCase
 {
@@ -92,7 +92,7 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $data = [
             'profile_name' => $this->applicant->user->name,
             'profile_email' => $this->applicant->user->email,
-            'old_password' => "Testing123!",
+            'old_password' => 'Testing123!',
             'new_password' => 'NewPassword123!',
             'new_password_confirmation' => 'NewPassword123!',
             'twitter_username' => 'Test_person',
@@ -119,6 +119,7 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $validator = new UpdateApplicationProfileValidator($this->applicant);
         $this->assertFalse($validator->isValid($data));
     }
+
 
     public function testUpdatePasswordFailsWithBadConfirm()
     {
@@ -153,6 +154,7 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $validator = new UpdateApplicationProfileValidator($this->applicant);
         $this->assertFalse($validator->isValid($data));
     }
+
 
     public function testUpdatePasswordFailsWithBadOldPassword()
     {
