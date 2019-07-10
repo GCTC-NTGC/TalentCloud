@@ -22,11 +22,6 @@ import TextAreaInput from "../Form/TextAreaInput";
 import { validationMessages } from "../Form/Messages";
 
 const formMessages = defineMessages({
-  ourWorkEnv: {
-    id: "jobBuilder.workEnv.ourWorkEnv",
-    defaultMessage: "Our Work Environment",
-    description: "Section 1 of Job Poster Builder Work Environment Step",
-  },
   ourWorkEnvDesc: {
     id: "jobBuilder.workEnv.ourWorkEnvDesc",
     defaultMessage:
@@ -83,12 +78,6 @@ const formMessages = defineMessages({
     id: "jobBuilder.workEnv.culture",
     defaultMessage: "Our Culture",
     description: "Section 2 radio group title of our culture step.",
-  },
-  cultureSubtext1: {
-    id: "jobBuilder.workEnv.cultureSubtext1",
-    defaultMessage:
-      "Now, let applicants know more about the personality of your team and the type of work that you usually do.",
-    description: "Subtext 1 displayed of the our culture section.",
   },
   cultureSubtext2: {
     id: "jobBuilder.workEnv.cultureSubtext2",
@@ -512,7 +501,7 @@ const WorkEnvForm = ({
           <FormattedMessage
             id="jobBuilder.workEnv.ourWorkEnv"
             defaultMessage="Our Work Environment"
-            description="Section 1 of job poster builder work environment step."
+            description="Section 1 of Job Poster Builder Work Environment Step"
           />
         </h4>
         <p data-c-margin="bottom(normal)">
