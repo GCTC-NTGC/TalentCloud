@@ -473,7 +473,7 @@ const JobDetails: React.FunctionComponent<
         >
           <FormattedMessage
             id="jobDetails.heading"
-            defaultMessage="Job Information"
+            defaultMessage="Job Details"
             description="Job Details page heading"
           />
         </h3>
