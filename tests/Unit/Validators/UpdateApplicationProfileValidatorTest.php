@@ -2,14 +2,14 @@
 
 namespace Tests\Unit\Validators;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Hash;
-
-use App\Services\Validation\Requests\UpdateApplicationProfileValidator;
 use App\Models\User;
 use App\Models\Applicant;
+use App\Services\Validation\Requests\UpdateApplicationProfileValidator;
 
 use PHPUnit\Framework\TestCase;
+
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 
 class UpdateApplicationProfileValidatorTest extends TestCase
 {
@@ -21,7 +21,7 @@ class UpdateApplicationProfileValidatorTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp() : void
     {
         parent::setUp();
 
