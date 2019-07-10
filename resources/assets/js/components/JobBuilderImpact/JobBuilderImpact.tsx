@@ -181,6 +181,9 @@ const JobBuilderImpact: React.FunctionComponent<
       intl.formatMessage(validationMessages.required),
     ),
   });
+  const deptImpact = department
+    ? intl.formatMessage(departmentImpactStatements[department])
+    : "";
   return (
     <section ref={modalParentRef}>
       <ProgressTracker
@@ -232,16 +235,14 @@ const JobBuilderImpact: React.FunctionComponent<
             description="Header of Department Impact Section on Job Poster Builder Impact Step"
           />
         </p>
-        {/* <!-- The p tag below is where the dynamic department text goes (I used text from an old job poster as placeholder, but the real list of data is in the issue. --> */}
-        <p data-c-margin="bottom(double)">
-          {department !== undefined &&
-            intl.formatMessage(departmentImpactStatements[department])}
-        </p>
+        {/* TODO: <!-- The p tag below is where the dynamic department text goes (I used text from an old job poster as placeholder, but the real list of data is in the issue. --> */}
+        <p data-c-margin="bottom(double)">{deptImpact}</p>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
+
             handleSubmit(updateJobWithValues(job || emptyJob(), locale, values))
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
@@ -380,7 +381,11 @@ const JobBuilderImpact: React.FunctionComponent<
               data-c-padding="normal"
             >
               {/* TODO: Pull in the signed-in Manager's department */}
-              <JobImpactPreview deptImpact="" teamImpact="" hireImpact="" />
+              <JobImpactPreview
+                deptImpact={deptImpact}
+                teamImpact={initialValues.teamImpact}
+                hireImpact={initialValues.hireImpact}
+              />
             </div>
           </Modal.Body>
           <Modal.Footer>
