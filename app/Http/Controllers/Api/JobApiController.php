@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\JobPoster;
 use App\Models\Criteria;
 use App\Services\Validation\JobPosterValidator;
 use App\Http\Requests\UpdateJobPoster;
+use App\Http\Requests\StoreJobPoster;
 
 class JobApiController extends Controller
 {
+    /**
+     * Class constructor
+     */
     public function __construct()
     {
-        // This applies the appropriate policy to each resource route
+        // This applies the appropriate policy to each resource route.
         $this->authorizeResource(JobPoster::class, 'job');
     }
 
@@ -21,8 +24,8 @@ class JobApiController extends Controller
      * Convert a job poster to the array expected by API requests,
      * with all criteria,
      * and with translation arrays in both languages.
-     *
-     * @param JobPoster $job
+    *
+     * @param  \App\Models\JobPoster $job Incoming Job Poster object.
      * @return mixed[]
      */
     private function jobToArray(JobPoster $job)
@@ -42,56 +45,61 @@ class JobApiController extends Controller
      */
     public function index()
     {
-        //TODO: complete
+        // TODO: complete.
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreJobPoster $request Incoming request.
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreJobPoster $request)
     {
-        //TODO: complete
+        $data = $request->validated();
+        $job = new JobPoster();
+        $job->manager_id = $request->user()->manager->id;
+        $job->fill($data);
+        $job->save();
+        return response()->json($this->jobToArray($job));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param JobPoster $job
+     * @param  \App\Models\JobPoster $job Incoming Job Poster.
      * @return \Illuminate\Http\Response
      */
     public function show(JobPoster $job)
     {
-        return $this->jobToArray($job);
+        return response()->json($this->jobToArray($job));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  App\Http\Requests\UpdateJobPoster  $request Validates input.
-     * @param  JobPoster $jobPoser
+     * @param  \App\Http\Requests\UpdateJobPoster $request Validates input.
+     * @param  \App\Models\JobPoster              $job     Incoming Job Poster.
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateJobPoster $request, JobPoster $job)
     {
-        $request->validated();
-        JobPosterValidator::validateUnpublished($job);
-        // Only values in the JobPoster->fillable array will be set
-        $job->fill($request->input());
+        $data = $request->validated();
+        // Only values both in the JobPoster->fillable array,
+        // and returned by UpdateJobPoster->validatedData(), will be set.
+        $job->fill($data);
         $job->save();
-        return $this->jobToArray($job);
+        return response()->json($this->jobToArray($job->fresh()));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  integer $id Job Poster ID.
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        // TODO:
+        // TODO: complete.
     }
 }

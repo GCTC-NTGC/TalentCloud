@@ -15,7 +15,7 @@ import {
   criteriaType,
   assessmentType,
 } from "../../models/localizedConstants";
-import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
+import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelectorComplex";
 import { getCriteriaByJob } from "../../store/Job/jobSelector";
 import { getSkills } from "../../store/Skill/skillSelector";
 import { getRatingGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
@@ -43,7 +43,7 @@ export const clipboardData = (
   formatMessage: (message: FormattedMessage.MessageDescriptor) => string,
   narrativeReview?: Assessment[],
 ): ClipboardTableRowProps[] => {
-  let narrativeData = [] as ClipboardTableRowProps[];
+  let narrativeData: ClipboardTableRowProps[] = [];
   if (narrativeReview !== undefined) {
     narrativeData = narrativeReview.map(
       (narrative: Assessment): ClipboardTableRowProps => {
@@ -51,12 +51,10 @@ export const clipboardData = (
           (criterion: Criteria): boolean =>
             criterion.id === narrative.criterion_id,
         );
-        const narrativeSkill = skills.find(
-          (skill: Skill): boolean => {
-            if (narrativeCriterion === undefined) return false;
-            return skill.id === narrativeCriterion.skill_id;
-          },
-        );
+        const narrativeSkill = skills.find((skill: Skill): boolean => {
+          if (narrativeCriterion === undefined) return false;
+          return skill.id === narrativeCriterion.skill_id;
+        });
         return {
           title: formatMessage(assessmentType(narrative.assessment_type_id)),
           question: null,
@@ -85,9 +83,7 @@ export const clipboardData = (
           id:
             narrativeCriterion === undefined
               ? ""
-              : `A${narrative.assessment_type_id}-Q${narrative.id}-T${
-                  narrativeCriterion.criteria_type_id
-                }`,
+              : `A${narrative.assessment_type_id}-Q${narrative.id}-T${narrativeCriterion.criteria_type_id}`,
         };
       },
     );
@@ -117,12 +113,10 @@ export const clipboardData = (
       const criterionByAnswer = criteria.find(
         (criterion: Criteria): boolean => criterion.id === answer.criterion_id,
       );
-      const skillByCriterion = skills.find(
-        (skill: Skill): boolean => {
-          if (criterionByAnswer === undefined) return false;
-          return skill.id === criterionByAnswer.skill_id;
-        },
-      );
+      const skillByCriterion = skills.find((skill: Skill): boolean => {
+        if (criterionByAnswer === undefined) return false;
+        return skill.id === criterionByAnswer.skill_id;
+      });
       const questionByAnswer = ratingGuideQuestions.find(
         (question: RatingGuideQuestion): boolean =>
           question.id === answer.rating_guide_question_id,
@@ -155,13 +149,11 @@ export const clipboardData = (
           skillByCriterion === undefined
             ? ""
             : skillByCriterion[locale].description,
-        modelAnswer: answer.expected_answer,
+        modelAnswer: answer.expected_answer ? answer.expected_answer : "",
         id:
           questionByAnswer === undefined || criterionByAnswer === undefined
             ? ""
-            : `A${questionByAnswer.assessment_type_id}-Q${
-                questionByAnswer.id
-              }-T${criterionByAnswer.criteria_type_id}-AN${answer.id}`,
+            : `A${questionByAnswer.assessment_type_id}-Q${questionByAnswer.id}-T${criterionByAnswer.criteria_type_id}-AN${answer.id}`,
       };
     },
   );
@@ -191,7 +183,7 @@ export const clipboardData = (
     }
     return num;
   };
-  let data = [] as ClipboardTableRowProps[];
+  let data: ClipboardTableRowProps[] = [];
   if (narrativeData.length > 0) {
     data = narrativeData.concat(ratingData);
   } else {
@@ -330,11 +322,11 @@ const mapStateToProps = (
   state: RootState,
   ownProps: RatingGuideClipboardContainerProps,
 ): TableProps => ({
-  assessments: getAssessmentsByJob(state, ownProps.jobId),
-  criteria: getCriteriaByJob(state, ownProps.jobId),
+  assessments: getAssessmentsByJob(state, ownProps),
+  criteria: getCriteriaByJob(state, ownProps),
   skills: getSkills(state),
-  ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps.jobId),
-  ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps.jobId),
+  ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps),
+  ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps),
 });
 // @ts-ignore
 const RatingGuideClipboardContainer: React.FunctionComponent<

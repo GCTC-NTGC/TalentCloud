@@ -14,9 +14,9 @@
     <div
         class="application-index__item-header">
 
-        <h4>
+        <h3>
             {{ item.job_poster.title }}
-        </h4>
+        </h3>
 
         <span
             class="application-index__item-department">
@@ -71,21 +71,17 @@
             </a>
         </div>
 
-        {# If the job poster has expired then do not show link to user #}
-        {% if item.job_poster.close_date_time.isPast() %}
-
-            {# Do nothing #}
-
-        {# If the job poster has not expired, but is in draft status #}
-        {% elseif item.application_status.name == "draft" %}
+        {# If the job poster application is in draft status #}
+        {% if item.application_status.name == "draft" %}
+        {% set expired = item.job_poster.close_date_time.isPast() %}
 
             <div class="box lg-2of9">
 
                 <a
                     class="button--blue light-bg"
-                    href={{ route('job.application.edit.1', item.job_poster) }}
-                    title="{{ application_index.draft_link_title }}">
-                    {{ application_index.draft_link_label }}
+                    href={{ expired ? route('applications.show', item) : route('job.application.edit.1', item.job_poster) }}
+                    title="{{ expired ? application_index.view_link_title : application_index.draft_link_title }}">
+                    {{ expired ? application_index.view_link_label : application_index.draft_link_label }}
                 </a>
 
             </div>
@@ -108,10 +104,10 @@
 
         {% if item.application_status.name == "draft"  %}
 
-            <div class="box lg-1of9 {% if item.job_poster.close_date_time.isPast() %}expired{% endif %}">
+            <div class="box lg-1of9">
 
                 <button
-                    class="modal-trigger {% if item.job_poster.close_date_time.isPast() %}expired{% endif %}"
+                    class="modal-trigger{% if item.job_poster.close_date_time.isPast() %} expired{% endif %}"
                     data-modal-id="deleteTrash"
                     title="{{ application_index.delete_title }}"
                     type="button">

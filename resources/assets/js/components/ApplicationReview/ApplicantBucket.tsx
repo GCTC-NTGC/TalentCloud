@@ -13,7 +13,7 @@ interface ApplicantBucketProps {
   title: FormattedMessage.MessageDescriptor;
   description: FormattedMessage.MessageDescriptor;
   applications: Application[];
-  reviewStatusOptions: SelectOption<number>[];
+  reviewStatusOptions: SelectOption[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   savingStatuses: { applicationId: number; isSaving: boolean }[];
@@ -68,19 +68,21 @@ const ApplicantBucket: React.StatelessComponent<
       <div aria-hidden="true" className="accordion-content">
         <p>{intl.formatMessage(description)}</p>
 
-        {sortedApplications.map(application => (
-          <ApplicationReview
-            key={application.id}
-            application={application}
-            reviewStatusOptions={reviewStatusOptions}
-            onStatusChange={onStatusChange}
-            onNotesChange={onNotesChange}
-            isSaving={
-              whereFirst(savingStatuses, "applicationId", application.id)
-                .isSaving
-            }
-          />
-        ))}
+        {sortedApplications.map(
+          (application: Application): React.ReactElement => (
+            <ApplicationReview
+              key={application.id}
+              application={application}
+              reviewStatusOptions={reviewStatusOptions}
+              onStatusChange={onStatusChange}
+              onNotesChange={onNotesChange}
+              isSaving={
+                whereFirst(savingStatuses, "applicationId", application.id)
+                  .isSaving
+              }
+            />
+          ),
+        )}
       </div>
     </div>
   );

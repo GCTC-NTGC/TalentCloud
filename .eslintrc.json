@@ -2,7 +2,8 @@
   "parser": "@typescript-eslint/parser",
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "jest": true
   },
   "extends": [
     "plugin:react/recommended",
@@ -25,7 +26,7 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint", "react-hooks"],
   "rules": {
     "import/no-extraneous-dependencies": [
       "error",
@@ -42,7 +43,13 @@
         "extensions": [".jsx", ".tsx"]
       }
     ],
-    "jsx-a11y/label-has-for": "off"
+    "jsx-a11y/label-has-for": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "jsx-a11y/label-has-associated-control": [ 2, {
+      "assert": "either",
+      "depth": 3
+    }]
   },
   "settings": {
     "react": {

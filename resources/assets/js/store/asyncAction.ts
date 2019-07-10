@@ -7,6 +7,7 @@ import {
   InternalError,
   getJSON,
 } from "redux-api-middleware"; // RSAA = '@@redux-api-middleware/RSAA'
+import moment from "moment";
 import { ErrorAction } from "./createAction";
 
 export const STARTED = "STARTED";
@@ -64,42 +65,86 @@ interface FailedActionCreator<T extends string, M> {
 
 /** A convenience type, for defining the return value of the rsa action generator. */
 export type RSAActionTemplate<
-  R extends string,
-  S extends string,
-  F extends string,
-  P,
-  M
+  TStarted extends string,
+  TSuccess extends string,
+  TFailed extends string,
+  TPayload,
+  TMeta
 > = RSAAction<
-  StartedActionCreator<R, M>,
-  SucceededActionCreator<S, P, M>,
-  FailedActionCreator<F, M>
+  TStarted,
+  TSuccess,
+  TFailed,
+  PromiseLike<TPayload>,
+  Error,
+  {},
+  TMeta,
+  TMeta,
+  TMeta,
+  any
 >;
 
 // TODO: is this the best way to get this?
 const csrfElement = document.head.querySelector('meta[name="csrf-token"]');
 const csrfToken: string =
-  csrfElement && csrfElement.textContent ? csrfElement.textContent : "";
+  csrfElement && csrfElement.getAttribute("content")
+    ? (csrfElement.getAttribute("content") as string)
+    : "";
 
+function jsonDateReplacer(key, value) {
+  if (this[key] instanceof Date) {
+    return moment(value).format("YYYY-MM-DDTHH:mm:ssZ");
+  }
+  return value;
+}
+
+/**
+ *
+ * @param endpoint
+ * @param method
+ * @param body
+ * @param startedType
+ * @param succeededType
+ * @param failedType
+ * @param parseResponse This function must accept the response body and return a payload.
+ * @param metaData
+ */
 export const asyncAction = <
-  R extends string,
-  S extends string,
-  F extends string,
-  P,
-  M
+  TStarted extends string,
+  TSuccess extends string,
+  TFailed extends string,
+  TPayload,
+  TMeta
 >(
   endpoint: string,
   method: HTTPVerb,
-  startedType: R,
-  succeededType: S,
-  failedType: F,
-  parseResponse: (response: any) => P,
-  metaData: M,
-): RSAActionTemplate<R, S, F, P, M> => {
+  body: object | string | null,
+  startedType: TStarted,
+  succeededType: TSuccess,
+  failedType: TFailed,
+  parseResponse: (response: any) => TPayload,
+  metaData: TMeta,
+): RSAActionTemplate<TStarted, TSuccess, TFailed, TPayload, TMeta> => {
+  const tokenHeader = { "X-CSRF-TOKEN": csrfToken };
+  const jsonBodyHeader = { "Content-Type": "application/json" }; // informs server that the body is a json encoded string
+  const headers =
+    body === null ? tokenHeader : { ...tokenHeader, ...jsonBodyHeader };
+
+  let stringBody: string | null = null;
+  if (body instanceof Object) {
+    // We must stringify any object bodies, and ensure dates are formatted as server expects.
+    stringBody = JSON.stringify(body, jsonDateReplacer);
+  } else {
+    stringBody = body;
+  }
+
   return {
     [RSAA]: {
       endpoint,
       method,
-      headers: { "X-CSRF-TOKEN": csrfToken },
+      headers,
+      ...(stringBody && { body: stringBody }),
+      fetch, // Ensure the global fetch function is being used
+      credentials: "include", // TODO: this may be removed when we change to token auth
       types: [
         {
           type: startedType,
@@ -107,7 +152,7 @@ export const asyncAction = <
         },
         {
           type: succeededType,
-          payload: (action, state, res: Response): PromiseLike<P> =>
+          payload: (action, state, res: Response): PromiseLike<TPayload> =>
             getJSON(res).then(parseResponse),
           meta: metaData,
         },
@@ -119,5 +164,84 @@ export const asyncAction = <
     },
   };
 };
+
+export const asyncGet = <
+  TStarted extends string,
+  TSuccess extends string,
+  TFailed extends string,
+  TPayload,
+  TMeta
+>(
+  endpoint: string,
+  startedType: TStarted,
+  succeededType: TSuccess,
+  failedType: TFailed,
+  parseResponse: (response: any) => TPayload,
+  metaData: TMeta,
+): RSAActionTemplate<TStarted, TSuccess, TFailed, TPayload, TMeta> =>
+  asyncAction(
+    endpoint,
+    "GET",
+    null,
+    startedType,
+    succeededType,
+    failedType,
+    parseResponse,
+    metaData,
+  );
+
+export const asyncPut = <
+  TBody extends object | string,
+  TStarted extends string,
+  TSuccess extends string,
+  TFailed extends string,
+  TPayload,
+  TMeta
+>(
+  endpoint: string,
+  body: TBody,
+  startedType: TStarted,
+  succeededType: TSuccess,
+  failedType: TFailed,
+  parseResponse: (response: any) => TPayload,
+  metaData: TMeta,
+): RSAActionTemplate<TStarted, TSuccess, TFailed, TPayload, TMeta> =>
+  asyncAction(
+    endpoint,
+    "PUT",
+    body,
+    startedType,
+    succeededType,
+    failedType,
+    parseResponse,
+    metaData,
+  );
+
+export const asyncPost = <
+  TBody extends object | string,
+  TStarted extends string,
+  TSuccess extends string,
+  TFailed extends string,
+  TPayload,
+  TMeta
+>(
+  endpoint: string,
+  body: TBody,
+  startedType: TStarted,
+  succeededType: TSuccess,
+  failedType: TFailed,
+  parseResponse: (response: any) => TPayload,
+  metaData: TMeta,
+): RSAActionTemplate<TStarted, TSuccess, TFailed, TPayload, TMeta> =>
+  asyncAction(
+    endpoint,
+    "POST",
+    body,
+    startedType,
+    succeededType,
+    failedType,
+    parseResponse,
+    metaData,
+  );
 
 export default asyncAction;

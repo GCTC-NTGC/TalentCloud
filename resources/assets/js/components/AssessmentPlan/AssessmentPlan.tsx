@@ -1,57 +1,26 @@
 import React from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
-import {
-  Job,
-  Criteria,
-  Assessment,
-  RatingGuideQuestion,
-  RatingGuideAnswer,
-  AssessmentPlanNotification,
-} from "../../models/types";
-import { CriteriaTypeId } from "../../models/lookupConstants";
-import AssessmentPlanSkill from "./AssessmentPlanSkill";
+import { Job, AssessmentPlanNotification } from "../../models/types";
 import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingGuideBuilder from "./RatingGuideBuilder";
 import AssessmentPlanAlert from "./AssessmentPlanAlert";
-import ErrorToast from "../ErrorToast";
+import AssessmentPlanBuilder from "./AssessmentPlanBuilder";
 
 interface AssessmentPlanProps {
   job: Job | null;
-  criteria: Criteria[];
-  assessments: Assessment[];
   notifications: AssessmentPlanNotification[];
-  questions: RatingGuideQuestion[];
-  answers: RatingGuideAnswer[];
 }
 
 const AssessmentPlan: React.FunctionComponent<
   AssessmentPlanProps & InjectedIntlProps
-> = ({
-  job,
-  criteria,
-  assessments,
-  notifications,
-  questions,
-  answers,
-  intl,
-}): React.ReactElement => {
-  const assetCriteria = criteria.filter(
-    (criterion: Criteria): boolean =>
-      criterion.criteria_type_id === CriteriaTypeId.Asset,
-  );
-  const essentialCriteria = criteria.filter(
-    (criterion: Criteria): boolean =>
-      criterion.criteria_type_id === CriteriaTypeId.Essential,
-  );
-
+> = ({ job, notifications, intl }): React.ReactElement => {
   const jobTitle = (
     <span data-c-colour="c5" data-c-font-size="h3">
-      {job && ` ${job.title}`}
+      {job && ` ${job[intl.locale].title}`}
     </span>
   );
   return (
     <section data-clone>
-      <ErrorToast />
       <div
         data-c-padding="top(triple) bottom(triple)"
         data-c-container="layout"
@@ -128,118 +97,13 @@ const AssessmentPlan: React.FunctionComponent<
           />
         </p>
         <AssessmentPlanAlert notifications={notifications} />
-        {/* Assessment Plan Builder ====================================== */}
-        <h3
-          data-c-font-size="h3"
-          data-c-font-weight="bold"
-          data-c-margin="top(triple) bottom(normal)"
-        >
-          1.{" "}
-          <FormattedMessage
-            id="assessmentPlan.assessmentPlanBuilder.title"
-            defaultMessage="Assessment Plan Builder"
-            description="Title of the Assessment Plan Builder"
-          />
-        </h3>
-        <p data-c-margin="bottom(normal)">
-          <FormattedMessage
-            id="assessmentPlan.assessmentPlanBuilder.instructions"
-            defaultMessage="Your first step is to pick some assessments that will allow you to evaluate the criteria you've selected for your job poster. Below you'll find your essential criteria, followed by your asset criteria if you've selected any. The builder will save as you go, so when you're finished, feel free to move to step 2 to review your work."
-            description="Instructions on how to get started with the Assessment Plan Builder."
-          />
-        </p>
-        <div
-          data-c-background="black(10)"
-          data-c-border="all(thin, solid, black)"
-          data-c-padding="top(normal) right(normal) left(normal)"
-          data-c-margin="top(normal) bottom(normal)"
-        >
-          <h4
-            data-c-colour="c5"
-            data-c-font-weight="bold"
-            data-c-font-size="h4"
-          >
-            <FormattedMessage
-              id="criteria.essential"
-              defaultMessage="Essential Skills"
-              description="What essential criteria are called."
-            />
-          </h4>
-          {essentialCriteria.map(
-            (criterion): React.ReactElement => (
-              <AssessmentPlanSkill
-                key={`AssessmentPlanSkill_${criterion.id}`}
-                criterion={criterion}
-              />
-            ),
-          )}
-          {essentialCriteria.length === 0 && (
-            <div
-              data-c-radius="rounded"
-              data-c-background="black(10)"
-              data-c-border="all(thin, solid, black)"
-              data-c-padding="normal"
-              data-c-alignment="base(center)"
-              data-c-margin="top(normal) bottom(normal)"
-            >
-              <span data-c-colour="black">
-                <FormattedMessage
-                  id="assessmentPlan.essentialCriteria.nullState"
-                  defaultMessage="You have no essential skills selected for this job poster."
-                  description="Text displayed when there are no essential criteria."
-                />
-              </span>
-            </div>
-          )}
-          <h4
-            data-c-colour="c5"
-            data-c-font-weight="bold"
-            data-c-font-size="h4"
-          >
-            <FormattedMessage
-              id="criteria.asset"
-              defaultMessage="Asset Skills"
-              description="What asset criteria are called."
-            />
-          </h4>
-          {assetCriteria.map(
-            (criterion): React.ReactElement => (
-              <AssessmentPlanSkill
-                key={`AssessmentPlanSkill_${criterion.id}`}
-                criterion={criterion}
-              />
-            ),
-          )}
-          {assetCriteria.length === 0 && (
-            <div
-              data-c-radius="rounded"
-              data-c-background="black(10)"
-              data-c-border="all(thin, solid, black)"
-              data-c-padding="normal"
-              data-c-alignment="base(center)"
-              data-c-margin="top(normal) bottom(normal)"
-            >
-              <span data-c-colour="black">
-                <FormattedMessage
-                  id="assessmentPlan.assetCriteria.nullState"
-                  defaultMessage="You have no asset skills selected for this job poster."
-                  description="Text displayed when there are no asset criteria."
-                />
-              </span>
-            </div>
-          )}
-        </div>
-        {/* Generated Assessment Plan ==================================== */}
-        {job !== null && <AssessmentPlanTable jobId={job.id} />}
-        {/* Ratings Guide Builder ======================================== */}
-        <RatingGuideBuilder
-          criteria={criteria}
-          assessments={assessments}
-          questions={questions}
-          answers={answers}
-          jobId={(job && job.id) || null}
-          intl={intl}
-        />
+        {job !== null && (
+          <>
+            <AssessmentPlanBuilder jobId={job.id} />
+            <AssessmentPlanTable jobId={job.id} />
+            <RatingGuideBuilder jobId={job.id} />
+          </>
+        )}
       </div>
     </section>
   );

@@ -18,7 +18,7 @@ interface ReviewCategoryProps {
   description: FormattedMessage.MessageDescriptor;
   showScreenOutAll: boolean;
   applications: Application[];
-  reviewStatusOptions: SelectOption<number>[];
+  reviewStatusOptions: SelectOption[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onBulkStatusChange: (
     applicationIds: number[],

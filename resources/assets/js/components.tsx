@@ -4,7 +4,12 @@
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+// require('./components/Reference');
+// require('./components/ReferenceList');
 require("./components/ApplicationReview/ReviewApplicationsContainer");
 require("./components/ApplicationReview/ApplicationReviewContainer");
 require("./components/ApplicantSkills/WordCounter");
 require("./components/ApplicantSkills/SkillsInfoModal");
+require("./components/JobDetails/JobDetails");
+require("./components/JobBuilderIntro/JobBuilderIntro");
+

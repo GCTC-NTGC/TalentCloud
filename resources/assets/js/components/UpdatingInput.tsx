@@ -30,15 +30,20 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
 
   public triggerSave(): void {
     const { value, minLength, handleSave } = this.props;
-    if (value.length > (minLength || 3) || value.length === 0) {
-      handleSave();
+    if (value !== undefined) {
+      if (
+        value.toString().length > (minLength || 3) ||
+        value.toString().length === 0
+      ) {
+        handleSave();
+      }
     }
   }
 
   public render(): React.ReactElement {
     const {
-      htmlId,
-      formName,
+      id,
+      name,
       label,
       required,
       placeholder,
@@ -52,8 +57,8 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
     } = this.props;
     return (
       <Input
-        htmlId={htmlId}
-        formName={formName}
+        id={id}
+        name={name}
         label={label}
         required={required}
         placeholder={placeholder}

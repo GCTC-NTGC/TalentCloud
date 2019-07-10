@@ -5,8 +5,17 @@ import {
   FETCH_JOB_STARTED,
   FETCH_JOB_SUCCEEDED,
   FETCH_JOB_FAILED,
+  UPDATE_JOB_SUCCEEDED,
+  UPDATE_JOB_STARTED,
+  UPDATE_JOB_FAILED,
+  EDIT_JOB,
+  CLEAR_JOB_EDIT,
+  CREATE_JOB_SUCCEEDED,
+  CREATE_JOB_STARTED,
+  CREATE_JOB_FAILED,
+  SET_SELECTED_JOB,
 } from "./jobActions";
-import { mapToObject, getId } from "../../helpers/queries";
+import { mapToObject, getId, deleteProperty } from "../../helpers/queries";
 
 export interface EntityState {
   jobs: {
@@ -19,6 +28,9 @@ export interface EntityState {
       [id: number]: Criteria;
     };
   };
+  jobEdits: {
+    [id: number]: Job;
+  };
 }
 
 export interface UiState {
@@ -28,6 +40,8 @@ export interface UiState {
   criteriaUpdating: {
     [id: number]: boolean;
   };
+  creatingJob: boolean;
+  selectedJobId: number | null;
 }
 
 export interface JobState {
@@ -38,11 +52,14 @@ export interface JobState {
 export const initEntities = (): EntityState => ({
   jobs: { byId: {} },
   criteria: { byId: {} },
+  jobEdits: {},
 });
 
 export const initUi = (): UiState => ({
   jobUpdating: {},
   criteriaUpdating: {},
+  creatingJob: false,
+  selectedJobId: null,
 });
 
 export const initState = (): JobState => ({
@@ -57,6 +74,7 @@ export const entitiesReducer = (
   switch (action.type) {
     case FETCH_JOB_SUCCEEDED:
       return {
+        ...state,
         jobs: {
           byId: {
             ...state.jobs.byId,
@@ -70,6 +88,39 @@ export const entitiesReducer = (
           },
         },
       };
+    case CREATE_JOB_SUCCEEDED:
+      return {
+        ...state,
+        jobs: {
+          byId: {
+            ...state.jobs.byId,
+            [action.payload.id]: action.payload,
+          },
+        },
+      };
+    case UPDATE_JOB_SUCCEEDED:
+      return {
+        ...state,
+        jobs: {
+          byId: {
+            ...state.jobs.byId,
+            [action.meta.id]: action.payload,
+          },
+        },
+      };
+    case EDIT_JOB:
+      return {
+        ...state,
+        jobEdits: {
+          ...state.jobEdits,
+          [action.payload.id]: action.payload,
+        },
+      };
+    case CLEAR_JOB_EDIT:
+      return {
+        ...state,
+        jobEdits: deleteProperty<Job>(state.jobEdits, action.payload),
+      };
     default:
       return state;
   }
@@ -77,7 +128,23 @@ export const entitiesReducer = (
 
 export const uiReducer = (state = initUi(), action: JobAction): UiState => {
   switch (action.type) {
+    case CREATE_JOB_STARTED:
+      return {
+        ...state,
+        creatingJob: true,
+      };
+    case CREATE_JOB_SUCCEEDED:
+      return {
+        ...state,
+        creatingJob: false,
+      };
+    case CREATE_JOB_FAILED:
+      return {
+        ...state,
+        creatingJob: false,
+      };
     case FETCH_JOB_STARTED:
+    case UPDATE_JOB_STARTED:
       return {
         ...state,
         jobUpdating: {
@@ -85,18 +152,25 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
         },
       };
     case FETCH_JOB_SUCCEEDED:
+    case FETCH_JOB_FAILED:
+    case UPDATE_JOB_FAILED:
       return {
         ...state,
         jobUpdating: {
           [action.meta.id]: false,
         },
       };
-    case FETCH_JOB_FAILED:
+    case UPDATE_JOB_SUCCEEDED:
       return {
         ...state,
         jobUpdating: {
           [action.meta.id]: false,
         },
+      };
+    case SET_SELECTED_JOB:
+      return {
+        ...state,
+        selectedJobId: action.payload.jobId,
       };
     default:
       return state;

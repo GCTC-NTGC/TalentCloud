@@ -1,0 +1,32 @@
+[
+  {
+    "id": "formValidation.required",
+    "description": "Error message displayed when a required field is empty.",
+    "defaultMessage": "This field is required."
+  },
+  {
+    "id": "formValidation.tooShort",
+    "description": "Error message displayed when a field value is below the minimum length.",
+    "defaultMessage": "Too short!"
+  },
+  {
+    "id": "formValidation.tooLong",
+    "description": "Error message displayed when a field value is above the maximum length.",
+    "defaultMessage": "Too long!"
+  },
+  {
+    "id": "formValidation.invalidSelection",
+    "description": "Error message displayed when a field value is outside of the available selection options.",
+    "defaultMessage": "Please select from the available options."
+  },
+  {
+    "id": "formInput.error",
+    "description": "Generic error message for inputs.",
+    "defaultMessage": "Something went wrong."
+  },
+  {
+    "id": "formInput.required",
+    "description": "Displayed next to required form inputs.",
+    "defaultMessage": "Required"
+  }
+]

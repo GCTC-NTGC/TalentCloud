@@ -29,7 +29,7 @@ describe("api/job", (): void => {
       submitted_applications_count: 0,
       city: "East Liashire",
       title: "I hadn't quite dull.",
-      impact:
+      hire_impact:
         "Delectus facilis nesciunt aut est distinctio sunt. Sunt minus sed minus quaerat eos.\n\nExcepturi voluptate nesciunt voluptatem et. Facilis occaecati iusto asperiores placeat vel dolores. Delectus magni inventore et eos. Ea ullam recusandae sunt accusantium.",
       branch: "eveniet",
       division: "et",
@@ -147,7 +147,7 @@ describe("api/job", (): void => {
           locale: "fr",
           city: "West Miloview",
           title: "White Rabbit noticed.",
-          impact:
+          hire_impact:
             "Fugiat temporibus provident sed accusantium est tenetur nisi. Qui nesciunt velit necessitatibus quam accusantium. Voluptatum aut sed qui soluta voluptatem.\n\nIpsam facilis aut qui et id eaque architecto. Et nihil aliquam suscipit. Dolor placeat voluptas velit velit laboriosam sed nostrum soluta.",
           branch: "omnis",
           division: "omnis",
@@ -161,7 +161,7 @@ describe("api/job", (): void => {
           locale: "en",
           city: "East Liashire",
           title: "I hadn't quite dull.",
-          impact:
+          hire_impact:
             "Delectus facilis nesciunt aut est distinctio sunt. Sunt minus sed minus quaerat eos.\n\nExcepturi voluptate nesciunt voluptatem et. Facilis occaecati iusto asperiores placeat vel dolores. Delectus magni inventore et eos. Ea ullam recusandae sunt accusantium.",
           branch: "eveniet",
           division: "et",
@@ -173,7 +173,7 @@ describe("api/job", (): void => {
       fr: {
         city: "West Miloview",
         title: "White Rabbit noticed.",
-        impact:
+        hire_impact:
           "Fugiat temporibus provident sed accusantium est tenetur nisi. Qui nesciunt velit necessitatibus quam accusantium. Voluptatum aut sed qui soluta voluptatem.\n\nIpsam facilis aut qui et id eaque architecto. Et nihil aliquam suscipit. Dolor placeat voluptas velit velit laboriosam sed nostrum soluta.",
         branch: "omnis",
         division: "omnis",
@@ -182,7 +182,7 @@ describe("api/job", (): void => {
       en: {
         city: "East Liashire",
         title: "I hadn't quite dull.",
-        impact:
+        hire_impact:
           "Delectus facilis nesciunt aut est distinctio sunt. Sunt minus sed minus quaerat eos.\n\nExcepturi voluptate nesciunt voluptatem et. Facilis occaecati iusto asperiores placeat vel dolores. Delectus magni inventore et eos. Ea ullam recusandae sunt accusantium.",
         branch: "eveniet",
         division: "et",
@@ -697,11 +697,9 @@ describe("api/job", (): void => {
       ],
     });
     it("Can parse a real example of a job response without throwing an error", (): void => {
-      expect(
-        (): void => {
-          parseJobResponse(jobResponse());
-        },
-      ).not.toThrow();
+      expect((): void => {
+        parseJobResponse(jobResponse());
+      }).not.toThrow();
     });
     it("Parses the close date correctly", (): void => {
       const expectDate = moment("2019-06-01T06:59:59+00:00").toDate();
