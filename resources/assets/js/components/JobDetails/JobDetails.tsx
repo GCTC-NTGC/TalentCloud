@@ -319,7 +319,7 @@ const teleworkOptions: {
   },
 ];
 const teleworkFrequencies: TeleworkOptionType[] = teleworkOptions.map(
-  option => option.id,
+  (option): TeleworkOptionType => option.id,
 );
 
 type FlexHourOptionType =
@@ -353,7 +353,9 @@ const flexHoursOptions: {
     label: formMessages.frequencyAlwaysLabel,
   },
 ];
-const flexHourFequencies = flexHoursOptions.map(option => option.id);
+const flexHourFequencies = flexHoursOptions.map(
+  (option): FlexHourOptionType => option.id,
+);
 
 const jobToValues = (job: Job | null, locale: string): JobFormValues =>
   job
