@@ -687,6 +687,11 @@
         "id": "formValidation.invalidSelection"
       },
       {
+        "defaultMessage": "At least one checkbox is required.",
+        "description": "Error message displayed when a required checkbox group or radio group is empty.",
+        "id": "formValidation.checkboxRequired"
+      },
+      {
         "defaultMessage": "Something went wrong.",
         "description": "Generic error message for inputs.",
         "id": "formInput.error"
@@ -852,12 +857,387 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "My Job Title (English)",
+        "description": "The label displayed on the job title input.",
+        "id": "jobBuilder.intro.jobTitleLabelEN"
+      },
+      {
+        "defaultMessage": "e.g. Design Manager",
+        "description": "The placeholder displayed on the job title input.",
+        "id": "jobBuilder.intro.jobTitlePlaceholderEN"
+      },
+      {
+        "defaultMessage": "My Job Title (Français)",
+        "description": "The label displayed on the job title input.",
+        "id": "jobBuilder.intro.jobTitleLabelFR"
+      },
+      {
+        "defaultMessage": "e.g. Gestionnaire de la conception",
+        "description": "The placeholder displayed on the job title input.",
+        "id": "jobBuilder.intro.jobTitlePlaceholderFR"
+      },
+      {
+        "defaultMessage": "My Department",
+        "description": "The label displayed on the department select box.",
+        "id": "jobBuilder.intro.departmentLabel"
+      },
+      {
+        "defaultMessage": "Select a department...",
+        "description": "The default selection option displayed on the department select box.",
+        "id": "jobBuilder.intro.departmentNullSelection"
+      },
+      {
+        "defaultMessage": "My Division (English)",
+        "description": "The label displayed on the division input.",
+        "id": "jobBuilder.intro.divisionLabelEN"
+      },
+      {
+        "defaultMessage": "e.g. Digital Change",
+        "description": "The placeholder displayed on the division input.",
+        "id": "jobBuilder.intro.divisionPlaceholderEN"
+      },
+      {
+        "defaultMessage": "My Division (Français)",
+        "description": "The label displayed on the division input.",
+        "id": "jobBuilder.intro.divisionLabelFR"
+      },
+      {
+        "defaultMessage": "e.g. Changement numérique",
+        "description": "The placeholder displayed on the division input.",
+        "id": "jobBuilder.intro.divisionPlaceholderFR"
+      },
+      {
         "defaultMessage": "EN Welcome to the Job Poster Builder",
         "description": "Header of Job Poster Builder Intro Step",
         "id": "jobBuilder.intro.welcome"
+      },
+      {
+        "defaultMessage": "This tool will help you create a job poster that attracts the right talent.",
+        "description": "Subtitle 1 of Job Poster Builder Intro Step",
+        "id": "jobBuilder.intro.subtitle01"
+      },
+      {
+        "defaultMessage": "We’ve also provided instructions and examples to help guide you through the process but if you still have questions, contact",
+        "description": "Subtitle 2 of Job Poster Builder Intro Step",
+        "id": "jobBuilder.intro.subtitle02"
+      },
+      {
+        "defaultMessage": "Before we get started please review your information.",
+        "description": "Before starting header of Job Poster Builder Intro Step",
+        "id": "jobBuilder.intro.beforeWeStart"
+      },
+      {
+        "defaultMessage": "Note: Changing your information on this form will also change these fields in your Profile.",
+        "description": "Ending note for hiring managers.",
+        "id": "jobBuilder.intro.note"
+      },
+      {
+        "defaultMessage": "Complete the job poster in the language of your choice. We will\n                  handle translation.",
+        "description": "Intstructions at bottom of form on language choice for job poster builder.",
+        "id": "jobBuilder.intro.completeInLanguage"
+      },
+      {
+        "defaultMessage": "Continue in English",
+        "description": "Label displayed on submit button for continuation of job builder in english.",
+        "id": "jobBuilder.intro.continueButtonLabelEN"
+      },
+      {
+        "defaultMessage": "Continuer en Français",
+        "description": "Label displayed on submit button for continuation of job builder in french.",
+        "id": "jobBuilder.intro.continueButtonLabelFR"
       }
     ],
-    "path": "resources/assets/js/components/JobBuilderIntro/JobBuilderIntro.json"
+    "path": "resources/assets/js/components/JobBuilderIntro/IntroForm.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Share a little about your physical space, the technology used by your team, and the amenities close to your office. Check all that apply.",
+        "description": "Section 1 description of Job Poster Builder Work Environment Step",
+        "id": "jobBuilder.workEnv.ourWorkEnvDesc"
+      },
+      {
+        "defaultMessage": "Team Size",
+        "description": "The label displayed on the team size input.",
+        "id": "jobBuilder.workEnv.teamSizeLabel"
+      },
+      {
+        "defaultMessage": "Our Physical Environment",
+        "description": "The label displayed on the physical environment checkbox group.",
+        "id": "jobBuilder.workEnv.physicalEnvLabel"
+      },
+      {
+        "defaultMessage": "Technology",
+        "description": "The label displayed on the technology checkbox group.",
+        "id": "jobBuilder.workEnv.technologyLabel"
+      },
+      {
+        "defaultMessage": "More about your Environment",
+        "description": "The title for the more about your environment textbox.",
+        "id": "jobBuilder.workEnv.moreOnWorkEnv"
+      },
+      {
+        "defaultMessage": "Anything else you'd like to add about your work environment? Highlight features of the physical environment, technology and amenities specific to your team.",
+        "description": "Subtext displayed for the more about your environment textbox.",
+        "id": "jobBuilder.workEnv.moreOnWorkEnvSubtext"
+      },
+      {
+        "defaultMessage": "More About Your Environment",
+        "description": "The label displayed for the more about your environment textbox.",
+        "id": "jobBuilder.workEnv.moreOnWorkEnvLabel"
+      },
+      {
+        "defaultMessage": "Try for a casual, frank, friendly tone.",
+        "description": "The placeholder displayed for the more about your environment textbox.",
+        "id": "jobBuilder.workEnv.moreOnWorkEnvPlaceholder"
+      },
+      {
+        "defaultMessage": "Our Culture",
+        "description": "Section 2 radio group title of our culture step.",
+        "id": "jobBuilder.workEnv.culture"
+      },
+      {
+        "defaultMessage": "Based on your selections, we'll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team.",
+        "description": "Subtext 2 displayed of the our culture section.",
+        "id": "jobBuilder.workEnv.cultureSubtext2"
+      },
+      {
+        "defaultMessage": "Fast-paced vs. Steady:",
+        "description": "The label for the fast-paced vs. steady radio group",
+        "id": "jobBuilder.workEnv.fastPacedSteadyLabel"
+      },
+      {
+        "defaultMessage": "Horizontal vs. Vertical:",
+        "description": "The label for the management radio group",
+        "id": "jobBuilder.workEnv.managementLabel"
+      },
+      {
+        "defaultMessage": "Experimental vs. Ongoing Business:",
+        "description": "The label for the experimental radio group",
+        "id": "jobBuilder.workEnv.experimentalLabel"
+      },
+      {
+        "defaultMessage": "Culture Summary",
+        "description": "The header for the culture summary section.",
+        "id": "jobBuilder.workEnv.cultureSummary"
+      },
+      {
+        "defaultMessage": "Here is the short paragraph summarizing your work culture which will appear on the job poster. Copy and paste it into the text box below if you want to customize it to the personality of your team and the way you work.",
+        "description": "The subtext for the culture summary section.",
+        "id": "jobBuilder.workEnv.cultureSummarySubtext"
+      },
+      {
+        "defaultMessage": "Customize your culture summary:",
+        "description": "The label for the custom culture summary textbox.",
+        "id": "jobBuilder.workEnv.customCultureSummaryLabel"
+      },
+      {
+        "defaultMessage": "Paste here to edit the paragraph.",
+        "description": "The placeholder for the custom culture summary textbox.",
+        "id": "jobBuilder.workEnv.customCultureSummaryPlaceholder"
+      },
+      {
+        "defaultMessage": "Anything Special About Your Work Culture?",
+        "description": "Title for subsection in our work culture.",
+        "id": "jobBuilder.workEnv.specialWorkCulture"
+      },
+      {
+        "defaultMessage": "Does your team care a lot about something else? Proud of the team's record of getting results? Strong commitment to mental wellness? Actively involved in advancing diversity and inclusion? LGBTQ+ champions? Here's a chance to let applicants know about the culture of the team they'll potentially be joining.",
+        "description": "Subtext for subsection in our work culture.",
+        "id": "jobBuilder.workEnv.specialWorkCultureSubtext"
+      },
+      {
+        "defaultMessage": "More About Your Work Culture",
+        "description": "The label for the 'more on work culture' textarea.",
+        "id": "jobBuilder.workEnv.specialWorkCultureLabel"
+      },
+      {
+        "defaultMessage": "Try for a casual, frank, friendly tone.",
+        "description": "Default placeholder for textarea element",
+        "id": "jobBuilder.workEnv.textAreaPlaceholder1"
+      },
+      {
+        "defaultMessage": "This is optional.",
+        "description": "Text indicator for optional sections within form.",
+        "id": "jobBuilder.workEnv.thisIsOptional"
+      },
+      {
+        "defaultMessage": "Open Concept",
+        "description": "Physical Environment checkbox group 'open concept' option.",
+        "id": "jobBuilder.workEnv.physEnv.openConcept"
+      },
+      {
+        "defaultMessage": "Private",
+        "description": "Physical Environment checkbox group 'private' option.",
+        "id": "jobBuilder.workEnv.physEnv.private"
+      },
+      {
+        "defaultMessage": "Assigned Seating",
+        "description": "Physical Environment checkbox group 'assigned seating' option.",
+        "id": "jobBuilder.workEnv.physEnv.assignedSeating"
+      },
+      {
+        "defaultMessage": "Lots of Windows",
+        "description": "Physical Environment checkbox group 'windows' option.",
+        "id": "jobBuilder.workEnv.physEnv.windows"
+      },
+      {
+        "defaultMessage": "Natural Light",
+        "description": "Physical Environment checkbox group 'natural light' option.",
+        "id": "jobBuilder.workEnv.physEnv.naturalLight"
+      },
+      {
+        "defaultMessage": "Suitable for Smudging",
+        "description": "Physical Environment checkbox group 'suitable for smudging' option.",
+        "id": "jobBuilder.workEnv.physEnv.smudging"
+      },
+      {
+        "defaultMessage": "Video Conferencing (e.g. Skype, Zoom)",
+        "description": "Technology checkbox group 'video conferencing' option.",
+        "id": "jobBuilder.workEnv.technology.videoConferencing"
+      },
+      {
+        "defaultMessage": "Collaboration (e.g. Slack, Hangouts)",
+        "description": "Technology checkbox group 'collaboration' option.",
+        "id": "jobBuilder.workEnv.technology.collaboration"
+      },
+      {
+        "defaultMessage": "File Sharing (e.g. Google Drive, Dropbox)",
+        "description": "Technology checkbox group 'file sharing' option.",
+        "id": "jobBuilder.workEnv.technology.fileSharing"
+      },
+      {
+        "defaultMessage": "Task Management (e.g. Trello, Asana)",
+        "description": "Technology checkbox group 'task management' option.",
+        "id": "jobBuilder.workEnv.technology.taskManagement"
+      },
+      {
+        "defaultMessage": "Version Control (e.g. Github, Gitlab)",
+        "description": "Technology checkbox group 'version control' option.",
+        "id": "jobBuilder.workEnv.technology.versionControl"
+      },
+      {
+        "defaultMessage": "Access to external, unfiltered Wi-Fi.",
+        "description": "Technology checkbox group 'access to external' option.",
+        "id": "jobBuilder.workEnv.technology.accessToExternal"
+      },
+      {
+        "defaultMessage": "Cafeteria On-site",
+        "description": "Amenities checkbox group 'cafeteria' option.",
+        "id": "jobBuilder.workEnv.amenities.cafeteria"
+      },
+      {
+        "defaultMessage": "Close to Transit",
+        "description": "Amenities checkbox group 'close to transit' option.",
+        "id": "jobBuilder.workEnv.amenities.closeToTransit"
+      },
+      {
+        "defaultMessage": "Walking Distance to Restaurants/Malls",
+        "description": "Amenities checkbox group 'restaurants' option.",
+        "id": "jobBuilder.workEnv.amenities.restaurants"
+      },
+      {
+        "defaultMessage": "Downtown",
+        "description": "Amenities checkbox group 'downtown' option.",
+        "id": "jobBuilder.workEnv.amenities.downtown"
+      },
+      {
+        "defaultMessage": "Nearby Fitness Centre",
+        "description": "Amenities checkbox group 'nearby fitness centre' option.",
+        "id": "jobBuilder.workEnv.amenities.fitnessCenter"
+      },
+      {
+        "defaultMessage": "Easy Access to Parking",
+        "description": "Amenities checkbox group 'parking' option.",
+        "id": "jobBuilder.workEnv.amenities.parking"
+      },
+      {
+        "defaultMessage": "Work Environment",
+        "description": "Header of job poster builder work environment step.",
+        "id": "jobBuilder.workEnv.title"
+      },
+      {
+        "defaultMessage": "Applicants care a lot about the team they'll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they'll be a good fit, and can reduce the number of \"wishful thinking\" applications that slow down the screening process.",
+        "description": "Description of job poster builder work environment step.",
+        "id": "jobBuilder.workEnv.stepDescription"
+      },
+      {
+        "defaultMessage": "Our Work Environment",
+        "description": "Section 1 of Job Poster Builder Work Environment Step",
+        "id": "jobBuilder.workEnv.ourWorkEnv"
+      },
+      {
+        "defaultMessage": "Now let applicants know more about the personality of your team and the type of work that you usually do.",
+        "description": "Subtext 1 displayed of the our culture section.",
+        "id": "jobBuilder.workEnv.cultureSubtext1"
+      },
+      {
+        "defaultMessage": "Preview Work Environment",
+        "description": "Label for work environment submit button.",
+        "id": "jobBuilder.workEnv.submitButtonLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilderWorkEnv/WorkEnvForm.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "You're off to a great start!",
+        "description": "Kicker message at the start of the modal.",
+        "id": "jobBuilder.workEnv.greatStart"
+      },
+      {
+        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\n                free to go back and edit things or move to the next step if\n                you're happy with it.",
+        "description": "Opening sentence for modal.",
+        "id": "jobBuilder.workEnv.openingSentence"
+      },
+      {
+        "defaultMessage": "Work Environment",
+        "description": "Header of job poster builder work environment step.",
+        "id": "jobBuilder.workEnvModal.title"
+      },
+      {
+        "defaultMessage": "Team Size",
+        "description": "Title for Team size section.",
+        "id": "jobBuilder.workEnvModal.teamSize"
+      },
+      {
+        "defaultMessage": "Our Physical Environment",
+        "description": "The label displayed on the physical environment checkbox group.",
+        "id": "jobBuilder.workEnvModal.physicalEnvLabel"
+      },
+      {
+        "defaultMessage": "Technology",
+        "description": "The label displayed on the technology checkbox group.",
+        "id": "jobBuilder.workEnvModal.technologyLabel"
+      },
+      {
+        "defaultMessage": "Amenities",
+        "description": "The label displayed on the amenities checkbox group.",
+        "id": "jobBuilder.workEnvModal.amenitiesLabel"
+      },
+      {
+        "defaultMessage": "More About Your Environment",
+        "description": "The label displayed for the more about your environment textbox.",
+        "id": "jobBuilder.workEnvModal.moreOnWorkEnvLabel"
+      },
+      {
+        "defaultMessage": "Work Culture",
+        "description": "The title displayed for the work culture section on modal.",
+        "id": "jobBuilder.workEnvModal.workCultureTitle"
+      },
+      {
+        "defaultMessage": "Go Back",
+        "description": "The label displayed on modal cancel button.",
+        "id": "jobBuilder.workEnvModal.cancelLabel"
+      },
+      {
+        "defaultMessage": "Next Step",
+        "description": "The label displayed on modal confirm button.",
+        "id": "jobBuilder.workEnvModal.confirmLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilderWorkEnv/WorkEnvModal.json"
   },
   {
     "descriptors": [
