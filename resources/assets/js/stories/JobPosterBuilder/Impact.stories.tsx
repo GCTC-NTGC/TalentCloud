@@ -5,6 +5,8 @@ import { action } from "@storybook/addon-actions";
 import { select, text } from "@storybook/addon-knobs";
 import JobBuilderImpact from "../../components/JobBuilderImpact/JobBuilderImpact";
 import JobImpactPreview from "../../components/JobBuilderImpact/JobImpactPreview";
+import fakeDepartments from "../../fakeData/fakeDepartments";
+import fakeJob from "../../fakeData/fakeJob";
 
 const stories = storiesOf("Job Poster Builder|Impact", module).addDecorator(
   withIntl,
@@ -16,18 +18,8 @@ const handleSubmit = async (): Promise<boolean> => {
 };
 
 const deptOptions = {
-  "Treasury Board": "treasuryBoard",
-  "Natural Resources": "naturalResources",
-  Transport: "transport",
-  "Environment and Climate Change": "environmentAndClimateChange",
-  "Employment and Social Development": "employmentAndSocialDevelopment",
-  "Global Affairs": "globalAffairs",
-  "Boarder Service Agency": "boarderServicesAgency",
-  "Innovation and Science": "innovationScience",
-  "Public Service Procurement": "publicServiceAndProcurement",
-  "Department National Defence": "departmentNationalDefence",
-  "Shared Services Canada": "sharedServicesCanada",
-  "Health Canada": "healthCanada",
+  "Treasury Board": 1,
+  "Natural Resources": 2,
 };
 
 stories
@@ -35,8 +27,50 @@ stories
     "New Job",
     (): React.ReactElement => (
       <JobBuilderImpact
-        department={select("Department", deptOptions, "treasuryBoard")}
+        departments={fakeDepartments()}
         job={null}
+        handleSubmit={handleSubmit}
+        handleModalCancel={action("Modal Cancelled")}
+        handleModalConfirm={action("Modal Confirmed")}
+      />
+    ),
+  )
+  .add(
+    "Existing Job",
+    (): React.ReactElement => (
+      <JobBuilderImpact
+        departments={fakeDepartments()}
+        job={{
+          ...fakeJob(),
+          department_id: select("Department", deptOptions, 1),
+        }}
+        handleSubmit={handleSubmit}
+        handleModalCancel={action("Modal Cancelled")}
+        handleModalConfirm={action("Modal Confirmed")}
+      />
+    ),
+  )
+  .add(
+    "Departments Loading",
+    (): React.ReactElement => (
+      <JobBuilderImpact
+        departments={[]}
+        job={fakeJob()}
+        handleSubmit={handleSubmit}
+        handleModalCancel={action("Modal Cancelled")}
+        handleModalConfirm={action("Modal Confirmed")}
+      />
+    ),
+  )
+  .add(
+    "Unknown Department",
+    (): React.ReactElement => (
+      <JobBuilderImpact
+        departments={fakeDepartments()}
+        job={{
+          ...fakeJob(),
+          department_id: 100,
+        }}
         handleSubmit={handleSubmit}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
