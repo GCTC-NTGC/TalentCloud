@@ -241,147 +241,148 @@ const JobBuilderImpact: React.FunctionComponent<
                 (): void => actions.setSubmitting(false), // Required by Formik to finish the submission cycle
               );
           }}
-          render={({ isSubmitting }): React.ReactElement => (
-            <Form id="form" data-c-grid="gutter">
-              <div data-c-grid-item="base(1of1)" data-c-input="textarea">
-                <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-                  <FormattedMessage
-                    id="jobBuilder.impact.teamHeader"
-                    defaultMessage="How our team makes an impact:"
-                    description="Header of Job Poster Builder Team Impact Section"
-                  />
-                </p>
-                <p data-c-margin="bottom(normal)">
-                  <FormattedMessage
-                    id="jobBuilder.impact.teamBody"
-                    defaultMessage="Describe the value your team/service/initiative brings to Canadians.
+          render={({ values, isSubmitting }): React.ReactElement => (
+            <>
+              <Form id="form" data-c-grid="gutter">
+                <div data-c-grid-item="base(1of1)" data-c-input="textarea">
+                  <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                    <FormattedMessage
+                      id="jobBuilder.impact.teamHeader"
+                      defaultMessage="How our team makes an impact:"
+                      description="Header of Job Poster Builder Team Impact Section"
+                    />
+                  </p>
+                  <p data-c-margin="bottom(normal)">
+                    <FormattedMessage
+                      id="jobBuilder.impact.teamBody"
+                      defaultMessage="Describe the value your team/service/initiative brings to Canadians.
               It doesn’t matter if your work is direct to citizens or back office,
               innovative or maintenance, top priority or ongoing. Describe how it
               contributes to making Canada better the way you would to someone who
               knows nothing about your work."
-                    description="Body of Job Poster Builder Team Impact Section"
-                  />
-                </p>
-                <div>
-                  <Field
-                    name="teamImpact"
-                    id="TeamImpact"
-                    placeholder={intl.formatMessage(messages.teamPlaceholder)}
-                    label={intl.formatMessage(messages.teamLabel)}
-                    required
-                    component={TextAreaInput}
-                  />
+                      description="Body of Job Poster Builder Team Impact Section"
+                    />
+                  </p>
+                  <div>
+                    <Field
+                      name="teamImpact"
+                      id="TeamImpact"
+                      placeholder={intl.formatMessage(messages.teamPlaceholder)}
+                      label={intl.formatMessage(messages.teamLabel)}
+                      required
+                      component={TextAreaInput}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div data-c-grid-item="base(1of1)" data-c-input="textarea">
-                <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-                  <FormattedMessage
-                    id="jobBuilder.impact.hireHeader"
-                    defaultMessage="How the new hire makes an impact:"
-                    description="Header of Job Poster Builder Hire Impact Section"
-                  />
-                </p>
-                <p data-c-margin="bottom(normal)">
-                  <FormattedMessage
-                    id="jobBuilder.impact.hireBody"
-                    defaultMessage="Describe how the new hire will contribute in this role. Focus on the
+                <div data-c-grid-item="base(1of1)" data-c-input="textarea">
+                  <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                    <FormattedMessage
+                      id="jobBuilder.impact.hireHeader"
+                      defaultMessage="How the new hire makes an impact:"
+                      description="Header of Job Poster Builder Hire Impact Section"
+                    />
+                  </p>
+                  <p data-c-margin="bottom(normal)">
+                    <FormattedMessage
+                      id="jobBuilder.impact.hireBody"
+                      defaultMessage="Describe how the new hire will contribute in this role. Focus on the
               value they’ll bring, not on specific tasks (you’ll provide these
               later on). For example “In this role, you’ll contribute to…” or, “As
               a member of this team, you’ll be responsible for helping us…”"
-                    description="Body of Job Poster Builder Hire Impact Section"
-                  />
-                </p>
-                <div>
-                  <Field
-                    id="HireImpact"
-                    name="hireImpact"
-                    label={intl.formatMessage(messages.hireLabel)}
-                    placeholder={intl.formatMessage(messages.hirePlaceholder)}
-                    required
-                    component={TextAreaInput}
-                  />
+                      description="Body of Job Poster Builder Hire Impact Section"
+                    />
+                  </p>
+                  <div>
+                    <Field
+                      id="HireImpact"
+                      name="hireImpact"
+                      label={intl.formatMessage(messages.hireLabel)}
+                      placeholder={intl.formatMessage(messages.hirePlaceholder)}
+                      required
+                      component={TextAreaInput}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
-                {/* <!-- Modal trigger, same as last step. --> */}
-                <button
-                  data-c-button="solid(c1)"
-                  data-c-dialog-action="open"
-                  data-c-dialog-id="impact-dialog"
-                  data-c-radius="rounded"
-                  disabled={isSubmitting}
-                  form="form"
-                  type="submit"
+                <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
+                  {/* <!-- Modal trigger, same as last step. --> */}
+                  <button
+                    data-c-button="solid(c1)"
+                    data-c-dialog-action="open"
+                    data-c-dialog-id="impact-dialog"
+                    data-c-radius="rounded"
+                    disabled={isSubmitting}
+                    form="form"
+                    type="submit"
+                  >
+                    <FormattedMessage
+                      id="jobBuilder.impact.button.next"
+                      defaultMessage="Next"
+                      description="Button text Next"
+                    />
+                  </button>
+                </div>
+              </Form>
+              {isModalVisible && (
+                <Modal
+                  id="impact-dialog"
+                  parentElement={modalParentRef.current}
+                  visible={isModalVisible}
+                  onModalConfirm={(): void => {
+                    handleModalConfirm();
+                    setIsModalVisible(false);
+                  }}
+                  onModalCancel={(): void => {
+                    handleModalCancel();
+                    setIsModalVisible(false);
+                  }}
                 >
-                  <FormattedMessage
-                    id="jobBuilder.impact.button.next"
-                    defaultMessage="Next"
-                    description="Button text Next"
-                  />
-                </button>
-              </div>
-            </Form>
+                  <Modal.Header>
+                    <div
+                      data-c-background="c1(100)"
+                      data-c-border="bottom(thin, solid, black)"
+                      data-c-padding="normal"
+                    >
+                      <h5
+                        data-c-colour="white"
+                        data-c-font-size="h4"
+                        id="job-impact-preview-title"
+                      >
+                        Awesome work!
+                      </h5>
+                    </div>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <div
+                      data-c-border="bottom(thin, solid, black)"
+                      data-c-padding="normal"
+                      id="job-details-preview-description"
+                    >
+                      Here&apos;s a preview of the Impact Statement you just
+                      entered. Feel free to go back and edit things or move to
+                      the next step if you&apos;re happy with it.
+                    </div>
+                    <div
+                      data-c-background="grey(20)"
+                      data-c-border="bottom(thin, solid, black)"
+                      data-c-padding="normal"
+                    >
+                      <JobImpactPreview
+                        deptImpact={deptImpact}
+                        teamImpact={values.teamImpact}
+                        hireImpact={values.hireImpact}
+                      />
+                    </div>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
+                    <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
+                  </Modal.Footer>
+                </Modal>
+              )}
+            </>
           )}
         />
       </div>
-      {isModalVisible && (
-        <Modal
-          id="impact-dialog"
-          parentElement={modalParentRef.current}
-          visible={isModalVisible}
-          onModalConfirm={(): void => {
-            handleModalConfirm();
-            setIsModalVisible(false);
-          }}
-          onModalCancel={(): void => {
-            handleModalCancel();
-            setIsModalVisible(false);
-          }}
-        >
-          <Modal.Header>
-            <div
-              data-c-background="c1(100)"
-              data-c-border="bottom(thin, solid, black)"
-              data-c-padding="normal"
-            >
-              <h5
-                data-c-colour="white"
-                data-c-font-size="h4"
-                id="job-impact-preview-title"
-              >
-                Awesome work!
-              </h5>
-            </div>
-          </Modal.Header>
-          <Modal.Body>
-            <div
-              data-c-border="bottom(thin, solid, black)"
-              data-c-padding="normal"
-              id="job-details-preview-description"
-            >
-              Here&apos;s a preview of the Impact Statement you just entered.
-              Feel free to go back and edit things or move to the next step if
-              you&apos;re happy with it.
-            </div>
-            <div
-              data-c-background="grey(20)"
-              data-c-border="bottom(thin, solid, black)"
-              data-c-padding="normal"
-            >
-              {/* TODO: Pull in the signed-in Manager's department */}
-              <JobImpactPreview
-                deptImpact={deptImpact}
-                teamImpact={initialValues.teamImpact}
-                hireImpact={initialValues.hireImpact}
-              />
-            </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
-            <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
-          </Modal.Footer>
-        </Modal>
-      )}
       <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
     </section>
   );
