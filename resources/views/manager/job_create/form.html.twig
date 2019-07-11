@@ -547,7 +547,7 @@
                                         <option
                                             value="{{ department.id }}"
                                             {% if (template_department_id != null and template_department_id == department.id) %}selected="selected"{% endif %}>
-                                            {{ department.value }}
+                                            {{ department.name }}
                                         </option>
                                     {% endfor %}
                                 </select>
