@@ -24,8 +24,6 @@ interface JobBuilderImpactProps {
   handleModalCancel: () => void;
   // Function to run when modal confirm is clicked.
   handleModalConfirm: () => void;
-  // Parent element to place the modal contents within (uses React Portal).
-  modalParent: Element;
 }
 
 interface JobImpactValues {
@@ -154,7 +152,6 @@ const JobBuilderImpact: React.FunctionComponent<
   intl,
   department,
   job,
-  modalParent,
   handleSubmit,
   handleModalCancel,
   handleModalConfirm,

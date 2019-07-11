@@ -44,7 +44,6 @@ stories
         handleSubmit={handleSubmit}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
-        modalParent={modalRoot || document.body}
       />
     ),
     {
