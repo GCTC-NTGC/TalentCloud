@@ -1377,7 +1377,67 @@
         "id": "jobDetails.frequencyNeverLabel"
       },
       {
-        "defaultMessage": "Job Information",
+        "defaultMessage": "AS - Administrative Services",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobDetails.classificationOptions.AS"
+      },
+      {
+        "defaultMessage": "BI - Biological Sciences",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobDetails.classificationOptions.BI"
+      },
+      {
+        "defaultMessage": "CO - Commerce",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobDetails.classificationOptions.CO"
+      },
+      {
+        "defaultMessage": "CR - Clerical and Regulatory",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobDetails.classificationOptions.CR"
+      },
+      {
+        "defaultMessage": "CS - Computer Systems",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobDetails.classificationOptions.CS"
+      },
+      {
+        "defaultMessage": "EC - Economics and Social Science Services",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobDetails.classificationOptions.EC"
+      },
+      {
+        "defaultMessage": "EX - Executive",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobDetails.classificationOptions.EX"
+      },
+      {
+        "defaultMessage": "FO - Forestry",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobDetails.classificationOptions.FO"
+      },
+      {
+        "defaultMessage": "IS - Information Services",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobDetails.classificationOptions.IS"
+      },
+      {
+        "defaultMessage": "PC - Physical Sciences",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobDetails.classificationOptions.PC"
+      },
+      {
+        "defaultMessage": "PE - Personnel Administration",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobDetails.classificationOptions.PE"
+      },
+      {
+        "defaultMessage": "PM - Programme Administration",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobDetails.classificationOptions.PM"
+      },
+      {
+        "defaultMessage": "Job Details",
         "description": "Job Details page heading",
         "id": "jobDetails.heading"
       },
@@ -1438,6 +1498,16 @@
       }
     ],
     "path": "resources/assets/js/components/JobDetails/JobDetails.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Job Loading...",
+        "description": "Message indicating that the current job is still being loaded.",
+        "id": "jobDetailsPage.loading"
+      }
+    ],
+    "path": "resources/assets/js/components/JobDetails/JobDetailsPage.json"
   },
   {
     "descriptors": [
@@ -1769,23 +1839,23 @@
       },
       {
         "defaultMessage": "English essential",
-        "id": "languageRequirment.english"
+        "id": "languageRequirement.english"
       },
       {
         "defaultMessage": "French essential",
-        "id": "languageRequirment.french"
+        "id": "languageRequirement.french"
       },
       {
         "defaultMessage": "Bilingual - Intermediate",
-        "id": "languageRequirment.bilingualIntermediate"
+        "id": "languageRequirement.bilingualIntermediate"
       },
       {
         "defaultMessage": "Bilingual - Advanced",
-        "id": "languageRequirment.bilingualAdvanced"
+        "id": "languageRequirement.bilingualAdvanced"
       },
       {
         "defaultMessage": "English or French",
-        "id": "languageRequirment.englishOrFrench"
+        "id": "languageRequirement.englishOrFrench"
       },
       {
         "defaultMessage": "Treasury Board of Canada Secretariat",

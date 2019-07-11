@@ -13,7 +13,7 @@ import {
   LanguageRequirementId,
   DepartmentId,
 } from "./lookupConstants";
-import { hasKey, getOrThrowError } from "../helpers/queries";
+import { getOrThrowError } from "../helpers/queries";
 
 interface SkillLevel {
   hardBasic: FormattedMessage.MessageDescriptor;
@@ -536,34 +536,34 @@ export const securityClearance = (
     "invalid security clearance id",
   );
 
-const languageRequirments = defineMessages({
+const languageRequirements = defineMessages({
   [LanguageRequirementId.english]: {
-    id: "languageRequirment.english",
+    id: "languageRequirement.english",
     defaultMessage: "English essential",
   },
   [LanguageRequirementId.french]: {
-    id: "languageRequirment.french",
+    id: "languageRequirement.french",
     defaultMessage: "French essential",
   },
   [LanguageRequirementId.bilingualIntermediate]: {
-    id: "languageRequirment.bilingualIntermediate",
+    id: "languageRequirement.bilingualIntermediate",
     defaultMessage: "Bilingual - Intermediate",
   },
   [LanguageRequirementId.bilingualAdvanced]: {
-    id: "languageRequirment.bilingualAdvanced",
+    id: "languageRequirement.bilingualAdvanced",
     defaultMessage: "Bilingual - Advanced",
   },
   [LanguageRequirementId.englishOrFrench]: {
-    id: "languageRequirment.englishOrFrench",
+    id: "languageRequirement.englishOrFrench",
     defaultMessage: "English or French",
   },
 });
 
-export const languageRequirment = (
+export const languageRequirement = (
   languageRequirementId: number,
 ): FormattedMessage.MessageDescriptor =>
   getOrThrowError(
-    languageRequirments,
+    languageRequirements,
     languageRequirementId,
     "invalid LanguageRequirementId",
   );

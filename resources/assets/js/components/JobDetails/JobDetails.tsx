@@ -29,7 +29,7 @@ import {
 import { emptyJob } from "../../models/jobUtil";
 import {
   securityClearance,
-  languageRequirment,
+  languageRequirement,
   provinceName,
 } from "../../models/localizedConstants";
 
@@ -186,62 +186,62 @@ const classificationOptionMessages = defineMessages({
   AdministrativeServices: {
     id: "jobDetails.classificationOptions.AS",
     defaultMessage: "AS - Administrative Services",
-    description: "Job Classifiication from list of Classifications",
+    description: "Job Classification from list of Classifications",
   },
   BiologicalSciences: {
     id: "jobDetails.classificationOptions.BI",
     defaultMessage: "BI - Biological Sciences",
-    description: "Job Classifiication from list of Classifications",
+    description: "Job Classification from list of Classifications",
   },
   Commerce: {
     id: "jobDetails.classificationOptions.CO",
     defaultMessage: "CO - Commerce",
-    description: "Job Classifiication from list of Classifications",
+    description: "Job Classification from list of Classifications",
   },
   ClericalRegulatory: {
     id: "jobDetails.classificationOptions.CR",
     defaultMessage: "CR - Clerical and Regulatory",
-    description: "Job Classifiication from list of Classifications",
+    description: "Job Classification from list of Classifications",
   },
   ComputerSystems: {
     id: "jobDetails.classificationOptions.CS",
     defaultMessage: "CS - Computer Systems",
-    description: "Job Classifiication from list of Classifications",
+    description: "Job Classification from list of Classifications",
   },
   EconomicsSocialSciences: {
     id: "jobDetails.classificationOptions.EC",
     defaultMessage: "EC - Economics and Social Science Services",
-    description: "Job Classifiication from list of Classifications",
+    description: "Job Classification from list of Classifications",
   },
   Executive: {
     id: "jobDetails.classificationOptions.EX",
     defaultMessage: "EX - Executive",
-    description: "Job Classifiication from list of Classifications",
+    description: "Job Classification from list of Classifications",
   },
   Forestry: {
     id: "jobDetails.classificationOptions.FO",
     defaultMessage: "FO - Forestry",
-    description: "Job Classifiication from list of Classifications",
+    description: "Job Classification from list of Classifications",
   },
   InformationServices: {
     id: "jobDetails.classificationOptions.IS",
     defaultMessage: "IS - Information Services",
-    description: "Job Classifiication from list of Classifications",
+    description: "Job Classification from list of Classifications",
   },
   PhysicalSciences: {
     id: "jobDetails.classificationOptions.PC",
     defaultMessage: "PC - Physical Sciences",
-    description: "Job Classifiication from list of Classifications",
+    description: "Job Classification from list of Classifications",
   },
   PersonnelAdminstration: {
     id: "jobDetails.classificationOptions.PE",
     defaultMessage: "PE - Personnel Administration",
-    description: "Job Classifiication from list of Classifications",
+    description: "Job Classification from list of Classifications",
   },
   ProgrammeAdministration: {
     id: "jobDetails.classificationOptions.PM",
     defaultMessage: "PM - Programme Administration",
-    description: "Job Classifiication from list of Classifications",
+    description: "Job Classification from list of Classifications",
   },
 });
 
@@ -727,7 +727,7 @@ const JobDetails: React.FunctionComponent<
                   options={Object.values(LanguageRequirementId).map(
                     (id: number): { value: number; label: string } => ({
                       value: id,
-                      label: intl.formatMessage(languageRequirment(id)),
+                      label: intl.formatMessage(languageRequirement(id)),
                     }),
                   )}
                 />
@@ -939,18 +939,23 @@ const JobDetails: React.FunctionComponent<
                       data-c-padding="normal"
                     >
                       {/* TODO: Pull in the signed-in Manager's department */}
-                      {/* TODO: Get the actual value for things like language and security level */}
                       <JobPreview
                         title={values.title}
                         department="Department"
                         remoteWork={values.remoteWork !== "remoteWorkNone"}
-                        language={String(values.language)} // TODO: remove String() cast
+                        language={intl.formatMessage(
+                          languageRequirement(Number(values.language)),
+                        )}
                         city={values.city}
-                        province={String(values.province)} // TODO: remove String() cast
+                        province={intl.formatMessage(
+                          provinceName(Number(values.province)),
+                        )}
                         termLength={Number(values.termLength)}
-                        securityLevel={String(values.securityLevel)} // TODO: remove String() cast
-                        classification={String(values.classification)} // TODO: remove String() cast
-                        level={String(values.level)} // TODO: remove String() cast
+                        securityLevel={intl.formatMessage(
+                          securityClearance(Number(values.securityLevel)),
+                        )}
+                        classification={String(values.classification)}
+                        level={String(values.level)}
                       />
                     </div>
                   </Modal.Body>
