@@ -1,0 +1,27 @@
+[
+  {
+    "id": "jobBuilder.impact.title",
+    "description": "Header of Job Poster Builder Impact Step",
+    "defaultMessage": "Create an Impact Statement"
+  },
+  {
+    "id": "jobBuilder.impact.points.opportunity",
+    "description": "Bullet Point on Job Poster Builder Impact Step",
+    "defaultMessage": "Working in the federal government offers an important opportunity to have a broad impact for Canadians."
+  },
+  {
+    "id": "jobBuilder.impact.points.highlight",
+    "description": "Bullet Point on Job Poster Builder Impact Step",
+    "defaultMessage": "This is your chance to highlight what makes your work valuable and interesting."
+  },
+  {
+    "id": "jobBuilder.impact.points.counts",
+    "description": "Bullet Point on Job Poster Builder Impact Step",
+    "defaultMessage": "Your impact statement is the first thing that applicants will see when they click your job poster so make sure it counts!"
+  },
+  {
+    "id": "jobBuilder.impact.header.department",
+    "description": "Header of Department Impact Section on Job Poster Builder Impact Step",
+    "defaultMessage": "How our department makes an impact:"
+  }
+]

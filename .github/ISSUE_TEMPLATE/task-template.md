@@ -1,7 +1,7 @@
 ---
 name: Task Template
-about: This template is for product development tasks.
-title: 'Applicant/Manager/Admin/Sitewide - '
+about: This template is for development tasks.
+title: 'Task - Applicant/Manager/Admin - '
 labels: ''
 assignees: ''
 
@@ -10,8 +10,13 @@ assignees: ''
 # Description
 Enter the task description here.
 
+# Images
+Place image attachments (wireframes, etc.) here.
+
 - [ ] This task requires a unit test.
 - [ ] This task is complex and needs acceptance criteria.
 
-# Images
-Place image attachments (wireframes, etc.) here.
+# Acceptance criteria
+- [ ] Requirement one
+- [ ] Requirement two
+- [ ] Requirement three

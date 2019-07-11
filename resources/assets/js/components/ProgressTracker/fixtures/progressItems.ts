@@ -5,3 +5,5 @@ export const items: ProgressTrackerItem[] = [
   { state: "complete", label: "Step 02", title: "Work Env." },
   { state: "error", label: "Step 03", title: "Impact" },
 ];
+
+export default items;
