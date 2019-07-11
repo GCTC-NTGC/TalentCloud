@@ -7,14 +7,12 @@ import {
 } from "react-intl";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import ProgressTracker from "../ProgressTracker/ProgressTracker";
-import { items } from "../ProgressTracker/fixtures/progressItems";
 import { Job } from "../../models/types";
 import { emptyJob } from "../../models/jobUtil";
 import JobImpactPreview from "./JobImpactPreview";
 import Modal from "../Modal";
-import TextArea from "../TextArea";
 import { validationMessages } from "../Form/Messages";
+import TextAreaInput from "../Form/TextAreaInput";
 
 interface JobBuilderImpactProps {
   department?: string;
@@ -186,13 +184,6 @@ const JobBuilderImpact: React.FunctionComponent<
     : "";
   return (
     <section ref={modalParentRef}>
-      <ProgressTracker
-        items={items}
-        backgroundColor="black"
-        fontColor="white"
-        classNames="manager-jpb-tracker"
-        itemsWrapperClassNames="tracker manager-jpb-tracker-wrapper"
-      />
       <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
         <h3
           data-c-font-size="h3"
@@ -281,7 +272,7 @@ const JobBuilderImpact: React.FunctionComponent<
                     placeholder={intl.formatMessage(messages.teamPlaceholder)}
                     label={intl.formatMessage(messages.teamLabel)}
                     required
-                    component={TextArea}
+                    component={TextAreaInput}
                   />
                 </div>
               </div>
@@ -310,7 +301,7 @@ const JobBuilderImpact: React.FunctionComponent<
                     label={intl.formatMessage(messages.hireLabel)}
                     placeholder={intl.formatMessage(messages.hirePlaceholder)}
                     required
-                    component={TextArea}
+                    component={TextAreaInput}
                   />
                 </div>
               </div>
