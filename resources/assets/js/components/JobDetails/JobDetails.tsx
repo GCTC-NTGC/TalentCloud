@@ -233,7 +233,7 @@ const classificationOptionMessages = defineMessages({
     defaultMessage: "PC - Physical Sciences",
     description: "Job Classification from list of Classifications",
   },
-  PersonnelAdminstration: {
+  PersonnelAdministration: {
     id: "jobDetails.classificationOptions.PE",
     defaultMessage: "PE - Personnel Administration",
     description: "Job Classification from list of Classifications",
@@ -664,7 +664,7 @@ const JobDetails: React.FunctionComponent<
                     {
                       value: "PE",
                       label: intl.formatMessage(
-                        classificationOptionMessages.PersonnelAdminstration,
+                        classificationOptionMessages.PersonnelAdministration,
                       ),
                     },
                     {
