@@ -1,18 +1,14 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { withInfo } from "@storybook/addon-info";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import { withKnobs, select, text } from "@storybook/addon-knobs";
+import { select, text } from "@storybook/addon-knobs";
 import JobBuilderImpact from "../../components/JobBuilderImpact/JobBuilderImpact";
 import JobImpactPreview from "../../components/JobBuilderImpact/JobImpactPreview";
 
-const stories = storiesOf("Job Builder - Impact", module)
-  .addDecorator(withInfo)
-  .addDecorator(withKnobs)
-  .addDecorator(withIntl);
-
-const modalRoot = document.querySelector("#modal-root");
+const stories = storiesOf("Job Poster Builder|Impact", module).addDecorator(
+  withIntl,
+);
 
 const handleSubmit = async (): Promise<boolean> => {
   action("Submitted")();
@@ -36,7 +32,7 @@ const deptOptions = {
 
 stories
   .add(
-    "Job Builder Impact",
+    "New Job",
     (): React.ReactElement => (
       <JobBuilderImpact
         department={select("Department", deptOptions, "treasuryBoard")}
@@ -46,12 +42,9 @@ stories
         handleModalConfirm={action("Modal Confirmed")}
       />
     ),
-    {
-      info: { inline: true },
-    },
   )
   .add(
-    "Impact Preview",
+    "Preview",
     (): React.ReactElement => (
       <JobImpactPreview
         deptImpact={text(
@@ -68,7 +61,4 @@ stories
         )}
       />
     ),
-    {
-      info: { inline: true },
-    },
   );
