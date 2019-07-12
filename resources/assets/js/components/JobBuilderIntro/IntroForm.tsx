@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   injectIntl,
   InjectedIntlProps,
   FormattedMessage,
+  FormattedHTMLMessage,
   defineMessages,
 } from "react-intl";
 import { Form, Field, Formik, FormikValues } from "formik";
 import * as Yup from "yup";
 import { validationMessages } from "../Form/Messages";
+import { Job } from "../../models/types";
+import { DepartmentId } from "../../models/lookupConstants";
+import { departmentName } from "../../models/localizedConstants";
+import { emptyJob } from "../../models/jobUtil";
 import SelectInput from "../Form/SelectInput";
 import TextInput from "../Form/TextInput";
 
@@ -69,28 +74,67 @@ const formMessages = defineMessages({
 interface FormValues {
   jobTitleEN: string;
   jobTitleFR: string;
-  department: string;
+  department: number | "";
   divisionEN: string;
   divisionFR: string;
 }
 
 interface IntroFormProps {
-  handleSubmit: (values: FormikValues) => void;
+  // If not null, used to prepopulate form values
+  job: Job | null;
+  // Runs after successful validation.
+  // It must (asyncronously) return the resulting job, if successful.
+  handleSubmit: (job: Job) => Promise<Job>;
+  // Continues the JobBuilder in English.
+  handleContinueEn: (job: Job) => void;
+  // Continues the JobBuilder in French.
+  handleContinueFr: (job: Job) => void;
 }
+
+const jobToValues = (job: Job | null): FormValues =>
+  job
+    ? {
+        jobTitleEN: job.en.title || "",
+        jobTitleFR: job.fr.title || "",
+        department: job.department_id || "",
+        divisionEN: job.en.division || "",
+        divisionFR: job.fr.division || "",
+      }
+    : {
+        jobTitleEN: "",
+        jobTitleFR: "",
+        department: "",
+        divisionEN: "",
+        divisionFR: "",
+      };
+
+const updateJobWithValues = (job: Job, values: FormValues): Job => ({
+  ...job,
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  department_id: values.department || null,
+  en: {
+    ...job.en,
+    title: values.jobTitleEN || null,
+    division: values.divisionEN || null,
+  },
+  fr: {
+    ...job.fr,
+    title: values.jobTitleFR || null,
+    division: values.divisionFR || null,
+  },
+});
 
 const IntroForm: React.FunctionComponent<
   IntroFormProps & InjectedIntlProps
 > = ({
-  intl,
+  job,
   handleSubmit,
+  handleContinueEn,
+  handleContinueFr,
+  intl,
 }: IntroFormProps & InjectedIntlProps): React.ReactElement => {
-  const initialValues = {
-    jobTitleEN: "",
-    jobTitleFR: "",
-    department: "",
-    divisionEN: "",
-    divisionFR: "",
-  };
+  const initialValues: FormValues = jobToValues(job);
+  const [languageSelection, setLanguageSelection] = useState("en");
 
   const introSchema = Yup.object().shape({
     jobTitleEN: Yup.string().required(
@@ -105,9 +149,12 @@ const IntroForm: React.FunctionComponent<
     divisionFR: Yup.string().required(
       intl.formatMessage(validationMessages.required),
     ),
-    department: Yup.mixed()
-      .oneOf(["TBS", "ESDC", "ECCC"], "WTF")
-      .required(intl.formatMessage(validationMessages.invalidSelection)),
+    department: Yup.number()
+      .oneOf(
+        Object.values(DepartmentId),
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
+      .required(intl.formatMessage(validationMessages.required)),
   });
 
   return (
@@ -159,10 +206,23 @@ const IntroForm: React.FunctionComponent<
           initialValues={initialValues}
           validationSchema={introSchema}
           onSubmit={(values, { setSubmitting }): void => {
-            handleSubmit(values);
-            setSubmitting(false);
+            handleSubmit(updateJobWithValues(job || emptyJob(), values))
+              .then((newJob: Job): void => {
+                if (languageSelection === "fr") {
+                  handleContinueFr(newJob);
+                } else {
+                  handleContinueEn(newJob);
+                }
+              })
+              .finally(
+                (): void => setSubmitting(false), // Required by Formik to finish the submission cycle
+              );
           }}
-          render={({ isSubmitting, values }): React.ReactElement => (
+          render={({
+            isSubmitting,
+            values,
+            submitForm,
+          }): React.ReactElement => (
             <>
               <Form id="form" data-c-margin="bottom(normal)">
                 <div data-c-grid="gutter">
@@ -201,20 +261,13 @@ const IntroForm: React.FunctionComponent<
                     nullSelection={intl.formatMessage(
                       formMessages.departmentNullSelection,
                     )}
-                    options={[
-                      {
-                        value: "TBS",
-                        label: "Treasury Board of Canada Secretariat",
-                      },
-                      {
-                        value: "ESDC",
-                        label: "Employment and Social Development Canada",
-                      },
-                      {
-                        value: "ECCC",
-                        label: "Environment and Climate Change Canada",
-                      },
-                    ]}
+                    options={Object.values(DepartmentId).map((id: number): {
+                      value: number;
+                      label: string;
+                    } => ({
+                      value: id,
+                      label: intl.formatMessage(departmentName(id)),
+                    }))}
                   />
                   <Field
                     type="text"
@@ -243,12 +296,9 @@ const IntroForm: React.FunctionComponent<
                 </div>
               </Form>
               <p data-c-margin="bottom(normal)">
-                {/* how do I add strong tag */}
-                {/* <strong>Note:</strong> Changing your information on this form
-                will also change these fields in your Profile. */}
-                <FormattedMessage
+                <FormattedHTMLMessage
                   id="jobBuilder.intro.note"
-                  defaultMessage="Note: Changing your information on this form will also change these fields in your Profile."
+                  defaultMessage="<strong>Note:</strong> Changing your information on this form will also change these fields in your Profile."
                   description="Ending note for hiring managers."
                 />
               </p>
@@ -265,8 +315,12 @@ const IntroForm: React.FunctionComponent<
                 form="form"
                 data-c-button="solid(c1)"
                 data-c-radius="rounded"
-                type="submit"
+                type="button"
                 disabled={isSubmitting}
+                onClick={(): void => {
+                  setLanguageSelection("en");
+                  submitForm();
+                }}
               >
                 <FormattedMessage
                   id="jobBuilder.intro.continueButtonLabelEN"
@@ -279,8 +333,12 @@ const IntroForm: React.FunctionComponent<
                 form="form"
                 data-c-button="solid(c1)"
                 data-c-radius="rounded"
-                type="submit"
+                type="button"
                 disabled={isSubmitting}
+                onClick={(): void => {
+                  setLanguageSelection("fr");
+                  submitForm();
+                }}
               >
                 <FormattedMessage
                   id="jobBuilder.intro.continueButtonLabelFR"

@@ -23,9 +23,13 @@ mix
   .js("resources/assets/js/alerts.js", "public/js")
   .js("resources/assets/js/getpdf.js", "public/js")
   .js("resources/assets/js/components/JobDetails/JobDetailsPage", "public/js")
+  .js(
+    "resources/assets/js/components/JobBuilderIntro/JobBuilderIntro",
+    "public/js",
+  )
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: sass,
-    includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"]
+    includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"],
   })
   .options({
     processCssUrls: false,
@@ -35,22 +39,22 @@ mix
           "default",
           {
             discardComments: {
-              removeAll: true
-            }
-          }
-        ]
+              removeAll: true,
+            },
+          },
+        ],
       }),
       autoprefixer({
-        browsers: ">0.1%"
-      })
-    ]
+        browsers: ">0.1%",
+      }),
+    ],
   })
   .version();
 
 mix.webpackConfig({
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "resources/assets/js")
-    }
-  }
+      "@": path.resolve(__dirname, "resources/assets/js"),
+    },
+  },
 });
