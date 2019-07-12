@@ -8,7 +8,6 @@ import {
   FormattedMessage,
   defineMessages,
 } from "react-intl";
-import TextArea from "../TextArea";
 import CheckboxGroup from "../Form/CheckboxGroup";
 import RadioGroup from "../Form/RadioGroup";
 import ContextBlock from "../ContextBlock/ContextBlock";
@@ -22,11 +21,6 @@ import TextAreaInput from "../Form/TextAreaInput";
 import { validationMessages } from "../Form/Messages";
 
 const formMessages = defineMessages({
-  ourWorkEnv: {
-    id: "jobBuilder.workEnv.ourWorkEnv",
-    defaultMessage: "Our Work Environment",
-    description: "Section 1 of Job Poster Builder Work Environment Step",
-  },
   ourWorkEnvDesc: {
     id: "jobBuilder.workEnv.ourWorkEnvDesc",
     defaultMessage:
@@ -63,7 +57,7 @@ const formMessages = defineMessages({
   moreOnWorkEnvSubtext: {
     id: "jobBuilder.workEnv.moreOnWorkEnvSubtext",
     defaultMessage:
-      "Anything else you’d like to add about your work environment? Highlight features of the physical environment, technology and amenities specific to your team.",
+      "Anything else you'd like to add about your work environment? Highlight features of the physical environment, technology and amenities specific to your team.",
     description:
       "Subtext displayed for the more about your environment textbox.",
   },
@@ -84,16 +78,10 @@ const formMessages = defineMessages({
     defaultMessage: "Our Culture",
     description: "Section 2 radio group title of our culture step.",
   },
-  cultureSubtext1: {
-    id: "jobBuilder.workEnv.cultureSubtext1",
-    defaultMessage:
-      "Now, let applicants know more about the personality of your team and the type of work that you usually do.",
-    description: "Subtext 1 displayed of the our culture section.",
-  },
   cultureSubtext2: {
     id: "jobBuilder.workEnv.cultureSubtext2",
     defaultMessage:
-      "Based on your selections, we’ll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team.",
+      "Based on your selections, we'll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team.",
     description: "Subtext 2 displayed of the our culture section.",
   },
   fastPacedSteadyLabel: {
@@ -140,7 +128,7 @@ const formMessages = defineMessages({
   specialWorkCultureSubtext: {
     id: "jobBuilder.workEnv.specialWorkCultureSubtext",
     defaultMessage:
-      "Does your team care a lot about something else? Proud of the team’s record of getting results? Strong commitment to mental wellness? Actively involved in advancing diversity and inclusion? LGBTQ+ champions? Here’s a chance to let applicants know about the culture of the team they’ll potentially be joining.",
+      "Does your team care a lot about something else? Proud of the team's record of getting results? Strong commitment to mental wellness? Actively involved in advancing diversity and inclusion? LGBTQ+ champions? Here's a chance to let applicants know about the culture of the team they'll potentially be joining.",
     description: "Subtext for subsection in our work culture.",
   },
   specialWorkCultureLabel: {
@@ -205,40 +193,40 @@ export const physEnvOptions: string[] = [
 ];
 
 export const techMessages = defineMessages({
-  videoConfrencing: {
-    id: "jobBuilder.workEnv.techonology.videoConfrencing",
+  videoConferencing: {
+    id: "jobBuilder.workEnv.technology.videoConferencing",
     defaultMessage: "Video Conferencing (e.g. Skype, Zoom)",
-    description: "Technology checkbox group 'video confrencing' option.",
+    description: "Technology checkbox group 'video conferencing' option.",
   },
   collaboration: {
-    id: "jobBuilder.workEnv.techonology.collaboration",
+    id: "jobBuilder.workEnv.technology.collaboration",
     defaultMessage: "Collaboration (e.g. Slack, Hangouts)",
     description: "Technology checkbox group 'collaboration' option.",
   },
   fileSharing: {
-    id: "jobBuilder.workEnv.techonology.fileSharing",
+    id: "jobBuilder.workEnv.technology.fileSharing",
     defaultMessage: "File Sharing (e.g. Google Drive, Dropbox)",
     description: "Technology checkbox group 'file sharing' option.",
   },
   taskManagement: {
-    id: "jobBuilder.workEnv.techonology.taskManagement",
+    id: "jobBuilder.workEnv.technology.taskManagement",
     defaultMessage: "Task Management (e.g. Trello, Asana)",
     description: "Technology checkbox group 'task management' option.",
   },
   versionControl: {
-    id: "jobBuilder.workEnv.techonology.videoConfrencing",
+    id: "jobBuilder.workEnv.technology.versionControl",
     defaultMessage: "Version Control (e.g. Github, Gitlab)",
     description: "Technology checkbox group 'version control' option.",
   },
   accessToExternal: {
-    id: "jobBuilder.workEnv.techonology.accessToExternal",
+    id: "jobBuilder.workEnv.technology.accessToExternal",
     defaultMessage: "Access to external, unfiltered Wi-Fi.",
     description: "Technology checkbox group 'access to external' option.",
   },
 });
 
 export const techOptions: string[] = [
-  "videoConfrencing",
+  "videoConferencing",
   "collaboration",
   "fileSharing",
   "taskManagement",
@@ -250,39 +238,39 @@ export const amenitiesMessages = defineMessages({
   cafeteria: {
     id: "jobBuilder.workEnv.amenities.cafeteria",
     defaultMessage: "Cafeteria On-site",
-    description: "Ameneties checkbox group 'cafeteria' option.",
+    description: "Amenities checkbox group 'cafeteria' option.",
   },
   closeToTransit: {
     id: "jobBuilder.workEnv.amenities.closeToTransit",
     defaultMessage: "Close to Transit",
-    description: "Ameneties checkbox group 'close to transit' option.",
+    description: "Amenities checkbox group 'close to transit' option.",
   },
-  resturants: {
-    id: "jobBuilder.workEnv.amenities.resturants",
+  restaurants: {
+    id: "jobBuilder.workEnv.amenities.restaurants",
     defaultMessage: "Walking Distance to Restaurants/Malls",
-    description: "Ameneties checkbox group 'resturants' option.",
+    description: "Amenities checkbox group 'restaurants' option.",
   },
   downtown: {
     id: "jobBuilder.workEnv.amenities.downtown",
     defaultMessage: "Downtown",
-    description: "Ameneties checkbox group 'downtown' option.",
+    description: "Amenities checkbox group 'downtown' option.",
   },
   fitnessCenter: {
     id: "jobBuilder.workEnv.amenities.fitnessCenter",
     defaultMessage: "Nearby Fitness Centre",
-    description: "Ameneties checkbox group 'nearby fitness centre' option.",
+    description: "Amenities checkbox group 'nearby fitness centre' option.",
   },
   parking: {
     id: "jobBuilder.workEnv.amenities.parking",
     defaultMessage: "Easy Access to Parking",
-    description: "Ameneties checkbox group 'parking' option.",
+    description: "Amenities checkbox group 'parking' option.",
   },
 });
 
 export const amenitiesOptions: string[] = [
   "cafeteria",
   "closeToTransit",
-  "resturants",
+  "restaurants",
   "downtown",
   "fitnessCenter",
   "parking",
@@ -311,7 +299,7 @@ const culturePaceList = [
     id: "culturePace04",
     title: "Very Steady",
     subtext:
-      "Our work is ongoing so there aren’t very many deadlines. We don’t usually have to balance tasks and our priorities change rarely. We thrive on routine.",
+      "Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine.",
   },
 ];
 
@@ -503,7 +491,7 @@ const WorkEnvForm = ({
       <p>
         <FormattedMessage
           id="jobBuilder.workEnv.stepDescription"
-          defaultMessage="Applicants care a lot about the team they’ll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they’ll be a good fit, and can reduce the number of “wishful thinking” applications that slow down the screening process."
+          defaultMessage={`Applicants care a lot about the team they'll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they'll be a good fit, and can reduce the number of "wishful thinking" applications that slow down the screening process.`}
           description="Description of job poster builder work environment step."
         />
       </p>
@@ -512,15 +500,11 @@ const WorkEnvForm = ({
           <FormattedMessage
             id="jobBuilder.workEnv.ourWorkEnv"
             defaultMessage="Our Work Environment"
-            description="Section 1 of job poster builder work environment step."
+            description="Section 1 of Job Poster Builder Work Environment Step"
           />
         </h4>
         <p data-c-margin="bottom(normal)">
-          <FormattedMessage
-            id="jobBuilder.workEnv.ourWorkEnvSubtext"
-            defaultMessage="Share a little about your physical space, the technology used by your team, and the amenities close to your office. Check all that apply."
-            description="Section 1 subtext of job poster builder work environment step."
-          />
+          <FormattedMessage {...formMessages.ourWorkEnvDesc} />
         </p>
       </div>
 
@@ -652,25 +636,13 @@ const WorkEnvForm = ({
                 data-c-margin="bottom(normal) top(normal)"
                 data-c-font-weight="bold"
               >
-                <FormattedMessage
-                  id="jobBuilder.workEnv.moreOnWorkEnv"
-                  defaultMessage="More about your Environment"
-                  description="The title for the more about your environment textbox."
-                />
+                <FormattedMessage {...formMessages.moreOnWorkEnv} />
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage
-                  id="jobBuilder.workEnv.thisIsOptional"
-                  defaultMessage="This is optional."
-                  description="Text indicator for optional sections within form."
-                />
+                <FormattedMessage {...formMessages.thisIsOptional} />
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage
-                  id="jobBuilder.workEnv.moreOnWorkEnvSubtext"
-                  defaultMessage="Anything else you’d like to add about your work environment? Highlight features of the physical environment, technology and amenities specific to your team."
-                  description="Subtext displayed for the more about your environment textbox."
-                />
+                <FormattedMessage {...formMessages.moreOnWorkEnvSubtext} />
               </p>
               <Field
                 type="textarea"
@@ -688,11 +660,7 @@ const WorkEnvForm = ({
                   data-c-font-size="h4"
                   data-c-margin="top(double) bottom(normal)"
                 >
-                  <FormattedMessage
-                    id="jobBuilder.workEnv.culture"
-                    defaultMessage="Our Culture"
-                    description="Section 2 radio group title of our culture step."
-                  />
+                  <FormattedMessage {...formMessages.culture} />
                 </h4>
                 <p data-c-margin="bottom(normal)">
                   <FormattedMessage
@@ -702,11 +670,7 @@ const WorkEnvForm = ({
                   />
                 </p>
                 <p data-c-margin="bottom(normal)">
-                  <FormattedMessage
-                    id="jobBuilder.workEnv.cultureSubtext2"
-                    defaultMessage="Based on your selections, we’ll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team."
-                    description="Subtext 2 displayed of the our culture section."
-                  />
+                  <FormattedMessage {...formMessages.cultureSubtext2} />
                 </p>
               </div>
               <div
@@ -863,18 +827,10 @@ const WorkEnvForm = ({
                   data-c-margin="bottom(normal) top(normal)"
                   data-c-font-weight="bold"
                 >
-                  <FormattedMessage
-                    id="jobBuilder.workEnv.cultureSummary"
-                    defaultMessage="Culture Summary"
-                    description="The header for the culture summary section."
-                  />
+                  <FormattedMessage {...formMessages.cultureSummary} />
                 </p>
                 <p data-c-margin="bottom(normal)">
-                  <FormattedMessage
-                    id="jobBuilder.workEnv.cultureSummarySubtext"
-                    defaultMessage="Here is the short paragraph summarizing your work culture which will appear on the job poster. Copy and paste it into the text box below if you want to customize it to the personality of your team and the way you work."
-                    description="The subtext for the culture summary section."
-                  />
+                  <FormattedMessage {...formMessages.cultureSummarySubtext} />
                 </p>
                 <ContextBlockItem
                   subtext={buildCultureSummary(values)}
@@ -897,29 +853,17 @@ const WorkEnvForm = ({
                 placeholder={intl.formatMessage(
                   formMessages.customCultureSummaryPlaceholder,
                 )}
-                component={TextArea}
+                component={TextAreaInput}
                 grid="base(1of1)"
               />
               <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
-                <FormattedMessage
-                  id="jobBuilder.workEnv.specialWorkCulture"
-                  defaultMessage="Anything Special About Your Work Culture?"
-                  description="Title for subsection in our work culture."
-                />
+                <FormattedMessage {...formMessages.specialWorkCulture} />
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage
-                  id="jobBuilder.workEnv.thisIsOptional"
-                  defaultMessage="This is optional."
-                  description="Text indicator for optional sections within form."
-                />
+                <FormattedMessage {...formMessages.thisIsOptional} />
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage
-                  id="jobBuilder.workEnv.specialWorkCultureSubtext"
-                  defaultMessage="Does your team care a lot about something else? Proud of the team’s record of getting results? Strong commitment to mental wellness? Actively involved in advancing diversity and inclusion? LGBTQ+ champions? Here’s a chance to let applicants know about the culture of the team they’ll potentially be joining."
-                  description="Subtext for subsection in our work culture."
-                />
+                <FormattedMessage {...formMessages.specialWorkCultureSubtext} />
               </p>
               <Field
                 type="textarea"
@@ -929,7 +873,7 @@ const WorkEnvForm = ({
                 placeholder={intl.formatMessage(
                   formMessages.textAreaPlaceholder1,
                 )}
-                component={TextArea}
+                component={TextAreaInput}
                 grid="base(1of1)"
               />
               <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
@@ -940,7 +884,7 @@ const WorkEnvForm = ({
                   disabled={isSubmitting}
                   data-c-button="solid(c1)"
                   data-c-dialog-action="open"
-                  data-c-dialog-id="example-dialog-01"
+                  data-c-dialog-id="work-environment-preview"
                   data-c-radius="rounded"
                 >
                   <FormattedMessage
