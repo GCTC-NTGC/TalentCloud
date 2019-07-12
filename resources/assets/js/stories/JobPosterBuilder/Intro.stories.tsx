@@ -1,15 +1,14 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { withInfo } from "@storybook/addon-info";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import fakeJob from "../../fakeData/fakeJob";
 import IntroForm from "../../components/JobBuilderIntro/IntroForm";
 import { Job } from "../../models/types";
 
-const stories = storiesOf("Job Poster Builder|Intro", module)
-  .addDecorator(withInfo)
-  .addDecorator(withIntl);
+const stories = storiesOf("Job Poster Builder|Intro", module).addDecorator(
+  withIntl,
+);
 
 const handleSubmit = async (): Promise<Job> => {
   action("Submit")();
@@ -18,7 +17,7 @@ const handleSubmit = async (): Promise<Job> => {
 
 stories
   .add(
-    "Intro Body",
+    "New Job",
     (): React.ReactElement => (
       <IntroForm
         job={null}
@@ -27,12 +26,9 @@ stories
         handleContinueFr={action("Continue in French")}
       />
     ),
-    {
-      info: { inline: true },
-    },
   )
   .add(
-    "Intro for existing job",
+    "Existing Job",
     (): React.ReactElement => (
       <IntroForm
         job={fakeJob()}
@@ -41,7 +37,4 @@ stories
         handleContinueFr={action("Continue in French")}
       />
     ),
-    {
-      info: { inline: true },
-    },
   );

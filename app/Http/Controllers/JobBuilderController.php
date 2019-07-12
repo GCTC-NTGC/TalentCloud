@@ -15,7 +15,7 @@ class JobBuilderController extends Controller
     {
         return view(
             'manager/job-builder-intro',
-            ['title' => 'Job Builder: Welcome', 'jobId' => $jobId]
+            ['title' => Lang::get('manager/job_builder.intro_title'), 'jobId' => $jobId]
         );
     }
 
@@ -27,7 +27,7 @@ class JobBuilderController extends Controller
     {
         return view(
             'manager/job-builder-details',
-            ['title' => 'Job Builder: Details', 'jobId' => $jobId]
+            ['title' => Lang::get('manager/job_builder.details_title'), 'jobId' => $jobId]
         );
     }
 
