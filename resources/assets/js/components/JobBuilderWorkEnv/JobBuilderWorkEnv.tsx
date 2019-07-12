@@ -23,7 +23,7 @@ import {
   jobBuilderDetailsProgressState,
   jobBuilderIntroProgressState,
 } from "../JobBuilder/jobBuilderHelpers";
-import { managerJobIndex } from "../../helpers/routes";
+import { managerJobIndex, jobBuilderImpact } from "../../helpers/routes";
 import RootContainer from "../RootContainer";
 import JobBuilderIntroPageContainer from "../JobBuilderIntro/JobBuilderIntro";
 
@@ -60,7 +60,10 @@ const JobBuilderWorkEnv: React.FunctionComponent<
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
   const handleModalCancel = (): void => {};
   const handleModalConfirm = (): void => {
-    window.location.href = managerJobIndex(intl.locale);
+    if (job !== null) {
+      window.location.href = jobBuilderImpact(intl.locale, job.id);
+    }
+    // FIXME: how to handle when job hasn't loaded yet??? RACE CONDITION HERE!
   };
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
