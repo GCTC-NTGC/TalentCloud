@@ -54,18 +54,14 @@ return [
                         'type' => 'ul',
                         'items' => [
                             '00' => 'Secrétariat du Conseil du Trésor (ministère hôte)',
-                            '01' => 'Emploi et Développement social Canada',
-                            '02' => 'Environnement et Changement climatique Canada',
+                            '01' => 'Transports Canada',
+                            '02' => 'Affaires mondiales Canada',
                             '03' => 'Ressources naturelles Canada',
-                            '04' => 'Transports Canada',
-                            '05' => 'Affaires mondiales Canada',
-                            '06' => 'Agence des services frontaliers du Canada',
-                            '07' => 'Pêches et Océans Canada',
-                            '08' => 'Innovation, Sciences et Développement économique Canada',
-                            '09' => 'Condition féminine Canada',
-                            '10' => 'Services publics et Approvisionnement Canada',
-                            '11' => 'Services partagés Canada',
-                            '12' => 'Ministère de la Défense nationale'
+                            '04' => 'Agence des services frontaliers du Canada',
+                            '05' => 'Ministère de la Défense nationale',
+                            '06' => 'Services partagés Canada',
+                            '07' => 'Santé Canada',
+                            '08' => 'Conseil national de recherches Canada'
                         ]
                     ]
                 ]
