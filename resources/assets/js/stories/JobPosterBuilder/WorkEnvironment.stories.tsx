@@ -2,16 +2,40 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import JobBuilderWorkEnv from "../../components/JobBuilderWorkEnv/JobBuilderWorkEnv";
+import fakeJob from "../../fakeData/fakeJob";
+import { Job } from "../../models/types";
+import WorkEnvForm from "../../components/JobBuilderWorkEnv/WorkEnvForm";
 
 const stories = storiesOf(
   "Job Poster Builder|Work Environment",
   module,
 ).addDecorator(withIntl);
 
-stories.add(
-  "Body",
-  (): React.ReactElement => (
-    <JobBuilderWorkEnv handleSubmit={action("Submit")} />
-  ),
-);
+const handleSubmit = async (job: Job): Promise<Job> => {
+  action("handleSubmit")();
+  return job;
+};
+
+stories
+  .add(
+    "New Job",
+    (): React.ReactElement => (
+      <WorkEnvForm
+        job={null}
+        handleSubmit={handleSubmit}
+        handleModalConfirm={action("Confirm")}
+        handleModalCancel={action("Cancel")}
+      />
+    ),
+  )
+  .add(
+    "Existing Job",
+    (): React.ReactElement => (
+      <WorkEnvForm
+        job={fakeJob()}
+        handleSubmit={handleSubmit}
+        handleModalConfirm={action("Confirm")}
+        handleModalCancel={action("Cancel")}
+      />
+    ),
+  );

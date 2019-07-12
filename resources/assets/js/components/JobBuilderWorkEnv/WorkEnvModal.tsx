@@ -83,7 +83,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                 data-c-padding="bottom(normal)"
               >
                 <FormattedMessage
-                  id="jobBuilder.workEnv.title"
+                  id="jobBuilder.workEnvModal.title"
                   defaultMessage="Work Environment"
                   description="Header of job poster builder work environment step."
                 />
@@ -96,7 +96,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                     data-c-font-weight="bold"
                   >
                     <FormattedMessage
-                      id="jobBuilder.workEnv.teamSize"
+                      id="jobBuilder.workEnvModal.teamSize"
                       defaultMessage="Team Size"
                       description="Title for Team size section."
                     />
@@ -110,7 +110,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                     data-c-font-weight="bold"
                   >
                     <FormattedMessage
-                      id="jobBuilder.workEnv.physicalEnvLabel"
+                      id="jobBuilder.workEnvModal.physicalEnvLabel"
                       defaultMessage="Our Physical Environment"
                       description="The label displayed on the physical environment checkbox group."
                     />
@@ -126,7 +126,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                                 (value): boolean => name === value,
                               ) && "checked";
                             return (
-                              <div data-c-grid-item="tp(1of2)">
+                              <div data-c-grid-item="tp(1of2)" key={name}>
                                 <div className={`job-builder-check ${checked}`}>
                                   <i className="fa fa-check" />
                                 </div>
@@ -145,7 +145,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                     data-c-font-weight="bold"
                   >
                     <FormattedMessage
-                      id="jobBuilder.workEnv.technologyLabel"
+                      id="jobBuilder.workEnvModal.technologyLabel"
                       defaultMessage="Technology"
                       description="The label displayed on the technology checkbox group."
                     />
@@ -161,7 +161,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                                 (value): boolean => name === value,
                               ) && "checked";
                             return (
-                              <div data-c-grid-item="tp(1of2)">
+                              <div data-c-grid-item="tp(1of2)" key={name}>
                                 <div className={`job-builder-check ${checked}`}>
                                   <i className="fa fa-check" />
                                 </div>
@@ -180,9 +180,9 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                     data-c-font-weight="bold"
                   >
                     <FormattedMessage
-                      id="jobBuilder.workEnv.technologyLabel"
-                      defaultMessage="Technology"
-                      description="The label displayed on the technology checkbox group."
+                      id="jobBuilder.workEnvModal.amenitiesLabel"
+                      defaultMessage="Amenities"
+                      description="The label displayed on the amenities checkbox group."
                     />
                   </p>
                   <div data-c-margin="left(quarter)">
@@ -196,7 +196,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                                 (value): boolean => name === value,
                               ) && "checked";
                             return (
-                              <div data-c-grid-item="tp(1of2)">
+                              <div data-c-grid-item="tp(1of2)" key={name}>
                                 <div className={`job-builder-check ${checked}`}>
                                   <i className="fa fa-check" />
                                 </div>
@@ -216,7 +216,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                       data-c-font-weight="bold"
                     >
                       <FormattedMessage
-                        id="jobBuilder.workEnv.moreOnWorkEnvLabel"
+                        id="jobBuilder.workEnvModal.moreOnWorkEnvLabel"
                         defaultMessage="More About Your Environment"
                         description="The label displayed for the more about your environment textbox."
                       />
@@ -233,7 +233,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                 data-c-padding="bottom(normal)"
               >
                 <FormattedMessage
-                  id="jobBuilder.workEnv.workCultureTitle"
+                  id="jobBuilder.workEnvModal.workCultureTitle"
                   defaultMessage="Work Culture"
                   description="The title displayed for the work culture section on modal."
                 />
@@ -248,14 +248,14 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
         <Modal.Footer>
           <Modal.FooterCancelBtn>
             <FormattedMessage
-              id="jobBuilder.workEnv.modalCancelLabel"
+              id="jobBuilder.workEnvModal.cancelLabel"
               defaultMessage="Go Back"
               description="The label displayed on modal cancel button."
             />
           </Modal.FooterCancelBtn>
           <Modal.FooterConfirmBtn>
             <FormattedMessage
-              id="jobBuilder.workEnv.modalConfirmLabel"
+              id="jobBuilder.workEnvModal.confirmLabel"
               defaultMessage="Next Step"
               description="The label displayed on modal confirm button."
             />

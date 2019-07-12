@@ -42,7 +42,7 @@ export const emptyJob = (): Job => {
     classification_level: null,
     security_clearance_id: null,
     language_requirement_id: null,
-    remote_work_allowed: null,
+    remote_work_allowed: true,
     published_at: null,
     review_requested_at: null,
     team_size: null,
