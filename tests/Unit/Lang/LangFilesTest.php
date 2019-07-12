@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\Unit\Lang;
 
 use Illuminate\Support\Facades\Lang;
@@ -8,13 +9,12 @@ class LangFilesTest extends BaseTranslationTest
 {
     public function testAllLangFilesWellFormatted()
     {
-        foreach ($this->locales as $locale) {
-            foreach ($this->getAllLangFilenames() as $langFile) {
-                $this->assertIsArray(Lang::get($langFile));
+        foreach ($this->getAllLangFilenames() as $langFile) {
+            if (!empty($langFile)) {
+                $this->assertInternalType('array', Lang::get($langFile));
             }
         }
     }
-
 
     /**
     * Tests for lang entries that are empty strings.
@@ -31,11 +31,12 @@ class LangFilesTest extends BaseTranslationTest
                 $value = Lang::get($path);
                 if ($value === '') {
                     $fullPath = $locale . '/' . $path;
-                    array_push($emptyEntries, $fullPath);
+                    if (!in_array($fullPath, ['en/','fr/'], true)) {
+                        array_push($emptyEntries, $fullPath);
+                    }
                 }
             }
         }
-
         if (!empty($emptyEntries)) {
             print_r("\n");
             print_r("The following lang entries are empty strings:\n");
@@ -162,7 +163,7 @@ class LangFilesTest extends BaseTranslationTest
     * @var array
     */
     protected $permittedEqual = [
-        ' ', '', // empty strings will be reported by testNoEmptyStrings
+        '', // Empty strings will be reported by testNoEmptyStrings
         ':count Minute|:count Minutes', '/tos/', '/privacy/', 'Canada.ca', 'GCcollab', 'Twitter', 'Permanent', 'Application', 'Institution', 'Initiative', 'Facilitation', 'Passion', 'Courage', 'signature', 'date', 'Minute', 'minute', 'description',
         'FAQ', 'Linux', 'CSS', 'Javascript', 'C++', 'SASS', 'Python', 'PHP', 'Git', 'Docker', 'HTML', 'SQL', 'Microsoft Dynamics', 'EF6', 'Info', 'Notes', 'Education',
         'Education (English)', 'Education (Français)', 'Impact', 'Impact (English)', 'Impact (Français)', 'Division', 'Division (English)', 'Division (Français)', 'Question',
@@ -179,6 +180,7 @@ class LangFilesTest extends BaseTranslationTest
         'https://twitter.com/meagancommonda/',
         'http://caid.ca/IndRecRet2017.pdf',
     ];
+
     /**
     * Tests lang files for identical values in multiple languages.
     *
@@ -214,5 +216,3 @@ class LangFilesTest extends BaseTranslationTest
         $this->assertEmpty($identicalEntries);
     }
 }
-
-        '', // empty strings will be reported by testNoEmptyStrings
