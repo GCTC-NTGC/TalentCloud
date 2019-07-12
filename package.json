@@ -51,6 +51,7 @@
     "@types/react-router-dom": "^4.3.2",
     "@types/redux-mock-store": "^1.0.1",
     "@types/storybook__react": "^4.0.2",
+    "@types/yup": "^0.26.21",
     "@typescript-eslint/eslint-plugin": "^1.12.0",
     "@typescript-eslint/parser": "^1.12.0",
     "babel-plugin-react-intl": "^4.1.0",
@@ -91,7 +92,6 @@
     "webpack": "^4.35.3"
   },
   "dependencies": {
-    "@types/yup": "^0.26.21",
     "axios": "^0.19.0",
     "classnames": "^2.2.6",
     "core-js": "^3",

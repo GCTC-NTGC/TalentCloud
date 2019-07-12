@@ -252,14 +252,31 @@ Route::group(
                     ->middleware('can:update,jobPoster')
                     ->name('manager.jobs.edit');
 
+                /* Job Builder */
+                Route::get(
+                    'job-builder/intro',
+                    'JobBuilderController@intro'
+                );
                 Route::get(
                     'job-builder/details',
                     'JobBuilderController@details'
-                )->where('jobPoster', '[0-9]+');
+                );
+                Route::get(
+                    'job-builder/environment',
+                    'JobBuilderController@environment'
+                );
 
+                Route::get(
+                    'jobs/{jobId}/builder/intro',
+                    'JobBuilderController@intro'
+                )->where('jobPoster', '[0-9]+');
                 Route::get(
                     'jobs/{jobId}/builder/details',
                     'JobBuilderController@details'
+                )->where('jobPoster', '[0-9]+');
+                Route::get(
+                    'jobs/{jobId}/builder/environment',
+                    'JobBuilderController@environment'
                 )->where('jobPoster', '[0-9]+');
 
                 /* Delete Job */
@@ -389,7 +406,8 @@ Route::group(['prefix' => 'api'], function (): void {
     // Protected by a gate in the controller, instead of policy middleware
     Route::get('jobs/{jobPoster}/assessment-plan', 'AssessmentPlanController@getForJob');
     // Public, not protected by policy or gate
-    Route::get('skills', 'SkillController@index');
+    Route::get('skills', 'Api\SkillController@index');
+    Route::get('departments', 'Api\DepartmentController@index');
 
     // Resource Routes are protected by policies in controllers instead of middleware.
     Route::resource('assessments', 'AssessmentController')->except([

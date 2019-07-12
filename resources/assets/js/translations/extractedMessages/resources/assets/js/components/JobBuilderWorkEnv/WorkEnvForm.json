@@ -1,0 +1,227 @@
+[
+  {
+    "id": "jobBuilder.workEnv.ourWorkEnvDesc",
+    "description": "Section 1 description of Job Poster Builder Work Environment Step",
+    "defaultMessage": "Share a little about your physical space, the technology used by your team, and the amenities close to your office. Check all that apply."
+  },
+  {
+    "id": "jobBuilder.workEnv.teamSizeLabel",
+    "description": "The label displayed on the team size input.",
+    "defaultMessage": "Team Size"
+  },
+  {
+    "id": "jobBuilder.workEnv.physicalEnvLabel",
+    "description": "The label displayed on the physical environment checkbox group.",
+    "defaultMessage": "Our Physical Environment"
+  },
+  {
+    "id": "jobBuilder.workEnv.technologyLabel",
+    "description": "The label displayed on the technology checkbox group.",
+    "defaultMessage": "Technology"
+  },
+  {
+    "id": "jobBuilder.workEnv.moreOnWorkEnv",
+    "description": "The title for the more about your environment textbox.",
+    "defaultMessage": "More about your Environment"
+  },
+  {
+    "id": "jobBuilder.workEnv.moreOnWorkEnvSubtext",
+    "description": "Subtext displayed for the more about your environment textbox.",
+    "defaultMessage": "Anything else you'd like to add about your work environment? Highlight features of the physical environment, technology and amenities specific to your team."
+  },
+  {
+    "id": "jobBuilder.workEnv.moreOnWorkEnvLabel",
+    "description": "The label displayed for the more about your environment textbox.",
+    "defaultMessage": "More About Your Environment"
+  },
+  {
+    "id": "jobBuilder.workEnv.moreOnWorkEnvPlaceholder",
+    "description": "The placeholder displayed for the more about your environment textbox.",
+    "defaultMessage": "Try for a casual, frank, friendly tone."
+  },
+  {
+    "id": "jobBuilder.workEnv.culture",
+    "description": "Section 2 radio group title of our culture step.",
+    "defaultMessage": "Our Culture"
+  },
+  {
+    "id": "jobBuilder.workEnv.cultureSubtext2",
+    "description": "Subtext 2 displayed of the our culture section.",
+    "defaultMessage": "Based on your selections, we'll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team."
+  },
+  {
+    "id": "jobBuilder.workEnv.fastPacedSteadyLabel",
+    "description": "The label for the fast-paced vs. steady radio group",
+    "defaultMessage": "Fast-paced vs. Steady:"
+  },
+  {
+    "id": "jobBuilder.workEnv.managementLabel",
+    "description": "The label for the management radio group",
+    "defaultMessage": "Horizontal vs. Vertical:"
+  },
+  {
+    "id": "jobBuilder.workEnv.experimentalLabel",
+    "description": "The label for the experimental radio group",
+    "defaultMessage": "Experimental vs. Ongoing Business:"
+  },
+  {
+    "id": "jobBuilder.workEnv.cultureSummary",
+    "description": "The header for the culture summary section.",
+    "defaultMessage": "Culture Summary"
+  },
+  {
+    "id": "jobBuilder.workEnv.cultureSummarySubtext",
+    "description": "The subtext for the culture summary section.",
+    "defaultMessage": "Here is the short paragraph summarizing your work culture which will appear on the job poster. Copy and paste it into the text box below if you want to customize it to the personality of your team and the way you work."
+  },
+  {
+    "id": "jobBuilder.workEnv.customCultureSummaryLabel",
+    "description": "The label for the custom culture summary textbox.",
+    "defaultMessage": "Customize your culture summary:"
+  },
+  {
+    "id": "jobBuilder.workEnv.customCultureSummaryPlaceholder",
+    "description": "The placeholder for the custom culture summary textbox.",
+    "defaultMessage": "Paste here to edit the paragraph."
+  },
+  {
+    "id": "jobBuilder.workEnv.specialWorkCulture",
+    "description": "Title for subsection in our work culture.",
+    "defaultMessage": "Anything Special About Your Work Culture?"
+  },
+  {
+    "id": "jobBuilder.workEnv.specialWorkCultureSubtext",
+    "description": "Subtext for subsection in our work culture.",
+    "defaultMessage": "Does your team care a lot about something else? Proud of the team's record of getting results? Strong commitment to mental wellness? Actively involved in advancing diversity and inclusion? LGBTQ+ champions? Here's a chance to let applicants know about the culture of the team they'll potentially be joining."
+  },
+  {
+    "id": "jobBuilder.workEnv.specialWorkCultureLabel",
+    "description": "The label for the 'more on work culture' textarea.",
+    "defaultMessage": "More About Your Work Culture"
+  },
+  {
+    "id": "jobBuilder.workEnv.textAreaPlaceholder1",
+    "description": "Default placeholder for textarea element",
+    "defaultMessage": "Try for a casual, frank, friendly tone."
+  },
+  {
+    "id": "jobBuilder.workEnv.thisIsOptional",
+    "description": "Text indicator for optional sections within form.",
+    "defaultMessage": "This is optional."
+  },
+  {
+    "id": "jobBuilder.workEnv.physEnv.openConcept",
+    "description": "Physical Environment checkbox group 'open concept' option.",
+    "defaultMessage": "Open Concept"
+  },
+  {
+    "id": "jobBuilder.workEnv.physEnv.private",
+    "description": "Physical Environment checkbox group 'private' option.",
+    "defaultMessage": "Private"
+  },
+  {
+    "id": "jobBuilder.workEnv.physEnv.assignedSeating",
+    "description": "Physical Environment checkbox group 'assigned seating' option.",
+    "defaultMessage": "Assigned Seating"
+  },
+  {
+    "id": "jobBuilder.workEnv.physEnv.windows",
+    "description": "Physical Environment checkbox group 'windows' option.",
+    "defaultMessage": "Lots of Windows"
+  },
+  {
+    "id": "jobBuilder.workEnv.physEnv.naturalLight",
+    "description": "Physical Environment checkbox group 'natural light' option.",
+    "defaultMessage": "Natural Light"
+  },
+  {
+    "id": "jobBuilder.workEnv.physEnv.smudging",
+    "description": "Physical Environment checkbox group 'suitable for smudging' option.",
+    "defaultMessage": "Suitable for Smudging"
+  },
+  {
+    "id": "jobBuilder.workEnv.technology.videoConferencing",
+    "description": "Technology checkbox group 'video conferencing' option.",
+    "defaultMessage": "Video Conferencing (e.g. Skype, Zoom)"
+  },
+  {
+    "id": "jobBuilder.workEnv.technology.collaboration",
+    "description": "Technology checkbox group 'collaboration' option.",
+    "defaultMessage": "Collaboration (e.g. Slack, Hangouts)"
+  },
+  {
+    "id": "jobBuilder.workEnv.technology.fileSharing",
+    "description": "Technology checkbox group 'file sharing' option.",
+    "defaultMessage": "File Sharing (e.g. Google Drive, Dropbox)"
+  },
+  {
+    "id": "jobBuilder.workEnv.technology.taskManagement",
+    "description": "Technology checkbox group 'task management' option.",
+    "defaultMessage": "Task Management (e.g. Trello, Asana)"
+  },
+  {
+    "id": "jobBuilder.workEnv.technology.versionControl",
+    "description": "Technology checkbox group 'version control' option.",
+    "defaultMessage": "Version Control (e.g. Github, Gitlab)"
+  },
+  {
+    "id": "jobBuilder.workEnv.technology.accessToExternal",
+    "description": "Technology checkbox group 'access to external' option.",
+    "defaultMessage": "Access to external, unfiltered Wi-Fi."
+  },
+  {
+    "id": "jobBuilder.workEnv.amenities.cafeteria",
+    "description": "Amenities checkbox group 'cafeteria' option.",
+    "defaultMessage": "Cafeteria On-site"
+  },
+  {
+    "id": "jobBuilder.workEnv.amenities.closeToTransit",
+    "description": "Amenities checkbox group 'close to transit' option.",
+    "defaultMessage": "Close to Transit"
+  },
+  {
+    "id": "jobBuilder.workEnv.amenities.restaurants",
+    "description": "Amenities checkbox group 'restaurants' option.",
+    "defaultMessage": "Walking Distance to Restaurants/Malls"
+  },
+  {
+    "id": "jobBuilder.workEnv.amenities.downtown",
+    "description": "Amenities checkbox group 'downtown' option.",
+    "defaultMessage": "Downtown"
+  },
+  {
+    "id": "jobBuilder.workEnv.amenities.fitnessCenter",
+    "description": "Amenities checkbox group 'nearby fitness centre' option.",
+    "defaultMessage": "Nearby Fitness Centre"
+  },
+  {
+    "id": "jobBuilder.workEnv.amenities.parking",
+    "description": "Amenities checkbox group 'parking' option.",
+    "defaultMessage": "Easy Access to Parking"
+  },
+  {
+    "id": "jobBuilder.workEnv.title",
+    "description": "Header of job poster builder work environment step.",
+    "defaultMessage": "Work Environment"
+  },
+  {
+    "id": "jobBuilder.workEnv.stepDescription",
+    "description": "Description of job poster builder work environment step.",
+    "defaultMessage": "Applicants care a lot about the team they'll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they'll be a good fit, and can reduce the number of \"wishful thinking\" applications that slow down the screening process."
+  },
+  {
+    "id": "jobBuilder.workEnv.ourWorkEnv",
+    "description": "Section 1 of Job Poster Builder Work Environment Step",
+    "defaultMessage": "Our Work Environment"
+  },
+  {
+    "id": "jobBuilder.workEnv.cultureSubtext1",
+    "description": "Subtext 1 displayed of the our culture section.",
+    "defaultMessage": "Now let applicants know more about the personality of your team and the type of work that you usually do."
+  },
+  {
+    "id": "jobBuilder.workEnv.submitButtonLabel",
+    "description": "Label for work environment submit button.",
+    "defaultMessage": "Preview Work Environment"
+  }
+]

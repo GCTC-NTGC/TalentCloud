@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Skill;
+use App\Http\Controllers\Controller;
 
 class SkillController extends Controller
 {
@@ -23,8 +24,8 @@ class SkillController extends Controller
                     'description' => $skill->getTranslation('description', 'en'),
                 ],
                 'fr' => [
-                    'name' => $skill->getTranslation('name', 'en'),
-                    'description' => $skill->getTranslation('description', 'en'),
+                    'name' => $skill->getTranslation('name', 'fr'),
+                    'description' => $skill->getTranslation('description', 'fr'),
                 ]
             ];
             $skillsArray[] = array_merge($skill->toArray(), $translations);

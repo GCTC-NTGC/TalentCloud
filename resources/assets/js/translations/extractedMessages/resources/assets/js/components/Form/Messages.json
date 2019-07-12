@@ -20,6 +20,11 @@
     "defaultMessage": "Please select from the available options."
   },
   {
+    "id": "formValidation.checkboxRequired",
+    "description": "Error message displayed when a required checkbox group or radio group is empty.",
+    "defaultMessage": "At least one checkbox is required."
+  },
+  {
     "id": "formInput.error",
     "description": "Generic error message for inputs.",
     "defaultMessage": "Something went wrong."
