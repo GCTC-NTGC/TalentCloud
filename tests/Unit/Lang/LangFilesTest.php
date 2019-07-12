@@ -82,7 +82,7 @@ class LangFilesTest extends BaseTranslationTest
     */
     protected $permittedMissing = [
         'en' => [
-            '',
+            '', // Empty strings will be reported by testNoEmptyStrings
             'validation.attributes.courses.new.*.name',
             'validation.attributes.courses.new.*.institution',
             'validation.attributes.courses.new.*.course_status_id',
@@ -100,7 +100,7 @@ class LangFilesTest extends BaseTranslationTest
             'validation.attributes.work_experiences.new.*.end_date',
         ],
         'fr' => [
-            '',
+            '', // Empty strings will be reported by testNoEmptyStrings
             'validation.attributes.courses.new.*.name',
             'validation.attributes.courses.new.*.institution',
             'validation.attributes.courses.new.*.course_status_id',
@@ -162,7 +162,7 @@ class LangFilesTest extends BaseTranslationTest
     * @var array
     */
     protected $permittedEqual = [
-        '', // empty strings will be reported by testNoEmptyStrings
+        ' ', '', // empty strings will be reported by testNoEmptyStrings
         ':count Minute|:count Minutes', '/tos/', '/privacy/', 'Canada.ca', 'GCcollab', 'Twitter', 'Permanent', 'Application', 'Institution', 'Initiative', 'Facilitation', 'Passion', 'Courage', 'signature', 'date', 'Minute', 'minute', 'description',
         'FAQ', 'Linux', 'CSS', 'Javascript', 'C++', 'SASS', 'Python', 'PHP', 'Git', 'Docker', 'HTML', 'SQL', 'Microsoft Dynamics', 'EF6', 'Info', 'Notes', 'Education',
         'Education (English)', 'Education (Français)', 'Impact', 'Impact (English)', 'Impact (Français)', 'Division', 'Division (English)', 'Division (Français)', 'Question',
@@ -214,3 +214,5 @@ class LangFilesTest extends BaseTranslationTest
         $this->assertEmpty($identicalEntries);
     }
 }
+
+        '', // empty strings will be reported by testNoEmptyStrings
