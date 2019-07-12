@@ -187,3 +187,14 @@ export interface AssessmentPlanNotification {
   acknowledged: boolean;
   created_at: Date;
 }
+
+export interface DepartmentTranslation {
+  name: string;
+  impact: string;
+}
+
+export interface Department {
+  id: number;
+  en: DepartmentTranslation;
+  fr: DepartmentTranslation;
+}
