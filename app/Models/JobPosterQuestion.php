@@ -7,6 +7,9 @@
 
 namespace App\Models;
 
+use App\Models\BaseModel;
+use Astrotomic\Translatable\Translatable as Translatable;
+
 /**
  * Class JobPosterQuestion
  *
@@ -22,9 +25,10 @@ namespace App\Models;
  * @property string $question
  * @property string $description
  */
-class JobPosterQuestion extends BaseModel {
+class JobPosterQuestion extends BaseModel
+{
 
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
 
     public $translatedAttributes = ['question', 'description'];
     protected $casts = [
@@ -32,12 +36,13 @@ class JobPosterQuestion extends BaseModel {
     ];
     protected $fillable = [];
 
-    public function job_poster() {
+    public function job_poster() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
 
-    public function job_application_answers() {
+    public function job_application_answers() //phpcs:ignore
+    {
         return $this->hasMany(\App\Models\JobApplicationAnswer::class, 'job_poster_questions_id');
     }
-
 }

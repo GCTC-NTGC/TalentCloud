@@ -14,8 +14,8 @@ cache:
     - $HOME/.composer/cache/files
     - $HOME/.npm
 
+# following required for Test Cafe
 addons:
-  # following required for Test Cafe
   firefox: latest
   apt:
     sources:

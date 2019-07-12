@@ -24,7 +24,7 @@ abstract class BaseTranslationTest extends TestCase
 
     /**
      * Return an array of all Lang files in directory tree
-     * @param  string $dir directory to start searching in
+     * @param string $dir Directory to start searching in.
      */
     protected function getAllFilesInDirectoryTree($dir)
     {
@@ -34,7 +34,7 @@ abstract class BaseTranslationTest extends TestCase
         foreach ($filesAndDirectories as $fileName) {
             $path = implode('/', [$dir, $fileName]);
             if ($fileName === '.' || $fileName === '..') {
-                // Do nothing
+                // Do nothing.
             } elseif (is_dir($path)) {
                 $files = array_merge($files, $this->getAllFilesInDirectoryTree($path));
             } else {

@@ -8,9 +8,9 @@ class LangFilesTest extends BaseTranslationTest
 {
     public function testAllLangFilesWellFormatted()
     {
-        foreach ($this->getAllLangFilenames() as $langFile) {
-            if (!empty($langFile)) {
-                $this->assertInternalType('array', Lang::get($langFile));
+        foreach ($this->locales as $locale) {
+            foreach ($this->getAllLangFilenames() as $langFile) {
+                $this->assertIsArray(Lang::get($langFile));
             }
         }
     }
@@ -31,9 +31,7 @@ class LangFilesTest extends BaseTranslationTest
                 $value = Lang::get($path);
                 if ($value === '') {
                     $fullPath = $locale . '/' . $path;
-                    if (!in_array($fullPath, ['en/','fr/'], true)) {
-                        array_push($emptyEntries, $fullPath);
-                    }
+                    array_push($emptyEntries, $fullPath);
                 }
             }
         }
@@ -164,7 +162,7 @@ class LangFilesTest extends BaseTranslationTest
     * @var array
     */
     protected $permittedEqual = [
-        ' ', '', // empty strings will be reported by testNoEmptyStrings
+        '', // empty strings will be reported by testNoEmptyStrings
         ':count Minute|:count Minutes', '/tos/', '/privacy/', 'Canada.ca', 'GCcollab', 'Twitter', 'Permanent', 'Application', 'Institution', 'Initiative', 'Facilitation', 'Passion', 'Courage', 'signature', 'date', 'Minute', 'minute', 'description',
         'FAQ', 'Linux', 'CSS', 'Javascript', 'C++', 'SASS', 'Python', 'PHP', 'Git', 'Docker', 'HTML', 'SQL', 'Microsoft Dynamics', 'EF6', 'Info', 'Notes', 'Education',
         'Education (English)', 'Education (Français)', 'Impact', 'Impact (English)', 'Impact (Français)', 'Division', 'Division (English)', 'Division (Français)', 'Question',
