@@ -11,7 +11,7 @@ class LangFilesTest extends BaseTranslationTest
     {
         foreach ($this->locales as $locale) {
             foreach ($this->getAllLangFilenames() as $langFile) {
-                $this->assertInternalType('array', Lang::get($langFile));
+                $this->assertIsArray(Lang::get($langFile));
             }
         }
     }
@@ -29,8 +29,8 @@ class LangFilesTest extends BaseTranslationTest
             foreach ($this->locales as $locale) {
                 App::setLocale($locale);
                 $value = Lang::get($path);
-                if ($value === "") {
-                    $fullPath = $locale . "/" . $path;
+                if ($value === '') {
+                    $fullPath = $locale . '/' . $path;
                     array_push($emptyEntries, $fullPath);
                 }
             }
@@ -60,7 +60,7 @@ class LangFilesTest extends BaseTranslationTest
                 App::setLocale($locale);
                 $value = Lang::get($path);
                 if (in_array($value, $checks)) {
-                    $fullPath = $locale . "/" . $path;
+                    $fullPath = $locale . '/' . $path;
                     array_push($translationNeeded, $fullPath);
                 }
             }
@@ -160,7 +160,7 @@ class LangFilesTest extends BaseTranslationTest
     * @var array
     */
     protected $permittedEqual = [
-        "", // empty strings will be reported by testNoEmptyStrings
+        '', // empty strings will be reported by testNoEmptyStrings
         ':count Minute|:count Minutes', '/tos/', '/privacy/', 'Canada.ca', 'GCcollab', 'Twitter', 'Permanent', 'Application', 'Institution', 'Initiative', 'Facilitation', 'Passion', 'Courage', 'signature', 'date', 'Minute', 'minute', 'description',
         'FAQ', 'Linux', 'CSS', 'Javascript', 'C++', 'SASS', 'Python', 'PHP', 'Git', 'Docker', 'HTML', 'SQL', 'Microsoft Dynamics', 'EF6', 'Info', 'Notes', 'Education',
         'Education (English)', 'Education (Français)', 'Impact', 'Impact (English)', 'Impact (Français)', 'Division', 'Division (English)', 'Division (Français)', 'Question',
