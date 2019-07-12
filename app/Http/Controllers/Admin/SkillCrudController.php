@@ -66,6 +66,17 @@ class SkillCrudController extends CrudController
                 return $query->orderBy('skill_type_id', $columnDirection)->select('*');
             }
         ]);
+        $this->crud->addColumn([
+            'name' => 'is_culture_skill',
+            'label' => 'isCultureSkill',
+            'type' => 'checkbox'
+        ]);
+        $this->crud->addColumn([
+            'name' => 'is_future_skill',
+            'label' => 'isFutureSkill',
+            'type' => 'checkbox'
+        ]);
+
 
         // Add custom fields to the create/update views.
         $this->crud->addField([
@@ -84,26 +95,36 @@ class SkillCrudController extends CrudController
             'type' => 'select_from_array',
             'options' => SkillType::all()->pluck('name', 'id')->toArray(),
             'allow_null' => false,
+
+        ]);
+        $this->crud->addField([
+            'name' => 'is_culture_skill',
+            'label' => 'Culture',
+            'type' => 'checkbox'
+        ]);
+        $this->crud->addField([
+            'name' => 'is_future_skill',
+            'label' => 'Future',
+            'type' => 'checkbox'
         ]);
     }
-
     /**
-     * Action for creating a new Skill in the database.
-     *
-     * @param  \App\Http\Requests\SkillCrudRequest $request Incoming form request.
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    * Action for creating a new Skill in the database.
+    *
+    * @param  \App\Http\Requests\SkillCrudRequest $request Incoming form request.
+    * @return \Illuminate\Http\RedirectResponse
+    */
     public function store(StoreRequest $request) // phpcs:ignore
     {
         return parent::storeCrud();
     }
 
     /**
-     * Action for creating a new Skill in the database.
-     *
-     * @param  \App\Http\Requests\SkillCrudRequest $request Incoming form request.
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    * Action for creating a new Skill in the database.
+    *
+    * @param  \App\Http\Requests\SkillCrudRequest $request Incoming form request.
+    * @return \Illuminate\Http\RedirectResponse
+    */
     public function update(UpdateRequest $request) // phpcs:ignore
     {
         return parent::updateCrud();
