@@ -8,6 +8,7 @@
 namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
+use Astrotomic\Translatable\Translatable as Translatable;
 
 /**
  * Class CitizenshipDeclaration
@@ -23,19 +24,21 @@ use App\Models\BaseModel;
  * Localized Properties:
  * @property string $value
  */
-class CitizenshipDeclaration extends BaseModel {
+class CitizenshipDeclaration extends BaseModel
+{
 
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
 
     public $translatedAttributes = ['value'];
     protected $fillable = [];
 
-    public function citizenship_declaration_translations() {
+    public function citizenship_declaration_translations() //phpcs:ignore
+    {
         return $this->hasMany(\App\Models\Lookup\CitizenshipDeclarationTranslation::class);
     }
 
-    public function job_applications() {
+    public function job_applications() //phpcs:ignore
+    {
         return $this->hasMany(\App\Models\JobApplication::class);
     }
-
 }

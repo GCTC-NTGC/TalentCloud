@@ -8,6 +8,7 @@
 namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
+use Astrotomic\Translatable\Translatable as Translatable;
 
 /**
  * Class ExperienceLevel
@@ -23,19 +24,21 @@ use App\Models\BaseModel;
  * Localized Properties:
  * @property string $value
  */
-class ExperienceLevel extends BaseModel {
+class ExperienceLevel extends BaseModel
+{
 
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
 
     public $translatedAttributes = ['value'];
     protected $fillable = [];
 
-    public function experience_level_translations() {
+    public function experience_level_translations() //phpcs:ignore
+    {
         return $this->hasMany(\App\Models\Lookup\ExperienceLevelTranslation::class);
     }
 
-    public function skill_declarations() {
+    public function skill_declarations() //phpcs:ignore
+    {
         return $this->hasMany(\App\Models\SkillDeclaration::class);
     }
-
 }
