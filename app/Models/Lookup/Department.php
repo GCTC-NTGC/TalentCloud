@@ -25,7 +25,8 @@ use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
  *
  * Localized Properties:
- * @property string $value
+ * @property string $name
+ * @property string $impact
  */
 class Department extends BaseModel
 {
@@ -40,7 +41,10 @@ class Department extends BaseModel
         'impact',
     ];
 
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'impact',
+    ];
 
     public function managers() // phpcs:ignore
     {
