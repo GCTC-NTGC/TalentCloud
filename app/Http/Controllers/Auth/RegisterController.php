@@ -94,7 +94,7 @@ class RegisterController extends AuthController
         $user = new User();
         $user->name = $data['name'];
         $user->email = $data['email'];
-        $user->password = Hash::make(($data['password']));
+        $user->password = Hash::make($data['password']);
 
         // Default to applicant role.
         $user->user_role()->associate(UserRole::where('name', 'applicant')->first());

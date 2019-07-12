@@ -161,7 +161,7 @@ class ApplicantProfileController extends Controller
             ]
         );
         if ($input['new_password']) {
-            $user->password = Hash::make(($input['new_password'])); // TODO: change password in seperate form!
+            $user->password = Hash::make($input['new_password']); // TODO: change password in seperate form!
         }
         $user->save();
 
