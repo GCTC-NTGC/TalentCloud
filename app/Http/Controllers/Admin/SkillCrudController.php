@@ -70,27 +70,6 @@ class SkillCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([
-            'name' => 'is_culture_skill',
-            'label' => 'Culture',
-            'type' => 'checkbox',
-            'orderable' => false,
-        ]);
-
-        $this->crud->addColumn([
-            'name' => 'is_future_skill',
-            'label' => 'Future',
-            'type' => 'checkbox',
-            'orderable' => false,
-        ]);
-
-        $this->crud->addColumn([
-            'name' => 'is_future_skill',
-            'label' => 'Future',
-            'type' => 'checkbox',
-            'orderable' => false,
-        ]);
-
-        $this->crud->addColumn([
             'label' => 'Classifications',
             'type' => 'select_multiple',
             'name' => 'classifications',
@@ -99,46 +78,64 @@ class SkillCrudController extends CrudController
             'model' => 'App\Models\Skill',
         ]);
 
+        $this->crud->addColumn([
+            'name' => 'is_culture_skill',
+            'label' => 'Culture',
+            'type' => 'boolean',
+            'orderable' => false,
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'is_future_skill',
+            'label' => 'Future',
+            'type' => 'boolean',
+            'orderable' => false,
+        ]);
+
         // Add custom fields to the create/update views.
         $this->crud->addField([
             'name' => 'name',
             'type' => 'text',
             'label' => 'Name',
         ]);
+
         $this->crud->addField([
             'name' => 'description',
             'type' => 'textarea',
             'label' => 'Description'
         ]);
+
         $this->crud->addField([
             'name' => 'skill_type_id',
             'label' => 'Type',
             'type' => 'select_from_array',
             'options' => SkillType::all()->pluck('name', 'id')->toArray(),
             'allow_null' => false,
-
-        ]);
-        $this->crud->addField([
-            'name' => 'is_culture_skill',
-            'label' => 'Culture',
-            'type' => 'checkbox'
-        ]);
-        $this->crud->addField([
-            'name' => 'is_future_skill',
-            'label' => 'Future',
-            'type' => 'checkbox'
         ]);
 
         $this->crud->addField([
-            'label' => 'Classifications',
-            'type' => 'select2_multiple',
             'name' => 'classifications',
+            'type' => 'select2_multiple',
+            'label' => 'Classifications (select all that apply)',
             'entity' => 'skills',
             'attribute' => 'key',
             'model' => 'App\Models\Classification',
             'pivot' => true,
         ]);
+
+        $this->crud->addField([
+            'name' => 'is_culture_skill',
+            'label' => 'This is a culture skill',
+            'type' => 'checkbox'
+        ]);
+
+        $this->crud->addField([
+            'name' => 'is_future_skill',
+            'label' => 'This is a future skill',
+            'type' => 'checkbox'
+        ]);
     }
+
     /**
     * Action for creating a new Skill in the database.
     *

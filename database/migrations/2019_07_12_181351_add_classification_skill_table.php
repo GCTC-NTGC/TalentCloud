@@ -14,7 +14,6 @@ class AddClassificationSkillTable extends Migration
     public function up()
     {
         Schema::create('classification_skill', function (Blueprint $table) {
-            // $table->increments('id');
             $table->integer('skill_id')->unsigned()->nullable();
             $table->integer('classification_id')->unsigned()->nullable();
             $table->timestamps();
