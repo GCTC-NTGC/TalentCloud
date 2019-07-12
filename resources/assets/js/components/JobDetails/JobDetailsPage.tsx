@@ -12,10 +12,7 @@ import {
   updateJob,
   setSelectedJob,
 } from "../../store/Job/jobActions";
-import {
-  getJob as selectJob,
-  getSelectedJob,
-} from "../../store/Job/jobSelector";
+import { getSelectedJob } from "../../store/Job/jobSelector";
 import RootContainer from "../RootContainer";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { ProgressTrackerItem } from "../ProgressTracker/types";
@@ -23,7 +20,11 @@ import {
   progressTrackerLabels,
   progressTrackerTitles,
 } from "../JobBuilder/jobBuilderMessages";
-import { jobBuilderIntroProgressState } from "../JobBuilder/jobBuilderHelpers";
+import {
+  jobBuilderIntroProgressState,
+  jobBuilderEnvProgressState,
+} from "../JobBuilder/jobBuilderHelpers";
+import { jobBuilderEnv } from "../../helpers/routes";
 
 interface JobDetailsPageProps {
   jobId: number | null;
@@ -52,12 +53,15 @@ const JobDetailsPage: React.FunctionComponent<
   const waitingForJob = jobId !== null && job === null;
   const handleModalCancel = (): void => {};
   const handleModalConfirm = (): void => {
-    window.location.href = "/manager/jobs";
-  }; // TODO: go to next page
+    if (job) {
+      window.location.href = jobBuilderEnv(intl.locale, job.id);
+    }
+    // TODO: what do if selectJob not set yet?
+  };
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
-      state: jobBuilderIntroProgressState(job),
+      state: waitingForJob ? "null" : jobBuilderIntroProgressState(job),
       label: intl.formatMessage(progressTrackerLabels.start),
       title: intl.formatMessage(progressTrackerTitles.welcome),
     },
@@ -67,7 +71,9 @@ const JobDetailsPage: React.FunctionComponent<
       title: intl.formatMessage(progressTrackerTitles.jobInfo),
     },
     {
-      state: "null",
+      state: waitingForJob
+        ? "null"
+        : jobBuilderEnvProgressState(job, intl.locale, true),
       label: intl.formatMessage(progressTrackerLabels.step02),
       title: intl.formatMessage(progressTrackerTitles.workEnv),
     },
@@ -134,11 +140,8 @@ const mapStateToPropsPage = (
   state: RootState,
 ): {
   job: Job | null;
-  getJob: (jobId: number | null) => Job | null;
 } => ({
   job: getSelectedJob(state),
-  getJob: (jobId: number | null): Job | null =>
-    jobId ? selectJob(state, { jobId }) : null,
 });
 
 const mapDispatchToPropsPage = (

@@ -21,7 +21,10 @@ import {
   progressTrackerLabels,
   progressTrackerTitles,
 } from "../JobBuilder/jobBuilderMessages";
-import { jobBuilderDetailsProgressState } from "../JobBuilder/jobBuilderHelpers";
+import {
+  jobBuilderDetailsProgressState,
+  jobBuilderEnvProgressState,
+} from "../JobBuilder/jobBuilderHelpers";
 
 interface JobBuilderIntroProps {
   // The id of the edited job, or null for a new job.
@@ -68,12 +71,16 @@ const JobBuilderIntro: React.FunctionComponent<
       title: intl.formatMessage(progressTrackerTitles.welcome),
     },
     {
-      state: jobBuilderDetailsProgressState(job, intl.locale, true),
+      state: waitingForJob
+        ? "null"
+        : jobBuilderDetailsProgressState(job, intl.locale, true),
       label: intl.formatMessage(progressTrackerLabels.step01),
       title: intl.formatMessage(progressTrackerTitles.jobInfo),
     },
     {
-      state: "null",
+      state: waitingForJob
+        ? "null"
+        : jobBuilderEnvProgressState(job, intl.locale, true),
       label: intl.formatMessage(progressTrackerLabels.step02),
       title: intl.formatMessage(progressTrackerTitles.workEnv),
     },

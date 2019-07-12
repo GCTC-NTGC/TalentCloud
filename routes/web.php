@@ -252,6 +252,7 @@ Route::group(
                     ->middleware('can:update,jobPoster')
                     ->name('manager.jobs.edit');
 
+                /* Job Builder */
                 Route::get(
                     'job-builder/intro',
                     'JobBuilderController@intro'
@@ -259,6 +260,10 @@ Route::group(
                 Route::get(
                     'job-builder/details',
                     'JobBuilderController@details'
+                );
+                Route::get(
+                    'job-builder/environment',
+                    'JobBuilderController@environment'
                 );
 
                 Route::get(
@@ -268,6 +273,10 @@ Route::group(
                 Route::get(
                     'jobs/{jobId}/builder/details',
                     'JobBuilderController@details'
+                )->where('jobPoster', '[0-9]+');
+                Route::get(
+                    'jobs/{jobId}/builder/environment',
+                    'JobBuilderController@environment'
                 )->where('jobPoster', '[0-9]+');
 
                 /* Delete Job */

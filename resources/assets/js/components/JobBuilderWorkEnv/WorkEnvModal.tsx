@@ -126,7 +126,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                                 (value): boolean => name === value,
                               ) && "checked";
                             return (
-                              <div data-c-grid-item="tp(1of2)">
+                              <div data-c-grid-item="tp(1of2)" key={name}>
                                 <div className={`job-builder-check ${checked}`}>
                                   <i className="fa fa-check" />
                                 </div>
@@ -161,7 +161,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                                 (value): boolean => name === value,
                               ) && "checked";
                             return (
-                              <div data-c-grid-item="tp(1of2)">
+                              <div data-c-grid-item="tp(1of2)" key={name}>
                                 <div className={`job-builder-check ${checked}`}>
                                   <i className="fa fa-check" />
                                 </div>
@@ -196,7 +196,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                                 (value): boolean => name === value,
                               ) && "checked";
                             return (
-                              <div data-c-grid-item="tp(1of2)">
+                              <div data-c-grid-item="tp(1of2)" key={name}>
                                 <div className={`job-builder-check ${checked}`}>
                                   <i className="fa fa-check" />
                                 </div>

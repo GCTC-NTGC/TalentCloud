@@ -30,4 +30,16 @@ class JobBuilderController extends Controller
             ['title' => Lang::get('manager/job_builder.details_title'), 'jobId' => $jobId]
         );
     }
+
+    /**
+     * Show the Job Builder Work Environment page
+     * @return \Illuminate\Http\Response
+     */
+    public function environment($jobId = null)
+    {
+        return view(
+            'manager/job-builder-environment',
+            ['title' => Lang::get('manager/job_builder.environment_title'), 'jobId' => $jobId]
+        );
+    }
 }

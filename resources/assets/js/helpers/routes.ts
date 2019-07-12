@@ -12,6 +12,10 @@ export function managerApplicantShow(
   return `/${locale}/manager/applicants/${applicantId}`;
 }
 
+export function managerJobIndex(locale: string): string {
+  return `/${locale}/manager/jobs`;
+}
+
 export function managerJobShow(locale: string, jobId: number): string {
   return `/${locale}/manager/jobs/${jobId}`;
 }
@@ -32,4 +36,11 @@ export function jobBuilderDetails(locale: string, jobId?: number): string {
     return `/${locale}/manager/jobs/${jobId}/builder/details`;
   }
   return `/${locale}/manager/job-builder/details`;
+}
+
+export function jobBuilderEnv(locale: string, jobId?: number): string {
+  if (jobId) {
+    return `/${locale}/manager/jobs/${jobId}/builder/environment`;
+  }
+  return `/${locale}/manager/job-builder/environment`;
 }
