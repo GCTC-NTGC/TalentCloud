@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { InjectedIntlProps, FormattedMessage } from "react-intl";
+import { connect } from "react-redux";
+import { InjectedIntlProps, FormattedMessage, injectIntl } from "react-intl";
+import ReactDOM from "react-dom";
 import { Department, Job } from "../../models/types";
 import { ProgressTrackerItem } from "../ProgressTracker/types";
 import {
-  isJobBuilderIntroComplete,
-  isJobBuilderDetailsComplete,
   jobBuilderDetailsProgressState,
   jobBuilderIntroProgressState,
   jobBuilderEnvProgressState,
@@ -16,6 +16,18 @@ import {
   progressTrackerTitles,
 } from "../JobBuilder/jobBuilderMessages";
 import { managerJobIndex } from "../../helpers/routes";
+import { getSelectedJob } from "../../store/Job/jobSelector";
+import { RootState } from "../../store/store";
+import { DispatchType } from "../../configureStore";
+import {
+  updateJob,
+  fetchJob,
+  setSelectedJob,
+  createJob,
+} from "../../store/Job/jobActions";
+import { getDepartments } from "../../store/Department/deptSelector";
+import { getDepartments as fetchDepartments } from "../../store/Department/deptActions";
+import RootContainer from "../RootContainer";
 
 interface JobBuilderImpactPageProps {
   jobId: number | null;
@@ -139,4 +151,60 @@ const JobBuilderImpactPage: React.FunctionComponent<
   );
 };
 
-export default JobBuilderImpactPage;
+const mapStateToProps = (
+  state: RootState,
+): {
+  job: Job | null;
+  departments: Department[];
+} => ({
+  job: getSelectedJob(state),
+  departments: getDepartments(state),
+});
+
+const mapDispatchToProps = (
+  dispatch: DispatchType,
+): {
+  loadJob: (jobId: number) => void;
+  loadDepartments: () => void;
+  handleCreateJob: (newJob: Job) => Promise<boolean>;
+  handleUpdateJob: (newJob: Job) => Promise<boolean>;
+} => ({
+  loadJob: (jobId: number): void => {
+    dispatch(fetchJob(jobId));
+    dispatch(setSelectedJob(jobId));
+  },
+  loadDepartments: (): void => {
+    dispatch(fetchDepartments());
+  },
+  handleCreateJob: async (newJob: Job): Promise<boolean> => {
+    const result = await dispatch(createJob(newJob));
+    if (!result.error) {
+      const resultJob = await result.payload;
+      dispatch(setSelectedJob(resultJob.id));
+    }
+    return !result.error;
+  },
+  handleUpdateJob: async (newJob: Job): Promise<boolean> => {
+    const result = await dispatch(updateJob(newJob));
+    return !result.error;
+  },
+});
+
+const JobBuilderImpactPageContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(injectIntl(JobBuilderImpactPage));
+
+if (document.getElementById("job-builder-impact")) {
+  const container = document.getElementById(
+    "job-builder-impact",
+  ) as HTMLElement;
+  const jobIdAttr = container.getAttribute("data-job-id");
+  const jobId = jobIdAttr ? Number(jobIdAttr) : null;
+  ReactDOM.render(
+    <RootContainer>
+      <JobBuilderImpactPageContainer jobId={jobId} />
+    </RootContainer>,
+    container,
+  );
+}
