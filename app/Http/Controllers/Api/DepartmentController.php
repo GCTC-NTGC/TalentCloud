@@ -24,7 +24,7 @@ class DepartmentController extends Controller
                     'impact' => $department->getTranslation('impact', $locale),
                 ];
             }
-            $departmentsTranslated = array_merge($deptArray, $departmentsTranslated);
+            $departmentsTranslated[] = $deptArray;
         }
         return $departmentsTranslated;
     }
