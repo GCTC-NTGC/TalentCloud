@@ -34,7 +34,7 @@ class SkillCrudController extends CrudController
         $this->crud->setRoute('admin/skill');
         // Custom strings to display within the backpack UI,
         // things like Create Skill, Delete Skills, etc.
-        $this->crud->setEntityNameStrings('Skill', 'Skills');
+        $this->crud->setEntityNameStrings('skill', 'skills');
 
         // Add custom columns to the Skill index view.
         $this->crud->addColumn([
@@ -48,6 +48,7 @@ class SkillCrudController extends CrudController
                 return $query->orderBy('name->' . $locale, $columnDirection)->select('*');
             }
         ]);
+
         $this->crud->addColumn([
             'name' => 'description',
             'type' => 'text',
@@ -57,6 +58,7 @@ class SkillCrudController extends CrudController
             },
             'orderable' => false,
         ]);
+
         $this->crud->addColumn([
             'name' => 'skill_type.name',
             'type' => 'text',
@@ -66,17 +68,36 @@ class SkillCrudController extends CrudController
                 return $query->orderBy('skill_type_id', $columnDirection)->select('*');
             }
         ]);
+
         $this->crud->addColumn([
             'name' => 'is_culture_skill',
-            'label' => 'isCultureSkill',
-            'type' => 'checkbox'
-        ]);
-        $this->crud->addColumn([
-            'name' => 'is_future_skill',
-            'label' => 'isFutureSkill',
-            'type' => 'checkbox'
+            'label' => 'Culture',
+            'type' => 'checkbox',
+            'orderable' => false,
         ]);
 
+        $this->crud->addColumn([
+            'name' => 'is_future_skill',
+            'label' => 'Future',
+            'type' => 'checkbox',
+            'orderable' => false,
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'is_future_skill',
+            'label' => 'Future',
+            'type' => 'checkbox',
+            'orderable' => false,
+        ]);
+
+        $this->crud->addColumn([
+            'label' => 'Classifications',
+            'type' => 'select_multiple',
+            'name' => 'classifications',
+            'entity' => 'classifications',
+            'attribute' => 'key',
+            'model' => 'App\Models\Skill',
+        ]);
 
         // Add custom fields to the create/update views.
         $this->crud->addField([
@@ -106,6 +127,16 @@ class SkillCrudController extends CrudController
             'name' => 'is_future_skill',
             'label' => 'Future',
             'type' => 'checkbox'
+        ]);
+
+        $this->crud->addField([
+            'label' => 'Classifications',
+            'type' => 'select2_multiple',
+            'name' => 'classifications',
+            'entity' => 'skills',
+            'attribute' => 'key',
+            'model' => 'App\Models\Classification',
+            'pivot' => true,
         ]);
     }
     /**
