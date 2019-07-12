@@ -8,7 +8,6 @@
 namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
-use Astrotomic\Translatable\Translatable as Translatable;
 
 use Backpack\CRUD\CrudTrait;
 use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
@@ -30,22 +29,30 @@ use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
  */
 class Department extends BaseModel
 {
-    use Translatable;
+    use CrudTrait;
+    use HasTranslations;
 
-    public $translatedAttributes = ['value'];
+    /**
+     * @var $translatable string[]
+     * */
+    public $translatable = [
+        'name',
+        'impact',
+    ];
+
     protected $fillable = [];
 
-    public function managers()
+    public function managers() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\Manager::class);
     }
 
-    public function department_translations() //phpcs:ignore
+    public function department_translations() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\Lookup\DepartmentTranslation::class);
     }
 
-    public function job_posters() //phpcs:ignore
+    public function job_posters() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobPoster::class);
     }
