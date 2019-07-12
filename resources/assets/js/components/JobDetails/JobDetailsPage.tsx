@@ -23,6 +23,7 @@ import {
 import {
   jobBuilderIntroProgressState,
   jobBuilderEnvProgressState,
+  jobImpactProgressState,
 } from "../JobBuilder/jobBuilderHelpers";
 import { jobBuilderEnv } from "../../helpers/routes";
 
@@ -50,6 +51,10 @@ const JobDetailsPage: React.FunctionComponent<
     }
   }, [jobId, loadJob]);
 
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
+  }
   const waitingForJob = jobId !== null && job === null;
   const handleModalCancel = (): void => {};
   const handleModalConfirm = (): void => {
@@ -73,12 +78,12 @@ const JobDetailsPage: React.FunctionComponent<
     {
       state: waitingForJob
         ? "null"
-        : jobBuilderEnvProgressState(job, intl.locale, true),
+        : jobBuilderEnvProgressState(job, locale, true),
       label: intl.formatMessage(progressTrackerLabels.step02),
       title: intl.formatMessage(progressTrackerTitles.workEnv),
     },
     {
-      state: "null",
+      state: waitingForJob ? "null" : jobImpactProgressState(job, locale, true),
       label: intl.formatMessage(progressTrackerLabels.step03),
       title: intl.formatMessage(progressTrackerTitles.impact),
     },

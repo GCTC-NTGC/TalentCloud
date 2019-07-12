@@ -5,6 +5,9 @@ import { ProgressTrackerItem } from "../ProgressTracker/types";
 import {
   isJobBuilderIntroComplete,
   isJobBuilderDetailsComplete,
+  jobBuilderDetailsProgressState,
+  jobBuilderIntroProgressState,
+  jobBuilderEnvProgressState,
 } from "../JobBuilder/jobBuilderHelpers";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import JobBuilderImpact from "./JobBuilderImpact";
@@ -12,6 +15,7 @@ import {
   progressTrackerLabels,
   progressTrackerTitles,
 } from "../JobBuilder/jobBuilderMessages";
+import { managerJobIndex } from "../../helpers/routes";
 
 interface JobBuilderImpactPageProps {
   jobId: number | null;
@@ -52,30 +56,31 @@ const JobBuilderImpactPage: React.FunctionComponent<
     // Do nothing on cancel
   };
   const handleModalConfirm = (): void => {
-    window.location.href = "/manager/jobs";
+    window.location.href = managerJobIndex(intl.locale);
   }; // TODO: go to next page
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
-      state: job && isJobBuilderIntroComplete(job) ? "complete" : "error",
+      state: waitingForJob ? "null" : jobBuilderIntroProgressState(job),
       label: intl.formatMessage(progressTrackerLabels.start),
       title: intl.formatMessage(progressTrackerTitles.welcome),
     },
     {
-      state:
-        job && isJobBuilderDetailsComplete(job, intl.locale)
-          ? "complete"
-          : "error",
+      state: waitingForJob
+        ? "null"
+        : jobBuilderDetailsProgressState(job, intl.locale),
       label: intl.formatMessage(progressTrackerLabels.step01),
       title: intl.formatMessage(progressTrackerTitles.jobInfo),
     },
     {
-      state: "active",
+      state: waitingForJob
+        ? "null"
+        : jobBuilderEnvProgressState(job, intl.locale),
       label: intl.formatMessage(progressTrackerLabels.step02),
       title: intl.formatMessage(progressTrackerTitles.workEnv),
     },
     {
-      state: "null",
+      state: "active",
       label: intl.formatMessage(progressTrackerLabels.step03),
       title: intl.formatMessage(progressTrackerTitles.impact),
     },
