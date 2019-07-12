@@ -26,14 +26,15 @@ abstract class BaseTranslationTest extends TestCase
      * Return an array of all Lang files in directory tree
      * @param  string $dir directory to start searching in
      */
-    protected function getAllFilesInDirectoryTree($dir) {
+    protected function getAllFilesInDirectoryTree($dir)
+    {
         $dir = trim($dir, '/');
         $filesAndDirectories = scandir($dir);
         $files = [];
-        foreach($filesAndDirectories as $fileName) {
+        foreach ($filesAndDirectories as $fileName) {
             $path = implode('/', [$dir, $fileName]);
             if ($fileName === '.' || $fileName === '..') {
-                //Do nothing
+                // Do nothing
             } elseif (is_dir($path)) {
                 $files = array_merge($files, $this->getAllFilesInDirectoryTree($path));
             } else {
@@ -43,20 +44,23 @@ abstract class BaseTranslationTest extends TestCase
         return $files;
     }
 
-    protected function removePrefix($str, $prefix) {
+    protected function removePrefix($str, $prefix)
+    {
         if (substr($str, 0, strlen($prefix)) == $prefix) {
             $str = substr($str, strlen($prefix));
         }
         return $str;
     }
 
-    protected function removeFiletype($filename) {
+    protected function removeFiletype($filename)
+    {
         return preg_replace('/\\.[^.\\s]+$/', '', $filename);
     }
 
-    protected function formatLangFilenames($langFiles, $prefix) {
+    protected function formatLangFilenames($langFiles, $prefix)
+    {
         $output = [];
-        foreach($langFiles as $file) {
+        foreach ($langFiles as $file) {
             $relativeName = $this->removePrefix($file, $prefix);
             $relativeName = $this->removeFiletype($relativeName);
             $relativeName = trim($relativeName, '/');
@@ -65,14 +69,16 @@ abstract class BaseTranslationTest extends TestCase
         return $output;
     }
 
-    protected function getLangFilenames($lang) {
+    protected function getLangFilenames($lang)
+    {
         $dir = implode('/', [$this->rootLangDir, $lang]);
         $langFiles = $this->getAllFilesInDirectoryTree($dir);
         $formatedLangFiles = $this->formatLangFilenames($langFiles, $dir);
         return $formatedLangFiles;
     }
 
-    protected function getAllLangFilenames() {
+    protected function getAllLangFilenames()
+    {
         $langs = ['en', 'fr'];
         $output = [];
         foreach ($langs as $lang) {
@@ -97,7 +103,7 @@ abstract class BaseTranslationTest extends TestCase
         } elseif (is_array($values)) {
             $entries = [];
             foreach ($values as $key => $value) {
-                $path = $langEntry . "." . $key;
+                $path = $langEntry . '.' . $key;
                 $entries = array_merge($entries, $this->getAllLangEntriesInFile($path));
             }
             return $entries;

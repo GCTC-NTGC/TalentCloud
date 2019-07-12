@@ -1,7 +1,6 @@
 <?php
 namespace Tests\Unit\Lang;
 
-use Tests\TestCase;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\App;
 
@@ -9,12 +8,13 @@ class LangFilesTest extends BaseTranslationTest
 {
     public function testAllLangFilesWellFormatted()
     {
-        foreach ($this->locales as $locale) {
-            foreach ($this->getAllLangFilenames() as $langFile) {
+        foreach ($this->getAllLangFilenames() as $langFile) {
+            if (!empty($langFile)) {
                 $this->assertInternalType('array', Lang::get($langFile));
             }
         }
     }
+
 
     /**
     * Tests for lang entries that are empty strings.
@@ -29,12 +29,15 @@ class LangFilesTest extends BaseTranslationTest
             foreach ($this->locales as $locale) {
                 App::setLocale($locale);
                 $value = Lang::get($path);
-                if ($value === "") {
-                    $fullPath = $locale . "/" . $path;
-                    array_push($emptyEntries, $fullPath);
+                if ($value === '') {
+                    $fullPath = $locale . '/' . $path;
+                    if (!in_array($fullPath, ['en/','fr/'], true)) {
+                        array_push($emptyEntries, $fullPath);
+                    }
                 }
             }
         }
+
         if (!empty($emptyEntries)) {
             print_r("\n");
             print_r("The following lang entries are empty strings:\n");
@@ -60,7 +63,7 @@ class LangFilesTest extends BaseTranslationTest
                 App::setLocale($locale);
                 $value = Lang::get($path);
                 if (in_array($value, $checks)) {
-                    $fullPath = $locale . "/" . $path;
+                    $fullPath = $locale . '/' . $path;
                     array_push($translationNeeded, $fullPath);
                 }
             }
@@ -81,6 +84,7 @@ class LangFilesTest extends BaseTranslationTest
     */
     protected $permittedMissing = [
         'en' => [
+            '',
             'validation.attributes.courses.new.*.name',
             'validation.attributes.courses.new.*.institution',
             'validation.attributes.courses.new.*.course_status_id',
@@ -98,6 +102,7 @@ class LangFilesTest extends BaseTranslationTest
             'validation.attributes.work_experiences.new.*.end_date',
         ],
         'fr' => [
+            '',
             'validation.attributes.courses.new.*.name',
             'validation.attributes.courses.new.*.institution',
             'validation.attributes.courses.new.*.course_status_id',
@@ -149,7 +154,6 @@ class LangFilesTest extends BaseTranslationTest
             }
             $allMissingEntries = array_merge($allMissingEntries, $missingEntries[$locale]);
         }
-
         $this->assertEmpty($allMissingEntries);
     }
 
@@ -160,7 +164,7 @@ class LangFilesTest extends BaseTranslationTest
     * @var array
     */
     protected $permittedEqual = [
-        "", // empty strings will be reported by testNoEmptyStrings
+        ' ', '', // empty strings will be reported by testNoEmptyStrings
         ':count Minute|:count Minutes', '/tos/', '/privacy/', 'Canada.ca', 'GCcollab', 'Twitter', 'Permanent', 'Application', 'Institution', 'Initiative', 'Facilitation', 'Passion', 'Courage', 'signature', 'date', 'Minute', 'minute', 'description',
         'FAQ', 'Linux', 'CSS', 'Javascript', 'C++', 'SASS', 'Python', 'PHP', 'Git', 'Docker', 'HTML', 'SQL', 'Microsoft Dynamics', 'EF6', 'Info', 'Notes', 'Education',
         'Education (English)', 'Education (Français)', 'Impact', 'Impact (English)', 'Impact (Français)', 'Division', 'Division (English)', 'Division (Français)', 'Question',
