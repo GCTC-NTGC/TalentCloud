@@ -9,4 +9,5 @@ return [
      */
     'intro_title' => 'Constructeur d\'Affiches: Intro',
     'details_title' => 'Constructeur d\'Affiches: Détails',
+    'details_title' => 'Constructeur d\'Affiches: Environnement de travail',
  ];

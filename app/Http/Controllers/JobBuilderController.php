@@ -39,7 +39,7 @@ class JobBuilderController extends Controller
     {
         return view(
             'manager/job-builder-environment',
-            ['title' => 'Job Builder: Environment', 'jobId' => $jobId]
+            ['title' => Lang::get('manager/job_builder.environment_title'), 'jobId' => $jobId]
         );
     }
 }
