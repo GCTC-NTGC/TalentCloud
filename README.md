@@ -1,6 +1,6 @@
 # GC Talent Cloud
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/GCTC-NTGC/TalentCloud.svg)](https://greenkeeper.io/) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/?branch=dev) [![codecov](https://codecov.io/gh/GCTC-NTGC/TalentCloud/branch/dev/graph/badge.svg)](https://codecov.io/gh/GCTC-NTGC/TalentCloud/?branch=dev) [![Build Status](https://travis-ci.com/GCTC-NTGC/TalentCloud.svg?branch=dev)](https://travis-ci.com/GCTC-NTGC/TalentCloud)
+[![Build Status](https://travis-ci.com/GCTC-NTGC/TalentCloud.svg?branch=dev)](https://travis-ci.com/GCTC-NTGC/TalentCloud) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/?branch=dev) [![codecov](https://codecov.io/gh/GCTC-NTGC/TalentCloud/branch/dev/graph/badge.svg)](https://codecov.io/gh/GCTC-NTGC/TalentCloud/?branch=dev)
 
 ## Summary
 
@@ -18,65 +18,65 @@ L'initiative de Nuage de talent est un projet de base proposé par un groupe d'e
 
 The Talent Cloud site uses:
 
-* [Icons from Font-Awesome](https://fontawesome.com/free) - [Creative Commons License](https://creativecommons.org/licenses/by/4.0/)
-* An image from [Unsplash.com](https://unsplash.com/) (Photo by José Martín Ramírez C on Unsplash)
+- [Icons from Font-Awesome](https://fontawesome.com/free) - [Creative Commons License](https://creativecommons.org/licenses/by/4.0/)
+- An image from [Unsplash.com](https://unsplash.com/) (Photo by José Martín Ramírez C on Unsplash)
 
 ## Running the Talent Cloud server with Docker on a Windows machine
 
 1. PHP 7.2 is required. Install PHP 7.2 on your system, create a php.ini file in root and copy the contents of php.ini-development file. Next, open up the file in a text editor and uncomment (eg. remove ';' before ';extention=curl') the following extensions:
 
-    * curl
-    * mbstring
-    * xml
-    * fileinfo
-    * openssl
+   - curl
+   - mbstring
+   - xml
+   - fileinfo
+   - openssl
 
 2. Install Docker for Windows
 
-    A) Check your environment variables for any Docker Toolbox or previous Docker installation version remnants and clear them.
+   A) Check your environment variables for any Docker Toolbox or previous Docker installation version remnants and clear them.
 
-    Go to Control Panel -> All Control Panel Items -> System Then click Advanced system settings, In System Properties, Go to Advanced Tab and Click Environment Variables. Delete all DOCKER_* from System/User variables.
+   Go to Control Panel -> All Control Panel Items -> System Then click Advanced system settings, In System Properties, Go to Advanced Tab and Click Environment Variables. Delete all DOCKER\_\* from System/User variables.
 
-    Remove DOCKER_* from command prompt or PowerShell, using following steps
+   Remove DOCKER\_\* from command prompt or PowerShell, using following steps
 
-    ```bash
-    [Environment]::SetEnvironmentVariable("DOCKER_CERT_PATH", $null, "User")
-    [Environment]::SetEnvironmentVariable("DOCKER_HOST", $null, "User")
-    [Environment]::SetEnvironmentVariable("DOCKER_MACHINE_NAME", $null, "User")
-    [Environment]::SetEnvironmentVariable("DOCKER_TLS_VERIFY", $null, "User")
-    [Environment]::SetEnvironmentVariable("DOCKER_TOOLBOX_INSTALL_PATH", $null, "User")
-    ```
+   ```bash
+   [Environment]::SetEnvironmentVariable("DOCKER_CERT_PATH", $null, "User")
+   [Environment]::SetEnvironmentVariable("DOCKER_HOST", $null, "User")
+   [Environment]::SetEnvironmentVariable("DOCKER_MACHINE_NAME", $null, "User")
+   [Environment]::SetEnvironmentVariable("DOCKER_TLS_VERIFY", $null, "User")
+   [Environment]::SetEnvironmentVariable("DOCKER_TOOLBOX_INSTALL_PATH", $null, "User")
+   ```
 
-    Instructions sourced from : https://github.com/docker/for-win/issues/1746#issuecomment-376280377
+   Instructions sourced from : github.com/docker/for-win/issues/1746#issuecomment-376280377
 
-    B) If prompted, allow Docker through Windows Firewall.
+   B) If prompted, allow Docker through Windows Firewall.
 
 3. If using Docker for Windows, add
 
-    ```bash
-    127.0.0.1	talent.test
-    ```
+   ```bash
+   127.0.0.1    talent.test
+   ```
 
-    to windows hosts file (at `C:\Windows\System32\Drivers\etc\hosts`).
-    If using Docker Toolbox, instead of `127.0.0.1` use the ip address that appears when you open the Docker Quickstart Terminal.
+   to windows hosts file (at `C:\Windows\System32\Drivers\etc\hosts`).
+   If using Docker Toolbox, instead of `127.0.0.1` use the ip address that appears when you open the Docker Quickstart Terminal.
 
 4. Check out an appropriate branch of the `GCTC-NTGC/TalentCloud/` repository from github.com. (Best branch is currently `dev`)
 
-    `git clone --single-branch -b dev https://github.com/GCTC-NTGC/TalentCloud.git`
+   `git clone --single-branch -b dev https://github.com/GCTC-NTGC/TalentCloud.git`
 
-    If you're using Docker Toolbox, ideally don't, but if you must clone the git repo into somewhere in your C:\\Users folder. If you're using Docker for Windows, you can put it anywhere, just make sure that in Docker Settings > Shared Drives, the appropriate drive is available to Docker.
+   If you're using Docker Toolbox, ideally don't, but if you must clone the git repo into somewhere in your C:\\Users folder. If you're using Docker for Windows, you can put it anywhere, just make sure that in Docker Settings > Shared Drives, the appropriate drive is available to Docker.
 
 5. If using Docker for Windows, ensure the Docker for Windows app is running. Open a Powershell terminal and navigate to the TalentCloud directory. Run the rest of the commands in this terminal.
 
-    If using Docker Toolbox, open the Docker Quickstart Terminal. Navigate to the TalentCloud directory. Run the rest of the commands in this terminal.
+   If using Docker Toolbox, open the Docker Quickstart Terminal. Navigate to the TalentCloud directory. Run the rest of the commands in this terminal.
 
 6. Execute gen_certs.bat or run
 
-    `docker run --rm -v $PWD/etc/ssl:/certificates -e "SERVER=talent.test" jacoelho/generate-certificate`
+   `docker run --rm -v $PWD/etc/ssl:/certificates -e "SERVER=talent.test" jacoelho/generate-certificate`
 
-    If that doesn't work, try manually replacing $PWD with the absolute path to the TalentCloud directory.
+   If that doesn't work, try manually replacing \$PWD with the absolute path to the TalentCloud directory.
 
-    If that doesn't work, you should restart your computer and attempt to run gen_certs.bat again.
+   If that doesn't work, you should restart your computer and attempt to run gen_certs.bat again.
 
 7. In Task Manager > Services, stop any MySQL and Apache services you have running.
 
@@ -86,8 +86,8 @@ The Talent Cloud site uses:
 
 10. Copy `.env.example` to `.env`. Configure it with the following steps:
 
-    * run `docker-compose exec talentcloud sh -c "php artisan key:generate"` to create a random APP_KEY variable.
-    * If testing, consider setting `FORCE_ADMIN` and/or `DEBUGBAR_ENABLED` to true.
+    - run `docker-compose exec talentcloud sh -c "php artisan key:generate"` to create a random APP_KEY variable.
+    - If testing, consider setting `FORCE_ADMIN` and/or `DEBUGBAR_ENABLED` to true.
 
 11. Run the following command so that the database will persist across containers being brought and down:
 
@@ -145,10 +145,10 @@ Laravel Mix is used to compile frontend assets (CSS, SASS, and JS).
 
 Files in the `public/` folder must never be modified directly. Instead, modify files in the `resources/assets/` folder, and then run `npm run dev` or `npm run prod` to compile these assets to the `public/` folder.
 
-See the documentation for more details: https://laravel.com/docs/5.5/mix
+See the documentation for more details: laravel.com/docs/5.5/mix
 See below for installing `npm`:
 
-First download the applicable package here ; https://nodejs.org/en/
+First download the applicable package here: nodejs.org/en/
 
 Then after installation completes, restart your computer and open Powershell. Navigate to your TalentCloud directory.
 
@@ -177,21 +177,23 @@ And you are done.
 Laravel Data Seeders can be used to quickly generate fake data and add it to the database for testing purposes.
 
 Use the following command to run the seeder within your docker container:
-```
+
+```bash
 docker-compose exec talentcloud sh -c "php artisan db:seed --class=DevSeeder"
 ```
+
 This will create:
+
 - An applicant with email='applicant@test.com' and password='password'
 - A manager with email='manager@test.com' and password='password'
 - 3 JobPosters attached to this manager: one still a draft, one currently open, one already closed.
-Running the command again will create 3 more JobPosters without affecting the users or their profiles.
+  Running the command again will create 3 more JobPosters without affecting the users or their profiles.
 
 This functionality lies in the `database\seeds\DevSeeder.php` file.
 
-See https://laravel.com/docs/5.7/seeding for more documentation on seeders.
+See laravel.com/docs/5.7/seeding for more documentation on seeders.
 
-
-## Useful Commands:
+## Useful Commands
 
 ```bash
 # Get an interactive shell prompt in a running container,
