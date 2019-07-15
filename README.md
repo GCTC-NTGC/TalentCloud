@@ -47,7 +47,7 @@ The Talent Cloud site uses:
    [Environment]::SetEnvironmentVariable("DOCKER_TOOLBOX_INSTALL_PATH", $null, "User")
    ```
 
-   Instructions sourced from : github.com/docker/for-win/issues/1746#issuecomment-376280377
+   [Instructions sourced from:](https://github.com/docker/for-win/issues/1746#issuecomment-376280377)
 
    B) If prompted, allow Docker through Windows Firewall.
 
@@ -145,10 +145,11 @@ Laravel Mix is used to compile frontend assets (CSS, SASS, and JS).
 
 Files in the `public/` folder must never be modified directly. Instead, modify files in the `resources/assets/` folder, and then run `npm run dev` or `npm run prod` to compile these assets to the `public/` folder.
 
-See the documentation for more details: laravel.com/docs/5.5/mix
+[See the documentation for more details:](https://laravel.com/docs/5.5/mix)
+
 See below for installing `npm`:
 
-First download the applicable package here: nodejs.org/en/
+[First download the applicable package here:](https://nodejs.org/en/)
 
 Then after installation completes, restart your computer and open Powershell. Navigate to your TalentCloud directory.
 
@@ -191,7 +192,7 @@ This will create:
 
 This functionality lies in the `database\seeds\DevSeeder.php` file.
 
-See laravel.com/docs/5.7/seeding for more documentation on seeders.
+See [](https://laravel.com/docs/5.7/seeding) for more documentation on seeders.
 
 ## Useful Commands
 
