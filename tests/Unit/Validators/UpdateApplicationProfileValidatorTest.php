@@ -4,11 +4,8 @@ namespace Tests\Unit\Validators;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Applicant;
-use App\Models\User;
 use App\Services\Validation\Requests\UpdateApplicationProfileValidator;
 
 class UpdateApplicationProfileValidatorTest extends TestCase
@@ -21,21 +18,28 @@ class UpdateApplicationProfileValidatorTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp() : void
     {
         parent::setUp();
 
         $this->password = 'Testing123!';
         $this->badPassword = 'WrongPassword123!';
-        $this->user = factory(User::class)->create([
+
+        $this->user = factory(\App\Models\User::class)->create([
             'password' => Hash::make('Testing123!')
         ]);
-        $this->applicant = factory(Applicant::class)->create(['user_id' => $this->user->id]);
-
+        $this->applicant = factory(Applicant::class)->create([
+            'user_id' => $this->user->id
+        ]);
         $this->otherApplicant = factory(Applicant::class)->create();
     }
 
-    public function testUpdatingBasicProfileIsValid()
+    /**
+     * Ensure profiles can be updated with valid data.
+     *
+     * @return void
+     */
+    public function testUpdatingBasicProfileIsValid() : void
     {
         $data = [
             'profile_name' => $this->applicant->user->name,
@@ -48,7 +52,12 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $this->assertTrue($validator->isValid($data));
     }
 
-    public function testNotValidWhenNameIsEmpty()
+    /**
+     * Ensure missing name is invalid.
+     *
+     * @return void
+     */
+    public function testNotValidWhenNameIsEmpty() : void
     {
         $data = [
             'profile_name' => '',
@@ -61,7 +70,12 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $this->assertFalse($validator->isValid($data));
     }
 
-    public function testNotValidWhenNEmailIsEmpty()
+    /**
+     * Ensure missing email is invalid.
+     *
+     * @return void
+     */
+    public function testNotValidWhenNEmailIsEmpty() : void
     {
         $data = [
             'profile_name' => $this->applicant->user->name,
@@ -74,7 +88,12 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $this->assertFalse($validator->isValid($data));
     }
 
-    public function testNotValidWhenNEmailSameAsAnotherUser()
+    /**
+     * Ensure duplicate email is invalid.
+     *
+     * @return void
+     */
+    public function testNotValidWhenNEmailSameAsAnotherUser() : void
     {
         $data = [
             'profile_name' => $this->applicant->user->name,
@@ -87,12 +106,18 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $this->assertFalse($validator->isValid($data));
     }
 
-    public function testUpdatePasswordValidWithOldAndConfirm()
+    /**
+     * Ensure old password and new password confirmation are valid FOR changing password.
+     *
+     * @return void
+     */
+    public function testUpdatePasswordValidWithOldAndConfirm() : void
     {
         $data = [
             'profile_name' => $this->applicant->user->name,
             'profile_email' => $this->applicant->user->email,
-            'old_password' => "Testing123!",
+            'password' => $this->applicant->user->password,
+            'old_password' => 'Testing123!',
             'new_password' => 'NewPassword123!',
             'new_password_confirmation' => 'NewPassword123!',
             'twitter_username' => 'Test_person',
@@ -104,7 +129,12 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $this->assertTrue($validator->isValid($data));
     }
 
-    public function testUpdatePasswordFailsWithoutConfirm()
+    /**
+     * Ensure password update is invalid without new password confirmation.
+     *
+     * @return void
+     */
+    public function testUpdatePasswordFailsWithoutConfirm() : void
     {
         $data = [
             'profile_name' => $this->applicant->user->name,
@@ -120,7 +150,12 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $this->assertFalse($validator->isValid($data));
     }
 
-    public function testUpdatePasswordFailsWithBadConfirm()
+    /**
+     * Ensure new password and confirmation mismatch is invalid.
+     *
+     * @return void
+     */
+    public function testUpdatePasswordFailsWithBadConfirm() : void
     {
         $data = [
             'profile_name' => $this->applicant->user->name,
@@ -137,7 +172,12 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $this->assertFalse($validator->isValid($data));
     }
 
-    public function testUpdatePasswordFailsWithIllegalPassword()
+    /**
+     * Ensure illegal new password is invalid.
+     *
+     * @return void
+     */
+    public function testUpdatePasswordFailsWithIllegalPassword() : void
     {
         $data = [
             'profile_name' => $this->applicant->user->name,
@@ -154,7 +194,12 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $this->assertFalse($validator->isValid($data));
     }
 
-    public function testUpdatePasswordFailsWithBadOldPassword()
+    /**
+     * Ensure old password mismatch is ivalid.
+     *
+     * @return void
+     */
+    public function testUpdatePasswordFailsWithBadOldPassword() : void
     {
         $data = [
             'profile_name' => $this->applicant->user->name,

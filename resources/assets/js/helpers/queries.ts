@@ -6,8 +6,13 @@ export function getId<T extends { id: number }>(item: T): number {
   return item.id;
 }
 
+export function identity<T>(value: T): T {
+  return value;
+}
+
 /**
- * Shortcut function used to filter nulls and undefined values out of an array.
+ * Returns true as long as the value passed to it is not null or undefined.
+ * Can be used to filter nulls and undefined values out of an array.
  * @param item
  */
 export function notEmpty<T>(value: T | null | undefined): value is T {

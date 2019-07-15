@@ -7,8 +7,9 @@
 
 namespace App\Models;
 
-use App\Models\Lookup\CriteriaTypeTranslation;
+use App\Models\BaseModel;
 use Illuminate\Support\Facades\Lang;
+use Astrotomic\Translatable\Translatable as Translatable;
 
 /**
  * Class Criteria
@@ -35,12 +36,15 @@ use Illuminate\Support\Facades\Lang;
  *  Localized Properties:
   * @property string $description
  */
-class Criteria extends BaseModel {
+class Criteria extends BaseModel
+{
 
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
+
     public $translatedAttributes = ['description'];
 
     protected $table = 'criteria';
+
     protected $casts = [
         'criteria_type_id' => 'int',
         'job_poster_id' => 'int',
@@ -58,23 +62,28 @@ class Criteria extends BaseModel {
         'skill_level'
     ];
 
-    public function criteria_type() {
+    public function criteria_type() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\CriteriaType::class);
     }
 
-    public function job_poster() {
+    public function job_poster() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
 
-    public function skill() {
+    public function skill()
+    {
         return $this->belongsTo(\App\Models\Skill::class);
     }
 
-    public function skill_level() {
+    public function skill_level() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\SkillLevel::class);
     }
 
-    public function criteria_translations() {
+    public function criteria_translations() //phpcs:ignore
+    {
         return $this->hasMany(\App\Models\Lookup\CriteriaTypeTranslation::class);
     }
 

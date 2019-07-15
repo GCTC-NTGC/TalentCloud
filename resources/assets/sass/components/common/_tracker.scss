@@ -4,7 +4,19 @@
         display: inline-block;
         vertical-align: middle;
     }
-
+    .fa-exclamation-triangle {
+      margin: -0.05rem 0 0 -0.04rem;
+    }
+  }
+  .tracker-title {
+    display: flex;
+    flex-direction: column;
+  }
+  [data-tc-tracker-state="null"] {
+    display: none;
+    @media #{$clone-tablet-landscape} {
+      display: inline-block;
+    }
     .tracker-icon {
         border-radius: 100%;
         display: inline-block;
@@ -46,58 +58,62 @@
             display: none;
         }
     }
-    [data-tc-tracker-state="active"] {
-        display: inline-block;
-        @media #{$clone-tablet-landscape} {
-            display: inline-block;
-        }
-        .tracker-icon {
-            background: $clone-c1;
-        }
-        .fa-arrow-down {
-            display: block;
-        }
-        .fa-check {
-            display: none;
-        }
-        .fa-exclamation-triangle {
-            display: none;
-        }
+    .fa-exclamation-triangle {
+      display: none;
     }
-    [data-tc-tracker-state="complete"] {
-        display: none;
-        @media #{$clone-tablet-landscape} {
-            display: inline-block;
-        }
-        .tracker-icon {
-            background: $clone-go;
-        }
-        .fa-arrow-down {
-            display: none;
-        }
-        .fa-check {
-            display: block;
-        }
-        .fa-exclamation-triangle {
-            display: none;
-        }
+  }
+  [data-tc-tracker-state="active"] {
+    display: inline-block;
+    @media #{$clone-tablet-landscape} {
+      display: inline-block;
     }
-    [data-tc-tracker-state="error"] {
-        display: none;
-        @media #{$clone-tablet-landscape} {
-            display: inline-block;
-        }
-        .tracker-icon {
-            background: $clone-stop;
-        }
-        .fa-arrow-down {
-            display: none;
-        }
-        .fa-check {
-            display: none;
-        }
-        .fa-exclamation-triangle {
-            display: block;
-        }
+    .tracker-icon {
+      background: $clone-c1;
     }
+    .fa-arrow-down {
+      display: block;
+    }
+    .fa-check {
+      display: none;
+    }
+    .fa-exclamation-triangle {
+      display: none;
+    }
+  }
+  [data-tc-tracker-state="complete"] {
+    display: none;
+    @media #{$clone-tablet-landscape} {
+      display: inline-block;
+    }
+    .tracker-icon {
+      background: $clone-go;
+    }
+    .fa-arrow-down {
+      display: none;
+    }
+    .fa-check {
+      display: block;
+    }
+    .fa-exclamation-triangle {
+      display: none;
+    }
+  }
+  [data-tc-tracker-state="error"] {
+    display: none;
+    @media #{$clone-tablet-landscape} {
+      display: inline-block;
+    }
+    .tracker-icon {
+      background: $clone-stop;
+    }
+    .fa-arrow-down {
+      display: none;
+    }
+    .fa-check {
+      display: none;
+    }
+    .fa-exclamation-triangle {
+      display: block;
+    }
+  }
 }
