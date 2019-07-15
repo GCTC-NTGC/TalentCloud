@@ -63,9 +63,9 @@
 
         // Move Up
         function taskUpTrigger(trigger) {
-          var thisEl = $(trigger).parents(".job-builder-task");
-          var previousEl = $(trigger).parents(".job-builder-task").prev();
-          var nextEl = $(trigger).parents(".job-builder-task").next();
+          var thisEl = $(trigger).parents("[data-tc-up-down-item]");
+          var previousEl = $(trigger).parents("[data-tc-up-down-item]").prev();
+          var nextEl = $(trigger).parents("[data-tc-up-down-item]").next();
           if ($(previousEl).hasClass("job-builder-task-warning")) {
             var displaced = $(previousEl).prev();
             $(thisEl).removeClass("invalid");
@@ -83,11 +83,11 @@
           }
         }
 
-        $(document).on("click", "[data-tc-builder-task-up-trigger]", function(e) {
+        $(document).on("click", "[data-tc-move-up-trigger]", function(e) {
           taskUpTrigger(this);
         });
 
-        $(document).on("keyup", "[data-tc-builder-task-up-trigger]", function(e) {
+        $(document).on("keyup", "[data-tc-move-up-trigger]", function(e) {
           if (e.which == 13) {
             taskUpTrigger(this);
           }
@@ -95,9 +95,9 @@
 
         // Move Down
         function taskDownTrigger(trigger) {
-          var thisEl = $(trigger).parents(".job-builder-task");
-          var previousEl = $(trigger).parents(".job-builder-task").prev();
-          var nextEl = $(trigger).parents(".job-builder-task").next();
+          var thisEl = $(trigger).parents("[data-tc-up-down-item]");
+          var previousEl = $(trigger).parents("[data-tc-up-down-item]").prev();
+          var nextEl = $(trigger).parents("[data-tc-up-down-item]").next();
           if ($(nextEl).hasClass("job-builder-task-warning")) {
             var displaced = $(nextEl).next();
             $(thisEl).addClass("invalid");
@@ -115,11 +115,11 @@
           }
         }
 
-        $(document).on("click", "[data-tc-builder-task-down-trigger]", function(e) {
+        $(document).on("click", "[data-tc-move-down-trigger]", function(e) {
           taskDownTrigger(this);
         });
 
-        $(document).on("keyup", "[data-tc-builder-task-down-trigger]", function(e) {
+        $(document).on("keyup", "[data-tc-move-down-trigger]", function(e) {
           if (e.which == 13) {
             taskDownTrigger(this);
           }
@@ -165,6 +165,80 @@
         $(document).on("keyup", "[data-tc-job-builder-culture-copy-trigger]", function(e) {
           if (e.which == 13) {
             copyCulture(this);
+          }
+        });
+
+    // Job Builder Skills Modal ================================================
+
+        function toggleCustomSkillDefinition(trigger) {
+          if ($(trigger).parents().find(".job-builder-custom-skill-definition").hasClass("active")) {
+            $(trigger).removeClass("active");
+            $(trigger).parents().find(".job-builder-custom-skill-definition").removeClass("active");
+          }
+          else {
+            $(trigger).addClass("active");
+            $(trigger).parents().find(".job-builder-custom-skill-definition").addClass("active");
+            $(trigger).parents().find(".job-builder-custom-skill-definition").find("input").focus();
+          }
+        }
+
+        $(document).on("click", ".job-builder-add-skill-definition-trigger", function(e) {
+          toggleCustomSkillDefinition(this);
+        });
+
+        $(document).on("keyup", ".job-builder-add-skill-definition-trigger", function(e) {
+          if (e.which == 13) {
+            toggleCustomSkillDefinition(this);
+          }
+        });
+
+    // Job Builder Education ===================================================
+
+        // Customization Trigger
+        function eduCustomTrigger(trigger) {
+          var firstInput = $(trigger).find("label:first-child input");
+          var secondInput = $(trigger).find("label:last-child input");
+          if($(firstInput).is(':checked')) {
+            $(".job-builder-education-customization").removeClass("active");
+          }
+          else if ($(secondInput).is(':checked')) {
+            $(".job-builder-education-customization").addClass("active");
+          }
+        }
+
+        $(document).on("click", "[data-tc-job-builder-customization-trigger]", function(e) {
+          eduCustomTrigger(this);
+        });
+
+        $(document).on("keyup", "[data-tc-job-builder-customization-trigger]", function(e) {
+          if (e.which == 13) {
+            eduCustomTrigger(this);
+          }
+        });
+
+        // Copy Trigger
+        function copyEducation(trigger) {
+          var temp = $("<textarea>");
+          var copy = $("#jobPosterBuilderEducationCopy").find('br').prepend('\r\n').end().text().trim();
+          $("body").append(temp);
+          temp.val(copy).select();
+          document.execCommand("copy");
+          temp.remove();
+          $(trigger).find(".default").hide();
+          $(trigger).find(".copied").show();
+          setTimeout(function() {
+            $(trigger).find(".default").show();
+            $(trigger).find(".copied").hide();
+          }, 1400);
+        }
+
+        $(document).on("click", "[data-tc-job-builder-education-copy-trigger]", function(e) {
+          copyEducation(this);
+        });
+
+        $(document).on("keyup", "[data-tc-job-builder-education-copy-trigger]", function(e) {
+          if (e.which == 13) {
+            copyEducation(this);
           }
         });
 
