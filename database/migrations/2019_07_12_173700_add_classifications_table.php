@@ -20,6 +20,7 @@ class AddClassificationsTable extends Migration
         });
 
         DB::table('classifications')->insert([
+            ['key' => 'AS'],
             ['key' => 'BI'],
             ['key' => 'CO'],
             ['key' => 'CR'],
