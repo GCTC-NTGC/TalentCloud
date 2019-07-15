@@ -34,7 +34,7 @@ class SkillCrudController extends CrudController
         $this->crud->setRoute('admin/skill');
         // Custom strings to display within the backpack UI,
         // things like Create Skill, Delete Skills, etc.
-        $this->crud->setEntityNameStrings('Skill', 'Skills');
+        $this->crud->setEntityNameStrings('skill', 'skills');
 
         // Add custom columns to the Skill index view.
         $this->crud->addColumn([
@@ -48,6 +48,7 @@ class SkillCrudController extends CrudController
                 return $query->orderBy('name->' . $locale, $columnDirection)->select('*');
             }
         ]);
+
         $this->crud->addColumn([
             'name' => 'description',
             'type' => 'text',
@@ -57,6 +58,7 @@ class SkillCrudController extends CrudController
             },
             'orderable' => false,
         ]);
+
         $this->crud->addColumn([
             'name' => 'skill_type.name',
             'type' => 'text',
@@ -67,17 +69,42 @@ class SkillCrudController extends CrudController
             }
         ]);
 
+        $this->crud->addColumn([
+            'label' => 'Classifications',
+            'type' => 'select_multiple',
+            'name' => 'classifications',
+            'entity' => 'classifications',
+            'attribute' => 'key',
+            'model' => 'App\Models\Skill',
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'is_culture_skill',
+            'label' => 'Culture',
+            'type' => 'boolean',
+            'orderable' => false,
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'is_future_skill',
+            'label' => 'Future',
+            'type' => 'boolean',
+            'orderable' => false,
+        ]);
+
         // Add custom fields to the create/update views.
         $this->crud->addField([
             'name' => 'name',
             'type' => 'text',
             'label' => 'Name',
         ]);
+
         $this->crud->addField([
             'name' => 'description',
             'type' => 'textarea',
             'label' => 'Description'
         ]);
+
         $this->crud->addField([
             'name' => 'skill_type_id',
             'label' => 'Type',
@@ -85,25 +112,47 @@ class SkillCrudController extends CrudController
             'options' => SkillType::all()->pluck('name', 'id')->toArray(),
             'allow_null' => false,
         ]);
+
+        $this->crud->addField([
+            'name' => 'classifications',
+            'type' => 'select2_multiple',
+            'label' => 'Classifications (select all that apply)',
+            'entity' => 'skills',
+            'attribute' => 'key',
+            'model' => 'App\Models\Classification',
+            'pivot' => true,
+        ]);
+
+        $this->crud->addField([
+            'name' => 'is_culture_skill',
+            'label' => 'This is a culture skill',
+            'type' => 'checkbox'
+        ]);
+
+        $this->crud->addField([
+            'name' => 'is_future_skill',
+            'label' => 'This is a future skill',
+            'type' => 'checkbox'
+        ]);
     }
 
     /**
-     * Action for creating a new Skill in the database.
-     *
-     * @param  \App\Http\Requests\SkillCrudRequest $request Incoming form request.
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    * Action for creating a new Skill in the database.
+    *
+    * @param  \App\Http\Requests\SkillCrudRequest $request Incoming form request.
+    * @return \Illuminate\Http\RedirectResponse
+    */
     public function store(StoreRequest $request) // phpcs:ignore
     {
         return parent::storeCrud();
     }
 
     /**
-     * Action for creating a new Skill in the database.
-     *
-     * @param  \App\Http\Requests\SkillCrudRequest $request Incoming form request.
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    * Action for creating a new Skill in the database.
+    *
+    * @param  \App\Http\Requests\SkillCrudRequest $request Incoming form request.
+    * @return \Illuminate\Http\RedirectResponse
+    */
     public function update(UpdateRequest $request) // phpcs:ignore
     {
         return parent::updateCrud();
