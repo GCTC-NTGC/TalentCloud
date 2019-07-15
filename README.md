@@ -47,7 +47,7 @@ The Talent Cloud site uses:
    [Environment]::SetEnvironmentVariable("DOCKER_TOOLBOX_INSTALL_PATH", $null, "User")
    ```
 
-   Instructions sourced from: [](https://github.com/docker/for-win/issues/1746#issuecomment-376280377)
+   Instructions sourced from: [https://github.com/docker/for-win/issues/1746#issuecomment-376280377](https://github.com/docker/for-win/issues/1746#issuecomment-376280377)
 
    B) If prompted, allow Docker through Windows Firewall.
 
@@ -192,7 +192,7 @@ This will create:
 
 This functionality lies in the `database\seeds\DevSeeder.php` file.
 
-See [](https://laravel.com/docs/5.7/seeding) for more documentation on seeders.
+See [https://laravel.com/docs/5.7/seeding](https://laravel.com/docs/5.7/seeding) for more documentation on seeders.
 
 ## Useful Commands
 
