@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class UpdateDepartmentTranslations extends Migration
 {
@@ -42,12 +42,12 @@ class UpdateDepartmentTranslations extends Migration
             'impact' => 'Transports Canada sert l\'intérêt public en favorisant un réseau de transport au Canada qui est sûr et sécuritaire, efficace et respectueux de l\'environnement.'
         ]);
         DB::table('department_translations')->whereIn('id', [7])->update([
-            'value' => 'Environment and Climate Change Canada',
-            'impact' => 'ECCC informs Canadians about protecting and conserving our natural heritage, and ensuring a clean, safe and sustainable environment for present and future generations.'
+            'value' => 'Health Canada',
+            'impact' => 'Health Canada is responsible for helping Canadians maintain and improve their health. It ensures that high-quality health services are accessible, and works to reduce health risks.'
         ]);
         DB::table('department_translations')->whereIn('id', [8])->update([
-            'value' => 'Environnement et Changement climatique Canada',
-            'impact' => 'Environnement et Changement climatique Canada s\'engage à protéger l\'environnement, à conserver le patrimoine naturel du pays et à fournir des renseignements météorologiques pour tenir les Canadiens informés et en sécurité.'
+            'value' => 'Santé Canada',
+            'impact' => 'Santé Canada a pour mandat d\'aider les Canadiens à conserver et à améliorer leur santé. Il s\'assure d\'offrir des services de santé de grande qualité, et cherche à réduire les risques pour la santé.'
         ]);
         DB::table('department_translations')->whereIn('id', [9])->update([
             'value' => 'Employment and Social Development Canada',
@@ -58,44 +58,44 @@ class UpdateDepartmentTranslations extends Migration
             'impact' => 'Emploi et Développement social Canada (EDSC) travaille à améliorer le niveau de vie et la qualité de vie de tous les Canadiens en faisant la promotion d\'une main-d\'œuvre mobile et hautement spécialisée ainsi que d\'un marché du travail efficace et favorable à l\'inclusion.'
         ]);
         DB::table('department_translations')->whereIn('id', [11])->update([
-            'value' => 'Global Affairs Canada',
-            'impact' => 'Global Affairs Canada manages Canada\'s diplomatic relations, provides consular services to Canadians, promotes the country\'s international trade, and leads Canada\'s international development and humanitarian assistance.'
-        ]);
-        DB::table('department_translations')->whereIn('id', [12])->update([
-            'value' => 'Affaires mondiales Canada',
-            'impact' => 'Affaires mondiales Canada gère les relations diplomatiques du Canada, fournit les services consulaires aux canadiens, fait la promotion du commerce international du pays et dirige le développement international et l\'aide humanitaire du Canada.'
-        ]);
-        DB::table('department_translations')->whereIn('id', [13])->update([
-            'value' => 'Canada Border Services Agency',
-            'impact' => 'The Canada Border Services Agency (CBSA) facilitates the flow of legitimate travellers and trade. The Agency also enforces more than 90 acts and regulations that keep our country and Canadians safe.'
-        ]);
-        DB::table('department_translations')->whereIn('id', [14])->update([
-            'value' => 'Agence des services frontaliers du Canada',
-            'impact' => 'L\'Agence des services frontaliers du Canada (ASFC) facilite la circulation des voyageurs et des marchandises commerciales légitimes. L\'Agence applique aussi plus de 90 lois et règlements qui assurent la sécurité du pays et des Canadiens.'
-        ]);
-        DB::table('department_translations')->whereIn('id', [15])->update([
-            'value' => 'Shared Services Canada',
-            'impact' => 'Shared Services Canada (SSC) delivers digital services to Government of Canada organizations. We provide modern, secure and reliable IT services so federal organizations can deliver digital programs and services that meet Canadians needs.'
-        ]);
-        DB::table('department_translations')->whereIn('id', [16])->update([
-            'value' => 'Services partagés Canada',
-            'impact' => 'Services partagés Canada (SPC) offre des services numériques aux organismes du gouvernement du Canada. Nous offrons des services de TI modernes, sécurisés et fiables pour permettre aux organismes fédéraux d\'offrir des programmes et des services numériques qui répondent aux besoins des Canadiens et des Canadiennes.'
-        ]);
-        DB::table('department_translations')->whereIn('id', [17])->update([
-            'value' => 'Innovation, Science and Economic Development Canada',
-            'impact' => 'Innovation, Science and Economic Development Canada (ISED) works with Canadians in all areas of the economy and in all parts of the country to improve conditions for investment, enhance Canada\'s innovation performance, increase Canada\'s share of global trade and build a fair, efficient and competitive marketplace.'
-        ]);
-        DB::table('department_translations')->whereIn('id', [18])->update([
-            'value' => 'Innovation, Sciences et Développement économique Canada',
-            'impact' => 'Innovation, Sciences et Développement économique Canada (ISDE) travaille avec les Canadiens de tous les secteurs de l\'économie et de toutes les régions du pays à instaurer un climat favorable à l\'investissement, à stimuler l\'innovation, à accroître la présence canadienne sur les marchés mondiaux et à créer un marché équitable, efficace et concurrentiel.'
-        ]);
-        DB::table('department_translations')->whereIn('id', [19])->update([
             'value' => 'Public Services and Procurement Canada',
             'impact' => 'Public Services and Procurement Canada serves federal departments and agencies as their central purchasing agent, real property manager, treasurer, accountant, pay and pension administrator, integrity adviser and linguistic authority.'
         ]);
-        DB::table('department_translations')->whereIn('id', [20])->update([
+        DB::table('department_translations')->whereIn('id', [12])->update([
             'value' => 'Services publics et Approvisionnement Canada',
             'impact' => 'Services publics et Approvisionnement Canada sert les ministères et organismes fédéraux en tant qu\'acheteur central, gestionnaire de biens immobiliers, trésorier, comptable, administrateur de la paye et des pensions, conseiller en matière d\'intégrité et spécialiste des questions linguistiques.'
+        ]);
+        DB::table('department_translations')->whereIn('id', [13])->update([
+            'value' => 'Global Affairs Canada',
+            'impact' => 'Global Affairs Canada manages Canada\'s diplomatic relations, provides consular services to Canadians, promotes the country\'s international trade, and leads Canada\'s international development and humanitarian assistance.'
+        ]);
+        DB::table('department_translations')->whereIn('id', [14])->update([
+            'value' => 'Affaires mondiales Canada',
+            'impact' => 'Affaires mondiales Canada gère les relations diplomatiques du Canada, fournit les services consulaires aux canadiens, fait la promotion du commerce international du pays et dirige le développement international et l\'aide humanitaire du Canada.'
+        ]);
+        DB::table('department_translations')->whereIn('id', [15])->update([
+            'value' => 'Canada Border Services Agency',
+            'impact' => 'The Canada Border Services Agency (CBSA) facilitates the flow of legitimate travellers and trade. The Agency also enforces more than 90 acts and regulations that keep our country and Canadians safe.'
+        ]);
+        DB::table('department_translations')->whereIn('id', [16])->update([
+            'value' => 'Agence des services frontaliers du Canada',
+            'impact' => 'L\'Agence des services frontaliers du Canada (ASFC) facilite la circulation des voyageurs et des marchandises commerciales légitimes. L\'Agence applique aussi plus de 90 lois et règlements qui assurent la sécurité du pays et des Canadiens.'
+        ]);
+        DB::table('department_translations')->whereIn('id', [17])->update([
+            'value' => 'Shared Services Canada',
+            'impact' => 'Shared Services Canada (SSC) delivers digital services to Government of Canada organizations. We provide modern, secure and reliable IT services so federal organizations can deliver digital programs and services that meet Canadians needs.'
+        ]);
+        DB::table('department_translations')->whereIn('id', [18])->update([
+            'value' => 'Services partagés Canada',
+            'impact' => 'Services partagés Canada (SPC) offre des services numériques aux organismes du gouvernement du Canada. Nous offrons des services de TI modernes, sécurisés et fiables pour permettre aux organismes fédéraux d\'offrir des programmes et des services numériques qui répondent aux besoins des Canadiens et des Canadiennes.'
+        ]);
+        DB::table('department_translations')->whereIn('id', [19])->update([
+            'value' => 'Innovation, Science and Economic Development Canada',
+            'impact' => 'Innovation, Science and Economic Development Canada (ISED) works with Canadians in all areas of the economy and in all parts of the country to improve conditions for investment, enhance Canada\'s innovation performance, increase Canada\'s share of global trade and build a fair, efficient and competitive marketplace.'
+        ]);
+        DB::table('department_translations')->whereIn('id', [20])->update([
+            'value' => 'Innovation, Sciences et Développement économique Canada',
+            'impact' => 'Innovation, Sciences et Développement économique Canada (ISDE) travaille avec les Canadiens de tous les secteurs de l\'économie et de toutes les régions du pays à instaurer un climat favorable à l\'investissement, à stimuler l\'innovation, à accroître la présence canadienne sur les marchés mondiaux et à créer un marché équitable, efficace et concurrentiel.'
         ]);
         DB::table('department_translations')->whereIn('id', [21])->update([
             'value' => 'Department of National Defence',
@@ -106,12 +106,20 @@ class UpdateDepartmentTranslations extends Migration
             'impact' => 'Le ministère de la Défense nationale et les Forces armées canadiennes mettent en œuvre les décisions du gouvernement en ce qui concerne la défense des intérêts canadiens au pays et à l\'étranger.'
         ]);
         DB::table('department_translations')->whereIn('id', [23])->update([
-            'value' => 'Health Canada',
-            'impact' => 'Health Canada is responsible for helping Canadians maintain and improve their health. It ensures that high-quality health services are accessible, and works to reduce health risks.'
+            'value' => 'Office of the Privacy Commissioner of Canada',
+            'impact' => ''
         ]);
         DB::table('department_translations')->whereIn('id', [24])->update([
-            'value' => 'Santé Canada',
-            'impact' => 'Santé Canada a pour mandat d\'aider les Canadiens à conserver et à améliorer leur santé. Il s\'assure d\'offrir des services de santé de grande qualité, et cherche à réduire les risques pour la santé.'
+            'value' => 'Commissariat à la protection de la vie privée du Canada',
+            'impact' => ''
+        ]);
+        DB::table('department_translations')->whereIn('id', [25])->update([
+            'value' => 'National Research Council Canada',
+            'impact' => 'The National Research Council Canada (NRC) is the Government of Canada\'s largest science and research organization. The NRC partners with Canadian industry to take research impacts from the lab to the marketplace, where people can experience the benefits.'
+        ]);
+        DB::table('department_translations')->whereIn('id', [26])->update([
+            'value' => 'Conseil national de recherches Canada',
+            'impact' => 'Le Conseil national de recherches Canada (CNRC) est l\'organisation scientifique et de recherche la plus importante du gouvernement canadien. Le CNRC s\'associe à l\'industrie canadienne pour sortir la recherche du laboratoire et lui trouver des applications commerciales dont les retombées bénéficieront à l\'ensemble de la population.'
         ]);
     }
 
