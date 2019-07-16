@@ -48,3 +48,6 @@ sudo php artisan config:clear;
 
 echo "Database migrations...";
 sudo php artisan migrate -n --force;
+
+echo "Starting email queue...";
+sudo php artisan queue:work;
