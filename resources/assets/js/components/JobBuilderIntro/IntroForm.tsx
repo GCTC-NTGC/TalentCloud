@@ -6,15 +6,14 @@ import {
   FormattedHTMLMessage,
   defineMessages,
 } from "react-intl";
-import { Form, Field, Formik, FormikValues } from "formik";
+import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
 import { validationMessages } from "../Form/Messages";
-import { Job } from "../../models/types";
-import { DepartmentId } from "../../models/lookupConstants";
-import { departmentName } from "../../models/localizedConstants";
+import { Job, Department } from "../../models/types";
 import { emptyJob } from "../../models/jobUtil";
 import SelectInput from "../Form/SelectInput";
 import TextInput from "../Form/TextInput";
+import { getId } from "../../helpers/queries";
 
 const formMessages = defineMessages({
   jobTitleLabelEN: {
@@ -82,6 +81,8 @@ interface FormValues {
 interface IntroFormProps {
   // If not null, used to prepopulate form values
   job: Job | null;
+  // List of known department options.
+  departments: Department[];
   // Runs after successful validation.
   // It must (asyncronously) return the resulting job, if successful.
   handleSubmit: (job: Job) => Promise<Job>;
@@ -128,6 +129,7 @@ const IntroForm: React.FunctionComponent<
   IntroFormProps & InjectedIntlProps
 > = ({
   job,
+  departments,
   handleSubmit,
   handleContinueEn,
   handleContinueFr,
@@ -135,6 +137,10 @@ const IntroForm: React.FunctionComponent<
 }: IntroFormProps & InjectedIntlProps): React.ReactElement => {
   const initialValues: FormValues = jobToValues(job);
   const [languageSelection, setLanguageSelection] = useState("en");
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
+  }
 
   const introSchema = Yup.object().shape({
     jobTitleEN: Yup.string().required(
@@ -151,7 +157,7 @@ const IntroForm: React.FunctionComponent<
     ),
     department: Yup.number()
       .oneOf(
-        Object.values(DepartmentId),
+        departments.map(getId),
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
@@ -261,12 +267,12 @@ const IntroForm: React.FunctionComponent<
                     nullSelection={intl.formatMessage(
                       formMessages.departmentNullSelection,
                     )}
-                    options={Object.values(DepartmentId).map((id: number): {
+                    options={departments.map((dept: Department): {
                       value: number;
                       label: string;
                     } => ({
-                      value: id,
-                      label: intl.formatMessage(departmentName(id)),
+                      value: dept.id,
+                      label: dept[locale].name,
                     }))}
                   />
                   <Field
