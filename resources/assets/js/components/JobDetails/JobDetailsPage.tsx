@@ -117,17 +117,15 @@ const JobDetailsPage: React.FunctionComponent<
           data-c-container="form"
           data-c-padding="top(triple) bottom(triple)"
         >
-          <h3
-            data-c-font-size="h3"
-            data-c-font-weight="bold"
-            data-c-margin="bottom(double)"
-          >
-            <FormattedMessage
-              id="jobDetailsPage.loading"
-              defaultMessage="Job Loading..."
-              description="Message indicating that the current job is still being loaded."
-            />
-          </h3>
+          <div data-c-background="white(100)" data-c-card data-c-padding="all(double)" data-c-radius="rounded" data-c-align="base(centre)">
+            <p>
+              <FormattedMessage
+                id="jobBuilderIntroPage.loading"
+                defaultMessage="Your job is loading..."
+                description="Message indicating that the current job is still being loaded."
+              />
+            </p>
+          </div>
         </div>
       ) : (
         <JobDetailsIntl

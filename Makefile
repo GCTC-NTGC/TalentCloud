@@ -9,15 +9,17 @@ build-db:
 	@docker exec talentcloud sh -c "php artisan db:seed"
 
 clean:
-	@rm -Rf vendor/
+	@rm -Rf etc/ssl/
+	@rm -Rf report/
 	@rm -Rf composer.lock
-	@rm -Rf etc/ssl/*
-	@rm -Rf report/*
+	@rm -Rf vendor/
+	@rm -Rf package-lock.json
+	@rm -Rf node_modules/
 
 code-sniff:
-	@docker exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_errors_on_exit 1
-	@docker exec -T talentcloud ./vendor/bin/phpcs --config-set ignore_warnings_on_exit 1
-	@docker exec -T talentcloud ./vendor/bin/phpcs -d memory_limit=512M -v --standard=PSR2 --extensions=php app/
+	@docker exec talentcloud sh -c "./vendor/bin/phpcs --config-set ignore_errors_on_exit 1"
+	@docker exec talentcloud sh -c "./vendor/bin/phpcs --config-set ignore_warnings_on_exit 1"
+	@docker exec talentcloud sh -c "./vendor/bin/phpcs -d memory_limit=512M -v --standard=PSR2 --extensions=php app/ routes/ database/migrations database/factories"
 
 composer-install:
 	@docker run --rm -v $(shell pwd):/app composer install
@@ -37,6 +39,9 @@ fresh-db:
 gen-certs:
 	@docker run --rm -v $(shell pwd)/etc/ssl:/certificates -e "SERVER=talent.test" jacoelho/generate-certificate
 
+jest:
+	@docker exec talentcloud sh -c "npm test"
+
 lighthouse:
 	@lighthouse-batch --html -g -p '--chrome-flags="--headless" --only-categories=accessibility --only-categories=seo --port=9222' --sites=$(URL),$(URL)/fr,$(URL)/en/login,$(URL)/fr/login,$(URL)/en/register,$(URL)/fr/register,$(URL)/en/password/reset,$(URL)/fr/password/reset,\
 	$(URL)/en/jobs,$(URL)/fr/jobs,$(URL)/en/applications,$(URL)/fr/applications,\
@@ -48,14 +53,11 @@ logs:
 	@docker-compose logs -f
 
 phpmd:
-	@docker exec -T talentcloud ./vendor/bin/phpmd ./app \
-	html codesize,naming,unusedcode --reportfile report/phpmd.html --ignore-violations-on-exit
+	@docker exec talentcloud sh -c "./vendor/bin/phpmd ./app \
+	html codesize,naming,unusedcode --reportfile report/phpmd.html --ignore-violations-on-exit"
 
 phpunit:
 	@docker exec talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
-
-jest:
-	@docker exec talentcloud sh -c "npm test"
 
 test:
 	@docker exec talentcloud sh -c "vendor/bin/phpunit --no-coverage"
@@ -66,4 +68,4 @@ set-perms:
 
 test-all: code-sniff phpmd phpunit jest
 
-.PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data fresh-db gen-certs lighthouse logs phpmd phpunit test set-perms test-all
+.PHONY: build-db clean code-sniff composer-install docker-start docker-stop fake-data fresh-db gen-certs jest lighthouse logs phpmd phpunit test set-perms test-all

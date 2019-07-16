@@ -8,6 +8,7 @@
 namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
+
 use Backpack\CRUD\CrudTrait;
 use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
 
@@ -19,35 +20,40 @@ use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
  *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
+ *
  * @property \Illuminate\Database\Eloquent\Collection $managers
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
+ *
+ * Localized Properties:
+ * @property string $name
+ * @property string $impact
  */
 class Department extends BaseModel
 {
-
     use CrudTrait;
     use HasTranslations;
 
     /**
-     * @var $fillable string[]
-     */
-    protected $fillable = [
-        'id',
-        'name',
-        'impact'
-    ];
-
-     /**
      * @var $translatable string[]
-     */
+     * */
     public $translatable = [
         'name',
-        'impact'
+        'impact',
+    ];
+
+    protected $fillable = [
+        'name',
+        'impact',
     ];
 
     public function managers() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\Manager::class);
+    }
+
+    public function department_translations() // phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\Lookup\DepartmentTranslation::class);
     }
 
     public function job_posters() // phpcs:ignore
