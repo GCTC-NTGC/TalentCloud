@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import IntroForm from "./IntroForm";
-import { Job } from "../../models/types";
+import { Job, Department } from "../../models/types";
 import { ProgressTrackerItem } from "../ProgressTracker/types";
 import { RootState } from "../../store/store";
 import { getSelectedJob } from "../../store/Job/jobSelector";
@@ -25,10 +25,16 @@ import {
   jobBuilderDetailsProgressState,
   jobBuilderEnvProgressState,
 } from "../JobBuilder/jobBuilderHelpers";
+import { getDepartments } from "../../store/Department/deptSelector";
+import { getDepartments as fetchDepartments } from "../../store/Department/deptActions";
 
 interface JobBuilderIntroProps {
   // The id of the edited job, or null for a new job.
   jobId: number | null;
+  // List of known department options.
+  departments: Department[];
+  // This is called when departments is empty to fetch departments.
+  loadDepartments: () => void;
   // If not null, used to prepopulate form values.
   // Note: its possible for jobId to be non-null, but job to be null, if the data hasn't been loaded yet.
   job: Job | null;
@@ -45,6 +51,8 @@ const JobBuilderIntro: React.FunctionComponent<
 > = ({
   jobId,
   job,
+  departments,
+  loadDepartments,
   loadJob,
   handleCreateJob,
   handleUpdateJob,
@@ -55,6 +63,11 @@ const JobBuilderIntro: React.FunctionComponent<
       loadJob(jobId);
     }
   }, [jobId, loadJob]);
+  useEffect((): void => {
+    if (departments.length === 0) {
+      loadDepartments();
+    }
+  }, [departments, loadDepartments]);
   const waitingForJob = jobId !== null && job === null;
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
 
@@ -120,7 +133,13 @@ const JobBuilderIntro: React.FunctionComponent<
           data-c-container="copy"
           data-c-padding="top(triple) bottom(triple)"
         >
-          <div data-c-background="white(100)" data-c-card data-c-padding="all(double)" data-c-radius="rounded" data-c-align="base(centre)">
+          <div
+            data-c-background="white(100)"
+            data-c-card
+            data-c-padding="all(double)"
+            data-c-radius="rounded"
+            data-c-align="base(centre)"
+          >
             <p>
               <FormattedMessage
                 id="jobBuilderIntroPage.loading"
@@ -133,6 +152,7 @@ const JobBuilderIntro: React.FunctionComponent<
       ) : (
         <IntroForm
           job={job}
+          departments={departments}
           handleSubmit={handleSubmit}
           handleContinueEn={handleContinueEn}
           handleContinueFr={handleContinueFr}
@@ -146,20 +166,26 @@ const mapStateToProps = (
   state: RootState,
 ): {
   job: Job | null;
+  departments: Department[];
 } => ({
   job: getSelectedJob(state),
+  departments: getDepartments(state),
 });
 
 const mapDispatchToProps = (
   dispatch: DispatchType,
 ): {
   loadJob: (jobId: number) => void;
+  loadDepartments: () => void;
   handleCreateJob: (newJob: Job) => Promise<Job>;
   handleUpdateJob: (newJob: Job) => Promise<Job>;
 } => ({
   loadJob: (jobId: number): void => {
     dispatch(fetchJob(jobId));
     dispatch(setSelectedJob(jobId));
+  },
+  loadDepartments: (): void => {
+    dispatch(fetchDepartments());
   },
   handleCreateJob: async (newJob: Job): Promise<Job> => {
     const result = await dispatch(createJob(newJob));

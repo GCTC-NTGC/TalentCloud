@@ -5,6 +5,7 @@ import { action } from "@storybook/addon-actions";
 import fakeJob from "../../fakeData/fakeJob";
 import IntroForm from "../../components/JobBuilderIntro/IntroForm";
 import { Job } from "../../models/types";
+import { fakeDepartments } from "../../fakeData/fakeDepartments";
 
 const stories = storiesOf("Job Poster Builder|Intro", module).addDecorator(
   withIntl,
@@ -21,6 +22,7 @@ stories
     (): React.ReactElement => (
       <IntroForm
         job={null}
+        departments={fakeDepartments()}
         handleSubmit={handleSubmit}
         handleContinueEn={action("Continue in English")}
         handleContinueFr={action("Continue in French")}
@@ -32,6 +34,7 @@ stories
     (): React.ReactElement => (
       <IntroForm
         job={fakeJob()}
+        departments={fakeDepartments()}
         handleSubmit={handleSubmit}
         handleContinueEn={action("Continue in English")}
         handleContinueFr={action("Continue in French")}
