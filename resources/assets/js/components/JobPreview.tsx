@@ -25,6 +25,8 @@ export interface JobPreviewProps {
   classification: string;
   /** Level for the classification, i.e. 03 */
   level: string;
+  /** How often are Flex Hours allowed */
+  flexHours: string;
 }
 
 const JobPreview: React.FunctionComponent<JobPreviewProps> = ({
@@ -32,6 +34,7 @@ const JobPreview: React.FunctionComponent<JobPreviewProps> = ({
   department,
   city,
   province,
+  flexHours,
   remoteWork,
   salary,
   language,
@@ -90,9 +93,9 @@ const JobPreview: React.FunctionComponent<JobPreviewProps> = ({
       <div data-c-grid="gutter">
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Average Annual Salary
+            Length of the Term
           </p>
-          <p>{salary || "Talent Cloud will add this."}</p>
+          <p>{termLength} Months</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
@@ -102,29 +105,93 @@ const JobPreview: React.FunctionComponent<JobPreviewProps> = ({
         </div>
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Duration
-          </p>
-          <p>{termLength} Months</p>
-        </div>
-        <div data-c-grid-item="tp(1of2)">
-          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
             Security Clearance
           </p>
           <p>{securityLevel}</p>
         </div>
+      </div>
+      <h4
+        data-c-border="bottom(thin, solid, black)"
+        data-c-font-size="h4"
+        data-c-font-weight="600"
+        data-c-margin="top(double) bottom(normal)"
+        data-c-padding="bottom(normal)"
+      >
+        Classification &amp; Education
+      </h4>
+      <div data-c-grid="gutter">
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Target Start Date
+            Classification
           </p>
-          <p>{startDate || "This comes later."}</p>
+          <p>{classification}</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Government Classification
+            Level
+          </p>
+          <p>{level}</p>
+        </div>
+        <div data-c-grid-item="base(1of1)">
+          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+            Education
           </p>
           <p>
-            {classification}-{level}
+            A secondary school diploma; or
+            <br />
+            <br />
+            Equivalent Experience:
+            <br />
+            If you have on-the-job learning or other non-conventional training
+            that you believe is equivalent to the secondary school diploma, put
+            it forward for consideration. The manager may accept a combination
+            of education, training and/or experience in a related field as an
+            alternative to the minimum education requirement stated above.
           </p>
+        </div>
+      </div>
+      <h4
+        data-c-border="bottom(thin, solid, black)"
+        data-c-font-size="h4"
+        data-c-font-weight="600"
+        data-c-margin="top(double) bottom(normal)"
+        data-c-padding="bottom(normal)"
+      >
+        Work Styles
+      </h4>
+      <div data-c-grid="gutter">
+        <div data-c-grid-item="tp(1of2)">
+          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+            Remote Work
+          </p>
+          <p>
+            Yes, I’m willing to supervise employees in any province or territory
+            in Canada.
+          </p>
+        </div>
+        <div data-c-grid-item="tp(1of2)">
+          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+            Telework
+          </p>
+          <p>Almost Always</p>
+        </div>
+        <div data-c-grid-item="tp(1of2)">
+          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+            Flexible Hours
+          </p>
+          <p>{flexHours}</p>
+        </div>
+        <div data-c-grid-item="tp(1of2)">
+          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+            Travel
+          </p>
+          <p>Travel Opportunities Available</p>
+        </div>
+        <div data-c-grid-item="tp(1of2)">
+          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+            Overtime
+          </p>
+          <p>No Overtime Required</p>
         </div>
       </div>
     </div>

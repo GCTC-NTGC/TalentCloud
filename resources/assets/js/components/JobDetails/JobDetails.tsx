@@ -829,6 +829,7 @@ const JobDetails: React.FunctionComponent<
                         securityLevel={String(values.securityLevel)} // TODO: remove String() cast
                         classification={String(values.classification)} // TODO: remove String() cast
                         level={String(values.level)} // TODO: remove String() cast
+                        flexHours={String(values.flexHours)}
                       />
                     </div>
                   </Modal.Body>
