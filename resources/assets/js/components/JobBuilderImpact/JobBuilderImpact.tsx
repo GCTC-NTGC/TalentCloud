@@ -354,6 +354,7 @@ const JobBuilderImpact: React.FunctionComponent<
                         data-c-font-size="h4"
                         id={`${modalId}-title`}
                       >
+                        {/* TODO: Localize Title, Description, and Button Text */}
                         Awesome work!
                       </h5>
                     </div>
