@@ -1,13 +1,33 @@
 import React from "react";
-import { Job } from "../../models/types";
+import { Job, Skill } from "../../models/types";
 
 interface JobBuilderSkillsProps {
+  // The job being built
   job: Job;
+  // The list of all possible skills
+  skills: Skill[];
+  skillCount: number;
+  essentialCount: number;
 }
 
-const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
-  job,
-}): React.ReactElement => {
+export const JobBuilderSkills: React.FunctionComponent<
+  JobBuilderSkillsProps
+> = ({ job, skillCount, essentialCount }): React.ReactElement => {
+  const countInRange = (min: number, max: number, count: number): boolean => {
+    return count >= min && count <= max;
+  };
+  const isOccupational = (skill: Skill): boolean => {
+    // TODO:
+    return true;
+  };
+  const isCulture = (skill: Skill): boolean => {
+    // TODO:
+    return false;
+  };
+  const isFuture = (skill: Skill): boolean => {
+    // TODO:
+    return false;
+  };
   return (
     <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
       <h3
@@ -82,6 +102,7 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
             <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
               Total Number of Essential Skills
             </p>
+            {/* TODO: SmileyStatusIndicator can be extracted as its own component, since its already repeated within this page. */}
             {/* This is the new smiley status indicator component. It is reused twice on this page, once to indicate how many ESSENTIAL skills the user has selected, and a second time to indicate the TOTAL number of skills selected. The component functions the same way for both instances, but the ***scale is different***. There's a chance that the labels will be different too, so best to build it with that in mind. You can activate the appropriate smiley by assigning an "active" class to the relevant "jpb-skill-measure-item" element. See the UI in-browser for an example of what this looks like. */}
             <div
               data-c-grid="gutter"
@@ -89,7 +110,9 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
               data-c-padding="top(normal)"
             >
               <div
-                className="jpb-skill-measure-item bad"
+                className={`jpb-skill-measure-item bad ${
+                  countInRange(0, 1, essentialCount) ? "active" : ""
+                }`}
                 data-c-grid-item="base(1of5)"
               >
                 {/* This div appears in each step of the indicator, but we need the number inside the "span" to reflect the number of skills currently selected (within the context of the indicator, i.e. only show the number of essential skills selected in the essential indicator). */}
@@ -100,7 +123,7 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                     data-c-colour="white"
                     data-c-font-size="small"
                   >
-                    6
+                    {essentialCount}
                   </span>
                 </div>
                 <img src="\images\icon-smiley-bad.svg" />
@@ -111,7 +134,9 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 <p data-c-font-size="small">0 - 1</p>
               </div>
               <div
-                className="jpb-skill-measure-item medium"
+                className={`jpb-skill-measure-item medium ${
+                  countInRange(2, 3, essentialCount) ? "active" : ""
+                }`}
                 data-c-grid-item="base(1of5)"
               >
                 <div>
@@ -121,7 +146,7 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                     data-c-colour="white"
                     data-c-font-size="small"
                   >
-                    6
+                    {essentialCount}
                   </span>
                 </div>
                 <img src="\images\icon-smiley-medium.svg" />
@@ -132,7 +157,9 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 <p data-c-font-size="small">2 - 3</p>
               </div>
               <div
-                className="jpb-skill-measure-item good active"
+                className={`jpb-skill-measure-item good ${
+                  countInRange(4, 6, essentialCount) ? "active" : ""
+                }`}
                 data-c-grid-item="base(1of5)"
               >
                 <div>
@@ -142,7 +169,7 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                     data-c-colour="white"
                     data-c-font-size="small"
                   >
-                    4
+                    {essentialCount}
                   </span>
                 </div>
                 <img src="\images\icon-smiley-good.svg" />
@@ -153,7 +180,9 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 <p data-c-font-size="small">4 - 6</p>
               </div>
               <div
-                className="jpb-skill-measure-item medium"
+                className={`jpb-skill-measure-item medium ${
+                  countInRange(7, 8, essentialCount) ? "active" : ""
+                }`}
                 data-c-grid-item="base(1of5)"
               >
                 <div>
@@ -163,7 +192,7 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                     data-c-colour="white"
                     data-c-font-size="small"
                   >
-                    6
+                    {essentialCount}
                   </span>
                 </div>
                 <img src="\images\icon-smiley-medium.svg" />
@@ -174,7 +203,9 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 <p data-c-font-size="small">7 - 8</p>
               </div>
               <div
-                className="jpb-skill-measure-item bad"
+                className={`jpb-skill-measure-item bad ${
+                  essentialCount >= 9 ? "active" : ""
+                }`}
                 data-c-grid-item="base(1of5)"
               >
                 <div>
@@ -184,7 +215,7 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                     data-c-colour="white"
                     data-c-font-size="small"
                   >
-                    6
+                    {essentialCount}
                   </span>
                 </div>
                 <img src="\images\icon-smiley-bad.svg" />
@@ -213,7 +244,9 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
               data-c-padding="top(normal)"
             >
               <div
-                className="jpb-skill-measure-item bad"
+                className={`jpb-skill-measure-item bad ${
+                  countInRange(0, 3, skillCount) ? "active" : ""
+                }`}
                 data-c-grid-item="base(1of5)"
               >
                 <div>
@@ -223,7 +256,7 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                     data-c-colour="white"
                     data-c-font-size="small"
                   >
-                    6
+                    {skillCount}
                   </span>
                 </div>
                 <img src="\images\icon-smiley-bad.svg" />
@@ -234,7 +267,9 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 <p data-c-font-size="small">0 - 3</p>
               </div>
               <div
-                className="jpb-skill-measure-item medium active"
+                className={`jpb-skill-measure-item medium ${
+                  countInRange(4, 6, skillCount) ? "active" : ""
+                }`}
                 data-c-grid-item="base(1of5)"
               >
                 <div>
@@ -244,7 +279,7 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                     data-c-colour="white"
                     data-c-font-size="small"
                   >
-                    4
+                    {skillCount}
                   </span>
                 </div>
                 <img src="\images\icon-smiley-medium.svg" />
@@ -255,7 +290,9 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 <p data-c-font-size="small">4 - 6</p>
               </div>
               <div
-                className="jpb-skill-measure-item good"
+                className={`jpb-skill-measure-item good ${
+                  countInRange(7, 8, skillCount) ? "active" : ""
+                }`}
                 data-c-grid-item="base(1of5)"
               >
                 <div>
@@ -265,7 +302,7 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                     data-c-colour="white"
                     data-c-font-size="small"
                   >
-                    6
+                    {skillCount}
                   </span>
                 </div>
                 <img src="\images\icon-smiley-good.svg" />
@@ -276,7 +313,9 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 <p data-c-font-size="small">7 - 8</p>
               </div>
               <div
-                className="jpb-skill-measure-item medium"
+                className={`jpb-skill-measure-item medium  ${
+                  countInRange(9, 10, skillCount) ? "active" : ""
+                }`}
                 data-c-grid-item="base(1of5)"
               >
                 <div>
@@ -286,7 +325,7 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                     data-c-colour="white"
                     data-c-font-size="small"
                   >
-                    6
+                    {skillCount}
                   </span>
                 </div>
                 <img src="\images\icon-smiley-medium.svg" />
@@ -297,7 +336,9 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 <p data-c-font-size="small">9 - 10</p>
               </div>
               <div
-                className="jpb-skill-measure-item bad"
+                className={`jpb-skill-measure-item bad ${
+                  skillCount >= 11 ? "active" : ""
+                }`}
                 data-c-grid-item="base(1of5)"
               >
                 <div>
@@ -307,7 +348,7 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                     data-c-colour="white"
                     data-c-font-size="small"
                   >
-                    6
+                    {skillCount}
                   </span>
                 </div>
                 <img src="\images\icon-smiley-bad.svg" />
@@ -333,68 +374,70 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
         </p>
         {/* This is the null state to be used when the user lands on the page for the first time. Be sure to include it in the assets list too! Note that it exists outside the skill-list div to avoid it being confused with the list of skills. */}
         {/* Null state. */}
-        <div className="jpb-skill-null" data-c-grid="gutter middle">
-          <div
-            data-c-grid-item="base(2of10) tl(1of10)"
-            data-c-align="base(centre)"
-          >
-            <button type="button" data-tc-move-up-trigger>
-              <i className="fas fa-angle-up"></i>
-            </button>
-            <button type="button" data-tc-move-down-trigger>
-              <i className="fas fa-angle-down"></i>
-            </button>
-          </div>
-          <div data-c-grid-item="base(6of10) tl(7of10)">
-            <div data-c-grid="gutter">
-              <div data-c-grid-item="base(1of1) tl(2of3)">
-                <span>0</span>
-                <span
-                  data-c-background="grey(40)"
-                  data-c-font-size="small"
-                  data-c-margin="rl(half)"
-                  data-c-padding="tb(quarter) rl(half)"
-                  data-c-radius="rounded"
-                  data-c-colour="white"
-                >
-                  <i className="fas fa-briefcase"></i>
-                </span>
-                <span>Add skills below to proceed.</span>
+        {skillCount === 0 && (
+          <div className="jpb-skill-null" data-c-grid="gutter middle">
+            <div
+              data-c-grid-item="base(2of10) tl(1of10)"
+              data-c-align="base(centre)"
+            >
+              <button type="button" data-tc-move-up-trigger>
+                <i className="fas fa-angle-up" />
+              </button>
+              <button type="button" data-tc-move-down-trigger>
+                <i className="fas fa-angle-down" />
+              </button>
+            </div>
+            <div data-c-grid-item="base(6of10) tl(7of10)">
+              <div data-c-grid="gutter">
+                <div data-c-grid-item="base(1of1) tl(2of3)">
+                  <span>0</span>
+                  <span
+                    data-c-background="grey(40)"
+                    data-c-font-size="small"
+                    data-c-margin="rl(half)"
+                    data-c-padding="tb(quarter) rl(half)"
+                    data-c-radius="rounded"
+                    data-c-colour="white"
+                  >
+                    <i className="fas fa-briefcase" />
+                  </span>
+                  <span>Add skills below to proceed.</span>
+                </div>
+                <div data-c-grid-item="base(1of1) tl(1of3)">
+                  <span
+                    data-c-colour="white"
+                    data-c-background="grey(40)"
+                    data-c-padding="tb(quarter) rl(half)"
+                    data-c-radius="rounded"
+                    data-c-font-size="small"
+                  >
+                    Skill Level
+                  </span>
+                </div>
               </div>
-              <div data-c-grid-item="base(1of1) tl(1of3)">
-                <span
-                  data-c-colour="white"
-                  data-c-background="grey(40)"
-                  data-c-padding="tb(quarter) rl(half)"
-                  data-c-radius="rounded"
-                  data-c-font-size="small"
+            </div>
+            <div data-c-grid-item="base(2of10)">
+              <div data-c-grid="gutter">
+                <div
+                  data-c-grid-item="base(1of1) tl(1of2)"
+                  data-c-align="base(centre)"
                 >
-                  Skill Level
-                </span>
+                  <button type="button">
+                    <i className="fas fa-edit" />
+                  </button>
+                </div>
+                <div
+                  data-c-grid-item="base(1of1) tl(1of2)"
+                  data-c-align="base(centre)"
+                >
+                  <button type="button">
+                    <i className="fas fa-trash" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-          <div data-c-grid-item="base(2of10)">
-            <div data-c-grid="gutter">
-              <div
-                data-c-grid-item="base(1of1) tl(1of2)"
-                data-c-align="base(centre)"
-              >
-                <button type="button">
-                  <i className="fas fa-edit"></i>
-                </button>
-              </div>
-              <div
-                data-c-grid-item="base(1of1) tl(1of2)"
-                data-c-align="base(centre)"
-              >
-                <button type="button">
-                  <i className="fas fa-trash"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        )}
         <ol className="jpb-skill-list" data-tc-up-down-list>
           {/* This is an individual skill. I've handled the up/down script and the modal trigger, but I'll leave managing the value of the skill's list number, the modal contents,  and the deletion to you folks. I've also migrated the up/down script to a universal one. When it comes to the "jpb-skill", you'll need to add a class that specifies which TYPE of skill it is (occupational, cultural, future). This will handle interior colour/icon changes. */}
           <li className="jpb-skill occupational" data-tc-up-down-item>
@@ -405,10 +448,10 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
               >
                 {/* These should work already. */}
                 <button type="button" data-tc-move-up-trigger>
-                  <i className="fas fa-angle-up"></i>
+                  <i className="fas fa-angle-up" />
                 </button>
                 <button type="button" data-tc-move-down-trigger>
-                  <i className="fas fa-angle-down"></i>
+                  <i className="fas fa-angle-down" />
                 </button>
               </div>
               <div data-c-grid-item="base(6of10) tl(7of10)">
@@ -426,9 +469,9 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                       data-c-colour="white"
                       title="This is an occupational skill."
                     >
-                      <i className="fas fa-briefcase"></i>
-                      <i className="fas fa-coffee"></i>
-                      <i className="fas fa-certificate"></i>
+                      <i className="fas fa-briefcase" />
+                      <i className="fas fa-coffee" />
+                      <i className="fas fa-certificate" />
                     </span>
                     {/* The skill name. */}
                     <span>HTML5</span>
@@ -460,7 +503,7 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                       data-c-dialog-action="open"
                       data-c-dialog-id="example-dialog-01"
                     >
-                      <i className="fas fa-edit"></i>
+                      <i className="fas fa-edit" />
                     </button>
                   </div>
                   <div
@@ -469,7 +512,7 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                   >
                     {/* I've left this thing blank for now, because I assumed you'd want to handle deletion through React. */}
                     <button type="button" data-c-colour="stop">
-                      <i className="fas fa-trash"></i>
+                      <i className="fas fa-trash" />
                     </button>
                   </div>
                 </div>
@@ -529,9 +572,9 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 data-c-radius="rounded"
                 data-c-colour="white"
               >
-                <i className="fas fa-briefcase"></i>
-                <i className="fas fa-coffee"></i>
-                <i className="fas fa-certificate"></i>
+                <i className="fas fa-briefcase" />
+                <i className="fas fa-coffee" />
+                <i className="fas fa-certificate" />
               </span>
               {/* Category Title */}
               Occupational Skills
@@ -545,8 +588,8 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
           >
             {/* This target value changes depending on the category (occupational has 3 - 4, cultural and future have fewer) - you can see these values in their respective sections below. You can also add a "complete" class to this "jpb-skill-target" element to change the target icon to a checkmark to indicate to the user that they're within the range. Note that the other two categories (cultural and future) start their ranges at 0, so the "complete" class should be on those sections by default. */}
             <div className="jpb-skill-target">
-              <i data-c-colour="stop" className="fas fa-bullseye"></i>
-              <i data-c-colour="go" className="fas fa-check"></i>
+              <i data-c-colour="stop" className="fas fa-bullseye" />
+              <i data-c-colour="go" className="fas fa-check" />
               Aim for 3 - 5 skills.
             </div>
           </div>
@@ -558,8 +601,8 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 data-c-button="outline(c1)"
                 data-c-radius="rounded"
               >
-                <i className="fas fa-plus-circle"></i>
-                <i className="fas fa-minus-circle"></i>
+                <i className="fas fa-plus-circle" />
+                <i className="fas fa-minus-circle" />
                 Skill Name
               </button>
             </li>
@@ -589,9 +632,9 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 data-c-radius="rounded"
                 data-c-colour="white"
               >
-                <i className="fas fa-briefcase"></i>
-                <i className="fas fa-coffee"></i>
-                <i className="fas fa-certificate"></i>
+                <i className="fas fa-briefcase" />
+                <i className="fas fa-coffee" />
+                <i className="fas fa-certificate" />
               </span>
               Cultural Skills
             </h5>
@@ -602,8 +645,8 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
             data-c-align="base(centre) tp(right)"
           >
             <div className="jpb-skill-target complete">
-              <i data-c-colour="stop" className="fas fa-bullseye"></i>
-              <i data-c-colour="go" className="fas fa-check"></i>
+              <i data-c-colour="stop" className="fas fa-bullseye" />
+              <i data-c-colour="go" className="fas fa-check" />
               Aim for 0 - 4 skills.
             </div>
           </div>
@@ -623,8 +666,8 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 data-c-button="outline(c1)"
                 data-c-radius="rounded"
               >
-                <i className="fas fa-plus-circle"></i>
-                <i className="fas fa-minus-circle"></i>
+                <i className="fas fa-plus-circle" />
+                <i className="fas fa-minus-circle" />
                 Skill Name
               </button>
             </li>
@@ -643,8 +686,8 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 data-c-button="outline(c1)"
                 data-c-radius="rounded"
               >
-                <i className="fas fa-plus-circle"></i>
-                <i className="fas fa-minus-circle"></i>
+                <i className="fas fa-plus-circle" />
+                <i className="fas fa-minus-circle" />
                 Skill Name
               </button>
             </li>
@@ -674,9 +717,9 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 data-c-radius="rounded"
                 data-c-colour="white"
               >
-                <i className="fas fa-briefcase"></i>
-                <i className="fas fa-coffee"></i>
-                <i className="fas fa-certificate"></i>
+                <i className="fas fa-briefcase" />
+                <i className="fas fa-coffee" />
+                <i className="fas fa-certificate" />
               </span>
               Future Skills
             </h5>
@@ -687,8 +730,8 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
             data-c-align="base(centre) tp(right)"
           >
             <div className="jpb-skill-target complete">
-              <i data-c-colour="stop" className="fas fa-bullseye"></i>
-              <i data-c-colour="go" className="fas fa-check"></i>
+              <i data-c-colour="stop" className="fas fa-bullseye" />
+              <i data-c-colour="go" className="fas fa-check" />
               Aim for 0 - 2 skills.
             </div>
           </div>
@@ -699,8 +742,8 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
                 data-c-button="outline(c1)"
                 data-c-radius="rounded"
               >
-                <i className="fas fa-plus-circle"></i>
-                <i className="fas fa-minus-circle"></i>
+                <i className="fas fa-plus-circle" />
+                <i className="fas fa-minus-circle" />
                 Skill Name
               </button>
             </li>
@@ -761,3 +804,5 @@ const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps> = ({
     </div>
   );
 };
+
+export default JobBuilderSkills;
