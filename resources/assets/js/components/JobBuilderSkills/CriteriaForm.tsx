@@ -1,10 +1,21 @@
 import React, { useState } from "react";
-import { InjectedIntlProps, injectIntl } from "react-intl";
+import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { Criteria, Skill } from "../../models/types";
 import { validationMessages } from "../Form/Messages";
 import TextAreaInput from "../Form/TextAreaInput";
+import RadioGroup from "../Form/RadioGroup";
+import { SkillLevelId } from "../../models/lookupConstants";
+import RadioInput from "../Form/RadioInput";
+import {
+  skillLevelName,
+  assetSkillName,
+  skillLevelDescription,
+  assetSkillDescription,
+} from "../../models/localizedConstants";
+import ContextBlockItem from "../ContextBlock/ContextBlockItem";
+import ContextBlock from "../ContextBlock/ContextBlock";
 
 interface CriteriaFormProps {
   // The criteria being edited, if we're not creating a new one.
@@ -13,9 +24,35 @@ interface CriteriaFormProps {
   skill: Skill;
 }
 
+const essentialSkillLevels = (
+  skillTypeId: number,
+): {
+  [key: string]: {
+    name: FormattedMessage.MessageDescriptor;
+    context: FormattedMessage.MessageDescriptor;
+  };
+} => ({
+  basic: {
+    name: skillLevelName(SkillLevelId.Basic, skillTypeId),
+    context: skillLevelDescription(SkillLevelId.Basic, skillTypeId),
+  },
+  intermediate: {
+    name: skillLevelName(SkillLevelId.Intermediate, skillTypeId),
+    context: skillLevelDescription(SkillLevelId.Intermediate, skillTypeId),
+  },
+  advanced: {
+    name: skillLevelName(SkillLevelId.Advanced, skillTypeId),
+    context: skillLevelDescription(SkillLevelId.Advanced, skillTypeId),
+  },
+  expert: {
+    name: skillLevelName(SkillLevelId.Expert, skillTypeId),
+    context: skillLevelDescription(SkillLevelId.Expert, skillTypeId),
+  },
+});
+
 interface FormValues {
   description: string;
-  level: 1 | 2 | 3 | 4 | "asset";
+  level: string;
 }
 
 export const CriteriaForm: React.FunctionComponent<
@@ -29,15 +66,15 @@ export const CriteriaForm: React.FunctionComponent<
 
   const initialValues: FormValues = {
     description: "",
-    level: 1,
+    level: "basic",
   };
   // TODO: description is intended to be required, if its showing.
   // Need to figure out dynamic schema
   const skillSchema = Yup.object().shape({
     description: Yup.string(),
-    level: Yup.mixed()
+    level: Yup.string()
       .oneOf(
-        [1, 2, 3, 4, "asset"],
+        [...Object.keys(essentialSkillLevels(skill.skill_type_id)), "asset"],
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
@@ -56,8 +93,6 @@ export const CriteriaForm: React.FunctionComponent<
         touched,
         isSubmitting,
         values,
-        setFieldValue,
-        setFieldTouched,
       }): React.ReactElement => (
         <>
           <Form id="jpbSkillsForm">
@@ -91,6 +126,7 @@ export const CriteriaForm: React.FunctionComponent<
                   {showSpecificity ? (
                     <>
                       <Field
+                        id="skillSpecificity"
                         type="textarea"
                         name="description"
                         label="Skill Specificity"
@@ -132,298 +168,80 @@ export const CriteriaForm: React.FunctionComponent<
                   <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
                     Choose a Skill Level
                   </p>
-                  {/* This is a null state for when the user hasn't yet selected a skill from the dropdown. */}
-                  {/*
-                                <div data-c-background="grey(10)" data-c-border="all(thin, solid, grey)" data-c-radius="rounded" data-c-padding="normal" data-c-alignment="base(centre)">
-                                    Please select a skill above to continue to this step.
-                                </div>
-                                */}
                   <div data-c-grid="gutter">
-                    <div
-                      data-c-grid-item="base(1of1) tl(1of3)"
-                      data-c-input="radio"
+                    <RadioGroup
+                      id="skillLevelSelection"
+                      label="Select a skill level:"
+                      required
+                      touched={touched.level}
+                      error={errors.level}
+                      value={values.level}
+                      grid="base(1of1) tl(1of3)"
                     >
-                      <label htmlFor="builder06Level">
-                        Select a skill level:
-                      </label>
-                      <span>Required</span>
-                      <div id="builder06Level" role="radiogroup">
-                        <label
-                          data-tc-wEnv-id="Level1"
-                          data-tc-wEnv-trigger
-                          htmlFor="builder06LevelOption01"
-                        >
-                          <input
-                            required
-                            id="builder06LevelOption01"
-                            name="builder06Level"
-                            type="radio"
-                          />
-                          <span>Basic</span>
-                        </label>
-                        {/* Just a heads up this has a default checked value. */}
-                        <label
-                          data-tc-wEnv-id="Level2"
-                          data-tc-wEnv-trigger
-                          htmlFor="builder06LevelOption02"
-                        >
-                          <input
-                            checked
-                            id="builder06LevelOption02"
-                            name="builder06Level"
-                            type="radio"
-                          />
-                          <span>Intermediate</span>
-                        </label>
-                        <label
-                          data-tc-wEnv-id="Level3"
-                          data-tc-wEnv-trigger
-                          htmlFor="builder06LevelOption03"
-                        >
-                          <input
-                            id="builder06LevelOption03"
-                            name="builder06Level"
-                            type="radio"
-                          />
-                          <span>Advanced</span>
-                        </label>
-                        <label
-                          data-tc-wEnv-id="Level4"
-                          data-tc-wEnv-trigger
-                          htmlFor="builder06LevelOption04"
-                        >
-                          <input
-                            id="builder06LevelOption04"
-                            name="builder06Level"
-                            type="radio"
-                          />
-                          <span>Lead</span>
-                        </label>
-                        <div
-                          className="job-builder-skill-level-or-block"
-                          data-c-alignment="base(centre)"
-                        >
-                          <div />
-                          <span>or</span>
-                        </div>
-                        <label
-                          data-tc-wEnv-id="Level5"
-                          data-tc-wEnv-trigger
-                          htmlFor="builder06LevelOption05"
-                        >
-                          <input
-                            id="builder06LevelOption05"
-                            name="builder06Level"
-                            type="radio"
-                          />
-                          <span>Asset Skill / No Level Required</span>
-                        </label>
+                      {Object.entries(
+                        essentialSkillLevels(skill.skill_type_id),
+                      ).map(
+                        ([key, { name }]): React.ReactElement => {
+                          return (
+                            <Field
+                              key={key}
+                              id={key}
+                              name="level"
+                              component={RadioInput}
+                              label={intl.formatMessage(name)}
+                              value={key}
+                              trigger
+                            />
+                          );
+                        },
+                      )}
+                      <div
+                        className="job-builder-skill-level-or-block"
+                        data-c-alignment="base(centre)"
+                      >
+                        {/** This empty div is required for CSS magic */}
+                        <div />
+                        <span>or</span>
                       </div>
-                      <span>This input has an error.</span>
-                    </div>
-                    <div data-c-grid-item="base(1of1) tl(2of3)">
-                      <div className="job-builder-context-block">
-                        <div
-                          className="job-builder-context-item"
-                          data-tc-wEnv-id="Level1"
-                          data-c-background="grey(20)"
-                          data-c-padding="all(normal)"
-                          data-c-radius="rounded"
-                        >
-                          <p
-                            data-c-font-size="small"
-                            data-c-margin="bottom(half)"
-                            data-c-font-weight="bold"
-                          >
-                            Basic
-                          </p>
-                          <p
-                            data-c-font-size="small"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            You have the ability to accomplish basic tasks with
-                            steady supervision and clear direction. The tasks
-                            you're assigned are clear and don't involve
-                            significant complexity. Their impact is usually
-                            locally felt.
-                          </p>
-                          <p
-                            data-c-font-size="small"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            As you advance in this category, you should be
-                            developing the ability to accomplish tasks of
-                            moderate complexity with steady supervision. You
-                            will also need to be able to accomplish basic tasks
-                            with little or no supervision.
-                          </p>
-                          <p data-c-font-size="small">
-                            This level is usually associated with tasks that
-                            form the bulk of the work for lower level positions,
-                            such as junior analysts or entry level developers.
-                          </p>
-                        </div>
-                        <div
-                          className="active job-builder-context-item"
-                          data-tc-wEnv-id="Level2"
-                          data-c-background="grey(20)"
-                          data-c-padding="all(normal)"
-                          data-c-radius="rounded"
-                        >
-                          <p
-                            data-c-font-size="small"
-                            data-c-margin="bottom(half)"
-                            data-c-font-weight="bold"
-                          >
-                            Intermediate
-                          </p>
-                          <p
-                            data-c-font-size="small"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            You have the ability to accomplish tasks of moderate
-                            complexity or moderate impact with supervision. The
-                            approach to the tasks, and how they are delivered,
-                            is determined by the supervisor. You contribute
-                            input and advice. You are able to advance the task,
-                            even in the face of small to moderate hurdles and
-                            complications.
-                          </p>
-                          <p
-                            data-c-font-size="small"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            As you advance in this category, you should be
-                            developing the ability to accomplish tasks of
-                            significant complexity or larger impact with steady
-                            supervision. You will also need to be able to
-                            accomplish tasks of moderate complexity or impact
-                            with little or no supervision.
-                          </p>
-                          <p data-c-font-size="small">
-                            This level is usually associated with tasks that
-                            form the bulk of the work for mid-level positions,
-                            such as analysts or developers.
-                          </p>
-                        </div>
-                        <div
-                          className="job-builder-context-item"
-                          data-tc-wEnv-id="Level3"
-                          data-c-background="grey(20)"
-                          data-c-padding="all(normal)"
-                          data-c-radius="rounded"
-                        >
-                          <p
-                            data-c-font-size="small"
-                            data-c-margin="bottom(half)"
-                            data-c-font-weight="bold"
-                          >
-                            Advanced
-                          </p>
-                          <p
-                            data-c-font-size="small"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            You have the ability to accomplish tasks of
-                            significant complexity or impact with supervision.
-                            You provide advice and input on the approach to the
-                            tasks, and how they are delivered, for the
-                            supervisor's consideration. You are able to advance
-                            the task, even in the face of moderate to large
-                            hurdles and complications.
-                          </p>
-                          <p
-                            data-c-font-size="small"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            As you advance in this category, you should be
-                            developing the ability to accomplish tasks of
-                            significant complexity or larger impact with only
-                            light levels of supervision, where you are
-                            effectively the lead on the initiative. You may also
-                            take on a role of training others in this skills set
-                            or take on a light supervisory role for those at
-                            lower levels.
-                          </p>
-                          <p data-c-font-size="small">
-                            This level is usually associated with tasks that
-                            form the bulk of the work for higher level
-                            positions, such as senior analysts or senior
-                            developers.
-                          </p>
-                        </div>
-                        <div
-                          className="job-builder-context-item"
-                          data-tc-wEnv-id="Level4"
-                          data-c-background="grey(20)"
-                          data-c-padding="all(normal)"
-                          data-c-radius="rounded"
-                        >
-                          <p
-                            data-c-font-size="small"
-                            data-c-margin="bottom(half)"
-                            data-c-font-weight="bold"
-                          >
-                            Lead
-                          </p>
-                          <p
-                            data-c-font-size="small"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            You have the ability to accomplish tasks of
-                            significant complexity or impact, where you call the
-                            shots and answer to the organization's senior
-                            management for your decisions. You bring forward the
-                            tasks, the approach and the delivery plan for senior
-                            management consideration. You often supervise others
-                            (individuals or teams) in delivering tasks of high
-                            complexity or system wide impact. You are able to
-                            advance these tasks, even in the face of significant
-                            unforeseen hurdles and complications.
-                          </p>
-                          <p
-                            data-c-font-size="small"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            As you advance in this category, you should be
-                            developing the ability to assess others at more
-                            junior levels, becoming able to clearly identify the
-                            difference between beginner, intermediate and
-                            advanced tasks. You should be able to build teams,
-                            set direction and provide supervision.
-                          </p>
-                          <p data-c-font-size="small">
-                            This level is usually associated with tasks that
-                            form the bulk of the work for management and
-                            executive level positions.
-                          </p>
-                        </div>
-                        <div
-                          className="job-builder-context-item"
-                          data-tc-wEnv-id="Level5"
-                          data-c-background="grey(20)"
-                          data-c-padding="all(normal)"
-                          data-c-radius="rounded"
-                        >
-                          <p
-                            data-c-font-size="small"
-                            data-c-margin="bottom(half)"
-                            data-c-font-weight="bold"
-                          >
-                            Asset / No Level Required
-                          </p>
-                          <p
-                            data-c-font-size="small"
-                            data-c-margin="bottom(quarter)"
-                          >
-                            This skill isn't required for the employee to do the
-                            job, but it provides an added benefit to their
-                            skillset and will improve the speed or effectiveness
-                            of their work.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                      <Field
+                        key="asset"
+                        id="asset"
+                        name="level"
+                        component={RadioInput}
+                        label={intl.formatMessage(assetSkillName())}
+                        value="asset"
+                        trigger
+                      />
+                    </RadioGroup>
+                    <ContextBlock
+                      className="job-builder-context-block"
+                      grid="base(1of1) tl(2of3)"
+                    >
+                      {Object.entries(
+                        essentialSkillLevels(skill.skill_type_id),
+                      ).map(
+                        ([key, { name, context }]): React.ReactElement => {
+                          return (
+                            <ContextBlockItem
+                              key={key}
+                              contextId={key}
+                              title={intl.formatMessage(name)}
+                              subtext={intl.formatMessage(context)}
+                              className="job-builder-context-item"
+                              active={values.level === key}
+                            />
+                          );
+                        },
+                      )}
+                      <ContextBlockItem
+                        key="asset"
+                        contextId="asset"
+                        title={intl.formatMessage(assetSkillName())}
+                        subtext={intl.formatMessage(assetSkillDescription())}
+                        className="job-builder-context-item"
+                        active={values.level === "asset"}
+                      />
+                    </ContextBlock>
                   </div>
                 </div>
               </div>
