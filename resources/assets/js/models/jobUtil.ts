@@ -14,6 +14,7 @@ export const classificationString = (job: Job): string => {
 const emptyJobTranslation = (): JobTranslation => ({
   city: "",
   title: "",
+  dept_impact: "",
   team_impact: "",
   hire_impact: "",
   branch: "",

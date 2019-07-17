@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useRef } from "react";
 import {
   injectIntl,
@@ -7,22 +8,26 @@ import {
 } from "react-intl";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { Job } from "../../models/types";
+import { Job, Department } from "../../models/types";
 import { emptyJob } from "../../models/jobUtil";
 import JobImpactPreview from "./JobImpactPreview";
 import Modal from "../Modal";
 import { validationMessages } from "../Form/Messages";
 import TextAreaInput from "../Form/TextAreaInput";
+import { find } from "../../helpers/queries";
 
 interface JobBuilderImpactProps {
-  department?: string;
+  /** Optional Job to prepopulate form values from. */
   job: Job | null;
-  // Function to run after successful form validation.
-  // It must return true if the submission was succesful, false otherwise.
+  /** The list of known departments. Used to determine the Department statement. */
+  departments: Department[];
+  /** Function to run after successful form validation.
+   *  It must return true if the submission was succesful, false otherwise.
+   */
   handleSubmit: (values: Job) => Promise<boolean>;
-  // Function to run when modal cancel is clicked.
+  /** Function to run when modal cancel is clicked. */
   handleModalCancel: () => void;
-  // Function to run when modal confirm is clicked.
+  /** Function to run when modal confirm is clicked. */
   handleModalConfirm: () => void;
 }
 
@@ -54,108 +59,104 @@ const messages = defineMessages({
   },
 });
 
-const departmentImpactStatements = defineMessages({
-  treasuryBoard: {
-    id: "department.impactStatement.treasuryBoard",
-    defaultMessage:
-      "The Treasury Board of Canada Secretariat provides advice and makes recommendations on how the government spends money, how it regulates and how it is managed ensuring tax dollars are spent wisely and effectively for Canadians.",
-    description: "Department Impact Statement of Treasury Board",
-  },
-  naturalResources: {
-    id: "department.impactStatement.naturalResources",
-    defaultMessage:
-      "Natural Resources Canada seeks to enhance the responsible development and use of Canada’s natural resources and the competitiveness of Canada’s natural resources products.",
-    description: "Department Impact Statement of Natural Resources",
-  },
-  transport: {
-    id: "department.impactStatement.transport",
-    defaultMessage:
-      "Transport Canada works to serve the public interest through the promotion of a safe and secure, efficient and environmentally responsible transportation system in Canada.",
-    description: "Department Impact Statement of Transport",
-  },
-  environmentAndClimateChange: {
-    id: "department.impactStatement.environment",
-    defaultMessage:
-      "ECCC informs Canadians about protecting and conserving our natural heritage, and ensuring a clean, safe and sustainable environment for present and future generations.",
-    description:
-      "Department Impact Statement of Environment and Climate Change",
-  },
-  employmentAndSocialDevelopment: {
-    id: "department.impactStatement.employment",
-    defaultMessage:
-      "Employment and Social Development Canada (ESDC) works to improve the standard of living and quality of life for all Canadians. We do this by promoting a labour force that is highly skilled. We also promote an efficient and inclusive labour market.",
-    description:
-      "Department Impact Statement of Employment and Social Development",
-  },
-  globalAffairs: {
-    id: "department.impactStatement.globalAffairs",
-    defaultMessage:
-      "Global Affairs Canada manages Canada’s diplomatic relations, provides consular services to Canadians, promotes the country’s international trade, and leads Canada’s international development and humanitarian assistance.",
-    description: "Department Impact Statement of Global Affairs",
-  },
-  boarderServicesAgency: {
-    id: "department.impactStatement.boarder",
-    defaultMessage:
-      "The Canada Border Services Agency (CBSA) facilitates the flow of legitimate travellers and trade. The Agency also enforces more than 90 acts and regulations that keep our country and Canadians safe.",
-    description: "Department Impact Statement of Boarder Services Agency",
-  },
-  innovationScience: {
-    id: "department.impactStatement.science",
-    defaultMessage:
-      "Innovation, Science and Economic Development Canada (ISED) works with Canadians in all areas of the economy and in all parts of the country to improve conditions for investment, enhance Canada's innovation performance, increase Canada's share of global trade and build a fair, efficient and competitive marketplace.",
-    description:
-      "Department Impact Statement of Innovation, Science and Economic Development",
-  },
-  publicServiceAndProcurement: {
-    id: "department.impactStatement.procurement",
-    defaultMessage:
-      "Public Services and Procurement Canada serves federal departments and agencies as their central purchasing agent, real property manager, treasurer, accountant, pay and pension administrator, integrity adviser and linguistic authority.",
-    description:
-      "Department Impact Statement of Public Service and Procurement",
-  },
-  departmentNationalDefence: {
-    id: "department.impactStatement.defence",
-    defaultMessage:
-      "The Department of National Defence and the Canadian Armed Forces implement government decisions concerning the defence of Canadians’ interests at home and abroad.",
-    description: "Department Impact Statement of Department National Defence",
-  },
-  sharedServicesCanada: {
-    id: "department.impactStatement.sharedServices",
-    defaultMessage:
-      "Shared Services Canada (SSC) delivers digital services to Government of Canada organizations. We provide modern, secure and reliable IT services so federal organizations can deliver digital programs and services that meet Canadians needs.",
-    description: "Department Impact Statement of Shared Services Canada",
-  },
-  healthCanada: {
-    id: "department.impactStatement.health",
-    defaultMessage:
-      "Health Canada is responsible for helping Canadians maintain and improve their health. It ensures that high-quality health services are accessible, and works to reduce health risks.",
-    description: "Department Impact Statement of Shared Services Canada",
-  },
-});
-
 const updateJobWithValues = (
   initialJob: Job,
   locale: "en" | "fr",
   { teamImpact, hireImpact }: JobImpactValues,
+  deptImpacts: { en: string; fr: string },
 ): Job => ({
   ...initialJob,
+  en: {
+    ...initialJob.en,
+    dept_impact: deptImpacts.en,
+  },
+  fr: {
+    ...initialJob.fr,
+    dept_impact: deptImpacts.fr,
+  },
   [locale]: {
     ...initialJob[locale],
+    dept_impact: deptImpacts[locale],
     team_impact: teamImpact,
     hire_impact: hireImpact,
   },
 });
 
+const determineDeptImpact = (
+  departments: Department[],
+  job: Job | null,
+): { en: string; fr: string } => {
+  if (job === null || job.department_id === null) {
+    return { en: "", fr: "" };
+  }
+  const dept = find(departments, job.department_id);
+  if (dept === null) {
+    return { en: "", fr: "" };
+  }
+  return {
+    en: dept.en.impact,
+    fr: dept.fr.impact,
+  };
+};
+
+const deptImpactStatement = (
+  departments: Department[],
+  job: Job | null,
+  deptImpacts: { en: string; fr: string },
+  locale: "en" | "fr",
+): React.ReactElement => {
+  if (job === null || job.department_id === null) {
+    return (
+      <p data-c-margin="bottom(double)">
+        <FormattedMessage
+          id="jobBuilder.impact.selectDepartment"
+          defaultMessage="You must select a Department for this Job."
+          description="Message warning user that they must have a department selected to complete impact statements."
+        />
+      </p>
+    );
+  }
+  if (departments.length === 0) {
+    return (
+      <p data-c-margin="bottom(double)">
+        <i
+          aria-hidden="true"
+          className="fa fa-spinner fa-spin"
+          data-c-margin="right"
+        />
+        <FormattedMessage
+          id="jobBuilder.impact.departmentsLoading"
+          defaultMessage="Loading department data..."
+          description="Placeholder message while department data is being retrieved from the server."
+        />
+      </p>
+    );
+  }
+  if (departments.length !== 0 && deptImpacts[locale] === "") {
+    return (
+      <p data-c-margin="bottom(double)">
+        <FormattedMessage
+          id="jobBuilder.impact.unknownDepartment"
+          defaultMessage="Error: Unknown Department selected."
+          description="Error message shown when the job has a department selected for which data has not been passed to this component."
+        />
+      </p>
+    );
+  }
+  return <p data-c-margin="bottom(double)">{deptImpacts[locale]}</p>;
+};
+
 const JobBuilderImpact: React.FunctionComponent<
   JobBuilderImpactProps & InjectedIntlProps
 > = ({
   intl,
-  department,
+  departments,
   job,
   handleSubmit,
   handleModalCancel,
   handleModalConfirm,
 }): React.ReactElement => {
+  const modalId = "impact-dialog";
   const [isModalVisible, setIsModalVisible] = useState(false);
   const modalParentRef = useRef<HTMLDivElement>(null);
   const { locale } = intl;
@@ -176,9 +177,11 @@ const JobBuilderImpact: React.FunctionComponent<
       intl.formatMessage(validationMessages.required),
     ),
   });
-  const deptImpact = department
-    ? intl.formatMessage(departmentImpactStatements[department])
-    : "";
+  const deptImpacts: { en: string; fr: string } = determineDeptImpact(
+    departments,
+    job,
+  );
+
   return (
     <section ref={modalParentRef}>
       <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
@@ -223,22 +226,28 @@ const JobBuilderImpact: React.FunctionComponent<
             description="Header of Department Impact Section on Job Poster Builder Impact Step"
           />
         </p>
-        {/* TODO: <!-- The p tag below is where the dynamic department text goes (I used text from an old job poster as placeholder, but the real list of data is in the issue. --> */}
-        <p data-c-margin="bottom(double)">{deptImpact}</p>
+        {deptImpactStatement(departments, job, deptImpacts, locale)}
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
-
-            handleSubmit(updateJobWithValues(job || emptyJob(), locale, values))
+            handleSubmit(
+              updateJobWithValues(
+                job || emptyJob(),
+                locale,
+                values,
+                deptImpacts,
+              ),
+            )
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
                   setIsModalVisible(true);
                 }
               })
               .finally(
-                (): void => actions.setSubmitting(false), // Required by Formik to finish the submission cycle
+                // Required by Formik to finish the submission cycle
+                (): void => actions.setSubmitting(false),
               );
           }}
           render={({ values, isSubmitting }): React.ReactElement => (
@@ -304,11 +313,10 @@ const JobBuilderImpact: React.FunctionComponent<
                   </div>
                 </div>
                 <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
-                  {/* <!-- Modal trigger, same as last step. --> */}
                   <button
                     data-c-button="solid(c1)"
                     data-c-dialog-action="open"
-                    data-c-dialog-id="impact-dialog"
+                    data-c-dialog-id={modalId}
                     data-c-radius="rounded"
                     disabled={isSubmitting}
                     form="form"
@@ -324,7 +332,7 @@ const JobBuilderImpact: React.FunctionComponent<
               </Form>
               {isModalVisible && (
                 <Modal
-                  id="impact-dialog"
+                  id={modalId}
                   parentElement={modalParentRef.current}
                   visible={isModalVisible}
                   onModalConfirm={(): void => {
@@ -345,8 +353,9 @@ const JobBuilderImpact: React.FunctionComponent<
                       <h5
                         data-c-colour="white"
                         data-c-font-size="h4"
-                        id="job-impact-preview-title"
+                        id={`${modalId}-title`}
                       >
+                        {/* TODO: Localize Title, Description, and Button Text */}
                         Awesome work!
                       </h5>
                     </div>
@@ -355,7 +364,7 @@ const JobBuilderImpact: React.FunctionComponent<
                     <div
                       data-c-border="bottom(thin, solid, black)"
                       data-c-padding="normal"
-                      id="job-details-preview-description"
+                      id={`${modalId}-description`}
                     >
                       Here&apos;s a preview of the Impact Statement you just
                       entered. Feel free to go back and edit things or move to
@@ -367,7 +376,7 @@ const JobBuilderImpact: React.FunctionComponent<
                       data-c-padding="normal"
                     >
                       <JobImpactPreview
-                        deptImpact={deptImpact}
+                        deptImpact={deptImpacts[locale]}
                         teamImpact={values.teamImpact}
                         hireImpact={values.hireImpact}
                       />

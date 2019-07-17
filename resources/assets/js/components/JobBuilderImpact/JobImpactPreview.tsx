@@ -25,6 +25,7 @@ const JobImpactPreview = ({
         data-c-margin="bottom(normal)"
         data-c-padding="bottom(normal)"
       >
+        {/* TODO: Localize */}
         Impact
       </h4>
       <p data-c-margin="bottom(normal)">{deptImpact}</p>

@@ -44,3 +44,10 @@ export function jobBuilderEnv(locale: string, jobId?: number): string {
   }
   return `/${locale}/manager/job-builder/environment`;
 }
+
+export function jobBuilderImpact(locale: string, jobId?: number): string {
+  if (jobId) {
+    return `/${locale}/manager/jobs/${jobId}/builder/impact`;
+  }
+  return `/${locale}/manager/job-builder/impact`;
+}

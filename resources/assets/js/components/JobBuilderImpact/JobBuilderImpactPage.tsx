@@ -1,68 +1,75 @@
 import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
 import { connect } from "react-redux";
-import { FormattedMessage, InjectedIntlProps, injectIntl } from "react-intl";
-import { Job } from "../../models/types";
-import { JobDetailsIntl } from "./JobDetails";
-import { RootState } from "../../store/store";
-import { DispatchType } from "../../configureStore";
-import {
-  fetchJob,
-  createJob,
-  updateJob,
-  setSelectedJob,
-} from "../../store/Job/jobActions";
-import { getSelectedJob } from "../../store/Job/jobSelector";
-import RootContainer from "../RootContainer";
-import ProgressTracker from "../ProgressTracker/ProgressTracker";
+import { InjectedIntlProps, FormattedMessage, injectIntl } from "react-intl";
+import ReactDOM from "react-dom";
+import { Department, Job } from "../../models/types";
 import { ProgressTrackerItem } from "../ProgressTracker/types";
+import {
+  jobBuilderDetailsProgressState,
+  jobBuilderIntroProgressState,
+  jobBuilderEnvProgressState,
+} from "../JobBuilder/jobBuilderHelpers";
+import ProgressTracker from "../ProgressTracker/ProgressTracker";
+import JobBuilderImpact from "./JobBuilderImpact";
 import {
   progressTrackerLabels,
   progressTrackerTitles,
 } from "../JobBuilder/jobBuilderMessages";
+import { managerJobIndex } from "../../helpers/routes";
+import { getSelectedJob } from "../../store/Job/jobSelector";
+import { RootState } from "../../store/store";
+import { DispatchType } from "../../configureStore";
 import {
-  jobBuilderIntroProgressState,
-  jobBuilderEnvProgressState,
-  jobImpactProgressState,
-} from "../JobBuilder/jobBuilderHelpers";
-import { jobBuilderEnv } from "../../helpers/routes";
+  updateJob,
+  fetchJob,
+  setSelectedJob,
+  createJob,
+} from "../../store/Job/jobActions";
+import { getDepartments } from "../../store/Department/deptSelector";
+import { getDepartments as fetchDepartments } from "../../store/Department/deptActions";
+import RootContainer from "../RootContainer";
 
-interface JobDetailsPageProps {
+interface JobBuilderImpactPageProps {
   jobId: number | null;
   job: Job | null;
   loadJob: (jobId: number) => void;
+  departments: Department[];
+  loadDepartments: () => void;
   handleCreateJob: (newJob: Job) => Promise<boolean>;
   handleUpdateJob: (newJob: Job) => Promise<boolean>;
 }
 
-const JobDetailsPage: React.FunctionComponent<
-  JobDetailsPageProps & InjectedIntlProps
+const JobBuilderImpactPage: React.FunctionComponent<
+  JobBuilderImpactPageProps & InjectedIntlProps
 > = ({
   jobId,
   job,
   loadJob,
+  departments,
+  loadDepartments,
   handleCreateJob,
   handleUpdateJob,
   intl,
 }): React.ReactElement => {
+  // Load Job and Departments from api
   useEffect((): void => {
-    if (jobId) {
+    if (jobId !== null) {
       loadJob(jobId);
     }
   }, [jobId, loadJob]);
-
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
-  }
-  const waitingForJob = jobId !== null && job === null;
-  const handleModalCancel = (): void => {};
-  const handleModalConfirm = (): void => {
-    if (job) {
-      window.location.href = jobBuilderEnv(intl.locale, job.id);
+  useEffect((): void => {
+    if (departments.length === 0) {
+      loadDepartments();
     }
-    // TODO: what do if selectJob not set yet?
+  }, [departments, loadDepartments]);
+
+  const waitingForJob = jobId !== null && job === null;
+  const handleModalCancel = (): void => {
+    // Do nothing on cancel
   };
+  const handleModalConfirm = (): void => {
+    window.location.href = managerJobIndex(intl.locale);
+  }; // TODO: go to next page
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
@@ -71,19 +78,21 @@ const JobDetailsPage: React.FunctionComponent<
       title: intl.formatMessage(progressTrackerTitles.welcome),
     },
     {
-      state: "active",
+      state: waitingForJob
+        ? "null"
+        : jobBuilderDetailsProgressState(job, intl.locale),
       label: intl.formatMessage(progressTrackerLabels.step01),
       title: intl.formatMessage(progressTrackerTitles.jobInfo),
     },
     {
       state: waitingForJob
         ? "null"
-        : jobBuilderEnvProgressState(job, locale, true),
+        : jobBuilderEnvProgressState(job, intl.locale),
       label: intl.formatMessage(progressTrackerLabels.step02),
       title: intl.formatMessage(progressTrackerTitles.workEnv),
     },
     {
-      state: waitingForJob ? "null" : jobImpactProgressState(job, locale, true),
+      state: "active",
       label: intl.formatMessage(progressTrackerLabels.step03),
       title: intl.formatMessage(progressTrackerTitles.impact),
     },
@@ -117,19 +126,22 @@ const JobDetailsPage: React.FunctionComponent<
           data-c-container="form"
           data-c-padding="top(triple) bottom(triple)"
         >
-          <div data-c-background="white(100)" data-c-card data-c-padding="all(double)" data-c-radius="rounded" data-c-align="base(centre)">
-            <p>
-              <FormattedMessage
-                id="jobBuilderIntroPage.loading"
-                defaultMessage="Your job is loading..."
-                description="Message indicating that the current job is still being loaded."
-              />
-            </p>
-          </div>
+          <h3
+            data-c-font-size="h3"
+            data-c-font-weight="bold"
+            data-c-margin="bottom(double)"
+          >
+            <FormattedMessage
+              id="jobBuilderImpact.jobloading"
+              defaultMessage="Job Loading..."
+              description="Message indicating that the current job is still being loaded."
+            />
+          </h3>
         </div>
       ) : (
-        <JobDetailsIntl
+        <JobBuilderImpact
           job={job}
+          departments={departments}
           handleSubmit={handleSubmit}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
@@ -139,24 +151,30 @@ const JobDetailsPage: React.FunctionComponent<
   );
 };
 
-const mapStateToPropsPage = (
+const mapStateToProps = (
   state: RootState,
 ): {
   job: Job | null;
+  departments: Department[];
 } => ({
   job: getSelectedJob(state),
+  departments: getDepartments(state),
 });
 
-const mapDispatchToPropsPage = (
+const mapDispatchToProps = (
   dispatch: DispatchType,
 ): {
   loadJob: (jobId: number) => void;
+  loadDepartments: () => void;
   handleCreateJob: (newJob: Job) => Promise<boolean>;
   handleUpdateJob: (newJob: Job) => Promise<boolean>;
 } => ({
   loadJob: (jobId: number): void => {
     dispatch(fetchJob(jobId));
     dispatch(setSelectedJob(jobId));
+  },
+  loadDepartments: (): void => {
+    dispatch(fetchDepartments());
   },
   handleCreateJob: async (newJob: Job): Promise<boolean> => {
     const result = await dispatch(createJob(newJob));
@@ -172,20 +190,20 @@ const mapDispatchToPropsPage = (
   },
 });
 
-const JobDetailsPageContainer = connect(
-  mapStateToPropsPage,
-  mapDispatchToPropsPage,
-)(injectIntl(JobDetailsPage));
+const JobBuilderImpactPageContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(injectIntl(JobBuilderImpactPage));
 
-if (document.getElementById("job-builder-details")) {
+if (document.getElementById("job-builder-impact")) {
   const container = document.getElementById(
-    "job-builder-details",
+    "job-builder-impact",
   ) as HTMLElement;
   const jobIdAttr = container.getAttribute("data-job-id");
   const jobId = jobIdAttr ? Number(jobIdAttr) : null;
   ReactDOM.render(
     <RootContainer>
-      <JobDetailsPageContainer jobId={jobId} />
+      <JobBuilderImpactPageContainer jobId={jobId} />
     </RootContainer>,
     container,
   );
