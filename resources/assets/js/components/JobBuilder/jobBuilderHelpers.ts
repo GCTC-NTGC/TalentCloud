@@ -124,3 +124,25 @@ export const jobBuilderEnvProgressState = (
   }
   return job && isJobBuilderEnvComplete(job, locale) ? "complete" : "error";
 };
+
+const jobImpactValues = (job: Job, locale: "en" | "fr"): (string | null)[] => [
+  job[locale].dept_impact,
+  job[locale].team_impact,
+  job[locale].hire_impact,
+];
+const isJobImpactComplete = (job: Job, locale: "en" | "fr"): boolean => {
+  return jobImpactValues(job, locale).every(isFilled);
+};
+const isJobImpactUntouched = (job: Job, locale: "en" | "fr"): boolean => {
+  return jobImpactValues(job, locale).every(isEmpty);
+};
+export const jobImpactProgressState = (
+  job: Job | null,
+  locale: "en" | "fr",
+  allowUntouched = false,
+): "active" | "complete" | "error" | "null" => {
+  if (allowUntouched && (job === null || isJobImpactUntouched(job, locale))) {
+    return "null";
+  }
+  return job && isJobImpactComplete(job, locale) ? "complete" : "error";
+};

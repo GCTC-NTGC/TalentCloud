@@ -4,6 +4,7 @@ import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 export interface JobTranslation {
   city: string | null;
   title: string | null;
+  dept_impact: string | null;
   team_impact: string | null;
   hire_impact: string | null;
   branch: string | null;
