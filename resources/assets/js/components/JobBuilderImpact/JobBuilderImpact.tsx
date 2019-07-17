@@ -17,15 +17,17 @@ import TextAreaInput from "../Form/TextAreaInput";
 import { find } from "../../helpers/queries";
 
 interface JobBuilderImpactProps {
+  /** Optional Job to prepopulate form values from. */
   job: Job | null;
-  // The list of konwn departments. Used to determine the Department statement.
+  /** The list of known departments. Used to determine the Department statement. */
   departments: Department[];
-  // Function to run after successful form validation.
-  // It must return true if the submission was succesful, false otherwise.
+  /** Function to run after successful form validation.
+   *  It must return true if the submission was succesful, false otherwise.
+   */
   handleSubmit: (values: Job) => Promise<boolean>;
-  // Function to run when modal cancel is clicked.
+  /** Function to run when modal cancel is clicked. */
   handleModalCancel: () => void;
-  // Function to run when modal confirm is clicked.
+  /** Function to run when modal confirm is clicked. */
   handleModalConfirm: () => void;
 }
 
@@ -230,7 +232,6 @@ const JobBuilderImpact: React.FunctionComponent<
           validationSchema={validationSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
-
             handleSubmit(
               updateJobWithValues(
                 job || emptyJob(),
@@ -245,7 +246,8 @@ const JobBuilderImpact: React.FunctionComponent<
                 }
               })
               .finally(
-                (): void => actions.setSubmitting(false), // Required by Formik to finish the submission cycle
+                // Required by Formik to finish the submission cycle
+                (): void => actions.setSubmitting(false),
               );
           }}
           render={({ values, isSubmitting }): React.ReactElement => (
@@ -311,7 +313,6 @@ const JobBuilderImpact: React.FunctionComponent<
                   </div>
                 </div>
                 <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
-                  {/* <!-- Modal trigger, same as last step. --> */}
                   <button
                     data-c-button="solid(c1)"
                     data-c-dialog-action="open"
