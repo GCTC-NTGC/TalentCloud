@@ -8,8 +8,8 @@ export const fakeJob = (id = 1): Job => ({
   open_date_time: new Date("2019-05-20T07:00:00"),
   close_date_time: new Date("2019-05-30T06:59:59"),
   start_date_time: new Date("2019-07-01T07:00:00"),
-  department_id: 1,
-  province_id: 1,
+  department_id: 3,
+  province_id: 4,
   salary_min: 85000,
   salary_max: 100000,
   noc: 1234,
@@ -36,6 +36,8 @@ export const fakeJob = (id = 1): Job => ({
   en: {
     city: "Rempelfort",
     title: "I wonder if I'm on the.",
+    dept_impact:
+      "This is a statement about all the great things you will do in this department.",
     team_impact:
       "A in excepturi dolorem impedit. Expedita et nihil provident quo soluta neque. Odio et ut nostrum aut. Tenetur odit expedita molestias asperiores qui repudiandae eveniet.",
     hire_impact:
@@ -52,6 +54,8 @@ export const fakeJob = (id = 1): Job => ({
   fr: {
     city: "Lake Robbburgh",
     title: "Queen! The Queen!' and.",
+    dept_impact:
+      "FRENCH: This is a statement about all the great things you will do in this department.",
     team_impact:
       "At iste inventore tempora est. Aspernatur odio autem sapiente est aut. Commodi eius eligendi corrupti repellendus. Enim ad placeat voluptas qui et eum.\n\nEos commodi reprehenderit officiis vero repudiandae. Nisi voluptatem officiis aut molestias incidunt. Doloribus autem est sed non reprehenderit dolores. Et similique et doloribus ea est nam facere.",
     hire_impact:
@@ -103,6 +107,8 @@ export const fakeJob2 = (id = 1): Job => ({
   en: {
     city: "Ottawa",
     title: "UX Designer",
+    dept_impact:
+      "This is a statement about all the great things you will do in this department.",
     team_impact:
       "A in excepturi dolorem impedit. Expedita et nihil provident quo soluta neque. Odio et ut nostrum aut. Tenetur odit expedita molestias asperiores qui repudiandae eveniet.",
     hire_impact:
@@ -119,6 +125,8 @@ export const fakeJob2 = (id = 1): Job => ({
   fr: {
     city: "Ottawa",
     title: "UX Designer",
+    dept_impact:
+      "FRENCH: This is a statement about all the great things you will do in this department.",
     team_impact:
       "At iste inventore tempora est. Aspernatur odio autem sapiente est aut. Commodi eius eligendi corrupti repellendus. Enim ad placeat voluptas qui et eum.\n\nEos commodi reprehenderit officiis vero repudiandae. Nisi voluptatem officiis aut molestias incidunt. Doloribus autem est sed non reprehenderit dolores. Et similique et doloribus ea est nam facere.",
     hire_impact:

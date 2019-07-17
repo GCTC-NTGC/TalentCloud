@@ -8,34 +8,37 @@
 namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
+use Astrotomic\Translatable\Translatable as Translatable;
 
 /**
  * Class LanguageRequirement
- * 
+ *
  * @property int $id
  * @property string $name
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
  * @property \Illuminate\Database\Eloquent\Collection $language_requirement_translations
- * 
+ *
  * Localized Properties:
  * @property string $value
  */
-class LanguageRequirement extends BaseModel {
+class LanguageRequirement extends BaseModel
+{
 
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
 
     public $translatedAttributes = ['value'];
     protected $fillable = [];
 
-    public function job_posters() {
+    public function job_posters() //phpcs:ignore
+    {
         return $this->hasMany(\App\Models\JobPoster::class);
     }
 
-    public function language_requirement_translations() {
+    public function language_requirement_translations() //phpcs:ignore
+    {
         return $this->hasMany(\App\Models\Lookup\LanguageRequirementTranslation::class);
     }
-
 }

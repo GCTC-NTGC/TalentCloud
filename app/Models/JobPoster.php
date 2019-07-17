@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Jenssegers\Date\Date;
 use \Backpack\CRUD\CrudTrait;
+use Astrotomic\Translatable\Translatable;
 
 /**
  * Class JobPoster
@@ -70,6 +71,7 @@ use \Backpack\CRUD\CrudTrait;
  * Localized Properties:
  * @property string $city
  * @property string $title
+ * @property string $dept_impact
  * @property string $team_impact
  * @property string $hire_impact
  * @property string $branch
@@ -87,7 +89,7 @@ use \Backpack\CRUD\CrudTrait;
 class JobPoster extends BaseModel
 {
     use CrudTrait;
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
     use Notifiable;
 
     const DATE_FORMAT = [
@@ -106,6 +108,7 @@ class JobPoster extends BaseModel
     public $translatedAttributes = [
         'city',
         'title',
+        'dept_impact',
         'team_impact',
         'hire_impact',
         'branch',
@@ -373,7 +376,7 @@ class JobPoster extends BaseModel
     }
 
     // Methods
-    public function submitted_applications_count()
+    public function submitted_applications_count() //phpcs:ignore
     {
         return $this->submitted_applications()->count();
     }

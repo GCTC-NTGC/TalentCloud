@@ -12,10 +12,7 @@ import {
   updateJob,
   setSelectedJob,
 } from "../../store/Job/jobActions";
-import {
-  getJob as selectJob,
-  getSelectedJob,
-} from "../../store/Job/jobSelector";
+import { getSelectedJob } from "../../store/Job/jobSelector";
 import RootContainer from "../RootContainer";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { ProgressTrackerItem } from "../ProgressTracker/types";
@@ -23,7 +20,12 @@ import {
   progressTrackerLabels,
   progressTrackerTitles,
 } from "../JobBuilder/jobBuilderMessages";
-import { isJobBuilderIntroComplete } from "../JobBuilder/jobBuilderHelpers";
+import {
+  jobBuilderIntroProgressState,
+  jobBuilderEnvProgressState,
+  jobImpactProgressState,
+} from "../JobBuilder/jobBuilderHelpers";
+import { jobBuilderEnv } from "../../helpers/routes";
 
 interface JobDetailsPageProps {
   jobId: number | null;
@@ -49,15 +51,22 @@ const JobDetailsPage: React.FunctionComponent<
     }
   }, [jobId, loadJob]);
 
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
+  }
   const waitingForJob = jobId !== null && job === null;
   const handleModalCancel = (): void => {};
   const handleModalConfirm = (): void => {
-    window.location.href = "/manager/jobs";
-  }; // TODO: go to next page
+    if (job) {
+      window.location.href = jobBuilderEnv(intl.locale, job.id);
+    }
+    // TODO: what do if selectJob not set yet?
+  };
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
-      state: job && isJobBuilderIntroComplete(job) ? "complete" : "error",
+      state: waitingForJob ? "null" : jobBuilderIntroProgressState(job),
       label: intl.formatMessage(progressTrackerLabels.start),
       title: intl.formatMessage(progressTrackerTitles.welcome),
     },
@@ -67,12 +76,14 @@ const JobDetailsPage: React.FunctionComponent<
       title: intl.formatMessage(progressTrackerTitles.jobInfo),
     },
     {
-      state: "null",
+      state: waitingForJob
+        ? "null"
+        : jobBuilderEnvProgressState(job, locale, true),
       label: intl.formatMessage(progressTrackerLabels.step02),
       title: intl.formatMessage(progressTrackerTitles.workEnv),
     },
     {
-      state: "null",
+      state: waitingForJob ? "null" : jobImpactProgressState(job, locale, true),
       label: intl.formatMessage(progressTrackerLabels.step03),
       title: intl.formatMessage(progressTrackerTitles.impact),
     },
@@ -106,17 +117,15 @@ const JobDetailsPage: React.FunctionComponent<
           data-c-container="form"
           data-c-padding="top(triple) bottom(triple)"
         >
-          <h3
-            data-c-font-size="h3"
-            data-c-font-weight="bold"
-            data-c-margin="bottom(double)"
-          >
-            <FormattedMessage
-              id="jobDetailsPage.loading"
-              defaultMessage="Job Loading..."
-              description="Message indicating that the current job is still being loaded."
-            />
-          </h3>
+          <div data-c-background="white(100)" data-c-card data-c-padding="all(double)" data-c-radius="rounded" data-c-align="base(centre)">
+            <p>
+              <FormattedMessage
+                id="jobBuilderIntroPage.loading"
+                defaultMessage="Your job is loading..."
+                description="Message indicating that the current job is still being loaded."
+              />
+            </p>
+          </div>
         </div>
       ) : (
         <JobDetailsIntl
@@ -134,11 +143,8 @@ const mapStateToPropsPage = (
   state: RootState,
 ): {
   job: Job | null;
-  getJob: (jobId: number | null) => Job | null;
 } => ({
   job: getSelectedJob(state),
-  getJob: (jobId: number | null): Job | null =>
-    jobId ? selectJob(state, { jobId }) : null,
 });
 
 const mapDispatchToPropsPage = (

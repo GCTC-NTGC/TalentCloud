@@ -16,12 +16,13 @@ namespace App\Models;
  * @property \Jenssegers\Date\Date $updated_at
  * @property \Illuminate\Database\Eloquent\Collection $users
  */
-class UserRole extends BaseModel {
+class UserRole extends BaseModel
+{
 
     protected $fillable = [];
 
-    public function users() {
+    public function users()
+    {
         return $this->hasMany(\App\Models\User::class);
     }
-
 }

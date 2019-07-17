@@ -8,6 +8,7 @@
 namespace App\Models;
 
 use App\CRUD\TalentCloudCrudTrait as CrudTrait;
+use Astrotomic\Translatable\Translatable as Translatable;
 
 /**
  * Class Manager
@@ -53,9 +54,9 @@ use App\CRUD\TalentCloudCrudTrait as CrudTrait;
  * Methods
  * @method string toApiArray()
  */
-class Manager extends BaseModel {
-
-    use \Dimsav\Translatable\Translatable;
+class Manager extends BaseModel
+{
+    use Translatable;
     // Trait for Backpack
     use CrudTrait;
 
@@ -88,23 +89,28 @@ class Manager extends BaseModel {
         'years_experience'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(\App\Models\User::class);
     }
 
-    public function department() {
+    public function department()
+    {
         return $this->belongsTo(\App\Models\Lookup\Department::class);
     }
 
-    public function job_posters() {
+    public function job_posters() //phpcs:ignore
+    {
         return $this->hasMany(\App\Models\JobPoster::class);
     }
 
-    public function work_environment() {
+    public function work_environment() //phpcs:ignore
+    {
         return $this->hasOne(\App\Models\WorkEnvironment::class)->withDefault();
     }
 
-    public function team_culture() {
+    public function team_culture() //phpcs:ignore
+    {
         return $this->hasOne(\App\Models\TeamCulture::class)->withDefault();
     }
     /*
@@ -120,23 +126,28 @@ class Manager extends BaseModel {
     * development_opportunity_frequency
     * refuse_low_value_work_frequency
     */
-    public function work_review_frequency() {
+    public function work_review_frequency() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 
-    public function stay_late_frequency() {
+    public function stay_late_frequency() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 
-    public function engage_team_frequency() {
+    public function engage_team_frequency() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 
-    public function development_opportunity_frequency() {
+    public function development_opportunity_frequency() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 
-    public function refuse_low_value_work_frequency() {
+    public function refuse_low_value_work_frequency() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 

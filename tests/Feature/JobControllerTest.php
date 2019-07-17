@@ -204,7 +204,7 @@ class JobControllerTest extends TestCase
 
         $this->assertInstanceOf(Date::class, $jobPoster->review_requested_at);
 
-        Mail::assertSent(JobPosterReviewRequested::class, function ($mail) use ($jobPoster) {
+        Mail::assertQueued(JobPosterReviewRequested::class, function ($mail) use ($jobPoster) {
             return $mail->jobPoster->id === $jobPoster->id;
         });
     }

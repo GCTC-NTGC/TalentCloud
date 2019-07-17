@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - "7.2"
+  - '7.2'
 
 sudo: required
 dist: trusty
@@ -14,8 +14,8 @@ cache:
     - $HOME/.composer/cache/files
     - $HOME/.npm
 
+# following required for Test Cafe
 addons:
-  # following required for Test Cafe
   firefox: latest
   apt:
     sources:
@@ -46,8 +46,8 @@ before_script:
   # start web server port 8000
   - php artisan serve &
   # required for Test Cafe
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+  - 'export DISPLAY=:99.0'
+  - 'sh -e /etc/init.d/xvfb start'
   - sleep 3
   - fluxbox >/dev/null 2>&1 &
 

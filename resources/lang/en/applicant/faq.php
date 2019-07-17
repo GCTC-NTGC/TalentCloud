@@ -54,18 +54,14 @@ return [
                         'type' => 'ul',
                         'items' => [
                             '00' => 'Treasury Board Secretariat (host department)',
-                            '01' => 'Employment and Social Development Canada',
-                            '02' => 'Environment and Climate Change Canada',
+                            '01' => 'Transport Canada',
+                            '02' => 'Global Affairs Canada',
                             '03' => 'Natural Resources Canada',
-                            '04' => 'Transport Canada',
-                            '05' => 'Global Affairs Canada',
-                            '06' => 'Canada Border Services Agency',
-                            '07' => 'Fisheries and Oceans Canada',
-                            '08' => 'Innovation, Science and Economic Development Canada',
-                            '09' => 'Status of Women Canada',
-                            '10' => 'Public Services and Procurement Canada',
-                            '11' => 'Shared Services Canada',
-                            '12' => 'Department of National Defence'
+                            '04' => 'Canada Border Services Agency',
+                            '05' => 'Department of National Defense',
+                            '06' => 'Shared Services Canada',
+                            '07' => 'Health Canada',
+                            '08' => 'National Research Council'
                         ]
                     ]
                 ]

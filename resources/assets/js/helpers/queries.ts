@@ -6,6 +6,10 @@ export function getId<T extends { id: number }>(item: T): number {
   return item.id;
 }
 
+export function identity<T>(value: T): T {
+  return value;
+}
+
 /**
  * Returns true as long as the value passed to it is not null or undefined.
  * Can be used to filter nulls and undefined values out of an array.

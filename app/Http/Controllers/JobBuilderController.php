@@ -8,6 +8,18 @@ use App\Http\Controllers\Controller;
 class JobBuilderController extends Controller
 {
     /**
+     * Show the Job Builder Intro page
+     * @return \Illuminate\Http\Response
+     */
+    public function intro($jobId = null)
+    {
+        return view(
+            'manager/job-builder-intro',
+            ['title' => Lang::get('manager/job_builder.intro_title'), 'jobId' => $jobId]
+        );
+    }
+
+    /**
      * Show the Job Builder Details page
      * @return \Illuminate\Http\Response
      */
@@ -15,7 +27,31 @@ class JobBuilderController extends Controller
     {
         return view(
             'manager/job-builder-details',
-            ['title' => 'Job Builder: Details', 'jobId' => $jobId]
+            ['title' => Lang::get('manager/job_builder.details_title'), 'jobId' => $jobId]
+        );
+    }
+
+    /**
+     * Show the Job Builder Work Environment page
+     * @return \Illuminate\Http\Response
+     */
+    public function environment($jobId = null)
+    {
+        return view(
+            'manager/job-builder-environment',
+            ['title' => Lang::get('manager/job_builder.environment_title'), 'jobId' => $jobId]
+        );
+    }
+
+    /**
+     * Show the Job Builder Impact page
+     * @return \Illuminate\Http\Response
+     */
+    public function impact($jobId = null)
+    {
+        return view(
+            'manager/job-builder-impact',
+            ['title' => Lang::get('manager/job_builder.impact_title'), 'jobId' => $jobId]
         );
     }
 }

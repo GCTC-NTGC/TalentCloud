@@ -68,6 +68,7 @@ class JobApiControllerTest extends TestCase
             'en' => [
                 'city' => $this->faker->city(),
                 'title' => $this->faker->word(),
+                'dept_impact' => $this->faker->paragraph(),
                 'team_impact' => $this->faker->paragraph(),
                 'hire_impact' => $this->faker->paragraph(),
                 'branch' => $this->faker->word(),
@@ -80,6 +81,7 @@ class JobApiControllerTest extends TestCase
             'fr' => [
                 'city' => $this->faker->city(),
                 'title' => $this->faker->word(),
+                'dept_impact' => $this->faker->paragraph(),
                 'team_impact' => $this->faker->paragraph(),
                 'hire_impact' => $this->faker->paragraph(),
                 'branch' => $this->faker->word(),

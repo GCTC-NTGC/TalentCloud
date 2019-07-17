@@ -7,8 +7,8 @@
 
 namespace App\Models;
 
-use App\Models\Lookup\Frequency;
-use Prophecy\Prediction\CallTimesPrediction;
+use App\Models\BaseModel;
+use Astrotomic\Translatable\Translatable as Translatable;
 
 /**
  * Class WorkEnvironment
@@ -31,8 +31,7 @@ use Prophecy\Prediction\CallTimesPrediction;
  */
 class WorkEnvironment extends BaseModel
 {
-
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
 
     public $translatedAttributes = ['things_to_know'];
     protected $casts = [
@@ -53,22 +52,22 @@ class WorkEnvironment extends BaseModel
         return $this->belongsTo(\App\Models\Manager::class);
     }
 
-    public function telework_allowed_frequency()
+    public function telework_allowed_frequency() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 
-    public function flexible_hours_frequency()
+    public function flexible_hours_frequency() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 
-    public function workplace_photo_captions()
+    public function workplace_photo_captions() //phpcs:ignore
     {
         return $this->hasMany(\App\Models\WorkplacePhotoCaption::class);
     }
 
-    public function work_environment_translations()
+    public function work_environment_translations() //phpcs:ignore
     {
         return $this->hasMany(\App\Models\WorkEnvironmentTranslation::class);
     }

@@ -4,6 +4,7 @@ import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 export interface JobTranslation {
   city: string | null;
   title: string | null;
+  dept_impact: string | null;
   team_impact: string | null;
   hire_impact: string | null;
   branch: string | null;
@@ -30,7 +31,7 @@ export interface Job {
   classification_level: number | null;
   security_clearance_id: number | null;
   language_requirement_id: number | null;
-  remote_work_allowed: boolean | null;
+  remote_work_allowed: boolean;
   published_at: Date | null;
   review_requested_at: Date | null;
   team_size: number | null;
@@ -186,4 +187,15 @@ export interface AssessmentPlanNotification {
   skill_level_id_new: number | null;
   acknowledged: boolean;
   created_at: Date;
+}
+
+export interface DepartmentTranslation {
+  name: string;
+  impact: string;
+}
+
+export interface Department {
+  id: number;
+  en: DepartmentTranslation;
+  fr: DepartmentTranslation;
 }
