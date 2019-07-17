@@ -141,10 +141,10 @@ export interface Criteria {
   skill_id: number;
   skill_level_id: number;
   en: {
-    description: string;
+    description: string | null;
   };
   fr: {
-    description: string;
+    description: string | null;
   };
 }
 

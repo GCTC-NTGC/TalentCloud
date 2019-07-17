@@ -6,7 +6,7 @@ import { Criteria, Skill } from "../../models/types";
 import { validationMessages } from "../Form/Messages";
 import TextAreaInput from "../Form/TextAreaInput";
 import RadioGroup from "../Form/RadioGroup";
-import { SkillLevelId } from "../../models/lookupConstants";
+import { SkillLevelId, CriteriaTypeId } from "../../models/lookupConstants";
 import RadioInput from "../Form/RadioInput";
 import {
   skillLevelName,
@@ -18,10 +18,14 @@ import ContextBlockItem from "../ContextBlock/ContextBlockItem";
 import ContextBlock from "../ContextBlock/ContextBlock";
 
 interface CriteriaFormProps {
+  // The Job Poster this criteria will belong to.
+  jobPosterId: number;
   // The criteria being edited, if we're not creating a new one.
   criteria?: Criteria;
-  // The skill this criteria will evaluate
+  // The skill this criteria will evaluate.
   skill: Skill;
+  handleSubmit: (criteria: Criteria) => void;
+  handleCancel: () => void;
 }
 
 const essentialSkillLevels = (
@@ -55,23 +59,111 @@ interface FormValues {
   level: string;
 }
 
+const essentialSkillIdToKey = (id: number): string => {
+  switch (id) {
+    case SkillLevelId.Basic:
+      return "basic";
+    case SkillLevelId.Intermediate:
+      return "intermediate";
+    case SkillLevelId.Advanced:
+      return "advanced";
+    case SkillLevelId.Expert:
+      return "expert";
+    default:
+      return "";
+  }
+};
+
+const essentialKeyToId = (key: string): SkillLevelId => {
+  switch (key) {
+    case "basic":
+      return SkillLevelId.Basic;
+    case "intermediate":
+      return SkillLevelId.Intermediate;
+    case "advanced":
+      return SkillLevelId.Advanced;
+    case "expert":
+      return SkillLevelId.Expert;
+    default:
+      return SkillLevelId.Basic;
+  }
+};
+
+const criteriaToValues = (
+  criteria: Criteria,
+  locale: "en" | "fr",
+): FormValues => ({
+  description: criteria[locale].description || "",
+  level:
+    criteria.criteria_type_id === CriteriaTypeId.Asset
+      ? "asset"
+      : essentialSkillIdToKey(criteria.criteria_type_id),
+});
+
+const updateCriteriaWithValues = (
+  criteria: Criteria,
+  values: FormValues,
+  locale: "en" | "fr",
+): Criteria => {
+  return {
+    ...criteria,
+    criteria_type_id:
+      values.level === "asset"
+        ? CriteriaTypeId.Asset
+        : CriteriaTypeId.Essential,
+    skill_level_id: essentialKeyToId(values.level),
+    [locale]: {
+      description: values.description,
+    },
+  };
+};
+
+const newCriteria = (jobPosterId: number, skillId: number): Criteria => ({
+  id: 0,
+  criteria_type_id: CriteriaTypeId.Essential,
+  job_poster_id: jobPosterId,
+  skill_id: skillId,
+  skill_level_id: SkillLevelId.Basic,
+  en: {
+    description: null,
+  },
+  fr: {
+    description: null,
+  },
+});
+
 export const CriteriaForm: React.FunctionComponent<
   CriteriaFormProps & InjectedIntlProps
-> = ({ criteria, skill, intl }): React.ReactElement => {
+> = ({
+  jobPosterId,
+  criteria,
+  skill,
+  handleSubmit,
+  handleCancel,
+  intl,
+}): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unknown intl.locale");
   }
-  const [showSpecificity, setShowSpecificity] = useState(false);
+  const stringNotEmpty = (value: string | null): boolean =>
+    value !== null && (value as string).length !== 0;
+  const [showSpecificity, setShowSpecificity] = useState(
+    criteria !== undefined && stringNotEmpty(criteria[locale].description),
+  );
+  const defaultDescription = skill[locale].description;
 
-  const initialValues: FormValues = {
-    description: "",
-    level: "basic",
-  };
-  // TODO: description is intended to be required, if its showing.
-  // Need to figure out dynamic schema
+  const initialValues: FormValues =
+    criteria !== undefined
+      ? criteriaToValues(criteria, locale)
+      : {
+          description: defaultDescription,
+          level: "",
+        };
   const skillSchema = Yup.object().shape({
-    description: Yup.string(),
+    description: Yup.string().required(
+      intl.formatMessage(validationMessages.required),
+    ),
     level: Yup.string()
       .oneOf(
         [...Object.keys(essentialSkillLevels(skill.skill_type_id)), "asset"],
@@ -85,7 +177,16 @@ export const CriteriaForm: React.FunctionComponent<
       initialValues={initialValues}
       validationSchema={skillSchema}
       onSubmit={(values, { setSubmitting }): void => {
-        // TODO: complete
+        const oldCriteria =
+          criteria !== undefined
+            ? criteria
+            : newCriteria(jobPosterId, skill.id);
+        const updatedCriteria = updateCriteriaWithValues(
+          oldCriteria,
+          values,
+          locale,
+        );
+        handleSubmit(updatedCriteria);
         setSubmitting(false);
       }}
       render={({
@@ -93,6 +194,7 @@ export const CriteriaForm: React.FunctionComponent<
         touched,
         isSubmitting,
         values,
+        setFieldValue,
       }): React.ReactElement => (
         <>
           <Form id="jpbSkillsForm">
@@ -136,7 +238,10 @@ export const CriteriaForm: React.FunctionComponent<
                       <button
                         className="job-builder-add-skill-definition-trigger"
                         type="button"
-                        onClick={(): void => setShowSpecificity(false)}
+                        onClick={(): void => {
+                          setFieldValue("description", defaultDescription);
+                          setShowSpecificity(false);
+                        }}
                       >
                         <span>
                           <i
@@ -254,6 +359,9 @@ export const CriteriaForm: React.FunctionComponent<
                     data-c-dialog-action="close"
                     data-c-dialog-id="example-dialog-01"
                     data-c-radius="rounded"
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={handleCancel}
                   >
                     Cancel
                   </button>
@@ -267,6 +375,8 @@ export const CriteriaForm: React.FunctionComponent<
                     data-c-dialog-action="close"
                     data-c-dialog-id="example-dialog-01"
                     data-c-radius="rounded"
+                    disabled={isSubmitting}
+                    type="submit"
                   >
                     Add Skill
                   </button>
