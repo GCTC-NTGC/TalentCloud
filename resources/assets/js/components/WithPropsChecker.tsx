@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 interface Props<P> {
   [key: string]: any;
@@ -25,20 +25,18 @@ export default function withPropsChecker<P>(
       Object.keys(nextProps)
         // eslint-disable-next-line react/destructuring-assignment
         .filter((key): boolean => nextProps[key] !== this.props[key])
-        .forEach(
-          (key): void => {
-            console.log(
-              WrappedComponent.name,
-              "changed property:",
-              key,
-              "from",
-              // eslint-disable-next-line react/destructuring-assignment
-              this.props[key],
-              "to",
-              nextProps[key],
-            );
-          },
-        );
+        .forEach((key): void => {
+          console.log(
+            WrappedComponent.name,
+            "changed property:",
+            key,
+            "from",
+            // eslint-disable-next-line react/destructuring-assignment
+            this.props[key],
+            "to",
+            nextProps[key],
+          );
+        });
     }
 
     public render(): React.ReactElement {

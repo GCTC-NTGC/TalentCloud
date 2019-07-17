@@ -3,15 +3,21 @@
 exports[`renders correctly 1`] = `
 <div
   data-c-input="text"
+  data-c-invalid={null}
+  data-c-required={null}
 >
   <label
     htmlFor="sample-input"
   >
     label
   </label>
+  <span>
+    <span>
+      Required
+    </span>
+  </span>
   <div>
     <input
-      data-c-font-weight="800"
       id="sample-input"
       maxLength={30}
       minLength={0}
@@ -23,7 +29,9 @@ exports[`renders correctly 1`] = `
     />
   </div>
   <span>
-    Something went wrong.
+    <span>
+      Something went wrong.
+    </span>
   </span>
 </div>
 `;

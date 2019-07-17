@@ -14,12 +14,12 @@ class AddDepartments extends Migration
     public function up()
     {
         DB::table('departments')->insert([
-            ['id' => 11, 'name' => 'department_national_defence'],
+            ['name' => 'department_national_defence'],
         ]);
 
         DB::table('department_translations')->insert([
-            ['id' => 21, 'department_id' => 11, 'locale' => 'en', 'value' => 'Department of National Defence'],
-            ['id' => 22, 'department_id' => 11, 'locale' => 'fr', 'value' => 'Ministère de la Défense nationale'],
+            ['department_id' => 11, 'locale' => 'en', 'value' => 'Department of National Defence'],
+            ['department_id' => 11, 'locale' => 'fr', 'value' => 'Ministère de la Défense nationale'],
         ]);
     }
 

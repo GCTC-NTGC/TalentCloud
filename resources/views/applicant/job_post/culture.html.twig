@@ -26,24 +26,19 @@
             <div
                 class="box full">
                 <h4
-                    class="job-post__culture-subtitle">
-                    {{ job_post.culture.manager_title }}
+                    class="job-post__culture-subtitle manager">
+                    {{ job_post.culture.manager_title }}, {{ manager.user.name }}
                 </h4>
             </div>
 
             <div
                 class="box full job-post__culture-manager-copy">
 
-                <span
-                    class="job-post__culture-manager-name">
-                    {{ manager.user.name }}
-                </span>
-
                 <div
                     class="job-post__culture-manager-meta">
                     <span>{{ manager.position }}</span>
                     <span>{{ job_post.culture.manager_department_bridge }}</span>
-                    <span>{{ manager.department.value }}</span>
+                    <span>{{ manager.department.name }}</span>
                 </div>
 
                 {% if auth_guest() %}
@@ -146,8 +141,106 @@
                 </p>
             </div>
 
+            {# Team Culture #}
+
+            <div
+                class="box full">
+                <h4
+                    class="job-post__culture-subtitle">
+                    {{ job_post.culture.team_culture_label }}
+                </h4>
+            </div>
+
+            <div
+                class="box med-1of2">
+                <span class="job-post__culture-heading">
+                    {{ job_post.culture.team_size_label }}
+                </span>
+                <p class="job-post__culture-copy">
+
+                    {{ handleNullState(
+                        team_culture.team_size,
+                        '<span>' ~ team_culture.team_size ~ '</span>',
+                        noInfo
+                    )}}
+
+                </p>
+            </div>
+
+            <div
+                class="box med-1of2">
+                <span
+                    class="job-post__culture-heading">
+                    {{ job_post.culture.gcdirectory_label }}
+                </span>
+                <p
+                    class="job-post__culture-copy">
+                    {% if team_culture.gc_directory_url is defined and
+                        team_culture.gc_directory_url is not empty %}
+                        <a
+                            href="{{ team_culture.gc_directory_url }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="{{ job_post.culture.team_link_title }}">
+                            {{ job_post.culture.team_link_label }}
+                        </a>
+                    {% else %}
+                        {{ noInfo }}
+                    {% endif %}
+                </p>
+            </div>
+
+            <div
+                class="box full">
+                <span
+                    class="job-post__culture-heading">
+                    {{ job_post.culture.operating_label }}
+                </span>
+                <p
+                    class="job-post__culture-copy">
+                    {{ handleNullState(
+                        team_culture.operating_context,
+                        team_culture.operating_context|nl2br,
+                        noInfo
+                    )}}
+                </p>
+            </div>
+
+            <div
+                class="box full">
+                <span
+                    class="job-post__culture-heading">
+                    {{ job_post.culture.team_value_label }}
+                </span>
+                <p
+                    class="job-post__culture-copy">
+                    {{ handleNullState(
+                        team_culture.what_we_value,
+                        team_culture.what_we_value|nl2br,
+                        noInfo
+                    )}}
+                </p>
+            </div>
+
+            <div
+                class="box full">
+                <span
+                    class="job-post__culture-heading">
+                    {{ job_post.culture.team_work_label }}
+                </span>
+                <p
+                    class="job-post__culture-copy final">
+                    {{ handleNullState(
+                        team_culture.how_we_work,
+                        team_culture.how_we_work|nl2br,
+                        noInfo
+                    )}}
+                </p>
+            </div>
+
             <!-- I've already made the markup changes here. Not sure if we're planning to React-ify this element while we're here, but feel free. -->
-            {# <div class="box full" data-clone>
+            {# This is a demo version thats commented out; it puts the Culture info in a modal
+            <div class="box full" data-clone>
                 <p data-c-margin="bottom(normal)">Want to know more about the team's physical environment, technology, and the ameneties available? Want to learn about the work culture?</p>
                 <button
                     data-c-button="solid(c5)"

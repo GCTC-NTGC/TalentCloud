@@ -111,14 +111,13 @@ const RatingGuideAnswer: React.FunctionComponent<
     return null;
   }
   const options = availableCriteria.map(
-    (criterion): SelectOption<number> => {
+    (criterion): SelectOption => {
+      const skill = hasKey<Skill | null>(criteriaIdToSkill, criterion.id)
+        ? criteriaIdToSkill[criterion.id]
+        : null;
       return {
         value: criterion.id,
-        label:
-          hasKey<Skill | null>(criteriaIdToSkill, criterion.id) &&
-          criteriaIdToSkill[criterion.id] !== null
-            ? (criteriaIdToSkill[criterion.id] as Skill)[intl.locale].name
-            : "",
+        label: skill ? skill[intl.locale].name : "",
       };
     },
   );
@@ -127,8 +126,8 @@ const RatingGuideAnswer: React.FunctionComponent<
       <div data-c-grid-item="base(1of1) tp(1of8)" data-c-alignment="center" />
       <div data-c-grid-item="base(1of1) tp(2of8)">
         <Select
-          htmlId={`ratingGuideSelectSkill_${answer.id}`}
-          formName="ratingGuideSelectSkill"
+          id={`ratingGuideSelectSkill_${answer.id}`}
+          name="ratingGuideSelectSkill"
           label={intl.formatMessage(messages.selectLabel)}
           required
           options={options}
@@ -146,8 +145,8 @@ const RatingGuideAnswer: React.FunctionComponent<
       </div>
       <div data-c-grid-item="base(1of1) tp(4of8)">
         <UpdatingTextArea
-          htmlId={`ratingGuideAnswer${answer.id}`}
-          formName="ratingGuideAnswer"
+          id={`ratingGuideAnswer${answer.id}`}
+          name="ratingGuideAnswer"
           label={intl.formatMessage(messages.inputLabel)}
           required
           placeholder={intl.formatMessage(messages.inputPlaceholder)}

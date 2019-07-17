@@ -81,9 +81,11 @@ export const getCriteriaIdsUnansweredForAssessmentType = createCachedSelector(
   getCriteriaIdsByJobAndAssessmentType,
   getRatingGuideAnswersByAssessment,
   (requiredCriteriaIds, assessmentAnswers): number[] => {
-    const answeredCriteriaIds: number[] = uniq(assessmentAnswers
-      .map((answer: RatingGuideAnswer): number | null => answer.criterion_id)
-      .filter((id): boolean => id !== null) as number[]);
+    const answeredCriteriaIds: number[] = uniq(
+      assessmentAnswers
+        .map((answer: RatingGuideAnswer): number | null => answer.criterion_id)
+        .filter(notEmpty),
+    );
     return difference(requiredCriteriaIds, answeredCriteriaIds);
   },
 )(
@@ -164,7 +166,7 @@ export const getCriteriaUnansweredForQuestion = createCachedSelector(
     // The criteria already selected by an answer
     const selectedCriteriaIds: number[] = questionAnswers
       .map((a): number | null => a.criterion_id)
-      .filter((id): boolean => id !== null) as number[];
+      .filter(notEmpty);
 
     // Filter out already selected answers
     return assessmentCriteria.filter(

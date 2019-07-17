@@ -3,9 +3,9 @@
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Auth\AuthenticationException;
+use Illuminate\Auth\AuthenticationException as AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Support\Facades\Lang;
 
@@ -17,8 +17,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
-    ];
+            ];
 
     /**
      * A list of the inputs that are never flashed for validation exceptions.
@@ -83,10 +82,10 @@ class Handler extends ExceptionHandler
      * OVERRIDE
      * Render the given HttpException.
      *
-     * @param  \Symfony\Component\HttpKernel\Exception\HttpException  $e
+     * @param  \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface  $e
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function renderHttpException(HttpException $e)
+    protected function renderHttpException(HttpExceptionInterface $e)
     {
         if (! view()->exists("errors.{$e->getStatusCode()}")) {
             return response()->view('errors.default', [
@@ -94,7 +93,7 @@ class Handler extends ExceptionHandler
                 'goc' => Lang::get('common/goc'),
                 'alert' => Lang::get('common/alert'),
                 'error' => [
-                    "title" => "Error"
+                    'title' => 'Error'
                 ]
             ], $e->getStatusCode(), $e->getHeaders());
         }

@@ -1,6 +1,7 @@
 import { Action as ReduxAction, ActionCreator } from "redux";
 
-export interface Action<T extends string, P, M = {}> extends ReduxAction<T> {
+export interface Action<T extends string, P, M = {}> {
+  type: T;
   payload: P;
   error?: boolean;
   meta?: M;

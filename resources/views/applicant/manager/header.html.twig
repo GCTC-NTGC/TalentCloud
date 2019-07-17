@@ -12,7 +12,7 @@
 
         {# Profile Photo #}
 
-            <button
+            {# <button
                 class="applicant-profile__header-photo"
                 onclick=""
                 aria-label="{{ manager.user.name }}"
@@ -21,7 +21,7 @@
                 <div
                     style="background-image:url('{{ manager_profile_photo_url }}')">
                 </div>
-            </button>
+            </button> #}
 
         {# Name #}
 
@@ -32,7 +32,7 @@
         {# Tagline #}
 
             <span>
-                {{ manager.position }}{{ manager_profile.manager_department_bridge }}{{ manager.department.value }}
+                {{ manager.position }}{{ manager_profile.manager_department_bridge }}{{ manager.department.name }}
             </span>
 
         {# Social Accounts #}

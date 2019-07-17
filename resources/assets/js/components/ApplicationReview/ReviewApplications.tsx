@@ -11,7 +11,7 @@ interface ReviewApplicationsProps {
   classification: string;
   closeDateTime: Date | null;
   applications: Application[];
-  reviewStatusOptions: SelectOption<number>[];
+  reviewStatusOptions: SelectOption[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onBulkStatusChange: (
     applicationIds: number[],
@@ -120,7 +120,10 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
             description="Welcome header on app main page"
             values={{
               // TODO: Think more carefully about how to handle null fields
-              dayCount: moment().diff(closeDateTime ? moment(closeDateTime) : moment(), "days"),
+              dayCount: moment().diff(
+                closeDateTime ? moment(closeDateTime) : moment(),
+                "days",
+              ),
             }}
           />
         </div>

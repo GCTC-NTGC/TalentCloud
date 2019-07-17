@@ -2,7 +2,7 @@ import React from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { Criteria, Assessment, Skill } from "../../models/types";
-import { find } from "../../helpers/queries";
+import { find, notEmpty } from "../../helpers/queries";
 import { CriteriaTypeId } from "../../models/lookupConstants";
 import { assessmentType } from "../../models/localizedConstants";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
@@ -32,13 +32,15 @@ const renderAssessmentTypeBlock = (
       (criterion): boolean =>
         criterion.criteria_type_id === CriteriaTypeId.Essential,
     )
-    .map((criterion): Skill => find(skills, criterion.skill_id) as Skill);
+    .map((criterion): Skill | null => find(skills, criterion.skill_id))
+    .filter(notEmpty);
   const assetSkills: Skill[] = criteria
     .filter(
       (criterion): boolean =>
         criterion.criteria_type_id === CriteriaTypeId.Asset,
     )
-    .map((criterion): Skill => find(skills, criterion.skill_id) as Skill);
+    .map((criterion): Skill | null => find(skills, criterion.skill_id))
+    .filter(notEmpty);
   return (
     <div
       key={`assessmentSummary_type${assessmentTypeId}`}
@@ -88,9 +90,7 @@ const renderAssessmentTypeBlock = (
             {essentialSkills.map(
               (skill): React.ReactElement => (
                 <li
-                  key={`assessmentSummary_type${assessmentTypeId}_essential_skill${
-                    skill.id
-                  }`}
+                  key={`assessmentSummary_type${assessmentTypeId}_essential_skill${skill.id}`}
                 >
                   {skill[locale].name}
                 </li>
@@ -119,9 +119,7 @@ const renderAssessmentTypeBlock = (
             {assetSkills.map(
               (skill): React.ReactElement => (
                 <li
-                  key={`assessmentSummary_type${assessmentTypeId}_asset_skill${
-                    skill.id
-                  }`}
+                  key={`assessmentSummary_type${assessmentTypeId}_asset_skill${skill.id}`}
                 >
                   {skill[locale].name}
                 </li>
@@ -224,11 +222,10 @@ const AssessmentPlanTable: React.FunctionComponent<
                 assessment.assessment_type_id === assessmentTypeId,
             );
             const associatedCriteria = assessmentsOfThisType
-              .map(
-                (assessment): Criteria | null =>
-                  find(criteria, assessment.criterion_id),
+              .map((assessment): Criteria | null =>
+                find(criteria, assessment.criterion_id),
               )
-              .filter((criterion): boolean => criterion != null) as Criteria[];
+              .filter(notEmpty);
             return renderAssessmentTypeBlock(
               assessmentTypeId,
               intl.formatMessage(assessmentType(assessmentTypeId)),

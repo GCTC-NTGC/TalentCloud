@@ -14,14 +14,14 @@ cache:
     - $HOME/.composer/cache/files
     - $HOME/.npm
 
+# following required for Test Cafe
 addons:
-  chrome: stable # required for lightcrawler
-  firefox: latest # following required for Test Cafe
+  firefox: latest
   apt:
     sources:
-     - google-chrome
+      - google-chrome
     packages:
-     - google-chrome-stable fluxbox
+      - google-chrome-stable fluxbox
   hosts:
     - talent.test
 
@@ -34,25 +34,20 @@ before_install:
   - npm i -g npm@^6
 
 install:
-  # install slacktee (send lightcrawler output to slack)
-  # sudo bash ./etc/scripts/install-slacktee.sh
   # environment
   - cp .env.travis .env
   # dependencies
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - travis_retry npm install
 
-
 before_script:
-  # docker login (for tagging/pushing images to our hub repo)
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   # setup headless browser for tests
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   # start web server port 8000
   - php artisan serve &
   # required for Test Cafe
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+  - 'export DISPLAY=:99.0'
+  - 'sh -e /etc/init.d/xvfb start'
   - sleep 3
   - fluxbox >/dev/null 2>&1 &
 
@@ -84,7 +79,8 @@ after_script:
 
 # Slack notifications / do not send emails
 notifications:
-  email: never
+  email:
+    - never
   slack:
     rooms:
       secure: Vlequ88MkHcyvhoqMzJp0ZJsQVpsdH3YVuVUfzCrzA0u24N8yvK/O5DuNn6QYgfPRmyS9Jgd2+LCjAJUmGFIkrLIVt7NXKtcvyatZMhy5+J7S9+sGLMjas+Jzw12shEenuCPuPAAn2a0tk/mJc3aK4X0cHKGHMkzU+BXPgdhUFUS+2omcktPsp0jauNMkS8lExPk8p8zW1r0SyFsAYUZYTJ2XvvmhFkfnmrahxAPoASndLVT1RFIXO5fsU7HFinmw+7EjObP/IwgbbBZRYwy8V1IW3I3njGPhDXUGTPYWs15w+UzNaf8QCgEhNIbweAslgcERItrFFyy3+IIrHUrmdW556OxKB05+NcdzoTG3BPqYqycdAb6Rrka5cd5A8ohRRXSiJHKJQqjSBH00FvnGbsqqE4EH4AlL8pFc/quisn/4atTS++DZhIGSmIJW8SS9bsvAgND9Z+fbsU261iAJwl173pU1lLhdKbIWIG1s9MP/Mudu3MjKn913J6md01t6h2gxvOKsvZ06UJTMI2Zct5HTpfwilWdKQ/ujQkTlssbKCgQkBpvflJVlhB49Ja9BlFCwn3d1cHHVVDwR0AoZx1s5wamkKa/ZQE3zEBW5UDzaSpCuHF0SBAa4pts3/+6qtf9LYrATcTZjikHCSpBWX0MVyf0J+82ybpHJeW83xM=

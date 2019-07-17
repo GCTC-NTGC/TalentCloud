@@ -107,7 +107,7 @@ const messages = defineMessages({
 
 interface ApplicationReviewWithNavProps {
   application: Application;
-  reviewStatusOptions: SelectOption<number>[];
+  reviewStatusOptions: SelectOption[];
   onStatusChange: (
     applicationId: number,
     statusId: number | null,
@@ -418,8 +418,8 @@ class ApplicationReviewWithNav extends React.Component<
 
             <div className="box lg-2of11 applicant-decision" data-clone>
               <Select
-                formName="review_status"
-                htmlId={`review_status_${application.id}`}
+                id={`review_status_${application.id}`}
+                name="review_status"
                 label={intl.formatMessage(messages.decision)}
                 required={false}
                 selected={selectedStatusId || null}
