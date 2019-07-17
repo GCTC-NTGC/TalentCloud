@@ -153,6 +153,7 @@ const JobBuilderImpact: React.FunctionComponent<
   handleModalCancel,
   handleModalConfirm,
 }): React.ReactElement => {
+  const modalId = "impact-dialog";
   const [isModalVisible, setIsModalVisible] = useState(false);
   const modalParentRef = useRef<HTMLDivElement>(null);
   const { locale } = intl;
@@ -313,7 +314,7 @@ const JobBuilderImpact: React.FunctionComponent<
                   <button
                     data-c-button="solid(c1)"
                     data-c-dialog-action="open"
-                    data-c-dialog-id="impact-dialog"
+                    data-c-dialog-id={modalId}
                     data-c-radius="rounded"
                     disabled={isSubmitting}
                     form="form"
@@ -329,7 +330,7 @@ const JobBuilderImpact: React.FunctionComponent<
               </Form>
               {isModalVisible && (
                 <Modal
-                  id="impact-dialog"
+                  id={modalId}
                   parentElement={modalParentRef.current}
                   visible={isModalVisible}
                   onModalConfirm={(): void => {
@@ -350,7 +351,7 @@ const JobBuilderImpact: React.FunctionComponent<
                       <h5
                         data-c-colour="white"
                         data-c-font-size="h4"
-                        id="job-impact-preview-title"
+                        id={`${modalId}-title`}
                       >
                         Awesome work!
                       </h5>
@@ -360,7 +361,7 @@ const JobBuilderImpact: React.FunctionComponent<
                     <div
                       data-c-border="bottom(thin, solid, black)"
                       data-c-padding="normal"
-                      id="job-details-preview-description"
+                      id={`${modalId}-description`}
                     >
                       Here&apos;s a preview of the Impact Statement you just
                       entered. Feel free to go back and edit things or move to
