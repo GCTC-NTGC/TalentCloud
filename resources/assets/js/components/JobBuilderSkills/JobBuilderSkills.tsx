@@ -17,6 +17,28 @@ interface JobBuilderSkillsProps {
   skills: Skill[];
 }
 
+function arrayMove<T>(arr: T[], fromIndex: number, toIndex: number): T[] {
+  const arrCopy = [...arr];
+  const element = arrCopy[fromIndex];
+  arrCopy.splice(fromIndex, 1);
+  arrCopy.splice(toIndex, 0, element);
+  return arrCopy;
+}
+
+function moveUp<T>(arr: T[], fromIndex: number): T[] {
+  if (fromIndex <= 0) {
+    return arr;
+  }
+  return arrayMove(arr, fromIndex, fromIndex - 1);
+}
+
+function moveDown<T>(arr: T[], fromIndex: number): T[] {
+  if (fromIndex + 1 >= arr.length) {
+    return arr;
+  }
+  return arrayMove(arr, fromIndex, fromIndex + 1);
+}
+
 type CriteriaAction =
   | {
       type: "add";
@@ -34,6 +56,18 @@ type CriteriaAction =
       type: "removeSkill";
       payload: {
         skillId: number;
+      };
+    }
+  | {
+      type: "moveUp";
+      payload: {
+        index: number;
+      };
+    }
+  | {
+      type: "moveDown";
+      payload: {
+        index: number;
       };
     };
 const criteriaReducer = (
@@ -68,6 +102,11 @@ const criteriaReducer = (
       return state.filter(
         (criterion): boolean => criterion.skill_id !== action.payload.skillId,
       );
+    case "moveUp":
+      return moveUp(state, action.payload.index);
+    case "moveDown":
+      return moveDown(state, action.payload.index);
+
     default:
       return state;
   }
@@ -100,10 +139,6 @@ export const JobBuilderSkills: React.FunctionComponent<
   }
 
   // The ideal number of skills for each category
-  const minSkills = 7;
-  const maxSkills = 8;
-  const minEssential = 3;
-  const maxEssential = 5;
   const minOccupational = 3;
   const maxOccupational = 5;
   const minCulture = 0;
@@ -261,12 +296,22 @@ export const JobBuilderSkills: React.FunctionComponent<
             data-c-grid-item="base(2of10) tl(1of10)"
             data-c-align="base(centre)"
           >
-            {/* These should work already. */}
-            {/** FIXME: add logic to move buttons */}
-            <button type="button" data-tc-move-up-trigger>
+            <button
+              type="button"
+              data-tc-move-up-trigger
+              onClick={(): void =>
+                criteriaDispatch({ type: "moveUp", payload: { index } })
+              }
+            >
               <i className="fas fa-angle-up" />
             </button>
-            <button type="button" data-tc-move-down-trigger>
+            <button
+              type="button"
+              data-tc-move-down-trigger
+              onClick={(): void =>
+                criteriaDispatch({ type: "moveDown", payload: { index } })
+              }
+            >
               <i className="fas fa-angle-down" />
             </button>
           </div>
