@@ -318,7 +318,6 @@ export const JobBuilderSkills: React.FunctionComponent<
           <div data-c-grid-item="base(6of10) tl(7of10)">
             <div data-c-grid="gutter">
               <div data-c-grid-item="base(1of1) tl(2of3)">
-                {/* This value needs to update based on the order. Wasn't sure if this should be done as a part of my arrow script or if React can handle it better. */}
                 <span>{index + 1}</span>
                 {/* This icon will automatically update based on the class you've specified above, on the jpb-skill. */}
                 <span
@@ -345,7 +344,6 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-colour="c1"
                   data-c-font-size="small"
                 >
-                  {/* This value should update based on the selections made in the edit modal. */}
                   {intl.formatMessage(getSkillLevelName(criterion, skill))}
                 </span>
               </div>
@@ -357,7 +355,6 @@ export const JobBuilderSkills: React.FunctionComponent<
                 data-c-grid-item="base(1of1) tl(1of2)"
                 data-c-align="base(centre)"
               >
-                {/* Right now, this is just triggering the edit modal, but that edit modal will obviously have to be unique to each skill so that it can be properly edited. */}
                 <button
                   type="button"
                   data-c-colour="c1"
@@ -372,7 +369,6 @@ export const JobBuilderSkills: React.FunctionComponent<
                 data-c-grid-item="base(1of1) tl(1of2)"
                 data-c-align="base(centre)"
               >
-                {/* I've left this thing blank for now, because I assumed you'd want to handle deletion through React. */}
                 <button
                   type="button"
                   data-c-colour="stop"

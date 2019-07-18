@@ -59,7 +59,7 @@ interface FormValues {
   level: string;
 }
 
-const essentialSkillIdToKey = (id: number): string => {
+export const essentialSkillIdToKey = (id: number): string => {
   switch (id) {
     case SkillLevelId.Basic:
       return "basic";
@@ -74,7 +74,7 @@ const essentialSkillIdToKey = (id: number): string => {
   }
 };
 
-const essentialKeyToId = (key: string): SkillLevelId => {
+export const essentialKeyToId = (key: string): SkillLevelId => {
   switch (key) {
     case "basic":
       return SkillLevelId.Basic;
@@ -89,7 +89,7 @@ const essentialKeyToId = (key: string): SkillLevelId => {
   }
 };
 
-const criteriaToValues = (
+export const criteriaToValues = (
   criteria: Criteria,
   locale: "en" | "fr",
 ): FormValues => ({
@@ -97,7 +97,7 @@ const criteriaToValues = (
   level:
     criteria.criteria_type_id === CriteriaTypeId.Asset
       ? "asset"
-      : essentialSkillIdToKey(criteria.criteria_type_id),
+      : essentialSkillIdToKey(criteria.skill_level_id),
 });
 
 const updateCriteriaWithValues = (
@@ -174,6 +174,7 @@ export const CriteriaForm: React.FunctionComponent<
 
   return (
     <Formik
+      enableReinitialize
       initialValues={initialValues}
       validationSchema={skillSchema}
       onSubmit={(values, { setSubmitting }): void => {
