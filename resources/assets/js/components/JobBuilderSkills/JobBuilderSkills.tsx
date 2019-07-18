@@ -99,6 +99,18 @@ export const JobBuilderSkills: React.FunctionComponent<
     throw new Error("Unknown intl.locale");
   }
 
+  // The ideal number of skills for each category
+  const minSkills = 7;
+  const maxSkills = 8;
+  const minEssential = 3;
+  const maxEssential = 5;
+  const minOccupational = 3;
+  const maxOccupational = 5;
+  const minCulture = 0;
+  const maxCulture = 4;
+  const minFuture = 0;
+  const maxFuture = 2;
+
   // This is where the edited list of criteria is stored
   // FIXME: initialize with job criteria
   const [jobCriteria, criteriaDispatch] = useReducer(criteriaReducer, []);
@@ -151,10 +163,20 @@ export const JobBuilderSkills: React.FunctionComponent<
     // TODO:
     return false;
   };
+  const cultureSkills = skills.filter(isCulture);
+  const cultureCriteria = jobCriteria.filter((criterion): boolean => {
+    const skill = getSkillOfCriteria(criterion);
+    return skill !== null && isCulture(skill);
+  });
   const isFuture = (skill: Skill): boolean => {
     // TODO:
     return false;
   };
+  const futureSkills = skills.filter(isFuture);
+  const futureCriteria = jobCriteria.filter((criterion): boolean => {
+    const skill = getSkillOfCriteria(criterion);
+    return skill !== null && isFuture(skill);
+  });
 
   const renderNullCriteriaRow = (): React.ReactElement => (
     <div className="jpb-skill-null" data-c-grid="gutter middle">
@@ -768,15 +790,18 @@ export const JobBuilderSkills: React.FunctionComponent<
               {/* This target value changes depending on the category (occupational has 3 - 4, cultural and future have fewer) - you can see these values in their respective sections below. You can also add a "complete" class to this "jpb-skill-target" element to change the target icon to a checkmark to indicate to the user that they're within the range. Note that the other two categories (cultural and future) start their ranges at 0, so the "complete" class should be on those sections by default. */}
               <div
                 className={`jpb-skill-target ${
-                  occupationalCriteria.length >= 3 &&
-                  occupationalCriteria.length <= 5
+                  countInRange(
+                    minOccupational,
+                    maxOccupational,
+                    occupationalCriteria.length,
+                  )
                     ? "complete"
                     : ""
                 }`}
               >
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
-                Aim for 3 - 5 skills.
+                Aim for {minOccupational} - {maxOccupational} skills.
               </div>
             </div>
             {/* This is the list of skills. Clicking a skill button should trigger the "Edit skill" modal so that the user can edit the definition/level before adding it. If they DO add it, you can assign an "active" class to the respective button so indicate that it's selected. This will change it's colour and icon automatically. This is also the area where "Culture Skills" is split into the two categories - see the Culture Skills section below for what that looks like. */}
@@ -852,10 +877,16 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-grid-item="tp(1of3) ds(1of4)"
               data-c-align="base(centre) tp(right)"
             >
-              <div className="jpb-skill-target complete">
+              <div
+                className={`jpb-skill-target ${
+                  countInRange(minCulture, maxCulture, cultureCriteria.length)
+                    ? "complete"
+                    : ""
+                }`}
+              >
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
-                Aim for 0 - 4 skills.
+                Aim for {minCulture} - {maxCulture} skills.
               </div>
             </div>
             {/* So here's where culture skills get broken into categories. In theory this logic will be used down the road to break occupational skills into occupations (e.g. CS - UX Designer), but for now this the only instance where it happens. */}
@@ -937,10 +968,16 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-grid-item="tp(1of3) ds(1of4)"
               data-c-align="base(centre) tp(right)"
             >
-              <div className="jpb-skill-target complete">
+              <div
+                className={`jpb-skill-target ${
+                  countInRange(minFuture, maxFuture, futureCriteria.length)
+                    ? "complete"
+                    : ""
+                }`}
+              >
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
-                Aim for 0 - 2 skills.
+                Aim for {minFuture} - {maxFuture} skills.
               </div>
             </div>
             <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
