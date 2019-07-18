@@ -149,15 +149,16 @@ export const JobBuilderSkills: React.FunctionComponent<
   // This is where the edited list of criteria is stored
   // FIXME: initialize with job criteria
   const [jobCriteria, criteriaDispatch] = useReducer(criteriaReducer, []);
-
   const skillCount: number = jobCriteria.length;
-  const essentialCount: number = jobCriteria.filter(
+  const essentialCriteria: Criteria[] = jobCriteria.filter(
     (criteria): boolean =>
       criteria.criteria_type_id === CriteriaTypeId.Essential,
-  ).length;
-  const assetCount: number = jobCriteria.filter(
+  );
+  const essentialCount: number = essentialCriteria.length;
+  const assetCriteria: Criteria[] = jobCriteria.filter(
     (criteria): boolean => criteria.criteria_type_id === CriteriaTypeId.Asset,
-  ).length;
+  );
+  const assetCount: number = assetCriteria.length;
 
   // When skillBeingAdded is not null, the modal to add a new skill will appear.
   const [skillBeingAdded, setSkillBeingAdded] = useState<Skill | null>(null);
@@ -168,8 +169,13 @@ export const JobBuilderSkills: React.FunctionComponent<
     setCriteriaBeingEdited,
   ] = useState<Criteria | null>(null);
 
+  const [isPreviewVisible, setIsPreviewVisible] = useState(false);
+
+  // This should be true if ANY modal is visible. The modal overlay uses this.
   const isModalVisible =
-    skillBeingAdded !== null || criteriaBeingEdited !== null;
+    skillBeingAdded !== null ||
+    criteriaBeingEdited !== null ||
+    isPreviewVisible;
   const modalParentRef = useRef<HTMLDivElement>(null);
 
   const countInRange = (min: number, max: number, count: number): boolean => {
@@ -359,7 +365,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   type="button"
                   data-c-colour="c1"
                   data-c-dialog-action="open"
-                  data-c-dialog-id="example-dialog-01"
+                  data-c-dialog-id="job-bulder-edit-skill"
                   onClick={(): void => setCriteriaBeingEdited(criterion)}
                 >
                   <i className="fas fa-edit" />
@@ -770,12 +776,7 @@ export const JobBuilderSkills: React.FunctionComponent<
           {essentialCount === 0 && renderNullCriteriaRow()}
           <ol className="jpb-skill-list" data-tc-up-down-list>
             {/* This is an individual skill. I've handled the up/down script and the modal trigger, but I'll leave managing the value of the skill's list number, the modal contents,  and the deletion to you folks. I've also migrated the up/down script to a universal one. When it comes to the "jpb-skill", you'll need to add a class that specifies which TYPE of skill it is (occupational, cultural, future). This will handle interior colour/icon changes. */}
-            {jobCriteria
-              .filter(
-                (criterion): boolean =>
-                  criterion.criteria_type_id === CriteriaTypeId.Essential,
-              )
-              .map(renderCriteriaRow)}
+            {essentialCriteria.map(renderCriteriaRow)}
           </ol>
           {/* Repeat what you have above for asset skills. The biggest thing to note here is that the level should be empty in this list, and when the user changes the level of an essential skill to asset, it should be moved down into this list (and vice versa). */}
           <p
@@ -787,12 +788,7 @@ export const JobBuilderSkills: React.FunctionComponent<
           {/* Asset null state goes here. */}
           {assetCount === 0 && renderNullCriteriaRow()}
           <ol className="jpb-skill-list" data-tc-up-down-list>
-            {jobCriteria
-              .filter(
-                (criterion): boolean =>
-                  criterion.criteria_type_id === CriteriaTypeId.Asset,
-              )
-              .map(renderCriteriaRow)}
+            {assetCriteria.map(renderCriteriaRow)}
           </ol>
         </div>
         <div
@@ -804,7 +800,9 @@ export const JobBuilderSkills: React.FunctionComponent<
             data-c-button="solid(c2)"
             data-c-radius="rounded"
             data-c-dialog-action="open"
-            data-c-dialog-id="example-dialog-02"
+            data-c-dialog-id="job-builder-preview-skills"
+            type="button"
+            onClick={(): void => setIsPreviewVisible(true)}
           >
             Save &amp; Preview Skills
           </button>
@@ -1068,9 +1066,10 @@ export const JobBuilderSkills: React.FunctionComponent<
             <button
               data-c-button="solid(c2)"
               data-c-dialog-action="open"
-              data-c-dialog-id="example-dialog-02"
               data-c-radius="rounded"
+              data-c-dialog-id="job-builder-preview-skills"
               type="button"
+              onClick={(): void => setIsPreviewVisible(true)}
             >
               Save &amp; Preview Skills
             </button>
@@ -1165,6 +1164,137 @@ export const JobBuilderSkills: React.FunctionComponent<
               />
             )}
         </Modal.Body>
+      </Modal>
+      {/** This modal is the preview */}
+      <Modal
+        id="job-builder-preview-skills"
+        parentElement={modalParentRef.current}
+        visible={isPreviewVisible}
+        onModalCancel={(): void => setIsPreviewVisible(false)}
+        onModalConfirm={
+          // FIXME: continue to next page
+          (): void => setIsPreviewVisible(false)
+        }
+      >
+        <Modal.Header>
+          <div
+            data-c-background="c1(100)"
+            data-c-border="bottom(thin, solid, black)"
+            data-c-padding="normal"
+          >
+            <h5
+              data-c-dialog-focus
+              tabIndex={0}
+              data-c-colour="white"
+              data-c-font-size="h4"
+              id="example-dialog-02-title"
+            >
+              Keep it up!
+            </h5>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <div data-c-border="bottom(thin, solid, black)">
+            <div
+              data-c-border="bottom(thin, solid, black)"
+              data-c-padding="normal"
+              id="example-dialog-02-description"
+            >
+              Here's a preview of the Tasks you just entered. Feel free to go
+              back and edit things or move to the next step if you're happy with
+              it.
+            </div>
+
+            <div data-c-background="grey(20)" data-c-padding="normal">
+              <div
+                className="manager-job-card"
+                data-c-background="white(100)"
+                data-c-padding="normal"
+                data-c-radius="rounded"
+              >
+                <h4
+                  data-c-border="bottom(thin, solid, black)"
+                  data-c-font-size="h4"
+                  data-c-font-weight="600"
+                  data-c-margin="bottom(normal)"
+                  data-c-padding="bottom(normal)"
+                >
+                  Skills the Employee Needs to Have
+                </h4>
+                {essentialCriteria.map(
+                  (criterion): React.ReactElement | null => {
+                    const skill = getSkillOfCriteria(criterion);
+                    if (skill === null) {
+                      return null;
+                    }
+                    return (
+                      <div
+                        key={skill.id}
+                        data-c-margin="top(normal) bottom(double)"
+                      >
+                        <p
+                          data-c-font-weight="bold"
+                          data-c-margin="bottom(half)"
+                        >
+                          {skill[locale].name}
+                        </p>
+                        <p data-c-margin="bottom(half)">
+                          Required Level:{" "}
+                          {intl.formatMessage(
+                            getSkillLevelName(criterion, skill),
+                          )}
+                        </p>
+                        <p>{criterion[locale].description}</p>
+                      </div>
+                    );
+                  },
+                )}
+                <h4
+                  data-c-border="bottom(thin, solid, black)"
+                  data-c-font-size="h4"
+                  data-c-font-weight="600"
+                  data-c-margin="top(double) bottom(normal)"
+                  data-c-padding="bottom(normal)"
+                >
+                  Skills That Would Be Nice For the Employee to Have
+                </h4>
+                {assetCriteria.map((criterion): React.ReactElement | null => {
+                  const skill = getSkillOfCriteria(criterion);
+                  if (skill === null) {
+                    return null;
+                  }
+                  return (
+                    <div
+                      key={skill.id}
+                      data-c-margin="top(normal) bottom(double)"
+                    >
+                      <p data-c-font-weight="bold" data-c-margin="bottom(half)">
+                        {skill[locale].name}
+                      </p>
+                      <p>{criterion[locale].description}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Modal.FooterCancelBtn>
+            <FormattedMessage
+              id="jobSkills.modalCancelLabel"
+              defaultMessage="Go Back"
+              description="The text displayed on the cancel button of the Job Builder Skills Preview modal."
+            />
+          </Modal.FooterCancelBtn>
+          <Modal.FooterConfirmBtn>
+            <FormattedMessage
+              id="jobSkills.modalConfirmLabel"
+              defaultMessage="Next Step"
+              description="The text displayed on the confirm button of the Job Builder Skills Preview modal."
+            />
+          </Modal.FooterConfirmBtn>
+        </Modal.Footer>
       </Modal>
     </>
   );
