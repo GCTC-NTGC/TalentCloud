@@ -22,12 +22,7 @@ stories
   .add(
     "Existing Job",
     (): React.ReactElement => (
-      <JobBuilderSkills
-        job={fakeJob()}
-        skills={fakeSkills()}
-        skillCount={number("Skill Count", 3)}
-        essentialCount={number("Essential Skill Count", 5)}
-      />
+      <JobBuilderSkills job={fakeJob()} skills={fakeSkills()} />
     ),
   )
   .add(
