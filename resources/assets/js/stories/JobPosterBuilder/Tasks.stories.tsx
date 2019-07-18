@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { storiesOf } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 import { number } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
 import { JobTasksIntl as JobTasks } from "../../components/JobTasks/JobTasks";
@@ -25,6 +26,8 @@ stories
         keyTasks={null}
         validCount={number("Valid Count", 6)}
         handleSubmit={handleSubmit}
+        handleModalCancel={action("Modal Cancelled")}
+        handleModalConfirm={action("Modal Confirmed")}
       />
     ),
   )
@@ -36,6 +39,8 @@ stories
         keyTasks={sampleTasks}
         validCount={number("Valid Count", 4)}
         handleSubmit={handleSubmit}
+        handleModalCancel={action("Modal Cancelled")}
+        handleModalConfirm={action("Modal Confirmed")}
       />
     ),
   );

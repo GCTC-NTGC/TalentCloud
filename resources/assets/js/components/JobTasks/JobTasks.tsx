@@ -1,9 +1,10 @@
-/* eslint-disable jsx-a11y/label-has-associated-control, @typescript-eslint/no-non-null-assertion, react/no-array-index-key, @typescript-eslint/camelcase, camelcase */
-import React from "react";
+/* eslint-disable jsx-a11y/label-has-associated-control, @typescript-eslint/no-non-null-assertion, react/no-array-index-key, @typescript-eslint/camelcase, camelcase, jsx-a11y/no-noninteractive-tabindex */
+import React, { useState, useRef } from "react";
 import { FormattedMessage, InjectedIntlProps, injectIntl } from "react-intl";
 import { Field, Form, Formik, FieldArray } from "formik";
 import { array, object, string } from "yup";
 
+import Modal from "../Modal";
 import { validationMessages } from "../Form/Messages";
 import TextAreaInput from "../Form/TextAreaInput";
 import { JobPosterKeyTask } from "../../models/types";
@@ -24,6 +25,10 @@ interface JobTasksProps {
    * It must return true if the submission was succesful, false otherwise.
    */
   handleSubmit: (values: JobPosterKeyTask[]) => Promise<boolean>;
+  /** Function to run when modal cancel is clicked. */
+  handleModalCancel: () => void;
+  /** Function to run when modal confirm is clicked. */
+  handleModalConfirm: () => void;
 }
 
 interface TaskFormValues {
@@ -37,9 +42,13 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
   keyTasks,
   validCount,
   handleSubmit,
+  handleModalCancel,
+  handleModalConfirm,
   intl,
 }): React.ReactElement => {
   const modalId = "tasks-modal";
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const modalParentRef = useRef<HTMLDivElement>(null);
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
@@ -105,7 +114,11 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
   const initialValues = tasksToValues(keyTasks || null);
 
   return (
-    <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
+    <div
+      data-c-container="form"
+      data-c-padding="top(triple) bottom(triple)"
+      ref={modalParentRef}
+    >
       <h3
         data-c-font-size="h3"
         data-c-font-weight="bold"
@@ -158,7 +171,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
           )
             .then((isSuccessful: boolean): void => {
               if (isSuccessful) {
-                // setIsModalVisible(true);
+                setIsModalVisible(true);
               }
             })
             .finally(
@@ -292,7 +305,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                                   </button>
                                 </div>
                                 <Field
-                                  id={`task${task.id}`}
+                                  id={`task-${index}`}
                                   name={`tasks.${index}.description`}
                                   label={`Task ${index + 1}`}
                                   component={TextAreaInput}
@@ -316,7 +329,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                           disabled={isSubmitting}
                           onClick={(): void =>
                             arrayHelpers.push({
-                              id: null,
+                              id: 0,
                               job_poster_id: jobId,
                               en: { description: "" },
                               fr: { description: "" },
@@ -375,6 +388,103 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                 )}
               />
             </Form>
+            <Modal
+              id={modalId}
+              parentElement={modalParentRef.current}
+              visible={isModalVisible}
+              onModalCancel={(): void => {
+                handleModalCancel();
+                setIsModalVisible(false);
+              }}
+              onModalConfirm={(): void => {
+                handleModalConfirm();
+                setIsModalVisible(false);
+              }}
+            >
+              <Modal.Header>
+                <div
+                  data-c-background="c1(100)"
+                  data-c-border="bottom(thin, solid, black)"
+                  data-c-padding="normal"
+                >
+                  <h5
+                    data-c-dialog-focus
+                    tabIndex={0}
+                    data-c-colour="white"
+                    data-c-font-size="h4"
+                    id={`${modalId}-title`}
+                  >
+                    <FormattedMessage
+                      id="jobTasks.modal.title"
+                      defaultMessage="Keep it up!"
+                      description="Text displayed on the title of the Job Task page Modal."
+                    />
+                  </h5>
+                </div>
+              </Modal.Header>
+              <Modal.Body>
+                <div data-c-border="bottom(thin, solid, black)">
+                  <div
+                    data-c-border="bottom(thin, solid, black)"
+                    data-c-padding="normal"
+                    id={`${modalId}-description`}
+                  >
+                    <FormattedMessage
+                      id="jobTasks.modal.body"
+                      description="Text displayed above the body of the Job Task page Modal."
+                      defaultMessage="Here's a preview of the Tasks you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+                    />
+                  </div>
+                  <div data-c-background="grey(20)" data-c-padding="normal">
+                    <div
+                      className="manager-job-card"
+                      data-c-background="white(100)"
+                      data-c-padding="normal"
+                      data-c-radius="rounded"
+                    >
+                      <h4
+                        data-c-border="bottom(thin, solid, black)"
+                        data-c-font-size="h4"
+                        data-c-font-weight="600"
+                        data-c-margin="bottom(normal)"
+                        data-c-padding="bottom(normal)"
+                      >
+                        <FormattedMessage
+                          id="jobTasks.modal.body.heading"
+                          description="Text displayed above the lists of Tasks inside the Modal body."
+                          defaultMessage="Tasks"
+                        />
+                      </h4>
+                      <ul>
+                        {values.tasks &&
+                          values.tasks.map(
+                            (task: TaskFormValues): React.ReactElement => (
+                              <li>{task.description}</li>
+                            ),
+                          )}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </Modal.Body>
+              <Modal.Footer>
+                <Modal.FooterCancelBtn>
+                  <FormattedMessage
+                    id="jobTasks.modal.cancelButtonLabel"
+                    description="The text displayed on the cancel button of the Job Tasks modal."
+                    defaultMessage="Go Back"
+                  />
+                </Modal.FooterCancelBtn>
+                <Modal.FooterConfirmBtn>
+                  <FormattedMessage
+                    id="jobTasks.modal.confirmButtonLabel"
+                    description="The text displayed on the confirm button of the Job Tasks modal."
+                    defaultMessage="Next Step"
+                  />
+                </Modal.FooterConfirmBtn>
+              </Modal.Footer>
+            </Modal>
+            <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
           </>
         )}
       />
