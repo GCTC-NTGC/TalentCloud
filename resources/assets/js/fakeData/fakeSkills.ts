@@ -17,7 +17,7 @@ export const fakeSkill = (): Skill => ({
 });
 
 export const fakeSkill2 = (): Skill => ({
-  id: 1,
+  id: 2,
   skill_type_id: SkillTypeId.Hard,
   en: {
     name: "Web Programming",

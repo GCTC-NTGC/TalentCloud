@@ -198,156 +198,135 @@ export const CriteriaForm: React.FunctionComponent<
       }): React.ReactElement => (
         <>
           <Form id="jpbSkillsForm">
-            <div
-              data-c-background="c1(100)"
-              data-c-border="bottom(thin, solid, black)"
-              data-c-padding="normal"
-            >
-              {/* TODO: What's the deal with this tabIndex on a header here? */}
-              <h5
-                data-c-dialog-focus
-                tabIndex={0}
-                data-c-colour="white"
-                data-c-font-size="h4"
-                id="example-dialog-01-title"
-              >
-                Add a Skill to Task 01
-              </h5>
-            </div>
-            <div data-c-border="bottom(thin, solid, black)">
-              {/* Skill Definition */}
-              <div data-c-padding="all(normal)" data-c-background="grey(10)">
-                <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-                  Skill Definition
+            {/* Skill Definition */}
+            <div data-c-padding="all(normal)" data-c-background="grey(10)">
+              <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                Skill Definition
+              </p>
+              <div>
+                <p data-c-margin="bottom(normal)">{skill[locale].name}</p>
+                <p data-c-margin="bottom(normal)">
+                  {skill[locale].description}
                 </p>
-                <div>
-                  <p data-c-margin="bottom(normal)">{skill[locale].name}</p>
-                  <p data-c-margin="bottom(normal)">
-                    {skill[locale].description}
-                  </p>
-                  {showSpecificity ? (
-                    <>
-                      <Field
-                        id="skillSpecificity"
-                        type="textarea"
-                        name="description"
-                        label="Skill Specificity"
-                        placeholder="Add specificity to the definition of this skill that will only appear on my job poster but note that this will have be approved prior to posting..."
-                        component={TextAreaInput}
-                      />
-                      <button
-                        className="job-builder-add-skill-definition-trigger"
-                        type="button"
-                        onClick={(): void => {
-                          setFieldValue("description", defaultDescription);
-                          setShowSpecificity(false);
-                        }}
-                      >
-                        <span>
-                          <i
-                            className="fas fa-minus-circle"
-                            data-c-colour="c1"
-                          />
-                          Remove additional specificity.
-                        </span>
-                      </button>
-                    </>
-                  ) : (
+                {showSpecificity ? (
+                  <>
+                    <Field
+                      id="skillSpecificity"
+                      type="textarea"
+                      name="description"
+                      label="Skill Specificity"
+                      placeholder="Add specificity to the definition of this skill that will only appear on my job poster but note that this will have be approved prior to posting..."
+                      component={TextAreaInput}
+                    />
                     <button
                       className="job-builder-add-skill-definition-trigger"
                       type="button"
-                      onClick={(): void => setShowSpecificity(!showSpecificity)}
+                      onClick={(): void => {
+                        setFieldValue("description", defaultDescription);
+                        setShowSpecificity(false);
+                      }}
                     >
                       <span>
-                        <i className="fas fa-plus-circle" data-c-colour="c1" />
-                        I'd like to add specificity to this definition. This
-                        will only apply to my job poster.
+                        <i className="fas fa-minus-circle" data-c-colour="c1" />
+                        Remove additional specificity.
                       </span>
                     </button>
-                  )}
-                </div>
+                  </>
+                ) : (
+                  <button
+                    className="job-builder-add-skill-definition-trigger"
+                    type="button"
+                    onClick={(): void => setShowSpecificity(!showSpecificity)}
+                  >
+                    <span>
+                      <i className="fas fa-plus-circle" data-c-colour="c1" />
+                      I'd like to add specificity to this definition. This will
+                      only apply to my job poster.
+                    </span>
+                  </button>
+                )}
               </div>
-              {/* Skill Level */}
-              <div data-c-padding="all(normal)">
-                <div className="job-builder-culture-block">
-                  <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-                    Choose a Skill Level
-                  </p>
-                  <div data-c-grid="gutter">
-                    <RadioGroup
-                      id="skillLevelSelection"
-                      label="Select a skill level:"
-                      required
-                      touched={touched.level}
-                      error={errors.level}
-                      value={values.level}
-                      grid="base(1of1) tl(1of3)"
+            </div>
+            {/* Skill Level */}
+            <div data-c-padding="all(normal)">
+              <div className="job-builder-culture-block">
+                <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                  Choose a Skill Level
+                </p>
+                <div data-c-grid="gutter">
+                  <RadioGroup
+                    id="skillLevelSelection"
+                    label="Select a skill level:"
+                    required
+                    touched={touched.level}
+                    error={errors.level}
+                    value={values.level}
+                    grid="base(1of1) tl(1of3)"
+                  >
+                    {Object.entries(
+                      essentialSkillLevels(skill.skill_type_id),
+                    ).map(
+                      ([key, { name }]): React.ReactElement => {
+                        return (
+                          <Field
+                            key={key}
+                            id={key}
+                            name="level"
+                            component={RadioInput}
+                            label={intl.formatMessage(name)}
+                            value={key}
+                            trigger
+                          />
+                        );
+                      },
+                    )}
+                    <div
+                      className="job-builder-skill-level-or-block"
+                      data-c-alignment="base(centre)"
                     >
-                      {Object.entries(
-                        essentialSkillLevels(skill.skill_type_id),
-                      ).map(
-                        ([key, { name }]): React.ReactElement => {
-                          return (
-                            <Field
-                              key={key}
-                              id={key}
-                              name="level"
-                              component={RadioInput}
-                              label={intl.formatMessage(name)}
-                              value={key}
-                              trigger
-                            />
-                          );
-                        },
-                      )}
-                      <div
-                        className="job-builder-skill-level-or-block"
-                        data-c-alignment="base(centre)"
-                      >
-                        {/** This empty div is required for CSS magic */}
-                        <div />
-                        <span>or</span>
-                      </div>
-                      <Field
-                        key="asset"
-                        id="asset"
-                        name="level"
-                        component={RadioInput}
-                        label={intl.formatMessage(assetSkillName())}
-                        value="asset"
-                        trigger
-                      />
-                    </RadioGroup>
-                    <ContextBlock
-                      className="job-builder-context-block"
-                      grid="base(1of1) tl(2of3)"
-                    >
-                      {Object.entries(
-                        essentialSkillLevels(skill.skill_type_id),
-                      ).map(
-                        ([key, { name, context }]): React.ReactElement => {
-                          return (
-                            <ContextBlockItem
-                              key={key}
-                              contextId={key}
-                              title={intl.formatMessage(name)}
-                              subtext={intl.formatMessage(context)}
-                              className="job-builder-context-item"
-                              active={values.level === key}
-                            />
-                          );
-                        },
-                      )}
-                      <ContextBlockItem
-                        key="asset"
-                        contextId="asset"
-                        title={intl.formatMessage(assetSkillName())}
-                        subtext={intl.formatMessage(assetSkillDescription())}
-                        className="job-builder-context-item"
-                        active={values.level === "asset"}
-                      />
-                    </ContextBlock>
-                  </div>
+                      {/** This empty div is required for CSS magic */}
+                      <div />
+                      <span>or</span>
+                    </div>
+                    <Field
+                      key="asset"
+                      id="asset"
+                      name="level"
+                      component={RadioInput}
+                      label={intl.formatMessage(assetSkillName())}
+                      value="asset"
+                      trigger
+                    />
+                  </RadioGroup>
+                  <ContextBlock
+                    className="job-builder-context-block"
+                    grid="base(1of1) tl(2of3)"
+                  >
+                    {Object.entries(
+                      essentialSkillLevels(skill.skill_type_id),
+                    ).map(
+                      ([key, { name, context }]): React.ReactElement => {
+                        return (
+                          <ContextBlockItem
+                            key={key}
+                            contextId={key}
+                            title={intl.formatMessage(name)}
+                            subtext={intl.formatMessage(context)}
+                            className="job-builder-context-item"
+                            active={values.level === key}
+                          />
+                        );
+                      },
+                    )}
+                    <ContextBlockItem
+                      key="asset"
+                      contextId="asset"
+                      title={intl.formatMessage(assetSkillName())}
+                      subtext={intl.formatMessage(assetSkillDescription())}
+                      className="job-builder-context-item"
+                      active={values.level === "asset"}
+                    />
+                  </ContextBlock>
                 </div>
               </div>
             </div>

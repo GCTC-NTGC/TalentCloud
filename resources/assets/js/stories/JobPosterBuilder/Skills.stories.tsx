@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { number, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { JobBuilderSkills } from "../../components/JobBuilderSkills/JobBuilderSkills";
+import JobBuilderSkills from "../../components/JobBuilderSkills/JobBuilderSkills";
 import fakeJob, { fakeCriterion } from "../../fakeData/fakeJob";
 import { fakeSkills } from "../../fakeData/fakeSkills";
 import CriteriaForm from "../../components/JobBuilderSkills/CriteriaForm";
