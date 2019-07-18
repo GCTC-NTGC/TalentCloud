@@ -4,7 +4,7 @@ import { Job, Skill, Criteria } from "../../models/types";
 import Modal from "../Modal";
 import CriteriaForm from "./CriteriaForm";
 import { mapToObject, getId, hasKey } from "../../helpers/queries";
-import { CriteriaTypeId } from "../../models/lookupConstants";
+import { CriteriaTypeId, SkillTypeId } from "../../models/lookupConstants";
 import {
   assetSkillName,
   skillLevelName,
@@ -161,7 +161,7 @@ export const JobBuilderSkills: React.FunctionComponent<
 
   const isCulture = (skill: Skill): boolean => {
     // TODO:
-    return false;
+    return skill.skill_type_id === SkillTypeId.Soft;
   };
   const cultureSkills = skills.filter(isCulture);
   const cultureCriteria = jobCriteria.filter((criterion): boolean => {
@@ -170,7 +170,7 @@ export const JobBuilderSkills: React.FunctionComponent<
   });
   const isFuture = (skill: Skill): boolean => {
     // TODO:
-    return false;
+    return skill.skill_type_id === SkillTypeId.Hard;
   };
   const futureSkills = skills.filter(isFuture);
   const futureCriteria = jobCriteria.filter((criterion): boolean => {
@@ -344,6 +344,33 @@ export const JobBuilderSkills: React.FunctionComponent<
             </div>
           </div>
         </div>
+      </li>
+    );
+  };
+
+  const renderSkillButton = (skill: Skill): React.ReactElement => {
+    const alreadySelected = skillAlreadySelected(jobCriteria, skill);
+    // Open the Add Skill modal, or remove it if its already added
+    const handleClick = (): void =>
+      alreadySelected
+        ? criteriaDispatch({
+            type: "removeSkill",
+            payload: { skillId: skill.id },
+          })
+        : setSkillBeingAdded(skill);
+    return (
+      <li key={skill.id}>
+        <button
+          className={`jpb-skill-trigger ${alreadySelected ? "active" : ""}`}
+          data-c-button="outline(c1)"
+          data-c-radius="rounded"
+          type="button"
+          onClick={handleClick}
+        >
+          <i className="fas fa-plus-circle" />
+          <i className="fas fa-minus-circle" />
+          {skill[locale].name}
+        </button>
       </li>
     );
   };
@@ -806,39 +833,7 @@ export const JobBuilderSkills: React.FunctionComponent<
             </div>
             {/* This is the list of skills. Clicking a skill button should trigger the "Edit skill" modal so that the user can edit the definition/level before adding it. If they DO add it, you can assign an "active" class to the respective button so indicate that it's selected. This will change it's colour and icon automatically. This is also the area where "Culture Skills" is split into the two categories - see the Culture Skills section below for what that looks like. */}
             <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
-              {occupationalSkills.map(
-                (skill): React.ReactElement => {
-                  const alreadySelected = skillAlreadySelected(
-                    jobCriteria,
-                    skill,
-                  );
-                  // Open the Add Skill modal, or remove it if its already added
-                  const handleClick = (): void =>
-                    alreadySelected
-                      ? criteriaDispatch({
-                          type: "removeSkill",
-                          payload: { skillId: skill.id },
-                        })
-                      : setSkillBeingAdded(skill);
-                  return (
-                    <li key={skill.id}>
-                      <button
-                        className={`jpb-skill-trigger ${
-                          alreadySelected ? "active" : ""
-                        }`}
-                        data-c-button="outline(c1)"
-                        data-c-radius="rounded"
-                        type="button"
-                        onClick={handleClick}
-                      >
-                        <i className="fas fa-plus-circle" />
-                        <i className="fas fa-minus-circle" />
-                        {skill[locale].name}
-                      </button>
-                    </li>
-                  );
-                },
-              )}
+              {occupationalSkills.map(renderSkillButton)}
             </ul>
           </div>
         </div>
@@ -889,16 +884,20 @@ export const JobBuilderSkills: React.FunctionComponent<
                 Aim for {minCulture} - {maxCulture} skills.
               </div>
             </div>
-            {/* So here's where culture skills get broken into categories. In theory this logic will be used down the road to break occupational skills into occupations (e.g. CS - UX Designer), but for now this the only instance where it happens. */}
+            {/** Culture skills are intended to be split into two lists, Recommended and Remaining. Until the recommendation logic is nailed down, its just one. */}
             <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
-              {/* Note that this "p" tag has a different margin value than the one in the "ul" below. */}
+              {cultureSkills.map(renderSkillButton)}
+            </ul>
+            {/* So here's where culture skills get broken into categories. In theory this logic will be used down the road to break occupational skills into occupations (e.g. CS - UX Designer), but for now this the only instance where it happens. */}
+            {/* <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
+              // Note that this "p" tag has a different margin value than the one in the "ul" below.
               <p
                 data-c-font-weight="bold"
                 data-c-margin="top(half) bottom(normal)"
               >
                 Recommended Skills:
               </p>
-              {/* This is where the skill recommendations from Work Environment go. */}
+              // This is where the skill recommendations from Work Environment go.
               <li>
                 <button
                   className="jpb-skill-trigger"
@@ -918,7 +917,7 @@ export const JobBuilderSkills: React.FunctionComponent<
               >
                 Remaining Skills:
               </p>
-              {/* This is where the remaining culture skills go. Please make sure that the skills in the recommendation list above do not appear here. */}
+              // This is where the remaining culture skills go. Please make sure that the skills in the recommendation list above do not appear here.
               <li>
                 <button
                   className="jpb-skill-trigger"
@@ -930,7 +929,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   Skill Name
                 </button>
               </li>
-            </ul>
+            </ul> */}
           </div>
         </div>
         {/* Future Skills */}
@@ -981,17 +980,7 @@ export const JobBuilderSkills: React.FunctionComponent<
               </div>
             </div>
             <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
-              <li>
-                <button
-                  className="jpb-skill-trigger"
-                  data-c-button="outline(c1)"
-                  data-c-radius="rounded"
-                >
-                  <i className="fas fa-plus-circle" />
-                  <i className="fas fa-minus-circle" />
-                  Skill Name
-                </button>
-              </li>
+              {futureSkills.map(renderSkillButton)}
             </ul>
           </div>
         </div>
