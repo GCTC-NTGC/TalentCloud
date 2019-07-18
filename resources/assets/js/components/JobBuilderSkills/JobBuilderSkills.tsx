@@ -1,9 +1,14 @@
 import React, { useState, useRef, useReducer } from "react";
-import { InjectedIntlProps, injectIntl } from "react-intl";
+import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
 import { Job, Skill, Criteria } from "../../models/types";
 import Modal from "../Modal";
 import CriteriaForm from "./CriteriaForm";
 import { mapToObject, getId, hasKey } from "../../helpers/queries";
+import { CriteriaTypeId } from "../../models/lookupConstants";
+import {
+  assetSkillName,
+  skillLevelName,
+} from "../../models/localizedConstants";
 
 interface JobBuilderSkillsProps {
   // The job being built
@@ -20,6 +25,14 @@ type CriteriaAction =
       payload: Criteria;
     }
   | {
+      type: "edit";
+      payload: Criteria;
+    }
+  | {
+      type: "remove";
+      payload: Criteria;
+    }
+  | {
       type: "removeSkill";
       payload: {
         skillId: number;
@@ -31,7 +44,28 @@ const criteriaReducer = (
 ): Criteria[] => {
   switch (action.type) {
     case "add":
-      return [...state, action.payload]; // FIXME: replace criteria with same id or same skill id
+      return [
+        // When adding a criterion, make sure it isn't a duplicate
+        // Always compare criteria using skill_id, to avoid duplicate skills. (And new criteria may not have unique ids yet.)
+        ...state.filter(
+          (criterion): boolean =>
+            criterion.skill_id !== action.payload.skill_id,
+        ),
+        action.payload,
+      ];
+    case "edit":
+      // Replace the edited criterion with the one from the action payload.
+      // This is different from "add" because it keeps the same ordering.
+      return state.map(
+        (criterion): Criteria =>
+          criterion.skill_id === action.payload.skill_id
+            ? action.payload
+            : criterion,
+      );
+    case "remove":
+      return state.filter(
+        (criterion): boolean => criterion.skill_id !== action.payload.skill_id,
+      );
     case "removeSkill":
       return state.filter(
         (criterion): boolean => criterion.skill_id !== action.payload.skillId,
@@ -49,6 +83,16 @@ export const skillAlreadySelected = (
     (criterion): boolean => criterion.skill_id === skill.id,
   ) !== undefined;
 
+const getSkillLevelName = (
+  { skill_level_id, criteria_type_id }: Criteria,
+  { skill_type_id }: Skill,
+): FormattedMessage.MessageDescriptor => {
+  if (criteria_type_id === CriteriaTypeId.Asset) {
+    return assetSkillName();
+  }
+  return skillLevelName(skill_level_id, skill_type_id);
+};
+
 export const JobBuilderSkills: React.FunctionComponent<
   JobBuilderSkillsProps & InjectedIntlProps
 > = ({ job, skills, skillCount, essentialCount, intl }): React.ReactElement => {
@@ -64,7 +108,14 @@ export const JobBuilderSkills: React.FunctionComponent<
   // When skillBeingAdded is not null, the modal to add a new skill will appear.
   const [skillBeingAdded, setSkillBeingAdded] = useState<Skill | null>(null);
 
-  const isModalVisible = skillBeingAdded !== null;
+  // When criteriaBeingEdited is not null, the modal for editing that criterion will appear.
+  const [
+    criteriaBeingEdited,
+    setCriteriaBeingEdited,
+  ] = useState<Criteria | null>(null);
+
+  const isModalVisible =
+    skillBeingAdded !== null || criteriaBeingEdited !== null;
   const modalParentRef = useRef<HTMLDivElement>(null);
 
   const countInRange = (min: number, max: number, count: number): boolean => {
@@ -96,6 +147,58 @@ export const JobBuilderSkills: React.FunctionComponent<
   const isFuture = (skill: Skill): boolean => {
     // TODO:
     return false;
+  };
+
+  const renderEditCriteriaModal = (
+    criterion: Criteria,
+  ): React.ReactElement | null => {
+    const skill = getSkillOfCriteria(criterion);
+    if (skill === null) {
+      return null;
+    }
+    return (
+      <Modal
+        id="job-bulder-edit-skill"
+        parentElement={modalParentRef.current}
+        visible={criterion !== null}
+        onModalCancel={(): void => {
+          setCriteriaBeingEdited(null);
+        }}
+        onModalConfirm={(): void => {
+          setCriteriaBeingEdited(null);
+        }}
+      >
+        <Modal.Header>
+          <div
+            data-c-background="c1(100)"
+            data-c-border="bottom(thin, solid, black)"
+            data-c-padding="normal"
+          >
+            <h5
+              data-c-colour="white"
+              data-c-font-size="h4"
+              id="job-details-preview-title"
+            >
+              Edit skill
+            </h5>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <CriteriaForm
+            jobPosterId={job.id}
+            criteria={criterion}
+            skill={skill}
+            handleCancel={(): void => {
+              setCriteriaBeingEdited(null);
+            }}
+            handleSubmit={(criteria: Criteria): void => {
+              criteriaDispatch({ type: "edit", payload: criteria });
+              setCriteriaBeingEdited(null);
+            }}
+          />
+        </Modal.Body>
+      </Modal>
+    );
   };
 
   return (
@@ -515,85 +618,116 @@ export const JobBuilderSkills: React.FunctionComponent<
           )}
           <ol className="jpb-skill-list" data-tc-up-down-list>
             {/* This is an individual skill. I've handled the up/down script and the modal trigger, but I'll leave managing the value of the skill's list number, the modal contents,  and the deletion to you folks. I've also migrated the up/down script to a universal one. When it comes to the "jpb-skill", you'll need to add a class that specifies which TYPE of skill it is (occupational, cultural, future). This will handle interior colour/icon changes. */}
-            <li className="jpb-skill occupational" data-tc-up-down-item>
-              <div data-c-grid="gutter middle">
-                <div
-                  data-c-grid-item="base(2of10) tl(1of10)"
-                  data-c-align="base(centre)"
+            {jobCriteria.map((criterion, index): React.ReactElement | null => {
+              const skill = getSkillOfCriteria(criterion);
+              if (skill === null) {
+                return null;
+              }
+              return (
+                <li
+                  key={skill.id}
+                  className={`jpb-skill ${
+                    isOccupational(skill) ? "occupational" : ""
+                  } ${isCulture(skill) ? "cultural" : ""} ${
+                    isFuture(skill) ? "future" : ""
+                  }`}
+                  data-tc-up-down-item
                 >
-                  {/* These should work already. */}
-                  <button type="button" data-tc-move-up-trigger>
-                    <i className="fas fa-angle-up" />
-                  </button>
-                  <button type="button" data-tc-move-down-trigger>
-                    <i className="fas fa-angle-down" />
-                  </button>
-                </div>
-                <div data-c-grid-item="base(6of10) tl(7of10)">
-                  <div data-c-grid="gutter">
-                    <div data-c-grid-item="base(1of1) tl(2of3)">
-                      {/* This value needs to update based on the order. Wasn't sure if this should be done as a part of my arrow script or if React can handle it better. */}
-                      <span>1</span>
-                      {/* This icon will automatically update based on the class you've specified above, on the jpb-skill. */}
-                      <span
-                        className="jpb-skill-type"
-                        data-c-font-size="small"
-                        data-c-margin="rl(half)"
-                        data-c-padding="tb(quarter) rl(half)"
-                        data-c-radius="rounded"
-                        data-c-colour="white"
-                        title="This is an occupational skill."
-                      >
-                        <i className="fas fa-briefcase" />
-                        <i className="fas fa-coffee" />
-                        <i className="fas fa-certificate" />
-                      </span>
-                      {/* The skill name. */}
-                      <span>HTML5</span>
-                    </div>
-                    <div data-c-grid-item="base(1of1) tl(1of3)">
-                      <span
-                        data-c-radius="rounded"
-                        data-c-padding="tb(quarter) rl(half)"
-                        data-c-border="all(thin, solid, c1)"
-                        data-c-colour="c1"
-                        data-c-font-size="small"
-                      >
-                        {/* This value should update based on the selections made in the edit modal. */}
-                        Intermediate
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div data-c-grid-item="base(2of10)">
-                  <div data-c-grid="gutter">
+                  <div data-c-grid="gutter middle">
                     <div
-                      data-c-grid-item="base(1of1) tl(1of2)"
+                      data-c-grid-item="base(2of10) tl(1of10)"
                       data-c-align="base(centre)"
                     >
-                      {/* Right now, this is just triggering the edit modal, but that edit modal will obviously have to be unique to each skill so that it can be properly edited. */}
-                      <button
-                        type="button"
-                        data-c-colour="c1"
-                        data-c-dialog-action="open"
-                        data-c-dialog-id="example-dialog-01"
-                      >
-                        <i className="fas fa-edit" />
+                      {/* These should work already. */}
+                      {/** FIXME: add logic to move buttons */}
+                      <button type="button" data-tc-move-up-trigger>
+                        <i className="fas fa-angle-up" />
+                      </button>
+                      <button type="button" data-tc-move-down-trigger>
+                        <i className="fas fa-angle-down" />
                       </button>
                     </div>
-                    <div
-                      data-c-grid-item="base(1of1) tl(1of2)"
-                      data-c-align="base(centre)"
-                    >
-                      {/* I've left this thing blank for now, because I assumed you'd want to handle deletion through React. */}
-                      <button type="button" data-c-colour="stop">
-                        <i className="fas fa-trash" />
-                      </button>
+                    <div data-c-grid-item="base(6of10) tl(7of10)">
+                      <div data-c-grid="gutter">
+                        <div data-c-grid-item="base(1of1) tl(2of3)">
+                          {/* This value needs to update based on the order. Wasn't sure if this should be done as a part of my arrow script or if React can handle it better. */}
+                          <span>{index + 1}</span>
+                          {/* This icon will automatically update based on the class you've specified above, on the jpb-skill. */}
+                          <span
+                            className="jpb-skill-type"
+                            data-c-font-size="small"
+                            data-c-margin="rl(half)"
+                            data-c-padding="tb(quarter) rl(half)"
+                            data-c-radius="rounded"
+                            data-c-colour="white"
+                            title="This is an occupational skill."
+                          >
+                            <i className="fas fa-briefcase" />
+                            <i className="fas fa-coffee" />
+                            <i className="fas fa-certificate" />
+                          </span>
+                          {/* The skill name. */}
+                          <span>{skill[locale].name}</span>
+                        </div>
+                        <div data-c-grid-item="base(1of1) tl(1of3)">
+                          <span
+                            data-c-radius="rounded"
+                            data-c-padding="tb(quarter) rl(half)"
+                            data-c-border="all(thin, solid, c1)"
+                            data-c-colour="c1"
+                            data-c-font-size="small"
+                          >
+                            {/* This value should update based on the selections made in the edit modal. */}
+                            {intl.formatMessage(
+                              getSkillLevelName(criterion, skill),
+                            )}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div data-c-grid-item="base(2of10)">
+                      <div data-c-grid="gutter">
+                        <div
+                          data-c-grid-item="base(1of1) tl(1of2)"
+                          data-c-align="base(centre)"
+                        >
+                          {/* Right now, this is just triggering the edit modal, but that edit modal will obviously have to be unique to each skill so that it can be properly edited. */}
+                          <button
+                            type="button"
+                            data-c-colour="c1"
+                            data-c-dialog-action="open"
+                            data-c-dialog-id="example-dialog-01"
+                            onClick={(): void =>
+                              setCriteriaBeingEdited(criterion)
+                            }
+                          >
+                            <i className="fas fa-edit" />
+                          </button>
+                        </div>
+                        <div
+                          data-c-grid-item="base(1of1) tl(1of2)"
+                          data-c-align="base(centre)"
+                        >
+                          {/* I've left this thing blank for now, because I assumed you'd want to handle deletion through React. */}
+                          <button
+                            type="button"
+                            data-c-colour="stop"
+                            onClick={(): void =>
+                              criteriaDispatch({
+                                type: "remove",
+                                payload: criterion,
+                              })
+                            }
+                          >
+                            <i className="fas fa-trash" />
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </li>
+                </li>
+              );
+            })}
           </ol>
           {/* Repeat what you have above for asset skills. The biggest thing to note here is that the level should be empty in this list, and when the user changes the level of an essential skill to asset, it should be moved down into this list (and vice versa). */}
           <p
@@ -698,7 +832,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                         })
                       : setSkillBeingAdded(skill);
                   return (
-                    <li>
+                    <li key={skill.id}>
                       <button
                         className={`jpb-skill-trigger ${
                           alreadySelected ? "active" : ""
@@ -913,6 +1047,7 @@ export const JobBuilderSkills: React.FunctionComponent<
         </div>
       </div>
       <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
+      {/** This modal is for adding brand new skills */}
       {skillBeingAdded !== null && (
         <Modal
           id="job-bulder-add-skill"
@@ -955,6 +1090,9 @@ export const JobBuilderSkills: React.FunctionComponent<
           </Modal.Body>
         </Modal>
       )}
+      {/** This modal is for editing already added skills */}
+      {criteriaBeingEdited !== null &&
+        renderEditCriteriaModal(criteriaBeingEdited)}
     </>
   );
 };
