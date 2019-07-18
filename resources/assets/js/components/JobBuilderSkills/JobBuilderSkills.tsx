@@ -156,58 +156,6 @@ export const JobBuilderSkills: React.FunctionComponent<
     return false;
   };
 
-  const renderEditCriteriaModal = (
-    criterion: Criteria,
-  ): React.ReactElement | null => {
-    const skill = getSkillOfCriteria(criterion);
-    if (skill === null) {
-      return null;
-    }
-    return (
-      <Modal
-        id="job-bulder-edit-skill"
-        parentElement={modalParentRef.current}
-        visible={criterion !== null}
-        onModalCancel={(): void => {
-          setCriteriaBeingEdited(null);
-        }}
-        onModalConfirm={(): void => {
-          setCriteriaBeingEdited(null);
-        }}
-      >
-        <Modal.Header>
-          <div
-            data-c-background="c1(100)"
-            data-c-border="bottom(thin, solid, black)"
-            data-c-padding="normal"
-          >
-            <h5
-              data-c-colour="white"
-              data-c-font-size="h4"
-              id="job-details-preview-title"
-            >
-              Edit skill
-            </h5>
-          </div>
-        </Modal.Header>
-        <Modal.Body>
-          <CriteriaForm
-            jobPosterId={job.id}
-            criteria={criterion}
-            skill={skill}
-            handleCancel={(): void => {
-              setCriteriaBeingEdited(null);
-            }}
-            handleSubmit={(criteria: Criteria): void => {
-              criteriaDispatch({ type: "edit", payload: criteria });
-              setCriteriaBeingEdited(null);
-            }}
-          />
-        </Modal.Body>
-      </Modal>
-    );
-  };
-
   const renderNullCriteriaRow = (): React.ReactElement => (
     <div className="jpb-skill-null" data-c-grid="gutter middle">
       <div data-c-grid-item="base(2of10) tl(1of10)" data-c-align="base(centre)">
@@ -1064,34 +1012,34 @@ export const JobBuilderSkills: React.FunctionComponent<
       </div>
       <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
       {/** This modal is for adding brand new skills */}
-      {skillBeingAdded !== null && (
-        <Modal
-          id="job-bulder-add-skill"
-          parentElement={modalParentRef.current}
-          visible={skillBeingAdded !== null}
-          onModalCancel={(): void => {
-            setSkillBeingAdded(null);
-          }}
-          onModalConfirm={(): void => {
-            setSkillBeingAdded(null);
-          }}
-        >
-          <Modal.Header>
-            <div
-              data-c-background="c1(100)"
-              data-c-border="bottom(thin, solid, black)"
-              data-c-padding="normal"
+      <Modal
+        id="job-bulder-add-skill"
+        parentElement={modalParentRef.current}
+        visible={skillBeingAdded !== null}
+        onModalCancel={(): void => {
+          setSkillBeingAdded(null);
+        }}
+        onModalConfirm={(): void => {
+          setSkillBeingAdded(null);
+        }}
+      >
+        <Modal.Header>
+          <div
+            data-c-background="c1(100)"
+            data-c-border="bottom(thin, solid, black)"
+            data-c-padding="normal"
+          >
+            <h5
+              data-c-colour="white"
+              data-c-font-size="h4"
+              id="job-details-preview-title"
             >
-              <h5
-                data-c-colour="white"
-                data-c-font-size="h4"
-                id="job-details-preview-title"
-              >
-                Add a skill
-              </h5>
-            </div>
-          </Modal.Header>
-          <Modal.Body>
+              Add a skill
+            </h5>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          {skillBeingAdded !== null && (
             <CriteriaForm
               jobPosterId={job.id}
               skill={skillBeingAdded}
@@ -1103,12 +1051,54 @@ export const JobBuilderSkills: React.FunctionComponent<
                 setSkillBeingAdded(null);
               }}
             />
-          </Modal.Body>
-        </Modal>
-      )}
+          )}
+        </Modal.Body>
+      </Modal>
       {/** This modal is for editing already added skills */}
-      {criteriaBeingEdited !== null &&
-        renderEditCriteriaModal(criteriaBeingEdited)}
+      <Modal
+        id="job-bulder-edit-skill"
+        parentElement={modalParentRef.current}
+        visible={criteriaBeingEdited !== null}
+        onModalCancel={(): void => {
+          setCriteriaBeingEdited(null);
+        }}
+        onModalConfirm={(): void => {
+          setCriteriaBeingEdited(null);
+        }}
+      >
+        <Modal.Header>
+          <div
+            data-c-background="c1(100)"
+            data-c-border="bottom(thin, solid, black)"
+            data-c-padding="normal"
+          >
+            <h5
+              data-c-colour="white"
+              data-c-font-size="h4"
+              id="job-details-preview-title"
+            >
+              Edit skill
+            </h5>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          {criteriaBeingEdited !== null &&
+            getSkillOfCriteria(criteriaBeingEdited) !== null && (
+              <CriteriaForm
+                jobPosterId={job.id}
+                criteria={criteriaBeingEdited}
+                skill={getSkillOfCriteria(criteriaBeingEdited) as Skill} // The cast is okay here (but still not ideal) because of the !== null check a few lines up
+                handleCancel={(): void => {
+                  setCriteriaBeingEdited(null);
+                }}
+                handleSubmit={(criteria: Criteria): void => {
+                  criteriaDispatch({ type: "edit", payload: criteria });
+                  setCriteriaBeingEdited(null);
+                }}
+              />
+            )}
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
