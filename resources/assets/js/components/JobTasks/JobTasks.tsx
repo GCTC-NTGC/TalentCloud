@@ -1,7 +1,19 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, @typescript-eslint/no-non-null-assertion, react/no-array-index-key, @typescript-eslint/camelcase, camelcase, jsx-a11y/no-noninteractive-tabindex */
 import React, { useState, useRef } from "react";
-import { FormattedMessage, InjectedIntlProps, injectIntl } from "react-intl";
-import { Field, Form, Formik, FieldArray } from "formik";
+import {
+  FormattedMessage,
+  InjectedIntlProps,
+  injectIntl,
+  defineMessages,
+} from "react-intl";
+import {
+  Field,
+  Form,
+  Formik,
+  FieldArray,
+  FormikErrors,
+  FormikValues,
+} from "formik";
 import { array, object, string } from "yup";
 
 import Modal from "../Modal";
@@ -18,9 +30,9 @@ interface JobTasksProps {
   keyTasks: JobPosterKeyTask[] | null;
   /** Amount of tasks on the page considered 'valid'. Adding
    *  additional tasks will insert error markup and add invalid
-   *  prop to textareas.
+   *  prop to textareas, as well as prevent form submission.
    */
-  validCount?: number;
+  validCount: number;
   /** Function to run after successful form validation.
    * It must return true if the submission was succesful, false otherwise.
    */
@@ -36,6 +48,31 @@ interface TaskFormValues {
   job_poster_id: number;
   description: string;
 }
+
+const formMessages = defineMessages({
+  taskPlaceholder: {
+    id: "jobTasks.taskPlaceholder",
+    defaultMessage: "Try for a casual, frank, friendly tone...",
+    description: "Placeholder shown inside a Task text area.",
+  },
+  taskLabel: {
+    id: "jobTasks.taskLabel",
+    defaultMessage: "Task",
+    description: "Label shown above a Task text area.",
+  },
+  tasksRequired: {
+    id: "jobTasks.tasksRequired",
+    defaultMessage: "At least one task is required.",
+    description:
+      "Validation message shown when a user tries to submit no tasks.",
+  },
+  tasksMaximum: {
+    id: "jobTasks.tasksMaximum",
+    defaultMessage: "Please remove any additional tasks before continuing.",
+    description:
+      "Validation message shown when a user tries to submit more than the allowed number of tasks.",
+  },
+});
 
 const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
   jobId,
@@ -100,15 +137,17 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
     );
   };
 
-  // TODO: Validations are not being displayed properly.
   const taskSchema = object().shape({
-    tasks: array().of(
-      object().shape({
-        description: string().required(
-          intl.formatMessage(validationMessages.required),
-        ),
-      }),
-    ),
+    tasks: array()
+      .of(
+        object().shape({
+          description: string().required(
+            intl.formatMessage(validationMessages.required),
+          ),
+        }),
+      )
+      .required(intl.formatMessage(formMessages.tasksRequired))
+      .max(validCount, intl.formatMessage(formMessages.tasksMaximum)),
   });
 
   const initialValues = tasksToValues(keyTasks || null);
@@ -179,7 +218,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
             );
           actions.setSubmitting(false); // Required by Formik to finish the submission cycle
         }}
-        render={({ isSubmitting, values }): React.ReactElement => (
+        render={({ isSubmitting, values, errors }): React.ReactElement => (
           <>
             {values.tasks.length > 0 && (
               <p data-c-alignment="tl(right)">
@@ -215,177 +254,200 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
             <Form id="job-tasks">
               <FieldArray
                 name="tasks"
-                render={(arrayHelpers): React.ReactElement => (
-                  <>
-                    <div data-c-grid="gutter">
-                      {values.tasks &&
-                        values.tasks.length > 0 &&
-                        values.tasks.map(
-                          (task, index): React.ReactElement => (
-                            <>
-                              {validCount! === index && (
-                                <div
-                                  className="job-builder-task-warning"
-                                  data-c-grid-item="base(1of1)"
-                                >
+                render={(arrayHelpers): React.ReactElement => {
+                  const taskArrayErrors = (
+                    arrayErrors: FormikErrors<FormikValues>,
+                  ): React.ReactElement | null =>
+                    typeof arrayErrors.tasks === "string" ? (
+                      <div
+                        data-c-alert="error"
+                        data-c-radius="rounded"
+                        role="alert"
+                        data-c-margin="top(normal)"
+                      >
+                        <div data-c-padding="half">
+                          <p>{arrayErrors.tasks}</p>
+                        </div>
+                      </div>
+                    ) : null;
+                  return (
+                    <>
+                      <div data-c-grid="gutter">
+                        {values.tasks &&
+                          values.tasks.length > 0 &&
+                          values.tasks.map(
+                            (task, index): React.ReactElement => (
+                              <>
+                                {validCount! === index && (
                                   <div
-                                    data-c-alert="error"
-                                    data-c-radius="rounded"
-                                    role="alert"
-                                    data-c-margin="bottom(normal)"
+                                    className="job-builder-task-warning"
+                                    data-c-grid-item="base(1of1)"
                                   >
-                                    <div data-c-padding="half">
-                                      <span
-                                        data-c-margin="bottom(quarter)"
-                                        data-c-heading="h5"
-                                        data-c-font-weight="bold"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          className="fas fa-exclamation-circle"
-                                        />
-                                        <FormattedMessage
-                                          id="jobTasks.taskCount.error.title"
-                                          description="Error message displayed when too many tasks are on screen."
-                                          defaultMessage="Just a heads up!"
-                                        />
-                                      </span>
-                                      <p>
-                                        <FormattedMessage
-                                          id="jobTasks.taskCount.error.body"
-                                          description="Error message displayed when too many tasks are on screen."
-                                          defaultMessage="You have exceeded the maximum number of key tasks allowed, but that’s okay. You can continue to add key tasks as you brainstorm here, but you will be asked to trim your list to 6 key tasks or fewer to proceed."
-                                        />
-                                      </p>
+                                    <div
+                                      data-c-alert="error"
+                                      data-c-radius="rounded"
+                                      role="alert"
+                                      data-c-margin="bottom(normal)"
+                                    >
+                                      <div data-c-padding="half">
+                                        <span
+                                          data-c-margin="bottom(quarter)"
+                                          data-c-heading="h5"
+                                          data-c-font-weight="bold"
+                                        >
+                                          <i
+                                            aria-hidden="true"
+                                            className="fas fa-exclamation-circle"
+                                          />
+                                          <FormattedMessage
+                                            id="jobTasks.taskCount.error.title"
+                                            description="Error message displayed when too many tasks are on screen."
+                                            defaultMessage="Just a heads up!"
+                                          />
+                                        </span>
+                                        <p>
+                                          <FormattedMessage
+                                            id="jobTasks.taskCount.error.body"
+                                            description="Error message displayed when too many tasks are on screen."
+                                            defaultMessage="You have exceeded the maximum number of key tasks allowed, but that’s okay. You can continue to add key tasks as you brainstorm here, but you will be asked to trim your list to 6 key tasks or fewer to proceed."
+                                          />
+                                        </p>
+                                      </div>
                                     </div>
                                   </div>
+                                )}
+                                <div
+                                  key={`listItem${index}`}
+                                  className={`job-builder-task${
+                                    index + 1 > validCount! ? " invalid" : ""
+                                  }`}
+                                  data-c-grid-item="base(1of1)"
+                                  data-c-input="textarea"
+                                  data-tc-up-down-item
+                                >
+                                  <div>
+                                    <button
+                                      type="button"
+                                      data-tc-move-up-trigger
+                                      onClick={(): void =>
+                                        arrayHelpers.move(index, index - 1)
+                                      }
+                                    >
+                                      <i className="fas fa-long-arrow-alt-up" />
+                                    </button>
+                                    <button
+                                      type="button"
+                                      data-tc-move-down-trigger
+                                      onClick={(): void =>
+                                        arrayHelpers.move(index, index + 1)
+                                      }
+                                    >
+                                      <i className="fas fa-long-arrow-alt-down" />
+                                    </button>
+                                  </div>
+                                  <div>
+                                    <button
+                                      type="button"
+                                      data-tc-builder-task-delete-trigger
+                                      onClick={(): void => {
+                                        arrayHelpers.remove(index);
+                                      }}
+                                    >
+                                      <i
+                                        className="fas fa-trash"
+                                        data-c-colour="stop"
+                                      />
+                                    </button>
+                                  </div>
+                                  <Field
+                                    id={`task-${index}`}
+                                    name={`tasks.${index}.description`}
+                                    label={`${intl.formatMessage(
+                                      formMessages.taskLabel,
+                                    )} ${index + 1}`}
+                                    component={TextAreaInput}
+                                    placeholder={intl.formatMessage(
+                                      formMessages.taskPlaceholder,
+                                    )}
+                                    required
+                                  />
                                 </div>
-                              )}
-                              <div
-                                key={`listItem${index}`}
-                                className={`job-builder-task${
-                                  index + 1 > validCount! ? " invalid" : ""
-                                }`}
-                                data-c-grid-item="base(1of1)"
-                                data-c-input="textarea"
-                                data-tc-up-down-item
-                              >
-                                <div>
-                                  <button
-                                    type="button"
-                                    data-tc-move-up-trigger
-                                    onClick={(): void =>
-                                      arrayHelpers.move(index, index - 1)
-                                    }
-                                  >
-                                    <i className="fas fa-long-arrow-alt-up" />
-                                  </button>
-                                  <button
-                                    type="button"
-                                    data-tc-move-down-trigger
-                                    onClick={(): void =>
-                                      arrayHelpers.move(index, index + 1)
-                                    }
-                                  >
-                                    <i className="fas fa-long-arrow-alt-down" />
-                                  </button>
-                                </div>
-                                <div>
-                                  <button
-                                    type="button"
-                                    data-tc-builder-task-delete-trigger
-                                    onClick={(): void => {
-                                      arrayHelpers.remove(index);
-                                    }}
-                                  >
-                                    <i
-                                      className="fas fa-trash"
-                                      data-c-colour="stop"
-                                    />
-                                  </button>
-                                </div>
-                                <Field
-                                  id={`task-${index}`}
-                                  name={`tasks.${index}.description`}
-                                  label={`Task ${index + 1}`}
-                                  component={TextAreaInput}
-                                  placeholder="Try for a casual, frank, friendly tone."
-                                  required
-                                />
-                              </div>
-                            </>
-                          ),
-                        )}
-                    </div>
-                    <div data-c-grid="gutter">
-                      <div
-                        data-c-grid-item="base(1of1)"
-                        data-c-alignment="base(centre)"
-                      >
-                        <button
-                          data-c-button="solid(c2)"
-                          data-c-radius="rounded"
-                          type="button"
-                          disabled={isSubmitting}
-                          onClick={(): void =>
-                            arrayHelpers.push({
-                              id: 0,
-                              job_poster_id: jobId,
-                              en: { description: "" },
-                              fr: { description: "" },
-                            })
-                          }
+                              </>
+                            ),
+                          )}
+                      </div>
+                      <div data-c-grid="gutter">
+                        <div
+                          data-c-grid-item="base(1of1)"
+                          data-c-alignment="base(centre)"
                         >
-                          <FormattedMessage
-                            id="jobTasks.addJob"
-                            description="Text on the Add Task button."
-                            defaultMessage="Add a Task"
-                          />
-                        </button>
-                      </div>
-                      <div data-c-grid-item="base(1of1)">
-                        <hr data-c-margin="top(normal) bottom(normal)" />
-                      </div>
-                      <div
-                        data-c-alignment="base(centre) tp(left)"
-                        data-c-grid-item="tp(1of2)"
-                      >
-                        {/* TODO: Navigate to previous page */}
-                        <a
-                          href="/builder-04"
-                          data-c-button="outline(c2)"
-                          data-c-radius="rounded"
-                          type="button"
+                          <button
+                            data-c-button="solid(c2)"
+                            data-c-radius="rounded"
+                            type="button"
+                            disabled={isSubmitting}
+                            onClick={(): void =>
+                              arrayHelpers.push({
+                                id: 0,
+                                job_poster_id: jobId,
+                                en: { description: "" },
+                                fr: { description: "" },
+                              })
+                            }
+                          >
+                            <FormattedMessage
+                              id="jobTasks.addJob"
+                              description="Text on the Add Task button."
+                              defaultMessage="Add a Task"
+                            />
+                          </button>
+                        </div>
+                        <div data-c-grid-item="base(1of1)">
+                          <hr data-c-margin="top(normal) bottom(normal)" />
+                        </div>
+                        <div
+                          data-c-alignment="base(centre) tp(left)"
+                          data-c-grid-item="tp(1of2)"
                         >
-                          <FormattedMessage
-                            id="jobTasks.previous"
-                            description="Text on the Previous Step button."
-                            defaultMessage="Previous Step"
-                          />
-                        </a>
-                      </div>
-                      <div
-                        data-c-alignment="base(centre) tp(right)"
-                        data-c-grid-item="tp(1of2)"
-                      >
-                        <button
-                          data-c-button="solid(c2)"
-                          data-c-dialog-action="open"
-                          data-c-dialog-id={modalId}
-                          data-c-radius="rounded"
-                          type="submit"
-                          disabled={isSubmitting}
+                          {/* TODO: Navigate to previous page */}
+                          <a
+                            href="/builder-04"
+                            data-c-button="outline(c2)"
+                            data-c-radius="rounded"
+                            type="button"
+                          >
+                            <FormattedMessage
+                              id="jobTasks.previous"
+                              description="Text on the Previous Step button."
+                              defaultMessage="Previous Step"
+                            />
+                          </a>
+                        </div>
+                        <div
+                          data-c-alignment="base(centre) tp(right)"
+                          data-c-grid-item="tp(1of2)"
                         >
-                          <FormattedMessage
-                            id="jobTasks.preview"
-                            description="Text on the Preview Tasks button."
-                            defaultMessage="Preview Tasks"
-                          />
-                        </button>
+                          <button
+                            data-c-button="solid(c2)"
+                            data-c-dialog-action="open"
+                            data-c-dialog-id={modalId}
+                            data-c-radius="rounded"
+                            type="submit"
+                            disabled={isSubmitting}
+                          >
+                            <FormattedMessage
+                              id="jobTasks.preview"
+                              description="Text on the Preview Tasks button."
+                              defaultMessage="Preview Tasks"
+                            />
+                          </button>
+                          {/* TODO: Figure out how to display FieldArray validation errors. */}
+                          {taskArrayErrors(errors)}
+                        </div>
                       </div>
-                    </div>
-                  </>
-                )}
+                    </>
+                  );
+                }}
               />
             </Form>
             <Modal
