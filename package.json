@@ -98,7 +98,7 @@
     "formik": "^1.5.8",
     "history": "^4.9.0",
     "isomorphic-fetch": "^2.2.1",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "re-reselect": "^3.2.0",
     "react": "^16.8.6",
