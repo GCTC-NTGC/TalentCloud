@@ -55,7 +55,7 @@ const essentialSkillLevels = (
 });
 
 interface FormValues {
-  description: string;
+  specificity: string;
   level: string;
 }
 
@@ -93,15 +93,17 @@ export const criteriaToValues = (
   criteria: Criteria,
   locale: "en" | "fr",
 ): FormValues => ({
-  description: criteria[locale].description || "",
+  specificity: criteria[locale].specificity || "",
   level:
     criteria.criteria_type_id === CriteriaTypeId.Asset
       ? "asset"
       : essentialSkillIdToKey(criteria.skill_level_id),
 });
 
+/* eslint-disable @typescript-eslint/camelcase */
 const updateCriteriaWithValues = (
   criteria: Criteria,
+  skill: Skill,
   values: FormValues,
   locale: "en" | "fr",
 ): Criteria => {
@@ -112,8 +114,13 @@ const updateCriteriaWithValues = (
         ? CriteriaTypeId.Asset
         : CriteriaTypeId.Essential,
     skill_level_id: essentialKeyToId(values.level),
-    [locale]: {
-      description: values.description,
+    en: {
+      description: skill.en.description,
+      specificity: locale === "en" ? values.specificity : null,
+    },
+    fr: {
+      description: skill.fr.description,
+      specificity: locale === "fr" ? values.specificity : null,
     },
   };
 };
@@ -126,11 +133,14 @@ const newCriteria = (jobPosterId: number, skillId: number): Criteria => ({
   skill_level_id: SkillLevelId.Basic,
   en: {
     description: null,
+    specificity: null,
   },
   fr: {
     description: null,
+    specificity: null,
   },
 });
+/* eslint-enable @typescript-eslint/camelcase */
 
 export const CriteriaForm: React.FunctionComponent<
   CriteriaFormProps & InjectedIntlProps
@@ -149,21 +159,18 @@ export const CriteriaForm: React.FunctionComponent<
   const stringNotEmpty = (value: string | null): boolean =>
     value !== null && (value as string).length !== 0;
   const [showSpecificity, setShowSpecificity] = useState(
-    criteria !== undefined && stringNotEmpty(criteria[locale].description),
+    criteria !== undefined && stringNotEmpty(criteria[locale].specificity),
   );
-  const defaultDescription = skill[locale].description;
 
   const initialValues: FormValues =
     criteria !== undefined
       ? criteriaToValues(criteria, locale)
       : {
-          description: defaultDescription,
+          specificity: "",
           level: "",
         };
   const skillSchema = Yup.object().shape({
-    description: Yup.string().required(
-      intl.formatMessage(validationMessages.required),
-    ),
+    specificity: Yup.string(),
     level: Yup.string()
       .oneOf(
         [...Object.keys(essentialSkillLevels(skill.skill_type_id)), "asset"],
@@ -184,6 +191,7 @@ export const CriteriaForm: React.FunctionComponent<
             : newCriteria(jobPosterId, skill.id);
         const updatedCriteria = updateCriteriaWithValues(
           oldCriteria,
+          skill,
           values,
           locale,
         );
@@ -214,7 +222,7 @@ export const CriteriaForm: React.FunctionComponent<
                     <Field
                       id="skillSpecificity"
                       type="textarea"
-                      name="description"
+                      name="specificity"
                       label="Skill Specificity"
                       placeholder="Add specificity to the definition of this skill that will only appear on my job poster but note that this will have be approved prior to posting..."
                       component={TextAreaInput}
@@ -223,7 +231,8 @@ export const CriteriaForm: React.FunctionComponent<
                       className="job-builder-add-skill-definition-trigger"
                       type="button"
                       onClick={(): void => {
-                        setFieldValue("description", defaultDescription);
+                        // Clear the field before hiding it
+                        setFieldValue("specificity", "");
                         setShowSpecificity(false);
                       }}
                     >
@@ -237,7 +246,7 @@ export const CriteriaForm: React.FunctionComponent<
                   <button
                     className="job-builder-add-skill-definition-trigger"
                     type="button"
-                    onClick={(): void => setShowSpecificity(!showSpecificity)}
+                    onClick={(): void => setShowSpecificity(true)}
                   >
                     <span>
                       <i className="fas fa-plus-circle" data-c-colour="c1" />

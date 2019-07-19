@@ -149,10 +149,12 @@ export const fakeCriterion = (id: number = 1, jobId: number = 1): Criteria => ({
   skill_id: 1,
   skill_level_id: 1,
   en: {
-    description: `This is criteria number ${jobId}`,
+    description: `This is the description of skill 1.`,
+    specificity: `This text is specific to criteria ${id}`,
   },
   fr: {
-    description: `FR This is criteria number ${jobId}`,
+    description: `FR This is the description of skill 1.`,
+    specificity: `FR This text is specific to criteria ${id}`,
   },
 });
 
