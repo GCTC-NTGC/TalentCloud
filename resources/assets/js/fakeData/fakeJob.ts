@@ -34,17 +34,17 @@ export const fakeJob = (id = 1): Job => ({
   telework_allowed_frequency_id: 1,
   flexible_hours_frequency_id: 2,
   en: {
-    city: "Rempelfort",
-    title: "I wonder if I'm on the.",
+    city: "Toronto",
+    title: "Technical Advisor",
     dept_impact:
       "This is a statement about all the great things you will do in this department.",
     team_impact:
-      "A in excepturi dolorem impedit. Expedita et nihil provident quo soluta neque. Odio et ut nostrum aut. Tenetur odit expedita molestias asperiores qui repudiandae eveniet.",
+      "Internally, our primary goal is to optimize and build applications to best support our clients and ensure we are able to leverage the most of latest technologies. At the government-wide level, we want to be a model that demonstrates that privacy considerations are not an obstacle to technological progress.",
     hire_impact:
-      "Aliquam aspernatur possimus est harum in explicabo et ut. Sint iure quaerat impedit et et. Ut dolorum assumenda repellat ducimus itaque.",
+      "As a senior team member, you will be an important pillar in our movement to the cloud, especially with our case management system; Dynamics 365. Your knowledge, insights and analytical skills will be key elements in helping to build an optimal platform to support the Office’s future vision.",
     branch: "dolor",
     division: "suscipit",
-    education: "Dolorem laborum vel sequi quo autem.",
+    education: "2 years post-secondary, or equivalent experience ",
     work_env_description:
       "Our office also has a couch that is so comfortable it must be hidden from view.",
     culture_summary:
@@ -52,14 +52,14 @@ export const fakeJob = (id = 1): Job => ({
     culture_special: "We're also a very informal, irreverant group.",
   },
   fr: {
-    city: "Lake Robbburgh",
-    title: "Queen! The Queen!' and.",
+    city: "Toronto",
+    title: "Conseiller(ère) technique",
     dept_impact:
       "FRENCH: This is a statement about all the great things you will do in this department.",
     team_impact:
-      "At iste inventore tempora est. Aspernatur odio autem sapiente est aut. Commodi eius eligendi corrupti repellendus. Enim ad placeat voluptas qui et eum.\n\nEos commodi reprehenderit officiis vero repudiandae. Nisi voluptatem officiis aut molestias incidunt. Doloribus autem est sed non reprehenderit dolores. Et similique et doloribus ea est nam facere.",
+      "À l’interne, notre but premier est d’optimiser et bâtir les applications de manière à supporter le mieux possible nos clients et de s’assurer d’être en mesure de tirer parti du meilleur des dernières technologies. À l’échelle du gouvernement, nous désirons être un modèle prouvant que les considérations liées à vie privée ne sont pas un obstacle au progrès technologique.",
     hire_impact:
-      "Nulla enim dignissimos ea saepe totam. Deserunt quod deserunt et sed qui nesciunt illo eaque.\n\nVeniam laudantium ab illo. In in et et voluptatem excepturi. Nesciunt deleniti qui vero magni sunt earum rerum.",
+      "En tant que membre senior de l’équipe, vous serez un pilier important dans notre mouvement vers le cloud, surtout en ce qui a trait à notre système de gestion de cas; Dynamics 365. Vos connaissances, vos idées et vos capacités d’analyse seront des éléments clés qui contribueront à mettre en place une plateforme optimale supportant la vision future du commissariat.",
     branch: "dolor",
     division: "minima",
     education: "Ut odit inventore incidunt.",

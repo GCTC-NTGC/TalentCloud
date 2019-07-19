@@ -1,9 +1,12 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
+import { withIntl } from "storybook-addon-intl";
 import { text, boolean, number } from "@storybook/addon-knobs";
 import JobPreview from "../../components/JobPreview";
 
-const stories = storiesOf("Job Poster Builder|Preview", module);
+const stories = storiesOf("Job Poster Builder|Preview", module).addDecorator(
+  withIntl,
+);
 
 stories.add(
   "Sample",
@@ -19,6 +22,7 @@ stories.add(
       securityLevel={text("Security Level", "Reliability")}
       classification={text("Classification Code", "CS")}
       level={text("Position Level", "03")}
+      flexHours={text("Sometimes")}
     />
   ),
 );

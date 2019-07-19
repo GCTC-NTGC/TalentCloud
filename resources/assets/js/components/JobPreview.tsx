@@ -1,4 +1,10 @@
 import React from "react";
+import {
+  injectIntl,
+  InjectedIntlProps,
+  FormattedMessage,
+  defineMessages,
+} from "react-intl";
 
 export interface JobPreviewProps {
   /** Title of the Job Poster */
@@ -11,16 +17,12 @@ export interface JobPreviewProps {
   province: string;
   /** If this Job Poster allows remote work */
   remoteWork?: boolean;
-  /** Salary for the Job Poster */
-  salary?: string;
   /** Language requirement, i.e. English Essential */
   language: string;
   /** Length of the Job term in months */
   termLength: number;
   /** Security level required for the posting, i.e. reliability */
   securityLevel: string;
-  /** Date the position begins */
-  startDate?: string;
   /** Government classification code for the position, i.e. CS */
   classification: string;
   /** Level for the classification, i.e. 03 */
@@ -29,21 +31,22 @@ export interface JobPreviewProps {
   flexHours: string;
 }
 
-const JobPreview: React.FunctionComponent<JobPreviewProps> = ({
+const JobPreview: React.FunctionComponent<
+  JobPreviewProps & InjectedIntlProps
+> = ({
   title,
   department,
   city,
   province,
   flexHours,
   remoteWork,
-  salary,
   language,
   termLength,
   securityLevel,
-  startDate,
   classification,
   level,
-}: JobPreviewProps): React.ReactElement => {
+  intl,
+}: JobPreviewProps & InjectedIntlProps): React.ReactElement => {
   return (
     <div
       className="manager-job-card"
@@ -80,20 +83,31 @@ const JobPreview: React.FunctionComponent<JobPreviewProps> = ({
           >
             &nbsp;&nbsp;
           </i>
-          Remote Work Allowed
+          {remoteWork}
+          {/* TODO: Should display allows or not allowed based on the Boolean */}
         </p>
       )}
       <h4
         data-c-font-size="h4"
-        data-c-font-weight="bold"
+        data-c-font-weight="600"
         data-c-margin="top(double) bottom(normal)"
+        data-c-border="bottom(thin, solid, black)"
+        data-c-padding="bottom(normal)"
       >
-        Basic Information
+        <FormattedMessage
+          id="jobPreview.basicInformation"
+          defaultMessage="Basic Information"
+          description="Section Header for basic information"
+        />
       </h4>
       <div data-c-grid="gutter">
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Length of the Term
+            <FormattedMessage
+              id="jobPreview.lengthOfTheTerm"
+              defaultMessage="Length of the Term"
+              description="Data Label"
+            />
           </p>
           <p>{termLength} Months</p>
         </div>
@@ -198,4 +212,4 @@ const JobPreview: React.FunctionComponent<JobPreviewProps> = ({
   );
 };
 
-export default JobPreview;
+export default injectIntl(JobPreview);
