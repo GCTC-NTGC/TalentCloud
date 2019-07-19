@@ -31,11 +31,27 @@ const criteriaTypeOptions = {
   Asset: CriteriaTypeId.Asset,
 };
 
+const classificationOptions = {
+  CS: "CS",
+  EX: "EX",
+  None: null,
+};
+
 stories
   .add(
     "Existing Job",
     (): React.ReactElement => (
-      <JobBuilderSkills job={fakeJob()} skills={fakeSkills()} />
+      <JobBuilderSkills
+        job={{
+          ...fakeJob(),
+          classification_code: select(
+            "Classification",
+            classificationOptions,
+            "CS",
+          ),
+        }}
+        skills={fakeSkills()}
+      />
     ),
   )
   .add(

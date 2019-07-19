@@ -174,29 +174,24 @@ export const JobBuilderSkills: React.FunctionComponent<
       : null;
   };
 
-  const isOccupational = (skill: Skill): boolean => {
-    // TODO:
-    return true;
-  };
+  const getClassifications = (skill: Skill): string[] =>
+    skill.classifications.map((classification): string => classification.key);
+  const isOccupational = (skill: Skill): boolean =>
+    job.classification_code !== null &&
+    getClassifications(skill).includes(job.classification_code);
   const occupationalSkills = skills.filter(isOccupational);
   const occupationalCriteria = jobCriteria.filter((criterion): boolean => {
     const critSkill = getSkillOfCriteria(criterion);
     return critSkill !== null && isOccupational(critSkill);
   });
 
-  const isCulture = (skill: Skill): boolean => {
-    // TODO:
-    return skill.skill_type_id === SkillTypeId.Soft;
-  };
+  const isCulture = (skill: Skill): boolean => skill.is_culture_skill;
   const cultureSkills = skills.filter(isCulture);
   const cultureCriteria = jobCriteria.filter((criterion): boolean => {
     const skill = getSkillOfCriteria(criterion);
     return skill !== null && isCulture(skill);
   });
-  const isFuture = (skill: Skill): boolean => {
-    // TODO:
-    return skill.skill_type_id === SkillTypeId.Hard;
-  };
+  const isFuture = (skill: Skill): boolean => skill.is_future_skill;
   const futureSkills = skills.filter(isFuture);
   const futureCriteria = jobCriteria.filter((criterion): boolean => {
     const skill = getSkillOfCriteria(criterion);
@@ -846,6 +841,13 @@ export const JobBuilderSkills: React.FunctionComponent<
               </div>
             </div>
             {/* This is the list of skills. Clicking a skill button should trigger the "Edit skill" modal so that the user can edit the definition/level before adding it. If they DO add it, you can assign an "active" class to the respective button so indicate that it's selected. This will change it's colour and icon automatically. This is also the area where "Culture Skills" is split into the two categories - see the Culture Skills section below for what that looks like. */}
+            {(job.classification_code === "" ||
+              job.classification_code === null) && (
+              <p data-c-font-weight="bold" data-c-grid-item="base(1of1)">
+                You must return to Step 1 and choose a Classification.
+              </p>
+            )}
+
             <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
               {occupationalSkills.map(renderSkillButton)}
             </ul>
