@@ -57,18 +57,6 @@ type CriteriaAction =
       payload: {
         skillId: number;
       };
-    }
-  | {
-      type: "moveUp";
-      payload: {
-        index: number;
-      };
-    }
-  | {
-      type: "moveDown";
-      payload: {
-        index: number;
-      };
     };
 const criteriaReducer = (
   state: Criteria[],
@@ -102,10 +90,6 @@ const criteriaReducer = (
       return state.filter(
         (criterion): boolean => criterion.skill_id !== action.payload.skillId,
       );
-    case "moveUp":
-      return moveUp(state, action.payload.index);
-    case "moveDown":
-      return moveDown(state, action.payload.index);
 
     default:
       return state;
@@ -221,14 +205,15 @@ export const JobBuilderSkills: React.FunctionComponent<
 
   const renderNullCriteriaRow = (): React.ReactElement => (
     <div className="jpb-skill-null" data-c-grid="gutter middle">
-      <div data-c-grid-item="base(2of10) tl(1of10)" data-c-align="base(centre)">
+      {/** TODO: add these back in when implementing UP/DOWN buttons again */}
+      {/* <div data-c-grid-item="base(2of10) tl(1of10)" data-c-align="base(centre)">
         <button type="button" data-tc-move-up-trigger>
           <i className="fas fa-angle-up" />
         </button>
         <button type="button" data-tc-move-down-trigger>
           <i className="fas fa-angle-down" />
         </button>
-      </div>
+      </div> */}
       <div data-c-grid-item="base(6of10) tl(7of10)">
         <div data-c-grid="gutter">
           <div data-c-grid-item="base(1of1) tl(2of3)">
@@ -298,29 +283,19 @@ export const JobBuilderSkills: React.FunctionComponent<
         data-tc-up-down-item
       >
         <div data-c-grid="gutter middle">
-          <div
+          {/** Removing the up/down buttons for now */}
+          {/** TODO: removing the buttons messes with the row height, get Josh's help to fix it */}
+          {/* <div
             data-c-grid-item="base(2of10) tl(1of10)"
             data-c-align="base(centre)"
           >
-            <button
-              type="button"
-              data-tc-move-up-trigger
-              onClick={(): void =>
-                criteriaDispatch({ type: "moveUp", payload: { index } })
-              }
-            >
+            <button type="button" data-tc-move-up-trigger>
               <i className="fas fa-angle-up" />
             </button>
-            <button
-              type="button"
-              data-tc-move-down-trigger
-              onClick={(): void =>
-                criteriaDispatch({ type: "moveDown", payload: { index } })
-              }
-            >
+            <button type="button" data-tc-move-down-trigger>
               <i className="fas fa-angle-down" />
             </button>
-          </div>
+          </div> */}
           <div data-c-grid-item="base(6of10) tl(7of10)">
             <div data-c-grid="gutter">
               <div data-c-grid-item="base(1of1) tl(2of3)">
