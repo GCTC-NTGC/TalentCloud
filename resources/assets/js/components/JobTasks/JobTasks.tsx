@@ -92,21 +92,16 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
   }
 
   const tasksToValues = (
-    tasks: JobPosterKeyTask[] | null,
-  ): { tasks: TaskFormValues[] } =>
-    tasks
-      ? {
-          tasks: tasks.map(
-            (task: JobPosterKeyTask): TaskFormValues => ({
-              id: task.id,
-              job_poster_id: task.job_poster_id,
-              description: task[locale].description,
-            }),
-          ),
-        }
-      : {
-          tasks: [],
-        };
+    tasks: JobPosterKeyTask[],
+  ): { tasks: TaskFormValues[] } => ({
+    tasks: tasks.map(
+      (task: JobPosterKeyTask): TaskFormValues => ({
+        id: task.id,
+        job_poster_id: task.job_poster_id,
+        description: task[locale].description,
+      }),
+    ),
+  });
 
   const updateTasksWithValues = (
     formTasks: TaskFormValues[],
@@ -150,7 +145,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
       .max(validCount, intl.formatMessage(formMessages.tasksMaximum)),
   });
 
-  const initialValues = tasksToValues(keyTasks || null);
+  const initialValues = keyTasks ? tasksToValues(keyTasks) : { tasks: [] };
 
   return (
     <div
