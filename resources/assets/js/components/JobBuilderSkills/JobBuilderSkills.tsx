@@ -13,6 +13,8 @@ import {
 interface JobBuilderSkillsProps {
   // The job being built
   job: Job;
+  // Criteria already part of the job
+  initialCriteria: Criteria[];
   // The list of all possible skills
   skills: Skill[];
   // The function to run when user clicks Save. Must return the updated list of criteria if successufl.
@@ -129,6 +131,7 @@ export const JobBuilderSkills: React.FunctionComponent<
   JobBuilderSkillsProps & InjectedIntlProps
 > = ({
   job,
+  initialCriteria,
   skills,
   handleSubmit,
   handleContinue,
@@ -148,8 +151,10 @@ export const JobBuilderSkills: React.FunctionComponent<
   const maxFuture = 2;
 
   // This is where the edited list of criteria is stored
-  // FIXME: initialize with job criteria
-  const [jobCriteria, criteriaDispatch] = useReducer(criteriaReducer, []);
+  const [jobCriteria, criteriaDispatch] = useReducer(
+    criteriaReducer,
+    initialCriteria,
+  );
   const skillCount: number = jobCriteria.length;
   const essentialCriteria: Criteria[] = jobCriteria.filter(
     (criteria): boolean =>
