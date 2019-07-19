@@ -15,6 +15,10 @@ interface JobBuilderSkillsProps {
   job: Job;
   // The list of all possible skills
   skills: Skill[];
+  // The function to run when user clicks Save. Must return the updated list of criteria if successufl.
+  handleSubmit: (criteria: Criteria[]) => Promise<Criteria[]>;
+  // The function to run when user clicks Next Page
+  handleContinue: () => void;
 }
 
 function arrayMove<T>(arr: T[], fromIndex: number, toIndex: number): T[] {
@@ -57,6 +61,10 @@ type CriteriaAction =
       payload: {
         skillId: number;
       };
+    }
+  | {
+      type: "replace";
+      payload: Criteria[];
     };
 const criteriaReducer = (
   state: Criteria[],
@@ -90,6 +98,9 @@ const criteriaReducer = (
       return state.filter(
         (criterion): boolean => criterion.skill_id !== action.payload.skillId,
       );
+    case "replace":
+      // Totally replace the saved list of criteria with the recieved payload
+      return action.payload;
 
     default:
       return state;
@@ -116,7 +127,13 @@ const getSkillLevelName = (
 
 export const JobBuilderSkills: React.FunctionComponent<
   JobBuilderSkillsProps & InjectedIntlProps
-> = ({ job, skills, intl }): React.ReactElement => {
+> = ({
+  job,
+  skills,
+  handleSubmit,
+  handleContinue,
+  intl,
+}): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unknown intl.locale");
@@ -197,6 +214,17 @@ export const JobBuilderSkills: React.FunctionComponent<
     const skill = getSkillOfCriteria(criterion);
     return skill !== null && isFuture(skill);
   });
+
+  const [isSaving, setIsSaving] = useState(false);
+  const saveAndPreview = (): void => {
+    setIsSaving(true);
+    handleSubmit(jobCriteria)
+      .then((criteria: Criteria[]): void => {
+        criteriaDispatch({ type: "replace", payload: criteria });
+        setIsPreviewVisible(true);
+      })
+      .finally((): void => setIsSaving(false));
+  };
 
   const renderNullCriteriaRow = (): React.ReactElement => (
     <div className="jpb-skill-null" data-c-grid="gutter middle">
@@ -769,10 +797,9 @@ export const JobBuilderSkills: React.FunctionComponent<
           <button
             data-c-button="solid(c2)"
             data-c-radius="rounded"
-            data-c-dialog-action="open"
-            data-c-dialog-id="job-builder-preview-skills"
             type="button"
-            onClick={(): void => setIsPreviewVisible(true)}
+            disabled={isSaving}
+            onClick={(): void => saveAndPreview()}
           >
             Save &amp; Preview Skills
           </button>
@@ -1042,11 +1069,10 @@ export const JobBuilderSkills: React.FunctionComponent<
             {/* Modal trigger, same as last step. */}
             <button
               data-c-button="solid(c2)"
-              data-c-dialog-action="open"
               data-c-radius="rounded"
-              data-c-dialog-id="job-builder-preview-skills"
               type="button"
-              onClick={(): void => setIsPreviewVisible(true)}
+              disabled={isSaving}
+              onClick={(): void => saveAndPreview()}
             >
               Save &amp; Preview Skills
             </button>
@@ -1148,10 +1174,7 @@ export const JobBuilderSkills: React.FunctionComponent<
         parentElement={modalParentRef.current}
         visible={isPreviewVisible}
         onModalCancel={(): void => setIsPreviewVisible(false)}
-        onModalConfirm={
-          // FIXME: continue to next page
-          (): void => setIsPreviewVisible(false)
-        }
+        onModalConfirm={(): void => handleContinue()}
       >
         <Modal.Header>
           <div

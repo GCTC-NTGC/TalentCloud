@@ -9,6 +9,7 @@ import { fakeSkills } from "../../fakeData/fakeSkills";
 import CriteriaForm from "../../components/JobBuilderSkills/CriteriaForm";
 import { mapToObject } from "../../helpers/queries";
 import { SkillLevelId, CriteriaTypeId } from "../../models/lookupConstants";
+import { Criteria } from "../../models/types";
 
 const stories = storiesOf("Job Poster Builder|Skills", module).addDecorator(
   withIntl,
@@ -37,6 +38,16 @@ const classificationOptions = {
   None: null,
 };
 
+function sleep(ms): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+const handleSubmit = async (criteria: Criteria[]): Promise<Criteria[]> => {
+  await sleep(1000);
+  action("Criteria Submitted")(criteria);
+  return criteria;
+};
+
 stories
   .add(
     "Existing Job",
@@ -51,6 +62,8 @@ stories
           ),
         }}
         skills={fakeSkills()}
+        handleSubmit={handleSubmit}
+        handleContinue={action("Handle Continue")}
       />
     ),
   )
