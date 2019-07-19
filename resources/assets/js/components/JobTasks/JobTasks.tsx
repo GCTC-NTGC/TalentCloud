@@ -45,7 +45,7 @@ interface JobTasksProps {
 
 interface TaskFormValues {
   id: number | null;
-  job_poster_id: number;
+  jobPosterId: number;
   description: string;
 }
 
@@ -97,7 +97,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
     tasks: tasks.map(
       (task: JobPosterKeyTask): TaskFormValues => ({
         id: task.id,
-        job_poster_id: task.job_poster_id,
+        jobPosterId: task.job_poster_id,
         description: task[locale].description,
       }),
     ),
@@ -120,7 +120,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
         }
         return {
           id: 0,
-          job_poster_id: task.job_poster_id,
+          job_poster_id: task.jobPosterId,
           en: {
             description: locale === "en" ? task.description : "",
           },
