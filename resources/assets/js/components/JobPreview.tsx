@@ -29,6 +29,8 @@ export interface JobPreviewProps {
   level: string;
   /** How often are Flex Hours allowed */
   flexHours: string;
+  // Description of Required Education
+  education: string;
 }
 
 const JobPreview: React.FunctionComponent<
@@ -106,20 +108,29 @@ const JobPreview: React.FunctionComponent<
             <FormattedMessage
               id="jobPreview.lengthOfTheTerm"
               defaultMessage="Length of the Term"
-              description="Data Label"
+              description="Datum Label"
             />
           </p>
           <p>{termLength} Months</p>
+          {/* TODO: And proper language conversion */}
         </div>
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Language Profile
+            <FormattedMessage
+              id="jobPreview.languageProfile"
+              defaultMessage="Language Profile"
+              description="Datum Label"
+            />
           </p>
           <p>{language}</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Security Clearance
+            <FormattedMessage
+              id="jobPreview.securityClearance"
+              defaultMessage="Security Clearance"
+              description="Datum Label"
+            />
           </p>
           <p>{securityLevel}</p>
         </div>
@@ -131,24 +142,40 @@ const JobPreview: React.FunctionComponent<
         data-c-margin="top(double) bottom(normal)"
         data-c-padding="bottom(normal)"
       >
-        Classification &amp; Education
+        <FormattedMessage
+          id="jobPreview.classificationEducation"
+          defaultMessage="Classification &amp; Education"
+          description="Section Header"
+        />
       </h4>
       <div data-c-grid="gutter">
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Classification
+            <FormattedMessage
+              id="jobPreview.classification"
+              defaultMessage="Classification"
+              description="Datum Label"
+            />
           </p>
           <p>{classification}</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Level
+            <FormattedMessage
+              id="jobPreview.level"
+              defaultMessage="Level"
+              description="Datum Label"
+            />
           </p>
           <p>{level}</p>
         </div>
         <div data-c-grid-item="base(1of1)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Education
+            <FormattedMessage
+              id="jobPreview.education"
+              defaultMessage="Education"
+              description="Datum Label"
+            />
           </p>
           <p>
             A secondary school diploma; or

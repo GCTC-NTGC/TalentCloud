@@ -23,6 +23,10 @@ stories.add(
       classification={text("Classification Code", "CS")}
       level={text("Position Level", "03")}
       flexHours={text("Sometimes")}
+      education={text(
+        "Education",
+        "2 years post-secondary, or equivalent experience \n\n2 years post-secondary education: Successful completion of two years of post-secondary education in computer science, information technology, information management or another specialty relevant to this position; or",
+      )}
     />
   ),
 );

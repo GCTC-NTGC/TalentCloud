@@ -285,6 +285,7 @@ interface JobFormValues {
   remoteWork: RemoteWorkType;
   telework: TeleworkOptionType;
   flexHours: FlexHourOptionType;
+  education: string;
 }
 
 type TeleworkOptionType =
@@ -367,6 +368,7 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues =>
         securityLevel: job.security_clearance_id || "",
         language: job.language_requirement_id || "",
         city: job[locale].city || "",
+        education: job[locale].education || "",
         province: job.province_id || "",
         remoteWork: job.remote_work_allowed
           ? "remoteWorkCanada"
@@ -386,6 +388,7 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues =>
         level: "",
         securityLevel: "",
         language: "",
+        education: "",
         city: "",
         province: "",
         remoteWork: "remoteWorkCanada",
@@ -408,6 +411,7 @@ const updateJobWithValues = (
     remoteWork,
     telework,
     flexHours,
+    education,
   }: JobFormValues,
 ): Job => ({
   ...initialJob,
@@ -424,6 +428,7 @@ const updateJobWithValues = (
     ...initialJob[locale],
     title,
     city,
+    education,
   },
 });
 
@@ -950,6 +955,7 @@ const JobDetails: React.FunctionComponent<
                         province={intl.formatMessage(
                           provinceName(Number(values.province)),
                         )}
+                        education={values.education}
                         termLength={Number(values.termLength)}
                         flexHours={String(values.flexHours)}
                         securityLevel={intl.formatMessage(
