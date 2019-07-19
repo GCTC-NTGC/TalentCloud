@@ -132,6 +132,13 @@ export interface Skill {
   skill_type_id: number;
   en: SkillTranslation;
   fr: SkillTranslation;
+  is_culture_skill: boolean;
+  is_future_skill: boolean;
+  classifications: Classification[];
+}
+
+export interface Classification {
+  key: string;
 }
 
 export interface Criteria {

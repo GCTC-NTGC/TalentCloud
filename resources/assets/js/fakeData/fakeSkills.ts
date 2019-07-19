@@ -1,6 +1,8 @@
 import { Skill } from "../models/types";
 import { SkillTypeId } from "../models/lookupConstants";
 
+// Classifications used: CS, EX
+
 export const fakeSkill = (): Skill => ({
   id: 1,
   skill_type_id: SkillTypeId.Hard,
@@ -14,6 +16,9 @@ export const fakeSkill = (): Skill => ({
     description:
       "Se définissant comme suit : Développement d'applications Web à l'aide de HTML5, CSS3 et JavaScript.",
   },
+  is_future_skill: false,
+  is_culture_skill: false,
+  classifications: [{ key: "CS" }],
 });
 
 export const fakeSkill2 = (): Skill => ({
@@ -29,6 +34,9 @@ export const fakeSkill2 = (): Skill => ({
     description:
       "Se définissant comme suit : Développement d'applications Web à l'aide de JavaScript et un langage finaux comme PHP, Python ou autre",
   },
+  is_future_skill: false,
+  is_culture_skill: false,
+  classifications: [{ key: "CS" }],
 });
 
 export const fakeSkill3 = (): Skill => ({
@@ -44,6 +52,9 @@ export const fakeSkill3 = (): Skill => ({
     description:
       "Se définissant comme suit : Développement d'applications à l'aide d'outils et de langages à source ouverte.",
   },
+  is_future_skill: true,
+  is_culture_skill: false,
+  classifications: [{ key: "CS" }, { key: "EX" }],
 });
 
 export const fakeSkill4 = (): Skill => ({
@@ -59,6 +70,13 @@ export const fakeSkill4 = (): Skill => ({
     description:
       "Se définissant comme suit : Capacité de traiter le personnel du milieu de travail avec équité, courtoisie et respect des différences et d'effectuer le travail de manière à maintenir la confiance du public et à respecter les valeurs de ses collègues.",
   },
+  is_future_skill: false,
+  is_culture_skill: true,
+  classifications: [
+    {
+      key: "EX",
+    },
+  ],
 });
 
 export const fakeSkills = (): Skill[] => [
