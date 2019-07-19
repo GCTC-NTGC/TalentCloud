@@ -211,7 +211,6 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
             .finally(
               (): void => actions.setSubmitting(false), // Required by Formik to finish the submission cycle
             );
-          actions.setSubmitting(false); // Required by Formik to finish the submission cycle
         }}
         render={({ isSubmitting, values, errors }): React.ReactElement => (
           <>
