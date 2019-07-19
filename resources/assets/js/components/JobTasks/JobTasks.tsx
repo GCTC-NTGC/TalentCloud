@@ -272,7 +272,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                           values.tasks.map(
                             (task, index): React.ReactElement => (
                               <>
-                                {validCount! === index && (
+                                {validCount === index && (
                                   <div
                                     className="job-builder-task-warning"
                                     data-c-grid-item="base(1of1)"
@@ -313,7 +313,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                                 <div
                                   key={`listItem${index}`}
                                   className={`job-builder-task${
-                                    index + 1 > validCount! ? " invalid" : ""
+                                    index + 1 > validCount ? " invalid" : ""
                                   }`}
                                   data-c-grid-item="base(1of1)"
                                   data-c-input="textarea"
