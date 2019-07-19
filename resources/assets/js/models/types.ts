@@ -149,9 +149,11 @@ export interface Criteria {
   skill_level_id: number;
   en: {
     description: string | null;
+    specificity: string | null;
   };
   fr: {
     description: string | null;
+    specificity: string | null;
   };
 }
 
