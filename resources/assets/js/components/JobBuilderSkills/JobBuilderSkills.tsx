@@ -13,6 +13,8 @@ import {
 interface JobBuilderSkillsProps {
   // The job being built
   job: Job;
+  // This job's key tasks
+  keyTasks: string[];
   // Criteria already part of the job
   initialCriteria: Criteria[];
   // The list of all possible skills
@@ -131,6 +133,7 @@ export const JobBuilderSkills: React.FunctionComponent<
   JobBuilderSkillsProps & InjectedIntlProps
 > = ({
   job,
+  keyTasks,
   initialCriteria,
   skills,
   handleSubmit,
@@ -453,38 +456,11 @@ export const JobBuilderSkills: React.FunctionComponent<
         </h4>
         {/* This is just regurgitated tasks from the previous step. */}
         <ul data-c-margin="bottom(triple)">
-          <li>
-            Consult broadly and recruit executive leadership in digital and
-            technology for federal organizations (e.g., C-Suite level positions
-            like Chief Information Officers, Chief Digital Officers, Chief
-            Technology Officers, and their deputies).
-          </li>
-          <li>
-            Connect partner organizations (departments, agencies) with top
-            talent (i.e., high-performing executives) with an interest and the
-            potential to assume technology leadership roles.
-          </li>
-          <li>
-            Identify and attract exceptional executive candidates, including
-            those who haven’t considered government as an option before.
-          </li>
-          <li>
-            Build a diverse pipeline of candidates and strong partnerships with
-            government departments. This means proactively going out and
-            building a network and strong relationships with senior level
-            external talent (CIOs and similar senior-level positions) across
-            Canada, as well as with senior leaders in departments and agencies
-            who have vacant positions.
-          </li>
-          <li>
-            Take a human-centered approach to recruitment by understanding
-            users’ needs (hiring executives and candidates) to deliver
-            exceptional user experience.
-          </li>
-          <li>
-            Work creatively using a broad array of traditional and social media
-            approaches.
-          </li>
+          {keyTasks.map(
+            (task): React.ReactElement => (
+              <li>{task}</li>
+            ),
+          )}
         </ul>
         {/* Total Skills List */}
         <h4

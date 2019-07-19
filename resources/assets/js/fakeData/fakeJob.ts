@@ -156,4 +156,13 @@ export const fakeCriterion = (id: number = 1, jobId: number = 1): Criteria => ({
   },
 });
 
+export const fakeKeyTasks = (): string[] => [
+  "Consult broadly and recruit executive leadership in digital and technology for federal organizations (e.g., C-Suite level positions like Chief Information Officers, Chief Digital Officers, Chief Technology Officers, and their deputies).",
+  "Connect partner organizations (departments, agencies) with top talent (i.e., high-performing executives) with an interest and the potential to assume technology leadership roles.",
+  "Identify and attract exceptional executive candidates, including those who haven’t considered government as an option before.",
+  "Build a diverse pipeline of candidates and strong partnerships with government departments. This means proactively going out and building a network and strong relationships with senior level external talent (CIOs and similar senior-level positions) across Canada, as well as with senior leaders in departments and agencies who have vacant positions.",
+  "Take a human-centered approach to recruitment by understanding users’ needs (hiring executives and candidates) to deliver exceptional user experience.",
+  "Work creatively using a broad array of traditional and social media approaches.",
+];
+
 export default fakeJob;
