@@ -204,7 +204,11 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
             updateTasksWithValues(values.tasks, keyTasks || emptyTasks()),
           )
             .then((updatedTasks): void => {
-              actions.resetForm(tasksToValues(updatedTasks)); // TODO: Should I use resetForm or setValues? - Tristan
+              /** Reseting form with new values adds the new, true ids from the server.
+               *  This stops tasks from being recreated (instead of updated) if you save the form again.
+               *  FIXME: However, this resets the ordering as well, to whatever order the server returns them in.
+               */
+              actions.resetForm(tasksToValues(updatedTasks));
               setIsModalVisible(true);
             })
             .finally(
