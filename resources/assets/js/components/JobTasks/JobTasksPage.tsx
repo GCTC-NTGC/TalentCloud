@@ -179,15 +179,15 @@ const mapStateToProps = (
 const mapDispatchToProps = (
   dispatch: DispatchType,
 ): {
-  loadJob: (jobId: number) => void;
+  loadJob: (jobId: number) => Promise<void>;
   loadTasks: (jobId: number) => Promise<void>;
   handleUpdateTasks: (
     jobId: number,
     tasks: JobPosterKeyTask[],
   ) => Promise<JobPosterKeyTask[]>;
 } => ({
-  loadJob: (jobId: number): void => {
-    dispatch(fetchJob(jobId));
+  loadJob: async (jobId: number): Promise<void> => {
+    await dispatch(fetchJob(jobId));
   },
   loadTasks: async (jobId: number): Promise<void> => {
     await dispatch(fetchJobTasks(jobId));

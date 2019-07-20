@@ -286,6 +286,10 @@ Route::group(
                     'jobs/{jobId}/builder/impact',
                     'JobBuilderController@impact'
                 )->where('jobPoster', '[0-9]+');
+                Route::get(
+                    'jobs/{jobId}/builder/tasks',
+                    'JobBuilderController@tasks'
+                )->where('jobPoster', '[0-9]+');
 
                 /* Delete Job */
                 Route::delete('jobs/{jobPoster}', 'JobController@destroy')

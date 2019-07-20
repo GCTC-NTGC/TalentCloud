@@ -54,4 +54,16 @@ class JobBuilderController extends Controller
             ['title' => Lang::get('manager/job_builder.impact_title'), 'jobId' => $jobId]
         );
     }
+
+    /**
+     * Show the Job Builder Tasks page
+     * @return \Illuminate\Http\Response
+     */
+    public function tasks($jobId)
+    {
+        return view(
+            'manager/job-builder-tasks',
+            ['title' => Lang::get('manager/job_builder.tasks_title'), 'jobId' => $jobId]
+        );
+    }
 }

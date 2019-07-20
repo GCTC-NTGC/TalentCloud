@@ -11,4 +11,5 @@ return [
     'details_title' => 'Job Builder: Details',
     'environment_title' => 'Job Builder: Work Environment',
     'impact_title' => 'Job Builder: Impact',
+    'tasks_title' => 'Job Builder: Tasks',
  ];
