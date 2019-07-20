@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\JobPosterKeyTask;
 use App\Models\JobPoster;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BatchUpdateJobTask;
 
 class JobTaskController extends Controller
 {
@@ -30,15 +30,15 @@ class JobTaskController extends Controller
     /**
      * Update the set of tasks associated with a Job.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\BatchUpdateJobTask  $request
      * @param  \App\Models\JobPoster  $jobPoster
      * @return \Illuminate\Http\Response
      */
-    public function batchUpdate(Request $request, JobPoster $jobPoster)
+    public function batchUpdate(BatchUpdateJobTask $request, JobPoster $jobPoster)
     {
         $toApiArray = array($this, 'toApiArray');
 
-        $newTasks = collect($request->input()); // Collection of JobPosterKeyTasks
+        $newTasks = collect($request->validated()); // Collection of JobPosterKeyTasks
         $oldTasks = $jobPoster->job_poster_key_tasks;
 
         $savedNewTaskIds = [];

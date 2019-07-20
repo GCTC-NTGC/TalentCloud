@@ -34,7 +34,7 @@ class JobTaskControllerTest extends TestCase
 
     public function testIndexByJob()
     {
-        $job = factory(JobPoster::class)->create();
+        $job = factory(JobPoster::class)->state('published')->create();
         // Ensure the factory added tasks, so we're not just checking an empty array
         $this->assertNotEmpty($job->job_poster_key_tasks);
 
@@ -148,6 +148,59 @@ class JobTaskControllerTest extends TestCase
                 'job_poster_key_task_id' => $task0->id,
                 'locale' => 'fr',
                 'description' => $frDescription,
+            ]
+        );
+    }
+
+    public function testBatchUpdateAddsTasksWithEmptyOrStringIds()
+    {
+        $job = factory(JobPoster::class)->create();
+        $job->job_poster_key_tasks()->delete(); // Clear tasks, to start from clean slate
+
+        $task0 = [
+            'id' => null,
+            'en' => ['description' => 'Description 0'],
+            'fr' => ['description' => 'FR Description 0'],
+        ];
+        $task1 = [
+            'id' => 'temp-1',
+            'en' => ['description' => 'Description 1'],
+            'fr' => ['description' => 'FR Description 1'],
+        ];
+
+
+        $newTaskArray = [$task0, $task1];
+        $response = $this->actingAs($job->manager->user)
+            ->json('put', "api/jobs/$job->id/tasks", $newTaskArray);
+        $response->assertOk();
+
+        // Task0 and Task1 should both be added
+        $this->assertDatabaseHas(
+            'job_poster_key_task_translations',
+            [
+                'locale' => 'en',
+                'description' => $task0['en']['description'],
+            ]
+        );
+        $this->assertDatabaseHas(
+            'job_poster_key_task_translations',
+            [
+                'locale' => 'fr',
+                'description' => $task0['fr']['description'],
+            ]
+        );
+        $this->assertDatabaseHas(
+            'job_poster_key_task_translations',
+            [
+                'locale' => 'en',
+                'description' => $task1['en']['description'],
+            ]
+        );
+        $this->assertDatabaseHas(
+            'job_poster_key_task_translations',
+            [
+                'locale' => 'fr',
+                'description' => $task1['fr']['description'],
             ]
         );
     }
