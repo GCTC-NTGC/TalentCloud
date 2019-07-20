@@ -266,4 +266,105 @@ class CriteriaControllerTest extends TestCase
             );
         }
     }
+
+    public function testBatchUpdateCreatesNotifications()
+    {
+        $job = factory(JobPoster::class)->create();
+        $job->criteria()->delete(); // Clear criteria, to start from clean slate
+
+        // Create 3 criteria. We will update one, delete one, and update only the description of the third
+        $criteria1 = factory(Criteria::class)->create(['job_poster_id' => $job->id, 'skill_id' => 1]);
+        $criteria2 = factory(Criteria::class)->create(['job_poster_id' => $job->id]);
+        $criteria3 = factory(Criteria::class)->create(['job_poster_id' => $job->id]);
+        // We totally update criteria1
+        $updatedData1 = [
+            'id' => $criteria1->id,
+            'job_poster_id' => $job->id,
+            'skill_id' => 10, // This is defintely different
+            'skill_level_id' => 2,
+            'criteria_type_id' => 1,
+            'en' => ['description' => 'This is the new description', 'specificity' => 'With extra specificity'],
+            'fr' => ['description' => null, 'specificity' => null],
+        ];
+        // criteria2 will be ommitted from the batch update and be deleted
+        // criteria3 will be updated, but only in its description
+        $updatedData3 = [
+            'id' => $criteria3->id,
+            'job_poster_id' => $job->id,
+            'skill_id' => $criteria3->skill_id,
+            'skill_level_id' => $criteria3->skill_level_id,
+            'criteria_type_id' => 1,
+            'en' => ['description' => 'Only the description of this criteria is changing.', 'specificity' => 'Okay the specificity is changing too.'],
+            'fr' => ['description' => null, 'specificity' => null],
+        ];
+        // We also create a brand new criteria
+        $newData = [
+            'id' => 'temp-4',
+            'job_poster_id' => $job->id,
+            'skill_id' => 3,
+            'skill_level_id' => 2,
+            'criteria_type_id' => 1,
+            'en' => ['description' => 'This one is new.', 'specificity' => 'Super new.'],
+            'fr' => ['description' => null, 'specificity' => null],
+        ];
+
+
+
+        $newCriteriaArray = [
+            $updatedData1,
+            $updatedData3,
+            $newData
+        ];
+        $response = $this->actingAs($job->manager->user)
+            ->json('put', "api/jobs/$job->id/criteria", $newCriteriaArray);
+        $response->assertOk();
+
+        // criteria1 should have created an update notification
+        $notificationValues1 = [
+            'type' => 'UPDATE',
+            'criteria_id' => $criteria1->id,
+            'job_poster_id' => $job->id,
+            'criteria_type_id' => $criteria1->criteria_type_id,
+            'skill_id' => $criteria1->skill_id,
+            'skill_id_new' => $updatedData1['skill_id'],
+            'skill_level_id' => $criteria1->skill_level_id,
+            'skill_level_id_new' => $updatedData1['skill_level_id'],
+            'acknowledged' => false
+        ];
+        $this->assertDatabaseHas('assessment_plan_notifications', $notificationValues1);
+
+        // criteria2 should have generated a delete notification
+        $notificationValues2 = [
+            'type' => 'DELETE',
+            'criteria_id' => $criteria2->id,
+            'job_poster_id' => $job->id,
+            'criteria_type_id' => $criteria2->criteria_type_id,
+            'skill_id' => $criteria2->skill_id,
+            'skill_id_new' => null,
+            'skill_level_id' => $criteria2->skill_level_id,
+            'skill_level_id_new' => null,
+            'acknowledged' => false
+        ];
+        $this->assertDatabaseHas('assessment_plan_notifications', $notificationValues2);
+
+        // criteria3 should have NOT generated a notification, as only the description changed
+        $notificationValues3 = [
+            'type' => 'UPDATE',
+            'criteria_id' => $criteria3->id,
+        ];
+        $this->assertDatabaseMissing('assessment_plan_notifications', $notificationValues3);
+
+        // newData should have generated a CREATE notification
+        $notificationValues4 = [
+            'type' => 'CREATE',
+            'job_poster_id' => $job->id,
+            'criteria_type_id' => $newData['criteria_type_id'],
+            'skill_id' => $newData['skill_id'],
+            'skill_id_new' => null,
+            'skill_level_id' => $newData['skill_level_id'],
+            'skill_level_id_new' => null,
+            'acknowledged' => false
+        ];
+        $this->assertDatabaseHas('assessment_plan_notifications', $notificationValues4);
+    }
 }
