@@ -16,6 +16,7 @@ import {
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import JobBuilderSkills from "./JobBuilderSkills";
 import { managerJobIndex } from "../../helpers/routes";
+import { ProgressTrackerItem } from "../ProgressTracker/types";
 
 interface JobBuilderSkillsPageProps {
   jobId: number;
