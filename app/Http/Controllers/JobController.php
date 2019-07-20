@@ -652,7 +652,8 @@ class JobController extends Controller
                 'UPDATE',
                 $criteria,
                 $data['skill_id'],
-                $data['skill_level_id']
+                $data['skill_level_id'],
+                $data['criteria_type_id']
             );
             $notification->save();
         }
@@ -683,13 +684,19 @@ class JobController extends Controller
      * Create a new AssessmentPlanNotification for a modification to a Criteria
      *
      * @param  string               $type            Can be CREATE, UPDATE or DELETE.
-     * @param  \App\Models\Criteria $criteria        Incoming Criteria.
+     * @param  \App\Models\Criteria $criteria        The Criteria (the OLD criteria if updating or deleting)
      * @param  integer|null         $newSkillId      Only used for UPDATE type notifications.
      * @param  integer|null         $newSkillLevelId Only used for UPDATE type notifications.
+     * @param  integer|null         $newCriteriaTypeId Only used for UPDATE type notifications.
      * @return \App\Models\AssessmentPlanNotification
      */
-    protected function makeAssessmentPlanNotification(string $type, Criteria $criteria, $newSkillId = null, $newSkillLevelId = null)
-    {
+    protected function makeAssessmentPlanNotification(
+        string $type,
+        Criteria $criteria,
+        $newSkillId = null,
+        $newSkillLevelId = null,
+        $newCriteriaTypeId = null
+    ) {
         $notification = new AssessmentPlanNotification();
         $notification->job_poster_id = $criteria->job_poster_id;
         $notification->type = $type;
@@ -699,6 +706,7 @@ class JobController extends Controller
         $notification->skill_level_id = $criteria->skill_level_id;
         $notification->skill_id_new = $newSkillId;
         $notification->skill_level_id_new = $newSkillLevelId;
+        $notification->criteria_type_id_new = $newCriteriaTypeId;
         $notification->acknowledged = false;
         return $notification;
     }
