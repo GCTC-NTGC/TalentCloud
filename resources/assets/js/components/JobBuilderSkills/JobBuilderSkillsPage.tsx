@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { InjectedIntlProps, FormattedMessage, injectIntl } from "react-intl";
+import { connect } from "react-redux";
+import ReactDOM from "react-dom";
+import RootContainer from "../RootContainer";
 import { Job, JobPosterKeyTask, Criteria, Skill } from "../../models/types";
-import { InjectedIntlProps, FormattedMessage } from "react-intl";
 import {
   jobBuilderIntroProgressState,
   jobBuilderDetailsProgressState,
@@ -17,6 +20,16 @@ import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import JobBuilderSkills from "./JobBuilderSkills";
 import { managerJobIndex } from "../../helpers/routes";
 import { ProgressTrackerItem } from "../ProgressTracker/types";
+import { RootState } from "../../store/store";
+import {
+  getJob,
+  getTasksByJob,
+  getCriteriaByJob,
+} from "../../store/Job/jobSelector";
+import { getSkills } from "../../store/Skill/skillSelector";
+import { DispatchType } from "../../configureStore";
+import { fetchJob, fetchJobTasks, fetchCriteria, batchUpdateCriteria } from "../../store/Job/jobActions";
+import { fetchSkills } from "../../store/Skill/skillActions";
 
 interface JobBuilderSkillsPageProps {
   jobId: number;
@@ -24,7 +37,6 @@ interface JobBuilderSkillsPageProps {
   loadJob: (jobId: number) => Promise<void>;
   skills: Skill[];
   loadSkills: () => Promise<void>;
-  // Included just to check progress state
   keyTasks: JobPosterKeyTask[];
   loadTasks: (jobId: number) => Promise<void>;
   criteria: Criteria[];
@@ -177,3 +189,74 @@ const JobBuilderSkillsPage: React.FunctionComponent<
     </section>
   );
 };
+
+const mapStateToProps = (
+  state: RootState,
+  ownProps: { jobId: number },
+): {
+  job: Job | null;
+  skills: Skill[];
+  keyTasks: JobPosterKeyTask[];
+  criteria: Criteria[];
+} => ({
+  job: getJob(state, ownProps),
+  skills: getSkills(state),
+  keyTasks: getTasksByJob(state, ownProps),
+  criteria: getCriteriaByJob(state, ownProps),
+});
+
+const mapDispatchToProps = (
+  dispatch: DispatchType,
+): {
+  loadJob: (jobId: number) => Promise<void>;
+  loadSkills: () => Promise<void>;
+  loadTasks: (jobId: number) => Promise<void>;
+  loadCriteria: (jobId: number) => Promise<void>;
+  handleSubmitCriteria: (
+    jobId: number,
+    criteria: Criteria[],
+  ) => Promise<Criteria[]>;
+} => ({
+  loadJob: async (jobId: number): Promise<void> => {
+    await dispatch(fetchJob(jobId));
+  },
+  loadSkills: async (): Promise<void> => {
+    await dispatch(fetchSkills());
+  },
+  loadTasks: async (jobId: number): Promise<void> => {
+    await dispatch(fetchJobTasks(jobId));
+  },
+  loadCriteria: async (jobId: number): Promise<void> => {
+    await dispatch(fetchCriteria(jobId));
+  },
+  handleSubmitCriteria: async (
+    jobId: number,
+    criteria: Criteria[],
+  ): Promise<Criteria[]> => {
+    const result = await dispatch(batchUpdateCriteria(jobId, criteria));
+    if (result.error) {
+      return Promise.reject(result.payload);
+    }
+    const resultCriteria = await result.payload;
+    return resultCriteria;
+  },
+});
+
+const JobSkillsPageContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(injectIntl(JobBuilderSkillsPage));
+
+if (document.getElementById("job-builder-skills")) {
+  const container = document.getElementById("job-builder-skills") as HTMLElement;
+  const jobIdAttr = container.getAttribute("data-job-id");
+  const jobId = jobIdAttr ? Number(jobIdAttr) : null;
+  if (jobId) {
+    ReactDOM.render(
+      <RootContainer>
+        <JobSkillsPageContainer jobId={jobId} />
+      </RootContainer>,
+      container,
+    );
+  }
+}
