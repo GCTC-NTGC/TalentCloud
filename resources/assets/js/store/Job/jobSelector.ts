@@ -103,5 +103,6 @@ export const getCriteriaIdsByJob = createCachedSelector(
 export const getTasksByJob = createCachedSelector(
   getTaskState,
   (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
-  (tasksByJob, jobId): JobPosterKeyTask[] => tasksByJob[jobId],
+  (tasksByJob, jobId): JobPosterKeyTask[] =>
+    hasKey(tasksByJob, jobId) ? tasksByJob[jobId] : [],
 )((state, ownProps): number => ownProps.jobId);
