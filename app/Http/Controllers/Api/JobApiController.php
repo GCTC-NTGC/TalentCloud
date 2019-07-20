@@ -8,6 +8,7 @@ use App\Models\Criteria;
 use App\Services\Validation\JobPosterValidator;
 use App\Http\Requests\UpdateJobPoster;
 use App\Http\Requests\StoreJobPoster;
+use App\Models\JobPosterKeyTask;
 
 class JobApiController extends Controller
 {
@@ -31,10 +32,12 @@ class JobApiController extends Controller
     private function jobToArray(JobPoster $job)
     {
         $criteria = Criteria::where('job_poster_id', $job->id)->get();
-        $criteriaTranslated = [];
-        foreach ($criteria as $criterion) {
-            $criteriaTranslated[] = array_merge($criterion->toArray(), $criterion->getTranslationsArray());
-        }
+
+        $toApiArray = function ($model) {
+            return array_merge($model->toArray(), $model->getTranslationsArray());
+        };
+        $criteriaTranslated = $criteria->map($toApiArray);
+
         $jobArray = array_merge($job->toApiArray(), ['criteria' => $criteriaTranslated]);
         return $jobArray;
     }

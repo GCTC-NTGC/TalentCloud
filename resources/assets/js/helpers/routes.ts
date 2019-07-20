@@ -51,3 +51,7 @@ export function jobBuilderImpact(locale: string, jobId?: number): string {
   }
   return `/${locale}/manager/job-builder/impact`;
 }
+
+export function jobBuilderTasks(locale: string, jobId: number): string {
+  return `/${locale}/manager/jobs/${jobId}/builder/tasks`;
+}

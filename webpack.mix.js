@@ -35,6 +35,7 @@ mix
     "resources/assets/js/components/JobBuilderImpact/JobBuilderImpactPage",
     "public/js",
   )
+  .js("resources/assets/js/components/JobTasks/JobTasksPage", "public/js")
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: sass,
     includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"],
