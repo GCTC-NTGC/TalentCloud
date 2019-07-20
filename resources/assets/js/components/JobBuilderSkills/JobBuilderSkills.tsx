@@ -458,7 +458,7 @@ export const JobBuilderSkills: React.FunctionComponent<
         <ul data-c-margin="bottom(triple)">
           {keyTasks.map(
             (task): React.ReactElement => (
-              <li>{task[locale].description}</li>
+              <li key={task.id}>{task[locale].description}</li>
             ),
           )}
         </ul>
