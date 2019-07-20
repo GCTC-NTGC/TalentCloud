@@ -190,6 +190,7 @@ export interface AssessmentPlanNotification {
   type: string;
   criteria_id: number;
   criteria_type_id: number;
+  criteria_type_id_new: number | null;
   skill_id: number;
   skill_id_new: number | null;
   skill_level_id: number;

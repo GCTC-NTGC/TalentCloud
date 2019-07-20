@@ -117,8 +117,8 @@ class CriteriaController extends Controller
                 'UPDATE',
                 $oldCriteria,
                 $newData['skill_id'],
-                $newData['skill_level_id']
-                // FIXME: Add Criteria Type id
+                $newData['skill_level_id'],
+                $newData['criteria_type_id']
             );
             $notification->save();
         }
@@ -154,10 +154,16 @@ class CriteriaController extends Controller
      * @param  \App\Models\Criteria $criteria        The Criteria (the OLD criteria if updating or deleting)
      * @param  integer|null         $newSkillId      Only used for UPDATE type notifications.
      * @param  integer|null         $newSkillLevelId Only used for UPDATE type notifications.
+     * @param  integer|null         $newCriteriaTypeId Only used for UPDATE type notifications.
      * @return \App\Models\AssessmentPlanNotification
      */
-    protected function makeAssessmentPlanNotification(string $type, Criteria $criteria, $newSkillId = null, $newSkillLevelId = null)
-    {
+    protected function makeAssessmentPlanNotification(
+        string $type,
+        Criteria $criteria,
+        $newSkillId = null,
+        $newSkillLevelId = null,
+        $newCriteriaTypeId = null
+    ) {
         $notification = new AssessmentPlanNotification();
         $notification->job_poster_id = $criteria->job_poster_id;
         $notification->type = $type;
@@ -167,6 +173,7 @@ class CriteriaController extends Controller
         $notification->skill_level_id = $criteria->skill_level_id;
         $notification->skill_id_new = $newSkillId;
         $notification->skill_level_id_new = $newSkillLevelId;
+        $notification->criteria_type_id_new = $newCriteriaTypeId;
         $notification->acknowledged = false;
         return $notification;
     }
