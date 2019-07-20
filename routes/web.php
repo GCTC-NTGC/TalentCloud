@@ -432,6 +432,12 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
         'store', 'create', 'edit'
     ]);
+    // TODO: add policy middleware
+    Route::get('jobs/{jobPoster}/tasks', 'Api\JobTaskController@indexByJob')
+        ->where('jobPoster', '[0-9]+');
+    Route::put('jobs/{jobPoster}/tasks', 'Api\JobTaskController@batchUpdate')
+        ->where('jobPoster', '[0-9]+');
+
 
     Route::resource('jobs', 'Api\JobApiController')->only([
         'show', 'store', 'update'
