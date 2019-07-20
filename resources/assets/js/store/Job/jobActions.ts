@@ -1,5 +1,11 @@
-import { getJobEndpoint, parseJobResponse, parseJob } from "../../api/job";
-import { Job, Criteria } from "../../models/types";
+import {
+  getJobEndpoint,
+  parseJobResponse,
+  parseJob,
+  parseTasksResponse,
+  getTasksEndpoint,
+} from "../../api/job";
+import { Job, Criteria, JobPosterKeyTask } from "../../models/types";
 import {
   AsyncFsaActions,
   RSAActionTemplate,
@@ -125,12 +131,77 @@ export const setSelectedJob = (jobId: number | null): SetSelectedJobAction => ({
   payload: { jobId },
 });
 
+export const FETCH_JOB_TASKS_STARTED = "JOB TASKS: GET STARTED";
+export const FETCH_JOB_TASKS_SUCCEEDED = "JOB TASKS: GET SUCCEEDED";
+export const FETCH_JOB_TASKS_FAILED = "JOB TASKS: GET FAILED";
+
+export type FetchJobTasksAction = AsyncFsaActions<
+  typeof FETCH_JOB_TASKS_STARTED,
+  typeof FETCH_JOB_TASKS_SUCCEEDED,
+  typeof FETCH_JOB_TASKS_FAILED,
+  JobPosterKeyTask[],
+  { jobId: number }
+>;
+
+export const fetchJobTasks = (
+  jobId: number,
+): RSAActionTemplate<
+  typeof FETCH_JOB_TASKS_STARTED,
+  typeof FETCH_JOB_TASKS_SUCCEEDED,
+  typeof FETCH_JOB_TASKS_FAILED,
+  JobPosterKeyTask[],
+  { jobId: number }
+> =>
+  asyncGet(
+    getTasksEndpoint(jobId),
+    FETCH_JOB_TASKS_STARTED,
+    FETCH_JOB_TASKS_SUCCEEDED,
+    FETCH_JOB_TASKS_FAILED,
+    parseTasksResponse,
+    { jobId },
+  );
+
+export const BATCH_UPDATE_JOB_TASKS_STARTED = "JOB TASKS: BATCH UPDATE STARTED";
+export const BATCH_UPDATE_JOB_TASKS_SUCCEEDED =
+  "JOB TASKS: BATCH UPDATE SUCCEEDED";
+export const BATCH_UPDATE_JOB_TASKS_FAILED = "JOB TASKS: BATCH UPDATE FAILED";
+
+export type BatchUpdateJobTasksAction = AsyncFsaActions<
+  typeof BATCH_UPDATE_JOB_TASKS_STARTED,
+  typeof BATCH_UPDATE_JOB_TASKS_SUCCEEDED,
+  typeof BATCH_UPDATE_JOB_TASKS_FAILED,
+  JobPosterKeyTask[],
+  { jobId: number }
+>;
+
+export const batchUpdateJobTasks = (
+  jobId: number,
+  tasks: JobPosterKeyTask[],
+): RSAActionTemplate<
+  typeof BATCH_UPDATE_JOB_TASKS_STARTED,
+  typeof BATCH_UPDATE_JOB_TASKS_SUCCEEDED,
+  typeof BATCH_UPDATE_JOB_TASKS_FAILED,
+  JobPosterKeyTask[],
+  { jobId: number }
+> =>
+  asyncPut(
+    getTasksEndpoint(jobId),
+    tasks,
+    BATCH_UPDATE_JOB_TASKS_STARTED,
+    BATCH_UPDATE_JOB_TASKS_SUCCEEDED,
+    BATCH_UPDATE_JOB_TASKS_FAILED,
+    parseTasksResponse,
+    { jobId },
+  );
+
 export type JobAction =
   | FetchJobAction
   | CreateJobAction
   | UpdateJobAction
   | EditJobAction
   | ClearEditJobAction
-  | SetSelectedJobAction;
+  | SetSelectedJobAction
+  | FetchJobTasksAction
+  | BatchUpdateJobTasksAction;
 
 export default { fetchJob };

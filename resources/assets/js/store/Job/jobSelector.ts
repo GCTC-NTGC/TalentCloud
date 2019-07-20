@@ -2,7 +2,7 @@ import isEqual from "lodash/isEqual";
 import { createSelector } from "reselect";
 import createCachedSelector from "re-reselect";
 import { RootState } from "../store";
-import { Job, Criteria } from "../../models/types";
+import { Job, Criteria, JobPosterKeyTask } from "../../models/types";
 import { hasKey, getId } from "../../helpers/queries";
 import { EntityState, UiState } from "./jobReducer";
 
@@ -21,6 +21,10 @@ const getJobUpdatingState = (state: RootState): { [id: number]: boolean } =>
 export const getCriteriaState = (
   state: RootState,
 ): { [id: number]: Criteria } => entities(state).criteria.byId;
+
+const getTaskState = (
+  state: RootState,
+): { [jobId: number]: JobPosterKeyTask[] } => entities(state).tasks.byJobId;
 
 export const getJob = createCachedSelector(
   getJobState,
@@ -94,4 +98,10 @@ export const getCriteriaIdsOfTypeByJob = createCachedSelector(
 export const getCriteriaIdsByJob = createCachedSelector(
   getCriteriaByJob,
   (criteria): number[] => criteria.map(getId),
+)((state, ownProps): number => ownProps.jobId);
+
+export const getTasksByJob = createCachedSelector(
+  getTaskState,
+  (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
+  (tasksByJob, jobId): JobPosterKeyTask[] => tasksByJob[jobId],
 )((state, ownProps): number => ownProps.jobId);
