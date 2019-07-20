@@ -17,7 +17,7 @@ import {
 } from "../JobBuilder/jobBuilderMessages";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import JobTasks from "./JobTasks";
-import { managerJobIndex } from "../../helpers/routes";
+import { managerJobIndex, jobBuilderSkills } from "../../helpers/routes";
 import { RootState } from "../../store/store";
 import { getJob, getTasksByJob } from "../../store/Job/jobSelector";
 import { DispatchType } from "../../configureStore";
@@ -75,7 +75,7 @@ const JobTasksPage: React.FunctionComponent<
   const handleModalCancel = (): void => {}; // No need to do anything.
   const handleModalConfirm = (): void => {
     // Continue to next page
-    window.location.href = managerJobIndex(locale);
+    window.location.href = jobBuilderSkills(locale, jobId);
   };
   const handleSubmit = (
     tasks: JobPosterKeyTask[],

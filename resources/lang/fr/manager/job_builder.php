@@ -12,4 +12,5 @@ return [
     'environment_title' => 'Constructeur d\'Affiches: Environnement de travail',
     'impact_title' => 'Constructeur d\'Affiches: Impact',
     'tasks_title' => 'Constructeur d\'Affiches: Taches',
+    'skills_title' => 'Constructeur d\'Affiches: Compétences',
  ];
