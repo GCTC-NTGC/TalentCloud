@@ -7,20 +7,21 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Notifications\Notifiable;
+use App\CRUD\TalentCloudCrudTrait as CrudTrait;
 use App\Events\UserCreated;
 use App\Events\UserUpdated;
 use App\Notifications\ResetPasswordNotification;
-use App\CRUD\TalentCloudCrudTrait as CrudTrait;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Notifications\Notifiable;
 
 /**
- * Class User
+ * Class User.
  *
  * @property int $id
  * @property string $email
@@ -31,7 +32,6 @@ use App\CRUD\TalentCloudCrudTrait as CrudTrait;
  * @property int $user_role_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Manager $manager
  * @property \App\Models\ProfilePic $profile_pic
@@ -46,7 +46,6 @@ class User extends BaseModel implements
     // Custom contract for use with openid login.
     // \App\Services\Auth\Contracts\OidcAuthenticatable.
 {
-
     // Traits for Laravel basic authentication.
     use Authenticatable, CanResetPassword;
     // Trait for working with Gates and Policies.
@@ -55,6 +54,8 @@ class User extends BaseModel implements
     use Notifiable;
     // Trait for Backpack.
     use CrudTrait;
+    // Enable soft deletes.
+    use SoftDeletes;
 
     protected $casts = [
         'is_confirmed' => 'boolean',
@@ -106,23 +107,26 @@ class User extends BaseModel implements
     // Role related functions
 
     /**
-    * Abort with an HTTP error if user doesn't have correct roles
-    * @param string|array $roles
-    */
+     * Abort with an HTTP error if user doesn't have correct roles.
+     *
+     * @param string|array $roles
+     */
     public function authorizeRoles($roles)
     {
         if (is_array($roles)) {
             return $this->hasAnyRole($roles) ||
                  abort(401, 'This action is unauthorized.');
         }
+
         return $this->hasRole($roles) ||
              abort(401, 'This action is unauthorized.');
     }
 
     /**
-    * Check multiple roles
-    * @param array $roles
-    */
+     * Check multiple roles.
+     *
+     * @param array $roles
+     */
     public function hasAnyRole($roles)
     {
         return in_array($this->user_role->name, $roles);
@@ -130,9 +134,10 @@ class User extends BaseModel implements
     }
 
     /**
-    * Check one role
-    * @param string $role
-    */
+     * Check one role.
+     *
+     * @param string $role
+     */
     public function hasRole($role)
     {
         return $this->user_role->name == $role;
@@ -143,7 +148,7 @@ class User extends BaseModel implements
      * OVERRIDE
      * Send the password reset notification.
      *
-     * @param  string  $token
+     * @param string $token
      *
      * @return void
      */
