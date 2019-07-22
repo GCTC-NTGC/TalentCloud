@@ -97,6 +97,12 @@ const messages = defineMessages({
     defaultMessage: "Always",
     description: "Flex Hours Frequency",
   },
+  termLength: {
+    id: "jobPreview.termLength",
+    defaultMessage:
+      "{termMonths, plural, =0 {no months} one {# month} other {# months}}",
+    description: "Calculated term lenght in months",
+  },
 });
 
 const JobPreview: React.FunctionComponent<
@@ -174,7 +180,11 @@ const JobPreview: React.FunctionComponent<
               description="Datum Label"
             />
           </p>
-          <p>{termLength} Months</p>
+          <p>
+            {intl.formatMessage(messages.termLength, {
+              termMonths: termLength,
+            })}
+          </p>
           {/* TODO: And proper language conversion */}
         </div>
         <div data-c-grid-item="tp(1of2)">
