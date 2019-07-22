@@ -89,3 +89,19 @@ test("Manager Job Posters", async t => {
     .expect(Selector(".manager-poster-index").visible)
     .ok();
 });
+
+test("Admin Portal", async t => {
+  await t
+    .navigateTo("/admin/login")
+    .typeText(
+      Selector(".form-control").withAttribute("name", "email"),
+      "admin@test.com",
+    )
+    .typeText(
+      Selector(".form-control").withAttribute("name", "password"),
+      "password",
+    )
+    .pressKey("enter")
+    .expect(Selector("h1").withText("Dashboard").visible)
+    .ok();
+});
