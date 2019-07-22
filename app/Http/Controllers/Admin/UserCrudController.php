@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Models\UserRole;
+use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 class UserCrudController extends CrudController
 {
@@ -20,7 +20,6 @@ class UserCrudController extends CrudController
         $this->crud->setEntityNameStrings('user', 'users');
 
         $this->crud->denyAccess('create');
-        $this->crud->denyAccess('delete');
 
         $this->crud->addColumn([
             'name' => 'name',
@@ -79,12 +78,14 @@ class UserCrudController extends CrudController
     /**
      * Action for updating an existing User in the database.
      *
-     * @param  \Illuminate\Http\Request $request Incoming form request.
+     * @param \Illuminate\Http\Request $request Incoming form request.
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update($request) // phpcs:ignore
     {
         $response = parent::updateCrud();
+
         return $response;
     }
 }
