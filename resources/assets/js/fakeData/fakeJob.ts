@@ -44,7 +44,8 @@ export const fakeJob = (id = 1): Job => ({
       "As a senior team member, you will be an important pillar in our movement to the cloud, especially with our case management system; Dynamics 365. Your knowledge, insights and analytical skills will be key elements in helping to build an optimal platform to support the Office’s future vision.",
     branch: "dolor",
     division: "suscipit",
-    education: "2 years post-secondary, or equivalent experience ",
+    education:
+      "A secondary school diploma; or \n \n Equivalent Experience: \n If you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum education requirement stated above.",
     work_env_description:
       "Our office also has a couch that is so comfortable it must be hidden from view.",
     culture_summary:
@@ -115,7 +116,8 @@ export const fakeJob2 = (id = 1): Job => ({
       "Aliquam aspernatur possimus est harum in explicabo et ut. Sint iure quaerat impedit et et. Ut dolorum assumenda repellat ducimus itaque.",
     branch: "CIOB",
     division: "",
-    education: "Dolorem laborum vel sequi quo autem.",
+    education:
+      "A secondary school diploma; or \n \n Equivalent Experience: \n If you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum education requirement stated above.",
     work_env_description:
       "You may be able to pick your own office, if you work remotely.",
     culture_summary:

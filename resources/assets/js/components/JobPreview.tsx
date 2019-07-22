@@ -31,6 +31,9 @@ export interface JobPreviewProps {
   flexHours: string;
   // Description of Required Education
   education: string;
+  // Telework is allowed
+  telework: string;
+  // Travel opportunities;
 }
 
 const messages = defineMessages({
@@ -44,6 +47,56 @@ const messages = defineMessages({
     defaultMessage: "Not Allowed",
     description: "Remote World Permission",
   },
+  teleworkNever: {
+    id: "jobPreview.telework.never",
+    defaultMessage: "Never",
+    description: "Telework Frequency",
+  },
+  teleworkOccasionally: {
+    id: "jobPreview.telework.occasionally",
+    defaultMessage: "Occasionally",
+    description: "Telework Frequency",
+  },
+  teleworkSometimes: {
+    id: "jobPreview.telework.sometimes",
+    defaultMessage: "Sometimes",
+    description: "Telework Frequency",
+  },
+  teleworkFrequently: {
+    id: "jobPreview.telework.frequently",
+    defaultMessage: "Frequently",
+    description: "Telework Frequency",
+  },
+  teleworkAlways: {
+    id: "jobPreview.telework.always",
+    defaultMessage: "Always",
+    description: "Telework Frequency",
+  },
+  flexHoursNever: {
+    id: "jobPreview.flexHours.never",
+    defaultMessage: "Never",
+    description: "Flex Hours Frequency",
+  },
+  flexHoursOccasionally: {
+    id: "jobPreview.flexHours.occasionally",
+    defaultMessage: "Occasionally",
+    description: "Flex Hours Frequency",
+  },
+  flexHoursSometimes: {
+    id: "jobPreview.flexHours.sometimes",
+    defaultMessage: "Sometimes",
+    description: "Flex Hours Frequency",
+  },
+  flexHoursFrequently: {
+    id: "jobPreview.flexHours.frequently",
+    defaultMessage: "Frequently",
+    description: "Flex Hours Frequency",
+  },
+  flexHoursAlways: {
+    id: "jobPreview.flexHours.always",
+    defaultMessage: "Always",
+    description: "Flex Hours Frequency",
+  },
 });
 
 const JobPreview: React.FunctionComponent<
@@ -52,6 +105,7 @@ const JobPreview: React.FunctionComponent<
   title,
   department,
   city,
+  education,
   province,
   flexHours,
   remoteWork,
@@ -59,6 +113,7 @@ const JobPreview: React.FunctionComponent<
   termLength,
   securityLevel,
   classification,
+  telework,
   level,
   intl,
 }: JobPreviewProps & InjectedIntlProps): React.ReactElement => {
@@ -185,18 +240,7 @@ const JobPreview: React.FunctionComponent<
               description="Datum Label"
             />
           </p>
-          <p>
-            A secondary school diploma; or
-            <br />
-            <br />
-            Equivalent Experience:
-            <br />
-            If you have on-the-job learning or other non-conventional training
-            that you believe is equivalent to the secondary school diploma, put
-            it forward for consideration. The manager may accept a combination
-            of education, training and/or experience in a related field as an
-            alternative to the minimum education requirement stated above.
-          </p>
+          <p>{education}</p>
         </div>
       </div>
       <h4
@@ -206,41 +250,69 @@ const JobPreview: React.FunctionComponent<
         data-c-margin="top(double) bottom(normal)"
         data-c-padding="bottom(normal)"
       >
-        Work Styles
+        <FormattedMessage
+          id="jobPreview.workStyles"
+          defaultMessage="Work Styles"
+          description="Section Header"
+        />
       </h4>
       <div data-c-grid="gutter">
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Remote Work
+            <FormattedMessage
+              id="jobPreview.remoteWork"
+              defaultMessage="Remote Work"
+              description="Datum Label"
+            />
           </p>
           <p>
-            Yes, I’m willing to supervise employees in any province or territory
-            in Canada.
+            {remoteWork
+              ? intl.formatMessage(messages.allowed)
+              : intl.formatMessage(messages.notAllowed)}
+            {/* TODO: Add long form text explanation of Remote Work Status */}
+            {/* eg. Yes, I’m willing to supervise employees in any province or territory
+            in Canada. */}
           </p>
         </div>
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Telework
+            <FormattedMessage
+              id="jobPreview.telework"
+              defaultMessage="Telework"
+              description="Datum Label"
+            />
           </p>
-          <p>Almost Always</p>
+          <p>{intl.formatMessage(messages[telework])}</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Flexible Hours
+            <FormattedMessage
+              id="jobPreview.flexibleHours"
+              defaultMessage="Flexible Hours"
+              description="Datum Label"
+            />
           </p>
-          <p>{flexHours}</p>
+          <p>{intl.formatMessage(messages[flexHours])}</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Travel
+            <FormattedMessage
+              id="jobPreview.travel"
+              defaultMessage="Travel"
+              description="Datum Label"
+            />
           </p>
-          <p>Travel Opportunities Available</p>
+          <p>Not yet implemented.</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c1" data-c-margin="bottom(quarter)">
-            Overtime
+            <FormattedMessage
+              id="jobPreview.overtime"
+              defaultMessage="Overtime"
+              description="Datum Label"
+            />
           </p>
-          <p>No Overtime Required</p>
+          <p>Not yet implemented.</p>
         </div>
       </div>
     </div>

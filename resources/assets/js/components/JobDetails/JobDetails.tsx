@@ -957,6 +957,7 @@ const JobDetails: React.FunctionComponent<
                         )}
                         education={values.education}
                         termLength={Number(values.termLength)}
+                        telework={String(values.telework)}
                         flexHours={String(values.flexHours)}
                         securityLevel={intl.formatMessage(
                           securityClearance(Number(values.securityLevel)),
