@@ -33,6 +33,19 @@ export interface JobPreviewProps {
   education: string;
 }
 
+const messages = defineMessages({
+  allowed: {
+    id: "jobPreview.remoteWork.allowed",
+    defaultMessage: "Allowed",
+    description: "Remote Work Permission.",
+  },
+  notAllowed: {
+    id: "jobPreview.remoteWork.notAllowed",
+    defaultMessage: "Not Allowed",
+    description: "Remote World Permission",
+  },
+});
+
 const JobPreview: React.FunctionComponent<
   JobPreviewProps & InjectedIntlProps
 > = ({
@@ -76,19 +89,14 @@ const JobPreview: React.FunctionComponent<
         </i>
         {city}, {province}
       </p>
-      {remoteWork && (
-        <p>
-          <i
-            data-c-colour="c1"
-            className="fas fa-home"
-            title="Remote Work Icon."
-          >
-            &nbsp;&nbsp;
-          </i>
-          {remoteWork}
-          {/* TODO: Should display allows or not allowed based on the Boolean */}
-        </p>
-      )}
+      <p>
+        <i data-c-colour="c1" className="fas fa-home" title="Remote Work Icon.">
+          &nbsp;&nbsp;
+        </i>
+        {remoteWork
+          ? intl.formatMessage(messages.allowed)
+          : intl.formatMessage(messages.notAllowed)}
+      </p>
       <h4
         data-c-font-size="h4"
         data-c-font-weight="600"
