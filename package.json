@@ -52,7 +52,7 @@
     "@types/redux-mock-store": "^1.0.1",
     "@types/storybook__react": "^4.0.2",
     "@types/yup": "^0.26.22",
-    "@typescript-eslint/eslint-plugin": "^1.12.0",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.12.0",
     "babel-plugin-react-intl": "^4.1.0",
     "clone-framework": "^2.3.8",
