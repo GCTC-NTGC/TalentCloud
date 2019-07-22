@@ -105,3 +105,17 @@ test("Admin Portal", async t => {
     .expect(Selector("h1").withText("Dashboard").visible)
     .ok();
 });
+
+test("Applicant Profile", async t => {
+  await t
+    .click(Selector("a").withText("Login"))
+    .typeText(Selector("#email"), "applicant@test.com")
+    .typeText(Selector("#password"), "password")
+    .click(Selector("button").withText("Login"))
+    .navigateTo("/profile/about")
+    .expect(Selector("h1").withText("About Me").visible)
+    .ok()
+    .click(Selector("a").withText("My Skills"))
+    .expect(Selector("h1").withText("My Skills").visible)
+    .ok();
+});
