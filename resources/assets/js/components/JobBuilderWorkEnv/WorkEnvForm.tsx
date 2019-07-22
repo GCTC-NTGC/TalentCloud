@@ -1144,27 +1144,25 @@ const WorkEnvForm = ({
                 </button>
               </div>
             </Form>
-            {isModalVisible && (
-              <WorkEnvModal
-                modalConfirm={(): void => {
-                  setIsModalVisible(false);
-                  handleModalConfirm();
-                }}
-                modalCancel={(): void => {
-                  setIsModalVisible(false);
-                  handleModalCancel();
-                }}
-                isVisible={isModalVisible}
-                parentElement={modalParentRef.current}
-                values={values}
-                cultureSummary={
-                  values.cultureSummary || buildCultureSummary(values)
-                }
-                physEnvData={phyEnvData}
-                techData={techData}
-                amenitiesData={amenitiesData}
-              />
-            )}
+            <WorkEnvModal
+              modalConfirm={(): void => {
+                setIsModalVisible(false);
+                handleModalConfirm();
+              }}
+              modalCancel={(): void => {
+                setIsModalVisible(false);
+                handleModalCancel();
+              }}
+              isVisible={isModalVisible}
+              parentElement={modalParentRef.current}
+              values={values}
+              cultureSummary={
+                values.cultureSummary || buildCultureSummary(values)
+              }
+              physEnvData={phyEnvData}
+              techData={techData}
+              amenitiesData={amenitiesData}
+            />
           </>
         )}
       />
