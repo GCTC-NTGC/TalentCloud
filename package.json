@@ -71,6 +71,7 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.6.1",
+    "eslint-plugin-testcafe": "^0.2.1",
     "fetch-mock": "^7.3.7",
     "intl": "^1.2.5",
     "jest": "^24.7.1",
