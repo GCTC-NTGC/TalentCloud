@@ -499,7 +499,10 @@ export const JobBuilderSkills: React.FunctionComponent<
                 >
                   {/* This div appears in each step of the indicator, but we need the number inside the "span" to reflect the number of skills currently selected (within the context of the indicator, i.e. only show the number of essential skills selected in the essential indicator). */}
                   <div>
-                    <img src="\images\icon-smiley-arrow-bad.svg" />
+                    <img
+                      src="\images\icon-smiley-arrow-bad.svg"
+                      alt="Arrow icon highlighting the unhappy smiley icon."
+                    />
                     <span
                       data-c-font-weight="bold"
                       data-c-colour="white"
@@ -508,8 +511,14 @@ export const JobBuilderSkills: React.FunctionComponent<
                       {essentialCount}
                     </span>
                   </div>
-                  <img src="\images\icon-smiley-bad.svg" />
-                  <img src="\images\icon-smiley-bad-grey.svg" />
+                  <img
+                    src="\images\icon-smiley-bad.svg"
+                    alt="Unhappy coloured smiley icon."
+                  />
+                  <img
+                    src="\images\icon-smiley-bad-grey.svg"
+                    alt="Unhappy grayscale smiley icon."
+                  />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     Too Few
                   </p>
@@ -522,7 +531,10 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-grid-item="base(1of5)"
                 >
                   <div>
-                    <img src="\images\icon-smiley-arrow-medium.svg" />
+                    <img
+                      src="\images\icon-smiley-arrow-medium.svg"
+                      alt="Arrow highlighting the neutral smiley icon."
+                    />
                     <span
                       data-c-font-weight="bold"
                       data-c-colour="white"
@@ -531,8 +543,14 @@ export const JobBuilderSkills: React.FunctionComponent<
                       {essentialCount}
                     </span>
                   </div>
-                  <img src="\images\icon-smiley-medium.svg" />
-                  <img src="\images\icon-smiley-medium-grey.svg" />
+                  <img
+                    src="\images\icon-smiley-medium.svg"
+                    alt="Neutral coloured smiley icon."
+                  />
+                  <img
+                    src="\images\icon-smiley-medium-grey.svg"
+                    alt="Neutral grayscale smiley icon."
+                  />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     Almost
                   </p>
@@ -545,7 +563,10 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-grid-item="base(1of5)"
                 >
                   <div>
-                    <img src="\images\icon-smiley-arrow-good.svg" />
+                    <img
+                      src="\images\icon-smiley-arrow-good.svg"
+                      alt="Arrow highlighting the happy smiley icon."
+                    />
                     <span
                       data-c-font-weight="bold"
                       data-c-colour="white"
@@ -554,8 +575,14 @@ export const JobBuilderSkills: React.FunctionComponent<
                       {essentialCount}
                     </span>
                   </div>
-                  <img src="\images\icon-smiley-good.svg" />
-                  <img src="\images\icon-smiley-good-grey.svg" />
+                  <img
+                    src="\images\icon-smiley-good.svg"
+                    alt="Happy coloured smiley icon."
+                  />
+                  <img
+                    src="\images\icon-smiley-good-grey.svg"
+                    alt="Happy grayscale smiley icon."
+                  />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     Awesome
                   </p>
@@ -568,7 +595,10 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-grid-item="base(1of5)"
                 >
                   <div>
-                    <img src="\images\icon-smiley-arrow-medium.svg" />
+                    <img
+                      src="\images\icon-smiley-arrow-medium.svg"
+                      alt="Arrow highlighting the neutral smiley icon."
+                    />
                     <span
                       data-c-font-weight="bold"
                       data-c-colour="white"
@@ -577,8 +607,14 @@ export const JobBuilderSkills: React.FunctionComponent<
                       {essentialCount}
                     </span>
                   </div>
-                  <img src="\images\icon-smiley-medium.svg" />
-                  <img src="\images\icon-smiley-medium-grey.svg" />
+                  <img
+                    src="\images\icon-smiley-medium.svg"
+                    alt="Neutral coloured smiley icon."
+                  />
+                  <img
+                    src="\images\icon-smiley-medium-grey.svg"
+                    alt="Neutral grayscale smiley icon."
+                  />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     Acceptable
                   </p>
@@ -591,7 +627,10 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-grid-item="base(1of5)"
                 >
                   <div>
-                    <img src="\images\icon-smiley-arrow-bad.svg" />
+                    <img
+                      src="\images\icon-smiley-arrow-bad.svg"
+                      alt="Arrow icon highlighting the unhappy smiley icon."
+                    />
                     <span
                       data-c-font-weight="bold"
                       data-c-colour="white"
@@ -600,8 +639,14 @@ export const JobBuilderSkills: React.FunctionComponent<
                       {essentialCount}
                     </span>
                   </div>
-                  <img src="\images\icon-smiley-bad.svg" />
-                  <img src="\images\icon-smiley-bad-grey.svg" />
+                  <img
+                    src="\images\icon-smiley-bad.svg"
+                    alt="Unhappy coloured smiley icon."
+                  />
+                  <img
+                    src="\images\icon-smiley-bad-grey.svg"
+                    alt="Unhappy grayscale smiley icon."
+                  />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     Too Many
                   </p>
@@ -632,7 +677,10 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-grid-item="base(1of5)"
                 >
                   <div>
-                    <img src="\images\icon-smiley-arrow-bad.svg" />
+                    <img
+                      src="\images\icon-smiley-arrow-bad.svg"
+                      alt="Arrow icon highlighting the unhappy smiley icon."
+                    />
                     <span
                       data-c-font-weight="bold"
                       data-c-colour="white"
@@ -641,8 +689,14 @@ export const JobBuilderSkills: React.FunctionComponent<
                       {skillCount}
                     </span>
                   </div>
-                  <img src="\images\icon-smiley-bad.svg" />
-                  <img src="\images\icon-smiley-bad-grey.svg" />
+                  <img
+                    src="\images\icon-smiley-bad.svg"
+                    alt="Unhappy coloured smiley icon."
+                  />
+                  <img
+                    src="\images\icon-smiley-bad-grey.svg"
+                    alt="Unhappy grayscale smiley icon."
+                  />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     Too Few
                   </p>
@@ -655,7 +709,10 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-grid-item="base(1of5)"
                 >
                   <div>
-                    <img src="\images\icon-smiley-arrow-medium.svg" />
+                    <img
+                      src="\images\icon-smiley-arrow-medium.svg"
+                      alt="Arrow highlighting the neutral smiley icon."
+                    />
                     <span
                       data-c-font-weight="bold"
                       data-c-colour="white"
@@ -664,8 +721,14 @@ export const JobBuilderSkills: React.FunctionComponent<
                       {skillCount}
                     </span>
                   </div>
-                  <img src="\images\icon-smiley-medium.svg" />
-                  <img src="\images\icon-smiley-medium-grey.svg" />
+                  <img
+                    src="\images\icon-smiley-medium.svg"
+                    alt="Neutral coloured smiley icon."
+                  />
+                  <img
+                    src="\images\icon-smiley-medium-grey.svg"
+                    alt="Neutral grayscale smiley icon."
+                  />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     Almost
                   </p>
@@ -678,7 +741,10 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-grid-item="base(1of5)"
                 >
                   <div>
-                    <img src="\images\icon-smiley-arrow-good.svg" />
+                    <img
+                      src="\images\icon-smiley-arrow-good.svg"
+                      alt="Arrow highlighting the happy smiley icon."
+                    />
                     <span
                       data-c-font-weight="bold"
                       data-c-colour="white"
@@ -687,8 +753,14 @@ export const JobBuilderSkills: React.FunctionComponent<
                       {skillCount}
                     </span>
                   </div>
-                  <img src="\images\icon-smiley-good.svg" />
-                  <img src="\images\icon-smiley-good-grey.svg" />
+                  <img
+                    src="\images\icon-smiley-good.svg"
+                    alt="Happy coloured smiley icon."
+                  />
+                  <img
+                    src="\images\icon-smiley-good-grey.svg"
+                    alt="Happy grayscale smiley icon."
+                  />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     Awesome
                   </p>
@@ -701,7 +773,10 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-grid-item="base(1of5)"
                 >
                   <div>
-                    <img src="\images\icon-smiley-arrow-medium.svg" />
+                    <img
+                      src="\images\icon-smiley-arrow-medium.svg"
+                      alt="Arrow highlighting the neutral smiley icon."
+                    />
                     <span
                       data-c-font-weight="bold"
                       data-c-colour="white"
@@ -710,8 +785,14 @@ export const JobBuilderSkills: React.FunctionComponent<
                       {skillCount}
                     </span>
                   </div>
-                  <img src="\images\icon-smiley-medium.svg" />
-                  <img src="\images\icon-smiley-medium-grey.svg" />
+                  <img
+                    src="\images\icon-smiley-medium.svg"
+                    alt="Neutral coloured smiley icon."
+                  />
+                  <img
+                    src="\images\icon-smiley-medium-grey.svg"
+                    alt="Neutral grayscale smiley icon."
+                  />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     Acceptable
                   </p>
@@ -724,7 +805,10 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-grid-item="base(1of5)"
                 >
                   <div>
-                    <img src="\images\icon-smiley-arrow-bad.svg" />
+                    <img
+                      src="\images\icon-smiley-arrow-bad.svg"
+                      alt="Arrow icon highlighting the unhappy smiley icon."
+                    />
                     <span
                       data-c-font-weight="bold"
                       data-c-colour="white"
@@ -733,8 +817,14 @@ export const JobBuilderSkills: React.FunctionComponent<
                       {skillCount}
                     </span>
                   </div>
-                  <img src="\images\icon-smiley-bad.svg" />
-                  <img src="\images\icon-smiley-bad-grey.svg" />
+                  <img
+                    src="\images\icon-smiley-bad.svg"
+                    alt="Unhappy coloured smiley icon."
+                  />
+                  <img
+                    src="\images\icon-smiley-bad-grey.svg"
+                    alt="Unhappy grayscale smiley icon."
+                  />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     Too Many
                   </p>
