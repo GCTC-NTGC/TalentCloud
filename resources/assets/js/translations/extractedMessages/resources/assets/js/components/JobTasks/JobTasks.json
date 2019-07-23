@@ -1,0 +1,107 @@
+[
+  {
+    "id": "jobTasks.taskPlaceholder",
+    "description": "Placeholder shown inside a Task text area.",
+    "defaultMessage": "Try for a casual, frank, friendly tone..."
+  },
+  {
+    "id": "jobTasks.taskLabel",
+    "description": "Label shown above a Task text area.",
+    "defaultMessage": "Task"
+  },
+  {
+    "id": "jobTasks.tasksRequired",
+    "description": "Validation message shown when a user tries to submit no tasks.",
+    "defaultMessage": "At least one task is required."
+  },
+  {
+    "id": "jobTasks.tasksMaximum",
+    "description": "Validation message shown when a user tries to submit more than the allowed number of tasks.",
+    "defaultMessage": "Please remove any additional tasks before continuing."
+  },
+  {
+    "id": "jobTasks.heading",
+    "description": "Job Tasks page heading",
+    "defaultMessage": "Add Key Tasks"
+  },
+  {
+    "id": "jobTasks.intro.first",
+    "description": "Job Tasks page first intro section",
+    "defaultMessage": "What will your new team member spend their time on? What will they deliver?"
+  },
+  {
+    "id": "jobTasks.intro.second",
+    "description": "Job Tasks page second intro section",
+    "defaultMessage": "Focus on the key tasks. You don’t need to list every detail of the job, but applicants want to know how they will be spending most of their time."
+  },
+  {
+    "id": "jobTasks.intro.third",
+    "description": "Job Tasks page third intro section",
+    "defaultMessage": "Aim to provide between four and six key tasks. (You can add as many key tasks as you want as you brainstorm here, but you can include no more than eight in the final job poster.)"
+  },
+  {
+    "id": "jobTasks.intro.fourth",
+    "description": "Job Tasks page fourth intro section",
+    "defaultMessage": "Once you have finished entering key tasks, you will move on to identify the individual skills needed to accomplish them."
+  },
+  {
+    "id": "jobTasks.taskCount.some",
+    "description": "Indicates how many tasks are present on the page.",
+    "defaultMessage": "You have {taskCount,plural,,one{{taskCount, 2} task} other{{taskCount, 2} tasks}} added."
+  },
+  {
+    "id": "jobTasks.taskCount.none",
+    "description": "Message displayed when there are no tasks present on the page.",
+    "defaultMessage": "You don't have any tasks added yet!"
+  },
+  {
+    "id": "jobTasks.taskCount.error.title",
+    "description": "Error message displayed when too many tasks are on screen.",
+    "defaultMessage": "Just a heads up!"
+  },
+  {
+    "id": "jobTasks.taskCount.error.body",
+    "description": "Error message displayed when too many tasks are on screen.",
+    "defaultMessage": "You have exceeded the maximum number of key tasks allowed, but that’s okay. You can continue to add key tasks as you brainstorm here, but you will be asked to trim your list to 6 key tasks or fewer to proceed."
+  },
+  {
+    "id": "jobTasks.addJob",
+    "description": "Text on the Add Task button.",
+    "defaultMessage": "Add a Task"
+  },
+  {
+    "id": "jobTasks.previous",
+    "description": "Text on the Previous Step button.",
+    "defaultMessage": "Previous Step"
+  },
+  {
+    "id": "jobTasks.preview",
+    "description": "Text on the Preview Tasks button.",
+    "defaultMessage": "Preview Tasks"
+  },
+  {
+    "id": "jobTasks.modal.title",
+    "description": "Text displayed on the title of the Job Task page Modal.",
+    "defaultMessage": "Keep it up!"
+  },
+  {
+    "id": "jobTasks.modal.body",
+    "description": "Text displayed above the body of the Job Task page Modal.",
+    "defaultMessage": "Here's a preview of the Tasks you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+  },
+  {
+    "id": "jobTasks.modal.body.heading",
+    "description": "Text displayed above the lists of Tasks inside the Modal body.",
+    "defaultMessage": "Tasks"
+  },
+  {
+    "id": "jobTasks.modal.cancelButtonLabel",
+    "description": "The text displayed on the cancel button of the Job Tasks modal.",
+    "defaultMessage": "Go Back"
+  },
+  {
+    "id": "jobTasks.modal.confirmButtonLabel",
+    "description": "The text displayed on the confirm button of the Job Tasks modal.",
+    "defaultMessage": "Next Step"
+  }
+]
