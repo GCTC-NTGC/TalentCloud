@@ -1,10 +1,11 @@
+/* eslint-disable camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef, useReducer } from "react";
 import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
 import { Job, Skill, Criteria } from "../../models/types";
 import Modal from "../Modal";
 import CriteriaForm from "./CriteriaForm";
 import { mapToObject, getId, hasKey } from "../../helpers/queries";
-import { CriteriaTypeId, SkillTypeId } from "../../models/lookupConstants";
+import { CriteriaTypeId } from "../../models/lookupConstants";
 import {
   assetSkillName,
   skillLevelName,
@@ -25,27 +26,27 @@ interface JobBuilderSkillsProps {
   handleContinue: () => void;
 }
 
-function arrayMove<T>(arr: T[], fromIndex: number, toIndex: number): T[] {
-  const arrCopy = [...arr];
-  const element = arrCopy[fromIndex];
-  arrCopy.splice(fromIndex, 1);
-  arrCopy.splice(toIndex, 0, element);
-  return arrCopy;
-}
+// function arrayMove<T>(arr: T[], fromIndex: number, toIndex: number): T[] {
+//   const arrCopy = [...arr];
+//   const element = arrCopy[fromIndex];
+//   arrCopy.splice(fromIndex, 1);
+//   arrCopy.splice(toIndex, 0, element);
+//   return arrCopy;
+// }
 
-function moveUp<T>(arr: T[], fromIndex: number): T[] {
-  if (fromIndex <= 0) {
-    return arr;
-  }
-  return arrayMove(arr, fromIndex, fromIndex - 1);
-}
+// function moveUp<T>(arr: T[], fromIndex: number): T[] {
+//   if (fromIndex <= 0) {
+//     return arr;
+//   }
+//   return arrayMove(arr, fromIndex, fromIndex - 1);
+// }
 
-function moveDown<T>(arr: T[], fromIndex: number): T[] {
-  if (fromIndex + 1 >= arr.length) {
-    return arr;
-  }
-  return arrayMove(arr, fromIndex, fromIndex + 1);
-}
+// function moveDown<T>(arr: T[], fromIndex: number): T[] {
+//   if (fromIndex + 1 >= arr.length) {
+//     return arr;
+//   }
+//   return arrayMove(arr, fromIndex, fromIndex + 1);
+// }
 
 type CriteriaAction =
   | {
