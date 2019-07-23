@@ -70,7 +70,7 @@
     "eslint-plugin-node": "^9.0.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-promise": "^4.1.1",
-    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.6.1",
     "fetch-mock": "^7.3.9",
     "intl": "^1.2.5",
@@ -91,7 +91,7 @@
     "ts-loader": "^6.0.0",
     "typescript": "^3.5.3",
     "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.36.1"
+    "webpack": "^4.37.0"
   },
   "dependencies": {
     "axios": "^0.19.0",
