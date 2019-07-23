@@ -187,6 +187,10 @@ export const JobBuilderSkills: React.FunctionComponent<
     isPreviewVisible;
   const modalParentRef = useRef<HTMLDivElement>(null);
 
+  const addModalId = "job-builder-add-skill";
+  const editModalId = "job-builder-edit-skill";
+  const previewModalId = "job-builder-preview-skills";
+
   const countInRange = (min: number, max: number, count: number): boolean => {
     return count >= min && count <= max;
   };
@@ -371,7 +375,6 @@ export const JobBuilderSkills: React.FunctionComponent<
                   type="button"
                   data-c-colour="c1"
                   data-c-dialog-action="open"
-                  data-c-dialog-id="job-bulder-edit-skill"
                   onClick={(): void => setCriteriaBeingEdited(criterion)}
                 >
                   <i className="fas fa-edit" />
@@ -1063,7 +1066,7 @@ export const JobBuilderSkills: React.FunctionComponent<
       <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
       {/** This modal is for adding brand new skills */}
       <Modal
-        id="job-bulder-add-skill"
+        id={addModalId}
         parentElement={modalParentRef.current}
         visible={skillBeingAdded !== null}
         onModalCancel={(): void => {
@@ -1082,7 +1085,7 @@ export const JobBuilderSkills: React.FunctionComponent<
             <h5
               data-c-colour="white"
               data-c-font-size="h4"
-              id="job-details-preview-title"
+              id={`${addModalId}-title`}
             >
               Add a skill
             </h5>
@@ -1106,7 +1109,7 @@ export const JobBuilderSkills: React.FunctionComponent<
       </Modal>
       {/** This modal is for editing already added skills */}
       <Modal
-        id="job-bulder-edit-skill"
+        id={editModalId}
         parentElement={modalParentRef.current}
         visible={criteriaBeingEdited !== null}
         onModalCancel={(): void => {
@@ -1125,7 +1128,7 @@ export const JobBuilderSkills: React.FunctionComponent<
             <h5
               data-c-colour="white"
               data-c-font-size="h4"
-              id="job-details-preview-title"
+              id={`${editModalId}-title`}
             >
               Edit skill
             </h5>
@@ -1151,7 +1154,7 @@ export const JobBuilderSkills: React.FunctionComponent<
       </Modal>
       {/** This modal is the preview */}
       <Modal
-        id="job-builder-preview-skills"
+        id={previewModalId}
         parentElement={modalParentRef.current}
         visible={isPreviewVisible}
         onModalCancel={(): void => setIsPreviewVisible(false)}
@@ -1168,7 +1171,7 @@ export const JobBuilderSkills: React.FunctionComponent<
               tabIndex={0}
               data-c-colour="white"
               data-c-font-size="h4"
-              id="example-dialog-02-title"
+              id={`${previewModalId}-title`}
             >
               Keep it up!
             </h5>
@@ -1179,7 +1182,7 @@ export const JobBuilderSkills: React.FunctionComponent<
             <div
               data-c-border="bottom(thin, solid, black)"
               data-c-padding="normal"
-              id="example-dialog-02-description"
+              id={`${previewModalId}-description`}
             >
               Here's a preview of the Tasks you just entered. Feel free to go
               back and edit things or move to the next step if you're happy with
