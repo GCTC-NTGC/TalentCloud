@@ -1,10 +1,9 @@
 #!/bin/bash
 
-# Permissions
+# Extract files
 echo "Setting permissions of TalentCloud.zip...";
 sudo chmod 777 TalentCloud.zip;
 
-# Extract files
 echo "Unzipping contents of TalentCloud.zip...";
 sudo unzip -qq TalentCloud.zip;
 

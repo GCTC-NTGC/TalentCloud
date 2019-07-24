@@ -1,7 +1,5 @@
 1. Prepare dependencies:
-composer install --no-dev --optimize-autoloader
-npm run production
-npm install --production
+composer i --no-dev --optimize-autoloader && npm run prod && npm ci --production
 
 2. Zip the TalentCloud folder, copy to server on TBS device.
 
