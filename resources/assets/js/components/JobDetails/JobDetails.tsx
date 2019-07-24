@@ -888,95 +888,93 @@ const JobDetails: React.FunctionComponent<
                   </button>
                 </div>
               </Form>
-              {isModalVisible && (
-                <Modal
-                  id="job-details-preview"
-                  parentElement={modalParentRef.current}
-                  visible={isModalVisible}
-                  onModalConfirm={(): void => {
-                    handleModalConfirm();
-                    setIsModalVisible(false);
-                  }}
-                  onModalCancel={(): void => {
-                    handleModalCancel();
-                    setIsModalVisible(false);
-                  }}
-                >
-                  <Modal.Header>
-                    <div
-                      data-c-background="c1(100)"
-                      data-c-border="bottom(thin, solid, black)"
-                      data-c-padding="normal"
-                    >
-                      <h5
-                        data-c-colour="white"
-                        data-c-font-size="h4"
-                        id="job-details-preview-title"
-                      >
-                        <FormattedMessage
-                          id="jobDetails.modalHeader"
-                          defaultMessage="You're off to a great start!"
-                          description="The text displayed in the header of the Job Details modal."
-                        />
-                      </h5>
-                    </div>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <div
-                      data-c-border="bottom(thin, solid, black)"
-                      data-c-padding="normal"
-                      id="job-details-preview-description"
+              <Modal
+                id="job-details-preview"
+                parentElement={modalParentRef.current}
+                visible={isModalVisible}
+                onModalConfirm={(): void => {
+                  handleModalConfirm();
+                  setIsModalVisible(false);
+                }}
+                onModalCancel={(): void => {
+                  handleModalCancel();
+                  setIsModalVisible(false);
+                }}
+              >
+                <Modal.Header>
+                  <div
+                    data-c-background="c1(100)"
+                    data-c-border="bottom(thin, solid, black)"
+                    data-c-padding="normal"
+                  >
+                    <h5
+                      data-c-colour="white"
+                      data-c-font-size="h4"
+                      id="job-details-preview-title"
                     >
                       <FormattedMessage
-                        id="jobDetails.modalBody"
-                        defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
-                        description="The text displayed in the body of the Job Details modal."
+                        id="jobDetails.modalHeader"
+                        defaultMessage="You're off to a great start!"
+                        description="The text displayed in the header of the Job Details modal."
                       />
-                    </div>
-                    <div
-                      data-c-background="grey(20)"
-                      data-c-border="bottom(thin, solid, black)"
-                      data-c-padding="normal"
-                    >
-                      {/* TODO: Pull in the signed-in Manager's department */}
-                      <JobPreview
-                        title={values.title}
-                        department="Department"
-                        remoteWork={values.remoteWork !== "remoteWorkNone"}
-                        language={intl.formatMessage(
-                          languageRequirement(Number(values.language)),
-                        )}
-                        city={values.city}
-                        province={intl.formatMessage(
-                          provinceName(Number(values.province)),
-                        )}
-                        termLength={Number(values.termLength)}
-                        securityLevel={intl.formatMessage(
-                          securityClearance(Number(values.securityLevel)),
-                        )}
-                        classification={String(values.classification)}
-                        level={String(values.level)}
-                      />
-                    </div>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Modal.FooterCancelBtn>
-                      <FormattedMessage
-                        id="jobDetails.modalCancelLabel"
-                        defaultMessage="Go Back"
-                        description="The text displayed on the cancel button of the Job Details modal."
-                      />
-                    </Modal.FooterCancelBtn>
-                    <Modal.FooterConfirmBtn>
-                      <FormattedMessage
-                        id="jobDetails.modalConfirmLabel"
-                        defaultMessage="Next Step"
-                        description="The text displayed on the confirm button of the Job Details modal."
-                      />
-                    </Modal.FooterConfirmBtn>
-                  </Modal.Footer>
-                </Modal>
-              )}
+                    </h5>
+                  </div>
+                </Modal.Header>
+                <Modal.Body>
+                  <div
+                    data-c-border="bottom(thin, solid, black)"
+                    data-c-padding="normal"
+                    id="job-details-preview-description"
+                  >
+                    <FormattedMessage
+                      id="jobDetails.modalBody"
+                      defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+                      description="The text displayed in the body of the Job Details modal."
+                    />
+                  </div>
+                  <div
+                    data-c-background="grey(20)"
+                    data-c-border="bottom(thin, solid, black)"
+                    data-c-padding="normal"
+                  >
+                    {/* TODO: Pull in the signed-in Manager's department */}
+                    <JobPreview
+                      title={values.title}
+                      department="Department"
+                      remoteWork={values.remoteWork !== "remoteWorkNone"}
+                      language={intl.formatMessage(
+                        languageRequirement(Number(values.language)),
+                      )}
+                      city={values.city}
+                      province={intl.formatMessage(
+                        provinceName(Number(values.province)),
+                      )}
+                      termLength={Number(values.termLength)}
+                      securityLevel={intl.formatMessage(
+                        securityClearance(Number(values.securityLevel)),
+                      )}
+                      classification={String(values.classification)}
+                      level={String(values.level)}
+                    />
+                  </div>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Modal.FooterCancelBtn>
+                    <FormattedMessage
+                      id="jobDetails.modalCancelLabel"
+                      defaultMessage="Go Back"
+                      description="The text displayed on the cancel button of the Job Details modal."
+                    />
+                  </Modal.FooterCancelBtn>
+                  <Modal.FooterConfirmBtn>
+                    <FormattedMessage
+                      id="jobDetails.modalConfirmLabel"
+                      defaultMessage="Next Step"
+                      description="The text displayed on the confirm button of the Job Details modal."
+                    />
+                  </Modal.FooterConfirmBtn>
+                </Modal.Footer>
+              </Modal>
             </>
           )}
         />

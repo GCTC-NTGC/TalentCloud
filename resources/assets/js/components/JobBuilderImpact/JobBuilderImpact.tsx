@@ -330,64 +330,62 @@ const JobBuilderImpact: React.FunctionComponent<
                   </button>
                 </div>
               </Form>
-              {isModalVisible && (
-                <Modal
-                  id={modalId}
-                  parentElement={modalParentRef.current}
-                  visible={isModalVisible}
-                  onModalConfirm={(): void => {
-                    handleModalConfirm();
-                    setIsModalVisible(false);
-                  }}
-                  onModalCancel={(): void => {
-                    handleModalCancel();
-                    setIsModalVisible(false);
-                  }}
-                >
-                  <Modal.Header>
-                    <div
-                      data-c-background="c1(100)"
-                      data-c-border="bottom(thin, solid, black)"
-                      data-c-padding="normal"
+              <Modal
+                id={modalId}
+                parentElement={modalParentRef.current}
+                visible={isModalVisible}
+                onModalConfirm={(): void => {
+                  handleModalConfirm();
+                  setIsModalVisible(false);
+                }}
+                onModalCancel={(): void => {
+                  handleModalCancel();
+                  setIsModalVisible(false);
+                }}
+              >
+                <Modal.Header>
+                  <div
+                    data-c-background="c1(100)"
+                    data-c-border="bottom(thin, solid, black)"
+                    data-c-padding="normal"
+                  >
+                    <h5
+                      data-c-colour="white"
+                      data-c-font-size="h4"
+                      id={`${modalId}-title`}
                     >
-                      <h5
-                        data-c-colour="white"
-                        data-c-font-size="h4"
-                        id={`${modalId}-title`}
-                      >
-                        {/* TODO: Localize Title, Description, and Button Text */}
-                        Awesome work!
-                      </h5>
-                    </div>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <div
-                      data-c-border="bottom(thin, solid, black)"
-                      data-c-padding="normal"
-                      id={`${modalId}-description`}
-                    >
-                      Here&apos;s a preview of the Impact Statement you just
-                      entered. Feel free to go back and edit things or move to
-                      the next step if you&apos;re happy with it.
-                    </div>
-                    <div
-                      data-c-background="grey(20)"
-                      data-c-border="bottom(thin, solid, black)"
-                      data-c-padding="normal"
-                    >
-                      <JobImpactPreview
-                        deptImpact={deptImpacts[locale]}
-                        teamImpact={values.teamImpact}
-                        hireImpact={values.hireImpact}
-                      />
-                    </div>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
-                    <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
-                  </Modal.Footer>
-                </Modal>
-              )}
+                      {/* TODO: Localize Title, Description, and Button Text */}
+                      Awesome work!
+                    </h5>
+                  </div>
+                </Modal.Header>
+                <Modal.Body>
+                  <div
+                    data-c-border="bottom(thin, solid, black)"
+                    data-c-padding="normal"
+                    id={`${modalId}-description`}
+                  >
+                    Here&apos;s a preview of the Impact Statement you just
+                    entered. Feel free to go back and edit things or move to the
+                    next step if you&apos;re happy with it.
+                  </div>
+                  <div
+                    data-c-background="grey(20)"
+                    data-c-border="bottom(thin, solid, black)"
+                    data-c-padding="normal"
+                  >
+                    <JobImpactPreview
+                      deptImpact={deptImpacts[locale]}
+                      teamImpact={values.teamImpact}
+                      hireImpact={values.hireImpact}
+                    />
+                  </div>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
+                  <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
+                </Modal.Footer>
+              </Modal>
             </>
           )}
         />

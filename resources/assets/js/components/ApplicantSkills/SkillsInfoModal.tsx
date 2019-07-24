@@ -42,9 +42,9 @@ const SkillsInfoModal: React.FunctionComponent<SkillsInfoModalProps> = ({
             (exampleList: any, i: number): React.ReactElement => {
               return (
                 <>
-                  <h6 className={i === 0 ? "color-green" : "color-red"}>
+                  <h4 className={i === 0 ? "color-green" : "color-red"}>
                     {exampleList.title}
-                  </h6>
+                  </h4>
                   <ul>
                     {Object.values(exampleList.examples).map(
                       (example: any): React.ReactElement => {

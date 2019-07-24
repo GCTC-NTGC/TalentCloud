@@ -9,57 +9,17 @@ return [
     *
     */
     'new_skill_title' => 'Nouvelle compétence',
-    "accordion_sr_helper" => "cliquez pour modifier",
+    'accordion_sr_helper' => 'cliquez pour modifier',
     'name_label' => 'Nom du projet',
     'type_label' => 'Type du projet',
     'skill_selection_label' => 'Sélectionner une compétence',
-    'skill_selection_default_option' => "Sélectionner une compétence",
+    'skill_selection_default_option' => 'Sélectionner une compétence',
     'level_label' => 'Mon niveau de compétence',
     'level_link_title' => 'En savoir plus sur la façon d\'identifier votre niveau de compétence.',
     'level_link_label' => '(Vous ne connaissez pas votre niveau? Découvrez ici.)',
     'knowledge_label' => 'Comment j\'ai acquis cette compétence',
     'knowledge_link_label' => "(Besoin d'aide? Voir exemple.)",
     'knowledge_prompt' => 'C’est votre chance de vous faire valoir! Assurez-vous d’utiliser des exemples précis pour démontrer que vous possédez cette compétence au niveau requis.',
-    // Start of Info Modal
-    'modal_info' => [
-        'title' => 'Rédiger ma candidature',
-        'subtext' => [
-            "0" => "L’embauche basée sur les compétences signifie qu’AUCUN curriculum vitae et qu’AUCUNE lettre de présentation ne sont requis. (Sérieusement, il n’y aura aucune possibilité de soumettre l’un ou l’autre de ces documents durant le processus de demande.)",
-            "1" => "Cette section de la demande vous donne l’occasion de raconter votre histoire. Utilisez des exemples précis tirés de votre travail et de votre vie personnelle qui démontrent bien que vous possédez ces compétences. Ensuite, soumettez des références ou des échantillons de travail àl’appui de vos affirmations."
-        ],
-        'close_button_text' => 'J’ai compris!',
-        'example_lists' => [
-            'dos_example_list' => [
-                'title' => "Ce qu’il faut faire",
-                'examples' => [
-                    "example_1" => [
-                        "name" => "Pertinent, concis, complet.",
-                        "content" => "Par exemple : « J’ai travaillé dans l’équipe du Nuage de talents pendant huit ans en tant que développeur de l’interface utilisateur. Au cours des trois dernières années, j’ai été le développeur principal pour plusieurs applications Web côté client, dont un portail de paiement et un centre d’assistance. Ces deux applications Web ont été conçues avec HTLM5 et JavaScript. En tant que développeur principal, j’ai attribué du travail à 6 développeurs débutants, surveillé leurs progrès et fourni de l’orientation pour des problèmes complexes »."
-                    ]
-                ]
-            ],
-            'donts_example_list' => [
-                'title'=> 'Ce qu’il ne faut pas faire',
-                'examples' => [
-                    'example_1' => [
-                        'name' => 'Information trop courte, vague, insuffisante.',
-                        'content' => "Par exemple : « J’ai travaillé dans l’équipe du Nuage de talents pendant 8 ans »."
-                    ],
-                    'example_2' => [
-                        'name' => 'Information trop longue, étirée, ou non pertinente.',
-                        'content' => [
-                            '0' => 'Par exemple : « Quand j’étais à l’école primaire, j’ai suivi mon premier cours d’informatique : Mavis Beacon Teaches Typing. J’ai obtenu la meilleure note de la classe et mon enseignante m’a dit qu’elle n’avait jamais vu un enfant de huit ans taper aussi bien. Pendant le reste de l’école publique et jusqu’à l’université, j’utilisais régulièrement Internet et je m’intéressais au codage et à la conception de sites Web. Quand je suis arrivé à l’université, j’ai créé un site Web de base en HTML et j’ai décidé que je voulais désormais suivre des cours d’informatique.',
-
-                            '1' => 'Malheureusement, cela aurait ajouté une année avant ma diplomation, alors j’ai plutôt suivi quelques cours à option en informatique. Une fois diplômé, je me suis mis à la recherche d’un emploi en TI, mais on était en 2008 lors de la crise économique mondiale et donc, mes perspectives d’emploi se limitaient à des postes de service. Après avoir travaillé dans plusieurs restaurants et cafés, j’ai obtenu un emploi dans l’équipe du Nuage de talents en tant que développeur de l’interface utilisateur. J’ai passé les 6 premiers mois à travailler sur de petits éléments d’applications côté client. Pendant les premiers mois, je commençais la journée en regardant la liste de travail qui m’avait été assignée. Si je n’étais pas sûr de la façon d’établir l’ordre de priorité de mes tâches, je demandais au développeur principal qui supervisait mon travail.',
-
-                            '2' => 'Après, je vérifiais habituellement mes courriels, ce que j’essaie de faire seulement quelques fois par jour pour éviter les distractions. Par la suite, je commençais à travailler sur des projets plus assidûment. Bien que cela m’ait permis de développer certaines compétences, je regrettais de ne pas pouvoir voir toute la variété de projets sur lesquels notre ministère travaillait. Une fois, alors que le développeur principal était en vacances et que son remplaçant était malade, j’ai pu agir comme développeur principal pendant deux jours ».'
-                        ]
-                    ]
-                ],
-            ]
-        ]
-    ],
-    // End of Info Modal
     'skill_status_null_label' => 'Statut : compétence pas ajouté',
     'skill_status_label' => 'Statut : ',
     'skill_level_null' => 'Aucun niveau de compétence n\'a été sélectionné.',
