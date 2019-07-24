@@ -60,12 +60,10 @@
       }
     }
 
-    button {
-    }
   }
 
     .skill-do-dont-modal {
-      
+
         .modal-info__wrapper {
           padding: 0.5rem 2rem 0;
           overflow: hidden;
@@ -84,7 +82,7 @@
 
         .modal-info__list-wrapper {
           padding: 1rem 0;
-          h6 {
+          h3,h4,h5,h6 {
             font-weight: 900;
             font-size: 1.5rem;
             &.color-green {
@@ -161,7 +159,7 @@
             font-size: 1.5rem;
           }
         }
-      
+
     }
 
   .application-post__content-wrapper {
@@ -187,7 +185,7 @@
 }
 
 .skill-do-dont-modal {
-      
+
   .modal-info__wrapper {
     padding: 0.5rem 2rem 0;
     overflow: hidden;
@@ -206,7 +204,7 @@
 
   .modal-info__list-wrapper {
     padding: 1rem 0;
-    h6 {
+    h3,h4,h5,h6 {
       font-weight: 900;
       font-size: 1.5rem;
       &.color-green {

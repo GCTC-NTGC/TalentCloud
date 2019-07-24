@@ -100,12 +100,12 @@
                 data-c-background="c5(100)"
                 data-c-padding="tb(normal) right(triple) left(normal)"
                 data-c-border="bottom(thin, solid, black)">
-                <h5
+                <h3
                     data-c-font-size="h4"
                     data-c-color="white"
                     id="skill-info-modal-title">
                     {{ profile.modals.need_help.title }}
-                </h5>
+                </h3>
                 <button
                     data-c-dialog-action="close"
                     data-c-dialog-id="skill-info-modal"
@@ -125,7 +125,7 @@
                         </p>
                     {% endfor %}
                         <div class="modal-info__list-wrapper">
-                            <h6 class="color-green">{{ profile.modals.need_help.example_lists.dos_example_list.title }}</h6>
+                            <h4 class="color-green">{{ profile.modals.need_help.example_lists.dos_example_list.title }}</h4>
                             <ul>
                             {% for example in profile.modals.need_help.example_lists.dos_example_list.examples %}
                                 <li>
@@ -138,7 +138,7 @@
                                 </li>
                             {% endfor %}
                             </ul>
-                            <h6 class="color-red">{{ profile.modals.need_help.example_lists.donts_example_list.title }}</h6>
+                            <h4 class="color-red">{{ profile.modals.need_help.example_lists.donts_example_list.title }}</h4>
                             <ul>
                             {% for example in profile.modals.need_help.example_lists.donts_example_list.examples %}
                                 <li>
