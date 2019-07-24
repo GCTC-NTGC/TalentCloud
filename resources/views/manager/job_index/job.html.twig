@@ -137,7 +137,7 @@
                 data-action="delete"
                 data-locale="{{App.getLocale()}}"
                 data-jobid="{{ job.id }}"
-                href="{{ route('manager.jobs.destroy', job) }}"
+                data-href="{{ route('manager.jobs.destroy', job) }}"
                 title="{{ jobs_l10n.delete_this_poster }}"
                 type="button">
                 <i class="fas fa-trash-alt"></i>

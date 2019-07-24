@@ -12,7 +12,7 @@ const messages = {
 };
 
 interface IntlContainerProps {
-  locale: "en" | "fr";
+  locale: string;
 }
 
 const IntlContainer: React.FunctionComponent<IntlContainerProps> = ({

@@ -8,6 +8,7 @@
 namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
+use Astrotomic\Translatable\Translatable as Translatable;
 
 /**
  * Class Relationship
@@ -23,19 +24,21 @@ use App\Models\BaseModel;
  * Localized Properties:
  * @property string $value
  */
-class Relationship extends BaseModel {
+class Relationship extends BaseModel
+{
 
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
 
     public $translatedAttributes = ['value'];
     protected $fillable = [];
 
-    public function references() {
+    public function references()
+    {
         return $this->hasMany(\App\Models\References::class);
     }
 
-    public function relationship_translations() {
+    public function relationship_translations() //phpcs:ignore
+    {
         return $this->hasMany(\App\Models\Lookup\RelationshipTranslation::class);
     }
-
 }

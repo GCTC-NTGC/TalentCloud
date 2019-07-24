@@ -2,13 +2,17 @@
 import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 
 export interface JobTranslation {
-  city: string;
-  title: string;
-  team_impact: string;
-  hire_impact: string;
-  branch: string;
-  division: string;
-  education: string;
+  city: string | null;
+  title: string | null;
+  dept_impact: string | null;
+  team_impact: string | null;
+  hire_impact: string | null;
+  branch: string | null;
+  division: string | null;
+  education: string | null;
+  work_env_description: string | null;
+  culture_summary: string | null;
+  culture_special: string | null;
 }
 
 export interface Job {
@@ -27,9 +31,18 @@ export interface Job {
   classification_level: number | null;
   security_clearance_id: number | null;
   language_requirement_id: number | null;
-  remote_work_allowed: boolean | null;
+  remote_work_allowed: boolean;
   published_at: Date | null;
   review_requested_at: Date | null;
+  team_size: number | null;
+  work_env_features: { [feature: string]: boolean } | null;
+  fast_vs_steady: number | null;
+  horizontal_vs_vertical: number | null;
+  experimental_vs_ongoing: number | null;
+  citizen_facing_vs_back_office: number | null;
+  collaborative_vs_independent: number | null;
+  telework_allowed_frequency_id: number | null;
+  flexible_hours_frequency_id: number | null;
   en: JobTranslation;
   fr: JobTranslation;
 }
@@ -174,4 +187,26 @@ export interface AssessmentPlanNotification {
   skill_level_id_new: number | null;
   acknowledged: boolean;
   created_at: Date;
+}
+
+export interface DepartmentTranslation {
+  name: string;
+  impact: string;
+}
+
+export interface Department {
+  id: number;
+  en: DepartmentTranslation;
+  fr: DepartmentTranslation;
+}
+
+export interface JobPosterKeyTask {
+  id: number;
+  job_poster_id: number;
+  en: {
+    description: string;
+  };
+  fr: {
+    description: string;
+  };
 }

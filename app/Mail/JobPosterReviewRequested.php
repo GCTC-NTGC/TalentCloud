@@ -10,9 +10,16 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Models\JobPoster;
 use App\Models\User;
 
-class JobPosterReviewRequested extends Mailable
+class JobPosterReviewRequested extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
+
+    /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 5;
 
     /**
      * The Job Poster instance.

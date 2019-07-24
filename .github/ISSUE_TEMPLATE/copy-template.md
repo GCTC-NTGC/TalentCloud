@@ -1,7 +1,7 @@
 ---
 name: Copy Template
-about: This template is for adding, removing or changing text.
-title: ''
+about: Template for adding, removing or changing text.
+title: 'Copy - '
 labels: Copy
 assignees: ''
 
@@ -9,9 +9,6 @@ assignees: ''
 
 # Description
 Enter the change description here.
-
-# Images
-Place image attachments here.
 
 # Changes
 Enter the approved copy here:

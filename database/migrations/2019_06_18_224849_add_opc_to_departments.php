@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class AddOpcToDepartments extends Migration
@@ -13,7 +11,7 @@ class AddOpcToDepartments extends Migration
      */
     public function up()
     {
-         DB::table('departments')->insert([
+        DB::table('departments')->insert([
             ['id' => 12, 'name' => 'office_privacy_comissioner'],
          ]);
 

@@ -41,8 +41,7 @@
                         id="managerProfileName"
                         type="text"
                         name='name'
-                        value="{{ user.name }}">
-                    </input>
+                        value="{{ user.name }}" />
                 </div>
 
             </div>
@@ -75,8 +74,7 @@
                         id="managerProfileTitleEN"
                         type="text"
                         name="position[en]"
-                        value="{{ manager.translate('en').position }}">
-                    </input>
+                        value="{{ manager.translate('en').position }}" />
                 </div>
 
             </div>
@@ -94,8 +92,7 @@
                         id="managerProfileTitleFR"
                         type="text"
                         name="position[fr]"
-                        value="{{ manager.translate('fr').position }}">
-                    </input>
+                        value="{{ manager.translate('fr').position }}" />
                 </div>
 
             </div>
@@ -134,7 +131,7 @@
                             id="managerProfileDepartment"
                             name="department">
 
-                            <option value="" disabled selected>
+                            <option value="" disabled {% if chosenName %}selected{% endif %}>
                                 {{ about_l10n.department_default_option }}
                             </option>
 
@@ -144,7 +141,7 @@
                                 <option
                                     value="{{ department.id }}"
                                     {% if deparmentName == chosenName %}selected="selected"{% endif %}
-                                    >{{ department.value }}</option>
+                                    >{{ department.name }}</option>
                             {% endfor %}
 
                         </select>
@@ -166,8 +163,7 @@
                         id="managerProfileBranchEN"
                         type="text"
                         name="branch[en]"
-                        value="{{ manager.translate('en').branch }}">
-                    </input>
+                        value="{{ manager.translate('en').branch }}" />
                 </div>
 
             </div>
@@ -185,8 +181,7 @@
                         id="managerProfileBranchFR"
                         type="text"
                         name="branch[fr]"
-                        value="{{ manager.translate('fr').branch }}">
-                    </input>
+                        value="{{ manager.translate('fr').branch }}" />
                 </div>
 
             </div>
@@ -203,8 +198,7 @@
                         id="managerProfileDivision"
                         type="text"
                         name="division[en]"
-                        value="{{ manager.translate('en').division }}">
-                    </input>
+                        value="{{ manager.translate('en').division }}" />
                 </div>
 
             </div>
@@ -221,8 +215,7 @@
                         id="managerProfileDivisionFr"
                         type="text"
                         name="division[fr]"
-                        value="{{ manager.translate('fr').division }}">
-                    </input>
+                        value="{{ manager.translate('fr').division }}" />
                 </div>
 
             </div>
@@ -254,8 +247,7 @@
                         id="managerProfileEducationEN"
                         type="text"
                         name="education[en]"
-                        value="{{ manager.translate('en').education }}">
-                    </input>
+                        value="{{ manager.translate('en').education }}" />
                 </div>
 
             </div>
@@ -272,8 +264,7 @@
                         id="managerProfileEducationFR"
                         type="text"
                         name="education[fr]"
-                        value="{{ manager.translate('fr').education }}">
-                    </input>
+                        value="{{ manager.translate('fr').education }}" />
                 </div>
 
             </div>
@@ -290,8 +281,7 @@
                         id="managerProfileExperience"
                         type="number"
                         name="years_experience"
-                        value="{{ manager.years_experience }}">
-                    </input>
+                        value="{{ manager.years_experience }}" />
                 </div>
 
             </div>
@@ -413,8 +403,7 @@
                         id="managerProfileTwitter"
                         type="text"
                         name="twitter_username"
-                        value="{{ manager.twitter_username }}">
-                    </input>
+                        value="{{ manager.twitter_username }}" />
                 </div>
 
             </div>
@@ -431,8 +420,7 @@
                         id="managerProfileLinkedin"
                         type="url"
                         name="linkedin_url"
-                        value="{{ manager.linkedin_url }}">
-                    </input>
+                        value="{{ manager.linkedin_url }}" />
                 </div>
             </div>
 

@@ -1,15 +1,19 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   injectIntl,
   InjectedIntlProps,
   FormattedMessage,
+  FormattedHTMLMessage,
   defineMessages,
 } from "react-intl";
-import { Form, Field, Formik, FormikValues } from "formik";
+import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
-import Input from "../Forms/Input";
-import Select from "../Forms/Select";
 import { validationMessages } from "../Form/Messages";
+import { Job, Department } from "../../models/types";
+import { emptyJob } from "../../models/jobUtil";
+import SelectInput from "../Form/SelectInput";
+import TextInput from "../Form/TextInput";
+import { getId } from "../../helpers/queries";
 
 const formMessages = defineMessages({
   jobTitleLabelEN: {
@@ -69,28 +73,74 @@ const formMessages = defineMessages({
 interface FormValues {
   jobTitleEN: string;
   jobTitleFR: string;
-  department: string;
+  department: number | "";
   divisionEN: string;
   divisionFR: string;
 }
 
 interface IntroFormProps {
-  handleSubmit: (values: FormikValues) => void;
+  // If not null, used to prepopulate form values
+  job: Job | null;
+  // List of known department options.
+  departments: Department[];
+  // Runs after successful validation.
+  // It must (asyncronously) return the resulting job, if successful.
+  handleSubmit: (job: Job) => Promise<Job>;
+  // Continues the JobBuilder in English.
+  handleContinueEn: (job: Job) => void;
+  // Continues the JobBuilder in French.
+  handleContinueFr: (job: Job) => void;
 }
+
+const jobToValues = (job: Job | null): FormValues =>
+  job
+    ? {
+        jobTitleEN: job.en.title || "",
+        jobTitleFR: job.fr.title || "",
+        department: job.department_id || "",
+        divisionEN: job.en.division || "",
+        divisionFR: job.fr.division || "",
+      }
+    : {
+        jobTitleEN: "",
+        jobTitleFR: "",
+        department: "",
+        divisionEN: "",
+        divisionFR: "",
+      };
+
+const updateJobWithValues = (job: Job, values: FormValues): Job => ({
+  ...job,
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  department_id: values.department || null,
+  en: {
+    ...job.en,
+    title: values.jobTitleEN || null,
+    division: values.divisionEN || null,
+  },
+  fr: {
+    ...job.fr,
+    title: values.jobTitleFR || null,
+    division: values.divisionFR || null,
+  },
+});
 
 const IntroForm: React.FunctionComponent<
   IntroFormProps & InjectedIntlProps
 > = ({
-  intl,
+  job,
+  departments,
   handleSubmit,
+  handleContinueEn,
+  handleContinueFr,
+  intl,
 }: IntroFormProps & InjectedIntlProps): React.ReactElement => {
-  const initialValues = {
-    jobTitleEN: "",
-    jobTitleFR: "",
-    department: "",
-    divisionEN: "",
-    divisionFR: "",
-  };
+  const initialValues: FormValues = jobToValues(job);
+  const [languageSelection, setLanguageSelection] = useState("en");
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
+  }
 
   const introSchema = Yup.object().shape({
     jobTitleEN: Yup.string().required(
@@ -105,9 +155,12 @@ const IntroForm: React.FunctionComponent<
     divisionFR: Yup.string().required(
       intl.formatMessage(validationMessages.required),
     ),
-    department: Yup.mixed()
-      .oneOf(["TBS", "ESDC", "ECCC"], "WTF")
-      .required(intl.formatMessage(validationMessages.invalidSelection)),
+    department: Yup.number()
+      .oneOf(
+        departments.map(getId),
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
+      .required(intl.formatMessage(validationMessages.required)),
   });
 
   return (
@@ -159,16 +212,29 @@ const IntroForm: React.FunctionComponent<
           initialValues={initialValues}
           validationSchema={introSchema}
           onSubmit={(values, { setSubmitting }): void => {
-            handleSubmit(values);
-            setSubmitting(false);
+            handleSubmit(updateJobWithValues(job || emptyJob(), values))
+              .then((newJob: Job): void => {
+                if (languageSelection === "fr") {
+                  handleContinueFr(newJob);
+                } else {
+                  handleContinueEn(newJob);
+                }
+              })
+              .finally(
+                (): void => setSubmitting(false), // Required by Formik to finish the submission cycle
+              );
           }}
-          render={({ isSubmitting, values }): React.ReactElement => (
+          render={({
+            isSubmitting,
+            values,
+            submitForm,
+          }): React.ReactElement => (
             <>
               <Form id="form" data-c-margin="bottom(normal)">
                 <div data-c-grid="gutter">
                   <Field
                     type="text"
-                    htmlId="builder01ManagerJobTitleEN"
+                    id="builder01ManagerJobTitleEN"
                     name="jobTitleEN"
                     label={intl.formatMessage(formMessages.jobTitleLabelEN)}
                     placeholder={intl.formatMessage(
@@ -176,11 +242,11 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={Input}
+                    component={TextInput}
                   />
                   <Field
                     type="text"
-                    htmlId="builder01ManagerJobTitleFR"
+                    id="builder01ManagerJobTitleFR"
                     name="jobTitleFR"
                     label={intl.formatMessage(formMessages.jobTitleLabelFR)}
                     placeholder={intl.formatMessage(
@@ -188,37 +254,30 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={Input}
+                    component={TextInput}
                   />
                   <Field
                     name="department"
                     id="builder01ManagerDepartment"
                     label={intl.formatMessage(formMessages.departmentLabel)}
                     grid="base(1of1)"
-                    component={Select}
+                    component={SelectInput}
                     required
                     selected={values.department}
                     nullSelection={intl.formatMessage(
                       formMessages.departmentNullSelection,
                     )}
-                    options={[
-                      {
-                        value: "TBS",
-                        label: "Treasury Board of Canada Secretariat",
-                      },
-                      {
-                        value: "ESDC",
-                        label: "Employment and Social Development Canada",
-                      },
-                      {
-                        value: "ECCC",
-                        label: "Environment and Climate Change Canada",
-                      },
-                    ]}
+                    options={departments.map((dept: Department): {
+                      value: number;
+                      label: string;
+                    } => ({
+                      value: dept.id,
+                      label: dept[locale].name,
+                    }))}
                   />
                   <Field
                     type="text"
-                    htmlId="builder01ManagerDivisionEN"
+                    id="builder01ManagerDivisionEN"
                     name="divisionEN"
                     label={intl.formatMessage(formMessages.divisionLabelEN)}
                     placeholder={intl.formatMessage(
@@ -226,11 +285,11 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={Input}
+                    component={TextInput}
                   />
                   <Field
                     type="text"
-                    htmlId="builder01ManagerDivisionFR"
+                    id="builder01ManagerDivisionFR"
                     name="divisionFR"
                     label={intl.formatMessage(formMessages.divisionLabelFR)}
                     placeholder={intl.formatMessage(
@@ -238,17 +297,14 @@ const IntroForm: React.FunctionComponent<
                     )}
                     required
                     grid="tl(1of2)"
-                    component={Input}
+                    component={TextInput}
                   />
                 </div>
               </Form>
               <p data-c-margin="bottom(normal)">
-                {/* how do I add strong tag */}
-                {/* <strong>Note:</strong> Changing your information on this form
-                will also change these fields in your Profile. */}
-                <FormattedMessage
+                <FormattedHTMLMessage
                   id="jobBuilder.intro.note"
-                  defaultMessage="Note: Changing your information on this form will also change these fields in your Profile."
+                  defaultMessage="<strong>Note:</strong> Changing your information on this form will also change these fields in your Profile."
                   description="Ending note for hiring managers."
                 />
               </p>
@@ -265,8 +321,12 @@ const IntroForm: React.FunctionComponent<
                 form="form"
                 data-c-button="solid(c1)"
                 data-c-radius="rounded"
-                type="submit"
+                type="button"
                 disabled={isSubmitting}
+                onClick={(): void => {
+                  setLanguageSelection("en");
+                  submitForm();
+                }}
               >
                 <FormattedMessage
                   id="jobBuilder.intro.continueButtonLabelEN"
@@ -279,8 +339,12 @@ const IntroForm: React.FunctionComponent<
                 form="form"
                 data-c-button="solid(c1)"
                 data-c-radius="rounded"
-                type="submit"
+                type="button"
                 disabled={isSubmitting}
+                onClick={(): void => {
+                  setLanguageSelection("fr");
+                  submitForm();
+                }}
               >
                 <FormattedMessage
                   id="jobBuilder.intro.continueButtonLabelFR"
