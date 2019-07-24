@@ -16,7 +16,7 @@ export interface JobPreviewProps {
   /** Province for the Job Poster */
   province: string;
   /** If this Job Poster allows remote work */
-  remoteWork?: boolean;
+  remoteWork: string | null;
   /** Language requirement, i.e. English Essential */
   language: string;
   /** Length of the Job term in months */
@@ -281,14 +281,7 @@ const JobPreview: React.FunctionComponent<
               description="Job Poster Card Information Label"
             />
           </p>
-          <p>
-            {remoteWork
-              ? intl.formatMessage(messages.allowed)
-              : intl.formatMessage(messages.notAllowed)}
-            {/* TODO: Add long form text explanation of Remote Work Status */}
-            {/* eg. Yes, I’m willing to supervise employees in any province or territory
-            in Canada. */}
-          </p>
+          <p>{remoteWork}</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">

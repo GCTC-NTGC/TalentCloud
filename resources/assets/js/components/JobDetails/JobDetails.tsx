@@ -273,6 +273,12 @@ const remoteWorkOptions = [
   },
 ];
 
+const remoteWorkMessages = {
+  remoteWorkWorld: formMessages.remoteWorkWorldLabel,
+  remoteWorkCanada: formMessages.remoteWorkCanadaLabel,
+  remoteWorkNone: formMessages.remoteWorkNoneLabel,
+};
+
 interface JobFormValues {
   title: string;
   termLength: number | "";
@@ -956,7 +962,9 @@ const JobDetails: React.FunctionComponent<
                       <JobPreview
                         title={values.title}
                         department="Department"
-                        remoteWork={values.remoteWork !== "remoteWorkNone"}
+                        remoteWork={intl.formatMessage(
+                          remoteWorkMessages[values.remoteWork],
+                        )}
                         language={intl.formatMessage(
                           languageRequirement(Number(values.language)),
                         )}
