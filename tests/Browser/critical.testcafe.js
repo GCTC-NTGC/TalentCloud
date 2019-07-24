@@ -4,10 +4,14 @@ fixture(`Critical`).page(`talent.test`);
 
 test("Applicant Profile", async t => {
   await t
+    // Login as test applicant.
+    // TODO: register new user instead
     .click(Selector("a").withText("Login"))
     .typeText(Selector("#email"), "applicant@test.com")
     .typeText(Selector("#password"), "password")
     .click(Selector("button").withText("Login"))
+
+    // Experience page (incomplete).
     .navigateTo("/profile/experience")
     .expect(Selector("h1").withText("My Experience").visible)
     .ok()
@@ -36,6 +40,19 @@ test("Applicant Profile", async t => {
     .click(Selector("button").withAttribute("value", "degrees[new][1]"))
     .expect(Selector("span").withText("Phd, Computer Science").visible)
     .ok()
+
+    // Skills page (incomplete).
+    // Regression test for skill help modal.
+    .navigateTo("/profile/skills")
+    .expect(Selector("h1").withText("My Skills").visible)
+    .ok()
+    .click(Selector("button").withText("Add Skill"))
+    .click(Selector("button").withText("(Need help? See example.)"))
+    .expect(Selector("h3").withText("Writing my application").visible)
+    .ok()
+    .click(Selector("button").withText("Got it!"))
+
+    // About page
     .navigateTo("/profile/about")
     .expect(Selector("h1").withText("About Me").visible)
     .ok()
@@ -76,5 +93,5 @@ test("Applicant Profile", async t => {
     .ok()
     .click(Selector("a").withText("My Skills"))
     .expect(Selector("h1").withText("My Skills").visible)
-    .ok();
+    .ok()
 });
