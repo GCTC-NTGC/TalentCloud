@@ -33,7 +33,10 @@ export interface JobPreviewProps {
   education: string;
   // Telework is allowed
   telework: string;
-  // Travel opportunities;
+  // Travel opportunities
+  travel: string | null;
+  // Frequency of Overtime expected
+  overtime: string | null;
 }
 
 const messages = defineMessages({
@@ -120,6 +123,8 @@ const JobPreview: React.FunctionComponent<
   securityLevel,
   classification,
   telework,
+  travel,
+  overtime,
   level,
   intl,
 }: JobPreviewProps & InjectedIntlProps): React.ReactElement => {
@@ -293,7 +298,7 @@ const JobPreview: React.FunctionComponent<
               description="Job Poster Card Information Label"
             />
           </p>
-          <p>{intl.formatMessage(messages[telework])}</p>
+          <p>{telework}</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">
@@ -303,28 +308,32 @@ const JobPreview: React.FunctionComponent<
               description="Job Poster Card Information Label"
             />
           </p>
-          <p>{intl.formatMessage(messages[flexHours])}</p>
+          <p>{flexHours}</p>
         </div>
-        <div data-c-grid-item="tp(1of2)">
-          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
-            <FormattedMessage
-              id="jobPreview.travel"
-              defaultMessage="Travel"
-              description="Job Poster Card Information Label"
-            />
-          </p>
-          <p>Not yet implemented.</p>
-        </div>
-        <div data-c-grid-item="tp(1of2)">
-          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
-            <FormattedMessage
-              id="jobPreview.overtime"
-              defaultMessage="Overtime"
-              description="Job Poster Card Information Label"
-            />
-          </p>
-          <p>Not yet implemented.</p>
-        </div>
+        {travel && (
+          <div data-c-grid-item="tp(1of2)">
+            <p data-c-colour="c3" data-c-margin="bottom(quarter)">
+              <FormattedMessage
+                id="jobPreview.travel"
+                defaultMessage="Travel"
+                description="Job Poster Card Information Label"
+              />
+            </p>
+            <p>{travel}</p>
+          </div>
+        )}
+        {overtime && (
+          <div data-c-grid-item="tp(1of2)">
+            <p data-c-colour="c3" data-c-margin="bottom(quarter)">
+              <FormattedMessage
+                id="jobPreview.overtime"
+                defaultMessage="Overtime"
+                description="Job Poster Card Information Label"
+              />
+            </p>
+            <p>{overtime}</p>
+          </div>
+        )}
       </div>
     </div>
   );

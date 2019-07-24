@@ -22,8 +22,10 @@ stories.add(
       securityLevel={text("Security Level", "Reliability")}
       classification={text("Classification Code", "CS")}
       level={text("Position Level", "03")}
-      flexHours={text("Flex Hours", "flexHoursSometimes")}
-      telework={text("Telework", "teleworkSometimes")}
+      flexHours={text("Flex Hours", "Frequently")}
+      telework={text("Telework", "Sometimes")}
+      travel={text("Travel", "Many Opportunities for Travel")}
+      overtime={text("Overtime", "Frequent Overtime Required")}
       education={text(
         "Education",
         "2 years post-secondary, or equivalent experience \n\n2 years post-secondary education: Successful completion of two years of post-secondary education in computer science, information technology, information management or another specialty relevant to this position; or",

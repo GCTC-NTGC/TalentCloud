@@ -285,7 +285,6 @@ interface JobFormValues {
   remoteWork: RemoteWorkType;
   telework: TeleworkOptionType;
   flexHours: FlexHourOptionType;
-  education: string;
 }
 
 type TeleworkOptionType =
@@ -368,7 +367,6 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues =>
         securityLevel: job.security_clearance_id || "",
         language: job.language_requirement_id || "",
         city: job[locale].city || "",
-        education: job[locale].education || "",
         province: job.province_id || "",
         remoteWork: job.remote_work_allowed
           ? "remoteWorkCanada"
@@ -388,7 +386,6 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues =>
         level: "",
         securityLevel: "",
         language: "",
-        education: "",
         city: "",
         province: "",
         remoteWork: "remoteWorkCanada",
@@ -411,7 +408,6 @@ const updateJobWithValues = (
     remoteWork,
     telework,
     flexHours,
-    education,
   }: JobFormValues,
 ): Job => ({
   ...initialJob,
@@ -428,7 +424,6 @@ const updateJobWithValues = (
     ...initialJob[locale],
     title,
     city,
-    education,
   },
 });
 
@@ -955,15 +950,17 @@ const JobDetails: React.FunctionComponent<
                         province={intl.formatMessage(
                           provinceName(Number(values.province)),
                         )}
-                        education={values.education}
+                        education={(job && job[locale].education) || ""}
                         termLength={Number(values.termLength)}
-                        telework={String(values.telework)}
-                        flexHours={String(values.flexHours)}
+                        telework={values.telework}
+                        flexHours={values.flexHours}
                         securityLevel={intl.formatMessage(
                           securityClearance(Number(values.securityLevel)),
                         )}
                         classification={String(values.classification)}
                         level={String(values.level)}
+                        travel={null}
+                        overtime={null}
                       />
                     </div>
                   </Modal.Body>
