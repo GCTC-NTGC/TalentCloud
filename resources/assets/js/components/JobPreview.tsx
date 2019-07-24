@@ -130,54 +130,36 @@ const JobPreview: React.FunctionComponent<
       data-c-padding="normal"
       data-c-radius="rounded"
     >
-      <h3
-        data-c-font-size="h3"
-        data-c-font-weight="bold"
-        data-c-margin="bottom(half)"
-      >
-        {title}
-      </h3>
-      <p data-c-font-size="h4" data-c-margin="bottom(normal)">
-        {department}
-      </p>
-      <p data-c-margin="bottom(half)">
-        <i
-          data-c-colour="c1"
-          className="fas fa-map-marker-alt"
-          title="Location Icon."
-        >
-          &nbsp;&nbsp;
-        </i>
-        {city}, {province}
-      </p>
-      <p>
-        <i data-c-colour="c1" className="fas fa-home" title="Remote Work Icon.">
-          &nbsp;&nbsp;
-        </i>
-        {remoteWork
-          ? intl.formatMessage(messages.allowed)
-          : intl.formatMessage(messages.notAllowed)}
-      </p>
       <h4
+        data-c-border="bottom(thin, solid, black)"
         data-c-font-size="h4"
         data-c-font-weight="600"
-        data-c-margin="top(double) bottom(normal)"
-        data-c-border="bottom(thin, solid, black)"
+        data-c-margin="bottom(normal)"
         data-c-padding="bottom(normal)"
       >
         <FormattedMessage
-          id="jobPreview.basicInformation"
-          defaultMessage="Basic Information"
+          id="jobPreview.jobInformation"
+          defaultMessage="Job Information"
           description="Section Header for basic information"
         />
       </h4>
       <div data-c-grid="gutter">
         <div data-c-grid-item="tp(1of2)">
-          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
+            <FormattedMessage
+              id="jobPreview.jobTitle"
+              defaultMessage="Job Title"
+              description="Job Poster Card Information Label"
+            />
+          </p>
+          <p>{title}</p>
+        </div>
+        <div data-c-grid-item="tp(1of2)">
+          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
               id="jobPreview.lengthOfTheTerm"
               defaultMessage="Length of the Term"
-              description="Datum Label"
+              description="Job Poster Card Information Label"
             />
           </p>
           <p>
@@ -185,27 +167,46 @@ const JobPreview: React.FunctionComponent<
               termMonths: termLength,
             })}
           </p>
-          {/* TODO: And proper language conversion */}
         </div>
         <div data-c-grid-item="tp(1of2)">
-          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
+            <FormattedMessage
+              id="jobPreview.securityClearance"
+              defaultMessage="Security Clearance"
+              description="Job Poster Card Information Label"
+            />
+          </p>
+          <p>{securityLevel}</p>
+        </div>
+        <div data-c-grid-item="tp(1of2)">
+          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
               id="jobPreview.languageProfile"
               defaultMessage="Language Profile"
-              description="Datum Label"
+              description="Job Poster Card Information Label"
             />
           </p>
           <p>{language}</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
-          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
-              id="jobPreview.securityClearance"
-              defaultMessage="Security Clearance"
-              description="Datum Label"
+              id="jobPreview.city"
+              defaultMessage="City"
+              description="Job Poster Card Information Label"
             />
           </p>
-          <p>{securityLevel}</p>
+          <p>{city}</p>
+        </div>
+        <div data-c-grid-item="tp(1of2)">
+          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
+            <FormattedMessage
+              id="jobPreview.province"
+              defaultMessage="Province"
+              description="Job Poster Card Information Label"
+            />
+          </p>
+          <p>{province}</p>
         </div>
       </div>
       <h4
@@ -223,31 +224,31 @@ const JobPreview: React.FunctionComponent<
       </h4>
       <div data-c-grid="gutter">
         <div data-c-grid-item="tp(1of2)">
-          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
               id="jobPreview.classification"
               defaultMessage="Classification"
-              description="Datum Label"
+              description="Job Poster Card Information Label"
             />
           </p>
           <p>{classification}</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
-          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
               id="jobPreview.level"
               defaultMessage="Level"
-              description="Datum Label"
+              description="Job Poster Card Information Label"
             />
           </p>
           <p>{level}</p>
         </div>
         <div data-c-grid-item="base(1of1)">
-          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
               id="jobPreview.education"
               defaultMessage="Education"
-              description="Datum Label"
+              description="Job Poster Card Information Label"
             />
           </p>
           <p>{education}</p>
@@ -268,11 +269,11 @@ const JobPreview: React.FunctionComponent<
       </h4>
       <div data-c-grid="gutter">
         <div data-c-grid-item="tp(1of2)">
-          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
               id="jobPreview.remoteWork"
               defaultMessage="Remote Work"
-              description="Datum Label"
+              description="Job Poster Card Information Label"
             />
           </p>
           <p>
@@ -285,41 +286,41 @@ const JobPreview: React.FunctionComponent<
           </p>
         </div>
         <div data-c-grid-item="tp(1of2)">
-          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
               id="jobPreview.telework"
               defaultMessage="Telework"
-              description="Datum Label"
+              description="Job Poster Card Information Label"
             />
           </p>
           <p>{intl.formatMessage(messages[telework])}</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
-          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
               id="jobPreview.flexibleHours"
               defaultMessage="Flexible Hours"
-              description="Datum Label"
+              description="Job Poster Card Information Label"
             />
           </p>
           <p>{intl.formatMessage(messages[flexHours])}</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
-          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
               id="jobPreview.travel"
               defaultMessage="Travel"
-              description="Datum Label"
+              description="Job Poster Card Information Label"
             />
           </p>
           <p>Not yet implemented.</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
-          <p data-c-colour="c1" data-c-margin="bottom(quarter)">
+          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
               id="jobPreview.overtime"
               defaultMessage="Overtime"
-              description="Datum Label"
+              description="Job Poster Card Information Label"
             />
           </p>
           <p>Not yet implemented.</p>
