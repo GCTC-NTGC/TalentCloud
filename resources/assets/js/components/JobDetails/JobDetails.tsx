@@ -318,6 +318,13 @@ const teleworkOptions: {
     label: formMessages.frequencyAlwaysLabel,
   },
 ];
+const teleworkMessages = {
+  teleworkNever: formMessages.frequencyNeverLabel,
+  teleworkOccasionally: formMessages.frequencyOccasionallyLabel,
+  teleworkSometimes: formMessages.frequencySometimesLabel,
+  teleworkFrequently: formMessages.frequencyFrequentlyLabel,
+  teleworkAlways: formMessages.frequencyAlwaysLabel,
+};
 const teleworkFrequencies: TeleworkOptionType[] = teleworkOptions.map(
   (option): TeleworkOptionType => option.id,
 );
@@ -353,6 +360,13 @@ const flexHoursOptions: {
     label: formMessages.frequencyAlwaysLabel,
   },
 ];
+const flexHourMessages = {
+  flexHoursNever: formMessages.frequencyNeverLabel,
+  flexHoursOccasionally: formMessages.frequencyOccasionallyLabel,
+  flexHoursSometimes: formMessages.frequencySometimesLabel,
+  flexHoursFrequently: formMessages.frequencyFrequentlyLabel,
+  flexHourAlways: formMessages.frequencyAlwaysLabel,
+};
 const flexHourFequencies = flexHoursOptions.map(
   (option): FlexHourOptionType => option.id,
 );
@@ -952,8 +966,12 @@ const JobDetails: React.FunctionComponent<
                         )}
                         education={(job && job[locale].education) || ""}
                         termLength={Number(values.termLength)}
-                        telework={values.telework}
-                        flexHours={values.flexHours}
+                        telework={intl.formatMessage(
+                          teleworkMessages[values.telework],
+                        )}
+                        flexHours={intl.formatMessage(
+                          flexHourMessages[values.flexHours],
+                        )}
                         securityLevel={intl.formatMessage(
                           securityClearance(Number(values.securityLevel)),
                         )}
