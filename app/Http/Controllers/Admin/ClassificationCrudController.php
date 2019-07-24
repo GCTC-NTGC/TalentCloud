@@ -22,8 +22,10 @@ class ClassificationCrudController extends CrudController
         $this->crud->setRoute('admin/classification');
         // Custom strings to display within the backpack UI.
         $this->crud->setEntityNameStrings('classification', 'classifications');
+        // No deleting classifications.
+        $this->crud->denyAccess('delete');
 
-        // Add custom columns to the Department index view.
+        // Add custom columns to the classification index view.
         $this->crud->addColumn([
             'name' => 'id',
             'type' => 'text',
