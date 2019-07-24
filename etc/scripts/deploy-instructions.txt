@@ -8,6 +8,5 @@ npm install --production
 3. WinSCP deploy.sh and TalentCloud.zip to your home directory.
 
 4. Set permissions and execute:
-sudo chmod 775 TalentCloud.zip
 sudo chmod 775 deploy.sh
 sudo ./deploy.sh
