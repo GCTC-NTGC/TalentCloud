@@ -15,6 +15,7 @@ namespace App\Models;
  * @property string $locale
  * @property string $city
  * @property string $title
+ * @property string $dept_impact
  * @property string $team_impact
  * @property string $hire_impact
  * @property string $branch
@@ -36,6 +37,7 @@ class JobPosterTranslation extends BaseModel
         'locale' => 'string',
         'city' => 'string',
         'title' => 'string',
+        'dept_impact' => 'string',
         'team_impact' => 'string',
         'hire_impact' => 'string',
         'branch' => 'string',
@@ -49,6 +51,7 @@ class JobPosterTranslation extends BaseModel
         'locale',
         'city',
         'title',
+        'dept_impact',
         'team_impact',
         'hire_impact',
         'branch',

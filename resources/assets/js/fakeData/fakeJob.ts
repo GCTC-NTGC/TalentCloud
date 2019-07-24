@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Job, Criteria } from "../models/types";
+import { Job, Criteria, JobPosterKeyTask } from "../models/types";
 
 export const fakeJob = (id = 1): Job => ({
   id,
@@ -36,6 +36,8 @@ export const fakeJob = (id = 1): Job => ({
   en: {
     city: "Rempelfort",
     title: "I wonder if I'm on the.",
+    dept_impact:
+      "This is a statement about all the great things you will do in this department.",
     team_impact:
       "A in excepturi dolorem impedit. Expedita et nihil provident quo soluta neque. Odio et ut nostrum aut. Tenetur odit expedita molestias asperiores qui repudiandae eveniet.",
     hire_impact:
@@ -52,6 +54,8 @@ export const fakeJob = (id = 1): Job => ({
   fr: {
     city: "Lake Robbburgh",
     title: "Queen! The Queen!' and.",
+    dept_impact:
+      "FRENCH: This is a statement about all the great things you will do in this department.",
     team_impact:
       "At iste inventore tempora est. Aspernatur odio autem sapiente est aut. Commodi eius eligendi corrupti repellendus. Enim ad placeat voluptas qui et eum.\n\nEos commodi reprehenderit officiis vero repudiandae. Nisi voluptatem officiis aut molestias incidunt. Doloribus autem est sed non reprehenderit dolores. Et similique et doloribus ea est nam facere.",
     hire_impact:
@@ -103,6 +107,8 @@ export const fakeJob2 = (id = 1): Job => ({
   en: {
     city: "Ottawa",
     title: "UX Designer",
+    dept_impact:
+      "This is a statement about all the great things you will do in this department.",
     team_impact:
       "A in excepturi dolorem impedit. Expedita et nihil provident quo soluta neque. Odio et ut nostrum aut. Tenetur odit expedita molestias asperiores qui repudiandae eveniet.",
     hire_impact:
@@ -119,6 +125,8 @@ export const fakeJob2 = (id = 1): Job => ({
   fr: {
     city: "Ottawa",
     title: "UX Designer",
+    dept_impact:
+      "FRENCH: This is a statement about all the great things you will do in this department.",
     team_impact:
       "At iste inventore tempora est. Aspernatur odio autem sapiente est aut. Commodi eius eligendi corrupti repellendus. Enim ad placeat voluptas qui et eum.\n\nEos commodi reprehenderit officiis vero repudiandae. Nisi voluptatem officiis aut molestias incidunt. Doloribus autem est sed non reprehenderit dolores. Et similique et doloribus ea est nam facere.",
     hire_impact:
@@ -147,5 +155,100 @@ export const fakeCriterion = (id: number = 1, jobId: number = 1): Criteria => ({
     description: `FR This is criteria number ${jobId}`,
   },
 });
+
+export const fakeJobTasks = (jobId: number = 1): JobPosterKeyTask[] => [
+  {
+    id: 1,
+    job_poster_id: jobId,
+    en: {
+      description:
+        "Consult broadly and recruit executive leadership in digital and technology for federal organizations (e.g., C-Suite level positions like Chief Information Officers, Chief Digital Officers, Chief Technology Officers, and their deputies).",
+    },
+    fr: {
+      description:
+        "Consult broadly and recruit executive leadership in digital and technology for federal organizations (e.g., C-Suite level positions like Chief Information Officers, Chief Digital Officers, Chief Technology Officers, and their deputies).",
+    },
+  },
+  {
+    id: 2,
+    job_poster_id: jobId,
+    en: {
+      description:
+        "Connect partner organizations (departments, agencies) with top talent (i.e., high-performing executives) with an interest and the potential to assume technology leadership roles.",
+    },
+    fr: {
+      description:
+        "Connect partner organizations (departments, agencies) with top talent (i.e., high-performing executives) with an interest and the potential to assume technology leadership roles.",
+    },
+  },
+  {
+    id: 3,
+    job_poster_id: jobId,
+    en: {
+      description:
+        "Identify and attract exceptional executive candidates, including those who haven’t considered government as an option before.",
+    },
+    fr: {
+      description:
+        "Identify and attract exceptional executive candidates, including those who haven’t considered government as an option before.",
+    },
+  },
+  {
+    id: 4,
+    job_poster_id: jobId,
+    en: {
+      description:
+        "Build a diverse pipeline of candidates and strong partnerships with government departments. This means proactively going out and building a network and strong relationships with senior level external talent (CIOs and similar senior-level positions) across Canada, as well as with senior leaders in departments and agencies who have vacant positions.",
+    },
+    fr: {
+      description:
+        "Build a diverse pipeline of candidates and strong partnerships with government departments. This means proactively going out and building a network and strong relationships with senior level external talent (CIOs and similar senior-level positions) across Canada, as well as with senior leaders in departments and agencies who have vacant positions.",
+    },
+  },
+  {
+    id: 5,
+    job_poster_id: jobId,
+    en: {
+      description:
+        "Take a human-centered approach to recruitment by understanding users’ needs (hiring executives and candidates) to deliver exceptional user experience.",
+    },
+    fr: {
+      description:
+        "Take a human-centered approach to recruitment by understanding users’ needs (hiring executives and candidates) to deliver exceptional user experience.",
+    },
+  },
+  {
+    id: 6,
+    job_poster_id: jobId,
+    en: {
+      description:
+        "Work creatively using a broad array of traditional and social media approaches.",
+    },
+    fr: {
+      description:
+        "Work creatively using a broad array of traditional and social media approaches.",
+    },
+  },
+  {
+    id: 7,
+    job_poster_id: jobId,
+    en: {
+      description: "This is an example of a task that has exceeded the limit.",
+    },
+    fr: {
+      description: "This is an example of a task that has exceeded the limit.",
+    },
+  },
+  {
+    id: 8,
+    job_poster_id: jobId,
+    en: {
+      description: "This is an example of a task that has exceeded the limit.",
+    },
+    fr: {
+      description: "This is an example of a task that has exceeded the limit.",
+    },
+  },
+];
 
 export default fakeJob;

@@ -4,6 +4,7 @@ import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 export interface JobTranslation {
   city: string | null;
   title: string | null;
+  dept_impact: string | null;
   team_impact: string | null;
   hire_impact: string | null;
   branch: string | null;
@@ -197,4 +198,15 @@ export interface Department {
   id: number;
   en: DepartmentTranslation;
   fr: DepartmentTranslation;
+}
+
+export interface JobPosterKeyTask {
+  id: number;
+  job_poster_id: number;
+  en: {
+    description: string;
+  };
+  fr: {
+    description: string;
+  };
 }

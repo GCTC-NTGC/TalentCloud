@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Job, JobTranslation } from "./types";
+import { Job, JobTranslation, JobPosterKeyTask } from "./types";
 
 const pad = (n: number, width: number, z = "0"): string => {
   return (String(z).repeat(width) + String(n)).slice(String(n).length);
@@ -14,6 +14,7 @@ export const classificationString = (job: Job): string => {
 const emptyJobTranslation = (): JobTranslation => ({
   city: "",
   title: "",
+  dept_impact: "",
   team_impact: "",
   hire_impact: "",
   branch: "",
@@ -57,5 +58,18 @@ export const emptyJob = (): Job => {
     fr: emptyJobTranslation(),
   };
 };
+
+export const emptyTasks = (): JobPosterKeyTask[] => [
+  {
+    id: 0,
+    job_poster_id: 0,
+    en: {
+      description: "",
+    },
+    fr: {
+      description: "",
+    },
+  },
+];
 
 export default { classificationString };

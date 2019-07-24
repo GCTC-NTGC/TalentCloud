@@ -71,6 +71,7 @@ use Astrotomic\Translatable\Translatable;
  * Localized Properties:
  * @property string $city
  * @property string $title
+ * @property string $dept_impact
  * @property string $team_impact
  * @property string $hire_impact
  * @property string $branch
@@ -107,6 +108,7 @@ class JobPoster extends BaseModel
     public $translatedAttributes = [
         'city',
         'title',
+        'dept_impact',
         'team_impact',
         'hire_impact',
         'branch',

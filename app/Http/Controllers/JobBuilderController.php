@@ -42,4 +42,16 @@ class JobBuilderController extends Controller
             ['title' => Lang::get('manager/job_builder.environment_title'), 'jobId' => $jobId]
         );
     }
+
+    /**
+     * Show the Job Builder Impact page
+     * @return \Illuminate\Http\Response
+     */
+    public function impact($jobId = null)
+    {
+        return view(
+            'manager/job-builder-impact',
+            ['title' => Lang::get('manager/job_builder.impact_title'), 'jobId' => $jobId]
+        );
+    }
 }
