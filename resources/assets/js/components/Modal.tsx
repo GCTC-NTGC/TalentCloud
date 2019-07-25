@@ -29,7 +29,7 @@ export default function Modal({
   children,
   onModalConfirm,
   onModalCancel,
-}: ModalProps): React.ReactPortal {
+}: ModalProps): React.ReactPortal | null {
   // Set up div ref to measure modal height
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -92,7 +92,7 @@ export default function Modal({
         height > viewportHeight ? "active--overflowing" : "active--contained",
       );
     }
-  }, [children]);
+  }, [children, visible]);
 
   // Adds various key commands to the modal
   useEffect((): (() => void) => {
@@ -110,29 +110,38 @@ export default function Modal({
         document.removeEventListener("keydown", keyListener);
       }
     };
-  }, [visible]);
+  }, [keyListenersMap, visible]);
 
-  return createPortal(
-    <div
-      aria-describedby={`${id}-description`}
-      aria-hidden={!visible}
-      aria-labelledby={`${id}-title`}
-      data-c-dialog={visible ? overflow : ""}
-      data-c-dialog-id={id}
-      data-c-padding="top(double) bottom(double)"
-      role="dialog"
-      ref={modalRef}
-    >
-      <div data-c-background="white(100)" data-c-radius="rounded">
-        <modalContext.Provider
-          value={{ id, parentElement, visible, onModalConfirm, onModalCancel }}
-        >
-          {children}
-        </modalContext.Provider>
-      </div>
-    </div>,
-    parentElement || document.body,
-  );
+  if (parentElement !== null) {
+    return createPortal(
+      <div
+        aria-describedby={`${id}-description`}
+        aria-hidden={!visible}
+        aria-labelledby={`${id}-title`}
+        data-c-dialog={visible ? overflow : ""}
+        data-c-padding="top(double) bottom(double)"
+        role="dialog"
+        ref={modalRef}
+      >
+        <div data-c-background="white(100)" data-c-radius="rounded">
+          <modalContext.Provider
+            value={{
+              id,
+              parentElement,
+              visible,
+              onModalConfirm,
+              onModalCancel,
+            }}
+          >
+            {children}
+          </modalContext.Provider>
+        </div>
+      </div>,
+      parentElement,
+    );
+  }
+
+  return null;
 }
 
 Modal.Header = function ModalHeader(props): React.ReactElement {
@@ -155,14 +164,13 @@ Modal.Footer = function ModalFooter(props): React.ReactElement {
 };
 
 Modal.FooterConfirmBtn = function ConfirmBtn(props): React.ReactElement {
-  const { id, onModalConfirm } = useContext(modalContext);
+  const { onModalConfirm } = useContext(modalContext);
   return (
     <div data-c-alignment="base(right)" data-c-grid-item="base(1of2)">
       <button
         {...props}
         data-c-button="solid(c1)"
         data-c-dialog-action="close"
-        data-c-dialog-id={id}
         data-c-radius="rounded"
         type="button"
         onClick={onModalConfirm}
@@ -172,14 +180,13 @@ Modal.FooterConfirmBtn = function ConfirmBtn(props): React.ReactElement {
 };
 
 Modal.FooterCancelBtn = function CancelBtn(props): React.ReactElement {
-  const { id, onModalCancel } = useContext(modalContext);
+  const { onModalCancel } = useContext(modalContext);
   return (
     <div data-c-grid-item="base(1of2)">
       <button
         {...props}
         data-c-button="outline(c1)"
         data-c-dialog-action="close"
-        data-c-dialog-id={id}
         data-c-radius="rounded"
         type="button"
         onClick={onModalCancel}

@@ -14,6 +14,10 @@ Nuage de talent s'efforce d'être une initiative intersectorielle mettant à l'e
 
 L'initiative de Nuage de talent est un projet de base proposé par un groupe d'employés passionné d'imaginer de nouvelles options pour la mobilité des talents du secteur public. L'équipe du projet est incubée (sous forme de laboratoire intersectoriel) dans le cadre du CIOB au SCT. Le projet est financé au cours de ses phases de démarrage et de test par les contributions des ministères partenaires.
 
+## Improved development build
+
+We have improved our Docker configuration, anyone interested in setting up the application should check out our [tc-docker repository](https://github.com/GCTC-NTGC/tc-docker) and README until it is integrated here.
+
 ## Attributions
 
 The Talent Cloud site uses:
