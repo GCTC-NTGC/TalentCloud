@@ -273,6 +273,12 @@ const remoteWorkOptions = [
   },
 ];
 
+const remoteWorkMessages = {
+  remoteWorkWorld: formMessages.remoteWorkWorldLabel,
+  remoteWorkCanada: formMessages.remoteWorkCanadaLabel,
+  remoteWorkNone: formMessages.remoteWorkNoneLabel,
+};
+
 interface JobFormValues {
   title: string;
   termLength: number | "";
@@ -318,6 +324,13 @@ const teleworkOptions: {
     label: formMessages.frequencyAlwaysLabel,
   },
 ];
+const teleworkMessages = {
+  teleworkNever: formMessages.frequencyNeverLabel,
+  teleworkOccasionally: formMessages.frequencyOccasionallyLabel,
+  teleworkSometimes: formMessages.frequencySometimesLabel,
+  teleworkFrequently: formMessages.frequencyFrequentlyLabel,
+  teleworkAlways: formMessages.frequencyAlwaysLabel,
+};
 const teleworkFrequencies: TeleworkOptionType[] = teleworkOptions.map(
   (option): TeleworkOptionType => option.id,
 );
@@ -353,6 +366,13 @@ const flexHoursOptions: {
     label: formMessages.frequencyAlwaysLabel,
   },
 ];
+const flexHourMessages = {
+  flexHoursNever: formMessages.frequencyNeverLabel,
+  flexHoursOccasionally: formMessages.frequencyOccasionallyLabel,
+  flexHoursSometimes: formMessages.frequencySometimesLabel,
+  flexHoursFrequently: formMessages.frequencyFrequentlyLabel,
+  flexHourAlways: formMessages.frequencyAlwaysLabel,
+};
 const flexHourFequencies = flexHoursOptions.map(
   (option): FlexHourOptionType => option.id,
 );
@@ -525,7 +545,7 @@ const JobDetails: React.FunctionComponent<
   });
 
   return (
-    <>
+    <section>
       <div
         data-c-container="form"
         data-c-padding="top(triple) bottom(triple)"
@@ -564,7 +584,7 @@ const JobDetails: React.FunctionComponent<
             isSubmitting,
             values,
           }): React.ReactElement => (
-            <>
+            <section>
               <Form id="job-information" data-c-grid="gutter">
                 <Field
                   type="text"
@@ -941,7 +961,9 @@ const JobDetails: React.FunctionComponent<
                     <JobPreview
                       title={values.title}
                       department="Department"
-                      remoteWork={values.remoteWork !== "remoteWorkNone"}
+                      remoteWork={intl.formatMessage(
+                        remoteWorkMessages[values.remoteWork],
+                      )}
                       language={intl.formatMessage(
                         languageRequirement(Number(values.language)),
                       )}
@@ -949,12 +971,21 @@ const JobDetails: React.FunctionComponent<
                       province={intl.formatMessage(
                         provinceName(Number(values.province)),
                       )}
+                      education={(job && job[locale].education) || ""}
                       termLength={Number(values.termLength)}
+                      telework={intl.formatMessage(
+                        teleworkMessages[values.telework],
+                      )}
+                      flexHours={intl.formatMessage(
+                        flexHourMessages[values.flexHours],
+                      )}
                       securityLevel={intl.formatMessage(
                         securityClearance(Number(values.securityLevel)),
                       )}
                       classification={String(values.classification)}
                       level={String(values.level)}
+                      travel={null}
+                      overtime={null}
                     />
                   </div>
                 </Modal.Body>
@@ -975,12 +1006,12 @@ const JobDetails: React.FunctionComponent<
                   </Modal.FooterConfirmBtn>
                 </Modal.Footer>
               </Modal>
-            </>
+            </section>
           )}
         />
       </div>
       <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
-    </>
+    </section>
   );
 };
 
