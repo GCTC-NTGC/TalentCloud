@@ -12,7 +12,7 @@ export const fakeSkill = (): Skill => ({
       "Defined as: Developing web applications using HTML5, CSS3, Javascript",
   },
   fr: {
-    name: "Dé9veloppement frontal",
+    name: "Développement frontal",
     description:
       "Se définissant comme suit : Développement d'applications Web à l'aide de HTML5, CSS3 et JavaScript.",
   },
