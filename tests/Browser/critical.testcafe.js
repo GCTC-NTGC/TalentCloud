@@ -148,7 +148,43 @@ test("Applicant Profile - My Experience", async t => {
     .ok();
 });
 
-// TODO: Work samples page.
+test("Applicant Profile - My Work Samples", async t => {
+  await t
+    // Logged in as applicant.
+    .useRole(applicantUser)
+    // Go to My Work Samples page.
+    .navigateTo("/profile/portfolio")
+    .expect(Selector("h1").withText("My Work Samples").visible)
+    .ok()
+    // Add new work sample.
+    .click(Selector("button").withText("Add Sample"))
+    .typeText(
+      Selector("input").withAttribute("id", "work_samples[1]sampleName"),
+      "Cool Funny",
+    )
+    .click(Selector("select").withAttribute("id", "work_samples[1]sampleType"))
+    .click(
+      Selector("select")
+        .withAttribute("id", "work_samples[1]sampleType")
+        .find("option")
+        .withAttribute("value", "3"),
+    )
+    .typeText(
+      Selector("input").withAttribute("id", "work_samples[1]sampleLink"),
+      "http://www.coolfunny.com",
+    )
+    .typeText(
+      Selector("textarea").withAttribute(
+        "id",
+        "work_samples[1]sampleDescription",
+      ),
+      "A website that is both cool and funny.",
+    )
+    .pressKey("tab tab tab enter")
+    .navigateTo("/profile/portfolio")
+    .expect(Selector("button").withText("Cool Funny").visible)
+    .ok();
+});
 
 test("Applicant Profile - About Me", async t => {
   await t
