@@ -1512,6 +1512,101 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "{termMonths,plural,=0{no months} one{{termMonths, number} month} other{{termMonths, number} months}}",
+        "description": "Calculated term length in months",
+        "id": "jobPreview.termLength"
+      },
+      {
+        "defaultMessage": "Job Information",
+        "description": "Section Header for basic information",
+        "id": "jobPreview.jobInformation"
+      },
+      {
+        "defaultMessage": "Job Title",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.jobTitle"
+      },
+      {
+        "defaultMessage": "Length of the Term",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.lengthOfTheTerm"
+      },
+      {
+        "defaultMessage": "Security Clearance",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.securityClearance"
+      },
+      {
+        "defaultMessage": "Language Profile",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.languageProfile"
+      },
+      {
+        "defaultMessage": "City",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.city"
+      },
+      {
+        "defaultMessage": "Province",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.province"
+      },
+      {
+        "defaultMessage": "Classification & Education",
+        "description": "Section Header",
+        "id": "jobPreview.classificationEducation"
+      },
+      {
+        "defaultMessage": "Classification",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.classification"
+      },
+      {
+        "defaultMessage": "Level",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.level"
+      },
+      {
+        "defaultMessage": "Education",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.education"
+      },
+      {
+        "defaultMessage": "Work Styles",
+        "description": "Section Header",
+        "id": "jobPreview.workStyles"
+      },
+      {
+        "defaultMessage": "Remote Work",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.remoteWork"
+      },
+      {
+        "defaultMessage": "Telework",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.telework"
+      },
+      {
+        "defaultMessage": "Flexible Hours",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.flexibleHours"
+      },
+      {
+        "defaultMessage": "Travel",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.travel"
+      },
+      {
+        "defaultMessage": "Overtime",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.overtime"
+      }
+    ],
+    "path": "resources/assets/js/components/JobPreview.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Try for a casual, frank, friendly tone...",
         "description": "Placeholder shown inside a Task text area.",
         "id": "jobTasks.taskPlaceholder"
