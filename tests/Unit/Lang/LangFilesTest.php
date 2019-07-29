@@ -174,7 +174,7 @@ class LangFilesTest extends BaseTranslationTest
         'Impact (English)', 'Impact (Français)', 'Division', 'Division (English)', 'Division (Français)',
         'Question', 'Question (English)', 'Question (Français)', 'Description', 'Description (English)',
         'Description (Français)', 'Province', 'Classifications', 'to-know', 'levels', 'post-application',
-        'skill-recognition',
+        'skill-recognition', 'benefits',
         'https://gccollab.ca/groups/profile/19750/talent-cloud-nuage-de-talent',
         'https://account.gccollab.ca/profile/',
         'https://twitter.com/GC_Talent',
