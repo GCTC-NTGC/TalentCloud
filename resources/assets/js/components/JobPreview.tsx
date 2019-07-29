@@ -27,84 +27,24 @@ export interface JobPreviewProps {
   classification: string;
   /** Level for the classification, i.e. 03 */
   level: string;
-  /** How often are Flex Hours allowed */
+  /** How often Flex Hours are allowed */
   flexHours: string;
-  // Description of Required Education
+  /** Description of Required Education */
   education: string;
-  // Telework is allowed
+  /** How often Teleworking is allowed */
   telework: string;
-  // Travel opportunities
+  /** Travel opportunities */
   travel: string | null;
-  // Frequency of Overtime expected
+  /** Frequency of Overtime expected */
   overtime: string | null;
 }
 
 const messages = defineMessages({
-  allowed: {
-    id: "jobPreview.remoteWork.allowed",
-    defaultMessage: "Allowed",
-    description: "Remote Work Permission.",
-  },
-  notAllowed: {
-    id: "jobPreview.remoteWork.notAllowed",
-    defaultMessage: "Not Allowed",
-    description: "Remote World Permission",
-  },
-  teleworkNever: {
-    id: "jobPreview.telework.never",
-    defaultMessage: "Never",
-    description: "Telework Frequency",
-  },
-  teleworkOccasionally: {
-    id: "jobPreview.telework.occasionally",
-    defaultMessage: "Occasionally",
-    description: "Telework Frequency",
-  },
-  teleworkSometimes: {
-    id: "jobPreview.telework.sometimes",
-    defaultMessage: "Sometimes",
-    description: "Telework Frequency",
-  },
-  teleworkFrequently: {
-    id: "jobPreview.telework.frequently",
-    defaultMessage: "Frequently",
-    description: "Telework Frequency",
-  },
-  teleworkAlways: {
-    id: "jobPreview.telework.always",
-    defaultMessage: "Always",
-    description: "Telework Frequency",
-  },
-  flexHoursNever: {
-    id: "jobPreview.flexHours.never",
-    defaultMessage: "Never",
-    description: "Flex Hours Frequency",
-  },
-  flexHoursOccasionally: {
-    id: "jobPreview.flexHours.occasionally",
-    defaultMessage: "Occasionally",
-    description: "Flex Hours Frequency",
-  },
-  flexHoursSometimes: {
-    id: "jobPreview.flexHours.sometimes",
-    defaultMessage: "Sometimes",
-    description: "Flex Hours Frequency",
-  },
-  flexHoursFrequently: {
-    id: "jobPreview.flexHours.frequently",
-    defaultMessage: "Frequently",
-    description: "Flex Hours Frequency",
-  },
-  flexHoursAlways: {
-    id: "jobPreview.flexHours.always",
-    defaultMessage: "Always",
-    description: "Flex Hours Frequency",
-  },
   termLength: {
     id: "jobPreview.termLength",
     defaultMessage:
       "{termMonths, plural, =0 {no months} one {# month} other {# months}}",
-    description: "Calculated term lenght in months",
+    description: "Calculated term length in months",
   },
 });
 
@@ -112,7 +52,6 @@ const JobPreview: React.FunctionComponent<
   JobPreviewProps & InjectedIntlProps
 > = ({
   title,
-  department,
   city,
   education,
   province,
