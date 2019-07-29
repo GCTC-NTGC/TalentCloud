@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { InjectedIntlProps, FormattedMessage, injectIntl } from "react-intl";
+import { connect } from "react-redux";
+import ReactDOM from "react-dom";
 import { JobPosterKeyTask, Job } from "../../models/types";
 import { ProgressTrackerItem } from "../ProgressTracker/types";
 import {
@@ -7,7 +10,6 @@ import {
   jobBuilderEnvProgressState,
   jobImpactProgressState,
 } from "../JobBuilder/jobBuilderHelpers";
-import { InjectedIntlProps, FormattedMessage, injectIntl } from "react-intl";
 import {
   progressTrackerLabels,
   progressTrackerTitles,
@@ -23,8 +25,6 @@ import {
   fetchJobTasks,
   batchUpdateJobTasks,
 } from "../../store/Job/jobActions";
-import { connect } from "react-redux";
-import ReactDOM from "react-dom";
 import RootContainer from "../RootContainer";
 
 const VALID_COUNT = 6;
