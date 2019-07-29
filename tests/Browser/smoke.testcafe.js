@@ -2,6 +2,9 @@ import { Selector } from "testcafe";
 
 fixture(`Smoke`).page(`talent.test`);
 
+// Skip when writing new tests
+// fixture.skip(`Smoke`);
+
 test("Basic Access", async t => {
   await t
     .expect(Selector(".home__about-card").visible)
