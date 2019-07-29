@@ -82,6 +82,17 @@
   }
 }
 
+.skill-context-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  &:hover {
+    color: $palette--blue;
+    transition: color .3s ease;
+  }
+}
+
 // Null State ==========================================================
 .profile-null {
   background: $palette--white;

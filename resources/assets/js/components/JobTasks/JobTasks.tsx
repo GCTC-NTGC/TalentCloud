@@ -15,6 +15,7 @@ import {
   FormikValues,
 } from "formik";
 import { array, object, string } from "yup";
+import nanoid from "nanoid";
 
 import Modal from "../Modal";
 import { validationMessages } from "../Form/Messages";
@@ -44,7 +45,7 @@ interface JobTasksProps {
 }
 
 interface TaskFormValues {
-  id: number | null;
+  id: string | number;
   jobPosterId: number;
   description: string;
 }
@@ -109,7 +110,10 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
   ): JobPosterKeyTask[] => {
     return formTasks.map(
       (task: TaskFormValues): JobPosterKeyTask => {
-        const keyTask = task.id ? find(canonicalTasks, task.id) : null;
+        const keyTask =
+          task.id && typeof task.id === "number"
+            ? find(canonicalTasks, task.id)
+            : null;
         if (keyTask) {
           return {
             ...keyTask,
@@ -267,6 +271,8 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                         </div>
                       </div>
                     ) : null;
+                  const tempId = nanoid(10);
+
                   return (
                     <>
                       <div data-c-grid="gutter">
@@ -277,6 +283,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                               <>
                                 {validCount === index && (
                                   <div
+                                    key="taskError"
                                     className="job-builder-task-warning"
                                     data-c-grid-item="base(1of1)"
                                   >
@@ -314,7 +321,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                                   </div>
                                 )}
                                 <div
-                                  key={`listItem${index}`}
+                                  key={task.id}
                                   className={`job-builder-task${
                                     index + 1 > validCount ? " invalid" : ""
                                   }`}
@@ -357,7 +364,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                                     </button>
                                   </div>
                                   <Field
-                                    id={`task-${index}`}
+                                    id={`task-${task.id}`}
                                     name={`tasks.${index}.description`}
                                     label={`${intl.formatMessage(
                                       formMessages.taskLabel,
@@ -385,7 +392,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                             disabled={isSubmitting}
                             onClick={(): void =>
                               arrayHelpers.push({
-                                id: 0,
+                                id: tempId,
                                 job_poster_id: jobId,
                                 en: { description: "" },
                                 fr: { description: "" },
@@ -518,7 +525,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                         {values.tasks &&
                           values.tasks.map(
                             (task: TaskFormValues): React.ReactElement => (
-                              <li>{task.description}</li>
+                              <li key={task.id}>{task.description}</li>
                             ),
                           )}
                       </ul>
