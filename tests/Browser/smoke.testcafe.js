@@ -70,7 +70,7 @@ test("Job Posters", async t => {
 test("User Accounts", async t => {
   await t
     .useRole(applicantUser)
-    .navigateTo("/faq")
+    .navigateTo("/en")
     .expect(Selector("a").withText("My Applications").visible)
     .ok()
     .expect(Selector("a").withText("My Profile").visible)
