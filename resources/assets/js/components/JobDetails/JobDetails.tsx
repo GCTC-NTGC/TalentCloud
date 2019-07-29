@@ -279,20 +279,6 @@ const remoteWorkMessages = {
   remoteWorkNone: formMessages.remoteWorkNoneLabel,
 };
 
-interface JobFormValues {
-  title: string;
-  termLength: number | "";
-  classification: string;
-  level: number | "";
-  securityLevel: number | "";
-  language: number | "";
-  city: string;
-  province: number | "";
-  remoteWork: RemoteWorkType;
-  telework: TeleworkOptionType;
-  flexHours: FlexHourOptionType;
-}
-
 type TeleworkOptionType =
   | "teleworkNever"
   | "teleworkOccasionally"
@@ -371,11 +357,25 @@ const flexHourMessages = {
   flexHoursOccasionally: formMessages.frequencyOccasionallyLabel,
   flexHoursSometimes: formMessages.frequencySometimesLabel,
   flexHoursFrequently: formMessages.frequencyFrequentlyLabel,
-  flexHourAlways: formMessages.frequencyAlwaysLabel,
+  flexHoursAlways: formMessages.frequencyAlwaysLabel,
 };
 const flexHourFequencies = flexHoursOptions.map(
   (option): FlexHourOptionType => option.id,
 );
+
+interface JobFormValues {
+  title: string;
+  termLength: number | "";
+  classification: string;
+  level: number | "";
+  securityLevel: number | "";
+  language: number | "";
+  city: string;
+  province: number | "";
+  remoteWork: RemoteWorkType;
+  telework: TeleworkOptionType;
+  flexHours: FlexHourOptionType;
+}
 
 const jobToValues = (job: Job | null, locale: string): JobFormValues =>
   job
@@ -895,7 +895,6 @@ const JobDetails: React.FunctionComponent<
                   <button
                     data-c-button="solid(c1)"
                     data-c-dialog-action="open"
-                    data-c-dialog-id="job-details-preview"
                     data-c-radius="rounded"
                     type="submit"
                     disabled={isSubmitting}
