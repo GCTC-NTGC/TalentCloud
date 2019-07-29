@@ -1,40 +1,13 @@
-import { Selector, Role } from "testcafe";
+import { Selector } from "testcafe";
+import { applicantUser, adminUser } from "./helpers/roles";
 
-fixture(`Critical`).page(`talent.test`);
+fixture(`Critical - Applicant Profile`).page(`talent.test`);
 
-// Logins for each user role, allows quick switching.
-const applicantUser = Role("http://talent.test/login", async t => {
-  await t
-    .typeText("#email", "applicant@test.com")
-    .typeText("#password", "password")
-    .click(Selector("button").withText("Login"));
-});
-
-const adminUser = Role("http://talent.test/admin/login", async t => {
-  await t
-    .typeText(
-      Selector(".form-control").withAttribute("name", "email"),
-      "admin@test.com",
-    )
-    .typeText(
-      Selector(".form-control").withAttribute("name", "password"),
-      "password",
-    )
-    .pressKey("enter");
-});
-
-/*
-const managerUser = Role("http://talent.test/manager/login", async t => {
-  await t
-    .typeText("#email", "manager@test.com")
-    .typeText("#password", "password")
-    .click(Selector("button").withText("Login"));
-});
-*/
+// Skip when writing new tests
+// fixture.skip(`Critical - Applicant Profile`);
 
 test("Applicant Profile - My Skills", async t => {
   await t
-
     // TODO: Applicant user account without prepopulated skills.
     // Logged in as admin (empty skills page).
     .useRole(adminUser)
@@ -83,11 +56,9 @@ test("Applicant Profile - My Skills", async t => {
     .ok()
     .expect(Selector("span").withText("Docker").visible)
     .ok();
-
   /* Delete a skill.
     Issues with selectors, so lots of keyboard commands
     Failing in Firefox
-
     .setNativeDialogHandler(() => null)
     .click(Selector("span").withText("Passion"))
     .pressKey("tab tab tab tab tab enter")
@@ -177,7 +148,6 @@ test("Applicant Profile - My Experience", async t => {
     .ok();
 });
 
-// TODO: References page.
 // TODO: Work samples page.
 
 test("Applicant Profile - About Me", async t => {
@@ -256,7 +226,11 @@ function randomEmail() {
   return email;
 }
 
-test("Register Applicant", async t => {
+fixture(`Critical - Registration`).page(`talent.test`);
+// Skip when writing new tests
+// fixture.skip(`Critical - Registration`);
+
+test("Registration - Applicant", async t => {
   await t
     .click(Selector("a").withText("Register"))
     .typeText(Selector("#name"), "Test Cafe")

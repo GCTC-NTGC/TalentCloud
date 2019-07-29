@@ -1,4 +1,5 @@
 import { Selector } from "testcafe";
+import { applicantUser, managerUser, adminUser } from "./helpers/roles";
 
 fixture(`Smoke`).page(`talent.test`);
 
@@ -47,22 +48,6 @@ test("Language Switch", async t => {
     .ok();
 });
 
-test("User Accounts", async t => {
-  await t
-    .click(Selector("a").withText("Login"))
-    .typeText(Selector("#email"), "applicant@test.com")
-    .pressKey("tab")
-    .typeText(Selector("#password"), "password")
-    .pressKey("enter")
-    .expect(Selector("a").withText("My Applications").visible)
-    .ok()
-    .expect(Selector("a").withText("My Profile").visible)
-    .ok()
-    .click(Selector("a").withText("Logout"))
-    .expect(Selector("a").withText("Login").visible)
-    .ok();
-});
-
 test("Job Posters", async t => {
   await t
     .expect(Selector("a").withText("Browse Jobs").visible)
@@ -82,12 +67,22 @@ test("Job Posters", async t => {
     .ok();
 });
 
+test("User Accounts", async t => {
+  await t
+    .useRole(applicantUser)
+    .navigateTo("/faq")
+    .expect(Selector("a").withText("My Applications").visible)
+    .ok()
+    .expect(Selector("a").withText("My Profile").visible)
+    .ok()
+    .click(Selector("a").withText("Logout"))
+    .expect(Selector("a").withText("Login").visible)
+    .ok();
+});
+
 test("Manager Job Posters", async t => {
   await t
-    .click(Selector("a").withText("Login"))
-    .typeText(Selector("#email"), "manager@test.com")
-    .typeText(Selector("#password"), "password")
-    .click(Selector("button").withText("Login"))
+    .useRole(managerUser)
     .navigateTo("/manager/jobs")
     .expect(Selector(".manager-poster-index").visible)
     .ok();
@@ -95,16 +90,8 @@ test("Manager Job Posters", async t => {
 
 test("Admin Portal", async t => {
   await t
-    .navigateTo("/admin/login")
-    .typeText(
-      Selector(".form-control").withAttribute("name", "email"),
-      "admin@test.com",
-    )
-    .typeText(
-      Selector(".form-control").withAttribute("name", "password"),
-      "password",
-    )
-    .pressKey("enter")
+    .useRole(adminUser)
+    .navigateTo("/admin")
     .expect(Selector("h1").withText("Dashboard").visible)
     .ok();
 });
