@@ -1,7 +1,7 @@
 /* eslint-disable camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef, useReducer } from "react";
 import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
-import { Job, Skill, Criteria } from "../../models/types";
+import { Job, Skill, Criteria, JobPosterKeyTask } from "../../models/types";
 import Modal from "../Modal";
 import CriteriaForm from "./CriteriaForm";
 import { mapToObject, getId, hasKey } from "../../helpers/queries";
@@ -15,7 +15,7 @@ interface JobBuilderSkillsProps {
   // The job being built
   job: Job;
   // This job's key tasks
-  keyTasks: string[];
+  keyTasks: JobPosterKeyTask[];
   // Criteria already part of the job
   initialCriteria: Criteria[];
   // The list of all possible skills
@@ -462,7 +462,7 @@ export const JobBuilderSkills: React.FunctionComponent<
         <ul data-c-margin="bottom(triple)">
           {keyTasks.map(
             (task): React.ReactElement => (
-              <li>{task}</li>
+              <li>{task[locale].description}</li>
             ),
           )}
         </ul>

@@ -1,10 +1,10 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { number, select } from "@storybook/addon-knobs";
+import { select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import JobBuilderSkills from "../../components/JobBuilderSkills/JobBuilderSkills";
-import fakeJob, { fakeCriterion, fakeKeyTasks } from "../../fakeData/fakeJob";
+import fakeJob, { fakeCriterion, fakeJobTasks } from "../../fakeData/fakeJob";
 import { fakeSkills } from "../../fakeData/fakeSkills";
 import CriteriaForm from "../../components/JobBuilderSkills/CriteriaForm";
 import { mapToObject } from "../../helpers/queries";
@@ -61,7 +61,7 @@ stories
             "CS",
           ),
         }}
-        keyTasks={fakeKeyTasks()}
+        keyTasks={fakeJobTasks()}
         initialCriteria={[]}
         skills={fakeSkills()}
         handleSubmit={handleSubmit}
