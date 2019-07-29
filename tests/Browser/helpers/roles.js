@@ -5,14 +5,14 @@ export const applicantUser = Role("http://talent.test/login", async t => {
   await t
     .typeText("#email", "applicant@test.com")
     .typeText("#password", "password")
-    .pressKey("enter");
+    .click(Selector("button").withText("Login"));
 });
 
 export const managerUser = Role("http://talent.test/manager/login", async t => {
   await t
     .typeText("#email", "manager@test.com")
     .typeText("#password", "password")
-    .pressKey("enter");
+    .click(Selector("button").withText("Login"));
 });
 
 export const adminUser = Role("http://talent.test/admin/login", async t => {

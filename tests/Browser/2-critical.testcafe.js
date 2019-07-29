@@ -18,7 +18,12 @@ test("Applicant Profile - My Skills", async t => {
     // Add soft skill (Passion).
     .click(Selector("button").withText("Add soft skill"))
     .click(Selector("select").withAttribute("name", "skill_id"))
-    .click(Selector("option").withAttribute("value", "24"))
+    .click(
+      Selector("select")
+        .withAttribute("name", "skill_id")
+        .find("option")
+        .withAttribute("value", "24"),
+    )
     .click(
       Selector(".form__radio-group-span").withText("Deep Level Demonstration"),
     )
@@ -31,6 +36,7 @@ test("Applicant Profile - My Skills", async t => {
     .expect(Selector("h3").withText("Writing my application").visible)
     .ok()
     .click(Selector("button").withText("Got it!"))
+    .wait(1234)
     .click(Selector("button").withText("Save Skill"))
     // Add hard skill (Docker).
     .click(Selector("button").withText("Add hard skill"))
@@ -50,13 +56,7 @@ test("Applicant Profile - My Skills", async t => {
       "Sailing the high seas.",
     )
     .pressKey("tab tab enter")
-    // Save and refresh.
-    .navigateTo("/profile/skills")
-    .expect(Selector("span").withText("Passion").visible)
-    .ok()
-    .expect(Selector("span").withText("Docker").visible)
-    .ok();
-  /* Delete a skill.
+    /* Delete a skill.
     Issues with selectors, so lots of keyboard commands
     Failing in Firefox
     .setNativeDialogHandler(() => null)
@@ -69,6 +69,12 @@ test("Applicant Profile - My Skills", async t => {
     .ok()
     .expect(Selector("span").withText("Passion").exists)
     .notOk(); */
+    // Save and refresh.
+    .navigateTo("/profile/skills")
+    .expect(Selector("span").withText("Passion").visible)
+    .ok()
+    .expect(Selector("span").withText("Docker").visible)
+    .ok();
 });
 
 test("Applicant Profile - My Experience", async t => {
