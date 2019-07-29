@@ -208,3 +208,14 @@ export interface Department {
   en: DepartmentTranslation;
   fr: DepartmentTranslation;
 }
+
+export interface JobPosterKeyTask {
+  id: number;
+  job_poster_id: number;
+  en: {
+    description: string;
+  };
+  fr: {
+    description: string;
+  };
+}

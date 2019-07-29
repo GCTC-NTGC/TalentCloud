@@ -1,5 +1,5 @@
 import React from "react";
-import { FieldProps } from "formik";
+import { FieldProps, getIn } from "formik";
 import TextArea, { TextAreaProps } from "../TextArea";
 
 interface TextAreaInputProps
@@ -21,9 +21,9 @@ const TextAreaInput: React.FunctionComponent<TextAreaInputProps> = ({
   form: { errors, touched },
   ...props
 }): React.ReactElement => {
-  const specificError = errors ? errors[name] : null;
+  const specificError = errors ? getIn(errors, name) : null;
   const errorText = specificError ? specificError.toString() : undefined;
-  const invalid = touched[name] && errors[name] ? true : null;
+  const invalid = getIn(touched, name) && specificError ? true : null;
 
   return (
     <TextArea

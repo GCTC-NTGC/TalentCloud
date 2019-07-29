@@ -1512,6 +1512,211 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "{termMonths,plural,=0{no months} one{{termMonths, number} month} other{{termMonths, number} months}}",
+        "description": "Calculated term length in months",
+        "id": "jobPreview.termLength"
+      },
+      {
+        "defaultMessage": "Job Information",
+        "description": "Section Header for basic information",
+        "id": "jobPreview.jobInformation"
+      },
+      {
+        "defaultMessage": "Job Title",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.jobTitle"
+      },
+      {
+        "defaultMessage": "Length of the Term",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.lengthOfTheTerm"
+      },
+      {
+        "defaultMessage": "Security Clearance",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.securityClearance"
+      },
+      {
+        "defaultMessage": "Language Profile",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.languageProfile"
+      },
+      {
+        "defaultMessage": "City",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.city"
+      },
+      {
+        "defaultMessage": "Province",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.province"
+      },
+      {
+        "defaultMessage": "Classification & Education",
+        "description": "Section Header",
+        "id": "jobPreview.classificationEducation"
+      },
+      {
+        "defaultMessage": "Classification",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.classification"
+      },
+      {
+        "defaultMessage": "Level",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.level"
+      },
+      {
+        "defaultMessage": "Education",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.education"
+      },
+      {
+        "defaultMessage": "Work Styles",
+        "description": "Section Header",
+        "id": "jobPreview.workStyles"
+      },
+      {
+        "defaultMessage": "Remote Work",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.remoteWork"
+      },
+      {
+        "defaultMessage": "Telework",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.telework"
+      },
+      {
+        "defaultMessage": "Flexible Hours",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.flexibleHours"
+      },
+      {
+        "defaultMessage": "Travel",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.travel"
+      },
+      {
+        "defaultMessage": "Overtime",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.overtime"
+      }
+    ],
+    "path": "resources/assets/js/components/JobPreview.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Try for a casual, frank, friendly tone...",
+        "description": "Placeholder shown inside a Task text area.",
+        "id": "jobTasks.taskPlaceholder"
+      },
+      {
+        "defaultMessage": "Task",
+        "description": "Label shown above a Task text area.",
+        "id": "jobTasks.taskLabel"
+      },
+      {
+        "defaultMessage": "At least one task is required.",
+        "description": "Validation message shown when a user tries to submit no tasks.",
+        "id": "jobTasks.tasksRequired"
+      },
+      {
+        "defaultMessage": "Please remove any additional tasks before continuing.",
+        "description": "Validation message shown when a user tries to submit more than the allowed number of tasks.",
+        "id": "jobTasks.tasksMaximum"
+      },
+      {
+        "defaultMessage": "Add Key Tasks",
+        "description": "Job Tasks page heading",
+        "id": "jobTasks.heading"
+      },
+      {
+        "defaultMessage": "What will your new team member spend their time on? What will they deliver?",
+        "description": "Job Tasks page first intro section",
+        "id": "jobTasks.intro.first"
+      },
+      {
+        "defaultMessage": "Focus on the key tasks. You don’t need to list every detail of the job, but applicants want to know how they will be spending most of their time.",
+        "description": "Job Tasks page second intro section",
+        "id": "jobTasks.intro.second"
+      },
+      {
+        "defaultMessage": "Aim to provide between four and six key tasks. (You can add as many key tasks as you want as you brainstorm here, but you can include no more than eight in the final job poster.)",
+        "description": "Job Tasks page third intro section",
+        "id": "jobTasks.intro.third"
+      },
+      {
+        "defaultMessage": "Once you have finished entering key tasks, you will move on to identify the individual skills needed to accomplish them.",
+        "description": "Job Tasks page fourth intro section",
+        "id": "jobTasks.intro.fourth"
+      },
+      {
+        "defaultMessage": "You have {taskCount,plural,,one{{taskCount, 2} task} other{{taskCount, 2} tasks}} added.",
+        "description": "Indicates how many tasks are present on the page.",
+        "id": "jobTasks.taskCount.some"
+      },
+      {
+        "defaultMessage": "You don't have any tasks added yet!",
+        "description": "Message displayed when there are no tasks present on the page.",
+        "id": "jobTasks.taskCount.none"
+      },
+      {
+        "defaultMessage": "Just a heads up!",
+        "description": "Error message displayed when too many tasks are on screen.",
+        "id": "jobTasks.taskCount.error.title"
+      },
+      {
+        "defaultMessage": "You have exceeded the maximum number of key tasks allowed, but that’s okay. You can continue to add key tasks as you brainstorm here, but you will be asked to trim your list to 6 key tasks or fewer to proceed.",
+        "description": "Error message displayed when too many tasks are on screen.",
+        "id": "jobTasks.taskCount.error.body"
+      },
+      {
+        "defaultMessage": "Add a Task",
+        "description": "Text on the Add Task button.",
+        "id": "jobTasks.addJob"
+      },
+      {
+        "defaultMessage": "Previous Step",
+        "description": "Text on the Previous Step button.",
+        "id": "jobTasks.previous"
+      },
+      {
+        "defaultMessage": "Preview Tasks",
+        "description": "Text on the Preview Tasks button.",
+        "id": "jobTasks.preview"
+      },
+      {
+        "defaultMessage": "Keep it up!",
+        "description": "Text displayed on the title of the Job Task page Modal.",
+        "id": "jobTasks.modal.title"
+      },
+      {
+        "defaultMessage": "Here's a preview of the Tasks you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
+        "description": "Text displayed above the body of the Job Task page Modal.",
+        "id": "jobTasks.modal.body"
+      },
+      {
+        "defaultMessage": "Tasks",
+        "description": "Text displayed above the lists of Tasks inside the Modal body.",
+        "id": "jobTasks.modal.body.heading"
+      },
+      {
+        "defaultMessage": "Go Back",
+        "description": "The text displayed on the cancel button of the Job Tasks modal.",
+        "id": "jobTasks.modal.cancelButtonLabel"
+      },
+      {
+        "defaultMessage": "Next Step",
+        "description": "The text displayed on the confirm button of the Job Tasks modal.",
+        "id": "jobTasks.modal.confirmButtonLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobTasks/JobTasks.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "You have the ability to accomplish basic tasks with steady supervision and clear direction. The tasks you’re assigned are clear and don’t involve significant complexity. Their impact is usually locally felt. As you advance in this category, you should be developing the ability to accomplish tasks of moderate complexity with steady supervision. You will also need to be able to accomplish basic tasks with little or no supervision. This level is usually associated with tasks that form the bulk of the work for lower level positions, such as junior analysts or entry level developers.",
         "description": "Description of basic hard skill level.",
         "id": "skillLevel.hard.basic.description"
