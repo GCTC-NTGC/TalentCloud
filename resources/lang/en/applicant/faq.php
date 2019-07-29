@@ -28,7 +28,7 @@ return [
                 'title' => 'Who can apply?',
                 'copy' => [
                     '00' => 'Anyone in the world can apply to Talent Cloud. All jobs at this phase of the project are open to the public and competitively posted.',
-                    '01' => "Under the Government of Canada's staffing policies, Canadian veterans and Canadian citizens will be given preference in staffing. (In non-government speak, this means if you're a permanent resident or non-Canadian, your application will be considered if no qualified Canadian citizen applies for the position… and then there's some extra paperwork.)"
+                    '01' => "Under the Government of Canada's staffing policies, Canadian veterans and Canadian citizens will be given preference in staffing. (In non-government speak, this means if you're a permanent resident or non-Canadian, your application will be considered if no qualified Canadian citizen applies for the position... and then there's some extra paperwork.)"
                 ]
             ],
             '02' => [
@@ -42,7 +42,7 @@ return [
             '03' => [
                 'title' => 'Why are there so few jobs posted on Talent Cloud?',
                 'copy' => [
-                    '00' => "At any given time, Talent Cloud should have 2-3 jobs posted. And the site may have to come down on Monday mornings from time to time… We're a tiny team working on a shoestring budget on a highly experimental idea. So posting a few jobs at a time is the best way for us to gather quality data to know if the platform is working as it should, while still providing what we hope is a quality experience to applicants, hiring managers, and departmental HR advisors."
+                    '00' => "At any given time, Talent Cloud should have 2-3 jobs posted. And the site may have to come down on Monday mornings from time to time... We're a tiny team working on a shoestring budget on a highly experimental idea. So posting a few jobs at a time is the best way for us to gather quality data to know if the platform is working as it should, while still providing what we hope is a quality experience to applicants, hiring managers, and departmental HR advisors."
                 ]
             ],
             '04' => [
@@ -72,13 +72,13 @@ return [
                     '00' => "Talent Cloud is working toward a 30-day hiring experience from job advertisement to letter of offer. We're currently piloting the project so, right now, applicants should expect to hear back about their initial application within 2-weeks of the job advertisement closing. For those who move past the initial screening in a position that has been advertised as bilingual, expect language testing early in the process. (If you have never taken any language testing with the Government of Canada before, you may want to try these <a href=\"https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Take the tests\">self-assessment tests</a> to get a sense of what the tests are like).",
                     '01' => 'You can also expect alternative testing and evaluation approaches that are more informal throughout the process. They are designed to screen for other competencies, test right fit to team, and overall capacity. Talent Cloud encourages managers to apply a "best overall" approach to selection, rather than screening out a few applicants at each stage.',
                     '02' => 'All Government of Canada employees are required to pass reliability security checks and many will require secret level clearance. This involves giving finger prints, having a criminal record check and a credit check. These functions are conducted by authorized security officials in Government (not Talent Cloud).',
-                    '03' => "If you've lived outside of Canada for more than six months in a row in the last 5 years (10, if your job requires secret clearance) then you'll need to provide an \"out of country\" criminal record check. This can take a while, as it depends on the processing timelines of the country you've lived in. Applicants can request this \"out of country\" criminal record check at any time and the request doesn't need to be linked to a staffing process. This record is submitted from the applicant to the Government of Canada at the time of security screening. So if you've spent 8 months in South Africa or hung out in the Alps for a year or been at school in Australia, we suggest requesting your records up front. This can save you and your hiring manager a lot of time later. (And if a particular project-based position starts at a fixed date, the lack of security clearance in time may force the hiring manager to select another candidate…)"
+                    '03' => "If you've lived outside of Canada for more than six months in a row in the last 5 years (10, if your job requires secret clearance) then you'll need to provide an \"out of country\" criminal record check. This can take a while, as it depends on the processing timelines of the country you've lived in. Applicants can request this \"out of country\" criminal record check at any time and the request doesn't need to be linked to a staffing process. This record is submitted from the applicant to the Government of Canada at the time of security screening. So if you've spent 8 months in South Africa or hung out in the Alps for a year or been at school in Australia, we suggest requesting your records up front. This can save you and your hiring manager a lot of time later. (And if a particular project-based position starts at a fixed date, the lack of security clearance in time may force the hiring manager to select another candidate...)"
                 ]
             ],
             '06' => [
                 'title' => 'How should I decide whether or not to apply?',
                 'copy' => [
-                    '00' => "The idea of a government job can be very appealing. This leads a lot of people to apply for a lot of jobs they aren't qualified for… or jobs they wouldn't actually take if they knew more about the position to begin with. All these extra applications block up the system and bring staffing down to a painfully slow pace.",
+                    '00' => "The idea of a government job can be very appealing. This leads a lot of people to apply for a lot of jobs they aren't qualified for... or jobs they wouldn't actually take if they knew more about the position to begin with. All these extra applications block up the system and bring staffing down to a painfully slow pace.",
                     '01' => "Talent Cloud shares a lot more information with applicants about the position and the hiring manager to help applicants be part of the discussion on right fit. If a position requires collaboration and you prefer to work alone, maybe it's not right for you. If a position is fast-paced and you like time to digest tasks, perhaps consider applying for another opportunity on Talent Cloud instead.",
                     '02' => 'Read the team culture, work environment and hiring manager sections. Think carefully about whether or not you would be a good fit. Make sure you seek out and apply to jobs that will be fulfilling for you and in an operating environment that will help you thrive so you can give your best to the team and the project every day!'
                 ]
@@ -111,142 +111,219 @@ return [
                     ],
                     '05' => "If the job you've applied to requires Reliability Level security, complete the <a href=\"http://www.tbs-sct.gc.ca/tbsf-fsct/330-23-eng.asp\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Open the form in a new tab or window.\">form found here</a> and then hold onto it. Once complete, don't email it to Talent Cloud until you get asked for it.",
                     '06' => "If the job you've applied to requires Secret Level security, you'll need to complete both a <a href=\"http://www.tbs-sct.gc.ca/tbsf-fsct/330-23-eng.asp\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Open the form in a new tab or window.\">Reliability Clearance form</a> and a <a href=\"http://www.tbs-sct.gc.ca/tbsf-fsct/330-60-eng.asp\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Open the form in a new tab or window.\">Secret Clearance form</a>. Once these two forms are complete, don't email them to Talent Cloud until you get asked for them.",
-                        '07' => "If you've lived outside of Canada for more than six months in a row in the last 5 years (10, if your job requires secret clearance) then you'll need to provide an \"out of country\" criminal record check. This can take a while, as it depends on procedural timelines of the country you've lived in. Applicants can request this \"out of country\" criminal record check at any time, outside of any staffing process. This record is submitted from the applicant to the Government of Canada at the time of security screening. So if you've spent 8 months in South Africa or hung out in the Alps for a year or been at school in Australia, we suggest requesting your records up front. This can save you and your hiring manager a lot of time later. (And if a particular project-based position starts at fixed date, the lack of security clearance in time may force the hiring manager to select another candidate…)"
-                    ]
+                    '07' => "If you've lived outside of Canada for more than six months in a row in the last 5 years (10, if your job requires secret clearance) then you'll need to provide an \"out of country\" criminal record check. This can take a while, as it depends on procedural timelines of the country you've lived in. Applicants can request this \"out of country\" criminal record check at any time, outside of any staffing process. This record is submitted from the applicant to the Government of Canada at the time of security screening. So if you've spent 8 months in South Africa or hung out in the Alps for a year or been at school in Australia, we suggest requesting your records up front. This can save you and your hiring manager a lot of time later. (And if a particular project-based position starts at fixed date, the lack of security clearance in time may force the hiring manager to select another candidate...)"
                 ]
             ]
-        ],
-        'skills' => [
-            'sidebar_title' => 'Skill Recognition',
-            'category_anchor' => 'skill-recognition',
-            'category_title' => "How does Talent Cloud's Skill Recognition Model work?",
-            'sections' => [
-                '00' => [
-                    'title' => 'Dynamic Skill Records: What the heck is that?',
-                    'copy' => [
-                        '00' => "This is where the magic happens. You're more than a resume and your skills are more than formal credentials. So why shouldn't you be able to show a potential employer how much more? With Talent Cloud's dynamic skill records you can be recognized for your current skills, knowledge and abilities, regardless of how or where you got them. This means that you can claim all of your lived experiences as a way to demonstrate your expertise and what you are capable of. Each time something gets validated it becomes part of your dynamic skills record."
-                    ]
-                ],
-                '01' => [
-                    'title' => 'Unique life path? No problem!',
-                    'copy' => [
-                        '00' => "You have a degree? Great. You don't have a degree? Great. We care about what you're capable of. Our dynamic skill recognition method helps you tell us that, no matter what life path you've chosen to get here. While some jobs still require a specific university degree (under Government's Classification standards), Talent Cloud is helping managers develop a broad approach to recognizing skills and equivalencies. The idea is to open up the way Government sees and values experience so that a wider range of Canada's talent can apply to Government work."
-                    ]
-                ],
-                '02' => [
-                    'title' => "Why bother and what's in it for you?",
-                    'copy' => [
-                        '00' => 'Recognition: You become the owner of recognized dynamic skill records that reflect your current skills and potential.',
-                        '01' => 'Create Trust: Your dynamic skill records can be trusted by potential employers because they have already been validated.',
-                        '02' => 'Time Savings: You save a ton of time when you apply for new opportunities because you can reuse your dynamic skill records.'
-                    ]
-                ],
-                '03' => [
-                    'title' => 'How does it work?',
-                    'copy' => [
-                        '00' => "It's actually really simple!",
-                        '01' => [
-                            'type' => 'ol',
-                            'items' => [
-                                '00' => 'Claim: You tell us about a skill you have',
-                                '01' => 'Collect: You send us a work sample that demonstrates your skill',
-                                '02' => 'Corroborate: You choose someone who can act as a micro-reference to support your claim',
-                                '03' => 'Reuse: The next time you apply for a job, you can simply reuse this record - no need to reinvent the wheel each time!',
-                                '04' => 'Evolve: You can add to your dynamic skill records so that they grow over time as you do'
-                            ]
-                        ]
-                    ]
+        ]
+    ],
+    'skills' => [
+        'sidebar_title' => 'Skill Recognition',
+        'category_anchor' => 'skill-recognition',
+        'category_title' => "How does Talent Cloud's Skill Recognition Model work?",
+        'sections' => [
+            '00' => [
+                'title' => 'Dynamic Skill Records: What the heck is that?',
+                'copy' => [
+                    '00' => "This is where the magic happens. You're more than a resume and your skills are more than formal credentials. So why shouldn't you be able to show a potential employer how much more? With Talent Cloud's dynamic skill records you can be recognized for your current skills, knowledge and abilities, regardless of how or where you got them. This means that you can claim all of your lived experiences as a way to demonstrate your expertise and what you are capable of. Each time something gets validated it becomes part of your dynamic skills record."
                 ]
-            ]
-        ],
-        'levels' => [
-            'sidebar_title' => 'Skill Levels',
-            'category_anchor' => 'levels',
-            'category_title' => 'How do I know what level my skills are at?',
-            'sections' => [
-                '00' => [
-                    'title' => "Talent Cloud's Skills Model",
-                    'copy' => [
-                        '00' => "Rather than defining experience by how many years you've done something, Talent Cloud looks at a person's ability to do the job under various conditions of complexity and autonomy. Basically, your level is determined by how challenging a task is, measured against how much help or supervision you require to complete it. This approach acknowledges that people will learn skills at different rates and will show strengths in different ways."
-                    ]
-                ],
-                '01' => [
-                    'title' => 'Find your level: Hard Skills',
-                    'copy' => [
-                        '00' => 'Basic:',
-                        '01' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "You have the ability to accomplish basic tasks with steady supervision and clear direction. The tasks you're assigned are clear and don't involve significant complexity. Their impact is usually locally felt.",
-                                '01' => 'As you advance in this category, you should be developing the ability to accomplish tasks of moderate complexity with steady supervision. You will also need to be able to accomplish basic tasks with little or no supervision.',
-                                '02' => 'This level is usually associated with tasks that form the bulk of the work for lower level positions, such as junior analysts or entry level developers.'
-                            ]
-                        ],
-                        '02' => 'Intermediate:',
-                        '03' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => 'You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision. The approach to the tasks, and how they are delivered, is determined by the supervisor. You contribute input and advice. You are able to advance the task, even in the face of small to moderate hurdles and complications.',
-                                '01' => 'As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision.',
-                                '02' => 'This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers.'
-                            ]
-                        ],
-                        '04' => 'Advanced:',
-                        '05' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "You have the ability to accomplish tasks of significant complexity or impact with supervision. You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor's consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications.",
-                                '01' => 'As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels.',
-                                '02' => 'This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers.'
-                            ]
-                        ],
-                        '06' => 'Lead:',
-                        '07' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "You have the ability to accomplish tasks of significant complexity or impact, where you call the shots and answer to the organization's senior management for your decisions. You bring forward the tasks, the approach and the delivery plan for senior management consideration. You often supervise others (individuals or teams) in delivering tasks of high complexity or system wide impact. You are able to advance these tasks, even in the face of significant unforeseen hurdles and complications.",
-                                '01' => 'As you advance in this category, you should be developing the ability to assess others at more junior levels, becoming able to clearly identify the difference between beginner, intermediate and advanced tasks. You should be able to build teams, set direction and provide supervision.',
-                                '02' => 'This level is usually associated with tasks that form the bulk of the work for management and executive level positions.'
-                            ]
-                        ]
-                    ]
-                ],
-                '02' => [
-                    'title' => 'Find your level: Soft Skills',
-                    'copy' => [
-                        '00' => 'In Early Development:',
-                        '01' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "You're working on acquiring this skill or attribute. You are able to demonstrate it under favourable conditions (low stress, minimal difficulty) and can apply it in a work context intermittently."
-                            ]
-                        ],
-                        '02' => 'Moderately in Evidence:',
-                        '03' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "You're able to consistently demonstrate this skill or attribute in the workplace, including under conditions of low-to-moderate stress or difficulty.",
-                                '01' => 'Your peers and supervisors are able to attest to the fact that you have been able to demonstrate this skill or attribute on a regular basis.'
-                            ]
-                        ],
-                        '04' => 'Strongly in Evidence:',
-                        '05' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "You're able to consistently demonstrate this skill or attribute in the workplace, including under conditions of high stress or difficulty.",
-                                '01' => 'Your peers and supervisors recognize this as a strength you demonstrate in the workplace.'
-                            ]
-                        ],
-                        '06' => 'Deep Level Understanding:',
-                        '07' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => 'This is a foundational part of who you are. You consistently demonstrate this skill or attribute, even under conditions of extreme stress or difficulty.',
-                                '01' => 'Your peers and supervisors recognize this as a significant strength you demonstrate in the workplace, providing an example to others.'
-                            ]
+            ],
+            '01' => [
+                'title' => 'Unique life path? No problem!',
+                'copy' => [
+                    '00' => "You have a degree? Great. You don't have a degree? Great. We care about what you're capable of. Our dynamic skill recognition method helps you tell us that, no matter what life path you've chosen to get here. While some jobs still require a specific university degree (under Government's Classification standards), Talent Cloud is helping managers develop a broad approach to recognizing skills and equivalencies. The idea is to open up the way Government sees and values experience so that a wider range of Canada's talent can apply to Government work."
+                ]
+            ],
+            '02' => [
+                'title' => "Why bother and what's in it for you?",
+                'copy' => [
+                    '00' => 'Recognition: You become the owner of recognized dynamic skill records that reflect your current skills and potential.',
+                    '01' => 'Create Trust: Your dynamic skill records can be trusted by potential employers because they have already been validated.',
+                    '02' => 'Time Savings: You save a ton of time when you apply for new opportunities because you can reuse your dynamic skill records.'
+                ]
+            ],
+            '03' => [
+                'title' => 'How does it work?',
+                'copy' => [
+                    '00' => "It's actually really simple!",
+                    '01' => [
+                        'type' => 'ol',
+                        'items' => [
+                            '00' => 'Claim: You tell us about a skill you have',
+                            '01' => 'Collect: You send us a work sample that demonstrates your skill',
+                            '02' => 'Corroborate: You choose someone who can act as a micro-reference to support your claim',
+                            '03' => 'Reuse: The next time you apply for a job, you can simply reuse this record - no need to reinvent the wheel each time!',
+                            '04' => 'Evolve: You can add to your dynamic skill records so that they grow over time as you do'
                         ]
                     ]
                 ]
             ]
         ]
-    ];
+    ],
+    'levels' => [
+        'sidebar_title' => 'Skill Levels',
+        'category_anchor' => 'levels',
+        'category_title' => 'How do I know what level my skills are at?',
+        'sections' => [
+            '00' => [
+                'title' => "Talent Cloud's Skills Model",
+                'copy' => [
+                    '00' => "Rather than defining experience by how many years you've done something, Talent Cloud looks at a person's ability to do the job under various conditions of complexity and autonomy. Basically, your level is determined by how challenging a task is, measured against how much help or supervision you require to complete it. This approach acknowledges that people will learn skills at different rates and will show strengths in different ways."
+                ]
+            ],
+            '01' => [
+                'title' => 'Find your level: Hard Skills',
+                'copy' => [
+                    '00' => 'Basic:',
+                    '01' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => "You have the ability to accomplish basic tasks with steady supervision and clear direction. The tasks you're assigned are clear and don't involve significant complexity. Their impact is usually locally felt.",
+                            '01' => 'As you advance in this category, you should be developing the ability to accomplish tasks of moderate complexity with steady supervision. You will also need to be able to accomplish basic tasks with little or no supervision.',
+                            '02' => 'This level is usually associated with tasks that form the bulk of the work for lower level positions, such as junior analysts or entry level developers.'
+                        ]
+                    ],
+                    '02' => 'Intermediate:',
+                    '03' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => 'You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision. The approach to the tasks, and how they are delivered, is determined by the supervisor. You contribute input and advice. You are able to advance the task, even in the face of small to moderate hurdles and complications.',
+                            '01' => 'As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision.',
+                            '02' => 'This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers.'
+                        ]
+                    ],
+                    '04' => 'Advanced:',
+                    '05' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => "You have the ability to accomplish tasks of significant complexity or impact with supervision. You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor's consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications.",
+                            '01' => 'As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels.',
+                            '02' => 'This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers.'
+                        ]
+                    ],
+                    '06' => 'Lead:',
+                    '07' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => "You have the ability to accomplish tasks of significant complexity or impact, where you call the shots and answer to the organization's senior management for your decisions. You bring forward the tasks, the approach and the delivery plan for senior management consideration. You often supervise others (individuals or teams) in delivering tasks of high complexity or system wide impact. You are able to advance these tasks, even in the face of significant unforeseen hurdles and complications.",
+                            '01' => 'As you advance in this category, you should be developing the ability to assess others at more junior levels, becoming able to clearly identify the difference between beginner, intermediate and advanced tasks. You should be able to build teams, set direction and provide supervision.',
+                            '02' => 'This level is usually associated with tasks that form the bulk of the work for management and executive level positions.'
+                        ]
+                    ]
+                ]
+            ],
+            '02' => [
+                'title' => 'Find your level: Soft Skills',
+                'copy' => [
+                    '00' => 'In Early Development:',
+                    '01' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => "You're working on acquiring this skill or attribute. You are able to demonstrate it under favourable conditions (low stress, minimal difficulty) and can apply it in a work context intermittently."
+                        ]
+                    ],
+                    '02' => 'Moderately in Evidence:',
+                    '03' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => "You're able to consistently demonstrate this skill or attribute in the workplace, including under conditions of low-to-moderate stress or difficulty.",
+                            '01' => 'Your peers and supervisors are able to attest to the fact that you have been able to demonstrate this skill or attribute on a regular basis.'
+                        ]
+                    ],
+                    '04' => 'Strongly in Evidence:',
+                    '05' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => "You're able to consistently demonstrate this skill or attribute in the workplace, including under conditions of high stress or difficulty.",
+                            '01' => 'Your peers and supervisors recognize this as a strength you demonstrate in the workplace.'
+                        ]
+                    ],
+                    '06' => 'Deep Level Understanding:',
+                    '07' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => 'This is a foundational part of who you are. You consistently demonstrate this skill or attribute, even under conditions of extreme stress or difficulty.',
+                            '01' => 'Your peers and supervisors recognize this as a significant strength you demonstrate in the workplace, providing an example to others.'
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ],
+    'benefits' => [
+        'sidebar_title' => 'Employee Benefits',
+        'category_anchor' => 'benefits',
+        'category_title' => 'Employee Benefits',
+        'sections' => [
+            '00' => [
+                'title' => 'Here’s what you should expect...',
+                'copy' => [
+                    '00' => 'All jobs posted on Talent Cloud are for term positions. That means you are a Government of Canada employee for the duration of your contract. Term positions provide paid holidays and vacation leave, and offers you protection by making benefits mandatory. The information below will be correct for most jobs posted on Talent Cloud, but if you’d like to confirm, ask the hiring manager or use the first two letters in the government classification on the job poster to find the <a href="https://www.tbs-sct.gc.ca/agreements-conventions/list-eng.aspx" target=\"_blank\" rel=\"noopener noreferrer\">collective bargaining agreement</a> that applies to the position.'
+                ]
+            ],
+            '01' => [
+                'title' => 'Health Care',
+                'copy' => [
+                    '00' => 'You can opt-in to the <a href="https://www.canada.ca/en/treasury-board-secretariat/services/benefit-plans/health-care-plan/public-service-health-care-plan-glance.html" target=\"_blank\" rel=\"noopener noreferrer\">Public Service Health Care Plan</a> right away if your term is more than six months (or after six months of continuous employment as a term or permanent employee) and the premiums are 100% employer-paid. The plan covers extended health care costs like prescription drugs, private nursing services, and eyeglasses as well as hospital charges. For most services, the plan covers 80% of expenses but in some cases there are specified maximums.'
+                ]
+            ],
+            '02' => [
+                'title' => 'Dental Care',
+                'copy' => [
+                    '00' => 'The <a href="https://www.canada.ca/en/treasury-board-secretariat/services/benefit-plans/dental-care-plan/public-service-dental-care-plan-glance.html" target=\"_blank\" rel=\"noopener noreferrer\">Public Service Dental Care Plan</a> is 100% employer-paid and covers 90% of basic services and 50% of major services and orthodontics. Enrolment for eligible employees is automatic after a three-month waiting period.'
+                ]
+            ],
+            '03' => [
+                'title' => 'Disability Insurance',
+                'copy' => [
+                    '00' => '<a href="https://www.canada.ca/en/treasury-board-secretariat/services/benefit-plans/disability-insurance-plan/disability-insurance-plan-benefits-glance.html" target=\"_blank\" rel=\"noopener noreferrer\">Disability insurance</a> is compulsory and no application is required. If your term is longer than six months, it starts on your first day. Premiums are 85% employer-paid. The remaining 15% is deducted directly from your pay. This benefit pays you 70% of your monthly salary if any disability prevents you from performing the regular duties of your job.',
+                ]
+            ],
+            '04' => [
+                'title' => 'Pension Plan',
+                'copy' => [
+                    '00' => 'If the term of your position is more than six months the good news is that you’re eligible to participate in the <a href="https://www.canada.ca/en/treasury-board-secretariat/services/pension-plan/active-members/new-public-service-pension.html" target=\"_blank\" rel=\"noopener noreferrer\">public service pension plan</a> beginning on your first day of work. Both you and the Government of Canada contribute equally to the plan. The percentage deducted from your pay will vary depending on your salary.'
+                ]
+            ],
+            '05' => [
+                'title' => 'Paid Holidays',
+                'copy' => [
+                    '00' => 'There are 11 designated paid holidays available to you. They are: New Year’s Day, Good Friday, Easter Monday, Victoria Day, Canada Day, Labour Day, Thanksgiving, Remembrance Day, Christmas Day, Boxing Day, and a provincial or civic holiday in the area where you are employed (e.g., August Civic Holiday). Remote workers take note, this is based on the location of your team’s official office, and not the location where you do your work.'
+                ]
+            ],
+            '06' => [
+                'title' => 'Paid Leave',
+                'copy' => [
+                    '00' => 'In addition to paid holidays, there are several other types of paid leave available to you. The following are some of the most commonly used.',
+                    '01' => [
+                        'type' => 'h4',
+                        'items' => [
+                            '00' => 'Vacation',
+                            '01' => 'You will earn 1.25 days of vacation a month, which works out to three-weeks each year. For the first six-months, you can only use the vacation days you have earned. After that, you can start using anticipated vacation days for the rest of the year.'
+                        ]
+                    ],
+                    '02' => [
+                        'type' => 'h4',
+                        'items' => [
+                            '00' => 'Sick leave',
+                            '01' => 'You will earn 1.25 days of sick leave with pay a month, which works out to 3 weeks each year but you can still take paid sick leave even if you haven’t earned the days (pending approval from your manager).'
+                        ]
+                    ],
+                    '03' => [
+                        'type' => 'h4',
+                        'items' => [
+                            '00' => 'Family leave',
+                            '01' => 'You have up to five days each year to take care of family-related responsibilities. This covers circumstances like school or daycare being closed unexpectedly, school functions, or to care for an ill or elderly family member.'
+                        ]
+                    ],
+                    '04' => [
+                        'type' => 'h4',
+                        'items' => [
+                            '00' => 'Personal leave',
+                            '01' => 'You have up to two days each year to take care of personal matters.'
+                        ]
+                    ],
+                ]
+            ],
+        ]
+    ]
+];

@@ -28,7 +28,7 @@ return [
                 'title' => 'Qui peut présenter une demande?',
                 'copy' => [
                     '00' => "N'importe qui dans le monde peut postuler au moyen du Nuage de talents. Tous les emplois à cette étape du projet sont ouverts au public et publiés de façon concurrentielle.",
-                    '01' => 'En vertu des politiques de dotation du gouvernement du Canada, les anciens combattants canadiens et les citoyens canadiens auront la préférence en matière de dotation (dans le jargon non gouvernemental, cela signifie que si vous êtes résident(e) permanent(e) ou non canadien(ne), votre demande sera prise en considération si aucun citoyen canadien qualifié ne pose sa candidature au poste… et il y aura ensuite des formalités supplémentaires).'
+                    '01' => 'En vertu des politiques de dotation du gouvernement du Canada, les anciens combattants canadiens et les citoyens canadiens auront la préférence en matière de dotation (dans le jargon non gouvernemental, cela signifie que si vous êtes résident(e) permanent(e) ou non canadien(ne), votre demande sera prise en considération si aucun citoyen canadien qualifié ne pose sa candidature au poste... et il y aura ensuite des formalités supplémentaires).'
                 ]
             ],
             '02' => [
@@ -111,142 +111,219 @@ return [
                     ],
                     '05' => "Si l'emploi pour lequel vous postulez exige une cote de fiabilité, remplissez le <a href=\"http://www.tbs-sct.gc.ca/tbsf-fsct/330-23-fra.asp\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Ouvrez le formulaire.\">formulaire qui se trouve ici</a> et conservez-le. Lorsque vous aurez terminé, ne l'envoyez pas par courriel au Nuage de talents jusqu'à ce qu'on vous le demande.",
                     '06' => "Si l'emploi pour lequel vous postulez exige une cote de sécurité de niveau Secret, vous devrez remplir un <a href=\"http://www.tbs-sct.gc.ca/tbsf-fsct/330-23-fra.asp\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Ouvrez le formulaire.\">formulaire de vérification de la fiabilité</a> et un <a href=\"http://www.tbs-sct.gc.ca/tbsf-fsct/330-60-fra.asp\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Ouvrez le formulaire.\">formulaire d'attestation de sécurité de niveau Secret</a>. Une fois ces deux formulaires remplis, ne les envoyez pas par courriel au Nuage de talents avant qu'on vous les demande.",
-                        '07' => "Si vous avez vécu à l'extérieur du Canada pendant plus de six mois consécutifs au cours des cinq dernières années (dix ans, si votre emploi exige une cote de sécurité de niveau secret), vous devrez être soumis(e) à une vérification du casier judiciaire « à l'extérieur du pays ». Cela peut prendre un certain temps, car cela dépend des délais procéduraux du pays où vous avez vécu. Les candidats peuvent demander cette vérification du casier judiciaire « à l'extérieur du pays » en tout temps, en dehors de tout processus de dotation. Ce dossier est présenté par le candidat au gouvernement du Canada au moment du contrôle de sécurité. Donc, si vous avez passé huit mois en Afrique du Sud ou avez été dans les Alpes pendant un an ou à l'école en Australie, nous vous suggérons de demander vos dossiers dès le départ. Cela peut vous faire gagner beaucoup de temps, à vous et à votre gestionnaire d'embauche, plus tard (et si un poste axé sur un projet en particulier commence à une date fixe, le manque d'autorisation de sécurité à temps peut forcer le gestionnaire d'embauche à sélectionner un autre candidat)."
-                    ]
+                    '07' => "Si vous avez vécu à l'extérieur du Canada pendant plus de six mois consécutifs au cours des cinq dernières années (dix ans, si votre emploi exige une cote de sécurité de niveau secret), vous devrez être soumis(e) à une vérification du casier judiciaire « à l'extérieur du pays ». Cela peut prendre un certain temps, car cela dépend des délais procéduraux du pays où vous avez vécu. Les candidats peuvent demander cette vérification du casier judiciaire « à l'extérieur du pays » en tout temps, en dehors de tout processus de dotation. Ce dossier est présenté par le candidat au gouvernement du Canada au moment du contrôle de sécurité. Donc, si vous avez passé huit mois en Afrique du Sud ou avez été dans les Alpes pendant un an ou à l'école en Australie, nous vous suggérons de demander vos dossiers dès le départ. Cela peut vous faire gagner beaucoup de temps, à vous et à votre gestionnaire d'embauche, plus tard (et si un poste axé sur un projet en particulier commence à une date fixe, le manque d'autorisation de sécurité à temps peut forcer le gestionnaire d'embauche à sélectionner un autre candidat)."
                 ]
             ]
-        ],
-        'skills' => [
-            'sidebar_title' => 'Reconnaissance des compétences',
-            'category_anchor' => 'skill-recognition',
-            'category_title' => 'Comment fonctionne le modèle de reconnaissance des compétences du Nuage des talents?',
-            'sections' => [
-                '00' => [
-                    'title' => "Dossiers de compétences dynamiques : Qu'est-ce que c'est?",
-                    'copy' => [
-                        '00' => "C'est là que la magie se produit. Vous êtes plus qu'un CV et vos compétences sont plus que des titres de compétence officiels. Alors pourquoi ne pourriez-vous pas montrer à un employeur potentiel votre valeur réelle? Grâce aux dossiers de compétences dynamiques du Nuage des talents, vous pouvez être reconnu pour vos compétences, vos connaissances et vos capacités actuelles, peu importe comment, et où vous les avez obtenus. Cela signifie que vous pouvez revendiquer toutes vos expériences vécues comme moyen de démontrer votre expertise et ce dont vous êtes capable. Chaque fois que quelque chose est validé, elle fait partie de votre dossier de compétences dynamiques."
-                    ]
-                ],
-                '01' => [
-                    'title' => 'Voie de vie unique? Pas de problème!',
-                    'copy' => [
-                        '00' => "Vous avez un diplôme? Parfait. Vous n'en avez pas? Parfait. Nous nous soucions de ce dont vous êtes capable. Notre méthode dynamique de reconnaissance des compétences vous aide à nous le dire, quel que soit le chemin que vous avez choisi pour arriver ici. Bien que certains emplois exigent toujours un diplôme universitaire en particulier (selon les normes de classification du gouvernement). Le Nuage des talents aide les gestionnaires à élaborer une approche générale de reconnaissance des compétences et des équivalences. L'idée est de modifier la façon dont le gouvernement voit et valorise l'expérience afin qu'un plus large éventail de talents canadiens puisse s'appliquer au travail du gouvernement."
-                    ]
-                ],
-                '02' => [
-                    'title' => "Pourquoi vous en donnez la peine et qu'est-ce que vous en retirez?",
-                    'copy' => [
-                        '00' => 'Reconnaissance : Vous devenez propriétaire de dossiers de compétences dynamiques reconnus qui tiennent compte de vos compétences et votre potentiel actuels.',
-                        '01' => "Instaurer la confiance : Les employeurs potentiels peuvent avoir confiance dans vos dossiers de compétences dynamiques parce qu'ils ont déjà été validés.",
-                        '02' => 'Économies de temps : Vous gagnez beaucoup de temps en présentant une demande pour de nouvelles possibilités parce que vous pouvez réutiliser vos dossiers de compétences dynamiques.'
-                    ]
-                ],
-                '03' => [
-                    'title' => 'Comment cela fonctionne-t-il?',
-                    'copy' => [
-                        '00' => "C'est vraiment très simple!",
-                        '01' => [
-                            'type' => 'ol',
-                            'items' => [
-                                '00' => "Réclamer : Vous nous parlez d'une compétence que vous possédez",
-                                '01' => 'Recueillir : Vous nous envoyez un échantillon de travail qui démontre votre compétence',
-                                '02' => "Corroborer : Vous choisissez quelqu'un qui peut agir comme microréférence pour appuyer votre demande",
-                                '03' => "Réutiliser : La prochaine fois que vous postulez un emploi, vous pouvez tout simplement réutiliser ce dossier – il n'est pas nécessaire de réinventer la roue chaque fois!",
-                                '04' => "Évoluer : Vous pouvez ajouter des éléments à vos dossiers dynamiques de compétences afin qu'ils grandissent au fil du temps comme vous"
-                            ]
-                        ]
-                    ]
+        ]
+    ],
+    'skills' => [
+        'sidebar_title' => 'Reconnaissance des compétences',
+        'category_anchor' => 'skill-recognition',
+        'category_title' => 'Comment fonctionne le modèle de reconnaissance des compétences du Nuage des talents?',
+        'sections' => [
+            '00' => [
+                'title' => "Dossiers de compétences dynamiques : Qu'est-ce que c'est?",
+                'copy' => [
+                    '00' => "C'est là que la magie se produit. Vous êtes plus qu'un CV et vos compétences sont plus que des titres de compétence officiels. Alors pourquoi ne pourriez-vous pas montrer à un employeur potentiel votre valeur réelle? Grâce aux dossiers de compétences dynamiques du Nuage des talents, vous pouvez être reconnu pour vos compétences, vos connaissances et vos capacités actuelles, peu importe comment, et où vous les avez obtenus. Cela signifie que vous pouvez revendiquer toutes vos expériences vécues comme moyen de démontrer votre expertise et ce dont vous êtes capable. Chaque fois que quelque chose est validé, elle fait partie de votre dossier de compétences dynamiques."
                 ]
-            ]
-        ],
-        'levels' => [
-            'sidebar_title' => 'Niveau de compétences',
-            'category_anchor' => 'levels',
-            'category_title' => 'Comment puis-je connaître le niveau de mes compétences?',
-            'sections' => [
-                '00' => [
-                    'title' => 'Modèle de compétences du Nuage de talents',
-                    'copy' => [
-                        '00' => "Plutôt que de définir l'expérience en fonction du nombre d'années d'expérience, le Nuage de talents examine la capacité d'une personne à faire son travail dans diverses conditions de complexité et d'autonomie. Essentiellement, votre niveau est déterminé par la difficulté d'une tâche, qui est mesurée en fonction de l'aide ou de la supervision dont vous avez besoin pour l'accomplir. Cette approche reconnaît que les gens acquerront des compétences à des rythmes différents, et que leurs forces se manifesteront de différentes façons."
-                    ]
-                ],
-                '01' => [
-                    'title' => 'Trouvez votre niveau: Compétences spécialisées',
-                    'copy' => [
-                        '00' => 'Débutant :',
-                        '01' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "Vous êtes capable d'accomplir des tâches de base avec une supervision régulière et une orientation claire. Les tâches qui vous sont assignées sont claires et ne sont pas très complexes. Elles ont généralement une incidence locale.",
-                                '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d'accomplir des tâches de complexité modérée avec une supervision régulière. Vous devriez aussi être en mesure d'accomplir des tâches de base avec peu ou pas de supervision.",
-                                '02' => 'Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau inférieur, comme les analystes ou les développeurs de niveau débutant.'
-                            ]
-                        ],
-                        '02' => 'Intermédiaire :',
-                        '03' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "Vous avez la capacité d'accomplir des tâches de complexité modérée ou d'incidence modérée avec supervision. C'est le superviseur qui détermine l'approche à préconiser pour effectuer les tâches, de même que la façon dont elles sont exécutées. Vous apportez des commentaires et des conseils. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications de petite à moyenne envergure.",
-                                '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d'accomplir des tâches d'une complexité importante ou ayant une incidence plus grande avec une supervision régulière. Vous devriez également être en mesure d'accomplir des tâches d'une complexité ou d'une incidence modérée avec peu ou pas de supervision.",
-                                '02' => 'Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau intermédiaire, comme les analystes ou les développeurs.'
-                            ]
-                        ],
-                        '04' => 'Avancé :',
-                        '05' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "Vous avez la capacité d'accomplir des tâches d'une complexité ou d'une incidence importante avec supervision. Vous donnez des conseils et des commentaires au superviseur sur l'approche à employer pour effectuer les tâches et la façon dont elles sont exécutées. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications d'envergure moyenne à importante.",
-                                '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous êtes être en mesure d'accomplir des tâches d'une complexité importante ou ayant une incidence plus grande avec seulement de légers niveaux de supervision, en étant effectivement le responsable de l'initiative. Vous pouvez également jouer un rôle de formation d'autres personnes dans cet ensemble de compétences ou assumer un rôle de supervision léger pour les personnes aux niveaux inférieurs.",
-                                '02' => 'Ce niveau est habituellement associé à des tâches qui constituent la majeure partie du travail pour des postes de niveau supérieur, comme les analystes principaux ou les développeurs principaux.'
-                            ]
-                        ],
-                        '06' => 'Responsable :',
-                        '07' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "Vous êtes en mesure d'accomplir des tâches d'une complexité ou d'une incidence importante, où vous prenez les décisions et répondez de vos décisions auprès de la haute direction de l'organisation. Vous présentez les tâches, l'approche et le plan de réalisation à la haute direction. Vous supervisez souvent d'autres personnes (personnes ou équipes) dans l'exécution de tâches très complexes ou ayant une incidence sur l'ensemble du système. Vous êtes en mesure de faire progresser ces tâches, même face à des obstacles et à des complications importants et imprévus.",
-                                '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d'évaluer les autres à des niveaux plus subalternes, et de déterminer clairement la différence entre les tâches débutantes, intermédiaires et avancées. Vous devriez également être en mesure de pouvoir former des équipes, définir des orientations et assurer une supervision.",
-                                '02' => 'Ce niveau est habituellement associé aux tâches qui constituent la majeure partie du travail pour les postes de direction et de direction.'
-                            ]
-                        ]
-                    ]
-                ],
-                '02' => [
-                    'title' => 'Trouvez votre niveau: Compétences non spécialisées',
-                    'copy' => [
-                        '00' => 'Phase de développement précoce :',
-                        '01' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "Vous êtes en processus d'acquérir cette compétence ou cet attribut. Vous êtes capable de le démontrer dans des conditions favorables (peu de stress, difficulté minimale) et pouvez l'appliquer dans un contexte de travail de façon intermittente."
-                            ]
-                        ],
-                        '02' => 'Modérément en évidence :',
-                        '03' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => 'Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés.',
-                                '01' => 'Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.'
-                            ]
-                        ],
-                        '04' => 'Fortement en évidence :',
-                        '05' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => 'Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont élevés.',
-                                '01' => "Vos pairs et vos superviseurs reconnaissent qu'il s'agit d'une force dont vous faites preuve en milieu de travail."
-                            ]
-                        ],
-                        '06' => 'Démonstration à un niveau profond :',
-                        '07' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "Il s'agit d'une partie fondamentale de qui vous êtes. Vous démontrez cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont extrêmes.",
-                                '01' => "Vos pairs et vos superviseurs reconnaissent qu'il s'agit d'une force importante dont vous faites preuve en milieu de travail, en donnant un exemple aux autres."
-                            ]
+            ],
+            '01' => [
+                'title' => 'Voie de vie unique? Pas de problème!',
+                'copy' => [
+                    '00' => "Vous avez un diplôme? Parfait. Vous n'en avez pas? Parfait. Nous nous soucions de ce dont vous êtes capable. Notre méthode dynamique de reconnaissance des compétences vous aide à nous le dire, quel que soit le chemin que vous avez choisi pour arriver ici. Bien que certains emplois exigent toujours un diplôme universitaire en particulier (selon les normes de classification du gouvernement). Le Nuage des talents aide les gestionnaires à élaborer une approche générale de reconnaissance des compétences et des équivalences. L'idée est de modifier la façon dont le gouvernement voit et valorise l'expérience afin qu'un plus large éventail de talents canadiens puisse s'appliquer au travail du gouvernement."
+                ]
+            ],
+            '02' => [
+                'title' => "Pourquoi vous en donnez la peine et qu'est-ce que vous en retirez?",
+                'copy' => [
+                    '00' => 'Reconnaissance : Vous devenez propriétaire de dossiers de compétences dynamiques reconnus qui tiennent compte de vos compétences et votre potentiel actuels.',
+                    '01' => "Instaurer la confiance : Les employeurs potentiels peuvent avoir confiance dans vos dossiers de compétences dynamiques parce qu'ils ont déjà été validés.",
+                    '02' => 'Économies de temps : Vous gagnez beaucoup de temps en présentant une demande pour de nouvelles possibilités parce que vous pouvez réutiliser vos dossiers de compétences dynamiques.'
+                ]
+            ],
+            '03' => [
+                'title' => 'Comment cela fonctionne-t-il?',
+                'copy' => [
+                    '00' => "C'est vraiment très simple!",
+                    '01' => [
+                        'type' => 'ol',
+                        'items' => [
+                            '00' => "Réclamer : Vous nous parlez d'une compétence que vous possédez",
+                            '01' => 'Recueillir : Vous nous envoyez un échantillon de travail qui démontre votre compétence',
+                            '02' => "Corroborer : Vous choisissez quelqu'un qui peut agir comme microréférence pour appuyer votre demande",
+                            '03' => "Réutiliser : La prochaine fois que vous postulez un emploi, vous pouvez tout simplement réutiliser ce dossier – il n'est pas nécessaire de réinventer la roue chaque fois!",
+                            '04' => "Évoluer : Vous pouvez ajouter des éléments à vos dossiers dynamiques de compétences afin qu'ils grandissent au fil du temps comme vous"
                         ]
                     ]
                 ]
             ]
         ]
-    ];
+    ],
+    'levels' => [
+        'sidebar_title' => 'Niveau de compétences',
+        'category_anchor' => 'levels',
+        'category_title' => 'Comment puis-je connaître le niveau de mes compétences?',
+        'sections' => [
+            '00' => [
+                'title' => 'Modèle de compétences du Nuage de talents',
+                'copy' => [
+                    '00' => "Plutôt que de définir l'expérience en fonction du nombre d'années d'expérience, le Nuage de talents examine la capacité d'une personne à faire son travail dans diverses conditions de complexité et d'autonomie. Essentiellement, votre niveau est déterminé par la difficulté d'une tâche, qui est mesurée en fonction de l'aide ou de la supervision dont vous avez besoin pour l'accomplir. Cette approche reconnaît que les gens acquerront des compétences à des rythmes différents, et que leurs forces se manifesteront de différentes façons."
+                ]
+            ],
+            '01' => [
+                'title' => 'Trouvez votre niveau: Compétences spécialisées',
+                'copy' => [
+                    '00' => 'Débutant :',
+                    '01' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => "Vous êtes capable d'accomplir des tâches de base avec une supervision régulière et une orientation claire. Les tâches qui vous sont assignées sont claires et ne sont pas très complexes. Elles ont généralement une incidence locale.",
+                            '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d'accomplir des tâches de complexité modérée avec une supervision régulière. Vous devriez aussi être en mesure d'accomplir des tâches de base avec peu ou pas de supervision.",
+                            '02' => 'Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau inférieur, comme les analystes ou les développeurs de niveau débutant.'
+                        ]
+                    ],
+                    '02' => 'Intermédiaire :',
+                    '03' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => "Vous avez la capacité d'accomplir des tâches de complexité modérée ou d'incidence modérée avec supervision. C'est le superviseur qui détermine l'approche à préconiser pour effectuer les tâches, de même que la façon dont elles sont exécutées. Vous apportez des commentaires et des conseils. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications de petite à moyenne envergure.",
+                            '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d'accomplir des tâches d'une complexité importante ou ayant une incidence plus grande avec une supervision régulière. Vous devriez également être en mesure d'accomplir des tâches d'une complexité ou d'une incidence modérée avec peu ou pas de supervision.",
+                            '02' => 'Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau intermédiaire, comme les analystes ou les développeurs.'
+                        ]
+                    ],
+                    '04' => 'Avancé :',
+                    '05' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => "Vous avez la capacité d'accomplir des tâches d'une complexité ou d'une incidence importante avec supervision. Vous donnez des conseils et des commentaires au superviseur sur l'approche à employer pour effectuer les tâches et la façon dont elles sont exécutées. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications d'envergure moyenne à importante.",
+                            '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous êtes être en mesure d'accomplir des tâches d'une complexité importante ou ayant une incidence plus grande avec seulement de légers niveaux de supervision, en étant effectivement le responsable de l'initiative. Vous pouvez également jouer un rôle de formation d'autres personnes dans cet ensemble de compétences ou assumer un rôle de supervision léger pour les personnes aux niveaux inférieurs.",
+                            '02' => 'Ce niveau est habituellement associé à des tâches qui constituent la majeure partie du travail pour des postes de niveau supérieur, comme les analystes principaux ou les développeurs principaux.'
+                        ]
+                    ],
+                    '06' => 'Responsable :',
+                    '07' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => "Vous êtes en mesure d'accomplir des tâches d'une complexité ou d'une incidence importante, où vous prenez les décisions et répondez de vos décisions auprès de la haute direction de l'organisation. Vous présentez les tâches, l'approche et le plan de réalisation à la haute direction. Vous supervisez souvent d'autres personnes (personnes ou équipes) dans l'exécution de tâches très complexes ou ayant une incidence sur l'ensemble du système. Vous êtes en mesure de faire progresser ces tâches, même face à des obstacles et à des complications importants et imprévus.",
+                            '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d'évaluer les autres à des niveaux plus subalternes, et de déterminer clairement la différence entre les tâches débutantes, intermédiaires et avancées. Vous devriez également être en mesure de pouvoir former des équipes, définir des orientations et assurer une supervision.",
+                            '02' => 'Ce niveau est habituellement associé aux tâches qui constituent la majeure partie du travail pour les postes de direction et de direction.'
+                        ]
+                    ]
+                ]
+            ],
+            '02' => [
+                'title' => 'Trouvez votre niveau: Compétences non spécialisées',
+                'copy' => [
+                    '00' => 'Phase de développement précoce :',
+                    '01' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => "Vous êtes en processus d'acquérir cette compétence ou cet attribut. Vous êtes capable de le démontrer dans des conditions favorables (peu de stress, difficulté minimale) et pouvez l'appliquer dans un contexte de travail de façon intermittente."
+                        ]
+                    ],
+                    '02' => 'Modérément en évidence :',
+                    '03' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => 'Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés.',
+                            '01' => 'Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.'
+                        ]
+                    ],
+                    '04' => 'Fortement en évidence :',
+                    '05' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => 'Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont élevés.',
+                            '01' => "Vos pairs et vos superviseurs reconnaissent qu'il s'agit d'une force dont vous faites preuve en milieu de travail."
+                        ]
+                    ],
+                    '06' => 'Démonstration à un niveau profond :',
+                    '07' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => "Il s'agit d'une partie fondamentale de qui vous êtes. Vous démontrez cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont extrêmes.",
+                            '01' => "Vos pairs et vos superviseurs reconnaissent qu'il s'agit d'une force importante dont vous faites preuve en milieu de travail, en donnant un exemple aux autres."
+                        ]
+                    ]
+                ]
+            ],
+        ]
+    ],
+    'benefits' => [
+        'sidebar_title' => 'Avantages sociaux à l\'intention des employés',
+        'category_anchor' => 'benefits',
+        'category_title' => 'Avantages sociaux à l\'intention des employés',
+        'sections' => [
+            '00' => [
+                'title' => 'Voici ce à quoi vous pouvez vous attendre...',
+                'copy' => [
+                    '00' => 'Tous les postes publiés dans le Nuage de talents sont des postes à durée déterminée. Cela signifie que vous êtes un(e) employé(e) du gouvernement du Canada pendant la durée de votre contrat. Les postes à durée déterminée offrent des congés payés et des congés annuels, ainsi qu\'une protection en rendant les avantages sociaux obligatoires. Les renseignements ci-dessous seront exacts pour la plupart des postes publiés dans le Nuage de talents, mais si vous souhaitez obtenir une confirmation, veuillez demander au gestionnaire d\'embauche ou utiliser les deux premières lettres de la classification gouvernementale sur l\'offre d\'emploi pour trouver la <a href="https://www.tbs-sct.gc.ca/agreements-conventions/list-fra.aspx" target=\"_blank\" rel=\"noopener noreferrer\">convention collective</a> qui s\'applique au poste.'
+                ]
+            ],
+            '01' => [
+                'title' => 'Soins de santé',
+                'copy' => [
+                    '00' => 'Vous pouvez adhérer au <a href="https://www.canada.ca/fr/secretariat-conseil-tresor/services/regimes-assurance/regime-soins-sante/votre-regime-soins-sante-fonction-publique-coup-oeil.html" target=\"_blank\" rel=\"noopener noreferrer\">Régime de soins de santé de la fonction publique</a> immédiatement si votre période d\'emploi est de plus de six mois (ou après six mois d\'emploi continu à titre d\'employé permanent ou nommé pour une période déterminée) et les primes sont entièrement payées par l\'employeur. Le régime couvre les coûts des soins de santé complémentaires comme les médicaments sur ordonnance, les services infirmiers privés, les lunettes et les frais hospitaliers. Pour la plupart des services, le régime couvre 80 % des dépenses, mais dans certains cas, des montants maximaux sont précisés.'
+                ]
+            ],
+            '02' => [
+                'title' => 'Soins dentaires',
+                'copy' => [
+                    '00' => 'Le <a href="https://www.canada.ca/fr/secretariat-conseil-tresor/services/regimes-assurance/regime-soins-dentaires/regime-soins-dentaires-fonction-publique-coup-oeil.html" target=\"_blank\" rel=\"noopener noreferrer\">Régime de soins dentaires de la fonction publique</a> est entièrement payé par l\'employeur et couvre 90 % des services de base et 50 % des principaux services et services d\'orthodontie. L\'inscription des employés admissibles est automatique après une période d\'attente de trois mois.'
+                ]
+            ],
+            '03' => [
+                'title' => 'Régime d\'assurance-invalidité',
+                'copy' => [
+                    '00' => 'L\'<a href="https://www.canada.ca/fr/secretariat-conseil-tresor/services/regimes-assurance/regime-assurance-invalidite/regime-assurance-invalidite-coup-oeil.html" target=\"_blank\" rel=\"noopener noreferrer\">assurance-invalidité</a> est obligatoire et aucune demande n\'est requise. Si votre contrat est de plus de six mois, elle est effective le premier jour. Les cotisations sont payées à 85 % par l\'employeur. Les 15 % restants sont déduits directement de votre paye. Cette prestation vous verse 70 % de votre salaire mensuel si une invalidité vous empêche d\'exécuter les tâches normales de votre emploi.'
+                ]
+            ],
+            '04' => [
+                'title' => 'Régime de pension de retraite',
+                'copy' => [
+                    '00' => 'Si votre poste est d\'une durée de plus de six mois, la bonne nouvelle est que vous êtes admissible à participer au <a href="https://www.canada.ca/fr/secretariat-conseil-tresor/services/regime-retraite/participants-actifs/nouvel-employe-fonction-publique-pension.html" target=\"_blank\" rel=\"noopener noreferrer\">Régime de pension de retraite de la fonction publique</a> à compter de votre premier jour de travail. Le gouvernement du Canada et vous-même contribuez au régime à parts égales. Le pourcentage déduit de votre paye variera selon votre salaire.'
+                ]
+            ],
+            '05' => [
+                'title' => 'Jours fériés payés',
+                'copy' => [
+                    '00' => 'Vous avez droit à 11 jours fériés désignés payés. Les voici : Le jour de l\'An, le Vendredi saint, le lundi de Pâques, la fête de la Reine, la fête du Canada, la fête du Travail, l\'Action de grâces, le jour du Souvenir, le jour de Noël, le lendemain de Noël et un jour férié provincial ou municipal dans la région où vous travaillez (p. ex., congé civil du mois d\'août). Travailleurs à distance prenez note, cela dépend de l\'emplacement du bureau officiel de votre équipe et non celui où vous faites votre travail'
+                ]
+            ],
+            '06' => [
+                'title' => 'Congés payés',
+                'copy' => [
+                    '00' => 'En plus des jours fériés payés, vous avez accès à plusieurs autres types de congés payés. Voici quelques-uns des plus couramment utilisés.',
+                    '01' => [
+                        'type' => 'h4',
+                        'items' => [
+                            '00' => 'Vacances',
+                            '01' => 'Vous accumulerez 1,25 jour de vacances par mois, ce qui équivaut à trois semaines par année. Pour les six premiers mois, vous ne pouvez utiliser que les jours de vacances que vous avez accumulés. Par la suite, vous pouvez commencer à utiliser les jours de vacances prévus pour le reste de l\'année.'
+                        ]
+                    ],
+                    '02' => [
+                        'type' => 'h4',
+                        'items' => [
+                            '00' => 'Congé de maladie',
+                            '01' => 'Vous accumulerez 1,25 jour de congé de maladie payé par mois, ce qui équivaut à trois semaines par année, mais vous pouvez quand même prendre des congés de maladie payés même si vous n\'avez pas encore accumulé les journées (conditionnel à l\'approbation de votre gestionnaire).'
+                        ]
+                    ],
+                    '03' => [
+                        'type' => 'h4',
+                        'items' => [
+                            '00' => 'Congé familial',
+                            '01' => 'Vous pouvez prendre jusqu\'à cinq jours par année pour vous occuper de vos responsabilités familiales. Cela couvre des situations comme la fermeture inattendue d\'une école ou d\'une garderie, des activités scolaires ou des soins à un membre de la famille malade ou âgé.'
+                        ]
+                    ],
+                    '04' => [
+                        'type' => 'h4',
+                        'items' => [
+                            '00' => 'Congé personnel',
+                            '01' => 'Vous pouvez prendre jusqu\'à deux jours par année pour vous occuper de vos affaires personnelles.'
+                        ]
+                    ],
+                ]
+            ],
+        ]
+    ]
+];
