@@ -2,15 +2,37 @@ import { Selector, Role } from "testcafe";
 
 fixture(`Critical`).page(`talent.test`);
 
-// Logins for each user role, allows quick switching.
+// Returns an integer between min/max.
+function spinTheWheel() {
+  const min = 777;
+  const max = 7777;
 
+  const random = Math.floor(Math.random() * (+max - +min)) + +min;
+
+  return random;
+}
+
+// Returns email with random.
+function applicantEmail() {
+  const prefix = "applicant";
+  const suffix = "@test.com";
+  const rng = spinTheWheel();
+
+  let email = prefix;
+  email += rng;
+  email += suffix;
+
+  return email;
+}
+
+// Logins for each user role, allows quick switching.
 const applicantUser = Role("http://talent.test/login", async t => {
   await t
     .typeText("#email", "applicant@test.com")
     .typeText("#password", "password")
     .click(Selector("button").withText("Login"));
 });
-
+/*
 const managerUser = Role("http://talent.test/manager/login", async t => {
   await t
     .typeText("#email", "manager@test.com")
@@ -30,8 +52,68 @@ const adminUser = Role("http://talent.test/admin/login", async t => {
     )
     .pressKey("enter");
 });
+*/
 
-test("Applicant Profile", async t => {
+test("Applicant Profile - My Skills", async t => {
+  await t
+    // Logged in as applicant.
+    .useRole(applicantUser)
+    // Go to My Skills page.
+    .navigateTo("/profile/skills")
+    .expect(Selector("h1").withText("My Skills").visible)
+    .ok()
+    // Add soft skill (Ability to learn).
+    .click(Selector("button").withText("Add soft skill"))
+    .click(Selector("select").withAttribute("name", "skill_id"))
+    .pressKey("down enter")
+    // .click(Selector("option").withAttribute("value", "24"))
+    .click(
+      Selector(".form__radio-group-span").withText("Deep Level Demonstration"),
+    )
+    .typeText(
+      Selector("textarea").withAttribute("name", "description"),
+      "Eating lots of passionfruit.",
+    )
+    // Check skill help modal before saving.
+    .click(Selector("button").withText("(Need help? See example.)"))
+    .expect(Selector("h3").withText("Writing my application").visible)
+    .ok()
+    .click(Selector("button").withText("Got it!"))
+    // Save and refresh.
+    .click(Selector("button").withText("Save Skill"))
+    .wait(1234)
+    .navigateTo("/profile/skills")
+    .expect(Selector("span").withText("Ability to learn").visible)
+    .ok()
+
+    // Delete a hard skill.
+    .click(Selector("span").withText("Git"))
+    .click(Selector("button").withText("Delete Skill"))
+    .click(Selector("button").withText("Delete"))
+    .expect(Selector("span").withText("Git").visible)
+    .notOk()
+
+    // Add hard skill (Front-end development).
+    .click(Selector("button").withText("Add hard skill"))
+    .click(
+      Selector("select")
+        .withAttribute("name", "skill_id")
+        .withText("Select a skill..."),
+    )
+    .pressKey("down enter")
+    // .click(Selector("option").withAttribute("value", "12"))
+    .click(Selector(".form__radio-group-span").withText("Advanced"))
+    .typeText(
+      Selector("textarea").withAttribute("name", "description"),
+      "Sailing the high seas.",
+    )
+    .click(Selector("button").withText("Save Skill"))
+    .wait(1234)
+    .expect(Selector("button").withText("Saved!").visible)
+    .ok();
+});
+
+test("Applicant Profile - My Experience", async t => {
   await t
     // Logged in as applicant.
     .useRole(applicantUser)
@@ -41,7 +123,7 @@ test("Applicant Profile", async t => {
     .ok()
     // Add new diploma.
     .click(Selector("button").withText("Add Diploma/Degree"))
-    .pressKey("tab")
+
     .click(Selector("select").withAttribute("id", "degrees[new][1]degreeType"))
     .click(
       Selector("select")
@@ -62,7 +144,7 @@ test("Applicant Profile", async t => {
     .ok()
     // Add new course.
     .click(Selector("button").withText("Add Course/Certification"))
-    .pressKey("tab")
+
     .typeText(
       Selector("input").withAttribute("id", "courses[new][1]courseName"),
       "Advanced Memes",
@@ -85,7 +167,7 @@ test("Applicant Profile", async t => {
     .ok()
     // Add new experience.
     .click(Selector("button").withText("Add Equivalent Experience"))
-    .pressKey("tab")
+
     .typeText(
       Selector("input").withAttribute("id", "work_experiences[new][1]workRole"),
       "The boss",
@@ -107,42 +189,18 @@ test("Applicant Profile", async t => {
     .click(
       Selector("button").withAttribute("value", "work_experiences[new][1]"),
     )
-    .expect(Selector("span").withText("The boss, My house").visible)
-    .ok()
-    // Go to My Skills page.
-    .navigateTo("/profile/skills")
-    .expect(Selector("h1").withText("My Skills").visible)
-    .ok()
-    // Add soft skill.
-    .click(Selector("button").withText("Add soft skill"))
-    .click(
-      Selector("select").withAttribute(
-        "id",
-        "skill_declarations[new][soft][1]skillSelection",
-      ),
-    )
-    .click(
-      Selector("select")
-        .withAttribute("id", "skill_declarations[new][soft][1]skillSelection")
-        .find("option")
-        .withAttribute("value", "7"),
-    )
-    // TODO: Finish skills.
+    .expect(Selector("span").withText("The boss").visible)
+    .ok();
+});
 
-    // Check the skill help modal.
-    .click(Selector("button").withText("(Need help? See example.)"))
-    .expect(Selector("h3").withText("Writing my application").visible)
-    .ok()
-    .click(Selector("button").withText("Got it!"))
+// TODO: References page.
+// TODO: Work samples page.
 
-    // TODO: Add new soft skill.
-    // TODO: Add new hard skill.
-
-    // TODO: References page.
-
-    // TODO: Work samples page.
-
-    // Go to About Me page
+test("Applicant Profile - About Me", async t => {
+  await t
+    // Logged in as applicant.
+    .useRole(applicantUser)
+    // Go to About Me page.
     .navigateTo("/profile/about")
     .expect(Selector("h1").withText("About Me").visible)
     .ok()
@@ -173,7 +231,7 @@ test("Applicant Profile", async t => {
     .selectText(Selector(".form__input").withAttribute("name", "linkedin_url"))
     .typeText(
       Selector(".form__input").withAttribute("name", "linkedin_url"),
-      "https://www.linkedin.com/in/grantbarnes/",
+      "https://www.linkedin.com/in/tristanwiseman/",
     )
     .selectText(Selector(".form__input").withAttribute("name", "tagline"))
     .typeText(
@@ -191,16 +249,14 @@ test("Applicant Profile", async t => {
     .ok();
 });
 
-/*
- test("Register Applicant", async t => {
+test("Register Applicant", async t => {
   await t
     .click(Selector("a").withText("Register"))
     .typeText(Selector("#name"), "Test Cafe")
-    .typeText(Selector("#email"), "applicant@testcafe.com")
+    .typeText(Selector("#email"), applicantEmail())
     .typeText(Selector("#password"), "Password123!@#")
     .typeText(Selector("#password-confirm"), "Password123!@#")
     .click(Selector("button").withText("Register"))
-    .expect(Selector("a").withText("My Profile").visible)
+    .expect(Selector("a").withText("My Applications").visible)
     .ok();
 });
- */
