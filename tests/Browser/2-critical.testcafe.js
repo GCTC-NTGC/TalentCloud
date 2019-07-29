@@ -148,6 +148,48 @@ test("Applicant Profile - My Experience", async t => {
     .ok();
 });
 
+test("Applicant Profile - My References", async t => {
+  await t
+    // Logged in as applicant.
+    .useRole(adminUser)
+    // Go to My References page.
+    .navigateTo("/profile/references")
+    .expect(Selector("h1").withText("My References").visible)
+    .ok()
+    .click(Selector("button").withText("Add Reference"))
+    .typeText(
+      Selector("input").withAttribute("id", "references[1]referenceName"),
+      "Richard Cranium",
+    )
+    .click(
+      Selector("select").withAttribute(
+        "id",
+        "references[1]referenceRelationship",
+      ),
+    )
+    .click(
+      Selector("select")
+        .withAttribute("id", "references[1]referenceRelationship")
+        .find("option")
+        .withAttribute("value", "1"),
+    )
+    .typeText(
+      Selector("input").withAttribute("id", "references[1]referenceEmail"),
+      "richard@coolfunny.com",
+    )
+    .typeText(
+      Selector("textarea").withAttribute(
+        "id",
+        "references[1]referenceDescription",
+      ),
+      "Richard is the CEO of Cool Funny, we had some laughs.",
+    )
+    .click(Selector("button").withAttribute("value", "references[1]"))
+    .navigateTo("/profile/references")
+    .expect(Selector("button").withText("Richard Cranium").visible)
+    .ok();
+});
+
 test("Applicant Profile - My Work Samples", async t => {
   await t
     // Logged in as applicant.
@@ -180,7 +222,7 @@ test("Applicant Profile - My Work Samples", async t => {
       ),
       "A website that is both cool and funny.",
     )
-    .pressKey("tab tab tab enter")
+    .click(Selector("button").withAttribute("value", "work_samples[1]"))
     .navigateTo("/profile/portfolio")
     .expect(Selector("button").withText("Cool Funny").visible)
     .ok();
