@@ -964,24 +964,40 @@ const JobDetails: React.FunctionComponent<
                       remoteWork={intl.formatMessage(
                         remoteWorkMessages[values.remoteWork],
                       )}
-                      language={intl.formatMessage(
-                        languageRequirement(Number(values.language)),
-                      )}
+                      language={
+                        typeof values.language === "string"
+                          ? ""
+                          : intl.formatMessage(
+                              languageRequirement(Number(values.language)),
+                            )
+                      }
                       city={values.city}
-                      province={intl.formatMessage(
-                        provinceName(Number(values.province)),
-                      )}
+                      province={
+                        typeof values.province === "string"
+                          ? ""
+                          : intl.formatMessage(
+                              provinceName(Number(values.province)),
+                            )
+                      }
                       education={(job && job[locale].education) || ""}
-                      termLength={Number(values.termLength)}
+                      termLength={
+                        typeof values.termLength === "string"
+                          ? null
+                          : Number(values.termLength)
+                      }
                       telework={intl.formatMessage(
                         teleworkMessages[values.telework],
                       )}
                       flexHours={intl.formatMessage(
                         flexHourMessages[values.flexHours],
                       )}
-                      securityLevel={intl.formatMessage(
-                        securityClearance(Number(values.securityLevel)),
-                      )}
+                      securityLevel={
+                        typeof values.securityLevel === "string"
+                          ? ""
+                          : intl.formatMessage(
+                              securityClearance(Number(values.securityLevel)),
+                            )
+                      }
                       classification={String(values.classification)}
                       level={String(values.level)}
                       travel={null}
