@@ -1,6 +1,10 @@
 import { Selector } from "testcafe";
+import { managerUser, adminUser } from "./helpers/roles";
 
-fixture`Smoke`.page`talent.test`;
+fixture(`Smoke`).page(`talent.test`);
+
+// Skip when writing new tests
+// fixture.skip(`Smoke`);
 
 test("Basic Access", async t => {
   await t
@@ -44,22 +48,6 @@ test("Language Switch", async t => {
     .ok();
 });
 
-test("User Accounts", async t => {
-  await t
-    .click(Selector("a").withText("Login"))
-    .typeText(Selector("#email"), "applicant@test.com")
-    .pressKey("tab")
-    .typeText(Selector("#password"), "password")
-    .pressKey("enter")
-    .expect(Selector("a").withText("My Applications").visible)
-    .ok()
-    .expect(Selector("a").withText("My Profile").visible)
-    .ok()
-    .click(Selector("a").withText("Logout"))
-    .expect(Selector("a").withText("Login").visible)
-    .ok();
-});
-
 test("Job Posters", async t => {
   await t
     .expect(Selector("a").withText("Browse Jobs").visible)
@@ -79,13 +67,33 @@ test("Job Posters", async t => {
     .ok();
 });
 
-test("Manager Job Posters", async t => {
+test("User Accounts", async t => {
   await t
     .click(Selector("a").withText("Login"))
-    .typeText(Selector("#email"), "manager@test.com")
-    .typeText(Selector("#password"), "password")
+    .typeText("#email", "applicant@test.com")
+    .typeText("#password", "password")
     .click(Selector("button").withText("Login"))
+    .expect(Selector("a").withText("My Applications").visible)
+    .ok()
+    .expect(Selector("a").withText("My Profile").visible)
+    .ok()
+    .click(Selector("a").withText("Logout"))
+    .expect(Selector("a").withText("Login").visible)
+    .ok();
+});
+
+test("Manager Job Posters", async t => {
+  await t
+    .useRole(managerUser)
     .navigateTo("/manager/jobs")
     .expect(Selector(".manager-poster-index").visible)
+    .ok();
+});
+
+test("Admin Portal", async t => {
+  await t
+    .useRole(adminUser)
+    .navigateTo("/admin")
+    .expect(Selector("h1").withText("Dashboard").visible)
     .ok();
 });

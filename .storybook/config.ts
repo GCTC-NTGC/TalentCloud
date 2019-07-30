@@ -1,3 +1,4 @@
+import React from "react";
 import { addParameters, configure, addDecorator } from "@storybook/react";
 import { themes } from "@storybook/theming";
 import { addLocaleData } from "react-intl";
@@ -54,6 +55,7 @@ setIntlConfig({
     locales: ["en", "fr"],
     defaultLocale: "en",
     getMessages,
+    textComponent: React.Fragment,
 });
 
 

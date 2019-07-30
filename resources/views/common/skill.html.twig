@@ -534,18 +534,14 @@
                                 <div
                                     class="box full">
 
-                                    {# <div class="skill-textarea-label box inline-right">
-                                        <a href="#" class="">{{ skill_template.knowledge_link_label }}</a>
-                                    </div> #}
-
-
-                                    <div
-                                        data-clone
-                                        data-skills-info-modal="{{ id_prefix }}skillDescription"
-                                        data-title="{{ skill_template.modal_info.title}}"
-                                        data-open-text="{{ skill_template.knowledge_link_label }}"
-                                        data-confirm-text="{{skill_template.modal_info.close_button_text }}"
-                                        data-modal-info="{{ skill_template.modal_info|json_encode() }}">
+                                    <div class="skill-textarea-label box inline-right">
+                                        <button
+                                            data-c-dialog-id="skill-info-modal"
+                                            data-c-dialog-action="open"
+                                            class="skill-context-button"
+                                            type="button">
+                                            {{ skill_template.knowledge_link_label }}
+                                        </button>
                                     </div>
 
                                     <div

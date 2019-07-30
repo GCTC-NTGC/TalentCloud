@@ -1,13 +1,10 @@
 1. Prepare dependencies:
-composer install --no-dev --optimize-autoloader
-npm run production
-npm install --production
+composer i --no-dev --optimize-autoloader && npm run prod && npm ci --production
 
 2. Zip the TalentCloud folder, copy to server on TBS device.
 
 3. WinSCP deploy.sh and TalentCloud.zip to your home directory.
 
 4. Set permissions and execute:
-sudo chmod 775 TalentCloud.zip
 sudo chmod 775 deploy.sh
 sudo ./deploy.sh

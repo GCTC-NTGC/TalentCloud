@@ -273,6 +273,12 @@ const remoteWorkOptions = [
   },
 ];
 
+const remoteWorkMessages = {
+  remoteWorkWorld: formMessages.remoteWorkWorldLabel,
+  remoteWorkCanada: formMessages.remoteWorkCanadaLabel,
+  remoteWorkNone: formMessages.remoteWorkNoneLabel,
+};
+
 interface JobFormValues {
   title: string;
   termLength: number | "";
@@ -318,6 +324,13 @@ const teleworkOptions: {
     label: formMessages.frequencyAlwaysLabel,
   },
 ];
+const teleworkMessages = {
+  teleworkNever: formMessages.frequencyNeverLabel,
+  teleworkOccasionally: formMessages.frequencyOccasionallyLabel,
+  teleworkSometimes: formMessages.frequencySometimesLabel,
+  teleworkFrequently: formMessages.frequencyFrequentlyLabel,
+  teleworkAlways: formMessages.frequencyAlwaysLabel,
+};
 const teleworkFrequencies: TeleworkOptionType[] = teleworkOptions.map(
   (option): TeleworkOptionType => option.id,
 );
@@ -353,6 +366,13 @@ const flexHoursOptions: {
     label: formMessages.frequencyAlwaysLabel,
   },
 ];
+const flexHourMessages = {
+  flexHoursNever: formMessages.frequencyNeverLabel,
+  flexHoursOccasionally: formMessages.frequencyOccasionallyLabel,
+  flexHoursSometimes: formMessages.frequencySometimesLabel,
+  flexHoursFrequently: formMessages.frequencyFrequentlyLabel,
+  flexHourAlways: formMessages.frequencyAlwaysLabel,
+};
 const flexHourFequencies = flexHoursOptions.map(
   (option): FlexHourOptionType => option.id,
 );
@@ -525,7 +545,7 @@ const JobDetails: React.FunctionComponent<
   });
 
   return (
-    <>
+    <section>
       <div
         data-c-container="form"
         data-c-padding="top(triple) bottom(triple)"
@@ -564,7 +584,7 @@ const JobDetails: React.FunctionComponent<
             isSubmitting,
             values,
           }): React.ReactElement => (
-            <>
+            <section>
               <Form id="job-information" data-c-grid="gutter">
                 <Field
                   type="text"
@@ -888,101 +908,110 @@ const JobDetails: React.FunctionComponent<
                   </button>
                 </div>
               </Form>
-              {isModalVisible && (
-                <Modal
-                  id="job-details-preview"
-                  parentElement={modalParentRef.current}
-                  visible={isModalVisible}
-                  onModalConfirm={(): void => {
-                    handleModalConfirm();
-                    setIsModalVisible(false);
-                  }}
-                  onModalCancel={(): void => {
-                    handleModalCancel();
-                    setIsModalVisible(false);
-                  }}
-                >
-                  <Modal.Header>
-                    <div
-                      data-c-background="c1(100)"
-                      data-c-border="bottom(thin, solid, black)"
-                      data-c-padding="normal"
-                    >
-                      <h5
-                        data-c-colour="white"
-                        data-c-font-size="h4"
-                        id="job-details-preview-title"
-                      >
-                        <FormattedMessage
-                          id="jobDetails.modalHeader"
-                          defaultMessage="You're off to a great start!"
-                          description="The text displayed in the header of the Job Details modal."
-                        />
-                      </h5>
-                    </div>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <div
-                      data-c-border="bottom(thin, solid, black)"
-                      data-c-padding="normal"
-                      id="job-details-preview-description"
+              <Modal
+                id="job-details-preview"
+                parentElement={modalParentRef.current}
+                visible={isModalVisible}
+                onModalConfirm={(): void => {
+                  handleModalConfirm();
+                  setIsModalVisible(false);
+                }}
+                onModalCancel={(): void => {
+                  handleModalCancel();
+                  setIsModalVisible(false);
+                }}
+              >
+                <Modal.Header>
+                  <div
+                    data-c-background="c1(100)"
+                    data-c-border="bottom(thin, solid, black)"
+                    data-c-padding="normal"
+                  >
+                    <h5
+                      data-c-colour="white"
+                      data-c-font-size="h4"
+                      id="job-details-preview-title"
                     >
                       <FormattedMessage
-                        id="jobDetails.modalBody"
-                        defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
-                        description="The text displayed in the body of the Job Details modal."
+                        id="jobDetails.modalHeader"
+                        defaultMessage="You're off to a great start!"
+                        description="The text displayed in the header of the Job Details modal."
                       />
-                    </div>
-                    <div
-                      data-c-background="grey(20)"
-                      data-c-border="bottom(thin, solid, black)"
-                      data-c-padding="normal"
-                    >
-                      {/* TODO: Pull in the signed-in Manager's department */}
-                      <JobPreview
-                        title={values.title}
-                        department="Department"
-                        remoteWork={values.remoteWork !== "remoteWorkNone"}
-                        language={intl.formatMessage(
-                          languageRequirement(Number(values.language)),
-                        )}
-                        city={values.city}
-                        province={intl.formatMessage(
-                          provinceName(Number(values.province)),
-                        )}
-                        termLength={Number(values.termLength)}
-                        securityLevel={intl.formatMessage(
-                          securityClearance(Number(values.securityLevel)),
-                        )}
-                        classification={String(values.classification)}
-                        level={String(values.level)}
-                      />
-                    </div>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Modal.FooterCancelBtn>
-                      <FormattedMessage
-                        id="jobDetails.modalCancelLabel"
-                        defaultMessage="Go Back"
-                        description="The text displayed on the cancel button of the Job Details modal."
-                      />
-                    </Modal.FooterCancelBtn>
-                    <Modal.FooterConfirmBtn>
-                      <FormattedMessage
-                        id="jobDetails.modalConfirmLabel"
-                        defaultMessage="Next Step"
-                        description="The text displayed on the confirm button of the Job Details modal."
-                      />
-                    </Modal.FooterConfirmBtn>
-                  </Modal.Footer>
-                </Modal>
-              )}
-            </>
+                    </h5>
+                  </div>
+                </Modal.Header>
+                <Modal.Body>
+                  <div
+                    data-c-border="bottom(thin, solid, black)"
+                    data-c-padding="normal"
+                    id="job-details-preview-description"
+                  >
+                    <FormattedMessage
+                      id="jobDetails.modalBody"
+                      defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+                      description="The text displayed in the body of the Job Details modal."
+                    />
+                  </div>
+                  <div
+                    data-c-background="grey(20)"
+                    data-c-border="bottom(thin, solid, black)"
+                    data-c-padding="normal"
+                  >
+                    {/* TODO: Pull in the signed-in Manager's department */}
+                    <JobPreview
+                      title={values.title}
+                      department="Department"
+                      remoteWork={intl.formatMessage(
+                        remoteWorkMessages[values.remoteWork],
+                      )}
+                      language={intl.formatMessage(
+                        languageRequirement(Number(values.language)),
+                      )}
+                      city={values.city}
+                      province={intl.formatMessage(
+                        provinceName(Number(values.province)),
+                      )}
+                      education={(job && job[locale].education) || ""}
+                      termLength={Number(values.termLength)}
+                      telework={intl.formatMessage(
+                        teleworkMessages[values.telework],
+                      )}
+                      flexHours={intl.formatMessage(
+                        flexHourMessages[values.flexHours],
+                      )}
+                      securityLevel={intl.formatMessage(
+                        securityClearance(Number(values.securityLevel)),
+                      )}
+                      classification={String(values.classification)}
+                      level={String(values.level)}
+                      travel={null}
+                      overtime={null}
+                    />
+                  </div>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Modal.FooterCancelBtn>
+                    <FormattedMessage
+                      id="jobDetails.modalCancelLabel"
+                      defaultMessage="Go Back"
+                      description="The text displayed on the cancel button of the Job Details modal."
+                    />
+                  </Modal.FooterCancelBtn>
+                  <Modal.FooterConfirmBtn>
+                    <FormattedMessage
+                      id="jobDetails.modalConfirmLabel"
+                      defaultMessage="Next Step"
+                      description="The text displayed on the confirm button of the Job Details modal."
+                    />
+                  </Modal.FooterConfirmBtn>
+                </Modal.Footer>
+              </Modal>
+            </section>
           )}
         />
       </div>
       <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
-    </>
+    </section>
   );
 };
 
