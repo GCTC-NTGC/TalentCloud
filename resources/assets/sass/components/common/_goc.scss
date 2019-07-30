@@ -3,58 +3,12 @@
     // Government of Canada
 
 // =============================================================================
-.goc {
-    background: $palette--black;
-
-    .goc__grid {
-
-        .box {
-            color: $palette--font-white;
-            font-family: $font--sans;
-            font-size: $font-scale--regular;
-            font-weight: 400;
-            text-align: center;
-
-            a {
-                display: inline-block;
-                max-width: 15rem;
-                width: 80%;
-            }
-
-            &:nth-child(1) {
-                padding: $unit calc(#{$unit} * 2.5);
-
-                @media #{$p-tablet} {
-                    text-align: left;
-                }
-
-            }
-
-            &:nth-child(2) {
-                padding: 0 $unit $unit $unit;
-
-                i {
-                    margin: 0 calc(#{$unit} / 2);
-                }
-
-                @media #{$p-tablet} {
-                    padding: $unit calc(#{$unit} * 2.5);
-                }
-
-            }
-
-            &:nth-child(3) {
-                padding: 0 calc(#{$unit} * 2.5) $unit;
-
-                @media #{$p-tablet} {
-                    padding: $unit calc(#{$unit} * 2.5);
-                    text-align: right;
-                }
-
-            }
-
-        }
-
+.goc-link {
+    display: inline-block;
+    margin-top: .4rem;
+    max-width: 20rem;
+    width: 75%;
+    img {
+        max-width: 100%;
     }
-
 }

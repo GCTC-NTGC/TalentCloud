@@ -21,7 +21,7 @@
                 <div data-c-margin="bottom(triple)">
                     {% include "common/menu" %}
                 </div>
-                <div data-c-container="layout">
+                <div data-c-container="layout" data-c-alignment="centre">
                     <h2 data-c-colour="white" data-c-font-size="h2" data-c-font-weight="bold" data-c-margin="bottom(double)">
                         Build a Job Poster
                     </h2>
@@ -41,7 +41,7 @@
                             </li>
                             <li>
                                 <a aria-current="page" href="#link-to-page" title="This is the title of the page link.">
-                                    Step 05 (Tasks)
+                                    Step 04: Tasks
                                 </a>
                                 <i class="fa fa-caret-right"></i>
                             </li>
@@ -49,9 +49,9 @@
                     </nav>
                 </div>
             </div>
-            <!-- Progress Indicator (see step 00 for info) -->
-            <!-- Note, I've changed the alignment to remain centred. -->
-            <div class="manager-jpb-tracker" data-c-alignment="base(centre)" data-c-background="black(100)" data-c-colour="white">
+            <!-- UPDATE: 06-26 -->
+            <!-- After a discussion with Lauren and Tristan, we've decided to reduce the number of steps, as well as the nomenclature associated with each one. -->
+            <div class="manager-jpb-tracker" data-c-alignment="base(centre)s" data-c-background="black(100)" data-c-colour="white">
                 <div data-c-container="layout" data-c-padding="top(quarter) bottom(quarter)">
                     <div class="tracker manager-jpb-tracker-wrapper">
                         <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
@@ -61,8 +61,8 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 01</span><br>
-                                <span data-c-font-weight="bold">Intro</span>
+                                <span data-c-font-size="small">Start</span><br>
+                                <span data-c-font-weight="bold">Welcome</span>
                             </div>
                         </div>
                         <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
@@ -72,7 +72,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 02</span><br>
+                                <span data-c-font-size="small">Step 01</span><br>
                                 <span data-c-font-weight="bold">Job Info</span>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 03</span><br>
+                                <span data-c-font-size="small">Step 02</span><br>
                                 <span data-c-font-weight="bold">Work Env.</span>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 04</span><br>
+                                <span data-c-font-size="small">Step 03</span><br>
                                 <span data-c-font-weight="bold">Impact</span>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 05</span><br>
+                                <span data-c-font-size="small">Step 04</span><br>
                                 <span data-c-font-weight="bold">Tasks</span>
                             </div>
                         </div>
@@ -116,11 +116,10 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 06</span><br>
+                                <span data-c-font-size="small">Step 05</span><br>
                                 <span data-c-font-weight="bold">Skills</span>
                             </div>
                         </div>
-                        {# Note that a new step has been added to the tracker. #}
                         <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
                             <div class="tracker-icon">
                                 <i class="fas fa-arrow-down"></i>
@@ -128,18 +127,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 07</span><br>
-                                <span data-c-font-weight="bold">Education</span>
-                            </div>
-                        </div>
-                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
-                            <div class="tracker-icon">
-                                <i class="fas fa-arrow-down"></i>
-                                <i class="fas fa-check"></i>
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <div>
-                                <span data-c-font-size="small">Step 08</span><br>
+                                <span data-c-font-size="small">Finish</span><br>
                                 <span data-c-font-weight="bold">Review</span>
                             </div>
                         </div>
@@ -157,32 +145,37 @@
                     <li>Aim to provide between four and six key tasks. (You can add as many key tasks as you want as you brainstorm here, but you can include no more than eight in the final job poster.)</li>
                     <li>Once you have finished entering key tasks, you will move on to identify the individual skills needed to accomplish them.</li>
                 </ul>
-                <p data-c-alignment="tl(right)">You have no tasks added.</p>
+                <p data-c-alignment="tl(right)">You have 8 tasks added.</p>
+                <!-- This is the task null state. -->
                 <div data-c-margin="top(normal) bottom(double)" data-c-background="grey(20)" data-c-padding="normal" data-c-radius="rounded" data-c-border="all(thin, solid, grey)" data-c-alignment="centre">
                     You don't have any tasks added yet!
                 </div>
                 <form>
                     <div data-c-grid="gutter">
-                        <div class="job-builder-task" data-c-input="textarea" data-c-grid-item="base(1of1)">
-                            <div>
-                                <button type="button" data-tc-builder-task-up-trigger>
-                                    <i class="fas fa-long-arrow-alt-up"></i>
-                                </button>
-                                <button type="button" data-tc-builder-task-down-trigger>
-                                    <i class="fas fa-long-arrow-alt-down"></i>
-                                </button>
+                        <div class="job-builder-task" data-c-grid-item="base(1of1)" data-tc-up-down-item>
+                            <div data-c-grid="gutter middle">
+                                <div data-c-grid-item="base(1of7) tl(1of10)" data-c-align="base(centre)">
+                                    <button type="button" data-tc-move-up-trigger>
+                                        <i class="fas fa-angle-up"></i>
+                                    </button>
+                                    <button type="button" data-tc-move-down-trigger>
+                                        <i class="fas fa-angle-down"></i>
+                                    </button>
+                                </div>
+                                <div data-c-input="textarea" data-c-grid-item="base(5of7) tl(8of10)">
+                                    <label for="TA2">Task 01</label>
+                                    <span>Required</span>
+                                    <div>
+                                        <textarea id="TA2" placeholder="Try for a casual, frank, friendly tone...">Consult broadly and recruit executive leadership in digital and technology for federal organizations (e.g., C-Suite level positions like Chief Information Officers, Chief Digital Officers, Chief Technology Officers, and their deputies).</textarea>
+                                    </div>
+                                    <span>This input has an error.</span>
+                                </div>
+                                <div data-c-grid-item="base(1of7) tl(1of10)" data-c-align="base(centre)">
+                                    <button type="button" data-tc-builder-task-delete-trigger>
+                                        <i class="fas fa-trash" data-c-colour="stop"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <div>
-                                <button type="button" data-tc-builder-task-delete-trigger>
-                                    <i class="fas fa-trash" data-c-colour="stop"></i>
-                                </button>
-                            </div>
-                            <label for="TA2">Task 01</label>
-                            <span>Required</span>
-                            <div>
-                                <textarea id="TA2" placeholder="Try for a casual, frank, friendly tone..."></textarea>
-                            </div>
-                            <span>This input has an error.</span>
                         </div>
                         <div class="job-builder-task" data-c-input="textarea" data-c-grid-item="base(1of1)">
                             <div>
@@ -201,10 +194,95 @@
                             <label for="TA2">Task 02</label>
                             <span>Required</span>
                             <div>
-                                <textarea id="TA2" placeholder="Try for a casual, frank, friendly tone..."></textarea>
+                                <textarea id="TA2" placeholder="Try for a casual, frank, friendly tone...">Connect partner organizations (departments, agencies) with top talent (i.e., high-performing executives) with an interest and the potential to assume technology leadership roles.</textarea>
                             </div>
                             <span>This input has an error.</span>
                         </div>
+                        <div class="job-builder-task" data-c-input="textarea" data-c-grid-item="base(1of1)">
+                            <div>
+                                <button type="button" data-tc-builder-task-up-trigger>
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                </button>
+                                <button type="button" data-tc-builder-task-down-trigger>
+                                    <i class="fas fa-long-arrow-alt-down"></i>
+                                </button>
+                            </div>
+                            <div>
+                                <button type="button" data-tc-builder-task-delete-trigger>
+                                    <i class="fas fa-trash" data-c-colour="stop"></i>
+                                </button>
+                            </div>
+                            <label for="TA2">Task 03</label>
+                            <span>Required</span>
+                            <div>
+                                <textarea id="TA2" placeholder="Try for a casual, frank, friendly tone...">Identify and attract exceptional executive candidates, including those who haven’t considered government as an option before.</textarea>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <div class="job-builder-task" data-c-input="textarea" data-c-grid-item="base(1of1)">
+                            <div>
+                                <button type="button" data-tc-builder-task-up-trigger>
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                </button>
+                                <button type="button" data-tc-builder-task-down-trigger>
+                                    <i class="fas fa-long-arrow-alt-down"></i>
+                                </button>
+                            </div>
+                            <div>
+                                <button type="button" data-tc-builder-task-delete-trigger>
+                                    <i class="fas fa-trash" data-c-colour="stop"></i>
+                                </button>
+                            </div>
+                            <label for="TA2">Task 04</label>
+                            <span>Required</span>
+                            <div>
+                                <textarea id="TA2" placeholder="Try for a casual, frank, friendly tone...">Build a diverse pipeline of candidates and strong partnerships with government departments. This means proactively going out and building a network and strong relationships with senior level external talent (CIOs and similar senior-level positions) across Canada, as well as with senior leaders in departments and agencies who have vacant positions.</textarea>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <div class="job-builder-task" data-c-input="textarea" data-c-grid-item="base(1of1)">
+                            <div>
+                                <button type="button" data-tc-builder-task-up-trigger>
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                </button>
+                                <button type="button" data-tc-builder-task-down-trigger>
+                                    <i class="fas fa-long-arrow-alt-down"></i>
+                                </button>
+                            </div>
+                            <div>
+                                <button type="button" data-tc-builder-task-delete-trigger>
+                                    <i class="fas fa-trash" data-c-colour="stop"></i>
+                                </button>
+                            </div>
+                            <label for="TA2">Task 05</label>
+                            <span>Required</span>
+                            <div>
+                                <textarea id="TA2" placeholder="Try for a casual, frank, friendly tone...">Take a human-centered approach to recruitment by understanding users’ needs (hiring executives and candidates) to deliver exceptional user experience.</textarea>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <div class="job-builder-task" data-c-input="textarea" data-c-grid-item="base(1of1)">
+                            <div>
+                                <button type="button" data-tc-builder-task-up-trigger>
+                                    <i class="fas fa-long-arrow-alt-up"></i>
+                                </button>
+                                <button type="button" data-tc-builder-task-down-trigger>
+                                    <i class="fas fa-long-arrow-alt-down"></i>
+                                </button>
+                            </div>
+                            <div>
+                                <button type="button" data-tc-builder-task-delete-trigger>
+                                    <i class="fas fa-trash" data-c-colour="stop"></i>
+                                </button>
+                            </div>
+                            <label for="TA2">Task 06</label>
+                            <span>Required</span>
+                            <div>
+                                <textarea id="TA2" placeholder="Try for a casual, frank, friendly tone...">Work creatively using a broad array of traditional and social media approaches.</textarea>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <!-- This is the task error message. This should appear after 6 tasks. It doesn't prevent tasks from being added, but any task added beyond this will not be saved to the job poster. -->
                         <div class="job-builder-task-warning" data-c-grid-item="base(1of1)">
                             <div
                                 data-c-alert="error"
@@ -220,7 +298,7 @@
                                         Just a heads up!
                                     </span>
                                     <p>
-                                        You have exceeded the maximum number of key tasks allowed, but that’s okay. You can continue to add key tasks as you brainstorm here, but you will be asked to trim your list to eight key tasks or fewer to proceed.
+                                        You have exceeded the maximum number of key tasks allowed, but that’s okay. You can continue to add key tasks as you brainstorm here, but you will be asked to trim your list to 6 key tasks or fewer to proceed.
                                     </p>
                                 </div>
                             </div>
@@ -239,10 +317,10 @@
                                     <i class="fas fa-trash" data-c-colour="stop"></i>
                                 </button>
                             </div>
-                            <label for="TA2">Task 03</label>
+                            <label for="TA2">Task 07</label>
                             <span>Required</span>
                             <div>
-                                <textarea id="TA2" placeholder="Try for a casual, frank, friendly tone..."></textarea>
+                                <textarea id="TA2" placeholder="Try for a casual, frank, friendly tone...">This is an example of a task that has exceeded the limit.</textarea>
                             </div>
                             <span>This input has an error.</span>
                         </div>
@@ -260,10 +338,10 @@
                                     <i class="fas fa-trash" data-c-colour="stop"></i>
                                 </button>
                             </div>
-                            <label for="TA2">Task 04</label>
+                            <label for="TA2">Task 08</label>
                             <span>Required</span>
                             <div>
-                                <textarea id="TA2" placeholder="Try for a casual, frank, friendly tone..."></textarea>
+                                <textarea id="TA2" placeholder="Try for a casual, frank, friendly tone...">This is an example of a task that has exceeded the limit.</textarea>
                             </div>
                             <span>This input has an error.</span>
                         </div>
@@ -271,17 +349,22 @@
                     <div data-c-grid="gutter">
                         <div data-c-grid-item="base(1of1)" data-c-alignment="base(centre)">
                             <!-- Add task trigger. -->
-                            <button data-c-button="solid(c1)" data-c-radius="rounded" type="button">
+                            <button data-c-button="solid(c2)" data-c-radius="rounded" type="button">
                                 Add a Task
                             </button>
                         </div>
                         <div data-c-grid-item="base(1of1)">
                             <hr data-c-margin="top(normal) bottom(normal)">
                         </div>
-                        <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
+                        <div data-c-alignment="base(centre) tp(left)" data-c-grid-item="tp(1of2)">
+                            <a href="/builder-04" data-c-button="outline(c2)" data-c-radius="rounded" type="button">
+                                Previous Step
+                            </a>
+                        </div>
+                        <div data-c-alignment="base(centre) tp(right)" data-c-grid-item="tp(1of2)">
                             <!-- Modal trigger, same as last step. -->
-                            <button data-c-button="solid(c1)" data-c-dialog-action="open" data-c-dialog-id="example-dialog-01" data-c-radius="rounded" type="button">
-                                Next
+                            <button data-c-button="solid(c2)" data-c-dialog-action="open" data-c-dialog-id="example-dialog-01" data-c-radius="rounded" type="button">
+                                Preview Tasks
                             </button>
                         </div>
                     </div>
@@ -295,7 +378,7 @@
         <div aria-describedby="example-dialog-01-description" aria-hidden="true" aria-labelledby="example-dialog-01-title" data-c-dialog data-c-dialog-id="example-dialog-01" data-c-padding="top(double) bottom(double)" role="dialog">
             <div data-c-background="white(100)" data-c-radius="rounded">
                 <div data-c-background="c1(100)" data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
-                    <h5 data-c-colour="white" data-c-font-size="h4" id="example-dialog-01-title">Keep it up!
+                    <h5 data-c-dialog-focus tabindex="0" data-c-colour="white" data-c-font-size="h4" id="example-dialog-01-title">Keep it up!
                     </h5>
                 </div>
                 <div data-c-border="bottom(thin, solid, black)">
@@ -307,10 +390,12 @@
                         <div class="manager-job-card" data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
                             <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="bottom(normal)" data-c-padding="bottom(normal)">Tasks</h4>
                             <ul>
-                                <li>Task 01</li>
-                                <li>Task 02</li>
-                                <li>Task 03</li>
-                                <li>Task 04</li>
+                                <li>Consult broadly and recruit executive leadership in digital and technology for federal organizations (e.g., C-Suite level positions like Chief Information Officers, Chief Digital Officers, Chief Technology Officers, and their deputies).</li>
+                                <li>Connect partner organizations (departments, agencies) with top talent (i.e., high-performing executives) with an interest and the potential to assume technology leadership roles.</li>
+                                <li>Identify and attract exceptional executive candidates, including those who haven’t considered government as an option before.</li>
+                                <li>Build a diverse pipeline of candidates and strong partnerships with government departments. This means proactively going out and building a network and strong relationships with senior level external talent (CIOs and similar senior-level positions) across Canada, as well as with senior leaders in departments and agencies who have vacant positions.</li>
+                                <li>Take a human-centered approach to recruitment by understanding users’ needs (hiring executives and candidates) to deliver exceptional user experience.</li>
+                                <li>Work creatively using a broad array of traditional and social media approaches.</li>
                             </ul>
                         </div>
                     </div>
@@ -318,14 +403,14 @@
                 <div data-c-padding="normal">
                     <div data-c-grid="gutter middle">
                         <div data-c-grid-item="base(1of2)">
-                            <button data-c-button="outline(c1)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-01" data-c-radius="rounded">
+                            <button data-c-button="outline(c2)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-01" data-c-radius="rounded">
                                 Go Back
                             </button>
                         </div>
                         <div data-c-alignment="base(right)" data-c-grid-item="base(1of2)">
-                            <button data-c-button="solid(c1)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-01" data-c-radius="rounded">
+                            <a href="/builder-06" data-c-button="solid(c2)" data-c-radius="rounded">
                                 Next Step
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

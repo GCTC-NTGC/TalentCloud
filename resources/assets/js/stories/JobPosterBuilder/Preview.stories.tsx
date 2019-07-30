@@ -16,7 +16,10 @@ stories.add(
       department={text("Hiring Department", "Computer Systems")}
       city={text("City", "Ottawa")}
       province={text("Province", "Ontario")}
-      remoteWork={text("Remote Position", "Allows Remote Work")}
+      remoteWork={text(
+        "Remote Work Allowed",
+        "Yes, I’m willing to supervise employees in any province or territory in Canada.",
+      )}
       language={text("Language", "English Essential")}
       termLength={number("Term in months", 6)}
       securityLevel={text("Security Level", "Reliability")}

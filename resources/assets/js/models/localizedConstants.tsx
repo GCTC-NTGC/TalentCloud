@@ -75,6 +75,12 @@ const skillLevelDescriptions = defineMessages({
       "This is a foundational part of who you are. You consistently demonstrate this skill or attribute, even under conditions of extreme stress or difficulty. Your peers and supervisors recognize this as a significant strength you demonstrate in the workplace, providing an example to others.",
     description: "Description of expert soft skill level.",
   },
+  asset: {
+    id: "skillLevel.asset.description",
+    defaultMessage:
+      "This skill isn't required for the employee to do the job, but it provides an added benefit to their skillset and will improve the speed or effectiveness of their work.",
+    description: "Description of what it means to be an 'Asset' skill.",
+  },
 });
 
 const skillLevelNames = defineMessages({
@@ -117,6 +123,11 @@ const skillLevelNames = defineMessages({
     id: "skillLevel.soft.expert.name",
     defaultMessage: "Deep Level Demonstration",
     description: "Single-word descriptor of soft expert skill level.",
+  },
+  asset: {
+    id: "skillLevel.asset.name",
+    defaultMessage: "Asset / No Level Required",
+    description: "Name for 'Asset' skills.",
   },
 });
 
@@ -220,6 +231,11 @@ const assessmentTypes = defineMessages({
     description: "Title of an assessment type.",
   },
 });
+
+export const assetSkillName = (): FormattedMessage.MessageDescriptor =>
+  skillLevelNames.asset;
+export const assetSkillDescription = (): FormattedMessage.MessageDescriptor =>
+  skillLevelDescriptions.asset;
 
 export const assessmentType = (
   assessmentTypeId: number,

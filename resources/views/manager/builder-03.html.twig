@@ -21,7 +21,7 @@
                 <div data-c-margin="bottom(triple)">
                     {% include "common/menu" %}
                 </div>
-                <div data-c-container="layout">
+                <div data-c-container="layout" data-c-alignment="centre">
                     <h2 data-c-colour="white" data-c-font-size="h2" data-c-font-weight="bold" data-c-margin="bottom(double)">
                         Build a Job Poster
                     </h2>
@@ -49,9 +49,9 @@
                     </nav>
                 </div>
             </div>
-            <!-- Progress Indicator (see step 00 for info) -->
-            <!-- Note, I've changed the alignment to remain centred. -->
-            <div class="manager-jpb-tracker" data-c-alignment="base(centre)" data-c-background="black(100)" data-c-colour="white">
+            <!-- UPDATE: 06-26 -->
+            <!-- After a discussion with Lauren and Tristan, we've decided to reduce the number of steps, as well as the nomenclature associated with each one. -->
+            <div class="manager-jpb-tracker" data-c-alignment="base(centre)s" data-c-background="black(100)" data-c-colour="white">
                 <div data-c-container="layout" data-c-padding="top(quarter) bottom(quarter)">
                     <div class="tracker manager-jpb-tracker-wrapper">
                         <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
@@ -61,8 +61,8 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 01</span><br>
-                                <span data-c-font-weight="bold">Intro</span>
+                                <span data-c-font-size="small">Start</span><br>
+                                <span data-c-font-weight="bold">Welcome</span>
                             </div>
                         </div>
                         <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
@@ -72,7 +72,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 02</span><br>
+                                <span data-c-font-size="small">Step 01</span><br>
                                 <span data-c-font-weight="bold">Job Info</span>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 03</span><br>
+                                <span data-c-font-size="small">Step 02</span><br>
                                 <span data-c-font-weight="bold">Work Env.</span>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 04</span><br>
+                                <span data-c-font-size="small">Step 03</span><br>
                                 <span data-c-font-weight="bold">Impact</span>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 05</span><br>
+                                <span data-c-font-size="small">Step 04</span><br>
                                 <span data-c-font-weight="bold">Tasks</span>
                             </div>
                         </div>
@@ -116,11 +116,10 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 06</span><br>
+                                <span data-c-font-size="small">Step 05</span><br>
                                 <span data-c-font-weight="bold">Skills</span>
                             </div>
                         </div>
-                        {# Note that a new step has been added to the tracker. #}
                         <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
                             <div class="tracker-icon">
                                 <i class="fas fa-arrow-down"></i>
@@ -128,18 +127,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 07</span><br>
-                                <span data-c-font-weight="bold">Education</span>
-                            </div>
-                        </div>
-                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
-                            <div class="tracker-icon">
-                                <i class="fas fa-arrow-down"></i>
-                                <i class="fas fa-check"></i>
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <div>
-                                <span data-c-font-size="small">Step 08</span><br>
+                                <span data-c-font-size="small">Finish</span><br>
                                 <span data-c-font-weight="bold">Review</span>
                             </div>
                         </div>
@@ -154,14 +142,14 @@
                 <p>Applicants care a lot about the team they’ll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they’ll be a good fit, and can reduce the number of “wishful thinking” applications that slow down the screening process.</p>
                 <form data-c-grid="gutter">
                     <div data-c-grid-item="base(1of1)">
-                        <h4 data-c-font-size="h4" data-c-margin="top(triple) bottom(normal)">Our Work Environment</h4>
+                        <h4 data-c-font-size="h4" data-c-colour="c2" data-c-margin="top(triple) bottom(normal)">Our Work Environment</h4>
                         <p data-c-margin="bottom(normal)">Share a little about your physical space, the technology used by your team, and the amenities close to your office. Check all that apply.</p>
                     </div>
                     <div data-c-grid-item="base(1of2)" data-c-input="number">
                         <label for="TI2">Team Size</label>
                         <span>Required</span>
                         <div>
-                            <input id="TI2" placeholder="e.g. 10" required type="number" />
+                            <input id="TI2" placeholder="e.g. 10" value="8" required type="number" />
                         </div>
                         <span>This input has an error.</span>
                     </div>
@@ -176,6 +164,7 @@
                                     <input
                                         id="cA1"
                                         type="checkbox"
+                                        checked
                                         required/>
                                     <span>Open Concept</span>
                                 </label>
@@ -194,7 +183,8 @@
                                     <input
                                         id="cA1"
                                         type="checkbox"
-                                        required/>
+                                        required
+                                        checked/>
                                     <span>Assigned Seating</span>
                                 </label>
                             </div>
@@ -203,7 +193,8 @@
                                     <input
                                         id="cA1"
                                         type="checkbox"
-                                        required/>
+                                        required
+                                        checked/>
                                     <span>Lots of Windows</span>
                                 </label>
                             </div>
@@ -212,7 +203,8 @@
                                     <input
                                         id="cA1"
                                         type="checkbox"
-                                        required/>
+                                        required
+                                        checked/>
                                     <span>Natural Light</span>
                                 </label>
                             </div>
@@ -266,7 +258,8 @@
                                     <input
                                         id="cA1"
                                         type="checkbox"
-                                        required/>
+                                        required
+                                        checked/>
                                     <span>File Sharing (e.g. Google Drive, Dropbox)</span>
                                 </label>
                             </div>
@@ -275,7 +268,8 @@
                                     <input
                                         id="cA1"
                                         type="checkbox"
-                                        required/>
+                                        required
+                                        checked/>
                                     <span>Task Management (e.g. Trello, Asana)</span>
                                 </label>
                             </div>
@@ -320,7 +314,8 @@
                                     <input
                                         id="cA1"
                                         type="checkbox"
-                                        required/>
+                                        required
+                                        checked/>
                                     <span>Cafeteria On-site</span>
                                 </label>
                             </div>
@@ -329,7 +324,8 @@
                                     <input
                                         id="cA1"
                                         type="checkbox"
-                                        required/>
+                                        required
+                                        checked/>
                                     <span>Close to Transit</span>
                                 </label>
                             </div>
@@ -338,7 +334,8 @@
                                     <input
                                         id="cA1"
                                         type="checkbox"
-                                        required/>
+                                        required
+                                        checked/>
                                     <span>Walking Distance to Restaurants/Malls</span>
                                 </label>
                             </div>
@@ -347,7 +344,8 @@
                                     <input
                                         id="cA1"
                                         type="checkbox"
-                                        required/>
+                                        required
+                                        checked/>
                                     <span>Downtown</span>
                                 </label>
                             </div>
@@ -356,7 +354,8 @@
                                     <input
                                         id="cA1"
                                         type="checkbox"
-                                        required/>
+                                        required
+                                        checked/>
                                     <span>Nearby Fitness Centre</span>
                                 </label>
                             </div>
@@ -365,7 +364,8 @@
                                     <input
                                         id="cA1"
                                         type="checkbox"
-                                        required/>
+                                        required
+                                        checked/>
                                     <span>Easy Access to Parking</span>
                                 </label>
                             </div>
@@ -393,7 +393,7 @@
                         <span>This input has an error.</span>
                     </div>
                     <div data-c-grid-item="base(1of1)">
-                        <h4 data-c-font-size="h4" data-c-margin="top(double) bottom(normal)">Our Culture</h4>
+                        <h4 data-c-font-size="h4" data-c-margin="top(double) bottom(normal)" data-c-colour="c2">Our Culture</h4>
                         <p data-c-margin="bottom(normal)">Now, let applicants know more about the personality of your team and the type of work that you usually do.</p>
                         <p data-c-margin="bottom(normal)">Based on your selections, we’ll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team.</p>
                     </div>
@@ -410,7 +410,7 @@
                                     </label>
                                     <!-- Just a heads up this has a default checked value. -->
                                     <label data-tc-wEnv-id="Pace2" data-tc-wEnv-trigger for="builder03PaceOption02">
-                                        <input id="builder03PaceOption02" name="builder03Pace" type="radio"/>
+                                        <input checked id="builder03PaceOption02" name="builder03Pace" type="radio"/>
                                         <span>Fast-paced</span>
                                     </label>
                                     <label data-tc-wEnv-id="Pace3" data-tc-wEnv-trigger for="builder03PaceOption03">
@@ -430,7 +430,7 @@
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Very Fast-paced</p>
                                         <p data-c-font-size="small">Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!</p>
                                     </div>
-                                    <div class="job-builder-context-item" data-tc-wEnv-id="Pace2" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
+                                    <div class="job-builder-context-item active" data-tc-wEnv-id="Pace2" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Fast-paced</p>
                                         <p data-c-font-size="small">Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes!</p>
                                     </div>
@@ -459,7 +459,7 @@
                                     </label>
                                     <!-- Just a heads up this has a default checked value. -->
                                     <label data-tc-wEnv-id="Management2" data-tc-wEnv-trigger for="builder03ManagementOption02">
-                                        <input id="builder03ManagementOption02" name="builder03Management" type="radio"/>
+                                        <input checked id="builder03ManagementOption02" name="builder03Management" type="radio"/>
                                         <span>Horizontal</span>
                                     </label>
                                     <label data-tc-wEnv-id="Management3" data-tc-wEnv-trigger for="builder03ManagementOption03">
@@ -477,19 +477,19 @@
                                 <div class="job-builder-context-block">
                                     <div class="job-builder-context-item" data-tc-wEnv-id="Management1" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Very Horizontal</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">There’s no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.</p>
                                     </div>
-                                    <div class="job-builder-context-item" data-tc-wEnv-id="Management2" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
+                                    <div class="active job-builder-context-item" data-tc-wEnv-id="Management2" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Horizontal</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives.</p>
                                     </div>
                                     <div class="job-builder-context-item" data-tc-wEnv-id="Management3" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Vertical</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">Our team has a clearly defined role. We check in regularly with middle-management for approvals and updates on the strategic vision of our executives.</p>
                                     </div>
                                     <div class="job-builder-context-item" data-tc-wEnv-id="Management4" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Very Vertical</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">Our team has a clearly defined role. We check in often with middle-management for approvals and updates on the strategic vision of our executives.</p>
                                     </div>
                                 </div>
                             </div>
@@ -512,7 +512,7 @@
                                         <span>Experimental</span>
                                     </label>
                                     <label data-tc-wEnv-id="Exp3" data-tc-wEnv-trigger for="builder03ExpOption03">
-                                        <input id="builder03ExpOption03" name="builder03Exp" type="radio"/>
+                                        <input checked id="builder03ExpOption03" name="builder03Exp" type="radio"/>
                                         <span>Ongoing Business</span>
                                     </label>
                                     <label data-tc-wEnv-id="Exp4" data-tc-wEnv-trigger for="builder03ExpOption04">
@@ -526,19 +526,19 @@
                                 <div class="job-builder-context-block">
                                     <div class="job-builder-context-item" data-tc-wEnv-id="Exp1" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Highly Experimental</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">Our work is defined by trying out brand new ideas, methods, and activities to address persistent problems that traditional approaches have failed to solve.</p>
                                     </div>
                                     <div class="job-builder-context-item" data-tc-wEnv-id="Exp2" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Experimental</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">We try out new and proven ideas, methods, and activities to improve how we do our work.</p>
                                     </div>
-                                    <div class="job-builder-context-item" data-tc-wEnv-id="Exp3" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
+                                    <div class="active job-builder-context-item" data-tc-wEnv-id="Exp3" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Ongoing Business</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes.</p>
                                     </div>
                                     <div class="job-builder-context-item" data-tc-wEnv-id="Exp4" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Mostly Ongoing Business</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">Most of our work involves administrative tasks are repeated on a regular basis. Consistency is key here, so we follow a standard process with tried and true tools.</p>
                                     </div>
                                 </div>
                             </div>
@@ -557,7 +557,7 @@
                                     </label>
                                     <!-- Just a heads up this has a default checked value. -->
                                     <label data-tc-wEnv-id="Public2" data-tc-wEnv-trigger for="builder03PublicOption02">
-                                        <input id="builder03PublicOption02" name="builder03Public" type="radio"/>
+                                        <input checked id="builder03PublicOption02" name="builder03Public" type="radio"/>
                                         <span>Citizen Facing</span>
                                     </label>
                                     <label data-tc-wEnv-id="Public3" data-tc-wEnv-trigger for="builder03PublicOption03">
@@ -575,19 +575,19 @@
                                 <div class="job-builder-context-block">
                                     <div class="job-builder-context-item" data-tc-wEnv-id="Public1" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Mostly Citizen Facing</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">We are the face of the service we deliver and spend most of our time engaging directly with the public.</p>
                                     </div>
-                                    <div class="job-builder-context-item" data-tc-wEnv-id="Public2" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
+                                    <div class="active job-builder-context-item" data-tc-wEnv-id="Public2" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Citizen Facing</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">We spend a lot of our time engaging directly with the public, but there is also behind the scenes work to support others.</p>
                                     </div>
                                     <div class="job-builder-context-item" data-tc-wEnv-id="Public3" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Back Office</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">We usually work behind the scenes doing important work that makes service delivery possible</p>
                                     </div>
                                     <div class="job-builder-context-item" data-tc-wEnv-id="Public4" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Mostly Back Office</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">We work behind the scenes doing important work that makes service delivery possible. We thrive on supporting others.</p>
                                     </div>
                                 </div>
                             </div>
@@ -601,7 +601,7 @@
                                 <span>Required</span>
                                 <div id="builder03Collab" role="radiogroup">
                                     <label data-tc-wEnv-id="Collab1" data-tc-wEnv-trigger for="builder03CollabOption01">
-                                        <input required id="builder03CollabOption01" name="builder03Collab" type="radio"/>
+                                        <input checked required id="builder03CollabOption01" name="builder03Collab" type="radio"/>
                                         <span>Highly Collaborative</span>
                                     </label>
                                     <!-- Just a heads up this has a default checked value. -->
@@ -622,21 +622,21 @@
                             </div>
                             <div data-c-grid-item="base(1of1) tl(2of3)">
                                 <div class="job-builder-context-block">
-                                    <div class="job-builder-context-item" data-tc-wEnv-id="Collab1" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
+                                    <div class="active job-builder-context-item" data-tc-wEnv-id="Collab1" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Highly Collaborative</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.</p>
                                     </div>
                                     <div class="job-builder-context-item" data-tc-wEnv-id="Collab2" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Collaborative</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">Our team has a diverse set of skills and we recognize each others strengths. We work together often and are quick to pitch in when someone asks for help.</p>
                                     </div>
                                     <div class="job-builder-context-item" data-tc-wEnv-id="Collab3" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Independent</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">Members of our team own their piece of the puzzle and have some freedom to choose how they get their work done.</p>
                                     </div>
                                     <div class="job-builder-context-item" data-tc-wEnv-id="Collab4" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded">
                                         <p data-c-font-size="small" data-c-margin="bottom(half)" data-c-font-weight="bold">Mostly Independent</p>
-                                        <p data-c-font-size="small">TBD</p>
+                                        <p data-c-font-size="small">Members of our team own their piece of the puzzle and must follow defined processes to get their work done.</p>
                                     </div>
                                 </div>
                             </div>
@@ -647,10 +647,10 @@
                         <p data-c-margin="bottom(normal)" data-c-font-weight="bold">Culture Summary</p>
                         <p data-c-margin="bottom(normal)">Here is the short paragraph summarizing your work culture which will appear on the job poster. Copy and paste it into the text box below if you want to customize it to the personality of your team and the way you work.</p>
                         <div class="job-builder-context-item" data-c-background="grey(20)" data-c-padding="all(normal)" data-c-radius="rounded" data-c-margin="bottom(normal)">
-                            <p data-c-font-size="small" id="jobBuilderCultureCopy">TBD</p>
+                            <p data-c-font-size="regular" id="jobBuilderCultureCopy">Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes! We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives. Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes. We spend a lot of our time engaging directly with the public, but there is also behind the scenes work to support others. Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.</p>
                         </div>
                         <div data-c-alignment="base(centre) tl(right)">
-                            <button type="button" data-tc-job-builder-culture-copy-trigger data-c-button="solid(c1)" data-c-radius="rounded">
+                            <button type="button" data-tc-job-builder-culture-copy-trigger data-c-button="solid(c2)" data-c-radius="rounded">
                                 <span class="default">Copy to Clipboard</span>
                                 <span class="copied" style="display: none;">Copied</span>
                             </button>
@@ -674,11 +674,18 @@
                         </div>
                         <span>This input has an error.</span>
                     </div>
-                    {# Continue Button #}
-                    <div data-c-alignment="centre" data-c-grid-item="base(1of1)" data-c-grid-item="base(1of2)">
+                    <div data-c-grid-item="base(1of1)">
+                        <hr data-c-margin="top(normal) bottom(normal)">
+                    </div>
+                    <div data-c-alignment="base(centre) tp(left)" data-c-grid-item="tp(1of2)">
+                        <a href="/builder-02" data-c-button="outline(c2)" data-c-radius="rounded" type="button">
+                            Previous Step
+                        </a>
+                    </div>
+                    <div data-c-alignment="base(centre) tp(right)" data-c-grid-item="tp(1of2)">
                         <!-- Modal trigger, same as last step. -->
-                        <button data-c-button="solid(c1)" data-c-dialog-action="open" data-c-dialog-id="example-dialog-01" data-c-radius="rounded" type="button">
-                            Next
+                        <button data-c-button="solid(c2)" data-c-dialog-action="open" data-c-dialog-id="example-dialog-01" data-c-radius="rounded" type="button">
+                            Preview Work Environment
                         </button>
                     </div>
                 </form>
@@ -692,7 +699,7 @@
         <div aria-describedby="example-dialog-01-description" aria-hidden="true" aria-labelledby="example-dialog-01-title" data-c-dialog data-c-dialog-id="example-dialog-01" data-c-padding="top(double) bottom(double)" role="dialog">
             <div data-c-background="white(100)" data-c-radius="rounded">
                 <div data-c-background="c1(100)" data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
-                    <h5 data-c-colour="white" data-c-font-size="h4" id="example-dialog-01-title">
+                    <h5 data-c-dialog-focus tabindex="0" data-c-colour="white" data-c-font-size="h4" id="example-dialog-01-title">
                         You're Doing Great!
                     </h5>
                 </div>
@@ -703,14 +710,14 @@
                     <!-- This is where the modal content begins. -->
                     <div data-c-background="grey(20)" data-c-padding="normal">
                         <div class="manager-job-card" data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
-                            <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="bottom(normal)" data-c-padding="bottom(normal)">Work Environment</h4>
+                            <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="bottom(normal)" data-c-padding="bottom(normal)" tabindex="1">Work Environment</h4>
                             <div data-c-grid="gutter">
                                 <div data-c-grid-item="base(1of1)">
-                                    <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Team Size</span>
-                                    <span>10</span>
+                                    <p data-c-colour="c2" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Team Size</p>
+                                    <p>8</p>
                                 </div>
                                 <div data-c-grid-item="base(1of1)">
-                                    <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Physical Environment</span>
+                                    <p data-c-colour="c2" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Physical Environment</p>
                                     <div data-c-margin="left(quarter)">
                                         <div data-c-grid="gutter">
                                             <div data-c-grid-item="tp(1of2)">
@@ -720,7 +727,7 @@
                                                 <span>Open Concept</span>
                                             </div>
                                             <div data-c-grid-item="tp(1of2)">
-                                                <div class="job-builder-check checked">
+                                                <div class="job-builder-check">
                                                     <i class="fa fa-check"></i>
                                                 </div>
                                                 <span>Private</span>
@@ -732,13 +739,13 @@
                                                 <span>Assigned Seating</span>
                                             </div>
                                             <div data-c-grid-item="tp(1of2)">
-                                                <div class="job-builder-check">
+                                                <div class="job-builder-check checked">
                                                     <i class="fa fa-check"></i>
                                                 </div>
                                                 <span>Lots of Windows</span>
                                             </div>
                                             <div data-c-grid-item="tp(1of2)">
-                                                <div class="job-builder-check">
+                                                <div class="job-builder-check checked">
                                                     <i class="fa fa-check"></i>
                                                 </div>
                                                 <span>Natural Light</span>
@@ -749,27 +756,27 @@
                                                 </div>
                                                 <span>Suitable for Smudging</span>
                                             </div>
-                                            <div data-c-grid-item="tp(1of2)">
+                                            {# <div data-c-grid-item="tp(1of2)">
                                                 <div class="job-builder-check">
                                                     <i class="fa fa-check"></i>
                                                 </div>
                                                 <span>None of the Above</span>
-                                            </div>
+                                            </div> #}
                                         </div>
                                     </div>
                                 </div>
                                 <div data-c-grid-item="base(1of1)">
-                                    <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Technology</span>
+                                    <p data-c-colour="c2" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Technology</p>
                                     <div data-c-margin="left(quarter)">
                                         <div data-c-grid="gutter">
                                             <div data-c-grid-item="tp(1of2)">
-                                                <div class="job-builder-check checked">
+                                                <div class="job-builder-check">
                                                     <i class="fa fa-check"></i>
                                                 </div>
                                                 <span>Video Conferencing (e.g. Skype, Zoom)</span>
                                             </div>
                                             <div data-c-grid-item="tp(1of2)">
-                                                <div class="job-builder-check checked">
+                                                <div class="job-builder-check">
                                                     <i class="fa fa-check"></i>
                                                 </div>
                                                 <span>Collaboration (e.g. Slack, Hangouts)</span>
@@ -781,7 +788,7 @@
                                                 <span>File Sharing (e.g. Google Drive, Dropbox)</span>
                                             </div>
                                             <div data-c-grid-item="tp(1of2)">
-                                                <div class="job-builder-check">
+                                                <div class="job-builder-check checked">
                                                     <i class="fa fa-check"></i>
                                                 </div>
                                                 <span>Task Management (e.g. Trello, Asana)</span>
@@ -798,17 +805,17 @@
                                                 </div>
                                                 <span>Access to external, unfiltered Wi-Fi.</span>
                                             </div>
-                                            <div data-c-grid-item="tp(1of2)">
+                                            {# <div data-c-grid-item="tp(1of2)">
                                                 <div class="job-builder-check">
                                                     <i class="fa fa-check"></i>
                                                 </div>
                                                 <span>None of the Above</span>
-                                            </div>
+                                            </div> #}
                                         </div>
                                     </div>
                                 </div>
                                 <div data-c-grid-item="base(1of1)">
-                                    <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Amenities</span>
+                                    <p data-c-colour="c2" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Amenities</p>
                                     <div data-c-margin="left(quarter)">
                                         <div data-c-grid="gutter">
                                             <div data-c-grid-item="tp(1of2)">
@@ -830,54 +837,54 @@
                                                 <span>Walking Distance to Restaurants/Malls</span>
                                             </div>
                                             <div data-c-grid-item="tp(1of2)">
-                                                <div class="job-builder-check">
+                                                <div class="job-builder-check checked">
                                                     <i class="fa fa-check"></i>
                                                 </div>
                                                 <span>Downtown</span>
                                             </div>
                                             <div data-c-grid-item="tp(1of2)">
-                                                <div class="job-builder-check">
+                                                <div class="job-builder-check checked">
                                                     <i class="fa fa-check"></i>
                                                 </div>
                                                 <span>Nearby Fitness Centre</span>
                                             </div>
                                             <div data-c-grid-item="tp(1of2)">
-                                                <div class="job-builder-check">
+                                                <div class="job-builder-check checked">
                                                     <i class="fa fa-check"></i>
                                                 </div>
                                                 <span>Easy Access to Parking</span>
                                             </div>
-                                            <div data-c-grid-item="tp(1of2)">
+                                            {# <div data-c-grid-item="tp(1of2)">
                                                 <div class="job-builder-check">
                                                     <i class="fa fa-check"></i>
                                                 </div>
                                                 <span>None of the Above</span>
-                                            </div>
+                                            </div> #}
                                         </div>
                                     </div>
                                 </div>
-                                <div data-c-grid-item="base(1of1)">
-                                    <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">More About Your Environment</span>
+                                {# <div data-c-grid-item="base(1of1)">
+                                    <p data-c-colour="c2" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">More About Your Environment</p>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur luctus porta ante at ornare. Nam pulvinar ultrices tellus eget lobortis. Etiam efficitur in nibh eget ornare. Duis vel porta ante, at ornare lorem. Sed est eros, dignissim ac auctor eget, pretium at mauris. Nullam vitae lacus id eros hendrerit sollicitudin ac at lectus. Fusce neque odio, facilisis vitae augue in, feugiat pulvinar neque. Nulla pretium et lectus at molestie. Ut eleifend efficitur venenatis. Curabitur non eros at eros finibus condimentum. Nam fringilla auctor quam ut egestas.</p>
-                                </div>
+                                </div> #}
                             </div>
                             <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="top(double) bottom(normal)" data-c-padding="bottom(normal)">Work Culture</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur luctus porta ante at ornare. Nam pulvinar ultrices tellus eget lobortis. Etiam efficitur in nibh eget ornare. Duis vel porta ante, at ornare lorem. Sed est eros, dignissim ac auctor eget, pretium at mauris. Nullam vitae lacus id eros hendrerit sollicitudin ac at lectus. Fusce neque odio, facilisis vitae augue in, feugiat pulvinar neque. Nulla pretium et lectus at molestie. Ut eleifend efficitur venenatis. Curabitur non eros at eros finibus condimentum. Nam fringilla auctor quam ut egestas.</p>
-                            <p data-c-margin="top(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur luctus porta ante at ornare. Nam pulvinar ultrices tellus eget lobortis. Etiam efficitur in nibh eget ornare. Duis vel porta ante, at ornare lorem. Sed est eros, dignissim ac auctor eget, pretium at mauris. Nullam vitae lacus id eros hendrerit sollicitudin ac at lectus. Fusce neque odio, facilisis vitae augue in, feugiat pulvinar neque. Nulla pretium et lectus at molestie. Ut eleifend efficitur venenatis. Curabitur non eros at eros finibus condimentum. Nam fringilla auctor quam ut egestas.</p>
+                            <p>Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes! We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives. Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes. We spend a lot of our time engaging directly with the public, but there is also behind the scenes work to support others. Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.</p>
+                            {# <p data-c-margin="top(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur luctus porta ante at ornare. Nam pulvinar ultrices tellus eget lobortis. Etiam efficitur in nibh eget ornare. Duis vel porta ante, at ornare lorem. Sed est eros, dignissim ac auctor eget, pretium at mauris. Nullam vitae lacus id eros hendrerit sollicitudin ac at lectus. Fusce neque odio, facilisis vitae augue in, feugiat pulvinar neque. Nulla pretium et lectus at molestie. Ut eleifend efficitur venenatis. Curabitur non eros at eros finibus condimentum. Nam fringilla auctor quam ut egestas.</p> #}
                         </div>
                     </div>
                 </div>
                 <div data-c-padding="normal">
                     <div data-c-grid="gutter middle">
                         <div data-c-grid-item="base(1of2)">
-                            <button data-c-button="outline(c1)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-01" data-c-radius="rounded">
+                            <button data-c-button="outline(c2)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-01" data-c-radius="rounded">
                                 Go Back
                             </button>
                         </div>
                         <div data-c-alignment="base(right)" data-c-grid-item="base(1of2)">
-                            <button data-c-button="solid(c1)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-01" data-c-radius="rounded">
+                            <a data-c-button="solid(c2)" href="/builder-04" data-c-radius="rounded">
                                 Next Step
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

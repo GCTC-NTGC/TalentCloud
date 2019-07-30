@@ -14,23 +14,28 @@ namespace App\Models;
  * @property string $locale
  * @property int $criteria_id
  * @property string $description
+ * @property string $specificity
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Lookup\Criteria $criteria
  */
-class CriteriaTranslation extends BaseModel {
+class CriteriaTranslation extends BaseModel
+{
 
     protected $casts = [
         'criteria_id' => 'int',
         'locale' => 'string',
-        'description' => 'string'
+        'description' => 'string',
+        'specificity' => 'string'
     ];
     protected $fillable = [
-        'description'
+        'description',
+        'specificity'
     ];
 
-    public function criteria() {
+    public function criteria()
+    {
         return $this->belongsTo(\App\Models\Lookup\Criteria::class);
     }
 }
