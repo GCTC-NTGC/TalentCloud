@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Skill } from "../models/types";
 import { SkillTypeId } from "../models/lookupConstants";
 
