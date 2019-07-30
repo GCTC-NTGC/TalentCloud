@@ -12,8 +12,8 @@ class JobTaskController extends Controller
     /**
      * Converts a JobPosterKeyTask to an array appropriate for the api.
      *
-     * @param JobPosterKeyTask $model
-     * @return void
+     * @param  JobPosterKeyTask $model Incoming Job Poster Key Task object.
+     * @return array
      */
     public function toApiArray(JobPosterKeyTask $model)
     {
@@ -30,20 +30,20 @@ class JobTaskController extends Controller
     /**
      * Update the set of tasks associated with a Job.
      *
-     * @param  App\Http\Requests\BatchUpdateJobTask  $request
-     * @param  \App\Models\JobPoster  $jobPoster
+     * @param  \App\Http\Requests\BatchUpdateJobTask $request   Incoming form request.
+     * @param  \App\Models\JobPoster                 $jobPoster Incoming Job Poster object.
      * @return \Illuminate\Http\Response
      */
     public function batchUpdate(BatchUpdateJobTask $request, JobPoster $jobPoster)
     {
         $toApiArray = array($this, 'toApiArray');
 
-        $newTasks = collect($request->validated()); // Collection of JobPosterKeyTasks
+        $newTasks = collect($request->validated()); // Collection of JobPosterKeyTasks.
         $oldTasks = $jobPoster->job_poster_key_tasks;
 
         $savedNewTaskIds = [];
 
-        // First, delete old tasks that weren't resubmitted, and update those that were
+        // First, delete old tasks that weren't resubmitted, and update those that were.
         foreach ($oldTasks as $task) {
             $newTask = $newTasks->firstWhere('id', $task['id']);
             if ($newTask) {
@@ -55,13 +55,9 @@ class JobTaskController extends Controller
             }
         }
 
-        $isUnsaved = function ($task, $savedTaskIds): bool {
-            return !array_key_exists('id', $task) || !in_array($task['id'], $savedTaskIds);
-        };
-
-        // Now, save any new tasks that remain
+        // Now, save any new tasks that remain.
         foreach ($newTasks as $task) {
-            if ($isUnsaved($task, $savedNewTaskIds)) {
+            if ($this->isUnsaved($task, $savedNewTaskIds)) {
                 $jobPosterTask = new JobPosterKeyTask();
                 $jobPosterTask->job_poster_id = $jobPoster->id;
                 $jobPosterTask->fill(collect($task)->only(['en', 'fr'])->toArray());
@@ -71,5 +67,17 @@ class JobTaskController extends Controller
 
         $taskArray = $jobPoster->fresh()->job_poster_key_tasks->map($toApiArray);
         return response()->json($taskArray);
+    }
+
+    /**
+     * Helper function to determine whether a task is unsaved.
+     *
+     * @param mixed    $task         Single collection item from new tasks array.
+     * @param number[] $savedTaskIds Array of saved task IDs.
+     * @return boolean
+     */
+    private function isUnsaved($task, array $savedTaskIds): bool
+    {
+        return !array_key_exists('id', $task) || !in_array($task['id'], $savedTaskIds);
     }
 }
