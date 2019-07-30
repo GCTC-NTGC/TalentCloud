@@ -375,7 +375,6 @@ export const JobBuilderSkills: React.FunctionComponent<
                 <button
                   type="button"
                   data-c-colour="c1"
-                  data-c-dialog-action="open"
                   onClick={(): void => setCriteriaBeingEdited(criterion)}
                 >
                   <i className="fas fa-edit" />
