@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { applicantUser, managerUser, adminUser } from "./helpers/roles";
+import { managerUser, adminUser } from "./helpers/roles";
 
 fixture(`Smoke`).page(`talent.test`);
 
@@ -69,7 +69,10 @@ test("Job Posters", async t => {
 
 test("User Accounts", async t => {
   await t
-    .useRole(applicantUser)
+    .click(Selector("a").withText("Login"))
+    .typeText("#email", "applicant@test.com")
+    .typeText("#password", "password")
+    .click(Selector("button").withText("Login"))
     .expect(Selector("a").withText("My Applications").visible)
     .ok()
     .expect(Selector("a").withText("My Profile").visible)

@@ -3,15 +3,15 @@ import { Selector, Role } from "testcafe";
 // Logins for each user role, allows quick switching / authentication.
 export const applicantUser = Role("http://talent.test/login", async t => {
   await t
-    .typeText("#email", "applicant@test.com")
-    .typeText("#password", "password")
+    .typeText(Selector("#email"), "applicant@test.com")
+    .typeText(Selector("#password"), "password")
     .click(Selector("button").withText("Login"));
 });
 
 export const managerUser = Role("http://talent.test/manager/login", async t => {
   await t
-    .typeText("#email", "manager@test.com")
-    .typeText("#password", "password")
+    .typeText(Selector("#email"), "manager@test.com")
+    .typeText(Selector("#password"), "password")
     .click(Selector("button").withText("Login"));
 });
 
