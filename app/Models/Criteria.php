@@ -35,13 +35,14 @@ use Astrotomic\Translatable\Translatable as Translatable;
  *
  *  Localized Properties:
   * @property string $description
+  * @property string $specificity
  */
 class Criteria extends BaseModel
 {
 
     use Translatable;
 
-    public $translatedAttributes = ['description'];
+    public $translatedAttributes = ['description', 'specificity'];
 
     protected $table = 'criteria';
 

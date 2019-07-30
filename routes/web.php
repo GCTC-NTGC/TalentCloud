@@ -154,21 +154,21 @@ Route::group(
             Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
 
             // /* Temp Builder 01 (Intro) */
-            // Route::view('builder-01', 'manager/builder-01')->name('jpb1');
+            Route::view('builder-01', 'manager/builder-01')->middleware('localOnly')->name('jpb1');
             // /* Temp Builder 02 (Job info) */
-            // Route::view('builder-02', 'manager/builder-02')->name('jpb2');
+            Route::view('builder-02', 'manager/builder-02')->middleware('localOnly')->name('jpb2');
             // /* Temp Builder 03 (Work Environment) */
-            // Route::view('builder-03', 'manager/builder-03')->name('jpb3');
+            Route::view('builder-03', 'manager/builder-03')->middleware('localOnly')->name('jpb3');
             // /* Temp Builder 04 (Impact) */
-            // Route::view('builder-04', 'manager/builder-04')->name('jpb4');
+            Route::view('builder-04', 'manager/builder-04')->middleware('localOnly')->name('jpb4');
             // /* Temp Builder 05 (Tasks) */
-            // Route::view('builder-05', 'manager/builder-05')->name('jpb5');
+            Route::view('builder-05', 'manager/builder-05')->middleware('localOnly')->name('jpb5');
             // /* Temp Builder 06 (Skills) */
-            // Route::view('builder-06', 'manager/builder-06')->name('jpb6');
+            Route::view('builder-06', 'manager/builder-06')->middleware('localOnly')->name('jpb6');
             // /* Temp Builder 07 (Education) */
-            // Route::view('builder-07', 'manager/builder-07')->name('jpb7');
+            Route::view('builder-07', 'manager/builder-07')->middleware('localOnly')->name('jpb7');
             // /* Temp Builder 08 (Review) */
-            // Route::view('builder-08', 'manager/builder-08')->name('jpb8');
+            Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
             /* Authentication =========================================================== */
 
             // Laravel default login, logout, register, and reset routes

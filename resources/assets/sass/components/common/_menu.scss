@@ -5,6 +5,11 @@
 // =============================================================================
 .menu {
     background: transparentize($palette--black, .35);
+    // @media #{$l-tablet} {
+    //     position: sticky !important;
+    //     top: 0;
+    //     z-index: 1000;
+    // }
 
     .menu__mobile-trigger {
         display: none;
@@ -24,11 +29,11 @@
 
         @media #{$l-tablet} {
             padding: 0 $unit;
-            text-align: right;
         }
 
         li {
             display: inline-block;
+            margin-bottom: 0 !important;
             position: relative;
 
             a,
@@ -47,13 +52,23 @@
                 // text-transform: uppercase;
 
                 &:hover {
-                    color: $palette--blue;
+                    color: white !important;
+                    &::before {
+                        background: $clone-c3;
+                        content: " ";
+                        display: block;
+                        height: calc(#{$unit} / 2);
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        width: 100%;
+                    }
                 }
 
                 &.active {
 
                     &::before {
-                        @extend %gradient--horizontal;
+                        background: $clone-c3;
                         content: " ";
                         display: block;
                         height: calc(#{$unit} / 2);

@@ -14,7 +14,7 @@ class SkillController extends Controller
      */
     public function index()
     {
-        $skills = Skill::all();
+        $skills = Skill::with('classifications')->get();
         $skillsArray = [];
         // TODO: improve effiency of getting translations.
         foreach ($skills as $skill) {
