@@ -1,7 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { text, boolean, number } from "@storybook/addon-knobs";
+import { text, number } from "@storybook/addon-knobs";
 import JobPreview from "../../components/JobPreview";
 
 const stories = storiesOf("Job Poster Builder|Preview", module).addDecorator(
@@ -16,7 +16,7 @@ stories.add(
       department={text("Hiring Department", "Computer Systems")}
       city={text("City", "Ottawa")}
       province={text("Province", "Ontario")}
-      remoteWork={boolean("Remote Position", false)}
+      remoteWork={text("Remote Position", "Allows Remote Work")}
       language={text("Language", "English Essential")}
       termLength={number("Term in months", 6)}
       securityLevel={text("Security Level", "Reliability")}
