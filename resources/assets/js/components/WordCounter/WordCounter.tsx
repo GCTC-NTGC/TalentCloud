@@ -24,6 +24,11 @@ interface WordCounterProps {
   wordLimit: number;
 }
 
+export const truncateWords = (value: string, wordLimit: number): void => {
+  // if(currentNumberOfWords > wordLimit) {
+  // }
+};
+
 const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   elementId,
   minWords,
@@ -46,16 +51,14 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   // updates the message
   const updateMessage = (): void => {
     let index = 0;
-    const warning = warnings.find(
-      ({ max }, i): boolean => {
-        index = i;
-        return (
-          warnings[i + 1] &&
-          currentNumberOfWords >= max &&
-          currentNumberOfWords < warnings[i + 1].max
-        );
-      },
-    );
+    const warning = warnings.find(({ max }, i): boolean => {
+      index = i;
+      return (
+        warnings[i + 1] &&
+        currentNumberOfWords >= max &&
+        currentNumberOfWords < warnings[i + 1].max
+      );
+    });
 
     // set the message
     setMessage(warning ? warning.message : warnings[index].message);
@@ -107,38 +110,30 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   // This method calculates the total number of words (and the color of the progressRing) within the input element and updates the state on any input changes
   const getCurrentNumberOfWords = (element: HTMLTextAreaElement): void => {
     const prevNumOfChars = 0;
-    element.addEventListener(
-      "input",
-      (e): void => {
-        const target = e.target as HTMLTextAreaElement;
-        // console.log(getNumberOfWords(target.value));
-        setCurrentNumberOfWords(getNumberOfWords(target.value));
-        // updateCurrentNumberOfWords(getNumberOfWords(target.value));
+    element.addEventListener("input", (e): void => {
+      const target = e.target as HTMLTextAreaElement;
+      // console.log(getNumberOfWords(target.value));
+      setCurrentNumberOfWords(getNumberOfWords(target.value));
+      // updateCurrentNumberOfWords(getNumberOfWords(target.value));
 
-        const totalChars = target.value.length;
+      const totalChars = target.value.length;
 
-        console.log(currentNumberOfWords);
+      console.log(currentNumberOfWords);
 
-        // if (totalChars < prevNumOfChars && currentNumberOfWords < wordLimit) {
-        //   target.maxLength = 1000000000;
-        //   console.log("under");
-        // } else if (
-        //   totalChars > prevNumOfChars &&
-        //   currentNumberOfWords > wordLimit
-        // ) {
-        //   console.log("over");
-        //   target.maxLength = totalChars;
-        //   prevNumOfChars = totalChars;
-        // } else {
-        //   // do nothing
-        // }
-      },
-    );
-  };
-
-  const truncateWords = (value: string, wordLimit: number): void => {
-    // if(currentNumberOfWords > wordLimit) {
-    // }
+      // if (totalChars < prevNumOfChars && currentNumberOfWords < wordLimit) {
+      //   target.maxLength = 1000000000;
+      //   console.log("under");
+      // } else if (
+      //   totalChars > prevNumOfChars &&
+      //   currentNumberOfWords > wordLimit
+      // ) {
+      //   console.log("over");
+      //   target.maxLength = totalChars;
+      //   prevNumOfChars = totalChars;
+      // } else {
+      //   // do nothing
+      // }
+    });
   };
 
   /*
@@ -151,18 +146,15 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
     updateColor();
     updateMessage();
 
-    element.addEventListener(
-      "input",
-      (e): void => {
-        const target = e.target as HTMLTextAreaElement;
-        setCurrentNumberOfWords(getNumberOfWords(target.value));
-        console.log(getNumberOfWords(target.value));
+    element.addEventListener("input", (e): void => {
+      const target = e.target as HTMLTextAreaElement;
+      setCurrentNumberOfWords(getNumberOfWords(target.value));
+      console.log(getNumberOfWords(target.value));
 
-        if (currentNumberOfWords > wordLimit) {
-          // target.value = truncateWords(target.value, wordLimit);
-        }
-      },
-    );
+      if (currentNumberOfWords > wordLimit) {
+        // target.value = truncateWords(target.value, wordLimit);
+      }
+    });
   }, []);
 
   useEffect((): void => {
