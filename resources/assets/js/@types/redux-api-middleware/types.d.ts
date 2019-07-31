@@ -6,6 +6,18 @@
 declare module "redux-api-middleware" {
   import { Middleware } from "redux";
 
+  export interface StandardAction<T extends string, P, M = {}> {
+    type: T;
+    payload: P;
+    error?: boolean;
+    meta?: M;
+  }
+
+  export interface ErrorAction<T extends string, P, M = {}>
+    extends StandardAction<T, P, M> {
+    error: true;
+  }
+
   //declare module "redux-api-middleware";
 
   /**
@@ -87,12 +99,31 @@ declare module "redux-api-middleware" {
   /**
    * Is the given action a plain JavaScript object with a [RSAA] property?
    */
-  export function isRSAA(action: object): action is RSAAction<any, any, any>;
+  export function isRSAA(
+    action: object,
+  ): action is RSAAction<any, any, any, any, any, any>;
 
-  export interface TypeDescriptor<TSymbol> {
-    type: string | TSymbol;
-    payload: any;
-    meta: any;
+  export interface TypeDescriptor<
+    TType extends string,
+    TPayload,
+    TMeta,
+    TState
+  > {
+    type: TType;
+    payload?:
+      | TPayload
+      | ((
+          action: StandardAction<any, any, any>,
+          state: TState,
+          response: Response,
+        ) => TPayload);
+    meta?:
+      | TMeta
+      | ((
+          action: StandardAction<any, any, any>,
+          state: TState,
+          response: Response,
+        ) => TMeta);
   }
 
   /**
@@ -100,7 +131,7 @@ declare module "redux-api-middleware" {
    */
   export function isValidTypeDescriptor(
     obj: object,
-  ): obj is TypeDescriptor<any>;
+  ): obj is TypeDescriptor<any, any, any, any>;
 
   /**
    * Checks an action against the RSAA definition, returning a (possibly empty)
@@ -130,7 +161,7 @@ declare module "redux-api-middleware" {
   export type RSAActionTypeTuple = [
     string | symbol,
     string | symbol,
-    string | symbol
+    string | symbol,
   ];
 
   /**
@@ -150,22 +181,92 @@ declare module "redux-api-middleware" {
     | "DELETE"
     | "OPTIONS";
 
-  export interface RSAAction<R, S, F> {
+  export interface RSAAction<
+    TStartedType extends string,
+    TSuccessType extends string,
+    TFailedType extends string,
+    TSuccessPayload = any,
+    TFailPayload = Error,
+    TStartedPayload = {},
+    TSuccessMeta = {},
+    TFailMeta = {},
+    TStartedMeta = {},
+    TState = any
+  > {
     [propName: string]: {
-      // Symbol as object key seems impossible
-      endpoint: string; // or function
-      method: HTTPVerb;
-      body?: any;
-      headers?: { [propName: string]: string }; // or function
+      /**
+       * Endpoint to hit, or a function to call that results in an endpoint to hit.
+       */
+      endpoint: string | ((state: TState) => string);
+      method: "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS";
+      headers?: object | ((state: TState) => object);
+      body?: object | string | ((state: TState) => object | string);
       credentials?: "omit" | "same-origin" | "include";
-      bailout?: boolean; // or function
-      types: [R, S, F];
+      /**
+       * object or function producing an object of options to pass to the Fetch API.
+       * See: https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch
+       * for the list of available options.
+       */
+      options?: object | ((state: TState) => object);
+      /**
+       * Function/bool for whether or not to bail on a REST request.
+       * True = do not perform network request.
+       */
+      bailout?: boolean | ((state: TState) => boolean);
+      /**
+       * Length 3 array of types to assign to the API request's resulting Flux Standard Action's type property for various
+       * circumstances:
+       * index 0: REQUEST - Request has been made (yes, two FSAs result from your request action)
+       * index 1: RECEIVE - Response has been received
+       * index 2: FAILURE - Response was a failure
+       * TypeDescriptor objects will have their meta/payload properties merged into the resulting Flux Standard Actions
+       */
+      types: [
+
+          | TStartedType
+          | TypeDescriptor<TStartedType, TStartedPayload, TStartedMeta, TState>,
+
+
+          | TSuccessType
+          | TypeDescriptor<TSuccessType, TSuccessPayload, TSuccessMeta, TState>,
+
+
+          | TFailedType
+          | TypeDescriptor<TFailedType, TFailPayload, TFailMeta, TState>,
+      ];
+      fetch?: typeof fetch;
     };
   }
 
   module "redux" {
     export interface Dispatch<S> {
-      <R, S, F>(rsaa: RSAAction<R, S, F>): void;
+      <
+        TStartedType extends string,
+        TSuccessType extends string,
+        TFailedType extends string,
+        TSuccessPayload,
+        TFailPayload,
+        TStartedPayload,
+        TSuccessMeta,
+        TFailMeta,
+        TStartedMeta
+      >(
+        rsaa: RSAAction<
+          TStartedType,
+          TSuccessType,
+          TFailedType,
+          TSuccessPayload,
+          TFailPayload,
+          TStartedPayload,
+          TSuccessMeta,
+          TFailMeta,
+          TStartedMeta,
+          S
+        >,
+      ): Promise<
+        | StandardAction<TSuccessType, TSuccessPayload, TSuccessMeta>
+        | ErrorAction<TFailedType, TFailPayload, TFailMeta>
+      >;
     }
   }
 }

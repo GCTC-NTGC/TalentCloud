@@ -12,10 +12,10 @@
     id="managerProfileSectionEnvrionment"
     class="manager-profile__section">
 
-    <h4
+    <h3
         class="manager-profile__section-title">
         {{environment_l10n.work_environment}}
-    </h4>
+    </h3>
 
     <fieldset
         class="form__fieldset">
@@ -72,8 +72,7 @@
                     >
 
                     <label
-                        class="form__label"
-                        for="">
+                        class="form__label">
                         {{environment_l10n.telework_frequency}}
                     </label>
 
@@ -126,8 +125,7 @@
                     role="radiogroup">
 
                     <label
-                        class="form__label"
-                        for="">
+                        class="form__label">
                         {{environment_l10n.flexible_hour_frequency}}
                     </label>
 
@@ -171,10 +169,10 @@
 
             <div
                 class="box full">
-                <h4
+                <h3
                     class="manager-profile__legend">
                     {{environment_l10n.environment_photos}}
-                </h4>
+                </h3>
             </div>
 
             {% for photo in user.workplace_photos %}

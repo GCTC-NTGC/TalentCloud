@@ -47,11 +47,11 @@ class UpdateApplicationProfileValidator extends BaseDataValidator implements Dat
                 'max:191',
                 'email',
                 // Email may match existing email for this user,
-                //  but must be unique if changed.
+                // but must be unique if changed.
                 Rule::unique('users', 'email')->ignore($this->applicant->user->id)
             ],
 
-            //Password validation
+            // Password validation
             'old_password' => [
                 'nullable',
                 'required_with:new_password',
@@ -64,7 +64,7 @@ class UpdateApplicationProfileValidator extends BaseDataValidator implements Dat
                 'confirmed'
             ],
 
-            //Social Media Validation
+            // Social Media Validation
             /*
              * Twitters Terms of Service only allows ". A username can only contain
              * alphanumeric characters (letters A-Z, numbers 0-9) with the exception
@@ -73,8 +73,8 @@ class UpdateApplicationProfileValidator extends BaseDataValidator implements Dat
              * Keep this handy if we need to validate other usernames.
              */
             'twitter_username' => [
-                'nullable', //Some people may not have a handle.
-                'max:15', //Per Twitter's Terms/Service.
+                'nullable', // Some people may not have a handle.
+                'max:15', // Per Twitter's Terms/Service.
                 'regex:/^[A-Za-z0-9_]+$/',
             ],
             'linkedin_url' => [
@@ -82,7 +82,7 @@ class UpdateApplicationProfileValidator extends BaseDataValidator implements Dat
                 'regex:/^(https:\\/\\/|http:\\/\\/)?www\\.linkedin\\.com\\/in\\/[^\\/]+(\\/)?$/', // Validation for linkedIn profile URLS only.
             ],
 
-            //Other Information Tagline
+            // Other Information Tagline
             'tagline' => [
                 'nullable',
                 'string'

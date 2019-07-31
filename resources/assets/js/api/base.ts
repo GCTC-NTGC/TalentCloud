@@ -11,8 +11,11 @@ export const baseUrl = (): string => {
   return `/api`;
 };
 
-export const parseDate = (date: string): Date =>
-  moment.utc(date, "YYYY-M-D H:mm:ss").toDate();
+export const parseDateStrict = (date: string): Date => moment(date).toDate();
+
+export const parseDate = (date: string | null): Date | null => {
+  return date !== null ? parseDateStrict(date) : null;
+};
 
 export default {
   baseUrl,

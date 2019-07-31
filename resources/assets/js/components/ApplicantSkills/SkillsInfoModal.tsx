@@ -1,6 +1,7 @@
-import * as React from 'react';
-import ReactDOM from 'react-dom';
-import InfoModal from '../InfoModal';
+/* eslint-disable camelcase, @typescript-eslint/camelcase */
+import React from "react";
+import ReactDOM from "react-dom";
+import InfoModal from "../InfoModal";
 
 interface SkillsInfoModalProps {
   /** HTML ID for modal attributes */
@@ -31,61 +32,74 @@ const SkillsInfoModal: React.FunctionComponent<SkillsInfoModalProps> = ({
       confirmText={confirmText}
     >
       <div className="modal-info__wrapper">
-        {Object.values(subtext).map((item: string) => {
-          return <p className="modal-info__subtext">{item}</p>;
-        })}
+        {Object.values(subtext).map(
+          (item: string): React.ReactElement => {
+            return <p className="modal-info__subtext">{item}</p>;
+          },
+        )}
         <div className="modal-info__list-wrapper">
-          {Object.values(example_lists).map((exampleList: any, i: number) => {
-            return (
-              <React.Fragment>
-                <h6 className={i === 0 ? 'color-green' : 'color-red'}>
-                  {exampleList.title}
-                </h6>
-                <ul>
-                  {Object.values(exampleList.examples).map((example: any) => {
-                    return (
-                      <li>
-                        <p className="list-item__title">
-                          {i === 0 ? (
-                            <i className="far fa-check-circle" />
-                          ) : (
-                            <i className="far fa-times-circle" />
-                          )}
-                          {example.name}
-                        </p>
-                        {Array.isArray(example.content) ? (
-                          Object.values(example.content).map((item: string) => {
-                            return <p className="list-item__content">{item}</p>;
-                          })
-                        ) : (
-                          <p className="list-item__content">
-                            {example.content}
-                          </p>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </React.Fragment>
-            );
-          })}
+          {Object.values(example_lists).map(
+            (exampleList: any, i: number): React.ReactElement => {
+              return (
+                <>
+                  <h4 className={i === 0 ? "color-green" : "color-red"}>
+                    {exampleList.title}
+                  </h4>
+                  <ul>
+                    {Object.values(exampleList.examples).map(
+                      (example: any): React.ReactElement => {
+                        return (
+                          <li>
+                            <p className="list-item__title">
+                              {i === 0 ? (
+                                <i className="far fa-check-circle" />
+                              ) : (
+                                <i className="far fa-times-circle" />
+                              )}
+                              {example.name}
+                            </p>
+                            {Array.isArray(example.content) ? (
+                              Object.values(example.content).map(
+                                (item: string): React.ReactElement => {
+                                  return (
+                                    <p className="list-item__content">{item}</p>
+                                  );
+                                },
+                              )
+                            ) : (
+                              <p className="list-item__content">
+                                {example.content}
+                              </p>
+                            )}
+                          </li>
+                        );
+                      },
+                    )}
+                  </ul>
+                </>
+              );
+            },
+          )}
         </div>
       </div>
     </InfoModal>
   );
 };
 
-if (document.querySelectorAll('div[data-skills-info-modal]')) {
-  const elements = document.querySelectorAll('div[data-skills-info-modal]');
+if (document.querySelectorAll("div[data-skills-info-modal]")) {
+  const elements = document.querySelectorAll("div[data-skills-info-modal]");
 
-  Array.prototype.slice.call(elements).forEach(container => {
-    if (container != null && container.hasAttribute('data-skills-info-modal')) {
-      const id = container.getAttribute('data-skills-info-modal') as string;
-      const title = container.getAttribute('data-title') as string;
-      const openText = container.getAttribute('data-open-text') as string;
-      const confirmText = container.getAttribute('data-confirm-text') as string;
+  Array.prototype.slice.call(elements).forEach((container):
+    | void
+    | React.Component<any, any, any>
+    | Element => {
+    if (container != null && container.hasAttribute("data-skills-info-modal")) {
+      const id = container.getAttribute("data-skills-info-modal") as string;
+      const title = container.getAttribute("data-title") as string;
+      const openText = container.getAttribute("data-open-text") as string;
+      const confirmText = container.getAttribute("data-confirm-text") as string;
       const modalInfo = JSON.parse(container.getAttribute(
-        'data-modal-info',
+        "data-modal-info",
       ) as string);
 
       ReactDOM.render(

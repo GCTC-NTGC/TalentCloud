@@ -8,6 +8,7 @@
 namespace App\Models;
 
 use App\CRUD\TalentCloudCrudTrait as CrudTrait;
+use Astrotomic\Translatable\Translatable as Translatable;
 
 /**
  * Class Manager
@@ -49,16 +50,29 @@ use App\CRUD\TalentCloudCrudTrait as CrudTrait;
  * @property string $education
  * @property string $career_journey
  * @property string $learning_path
+ *
+ * Methods
+ * @method string toApiArray()
  */
-class Manager extends BaseModel {
-
-    use \Dimsav\Translatable\Translatable;
+class Manager extends BaseModel
+{
+    use Translatable;
     // Trait for Backpack
     use CrudTrait;
 
-    public $translatedAttributes = ['about_me', 'greatest_accomplishment', 'branch',
-        'division', 'position', 'work_experience', 'education','leadership_style',
-        'employee_learning','expectations','education','career_journey','learning_path'];
+    public $translatedAttributes = [
+        'about_me',
+        'greatest_accomplishment',
+        'branch',
+        'division',
+        'position',
+        'leadership_style',
+        'employee_learning',
+        'expectations',
+        'education',
+        'career_journey',
+        'learning_path'
+    ];
     protected $casts = [
         'department_id' => 'int',
         'user_id' => 'int'
@@ -75,23 +89,28 @@ class Manager extends BaseModel {
         'years_experience'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(\App\Models\User::class);
     }
 
-    public function department() {
+    public function department()
+    {
         return $this->belongsTo(\App\Models\Lookup\Department::class);
     }
 
-    public function job_posters() {
+    public function job_posters() //phpcs:ignore
+    {
         return $this->hasMany(\App\Models\JobPoster::class);
     }
 
-    public function work_environment() {
+    public function work_environment() //phpcs:ignore
+    {
         return $this->hasOne(\App\Models\WorkEnvironment::class)->withDefault();
     }
 
-    public function team_culture() {
+    public function team_culture() //phpcs:ignore
+    {
         return $this->hasOne(\App\Models\TeamCulture::class)->withDefault();
     }
     /*
@@ -107,23 +126,40 @@ class Manager extends BaseModel {
     * development_opportunity_frequency
     * refuse_low_value_work_frequency
     */
-    public function work_review_frequency() {
+    public function work_review_frequency() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 
-    public function stay_late_frequency() {
+    public function stay_late_frequency() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 
-    public function engage_team_frequency() {
+    public function engage_team_frequency() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 
-    public function development_opportunity_frequency() {
+    public function development_opportunity_frequency() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
     }
 
-    public function refuse_low_value_work_frequency() {
+    public function refuse_low_value_work_frequency() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
+    }
+
+    /**
+     * Return the array of values used to represent this object in an api response.
+     * This array should contain no nested objects (besides translations).
+     *
+     * @return mixed[]
+     */
+    public function toApiArray()
+    {
+        $withTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
+        return $withTranslations;
     }
 }

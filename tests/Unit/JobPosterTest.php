@@ -116,7 +116,7 @@ class JobPosterTest extends TestCase
      */
     public function testJobPosterPublishedMutator() : void
     {
-        // Open but not yet published
+        // Open but not yet published.
         $jobPoster = factory(JobPoster::class)->make();
         $this->assertEquals(null, $jobPoster->published_at);
 
@@ -127,7 +127,7 @@ class JobPosterTest extends TestCase
         $this->assertInstanceOf(Date::class, $jobPoster->published_at);
         $this->assertNotEquals($jobPoster->open_date_time, $jobPoster->published_at);
 
-        // Not yet open and not yet published
+        // Not yet open and not yet published.
         $jobPoster = factory(JobPoster::class)->states('review_requested')->make();
         $this->assertEquals(null, $jobPoster->published_at);
 
@@ -137,5 +137,32 @@ class JobPosterTest extends TestCase
 
         $this->assertInstanceOf(Date::class, $jobPoster->published_at);
         $this->assertEquals($jobPoster->open_date_time, $jobPoster->published_at);
+    }
+
+    /**
+     * Ensure the classification mutator functions correctly.
+     *
+     * @return void
+     */
+    public function testJobPosterClassificationAccessor() : void
+    {
+        $jobPoster = factory(JobPoster::class)->make();
+
+        $jobPoster->classification = null;
+        $this->assertEquals(
+            "$jobPoster->classification_code-$jobPoster->classification_level",
+            $jobPoster->classification
+        );
+
+        $jobPoster->classification = 'CS-03';
+        $jobPoster->classification_level = null;
+        $this->assertEquals('CS-03', $jobPoster->classification);
+
+        $jobPoster->classification_level = 5;
+        $jobPoster->classification_code = null;
+        $this->assertEquals('CS-03', $jobPoster->classification);
+
+        $jobPoster->classification_level = null;
+        $this->assertEquals('CS-03', $jobPoster->classification);
     }
 }

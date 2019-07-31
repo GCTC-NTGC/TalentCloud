@@ -8,6 +8,7 @@ use App\Models\JobPoster;
 use App\Models\Manager;
 use App\Models\User;
 use App\Models\Skill;
+use App\Models\Lookup\Department;
 
 class AdminPortalTest extends TestCase
 {
@@ -26,6 +27,7 @@ class AdminPortalTest extends TestCase
         $this->manager = factory(Manager::class)->create();
         $this->jobPoster = factory(JobPoster::class)->states('draft')->create();
         $this->skillId = Skill::inRandomOrder()->first()->id;
+        $this->departmentId = Department::inRandomOrder()->first()->id;
     }
 
     /**
@@ -79,6 +81,30 @@ class AdminPortalTest extends TestCase
     {
         $response = $this->actingAs($this->admin)
             ->get('admin/user/' . $this->admin->id . '/edit');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * Ensure an admin user can view an edit page for a department.
+     *
+     * @return void
+     */
+    public function testDepartmentEdit() : void
+    {
+        $response = $this->actingAs($this->admin)
+            ->get("admin/department/$this->departmentId/edit");
+        $response->assertStatus(200);
+    }
+
+        /**
+     * Ensure an admin user can view a create page for a department.
+     *
+     * @return void
+     */
+    public function testDepartmentCreate() : void
+    {
+        $response = $this->actingAs($this->admin)
+            ->get('admin/department/create');
         $response->assertStatus(200);
     }
 }

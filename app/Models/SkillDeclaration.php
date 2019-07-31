@@ -6,9 +6,6 @@
  */
 
 namespace App\Models;
-use App\Models\Reference;
-use App\Models\WorkSample;
-use App\Models\WorkExperience;
 
 /**
  * Class SkillDeclaration
@@ -29,8 +26,12 @@ use App\Models\WorkExperience;
  * @property \Illuminate\Database\Eloquent\Collection $references
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
  */
-class SkillDeclaration extends BaseModel {
+class SkillDeclaration extends BaseModel
+{
 
+    /**
+     * @var string[]
+     */
     protected $casts = [
         'skill_id' => 'int',
         'skill_status_id' => 'int',
@@ -38,68 +39,42 @@ class SkillDeclaration extends BaseModel {
         'applicant_id' => 'int',
         'description' => 'string'
     ];
+
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'description',
         'skill_level_id'
     ];
 
-    public function skill() {
+    public function skill()// phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Skill::class);
     }
 
-    public function skill_status() {
+    public function skill_status()// phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\SkillStatus::class);
     }
 
-    public function skill_level() {
+    public function skill_level()// phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Lookup\SkillLevel::class);
     }
 
-    public function applicant() {
+    public function applicant()// phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\Applicant::class);
     }
 
-    public function references() {
+    public function references()// phpcs:ignore
+    {
         return $this->belongsToMany(\App\Models\Reference::class);
     }
 
-    public function work_samples() {
+    public function work_samples()// phpcs:ignore
+    {
         return $this->belongsToMany(\App\Models\WorkSample::class);
     }
-
-    // public function getWorkExperiencesAttribute() {
-    //     // Retrieve all work experiences belonging to the same applicant and skill
-    //     // as this object
-    //     $skill_id = $this->skill->id;
-    //     return WorkExperience::where('applicant_id', $this->applcant_id)
-    //         ->whereHas('skills', function($query) use ($skill_id){
-    //             $query->where('skills.id', $skill_id);
-    //         })->get();
-    // }
-    //
-    // public function getReferencesAttribute() {
-    //     // Retrieve all references belonging to the same applicant and skill
-    //     // as this object
-    //     $skill_id = $this->skill->id;
-    //     return Reference::where('applicant_id', $this->applcant_id)
-    //         ->whereHas('skills', function($query) use ($skill_id){
-    //             $query->where('skills.id', $skill_id);
-    //         })->get();
-    //     // $skill_id = $this->skill->id;
-    //     // return $this->hasManyThrough(\App\Models\Reference::class,\App\Models\Applicant::class)
-    //     //     ->whereHas('skills', function($query) use ($skill_id){
-    //     //         $query->where('skills.id', $skill_id);
-    //     //     })->get();
-    // }
-    //
-    // public function getWorkSamplesAttribute() {
-    //     // Retrieve all work samples belonging to the same applicant and skill
-    //     // as this object
-    //     $skill_id = $this->skill->id;
-    //     return WorkSample::where('applicant_id', $this->applcant_id)
-    //         ->whereHas('skills', function($query) use ($skill_id){
-    //             $query->where('skills.id', $skill_id);
-    //         })->get();
-    // }
-
 }

@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # Extract files
+echo "Setting permissions of TalentCloud.zip...";
+sudo chmod 777 TalentCloud.zip;
+
 echo "Unzipping contents of TalentCloud.zip...";
 sudo unzip -qq TalentCloud.zip;
 
@@ -48,3 +51,6 @@ sudo php artisan config:clear;
 
 echo "Database migrations...";
 sudo php artisan migrate -n --force;
+
+echo "Restarting email queue...";
+sudo php artisan queue:restart;

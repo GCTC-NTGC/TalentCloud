@@ -1,15 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import { injectIntl } from "react-intl";
 import UpdatingInput from "../UpdatingInput";
-import {
-  RatingGuideQuestion as RatingGuideQuestionModel,
-  TempRatingGuideQuestion as TempRatingGuideQuestionModel,
-} from "../../models/types";
+import { RatingGuideQuestion as RatingGuideQuestionModel } from "../../models/types";
 import { RootState } from "../../store/store";
 import {
   ratingGuideQuestionIsEdited,
   ratingGuideQuestionIsUpdating,
+  getTempRatingGuideQuestionById,
+  getCurrentRatingGuideQuestionById,
+  tempRatingGuideQuestionIsSaving,
 } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
 import {
   editRatingGuideQuestion,
@@ -23,7 +22,7 @@ import { DispatchType } from "../../configureStore";
 
 interface RatingGuideQuestionProps {
   /** Question Model */
-  question: RatingGuideQuestionModel;
+  question: RatingGuideQuestionModel | null;
   /** Whether the question is performing an asynchronous update */
   isUpdating: boolean;
   /** This questions display index on the page */
@@ -48,7 +47,10 @@ const RatingGuideQuestion: React.FunctionComponent<
   editQuestion,
   removeQuestion,
   updateQuestion,
-}): React.ReactElement => {
+}): React.ReactElement | null => {
+  if (question === null) {
+    return null;
+  }
   return (
     <div
       data-c-background="black(10)"
@@ -61,8 +63,8 @@ const RatingGuideQuestion: React.FunctionComponent<
         </div>
         <div data-c-grid-item="base(1of1) tp(6of8)">
           <UpdatingInput
-            htmlId={`ratingGuideQuestion${question.assessment_type_id}`}
-            formName="ratingGuideQuestion"
+            id={`ratingGuideQuestion${question.assessment_type_id}`}
+            name="ratingGuideQuestion"
             label="Interview Question"
             required
             placeholder="Write your interview question here..."
@@ -102,7 +104,7 @@ const RatingGuideQuestion: React.FunctionComponent<
 };
 
 interface RatingGuideQuestionContainerProps {
-  question: RatingGuideQuestionModel;
+  ratingGuideQuestionId: number;
   questionIndex: number;
   temp?: boolean;
 }
@@ -111,16 +113,22 @@ const mapStateToProps = (
   state: RootState,
   ownProps: RatingGuideQuestionContainerProps,
 ): {
+  question: RatingGuideQuestionModel | null;
   isEdited: boolean;
   isUpdating: boolean;
 } => ({
-  isEdited: ratingGuideQuestionIsEdited(state, ownProps.question.id),
-  isUpdating: ratingGuideQuestionIsUpdating(state, ownProps.question.id),
+  question: ownProps.temp
+    ? getTempRatingGuideQuestionById(state, ownProps.ratingGuideQuestionId)
+    : getCurrentRatingGuideQuestionById(state, ownProps.ratingGuideQuestionId),
+  isEdited: ratingGuideQuestionIsEdited(state, ownProps.ratingGuideQuestionId),
+  isUpdating: ownProps.temp
+    ? tempRatingGuideQuestionIsSaving(state, ownProps.ratingGuideQuestionId)
+    : ratingGuideQuestionIsUpdating(state, ownProps.ratingGuideQuestionId),
 });
 
 const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
   editQuestion: ownProps.temp
-    ? (ratingGuideQuestion: TempRatingGuideQuestionModel): void => {
+    ? (ratingGuideQuestion: RatingGuideQuestionModel): void => {
         dispatch(editTempRatingGuideQuestion(ratingGuideQuestion));
       }
     : (ratingGuideQuestion: RatingGuideQuestionModel): void => {
@@ -145,6 +153,6 @@ const RatingGuideQuestionContainer: React.FunctionComponent<
 > = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(injectIntl(RatingGuideQuestion));
+)(RatingGuideQuestion);
 
 export default RatingGuideQuestionContainer;

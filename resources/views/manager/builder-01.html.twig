@@ -1,0 +1,218 @@
+{% extends "layouts/base" %}
+
+{% block title %}
+
+    {{ itp.page_title }}
+
+{% endblock %}
+
+{% block body %}
+
+    {# Sitewide Notice ====================================================== #}
+    {% include "common/alert" %}
+
+    {# Government of Canada Banner ========================================== #}
+    {% include "common/goc" %}
+
+    <div data-clone>
+        <div
+            data-c-background="white(100)">
+            <!-- Heading -->
+            <!-- This is a new heading component. Will act this way for all pages moving forward (except things like the homepage or splash pages. It has the menu, a title, and breadcrumb component.-->
+            <div style="background-image: url('/images/bg_crowd.jpg');" data-c-overlay="black(80)" data-c-padding="bottom(triple)">
+                <div data-c-margin="bottom(triple)">
+                    {% include "common/menu" %}
+                </div>
+                <div data-c-container="layout" data-c-alignment="centre">
+                    <h2 data-c-colour="white" data-c-font-size="h2" data-c-font-weight="bold" data-c-margin="bottom(double)">
+                        Build a Job Poster
+                    </h2>
+                    <!-- New breadcrumb component. Let's build this so that it shows children pages to help users better understand where in the information they are. -->
+                    <nav aria-label="breadcrumb" data-c-breadcrumbs data-c-colour="white" data-c-margin="bottom(normal)">
+                        <ol>
+                            <li>
+                                <a href="#link-to-page" title="This is the title of the page link.">
+                                    Manager Portal
+                                </a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                            <li>
+                                <a href="#link-to-page" title="This is the title of the page link.">
+                                    Job Poster Builder
+                                </a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                            <li>
+                                <!-- Note that this page has aria-current. This attribute determines the styles for the currently active page. It's also accessible :) -->
+                                <a aria-current="page" href="#link-to-page" title="This is the title of the page link.">
+                                    Welcome
+                                </a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- Progress Indicator -->
+            <!-- This is the new tracker component. The number of tracker items can be variable, but they all need the correct markup. They require a state, step label, and title. In this case, the manager tracker has its own unique class (because it needs extra styles), so be aware of that when making this reusable. You can manage the state of a tracker item using the data-tc-tracker-state attribute. The options are: null (hasn't been visited yet), active (current step), complete, and error. These update the styles automatically, so feel free to change the state using JS. -->
+            <!-- UPDATE: 06-26 -->
+            <!-- After a discussion with Lauren and Tristan, we've decided to reduce the number of steps, as well as the nomenclature associated with each one. -->
+            <div class="manager-jpb-tracker" data-c-alignment="base(centre)s" data-c-background="black(100)" data-c-colour="white">
+                <div data-c-container="layout" data-c-padding="top(quarter) bottom(quarter)">
+                    <div class="tracker manager-jpb-tracker-wrapper">
+                        <div class="tracker-item" data-tc-tracker-state="active" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Start</span><br>
+                                <span data-c-font-weight="bold">Welcome</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 01</span><br>
+                                <span data-c-font-weight="bold">Job Info</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 02</span><br>
+                                <span data-c-font-weight="bold">Work Env.</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 03</span><br>
+                                <span data-c-font-weight="bold">Impact</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 04</span><br>
+                                <span data-c-font-weight="bold">Tasks</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 05</span><br>
+                                <span data-c-font-weight="bold">Skills</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Finish</span><br>
+                                <span data-c-font-weight="bold">Review</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step Body -->
+            <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
+                <h3 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                    Welcome to the Job Poster Builder
+                </h3>
+                <p data-c-margin="bottom(normal)">This tool will help you create a job poster that attracts the right talent.</p>
+                <p data-c-margin="bottom(double)">We’ve also provided instructions and examples to help guide you through the process but if you still have questions, contact
+                    <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Email Talent Cloud.">Talent Cloud</a>
+                </p>
+                <h4 data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(double)">
+                    Before we get started please review your information.
+                </h4>
+                <div id="job-builder-form-0"></div>
+                <!-- Just an FYI - Clone's inputs have individual error text (the last span in the data-c-input element) that you're more than welcome to manipulate the content of to suit the error. My only recommendation is that you keep the error text short. This offers a lot of opportunity for narrower error messages (e.g. your email is missing an @) if and when possible. -->
+                <form data-c-margin="bottom(normal)">
+                    <div data-c-grid="gutter">
+                        <div data-c-grid-item="tl(1of2)" data-c-input="text">
+                            <label for="builder01ManagerJobTitleEN">My Job Title (English)</label>
+                            <span>Required</span>
+                            <div>
+                                <input id="builder01ManagerJobTitleEN" placeholder="e.g. Design Manager" value="Director" required type="text"/>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <div data-c-grid-item="tl(1of2)" data-c-input="text">
+                            <label for="builder01ManagerJobTitleFR">My Job Title (Français)</label>
+                            <span>Required</span>
+                            <div>
+                                <input id="builder01ManagerJobTitleFR" placeholder="e.g. Gestionnaire de la conception" value="Directeur" required type="text"/>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <div data-c-grid-item="base(1of1)" data-c-input="select">
+                            <label for="builder01ManagerDepartment">My Department</label>
+                            <span>Required</span>
+                            <div>
+                                <i class="fa fa-caret-down"></i>
+                                <select id="builder01ManagerDepartment" required>
+                                    <option disabled selected>Select a department...</option>
+                                    <!-- I'd assume these should be in alpha order, otherwise it'll be impossible to navigate for the user. -->
+                                    <option selected>Treasury Board of Canada Secretariat</option>
+                                    <option>Employment and Social Development Canada</option>
+                                    <option>Environment and Climate Change Canada</option>
+                                    <option>Etc.</option>
+                                </select>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <div data-c-grid-item="tl(1of2)" data-c-input="text">
+                            <label for="builder01ManagerDivisionEN">My Division (English)</label>
+                            <span>Required</span>
+                            <div>
+                                <input id="builder01ManagerDivisionEN" placeholder="e.g. Digital Change" value="Community and Collaboration" required type="text"/>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <div data-c-grid-item="tl(1of2)" data-c-input="text">
+                            <label for="builder01ManagerDivisionFR">My Division (Français)</label>
+                            <span>Required</span>
+                            <div>
+                                <input id="builder01ManagerDivisionFR" placeholder="e.g. Changement numérique" value="Collectivité et de la collaboration" required type="text"/>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                    </div>
+                </form>
+                <p data-c-margin="bottom(normal)"><strong>Note:</strong> Changing your information on this form will also change these fields in your Profile.</p>
+                <p data-c-margin="bottom(double)">Complete the job poster in the language of your choice. We will handle translation.</p>
+                <!-- This button continues the user in English. -->
+                <a href="/builder-02" data-c-button="solid(c2)" data-c-radius="rounded" type="button">Continue in English</a>
+                <!-- This button switches the user to French and continues the process in French. -->
+                <button data-c-button="solid(c1)" data-c-radius="rounded" type="button">Continuer en Français</button>
+            </div>
+        </div>
+    </div>
+</div>{% endblock %}

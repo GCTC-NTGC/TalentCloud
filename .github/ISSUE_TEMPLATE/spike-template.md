@@ -1,6 +1,6 @@
 ---
-name: Research Spike Template
-about: This template is for product development spikes.
+name: Spike Template
+about: Template for research spikes.
 title: 'Spike - '
 labels: Spike
 assignees: ''

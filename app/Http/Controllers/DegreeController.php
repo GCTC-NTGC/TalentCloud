@@ -10,8 +10,8 @@ class DegreeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Degree  $degree
+     * @param  \Illuminate\Http\Request $request Incoming Request.
+     * @param  \App\Models\Degree       $degree  Incoming Degree.
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Degree $degree)

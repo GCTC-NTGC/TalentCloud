@@ -6,6 +6,19 @@ export function getId<T extends { id: number }>(item: T): number {
   return item.id;
 }
 
+export function identity<T>(value: T): T {
+  return value;
+}
+
+/**
+ * Returns true as long as the value passed to it is not null or undefined.
+ * Can be used to filter nulls and undefined values out of an array.
+ * @param item
+ */
+export function notEmpty<T>(value: T | null | undefined): value is T {
+  return value !== null && value !== undefined;
+}
+
 /**
  * From an array of objects, return the first object with a specific id value.
  * @param objs
@@ -108,6 +121,23 @@ export function hasKey<T>(
   key: string | number,
 ): boolean {
   return Object.prototype.hasOwnProperty.call(object, key);
+}
+
+/**
+ * Returns the value at the specified key. If the key is not present, throws an error.
+ * @param object
+ * @param key
+ * @param errorMessage
+ */
+export function getOrThrowError<T>(
+  object: { [key: string]: T },
+  key: string | number,
+  errorMessage: string,
+): T {
+  if (!hasKey(object, key)) {
+    throw new Error(errorMessage);
+  }
+  return object[key];
 }
 
 /** Return a copy of the object with specific property removed */

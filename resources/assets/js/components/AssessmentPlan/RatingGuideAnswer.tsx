@@ -4,15 +4,13 @@ import { connect } from "react-redux";
 import { defineMessages, InjectedIntlProps, injectIntl } from "react-intl";
 import {
   RatingGuideAnswer as RatingGuideAnswerModel,
-  TempRatingGuideAnswer as TempRatingGuideAnswerModel,
   Skill,
   Criteria,
 } from "../../models/types";
 import Select, { SelectOption } from "../Select";
-import UpdatingInput from "../UpdatingInput";
-import { getId, hasKey, mapToObjectTrans } from "../../helpers/queries";
+import UpdatingTextArea from "../UpdatingTextArea";
+import { getId, hasKey } from "../../helpers/queries";
 import { RootState } from "../../store/store";
-import { getSkillById } from "../../store/Skill/skillSelector";
 import { DispatchType } from "../../configureStore";
 import {
   editTempRatingGuideAnswer,
@@ -25,11 +23,20 @@ import {
 import {
   ratingGuideAnswerIsEdited,
   ratingGuideAnswerIsUpdating,
+  getRatingGuideAnswerById,
+  getTempRatingGuideAnswerById,
+  tempRatingGuideAnswerIsSaving,
 } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
+import { getCriteriaById } from "../../store/Job/jobSelector";
+import {
+  getCriteriaToSkills,
+  getCachedCriteriaUnansweredForQuestion,
+} from "../../store/Job/jobSelectorComplex";
 
 interface RatingGuideAnswerProps {
-  answer: RatingGuideAnswerModel;
-  availableCriteria: Criteria[];
+  answer: RatingGuideAnswerModel | null;
+  unansweredCriteria: Criteria[];
+  answerCriterion: Criteria | null;
   criteriaIdToSkill: { [id: number]: Skill | null };
   temp?: boolean;
   isUpdating: boolean;
@@ -65,44 +72,71 @@ const messages = defineMessages({
   },
 });
 
+const getAvailableCriteria = (
+  availableCriteria: Criteria[],
+  answerCriterion: Criteria | null,
+): Criteria[] => {
+  const availableCriteriaIds = availableCriteria.map(getId);
+  // If this answer has a selected criteria, it should be considered available
+  if (
+    answerCriterion === null ||
+    availableCriteriaIds.includes(answerCriterion.id)
+  ) {
+    return availableCriteria;
+  }
+  return [...availableCriteria, answerCriterion];
+};
+
 const RatingGuideAnswer: React.FunctionComponent<
   RatingGuideAnswerProps & InjectedIntlProps
 > = ({
   answer,
-  availableCriteria,
+  unansweredCriteria,
+  answerCriterion,
   criteriaIdToSkill,
   isUpdating,
   editAnswer,
   updateAnswer,
   deleteAnswer,
   intl,
-}): React.ReactElement => {
+}): React.ReactElement | null => {
+  if (answer === null) {
+    return null;
+  }
+  const availableCriteria = getAvailableCriteria(
+    unansweredCriteria,
+    answerCriterion,
+  );
+  if (availableCriteria.length === 0) {
+    return null;
+  }
   const options = availableCriteria.map(
-    (criterion): SelectOption<number> => {
+    (criterion): SelectOption => {
+      const skill = hasKey<Skill | null>(criteriaIdToSkill, criterion.id)
+        ? criteriaIdToSkill[criterion.id]
+        : null;
       return {
         value: criterion.id,
-        label:
-          hasKey<Skill | null>(criteriaIdToSkill, criterion.id) &&
-          criteriaIdToSkill[criterion.id] !== null
-            ? (criteriaIdToSkill[criterion.id] as Skill).name // TODO: localize
-            : "",
+        label: skill ? skill[intl.locale].name : "",
       };
     },
   );
   return (
-    <div data-c-grid="gutter middle">
+    <div data-c-grid="gutter top">
       <div data-c-grid-item="base(1of1) tp(1of8)" data-c-alignment="center" />
       <div data-c-grid-item="base(1of1) tp(2of8)">
         <Select
-          htmlId={`ratingGuideSelectSkill_${answer.id}`}
-          formName="ratingGuideSelectSkill"
+          id={`ratingGuideSelectSkill_${answer.id}`}
+          name="ratingGuideSelectSkill"
           label={intl.formatMessage(messages.selectLabel)}
           required
           options={options}
           onChange={(event): void =>
             updateAnswer({
               ...answer,
-              criterion_id: Number(event.target.value),
+              criterion_id: event.target.value
+                ? Number(event.target.value)
+                : null,
             })
           }
           selected={answer.criterion_id}
@@ -110,15 +144,15 @@ const RatingGuideAnswer: React.FunctionComponent<
         />
       </div>
       <div data-c-grid-item="base(1of1) tp(4of8)">
-        <UpdatingInput
-          htmlId={`ratingGuideAnswer${answer.id}`}
-          formName="ratingGuideAnswer"
+        <UpdatingTextArea
+          id={`ratingGuideAnswer${answer.id}`}
+          name="ratingGuideAnswer"
           label={intl.formatMessage(messages.inputLabel)}
           required
           placeholder={intl.formatMessage(messages.inputPlaceholder)}
           value={answer.expected_answer || ""}
           updateDelay={500}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+          onChange={(event: React.ChangeEvent<HTMLTextAreaElement>): void => {
             const newAnswer = String(event.target.value);
             editAnswer({
               ...answer,
@@ -148,40 +182,70 @@ const RatingGuideAnswer: React.FunctionComponent<
   );
 };
 
+const getAnswer = (
+  state: RootState,
+  answerId: number,
+  temp?: boolean,
+): RatingGuideAnswerModel | null =>
+  temp
+    ? getTempRatingGuideAnswerById(state, { answerId })
+    : getRatingGuideAnswerById(state, { answerId });
+
 interface RatingGuideAnswerContainerProps {
-  answer: RatingGuideAnswerModel;
-  availableCriteria: Criteria[];
+  answerId: number;
   temp?: boolean;
 }
+
+const emptyCriteria: Criteria[] = [];
 
 const mapStateToProps = (
   state: RootState,
   ownProps: RatingGuideAnswerContainerProps,
 ): {
+  answer: RatingGuideAnswerModel | null;
+  unansweredCriteria: Criteria[];
+  answerCriterion: Criteria | null;
   criteriaIdToSkill: { [id: number]: Skill | null };
-  isEdited: boolean;
+  temp?: boolean;
   isUpdating: boolean;
-} => ({
-  criteriaIdToSkill: mapToObjectTrans(
-    ownProps.availableCriteria,
-    getId,
-    (criterion): Skill | null => getSkillById(state, criterion.skill_id),
-  ),
-  isEdited: ratingGuideAnswerIsEdited(state, ownProps.answer.id),
-  isUpdating: ratingGuideAnswerIsUpdating(state, ownProps.answer.id),
-});
+  isEdited: boolean;
+} => {
+  const answer = getAnswer(state, ownProps.answerId, ownProps.temp);
+  return {
+    answer,
+    unansweredCriteria: answer
+      ? getCachedCriteriaUnansweredForQuestion(state, {
+          questionId: answer.rating_guide_question_id,
+          isTempQuestion: false,
+        })
+      : emptyCriteria,
+    answerCriterion:
+      answer && answer.criterion_id
+        ? getCriteriaById(state, { criterionId: answer.criterion_id })
+        : null,
+    criteriaIdToSkill: getCriteriaToSkills(state),
+    isEdited: ratingGuideAnswerIsEdited(state, ownProps),
+    isUpdating: ownProps.temp
+      ? tempRatingGuideAnswerIsSaving(state, ownProps.answerId)
+      : ratingGuideAnswerIsUpdating(state, ownProps.answerId),
+  };
+};
 
 const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
   editAnswer: ownProps.temp
-    ? (ratingGuideAnswer: TempRatingGuideAnswerModel): void => {
+    ? (ratingGuideAnswer: RatingGuideAnswerModel): void => {
         dispatch(editTempRatingGuideAnswer(ratingGuideAnswer));
       }
     : (ratingGuideAnswer: RatingGuideAnswerModel): void => {
         dispatch(editRatingGuideAnswer(ratingGuideAnswer));
       },
   updateAnswer: ownProps.temp
-    ? (ratingGuideAnswer: RatingGuideAnswerModel): void =>
-        dispatch(storeNewRatingGuideAnswer(ratingGuideAnswer))
+    ? (ratingGuideAnswer: RatingGuideAnswerModel): void => {
+        // We must also edit the local temp answer, because it will be checked
+        // against the updated version when the store request succeeds.
+        dispatch(editTempRatingGuideAnswer(ratingGuideAnswer));
+        dispatch(storeNewRatingGuideAnswer(ratingGuideAnswer));
+      }
     : (ratingGuideAnswer: RatingGuideAnswerModel): void =>
         dispatch(updateRatingGuideAnswer(ratingGuideAnswer)),
   deleteAnswer: ownProps.temp
@@ -191,6 +255,21 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
     : (ratingGuideAnswerId: number): void => {
         dispatch(deleteRatingGuideAnswer(ratingGuideAnswerId));
       },
+  // This is only possibly used by mergeProps
+  editTempAnswer: (ratingGuideAnswer: RatingGuideAnswerModel): void => {
+    dispatch(editTempRatingGuideAnswer(ratingGuideAnswer));
+  },
+});
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  ...stateProps,
+  ...dispatchProps,
+  // If this is a currently saving temp answer, ensure we don't launch another store request
+  updateAnswer:
+    ownProps.temp && stateProps.isUpdating
+      ? dispatchProps.editTempAnswer
+      : dispatchProps.updateAnswer,
 });
 // @ts-ignore
 const RatingGuideAnswerContainer: React.FunctionComponent<
@@ -198,6 +277,7 @@ const RatingGuideAnswerContainer: React.FunctionComponent<
 > = connect(
   mapStateToProps,
   mapDispatchToProps,
+  mergeProps,
 )(injectIntl(RatingGuideAnswer));
 
 export default RatingGuideAnswerContainer;

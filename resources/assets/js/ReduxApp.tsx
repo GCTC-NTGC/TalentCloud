@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import AssessmentPlanContainer from "./components/AssessmentPlan/AssessmentPlanContainer";
 import IntlContainer from "./IntlContainer";
+import ErrorToast from "./components/ErrorToast";
 
 interface AssessmentPlanParams {
   jobId: string;
@@ -41,7 +42,10 @@ const IntlRouteContainer: React.FunctionComponent<
   const { locale } = match.params;
   return (
     <IntlContainer locale={locale}>
-      <Route path={`${match.path}/manager`} component={ManagerPortal} />
+      <>
+        <ErrorToast />
+        <Route path={`${match.path}/manager`} component={ManagerPortal} />
+      </>
     </IntlContainer>
   );
 };

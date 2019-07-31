@@ -15,7 +15,7 @@ import {
   criteriaType,
   assessmentType,
 } from "../../models/localizedConstants";
-import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
+import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelectorComplex";
 import { getCriteriaByJob } from "../../store/Job/jobSelector";
 import { getSkills } from "../../store/Skill/skillSelector";
 import { getRatingGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
@@ -29,7 +29,8 @@ export interface ClipboardTableRowProps {
   skillLevel: string;
   criteriaTypeName: string;
   skillName: string;
-  modelAnswer: string;
+  skillDescription: string;
+  modelAnswer: string | null;
 }
 
 export const clipboardData = (
@@ -42,7 +43,7 @@ export const clipboardData = (
   formatMessage: (message: FormattedMessage.MessageDescriptor) => string,
   narrativeReview?: Assessment[],
 ): ClipboardTableRowProps[] => {
-  let narrativeData = [] as ClipboardTableRowProps[];
+  let narrativeData: ClipboardTableRowProps[] = [];
   if (narrativeReview !== undefined) {
     narrativeData = narrativeReview.map(
       (narrative: Assessment): ClipboardTableRowProps => {
@@ -50,12 +51,10 @@ export const clipboardData = (
           (criterion: Criteria): boolean =>
             criterion.id === narrative.criterion_id,
         );
-        const narrativeSkill = skills.find(
-          (skill: Skill): boolean => {
-            if (narrativeCriterion === undefined) return false;
-            return skill.id === narrativeCriterion.skill_id;
-          },
-        );
+        const narrativeSkill = skills.find((skill: Skill): boolean => {
+          if (narrativeCriterion === undefined) return false;
+          return skill.id === narrativeCriterion.skill_id;
+        });
         return {
           title: formatMessage(assessmentType(narrative.assessment_type_id)),
           question: null,
@@ -76,13 +75,15 @@ export const clipboardData = (
                 ),
           skillName:
             narrativeSkill === undefined ? "" : narrativeSkill[locale].name,
+          skillDescription:
+            narrativeSkill === undefined
+              ? ""
+              : narrativeSkill[locale].description,
           modelAnswer: "",
           id:
             narrativeCriterion === undefined
               ? ""
-              : `A${narrative.assessment_type_id}-Q${narrative.id}-T${
-                  narrativeCriterion.criteria_type_id
-                }`,
+              : `A${narrative.assessment_type_id}-Q${narrative.id}-T${narrativeCriterion.criteria_type_id}`,
         };
       },
     );
@@ -112,12 +113,10 @@ export const clipboardData = (
       const criterionByAnswer = criteria.find(
         (criterion: Criteria): boolean => criterion.id === answer.criterion_id,
       );
-      const skillByCriterion = skills.find(
-        (skill: Skill): boolean => {
-          if (criterionByAnswer === undefined) return false;
-          return skill.id === criterionByAnswer.skill_id;
-        },
-      );
+      const skillByCriterion = skills.find((skill: Skill): boolean => {
+        if (criterionByAnswer === undefined) return false;
+        return skill.id === criterionByAnswer.skill_id;
+      });
       const questionByAnswer = ratingGuideQuestions.find(
         (question: RatingGuideQuestion): boolean =>
           question.id === answer.rating_guide_question_id,
@@ -146,13 +145,15 @@ export const clipboardData = (
             : formatMessage(criteriaType(criterionByAnswer.criteria_type_id)),
         skillName:
           skillByCriterion === undefined ? "" : skillByCriterion[locale].name,
-        modelAnswer: answer.expected_answer,
+        skillDescription:
+          skillByCriterion === undefined
+            ? ""
+            : skillByCriterion[locale].description,
+        modelAnswer: answer.expected_answer ? answer.expected_answer : "",
         id:
           questionByAnswer === undefined || criterionByAnswer === undefined
             ? ""
-            : `A${questionByAnswer.assessment_type_id}-Q${
-                questionByAnswer.id
-              }-T${criterionByAnswer.criteria_type_id}-AN${answer.id}`,
+            : `A${questionByAnswer.assessment_type_id}-Q${questionByAnswer.id}-T${criterionByAnswer.criteria_type_id}-AN${answer.id}`,
       };
     },
   );
@@ -166,23 +167,23 @@ export const clipboardData = (
     } else if (a.title < b.title) {
       num = -1;
     } else {
-      if (a.question === null || b.question === null) {
-        num = 0;
-      } else if (a.question > b.question) {
+      if (a.criteriaTypeName > b.criteriaTypeName) {
+        num = -1; // Essential should be listed before Asset
+      } else if (a.criteriaTypeName < b.criteriaTypeName) {
         num = 1;
-      } else if (a.question < b.question) {
-        num = -1;
       } else {
-        if (a.criteriaTypeName > b.criteriaTypeName) {
-          num = -1; // Essential should be listed before Asset
-        } else if (a.criteriaTypeName < b.criteriaTypeName) {
+        if (a.question === null || b.question === null) {
+          num = 0;
+        } else if (a.question > b.question) {
           num = 1;
+        } else if (a.question < b.question) {
+          num = -1;
         }
       }
     }
     return num;
   };
-  let data = [] as ClipboardTableRowProps[];
+  let data: ClipboardTableRowProps[] = [];
   if (narrativeData.length > 0) {
     data = narrativeData.concat(ratingData);
   } else {
@@ -219,6 +220,7 @@ const TableRow: React.FunctionComponent<ClipboardTableRowProps> = ({
   criteriaTypeName,
   skillLevel,
   skillName,
+  skillDescription,
   modelAnswer,
 }): React.ReactElement => (
   <tr>
@@ -227,9 +229,8 @@ const TableRow: React.FunctionComponent<ClipboardTableRowProps> = ({
     <td>{criteriaTypeName}</td>
     <td>{skillLevel}</td>
     <td>{skillName}</td>
+    <td>{skillDescription}</td>
     <td>{modelAnswer}</td>
-    <td />
-    <td />
   </tr>
 );
 
@@ -294,9 +295,8 @@ const RatingGuideClipboard: React.FunctionComponent<
                 <th scope="col">Criteria Type</th>
                 <th scope="col">Target Level</th>
                 <th scope="col">Skill</th>
+                <th scope="col">Skill Description</th>
                 <th scope="col">Rating Guide</th>
-                <th scope="col">Applicant Answer</th>
-                <th scope="col">Score</th>
               </tr>
             </thead>
             <tbody>
@@ -322,11 +322,11 @@ const mapStateToProps = (
   state: RootState,
   ownProps: RatingGuideClipboardContainerProps,
 ): TableProps => ({
-  assessments: getAssessmentsByJob(state, ownProps.jobId),
-  criteria: getCriteriaByJob(state, ownProps.jobId),
+  assessments: getAssessmentsByJob(state, ownProps),
+  criteria: getCriteriaByJob(state, ownProps),
   skills: getSkills(state),
-  ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps.jobId),
-  ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps.jobId),
+  ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps),
+  ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps),
 });
 // @ts-ignore
 const RatingGuideClipboardContainer: React.FunctionComponent<

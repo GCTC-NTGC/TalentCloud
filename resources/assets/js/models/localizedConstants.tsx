@@ -8,7 +8,12 @@ import {
   SkillLevelIdValues,
   SkillTypeId,
   SkillTypeIdValues,
+  ProvinceId,
+  SecurityClearanceId,
+  LanguageRequirementId,
+  DepartmentId,
 } from "./lookupConstants";
+import { getOrThrowError } from "../helpers/queries";
 
 interface SkillLevel {
   hardBasic: FormattedMessage.MessageDescriptor;
@@ -70,6 +75,12 @@ const skillLevelDescriptions = defineMessages({
       "This is a foundational part of who you are. You consistently demonstrate this skill or attribute, even under conditions of extreme stress or difficulty. Your peers and supervisors recognize this as a significant strength you demonstrate in the workplace, providing an example to others.",
     description: "Description of expert soft skill level.",
   },
+  asset: {
+    id: "skillLevel.asset.description",
+    defaultMessage:
+      "This skill isn't required for the employee to do the job, but it provides an added benefit to their skillset and will improve the speed or effectiveness of their work.",
+    description: "Description of what it means to be an 'Asset' skill.",
+  },
 });
 
 const skillLevelNames = defineMessages({
@@ -112,6 +123,11 @@ const skillLevelNames = defineMessages({
     id: "skillLevel.soft.expert.name",
     defaultMessage: "Deep Level Demonstration",
     description: "Single-word descriptor of soft expert skill level.",
+  },
+  asset: {
+    id: "skillLevel.asset.name",
+    defaultMessage: "Asset / No Level Required",
+    description: "Name for 'Asset' skills.",
   },
 });
 
@@ -215,6 +231,11 @@ const assessmentTypes = defineMessages({
     description: "Title of an assessment type.",
   },
 });
+
+export const assetSkillName = (): FormattedMessage.MessageDescriptor =>
+  skillLevelNames.asset;
+export const assetSkillDescription = (): FormattedMessage.MessageDescriptor =>
+  skillLevelDescriptions.asset;
 
 export const assessmentType = (
   assessmentTypeId: number,
@@ -386,6 +407,234 @@ const standardAssessmentText = defineMessages({
       "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
   },
 });
+
+const provinceNames = defineMessages({
+  [ProvinceId.AB]: {
+    id: "province.ab",
+    defaultMessage: "Alberta",
+  },
+  [ProvinceId.BC]: {
+    id: "province.bc",
+    defaultMessage: "British Columbia",
+  },
+  [ProvinceId.MB]: {
+    id: "province.mb",
+    defaultMessage: "Manitoba",
+  },
+  [ProvinceId.NL]: {
+    id: "province.nl",
+    defaultMessage: "Newfoundland and Labrador",
+  },
+  [ProvinceId.NB]: {
+    id: "province.nb",
+    defaultMessage: "New Brunswick",
+  },
+  [ProvinceId.NS]: {
+    id: "province.ns",
+    defaultMessage: "Nova Scotia",
+  },
+  [ProvinceId.NU]: {
+    id: "province.nu",
+    defaultMessage: "Nunavut",
+  },
+  [ProvinceId.NT]: {
+    id: "province.nt",
+    defaultMessage: "Northwest Territories",
+  },
+  [ProvinceId.ON]: {
+    id: "province.on",
+    defaultMessage: "Ontario",
+  },
+  [ProvinceId.PE]: {
+    id: "province.pe",
+    defaultMessage: "Prince Edward Island",
+  },
+  [ProvinceId.QC]: {
+    id: "province.qc",
+    defaultMessage: "Quebec",
+  },
+  [ProvinceId.SK]: {
+    id: "province.sk",
+    defaultMessage: "Saskatchewan",
+  },
+  [ProvinceId.YT]: {
+    id: "province.yk",
+    defaultMessage: "Yukon",
+  },
+});
+
+export const provinceName = (
+  provinceId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(provinceNames, provinceId, "invalid ProvinceId");
+
+const provinceAbreviations = defineMessages({
+  [ProvinceId.AB]: {
+    id: "province.ab.abreviation",
+    defaultMessage: "Alb.",
+  },
+  [ProvinceId.BC]: {
+    id: "province.bc.abreviation",
+    defaultMessage: "B.C.",
+  },
+  [ProvinceId.MB]: {
+    id: "province.mb.abreviation",
+    defaultMessage: "Man.",
+  },
+  [ProvinceId.NL]: {
+    id: "province.nl.abreviation",
+    defaultMessage: "N.L.",
+  },
+  [ProvinceId.NB]: {
+    id: "province.nb.abreviation",
+    defaultMessage: "N.B.",
+  },
+  [ProvinceId.NS]: {
+    id: "province.ns.abreviation",
+    defaultMessage: "N.S.",
+  },
+  [ProvinceId.NU]: {
+    id: "province.nu.abreviation",
+    defaultMessage: "Nvt.",
+  },
+  [ProvinceId.NT]: {
+    id: "province.nt.abreviation",
+    defaultMessage: "N.W.T.",
+  },
+  [ProvinceId.ON]: {
+    id: "province.on.abreviation",
+    defaultMessage: "Ont.",
+  },
+  [ProvinceId.PE]: {
+    id: "province.pe.abreviation",
+    defaultMessage: "P.E.I.",
+  },
+  [ProvinceId.QC]: {
+    id: "province.qc.abreviation",
+    defaultMessage: "Que.",
+  },
+  [ProvinceId.SK]: {
+    id: "province.sk.abreviation",
+    defaultMessage: "Sask.",
+  },
+  [ProvinceId.YT]: {
+    id: "province.yk.abreviation",
+    defaultMessage: "Y.T.",
+  },
+});
+
+export const provinceAbreviation = (
+  provinceId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(provinceAbreviations, provinceId, "invalid ProvinceId");
+
+const securityClearances = defineMessages({
+  [SecurityClearanceId.reliability]: {
+    id: "securityClearance.reliability",
+    defaultMessage: "Reliability",
+  },
+  [SecurityClearanceId.secret]: {
+    id: "securityClearance.secret",
+    defaultMessage: "Secret",
+  },
+  [SecurityClearanceId.topSecret]: {
+    id: "securityClearance.topSecret",
+    defaultMessage: "Top Secret",
+  },
+});
+
+export const securityClearance = (
+  securityClearanceId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(
+    securityClearances,
+    securityClearanceId,
+    "invalid security clearance id",
+  );
+
+const languageRequirements = defineMessages({
+  [LanguageRequirementId.english]: {
+    id: "languageRequirement.english",
+    defaultMessage: "English essential",
+  },
+  [LanguageRequirementId.french]: {
+    id: "languageRequirement.french",
+    defaultMessage: "French essential",
+  },
+  [LanguageRequirementId.bilingualIntermediate]: {
+    id: "languageRequirement.bilingualIntermediate",
+    defaultMessage: "Bilingual - Intermediate",
+  },
+  [LanguageRequirementId.bilingualAdvanced]: {
+    id: "languageRequirement.bilingualAdvanced",
+    defaultMessage: "Bilingual - Advanced",
+  },
+  [LanguageRequirementId.englishOrFrench]: {
+    id: "languageRequirement.englishOrFrench",
+    defaultMessage: "English or French",
+  },
+});
+
+export const languageRequirement = (
+  languageRequirementId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(
+    languageRequirements,
+    languageRequirementId,
+    "invalid LanguageRequirementId",
+  );
+
+const departments = defineMessages({
+  [DepartmentId.treasuryBoard]: {
+    id: "department.treasuryBoard",
+    defaultMessage: "Treasury Board of Canada Secretariat",
+  },
+  [DepartmentId.naturalResources]: {
+    id: "department.naturalResources",
+    defaultMessage: "Natural Resources Canada",
+  },
+  [DepartmentId.transport]: {
+    id: "department.transport",
+    defaultMessage: "Transport Canada",
+  },
+  [DepartmentId.environmentAndClimateChange]: {
+    id: "department.environmentAndClimateChange",
+    defaultMessage: "Environment and Climate Change Canada",
+  },
+  [DepartmentId.employmentAndSocialDevelopment]: {
+    id: "department.employmentAndSocialDevelopment",
+    defaultMessage: "Employment and Social Development Canada",
+  },
+  [DepartmentId.globalAffairs]: {
+    id: "department.globalAffairs",
+    defaultMessage: "Global Affairs Canada",
+  },
+  [DepartmentId.borderServices]: {
+    id: "department.borderServices",
+    defaultMessage: "Canada Border Services Agency",
+  },
+  [DepartmentId.fisheriesAndOceans]: {
+    id: "department.fisheriesAndOceans",
+    defaultMessage: "Fisheries and Oceans Canada",
+  },
+  [DepartmentId.innovationScience]: {
+    id: "department.innovationScience",
+    defaultMessage: "Innovation, Science and Economic Development Canada",
+  },
+  [DepartmentId.publicServiceAndProcurement]: {
+    id: "department.publicServiceAndProcurement",
+    defaultMessage: "Public Services and Procurement Canada",
+  },
+  [DepartmentId.nationalDefence]: {
+    id: "department.nationalDefence",
+    defaultMessage: "Deparmtnet of National Defence",
+  },
+});
+
+export const departmentName = (
+  departmentId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(departments, departmentId, "invalid DepartmentId");
 
 export const narrativeReviewStandardQuestion = (): FormattedMessage.MessageDescriptor =>
   standardAssessmentText.narrativeReviewQuestion;

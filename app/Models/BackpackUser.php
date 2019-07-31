@@ -4,11 +4,11 @@ namespace App\Models;
 
 use App\Models\User;
 use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
-use Tightenco\Parental\HasParentModel;
+use Tightenco\Parental\HasParent as HasParent;
 
 class BackpackUser extends User
 {
-    use HasParentModel;
+    use HasParent;
 
     protected $table = 'users';
 
@@ -19,7 +19,7 @@ class BackpackUser extends User
      *
      * @return void
      */
-    public function sendPasswordResetNotification($token)
+    public function sendPasswordResetNotification($token) : void
     {
         $this->notify(new ResetPasswordNotification($token));
     }
@@ -29,7 +29,7 @@ class BackpackUser extends User
      *
      * @return string
      */
-    public function getEmailForPasswordReset()
+    public function getEmailForPasswordReset() : string
     {
         return $this->email;
     }

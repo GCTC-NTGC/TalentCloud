@@ -2,25 +2,29 @@ import React from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { Criteria, Assessment, Skill } from "../../models/types";
-import { find } from "../../helpers/queries";
+import { find, notEmpty } from "../../helpers/queries";
 import { CriteriaTypeId } from "../../models/lookupConstants";
 import { assessmentType } from "../../models/localizedConstants";
 import { getUniqueAssessmentTypes } from "./assessmentHelpers";
 import { RootState } from "../../store/store";
 import { getCriteriaByJob } from "../../store/Job/jobSelector";
-import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelector";
+import { getSkills } from "../../store/Skill/skillSelector";
+import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelectorComplex";
 
 interface AssessmentPlanTableProps {
   /** All assessments to be displayed in this table */
   assessments: Assessment[];
   /** All criteria associated with assessments  */
   criteria: Criteria[];
+  /** All skills */
+  skills: Skill[];
 }
 
 const renderAssessmentTypeBlock = (
   assessmentTypeId: number,
   assessmentTypeName: string,
   criteria: Criteria[],
+  skills: Skill[],
   locale: string,
 ): React.ReactElement => {
   const essentialSkills: Skill[] = criteria
@@ -28,13 +32,15 @@ const renderAssessmentTypeBlock = (
       (criterion): boolean =>
         criterion.criteria_type_id === CriteriaTypeId.Essential,
     )
-    .map((criterion): Skill => criterion.skill);
+    .map((criterion): Skill | null => find(skills, criterion.skill_id))
+    .filter(notEmpty);
   const assetSkills: Skill[] = criteria
     .filter(
       (criterion): boolean =>
         criterion.criteria_type_id === CriteriaTypeId.Asset,
     )
-    .map((criterion): Skill => criterion.skill);
+    .map((criterion): Skill | null => find(skills, criterion.skill_id))
+    .filter(notEmpty);
   return (
     <div
       key={`assessmentSummary_type${assessmentTypeId}`}
@@ -84,9 +90,7 @@ const renderAssessmentTypeBlock = (
             {essentialSkills.map(
               (skill): React.ReactElement => (
                 <li
-                  key={`assessmentSummary_type${assessmentTypeId}_essential_skill${
-                    skill.id
-                  }`}
+                  key={`assessmentSummary_type${assessmentTypeId}_essential_skill${skill.id}`}
                 >
                   {skill[locale].name}
                 </li>
@@ -115,9 +119,7 @@ const renderAssessmentTypeBlock = (
             {assetSkills.map(
               (skill): React.ReactElement => (
                 <li
-                  key={`assessmentSummary_type${assessmentTypeId}_asset_skill${
-                    skill.id
-                  }`}
+                  key={`assessmentSummary_type${assessmentTypeId}_asset_skill${skill.id}`}
                 >
                   {skill[locale].name}
                 </li>
@@ -135,6 +137,7 @@ const AssessmentPlanTable: React.FunctionComponent<
 > = ({
   criteria,
   assessments,
+  skills,
   intl,
 }: AssessmentPlanTableProps & InjectedIntlProps): React.ReactElement => {
   const uniqueAssessmentTypes: number[] = getUniqueAssessmentTypes(assessments);
@@ -219,15 +222,15 @@ const AssessmentPlanTable: React.FunctionComponent<
                 assessment.assessment_type_id === assessmentTypeId,
             );
             const associatedCriteria = assessmentsOfThisType
-              .map(
-                (assessment): Criteria | null =>
-                  find(criteria, assessment.criterion_id),
+              .map((assessment): Criteria | null =>
+                find(criteria, assessment.criterion_id),
               )
-              .filter((criterion): boolean => criterion != null) as Criteria[];
+              .filter(notEmpty);
             return renderAssessmentTypeBlock(
               assessmentTypeId,
               intl.formatMessage(assessmentType(assessmentTypeId)),
               associatedCriteria,
+              skills,
               intl.locale,
             );
           },
@@ -247,9 +250,11 @@ const mapStateToProps = (
 ): {
   assessments: Assessment[];
   criteria: Criteria[];
+  skills: Skill[];
 } => ({
-  criteria: getCriteriaByJob(state, ownProps.jobId),
-  assessments: getAssessmentsByJob(state, ownProps.jobId),
+  criteria: getCriteriaByJob(state, ownProps),
+  assessments: getAssessmentsByJob(state, ownProps),
+  skills: getSkills(state),
 });
 // @ts-ignore
 const AssessmentPlanTableContainer: React.FunctionComponent<
