@@ -22,25 +22,25 @@ interface WordCounterProps {
   minWords: number;
   warnings: Message[];
   wordLimit: number;
-  numberOfWords: number;
 }
 
 const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   elementId,
-  numberOfWords,
   minWords,
   maxWords,
   wordLimit,
   warnings,
 }): React.ReactElement => {
-  const [currentNumberOfWords, setCurrentNumberOfWords] = useState(
-    numberOfWords,
-  );
+  const [currentNumberOfWords, setCurrentNumberOfWords] = useState(0);
   const [message, setMessage] = useState("");
   const [strokeColor, setStrokeColor] = useState("");
 
   const getNumberOfWords = (innerText: string): number => {
-    return innerText.replace(/[ ]{2,}/gi, " ").split(" ").length - 1;
+    // return innerText.split(" ").length - 1;
+    return innerText
+      .replace(/\s+/g, " ")
+      .trim()
+      .split(" ").length;
   };
 
   // updates the message
@@ -100,55 +100,88 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
     setStrokeColor(`hsl(${hue}, 80%, 50%)`);
   };
 
+  const updateCurrentNumberOfWords = (numOfWords: number): void => {
+    setCurrentNumberOfWords(numOfWords);
+  };
+
   // This method calculates the total number of words (and the color of the progressRing) within the input element and updates the state on any input changes
   const getCurrentNumberOfWords = (element: HTMLTextAreaElement): void => {
-    let previousNumOfChars = 0;
+    const prevNumOfChars = 0;
+    element.addEventListener(
+      "input",
+      (e): void => {
+        const target = e.target as HTMLTextAreaElement;
+        // console.log(getNumberOfWords(target.value));
+        setCurrentNumberOfWords(getNumberOfWords(target.value));
+        // updateCurrentNumberOfWords(getNumberOfWords(target.value));
 
-    if (element !== null) {
-      element.addEventListener(
-        "input",
-        (e): void => {
-          const target = e.target as HTMLTextAreaElement;
-          setCurrentNumberOfWords(getNumberOfWords(target.value));
-          const totalChars = target.value.length;
-          // update total words state
-          this.updateCurrentNumberOfWords(currentNumberOfWords);
-          // update the color
-          updateColor();
-          // update message
-          updateMessage();
+        const totalChars = target.value.length;
 
-          // set hard cap
-          if (
-            previousNumOfChars > totalChars &&
-            currentNumberOfWords < wordLimit
-          ) {
-            // how can you set textarea to unlimited?
-            target.maxLength = 10000000;
-          } else if (currentNumberOfWords >= wordLimit) {
-            target.maxLength = totalChars;
+        console.log(currentNumberOfWords);
 
-            previousNumOfChars = totalChars;
-          }
-        },
-      );
-    }
+        // if (totalChars < prevNumOfChars && currentNumberOfWords < wordLimit) {
+        //   target.maxLength = 1000000000;
+        //   console.log("under");
+        // } else if (
+        //   totalChars > prevNumOfChars &&
+        //   currentNumberOfWords > wordLimit
+        // ) {
+        //   console.log("over");
+        //   target.maxLength = totalChars;
+        //   prevNumOfChars = totalChars;
+        // } else {
+        //   // do nothing
+        // }
+      },
+    );
+  };
+
+  const truncateWords = (value: string, wordLimit: number): void => {
+    // if(currentNumberOfWords > wordLimit) {
+    // }
   };
 
   /*
     useEffect() is a combination of componentDidMount, componentDidUpdate, and componentWillUnmount
   */
-  useEffect(
-    (): void => {
-      const element: HTMLTextAreaElement = document.getElementById(
-        elementId,
-      ) as HTMLTextAreaElement;
-      setCurrentNumberOfWords(getNumberOfWords(element.value));
-      updateColor();
-      updateMessage();
-      getCurrentNumberOfWords(element);
-    },
-  );
+  useEffect((): void => {
+    const element: HTMLTextAreaElement = document.getElementById(
+      elementId,
+    ) as HTMLTextAreaElement;
+    updateColor();
+    updateMessage();
+
+    element.addEventListener(
+      "input",
+      (e): void => {
+        const target = e.target as HTMLTextAreaElement;
+        setCurrentNumberOfWords(getNumberOfWords(target.value));
+        console.log(getNumberOfWords(target.value));
+
+        if (currentNumberOfWords > wordLimit) {
+          // target.value = truncateWords(target.value, wordLimit);
+        }
+      },
+    );
+  }, []);
+
+  useEffect((): void => {
+    const element: HTMLTextAreaElement = document.getElementById(
+      elementId,
+    ) as HTMLTextAreaElement;
+    // console.log(currentNumberOfWords);
+
+    const totalChars = element.value.length;
+
+    if (currentNumberOfWords < wordLimit) {
+      // After maxLength is set to positive number, it cannot be set back to unlimited (-1)
+      element.maxLength = 1000000000;
+    } else if (currentNumberOfWords > wordLimit) {
+      // element.maxLength = totalChars;
+    } else {
+      // do nothing
+    }
+  }, [currentNumberOfWords]);
 
   return (
     <div
@@ -159,8 +192,8 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
       aria-valuemax={maxWords}
     >
       <ProgressRing
-        radius={25}
-        stroke={5}
+        radius={30}
+        stroke={6}
         progress={currentNumberOfWords}
         strokeColor={strokeColor}
         max={minWords}

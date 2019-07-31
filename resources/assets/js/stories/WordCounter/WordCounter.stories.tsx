@@ -36,10 +36,9 @@ stories.add(
       <textarea id="word-counter" cols={100} rows={10} />
       <WordCounter
         elementId="word-counter"
-        maxWords={number("Max", 20)}
-        minWords={number("Min", 80)}
-        wordLimit={number("Hard Limit", 200)}
-        numberOfWords={number("Total", 2)}
+        maxWords={number("Max", 80)}
+        minWords={number("Min", 20)}
+        wordLimit={number("Hard Limit", 5)}
         warnings={warnings}
       />
     </div>
