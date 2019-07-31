@@ -24,9 +24,33 @@ interface WordCounterProps {
   wordLimit: number;
 }
 
-export const truncateWords = (value: string, wordLimit: number): void => {
-  // if(currentNumberOfWords > wordLimit) {
-  // }
+export const countNumberOfWords = (innerText: string): number => {
+  // return innerText.split(" ").length - 1;
+  return innerText
+    .replace(/\s+/g, " ")
+    .trim()
+    .split(" ").length;
+};
+
+export const stringEndsInWhitespace = (value: string): boolean => {
+  const pattern = /.*\s$/; // \s represents any whitespace characters, like tabs, spaces and newlines
+  return pattern.test(value);
+};
+
+export const truncateWords = (value: string, wordLimit: number): string => {
+  const wordCount = countNumberOfWords(value);
+  if (wordCount === wordLimit && stringEndsInWhitespace(value)) {
+    return value.trim();
+  }
+  if (wordCount > wordLimit) {
+    // This pattern finds the first n words, where words are characters divided by whitespace, and n=wordLimit
+    const pattern = new RegExp(`([^\\s]+\\s+){${wordLimit}}`, "g");
+    const matches = pattern.exec(value);
+    if (matches) {
+      return matches[0].trim();
+    }
+  }
+  return value;
 };
 
 const WordCounter: React.FunctionComponent<WordCounterProps> = ({
@@ -39,14 +63,6 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   const [currentNumberOfWords, setCurrentNumberOfWords] = useState(0);
   const [message, setMessage] = useState("");
   const [strokeColor, setStrokeColor] = useState("");
-
-  const getNumberOfWords = (innerText: string): number => {
-    // return innerText.split(" ").length - 1;
-    return innerText
-      .replace(/\s+/g, " ")
-      .trim()
-      .split(" ").length;
-  };
 
   // updates the message
   const updateMessage = (): void => {
@@ -112,9 +128,9 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
     const prevNumOfChars = 0;
     element.addEventListener("input", (e): void => {
       const target = e.target as HTMLTextAreaElement;
-      // console.log(getNumberOfWords(target.value));
-      setCurrentNumberOfWords(getNumberOfWords(target.value));
-      // updateCurrentNumberOfWords(getNumberOfWords(target.value));
+      // console.log(countNumberOfWords(target.value));
+      setCurrentNumberOfWords(countNumberOfWords(target.value));
+      // updateCurrentNumberOfWords(countNumberOfWords(target.value));
 
       const totalChars = target.value.length;
 
@@ -148,11 +164,11 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
 
     element.addEventListener("input", (e): void => {
       const target = e.target as HTMLTextAreaElement;
-      setCurrentNumberOfWords(getNumberOfWords(target.value));
-      console.log(getNumberOfWords(target.value));
+      setCurrentNumberOfWords(countNumberOfWords(target.value));
+      console.log(countNumberOfWords(target.value));
 
       if (currentNumberOfWords > wordLimit) {
-        // target.value = truncateWords(target.value, wordLimit);
+        target.value = truncateWords(target.value, wordLimit);
       }
     });
   }, []);
