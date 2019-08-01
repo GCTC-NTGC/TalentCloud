@@ -34,18 +34,18 @@ class HelperTest extends TestCase
         $diff = humanizeDateDiff($dateToTest);
         $this->assertEquals('5 Days', $diff);
 
-        $dateToTest = Date::parse('-32 minutes');
+        $dateToTest = Date::parse('-33 minutes 15 seconds');
         $diff = humanizeDateDiff($dateToTest);
         $this->assertEquals('32 Minutes', $diff);
 
-        $dateToTest = Date::parse('10 hours');
-        $reference = Date::parse('23 hours');
+        $dateToTest = Date::parse('10 hours 10 minutes 15 seconds');
+        $reference = Date::parse('23 hours 10 minutes 15 seconds');
         $diff = humanizeDateDiff($dateToTest, $reference);
         $this->assertEquals('13 Hours', $diff);
 
-        /**  Test to show now negative time difference is rounded down, 12:59:59 is being rounded to 12 Hours */
-        $dateToTest = Date::parse('10 hours');
-        $reference = Date::parse('-3 hours');
+        // Test to show now negative time difference is rounded down, 12:59:59 is being rounded to 12 Hours.
+        $dateToTest = Date::parse('9 hours 49 minutes 49 seconds');
+        $reference = Date::parse('-3 hours 1 minute 1 second');
         $diff = humanizeDateDiff($dateToTest, $reference);
         $this->assertEquals('12 Hours', $diff);
     }
