@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
 import { withKnobs, number } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import WordCounter from "../../components/WordCounter/WordCounter";
+import WordCounterWrapper from "../../components/WordCounter/WordCounterWrapper";
 
 const warnings = [
   {
@@ -34,11 +34,11 @@ stories.add(
   (): React.ReactElement => (
     <div>
       <textarea id="word-counter" cols={100} rows={10} />
-      <WordCounter
+      <WordCounterWrapper
         elementId="word-counter"
-        maxWords={number("Max", 80)}
         minWords={number("Min", 20)}
-        wordLimit={number("Hard Limit", 5)}
+        maxWords={number("Max", 80)}
+        wordLimit={number("Hard Limit", 100)}
         warnings={warnings}
       />
     </div>

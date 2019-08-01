@@ -17,74 +17,40 @@ interface Message {
 }
 
 interface WordCounterProps {
-  elementId: string;
+  numOfWords: number;
   maxWords: number;
   minWords: number;
   warnings: Message[];
   wordLimit: number;
 }
 
-export const countNumberOfWords = (innerText: string): number => {
-  // return innerText.split(" ").length - 1;
-  return innerText
-    .replace(/\s+/g, " ")
-    .trim()
-    .split(" ").length;
-};
-
-export const stringEndsInWhitespace = (value: string): boolean => {
-  const pattern = /.*\s$/; // \s represents any whitespace characters, like tabs, spaces and newlines
-  return pattern.test(value);
-};
-
-export const truncateWords = (value: string, wordLimit: number): string => {
-  const wordCount = countNumberOfWords(value);
-  if (wordCount === wordLimit && stringEndsInWhitespace(value)) {
-    return value.trim();
-  }
-  if (wordCount > wordLimit) {
-    // This pattern finds the first n words, where words are characters divided by whitespace, and n=wordLimit
-    const pattern = new RegExp(`([^\\s]+\\s+){${wordLimit}}`, "g");
-    const matches = pattern.exec(value);
-    if (matches) {
-      return matches[0].trim();
-    }
-  }
-  return value;
-};
-
 const WordCounter: React.FunctionComponent<WordCounterProps> = ({
-  elementId,
+  numOfWords,
   minWords,
   maxWords,
-  wordLimit,
   warnings,
 }): React.ReactElement => {
-  const [currentNumberOfWords, setCurrentNumberOfWords] = useState(0);
-  const [message, setMessage] = useState("");
-  const [strokeColor, setStrokeColor] = useState("");
-
-  // updates the message
-  const updateMessage = (): void => {
+  const message = (): string => {
     let index = 0;
-    const warning = warnings.find(({ max }, i): boolean => {
-      index = i;
-      return (
-        warnings[i + 1] &&
-        currentNumberOfWords >= max &&
-        currentNumberOfWords < warnings[i + 1].max
-      );
-    });
+    const warning = warnings.find(
+      ({ max }, i): boolean => {
+        index = i;
+        return (
+          warnings[i + 1] &&
+          numOfWords >= max &&
+          numOfWords < warnings[i + 1].max
+        );
+      },
+    );
 
-    // set the message
-    setMessage(warning ? warning.message : warnings[index].message);
+    return warning ? warning.message : warnings[index].message;
   };
 
-  const updateColor = (): void => {
+  const strokeColor = (): string => {
     const median = minWords + (maxWords - minWords) / 2;
-    let hue = currentNumberOfWords;
+    let hue = numOfWords;
     // the median between the minimum and maximum numbers
-    const percentage = currentNumberOfWords / median;
+    const percentage = numOfWords / median;
     const difference = 120 * percentage - 120;
 
     /*
@@ -96,18 +62,15 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
       Red: 0 hue
     */
 
-    if (currentNumberOfWords <= minWords) {
+    if (numOfWords <= minWords) {
       hue = 120 * percentage;
-    } else if (
-      currentNumberOfWords > minWords &&
-      currentNumberOfWords <= maxWords
-    ) {
-      if (currentNumberOfWords <= median) {
+    } else if (numOfWords > minWords && numOfWords <= maxWords) {
+      if (numOfWords <= median) {
         hue = 120 * percentage;
       } else {
         hue = 120 - difference;
       }
-    } else if (currentNumberOfWords > maxWords) {
+    } else if (numOfWords > maxWords) {
       hue = 120 - difference;
 
       if (hue <= 0) {
@@ -115,99 +78,26 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
       }
     }
 
-    // set the stroke color
-    setStrokeColor(`hsl(${hue}, 80%, 50%)`);
+    return `hsl(${hue}, 80%, 50%)`;
   };
-
-  const updateCurrentNumberOfWords = (numOfWords: number): void => {
-    setCurrentNumberOfWords(numOfWords);
-  };
-
-  // This method calculates the total number of words (and the color of the progressRing) within the input element and updates the state on any input changes
-  const getCurrentNumberOfWords = (element: HTMLTextAreaElement): void => {
-    const prevNumOfChars = 0;
-    element.addEventListener("input", (e): void => {
-      const target = e.target as HTMLTextAreaElement;
-      // console.log(countNumberOfWords(target.value));
-      setCurrentNumberOfWords(countNumberOfWords(target.value));
-      // updateCurrentNumberOfWords(countNumberOfWords(target.value));
-
-      const totalChars = target.value.length;
-
-      console.log(currentNumberOfWords);
-
-      // if (totalChars < prevNumOfChars && currentNumberOfWords < wordLimit) {
-      //   target.maxLength = 1000000000;
-      //   console.log("under");
-      // } else if (
-      //   totalChars > prevNumOfChars &&
-      //   currentNumberOfWords > wordLimit
-      // ) {
-      //   console.log("over");
-      //   target.maxLength = totalChars;
-      //   prevNumOfChars = totalChars;
-      // } else {
-      //   // do nothing
-      // }
-    });
-  };
-
-  /*
-    useEffect() is a combination of componentDidMount, componentDidUpdate, and componentWillUnmount
-  */
-  useEffect((): void => {
-    const element: HTMLTextAreaElement = document.getElementById(
-      elementId,
-    ) as HTMLTextAreaElement;
-    updateColor();
-    updateMessage();
-
-    element.addEventListener("input", (e): void => {
-      const target = e.target as HTMLTextAreaElement;
-      setCurrentNumberOfWords(countNumberOfWords(target.value));
-      console.log(countNumberOfWords(target.value));
-
-      if (currentNumberOfWords > wordLimit) {
-        target.value = truncateWords(target.value, wordLimit);
-      }
-    });
-  }, []);
-
-  useEffect((): void => {
-    const element: HTMLTextAreaElement = document.getElementById(
-      elementId,
-    ) as HTMLTextAreaElement;
-    // console.log(currentNumberOfWords);
-
-    const totalChars = element.value.length;
-
-    if (currentNumberOfWords < wordLimit) {
-      // After maxLength is set to positive number, it cannot be set back to unlimited (-1)
-      element.maxLength = 1000000000;
-    } else if (currentNumberOfWords > wordLimit) {
-      // element.maxLength = totalChars;
-    } else {
-      // do nothing
-    }
-  }, [currentNumberOfWords]);
 
   return (
     <div
       className="word-counter"
       role="progressbar"
-      aria-valuenow={currentNumberOfWords}
+      aria-valuenow={numOfWords}
       aria-valuemin={minWords}
       aria-valuemax={maxWords}
     >
       <ProgressRing
         radius={30}
         stroke={6}
-        progress={currentNumberOfWords}
-        strokeColor={strokeColor}
+        progress={numOfWords}
+        strokeColor={strokeColor()}
         max={minWords}
       />
-      <span style={currentNumberOfWords === 0 ? { color: "#80808085" } : {}}>
-        {message}
+      <span style={numOfWords === 0 ? { color: "#80808085" } : {}}>
+        {message()} Total: {numOfWords}
       </span>
     </div>
   );
