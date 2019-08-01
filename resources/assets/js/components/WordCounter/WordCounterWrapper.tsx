@@ -34,7 +34,12 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
       (e): void => {
         const target = e.target as HTMLTextAreaElement;
         const numOfWords = countNumberOfWords(target.value);
-        setCurrentNumberOfWords(numOfWords);
+
+        if (target.value.trim()) {
+          setCurrentNumberOfWords(numOfWords);
+        } else {
+          setCurrentNumberOfWords(0);
+        }
 
         if (numOfWords < wordLimit) {
           // After maxLength is set to positive number, it cannot be set back to unlimited (-1)
