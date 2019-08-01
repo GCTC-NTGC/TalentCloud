@@ -23,7 +23,7 @@ export interface SelectProps {
   /** Selected string contains the default value of the select box */
   selected: string | number | null;
   /** Null selection string provides a null value with instructions to user (eg. Select a department...) */
-  nullSelection: string | undefined;
+  nullSelection?: string;
   /** A list of options for select element following the SelectOption structure */
   options: SelectOption[];
   /** Error text that appers underneath if error occurs (eg. required, ) */

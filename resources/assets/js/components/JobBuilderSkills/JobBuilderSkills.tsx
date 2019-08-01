@@ -4,12 +4,13 @@ import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
 import { Job, Skill, Criteria, JobPosterKeyTask } from "../../models/types";
 import Modal from "../Modal";
 import CriteriaForm from "./CriteriaForm";
-import { mapToObject, getId, hasKey } from "../../helpers/queries";
+import { mapToObject, getId, hasKey, notEmpty } from "../../helpers/queries";
 import { CriteriaTypeId } from "../../models/lookupConstants";
 import {
   assetSkillName,
   skillLevelName,
 } from "../../models/localizedConstants";
+import Select, { SelectOption } from "../Select";
 
 interface JobBuilderSkillsProps {
   // The job being built
@@ -232,6 +233,17 @@ export const JobBuilderSkills: React.FunctionComponent<
     const skill = getSkillOfCriteria(criterion);
     return skill !== null && isFuture(skill);
   });
+
+  const selectedSkillIds = jobCriteria
+    .map(getSkillOfCriteria)
+    .filter(notEmpty)
+    .map(getId);
+  const selectedSkills: Skill[] = skills.filter((skill): boolean =>
+    selectedSkillIds.includes(skill.id),
+  );
+  const unselectedSkills: Skill[] = skills.filter(
+    (skill): boolean => !selectedSkillIds.includes(skill.id),
+  );
 
   const [isSaving, setIsSaving] = useState(false);
   const saveAndPreview = (): void => {
@@ -1125,6 +1137,49 @@ export const JobBuilderSkills: React.FunctionComponent<
           . Provide the skill's name, as well as a short description to kick-off
           the discussion.
         </p>
+        <div
+          className="jpb-skill-category"
+          data-c-margin="bottom(normal)"
+          data-c-padding="normal"
+          data-c-radius="rounded"
+          data-c-background="grey(10)"
+        >
+          <div data-c-grid="gutter top">
+            <div data-c-grid-item="tp(2of3) ds(3of4)">
+              {/** TODO: Fix the layout of the skill cloud */}
+              <h5
+                className="jpb-skill-section-title"
+                data-c-font-size="h4"
+                data-c-margin="bottom(normal)"
+              >
+                Other Skills
+              </h5>
+              <Select
+                id="jpb-all-skills-select"
+                name="jpbAllSkillsSelect"
+                label="Please select a skill from our list"
+                selected={null}
+                nullSelection="Please select a Skill"
+                options={unselectedSkills.map(
+                  (skill): SelectOption => ({
+                    value: skill.id,
+                    label: skill[locale].name,
+                  }),
+                )}
+                onChange={(event): void => {
+                  const skillId = Number(event.target.value);
+                  if (hasKey(skillsById, skillId)) {
+                    const skill = skillsById[skillId];
+                    setSkillBeingAdded(skill);
+                  }
+                }}
+              />
+              <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
+                {selectedSkills.map(renderSkillButton)}
+              </ul>
+            </div>
+          </div>
+        </div>
         <div data-c-grid="gutter">
           <div data-c-grid-item="base(1of1)">
             <hr data-c-margin="top(normal) bottom(normal)" />
