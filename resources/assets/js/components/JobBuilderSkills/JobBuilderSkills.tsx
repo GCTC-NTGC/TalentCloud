@@ -234,14 +234,18 @@ export const JobBuilderSkills: React.FunctionComponent<
     return skill !== null && isFuture(skill);
   });
 
+  const otherSkills = skills.filter(
+    (skill): boolean =>
+      !isOccupational(skill) && !isCulture(skill) && !isFuture(skill),
+  );
   const selectedSkillIds = jobCriteria
     .map(getSkillOfCriteria)
     .filter(notEmpty)
     .map(getId);
-  const selectedSkills: Skill[] = skills.filter((skill): boolean =>
+  const selectedOtherSkills: Skill[] = otherSkills.filter((skill): boolean =>
     selectedSkillIds.includes(skill.id),
   );
-  const unselectedSkills: Skill[] = skills.filter(
+  const unselectedOtherSkills: Skill[] = otherSkills.filter(
     (skill): boolean => !selectedSkillIds.includes(skill.id),
   );
 
@@ -1160,7 +1164,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                 label="Please select a skill from our list"
                 selected={null}
                 nullSelection="Please select a Skill"
-                options={unselectedSkills.map(
+                options={unselectedOtherSkills.map(
                   (skill): SelectOption => ({
                     value: skill.id,
                     label: skill[locale].name,
@@ -1175,7 +1179,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                 }}
               />
               <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
-                {selectedSkills.map(renderSkillButton)}
+                {selectedOtherSkills.map(renderSkillButton)}
               </ul>
             </div>
           </div>
