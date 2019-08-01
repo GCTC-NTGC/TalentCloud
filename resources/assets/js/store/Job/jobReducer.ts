@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { Job, Criteria } from "../../models/types";
+import { Job, Criteria, JobPosterKeyTask } from "../../models/types";
 import {
   JobAction,
   FETCH_JOB_STARTED,
@@ -14,8 +14,17 @@ import {
   CREATE_JOB_STARTED,
   CREATE_JOB_FAILED,
   SET_SELECTED_JOB,
+  FETCH_JOB_TASKS_SUCCEEDED,
+  BATCH_UPDATE_JOB_TASKS_SUCCEEDED,
+  FETCH_CRITERIA_SUCCEEDED,
+  BATCH_UPDATE_CRITERIA_SUCCEEDED,
 } from "./jobActions";
-import { mapToObject, getId, deleteProperty } from "../../helpers/queries";
+import {
+  mapToObject,
+  getId,
+  deleteProperty,
+  filterObjectProps,
+} from "../../helpers/queries";
 
 export interface EntityState {
   jobs: {
@@ -26,6 +35,11 @@ export interface EntityState {
   criteria: {
     byId: {
       [id: number]: Criteria;
+    };
+  };
+  tasks: {
+    byJobId: {
+      [id: number]: JobPosterKeyTask[];
     };
   };
   jobEdits: {
@@ -52,6 +66,7 @@ export interface JobState {
 export const initEntities = (): EntityState => ({
   jobs: { byId: {} },
   criteria: { byId: {} },
+  tasks: { byJobId: {} },
   jobEdits: {},
 });
 
@@ -83,7 +98,10 @@ export const entitiesReducer = (
         },
         criteria: {
           byId: {
-            ...state.criteria.byId,
+            ...filterObjectProps<Criteria>(
+              state.criteria.byId,
+              (criteria): boolean => criteria.job_poster_id !== action.meta.id,
+            ),
             ...mapToObject(action.payload.criteria, getId),
           },
         },
@@ -120,6 +138,32 @@ export const entitiesReducer = (
       return {
         ...state,
         jobEdits: deleteProperty<Job>(state.jobEdits, action.payload),
+      };
+    case FETCH_JOB_TASKS_SUCCEEDED:
+    case BATCH_UPDATE_JOB_TASKS_SUCCEEDED:
+      return {
+        ...state,
+        tasks: {
+          byJobId: {
+            ...state.tasks.byJobId,
+            [action.meta.jobId]: action.payload,
+          },
+        },
+      };
+    case FETCH_CRITERIA_SUCCEEDED:
+    case BATCH_UPDATE_CRITERIA_SUCCEEDED:
+      return {
+        ...state,
+        criteria: {
+          byId: {
+            ...filterObjectProps<Criteria>(
+              state.criteria.byId,
+              (criteria): boolean =>
+                criteria.job_poster_id !== action.meta.jobId,
+            ),
+            ...mapToObject(action.payload, getId),
+          },
+        },
       };
     default:
       return state;

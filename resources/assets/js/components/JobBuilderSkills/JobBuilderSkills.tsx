@@ -375,7 +375,6 @@ export const JobBuilderSkills: React.FunctionComponent<
                 <button
                   type="button"
                   data-c-colour="c1"
-                  data-c-dialog-action="open"
                   onClick={(): void => setCriteriaBeingEdited(criterion)}
                 >
                   <i className="fas fa-edit" />
@@ -462,7 +461,7 @@ export const JobBuilderSkills: React.FunctionComponent<
         <ul data-c-margin="bottom(triple)">
           {keyTasks.map(
             (task): React.ReactElement => (
-              <li>{task[locale].description}</li>
+              <li key={task.id}>{task[locale].description}</li>
             ),
           )}
         </ul>

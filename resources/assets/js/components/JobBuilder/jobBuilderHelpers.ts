@@ -1,4 +1,8 @@
-import { Job } from "../../models/types";
+import { Job, JobPosterKeyTask } from "../../models/types";
+import { ProgressTrackerState } from "../ProgressTracker/types";
+
+/** Job Builder Constants */
+export const VALID_COUNT = 6;
 
 const isFilled = (value: any | null | undefined): boolean => {
   return value !== null && value !== undefined && value !== "";
@@ -29,7 +33,7 @@ const isJobBuilderIntroUntouched = (job: Job): boolean =>
 export const jobBuilderIntroProgressState = (
   job: Job | null,
   allowUntouched = false,
-): "active" | "complete" | "error" | "null" => {
+): ProgressTrackerState => {
   if (allowUntouched && (job === null || isJobBuilderIntroUntouched(job))) {
     return "null";
   }
@@ -80,7 +84,7 @@ export const jobBuilderDetailsProgressState = (
   job: Job | null,
   locale: string,
   allowUntouched = false,
-): "active" | "complete" | "error" | "null" => {
+): ProgressTrackerState => {
   if (
     allowUntouched &&
     (job === null || isJobBuilderDetailsUntouched(job, locale))
@@ -115,7 +119,7 @@ export const jobBuilderEnvProgressState = (
   job: Job | null,
   locale: string,
   allowUntouched = false,
-): "active" | "complete" | "error" | "null" => {
+): ProgressTrackerState => {
   if (
     allowUntouched &&
     (job === null || isJobBuilderEnvUntouched(job, locale))
@@ -140,9 +144,39 @@ export const jobImpactProgressState = (
   job: Job | null,
   locale: "en" | "fr",
   allowUntouched = false,
-): "active" | "complete" | "error" | "null" => {
+): ProgressTrackerState => {
   if (allowUntouched && (job === null || isJobImpactUntouched(job, locale))) {
     return "null";
   }
   return job && isJobImpactComplete(job, locale) ? "complete" : "error";
+};
+
+const isKeyTaskComplete = (
+  task: JobPosterKeyTask,
+  locale: "en" | "fr",
+): boolean => isFilled(task[locale].description);
+const isJobTasksComplete = (
+  tasks: JobPosterKeyTask[],
+  maxCount: number,
+  locale: "en" | "fr",
+): boolean => {
+  return (
+    tasks.length > 0 &&
+    tasks.length <= maxCount &&
+    tasks.every((task): boolean => isKeyTaskComplete(task, locale))
+  );
+};
+// FIXME: There is currently no way to know the difference between an empty list, and an untouched list of tasks
+const isJobTasksUntouched = (tasks: JobPosterKeyTask[]): boolean =>
+  tasks.length === 0;
+export const jobTasksProgressState = (
+  tasks: JobPosterKeyTask[],
+  maxCount: number,
+  locale: "en" | "fr",
+  allowUntouched = false,
+): ProgressTrackerState => {
+  if (allowUntouched && isJobTasksUntouched(tasks)) {
+    return "null";
+  }
+  return isJobTasksComplete(tasks, maxCount, locale) ? "complete" : "error";
 };

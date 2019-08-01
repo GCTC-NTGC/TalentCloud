@@ -37,7 +37,7 @@ interface JobTasksProps {
   /** Function to run after successful form validation.
    * It must return true if the submission was succesful, false otherwise.
    */
-  handleSubmit: (values: JobPosterKeyTask[]) => Promise<boolean>;
+  handleSubmit: (values: JobPosterKeyTask[]) => Promise<JobPosterKeyTask[]>;
   /** Function to run when modal cancel is clicked. */
   handleModalCancel: () => void;
   /** Function to run when modal confirm is clicked. */
@@ -207,10 +207,13 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
           handleSubmit(
             updateTasksWithValues(values.tasks, keyTasks || emptyTasks()),
           )
-            .then((isSuccessful: boolean): void => {
-              if (isSuccessful) {
-                setIsModalVisible(true);
-              }
+            .then((updatedTasks): void => {
+              /** Reseting form with new values adds the new, true ids from the server.
+               *  This stops tasks from being recreated (instead of updated) if you save the form again.
+               *  FIXME: However, this resets the ordering as well, to whatever order the server returns them in.
+               */
+              actions.resetForm(tasksToValues(updatedTasks));
+              setIsModalVisible(true);
             })
             .finally(
               (): void => actions.setSubmitting(false), // Required by Formik to finish the submission cycle
@@ -557,4 +560,4 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
 
 export const JobTasksIntl = injectIntl(JobTasks);
 
-export default JobTasks;
+export default JobTasksIntl;
