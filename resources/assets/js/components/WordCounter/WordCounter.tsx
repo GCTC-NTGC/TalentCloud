@@ -32,16 +32,12 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
 }): React.ReactElement => {
   const message = (): string => {
     let index = 0;
-    const warning = warnings.find(
-      ({ max }, i): boolean => {
-        index = i;
-        return (
-          warnings[i + 1] &&
-          numOfWords >= max &&
-          numOfWords < warnings[i + 1].max
-        );
-      },
-    );
+    const warning = warnings.find(({ max }, i): boolean => {
+      index = i;
+      return (
+        warnings[i + 1] && numOfWords >= max && numOfWords < warnings[i + 1].max
+      );
+    });
 
     return warning ? warning.message : warnings[index].message;
   };

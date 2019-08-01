@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface ProgressRingProps {
   radius: number;
@@ -40,11 +40,11 @@ class ProgressRing extends React.Component<
     return (
       <svg height={radius * 2} width={radius * 2}>
         <circle
-          stroke={'#80808085'}
+          stroke={"#80808085"}
           fill="transparent"
           strokeWidth={stroke}
           strokeDasharray={`${circumference} ${circumference}`}
-          style={{ 'strokeDashoffset': 0 }}
+          style={{ strokeDashoffset: 0 }}
           r={normalizedRadius}
           cx={radius}
           cy={radius}

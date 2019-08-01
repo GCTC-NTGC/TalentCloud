@@ -29,28 +29,25 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
       elementId,
     ) as HTMLTextAreaElement;
 
-    element.addEventListener(
-      "input",
-      (e): void => {
-        const target = e.target as HTMLTextAreaElement;
-        const numOfWords = countNumberOfWords(target.value);
+    element.addEventListener("input", (e): void => {
+      const target = e.target as HTMLTextAreaElement;
+      const numOfWords = countNumberOfWords(target.value);
 
-        if (target.value.trim()) {
-          setCurrentNumberOfWords(numOfWords);
-        } else {
-          setCurrentNumberOfWords(0);
-        }
+      if (target.value.trim()) {
+        setCurrentNumberOfWords(numOfWords);
+      } else {
+        setCurrentNumberOfWords(0);
+      }
 
-        if (numOfWords < wordLimit) {
-          // After maxLength is set to positive number, it cannot be set back to unlimited (-1)
-          element.maxLength = 1000000000;
-        } else if (numOfWords >= wordLimit) {
-          target.value = truncateWords(target.value, wordLimit);
-        } else {
-          // do nothing
-        }
-      },
-    );
+      if (numOfWords < wordLimit) {
+        // After maxLength is set to positive number, it cannot be set back to unlimited (-1)
+        element.maxLength = 1000000000;
+      } else if (numOfWords >= wordLimit) {
+        target.value = truncateWords(target.value, wordLimit);
+      } else {
+        // do nothing
+      }
+    });
   }, [elementId, wordLimit]);
 
   return (
