@@ -40,6 +40,11 @@
     "defaultMessage": "This is a foundational part of who you are. You consistently demonstrate this skill or attribute, even under conditions of extreme stress or difficulty. Your peers and supervisors recognize this as a significant strength you demonstrate in the workplace, providing an example to others."
   },
   {
+    "id": "skillLevel.asset.description",
+    "description": "Description of what it means to be an 'Asset' skill.",
+    "defaultMessage": "This skill isn't required for the employee to do the job, but it provides an added benefit to their skillset and will improve the speed or effectiveness of their work."
+  },
+  {
     "id": "skillLevel.hard.basic.name",
     "description": "Single-word descriptor of basic hard skill level.",
     "defaultMessage": "Beginner"
@@ -78,6 +83,11 @@
     "id": "skillLevel.soft.expert.name",
     "description": "Single-word descriptor of soft expert skill level.",
     "defaultMessage": "Deep Level Demonstration"
+  },
+  {
+    "id": "skillLevel.asset.name",
+    "description": "Name for 'Asset' skills.",
+    "defaultMessage": "Asset / No Level Required"
   },
   {
     "id": "assessmentType.narrativeAssessment",
@@ -208,5 +218,185 @@
     "id": "assessmentType.narrativeReview.standardAnswer",
     "description": "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
     "defaultMessage": "The provided description contains sufficient evidence to advance this candidate to the next screening steps."
+  },
+  {
+    "id": "province.ab",
+    "defaultMessage": "Alberta"
+  },
+  {
+    "id": "province.bc",
+    "defaultMessage": "British Columbia"
+  },
+  {
+    "id": "province.mb",
+    "defaultMessage": "Manitoba"
+  },
+  {
+    "id": "province.nl",
+    "defaultMessage": "Newfoundland and Labrador"
+  },
+  {
+    "id": "province.nb",
+    "defaultMessage": "New Brunswick"
+  },
+  {
+    "id": "province.ns",
+    "defaultMessage": "Nova Scotia"
+  },
+  {
+    "id": "province.nu",
+    "defaultMessage": "Nunavut"
+  },
+  {
+    "id": "province.nt",
+    "defaultMessage": "Northwest Territories"
+  },
+  {
+    "id": "province.on",
+    "defaultMessage": "Ontario"
+  },
+  {
+    "id": "province.pe",
+    "defaultMessage": "Prince Edward Island"
+  },
+  {
+    "id": "province.qc",
+    "defaultMessage": "Quebec"
+  },
+  {
+    "id": "province.sk",
+    "defaultMessage": "Saskatchewan"
+  },
+  {
+    "id": "province.yk",
+    "defaultMessage": "Yukon"
+  },
+  {
+    "id": "province.ab.abreviation",
+    "defaultMessage": "Alb."
+  },
+  {
+    "id": "province.bc.abreviation",
+    "defaultMessage": "B.C."
+  },
+  {
+    "id": "province.mb.abreviation",
+    "defaultMessage": "Man."
+  },
+  {
+    "id": "province.nl.abreviation",
+    "defaultMessage": "N.L."
+  },
+  {
+    "id": "province.nb.abreviation",
+    "defaultMessage": "N.B."
+  },
+  {
+    "id": "province.ns.abreviation",
+    "defaultMessage": "N.S."
+  },
+  {
+    "id": "province.nu.abreviation",
+    "defaultMessage": "Nvt."
+  },
+  {
+    "id": "province.nt.abreviation",
+    "defaultMessage": "N.W.T."
+  },
+  {
+    "id": "province.on.abreviation",
+    "defaultMessage": "Ont."
+  },
+  {
+    "id": "province.pe.abreviation",
+    "defaultMessage": "P.E.I."
+  },
+  {
+    "id": "province.qc.abreviation",
+    "defaultMessage": "Que."
+  },
+  {
+    "id": "province.sk.abreviation",
+    "defaultMessage": "Sask."
+  },
+  {
+    "id": "province.yk.abreviation",
+    "defaultMessage": "Y.T."
+  },
+  {
+    "id": "securityClearance.reliability",
+    "defaultMessage": "Reliability"
+  },
+  {
+    "id": "securityClearance.secret",
+    "defaultMessage": "Secret"
+  },
+  {
+    "id": "securityClearance.topSecret",
+    "defaultMessage": "Top Secret"
+  },
+  {
+    "id": "languageRequirement.english",
+    "defaultMessage": "English essential"
+  },
+  {
+    "id": "languageRequirement.french",
+    "defaultMessage": "French essential"
+  },
+  {
+    "id": "languageRequirement.bilingualIntermediate",
+    "defaultMessage": "Bilingual - Intermediate"
+  },
+  {
+    "id": "languageRequirement.bilingualAdvanced",
+    "defaultMessage": "Bilingual - Advanced"
+  },
+  {
+    "id": "languageRequirement.englishOrFrench",
+    "defaultMessage": "English or French"
+  },
+  {
+    "id": "department.treasuryBoard",
+    "defaultMessage": "Treasury Board of Canada Secretariat"
+  },
+  {
+    "id": "department.naturalResources",
+    "defaultMessage": "Natural Resources Canada"
+  },
+  {
+    "id": "department.transport",
+    "defaultMessage": "Transport Canada"
+  },
+  {
+    "id": "department.environmentAndClimateChange",
+    "defaultMessage": "Environment and Climate Change Canada"
+  },
+  {
+    "id": "department.employmentAndSocialDevelopment",
+    "defaultMessage": "Employment and Social Development Canada"
+  },
+  {
+    "id": "department.globalAffairs",
+    "defaultMessage": "Global Affairs Canada"
+  },
+  {
+    "id": "department.borderServices",
+    "defaultMessage": "Canada Border Services Agency"
+  },
+  {
+    "id": "department.fisheriesAndOceans",
+    "defaultMessage": "Fisheries and Oceans Canada"
+  },
+  {
+    "id": "department.innovationScience",
+    "defaultMessage": "Innovation, Science and Economic Development Canada"
+  },
+  {
+    "id": "department.publicServiceAndProcurement",
+    "defaultMessage": "Public Services and Procurement Canada"
+  },
+  {
+    "id": "department.nationalDefence",
+    "defaultMessage": "Deparmtnet of National Defence"
   }
 ]
