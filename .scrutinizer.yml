@@ -6,9 +6,15 @@ build:
           version: "7.2"
           ini:
             memory_limit: "-1"
-      services:
-        postgres: 9.6
+        variables:
+          DB_CONNECTION: "mysql"
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: scrutinizer
+          DB_USERNAME: root
+          DB_PASSWORD:
       tests:
+        stop_on_failure: true
         override:
           -
             command: php-scrutinizer-run
@@ -21,12 +27,13 @@ build:
       environment:
         node: v10.14.2
       tests:
+        stop_on_failure: true
         override:
           -
             command: js-scrutinizer-run
             on_node: 1
           -
-            command: eslint-run ./resources/assets/js
+            command: eslint-run
             on_node: 2
 filter:
   paths: ["app/*", "database/factories/*", "database/seeds/*", "resources/assets/js"]
