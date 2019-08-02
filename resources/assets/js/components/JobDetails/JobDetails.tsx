@@ -279,20 +279,6 @@ const remoteWorkMessages = {
   remoteWorkNone: formMessages.remoteWorkNoneLabel,
 };
 
-interface JobFormValues {
-  title: string;
-  termLength: number | "";
-  classification: string;
-  level: number | "";
-  securityLevel: number | "";
-  language: number | "";
-  city: string;
-  province: number | "";
-  remoteWork: RemoteWorkType;
-  telework: TeleworkOptionType;
-  flexHours: FlexHourOptionType;
-}
-
 type TeleworkOptionType =
   | "teleworkNever"
   | "teleworkOccasionally"
@@ -371,11 +357,25 @@ const flexHourMessages = {
   flexHoursOccasionally: formMessages.frequencyOccasionallyLabel,
   flexHoursSometimes: formMessages.frequencySometimesLabel,
   flexHoursFrequently: formMessages.frequencyFrequentlyLabel,
-  flexHourAlways: formMessages.frequencyAlwaysLabel,
+  flexHoursAlways: formMessages.frequencyAlwaysLabel,
 };
 const flexHourFequencies = flexHoursOptions.map(
   (option): FlexHourOptionType => option.id,
 );
+
+interface JobFormValues {
+  title: string;
+  termLength: number | "";
+  classification: string;
+  level: number | "";
+  securityLevel: number | "";
+  language: number | "";
+  city: string;
+  province: number | "";
+  remoteWork: RemoteWorkType;
+  telework: TeleworkOptionType;
+  flexHours: FlexHourOptionType;
+}
 
 const jobToValues = (job: Job | null, locale: string): JobFormValues =>
   job
@@ -895,7 +895,6 @@ const JobDetails: React.FunctionComponent<
                   <button
                     data-c-button="solid(c1)"
                     data-c-dialog-action="open"
-                    data-c-dialog-id="job-details-preview"
                     data-c-radius="rounded"
                     type="submit"
                     disabled={isSubmitting}
@@ -964,24 +963,40 @@ const JobDetails: React.FunctionComponent<
                       remoteWork={intl.formatMessage(
                         remoteWorkMessages[values.remoteWork],
                       )}
-                      language={intl.formatMessage(
-                        languageRequirement(Number(values.language)),
-                      )}
+                      language={
+                        typeof values.language === "string"
+                          ? ""
+                          : intl.formatMessage(
+                              languageRequirement(Number(values.language)),
+                            )
+                      }
                       city={values.city}
-                      province={intl.formatMessage(
-                        provinceName(Number(values.province)),
-                      )}
+                      province={
+                        typeof values.province === "string"
+                          ? ""
+                          : intl.formatMessage(
+                              provinceName(Number(values.province)),
+                            )
+                      }
                       education={(job && job[locale].education) || ""}
-                      termLength={Number(values.termLength)}
+                      termLength={
+                        typeof values.termLength === "string"
+                          ? null
+                          : Number(values.termLength)
+                      }
                       telework={intl.formatMessage(
                         teleworkMessages[values.telework],
                       )}
                       flexHours={intl.formatMessage(
                         flexHourMessages[values.flexHours],
                       )}
-                      securityLevel={intl.formatMessage(
-                        securityClearance(Number(values.securityLevel)),
-                      )}
+                      securityLevel={
+                        typeof values.securityLevel === "string"
+                          ? ""
+                          : intl.formatMessage(
+                              securityClearance(Number(values.securityLevel)),
+                            )
+                      }
                       classification={String(values.classification)}
                       level={String(values.level)}
                       travel={null}
