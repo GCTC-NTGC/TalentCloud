@@ -42,7 +42,3 @@ filter:
 checks:
   php: true
 
-tools:
-  external_code_coverage:
-    timeout: 777
-    runs: 1
