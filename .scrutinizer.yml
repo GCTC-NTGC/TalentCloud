@@ -19,7 +19,6 @@ build:
           - php-scrutinizer-run
           - phpcs-run --standard=ruleset.xml
           - js-scrutinizer-run
-          - eslint-run resources/assets/js/
 filter:
   paths: ["app/*", "database/factories/*", "database/seeds/*", "resources/assets/js"]
   dependency_paths:
