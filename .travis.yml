@@ -3,6 +3,12 @@ language: php
 php:
   - '7.2'
 
+branches:
+  only:
+  - dev
+  - master
+  - /^v\d+\.\d+(\.\d+)?(-\S*)?$/ # Tagged releases, i.e. v1.0.4
+
 sudo: required
 dist: trusty
 
