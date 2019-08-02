@@ -1,64 +1,50 @@
 build:
-  environment:
-    php:
-      version: "7.2"
-      ini:
-        memory_limit: "-1"
-    docker: true
-    ruby: 2.5.1
-    node: v10.14.2
-
-  cache:
-    directories:
-      - node_modules/
-      - vendor/
-
   nodes:
-    analysis:
+    php-analysis:
+      environment:
+        php:
+          version: "7.2"
+          ini:
+            memory_limit: "-1"
+      filter:
+        paths: ["app/*", "database/factories/*", "database/seeds/*"]
+        dependency_paths:
+          - bootstrap/
+          - config/
+          - resources/
+          - routes/
+          - vendor/
+        excluded_paths:
+          - "public/"
+          - "tests/"
       tests:
-        before:
-          - "sudo service postgresql stop"
-          - "cp .env.example .env"
-          - "make docker-start"
-          - "make gen-certs"
-          - "make build-db"
-          - "make set-perms"
-          - "npm run dev"
-
         override:
-          - php-scrutinizer-run
-          - js-scrutinizer-run
-          - phpcs-run --standard=ruleset.xml ./app ./routes ./database/factories ./database/seeds
-          - eslint-run ./resources/assets/js/app.js
-
-        after:
-          - "make docker-stop"
-
-filter:
-  paths:
-    - app/
-    - database/factories/
-    - database/seeds/
-    - resources/assets/js/app.js
-    - routes/
-
-  dependency_paths:
-    - node_modules/
-    - vendor/
-
-  excluded_paths:
-    - bootstrap/
-    - config/
-    - database/db/
-    - database/migrations/
-    - etc/
-    - node_modules/
-    - public/
-    - report/
-    - resources/
-    - storage/
-    - tests/
-    - vendor/
+          -
+            command: php-scrutinizer-run
+            on_node: 1
+          -
+            command: phpcs-run
+            use_website_config: false
+            on_node: 2
+    js-analysis:
+      environment:
+        node: v10.14.2
+      filter:
+        paths:
+          - resources/assets/js
+        dependency_paths:
+          - node_modules/
+        excluded_paths:
+          - "resources/assets/js/stories/"
+          - "resources/assets/js/translations/"
+      tests:
+        override:
+          -
+            command: js-scrutinizer-run
+            on_node: 1
+          -
+            command: eslint-run ./resources/assets/js
+            on_node: 2
 
 checks:
   php: true
