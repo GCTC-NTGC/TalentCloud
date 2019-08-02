@@ -282,7 +282,7 @@
         "id": "apl.indexPageTitle"
       },
       {
-        "defaultMessage": "{dayCount, plural, =0 {No Days} one {# Day} other {# Days}} Since Close",
+        "defaultMessage": "{dayCount,plural,,=0{No Days} one{{dayCount, 2} Day} other{{dayCount, 2} Days}} Since Close",
         "description": "Welcome header on app main page",
         "id": "job.daysSinceClosed"
       }
@@ -402,12 +402,12 @@
         "id": "assessmentPlan.alert.explanation"
       },
       {
-        "defaultMessage": "{skills} {count, plural, one {was} other {were}} added.",
+        "defaultMessage": "{skills} {count,plural,,one{was} other{were}} added.",
         "description": "Description of the new criteria that have been added to this job.",
         "id": "assessmentPlan.alert.created"
       },
       {
-        "defaultMessage": "{skills} {count, plural, one {was} other {were}} updated.",
+        "defaultMessage": "{skills} {count,plural,,one{was} other{were}} updated.",
         "description": "Description of the criteria that had their level changed.",
         "id": "assessmentPlan.alert.skillLevelUpdated"
       },
@@ -422,7 +422,7 @@
         "id": "assessmentPlan.alert.skillAndLevelUpdated"
       },
       {
-        "defaultMessage": "{skills} {count, plural, one {was} other {were}} removed.",
+        "defaultMessage": "{skills} {count,plural,,one{was} other{were}} removed.",
         "description": "Description of criteria which were removed from the job.",
         "id": "assessmentPlan.alert.deleted"
       }
@@ -507,7 +507,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Assessing {count, plural, one {# skill} other {# skills}}.",
+        "defaultMessage": "Assessing {count,plural,,one{{count, 2} skill} other{{count, 2} skills}}.",
         "description": "Labels how many skills are assessed by this assessment tool.",
         "id": "assessmentPlan.summary.skillCount"
       },
@@ -542,7 +542,7 @@
         "id": "assessmentPlan.summary.assessmentSummary.title"
       },
       {
-        "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}\r\n            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}.",
+        "defaultMessage": "Your plan uses {toolCount,plural,,=0{no tools} one{{toolCount, 2} tool} other{{toolCount, 2} tools}}\r\n            to assess {skillCount,plural,,=0{no skills} one{{skillCount, 2} skill} other{{skillCount, 2} skills}}.",
         "description": "Describes how many tools and skills your assessment plan involves.",
         "id": "assessmentPlan.summary.assessmentSummary.toolSkillCount"
       },
@@ -707,6 +707,67 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Start",
+        "id": "jobBuilder.progressTracker.label.start"
+      },
+      {
+        "defaultMessage": "Step 01",
+        "id": "jobBuilder.progressTracker.label.step1"
+      },
+      {
+        "defaultMessage": "Step 02",
+        "id": "jobBuilder.progressTracker.label.step2"
+      },
+      {
+        "defaultMessage": "Step 03",
+        "id": "jobBuilder.progressTracker.label.step3"
+      },
+      {
+        "defaultMessage": "Step 04",
+        "id": "jobBuilder.progressTracker.label.step4"
+      },
+      {
+        "defaultMessage": "Step 05",
+        "id": "jobBuilder.progressTracker.label.step5"
+      },
+      {
+        "defaultMessage": "Finish",
+        "id": "jobBuilder.progressTracker.label.finish"
+      },
+      {
+        "defaultMessage": "Welcome",
+        "id": "jobBuilder.progressTracker.title.welcome"
+      },
+      {
+        "defaultMessage": "Job Info",
+        "id": "jobBuilder.progressTracker.title.jobInfo"
+      },
+      {
+        "defaultMessage": "Work Environment",
+        "id": "jobBuilder.progressTracker.title.workEnv"
+      },
+      {
+        "defaultMessage": "Impact",
+        "id": "jobBuilder.progressTracker.title.impact"
+      },
+      {
+        "defaultMessage": "Tasks",
+        "id": "jobBuilder.progressTracker.title.tasks"
+      },
+      {
+        "defaultMessage": "Skills",
+        "id": "jobBuilder.progressTracker.title.skills"
+      },
+      {
+        "defaultMessage": "Review",
+        "id": "jobBuilder.progressTracker.title.review"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/jobBuilderMessages.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Hire Impact Statement",
         "description": "Label for hire impact statement text area",
         "id": "jobBuilder.impact.hireLabel"
@@ -718,113 +779,26 @@
       },
       {
         "defaultMessage": "Remember, don't use Government speak...",
-        "description": "",
         "id": "jobBuilder.impact.hirePlaceholder"
       },
       {
         "defaultMessage": "Try for a casual, frank, friendly tone...",
-        "description": "",
         "id": "jobBuilder.impact.teamPlaceholder"
       },
       {
-        "defaultMessage": "How our team makes an impact:",
-        "description": "Header of Job Poster Builder Team Impact Section",
-        "id": "jobBuilder.impact.teamHeader"
+        "defaultMessage": "You must select a Department for this Job.",
+        "description": "Message warning user that they must have a department selected to complete impact statements.",
+        "id": "jobBuilder.impact.selectDepartment"
       },
       {
-        "defaultMessage": "Describe the value your team/service/initiative brings to Canadians.\r\n              It doesn’t matter if your work is direct to citizens or back office,\r\n              innovative or maintenance, top priority or ongoing. Describe how it\r\n              contributes to making Canada better the way you would to someone who\r\n              knows nothing about your work.",
-        "description": "Body of Job Poster Builder Team Impact Section",
-        "id": "jobBuilder.impact.teamBody"
+        "defaultMessage": "Loading department data...",
+        "description": "Placeholder message while department data is being retrieved from the server.",
+        "id": "jobBuilder.impact.departmentsLoading"
       },
       {
-        "defaultMessage": "Required",
-        "description": "Flag text for empty required field",
-        "id": "formField.required"
-      },
-      {
-        "defaultMessage": "This input has an error.",
-        "description": "Flag text for validation error",
-        "id": "formField.error"
-      },
-      {
-        "defaultMessage": "How the new hire makes an impact:",
-        "description": "Header of Job Poster Builder Hire Impact Section",
-        "id": "jobBuilder.impact.hireHeader"
-      },
-      {
-        "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\r\n              value they’ll bring, not on specific tasks (you’ll provide these\r\n              later on). For example “In this role, you’ll contribute to…” or, “As\r\n              a member of this team, you’ll be responsible for helping us…”",
-        "description": "Body of Job Poster Builder Hire Impact Section",
-        "id": "jobBuilder.impact.hireBody"
-      },
-      {
-        "defaultMessage": "Next",
-        "description": "Button text Next",
-        "id": "jobBuilder.impact.button.next"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilderImpact/ImpactForm.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "The Treasury Board of Canada Secretariat provides advice and makes recommendations on how the government spends money, how it regulates and how it is managed ensuring tax dollars are spent wisely and effectively for Canadians.",
-        "description": "Department Impact Statement of Treasury Board",
-        "id": "department.impactStatement.treasuryBoard"
-      },
-      {
-        "defaultMessage": "Natural Resources Canada seeks to enhance the responsible development and use of Canada’s natural resources and the competitiveness of Canada’s natural resources products.",
-        "description": "Department Impact Statement of Natural Resources",
-        "id": "department.impactStatement.naturalResources"
-      },
-      {
-        "defaultMessage": "Transport Canada works to serve the public interest through the promotion of a safe and secure, efficient and environmentally responsible transportation system in Canada.",
-        "description": "Department Impact Statement of Transport",
-        "id": "department.impactStatement.transport"
-      },
-      {
-        "defaultMessage": "ECCC informs Canadians about protecting and conserving our natural heritage, and ensuring a clean, safe and sustainable environment for present and future generations.",
-        "description": "Department Impact Statement of Environment and Climate Change",
-        "id": "department.impactStatement.environment"
-      },
-      {
-        "defaultMessage": "Employment and Social Development Canada (ESDC) works to improve the standard of living and quality of life for all Canadians. We do this by promoting a labour force that is highly skilled. We also promote an efficient and inclusive labour market.",
-        "description": "Department Impact Statement of Employment and Social Development",
-        "id": "department.impactStatement.employment"
-      },
-      {
-        "defaultMessage": "Global Affairs Canada manages Canada’s diplomatic relations, provides consular services to Canadians, promotes the country’s international trade, and leads Canada’s international development and humanitarian assistance.",
-        "description": "Department Impact Statement of Global Affairs",
-        "id": "department.impactStatement.globalAffairs"
-      },
-      {
-        "defaultMessage": "The Canada Border Services Agency (CBSA) facilitates the flow of legitimate travellers and trade. The Agency also enforces more than 90 acts and regulations that keep our country and Canadians safe.",
-        "description": "Department Impact Statement of Boarder Services Agency",
-        "id": "department.impactStatement.boarder"
-      },
-      {
-        "defaultMessage": "Innovation, Science and Economic Development Canada (ISED) works with Canadians in all areas of the economy and in all parts of the country to improve conditions for investment, enhance Canada's innovation performance, increase Canada's share of global trade and build a fair, efficient and competitive marketplace.",
-        "description": "Department Impact Statement of Innovation, Science and Economic Development",
-        "id": "department.impactStatement.science"
-      },
-      {
-        "defaultMessage": "Public Services and Procurement Canada serves federal departments and agencies as their central purchasing agent, real property manager, treasurer, accountant, pay and pension administrator, integrity adviser and linguistic authority.",
-        "description": "Department Impact Statement of Public Service and Procurement",
-        "id": "department.impactStatement.procurement"
-      },
-      {
-        "defaultMessage": "The Department of National Defence and the Canadian Armed Forces implement government decisions concerning the defence of Canadians’ interests at home and abroad.",
-        "description": "Department Impact Statement of Department National Defence",
-        "id": "department.impactStatement.defence"
-      },
-      {
-        "defaultMessage": "Shared Services Canada (SSC) delivers digital services to Government of Canada organizations. We provide modern, secure and reliable IT services so federal organizations can deliver digital programs and services that meet Canadians needs.",
-        "description": "Department Impact Statement of Shared Services Canada",
-        "id": "department.impactStatement.sharedServices"
-      },
-      {
-        "defaultMessage": "Health Canada is responsible for helping Canadians maintain and improve their health. It ensures that high-quality health services are accessible, and works to reduce health risks.",
-        "description": "Department Impact Statement of Shared Services Canada",
-        "id": "department.impactStatement.health"
+        "defaultMessage": "Error: Unknown Department selected.",
+        "description": "Error message shown when the job has a department selected for which data has not been passed to this component.",
+        "id": "jobBuilder.impact.unknownDepartment"
       },
       {
         "defaultMessage": "Create an Impact Statement",
@@ -850,9 +824,44 @@
         "defaultMessage": "How our department makes an impact:",
         "description": "Header of Department Impact Section on Job Poster Builder Impact Step",
         "id": "jobBuilder.impact.header.department"
+      },
+      {
+        "defaultMessage": "How our team makes an impact:",
+        "description": "Header of Job Poster Builder Team Impact Section",
+        "id": "jobBuilder.impact.teamHeader"
+      },
+      {
+        "defaultMessage": "Describe the value your team/service/initiative brings to Canadians.\r\n              It doesn’t matter if your work is direct to citizens or back office,\r\n              innovative or maintenance, top priority or ongoing. Describe how it\r\n              contributes to making Canada better the way you would to someone who\r\n              knows nothing about your work.",
+        "description": "Body of Job Poster Builder Team Impact Section",
+        "id": "jobBuilder.impact.teamBody"
+      },
+      {
+        "defaultMessage": "How the new hire makes an impact:",
+        "description": "Header of Job Poster Builder Hire Impact Section",
+        "id": "jobBuilder.impact.hireHeader"
+      },
+      {
+        "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\r\n              value they’ll bring, not on specific tasks (you’ll provide these\r\n              later on). For example “In this role, you’ll contribute to…” or, “As\r\n              a member of this team, you’ll be responsible for helping us…”",
+        "description": "Body of Job Poster Builder Hire Impact Section",
+        "id": "jobBuilder.impact.hireBody"
+      },
+      {
+        "defaultMessage": "Next",
+        "description": "Button text Next",
+        "id": "jobBuilder.impact.button.next"
       }
     ],
     "path": "resources/assets/js/components/JobBuilderImpact/JobBuilderImpact.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Job Loading...",
+        "description": "Message indicating that the current job is still being loaded.",
+        "id": "jobBuilderImpact.jobloading"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilderImpact/JobBuilderImpactPage.json"
   },
   {
     "descriptors": [
@@ -927,12 +936,12 @@
         "id": "jobBuilder.intro.beforeWeStart"
       },
       {
-        "defaultMessage": "Note: Changing your information on this form will also change these fields in your Profile.",
+        "defaultMessage": "<strong>Note:</strong> Changing your information on this form will also change these fields in your Profile.",
         "description": "Ending note for hiring managers.",
         "id": "jobBuilder.intro.note"
       },
       {
-        "defaultMessage": "Complete the job poster in the language of your choice. We will\n                  handle translation.",
+        "defaultMessage": "Complete the job poster in the language of your choice. We will\r\n                  handle translation.",
         "description": "Intstructions at bottom of form on language choice for job poster builder.",
         "id": "jobBuilder.intro.completeInLanguage"
       },
@@ -948,6 +957,41 @@
       }
     ],
     "path": "resources/assets/js/components/JobBuilderIntro/IntroForm.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Your job is loading...",
+        "description": "Message indicating that the current job is still being loaded.",
+        "id": "jobBuilderIntroPage.loading"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilderIntro/JobBuilderIntro.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Go Back",
+        "description": "The text displayed on the cancel button of the Job Builder Skills Preview modal.",
+        "id": "jobSkills.modalCancelLabel"
+      },
+      {
+        "defaultMessage": "Next Step",
+        "description": "The text displayed on the confirm button of the Job Builder Skills Preview modal.",
+        "id": "jobSkills.modalConfirmLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilderSkills/JobBuilderSkills.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Your job is loading...",
+        "description": "Message indicating that the current job is still being loaded.",
+        "id": "jobBuilderIntroPage.loading"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilderWorkEnv/JobBuilderWorkEnv.json"
   },
   {
     "descriptors": [
@@ -1152,6 +1196,102 @@
         "id": "jobBuilder.workEnv.amenities.parking"
       },
       {
+        "defaultMessage": "Very Fast-paced",
+        "id": "jobBuilder.culturePace.01.title"
+      },
+      {
+        "defaultMessage": "Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!",
+        "id": "jobBuilder.culturePace.01.description"
+      },
+      {
+        "defaultMessage": "Fast-paced",
+        "id": "jobBuilder.culturePace.02.title"
+      },
+      {
+        "defaultMessage": "Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes!",
+        "id": "jobBuilder.culturePace.02.description"
+      },
+      {
+        "defaultMessage": "Steady",
+        "id": "jobBuilder.culturePace.03.title"
+      },
+      {
+        "defaultMessage": "Our deadlines are regular and predictable, we balance a couple of tasks at a time, and our priorities change occasionally. We keep things on an even keel.",
+        "id": "jobBuilder.culturePace.03.description"
+      },
+      {
+        "defaultMessage": "Very Steady",
+        "id": "jobBuilder.culturePace.04.title"
+      },
+      {
+        "defaultMessage": "Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine.",
+        "id": "jobBuilder.culturePace.04.description"
+      },
+      {
+        "defaultMessage": "Horizontal",
+        "id": "jobBuilder.mgmtStyle.01.title"
+      },
+      {
+        "defaultMessage": "There’s no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.",
+        "id": "jobBuilder.mgmtStyle.01.description"
+      },
+      {
+        "defaultMessage": "Somewhat Horizontal",
+        "id": "jobBuilder.mgmtStyle.02.title"
+      },
+      {
+        "defaultMessage": "We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives.",
+        "id": "jobBuilder.mgmtStyle.02.description"
+      },
+      {
+        "defaultMessage": "Somewhat Vertical",
+        "id": "jobBuilder.mgmtStyle.03.title"
+      },
+      {
+        "defaultMessage": "Our team has a clearly defined role. We check in regularly with middle-management for approvals and updates on the strategic vision of our executives.",
+        "id": "jobBuilder.mgmtStyle.03.description"
+      },
+      {
+        "defaultMessage": "Vertical",
+        "id": "jobBuilder.mgmtStyle.04.title"
+      },
+      {
+        "defaultMessage": "Our team has a clearly defined role. We check in often with middle-management for approvals and updates on the strategic vision of our executives.",
+        "id": "jobBuilder.mgmtStyle.04.description"
+      },
+      {
+        "defaultMessage": "Experimental",
+        "id": "jobBuilder.experimental.01.title"
+      },
+      {
+        "defaultMessage": "Our work is defined by trying out brand new ideas, methods, and activities to address persistent problems that traditional approaches have failed to solve.",
+        "id": "jobBuilder.experimental.01.description"
+      },
+      {
+        "defaultMessage": "Somewhat Experimental",
+        "id": "jobBuilder.experimental.02.title"
+      },
+      {
+        "defaultMessage": "We try out new and proven ideas, methods, and activities to improve how we do our work.",
+        "id": "jobBuilder.experimental.02.description"
+      },
+      {
+        "defaultMessage": "Somewhat Predictable Work",
+        "id": "jobBuilder.experimental.03.title"
+      },
+      {
+        "defaultMessage": "Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes.",
+        "id": "jobBuilder.experimental.03.description"
+      },
+      {
+        "defaultMessage": "Predictable Work",
+        "id": "jobBuilder.experimental.04.title"
+      },
+      {
+        "defaultMessage": "Most of our work involves administrative tasks are repeated on a regular basis. Consistency is key here, so we follow a standard process with tried and true tools.",
+        "id": "jobBuilder.experimental.04.description"
+      },
+      {
         "defaultMessage": "Work Environment",
         "description": "Header of job poster builder work environment step.",
         "id": "jobBuilder.workEnv.title"
@@ -1187,7 +1327,7 @@
         "id": "jobBuilder.workEnv.greatStart"
       },
       {
-        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\n                free to go back and edit things or move to the next step if\n                you're happy with it.",
+        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\r\n                free to go back and edit things or move to the next step if\r\n                you're happy with it.",
         "description": "Opening sentence for modal.",
         "id": "jobBuilder.workEnv.openingSentence"
       },
@@ -1502,9 +1642,9 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Job Loading...",
+        "defaultMessage": "Your job is loading...",
         "description": "Message indicating that the current job is still being loaded.",
-        "id": "jobDetailsPage.loading"
+        "id": "jobBuilderIntroPage.loading"
       }
     ],
     "path": "resources/assets/js/components/JobDetails/JobDetailsPage.json"
@@ -1512,7 +1652,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "{termMonths,plural,=0{no months} one{{termMonths, number} month} other{{termMonths, number} months}}",
+        "defaultMessage": "{termMonths,plural,,=0{no months} one{{termMonths, 2} month} other{{termMonths, 2} months}}",
         "description": "Calculated term length in months",
         "id": "jobPreview.termLength"
       },
@@ -1757,6 +1897,11 @@
         "id": "skillLevel.soft.expert.description"
       },
       {
+        "defaultMessage": "This skill isn't required for the employee to do the job, but it provides an added benefit to their skillset and will improve the speed or effectiveness of their work.",
+        "description": "Description of what it means to be an 'Asset' skill.",
+        "id": "skillLevel.asset.description"
+      },
+      {
         "defaultMessage": "Beginner",
         "description": "Single-word descriptor of basic hard skill level.",
         "id": "skillLevel.hard.basic.name"
@@ -1795,6 +1940,11 @@
         "defaultMessage": "Deep Level Demonstration",
         "description": "Single-word descriptor of soft expert skill level.",
         "id": "skillLevel.soft.expert.name"
+      },
+      {
+        "defaultMessage": "Asset / No Level Required",
+        "description": "Name for 'Asset' skills.",
+        "id": "skillLevel.asset.name"
       },
       {
         "defaultMessage": "Narrative Review",
