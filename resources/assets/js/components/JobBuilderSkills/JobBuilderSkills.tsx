@@ -22,6 +22,8 @@ interface JobBuilderSkillsProps {
   skills: Skill[];
   // The function to run when user clicks Save. Must return the updated list of criteria if successufl.
   handleSubmit: (criteria: Criteria[]) => Promise<Criteria[]>;
+  // The function to run when user clicks Prev Pag
+  handleReturn: () => void;
   // The function to run when user clicks Next Page
   handleContinue: () => void;
 }
@@ -138,6 +140,7 @@ export const JobBuilderSkills: React.FunctionComponent<
   initialCriteria,
   skills,
   handleSubmit,
+  handleReturn,
   handleContinue,
   intl,
 }): React.ReactElement => {
@@ -238,6 +241,15 @@ export const JobBuilderSkills: React.FunctionComponent<
       })
       .finally((): void => setIsSaving(false));
   };
+  const saveAndReturn = (): void => {
+    setIsSaving(true);
+    handleSubmit(jobCriteria)
+      .then((criteria: Criteria[]): void => {
+        criteriaDispatch({ type: "replace", payload: criteria });
+        handleReturn();
+      })
+      .finally((): void => setIsSaving(false));
+  }
 
   const renderNullCriteriaRow = (): React.ReactElement => (
     <div className="jpb-skill-null" data-c-grid="gutter middle">
@@ -1127,14 +1139,15 @@ export const JobBuilderSkills: React.FunctionComponent<
             data-c-alignment="base(centre) tp(left)"
             data-c-grid-item="tp(1of2)"
           >
-            <a
-              href="/builder-05"
+            <button
               data-c-button="outline(c2)"
               data-c-radius="rounded"
               type="button"
+              disabled={isSaving}
+              onClick={(): void => saveAndReturn()}
             >
               Save &amp; Return to Tasks
-            </a>
+            </button>
           </div>
           <div
             data-c-alignment="base(centre) tp(right)"
