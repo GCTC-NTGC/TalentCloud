@@ -34,6 +34,11 @@ filter:
     - "tests/"
     - "resources/assets/js/stories/"
     - "resources/assets/js/translations/"
+    - "resources/assets/js/jquery-ui.min.js"
+    - "resources/assets/js/modernizr.js"
+    - "resources/assets/js/getpdf.js"
+    - "resources/assets/js/bootstrap.js"
+    - "resources/assets/js/autocomplete.js"
 
 checks:
   php: true
