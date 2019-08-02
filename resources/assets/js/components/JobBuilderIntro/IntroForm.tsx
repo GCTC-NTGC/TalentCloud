@@ -324,6 +324,13 @@ const IntroForm: React.FunctionComponent<
                 type="button"
                 disabled={isSubmitting}
                 onClick={(): void => {
+                  /** FIXME:
+                   * This is a race condition, since setLanguageSelection is asynchronous.
+                   * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
+                   * For now, the setState always happens faster than the validation check, so it works.
+                   * See https://github.com/jaredpalmer/formik/issues/214
+                   * -- Tristan
+                   */
                   setLanguageSelection("en");
                   submitForm();
                 }}
@@ -342,6 +349,13 @@ const IntroForm: React.FunctionComponent<
                 type="button"
                 disabled={isSubmitting}
                 onClick={(): void => {
+                  /** FIXME:
+                   * This is a race condition, since setLanguageSelection is asynchronous.
+                   * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
+                   * For now, the setState always happens faster than the validation check, so it works.
+                   * See https://github.com/jaredpalmer/formik/issues/214
+                   * -- Tristan
+                   */
                   setLanguageSelection("fr");
                   submitForm();
                 }}
