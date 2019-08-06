@@ -17,7 +17,11 @@ import {
 } from "../JobBuilder/jobBuilderMessages";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import JobTasks from "./JobTasks";
-import { managerJobIndex, jobBuilderSkills } from "../../helpers/routes";
+import {
+  managerJobIndex,
+  jobBuilderSkills,
+  jobBuilderImpact,
+} from "../../helpers/routes";
 import { RootState } from "../../store/store";
 import { getJob, getTasksByJob } from "../../store/Job/jobSelector";
 import { DispatchType } from "../../configureStore";
@@ -80,7 +84,9 @@ const JobTasksPage: React.FunctionComponent<
   const handleSubmit = (
     tasks: JobPosterKeyTask[],
   ): Promise<JobPosterKeyTask[]> => handleUpdateTasks(jobId, tasks);
-
+  const handleReturn = (): void => {
+    window.location.href = jobBuilderImpact(locale, jobId);
+  };
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
       state: isLoadingJob ? "null" : jobBuilderIntroProgressState(job),
@@ -156,6 +162,7 @@ const JobTasksPage: React.FunctionComponent<
           keyTasks={keyTasks}
           validCount={VALID_COUNT}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
         />
