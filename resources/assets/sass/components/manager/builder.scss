@@ -215,6 +215,9 @@ $optional-colour: #f5b642;
                 .fa-certificate {
                     display: none;
                 }
+                .fa-book {
+                    display: none;
+                }
             }
         }
         &.cultural {
@@ -230,6 +233,9 @@ $optional-colour: #f5b642;
                 .fa-certificate {
                     display: none;
                 }
+                .fa-book {
+                    display: none;
+                }
             }
         }
         &.future {
@@ -243,6 +249,27 @@ $optional-colour: #f5b642;
                     display: none;
                 }
                 .fa-certificate {
+                    display: inline-block;
+                }
+                .fa-book {
+                    display: none;
+                }
+            }
+        }
+        &.optional {
+            .jpb-skill-type {
+                background: $future-colour;
+                text-align: center;
+                .fa-briefcase {
+                    display: none;
+                }
+                .fa-coffee {
+                    display: none;
+                }
+                .fa-certificate {
+                    display: none;
+                }
+                .fa-book {
                     display: inline-block;
                 }
             }
@@ -412,10 +439,11 @@ $optional-colour: #f5b642;
 }
 .jpb-skill-target {
     .fa-bullseye {
-
+        margin-right: .5rem;
     }
     .fa-check {
         display: none;
+        margin-right: .5rem;
     }
     &.complete {
         .fa-bullseye {

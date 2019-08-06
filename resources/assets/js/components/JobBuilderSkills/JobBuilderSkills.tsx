@@ -370,6 +370,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-briefcase" />
                   <i className="fas fa-coffee" />
                   <i className="fas fa-certificate" />
+                  <i className="fas fa-book" />
                 </span>
                 {/* The skill name. */}
                 <span>{skill[locale].name}</span>
@@ -935,6 +936,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-briefcase" />
                   <i className="fas fa-coffee" />
                   <i className="fas fa-certificate" />
+                  <i className="fas fa-book" />
                 </span>
                 {/* Category Title */}
                 Occupational Skills
@@ -960,7 +962,7 @@ export const JobBuilderSkills: React.FunctionComponent<
               >
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
-                Aim for {minOccupational} - {maxOccupational} skills.
+                <span>Aim for {minOccupational} - {maxOccupational} skills.</span>
               </div>
             </div>
             {/* This is the list of skills. Clicking a skill button should trigger the "Edit skill" modal so that the user can edit the definition/level before adding it. If they DO add it, you can assign an "active" class to the respective button so indicate that it's selected. This will change it's colour and icon automatically. This is also the area where "Culture Skills" is split into the two categories - see the Culture Skills section below for what that looks like. */}
@@ -1002,6 +1004,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-briefcase" />
                   <i className="fas fa-coffee" />
                   <i className="fas fa-certificate" />
+                  <i className="fas fa-book" />
                 </span>
                 Cultural Skills
               </h5>
@@ -1020,7 +1023,7 @@ export const JobBuilderSkills: React.FunctionComponent<
               >
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
-                Aim for {minCulture} - {maxCulture} skills.
+                <span>Aim for {minCulture} - {maxCulture} skills.</span>
               </div>
             </div>
             {/** Culture skills are intended to be split into two lists, Recommended and Remaining. Until the recommendation logic is nailed down, its just one. */}
@@ -1097,6 +1100,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-briefcase" />
                   <i className="fas fa-coffee" />
                   <i className="fas fa-certificate" />
+                  <i className="fas fa-book" />
                 </span>
                 Future Skills
               </h5>
@@ -1115,7 +1119,7 @@ export const JobBuilderSkills: React.FunctionComponent<
               >
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
-                Aim for {minFuture} - {maxFuture} skills.
+                <span>Aim for {minFuture} - {maxFuture} skills.</span>
               </div>
             </div>
             <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
@@ -1142,7 +1146,7 @@ export const JobBuilderSkills: React.FunctionComponent<
           the discussion.
         </p>
         <div
-          className="jpb-skill-category"
+          className="jpb-skill-category optional"
           data-c-margin="bottom(normal)"
           data-c-padding="normal"
           data-c-radius="rounded"
@@ -1155,6 +1159,18 @@ export const JobBuilderSkills: React.FunctionComponent<
                 className="jpb-skill-section-title"
                 data-c-font-size="h4"
               >
+                <span
+                  data-c-font-size="small"
+                  data-c-margin="right(half)"
+                  data-c-padding="tb(quarter) rl(half)"
+                  data-c-radius="rounded"
+                  data-c-colour="white"
+                >
+                  <i className="fas fa-briefcase" />
+                  <i className="fas fa-coffee" />
+                  <i className="fas fa-certificate" />
+                  <i className="fas fa-book" />
+                </span>
                 Other Skills
               </h5>
             </div>
