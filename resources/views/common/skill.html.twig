@@ -570,12 +570,15 @@
 
 
                                     {# Word Counter #}
-                                    {# <div
+                                    <div
                                         data-word-counter-id={{ "#{id_prefix}skillDescription"|json_encode() }}
-                                        data-max-words={{ "80"|json_encode()  }}
-                                        data-min-words={{ "20"|json_encode()  }}
-                                        >
-                                    </div> #}
+                                    >
+                                    </div>
+
+                                    <script async defer
+                                        src="{{ mix('/js/SkillsWordCounter.js') }}">
+                                    </script>
+
                                 </div>
 
                         </div>
@@ -796,3 +799,4 @@
         </div>
 
 </div>
+
