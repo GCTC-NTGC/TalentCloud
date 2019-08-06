@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from "react";
 import WordCounter from "./WordCounter";
 import { countNumberOfWords, truncateWords } from "./helpers";
+import { WordCounterProps } from "./types";
 
-interface Message {
-  max: number;
-  message: string;
-}
-
-interface WordCounterWrapperProps {
+interface WordCounterWrapperProps extends Omit<WordCounterProps, "numOfWords"> {
   elementId: string;
-  maxWords: number;
-  minWords: number;
-  wordLimit: number;
-  warnings: Message[];
 }
 
 const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
@@ -20,32 +12,26 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
   wordLimit,
   minWords,
   maxWords,
-  warnings,
+  messages,
+  placeholder,
 }): React.ReactElement => {
-  const [currentNumberOfWords, setCurrentNumberOfWords] = useState(0);
+  // const [currentNumberOfWords, setCurrentNumberOfWords] = useState(0);
 
   useEffect((): void => {
     const element: HTMLTextAreaElement = document.getElementById(
       elementId,
     ) as HTMLTextAreaElement;
 
+    // setCurrentNumberOfWords(countNumberOfWords(element.value));
+
     element.addEventListener("input", (e): void => {
       const target = e.target as HTMLTextAreaElement;
       const numOfWords = countNumberOfWords(target.value);
+      console.log(numOfWords);
+      // setCurrentNumberOfWords(numOfWords);
 
-      if (target.value.trim()) {
-        setCurrentNumberOfWords(numOfWords);
-      } else {
-        setCurrentNumberOfWords(0);
-      }
-
-      if (numOfWords < wordLimit) {
-        // After maxLength is set to positive number, it cannot be set back to unlimited (-1)
-        element.maxLength = 1000000000;
-      } else if (numOfWords >= wordLimit) {
+      if (numOfWords >= wordLimit) {
         target.value = truncateWords(target.value, wordLimit);
-      } else {
-        // do nothing
       }
     });
   }, [elementId, wordLimit]);
@@ -53,11 +39,12 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
   return (
     <>
       <WordCounter
-        numOfWords={currentNumberOfWords}
+        numOfWords={0}
         wordLimit={wordLimit}
         maxWords={maxWords}
         minWords={minWords}
-        warnings={warnings}
+        messages={messages}
+        placeholder={placeholder}
       />
     </>
   );

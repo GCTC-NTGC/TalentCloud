@@ -1,45 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ProgressRing from "../ProgressRing";
-
-/*
-  Question: Should this component have the option to add a textarea component (or input element)?
-  example:
-    prop: textAreaComponent: React.ReactElement
-    ...
-    return (
-      {textAreaComponent && textAreaComponent}
-    )
-*/
-
-interface Message {
-  max: number;
-  message: string;
-}
-
-interface WordCounterProps {
-  numOfWords: number;
-  maxWords: number;
-  minWords: number;
-  warnings: Message[];
-  wordLimit: number;
-}
+import { WordCounterProps } from "./types";
+import { sortMessages } from "./helpers";
 
 const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   numOfWords,
   minWords,
   maxWords,
-  warnings,
+  messages,
+  placeholder,
 }): React.ReactElement => {
-  const message = (): string => {
+  const handleMessage = (): string => {
     let index = 0;
-    const warning = warnings.find(({ max }, i): boolean => {
+    const sortedMessages = sortMessages(messages);
+    const message = sortedMessages.find(({ count }, i): boolean => {
       index = i;
-      return (
-        warnings[i + 1] && numOfWords >= max && numOfWords < warnings[i + 1].max
-      );
+      return numOfWords >= count;
     });
 
-    return warning ? warning.message : warnings[index].message;
+    return message ? message.message : messages[index].message;
   };
 
   const strokeColor = (): string => {
@@ -93,7 +72,7 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
         max={minWords}
       />
       <span style={numOfWords === 0 ? { color: "#80808085" } : {}}>
-        {message()} Total: {numOfWords}
+        {numOfWords === 0 ? placeholder : handleMessage()}
       </span>
     </div>
   );

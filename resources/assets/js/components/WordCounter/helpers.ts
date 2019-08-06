@@ -1,8 +1,13 @@
+import { Message } from "./types";
+
 export const countNumberOfWords = (innerText: string): number => {
-  return innerText
-    .replace(/\s+/g, " ")
-    .trim()
-    .split(" ").length;
+  if (innerText.trim()) {
+    return innerText
+      .replace(/\s+/g, " ")
+      .trim()
+      .split(" ").length;
+  }
+  return 0;
 };
 
 export const stringEndsInWhitespace = (value: string): boolean => {
@@ -24,4 +29,11 @@ export const truncateWords = (value: string, wordLimit: number): string => {
     }
   }
   return value;
+};
+
+/** Sorts messages in decending order */
+export const sortMessages = (messages: Message[]): Message[] => {
+  const sortedMessages = messages.sort((a, b): number => b.count - a.count);
+
+  return sortedMessages;
 };
