@@ -15,7 +15,7 @@ import {
   progressTrackerLabels,
   progressTrackerTitles,
 } from "../JobBuilder/jobBuilderMessages";
-import { jobBuilderTasks } from "../../helpers/routes";
+import { jobBuilderTasks, jobBuilderEnv } from "../../helpers/routes";
 import { getSelectedJob } from "../../store/Job/jobSelector";
 import { RootState } from "../../store/store";
 import { DispatchType } from "../../configureStore";
@@ -71,8 +71,14 @@ const JobBuilderImpactPage: React.FunctionComponent<
     if (jobId !== null) {
       window.location.href = jobBuilderTasks(intl.locale, jobId);
     }
-  }; // TODO: go to next page
+  };
+
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
+  const handleReturn = (): void => {
+    if (jobId !== null) {
+      window.location.href = jobBuilderEnv(intl.locale, jobId);
+    }
+  };
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
       state: waitingForJob ? "null" : jobBuilderIntroProgressState(job),
@@ -145,6 +151,7 @@ const JobBuilderImpactPage: React.FunctionComponent<
           job={job}
           departments={departments}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
         />
