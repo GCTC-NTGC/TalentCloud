@@ -1149,15 +1149,16 @@ export const JobBuilderSkills: React.FunctionComponent<
           data-c-background="grey(10)"
         >
           <div data-c-grid="gutter top">
-            <div data-c-grid-item="tp(2of3) ds(3of4)">
+            <div data-c-grid-item="base(1of1)">
               {/** TODO: Fix the layout of the skill cloud */}
               <h5
                 className="jpb-skill-section-title"
                 data-c-font-size="h4"
-                data-c-margin="bottom(normal)"
               >
                 Other Skills
               </h5>
+            </div>
+            <div data-c-grid-item="base(1of1)">
               <Select
                 id="jpb-all-skills-select"
                 name="jpbAllSkillsSelect"
@@ -1178,10 +1179,12 @@ export const JobBuilderSkills: React.FunctionComponent<
                   }
                 }}
               />
-              <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
-                {selectedOtherSkills.map(renderSkillButton)}
-              </ul>
             </div>
+            <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
+              {/** TODO: Get this null state text hiding/showing. */}
+              <p>There are no extra skills added.</p>
+              {selectedOtherSkills.map(renderSkillButton)}
+            </ul>
           </div>
         </div>
         <div data-c-grid="gutter">

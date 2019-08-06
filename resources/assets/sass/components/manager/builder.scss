@@ -166,6 +166,7 @@
 $occupational-colour: #20B6FF;
 $cultural-colour: #44C553;
 $future-colour: #AD6EDD;
+$optional-colour: #f5b642;
 .jpb-skill-list {
     list-style: none;
     margin: 0;
@@ -249,6 +250,14 @@ $future-colour: #AD6EDD;
     }
 }
 .jpb-skill-category {
+    [data-c-input="select"] {
+        padding-top: 0;
+        padding-bottom: 0;
+        >div,
+        >div select {
+            margin-bottom: 0;
+        }
+    }
     .jpb-skill-section-title {
         i {
             margin-right: -.1rem;
@@ -293,6 +302,9 @@ $future-colour: #AD6EDD;
             .fa-certificate {
                 display: none;
             }
+            .fa-book {
+                display: none;
+            }
         }
         .jpb-skill-trigger {
             &.active {
@@ -319,6 +331,9 @@ $future-colour: #AD6EDD;
                 display: inline-block;
             }
             .fa-certificate {
+                display: none;
+            }
+            .fa-book {
                 display: none;
             }
         }
@@ -349,11 +364,44 @@ $future-colour: #AD6EDD;
             .fa-certificate {
                 display: inline-block;
             }
+            .fa-book {
+                display: none;
+            }
         }
         .jpb-skill-trigger {
             &.active {
                 background: $future-colour;
                 border-color: $future-colour;
+                color: white;
+                i {
+                    color: white;
+                }
+            }
+        }
+    }
+    &.optional {
+        .jpb-skill-section-title {
+            span {
+                background: $optional-colour;
+                vertical-align: middle;
+            }
+            .fa-briefcase {
+                display: none;
+            }
+            .fa-coffee {
+                display: none;
+            }
+            .fa-certificate {
+                display: none;
+            }
+            .fa-book {
+                display: inline-block;
+            }
+        }
+        .jpb-skill-trigger {
+            &.active {
+                background: $optional-colour;
+                border-color: $optional-colour;
                 color: white;
                 i {
                     color: white;
