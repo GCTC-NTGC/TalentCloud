@@ -1,0 +1,12 @@
+[
+  {
+    "id": "ratingGuideBuilder.narrativeSectionTitle",
+    "description": "Subtitle for the special Narrative Assessment section in the Rating Guide Builder.",
+    "defaultMessage": "Assessment {index}: {assessmentType}"
+  },
+  {
+    "id": "ratingGuideBuilder.criteriaName",
+    "description": "How each criteria is listed in Rating Guide Builder.",
+    "defaultMessage": "{skillName} - {skillLevel}"
+  }
+]

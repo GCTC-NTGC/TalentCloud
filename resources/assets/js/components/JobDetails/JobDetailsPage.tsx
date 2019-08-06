@@ -117,7 +117,13 @@ const JobDetailsPage: React.FunctionComponent<
           data-c-container="form"
           data-c-padding="top(triple) bottom(triple)"
         >
-          <div data-c-background="white(100)" data-c-card data-c-padding="all(double)" data-c-radius="rounded" data-c-align="base(centre)">
+          <div
+            data-c-background="white(100)"
+            data-c-card
+            data-c-padding="all(double)"
+            data-c-radius="rounded"
+            data-c-align="base(centre)"
+          >
             <p>
               <FormattedMessage
                 id="jobBuilderIntroPage.loading"

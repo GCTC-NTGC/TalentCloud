@@ -1133,7 +1133,6 @@ const WorkEnvForm = ({
                   disabled={isSubmitting}
                   data-c-button="solid(c1)"
                   data-c-dialog-action="open"
-                  data-c-dialog-id="work-environment-preview"
                   data-c-radius="rounded"
                 >
                   <FormattedMessage

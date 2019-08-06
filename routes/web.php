@@ -286,6 +286,10 @@ Route::group(
                     'jobs/{jobId}/builder/impact',
                     'JobBuilderController@impact'
                 )->where('jobPoster', '[0-9]+');
+                Route::get(
+                    'jobs/{jobId}/builder/tasks',
+                    'JobBuilderController@tasks'
+                )->where('jobPoster', '[0-9]+');
 
                 /* Delete Job */
                 Route::delete('jobs/{jobPoster}', 'JobController@destroy')
@@ -432,6 +436,14 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
         'store', 'create', 'edit'
     ]);
+    // TODO: add policy middleware
+    Route::get('jobs/{jobPoster}/tasks', 'Api\JobTaskController@indexByJob')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:view,jobPoster');
+    Route::put('jobs/{jobPoster}/tasks', 'Api\JobTaskController@batchUpdate')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:update,jobPoster');
+
 
      Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
         ->where('jobPoster', '[0-9]+')

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { Job, Criteria } from "../../models/types";
+import { Job, Criteria, JobPosterKeyTask } from "../../models/types";
 import {
   JobAction,
   FETCH_JOB_STARTED,
@@ -14,6 +14,8 @@ import {
   CREATE_JOB_STARTED,
   CREATE_JOB_FAILED,
   SET_SELECTED_JOB,
+  FETCH_JOB_TASKS_SUCCEEDED,
+  BATCH_UPDATE_JOB_TASKS_SUCCEEDED,
 } from "./jobActions";
 import { mapToObject, getId, deleteProperty } from "../../helpers/queries";
 
@@ -26,6 +28,11 @@ export interface EntityState {
   criteria: {
     byId: {
       [id: number]: Criteria;
+    };
+  };
+  tasks: {
+    byJobId: {
+      [id: number]: JobPosterKeyTask[];
     };
   };
   jobEdits: {
@@ -52,6 +59,7 @@ export interface JobState {
 export const initEntities = (): EntityState => ({
   jobs: { byId: {} },
   criteria: { byId: {} },
+  tasks: { byJobId: {} },
   jobEdits: {},
 });
 
@@ -120,6 +128,17 @@ export const entitiesReducer = (
       return {
         ...state,
         jobEdits: deleteProperty<Job>(state.jobEdits, action.payload),
+      };
+    case FETCH_JOB_TASKS_SUCCEEDED:
+    case BATCH_UPDATE_JOB_TASKS_SUCCEEDED:
+      return {
+        ...state,
+        tasks: {
+          byJobId: {
+            ...state.tasks.byJobId,
+            [action.meta.jobId]: action.payload,
+          },
+        },
       };
     default:
       return state;
