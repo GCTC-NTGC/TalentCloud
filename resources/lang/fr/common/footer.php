@@ -31,5 +31,5 @@ return [
     "logo_link" => "https://www.canada.ca/fr.html",
     "logo_link_title" => "Visiter Canada.ca",
     "logo_alt" => "Symbole du gouvernement du Canada.",
-    "logo_url" => "/images/logo_canada_white.png"
+    "logo_url" => "/images/logo_canada_colour.png"
 ];
