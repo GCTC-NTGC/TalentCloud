@@ -20,6 +20,7 @@ stories
       <JobDetails
         job={null}
         handleSubmit={handleSubmit}
+        handleReturn={action("Save and Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
       />
@@ -31,6 +32,7 @@ stories
       <JobDetails
         job={fakeJob()}
         handleSubmit={handleSubmit}
+        handleReturn={action("Save and Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
       />
