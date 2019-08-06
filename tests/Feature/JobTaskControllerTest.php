@@ -35,7 +35,7 @@ class JobTaskControllerTest extends TestCase
     public function testIndexByJob()
     {
         $job = factory(JobPoster::class)->state('published')->create();
-        // Ensure the factory added tasks, so we're not just checking an empty array
+        // Ensure the factory added tasks, so we're not just checking an empty array.
         $this->assertNotEmpty($job->job_poster_key_tasks);
 
         $expected = $job->job_poster_key_tasks->map($this->toApiArray)->toArray();
@@ -48,7 +48,7 @@ class JobTaskControllerTest extends TestCase
     {
         $job = factory(JobPoster::class)->create();
 
-        $newTasks = factory(JobPosterKeyTask::class, 3)->make(['job_poster_id' => $job->id]);
+        $newTasks = factory(JobPosterKeyTask::class, 3)->make(['job_poster_id' => $job->id, 'id' => null]);
         $newTaskArray = collect($newTasks)->map($this->toApiArray);
         $response = $this->actingAs($job->manager->user)
             ->json('put', "api/jobs/$job->id/tasks", $newTaskArray->toArray());
@@ -75,20 +75,20 @@ class JobTaskControllerTest extends TestCase
     public function testBatchUpdateRemovesTasks()
     {
         $job = factory(JobPoster::class)->create();
-        $job->job_poster_key_tasks()->delete(); // Clear tasks, to start from clean slate
+        $job->job_poster_key_tasks()->delete(); // Clear tasks, to start from clean slate.
 
         $tasks = factory(JobPosterKeyTask::class, 2)->create(['job_poster_id' => $job->id]);
         $task0 = $tasks[0];
         $task1 = $tasks[1];
-        // A new task, not yet saved to database
-        $task2 = factory(JobPosterKeyTask::class)->make(['job_poster_id' => $job->id]);
+        // A new task, not yet saved to database.
+        $task2 = factory(JobPosterKeyTask::class)->make(['job_poster_id' => $job->id, 'id' => null]);
 
-        $newTaskArray = collect([$task1, $task2])->map($this->toApiArray); // The updated tasks don't include task0
+        $newTaskArray = collect([$task1, $task2])->map($this->toApiArray); // The updated tasks don't include task0.
         $response = $this->actingAs($job->manager->user)
             ->json('put', "api/jobs/$job->id/tasks", $newTaskArray->toArray());
         $response->assertOk();
 
-        // Task1 should be present, unchanged
+        // Task1 should be present, unchanged.
         $this->assertTrue($task1->is(JobPosterKeyTask::find($task1->id)));
         $this->assertDatabaseHas(
             'job_poster_key_task_translations',
@@ -99,7 +99,7 @@ class JobTaskControllerTest extends TestCase
             ['locale' => 'fr', 'description' => $task1->translate('fr')->description]
         );
 
-        // Task0 should be deleted
+        // Task0 should be deleted.
         $this->assertNull(JobPosterKeyTask::find($task0->id));
         $this->assertDatabaseMissing(
             'job_poster_key_task_translations',
@@ -114,7 +114,7 @@ class JobTaskControllerTest extends TestCase
     public function testBatchUpdateUpdatesTasks()
     {
         $job = factory(JobPoster::class)->create();
-        $job->job_poster_key_tasks()->delete(); // Clear tasks, to start from clean slate
+        $job->job_poster_key_tasks()->delete(); // Clear tasks, to start from clean slate.
 
         $task0 = factory(JobPosterKeyTask::class)->create(['job_poster_id' => $job->id]);
 
@@ -132,7 +132,7 @@ class JobTaskControllerTest extends TestCase
             ->json('put', "api/jobs/$job->id/tasks", $newTaskArray);
         $response->assertOk();
 
-        // Task1 should be present, but with updated description
+        // Task1 should be present, but with updated description.
         $this->assertNotNull(JobPosterKeyTask::find($task0->id));
         $this->assertDatabaseHas(
             'job_poster_key_task_translations',
@@ -155,7 +155,7 @@ class JobTaskControllerTest extends TestCase
     public function testBatchUpdateAddsTasksWithEmptyOrStringIds()
     {
         $job = factory(JobPoster::class)->create();
-        $job->job_poster_key_tasks()->delete(); // Clear tasks, to start from clean slate
+        $job->job_poster_key_tasks()->delete(); // Clear tasks, to start from clean slate.
 
         $task0 = [
             'id' => null,
@@ -174,7 +174,7 @@ class JobTaskControllerTest extends TestCase
             ->json('put', "api/jobs/$job->id/tasks", $newTaskArray);
         $response->assertOk();
 
-        // Task0 and Task1 should both be added
+        // Task0 and Task1 should both be added.
         $this->assertDatabaseHas(
             'job_poster_key_task_translations',
             [

@@ -316,7 +316,6 @@ const JobBuilderImpact: React.FunctionComponent<
                   <button
                     data-c-button="solid(c1)"
                     data-c-dialog-action="open"
-                    data-c-dialog-id={modalId}
                     data-c-radius="rounded"
                     disabled={isSubmitting}
                     form="form"

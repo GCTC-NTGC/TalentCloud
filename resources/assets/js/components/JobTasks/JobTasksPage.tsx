@@ -17,7 +17,7 @@ import {
 } from "../JobBuilder/jobBuilderMessages";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import JobTasks from "./JobTasks";
-import { managerJobIndex, jobBuilderSkills } from "../../helpers/routes";
+import { jobBuilderSkills } from "../../helpers/routes";
 import { RootState } from "../../store/store";
 import { getJob, getTasksByJob } from "../../store/Job/jobSelector";
 import { DispatchType } from "../../configureStore";
