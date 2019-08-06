@@ -6,13 +6,16 @@ import { number } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
 import { JobTasksIntl as JobTasks } from "../../components/JobTasks/JobTasks";
 import { fakeJobTasks } from "../../fakeData/fakeJob";
+import { JobPosterKeyTask } from "../../models/types";
 
 const stories = storiesOf("Job Poster Builder|Tasks", module).addDecorator(
   withIntl,
 );
 
-const handleSubmit = async (): Promise<boolean> => {
-  return true;
+const handleSubmit = async (
+  values: JobPosterKeyTask[],
+): Promise<JobPosterKeyTask[]> => {
+  return values;
 };
 
 const sampleTasks = fakeJobTasks();

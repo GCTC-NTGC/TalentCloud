@@ -15,7 +15,7 @@ import {
   progressTrackerLabels,
   progressTrackerTitles,
 } from "../JobBuilder/jobBuilderMessages";
-import { managerJobIndex } from "../../helpers/routes";
+import { jobBuilderTasks } from "../../helpers/routes";
 import { getSelectedJob } from "../../store/Job/jobSelector";
 import { RootState } from "../../store/store";
 import { DispatchType } from "../../configureStore";
@@ -68,7 +68,9 @@ const JobBuilderImpactPage: React.FunctionComponent<
     // Do nothing on cancel
   };
   const handleModalConfirm = (): void => {
-    window.location.href = managerJobIndex(intl.locale);
+    if (jobId !== null) {
+      window.location.href = jobBuilderTasks(intl.locale, jobId);
+    }
   }; // TODO: go to next page
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
   const progressTrackerItems: ProgressTrackerItem[] = [

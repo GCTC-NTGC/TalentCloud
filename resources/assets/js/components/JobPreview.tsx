@@ -20,7 +20,7 @@ export interface JobPreviewProps {
   /** Language requirement, i.e. English Essential */
   language: string;
   /** Length of the Job term in months */
-  termLength: number;
+  termLength: number | null;
   /** Security level required for the posting, i.e. reliability */
   securityLevel: string;
   /** Government classification code for the position, i.e. CS */
@@ -98,20 +98,22 @@ const JobPreview: React.FunctionComponent<
           </p>
           <p>{title}</p>
         </div>
-        <div data-c-grid-item="tp(1of2)">
-          <p data-c-colour="c3" data-c-margin="bottom(quarter)">
-            <FormattedMessage
-              id="jobPreview.lengthOfTheTerm"
-              defaultMessage="Length of the Term"
-              description="Job Poster Card Information Label"
-            />
-          </p>
-          <p>
-            {intl.formatMessage(messages.termLength, {
-              termMonths: termLength,
-            })}
-          </p>
-        </div>
+        {termLength && (
+          <div data-c-grid-item="tp(1of2)">
+            <p data-c-colour="c3" data-c-margin="bottom(quarter)">
+              <FormattedMessage
+                id="jobPreview.lengthOfTheTerm"
+                defaultMessage="Length of the Term"
+                description="Job Poster Card Information Label"
+              />
+            </p>
+            <p>
+              {intl.formatMessage(messages.termLength, {
+                termMonths: termLength,
+              })}
+            </p>
+          </div>
+        )}
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
