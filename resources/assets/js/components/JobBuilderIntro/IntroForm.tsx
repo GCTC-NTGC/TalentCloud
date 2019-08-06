@@ -173,7 +173,7 @@ const IntroForm: React.FunctionComponent<
         >
           <FormattedMessage
             id="jobBuilder.intro.welcome"
-            defaultMessage="EN Welcome to the Job Poster Builder"
+            defaultMessage="Welcome to the Job Poster Builder"
             description="Header of Job Poster Builder Intro Step"
           />
         </h3>

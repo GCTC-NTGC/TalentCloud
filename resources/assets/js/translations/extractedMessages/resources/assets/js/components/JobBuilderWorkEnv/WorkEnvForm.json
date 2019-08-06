@@ -200,6 +200,102 @@
     "defaultMessage": "Easy Access to Parking"
   },
   {
+    "id": "jobBuilder.culturePace.01.title",
+    "defaultMessage": "Very Fast-paced"
+  },
+  {
+    "id": "jobBuilder.culturePace.01.description",
+    "defaultMessage": "Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!"
+  },
+  {
+    "id": "jobBuilder.culturePace.02.title",
+    "defaultMessage": "Fast-paced"
+  },
+  {
+    "id": "jobBuilder.culturePace.02.description",
+    "defaultMessage": "Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes!"
+  },
+  {
+    "id": "jobBuilder.culturePace.03.title",
+    "defaultMessage": "Steady"
+  },
+  {
+    "id": "jobBuilder.culturePace.03.description",
+    "defaultMessage": "Our deadlines are regular and predictable, we balance a couple of tasks at a time, and our priorities change occasionally. We keep things on an even keel."
+  },
+  {
+    "id": "jobBuilder.culturePace.04.title",
+    "defaultMessage": "Very Steady"
+  },
+  {
+    "id": "jobBuilder.culturePace.04.description",
+    "defaultMessage": "Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine."
+  },
+  {
+    "id": "jobBuilder.mgmtStyle.01.title",
+    "defaultMessage": "Horizontal"
+  },
+  {
+    "id": "jobBuilder.mgmtStyle.01.description",
+    "defaultMessage": "There’s no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives."
+  },
+  {
+    "id": "jobBuilder.mgmtStyle.02.title",
+    "defaultMessage": "Somewhat Horizontal"
+  },
+  {
+    "id": "jobBuilder.mgmtStyle.02.description",
+    "defaultMessage": "We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives."
+  },
+  {
+    "id": "jobBuilder.mgmtStyle.03.title",
+    "defaultMessage": "Somewhat Vertical"
+  },
+  {
+    "id": "jobBuilder.mgmtStyle.03.description",
+    "defaultMessage": "Our team has a clearly defined role. We check in regularly with middle-management for approvals and updates on the strategic vision of our executives."
+  },
+  {
+    "id": "jobBuilder.mgmtStyle.04.title",
+    "defaultMessage": "Vertical"
+  },
+  {
+    "id": "jobBuilder.mgmtStyle.04.description",
+    "defaultMessage": "Our team has a clearly defined role. We check in often with middle-management for approvals and updates on the strategic vision of our executives."
+  },
+  {
+    "id": "jobBuilder.experimental.01.title",
+    "defaultMessage": "Experimental"
+  },
+  {
+    "id": "jobBuilder.experimental.01.description",
+    "defaultMessage": "Our work is defined by trying out brand new ideas, methods, and activities to address persistent problems that traditional approaches have failed to solve."
+  },
+  {
+    "id": "jobBuilder.experimental.02.title",
+    "defaultMessage": "Somewhat Experimental"
+  },
+  {
+    "id": "jobBuilder.experimental.02.description",
+    "defaultMessage": "We try out new and proven ideas, methods, and activities to improve how we do our work."
+  },
+  {
+    "id": "jobBuilder.experimental.03.title",
+    "defaultMessage": "Somewhat Predictable Work"
+  },
+  {
+    "id": "jobBuilder.experimental.03.description",
+    "defaultMessage": "Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes."
+  },
+  {
+    "id": "jobBuilder.experimental.04.title",
+    "defaultMessage": "Predictable Work"
+  },
+  {
+    "id": "jobBuilder.experimental.04.description",
+    "defaultMessage": "Most of our work involves administrative tasks are repeated on a regular basis. Consistency is key here, so we follow a standard process with tried and true tools."
+  },
+  {
     "id": "jobBuilder.workEnv.title",
     "description": "Header of job poster builder work environment step.",
     "defaultMessage": "Work Environment"
