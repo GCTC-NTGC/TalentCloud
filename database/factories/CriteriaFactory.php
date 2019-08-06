@@ -17,6 +17,8 @@ $factory->define(Criteria::class, function (Faker\Generator $faker) use ($faker_
         'skill_id' => Skill::inRandomOrder()->first()->id,
         'skill_level_id' => SkillLevel::inRandomOrder()->first()->id,
         'description:en' => $faker->paragraphs(2, true),
-        'description:fr' => $faker_fr->paragraphs(2, true)
+        'description:fr' => $faker_fr->paragraphs(2, true),
+        'specificity:en' => $faker->sentence(),
+        'specificity:fr' => $faker_fr->sentence(),
     ];
 });
