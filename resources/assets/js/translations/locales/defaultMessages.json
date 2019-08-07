@@ -761,6 +761,11 @@
       {
         "defaultMessage": "Review",
         "id": "jobBuilder.progressTracker.title.review"
+      },
+      {
+        "defaultMessage": "Your job is loading...",
+        "description": "Message indicating that the current job is still being loaded.",
+        "id": "jobBuilder.jobLoading"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/jobBuilderMessages.json"
