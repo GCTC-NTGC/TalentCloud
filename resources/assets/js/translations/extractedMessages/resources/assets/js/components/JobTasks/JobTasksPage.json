@@ -1,0 +1,7 @@
+[
+  {
+    "id": "jobBuilderTasksPage.loading",
+    "description": "Message indicating that the current job is still being loaded.",
+    "defaultMessage": "Your job is loading..."
+  }
+]
