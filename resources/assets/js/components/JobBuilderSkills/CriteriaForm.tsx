@@ -345,8 +345,6 @@ export const CriteriaForm: React.FunctionComponent<
                 <div data-c-grid-item="base(1of2)">
                   <button
                     data-c-button="outline(c2)"
-                    data-c-dialog-action="close"
-                    data-c-dialog-id="example-dialog-01"
                     data-c-radius="rounded"
                     type="button"
                     disabled={isSubmitting}
@@ -361,8 +359,6 @@ export const CriteriaForm: React.FunctionComponent<
                 >
                   <button
                     data-c-button="solid(c2)"
-                    data-c-dialog-action="close"
-                    data-c-dialog-id="example-dialog-01"
                     data-c-radius="rounded"
                     disabled={isSubmitting}
                     type="submit"

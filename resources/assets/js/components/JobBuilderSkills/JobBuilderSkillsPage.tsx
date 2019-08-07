@@ -2,56 +2,67 @@ import React, { useEffect, useState } from "react";
 import { InjectedIntlProps, FormattedMessage, injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
-import { JobPosterKeyTask, Job } from "../../models/types";
-import { ProgressTrackerItem } from "../ProgressTracker/types";
+import RootContainer from "../RootContainer";
+import { Job, JobPosterKeyTask, Criteria, Skill } from "../../models/types";
 import {
   jobBuilderIntroProgressState,
   jobBuilderDetailsProgressState,
-  jobBuilderEnvProgressState,
   jobImpactProgressState,
+  jobBuilderEnvProgressState,
   VALID_COUNT,
+  jobTasksProgressState,
 } from "../JobBuilder/jobBuilderHelpers";
 import {
   progressTrackerLabels,
   progressTrackerTitles,
 } from "../JobBuilder/jobBuilderMessages";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
-import JobTasks from "./JobTasks";
-import { jobBuilderSkills } from "../../helpers/routes";
+import JobBuilderSkills from "./JobBuilderSkills";
+import { managerJobIndex } from "../../helpers/routes";
+import { ProgressTrackerItem } from "../ProgressTracker/types";
 import { RootState } from "../../store/store";
-import { getJob, getTasksByJob } from "../../store/Job/jobSelector";
-import { DispatchType } from "../../configureStore";
 import {
-  fetchJob,
-  fetchJobTasks,
-  batchUpdateJobTasks,
-} from "../../store/Job/jobActions";
-import RootContainer from "../RootContainer";
+  getJob,
+  getTasksByJob,
+  getCriteriaByJob,
+} from "../../store/Job/jobSelector";
+import { getSkills } from "../../store/Skill/skillSelector";
+import { DispatchType } from "../../configureStore";
+import { fetchJob, fetchJobTasks, fetchCriteria, batchUpdateCriteria } from "../../store/Job/jobActions";
+import { fetchSkills } from "../../store/Skill/skillActions";
 
-interface JobTasksPageProps {
+interface JobBuilderSkillsPageProps {
   jobId: number;
   job: Job | null;
   loadJob: (jobId: number) => Promise<void>;
+  skills: Skill[];
+  loadSkills: () => Promise<void>;
   keyTasks: JobPosterKeyTask[];
   loadTasks: (jobId: number) => Promise<void>;
-  handleUpdateTasks: (
+  criteria: Criteria[];
+  loadCriteria: (jobId: number) => Promise<void>;
+  handleSubmitCriteria: (
     jobId: number,
-    tasks: JobPosterKeyTask[],
-  ) => Promise<JobPosterKeyTask[]>;
+    criteria: Criteria[],
+  ) => Promise<Criteria[]>;
 }
 
-const JobTasksPage: React.FunctionComponent<
-  JobTasksPageProps & InjectedIntlProps
+const JobBuilderSkillsPage: React.FunctionComponent<
+  JobBuilderSkillsPageProps & InjectedIntlProps
 > = ({
   jobId,
   job,
   loadJob,
+  skills,
+  loadSkills,
   keyTasks,
   loadTasks,
-  handleUpdateTasks,
+  criteria,
+  loadCriteria,
+  handleSubmitCriteria,
   intl,
 }): React.ReactElement => {
-  // Trigger fetching of jobs and tasks on first load, or when jobId changes
+  // Trigger fetching of jobs, skills, tasks, and criteria on first load, or when jobId changes
   const [isLoadingJob, setIsLoadingJob] = useState(false);
   useEffect((): void => {
     setIsLoadingJob(true);
@@ -59,6 +70,13 @@ const JobTasksPage: React.FunctionComponent<
       setIsLoadingJob(false);
     });
   }, [jobId, loadJob]);
+  const [isLoadingSkills, setIsLoadingSkills] = useState(false);
+  useEffect((): void => {
+    setIsLoadingSkills(true);
+    loadSkills().finally((): void => {
+      setIsLoadingSkills(false);
+    });
+  }, [loadSkills]);
   const [isLoadingTasks, setIsLoadingTasks] = useState(false);
   useEffect((): void => {
     setIsLoadingTasks(true);
@@ -66,20 +84,26 @@ const JobTasksPage: React.FunctionComponent<
       setIsLoadingTasks(false);
     });
   }, [jobId, loadTasks]);
+  const [isLoadingCriteria, setIsLoadingCriteria] = useState(false);
+  useEffect((): void => {
+    setIsLoadingCriteria(true);
+    loadCriteria(jobId).finally((): void => {
+      setIsLoadingCriteria(false);
+    });
+  }, [jobId, loadCriteria]);
 
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
   }
 
-  const handleModalCancel = (): void => {}; // No need to do anything.
-  const handleModalConfirm = (): void => {
+  const handleContinue = (): void => {
     // Continue to next page
-    window.location.href = jobBuilderSkills(locale, jobId);
+    window.location.href = managerJobIndex(locale);
   };
-  const handleSubmit = (
-    tasks: JobPosterKeyTask[],
-  ): Promise<JobPosterKeyTask[]> => handleUpdateTasks(jobId, tasks);
+
+  const handleSubmit = (tasks: Criteria[]): Promise<Criteria[]> =>
+    handleSubmitCriteria(jobId, tasks);
 
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
@@ -105,12 +129,14 @@ const JobTasksPage: React.FunctionComponent<
       title: intl.formatMessage(progressTrackerTitles.impact),
     },
     {
-      state: "active",
+      state: isLoadingTasks
+        ? "null"
+        : jobTasksProgressState(keyTasks, VALID_COUNT, locale),
       label: intl.formatMessage(progressTrackerLabels.step04),
       title: intl.formatMessage(progressTrackerTitles.tasks),
     },
     {
-      state: "null",
+      state: "active",
       label: intl.formatMessage(progressTrackerLabels.step05),
       title: intl.formatMessage(progressTrackerTitles.skills),
     },
@@ -129,7 +155,7 @@ const JobTasksPage: React.FunctionComponent<
         classNames="manager-jpb-tracker"
         itemsWrapperClassNames="tracker manager-jpb-tracker-wrapper"
       />
-      {isLoadingTasks ? (
+      {isLoadingCriteria || isLoadingJob || isLoadingSkills || job === null ? (
         <div
           data-c-container="form"
           data-c-padding="top(triple) bottom(triple)"
@@ -143,7 +169,7 @@ const JobTasksPage: React.FunctionComponent<
           >
             <p>
               <FormattedMessage
-                id="jobBuilderTasksPage.loading"
+                id="jobBuilderSkillsPage.loading"
                 defaultMessage="Your job is loading..."
                 description="Message indicating that the current job is still being loaded."
               />
@@ -151,13 +177,13 @@ const JobTasksPage: React.FunctionComponent<
           </div>
         </div>
       ) : (
-        <JobTasks
-          jobId={jobId}
+        <JobBuilderSkills
+          job={job}
           keyTasks={keyTasks}
-          validCount={VALID_COUNT}
+          initialCriteria={criteria}
+          skills={skills}
           handleSubmit={handleSubmit}
-          handleModalCancel={handleModalCancel}
-          handleModalConfirm={handleModalConfirm}
+          handleContinue={handleContinue}
         />
       )}
     </section>
@@ -169,54 +195,66 @@ const mapStateToProps = (
   ownProps: { jobId: number },
 ): {
   job: Job | null;
+  skills: Skill[];
   keyTasks: JobPosterKeyTask[];
+  criteria: Criteria[];
 } => ({
   job: getJob(state, ownProps),
+  skills: getSkills(state),
   keyTasks: getTasksByJob(state, ownProps),
+  criteria: getCriteriaByJob(state, ownProps),
 });
 
 const mapDispatchToProps = (
   dispatch: DispatchType,
 ): {
   loadJob: (jobId: number) => Promise<void>;
+  loadSkills: () => Promise<void>;
   loadTasks: (jobId: number) => Promise<void>;
-  handleUpdateTasks: (
+  loadCriteria: (jobId: number) => Promise<void>;
+  handleSubmitCriteria: (
     jobId: number,
-    tasks: JobPosterKeyTask[],
-  ) => Promise<JobPosterKeyTask[]>;
+    criteria: Criteria[],
+  ) => Promise<Criteria[]>;
 } => ({
   loadJob: async (jobId: number): Promise<void> => {
     await dispatch(fetchJob(jobId));
   },
+  loadSkills: async (): Promise<void> => {
+    await dispatch(fetchSkills());
+  },
   loadTasks: async (jobId: number): Promise<void> => {
     await dispatch(fetchJobTasks(jobId));
   },
-  handleUpdateTasks: async (
+  loadCriteria: async (jobId: number): Promise<void> => {
+    await dispatch(fetchCriteria(jobId));
+  },
+  handleSubmitCriteria: async (
     jobId: number,
-    tasks: JobPosterKeyTask[],
-  ): Promise<JobPosterKeyTask[]> => {
-    const result = await dispatch(batchUpdateJobTasks(jobId, tasks));
+    criteria: Criteria[],
+  ): Promise<Criteria[]> => {
+    const result = await dispatch(batchUpdateCriteria(jobId, criteria));
     if (result.error) {
       return Promise.reject(result.payload);
     }
-    const resultTasks = await result.payload;
-    return resultTasks;
+    const resultCriteria = await result.payload;
+    return resultCriteria;
   },
 });
 
-const JobTasksPageContainer = connect(
+const JobSkillsPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(injectIntl(JobTasksPage));
+)(injectIntl(JobBuilderSkillsPage));
 
-if (document.getElementById("job-builder-tasks")) {
-  const container = document.getElementById("job-builder-tasks") as HTMLElement;
+if (document.getElementById("job-builder-skills")) {
+  const container = document.getElementById("job-builder-skills") as HTMLElement;
   const jobIdAttr = container.getAttribute("data-job-id");
   const jobId = jobIdAttr ? Number(jobIdAttr) : null;
   if (jobId) {
     ReactDOM.render(
       <RootContainer>
-        <JobTasksPageContainer jobId={jobId} />
+        <JobSkillsPageContainer jobId={jobId} />
       </RootContainer>,
       container,
     );

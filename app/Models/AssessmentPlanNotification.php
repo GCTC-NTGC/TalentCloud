@@ -10,6 +10,7 @@ namespace App\Models;
  * @property string $type
  * @property int $criteria_id
  * @property int $criteria_type_id
+ * @property int $criteria_type_id_new
  * @property int $skill_id
  * @property int $skill_id_new
  * @property int $skill_level_id

@@ -4,6 +4,8 @@ import {
   parseJob,
   parseTasksResponse,
   getTasksEndpoint,
+  getCriteriaEndpoint,
+  parseCriteriaResponse,
 } from "../../api/job";
 import { Job, Criteria, JobPosterKeyTask } from "../../models/types";
 import {
@@ -194,6 +196,69 @@ export const batchUpdateJobTasks = (
     { jobId },
   );
 
+export const FETCH_CRITERIA_STARTED = "CRITERIA: GET STARTED";
+export const FETCH_CRITERIA_SUCCEEDED = "CRITERIA: GET SUCCEEDED";
+export const FETCH_CRITERIA_FAILED = "CRITERIA: GET FAILED";
+
+export type FetchCriteriaAction = AsyncFsaActions<
+  typeof FETCH_CRITERIA_STARTED,
+  typeof FETCH_CRITERIA_SUCCEEDED,
+  typeof FETCH_CRITERIA_FAILED,
+  Criteria[],
+  { jobId: number }
+>;
+
+export const fetchCriteria = (
+  jobId: number,
+): RSAActionTemplate<
+  typeof FETCH_CRITERIA_STARTED,
+  typeof FETCH_CRITERIA_SUCCEEDED,
+  typeof FETCH_CRITERIA_FAILED,
+  Criteria[],
+  { jobId: number }
+> =>
+  asyncGet(
+    getCriteriaEndpoint(jobId),
+    FETCH_CRITERIA_STARTED,
+    FETCH_CRITERIA_SUCCEEDED,
+    FETCH_CRITERIA_FAILED,
+    parseCriteriaResponse,
+    { jobId },
+  );
+
+export const BATCH_UPDATE_CRITERIA_STARTED = "CRITERIA: BATCH UPDATE STARTED";
+export const BATCH_UPDATE_CRITERIA_SUCCEEDED =
+  "CRITERIA: BATCH UPDATE SUCCEEDED";
+export const BATCH_UPDATE_CRITERIA_FAILED = "CRITERIA: BATCH UPDATE FAILED";
+
+export type BatchUpdateCriteriaAction = AsyncFsaActions<
+  typeof BATCH_UPDATE_CRITERIA_STARTED,
+  typeof BATCH_UPDATE_CRITERIA_SUCCEEDED,
+  typeof BATCH_UPDATE_CRITERIA_FAILED,
+  Criteria[],
+  { jobId: number }
+>;
+
+export const batchUpdateCriteria = (
+  jobId: number,
+  criteria: Criteria[],
+): RSAActionTemplate<
+  typeof BATCH_UPDATE_CRITERIA_STARTED,
+  typeof BATCH_UPDATE_CRITERIA_SUCCEEDED,
+  typeof BATCH_UPDATE_CRITERIA_FAILED,
+  Criteria[],
+  { jobId: number }
+> =>
+  asyncPut(
+    getCriteriaEndpoint(jobId),
+    criteria,
+    BATCH_UPDATE_CRITERIA_STARTED,
+    BATCH_UPDATE_CRITERIA_SUCCEEDED,
+    BATCH_UPDATE_CRITERIA_FAILED,
+    parseCriteriaResponse,
+    { jobId },
+  );
+
 export type JobAction =
   | FetchJobAction
   | CreateJobAction
@@ -202,6 +267,8 @@ export type JobAction =
   | ClearEditJobAction
   | SetSelectedJobAction
   | FetchJobTasksAction
-  | BatchUpdateJobTasksAction;
+  | BatchUpdateJobTasksAction
+  | FetchCriteriaAction
+  | BatchUpdateCriteriaAction;
 
 export default { fetchJob };
