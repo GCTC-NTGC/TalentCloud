@@ -17,12 +17,12 @@
   {
     "id": "assessmentPlan.alert.created",
     "description": "Description of the new criteria that have been added to this job.",
-    "defaultMessage": "{skills} {count,plural,,one{was} other{were}} added."
+    "defaultMessage": "{skills} {count,plural,one{was} other{were}} added."
   },
   {
     "id": "assessmentPlan.alert.skillLevelUpdated",
     "description": "Description of the criteria that had their level changed.",
-    "defaultMessage": "{skills} {count,plural,,one{was} other{were}} updated."
+    "defaultMessage": "{skills} {count,plural,one{was} other{were}} updated."
   },
   {
     "id": "assessmentPlan.alert.skillUpdated",
@@ -37,6 +37,6 @@
   {
     "id": "assessmentPlan.alert.deleted",
     "description": "Description of criteria which were removed from the job.",
-    "defaultMessage": "{skills} {count,plural,,one{was} other{were}} removed."
+    "defaultMessage": "{skills} {count,plural,one{was} other{were}} removed."
   }
 ]
