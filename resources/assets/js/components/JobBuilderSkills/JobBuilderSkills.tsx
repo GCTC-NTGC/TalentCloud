@@ -234,10 +234,10 @@ export const JobBuilderSkills: React.FunctionComponent<
     return skill !== null && isFuture(skill);
   });
 
-  const otherSkills = skills.filter(
-    (skill): boolean =>
-      !isOccupational(skill) && !isCulture(skill) && !isFuture(skill),
-  );
+  // Optional skills are those that don't fit into the other three categories
+  const isOptional = (skill: Skill): boolean =>
+    !isOccupational(skill) && !isCulture(skill) && !isFuture(skill);
+  const otherSkills = skills.filter(isOptional);
   const selectedSkillIds = jobCriteria
     .map(getSkillOfCriteria)
     .filter(notEmpty)
@@ -336,7 +336,9 @@ export const JobBuilderSkills: React.FunctionComponent<
         key={skill.id}
         className={`jpb-skill ${isOccupational(skill) ? "occupational" : ""} ${
           isCulture(skill) ? "cultural" : ""
-        } ${isFuture(skill) ? "future" : ""}`}
+        } ${isFuture(skill) ? "future" : ""} ${
+          isOptional(skill) ? "optional" : ""
+        }`}
         data-tc-up-down-item
       >
         <div data-c-grid="gutter middle">
@@ -962,7 +964,9 @@ export const JobBuilderSkills: React.FunctionComponent<
               >
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
-                <span>Aim for {minOccupational} - {maxOccupational} skills.</span>
+                <span>
+                  Aim for {minOccupational} - {maxOccupational} skills.
+                </span>
               </div>
             </div>
             {/* This is the list of skills. Clicking a skill button should trigger the "Edit skill" modal so that the user can edit the definition/level before adding it. If they DO add it, you can assign an "active" class to the respective button so indicate that it's selected. This will change it's colour and icon automatically. This is also the area where "Culture Skills" is split into the two categories - see the Culture Skills section below for what that looks like. */}
@@ -1023,7 +1027,9 @@ export const JobBuilderSkills: React.FunctionComponent<
               >
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
-                <span>Aim for {minCulture} - {maxCulture} skills.</span>
+                <span>
+                  Aim for {minCulture} - {maxCulture} skills.
+                </span>
               </div>
             </div>
             {/** Culture skills are intended to be split into two lists, Recommended and Remaining. Until the recommendation logic is nailed down, its just one. */}
@@ -1119,7 +1125,9 @@ export const JobBuilderSkills: React.FunctionComponent<
               >
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
-                <span>Aim for {minFuture} - {maxFuture} skills.</span>
+                <span>
+                  Aim for {minFuture} - {maxFuture} skills.
+                </span>
               </div>
             </div>
             <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
@@ -1155,10 +1163,7 @@ export const JobBuilderSkills: React.FunctionComponent<
           <div data-c-grid="gutter top">
             <div data-c-grid-item="base(1of1)">
               {/** TODO: Fix the layout of the skill cloud */}
-              <h5
-                className="jpb-skill-section-title"
-                data-c-font-size="h4"
-              >
+              <h5 className="jpb-skill-section-title" data-c-font-size="h4">
                 <span
                   data-c-font-size="small"
                   data-c-margin="right(half)"
@@ -1198,7 +1203,9 @@ export const JobBuilderSkills: React.FunctionComponent<
             </div>
             <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
               {/** TODO: Get this null state text hiding/showing. */}
-              <p>There are no extra skills added.</p>
+              {selectedOtherSkills.length === 0 && (
+                <p>There are no extra skills added.</p>
+              )}
               {selectedOtherSkills.map(renderSkillButton)}
             </ul>
           </div>
