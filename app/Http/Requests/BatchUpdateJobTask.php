@@ -3,14 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Config;
-use App\Services\Validation\Rules\ValidIdRule;
-use App\Models\Lookup\Department;
-use App\Models\Lookup\Province;
-use App\Models\Lookup\SecurityClearance;
-use App\Models\Lookup\LanguageRequirement;
-use App\Models\JobPoster;
-use App\Models\Lookup\Frequency;
 
 class BatchUpdateJobTask extends FormRequest
 {

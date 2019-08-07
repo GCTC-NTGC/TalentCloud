@@ -1,5 +1,38 @@
 [
   {
+    "id": "jobBuilder.impact.hireLabel",
+    "description": "Label for hire impact statement text area",
+    "defaultMessage": "Hire Impact Statement"
+  },
+  {
+    "id": "jobBuilder.impact.teamLabel",
+    "description": "Label for team impact statement text area",
+    "defaultMessage": "Team Impact Statement"
+  },
+  {
+    "id": "jobBuilder.impact.hirePlaceholder",
+    "defaultMessage": "Remember, don't use Government speak..."
+  },
+  {
+    "id": "jobBuilder.impact.teamPlaceholder",
+    "defaultMessage": "Try for a casual, frank, friendly tone..."
+  },
+  {
+    "id": "jobBuilder.impact.selectDepartment",
+    "description": "Message warning user that they must have a department selected to complete impact statements.",
+    "defaultMessage": "You must select a Department for this Job."
+  },
+  {
+    "id": "jobBuilder.impact.departmentsLoading",
+    "description": "Placeholder message while department data is being retrieved from the server.",
+    "defaultMessage": "Loading department data..."
+  },
+  {
+    "id": "jobBuilder.impact.unknownDepartment",
+    "description": "Error message shown when the job has a department selected for which data has not been passed to this component.",
+    "defaultMessage": "Error: Unknown Department selected."
+  },
+  {
     "id": "jobBuilder.impact.title",
     "description": "Header of Job Poster Builder Impact Step",
     "defaultMessage": "Create an Impact Statement"
@@ -23,5 +56,30 @@
     "id": "jobBuilder.impact.header.department",
     "description": "Header of Department Impact Section on Job Poster Builder Impact Step",
     "defaultMessage": "How our department makes an impact:"
+  },
+  {
+    "id": "jobBuilder.impact.teamHeader",
+    "description": "Header of Job Poster Builder Team Impact Section",
+    "defaultMessage": "How our team makes an impact:"
+  },
+  {
+    "id": "jobBuilder.impact.teamBody",
+    "description": "Body of Job Poster Builder Team Impact Section",
+    "defaultMessage": "Describe the value your team/service/initiative brings to Canadians.\r\n              It doesn’t matter if your work is direct to citizens or back office,\r\n              innovative or maintenance, top priority or ongoing. Describe how it\r\n              contributes to making Canada better the way you would to someone who\r\n              knows nothing about your work."
+  },
+  {
+    "id": "jobBuilder.impact.hireHeader",
+    "description": "Header of Job Poster Builder Hire Impact Section",
+    "defaultMessage": "How the new hire makes an impact:"
+  },
+  {
+    "id": "jobBuilder.impact.hireBody",
+    "description": "Body of Job Poster Builder Hire Impact Section",
+    "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\r\n              value they’ll bring, not on specific tasks (you’ll provide these\r\n              later on). For example “In this role, you’ll contribute to…” or, “As\r\n              a member of this team, you’ll be responsible for helping us…”"
+  },
+  {
+    "id": "jobBuilder.impact.button.next",
+    "description": "Button text Next",
+    "defaultMessage": "Next"
   }
 ]

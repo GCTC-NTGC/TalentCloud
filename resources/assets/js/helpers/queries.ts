@@ -1,5 +1,3 @@
-import { string } from "prop-types";
-
 /**
  * Shortcut function that returns the id attribute of an object.
  * @param item

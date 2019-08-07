@@ -1375,6 +1375,9 @@ export const JobBuilderSkills: React.FunctionComponent<
                           )}
                         </p>
                         <p>{criterion[locale].description}</p>
+                        {criterion[locale].specificity && (
+                          <p>{criterion[locale].specificity}</p>
+                        )}
                       </div>
                     );
                   },

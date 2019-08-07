@@ -434,7 +434,6 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                           <button
                             data-c-button="solid(c2)"
                             data-c-dialog-action="open"
-                            data-c-dialog-id={modalId}
                             data-c-radius="rounded"
                             type="submit"
                             disabled={isSubmitting}
@@ -474,8 +473,6 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                   data-c-padding="normal"
                 >
                   <h5
-                    data-c-dialog-focus
-                    tabIndex={0}
                     data-c-colour="white"
                     data-c-font-size="h4"
                     id={`${modalId}-title`}
