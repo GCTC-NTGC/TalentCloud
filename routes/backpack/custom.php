@@ -16,4 +16,5 @@ Route::group([
     CRUD::resource('user', 'UserCrudController');
     CRUD::resource('manager', 'ManagerCrudController');
     CRUD::resource('department', 'DepartmentCrudController');
+    CRUD::resource('classification', 'ClassificationCrudController');
 });

@@ -31,8 +31,7 @@ use Astrotomic\Translatable\Translatable;
  * @property int $salary_min
  * @property int $salary_max
  * @property int $noc
- * @property string $classification
- * @property string $classification_code
+ * @property int $classification_id
  * @property int $classification_level
  * @property int $security_clearance_id
  * @property int $language_requirement_id
@@ -80,6 +79,10 @@ use Astrotomic\Translatable\Translatable;
  * @property string $work_env_description
  * @property string $culture_summary
  * @property string $culture_special
+ *
+ * Computed Properties
+ * @property string $classification
+ * @property string $classification_code
  *
  * Methods
  * @method boolean isOpen()
@@ -129,7 +132,7 @@ class JobPoster extends BaseModel
         'salary_min' => 'int',
         'salary_max' => 'int',
         'noc' => 'int',
-        'classification_code' => 'string',
+        'classification_id' => 'int',
         'classification_level' => 'int',
         'security_clearance_id' => 'int',
         'language_requirement_id' => 'int',
@@ -337,6 +340,21 @@ class JobPoster extends BaseModel
     // Accessors.
 
     /**
+     * The database model stores a foreign id to the classifiction table,
+     * but to simplify the API, this model simply returns the key as classification_code.
+     *
+     * @return void
+     */
+    public function getClassificationCodeAttribute()
+    {
+        if ($this->classification_id !== null) {
+            $classification = Classification::find($this->classification_id);
+            return $classification->key;
+        }
+        return null;
+    }
+
+    /**
      * The classification property is deprecated. To ensure
      * Twig template consistency, check for populated
      * classification_code and classification_level and return
@@ -356,6 +374,23 @@ class JobPoster extends BaseModel
     }
 
     // Mutators.
+
+    /**
+     * This model exposes the classification_code attribute, but it is determined
+     * by the classification_id column in the database, so set that value instead.
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setClassificationCodeAttribute($value): void
+    {
+        $classification = Classification::where('key', $value)->first();
+        if ($classification !== null) {
+            $this->attributes['classification_id'] = $classification->id;
+        } else {
+            $this->attributes['classification_id'] = null;
+        }
+    }
 
     /**
      * Intercept setting the "published" attribute, and set the

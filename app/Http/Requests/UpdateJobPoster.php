@@ -48,7 +48,7 @@ class UpdateJobPoster extends FormRequest
             'salary_min' => 'nullable|numeric',
             'salary_max' => 'nullable|numeric',
             'noc' => 'nullable|numeric',
-            'classification_code' => 'nullable|regex:/[A-Z]{2}/',
+            'classification_code' => 'nullable|exists:classifications,key',
             'classification_level' => 'nullable|numeric',
             'remote_work_allowed' => 'nullable|boolean',
             'team_size' => 'nullable|numeric',
