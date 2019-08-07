@@ -170,6 +170,9 @@ export const JobBuilderSkills: React.FunctionComponent<
   );
   const assetCount: number = assetCriteria.length;
 
+  // Set this to true to show the Key Tasks modal
+  const [tasksModalVisible, setTasksModalVisible] = useState(false);
+
   // When skillBeingAdded is not null, the modal to add a new skill will appear.
   const [skillBeingAdded, setSkillBeingAdded] = useState<Skill | null>(null);
 
@@ -183,11 +186,13 @@ export const JobBuilderSkills: React.FunctionComponent<
 
   // This should be true if ANY modal is visible. The modal overlay uses this.
   const isModalVisible =
+    tasksModalVisible ||
     skillBeingAdded !== null ||
     criteriaBeingEdited !== null ||
     isPreviewVisible;
   const modalParentRef = useRef<HTMLDivElement>(null);
 
+  const tasksModalId = "job-builder-review-tasks";
   const addModalId = "job-builder-add-skill";
   const editModalId = "job-builder-edit-skill";
   const previewModalId = "job-builder-preview-skills";
@@ -446,25 +451,26 @@ export const JobBuilderSkills: React.FunctionComponent<
           Skills
         </h3>
         <p data-c-margin="bottom(triple)">
-          This is where you'll select the criteria that are required to do this
-          job effectively. Below are two bars that indicate a measurement of
-          your current skill selection.
+          This is where you&apos;ll select the criteria that are required to do
+          this job effectively. Below are two bars that indicate a measurement
+          of your current skill selection.
         </p>
-        <h4
-          data-c-colour="c2"
-          data-c-font-size="h4"
-          data-c-margin="bottom(normal)"
+        <div
+          data-c-margin="bottom(triple)"
+          data-c-align="base(centre) tl(left)"
         >
-          Review Your Tasks
-        </h4>
-        {/* This is just regurgitated tasks from the previous step. */}
-        <ul data-c-margin="bottom(triple)">
-          {keyTasks.map(
-            (task): React.ReactElement => (
-              <li key={task.id}>{task[locale].description}</li>
-            ),
-          )}
-        </ul>
+          {/* We'll want this button to functionally be the exact same as the button at the bottom of the page, where it saves the data, and opens the preview modal. */}
+          <button
+            data-c-button="solid(c2)"
+            data-c-radius="rounded"
+            type="button"
+            disabled={tasksModalVisible}
+            onClick={(): void => setTasksModalVisible(true)}
+          >
+            View Key Tasks
+          </button>
+        </div>
+
         {/* Total Skills List */}
         <h4
           data-c-colour="c2"
@@ -1104,20 +1110,20 @@ export const JobBuilderSkills: React.FunctionComponent<
         {/* This section is basically just text, but it prompts the manager to get in touch with us if they can't find the skill they're looking for. */}
         {/* "Custom" Skills */}
         <h5 data-c-font-weight="bold" data-c-margin="top(double) bottom(half)">
-          Can't find the skill you need?
+          Can&apos;t find the skill you need?
         </h5>
         <p data-c-margin="bottom(normal)">
-          Building a skills list is a huge endeavour, and it's not surprising
-          that Talent Cloud's list doesn't have the skill you're looking for. To
-          help us expand our skill list, please{" "}
+          Building a skills list is a huge endeavour, and it&apos;s not
+          surprising that Talent Cloud&apos;s list doesn&apos;t have the skill
+          you&apos;re looking for. To help us expand our skill list, please{" "}
           <a
             href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
             title="Get in touch with Talent Cloud to have a skill added to the platform."
           >
             get in touch with us through email
           </a>
-          . Provide the skill's name, as well as a short description to kick-off
-          the discussion.
+          . Provide the skill&apos;s name, as well as a short description to
+          kick-off the discussion.
         </p>
         <div data-c-grid="gutter">
           <div data-c-grid-item="base(1of1)">
@@ -1154,6 +1160,56 @@ export const JobBuilderSkills: React.FunctionComponent<
         </div>
       </div>
       <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
+      {/** This modal simply displays key tasks. */}
+      <Modal
+        id={tasksModalId}
+        parentElement={modalParentRef.current}
+        visible={tasksModalVisible}
+        onModalCancel={(): void => setTasksModalVisible(false)}
+        onModalConfirm={(): void => setTasksModalVisible(false)}
+      >
+        <Modal.Header>
+          <div
+            data-c-background="c1(100)"
+            data-c-border="bottom(thin, solid, black)"
+            data-c-padding="normal"
+          >
+            <h5
+              data-c-colour="white"
+              data-c-font-size="h4"
+              id={`${tasksModalId}-title`}
+            >
+              Key Tasks
+            </h5>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <div data-c-border="bottom(thin, solid, black)">
+            <div
+              data-c-border="bottom(thin, solid, black)"
+              data-c-padding="normal"
+              id={`${tasksModalId}-description`}
+            >
+              <ul>
+                {keyTasks.map(
+                  (task): React.ReactElement => (
+                    <li key={task.id}>{task[locale].description}</li>
+                  ),
+                )}
+              </ul>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Modal.FooterCancelBtn>
+            <FormattedMessage
+              id="jobSkills.tasksModalCancelLabel"
+              defaultMessage="Back to Skills"
+              description="The text displayed on the cancel button of the Key Tasks modal on the Job Builder Skills step."
+            />
+          </Modal.FooterCancelBtn>
+        </Modal.Footer>
+      </Modal>
       {/** This modal is for adding brand new skills */}
       <Modal
         id={addModalId}
@@ -1257,8 +1313,6 @@ export const JobBuilderSkills: React.FunctionComponent<
             data-c-padding="normal"
           >
             <h5
-              data-c-dialog-focus
-              tabIndex={0}
               data-c-colour="white"
               data-c-font-size="h4"
               id={`${previewModalId}-title`}
@@ -1274,9 +1328,9 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-padding="normal"
               id={`${previewModalId}-description`}
             >
-              Here's a preview of the Tasks you just entered. Feel free to go
-              back and edit things or move to the next step if you're happy with
-              it.
+              Here&apos;s a preview of the Skills you just entered. Feel free to
+              go back and edit things or move to the next step if you&apos;re
+              happy with it.
             </div>
 
             <div data-c-background="grey(20)" data-c-padding="normal">
@@ -1359,14 +1413,14 @@ export const JobBuilderSkills: React.FunctionComponent<
         <Modal.Footer>
           <Modal.FooterCancelBtn>
             <FormattedMessage
-              id="jobSkills.modalCancelLabel"
+              id="jobSkills.previewModalCancelLabel"
               defaultMessage="Go Back"
               description="The text displayed on the cancel button of the Job Builder Skills Preview modal."
             />
           </Modal.FooterCancelBtn>
           <Modal.FooterConfirmBtn>
             <FormattedMessage
-              id="jobSkills.modalConfirmLabel"
+              id="jobSkills.previewModalConfirmLabel"
               defaultMessage="Next Step"
               description="The text displayed on the confirm button of the Job Builder Skills Preview modal."
             />
