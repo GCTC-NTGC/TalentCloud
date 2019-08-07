@@ -29,8 +29,13 @@ export const parseJobResponse = (
 
 export const parseTasksResponse = (data: any): JobPosterKeyTask[] => data;
 
+export const parseCriteriaResponse = (data: any): Criteria[] => data;
+
 export const getJobEndpoint = (id: number | null): string =>
   id ? `${baseUrl()}/jobs/${id}` : `${baseUrl()}/jobs`;
 
 export const getTasksEndpoint = (jobId: number): string =>
   `${getJobEndpoint(jobId)}/tasks`;
+
+export const getCriteriaEndpoint = (jobId: number): string =>
+  `${getJobEndpoint(jobId)}/criteria`;
