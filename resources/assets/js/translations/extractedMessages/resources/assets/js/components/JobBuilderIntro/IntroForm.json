@@ -52,7 +52,7 @@
   {
     "id": "jobBuilder.intro.welcome",
     "description": "Header of Job Poster Builder Intro Step",
-    "defaultMessage": "EN Welcome to the Job Poster Builder"
+    "defaultMessage": "Welcome to the Job Poster Builder"
   },
   {
     "id": "jobBuilder.intro.subtitle01",

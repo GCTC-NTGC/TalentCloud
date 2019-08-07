@@ -2,20 +2,27 @@
 
 namespace App\Models;
 
+use Backpack\CRUD\CrudTrait;
+
 /**
- * Class UserRole
+ * Class UserRole.
  *
  * @property int $id
  * @property string $key
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- *
  * @property \Illuminate\Database\Eloquent\Collection $skills
  */
 class Classification extends BaseModel
 {
+    use CrudTrait;
 
-    protected $fillable = [];
+    /**
+     * @var string
+     */
+    protected $fillable = [
+        'key'
+    ];
 
     public function skills()
     {

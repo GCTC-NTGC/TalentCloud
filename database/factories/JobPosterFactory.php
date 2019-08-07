@@ -11,6 +11,7 @@ use App\Models\Criteria;
 use App\Models\JobPosterKeyTask;
 use App\Models\JobPosterQuestion;
 use App\Models\Lookup\Frequency;
+use App\Models\Classification;
 
 $faker_fr = Faker\Factory::create('fr');
 
@@ -18,7 +19,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
     $closeDate = $faker->dateTimeBetween('now', '1 months')->format('Y-m-d');
     $openDate = $faker->dateTimeBetween('-1 months', 'now')->format('Y-m-d');
     $startDate = $faker->dateTimeBetween('1 months', '2 months')->format('Y-m-d');
-    $classificationCode = $faker->regexify('[A-Z]{2}');
+    $classificationCode = Classification::inRandomOrder()->first()->key;
     $classificationLevel = $faker->numberBetween(1, 6);
     return [
         'job_term_id' => JobTerm::inRandomOrder()->first()->id,

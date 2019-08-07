@@ -468,9 +468,9 @@ export const JobBuilderSkills: React.FunctionComponent<
           Skills
         </h3>
         <p data-c-margin="bottom(triple)">
-          This is where you'll select the criteria that are required to do this
-          job effectively. Below are two bars that indicate a measurement of
-          your current skill selection.
+          This is where you&apos;ll select the criteria that are required to do
+          this job effectively. Below are two bars that indicate a measurement
+          of your current skill selection.
         </p>
         <div
           data-c-margin="bottom(triple)"
@@ -1130,20 +1130,20 @@ export const JobBuilderSkills: React.FunctionComponent<
         {/* This section is basically just text, but it prompts the manager to get in touch with us if they can't find the skill they're looking for. */}
         {/* "Custom" Skills */}
         <h5 data-c-font-weight="bold" data-c-margin="top(double) bottom(half)">
-          Can't find the skill you need?
+          Can&apos;t find the skill you need?
         </h5>
         <p data-c-margin="bottom(normal)">
-          Building a skills list is a huge endeavour, and it's not surprising
-          that Talent Cloud's list doesn't have the skill you're looking for. To
-          help us expand our skill list, please{" "}
+          Building a skills list is a huge endeavour, and it&apos;s not
+          surprising that Talent Cloud&apos;s list doesn&apos;t have the skill
+          you&apos;re looking for. To help us expand our skill list, please{" "}
           <a
             href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
             title="Get in touch with Talent Cloud to have a skill added to the platform."
           >
             get in touch with us through email
           </a>
-          . Provide the skill's name, as well as a short description to kick-off
-          the discussion.
+          . Provide the skill&apos;s name, as well as a short description to
+          kick-off the discussion.
         </p>
         <div
           className="jpb-skill-category optional"
@@ -1266,7 +1266,7 @@ export const JobBuilderSkills: React.FunctionComponent<
             <div
               data-c-border="bottom(thin, solid, black)"
               data-c-padding="normal"
-              id={`${previewModalId}-description`}
+              id={`${tasksModalId}-description`}
             >
               <ul>
                 {keyTasks.map(
@@ -1391,8 +1391,6 @@ export const JobBuilderSkills: React.FunctionComponent<
             data-c-padding="normal"
           >
             <h5
-              data-c-dialog-focus
-              tabIndex={0}
               data-c-colour="white"
               data-c-font-size="h4"
               id={`${previewModalId}-title`}
@@ -1408,9 +1406,9 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-padding="normal"
               id={`${previewModalId}-description`}
             >
-              Here's a preview of the Skills you just entered. Feel free to go
-              back and edit things or move to the next step if you're happy with
-              it.
+              Here&apos;s a preview of the Skills you just entered. Feel free to
+              go back and edit things or move to the next step if you&apos;re
+              happy with it.
             </div>
 
             <div data-c-background="grey(20)" data-c-padding="normal">
