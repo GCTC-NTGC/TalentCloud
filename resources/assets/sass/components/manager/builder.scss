@@ -175,7 +175,7 @@ $optional-colour: #f5b642;
         border-bottom: 1px solid rgba($clone-grey, .4);
         padding: .5rem 0 1rem 0;
         @media #{$clone-tablet-landscape} {
-            padding: 0;
+            padding: 1rem 0 1.5rem;
         }
         &:last-child {
             border-bottom: none;
@@ -258,7 +258,7 @@ $optional-colour: #f5b642;
         }
         &.optional {
             .jpb-skill-type {
-                background: $future-colour;
+                background: $optional-colour;
                 text-align: center;
                 .fa-briefcase {
                     display: none;
