@@ -1,11 +1,16 @@
 [
   {
-    "id": "jobSkills.modalCancelLabel",
+    "id": "jobSkills.tasksModalCancelLabel",
+    "description": "The text displayed on the cancel button of the Key Tasks modal on the Job Builder Skills step.",
+    "defaultMessage": "Back to Skills"
+  },
+  {
+    "id": "jobSkills.previewModalCancelLabel",
     "description": "The text displayed on the cancel button of the Job Builder Skills Preview modal.",
     "defaultMessage": "Go Back"
   },
   {
-    "id": "jobSkills.modalConfirmLabel",
+    "id": "jobSkills.previewModalConfirmLabel",
     "description": "The text displayed on the confirm button of the Job Builder Skills Preview modal.",
     "defaultMessage": "Next Step"
   }

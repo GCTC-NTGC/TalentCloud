@@ -65,6 +65,16 @@
     "defaultMessage": "Experimental vs. Ongoing Business:"
   },
   {
+    "id": "jobBuilder.workEnv.facingLabel",
+    "description": "The label for the facing radio group",
+    "defaultMessage": "Citizen Facing vs. Back Office:"
+  },
+  {
+    "id": "jobBuilder.workEnv.collaborativeLabel",
+    "description": "The label for the \"colaborative vs independent\" radio group",
+    "defaultMessage": "Collaborative vs. Independent:"
+  },
+  {
     "id": "jobBuilder.workEnv.cultureSummary",
     "description": "The header for the culture summary section.",
     "defaultMessage": "Culture Summary"
@@ -294,6 +304,70 @@
   {
     "id": "jobBuilder.experimental.04.description",
     "defaultMessage": "Most of our work involves administrative tasks are repeated on a regular basis. Consistency is key here, so we follow a standard process with tried and true tools."
+  },
+  {
+    "id": "jobBuilder.facing.01.title",
+    "defaultMessage": "Citizen Facing"
+  },
+  {
+    "id": "jobBuilder.facing.01.description",
+    "defaultMessage": "We are the face of the service we deliver and spend most of our time engaging directly with the public."
+  },
+  {
+    "id": "jobBuilder.facing.02.title",
+    "defaultMessage": "Mostly Citizen Facing"
+  },
+  {
+    "id": "jobBuilder.facing.02.description",
+    "defaultMessage": "We spend a lot of our time engaging directly with the public, but there is also behind the scenes work to support others."
+  },
+  {
+    "id": "jobBuilder.facing.03.title",
+    "defaultMessage": "Mostly Back Office"
+  },
+  {
+    "id": "jobBuilder.facing.03.description",
+    "defaultMessage": "We usually work behind the scenes doing important work that makes service delivery possible."
+  },
+  {
+    "id": "jobBuilder.facing.04.title",
+    "defaultMessage": "Back Office"
+  },
+  {
+    "id": "jobBuilder.facing.04.description",
+    "defaultMessage": "We work behind the scenes doing important work that makes service delivery possible. We thrive on supporting others."
+  },
+  {
+    "id": "jobBuilder.collaborativeness.01.title",
+    "defaultMessage": "Collaborative"
+  },
+  {
+    "id": "jobBuilder.collaborativeness.01.description",
+    "defaultMessage": "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in."
+  },
+  {
+    "id": "jobBuilder.collaborativeness.02.title",
+    "defaultMessage": "Somewhat Collaborative"
+  },
+  {
+    "id": "jobBuilder.collaborativeness.02.description",
+    "defaultMessage": "Our team has a diverse set of skills and we recognize each others strengths. We work together often and are quick to pitch in when someone asks for help."
+  },
+  {
+    "id": "jobBuilder.collaborativeness.03.title",
+    "defaultMessage": "Somewhat Independent"
+  },
+  {
+    "id": "jobBuilder.collaborativeness.03.description",
+    "defaultMessage": "Members of our team own their piece of the puzzle and have some freedom to choose how they get their work done."
+  },
+  {
+    "id": "jobBuilder.collaborativeness.04.title",
+    "defaultMessage": "Independent"
+  },
+  {
+    "id": "jobBuilder.collaborativeness.04.description",
+    "defaultMessage": "Members of our team own their piece of the puzzle. It doesn’t really matter how we get our work done as long as it’s high quality."
   },
   {
     "id": "jobBuilder.workEnv.title",
