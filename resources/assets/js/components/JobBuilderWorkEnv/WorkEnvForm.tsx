@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef } from "react";
-import { Form, Field, Formik } from "formik";
+import { Form, Field, Formik, FormikTouched, FormikErrors } from "formik";
 import * as Yup from "yup";
 import {
   injectIntl,
@@ -106,6 +106,16 @@ const formMessages = defineMessages({
     id: "jobBuilder.workEnv.experimentalLabel",
     defaultMessage: "Experimental vs. Ongoing Business:",
     description: "The label for the experimental radio group",
+  },
+  facingLabel: {
+    id: "jobBuilder.workEnv.facingLabel",
+    defaultMessage: "Citizen Facing vs. Back Office:",
+    description: "The label for the facing radio group",
+  },
+  collaborativeLabel: {
+    id: "jobBuilder.workEnv.collaborativeLabel",
+    defaultMessage: "Collaborative vs. Independent:",
+    description: 'The label for the "colaborative vs independent" radio group',
   },
   cultureSummary: {
     id: "jobBuilder.workEnv.cultureSummary",
@@ -496,6 +506,142 @@ const experimentalList: {
   },
 ];
 
+const facingMessages = defineMessages({
+  facing01Title: {
+    id: "jobBuilder.facing.01.title",
+    defaultMessage: "Citizen Facing",
+  },
+  facing01Description: {
+    id: "jobBuilder.facing.01.description",
+    defaultMessage:
+      "We are the face of the service we deliver and spend most of our time engaging directly with the public.",
+  },
+  facing02Title: {
+    id: "jobBuilder.facing.02.title",
+    defaultMessage: "Mostly Citizen Facing",
+  },
+  facing02Description: {
+    id: "jobBuilder.facing.02.description",
+    defaultMessage:
+      "We spend a lot of our time engaging directly with the public, but there is also behind the scenes work to support others.",
+  },
+  facing03Title: {
+    id: "jobBuilder.facing.03.title",
+    defaultMessage: "Mostly Back Office",
+  },
+  facing03Description: {
+    id: "jobBuilder.facing.03.description",
+    defaultMessage:
+      "We usually work behind the scenes doing important work that makes service delivery possible.",
+  },
+  facing04Title: {
+    id: "jobBuilder.facing.04.title",
+    defaultMessage: "Back Office",
+  },
+  facing04Description: {
+    id: "jobBuilder.facing.04.description",
+    defaultMessage:
+      "We work behind the scenes doing important work that makes service delivery possible. We thrive on supporting others.",
+  },
+});
+type FacingId = "facing01" | "facing02" | "facing03" | "facing04";
+const facingList: {
+  id: FacingId;
+  title: FormattedMessage.MessageDescriptor;
+  subtext: FormattedMessage.MessageDescriptor;
+}[] = [
+  {
+    id: "facing01",
+    title: facingMessages.facing01Title,
+    subtext: facingMessages.facing01Description,
+  },
+  {
+    id: "facing02",
+    title: facingMessages.facing02Title,
+    subtext: facingMessages.facing02Description,
+  },
+  {
+    id: "facing03",
+    title: facingMessages.facing03Title,
+    subtext: facingMessages.facing03Description,
+  },
+  {
+    id: "facing04",
+    title: facingMessages.facing04Title,
+    subtext: facingMessages.facing04Description,
+  },
+];
+
+const collaborativenessMessages = defineMessages({
+  collaborativeness01Title: {
+    id: "jobBuilder.collaborativeness.01.title",
+    defaultMessage: "Collaborative",
+  },
+  collaborativeness01Description: {
+    id: "jobBuilder.collaborativeness.01.description",
+    defaultMessage:
+      "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.",
+  },
+  collaborativeness02Title: {
+    id: "jobBuilder.collaborativeness.02.title",
+    defaultMessage: "Somewhat Collaborative",
+  },
+  collaborativeness02Description: {
+    id: "jobBuilder.collaborativeness.02.description",
+    defaultMessage:
+      "Our team has a diverse set of skills and we recognize each others strengths. We work together often and are quick to pitch in when someone asks for help.",
+  },
+  collaborativeness03Title: {
+    id: "jobBuilder.collaborativeness.03.title",
+    defaultMessage: "Somewhat Independent",
+  },
+  collaborativeness03Description: {
+    id: "jobBuilder.collaborativeness.03.description",
+    defaultMessage:
+      "Members of our team own their piece of the puzzle and have some freedom to choose how they get their work done.",
+  },
+  collaborativeness04Title: {
+    id: "jobBuilder.collaborativeness.04.title",
+    defaultMessage: "Independent",
+  },
+  collaborativeness04Description: {
+    id: "jobBuilder.collaborativeness.04.description",
+    defaultMessage:
+      "Members of our team own their piece of the puzzle. It doesn’t really matter how we get our work done as long as it’s high quality.",
+  },
+});
+type CollaborativenessId =
+  | "collaborativeness01"
+  | "collaborativeness02"
+  | "collaborativeness03"
+  | "collaborativeness04";
+const collaborativenessList: {
+  id: CollaborativenessId;
+  title: FormattedMessage.MessageDescriptor;
+  subtext: FormattedMessage.MessageDescriptor;
+}[] = [
+  {
+    id: "collaborativeness01",
+    title: collaborativenessMessages.collaborativeness01Title,
+    subtext: collaborativenessMessages.collaborativeness01Description,
+  },
+  {
+    id: "collaborativeness02",
+    title: collaborativenessMessages.collaborativeness02Title,
+    subtext: collaborativenessMessages.collaborativeness02Description,
+  },
+  {
+    id: "collaborativeness03",
+    title: collaborativenessMessages.collaborativeness03Title,
+    subtext: collaborativenessMessages.collaborativeness03Description,
+  },
+  {
+    id: "collaborativeness04",
+    title: collaborativenessMessages.collaborativeness04Title,
+    subtext: collaborativenessMessages.collaborativeness04Description,
+  },
+];
+
 // shape of values used in Form
 export interface FormValues {
   teamSize?: number;
@@ -506,6 +652,8 @@ export interface FormValues {
   culturePace?: CulturePaceId;
   management?: MgmtStyleId;
   experimental?: ExperiementalId;
+  facing?: FacingId;
+  collaborativeness?: CollaborativenessId;
   cultureSummary: string;
   moreCultureSummary: string;
 }
@@ -528,6 +676,8 @@ const jobToValues = (
     fast_vs_steady,
     horizontal_vs_vertical,
     experimental_vs_ongoing,
+    citizen_facing_vs_back_office,
+    collaborative_vs_independent,
     work_env_features,
     ...job
   }: Job,
@@ -553,6 +703,16 @@ const jobToValues = (
       "experimental",
       experimentalList,
       experimental_vs_ongoing,
+    ),
+    ...convertSliderIdFromJob(
+      "facing",
+      facingList,
+      citizen_facing_vs_back_office,
+    ),
+    ...convertSliderIdFromJob(
+      "collaborativeness",
+      collaborativenessList,
+      citizen_facing_vs_back_office,
     ),
     envDescription: job[locale].work_env_description || "",
     cultureSummary: job[locale].culture_summary || "",
@@ -582,6 +742,8 @@ const updateJobWithValues = (
     culturePace,
     management,
     experimental,
+    facing,
+    collaborativeness,
     cultureSummary,
     moreCultureSummary,
   }: FormValues,
@@ -615,6 +777,11 @@ const updateJobWithValues = (
       experimentalList,
       experimental,
     ),
+    citizen_facing_vs_back_office: convertSliderIdToJob(facingList, facing),
+    collaborative_vs_independent: convertSliderIdToJob(
+      collaborativenessList,
+      collaborativeness,
+    ),
     work_env_features: workEnvFeatures,
     [locale]: {
       ...job[locale],
@@ -623,6 +790,71 @@ const updateJobWithValues = (
       culture_special: moreCultureSummary || null,
     },
   };
+};
+
+const renderRadioWithContext = (
+  intl: ReactIntl.InjectedIntl,
+  touched: FormikTouched<FormValues>,
+  errors: FormikErrors<FormValues>,
+  values: FormValues,
+  fieldName: string,
+  label: string,
+  sliderList: {
+    id: string;
+    title: FormattedMessage.MessageDescriptor;
+    subtext: FormattedMessage.MessageDescriptor;
+  }[],
+): React.ReactElement => {
+  return (
+    <div className="job-builder-culture-block" data-c-grid-item="base(1of1)">
+      <div data-c-grid="gutter">
+        <RadioGroup
+          id={fieldName}
+          label={label}
+          required
+          touched={touched[fieldName]}
+          error={errors[fieldName]}
+          value={values[fieldName]}
+          grid="base(1of1) tl(1of3)"
+        >
+          {sliderList.map(
+            ({ id, title }): React.ReactElement => {
+              return (
+                <Field
+                  key={id}
+                  name={fieldName}
+                  component={RadioInput}
+                  id={id}
+                  label={intl.formatMessage(title)}
+                  value={id}
+                  trigger
+                />
+              );
+            },
+          )}
+        </RadioGroup>
+        <ContextBlock
+          className="job-builder-context-block"
+          grid="base(1of1) tl(2of3)"
+        >
+          {sliderList.map(
+            ({ id, title, subtext }): React.ReactElement => {
+              return (
+                <ContextBlockItem
+                  key={id}
+                  contextId={id}
+                  title={intl.formatMessage(title)}
+                  subtext={intl.formatMessage(subtext)}
+                  className="job-builder-context-item"
+                  active={values[fieldName] === id}
+                />
+              );
+            },
+          )}
+        </ContextBlock>
+      </div>
+    </div>
+  );
 };
 
 interface WorkEnvFormProps {
@@ -708,6 +940,12 @@ const WorkEnvForm = ({
     experimental: Yup.string()
       .oneOf(experimentalList.map((item): string => item.id))
       .required(intl.formatMessage(validationMessages.checkboxRequired)),
+    facing: Yup.string()
+      .oneOf(facingList.map((item): string => item.id))
+      .required(intl.formatMessage(validationMessages.checkboxRequired)),
+    collaborativeness: Yup.string()
+      .oneOf(collaborativenessList.map((item): string => item.id))
+      .required(intl.formatMessage(validationMessages.checkboxRequired)),
   });
 
   /** Compiles and returns all the active radio buttons corresponding context box values within the culture section  */
@@ -721,8 +959,10 @@ const WorkEnvForm = ({
     const experimental = experimentalList.find(
       ({ id }): boolean => id === values.experimental,
     );
+    const facing = facingList.find(({ id }): boolean => id === values.facing);
+    const collaborativeness = collaborativenessList.find(({id}): boolean => id === values.collaborativeness);
 
-    const cultureSummary: string = [pace, management, experimental]
+    const cultureSummary: string = [pace, management, experimental, facing, collaborativeness]
       .filter(notEmpty)
       .map((item): string => intl.formatMessage(item.subtext))
       .join(" ");
@@ -930,161 +1170,51 @@ const WorkEnvForm = ({
                   <FormattedMessage {...formMessages.cultureSubtext2} />
                 </p>
               </div>
-              <div
-                className="job-builder-culture-block"
-                data-c-grid-item="base(1of1)"
-              >
-                <div data-c-grid="gutter">
-                  <RadioGroup
-                    id="culturePace"
-                    label={intl.formatMessage(
-                      formMessages.fastPacedSteadyLabel,
-                    )}
-                    required
-                    touched={touched.culturePace}
-                    error={errors.culturePace}
-                    value={values.culturePace}
-                    grid="base(1of1) tl(1of3)"
-                  >
-                    {culturePaceList.map(
-                      ({ id, title }): React.ReactElement => {
-                        return (
-                          <Field
-                            key={id}
-                            name="culturePace"
-                            component={RadioInput}
-                            id={id}
-                            label={intl.formatMessage(title)}
-                            value={id}
-                            trigger
-                          />
-                        );
-                      },
-                    )}
-                  </RadioGroup>
-                  <ContextBlock
-                    className="job-builder-context-block"
-                    grid="base(1of1) tl(2of3)"
-                  >
-                    {culturePaceList.map(
-                      ({ id, title, subtext }): React.ReactElement => {
-                        return (
-                          <ContextBlockItem
-                            key={id}
-                            contextId={id}
-                            title={intl.formatMessage(title)}
-                            subtext={intl.formatMessage(subtext)}
-                            className="job-builder-context-item"
-                            active={values.culturePace === id}
-                          />
-                        );
-                      },
-                    )}
-                  </ContextBlock>
-                </div>
-              </div>
-              <div
-                className="job-builder-culture-block"
-                data-c-grid-item="base(1of1)"
-              >
-                <div data-c-grid="gutter">
-                  <RadioGroup
-                    id="management"
-                    label={intl.formatMessage(formMessages.managementLabel)}
-                    required
-                    touched={touched.management}
-                    error={errors.management}
-                    value={values.management}
-                    grid="base(1of1) tl(1of3)"
-                  >
-                    {managementList.map(
-                      ({ id, title }): React.ReactElement => {
-                        return (
-                          <Field
-                            key={id}
-                            name="management"
-                            component={RadioInput}
-                            id={id}
-                            label={intl.formatMessage(title)}
-                            value={id}
-                            trigger
-                          />
-                        );
-                      },
-                    )}
-                  </RadioGroup>
-                  <ContextBlock
-                    className="job-builder-context-block"
-                    grid="base(1of1) tl(2of3)"
-                  >
-                    {managementList.map(
-                      ({ id, title, subtext }): React.ReactElement => {
-                        return (
-                          <ContextBlockItem
-                            key={id}
-                            contextId={id}
-                            title={intl.formatMessage(title)}
-                            subtext={intl.formatMessage(subtext)}
-                            className="job-builder-context-item"
-                            active={values.management === id}
-                          />
-                        );
-                      },
-                    )}
-                  </ContextBlock>
-                </div>
-              </div>
-              <div
-                className="job-builder-culture-block"
-                data-c-grid-item="base(1of1)"
-              >
-                <div data-c-grid="gutter">
-                  <RadioGroup
-                    id="experimental"
-                    label={intl.formatMessage(formMessages.managementLabel)}
-                    required
-                    touched={touched.experimental}
-                    error={errors.experimental}
-                    value={values.experimental}
-                    grid="base(1of1) tl(1of3)"
-                  >
-                    {experimentalList.map(
-                      ({ id, title }): React.ReactElement => {
-                        return (
-                          <Field
-                            key={id}
-                            name="experimental"
-                            component={RadioInput}
-                            id={id}
-                            label={intl.formatMessage(title)}
-                            value={id}
-                            trigger
-                          />
-                        );
-                      },
-                    )}
-                  </RadioGroup>
-                  <ContextBlock
-                    className="job-builder-context-block"
-                    grid="base(1of1) tl(2of3)"
-                  >
-                    {experimentalList.map(
-                      ({ id, title, subtext }): React.ReactElement => {
-                        return (
-                          <ContextBlockItem
-                            key={id}
-                            contextId={id}
-                            title={intl.formatMessage(title)}
-                            subtext={intl.formatMessage(subtext)}
-                            className="job-builder-context-item"
-                            active={values.experimental === id}
-                          />
-                        );
-                      },
-                    )}
-                  </ContextBlock>
-                </div>
-              </div>
+              {renderRadioWithContext(
+                intl,
+                touched,
+                errors,
+                values,
+                "culturePace",
+                intl.formatMessage(formMessages.fastPacedSteadyLabel),
+                culturePaceList,
+              )}
+              {renderRadioWithContext(
+                intl,
+                touched,
+                errors,
+                values,
+                "management",
+                intl.formatMessage(formMessages.managementLabel),
+                managementList,
+              )}
+              {renderRadioWithContext(
+                intl,
+                touched,
+                errors,
+                values,
+                "experimental",
+                intl.formatMessage(formMessages.experimentalLabel),
+                experimentalList,
+              )}
+              {renderRadioWithContext(
+                intl,
+                touched,
+                errors,
+                values,
+                "facing",
+                intl.formatMessage(formMessages.facingLabel),
+                facingList,
+              )}
+              {renderRadioWithContext(
+                intl,
+                touched,
+                errors,
+                values,
+                "collaborativeness",
+                intl.formatMessage(formMessages.collaborativeLabel),
+                collaborativenessList,
+              )}
               <div data-c-grid-item="base(1of1)">
                 <p
                   data-c-margin="bottom(normal) top(normal)"
