@@ -282,7 +282,7 @@
         "id": "apl.indexPageTitle"
       },
       {
-        "defaultMessage": "{dayCount,plural,,=0{No Days} one{{dayCount, 2} Day} other{{dayCount, 2} Days}} Since Close",
+        "defaultMessage": "{dayCount,plural,=0{No Days} one{{dayCount, number} Day} other{{dayCount, number} Days}} Since Close",
         "description": "Welcome header on app main page",
         "id": "job.daysSinceClosed"
       }
@@ -402,12 +402,12 @@
         "id": "assessmentPlan.alert.explanation"
       },
       {
-        "defaultMessage": "{skills} {count,plural,,one{was} other{were}} added.",
+        "defaultMessage": "{skills} {count,plural,one{was} other{were}} added.",
         "description": "Description of the new criteria that have been added to this job.",
         "id": "assessmentPlan.alert.created"
       },
       {
-        "defaultMessage": "{skills} {count,plural,,one{was} other{were}} updated.",
+        "defaultMessage": "{skills} {count,plural,one{was} other{were}} updated.",
         "description": "Description of the criteria that had their level changed.",
         "id": "assessmentPlan.alert.skillLevelUpdated"
       },
@@ -422,7 +422,7 @@
         "id": "assessmentPlan.alert.skillAndLevelUpdated"
       },
       {
-        "defaultMessage": "{skills} {count,plural,,one{was} other{were}} removed.",
+        "defaultMessage": "{skills} {count,plural,one{was} other{were}} removed.",
         "description": "Description of criteria which were removed from the job.",
         "id": "assessmentPlan.alert.deleted"
       }
@@ -507,7 +507,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Assessing {count,plural,,one{{count, 2} skill} other{{count, 2} skills}}.",
+        "defaultMessage": "Assessing {count,plural,one{{count, number} skill} other{{count, number} skills}}.",
         "description": "Labels how many skills are assessed by this assessment tool.",
         "id": "assessmentPlan.summary.skillCount"
       },
@@ -542,7 +542,7 @@
         "id": "assessmentPlan.summary.assessmentSummary.title"
       },
       {
-        "defaultMessage": "Your plan uses {toolCount,plural,,=0{no tools} one{{toolCount, 2} tool} other{{toolCount, 2} tools}}\r\n            to assess {skillCount,plural,,=0{no skills} one{{skillCount, 2} skill} other{{skillCount, 2} skills}}.",
+        "defaultMessage": "Your plan uses {toolCount,plural,=0{no tools} one{{toolCount, number} tool} other{{toolCount, number} tools}}\r\n            to assess {skillCount,plural,=0{no skills} one{{skillCount, number} skill} other{{skillCount, number} skills}}.",
         "description": "Describes how many tools and skills your assessment plan involves.",
         "id": "assessmentPlan.summary.assessmentSummary.toolSkillCount"
       },
@@ -971,14 +971,19 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Back to Skills",
+        "description": "The text displayed on the cancel button of the Key Tasks modal on the Job Builder Skills step.",
+        "id": "jobSkills.tasksModalCancelLabel"
+      },
+      {
         "defaultMessage": "Go Back",
         "description": "The text displayed on the cancel button of the Job Builder Skills Preview modal.",
-        "id": "jobSkills.modalCancelLabel"
+        "id": "jobSkills.previewModalCancelLabel"
       },
       {
         "defaultMessage": "Next Step",
         "description": "The text displayed on the confirm button of the Job Builder Skills Preview modal.",
-        "id": "jobSkills.modalConfirmLabel"
+        "id": "jobSkills.previewModalConfirmLabel"
       }
     ],
     "path": "resources/assets/js/components/JobBuilderSkills/JobBuilderSkills.json"
@@ -1736,7 +1741,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "{termMonths,plural,,=0{no months} one{{termMonths, 2} month} other{{termMonths, 2} months}}",
+        "defaultMessage": "{termMonths,plural,=0{no months} one{{termMonths, number} month} other{{termMonths, number} months}}",
         "description": "Calculated term length in months",
         "id": "jobPreview.termLength"
       },
@@ -1876,7 +1881,7 @@
         "id": "jobTasks.intro.fourth"
       },
       {
-        "defaultMessage": "You have {taskCount,plural,,one{{taskCount, 2} task} other{{taskCount, 2} tasks}} added.",
+        "defaultMessage": "You have {taskCount,plural,one{{taskCount, number} task} other{{taskCount, number} tasks}} added.",
         "description": "Indicates how many tasks are present on the page.",
         "id": "jobTasks.taskCount.some"
       },

@@ -47,7 +47,7 @@
   {
     "id": "jobTasks.taskCount.some",
     "description": "Indicates how many tasks are present on the page.",
-    "defaultMessage": "You have {taskCount,plural,,one{{taskCount, 2} task} other{{taskCount, 2} tasks}} added."
+    "defaultMessage": "You have {taskCount,plural,one{{taskCount, number} task} other{{taskCount, number} tasks}} added."
   },
   {
     "id": "jobTasks.taskCount.none",
