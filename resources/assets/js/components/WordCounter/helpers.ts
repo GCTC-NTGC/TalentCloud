@@ -1,4 +1,4 @@
-import { Message } from "./types";
+import { WordCounterMessage } from "./types";
 
 export const countNumberOfWords = (innerText: string): number => {
   if (innerText.trim()) {
@@ -17,9 +17,11 @@ export const stringEndsInWhitespace = (value: string): boolean => {
 
 export const truncateWords = (value: string, wordLimit: number): string => {
   const wordCount = countNumberOfWords(value);
+
   if (wordCount === wordLimit && stringEndsInWhitespace(value)) {
     return `${value.trim()} `;
   }
+
   if (wordCount > wordLimit) {
     // This pattern finds the first n words, where words are characters divided by whitespace, and n=wordLimit
     const pattern = new RegExp(`([^\\s]+\\s+){${wordLimit}}`, "g");
@@ -32,8 +34,18 @@ export const truncateWords = (value: string, wordLimit: number): string => {
 };
 
 /** Sorts messages in decending order */
-export const sortMessages = (messages: Message[]): Message[] => {
+export const sortMessages = (
+  messages: WordCounterMessage[],
+): WordCounterMessage[] => {
   const sortedMessages = messages.sort((a, b): number => b.count - a.count);
 
   return sortedMessages;
+};
+
+export const toggleSpaceBar = (disabled: boolean): void => {
+  document.body.onkeypress = e => {
+    if (e.keyCode === 32) {
+      return disabled;
+    }
+  };
 };
