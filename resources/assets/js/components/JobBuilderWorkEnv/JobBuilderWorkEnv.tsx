@@ -18,6 +18,7 @@ import { ProgressTrackerItem } from "../ProgressTracker/types";
 import {
   progressTrackerLabels,
   progressTrackerTitles,
+  jobBuilderMessages,
 } from "../JobBuilder/jobBuilderMessages";
 import {
   jobBuilderDetailsProgressState,
@@ -118,14 +119,14 @@ const JobBuilderWorkEnv: React.FunctionComponent<
           data-c-container="form"
           data-c-padding="top(triple) bottom(triple)"
         >
-          <div data-c-background="white(100)" data-c-card data-c-padding="all(double)" data-c-radius="rounded" data-c-align="base(centre)">
-            <p>
-              <FormattedMessage
-                id="jobBuilderIntroPage.loading"
-                defaultMessage="Your job is loading..."
-                description="Message indicating that the current job is still being loaded."
-              />
-            </p>
+          <div
+            data-c-background="white(100)"
+            data-c-card
+            data-c-padding="all(double)"
+            data-c-radius="rounded"
+            data-c-align="base(centre)"
+          >
+            <p>{intl.formatMessage(jobBuilderMessages.jobLoading)}</p>
           </div>
         </div>
       ) : (

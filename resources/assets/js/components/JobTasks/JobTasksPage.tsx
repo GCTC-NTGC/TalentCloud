@@ -14,6 +14,7 @@ import {
 import {
   progressTrackerLabels,
   progressTrackerTitles,
+  jobBuilderMessages,
 } from "../JobBuilder/jobBuilderMessages";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import JobTasks from "./JobTasks";
@@ -141,13 +142,7 @@ const JobTasksPage: React.FunctionComponent<
             data-c-radius="rounded"
             data-c-align="base(centre)"
           >
-            <p>
-              <FormattedMessage
-                id="jobBuilderTasksPage.loading"
-                defaultMessage="Your job is loading..."
-                description="Message indicating that the current job is still being loaded."
-              />
-            </p>
+            <p>{intl.formatMessage(jobBuilderMessages.jobLoading)}</p>
           </div>
         </div>
       ) : (
