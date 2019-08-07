@@ -958,12 +958,12 @@
       {
         "defaultMessage": "Go Back",
         "description": "The text displayed on the cancel button of the Job Builder Skills Preview modal.",
-        "id": "jobSkills.modalCancelLabel"
+        "id": "jobSkills.previewModalCancelLabel"
       },
       {
         "defaultMessage": "Next Step",
         "description": "The text displayed on the confirm button of the Job Builder Skills Preview modal.",
-        "id": "jobSkills.modalConfirmLabel"
+        "id": "jobSkills.previewModalConfirmLabel"
       }
     ],
     "path": "resources/assets/js/components/JobBuilderSkills/JobBuilderSkills.json"
