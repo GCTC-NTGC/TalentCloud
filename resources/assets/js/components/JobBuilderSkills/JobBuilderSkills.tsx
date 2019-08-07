@@ -1188,7 +1188,7 @@ export const JobBuilderSkills: React.FunctionComponent<
             <div
               data-c-border="bottom(thin, solid, black)"
               data-c-padding="normal"
-              id={`${previewModalId}-description`}
+              id={`${tasksModalId}-description`}
             >
               <ul>
                 {keyTasks.map(
