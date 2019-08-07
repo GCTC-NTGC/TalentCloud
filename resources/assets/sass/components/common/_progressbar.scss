@@ -3,12 +3,20 @@
   display: flex;
   align-items: center;
   margin-top: 1rem;
+  position: relative;
 
   span {
     font-family: $font--sans;
     font-size: $font-scale--regular;
-    font-weight: 700;
+    font-weight: 400;
     margin-left: 0.5rem;
+  }
+
+  .word-counter__progress {
+    font-size: 1rem;
+    font-weight: 500;
+    position: absolute;
+    left: 0.9rem;
   }
 }
 

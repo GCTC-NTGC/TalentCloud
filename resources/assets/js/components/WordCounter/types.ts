@@ -9,7 +9,7 @@ export interface WordCounterProps {
   message: string;
   /** Hard cap on word counter. The user cannot add any more words after reaching this number. */
   wordLimit: number;
-  /** Let's you specify example text that appears in textarea element when empty  */
+  /** Let's you specify example text that appears in word counter element when empty  */
   placeholder?: string;
   /** The hue of the progress ring. Corresponds to the current number of words */
   strokeColor: string;
@@ -19,5 +19,5 @@ export interface WordCounterMessage {
   /** When this number is reached, the correspoding message will be displayed */
   count: number;
   /** Message displayed when 'count' is reached */
-  message: ReactIntl.FormattedMessage.MessageDescriptor | string;
+  message: string;
 }

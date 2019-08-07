@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from "react";
 import WordCounter from "./WordCounter";
-import { countNumberOfWords, truncateWords, toggleSpaceBar } from "./helpers";
+import { countNumberOfWords, truncateWords, sortMessages } from "./helpers";
 import { WordCounterProps, WordCounterMessage } from "./types";
-import {
-  injectIntl,
-  InjectedIntlProps,
-  FormattedMessage,
-  FormattedHTMLMessage,
-  defineMessages,
-} from "react-intl";
-import IntlContainer from "../../IntlContainer";
-import { sortMessages } from "./helpers";
-import { string } from "yup";
 
 interface WordCounterWrapperProps
   extends Omit<WordCounterProps, "numOfWords" | "message" | "strokeColor"> {
@@ -19,18 +9,16 @@ interface WordCounterWrapperProps
   messages: WordCounterMessage[];
 }
 
-const WordCounterWrapper: React.FunctionComponent<
-  WordCounterWrapperProps & InjectedIntlProps
-> = ({
+const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
   elementId,
   wordLimit,
   minWords,
   maxWords,
   messages,
   placeholder,
-  intl,
 }): React.ReactElement => {
   const [currentNumberOfWords, setCurrentNumberOfWords] = useState(0);
+  const [prevValue, setPrevValue] = useState("");
 
   const handleMessage = (): string => {
     let index = 0;
@@ -40,20 +28,7 @@ const WordCounterWrapper: React.FunctionComponent<
       return currentNumberOfWords >= count;
     });
 
-    if (message) {
-      if (typeof message.message === "string") {
-        return message.message;
-      } else {
-        return (
-          intl.formatMessage(
-            message.message as ReactIntl.FormattedMessage.MessageDescriptor,
-          )
-        );
-      }
-    } else {
-      return intl.formatMessage(messages[index]
-            .message as ReactIntl.FormattedMessage.MessageDescriptor)
-    }
+    return message ? message.message : sortedMessages[index].message;
   };
 
   const strokeColor = (): string => {
@@ -94,29 +69,36 @@ const WordCounterWrapper: React.FunctionComponent<
     return `hsl(${hue}, 80%, 50%)`;
   };
 
-  useEffect((): void => {
+  useEffect((): (() => void) => {
     const element: HTMLTextAreaElement = document.getElementById(
       elementId,
     ) as HTMLTextAreaElement;
 
     setCurrentNumberOfWords(countNumberOfWords(element.value));
 
-    element.addEventListener("input", (e): void => {
-      toggleSpaceBar(true);
+    const handleInputChange = (e): void => {
       const target = e.target as HTMLTextAreaElement;
       const numOfWords = countNumberOfWords(target.value);
       setCurrentNumberOfWords(numOfWords);
 
       const caretPosition = target.selectionStart;
 
-      if (numOfWords >= wordLimit) {
-        toggleSpaceBar(false);
-        target.value = truncateWords(target.value, wordLimit);
+      if (numOfWords > wordLimit) {
+        target.value = prevValue;
+      } else {
+        console.log(prevValue);
+        setPrevValue(target.value);
       }
 
       target.setSelectionRange(caretPosition, caretPosition);
-    });
-  }, [elementId, wordLimit]);
+    };
+
+    element.addEventListener("input", handleInputChange);
+
+    return function cleanup(): void {
+      element.removeEventListener("input", handleInputChange, false);
+    };
+  }, [elementId, prevValue, wordLimit]);
 
   return (
     <WordCounter
@@ -131,4 +113,4 @@ const WordCounterWrapper: React.FunctionComponent<
   );
 };
 
-export default injectIntl(WordCounterWrapper);
+export default WordCounterWrapper;

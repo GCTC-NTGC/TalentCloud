@@ -9,6 +9,7 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   message,
   placeholder,
   strokeColor,
+  wordLimit,
 }): React.ReactElement => {
   return (
     <div
@@ -19,17 +20,20 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
       aria-valuemax={maxWords}
     >
       <ProgressRing
-        radius={30}
-        stroke={6}
+        radius={50}
+        stroke={8}
         progress={numOfWords}
         strokeColor={strokeColor}
         max={minWords}
       />
-      <span style={numOfWords === 0 ? { color: "#80808085" } : {}}>
-        {numOfWords === 0 && placeholder
-          ? placeholder
-          : numOfWords > 0 && message}
-      </span>
+      <div style={numOfWords === 0 ? { color: "#80808085" } : {}}>
+        <span className="word-counter__progress">{`${numOfWords} / ${wordLimit}`}</span>
+        <span className="word-counter__message">
+          {numOfWords === 0 && placeholder
+            ? placeholder
+            : numOfWords > 0 && message}
+        </span>
+      </div>
     </div>
   );
 };

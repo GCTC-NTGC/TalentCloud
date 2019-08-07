@@ -41,11 +41,3 @@ export const sortMessages = (
 
   return sortedMessages;
 };
-
-export const toggleSpaceBar = (disabled: boolean): void => {
-  document.body.onkeypress = e => {
-    if (e.keyCode === 32) {
-      return disabled;
-    }
-  };
-};
