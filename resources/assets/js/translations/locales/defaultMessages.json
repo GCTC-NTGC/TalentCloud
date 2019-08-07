@@ -861,16 +861,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Job Loading...",
-        "description": "Message indicating that the current job is still being loaded.",
-        "id": "jobBuilderImpact.jobloading"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilderImpact/JobBuilderImpactPage.json"
-  },
-  {
-    "descriptors": [
-      {
         "defaultMessage": "My Job Title (English)",
         "description": "The label displayed on the job title input.",
         "id": "jobBuilder.intro.jobTitleLabelEN"
@@ -966,16 +956,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Your job is loading...",
-        "description": "Message indicating that the current job is still being loaded.",
-        "id": "jobBuilderIntroPage.loading"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilderIntro/JobBuilderIntro.json"
-  },
-  {
-    "descriptors": [
-      {
         "defaultMessage": "Go Back",
         "description": "The text displayed on the cancel button of the Job Builder Skills Preview modal.",
         "id": "jobSkills.modalCancelLabel"
@@ -987,26 +967,6 @@
       }
     ],
     "path": "resources/assets/js/components/JobBuilderSkills/JobBuilderSkills.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Your job is loading...",
-        "description": "Message indicating that the current job is still being loaded.",
-        "id": "jobBuilderSkillsPage.loading"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilderSkills/JobBuilderSkillsPage.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Your job is loading...",
-        "description": "Message indicating that the current job is still being loaded.",
-        "id": "jobBuilderIntroPage.loading"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilderWorkEnv/JobBuilderWorkEnv.json"
   },
   {
     "descriptors": [
@@ -1731,16 +1691,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Your job is loading...",
-        "description": "Message indicating that the current job is still being loaded.",
-        "id": "jobBuilderIntroPage.loading"
-      }
-    ],
-    "path": "resources/assets/js/components/JobDetails/JobDetailsPage.json"
-  },
-  {
-    "descriptors": [
-      {
         "defaultMessage": "{termMonths,plural,=0{no months} one{{termMonths, number} month} other{{termMonths, number} months}}",
         "description": "Calculated term length in months",
         "id": "jobPreview.termLength"
@@ -1942,16 +1892,6 @@
       }
     ],
     "path": "resources/assets/js/components/JobTasks/JobTasks.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Your job is loading...",
-        "description": "Message indicating that the current job is still being loaded.",
-        "id": "jobBuilderTasksPage.loading"
-      }
-    ],
-    "path": "resources/assets/js/components/JobTasks/JobTasksPage.json"
   },
   {
     "descriptors": [
