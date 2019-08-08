@@ -2,6 +2,41 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Start typing your answer above.",
+        "description": "Let's you specify example text that appears in word counter message empty",
+        "id": "wordCounter.skills.placeholder"
+      },
+      {
+        "defaultMessage": "This seems too short. Did you include examples or lessons learned?",
+        "description": "Message displayed to user on word counter.",
+        "id": "wordCounter.skills.skillsMessage1"
+      },
+      {
+        "defaultMessage": "This seems a bit short. Do you have another example or lesson learned to add?",
+        "description": "Message displayed to user on word counter.",
+        "id": "wordCounter.skills.skillsMessage2"
+      },
+      {
+        "defaultMessage": "This is starting to get a bit long.",
+        "description": "Message displayed to user on word counter.",
+        "id": "wordCounter.skills.skillsMessage3"
+      },
+      {
+        "defaultMessage": "This looks too long. Can you summarize some of your response?",
+        "description": "Message displayed to user on word counter.",
+        "id": "wordCounter.skills.skillsMessage4"
+      },
+      {
+        "defaultMessage": "This is way too long. Check out one of our examples to see what a concise skill description looks like.",
+        "description": "Message displayed to user on word counter.",
+        "id": "wordCounter.skills.skillsMessage5"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantSkills/SkillsWordCounter.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Toggle this step to view relevant applicants.",
         "description": "Instructions to reveal hidden list data.",
         "id": "button.toggleAccordion"
