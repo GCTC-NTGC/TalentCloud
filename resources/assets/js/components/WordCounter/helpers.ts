@@ -1,4 +1,4 @@
-import { WordCounterMessage } from "./types";
+import { WordCounterMessage } from "./WordCounterWrapper";
 
 export const countNumberOfWords = (innerText: string): number => {
   if (innerText.trim()) {
