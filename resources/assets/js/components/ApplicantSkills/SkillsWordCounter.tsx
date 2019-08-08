@@ -9,37 +9,37 @@ export const wordCounterMessages = defineMessages({
   skillsPlaceholder: {
     id: "wordCounter.skills.placeholder",
     defaultMessage: "Start typing your answer above.",
-    description:
-      "Let's you specify example text that appears in word counter message empty",
+    description: "Placeholder text for an empty input.",
   },
-  skillsMessage1: {
-    id: "wordCounter.skills.skillsMessage1",
+  veryShortMessage: {
+    id: "wordCounter.skills.veryShortMessage",
     defaultMessage:
       "This seems too short. Did you include examples or lessons learned?",
-    description: "Message displayed to user on word counter.",
+    description: "Message displayed to user when the word count is very low.",
   },
-  skillsMessage2: {
-    id: "wordCounter.skills.skillsMessage2",
+  shortMessage: {
+    id: "wordCounter.skills.shortMessage",
     defaultMessage:
       "This seems a bit short. Do you have another example or lesson learned to add?",
-    description: "Message displayed to user on word counter.",
+    description: "Message displayed to user when the word count is low.",
   },
-  skillsMessage3: {
-    id: "wordCounter.skills.skillsMessage3",
+  slightlyLongMessage: {
+    id: "wordCounter.skills.slightlyLongMessage",
     defaultMessage: "This is starting to get a bit long.",
-    description: "Message displayed to user on word counter.",
+    description:
+      "Message displayed to user when the word count is a little high.",
   },
-  skillsMessage4: {
-    id: "wordCounter.skills.skillsMessage4",
+  longMessage: {
+    id: "wordCounter.skills.longMessage",
     defaultMessage:
       "This looks too long. Can you summarize some of your response?",
-    description: "Message displayed to user on word counter.",
+    description: "Message displayed to user when the word count is high.",
   },
-  skillsMessage5: {
-    id: "wordCounter.skills.skillsMessage5",
+  veryLongMessage: {
+    id: "wordCounter.skills.veryLongMessage",
     defaultMessage:
       "This is way too long. Check out one of our examples to see what a concise skill description looks like.",
-    description: "Message displayed to user on word counter.",
+    description: "Message displayed to user when the word count is very high.",
   },
 });
 
@@ -54,24 +54,24 @@ const SkillsWordCounter: React.FunctionComponent<
   const messages = [
     {
       count: 1,
-      message: intl.formatMessage(wordCounterMessages.skillsMessage1),
+      message: intl.formatMessage(wordCounterMessages.veryShortMessage),
     },
     {
       count: 10,
-      message: intl.formatMessage(wordCounterMessages.skillsMessage2),
+      message: intl.formatMessage(wordCounterMessages.shortMessage),
     },
     { count: 20, message: "" },
     {
       count: 80,
-      message: intl.formatMessage(wordCounterMessages.skillsMessage3),
+      message: intl.formatMessage(wordCounterMessages.slightlyLongMessage),
     },
     {
       count: 100,
-      message: intl.formatMessage(wordCounterMessages.skillsMessage4),
+      message: intl.formatMessage(wordCounterMessages.longMessage),
     },
     {
       count: 130,
-      message: intl.formatMessage(wordCounterMessages.skillsMessage5),
+      message: intl.formatMessage(wordCounterMessages.veryLongMessage),
     },
   ];
   const minWords = 20;
