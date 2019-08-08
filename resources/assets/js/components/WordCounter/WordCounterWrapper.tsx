@@ -19,6 +19,36 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
 }): React.ReactElement => {
   const [currentNumberOfWords, setCurrentNumberOfWords] = useState(0);
   const [prevValue, setPrevValue] = useState("");
+  const [prevCursorPosition, setPrevCursorPosition] = useState(0);
+  useEffect((): (() => void) => {
+    const element: HTMLTextAreaElement = document.getElementById(
+      elementId,
+    ) as HTMLTextAreaElement;
+
+    setCurrentNumberOfWords(countNumberOfWords(element.value));
+
+    const handleInputChange = (e): void => {
+      const target = e.target as HTMLTextAreaElement;
+      const numOfWords = countNumberOfWords(target.value);
+      setCurrentNumberOfWords(numOfWords);
+
+      const caretPosition = target.selectionStart;
+
+      if (numOfWords > wordLimit) {
+        target.value = prevValue;
+        target.setSelectionRange(prevCursorPosition, prevCursorPosition);
+      } else {
+        setPrevValue(target.value);
+        setPrevCursorPosition(caretPosition);
+      }
+    };
+
+    element.addEventListener("input", handleInputChange);
+
+    return function cleanup(): void {
+      element.removeEventListener("input", handleInputChange, false);
+    };
+  }, [elementId, prevValue, prevCursorPosition, wordLimit]);
 
   const handleMessage = (): string => {
     let index = 0;
@@ -68,37 +98,6 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
 
     return `hsl(${hue}, 80%, 50%)`;
   };
-
-  useEffect((): (() => void) => {
-    const element: HTMLTextAreaElement = document.getElementById(
-      elementId,
-    ) as HTMLTextAreaElement;
-
-    setCurrentNumberOfWords(countNumberOfWords(element.value));
-
-    const handleInputChange = (e): void => {
-      const target = e.target as HTMLTextAreaElement;
-      const numOfWords = countNumberOfWords(target.value);
-      setCurrentNumberOfWords(numOfWords);
-
-      const caretPosition = target.selectionStart;
-
-      if (numOfWords > wordLimit) {
-        target.value = prevValue;
-      } else {
-        console.log(prevValue);
-        setPrevValue(target.value);
-      }
-
-      target.setSelectionRange(caretPosition, caretPosition);
-    };
-
-    element.addEventListener("input", handleInputChange);
-
-    return function cleanup(): void {
-      element.removeEventListener("input", handleInputChange, false);
-    };
-  }, [elementId, prevValue, wordLimit]);
 
   return (
     <WordCounter
