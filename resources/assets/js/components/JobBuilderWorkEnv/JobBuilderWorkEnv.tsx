@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import { injectIntl, InjectedIntlProps } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
@@ -18,6 +18,7 @@ import { ProgressTrackerItem } from "../ProgressTracker/types";
 import {
   progressTrackerLabels,
   progressTrackerTitles,
+  jobBuilderMessages,
 } from "../JobBuilder/jobBuilderMessages";
 import {
   jobBuilderDetailsProgressState,
@@ -130,13 +131,7 @@ const JobBuilderWorkEnv: React.FunctionComponent<
             data-c-radius="rounded"
             data-c-align="base(centre)"
           >
-            <p>
-              <FormattedMessage
-                id="jobBuilderIntroPage.loading"
-                defaultMessage="Your job is loading..."
-                description="Message indicating that the current job is still being loaded."
-              />
-            </p>
+            <p>{intl.formatMessage(jobBuilderMessages.jobLoading)}</p>
           </div>
         </div>
       ) : (

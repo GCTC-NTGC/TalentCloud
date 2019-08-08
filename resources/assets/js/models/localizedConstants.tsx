@@ -317,7 +317,7 @@ const assessmentTypeDescriptions = defineMessages({
   interview: {
     id: "assessmentType.interview.description",
     defaultMessage:
-      "A formal question-and-answer examination performed in real-time between the hiring-board and an applicant, questions are aimed at assessing skill expertise, level, and approach. Each question is crafted beforehand and follows the same structure between all interviewed applicants.",
+      "A formal question-and-answer examination performed in real-time between the hiring-board and an applicant. Questions are aimed at assessing skill expertise, level, and approach. Each question is crafted beforehand and follows the same structure between all interviewed applicants.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },

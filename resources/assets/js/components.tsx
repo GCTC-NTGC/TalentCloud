@@ -8,6 +8,5 @@
 // require('./components/ReferenceList');
 require("./components/ApplicationReview/ReviewApplicationsContainer");
 require("./components/ApplicationReview/ApplicationReviewContainer");
-require("./components/ApplicantSkills/WordCounter");
 require("./components/ApplicantSkills/SkillsInfoModal");
 require("./components/JobDetails/JobDetails");

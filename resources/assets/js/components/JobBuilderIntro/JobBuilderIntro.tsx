@@ -20,6 +20,7 @@ import { jobBuilderDetails } from "../../helpers/routes";
 import {
   progressTrackerLabels,
   progressTrackerTitles,
+  jobBuilderMessages,
 } from "../JobBuilder/jobBuilderMessages";
 import {
   jobBuilderDetailsProgressState,
@@ -140,13 +141,7 @@ const JobBuilderIntro: React.FunctionComponent<
             data-c-radius="rounded"
             data-c-align="base(centre)"
           >
-            <p>
-              <FormattedMessage
-                id="jobBuilderIntroPage.loading"
-                defaultMessage="Your job is loading..."
-                description="Message indicating that the current job is still being loaded."
-              />
-            </p>
+            <p>{intl.formatMessage(jobBuilderMessages.jobLoading)}</p>
           </div>
         </div>
       ) : (
