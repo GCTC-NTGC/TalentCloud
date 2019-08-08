@@ -4,7 +4,6 @@ exports[`Progress Tracker should render ProgressTrackerItem correctly 1`] = `
 <div
   className="tracker-item"
   data-c-alignment="base(left)"
-  data-c-grid="middle"
   data-c-margin="top(half) right(normal) bottom(half) left(normal)"
   data-tc-tracker-state="active"
 >
@@ -15,14 +14,13 @@ exports[`Progress Tracker should render ProgressTrackerItem correctly 1`] = `
       className="fas fa-arrow-down"
     />
   </div>
-  <div
-    className="tracker-title"
-  >
+  <div>
     <span
       data-c-font-size="small"
     >
       Step 01
     </span>
+    <br />
     <span
       data-c-font-weight="bold"
     >

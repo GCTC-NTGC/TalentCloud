@@ -23,7 +23,7 @@ const ProgressTracker: React.FunctionComponent<ProgressTrackerProps> = ({
 }): React.ReactElement => {
   return (
     <div
-      data-c-alignment="base(centre) tl(right)"
+      data-c-alignment="base(centre)"
       data-c-background={`${backgroundColor}(${backgroundOpacity || 100})`}
       className={classNames}
     >
