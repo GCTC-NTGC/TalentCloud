@@ -231,6 +231,13 @@ class JobPoster extends BaseModel
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['classification_code'];
+
+    /**
      * @var mixed[] $dispatchesEvents
      */
     protected $dispatchesEvents = [
