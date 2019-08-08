@@ -15,6 +15,7 @@ const stories = storiesOf("Job Poster Builder|Tasks", module).addDecorator(
 const handleSubmit = async (
   values: JobPosterKeyTask[],
 ): Promise<JobPosterKeyTask[]> => {
+  action("Handle Submit")();
   return values;
 };
 
@@ -29,6 +30,7 @@ stories
         keyTasks={null}
         validCount={number("Valid Count", 6)}
         handleSubmit={handleSubmit}
+        handleReturn={action("Handle Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
       />
@@ -42,6 +44,7 @@ stories
         keyTasks={sampleTasks}
         validCount={number("Valid Count", 4)}
         handleSubmit={handleSubmit}
+        handleReturn={action("Handle Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
       />

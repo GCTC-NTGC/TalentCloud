@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import { injectIntl, InjectedIntlProps } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
@@ -24,9 +24,8 @@ import {
   jobBuilderDetailsProgressState,
   jobBuilderIntroProgressState,
 } from "../JobBuilder/jobBuilderHelpers";
-import { managerJobIndex, jobBuilderImpact } from "../../helpers/routes";
+import { jobBuilderImpact, jobBuilderDetails } from "../../helpers/routes";
 import RootContainer from "../RootContainer";
-import JobBuilderIntroPageContainer from "../JobBuilderIntro/JobBuilderIntro";
 
 interface JobBuilderWorkEnvProps {
   // The id of the edited job, or null for a new job.
@@ -65,6 +64,12 @@ const JobBuilderWorkEnv: React.FunctionComponent<
       window.location.href = jobBuilderImpact(intl.locale, job.id);
     }
     // FIXME: how to handle when job hasn't loaded yet??? RACE CONDITION HERE!
+  };
+  const handleReturn = (): void => {
+    window.location.href = jobBuilderDetails(
+      intl.locale,
+      jobId !== null ? jobId : undefined,
+    );
   };
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
@@ -133,6 +138,7 @@ const JobBuilderWorkEnv: React.FunctionComponent<
         <WorkEnvForm
           job={job}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
         />

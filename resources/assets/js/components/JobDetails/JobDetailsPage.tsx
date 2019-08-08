@@ -26,7 +26,7 @@ import {
   jobBuilderEnvProgressState,
   jobImpactProgressState,
 } from "../JobBuilder/jobBuilderHelpers";
-import { jobBuilderEnv } from "../../helpers/routes";
+import { jobBuilderEnv, jobBuilderIntro } from "../../helpers/routes";
 
 interface JobDetailsPageProps {
   jobId: number | null;
@@ -65,6 +65,12 @@ const JobDetailsPage: React.FunctionComponent<
     // TODO: what do if selectJob not set yet?
   };
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
+  const handleReturn = (): void => {
+    window.location.href = jobBuilderIntro(
+      locale,
+      jobId !== null ? jobId : undefined,
+    );
+  };
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
       state: waitingForJob ? "null" : jobBuilderIntroProgressState(job),
@@ -132,6 +138,7 @@ const JobDetailsPage: React.FunctionComponent<
         <JobDetailsIntl
           job={job}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
         />

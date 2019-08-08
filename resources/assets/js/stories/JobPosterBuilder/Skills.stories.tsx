@@ -65,6 +65,7 @@ stories
         initialCriteria={[]}
         skills={fakeSkills()}
         handleSubmit={handleSubmit}
+        handleReturn={action("Handle Return")}
         handleContinue={action("Handle Continue")}
       />
     ),
