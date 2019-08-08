@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
 }
-[data-tc-tracker-state="null"] {
+.tracker-item {
   display: none;
   @media #{$clone-tablet-landscape} {
     display: inline-block;
@@ -39,27 +39,27 @@
       margin: -0.05rem 0 0 -0.04rem;
     }
   }
-  [data-tc-tracker-state="null"] {
+}
+[data-tc-tracker-state="null"] {
+  display: none;
+  @media #{$clone-tablet-landscape} {
+    display: inline-block;
+  }
+  .tracker-icon {
+    background: $clone-grey;
+  }
+  .fa-arrow-down {
     display: none;
-    @media #{$clone-tablet-landscape} {
-      display: inline-block;
-    }
-    .tracker-icon {
-      background: $clone-grey;
-    }
-    .fa-arrow-down {
-      display: none;
-    }
-    .fa-check {
-      display: none;
-    }
-    .fa-exclamation-triangle {
-      display: none;
-    }
+  }
+  .fa-check {
+    display: none;
   }
   .fa-exclamation-triangle {
     display: none;
   }
+}
+.fa-exclamation-triangle {
+  display: none;
 }
 [data-tc-tracker-state="active"] {
   display: inline-block;

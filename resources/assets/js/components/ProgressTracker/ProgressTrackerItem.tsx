@@ -14,7 +14,6 @@ const ProgressTrackerItem: React.FunctionComponent<
       className="tracker-item"
       data-tc-tracker-state={state}
       data-c-alignment="base(left)"
-      data-c-grid="middle"
       data-c-margin="top(half) right(normal) bottom(half) left(normal)"
       data-c-color={fontColor}
     >
@@ -23,8 +22,8 @@ const ProgressTrackerItem: React.FunctionComponent<
         {state === "complete" && <i className="fas fa-check" />}
         {state === "error" && <i className="fas fa-exclamation-triangle" />}
       </div>
-      <div className="tracker-title">
-        <span data-c-font-size="small">{label}</span>
+      <div>
+        <span data-c-font-size="small">{label}</span><br></br>
         <span data-c-font-weight="bold">{title}</span>
       </div>
     </div>
