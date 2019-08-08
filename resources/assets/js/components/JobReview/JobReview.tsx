@@ -39,7 +39,11 @@ const JobReviewSection: React.FunctionComponent<JobReviewSectionProps> = ({
 }): React.ReactElement => {
   return (
     <>
-      <div data-c-margin="top(triple) bottom(normal)">
+      <div
+        data-c-margin={
+          isSubsection ? "tb(normal)" : "top(triple) bottom(normal)"
+        }
+      >
         <div data-c-grid="gutter middle">
           <div
             data-c-grid-item="tp(1of2)"
