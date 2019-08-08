@@ -24,7 +24,7 @@ class ProgressRing extends React.Component<
 
     this.state = {
       normalizedRadius: radius - stroke * 2,
-      circumference: (radius - stroke * 2) * (2 * Math.PI)
+      circumference: (radius - stroke * 2) * (2 * Math.PI),
     };
   }
 
@@ -33,7 +33,6 @@ class ProgressRing extends React.Component<
     const { normalizedRadius, circumference } = this.state;
 
     let strokeDashoffset = circumference - (progress / max) * circumference;
-    console.log(strokeDashoffset);
     if (strokeDashoffset < 0) {
       strokeDashoffset = 0;
     }
@@ -41,10 +40,20 @@ class ProgressRing extends React.Component<
     return (
       <svg height={radius * 2} width={radius * 2}>
         <circle
+          stroke={"#80808085"}
+          fill="transparent"
+          strokeWidth={stroke}
+          strokeDasharray={`${circumference} ${circumference}`}
+          style={{ strokeDashoffset: 0 }}
+          r={normalizedRadius}
+          cx={radius}
+          cy={radius}
+        />
+        <circle
           stroke={strokeColor}
           fill="transparent"
           strokeWidth={stroke}
-          strokeDasharray={circumference + " " + circumference}
+          strokeDasharray={`${circumference} ${circumference}`}
           style={{ strokeDashoffset }}
           r={normalizedRadius}
           cx={radius}

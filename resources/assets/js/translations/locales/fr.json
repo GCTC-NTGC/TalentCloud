@@ -422,5 +422,11 @@
   "skillLevel.soft.intermediate.description": "Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés. Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.",
   "skillLevel.soft.intermediate.name": "Modérément en évidence",
   "veteranStatus.veteran": "Anciens combattants",
-  "veteranStatus.veteranLogoAlt": "icône pour anciens combattants"
+  "veteranStatus.veteranLogoAlt": "icône pour anciens combattants",
+  "wordCounter.skills.longMessage": "Ça a l'air trop long. Pouvez-vous résumer une partie de votre réponse?",
+  "wordCounter.skills.placeholder": "Commencez à taper votre réponse ci-dessus.",
+  "wordCounter.skills.shortMessage": "Ce paragraphe semble trop court. Avez-vous un autre exemple ou une leçon à ajouter?",
+  "wordCounter.skills.slightlyLongMessage": "Ça commence à être un peu long.",
+  "wordCounter.skills.veryLongMessage": "C'est beaucoup trop long. Découvrez l'un de nos exemples pour voir à quoi ressemble une description de compétence concise.",
+  "wordCounter.skills.veryShortMessage": "Ce paragraphe semble trop court. Avez-vous inclus des exemples ou des leçons apprises?"
 }
