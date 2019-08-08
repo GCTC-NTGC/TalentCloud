@@ -12,12 +12,16 @@ import {
   jobBuilderDetails,
   jobBuilderTasks,
   jobBuilderImpact,
+  jobBuilderSkills,
 } from "../../helpers/routes";
-import { find } from "../../helpers/queries";
+import { find, mapToObject, hasKey, getId } from "../../helpers/queries";
 import {
   provinceName,
   securityClearance,
 } from "../../models/localizedConstants";
+import { CriteriaForm } from "../JobBuilderSkills/CriteriaForm";
+import { CriteriaTypeId } from "../../models/lookupConstants";
+import Criterion from "../JobBuilder/Criterion";
 
 interface JobReviewSectionProps {
   title: string;
@@ -108,6 +112,21 @@ export const JobReview: React.FunctionComponent<
   const departmentName =
     department !== null ? department[locale].name : "MISSING DEPARTMENT";
 
+  // Map the skills into a dictionary for quicker access
+  const skillsById = mapToObject(skills, getId);
+  const getSkillOfCriteria = (criterion: Criteria): Skill | null => {
+    return hasKey(skillsById, criterion.skill_id)
+      ? skillsById[criterion.skill_id]
+      : null;
+  };
+  const essentialCriteria = criteria.filter(
+    (criterion): boolean =>
+      criterion.criteria_type_id === CriteriaTypeId.Essential,
+  );
+  const assetCriteria = criteria.filter(
+    (criterion): boolean => criterion.criteria_type_id === CriteriaTypeId.Asset,
+  );
+
   return (
     <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
       <h3
@@ -125,7 +144,7 @@ export const JobReview: React.FunctionComponent<
 
       <JobReviewSection
         title="Job Page Heading"
-        linkLabel="Edit This in Step 02: Job Info"
+        linkLabel="Edit This in Step 01: Job Info"
         link={jobBuilderDetails(locale, job.id)}
       >
         <p data-c-font-weight="bold" data-c-margin="bottom(half)">
@@ -170,7 +189,7 @@ export const JobReview: React.FunctionComponent<
       </JobReviewSection>
       <JobReviewSection
         title="Basic Information"
-        linkLabel="Edit This in Step 02: Job Info"
+        linkLabel="Edit This in Step 01: Job Info"
         link={jobBuilderDetails(locale, job.id)}
       >
         <div data-c-grid="gutter">
@@ -226,7 +245,7 @@ export const JobReview: React.FunctionComponent<
       </JobReviewSection>
       <JobReviewSection
         title="Impact"
-        linkLabel="Edit This in Step 04: Impact"
+        linkLabel="Edit This in Step 03: Impact"
         link={jobBuilderImpact(locale, job.id)}
       >
         <p data-c-margin="bottom(normal)">{job[locale].dept_impact}</p>
@@ -235,7 +254,7 @@ export const JobReview: React.FunctionComponent<
       </JobReviewSection>
       <JobReviewSection
         title="Tasks"
-        linkLabel="Edit This in Step 05: Tasks"
+        linkLabel="Edit This in Step 04: Tasks"
         link={jobBuilderTasks(locale, job.id)}
       >
         <ul>
@@ -245,6 +264,58 @@ export const JobReview: React.FunctionComponent<
             ),
           )}
         </ul>
+      </JobReviewSection>
+      <div data-c-margin="top(triple) bottom(normal)">
+        <div data-c-grid="gutter middle">
+          <div
+            data-c-grid-item="base(1of1)"
+            data-c-alignment="base(centre) tp(left)"
+          >
+            <h4 data-c-colour="c2" data-c-font-size="h4">
+              Criteria
+            </h4>
+          </div>
+        </div>
+      </div>
+      <JobReviewSection
+        title="Education Requirements"
+        isSubsection
+        linkLabel="Edit This in Step 01: Job Info"
+        link={jobBuilderDetails(locale, job.id)}
+      >
+        {job[locale].education}
+      </JobReviewSection>
+      <JobReviewSection
+        title="Skills You Need to Have"
+        isSubsection
+        linkLabel="Edit This in Step 05: Skills"
+        link={jobBuilderSkills(locale, job.id)}
+      >
+        {essentialCriteria.map((criterion): React.ReactElement | null => {
+          const skill = getSkillOfCriteria(criterion);
+          if (skill === null) {
+            return null;
+          }
+          return (
+            <Criterion criterion={criterion} skill={skill} key={criterion.id} />
+          );
+        })}
+      </JobReviewSection>
+      <JobReviewSection
+        title="Skills That Are Nice to Have"
+        isSubsection
+        linkLabel="Edit This in Step 05: Skills"
+        link={jobBuilderSkills(locale, job.id)}
+      >
+        {assetCriteria.map((criterion): React.ReactElement | null => {
+          const skill = getSkillOfCriteria(criterion);
+          if (skill === null) {
+            return null;
+          }
+          return (
+            <Criterion criterion={criterion} skill={skill} key={criterion.id} />
+          );
+        })}
       </JobReviewSection>
     </div>
   );
