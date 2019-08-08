@@ -254,7 +254,7 @@ Route::group(
 
                 /* Job Builder */
                 Route::get(
-                    'job-builder/intro',
+                    'jobs/builder',
                     'JobBuilderController@intro'
                 );
 

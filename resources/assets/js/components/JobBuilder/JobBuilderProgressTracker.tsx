@@ -15,17 +15,10 @@ import {
   jobImpactProgressState,
   jobBuilderEnvProgressState,
   jobBuilderIntroProgressState,
+  jobBuilderDetailsProgressState,
 } from "./jobBuilderHelpers";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
-
-type JobBuilderPage =
-  | "intro"
-  | "details"
-  | "env"
-  | "impact"
-  | "tasks"
-  | "skills"
-  | "review";
+import { JobBuilderPage } from "./JobBuilderStep";
 
 interface JobBuilderProgressTrackerProps {
   job: Job | null;
@@ -35,6 +28,23 @@ interface JobBuilderProgressTrackerProps {
   dataIsLoading: boolean;
   currentPage: JobBuilderPage;
 }
+
+const pageOrder: { [page in JobBuilderPage]: number } = {
+  intro: 0,
+  details: 1,
+  env: 2,
+  impact: 3,
+  tasks: 4,
+  skills: 5,
+  review: 6,
+};
+const stepComesBefore = (
+  currentPage: JobBuilderPage,
+  referencePage: JobBuilderPage,
+): boolean => {
+  const comesBefore = pageOrder[currentPage] < pageOrder[referencePage];
+  return comesBefore;
+};
 
 export const JobBuilderProgressTracker: React.FunctionComponent<
   JobBuilderProgressTrackerProps & InjectedIntlProps
@@ -52,14 +62,48 @@ export const JobBuilderProgressTracker: React.FunctionComponent<
     throw new Error("Unexpected locale");
   }
   const pageStates: { [page in JobBuilderPage]: ProgressTrackerState } = {
-    intro: dataIsLoading ? "null" : jobBuilderIntroProgressState(job),
-    details: dataIsLoading ? "null" : jobBuilderIntroProgressState(job),
-    env: dataIsLoading ? "null" : jobBuilderEnvProgressState(job, locale),
-    impact: dataIsLoading ? "null" : jobImpactProgressState(job, locale),
+    intro: dataIsLoading
+      ? "null"
+      : jobBuilderIntroProgressState(
+          job,
+          stepComesBefore(currentPage, "intro"),
+        ),
+    details: dataIsLoading
+      ? "null"
+      : jobBuilderDetailsProgressState(
+          job,
+          locale,
+          stepComesBefore(currentPage, "details"),
+        ),
+    env: dataIsLoading
+      ? "null"
+      : jobBuilderEnvProgressState(
+          job,
+          locale,
+          stepComesBefore(currentPage, "env"),
+        ),
+    impact: dataIsLoading
+      ? "null"
+      : jobImpactProgressState(
+          job,
+          locale,
+          stepComesBefore(currentPage, "impact"),
+        ),
     tasks: dataIsLoading
       ? "null"
-      : jobTasksProgressState(tasks, maxTasksCount, locale),
-    skills: dataIsLoading ? "null" : criteriaProgressState(criteria, locale),
+      : jobTasksProgressState(
+          tasks,
+          maxTasksCount,
+          locale,
+          stepComesBefore(currentPage, "tasks"),
+        ),
+    skills: dataIsLoading
+      ? "null"
+      : criteriaProgressState(
+          criteria,
+          locale,
+          stepComesBefore(currentPage, "skills"),
+        ),
     review: "null",
   };
   pageStates[currentPage] = "active";
