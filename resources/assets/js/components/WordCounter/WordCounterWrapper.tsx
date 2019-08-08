@@ -84,13 +84,19 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
       const caretPosition = target.selectionStart;
 
       if (numOfWords > wordLimit) {
-        target.value = prevValue;
+        if (numOfWords - 1 === wordLimit) {
+          target.value = prevValue;
+        } else {
+          target.value = truncateWords(target.value, wordLimit);
+          setPrevValue(target.value);
+        }
       } else {
-        console.log(prevValue);
         setPrevValue(target.value);
       }
 
       target.setSelectionRange(caretPosition, caretPosition);
+      setCurrentNumberOfWords(countNumberOfWords(target.value));
+      console.log(numOfWords);
     };
 
     element.addEventListener("input", handleInputChange);
