@@ -1,4 +1,4 @@
-import { Job, JobPosterKeyTask } from "../../models/types";
+import { Job, JobPosterKeyTask, Criteria } from "../../models/types";
 import { ProgressTrackerState } from "../ProgressTracker/types";
 
 /** Job Builder Constants */
@@ -179,4 +179,53 @@ export const jobTasksProgressState = (
     return "null";
   }
   return isJobTasksComplete(tasks, maxCount, locale) ? "complete" : "error";
+};
+
+const isCriterionComplete = (
+  criterion: Criteria,
+  locale: "en" | "fr",
+): boolean => {
+  const { description } = criterion[locale];
+  return description !== null && description.length > 0;
+};
+// FIXME: There is currently no way to know the difference between an untouched list, and one where criteria have been added then removed
+const isCriteriaUntouched = (criteria: Criteria[]): boolean =>
+  criteria.length === 0;
+const isCriteriaComplete = (
+  criteria: Criteria[],
+  locale: "en" | "fr",
+): boolean => {
+  return (
+    criteria.length > 0 &&
+    criteria.every((criterion): boolean =>
+      isCriterionComplete(criterion, locale),
+    )
+  );
+};
+export const criteriaProgressState = (
+  criteria: Criteria[],
+  locale: "en" | "fr",
+  allowUntouched = false,
+): ProgressTrackerState => {
+  if (allowUntouched && isCriteriaUntouched(criteria)) {
+    return "null";
+  }
+  return isCriteriaComplete(criteria, locale) ? "complete" : "error";
+};
+
+export const isJobBuilderComplete = (
+  job: Job,
+  tasks: JobPosterKeyTask[],
+  maxTasksCount: number,
+  criteria: Criteria[],
+  locale: "en" | "fr",
+): boolean => {
+  return (
+    isJobBuilderIntroComplete(job) &&
+    isJobBuilderDetailsComplete(job, locale) &&
+    isJobBuilderEnvComplete(job, locale) &&
+    isJobImpactComplete(job, locale) &&
+    isJobTasksComplete(tasks, maxTasksCount, locale) &&
+    isCriteriaComplete(criteria, locale)
+  );
 };
