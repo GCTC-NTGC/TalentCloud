@@ -237,4 +237,15 @@ class JobApiControllerTest extends TestCase
             ->json('post', 'api/jobs');
         $response->assertForbidden();
     }
+
+    public function testReturnsCorrectClassificationCode(): void
+    {
+        $classification = Classification::inRandomOrder()->first();
+        $job = factory(JobPoster::class)->state('published')->create([
+            'classification_id' => $classification->id
+        ]);
+        $response = $this->json('get', "api/jobs/$job->id");
+        $response->assertOk();
+        $response->assertJsonFragment(['classification_code' => $classification->key]);
+    }
 }
