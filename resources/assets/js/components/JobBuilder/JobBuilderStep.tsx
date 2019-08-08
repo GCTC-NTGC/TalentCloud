@@ -22,7 +22,6 @@ import {
   fetchCriteria,
 } from "../../store/Job/jobActions";
 import { fetchSkills } from "../../store/Skill/skillActions";
-import { useLoader } from "../../helpers/customHooks";
 import JobBuilderProgressTracker from "./JobBuilderProgressTracker";
 import { getDepartments } from "../../store/Department/deptSelector";
 import { getDepartments as fetchDepartments } from "../../store/Department/deptActions";
