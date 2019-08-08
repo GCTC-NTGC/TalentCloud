@@ -9,6 +9,7 @@ use App\Models\JobPoster;
 use App\Models\Manager;
 use App\Models\User;
 use Illuminate\Support\Facades\Config;
+use App\Models\Classification;
 
 class JobApiControllerTest extends TestCase
 {
@@ -41,7 +42,7 @@ class JobApiControllerTest extends TestCase
             'salary_min' => $this->faker->numberBetween(60000, 80000),
             'salary_max' => $this->faker->numberBetween(80000, 100000),
             'noc' => $this->faker->numberBetween(1, 9999),
-            'classification_code' => $this->faker->regexify('[A-Z]{2}'),
+            'classification_code' => Classification::inRandomOrder()->first()->key,
             'classification_level' => $this->faker->numberBetween(1, 6),
             'manager_id' => $managerId,
             'remote_work_allowed' => $this->faker->boolean(50),
@@ -123,8 +124,12 @@ class JobApiControllerTest extends TestCase
             ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertOk();
         $expectedDb = array_merge(
-            collect($jobUpdate)->except(['en', 'fr', 'work_env_features'])->toArray(),
-            ['id' => $job->id, 'manager_id' => $job->manager_id]
+            collect($jobUpdate)->except(['en', 'fr', 'work_env_features', 'classification_code'])->toArray(),
+            [
+                'id' => $job->id,
+                'manager_id' => $job->manager_id,
+                'classification_id' => Classification::where('key', $jobUpdate['classification_code'])->first()->id
+            ]
         );
         $this->assertDatabaseHas('job_posters', $expectedDb);
         $newJob = $job->fresh();
