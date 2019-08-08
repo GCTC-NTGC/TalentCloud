@@ -13,7 +13,7 @@ export interface ContextBlockItemProps {
   fontSize?: string;
   fontWeight?: string;
   margin?: string;
-  reference?: React.RefObject<any>;
+  reference?: React.RefObject<HTMLParagraphElement>;
 }
 
 const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({

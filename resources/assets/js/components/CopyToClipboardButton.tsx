@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { copyElementContents } from "../../helpers/clipboard";
+import { copyElementContents } from "../helpers/clipboard";
 
 interface CopyToClipboardProps {
   reference: React.RefObject<any>;

@@ -12,7 +12,7 @@ import CheckboxGroup from "../Form/CheckboxGroup";
 import RadioGroup from "../Form/RadioGroup";
 import ContextBlock from "../ContextBlock/ContextBlock";
 import ContextBlockItem from "../ContextBlock/ContextBlockItem";
-import CopyToClipboardButton from "./CopyToClipboardButton";
+import CopyToClipboardButton from "../CopyToClipboardButton";
 import WorkEnvModal from "./WorkEnvModal";
 import RadioInput from "../Form/RadioInput";
 import NumberInput from "../Form/NumberInput";

@@ -32,6 +32,9 @@ import {
   languageRequirement,
   provinceName,
 } from "../../models/localizedConstants";
+import ContextBlockItem from "../ContextBlock/ContextBlockItem";
+import CopyToClipboardButton from "../CopyToClipboardButton";
+import TextAreaInput from "../Form/TextAreaInput";
 
 const formMessages = defineMessages({
   titleLabel: {
@@ -368,6 +371,7 @@ interface JobFormValues {
   termLength: number | "";
   classification: string;
   level: number | "";
+  educationRequirements: string;
   securityLevel: number | "";
   language: number | "";
   city: string;
@@ -377,13 +381,21 @@ interface JobFormValues {
   flexHours: FlexHourOptionType;
 }
 
-const jobToValues = (job: Job | null, locale: string): JobFormValues =>
-  job
+const isClassificationSet = (values: JobFormValues): boolean => {
+  return values.classification.length > 0 && values.level !== "";
+};
+const buildEducationRequirements = (values: JobFormValues): string => {
+  return "A secondary school diploma; or\n\nEquivalent Experience:\n If you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum education requirement stated above.";
+};
+
+const jobToValues = (job: Job | null, locale: string): JobFormValues => {
+  const values: JobFormValues = job
     ? {
         title: job[locale].title ? String(job[locale].title) : "", // TODO: use utility method
         termLength: job.term_qty || "",
         classification: job.classification_code || "",
         level: job.classification_level || "",
+        educationRequirements: job[locale].education || "",
         securityLevel: job.security_clearance_id || "",
         language: job.language_requirement_id || "",
         city: job[locale].city || "",
@@ -404,6 +416,7 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues =>
         termLength: "",
         classification: "",
         level: "",
+        educationRequirements: "",
         securityLevel: "",
         language: "",
         city: "",
@@ -412,6 +425,15 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues =>
         telework: "teleworkFrequently",
         flexHours: "flexHoursFrequently",
       };
+  // If the job has the standard education requirments saved, no need to fill the custom textbox
+  if (values.educationRequirements === buildEducationRequirements(values)) {
+    return {
+      ...values,
+      educationRequirements: "",
+    };
+  }
+  return values;
+};
 
 const updateJobWithValues = (
   initialJob: Job,
@@ -421,6 +443,7 @@ const updateJobWithValues = (
     termLength,
     classification,
     level,
+    educationRequirements,
     securityLevel,
     language,
     city,
@@ -444,6 +467,7 @@ const updateJobWithValues = (
     ...initialJob[locale],
     title,
     city,
+    education: educationRequirements,
   },
 });
 
@@ -502,6 +526,7 @@ const JobDetails: React.FunctionComponent<
       .min(1, intl.formatMessage(validationMessages.invalidSelection))
       .max(9, intl.formatMessage(validationMessages.invalidSelection))
       .required(intl.formatMessage(validationMessages.required)),
+    educationRequirements: Yup.string(),
     securityLevel: Yup.number()
       .oneOf(
         Object.values(SecurityClearanceId),
@@ -544,6 +569,8 @@ const JobDetails: React.FunctionComponent<
       .required(intl.formatMessage(validationMessages.required)),
   });
 
+  const educationRef = React.createRef<HTMLParagraphElement>();
+
   return (
     <section>
       <div
@@ -568,7 +595,17 @@ const JobDetails: React.FunctionComponent<
           validationSchema={jobSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
-            handleSubmit(updateJobWithValues(job || emptyJob(), locale, values))
+            const educationRequirements: string =
+              values.educationRequirements.length > 0
+                ? values.educationRequirements
+                : buildEducationRequirements(values);
+            const modifiedValues: JobFormValues = {
+              ...values,
+              educationRequirements,
+            };
+            handleSubmit(
+              updateJobWithValues(job || emptyJob(), locale, modifiedValues),
+            )
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
                   setIsModalVisible(true);
@@ -717,6 +754,59 @@ const JobDetails: React.FunctionComponent<
                     { value: 9, label: "9" },
                   ]}
                 />
+                <div data-c-grid-item="base(1of1)">
+                  {!isClassificationSet(values) ? (
+                    <p
+                      data-c-font-weight="bold"
+                      data-c-margin="bottom(normal)"
+                      data-c-colour="grey"
+                    >
+                      Please select a classification and level before preparing
+                      the education requirements.
+                    </p>
+                  ) : (
+                    <>
+                      <p
+                        data-c-font-weight="bold"
+                        data-c-margin="bottom(normal)"
+                      >
+                        Based on the classification level you selected, this
+                        standard paragraph will appear on the job poster.
+                      </p>
+                      <ContextBlockItem
+                        subtext={buildEducationRequirements(values)}
+                        reference={educationRef}
+                      />
+                      <div
+                        data-c-alignment="base(centre) tl(right)"
+                        data-c-margin="top(normal)"
+                      >
+                        <CopyToClipboardButton reference={educationRef} />
+                      </div>
+                      <div className="job-builder-education-customization active">
+                        <p data-c-margin="bottom(normal)">
+                          If you want to customize this paragraph, copy and
+                          paste it into the textbox below.
+                        </p>
+                        <p
+                          data-c-font-weight="bold"
+                          data-c-margin="bottom(normal)"
+                        >
+                          Your HR advisor will review your changes.
+                        </p>
+                        <Field
+                          type="textarea"
+                          id="education_requirements"
+                          name="educationRequirements"
+                          label="Customize the Education Requirement"
+                          placeholder="Paste the paragraph here to edit..."
+                          component={TextAreaInput}
+                          grid="base(1of1)"
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
                 <Field
                   name="securityLevel"
                   id="builder02SecurityLevel"
