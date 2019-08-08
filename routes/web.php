@@ -257,18 +257,6 @@ Route::group(
                     'job-builder/intro',
                     'JobBuilderController@intro'
                 );
-                Route::get(
-                    'job-builder/details',
-                    'JobBuilderController@details'
-                );
-                Route::get(
-                    'job-builder/environment',
-                    'JobBuilderController@environment'
-                );
-                Route::get(
-                    'job-builder/impact',
-                    'JobBuilderController@impact'
-                );
 
                 Route::get(
                     'jobs/{jobId}/builder/intro',

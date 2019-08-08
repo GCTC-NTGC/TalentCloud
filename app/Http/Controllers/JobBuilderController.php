@@ -23,7 +23,7 @@ class JobBuilderController extends Controller
      * Show the Job Builder Details page
      * @return \Illuminate\Http\Response
      */
-    public function details($jobId = null)
+    public function details($jobId)
     {
         return view(
             'manager/job-builder-details',
@@ -35,7 +35,7 @@ class JobBuilderController extends Controller
      * Show the Job Builder Work Environment page
      * @return \Illuminate\Http\Response
      */
-    public function environment($jobId = null)
+    public function environment($jobId)
     {
         return view(
             'manager/job-builder-environment',
@@ -47,7 +47,7 @@ class JobBuilderController extends Controller
      * Show the Job Builder Impact page
      * @return \Illuminate\Http\Response
      */
-    public function impact($jobId = null)
+    public function impact($jobId)
     {
         return view(
             'manager/job-builder-impact',

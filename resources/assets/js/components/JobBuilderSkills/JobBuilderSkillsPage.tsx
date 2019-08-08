@@ -1,25 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { InjectedIntlProps, FormattedMessage, injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import RootContainer from "../RootContainer";
 import { Job, JobPosterKeyTask, Criteria, Skill } from "../../models/types";
-import {
-  jobBuilderIntroProgressState,
-  jobBuilderDetailsProgressState,
-  jobImpactProgressState,
-  jobBuilderEnvProgressState,
-  VALID_COUNT,
-  jobTasksProgressState,
-} from "../JobBuilder/jobBuilderHelpers";
-import {
-  progressTrackerLabels,
-  progressTrackerTitles,
-} from "../JobBuilder/jobBuilderMessages";
-import ProgressTracker from "../ProgressTracker/ProgressTracker";
+import { VALID_COUNT } from "../JobBuilder/jobBuilderHelpers";
 import JobBuilderSkills from "./JobBuilderSkills";
 import { managerJobIndex } from "../../helpers/routes";
-import { ProgressTrackerItem } from "../ProgressTracker/types";
 import { RootState } from "../../store/store";
 import {
   getJob,
@@ -28,8 +15,15 @@ import {
 } from "../../store/Job/jobSelector";
 import { getSkills } from "../../store/Skill/skillSelector";
 import { DispatchType } from "../../configureStore";
-import { fetchJob, fetchJobTasks, fetchCriteria, batchUpdateCriteria } from "../../store/Job/jobActions";
+import {
+  fetchJob,
+  fetchJobTasks,
+  fetchCriteria,
+  batchUpdateCriteria,
+} from "../../store/Job/jobActions";
 import { fetchSkills } from "../../store/Skill/skillActions";
+import { useLoader } from "../../helpers/customHooks";
+import JobBuilderProgressTracker from "../JobBuilder/JobBuilderProgressTracker";
 
 interface JobBuilderSkillsPageProps {
   jobId: number;
@@ -63,34 +57,11 @@ const JobBuilderSkillsPage: React.FunctionComponent<
   intl,
 }): React.ReactElement => {
   // Trigger fetching of jobs, skills, tasks, and criteria on first load, or when jobId changes
-  const [isLoadingJob, setIsLoadingJob] = useState(false);
-  useEffect((): void => {
-    setIsLoadingJob(true);
-    loadJob(jobId).finally((): void => {
-      setIsLoadingJob(false);
-    });
-  }, [jobId, loadJob]);
-  const [isLoadingSkills, setIsLoadingSkills] = useState(false);
-  useEffect((): void => {
-    setIsLoadingSkills(true);
-    loadSkills().finally((): void => {
-      setIsLoadingSkills(false);
-    });
-  }, [loadSkills]);
-  const [isLoadingTasks, setIsLoadingTasks] = useState(false);
-  useEffect((): void => {
-    setIsLoadingTasks(true);
-    loadTasks(jobId).finally((): void => {
-      setIsLoadingTasks(false);
-    });
-  }, [jobId, loadTasks]);
-  const [isLoadingCriteria, setIsLoadingCriteria] = useState(false);
-  useEffect((): void => {
-    setIsLoadingCriteria(true);
-    loadCriteria(jobId).finally((): void => {
-      setIsLoadingCriteria(false);
-    });
-  }, [jobId, loadCriteria]);
+  const isLoadingJob = useLoader((): Promise<void> => loadJob(jobId));
+  const isLoadingSkills = useLoader(loadSkills);
+  const isLoadingTasks = useLoader((): Promise<void> => loadTasks(jobId));
+  const isLoadingCriteria = useLoader((): Promise<void> => loadCriteria(jobId));
+  const dataIsLoading = isLoadingJob || isLoadingTasks || isLoadingCriteria;
 
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
@@ -105,55 +76,15 @@ const JobBuilderSkillsPage: React.FunctionComponent<
   const handleSubmit = (tasks: Criteria[]): Promise<Criteria[]> =>
     handleSubmitCriteria(jobId, tasks);
 
-  const progressTrackerItems: ProgressTrackerItem[] = [
-    {
-      state: isLoadingJob ? "null" : jobBuilderIntroProgressState(job),
-      label: intl.formatMessage(progressTrackerLabels.start),
-      title: intl.formatMessage(progressTrackerTitles.welcome),
-    },
-    {
-      state: isLoadingJob
-        ? "null"
-        : jobBuilderDetailsProgressState(job, locale),
-      label: intl.formatMessage(progressTrackerLabels.step01),
-      title: intl.formatMessage(progressTrackerTitles.jobInfo),
-    },
-    {
-      state: isLoadingJob ? "null" : jobBuilderEnvProgressState(job, locale),
-      label: intl.formatMessage(progressTrackerLabels.step02),
-      title: intl.formatMessage(progressTrackerTitles.workEnv),
-    },
-    {
-      state: isLoadingJob ? "null" : jobImpactProgressState(job, locale),
-      label: intl.formatMessage(progressTrackerLabels.step03),
-      title: intl.formatMessage(progressTrackerTitles.impact),
-    },
-    {
-      state: isLoadingTasks
-        ? "null"
-        : jobTasksProgressState(keyTasks, VALID_COUNT, locale),
-      label: intl.formatMessage(progressTrackerLabels.step04),
-      title: intl.formatMessage(progressTrackerTitles.tasks),
-    },
-    {
-      state: "active",
-      label: intl.formatMessage(progressTrackerLabels.step05),
-      title: intl.formatMessage(progressTrackerTitles.skills),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.finish),
-      title: intl.formatMessage(progressTrackerTitles.review),
-    },
-  ];
   return (
     <section>
-      <ProgressTracker
-        items={progressTrackerItems}
-        backgroundColor="black"
-        fontColor="white"
-        classNames="manager-jpb-tracker"
-        itemsWrapperClassNames="tracker manager-jpb-tracker-wrapper"
+      <JobBuilderProgressTracker
+        job={job}
+        tasks={keyTasks}
+        maxTasksCount={VALID_COUNT}
+        criteria={criteria}
+        dataIsLoading={dataIsLoading}
+        currentPage="skills"
       />
       {isLoadingCriteria || isLoadingJob || isLoadingSkills || job === null ? (
         <div
@@ -248,7 +179,9 @@ const JobSkillsPageContainer = connect(
 )(injectIntl(JobBuilderSkillsPage));
 
 if (document.getElementById("job-builder-skills")) {
-  const container = document.getElementById("job-builder-skills") as HTMLElement;
+  const container = document.getElementById(
+    "job-builder-skills",
+  ) as HTMLElement;
   const jobIdAttr = container.getAttribute("data-job-id");
   const jobId = jobIdAttr ? Number(jobIdAttr) : null;
   if (jobId) {

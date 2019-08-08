@@ -1,21 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { InjectedIntlProps, FormattedMessage, injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import { JobPosterKeyTask, Job } from "../../models/types";
-import { ProgressTrackerItem } from "../ProgressTracker/types";
-import {
-  jobBuilderIntroProgressState,
-  jobBuilderDetailsProgressState,
-  jobBuilderEnvProgressState,
-  jobImpactProgressState,
-  VALID_COUNT,
-} from "../JobBuilder/jobBuilderHelpers";
-import {
-  progressTrackerLabels,
-  progressTrackerTitles,
-} from "../JobBuilder/jobBuilderMessages";
-import ProgressTracker from "../ProgressTracker/ProgressTracker";
+import { VALID_COUNT } from "../JobBuilder/jobBuilderHelpers";
 import JobTasks from "./JobTasks";
 import { jobBuilderSkills } from "../../helpers/routes";
 import { RootState } from "../../store/store";
@@ -27,6 +15,8 @@ import {
   batchUpdateJobTasks,
 } from "../../store/Job/jobActions";
 import RootContainer from "../RootContainer";
+import JobBuilderProgressTracker from "../JobBuilder/JobBuilderProgressTracker";
+import { useLoader } from "../../helpers/customHooks";
 
 interface JobTasksPageProps {
   jobId: number;
@@ -52,20 +42,9 @@ const JobTasksPage: React.FunctionComponent<
   intl,
 }): React.ReactElement => {
   // Trigger fetching of jobs and tasks on first load, or when jobId changes
-  const [isLoadingJob, setIsLoadingJob] = useState(false);
-  useEffect((): void => {
-    setIsLoadingJob(true);
-    loadJob(jobId).finally((): void => {
-      setIsLoadingJob(false);
-    });
-  }, [jobId, loadJob]);
-  const [isLoadingTasks, setIsLoadingTasks] = useState(false);
-  useEffect((): void => {
-    setIsLoadingTasks(true);
-    loadTasks(jobId).finally((): void => {
-      setIsLoadingTasks(false);
-    });
-  }, [jobId, loadTasks]);
+  const isLoadingJob = useLoader((): Promise<void> => loadJob(jobId));
+  const isLoadingTasks = useLoader((): Promise<void> => loadTasks(jobId));
+  const dataIsLoading = isLoadingJob || isLoadingTasks;
 
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
@@ -81,53 +60,15 @@ const JobTasksPage: React.FunctionComponent<
     tasks: JobPosterKeyTask[],
   ): Promise<JobPosterKeyTask[]> => handleUpdateTasks(jobId, tasks);
 
-  const progressTrackerItems: ProgressTrackerItem[] = [
-    {
-      state: isLoadingJob ? "null" : jobBuilderIntroProgressState(job),
-      label: intl.formatMessage(progressTrackerLabels.start),
-      title: intl.formatMessage(progressTrackerTitles.welcome),
-    },
-    {
-      state: isLoadingJob
-        ? "null"
-        : jobBuilderDetailsProgressState(job, locale),
-      label: intl.formatMessage(progressTrackerLabels.step01),
-      title: intl.formatMessage(progressTrackerTitles.jobInfo),
-    },
-    {
-      state: isLoadingJob ? "null" : jobBuilderEnvProgressState(job, locale),
-      label: intl.formatMessage(progressTrackerLabels.step02),
-      title: intl.formatMessage(progressTrackerTitles.workEnv),
-    },
-    {
-      state: isLoadingJob ? "null" : jobImpactProgressState(job, locale),
-      label: intl.formatMessage(progressTrackerLabels.step03),
-      title: intl.formatMessage(progressTrackerTitles.impact),
-    },
-    {
-      state: "active",
-      label: intl.formatMessage(progressTrackerLabels.step04),
-      title: intl.formatMessage(progressTrackerTitles.tasks),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.step05),
-      title: intl.formatMessage(progressTrackerTitles.skills),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.finish),
-      title: intl.formatMessage(progressTrackerTitles.review),
-    },
-  ];
   return (
     <section>
-      <ProgressTracker
-        items={progressTrackerItems}
-        backgroundColor="black"
-        fontColor="white"
-        classNames="manager-jpb-tracker"
-        itemsWrapperClassNames="tracker manager-jpb-tracker-wrapper"
+      <JobBuilderProgressTracker
+        job={job}
+        tasks={keyTasks}
+        maxTasksCount={VALID_COUNT}
+        criteria={[]} // TODO: pass in actual Criteria
+        dataIsLoading={dataIsLoading}
+        currentPage="tasks"
       />
       {isLoadingTasks ? (
         <div
