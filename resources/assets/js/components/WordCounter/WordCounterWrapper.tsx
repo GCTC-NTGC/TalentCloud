@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
-import WordCounter from "./WordCounter";
-import { countNumberOfWords, truncateWords, sortMessages } from "./helpers";
-import { WordCounterProps, WordCounterMessage } from "./types";
+import WordCounter, { WordCounterProps } from "./WordCounter";
+import { countNumberOfWords, sortMessages, truncateWords } from "./helpers";
+
+export interface WordCounterMessage {
+  /** When this number is reached, the correspoding message will be displayed */
+  count: number;
+  /** Message displayed when 'count' is reached */
+  message: string;
+}
 
 interface WordCounterWrapperProps
   extends Omit<WordCounterProps, "numOfWords" | "message" | "strokeColor"> {
@@ -19,6 +25,38 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
 }): React.ReactElement => {
   const [currentNumberOfWords, setCurrentNumberOfWords] = useState(0);
   const [prevValue, setPrevValue] = useState("");
+
+  useEffect((): (() => void) => {
+    const element: HTMLTextAreaElement = document.getElementById(
+      elementId,
+    ) as HTMLTextAreaElement;
+
+    setCurrentNumberOfWords(countNumberOfWords(element.value));
+
+    const handleInputChange = (e): void => {
+      const target = e.target as HTMLTextAreaElement;
+      const numOfWords = countNumberOfWords(target.value);
+      setCurrentNumberOfWords(numOfWords);
+
+      const caretPosition = target.selectionStart;
+
+      if (numOfWords > wordLimit) {
+        target.setSelectionRange(caretPosition - 1, caretPosition - 1);
+        target.value = prevValue;
+      } else {
+        target.value = truncateWords(target.value, wordLimit);
+        setPrevValue(target.value);
+      }
+
+      setCurrentNumberOfWords(countNumberOfWords(target.value));
+    };
+
+    element.addEventListener("input", handleInputChange);
+
+    return function cleanup(): void {
+      element.removeEventListener("input", handleInputChange, false);
+    };
+  }, [elementId, prevValue, wordLimit]);
 
   const handleMessage = (): string => {
     let index = 0;
@@ -68,43 +106,6 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
 
     return `hsl(${hue}, 80%, 50%)`;
   };
-
-  useEffect((): (() => void) => {
-    const element: HTMLTextAreaElement = document.getElementById(
-      elementId,
-    ) as HTMLTextAreaElement;
-
-    setCurrentNumberOfWords(countNumberOfWords(element.value));
-
-    const handleInputChange = (e): void => {
-      const target = e.target as HTMLTextAreaElement;
-      const numOfWords = countNumberOfWords(target.value);
-      setCurrentNumberOfWords(numOfWords);
-
-      const caretPosition = target.selectionStart;
-
-      if (numOfWords > wordLimit) {
-        if (numOfWords - 1 === wordLimit) {
-          target.value = prevValue;
-        } else {
-          target.value = truncateWords(target.value, wordLimit);
-          setPrevValue(target.value);
-        }
-      } else {
-        setPrevValue(target.value);
-      }
-
-      target.setSelectionRange(caretPosition, caretPosition);
-      setCurrentNumberOfWords(countNumberOfWords(target.value));
-      console.log(numOfWords);
-    };
-
-    element.addEventListener("input", handleInputChange);
-
-    return function cleanup(): void {
-      element.removeEventListener("input", handleInputChange, false);
-    };
-  }, [elementId, prevValue, wordLimit]);
 
   return (
     <WordCounter

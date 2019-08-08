@@ -2,7 +2,7 @@
 
 exports[`Progress Tracker should render ProgressTracker with background color and opacity 1`] = `
 <div
-  data-c-alignment="base(centre) tl(right)"
+  data-c-alignment="base(centre)"
   data-c-background="black(100)"
 >
   <div
@@ -22,7 +22,7 @@ exports[`Progress Tracker should render ProgressTracker with background color an
 
 exports[`Progress Tracker should render ProgressTracker with children 1`] = `
 <div
-  data-c-alignment="base(centre) tl(right)"
+  data-c-alignment="base(centre)"
   data-c-background="undefined(100)"
 >
   <div
@@ -52,7 +52,7 @@ exports[`Progress Tracker should render ProgressTracker with children 1`] = `
 
 exports[`Progress Tracker should render ProgressTracker with items 1`] = `
 <div
-  data-c-alignment="base(centre) tl(right)"
+  data-c-alignment="base(centre)"
   data-c-background="undefined(100)"
 >
   <div

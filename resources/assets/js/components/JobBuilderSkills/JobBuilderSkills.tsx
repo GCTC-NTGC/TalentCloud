@@ -4,12 +4,13 @@ import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
 import { Job, Skill, Criteria, JobPosterKeyTask } from "../../models/types";
 import Modal from "../Modal";
 import CriteriaForm from "./CriteriaForm";
-import { mapToObject, getId, hasKey } from "../../helpers/queries";
+import { mapToObject, getId, hasKey, notEmpty } from "../../helpers/queries";
 import { CriteriaTypeId } from "../../models/lookupConstants";
 import {
   assetSkillName,
   skillLevelName,
 } from "../../models/localizedConstants";
+import Select, { SelectOption } from "../Select";
 
 interface JobBuilderSkillsProps {
   // The job being built
@@ -233,6 +234,21 @@ export const JobBuilderSkills: React.FunctionComponent<
     return skill !== null && isFuture(skill);
   });
 
+  // Optional skills are those that don't fit into the other three categories
+  const isOptional = (skill: Skill): boolean =>
+    !isOccupational(skill) && !isCulture(skill) && !isFuture(skill);
+  const otherSkills = skills.filter(isOptional);
+  const selectedSkillIds = jobCriteria
+    .map(getSkillOfCriteria)
+    .filter(notEmpty)
+    .map(getId);
+  const selectedOtherSkills: Skill[] = otherSkills.filter((skill): boolean =>
+    selectedSkillIds.includes(skill.id),
+  );
+  const unselectedOtherSkills: Skill[] = otherSkills.filter(
+    (skill): boolean => !selectedSkillIds.includes(skill.id),
+  );
+
   const [isSaving, setIsSaving] = useState(false);
   const saveAndPreview = (): void => {
     setIsSaving(true);
@@ -320,7 +336,9 @@ export const JobBuilderSkills: React.FunctionComponent<
         key={skill.id}
         className={`jpb-skill ${isOccupational(skill) ? "occupational" : ""} ${
           isCulture(skill) ? "cultural" : ""
-        } ${isFuture(skill) ? "future" : ""}`}
+        } ${isFuture(skill) ? "future" : ""} ${
+          isOptional(skill) ? "optional" : ""
+        }`}
         data-tc-up-down-item
       >
         <div data-c-grid="gutter middle">
@@ -354,6 +372,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-briefcase" />
                   <i className="fas fa-coffee" />
                   <i className="fas fa-certificate" />
+                  <i className="fas fa-book" />
                 </span>
                 {/* The skill name. */}
                 <span>{skill[locale].name}</span>
@@ -919,6 +938,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-briefcase" />
                   <i className="fas fa-coffee" />
                   <i className="fas fa-certificate" />
+                  <i className="fas fa-book" />
                 </span>
                 {/* Category Title */}
                 Occupational Skills
@@ -944,7 +964,9 @@ export const JobBuilderSkills: React.FunctionComponent<
               >
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
-                Aim for {minOccupational} - {maxOccupational} skills.
+                <span>
+                  Aim for {minOccupational} - {maxOccupational} skills.
+                </span>
               </div>
             </div>
             {/* This is the list of skills. Clicking a skill button should trigger the "Edit skill" modal so that the user can edit the definition/level before adding it. If they DO add it, you can assign an "active" class to the respective button so indicate that it's selected. This will change it's colour and icon automatically. This is also the area where "Culture Skills" is split into the two categories - see the Culture Skills section below for what that looks like. */}
@@ -986,6 +1008,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-briefcase" />
                   <i className="fas fa-coffee" />
                   <i className="fas fa-certificate" />
+                  <i className="fas fa-book" />
                 </span>
                 Cultural Skills
               </h5>
@@ -1004,7 +1027,9 @@ export const JobBuilderSkills: React.FunctionComponent<
               >
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
-                Aim for {minCulture} - {maxCulture} skills.
+                <span>
+                  Aim for {minCulture} - {maxCulture} skills.
+                </span>
               </div>
             </div>
             {/** Culture skills are intended to be split into two lists, Recommended and Remaining. Until the recommendation logic is nailed down, its just one. */}
@@ -1081,6 +1106,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-briefcase" />
                   <i className="fas fa-coffee" />
                   <i className="fas fa-certificate" />
+                  <i className="fas fa-book" />
                 </span>
                 Future Skills
               </h5>
@@ -1099,7 +1125,9 @@ export const JobBuilderSkills: React.FunctionComponent<
               >
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
-                Aim for {minFuture} - {maxFuture} skills.
+                <span>
+                  Aim for {minFuture} - {maxFuture} skills.
+                </span>
               </div>
             </div>
             <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
@@ -1125,6 +1153,63 @@ export const JobBuilderSkills: React.FunctionComponent<
           . Provide the skill&apos;s name, as well as a short description to
           kick-off the discussion.
         </p>
+        <div
+          className="jpb-skill-category optional"
+          data-c-margin="bottom(normal)"
+          data-c-padding="normal"
+          data-c-radius="rounded"
+          data-c-background="grey(10)"
+        >
+          <div data-c-grid="gutter top">
+            <div data-c-grid-item="base(1of1)">
+              {/** TODO: Fix the layout of the skill cloud */}
+              <h5 className="jpb-skill-section-title" data-c-font-size="h4">
+                <span
+                  data-c-font-size="small"
+                  data-c-margin="right(half)"
+                  data-c-padding="tb(quarter) rl(half)"
+                  data-c-radius="rounded"
+                  data-c-colour="white"
+                >
+                  <i className="fas fa-briefcase" />
+                  <i className="fas fa-coffee" />
+                  <i className="fas fa-certificate" />
+                  <i className="fas fa-book" />
+                </span>
+                Other Skills
+              </h5>
+            </div>
+            <div data-c-grid-item="base(1of1)">
+              <Select
+                id="jpb-all-skills-select"
+                name="jpbAllSkillsSelect"
+                label="Please select a skill from our list"
+                selected={null}
+                nullSelection="Please select a Skill"
+                options={unselectedOtherSkills.map(
+                  (skill): SelectOption => ({
+                    value: skill.id,
+                    label: skill[locale].name,
+                  }),
+                )}
+                onChange={(event): void => {
+                  const skillId = Number(event.target.value);
+                  if (hasKey(skillsById, skillId)) {
+                    const skill = skillsById[skillId];
+                    setSkillBeingAdded(skill);
+                  }
+                }}
+              />
+            </div>
+            <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
+              {/** TODO: Get this null state text hiding/showing. */}
+              {selectedOtherSkills.length === 0 && (
+                <p>There are no extra skills added.</p>
+              )}
+              {selectedOtherSkills.map(renderSkillButton)}
+            </ul>
+          </div>
+        </div>
         <div data-c-grid="gutter">
           <div data-c-grid-item="base(1of1)">
             <hr data-c-margin="top(normal) bottom(normal)" />
