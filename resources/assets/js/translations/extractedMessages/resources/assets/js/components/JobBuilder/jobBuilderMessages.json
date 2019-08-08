@@ -54,5 +54,10 @@
   {
     "id": "jobBuilder.progressTracker.title.review",
     "defaultMessage": "Review"
+  },
+  {
+    "id": "jobBuilder.jobLoading",
+    "description": "Message indicating that the current job is still being loaded.",
+    "defaultMessage": "Your job is loading..."
   }
 ]

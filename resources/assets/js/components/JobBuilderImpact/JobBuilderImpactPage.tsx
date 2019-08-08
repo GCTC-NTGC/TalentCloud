@@ -14,6 +14,7 @@ import JobBuilderImpact from "./JobBuilderImpact";
 import {
   progressTrackerLabels,
   progressTrackerTitles,
+  jobBuilderMessages,
 } from "../JobBuilder/jobBuilderMessages";
 import { jobBuilderTasks } from "../../helpers/routes";
 import { getSelectedJob } from "../../store/Job/jobSelector";
@@ -133,11 +134,7 @@ const JobBuilderImpactPage: React.FunctionComponent<
             data-c-font-weight="bold"
             data-c-margin="bottom(double)"
           >
-            <FormattedMessage
-              id="jobBuilderImpact.jobloading"
-              defaultMessage="Job Loading..."
-              description="Message indicating that the current job is still being loaded."
-            />
+            <p>{intl.formatMessage(jobBuilderMessages.jobLoading)}</p>
           </h3>
         </div>
       ) : (
