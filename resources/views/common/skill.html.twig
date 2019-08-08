@@ -485,6 +485,7 @@
                                                 {{ skill_template.level_label }}
                                             </label>
                                             <a
+                                                class="skill-faq-link"
                                                 href="/faq#levels"
                                                 title="{{ skill_template.level_link_title }}"
                                                 target="_blank">
@@ -534,6 +535,12 @@
                                 <div
                                     class="box full">
 
+                                    {% if skill_declaration.description  %}
+                                    <div class="skill-textarea-prompt box">
+                                        <p>{{ skill_template.knowledge_prompt }}</p>
+                                    </div>
+                                    {% endif %}
+
                                     <div class="skill-textarea-label box inline-right">
                                         <button
                                             data-c-dialog-id="skill-info-modal"
@@ -561,13 +568,6 @@
                                             >{{ skill_declaration.description }}</textarea>
 
                                     </div>
-
-                                    {% if skill_declaration.description  %}
-                                    <div class="skill-textarea-prompt box">
-                                        <p>{{ skill_template.knowledge_prompt }}</p>
-                                    </div>
-                                    {% endif %}
-
 
                                     {# Word Counter #}
                                     <div

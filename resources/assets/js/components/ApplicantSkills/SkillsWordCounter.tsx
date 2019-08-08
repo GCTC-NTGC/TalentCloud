@@ -76,7 +76,7 @@ const SkillsWordCounter: React.FunctionComponent<
   ];
   const minWords = 20;
   const maxWords = 80;
-  const wordLimit = 150;
+  const wordLimit = 250;
   return (
     <WordCounterWrapper
       elementId={elementId}
