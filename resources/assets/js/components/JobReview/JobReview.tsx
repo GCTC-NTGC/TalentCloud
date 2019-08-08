@@ -7,7 +7,12 @@ import {
   Skill,
   Department,
 } from "../../models/types";
-import { jobBuilderIntro } from "../../helpers/routes";
+import {
+  jobBuilderIntro,
+  jobBuilderDetails,
+  jobBuilderTasks,
+  jobBuilderImpact,
+} from "../../helpers/routes";
 import { find } from "../../helpers/queries";
 import {
   provinceName,
@@ -121,7 +126,7 @@ export const JobReview: React.FunctionComponent<
       <JobReviewSection
         title="Job Page Heading"
         linkLabel="Edit This in Step 02: Job Info"
-        link={jobBuilderIntro(locale, job.id)}
+        link={jobBuilderDetails(locale, job.id)}
       >
         <p data-c-font-weight="bold" data-c-margin="bottom(half)">
           {job[locale].title}
@@ -166,7 +171,7 @@ export const JobReview: React.FunctionComponent<
       <JobReviewSection
         title="Basic Information"
         linkLabel="Edit This in Step 02: Job Info"
-        link={jobBuilderIntro(locale, job.id)}
+        link={jobBuilderDetails(locale, job.id)}
       >
         <div data-c-grid="gutter">
           <div data-c-grid-item="tp(1of2)">
@@ -218,6 +223,28 @@ export const JobReview: React.FunctionComponent<
             </p>
           </div>
         </div>
+      </JobReviewSection>
+      <JobReviewSection
+        title="Impact"
+        linkLabel="Edit This in Step 04: Impact"
+        link={jobBuilderImpact(locale, job.id)}
+      >
+        <p data-c-margin="bottom(normal)">{job[locale].dept_impact}</p>
+        <p data-c-margin="bottom(normal)">{job[locale].team_impact}</p>
+        <p>{job[locale].hire_impact}</p>
+      </JobReviewSection>
+      <JobReviewSection
+        title="Tasks"
+        linkLabel="Edit This in Step 05: Tasks"
+        link={jobBuilderTasks(locale, job.id)}
+      >
+        <ul>
+          {tasks.map(
+            (task: JobPosterKeyTask): React.ReactElement => (
+              <li key={task.id}>{task[locale].description}</li>
+            ),
+          )}
+        </ul>
       </JobReviewSection>
     </div>
   );
