@@ -1,6 +1,22 @@
 import React from "react";
 import ProgressRing from "../ProgressRing";
-import { WordCounterProps } from "./types";
+
+export interface WordCounterProps {
+  /** The current number of words in textarea element */
+  numOfWords: number;
+  /** Maximum amount of words before passing the optimal range. The Progress Ring color correlates with this number. */
+  maxWords: number;
+  /** Minimum amount of words to reach the optimal range. The Progress Ring color correlates with this number. */
+  minWords: number;
+  /** Message to be displayed next to Progress Ring. When a word count is reached it informs the user with a corresponding message. */
+  message: string;
+  /** Hard cap on word counter. The user cannot add any more words after reaching this number. */
+  wordLimit: number;
+  /** Let's you specify example text that appears in word counter element when empty  */
+  placeholder?: string;
+  /** The hue of the progress ring. Corresponds to the current number of words */
+  strokeColor: string;
+}
 
 const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   numOfWords,

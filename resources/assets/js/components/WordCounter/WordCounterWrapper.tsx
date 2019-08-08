@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
-import WordCounter from "./WordCounter";
-import { countNumberOfWords, truncateWords, sortMessages } from "./helpers";
-import { WordCounterProps, WordCounterMessage } from "./types";
+import WordCounter, { WordCounterProps } from "./WordCounter";
+import { countNumberOfWords, sortMessages } from "./helpers";
+
+export interface WordCounterMessage {
+  /** When this number is reached, the correspoding message will be displayed */
+  count: number;
+  /** Message displayed when 'count' is reached */
+  message: string;
+}
 
 interface WordCounterWrapperProps
   extends Omit<WordCounterProps, "numOfWords" | "message" | "strokeColor"> {
