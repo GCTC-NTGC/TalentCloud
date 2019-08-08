@@ -1,11 +1,20 @@
 import React from "react";
-import { injectIntl } from "react-intl";
+import { injectIntl, InjectedIntlProps } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import IntroForm from "./IntroForm";
-import { Job, Department } from "../../models/types";
+import {
+  Job,
+  Department,
+  JobPosterKeyTask,
+  Criteria,
+} from "../../models/types";
 import { RootState } from "../../store/store";
-import { getSelectedJob } from "../../store/Job/jobSelector";
+import {
+  getSelectedJob,
+  getTasksByJob,
+  getCriteriaByJob,
+} from "../../store/Job/jobSelector";
 import { DispatchType } from "../../configureStore";
 import {
   setSelectedJob,
@@ -16,6 +25,10 @@ import RootContainer from "../RootContainer";
 import { jobBuilderDetails } from "../../helpers/routes";
 import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
 import { getDepartments } from "../../store/Department/deptSelector";
+import {
+  isJobBuilderComplete,
+  VALID_COUNT,
+} from "../JobBuilder/jobBuilderHelpers";
 
 interface JobBuilderIntroProps {
   // The id of the edited job, or null for a new job.
@@ -25,19 +38,32 @@ interface JobBuilderIntroProps {
   // If not null, used to prepopulate form values.
   // Note: its possible for jobId to be non-null, but job to be null, if the data hasn't been loaded yet.
   job: Job | null;
+  // Tasks associated with the job, if it exists
+  keyTasks: JobPosterKeyTask[];
+  // Criteria associated with the job, if it exists
+  criteria: Criteria[];
   // Creates a new job. Must return the new job if successful.
   handleCreateJob: (newJob: Job) => Promise<Job>;
   // Updates an existing job. Must return the updated job if successful.
   handleUpdateJob: (newJob: Job) => Promise<Job>;
 }
 
-const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps> = ({
+const JobBuilderIntro: React.FunctionComponent<
+  JobBuilderIntroProps & InjectedIntlProps
+> = ({
   jobId,
   job,
   departments,
   handleCreateJob,
   handleUpdateJob,
+  keyTasks,
+  criteria,
+  intl,
 }): React.ReactElement => {
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw new Error("Unexpected locale");
+  }
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
 
   const handleContinueEn = (newJob: Job): void => {
@@ -46,6 +72,11 @@ const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps> = ({
   const handleContinueFr = (newJob: Job): void => {
     window.location.href = jobBuilderDetails("fr", newJob.id);
   };
+
+  // TODO: use this to determine whether the SKIP TO REVIEW button should be shown
+  const jobIsComplete =
+    job !== null &&
+    isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
 
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="intro">
@@ -62,12 +93,17 @@ const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps> = ({
 
 const mapStateToProps = (
   state: RootState,
+  { jobId }: { jobId: number | null },
 ): {
   job: Job | null;
   departments: Department[];
+  keyTasks: JobPosterKeyTask[];
+  criteria: Criteria[];
 } => ({
   job: getSelectedJob(state),
   departments: getDepartments(state),
+  keyTasks: jobId !== null ? getTasksByJob(state, { jobId }) : [],
+  criteria: jobId !== null ? getCriteriaByJob(state, { jobId }) : [],
 });
 
 const mapDispatchToProps = (

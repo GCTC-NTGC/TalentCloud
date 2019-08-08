@@ -16,6 +16,10 @@ import { getSkills } from "../../store/Skill/skillSelector";
 import { DispatchType } from "../../configureStore";
 import { batchUpdateCriteria } from "../../store/Job/jobActions";
 import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
+import {
+  isJobBuilderComplete,
+  VALID_COUNT,
+} from "../JobBuilder/jobBuilderHelpers";
 
 interface JobBuilderSkillsPageProps {
   jobId: number;
@@ -52,7 +56,10 @@ const JobBuilderSkillsPage: React.FunctionComponent<
 
   const handleSubmit = (tasks: Criteria[]): Promise<Criteria[]> =>
     handleSubmitCriteria(jobId, tasks);
-
+  // TODO: use this to determine whether the SKIP TO REVIEW button should be shown
+  const jobIsComplete =
+    job !== null &&
+    isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="skills">
       {job !== null && (

@@ -2,7 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import { InjectedIntlProps, injectIntl } from "react-intl";
 import ReactDOM from "react-dom";
-import { Department, Job } from "../../models/types";
+import {
+  Department,
+  Job,
+  JobPosterKeyTask,
+  Criteria,
+} from "../../models/types";
 import JobBuilderImpact from "./JobBuilderImpact";
 import { jobBuilderTasks } from "../../helpers/routes";
 import { RootState } from "../../store/store";
@@ -10,13 +15,22 @@ import { DispatchType } from "../../configureStore";
 import { updateJob } from "../../store/Job/jobActions";
 import { getDepartments } from "../../store/Department/deptSelector";
 import RootContainer from "../RootContainer";
-import { getJob } from "../../store/Job/jobSelector";
+import {
+  getJob,
+  getTasksByJob,
+  getCriteriaByJob,
+} from "../../store/Job/jobSelector";
 import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
+import { isJobBuilderComplete, VALID_COUNT } from "../JobBuilder/jobBuilderHelpers";
 
 interface JobBuilderImpactPageProps {
   jobId: number;
   job: Job | null;
   departments: Department[];
+  // Tasks associated with the job, used to determine if its complete
+  keyTasks: JobPosterKeyTask[];
+  // Criteria associated with the job, used to determine if its complete
+  criteria: Criteria[];
   handleUpdateJob: (newJob: Job) => Promise<boolean>;
 }
 
@@ -26,10 +40,15 @@ const JobBuilderImpactPage: React.FunctionComponent<
   jobId,
   job,
   departments,
+  keyTasks,
+  criteria,
   handleUpdateJob,
   intl,
 }): React.ReactElement => {
-  // Load Job and Departments from api
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
+  }
   const handleModalCancel = (): void => {
     // Do nothing on cancel
   };
@@ -37,6 +56,10 @@ const JobBuilderImpactPage: React.FunctionComponent<
     window.location.href = jobBuilderTasks(intl.locale, jobId);
   };
   const handleSubmit = handleUpdateJob;
+  // TODO: use this to determine whether the SKIP TO REVIEW button should be shown
+  const jobIsComplete =
+    job !== null &&
+    isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="impact">
       {job !== null && departments.length > 0 && (
@@ -58,9 +81,13 @@ const mapStateToProps = (
 ): {
   job: Job | null;
   departments: Department[];
+  keyTasks: JobPosterKeyTask[];
+  criteria: Criteria[];
 } => ({
   job: getJob(state, ownProps),
   departments: getDepartments(state),
+  keyTasks: getTasksByJob(state, ownProps),
+  criteria: getCriteriaByJob(state, ownProps),
 });
 
 const mapDispatchToProps = (

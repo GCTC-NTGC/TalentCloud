@@ -2,12 +2,19 @@ import React from "react";
 import { InjectedIntlProps, injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
-import { JobPosterKeyTask, Job } from "../../models/types";
-import { VALID_COUNT } from "../JobBuilder/jobBuilderHelpers";
+import { JobPosterKeyTask, Job, Criteria } from "../../models/types";
+import {
+  VALID_COUNT,
+  isJobBuilderComplete,
+} from "../JobBuilder/jobBuilderHelpers";
 import JobTasks from "./JobTasks";
 import { jobBuilderSkills } from "../../helpers/routes";
 import { RootState } from "../../store/store";
-import { getJob, getTasksByJob } from "../../store/Job/jobSelector";
+import {
+  getJob,
+  getTasksByJob,
+  getCriteriaByJob,
+} from "../../store/Job/jobSelector";
 import { DispatchType } from "../../configureStore";
 import {
   fetchJob,
@@ -21,6 +28,8 @@ interface JobTasksPageProps {
   jobId: number;
   job: Job | null;
   keyTasks: JobPosterKeyTask[];
+  // Criteria associated with the job, used to determine if its complete
+  criteria: Criteria[];
   handleUpdateTasks: (
     jobId: number,
     tasks: JobPosterKeyTask[],
@@ -29,7 +38,14 @@ interface JobTasksPageProps {
 
 const JobTasksPage: React.FunctionComponent<
   JobTasksPageProps & InjectedIntlProps
-> = ({ jobId, job, keyTasks, handleUpdateTasks, intl }): React.ReactElement => {
+> = ({
+  jobId,
+  job,
+  keyTasks,
+  criteria,
+  handleUpdateTasks,
+  intl,
+}): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
@@ -43,7 +59,10 @@ const JobTasksPage: React.FunctionComponent<
   const handleSubmit = (
     tasks: JobPosterKeyTask[],
   ): Promise<JobPosterKeyTask[]> => handleUpdateTasks(jobId, tasks);
-
+  // TODO: use this to determine whether the SKIP TO REVIEW button should be shown
+  const jobIsComplete =
+    job !== null &&
+    isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="tasks">
       {job !== null && (
@@ -66,9 +85,11 @@ const mapStateToProps = (
 ): {
   job: Job | null;
   keyTasks: JobPosterKeyTask[];
+  criteria: Criteria[];
 } => ({
   job: getJob(state, ownProps),
   keyTasks: getTasksByJob(state, ownProps),
+  criteria: getCriteriaByJob(state, ownProps),
 });
 
 const mapDispatchToProps = (
