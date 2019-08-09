@@ -110,7 +110,7 @@
     "react-intl": "^2.8.0",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
-    "react-test-renderer": "^16.8.6",
+    "react-test-renderer": "^16.9.0",
     "redux": "^4.0.4",
     "redux-api-middleware": "^3.0.1",
     "redux-devtools-extension": "^2.13.8",
