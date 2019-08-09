@@ -87,6 +87,7 @@
   border: none;
   cursor: pointer;
   text-decoration: underline;
+  font-size: $font-scale--regular;
   &:hover {
     color: $palette--blue;
     transition: color .3s ease;
