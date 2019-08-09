@@ -180,6 +180,52 @@ const formMessages = defineMessages({
     defaultMessage: "Almost Never",
     description: "The form label displayed on 'never' frequency options.",
   },
+  travelGroupLabel: {
+    id: "jobDetails.travelGroupLabel",
+    defaultMessage: "Select a travel option:",
+    description: "The form label displayed on the travel radio group.",
+  },
+  travelFrequentlyLabel: {
+    id: "jobDetails.travelFrequentlyLabel",
+    defaultMessage: "Yes, travel is frequently required for the position.",
+    description: "The form label displayed on 'frequently' travel options",
+  },
+  travelOpportunitiesAvailableLabel: {
+    id: "jobDetails.travelOpportunitiesAvailableLabel",
+    defaultMessage:
+      "Yes, travel opportunities are available for those that are interested.",
+    description:
+      "The form label displayed on 'travel opportunities available' travel options",
+  },
+  travelNoneRequiredLabel: {
+    id: "jobDetails.travelNoneRequiredLabel",
+    defaultMessage: "No, travel is not required for the position.",
+    description:
+      "The form label displayed on 'no travel required' travel options",
+  },
+  overtimeGroupLabel: {
+    id: "jobDetails.overtimeGroupLabel",
+    defaultMessage: "Select a overtime option:",
+    description: "The form label displayed on the overtime radio group.",
+  },
+  overtimeFrequentlyLabel: {
+    id: "jobDetails.overtimeFrequentlyLabel",
+    defaultMessage: "Yes, overtime is frequently required for the position.",
+    description: "The form label displayed on 'frequently' overtime options",
+  },
+  overtimeOpportunitiesAvailableLabel: {
+    id: "jobDetails.overtimeOpportunitiesAvailableLabel",
+    defaultMessage:
+      "Yes, overtime opportunities are available for those that are interested.",
+    description:
+      "The form label displayed on 'overtime opportunities available' overtime options",
+  },
+  overtimeNoneRequiredLabel: {
+    id: "jobDetails.overtimeNoneRequiredLabel",
+    defaultMessage: "No, overtime is not required for the position.",
+    description:
+      "The form label displayed on 'no overtime required' overtime options",
+  },
 });
 
 const classificationOptionMessages = defineMessages({
@@ -365,6 +411,67 @@ const flexHourFequencies = flexHoursOptions.map(
   (option): FlexHourOptionType => option.id,
 );
 
+type TravelOptionType =
+  | "travelFrequently"
+  | "travelOpportunitiesAvailable"
+  | "travelNoneRequired";
+const travelOptions: {
+  id: TravelOptionType;
+  label: FormattedMessage.MessageDescriptor;
+}[] = [
+  {
+    id: "travelFrequently",
+    label: formMessages.travelFrequentlyLabel,
+  },
+  {
+    id: "travelOpportunitiesAvailable",
+    label: formMessages.travelOpportunitiesAvailableLabel,
+  },
+  {
+    id: "travelNoneRequired",
+    label: formMessages.travelNoneRequiredLabel,
+  },
+];
+const travelMessages = {
+  travelFrequently: formMessages.travelFrequentlyLabel,
+  travelOpportunitiesAvailable: formMessages.travelOpportunitiesAvailableLabel,
+  travelNoneRequired: formMessages.travelNoneRequiredLabel,
+};
+const travelRequirements = travelOptions.map(
+  (option): TravelOptionType => option.id,
+);
+
+type OvertimeOptionType =
+  | "overtimeFrequently"
+  | "overtimeOpportunitiesAvailable"
+  | "overtimeNoneRequired";
+const overtimeOptions: {
+  id: OvertimeOptionType;
+  label: FormattedMessage.MessageDescriptor;
+}[] = [
+  {
+    id: "overtimeFrequently",
+    label: formMessages.overtimeFrequentlyLabel,
+  },
+  {
+    id: "overtimeOpportunitiesAvailable",
+    label: formMessages.overtimeOpportunitiesAvailableLabel,
+  },
+  {
+    id: "overtimeNoneRequired",
+    label: formMessages.overtimeNoneRequiredLabel,
+  },
+];
+const overtimeMessages = {
+  overtimeFrequently: formMessages.overtimeFrequentlyLabel,
+  overtimeOpportunitiesAvailable:
+    formMessages.overtimeOpportunitiesAvailableLabel,
+  overtimeNoneRequired: formMessages.overtimeNoneRequiredLabel,
+};
+const overtimeRequirements = overtimeOptions.map(
+  (option): OvertimeOptionType => option.id,
+);
+
 interface JobFormValues {
   title: string;
   termLength: number | "";
@@ -377,6 +484,8 @@ interface JobFormValues {
   remoteWork: RemoteWorkType;
   telework: TeleworkOptionType;
   flexHours: FlexHourOptionType;
+  travel: TravelOptionType;
+  overtime: OvertimeOptionType;
 }
 
 const jobToValues = (job: Job | null, locale: string): JobFormValues =>
@@ -400,6 +509,12 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues =>
         flexHours: job.flexible_hours_frequency_id
           ? flexHourFequencies[job.flexible_hours_frequency_id - 1]
           : "flexHoursFrequently",
+        travel: job.travel_requirement_id
+          ? travelRequirements[job.travel_requirement_id - 1]
+          : "travelFrequently",
+        overtime: job.overtime_requirement_id
+          ? overtimeRequirements[job.overtime_requirement_id - 1]
+          : "overtimeFrequently",
       }
     : {
         title: "",
@@ -413,6 +528,8 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues =>
         remoteWork: "remoteWorkCanada",
         telework: "teleworkFrequently",
         flexHours: "flexHoursFrequently",
+        travel: "travelFrequently",
+        overtime: "overtimeFrequently",
       };
 
 const updateJobWithValues = (
@@ -430,6 +547,8 @@ const updateJobWithValues = (
     remoteWork,
     telework,
     flexHours,
+    travel,
+    overtime,
   }: JobFormValues,
 ): Job => ({
   ...initialJob,
@@ -442,6 +561,8 @@ const updateJobWithValues = (
   remote_work_allowed: remoteWork !== "remoteWorkNone",
   telework_allowed_frequency_id: teleworkFrequencies.indexOf(telework) + 1,
   flexible_hours_frequency_id: flexHourFequencies.indexOf(flexHours) + 1,
+  travel_requirement_id: travelRequirements.indexOf(travel) + 1,
+  overtime_requirement_id: overtimeRequirements.indexOf(overtime) + 1,
   [locale]: {
     ...initialJob[locale],
     title,
@@ -546,10 +667,23 @@ const JobDetails: React.FunctionComponent<
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
+    travel: Yup.mixed()
+      .oneOf(
+        travelRequirements,
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
+      .required(intl.formatMessage(validationMessages.required)),
+    overtime: Yup.mixed()
+      .oneOf(
+        overtimeRequirements,
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
+      .required(intl.formatMessage(validationMessages.required)),
   });
 
   return (
     <section>
+      {console.log(initialValues)}
       <div
         data-c-container="form"
         data-c-padding="top(triple) bottom(triple)"
@@ -905,6 +1039,80 @@ const JobDetails: React.FunctionComponent<
                     },
                   )}
                 </RadioGroup>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobDetails.travelGroupHeader"
+                    defaultMessage="Is travel required?"
+                    description="Header message displayed on the travel group input."
+                  />
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobDetails.travelGroupBody"
+                    defaultMessage="vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque convallis a cras semper"
+                    description="Body message displayed on the travel group input."
+                  />
+                </p>
+                <RadioGroup
+                  id="travel"
+                  required
+                  grid="base(1of1)"
+                  label={intl.formatMessage(formMessages.travelGroupLabel)}
+                  error={errors.travel}
+                  touched={touched.travel}
+                  value={values.travel}
+                >
+                  {travelOptions.map(
+                    ({ id, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          key={id}
+                          name="travel"
+                          component={RadioInput}
+                          id={id}
+                          label={intl.formatMessage(label)}
+                        />
+                      );
+                    },
+                  )}
+                </RadioGroup>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobDetails.overtimeGroupHeader"
+                    defaultMessage="Is overtime required?"
+                    description="Header message displayed on the overtime group input."
+                  />
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  <FormattedMessage
+                    id="jobDetails.overtimeGroupBody"
+                    defaultMessage="vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque convallis a cras semper"
+                    description="Body message displayed on the overtime group input."
+                  />
+                </p>
+                <RadioGroup
+                  id="overtime"
+                  required
+                  grid="base(1of1)"
+                  label={intl.formatMessage(formMessages.overtimeGroupLabel)}
+                  error={errors.overtime}
+                  touched={touched.overtime}
+                  value={values.overtime}
+                >
+                  {overtimeOptions.map(
+                    ({ id, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          key={id}
+                          name="overtime"
+                          component={RadioInput}
+                          id={id}
+                          label={intl.formatMessage(label)}
+                        />
+                      );
+                    },
+                  )}
+                </RadioGroup>
                 <div data-c-grid="gutter" data-c-grid-item="base(1of1)">
                   <div data-c-grid-item="base(1of1)">
                     <hr data-c-margin="top(normal) bottom(normal)" />
@@ -1048,8 +1256,10 @@ const JobDetails: React.FunctionComponent<
                       }
                       classification={String(values.classification)}
                       level={String(values.level)}
-                      travel={null}
-                      overtime={null}
+                      travel={intl.formatMessage(travelMessages[values.travel])}
+                      overtime={intl.formatMessage(
+                        overtimeMessages[values.overtime],
+                      )}
                     />
                   </div>
                 </Modal.Body>

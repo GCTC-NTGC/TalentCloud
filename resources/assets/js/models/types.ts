@@ -43,6 +43,8 @@ export interface Job {
   collaborative_vs_independent: number | null;
   telework_allowed_frequency_id: number | null;
   flexible_hours_frequency_id: number | null;
+  travel_requirement_id: number | null;
+  overtime_requirement_id: number | null;
   en: JobTranslation;
   fr: JobTranslation;
 }
