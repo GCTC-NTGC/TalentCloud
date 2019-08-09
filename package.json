@@ -117,7 +117,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "sweetalert2": "^8.14.0",
+    "sweetalert2": "^8.15.2",
     "yup": "^0.27.0"
   },
   "repository": {
