@@ -47,6 +47,8 @@ use Astrotomic\Translatable\Translatable;
  * @property int $collaborative_vs_independent
  * @property int $telework_allowed_frequency_id
  * @property int $flexible_hours_frequency_id
+ * @property int $travel_requirement_id
+ * @property int $overtime_requirement_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -148,6 +150,8 @@ class JobPoster extends BaseModel
         'collaborative_vs_independent' => 'int',
         'telework_allowed_frequency_id' => 'int',
         'flexible_hours_frequency_id' => 'int',
+        'travel_requirement_id' => 'int',
+        'overtime_requirement_id' => 'int',
     ];
 
     /**
@@ -191,6 +195,8 @@ class JobPoster extends BaseModel
         'collaborative_vs_independent',
         'telework_allowed_frequency_id',
         'flexible_hours_frequency_id',
+        'travel_requirement_id',
+        'overtime_requirement_id',
     ];
 
     /**
@@ -228,6 +234,8 @@ class JobPoster extends BaseModel
         'collaborative_vs_independent',
         'telework_allowed_frequency_id',
         'flexible_hours_frequency_id',
+        'travel_requirement_id',
+        'overtime_requirement_id',
     ];
 
     /**
@@ -308,6 +316,16 @@ class JobPoster extends BaseModel
     public function flexible_hours_frequency() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
+    }
+
+    public function travel_requirement() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\TravelRequirement::class);
+    }
+
+    public function overtime_requirement() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\OvertimeRequirement::class);
     }
 
     // Artificial Relations
