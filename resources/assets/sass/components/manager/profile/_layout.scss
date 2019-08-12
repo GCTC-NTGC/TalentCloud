@@ -106,4 +106,12 @@
 
     }
 
+    .manager-profile-action {
+        margin-top: 2rem;
+        text-align: center;
+        @media #{$p-tablet} {
+            text-align: right;
+        }
+    }
+
 }
