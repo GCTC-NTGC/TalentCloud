@@ -251,6 +251,8 @@ interface JobDetailsProps {
   // Function to run after successful form validation.
   // It must return true if the submission was succesful, false otherwise.
   handleSubmit: (values: Job) => Promise<boolean>;
+  // The function to run when user clicks Prev Page
+  handleReturn: () => void;
   // Function to run when modal cancel is clicked.
   handleModalCancel: () => void;
   // Function to run when modal confirm is clicked.
@@ -452,11 +454,13 @@ const JobDetails: React.FunctionComponent<
 > = ({
   job,
   handleSubmit,
+  handleReturn,
   handleModalCancel,
   handleModalConfirm,
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [returnOnSubmit, setReturnOnSubmit] = useState(false);
 
   const modalParentRef = useRef<HTMLDivElement>(null);
   const { locale } = intl;
@@ -571,21 +575,31 @@ const JobDetails: React.FunctionComponent<
             handleSubmit(updateJobWithValues(job || emptyJob(), locale, values))
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
-                  setIsModalVisible(true);
+                  if (returnOnSubmit) {
+                    handleReturn();
+                  } else {
+                    setIsModalVisible(true);
+                  }
                 }
               })
-              .finally(
-                (): void => actions.setSubmitting(false), // Required by Formik to finish the submission cycle
-              );
+              .finally((): void => {
+                setReturnOnSubmit(false);
+                actions.setSubmitting(false); // Required by Formik to finish the submission cycle
+              });
           }}
           render={({
             errors,
             touched,
             isSubmitting,
             values,
+            submitForm,
           }): React.ReactElement => (
             <section>
-              <Form id="job-information" data-c-grid="gutter">
+              <Form
+                id="job-information"
+                data-c-container="form"
+                data-c-grid="gutter"
+              >
                 <Field
                   type="text"
                   name="title"
@@ -891,20 +905,55 @@ const JobDetails: React.FunctionComponent<
                     },
                   )}
                 </RadioGroup>
-                <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
-                  <button
-                    data-c-button="solid(c1)"
-                    data-c-dialog-action="open"
-                    data-c-radius="rounded"
-                    type="submit"
-                    disabled={isSubmitting}
+                <div data-c-grid="gutter" data-c-grid-item="base(1of1)">
+                  <div data-c-grid-item="base(1of1)">
+                    <hr data-c-margin="top(normal) bottom(normal)" />
+                  </div>
+                  <div
+                    data-c-alignment="base(centre) tp(left)"
+                    data-c-grid-item="tp(1of2)"
                   >
-                    <FormattedMessage
-                      id="jobDetails.submitButtonLabel"
-                      defaultMessage="Next"
-                      description="The text displayed on the submit button for the Job Details form."
-                    />
-                  </button>
+                    <button
+                      data-c-button="outline(c2)"
+                      data-c-radius="rounded"
+                      type="button"
+                      disabled={isSubmitting}
+                      onClick={(): void => {
+                        /** TODO:
+                         * This is a race condition, since the setState hook call is asynchronous.
+                         * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
+                         * For now, the setState always happens faster than the validation check, so it works.
+                         * See https://github.com/jaredpalmer/formik/issues/214
+                         * -- Tristan
+                         */
+                        setReturnOnSubmit(true);
+                        submitForm();
+                      }}
+                    >
+                      <FormattedMessage
+                        id="jobDetails.returnButtonLabel"
+                        defaultMessage="Save & Return to Intro"
+                        description="The text displayed on the Save & Return button of the Job Details form."
+                      />
+                    </button>
+                  </div>
+                  <div
+                    data-c-alignment="base(centre) tp(right)"
+                    data-c-grid-item="tp(1of2)"
+                  >
+                    <button
+                      data-c-button="solid(c1)"
+                      data-c-radius="rounded"
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      <FormattedMessage
+                        id="jobDetails.submitButtonLabel"
+                        defaultMessage="Save & Preview"
+                        description="The text displayed on the submit button for the Job Details form."
+                      />
+                    </button>
+                  </div>
                 </div>
               </Form>
               <Modal

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import { injectIntl, InjectedIntlProps } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
@@ -18,14 +18,14 @@ import { ProgressTrackerItem } from "../ProgressTracker/types";
 import {
   progressTrackerLabels,
   progressTrackerTitles,
+  jobBuilderMessages,
 } from "../JobBuilder/jobBuilderMessages";
 import {
   jobBuilderDetailsProgressState,
   jobBuilderIntroProgressState,
 } from "../JobBuilder/jobBuilderHelpers";
-import { managerJobIndex, jobBuilderImpact } from "../../helpers/routes";
+import { jobBuilderImpact, jobBuilderDetails } from "../../helpers/routes";
 import RootContainer from "../RootContainer";
-import JobBuilderIntroPageContainer from "../JobBuilderIntro/JobBuilderIntro";
 
 interface JobBuilderWorkEnvProps {
   // The id of the edited job, or null for a new job.
@@ -64,6 +64,12 @@ const JobBuilderWorkEnv: React.FunctionComponent<
       window.location.href = jobBuilderImpact(intl.locale, job.id);
     }
     // FIXME: how to handle when job hasn't loaded yet??? RACE CONDITION HERE!
+  };
+  const handleReturn = (): void => {
+    window.location.href = jobBuilderDetails(
+      intl.locale,
+      jobId !== null ? jobId : undefined,
+    );
   };
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
@@ -118,20 +124,21 @@ const JobBuilderWorkEnv: React.FunctionComponent<
           data-c-container="form"
           data-c-padding="top(triple) bottom(triple)"
         >
-          <div data-c-background="white(100)" data-c-card data-c-padding="all(double)" data-c-radius="rounded" data-c-align="base(centre)">
-            <p>
-              <FormattedMessage
-                id="jobBuilderIntroPage.loading"
-                defaultMessage="Your job is loading..."
-                description="Message indicating that the current job is still being loaded."
-              />
-            </p>
+          <div
+            data-c-background="white(100)"
+            data-c-card
+            data-c-padding="all(double)"
+            data-c-radius="rounded"
+            data-c-align="base(centre)"
+          >
+            <p>{intl.formatMessage(jobBuilderMessages.jobLoading)}</p>
           </div>
         </div>
       ) : (
         <WorkEnvForm
           job={job}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
         />

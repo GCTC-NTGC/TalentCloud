@@ -14,10 +14,11 @@ import {
 import {
   progressTrackerLabels,
   progressTrackerTitles,
+  jobBuilderMessages,
 } from "../JobBuilder/jobBuilderMessages";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import JobTasks from "./JobTasks";
-import { jobBuilderSkills } from "../../helpers/routes";
+import { jobBuilderSkills, jobBuilderImpact } from "../../helpers/routes";
 import { RootState } from "../../store/store";
 import { getJob, getTasksByJob } from "../../store/Job/jobSelector";
 import { DispatchType } from "../../configureStore";
@@ -80,7 +81,9 @@ const JobTasksPage: React.FunctionComponent<
   const handleSubmit = (
     tasks: JobPosterKeyTask[],
   ): Promise<JobPosterKeyTask[]> => handleUpdateTasks(jobId, tasks);
-
+  const handleReturn = (): void => {
+    window.location.href = jobBuilderImpact(locale, jobId);
+  };
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
       state: isLoadingJob ? "null" : jobBuilderIntroProgressState(job),
@@ -141,13 +144,7 @@ const JobTasksPage: React.FunctionComponent<
             data-c-radius="rounded"
             data-c-align="base(centre)"
           >
-            <p>
-              <FormattedMessage
-                id="jobBuilderTasksPage.loading"
-                defaultMessage="Your job is loading..."
-                description="Message indicating that the current job is still being loaded."
-              />
-            </p>
+            <p>{intl.formatMessage(jobBuilderMessages.jobLoading)}</p>
           </div>
         </div>
       ) : (
@@ -156,6 +153,7 @@ const JobTasksPage: React.FunctionComponent<
           keyTasks={keyTasks}
           validCount={VALID_COUNT}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
         />

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "wordCounter.skills.placeholder",
+    "description": "Placeholder text for an empty input.",
+    "defaultMessage": "Start typing your answer above."
+  },
+  {
+    "id": "wordCounter.skills.veryShortMessage",
+    "description": "Message displayed to user when the word count is very low.",
+    "defaultMessage": "This seems too short. Did you include examples or lessons learned?"
+  },
+  {
+    "id": "wordCounter.skills.shortMessage",
+    "description": "Message displayed to user when the word count is low.",
+    "defaultMessage": "This seems a bit short. Do you have another example or lesson learned to add?"
+  },
+  {
+    "id": "wordCounter.skills.slightlyLongMessage",
+    "description": "Message displayed to user when the word count is a little high.",
+    "defaultMessage": "This is starting to get a bit long."
+  },
+  {
+    "id": "wordCounter.skills.longMessage",
+    "description": "Message displayed to user when the word count is high.",
+    "defaultMessage": "This looks too long. Can you summarize some of your response?"
+  },
+  {
+    "id": "wordCounter.skills.veryLongMessage",
+    "description": "Message displayed to user when the word count is very high.",
+    "defaultMessage": "This is way too long. Check out one of our examples to see what a concise skill description looks like."
+  }
+]

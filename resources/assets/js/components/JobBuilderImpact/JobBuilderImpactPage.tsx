@@ -14,8 +14,9 @@ import JobBuilderImpact from "./JobBuilderImpact";
 import {
   progressTrackerLabels,
   progressTrackerTitles,
+  jobBuilderMessages,
 } from "../JobBuilder/jobBuilderMessages";
-import { jobBuilderTasks } from "../../helpers/routes";
+import { jobBuilderTasks, jobBuilderEnv } from "../../helpers/routes";
 import { getSelectedJob } from "../../store/Job/jobSelector";
 import { RootState } from "../../store/store";
 import { DispatchType } from "../../configureStore";
@@ -71,8 +72,14 @@ const JobBuilderImpactPage: React.FunctionComponent<
     if (jobId !== null) {
       window.location.href = jobBuilderTasks(intl.locale, jobId);
     }
-  }; // TODO: go to next page
+  };
+
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
+  const handleReturn = (): void => {
+    if (jobId !== null) {
+      window.location.href = jobBuilderEnv(intl.locale, jobId);
+    }
+  };
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
       state: waitingForJob ? "null" : jobBuilderIntroProgressState(job),
@@ -133,11 +140,7 @@ const JobBuilderImpactPage: React.FunctionComponent<
             data-c-font-weight="bold"
             data-c-margin="bottom(double)"
           >
-            <FormattedMessage
-              id="jobBuilderImpact.jobloading"
-              defaultMessage="Job Loading..."
-              description="Message indicating that the current job is still being loaded."
-            />
+            <p>{intl.formatMessage(jobBuilderMessages.jobLoading)}</p>
           </h3>
         </div>
       ) : (
@@ -145,6 +148,7 @@ const JobBuilderImpactPage: React.FunctionComponent<
           job={job}
           departments={departments}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
         />
