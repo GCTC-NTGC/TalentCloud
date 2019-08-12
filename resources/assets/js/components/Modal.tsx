@@ -158,18 +158,30 @@ Modal.Body = function ModalBody(props): React.ReactElement {
 
 Modal.Footer = function ModalFooter(props): React.ReactElement {
   const { children } = props;
-
   return (
     <div data-c-padding="normal">
-      <div data-c-grid="gutter middle">{children}</div>
+      <div data-c-grid="gutter middle">
+        {children.map(
+          (btn): React.ReactElement => {
+            const btnWithGridItemProp = React.cloneElement(btn, {
+              gridItem: children.length,
+            });
+            return btnWithGridItemProp;
+          },
+        )}
+      </div>
     </div>
   );
 };
 
 Modal.FooterConfirmBtn = function ConfirmBtn(props): React.ReactElement {
   const { onModalConfirm } = useContext(modalContext);
+  const { gridItem } = props;
   return (
-    <div data-c-alignment="base(right)" data-c-grid-item="base(1of3)">
+    <div
+      data-c-alignment="base(right)"
+      data-c-grid-item={`base(1of${gridItem})`}
+    >
       <button
         {...props}
         data-c-button="solid(c1)"
@@ -184,8 +196,10 @@ Modal.FooterConfirmBtn = function ConfirmBtn(props): React.ReactElement {
 
 Modal.FooterCancelBtn = function CancelBtn(props): React.ReactElement {
   const { onModalCancel } = useContext(modalContext);
+  const { gridItem } = props;
+  console.log(props);
   return (
-    <div data-c-grid-item="base(1of3)">
+    <div data-c-grid-item={`base(1of${gridItem})`}>
       <button
         {...props}
         data-c-button="outline(c1)"
@@ -200,8 +214,12 @@ Modal.FooterCancelBtn = function CancelBtn(props): React.ReactElement {
 
 Modal.FooterMiddleBtn = function MiddleBtn(props): React.ReactElement {
   const { onModalMiddle } = useContext(modalContext);
+  const { gridItem } = props;
   return (
-    <div data-c-alignment="base(center)" data-c-grid-item="base(1of3)">
+    <div
+      data-c-alignment="base(center)"
+      data-c-grid-item={`base(1of${gridItem})`}
+    >
       <button
         {...props}
         data-c-button="solid(c1)"
