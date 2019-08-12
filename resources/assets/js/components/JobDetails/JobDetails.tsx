@@ -1046,13 +1046,13 @@ const JobDetails: React.FunctionComponent<
                     description="Header message displayed on the travel group input."
                   />
                 </p>
-                <p data-c-margin="bottom(normal)">
+                {/* <p data-c-margin="bottom(normal)">
                   <FormattedMessage
                     id="jobDetails.travelGroupBody"
                     defaultMessage="vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque convallis a cras semper"
                     description="Body message displayed on the travel group input."
                   />
-                </p>
+                </p> */}
                 <RadioGroup
                   id="travel"
                   required
@@ -1083,13 +1083,13 @@ const JobDetails: React.FunctionComponent<
                     description="Header message displayed on the overtime group input."
                   />
                 </p>
-                <p data-c-margin="bottom(normal)">
+                {/* <p data-c-margin="bottom(normal)">
                   <FormattedMessage
                     id="jobDetails.overtimeGroupBody"
                     defaultMessage="vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque convallis a cras semper"
                     description="Body message displayed on the overtime group input."
                   />
-                </p>
+                </p> */}
                 <RadioGroup
                   id="overtime"
                   required
