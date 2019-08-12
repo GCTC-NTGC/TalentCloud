@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 // Validation.
 use App\Http\Requests\SkillCrudRequest as StoreRequest;
 use App\Http\Requests\SkillCrudRequest as UpdateRequest;
+use App\Models\Classification;
 use App\Models\Lookup\SkillType;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\App;
@@ -141,6 +142,23 @@ class SkillCrudController extends CrudController
             'label' => 'This is a future skill',
             'type' => 'checkbox'
         ]);
+
+        // Add select2_multiple filter for classifications.
+        $this->crud->addFilter([
+            'name' => 'classifications',
+            'type' => 'select2_multiple',
+            'label' => 'Filter by classification'
+        ], function () {
+            // The options that show up in the select2.
+            return Classification::all()->pluck('key', 'id')->toArray();
+        }, function ($values) {
+            // If the filter is active.
+            foreach (json_decode($values) as $key => $value) {
+                $this->crud->query = $this->crud->query->whereHas('classifications', function ($query) use ($value) {
+                    $query->where('id', $value);
+                });
+            }
+        });
     }
 
     /**
