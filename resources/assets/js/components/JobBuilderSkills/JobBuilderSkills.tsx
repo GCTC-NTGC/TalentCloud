@@ -1148,7 +1148,12 @@ export const JobBuilderSkills: React.FunctionComponent<
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
                 <span>
-                  Aim for {minCulture} - {maxCulture} skills.
+                  <FormattedMessage
+                    id="jobBuilder.skills.range.culturalSkills"
+                    defaultMessage="Aim for {minCulture} - {maxCulture} skills."
+                    description="Ranage recommendation for cultural skills in job poster"
+                    values={{ minCulture, maxCulture }}
+                  />
                 </span>
               </div>
             </div>
@@ -1273,9 +1278,26 @@ export const JobBuilderSkills: React.FunctionComponent<
         {/* This section is basically just text, but it prompts the manager to get in touch with us if they can't find the skill they're looking for. */}
         {/* "Custom" Skills */}
         <h5 data-c-font-weight="bold" data-c-margin="top(double) bottom(half)">
-          Can&apos;t find the skill you need?
+          <FormattedMessage
+            id="jobBuilder.skills.title.missingSkill"
+            defaultMessage="Can't find the skill you need?"
+            description="Title of instructions for missing skill"
+          />
         </h5>
         <p data-c-margin="bottom(normal)">
+          {/* TODO: Get this working. <FormattedMessage
+            defaultMessage="Building a skills list is a huge endeavour, and it's not
+  surprising that Talent Cloud's list doesn't have the skill
+  you're looking for. To help us expand our skill list, please <link>get in touch with us through email</link>. Provide the skill's name, as well as a short description to
+  kick-off the discussion."
+            values={{
+              link: (msg: string): JSX.Element => (
+                <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca">
+                  {msg}
+                </a>
+              ),
+            }}
+          /> */}
           Building a skills list is a huge endeavour, and it&apos;s not
           surprising that Talent Cloud&apos;s list doesn&apos;t have the skill
           you&apos;re looking for. To help us expand our skill list, please{" "}
@@ -1311,7 +1333,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-certificate" />
                   <i className="fas fa-book" />
                 </span>
-                Other Skills
+                <FormattedMessage
+                  id="jobBuilder.skills.title.otherSkills"
+                  defaultMessage="Other Skills"
+                  description="Title of other skills section"
+                />
               </h5>
             </div>
             <div data-c-grid-item="base(1of1)">
@@ -1339,7 +1365,13 @@ export const JobBuilderSkills: React.FunctionComponent<
             <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
               {/** TODO: Get this null state text hiding/showing. */}
               {selectedOtherSkills.length === 0 && (
-                <p>There are no extra skills added.</p>
+                <p>
+                  <FormattedMessage
+                    id="jobBuilder.skills.placeholder.otherSkills"
+                    defaultMessage="There are no extra skills added."
+                    description="Placeholder when there are no other skills"
+                  />
+                </p>
               )}
               {selectedOtherSkills.map(renderSkillButton)}
             </ul>
@@ -1359,7 +1391,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-radius="rounded"
               type="button"
             >
-              Save &amp; Return to Tasks
+              <FormattedMessage
+                id="jobBuilder.skills.button.returnToTasks"
+                defaultMessage="Save &amp; Return to Tasks"
+                description="Button Label"
+              />
             </a>
           </div>
           <div
@@ -1374,7 +1410,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               disabled={isSaving}
               onClick={(): void => saveAndPreview()}
             >
-              Save &amp; Preview Skills
+              <FormattedMessage
+                id="jobBuilder.skills.button.previewSkills"
+                defaultMessage="Save &amp; Preview Skills"
+                description="Button Label"
+              />
             </button>
           </div>
         </div>
@@ -1399,7 +1439,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-font-size="h4"
               id={`${tasksModalId}-title`}
             >
-              Key Tasks
+              <FormattedMessage
+                id="jobBuilder.skills.title.keyTasks"
+                defaultMessage="Key Tasks"
+                description="Title of Key Tasks Section"
+              />
             </h5>
           </div>
         </Modal.Header>
@@ -1453,7 +1497,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-font-size="h4"
               id={`${addModalId}-title`}
             >
-              Add a skill
+              <FormattedMessage
+                id="jobBuilder.skills.title.addASkill"
+                defaultMessage="Add a skill"
+                description="Title of Add a skill Section"
+              />
             </h5>
           </div>
         </Modal.Header>
@@ -1496,7 +1544,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-font-size="h4"
               id={`${editModalId}-title`}
             >
-              Edit skill
+              <FormattedMessage
+                id="jobBuilder.skills.title.editSkill"
+                defaultMessage="Edit skill"
+                description="Title of Edit skill Modal"
+              />
             </h5>
           </div>
         </Modal.Header>
@@ -1537,7 +1589,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-font-size="h4"
               id={`${previewModalId}-title`}
             >
-              Keep it up!
+              <FormattedMessage
+                id="jobBuilder.skills.title.keepItUp"
+                defaultMessage="Keep it up!"
+                description="Title of Keep it up! Modal"
+              />
             </h5>
           </div>
         </Modal.Header>
@@ -1548,9 +1604,13 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-padding="normal"
               id={`${previewModalId}-description`}
             >
-              Here&apos;s a preview of the Skills you just entered. Feel free to
-              go back and edit things or move to the next step if you&apos;re
-              happy with it.
+              <FormattedMessage
+                id="jobBuilder.skills.description.keepItUp"
+                defaultMessage="Here's a preview of the Skills you just entered. Feel free to
+                go back and edit things or move to the next step if you're
+                happy with it."
+                description="Body text of Keep it up! Modal"
+              />
             </div>
 
             <div data-c-background="grey(20)" data-c-padding="normal">
@@ -1567,7 +1627,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-margin="bottom(normal)"
                   data-c-padding="bottom(normal)"
                 >
-                  Skills the Employee Needs to Have
+                  <FormattedMessage
+                    id="jobBuilder.skills.title.needsToHave"
+                    defaultMessage="Skills the Employee Needs to Have"
+                    description="Section Header in Modal"
+                  />
                 </h4>
                 {essentialCriteria.map(
                   (criterion): React.ReactElement | null => {
@@ -1607,7 +1671,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-margin="top(double) bottom(normal)"
                   data-c-padding="bottom(normal)"
                 >
-                  Skills That Would Be Nice For the Employee to Have
+                  <FormattedMessage
+                    id="jobBuilder.skills.title.niceToHave"
+                    defaultMessage="Skills That Would Be Nice For the Employee to Have"
+                    description="Section Header in Modal"
+                  />
                 </h4>
                 {assetCriteria.map((criterion): React.ReactElement | null => {
                   const skill = getSkillOfCriteria(criterion);
