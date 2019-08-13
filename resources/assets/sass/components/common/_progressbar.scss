@@ -1,22 +1,39 @@
 
 .word-counter {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   margin-top: 1rem;
-  position: relative;
+
+  @media #{$p-tablet} {
+    flex-wrap: nowrap;
+  }
 
   span {
+    color: $palette--font-black;
     font-family: $font--sans;
-    font-size: $font-scale--regular;
+    font-size: 0.9rem;
     font-weight: 400;
-    margin-left: 0.5rem;
+    line-height: 1.5;
   }
 
   .word-counter__progress {
-    font-size: 1rem;
-    font-weight: 500;
-    position: absolute;
-    left: 0.9rem;
+    color: $palette--gray;
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
+
+    @media #{$p-tablet} {
+      width: 7rem;
+    }
+  }
+
+  .word-counter__message {
+    flex-basis: 100%;
+    text-align: center;
+    @media #{$p-tablet} {
+      text-align: left;
+    }
   }
 }
 
@@ -24,5 +41,5 @@ circle {
   transition: stroke-dashoffset 0.35s;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
-  // fill: rgba(128, 128, 128, 0.63);
+  margin-right: 1rem;
 }

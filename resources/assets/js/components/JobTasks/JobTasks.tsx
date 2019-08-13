@@ -38,6 +38,8 @@ interface JobTasksProps {
    * It must return true if the submission was succesful, false otherwise.
    */
   handleSubmit: (values: JobPosterKeyTask[]) => Promise<JobPosterKeyTask[]>;
+  // The function to run when user clicks Prev Page
+  handleReturn: () => void;
   /** Function to run when modal cancel is clicked. */
   handleModalCancel: () => void;
   /** Function to run when modal confirm is clicked. */
@@ -80,6 +82,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
   keyTasks,
   validCount,
   handleSubmit,
+  handleReturn,
   handleModalCancel,
   handleModalConfirm,
   intl,
@@ -91,6 +94,8 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
+
+  const [returnOnSubmit, setReturnOnSubmit] = useState(false);
 
   const tasksToValues = (
     tasks: JobPosterKeyTask[],
@@ -213,13 +218,23 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                *  FIXME: However, this resets the ordering as well, to whatever order the server returns them in.
                */
               actions.resetForm(tasksToValues(updatedTasks));
-              setIsModalVisible(true);
+              if (returnOnSubmit) {
+                handleReturn();
+              } else {
+                setIsModalVisible(true);
+              }
             })
-            .finally(
-              (): void => actions.setSubmitting(false), // Required by Formik to finish the submission cycle
-            );
+            .finally((): void => {
+              setReturnOnSubmit(false);
+              actions.setSubmitting(false); // Required by Formik to finish the submission cycle
+            });
         }}
-        render={({ isSubmitting, values, errors }): React.ReactElement => (
+        render={({
+          isSubmitting,
+          values,
+          errors,
+          submitForm,
+        }): React.ReactElement => (
           <>
             {values.tasks.length > 0 && (
               <p data-c-alignment="tl(right)">
@@ -326,55 +341,63 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                                     index + 1 > validCount ? " invalid" : ""
                                   }`}
                                   data-c-grid-item="base(1of1)"
-                                  data-c-input="textarea"
                                   data-tc-up-down-item
                                 >
-                                  <div>
-                                    <button
-                                      type="button"
-                                      data-tc-move-up-trigger
-                                      onClick={(): void =>
-                                        arrayHelpers.move(index, index - 1)
-                                      }
+                                  <div data-c-grid="gutter middle">
+                                    <div
+                                      data-c-grid-item="base(1of7) tl(1of10)"
+                                      data-c-align="base(centre)"
                                     >
-                                      <i className="fas fa-long-arrow-alt-up" />
-                                    </button>
-                                    <button
-                                      type="button"
-                                      data-tc-move-down-trigger
-                                      onClick={(): void =>
-                                        arrayHelpers.move(index, index + 1)
-                                      }
+                                      <button
+                                        type="button"
+                                        data-tc-move-up-trigger
+                                        onClick={(): void =>
+                                          arrayHelpers.move(index, index - 1)
+                                        }
+                                      >
+                                        <i className="fas fa-angle-up" />
+                                      </button>
+                                      <button
+                                        type="button"
+                                        data-tc-move-down-trigger
+                                        onClick={(): void =>
+                                          arrayHelpers.move(index, index + 1)
+                                        }
+                                      >
+                                        <i className="fas fa-angle-down" />
+                                      </button>
+                                    </div>
+                                    <Field
+                                      id={`task-${task.id}`}
+                                      name={`tasks.${index}.description`}
+                                      grid="base(5of7) tl(8of10)"
+                                      label={`${intl.formatMessage(
+                                        formMessages.taskLabel,
+                                      )} ${index + 1}`}
+                                      component={TextAreaInput}
+                                      placeholder={intl.formatMessage(
+                                        formMessages.taskPlaceholder,
+                                      )}
+                                      required
+                                    />
+                                    <div
+                                      data-c-grid-item="base(1of7) tl(1of10)"
+                                      data-c-align="base(centre)"
                                     >
-                                      <i className="fas fa-long-arrow-alt-down" />
-                                    </button>
+                                      <button
+                                        type="button"
+                                        data-tc-builder-task-delete-trigger
+                                        onClick={(): void => {
+                                          arrayHelpers.remove(index);
+                                        }}
+                                      >
+                                        <i
+                                          className="fas fa-trash"
+                                          data-c-colour="stop"
+                                        />
+                                      </button>
+                                    </div>
                                   </div>
-                                  <div>
-                                    <button
-                                      type="button"
-                                      data-tc-builder-task-delete-trigger
-                                      onClick={(): void => {
-                                        arrayHelpers.remove(index);
-                                      }}
-                                    >
-                                      <i
-                                        className="fas fa-trash"
-                                        data-c-colour="stop"
-                                      />
-                                    </button>
-                                  </div>
-                                  <Field
-                                    id={`task-${task.id}`}
-                                    name={`tasks.${index}.description`}
-                                    label={`${intl.formatMessage(
-                                      formMessages.taskLabel,
-                                    )} ${index + 1}`}
-                                    component={TextAreaInput}
-                                    placeholder={intl.formatMessage(
-                                      formMessages.taskPlaceholder,
-                                    )}
-                                    required
-                                  />
                                 </div>
                               </>
                             ),
@@ -414,18 +437,29 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                           data-c-grid-item="tp(1of2)"
                         >
                           {/* TODO: Navigate to previous page */}
-                          <a
-                            href="/builder-04"
+                          <button
                             data-c-button="outline(c2)"
                             data-c-radius="rounded"
                             type="button"
+                            disabled={isSubmitting}
+                            onClick={(): void => {
+                              /** TODO:
+                               * This is a race condition, since the setState hook call is asynchronous.
+                               * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
+                               * For now, the setState always happens faster than the validation check, so it works.
+                               * See https://github.com/jaredpalmer/formik/issues/214
+                               * -- Tristan
+                               */
+                              setReturnOnSubmit(true);
+                              submitForm();
+                            }}
                           >
                             <FormattedMessage
                               id="jobTasks.previous"
                               description="Text on the Previous Step button."
-                              defaultMessage="Previous Step"
+                              defaultMessage="Save & Return to Impact"
                             />
-                          </a>
+                          </button>
                         </div>
                         <div
                           data-c-alignment="base(centre) tp(right)"
@@ -433,7 +467,6 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                         >
                           <button
                             data-c-button="solid(c2)"
-                            data-c-dialog-action="open"
                             data-c-radius="rounded"
                             type="submit"
                             disabled={isSubmitting}
@@ -441,7 +474,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                             <FormattedMessage
                               id="jobTasks.preview"
                               description="Text on the Preview Tasks button."
-                              defaultMessage="Preview Tasks"
+                              defaultMessage="Save & Preview Tasks"
                             />
                           </button>
                           {/* TODO: Figure out how to display FieldArray validation errors. */}

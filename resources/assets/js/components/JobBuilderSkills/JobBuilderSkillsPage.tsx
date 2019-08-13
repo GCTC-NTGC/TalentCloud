@@ -19,7 +19,7 @@ import {
 } from "../JobBuilder/jobBuilderMessages";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import JobBuilderSkills from "./JobBuilderSkills";
-import { managerJobIndex } from "../../helpers/routes";
+import { managerJobIndex, jobBuilderTasks } from "../../helpers/routes";
 import { ProgressTrackerItem } from "../ProgressTracker/types";
 import { RootState } from "../../store/store";
 import {
@@ -98,6 +98,10 @@ const JobBuilderSkillsPage: React.FunctionComponent<
     throw new Error("Unexpected locale");
   }
 
+  const handleReturn = (): void => {
+    // Continue to next page
+    window.location.href = jobBuilderTasks(locale, jobId);
+  };
   const handleContinue = (): void => {
     // Continue to next page
     window.location.href = managerJobIndex(locale);
@@ -178,6 +182,7 @@ const JobBuilderSkillsPage: React.FunctionComponent<
           initialCriteria={criteria}
           skills={skills}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleContinue={handleContinue}
         />
       )}

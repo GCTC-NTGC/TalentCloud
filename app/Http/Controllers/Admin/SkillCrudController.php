@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Illuminate\Support\Facades\App;
-use App\Models\Lookup\SkillType;
 // Validation.
 use App\Http\Requests\SkillCrudRequest as StoreRequest;
 use App\Http\Requests\SkillCrudRequest as UpdateRequest;
+use App\Models\Classification;
+use App\Models\Lookup\SkillType;
+use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Illuminate\Support\Facades\App;
 
 class SkillCrudController extends CrudController
 {
@@ -37,6 +38,13 @@ class SkillCrudController extends CrudController
         $this->crud->setEntityNameStrings('skill', 'skills');
 
         // Add custom columns to the Skill index view.
+        $this->crud->addColumn([
+            'name' => 'id',
+            'type' => 'text',
+            'label' => 'ID',
+            'orderable' => true
+        ]);
+
         $this->crud->addColumn([
             'name' => 'name',
             'type' => 'text',
@@ -82,14 +90,14 @@ class SkillCrudController extends CrudController
             'name' => 'is_culture_skill',
             'label' => 'Culture',
             'type' => 'boolean',
-            'orderable' => false,
+            'orderable' => true,
         ]);
 
         $this->crud->addColumn([
             'name' => 'is_future_skill',
             'label' => 'Future',
             'type' => 'boolean',
-            'orderable' => false,
+            'orderable' => true,
         ]);
 
         // Add custom fields to the create/update views.
@@ -134,25 +142,44 @@ class SkillCrudController extends CrudController
             'label' => 'This is a future skill',
             'type' => 'checkbox'
         ]);
+
+        // Add select2_multiple filter for classifications.
+        $this->crud->addFilter([
+            'name' => 'classifications',
+            'type' => 'select2_multiple',
+            'label' => 'Filter by classification'
+        ], function () {
+            // The options that show up in the select2.
+            return Classification::all()->pluck('key', 'id')->toArray();
+        }, function ($values) {
+            // If the filter is active.
+            foreach (json_decode($values) as $key => $value) {
+                $this->crud->query = $this->crud->query->whereHas('classifications', function ($query) use ($value) {
+                    $query->where('id', $value);
+                });
+            }
+        });
     }
 
     /**
-    * Action for creating a new Skill in the database.
-    *
-    * @param  \App\Http\Requests\SkillCrudRequest $request Incoming form request.
-    * @return \Illuminate\Http\RedirectResponse
-    */
+     * Action for creating a new Skill in the database.
+     *
+     * @param \App\Http\Requests\SkillCrudRequest $request Incoming form request.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(StoreRequest $request) // phpcs:ignore
     {
         return parent::storeCrud();
     }
 
     /**
-    * Action for creating a new Skill in the database.
-    *
-    * @param  \App\Http\Requests\SkillCrudRequest $request Incoming form request.
-    * @return \Illuminate\Http\RedirectResponse
-    */
+     * Action for creating a new Skill in the database.
+     *
+     * @param \App\Http\Requests\SkillCrudRequest $request Incoming form request.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(UpdateRequest $request) // phpcs:ignore
     {
         return parent::updateCrud();
