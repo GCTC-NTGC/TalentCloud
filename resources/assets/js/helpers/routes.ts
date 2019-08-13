@@ -12,6 +12,10 @@ export function managerApplicantShow(
   return `/${locale}/manager/applicants/${applicantId}`;
 }
 
+export function managerEditProfile(locale: string): string {
+  return `/${locale}/manager/profile`;
+}
+
 export function managerJobIndex(locale: string): string {
   return `/${locale}/manager/jobs`;
 }

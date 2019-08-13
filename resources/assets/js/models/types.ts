@@ -47,6 +47,28 @@ export interface Job {
   fr: JobTranslation;
 }
 
+export interface ManagerTranslation {
+  branch: string | null;
+  division: string | null;
+  position: string | null;
+  leadership_style: string | null;
+  expectations: string | null;
+  employee_learning: string | null;
+  career_journey: string | null;
+  learning_path: string | null;
+  about_me: string | null;
+}
+
+export interface Manager {
+  id: number;
+  user_id: number;
+  department_id: number | null;
+  twitter_username: string | null;
+  linkedin_url: string | null;
+  en: ManagerTranslation;
+  fr: ManagerTranslation;
+}
+
 export interface Application {
   id: number;
   job_poster_id: number;

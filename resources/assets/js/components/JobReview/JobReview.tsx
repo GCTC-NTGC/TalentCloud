@@ -6,12 +6,14 @@ import {
   Job,
   Skill,
   Department,
+  Manager,
 } from "../../models/types";
 import {
   jobBuilderDetails,
   jobBuilderTasks,
   jobBuilderImpact,
   jobBuilderSkills,
+  managerEditProfile,
 } from "../../helpers/routes";
 import { find, mapToObject, hasKey, getId } from "../../helpers/queries";
 import {
@@ -85,6 +87,23 @@ const JobReviewSection: React.FunctionComponent<JobReviewSectionProps> = ({
   );
 };
 
+const sectionTitle = (title: string): React.ReactElement => {
+  return (
+    <div data-c-margin="top(triple) bottom(normal)">
+      <div data-c-grid="gutter middle">
+        <div
+          data-c-grid-item="base(1of1)"
+          data-c-alignment="base(centre) tp(left)"
+        >
+          <h4 data-c-colour="c2" data-c-font-size="h4">
+            title
+          </h4>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const languageRequirementIcons = (
   languageRequirementId: number,
 ): React.ReactElement => {
@@ -124,6 +143,8 @@ const languageRequirementIcons = (
 
 interface JobReviewProps {
   job: Job;
+  manager: Manager;
+  managerName: string;
   tasks: JobPosterKeyTask[];
   criteria: Criteria[];
   // List of all possible skills.
@@ -139,6 +160,8 @@ export const JobReview: React.FunctionComponent<
   JobReviewProps & InjectedIntlProps
 > = ({
   job,
+  manager,
+  managerName,
   tasks,
   criteria,
   skills,
@@ -152,10 +175,13 @@ export const JobReview: React.FunctionComponent<
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unknown intl.locale");
   }
-  const department =
-    job.department_id !== null ? find(departments, job.department_id) : null;
-  const departmentName =
-    department !== null ? department[locale].name : "MISSING DEPARTMENT";
+
+  const getDeptName = (departmentId: number | null): string => {
+    const department =
+      departmentId !== null ? find(departments, departmentId) : null;
+    return department !== null ? department[locale].name : "MISSING DEPARTMENT";
+  };
+  const departmentName = getDeptName(job.department_id);
 
   // Map the skills into a dictionary for quicker access
   const skillsById = mapToObject(skills, getId);
@@ -310,18 +336,7 @@ export const JobReview: React.FunctionComponent<
           )}
         </ul>
       </JobReviewSection>
-      <div data-c-margin="top(triple) bottom(normal)">
-        <div data-c-grid="gutter middle">
-          <div
-            data-c-grid-item="base(1of1)"
-            data-c-alignment="base(centre) tp(left)"
-          >
-            <h4 data-c-colour="c2" data-c-font-size="h4">
-              Criteria
-            </h4>
-          </div>
-        </div>
-      </div>
+      {sectionTitle("Criteria")}
       <JobReviewSection
         title="Education Requirements"
         isSubsection
@@ -364,7 +379,6 @@ export const JobReview: React.FunctionComponent<
       </JobReviewSection>
       <JobReviewSection
         title="Language Requirements"
-        isSubsection
         linkLabel="Edit This in Step 01: Job Info"
         link={jobBuilderDetails(locale, job.id)}
       >
@@ -392,6 +406,20 @@ export const JobReview: React.FunctionComponent<
             </p>
           </>
         )}
+      </JobReviewSection>
+      {sectionTitle("Environment & Culture")}
+      <JobReviewSection
+        title="Manager Information"
+        isSubsection
+        linkLabel="Edit This in Your Profile"
+        link={managerEditProfile(locale)}
+      >
+        {/** TODO: Double check which fields to show for the manager section */}
+        <p data-c-margin="bottom(normal)">{managerName}</p>
+        <p data-c-margin="bottom(normal)">
+          {manager[locale].position} at {getDeptName(manager.department_id)}
+        </p>
+        <p>{manager[locale].about_me}</p>
       </JobReviewSection>
     </div>
   );
