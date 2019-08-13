@@ -40,7 +40,54 @@ const messages = defineMessages({
   },
 });
 
-const altMessages = defineMessages({});
+const altMessages = defineMessages({
+  unhappyArrow: {
+    id: "jobBuilder.skills.alt.unhappyArrow",
+    defaultMessage: "Arrow icon highlighting the unhappy smiley icon.",
+    description: "Alternative text describing unhappy arrow image",
+  },
+  unhappySmiley: {
+    id: "jobBuilder.skills.alt.unhappySmiley",
+    defaultMessage: "Unhappy coloured smiley icon.",
+    description: "Alternative text describing unhappy smiley image",
+  },
+  unhappyGraySmiley: {
+    id: "jobBuilder.skills.alt.unhappyGraySmiley",
+    defaultMessage: "Unhappy grayscale smiley icon.",
+    description: "Alternative text describing unhappy grayscale smiley image",
+  },
+  neutralArrow: {
+    id: "jobBuilder.skills.alt.neutralArrow",
+    defaultMessage: "Arrow icon highlighting the neutral smiley icon.",
+    description: "Alternative text describing neutral arrow image",
+  },
+  neutralSmiley: {
+    id: "jobBuilder.skills.alt.neutralSmiley",
+    defaultMessage: "neutral coloured smiley icon.",
+    description: "Alternative text describing neutral smiley image",
+  },
+  neutralGraySmiley: {
+    id: "jobBuilder.skills.alt.neutralGraySmiley",
+    defaultMessage: "neutral grayscale smiley icon.",
+    description: "Alternative text describing neutral grayscale smiley image",
+  },
+  happyArrow: {
+    id: "jobBuilder.skills.alt.happyArrow",
+    defaultMessage: "Arrow icon highlighting the happy smiley icon.",
+    description: "Alternative text describing happy arrow image",
+  },
+  happySmiley: {
+    id: "jobBuilder.skills.alt.happySmiley",
+    defaultMessage: "happy coloured smiley icon.",
+    description: "Alternative text describing happy smiley image",
+  },
+  happyGraySmiley: {
+    id: "jobBuilder.skills.alt.happyGraySmiley",
+    defaultMessage: "happy grayscale smiley icon.",
+    description: "Alternative text describing happy grayscale smiley image",
+  },
+});
+// "Arrow highlighting the neutral smiley icon."
 // function arrayMove<T>(arr: T[], fromIndex: number, toIndex: number): T[] {
 //   const arrCopy = [...arr];
 //   const element = arrCopy[fromIndex];
@@ -569,7 +616,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-bad.svg"
-                      alt="Arrow icon highlighting the unhappy smiley icon."
+                      alt={intl.formatMessage(altMessages.unhappyArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -581,11 +628,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-bad.svg"
-                    alt="Unhappy coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappySmiley)}
                   />
                   <img
                     src="\images\icon-smiley-bad-grey.svg"
-                    alt="Unhappy grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     <FormattedMessage
@@ -605,7 +652,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-medium.svg"
-                      alt="Arrow highlighting the neutral smiley icon."
+                      alt={intl.formatMessage(altMessages.neutralArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -617,11 +664,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-medium.svg"
-                    alt="Neutral coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralSmiley)}
                   />
                   <img
                     src="\images\icon-smiley-medium-grey.svg"
-                    alt="Neutral grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     <FormattedMessage
@@ -641,7 +688,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-good.svg"
-                      alt="Arrow highlighting the happy smiley icon."
+                      alt={intl.formatMessage(altMessages.happyArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -653,11 +700,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-good.svg"
-                    alt="Happy coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.happySmiley)}
                   />
                   <img
                     src="\images\icon-smiley-good-grey.svg"
-                    alt="Happy grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.happyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     <FormattedMessage
@@ -677,7 +724,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-medium.svg"
-                      alt="Arrow highlighting the neutral smiley icon."
+                      alt={intl.formatMessage(altMessages.neutralArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -689,11 +736,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-medium.svg"
-                    alt="Neutral coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralSmiley)}
                   />
                   <img
                     src="\images\icon-smiley-medium-grey.svg"
-                    alt="Neutral grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     <FormattedMessage
@@ -714,7 +761,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                     {/* TODO: Alt Text Translations */}
                     <img
                       src="\images\icon-smiley-arrow-bad.svg"
-                      alt="Arrow icon highlighting the unhappy smiley icon."
+                      alt={intl.formatMessage(altMessages.unhappyArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -726,11 +773,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-bad.svg"
-                    alt="Unhappy coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappySmiley)}
                   />
                   <img
                     src="\images\icon-smiley-bad-grey.svg"
-                    alt="Unhappy grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     <FormattedMessage
@@ -772,7 +819,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-bad.svg"
-                      alt="Arrow icon highlighting the unhappy smiley icon."
+                      alt={intl.formatMessage(altMessages.unhappyArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -784,11 +831,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-bad.svg"
-                    alt="Unhappy coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappySmiley)}
                   />
                   <img
                     src="\images\icon-smiley-bad-grey.svg"
-                    alt="Unhappy grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     <FormattedMessage
@@ -808,7 +855,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-medium.svg"
-                      alt="Arrow highlighting the neutral smiley icon."
+                      alt={intl.formatMessage(altMessages.neutralArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -820,11 +867,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-medium.svg"
-                    alt="Neutral coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralSmiley)}
                   />
                   <img
                     src="\images\icon-smiley-medium-grey.svg"
-                    alt="Neutral grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     <FormattedMessage
@@ -844,7 +891,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-good.svg"
-                      alt="Arrow highlighting the happy smiley icon."
+                      alt={intl.formatMessage(altMessages.happyArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -856,11 +903,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-good.svg"
-                    alt="Happy coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.happySmiley)}
                   />
                   <img
                     src="\images\icon-smiley-good-grey.svg"
-                    alt="Happy grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.happyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     <FormattedMessage
@@ -880,7 +927,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-medium.svg"
-                      alt="Arrow highlighting the neutral smiley icon."
+                      alt={intl.formatMessage(altMessages.neutralArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -892,11 +939,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-medium.svg"
-                    alt="Neutral coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralSmiley)}
                   />
                   <img
                     src="\images\icon-smiley-medium-grey.svg"
-                    alt="Neutral grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     <FormattedMessage
@@ -916,7 +963,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-bad.svg"
-                      alt="Arrow icon highlighting the unhappy smiley icon."
+                      alt={intl.formatMessage(altMessages.unhappyArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -928,11 +975,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-bad.svg"
-                    alt="Unhappy coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappySmiley)}
                   />
                   <img
                     src="\images\icon-smiley-bad-grey.svg"
-                    alt="Unhappy grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     <FormattedMessage
