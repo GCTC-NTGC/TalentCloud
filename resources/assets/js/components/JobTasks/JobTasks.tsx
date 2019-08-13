@@ -341,55 +341,63 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                                     index + 1 > validCount ? " invalid" : ""
                                   }`}
                                   data-c-grid-item="base(1of1)"
-                                  data-c-input="textarea"
                                   data-tc-up-down-item
                                 >
-                                  <div>
-                                    <button
-                                      type="button"
-                                      data-tc-move-up-trigger
-                                      onClick={(): void =>
-                                        arrayHelpers.move(index, index - 1)
-                                      }
+                                  <div data-c-grid="gutter middle">
+                                    <div
+                                      data-c-grid-item="base(1of7) tl(1of10)"
+                                      data-c-align="base(centre)"
                                     >
-                                      <i className="fas fa-long-arrow-alt-up" />
-                                    </button>
-                                    <button
-                                      type="button"
-                                      data-tc-move-down-trigger
-                                      onClick={(): void =>
-                                        arrayHelpers.move(index, index + 1)
-                                      }
+                                      <button
+                                        type="button"
+                                        data-tc-move-up-trigger
+                                        onClick={(): void =>
+                                          arrayHelpers.move(index, index - 1)
+                                        }
+                                      >
+                                        <i className="fas fa-angle-up" />
+                                      </button>
+                                      <button
+                                        type="button"
+                                        data-tc-move-down-trigger
+                                        onClick={(): void =>
+                                          arrayHelpers.move(index, index + 1)
+                                        }
+                                      >
+                                        <i className="fas fa-angle-down" />
+                                      </button>
+                                    </div>
+                                    <Field
+                                      id={`task-${task.id}`}
+                                      name={`tasks.${index}.description`}
+                                      grid="base(5of7) tl(8of10)"
+                                      label={`${intl.formatMessage(
+                                        formMessages.taskLabel,
+                                      )} ${index + 1}`}
+                                      component={TextAreaInput}
+                                      placeholder={intl.formatMessage(
+                                        formMessages.taskPlaceholder,
+                                      )}
+                                      required
+                                    />
+                                    <div
+                                      data-c-grid-item="base(1of7) tl(1of10)"
+                                      data-c-align="base(centre)"
                                     >
-                                      <i className="fas fa-long-arrow-alt-down" />
-                                    </button>
+                                      <button
+                                        type="button"
+                                        data-tc-builder-task-delete-trigger
+                                        onClick={(): void => {
+                                          arrayHelpers.remove(index);
+                                        }}
+                                      >
+                                        <i
+                                          className="fas fa-trash"
+                                          data-c-colour="stop"
+                                        />
+                                      </button>
+                                    </div>
                                   </div>
-                                  <div>
-                                    <button
-                                      type="button"
-                                      data-tc-builder-task-delete-trigger
-                                      onClick={(): void => {
-                                        arrayHelpers.remove(index);
-                                      }}
-                                    >
-                                      <i
-                                        className="fas fa-trash"
-                                        data-c-colour="stop"
-                                      />
-                                    </button>
-                                  </div>
-                                  <Field
-                                    id={`task-${task.id}`}
-                                    name={`tasks.${index}.description`}
-                                    label={`${intl.formatMessage(
-                                      formMessages.taskLabel,
-                                    )} ${index + 1}`}
-                                    component={TextAreaInput}
-                                    placeholder={intl.formatMessage(
-                                      formMessages.taskPlaceholder,
-                                    )}
-                                    required
-                                  />
                                 </div>
                               </>
                             ),
