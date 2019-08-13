@@ -1,16 +1,240 @@
 [
   {
-    "id": "jobSkills.tasksModalCancelLabel",
+    "id": "jobBuilder.skills.emailLink",
+    "description": "Text for an email link in a larger block of text",
+    "defaultMessage": "get in touch with us through email"
+  },
+  {
+    "id": "jobBuilder.skills.addSkillBelow",
+    "description": "Placeholder skill title / instructions to add skill",
+    "defaultMessage": "Add skills below to proceed."
+  },
+  {
+    "id": "jobBuilder.skills.skillLevel",
+    "description": "Placeholder label",
+    "defaultMessage": "Skill Level"
+  },
+  {
+    "id": "jobBuilder.skills.title",
+    "description": "section title",
+    "defaultMessage": "Skills"
+  },
+  {
+    "id": "jobBuilder.skills.description",
+    "description": "section description under title",
+    "defaultMessage": "This is where you'll select the criteria that are required to do\r\n            this job effectively. Below are two bars that indicate a measurement\r\n            of your current skill selection."
+  },
+  {
+    "id": "jobBuilder.skills.button.keyTasks",
+    "description": "Button label",
+    "defaultMessage": "View Key Tasks"
+  },
+  {
+    "id": "jobBuilder.skills.listTitle",
+    "description": "List section title",
+    "defaultMessage": "Your Skills List"
+  },
+  {
+    "id": "jobBuilder.skills.statusSmiley.essentialTitle",
+    "description": "Title of skill status tracker",
+    "defaultMessage": "Total Number of Essential Skills"
+  },
+  {
+    "id": "jobBuilder.skills.statusSmiley.essential.tooFew",
+    "description": "Description of quantity of skills",
+    "defaultMessage": "Too Few"
+  },
+  {
+    "id": "jobBuilder.skills.statusSmiley.essential.almost",
+    "description": "Description of quantity of skills",
+    "defaultMessage": "Almost"
+  },
+  {
+    "id": "jobBuilder.skills.statusSmiley.essential.awesome",
+    "description": "Description of quantity of skills",
+    "defaultMessage": "Awesome"
+  },
+  {
+    "id": "jobBuilder.skills.statusSmiley.essential.acceptable",
+    "description": "Description of quantity of skills",
+    "defaultMessage": "Acceptable"
+  },
+  {
+    "id": "jobBuilder.skills.statusSmiley.essential.tooMany",
+    "description": "Description of quantity of skills",
+    "defaultMessage": "Too Many"
+  },
+  {
+    "id": "jobBuilder.skills.statusSmiley.title",
+    "description": "Title of skill quantity evaluator",
+    "defaultMessage": "Total Number of Skills"
+  },
+  {
+    "id": "jobBuilder.skills.statusSmiley.tooFew",
+    "description": "Description of quantity of skills",
+    "defaultMessage": "Too Few"
+  },
+  {
+    "id": "jobBuilder.skills.statusSmiley.almost",
+    "description": "Description of quantity of skills",
+    "defaultMessage": "Almost"
+  },
+  {
+    "id": "jobBuilder.skills.statusSmiley.awesome",
+    "description": "Description of quantity of skills",
+    "defaultMessage": "Awesome"
+  },
+  {
+    "id": "jobBuilder.skills.statusSmiley.acceptable",
+    "description": "Description of quantity of skills",
+    "defaultMessage": "Acceptable"
+  },
+  {
+    "id": "jobBuilder.skills.statusSmiley.tooMany",
+    "description": "Description of quantity of skills",
+    "defaultMessage": "tooMany"
+  },
+  {
+    "id": "jobBuilder.skills.title.essentialSkills",
+    "description": "Title of essential skills list",
+    "defaultMessage": "Essential Skills"
+  },
+  {
+    "id": "jobBuilder.skills.title.assetSkills",
+    "description": "Title of asset skills list",
+    "defaultMessage": "Asset Skills"
+  },
+  {
+    "id": "jobBuilder.skills.button.previewSkills",
+    "description": "Label of Button",
+    "defaultMessage": "Save & Preview Skills"
+  },
+  {
+    "id": "jobBuilder.skills.title.skillSelection",
+    "description": "Title of skill selection section",
+    "defaultMessage": "Skill Selection"
+  },
+  {
+    "id": "jobBuilder.skills.title.occupationalSkills",
+    "description": "Title of skills category",
+    "defaultMessage": "Occupational Skills"
+  },
+  {
+    "id": "jobBuilder.skills.description.occupationalSkills",
+    "description": "Description of a category of skills",
+    "defaultMessage": "Lorem ipsum."
+  },
+  {
+    "id": "jobBuilder.skills.range.occupationalSkills",
+    "description": "Ranage recommendation for occupational skills in job poster",
+    "defaultMessage": "Aim for {minOccupational} - {maxOccupational} skills."
+  },
+  {
+    "id": "jobBuilder.skills.nullText.occupationalSkills",
+    "description": "Placeholder text for occupational skills list.",
+    "defaultMessage": "You must return to Step 1 and choose a Classification."
+  },
+  {
+    "id": "jobBuilder.skills.title.culturalSkills",
+    "description": "Title of skills category",
+    "defaultMessage": "Cultural Skills"
+  },
+  {
+    "id": "jobBuilder.skills.description.culturalSkills",
+    "description": "Description of a category of skills",
+    "defaultMessage": "Lorem ipsum."
+  },
+  {
+    "id": "jobBuilder.skills.range.culturalSkills",
+    "description": "Ranage recommendation for cultural skills in job poster",
+    "defaultMessage": "Aim for {minCulture} - {maxCulture} skills."
+  },
+  {
+    "id": "jobBuilder.skills.title.futureSkills",
+    "description": "Title of skills category",
+    "defaultMessage": "Future Skills"
+  },
+  {
+    "id": "jobBuilder.skills.description.futureSkills",
+    "description": "Description of a category of skills",
+    "defaultMessage": "Lorem ipsum."
+  },
+  {
+    "id": "jobBuilder.skills.range.futureSkills",
+    "description": "Ranage recommendation for future skills in job poster",
+    "defaultMessage": "Aim for {minFuture} - {maxFuture} skills."
+  },
+  {
+    "id": "jobBuilder.skills.title.missingSkill",
+    "description": "Title of instructions for missing skill",
+    "defaultMessage": "Can't find the skill you need?"
+  },
+  {
+    "id": "jobBuilder.skills.instructions.missingSkills",
+    "defaultMessage": "Building a skills list is a huge endeavour, and it's not\r\n  surprising that Talent Cloud's list doesn't have the skill\r\n  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to\r\n  kick-off the discussion."
+  },
+  {
+    "id": "jobBuilder.skills.title.otherSkills",
+    "description": "Title of other skills section",
+    "defaultMessage": "Other Skills"
+  },
+  {
+    "id": "jobBuilder.skills.placeholder.otherSkills",
+    "description": "Placeholder when there are no other skills",
+    "defaultMessage": "There are no extra skills added."
+  },
+  {
+    "id": "jobBuilder.skills.button.returnToTasks",
+    "description": "Button Label",
+    "defaultMessage": "Save & Return to Tasks"
+  },
+  {
+    "id": "jobBuilder.skills.title.keyTasks",
+    "description": "Title of Key Tasks Section",
+    "defaultMessage": "Key Tasks"
+  },
+  {
+    "id": "jobBuilder.skills.tasksModalCancelLabel",
     "description": "The text displayed on the cancel button of the Key Tasks modal on the Job Builder Skills step.",
     "defaultMessage": "Back to Skills"
   },
   {
-    "id": "jobSkills.previewModalCancelLabel",
+    "id": "jobBuilder.skills.title.addASkill",
+    "description": "Title of Add a skill Section",
+    "defaultMessage": "Add a skill"
+  },
+  {
+    "id": "jobBuilder.skills.title.editSkill",
+    "description": "Title of Edit skill Modal",
+    "defaultMessage": "Edit skill"
+  },
+  {
+    "id": "jobBuilder.skills.title.keepItUp",
+    "description": "Title of Keep it up! Modal",
+    "defaultMessage": "Keep it up!"
+  },
+  {
+    "id": "jobBuilder.skills.description.keepItUp",
+    "description": "Body text of Keep it up! Modal",
+    "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to\r\n                go back and edit things or move to the next step if you're\r\n                happy with it."
+  },
+  {
+    "id": "jobBuilder.skills.title.needsToHave",
+    "description": "Section Header in Modal",
+    "defaultMessage": "Skills the Employee Needs to Have"
+  },
+  {
+    "id": "jobBuilder.skills.title.niceToHave",
+    "description": "Section Header in Modal",
+    "defaultMessage": "Skills That Would Be Nice For the Employee to Have"
+  },
+  {
+    "id": "jobBuilder.skills.previewModalCancelLabel",
     "description": "The text displayed on the cancel button of the Job Builder Skills Preview modal.",
     "defaultMessage": "Go Back"
   },
   {
-    "id": "jobSkills.previewModalConfirmLabel",
+    "id": "jobBuilder.skills.previewModalConfirmLabel",
     "description": "The text displayed on the confirm button of the Job Builder Skills Preview modal.",
     "defaultMessage": "Next Step"
   }

@@ -1,6 +1,11 @@
 /* eslint-disable camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef, useReducer } from "react";
-import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
+import {
+  InjectedIntlProps,
+  injectIntl,
+  FormattedMessage,
+  defineMessages,
+} from "react-intl";
 import { Job, Skill, Criteria, JobPosterKeyTask } from "../../models/types";
 import Modal from "../Modal";
 import CriteriaForm from "./CriteriaForm";
@@ -27,6 +32,15 @@ interface JobBuilderSkillsProps {
   handleContinue: () => void;
 }
 
+const messages = defineMessages({
+  emailUs: {
+    id: "jobBuilder.skills.emailLink",
+    defaultMessage: "get in touch with us through email",
+    description: "Text for an email link in a larger block of text",
+  },
+});
+
+const altMessages = defineMessages({});
 // function arrayMove<T>(arr: T[], fromIndex: number, toIndex: number): T[] {
 //   const arrCopy = [...arr];
 //   const element = arrCopy[fromIndex];
@@ -1285,30 +1299,35 @@ export const JobBuilderSkills: React.FunctionComponent<
           />
         </h5>
         <p data-c-margin="bottom(normal)">
-          {/* TODO: Get this working. <FormattedMessage
+          {/* TODO: Refactor for react-intl version 3, using new rich text xml tag syntax eg.
+          <FormattedMessage
+            id="jobBuilder.skills.instructions.missingSkills"
             defaultMessage="Building a skills list is a huge endeavour, and it's not
   surprising that Talent Cloud's list doesn't have the skill
   you're looking for. To help us expand our skill list, please <link>get in touch with us through email</link>. Provide the skill's name, as well as a short description to
   kick-off the discussion."
             values={{
-              link: (msg: string): JSX.Element => (
+              link: msg => (
                 <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca">
                   {msg}
                 </a>
               ),
             }}
           /> */}
-          Building a skills list is a huge endeavour, and it&apos;s not
-          surprising that Talent Cloud&apos;s list doesn&apos;t have the skill
-          you&apos;re looking for. To help us expand our skill list, please{" "}
-          <a
-            href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-            title="Get in touch with Talent Cloud to have a skill added to the platform."
-          >
-            get in touch with us through email
-          </a>
-          . Provide the skill&apos;s name, as well as a short description to
-          kick-off the discussion.
+          <FormattedMessage
+            id="jobBuilder.skills.instructions.missingSkills"
+            defaultMessage="Building a skills list is a huge endeavour, and it's not
+  surprising that Talent Cloud's list doesn't have the skill
+  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to
+  kick-off the discussion."
+            values={{
+              link: (
+                <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca">
+                  {intl.formatMessage(messages.emailUs)}
+                </a>
+              ),
+            }}
+          />
         </p>
         <div
           className="jpb-skill-category optional"
@@ -1413,7 +1432,7 @@ export const JobBuilderSkills: React.FunctionComponent<
               <FormattedMessage
                 id="jobBuilder.skills.button.previewSkills"
                 defaultMessage="Save &amp; Preview Skills"
-                description="Button Label"
+                description="Label of Button"
               />
             </button>
           </div>
