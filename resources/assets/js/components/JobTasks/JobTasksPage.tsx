@@ -8,7 +8,7 @@ import {
   isJobBuilderComplete,
 } from "../JobBuilder/jobBuilderHelpers";
 import JobTasks from "./JobTasks";
-import { jobBuilderSkills } from "../../helpers/routes";
+import { jobBuilderSkills, jobBuilderImpact } from "../../helpers/routes";
 import { RootState } from "../../store/store";
 import {
   getJob,
@@ -59,6 +59,9 @@ const JobTasksPage: React.FunctionComponent<
   const handleSubmit = (
     tasks: JobPosterKeyTask[],
   ): Promise<JobPosterKeyTask[]> => handleUpdateTasks(jobId, tasks);
+  const handleReturn = (): void => {
+    window.location.href = jobBuilderImpact(locale, jobId);
+  };
   // TODO: use this to determine whether the SKIP TO REVIEW button should be shown
   const jobIsComplete =
     job !== null &&
@@ -71,6 +74,7 @@ const JobTasksPage: React.FunctionComponent<
           keyTasks={keyTasks}
           validCount={VALID_COUNT}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
         />

@@ -13,7 +13,7 @@ import {
   getCriteriaByJob,
 } from "../../store/Job/jobSelector";
 import RootContainer from "../RootContainer";
-import { jobBuilderImpact } from "../../helpers/routes";
+import { jobBuilderImpact, jobBuilderDetails } from "../../helpers/routes";
 import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
 import {
   isJobBuilderComplete,
@@ -53,6 +53,12 @@ const JobBuilderWorkEnv: React.FunctionComponent<
   const handleModalConfirm = (): void => {
     window.location.href = jobBuilderImpact(intl.locale, jobId);
   };
+  const handleReturn = (): void => {
+    window.location.href = jobBuilderDetails(
+      intl.locale,
+      jobId !== null ? jobId : undefined,
+    );
+  };
   // TODO: use this to determine whether the SKIP TO REVIEW button should be shown
   const jobIsComplete =
     job !== null &&
@@ -63,6 +69,7 @@ const JobBuilderWorkEnv: React.FunctionComponent<
         <WorkEnvForm
           job={job}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
         />

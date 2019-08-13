@@ -35,6 +35,10 @@ mix
     "resources/assets/js/components/JobBuilderImpact/JobBuilderImpactPage",
     "public/js",
   )
+  .js(
+    "resources/assets/js/components/ApplicantSkills/SkillsWordCounter",
+    "public/js",
+  )
   .js("resources/assets/js/components/JobTasks/JobTasksPage", "public/js")
   .js(
     "resources/assets/js/components/JobBuilderSkills/JobBuilderSkillsPage",

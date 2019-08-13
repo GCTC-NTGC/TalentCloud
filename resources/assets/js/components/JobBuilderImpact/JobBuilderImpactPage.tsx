@@ -9,7 +9,7 @@ import {
   Criteria,
 } from "../../models/types";
 import JobBuilderImpact from "./JobBuilderImpact";
-import { jobBuilderTasks } from "../../helpers/routes";
+import { jobBuilderTasks, jobBuilderEnv } from "../../helpers/routes";
 import { RootState } from "../../store/store";
 import { DispatchType } from "../../configureStore";
 import { updateJob } from "../../store/Job/jobActions";
@@ -21,7 +21,10 @@ import {
   getCriteriaByJob,
 } from "../../store/Job/jobSelector";
 import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
-import { isJobBuilderComplete, VALID_COUNT } from "../JobBuilder/jobBuilderHelpers";
+import {
+  isJobBuilderComplete,
+  VALID_COUNT,
+} from "../JobBuilder/jobBuilderHelpers";
 
 interface JobBuilderImpactPageProps {
   jobId: number;
@@ -56,6 +59,11 @@ const JobBuilderImpactPage: React.FunctionComponent<
     window.location.href = jobBuilderTasks(intl.locale, jobId);
   };
   const handleSubmit = handleUpdateJob;
+  const handleReturn = (): void => {
+    if (jobId !== null) {
+      window.location.href = jobBuilderEnv(intl.locale, jobId);
+    }
+  };
   // TODO: use this to determine whether the SKIP TO REVIEW button should be shown
   const jobIsComplete =
     job !== null &&
@@ -67,6 +75,7 @@ const JobBuilderImpactPage: React.FunctionComponent<
           job={job}
           departments={departments}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
         />
