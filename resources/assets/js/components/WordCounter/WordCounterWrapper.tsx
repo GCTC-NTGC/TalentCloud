@@ -44,6 +44,7 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
         target.setSelectionRange(caretPosition - 1, caretPosition - 1);
         target.value = prevValue;
       } else {
+        setCurrentNumberOfWords(numOfWords);
         target.value = truncateWords(target.value, wordLimit);
         setPrevValue(target.value);
       }
