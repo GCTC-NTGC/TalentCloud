@@ -996,6 +996,51 @@
         "id": "jobBuilder.skills.emailLink"
       },
       {
+        "defaultMessage": "Arrow icon highlighting the unhappy smiley icon.",
+        "description": "Alternative text describing unhappy arrow image",
+        "id": "jobBuilder.skills.alt.unhappyArrow"
+      },
+      {
+        "defaultMessage": "Unhappy coloured smiley icon.",
+        "description": "Alternative text describing unhappy smiley image",
+        "id": "jobBuilder.skills.alt.unhappySmiley"
+      },
+      {
+        "defaultMessage": "Unhappy grayscale smiley icon.",
+        "description": "Alternative text describing unhappy grayscale smiley image",
+        "id": "jobBuilder.skills.alt.unhappyGraySmiley"
+      },
+      {
+        "defaultMessage": "Arrow icon highlighting the neutral smiley icon.",
+        "description": "Alternative text describing neutral arrow image",
+        "id": "jobBuilder.skills.alt.neutralArrow"
+      },
+      {
+        "defaultMessage": "neutral coloured smiley icon.",
+        "description": "Alternative text describing neutral smiley image",
+        "id": "jobBuilder.skills.alt.neutralSmiley"
+      },
+      {
+        "defaultMessage": "neutral grayscale smiley icon.",
+        "description": "Alternative text describing neutral grayscale smiley image",
+        "id": "jobBuilder.skills.alt.neutralGraySmiley"
+      },
+      {
+        "defaultMessage": "Arrow icon highlighting the happy smiley icon.",
+        "description": "Alternative text describing happy arrow image",
+        "id": "jobBuilder.skills.alt.happyArrow"
+      },
+      {
+        "defaultMessage": "happy coloured smiley icon.",
+        "description": "Alternative text describing happy smiley image",
+        "id": "jobBuilder.skills.alt.happySmiley"
+      },
+      {
+        "defaultMessage": "happy grayscale smiley icon.",
+        "description": "Alternative text describing happy grayscale smiley image",
+        "id": "jobBuilder.skills.alt.happyGraySmiley"
+      },
+      {
         "defaultMessage": "Add skills below to proceed.",
         "description": "Placeholder skill title / instructions to add skill",
         "id": "jobBuilder.skills.addSkillBelow"

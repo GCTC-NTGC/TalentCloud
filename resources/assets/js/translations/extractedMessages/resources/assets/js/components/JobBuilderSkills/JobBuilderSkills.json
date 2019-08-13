@@ -5,6 +5,51 @@
     "defaultMessage": "get in touch with us through email"
   },
   {
+    "id": "jobBuilder.skills.alt.unhappyArrow",
+    "description": "Alternative text describing unhappy arrow image",
+    "defaultMessage": "Arrow icon highlighting the unhappy smiley icon."
+  },
+  {
+    "id": "jobBuilder.skills.alt.unhappySmiley",
+    "description": "Alternative text describing unhappy smiley image",
+    "defaultMessage": "Unhappy coloured smiley icon."
+  },
+  {
+    "id": "jobBuilder.skills.alt.unhappyGraySmiley",
+    "description": "Alternative text describing unhappy grayscale smiley image",
+    "defaultMessage": "Unhappy grayscale smiley icon."
+  },
+  {
+    "id": "jobBuilder.skills.alt.neutralArrow",
+    "description": "Alternative text describing neutral arrow image",
+    "defaultMessage": "Arrow icon highlighting the neutral smiley icon."
+  },
+  {
+    "id": "jobBuilder.skills.alt.neutralSmiley",
+    "description": "Alternative text describing neutral smiley image",
+    "defaultMessage": "neutral coloured smiley icon."
+  },
+  {
+    "id": "jobBuilder.skills.alt.neutralGraySmiley",
+    "description": "Alternative text describing neutral grayscale smiley image",
+    "defaultMessage": "neutral grayscale smiley icon."
+  },
+  {
+    "id": "jobBuilder.skills.alt.happyArrow",
+    "description": "Alternative text describing happy arrow image",
+    "defaultMessage": "Arrow icon highlighting the happy smiley icon."
+  },
+  {
+    "id": "jobBuilder.skills.alt.happySmiley",
+    "description": "Alternative text describing happy smiley image",
+    "defaultMessage": "happy coloured smiley icon."
+  },
+  {
+    "id": "jobBuilder.skills.alt.happyGraySmiley",
+    "description": "Alternative text describing happy grayscale smiley image",
+    "defaultMessage": "happy grayscale smiley icon."
+  },
+  {
     "id": "jobBuilder.skills.addSkillBelow",
     "description": "Placeholder skill title / instructions to add skill",
     "defaultMessage": "Add skills below to proceed."
