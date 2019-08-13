@@ -1756,19 +1756,9 @@
         "id": "jobDetails.travelGroupHeader"
       },
       {
-        "defaultMessage": "vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque convallis a cras semper",
-        "description": "Body message displayed on the travel group input.",
-        "id": "jobDetails.travelGroupBody"
-      },
-      {
         "defaultMessage": "Is overtime required?",
         "description": "Header message displayed on the overtime group input.",
         "id": "jobDetails.overtimeGroupHeader"
-      },
-      {
-        "defaultMessage": "vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque convallis a cras semper",
-        "description": "Body message displayed on the overtime group input.",
-        "id": "jobDetails.overtimeGroupBody"
       },
       {
         "defaultMessage": "Save & Return to Intro",
