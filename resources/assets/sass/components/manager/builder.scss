@@ -86,18 +86,22 @@
     //     }
     // }
     &:first-child {
-        >div:first-child {
-            button:first-child {
-                color: rgba($clone-grey, .5);
-                pointer-events: none;
+        >div {
+            >div:first-child {
+                button:first-child {
+                    color: rgba($clone-grey, .5);
+                    pointer-events: none;
+                }
             }
         }
     }
     &:last-child {
-        >div:first-child {
-            button:last-child {
-                color: rgba($clone-grey, .5);
-                pointer-events: none;
+        >div {
+            >div:first-child {
+                button:last-child {
+                    color: rgba($clone-grey, .5);
+                    pointer-events: none;
+                }
             }
         }
     }
