@@ -116,10 +116,10 @@ const isJobBuilderEnvComplete = (job: Job, locale: string): boolean => {
   return jobEnvValues(job, locale).every(isFilled);
 };
 const isJobBuilderEnvUntouched = (job: Job, locale: string): boolean => {
-  const allJobValues = {
+  const allJobValues = [
     ...jobEnvValues(job, locale),
     ...jobEnvValuesOptional(job, locale),
-  };
+  ];
   const nullableValues = allJobValues.filter(
     (item): boolean => typeof item !== "boolean",
   );
