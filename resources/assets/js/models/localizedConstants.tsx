@@ -555,11 +555,11 @@ export const securityClearance = (
 const languageRequirements = defineMessages({
   [LanguageRequirementId.english]: {
     id: "languageRequirement.english",
-    defaultMessage: "English essential",
+    defaultMessage: "English Essential",
   },
   [LanguageRequirementId.french]: {
     id: "languageRequirement.french",
-    defaultMessage: "French essential",
+    defaultMessage: "French Essential",
   },
   [LanguageRequirementId.bilingualIntermediate]: {
     id: "languageRequirement.bilingualIntermediate",
@@ -583,6 +583,74 @@ export const languageRequirement = (
     languageRequirementId,
     "invalid LanguageRequirementId",
   );
+
+const languageRequirementDescriptions = defineMessages({
+  [LanguageRequirementId.english]: {
+    id: "languageRequirement.description.english",
+    defaultMessage:
+      "This position requires fluency in English in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in English, such as interview questions or an exam.",
+  },
+  [LanguageRequirementId.french]: {
+    id: "languageRequirement.description.french",
+    defaultMessage:
+      "This position requires fluency in French in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in French, such as interview questions or an exam.",
+  },
+  [LanguageRequirementId.bilingualIntermediate]: {
+    id: "languageRequirement.description.bilingualIntermediate",
+    // TODO: turn "Public Service Commission of Canada" into a link to https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/information-candidates/language-requirements-candidates.html
+    defaultMessage:
+      "This position requires working knowledge of both French and English. This means that you can take on job duties in either French or English, and you have intermediate reading, writing and verbal communication skills in both official languages. As part of this selection process, your language abilities will be tested by the Public Service Commission of Canada.",
+  },
+  [LanguageRequirementId.bilingualAdvanced]: {
+    id: "languageRequirement.description.bilingualAdvanced",
+    // TODO: turn "Public Service Commission of Canada" into a link to https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/information-candidates/language-requirements-candidates.html
+    defaultMessage:
+      "This position requires advanced knowledge of both French and English. This means that you can take on job duties in either French or English, and you have strong reading, writing and verbal communication skills in both official languages. As part of this selection process, your language abilities will be tested by the Public Service Commission of Canada Public Service Commission of Canada.",
+  },
+  [LanguageRequirementId.englishOrFrench]: {
+    id: "languageRequirement.description.englishOrFrench",
+    defaultMessage:
+      "For this position, you meet the language requirements if you have strong reading, writing and verbal communication skills in either English or French, or both (bilingual).",
+  },
+});
+
+export const languageRequirementDescription = (
+  languageRequirementId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(
+    languageRequirementDescriptions,
+    languageRequirementId,
+    "invalid LanguageRequirementId",
+  );
+
+const languageRequirementContexts = defineMessages({
+  basic: {
+    id: "languageRequirement.context.basic",
+    defaultMessage:
+      "You can submit this initial application in either official language of your choice (English or French).",
+  },
+  expanded: {
+    id: "languageRequirement.context.expanded",
+    defaultMessage:
+      "You can complete all other steps of this assessment process in the official language of your choice, including the initial application, interview, exam and any other evaluation components.",
+  },
+});
+
+export const languageRequirementContext = (
+  languageRequirementId: number,
+): FormattedMessage.MessageDescriptor => {
+  switch (languageRequirementId) {
+    case LanguageRequirementId.bilingualIntermediate:
+    case LanguageRequirementId.bilingualAdvanced:
+      return languageRequirementContexts.expanded;
+
+    case LanguageRequirementId.englishOrFrench:
+    case LanguageRequirementId.english:
+    case LanguageRequirementId.french:
+    default:
+      return languageRequirementContexts.basic;
+  }
+};
 
 const departments = defineMessages({
   [DepartmentId.treasuryBoard]: {

@@ -1,6 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
+import { select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import fakeJob, { fakeCriterion, fakeJobTasks } from "../../fakeData/fakeJob";
 import { fakeSkills } from "../../fakeData/fakeSkills";
@@ -15,11 +16,26 @@ const handleSubmit = async (): Promise<void> => {
   action("Submit")();
 };
 
+const languageOptions = {
+  English: 1,
+  French: 2,
+  "Bilingual Intermediate": 3,
+  "Bilingual Advanced": 4,
+  "English or French": 5,
+};
+
 stories.add(
   "Complete Job",
   (): React.ReactElement => (
     <JobReview
-      job={fakeJob()}
+      job={{
+        ...fakeJob(),
+        language_requirement_id: select(
+          "Language Requirement",
+          languageOptions,
+          1,
+        ),
+      }}
       tasks={fakeJobTasks()}
       criteria={[fakeCriterion()]}
       skills={fakeSkills()}

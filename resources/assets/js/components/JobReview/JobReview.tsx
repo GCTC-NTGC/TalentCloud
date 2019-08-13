@@ -8,7 +8,6 @@ import {
   Department,
 } from "../../models/types";
 import {
-  jobBuilderIntro,
   jobBuilderDetails,
   jobBuilderTasks,
   jobBuilderImpact,
@@ -18,9 +17,14 @@ import { find, mapToObject, hasKey, getId } from "../../helpers/queries";
 import {
   provinceName,
   securityClearance,
+  languageRequirement,
+  languageRequirementDescription,
+  languageRequirementContext,
 } from "../../models/localizedConstants";
-import { CriteriaForm } from "../JobBuilderSkills/CriteriaForm";
-import { CriteriaTypeId } from "../../models/lookupConstants";
+import {
+  CriteriaTypeId,
+  LanguageRequirementId,
+} from "../../models/lookupConstants";
 import Criterion from "../JobBuilder/Criterion";
 
 interface JobReviewSectionProps {
@@ -79,6 +83,43 @@ const JobReviewSection: React.FunctionComponent<JobReviewSectionProps> = ({
       </div>
     </>
   );
+};
+
+const languageRequirementIcons = (
+  languageRequirementId: number,
+): React.ReactElement => {
+  const enIcon = <img src="/images/icon_english_requirement.svg" />;
+  const frIcon = <img src="/images/icon_french_requirement.svg" />;
+  switch (languageRequirementId) {
+    case LanguageRequirementId.bilingualIntermediate:
+    case LanguageRequirementId.bilingualAdvanced:
+      return (
+        <>
+          {enIcon}
+          &amp;&nbsp;&nbsp;
+          {frIcon}
+        </>
+      );
+    case LanguageRequirementId.englishOrFrench:
+      return (
+        <>
+          {enIcon}
+          <FormattedMessage
+            id="jobBuilder.review.or"
+            defaultMessage="or"
+            description="Displayed between language icons for the English Or French option."
+          />
+          &nbsp;&nbsp;
+          {frIcon}
+        </>
+      );
+    case LanguageRequirementId.english:
+      return enIcon;
+    case LanguageRequirementId.french:
+      return frIcon;
+    default:
+      return enIcon;
+  }
 };
 
 interface JobReviewProps {
@@ -320,6 +361,37 @@ export const JobReview: React.FunctionComponent<
             <Criterion criterion={criterion} skill={skill} key={criterion.id} />
           );
         })}
+      </JobReviewSection>
+      <JobReviewSection
+        title="Language Requirements"
+        isSubsection
+        linkLabel="Edit This in Step 01: Job Info"
+        link={jobBuilderDetails(locale, job.id)}
+      >
+        {/** TODO: get lang data from job */}
+        {job.language_requirement_id && (
+          <>
+            <p
+              className="job-builder-review-language"
+              data-c-margin="bottom(normal)"
+            >
+              {languageRequirementIcons(job.language_requirement_id)}
+              {intl.formatMessage(
+                languageRequirement(job.language_requirement_id),
+              )}
+            </p>
+            <p data-c-margin="bottom(normal)">
+              {intl.formatMessage(
+                languageRequirementDescription(job.language_requirement_id),
+              )}
+            </p>
+            <p data-c-margin="top(normal)">
+              {intl.formatMessage(
+                languageRequirementContext(job.language_requirement_id),
+              )}
+            </p>
+          </>
+        )}
       </JobReviewSection>
     </div>
   );
