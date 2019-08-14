@@ -1209,9 +1209,6 @@ const WorkEnvForm = ({
               cultureSummary={
                 values.cultureSummary || buildCultureSummary(values)
               }
-              physEnvData={phyEnvData}
-              techData={techData}
-              amenitiesData={amenitiesData}
             />
           </>
         )}
