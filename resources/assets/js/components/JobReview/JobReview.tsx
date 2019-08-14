@@ -421,6 +421,19 @@ export const JobReview: React.FunctionComponent<
         </p>
         <p>{manager[locale].about_me}</p>
       </JobReviewSection>
+      <JobReviewSection
+        title="Work Culture"
+        isSubsection
+        linkLabel="Edit This in Your Profile"
+        link={managerEditProfile(locale)}
+      >
+        {/** TODO: Double check which fields to show for the manager section */}
+        <p data-c-margin="bottom(normal)">{managerName}</p>
+        <p data-c-margin="bottom(normal)">
+          {manager[locale].position} at {getDeptName(manager.department_id)}
+        </p>
+        <p>{manager[locale].about_me}</p>
+      </JobReviewSection>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import fakeJob, { fakeCriterion, fakeJobTasks } from "../../fakeData/fakeJob";
 import { fakeSkills } from "../../fakeData/fakeSkills";
 import JobReview from "../../components/JobReview/JobReview";
 import fakeDepartments from "../../fakeData/fakeDepartments";
+import { fakeManager } from "../../fakeData/fakeManager";
 
 const stories = storiesOf("Job Poster Builder|Review", module).addDecorator(
   withIntl,
@@ -36,6 +37,8 @@ stories.add(
           1,
         ),
       }}
+      managerName="Gray O'Byrne"
+      manager={fakeManager()}
       tasks={fakeJobTasks()}
       criteria={[fakeCriterion()]}
       skills={fakeSkills()}
