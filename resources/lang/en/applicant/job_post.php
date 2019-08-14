@@ -13,9 +13,9 @@ return [
     'job_post_title' => 'Talent Cloud | Applicant: Job Poster - :title (Reference number: :id)',
     'header' => [
         'time_remaining' => ':time until close',
-        "job_closed" => "Job has closed",
+        'job_closed' => 'Job has closed',
         'days_remaining' => ':count day until close|:count days until close',
-        "apply_by_label" => "Apply by",
+        'apply_by_label' => 'Apply by',
         'applicants_so_far' => ':count applicant so far|:count applicants so far',
         'reference_id' => 'Reference number: :id',
         'remote_work_allowed' => [
@@ -56,12 +56,12 @@ return [
     'criteria' => [
         'sidebar_title' => 'View this job\'s criteria information.',
         'title' => 'Criteria',
-        'education_title' => "Education Requirements",
+        'education_title' => 'Education Requirements',
         'essential_title' => 'Need to Have',
         'asset_title' => 'Nice to Have',
         'requirement_label' => 'Level Required: ',
         'level_link_title' => 'Visit the FAQ to learn about this and other skill levels.',
-        'no_info' => "No additional criteria required."
+        'no_info' => 'No additional criteria required.'
     ],
     'language' => [
         'sidebar_title' => 'View this job\'s language requirements.',
@@ -131,7 +131,6 @@ return [
         'title' => 'Apply Now',
         'accommodation' => 'Please advise Talent Cloud at talent.cloud-nuage.de.talents@tbs-sct.gc.ca of any accommodations you may require during the application process.',
         'preference' => 'Preference will be given to veterans and to Canadian citizens, in that order.',
-        'nrc' => 'For jobs posted by the National Research Council, preference will be given to National Research Council employees and Canadian citizens.',
         'apply_link_title' => 'Apply to this job.',
         'apply_link_label' => 'Apply Now',
         'login_link_title' => 'Log in to apply for this job.',
@@ -141,5 +140,5 @@ return [
         'edit_link_title'  => 'Edit this job poster.',
         'edit_link_label'  => 'Edit'
     ],
-    'no_info' => "No information provided."
+    'no_info' => 'No information provided.'
 ];
