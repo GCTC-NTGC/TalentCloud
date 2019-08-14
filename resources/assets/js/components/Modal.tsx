@@ -161,14 +161,16 @@ Modal.Footer = function ModalFooter(props): React.ReactElement {
   return (
     <div data-c-padding="normal">
       <div data-c-grid="gutter middle">
-        {children.map(
-          (btn): React.ReactElement => {
-            const btnWithGridItemProp = React.cloneElement(btn, {
-              gridItem: children.length,
-            });
-            return btnWithGridItemProp;
-          },
-        )}
+        {Array.isArray(children) && children.length > 0
+          ? children.map(
+              (btn): React.ReactElement => {
+                const btnWithGridItemProp = React.cloneElement(btn, {
+                  griditem: children.length,
+                });
+                return btnWithGridItemProp;
+              },
+            )
+          : children}
       </div>
     </div>
   );
@@ -176,11 +178,11 @@ Modal.Footer = function ModalFooter(props): React.ReactElement {
 
 Modal.FooterConfirmBtn = function ConfirmBtn(props): React.ReactElement {
   const { onModalConfirm } = useContext(modalContext);
-  const { gridItem } = props;
+  const { griditem = 1 } = props;
   return (
     <div
       data-c-alignment="base(right)"
-      data-c-grid-item={`base(1of${gridItem})`}
+      data-c-grid-item={`base(1of${griditem})`}
     >
       <button
         {...props}
@@ -196,10 +198,9 @@ Modal.FooterConfirmBtn = function ConfirmBtn(props): React.ReactElement {
 
 Modal.FooterCancelBtn = function CancelBtn(props): React.ReactElement {
   const { onModalCancel } = useContext(modalContext);
-  const { gridItem } = props;
-  console.log(props);
+  const { griditem = 1 } = props;
   return (
-    <div data-c-grid-item={`base(1of${gridItem})`}>
+    <div data-c-grid-item={`base(1of${griditem})`}>
       <button
         {...props}
         data-c-button="outline(c1)"
@@ -214,11 +215,11 @@ Modal.FooterCancelBtn = function CancelBtn(props): React.ReactElement {
 
 Modal.FooterMiddleBtn = function MiddleBtn(props): React.ReactElement {
   const { onModalMiddle } = useContext(modalContext);
-  const { gridItem } = props;
+  const { griditem = 1 } = props;
   return (
     <div
       data-c-alignment="base(center)"
-      data-c-grid-item={`base(1of${gridItem})`}
+      data-c-grid-item={`base(1of${griditem})`}
     >
       <button
         {...props}
