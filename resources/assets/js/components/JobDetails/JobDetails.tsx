@@ -183,6 +183,52 @@ const formMessages = defineMessages({
     defaultMessage: "Almost Never",
     description: "The form label displayed on 'never' frequency options.",
   },
+  travelGroupLabel: {
+    id: "jobDetails.travelGroupLabel",
+    defaultMessage: "Select a travel option:",
+    description: "The form label displayed on the travel radio group.",
+  },
+  travelFrequentlyLabel: {
+    id: "jobDetails.travelFrequentlyLabel",
+    defaultMessage: "Yes, travel is frequently required for the position.",
+    description: "The form label displayed on 'frequently' travel options",
+  },
+  travelOpportunitiesAvailableLabel: {
+    id: "jobDetails.travelOpportunitiesAvailableLabel",
+    defaultMessage:
+      "Yes, travel opportunities are available for those that are interested.",
+    description:
+      "The form label displayed on 'travel opportunities available' travel options",
+  },
+  travelNoneRequiredLabel: {
+    id: "jobDetails.travelNoneRequiredLabel",
+    defaultMessage: "No, travel is not required for the position.",
+    description:
+      "The form label displayed on 'no travel required' travel options",
+  },
+  overtimeGroupLabel: {
+    id: "jobDetails.overtimeGroupLabel",
+    defaultMessage: "Select a overtime option:",
+    description: "The form label displayed on the overtime radio group.",
+  },
+  overtimeFrequentlyLabel: {
+    id: "jobDetails.overtimeFrequentlyLabel",
+    defaultMessage: "Yes, overtime is frequently required for the position.",
+    description: "The form label displayed on 'frequently' overtime options",
+  },
+  overtimeOpportunitiesAvailableLabel: {
+    id: "jobDetails.overtimeOpportunitiesAvailableLabel",
+    defaultMessage:
+      "Yes, overtime opportunities are available for those that are interested.",
+    description:
+      "The form label displayed on 'overtime opportunities available' overtime options",
+  },
+  overtimeNoneRequiredLabel: {
+    id: "jobDetails.overtimeNoneRequiredLabel",
+    defaultMessage: "No, overtime is not required for the position.",
+    description:
+      "The form label displayed on 'no overtime required' overtime options",
+  },
 });
 
 const classificationOptionMessages = defineMessages({
@@ -254,6 +300,8 @@ interface JobDetailsProps {
   // Function to run after successful form validation.
   // It must return true if the submission was succesful, false otherwise.
   handleSubmit: (values: Job) => Promise<boolean>;
+  // The function to run when user clicks Prev Page
+  handleReturn: () => void;
   // Function to run when modal cancel is clicked.
   handleModalCancel: () => void;
   // Function to run when modal confirm is clicked.
@@ -366,6 +414,67 @@ const flexHourFequencies = flexHoursOptions.map(
   (option): FlexHourOptionType => option.id,
 );
 
+type TravelOptionType =
+  | "travelFrequently"
+  | "travelOpportunitiesAvailable"
+  | "travelNoneRequired";
+const travelOptions: {
+  id: TravelOptionType;
+  label: FormattedMessage.MessageDescriptor;
+}[] = [
+  {
+    id: "travelFrequently",
+    label: formMessages.travelFrequentlyLabel,
+  },
+  {
+    id: "travelOpportunitiesAvailable",
+    label: formMessages.travelOpportunitiesAvailableLabel,
+  },
+  {
+    id: "travelNoneRequired",
+    label: formMessages.travelNoneRequiredLabel,
+  },
+];
+const travelMessages = {
+  travelFrequently: formMessages.travelFrequentlyLabel,
+  travelOpportunitiesAvailable: formMessages.travelOpportunitiesAvailableLabel,
+  travelNoneRequired: formMessages.travelNoneRequiredLabel,
+};
+const travelRequirements = travelOptions.map(
+  (option): TravelOptionType => option.id,
+);
+
+type OvertimeOptionType =
+  | "overtimeFrequently"
+  | "overtimeOpportunitiesAvailable"
+  | "overtimeNoneRequired";
+const overtimeOptions: {
+  id: OvertimeOptionType;
+  label: FormattedMessage.MessageDescriptor;
+}[] = [
+  {
+    id: "overtimeFrequently",
+    label: formMessages.overtimeFrequentlyLabel,
+  },
+  {
+    id: "overtimeOpportunitiesAvailable",
+    label: formMessages.overtimeOpportunitiesAvailableLabel,
+  },
+  {
+    id: "overtimeNoneRequired",
+    label: formMessages.overtimeNoneRequiredLabel,
+  },
+];
+const overtimeMessages = {
+  overtimeFrequently: formMessages.overtimeFrequentlyLabel,
+  overtimeOpportunitiesAvailable:
+    formMessages.overtimeOpportunitiesAvailableLabel,
+  overtimeNoneRequired: formMessages.overtimeNoneRequiredLabel,
+};
+const overtimeRequirements = overtimeOptions.map(
+  (option): OvertimeOptionType => option.id,
+);
+
 interface JobFormValues {
   title: string;
   termLength: number | "";
@@ -379,6 +488,8 @@ interface JobFormValues {
   remoteWork: RemoteWorkType;
   telework: TeleworkOptionType;
   flexHours: FlexHourOptionType;
+  travel: TravelOptionType;
+  overtime: OvertimeOptionType;
 }
 
 const isClassificationSet = (values: JobFormValues): boolean => {
@@ -410,6 +521,12 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues => {
         flexHours: job.flexible_hours_frequency_id
           ? flexHourFequencies[job.flexible_hours_frequency_id - 1]
           : "flexHoursFrequently",
+        travel: job.travel_requirement_id
+          ? travelRequirements[job.travel_requirement_id - 1]
+          : "travelFrequently",
+        overtime: job.overtime_requirement_id
+          ? overtimeRequirements[job.overtime_requirement_id - 1]
+          : "overtimeFrequently",
       }
     : {
         title: "",
@@ -424,6 +541,8 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues => {
         remoteWork: "remoteWorkCanada",
         telework: "teleworkFrequently",
         flexHours: "flexHoursFrequently",
+        travel: "travelFrequently",
+        overtime: "overtimeFrequently",
       };
   // If the job has the standard education requirments saved, no need to fill the custom textbox
   if (values.educationRequirements === buildEducationRequirements(values)) {
@@ -451,6 +570,8 @@ const updateJobWithValues = (
     remoteWork,
     telework,
     flexHours,
+    travel,
+    overtime,
   }: JobFormValues,
 ): Job => ({
   ...initialJob,
@@ -463,6 +584,8 @@ const updateJobWithValues = (
   remote_work_allowed: remoteWork !== "remoteWorkNone",
   telework_allowed_frequency_id: teleworkFrequencies.indexOf(telework) + 1,
   flexible_hours_frequency_id: flexHourFequencies.indexOf(flexHours) + 1,
+  travel_requirement_id: travelRequirements.indexOf(travel) + 1,
+  overtime_requirement_id: overtimeRequirements.indexOf(overtime) + 1,
   [locale]: {
     ...initialJob[locale],
     title,
@@ -476,11 +599,13 @@ const JobDetails: React.FunctionComponent<
 > = ({
   job,
   handleSubmit,
+  handleReturn,
   handleModalCancel,
   handleModalConfirm,
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [returnOnSubmit, setReturnOnSubmit] = useState(false);
 
   const modalParentRef = useRef<HTMLDivElement>(null);
   const { locale } = intl;
@@ -567,12 +692,25 @@ const JobDetails: React.FunctionComponent<
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
+    travel: Yup.mixed()
+      .oneOf(
+        travelRequirements,
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
+      .required(intl.formatMessage(validationMessages.required)),
+    overtime: Yup.mixed()
+      .oneOf(
+        overtimeRequirements,
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
+      .required(intl.formatMessage(validationMessages.required)),
   });
 
   const educationRef = React.createRef<HTMLParagraphElement>();
 
   return (
     <section>
+      {console.log(initialValues)}
       <div
         data-c-container="form"
         data-c-padding="top(triple) bottom(triple)"
@@ -608,21 +746,31 @@ const JobDetails: React.FunctionComponent<
             )
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
-                  setIsModalVisible(true);
+                  if (returnOnSubmit) {
+                    handleReturn();
+                  } else {
+                    setIsModalVisible(true);
+                  }
                 }
               })
-              .finally(
-                (): void => actions.setSubmitting(false), // Required by Formik to finish the submission cycle
-              );
+              .finally((): void => {
+                setReturnOnSubmit(false);
+                actions.setSubmitting(false); // Required by Formik to finish the submission cycle
+              });
           }}
           render={({
             errors,
             touched,
             isSubmitting,
             values,
+            submitForm,
           }): React.ReactElement => (
             <section>
-              <Form id="job-information" data-c-grid="gutter">
+              <Form
+                id="job-information"
+                data-c-container="form"
+                data-c-grid="gutter"
+              >
                 <Field
                   type="text"
                   name="title"
@@ -981,20 +1129,115 @@ const JobDetails: React.FunctionComponent<
                     },
                   )}
                 </RadioGroup>
-                <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
-                  <button
-                    data-c-button="solid(c1)"
-                    data-c-dialog-action="open"
-                    data-c-radius="rounded"
-                    type="submit"
-                    disabled={isSubmitting}
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobDetails.travelGroupHeader"
+                    defaultMessage="Is travel required?"
+                    description="Header message displayed on the travel group input."
+                  />
+                </p>
+                <RadioGroup
+                  id="travel"
+                  required
+                  grid="base(1of1)"
+                  label={intl.formatMessage(formMessages.travelGroupLabel)}
+                  error={errors.travel}
+                  touched={touched.travel}
+                  value={values.travel}
+                >
+                  {travelOptions.map(
+                    ({ id, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          key={id}
+                          name="travel"
+                          component={RadioInput}
+                          id={id}
+                          label={intl.formatMessage(label)}
+                        />
+                      );
+                    },
+                  )}
+                </RadioGroup>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobDetails.overtimeGroupHeader"
+                    defaultMessage="Is overtime required?"
+                    description="Header message displayed on the overtime group input."
+                  />
+                </p>
+                <RadioGroup
+                  id="overtime"
+                  required
+                  grid="base(1of1)"
+                  label={intl.formatMessage(formMessages.overtimeGroupLabel)}
+                  error={errors.overtime}
+                  touched={touched.overtime}
+                  value={values.overtime}
+                >
+                  {overtimeOptions.map(
+                    ({ id, label }): React.ReactElement => {
+                      return (
+                        <Field
+                          key={id}
+                          name="overtime"
+                          component={RadioInput}
+                          id={id}
+                          label={intl.formatMessage(label)}
+                        />
+                      );
+                    },
+                  )}
+                </RadioGroup>
+                <div data-c-grid="gutter" data-c-grid-item="base(1of1)">
+                  <div data-c-grid-item="base(1of1)">
+                    <hr data-c-margin="top(normal) bottom(normal)" />
+                  </div>
+                  <div
+                    data-c-alignment="base(centre) tp(left)"
+                    data-c-grid-item="tp(1of2)"
                   >
-                    <FormattedMessage
-                      id="jobDetails.submitButtonLabel"
-                      defaultMessage="Next"
-                      description="The text displayed on the submit button for the Job Details form."
-                    />
-                  </button>
+                    <button
+                      data-c-button="outline(c2)"
+                      data-c-radius="rounded"
+                      type="button"
+                      disabled={isSubmitting}
+                      onClick={(): void => {
+                        /** TODO:
+                         * This is a race condition, since the setState hook call is asynchronous.
+                         * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
+                         * For now, the setState always happens faster than the validation check, so it works.
+                         * See https://github.com/jaredpalmer/formik/issues/214
+                         * -- Tristan
+                         */
+                        setReturnOnSubmit(true);
+                        submitForm();
+                      }}
+                    >
+                      <FormattedMessage
+                        id="jobDetails.returnButtonLabel"
+                        defaultMessage="Save & Return to Intro"
+                        description="The text displayed on the Save & Return button of the Job Details form."
+                      />
+                    </button>
+                  </div>
+                  <div
+                    data-c-alignment="base(centre) tp(right)"
+                    data-c-grid-item="tp(1of2)"
+                  >
+                    <button
+                      data-c-button="solid(c1)"
+                      data-c-radius="rounded"
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      <FormattedMessage
+                        id="jobDetails.submitButtonLabel"
+                        defaultMessage="Save & Preview"
+                        description="The text displayed on the submit button for the Job Details form."
+                      />
+                    </button>
+                  </div>
                 </div>
               </Form>
               <Modal
@@ -1089,8 +1332,10 @@ const JobDetails: React.FunctionComponent<
                       }
                       classification={String(values.classification)}
                       level={String(values.level)}
-                      travel={null}
-                      overtime={null}
+                      travel={intl.formatMessage(travelMessages[values.travel])}
+                      overtime={intl.formatMessage(
+                        overtimeMessages[values.overtime],
+                      )}
                     />
                   </div>
                 </Modal.Body>

@@ -31,6 +31,13 @@ export function applicationReviewUpdate(
   return `/${locale}/applications/${applicationId}/review`;
 }
 
+export function jobBuilderIntro(locale: string, jobId?: number): string {
+  if (jobId) {
+    return `/${locale}/manager/jobs/${jobId}/builder/intro`;
+  }
+  return `/${locale}/manager/job-builder/intro`;
+}
+
 export function jobBuilderDetails(locale: string, jobId?: number): string {
   if (jobId) {
     return `/${locale}/manager/jobs/${jobId}/builder/details`;

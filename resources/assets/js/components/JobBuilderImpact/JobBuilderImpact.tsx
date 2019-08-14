@@ -25,6 +25,8 @@ interface JobBuilderImpactProps {
    *  It must return true if the submission was succesful, false otherwise.
    */
   handleSubmit: (values: Job) => Promise<boolean>;
+  // The function to run when user clicks Prev Page
+  handleReturn: () => void;
   /** Function to run when modal cancel is clicked. */
   handleModalCancel: () => void;
   /** Function to run when modal confirm is clicked. */
@@ -153,6 +155,7 @@ const JobBuilderImpact: React.FunctionComponent<
   departments,
   job,
   handleSubmit,
+  handleReturn,
   handleModalCancel,
   handleModalConfirm,
 }): React.ReactElement => {
@@ -163,6 +166,7 @@ const JobBuilderImpact: React.FunctionComponent<
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
+  const [returnOnSubmit, setReturnOnSubmit] = useState(false);
   const initialValues: JobImpactValues = {
     teamImpact:
       job && job[intl.locale].team_impact ? job[intl.locale].team_impact : "",
@@ -242,15 +246,26 @@ const JobBuilderImpact: React.FunctionComponent<
             )
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
-                  setIsModalVisible(true);
+                  if (returnOnSubmit) {
+                    handleReturn();
+                  } else {
+                    setIsModalVisible(true);
+                  }
                 }
               })
               .finally(
                 // Required by Formik to finish the submission cycle
-                (): void => actions.setSubmitting(false),
+                (): void => {
+                  setReturnOnSubmit(false);
+                  actions.setSubmitting(false);
+                },
               );
           }}
-          render={({ values, isSubmitting }): React.ReactElement => (
+          render={({
+            values,
+            isSubmitting,
+            submitForm,
+          }): React.ReactElement => (
             <>
               <Form id="form" data-c-grid="gutter">
                 <div data-c-grid-item="base(1of1)" data-c-input="textarea">
@@ -312,21 +327,55 @@ const JobBuilderImpact: React.FunctionComponent<
                     />
                   </div>
                 </div>
-                <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
-                  <button
-                    data-c-button="solid(c1)"
-                    data-c-dialog-action="open"
-                    data-c-radius="rounded"
-                    disabled={isSubmitting}
-                    form="form"
-                    type="submit"
+                <div data-c-grid="gutter" data-c-grid-item="base(1of1)">
+                  <div data-c-grid-item="base(1of1)">
+                    <hr data-c-margin="top(normal) bottom(normal)" />
+                  </div>
+                  <div
+                    data-c-alignment="base(centre) tp(left)"
+                    data-c-grid-item="tp(1of2)"
                   >
-                    <FormattedMessage
-                      id="jobBuilder.impact.button.next"
-                      defaultMessage="Next"
-                      description="Button text Next"
-                    />
-                  </button>
+                    <button
+                      data-c-button="outline(c2)"
+                      data-c-radius="rounded"
+                      type="button"
+                      disabled={isSubmitting}
+                      onClick={(): void => {
+                        /** TODO:
+                         * This is a race condition, since the setState hook call is asynchronous.
+                         * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
+                         * For now, the setState always happens faster than the validation check, so it works.
+                         * See https://github.com/jaredpalmer/formik/issues/214
+                         * -- Tristan
+                         */
+                        setReturnOnSubmit(true);
+                        submitForm();
+                      }}
+                    >
+                      <FormattedMessage
+                        id="jobBuilder.impact.button.return"
+                        defaultMessage="Save & Return to Work Environment"
+                        description="Label for Save & Return button on Impact form."
+                      />
+                    </button>
+                  </div>
+                  <div
+                    data-c-alignment="base(centre) tp(right)"
+                    data-c-grid-item="tp(1of2)"
+                  >
+                    <button
+                      data-c-button="solid(c1)"
+                      data-c-radius="rounded"
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      <FormattedMessage
+                        id="jobBuilder.impact.button.next"
+                        defaultMessage="Save & Preview"
+                        description="Label for Save & Preview button on Impact form."
+                      />
+                    </button>
+                  </div>
                 </div>
               </Form>
               <Modal

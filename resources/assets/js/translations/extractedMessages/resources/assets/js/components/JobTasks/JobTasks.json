@@ -72,12 +72,12 @@
   {
     "id": "jobTasks.previous",
     "description": "Text on the Previous Step button.",
-    "defaultMessage": "Previous Step"
+    "defaultMessage": "Save & Return to Impact"
   },
   {
     "id": "jobTasks.preview",
     "description": "Text on the Preview Tasks button.",
-    "defaultMessage": "Preview Tasks"
+    "defaultMessage": "Save & Preview Tasks"
   },
   {
     "id": "jobTasks.modal.title",

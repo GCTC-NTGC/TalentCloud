@@ -66,6 +66,67 @@ stories.add(
   },
 );
 stories.add(
+  "With Mid Button",
+  (): React.ReactElement => {
+    const isModalVisible = boolean("Visible", true);
+    const modalParent = document.querySelector("#modal-root");
+    return (
+      <div id="modal-container">
+        <div
+          id="modal-overlay"
+          data-c-dialog-overlay={isModalVisible ? "active" : ""}
+        />
+        <div>
+          <Modal
+            id="basic-modal"
+            visible={isModalVisible}
+            parentElement={modalParent}
+            onModalConfirm={action("Confirmed")}
+            onModalMiddle={action("Middle Confirmed")}
+            onModalCancel={action("Cancelled")}
+          >
+            <Modal.Header>
+              <div
+                data-c-background="c1(100)"
+                data-c-border="bottom(thin, solid, black)"
+                data-c-padding="normal"
+              >
+                <h5
+                  data-c-colour="white"
+                  data-c-font-size="h4"
+                  id="basic-modal-title"
+                >
+                  {text("Modal Header", "This is the the Modal Header!")}
+                </h5>
+              </div>
+            </Modal.Header>
+            <Modal.Body>
+              <div
+                data-c-border="bottom(thin, solid, black)"
+                data-c-padding="normal"
+                id="basic-modal-description"
+              >
+                {text("Modal Body", "This text is in the body of the modal.")}
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Modal.FooterCancelBtn>
+                {text("Modal Cancel", "Go Back")}
+              </Modal.FooterCancelBtn>
+              <Modal.FooterMiddleBtn>
+                {text("Modal Middle", "Other")}
+              </Modal.FooterMiddleBtn>
+              <Modal.FooterConfirmBtn>
+                {text("Modal Confirm", "Next Step")}
+              </Modal.FooterConfirmBtn>
+            </Modal.Footer>
+          </Modal>
+        </div>
+      </div>
+    );
+  },
+);
+stories.add(
   "With Inputs",
   (): React.ReactElement => {
     const isModalVisible = boolean("Visible", true);

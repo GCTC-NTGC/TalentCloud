@@ -19,13 +19,14 @@ import { ProgressTrackerItem } from "../ProgressTracker/types";
 import {
   progressTrackerLabels,
   progressTrackerTitles,
+  jobBuilderMessages,
 } from "../JobBuilder/jobBuilderMessages";
 import {
   jobBuilderIntroProgressState,
   jobBuilderEnvProgressState,
   jobImpactProgressState,
 } from "../JobBuilder/jobBuilderHelpers";
-import { jobBuilderEnv } from "../../helpers/routes";
+import { jobBuilderEnv, jobBuilderIntro } from "../../helpers/routes";
 
 interface JobDetailsPageProps {
   jobId: number | null;
@@ -64,6 +65,12 @@ const JobDetailsPage: React.FunctionComponent<
     // TODO: what do if selectJob not set yet?
   };
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
+  const handleReturn = (): void => {
+    window.location.href = jobBuilderIntro(
+      locale,
+      jobId !== null ? jobId : undefined,
+    );
+  };
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
       state: waitingForJob ? "null" : jobBuilderIntroProgressState(job),
@@ -124,19 +131,14 @@ const JobDetailsPage: React.FunctionComponent<
             data-c-radius="rounded"
             data-c-align="base(centre)"
           >
-            <p>
-              <FormattedMessage
-                id="jobBuilderIntroPage.loading"
-                defaultMessage="Your job is loading..."
-                description="Message indicating that the current job is still being loaded."
-              />
-            </p>
+            <p>{intl.formatMessage(jobBuilderMessages.jobLoading)}</p>
           </div>
         </div>
       ) : (
         <JobDetailsIntl
           job={job}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
         />
