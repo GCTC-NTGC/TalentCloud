@@ -14,8 +14,15 @@ import {
   jobBuilderImpact,
   jobBuilderSkills,
   managerEditProfile,
+  jobBuilderEnv,
 } from "../../helpers/routes";
-import { find, mapToObject, hasKey, getId } from "../../helpers/queries";
+import {
+  find,
+  mapToObject,
+  hasKey,
+  getId,
+  notEmpty,
+} from "../../helpers/queries";
 import {
   provinceName,
   securityClearance,
@@ -28,12 +35,14 @@ import {
   LanguageRequirementId,
 } from "../../models/lookupConstants";
 import Criterion from "../JobBuilder/Criterion";
+import JobCulture from "../JobBuilderWorkEnv/JobCulture";
 
 interface JobReviewSectionProps {
   title: string;
   isSubsection?: boolean;
   link: string;
   linkLabel: string;
+  description?: string;
 }
 
 const JobReviewSection: React.FunctionComponent<JobReviewSectionProps> = ({
@@ -41,6 +50,7 @@ const JobReviewSection: React.FunctionComponent<JobReviewSectionProps> = ({
   isSubsection,
   link,
   linkLabel,
+  description,
   children,
 }): React.ReactElement => {
   return (
@@ -76,6 +86,7 @@ const JobReviewSection: React.FunctionComponent<JobReviewSectionProps> = ({
           </div>
         </div>
       </div>
+      {description && <p data-c-margin="bottom(normal)">{description}</p>}
       <div
         data-c-border="all(thin, solid, grey)"
         data-c-padding="normal"
@@ -197,6 +208,14 @@ export const JobReview: React.FunctionComponent<
   const assetCriteria = criteria.filter(
     (criterion): boolean => criterion.criteria_type_id === CriteriaTypeId.Asset,
   );
+
+  const selectedCultureOptions: string[] = job.work_env_features
+    ? Object.entries(job.work_env_features)
+        .map(([feature, selected]): string | null =>
+          selected ? feature : null,
+        )
+        .filter(notEmpty)
+    : [];
 
   return (
     <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
@@ -424,15 +443,23 @@ export const JobReview: React.FunctionComponent<
       <JobReviewSection
         title="Work Culture"
         isSubsection
-        linkLabel="Edit This in Your Profile"
-        link={managerEditProfile(locale)}
+        linkLabel="Edit This in Step 02: Work Environment"
+        link={jobBuilderEnv(locale, job.id)}
       >
-        {/** TODO: Double check which fields to show for the manager section */}
-        <p data-c-margin="bottom(normal)">{managerName}</p>
-        <p data-c-margin="bottom(normal)">
-          {manager[locale].position} at {getDeptName(manager.department_id)}
-        </p>
-        <p>{manager[locale].about_me}</p>
+        {job[locale].culture_summary && <p>{job[locale].culture_summary}</p>}
+        {job[locale].culture_special && <p>{job[locale].culture_special}</p>}
+      </JobReviewSection>
+      <JobReviewSection
+        title="Work Environment"
+        isSubsection
+        linkLabel="Edit This in Step 02: Work Environment"
+        link={jobBuilderEnv(locale, job.id)}
+        description={`Please note that some Work Environment information is only presented to the applicant after they've clicked the "View the team's work environment and culture" button that appears on the job poster.`}
+      >
+        <JobCulture
+          teamSize={job.team_size || 0}
+          selectedCultureOptions={selectedCultureOptions}
+        />
       </JobReviewSection>
     </div>
   );
