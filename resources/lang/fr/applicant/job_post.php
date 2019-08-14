@@ -13,9 +13,9 @@ return [
     'job_post_title' => 'Nuage de talents | Candidat : Affiche d\'emploi - :title (Numéro de référence : :id)',
     'header' => [
         'time_remaining' => ':time jusqu\'à la date de clôture',
-        "job_closed" => "L'affiche est fermée",
+        'job_closed' => "L'affiche est fermée",
         'days_remaining' => ':count jour jusqu\'à la date de clôture|:count jours jusqu\'à la date de clôture',
-        "apply_by_label" => "Postuler avant le",
+        'apply_by_label' => 'Postuler avant le',
         'applicants_so_far' => ':count candidat jusqu\'à présent|:count candidats jusqu\'à présent',
         'reference_id' => 'Numéro de référence : :id',
         'remote_work_allowed' => [
@@ -61,7 +61,7 @@ return [
         'asset_title' => 'Bon à avoir',
         'requirement_label' => 'Niveau requis: ',
         'level_link_title' => 'Visitez la FAQ pour en savoir plus sur ce niveau et les autres.',
-        'no_info' => "Aucun critère supplémentaire requis."
+        'no_info' => 'Aucun critère supplémentaire requis.'
     ],
     'language' => [
         'sidebar_title' => 'Voir les exigences linguistiques de ce travail.',
@@ -130,8 +130,7 @@ return [
         'sidebar_title' => 'Voir la section de candidature pour cet emploi.',
         'title' => 'Postuler maintenant',
         'accommodation' => 'Veuillez informer l\'équipe du nuage de talents de toute mesure d\'adaptation dont vous pourriez avez besoin au cours du processus en écrivant à talent.cloud-nuage.de.talents@tbs-sct.gc.ca.',
-        'preference' => 'On accordera la préférence aux anciens combattants et aux citoyens canadiens, dans cet ordre, sauf pour les postes affichés par le Conseil national de recherches du Canada.',
-        'nrc' => 'Dans le cas des postes affichés par le Conseil national de recherches du Canada uniquement, on accordera la préférence aux employés du Conseil national de recherches du Canada et aux citoyens canadiens.',
+        'preference' => 'On accordera la préférence aux anciens combattants et aux citoyens canadiens dans cet ordre.',
         'apply_link_title' => 'Postuler pour cet emploi.',
         'apply_link_label' => 'Postuler maintenant.',
         'login_link_title' => 'Ouvrir une session et postuler pour cet emploi.',
@@ -141,5 +140,5 @@ return [
         'edit_link_title' => 'Modifier cette affiche d\'emploi.',
         'edit_link_label' => 'Modifier'
     ],
-    'no_info' => "Aucune information fournie."
+    'no_info' => 'Aucune information fournie.'
 ];
