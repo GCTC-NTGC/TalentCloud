@@ -1,6 +1,11 @@
 /* eslint-disable camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef, useReducer } from "react";
-import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
+import {
+  InjectedIntlProps,
+  injectIntl,
+  FormattedMessage,
+  defineMessages,
+} from "react-intl";
 import { Job, Skill, Criteria, JobPosterKeyTask } from "../../models/types";
 import Modal from "../Modal";
 import CriteriaForm from "./CriteriaForm";
@@ -29,6 +34,62 @@ interface JobBuilderSkillsProps {
   handleContinue: () => void;
 }
 
+const messages = defineMessages({
+  emailUs: {
+    id: "jobBuilder.skills.emailLink",
+    defaultMessage: "get in touch with us through email",
+    description: "Text for an email link in a larger block of text",
+  },
+});
+
+const altMessages = defineMessages({
+  unhappyArrow: {
+    id: "jobBuilder.skills.alt.unhappyArrow",
+    defaultMessage: "Arrow icon highlighting the unhappy smiley icon.",
+    description: "Alternative text describing unhappy arrow image",
+  },
+  unhappySmiley: {
+    id: "jobBuilder.skills.alt.unhappySmiley",
+    defaultMessage: "Unhappy coloured smiley icon.",
+    description: "Alternative text describing unhappy smiley image",
+  },
+  unhappyGraySmiley: {
+    id: "jobBuilder.skills.alt.unhappyGraySmiley",
+    defaultMessage: "Unhappy grayscale smiley icon.",
+    description: "Alternative text describing unhappy grayscale smiley image",
+  },
+  neutralArrow: {
+    id: "jobBuilder.skills.alt.neutralArrow",
+    defaultMessage: "Arrow icon highlighting the neutral smiley icon.",
+    description: "Alternative text describing neutral arrow image",
+  },
+  neutralSmiley: {
+    id: "jobBuilder.skills.alt.neutralSmiley",
+    defaultMessage: "neutral coloured smiley icon.",
+    description: "Alternative text describing neutral smiley image",
+  },
+  neutralGraySmiley: {
+    id: "jobBuilder.skills.alt.neutralGraySmiley",
+    defaultMessage: "neutral grayscale smiley icon.",
+    description: "Alternative text describing neutral grayscale smiley image",
+  },
+  happyArrow: {
+    id: "jobBuilder.skills.alt.happyArrow",
+    defaultMessage: "Arrow icon highlighting the happy smiley icon.",
+    description: "Alternative text describing happy arrow image",
+  },
+  happySmiley: {
+    id: "jobBuilder.skills.alt.happySmiley",
+    defaultMessage: "happy coloured smiley icon.",
+    description: "Alternative text describing happy smiley image",
+  },
+  happyGraySmiley: {
+    id: "jobBuilder.skills.alt.happyGraySmiley",
+    defaultMessage: "happy grayscale smiley icon.",
+    description: "Alternative text describing happy grayscale smiley image",
+  },
+});
+// "Arrow highlighting the neutral smiley icon."
 // function arrayMove<T>(arr: T[], fromIndex: number, toIndex: number): T[] {
 //   const arrCopy = [...arr];
 //   const element = arrCopy[fromIndex];
@@ -270,7 +331,7 @@ export const JobBuilderSkills: React.FunctionComponent<
         handleReturn();
       })
       .finally((): void => setIsSaving(false));
-  }
+  };
 
   const renderNullCriteriaRow = (): React.ReactElement => (
     <div className="jpb-skill-null" data-c-grid="gutter middle">
@@ -297,7 +358,13 @@ export const JobBuilderSkills: React.FunctionComponent<
             >
               <i className="fas fa-briefcase" />
             </span>
-            <span>Add skills below to proceed.</span>
+            <span>
+              <FormattedMessage
+                id="jobBuilder.skills.addSkillBelow"
+                defaultMessage="Add skills below to proceed."
+                description="Placeholder skill title / instructions to add skill"
+              />
+            </span>
           </div>
           <div data-c-grid-item="base(1of1) tl(1of3)">
             <span
@@ -307,7 +374,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-radius="rounded"
               data-c-font-size="small"
             >
-              Skill Level
+              <FormattedMessage
+                id="jobBuilder.skills.skillLevel"
+                defaultMessage="Skill Level"
+                description="Placeholder label"
+              />
             </span>
           </div>
         </div>
@@ -479,12 +550,20 @@ export const JobBuilderSkills: React.FunctionComponent<
           data-c-font-weight="bold"
           data-c-margin="bottom(double)"
         >
-          Skills
+          <FormattedMessage
+            id="jobBuilder.skills.title"
+            defaultMessage="Skills"
+            description="section title"
+          />
         </h3>
         <p data-c-margin="bottom(triple)">
-          This is where you&apos;ll select the criteria that are required to do
-          this job effectively. Below are two bars that indicate a measurement
-          of your current skill selection.
+          <FormattedMessage
+            id="jobBuilder.skills.description"
+            defaultMessage="This is where you'll select the criteria that are required to do
+            this job effectively. Below are two bars that indicate a measurement
+            of your current skill selection."
+            description="section description under title"
+          />
         </p>
         <div
           data-c-margin="bottom(triple)"
@@ -498,7 +577,11 @@ export const JobBuilderSkills: React.FunctionComponent<
             disabled={tasksModalVisible}
             onClick={(): void => setTasksModalVisible(true)}
           >
-            View Key Tasks
+            <FormattedMessage
+              id="jobBuilder.skills.button.keyTasks"
+              defaultMessage="View Key Tasks"
+              description="Button label"
+            />
           </button>
         </div>
 
@@ -508,7 +591,11 @@ export const JobBuilderSkills: React.FunctionComponent<
           data-c-font-size="h4"
           data-c-margin="bottom(normal)"
         >
-          Your Skills List
+          <FormattedMessage
+            id="jobBuilder.skills.listTitle"
+            defaultMessage="Your Skills List"
+            description="List section title"
+          />
         </h4>
         <div data-c-grid="gutter top">
           <div data-c-grid-item="base(1of1) tl(1of2)">
@@ -518,7 +605,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-padding="normal"
             >
               <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-                Total Number of Essential Skills
+                <FormattedMessage
+                  id="jobBuilder.skills.statusSmiley.essentialTitle"
+                  defaultMessage="Total Number of Essential Skills"
+                  description="Title of skill status tracker"
+                />
               </p>
               {/* TODO: SmileyStatusIndicator can be extracted as its own component, since its already repeated within this page. */}
               {/* This is the new smiley status indicator component. It is reused twice on this page, once to indicate how many ESSENTIAL skills the user has selected, and a second time to indicate the TOTAL number of skills selected. The component functions the same way for both instances, but the ***scale is different***. There's a chance that the labels will be different too, so best to build it with that in mind. You can activate the appropriate smiley by assigning an "active" class to the relevant "jpb-skill-measure-item" element. See the UI in-browser for an example of what this looks like. */}
@@ -537,7 +628,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-bad.svg"
-                      alt="Arrow icon highlighting the unhappy smiley icon."
+                      alt={intl.formatMessage(altMessages.unhappyArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -549,14 +640,18 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-bad.svg"
-                    alt="Unhappy coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappySmiley)}
                   />
                   <img
                     src="\images\icon-smiley-bad-grey.svg"
-                    alt="Unhappy grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
-                    Too Few
+                    <FormattedMessage
+                      id="jobBuilder.skills.statusSmiley.essential.tooFew"
+                      defaultMessage="Too Few"
+                      description="Description of quantity of skills"
+                    />
                   </p>
                   <p data-c-font-size="small">0 - 1</p>
                 </div>
@@ -569,7 +664,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-medium.svg"
-                      alt="Arrow highlighting the neutral smiley icon."
+                      alt={intl.formatMessage(altMessages.neutralArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -581,14 +676,18 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-medium.svg"
-                    alt="Neutral coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralSmiley)}
                   />
                   <img
                     src="\images\icon-smiley-medium-grey.svg"
-                    alt="Neutral grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
-                    Almost
+                    <FormattedMessage
+                      id="jobBuilder.skills.statusSmiley.essential.almost"
+                      defaultMessage="Almost"
+                      description="Description of quantity of skills"
+                    />
                   </p>
                   <p data-c-font-size="small">2 - 3</p>
                 </div>
@@ -601,7 +700,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-good.svg"
-                      alt="Arrow highlighting the happy smiley icon."
+                      alt={intl.formatMessage(altMessages.happyArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -613,14 +712,18 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-good.svg"
-                    alt="Happy coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.happySmiley)}
                   />
                   <img
                     src="\images\icon-smiley-good-grey.svg"
-                    alt="Happy grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.happyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
-                    Awesome
+                    <FormattedMessage
+                      id="jobBuilder.skills.statusSmiley.essential.awesome"
+                      defaultMessage="Awesome"
+                      description="Description of quantity of skills"
+                    />
                   </p>
                   <p data-c-font-size="small">4 - 6</p>
                 </div>
@@ -633,7 +736,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-medium.svg"
-                      alt="Arrow highlighting the neutral smiley icon."
+                      alt={intl.formatMessage(altMessages.neutralArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -645,14 +748,18 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-medium.svg"
-                    alt="Neutral coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralSmiley)}
                   />
                   <img
                     src="\images\icon-smiley-medium-grey.svg"
-                    alt="Neutral grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
-                    Acceptable
+                    <FormattedMessage
+                      id="jobBuilder.skills.statusSmiley.essential.acceptable"
+                      defaultMessage="Acceptable"
+                      description="Description of quantity of skills"
+                    />
                   </p>
                   <p data-c-font-size="small">7 - 8</p>
                 </div>
@@ -663,9 +770,10 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-grid-item="base(1of5)"
                 >
                   <div>
+                    {/* TODO: Alt Text Translations */}
                     <img
                       src="\images\icon-smiley-arrow-bad.svg"
-                      alt="Arrow icon highlighting the unhappy smiley icon."
+                      alt={intl.formatMessage(altMessages.unhappyArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -677,14 +785,18 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-bad.svg"
-                    alt="Unhappy coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappySmiley)}
                   />
                   <img
                     src="\images\icon-smiley-bad-grey.svg"
-                    alt="Unhappy grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
-                    Too Many
+                    <FormattedMessage
+                      id="jobBuilder.skills.statusSmiley.essential.tooMany"
+                      defaultMessage="Too Many"
+                      description="Description of quantity of skills"
+                    />
                   </p>
                   <p data-c-font-size="small">9 +</p>
                 </div>
@@ -698,7 +810,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-padding="normal"
             >
               <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-                Total Number of Skills
+                <FormattedMessage
+                  id="jobBuilder.skills.statusSmiley.title"
+                  defaultMessage="Total Number of Skills"
+                  description="Title of skill quantity evaluator"
+                />
               </p>
               {/* This is the second smiley indicator, used for total skills. Note the difference in the scale from the first. */}
               <div
@@ -715,7 +831,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-bad.svg"
-                      alt="Arrow icon highlighting the unhappy smiley icon."
+                      alt={intl.formatMessage(altMessages.unhappyArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -727,14 +843,18 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-bad.svg"
-                    alt="Unhappy coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappySmiley)}
                   />
                   <img
                     src="\images\icon-smiley-bad-grey.svg"
-                    alt="Unhappy grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
-                    Too Few
+                    <FormattedMessage
+                      id="jobBuilder.skills.statusSmiley.tooFew"
+                      defaultMessage="Too Few"
+                      description="Description of quantity of skills"
+                    />
                   </p>
                   <p data-c-font-size="small">0 - 3</p>
                 </div>
@@ -747,7 +867,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-medium.svg"
-                      alt="Arrow highlighting the neutral smiley icon."
+                      alt={intl.formatMessage(altMessages.neutralArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -759,14 +879,18 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-medium.svg"
-                    alt="Neutral coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralSmiley)}
                   />
                   <img
                     src="\images\icon-smiley-medium-grey.svg"
-                    alt="Neutral grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
-                    Almost
+                    <FormattedMessage
+                      id="jobBuilder.skills.statusSmiley.almost"
+                      defaultMessage="Almost"
+                      description="Description of quantity of skills"
+                    />
                   </p>
                   <p data-c-font-size="small">4 - 6</p>
                 </div>
@@ -779,7 +903,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-good.svg"
-                      alt="Arrow highlighting the happy smiley icon."
+                      alt={intl.formatMessage(altMessages.happyArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -791,14 +915,18 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-good.svg"
-                    alt="Happy coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.happySmiley)}
                   />
                   <img
                     src="\images\icon-smiley-good-grey.svg"
-                    alt="Happy grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.happyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
-                    Awesome
+                    <FormattedMessage
+                      id="jobBuilder.skills.statusSmiley.awesome"
+                      defaultMessage="Awesome"
+                      description="Description of quantity of skills"
+                    />
                   </p>
                   <p data-c-font-size="small">7 - 8</p>
                 </div>
@@ -811,7 +939,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-medium.svg"
-                      alt="Arrow highlighting the neutral smiley icon."
+                      alt={intl.formatMessage(altMessages.neutralArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -823,14 +951,18 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-medium.svg"
-                    alt="Neutral coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralSmiley)}
                   />
                   <img
                     src="\images\icon-smiley-medium-grey.svg"
-                    alt="Neutral grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.neutralGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
-                    Acceptable
+                    <FormattedMessage
+                      id="jobBuilder.skills.statusSmiley.acceptable"
+                      defaultMessage="Acceptable"
+                      description="Description of quantity of skills"
+                    />
                   </p>
                   <p data-c-font-size="small">9 - 10</p>
                 </div>
@@ -843,7 +975,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <div>
                     <img
                       src="\images\icon-smiley-arrow-bad.svg"
-                      alt="Arrow icon highlighting the unhappy smiley icon."
+                      alt={intl.formatMessage(altMessages.unhappyArrow)}
                     />
                     <span
                       data-c-font-weight="bold"
@@ -855,14 +987,18 @@ export const JobBuilderSkills: React.FunctionComponent<
                   </div>
                   <img
                     src="\images\icon-smiley-bad.svg"
-                    alt="Unhappy coloured smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappySmiley)}
                   />
                   <img
                     src="\images\icon-smiley-bad-grey.svg"
-                    alt="Unhappy grayscale smiley icon."
+                    alt={intl.formatMessage(altMessages.unhappyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
-                    Too Many
+                    <FormattedMessage
+                      id="jobBuilder.skills.statusSmiley.tooMany"
+                      defaultMessage="tooMany"
+                      description="Description of quantity of skills"
+                    />
                   </p>
                   <p data-c-font-size="small">11 +</p>
                 </div>
@@ -878,7 +1014,11 @@ export const JobBuilderSkills: React.FunctionComponent<
           data-c-margin="top(normal) bottom(normal)"
         >
           <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-            Essential Skills
+            <FormattedMessage
+              id="jobBuilder.skills.title.essentialSkills"
+              defaultMessage="Essential Skills"
+              description="Title of essential skills list"
+            />
           </p>
           {/* This is the null state to be used when the user lands on the page for the first time. Be sure to include it in the assets list too! Note that it exists outside the skill-list div to avoid it being confused with the list of skills. */}
           {/* Null state. */}
@@ -892,7 +1032,11 @@ export const JobBuilderSkills: React.FunctionComponent<
             data-c-font-weight="bold"
             data-c-margin="top(normal) bottom(normal)"
           >
-            Asset Skills
+            <FormattedMessage
+              id="jobBuilder.skills.title.assetSkills"
+              defaultMessage="Asset Skills"
+              description="Title of asset skills list"
+            />
           </p>
           {/* Asset null state goes here. */}
           {assetCount === 0 && renderNullCriteriaRow()}
@@ -912,7 +1056,11 @@ export const JobBuilderSkills: React.FunctionComponent<
             disabled={isSaving}
             onClick={(): void => saveAndPreview()}
           >
-            Save &amp; Preview Skills
+            <FormattedMessage
+              id="jobBuilder.skills.button.previewSkills"
+              defaultMessage="Save &amp; Preview Skills"
+              description="Label of Button"
+            />
           </button>
         </div>
         {/* The 3 sections below are each functionally similar and can probably be united into one component. The biggest difference between the three is that "Cultural Skills" has a categorical breakdown between "Recommended Skills" and the rest of the category. These recommendations are based directly on the way the manager answered their work environment questions, but I'm not sure how the logic works, so you'll want to check in with Lauren/Jasmita on this. */}
@@ -921,7 +1069,11 @@ export const JobBuilderSkills: React.FunctionComponent<
           data-c-font-size="h4"
           data-c-margin="bottom(normal)"
         >
-          Skill Selection
+          <FormattedMessage
+            id="jobBuilder.skills.title.skillSelection"
+            defaultMessage="Skill Selection"
+            description="Title of skill selection section"
+          />
         </h4>
         {/* Occupational Skills */}
         {/* You can modify colour/icon using the category classes here again (occupational, cultural, future) on the "jpb-skill-category" element. */}
@@ -953,10 +1105,20 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-book" />
                 </span>
                 {/* Category Title */}
-                Occupational Skills
+                <FormattedMessage
+                  id="jobBuilder.skills.title.occupationalSkills"
+                  defaultMessage="Occupational Skills"
+                  description="Title of skills category"
+                />
               </h5>
               {/* Category description - basically this outlines what the category means. */}
-              <p>Lorem ipsum.</p>
+              <p>
+                <FormattedMessage
+                  id="jobBuilder.skills.description.occupationalSkills"
+                  defaultMessage="Lorem ipsum."
+                  description="Description of a category of skills"
+                />
+              </p>
             </div>
             <div
               data-c-grid-item="tp(1of3) ds(1of4)"
@@ -977,7 +1139,12 @@ export const JobBuilderSkills: React.FunctionComponent<
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
                 <span>
-                  Aim for {minOccupational} - {maxOccupational} skills.
+                  <FormattedMessage
+                    id="jobBuilder.skills.range.occupationalSkills"
+                    defaultMessage="Aim for {minOccupational} - {maxOccupational} skills."
+                    description="Ranage recommendation for occupational skills in job poster"
+                    values={{ minOccupational, maxOccupational }}
+                  />
                 </span>
               </div>
             </div>
@@ -985,7 +1152,11 @@ export const JobBuilderSkills: React.FunctionComponent<
             {(job.classification_code === "" ||
               job.classification_code === null) && (
               <p data-c-font-weight="bold" data-c-grid-item="base(1of1)">
-                You must return to Step 1 and choose a Classification.
+                <FormattedMessage
+                  id="jobBuilder.skills.nullText.occupationalSkills"
+                  defaultMessage="You must return to Step 1 and choose a Classification."
+                  description="Placeholder text for occupational skills list."
+                />
               </p>
             )}
 
@@ -1022,9 +1193,19 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-certificate" />
                   <i className="fas fa-book" />
                 </span>
-                Cultural Skills
+                <FormattedMessage
+                  id="jobBuilder.skills.title.culturalSkills"
+                  defaultMessage="Cultural Skills"
+                  description="Title of skills category"
+                />
               </h5>
-              <p>Lorem ipsum.</p>
+              <p>
+                <FormattedMessage
+                  id="jobBuilder.skills.description.culturalSkills"
+                  defaultMessage="Lorem ipsum."
+                  description="Description of a category of skills"
+                />
+              </p>
             </div>
             <div
               data-c-grid-item="tp(1of3) ds(1of4)"
@@ -1040,7 +1221,12 @@ export const JobBuilderSkills: React.FunctionComponent<
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
                 <span>
-                  Aim for {minCulture} - {maxCulture} skills.
+                  <FormattedMessage
+                    id="jobBuilder.skills.range.culturalSkills"
+                    defaultMessage="Aim for {minCulture} - {maxCulture} skills."
+                    description="Ranage recommendation for cultural skills in job poster"
+                    values={{ minCulture, maxCulture }}
+                  />
                 </span>
               </div>
             </div>
@@ -1120,9 +1306,19 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-certificate" />
                   <i className="fas fa-book" />
                 </span>
-                Future Skills
+                <FormattedMessage
+                  id="jobBuilder.skills.title.futureSkills"
+                  defaultMessage="Future Skills"
+                  description="Title of skills category"
+                />
               </h5>
-              <p>Lorem ipsum.</p>
+              <p>
+                <FormattedMessage
+                  id="jobBuilder.skills.description.futureSkills"
+                  defaultMessage="Lorem ipsum."
+                  description="Description of a category of skills"
+                />
+              </p>
             </div>
             <div
               data-c-grid-item="tp(1of3) ds(1of4)"
@@ -1138,7 +1334,12 @@ export const JobBuilderSkills: React.FunctionComponent<
                 <i data-c-colour="stop" className="fas fa-bullseye" />
                 <i data-c-colour="go" className="fas fa-check" />
                 <span>
-                  Aim for {minFuture} - {maxFuture} skills.
+                  <FormattedMessage
+                    id="jobBuilder.skills.range.futureSkills"
+                    defaultMessage="Aim for {minFuture} - {maxFuture} skills."
+                    description="Ranage recommendation for future skills in job poster"
+                    values={{ minFuture, maxFuture }}
+                  />
                 </span>
               </div>
             </div>
@@ -1150,20 +1351,42 @@ export const JobBuilderSkills: React.FunctionComponent<
         {/* This section is basically just text, but it prompts the manager to get in touch with us if they can't find the skill they're looking for. */}
         {/* "Custom" Skills */}
         <h5 data-c-font-weight="bold" data-c-margin="top(double) bottom(half)">
-          Can&apos;t find the skill you need?
+          <FormattedMessage
+            id="jobBuilder.skills.title.missingSkill"
+            defaultMessage="Can't find the skill you need?"
+            description="Title of instructions for missing skill"
+          />
         </h5>
         <p data-c-margin="bottom(normal)">
-          Building a skills list is a huge endeavour, and it&apos;s not
-          surprising that Talent Cloud&apos;s list doesn&apos;t have the skill
-          you&apos;re looking for. To help us expand our skill list, please{" "}
-          <a
-            href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-            title="Get in touch with Talent Cloud to have a skill added to the platform."
-          >
-            get in touch with us through email
-          </a>
-          . Provide the skill&apos;s name, as well as a short description to
-          kick-off the discussion.
+          {/* TODO: Refactor for react-intl version 3, using new rich text xml tag syntax eg.
+          <FormattedMessage
+            id="jobBuilder.skills.instructions.missingSkills"
+            defaultMessage="Building a skills list is a huge endeavour, and it's not
+  surprising that Talent Cloud's list doesn't have the skill
+  you're looking for. To help us expand our skill list, please <link>get in touch with us through email</link>. Provide the skill's name, as well as a short description to
+  kick-off the discussion."
+            values={{
+              link: msg => (
+                <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca">
+                  {msg}
+                </a>
+              ),
+            }}
+          /> */}
+          <FormattedMessage
+            id="jobBuilder.skills.instructions.missingSkills"
+            defaultMessage="Building a skills list is a huge endeavour, and it's not
+  surprising that Talent Cloud's list doesn't have the skill
+  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to
+  kick-off the discussion."
+            values={{
+              link: (
+                <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca">
+                  {intl.formatMessage(messages.emailUs)}
+                </a>
+              ),
+            }}
+          />
         </p>
         <div
           className="jpb-skill-category optional"
@@ -1188,7 +1411,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-certificate" />
                   <i className="fas fa-book" />
                 </span>
-                Other Skills
+                <FormattedMessage
+                  id="jobBuilder.skills.title.otherSkills"
+                  defaultMessage="Other Skills"
+                  description="Title of other skills section"
+                />
               </h5>
             </div>
             <div data-c-grid-item="base(1of1)">
@@ -1216,7 +1443,13 @@ export const JobBuilderSkills: React.FunctionComponent<
             <ul className="jpb-skill-cloud" data-c-grid-item="base(1of1)">
               {/** TODO: Get this null state text hiding/showing. */}
               {selectedOtherSkills.length === 0 && (
-                <p>There are no extra skills added.</p>
+                <p>
+                  <FormattedMessage
+                    id="jobBuilder.skills.placeholder.otherSkills"
+                    defaultMessage="There are no extra skills added."
+                    description="Placeholder when there are no other skills"
+                  />
+                </p>
               )}
               {selectedOtherSkills.map(renderSkillButton)}
             </ul>
@@ -1237,7 +1470,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               disabled={isSaving}
               onClick={(): void => saveAndReturn()}
             >
-              Save &amp; Return to Tasks
+              <FormattedMessage
+                id="jobBuilder.skills.button.returnToTasks"
+                defaultMessage="Save &amp; Return to Tasks"
+                description="Button Label"
+              />
             </button>
           </div>
           <div
@@ -1252,7 +1489,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               disabled={isSaving}
               onClick={(): void => saveAndPreview()}
             >
-              Save &amp; Preview Skills
+              <FormattedMessage
+                id="jobBuilder.skills.button.previewSkills"
+                defaultMessage="Save &amp; Preview Skills"
+                description="Label of Button"
+              />
             </button>
           </div>
         </div>
@@ -1277,7 +1518,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-font-size="h4"
               id={`${tasksModalId}-title`}
             >
-              Key Tasks
+              <FormattedMessage
+                id="jobBuilder.skills.title.keyTasks"
+                defaultMessage="Key Tasks"
+                description="Title of Key Tasks Section"
+              />
             </h5>
           </div>
         </Modal.Header>
@@ -1301,7 +1546,7 @@ export const JobBuilderSkills: React.FunctionComponent<
         <Modal.Footer>
           <Modal.FooterCancelBtn>
             <FormattedMessage
-              id="jobSkills.tasksModalCancelLabel"
+              id="jobBuilder.skills.tasksModalCancelLabel"
               defaultMessage="Back to Skills"
               description="The text displayed on the cancel button of the Key Tasks modal on the Job Builder Skills step."
             />
@@ -1331,7 +1576,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-font-size="h4"
               id={`${addModalId}-title`}
             >
-              Add a skill
+              <FormattedMessage
+                id="jobBuilder.skills.title.addASkill"
+                defaultMessage="Add a skill"
+                description="Title of Add a skill Section"
+              />
             </h5>
           </div>
         </Modal.Header>
@@ -1374,7 +1623,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-font-size="h4"
               id={`${editModalId}-title`}
             >
-              Edit skill
+              <FormattedMessage
+                id="jobBuilder.skills.title.editSkill"
+                defaultMessage="Edit skill"
+                description="Title of Edit skill Modal"
+              />
             </h5>
           </div>
         </Modal.Header>
@@ -1415,7 +1668,11 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-font-size="h4"
               id={`${previewModalId}-title`}
             >
-              Keep it up!
+              <FormattedMessage
+                id="jobBuilder.skills.title.keepItUp"
+                defaultMessage="Keep it up!"
+                description="Title of Keep it up! Modal"
+              />
             </h5>
           </div>
         </Modal.Header>
@@ -1426,9 +1683,13 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-padding="normal"
               id={`${previewModalId}-description`}
             >
-              Here&apos;s a preview of the Skills you just entered. Feel free to
-              go back and edit things or move to the next step if you&apos;re
-              happy with it.
+              <FormattedMessage
+                id="jobBuilder.skills.description.keepItUp"
+                defaultMessage="Here's a preview of the Skills you just entered. Feel free to
+                go back and edit things or move to the next step if you're
+                happy with it."
+                description="Body text of Keep it up! Modal"
+              />
             </div>
 
             <div data-c-background="grey(20)" data-c-padding="normal">
@@ -1445,7 +1706,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-margin="bottom(normal)"
                   data-c-padding="bottom(normal)"
                 >
-                  Skills the Employee Needs to Have
+                  <FormattedMessage
+                    id="jobBuilder.skills.title.needsToHave"
+                    defaultMessage="Skills the Employee Needs to Have"
+                    description="Section Header in Modal"
+                  />
                 </h4>
                 {essentialCriteria.map(
                   (criterion): React.ReactElement | null => {
@@ -1485,7 +1750,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                   data-c-margin="top(double) bottom(normal)"
                   data-c-padding="bottom(normal)"
                 >
-                  Skills That Would Be Nice For the Employee to Have
+                  <FormattedMessage
+                    id="jobBuilder.skills.title.niceToHave"
+                    defaultMessage="Skills That Would Be Nice For the Employee to Have"
+                    description="Section Header in Modal"
+                  />
                 </h4>
                 {assetCriteria.map((criterion): React.ReactElement | null => {
                   const skill = getSkillOfCriteria(criterion);
@@ -1511,14 +1780,14 @@ export const JobBuilderSkills: React.FunctionComponent<
         <Modal.Footer>
           <Modal.FooterCancelBtn>
             <FormattedMessage
-              id="jobSkills.previewModalCancelLabel"
+              id="jobBuilder.skills.previewModalCancelLabel"
               defaultMessage="Go Back"
               description="The text displayed on the cancel button of the Job Builder Skills Preview modal."
             />
           </Modal.FooterCancelBtn>
           <Modal.FooterConfirmBtn>
             <FormattedMessage
-              id="jobSkills.previewModalConfirmLabel"
+              id="jobBuilder.skills.previewModalConfirmLabel"
               defaultMessage="Next Step"
               description="The text displayed on the confirm button of the Job Builder Skills Preview modal."
             />
