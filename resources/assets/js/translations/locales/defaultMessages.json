@@ -886,8 +886,13 @@
         "id": "jobBuilder.impact.hireBody"
       },
       {
-        "defaultMessage": "Next",
-        "description": "Button text Next",
+        "defaultMessage": "Save & Return to Work Environment",
+        "description": "Label for Save & Return button on Impact form.",
+        "id": "jobBuilder.impact.button.return"
+      },
+      {
+        "defaultMessage": "Save & Preview",
+        "description": "Label for Save & Preview button on Impact form.",
         "id": "jobBuilder.impact.button.next"
       }
     ],
@@ -1670,7 +1675,12 @@
         "id": "jobBuilder.workEnv.cultureSubtext1"
       },
       {
-        "defaultMessage": "Preview Work Environment",
+        "defaultMessage": "Save & Return to Job Details",
+        "description": "Label for Save & Return button on Work Environment form.",
+        "id": "jobBuilder.workEnv.saveAndReturnButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Preview",
         "description": "Label for work environment submit button.",
         "id": "jobBuilder.workEnv.submitButtonLabel"
       }
@@ -1875,6 +1885,46 @@
         "id": "jobDetails.frequencyNeverLabel"
       },
       {
+        "defaultMessage": "Select a travel option:",
+        "description": "The form label displayed on the travel radio group.",
+        "id": "jobDetails.travelGroupLabel"
+      },
+      {
+        "defaultMessage": "Yes, travel is frequently required for the position.",
+        "description": "The form label displayed on 'frequently' travel options",
+        "id": "jobDetails.travelFrequentlyLabel"
+      },
+      {
+        "defaultMessage": "Yes, travel opportunities are available for those that are interested.",
+        "description": "The form label displayed on 'travel opportunities available' travel options",
+        "id": "jobDetails.travelOpportunitiesAvailableLabel"
+      },
+      {
+        "defaultMessage": "No, travel is not required for the position.",
+        "description": "The form label displayed on 'no travel required' travel options",
+        "id": "jobDetails.travelNoneRequiredLabel"
+      },
+      {
+        "defaultMessage": "Select a overtime option:",
+        "description": "The form label displayed on the overtime radio group.",
+        "id": "jobDetails.overtimeGroupLabel"
+      },
+      {
+        "defaultMessage": "Yes, overtime is frequently required for the position.",
+        "description": "The form label displayed on 'frequently' overtime options",
+        "id": "jobDetails.overtimeFrequentlyLabel"
+      },
+      {
+        "defaultMessage": "Yes, overtime opportunities are available for those that are interested.",
+        "description": "The form label displayed on 'overtime opportunities available' overtime options",
+        "id": "jobDetails.overtimeOpportunitiesAvailableLabel"
+      },
+      {
+        "defaultMessage": "No, overtime is not required for the position.",
+        "description": "The form label displayed on 'no overtime required' overtime options",
+        "id": "jobDetails.overtimeNoneRequiredLabel"
+      },
+      {
         "defaultMessage": "AS - Administrative Services",
         "description": "Job Classification from list of Classifications",
         "id": "jobDetails.classificationOptions.AS"
@@ -1970,7 +2020,22 @@
         "id": "jobDetails.flexHoursGroupBody"
       },
       {
-        "defaultMessage": "Next",
+        "defaultMessage": "Is travel required?",
+        "description": "Header message displayed on the travel group input.",
+        "id": "jobDetails.travelGroupHeader"
+      },
+      {
+        "defaultMessage": "Is overtime required?",
+        "description": "Header message displayed on the overtime group input.",
+        "id": "jobDetails.overtimeGroupHeader"
+      },
+      {
+        "defaultMessage": "Save & Return to Intro",
+        "description": "The text displayed on the Save & Return button of the Job Details form.",
+        "id": "jobDetails.returnButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Preview",
         "description": "The text displayed on the submit button for the Job Details form.",
         "id": "jobDetails.submitButtonLabel"
       },
@@ -2165,12 +2230,12 @@
         "id": "jobTasks.addJob"
       },
       {
-        "defaultMessage": "Previous Step",
+        "defaultMessage": "Save & Return to Impact",
         "description": "Text on the Previous Step button.",
         "id": "jobTasks.previous"
       },
       {
-        "defaultMessage": "Preview Tasks",
+        "defaultMessage": "Save & Preview Tasks",
         "description": "Text on the Preview Tasks button.",
         "id": "jobTasks.preview"
       },

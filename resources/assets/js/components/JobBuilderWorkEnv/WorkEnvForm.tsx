@@ -960,9 +960,17 @@ const WorkEnvForm = ({
       ({ id }): boolean => id === values.experimental,
     );
     const facing = facingList.find(({ id }): boolean => id === values.facing);
-    const collaborativeness = collaborativenessList.find(({id}): boolean => id === values.collaborativeness);
+    const collaborativeness = collaborativenessList.find(
+      ({ id }): boolean => id === values.collaborativeness,
+    );
 
-    const cultureSummary: string = [pace, management, experimental, facing, collaborativeness]
+    const cultureSummary: string = [
+      pace,
+      management,
+      experimental,
+      facing,
+      collaborativeness,
+    ]
       .filter(notEmpty)
       .map((item): string => intl.formatMessage(item.subtext))
       .join(" ");
@@ -1295,7 +1303,7 @@ const WorkEnvForm = ({
                     }}
                   >
                     <FormattedMessage
-                      id="jobBuilder.workEnv.submitButtonLabel"
+                      id="jobBuilder.workEnv.saveAndReturnButtonLabel"
                       defaultMessage="Save & Return to Job Details"
                       description="Label for Save & Return button on Work Environment form."
                     />
