@@ -50,7 +50,7 @@ jobs:
 
       # prepare the database
       - run: touch storage/testing.postgresql
-      - run: php artisan migrate --env=testing --database=talentcloud --force
+      - run: php artisan migrate && php artisan db:seed
 
       # run tests with phpunit or codecept
       - run: ./vendor/bin/phpunit
