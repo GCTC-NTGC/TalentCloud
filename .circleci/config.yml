@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
 
-      - run: sudo apt update && sudo apt install zlib1g-dev postgresql postgresql-contrib libpq-dev pgadmin3
+      - run: sudo apt update && sudo apt install zlib1g-dev postgresql-9.6 libpq-dev pgadmin3
       - run: sudo docker-php-ext-install zip
 
       # Download and cache dependencies
