@@ -1169,7 +1169,7 @@ const WorkEnvForm = ({
                     }}
                   >
                     <FormattedMessage
-                      id="jobBuilder.workEnv.submitButtonLabel"
+                      id="jobBuilder.workEnv.saveAndReturnButtonLabel"
                       defaultMessage="Save & Return to Job Details"
                       description="Label for Save & Return button on Work Environment form."
                     />

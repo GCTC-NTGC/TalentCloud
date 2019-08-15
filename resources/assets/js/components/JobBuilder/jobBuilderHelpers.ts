@@ -102,15 +102,25 @@ const jobEnvValues = (job: Job, locale: string): (string | number | null)[] => [
   job.citizen_facing_vs_back_office,
   job.collaborative_vs_independent,
   job.work_env_features,
-  job[locale].work_env_description,
   job[locale].culture_summary,
+];
+const jobEnvValuesOptional = (
+  job: Job,
+  locale: string,
+): (string | number | null)[] => [
+  job[locale].work_env_description,
   job[locale].culture_special,
 ];
+
 const isJobBuilderEnvComplete = (job: Job, locale: string): boolean => {
   return jobEnvValues(job, locale).every(isFilled);
 };
 const isJobBuilderEnvUntouched = (job: Job, locale: string): boolean => {
-  const nullableValues = jobEnvValues(job, locale).filter(
+  const allJobValues = [
+    ...jobEnvValues(job, locale),
+    ...jobEnvValuesOptional(job, locale),
+  ];
+  const nullableValues = allJobValues.filter(
     (item): boolean => typeof item !== "boolean",
   );
   return nullableValues.every(isEmpty);

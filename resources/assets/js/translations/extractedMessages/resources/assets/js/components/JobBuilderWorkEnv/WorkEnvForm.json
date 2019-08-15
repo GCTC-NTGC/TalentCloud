@@ -390,8 +390,13 @@
     "defaultMessage": "Now let applicants know more about the personality of your team and the type of work that you usually do."
   },
   {
+    "id": "jobBuilder.workEnv.saveAndReturnButtonLabel",
+    "description": "Label for Save & Return button on Work Environment form.",
+    "defaultMessage": "Save & Return to Job Details"
+  },
+  {
     "id": "jobBuilder.workEnv.submitButtonLabel",
     "description": "Label for work environment submit button.",
-    "defaultMessage": "Preview Work Environment"
+    "defaultMessage": "Save & Preview"
   }
 ]

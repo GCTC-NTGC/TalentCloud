@@ -57,6 +57,13 @@ class DepartmentCrudController extends CrudController
             'orderable' => false,
         ]);
 
+        $this->crud->addColumn([
+            'name' => 'preference',
+            'type' => 'text',
+            'label' => 'Preference',
+            'orderable' => false,
+        ]);
+
         // Add custom fields to the create/update views.
         $this->crud->addField([
             'name' => 'name',
@@ -68,6 +75,12 @@ class DepartmentCrudController extends CrudController
             'name' => 'impact',
             'type' => 'textarea',
             'label' => 'Impact',
+        ]);
+
+        $this->crud->addField([
+            'name' => 'preference',
+            'type' => 'textarea',
+            'label' => 'Preference',
         ]);
     }
 

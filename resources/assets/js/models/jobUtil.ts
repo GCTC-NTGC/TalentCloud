@@ -63,6 +63,8 @@ export const emptyJob = (): Job => {
     collaborative_vs_independent: null,
     telework_allowed_frequency_id: null,
     flexible_hours_frequency_id: null,
+    travel_requirement_id: null,
+    overtime_requirement_id: null,
     en: emptyJobTranslation(),
     fr: emptyJobTranslation(),
   };

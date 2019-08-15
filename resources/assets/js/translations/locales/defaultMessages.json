@@ -886,8 +886,13 @@
         "id": "jobBuilder.impact.hireBody"
       },
       {
-        "defaultMessage": "Next",
-        "description": "Button text Next",
+        "defaultMessage": "Save & Return to Work Environment",
+        "description": "Label for Save & Return button on Impact form.",
+        "id": "jobBuilder.impact.button.return"
+      },
+      {
+        "defaultMessage": "Save & Preview",
+        "description": "Label for Save & Preview button on Impact form.",
         "id": "jobBuilder.impact.button.next"
       }
     ],
@@ -991,14 +996,288 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "get in touch with us through email",
+        "description": "Text for an email link in a larger block of text",
+        "id": "jobBuilder.skills.emailLink"
+      },
+      {
+        "defaultMessage": "Arrow icon highlighting the unhappy smiley icon.",
+        "description": "Alternative text describing unhappy arrow image",
+        "id": "jobBuilder.skills.alt.unhappyArrow"
+      },
+      {
+        "defaultMessage": "Unhappy coloured smiley icon.",
+        "description": "Alternative text describing unhappy smiley image",
+        "id": "jobBuilder.skills.alt.unhappySmiley"
+      },
+      {
+        "defaultMessage": "Unhappy grayscale smiley icon.",
+        "description": "Alternative text describing unhappy grayscale smiley image",
+        "id": "jobBuilder.skills.alt.unhappyGraySmiley"
+      },
+      {
+        "defaultMessage": "Arrow icon highlighting the neutral smiley icon.",
+        "description": "Alternative text describing neutral arrow image",
+        "id": "jobBuilder.skills.alt.neutralArrow"
+      },
+      {
+        "defaultMessage": "neutral coloured smiley icon.",
+        "description": "Alternative text describing neutral smiley image",
+        "id": "jobBuilder.skills.alt.neutralSmiley"
+      },
+      {
+        "defaultMessage": "neutral grayscale smiley icon.",
+        "description": "Alternative text describing neutral grayscale smiley image",
+        "id": "jobBuilder.skills.alt.neutralGraySmiley"
+      },
+      {
+        "defaultMessage": "Arrow icon highlighting the happy smiley icon.",
+        "description": "Alternative text describing happy arrow image",
+        "id": "jobBuilder.skills.alt.happyArrow"
+      },
+      {
+        "defaultMessage": "happy coloured smiley icon.",
+        "description": "Alternative text describing happy smiley image",
+        "id": "jobBuilder.skills.alt.happySmiley"
+      },
+      {
+        "defaultMessage": "happy grayscale smiley icon.",
+        "description": "Alternative text describing happy grayscale smiley image",
+        "id": "jobBuilder.skills.alt.happyGraySmiley"
+      },
+      {
+        "defaultMessage": "Add skills below to proceed.",
+        "description": "Placeholder skill title / instructions to add skill",
+        "id": "jobBuilder.skills.addSkillBelow"
+      },
+      {
+        "defaultMessage": "Skill Level",
+        "description": "Placeholder label",
+        "id": "jobBuilder.skills.skillLevel"
+      },
+      {
+        "defaultMessage": "Skills",
+        "description": "section title",
+        "id": "jobBuilder.skills.title"
+      },
+      {
+        "defaultMessage": "This is where you'll select the criteria that are required to do\r\n            this job effectively. Below are two bars that indicate a measurement\r\n            of your current skill selection.",
+        "description": "section description under title",
+        "id": "jobBuilder.skills.description"
+      },
+      {
+        "defaultMessage": "View Key Tasks",
+        "description": "Button label",
+        "id": "jobBuilder.skills.button.keyTasks"
+      },
+      {
+        "defaultMessage": "Your Skills List",
+        "description": "List section title",
+        "id": "jobBuilder.skills.listTitle"
+      },
+      {
+        "defaultMessage": "Total Number of Essential Skills",
+        "description": "Title of skill status tracker",
+        "id": "jobBuilder.skills.statusSmiley.essentialTitle"
+      },
+      {
+        "defaultMessage": "Too Few",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.essential.tooFew"
+      },
+      {
+        "defaultMessage": "Almost",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.essential.almost"
+      },
+      {
+        "defaultMessage": "Awesome",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.essential.awesome"
+      },
+      {
+        "defaultMessage": "Acceptable",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.essential.acceptable"
+      },
+      {
+        "defaultMessage": "Too Many",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.essential.tooMany"
+      },
+      {
+        "defaultMessage": "Total Number of Skills",
+        "description": "Title of skill quantity evaluator",
+        "id": "jobBuilder.skills.statusSmiley.title"
+      },
+      {
+        "defaultMessage": "Too Few",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.tooFew"
+      },
+      {
+        "defaultMessage": "Almost",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.almost"
+      },
+      {
+        "defaultMessage": "Awesome",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.awesome"
+      },
+      {
+        "defaultMessage": "Acceptable",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.acceptable"
+      },
+      {
+        "defaultMessage": "tooMany",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.tooMany"
+      },
+      {
+        "defaultMessage": "Essential Skills",
+        "description": "Title of essential skills list",
+        "id": "jobBuilder.skills.title.essentialSkills"
+      },
+      {
+        "defaultMessage": "Asset Skills",
+        "description": "Title of asset skills list",
+        "id": "jobBuilder.skills.title.assetSkills"
+      },
+      {
+        "defaultMessage": "Save & Preview Skills",
+        "description": "Label of Button",
+        "id": "jobBuilder.skills.button.previewSkills"
+      },
+      {
+        "defaultMessage": "Skill Selection",
+        "description": "Title of skill selection section",
+        "id": "jobBuilder.skills.title.skillSelection"
+      },
+      {
+        "defaultMessage": "Occupational Skills",
+        "description": "Title of skills category",
+        "id": "jobBuilder.skills.title.occupationalSkills"
+      },
+      {
+        "defaultMessage": "Lorem ipsum.",
+        "description": "Description of a category of skills",
+        "id": "jobBuilder.skills.description.occupationalSkills"
+      },
+      {
+        "defaultMessage": "Aim for {minOccupational} - {maxOccupational} skills.",
+        "description": "Ranage recommendation for occupational skills in job poster",
+        "id": "jobBuilder.skills.range.occupationalSkills"
+      },
+      {
+        "defaultMessage": "You must return to Step 1 and choose a Classification.",
+        "description": "Placeholder text for occupational skills list.",
+        "id": "jobBuilder.skills.nullText.occupationalSkills"
+      },
+      {
+        "defaultMessage": "Cultural Skills",
+        "description": "Title of skills category",
+        "id": "jobBuilder.skills.title.culturalSkills"
+      },
+      {
+        "defaultMessage": "Lorem ipsum.",
+        "description": "Description of a category of skills",
+        "id": "jobBuilder.skills.description.culturalSkills"
+      },
+      {
+        "defaultMessage": "Aim for {minCulture} - {maxCulture} skills.",
+        "description": "Ranage recommendation for cultural skills in job poster",
+        "id": "jobBuilder.skills.range.culturalSkills"
+      },
+      {
+        "defaultMessage": "Future Skills",
+        "description": "Title of skills category",
+        "id": "jobBuilder.skills.title.futureSkills"
+      },
+      {
+        "defaultMessage": "Lorem ipsum.",
+        "description": "Description of a category of skills",
+        "id": "jobBuilder.skills.description.futureSkills"
+      },
+      {
+        "defaultMessage": "Aim for {minFuture} - {maxFuture} skills.",
+        "description": "Ranage recommendation for future skills in job poster",
+        "id": "jobBuilder.skills.range.futureSkills"
+      },
+      {
+        "defaultMessage": "Can't find the skill you need?",
+        "description": "Title of instructions for missing skill",
+        "id": "jobBuilder.skills.title.missingSkill"
+      },
+      {
+        "defaultMessage": "Building a skills list is a huge endeavour, and it's not\r\n  surprising that Talent Cloud's list doesn't have the skill\r\n  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to\r\n  kick-off the discussion.",
+        "id": "jobBuilder.skills.instructions.missingSkills"
+      },
+      {
+        "defaultMessage": "Other Skills",
+        "description": "Title of other skills section",
+        "id": "jobBuilder.skills.title.otherSkills"
+      },
+      {
+        "defaultMessage": "There are no extra skills added.",
+        "description": "Placeholder when there are no other skills",
+        "id": "jobBuilder.skills.placeholder.otherSkills"
+      },
+      {
+        "defaultMessage": "Save & Return to Tasks",
+        "description": "Button Label",
+        "id": "jobBuilder.skills.button.returnToTasks"
+      },
+      {
+        "defaultMessage": "Key Tasks",
+        "description": "Title of Key Tasks Section",
+        "id": "jobBuilder.skills.title.keyTasks"
+      },
+      {
+        "defaultMessage": "Back to Skills",
+        "description": "The text displayed on the cancel button of the Key Tasks modal on the Job Builder Skills step.",
+        "id": "jobBuilder.skills.tasksModalCancelLabel"
+      },
+      {
+        "defaultMessage": "Add a skill",
+        "description": "Title of Add a skill Section",
+        "id": "jobBuilder.skills.title.addASkill"
+      },
+      {
+        "defaultMessage": "Edit skill",
+        "description": "Title of Edit skill Modal",
+        "id": "jobBuilder.skills.title.editSkill"
+      },
+      {
+        "defaultMessage": "Keep it up!",
+        "description": "Title of Keep it up! Modal",
+        "id": "jobBuilder.skills.title.keepItUp"
+      },
+      {
+        "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to\r\n                go back and edit things or move to the next step if you're\r\n                happy with it.",
+        "description": "Body text of Keep it up! Modal",
+        "id": "jobBuilder.skills.description.keepItUp"
+      },
+      {
+        "defaultMessage": "Skills the Employee Needs to Have",
+        "description": "Section Header in Modal",
+        "id": "jobBuilder.skills.title.needsToHave"
+      },
+      {
+        "defaultMessage": "Skills That Would Be Nice For the Employee to Have",
+        "description": "Section Header in Modal",
+        "id": "jobBuilder.skills.title.niceToHave"
+      },
+      {
         "defaultMessage": "Go Back",
         "description": "The text displayed on the cancel button of the Job Builder Skills Preview modal.",
-        "id": "jobSkills.previewModalCancelLabel"
+        "id": "jobBuilder.skills.previewModalCancelLabel"
       },
       {
         "defaultMessage": "Next Step",
         "description": "The text displayed on the confirm button of the Job Builder Skills Preview modal.",
-        "id": "jobSkills.previewModalConfirmLabel"
+        "id": "jobBuilder.skills.previewModalConfirmLabel"
       }
     ],
     "path": "resources/assets/js/components/JobBuilderSkills/JobBuilderSkills.json"
@@ -1396,7 +1675,12 @@
         "id": "jobBuilder.workEnv.cultureSubtext1"
       },
       {
-        "defaultMessage": "Preview Work Environment",
+        "defaultMessage": "Save & Return to Job Details",
+        "description": "Label for Save & Return button on Work Environment form.",
+        "id": "jobBuilder.workEnv.saveAndReturnButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Preview",
         "description": "Label for work environment submit button.",
         "id": "jobBuilder.workEnv.submitButtonLabel"
       }
@@ -1601,6 +1885,46 @@
         "id": "jobDetails.frequencyNeverLabel"
       },
       {
+        "defaultMessage": "Select a travel option:",
+        "description": "The form label displayed on the travel radio group.",
+        "id": "jobDetails.travelGroupLabel"
+      },
+      {
+        "defaultMessage": "Yes, travel is frequently required for the position.",
+        "description": "The form label displayed on 'frequently' travel options",
+        "id": "jobDetails.travelFrequentlyLabel"
+      },
+      {
+        "defaultMessage": "Yes, travel opportunities are available for those that are interested.",
+        "description": "The form label displayed on 'travel opportunities available' travel options",
+        "id": "jobDetails.travelOpportunitiesAvailableLabel"
+      },
+      {
+        "defaultMessage": "No, travel is not required for the position.",
+        "description": "The form label displayed on 'no travel required' travel options",
+        "id": "jobDetails.travelNoneRequiredLabel"
+      },
+      {
+        "defaultMessage": "Select a overtime option:",
+        "description": "The form label displayed on the overtime radio group.",
+        "id": "jobDetails.overtimeGroupLabel"
+      },
+      {
+        "defaultMessage": "Yes, overtime is frequently required for the position.",
+        "description": "The form label displayed on 'frequently' overtime options",
+        "id": "jobDetails.overtimeFrequentlyLabel"
+      },
+      {
+        "defaultMessage": "Yes, overtime opportunities are available for those that are interested.",
+        "description": "The form label displayed on 'overtime opportunities available' overtime options",
+        "id": "jobDetails.overtimeOpportunitiesAvailableLabel"
+      },
+      {
+        "defaultMessage": "No, overtime is not required for the position.",
+        "description": "The form label displayed on 'no overtime required' overtime options",
+        "id": "jobDetails.overtimeNoneRequiredLabel"
+      },
+      {
         "defaultMessage": "AS - Administrative Services",
         "description": "Job Classification from list of Classifications",
         "id": "jobDetails.classificationOptions.AS"
@@ -1696,7 +2020,22 @@
         "id": "jobDetails.flexHoursGroupBody"
       },
       {
-        "defaultMessage": "Next",
+        "defaultMessage": "Is travel required?",
+        "description": "Header message displayed on the travel group input.",
+        "id": "jobDetails.travelGroupHeader"
+      },
+      {
+        "defaultMessage": "Is overtime required?",
+        "description": "Header message displayed on the overtime group input.",
+        "id": "jobDetails.overtimeGroupHeader"
+      },
+      {
+        "defaultMessage": "Save & Return to Intro",
+        "description": "The text displayed on the Save & Return button of the Job Details form.",
+        "id": "jobDetails.returnButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Preview",
         "description": "The text displayed on the submit button for the Job Details form.",
         "id": "jobDetails.submitButtonLabel"
       },
@@ -1891,12 +2230,12 @@
         "id": "jobTasks.addJob"
       },
       {
-        "defaultMessage": "Previous Step",
+        "defaultMessage": "Save & Return to Impact",
         "description": "Text on the Previous Step button.",
         "id": "jobTasks.previous"
       },
       {
-        "defaultMessage": "Preview Tasks",
+        "defaultMessage": "Save & Preview Tasks",
         "description": "Text on the Preview Tasks button.",
         "id": "jobTasks.preview"
       },

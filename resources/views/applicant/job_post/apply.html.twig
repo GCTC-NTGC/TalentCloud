@@ -49,11 +49,11 @@
                 class="box med-6of7">
                 <p
                     class="job-post__apply-content-preference">
+                {% if job.department.preference is not empty %}
+                    {{ job.department.preference }}
+                {% else %}
                     {{ job_post.apply.preference }}
-                </p>
-                <p
-                    class="job-post__apply-content-preference">
-                    {{ job_post.apply.nrc }}
+                {% endif %}
                 </p>
             </div>
 
