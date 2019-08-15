@@ -284,7 +284,7 @@ export const educationMessages = defineMessages({
   },
   CO: {
     id: "jobDetails.educationMessages.CO",
-    defaultMessage: `Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.`,
+    defaultMessage: `Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.`,
     description: "Job Classification message from list of Classifications",
   },
   CR: {
