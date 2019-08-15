@@ -21,7 +21,10 @@ import {
 } from "../../store/Job/jobSelector";
 import { getSkills } from "../../store/Skill/skillSelector";
 import { DispatchType } from "../../configureStore";
-import { batchUpdateCriteria } from "../../store/Job/jobActions";
+import {
+  batchUpdateCriteria,
+  submitJobForReview,
+} from "../../store/Job/jobActions";
 import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
 import {
   isJobBuilderComplete,
@@ -43,10 +46,8 @@ interface JobBuilderReviewPageProps {
   criteria: Criteria[];
   departments: Department[];
   manager: Manager | null;
-  managerUser: User | null;
   handleSubmitJob: (job: Job) => Promise<void>;
   loadManager: (managerId: number) => Promise<void>;
-  loadUser: (userId: number) => Promise<void>;
 }
 
 const JobBuilderReviewPage: React.FunctionComponent<
@@ -59,7 +60,6 @@ const JobBuilderReviewPage: React.FunctionComponent<
   criteria,
   departments,
   manager,
-  managerUser,
   handleSubmitJob,
   intl,
 }): React.ReactElement => {
@@ -81,11 +81,10 @@ const JobBuilderReviewPage: React.FunctionComponent<
     isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="review">
-      {job !== null && manager !== null && managerUser !== null && (
+      {job !== null && (
         <JobReview
           job={job}
           manager={manager}
-          managerName={managerUser.name}
           tasks={keyTasks}
           criteria={criteria}
           skills={skills}
@@ -124,10 +123,13 @@ const mapDispatchToProps = (
 ): {
   handleSubmitJob: (job: Job) => Promise<void>;
   loadManager: (managerId: number) => Promise<void>;
-  loadUser: (userId: number) => Promise<void>;
 } => ({
-  handleSubmitJob: async (job: Job) => {
-    // FIXME: submit job
+  handleSubmitJob: async (job: Job): Promise<void> => {
+    const result = await dispatch(submitJobForReview(job.id));
+    if (result.error) {
+      return Promise.reject(result.payload);
+    }
+    return Promise.resolve();
   },
   loadManager: async (managerId: number): Promise<void> => {
     const result = await dispatch(fetchManager(managerId));
@@ -137,9 +139,6 @@ const mapDispatchToProps = (
     const resultManager = await result.payload;
     dispatch(setSelectedManager(resultManager.id));
     return Promise.resolve();
-  },
-  loadUser: async (userId: number): Promise<void> => {
-    // FIXME: get user
   },
 });
 

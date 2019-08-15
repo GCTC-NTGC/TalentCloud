@@ -156,8 +156,7 @@ const languageRequirementIcons = (
 
 interface JobReviewProps {
   job: Job;
-  manager: Manager;
-  managerName: string;
+  manager: Manager | null;
   tasks: JobPosterKeyTask[];
   criteria: Criteria[];
   // List of all possible skills.
@@ -175,7 +174,6 @@ export const JobReview: React.FunctionComponent<
 > = ({
   job,
   manager,
-  managerName,
   tasks,
   criteria,
   skills,
@@ -453,12 +451,19 @@ export const JobReview: React.FunctionComponent<
           linkLabel="Edit This in Your Profile"
           link={managerEditProfile(locale)}
         >
-          {/** TODO: Double check which fields to show for the manager section */}
-          <p data-c-margin="bottom(normal)">{managerName}</p>
-          <p data-c-margin="bottom(normal)">
-            {manager[locale].position} at {getDeptName(manager.department_id)}
-          </p>
-          <p>{manager[locale].about_me}</p>
+          {manager !== null ? (
+            <>
+              {/** TODO: Double check which fields to show for the manager section */}
+              <p data-c-margin="bottom(normal)">{manager.name}</p>
+              <p data-c-margin="bottom(normal)">
+                {manager[locale].position} at{" "}
+                {getDeptName(manager.department_id)}
+              </p>
+              <p>{manager[locale].about_me}</p>
+            </>
+          ) : (
+            <p data-c-margin="bottom(normal)">Manager data is loading...</p>
+          )}
         </JobReviewSection>
         <JobReviewSection
           title="Work Culture"

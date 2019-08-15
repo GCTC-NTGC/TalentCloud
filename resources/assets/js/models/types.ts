@@ -64,6 +64,7 @@ export interface ManagerTranslation {
 export interface Manager {
   id: number;
   user_id: number;
+  name: string;
   department_id: number | null;
   twitter_username: string | null;
   linkedin_url: string | null;
