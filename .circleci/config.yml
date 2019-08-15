@@ -10,7 +10,6 @@ jobs: # a collection of steps
       - run: sudo docker-php-ext-install zip
       - run: sudo composer self-update
       - run: cp .env.testing .env
-      - run: php artisan config:cache
       - restore_cache: # special step to restore the dependency cache if `composer.lock` does not change
           keys:
             - composer-v1-{{ checksum "composer.lock" }}
@@ -32,6 +31,7 @@ jobs: # a collection of steps
           paths:
             - node_modules
       - run: touch storage/testing.sqlite
+      - run: php artisan config:cache
       - run: php artisan migrate --env=testing --database=sqlite_testing --force
       - run: php artisan db:seed
       - run: ./vendor/bin/phpunit
