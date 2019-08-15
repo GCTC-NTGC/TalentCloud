@@ -32,8 +32,21 @@ jobs: # a collection of steps
             - node_modules
       - run: touch storage/testing.sqlite
       - run: php artisan migrate --env=testing --database=sqlite_testing --force
+      - run: php artisan db:seed
       - run: ./vendor/bin/phpunit
       - store_test_results:
           path: tests/_output
       - store_artifacts:
           path: tests/_output
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+          filters:
+            branches:
+              only: feature/circleci-integration
