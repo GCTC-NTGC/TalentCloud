@@ -5,7 +5,11 @@ import ReactDOM from "react-dom";
 import RootContainer from "../RootContainer";
 import { Job, JobPosterKeyTask, Criteria, Skill } from "../../models/types";
 import JobBuilderSkills from "./JobBuilderSkills";
-import { managerJobIndex, jobBuilderTasks } from "../../helpers/routes";
+import {
+  managerJobIndex,
+  jobBuilderTasks,
+  jobBuilderReview,
+} from "../../helpers/routes";
 import { RootState } from "../../store/store";
 import {
   getJob,
@@ -55,7 +59,7 @@ const JobBuilderSkillsPage: React.FunctionComponent<
   };
   const handleContinue = (): void => {
     // Continue to next page
-    window.location.href = managerJobIndex(locale);
+    window.location.href = jobBuilderReview(locale, jobId);
   };
 
   const handleSubmit = (tasks: Criteria[]): Promise<Criteria[]> =>

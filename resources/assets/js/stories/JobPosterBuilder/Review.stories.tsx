@@ -37,7 +37,6 @@ stories.add(
           1,
         ),
       }}
-      managerName="Gray O'Byrne"
       manager={fakeManager()}
       tasks={fakeJobTasks()}
       criteria={[fakeCriterion()]}

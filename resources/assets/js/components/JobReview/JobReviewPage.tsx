@@ -146,3 +146,19 @@ const JobReviewPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(injectIntl(JobBuilderReviewPage));
+
+if (document.getElementById("job-builder-review")) {
+  const container = document.getElementById(
+    "job-builder-review",
+  ) as HTMLElement;
+  const jobIdAttr = container.getAttribute("data-job-id");
+  const jobId = jobIdAttr ? Number(jobIdAttr) : null;
+  if (jobId) {
+    ReactDOM.render(
+      <RootContainer>
+        <JobReviewPageContainer jobId={jobId} />
+      </RootContainer>,
+      container,
+    );
+  }
+}

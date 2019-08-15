@@ -78,4 +78,16 @@ class JobBuilderController extends Controller
             ['title' => Lang::get('manager/job_builder.skills_title'), 'jobId' => $jobId]
         );
     }
+
+    /**
+     * Show the Job Builder Review page
+     * @return \Illuminate\Http\Response
+     */
+    public function review($jobId)
+    {
+        return view(
+            'manager/job-builder-review',
+            ['title' => Lang::get('manager/job_builder.review_title'), 'jobId' => $jobId]
+        );
+    }
 }

@@ -13,4 +13,5 @@ return [
     'impact_title' => 'Job Builder: Impact',
     'tasks_title' => 'Job Builder: Tasks',
     'skills_title' => 'Job Builder: Skills',
+    'review_title' => 'Job Builder: Review',
  ];

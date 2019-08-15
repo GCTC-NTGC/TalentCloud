@@ -7,6 +7,7 @@ export const fakeManager = (id = 1, user_id = 1): Manager => ({
   department_id: 1,
   twitter_username: null,
   linkedin_url: null,
+  name: "Gray O'Bryne",
   en: {
     branch: "CIOB",
     division: "Talent Cloud",

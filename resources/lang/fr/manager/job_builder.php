@@ -13,4 +13,5 @@ return [
     'impact_title' => 'Constructeur d\'Affiches: Impact',
     'tasks_title' => 'Constructeur d\'Affiches: Taches',
     'skills_title' => 'Constructeur d\'Affiches: Compétences',
+    'review_title' => 'Constructeur d\'Affiches: Revue',
  ];
