@@ -1,62 +1,37 @@
-version: 2
-jobs:
-  build:
-    docker:
-      # Specify the version you desire here
-      - image: circleci/php:7.2-stretch-node-browsers
+version: 2 # use CircleCI 2.0
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # Using the RAM variation mitigates I/O contention
-      # for database intensive operations.
-      - image: circleci/postgres:9.6-alpine
-
-    steps:
-      - checkout
-
-      - run: cp .env.testing .env
-      - run: sudo apt update && sudo apt install zlib1g-dev
+jobs: # a collection of steps
+  build: # runs not using Workflows must have a `build` job as entry point
+    docker: # run the steps with Docker
+      - image: circleci/php:7.2-node-browsers # ...with this image as the primary container; this is where all `steps` will run
+    steps: # a set of executable commands
+      - checkout # special step to check out source code to working directory
+      - run: sudo apt install -y libsqlite3-dev zlib1g-dev
       - run: sudo docker-php-ext-install zip
-
-      # Download and cache dependencies
-
-      # composer cache
-      - restore_cache:
+      - run: sudo composer self-update
+      - restore_cache: # special step to restore the dependency cache if `composer.lock` does not change
           keys:
-            # "composer.lock" can be used if it is committed to the repo
-            - v1-dependencies-{{ checksum "composer.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
+            - composer-v1-{{ checksum "composer.lock" }}
+            # fallback to using the latest cache if no exact match is found (See https://circleci.com/docs/2.0/caching/)
+            - composer-v1-
       - run: composer install -n --prefer-dist
-
-      - save_cache:
+      - save_cache: # special step to save the dependency cache with the `composer.lock` cache key template
           key: composer-v1-{{ checksum "composer.lock" }}
           paths:
             - vendor
-
-      # node cache
-      - restore_cache:
+      - restore_cache: # special step to restore the dependency cache if `package.json` does not change
           keys:
-            - node-v4-{{ checksum "package.json" }}
-            - node-v4-
+            - node-v1-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found (See https://circleci.com/docs/2.0/caching/)
+            - node-v1-
       - run: npm install
-      - save_cache:
-          key: node-v4-{{ checksum "package.json" }}
+      - save_cache: # special step to save the dependency cache with the `package.json` cache key template
+          key: node-v1-{{ checksum "package.json" }}
           paths:
             - node_modules
-            - ~/.yarn
-
-      # prepare the database
-      - run: touch storage/testing.postgresql
-      - run: php artisan migrate && php artisan db:seed
-
-      # run tests with phpunit or codecept
+      - run: touch storage/testing.sqlite
+      - run: php artisan migrate --env=testing --database=sqlite_testing --force
       - run: ./vendor/bin/phpunit
-      # this example uses codecept but you're not limited to it
-      #- run: ./vendor/bin/codecept build
-      #- run: ./vendor/bin/codecept run --xml result.xml
       - store_test_results:
           path: tests/_output
       - store_artifacts:
