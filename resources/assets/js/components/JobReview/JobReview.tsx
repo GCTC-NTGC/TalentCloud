@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import {
   JobPosterKeyTask,
@@ -37,6 +37,7 @@ import {
 import Criterion from "../JobBuilder/Criterion";
 import JobWorkEnv from "../JobBuilder/JobWorkEnv";
 import JobWorkCulture from "../JobBuilder/JobWorkCulture";
+import Modal from "../Modal";
 
 interface JobReviewSectionProps {
   title: string;
@@ -163,6 +164,7 @@ interface JobReviewProps {
   skills: Skill[];
   // List of all possible departments.
   departments: Department[];
+  validForSubmission?: boolean;
   handleSubmit: (job: Job) => Promise<void>;
   handleContinue: () => void;
   handleReturn: () => void;
@@ -178,11 +180,16 @@ export const JobReview: React.FunctionComponent<
   criteria,
   skills,
   departments,
+  validForSubmission,
   handleSubmit,
   handleContinue,
   handleReturn,
   intl,
 }): React.ReactElement => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const modalId = "job-review-modal";
+  const modalParentRef = useRef<HTMLDivElement>(null);
+
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unknown intl.locale");
@@ -219,258 +226,383 @@ export const JobReview: React.FunctionComponent<
     : [];
 
   return (
-    <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
-      <h3
-        data-c-font-size="h3"
-        data-c-font-weight="bold"
-        data-c-margin="bottom(double)"
+    <>
+      <div
+        data-c-container="form"
+        data-c-padding="top(triple) bottom(triple)"
+        ref={modalParentRef}
       >
-        Review Your Job Poster for:{" "}
-        <span data-c-colour="c2">External Recruiter</span>
-      </h3>
-      <p>
-        Just a heads up! We've rearranged some of your information to help you
-        understand how an applicant will see it once published.
-      </p>
-
-      <JobReviewSection
-        title="Job Page Heading"
-        linkLabel="Edit This in Step 01: Job Info"
-        link={jobBuilderDetails(locale, job.id)}
-      >
-        <p data-c-font-weight="bold" data-c-margin="bottom(half)">
-          {job[locale].title}
-        </p>
-        <p data-c-margin="bottom(normal)">{departmentName}</p>
-        <p data-c-margin="bottom(half)">
-          <i
-            data-c-colour="c2"
-            className="fas fa-map-marker-alt"
-            title="Location Icon."
-          >
-            &nbsp;&nbsp;
-          </i>
-          {job[locale].city},{" "}
-          {job.province_id !== null
-            ? intl.formatMessage(provinceName(job.province_id))
-            : "MISSING PROVINCE"}
-        </p>
+        <h3
+          data-c-font-size="h3"
+          data-c-font-weight="bold"
+          data-c-margin="bottom(double)"
+        >
+          Review Your Job Poster for:{" "}
+          <span data-c-colour="c2">External Recruiter</span>
+        </h3>
         <p>
-          <i
-            data-c-colour="c2"
-            className="fas fa-home"
-            title="Remote Work Icon."
-          >
-            &nbsp;&nbsp;
-          </i>
-          {job.remote_work_allowed ? (
-            <FormattedMessage
-              id="jobBuilder.review.remoteAllowed"
-              defaultMessage="Remote Work Allowed"
-              description="Text displayed when remote work is allowed."
-            />
-          ) : (
-            <FormattedMessage
-              id="jobBuilder.review.remoteNotAllowed"
-              defaultMessage="Remote Work Not Allowed"
-              description="Text displayed when remote work is not allowed."
-            />
-          )}
+          Just a heads up! We've rearranged some of your information to help you
+          understand how an applicant will see it once published.
         </p>
-      </JobReviewSection>
-      <JobReviewSection
-        title="Basic Information"
-        linkLabel="Edit This in Step 01: Job Info"
-        link={jobBuilderDetails(locale, job.id)}
-      >
+        <JobReviewSection
+          title="Job Page Heading"
+          linkLabel="Edit This in Step 01: Job Info"
+          link={jobBuilderDetails(locale, job.id)}
+        >
+          <p data-c-font-weight="bold" data-c-margin="bottom(half)">
+            {job[locale].title}
+          </p>
+          <p data-c-margin="bottom(normal)">{departmentName}</p>
+          <p data-c-margin="bottom(half)">
+            <i
+              data-c-colour="c2"
+              className="fas fa-map-marker-alt"
+              title="Location Icon."
+            >
+              &nbsp;&nbsp;
+            </i>
+            {job[locale].city},{" "}
+            {job.province_id !== null
+              ? intl.formatMessage(provinceName(job.province_id))
+              : "MISSING PROVINCE"}
+          </p>
+          <p>
+            <i
+              data-c-colour="c2"
+              className="fas fa-home"
+              title="Remote Work Icon."
+            >
+              &nbsp;&nbsp;
+            </i>
+            {job.remote_work_allowed ? (
+              <FormattedMessage
+                id="jobBuilder.review.remoteAllowed"
+                defaultMessage="Remote Work Allowed"
+                description="Text displayed when remote work is allowed."
+              />
+            ) : (
+              <FormattedMessage
+                id="jobBuilder.review.remoteNotAllowed"
+                defaultMessage="Remote Work Not Allowed"
+                description="Text displayed when remote work is not allowed."
+              />
+            )}
+          </p>
+        </JobReviewSection>
+        <JobReviewSection
+          title="Basic Information"
+          linkLabel="Edit This in Step 01: Job Info"
+          link={jobBuilderDetails(locale, job.id)}
+        >
+          <div data-c-grid="gutter">
+            <div data-c-grid-item="tp(1of2)">
+              <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                Average Annual Salary
+              </p>
+              <p>Talent Cloud will add this.</p>
+            </div>
+            <div data-c-grid-item="tp(1of2)">
+              <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                Language Profile
+              </p>
+              <p>
+                {job.province_id
+                  ? intl.formatMessage(provinceName(job.province_id))
+                  : ""}
+              </p>
+            </div>
+            <div data-c-grid-item="tp(1of2)">
+              <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                Duration
+              </p>
+              <p>{job.term_qty} Months</p>
+            </div>
+            <div data-c-grid-item="tp(1of2)">
+              <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                Security Clearance
+              </p>
+              <p>
+                {job.security_clearance_id
+                  ? intl.formatMessage(
+                      securityClearance(job.security_clearance_id),
+                    )
+                  : ""}
+              </p>
+            </div>
+            <div data-c-grid-item="tp(1of2)">
+              <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                Target Start Date
+              </p>
+              <p>This comes later.</p>
+            </div>
+            <div data-c-grid-item="tp(1of2)">
+              <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                Government Classification
+              </p>
+              <p>
+                {job.classification_code}-0{job.classification_level}
+              </p>
+            </div>
+          </div>
+        </JobReviewSection>
+        <JobReviewSection
+          title="Impact"
+          linkLabel="Edit This in Step 03: Impact"
+          link={jobBuilderImpact(locale, job.id)}
+        >
+          <p data-c-margin="bottom(normal)">{job[locale].dept_impact}</p>
+          <p data-c-margin="bottom(normal)">{job[locale].team_impact}</p>
+          <p>{job[locale].hire_impact}</p>
+        </JobReviewSection>
+        <JobReviewSection
+          title="Tasks"
+          linkLabel="Edit This in Step 04: Tasks"
+          link={jobBuilderTasks(locale, job.id)}
+        >
+          <ul>
+            {tasks.map(
+              (task: JobPosterKeyTask): React.ReactElement => (
+                <li key={task.id}>{task[locale].description}</li>
+              ),
+            )}
+          </ul>
+        </JobReviewSection>
+        {sectionTitle("Criteria")}
+        <JobReviewSection
+          title="Education Requirements"
+          isSubsection
+          linkLabel="Edit This in Step 01: Job Info"
+          link={jobBuilderDetails(locale, job.id)}
+        >
+          {job[locale].education}
+        </JobReviewSection>
+        <JobReviewSection
+          title="Skills You Need to Have"
+          isSubsection
+          linkLabel="Edit This in Step 05: Skills"
+          link={jobBuilderSkills(locale, job.id)}
+        >
+          {essentialCriteria.map((criterion): React.ReactElement | null => {
+            const skill = getSkillOfCriteria(criterion);
+            if (skill === null) {
+              return null;
+            }
+            return (
+              <Criterion
+                criterion={criterion}
+                skill={skill}
+                key={criterion.id}
+              />
+            );
+          })}
+        </JobReviewSection>
+        <JobReviewSection
+          title="Skills That Are Nice to Have"
+          isSubsection
+          linkLabel="Edit This in Step 05: Skills"
+          link={jobBuilderSkills(locale, job.id)}
+        >
+          {assetCriteria.map((criterion): React.ReactElement | null => {
+            const skill = getSkillOfCriteria(criterion);
+            if (skill === null) {
+              return null;
+            }
+            return (
+              <Criterion
+                criterion={criterion}
+                skill={skill}
+                key={criterion.id}
+              />
+            );
+          })}
+        </JobReviewSection>
+        <JobReviewSection
+          title="Language Requirements"
+          linkLabel="Edit This in Step 01: Job Info"
+          link={jobBuilderDetails(locale, job.id)}
+        >
+          {/** TODO: get lang data from job */}
+          {job.language_requirement_id && (
+            <>
+              <p
+                className="job-builder-review-language"
+                data-c-margin="bottom(normal)"
+              >
+                {languageRequirementIcons(job.language_requirement_id)}
+                {intl.formatMessage(
+                  languageRequirement(job.language_requirement_id),
+                )}
+              </p>
+              <p data-c-margin="bottom(normal)">
+                {intl.formatMessage(
+                  languageRequirementDescription(job.language_requirement_id),
+                )}
+              </p>
+              <p data-c-margin="top(normal)">
+                {intl.formatMessage(
+                  languageRequirementContext(job.language_requirement_id),
+                )}
+              </p>
+            </>
+          )}
+        </JobReviewSection>
+        {sectionTitle("Environment & Culture")}
+        <JobReviewSection
+          title="Manager Information"
+          isSubsection
+          linkLabel="Edit This in Your Profile"
+          link={managerEditProfile(locale)}
+        >
+          {/** TODO: Double check which fields to show for the manager section */}
+          <p data-c-margin="bottom(normal)">{managerName}</p>
+          <p data-c-margin="bottom(normal)">
+            {manager[locale].position} at {getDeptName(manager.department_id)}
+          </p>
+          <p>{manager[locale].about_me}</p>
+        </JobReviewSection>
+        <JobReviewSection
+          title="Work Culture"
+          isSubsection
+          linkLabel="Edit This in Step 02: Work Environment"
+          link={jobBuilderEnv(locale, job.id)}
+        >
+          {job[locale].culture_summary && <p>{job[locale].culture_summary}</p>}
+          {job[locale].culture_special && <p>{job[locale].culture_special}</p>}
+        </JobReviewSection>
+        <JobReviewSection
+          title="Work Environment"
+          isSubsection
+          linkLabel="Edit This in Step 02: Work Environment"
+          link={jobBuilderEnv(locale, job.id)}
+          description={`Please note that some Work Environment information is only presented to the applicant after they've clicked the "View the team's work environment and culture" button that appears on the job poster.`}
+        >
+          <JobWorkEnv
+            teamSize={job.team_size || 0}
+            selectedEnvOptions={selectedEnvOptions}
+          />
+        </JobReviewSection>
+        <JobReviewSection
+          title="Other Team Information"
+          isSubsection
+          linkLabel="Edit This in Step 01: Job Info"
+          link={jobBuilderDetails(locale, job.id)}
+        >
+          <JobWorkCulture job={job} />
+        </JobReviewSection>
         <div data-c-grid="gutter">
-          <div data-c-grid-item="tp(1of2)">
-            <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-              Average Annual Salary
-            </p>
-            <p>Talent Cloud will add this.</p>
+          <div data-c-grid-item="base(1of1)">
+            <hr data-c-margin="top(normal) bottom(normal)" />
           </div>
-          <div data-c-grid-item="tp(1of2)">
-            <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-              Language Profile
-            </p>
-            <p>
-              {job.province_id
-                ? intl.formatMessage(provinceName(job.province_id))
-                : ""}
-            </p>
+          <div
+            data-c-alignment="base(centre) tp(left)"
+            data-c-grid-item="tp(1of2)"
+          >
+            <button
+              data-c-button="outline(c2)"
+              data-c-radius="rounded"
+              type="button"
+              onClick={(): void => handleReturn()}
+            >
+              <FormattedMessage
+                id="jobBuilder.review.button.return"
+                defaultMessage="Save &amp; Return to Skills"
+                description="Label of 'Previous Step' button."
+              />
+            </button>
           </div>
-          <div data-c-grid-item="tp(1of2)">
-            <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-              Duration
-            </p>
-            <p>{job.term_qty} Months</p>
-          </div>
-          <div data-c-grid-item="tp(1of2)">
-            <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-              Security Clearance
-            </p>
-            <p>
-              {job.security_clearance_id
-                ? intl.formatMessage(
-                    securityClearance(job.security_clearance_id),
-                  )
-                : ""}
-            </p>
-          </div>
-          <div data-c-grid-item="tp(1of2)">
-            <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-              Target Start Date
-            </p>
-            <p>This comes later.</p>
-          </div>
-          <div data-c-grid-item="tp(1of2)">
-            <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-              Government Classification
-            </p>
-            <p>
-              {job.classification_code}-0{job.classification_level}
-            </p>
+          <div
+            data-c-alignment="base(centre) tp(right)"
+            data-c-grid-item="tp(1of2)"
+          >
+            {/* Modal trigger, same as last step. */}
+            <button
+              data-c-button="solid(c2)"
+              data-c-radius="rounded"
+              type="button"
+              disabled={!validForSubmission}
+              onClick={(): void => setIsModalVisible(true)}
+            >
+              <FormattedMessage
+                id="jobBuilder.review.button.submit"
+                defaultMessage="Send to HR for Review"
+                description="Label of Job Review Submission Button"
+              />
+            </button>
           </div>
         </div>
-      </JobReviewSection>
-      <JobReviewSection
-        title="Impact"
-        linkLabel="Edit This in Step 03: Impact"
-        link={jobBuilderImpact(locale, job.id)}
-      >
-        <p data-c-margin="bottom(normal)">{job[locale].dept_impact}</p>
-        <p data-c-margin="bottom(normal)">{job[locale].team_impact}</p>
-        <p>{job[locale].hire_impact}</p>
-      </JobReviewSection>
-      <JobReviewSection
-        title="Tasks"
-        linkLabel="Edit This in Step 04: Tasks"
-        link={jobBuilderTasks(locale, job.id)}
-      >
-        <ul>
-          {tasks.map(
-            (task: JobPosterKeyTask): React.ReactElement => (
-              <li key={task.id}>{task[locale].description}</li>
-            ),
-          )}
-        </ul>
-      </JobReviewSection>
-      {sectionTitle("Criteria")}
-      <JobReviewSection
-        title="Education Requirements"
-        isSubsection
-        linkLabel="Edit This in Step 01: Job Info"
-        link={jobBuilderDetails(locale, job.id)}
-      >
-        {job[locale].education}
-      </JobReviewSection>
-      <JobReviewSection
-        title="Skills You Need to Have"
-        isSubsection
-        linkLabel="Edit This in Step 05: Skills"
-        link={jobBuilderSkills(locale, job.id)}
-      >
-        {essentialCriteria.map((criterion): React.ReactElement | null => {
-          const skill = getSkillOfCriteria(criterion);
-          if (skill === null) {
-            return null;
+      </div>
+      <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
+      <Modal
+        id={modalId}
+        visible={isModalVisible}
+        onModalCancel={(): void => setIsModalVisible(false)}
+        onModalConfirm={async (): Promise<void> => {
+          try {
+            await handleSubmit(job);
+            handleContinue();
+          } catch {
+            setIsModalVisible(false);
           }
-          return (
-            <Criterion criterion={criterion} skill={skill} key={criterion.id} />
-          );
-        })}
-      </JobReviewSection>
-      <JobReviewSection
-        title="Skills That Are Nice to Have"
-        isSubsection
-        linkLabel="Edit This in Step 05: Skills"
-        link={jobBuilderSkills(locale, job.id)}
+        }}
+        parentElement={modalParentRef.current}
       >
-        {assetCriteria.map((criterion): React.ReactElement | null => {
-          const skill = getSkillOfCriteria(criterion);
-          if (skill === null) {
-            return null;
-          }
-          return (
-            <Criterion criterion={criterion} skill={skill} key={criterion.id} />
-          );
-        })}
-      </JobReviewSection>
-      <JobReviewSection
-        title="Language Requirements"
-        linkLabel="Edit This in Step 01: Job Info"
-        link={jobBuilderDetails(locale, job.id)}
-      >
-        {/** TODO: get lang data from job */}
-        {job.language_requirement_id && (
-          <>
-            <p
-              className="job-builder-review-language"
-              data-c-margin="bottom(normal)"
+        <Modal.Header>
+          <div
+            data-c-background="c1(100)"
+            data-c-border="bottom(thin, solid, black)"
+            data-c-padding="normal"
+          >
+            <h5
+              data-c-colour="white"
+              data-c-font-size="h4"
+              id={`${modalId}-title`}
             >
-              {languageRequirementIcons(job.language_requirement_id)}
-              {intl.formatMessage(
-                languageRequirement(job.language_requirement_id),
-              )}
+              <FormattedMessage
+                id="jobBuilder.review.confirm.title"
+                defaultMessage="Congrats! Are You Ready to Submit?"
+                description="Title of Submit Confirmation modal."
+              />
+            </h5>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <div data-c-padding="normal">
+            <p data-c-margin="bottom(normal)">
+              If you're ready to submit your poster, click the Submit button
+              below.
+            </p>
+            <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
+              What happens next?
             </p>
             <p data-c-margin="bottom(normal)">
-              {intl.formatMessage(
-                languageRequirementDescription(job.language_requirement_id),
-              )}
+              Talent Cloud will send your draft to your department's HR advisor
+              who will notify you with comments.
             </p>
-            <p data-c-margin="top(normal)">
-              {intl.formatMessage(
-                languageRequirementContext(job.language_requirement_id),
-              )}
+            <p>
+              In the meantime, feel free to go ahead and create a screening plan
+              for your selection process. Alternatively, you can wait for
+              comments to come back from HR before you take the next step.
             </p>
-          </>
-        )}
-      </JobReviewSection>
-      {sectionTitle("Environment & Culture")}
-      <JobReviewSection
-        title="Manager Information"
-        isSubsection
-        linkLabel="Edit This in Your Profile"
-        link={managerEditProfile(locale)}
-      >
-        {/** TODO: Double check which fields to show for the manager section */}
-        <p data-c-margin="bottom(normal)">{managerName}</p>
-        <p data-c-margin="bottom(normal)">
-          {manager[locale].position} at {getDeptName(manager.department_id)}
-        </p>
-        <p>{manager[locale].about_me}</p>
-      </JobReviewSection>
-      <JobReviewSection
-        title="Work Culture"
-        isSubsection
-        linkLabel="Edit This in Step 02: Work Environment"
-        link={jobBuilderEnv(locale, job.id)}
-      >
-        {job[locale].culture_summary && <p>{job[locale].culture_summary}</p>}
-        {job[locale].culture_special && <p>{job[locale].culture_special}</p>}
-      </JobReviewSection>
-      <JobReviewSection
-        title="Work Environment"
-        isSubsection
-        linkLabel="Edit This in Step 02: Work Environment"
-        link={jobBuilderEnv(locale, job.id)}
-        description={`Please note that some Work Environment information is only presented to the applicant after they've clicked the "View the team's work environment and culture" button that appears on the job poster.`}
-      >
-        <JobWorkEnv
-          teamSize={job.team_size || 0}
-          selectedEnvOptions={selectedEnvOptions}
-        />
-      </JobReviewSection>
-      <JobReviewSection
-        title="Other Team Information"
-        isSubsection
-        linkLabel="Edit This in Step 01: Job Info"
-        link={jobBuilderDetails(locale, job.id)}
-      >
-        <JobWorkCulture job={job} />
-      </JobReviewSection>
-    </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Modal.FooterCancelBtn>
+            <FormattedMessage
+              id="jobBuilder.review.confirm.cancel"
+              defaultMessage="Cancel"
+              description="Cancel button of Job Review confirmation modal."
+            />
+          </Modal.FooterCancelBtn>
+          <Modal.FooterConfirmBtn>
+            <FormattedMessage
+              id="jobBuilder.review.confirm.submit"
+              defaultMessage="Yes, Submit"
+              description="Submit button of Job Review confirmation modal."
+            />
+          </Modal.FooterConfirmBtn>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 

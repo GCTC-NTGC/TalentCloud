@@ -43,6 +43,7 @@ stories.add(
       criteria={[fakeCriterion()]}
       skills={fakeSkills()}
       departments={fakeDepartments()}
+      validForSubmission
       handleSubmit={handleSubmit}
       handleContinue={action("Continue")}
       handleReturn={action("handleReturn")}
