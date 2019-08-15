@@ -161,18 +161,14 @@ export const amenitiesDescriptions = (
 ): { name: string; label: string }[] =>
   createOptions(amenitiesOptions, amenitiesMessages, intl);
 
-interface JobCultureProps {
+interface JobWorkEnv {
   teamSize: number;
-  selectedCultureOptions: string[];
+  selectedEnvOptions: string[];
 }
 
-export const JobCulture: React.FunctionComponent<
-  JobCultureProps & InjectedIntlProps
-> = ({
-  teamSize,
-  selectedCultureOptions,
-  intl,
-}): React.ReactElement => {
+export const JobWorkEnv: React.FunctionComponent<
+  JobWorkEnv & InjectedIntlProps
+> = ({ teamSize, selectedEnvOptions, intl }): React.ReactElement => {
   const phyEnvData: { name: string; label: string }[] = phyEnvDescriptions(
     intl,
   );
@@ -214,7 +210,7 @@ export const JobCulture: React.FunctionComponent<
           <div data-c-grid="gutter">
             {phyEnvData.map(
               ({ label, name }): React.ReactElement => {
-                const checked: boolean = selectedCultureOptions.includes(name);
+                const checked: boolean = selectedEnvOptions.includes(name);
                 return (
                   <div data-c-grid-item="tp(1of2)" key={name}>
                     <div
@@ -248,7 +244,7 @@ export const JobCulture: React.FunctionComponent<
           <div data-c-grid="gutter">
             {techData.map(
               ({ label, name }): React.ReactElement => {
-                const checked: boolean = selectedCultureOptions.includes(name);
+                const checked: boolean = selectedEnvOptions.includes(name);
                 return (
                   <div data-c-grid-item="tp(1of2)" key={name}>
                     <div
@@ -282,9 +278,7 @@ export const JobCulture: React.FunctionComponent<
           <div data-c-grid="gutter">
             {amenitiesData.map(
               ({ label, name }): React.ReactElement => {
-                const checked: boolean = selectedCultureOptions.includes(
-                  name,
-                );
+                const checked: boolean = selectedEnvOptions.includes(name);
                 return (
                   <div data-c-grid-item="tp(1of2)" key={name}>
                     <div
@@ -306,4 +300,4 @@ export const JobCulture: React.FunctionComponent<
   );
 };
 
-export default injectIntl(JobCulture);
+export default injectIntl(JobWorkEnv);

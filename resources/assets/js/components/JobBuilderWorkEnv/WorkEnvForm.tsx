@@ -34,7 +34,7 @@ import {
   phyEnvDescriptions,
   techDescriptions,
   amenitiesDescriptions,
-} from "./JobCulture";
+} from "../JobBuilder/JobWorkEnv";
 
 const formMessages = defineMessages({
   ourWorkEnvDesc: {

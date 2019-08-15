@@ -35,7 +35,8 @@ import {
   LanguageRequirementId,
 } from "../../models/lookupConstants";
 import Criterion from "../JobBuilder/Criterion";
-import JobCulture from "../JobBuilderWorkEnv/JobCulture";
+import JobWorkEnv from "../JobBuilder/JobWorkEnv";
+import JobWorkCulture from "../JobBuilder/JobWorkCulture";
 
 interface JobReviewSectionProps {
   title: string;
@@ -209,7 +210,7 @@ export const JobReview: React.FunctionComponent<
     (criterion): boolean => criterion.criteria_type_id === CriteriaTypeId.Asset,
   );
 
-  const selectedCultureOptions: string[] = job.work_env_features
+  const selectedEnvOptions: string[] = job.work_env_features
     ? Object.entries(job.work_env_features)
         .map(([feature, selected]): string | null =>
           selected ? feature : null,
@@ -296,7 +297,7 @@ export const JobReview: React.FunctionComponent<
             <p>
               {job.province_id
                 ? intl.formatMessage(provinceName(job.province_id))
-                : "MISSING PROVINCE"}
+                : ""}
             </p>
           </div>
           <div data-c-grid-item="tp(1of2)">
@@ -314,7 +315,7 @@ export const JobReview: React.FunctionComponent<
                 ? intl.formatMessage(
                     securityClearance(job.security_clearance_id),
                   )
-                : "MISSING SECURITY CLEARANCE"}
+                : ""}
             </p>
           </div>
           <div data-c-grid-item="tp(1of2)">
@@ -456,10 +457,18 @@ export const JobReview: React.FunctionComponent<
         link={jobBuilderEnv(locale, job.id)}
         description={`Please note that some Work Environment information is only presented to the applicant after they've clicked the "View the team's work environment and culture" button that appears on the job poster.`}
       >
-        <JobCulture
+        <JobWorkEnv
           teamSize={job.team_size || 0}
-          selectedCultureOptions={selectedCultureOptions}
+          selectedEnvOptions={selectedEnvOptions}
         />
+      </JobReviewSection>
+      <JobReviewSection
+        title="Other Team Information"
+        isSubsection
+        linkLabel="Edit This in Step 01: Job Info"
+        link={jobBuilderDetails(locale, job.id)}
+      >
+        <JobWorkCulture job={job} />
       </JobReviewSection>
     </div>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 import { FormValues } from "./WorkEnvForm";
 import Modal from "../Modal";
-import JobCulture from "./JobCulture";
+import JobWorkEnv from "../JobBuilder/JobWorkEnv";
 
 interface WorkEnvModalProps {
   modalConfirm: (values) => void;
@@ -83,9 +83,9 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                   description="Header of job poster builder work environment step."
                 />
               </h4>
-              <JobCulture
+              <JobWorkEnv
                 teamSize={values.teamSize || 0}
-                selectedCultureOptions={[
+                selectedEnvOptions={[
                   ...values.amenities,
                   ...values.physicalEnv,
                   ...values.technology,

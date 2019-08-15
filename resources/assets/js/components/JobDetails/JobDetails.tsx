@@ -25,12 +25,18 @@ import {
   LanguageRequirementId,
   SecurityClearanceId,
   ProvinceId,
+  FrequencyId,
+  TravelRequirementId,
+  OvertimeRequirementId,
 } from "../../models/lookupConstants";
 import { emptyJob } from "../../models/jobUtil";
 import {
   securityClearance,
   languageRequirement,
   provinceName,
+  frequencyName,
+  travelRequirementDescription,
+  overtimeRequirementDescription,
 } from "../../models/localizedConstants";
 
 const formMessages = defineMessages({
@@ -154,77 +160,15 @@ const formMessages = defineMessages({
     defaultMessage: "Select a flexible hours option:",
     description: "The form label displayed on the flex hours radio group.",
   },
-  frequencyAlwaysLabel: {
-    id: "jobDetails.frequencyAlwaysLabel",
-    defaultMessage: "Almost Always",
-    description: "The form label displayed on 'always' frequency options.",
-  },
-  frequencyFrequentlyLabel: {
-    id: "jobDetails.frequencyFrequentlyLabel",
-    defaultMessage: "Frequently",
-    description: "The form label displayed on 'frequently' frequency options.",
-  },
-  frequencySometimesLabel: {
-    id: "jobDetails.frequencySometimesLabel",
-    defaultMessage: "Sometimes",
-    description: "The form label displayed on 'sometimes' frequency options.",
-  },
-  frequencyOccasionallyLabel: {
-    id: "jobDetails.frequencyOccasionallyLabel",
-    defaultMessage: "Occasionally",
-    description:
-      "The form label displayed on 'occasionally' frequency options.",
-  },
-  frequencyNeverLabel: {
-    id: "jobDetails.frequencyNeverLabel",
-    defaultMessage: "Almost Never",
-    description: "The form label displayed on 'never' frequency options.",
-  },
   travelGroupLabel: {
     id: "jobDetails.travelGroupLabel",
     defaultMessage: "Select a travel option:",
     description: "The form label displayed on the travel radio group.",
   },
-  travelFrequentlyLabel: {
-    id: "jobDetails.travelFrequentlyLabel",
-    defaultMessage: "Yes, travel is frequently required for the position.",
-    description: "The form label displayed on 'frequently' travel options",
-  },
-  travelOpportunitiesAvailableLabel: {
-    id: "jobDetails.travelOpportunitiesAvailableLabel",
-    defaultMessage:
-      "Yes, travel opportunities are available for those that are interested.",
-    description:
-      "The form label displayed on 'travel opportunities available' travel options",
-  },
-  travelNoneRequiredLabel: {
-    id: "jobDetails.travelNoneRequiredLabel",
-    defaultMessage: "No, travel is not required for the position.",
-    description:
-      "The form label displayed on 'no travel required' travel options",
-  },
   overtimeGroupLabel: {
     id: "jobDetails.overtimeGroupLabel",
     defaultMessage: "Select a overtime option:",
     description: "The form label displayed on the overtime radio group.",
-  },
-  overtimeFrequentlyLabel: {
-    id: "jobDetails.overtimeFrequentlyLabel",
-    defaultMessage: "Yes, overtime is frequently required for the position.",
-    description: "The form label displayed on 'frequently' overtime options",
-  },
-  overtimeOpportunitiesAvailableLabel: {
-    id: "jobDetails.overtimeOpportunitiesAvailableLabel",
-    defaultMessage:
-      "Yes, overtime opportunities are available for those that are interested.",
-    description:
-      "The form label displayed on 'overtime opportunities available' overtime options",
-  },
-  overtimeNoneRequiredLabel: {
-    id: "jobDetails.overtimeNoneRequiredLabel",
-    defaultMessage: "No, overtime is not required for the position.",
-    description:
-      "The form label displayed on 'no overtime required' overtime options",
   },
 });
 
@@ -339,31 +283,31 @@ const teleworkOptions: {
 }[] = [
   {
     id: "teleworkNever",
-    label: formMessages.frequencyNeverLabel,
+    label: frequencyName(FrequencyId.never),
   },
   {
     id: "teleworkOccasionally",
-    label: formMessages.frequencyOccasionallyLabel,
+    label: frequencyName(FrequencyId.rarely),
   },
   {
     id: "teleworkSometimes",
-    label: formMessages.frequencySometimesLabel,
+    label: frequencyName(FrequencyId.sometimes),
   },
   {
     id: "teleworkFrequently",
-    label: formMessages.frequencyFrequentlyLabel,
+    label: frequencyName(FrequencyId.often),
   },
   {
     id: "teleworkAlways",
-    label: formMessages.frequencyAlwaysLabel,
+    label: frequencyName(FrequencyId.always),
   },
 ];
 const teleworkMessages = {
-  teleworkNever: formMessages.frequencyNeverLabel,
-  teleworkOccasionally: formMessages.frequencyOccasionallyLabel,
-  teleworkSometimes: formMessages.frequencySometimesLabel,
-  teleworkFrequently: formMessages.frequencyFrequentlyLabel,
-  teleworkAlways: formMessages.frequencyAlwaysLabel,
+  teleworkNever: frequencyName(FrequencyId.never),
+  teleworkOccasionally: frequencyName(FrequencyId.rarely),
+  teleworkSometimes: frequencyName(FrequencyId.sometimes),
+  teleworkFrequently: frequencyName(FrequencyId.often),
+  teleworkAlways: frequencyName(FrequencyId.always),
 };
 const teleworkFrequencies: TeleworkOptionType[] = teleworkOptions.map(
   (option): TeleworkOptionType => option.id,
@@ -381,31 +325,31 @@ const flexHoursOptions: {
 }[] = [
   {
     id: "flexHoursNever",
-    label: formMessages.frequencyNeverLabel,
+    label: frequencyName(FrequencyId.never),
   },
   {
     id: "flexHoursOccasionally",
-    label: formMessages.frequencyOccasionallyLabel,
+    label: frequencyName(FrequencyId.rarely),
   },
   {
     id: "flexHoursSometimes",
-    label: formMessages.frequencySometimesLabel,
+    label: frequencyName(FrequencyId.sometimes),
   },
   {
     id: "flexHoursFrequently",
-    label: formMessages.frequencyFrequentlyLabel,
+    label: frequencyName(FrequencyId.often),
   },
   {
     id: "flexHoursAlways",
-    label: formMessages.frequencyAlwaysLabel,
+    label: frequencyName(FrequencyId.always),
   },
 ];
 const flexHourMessages = {
-  flexHoursNever: formMessages.frequencyNeverLabel,
-  flexHoursOccasionally: formMessages.frequencyOccasionallyLabel,
-  flexHoursSometimes: formMessages.frequencySometimesLabel,
-  flexHoursFrequently: formMessages.frequencyFrequentlyLabel,
-  flexHoursAlways: formMessages.frequencyAlwaysLabel,
+  flexHoursNever: frequencyName(FrequencyId.never),
+  flexHoursOccasionally: frequencyName(FrequencyId.rarely),
+  flexHoursSometimes: frequencyName(FrequencyId.sometimes),
+  flexHoursFrequently: frequencyName(FrequencyId.often),
+  flexHoursAlways: frequencyName(FrequencyId.always),
 };
 const flexHourFequencies = flexHoursOptions.map(
   (option): FlexHourOptionType => option.id,
@@ -421,21 +365,25 @@ const travelOptions: {
 }[] = [
   {
     id: "travelFrequently",
-    label: formMessages.travelFrequentlyLabel,
+    label: travelRequirementDescription(TravelRequirementId.frequently),
   },
   {
     id: "travelOpportunitiesAvailable",
-    label: formMessages.travelOpportunitiesAvailableLabel,
+    label: travelRequirementDescription(TravelRequirementId.available),
   },
   {
     id: "travelNoneRequired",
-    label: formMessages.travelNoneRequiredLabel,
+    label: travelRequirementDescription(TravelRequirementId.none),
   },
 ];
 const travelMessages = {
-  travelFrequently: formMessages.travelFrequentlyLabel,
-  travelOpportunitiesAvailable: formMessages.travelOpportunitiesAvailableLabel,
-  travelNoneRequired: formMessages.travelNoneRequiredLabel,
+  travelFrequently: travelRequirementDescription(
+    TravelRequirementId.frequently,
+  ),
+  travelOpportunitiesAvailable: travelRequirementDescription(
+    TravelRequirementId.available,
+  ),
+  travelNoneRequired: travelRequirementDescription(TravelRequirementId.none),
 };
 const travelRequirements = travelOptions.map(
   (option): TravelOptionType => option.id,
@@ -451,22 +399,27 @@ const overtimeOptions: {
 }[] = [
   {
     id: "overtimeFrequently",
-    label: formMessages.overtimeFrequentlyLabel,
+    label: overtimeRequirementDescription(OvertimeRequirementId.frequently),
   },
   {
     id: "overtimeOpportunitiesAvailable",
-    label: formMessages.overtimeOpportunitiesAvailableLabel,
+    label: overtimeRequirementDescription(OvertimeRequirementId.available),
   },
   {
     id: "overtimeNoneRequired",
-    label: formMessages.overtimeNoneRequiredLabel,
+    label: overtimeRequirementDescription(OvertimeRequirementId.none),
   },
 ];
 const overtimeMessages = {
-  overtimeFrequently: formMessages.overtimeFrequentlyLabel,
-  overtimeOpportunitiesAvailable:
-    formMessages.overtimeOpportunitiesAvailableLabel,
-  overtimeNoneRequired: formMessages.overtimeNoneRequiredLabel,
+  overtimeFrequently: overtimeRequirementDescription(
+    OvertimeRequirementId.frequently,
+  ),
+  overtimeOpportunitiesAvailable: overtimeRequirementDescription(
+    OvertimeRequirementId.available,
+  ),
+  overtimeNoneRequired: overtimeRequirementDescription(
+    OvertimeRequirementId.none,
+  ),
 };
 const overtimeRequirements = overtimeOptions.map(
   (option): OvertimeOptionType => option.id,

@@ -12,6 +12,9 @@ import {
   SecurityClearanceId,
   LanguageRequirementId,
   DepartmentId,
+  FrequencyId,
+  OvertimeRequirementId,
+  TravelRequirementId,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
 
@@ -709,3 +712,97 @@ export const narrativeReviewStandardQuestion = (): FormattedMessage.MessageDescr
 
 export const narrativeReviewStandardAnswer = (): FormattedMessage.MessageDescriptor =>
   standardAssessmentText.narrativeReviewAnswer;
+
+const frequencyMessages = defineMessages({
+  [FrequencyId.always]: {
+    id: "jobDetails.frequencyAlwaysLabel",
+    defaultMessage: "Almost Always",
+    description: "The form label displayed on 'always' frequency options.",
+  },
+  [FrequencyId.often]: {
+    id: "jobDetails.frequencyFrequentlyLabel",
+    defaultMessage: "Frequently",
+    description: "The form label displayed on 'frequently' frequency options.",
+  },
+  [FrequencyId.sometimes]: {
+    id: "jobDetails.frequencySometimesLabel",
+    defaultMessage: "Sometimes",
+    description: "The form label displayed on 'sometimes' frequency options.",
+  },
+  [FrequencyId.rarely]: {
+    id: "jobDetails.frequencyOccasionallyLabel",
+    defaultMessage: "Occasionally",
+    description:
+      "The form label displayed on 'occasionally' frequency options.",
+  },
+  [FrequencyId.never]: {
+    id: "jobDetails.frequencyNeverLabel",
+    defaultMessage: "Almost Never",
+    description: "The form label displayed on 'never' frequency options.",
+  },
+});
+
+export const frequencyName = (
+  frequencyId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(frequencyMessages, frequencyId, "invalid FrequencyId");
+
+const overtimeRequirmentDescriptions = defineMessages({
+  [OvertimeRequirementId.frequently]: {
+    id: "jobDetails.overtimeFrequentlyLabel",
+    defaultMessage: "Yes, overtime is frequently required for the position.",
+    description: "The form label displayed on 'frequently' overtime options",
+  },
+  [OvertimeRequirementId.available]: {
+    id: "jobDetails.overtimeOpportunitiesAvailableLabel",
+    defaultMessage:
+      "Yes, overtime opportunities are available for those that are interested.",
+    description:
+      "The form label displayed on 'overtime opportunities available' overtime options",
+  },
+  [OvertimeRequirementId.none]: {
+    id: "jobDetails.overtimeNoneRequiredLabel",
+    defaultMessage: "No, overtime is not required for the position.",
+    description:
+      "The form label displayed on 'no overtime required' overtime options",
+  },
+});
+
+export const overtimeRequirementDescription = (
+  overtimeRequirementId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(
+    overtimeRequirmentDescriptions,
+    overtimeRequirementId,
+    "invalid OvertimeRequirementId",
+  );
+
+const travelRequirementDescriptions = defineMessages({
+  [TravelRequirementId.frequently]: {
+    id: "jobDetails.travelFrequentlyLabel",
+    defaultMessage: "Yes, travel is frequently required for the position.",
+    description: "The form label displayed on 'frequently' travel options",
+  },
+  [TravelRequirementId.available]: {
+    id: "jobDetails.travelOpportunitiesAvailableLabel",
+    defaultMessage:
+      "Yes, travel opportunities are available for those that are interested.",
+    description:
+      "The form label displayed on 'travel opportunities available' travel options",
+  },
+  [TravelRequirementId.none]: {
+    id: "jobDetails.travelNoneRequiredLabel",
+    defaultMessage: "No, travel is not required for the position.",
+    description:
+      "The form label displayed on 'no travel required' travel options",
+  },
+});
+
+export const travelRequirementDescription = (
+  travelRequirementId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(
+    travelRequirementDescriptions,
+    travelRequirementId,
+    "invalid TravelRequirementId",
+  );
