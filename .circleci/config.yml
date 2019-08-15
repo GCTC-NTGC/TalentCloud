@@ -16,7 +16,6 @@ jobs:
       - checkout
 
       - run: cp .env.testing .env
-      - run: chown -R www-data /var/www/storage /var/www/vendor /var/www/bootstrap/cache && chmod -R 775 /var/www
       - run: sudo apt update && sudo apt install zlib1g-dev
       - run: sudo docker-php-ext-install zip
 
