@@ -109,7 +109,7 @@ const sectionTitle = (title: string): React.ReactElement => {
           data-c-alignment="base(centre) tp(left)"
         >
           <h4 data-c-colour="c2" data-c-font-size="h4">
-            title
+            {title}
           </h4>
         </div>
       </div>

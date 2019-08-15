@@ -32,7 +32,16 @@ import { SkillAction } from "./Skill/skillActions";
 import { AssessmentPlanNotificationAction } from "./AssessmentPlanNotification/assessmentPlanNotificationActions";
 import { AppErrorAction } from "./Error/errorActions";
 import { DeptAction } from "./Department/deptActions";
-import deptReducer, { DeptState, initDeptState } from "./Department/deptReducer";
+import deptReducer, {
+  DeptState,
+  initDeptState,
+} from "./Department/deptReducer";
+import { ManagerAction } from "./Manager/managerActions";
+import {
+  ManagerState,
+  initManagerState,
+  managerReducer,
+} from "./Manager/managerReducer";
 
 export type AppAction =
   | JobAction
@@ -42,7 +51,8 @@ export type AppAction =
   | SkillAction
   | AssessmentPlanNotificationAction
   | AppErrorAction
-  | DeptAction;
+  | DeptAction
+  | ManagerAction;
 
 export interface RootState {
   jobs: JobState;
@@ -53,6 +63,7 @@ export interface RootState {
   assessmentPlanNotification: AssessmentPlanNotificationState;
   error: ErrorState;
   department: DeptState;
+  manager: ManagerState;
 }
 
 export const initState = (): RootState => ({
@@ -64,6 +75,7 @@ export const initState = (): RootState => ({
   assessmentPlanNotification: initAssessmentPlanNotification(),
   error: initErrors(),
   department: initDeptState(),
+  manager: initManagerState(),
 });
 
 export const rootReducer = (): Reducer<RootState> =>
@@ -76,6 +88,7 @@ export const rootReducer = (): Reducer<RootState> =>
     assessmentPlanNotification: assessmentPlanNotificationReducer,
     error: errorReducer,
     department: deptReducer,
+    manager: managerReducer,
   });
 
 export default rootReducer;

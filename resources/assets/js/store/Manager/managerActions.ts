@@ -1,0 +1,35 @@
+import { AsyncFsaActions, RSAActionTemplate, asyncGet } from "../asyncAction";
+import { Manager } from "../../models/types";
+import { getManagerEndpoint } from "../../api/manager";
+
+export const FETCH_MANAGER_STARTED = "MANAGER: GET STARTED";
+export const FETCH_MANAGER_SUCCEEDED = "MANAGER: GET SUCCEEDED";
+export const FETCH_MANAGER_FAILED = "MANAGER: GET FAILED";
+
+export type FetchManagerAction = AsyncFsaActions<
+  typeof FETCH_MANAGER_STARTED,
+  typeof FETCH_MANAGER_SUCCEEDED,
+  typeof FETCH_MANAGER_FAILED,
+  Manager,
+  { id: number }
+>;
+
+export const fetchManager = (
+  id: number,
+): RSAActionTemplate<
+  typeof FETCH_MANAGER_STARTED,
+  typeof FETCH_MANAGER_SUCCEEDED,
+  typeof FETCH_MANAGER_FAILED,
+  Manager,
+  { id: number }
+> =>
+  asyncGet(
+    getManagerEndpoint(id),
+    FETCH_MANAGER_STARTED,
+    FETCH_MANAGER_SUCCEEDED,
+    FETCH_MANAGER_FAILED,
+    (response): Manager => response,
+    { id },
+  );
+
+export type ManagerAction = FetchManagerAction;
