@@ -585,13 +585,15 @@ const JobDetails: React.FunctionComponent<
                           description="Header message displayed for the Education requirement section."
                         />
                       </p>
-                      <ContextBlockItem
-                        wrapperMargin="bottom(normal)"
-                        subtext={intl.formatMessage(
-                          educationMessages[values.classification],
-                        )}
-                        reference={educationRef}
-                      />
+                      <div style={{ whiteSpace: "pre-line" }}>
+                        <ContextBlockItem
+                          wrapperMargin="bottom(normal)"
+                          subtext={intl.formatMessage(
+                            educationMessages[values.classification],
+                          )}
+                          reference={educationRef}
+                        />
+                      </div>
 
                       <div className="job-builder-education-customization active">
                         <p data-c-margin="bottom(normal)">
