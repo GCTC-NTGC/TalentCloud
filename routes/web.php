@@ -445,6 +445,9 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:update,jobPoster');
 
 
+    Route::post('jobs/{job}/submit', 'Api\JobApiController@submitForReview')
+        ->where('job', '[0-9]+')
+        ->middleware('can:update,job');
     Route::resource('jobs', 'Api\JobApiController')->only([
         'show', 'store', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes.
@@ -452,6 +455,7 @@ Route::group(['prefix' => 'api'], function (): void {
         'store' => 'api.jobs.store',
         'update' => 'api.jobs.update'
     ]);
+
     Route::resource('managers', 'Api\ManagerApiController')->only([
         'show', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes
