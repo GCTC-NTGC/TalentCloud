@@ -18,6 +18,9 @@ import {
   BATCH_UPDATE_JOB_TASKS_SUCCEEDED,
   FETCH_CRITERIA_SUCCEEDED,
   BATCH_UPDATE_CRITERIA_SUCCEEDED,
+  SUBMIT_JOB_FOR_REVIEW_SUCCEEDED,
+  SUBMIT_JOB_FOR_REVIEW_STARTED,
+  SUBMIT_JOB_FOR_REVIEW_FAILED,
 } from "./jobActions";
 import {
   mapToObject,
@@ -117,6 +120,7 @@ export const entitiesReducer = (
         },
       };
     case UPDATE_JOB_SUCCEEDED:
+    case SUBMIT_JOB_FOR_REVIEW_SUCCEEDED:
       return {
         ...state,
         jobs: {
@@ -189,6 +193,7 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
       };
     case FETCH_JOB_STARTED:
     case UPDATE_JOB_STARTED:
+    case SUBMIT_JOB_FOR_REVIEW_STARTED:
       return {
         ...state,
         jobUpdating: {
@@ -198,13 +203,9 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
     case FETCH_JOB_SUCCEEDED:
     case FETCH_JOB_FAILED:
     case UPDATE_JOB_FAILED:
-      return {
-        ...state,
-        jobUpdating: {
-          [action.meta.id]: false,
-        },
-      };
     case UPDATE_JOB_SUCCEEDED:
+    case SUBMIT_JOB_FOR_REVIEW_SUCCEEDED:
+    case SUBMIT_JOB_FOR_REVIEW_FAILED:
       return {
         ...state,
         jobUpdating: {
