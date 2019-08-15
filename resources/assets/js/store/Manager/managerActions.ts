@@ -1,6 +1,7 @@
 import { AsyncFsaActions, RSAActionTemplate, asyncGet } from "../asyncAction";
 import { Manager } from "../../models/types";
 import { getManagerEndpoint } from "../../api/manager";
+import { Action } from "../createAction";
 
 export const FETCH_MANAGER_STARTED = "MANAGER: GET STARTED";
 export const FETCH_MANAGER_SUCCEEDED = "MANAGER: GET SUCCEEDED";
@@ -32,4 +33,15 @@ export const fetchManager = (
     { id },
   );
 
-export type ManagerAction = FetchManagerAction;
+export const SET_SELECTED_MANAGER = "MANAGER: SET SELECTED";
+export type SetSelectedManagerAction = Action<
+  typeof SET_SELECTED_MANAGER,
+  { managerId: number | null }
+>;
+export const setSelectedManager = (
+  id: number | null,
+): SetSelectedManagerAction => ({
+  type: SET_SELECTED_MANAGER,
+  payload: { managerId: id },
+});
+export type ManagerAction = FetchManagerAction | SetSelectedManagerAction;

@@ -29,6 +29,11 @@ import {
 } from "../JobBuilder/jobBuilderHelpers";
 import JobReview from "./JobReview";
 import { getDepartments } from "../../store/Department/deptSelector";
+import { getSelectedManager } from "../../store/Manager/managerSelector";
+import {
+  fetchManager,
+  setSelectedManager,
+} from "../../store/Manager/managerActions";
 
 interface JobBuilderReviewPageProps {
   jobId: number;
@@ -40,6 +45,8 @@ interface JobBuilderReviewPageProps {
   manager: Manager | null;
   managerUser: User | null;
   handleSubmitJob: (job: Job) => Promise<void>;
+  loadManager: (managerId: number) => Promise<void>;
+  loadUser: (userId: number) => Promise<void>;
 }
 
 const JobBuilderReviewPage: React.FunctionComponent<
@@ -102,36 +109,41 @@ const mapStateToProps = (
   keyTasks: JobPosterKeyTask[];
   criteria: Criteria[];
   departments: Department[];
+  manager: Manager | null;
 } => ({
   job: getJob(state, ownProps),
   skills: getSkills(state),
   keyTasks: getTasksByJob(state, ownProps),
   criteria: getCriteriaByJob(state, ownProps),
   departments: getDepartments(state),
+  manager: getSelectedManager(state),
 });
 
 const mapDispatchToProps = (
   dispatch: DispatchType,
 ): {
-  handleSubmitCriteria: (
-    jobId: number,
-    criteria: Criteria[],
-  ) => Promise<Criteria[]>;
+  handleSubmitJob: (job: Job) => Promise<void>;
+  loadManager: (managerId: number) => Promise<void>;
+  loadUser: (userId: number) => Promise<void>;
 } => ({
-  handleSubmitCriteria: async (
-    jobId: number,
-    criteria: Criteria[],
-  ): Promise<Criteria[]> => {
-    const result = await dispatch(batchUpdateCriteria(jobId, criteria));
+  handleSubmitJob: async (job: Job) => {
+    // FIXME: submit job
+  },
+  loadManager: async (managerId: number): Promise<void> => {
+    const result = await dispatch(fetchManager(managerId));
     if (result.error) {
       return Promise.reject(result.payload);
     }
-    const resultCriteria = await result.payload;
-    return resultCriteria;
+    const resultManager = await result.payload;
+    dispatch(setSelectedManager(resultManager.id));
+    return Promise.resolve();
+  },
+  loadUser: async (userId: number): Promise<void> => {
+    // FIXME: get user
   },
 });
 
-const JobSkillsPageContainer = connect(
+const JobReviewPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(injectIntl(JobBuilderSkillsPage));
+)(injectIntl(JobBuilderReviewPage));

@@ -1,5 +1,9 @@
 import { Manager } from "../../models/types";
-import { ManagerAction, FETCH_MANAGER_SUCCEEDED } from "./managerActions";
+import {
+  ManagerAction,
+  FETCH_MANAGER_SUCCEEDED,
+  SET_SELECTED_MANAGER,
+} from "./managerActions";
 
 export interface ManagerState {
   managersById: {
@@ -25,6 +29,11 @@ export const managerReducer = (
           ...state.managersById,
           [action.payload.id]: action.payload,
         },
+      };
+    case SET_SELECTED_MANAGER:
+      return {
+        ...state,
+        selectedManagerId: action.payload.managerId,
       };
     default:
       return state;
