@@ -12,7 +12,8 @@ export interface ContextBlockItemProps {
   radius?: string;
   fontSize?: string;
   fontWeight?: string;
-  margin?: string;
+  wrapperMargin?: string;
+  titleMargin?: string;
   reference?: React.RefObject<HTMLParagraphElement>;
 }
 
@@ -27,7 +28,8 @@ const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
   radius,
   fontSize,
   fontWeight,
-  margin,
+  wrapperMargin,
+  titleMargin,
   active,
   reference,
 }): React.ReactElement => {
@@ -41,11 +43,12 @@ const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
       }
       data-c-padding={padding || "all(normal)"}
       data-c-radius={radius || "rounded"}
+      data-c-margin={wrapperMargin || ""}
     >
       {title && (
         <p
           data-c-font-size={fontSize || "small"}
-          data-c-margin={margin || "bottom(half)"}
+          data-c-margin={titleMargin || "bottom(half)"}
           data-c-font-weight={fontWeight || "bold"}
         >
           {title}
