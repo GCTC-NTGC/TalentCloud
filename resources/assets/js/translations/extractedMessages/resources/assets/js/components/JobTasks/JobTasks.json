@@ -100,6 +100,11 @@
     "defaultMessage": "Go Back"
   },
   {
+    "id": "jobTasks.modal.middleButtonLabel",
+    "description": "The text displayed on the Skip to Review button of the Job Tasks modal.",
+    "defaultMessage": "Skip to Review"
+  },
+  {
     "id": "jobTasks.modal.confirmButtonLabel",
     "description": "The text displayed on the confirm button of the Job Tasks modal.",
     "defaultMessage": "Next Step"

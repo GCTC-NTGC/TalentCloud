@@ -742,6 +742,46 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "{termMonths,plural,=0{no months} one{{termMonths, number} month} other{{termMonths, number} months}}",
+        "description": "Calculated term length in months",
+        "id": "jobPreview.termLength"
+      },
+      {
+        "defaultMessage": "Job Title",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.jobTitle"
+      },
+      {
+        "defaultMessage": "Length of the Term",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.lengthOfTheTerm"
+      },
+      {
+        "defaultMessage": "Security Clearance",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.securityClearance"
+      },
+      {
+        "defaultMessage": "Language Profile",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.languageProfile"
+      },
+      {
+        "defaultMessage": "City",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.city"
+      },
+      {
+        "defaultMessage": "Province",
+        "description": "Job Poster Card Information Label",
+        "id": "jobPreview.province"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/JobBasicInfo.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Start",
         "id": "jobBuilder.progressTracker.label.start"
       },
@@ -804,6 +844,156 @@
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/jobBuilderMessages.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Your job is loading...",
+        "description": "Message indicating that the current job is still being loaded.",
+        "id": "jobBuilder.loading"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/JobBuilderStep.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Always",
+        "description": "Shown on Work Culture card when remoteWork field is set to true.",
+        "id": "job.workCulture.remoteWorkMsg.always"
+      },
+      {
+        "defaultMessage": "Never",
+        "description": "Shown on Work Culture card when remoteWork field is set to false.",
+        "id": "job.workCulture.remoteWorkMsg.never"
+      },
+      {
+        "defaultMessage": "Remote Work",
+        "description": "Label for the Remote Work field on the Work Culture card.",
+        "id": "job.workCulture.remoteWork"
+      },
+      {
+        "defaultMessage": "Work from anywhere, all the time.",
+        "description": "Explanation of what Remote Work means.",
+        "id": "job.workCulture.remoteWorkDescription"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/JobWorkCulture.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Open Concept",
+        "description": "Physical Environment checkbox group 'open concept' option.",
+        "id": "jobBuilder.workEnv.physEnv.openConcept"
+      },
+      {
+        "defaultMessage": "Private",
+        "description": "Physical Environment checkbox group 'private' option.",
+        "id": "jobBuilder.workEnv.physEnv.private"
+      },
+      {
+        "defaultMessage": "Assigned Seating",
+        "description": "Physical Environment checkbox group 'assigned seating' option.",
+        "id": "jobBuilder.workEnv.physEnv.assignedSeating"
+      },
+      {
+        "defaultMessage": "Lots of Windows",
+        "description": "Physical Environment checkbox group 'windows' option.",
+        "id": "jobBuilder.workEnv.physEnv.windows"
+      },
+      {
+        "defaultMessage": "Natural Light",
+        "description": "Physical Environment checkbox group 'natural light' option.",
+        "id": "jobBuilder.workEnv.physEnv.naturalLight"
+      },
+      {
+        "defaultMessage": "Suitable for Smudging",
+        "description": "Physical Environment checkbox group 'suitable for smudging' option.",
+        "id": "jobBuilder.workEnv.physEnv.smudging"
+      },
+      {
+        "defaultMessage": "Video Conferencing (e.g. Skype, Zoom)",
+        "description": "Technology checkbox group 'video conferencing' option.",
+        "id": "jobBuilder.workEnv.technology.videoConferencing"
+      },
+      {
+        "defaultMessage": "Collaboration (e.g. Slack, Hangouts)",
+        "description": "Technology checkbox group 'collaboration' option.",
+        "id": "jobBuilder.workEnv.technology.collaboration"
+      },
+      {
+        "defaultMessage": "File Sharing (e.g. Google Drive, Dropbox)",
+        "description": "Technology checkbox group 'file sharing' option.",
+        "id": "jobBuilder.workEnv.technology.fileSharing"
+      },
+      {
+        "defaultMessage": "Task Management (e.g. Trello, Asana)",
+        "description": "Technology checkbox group 'task management' option.",
+        "id": "jobBuilder.workEnv.technology.taskManagement"
+      },
+      {
+        "defaultMessage": "Version Control (e.g. Github, Gitlab)",
+        "description": "Technology checkbox group 'version control' option.",
+        "id": "jobBuilder.workEnv.technology.versionControl"
+      },
+      {
+        "defaultMessage": "Access to external, unfiltered Wi-Fi.",
+        "description": "Technology checkbox group 'access to external' option.",
+        "id": "jobBuilder.workEnv.technology.accessToExternal"
+      },
+      {
+        "defaultMessage": "Cafeteria On-site",
+        "description": "Amenities checkbox group 'cafeteria' option.",
+        "id": "jobBuilder.workEnv.amenities.cafeteria"
+      },
+      {
+        "defaultMessage": "Close to Transit",
+        "description": "Amenities checkbox group 'close to transit' option.",
+        "id": "jobBuilder.workEnv.amenities.closeToTransit"
+      },
+      {
+        "defaultMessage": "Walking Distance to Restaurants/Malls",
+        "description": "Amenities checkbox group 'restaurants' option.",
+        "id": "jobBuilder.workEnv.amenities.restaurants"
+      },
+      {
+        "defaultMessage": "Downtown",
+        "description": "Amenities checkbox group 'downtown' option.",
+        "id": "jobBuilder.workEnv.amenities.downtown"
+      },
+      {
+        "defaultMessage": "Nearby Fitness Centre",
+        "description": "Amenities checkbox group 'nearby fitness centre' option.",
+        "id": "jobBuilder.workEnv.amenities.fitnessCenter"
+      },
+      {
+        "defaultMessage": "Easy Access to Parking",
+        "description": "Amenities checkbox group 'parking' option.",
+        "id": "jobBuilder.workEnv.amenities.parking"
+      },
+      {
+        "defaultMessage": "Team Size",
+        "description": "Title for Team size section.",
+        "id": "jobBuilder.workEnvModal.teamSize"
+      },
+      {
+        "defaultMessage": "Our Physical Environment",
+        "description": "The label displayed on the physical environment checkbox group.",
+        "id": "jobBuilder.workEnvModal.physicalEnvLabel"
+      },
+      {
+        "defaultMessage": "Technology",
+        "description": "The label displayed on the technology checkbox group.",
+        "id": "jobBuilder.workEnvModal.technologyLabel"
+      },
+      {
+        "defaultMessage": "Amenities",
+        "description": "The label displayed on the amenities checkbox group.",
+        "id": "jobBuilder.workEnvModal.amenitiesLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/JobWorkEnv.json"
   },
   {
     "descriptors": [
@@ -1275,6 +1465,11 @@
         "id": "jobBuilder.skills.previewModalCancelLabel"
       },
       {
+        "defaultMessage": "Skip to Review",
+        "description": "The text displayed on the 'Skip to Review' button of the Job Builder Skills Preview modal.",
+        "id": "jobBuilder.skills.previewModalMiddleLabel"
+      },
+      {
         "defaultMessage": "Next Step",
         "description": "The text displayed on the confirm button of the Job Builder Skills Preview modal.",
         "id": "jobBuilder.skills.previewModalConfirmLabel"
@@ -1403,96 +1598,6 @@
         "defaultMessage": "This is optional.",
         "description": "Text indicator for optional sections within form.",
         "id": "jobBuilder.workEnv.thisIsOptional"
-      },
-      {
-        "defaultMessage": "Open Concept",
-        "description": "Physical Environment checkbox group 'open concept' option.",
-        "id": "jobBuilder.workEnv.physEnv.openConcept"
-      },
-      {
-        "defaultMessage": "Private",
-        "description": "Physical Environment checkbox group 'private' option.",
-        "id": "jobBuilder.workEnv.physEnv.private"
-      },
-      {
-        "defaultMessage": "Assigned Seating",
-        "description": "Physical Environment checkbox group 'assigned seating' option.",
-        "id": "jobBuilder.workEnv.physEnv.assignedSeating"
-      },
-      {
-        "defaultMessage": "Lots of Windows",
-        "description": "Physical Environment checkbox group 'windows' option.",
-        "id": "jobBuilder.workEnv.physEnv.windows"
-      },
-      {
-        "defaultMessage": "Natural Light",
-        "description": "Physical Environment checkbox group 'natural light' option.",
-        "id": "jobBuilder.workEnv.physEnv.naturalLight"
-      },
-      {
-        "defaultMessage": "Suitable for Smudging",
-        "description": "Physical Environment checkbox group 'suitable for smudging' option.",
-        "id": "jobBuilder.workEnv.physEnv.smudging"
-      },
-      {
-        "defaultMessage": "Video Conferencing (e.g. Skype, Zoom)",
-        "description": "Technology checkbox group 'video conferencing' option.",
-        "id": "jobBuilder.workEnv.technology.videoConferencing"
-      },
-      {
-        "defaultMessage": "Collaboration (e.g. Slack, Hangouts)",
-        "description": "Technology checkbox group 'collaboration' option.",
-        "id": "jobBuilder.workEnv.technology.collaboration"
-      },
-      {
-        "defaultMessage": "File Sharing (e.g. Google Drive, Dropbox)",
-        "description": "Technology checkbox group 'file sharing' option.",
-        "id": "jobBuilder.workEnv.technology.fileSharing"
-      },
-      {
-        "defaultMessage": "Task Management (e.g. Trello, Asana)",
-        "description": "Technology checkbox group 'task management' option.",
-        "id": "jobBuilder.workEnv.technology.taskManagement"
-      },
-      {
-        "defaultMessage": "Version Control (e.g. Github, Gitlab)",
-        "description": "Technology checkbox group 'version control' option.",
-        "id": "jobBuilder.workEnv.technology.versionControl"
-      },
-      {
-        "defaultMessage": "Access to external, unfiltered Wi-Fi.",
-        "description": "Technology checkbox group 'access to external' option.",
-        "id": "jobBuilder.workEnv.technology.accessToExternal"
-      },
-      {
-        "defaultMessage": "Cafeteria On-site",
-        "description": "Amenities checkbox group 'cafeteria' option.",
-        "id": "jobBuilder.workEnv.amenities.cafeteria"
-      },
-      {
-        "defaultMessage": "Close to Transit",
-        "description": "Amenities checkbox group 'close to transit' option.",
-        "id": "jobBuilder.workEnv.amenities.closeToTransit"
-      },
-      {
-        "defaultMessage": "Walking Distance to Restaurants/Malls",
-        "description": "Amenities checkbox group 'restaurants' option.",
-        "id": "jobBuilder.workEnv.amenities.restaurants"
-      },
-      {
-        "defaultMessage": "Downtown",
-        "description": "Amenities checkbox group 'downtown' option.",
-        "id": "jobBuilder.workEnv.amenities.downtown"
-      },
-      {
-        "defaultMessage": "Nearby Fitness Centre",
-        "description": "Amenities checkbox group 'nearby fitness centre' option.",
-        "id": "jobBuilder.workEnv.amenities.fitnessCenter"
-      },
-      {
-        "defaultMessage": "Easy Access to Parking",
-        "description": "Amenities checkbox group 'parking' option.",
-        "id": "jobBuilder.workEnv.amenities.parking"
       },
       {
         "defaultMessage": "Very Fast-paced",
@@ -1705,31 +1810,6 @@
         "id": "jobBuilder.workEnvModal.title"
       },
       {
-        "defaultMessage": "Team Size",
-        "description": "Title for Team size section.",
-        "id": "jobBuilder.workEnvModal.teamSize"
-      },
-      {
-        "defaultMessage": "Our Physical Environment",
-        "description": "The label displayed on the physical environment checkbox group.",
-        "id": "jobBuilder.workEnvModal.physicalEnvLabel"
-      },
-      {
-        "defaultMessage": "Technology",
-        "description": "The label displayed on the technology checkbox group.",
-        "id": "jobBuilder.workEnvModal.technologyLabel"
-      },
-      {
-        "defaultMessage": "Amenities",
-        "description": "The label displayed on the amenities checkbox group.",
-        "id": "jobBuilder.workEnvModal.amenitiesLabel"
-      },
-      {
-        "defaultMessage": "More About Your Environment",
-        "description": "The label displayed for the more about your environment textbox.",
-        "id": "jobBuilder.workEnvModal.moreOnWorkEnvLabel"
-      },
-      {
         "defaultMessage": "Work Culture",
         "description": "The title displayed for the work culture section on modal.",
         "id": "jobBuilder.workEnvModal.workCultureTitle"
@@ -1738,6 +1818,11 @@
         "defaultMessage": "Go Back",
         "description": "The label displayed on modal cancel button.",
         "id": "jobBuilder.workEnvModal.cancelLabel"
+      },
+      {
+        "defaultMessage": "Skip to Review",
+        "description": "The text displayed on the 'Skip to Review' button of the Work Env modal.",
+        "id": "jobBuilder.workEnvModal.modalMiddleLabel"
       },
       {
         "defaultMessage": "Next Step",
@@ -1755,7 +1840,7 @@
         "id": "jobDetails.heading"
       },
       {
-        "defaultMessage": "Please select a classification and level before preparing\r\n                          the education requirements.",
+        "defaultMessage": "Please select a classification and level before preparing\n                          the education requirements.",
         "description": "Message displayed after classification and level select boxes.",
         "id": "jobDetails.SelectClassAndLvlMessage"
       },
@@ -1838,6 +1923,11 @@
         "defaultMessage": "Go Back",
         "description": "The text displayed on the cancel button of the Job Details modal.",
         "id": "jobDetails.modalCancelLabel"
+      },
+      {
+        "defaultMessage": "Skip to Review",
+        "description": "The text displayed on the 'Skip to Review' button of the Job Details modal.",
+        "id": "jobDetails.modalMiddleLabel"
       },
       {
         "defaultMessage": "Next Step",
@@ -1960,69 +2050,14 @@
         "id": "jobDetails.flexHoursGroupLabel"
       },
       {
-        "defaultMessage": "Almost Always",
-        "description": "The form label displayed on 'always' frequency options.",
-        "id": "jobDetails.frequencyAlwaysLabel"
-      },
-      {
-        "defaultMessage": "Frequently",
-        "description": "The form label displayed on 'frequently' frequency options.",
-        "id": "jobDetails.frequencyFrequentlyLabel"
-      },
-      {
-        "defaultMessage": "Sometimes",
-        "description": "The form label displayed on 'sometimes' frequency options.",
-        "id": "jobDetails.frequencySometimesLabel"
-      },
-      {
-        "defaultMessage": "Occasionally",
-        "description": "The form label displayed on 'occasionally' frequency options.",
-        "id": "jobDetails.frequencyOccasionallyLabel"
-      },
-      {
-        "defaultMessage": "Almost Never",
-        "description": "The form label displayed on 'never' frequency options.",
-        "id": "jobDetails.frequencyNeverLabel"
-      },
-      {
         "defaultMessage": "Select a travel option:",
         "description": "The form label displayed on the travel radio group.",
         "id": "jobDetails.travelGroupLabel"
       },
       {
-        "defaultMessage": "Yes, travel is frequently required for the position.",
-        "description": "The form label displayed on 'frequently' travel options",
-        "id": "jobDetails.travelFrequentlyLabel"
-      },
-      {
-        "defaultMessage": "Yes, travel opportunities are available for those that are interested.",
-        "description": "The form label displayed on 'travel opportunities available' travel options",
-        "id": "jobDetails.travelOpportunitiesAvailableLabel"
-      },
-      {
-        "defaultMessage": "No, travel is not required for the position.",
-        "description": "The form label displayed on 'no travel required' travel options",
-        "id": "jobDetails.travelNoneRequiredLabel"
-      },
-      {
         "defaultMessage": "Select a overtime option:",
         "description": "The form label displayed on the overtime radio group.",
         "id": "jobDetails.overtimeGroupLabel"
-      },
-      {
-        "defaultMessage": "Yes, overtime is frequently required for the position.",
-        "description": "The form label displayed on 'frequently' overtime options",
-        "id": "jobDetails.overtimeFrequentlyLabel"
-      },
-      {
-        "defaultMessage": "Yes, overtime opportunities are available for those that are interested.",
-        "description": "The form label displayed on 'overtime opportunities available' overtime options",
-        "id": "jobDetails.overtimeOpportunitiesAvailableLabel"
-      },
-      {
-        "defaultMessage": "No, overtime is not required for the position.",
-        "description": "The form label displayed on 'no overtime required' overtime options",
-        "id": "jobDetails.overtimeNoneRequiredLabel"
       },
       {
         "defaultMessage": "Customize the Education Requirement:",
@@ -2105,7 +2140,7 @@
         "id": "jobDetails.educationMessages.BI"
       },
       {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
+        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
         "description": "Job Classification message from list of Classifications",
         "id": "jobDetails.educationMessages.CO"
       },
@@ -2255,6 +2290,51 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "or",
+        "description": "Displayed between language icons for the English Or French option.",
+        "id": "jobBuilder.review.or"
+      },
+      {
+        "defaultMessage": "Remote Work Allowed",
+        "description": "Text displayed when remote work is allowed.",
+        "id": "jobBuilder.review.remoteAllowed"
+      },
+      {
+        "defaultMessage": "Remote Work Not Allowed",
+        "description": "Text displayed when remote work is not allowed.",
+        "id": "jobBuilder.review.remoteNotAllowed"
+      },
+      {
+        "defaultMessage": "Save & Return to Skills",
+        "description": "Label of 'Previous Step' button.",
+        "id": "jobBuilder.review.button.return"
+      },
+      {
+        "defaultMessage": "Send to HR for Review",
+        "description": "Label of Job Review Submission Button",
+        "id": "jobBuilder.review.button.submit"
+      },
+      {
+        "defaultMessage": "Congrats! Are You Ready to Submit?",
+        "description": "Title of Submit Confirmation modal.",
+        "id": "jobBuilder.review.confirm.title"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Cancel button of Job Review confirmation modal.",
+        "id": "jobBuilder.review.confirm.cancel"
+      },
+      {
+        "defaultMessage": "Yes, Submit",
+        "description": "Submit button of Job Review confirmation modal.",
+        "id": "jobBuilder.review.confirm.submit"
+      }
+    ],
+    "path": "resources/assets/js/components/JobReview/JobReview.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Try for a casual, frank, friendly tone...",
         "description": "Placeholder shown inside a Task text area.",
         "id": "jobTasks.taskPlaceholder"
@@ -2353,6 +2433,11 @@
         "defaultMessage": "Go Back",
         "description": "The text displayed on the cancel button of the Job Tasks modal.",
         "id": "jobTasks.modal.cancelButtonLabel"
+      },
+      {
+        "defaultMessage": "Skip to Review",
+        "description": "The text displayed on the Skip to Review button of the Job Tasks modal.",
+        "id": "jobTasks.modal.middleButtonLabel"
       },
       {
         "defaultMessage": "Next Step",
@@ -2701,11 +2786,11 @@
         "id": "securityClearance.topSecret"
       },
       {
-        "defaultMessage": "English essential",
+        "defaultMessage": "English Essential",
         "id": "languageRequirement.english"
       },
       {
-        "defaultMessage": "French essential",
+        "defaultMessage": "French Essential",
         "id": "languageRequirement.french"
       },
       {
@@ -2719,6 +2804,34 @@
       {
         "defaultMessage": "English or French",
         "id": "languageRequirement.englishOrFrench"
+      },
+      {
+        "defaultMessage": "This position requires fluency in English in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in English, such as interview questions or an exam.",
+        "id": "languageRequirement.description.english"
+      },
+      {
+        "defaultMessage": "This position requires fluency in French in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in French, such as interview questions or an exam.",
+        "id": "languageRequirement.description.french"
+      },
+      {
+        "defaultMessage": "This position requires working knowledge of both French and English. This means that you can take on job duties in either French or English, and you have intermediate reading, writing and verbal communication skills in both official languages. As part of this selection process, your language abilities will be tested by the Public Service Commission of Canada.",
+        "id": "languageRequirement.description.bilingualIntermediate"
+      },
+      {
+        "defaultMessage": "This position requires advanced knowledge of both French and English. This means that you can take on job duties in either French or English, and you have strong reading, writing and verbal communication skills in both official languages. As part of this selection process, your language abilities will be tested by the Public Service Commission of Canada Public Service Commission of Canada.",
+        "id": "languageRequirement.description.bilingualAdvanced"
+      },
+      {
+        "defaultMessage": "For this position, you meet the language requirements if you have strong reading, writing and verbal communication skills in either English or French, or both (bilingual).",
+        "id": "languageRequirement.description.englishOrFrench"
+      },
+      {
+        "defaultMessage": "You can submit this initial application in either official language of your choice (English or French).",
+        "id": "languageRequirement.context.basic"
+      },
+      {
+        "defaultMessage": "You can complete all other steps of this assessment process in the official language of your choice, including the initial application, interview, exam and any other evaluation components.",
+        "id": "languageRequirement.context.expanded"
       },
       {
         "defaultMessage": "Treasury Board of Canada Secretariat",
@@ -2763,6 +2876,61 @@
       {
         "defaultMessage": "Deparmtnet of National Defence",
         "id": "department.nationalDefence"
+      },
+      {
+        "defaultMessage": "Almost Always",
+        "description": "The form label displayed on 'always' frequency options.",
+        "id": "jobDetails.frequencyAlwaysLabel"
+      },
+      {
+        "defaultMessage": "Frequently",
+        "description": "The form label displayed on 'frequently' frequency options.",
+        "id": "jobDetails.frequencyFrequentlyLabel"
+      },
+      {
+        "defaultMessage": "Sometimes",
+        "description": "The form label displayed on 'sometimes' frequency options.",
+        "id": "jobDetails.frequencySometimesLabel"
+      },
+      {
+        "defaultMessage": "Occasionally",
+        "description": "The form label displayed on 'occasionally' frequency options.",
+        "id": "jobDetails.frequencyOccasionallyLabel"
+      },
+      {
+        "defaultMessage": "Almost Never",
+        "description": "The form label displayed on 'never' frequency options.",
+        "id": "jobDetails.frequencyNeverLabel"
+      },
+      {
+        "defaultMessage": "Yes, overtime is frequently required for the position.",
+        "description": "The form label displayed on 'frequently' overtime options",
+        "id": "jobDetails.overtimeFrequentlyLabel"
+      },
+      {
+        "defaultMessage": "Yes, overtime opportunities are available for those that are interested.",
+        "description": "The form label displayed on 'overtime opportunities available' overtime options",
+        "id": "jobDetails.overtimeOpportunitiesAvailableLabel"
+      },
+      {
+        "defaultMessage": "No, overtime is not required for the position.",
+        "description": "The form label displayed on 'no overtime required' overtime options",
+        "id": "jobDetails.overtimeNoneRequiredLabel"
+      },
+      {
+        "defaultMessage": "Yes, travel is frequently required for the position.",
+        "description": "The form label displayed on 'frequently' travel options",
+        "id": "jobDetails.travelFrequentlyLabel"
+      },
+      {
+        "defaultMessage": "Yes, travel opportunities are available for those that are interested.",
+        "description": "The form label displayed on 'travel opportunities available' travel options",
+        "id": "jobDetails.travelOpportunitiesAvailableLabel"
+      },
+      {
+        "defaultMessage": "No, travel is not required for the position.",
+        "description": "The form label displayed on 'no travel required' travel options",
+        "id": "jobDetails.travelNoneRequiredLabel"
       }
     ],
     "path": "resources/assets/js/models/localizedConstants.json"
