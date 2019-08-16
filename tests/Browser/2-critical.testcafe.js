@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
 import { applicantUser, adminUser } from "./helpers/roles";
 
-fixture(`Critical - Applicant Profile`).page(`talent.test:8000`);
+fixture(`Critical - Applicant Profile`).page(`talent.test`);
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Applicant Profile`);
@@ -310,7 +310,7 @@ function randomEmail() {
   return email;
 }
 
-fixture(`Critical - Registration`).page(`talent.test:8000`);
+fixture(`Critical - Registration`).page(`talent.test`);
 // Skip when writing new tests
 // fixture.skip(`Critical - Registration`);
 
