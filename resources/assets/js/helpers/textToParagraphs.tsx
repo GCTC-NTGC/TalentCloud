@@ -12,7 +12,7 @@ export const textToParagraphs = (text: string): React.ReactFragment => {
       {items.map(
         (item, index): React.ReactElement => (
           // eslint-disable-next-line react/no-array-index-key
-          <p key={index}>{item}</p>
+          <p key={index}>{item.trim().length > 0 ? item : <br />}</p>
         ),
       )}
     </>

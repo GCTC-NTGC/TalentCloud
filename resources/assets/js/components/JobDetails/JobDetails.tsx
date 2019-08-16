@@ -1000,7 +1000,13 @@ const JobDetails: React.FunctionComponent<
                               provinceName(Number(values.province)),
                             )
                       }
-                      education={(job && job[locale].education) || ""}
+                      education={
+                        values.educationRequirements.length > 0
+                          ? values.educationRequirements
+                          : intl.formatMessage(
+                              educationMessages[values.classification],
+                            )
+                      }
                       termLength={
                         typeof values.termLength === "string"
                           ? null
