@@ -40,7 +40,8 @@ jobs: # a collection of steps
       - run: sudo php artisan migrate && sudo php artisan db:seed
       - run: sudo npm run dev
       - run: sudo npm test
-      #- run: sudo npm run testcafe-ci
+      - run: sudo php artisan serve &
+      - run: sudo npm run testcafe-ci
       - run: sudo ./vendor/bin/phpunit -d memory_limit=512M
       - store_test_results:
           path: tests/_output
