@@ -239,6 +239,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
           isSubmitting,
           values,
           errors,
+          setFieldValue,
           submitForm,
         }): React.ReactElement => (
           <>
@@ -276,7 +277,27 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
             <Form id="job-tasks">
               <FieldArray
                 name="tasks"
-                render={(arrayHelpers): React.ReactElement => {
+                render={({ push }): React.ReactElement => {
+                  /* The next two methods are workaround replacements
+                   * for Formik's built-in array helpers. Due to the
+                   * way they're called, they end up crashing the page
+                   * when a Yup validation on the array is thrown,
+                   * see https://github.com/jaredpalmer/formik/issues/1158#issuecomment-510868126
+                   */
+                  const move = (from: number, to: number): void => {
+                    const copy = [...(values.tasks || [])];
+                    const value = copy[from];
+                    copy.splice(from, 1);
+                    copy.splice(to, 0, value);
+                    setFieldValue("tasks", copy);
+                  };
+
+                  const remove = (position: number): void => {
+                    const copy = values.tasks ? [...values.tasks] : [];
+                    copy.splice(position, 1);
+                    setFieldValue("tasks", copy);
+                  };
+
                   const taskArrayErrors = (
                     arrayErrors: FormikErrors<FormikValues>,
                   ): React.ReactElement | null =>
@@ -292,6 +313,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                         </div>
                       </div>
                     ) : null;
+
                   const tempId = nanoid(10);
 
                   return (
@@ -358,7 +380,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                                         type="button"
                                         data-tc-move-up-trigger
                                         onClick={(): void =>
-                                          arrayHelpers.move(index, index - 1)
+                                          move(index, index - 1)
                                         }
                                       >
                                         <i className="fas fa-angle-up" />
@@ -367,7 +389,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                                         type="button"
                                         data-tc-move-down-trigger
                                         onClick={(): void =>
-                                          arrayHelpers.move(index, index + 1)
+                                          move(index, index + 1)
                                         }
                                       >
                                         <i className="fas fa-angle-down" />
@@ -394,7 +416,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                                         type="button"
                                         data-tc-builder-task-delete-trigger
                                         onClick={(): void => {
-                                          arrayHelpers.remove(index);
+                                          remove(index);
                                         }}
                                       >
                                         <i
@@ -420,7 +442,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                             type="button"
                             disabled={isSubmitting}
                             onClick={(): void =>
-                              arrayHelpers.push({
+                              push({
                                 id: tempId,
                                 job_poster_id: jobId,
                                 en: { description: "" },

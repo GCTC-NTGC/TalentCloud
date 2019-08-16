@@ -12,7 +12,7 @@ import CheckboxGroup from "../Form/CheckboxGroup";
 import RadioGroup from "../Form/RadioGroup";
 import ContextBlock from "../ContextBlock/ContextBlock";
 import ContextBlockItem from "../ContextBlock/ContextBlockItem";
-import CopyToClipboardButton from "./CopyToClipboardButton";
+import CopyToClipboardButton from "../CopyToClipboardButton";
 import WorkEnvModal from "./WorkEnvModal";
 import RadioInput from "../Form/RadioInput";
 import NumberInput from "../Form/NumberInput";
@@ -1104,15 +1104,12 @@ const WorkEnvForm = ({
                 <p data-c-margin="bottom(normal)">
                   <FormattedMessage {...formMessages.cultureSummarySubtext} />
                 </p>
-                <ContextBlockItem
-                  subtext={buildCultureSummary(values)}
-                  reference={cultureSummaryRef}
-                />
+                <ContextBlockItem subtext={buildCultureSummary(values)} />
                 <div
                   data-c-alignment="base(centre) tl(right)"
                   data-c-margin="top(normal)"
                 >
-                  <CopyToClipboardButton reference={cultureSummaryRef} />
+                  <CopyToClipboardButton text={buildCultureSummary(values)} />
                 </div>
               </div>
               <Field
