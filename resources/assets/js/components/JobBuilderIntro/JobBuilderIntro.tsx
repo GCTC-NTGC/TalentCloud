@@ -29,6 +29,7 @@ import {
   isJobBuilderComplete,
   VALID_COUNT,
 } from "../JobBuilder/jobBuilderHelpers";
+import { navigate } from "hookrouter";
 
 interface JobBuilderIntroProps {
   // The id of the edited job, or null for a new job.
@@ -67,10 +68,11 @@ const JobBuilderIntro: React.FunctionComponent<
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
 
   const handleContinueEn = (newJob: Job): void => {
-    window.location.href = jobBuilderDetails("en", newJob.id);
+    // window.location.href = jobBuilderDetails("en", newJob.id);
+    navigate(jobBuilderDetails("en", newJob.id));
   };
   const handleContinueFr = (newJob: Job): void => {
-    window.location.href = jobBuilderDetails("fr", newJob.id);
+    navigate(jobBuilderDetails("fr", newJob.id));
   };
 
   return (

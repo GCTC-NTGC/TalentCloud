@@ -131,3 +131,5 @@ if (document.getElementById("job-builder-details")) {
     );
   }
 }
+
+export default JobDetailsPageContainer;

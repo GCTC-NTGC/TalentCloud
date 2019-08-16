@@ -14,7 +14,7 @@ class JobBuilderController extends Controller
     public function intro($jobId = null)
     {
         return view(
-            'manager/job-builder-intro',
+            'manager/job-builder-root',
             ['title' => Lang::get('manager/job_builder.intro_title'), 'jobId' => $jobId]
         );
     }
