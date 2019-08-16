@@ -593,13 +593,12 @@ const JobDetails: React.FunctionComponent<
                           description="Header message displayed for the Education requirement section."
                         />
                       </p>
-                      <div style={{ whiteSpace: "pre-line" }}>
+                      <div>
                         <ContextBlockItem
                           wrapperMargin="bottom(normal)"
                           subtext={intl.formatMessage(
                             educationMessages[values.classification],
                           )}
-                          reference={educationRef}
                         />
                       </div>
 
@@ -625,7 +624,11 @@ const JobDetails: React.FunctionComponent<
                           data-c-alignment="base(centre)"
                           data-c-margin="top(normal) bottom(half)"
                         >
-                          <CopyToClipboardButton reference={educationRef} />
+                          <CopyToClipboardButton
+                            text={intl.formatMessage(
+                              educationMessages[values.classification],
+                            )}
+                          />
                         </div>
                         <Field
                           type="textarea"

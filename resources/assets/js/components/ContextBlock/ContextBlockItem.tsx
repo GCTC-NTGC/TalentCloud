@@ -1,4 +1,5 @@
 import * as React from "react";
+import textToParagraphs from "../../helpers/textToParagraphs";
 
 export interface ContextBlockItemProps {
   title?: string;
@@ -14,7 +15,6 @@ export interface ContextBlockItemProps {
   fontWeight?: string;
   wrapperMargin?: string;
   titleMargin?: string;
-  reference?: React.RefObject<HTMLParagraphElement>;
 }
 
 const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
@@ -31,7 +31,6 @@ const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
   wrapperMargin,
   titleMargin,
   active,
-  reference,
 }): React.ReactElement => {
   return (
     <div
@@ -54,11 +53,8 @@ const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
           {title}
         </p>
       )}
-      {subtext && (
-        <p ref={reference} data-c-font-size={fontSize || "small"}>
-          {subtext}
-        </p>
-      )}
+      {subtext &&
+        textToParagraphs(subtext, { "data-c-font-size": fontSize || "small" })}
     </div>
   );
 };

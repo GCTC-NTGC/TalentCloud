@@ -1233,15 +1233,12 @@ const WorkEnvForm = ({
                 <p data-c-margin="bottom(normal)">
                   <FormattedMessage {...formMessages.cultureSummarySubtext} />
                 </p>
-                <ContextBlockItem
-                  subtext={buildCultureSummary(values)}
-                  reference={cultureSummaryRef}
-                />
+                <ContextBlockItem subtext={buildCultureSummary(values)} />
                 <div
                   data-c-alignment="base(centre) tl(right)"
                   data-c-margin="top(normal)"
                 >
-                  <CopyToClipboardButton reference={cultureSummaryRef} />
+                  <CopyToClipboardButton text={buildCultureSummary(values)} />
                 </div>
               </div>
               <Field
