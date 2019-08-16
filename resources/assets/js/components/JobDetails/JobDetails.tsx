@@ -35,6 +35,7 @@ import {
   classificationOptionMessages,
   educationMessages,
 } from "./JobDetailsMessages";
+import { hasKey } from "../../helpers/queries";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -153,6 +154,15 @@ const isClassificationSet = (values: JobFormValues): boolean => {
   return values.classification.length > 0 && values.level !== "";
 };
 
+const getEducationMsgForClassification = (
+  classification: string,
+  intl: ReactIntl.InjectedIntl,
+): string => {
+  return hasKey(educationMessages, classification)
+    ? intl.formatMessage(educationMessages[classification])
+    : "";
+};
+
 const jobToValues = (
   job: Job | null,
   locale: string,
@@ -206,7 +216,7 @@ const jobToValues = (
   if (
     values.classification &&
     values.educationRequirements ===
-      intl.formatMessage(educationMessages[values.classification])
+      getEducationMsgForClassification(values.classification, intl)
   ) {
     return {
       ...values,
@@ -368,8 +378,6 @@ const JobDetails: React.FunctionComponent<
       .required(intl.formatMessage(validationMessages.required)),
   });
 
-  const educationRef = React.createRef<HTMLParagraphElement>();
-
   return (
     <section>
       <div
@@ -397,7 +405,7 @@ const JobDetails: React.FunctionComponent<
             const educationRequirements: string =
               values.educationRequirements.length > 0
                 ? values.educationRequirements
-                : intl.formatMessage(educationMessages[values.classification]);
+                : getEducationMsgForClassification(values.classification, intl);
             const modifiedValues: JobFormValues = {
               ...values,
               educationRequirements,
@@ -596,8 +604,9 @@ const JobDetails: React.FunctionComponent<
                       <div>
                         <ContextBlockItem
                           wrapperMargin="bottom(normal)"
-                          subtext={intl.formatMessage(
-                            educationMessages[values.classification],
+                          subtext={getEducationMsgForClassification(
+                            values.classification,
+                            intl,
                           )}
                         />
                       </div>
@@ -625,8 +634,9 @@ const JobDetails: React.FunctionComponent<
                           data-c-margin="top(normal) bottom(half)"
                         >
                           <CopyToClipboardButton
-                            text={intl.formatMessage(
-                              educationMessages[values.classification],
+                            text={getEducationMsgForClassification(
+                              values.classification,
+                              intl,
                             )}
                           />
                         </div>
@@ -1006,8 +1016,9 @@ const JobDetails: React.FunctionComponent<
                       education={
                         values.educationRequirements.length > 0
                           ? values.educationRequirements
-                          : intl.formatMessage(
-                              educationMessages[values.classification],
+                          : getEducationMsgForClassification(
+                              values.classification,
+                              intl,
                             )
                       }
                       termLength={
