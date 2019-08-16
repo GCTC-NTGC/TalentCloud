@@ -37,7 +37,6 @@ jobs: # a collection of steps
           key: node-v1-{{ checksum "package.json" }}
           paths:
             - node_modules
-      - run: docker start
       - run: docker run --rm -v /etc/ssl:/certificates -e "SERVER=talent.test" jacoelho/generate-certificate
       - run: sudo php artisan migrate && sudo php artisan db:seed
       - run: sudo npm run dev
