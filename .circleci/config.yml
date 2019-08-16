@@ -39,8 +39,8 @@ jobs: # a collection of steps
             - node_modules
       - run: sudo php artisan migrate && sudo php artisan db:seed
       - run: npm run dev
-      - run: npm test
       - run: sudo ./vendor/bin/phpunit -d memory_limit=512M
+      - run: npm test
       - store_test_results:
           path: tests/_output
       - store_artifacts:
@@ -50,10 +50,7 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - build:
           filters:
             branches:
               only: feature/circleci-integration
