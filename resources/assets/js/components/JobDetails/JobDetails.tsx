@@ -247,6 +247,8 @@ interface JobDetailsProps {
   handleModalCancel: () => void;
   // Function to run when modal confirm is clicked.
   handleModalConfirm: () => void;
+  jobIsComplete: boolean;
+  handleSkipToReview: () => Promise<void>;
 }
 
 type RemoteWorkType = "remoteWorkNone" | "remoteWorkCanada" | "remoteWorkWorld";
@@ -531,6 +533,8 @@ const JobDetails: React.FunctionComponent<
   handleReturn,
   handleModalCancel,
   handleModalConfirm,
+  jobIsComplete,
+  handleSkipToReview,
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -1115,6 +1119,11 @@ const JobDetails: React.FunctionComponent<
                   handleModalCancel();
                   setIsModalVisible(false);
                 }}
+                onModalMiddle={(): void => {
+                  handleSkipToReview().finally((): void => {
+                    setIsModalVisible(false);
+                  });
+                }}
               >
                 <Modal.Header>
                   <div
@@ -1210,6 +1219,15 @@ const JobDetails: React.FunctionComponent<
                       description="The text displayed on the cancel button of the Job Details modal."
                     />
                   </Modal.FooterCancelBtn>
+                  {jobIsComplete && (
+                    <Modal.FooterMiddleBtn>
+                      <FormattedMessage
+                        id="jobDetails.modalMiddleLabel"
+                        defaultMessage="Skip to Review"
+                        description="The text displayed on the 'Skip to Review' button of the Job Details modal."
+                      />
+                    </Modal.FooterMiddleBtn>
+                  )}
                   <Modal.FooterConfirmBtn>
                     <FormattedMessage
                       id="jobDetails.modalConfirmLabel"

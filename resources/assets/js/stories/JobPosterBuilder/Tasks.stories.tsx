@@ -2,7 +2,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { number } from "@storybook/addon-knobs";
+import { number, boolean } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
 import { JobTasksIntl as JobTasks } from "../../components/JobTasks/JobTasks";
 import { fakeJobTasks } from "../../fakeData/fakeJob";
@@ -18,7 +18,9 @@ const handleSubmit = async (
   action("Handle Submit")();
   return values;
 };
-
+const handleSkipToReview = async (): Promise<void> => {
+  action("Skip to Review")();
+};
 const sampleTasks = fakeJobTasks();
 
 stories
@@ -33,6 +35,8 @@ stories
         handleReturn={action("Handle Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
+        jobIsComplete={boolean("Job is Complete", false)}
+        handleSkipToReview={handleSkipToReview}
       />
     ),
   )
@@ -47,6 +51,8 @@ stories
         handleReturn={action("Handle Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
+        jobIsComplete={boolean("Job is Complete", false)}
+        handleSkipToReview={handleSkipToReview}
       />
     ),
   );

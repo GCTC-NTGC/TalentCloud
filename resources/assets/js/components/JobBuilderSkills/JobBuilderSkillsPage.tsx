@@ -64,10 +64,11 @@ const JobBuilderSkillsPage: React.FunctionComponent<
 
   const handleSubmit = (tasks: Criteria[]): Promise<Criteria[]> =>
     handleSubmitCriteria(jobId, tasks);
-  // TODO: use this to determine whether the SKIP TO REVIEW button should be shown
-  const jobIsComplete =
-    job !== null &&
-    isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
+  const handleSkipToReview = async (): Promise<void> => {
+    window.location.href = jobBuilderReview(locale, jobId);
+  };
+  // As long as Skills is the last step, we never need to show the Skip to Review button
+  const jobIsComplete = false;
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="skills">
       {job !== null && (
@@ -79,6 +80,8 @@ const JobBuilderSkillsPage: React.FunctionComponent<
           handleSubmit={handleSubmit}
           handleReturn={handleReturn}
           handleContinue={handleContinue}
+          jobIsComplete={jobIsComplete}
+          handleSkipToReview={handleSkipToReview}
         />
       )}
     </JobBuilderStepContainer>

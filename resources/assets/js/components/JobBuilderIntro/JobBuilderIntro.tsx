@@ -73,11 +73,6 @@ const JobBuilderIntro: React.FunctionComponent<
     window.location.href = jobBuilderDetails("fr", newJob.id);
   };
 
-  // TODO: use this to determine whether the SKIP TO REVIEW button should be shown
-  const jobIsComplete =
-    job !== null &&
-    isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
-
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="intro">
       <IntroForm

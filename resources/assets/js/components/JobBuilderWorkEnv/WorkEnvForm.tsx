@@ -749,6 +749,9 @@ interface WorkEnvFormProps {
   handleModalCancel: () => void;
   // Function to run when modal confirm is clicked.
   handleModalConfirm: () => void;
+
+  jobIsComplete: boolean;
+  handleSkipToReview: () => Promise<void>;
 }
 
 const WorkEnvForm = ({
@@ -757,6 +760,8 @@ const WorkEnvForm = ({
   handleReturn,
   handleModalCancel,
   handleModalConfirm,
+  jobIsComplete,
+  handleSkipToReview,
   intl,
 }: WorkEnvFormProps & InjectedIntlProps): React.ReactElement => {
   const { locale } = intl;
@@ -1209,6 +1214,12 @@ const WorkEnvForm = ({
               cultureSummary={
                 values.cultureSummary || buildCultureSummary(values)
               }
+              jobIsComplete={jobIsComplete}
+              handleSkipToReview={(): void => {
+                handleSkipToReview().finally((): void => {
+                  setIsModalVisible(false);
+                });
+              }}
             />
           </>
         )}

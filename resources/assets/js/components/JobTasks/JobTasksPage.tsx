@@ -8,7 +8,11 @@ import {
   isJobBuilderComplete,
 } from "../JobBuilder/jobBuilderHelpers";
 import JobTasks from "./JobTasks";
-import { jobBuilderSkills, jobBuilderImpact } from "../../helpers/routes";
+import {
+  jobBuilderSkills,
+  jobBuilderImpact,
+  jobBuilderReview,
+} from "../../helpers/routes";
 import { RootState } from "../../store/store";
 import {
   getJob,
@@ -16,11 +20,7 @@ import {
   getCriteriaByJob,
 } from "../../store/Job/jobSelector";
 import { DispatchType } from "../../configureStore";
-import {
-  fetchJob,
-  fetchJobTasks,
-  batchUpdateJobTasks,
-} from "../../store/Job/jobActions";
+import { batchUpdateJobTasks } from "../../store/Job/jobActions";
 import RootContainer from "../RootContainer";
 import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
 
@@ -62,7 +62,9 @@ const JobTasksPage: React.FunctionComponent<
   const handleReturn = (): void => {
     window.location.href = jobBuilderImpact(locale, jobId);
   };
-  // TODO: use this to determine whether the SKIP TO REVIEW button should be shown
+  const handleSkipToReview = async (): Promise<void> => {
+    window.location.href = jobBuilderReview(locale, jobId);
+  };
   const jobIsComplete =
     job !== null &&
     isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
@@ -77,6 +79,8 @@ const JobTasksPage: React.FunctionComponent<
           handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
+          handleSkipToReview={handleSkipToReview}
+          jobIsComplete={jobIsComplete}
         />
       )}
     </JobBuilderStepContainer>

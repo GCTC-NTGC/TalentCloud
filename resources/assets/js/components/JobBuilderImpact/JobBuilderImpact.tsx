@@ -31,6 +31,9 @@ interface JobBuilderImpactProps {
   handleModalCancel: () => void;
   /** Function to run when modal confirm is clicked. */
   handleModalConfirm: () => void;
+
+  jobIsComplete: boolean;
+  handleSkipToReview: () => Promise<void>;
 }
 
 interface JobImpactValues {
@@ -158,6 +161,8 @@ const JobBuilderImpact: React.FunctionComponent<
   handleReturn,
   handleModalCancel,
   handleModalConfirm,
+  jobIsComplete,
+  handleSkipToReview,
 }): React.ReactElement => {
   const modalId = "impact-dialog";
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -390,6 +395,11 @@ const JobBuilderImpact: React.FunctionComponent<
                   handleModalCancel();
                   setIsModalVisible(false);
                 }}
+                onModalMiddle={(): void => {
+                  handleSkipToReview().finally((): void =>
+                    setIsModalVisible(false),
+                  );
+                }}
               >
                 <Modal.Header>
                   <div
@@ -431,6 +441,11 @@ const JobBuilderImpact: React.FunctionComponent<
                 </Modal.Body>
                 <Modal.Footer>
                   <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
+                  {jobIsComplete && (
+                    <Modal.FooterMiddleBtn>
+                      Skip to Review
+                    </Modal.FooterMiddleBtn>
+                  )}
                   <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
                 </Modal.Footer>
               </Modal>

@@ -11,6 +11,8 @@ interface WorkEnvModalProps {
   parentElement: Element | null;
   values: FormValues;
   cultureSummary: string;
+  jobIsComplete: boolean;
+  handleSkipToReview: () => void;
 }
 
 const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
@@ -20,6 +22,8 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
   parentElement,
   values,
   cultureSummary,
+  jobIsComplete,
+  handleSkipToReview,
 }): React.ReactElement => {
   return (
     <>
@@ -29,6 +33,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
         visible={isVisible}
         onModalConfirm={modalConfirm}
         onModalCancel={modalCancel}
+        onModalMiddle={handleSkipToReview}
       >
         <Modal.Header>
           <div
@@ -119,6 +124,15 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
               description="The label displayed on modal cancel button."
             />
           </Modal.FooterCancelBtn>
+          {jobIsComplete && (
+            <Modal.FooterMiddleBtn>
+              <FormattedMessage
+                id="jobBuilder.workEnvModal.modalMiddleLabel"
+                defaultMessage="Skip to Review"
+                description="The text displayed on the 'Skip to Review' button of the Work Env modal."
+              />
+            </Modal.FooterMiddleBtn>
+          )}
           <Modal.FooterConfirmBtn>
             <FormattedMessage
               id="jobBuilder.workEnvModal.confirmLabel"

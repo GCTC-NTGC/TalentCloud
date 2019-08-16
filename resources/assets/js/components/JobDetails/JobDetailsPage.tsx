@@ -13,7 +13,11 @@ import {
   getCriteriaByJob,
 } from "../../store/Job/jobSelector";
 import RootContainer from "../RootContainer";
-import { jobBuilderEnv, jobBuilderIntro } from "../../helpers/routes";
+import {
+  jobBuilderEnv,
+  jobBuilderIntro,
+  jobBuilderReview,
+} from "../../helpers/routes";
 import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
 import {
   isJobBuilderComplete,
@@ -57,8 +61,12 @@ const JobDetailsPage: React.FunctionComponent<
       jobId !== null ? jobId : undefined,
     );
   };
+  const handleSkipToReview = async (): Promise<void> => {
+    if (jobId !== null) {
+      window.location.href = jobBuilderReview(locale, jobId);
+    }
+  };
 
-  // TODO: use this to determine whether the SKIP TO REVIEW button should be shown
   const jobIsComplete =
     job !== null &&
     isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
@@ -71,6 +79,8 @@ const JobDetailsPage: React.FunctionComponent<
           handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
+          jobIsComplete={jobIsComplete}
+          handleSkipToReview={handleSkipToReview}
         />
       )}
     </JobBuilderStepContainer>

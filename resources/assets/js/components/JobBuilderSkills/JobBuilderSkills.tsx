@@ -30,6 +30,10 @@ interface JobBuilderSkillsProps {
   handleReturn: () => void;
   // The function to run when user clicks Next Page
   handleContinue: () => void;
+  /** Whether the entire job is complete and valid for submission. */
+  jobIsComplete: boolean;
+  /** Function that skips to final review. */
+  handleSkipToReview: () => Promise<void>;
 }
 
 const messages = defineMessages({
@@ -192,6 +196,8 @@ export const JobBuilderSkills: React.FunctionComponent<
   handleSubmit,
   handleReturn,
   handleContinue,
+  jobIsComplete,
+  handleSkipToReview,
   intl,
 }): React.ReactElement => {
   const { locale } = intl;
@@ -1644,6 +1650,9 @@ export const JobBuilderSkills: React.FunctionComponent<
         visible={isPreviewVisible}
         onModalCancel={(): void => setIsPreviewVisible(false)}
         onModalConfirm={(): void => handleContinue()}
+        onModalMiddle={(): void => {
+          handleSkipToReview();
+        }}
       >
         <Modal.Header>
           <div
@@ -1753,6 +1762,15 @@ export const JobBuilderSkills: React.FunctionComponent<
               description="The text displayed on the cancel button of the Job Builder Skills Preview modal."
             />
           </Modal.FooterCancelBtn>
+          {jobIsComplete && (
+            <Modal.FooterMiddleBtn>
+              <FormattedMessage
+                id="jobBuilder.skills.previewModalMiddleLabel"
+                defaultMessage="Skip to Review"
+                description="The text displayed on the 'Skip to Review' button of the Job Builder Skills Preview modal."
+              />
+            </Modal.FooterMiddleBtn>
+          )}
           <Modal.FooterConfirmBtn>
             <FormattedMessage
               id="jobBuilder.skills.previewModalConfirmLabel"

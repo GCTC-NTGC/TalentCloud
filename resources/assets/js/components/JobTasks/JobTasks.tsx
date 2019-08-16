@@ -44,6 +44,10 @@ interface JobTasksProps {
   handleModalCancel: () => void;
   /** Function to run when modal confirm is clicked. */
   handleModalConfirm: () => void;
+  /** Whether the entire job is complete and valid for submission. */
+  jobIsComplete: boolean;
+  /** Function that skips to final review. */
+  handleSkipToReview: () => Promise<void>;
 }
 
 interface TaskFormValues {
@@ -85,6 +89,8 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
   handleReturn,
   handleModalCancel,
   handleModalConfirm,
+  jobIsComplete,
+  handleSkipToReview,
   intl,
 }): React.ReactElement => {
   const modalId = "tasks-modal";
@@ -498,6 +504,11 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                 handleModalConfirm();
                 setIsModalVisible(false);
               }}
+              onModalMiddle={(): void => {
+                handleSkipToReview().finally((): void => {
+                  setIsModalVisible(false);
+                });
+              }}
             >
               <Modal.Header>
                 <div
@@ -571,6 +582,15 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                     defaultMessage="Go Back"
                   />
                 </Modal.FooterCancelBtn>
+                {jobIsComplete && (
+                  <Modal.FooterMiddleBtn>
+                    <FormattedMessage
+                      id="jobTasks.modal.middleButtonLabel"
+                      description="The text displayed on the Skip to Review button of the Job Tasks modal."
+                      defaultMessage="Skip to Review"
+                    />
+                  </Modal.FooterMiddleBtn>
+                )}
                 <Modal.FooterConfirmBtn>
                   <FormattedMessage
                     id="jobTasks.modal.confirmButtonLabel"
