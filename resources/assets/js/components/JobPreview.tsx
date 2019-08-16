@@ -5,6 +5,7 @@ import {
   FormattedMessage,
   defineMessages,
 } from "react-intl";
+import nl2br from "../helpers/nl2br";
 
 export interface JobPreviewProps {
   /** Title of the Job Poster */
@@ -197,7 +198,7 @@ const JobPreview: React.FunctionComponent<
               description="Job Poster Card Information Label"
             />
           </p>
-          <p>{education}</p>
+          <p>{nl2br(education)}</p>
         </div>
       </div>
       <h4
