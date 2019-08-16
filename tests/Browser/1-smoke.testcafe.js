@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
 import { managerUser, adminUser } from "./helpers/roles";
 
-fixture(`Smoke`).page(`talent.test`);
+fixture(`Smoke`).page(`localhost`);
 
 // Skip when writing new tests
 // fixture.skip(`Smoke`);
