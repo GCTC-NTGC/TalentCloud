@@ -41,7 +41,7 @@ jobs: # a collection of steps
       - run: sudo npm run dev
       - run: sudo npm test
       - run: sudo php artisan serve &
-      - run: sudo npm run testcafe-circle
+      - run: sudo npm run testcafe-ci
       - run: sudo ./vendor/bin/phpunit -d memory_limit=512M
       - store_test_results:
           path: /tmp/test-results
