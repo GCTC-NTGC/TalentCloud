@@ -65,7 +65,9 @@ type TeleworkOptionType =
   | "teleworkFrequently"
   | "teleworkAlways";
 
-const teleworkMessages = {
+const teleworkMessages: {
+  [key in TeleworkOptionType]: FormattedMessage.MessageDescriptor;
+} = {
   teleworkNever: formMessages.frequencyNeverLabel,
   teleworkOccasionally: formMessages.frequencyOccasionallyLabel,
   teleworkSometimes: formMessages.frequencySometimesLabel,
@@ -73,9 +75,9 @@ const teleworkMessages = {
   teleworkAlways: formMessages.frequencyAlwaysLabel,
 };
 
-const teleworkFrequencies = Object.keys(teleworkMessages).map(
-  (key: TeleworkOptionType): TeleworkOptionType => key,
-);
+const teleworkFrequencies: TeleworkOptionType[] = Object.keys(
+  teleworkMessages,
+) as TeleworkOptionType[];
 
 type FlexHourOptionType =
   | "flexHoursNever"
@@ -84,45 +86,51 @@ type FlexHourOptionType =
   | "flexHoursFrequently"
   | "flexHoursAlways";
 
-const flexHourMessages = {
+const flexHourMessages: {
+  [key in FlexHourOptionType]: FormattedMessage.MessageDescriptor;
+} = {
   flexHoursNever: formMessages.frequencyNeverLabel,
   flexHoursOccasionally: formMessages.frequencyOccasionallyLabel,
   flexHoursSometimes: formMessages.frequencySometimesLabel,
   flexHoursFrequently: formMessages.frequencyFrequentlyLabel,
   flexHoursAlways: formMessages.frequencyAlwaysLabel,
 };
-const flexHourFequencies = Object.keys(flexHourMessages).map(
-  (key: FlexHourOptionType): FlexHourOptionType => key,
-);
+const flexHourFequencies: FlexHourOptionType[] = Object.keys(
+  flexHourMessages,
+) as FlexHourOptionType[];
 
 type TravelOptionType =
   | "travelFrequently"
   | "travelOpportunitiesAvailable"
   | "travelNoneRequired";
 
-const travelMessages = {
+const travelMessages: {
+  [key in TravelOptionType]: FormattedMessage.MessageDescriptor;
+} = {
   travelFrequently: formMessages.travelFrequentlyLabel,
   travelOpportunitiesAvailable: formMessages.travelOpportunitiesAvailableLabel,
   travelNoneRequired: formMessages.travelNoneRequiredLabel,
 };
-const travelRequirements = Object.keys(travelMessages).map(
-  (key: TravelOptionType): TravelOptionType => key,
-);
+const travelRequirements: TravelOptionType[] = Object.keys(
+  travelMessages,
+) as TravelOptionType[];
 
 type OvertimeOptionType =
   | "overtimeFrequently"
   | "overtimeOpportunitiesAvailable"
   | "overtimeNoneRequired";
 
-const overtimeMessages = {
+const overtimeMessages: {
+  [key in OvertimeOptionType]: FormattedMessage.MessageDescriptor;
+} = {
   overtimeFrequently: formMessages.overtimeFrequentlyLabel,
   overtimeOpportunitiesAvailable:
     formMessages.overtimeOpportunitiesAvailableLabel,
   overtimeNoneRequired: formMessages.overtimeNoneRequiredLabel,
 };
-const overtimeRequirements = Object.keys(overtimeMessages).map(
-  (key: OvertimeOptionType): OvertimeOptionType => key,
-);
+const overtimeRequirements: OvertimeOptionType[] = Object.keys(
+  overtimeMessages,
+) as OvertimeOptionType[];
 
 interface JobFormValues {
   title: string;
