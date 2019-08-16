@@ -38,9 +38,10 @@ jobs: # a collection of steps
           paths:
             - node_modules
       - run: sudo php artisan migrate && sudo php artisan db:seed
-      - run: npm run dev
+      - run: sudo npm run dev
+      - run: sudo npm test
       - run: sudo ./vendor/bin/phpunit -d memory_limit=512M
-      - run: npm test
+
       - store_test_results:
           path: tests/_output
       - store_artifacts:
