@@ -20,6 +20,7 @@ import {
   fetchJob,
   fetchJobTasks,
   fetchCriteria,
+  setSelectedJob,
 } from "../../store/Job/jobActions";
 import { fetchSkills } from "../../store/Skill/skillActions";
 import JobBuilderProgressTracker from "./JobBuilderProgressTracker";
@@ -191,6 +192,7 @@ const mapDispatchToProps = (
 } => ({
   loadJob: async (jobId: number): Promise<void> => {
     await dispatch(fetchJob(jobId));
+    dispatch(setSelectedJob(jobId));
   },
   loadTasks: async (jobId: number): Promise<void> => {
     await dispatch(fetchJobTasks(jobId));

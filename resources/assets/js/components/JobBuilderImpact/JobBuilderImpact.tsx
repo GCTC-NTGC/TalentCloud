@@ -237,6 +237,7 @@ const JobBuilderImpact: React.FunctionComponent<
         </p>
         {deptImpactStatement(departments, job, deptImpacts, locale)}
         <Formik
+          enableReinitialize
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={(values, actions): void => {

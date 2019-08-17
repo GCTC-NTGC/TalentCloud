@@ -886,6 +886,7 @@ const WorkEnvForm = ({
       </div>
 
       <Formik
+        enableReinitialize
         initialValues={initialValues}
         validationSchema={workEnvSchema}
         onSubmit={(values, { setSubmitting }): void => {
