@@ -29,7 +29,7 @@ import {
   isJobBuilderComplete,
   VALID_COUNT,
 } from "../JobBuilder/jobBuilderHelpers";
-import { navigate } from "hookrouter";
+import { navigate } from "../../helpers/router";
 
 interface JobBuilderIntroProps {
   // The id of the edited job, or null for a new job.
