@@ -78,22 +78,34 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
     }
   }, [jobId, loadJob]);
   const [isLoadingTasks, setIsLoadingTasks] = useState(false);
-  useEffect((): void => {
+  useEffect((): (() => void) => {
+    let isSubscribed = true;
     if (jobId) {
       setIsLoadingTasks(true);
       loadTasks(jobId).finally((): void => {
-        setIsLoadingTasks(false);
+        if (isSubscribed) {
+          setIsLoadingTasks(false);
+        }
       });
     }
+    return (): void => {
+      isSubscribed = false;
+    };
   }, [jobId, loadTasks]);
   const [isLoadingCriteria, setIsLoadingCriteria] = useState(false);
-  useEffect((): void => {
+  useEffect((): (() => void) => {
+    let isSubscribed = true;
     if (jobId) {
       setIsLoadingCriteria(true);
       loadCriteria(jobId).finally((): void => {
-        setIsLoadingCriteria(false);
+        if (isSubscribed) {
+          setIsLoadingCriteria(false);
+        }
       });
     }
+    return (): void => {
+      isSubscribed = false;
+    };
   }, [jobId, loadCriteria]);
 
   const dataIsLoading = isLoadingJob || isLoadingTasks || isLoadingCriteria;
