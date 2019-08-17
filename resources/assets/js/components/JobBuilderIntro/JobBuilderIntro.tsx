@@ -75,13 +75,16 @@ const JobBuilderIntro: React.FunctionComponent<
 
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="intro">
-      <IntroForm
-        job={job}
-        departments={departments}
-        handleSubmit={handleSubmit}
-        handleContinueEn={handleContinueEn}
-        handleContinueFr={handleContinueFr}
-      />
+      {/** Show the form when the existing job has loaded, or if this is a new job */}
+      {(job !== null || jobId === null) && (
+        <IntroForm
+          job={job}
+          departments={departments}
+          handleSubmit={handleSubmit}
+          handleContinueEn={handleContinueEn}
+          handleContinueFr={handleContinueFr}
+        />
+      )}
     </JobBuilderStepContainer>
   );
 };
