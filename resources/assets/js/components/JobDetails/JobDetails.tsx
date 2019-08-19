@@ -20,12 +20,18 @@ import {
   LanguageRequirementId,
   SecurityClearanceId,
   ProvinceId,
+  FrequencyId,
+  TravelRequirementId,
+  OvertimeRequirementId,
 } from "../../models/lookupConstants";
 import { emptyJob } from "../../models/jobUtil";
 import {
   securityClearance,
   languageRequirement,
   provinceName,
+  frequencyName,
+  travelRequirementDescription,
+  overtimeRequirementDescription,
 } from "../../models/localizedConstants";
 import ContextBlockItem from "../ContextBlock/ContextBlockItem";
 import CopyToClipboardButton from "../CopyToClipboardButton";
@@ -49,6 +55,8 @@ interface JobDetailsProps {
   handleModalCancel: () => void;
   // Function to run when modal confirm is clicked.
   handleModalConfirm: () => void;
+  jobIsComplete: boolean;
+  handleSkipToReview: () => Promise<void>;
 }
 
 type RemoteWorkType = "remoteWorkNone" | "remoteWorkCanada" | "remoteWorkWorld";
@@ -69,11 +77,11 @@ type TeleworkOptionType =
 const teleworkMessages: {
   [key in TeleworkOptionType]: FormattedMessage.MessageDescriptor;
 } = {
-  teleworkNever: formMessages.frequencyNeverLabel,
-  teleworkOccasionally: formMessages.frequencyOccasionallyLabel,
-  teleworkSometimes: formMessages.frequencySometimesLabel,
-  teleworkFrequently: formMessages.frequencyFrequentlyLabel,
-  teleworkAlways: formMessages.frequencyAlwaysLabel,
+  teleworkNever: frequencyName(FrequencyId.never),
+  teleworkOccasionally: frequencyName(FrequencyId.rarely),
+  teleworkSometimes: frequencyName(FrequencyId.sometimes),
+  teleworkFrequently: frequencyName(FrequencyId.often),
+  teleworkAlways: frequencyName(FrequencyId.always),
 };
 
 const teleworkFrequencies: TeleworkOptionType[] = Object.keys(
@@ -90,11 +98,11 @@ type FlexHourOptionType =
 const flexHourMessages: {
   [key in FlexHourOptionType]: FormattedMessage.MessageDescriptor;
 } = {
-  flexHoursNever: formMessages.frequencyNeverLabel,
-  flexHoursOccasionally: formMessages.frequencyOccasionallyLabel,
-  flexHoursSometimes: formMessages.frequencySometimesLabel,
-  flexHoursFrequently: formMessages.frequencyFrequentlyLabel,
-  flexHoursAlways: formMessages.frequencyAlwaysLabel,
+  flexHoursNever: frequencyName(FrequencyId.never),
+  flexHoursOccasionally: frequencyName(FrequencyId.sometimes),
+  flexHoursFrequently: frequencyName(FrequencyId.rarely),
+  flexHoursSometimes: frequencyName(FrequencyId.often),
+  flexHoursAlways: frequencyName(FrequencyId.always),
 };
 const flexHourFequencies: FlexHourOptionType[] = Object.keys(
   flexHourMessages,
@@ -108,9 +116,13 @@ type TravelOptionType =
 const travelMessages: {
   [key in TravelOptionType]: FormattedMessage.MessageDescriptor;
 } = {
-  travelFrequently: formMessages.travelFrequentlyLabel,
-  travelOpportunitiesAvailable: formMessages.travelOpportunitiesAvailableLabel,
-  travelNoneRequired: formMessages.travelNoneRequiredLabel,
+  travelFrequently: travelRequirementDescription(
+    TravelRequirementId.frequently,
+  ),
+  travelOpportunitiesAvailable: travelRequirementDescription(
+    TravelRequirementId.available,
+  ),
+  travelNoneRequired: travelRequirementDescription(TravelRequirementId.none),
 };
 const travelRequirements: TravelOptionType[] = Object.keys(
   travelMessages,
@@ -124,10 +136,15 @@ type OvertimeOptionType =
 const overtimeMessages: {
   [key in OvertimeOptionType]: FormattedMessage.MessageDescriptor;
 } = {
-  overtimeFrequently: formMessages.overtimeFrequentlyLabel,
-  overtimeOpportunitiesAvailable:
-    formMessages.overtimeOpportunitiesAvailableLabel,
-  overtimeNoneRequired: formMessages.overtimeNoneRequiredLabel,
+  overtimeFrequently: overtimeRequirementDescription(
+    OvertimeRequirementId.frequently,
+  ),
+  overtimeOpportunitiesAvailable: overtimeRequirementDescription(
+    OvertimeRequirementId.available,
+  ),
+  overtimeNoneRequired: overtimeRequirementDescription(
+    OvertimeRequirementId.none,
+  ),
 };
 const overtimeRequirements: OvertimeOptionType[] = Object.keys(
   overtimeMessages,
@@ -274,6 +291,8 @@ const JobDetails: React.FunctionComponent<
   handleReturn,
   handleModalCancel,
   handleModalConfirm,
+  jobIsComplete,
+  handleSkipToReview,
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -954,6 +973,11 @@ const JobDetails: React.FunctionComponent<
                   handleModalCancel();
                   setIsModalVisible(false);
                 }}
+                onModalMiddle={(): void => {
+                  handleSkipToReview().finally((): void => {
+                    setIsModalVisible(false);
+                  });
+                }}
               >
                 <Modal.Header>
                   <div
@@ -1056,6 +1080,15 @@ const JobDetails: React.FunctionComponent<
                       description="The text displayed on the cancel button of the Job Details modal."
                     />
                   </Modal.FooterCancelBtn>
+                  {jobIsComplete && (
+                    <Modal.FooterMiddleBtn>
+                      <FormattedMessage
+                        id="jobDetails.modalMiddleLabel"
+                        defaultMessage="Skip to Review"
+                        description="The text displayed on the 'Skip to Review' button of the Job Details modal."
+                      />
+                    </Modal.FooterMiddleBtn>
+                  )}
                   <Modal.FooterConfirmBtn>
                     <FormattedMessage
                       id="jobDetails.modalConfirmLabel"

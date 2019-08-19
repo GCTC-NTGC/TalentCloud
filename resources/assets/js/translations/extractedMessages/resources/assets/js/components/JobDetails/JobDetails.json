@@ -7,7 +7,7 @@
   {
     "id": "jobDetails.SelectClassAndLvlMessage",
     "description": "Message displayed after classification and level select boxes.",
-    "defaultMessage": "Please select a classification and level before preparing\r\n                          the education requirements."
+    "defaultMessage": "Please select a classification and level before preparing\n                          the education requirements."
   },
   {
     "id": "jobDetails.educationRequirementHeader",
@@ -88,6 +88,11 @@
     "id": "jobDetails.modalCancelLabel",
     "description": "The text displayed on the cancel button of the Job Details modal.",
     "defaultMessage": "Go Back"
+  },
+  {
+    "id": "jobDetails.modalMiddleLabel",
+    "description": "The text displayed on the 'Skip to Review' button of the Job Details modal.",
+    "defaultMessage": "Skip to Review"
   },
   {
     "id": "jobDetails.modalConfirmLabel",

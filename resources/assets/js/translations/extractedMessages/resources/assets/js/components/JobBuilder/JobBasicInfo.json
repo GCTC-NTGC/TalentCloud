@@ -1,0 +1,37 @@
+[
+  {
+    "id": "jobPreview.termLength",
+    "description": "Calculated term length in months",
+    "defaultMessage": "{termMonths,plural,=0{no months} one{{termMonths, number} month} other{{termMonths, number} months}}"
+  },
+  {
+    "id": "jobPreview.jobTitle",
+    "description": "Job Poster Card Information Label",
+    "defaultMessage": "Job Title"
+  },
+  {
+    "id": "jobPreview.lengthOfTheTerm",
+    "description": "Job Poster Card Information Label",
+    "defaultMessage": "Length of the Term"
+  },
+  {
+    "id": "jobPreview.securityClearance",
+    "description": "Job Poster Card Information Label",
+    "defaultMessage": "Security Clearance"
+  },
+  {
+    "id": "jobPreview.languageProfile",
+    "description": "Job Poster Card Information Label",
+    "defaultMessage": "Language Profile"
+  },
+  {
+    "id": "jobPreview.city",
+    "description": "Job Poster Card Information Label",
+    "defaultMessage": "City"
+  },
+  {
+    "id": "jobPreview.province",
+    "description": "Job Poster Card Information Label",
+    "defaultMessage": "Province"
+  }
+]

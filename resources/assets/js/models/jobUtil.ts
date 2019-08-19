@@ -1,5 +1,14 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Job, JobTranslation, JobPosterKeyTask } from "./types";
+import {
+  Job,
+  JobTranslation,
+  JobPosterKeyTask,
+  Criteria,
+  Skill,
+} from "./types";
+import { CriteriaTypeId } from "./lookupConstants";
+import { assetSkillName, skillLevelName } from "./localizedConstants";
+import { FormattedMessage } from "react-intl";
 
 const pad = (n: number, width: number, z = "0"): string => {
   return (String(z).repeat(width) + String(n)).slice(String(n).length);
@@ -74,4 +83,12 @@ export const emptyTasks = (): JobPosterKeyTask[] => [
   },
 ];
 
-export default { classificationString };
+export const getSkillLevelName = (
+  { skill_level_id, criteria_type_id }: Criteria,
+  { skill_type_id }: Skill,
+): FormattedMessage.MessageDescriptor => {
+  if (criteria_type_id === CriteriaTypeId.Asset) {
+    return assetSkillName();
+  }
+  return skillLevelName(skill_level_id, skill_type_id);
+};

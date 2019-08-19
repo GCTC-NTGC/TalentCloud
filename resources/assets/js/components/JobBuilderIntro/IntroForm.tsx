@@ -209,6 +209,7 @@ const IntroForm: React.FunctionComponent<
           />
         </h4>
         <Formik
+          enableReinitialize
           initialValues={initialValues}
           validationSchema={introSchema}
           onSubmit={(values, { setSubmitting }): void => {
