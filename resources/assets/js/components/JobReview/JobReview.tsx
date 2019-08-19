@@ -1,5 +1,10 @@
 import React, { useState, useRef } from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import {
+  injectIntl,
+  InjectedIntlProps,
+  FormattedMessage,
+  defineMessages,
+} from "react-intl";
 import {
   JobPosterKeyTask,
   Criteria,
@@ -38,6 +43,7 @@ import Criterion from "../JobBuilder/Criterion";
 import JobWorkEnv from "../JobBuilder/JobWorkEnv";
 import JobWorkCulture from "../JobBuilder/JobWorkCulture";
 import Modal from "../Modal";
+import { defaultMemoize } from "reselect";
 
 interface JobReviewSectionProps {
   title: string;
@@ -46,6 +52,29 @@ interface JobReviewSectionProps {
   linkLabel: string;
   description?: string;
 }
+
+const messages = defineMessages({
+  titleHeading: {
+    id: "jobBuilder.review.jobPageHeading",
+    defaultMessage: "Job Page Heading",
+    description: "Section title.",
+  },
+  infoEditLink: {
+    id: "jobBuilder.review.infoEditLink",
+    defaultMessage: "Edit This in Step 01: Job Info",
+    description: "Link to edit job details.",
+  },
+  nullProvince: {
+    id: "jobBuilder.review.nullProvince",
+    defaultMessage: "MISSING PROVINCE",
+    description: "Error text for missing province information.",
+  },
+  basicHeading: {
+    id: "jobBuilder.review.basicInformationHeading",
+    defaultMessage: "Basic Information",
+    description: "Heading for Basic Information section",
+  },
+});
 
 const JobReviewSection: React.FunctionComponent<JobReviewSectionProps> = ({
   title,
@@ -235,16 +264,24 @@ export const JobReview: React.FunctionComponent<
           data-c-font-weight="bold"
           data-c-margin="bottom(double)"
         >
-          Review Your Job Poster for:{" "}
-          <span data-c-colour="c2">External Recruiter</span>
+          <FormattedMessage
+            id="jobBuilder.review.reviewYourPoster"
+            defaultMessage="Review Your Job Poster for:"
+            description="Title for Review Job Poster section."
+          />{" "}
+          <span data-c-colour="c2">{job[locale].title}</span>
         </h3>
         <p>
-          Just a heads up! We've rearranged some of your information to help you
-          understand how an applicant will see it once published.
+          <FormattedMessage
+            id="jobBuilder.review.headsUp"
+            defaultMessage="Just a heads up! We've rearranged some of your information to help you
+            understand how an applicant will see it once published."
+            description="Description under primary title of review section"
+          />
         </p>
         <JobReviewSection
-          title="Job Page Heading"
-          linkLabel="Edit This in Step 01: Job Info"
+          title={intl.formatMessage(messages.titleHeading)}
+          linkLabel={intl.formatMessage(messages.infoEditLink)}
           link={jobBuilderDetails(locale, job.id)}
         >
           <p data-c-font-weight="bold" data-c-margin="bottom(half)">
@@ -262,7 +299,7 @@ export const JobReview: React.FunctionComponent<
             {job[locale].city},{" "}
             {job.province_id !== null
               ? intl.formatMessage(provinceName(job.province_id))
-              : "MISSING PROVINCE"}
+              : intl.formatMessage(messages.nullProvince)}
           </p>
           <p>
             <i
@@ -288,36 +325,67 @@ export const JobReview: React.FunctionComponent<
           </p>
         </JobReviewSection>
         <JobReviewSection
-          title="Basic Information"
-          linkLabel="Edit This in Step 01: Job Info"
+          title={intl.formatMessage(messages.basicHeading)}
+          linkLabel={intl.formatMessage(messages.infoEditLink)}
           link={jobBuilderDetails(locale, job.id)}
         >
           <div data-c-grid="gutter">
             <div data-c-grid-item="tp(1of2)">
               <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                Average Annual Salary
+                <FormattedMessage
+                  id="jobBuilder.review.averageAnnualSalary"
+                  defaultMessage="Average Annual Salary"
+                  description="Label for salary information."
+                />
               </p>
-              <p>Talent Cloud will add this.</p>
+              <p>
+                <FormattedMessage
+                  id="jobBuilder.review.tCAdds"
+                  defaultMessage="Talent Cloud will add this."
+                  description="Information will be added placeholder."
+                />
+              </p>
             </div>
             <div data-c-grid-item="tp(1of2)">
               <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                Language Profile
+                <FormattedMessage
+                  id="jobBuilder.review.languageProfile"
+                  defaultMessage="Language Profile"
+                  description="Information will be added placeholder."
+                />
               </p>
               <p>
-                {job.province_id
-                  ? intl.formatMessage(provinceName(job.province_id))
+                {job.language_requirement_id
+                  ? intl.formatMessage(
+                      languageRequirement(job.language_requirement_id),
+                    )
                   : ""}
               </p>
             </div>
             <div data-c-grid-item="tp(1of2)">
               <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                Duration
+                <FormattedMessage
+                  id="jobBuilder.review.duration"
+                  defaultMessage="Duration"
+                  description="Label for duration of Term"
+                />
               </p>
-              <p>{job.term_qty} Months</p>
+              <p>
+                <FormattedMessage
+                  id="jobBuilder.review.months"
+                  defaultMessage="{termMonths, plural, =0 {No Months} one {# Month} other {# Months}}"
+                  description="Length of term in months"
+                  values={{ termMonths: job.term_qty }}
+                />
+              </p>
             </div>
             <div data-c-grid-item="tp(1of2)">
               <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                Security Clearance
+                <FormattedMessage
+                  id="jobBuilder.review.securityClearance"
+                  defaultMessage="Security Clearance"
+                  description="Label for Security Clearance info"
+                />
               </p>
               <p>
                 {job.security_clearance_id
