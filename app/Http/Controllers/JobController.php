@@ -198,22 +198,41 @@ class JobController extends Controller
             ];
         }
 
-        return view(
-            'applicant/job_post',
-            [
-                'job_post' => $jobLang,
-                'manager' => $jobPoster->manager,
-                'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
-                'team_culture' => $jobPoster->manager->team_culture,
-                'work_environment' => $jobPoster->manager->work_environment,
-                'workplace_photos' => $workplacePhotos,
-                'job' => $jobPoster,
-                'criteria' => $criteria,
-                'apply_button' => $applyButton,
-                'skill_template' => Lang::get('common/skills'),
-            ]
-        );
+        /*
+            1. Create a variable for the time JPB is released(?).
+            2. Create a variable of the jobPosters timestamp (created_at).
+            3. Check if the jobPosters timestamp is past the JPB release time. If so then use the new JPB view, else use the old Job Poster view.
+        */
+
+        if (1) {
+            return view(
+                'applicant/jpb_job_post',
+                [
+                    'job_post' => $jobLang,
+                    'job' => $jobPoster,
+                    'criteria' => $criteria,
+                    'apply_button' => $applyButton,
+                ]
+            );
+        } else {
+            return view(
+                'applicant/job_post',
+                [
+                    'job_post' => $jobLang,
+                    'manager' => $jobPoster->manager,
+                    'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
+                    'team_culture' => $jobPoster->manager->team_culture,
+                    'work_environment' => $jobPoster->manager->work_environment,
+                    'workplace_photos' => $workplacePhotos,
+                    'job' => $jobPoster,
+                    'criteria' => $criteria,
+                    'apply_button' => $applyButton,
+                    'skill_template' => Lang::get('common/skills'),
+                ]
+            );
+        }
     }
+
 
     /**
      * Create a blank job poster for the specified manager
