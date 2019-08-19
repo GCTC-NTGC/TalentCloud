@@ -12,7 +12,7 @@ import CheckboxGroup from "../Form/CheckboxGroup";
 import RadioGroup from "../Form/RadioGroup";
 import ContextBlock from "../ContextBlock/ContextBlock";
 import ContextBlockItem from "../ContextBlock/ContextBlockItem";
-import CopyToClipboardButton from "./CopyToClipboardButton";
+import CopyToClipboardButton from "../CopyToClipboardButton";
 import WorkEnvModal from "./WorkEnvModal";
 import RadioInput from "../Form/RadioInput";
 import NumberInput from "../Form/NumberInput";
@@ -863,6 +863,8 @@ interface WorkEnvFormProps {
   // Submit function that runs after successful validation.
   // It must return the submitted job, if successful.
   handleSubmit: (values: Job) => Promise<Job>;
+  // The function to run when user clicks Prev Page
+  handleReturn: () => void;
   // Function to run when modal cancel is clicked.
   handleModalCancel: () => void;
   // Function to run when modal confirm is clicked.
@@ -872,6 +874,7 @@ interface WorkEnvFormProps {
 const WorkEnvForm = ({
   job,
   handleSubmit,
+  handleReturn,
   handleModalCancel,
   handleModalConfirm,
   intl,
@@ -880,6 +883,9 @@ const WorkEnvForm = ({
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
+
+  const [returnOnSubmit, setReturnOnSubmit] = useState(false);
+
   const initialValues: FormValues = job
     ? jobToValues(job, locale)
     : {
@@ -954,9 +960,17 @@ const WorkEnvForm = ({
       ({ id }): boolean => id === values.experimental,
     );
     const facing = facingList.find(({ id }): boolean => id === values.facing);
-    const collaborativeness = collaborativenessList.find(({id}): boolean => id === values.collaborativeness);
+    const collaborativeness = collaborativenessList.find(
+      ({ id }): boolean => id === values.collaborativeness,
+    );
 
-    const cultureSummary: string = [pace, management, experimental, facing, collaborativeness]
+    const cultureSummary: string = [
+      pace,
+      management,
+      experimental,
+      facing,
+      collaborativeness,
+    ]
       .filter(notEmpty)
       .map((item): string => intl.formatMessage(item.subtext))
       .join(" ");
@@ -1014,9 +1028,16 @@ const WorkEnvForm = ({
           const updatedJob = updateJobWithValues(oldJob, locale, formValues);
           handleSubmit(updatedJob)
             .then((job): void => {
-              setIsModalVisible(true);
+              if (returnOnSubmit) {
+                handleReturn();
+              } else {
+                setIsModalVisible(true);
+              }
             })
-            .finally((): void => setSubmitting(false));
+            .finally((): void => {
+              setSubmitting(false);
+              setReturnOnSubmit(false);
+            });
         }}
         render={({
           errors,
@@ -1025,6 +1046,7 @@ const WorkEnvForm = ({
           values,
           setFieldValue,
           setFieldTouched,
+          submitForm,
         }): React.ReactElement => (
           <>
             <Form id="form" data-c-margin="bottom(normal)">
@@ -1211,15 +1233,12 @@ const WorkEnvForm = ({
                 <p data-c-margin="bottom(normal)">
                   <FormattedMessage {...formMessages.cultureSummarySubtext} />
                 </p>
-                <ContextBlockItem
-                  subtext={buildCultureSummary(values)}
-                  reference={cultureSummaryRef}
-                />
+                <ContextBlockItem subtext={buildCultureSummary(values)} />
                 <div
                   data-c-alignment="base(centre) tl(right)"
                   data-c-margin="top(normal)"
                 >
-                  <CopyToClipboardButton reference={cultureSummaryRef} />
+                  <CopyToClipboardButton text={buildCultureSummary(values)} />
                 </div>
               </div>
               <Field
@@ -1255,22 +1274,55 @@ const WorkEnvForm = ({
                 component={TextAreaInput}
                 grid="base(1of1)"
               />
-              <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
-                {/* <!-- Modal trigger, same as last step. --> */}
-                <button
-                  form="form"
-                  type="submit"
-                  disabled={isSubmitting}
-                  data-c-button="solid(c1)"
-                  data-c-dialog-action="open"
-                  data-c-radius="rounded"
+              <div data-c-grid="gutter" data-c-grid-item="base(1of1)">
+                <div data-c-grid-item="base(1of1)">
+                  <hr data-c-margin="top(normal) bottom(normal)" />
+                </div>
+                <div
+                  data-c-alignment="base(centre) tp(left)"
+                  data-c-grid-item="tp(1of2)"
                 >
-                  <FormattedMessage
-                    id="jobBuilder.workEnv.submitButtonLabel"
-                    defaultMessage="Preview Work Environment"
-                    description="Label for work environment submit button."
-                  />
-                </button>
+                  <button
+                    data-c-button="outline(c2)"
+                    data-c-radius="rounded"
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={(): void => {
+                      /** TODO:
+                       * This is a race condition, since the setState hook call is asynchronous.
+                       * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
+                       * For now, the setState always happens faster than the validation check, so it works.
+                       * See https://github.com/jaredpalmer/formik/issues/214
+                       * -- Tristan
+                       */
+                      setReturnOnSubmit(true);
+                      submitForm();
+                    }}
+                  >
+                    <FormattedMessage
+                      id="jobBuilder.workEnv.saveAndReturnButtonLabel"
+                      defaultMessage="Save & Return to Job Details"
+                      description="Label for Save & Return button on Work Environment form."
+                    />
+                  </button>
+                </div>
+                <div
+                  data-c-alignment="base(centre) tp(right)"
+                  data-c-grid-item="tp(1of2)"
+                >
+                  <button
+                    data-c-button="solid(c1)"
+                    data-c-radius="rounded"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    <FormattedMessage
+                      id="jobBuilder.workEnv.submitButtonLabel"
+                      defaultMessage="Save & Preview"
+                      description="Label for work environment submit button."
+                    />
+                  </button>
+                </div>
               </div>
             </Form>
             <WorkEnvModal

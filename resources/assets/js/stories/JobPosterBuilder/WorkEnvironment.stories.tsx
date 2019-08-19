@@ -23,6 +23,7 @@ stories
       <WorkEnvForm
         job={null}
         handleSubmit={handleSubmit}
+        handleReturn={action("Save & Return")}
         handleModalConfirm={action("Confirm")}
         handleModalCancel={action("Cancel")}
       />
@@ -34,6 +35,7 @@ stories
       <WorkEnvForm
         job={fakeJob()}
         handleSubmit={handleSubmit}
+        handleReturn={action("Save & Return")}
         handleModalConfirm={action("Confirm")}
         handleModalCancel={action("Cancel")}
       />

@@ -66,6 +66,8 @@ class JobApiControllerTest extends TestCase
             'collaborative_vs_independent' => $this->faker->numberBetween(1, 4),
             'telework_allowed_frequency_id' => $this->faker->numberBetween(1, 4),
             'flexible_hours_frequency_id' => $this->faker->numberBetween(1, 4),
+            'travel_requirement_id'=> $this->faker->numberBetween(1, 3),
+            'overtime_requirement_id' => $this->faker->numberBetween(1, 3),
             'en' => [
                 'city' => $this->faker->city(),
                 'title' => $this->faker->word(),
@@ -241,5 +243,16 @@ class JobApiControllerTest extends TestCase
             ->actingAs($user)
             ->json('post', 'api/jobs');
         $response->assertForbidden();
+    }
+
+    public function testReturnsCorrectClassificationCode(): void
+    {
+        $classification = Classification::inRandomOrder()->first();
+        $job = factory(JobPoster::class)->state('published')->create([
+            'classification_id' => $classification->id
+        ]);
+        $response = $this->json('get', "api/jobs/$job->id");
+        $response->assertOk();
+        $response->assertJsonFragment(['classification_code' => $classification->key]);
     }
 }

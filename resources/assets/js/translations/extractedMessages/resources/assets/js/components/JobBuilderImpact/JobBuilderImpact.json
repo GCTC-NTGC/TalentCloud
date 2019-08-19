@@ -78,8 +78,13 @@
     "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\r\n              value they’ll bring, not on specific tasks (you’ll provide these\r\n              later on). For example “In this role, you’ll contribute to…” or, “As\r\n              a member of this team, you’ll be responsible for helping us…”"
   },
   {
+    "id": "jobBuilder.impact.button.return",
+    "description": "Label for Save & Return button on Impact form.",
+    "defaultMessage": "Save & Return to Work Environment"
+  },
+  {
     "id": "jobBuilder.impact.button.next",
-    "description": "Button text Next",
-    "defaultMessage": "Next"
+    "description": "Label for Save & Preview button on Impact form.",
+    "defaultMessage": "Save & Preview"
   }
 ]

@@ -13,9 +13,9 @@ return [
     'job_post_title' => 'Nuage de talents | Candidat : Affiche d\'emploi - :title (Numéro de référence : :id)',
     'header' => [
         'time_remaining' => ':time jusqu\'à la date de clôture',
-        "job_closed" => "L'affiche est fermée",
+        'job_closed' => "L'affiche est fermée",
         'days_remaining' => ':count jour jusqu\'à la date de clôture|:count jours jusqu\'à la date de clôture',
-        "apply_by_label" => "Postuler avant le",
+        'apply_by_label' => 'Postuler avant le',
         'applicants_so_far' => ':count candidat jusqu\'à présent|:count candidats jusqu\'à présent',
         'reference_id' => 'Numéro de référence : :id',
         'remote_work_allowed' => [
@@ -61,7 +61,7 @@ return [
         'asset_title' => 'Bon à avoir',
         'requirement_label' => 'Niveau requis: ',
         'level_link_title' => 'Visitez la FAQ pour en savoir plus sur ce niveau et les autres.',
-        'no_info' => "Aucun critère supplémentaire requis."
+        'no_info' => 'Aucun critère supplémentaire requis.'
     ],
     'language' => [
         'sidebar_title' => 'Voir les exigences linguistiques de ce travail.',
@@ -140,5 +140,5 @@ return [
         'edit_link_title' => 'Modifier cette affiche d\'emploi.',
         'edit_link_label' => 'Modifier'
     ],
-    'no_info' => "Aucune information fournie."
+    'no_info' => 'Aucune information fournie.'
 ];

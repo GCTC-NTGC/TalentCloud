@@ -12,6 +12,8 @@ use App\Models\JobPosterKeyTask;
 use App\Models\JobPosterQuestion;
 use App\Models\Lookup\Frequency;
 use App\Models\Classification;
+use App\Models\Lookup\TravelRequirement;
+use App\Models\Lookup\OvertimeRequirement;
 
 $faker_fr = Faker\Factory::create('fr');
 
@@ -52,6 +54,8 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'collaborative_vs_independent' => $faker->numberBetween(1, 4),
         'telework_allowed_frequency_id' => Frequency::inRandomOrder()->first()->id,
         'flexible_hours_frequency_id' => Frequency::inRandomOrder()->first()->id,
+        'travel_requirement_id' => TravelRequirement::inRandomOrder()->first()->id,
+        'overtime_requirement_id' => OvertimeRequirement::inRandomOrder()->first()->id,
         'published' => false,
         'city:en' => $faker->city,
         'title:en' => $faker->unique()->realText(27, 1),
@@ -108,7 +112,7 @@ $factory->state(
         return [
             'published' => true,
             'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks'),
-            'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-2 days', '-1 days')->format('Y-m-d')),
+            'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-5 days', '-3 days')->format('Y-m-d')),
         ];
     }
 );

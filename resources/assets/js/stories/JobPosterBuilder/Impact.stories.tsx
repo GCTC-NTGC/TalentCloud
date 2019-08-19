@@ -31,6 +31,7 @@ stories
         departments={fakeDepartments()}
         job={null}
         handleSubmit={handleSubmit}
+        handleReturn={action("Save & Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
       />
@@ -46,6 +47,7 @@ stories
           department_id: select("Department", deptOptions, 1),
         }}
         handleSubmit={handleSubmit}
+        handleReturn={action("Save & Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
       />
@@ -58,6 +60,7 @@ stories
         departments={[]}
         job={fakeJob()}
         handleSubmit={handleSubmit}
+        handleReturn={action("Save & Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
       />
@@ -73,6 +76,7 @@ stories
           department_id: 100,
         }}
         handleSubmit={handleSubmit}
+        handleReturn={action("Save & Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
       />

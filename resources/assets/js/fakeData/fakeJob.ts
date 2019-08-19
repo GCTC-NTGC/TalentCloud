@@ -33,6 +33,8 @@ export const fakeJob = (id = 1): Job => ({
   collaborative_vs_independent: 3,
   telework_allowed_frequency_id: 1,
   flexible_hours_frequency_id: 2,
+  travel_requirement_id: 1,
+  overtime_requirement_id: 1,
   en: {
     city: "Toronto",
     title: "Technical Advisor",
@@ -105,6 +107,8 @@ export const fakeJob2 = (id = 1): Job => ({
   collaborative_vs_independent: 2,
   telework_allowed_frequency_id: 3,
   flexible_hours_frequency_id: 1,
+  travel_requirement_id: 1,
+  overtime_requirement_id: 1,
   en: {
     city: "Ottawa",
     title: "UX Designer",

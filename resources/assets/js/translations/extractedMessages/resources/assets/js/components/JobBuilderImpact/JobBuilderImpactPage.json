@@ -1,7 +1,0 @@
-[
-  {
-    "id": "jobBuilderImpact.jobloading",
-    "description": "Message indicating that the current job is still being loaded.",
-    "defaultMessage": "Job Loading..."
-  }
-]
