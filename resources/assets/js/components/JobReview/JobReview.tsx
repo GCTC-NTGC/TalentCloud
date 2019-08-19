@@ -397,9 +397,17 @@ export const JobReview: React.FunctionComponent<
             </div>
             <div data-c-grid-item="tp(1of2)">
               <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                Target Start Date
+                <FormattedMessage
+                  id="jobBuilder.review.targetStartDate"
+                  defaultMessage="Target Start Date"
+                  description="Label for start date info"
+                />
               </p>
-              <p>This comes later.</p>
+              <p><FormattedMessage
+                  id="jobBuilder.review.comesLater"
+                  defaultMessage="This comes later."
+                  description="Placeholder for information that comes later"
+                /></p>
             </div>
             <div data-c-grid-item="tp(1of2)">
               <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
