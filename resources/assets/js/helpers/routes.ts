@@ -12,6 +12,10 @@ export function managerApplicantShow(
   return `/${locale}/manager/applicants/${applicantId}`;
 }
 
+export function managerEditProfile(locale: string): string {
+  return `/${locale}/manager/profile`;
+}
+
 export function managerJobIndex(locale: string): string {
   return `/${locale}/manager/jobs`;
 }
@@ -65,4 +69,8 @@ export function jobBuilderTasks(locale: string, jobId: number): string {
 
 export function jobBuilderSkills(locale: string, jobId: number): string {
   return `/${locale}/manager/jobs/${jobId}/builder/skills`;
+}
+
+export function jobBuilderReview(locale: string, jobId: number): string {
+  return `/${locale}/manager/jobs/${jobId}/builder/review`;
 }

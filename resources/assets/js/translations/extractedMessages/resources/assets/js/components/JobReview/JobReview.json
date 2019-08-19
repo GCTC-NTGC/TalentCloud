@@ -1,0 +1,42 @@
+[
+  {
+    "id": "jobBuilder.review.or",
+    "description": "Displayed between language icons for the English Or French option.",
+    "defaultMessage": "or"
+  },
+  {
+    "id": "jobBuilder.review.remoteAllowed",
+    "description": "Text displayed when remote work is allowed.",
+    "defaultMessage": "Remote Work Allowed"
+  },
+  {
+    "id": "jobBuilder.review.remoteNotAllowed",
+    "description": "Text displayed when remote work is not allowed.",
+    "defaultMessage": "Remote Work Not Allowed"
+  },
+  {
+    "id": "jobBuilder.review.button.return",
+    "description": "Label of 'Previous Step' button.",
+    "defaultMessage": "Save & Return to Skills"
+  },
+  {
+    "id": "jobBuilder.review.button.submit",
+    "description": "Label of Job Review Submission Button",
+    "defaultMessage": "Send to HR for Review"
+  },
+  {
+    "id": "jobBuilder.review.confirm.title",
+    "description": "Title of Submit Confirmation modal.",
+    "defaultMessage": "Congrats! Are You Ready to Submit?"
+  },
+  {
+    "id": "jobBuilder.review.confirm.cancel",
+    "description": "Cancel button of Job Review confirmation modal.",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "jobBuilder.review.confirm.submit",
+    "description": "Submit button of Job Review confirmation modal.",
+    "defaultMessage": "Yes, Submit"
+  }
+]

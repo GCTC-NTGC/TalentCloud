@@ -6,6 +6,7 @@ import {
   getTasksEndpoint,
   getCriteriaEndpoint,
   parseCriteriaResponse,
+  getSubmitJobEndpoint,
 } from "../../api/job";
 import { Job, Criteria, JobPosterKeyTask } from "../../models/types";
 import {
@@ -259,6 +260,36 @@ export const batchUpdateCriteria = (
     { jobId },
   );
 
+export const SUBMIT_JOB_FOR_REVIEW_STARTED = "JOB: SUBMIT FOR REVIEW STARTED";
+export const SUBMIT_JOB_FOR_REVIEW_SUCCEEDED =
+  "JOB: SUBMIT FOR REVIEW SUCCEEDED";
+export const SUBMIT_JOB_FOR_REVIEW_FAILED = "JOB: SUBMIT FOR REVIEW FAILED";
+export type SubmitJobForReviewAction = AsyncFsaActions<
+  typeof SUBMIT_JOB_FOR_REVIEW_STARTED,
+  typeof SUBMIT_JOB_FOR_REVIEW_SUCCEEDED,
+  typeof SUBMIT_JOB_FOR_REVIEW_FAILED,
+  Job,
+  { id: number }
+>;
+export const submitJobForReview = (
+  jobId: number,
+): RSAActionTemplate<
+  typeof SUBMIT_JOB_FOR_REVIEW_STARTED,
+  typeof SUBMIT_JOB_FOR_REVIEW_SUCCEEDED,
+  typeof SUBMIT_JOB_FOR_REVIEW_FAILED,
+  Job,
+  { id: number }
+> =>
+  asyncPost(
+    getSubmitJobEndpoint(jobId),
+    "",
+    SUBMIT_JOB_FOR_REVIEW_STARTED,
+    SUBMIT_JOB_FOR_REVIEW_SUCCEEDED,
+    SUBMIT_JOB_FOR_REVIEW_FAILED,
+    parseJob,
+    { id: jobId },
+  );
+
 export type JobAction =
   | FetchJobAction
   | CreateJobAction
@@ -269,6 +300,7 @@ export type JobAction =
   | FetchJobTasksAction
   | BatchUpdateJobTasksAction
   | FetchCriteriaAction
-  | BatchUpdateCriteriaAction;
+  | BatchUpdateCriteriaAction
+  | SubmitJobForReviewAction;
 
 export default { fetchJob };

@@ -51,6 +51,9 @@ use Astrotomic\Translatable\Translatable as Translatable;
  * @property string $career_journey
  * @property string $learning_path
  *
+ * Computed Properties
+ * @property string $name
+ *
  * Methods
  * @method string toApiArray()
  */
@@ -88,6 +91,13 @@ class Manager extends BaseModel
         'refuse_low_value_work_frequency_id',
         'years_experience'
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['name'];
 
     public function user()
     {
@@ -149,6 +159,19 @@ class Manager extends BaseModel
     public function refuse_low_value_work_frequency() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
+    }
+
+    /**
+     * Return the name of the User associated with this Manager.
+     *
+     * @return string
+     */
+    public function getNameAttribute(): string
+    {
+        if ($this->user !== null) {
+            return $this->user->name;
+        }
+        return '';
     }
 
     /**

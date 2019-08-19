@@ -81,6 +81,26 @@ export const DepartmentId = {
   nationalDefence: 11,
 };
 
+export const FrequencyId = {
+  never: 1,
+  rarely: 2,
+  sometimes: 3,
+  often: 4,
+  always: 5,
+};
+
+export const TravelRequirementId = {
+  frequently: 1,
+  available: 2,
+  none: 3,
+};
+
+export const OvertimeRequirementId = {
+  frequently: 1,
+  available: 2,
+  none: 3,
+};
+
 export function enumToIds(enumType: any): number[] {
   const enumVals = Object.values(enumType);
   // Note: this first array includes the list of ids as strings, followed by the list of names as strings

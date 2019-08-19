@@ -27,6 +27,14 @@ import {
   mapToObjectTrans,
   identity,
 } from "../../helpers/queries";
+import {
+  physEnvOptions,
+  techOptions,
+  amenitiesOptions,
+  phyEnvDescriptions,
+  techDescriptions,
+  amenitiesDescriptions,
+} from "../JobBuilder/JobWorkEnv";
 
 const formMessages = defineMessages({
   ourWorkEnvDesc: {
@@ -165,134 +173,6 @@ const formMessages = defineMessages({
     description: "Text indicator for optional sections within form.",
   },
 });
-
-export const physEnvMessages = defineMessages({
-  openConcept: {
-    id: "jobBuilder.workEnv.physEnv.openConcept",
-    defaultMessage: "Open Concept",
-    description: "Physical Environment checkbox group 'open concept' option.",
-  },
-  private: {
-    id: "jobBuilder.workEnv.physEnv.private",
-    defaultMessage: "Private",
-    description: "Physical Environment checkbox group 'private' option.",
-  },
-  assignedSeating: {
-    id: "jobBuilder.workEnv.physEnv.assignedSeating",
-    defaultMessage: "Assigned Seating",
-    description:
-      "Physical Environment checkbox group 'assigned seating' option.",
-  },
-  windows: {
-    id: "jobBuilder.workEnv.physEnv.windows",
-    defaultMessage: "Lots of Windows",
-    description: "Physical Environment checkbox group 'windows' option.",
-  },
-  naturalLight: {
-    id: "jobBuilder.workEnv.physEnv.naturalLight",
-    defaultMessage: "Natural Light",
-    description: "Physical Environment checkbox group 'natural light' option.",
-  },
-  smudging: {
-    id: "jobBuilder.workEnv.physEnv.smudging",
-    defaultMessage: "Suitable for Smudging",
-    description:
-      "Physical Environment checkbox group 'suitable for smudging' option.",
-  },
-});
-
-export const physEnvOptions: string[] = [
-  "openConcept",
-  "private",
-  "assignedSeating",
-  "windows",
-  "naturalLight",
-  "smudging",
-];
-
-export const techMessages = defineMessages({
-  videoConferencing: {
-    id: "jobBuilder.workEnv.technology.videoConferencing",
-    defaultMessage: "Video Conferencing (e.g. Skype, Zoom)",
-    description: "Technology checkbox group 'video conferencing' option.",
-  },
-  collaboration: {
-    id: "jobBuilder.workEnv.technology.collaboration",
-    defaultMessage: "Collaboration (e.g. Slack, Hangouts)",
-    description: "Technology checkbox group 'collaboration' option.",
-  },
-  fileSharing: {
-    id: "jobBuilder.workEnv.technology.fileSharing",
-    defaultMessage: "File Sharing (e.g. Google Drive, Dropbox)",
-    description: "Technology checkbox group 'file sharing' option.",
-  },
-  taskManagement: {
-    id: "jobBuilder.workEnv.technology.taskManagement",
-    defaultMessage: "Task Management (e.g. Trello, Asana)",
-    description: "Technology checkbox group 'task management' option.",
-  },
-  versionControl: {
-    id: "jobBuilder.workEnv.technology.versionControl",
-    defaultMessage: "Version Control (e.g. Github, Gitlab)",
-    description: "Technology checkbox group 'version control' option.",
-  },
-  accessToExternal: {
-    id: "jobBuilder.workEnv.technology.accessToExternal",
-    defaultMessage: "Access to external, unfiltered Wi-Fi.",
-    description: "Technology checkbox group 'access to external' option.",
-  },
-});
-
-export const techOptions: string[] = [
-  "videoConferencing",
-  "collaboration",
-  "fileSharing",
-  "taskManagement",
-  "versionControl",
-  "accessToExternal",
-];
-
-export const amenitiesMessages = defineMessages({
-  cafeteria: {
-    id: "jobBuilder.workEnv.amenities.cafeteria",
-    defaultMessage: "Cafeteria On-site",
-    description: "Amenities checkbox group 'cafeteria' option.",
-  },
-  closeToTransit: {
-    id: "jobBuilder.workEnv.amenities.closeToTransit",
-    defaultMessage: "Close to Transit",
-    description: "Amenities checkbox group 'close to transit' option.",
-  },
-  restaurants: {
-    id: "jobBuilder.workEnv.amenities.restaurants",
-    defaultMessage: "Walking Distance to Restaurants/Malls",
-    description: "Amenities checkbox group 'restaurants' option.",
-  },
-  downtown: {
-    id: "jobBuilder.workEnv.amenities.downtown",
-    defaultMessage: "Downtown",
-    description: "Amenities checkbox group 'downtown' option.",
-  },
-  fitnessCenter: {
-    id: "jobBuilder.workEnv.amenities.fitnessCenter",
-    defaultMessage: "Nearby Fitness Centre",
-    description: "Amenities checkbox group 'nearby fitness centre' option.",
-  },
-  parking: {
-    id: "jobBuilder.workEnv.amenities.parking",
-    defaultMessage: "Easy Access to Parking",
-    description: "Amenities checkbox group 'parking' option.",
-  },
-});
-
-export const amenitiesOptions: string[] = [
-  "cafeteria",
-  "closeToTransit",
-  "restaurants",
-  "downtown",
-  "fitnessCenter",
-  "parking",
-];
 
 const culturePaceMessages = defineMessages({
   pace01Title: {
@@ -869,6 +749,9 @@ interface WorkEnvFormProps {
   handleModalCancel: () => void;
   // Function to run when modal confirm is clicked.
   handleModalConfirm: () => void;
+
+  jobIsComplete: boolean;
+  handleSkipToReview: () => Promise<void>;
 }
 
 const WorkEnvForm = ({
@@ -877,6 +760,8 @@ const WorkEnvForm = ({
   handleReturn,
   handleModalCancel,
   handleModalConfirm,
+  jobIsComplete,
+  handleSkipToReview,
   intl,
 }: WorkEnvFormProps & InjectedIntlProps): React.ReactElement => {
   const { locale } = intl;
@@ -897,28 +782,14 @@ const WorkEnvForm = ({
         moreCultureSummary: "",
       };
 
-  // This function takes the possible values and the localized messages objects and returns an array. The array contains the name and localized label.
-  const createOptions = (
-    options: string[],
-    messages: ReactIntl.Messages,
-  ): { name: string; label: string }[] => {
-    return options.map((name: string): { name: string; label: string } => ({
-      name,
-      label: intl.formatMessage(messages[name]),
-    }));
-  };
-  const phyEnvData: { name: string; label: string }[] = createOptions(
-    physEnvOptions,
-    physEnvMessages,
+  const phyEnvData: { name: string; label: string }[] = phyEnvDescriptions(
+    intl,
   );
-  const techData: { name: string; label: string }[] = createOptions(
-    techOptions,
-    techMessages,
-  );
-  const amenitiesData: { name: string; label: string }[] = createOptions(
-    amenitiesOptions,
-    amenitiesMessages,
-  );
+  const techData: { name: string; label: string }[] = techDescriptions(intl);
+  const amenitiesData: {
+    name: string;
+    label: string;
+  }[] = amenitiesDescriptions(intl);
 
   const cultureSummaryRef = React.createRef<HTMLParagraphElement>();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -1015,6 +886,7 @@ const WorkEnvForm = ({
       </div>
 
       <Formik
+        enableReinitialize
         initialValues={initialValues}
         validationSchema={workEnvSchema}
         onSubmit={(values, { setSubmitting }): void => {
@@ -1340,9 +1212,12 @@ const WorkEnvForm = ({
               cultureSummary={
                 values.cultureSummary || buildCultureSummary(values)
               }
-              physEnvData={phyEnvData}
-              techData={techData}
-              amenitiesData={amenitiesData}
+              jobIsComplete={jobIsComplete}
+              handleSkipToReview={(): void => {
+                handleSkipToReview().finally((): void => {
+                  setIsModalVisible(false);
+                });
+              }}
             />
           </>
         )}

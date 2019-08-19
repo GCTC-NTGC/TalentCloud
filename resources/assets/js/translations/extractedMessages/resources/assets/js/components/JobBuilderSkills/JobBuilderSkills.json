@@ -279,6 +279,11 @@
     "defaultMessage": "Go Back"
   },
   {
+    "id": "jobBuilder.skills.previewModalMiddleLabel",
+    "description": "The text displayed on the 'Skip to Review' button of the Job Builder Skills Preview modal.",
+    "defaultMessage": "Skip to Review"
+  },
+  {
     "id": "jobBuilder.skills.previewModalConfirmLabel",
     "description": "The text displayed on the confirm button of the Job Builder Skills Preview modal.",
     "defaultMessage": "Next Step"

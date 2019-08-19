@@ -121,77 +121,15 @@ export const formMessages = defineMessages({
     defaultMessage: "Select a flexible hours option:",
     description: "The form label displayed on the flex hours radio group.",
   },
-  frequencyAlwaysLabel: {
-    id: "jobDetails.frequencyAlwaysLabel",
-    defaultMessage: "Almost Always",
-    description: "The form label displayed on 'always' frequency options.",
-  },
-  frequencyFrequentlyLabel: {
-    id: "jobDetails.frequencyFrequentlyLabel",
-    defaultMessage: "Frequently",
-    description: "The form label displayed on 'frequently' frequency options.",
-  },
-  frequencySometimesLabel: {
-    id: "jobDetails.frequencySometimesLabel",
-    defaultMessage: "Sometimes",
-    description: "The form label displayed on 'sometimes' frequency options.",
-  },
-  frequencyOccasionallyLabel: {
-    id: "jobDetails.frequencyOccasionallyLabel",
-    defaultMessage: "Occasionally",
-    description:
-      "The form label displayed on 'occasionally' frequency options.",
-  },
-  frequencyNeverLabel: {
-    id: "jobDetails.frequencyNeverLabel",
-    defaultMessage: "Almost Never",
-    description: "The form label displayed on 'never' frequency options.",
-  },
   travelGroupLabel: {
     id: "jobDetails.travelGroupLabel",
     defaultMessage: "Select a travel option:",
     description: "The form label displayed on the travel radio group.",
   },
-  travelFrequentlyLabel: {
-    id: "jobDetails.travelFrequentlyLabel",
-    defaultMessage: "Yes, travel is frequently required for the position.",
-    description: "The form label displayed on 'frequently' travel options",
-  },
-  travelOpportunitiesAvailableLabel: {
-    id: "jobDetails.travelOpportunitiesAvailableLabel",
-    defaultMessage:
-      "Yes, travel opportunities are available for those that are interested.",
-    description:
-      "The form label displayed on 'travel opportunities available' travel options",
-  },
-  travelNoneRequiredLabel: {
-    id: "jobDetails.travelNoneRequiredLabel",
-    defaultMessage: "No, travel is not required for the position.",
-    description:
-      "The form label displayed on 'no travel required' travel options",
-  },
   overtimeGroupLabel: {
     id: "jobDetails.overtimeGroupLabel",
     defaultMessage: "Select a overtime option:",
     description: "The form label displayed on the overtime radio group.",
-  },
-  overtimeFrequentlyLabel: {
-    id: "jobDetails.overtimeFrequentlyLabel",
-    defaultMessage: "Yes, overtime is frequently required for the position.",
-    description: "The form label displayed on 'frequently' overtime options",
-  },
-  overtimeOpportunitiesAvailableLabel: {
-    id: "jobDetails.overtimeOpportunitiesAvailableLabel",
-    defaultMessage:
-      "Yes, overtime opportunities are available for those that are interested.",
-    description:
-      "The form label displayed on 'overtime opportunities available' overtime options",
-  },
-  overtimeNoneRequiredLabel: {
-    id: "jobDetails.overtimeNoneRequiredLabel",
-    defaultMessage: "No, overtime is not required for the position.",
-    description:
-      "The form label displayed on 'no overtime required' overtime options",
   },
   educationRequirementsLabel: {
     id: "jobDetails.educationRequirementsLabel",
