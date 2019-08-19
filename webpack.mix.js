@@ -22,29 +22,6 @@ mix
   .js("resources/assets/js/jquery-ui.min.js", "public/js")
   .js("resources/assets/js/alerts.js", "public/js")
   .js("resources/assets/js/getpdf.js", "public/js")
-  .js(
-    "resources/assets/js/components/JobBuilderIntro/JobBuilderIntro",
-    "public/js",
-  )
-  .js("resources/assets/js/components/JobDetails/JobDetailsPage", "public/js")
-  .js(
-    "resources/assets/js/components/JobBuilderWorkEnv/JobBuilderWorkEnv",
-    "public/js",
-  )
-  .js(
-    "resources/assets/js/components/JobBuilderImpact/JobBuilderImpactPage",
-    "public/js",
-  )
-  .js(
-    "resources/assets/js/components/ApplicantSkills/SkillsWordCounter",
-    "public/js",
-  )
-  .js("resources/assets/js/components/JobTasks/JobTasksPage", "public/js")
-  .js(
-    "resources/assets/js/components/JobBuilderSkills/JobBuilderSkillsPage",
-    "public/js",
-  )
-  .js("resources/assets/js/components/JobReview/JobReviewPage", "public/js")
   .js("resources/assets/js/components/JobBuilder/JobBuilderRoot", "public/js")
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: sass,

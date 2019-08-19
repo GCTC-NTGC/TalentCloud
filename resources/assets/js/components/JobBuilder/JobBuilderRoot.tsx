@@ -6,6 +6,11 @@ import { useRouter } from "../../helpers/router";
 import JobBuilderIntroPageContainer from "../JobBuilderIntro/JobBuilderIntro";
 import RootContainer from "../RootContainer";
 import JobDetailsPage from "../JobDetails/JobDetailsPage";
+import JobBuilderWorkEnvPage from "../JobBuilderWorkEnv/JobBuilderWorkEnv";
+import JobBuilderImpactPage from "../JobBuilderImpact/JobBuilderImpactPage";
+import JobTasksPage from "../JobTasks/JobTasksPage";
+import JobSkillsPage from "../JobBuilderSkills/JobBuilderSkillsPage";
+import JobReviewPage from "../JobReview/JobReviewPage";
 
 const routes: Routes<any, React.ReactElement> = [
   {
@@ -25,30 +30,33 @@ const routes: Routes<any, React.ReactElement> = [
         path: "/:id/builder/details",
         action: ({ params }) => <JobDetailsPage jobId={Number(params.id)} />,
       },
+      {
+        path: "/:id/builder/environment",
+        action: ({ params }) => (
+          <JobBuilderWorkEnvPage jobId={Number(params.id)} />
+        ),
+      },
+      {
+        path: "/:id/builder/impact",
+        action: ({ params }) => (
+          <JobBuilderImpactPage jobId={Number(params.id)} />
+        ),
+      },
+      {
+        path: "/:id/builder/tasks",
+        action: ({ params }) => <JobTasksPage jobId={Number(params.id)} />,
+      },
+      {
+        path: "/:id/builder/skills",
+        action: ({ params }) => <JobSkillsPage jobId={Number(params.id)} />,
+      },
+      {
+        path: "/:id/builder/review",
+        action: ({ params }) => <JobReviewPage jobId={Number(params.id)} />,
+      },
     ],
   },
 ];
-
-// {
-//   "/builder": () => <JobBuilderIntroPageContainer jobId={null} />,
-//   "/:id/builder/intro": ({ id }) => (
-//     <JobBuilderIntroPageContainer jobId={Number(id)} />
-//   ),
-//   "/:id/builder/details": ({ id }) => <JobDetailsPage jobId={Number(id)} />,
-//   "/:id/builder/environment": ({ id }) => (
-//     <JobBuilderIntroPageContainer jobId={id} />
-//   ),
-//   "/:id/builder/impact": ({ id }) => (
-//     <JobBuilderIntroPageContainer jobId={id} />
-//   ),
-//   "/:id/builder/tasks": ({ id }) => <JobBuilderIntroPageContainer jobId={id} />,
-//   "/:id/builder/skills": ({ id }) => (
-//     <JobBuilderIntroPageContainer jobId={id} />
-//   ),
-//   "/:id/builder/review": ({ id }) => (
-//     <JobBuilderIntroPageContainer jobId={id} />
-//   ),
-// };
 
 const JobBuilderRoot = (): React.ReactElement | null => {
   const match = useRouter(routes);

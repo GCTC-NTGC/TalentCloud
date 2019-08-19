@@ -24,6 +24,7 @@ import {
   isJobBuilderComplete,
   VALID_COUNT,
 } from "../JobBuilder/jobBuilderHelpers";
+import { navigate } from "../../helpers/router";
 
 interface JobBuilderSkillsPageProps {
   jobId: number;
@@ -55,17 +56,17 @@ const JobBuilderSkillsPage: React.FunctionComponent<
 
   const handleReturn = (): void => {
     // Continue to next page
-    window.location.href = jobBuilderTasks(locale, jobId);
+    navigate(jobBuilderTasks(locale, jobId));
   };
   const handleContinue = (): void => {
     // Continue to next page
-    window.location.href = jobBuilderReview(locale, jobId);
+    navigate(jobBuilderReview(locale, jobId));
   };
 
   const handleSubmit = (tasks: Criteria[]): Promise<Criteria[]> =>
     handleSubmitCriteria(jobId, tasks);
   const handleSkipToReview = async (): Promise<void> => {
-    window.location.href = jobBuilderReview(locale, jobId);
+    navigate(jobBuilderReview(locale, jobId));
   };
   // As long as Skills is the last step, we never need to show the Skip to Review button
   const jobIsComplete = false;
@@ -128,6 +129,8 @@ const JobSkillsPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(injectIntl(JobBuilderSkillsPage));
+
+export default JobSkillsPageContainer;
 
 if (document.getElementById("job-builder-skills")) {
   const container = document.getElementById(
