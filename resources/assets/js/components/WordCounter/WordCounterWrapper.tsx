@@ -24,7 +24,6 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
   placeholder,
 }): React.ReactElement => {
   const [currentNumberOfWords, setCurrentNumberOfWords] = useState(0);
-  const [prevValue, setPrevValue] = useState("");
 
   useEffect((): (() => void) => {
     const element: HTMLTextAreaElement = document.getElementById(
@@ -37,19 +36,6 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
       const target = e.target as HTMLTextAreaElement;
       const numOfWords = countNumberOfWords(target.value);
       setCurrentNumberOfWords(numOfWords);
-
-      const caretPosition = target.selectionStart;
-
-      if (numOfWords > wordLimit) {
-        target.setSelectionRange(caretPosition - 1, caretPosition - 1);
-        target.value = prevValue;
-      } else {
-        setCurrentNumberOfWords(numOfWords);
-        target.value = truncateWords(target.value, wordLimit);
-        setPrevValue(target.value);
-      }
-
-      setCurrentNumberOfWords(countNumberOfWords(target.value));
     };
 
     element.addEventListener("input", handleInputChange);
@@ -57,7 +43,7 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
     return function cleanup(): void {
       element.removeEventListener("input", handleInputChange, false);
     };
-  }, [elementId, prevValue, wordLimit]);
+  }, [elementId, wordLimit]);
 
   const handleMessage = (): string => {
     let index = 0;
