@@ -1,0 +1,82 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Apply
+
+============================================================================= #}
+
+<a
+    aria-hidden="true"
+    class="job-post__anchor"
+    id="apply">
+</a>
+
+<section
+    class="job-post__apply">
+
+    <div
+        class="job-post__apply-accommodation-wrapper">
+
+        <div
+            class="flex-grid">
+
+            <div
+                class="box full">
+                <h3
+                    class="job-post__apply-title">
+                    {{ job_post.apply.title }}
+                </h3>
+            </div>
+
+            <div class="box med-1of7">
+                <i class="fas fa-hand-holding-heart"></i>
+            </div>
+
+            <div
+                class="box med-6of7">
+                <p
+                    class="job-post__apply-content">
+                    {{ job_post.apply.accommodation }}
+                </p>
+            </div>
+
+            <div
+                class="box med-1of7">
+                <i class="fas fa-globe"></i>
+            </div>
+
+            <div
+                class="box med-6of7">
+                <p
+                    class="job-post__apply-content-preference">
+                {% if job.department.preference is not empty %}
+                    {{ job.department.preference }}
+                {% else %}
+                    {{ job_post.apply.preference }}
+                {% endif %}
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div
+        class="job-post__button-wrapper">
+
+        {% if apply_button.href == null %}
+            <div class="job-post__apply-button--closed">
+                {{ apply_button.text }}
+            </div>
+        {% else %}
+            <a
+                class="job-post__apply-button"
+                href="{{ apply_button.href }}"
+                title="{{ apply_button.title }}">
+                {{ apply_button.text }}
+            </a>
+        {% endif %}
+
+    </div>
+
+</section>
