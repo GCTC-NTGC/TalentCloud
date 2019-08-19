@@ -44,7 +44,7 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
           max={minWords}
         />
       </div>
-      <span className="word-counter__progress">{`(${numOfWords} / ${wordLimit})`}</span>
+      {/* <span className="word-counter__progress">{`(${numOfWords} / ${wordLimit})`}</span> */}
       <span
         className="word-counter__message"
         style={numOfWords === 0 ? { color: "grey" } : {}}
