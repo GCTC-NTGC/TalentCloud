@@ -27,7 +27,7 @@
         "id": "wordCounter.skills.longMessage"
       },
       {
-        "defaultMessage": "This is way too long. Check out one of our examples to see what a concise skill description looks like.",
+        "defaultMessage": "500 word limit reached. This is way too long. Check out one of our examples to see what a concise skill description looks like.",
         "description": "Message displayed to user when the word count is very high.",
         "id": "wordCounter.skills.veryLongMessage"
       }
