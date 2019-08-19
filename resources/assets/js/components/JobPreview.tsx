@@ -5,6 +5,7 @@ import {
   FormattedMessage,
   defineMessages,
 } from "react-intl";
+import textToParagraphs from "../helpers/textToParagraphs";
 
 export interface JobPreviewProps {
   /** Title of the Job Poster */
@@ -197,7 +198,7 @@ const JobPreview: React.FunctionComponent<
               description="Job Poster Card Information Label"
             />
           </p>
-          <p>{education}</p>
+          {textToParagraphs(education)}
         </div>
       </div>
       <h4
