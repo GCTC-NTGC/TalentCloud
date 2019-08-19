@@ -1,5 +1,6 @@
-version: 2 # use CircleCI 2.0
-
+version: 2.1 # use CircleCI 2.1
+orbs:
+  codecov: codecov/codecov@1.0.2
 jobs: # a collection of steps
   build: # runs not using Workflows must have a `build` job as entry point
     docker: # run the steps with Docker
@@ -42,5 +43,7 @@ jobs: # a collection of steps
       #- run: sudo npm test
       #- run: sudo npm run testcafe-ci
       - run: sudo ./vendor/bin/phpunit -d memory_limit=512M
+      - codecov/upload:
+          file: {{ coverage_report_filepath }}
       - store_test_results:
           path: /tmp/test-results
