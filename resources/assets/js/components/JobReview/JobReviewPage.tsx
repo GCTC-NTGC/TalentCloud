@@ -41,7 +41,6 @@ interface JobBuilderReviewPageProps {
   keyTasks: JobPosterKeyTask[];
   criteria: Criteria[];
   departments: Department[];
-  managerId: number | null;
   manager: Manager | null;
   handleSubmitJob: (job: Job) => Promise<void>;
   loadManager: (managerId: number) => Promise<void>;
@@ -56,7 +55,6 @@ const JobBuilderReviewPage: React.FunctionComponent<
   keyTasks,
   criteria,
   departments,
-  managerId,
   manager,
   handleSubmitJob,
   loadManager,
@@ -68,10 +66,10 @@ const JobBuilderReviewPage: React.FunctionComponent<
   }
 
   useEffect((): void => {
-    if (managerId) {
-      loadManager(managerId);
+    if (job && job.manager_id) {
+      loadManager(job.manager_id);
     }
-  }, [managerId, loadManager]);
+  }, [job, loadManager]);
 
   const handleReturn = (): void => {
     // Go to Previous page
@@ -158,13 +156,11 @@ if (document.getElementById("job-builder-review")) {
     "job-builder-review",
   ) as HTMLElement;
   const jobIdAttr = container.getAttribute("data-job-id");
-  const managerIdAttr = container.getAttribute("data-manager-id");
   const jobId = jobIdAttr ? Number(jobIdAttr) : null;
-  const managerId = managerIdAttr ? Number(managerIdAttr) : null;
   if (jobId) {
     ReactDOM.render(
       <RootContainer>
-        <JobReviewPageContainer jobId={jobId} managerId={managerId} />
+        <JobReviewPageContainer jobId={jobId} />
       </RootContainer>,
       container,
     );

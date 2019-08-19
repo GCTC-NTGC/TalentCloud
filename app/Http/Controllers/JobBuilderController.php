@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
 class JobBuilderController extends Controller
@@ -86,14 +85,11 @@ class JobBuilderController extends Controller
      */
     public function review($jobId)
     {
-        $user = Auth::user();
-
         return view(
             'manager/job-builder-review',
             [
                 'title' => Lang::get('manager/job_builder.review_title'),
                 'jobId' => $jobId,
-                'managerId' => $user->manager->id
             ]
         );
     }
