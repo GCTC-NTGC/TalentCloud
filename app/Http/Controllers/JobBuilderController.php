@@ -87,7 +87,10 @@ class JobBuilderController extends Controller
     {
         return view(
             'manager/job-builder-review',
-            ['title' => Lang::get('manager/job_builder.review_title'), 'jobId' => $jobId]
+            [
+                'title' => Lang::get('manager/job_builder.review_title'),
+                'jobId' => $jobId,
+            ]
         );
     }
 }
