@@ -114,16 +114,16 @@
         },
         {
             "name": "backpack/base",
-            "version": "1.1.5",
+            "version": "1.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/Base.git",
-                "reference": "a88d3638376a1d3c6f23c61b923d257624ad7e96"
+                "reference": "8f5e1b86e43cabdeb7bff14b3e767136b9eb802d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/Base/zipball/a88d3638376a1d3c6f23c61b923d257624ad7e96",
-                "reference": "a88d3638376a1d3c6f23c61b923d257624ad7e96",
+                "url": "https://api.github.com/repos/Laravel-Backpack/Base/zipball/8f5e1b86e43cabdeb7bff14b3e767136b9eb802d",
+                "reference": "8f5e1b86e43cabdeb7bff14b3e767136b9eb802d",
                 "shasum": ""
             },
             "require": {
@@ -174,20 +174,20 @@
                 "backpack",
                 "base"
             ],
-            "time": "2019-06-24T05:07:31+00:00"
+            "time": "2019-08-11T07:34:37+00:00"
         },
         {
             "name": "backpack/crud",
-            "version": "3.6.24",
+            "version": "3.6.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "4d02090ec80f7a91aa833aa0064f1090164e34c9"
+                "reference": "67cad0dd22c4958c42014027995205694e600f52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/4d02090ec80f7a91aa833aa0064f1090164e34c9",
-                "reference": "4d02090ec80f7a91aa833aa0064f1090164e34c9",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/67cad0dd22c4958c42014027995205694e600f52",
+                "reference": "67cad0dd22c4958c42014027995205694e600f52",
                 "shasum": ""
             },
             "require": {
@@ -249,7 +249,7 @@
                 "read",
                 "update"
             ],
-            "time": "2019-07-23T10:28:22+00:00"
+            "time": "2019-08-17T10:37:01+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",
@@ -370,16 +370,16 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.6.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b"
+                "reference": "141b272484481432cda342727a427dc1e206bfa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/cfcca6b1b60bc4974324efb5783c13dca6932b5b",
-                "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b",
+                "url": "https://api.github.com/repos/composer/installers/zipball/141b272484481432cda342727a427dc1e206bfa0",
+                "reference": "141b272484481432cda342727a427dc1e206bfa0",
                 "shasum": ""
             },
             "require": {
@@ -435,6 +435,7 @@
                 "RadPHP",
                 "SMF",
                 "Thelia",
+                "Whmcs",
                 "WolfCMS",
                 "agl",
                 "aimeos",
@@ -457,6 +458,7 @@
                 "installer",
                 "itop",
                 "joomla",
+                "known",
                 "kohana",
                 "laravel",
                 "lavalite",
@@ -486,7 +488,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2018-08-27T06:10:37+00:00"
+            "time": "2019-08-12T15:00:31+00:00"
         },
         {
             "name": "creativeorange/gravatar",
@@ -2054,16 +2056,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.22.3",
+            "version": "2.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "738fbd8d80b2c5e158fda76c29c2de432fcc6f7e"
+                "reference": "767617a047e5b8b8b3b0b6023a2650847ed7df02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/738fbd8d80b2c5e158fda76c29c2de432fcc6f7e",
-                "reference": "738fbd8d80b2c5e158fda76c29c2de432fcc6f7e",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/767617a047e5b8b8b3b0b6023a2650847ed7df02",
+                "reference": "767617a047e5b8b8b3b0b6023a2650847ed7df02",
                 "shasum": ""
             },
             "require": {
@@ -2110,14 +2112,14 @@
                     "homepage": "http://github.com/kylekatarnls"
                 }
             ],
-            "description": "A simple API extension for DateTime.",
+            "description": "A API extension for DateTime that supports 281 different languages.",
             "homepage": "http://carbon.nesbot.com",
             "keywords": [
                 "date",
                 "datetime",
                 "time"
             ],
-            "time": "2019-08-07T12:36:44+00:00"
+            "time": "2019-08-17T13:57:34+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -2972,20 +2974,20 @@
             "authors": [
                 {
                     "name": "Sebastian De Deyne",
+                    "role": "Developer",
                     "email": "sebastian@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
+                    "homepage": "https://spatie.be"
                 },
                 {
                     "name": "Freek Van der Herten",
+                    "role": "Developer",
                     "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
+                    "homepage": "https://spatie.be"
                 },
                 {
                     "name": "Mohamed Said",
-                    "email": "theMohamedSaid@gmail.com",
-                    "role": "Original idea"
+                    "role": "Original idea",
+                    "email": "theMohamedSaid@gmail.com"
                 }
             ],
             "description": "A trait to make an Eloquent model hold translations",
@@ -4580,20 +4582,20 @@
         },
         {
             "name": "venturecraft/revisionable",
-            "version": "1.30.1",
+            "version": "1.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/VentureCraft/revisionable.git",
-                "reference": "6b178df991e46b509d230a2bf1b6f8685e426a10"
+                "reference": "8ebadae42cb11b9d8f1ca99058f2397739d9a63b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/VentureCraft/revisionable/zipball/6b178df991e46b509d230a2bf1b6f8685e426a10",
-                "reference": "6b178df991e46b509d230a2bf1b6f8685e426a10",
+                "url": "https://api.github.com/repos/VentureCraft/revisionable/zipball/8ebadae42cb11b9d8f1ca99058f2397739d9a63b",
+                "reference": "8ebadae42cb11b9d8f1ca99058f2397739d9a63b",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "~4.0|~5.0|~5.1",
+                "illuminate/support": "~4.0|~5.0|~5.1|^6.0",
                 "laravel/framework": "~5.4",
                 "php": ">=5.4.0"
             },
@@ -4629,7 +4631,7 @@
                 "model",
                 "revision"
             ],
-            "time": "2019-04-23T09:02:06+00:00"
+            "time": "2019-08-05T23:28:28+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

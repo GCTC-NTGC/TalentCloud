@@ -1,11 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef } from "react";
-import {
-  injectIntl,
-  InjectedIntlProps,
-  FormattedMessage,
-  defineMessages,
-} from "react-intl";
+import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
@@ -32,264 +27,15 @@ import {
   languageRequirement,
   provinceName,
 } from "../../models/localizedConstants";
-
-const formMessages = defineMessages({
-  titleLabel: {
-    id: "jobDetails.titleLabel",
-    defaultMessage: "What is the job title?",
-    description: "The form label displayed on the title input.",
-  },
-  titlePlaceholder: {
-    id: "jobDetails.titlePlaceholder",
-    defaultMessage: "e.g. Product Designer",
-    description: "The form placeholder displayed on the title input.",
-  },
-  termLengthLabel: {
-    id: "jobDetails.termLengthLabel",
-    defaultMessage: "How long is the term (in months)?",
-    description: "The form label displayed on the term length input.",
-  },
-  termLengthPlaceholder: {
-    id: "jobDetails.termLengthPlaceholder",
-    defaultMessage: "e.g. 3",
-    description: "The form placeholder displayed on the term length input.",
-  },
-  classificationLabel: {
-    id: "jobDetails.classificationLabel",
-    defaultMessage: "What is the classification?",
-    description: "The form label displayed on the classification input.",
-  },
-  classificationNullSelection: {
-    id: "jobDetails.classificationNullSelection",
-    defaultMessage: "Select a classification...",
-    description:
-      "The default selection option displayed on the classification input.",
-  },
-  levelLabel: {
-    id: "jobDetails.levelLabel",
-    defaultMessage: "What is the level?",
-    description: "The form label displayed on the level input.",
-  },
-  levelNullSelection: {
-    id: "jobDetails.levelNullSelection",
-    defaultMessage: "Select a level...",
-    description: "The default selection option displayed on the level input.",
-  },
-  securityLevelLabel: {
-    id: "jobDetails.securityLevelLabel",
-    defaultMessage: "What is the security level?",
-    description: "The form label displayed on the security level input.",
-  },
-  securityLevelNullSelection: {
-    id: "jobDetails.securityLevelNullSelection",
-    defaultMessage: "Select a security level...",
-    description:
-      "The default selection option displayed on the security level input.",
-  },
-  languageLabel: {
-    id: "jobDetails.languageLabel",
-    defaultMessage: "What is the language profile?",
-    description: "The form label displayed on the language input.",
-  },
-  languageNullSelection: {
-    id: "jobDetails.languageNullSelection",
-    defaultMessage: "Select a language profile...",
-    description:
-      "The default selection option displayed on the language input.",
-  },
-  cityLabel: {
-    id: "jobDetails.cityLabel",
-    defaultMessage: "What city is the team located in?",
-    description: "The form label displayed on the city input.",
-  },
-  cityPlaceholder: {
-    id: "jobDetails.cityPlaceholder",
-    defaultMessage: "e.g. Ottawa",
-    description: "The form placeholder displayed on the city input.",
-  },
-  provinceLabel: {
-    id: "jobDetails.provinceLabel",
-    defaultMessage: "What province is the team located in?",
-    description: "The form label displayed on the province input.",
-  },
-  provinceNullSelection: {
-    id: "jobDetails.provinceNullSelection",
-    defaultMessage: "Select a province...",
-    description:
-      "The default selection option displayed on the province input.",
-  },
-  remoteWorkGroupLabel: {
-    id: "jobDetails.remoteWorkGroupLabel",
-    defaultMessage: "Select a remote work option:",
-    description: "The form label displayed on the remote work radio group.",
-  },
-  remoteWorkWorldLabel: {
-    id: "jobDetails.remoteWorkWorldLabel",
-    defaultMessage:
-      "Yes, I’m willing to supervise employees anywhere in the world.",
-    description:
-      "The form label displayed on the 'world' remote work radio option.",
-  },
-  remoteWorkCanadaLabel: {
-    id: "jobDetails.remoteWorkCanadaLabel",
-    defaultMessage:
-      "Yes, I’m willing to supervise employees in any province or territory in Canada.",
-    description:
-      "The form label displayed on the 'canada' remote work radio option.",
-  },
-  remoteWorkNoneLabel: {
-    id: "jobDetails.remoteWorkNoneLabel",
-    defaultMessage:
-      "No, I require the employee in this position to be in the same geographic location as the office.",
-    description:
-      "The form label displayed on the 'none' remote work radio option.",
-  },
-  teleworkGroupLabel: {
-    id: "jobDetails.teleworkGroupLabel",
-    defaultMessage: "Select a telework option:",
-    description: "The form label displayed on the telework radio group.",
-  },
-  flexHoursGroupLabel: {
-    id: "jobDetails.flexHoursGroupLabel",
-    defaultMessage: "Select a flexible hours option:",
-    description: "The form label displayed on the flex hours radio group.",
-  },
-  frequencyAlwaysLabel: {
-    id: "jobDetails.frequencyAlwaysLabel",
-    defaultMessage: "Almost Always",
-    description: "The form label displayed on 'always' frequency options.",
-  },
-  frequencyFrequentlyLabel: {
-    id: "jobDetails.frequencyFrequentlyLabel",
-    defaultMessage: "Frequently",
-    description: "The form label displayed on 'frequently' frequency options.",
-  },
-  frequencySometimesLabel: {
-    id: "jobDetails.frequencySometimesLabel",
-    defaultMessage: "Sometimes",
-    description: "The form label displayed on 'sometimes' frequency options.",
-  },
-  frequencyOccasionallyLabel: {
-    id: "jobDetails.frequencyOccasionallyLabel",
-    defaultMessage: "Occasionally",
-    description:
-      "The form label displayed on 'occasionally' frequency options.",
-  },
-  frequencyNeverLabel: {
-    id: "jobDetails.frequencyNeverLabel",
-    defaultMessage: "Almost Never",
-    description: "The form label displayed on 'never' frequency options.",
-  },
-  travelGroupLabel: {
-    id: "jobDetails.travelGroupLabel",
-    defaultMessage: "Select a travel option:",
-    description: "The form label displayed on the travel radio group.",
-  },
-  travelFrequentlyLabel: {
-    id: "jobDetails.travelFrequentlyLabel",
-    defaultMessage: "Yes, travel is frequently required for the position.",
-    description: "The form label displayed on 'frequently' travel options",
-  },
-  travelOpportunitiesAvailableLabel: {
-    id: "jobDetails.travelOpportunitiesAvailableLabel",
-    defaultMessage:
-      "Yes, travel opportunities are available for those that are interested.",
-    description:
-      "The form label displayed on 'travel opportunities available' travel options",
-  },
-  travelNoneRequiredLabel: {
-    id: "jobDetails.travelNoneRequiredLabel",
-    defaultMessage: "No, travel is not required for the position.",
-    description:
-      "The form label displayed on 'no travel required' travel options",
-  },
-  overtimeGroupLabel: {
-    id: "jobDetails.overtimeGroupLabel",
-    defaultMessage: "Select a overtime option:",
-    description: "The form label displayed on the overtime radio group.",
-  },
-  overtimeFrequentlyLabel: {
-    id: "jobDetails.overtimeFrequentlyLabel",
-    defaultMessage: "Yes, overtime is frequently required for the position.",
-    description: "The form label displayed on 'frequently' overtime options",
-  },
-  overtimeOpportunitiesAvailableLabel: {
-    id: "jobDetails.overtimeOpportunitiesAvailableLabel",
-    defaultMessage:
-      "Yes, overtime opportunities are available for those that are interested.",
-    description:
-      "The form label displayed on 'overtime opportunities available' overtime options",
-  },
-  overtimeNoneRequiredLabel: {
-    id: "jobDetails.overtimeNoneRequiredLabel",
-    defaultMessage: "No, overtime is not required for the position.",
-    description:
-      "The form label displayed on 'no overtime required' overtime options",
-  },
-});
-
-const classificationOptionMessages = defineMessages({
-  AdministrativeServices: {
-    id: "jobDetails.classificationOptions.AS",
-    defaultMessage: "AS - Administrative Services",
-    description: "Job Classification from list of Classifications",
-  },
-  BiologicalSciences: {
-    id: "jobDetails.classificationOptions.BI",
-    defaultMessage: "BI - Biological Sciences",
-    description: "Job Classification from list of Classifications",
-  },
-  Commerce: {
-    id: "jobDetails.classificationOptions.CO",
-    defaultMessage: "CO - Commerce",
-    description: "Job Classification from list of Classifications",
-  },
-  ClericalRegulatory: {
-    id: "jobDetails.classificationOptions.CR",
-    defaultMessage: "CR - Clerical and Regulatory",
-    description: "Job Classification from list of Classifications",
-  },
-  ComputerSystems: {
-    id: "jobDetails.classificationOptions.CS",
-    defaultMessage: "CS - Computer Systems",
-    description: "Job Classification from list of Classifications",
-  },
-  EconomicsSocialSciences: {
-    id: "jobDetails.classificationOptions.EC",
-    defaultMessage: "EC - Economics and Social Science Services",
-    description: "Job Classification from list of Classifications",
-  },
-  Executive: {
-    id: "jobDetails.classificationOptions.EX",
-    defaultMessage: "EX - Executive",
-    description: "Job Classification from list of Classifications",
-  },
-  Forestry: {
-    id: "jobDetails.classificationOptions.FO",
-    defaultMessage: "FO - Forestry",
-    description: "Job Classification from list of Classifications",
-  },
-  InformationServices: {
-    id: "jobDetails.classificationOptions.IS",
-    defaultMessage: "IS - Information Services",
-    description: "Job Classification from list of Classifications",
-  },
-  PhysicalSciences: {
-    id: "jobDetails.classificationOptions.PC",
-    defaultMessage: "PC - Physical Sciences",
-    description: "Job Classification from list of Classifications",
-  },
-  PersonnelAdministration: {
-    id: "jobDetails.classificationOptions.PE",
-    defaultMessage: "PE - Personnel Administration",
-    description: "Job Classification from list of Classifications",
-  },
-  ProgrammeAdministration: {
-    id: "jobDetails.classificationOptions.PM",
-    defaultMessage: "PM - Programme Administration",
-    description: "Job Classification from list of Classifications",
-  },
-});
+import ContextBlockItem from "../ContextBlock/ContextBlockItem";
+import CopyToClipboardButton from "../CopyToClipboardButton";
+import TextAreaInput from "../Form/TextAreaInput";
+import {
+  formMessages,
+  classificationOptionMessages,
+  educationMessages,
+} from "./JobDetailsMessages";
+import { hasKey } from "../../helpers/queries";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -306,20 +52,6 @@ interface JobDetailsProps {
 }
 
 type RemoteWorkType = "remoteWorkNone" | "remoteWorkCanada" | "remoteWorkWorld";
-const remoteWorkOptions = [
-  {
-    id: "remoteWorkWorld",
-    label: formMessages.remoteWorkWorldLabel,
-  },
-  {
-    id: "remoteWorkCanada",
-    label: formMessages.remoteWorkCanadaLabel,
-  },
-  {
-    id: "remoteWorkNone",
-    label: formMessages.remoteWorkNoneLabel,
-  },
-];
 
 const remoteWorkMessages = {
   remoteWorkWorld: formMessages.remoteWorkWorldLabel,
@@ -333,41 +65,20 @@ type TeleworkOptionType =
   | "teleworkSometimes"
   | "teleworkFrequently"
   | "teleworkAlways";
-const teleworkOptions: {
-  id: TeleworkOptionType;
-  label: FormattedMessage.MessageDescriptor;
-}[] = [
-  {
-    id: "teleworkNever",
-    label: formMessages.frequencyNeverLabel,
-  },
-  {
-    id: "teleworkOccasionally",
-    label: formMessages.frequencyOccasionallyLabel,
-  },
-  {
-    id: "teleworkSometimes",
-    label: formMessages.frequencySometimesLabel,
-  },
-  {
-    id: "teleworkFrequently",
-    label: formMessages.frequencyFrequentlyLabel,
-  },
-  {
-    id: "teleworkAlways",
-    label: formMessages.frequencyAlwaysLabel,
-  },
-];
-const teleworkMessages = {
+
+const teleworkMessages: {
+  [key in TeleworkOptionType]: FormattedMessage.MessageDescriptor;
+} = {
   teleworkNever: formMessages.frequencyNeverLabel,
   teleworkOccasionally: formMessages.frequencyOccasionallyLabel,
   teleworkSometimes: formMessages.frequencySometimesLabel,
   teleworkFrequently: formMessages.frequencyFrequentlyLabel,
   teleworkAlways: formMessages.frequencyAlwaysLabel,
 };
-const teleworkFrequencies: TeleworkOptionType[] = teleworkOptions.map(
-  (option): TeleworkOptionType => option.id,
-);
+
+const teleworkFrequencies: TeleworkOptionType[] = Object.keys(
+  teleworkMessages,
+) as TeleworkOptionType[];
 
 type FlexHourOptionType =
   | "flexHoursNever"
@@ -375,108 +86,59 @@ type FlexHourOptionType =
   | "flexHoursSometimes"
   | "flexHoursFrequently"
   | "flexHoursAlways";
-const flexHoursOptions: {
-  id: FlexHourOptionType;
-  label: FormattedMessage.MessageDescriptor;
-}[] = [
-  {
-    id: "flexHoursNever",
-    label: formMessages.frequencyNeverLabel,
-  },
-  {
-    id: "flexHoursOccasionally",
-    label: formMessages.frequencyOccasionallyLabel,
-  },
-  {
-    id: "flexHoursSometimes",
-    label: formMessages.frequencySometimesLabel,
-  },
-  {
-    id: "flexHoursFrequently",
-    label: formMessages.frequencyFrequentlyLabel,
-  },
-  {
-    id: "flexHoursAlways",
-    label: formMessages.frequencyAlwaysLabel,
-  },
-];
-const flexHourMessages = {
+
+const flexHourMessages: {
+  [key in FlexHourOptionType]: FormattedMessage.MessageDescriptor;
+} = {
   flexHoursNever: formMessages.frequencyNeverLabel,
   flexHoursOccasionally: formMessages.frequencyOccasionallyLabel,
   flexHoursSometimes: formMessages.frequencySometimesLabel,
   flexHoursFrequently: formMessages.frequencyFrequentlyLabel,
   flexHoursAlways: formMessages.frequencyAlwaysLabel,
 };
-const flexHourFequencies = flexHoursOptions.map(
-  (option): FlexHourOptionType => option.id,
-);
+const flexHourFequencies: FlexHourOptionType[] = Object.keys(
+  flexHourMessages,
+) as FlexHourOptionType[];
 
 type TravelOptionType =
   | "travelFrequently"
   | "travelOpportunitiesAvailable"
   | "travelNoneRequired";
-const travelOptions: {
-  id: TravelOptionType;
-  label: FormattedMessage.MessageDescriptor;
-}[] = [
-  {
-    id: "travelFrequently",
-    label: formMessages.travelFrequentlyLabel,
-  },
-  {
-    id: "travelOpportunitiesAvailable",
-    label: formMessages.travelOpportunitiesAvailableLabel,
-  },
-  {
-    id: "travelNoneRequired",
-    label: formMessages.travelNoneRequiredLabel,
-  },
-];
-const travelMessages = {
+
+const travelMessages: {
+  [key in TravelOptionType]: FormattedMessage.MessageDescriptor;
+} = {
   travelFrequently: formMessages.travelFrequentlyLabel,
   travelOpportunitiesAvailable: formMessages.travelOpportunitiesAvailableLabel,
   travelNoneRequired: formMessages.travelNoneRequiredLabel,
 };
-const travelRequirements = travelOptions.map(
-  (option): TravelOptionType => option.id,
-);
+const travelRequirements: TravelOptionType[] = Object.keys(
+  travelMessages,
+) as TravelOptionType[];
 
 type OvertimeOptionType =
   | "overtimeFrequently"
   | "overtimeOpportunitiesAvailable"
   | "overtimeNoneRequired";
-const overtimeOptions: {
-  id: OvertimeOptionType;
-  label: FormattedMessage.MessageDescriptor;
-}[] = [
-  {
-    id: "overtimeFrequently",
-    label: formMessages.overtimeFrequentlyLabel,
-  },
-  {
-    id: "overtimeOpportunitiesAvailable",
-    label: formMessages.overtimeOpportunitiesAvailableLabel,
-  },
-  {
-    id: "overtimeNoneRequired",
-    label: formMessages.overtimeNoneRequiredLabel,
-  },
-];
-const overtimeMessages = {
+
+const overtimeMessages: {
+  [key in OvertimeOptionType]: FormattedMessage.MessageDescriptor;
+} = {
   overtimeFrequently: formMessages.overtimeFrequentlyLabel,
   overtimeOpportunitiesAvailable:
     formMessages.overtimeOpportunitiesAvailableLabel,
   overtimeNoneRequired: formMessages.overtimeNoneRequiredLabel,
 };
-const overtimeRequirements = overtimeOptions.map(
-  (option): OvertimeOptionType => option.id,
-);
+const overtimeRequirements: OvertimeOptionType[] = Object.keys(
+  overtimeMessages,
+) as OvertimeOptionType[];
 
 interface JobFormValues {
   title: string;
   termLength: number | "";
   classification: string;
   level: number | "";
+  educationRequirements: string;
   securityLevel: number | "";
   language: number | "";
   city: string;
@@ -488,13 +150,31 @@ interface JobFormValues {
   overtime: OvertimeOptionType;
 }
 
-const jobToValues = (job: Job | null, locale: string): JobFormValues =>
-  job
+const isClassificationSet = (values: JobFormValues): boolean => {
+  return values.classification.length > 0 && values.level !== "";
+};
+
+const getEducationMsgForClassification = (
+  classification: string,
+  intl: ReactIntl.InjectedIntl,
+): string => {
+  return hasKey(educationMessages, classification)
+    ? intl.formatMessage(educationMessages[classification])
+    : "";
+};
+
+const jobToValues = (
+  job: Job | null,
+  locale: string,
+  intl: ReactIntl.InjectedIntl,
+): JobFormValues => {
+  const values: JobFormValues = job
     ? {
         title: job[locale].title ? String(job[locale].title) : "", // TODO: use utility method
         termLength: job.term_qty || "",
         classification: job.classification_code || "",
         level: job.classification_level || "",
+        educationRequirements: job[locale].education || "",
         securityLevel: job.security_clearance_id || "",
         language: job.language_requirement_id || "",
         city: job[locale].city || "",
@@ -521,6 +201,7 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues =>
         termLength: "",
         classification: "",
         level: "",
+        educationRequirements: "",
         securityLevel: "",
         language: "",
         city: "",
@@ -531,6 +212,19 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues =>
         travel: "travelFrequently",
         overtime: "overtimeFrequently",
       };
+  // If the job has the standard education requirments saved, no need to fill the custom textbox
+  if (
+    values.classification &&
+    values.educationRequirements ===
+      getEducationMsgForClassification(values.classification, intl)
+  ) {
+    return {
+      ...values,
+      educationRequirements: "",
+    };
+  }
+  return values;
+};
 
 const updateJobWithValues = (
   initialJob: Job,
@@ -540,6 +234,7 @@ const updateJobWithValues = (
     termLength,
     classification,
     level,
+    educationRequirements,
     securityLevel,
     language,
     city,
@@ -567,6 +262,7 @@ const updateJobWithValues = (
     ...initialJob[locale],
     title,
     city,
+    education: educationRequirements,
   },
 });
 
@@ -588,7 +284,7 @@ const JobDetails: React.FunctionComponent<
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
-  const initialValues: JobFormValues = jobToValues(job || null, locale);
+  const initialValues: JobFormValues = jobToValues(job || null, locale, intl);
 
   const remoteWorkPossibleValues: RemoteWorkType[] = [
     "remoteWorkNone",
@@ -627,6 +323,7 @@ const JobDetails: React.FunctionComponent<
       .min(1, intl.formatMessage(validationMessages.invalidSelection))
       .max(9, intl.formatMessage(validationMessages.invalidSelection))
       .required(intl.formatMessage(validationMessages.required)),
+    educationRequirements: Yup.string(),
     securityLevel: Yup.number()
       .oneOf(
         Object.values(SecurityClearanceId),
@@ -683,7 +380,6 @@ const JobDetails: React.FunctionComponent<
 
   return (
     <section>
-      {console.log(initialValues)}
       <div
         data-c-container="form"
         data-c-padding="top(triple) bottom(triple)"
@@ -706,7 +402,17 @@ const JobDetails: React.FunctionComponent<
           validationSchema={jobSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
-            handleSubmit(updateJobWithValues(job || emptyJob(), locale, values))
+            const educationRequirements: string =
+              values.educationRequirements.length > 0
+                ? values.educationRequirements
+                : getEducationMsgForClassification(values.classification, intl);
+            const modifiedValues: JobFormValues = {
+              ...values,
+              educationRequirements,
+            };
+            handleSubmit(
+              updateJobWithValues(job || emptyJob(), locale, modifiedValues),
+            )
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
                   if (returnOnSubmit) {
@@ -865,6 +571,92 @@ const JobDetails: React.FunctionComponent<
                     { value: 9, label: "9" },
                   ]}
                 />
+                <div data-c-grid-item="base(1of1)">
+                  {!isClassificationSet(values) ? (
+                    <p
+                      data-c-font-weight="bold"
+                      data-c-margin="bottom(normal)"
+                      data-c-colour="grey"
+                      data-c-border="all(thin, solid, grey)"
+                      data-c-background="white(100)"
+                      data-c-padding="all(normal)"
+                      data-c-alignment="base(center)"
+                    >
+                      <FormattedMessage
+                        id="jobDetails.SelectClassAndLvlMessage"
+                        defaultMessage="Please select a classification and level before preparing
+                          the education requirements."
+                        description="Message displayed after classification and level select boxes."
+                      />
+                    </p>
+                  ) : (
+                    <>
+                      <p
+                        data-c-font-weight="bold"
+                        data-c-margin="bottom(normal)"
+                      >
+                        <FormattedMessage
+                          id="jobDetails.educationRequirementHeader"
+                          defaultMessage="Based on the classification level you selected, this standard paragraph will appear on the job poster."
+                          description="Header message displayed for the Education requirement section."
+                        />
+                      </p>
+                      <div>
+                        <ContextBlockItem
+                          wrapperMargin="bottom(normal)"
+                          subtext={getEducationMsgForClassification(
+                            values.classification,
+                            intl,
+                          )}
+                        />
+                      </div>
+
+                      <div className="job-builder-education-customization active">
+                        <p data-c-margin="bottom(normal)">
+                          <FormattedMessage
+                            id="jobDetails.educationRequirementCopyAndPaste"
+                            defaultMessage="If you want to customize this paragraph, copy and paste it into the textbox below."
+                            description="Footer message displayed for the Education requirement section."
+                          />
+                        </p>
+                        <p
+                          data-c-font-weight="bold"
+                          data-c-margin="bottom(normal)"
+                        >
+                          <FormattedMessage
+                            id="jobDetails.educationRequirementReviewChanges"
+                            defaultMessage="Your HR advisor will review your changes."
+                            description="Footer message displayed for the Education requirement section."
+                          />
+                        </p>
+                        <div
+                          data-c-alignment="base(centre)"
+                          data-c-margin="top(normal) bottom(half)"
+                        >
+                          <CopyToClipboardButton
+                            text={getEducationMsgForClassification(
+                              values.classification,
+                              intl,
+                            )}
+                          />
+                        </div>
+                        <Field
+                          type="textarea"
+                          id="education_requirements"
+                          name="educationRequirements"
+                          label={intl.formatMessage(
+                            formMessages.educationRequirementsLabel,
+                          )}
+                          placeholder={intl.formatMessage(
+                            formMessages.educationRequirementPlaceholder,
+                          )}
+                          component={TextAreaInput}
+                          grid="base(1of1)"
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
                 <Field
                   name="securityLevel"
                   id="builder02SecurityLevel"
@@ -950,15 +742,15 @@ const JobDetails: React.FunctionComponent<
                   touched={touched.remoteWork}
                   value={values.remoteWork}
                 >
-                  {remoteWorkOptions.map(
-                    ({ id, label }): React.ReactElement => {
+                  {Object.keys(remoteWorkMessages).map(
+                    (key): React.ReactElement => {
                       return (
                         <Field
-                          key={id}
+                          key={key}
                           name="remoteWork"
                           component={RadioInput}
-                          id={id}
-                          label={intl.formatMessage(label)}
+                          id={key}
+                          label={intl.formatMessage(remoteWorkMessages[key])}
                         />
                       );
                     },
@@ -987,15 +779,15 @@ const JobDetails: React.FunctionComponent<
                   touched={touched.telework}
                   value={values.telework}
                 >
-                  {teleworkOptions.map(
-                    ({ id, label }): React.ReactElement => {
+                  {Object.keys(teleworkMessages).map(
+                    (key): React.ReactElement => {
                       return (
                         <Field
-                          key={id}
+                          key={key}
                           name="telework"
                           component={RadioInput}
-                          id={id}
-                          label={intl.formatMessage(label)}
+                          id={key}
+                          label={intl.formatMessage(teleworkMessages[key])}
                         />
                       );
                     },
@@ -1025,15 +817,15 @@ const JobDetails: React.FunctionComponent<
                   touched={touched.flexHours}
                   value={values.flexHours}
                 >
-                  {flexHoursOptions.map(
-                    ({ id, label }): React.ReactElement => {
+                  {Object.keys(flexHourMessages).map(
+                    (key): React.ReactElement => {
                       return (
                         <Field
-                          key={id}
+                          key={key}
                           name="flexHours"
                           component={RadioInput}
-                          id={id}
-                          label={intl.formatMessage(label)}
+                          id={key}
+                          label={intl.formatMessage(flexHourMessages[key])}
                         />
                       );
                     },
@@ -1055,15 +847,15 @@ const JobDetails: React.FunctionComponent<
                   touched={touched.travel}
                   value={values.travel}
                 >
-                  {travelOptions.map(
-                    ({ id, label }): React.ReactElement => {
+                  {Object.keys(travelMessages).map(
+                    (key): React.ReactElement => {
                       return (
                         <Field
-                          key={id}
+                          key={key}
                           name="travel"
                           component={RadioInput}
-                          id={id}
-                          label={intl.formatMessage(label)}
+                          id={key}
+                          label={intl.formatMessage(travelMessages[key])}
                         />
                       );
                     },
@@ -1085,15 +877,15 @@ const JobDetails: React.FunctionComponent<
                   touched={touched.overtime}
                   value={values.overtime}
                 >
-                  {overtimeOptions.map(
-                    ({ id, label }): React.ReactElement => {
+                  {Object.keys(overtimeMessages).map(
+                    (key): React.ReactElement => {
                       return (
                         <Field
-                          key={id}
+                          key={key}
                           name="overtime"
                           component={RadioInput}
-                          id={id}
-                          label={intl.formatMessage(label)}
+                          id={key}
+                          label={intl.formatMessage(overtimeMessages[key])}
                         />
                       );
                     },
@@ -1221,7 +1013,14 @@ const JobDetails: React.FunctionComponent<
                               provinceName(Number(values.province)),
                             )
                       }
-                      education={(job && job[locale].education) || ""}
+                      education={
+                        values.educationRequirements.length > 0
+                          ? values.educationRequirements
+                          : getEducationMsgForClassification(
+                              values.classification,
+                              intl,
+                            )
+                      }
                       termLength={
                         typeof values.termLength === "string"
                           ? null

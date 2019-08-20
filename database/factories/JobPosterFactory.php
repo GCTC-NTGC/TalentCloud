@@ -112,7 +112,7 @@ $factory->state(
         return [
             'published' => true,
             'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks'),
-            'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-2 days', '-1 days')->format('Y-m-d')),
+            'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-5 days', '-3 days')->format('Y-m-d')),
         ];
     }
 );
