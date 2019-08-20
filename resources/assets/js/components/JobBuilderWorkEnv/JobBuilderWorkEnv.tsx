@@ -23,6 +23,7 @@ import {
   isJobBuilderComplete,
   VALID_COUNT,
 } from "../JobBuilder/jobBuilderHelpers";
+import { navigate } from "../../helpers/router";
 
 interface JobBuilderWorkEnvProps {
   // The id of the edited job, or null for a new job.
@@ -55,17 +56,14 @@ const JobBuilderWorkEnv: React.FunctionComponent<
   const handleSubmit = handleUpdateJob;
   const handleModalCancel = (): void => {};
   const handleModalConfirm = (): void => {
-    window.location.href = jobBuilderImpact(intl.locale, jobId);
+    navigate(jobBuilderImpact(intl.locale, jobId));
   };
   const handleReturn = (): void => {
-    window.location.href = jobBuilderDetails(
-      locale,
-      jobId !== null ? jobId : undefined,
-    );
+    navigate(jobBuilderDetails(locale, jobId !== null ? jobId : undefined));
   };
   const handleSkipToReview = async (): Promise<void> => {
     if (jobId) {
-      window.location.href = jobBuilderReview(locale, jobId);
+      navigate(jobBuilderReview(locale, jobId));
     }
   };
   const jobIsComplete =

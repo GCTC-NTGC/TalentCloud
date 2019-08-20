@@ -23,6 +23,7 @@ import { DispatchType } from "../../configureStore";
 import { batchUpdateJobTasks } from "../../store/Job/jobActions";
 import RootContainer from "../RootContainer";
 import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
+import { navigate } from "../../helpers/router";
 
 interface JobTasksPageProps {
   jobId: number;
@@ -54,16 +55,16 @@ const JobTasksPage: React.FunctionComponent<
   const handleModalCancel = (): void => {}; // No need to do anything.
   const handleModalConfirm = (): void => {
     // Continue to next page
-    window.location.href = jobBuilderSkills(locale, jobId);
+    navigate(jobBuilderSkills(locale, jobId));
   };
   const handleSubmit = (
     tasks: JobPosterKeyTask[],
   ): Promise<JobPosterKeyTask[]> => handleUpdateTasks(jobId, tasks);
   const handleReturn = (): void => {
-    window.location.href = jobBuilderImpact(locale, jobId);
+    navigate(jobBuilderImpact(locale, jobId));
   };
   const handleSkipToReview = async (): Promise<void> => {
-    window.location.href = jobBuilderReview(locale, jobId);
+    navigate(jobBuilderReview(locale, jobId));
   };
   const jobIsComplete =
     job !== null &&
@@ -125,6 +126,8 @@ const JobTasksPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(injectIntl(JobTasksPage));
+
+export default JobTasksPageContainer;
 
 if (document.getElementById("job-builder-tasks")) {
   const container = document.getElementById("job-builder-tasks") as HTMLElement;

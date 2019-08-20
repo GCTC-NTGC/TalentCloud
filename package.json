@@ -118,6 +118,7 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "sweetalert2": "^8.16.2",
+    "universal-router": "^8.2.1",
     "yup": "^0.27.0"
   },
   "repository": {

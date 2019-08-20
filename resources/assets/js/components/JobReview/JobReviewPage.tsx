@@ -33,6 +33,7 @@ import {
   fetchManager,
   setSelectedManager,
 } from "../../store/Manager/managerActions";
+import { navigate } from "../../helpers/router";
 
 interface JobBuilderReviewPageProps {
   jobId: number;
@@ -73,7 +74,7 @@ const JobBuilderReviewPage: React.FunctionComponent<
 
   const handleReturn = (): void => {
     // Go to Previous page
-    window.location.href = jobBuilderSkills(locale, jobId);
+    navigate(jobBuilderSkills(locale, jobId));
   };
   const handleContinue = (): void => {
     // Continue to next page
@@ -150,6 +151,8 @@ const JobReviewPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(injectIntl(JobBuilderReviewPage));
+
+export default JobReviewPageContainer;
 
 if (document.getElementById("job-builder-review")) {
   const container = document.getElementById(
