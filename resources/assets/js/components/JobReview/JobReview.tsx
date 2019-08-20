@@ -43,7 +43,6 @@ import Criterion from "../JobBuilder/Criterion";
 import JobWorkEnv from "../JobBuilder/JobWorkEnv";
 import JobWorkCulture from "../JobBuilder/JobWorkCulture";
 import Modal from "../Modal";
-import { defaultMemoize } from "reselect";
 
 interface JobReviewSectionProps {
   title: string;
@@ -64,6 +63,21 @@ const messages = defineMessages({
     defaultMessage: "Edit This in Step 01: Job Info",
     description: "Link to edit job details.",
   },
+  impactEditLink: {
+    id: "jobBuilder.review.impactEditLink",
+    defaultMessage: "Edit This in Step 03: Impact",
+    description: "Link to edit impact statements.",
+  },
+  tasksEditLink: {
+    id: "jobBuilder.review.tasksEditLink",
+    defaultMessage: "Edit This in Step 04: Tasks",
+    description: "Link to edit tasks.",
+  },
+  skillsEditLink: {
+    id: "jobBuilder.review.skillsEditLink",
+    defaultMessage: "Edit This in Step 05: Skills",
+    description: "Link to edit skills.",
+  },
   nullProvince: {
     id: "jobBuilder.review.nullProvince",
     defaultMessage: "MISSING PROVINCE",
@@ -73,6 +87,41 @@ const messages = defineMessages({
     id: "jobBuilder.review.basicInformationHeading",
     defaultMessage: "Basic Information",
     description: "Heading for Basic Information section",
+  },
+  impactHeading: {
+    id: "jobBuilder.review.impactHeading",
+    defaultMessage: "Impact",
+    description: "Heading for Impact section",
+  },
+  tasksHeading: {
+    id: "jobBuilder.review.tasksHeading",
+    defaultMessage: "Tasks",
+    description: "Heading for Tasks section",
+  },
+  criteriaSection: {
+    id: "jobBuilder.review.criteriaSection",
+    defaultMessage: "Criteria",
+    description: "Title for criteria section",
+  },
+  educationalHeading: {
+    id: "jobBuilder.review.educationalHeading",
+    defaultMessage: "Education Requirements",
+    description: "Heading for Educational section",
+  },
+  skillsHeading: {
+    id: "jobBuilder.review.skillsHeading",
+    defaultMessage: "Skills You Need to Have",
+    description: "Heading for Skills section",
+  },
+  assetHeading: {
+    id: "jobBuilder.review.assetHeading",
+    defaultMessage: "Skills That Are Nice to Have",
+    description: "Heading for Asset Skills section",
+  },
+  languageHeading: {
+    id: "jobBuilder.review.languageHeading",
+    defaultMessage: "Language Requirements",
+    description: "Heading for Language section",
   },
 });
 
@@ -403,15 +452,21 @@ export const JobReview: React.FunctionComponent<
                   description="Label for start date info"
                 />
               </p>
-              <p><FormattedMessage
+              <p>
+                <FormattedMessage
                   id="jobBuilder.review.comesLater"
                   defaultMessage="This comes later."
                   description="Placeholder for information that comes later"
-                /></p>
+                />
+              </p>
             </div>
             <div data-c-grid-item="tp(1of2)">
               <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                Government Classification
+                <FormattedMessage
+                  id="jobBuilder.review.GovernmentClass"
+                  defaultMessage="Government Classification"
+                  description="Placeholder for information that comes later"
+                />
               </p>
               <p>
                 {job.classification_code}-0{job.classification_level}
@@ -420,8 +475,8 @@ export const JobReview: React.FunctionComponent<
           </div>
         </JobReviewSection>
         <JobReviewSection
-          title="Impact"
-          linkLabel="Edit This in Step 03: Impact"
+          title={intl.formatMessage(messages.impactHeading)}
+          linkLabel={intl.formatMessage(messages.impactEditLink)}
           link={jobBuilderImpact(locale, job.id)}
         >
           <p data-c-margin="bottom(normal)">{job[locale].dept_impact}</p>
@@ -429,8 +484,8 @@ export const JobReview: React.FunctionComponent<
           <p>{job[locale].hire_impact}</p>
         </JobReviewSection>
         <JobReviewSection
-          title="Tasks"
-          linkLabel="Edit This in Step 04: Tasks"
+          title={intl.formatMessage(messages.tasksHeading)}
+          linkLabel={intl.formatMessage(messages.tasksEditLink)}
           link={jobBuilderTasks(locale, job.id)}
         >
           <ul>
@@ -441,19 +496,19 @@ export const JobReview: React.FunctionComponent<
             )}
           </ul>
         </JobReviewSection>
-        {sectionTitle("Criteria")}
+        {sectionTitle(intl.formatMessage(messages.criteriaSection))}
         <JobReviewSection
-          title="Education Requirements"
+          title={intl.formatMessage(messages.educationalHeading)}
           isSubsection
-          linkLabel="Edit This in Step 01: Job Info"
+          linkLabel={intl.formatMessage(messages.infoEditLink)}
           link={jobBuilderDetails(locale, job.id)}
         >
           {job[locale].education}
         </JobReviewSection>
         <JobReviewSection
-          title="Skills You Need to Have"
+          title={intl.formatMessage(messages.skillsHeading)}
           isSubsection
-          linkLabel="Edit This in Step 05: Skills"
+          linkLabel={intl.formatMessage(messages.skillsEditLink)}
           link={jobBuilderSkills(locale, job.id)}
         >
           {essentialCriteria.map((criterion): React.ReactElement | null => {
@@ -471,9 +526,9 @@ export const JobReview: React.FunctionComponent<
           })}
         </JobReviewSection>
         <JobReviewSection
-          title="Skills That Are Nice to Have"
+          title={intl.formatMessage(messages.assetHeading)}
           isSubsection
-          linkLabel="Edit This in Step 05: Skills"
+          linkLabel={intl.formatMessage(messages.skillsEditLink)}
           link={jobBuilderSkills(locale, job.id)}
         >
           {assetCriteria.map((criterion): React.ReactElement | null => {
@@ -491,8 +546,8 @@ export const JobReview: React.FunctionComponent<
           })}
         </JobReviewSection>
         <JobReviewSection
-          title="Language Requirements"
-          linkLabel="Edit This in Step 01: Job Info"
+          title={intl.formatMessage(messages.languageHeading)}
+          linkLabel={intl.formatMessage(messages.infoEditLink)}
           link={jobBuilderDetails(locale, job.id)}
         >
           {/** TODO: get lang data from job */}
