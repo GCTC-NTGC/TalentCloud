@@ -79,6 +79,11 @@ const messages = defineMessages({
     defaultMessage: "Edit This in Step 05: Skills",
     description: "Link to edit skills.",
   },
+  workEnvEditLink: {
+    id: "jobBuilder.review.workEnvEditLink",
+    defaultMessage: "Edit This in Step 02: Work Environment",
+    description: "Link to edit work environment.",
+  },
   managerProfileLink: {
     id: "jobBuilder.review.managerProfileLink",
     defaultMessage: "Edit This in Your Profile",
@@ -138,6 +143,27 @@ const messages = defineMessages({
     id: "jobBuilder.review.managerHeading",
     defaultMessage: "Manager Information",
     description: "Heading for Manager section",
+  },
+  workCultureHeading: {
+    id: "jobBuilder.review.workCultureHeading",
+    defaultMessage: "Work Culture",
+    description: "Heading for Work Culture section",
+  },
+  workEnvHeading: {
+    id: "jobBuilder.review.workEnvHeading",
+    defaultMessage: "Work Environment",
+    description: "Heading for Work Environment section",
+  },
+  workEnvDescription: {
+    id: "jobBuilder.review.workDescription",
+    defaultMessage:
+      "Please note that some Work Environment information is only presented to the applicant after they've clicked the \"View the team's work environment and culture\" button that appears on the job poster.",
+    description: "A note about the information in the work description section",
+  },
+  otherInfoHeading: {
+    id: "jobBuilder.review.otherInfoHeading",
+    defaultMessage: "Other Team Information",
+    description: "Heading for other info section",
   },
 });
 
@@ -619,20 +645,20 @@ export const JobReview: React.FunctionComponent<
           )}
         </JobReviewSection>
         <JobReviewSection
-          title="Work Culture"
+          title={intl.formatMessage(messages.workCultureHeading)}
           isSubsection
-          linkLabel="Edit This in Step 02: Work Environment"
+          linkLabel={intl.formatMessage(messages.workEnvEditLink)}
           link={jobBuilderEnv(locale, job.id)}
         >
           {job[locale].culture_summary && <p>{job[locale].culture_summary}</p>}
           {job[locale].culture_special && <p>{job[locale].culture_special}</p>}
         </JobReviewSection>
         <JobReviewSection
-          title="Work Environment"
+          title={intl.formatMessage(messages.workEnvHeading)}
           isSubsection
-          linkLabel="Edit This in Step 02: Work Environment"
+          linkLabel={intl.formatMessage(messages.workEnvEditLink)}
           link={jobBuilderEnv(locale, job.id)}
-          description={`Please note that some Work Environment information is only presented to the applicant after they've clicked the "View the team's work environment and culture" button that appears on the job poster.`}
+          description={intl.formatMessage(messages.workEnvDescription)}
         >
           <JobWorkEnv
             teamSize={job.team_size || 0}
@@ -640,9 +666,9 @@ export const JobReview: React.FunctionComponent<
           />
         </JobReviewSection>
         <JobReviewSection
-          title="Other Team Information"
+          title={intl.formatMessage(messages.otherInfoHeading)}
           isSubsection
-          linkLabel="Edit This in Step 01: Job Info"
+          linkLabel={intl.formatMessage(messages.infoEditLink)}
           link={jobBuilderDetails(locale, job.id)}
         >
           <JobWorkCulture job={job} />
