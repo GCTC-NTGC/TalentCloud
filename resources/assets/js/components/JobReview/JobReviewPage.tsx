@@ -78,7 +78,7 @@ const JobBuilderReviewPage: React.FunctionComponent<
   };
   const handleContinue = (): void => {
     // Continue to next page
-    navigate(managerJobIndex(locale));
+    window.location.href = managerJobIndex(locale);
   };
   const jobIsComplete =
     job !== null &&
