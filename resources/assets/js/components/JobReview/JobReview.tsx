@@ -79,6 +79,11 @@ const messages = defineMessages({
     defaultMessage: "Edit This in Step 05: Skills",
     description: "Link to edit skills.",
   },
+  managerProfileLink: {
+    id: "jobBuilder.review.managerProfileLink",
+    defaultMessage: "Edit This in Your Profile",
+    description: "Link to edit a manager's profile.",
+  },
   nullProvince: {
     id: "jobBuilder.review.nullProvince",
     defaultMessage: "MISSING PROVINCE",
@@ -123,6 +128,16 @@ const messages = defineMessages({
     id: "jobBuilder.review.languageHeading",
     defaultMessage: "Language Requirements",
     description: "Heading for Language section",
+  },
+  cultureSection: {
+    id: "jobBuilder.review.cultureSection",
+    defaultMessage: "Environment & Culture",
+    description: "Title for culture section",
+  },
+  managerHeading: {
+    id: "jobBuilder.review.managerHeading",
+    defaultMessage: "Manager Information",
+    description: "Heading for Manager section",
   },
 });
 
@@ -576,11 +591,11 @@ export const JobReview: React.FunctionComponent<
             </>
           )}
         </JobReviewSection>
-        {sectionTitle("Environment & Culture")}
+        {sectionTitle(intl.formatMessage(messages.cultureSection))}
         <JobReviewSection
-          title="Manager Information"
+          title={intl.formatMessage(messages.managerHeading)}
           isSubsection
-          linkLabel="Edit This in Your Profile"
+          linkLabel={intl.formatMessage(messages.managerProfileLink)}
           link={managerEditProfile(locale)}
         >
           {manager !== null ? (
@@ -594,7 +609,13 @@ export const JobReview: React.FunctionComponent<
               <p>{manager[locale].about_me}</p>
             </>
           ) : (
-            <p data-c-margin="bottom(normal)">Manager data is loading...</p>
+            <p data-c-margin="bottom(normal)">
+              <FormattedMessage
+                id="jobBuilder.review.managerDataLoading"
+                defaultMessage="Manager data is loading..."
+                description="Placeholder text as Manager data loads."
+              />
+            </p>
           )}
         </JobReviewSection>
         <JobReviewSection

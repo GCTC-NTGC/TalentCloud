@@ -75,7 +75,7 @@ export const fakeJob = (id = 1): Job => ({
     city: "Toronto",
     title: "Conseiller(ère) technique",
     dept_impact:
-      "FRENCH: This is a statement about all the great things you will do in this department.",
+      "Ceci est une déclaration sur toutes les grandes choses que vous ferez dans ce département.",
     team_impact:
       "À l’interne, notre but premier est d’optimiser et bâtir les applications de manière à supporter le mieux possible nos clients et de s’assurer d’être en mesure de tirer parti du meilleur des dernières technologies. À l’échelle du gouvernement, nous désirons être un modèle prouvant que les considérations liées à vie privée ne sont pas un obstacle au progrès technologique.",
     hire_impact:
@@ -84,10 +84,11 @@ export const fakeJob = (id = 1): Job => ({
     division: "minima",
     education: "Ut odit inventore incidunt.",
     work_env_description:
-      "Our office also has a couch that is so comfortable it must be hidden from view.",
+      "Notre bureau dispose également d’un canapé si confortable qu’il doit être caché de la vue.",
     culture_summary:
-      " Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!",
-    culture_special: "We're also a very informal, irreverant group.",
+      "Nos délais sont serrés, nous équilibrons plusieurs tâches en même temps et nos priorités changent constamment. Notre travail devrait venir avec des chaussures de course!",
+    culture_special:
+      "Nous sommes également un groupe très informel et irrévérencieux.",
   },
 });
 
@@ -176,8 +177,8 @@ export const fakeCriterion = (id: number = 1, jobId: number = 1): Criteria => ({
     specificity: `This text is specific to criteria ${id}`,
   },
   fr: {
-    description: `FR This is the description of skill 1.`,
-    specificity: `FR This text is specific to criteria ${id}`,
+    description: `Ceci est la description de la compétence 1.`,
+    specificity: `Ce texte est spécifique aux critères ${id}`,
   },
 });
 
@@ -191,7 +192,7 @@ export const fakeJobTasks = (jobId: number = 1): JobPosterKeyTask[] => [
     },
     fr: {
       description:
-        "Consult broadly and recruit executive leadership in digital and technology for federal organizations (e.g., C-Suite level positions like Chief Information Officers, Chief Digital Officers, Chief Technology Officers, and their deputies).",
+        "Consultez de manière large et recrutez des dirigeants de haut niveau dans les domaines du numérique et de la technologie pour les organisations fédérales (par exemple, des postes de niveau C-Suite tels que directeurs des systèmes d'information, directeurs des technologies numériques, directeurs des technologies et leurs adjoints).",
     },
   },
   {
@@ -203,7 +204,7 @@ export const fakeJobTasks = (jobId: number = 1): JobPosterKeyTask[] => [
     },
     fr: {
       description:
-        "Connect partner organizations (departments, agencies) with top talent (i.e., high-performing executives) with an interest and the potential to assume technology leadership roles.",
+        "Reliez les organisations partenaires (ministères, agences) avec les meilleurs talents (c'est-à-dire des cadres très performants) ayant un intérêt et le potentiel pour assumer des rôles de leadership technologique.",
     },
   },
   {
@@ -215,7 +216,7 @@ export const fakeJobTasks = (jobId: number = 1): JobPosterKeyTask[] => [
     },
     fr: {
       description:
-        "Identify and attract exceptional executive candidates, including those who haven’t considered government as an option before.",
+        "Identifiez et attirez des candidats exceptionnels, y compris ceux qui n’ont jamais envisagé de gouvernement.",
     },
   },
   {
@@ -227,7 +228,7 @@ export const fakeJobTasks = (jobId: number = 1): JobPosterKeyTask[] => [
     },
     fr: {
       description:
-        "Build a diverse pipeline of candidates and strong partnerships with government departments. This means proactively going out and building a network and strong relationships with senior level external talent (CIOs and similar senior-level positions) across Canada, as well as with senior leaders in departments and agencies who have vacant positions.",
+        "Construire un portefeuille diversifié de candidats et des partenariats solides avec les ministères. Cela signifie créer de manière proactive un réseau et des relations étroites avec les talents externes de niveau supérieur (DSI et autres postes de niveau supérieur similaires) partout au Canada, ainsi qu'avec les cadres supérieurs des ministères et des agences ayant des postes vacants.",
     },
   },
   {
@@ -239,7 +240,7 @@ export const fakeJobTasks = (jobId: number = 1): JobPosterKeyTask[] => [
     },
     fr: {
       description:
-        "Take a human-centered approach to recruitment by understanding users’ needs (hiring executives and candidates) to deliver exceptional user experience.",
+        "Adoptez une approche de recrutement centrée sur l'humain en comprenant les besoins des utilisateurs (embauche de dirigeants et de candidats) afin de fournir une expérience utilisateur exceptionnelle.",
     },
   },
   {
@@ -251,7 +252,7 @@ export const fakeJobTasks = (jobId: number = 1): JobPosterKeyTask[] => [
     },
     fr: {
       description:
-        "Work creatively using a broad array of traditional and social media approaches.",
+        "Travaillez de manière créative en utilisant un large éventail d'approches traditionnelles et de médias sociaux.",
     },
   },
   {
@@ -261,7 +262,7 @@ export const fakeJobTasks = (jobId: number = 1): JobPosterKeyTask[] => [
       description: "This is an example of a task that has exceeded the limit.",
     },
     fr: {
-      description: "This is an example of a task that has exceeded the limit.",
+      description: "Voici un exemple de tâche ayant dépassé la limite.",
     },
   },
   {
@@ -271,7 +272,7 @@ export const fakeJobTasks = (jobId: number = 1): JobPosterKeyTask[] => [
       description: "This is an example of a task that has exceeded the limit.",
     },
     fr: {
-      description: "This is an example of a task that has exceeded the limit.",
+      description: "Voici un exemple de tâche ayant dépassé la limite.",
     },
   },
 ];
