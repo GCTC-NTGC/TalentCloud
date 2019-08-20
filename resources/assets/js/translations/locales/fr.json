@@ -535,6 +535,6 @@
   "wordCounter.skills.placeholder": "Commencez à taper votre réponse ci-dessus.",
   "wordCounter.skills.shortMessage": "Ce paragraphe semble trop court. Avez-vous un autre exemple ou une leçon à ajouter?",
   "wordCounter.skills.slightlyLongMessage": "Ça commence à être un peu long.",
-  "wordCounter.skills.veryLongMessage": "C'est beaucoup trop long. Découvrez l'un de nos exemples pour voir à quoi ressemble une description de compétence concise.",
+  "wordCounter.skills.veryLongMessage": "La limite des 500 mot a été atteinte. C'est beaucoup trop long. Découvrez l'un de nos exemples pour voir à quoi ressemble une description de compétence concise.",
   "wordCounter.skills.veryShortMessage": "Ce paragraphe semble trop court. Avez-vous inclus des exemples ou des leçons apprises?"
 }

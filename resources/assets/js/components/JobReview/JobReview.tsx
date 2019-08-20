@@ -38,6 +38,7 @@ import Criterion from "../JobBuilder/Criterion";
 import JobWorkEnv from "../JobBuilder/JobWorkEnv";
 import JobWorkCulture from "../JobBuilder/JobWorkCulture";
 import Modal from "../Modal";
+import { textToParagraphs } from "../../helpers/textToParagraphs";
 
 interface JobReviewSectionProps {
   title: string;
@@ -372,7 +373,7 @@ export const JobReview: React.FunctionComponent<
           linkLabel="Edit This in Step 01: Job Info"
           link={jobBuilderDetails(locale, job.id)}
         >
-          {job[locale].education}
+          {textToParagraphs(job[locale].education || "")}
         </JobReviewSection>
         <JobReviewSection
           title="Skills You Need to Have"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { InjectedIntlProps, injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
@@ -9,7 +9,6 @@ import {
   Criteria,
   Skill,
   Manager,
-  User,
   Department,
 } from "../../models/types";
 import { managerJobIndex, jobBuilderSkills } from "../../helpers/routes";
@@ -21,10 +20,7 @@ import {
 } from "../../store/Job/jobSelector";
 import { getSkills } from "../../store/Skill/skillSelector";
 import { DispatchType } from "../../configureStore";
-import {
-  batchUpdateCriteria,
-  submitJobForReview,
-} from "../../store/Job/jobActions";
+import { submitJobForReview } from "../../store/Job/jobActions";
 import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
 import {
   isJobBuilderComplete,
@@ -62,12 +58,19 @@ const JobBuilderReviewPage: React.FunctionComponent<
   departments,
   manager,
   handleSubmitJob,
+  loadManager,
   intl,
 }): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
   }
+
+  useEffect((): void => {
+    if (job && job.manager_id) {
+      loadManager(job.manager_id);
+    }
+  }, [job, loadManager]);
 
   const handleReturn = (): void => {
     // Go to Previous page
@@ -80,6 +83,7 @@ const JobBuilderReviewPage: React.FunctionComponent<
   const jobIsComplete =
     job !== null &&
     isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
+
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="review">
       {job !== null && (
