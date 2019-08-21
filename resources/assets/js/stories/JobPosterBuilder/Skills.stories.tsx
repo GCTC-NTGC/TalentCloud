@@ -1,7 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { select } from "@storybook/addon-knobs";
+import { select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import JobBuilderSkills from "../../components/JobBuilderSkills/JobBuilderSkills";
 import fakeJob, { fakeCriterion, fakeJobTasks } from "../../fakeData/fakeJob";
@@ -47,6 +47,9 @@ const handleSubmit = async (criteria: Criteria[]): Promise<Criteria[]> => {
   action("Criteria Submitted")(criteria);
   return criteria;
 };
+const handleSkipToReview = async (): Promise<void> => {
+  action("Skip to Review")();
+};
 
 stories
   .add(
@@ -67,6 +70,8 @@ stories
         handleSubmit={handleSubmit}
         handleReturn={action("Handle Return")}
         handleContinue={action("Handle Continue")}
+        jobIsComplete={boolean("Job is Complete", false)}
+        handleSkipToReview={handleSkipToReview}
       />
     ),
   )

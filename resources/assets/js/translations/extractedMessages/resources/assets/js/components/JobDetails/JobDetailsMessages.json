@@ -110,69 +110,14 @@
     "defaultMessage": "Select a flexible hours option:"
   },
   {
-    "id": "jobDetails.frequencyAlwaysLabel",
-    "description": "The form label displayed on 'always' frequency options.",
-    "defaultMessage": "Almost Always"
-  },
-  {
-    "id": "jobDetails.frequencyFrequentlyLabel",
-    "description": "The form label displayed on 'frequently' frequency options.",
-    "defaultMessage": "Frequently"
-  },
-  {
-    "id": "jobDetails.frequencySometimesLabel",
-    "description": "The form label displayed on 'sometimes' frequency options.",
-    "defaultMessage": "Sometimes"
-  },
-  {
-    "id": "jobDetails.frequencyOccasionallyLabel",
-    "description": "The form label displayed on 'occasionally' frequency options.",
-    "defaultMessage": "Occasionally"
-  },
-  {
-    "id": "jobDetails.frequencyNeverLabel",
-    "description": "The form label displayed on 'never' frequency options.",
-    "defaultMessage": "Almost Never"
-  },
-  {
     "id": "jobDetails.travelGroupLabel",
     "description": "The form label displayed on the travel radio group.",
     "defaultMessage": "Select a travel option:"
   },
   {
-    "id": "jobDetails.travelFrequentlyLabel",
-    "description": "The form label displayed on 'frequently' travel options",
-    "defaultMessage": "Yes, travel is frequently required for the position."
-  },
-  {
-    "id": "jobDetails.travelOpportunitiesAvailableLabel",
-    "description": "The form label displayed on 'travel opportunities available' travel options",
-    "defaultMessage": "Yes, travel opportunities are available for those that are interested."
-  },
-  {
-    "id": "jobDetails.travelNoneRequiredLabel",
-    "description": "The form label displayed on 'no travel required' travel options",
-    "defaultMessage": "No, travel is not required for the position."
-  },
-  {
     "id": "jobDetails.overtimeGroupLabel",
     "description": "The form label displayed on the overtime radio group.",
     "defaultMessage": "Select a overtime option:"
-  },
-  {
-    "id": "jobDetails.overtimeFrequentlyLabel",
-    "description": "The form label displayed on 'frequently' overtime options",
-    "defaultMessage": "Yes, overtime is frequently required for the position."
-  },
-  {
-    "id": "jobDetails.overtimeOpportunitiesAvailableLabel",
-    "description": "The form label displayed on 'overtime opportunities available' overtime options",
-    "defaultMessage": "Yes, overtime opportunities are available for those that are interested."
-  },
-  {
-    "id": "jobDetails.overtimeNoneRequiredLabel",
-    "description": "The form label displayed on 'no overtime required' overtime options",
-    "defaultMessage": "No, overtime is not required for the position."
   },
   {
     "id": "jobDetails.educationRequirementsLabel",
@@ -257,7 +202,7 @@
   {
     "id": "jobDetails.educationMessages.CO",
     "description": "Job Classification message from list of Classifications",
-    "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above."
+    "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above."
   },
   {
     "id": "jobDetails.educationMessages.CR",

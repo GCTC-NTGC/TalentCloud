@@ -255,4 +255,27 @@ class JobApiControllerTest extends TestCase
         $response->assertOk();
         $response->assertJsonFragment(['classification_code' => $classification->key]);
     }
+
+    public function testSubmitForReview(): void
+    {
+        $job = factory(JobPoster::class)->state('draft')->create();
+        $this->assertEquals('draft', $job->status());
+        $response = $this
+            ->actingAs($job->manager->user)
+            ->json('post', "api/jobs/$job->id/submit");
+        $response->assertOk();
+        $newJob = $job->fresh();
+        $this->assertEquals('submitted', $newJob->status());
+    }
+
+    public function testSubmitForReviewFailsWithWrongManager(): void
+    {
+        $job = factory(JobPoster::class)->state('draft')->create();
+        $otherManager = factory(User::class)->state('manager')->create();
+        $this->assertEquals('draft', $job->status());
+        $response = $this
+            ->actingAs($otherManager)
+            ->json('post', "api/jobs/$job->id/submit");
+        $response->assertForbidden();
+    }
 }

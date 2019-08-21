@@ -1,0 +1,112 @@
+[
+  {
+    "id": "jobBuilder.workEnv.physEnv.openConcept",
+    "description": "Physical Environment checkbox group 'open concept' option.",
+    "defaultMessage": "Open Concept"
+  },
+  {
+    "id": "jobBuilder.workEnv.physEnv.private",
+    "description": "Physical Environment checkbox group 'private' option.",
+    "defaultMessage": "Private"
+  },
+  {
+    "id": "jobBuilder.workEnv.physEnv.assignedSeating",
+    "description": "Physical Environment checkbox group 'assigned seating' option.",
+    "defaultMessage": "Assigned Seating"
+  },
+  {
+    "id": "jobBuilder.workEnv.physEnv.windows",
+    "description": "Physical Environment checkbox group 'windows' option.",
+    "defaultMessage": "Lots of Windows"
+  },
+  {
+    "id": "jobBuilder.workEnv.physEnv.naturalLight",
+    "description": "Physical Environment checkbox group 'natural light' option.",
+    "defaultMessage": "Natural Light"
+  },
+  {
+    "id": "jobBuilder.workEnv.physEnv.smudging",
+    "description": "Physical Environment checkbox group 'suitable for smudging' option.",
+    "defaultMessage": "Suitable for Smudging"
+  },
+  {
+    "id": "jobBuilder.workEnv.technology.videoConferencing",
+    "description": "Technology checkbox group 'video conferencing' option.",
+    "defaultMessage": "Video Conferencing (e.g. Skype, Zoom)"
+  },
+  {
+    "id": "jobBuilder.workEnv.technology.collaboration",
+    "description": "Technology checkbox group 'collaboration' option.",
+    "defaultMessage": "Collaboration (e.g. Slack, Hangouts)"
+  },
+  {
+    "id": "jobBuilder.workEnv.technology.fileSharing",
+    "description": "Technology checkbox group 'file sharing' option.",
+    "defaultMessage": "File Sharing (e.g. Google Drive, Dropbox)"
+  },
+  {
+    "id": "jobBuilder.workEnv.technology.taskManagement",
+    "description": "Technology checkbox group 'task management' option.",
+    "defaultMessage": "Task Management (e.g. Trello, Asana)"
+  },
+  {
+    "id": "jobBuilder.workEnv.technology.versionControl",
+    "description": "Technology checkbox group 'version control' option.",
+    "defaultMessage": "Version Control (e.g. Github, Gitlab)"
+  },
+  {
+    "id": "jobBuilder.workEnv.technology.accessToExternal",
+    "description": "Technology checkbox group 'access to external' option.",
+    "defaultMessage": "Access to external, unfiltered Wi-Fi."
+  },
+  {
+    "id": "jobBuilder.workEnv.amenities.cafeteria",
+    "description": "Amenities checkbox group 'cafeteria' option.",
+    "defaultMessage": "Cafeteria On-site"
+  },
+  {
+    "id": "jobBuilder.workEnv.amenities.closeToTransit",
+    "description": "Amenities checkbox group 'close to transit' option.",
+    "defaultMessage": "Close to Transit"
+  },
+  {
+    "id": "jobBuilder.workEnv.amenities.restaurants",
+    "description": "Amenities checkbox group 'restaurants' option.",
+    "defaultMessage": "Walking Distance to Restaurants/Malls"
+  },
+  {
+    "id": "jobBuilder.workEnv.amenities.downtown",
+    "description": "Amenities checkbox group 'downtown' option.",
+    "defaultMessage": "Downtown"
+  },
+  {
+    "id": "jobBuilder.workEnv.amenities.fitnessCenter",
+    "description": "Amenities checkbox group 'nearby fitness centre' option.",
+    "defaultMessage": "Nearby Fitness Centre"
+  },
+  {
+    "id": "jobBuilder.workEnv.amenities.parking",
+    "description": "Amenities checkbox group 'parking' option.",
+    "defaultMessage": "Easy Access to Parking"
+  },
+  {
+    "id": "jobBuilder.workEnvModal.teamSize",
+    "description": "Title for Team size section.",
+    "defaultMessage": "Team Size"
+  },
+  {
+    "id": "jobBuilder.workEnvModal.physicalEnvLabel",
+    "description": "The label displayed on the physical environment checkbox group.",
+    "defaultMessage": "Our Physical Environment"
+  },
+  {
+    "id": "jobBuilder.workEnvModal.technologyLabel",
+    "description": "The label displayed on the technology checkbox group.",
+    "defaultMessage": "Technology"
+  },
+  {
+    "id": "jobBuilder.workEnvModal.amenitiesLabel",
+    "description": "The label displayed on the amenities checkbox group.",
+    "defaultMessage": "Amenities"
+  }
+]

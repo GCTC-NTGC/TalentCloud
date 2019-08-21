@@ -11,11 +11,9 @@ import Modal from "../Modal";
 import CriteriaForm from "./CriteriaForm";
 import { mapToObject, getId, hasKey, notEmpty } from "../../helpers/queries";
 import { CriteriaTypeId } from "../../models/lookupConstants";
-import {
-  assetSkillName,
-  skillLevelName,
-} from "../../models/localizedConstants";
 import Select, { SelectOption } from "../Select";
+import { getSkillLevelName } from "../../models/jobUtil";
+import Criterion from "../JobBuilder/Criterion";
 
 interface JobBuilderSkillsProps {
   // The job being built
@@ -32,6 +30,10 @@ interface JobBuilderSkillsProps {
   handleReturn: () => void;
   // The function to run when user clicks Next Page
   handleContinue: () => void;
+  /** Whether the entire job is complete and valid for submission. */
+  jobIsComplete: boolean;
+  /** Function that skips to final review. */
+  handleSkipToReview: () => Promise<void>;
 }
 
 const messages = defineMessages({
@@ -184,16 +186,6 @@ export const skillAlreadySelected = (
     (criterion): boolean => criterion.skill_id === skill.id,
   ) !== undefined;
 
-const getSkillLevelName = (
-  { skill_level_id, criteria_type_id }: Criteria,
-  { skill_type_id }: Skill,
-): FormattedMessage.MessageDescriptor => {
-  if (criteria_type_id === CriteriaTypeId.Asset) {
-    return assetSkillName();
-  }
-  return skillLevelName(skill_level_id, skill_type_id);
-};
-
 export const JobBuilderSkills: React.FunctionComponent<
   JobBuilderSkillsProps & InjectedIntlProps
 > = ({
@@ -204,6 +196,8 @@ export const JobBuilderSkills: React.FunctionComponent<
   handleSubmit,
   handleReturn,
   handleContinue,
+  jobIsComplete,
+  handleSkipToReview,
   intl,
 }): React.ReactElement => {
   const { locale } = intl;
@@ -1656,6 +1650,9 @@ export const JobBuilderSkills: React.FunctionComponent<
         visible={isPreviewVisible}
         onModalCancel={(): void => setIsPreviewVisible(false)}
         onModalConfirm={(): void => handleContinue()}
+        onModalMiddle={(): void => {
+          handleSkipToReview();
+        }}
       >
         <Modal.Header>
           <div
@@ -1719,27 +1716,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                       return null;
                     }
                     return (
-                      <div
-                        key={skill.id}
-                        data-c-margin="top(normal) bottom(double)"
-                      >
-                        <p
-                          data-c-font-weight="bold"
-                          data-c-margin="bottom(half)"
-                        >
-                          {skill[locale].name}
-                        </p>
-                        <p data-c-margin="bottom(half)">
-                          Required Level:{" "}
-                          {intl.formatMessage(
-                            getSkillLevelName(criterion, skill),
-                          )}
-                        </p>
-                        <p>{criterion[locale].description}</p>
-                        {criterion[locale].specificity && (
-                          <p>{criterion[locale].specificity}</p>
-                        )}
-                      </div>
+                      <Criterion
+                        criterion={criterion}
+                        skill={skill}
+                        key={criterion.id}
+                      />
                     );
                   },
                 )}
@@ -1762,15 +1743,11 @@ export const JobBuilderSkills: React.FunctionComponent<
                     return null;
                   }
                   return (
-                    <div
-                      key={skill.id}
-                      data-c-margin="top(normal) bottom(double)"
-                    >
-                      <p data-c-font-weight="bold" data-c-margin="bottom(half)">
-                        {skill[locale].name}
-                      </p>
-                      <p>{criterion[locale].description}</p>
-                    </div>
+                    <Criterion
+                      criterion={criterion}
+                      skill={skill}
+                      key={criterion.id}
+                    />
                   );
                 })}
               </div>
@@ -1785,6 +1762,15 @@ export const JobBuilderSkills: React.FunctionComponent<
               description="The text displayed on the cancel button of the Job Builder Skills Preview modal."
             />
           </Modal.FooterCancelBtn>
+          {jobIsComplete && (
+            <Modal.FooterMiddleBtn>
+              <FormattedMessage
+                id="jobBuilder.skills.previewModalMiddleLabel"
+                defaultMessage="Skip to Review"
+                description="The text displayed on the 'Skip to Review' button of the Job Builder Skills Preview modal."
+              />
+            </Modal.FooterMiddleBtn>
+          )}
           <Modal.FooterConfirmBtn>
             <FormattedMessage
               id="jobBuilder.skills.previewModalConfirmLabel"
