@@ -15,7 +15,11 @@ class JobBuilderController extends Controller
     {
         return view(
             'manager/job-builder-root',
-            ['title' => Lang::get('manager/job_builder.intro_title'), 'jobId' => $jobId]
+            [
+                'title' => Lang::get('manager/job_builder.intro_title'),
+                'jobId' => $jobId,
+                'header' => ['title' => Lang::get('manager/job_builder.intro_title')]
+            ]
         );
     }
 
@@ -27,7 +31,11 @@ class JobBuilderController extends Controller
     {
         return view(
             'manager/job-builder-root',
-            ['title' => Lang::get('manager/job_builder.details_title'), 'jobId' => $jobId]
+            [
+                'title' => Lang::get('manager/job_builder.details_title'),
+                'jobId' => $jobId,
+                'header' => ['title' => Lang::get('manager/job_builder.details_title')]
+            ]
         );
     }
 
@@ -39,7 +47,11 @@ class JobBuilderController extends Controller
     {
         return view(
             'manager/job-builder-root',
-            ['title' => Lang::get('manager/job_builder.environment_title'), 'jobId' => $jobId]
+            [
+                'title' => Lang::get('manager/job_builder.environment_title'),
+                'jobId' => $jobId,
+                'header' => ['title' => Lang::get('manager/job_builder.environment_title')]
+            ]
         );
     }
 
@@ -51,7 +63,11 @@ class JobBuilderController extends Controller
     {
         return view(
             'manager/job-builder-root',
-            ['title' => Lang::get('manager/job_builder.impact_title'), 'jobId' => $jobId]
+            [
+                'title' => Lang::get('manager/job_builder.impact_title'),
+                'jobId' => $jobId,
+                'header' => ['title' => Lang::get('manager/job_builder.impact_title')]
+            ]
         );
     }
 
@@ -63,7 +79,11 @@ class JobBuilderController extends Controller
     {
         return view(
             'manager/job-builder-root',
-            ['title' => Lang::get('manager/job_builder.tasks_title'), 'jobId' => $jobId]
+            [
+                'title' => Lang::get('manager/job_builder.tasks_title'),
+                'jobId' => $jobId,
+                'header' => ['title' => Lang::get('manager/job_builder.tasks_title')]
+            ]
         );
     }
 
@@ -75,7 +95,11 @@ class JobBuilderController extends Controller
     {
         return view(
             'manager/job-builder-root',
-            ['title' => Lang::get('manager/job_builder.skills_title'), 'jobId' => $jobId]
+            [
+                'title' => Lang::get('manager/job_builder.skills_title'),
+                'jobId' => $jobId,
+                'header' => ['title' => Lang::get('manager/job_builder.skills_title')]
+            ]
         );
     }
 
@@ -87,7 +111,11 @@ class JobBuilderController extends Controller
     {
         return view(
             'manager/job-builder-root',
-            ['title' => Lang::get('manager/job_builder.review_title'), 'jobId' => $jobId]
+            [
+                'title' => Lang::get('manager/job_builder.review_title'),
+                'jobId' => $jobId,
+                'header' => ['title' => Lang::get('manager/job_builder.review_title')]
+            ]
         );
     }
 }
