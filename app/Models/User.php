@@ -106,17 +106,6 @@ class User extends BaseModel implements
     // Role related functions
 
     /**
-    * Check multiple roles
-    * @param string[] $roles
-    * @return boolean Returns true if this user has any of the roles in $roles.
-    */
-    public function hasAnyRole($roles)
-    {
-        return in_array($this->user_role->name, $roles);
-        // return null !== $this->roles()->whereIn(‘name’, $roles)->first();
-    }
-
-    /**
     * Check one role
     * @param string $role
     * @return boolean
