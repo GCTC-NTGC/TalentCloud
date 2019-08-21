@@ -1,0 +1,36 @@
+{# =============================================================================
+
+    Talent Cloud
+    Assessment Plan view
+
+============================================================================= #}
+
+{% extends "layouts/base" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+
+    {% include "common/alert" %}
+
+    {% include "common/goc" %}
+
+    {% include "common/header" %}
+
+    <a id="skipLink"></a>
+
+    <div
+        data-clone
+        id="assessment-plan-root"
+    >
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script async defer
+        src="{{ mix('/js/AssessmentPlanRoot.js') }}">
+    </script>
+
+{% endblock %}

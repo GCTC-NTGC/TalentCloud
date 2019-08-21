@@ -22,7 +22,12 @@ mix
   .js("resources/assets/js/jquery-ui.min.js", "public/js")
   .js("resources/assets/js/alerts.js", "public/js")
   .js("resources/assets/js/getpdf.js", "public/js")
-  .js("resources/assets/js/components/JobBuilder/JobBuilderRoot", "public/js")
+  .ts("resources/assets/js/components/AssessmentPlan/AssessmentPlanRoot.tsx", "public/js")
+  .ts("resources/assets/js/components/JobBuilder/JobBuilderRoot", "public/js")
+  .ts(
+    "resources/assets/js/components/ApplicantSkills/SkillsWordCounter",
+    "public/js",
+  )
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: sass,
     includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"],
