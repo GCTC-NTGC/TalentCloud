@@ -17,10 +17,11 @@ class ApplicantPolicy extends BasePolicy
      * @param  Applicant $applicant [description]
      * @return [type]               [description]
      */
-    protected function managerCanViewApplicant(Manager $manager, Applicant $applicant) {
+    protected function managerCanViewApplicant(Manager $manager, Applicant $applicant)
+    {
         $applicant_id = $applicant->id;
         return JobPoster::where('manager_id', $manager->id)
-            ->whereHas('submitted_applications', function ($q) use ($applicant_id){
+            ->whereHas('submitted_applications', function ($q) use ($applicant_id) {
                 $q->where('applicant_id', $applicant_id);
             })
             ->get()->isNotEmpty();
@@ -61,7 +62,7 @@ class ApplicantPolicy extends BasePolicy
      */
     public function update(User $user, Applicant $applicant)
     {
-        return $user->user_role->name === "applicant" &&
+        return $user->hasRole('applicant') &&
             $applicant->user_id === $user->id;
     }
 
@@ -74,7 +75,6 @@ class ApplicantPolicy extends BasePolicy
      */
     public function delete(User $user, Applicant $applicant)
     {
-        //
     }
 
     /**
@@ -86,7 +86,6 @@ class ApplicantPolicy extends BasePolicy
      */
     public function restore(User $user, Applicant $applicant)
     {
-        //
     }
 
     /**
@@ -98,6 +97,5 @@ class ApplicantPolicy extends BasePolicy
      */
     public function forceDelete(User $user, Applicant $applicant)
     {
-        //
     }
 }

@@ -106,22 +106,9 @@ class User extends BaseModel implements
     // Role related functions
 
     /**
-    * Abort with an HTTP error if user doesn't have correct roles
-    * @param string|array $roles
-    */
-    public function authorizeRoles($roles)
-    {
-        if (is_array($roles)) {
-            return $this->hasAnyRole($roles) ||
-                 abort(401, 'This action is unauthorized.');
-        }
-        return $this->hasRole($roles) ||
-             abort(401, 'This action is unauthorized.');
-    }
-
-    /**
     * Check multiple roles
-    * @param array $roles
+    * @param string[] $roles
+    * @return boolean Returns true if this user has any of the roles in $roles.
     */
     public function hasAnyRole($roles)
     {
@@ -132,11 +119,17 @@ class User extends BaseModel implements
     /**
     * Check one role
     * @param string $role
+    * @return boolean
     */
     public function hasRole($role)
     {
         return $this->user_role->name == $role;
         // return null !== $this->roles()->where(‘name’, $role)->first();
+    }
+
+    public function setRole($role)
+    {
+        $this->user_role()->associate(UserRole::where('name', $role)->firstOrFail());
     }
 
     /**

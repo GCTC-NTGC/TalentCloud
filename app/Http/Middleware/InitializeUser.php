@@ -25,18 +25,16 @@ class InitializeUser
         if (Auth::check()) {
             $user = Auth::user();
 
-            //If running in a local environment, and FORCE_ADMIN is true,
-            //automatically set any logged in user to (temporarilly) be an admin
+            // If running in a local environment, and FORCE_ADMIN is true,
+            // automatically set any logged in user to (temporarilly) be an admin
             if (App::environment() == 'local' && Config::get('app.force_admin')) {
-                $adminRole = UserRole::where('name', 'admin')->firstOrFail();
-                $user->user_role_id = $adminRole->id;
-                // $user->user_role = $adminRole;
+                $user->setRole('admin');
                 $user->save();
             }
 
-            //Ensure the user has a proper profile associated with it
-            //If no profile exists yet create one.
-            //Admins should be given an applicant and manager profile
+            // Ensure the user has a proper profile associated with it
+            // If no profile exists yet create one.
+            // Admins should be given an applicant and manager profile
             if ($user->hasRole('applicant') ||
                     $user->hasRole('admin') ) {
                 $applicantProfile = $user->applicant;

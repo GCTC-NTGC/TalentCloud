@@ -50,7 +50,7 @@ class JobPolicy extends BasePolicy
     public function update(User $user, JobPoster $jobPoster)
     {
         // Only managers can edit jobs, and only their own, managers can't publish jobs or edit published jobs
-        return $user->user_role->name == 'manager' &&
+        return $user->hasRole('manager') &&
             $jobPoster->manager->user->id == $user->id &&
             !$jobPoster->published;
     }
@@ -65,7 +65,7 @@ class JobPolicy extends BasePolicy
     public function review(User $user, JobPoster $jobPoster)
     {
         // Only managers can edit jobs, and only their own, managers can't publish jobs or edit published jobs
-        return $user->user_role->name == 'manager' &&
+        return $user->hasRole('manager') &&
             $jobPoster->manager->user->id == $user->id &&
             $jobPoster->isClosed();
     }
@@ -83,7 +83,7 @@ class JobPolicy extends BasePolicy
     {
         // Jobs can only be deleted when they're in the 'draft'
         // state, and only by managers that created them.
-        return $user->user_role->name == 'manager' &&
+        return $user->hasRole('manager') &&
             $jobPoster->manager->user->id == $user->id &&
             !$jobPoster->published;
     }
