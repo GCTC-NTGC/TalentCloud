@@ -18,7 +18,7 @@ class DegreePolicy extends BasePolicy
      */
     public function view(User $user, Degree $degree)
     {
-        return $user->hasRole('applicant') && $degree->applicant->user->is($user);
+        return $user->isApplicant() && $degree->applicant->user->is($user);
     }
 
     /**
@@ -29,7 +29,7 @@ class DegreePolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return $user->hasRole('applicant');
+        return $user->isApplicant();
     }
 
     /**
@@ -41,7 +41,7 @@ class DegreePolicy extends BasePolicy
      */
     public function update(User $user, Degree $degree)
     {
-        return $user->hasRole('applicant') && $degree->applicant->user->is($user);
+        return $user->isApplicant() && $degree->applicant->user->is($user);
     }
 
     /**
@@ -53,6 +53,6 @@ class DegreePolicy extends BasePolicy
      */
     public function delete(User $user, Degree $degree)
     {
-        return $user->hasRole('applicant') && $degree->applicant->user->is($user);
+        return $user->isApplicant() && $degree->applicant->user->is($user);
     }
 }

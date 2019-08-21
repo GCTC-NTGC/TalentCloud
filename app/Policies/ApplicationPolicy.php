@@ -20,9 +20,9 @@ class ApplicationPolicy extends BasePolicy
      */
     public function view(User $user, JobApplication $jobApplication)
     {
-        $authApplicant = ($user->hasRole('applicant') &&
+        $authApplicant = ($user->isApplicant() &&
             $user->applicant->id === $jobApplication->applicant_id);
-        $authManager = ($user->hasRole('manager') &&
+        $authManager = ($user->isManager() &&
             $jobApplication->job_poster->manager->user->is($user));
 
         return $authApplicant||$authManager;
@@ -48,7 +48,7 @@ class ApplicationPolicy extends BasePolicy
      */
     public function update(User $user, JobApplication $jobApplication)
     {
-        return $user->hasRole('applicant') &&
+        return $user->isApplicant() &&
             $user->applicant->id === $jobApplication->applicant_id &&
             $jobApplication->application_status->name == 'draft' &&
             $jobApplication->job_poster->isOpen();
@@ -63,7 +63,7 @@ class ApplicationPolicy extends BasePolicy
      */
     public function delete(User $user, JobApplication $jobApplication)
     {
-        return $user->hasRole('applicant') &&
+        return $user->isApplicant() &&
             $user->applicant->id === $jobApplication->applicant_id &&
             $jobApplication->application_status->name == 'draft';
     }
@@ -79,7 +79,7 @@ class ApplicationPolicy extends BasePolicy
     {
         // Only the manager in charge of the accompanying job can review an application,
         // and only if it has been submitted
-        return $user->hasRole('manager') &&
+        return $user->isManager() &&
             $jobApplication->job_poster->manager->user->id == $user->id &&
             $jobApplication->application_status->name != 'draft';
     }

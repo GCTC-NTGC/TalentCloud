@@ -19,7 +19,7 @@ class AssessmentPolicy extends BasePolicy
     public function view(User $user, Assessment $assessment): bool
     {
         // Managers can view assessments tied to Jobs they own.
-        return $user->hasRole('manager') &&
+        return $user->isManager() &&
             $assessment->criterion->job_poster->manager->user_id === $user->id;
     }
 
@@ -32,7 +32,7 @@ class AssessmentPolicy extends BasePolicy
     public function create(User $user): bool
     {
         //Any manager can create a new Assessment, but only for criteria they own.
-        return $user->hasRole('manager');
+        return $user->isManager();
     }
 
     /**
@@ -45,7 +45,7 @@ class AssessmentPolicy extends BasePolicy
     public function update(User $user, Assessment $assessment): bool
     {
         // Managers can edit assessments tied to Jobs they own.
-        return $user->hasRole('manager') &&
+        return $user->isManager() &&
             $assessment->criterion->job_poster->manager->user_id === $user->id;
     }
 
@@ -60,7 +60,7 @@ class AssessmentPolicy extends BasePolicy
     public function delete(User $user, Assessment $assessment) : bool
     {
         // Managers can delete assessments tied to Jobs they own.
-        return $user->hasRole('manager') &&
+        return $user->isManager() &&
             $assessment->criterion->job_poster->manager->user_id === $user->id;
     }
 }

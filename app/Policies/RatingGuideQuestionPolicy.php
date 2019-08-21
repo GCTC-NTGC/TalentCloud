@@ -19,7 +19,7 @@ class RatingGuideQuestionPolicy extends BasePolicy
     public function view(User $user, RatingGuideQuestion $question): bool
     {
         // Managers can view questions tied to Jobs they own.
-        return $user->hasRole('manager') &&
+        return $user->isManager() &&
             $question->job_poster->manager->user_id === $user->id;
     }
 
@@ -32,7 +32,7 @@ class RatingGuideQuestionPolicy extends BasePolicy
     public function create(User $user): bool
     {
         //Any manager can create a new RatingGuideQuestion, but only for jobs they own.
-        return $user->hasRole('manager');
+        return $user->isManager();
     }
 
     /**
@@ -45,7 +45,7 @@ class RatingGuideQuestionPolicy extends BasePolicy
     public function update(User $user, RatingGuideQuestion $question): bool
     {
         // Managers can edit questions tied to Jobs they own.
-        return $user->hasRole('manager') &&
+        return $user->isManager() &&
             $question->job_poster->manager->user_id === $user->id;
     }
 
@@ -60,7 +60,7 @@ class RatingGuideQuestionPolicy extends BasePolicy
     public function delete(User $user, RatingGuideQuestion $question) : bool
     {
         // Managers can delete questions tied to Jobs they own.
-        return $user->hasRole('manager') &&
+        return $user->isManager() &&
             $question->job_poster->manager->user_id === $user->id;
     }
 }

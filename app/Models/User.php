@@ -48,7 +48,8 @@ class User extends BaseModel implements
 {
 
     // Traits for Laravel basic authentication.
-    use Authenticatable, CanResetPassword;
+    use Authenticatable;
+    use CanResetPassword;
     // Trait for working with Gates and Policies.
     use Authorizable;
     // Trait for notifications.
@@ -106,17 +107,62 @@ class User extends BaseModel implements
     // Role related functions
 
     /**
-    * Check one role
-    * @param string $role
+     * Returns true if this user has the Applicant role.
+     *
+     * @return boolean
+     */
+    public function isApplicant(): bool
+    {
+        // Currently, every user can create an Applicant profile and apply to jobs.
+        return true;
+    }
+
+    /**
+     * Returns true if this user has the Manager role.
+     *
+     * @return boolean
+     */
+    public function isManager(): bool
+    {
+        return $this->user_role->name == 'manager';
+    }
+
+    /**
+     * Returns true if this user has the Admin role.
+     *
+     * @return boolean
+     */
+    public function isAdmin(): bool
+    {
+        return $this->user_role->name == 'admin';
+    }
+
+    /**
+    * Check if the user has the specified role.
+    * @param string $role This may be either 'applicant', 'manager' or 'admin'.
     * @return boolean
     */
     public function hasRole($role)
     {
-        return $this->user_role->name == $role;
-        // return null !== $this->roles()->where(‘name’, $role)->first();
+        switch ($role) {
+            case 'applicant':
+                return $this->isApplicant();
+            case 'manager':
+                return $this->isManager();
+            case 'admin':
+                return $this->isAdmin();
+            default:
+                return false;
+        }
     }
 
-    public function setRole($role)
+    /**
+     * Set this user to the specified role.
+     *
+     * @param string $role Must be either 'applicant', 'manager' or 'admin.
+    * @return void
+    */
+    public function setRole(string $role): void
     {
         $this->user_role()->associate(UserRole::where('name', $role)->firstOrFail());
     }

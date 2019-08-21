@@ -14,7 +14,7 @@ class StoreJobPoster extends UpdateJobPoster
     public function authorize(): bool
     {
         // The STORE job poster method requires the user's manager id.
-        return $this->user()->hasRole('manager')
+        return $this->user()->isManager()
            && $this->user()->manager !== null;
     }
 }

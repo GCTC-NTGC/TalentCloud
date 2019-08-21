@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Models\UserRole;
 use App\Models\Applicant;
 use App\Models\Manager;
 use Illuminate\Support\Facades\Auth;
@@ -35,8 +34,8 @@ class InitializeUser
             // Ensure the user has a proper profile associated with it
             // If no profile exists yet create one.
             // Admins should be given an applicant and manager profile
-            if ($user->hasRole('applicant') ||
-                    $user->hasRole('admin') ) {
+            if ($user->isApplicant() ||
+                    $user->isAdmin() ) {
                 $applicantProfile = $user->applicant;
                 if ($applicantProfile === null) {
                     $applicantProfile = new Applicant();
@@ -44,8 +43,8 @@ class InitializeUser
                     $applicantProfile->save();
                 }
             }
-            if ($user->hasRole('manager') ||
-                    $user->hasRole('admin')) {
+            if ($user->isManager() ||
+                    $user->isAdmin()) {
                 $managerProfile = $user->manager;
                 if ($managerProfile === null) {
                     $managerProfile = new Manager();

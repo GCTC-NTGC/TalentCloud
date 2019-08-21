@@ -9,7 +9,6 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Models\UserRole;
 use App\Models\Applicant;
 use App\Services\Validation\Rules\PasswordFormatRule;
 use Facades\App\Services\WhichPortal;

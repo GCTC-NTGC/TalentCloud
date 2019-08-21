@@ -19,7 +19,7 @@ class AssessmentPlanNotificationPolicy extends BasePolicy
     public function view(User $user, AssessmentPlanNotification $notification): bool
     {
         // Managers can view notifications tied to Jobs they own.
-        return $user->hasRole('manager') &&
+        return $user->isManager() &&
             $notification->job_poster->manager->user_id === $user->id;
     }
 
@@ -32,7 +32,7 @@ class AssessmentPlanNotificationPolicy extends BasePolicy
     public function create(User $user): bool
     {
         //Any manager can create a new AssessmentPlanNotification, but only for job posters they own.
-        return $user->hasRole('manager');
+        return $user->isManager();
     }
 
     /**
@@ -45,7 +45,7 @@ class AssessmentPlanNotificationPolicy extends BasePolicy
     public function update(User $user, AssessmentPlanNotification $notification): bool
     {
         // Managers can edit notifications tied to Jobs they own.
-        return $user->hasRole('manager') &&
+        return $user->isManager() &&
             $notification->job_poster->manager->user_id === $user->id;
     }
 
@@ -60,7 +60,7 @@ class AssessmentPlanNotificationPolicy extends BasePolicy
     public function delete(User $user, AssessmentPlanNotification $notification) : bool
     {
         // Managers can delete notifications tied to Jobs they own.
-        return $user->hasRole('manager') &&
+        return $user->isManager() &&
             $notification->job_poster->manager->user_id === $user->id;
     }
 }

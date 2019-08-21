@@ -19,9 +19,9 @@ class RedirectIfAuthenticated
     {
         debugbar()->debug('Guest redirected to (if admin) '. backpack_url(''));
         if (Auth::guard($guard)->check()) {
-            if (Auth::user()->hasRole('admin')) {
+            if (Auth::user()->isAdmin()) {
                 return redirect(backpack_url(''));
-            } elseif (Auth::user()->hasRole('manager')) {
+            } elseif (Auth::user()->isManager()) {
                 return redirect(route('manager.home'));
             } else {
                 return redirect(route('home'));

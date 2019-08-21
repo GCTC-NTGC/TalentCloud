@@ -36,9 +36,9 @@ class ApplicantPolicy extends BasePolicy
      */
     public function view(User $user, Applicant $applicant)
     {
-        $authApplicant =  $user->hasRole('applicant') &&
+        $authApplicant =  $user->isApplicant() &&
             $applicant->user->is($user);
-        $authManager = $user->hasRole('manager') && $this->managerCanViewApplicant($user->manager, $applicant);
+        $authManager = $user->isManager() && $this->managerCanViewApplicant($user->manager, $applicant);
         return $authApplicant || $authManager;
     }
 
@@ -62,7 +62,7 @@ class ApplicantPolicy extends BasePolicy
      */
     public function update(User $user, Applicant $applicant)
     {
-        return $user->hasRole('applicant') &&
+        return $user->isApplicant() &&
             $applicant->user_id === $user->id;
     }
 
