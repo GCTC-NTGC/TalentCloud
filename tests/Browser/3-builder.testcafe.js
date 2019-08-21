@@ -6,7 +6,7 @@ fixture(`Critical - Job Poster Builder`).page(`talent.test`);
 // Skip when writing new tests
 // fixture.skip(`Critical - Job Poster Builder`);
 
-test("Job Poster Builder - Welcome", async t => {
+test("Job Poster Builder - New Job", async t => {
   await t
     // Login as manager.
     .useRole(managerUser)
@@ -14,6 +14,7 @@ test("Job Poster Builder - Welcome", async t => {
     .navigateTo("/manager/jobs/builder")
     .expect(Selector("h3").withText("Welcome to the Job Poster Builder").visible)
     .ok()
+    // Welcome page.
     .typeText(
       Selector("input").withAttribute("id", "builder01ManagerJobTitleEN"),
       "Design Manager",
@@ -29,9 +30,14 @@ test("Job Poster Builder - Welcome", async t => {
         .find("option")
         .withAttribute("value", "7"),
     )
-    .typeText(Selector("input").withAttribute("id", "builder01ManagerDivisionEN"), "Digital Change")
-    .typeText(Selector("input").withAttribute("id", "builder01ManagerDivisionFR"), "Changement numérique")
+    .typeText(Selector("input").withAttribute("id", "builder01ManagerDivisionEN"),
+      "Digital Change",
+    )
+    .typeText(Selector("input").withAttribute("id", "builder01ManagerDivisionFR"),
+      "Changement numérique",
+    )
     .click(Selector("button").withText("Continue in English"))
+    // Job Info page.
     .expect(Selector("h3").withText("Job Details").visible)
     .ok()
     .typeText(
@@ -82,6 +88,49 @@ test("Job Poster Builder - Welcome", async t => {
         .withAttribute("value", "9"),
     )
     .click(Selector("button").withText("Save & Preview"))
-    .expect(Selector("h5").withText("You're off to a great start!").visible)
+    // Job Info review.
+    .expect(Selector("h4").withText("Job Information").visible)
+    .ok()
+    .expect(Selector("p").withText("Product Designer").visible)
+    .ok()
+    .expect(Selector("p").withText("7 months").visible)
+    .ok()
+    .expect(Selector("p").withText("Secret").visible)
+    .ok()
+    .expect(Selector("p").withText("English Essential").visible)
+    .ok()
+    .expect(Selector("p").withText("Ottawa").visible)
+    .ok()
+    .expect(Selector("p").withText("Ontario").visible)
+    .ok()
+    .expect(Selector("p").withText("CS").visible)
+    .ok()
+    .expect(Selector("p").withText("3").visible)
+    .ok()
+    .click(Selector("button").withText("Next Step"))
+    // Work Environment page.
+    .expect(Selector("h3").withText("Work Environment").visible)
+    .ok()
+    .typeText(
+      Selector("input").withAttribute("id", "teamSize"),
+      "77",
+    )
+    .click(Selector("input").withAttribute("id", "smudging"))
+    .click(Selector("input").withAttribute("id", "culturePace04"))
+    .click(Selector("input").withAttribute("id", "mgmtStyle02"))
+    .click(Selector("input").withAttribute("id", "experimental03"))
+    .click(Selector("input").withAttribute("id", "facing01"))
+    .click(Selector("input").withAttribute("id", "collaborativeness04"))
+    .click(Selector("button").withText("Save & Preview"))
+    // Work Environment review.
+    .expect(Selector("span").withText("77").visible)
+    .ok()
+    .expect(Selector("h4").withText("Work Culture").visible)
+    .ok()
+    .expect(Selector("p").withText("Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine. We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives. Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes. We are the face of the service we deliver and spend most of our time engaging directly with the public. Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.").visible)
+    .ok()
+    .click(Selector("button").withText("Next Step"))
+    // Impact page.
+    .expect(Selector("h3").withText("Create an Impact Statement").visible)
     .ok();
 });
