@@ -132,5 +132,56 @@ test("Job Poster Builder - New Job", async t => {
     .click(Selector("button").withText("Next Step"))
     // Impact page.
     .expect(Selector("h3").withText("Create an Impact Statement").visible)
+    .ok()
+    .typeText(
+      Selector("textarea").withAttribute("id", "TeamImpact"),
+      "Blah de blah blah.",
+    )
+    .typeText(
+      Selector("textarea").withAttribute("id", "HireImpact"),
+      "Bibbity bobbity blah.",
+    )
+    .click(Selector("button").withText("Save & Preview"))
+    // Impact review.
+    .expect(Selector("h5").withText("Awesome work!").visible)
+    .ok()
+    .expect(Selector("p").withText("Global Affairs Canada manages Canada's diplomatic relations, provides consular services to Canadians, promotes the country's international trade, and leads Canada's international development and humanitarian assistance.").visible)
+    .ok()
+    .expect(Selector("p").withText("Blah de blah blah.").visible)
+    .ok()
+    .expect(Selector("p").withText("Bibbity bobbity blah.").visible)
+    .ok()
+    .click(Selector("button").withText("Next Step"))
+    // Key Tasks page.
+    .expect(Selector("h3").withText("Add Key Tasks").visible)
     .ok();
+    /*
+    .typeText(
+      Selector("textarea").withAttribute("id", "task-91"),
+        "Chopping",
+    )
+    .click(Selector("button").withText("Add a Task"))
+    .typeText(
+      Selector("textarea").withAttribute("id", "task-92"),
+        "Grilling",
+    )
+    .click(Selector("button").withText("Add a Task"))
+    .typeText(
+      Selector("textarea").withAttribute("id", "task-93"),
+        "Seasoning",
+    )
+    .click(Selector("button").withText("Add a Task"))
+    .typeText(
+      Selector("textarea").withAttribute("id", "task-94"),
+        "Disco dancing",
+    )
+    .click(Selector("button").withText("Save & Preview Tasks"))
+    // Key Tasks review.
+    .expect(Selector("h5").withText("Keep it up!"))
+    .ok()
+    .expect(Selector("li").withText("Chopping"))
+    .ok()
+    .expect(Selector("li").withText("Grilling"))
+    .ok();
+    */
 });
