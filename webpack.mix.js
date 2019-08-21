@@ -22,6 +22,8 @@ mix
   .js("resources/assets/js/jquery-ui.min.js", "public/js")
   .js("resources/assets/js/alerts.js", "public/js")
   .js("resources/assets/js/getpdf.js", "public/js")
+  .ts("resources/assets/js/components/ApplicationReview/ApplicationReviewContainer.tsx", "public/js")
+  .ts("resources/assets/js/components/ApplicationReview/ReviewApplicationsContainer.tsx", "public/js")
   .ts("resources/assets/js/components/AssessmentPlan/AssessmentPlanRoot.tsx", "public/js")
   .ts("resources/assets/js/components/JobBuilder/JobBuilderRoot", "public/js")
   .ts(
