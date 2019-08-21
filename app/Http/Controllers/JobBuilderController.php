@@ -14,7 +14,7 @@ class JobBuilderController extends Controller
     public function intro($jobId = null)
     {
         return view(
-            'manager/job-builder-intro',
+            'manager/job-builder-root',
             ['title' => Lang::get('manager/job_builder.intro_title'), 'jobId' => $jobId]
         );
     }
@@ -26,7 +26,7 @@ class JobBuilderController extends Controller
     public function details($jobId)
     {
         return view(
-            'manager/job-builder-details',
+            'manager/job-builder-root',
             ['title' => Lang::get('manager/job_builder.details_title'), 'jobId' => $jobId]
         );
     }
@@ -38,7 +38,7 @@ class JobBuilderController extends Controller
     public function environment($jobId)
     {
         return view(
-            'manager/job-builder-environment',
+            'manager/job-builder-root',
             ['title' => Lang::get('manager/job_builder.environment_title'), 'jobId' => $jobId]
         );
     }
@@ -50,7 +50,7 @@ class JobBuilderController extends Controller
     public function impact($jobId)
     {
         return view(
-            'manager/job-builder-impact',
+            'manager/job-builder-root',
             ['title' => Lang::get('manager/job_builder.impact_title'), 'jobId' => $jobId]
         );
     }
@@ -62,7 +62,7 @@ class JobBuilderController extends Controller
     public function tasks($jobId)
     {
         return view(
-            'manager/job-builder-tasks',
+            'manager/job-builder-root',
             ['title' => Lang::get('manager/job_builder.tasks_title'), 'jobId' => $jobId]
         );
     }
@@ -74,7 +74,7 @@ class JobBuilderController extends Controller
     public function skills($jobId)
     {
         return view(
-            'manager/job-builder-skills',
+            'manager/job-builder-root',
             ['title' => Lang::get('manager/job_builder.skills_title'), 'jobId' => $jobId]
         );
     }
@@ -86,11 +86,8 @@ class JobBuilderController extends Controller
     public function review($jobId)
     {
         return view(
-            'manager/job-builder-review',
-            [
-                'title' => Lang::get('manager/job_builder.review_title'),
-                'jobId' => $jobId,
-            ]
+            'manager/job-builder-root',
+            ['title' => Lang::get('manager/job_builder.review_title'), 'jobId' => $jobId]
         );
     }
 }

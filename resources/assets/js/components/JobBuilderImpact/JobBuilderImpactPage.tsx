@@ -29,6 +29,7 @@ import {
   isJobBuilderComplete,
   VALID_COUNT,
 } from "../JobBuilder/jobBuilderHelpers";
+import { navigate } from "../../helpers/router";
 
 interface JobBuilderImpactPageProps {
   jobId: number;
@@ -60,17 +61,17 @@ const JobBuilderImpactPage: React.FunctionComponent<
     // Do nothing on cancel
   };
   const handleModalConfirm = (): void => {
-    window.location.href = jobBuilderTasks(locale, jobId);
+    navigate(jobBuilderTasks(locale, jobId));
   };
   const handleSubmit = handleUpdateJob;
   const handleReturn = (): void => {
     if (jobId !== null) {
-      window.location.href = jobBuilderEnv(locale, jobId);
+      navigate(jobBuilderEnv(locale, jobId));
     }
   };
   const handleSkipToReview = async (): Promise<void> => {
     if (jobId !== null) {
-      window.location.href = jobBuilderReview(locale, jobId);
+      navigate(jobBuilderReview(locale, jobId));
     }
   };
   const jobIsComplete =
@@ -120,10 +121,12 @@ const mapDispatchToProps = (
   },
 });
 
-const JobBuilderImpactPageContainer = connect(
+export const JobBuilderImpactPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(injectIntl(JobBuilderImpactPage));
+
+export default JobBuilderImpactPageContainer;
 
 if (document.getElementById("job-builder-impact")) {
   const container = document.getElementById(
