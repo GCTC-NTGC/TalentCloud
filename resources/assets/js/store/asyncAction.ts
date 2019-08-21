@@ -7,7 +7,7 @@ import {
   InternalError,
   getJSON,
 } from "redux-api-middleware"; // RSAA = '@@redux-api-middleware/RSAA'
-import moment from "moment";
+import dayjs from "dayjs";
 import { ErrorAction } from "./createAction";
 
 export const STARTED = "STARTED";
@@ -92,7 +92,7 @@ const csrfToken: string =
 
 function jsonDateReplacer(key, value) {
   if (this[key] instanceof Date) {
-    return moment(value).format("YYYY-MM-DDTHH:mm:ssZ");
+    return dayjs(value).format("YYYY-MM-DDTHH:mm:ssZ");
   }
   return value;
 }
