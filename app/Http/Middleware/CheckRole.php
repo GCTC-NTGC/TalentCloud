@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Facades\App\Services\WhichPortal;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -29,7 +30,7 @@ class CheckRole
         if (Auth::guest() || !Auth::user()->hasRole($role)) {
             Log::info('CheckRole Failed');
             // TODO: redirect to some sort of error messag
-            if (Auth::check() && Auth::user()->isManager()) {
+            if (WhichPortal::isManagerPortal()) {
                 return redirect(route('manager.home'));
             } else {
                 return redirect(route('home'));

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Facades\App\Services\WhichPortal;
 use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
@@ -21,7 +22,7 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             if (Auth::user()->isAdmin()) {
                 return redirect(backpack_url(''));
-            } elseif (Auth::user()->isManager()) {
+            } elseif (WhichPortal::isManagerPortal()) {
                 return redirect(route('manager.home'));
             } else {
                 return redirect(route('home'));
