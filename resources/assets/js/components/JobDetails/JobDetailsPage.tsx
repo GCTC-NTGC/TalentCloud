@@ -23,6 +23,7 @@ import {
   isJobBuilderComplete,
   VALID_COUNT,
 } from "../JobBuilder/jobBuilderHelpers";
+import { navigate } from "../../helpers/router";
 
 interface JobDetailsPageProps {
   jobId: number;
@@ -56,10 +57,7 @@ const JobDetailsPage: React.FunctionComponent<
   };
   const handleSubmit = handleUpdateJob;
   const handleReturn = (): void => {
-    window.location.href = jobBuilderIntro(
-      locale,
-      jobId !== null ? jobId : undefined,
-    );
+    navigate(jobBuilderIntro(locale, jobId));
   };
   const handleSkipToReview = async (): Promise<void> => {
     if (jobId !== null) {
@@ -131,3 +129,5 @@ if (document.getElementById("job-builder-details")) {
     );
   }
 }
+
+export default JobDetailsPageContainer;
