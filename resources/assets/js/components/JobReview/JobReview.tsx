@@ -752,20 +752,36 @@ export const JobReview: React.FunctionComponent<
         <Modal.Body>
           <div data-c-padding="normal">
             <p data-c-margin="bottom(normal)">
-              If you're ready to submit your poster, click the Submit button
-              below.
+              <FormattedMessage
+                id="jobBuilder.review.readyTosubmit"
+                defaultMessage="If you're ready to submit your poster, click the Submit button
+                below."
+                description="Instructions on how to submit"
+              />
             </p>
             <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-              What happens next?
+              <FormattedMessage
+                id="jobBuilder.review.whatHappens"
+                defaultMessage="What happens next?"
+                description="Rhtorical question"
+              />
             </p>
             <p data-c-margin="bottom(normal)">
-              Talent Cloud will send your draft to your department's HR advisor
-              who will notify you with comments.
+              <FormattedMessage
+                id="jobBuilder.review.sendYourDraft"
+                defaultMessage="Talent Cloud will send your draft to your department's HR advisor
+                who will notify you with comments."
+                description="Information about next steps"
+              />
             </p>
             <p>
-              In the meantime, feel free to go ahead and create a screening plan
-              for your selection process. Alternatively, you can wait for
-              comments to come back from HR before you take the next step.
+              <FormattedMessage
+                id="jobBuilder.review.meantime"
+                defaultMessage="In the meantime, feel free to go ahead and create a screening plan
+                for your selection process. Alternatively, you can wait for
+                comments to come back from HR before you take the next step."
+                description="Suggestion on what to do while you wait."
+              />
             </p>
           </div>
         </Modal.Body>
