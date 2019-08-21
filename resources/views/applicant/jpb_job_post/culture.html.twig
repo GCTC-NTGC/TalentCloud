@@ -175,7 +175,7 @@
                         data-c-background="white(100)"
                         data-c-radius="rounded">
                         <div
-                            data-c-background="c5(100)"
+                            data-c-background="c1(100)"
                             data-c-colour="white"
                             data-c-padding="normal"
                             data-c-border="bottom(thin, solid, black)">
@@ -201,169 +201,26 @@
                                         <p>{{ job.culture_summary }}</p>
                                         <p data-c-margin="top(normal)">{{ job.culture_special }}</p>
                                         <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="top(double) bottom(normal)" data-c-padding="bottom(normal)">{{ job_post.culture.work_environment_label }}</h4>
-                                        <div data-c-grid="gutter">
-                                            <div data-c-grid-item="base(1of1)">
-                                                <span data-c-colour="c5" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Physical Environment</span>
-                                                <div data-c-margin="left(quarter)">
-                                                    <div data-c-grid="gutter">
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check checked">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Open Concept</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check checked">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Private</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check checked">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Assigned Seating</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Lots of Windows</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Natural Light</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Suitable for Smudging</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>None of the Above</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div
+                                                id="work-env-features-section"
+                                                data-work-env-options={{ job.work_env_features|json_encode() }}
+                                                data-team-size={{ job.team_size|json_encode() }}
+                                            >
                                             </div>
-                                            <div data-c-grid-item="base(1of1)">
-                                                <span data-c-colour="c5" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Technology</span>
-                                                <div data-c-margin="left(quarter)">
-                                                    <div data-c-grid="gutter">
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check checked">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Video Conferencing (e.g. Skype, Zoom)</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check checked">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Collaboration (e.g. Slack, Hangouts)</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check checked">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>File Sharing (e.g. Google Drive, Dropbox)</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Task Management (e.g. Trello, Asana)</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Version Control (e.g. Github, Gitlab)</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Access to external, unfiltered Wi-Fi.</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>None of the Above</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div data-c-grid-item="base(1of1)">
-                                                <span data-c-colour="c5" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Amenities</span>
-                                                <div data-c-margin="left(quarter)">
-                                                    <div data-c-grid="gutter">
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check checked">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Cafeteria On-site</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check checked">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Close to Transit</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check checked">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Walking Distance to Restaurants/Malls</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Downtown</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Nearby Fitness Centre</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>Easy Access to Parking</span>
-                                                        </div>
-                                                        <div data-c-grid-item="tp(1of2)">
-                                                            <div class="job-builder-check">
-                                                                <i class="fa fa-check"></i>
-                                                            </div>
-                                                            <span>None of the Above</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div data-c-grid-item="base(1of1)">
-                                                <span data-c-colour="c5" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">More About Your Environment</span>
+                                            <div data-c-grid-item="base(1of1)" data-c-margin="top(normal)">
+                                                <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">More About Your Environment</span>
                                                 <p>{{ job.work_env_description }}</p>
                                             </div>
-                                        </div>
                                         <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="top(double) bottom(normal)" data-c-padding="bottom(normal)">{{ job_post.culture.team_culture_label }}</h4>
                                         <div data-c-grid-item="base(1of1)">
-                                            <span data-c-colour="c5" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Team Size</span>
+                                            <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Team Size</span>
                                             <p>10</p>
                                         </div>
                                         <div data-c-margin="top(normal)">
                                             <div data-c-grid="gutter">
                                                 <div class="job-post__culture-wrapper" data-c-grid-item="base(1of3)">
                                                     <div>
-                                                        <p data-c-colour="c5" data-c-font-weight="bold">
+                                                        <p data-c-colour="c1" data-c-font-weight="bold">
                                                             {{ job_post.work_environment.remote_work_label }}
                                                         </p>
                                                         <p class="job-post__culture-desc">
@@ -377,7 +234,7 @@
 
                                                 <div class="job-post__culture-wrapper" data-c-grid-item="base(1of3)">
                                                     <div>
-                                                        <p data-c-colour="c5" data-c-font-weight="bold">
+                                                        <p data-c-colour="c1" data-c-font-weight="bold">
                                                             {{ job_post.work_environment.telework_label }}
                                                         </p>
                                                         <p class="job-post__culture-desc">
@@ -391,7 +248,7 @@
 
                                                 <div class="job-post__culture-wrapper" data-c-grid-item="base(1of3)">
                                                     <div>
-                                                        <p data-c-colour="c5" data-c-font-weight="bold">
+                                                        <p data-c-colour="c1" data-c-font-weight="bold">
                                                             {{ job_post.work_environment.time_flexibility_label }}
                                                         </p>
                                                         <p class="job-post__culture-desc">
@@ -405,7 +262,7 @@
 
                                                 <div class="job-post__culture-wrapper" data-c-grid-item="base(1of3)">
                                                     <div>
-                                                        <p data-c-colour="c5" data-c-font-weight="bold">
+                                                        <p data-c-colour="c1" data-c-font-weight="bold">
                                                             {{ job_post.work_environment.travel_label }}
                                                         </p>
                                                         <p class="job-post__culture-desc">
@@ -419,7 +276,7 @@
 
                                                 <div class="job-post__culture-wrapper" data-c-grid-item="base(1of3)">
                                                     <div>
-                                                        <p data-c-colour="c5" data-c-font-weight="bold">
+                                                        <p data-c-colour="c1" data-c-font-weight="bold">
                                                             {{ job_post.work_environment.overtime_label }}
                                                         </p>
                                                         <p class="job-post__culture-desc">
