@@ -42,7 +42,7 @@ class AdminPortalTest extends TestCase
             ->followingRedirects()
             ->get('admin');
         $response->assertStatus(200);
-        $response->assertViewIs('manager.home');
+        $response->assertViewIs('home');
     }
 
     /**
