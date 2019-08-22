@@ -118,13 +118,35 @@ class User extends BaseModel implements
     }
 
     /**
-     * Returns true if this user has the Manager role.
+     * Returns true if this user has the upgradedManager role.
+     *
+     * @return boolean
+     */
+    public function isUpgradedManager(): bool
+    {
+        return $this->user_role->name === 'manager';
+    }
+
+    /**
+     * Returns true this user has the demoManager role.
+     *
+     * @return boolean
+     */
+    public function isDemoManager(): bool
+    {
+        // Currently, every non-upgradedManager user can be considered a demoManager.
+        return !$this->isUpgradedManager();
+    }
+
+    /**
+     * Returns true if this user has the demoManager or upgradedManager role.
      *
      * @return boolean
      */
     public function isManager(): bool
     {
-        return $this->user_role->name == 'manager';
+        // Currently, every user can use the Manager portal as a demoManager.
+        return $this->isDemoManager() || $this->isUpgradedManager();
     }
 
     /**
@@ -134,7 +156,7 @@ class User extends BaseModel implements
      */
     public function isAdmin(): bool
     {
-        return $this->user_role->name == 'admin';
+        return $this->user_role->name === 'admin';
     }
 
     /**

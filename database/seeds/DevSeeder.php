@@ -52,7 +52,7 @@ class DevSeeder extends Seeder // phpcs:ignore
         $managerUser = User::where('email', $this->managerEmail)->first();
         // Create the test manager if it does not exist yet
         if ($managerUser === null) {
-            $managerUser = factory(User::class)->states('manager')->create(['email' => $this->managerEmail]);
+            $managerUser = factory(User::class)->states('upgradedManager')->create(['email' => $this->managerEmail]);
             $managerUser->manager()->save(factory(Manager::class)->create([
                 'user_id' => $managerUser->id
             ]));
@@ -64,7 +64,7 @@ class DevSeeder extends Seeder // phpcs:ignore
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
             ]);
-            //Then create one application with a priority user
+            // Then create one application with a priority user
             $job->job_applications()->save(factory(JobApplication::class)->create([
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
@@ -78,7 +78,7 @@ class DevSeeder extends Seeder // phpcs:ignore
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
             ]);
-            //Then create one application with a priority user
+            // Then create one application with a priority user
             $job->job_applications()->save(factory(JobApplication::class)->create([
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([

@@ -110,7 +110,7 @@ class ManagerApiControllerTest extends TestCase
     public function testUpdateAsWrongManager()
     {
         $manager = factory(Manager::class)->create();
-        $otherManager = factory(User::class)->state('manager')->create();
+        $otherManager = factory(User::class)->create();
         $managerUpdate = $this->generateFrontendManager();
         $response = $this->actingAs($otherManager)
             ->json('put', "api/managers/$manager->id", $managerUpdate);

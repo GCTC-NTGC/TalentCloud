@@ -183,21 +183,31 @@ class JobControllerTest extends TestCase
         $response->assertDontSeeText(e($this->otherJobPoster->title));
     }
 
+    public function testSubmitForReviewFailsForDemoManager() : void
+    {
+        $jobPoster = factory(JobPoster::class)->state('draft')->create();
+
+        $response = $this->followingRedirects()
+            ->actingAs($jobPoster->manager->user)
+            ->post("manager/jobs/$jobPoster->id/review");
+
+        $response->assertForbidden();
+    }
+
     /**
      * Ensure a Job Poster can be submitted for review.
      *
      * @return void
      */
-    public function testSubmitForReview() : void
+    public function testSubmitForReviewSucceedsForUpgradedManager() : void
     {
         Mail::fake();
 
-        $jobPoster = $this->jobPoster;
-
+        $jobPoster = factory(JobPoster::class)->states(['byUpgradedManager', 'draft'])->create();
         $response = $this->followingRedirects()
-        ->actingAs($this->manager->user)
+        ->actingAs($jobPoster->manager->user)
         ->post("manager/jobs/$jobPoster->id/review");
-
+        // dd($response->baseResponse->exception);
         $response->assertStatus(200);
 
         $jobPoster->refresh();

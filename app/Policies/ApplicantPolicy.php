@@ -17,14 +17,21 @@ class ApplicantPolicy extends BasePolicy
      * @param  Applicant $applicant [description]
      * @return [type]               [description]
      */
-    protected function managerCanViewApplicant(Manager $manager, Applicant $applicant)
+    protected function ownsJobApplcantAppliedTo(User $user, Applicant $applicant)
     {
         $applicant_id = $applicant->id;
-        return JobPoster::where('manager_id', $manager->id)
-            ->whereHas('submitted_applications', function ($q) use ($applicant_id) {
-                $q->where('applicant_id', $applicant_id);
-            })
-            ->get()->isNotEmpty();
+        $userId = $user->id;
+        return JobPoster::whereHas(
+            'manager',
+            function ($q) use ($userId) {
+                $q->where('user_id', $userId);
+            }
+        )->whereHas(
+            'submitted_applications',
+            function ($q) use ($applicant_id) {
+                    $q->where('applicant_id', $applicant_id);
+            }
+        )->get()->isNotEmpty();
     }
 
     /**
@@ -38,7 +45,7 @@ class ApplicantPolicy extends BasePolicy
     {
         $authApplicant =  $user->isApplicant() &&
             $applicant->user->is($user);
-        $authManager = $user->isManager() && $this->managerCanViewApplicant($user->manager, $applicant);
+        $authManager = $user->isManager() && $this->ownsJobApplcantAppliedTo($user, $applicant);
         return $authApplicant || $authManager;
     }
 

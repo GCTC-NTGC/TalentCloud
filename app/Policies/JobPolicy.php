@@ -21,11 +21,11 @@ class JobPolicy extends BasePolicy
         // Anyone can view a published job
         // Only the manager that created it can view an unpublished job
         return $jobPoster->published ||
-            (
-                $user &&
-                $user->isManager() &&
-                $jobPoster->manager_id == $user->manager->id
-            );
+        (
+            $user &&
+            $user->isManager() &&
+            $jobPoster->manager->user_id == $user->id
+        );
     }
 
     /**
@@ -36,8 +36,8 @@ class JobPolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        // Any manager or admin can create a new job poster.
-        return $user->isManager() || $user->isAdmin();
+        // Any manager can create a new job poster.
+        return $user->isManager();
     }
 
     /**
@@ -51,25 +51,9 @@ class JobPolicy extends BasePolicy
     {
         // Only managers can edit jobs, and only their own, managers can't publish jobs or edit published jobs
         return $user->isManager() &&
-            $jobPoster->manager->user->id == $user->id &&
-            !$jobPoster->published;
+        $jobPoster->manager->user->id == $user->id &&
+        !$jobPoster->published;
     }
-
-    /**
-     * Determine whether the user can review applications to the job poster.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\JobPoster  $jobPoster
-     * @return mixed
-     */
-    public function review(User $user, JobPoster $jobPoster)
-    {
-        // Only managers can edit jobs, and only their own, managers can't publish jobs or edit published jobs
-        return $user->isManager() &&
-            $jobPoster->manager->user->id == $user->id &&
-            $jobPoster->isClosed();
-    }
-
 
     /**
      * Determine whether the user can delete the job poster.
@@ -84,29 +68,40 @@ class JobPolicy extends BasePolicy
         // Jobs can only be deleted when they're in the 'draft'
         // state, and only by managers that created them.
         return $user->isManager() &&
+        $jobPoster->manager->user->id == $user->id &&
+        !$jobPoster->published;
+    }
+
+    /**
+     * Determine whether the user can submit a job poster for review.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\JobPoster  $jobPoster
+     * @return mixed
+     */
+    public function submitForReview(User $user, JobPoster $jobPoster)
+    {
+        // Only upgradedManagers can submit jobs for review, only their own jobs, and only if they're still drafts.
+        // NOTE: this is one of the only permissions to require an upgradedManager, as opposed to a demoManager.
+        var_dump($user->isUpgradedManager());
+        var_dump($jobPoster->manager->user->id == $user->id);
+        var_dump($jobPoster->status() === 'draft');
+        return $user->isUpgradedManager() &&
             $jobPoster->manager->user->id == $user->id &&
-            !$jobPoster->published;
+            $jobPoster->status() === 'draft';
     }
-
     /**
-     * Determine whether the user can restore the job poster.
+     * Determine whether the user can review applications to the job poster.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\JobPoster  $jobPoster
      * @return mixed
      */
-    public function restore(User $user, JobPoster $jobPoster)
+    public function reviewApplicationsFor(User $user, JobPoster $jobPoster)
     {
-    }
-
-    /**
-     * Determine whether the user can permanently delete the job poster.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\JobPoster  $jobPoster
-     * @return mixed
-     */
-    public function forceDelete(User $user, JobPoster $jobPoster)
-    {
+        // Only managers can review applications, and only for their own jobs.
+        return $user->isManager() &&
+            $jobPoster->manager->user->id == $user->id &&
+            $jobPoster->isClosed();
     }
 }
