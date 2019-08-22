@@ -754,8 +754,7 @@ export const JobReview: React.FunctionComponent<
             <p data-c-margin="bottom(normal)">
               <FormattedMessage
                 id="jobBuilder.review.readyTosubmit"
-                defaultMessage="If you're ready to submit your poster, click the Submit button
-                below."
+                defaultMessage="If you're ready to submit your poster, click the Submit button below."
                 description="Instructions on how to submit"
               />
             </p>
@@ -769,17 +768,14 @@ export const JobReview: React.FunctionComponent<
             <p data-c-margin="bottom(normal)">
               <FormattedMessage
                 id="jobBuilder.review.sendYourDraft"
-                defaultMessage="Talent Cloud will send your draft to your department's HR advisor
-                who will notify you with comments."
+                defaultMessage="Talent Cloud will send your draft to your department's HR advisor who will notify you with comments."
                 description="Information about next steps"
               />
             </p>
             <p>
               <FormattedMessage
                 id="jobBuilder.review.meantime"
-                defaultMessage="In the meantime, feel free to go ahead and create a screening plan
-                for your selection process. Alternatively, you can wait for
-                comments to come back from HR before you take the next step."
+                defaultMessage="In the meantime, feel free to go ahead and create a screening plan for your selection process. Alternatively, you can wait for comments to come back from HR before you take the next step."
                 description="Suggestion on what to do while you wait."
               />
             </p>

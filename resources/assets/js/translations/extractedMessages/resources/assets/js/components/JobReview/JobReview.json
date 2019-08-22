@@ -202,7 +202,7 @@
   {
     "id": "jobBuilder.review.readyTosubmit",
     "description": "Instructions on how to submit",
-    "defaultMessage": "If you're ready to submit your poster, click the Submit button\r\n                below."
+    "defaultMessage": "If you're ready to submit your poster, click the Submit button below."
   },
   {
     "id": "jobBuilder.review.whatHappens",
@@ -212,12 +212,12 @@
   {
     "id": "jobBuilder.review.sendYourDraft",
     "description": "Information about next steps",
-    "defaultMessage": "Talent Cloud will send your draft to your department's HR advisor\r\n                who will notify you with comments."
+    "defaultMessage": "Talent Cloud will send your draft to your department's HR advisor who will notify you with comments."
   },
   {
     "id": "jobBuilder.review.meantime",
     "description": "Suggestion on what to do while you wait.",
-    "defaultMessage": "In the meantime, feel free to go ahead and create a screening plan\r\n                for your selection process. Alternatively, you can wait for\r\n                comments to come back from HR before you take the next step."
+    "defaultMessage": "In the meantime, feel free to go ahead and create a screening plan for your selection process. Alternatively, you can wait for comments to come back from HR before you take the next step."
   },
   {
     "id": "jobBuilder.review.confirm.cancel",

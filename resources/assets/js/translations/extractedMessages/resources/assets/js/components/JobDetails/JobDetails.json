@@ -7,7 +7,7 @@
   {
     "id": "jobDetails.SelectClassAndLvlMessage",
     "description": "Message displayed after classification and level select boxes.",
-    "defaultMessage": "Please select a classification and level before preparing\r\n                          the education requirements."
+    "defaultMessage": "Please select a classification and level before preparing the education requirements."
   },
   {
     "id": "jobDetails.educationRequirementHeader",

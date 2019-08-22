@@ -1840,7 +1840,7 @@
         "id": "jobDetails.heading"
       },
       {
-        "defaultMessage": "Please select a classification and level before preparing\r\n                          the education requirements.",
+        "defaultMessage": "Please select a classification and level before preparing the education requirements.",
         "description": "Message displayed after classification and level select boxes.",
         "id": "jobDetails.SelectClassAndLvlMessage"
       },
@@ -2490,7 +2490,7 @@
         "id": "jobBuilder.review.confirm.title"
       },
       {
-        "defaultMessage": "If you're ready to submit your poster, click the Submit button\r\n                below.",
+        "defaultMessage": "If you're ready to submit your poster, click the Submit button below.",
         "description": "Instructions on how to submit",
         "id": "jobBuilder.review.readyTosubmit"
       },
@@ -2500,12 +2500,12 @@
         "id": "jobBuilder.review.whatHappens"
       },
       {
-        "defaultMessage": "Talent Cloud will send your draft to your department's HR advisor\r\n                who will notify you with comments.",
+        "defaultMessage": "Talent Cloud will send your draft to your department's HR advisor who will notify you with comments.",
         "description": "Information about next steps",
         "id": "jobBuilder.review.sendYourDraft"
       },
       {
-        "defaultMessage": "In the meantime, feel free to go ahead and create a screening plan\r\n                for your selection process. Alternatively, you can wait for\r\n                comments to come back from HR before you take the next step.",
+        "defaultMessage": "In the meantime, feel free to go ahead and create a screening plan for your selection process. Alternatively, you can wait for comments to come back from HR before you take the next step.",
         "description": "Suggestion on what to do while you wait.",
         "id": "jobBuilder.review.meantime"
       },
