@@ -41,15 +41,17 @@ class InitializeUser
                     $applicantProfile = new Applicant();
                     $applicantProfile->user_id = $user->id;
                     $applicantProfile->save();
+                    $user->refresh();
                 }
             }
             if ($user->isManager() ||
-                    $user->isAdmin()) {
+            $user->isAdmin()) {
                 $managerProfile = $user->manager;
                 if ($managerProfile === null) {
                     $managerProfile = new Manager();
                     $managerProfile->user_id = $user->id;
                     $managerProfile->save();
+                    $user->refresh();
                 }
             }
         }

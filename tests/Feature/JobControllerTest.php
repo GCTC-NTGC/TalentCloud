@@ -402,6 +402,7 @@ class JobControllerTest extends TestCase
         $response = $this->followingRedirects()
             ->actingAs($this->manager->user)
             ->post(route('manager.jobs.update', $job), $jobEdit);
+        $response->assertOk();
 
         $this->assertDatabaseHas('job_posters', $dbValues);
 
