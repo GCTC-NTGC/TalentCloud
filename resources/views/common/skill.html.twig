@@ -103,14 +103,14 @@
 
             {% else %}
 
-                <div
+                <span
                     class="accordion-status">
 
                     <i class="fas fa-check"></i>
 
                     <i class="fas fa-exclamation-circle"></i>
 
-                </div>
+                </span>
 
             {% endif %}
 
@@ -135,14 +135,14 @@
 
             {% if locale == "profile" and skill_declaration == true %}
 
-                <div
+                <span
                     class="skill-summary">
 
                     {% set type = skill_declaration.skill.skill_type.name %}
                     {#
                     <span>{{ skill_template.skill_levels[type][skill_declaration.skill_level.name]|title }}</span> | <span>{{ skill_template.status[skill_declaration.skill_status.name] }}</span> | <span><i class="fas fa-users"></i> {{ skill_declaration.references|length }}</span> | <span><i class="fas fa-briefcase"></i> {{ skill_declaration.work_samples|length }}</span>
                     #}
-                </div>
+                </span>
 
             {% endif %}
 
@@ -433,7 +433,7 @@
                                     <input
                                         type='hidden'
                                         name='skill_declaration_id'
-                                        value={{ skill_declaration.id }} ></input>
+                                        value={{ skill_declaration.id }} />
 
                                 {% endif %}
 
@@ -455,13 +455,13 @@
                                             <input
                                                 type='hidden'
                                                 name='skill_declaration_id'
-                                                value={{ skill_declaration.id }} ></input>
+                                                value={{ skill_declaration.id }} />
                                         {% else %}
 
                                             <input
                                                 type='hidden'
                                                 name='skill_id'
-                                                value={{ criterion.skill.id }} ></input>
+                                                value={{ criterion.skill.id }} />
 
                                         {% endif %}
 
@@ -481,11 +481,11 @@
 
                                         <div class="flex-grid space-between">
                                             <label
-                                                class="form__label"
-                                                for="{{ id_prefix }}skillLevel">
+                                                class="form__label">
                                                 {{ skill_template.level_label }}
                                             </label>
                                             <a
+                                                class="skill-faq-link"
                                                 href="/faq#levels"
                                                 title="{{ skill_template.level_link_title }}"
                                                 target="_blank">
@@ -535,18 +535,20 @@
                                 <div
                                     class="box full">
 
-                                    {# <div class="skill-textarea-label box inline-right">
-                                        <a href="#" class="">{{ skill_template.knowledge_link_label }}</a>
-                                    </div> #}
+                                    {% if skill_declaration.description  %}
+                                    <div class="skill-textarea-prompt box">
+                                        <p>{{ skill_template.knowledge_prompt }}</p>
+                                    </div>
+                                    {% endif %}
 
-
-                                    <div
-                                        data-clone
-                                        data-skills-info-modal="{{ id_prefix }}skillDescription"
-                                        data-title="{{ skill_template.modal_info.title}}"
-                                        data-open-text="{{ skill_template.knowledge_link_label }}"
-                                        data-confirm-text="{{skill_template.modal_info.close_button_text }}"
-                                        data-modal-info="{{ skill_template.modal_info|json_encode() }}">
+                                    <div class="skill-textarea-label box inline-right">
+                                        <button
+                                            data-c-dialog-id="skill-info-modal"
+                                            data-c-dialog-action="open"
+                                            class="skill-context-button"
+                                            type="button">
+                                            {{ skill_template.knowledge_link_label }}
+                                        </button>
                                     </div>
 
                                     <div
@@ -567,20 +569,12 @@
 
                                     </div>
 
-                                    {% if skill_declaration.description  %}
-                                    <div class="skill-textarea-prompt box">
-                                        <p>{{ skill_template.knowledge_prompt }}</p>
-                                    </div>
-                                    {% endif %}
-
-
                                     {# Word Counter #}
-                                    {# <div
+                                    <div
                                         data-word-counter-id={{ "#{id_prefix}skillDescription"|json_encode() }}
-                                        data-max-words={{ "100"|json_encode()  }}
-                                        data-min-words={{ "75"|json_encode()  }}
-                                        >
-                                    </div> #}
+                                    >
+                                    </div>
+
                                 </div>
 
                         </div>
@@ -801,3 +795,4 @@
         </div>
 
 </div>
+

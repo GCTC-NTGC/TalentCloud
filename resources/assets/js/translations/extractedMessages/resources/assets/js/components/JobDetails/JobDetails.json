@@ -1,0 +1,102 @@
+[
+  {
+    "id": "jobDetails.heading",
+    "description": "Job Details page heading",
+    "defaultMessage": "Job Details"
+  },
+  {
+    "id": "jobDetails.SelectClassAndLvlMessage",
+    "description": "Message displayed after classification and level select boxes.",
+    "defaultMessage": "Please select a classification and level before preparing\n                          the education requirements."
+  },
+  {
+    "id": "jobDetails.educationRequirementHeader",
+    "description": "Header message displayed for the Education requirement section.",
+    "defaultMessage": "Based on the classification level you selected, this standard paragraph will appear on the job poster."
+  },
+  {
+    "id": "jobDetails.educationRequirementCopyAndPaste",
+    "description": "Footer message displayed for the Education requirement section.",
+    "defaultMessage": "If you want to customize this paragraph, copy and paste it into the textbox below."
+  },
+  {
+    "id": "jobDetails.educationRequirementReviewChanges",
+    "description": "Footer message displayed for the Education requirement section.",
+    "defaultMessage": "Your HR advisor will review your changes."
+  },
+  {
+    "id": "jobDetails.remoteWorkGroupHeader",
+    "description": "Header message displayed on the remote work group input.",
+    "defaultMessage": "Is remote work allowed?"
+  },
+  {
+    "id": "jobDetails.remoteWorkGroupBody",
+    "description": "Body message displayed on the remote work group input.",
+    "defaultMessage": "Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor."
+  },
+  {
+    "id": "jobDetails.teleworkGroupHeader",
+    "description": "Header message displayed on the telework group input.",
+    "defaultMessage": "How often is telework allowed?"
+  },
+  {
+    "id": "jobDetails.teleworkGroupBody",
+    "description": "Body message displayed on the telework group input.",
+    "defaultMessage": "Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option."
+  },
+  {
+    "id": "jobDetails.flexHoursGroupHeader",
+    "description": "Header message displayed on the flex hours group input.",
+    "defaultMessage": "How often are flexible hours allowed?"
+  },
+  {
+    "id": "jobDetails.flexHoursGroupBody",
+    "description": "Body message displayed on the flex hours group input.",
+    "defaultMessage": "Want to support a more gender inclusive workplace?\n                          Studies show allowing flex hours is a great way to improve opportunities for women and parents."
+  },
+  {
+    "id": "jobDetails.travelGroupHeader",
+    "description": "Header message displayed on the travel group input.",
+    "defaultMessage": "Is travel required?"
+  },
+  {
+    "id": "jobDetails.overtimeGroupHeader",
+    "description": "Header message displayed on the overtime group input.",
+    "defaultMessage": "Is overtime required?"
+  },
+  {
+    "id": "jobDetails.returnButtonLabel",
+    "description": "The text displayed on the Save & Return button of the Job Details form.",
+    "defaultMessage": "Save & Return to Intro"
+  },
+  {
+    "id": "jobDetails.submitButtonLabel",
+    "description": "The text displayed on the submit button for the Job Details form.",
+    "defaultMessage": "Save & Preview"
+  },
+  {
+    "id": "jobDetails.modalHeader",
+    "description": "The text displayed in the header of the Job Details modal.",
+    "defaultMessage": "You're off to a great start!"
+  },
+  {
+    "id": "jobDetails.modalBody",
+    "description": "The text displayed in the body of the Job Details modal.",
+    "defaultMessage": "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+  },
+  {
+    "id": "jobDetails.modalCancelLabel",
+    "description": "The text displayed on the cancel button of the Job Details modal.",
+    "defaultMessage": "Go Back"
+  },
+  {
+    "id": "jobDetails.modalMiddleLabel",
+    "description": "The text displayed on the 'Skip to Review' button of the Job Details modal.",
+    "defaultMessage": "Skip to Review"
+  },
+  {
+    "id": "jobDetails.modalConfirmLabel",
+    "description": "The text displayed on the confirm button of the Job Details modal.",
+    "defaultMessage": "Next Step"
+  }
+]

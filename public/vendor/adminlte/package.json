@@ -20,7 +20,7 @@
     "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-cssjanus": "^0.4.0",
-    "grunt-image": "^4.3.0",
+    "grunt-image": "^5.0.0",
     "grunt-includes": "^1.1.0",
     "grunt-jscs": "^3.0.1",
     "grunt-less": "^0.1.7",

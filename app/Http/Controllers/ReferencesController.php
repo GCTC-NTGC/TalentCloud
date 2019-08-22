@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Skill;
 use App\Models\Applicant;
 use App\Models\Reference;
 use App\Models\Project;
-use App\Models\Lookup\Relationship;
 use App\Services\Validation\Requests\UpdateReferenceValidator;
 
 class ReferencesController extends Controller
@@ -19,10 +16,10 @@ class ReferencesController extends Controller
     /**
      * Show the form for editing the logged-in applicant's references
      *
-     * @param  Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  \Illuminate\Http\Request $request Incoming request object.
+     * @return \Illuminate\Http\Response
      */
-    public function editAuthenticated(Request $request): \Illuminate\Http\RedirectResponse
+    public function editAuthenticated(Request $request)
     {
         $applicant = $request->user()->applicant;
         return redirect(route('profile.references.edit', $applicant));
@@ -31,10 +28,9 @@ class ReferencesController extends Controller
     /**
      * Show the form for editing the applicant's references
      *
-     * @param Request   $request   Incoming request object.
-     * @param Applicant $applicant Incoming applicant object.
-     *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     * @param  \Illuminate\Http\Request $request   Incoming request object.
+     * @param  \App\Models\Applicant    $applicant Incoming applicant object.
+     * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Applicant $applicant)
     {
@@ -52,10 +48,9 @@ class ReferencesController extends Controller
     /**
      * Update or create a reference with the supplied data.
      *
-     * @param \Illuminate\Http\Request   $request   The incoming request object.
-     * @param \App\Models\Reference|null $reference The reference to update. If null, a new one should be created.
-     *
-     * @return
+     * @param  \Illuminate\Http\Request   $request   The incoming request object.
+     * @param  \App\Models\Reference|null $reference The reference to update. If null, a new one should be created.
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ?Reference $reference = null)
     {
@@ -76,8 +71,8 @@ class ReferencesController extends Controller
 
         $reference->load('projects');
 
-        //TODO: As soon as you can interact with projects outside of references,
-        //  this will become a dangerous operation
+        // TODO: As soon as you can interact with projects outside of references,
+        // this will become a dangerous operation.
         $reference->projects()->delete();
 
         $newProjects = [];
@@ -92,16 +87,15 @@ class ReferencesController extends Controller
                 ]);
                 $project->save();
                 $newProjects[] = $project->id;
-                // $reference->projects()->attach($project);
             }
         }
         $reference->projects()->sync($newProjects);
 
-        //Attach relatives
+        // Attach relatives.
         $skillIds = $this->getRelativeIds($request->input(), 'skills');
         $reference->skill_declarations()->sync($skillIds);
 
-        // if an ajax request, return the new object
+        // If an ajax request, return the new object.
         if ($request->ajax()) {
             $reference->load('relationship');
             $reference->load('projects');
@@ -114,22 +108,22 @@ class ReferencesController extends Controller
     /**
      * Delete the particular reference from storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\Reference    $reference
+     * @param  \Illuminate\Http\Request $request   Incoming Request.
+     * @param  \App\Models\Reference    $reference Incoming Reference.
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Reference $reference)
     {
         $this->authorize('delete', $reference);
 
-        //TODO: when projects exist independently on profile, delete seperatley
+        // TODO: when projects exist independently on profile, delete separately.
         $reference->projects()->delete();
 
         $reference->delete();
 
         if ($request->ajax()) {
             return [
-                "message" => 'Reference deleted'
+                'message' => 'Reference deleted'
             ];
         }
 

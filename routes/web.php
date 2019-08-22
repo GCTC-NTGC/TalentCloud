@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ScreeningPlanController;
+use Illuminate\Support\Facades\Lang;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,8 +43,7 @@ Route::group(
             /* Require being logged in as applicant */
             Route::middleware(['auth', 'role:applicant'])->group(function () : void {
 
-            //Application permissions are handled within the controller instead of with middleware
-
+            // Application permissions are handled within the controller instead of with middleware
                 /* Applications */
                 Route::get('applications', 'ApplicationController@index')->name('applications.index');
 
@@ -54,16 +53,16 @@ Route::group(
                     ->name('applications.show');
 
                 /* Step 01 */
-                Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@edit_basics')->name('job.application.edit.1');
+                Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@editBasics')->name('job.application.edit.1');
 
                 /* Step 02 */
-                Route::get('jobs/{jobPoster}/application/step-02', 'ApplicationByJobController@edit_experience')->name('job.application.edit.2');
+                Route::get('jobs/{jobPoster}/application/step-02', 'ApplicationByJobController@editExperience')->name('job.application.edit.2');
 
                 /* Step 03 */
-                Route::get('jobs/{jobPoster}/application/step-03', 'ApplicationByJobController@edit_essential_skills')->name('job.application.edit.3');
+                Route::get('jobs/{jobPoster}/application/step-03', 'ApplicationByJobController@editEssentialSkills')->name('job.application.edit.3');
 
                 /* Step 04 */
-                Route::get('jobs/{jobPoster}/application/step-04', 'ApplicationByJobController@edit_asset_skills')->name('job.application.edit.4');
+                Route::get('jobs/{jobPoster}/application/step-04', 'ApplicationByJobController@editAssetSkills')->name('job.application.edit.4');
 
                 /* Step 05 */
                 Route::get('jobs/{jobPoster}/application/step-05', 'ApplicationByJobController@preview')->name('job.application.edit.5');
@@ -77,16 +76,16 @@ Route::group(
                 /* Application Update routes */
 
                 /* Step 01 */
-                Route::post('jobs/{jobPoster}/application/step-01/update', 'ApplicationByJobController@update_basics')->name('job.application.update.1');
+                Route::post('jobs/{jobPoster}/application/step-01/update', 'ApplicationByJobController@updateBasics')->name('job.application.update.1');
 
                 /* Step 02 */
-                Route::post('jobs/{jobPoster}/application/step-02/update', 'ApplicationByJobController@update_experience')->name('job.application.update.2');
+                Route::post('jobs/{jobPoster}/application/step-02/update', 'ApplicationByJobController@updateExperience')->name('job.application.update.2');
 
                 /* Step 03 */
-                Route::post('jobs/{jobPoster}/application/step-03/update', 'ApplicationByJobController@update_essential_skills')->name('job.application.update.3');
+                Route::post('jobs/{jobPoster}/application/step-03/update', 'ApplicationByJobController@updateEssentialSkills')->name('job.application.update.3');
 
                 /* Step 04 */
-                Route::post('jobs/{jobPoster}/application/step-04/update', 'ApplicationByJobController@update_asset_skills')->name('job.application.update.4');
+                Route::post('jobs/{jobPoster}/application/step-04/update', 'ApplicationByJobController@updateAssetSkills')->name('job.application.update.4');
 
                 /* Step 05 */
                 Route::post('jobs/{jobPoster}/application/submit', 'ApplicationByJobController@submit')->name('job.application.submit');
@@ -117,9 +116,9 @@ Route::group(
                     ->name('profile.experience.update');
 
                 /* Profile - My Skills */
-                Route::get('profile/skills', 'SkillsController@editAuthenticated');
+                Route::get('profile/skills', 'SkillDeclarationController@editAuthenticated');
 
-                Route::get('profile/{applicant}/skills', 'SkillsController@edit')
+                Route::get('profile/{applicant}/skills', 'SkillDeclarationController@edit')
                     ->middleware('can:view,applicant')
                     ->middleware('can:update,applicant')
                     ->name('profile.skills.edit');
@@ -160,6 +159,23 @@ Route::group(
             /* Temporary Blog Post */
             Route::view('post', 'common/blog-post')->name('post');
 
+            // /* Temp Builder 01 (Intro) */
+            Route::view('builder-01', 'manager/builder-01')->middleware('localOnly')->name('jpb1');
+            // /* Temp Builder 02 (Job info) */
+            Route::view('builder-02', 'manager/builder-02')->middleware('localOnly')->name('jpb2');
+            // /* Temp Builder 03 (Work Environment) */
+            Route::view('builder-03', 'manager/builder-03')->middleware('localOnly')->name('jpb3');
+            // /* Temp Builder 04 (Impact) */
+            Route::view('builder-04', 'manager/builder-04')->middleware('localOnly')->name('jpb4');
+            // /* Temp Builder 05 (Tasks) */
+            Route::view('builder-05', 'manager/builder-05')->middleware('localOnly')->name('jpb5');
+            // /* Temp Builder 06 (Skills) */
+            Route::view('builder-06', 'manager/builder-06')->middleware('localOnly')->name('jpb6');
+            // /* Temp Builder 07 (Education) */
+            Route::view('builder-07', 'manager/builder-07')->middleware('localOnly')->name('jpb7');
+            // /* Temp Builder 08 (Review) */
+            Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
+            
             /* Authentication =========================================================== */
 
             // Laravel default login, logout, register, and reset routes
@@ -243,6 +259,41 @@ Route::group(
                     ->middleware('can:update,jobPoster')
                     ->name('manager.jobs.edit');
 
+                /* Job Builder */
+                Route::get(
+                    'jobs/builder',
+                    'JobBuilderController@intro'
+                );
+
+                Route::get(
+                    'jobs/{jobId}/builder/intro',
+                    'JobBuilderController@intro'
+                )->where('jobPoster', '[0-9]+');
+                Route::get(
+                    'jobs/{jobId}/builder/details',
+                    'JobBuilderController@details'
+                )->where('jobPoster', '[0-9]+');
+                Route::get(
+                    'jobs/{jobId}/builder/environment',
+                    'JobBuilderController@environment'
+                )->where('jobPoster', '[0-9]+');
+                Route::get(
+                    'jobs/{jobId}/builder/impact',
+                    'JobBuilderController@impact'
+                )->where('jobPoster', '[0-9]+');
+                Route::get(
+                    'jobs/{jobId}/builder/tasks',
+                    'JobBuilderController@tasks'
+                )->where('jobPoster', '[0-9]+');
+                Route::get(
+                    'jobs/{jobId}/builder/skills',
+                    'JobBuilderController@skills'
+                )->where('jobPoster', '[0-9]+');
+                Route::get(
+                    'jobs/{jobId}/builder/review',
+                    'JobBuilderController@review'
+                )->where('jobPoster', '[0-9]+');
+
                 /* Delete Job */
                 Route::delete('jobs/{jobPoster}', 'JobController@destroy')
                     ->where('jobPoster', '[0-9]+')
@@ -254,15 +305,17 @@ Route::group(
                     ->where('jobPoster', '[0-9]+')
                     ->middleware('can:update,jobPoster')
                     ->name('manager.jobs.review');
+
+                Route::view(
+                    'jobs/{jobPoster}/assessment-plan',
+                    'common/redux',
+                    ['title' => Lang::get('manager/screening-plan')['title']]
+                )
+                    ->where('jobPoster', '[0-9]+')
+                    ->name('manager.jobs.screening_plan');
             });
 
-            Route::get('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@createForJob')
-                ->name('manager.jobs.screening_plan');
-
-            Route::post('jobs/{jobPoster}/screening-plan', 'ScreeningPlanController@store')
-                ->name('manager.jobs.screening_plan.store');
-
-            //Laravel default login, logout, register, and reset routes
+            // Laravel default login, logout, register, and reset routes
             Route::get('login', 'Auth\LoginController@showLoginForm')->name('manager.login');
             Route::post('login', 'Auth\LoginController@login')->name('manager.login.post');
             Route::post('logout', 'Auth\LoginController@logout')->name('manager.logout');
@@ -295,15 +348,15 @@ Route::group(
                 ->middleware('can:delete,workExperience')
                 ->name('work_experiences.destroy');
 
-            Route::post('skill-declarations', 'SkillsController@create')
+            Route::post('skill-declarations', 'SkillDeclarationController@create')
                 ->middleware('can:create,App\Models\SkillDeclaration')
                 ->name('skill_declarations.create');
 
-            Route::put('skill-declarations/{skillDeclaration}', 'SkillsController@update')
+            Route::put('skill-declarations/{skillDeclaration}', 'SkillDeclarationController@update')
                 ->middleware('can:update,skillDeclaration')
                 ->name('skill_declarations.update');
 
-            Route::delete('skill-declarations/{skillDeclaration}', 'SkillsController@destroy')
+            Route::delete('skill-declarations/{skillDeclaration}', 'SkillDeclarationController@destroy')
                 ->middleware('can:delete,skillDeclaration')
                 ->name('skill_declarations.destroy');
 
@@ -338,18 +391,11 @@ Route::group(
             Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
                 ->middleware('can:review,application')
                 ->name('application_reviews.update');
-
-            Route::delete('screening-plans/{screeningPlan}', 'ScreeningPlanController@destroy')
-                ->middleware('role:manager')
-                ->middleware('can:delete,screeningPlan')
-                //TODO: add can:delete middleware for screening plan
-                ->name('screening_plans.destroy');
         });
 
         /* Language ============================================================= */
 
         // Route::redirect('fr', '/')->name('lang.fr');
-
         // Route::redirect('en', '/')->name('lang.en');
     }
 );
@@ -369,3 +415,62 @@ Route::group(
             ->name('admin.jobs.create.as_manager');
     }
 );
+
+/** API routes - currently using same default http auth, but not localized */
+Route::group(['prefix' => 'api'], function (): void {
+    // Protected by a gate in the controller, instead of policy middleware
+    Route::get('jobs/{jobPoster}/assessment-plan', 'AssessmentPlanController@getForJob');
+    // Public, not protected by policy or gate
+    Route::get('skills', 'Api\SkillController@index');
+    Route::get('departments', 'Api\DepartmentController@index');
+
+    // Resource Routes are protected by policies in controllers instead of middleware.
+    Route::resource('assessments', 'AssessmentController')->except([
+        'create', 'edit', 'index'
+    ]);
+    Route::apiResource('rating-guide-answers', 'RatingGuideAnswerController')->except([
+        'index'
+    ])->parameters([
+        'rating-guide-answers' => 'ratingGuideAnswer'
+    ]);
+    Route::resource('rating-guide-questions', 'RatingGuideQuestionController')->except([
+        'create', 'edit', 'index'
+    ]);
+    Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
+        'store', 'create', 'edit'
+    ]);
+    // TODO: add policy middleware
+    Route::get('jobs/{jobPoster}/tasks', 'Api\JobTaskController@indexByJob')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:view,jobPoster');
+    Route::put('jobs/{jobPoster}/tasks', 'Api\JobTaskController@batchUpdate')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:update,jobPoster');
+
+
+     Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:view,jobPoster');
+    Route::put('jobs/{jobPoster}/criteria', 'Api\CriteriaController@batchUpdate')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:update,jobPoster');
+
+
+    Route::post('jobs/{job}/submit', 'Api\JobApiController@submitForReview')
+        ->where('job', '[0-9]+')
+        ->middleware('can:update,job');
+    Route::resource('jobs', 'Api\JobApiController')->only([
+        'show', 'store', 'update'
+    ])->names([ // Specify custom names because default names collied with existing routes.
+        'show' => 'api.jobs.show',
+        'store' => 'api.jobs.store',
+        'update' => 'api.jobs.update'
+    ]);
+
+    Route::resource('managers', 'Api\ManagerApiController')->only([
+        'show', 'update'
+    ])->names([ // Specify custom names because default names collied with existing routes
+        'show' => 'api.managers.show',
+        'update' => 'api.managers.update'
+    ]);
+});

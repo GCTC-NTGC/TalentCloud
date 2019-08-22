@@ -30,7 +30,7 @@ class ManagerPolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        //
+        return false;
     }
 
     /**
@@ -43,7 +43,7 @@ class ManagerPolicy extends BasePolicy
     public function update(User $user, Manager $manager)
     {
         //Mangers can only update their own profiles
-        return $user->user_role->name == 'manager' &&
+        return $user->hasRole('manager') &&
             $manager->user_id == $user->id;
     }
 
@@ -56,30 +56,6 @@ class ManagerPolicy extends BasePolicy
      */
     public function delete(User $user, Manager $manager)
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the manager.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Manager  $manager
-     * @return mixed
-     */
-    public function restore(User $user, Manager $manager)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the manager.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Manager  $manager
-     * @return mixed
-     */
-    public function forceDelete(User $user, Manager $manager)
-    {
-        //
+        return false;
     }
 }

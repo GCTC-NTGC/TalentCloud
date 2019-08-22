@@ -7,22 +7,26 @@
 
 namespace App\Models;
 
+use App\Models\BaseModel;
+use Astrotomic\Translatable\Translatable as Translatable;
+
 /**
  * Class JobPosterKeyTask
- * 
+ *
  * @property int $id
  * @property int $job_poster_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\JobPoster $job_poster
- * 
+ *
  * Localized Properties:
  * @property string $description
  */
-class JobPosterKeyTask extends BaseModel {
+class JobPosterKeyTask extends BaseModel
+{
 
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
 
     public $translatedAttributes = ['description'];
     protected $casts = [
@@ -30,8 +34,8 @@ class JobPosterKeyTask extends BaseModel {
     ];
     protected $fillable = [];
 
-    public function job_poster() {
+    public function job_poster() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
-
 }

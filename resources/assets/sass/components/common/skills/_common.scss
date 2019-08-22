@@ -14,7 +14,7 @@
         text-align: left;
       }
 
-      h3 {
+      h3, h2 {
         color: $palette--black;
         font-family: $font--sans;
         font-size: $font-scale--h3;
@@ -79,6 +79,18 @@
 
   & + .profile-list {
     margin-top: 5rem;
+  }
+}
+
+.skill-context-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: $font-scale--regular;
+  &:hover {
+    color: $palette--blue;
+    transition: color .3s ease;
   }
 }
 

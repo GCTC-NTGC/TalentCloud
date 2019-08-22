@@ -6,9 +6,9 @@ use App\Models\UserRole;
 use App\Models\Manager;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\Frequency;
-use Illuminate\Support\Facades\Hash;
 use App\Models\TeamCulture;
 use App\Models\WorkEnvironment;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------

@@ -7,6 +7,7 @@ use App\Models\JobPoster;
 use App\Models\Applicant;
 use App\Models\JobApplication;
 use App\Models\Reference;
+use App\Models\Assessment;
 
 class DevSeeder extends Seeder // phpcs:ignore
 {
@@ -91,6 +92,17 @@ class DevSeeder extends Seeder // phpcs:ignore
         factory(JobPoster::class, 3)->states('review_requested')->create([
             'manager_id' => $managerUser->manager->id
         ]);
+
+        // Create a Job Poster with an Assessment Plan
+        $jobWithAssessment = factory(JobPoster::class)->states('draft')->create([
+            'manager_id' => $managerUser->manager->id,
+        ]);
+        foreach ($jobWithAssessment->criteria as $criterion) {
+            // Create an assessment for each criterion
+            factory(Assessment::class)->states('withRatingGuide')->create([
+                'criterion_id' => $criterion->id,
+            ]);
+        };
 
         $applicantUser = User::where('email', $this->applicantEmail)->first();
         if ($applicantUser === null) {

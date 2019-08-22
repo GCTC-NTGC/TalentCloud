@@ -1,0 +1,47 @@
+[
+  {
+    "id": "assessmentPlan.pageTitle",
+    "description": "Title of the Generate Assessment Plan page",
+    "defaultMessage": "Generate an assessment plan for: {jobTitle}"
+  },
+  {
+    "id": "assessmentPlan.instructions.intro",
+    "description": "Beginning instructions on using Assessment Plan Builder",
+    "defaultMessage": "This tool allows you to build an assessment plan and a ratings guide for your job poster. The tool is used in 3 steps:"
+  },
+  {
+    "id": "assessmentPlan.assessmentPlanBuilder.title",
+    "description": "Title of the Assessment Plan Builder",
+    "defaultMessage": "Assessment Plan Builder"
+  },
+  {
+    "id": "assessmentPlan.assessmentPlanBuilder.shortDescription",
+    "description": "Short description of Assessment Plan Builder",
+    "defaultMessage": "(Select your assessments)"
+  },
+  {
+    "id": "assessmentPlan.assessmentPlanSummary.title",
+    "description": "Title of the Assessment Plan Summary",
+    "defaultMessage": "Assessment Plan Summary"
+  },
+  {
+    "id": "assessmentPlan.assessmentPlanSummary.shortDescription",
+    "description": "Short description of Assessment Plan Summary",
+    "defaultMessage": "(Review your plan)"
+  },
+  {
+    "id": "assessmentPlan.ratingGuideBuilder.title",
+    "description": "Title of the Rating Guide Builder section",
+    "defaultMessage": "Ratings Guide Builder"
+  },
+  {
+    "id": "assessmentPlan.ratingGuideBuilder.shortDescription",
+    "description": "Short description of Rating Guide Builder",
+    "defaultMessage": "(Customize your evaluations)"
+  },
+  {
+    "id": "assessmentPlan.instructions.narrativeNote",
+    "description": "Note that all plans include a review of narrative evidence.",
+    "defaultMessage": "Please note that all assessment plans will include a review of the narrative evidence provided by the applicant."
+  }
+]

@@ -1,57 +1,44 @@
 build:
-
-    dependencies:
-        before:
-            # composer install
-            # npm install
-
-    environment:
+  nodes:
+    analysis:
+      services:
+        postgres: 9.6
+      environment:
         php:
-            version: "7.2"
-            ini:
-                memory_limit: "-1"
-        ruby: 2.5.1
+          version: "7.2"
+          ini:
+            memory_limit: "-1"
         node: v10.14.2
-
-    cache:
-        directories:
-            - node_modules/
-            - vendor/
-
+        variables:
+          DB_DATABASE: scrutinizer
+          DB_USERNAME: scrutinizer
+          DB_PASSWORD: scrutinizer
+      tests:
+        stop_on_failure: true
+        override:
+          - php-scrutinizer-run
+          - phpcs-run --standard=ruleset.xml
+          - js-scrutinizer-run
 filter:
-    paths:
-        - app/
-        - database/factories/
-        - database/seeds/
-        - resources/assets/js/app
-        - routes/
-
-    dependency_paths:
-        - node_modules/
-        - vendor/
-
-    excluded_paths:
-        - bootstrap/
-        - config/
-        - database/db/
-        - database/migrations/
-        - etc/
-        - public/
-        - node_modules/
-        - report/
-        - resources/
-        - storage/
-        - tests/
-        - vendor/
+  paths: ["app/*", "database/factories/*", "database/seeds/*", "resources/assets/js"]
+  dependency_paths:
+    - bootstrap/
+    - config/
+    - node_modules/
+    - resources/
+    - routes/
+    - vendor/
+  excluded_paths:
+    - "public/"
+    - "tests/"
+    - "resources/assets/js/stories/"
+    - "resources/assets/js/translations/"
+    - "resources/assets/js/jquery-ui.min.js"
+    - "resources/assets/js/modernizr.js"
+    - "resources/assets/js/getpdf.js"
+    - "resources/assets/js/bootstrap.js"
+    - "resources/assets/js/autocomplete.js"
 
 checks:
-    php: true
+  php: true
 
-tools:
-    external_code_coverage:
-        timeout: 777
-        runs: 1
-    custom_commands:
-        -
-            scope: project
-            command: vendor/bin/slack --token=https://hooks.slack.com/services/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

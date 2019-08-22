@@ -10,16 +10,14 @@ return [
     *
     */
     'title' => 'Browse Jobs',
-    'job_post_title' => 'Talent Cloud | Applicant: Job Poster',
+    'job_post_title' => 'Talent Cloud | Applicant: Job Poster - :title (Reference number: :id)',
     'header' => [
         'time_remaining' => ':time until close',
-        "job_closed" => "Job has closed",
+        'job_closed' => 'Job has closed',
         'days_remaining' => ':count day until close|:count days until close',
-        "apply_by_label" => "Apply by",
+        'apply_by_label' => 'Apply by',
         'applicants_so_far' => ':count applicant so far|:count applicants so far',
-        'location_icon_label' => 'Location Icon.',
-        'remote_work_icon_label' => 'Remote Work Icon.',
-        'reference_id' => 'Reference ID #:id',
+        'reference_id' => 'Reference number: :id',
         'remote_work_allowed' => [
             true => 'Remote Work Allowed',
             false => 'Remote Work Not Allowed',
@@ -58,18 +56,16 @@ return [
     'criteria' => [
         'sidebar_title' => 'View this job\'s criteria information.',
         'title' => 'Criteria',
-        'education_title' => "Education Requirements",
+        'education_title' => 'Education Requirements',
         'essential_title' => 'Need to Have',
         'asset_title' => 'Nice to Have',
         'requirement_label' => 'Level Required: ',
         'level_link_title' => 'Visit the FAQ to learn about this and other skill levels.',
-        'no_info' => "No additional criteria required."
+        'no_info' => 'No additional criteria required.'
     ],
     'language' => [
         'sidebar_title' => 'View this job\'s language requirements.',
         'title' => 'Language Requirements',
-        'english_icon_title' => 'An icon representing an English language requirement.',
-        'french_icon_title' => 'An icon representing an French language requirement.',
         'english_essential_context_01' => 'This position requires fluency in English in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in English, such as interview questions or an exam.',
         'english_essential_context_02' => 'You can submit this initial application in either official language of your choice (English or French).',
         'french_essential_context_01' => 'This position requires fluency in French in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in French, such as interview questions or an exam.',
@@ -144,5 +140,5 @@ return [
         'edit_link_title'  => 'Edit this job poster.',
         'edit_link_label'  => 'Edit'
     ],
-    'no_info' => "No information provided."
+    'no_info' => 'No information provided.'
 ];

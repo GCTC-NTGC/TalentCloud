@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Illuminate\Support\Facades\App;
-use App\Models\Lookup\SkillType;
-// Validation
+// Validation.
 use App\Http\Requests\SkillCrudRequest as StoreRequest;
 use App\Http\Requests\SkillCrudRequest as UpdateRequest;
+use App\Models\Classification;
+use App\Models\Lookup\SkillType;
+use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Illuminate\Support\Facades\App;
 
 class SkillCrudController extends CrudController
 {
@@ -20,7 +21,7 @@ class SkillCrudController extends CrudController
     public function setup() : void
     {
         // Workaround for how the unique_translation validation
-        // works in App\Http\Requests\SkillCrudRequest
+        // works in App\Http\Requests\SkillCrudRequest.
         $locale = 'en';
         if (null !== $this->request->input('locale')) {
             $locale = $this->request->input('locale');
@@ -29,14 +30,21 @@ class SkillCrudController extends CrudController
 
         // Eloquent model to associate with this collection
         // of views and controller actions.
-        $this->crud->setModel("App\Models\Skill");
+        $this->crud->setModel('App\Models\Skill');
         // Custom backpack route.
-        $this->crud->setRoute("admin/skill");
+        $this->crud->setRoute('admin/skill');
         // Custom strings to display within the backpack UI,
         // things like Create Skill, Delete Skills, etc.
-        $this->crud->setEntityNameStrings('Skill', 'Skills');
+        $this->crud->setEntityNameStrings('skill', 'skills');
 
-        // Add custom columns to the Skill index view
+        // Add custom columns to the Skill index view.
+        $this->crud->addColumn([
+            'name' => 'id',
+            'type' => 'text',
+            'label' => 'ID',
+            'orderable' => true
+        ]);
+
         $this->crud->addColumn([
             'name' => 'name',
             'type' => 'text',
@@ -48,6 +56,7 @@ class SkillCrudController extends CrudController
                 return $query->orderBy('name->' . $locale, $columnDirection)->select('*');
             }
         ]);
+
         $this->crud->addColumn([
             'name' => 'description',
             'type' => 'text',
@@ -57,6 +66,7 @@ class SkillCrudController extends CrudController
             },
             'orderable' => false,
         ]);
+
         $this->crud->addColumn([
             'name' => 'skill_type.name',
             'type' => 'text',
@@ -67,30 +77,94 @@ class SkillCrudController extends CrudController
             }
         ]);
 
-        // Add custom fields to the create/update views
+        $this->crud->addColumn([
+            'label' => 'Classifications',
+            'type' => 'select_multiple',
+            'name' => 'classifications',
+            'entity' => 'classifications',
+            'attribute' => 'key',
+            'model' => 'App\Models\Skill',
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'is_culture_skill',
+            'label' => 'Culture',
+            'type' => 'boolean',
+            'orderable' => true,
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'is_future_skill',
+            'label' => 'Future',
+            'type' => 'boolean',
+            'orderable' => true,
+        ]);
+
+        // Add custom fields to the create/update views.
         $this->crud->addField([
             'name' => 'name',
             'type' => 'text',
-            'label' => "Name",
+            'label' => 'Name',
         ]);
+
         $this->crud->addField([
             'name' => 'description',
             'type' => 'textarea',
-            'label' => "Description"
+            'label' => 'Description'
         ]);
+
         $this->crud->addField([
             'name' => 'skill_type_id',
-            'label' => "Type",
+            'label' => 'Type',
             'type' => 'select_from_array',
             'options' => SkillType::all()->pluck('name', 'id')->toArray(),
             'allow_null' => false,
         ]);
+
+        $this->crud->addField([
+            'name' => 'classifications',
+            'type' => 'select2_multiple',
+            'label' => 'Classifications (select all that apply)',
+            'entity' => 'skills',
+            'attribute' => 'key',
+            'model' => 'App\Models\Classification',
+            'pivot' => true,
+        ]);
+
+        $this->crud->addField([
+            'name' => 'is_culture_skill',
+            'label' => 'This is a culture skill',
+            'type' => 'checkbox'
+        ]);
+
+        $this->crud->addField([
+            'name' => 'is_future_skill',
+            'label' => 'This is a future skill',
+            'type' => 'checkbox'
+        ]);
+
+        // Add select2_multiple filter for classifications.
+        $this->crud->addFilter([
+            'name' => 'classifications',
+            'type' => 'select2_multiple',
+            'label' => 'Filter by classification'
+        ], function () {
+            // The options that show up in the select2.
+            return Classification::all()->pluck('key', 'id')->toArray();
+        }, function ($values) {
+            // If the filter is active.
+            foreach (json_decode($values) as $key => $value) {
+                $this->crud->query = $this->crud->query->whereHas('classifications', function ($query) use ($value) {
+                    $query->where('id', $value);
+                });
+            }
+        });
     }
 
     /**
      * Action for creating a new Skill in the database.
      *
-     * @param SkillCrudRequest $request Incoming form request.
+     * @param \App\Http\Requests\SkillCrudRequest $request Incoming form request.
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -102,7 +176,7 @@ class SkillCrudController extends CrudController
     /**
      * Action for creating a new Skill in the database.
      *
-     * @param SkillCrudRequest $request Incoming form request.
+     * @param \App\Http\Requests\SkillCrudRequest $request Incoming form request.
      *
      * @return \Illuminate\Http\RedirectResponse
      */

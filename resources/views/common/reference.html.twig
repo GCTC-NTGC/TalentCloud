@@ -39,14 +39,14 @@
 
             {% else %}
 
-                <div
+                <span
                     class="accordion-status">
 
                     <i class="fas fa-check"></i>
 
                     <i class="fas fa-exclamation-circle"></i>
 
-                </div>
+                </span>
 
             {% endif %}
 
@@ -128,7 +128,7 @@
                                         {% if template %}disabled{% endif %}
                                         name="relationship_id"
                                         required>
-                                        <option value="" disabled selected>{{ reference_template.relationship_default_option }}</option>
+                                        <option value="" disabled {% if reference.relationship_id == relationship.id %}selected{% endif %}>{{ reference_template.relationship_default_option }}</option>
                                         {% for relationship in relationships %}
                                             <option
                                                 value="{{ relationship.id }}"

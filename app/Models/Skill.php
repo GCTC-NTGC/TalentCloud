@@ -17,9 +17,14 @@ use \Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
  * @property string $name
  * @property string $description
  * @property int $skill_type_id
+ * @property boolean $is_culture_skill
+ * @property boolean $is_future_skill
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Lookup\SkillType $skill_type
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
+ * @property \Illuminate\Database\Eloquent\Collection $classifications
  */
 class Skill extends BaseModel
 {
@@ -30,7 +35,9 @@ class Skill extends BaseModel
      * @var $casts string[]
      * */
     protected $casts = [
-        'skill_type_id' => 'int'
+        'skill_type_id' => 'int',
+        'is_culture_skill' => 'boolean',
+        'is_future_skill' => 'boolean',
     ];
     /**
      * @var $fillable string[]
@@ -38,7 +45,10 @@ class Skill extends BaseModel
     protected $fillable = [
         'name',
         'description',
-        'skill_type_id'
+        'skill_type_id',
+        'is_culture_skill',
+        'is_future_skill',
+        'classifications'
     ];
     /**
      * @var $translatable string[]
@@ -56,6 +66,11 @@ class Skill extends BaseModel
     public function skill_declarations() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\SkillDeclaration::class);
+    }
+
+    public function classifications() // phpcs:ignore
+    {
+        return $this->belongsToMany(\App\Models\Classification::class)->withTimestamps();
     }
 
     /**

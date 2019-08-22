@@ -38,22 +38,22 @@ use App\CRUD\TalentCloudCrudTrait as CrudTrait;
  * @property \App\Models\UserRole $user_role
  */
 class User extends BaseModel implements
-    // Laravel contracts for native login
+    // Laravel contracts for native login.
     AuthenticatableContract,
     CanResetPasswordContract,
-    // Contract for use with Gates and Policies
+    // Contract for use with Gates and Policies.
     AuthorizableContract
-    // Custom contract for use with openid login
-    // \App\Services\Auth\Contracts\OidcAuthenticatable
+    // Custom contract for use with openid login.
+    // \App\Services\Auth\Contracts\OidcAuthenticatable.
 {
 
-    //Traits for Laravel basic authentication
+    // Traits for Laravel basic authentication.
     use Authenticatable, CanResetPassword;
-    // Trait for working with Gates and Policies
+    // Trait for working with Gates and Policies.
     use Authorizable;
-    // Trait for notifications
+    // Trait for notifications.
     use Notifiable;
-    // Trait for Backpack
+    // Trait for Backpack.
     use CrudTrait;
 
     protected $casts = [
@@ -62,10 +62,13 @@ class User extends BaseModel implements
         'user_role_id' => 'int',
         'email' => 'string',
     ];
+
     protected $fillable = [
         'name', 'email', 'password', 'is_priority'
     ];
+
     protected $with = ['user_role'];
+
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -80,23 +83,27 @@ class User extends BaseModel implements
         'updated' => UserUpdated::class,
     ];
 
-    public function applicant() {
+    public function applicant() //phpcs:ignore
+    {
         return $this->hasOne(\App\Models\Applicant::class);
     }
 
-    public function manager() {
+    public function manager() //phpcs:ignore
+    {
         return $this->hasOne(\App\Models\Manager::class);
     }
 
-    public function profile_pic() {
+    public function profile_pic() //phpcs:ignore
+    {
         return $this->hasOne(\App\Models\ProfilePic::class);
     }
 
-    public function user_role() {
+    public function user_role() //phpcs:ignore
+    {
         return $this->belongsTo(\App\Models\UserRole::class);
     }
 
-    //Role related functions
+    // Role related functions
 
     /**
     * Abort with an HTTP error if user doesn't have correct roles
@@ -104,11 +111,11 @@ class User extends BaseModel implements
     */
     public function authorizeRoles($roles)
     {
-      if (is_array($roles)) {
-          return $this->hasAnyRole($roles) ||
+        if (is_array($roles)) {
+            return $this->hasAnyRole($roles) ||
                  abort(401, 'This action is unauthorized.');
-      }
-      return $this->hasRole($roles) ||
+        }
+        return $this->hasRole($roles) ||
              abort(401, 'This action is unauthorized.');
     }
 
@@ -119,7 +126,7 @@ class User extends BaseModel implements
     public function hasAnyRole($roles)
     {
         return in_array($this->user_role->name, $roles);
-        //return null !== $this->roles()->whereIn(‘name’, $roles)->first();
+        // return null !== $this->roles()->whereIn(‘name’, $roles)->first();
     }
 
     /**
@@ -129,7 +136,7 @@ class User extends BaseModel implements
     public function hasRole($role)
     {
         return $this->user_role->name == $role;
-        //return null !== $this->roles()->where(‘name’, $role)->first();
+        // return null !== $this->roles()->where(‘name’, $role)->first();
     }
 
     /**

@@ -15,39 +15,55 @@ namespace App\Models;
  * @property string $locale
  * @property string $city
  * @property string $title
- * @property string $impact
+ * @property string $dept_impact
+ * @property string $team_impact
+ * @property string $hire_impact
  * @property string $branch
  * @property string $division
  * @property string $education
+ * @property string $work_env_description
+ * @property string $culture_summary
+ * @property string $culture_special
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\JobPoster $job_poster
  */
-class JobPosterTranslation extends BaseModel {
+class JobPosterTranslation extends BaseModel
+{
 
     protected $casts = [
         'job_poster_id' => 'int',
         'locale' => 'string',
         'city' => 'string',
         'title' => 'string',
-        'impact' => 'string',
+        'dept_impact' => 'string',
+        'team_impact' => 'string',
+        'hire_impact' => 'string',
         'branch' => 'string',
         'division' => 'string',
         'education' => 'string',
+        'work_env_description' => 'string',
+        'culture_summary' => 'string',
+        'culture_special' => 'string',
     ];
     protected $fillable = [
         'locale',
         'city',
         'title',
-        'impact',
+        'dept_impact',
+        'team_impact',
+        'hire_impact',
         'branch',
         'division',
-        'education'
+        'education',
+        'work_env_description',
+        'culture_summary',
+        'culture_special',
     ];
 
-    public function job_poster() {
+    public function job_poster()
+    {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
-
 }

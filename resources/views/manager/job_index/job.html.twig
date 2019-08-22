@@ -17,23 +17,23 @@
         <div class="box med-4of12">
 
             {% if job.status() == 'draft' or job.status() == 'submitted' %}
-            <h4 class="heading--04 poster-title--preview">
+            <h3 class="heading--04 poster-title--preview">
                 <a
                     href="{{ route('manager.jobs.show', job) }}"
                     title="{{jobs_l10n.view_preview_job_poster}}">
                     {{ job.title }} {{ jobs_l10n.preview }}
                 </a>
-            </h4>
+            </h3>
             {% endif %}
 
             {% if job.status() == 'published' or job.status() == 'closed' %}
-            <h4 class="heading--04 poster-title--link">
+            <h3 class="heading--04 poster-title--link">
                 <a
                     href="{{ route('manager.jobs.show', job) }}"
                     title="{{ jobs_l10n.view_this_job_poster }}">
                     {{ job.title }}
                 </a>
-            </h4>
+            </h3>
             {% endif %}
             {% if job.created_at %}<span class="poster-date-time--draft">{{ job.classification }} - {{ jobs_l10n.created_on }} {{ humanizeDate(job.created_at) }}</span>{% endif %}
             {% if job.review_requested_at %}<span class="poster-date-time--submitted">{{ job.classification }} - {{ jobs_l10n.submitted_on }} {{ humanizeDate(job.review_requested_at) }}</span>{% endif %}
@@ -137,7 +137,7 @@
                 data-action="delete"
                 data-locale="{{App.getLocale()}}"
                 data-jobid="{{ job.id }}"
-                href="{{ route('manager.jobs.destroy', job) }}"
+                data-href="{{ route('manager.jobs.destroy', job) }}"
                 title="{{ jobs_l10n.delete_this_poster }}"
                 type="button">
                 <i class="fas fa-trash-alt"></i>

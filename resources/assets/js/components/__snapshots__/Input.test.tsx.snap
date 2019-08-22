@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  data-c-input="text"
+  data-c-invalid={null}
+  data-c-required={null}
+>
+  <label
+    htmlFor="sample-input"
+  >
+    label
+  </label>
+  <span>
+    <span>
+      Required
+    </span>
+  </span>
+  <div>
+    <input
+      id="sample-input"
+      maxLength={30}
+      minLength={0}
+      name="name"
+      onChange={[Function]}
+      placeholder="Write stuff"
+      type="text"
+      value="Hello World"
+    />
+  </div>
+  <span>
+    <span>
+      Something went wrong.
+    </span>
+  </span>
+</div>
+`;

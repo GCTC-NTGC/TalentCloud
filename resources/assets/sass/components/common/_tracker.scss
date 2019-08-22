@@ -1,0 +1,117 @@
+.tracker {
+  .tracker-item {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .fa-exclamation-triangle {
+    margin: -0.05rem 0 0 -0.04rem;
+  }
+}
+.tracker-title {
+  display: flex;
+  flex-direction: column;
+}
+.tracker-item {
+  display: none;
+  @media #{$clone-tablet-landscape} {
+    display: inline-block;
+  }
+  .tracker-icon {
+    border-radius: 100%;
+    display: inline-block;
+    height: 1.5rem;
+    margin: 0 0.5rem 0 0;
+    position: relative;
+    width: 1.5rem;
+    vertical-align: middle;
+    & + div {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    i {
+      font-size: $clone-font-scale-small;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .fa-exclamation-triangle {
+      margin: -0.05rem 0 0 -0.04rem;
+    }
+  }
+}
+[data-tc-tracker-state="null"] {
+  display: none;
+  @media #{$clone-tablet-landscape} {
+    display: inline-block;
+  }
+  .tracker-icon {
+    background: $clone-grey;
+  }
+  .fa-arrow-down {
+    display: none;
+  }
+  .fa-check {
+    display: none;
+  }
+  .fa-exclamation-triangle {
+    display: none;
+  }
+}
+.fa-exclamation-triangle {
+  display: none;
+}
+[data-tc-tracker-state="active"] {
+  display: inline-block;
+  @media #{$clone-tablet-landscape} {
+    display: inline-block;
+  }
+  .tracker-icon {
+    background: $clone-c1;
+  }
+  .fa-arrow-down {
+    display: block;
+  }
+  .fa-check {
+    display: none;
+  }
+  .fa-exclamation-triangle {
+    display: none;
+  }
+}
+[data-tc-tracker-state="complete"] {
+  display: none;
+  @media #{$clone-tablet-landscape} {
+    display: inline-block;
+  }
+  .tracker-icon {
+    background: $clone-go;
+  }
+  .fa-arrow-down {
+    display: none;
+  }
+  .fa-check {
+    display: block;
+  }
+  .fa-exclamation-triangle {
+    display: none;
+  }
+}
+[data-tc-tracker-state="error"] {
+  display: none;
+  @media #{$clone-tablet-landscape} {
+    display: inline-block;
+  }
+  .tracker-icon {
+    background: $clone-stop;
+  }
+  .fa-arrow-down {
+    display: none;
+  }
+  .fa-check {
+    display: none;
+  }
+  .fa-exclamation-triangle {
+    display: block;
+  }
+}

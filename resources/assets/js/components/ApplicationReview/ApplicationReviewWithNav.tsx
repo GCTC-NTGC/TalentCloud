@@ -3,114 +3,114 @@ import {
   injectIntl,
   InjectedIntlProps,
   FormattedMessage,
-  defineMessages
+  defineMessages,
 } from "react-intl";
 import className from "classnames";
 import Swal from "sweetalert2";
 import * as routes from "../../helpers/routes";
 import Select, { SelectOption } from "../Select";
-import { Application } from "../types";
-import { ReviewStatusId } from "../lookupConstants";
+import { Application } from "../../models/types";
+import { ReviewStatusId } from "../../models/lookupConstants";
 
 const messages = defineMessages({
   veteranLogo: {
     id: "veteranStatus.veteranLogoAlt",
-    defaultMessage: "<default/> Talent cloud veteran logo",
-    description: "Alt Text for Veteran Logo Img"
+    defaultMessage: "Talent cloud veteran logo",
+    description: "Alt Text for Veteran Logo Img",
   },
   emailCandidate: {
     id: "apl.emailCandidateLinkTitle",
-    defaultMessage: "<default/> Email this candidate.",
-    description: "Title, hover text, for email link."
+    defaultMessage: "Email this candidate.",
+    description: "Title, hover text, for email link.",
   },
   viewApplicationTitle: {
     id: "apl.viewApplicationLinkTitle",
-    defaultMessage: "<default/> View this applicant's application.",
-    description: "Title, hover text, for View Application Link"
+    defaultMessage: "View this applicant's application.",
+    description: "Title, hover text, for View Application Link",
   },
   viewProfileTitle: {
     id: "apl.viewProfileLinkTitle",
-    defaultMessage: "<default/> View this applicant's profile.",
-    description: "Title, hover text, for View Profile Link"
+    defaultMessage: "View this applicant's profile.",
+    description: "Title, hover text, for View Profile Link",
   },
   decision: {
     id: "apl.decision",
-    defaultMessage: "<default/> Decision",
-    description: "Decision dropdown label"
+    defaultMessage: "Decision",
+    description: "Decision dropdown label",
   },
   notReviewed: {
     id: "reviewStatus.notReviewed",
-    defaultMessage: "<default/> Not Reviewed",
-    description: "Decision dropdown label"
+    defaultMessage: "Not Reviewed",
+    description: "Decision dropdown label",
   },
   saving: {
     id: "button.saving",
-    defaultMessage: "<default/> Saving...",
-    description: "Dynamic Save button label"
+    defaultMessage: "Saving...",
+    description: "Dynamic Save button label",
   },
   save: {
     id: "button.save",
-    defaultMessage: "<default/> Save",
-    description: "Dynamic Save button label"
+    defaultMessage: "Save",
+    description: "Dynamic Save button label",
   },
   saved: {
     id: "button.saved",
-    defaultMessage: "<default/> Saved",
-    description: "Dynamic Save button label"
+    defaultMessage: "Saved",
+    description: "Dynamic Save button label",
   },
   addNote: {
     id: "apl.addNote",
-    defaultMessage: "<default/> + Add a Note",
-    description: "Dynamic Note button label"
+    defaultMessage: "+ Add a Note",
+    description: "Dynamic Note button label",
   },
   editNote: {
     id: "apl.editNote",
-    defaultMessage: "<default/> Edit Note",
-    description: "Dynamic Note button label"
+    defaultMessage: "Edit Note",
+    description: "Dynamic Note button label",
   },
   screenedOut: {
     id: "reviewStatus.screenedOut",
-    defaultMessage: "<default/> Screened Out",
-    description: "Dynamic Note button label"
+    defaultMessage: "Screened Out",
+    description: "Dynamic Note button label",
   },
   cancelButton: {
     id: "button.cancel",
-    defaultMessage: "<default/> Cancel",
-    description: "Cancel button label"
+    defaultMessage: "Cancel",
+    description: "Cancel button label",
   },
   stillThinking: {
     id: "reviewStatus.stillThinking",
-    defaultMessage: "<default/> Still Thinking",
-    description: "Dynamic Note button label"
+    defaultMessage: "Still Thinking",
+    description: "Dynamic Note button label",
   },
   stillIn: {
     id: "reviewStatus.stillIn",
-    defaultMessage: "<default/> Still In",
-    description: "Dynamic Note button label"
+    defaultMessage: "Still In",
+    description: "Dynamic Note button label",
   },
   confirmButton: {
     id: "button.confirm",
-    defaultMessage: "<default/> Confirm",
-    description: "Confirm button for modal dialogue boxes"
+    defaultMessage: "Confirm",
+    description: "Confirm button for modal dialogue boxes",
   },
   screenOutConfirm: {
     id: "apl.screenOutConfirm",
-    defaultMessage: "<default/> Screen out the candidate?",
-    description: "Are you sure you want to screen out the candidate warning"
+    defaultMessage: "Screen out the candidate?",
+    description: "Are you sure you want to screen out the candidate warning",
   },
   screenInConfirm: {
     id: "apl.screenInConfirm",
-    defaultMessage: "<default/> Screen the candidate back in?",
-    description: "Are you sure you want to screen in the candidate warning"
-  }
+    defaultMessage: "Screen the candidate back in?",
+    description: "Are you sure you want to screen in the candidate warning",
+  },
 });
 
 interface ApplicationReviewWithNavProps {
   application: Application;
-  reviewStatusOptions: SelectOption<number>[];
+  reviewStatusOptions: SelectOption[];
   onStatusChange: (
     applicationId: number,
-    statusId: number | null
+    statusId: number | null,
   ) => Promise<void>;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   isSaving: boolean;
@@ -131,7 +131,7 @@ class ApplicationReviewWithNav extends React.Component<
         props.application.application_review &&
         props.application.application_review.review_status_id
           ? props.application.application_review.review_status_id
-          : undefined
+          : undefined,
     };
     this.handleStatusChange = this.handleStatusChange.bind(this);
     this.handleSaveClicked = this.handleSaveClicked.bind(this);
@@ -169,7 +169,7 @@ class ApplicationReviewWithNav extends React.Component<
 
     const sectionChange = (
       oldStatus: number | null,
-      newStatus: number | null
+      newStatus: number | null,
     ): boolean => {
       const oldIsScreenedOut: boolean =
         oldStatus === ReviewStatusId.ScreenedOut;
@@ -192,7 +192,7 @@ class ApplicationReviewWithNav extends React.Component<
         confirmButtonColor: "#0A6CBC",
         cancelButtonColor: "#F94D4D",
         confirmButtonText: intl.formatMessage(messages.confirmButton),
-        cancelButtonText: intl.formatMessage(messages.cancelButton)
+        cancelButtonText: intl.formatMessage(messages.cancelButton),
       }).then(result => {
         if (result.value) {
           return onStatusChange(application.id, status);
@@ -218,7 +218,7 @@ class ApplicationReviewWithNav extends React.Component<
       cancelButtonColor: "#F94D4D",
       cancelButtonText: intl.formatMessage(messages.cancelButton),
       confirmButtonText: intl.formatMessage(messages.save),
-      inputValue: notes
+      inputValue: notes,
     }).then(result => {
       if (result && result.value !== undefined) {
         const value = result.value ? result.value : null;
@@ -242,7 +242,7 @@ class ApplicationReviewWithNav extends React.Component<
   }
 
   protected handleStatusChange(
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ): void {
     const value =
       event.target.value && !Number.isNaN(Number(event.target.value))
@@ -255,7 +255,7 @@ class ApplicationReviewWithNav extends React.Component<
     const { application, reviewStatusOptions, isSaving, intl } = this.props;
     const l10nReviewStatusOptions = reviewStatusOptions.map(status => ({
       value: status.value,
-      label: intl.formatMessage(messages[status.label])
+      label: intl.formatMessage(messages[status.label]),
     }));
     const { selectedStatusId } = this.state;
     const reviewStatus =
@@ -267,7 +267,7 @@ class ApplicationReviewWithNav extends React.Component<
       "fa-ban": reviewStatus === "screened_out",
       "fa-question-circle": reviewStatus === "still_thinking",
       "fa-check-circle": reviewStatus === "still_in",
-      "fa-exclamation-circle": reviewStatus === null
+      "fa-exclamation-circle": reviewStatus === null,
     });
 
     const getSaveButtonText = (): string => {
@@ -296,14 +296,14 @@ class ApplicationReviewWithNav extends React.Component<
                   this.handleLinkClicked(
                     routes.managerJobApplications(
                       intl.locale,
-                      application.job_poster_id
-                    )
+                      application.job_poster_id,
+                    ),
                   )
                 }
               >
                 <FormattedMessage
                   id="apl.backToApplicantList"
-                  defaultMessage="<default/> < Save and Go Back to Applicant List"
+                  defaultMessage="< Save and Go Back to Applicant List"
                   description="Back Button text"
                 />
               </button>
@@ -316,14 +316,14 @@ class ApplicationReviewWithNav extends React.Component<
                   this.handleLinkClicked(
                     routes.managerJobShow(
                       intl.locale,
-                      application.job_poster_id
-                    )
+                      application.job_poster_id,
+                    ),
                   )
                 }
               >
                 <FormattedMessage
                   id="button.viewJobPoster"
-                  defaultMessage="<default/> View Job Poster"
+                  defaultMessage="View Job Poster"
                   description="View Job Poster Button text"
                 />
               </button>
@@ -331,12 +331,13 @@ class ApplicationReviewWithNav extends React.Component<
                 className="button--blue light-bg"
                 data-button-type="expand-all"
                 type="button"
+                id="expand-all"
               >
                 <span className="expand">
                   {" "}
                   <FormattedMessage
                     id="apl.expandAllSkills"
-                    defaultMessage="<default/> Expand All Skills"
+                    defaultMessage="Expand All Skills"
                     description="Expand All Skills Button text"
                   />
                 </span>
@@ -344,7 +345,7 @@ class ApplicationReviewWithNav extends React.Component<
                   {" "}
                   <FormattedMessage
                     id="apl.collapseAllSkills"
-                    defaultMessage="<default/> Collapse All Skills"
+                    defaultMessage="Collapse All Skills"
                     description="Collapse All Skills Button text"
                   />
                 </span>
@@ -377,7 +378,7 @@ class ApplicationReviewWithNav extends React.Component<
                   />{" "}
                   <FormattedMessage
                     id="veteranStatus.veteran"
-                    defaultMessage="<default/> Veteran"
+                    defaultMessage="Veteran"
                     description="Veteran"
                   />
                 </span>
@@ -389,13 +390,13 @@ class ApplicationReviewWithNav extends React.Component<
                 title={intl.formatMessage(messages.viewApplicationTitle)}
                 href={routes.managerApplicationShow(
                   intl.locale,
-                  application.id
+                  application.id,
                 )}
               >
                 <i className="fas fa-file-alt" />
                 <FormattedMessage
                   id="apl.viewApplication"
-                  defaultMessage="<default/> View Application"
+                  defaultMessage="View Application"
                   description="Button text View Application"
                 />
               </a>
@@ -403,24 +404,25 @@ class ApplicationReviewWithNav extends React.Component<
                 title={intl.formatMessage(messages.viewProfileTitle)}
                 href={routes.managerApplicantShow(
                   intl.locale,
-                  application.applicant_id
+                  application.applicant_id,
                 )}
               >
                 <i className="fas fa-user" />
                 <FormattedMessage
                   id="apl.viewProfile"
-                  defaultMessage="<default/> View Profile"
+                  defaultMessage="View Profile"
                   description="Button text View Profile"
                 />
               </a>
             </div>
 
-            <div className="box lg-2of11 applicant-decision">
+            <div className="box lg-2of11 applicant-decision" data-clone>
               <Select
-                formName="review_status"
-                htmlId={`review_status_${application.id}`}
+                id={`review_status_${application.id}`}
+                name="review_status"
                 label={intl.formatMessage(messages.decision)}
-                selected={selectedStatusId}
+                required={false}
+                selected={selectedStatusId || null}
                 nullSelection={intl.formatMessage(messages.notReviewed)}
                 options={l10nReviewStatusOptions}
                 onChange={this.handleStatusChange}

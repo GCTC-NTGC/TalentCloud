@@ -20,7 +20,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4>{{form_l10n.job_details}}</h4>
+        <h2>{{form_l10n.job_details}}</h2>
 
         {# Job Title #}
 
@@ -547,7 +547,7 @@
                                         <option
                                             value="{{ department.id }}"
                                             {% if (template_department_id != null and template_department_id == department.id) %}selected="selected"{% endif %}>
-                                            {{ department.value }}
+                                            {{ department.name }}
                                         </option>
                                     {% endfor %}
                                 </select>
@@ -578,8 +578,7 @@
                                 type="text"
                                 name="branch[en]"
                                 {# Default value comes from job, if set. Otherwise, comes from manager #}
-                                value="{{ template_en_branch ? template_en_branch : '' }}">
-                            </input>
+                                value="{{ template_en_branch ? template_en_branch : '' }}" />
                         </div>
 
                     </div>
@@ -605,8 +604,7 @@
                                 type="text"
                                 name="branch[fr]"
                                 {# Default value comes from job, if set. Otherwise, comes from manager #}
-                                value="{{ template_fr_branch ? template_fr_branch : '' }}">
-                            </input>
+                                value="{{ template_fr_branch ? template_fr_branch : '' }}" />
                         </div>
 
                     </div>
@@ -633,8 +631,7 @@
                                 type="text"
                                 name="division[en]"
                                 {# Default value comes from job, if set. Otherwise, comes from manager #}
-                                value="{{ template_en_division ? template_en_division : '' }}">
-                            </input>
+                                value="{{ template_en_division ? template_en_division : '' }}" />
                         </div>
 
                     </div>
@@ -661,8 +658,7 @@
                                 type="text"
                                 name="division[fr]"
                                 {# Default value comes from job, if set. Otherwise, comes from manager #}
-                                value="{{ template_fr_division ? template_fr_division : '' }}">
-                            </input>
+                                value="{{ template_fr_division ? template_fr_division : '' }}" />
                         </div>
 
                     </div>
@@ -688,7 +684,7 @@
                         class="box med-1of2">
 
                         <div class="form__input-wrapper--float
-                            {% if job.translate('en').impact != null %}active{% endif %}">
+                            {% if job.translate('en').hire_impact != null %}active{% endif %}">
                             <label
                                 class="form__label"
                                 for="createJobImpactEN">
@@ -698,7 +694,7 @@
                                 {# required #}
                                 class="form__textarea"
                                 id="createJobImpactEN"
-                                name="impact[en]">{{ job.translate('en').impact }}</textarea>
+                                name="impact[en]">{{ job.translate('en').hire_impact }}</textarea>
                         </div>
 
                     </div>
@@ -707,7 +703,7 @@
                         class="box med-1of2">
 
                         <div class="form__input-wrapper--float
-                            {% if job.translate('fr').impact != null %}active{% endif %}">
+                            {% if job.translate('fr').hire_impact != null %}active{% endif %}">
                             <label class="form__label" for="createJobImpactFR">
                                  {{form_l10n.impact_french}}
                             </label>
@@ -715,7 +711,7 @@
                                 {# required #}
                                 class="form__textarea"
                                 id="createJobImpactFR"
-                                name="impact[fr]">{{ job.translate('fr').impact }}</textarea>
+                                name="impact[fr]">{{ job.translate('fr').hire_impact }}</textarea>
                         </div>
 
                     </div>
@@ -734,7 +730,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4> {{form_l10n.key_tasks}}</h4>
+        <h2> {{form_l10n.key_tasks}}</h2>
 
         {# Task List #}
 
@@ -779,7 +775,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4>{{form_l10n.skills_n_competencies}}</h4>
+        <h2>{{form_l10n.skills_n_competencies}}</h2>
 
         {# Education #}
 
@@ -856,7 +852,7 @@
 
                 {% set skillLevel = attribute(skill_levels, skillTypeKey) %}
 
-                <h5>{{ form_l10n.criteria_heading | replace({":criteria_type":criteriaKey|title}) | replace({":skill_type":skillTypeKey|title}) }}</h5>
+                <h3>{{ form_l10n.criteria_heading | replace({":criteria_type":criteriaKey|title}) | replace({":skill_type":skillTypeKey|title}) }}</h3>
 
                 <div
                     class="manager-jobs__skill-wrapper">
@@ -915,7 +911,7 @@
     <div
         class="manager-jobs__create-form-section">
 
-        <h4>{{form_l10n.questions_for_applicant}}</h4>
+        <h2>{{form_l10n.questions_for_applicant}}</h2>
 
         {# Question List #}
 

@@ -16,9 +16,9 @@
         </div> #}
 
         {% if application_step == "3" %}
-            <h3>
+            <h2>
                 {{ application_template.essential_title }}
-            </h3>
+            </h2>
             <p class="bold">{{ application_template.essential_subtitle }}</p>
 
             <ul>
@@ -33,9 +33,9 @@
             </ul>
 
         {% elseif application_step == "4" %}
-            <h3>
+            <h2>
                 {{ application_template.asset_title }}
-            </h3>
+            </h2>
             <p>
                 {{ application_template.asset_context }}
             </p>
@@ -79,7 +79,7 @@
                                         <div
                                             class="box med-1of2">
 
-                                                <h3>{{ application_template.skills_section.asset_title }}</h3>
+                                                <h2>{{ application_template.skills_section.asset_title }}</h2>
 
                                         </div>
 
@@ -126,7 +126,7 @@
 
                                                     <a
                                                         class="application-post__anchor"
-                                                        id="skill{{ criterion.skill.name }}"></a>
+                                                        id="skill{{ criterion.skill.id }}"></a>
 
                                                     {% include "common/skill" %}
 
@@ -160,7 +160,7 @@
 
                                                     <a
                                                         class="application-post__anchor"
-                                                        id="skill{{ criterion.skill.name }}"></a>
+                                                        id="skill{{ criterion.skill.id }}"></a>
 
                                                     {% include "common/skill" %}
 

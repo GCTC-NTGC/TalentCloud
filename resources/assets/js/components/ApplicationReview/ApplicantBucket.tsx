@@ -1,19 +1,19 @@
 import React from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
-import { Application } from "../types";
+import { Application } from "../../models/types";
 import { SelectOption } from "../Select";
 import ApplicationReview from "./ApplicationReview";
 import { whereFirst } from "../../helpers/queries";
 import {
   applicationCompare,
-  applicationComparePrioritizeVeterans
+  applicationComparePrioritizeVeterans,
 } from "./helpers";
 
 interface ApplicantBucketProps {
   title: FormattedMessage.MessageDescriptor;
   description: FormattedMessage.MessageDescriptor;
   applications: Application[];
-  reviewStatusOptions: SelectOption<number>[];
+  reviewStatusOptions: SelectOption[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   savingStatuses: { applicationId: number; isSaving: boolean }[];
@@ -31,7 +31,7 @@ const ApplicantBucket: React.StatelessComponent<
   onNotesChange,
   savingStatuses,
   prioritizeVeterans,
-  intl
+  intl,
 }: ApplicantBucketProps & InjectedIntlProps): React.ReactElement | null => {
   if (applications.length === 0) {
     return null;
@@ -56,7 +56,7 @@ const ApplicantBucket: React.StatelessComponent<
         <span className="invisible">
           <FormattedMessage
             id="button.toggleAccordion"
-            defaultMessage="<default/> Toggle this step to view relevant applicants."
+            defaultMessage="Toggle this step to view relevant applicants."
             description="Instructions to reveal hidden list data."
           />
         </span>
@@ -68,19 +68,21 @@ const ApplicantBucket: React.StatelessComponent<
       <div aria-hidden="true" className="accordion-content">
         <p>{intl.formatMessage(description)}</p>
 
-        {sortedApplications.map(application => (
-          <ApplicationReview
-            key={application.id}
-            application={application}
-            reviewStatusOptions={reviewStatusOptions}
-            onStatusChange={onStatusChange}
-            onNotesChange={onNotesChange}
-            isSaving={
-              whereFirst(savingStatuses, "applicationId", application.id)
-                .isSaving
-            }
-          />
-        ))}
+        {sortedApplications.map(
+          (application: Application): React.ReactElement => (
+            <ApplicationReview
+              key={application.id}
+              application={application}
+              reviewStatusOptions={reviewStatusOptions}
+              onStatusChange={onStatusChange}
+              onNotesChange={onNotesChange}
+              isSaving={
+                whereFirst(savingStatuses, "applicationId", application.id)
+                  .isSaving
+              }
+            />
+          ),
+        )}
       </div>
     </div>
   );
