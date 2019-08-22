@@ -160,7 +160,7 @@
                     data-c-dialog-action="open"
                     data-c-margin="top(double)"
                     type="button">
-                    View the team's work environment and culture.
+                    {{ job_post.work_environment.view_more_button}}
                 </button>
                 <div data-c-dialog-overlay></div>
                 <div
@@ -212,10 +212,6 @@
                                                 <p>{{ job.work_env_description }}</p>
                                             </div>
                                         <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="top(double) bottom(normal)" data-c-padding="bottom(normal)">{{ job_post.culture.team_culture_label }}</h4>
-                                        <div data-c-grid-item="base(1of1)">
-                                            <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">Team Size</span>
-                                            <p>10</p>
-                                        </div>
                                         <div data-c-margin="top(normal)">
                                             <div data-c-grid="gutter">
                                                 <div class="job-post__culture-wrapper" data-c-grid-item="base(1of3)">

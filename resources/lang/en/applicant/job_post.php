@@ -101,6 +101,8 @@ return [
         'team_work_label' => 'How We Work',
     ],
     'work_environment' => [
+        'view_more_button' => 'View the team’s work environment and culture',
+        'modal_title' => 'Work Environement and Culture',
         'remote_work_label' => 'Remote Work',
         'remote_work_desc' => 'Work from anywhere, all the time.',
         'remote_work_allowed' => [

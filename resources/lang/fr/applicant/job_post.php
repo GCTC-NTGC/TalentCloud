@@ -101,6 +101,8 @@ return [
         'team_work_label' => 'Notre mode de fonctionnement'
     ],
     'work_environment' => [
+        'view_more_button' => 'Voir l’environnement de travail et la culture de l’équipe',
+        'modal_title' => '', // TODO: needs translation
         'remote_work_label' => 'Travail à distance :',
         'remote_work_desc' => 'Travaillez n’importe où, en tout temps.',
         'remote_work_allowed' => [
@@ -128,17 +130,18 @@ return [
         'travel_label' => 'Voyage',
         'travel_desc' => 'Voir plus du Canada ou du monde.',
         'travel' => [
-            'frequently' => 'Frequently',
-            'available' => 'Opportunities available',
-            'none' => 'None',
+            'frequently' => '', // TODO: needs translation
+            'available' => '', // TODO: needs translation
+            'none' => '', // TODO: needs translation
         ],
         'overtime_label' => 'Heures supplémentaires',
         'overtime_desc' => 'Faites des heures supplémentaires les soirs et les fins de semaine.',
         'overtime' => [
-            'frequently' => 'Frequently',
-            'available' => 'Opportunities available',
-            'none' => 'None',
+            'frequently' => '', // TODO: needs translation
+            'available' => '', // TODO: needs translation
+            'none' => '', // TODO: needs translation
         ],
+
     ],
     'know' => [
         'sidebar_title' => 'Voir les informations supplémentaires pour cet emploi.',
