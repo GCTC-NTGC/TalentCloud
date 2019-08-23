@@ -82,10 +82,7 @@ class JobPolicy extends BasePolicy
     public function submitForReview(User $user, JobPoster $jobPoster)
     {
         // Only upgradedManagers can submit jobs for review, only their own jobs, and only if they're still drafts.
-        // NOTE: this is one of the only permissions to require an upgradedManager, as opposed to a demoManager.
-        var_dump($user->isUpgradedManager());
-        var_dump($jobPoster->manager->user->id == $user->id);
-        var_dump($jobPoster->status() === 'draft');
+        // NOTE: this is one of the only permissions to require an upgradedManager, as opposed to a demoManager.var
         return $user->isUpgradedManager() &&
             $jobPoster->manager->user->id == $user->id &&
             $jobPoster->status() === 'draft';
