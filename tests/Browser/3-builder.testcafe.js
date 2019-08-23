@@ -154,25 +154,25 @@ test("Job Poster Builder - New Job", async t => {
     .click(Selector("button").withText("Next Step"))
     // Key Tasks page.
     .expect(Selector("h3").withText("Add Key Tasks").visible)
-    .ok();
-    /*
+    .ok()
+    .click(Selector("button").withText("Add a Task"))
     .typeText(
-      Selector("textarea").withAttribute("id", "task-91"),
+      Selector("textarea").withAttribute("name", "tasks.0.description"),
         "Chopping",
     )
     .click(Selector("button").withText("Add a Task"))
     .typeText(
-      Selector("textarea").withAttribute("id", "task-92"),
+      Selector("textarea").withAttribute("name", "tasks.1.description"),
         "Grilling",
     )
     .click(Selector("button").withText("Add a Task"))
     .typeText(
-      Selector("textarea").withAttribute("id", "task-93"),
+      Selector("textarea").withAttribute("name", "tasks.2.description"),
         "Seasoning",
     )
     .click(Selector("button").withText("Add a Task"))
     .typeText(
-      Selector("textarea").withAttribute("id", "task-94"),
+      Selector("textarea").withAttribute("name", "tasks.3.description"),
         "Disco dancing",
     )
     .click(Selector("button").withText("Save & Preview Tasks"))
@@ -182,6 +182,9 @@ test("Job Poster Builder - New Job", async t => {
     .expect(Selector("li").withText("Chopping"))
     .ok()
     .expect(Selector("li").withText("Grilling"))
+    .ok()
+    .expect(Selector("li").withText("Seasoning"))
+    .ok()
+    .expect(Selector("li").withText("Disco dancing"))
     .ok();
-    */
 });
