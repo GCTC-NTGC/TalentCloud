@@ -296,17 +296,23 @@ test("Job Poster Builder - New Job", async t => {
     .expect(Selector("h3").withText("Skills").visible)
     .ok()
     .click(Selector("button").withText("Save & Preview Skills"))
+    // Skills review.
     .expect(Selector("h5").withText("Keep it up!").visible)
     .ok()
     .expect(Selector("p").withText("Front-end development"))
     .ok()
+    .wait(2222)
     .click(Selector("button").withText("Next Step"))
+    // Review page.
     .expect(Selector("p").withText("Design Manager").visible)
     .ok()
+    .wait(2222)
     .click(Selector("button").withText("Send to HR for Review"))
+    // Review confirmation.
     .expect(Selector("h5").withText("Congrats! Are You Ready to Submit?"))
     .ok()
     .click(Selector("button").withText("Yes, Submit"))
+    .wait(2222)
     .expect(Selector("h1").withText("My Job Posters").visible)
     .ok();
 });
