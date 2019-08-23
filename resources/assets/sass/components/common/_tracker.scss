@@ -1,8 +1,4 @@
 .tracker {
-  .tracker-item {
-    display: inline-block;
-    vertical-align: middle;
-  }
   .fa-exclamation-triangle {
     margin: -0.05rem 0 0 -0.04rem;
   }
@@ -12,10 +8,7 @@
   flex-direction: column;
 }
 .tracker-item {
-  display: none;
-  @media #{$clone-tablet-landscape} {
-    display: inline-block;
-  }
+
   .tracker-icon {
     border-radius: 100%;
     display: inline-block;
@@ -38,8 +31,34 @@
     .fa-exclamation-triangle {
       margin: -0.05rem 0 0 -0.04rem;
     }
+
+    @keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+      }
+    }
+
+    .spinner-loader {
+      border-radius: 50%;
+      background-color: $clone-c5;
+      height: 1.5rem;
+      border: 0.25rem solid rgba(0, 0, 0, 0.2);
+      border-top-color: black;
+      -webkit-animation: spin 1s infinite linear;
+              animation: spin 1s infinite linear;
+    }
   }
 }
+
+[data-tc-tracker-state="loading"] {
+  display: none;
+}
+
 [data-tc-tracker-state="null"] {
   display: none;
   @media #{$clone-tablet-landscape} {
@@ -58,9 +77,7 @@
     display: none;
   }
 }
-.fa-exclamation-triangle {
-  display: none;
-}
+
 [data-tc-tracker-state="active"] {
   display: inline-block;
   @media #{$clone-tablet-landscape} {

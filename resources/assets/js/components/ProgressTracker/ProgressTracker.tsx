@@ -10,6 +10,7 @@ export interface ProgressTrackerProps {
   fontColor?: string;
   classNames?: string;
   itemsWrapperClassNames?: string;
+  dataIsLoading?: boolean;
 }
 
 const ProgressTracker: React.FunctionComponent<ProgressTrackerProps> = ({
@@ -20,6 +21,7 @@ const ProgressTracker: React.FunctionComponent<ProgressTrackerProps> = ({
   fontColor,
   classNames,
   itemsWrapperClassNames,
+  dataIsLoading,
 }): React.ReactElement => {
   return (
     <div
@@ -44,6 +46,7 @@ const ProgressTracker: React.FunctionComponent<ProgressTrackerProps> = ({
                     label={label}
                     title={title}
                     fontColor={fontColor}
+                    dataIsLoading={dataIsLoading}
                   />
                 );
               },

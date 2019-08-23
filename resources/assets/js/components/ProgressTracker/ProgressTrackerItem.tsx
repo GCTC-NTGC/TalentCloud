@@ -5,10 +5,11 @@ interface ProgressTrackerItemProps {
   label: string;
   title: string;
   fontColor?: string;
+  dataIsLoading?: boolean;
 }
 const ProgressTrackerItem: React.FunctionComponent<
   ProgressTrackerItemProps
-> = ({ label, title, state, fontColor }): React.ReactElement => {
+> = ({ label, title, state, fontColor, dataIsLoading }): React.ReactElement => {
   return (
     <div
       className="tracker-item"
@@ -17,13 +18,20 @@ const ProgressTrackerItem: React.FunctionComponent<
       data-c-margin="top(half) right(normal) bottom(half) left(normal)"
       data-c-color={fontColor}
     >
-      <div className="tracker-icon">
-        {state === "active" && <i className="fas fa-arrow-down" />}
-        {state === "complete" && <i className="fas fa-check" />}
-        {state === "error" && <i className="fas fa-exclamation-triangle" />}
-      </div>
+      {!dataIsLoading ? (
+        <div className="tracker-icon">
+          {state === "active" && <i className="fas fa-arrow-down" />}
+          {state === "complete" && <i className="fas fa-check" />}
+          {state === "error" && <i className="fas fa-exclamation-triangle" />}
+        </div>
+      ) : (
+        <div className="tracker-icon">
+          <div className="spinner-loader" />
+        </div>
+      )}
       <div>
-        <span data-c-font-size="small">{label}</span><br></br>
+        <span data-c-font-size="small">{label}</span>
+        <br />
         <span data-c-font-weight="bold">{title}</span>
       </div>
     </div>
