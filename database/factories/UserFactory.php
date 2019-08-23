@@ -31,18 +31,18 @@ $factory->define(User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail(),
         'password' => $password ? : $password = Hash::make('password'),
         'is_confirmed' => 1,
-        'user_role_id' => UserRole::where('name', 'applicant')->first()->id, // Users should default to applicant role.
+        'user_role_id' => UserRole::where('name', 'basic')->first()->id, // Users should default to basic user role.
         'remember_token' => str_random(10),
         'is_priority' => $faker->boolean(10), // 10% chance of true
     ];
 });
 
 $factory->state(User::class, 'upgradedManager', [
-    'user_role_id' => UserRole::where('name', 'manager')->first()->id
+    'user_role_id' => UserRole::where('name', 'upgradedManager')->first()->id
 ]);
 
 $factory->state(User::class, 'applicant', [
-    'user_role_id' => UserRole::where('name', 'applicant')->first()->id
+    'user_role_id' => UserRole::where('name', 'basic')->first()->id
 ]);
 
 $factory->state(User::class, 'admin', [
