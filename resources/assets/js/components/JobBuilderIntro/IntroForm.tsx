@@ -322,6 +322,7 @@ const IntroForm: React.FunctionComponent<
                 form="form"
                 data-c-button="solid(c1)"
                 data-c-radius="rounded"
+                data-c-margin="right(normal) bottom(normal)"
                 type="button"
                 disabled={isSubmitting}
                 onClick={(): void => {
