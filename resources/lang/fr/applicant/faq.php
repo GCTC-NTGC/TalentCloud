@@ -45,27 +45,6 @@ return [
                     '00' => "En tout temps, le Nuage de talents devrait publier de deux à trois postes. Il est également possible que le site doive fermer le lundi matin de temps à autre. Nous sommes une petite équipe qui travaille à un budget restreint sur une idée hautement expérimentale. La publication de quelques emplois à la fois est donc la meilleure façon pour nous de recueillir des données de qualité pour savoir si la plateforme fonctionne comme il se doit, tout en offrant ce que nous espérons être une expérience de qualité aux candidats, aux gestionnaires d'embauche et aux conseillers ministériels en RH."
                 ]
             ],
-            '04' => [
-                'title' => 'Quels ministères participent à ce modèle de dotation expérimental?',
-                'copy' => [
-                    '00' => "Le Nuage de talents est financé par des protocoles d'entente (PE) avec les ministères partenaires. Il ne s'agit pas de frais de service pour le personnel qui utilise la plateforme. Il s'agit d'un groupe de ministères qui cofinancent une solution de rechange expérimentale au modèle traditionnel des RH. Selon ce modèle, seuls les ministères partenaires peuvent embaucher du personnel à l'aide du Nuage de talents.",
-                    '01' => 'Les ministères partenaires qui ont signé des PE sont les suivants :',
-                    '02' => [
-                        'type' => 'ul',
-                        'items' => [
-                            '00' => 'Secrétariat du Conseil du Trésor (ministère hôte)',
-                            '01' => 'Transports Canada',
-                            '02' => 'Affaires mondiales Canada',
-                            '03' => 'Ressources naturelles Canada',
-                            '04' => 'Agence des services frontaliers du Canada',
-                            '05' => 'Ministère de la Défense nationale',
-                            '06' => 'Services partagés Canada',
-                            '07' => 'Santé Canada',
-                            '08' => 'Conseil national de recherches Canada'
-                        ]
-                    ]
-                ]
-            ],
             '05' => [
                 'title' => "À quoi puis-je m'attendre dans le processus de demande et de sélection?",
                 'copy' => [
@@ -87,6 +66,34 @@ return [
                 'title' => "S'agit-il d'un marché pour les nominations à un poste occasionnel?",
                 'copy' => [
                     '00' => "Au gouvernement, une « nomination occasionnelle » désigne un poste d'une durée de 90 jours qui peut être accordée à un travailleur au mérite sans concours. Ceux qui occupent des postes occasionnels n'ont pas droit à une pension ou à des avantages sociaux et ne peuvent occuper qu'un poste occasionnel par année dans un ministère. Certains travailleurs cumulent les emplois du gouvernement en prenant une série d'emplois occasionnels au cours de l'année. En raison de l'engagement du Nuage de talents à faire avancer les droits et les avantages sociaux des travailleurs, les nominations occasionnelles ne sont pas permises sur la plateforme."
+                ]
+            ]
+        ]
+    ],
+    'partners' => [
+        'sidebar_title' => 'Ministères partenaires',
+        'category_anchor' => 'partners',
+        'category_title' => 'Les ministères partenaires du Nuage de talents',
+        'sections' => [
+            '00' => [
+                'title' => 'Quels ministères participent à ce modèle de dotation expérimental?',
+                'copy' => [
+                    '00' => "Le Nuage de talents est financé par des protocoles d'entente (PE) avec les ministères partenaires. Il ne s'agit pas de frais de service pour le personnel qui utilise la plateforme. Il s'agit d'un groupe de ministères qui cofinancent une solution de rechange expérimentale au modèle traditionnel des RH. Selon ce modèle, seuls les ministères partenaires peuvent embaucher du personnel à l'aide du Nuage de talents.",
+                    '01' => 'Les ministères partenaires qui ont signé des PE sont les suivants :',
+                    '02' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => 'Secrétariat du Conseil du Trésor (ministère hôte)',
+                            '01' => 'Transports Canada',
+                            '02' => 'Affaires mondiales Canada',
+                            '03' => 'Ressources naturelles Canada',
+                            '04' => 'Agence des services frontaliers du Canada',
+                            '05' => 'Ministère de la Défense nationale',
+                            '06' => 'Services partagés Canada',
+                            '07' => 'Santé Canada',
+                            '08' => 'Conseil national de recherches Canada'
+                        ]
+                    ]
                 ]
             ]
         ]
@@ -173,40 +180,48 @@ return [
                 '01' => [
                     'title' => 'Trouvez votre niveau: Compétences spécialisées',
                     'copy' => [
-                        '00' => 'Débutant :',
+                        '00' => [
+                            'title' => 'Niveau débutant',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => "Vous êtes capable d'accomplir des tâches de base avec une supervision régulière et une orientation claire. Les tâches qui vous sont assignées sont claires et ne sont pas très complexes. Elles ont généralement une incidence locale.",
+                                    '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d'accomplir des tâches de complexité modérée avec une supervision régulière. Vous devriez aussi être en mesure d'accomplir des tâches de base avec peu ou pas de supervision.",
+                                    '02' => 'Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau inférieur, comme les analystes ou les développeurs de niveau débutant.'
+                                ]
+                            ]
+                        ],
                         '01' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "Vous êtes capable d'accomplir des tâches de base avec une supervision régulière et une orientation claire. Les tâches qui vous sont assignées sont claires et ne sont pas très complexes. Elles ont généralement une incidence locale.",
-                                '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d'accomplir des tâches de complexité modérée avec une supervision régulière. Vous devriez aussi être en mesure d'accomplir des tâches de base avec peu ou pas de supervision.",
-                                '02' => 'Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau inférieur, comme les analystes ou les développeurs de niveau débutant.'
+                            'title' => 'Niveau intermédiaire',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => "Vous avez la capacité d'accomplir des tâches de complexité modérée ou d'incidence modérée avec supervision. C'est le superviseur qui détermine l'approche à préconiser pour effectuer les tâches, de même que la façon dont elles sont exécutées. Vous apportez des commentaires et des conseils. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications de petite à moyenne envergure.",
+                                    '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d'accomplir des tâches d'une complexité importante ou ayant une incidence plus grande avec une supervision régulière. Vous devriez également être en mesure d'accomplir des tâches d'une complexité ou d'une incidence modérée avec peu ou pas de supervision.",
+                                    '02' => 'Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau intermédiaire, comme les analystes ou les développeurs.'
+                                ]
                             ]
                         ],
-                        '02' => 'Intermédiaire :',
+                        '02' => [
+                            'title' => 'Niveau avancé',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => "Vous avez la capacité d'accomplir des tâches d'une complexité ou d'une incidence importante avec supervision. Vous donnez des conseils et des commentaires au superviseur sur l'approche à employer pour effectuer les tâches et la façon dont elles sont exécutées. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications d'envergure moyenne à importante.",
+                                    '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous êtes être en mesure d'accomplir des tâches d'une complexité importante ou ayant une incidence plus grande avec seulement de légers niveaux de supervision, en étant effectivement le responsable de l'initiative. Vous pouvez également jouer un rôle de formation d'autres personnes dans cet ensemble de compétences ou assumer un rôle de supervision léger pour les personnes aux niveaux inférieurs.",
+                                    '02' => 'Ce niveau est habituellement associé à des tâches qui constituent la majeure partie du travail pour des postes de niveau supérieur, comme les analystes principaux ou les développeurs principaux.'
+                                ]
+                            ]
+                        ],
                         '03' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "Vous avez la capacité d'accomplir des tâches de complexité modérée ou d'incidence modérée avec supervision. C'est le superviseur qui détermine l'approche à préconiser pour effectuer les tâches, de même que la façon dont elles sont exécutées. Vous apportez des commentaires et des conseils. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications de petite à moyenne envergure.",
-                                '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d'accomplir des tâches d'une complexité importante ou ayant une incidence plus grande avec une supervision régulière. Vous devriez également être en mesure d'accomplir des tâches d'une complexité ou d'une incidence modérée avec peu ou pas de supervision.",
-                                '02' => 'Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau intermédiaire, comme les analystes ou les développeurs.'
-                            ]
-                        ],
-                        '04' => 'Avancé :',
-                        '05' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "Vous avez la capacité d'accomplir des tâches d'une complexité ou d'une incidence importante avec supervision. Vous donnez des conseils et des commentaires au superviseur sur l'approche à employer pour effectuer les tâches et la façon dont elles sont exécutées. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications d'envergure moyenne à importante.",
-                                '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous êtes être en mesure d'accomplir des tâches d'une complexité importante ou ayant une incidence plus grande avec seulement de légers niveaux de supervision, en étant effectivement le responsable de l'initiative. Vous pouvez également jouer un rôle de formation d'autres personnes dans cet ensemble de compétences ou assumer un rôle de supervision léger pour les personnes aux niveaux inférieurs.",
-                                '02' => 'Ce niveau est habituellement associé à des tâches qui constituent la majeure partie du travail pour des postes de niveau supérieur, comme les analystes principaux ou les développeurs principaux.'
-                            ]
-                        ],
-                        '06' => 'Responsable :',
-                        '07' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "Vous êtes en mesure d'accomplir des tâches d'une complexité ou d'une incidence importante, où vous prenez les décisions et répondez de vos décisions auprès de la haute direction de l'organisation. Vous présentez les tâches, l'approche et le plan de réalisation à la haute direction. Vous supervisez souvent d'autres personnes (personnes ou équipes) dans l'exécution de tâches très complexes ou ayant une incidence sur l'ensemble du système. Vous êtes en mesure de faire progresser ces tâches, même face à des obstacles et à des complications importants et imprévus.",
-                                '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d'évaluer les autres à des niveaux plus subalternes, et de déterminer clairement la différence entre les tâches débutantes, intermédiaires et avancées. Vous devriez également être en mesure de pouvoir former des équipes, définir des orientations et assurer une supervision.",
-                                '02' => 'Ce niveau est habituellement associé aux tâches qui constituent la majeure partie du travail pour les postes de direction et de direction.'
+                            'title' => 'Niveau responsable',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => "Vous êtes en mesure d'accomplir des tâches d'une complexité ou d'une incidence importante, où vous prenez les décisions et répondez de vos décisions auprès de la haute direction de l'organisation. Vous présentez les tâches, l'approche et le plan de réalisation à la haute direction. Vous supervisez souvent d'autres personnes (personnes ou équipes) dans l'exécution de tâches très complexes ou ayant une incidence sur l'ensemble du système. Vous êtes en mesure de faire progresser ces tâches, même face à des obstacles et à des complications importants et imprévus.",
+                                    '01' => "Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d'évaluer les autres à des niveaux plus subalternes, et de déterminer clairement la différence entre les tâches débutantes, intermédiaires et avancées. Vous devriez également être en mesure de pouvoir former des équipes, définir des orientations et assurer une supervision.",
+                                    '02' => 'Ce niveau est habituellement associé aux tâches qui constituent la majeure partie du travail pour les postes de direction et de direction.'
+                                ]
                             ]
                         ]
                     ]
@@ -214,35 +229,43 @@ return [
                 '02' => [
                     'title' => 'Trouvez votre niveau: Compétences non spécialisées',
                     'copy' => [
-                        '00' => 'Phase de développement précoce :',
+                        '00' => [
+                            'title' => 'Phase de développement précoce',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => "Vous êtes en processus d'acquérir cette compétence ou cet attribut. Vous êtes capable de le démontrer dans des conditions favorables (peu de stress, difficulté minimale) et pouvez l'appliquer dans un contexte de travail de façon intermittente."
+                                ]
+                            ]
+                        ],
                         '01' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "Vous êtes en processus d'acquérir cette compétence ou cet attribut. Vous êtes capable de le démontrer dans des conditions favorables (peu de stress, difficulté minimale) et pouvez l'appliquer dans un contexte de travail de façon intermittente."
+                            'title' => 'Modérément en évidence',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => 'Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés.',
+                                    '01' => 'Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.'
+                                ]
                             ]
                         ],
-                        '02' => 'Modérément en évidence :',
+                        '02' => [
+                            'title' => 'Fortement en évidence',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => 'Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont élevés.',
+                                    '01' => "Vos pairs et vos superviseurs reconnaissent qu'il s'agit d'une force dont vous faites preuve en milieu de travail."
+                                ]
+                            ]
+                        ],
                         '03' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => 'Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés.',
-                                '01' => 'Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.'
-                            ]
-                        ],
-                        '04' => 'Fortement en évidence :',
-                        '05' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => 'Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont élevés.',
-                                '01' => "Vos pairs et vos superviseurs reconnaissent qu'il s'agit d'une force dont vous faites preuve en milieu de travail."
-                            ]
-                        ],
-                        '06' => 'Démonstration à un niveau profond :',
-                        '07' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "Il s'agit d'une partie fondamentale de qui vous êtes. Vous démontrez cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont extrêmes.",
-                                '01' => "Vos pairs et vos superviseurs reconnaissent qu'il s'agit d'une force importante dont vous faites preuve en milieu de travail, en donnant un exemple aux autres."
+                            'title' => 'Démonstration à un niveau profond',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => "Il s'agit d'une partie fondamentale de qui vous êtes. Vous démontrez cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont extrêmes.",
+                                    '01' => "Vos pairs et vos superviseurs reconnaissent qu'il s'agit d'une force importante dont vous faites preuve en milieu de travail, en donnant un exemple aux autres."
+                                ]
                             ]
                         ]
                     ]

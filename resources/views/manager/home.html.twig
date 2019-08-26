@@ -15,8 +15,255 @@
 
     {% include "common/goc" %}
 
-    {% include "common/home/hero" %}
+    {# {% include "common/home/hero" %} #}
 
-    <a id="skipLink"></a>
+    <div data-clone>
+
+        <div data-c-background="white(100)">
+
+            <header data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/sean-pollock.jpg');">
+                {% include "common/menu" %}
+                <div data-c-align="base(center)" data-c-container="medium" data-c-padding="top(double)">
+                    <h1 data-c-colour="white" data-c-font-size="h1" data-c-font-weight="700" data-c-margin="top(triple) bottom(normal)">Talent Cloud<img alt="Canadian Maple Leaf" class="hero-icon" src="/images/maple-leaf.svg"></h1>
+                    <p data-c-colour="white" data-c-margin="bottom(triple)">An experimental platform. Hiring made easier.</p>
+                    <a href="/manager/register" title="Sign up as a manager to demo Talent Cloud's manager portal." data-c-button="outline(white)" data-c-radius="rounded">
+                        Sign Up
+                    </a>
+                </div>
+            </header>
+
+            <div data-c-padding="tb(normal)" class="tc-gradient-lr">
+                <div data-c-container="medium" data-c-align="base(center)" data-c-color="white">
+                    <p>
+                        Welcome to the Talent Cloud <span data-c-font-weight="bold">manager</span> portal. <a href="/en" title="Return to the applicant portal.">Click here to return to the applicant portal.</a>
+                    </p>
+                </div>
+            </div>
+
+            <a id="skipLink"></a>
+
+            <div data-c-container="medium" data-c-padding="bottom(triple)">
+                <h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="top(triple) bottom(normal)">What Kind of Jobs Can I Post?</h2>
+                <p data-c-margin="bottom(normal)">Talent Cloud is for externally advertised classified term positions, instead of contract or casual jobs (which typically don’t come with benefits, union representation, or worker’s rights). Using behavioural processes and business engineering, term workers can be hired quickly and easily using Talent Cloud, with an emphasis on a best fit match.</p>
+                <p data-c-margin="bottom(normal)">The platform can be used for jobs of any classification and level.</p>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">Talent Cloud is great for:</p>
+                <ul>
+                    <li>Hiring during an election period (when you’re not sure what your budget might be next year)</li>
+                    <li>Program funding of limited duration (e.g. fixed term or sunsetting programs)</li>
+                    <li>Special projects (e.g. DM task teams, innovation projects)</li>
+                    <li>Hiring a specialist to a team for a particular project phase</li>
+                </ul>
+            </div>
+
+            <div data-c-background="grey(10)" data-c-padding="tb(triple)">
+                <div data-c-container="large">
+                    <h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">Available Features</h2>
+                    <div data-c-table>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        <p data-c-font-weight="bold">Features</p>
+                                    </th>
+                                    <th scope="col">
+                                        <p data-c-font-weight="bold">Demo Account</p>
+                                        <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="top(quarter)">You <span data-c-font-weight="bold">do not</span> work at a department that is <a href="/faq/#partners" title="View the departments partnered with Talent Cloud." target="_blank">partnered</a> with Talent Cloud.</p>
+                                    </th>
+                                    <th scope="col">
+                                        <p data-c-font-weight="bold">Partner Department</p>
+                                        <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="top(quarter)">You work at a department that is <a href="/faq/#partners" title="View the departments partnered with Talent Cloud." target="_blank">partnered</a> with Talent Cloud.</p>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Repeat rows as necessary. -->
+                                <tr>
+                                    <th scope="row">
+                                        <p data-c-font-weight="bold">Job Poster Creation</p>
+                                        <p data-c-font-weight="400" data-c-margin="top(quarter)">Features such as pre-populated paragraphs and suggested options based on your previous selections make it easy for you to create a job.</p>
+                                    </th>
+                                    <td data-c-align="base(center)">
+                                        <i class="fa fa-check" data-c-color="go"></i>
+                                    </td>
+                                    <td data-c-align="base(center)">
+                                        <i class="fa fa-check" data-c-color="go"></i>
+                                    </td>
+                                </tr>
+                                <!-- Repeat rows as necessary. -->
+                                <tr>
+                                    <th scope="row">
+                                        <p data-c-font-weight="bold">Screening Plan</p>
+                                        <p data-c-font-weight="400" data-c-margin="top(quarter)">Build plan you’ll use to evaluate all the skills you asked for in your job poster. Review it with your HR advisor.</p>
+                                    </th>
+                                    <td data-c-align="base(center)">
+                                        <i class="fa fa-check" data-c-color="go"></i>
+                                    </td>
+                                    <td data-c-align="base(center)">
+                                        <i class="fa fa-check" data-c-color="go"></i>
+                                    </td>
+                                </tr>
+                                <!-- Repeat rows as necessary. -->
+                                <tr>
+                                    <th scope="row">
+                                        <p data-c-font-weight="bold">Manager Profile</p>
+                                        <p data-c-font-weight="400" data-c-margin="top(quarter)">Create a profile that tells applicants more about you.</p>
+                                    </th>
+                                    <td data-c-align="base(center)">
+                                        <i class="fa fa-check" data-c-color="go"></i>
+                                    </td>
+                                    <td data-c-align="base(center)">
+                                        <i class="fa fa-check" data-c-color="go"></i>
+                                    </td>
+                                </tr>
+                                <!-- Repeat rows as necessary. -->
+                                <tr>
+                                    <th scope="row">
+                                        <p data-c-font-weight="bold">Post Job</p>
+                                        <p data-c-font-weight="400" data-c-margin="top(quarter)">Post the position you’re staffing to the Talent Cloud website and watch high quality applicants roll in on your manager dashboard.</p>
+                                    </th>
+                                    <td data-c-align="base(center)">
+                                        <i class="fa fa-times" data-c-color="stop"></i>
+                                    </td>
+                                    <td data-c-align="base(center)">
+                                        <i class="fa fa-check" data-c-color="go"></i>
+                                    </td>
+                                </tr>
+                                <!-- Repeat rows as necessary. -->
+                                <tr>
+                                    <th scope="row">
+                                        <p data-c-font-weight="bold">Applicant Tracking</p>
+                                        <p data-c-font-weight="400" data-c-margin="top(quarter)">Automatically sort applicants according to your criteria and screen them right on the platform.</p>
+                                    </th>
+                                    <td data-c-align="base(center)">
+                                        <i class="fa fa-times" data-c-color="stop"></i>
+                                    </td>
+                                    <td data-c-align="base(center)">
+                                        <i class="fa fa-check" data-c-color="go"></i>
+                                    </td>
+                                </tr>
+                                <!-- Repeat rows as necessary. -->
+                                <tr>
+                                    <th scope="row">
+                                        <p data-c-font-weight="bold">Personalized Support</p>
+                                        <p data-c-font-weight="400" data-c-margin="top(quarter)">Contact our team at any time for help or suggestions as you move through the staffing process.</p>
+                                    </th>
+                                    <td data-c-align="base(center)">
+                                        <i class="fa fa-times" data-c-color="stop"></i>
+                                    </td>
+                                    <td data-c-align="base(center)">
+                                        <i class="fa fa-check" data-c-color="go"></i>
+                                    </td>
+                                </tr>
+                                <!-- Repeat rows as necessary. -->
+                                <tr>
+                                    <th scope="row">
+                                        <p data-c-font-weight="bold">Record of Decision for HR&nbsp;&nbsp;&nbsp;<span data-c-tag="c2" data-c-font-size="small" data-c-font-weight="400" data-c-radius="pill">Coming Soon!</span></p>
+                                        <p data-c-font-weight="400" data-c-margin="top(quarter)">Screen applicants, take notes, and record decisions as you go, and easily submit your paperwork to HR.</p>
+                                    </th>
+                                    <td data-c-align="base(center)">
+                                        <i class="fa fa-times" data-c-color="stop"></i>
+                                    </td>
+                                    <td data-c-align="base(center)">
+                                        <i class="fa fa-check" data-c-color="go"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div data-c-container="medium">
+                <h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="top(triple) bottom(normal)">How Can I Post a Job?</h2>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">Are you a member of one of these <a href="/faq/#partners" title="View the departments partnered with Talent Cloud." target="_blank">partner departments</a>?</p>
+                <p data-c-margin="bottom(normal)">If you’re a member, <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Send an emailt to Talent Cloud.">contact Talent Cloud</a> to let us know that we should level up your account. This will allow you to post jobs on Talent Cloud, as well as provide you with all the features that come with a Partner Department Account. To be able to post a job, you’ll need to confirm that you have a classified box.</p>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">Not a member? You can still use Talent Cloud!</p>
+                <p data-c-margin="bottom(triple)">If you’re not a member of a partner department, you can use Talent Cloud with a demo account to create a job poster and an assessment plan, but you won’t be able to post on the live site. Your job poster and assessment plan will have to be integrated into your HR processes. If you like what you see, get in touch with your HR advisor to see how you can join the pilot.</p>
+            </div>
+            <div data-c-container="large" data-c-padding="bottom(triple)">
+                <div class="home-hiw" data-c-grid="gutter">
+                    <div data-c-grid-item="tl(1of3)">
+                        <button class="active" data-c-alignment="centre" data-c-button="solid(c2)" data-c-radius="rounded" data-tc-hiw-id="1" data-tc-hiw-trigger>
+                            <span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold">
+                                Step 1: Draft Job
+                            </span>
+                        </button>
+                        <button data-c-margin="top(normal)" data-c-alignment="centre" data-c-button="solid(c2)" data-c-radius="rounded" data-tc-hiw-id="2" data-tc-hiw-trigger>
+                            <span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold">
+                                Step 2: Screening Plan
+                            </span>
+                        </button>
+                        <button data-c-margin="top(normal)" data-c-alignment="centre" data-c-button="solid(c2)" data-c-radius="rounded" data-tc-hiw-id="3" data-tc-hiw-trigger>
+                            <span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold">
+                                Step 3: Live Job
+                            </span>
+                        </button>
+                        <button data-c-margin="top(normal)" data-c-alignment="centre" data-c-button="solid(c2)" data-c-radius="rounded" data-tc-hiw-id="4" data-tc-hiw-trigger>
+                            <span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold">
+                                Step 4: Screening
+                            </span>
+                        </button>
+                        <button data-c-margin="top(normal)" data-c-alignment="centre" data-c-button="solid(c2)" data-c-radius="rounded" data-tc-hiw-id="5" data-tc-hiw-trigger>
+                            <span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold">
+                                Step 5: Selection
+                            </span>
+                        </button>
+                    </div>
+                    <div data-c-grid-item="tl(2of3) equal-col">
+                        <div class="home-hiw-content active" data-c-alignment="left" data-c-background="c1(100)" data-c-padding="double" data-c-radius="rounded" data-tc-hiw-id="1">
+                            <p data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                                Step 1: Draft a Job
+                            </p>
+                            <p data-c-colour="white" data-c-margin="top(normal)">Use the Job Poster Builder to develop a poster that tells applicants about the impact their work will have on Canadians. Let them know about you, your team, and your work culture so you find someone that is a great fit for your team. Brainstorm the tasks that you need your new employee to perform and then list the skills required to complete them.</p>
+                            <p data-c-colour="white" data-c-margin="top(normal)">Once you’ve completed your job poster, we’ll handle the translations, send it to your HR advisor so they can provide advice, and check in with the signing authority.</p>
+                            <p data-c-colour="white" data-c-margin="top(normal)">This step is available for demo accounts.</p>
+                        </div>
+                        <div class="home-hiw-content" data-c-alignment="left" data-c-background="c1(100)" data-c-padding="double" data-c-radius="rounded" data-tc-hiw-id="2">
+                            <p data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                                Step 2: Create a Screening Plan
+                            </p>
+                            <p data-c-colour="white" data-c-margin="top(normal)">Build the screening plan you’ll use to evaluate all the skills you asked for in your job poster. Create a ratings guide with expected answers that you’ll use to determine whether an applicant reflects their knowledge on a particular skill. Then, share it with your HR Advisor so they can review your plan and suggest changes.</p>
+                            <p data-c-colour="white" data-c-margin="top(normal)">This step is available for demo accounts.</p>
+                        </div>
+                        <div class="home-hiw-content" data-c-alignment="left" data-c-background="c1(100)" data-c-padding="double" data-c-radius="rounded" data-tc-hiw-id="3">
+                            <p data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                                Step 3: Live Job
+                            </p>
+                            <p data-c-colour="white" data-c-margin="top(normal)">Your job will be posted on Talent Cloud as well as <a href="https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="Visit GC Jobs to learn more." target="_blank">GC Jobs</a>. As people apply, you can view the number of applicants increase on your dashboard. We will also handle priority clearance so that priorities will be clearly indicated in your list of applicants once the poster closes.</p>
+                            <p data-c-colour="white" data-c-margin="top(normal)">This step is only available for partner department accounts.</p>
+                        </div>
+                        <div class="home-hiw-content" data-c-alignment="left" data-c-background="c1(100)" data-c-padding="double" data-c-radius="rounded" data-tc-hiw-id="4">
+                            <p data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                                Step 4: Screen Candidates
+                            </p>
+                            <p data-c-colour="white" data-c-margin="top(normal)">Review each application right on the Talent Cloud platform. Follow your screening plan and evaluate your candidates. Use the applicant sorting tool to track who is still in the process. Coordinate with your HR Advisor to get your candidate’s security clearance and language testing.</p>
+                            <p data-c-colour="white" data-c-margin="top(normal)">This step is only available for partner department accounts.</p>
+                        </div>
+                        <div class="home-hiw-content" data-c-alignment="left" data-c-background="c1(100)" data-c-padding="double" data-c-radius="rounded" data-tc-hiw-id="5">
+                            <p data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                                Step 5: Select Final Candidate
+                            </p>
+                            <p data-c-colour="white" data-c-margin="top(normal)">Found the perfect candidate for your position? Now it’s time to work with your HR advisor and the successful candidate to collect everything you need to finalize the hire. The record of decision tool that is coming soon will allow you record your justifications as you go, and easily submit your paperwork to HR.</p>
+                            <p data-c-colour="white" data-c-margin="top(normal)">Time to send them a letter of offer!</p>
+                            <p data-c-colour="white" data-c-margin="top(normal)">This step is only available for partner department accounts.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div data-c-overlay="black(80)" data-c-padding="tb(triple)" style="background-image: url('/images/patrick-hendry.jpg');" data-c-align="center">
+                <div data-c-container="medium">
+                    <h2 data-c-font-size="h3" data-c-color="white" data-c-font-weight="bold" data-c-margin="bottom(normal)">Get in Touch</h2>
+                    <p data-c-color="white" data-c-margin="bottom(double)">We’d love to hear from you! Want to help us improve the platform? We’re always looking for feedback about the platform and people to user test new tools!</p>
+                    <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="" data-c-button="outline(white)" data-c-radius="rounded">Email Us</a>&nbsp;&nbsp;&nbsp;
+                    <a href="https://gccollab.ca/groups/profile/19750/talent-cloud-nuage-de-talent" title="" data-c-button="outline(white)" data-c-radius="rounded">GC Collab</a>&nbsp;&nbsp;&nbsp;
+                    <a href="https://twitter.com/gc_talent?lang=en" title="" data-c-button="outline(white)" data-c-radius="rounded">Twitter</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 
 {% endblock %}

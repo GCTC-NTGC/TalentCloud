@@ -1,78 +1,78 @@
-.faq {
+// .faq {
 
-}
+// }
 
-.faq__content {
-    padding: 5rem 0;
+// .faq__content {
+//     padding: 5rem 0;
 
-    .faq__anchor {
+//     .faq__anchor {
 
-        &:first-child {
+//         &:first-child {
 
-            &::before {
-            display: block; 
-            content: " "; 
-            margin-top: -5rem; 
-            height: 5rem; 
-            visibility: hidden; 
-            pointer-events: none;
-        }
+//             &::before {
+//             display: block; 
+//             content: " "; 
+//             margin-top: -5rem; 
+//             height: 5rem; 
+//             visibility: hidden; 
+//             pointer-events: none;
+//         }
 
-        }
+//         }
 
-    }
+//     }
 
-    a+h3 {
-        // margin-top: 5rem;
-    }
+//     a+h3 {
+//         // margin-top: 5rem;
+//     }
 
-    h3 {
-        border-bottom: 1px solid $palette--font-black;
-        color: $palette--black;
-        font-family: $font--sans;
-        font-size: $font-scale--h3;
-        font-weight: 400;
-        margin: 0 0 calc(#{$unit} * 2) 0;
-        padding: 5rem 0 2rem 0;
+//     h3 {
+//         border-bottom: 1px solid $palette--font-black;
+//         color: $palette--black;
+//         font-family: $font--sans;
+//         font-size: $font-scale--h3;
+//         font-weight: 400;
+//         margin: 0 0 calc(#{$unit} * 2) 0;
+//         padding: 5rem 0 2rem 0;
 
-        &:first-of-type {
-            padding-top: 0;
-        }
+//         &:first-of-type {
+//             padding-top: 0;
+//         }
 
-    }
+//     }
 
-    h4 {
-        color: $palette--blue;
-        font-family: $font--sans;
-        font-size: $font-scale--regular;
-        font-weight: 600;
-        margin: 2rem 0 1rem 0;
-    }
+//     h4 {
+//         color: $palette--blue;
+//         font-family: $font--sans;
+//         font-size: $font-scale--regular;
+//         font-weight: 600;
+//         margin: 2rem 0 1rem 0;
+//     }
 
-    p {
-        @extend %paragraph;
-    }
+//     p {
+//         @extend %paragraph;
+//     }
 
-    ol,
-    ul {
-        margin: -1rem 0 2rem 0;
-        padding: 0 0 0 4rem;
+//     ol,
+//     ul {
+//         margin: -1rem 0 2rem 0;
+//         padding: 0 0 0 4rem;
 
-        li {
-            @extend %paragraph;
-            display: list-item;
-            margin: .5rem 0;
+//         li {
+//             @extend %paragraph;
+//             display: list-item;
+//             margin: .5rem 0;
 
-            &:first-child {
-                margin-top: 0;
-            }
+//             &:first-child {
+//                 margin-top: 0;
+//             }
 
-            &:last-child {
-                margin-bottom: 0;
-            }
+//             &:last-child {
+//                 margin-bottom: 0;
+//             }
 
-        }
+//         }
 
-    }
+//     }
 
-}
+// }

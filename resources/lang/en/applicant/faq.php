@@ -45,27 +45,6 @@ return [
                     '00' => "At any given time, Talent Cloud should have 2-3 jobs posted. And the site may have to come down on Monday mornings from time to time… We're a tiny team working on a shoestring budget on a highly experimental idea. So posting a few jobs at a time is the best way for us to gather quality data to know if the platform is working as it should, while still providing what we hope is a quality experience to applicants, hiring managers, and departmental HR advisors."
                 ]
             ],
-            '04' => [
-                'title' => 'What departments are participating in this experimental staffing model?',
-                'copy' => [
-                    '00' => "Talent Cloud is funded through Memorandums of Understanding (MOUs) with partner departments. This isn't a fee for service to staff using the platform. This is a group of departments co-funding an experimental alternative to the traditional HR model. Under this model, only partner departments may staff using Talent Cloud.",
-                    '01' => 'Partner departments with signed MOUs are:',
-                    '02' => [
-                        'type' => 'ul',
-                        'items' => [
-                            '00' => 'Treasury Board Secretariat (host department)',
-                            '01' => 'Transport Canada',
-                            '02' => 'Global Affairs Canada',
-                            '03' => 'Natural Resources Canada',
-                            '04' => 'Canada Border Services Agency',
-                            '05' => 'Department of National Defense',
-                            '06' => 'Shared Services Canada',
-                            '07' => 'Health Canada',
-                            '08' => 'National Research Council'
-                        ]
-                    ]
-                ]
-            ],
             '05' => [
                 'title' => 'What can I expect in the application and selection process?',
                 'copy' => [
@@ -87,6 +66,34 @@ return [
                 'title' => 'Is this a marketplace for casual appointments?',
                 'copy' => [
                     '00' => "A \"casual appointment\" is government-speak for a 90 day position that can be given to a worker on the basis of merit without a competitive process. Those in casual positions don't earn pension or benefits, and can only hold one casual appointment a year in a department. Some workers string together government employment by taking a series of casuals over the course of the year. Because of Talent Cloud's commitment to advancing workers' rights and benefits, casual appointments are not permitted on the platform."
+                ]
+            ]
+        ]
+    ],
+    'partners' => [
+        'sidebar_title' => 'Partner Departments',
+        'category_anchor' => 'partners',
+        'category_title' => 'Talent Cloud Partner Departments',
+        'sections' => [
+            '00' => [
+                'title' => 'What departments are participating in this experimental staffing model?',
+                'copy' => [
+                    '00' => "Talent Cloud is funded through Memorandums of Understanding (MOUs) with partner departments. This isn't a fee for service to staff using the platform. This is a group of departments co-funding an experimental alternative to the traditional HR model. Under this model, only partner departments may staff using Talent Cloud.",
+                    '01' => 'Partner departments with signed MOUs are:',
+                    '02' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '00' => 'Treasury Board Secretariat (host department)',
+                            '01' => 'Transport Canada',
+                            '02' => 'Global Affairs Canada',
+                            '03' => 'Natural Resources Canada',
+                            '04' => 'Canada Border Services Agency',
+                            '05' => 'Department of National Defense',
+                            '06' => 'Shared Services Canada',
+                            '07' => 'Health Canada',
+                            '08' => 'National Research Council'
+                        ]
+                    ]
                 ]
             ]
         ]
@@ -173,40 +180,48 @@ return [
                 '01' => [
                     'title' => 'Find your level: Hard Skills',
                     'copy' => [
-                        '00' => 'Basic:',
+                        '00' => [
+                            'title' => 'Basic Level',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => "You have the ability to accomplish basic tasks with steady supervision and clear direction. The tasks you're assigned are clear and don't involve significant complexity. Their impact is usually locally felt.",
+                                    '01' => 'As you advance in this category, you should be developing the ability to accomplish tasks of moderate complexity with steady supervision. You will also need to be able to accomplish basic tasks with little or no supervision.',
+                                    '02' => 'This level is usually associated with tasks that form the bulk of the work for lower level positions, such as junior analysts or entry level developers.'
+                                ]
+                            ]
+                        ],
                         '01' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "You have the ability to accomplish basic tasks with steady supervision and clear direction. The tasks you're assigned are clear and don't involve significant complexity. Their impact is usually locally felt.",
-                                '01' => 'As you advance in this category, you should be developing the ability to accomplish tasks of moderate complexity with steady supervision. You will also need to be able to accomplish basic tasks with little or no supervision.',
-                                '02' => 'This level is usually associated with tasks that form the bulk of the work for lower level positions, such as junior analysts or entry level developers.'
+                            'title' => 'Intermediate Level',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => 'You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision. The approach to the tasks, and how they are delivered, is determined by the supervisor. You contribute input and advice. You are able to advance the task, even in the face of small to moderate hurdles and complications.',
+                                    '01' => 'As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision.',
+                                    '02' => 'This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers.'
+                                ]
                             ]
                         ],
-                        '02' => 'Intermediate:',
+                        '02' => [
+                            'title' => 'Advanced Level',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => "You have the ability to accomplish tasks of significant complexity or impact with supervision. You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor's consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications.",
+                                    '01' => 'As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels.',
+                                    '02' => 'This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers.'
+                                ]
+                            ]
+                        ],
                         '03' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => 'You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision. The approach to the tasks, and how they are delivered, is determined by the supervisor. You contribute input and advice. You are able to advance the task, even in the face of small to moderate hurdles and complications.',
-                                '01' => 'As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision.',
-                                '02' => 'This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers.'
-                            ]
-                        ],
-                        '04' => 'Advanced:',
-                        '05' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "You have the ability to accomplish tasks of significant complexity or impact with supervision. You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor's consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications.",
-                                '01' => 'As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels.',
-                                '02' => 'This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers.'
-                            ]
-                        ],
-                        '06' => 'Lead:',
-                        '07' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "You have the ability to accomplish tasks of significant complexity or impact, where you call the shots and answer to the organization's senior management for your decisions. You bring forward the tasks, the approach and the delivery plan for senior management consideration. You often supervise others (individuals or teams) in delivering tasks of high complexity or system wide impact. You are able to advance these tasks, even in the face of significant unforeseen hurdles and complications.",
-                                '01' => 'As you advance in this category, you should be developing the ability to assess others at more junior levels, becoming able to clearly identify the difference between beginner, intermediate and advanced tasks. You should be able to build teams, set direction and provide supervision.',
-                                '02' => 'This level is usually associated with tasks that form the bulk of the work for management and executive level positions.'
+                            'title' => 'Lead Level',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => "You have the ability to accomplish tasks of significant complexity or impact, where you call the shots and answer to the organization's senior management for your decisions. You bring forward the tasks, the approach and the delivery plan for senior management consideration. You often supervise others (individuals or teams) in delivering tasks of high complexity or system wide impact. You are able to advance these tasks, even in the face of significant unforeseen hurdles and complications.",
+                                    '01' => 'As you advance in this category, you should be developing the ability to assess others at more junior levels, becoming able to clearly identify the difference between beginner, intermediate and advanced tasks. You should be able to build teams, set direction and provide supervision.',
+                                    '02' => 'This level is usually associated with tasks that form the bulk of the work for management and executive level positions.'
+                                ]
                             ]
                         ]
                     ]
@@ -214,35 +229,43 @@ return [
                 '02' => [
                     'title' => 'Find your level: Soft Skills',
                     'copy' => [
-                        '00' => 'In Early Development:',
+                        '00' => [
+                            'title' => 'In Early Development',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => "You're working on acquiring this skill or attribute. You are able to demonstrate it under favourable conditions (low stress, minimal difficulty) and can apply it in a work context intermittently."
+                                ]
+                            ]
+                        ],
                         '01' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "You're working on acquiring this skill or attribute. You are able to demonstrate it under favourable conditions (low stress, minimal difficulty) and can apply it in a work context intermittently."
+                            'title' => 'Moderately in Evidence',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => "You're able to consistently demonstrate this skill or attribute in the workplace, including under conditions of low-to-moderate stress or difficulty.",
+                                    '01' => 'Your peers and supervisors are able to attest to the fact that you have been able to demonstrate this skill or attribute on a regular basis.'
+                                ]
                             ]
                         ],
-                        '02' => 'Moderately in Evidence:',
+                        '02' => [
+                            'title' => 'Strongly in Evidence',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => "You're able to consistently demonstrate this skill or attribute in the workplace, including under conditions of high stress or difficulty.",
+                                    '01' => 'Your peers and supervisors recognize this as a strength you demonstrate in the workplace.'
+                                ]
+                            ]
+                        ],
                         '03' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "You're able to consistently demonstrate this skill or attribute in the workplace, including under conditions of low-to-moderate stress or difficulty.",
-                                '01' => 'Your peers and supervisors are able to attest to the fact that you have been able to demonstrate this skill or attribute on a regular basis.'
-                            ]
-                        ],
-                        '04' => 'Strongly in Evidence:',
-                        '05' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => "You're able to consistently demonstrate this skill or attribute in the workplace, including under conditions of high stress or difficulty.",
-                                '01' => 'Your peers and supervisors recognize this as a strength you demonstrate in the workplace.'
-                            ]
-                        ],
-                        '06' => 'Deep Level Understanding:',
-                        '07' => [
-                            'type' => 'ul',
-                            'items' => [
-                                '00' => 'This is a foundational part of who you are. You consistently demonstrate this skill or attribute, even under conditions of extreme stress or difficulty.',
-                                '01' => 'Your peers and supervisors recognize this as a significant strength you demonstrate in the workplace, providing an example to others.'
+                            'title' => 'Deep Level Understanding',
+                            'subcopy' => [
+                                'type' => 'ul',
+                                'items' => [
+                                    '00' => 'This is a foundational part of who you are. You consistently demonstrate this skill or attribute, even under conditions of extreme stress or difficulty.',
+                                    '01' => 'Your peers and supervisors recognize this as a significant strength you demonstrate in the workplace, providing an example to others.'
+                                ]
                             ]
                         ]
                     ]

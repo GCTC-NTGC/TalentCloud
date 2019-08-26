@@ -77,6 +77,21 @@ $clone-alert--information: $clone-c1;
   color: #7a7a7a;
 }
 
+.tc-gradient-lr {
+  background: #5b1647;
+  background: -moz-linear-gradient(-45deg, #5b1647 0%, #c90035 100%);
+  background: -webkit-linear-gradient(-45deg, #5b1647 0%,#c90035 100%);
+  background: linear-gradient(135deg, #5b1647 0%,#c90035 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b1647', endColorstr='#c90035',GradientType=1 );
+  a:visited {
+    color: $clone-white !important;
+  }
+}
+
+table thead a:visited {
+  color: $clone-white !important;
+}
+
 // Core Elements ===============================================================
 
 @import "./brands";
