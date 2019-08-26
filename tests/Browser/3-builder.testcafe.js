@@ -312,7 +312,9 @@ test("Job Poster Builder - New Job", async t => {
     .expect(Selector("h5").withText("Congrats! Are You Ready to Submit?").visible)
     .ok()
     .click(Selector("button").withText("Yes, Submit"))
-    .wait(3000)
-    .expect(Selector("h2").withText("My Active Posters").visible)
+    .navigateTo("/manager/jobs")
+    .expect(Selector("h1").withText("My Job Posters").visible)
+    .ok()
+    .expect(Selector("a").withText("Design ManagerProduct Designer (Preview)").visible)
     .ok();
 });
