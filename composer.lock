@@ -178,16 +178,16 @@
         },
         {
             "name": "backpack/crud",
-            "version": "3.6.28",
+            "version": "3.6.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "fa0dc8296198739389f70278ac7b5ca7eb197637"
+                "reference": "3c80a9f3baca205356d783af96afa9fe27e8e735"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/fa0dc8296198739389f70278ac7b5ca7eb197637",
-                "reference": "fa0dc8296198739389f70278ac7b5ca7eb197637",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/3c80a9f3baca205356d783af96afa9fe27e8e735",
+                "reference": "3c80a9f3baca205356d783af96afa9fe27e8e735",
                 "shasum": ""
             },
             "require": {
@@ -249,26 +249,26 @@
                 "read",
                 "update"
             ],
-            "time": "2019-08-20T07:57:09+00:00"
+            "time": "2019-08-23T07:51:09+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v3.2.4",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "2d195779ea4f809f69764a795e2ec371dbb76a96"
+                "reference": "8794e7a3b7f3a0e7222bcd088f5f44b2b6ff8e61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/2d195779ea4f809f69764a795e2ec371dbb76a96",
-                "reference": "2d195779ea4f809f69764a795e2ec371dbb76a96",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/8794e7a3b7f3a0e7222bcd088f5f44b2b6ff8e61",
+                "reference": "8794e7a3b7f3a0e7222bcd088f5f44b2b6ff8e61",
                 "shasum": ""
             },
             "require": {
-                "illuminate/routing": "5.5.x|5.6.x|5.7.x|5.8.x",
-                "illuminate/session": "5.5.x|5.6.x|5.7.x|5.8.x",
-                "illuminate/support": "5.5.x|5.6.x|5.7.x|5.8.x",
+                "illuminate/routing": "^5.5|^6",
+                "illuminate/session": "^5.5|^6",
+                "illuminate/support": "^5.5|^6",
                 "maximebf/debugbar": "~1.15.0",
                 "php": ">=7.0",
                 "symfony/debug": "^3|^4",
@@ -317,7 +317,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2019-03-25T09:39:08+00:00"
+            "time": "2019-08-22T14:29:54+00:00"
         },
         {
             "name": "codezero/laravel-unique-translation",

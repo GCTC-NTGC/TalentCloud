@@ -603,8 +603,7 @@ const JobDetails: React.FunctionComponent<
                     >
                       <FormattedMessage
                         id="jobDetails.SelectClassAndLvlMessage"
-                        defaultMessage="Please select a classification and level before preparing
-                          the education requirements."
+                        defaultMessage="Please select a classification and level before preparing the education requirements."
                         description="Message displayed after classification and level select boxes."
                       />
                     </p>

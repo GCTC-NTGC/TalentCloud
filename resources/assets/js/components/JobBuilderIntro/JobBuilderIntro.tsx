@@ -68,7 +68,6 @@ const JobBuilderIntro: React.FunctionComponent<
   const handleSubmit = job ? handleUpdateJob : handleCreateJob;
 
   const handleContinueEn = (newJob: Job): void => {
-    // window.location.href = jobBuilderDetails("en", newJob.id);
     navigate(jobBuilderDetails("en", newJob.id));
   };
   const handleContinueFr = (newJob: Job): void => {
