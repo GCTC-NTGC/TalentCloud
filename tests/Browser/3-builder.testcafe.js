@@ -177,15 +177,15 @@ test("Job Poster Builder - New Job", async t => {
     )
     .click(Selector("button").withText("Save & Preview Tasks"))
     // Key Tasks review.
-    .expect(Selector("h5").withText("Keep it up!"))
+    .expect(Selector("h5").withText("Keep it up!").visible)
     .ok()
-    .expect(Selector("li").withText("Chopping"))
+    .expect(Selector("li").withText("Chopping").visible)
     .ok()
-    .expect(Selector("li").withText("Grilling"))
+    .expect(Selector("li").withText("Grilling").visible)
     .ok()
-    .expect(Selector("li").withText("Seasoning"))
+    .expect(Selector("li").withText("Seasoning").visible)
     .ok()
-    .expect(Selector("li").withText("Disco dancing"))
+    .expect(Selector("li").withText("Disco dancing").visible)
     .ok()
     .click(Selector("button").withText("Next Step"))
     // Skills page.
@@ -198,7 +198,7 @@ test("Job Poster Builder - New Job", async t => {
         .find("option")
         .withAttribute("value", "1"),
     )
-    .expect(Selector("h5").withText("Add a skill"))
+    .expect(Selector("h5").withText("Add a skill").visible)
     .ok()
     .click(Selector("input").withAttribute("id", "advanced"))
     .click(Selector("button").withText("Add Skill"))
@@ -224,7 +224,7 @@ test("Job Poster Builder - New Job", async t => {
         .find("option")
         .withAttribute("value", "3"),
     )
-    .expect(Selector("h5").withText("Add a skill"))
+    .expect(Selector("h5").withText("Add a skill").visible)
     .ok()
     .click(Selector("input").withAttribute("id", "expert"))
     .click(Selector("button").withText("Add Skill"))
@@ -237,7 +237,7 @@ test("Job Poster Builder - New Job", async t => {
         .find("option")
         .withAttribute("value", "4"),
     )
-    .expect(Selector("h5").withText("Add a skill"))
+    .expect(Selector("h5").withText("Add a skill").visible)
     .ok()
     .click(Selector("input").withAttribute("id", "basic"))
     .click(Selector("button").withText("Add Skill"))
@@ -250,7 +250,7 @@ test("Job Poster Builder - New Job", async t => {
         .find("option")
         .withAttribute("value", "5"),
     )
-    .expect(Selector("h5").withText("Add a skill"))
+    .expect(Selector("h5").withText("Add a skill").visible)
     .ok()
     .click(Selector("input").withAttribute("id", "advanced"))
     .click(Selector("button").withText("Add Skill"))
@@ -263,7 +263,7 @@ test("Job Poster Builder - New Job", async t => {
         .find("option")
         .withAttribute("value", "6"),
     )
-    .expect(Selector("h5").withText("Add a skill"))
+    .expect(Selector("h5").withText("Add a skill").visible)
     .ok()
     .click(Selector("input").withAttribute("id", "asset"))
     .click(Selector("button").withText("Add Skill"))
@@ -276,7 +276,7 @@ test("Job Poster Builder - New Job", async t => {
         .find("option")
         .withAttribute("value", "7"),
     )
-    .expect(Selector("h5").withText("Add a skill"))
+    .expect(Selector("h5").withText("Add a skill").visible)
     .ok()
     .click(Selector("input").withAttribute("id", "asset"))
     .click(Selector("button").withText("Add Skill"))
@@ -289,7 +289,7 @@ test("Job Poster Builder - New Job", async t => {
         .find("option")
         .withAttribute("value", "8"),
     )
-    .expect(Selector("h5").withText("Add a skill"))
+    .expect(Selector("h5").withText("Add a skill").visible)
     .ok()
     .click(Selector("input").withAttribute("id", "asset"))
     .click(Selector("button").withText("Add Skill"))
@@ -300,7 +300,7 @@ test("Job Poster Builder - New Job", async t => {
     // Skills review.
     .expect(Selector("h5").withText("Keep it up!").visible)
     .ok()
-    .expect(Selector("p").withText("Front-end development"))
+    .expect(Selector("p").withText("Front-end development").visible)
     .ok()
     .wait(2222)
     .click(Selector("button").withText("Next Step"))
