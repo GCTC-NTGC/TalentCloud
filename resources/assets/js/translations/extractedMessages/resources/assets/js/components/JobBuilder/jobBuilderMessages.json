@@ -5,23 +5,23 @@
   },
   {
     "id": "jobBuilder.progressTracker.label.step1",
-    "defaultMessage": "Step 01"
+    "defaultMessage": "Step 1 / 5"
   },
   {
     "id": "jobBuilder.progressTracker.label.step2",
-    "defaultMessage": "Step 02"
+    "defaultMessage": "Step 2 / 5"
   },
   {
     "id": "jobBuilder.progressTracker.label.step3",
-    "defaultMessage": "Step 03"
+    "defaultMessage": "Step 3 / 5"
   },
   {
     "id": "jobBuilder.progressTracker.label.step4",
-    "defaultMessage": "Step 04"
+    "defaultMessage": "Step 4 / 5"
   },
   {
     "id": "jobBuilder.progressTracker.label.step5",
-    "defaultMessage": "Step 05"
+    "defaultMessage": "Step 5 / 5"
   },
   {
     "id": "jobBuilder.progressTracker.label.finish",
