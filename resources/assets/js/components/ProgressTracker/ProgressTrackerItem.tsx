@@ -11,13 +11,20 @@ const ProgressTrackerItem: React.FunctionComponent<
   ProgressTrackerItemProps
 > = ({ label, title, state, fontColor, dataIsLoading }): React.ReactElement => {
   return (
-    <div
+    <li
       className="tracker-item"
       data-tc-tracker-state={state}
       data-c-alignment="base(left)"
-      data-c-margin="top(half) right(normal) bottom(half) left(normal)"
       data-c-color={fontColor}
+      aria-hidden="true"
     >
+      <span
+        className="tracker-item-connect"
+        style={{
+          backgroundColor: `${!dataIsLoading &&
+            (state === "null" ? "#969696" : "#0A6CBC")}`,
+        }}
+      />
       {!dataIsLoading ? (
         <div className="tracker-icon">
           {state === "active" && <i className="fas fa-arrow-down" />}
@@ -29,12 +36,11 @@ const ProgressTrackerItem: React.FunctionComponent<
           <div className="spinner-loader" />
         </div>
       )}
-      <div>
+      <div className="tracker-title">
         <span data-c-font-size="small">{label}</span>
-        <br />
         <span data-c-font-weight="bold">{title}</span>
       </div>
-    </div>
+    </li>
   );
 };
 
