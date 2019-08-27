@@ -79,7 +79,7 @@
                 </h4>
             </div>
 
-            <div class="job-post__culture-wrapper box med-1of3">
+            <div class="job-post__culture-wrapper box med-1of2">
                 <div>
                     <h5 class="job-post__culture-heading">
                         {{ job_post.work_environment.remote_work_label }}
@@ -93,7 +93,7 @@
                 </p>
             </div>
 
-            <div class="job-post__culture-wrapper box med-1of3">
+            <div class="job-post__culture-wrapper box med-1of2">
                 <div>
                     <h5 class="job-post__culture-heading">
                         {{ job_post.work_environment.telework_label }}
@@ -107,7 +107,7 @@
                 </p>
             </div>
 
-            <div class="job-post__culture-wrapper box med-1of3">
+            <div class="job-post__culture-wrapper box med-1of2">
                 <div>
                     <h5 class="job-post__culture-heading">
                         {{ job_post.work_environment.time_flexibility_label }}
@@ -121,7 +121,7 @@
                 </p>
             </div>
 
-            <div class="job-post__culture-wrapper box med-1of3">
+            <div class="job-post__culture-wrapper box med-1of2">
                 <div>
                     <h5 class="job-post__culture-heading">
                         {{ job_post.work_environment.travel_label }}
@@ -135,7 +135,7 @@
                 </p>
             </div>
 
-            <div class="job-post__culture-wrapper box med-1of3">
+            <div class="job-post__culture-wrapper box med-1of2">
                 <div>
                     <h5 class="job-post__culture-heading">
                         {{ job_post.work_environment.overtime_label }}
@@ -149,8 +149,6 @@
                 </p>
             </div>
 
-            <!-- I've already made the markup changes here. Not sure if we're planning to React-ify this element while we're here, but feel free. -->
-            {# This is a demo version thats commented out; it puts the Culture info in a modal #}
             <div class="box full" data-clone>
                 {# <p data-c-margin="bottom(normal)">Want to know more about the team's physical environment, technology, and the ameneties available? Want to learn about the work culture?</p> #}
                 <button
@@ -182,7 +180,7 @@
                             <h5
                                 data-c-font-size="h4"
                                 id="applicant-work-culture-title">
-                                Work Environment &amp; Culture
+                                {{ job_post.work_environment.modal_title }}
                             </h5>
                             <button
                                 data-c-dialog-action="close"
@@ -201,14 +199,16 @@
                                         <p>{{ job.culture_summary }}</p>
                                         <p data-c-margin="top(normal)">{{ job.culture_special }}</p>
                                         <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="top(double) bottom(normal)" data-c-padding="bottom(normal)">{{ job_post.culture.work_environment_label }}</h4>
+                                            {# Below is a React container for the work environment features. This is being done to not duplicate JobWorkEnv component, and its translations, on the react side.  #}
                                             <div
                                                 id="work-env-features-section"
                                                 data-work-env-options={{ job.work_env_features|json_encode() }}
                                                 data-team-size={{ job.team_size|json_encode() }}
                                             >
                                             </div>
+                                            {# End of Component #}
                                             <div data-c-grid-item="base(1of1)" data-c-margin="top(normal)">
-                                                <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">More About Your Environment</span>
+                                                <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">{{ job_post.work_environment.modal_more_on_env }}</span>
                                                 <p>{{ job.work_env_description }}</p>
                                             </div>
                                         <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="top(double) bottom(normal)" data-c-padding="bottom(normal)">{{ job_post.culture.team_culture_label }}</h4>
@@ -300,7 +300,7 @@
                                         data-c-radius="rounded"
                                         data-c-dialog-action="close"
                                         data-c-dialog-id="applicant-work-culture">
-                                        Okay
+                                        {{ job_post.work_environment.modal_button }}
                                     </button>
                                 </div>
                             </div>

@@ -124,11 +124,7 @@
         .job-post__culture-wrapper {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            min-height: 0;
-            @media #{$p-tablet} {
-                min-height: 10rem;
-            }
+            justify-content: flex-start;
         }
 
         .job-post__culture-heading {
@@ -142,7 +138,7 @@
 
         .job-post__culture-desc {
             @extend %paragraph;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             margin: 0 0 calc(#{$unit} * 1);
         }
 
