@@ -18,9 +18,9 @@
         <div
             data-c-background="white(100)">
             {# Home Heading ================================================= #}
-            <header data-c-alignment="center" data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/bg_crowd.jpg');">
+            <header data-c-align="center" data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/bg_crowd.jpg');">
                 {% include "common/menu" %}
-                <div data-c-container="layout">
+                <div data-c-container="large">
                     <h1 data-c-colour="white" data-c-font-size="h1" data-c-font-weight="700" data-c-margin="top(triple) bottom(normal)">{{ home.hero.title }}<img alt="Canadian Maple Leaf" class="hero-icon" src="/images/maple-leaf.svg"></h1>
                     <p data-c-colour="white" data-c-margin="bottom(triple)">{{ home.hero.tagline }}</p>
                     <span data-c-colour="white" data-c-font-weight="800">{{ home.hero.pilot }}</span>
@@ -30,21 +30,21 @@
             <a id="skipLink"></a>
             {# CTA Statement Banner ========================================= #}
             <div class="gradient-left-right" data-c-padding="normal">
-                <div data-c-alignment="center" data-c-container="layout">
+                <div data-c-align="center" data-c-container="large">
                     <p data-c-colour="white" data-c-margin="top(half) bottom(half)">{{ home.slogan.copy }}<a href="{{ home.slogan.link.href }}" title="{{ home.slogan.link.title }}">{{ home.slogan.link.label }}</a>.
                     </p>
                 </div>
             </div>
             {# Browse Jobs ================================================== #}
             <div class="home-browse" data-c-background="white(100)" data-c-padding="top(triple) bottom(triple)">
-                <div data-c-container="layout">
-                    <div data-c-alignment="centre" data-c-grid="gutter middle">
-                        <div data-c-alignment="tp(left)" data-c-grid-item="tp(1of2)">
+                <div data-c-container="large">
+                    <div data-c-align="centre" data-c-grid="gutter middle">
+                        <div data-c-align="tp(left)" data-c-grid-item="tp(1of2)">
                             <h2 data-c-font-size="h2">
                                 {{ home.browse.title }}
                             </h2>
                         </div>
-                        <div data-c-alignment="tp(right)" data-c-grid-item="tp(1of2)">
+                        <div data-c-align="tp(right)" data-c-grid-item="tp(1of2)">
                             <a data-c-colour="c3" data-c-font-size="h4" data-c-font-weight="bold" href="{{ home.browse.browse_link.href }}" title="{{ home.browse.browse_link.title }}">
                                 {{ home.browse.browse_link.label }}
                             </a>
@@ -58,51 +58,51 @@
                                 <div class="card" data-c-background="white(100)" data-c-radius="rounded">
                                     <div data-c-background="black(100)" data-c-padding="normal">
                                         <h3>
-                                            <a data-c-colour="white" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(half)" href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
+                                            <a data-c-colour="white" data-c-font-size="h3" data-c-font-weight="bold" href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
                                                 {{ jobs[i].title }}
                                             </a>
                                         </h3>
-                                        <p data-c-colour="white">{{ jobs[i].department.name }}</p>
+                                        <p data-c-margin="top(half)" data-c-colour="white">{{ jobs[i].department.name }}</p>
                                     </div>
                                     <div data-c-background="white(100)" data-c-padding="normal">
                                         <div data-c-grid="gutter">
                                             <div data-c-grid-item="base(1of1)">
-                                                <span data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                                                <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
                                                     {{ job_index.index.apply_by_label|trans }}
-                                                </span>
-                                                <span>{{ humanizeLastDay(jobs[i].close_date_time) }}</span>
+                                                </p>
+                                                <p>{{ humanizeLastDay(jobs[i].close_date_time) }}</p>
                                             </div>
                                             <div data-c-grid-item="base(1of2)">
-                                                <span data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                                                <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
                                                     {{ job_index.index.location_label }}
-                                                </span>
-                                                <span>{{ jobs[i].city }}, {{ jobs[i].province.value }}</span>
+                                                </p>
+                                                <p>{{ jobs[i].city }}, {{ jobs[i].province.value }}</p>
                                             </div>
                                             <div data-c-grid-item="base(1of2)">
-                                                <span data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                                                <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
                                                     {{ job_index.index.salary_label }}
-                                                </span>
+                                                </p>
                                                 {% if (app.getLocale() == "en") %}
-                                                    <span>
+                                                    <p>
                                                         ${{ jobs[i].salary_min|number_format }} - ${{ jobs[i].salary_max|number_format }}
-                                                    </span>
+                                                    </p>
                                                 {% else %}
-                                                    <span>
+                                                    <p>
                                                         {{ jobs[i].salary_min|number_format('0',' ',' ') }}&nbsp;$ - {{ jobs[i].salary_max|number_format('0',' ',' ') }}&nbsp;$
-                                                    </span>
+                                                    </p>
                                                 {% endif %}
                                             </div>
                                             <div data-c-grid-item="base(1of1)">
-                                                <span data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                                                <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
                                                     {{ job_post.impact.title }}
-                                                </span>
+                                                </p>
                                                 <p>{{handleNullState(
                                                     jobs[i].impact,
                                                     jobs[i].impact|nl2br,
                                                     job_post.no_info
                                                 )}}</p>
                                             </div>
-                                            <div data-c-alignment="base(right)" data-c-grid-item="base(1of1)">
+                                            <div data-c-align="base(right)" data-c-grid-item="base(1of1)">
                                                 <a href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
                                                     {{ home.slogan.link.label }}
                                                 </a>
@@ -130,7 +130,7 @@
             {# How it Works ================================================= #}
             <a id="how"></a>
             <div data-c-background="grey(10)" data-c-padding="top(triple) bottom(triple)">
-                <div data-c-container="layout">
+                <div data-c-container="large">
                     <h2 data-c-font-size="h2" data-c-margin="bottom(double)">
                         {{ home.hiw.title }}
                     </h2>
@@ -139,7 +139,7 @@
                             {% set stepCounter = 0 %}
                             {% for button in home.hiw.steps %}
                                 {% set stepCounter = stepCounter + 1 %}
-                                <button {% if stepCounter == 1 %} class="active" {% else %} data-c-margin="top(normal)" {% endif %} data-c-alignment="centre" data-c-button="solid(c2)" data-c-radius="rounded" data-tc-hiw-id="{{ stepCounter }}" data-tc-hiw-trigger>
+                                <button {% if stepCounter == 1 %} class="active" {% else %} data-c-margin="top(normal)" {% endif %} data-c-align="centre" data-c-button="solid(c2)" data-c-radius="rounded" data-tc-hiw-id="{{ stepCounter }}" data-tc-hiw-trigger>
                                     <span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold">
                                         {{ button }}
                                     </span>
@@ -150,12 +150,12 @@
                             {% set stepContentCounter = 0 %}
                             {% for item in home.hiw.step_content %}
                                 {% set stepContentCounter = stepContentCounter + 1 %}
-                                <div class="home-hiw-content {% if stepContentCounter == 1 %}active{% endif %}" data-c-alignment="left" data-c-background="c1(100)" data-c-padding="double" data-c-radius="rounded" data-tc-hiw-id="{{ stepContentCounter }}">
+                                <div class="home-hiw-content {% if stepContentCounter == 1 %}active{% endif %}" data-c-align="left" data-c-background="c1(100)" data-c-padding="double" data-c-radius="rounded" data-tc-hiw-id="{{ stepContentCounter }}">
                                     <span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(normal)">
                                         {{ item.title }}
                                     </span>
-                                    <p data-c-colour="white" data-c-margin="bottom(normal)">{{ item.summary }}</p>
-                                    <p data-c-colour="white">{{ item.copy }}</p>
+                                    {# <p data-c-colour="white" data-c-margin="bottom(normal)">{{ item.summary }}</p> #}
+                                    <p data-c-margin="top(normal)" data-c-colour="white">{{ item.copy }}</p>
                                 </div>
                             {% endfor %}
                         </div>
@@ -164,7 +164,7 @@
             </div>
             {# Behind the Scenes ============================================ #}
             <div data-c-overlay="black(80)" data-c-padding="top(triple) bottom(triple)" style="background-image: url('/images/bg_crowd.jpg');">
-                <div data-c-container="layout">
+                <div data-c-container="large">
                     <h2 data-c-colour="white" data-c-font-size="h2" data-c-margin="bottom(double)">
                         {{ home.bts.title }}
                     </h2>
@@ -188,14 +188,14 @@
             </div>
             {# Blog Posts =================================================== #}
             <div class="home-blog" data-c-background="white(100)" data-c-padding="top(triple) bottom(triple)">
-                <div data-c-container="layout">
-                    <div data-c-alignment="centre" data-c-grid="gutter middle">
-                        <div data-c-alignment="tp(left)" data-c-grid-item="tp(1of2)">
+                <div data-c-container="large">
+                    <div data-c-align="centre" data-c-grid="gutter middle">
+                        <div data-c-align="tp(left)" data-c-grid-item="tp(1of2)">
                             <h2 data-c-font-size="h2">
                                 Our Blog
                             </h2>
                         </div>
-                        <div data-c-alignment="tp(right)" data-c-grid-item="tp(1of2)">
+                        <div data-c-align="tp(right)" data-c-grid-item="tp(1of2)">
                             <a data-c-colour="c3" data-c-font-size="h4" data-c-font-weight="bold" href="" title="">
                                 View More Posts
                             </a>
@@ -204,49 +204,40 @@
                     <div data-c-margin="top(double)">
                         <div data-c-grid="gutter">
                             <div data-c-grid-item="tl(1of3) equal-col">
-                                <span data-c-font-weight="bold" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</span>
+                                <p data-c-font-size="small" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</p>
                                 <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
                                     <a href="" title="">How to Find a Job that Fits</a>
                                 </h3>
-                                <span data-c-margin="bottom(normal)" data-c-font-weight="bold">Authored by: Meagan Commonda</span>
-                                <span data-c-margin="bottom(normal)">About a 5 minute read.</span>
+                                <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">Authored by: Meagan Commonda</p>
+                                <p data-c-margin="bottom(normal)">About a 5 minute read.</p>
                                 <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
-                                <ul data-c-colour="c3" data-c-font-weight="bold" class="blog-tag-list">
-                                    <li>Sample Tag</li>
-                                    <li>Sample Tag</li>
-                                    <li>Sample Tag</li>
-                                </ul>
-                                <a data-c-margin="top(normal)" data-c-font-weight="bold" href="" title="">Read More</a>
+                                <p data-c-margin="top(normal)">
+                                    <a data-c-button="outline(c1)" data-c-radius="rounded" href="" title="">Read More</a>
+                                </p>
                             </div>
                             <div data-c-grid-item="tl(1of3) equal-col">
-                                <span data-c-font-weight="bold" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</span>
+                                <p data-c-font-size="small" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</p>
                                 <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
                                     <a href="" title="">How to Find a Job that Fits</a>
                                 </h3>
-                                <span data-c-margin="bottom(normal)" data-c-font-weight="bold">Authored by: Meagan Commonda</span>
-                                <span data-c-margin="bottom(normal)">About a 5 minute read.</span>
+                                <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">Authored by: Meagan Commonda</p>
+                                <p data-c-margin="bottom(normal)">About a 5 minute read.</p>
                                 <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
-                                <ul data-c-colour="c3" data-c-font-weight="bold" class="blog-tag-list">
-                                    <li>Sample Tag</li>
-                                    <li>Sample Tag</li>
-                                    <li>Sample Tag</li>
-                                </ul>
-                                <a data-c-margin="top(normal)" data-c-font-weight="bold" href="" title="">Read More</a>
+                                <p data-c-margin="top(normal)">
+                                    <a data-c-button="outline(c1)" data-c-radius="rounded" href="" title="">Read More</a>
+                                </p>
                             </div>
                             <div data-c-grid-item="tl(1of3) equal-col">
-                                <span data-c-font-weight="bold" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</span>
+                                <p data-c-font-size="small" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</p>
                                 <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
                                     <a href="" title="">How to Find a Job that Fits</a>
                                 </h3>
-                                <span data-c-margin="bottom(normal)" data-c-font-weight="bold">Authored by: Meagan Commonda</span>
-                                <span data-c-margin="bottom(normal)">About a 5 minute read.</span>
+                                <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">Authored by: Meagan Commonda</p>
+                                <p data-c-margin="bottom(normal)">About a 5 minute read.</p>
                                 <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
-                                <ul data-c-colour="c3" data-c-font-weight="bold" class="blog-tag-list">
-                                    <li>Sample Tag</li>
-                                    <li>Sample Tag</li>
-                                    <li>Sample Tag</li>
-                                </ul>
-                                <a data-c-margin="top(normal)" data-c-font-weight="bold" href="" title="">Read More</a>
+                                <p data-c-margin="top(normal)">
+                                    <a data-c-button="outline(c1)" data-c-radius="rounded" href="" title="">Read More</a>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -255,7 +246,7 @@
             </div>
             {# GC Jobs Banner =============================================== #}
             <div class="gradient-right-left" data-c-padding="normal">
-                <div data-c-alignment="center" data-c-container="layout">
+                <div data-c-align="center" data-c-container="layout">
                     <p data-c-colour="white" data-c-margin="top(half) bottom(half)">
                         {{ home.cta.copy|replace({"%gcjobs%": home.cta.copy_links.gcjobs, "%fswep%": home.cta.copy_links.fswep})|raw }}
                     </p>

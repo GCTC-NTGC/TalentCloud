@@ -52,7 +52,7 @@ const JobDetailsPage: React.FunctionComponent<
   const handleModalCancel = (): void => {};
   const handleModalConfirm = (): void => {
     if (job) {
-      window.location.href = jobBuilderEnv(intl.locale, jobId);
+      navigate(jobBuilderEnv(intl.locale, jobId));
     }
   };
   const handleSubmit = handleUpdateJob;
@@ -61,7 +61,7 @@ const JobDetailsPage: React.FunctionComponent<
   };
   const handleSkipToReview = async (): Promise<void> => {
     if (jobId !== null) {
-      window.location.href = jobBuilderReview(locale, jobId);
+      navigate(jobBuilderReview(locale, jobId));
     }
   };
 
