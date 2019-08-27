@@ -32,11 +32,7 @@
                 {{ job_post.criteria.education_title }}
             </h4>
             <p>
-                {{ handleNullState(
-                    job.education,
-                    job.education|nl2br,
-                    noInfo
-                )}}
+                {{ job.education ? job.education|nl2br : noInfo }}
             </p>
         </div>
 

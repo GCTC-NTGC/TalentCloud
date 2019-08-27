@@ -20,27 +20,15 @@
     </h3>
 
     <p>
-        {{handleNullState(
-            job.dept_impact,
-            job.dept_impact|nl2br,
-            noInfo
-        )}}
+        {{ job.dept_impact ? job.dept_impact|nl2br : noInfo }}
     </p>
 
     <p>
-        {{handleNullState(
-            job.team_impact,
-            job.team_impact|nl2br,
-            noInfo
-        )}}
+        {{ job.team_impact ? job.team_impact|nl2br : noInfo }}
     </p>
 
     <p>
-        {{handleNullState(
-            job.hire_impact,
-            job.hire_impact|nl2br,
-            noInfo
-        )}}
+        {{ job.hire_impact ? job.hire_impact|nl2br : noInfo }}
     </p>
 
 </section>
