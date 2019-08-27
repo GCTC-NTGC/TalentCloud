@@ -1,4 +1,9 @@
-import { AsyncFsaActions, RSAActionTemplate, asyncGet } from "../asyncAction";
+import {
+  AsyncFsaActions,
+  RSAActionTemplate,
+  asyncGet,
+  asyncPut,
+} from "../asyncAction";
 import { Manager } from "../../models/types";
 import { getManagerEndpoint } from "../../api/manager";
 import { Action } from "../createAction";
@@ -33,6 +38,37 @@ export const fetchManager = (
     { id },
   );
 
+export const UPDATE_MANAGER_STARTED = "MANAGER: UPDATE STARTED";
+export const UPDATE_MANAGER_SUCCEEDED = "MANAGER: UPDATE SUCCEEDED";
+export const UPDATE_MANAGER_FAILED = "MANAGER: UPDATE FAILED";
+
+export type UpdateManagerAction = AsyncFsaActions<
+  typeof UPDATE_MANAGER_STARTED,
+  typeof UPDATE_MANAGER_SUCCEEDED,
+  typeof UPDATE_MANAGER_FAILED,
+  Manager,
+  { id: number }
+>;
+
+export const updateManager = (
+  manager: Manager,
+): RSAActionTemplate<
+  typeof UPDATE_MANAGER_STARTED,
+  typeof UPDATE_MANAGER_SUCCEEDED,
+  typeof UPDATE_MANAGER_FAILED,
+  Manager,
+  { id: number }
+> =>
+  asyncPut(
+    getManagerEndpoint(manager.id),
+    manager,
+    UPDATE_MANAGER_STARTED,
+    UPDATE_MANAGER_SUCCEEDED,
+    UPDATE_MANAGER_FAILED,
+    (response): Manager => response,
+    { id: manager.id },
+  );
+
 export const SET_SELECTED_MANAGER = "MANAGER: SET SELECTED";
 export type SetSelectedManagerAction = Action<
   typeof SET_SELECTED_MANAGER,
@@ -44,4 +80,7 @@ export const setSelectedManager = (
   type: SET_SELECTED_MANAGER,
   payload: { managerId: id },
 });
-export type ManagerAction = FetchManagerAction | SetSelectedManagerAction;
+export type ManagerAction =
+  | FetchManagerAction
+  | UpdateManagerAction
+  | SetSelectedManagerAction;

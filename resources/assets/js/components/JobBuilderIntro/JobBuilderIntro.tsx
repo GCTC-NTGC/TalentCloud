@@ -8,6 +8,7 @@ import {
   Department,
   JobPosterKeyTask,
   Criteria,
+  Manager,
 } from "../../models/types";
 import { RootState } from "../../store/store";
 import {
@@ -25,11 +26,12 @@ import RootContainer from "../RootContainer";
 import { jobBuilderDetails } from "../../helpers/routes";
 import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
 import { getDepartments } from "../../store/Department/deptSelector";
-import {
-  isJobBuilderComplete,
-  VALID_COUNT,
-} from "../JobBuilder/jobBuilderHelpers";
 import { navigate } from "../../helpers/router";
+import { getSelectedManager } from "../../store/Manager/managerSelector";
+import {
+  updateManager,
+  setSelectedManager,
+} from "../../store/Manager/managerActions";
 
 interface JobBuilderIntroProps {
   // The id of the edited job, or null for a new job.
@@ -39,33 +41,41 @@ interface JobBuilderIntroProps {
   // If not null, used to prepopulate form values.
   // Note: its possible for jobId to be non-null, but job to be null, if the data hasn't been loaded yet.
   job: Job | null;
-  // Tasks associated with the job, if it exists
-  keyTasks: JobPosterKeyTask[];
-  // Criteria associated with the job, if it exists
-  criteria: Criteria[];
+  // The manager of this job.
+  manager: Manager | null;
   // Creates a new job. Must return the new job if successful.
   handleCreateJob: (newJob: Job) => Promise<Job>;
   // Updates an existing job. Must return the updated job if successful.
   handleUpdateJob: (newJob: Job) => Promise<Job>;
+  // Updates an existing Manager. Must return the updated manager if successful.
+  handleUpdateManager: (manager: Manager) => Promise<Manager>;
 }
 
 const JobBuilderIntro: React.FunctionComponent<
   JobBuilderIntroProps & InjectedIntlProps
 > = ({
   jobId,
+  manager,
   job,
   departments,
   handleCreateJob,
   handleUpdateJob,
-  keyTasks,
-  criteria,
+  handleUpdateManager,
   intl,
 }): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
   }
-  const handleSubmit = job ? handleUpdateJob : handleCreateJob;
+  const submitJob = job ? handleUpdateJob : handleCreateJob;
+  const handleSubmit = async (
+    updatedJob: Job,
+    updatedManager: Manager,
+  ): Promise<Job> => {
+    const jobPromise = submitJob(updatedJob);
+    await handleUpdateManager(updatedManager);
+    return jobPromise;
+  };
 
   const handleContinueEn = (newJob: Job): void => {
     navigate(jobBuilderDetails("en", newJob.id));
@@ -77,9 +87,10 @@ const JobBuilderIntro: React.FunctionComponent<
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="intro">
       {/** Show the form when the existing job has loaded, or if this is a new job */}
-      {(job !== null || jobId === null) && (
+      {manager !== null && (job !== null || jobId === null) && (
         <IntroForm
           job={job}
+          manager={manager}
           departments={departments}
           handleSubmit={handleSubmit}
           handleContinueEn={handleContinueEn}
@@ -95,11 +106,13 @@ const mapStateToProps = (
   { jobId }: { jobId: number | null },
 ): {
   job: Job | null;
+  manager: Manager | null;
   departments: Department[];
   keyTasks: JobPosterKeyTask[];
   criteria: Criteria[];
 } => ({
   job: getSelectedJob(state),
+  manager: getSelectedManager(state),
   departments: getDepartments(state),
   keyTasks: jobId !== null ? getTasksByJob(state, { jobId }) : [],
   criteria: jobId !== null ? getCriteriaByJob(state, { jobId }) : [],
@@ -110,6 +123,7 @@ const mapDispatchToProps = (
 ): {
   handleCreateJob: (newJob: Job) => Promise<Job>;
   handleUpdateJob: (newJob: Job) => Promise<Job>;
+  handleUpdateManager: (newManager: Manager) => Promise<Manager>;
 } => ({
   handleCreateJob: async (newJob: Job): Promise<Job> => {
     const result = await dispatch(createJob(newJob));
@@ -125,6 +139,15 @@ const mapDispatchToProps = (
     if (!result.error) {
       const resultJob = await result.payload;
       return resultJob;
+    }
+    return Promise.reject(result.payload);
+  },
+  handleUpdateManager: async (newManager: Manager): Promise<Manager> => {
+    const result = await dispatch(updateManager(newManager));
+    if (!result.error) {
+      const resultManager = await result.payload;
+      dispatch(setSelectedManager(resultManager.id));
+      return resultManager;
     }
     return Promise.reject(result.payload);
   },

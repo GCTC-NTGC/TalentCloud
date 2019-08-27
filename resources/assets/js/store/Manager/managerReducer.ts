@@ -3,6 +3,7 @@ import {
   ManagerAction,
   FETCH_MANAGER_SUCCEEDED,
   SET_SELECTED_MANAGER,
+  UPDATE_MANAGER_SUCCEEDED,
 } from "./managerActions";
 
 export interface ManagerState {
@@ -23,6 +24,7 @@ export const managerReducer = (
 ): ManagerState => {
   switch (action.type) {
     case FETCH_MANAGER_SUCCEEDED:
+    case UPDATE_MANAGER_SUCCEEDED:
       return {
         ...state,
         managersById: {

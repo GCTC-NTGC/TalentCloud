@@ -9,7 +9,7 @@ import {
 import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
 import { validationMessages } from "../Form/Messages";
-import { Job, Department } from "../../models/types";
+import { Job, Department, Manager } from "../../models/types";
 import { emptyJob } from "../../models/jobUtil";
 import SelectInput from "../Form/SelectInput";
 import TextInput from "../Form/TextInput";
@@ -70,9 +70,9 @@ const formMessages = defineMessages({
 });
 
 // shape of values used in Form
-interface FormValues {
-  jobTitleEN: string;
-  jobTitleFR: string;
+interface IntroFormValues {
+  managerPositionEn: string;
+  managerPositionFr: string;
   department: number | "";
   divisionEN: string;
   divisionFR: string;
@@ -81,46 +81,82 @@ interface FormValues {
 interface IntroFormProps {
   // If not null, used to prepopulate form values
   job: Job | null;
+  // The manager of this job. Used to prepopulate values.
+  manager: Manager;
   // List of known department options.
   departments: Department[];
   // Runs after successful validation.
   // It must (asyncronously) return the resulting job, if successful.
-  handleSubmit: (job: Job) => Promise<Job>;
+  handleSubmit: (job: Job, manager: Manager) => Promise<Job>;
   // Continues the JobBuilder in English.
   handleContinueEn: (job: Job) => void;
   // Continues the JobBuilder in French.
   handleContinueFr: (job: Job) => void;
 }
 
-const jobToValues = (job: Job | null): FormValues =>
-  job
-    ? {
-        jobTitleEN: job.en.title || "",
-        jobTitleFR: job.fr.title || "",
-        department: job.department_id || "",
-        divisionEN: job.en.division || "",
-        divisionFR: job.fr.division || "",
-      }
-    : {
-        jobTitleEN: "",
-        jobTitleFR: "",
-        department: "",
-        divisionEN: "",
-        divisionFR: "",
-      };
+const initializeValues = (
+  job: Job | null,
+  manager: Manager,
+): IntroFormValues => {
+  let department: number | "" = "";
+  if (job !== null && job.department_id !== null) {
+    department = job.department_id;
+  } else if (manager.department_id !== null) {
+    department = manager.department_id;
+  }
 
-const updateJobWithValues = (job: Job, values: FormValues): Job => ({
+  let divisionEN = "";
+  if (job !== null && job.en.division) {
+    divisionEN = job.en.division;
+  } else if (manager.en.division) {
+    divisionEN = manager.en.division;
+  }
+
+  let divisionFR = "";
+  if (job !== null && job.fr.division) {
+    divisionFR = job.fr.division;
+  } else if (manager.fr.division) {
+    divisionFR = manager.fr.division;
+  }
+
+  return {
+    managerPositionEn: manager.en.position || "",
+    managerPositionFr: manager.fr.position || "",
+    department,
+    divisionEN,
+    divisionFR,
+  };
+};
+
+const updateJobWithValues = (job: Job, values: IntroFormValues): Job => ({
   ...job,
   // eslint-disable-next-line @typescript-eslint/camelcase
   department_id: values.department || null,
   en: {
     ...job.en,
-    title: values.jobTitleEN || null,
     division: values.divisionEN || null,
   },
   fr: {
     ...job.fr,
-    title: values.jobTitleFR || null,
+    division: values.divisionFR || null,
+  },
+});
+
+const updateManagerWithValues = (
+  manager: Manager,
+  values: IntroFormValues,
+): Manager => ({
+  ...manager,
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  department_id: values.department || null,
+  en: {
+    ...manager.en,
+    position: values.managerPositionEn || null,
+    division: values.divisionEN || null,
+  },
+  fr: {
+    ...manager.fr,
+    position: values.managerPositionFr || null,
     division: values.divisionFR || null,
   },
 });
@@ -129,24 +165,25 @@ const IntroForm: React.FunctionComponent<
   IntroFormProps & InjectedIntlProps
 > = ({
   job,
+  manager,
   departments,
   handleSubmit,
   handleContinueEn,
   handleContinueFr,
   intl,
 }: IntroFormProps & InjectedIntlProps): React.ReactElement => {
-  const initialValues: FormValues = jobToValues(job);
-  const [languageSelection, setLanguageSelection] = useState("en");
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
+  const initialValues: IntroFormValues = initializeValues(job, manager);
+  const [languageSelection, setLanguageSelection] = useState(locale);
 
   const introSchema = Yup.object().shape({
-    jobTitleEN: Yup.string().required(
+    managerPositionEn: Yup.string().required(
       intl.formatMessage(validationMessages.required),
     ),
-    jobTitleFR: Yup.string().required(
+    managerPositionFr: Yup.string().required(
       intl.formatMessage(validationMessages.required),
     ),
     divisionEN: Yup.string().required(
@@ -213,7 +250,9 @@ const IntroForm: React.FunctionComponent<
           initialValues={initialValues}
           validationSchema={introSchema}
           onSubmit={(values, { setSubmitting }): void => {
-            handleSubmit(updateJobWithValues(job || emptyJob(), values))
+            const updatedJob = updateJobWithValues(job || emptyJob(), values);
+            const updatedManager = updateManagerWithValues(manager, values);
+            handleSubmit(updatedJob, updatedManager)
               .then((newJob: Job): void => {
                 if (languageSelection === "fr") {
                   handleContinueFr(newJob);
@@ -235,8 +274,8 @@ const IntroForm: React.FunctionComponent<
                 <div data-c-grid="gutter">
                   <Field
                     type="text"
-                    id="builder01ManagerJobTitleEN"
-                    name="jobTitleEN"
+                    id="builder01ManagerManagerPositionEn"
+                    name="managerPositionEn"
                     label={intl.formatMessage(formMessages.jobTitleLabelEN)}
                     placeholder={intl.formatMessage(
                       formMessages.jobTitlePlaceholderEN,
@@ -247,8 +286,8 @@ const IntroForm: React.FunctionComponent<
                   />
                   <Field
                     type="text"
-                    id="builder01ManagerJobTitleFR"
-                    name="jobTitleFR"
+                    id="builder01ManagerPositionFr"
+                    name="managerPositionFr"
                     label={intl.formatMessage(formMessages.jobTitleLabelFR)}
                     placeholder={intl.formatMessage(
                       formMessages.jobTitlePlaceholderFR,
