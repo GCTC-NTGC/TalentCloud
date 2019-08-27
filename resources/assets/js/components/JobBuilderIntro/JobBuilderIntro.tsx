@@ -1,5 +1,5 @@
-import React from "react";
-import { injectIntl, InjectedIntlProps } from "react-intl";
+import React, { useEffect } from "react";
+import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import IntroForm from "./IntroForm";
@@ -31,6 +31,8 @@ import { getSelectedManager } from "../../store/Manager/managerSelector";
 import {
   updateManager,
   setSelectedManager,
+  fetchManager,
+  fetchCurrentManager,
 } from "../../store/Manager/managerActions";
 
 interface JobBuilderIntroProps {
@@ -49,6 +51,10 @@ interface JobBuilderIntroProps {
   handleUpdateJob: (newJob: Job) => Promise<Job>;
   // Updates an existing Manager. Must return the updated manager if successful.
   handleUpdateManager: (manager: Manager) => Promise<Manager>;
+  // Load a manager with a particular id.
+  loadManager: (managerId: number) => Promise<void>;
+  // Load the manager profile of the current authenticated user.
+  loadCurrentManager: () => Promise<void>;
 }
 
 const JobBuilderIntro: React.FunctionComponent<
@@ -61,12 +67,25 @@ const JobBuilderIntro: React.FunctionComponent<
   handleCreateJob,
   handleUpdateJob,
   handleUpdateManager,
+  loadManager,
+  loadCurrentManager,
   intl,
 }): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
   }
+  useEffect((): void => {
+    if (manager === null) {
+      if (jobId === null) {
+        loadCurrentManager();
+      }
+      if (job !== null) {
+        loadManager(job.manager_id);
+      }
+    }
+  }, [manager, jobId, job, loadCurrentManager, loadManager]);
+
   const submitJob = job ? handleUpdateJob : handleCreateJob;
   const handleSubmit = async (
     updatedJob: Job,
@@ -87,6 +106,28 @@ const JobBuilderIntro: React.FunctionComponent<
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="intro">
       {/** Show the form when the existing job has loaded, or if this is a new job */}
+      {manager === null && (
+        <div
+          data-c-container="form"
+          data-c-padding="top(triple) bottom(triple)"
+        >
+          <div
+            data-c-background="white(100)"
+            data-c-card
+            data-c-padding="all(double)"
+            data-c-radius="rounded"
+            data-c-align="base(centre)"
+          >
+            <p>
+              <FormattedMessage
+                id="jobBuilder.intro.managerLoading"
+                defaultMessage="Your Manager Profile is loading..."
+                description="Message indicating that the manager profile is still being loaded."
+              />
+            </p>
+          </div>
+        </div>
+      )}
       {manager !== null && (job !== null || jobId === null) && (
         <IntroForm
           job={job}
@@ -124,6 +165,8 @@ const mapDispatchToProps = (
   handleCreateJob: (newJob: Job) => Promise<Job>;
   handleUpdateJob: (newJob: Job) => Promise<Job>;
   handleUpdateManager: (newManager: Manager) => Promise<Manager>;
+  loadManager: (id: number) => Promise<void>;
+  loadCurrentManager: () => Promise<void>;
 } => ({
   handleCreateJob: async (newJob: Job): Promise<Job> => {
     const result = await dispatch(createJob(newJob));
@@ -150,6 +193,24 @@ const mapDispatchToProps = (
       return resultManager;
     }
     return Promise.reject(result.payload);
+  },
+  loadManager: async (id: number): Promise<void> => {
+    const result = await dispatch(fetchManager(id));
+    if (!result.error) {
+      const resultManager = await result.payload;
+      dispatch(setSelectedManager(resultManager.id));
+      return Promise.resolve();
+    }
+    return Promise.reject(result.error);
+  },
+  loadCurrentManager: async (): Promise<void> => {
+    const result = await dispatch(fetchCurrentManager());
+    if (!result.error) {
+      const resultManager = await result.payload;
+      dispatch(setSelectedManager(resultManager.id));
+      return Promise.resolve();
+    }
+    return Promise.reject(result.error);
   },
 });
 
