@@ -103,6 +103,8 @@ return [
     'work_environment' => [
         'view_more_button' => 'Voir l’environnement de travail et la culture de l’équipe',
         'modal_title' => 'Work Environement and Culture FR', // TODO: needs translation
+        'modal_more_on_env' => 'More About Your Environment FR', // TODO: needs translation
+        'modal_button' => 'Okay FR', // TODO: needs translation
         'remote_work_label' => 'Travail à distance :',
         'remote_work_desc' => 'Travaillez n’importe où, en tout temps.',
         'remote_work_allowed' => [

@@ -103,6 +103,8 @@ return [
     'work_environment' => [
         'view_more_button' => 'View the team’s work environment and culture',
         'modal_title' => 'Work Environement and Culture',
+        'modal_more_on_env' => 'More About Your Environment',
+        'modal_button' => 'Okay',
         'remote_work_label' => 'Remote Work',
         'remote_work_desc' => 'Work from anywhere, all the time.',
         'remote_work_allowed' => [
