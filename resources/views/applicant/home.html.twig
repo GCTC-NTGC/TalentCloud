@@ -20,7 +20,7 @@
             {# Home Heading ================================================= #}
             <header data-c-align="center" data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/bg_crowd.jpg');">
                 {% include "common/menu" %}
-                <div data-c-container="large">
+                <div data-c-container="large" data-c-padding="top(double)">
                     <h1 data-c-colour="white" data-c-font-size="h1" data-c-font-weight="700" data-c-margin="top(triple) bottom(normal)">{{ home.hero.title }}<img alt="Canadian Maple Leaf" class="hero-icon" src="/images/maple-leaf.svg"></h1>
                     <p data-c-colour="white" data-c-margin="bottom(triple)">{{ home.hero.tagline }}</p>
                     <span data-c-colour="white" data-c-font-weight="800">{{ home.hero.pilot }}</span>
@@ -155,7 +155,7 @@
                                         {{ item.title }}
                                     </span>
                                     {# <p data-c-colour="white" data-c-margin="bottom(normal)">{{ item.summary }}</p> #}
-                                    <p data-c-margin="top(normal)" data-c-colour="white">{{ item.copy }}</p>
+                                    <p data-c-margin="top(normal)" data-c-colour="white">{{ item.copy|replace({'%levels%': item.links.levels, '%certs%': item.links.certs})|raw|nl2br }}</p>
                                 </div>
                             {% endfor %}
                         </div>
@@ -196,49 +196,27 @@
                             </h2>
                         </div>
                         <div data-c-align="tp(right)" data-c-grid-item="tp(1of2)">
-                            <a data-c-colour="c3" data-c-font-size="h4" data-c-font-weight="bold" href="" title="">
+                            {# <a data-c-colour="c3" data-c-font-size="h4" data-c-font-weight="bold" href="" title="">
                                 View More Posts
-                            </a>
+                            </a> #}
                         </div>
                     </div>
                     <div data-c-margin="top(double)">
                         <div data-c-grid="gutter">
-                            <div data-c-grid-item="tl(1of3) equal-col">
-                                <p data-c-font-size="small" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</p>
-                                <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
-                                    <a href="" title="">How to Find a Job that Fits</a>
-                                </h3>
-                                <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">Authored by: Meagan Commonda</p>
-                                <p data-c-margin="bottom(normal)">About a 5 minute read.</p>
-                                <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
-                                <p data-c-margin="top(normal)">
-                                    <a data-c-button="outline(c1)" data-c-radius="rounded" href="" title="">Read More</a>
-                                </p>
-                            </div>
-                            <div data-c-grid-item="tl(1of3) equal-col">
-                                <p data-c-font-size="small" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</p>
-                                <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
-                                    <a href="" title="">How to Find a Job that Fits</a>
-                                </h3>
-                                <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">Authored by: Meagan Commonda</p>
-                                <p data-c-margin="bottom(normal)">About a 5 minute read.</p>
-                                <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
-                                <p data-c-margin="top(normal)">
-                                    <a data-c-button="outline(c1)" data-c-radius="rounded" href="" title="">Read More</a>
-                                </p>
-                            </div>
-                            <div data-c-grid-item="tl(1of3) equal-col">
-                                <p data-c-font-size="small" data-c-margin="bottom(normal)">Thursday, November 3rd, 2018</p>
-                                <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
-                                    <a href="" title="">How to Find a Job that Fits</a>
-                                </h3>
-                                <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">Authored by: Meagan Commonda</p>
-                                <p data-c-margin="bottom(normal)">About a 5 minute read.</p>
-                                <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius fringilla metus id rutrum. Fusce condimentum risus ut purus consequat tempor. Proin vestibulum in nunc vel iaculis. Vivamus accumsan volutpat ligula, et accumsan tellus porttitor id. Donec vitae leo pretium, interdum elit in, scelerisque nibh.</p>
-                                <p data-c-margin="top(normal)">
-                                    <a data-c-button="outline(c1)" data-c-radius="rounded" href="" title="">Read More</a>
-                                </p>
-                            </div>
+                            {% for item in home.blogs %}
+                                <div data-c-grid-item="tl(1of3) equal-col">
+                                    <p data-c-font-size="small" data-c-margin="bottom(normal)">{{ item.date }}</p>
+                                    <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                                        <a href="{{ item.link.anchor }}" title="{{ item.link.title }}">{{ item.title }}</a>
+                                    </h3>
+                                    <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">{{ item.author }}</p>
+                                    <p data-c-margin="bottom(normal)">{{ item.eta }}</p>
+                                    <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">{{ item.summary }}</p>
+                                    <p data-c-margin="top(normal)">
+                                        <a data-c-button="outline(c1)" data-c-radius="rounded" href="{{ item.link.anchor }}" title="{{ item.link.title }}">{{ item.link.label }}</a>
+                                    </p>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
