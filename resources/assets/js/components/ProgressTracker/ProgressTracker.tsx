@@ -23,29 +23,34 @@ const ProgressTracker: React.FunctionComponent<ProgressTrackerProps> = ({
   itemsWrapperClassNames,
   dataIsLoading,
 }): React.ReactElement => {
-  const activeIndex = (): number => {
-    let index = -1;
-    if (items) {
-      items.map(({ state }, i) => {
-        if (state === "active") {
-          index = i;
-        }
-      });
-    }
-
-    return index;
-  };
-
-  const activeItem = (): ProgressTrackerItem => {
-    let active;
-    if (items) {
-      active = items.find(({ state }) => {
+  const activeItemLabel = (): string => {
+    const active: ProgressTrackerItem | undefined =
+      items &&
+      items.find(({ state }) => {
         return state === "active";
       });
-    }
 
-    return active;
+    return active ? active.label : "";
   };
+
+  const activeItemTitle = (): string => {
+    const active: ProgressTrackerItem | undefined =
+      items &&
+      items.find(({ state }) => {
+        return state === "active";
+      });
+
+    return active ? active.title : "";
+  };
+
+  const activeIndex = (): number =>
+    items
+      ? items.reduce(function(acc, { state }) {
+          state === "active" ? acc++ : acc;
+          return acc;
+        }, 0)
+      : -1;
+
   return (
     <div
       data-c-alignment="base(centre)"
@@ -57,9 +62,9 @@ const ProgressTracker: React.FunctionComponent<ProgressTrackerProps> = ({
         tabIndex={0}
         role="progressbar"
         aria-valuemin={1}
-        aria-valuemax={5}
+        aria-valuemax={items && items.length}
         aria-valuenow={activeIndex()}
-        aria-valuetext={`${activeItem().label} : ${activeItem().title}`}
+        aria-valuetext={`${activeItemLabel} : ${activeItemTitle}`}
         className={itemsWrapperClassNames}
         data-c-container="layout"
       >
