@@ -1,0 +1,314 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Impact
+
+============================================================================= #}
+
+<a
+    aria-hidden="true"
+    class="job-post__anchor"
+    id="culture">
+</a>
+
+<section
+    class="job-post__culture">
+
+    <h3
+        class="job-post__culture-title">
+        {{ job_post.culture.title }}
+    </h3>
+
+    <div class="flex-grid middle">
+
+        {# Hiring Manager #}
+
+            <div
+                class="box full">
+                <h4
+                    class="job-post__culture-subtitle manager">
+                    {{ job_post.culture.manager_title }}, {{ manager.user.name }}
+                </h4>
+            </div>
+
+            <div
+                class="box full job-post__culture-manager-copy">
+
+                <div
+                    class="job-post__culture-manager-meta">
+                    <span>{{ manager.position }}</span>
+                    <span>{{ job_post.culture.manager_department_bridge }}</span>
+                    <span>{{ manager.department.name }}</span>
+                </div>
+
+                {% if auth_guest() %}
+
+                    <a
+                        class="job-post__culture-manager-profile-link"
+                        href="{{ route('managers.show',{'manager':manager.id}) }}"
+                        title="{{ job_post.manager.link_title|replace({":name":manager.user.name}) }}">
+                        {{ job_post.culture.guest_manager_link_label|replace({":name":manager.user.name}) }}
+                    </a>
+
+                {% else %}
+
+                    <a
+                        class="job-post__culture-manager-profile-link"
+                        href="{{ route('managers.show',{'manager':manager.id}) }}"
+                        title="{{ job_post.manager.link_title|replace({":name":manager.user.name}) }}">
+                        {{ job_post.culture.manager_link_label|replace({":name":manager.user.name}) }}
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+            <div
+                class="box full">
+                <p
+                    class="job-post__manager-copy">
+                    {{ manager.leadership_style|nl2br }}
+                </p>
+            </div>
+
+        {# Work Environment #}
+
+            <div class="box full">
+                <h4 class="job-post__culture-subtitle">
+                    {{ job_post.culture.work_environment_label }}
+                </h4>
+            </div>
+
+            <div class="job-post__culture-wrapper box med-1of2">
+                <div>
+                    <h5 class="job-post__culture-heading">
+                        {{ job_post.work_environment.remote_work_label }}
+                    </h5>
+                    <p class="job-post__culture-desc">
+                        {{ job_post.work_environment.remote_work_desc }}
+                    </p>
+                </div>
+                <p class="job-post__culture-copy">
+                    {{ job_post.work_environment.remote_work_allowed[job.remote_work_allowed] ?: noInfo }}
+                </p>
+            </div>
+
+            <div class="job-post__culture-wrapper box med-1of2">
+                <div>
+                    <h5 class="job-post__culture-heading">
+                        {{ job_post.work_environment.telework_label }}
+                    </h5>
+                    <p class="job-post__culture-desc">
+                        {{ job_post.work_environment.telework_desc }}
+                    </p>
+                </div>
+                <p class="job-post__culture-copy">
+                    {{ job_post.work_environment.telework_allowed[job.telework_allowed_frequency.name] ?: noInfo }}
+                </p>
+            </div>
+
+            <div class="job-post__culture-wrapper box med-1of2">
+                <div>
+                    <h5 class="job-post__culture-heading">
+                        {{ job_post.work_environment.time_flexibility_label }}
+                    </h5>
+                    <p class="job-post__culture-desc">
+                        {{ job_post.work_environment.time_flexibility_desc }}
+                    </p>
+                </div>
+                <p class="job-post__culture-copy">
+                    {{ job_post.work_environment.time_flexibility_allowed[job.flexible_hours_frequency.name] ?: noInfo }}
+                </p>
+            </div>
+
+            <div class="job-post__culture-wrapper box med-1of2">
+                <div>
+                    <h5 class="job-post__culture-heading">
+                        {{ job_post.work_environment.travel_label }}
+                    </h5>
+                    <p class="job-post__culture-desc">
+                        {{ job_post.work_environment.travel_desc }}
+                    </p>
+                </div>
+                <p class="job-post__culture-copy">
+                    {{ job_post.work_environment.travel[job.travel_requirement.name] ?: noInfo }}
+                </p>
+            </div>
+
+            <div class="job-post__culture-wrapper box med-1of2">
+                <div>
+                    <h5 class="job-post__culture-heading">
+                        {{ job_post.work_environment.overtime_label }}
+                    </h5>
+                    <p class="job-post__culture-desc">
+                        {{ job_post.work_environment.overtime_desc }}
+                    </p>
+                </div>
+                <p class="job-post__culture-copy">
+                    {{ job_post.work_environment.overtime[job.overtime_requirement.name] ?: noInfo }}
+                </p>
+            </div>
+
+            <div class="box full" data-clone>
+                {# <p data-c-margin="bottom(normal)">Want to know more about the team's physical environment, technology, and the ameneties available? Want to learn about the work culture?</p> #}
+                <button
+                    data-c-button="solid(c5)"
+                    data-c-radius="rounded"
+                    data-c-dialog-id="applicant-work-culture"
+                    data-c-dialog-action="open"
+                    data-c-margin="top(double)"
+                    type="button">
+                    {{ job_post.work_environment.view_more_button}}
+                </button>
+                <div data-c-dialog-overlay></div>
+                <div
+                    aria-hidden="true"
+                    aria-describedby="applicant-work-culture-description"
+                    aria-labelledby="applicant-work-culture-title"
+                    data-c-dialog
+                    data-c-dialog-id="applicant-work-culture"
+                    data-c-padding="top(double) bottom(double)"
+                    role="dialog">
+                    <div
+                        data-c-background="white(100)"
+                        data-c-radius="rounded">
+                        <div
+                            data-c-background="c1(100)"
+                            data-c-colour="white"
+                            data-c-padding="normal"
+                            data-c-border="bottom(thin, solid, black)">
+                            <h5
+                                data-c-font-size="h4"
+                                id="applicant-work-culture-title">
+                                {{ job_post.work_environment.modal_title }}
+                            </h5>
+                            <button
+                                data-c-dialog-action="close"
+                                data-c-color="white"
+                                data-c-dialog-id="applicant-work-culture"
+                                type="button">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                        <div data-c-border="bottom(thin, solid, black)">
+                            <div id="applicant-work-culture-description">
+                                <div data-c-background="grey(20)" data-c-padding="normal">
+                                    <div class="manager-job-card" data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
+                                        <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="bottom(normal)" data-c-padding="bottom(normal)">{{ job_post.culture.work_culture_label }}</h4>
+                                        <p>{{ job.culture_summary }}</p>
+                                        <p data-c-margin="top(normal)">{{ job.culture_special }}</p>
+                                        <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="top(double) bottom(normal)" data-c-padding="bottom(normal)">{{ job_post.culture.work_environment_label }}</h4>
+                                            {# Below is a React container for the work environment features. This is being done to not duplicate JobWorkEnv component, and its translations, on the react side.  #}
+                                            <div
+                                                id="work-env-features-section"
+                                                data-work-env-options={{ job.work_env_features|json_encode() }}
+                                                data-team-size={{ job.team_size|json_encode() }}
+                                            >
+                                            </div>
+                                            {# End of Component #}
+                                            <div data-c-grid-item="base(1of1)" data-c-margin="top(normal)">
+                                                <span data-c-colour="c1" data-c-margin="top(half) bottom(half)" data-c-font-weight="bold">{{ job_post.work_environment.modal_more_on_env }}</span>
+                                                <p>{{ job.work_env_description }}</p>
+                                            </div>
+                                        <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="top(double) bottom(normal)" data-c-padding="bottom(normal)">{{ job_post.culture.team_culture_label }}</h4>
+                                        <div data-c-margin="top(normal)">
+                                            <div data-c-grid="gutter">
+                                                <div class="job-post__culture-wrapper" data-c-grid-item="base(1of3)">
+                                                    <div>
+                                                        <p data-c-colour="c1" data-c-font-weight="bold">
+                                                            {{ job_post.work_environment.remote_work_label }}
+                                                        </p>
+                                                        <p class="job-post__culture-desc">
+                                                            {{ job_post.work_environment.remote_work_desc }}
+                                                        </p>
+                                                    </div>
+                                                    <p class="job-post__culture-copy">
+                                                        {{ job_post.work_environment.remote_work_allowed[job.remote_work_allowed] ?: noInfo }}
+                                                    </p>
+                                                </div>
+
+                                                <div class="job-post__culture-wrapper" data-c-grid-item="base(1of3)">
+                                                    <div>
+                                                        <p data-c-colour="c1" data-c-font-weight="bold">
+                                                            {{ job_post.work_environment.telework_label }}
+                                                        </p>
+                                                        <p class="job-post__culture-desc">
+                                                            {{ job_post.work_environment.telework_desc }}
+                                                        </p>
+                                                    </div>
+                                                    <p class="job-post__culture-copy">
+                                                        {{ job_post.work_environment.telework_allowed[job.telework_allowed_frequency.name] ?: noInfo }}
+                                                    </p>
+                                                </div>
+
+                                                <div class="job-post__culture-wrapper" data-c-grid-item="base(1of3)">
+                                                    <div>
+                                                        <p data-c-colour="c1" data-c-font-weight="bold">
+                                                            {{ job_post.work_environment.time_flexibility_label }}
+                                                        </p>
+                                                        <p class="job-post__culture-desc">
+                                                            {{ job_post.work_environment.time_flexibility_desc }}
+                                                        </p>
+                                                    </div>
+                                                    <p class="job-post__culture-copy">
+                                                        {{ job_post.work_environment.time_flexibility_allowed[job.flexible_hours_frequency.name] ?: noInfo }}
+                                                    </p>
+                                                </div>
+
+                                                <div class="job-post__culture-wrapper" data-c-grid-item="base(1of3)">
+                                                    <div>
+                                                        <p data-c-colour="c1" data-c-font-weight="bold">
+                                                            {{ job_post.work_environment.travel_label }}
+                                                        </p>
+                                                        <p class="job-post__culture-desc">
+                                                            {{ job_post.work_environment.travel_desc }}
+                                                        </p>
+                                                    </div>
+                                                    <p class="job-post__culture-copy">
+                                                        {{ job_post.work_environment.travel[job.travel_requirement.name] ?: noInfo }}
+                                                    </p>
+                                                </div>
+
+                                                <div class="job-post__culture-wrapper" data-c-grid-item="base(1of3)">
+                                                    <div>
+                                                        <p data-c-colour="c1" data-c-font-weight="bold">
+                                                            {{ job_post.work_environment.overtime_label }}
+                                                        </p>
+                                                        <p class="job-post__culture-desc">
+                                                            {{ job_post.work_environment.overtime_desc }}
+                                                        </p>
+                                                    </div>
+                                                    <p class="job-post__culture-copy">
+                                                        {{ job_post.work_environment.overtime[job.overtime_requirement.name] ?: noInfo }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-c-padding="normal">
+                            <div data-c-grid="gutter middle">
+                                <div data-c-grid-item="base(1of2)"></div>
+                                <div
+                                    data-c-grid-item="base(1of2)"
+                                    data-c-alignment="base(right)">
+                                    <button
+                                        data-c-button="solid(go)"
+                                        data-c-radius="rounded"
+                                        data-c-dialog-action="close"
+                                        data-c-dialog-id="applicant-work-culture">
+                                        {{ job_post.work_environment.modal_button }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
+</section>

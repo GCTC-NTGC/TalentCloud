@@ -1,0 +1,91 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Criteria
+
+============================================================================= #}
+
+<a
+    aria-hidden="true"
+    class="job-post__anchor"
+    id="criteria">
+</a>
+
+<section
+    class="job-post__criteria">
+
+    <div
+        class="flex-grid">
+
+        <div
+            class="box full">
+            <h3
+                class="job-post__criteria-title">
+                {{ job_post.criteria.title }}
+            </h3>
+        </div>
+
+        <div
+            class="box full">
+            <h4
+                class="job-post__criteria-subtitle">
+                {{ job_post.criteria.education_title }}
+            </h4>
+            <p>
+                {{ job.education ? job.education|nl2br : noInfo }}
+            </p>
+        </div>
+
+        <div
+            class="box full">
+            <h4
+                class="job-post__criteria-subtitle">
+                {{ job_post.criteria.essential_title }}
+            </h4>
+            {% if criteria.essential is defined and criteria.essential is not empty %}
+                <ul
+                    class="job-post__criteria-list">
+                    {% for criterion in criteria.essential %}
+                        <li>
+                            <p>{{ criterion.skill.name }}</p>
+                            <p
+                                class="job-post__criteria-level">{{ job_post.criteria.requirement_label }}<a href="/faq#levels" title="{{ job_post.criteria.level_link_title }}" target="_blank">{{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name] }}</a></p>
+                            <p>{{ criterion.description ? criterion.description|nl2br : criterion.skill.description|nl2br }}</p>
+                            <p>{{ criterion.specificity|nl2br }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>{{ job_post.criteria.no_info }}</p>
+            {% endif %}
+        </div>
+
+        {% if criteria.asset != false %}
+
+            <div
+                class="box full">
+                <h4
+                    class="job-post__criteria-subtitle">
+                    {{ job_post.criteria.asset_title }}
+                </h4>
+                {% if criteria.asset is defined and criteria.asset is not empty %}
+                    <ul
+                        class="job-post__criteria-list">
+                        {% for criterion in criteria.asset %}
+                            <li>
+                                <p>{{ criterion.skill.name }}</p>
+                                <p>{{ criterion.description ? criterion.description|nl2br : criterion.skill.description|nl2br }}</p>
+                                <p>{{ criterion.specificity|nl2br }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                   <p>{{ job_post.criteria.no_info }}</p>
+                {% endif %}
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
