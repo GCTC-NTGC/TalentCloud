@@ -573,19 +573,31 @@ export const JobReview: React.FunctionComponent<
           linkLabel={intl.formatMessage(messages.skillsEditLink)}
           link={jobBuilderSkills(locale, job.id)}
         >
-          {assetCriteria.map((criterion): React.ReactElement | null => {
-            const skill = getSkillOfCriteria(criterion);
-            if (skill === null) {
-              return null;
-            }
-            return (
-              <Criterion
-                criterion={criterion}
-                skill={skill}
-                key={criterion.id}
+          {assetCriteria.length === 0 ? (
+            <p>
+              <FormattedMessage
+                id="jobBuilder.review.skills.nullState"
+                defaultMessage="You haven't added any Nice to Have skills to this poster."
+                description="The text displayed for skills when you haven't added any skills."
               />
-            );
-          })}
+            </p>
+          ) : (
+            assetCriteria.map(
+              (criterion): React.ReactElement | null => {
+                const skill = getSkillOfCriteria(criterion);
+                if (skill === null) {
+                  return null;
+                }
+                return (
+                  <Criterion
+                    criterion={criterion}
+                    skill={skill}
+                    key={criterion.id}
+                  />
+                );
+              },
+            )
+          )}
         </JobReviewSection>
         <JobReviewSection
           title={intl.formatMessage(messages.languageHeading)}

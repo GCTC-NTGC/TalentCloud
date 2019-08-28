@@ -424,9 +424,11 @@ const JobBuilderImpact: React.FunctionComponent<
                     data-c-padding="normal"
                     id={`${modalId}-description`}
                   >
+                    <p>
                     Here&apos;s a preview of the Impact Statement you just
                     entered. Feel free to go back and edit things or move to the
                     next step if you&apos;re happy with it.
+                    </p>
                   </div>
                   <div
                     data-c-background="grey(20)"
