@@ -128,12 +128,12 @@ return [
         "1" => [
             "title" => "Securing the future of talent mobility",
             "link" => [
-                "title" => "Read Valerie's blog post.",
+                "title" => "Read Val's blog post.",
                 "anchor" => "https://gccollab.ca/blog/view/2325565/enwe-did-it-canadas-free-agents-receive-validated-skill-credentials-anchored-on-the-blockchainfrlearning-machine-et-le-nuage-de-talents-u00e9mettent-des-justificatifs-du2019identitu00e9-ancru00e9s-dans-une-chau00eene-de-blocs-aux-agents-libres-du-canada-u00e0-titre-de-validation-de-principe",
                 "label" => "Read on GC collab"
             ],
             "date" => "Tuesday May 28th, 2019",
-            "author" => "Authored by: Valerie Thomas",
+            "author" => "Authored by: Val Thomas",
             "eta" => "About a 2 minute read.",
             "summary" => "As part of a one-year talent mobility project being conducted by Talent Cloud and the Digital Identity Unit at the Treasury Board Secretariat of Canada (TBS) in partnership with Learning Machine, Government of Canada ‘Free Agents’ have been issued Blockcerts, blockchain..."
         ],
