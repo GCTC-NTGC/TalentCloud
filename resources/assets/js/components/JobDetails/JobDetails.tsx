@@ -430,6 +430,7 @@ const JobDetails: React.FunctionComponent<
               ...values,
               educationRequirements,
             };
+
             nprogress.start();
             handleSubmit(
               updateJobWithValues(job || emptyJob(), locale, modifiedValues),

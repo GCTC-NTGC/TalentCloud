@@ -6,6 +6,7 @@ import {
   FormattedMessage,
   defineMessages,
 } from "react-intl";
+import nprogress from "nprogress";
 import { Job, Skill, Criteria, JobPosterKeyTask } from "../../models/types";
 import Modal from "../Modal";
 import CriteriaForm from "./CriteriaForm";
@@ -309,22 +310,28 @@ export const JobBuilderSkills: React.FunctionComponent<
 
   const [isSaving, setIsSaving] = useState(false);
   const saveAndPreview = (): void => {
+    nprogress.start();
     setIsSaving(true);
     handleSubmit(jobCriteria)
       .then((criteria: Criteria[]): void => {
         criteriaDispatch({ type: "replace", payload: criteria });
+        nprogress.done();
         setIsPreviewVisible(true);
       })
       .finally((): void => setIsSaving(false));
   };
   const saveAndReturn = (): void => {
+    nprogress.start();
     setIsSaving(true);
     handleSubmit(jobCriteria)
       .then((criteria: Criteria[]): void => {
         criteriaDispatch({ type: "replace", payload: criteria });
         handleReturn();
       })
-      .finally((): void => setIsSaving(false));
+      .finally((): void => {
+        nprogress.done();
+        setIsSaving(false);
+      });
   };
 
   const renderNullCriteriaRow = (): React.ReactElement => (
