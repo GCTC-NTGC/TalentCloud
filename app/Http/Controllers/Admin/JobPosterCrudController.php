@@ -96,8 +96,7 @@ class JobPosterCrudController extends CrudController
             ],
         ]);
         if ($this->crud->getCurrentEntry() &&
-            !$this->crud->getCurrentEntry()->published &&
-            $this->crud->getCurrentEntry()->open_date_time !== null
+            !$this->crud->getCurrentEntry()->published
         ) {
             $this->crud->addField([
                 'name' => 'published',
