@@ -15,30 +15,48 @@ import SelectInput from "../Form/SelectInput";
 import TextInput from "../Form/TextInput";
 import { getId } from "../../helpers/queries";
 
+const pageMessages = defineMessages({
+  explanationBoldText: {
+    id: "jobBuilder.intro.explanation.boldText",
+    defaultMessage: "confirm that your personal information below is correct.",
+    description: "Bolded text portion of the JPB Intro explanation.",
+  },
+  emailLinkTitle: {
+    id: "jobBuilder.intro.emailLinkTitle",
+    defaultMessage: "Email Talent Cloud",
+    description: "Title of the Talent Cloud email link.",
+  },
+  emailLinkText: {
+    id: "jobBuilder.intro.emailLinkText",
+    defaultMessage: "Talent Cloud",
+    description: "Visible text of the Talent Cloud email link.",
+  },
+});
+
 const formMessages = defineMessages({
   jobTitleLabelEN: {
     id: "jobBuilder.intro.jobTitleLabelEN",
-    defaultMessage: "My Job Title (English)",
-    description: "The label displayed on the job title input.",
+    defaultMessage: "{name}'s Position (English)",
+    description: "The label displayed on the manager position input.",
   },
   jobTitlePlaceholderEN: {
     id: "jobBuilder.intro.jobTitlePlaceholderEN",
     defaultMessage: "e.g. Design Manager",
-    description: "The placeholder displayed on the job title input.",
+    description: "The placeholder displayed on the Manager Position input.",
   },
   jobTitleLabelFR: {
     id: "jobBuilder.intro.jobTitleLabelFR",
-    defaultMessage: "My Job Title (Français)",
-    description: "The label displayed on the job title input.",
+    defaultMessage: "{name}'s Position (Français)",
+    description: "The label displayed on the MKanager Position input.",
   },
   jobTitlePlaceholderFR: {
     id: "jobBuilder.intro.jobTitlePlaceholderFR",
     defaultMessage: "e.g. Gestionnaire de la conception",
-    description: "The placeholder displayed on the job title input.",
+    description: "The placeholder displayed on the Manager Position input.",
   },
   departmentLabel: {
     id: "jobBuilder.intro.departmentLabel",
-    defaultMessage: "My Department",
+    defaultMessage: "{name}'s Department",
     description: "The label displayed on the department select box.",
   },
   departmentNullSelection: {
@@ -49,7 +67,7 @@ const formMessages = defineMessages({
   },
   divisionLabelEN: {
     id: "jobBuilder.intro.divisionLabelEN",
-    defaultMessage: "My Division (English)",
+    defaultMessage: "{name}'s Division (English)",
     description: "The label displayed on the division input.",
   },
   divisionPlaceholderEN: {
@@ -59,7 +77,7 @@ const formMessages = defineMessages({
   },
   divisionLabelFR: {
     id: "jobBuilder.intro.divisionLabelFR",
-    defaultMessage: "My Division (Français)",
+    defaultMessage: "{name}'s Division (Français)",
     description: "The label displayed on the division input.",
   },
   divisionPlaceholderFR: {
@@ -214,37 +232,37 @@ const IntroForm: React.FunctionComponent<
             description="Header of Job Poster Builder Intro Step"
           />
         </h3>
-        <p data-c-margin="bottom(normal)">
-          <FormattedMessage
-            id="jobBuilder.intro.subtitle01"
-            defaultMessage="This tool will help you create a job poster that attracts the right talent."
-            description="Subtitle 1 of Job Poster Builder Intro Step"
-          />
-        </p>
         <p data-c-margin="bottom(double)">
           <FormattedMessage
-            id="jobBuilder.intro.subtitle02"
-            defaultMessage="We’ve also provided instructions and examples to help guide you through the process but if you still have questions, contact "
-            description="Subtitle 2 of Job Poster Builder Intro Step"
+            id="jobBuilder.intro.explanation"
+            defaultMessage="This tool will help you create a job poster that attracts the right talent. Before we get started on your job poster, take some time to {boldText}"
+            description="Explanation of Job Poster Builder Intro Step"
+            values={{
+              boldText: (
+                <span data-c-font-weight="bold">
+                  {intl.formatMessage(pageMessages.explanationBoldText)}
+                </span>
+              ),
+            }}
           />
-          <a
-            href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-            title="Email Talent Cloud."
-          >
-            Talent Cloud
-          </a>
         </p>
-        <h4
-          data-c-colour="c3"
-          data-c-font-size="h4"
-          data-c-margin="bottom(double)"
-        >
+        <h4 data-c-font-size="h4" data-c-margin="bottom(normal)">
           <FormattedMessage
-            id="jobBuilder.intro.beforeWeStart"
-            defaultMessage="Before we get started please review your information."
-            description="Before starting header of Job Poster Builder Intro Step"
+            id="jobBuilder.intro.formTitle"
+            defaultMessage="{name}'s Profile Information"
+            description="The title of the profile information form."
+            values={{
+              name: manager.name,
+            }}
           />
         </h4>
+        <p data-c-margin="bottom(double)">
+          <FormattedMessage
+            id="jobBuilder.intro.formDescription"
+            defaultMessage="This information is used on the Job Poster to help applicants learn more about who they'll be working with."
+            description="Explanation of why the profile information is collected."
+          />
+        </p>
         <Formik
           enableReinitialize
           initialValues={initialValues}
@@ -276,7 +294,9 @@ const IntroForm: React.FunctionComponent<
                     type="text"
                     id="builder01ManagerManagerPositionEn"
                     name="managerPositionEn"
-                    label={intl.formatMessage(formMessages.jobTitleLabelEN)}
+                    label={intl.formatMessage(formMessages.jobTitleLabelEN, {
+                      name: manager.name,
+                    })}
                     placeholder={intl.formatMessage(
                       formMessages.jobTitlePlaceholderEN,
                     )}
@@ -288,7 +308,9 @@ const IntroForm: React.FunctionComponent<
                     type="text"
                     id="builder01ManagerPositionFr"
                     name="managerPositionFr"
-                    label={intl.formatMessage(formMessages.jobTitleLabelFR)}
+                    label={intl.formatMessage(formMessages.jobTitleLabelFR, {
+                      name: manager.name,
+                    })}
                     placeholder={intl.formatMessage(
                       formMessages.jobTitlePlaceholderFR,
                     )}
@@ -299,7 +321,9 @@ const IntroForm: React.FunctionComponent<
                   <Field
                     name="department"
                     id="builder01ManagerDepartment"
-                    label={intl.formatMessage(formMessages.departmentLabel)}
+                    label={intl.formatMessage(formMessages.departmentLabel, {
+                      name: manager.name,
+                    })}
                     grid="base(1of1)"
                     component={SelectInput}
                     required
@@ -319,7 +343,9 @@ const IntroForm: React.FunctionComponent<
                     type="text"
                     id="builder01ManagerDivisionEN"
                     name="divisionEN"
-                    label={intl.formatMessage(formMessages.divisionLabelEN)}
+                    label={intl.formatMessage(formMessages.divisionLabelEN, {
+                      name: manager.name,
+                    })}
                     placeholder={intl.formatMessage(
                       formMessages.divisionPlaceholderEN,
                     )}
@@ -331,7 +357,9 @@ const IntroForm: React.FunctionComponent<
                     type="text"
                     id="builder01ManagerDivisionFR"
                     name="divisionFR"
-                    label={intl.formatMessage(formMessages.divisionLabelFR)}
+                    label={intl.formatMessage(formMessages.divisionLabelFR, {
+                      name: manager.name,
+                    })}
                     placeholder={intl.formatMessage(
                       formMessages.divisionPlaceholderFR,
                     )}
@@ -341,19 +369,27 @@ const IntroForm: React.FunctionComponent<
                   />
                 </div>
               </Form>
-              <p data-c-margin="bottom(normal)">
-                <FormattedHTMLMessage
-                  id="jobBuilder.intro.note"
-                  defaultMessage="<strong>Note:</strong> Changing your information on this form will also change these fields in your Profile."
-                  description="Ending note for hiring managers."
-                />
-              </p>
               <p data-c-margin="bottom(double)">
                 <FormattedMessage
                   id="jobBuilder.intro.completeInLanguage"
                   defaultMessage="Complete the job poster in the language of your choice. We will
                   handle translation."
                   description="Intstructions at bottom of form on language choice for job poster builder."
+                />{" "}
+                <FormattedMessage
+                  id="jobBuilder.intro.contactUs"
+                  defaultMessage="We’ve also provided instructions and examples to help guide you through the process but if you still have questions, contact {link}."
+                  description="Subtitle 2 of Job Poster Builder Intro Step"
+                  values={{
+                    link: (
+                      <a
+                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
+                        title={intl.formatMessage(pageMessages.emailLinkTitle)}
+                      >
+                        {intl.formatMessage(pageMessages.emailLinkText)}
+                      </a>
+                    ),
+                  }}
                 />
               </p>
               {/* This button continues the user in English. */}
