@@ -59,12 +59,11 @@ ol.tracker {
 
     .spinner-loader {
       border-radius: 50%;
-      background-color: $clone-c5;
       height: 1.5rem;
-      border: 0.25rem solid rgba(0, 0, 0, 0.2);
-      border-top-color: black;
-      -webkit-animation: spin 1s infinite linear;
-              animation: spin 1s infinite linear;
+      border: .15rem solid rgba(0,0,0,.2);
+      border-top-color: #bcb9b9;
+      -webkit-animation: spin 1s linear infinite;
+      animation: spin 1s linear infinite;
     }
   }
 
@@ -74,11 +73,11 @@ ol.tracker {
       display: none;
       background: #969696;
       position: absolute;
-      height: .25rem;
-      left: -70%;
-      top: .6rem;
+      height: 0.08rem;
+      left: -75%;
+      top: 15%;
       transition: background 175ms;
-      width: 115%;
+      width: 120%;
       z-index: 1;
       @media #{$clone-tablet-landscape} {
         display: block;

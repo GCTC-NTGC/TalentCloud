@@ -22,7 +22,7 @@ const ProgressTrackerItem: React.FunctionComponent<
         className="tracker-item-connect"
         style={{
           backgroundColor: `${!dataIsLoading &&
-            (state === "null" ? "#969696" : "#0A6CBC")}`,
+            (state === "null" ? "#969696" : "#008000")}`,
         }}
       />
       {!dataIsLoading ? (
@@ -33,7 +33,8 @@ const ProgressTrackerItem: React.FunctionComponent<
         </div>
       ) : (
         <div className="tracker-icon">
-          <div className="spinner-loader" />
+          {state !== "active" && <div className="spinner-loader" />}
+          {state === "active" && <i className="fas fa-arrow-down" />}
         </div>
       )}
       <div className="tracker-title">
