@@ -432,6 +432,11 @@ class JobPoster extends BaseModel
         } elseif ($value && $this->open_date_time->isFuture()) {
             $this->attributes['published_at'] = $this->open_date_time;
         }
+        // if ($value) {
+        // $this->attributes['published_at'] = new Date();
+        // } else {
+        // $this->attributes['published_at'] = null;
+        // }
         $this->attributes['published'] = $value;
     }
 
