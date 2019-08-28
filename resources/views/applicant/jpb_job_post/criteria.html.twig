@@ -74,8 +74,6 @@
                         {% for criterion in criteria.asset %}
                             <li>
                                 <p>{{ criterion.skill.name }}</p>
-                                <p
-                                    class="job-post__criteria-level">{{ job_post.criteria.requirement_label }}<a href="/faq#levels" title="{{ job_post.criteria.level_link_title }}" target="_blank">{{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name] }}</a></p>
                                 <p>{{ criterion.description ? criterion.description|nl2br : criterion.skill.description|nl2br }}</p>
                                 <p>{{ criterion.specificity|nl2br }}</p>
                             </li>

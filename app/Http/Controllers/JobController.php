@@ -210,6 +210,7 @@ class JobController extends Controller
                 'applicant/jpb_job_post',
                 [
                     'job_post' => $jobLang,
+                    'skill_template' => Lang::get('common/skills'),
                     'job' => $jobPoster,
                     'manager' => $jobPoster->manager,
                     'criteria' => $criteria,
