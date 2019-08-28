@@ -51,7 +51,8 @@
 
                 <span
                     class="job-poster__basics-content">
-                    {{ job_post.basics.duration[job.job_term.name]|trans_choice(job.term_qty) }}
+                    {# New jobs default to terms counted in months. #}
+                    {{ job_post.basics.duration.month|trans_choice(job.term_qty) }}
                 </span>
 
                 <span
