@@ -8,16 +8,10 @@ interface WorkEnvOptions {
   [key: string]: boolean;
 }
 
-const extractSelectedEnvOptions = (workEnvOptions: WorkEnvOptions): string[] => {
-  let selectedEnvOptions: string[] = [];
-  Object.entries(workEnvOptions).filter(([key, value]): void => {
-    if (value) {
-      selectedEnvOptions = [key, ...selectedEnvOptions];
-    }
-  });
-
-  return selectedEnvOptions;
-};
+const extractSelectedEnvOptions = (workEnvOptions: WorkEnvOptions): string[] =>
+  Object.entries(workEnvOptions)
+    .filter(([key, value]): boolean => value) // Filter out options set to false
+    .map(([key, value]): string => key); // Map to a list of the keys
 
 if (document.getElementById("work-env-features-section")) {
   const container = document.getElementById("work-env-features-section");
