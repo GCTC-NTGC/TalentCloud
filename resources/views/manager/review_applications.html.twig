@@ -33,7 +33,11 @@
 {% block scripts %}
 
     <script async defer
-        src="{{ mix('/js/ReviewApplicationsContainer.js') }}">
+        src="{{ mix('/js/reviewApplicationsRoot.js', '/js/') }}">
+    </script>
+
+    <script async defer
+        src="{{ mix('/js/getPdf.js', '/js/') }}">
     </script>
 
 {% endblock %}

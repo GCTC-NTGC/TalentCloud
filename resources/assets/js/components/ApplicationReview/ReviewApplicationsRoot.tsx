@@ -66,7 +66,7 @@ const localizations = defineMessages({
   },
 });
 
-class ReviewApplicationsContainer extends React.Component<
+class ReviewApplicationsRoot extends React.Component<
   ReviewApplicationsProps & InjectedIntlProps,
   ReviewApplicationsState
 > {
@@ -260,12 +260,12 @@ if (document.getElementById("review-applications-container")) {
       "data-review-statuses",
     ) as string);
     const language = container.getAttribute("data-locale") as string;
-    const IntlReviewApplicationsContainer = injectIntl(
-      ReviewApplicationsContainer,
+    const IntlReviewApplicationsRoot = injectIntl(
+      ReviewApplicationsRoot,
     );
     ReactDOM.render(
       <IntlProvider locale={language} messages={messages[language]}>
-        <IntlReviewApplicationsContainer
+        <IntlReviewApplicationsRoot
           job={job}
           initApplications={applications}
           reviewStatuses={reviewStatuses}
@@ -276,4 +276,4 @@ if (document.getElementById("review-applications-container")) {
   }
 }
 
-export default injectIntl(ReviewApplicationsContainer);
+export default injectIntl(ReviewApplicationsRoot);
