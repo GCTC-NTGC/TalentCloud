@@ -447,6 +447,7 @@ class JobControllerTest extends TestCase
             'type' => 'CREATE',
             'job_poster_id' => $job->id,
             'criteria_type_id' => 2, // asset
+            'criteria_type_id_new' => null,
             'job_poster_id' => $job->id,
             'skill_id' => 28,
             'skill_id_new' => null,
@@ -519,6 +520,7 @@ class JobControllerTest extends TestCase
             'skill_id_new' => 28,
             'skill_level_id' => 3,
             'skill_level_id_new' => 4,
+            'criteria_type_id_new' => 1,
             'acknowledged' => false
         ];
         $this->assertDatabaseHas('assessment_plan_notifications', $notificationValues);
@@ -573,6 +575,7 @@ class JobControllerTest extends TestCase
             'type' => 'DELETE',
             'job_poster_id' => $job->id,
             'criteria_type_id' => 1,
+            'criteria_type_id_new' => null,
             'job_poster_id' => $job->id,
             'skill_id' => 28,
             'skill_id_new' => null,

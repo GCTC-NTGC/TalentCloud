@@ -62,4 +62,17 @@ export const progressTrackerTitles = defineMessages({
   },
 });
 
-export default { progressTrackerLabels, progressTrackerTitles };
+export const jobBuilderMessages = defineMessages({
+  jobLoading: {
+    id: "jobBuilder.jobLoading",
+    defaultMessage: "Your job is loading...",
+    description:
+      "Message indicating that the current job is still being loaded.",
+  },
+});
+
+export default {
+  progressTrackerLabels,
+  progressTrackerTitles,
+  jobBuilderMessages,
+};

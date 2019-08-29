@@ -17,6 +17,7 @@ use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
  * @property int $id
  * @property string $name
  * @property string $impact
+ * @property string $preference
  *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -27,6 +28,7 @@ use Backpack\CRUD\ModelTraits\SpatieTranslatable\HasTranslations;
  * Localized Properties:
  * @property string $name
  * @property string $impact
+ * @property string $preference
  */
 class Department extends BaseModel
 {
@@ -39,11 +41,16 @@ class Department extends BaseModel
     public $translatable = [
         'name',
         'impact',
+        'preference',
     ];
 
+    /**
+     * @var $fillable string[]
+     * */
     protected $fillable = [
         'name',
         'impact',
+        'preference',
     ];
 
     public function managers() // phpcs:ignore

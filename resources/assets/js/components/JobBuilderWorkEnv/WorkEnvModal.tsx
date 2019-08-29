@@ -2,6 +2,7 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 import { FormValues } from "./WorkEnvForm";
 import Modal from "../Modal";
+import JobWorkEnv from "../JobBuilder/JobWorkEnv";
 
 interface WorkEnvModalProps {
   modalConfirm: (values) => void;
@@ -10,9 +11,8 @@ interface WorkEnvModalProps {
   parentElement: Element | null;
   values: FormValues;
   cultureSummary: string;
-  physEnvData: { name: string; label: string }[];
-  techData: { name: string; label: string }[];
-  amenitiesData: { name: string; label: string }[];
+  jobIsComplete: boolean;
+  handleSkipToReview: () => void;
 }
 
 const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
@@ -22,9 +22,8 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
   parentElement,
   values,
   cultureSummary,
-  physEnvData,
-  techData,
-  amenitiesData,
+  jobIsComplete,
+  handleSkipToReview,
 }): React.ReactElement => {
   return (
     <>
@@ -34,6 +33,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
         visible={isVisible}
         onModalConfirm={modalConfirm}
         onModalCancel={modalCancel}
+        onModalMiddle={handleSkipToReview}
       >
         <Modal.Header>
           <div
@@ -88,143 +88,14 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                   description="Header of job poster builder work environment step."
                 />
               </h4>
-              <div data-c-grid="gutter">
-                <div data-c-grid-item="base(1of1)">
-                  <span
-                    data-c-colour="c1"
-                    data-c-margin="top(half) bottom(half)"
-                    data-c-font-weight="bold"
-                  >
-                    <FormattedMessage
-                      id="jobBuilder.workEnvModal.teamSize"
-                      defaultMessage="Team Size"
-                      description="Title for Team size section."
-                    />
-                  </span>
-                  <span data-c-margin="left(normal)">{values.teamSize}</span>
-                </div>
-                <div data-c-grid-item="base(1of1)">
-                  <p
-                    data-c-colour="c1"
-                    data-c-margin="top(half) bottom(half)"
-                    data-c-font-weight="bold"
-                  >
-                    <FormattedMessage
-                      id="jobBuilder.workEnvModal.physicalEnvLabel"
-                      defaultMessage="Our Physical Environment"
-                      description="The label displayed on the physical environment checkbox group."
-                    />
-                  </p>
-                  <div data-c-margin="left(quarter)">
-                    <div data-c-grid="gutter">
-                      {physEnvData &&
-                        physEnvData.map(
-                          ({ label, name }): React.ReactElement => {
-                            const checkedPhyEnvValues = values.physicalEnv;
-                            const checked =
-                              checkedPhyEnvValues.find(
-                                (value): boolean => name === value,
-                              ) && "checked";
-                            return (
-                              <div data-c-grid-item="tp(1of2)" key={name}>
-                                <div className={`job-builder-check ${checked}`}>
-                                  <i className="fa fa-check" />
-                                </div>
-                                <span>{label}</span>
-                              </div>
-                            );
-                          },
-                        )}
-                    </div>
-                  </div>
-                </div>
-                <div data-c-grid-item="base(1of1)">
-                  <p
-                    data-c-colour="c1"
-                    data-c-padding="top(half) bottom(half)"
-                    data-c-font-weight="bold"
-                  >
-                    <FormattedMessage
-                      id="jobBuilder.workEnvModal.technologyLabel"
-                      defaultMessage="Technology"
-                      description="The label displayed on the technology checkbox group."
-                    />
-                  </p>
-                  <div data-c-margin="left(quarter)">
-                    <div data-c-grid="gutter">
-                      {techData &&
-                        techData.map(
-                          ({ label, name }): React.ReactElement => {
-                            const checkedTechValues = values.technology;
-                            const checked =
-                              checkedTechValues.find(
-                                (value): boolean => name === value,
-                              ) && "checked";
-                            return (
-                              <div data-c-grid-item="tp(1of2)" key={name}>
-                                <div className={`job-builder-check ${checked}`}>
-                                  <i className="fa fa-check" />
-                                </div>
-                                <span>{label}</span>
-                              </div>
-                            );
-                          },
-                        )}
-                    </div>
-                  </div>
-                </div>
-                <div data-c-grid-item="base(1of1)">
-                  <p
-                    data-c-colour="c1"
-                    data-c-margin="top(half) bottom(half)"
-                    data-c-font-weight="bold"
-                  >
-                    <FormattedMessage
-                      id="jobBuilder.workEnvModal.amenitiesLabel"
-                      defaultMessage="Amenities"
-                      description="The label displayed on the amenities checkbox group."
-                    />
-                  </p>
-                  <div data-c-margin="left(quarter)">
-                    <div data-c-grid="gutter">
-                      {amenitiesData &&
-                        amenitiesData.map(
-                          ({ label, name }): React.ReactElement => {
-                            const amenitiesValues = values.amenities;
-                            const checked =
-                              amenitiesValues.find(
-                                (value): boolean => name === value,
-                              ) && "checked";
-                            return (
-                              <div data-c-grid-item="tp(1of2)" key={name}>
-                                <div className={`job-builder-check ${checked}`}>
-                                  <i className="fa fa-check" />
-                                </div>
-                                <span>{label}</span>
-                              </div>
-                            );
-                          },
-                        )}
-                    </div>
-                  </div>
-                </div>
-                {values.envDescription && (
-                  <div data-c-grid-item="base(1of1)">
-                    <span
-                      data-c-colour="c1"
-                      data-c-margin="top(half) bottom(half)"
-                      data-c-font-weight="bold"
-                    >
-                      <FormattedMessage
-                        id="jobBuilder.workEnvModal.moreOnWorkEnvLabel"
-                        defaultMessage="More About Your Environment"
-                        description="The label displayed for the more about your environment textbox."
-                      />
-                    </span>
-                    <p data-c-margin="top(half)">{values.envDescription}</p>
-                  </div>
-                )}
-              </div>
+              <JobWorkEnv
+                teamSize={values.teamSize || 0}
+                selectedEnvOptions={[
+                  ...values.amenities,
+                  ...values.physicalEnv,
+                  ...values.technology,
+                ]}
+              />
               <h4
                 data-c-border="bottom(thin, solid, black)"
                 data-c-font-size="h4"
@@ -253,6 +124,15 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
               description="The label displayed on modal cancel button."
             />
           </Modal.FooterCancelBtn>
+          {jobIsComplete && (
+            <Modal.FooterMiddleBtn>
+              <FormattedMessage
+                id="jobBuilder.workEnvModal.modalMiddleLabel"
+                defaultMessage="Skip to Review"
+                description="The text displayed on the 'Skip to Review' button of the Work Env modal."
+              />
+            </Modal.FooterMiddleBtn>
+          )}
           <Modal.FooterConfirmBtn>
             <FormattedMessage
               id="jobBuilder.workEnvModal.confirmLabel"

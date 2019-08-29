@@ -12,6 +12,10 @@ export function managerApplicantShow(
   return `/${locale}/manager/applicants/${applicantId}`;
 }
 
+export function managerEditProfile(locale: string): string {
+  return `/${locale}/manager/profile`;
+}
+
 export function managerJobIndex(locale: string): string {
   return `/${locale}/manager/jobs`;
 }
@@ -29,6 +33,13 @@ export function applicationReviewUpdate(
   applicationId: number,
 ): string {
   return `/${locale}/applications/${applicationId}/review`;
+}
+
+export function jobBuilderIntro(locale: string, jobId?: number): string {
+  if (jobId) {
+    return `/${locale}/manager/jobs/${jobId}/builder/intro`;
+  }
+  return `/${locale}/manager/job-builder/intro`;
 }
 
 export function jobBuilderDetails(locale: string, jobId?: number): string {
@@ -50,4 +61,16 @@ export function jobBuilderImpact(locale: string, jobId?: number): string {
     return `/${locale}/manager/jobs/${jobId}/builder/impact`;
   }
   return `/${locale}/manager/job-builder/impact`;
+}
+
+export function jobBuilderTasks(locale: string, jobId: number): string {
+  return `/${locale}/manager/jobs/${jobId}/builder/tasks`;
+}
+
+export function jobBuilderSkills(locale: string, jobId: number): string {
+  return `/${locale}/manager/jobs/${jobId}/builder/skills`;
+}
+
+export function jobBuilderReview(locale: string, jobId: number): string {
+  return `/${locale}/manager/jobs/${jobId}/builder/review`;
 }

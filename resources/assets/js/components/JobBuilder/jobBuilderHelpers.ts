@@ -1,4 +1,8 @@
-import { Job } from "../../models/types";
+import { Job, JobPosterKeyTask, Criteria } from "../../models/types";
+import { ProgressTrackerState } from "../ProgressTracker/types";
+
+/** Job Builder Constants */
+export const VALID_COUNT = 6;
 
 const isFilled = (value: any | null | undefined): boolean => {
   return value !== null && value !== undefined && value !== "";
@@ -29,7 +33,7 @@ const isJobBuilderIntroUntouched = (job: Job): boolean =>
 export const jobBuilderIntroProgressState = (
   job: Job | null,
   allowUntouched = false,
-): "active" | "complete" | "error" | "null" => {
+): ProgressTrackerState => {
   if (allowUntouched && (job === null || isJobBuilderIntroUntouched(job))) {
     return "null";
   }
@@ -80,7 +84,7 @@ export const jobBuilderDetailsProgressState = (
   job: Job | null,
   locale: string,
   allowUntouched = false,
-): "active" | "complete" | "error" | "null" => {
+): ProgressTrackerState => {
   if (
     allowUntouched &&
     (job === null || isJobBuilderDetailsUntouched(job, locale))
@@ -98,15 +102,25 @@ const jobEnvValues = (job: Job, locale: string): (string | number | null)[] => [
   job.citizen_facing_vs_back_office,
   job.collaborative_vs_independent,
   job.work_env_features,
-  job[locale].work_env_description,
   job[locale].culture_summary,
+];
+const jobEnvValuesOptional = (
+  job: Job,
+  locale: string,
+): (string | number | null)[] => [
+  job[locale].work_env_description,
   job[locale].culture_special,
 ];
+
 const isJobBuilderEnvComplete = (job: Job, locale: string): boolean => {
   return jobEnvValues(job, locale).every(isFilled);
 };
 const isJobBuilderEnvUntouched = (job: Job, locale: string): boolean => {
-  const nullableValues = jobEnvValues(job, locale).filter(
+  const allJobValues = [
+    ...jobEnvValues(job, locale),
+    ...jobEnvValuesOptional(job, locale),
+  ];
+  const nullableValues = allJobValues.filter(
     (item): boolean => typeof item !== "boolean",
   );
   return nullableValues.every(isEmpty);
@@ -115,7 +129,7 @@ export const jobBuilderEnvProgressState = (
   job: Job | null,
   locale: string,
   allowUntouched = false,
-): "active" | "complete" | "error" | "null" => {
+): ProgressTrackerState => {
   if (
     allowUntouched &&
     (job === null || isJobBuilderEnvUntouched(job, locale))
@@ -140,9 +154,88 @@ export const jobImpactProgressState = (
   job: Job | null,
   locale: "en" | "fr",
   allowUntouched = false,
-): "active" | "complete" | "error" | "null" => {
+): ProgressTrackerState => {
   if (allowUntouched && (job === null || isJobImpactUntouched(job, locale))) {
     return "null";
   }
   return job && isJobImpactComplete(job, locale) ? "complete" : "error";
+};
+
+const isKeyTaskComplete = (
+  task: JobPosterKeyTask,
+  locale: "en" | "fr",
+): boolean => isFilled(task[locale].description);
+const isJobTasksComplete = (
+  tasks: JobPosterKeyTask[],
+  maxCount: number,
+  locale: "en" | "fr",
+): boolean => {
+  return (
+    tasks.length > 0 &&
+    tasks.length <= maxCount &&
+    tasks.every((task): boolean => isKeyTaskComplete(task, locale))
+  );
+};
+// FIXME: There is currently no way to know the difference between an empty list, and an untouched list of tasks
+const isJobTasksUntouched = (tasks: JobPosterKeyTask[]): boolean =>
+  tasks.length === 0;
+export const jobTasksProgressState = (
+  tasks: JobPosterKeyTask[],
+  maxCount: number,
+  locale: "en" | "fr",
+  allowUntouched = false,
+): ProgressTrackerState => {
+  if (allowUntouched && isJobTasksUntouched(tasks)) {
+    return "null";
+  }
+  return isJobTasksComplete(tasks, maxCount, locale) ? "complete" : "error";
+};
+
+const isCriterionComplete = (
+  criterion: Criteria,
+  locale: "en" | "fr",
+): boolean => {
+  const { description } = criterion[locale];
+  return description !== null && description.length > 0;
+};
+// FIXME: There is currently no way to know the difference between an untouched list, and one where criteria have been added then removed
+const isCriteriaUntouched = (criteria: Criteria[]): boolean =>
+  criteria.length === 0;
+const isCriteriaComplete = (
+  criteria: Criteria[],
+  locale: "en" | "fr",
+): boolean => {
+  return (
+    criteria.length > 0 &&
+    criteria.every((criterion): boolean =>
+      isCriterionComplete(criterion, locale),
+    )
+  );
+};
+export const criteriaProgressState = (
+  criteria: Criteria[],
+  locale: "en" | "fr",
+  allowUntouched = false,
+): ProgressTrackerState => {
+  if (allowUntouched && isCriteriaUntouched(criteria)) {
+    return "null";
+  }
+  return isCriteriaComplete(criteria, locale) ? "complete" : "error";
+};
+
+export const isJobBuilderComplete = (
+  job: Job,
+  tasks: JobPosterKeyTask[],
+  maxTasksCount: number,
+  criteria: Criteria[],
+  locale: "en" | "fr",
+): boolean => {
+  return (
+    isJobBuilderIntroComplete(job) &&
+    isJobBuilderDetailsComplete(job, locale) &&
+    isJobBuilderEnvComplete(job, locale) &&
+    isJobImpactComplete(job, locale) &&
+    isJobTasksComplete(tasks, maxTasksCount, locale) &&
+    isCriteriaComplete(criteria, locale)
+  );
 };

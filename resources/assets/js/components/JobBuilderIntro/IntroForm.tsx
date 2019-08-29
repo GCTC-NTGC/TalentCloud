@@ -173,7 +173,7 @@ const IntroForm: React.FunctionComponent<
         >
           <FormattedMessage
             id="jobBuilder.intro.welcome"
-            defaultMessage="EN Welcome to the Job Poster Builder"
+            defaultMessage="Welcome to the Job Poster Builder"
             description="Header of Job Poster Builder Intro Step"
           />
         </h3>
@@ -209,6 +209,7 @@ const IntroForm: React.FunctionComponent<
           />
         </h4>
         <Formik
+          enableReinitialize
           initialValues={initialValues}
           validationSchema={introSchema}
           onSubmit={(values, { setSubmitting }): void => {
@@ -324,6 +325,13 @@ const IntroForm: React.FunctionComponent<
                 type="button"
                 disabled={isSubmitting}
                 onClick={(): void => {
+                  /** FIXME:
+                   * This is a race condition, since setLanguageSelection is asynchronous.
+                   * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
+                   * For now, the setState always happens faster than the validation check, so it works.
+                   * See https://github.com/jaredpalmer/formik/issues/214
+                   * -- Tristan
+                   */
                   setLanguageSelection("en");
                   submitForm();
                 }}
@@ -342,6 +350,13 @@ const IntroForm: React.FunctionComponent<
                 type="button"
                 disabled={isSubmitting}
                 onClick={(): void => {
+                  /** FIXME:
+                   * This is a race condition, since setLanguageSelection is asynchronous.
+                   * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
+                   * For now, the setState always happens faster than the validation check, so it works.
+                   * See https://github.com/jaredpalmer/formik/issues/214
+                   * -- Tristan
+                   */
                   setLanguageSelection("fr");
                   submitForm();
                 }}

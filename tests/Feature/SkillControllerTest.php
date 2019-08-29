@@ -26,7 +26,10 @@ class SkillControllerTest extends TestCase
             'fr' => [
                 'name' => 'Développement frontal',
                 'description' => 'Se définissant comme suit : Développement d\'applications Web à l\'aide de HTML5, CSS3 et JavaScript.'
-            ]
+            ],
+            'is_culture_skill' => false,
+            'is_future_skill' => false,
+            'classifications' => [],
         ];
         $response->assertJsonFragment($exampleSkill);
     }

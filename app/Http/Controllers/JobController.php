@@ -198,22 +198,45 @@ class JobController extends Controller
             ];
         }
 
-        return view(
-            'applicant/job_post',
-            [
-                'job_post' => $jobLang,
-                'manager' => $jobPoster->manager,
-                'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
-                'team_culture' => $jobPoster->manager->team_culture,
-                'work_environment' => $jobPoster->manager->work_environment,
-                'workplace_photos' => $workplacePhotos,
-                'job' => $jobPoster,
-                'criteria' => $criteria,
-                'apply_button' => $applyButton,
-                'skill_template' => Lang::get('common/skills'),
-            ]
-        );
+        $jpb_release_date = strtotime('2019-08-21 16:18:17');
+        $job_created_at = strtotime($jobPoster->created_at);
+
+        // If the job poster is created after the release of the JPB.
+        // Then, render with updated poster template.
+        // Else, render with old poster template.
+        if ($job_created_at > $jpb_release_date) {
+            // Updated job poster (JPB).
+            return view(
+                'applicant/jpb_job_post',
+                [
+                    'job_post' => $jobLang,
+                    'skill_template' => Lang::get('common/skills'),
+                    'job' => $jobPoster,
+                    'manager' => $jobPoster->manager,
+                    'criteria' => $criteria,
+                    'apply_button' => $applyButton,
+                ]
+            );
+        } else {
+            // Old job poster.
+            return view(
+                'applicant/job_post',
+                [
+                    'job_post' => $jobLang,
+                    'manager' => $jobPoster->manager,
+                    'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
+                    'team_culture' => $jobPoster->manager->team_culture,
+                    'work_environment' => $jobPoster->manager->work_environment,
+                    'workplace_photos' => $workplacePhotos,
+                    'job' => $jobPoster,
+                    'criteria' => $criteria,
+                    'apply_button' => $applyButton,
+                    'skill_template' => Lang::get('common/skills'),
+                ]
+            );
+        }
     }
+
 
     /**
      * Create a blank job poster for the specified manager
@@ -652,7 +675,8 @@ class JobController extends Controller
                 'UPDATE',
                 $criteria,
                 $data['skill_id'],
-                $data['skill_level_id']
+                $data['skill_level_id'],
+                $data['criteria_type_id']
             );
             $notification->save();
         }
@@ -683,13 +707,19 @@ class JobController extends Controller
      * Create a new AssessmentPlanNotification for a modification to a Criteria
      *
      * @param  string               $type            Can be CREATE, UPDATE or DELETE.
-     * @param  \App\Models\Criteria $criteria        Incoming Criteria.
+     * @param  \App\Models\Criteria $criteria        The Criteria (the OLD criteria if updating or deleting)
      * @param  integer|null         $newSkillId      Only used for UPDATE type notifications.
      * @param  integer|null         $newSkillLevelId Only used for UPDATE type notifications.
+     * @param  integer|null         $newCriteriaTypeId Only used for UPDATE type notifications.
      * @return \App\Models\AssessmentPlanNotification
      */
-    protected function makeAssessmentPlanNotification(string $type, Criteria $criteria, $newSkillId = null, $newSkillLevelId = null)
-    {
+    protected function makeAssessmentPlanNotification(
+        string $type,
+        Criteria $criteria,
+        $newSkillId = null,
+        $newSkillLevelId = null,
+        $newCriteriaTypeId = null
+    ) {
         $notification = new AssessmentPlanNotification();
         $notification->job_poster_id = $criteria->job_poster_id;
         $notification->type = $type;
@@ -699,6 +729,7 @@ class JobController extends Controller
         $notification->skill_level_id = $criteria->skill_level_id;
         $notification->skill_id_new = $newSkillId;
         $notification->skill_level_id_new = $newSkillLevelId;
+        $notification->criteria_type_id_new = $newCriteriaTypeId;
         $notification->acknowledged = false;
         return $notification;
     }

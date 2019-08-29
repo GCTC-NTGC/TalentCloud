@@ -65,6 +65,16 @@
     "defaultMessage": "Experimental vs. Ongoing Business:"
   },
   {
+    "id": "jobBuilder.workEnv.facingLabel",
+    "description": "The label for the facing radio group",
+    "defaultMessage": "Citizen Facing vs. Back Office:"
+  },
+  {
+    "id": "jobBuilder.workEnv.collaborativeLabel",
+    "description": "The label for the \"colaborative vs independent\" radio group",
+    "defaultMessage": "Collaborative vs. Independent:"
+  },
+  {
     "id": "jobBuilder.workEnv.cultureSummary",
     "description": "The header for the culture summary section.",
     "defaultMessage": "Culture Summary"
@@ -110,94 +120,164 @@
     "defaultMessage": "This is optional."
   },
   {
-    "id": "jobBuilder.workEnv.physEnv.openConcept",
-    "description": "Physical Environment checkbox group 'open concept' option.",
-    "defaultMessage": "Open Concept"
+    "id": "jobBuilder.culturePace.01.title",
+    "defaultMessage": "Very Fast-paced"
   },
   {
-    "id": "jobBuilder.workEnv.physEnv.private",
-    "description": "Physical Environment checkbox group 'private' option.",
-    "defaultMessage": "Private"
+    "id": "jobBuilder.culturePace.01.description",
+    "defaultMessage": "Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!"
   },
   {
-    "id": "jobBuilder.workEnv.physEnv.assignedSeating",
-    "description": "Physical Environment checkbox group 'assigned seating' option.",
-    "defaultMessage": "Assigned Seating"
+    "id": "jobBuilder.culturePace.02.title",
+    "defaultMessage": "Fast-paced"
   },
   {
-    "id": "jobBuilder.workEnv.physEnv.windows",
-    "description": "Physical Environment checkbox group 'windows' option.",
-    "defaultMessage": "Lots of Windows"
+    "id": "jobBuilder.culturePace.02.description",
+    "defaultMessage": "Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes!"
   },
   {
-    "id": "jobBuilder.workEnv.physEnv.naturalLight",
-    "description": "Physical Environment checkbox group 'natural light' option.",
-    "defaultMessage": "Natural Light"
+    "id": "jobBuilder.culturePace.03.title",
+    "defaultMessage": "Steady"
   },
   {
-    "id": "jobBuilder.workEnv.physEnv.smudging",
-    "description": "Physical Environment checkbox group 'suitable for smudging' option.",
-    "defaultMessage": "Suitable for Smudging"
+    "id": "jobBuilder.culturePace.03.description",
+    "defaultMessage": "Our deadlines are regular and predictable, we balance a couple of tasks at a time, and our priorities change occasionally. We keep things on an even keel."
   },
   {
-    "id": "jobBuilder.workEnv.technology.videoConferencing",
-    "description": "Technology checkbox group 'video conferencing' option.",
-    "defaultMessage": "Video Conferencing (e.g. Skype, Zoom)"
+    "id": "jobBuilder.culturePace.04.title",
+    "defaultMessage": "Very Steady"
   },
   {
-    "id": "jobBuilder.workEnv.technology.collaboration",
-    "description": "Technology checkbox group 'collaboration' option.",
-    "defaultMessage": "Collaboration (e.g. Slack, Hangouts)"
+    "id": "jobBuilder.culturePace.04.description",
+    "defaultMessage": "Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine."
   },
   {
-    "id": "jobBuilder.workEnv.technology.fileSharing",
-    "description": "Technology checkbox group 'file sharing' option.",
-    "defaultMessage": "File Sharing (e.g. Google Drive, Dropbox)"
+    "id": "jobBuilder.mgmtStyle.01.title",
+    "defaultMessage": "Horizontal"
   },
   {
-    "id": "jobBuilder.workEnv.technology.taskManagement",
-    "description": "Technology checkbox group 'task management' option.",
-    "defaultMessage": "Task Management (e.g. Trello, Asana)"
+    "id": "jobBuilder.mgmtStyle.01.description",
+    "defaultMessage": "There’s no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives."
   },
   {
-    "id": "jobBuilder.workEnv.technology.versionControl",
-    "description": "Technology checkbox group 'version control' option.",
-    "defaultMessage": "Version Control (e.g. Github, Gitlab)"
+    "id": "jobBuilder.mgmtStyle.02.title",
+    "defaultMessage": "Somewhat Horizontal"
   },
   {
-    "id": "jobBuilder.workEnv.technology.accessToExternal",
-    "description": "Technology checkbox group 'access to external' option.",
-    "defaultMessage": "Access to external, unfiltered Wi-Fi."
+    "id": "jobBuilder.mgmtStyle.02.description",
+    "defaultMessage": "We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives."
   },
   {
-    "id": "jobBuilder.workEnv.amenities.cafeteria",
-    "description": "Amenities checkbox group 'cafeteria' option.",
-    "defaultMessage": "Cafeteria On-site"
+    "id": "jobBuilder.mgmtStyle.03.title",
+    "defaultMessage": "Somewhat Vertical"
   },
   {
-    "id": "jobBuilder.workEnv.amenities.closeToTransit",
-    "description": "Amenities checkbox group 'close to transit' option.",
-    "defaultMessage": "Close to Transit"
+    "id": "jobBuilder.mgmtStyle.03.description",
+    "defaultMessage": "Our team has a clearly defined role. We check in regularly with middle-management for approvals and updates on the strategic vision of our executives."
   },
   {
-    "id": "jobBuilder.workEnv.amenities.restaurants",
-    "description": "Amenities checkbox group 'restaurants' option.",
-    "defaultMessage": "Walking Distance to Restaurants/Malls"
+    "id": "jobBuilder.mgmtStyle.04.title",
+    "defaultMessage": "Vertical"
   },
   {
-    "id": "jobBuilder.workEnv.amenities.downtown",
-    "description": "Amenities checkbox group 'downtown' option.",
-    "defaultMessage": "Downtown"
+    "id": "jobBuilder.mgmtStyle.04.description",
+    "defaultMessage": "Our team has a clearly defined role. We check in often with middle-management for approvals and updates on the strategic vision of our executives."
   },
   {
-    "id": "jobBuilder.workEnv.amenities.fitnessCenter",
-    "description": "Amenities checkbox group 'nearby fitness centre' option.",
-    "defaultMessage": "Nearby Fitness Centre"
+    "id": "jobBuilder.experimental.01.title",
+    "defaultMessage": "Experimental"
   },
   {
-    "id": "jobBuilder.workEnv.amenities.parking",
-    "description": "Amenities checkbox group 'parking' option.",
-    "defaultMessage": "Easy Access to Parking"
+    "id": "jobBuilder.experimental.01.description",
+    "defaultMessage": "Our work is defined by trying out brand new ideas, methods, and activities to address persistent problems that traditional approaches have failed to solve."
+  },
+  {
+    "id": "jobBuilder.experimental.02.title",
+    "defaultMessage": "Somewhat Experimental"
+  },
+  {
+    "id": "jobBuilder.experimental.02.description",
+    "defaultMessage": "We try out new and proven ideas, methods, and activities to improve how we do our work."
+  },
+  {
+    "id": "jobBuilder.experimental.03.title",
+    "defaultMessage": "Somewhat Predictable Work"
+  },
+  {
+    "id": "jobBuilder.experimental.03.description",
+    "defaultMessage": "Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes."
+  },
+  {
+    "id": "jobBuilder.experimental.04.title",
+    "defaultMessage": "Predictable Work"
+  },
+  {
+    "id": "jobBuilder.experimental.04.description",
+    "defaultMessage": "Most of our work involves administrative tasks are repeated on a regular basis. Consistency is key here, so we follow a standard process with tried and true tools."
+  },
+  {
+    "id": "jobBuilder.facing.01.title",
+    "defaultMessage": "Citizen Facing"
+  },
+  {
+    "id": "jobBuilder.facing.01.description",
+    "defaultMessage": "We are the face of the service we deliver and spend most of our time engaging directly with the public."
+  },
+  {
+    "id": "jobBuilder.facing.02.title",
+    "defaultMessage": "Mostly Citizen Facing"
+  },
+  {
+    "id": "jobBuilder.facing.02.description",
+    "defaultMessage": "We spend a lot of our time engaging directly with the public, but there is also behind the scenes work to support others."
+  },
+  {
+    "id": "jobBuilder.facing.03.title",
+    "defaultMessage": "Mostly Back Office"
+  },
+  {
+    "id": "jobBuilder.facing.03.description",
+    "defaultMessage": "We usually work behind the scenes doing important work that makes service delivery possible."
+  },
+  {
+    "id": "jobBuilder.facing.04.title",
+    "defaultMessage": "Back Office"
+  },
+  {
+    "id": "jobBuilder.facing.04.description",
+    "defaultMessage": "We work behind the scenes doing important work that makes service delivery possible. We thrive on supporting others."
+  },
+  {
+    "id": "jobBuilder.collaborativeness.01.title",
+    "defaultMessage": "Collaborative"
+  },
+  {
+    "id": "jobBuilder.collaborativeness.01.description",
+    "defaultMessage": "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in."
+  },
+  {
+    "id": "jobBuilder.collaborativeness.02.title",
+    "defaultMessage": "Somewhat Collaborative"
+  },
+  {
+    "id": "jobBuilder.collaborativeness.02.description",
+    "defaultMessage": "Our team has a diverse set of skills and we recognize each others strengths. We work together often and are quick to pitch in when someone asks for help."
+  },
+  {
+    "id": "jobBuilder.collaborativeness.03.title",
+    "defaultMessage": "Somewhat Independent"
+  },
+  {
+    "id": "jobBuilder.collaborativeness.03.description",
+    "defaultMessage": "Members of our team own their piece of the puzzle and have some freedom to choose how they get their work done."
+  },
+  {
+    "id": "jobBuilder.collaborativeness.04.title",
+    "defaultMessage": "Independent"
+  },
+  {
+    "id": "jobBuilder.collaborativeness.04.description",
+    "defaultMessage": "Members of our team own their piece of the puzzle. It doesn’t really matter how we get our work done as long as it’s high quality."
   },
   {
     "id": "jobBuilder.workEnv.title",
@@ -220,8 +300,13 @@
     "defaultMessage": "Now let applicants know more about the personality of your team and the type of work that you usually do."
   },
   {
+    "id": "jobBuilder.workEnv.saveAndReturnButtonLabel",
+    "description": "Label for Save & Return button on Work Environment form.",
+    "defaultMessage": "Save & Return to Job Details"
+  },
+  {
     "id": "jobBuilder.workEnv.submitButtonLabel",
     "description": "Label for work environment submit button.",
-    "defaultMessage": "Preview Work Environment"
+    "defaultMessage": "Save & Preview"
   }
 ]

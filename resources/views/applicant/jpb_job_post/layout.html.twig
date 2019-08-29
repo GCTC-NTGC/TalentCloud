@@ -1,0 +1,55 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Layout
+
+============================================================================= #}
+{% set noInfo %}
+    <span>{{ job_post.no_info }}</span>
+{% endset %}
+
+<div class="job-poster__section-wrapper container--layout">
+
+    <div class="flex-grid">
+
+        {# Include Sidebar #}
+
+            {% include "applicant/jpb_job_post/sidebar" %}
+
+        {# Poster Content #}
+
+            <div class="job-poster__content-wrapper box lg-3of4">
+
+                {# Include Basics #}
+
+                    {% include "applicant/jpb_job_post/basics" %}
+
+                {# Include Impact #}
+
+                    {% include "applicant/jpb_job_post/impact" %}
+
+                {# Include Work #}
+
+                    {% include "applicant/jpb_job_post/work" %}
+
+                {# Include Criteria #}
+
+                    {% include "applicant/jpb_job_post/criteria" %}
+
+                {# Language #}
+
+                    {% include "applicant/jpb_job_post/language" %}
+
+                {# Include Culture #}
+
+                    {% include "applicant/jpb_job_post/culture" %}
+
+                {# Include Apply #}
+
+                    {% include "applicant/jpb_job_post/apply" %}
+
+        </div>
+
+    </div>
+
+</div>

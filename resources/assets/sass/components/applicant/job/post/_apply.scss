@@ -35,7 +35,14 @@
     font-family: $font--sans;
     font-size: $font-scale--regular;
     line-height: 1.5;
-    margin: 2rem 0;
+}
+
+.job-post__apply-content {
+    margin: 0 0 3rem 0;
+}
+
+.job-post__apply-content-preference:not(:last-child) {
+    margin: 0 0 1rem 0;
 }
 
 .job-post__apply-button {

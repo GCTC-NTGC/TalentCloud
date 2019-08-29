@@ -3,7 +3,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import { select, text } from "@storybook/addon-knobs";
+import { select, text, boolean } from "@storybook/addon-knobs";
 import JobBuilderImpact from "../../components/JobBuilderImpact/JobBuilderImpact";
 import JobImpactPreview from "../../components/JobBuilderImpact/JobImpactPreview";
 import fakeDepartments from "../../fakeData/fakeDepartments";
@@ -16,6 +16,9 @@ const stories = storiesOf("Job Poster Builder|Impact", module).addDecorator(
 const handleSubmit = async (): Promise<boolean> => {
   action("Submitted")();
   return true;
+};
+const handleSkipToReview = async (): Promise<void> => {
+  action("Skip to Review")();
 };
 
 const deptOptions = {
@@ -31,8 +34,11 @@ stories
         departments={fakeDepartments()}
         job={null}
         handleSubmit={handleSubmit}
+        handleReturn={action("Save & Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
+        jobIsComplete={boolean("Job is Complete", false)}
+        handleSkipToReview={handleSkipToReview}
       />
     ),
   )
@@ -46,8 +52,11 @@ stories
           department_id: select("Department", deptOptions, 1),
         }}
         handleSubmit={handleSubmit}
+        handleReturn={action("Save & Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
+        jobIsComplete={boolean("Job is Complete", false)}
+        handleSkipToReview={handleSkipToReview}
       />
     ),
   )
@@ -58,8 +67,11 @@ stories
         departments={[]}
         job={fakeJob()}
         handleSubmit={handleSubmit}
+        handleReturn={action("Save & Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
+        jobIsComplete={boolean("Job is Complete", false)}
+        handleSkipToReview={handleSkipToReview}
       />
     ),
   )
@@ -73,8 +85,11 @@ stories
           department_id: 100,
         }}
         handleSubmit={handleSubmit}
+        handleReturn={action("Save & Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
+        jobIsComplete={boolean("Job is Complete", false)}
+        handleSkipToReview={handleSkipToReview}
       />
     ),
   )

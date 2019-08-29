@@ -1,4 +1,5 @@
 import * as React from "react";
+import textToParagraphs from "../../helpers/textToParagraphs";
 
 export interface ContextBlockItemProps {
   title?: string;
@@ -12,8 +13,8 @@ export interface ContextBlockItemProps {
   radius?: string;
   fontSize?: string;
   fontWeight?: string;
-  margin?: string;
-  reference?: React.RefObject<any>;
+  wrapperMargin?: string;
+  titleMargin?: string;
 }
 
 const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
@@ -27,9 +28,9 @@ const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
   radius,
   fontSize,
   fontWeight,
-  margin,
+  wrapperMargin,
+  titleMargin,
   active,
-  reference,
 }): React.ReactElement => {
   return (
     <div
@@ -41,21 +42,19 @@ const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
       }
       data-c-padding={padding || "all(normal)"}
       data-c-radius={radius || "rounded"}
+      data-c-margin={wrapperMargin || ""}
     >
       {title && (
         <p
           data-c-font-size={fontSize || "small"}
-          data-c-margin={margin || "bottom(half)"}
+          data-c-margin={titleMargin || "bottom(half)"}
           data-c-font-weight={fontWeight || "bold"}
         >
           {title}
         </p>
       )}
-      {subtext && (
-        <p ref={reference} data-c-font-size={fontSize || "small"}>
-          {subtext}
-        </p>
-      )}
+      {subtext &&
+        textToParagraphs(subtext, { "data-c-font-size": fontSize || "small" })}
     </div>
   );
 };

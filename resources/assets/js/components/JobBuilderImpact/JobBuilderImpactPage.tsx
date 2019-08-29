@@ -1,41 +1,44 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { InjectedIntlProps, FormattedMessage, injectIntl } from "react-intl";
+import { InjectedIntlProps, injectIntl } from "react-intl";
 import ReactDOM from "react-dom";
-import { Department, Job } from "../../models/types";
-import { ProgressTrackerItem } from "../ProgressTracker/types";
 import {
-  jobBuilderDetailsProgressState,
-  jobBuilderIntroProgressState,
-  jobBuilderEnvProgressState,
-} from "../JobBuilder/jobBuilderHelpers";
-import ProgressTracker from "../ProgressTracker/ProgressTracker";
+  Department,
+  Job,
+  JobPosterKeyTask,
+  Criteria,
+} from "../../models/types";
 import JobBuilderImpact from "./JobBuilderImpact";
 import {
-  progressTrackerLabels,
-  progressTrackerTitles,
-} from "../JobBuilder/jobBuilderMessages";
-import { managerJobIndex } from "../../helpers/routes";
-import { getSelectedJob } from "../../store/Job/jobSelector";
+  jobBuilderTasks,
+  jobBuilderEnv,
+  jobBuilderReview,
+} from "../../helpers/routes";
 import { RootState } from "../../store/store";
 import { DispatchType } from "../../configureStore";
-import {
-  updateJob,
-  fetchJob,
-  setSelectedJob,
-  createJob,
-} from "../../store/Job/jobActions";
+import { updateJob } from "../../store/Job/jobActions";
 import { getDepartments } from "../../store/Department/deptSelector";
-import { getDepartments as fetchDepartments } from "../../store/Department/deptActions";
 import RootContainer from "../RootContainer";
+import {
+  getJob,
+  getTasksByJob,
+  getCriteriaByJob,
+} from "../../store/Job/jobSelector";
+import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
+import {
+  isJobBuilderComplete,
+  VALID_COUNT,
+} from "../JobBuilder/jobBuilderHelpers";
+import { navigate } from "../../helpers/router";
 
 interface JobBuilderImpactPageProps {
-  jobId: number | null;
+  jobId: number;
   job: Job | null;
-  loadJob: (jobId: number) => void;
   departments: Department[];
-  loadDepartments: () => void;
-  handleCreateJob: (newJob: Job) => Promise<boolean>;
+  // Tasks associated with the job, used to determine if its complete
+  keyTasks: JobPosterKeyTask[];
+  // Criteria associated with the job, used to determine if its complete
+  criteria: Criteria[];
   handleUpdateJob: (newJob: Job) => Promise<boolean>;
 }
 
@@ -44,156 +47,86 @@ const JobBuilderImpactPage: React.FunctionComponent<
 > = ({
   jobId,
   job,
-  loadJob,
   departments,
-  loadDepartments,
-  handleCreateJob,
+  keyTasks,
+  criteria,
   handleUpdateJob,
   intl,
 }): React.ReactElement => {
-  // Load Job and Departments from api
-  useEffect((): void => {
-    if (jobId !== null) {
-      loadJob(jobId);
-    }
-  }, [jobId, loadJob]);
-  useEffect((): void => {
-    if (departments.length === 0) {
-      loadDepartments();
-    }
-  }, [departments, loadDepartments]);
-
-  const waitingForJob = jobId !== null && job === null;
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
+  }
   const handleModalCancel = (): void => {
     // Do nothing on cancel
   };
   const handleModalConfirm = (): void => {
-    window.location.href = managerJobIndex(intl.locale);
-  }; // TODO: go to next page
-  const handleSubmit = job ? handleUpdateJob : handleCreateJob;
-  const progressTrackerItems: ProgressTrackerItem[] = [
-    {
-      state: waitingForJob ? "null" : jobBuilderIntroProgressState(job),
-      label: intl.formatMessage(progressTrackerLabels.start),
-      title: intl.formatMessage(progressTrackerTitles.welcome),
-    },
-    {
-      state: waitingForJob
-        ? "null"
-        : jobBuilderDetailsProgressState(job, intl.locale),
-      label: intl.formatMessage(progressTrackerLabels.step01),
-      title: intl.formatMessage(progressTrackerTitles.jobInfo),
-    },
-    {
-      state: waitingForJob
-        ? "null"
-        : jobBuilderEnvProgressState(job, intl.locale),
-      label: intl.formatMessage(progressTrackerLabels.step02),
-      title: intl.formatMessage(progressTrackerTitles.workEnv),
-    },
-    {
-      state: "active",
-      label: intl.formatMessage(progressTrackerLabels.step03),
-      title: intl.formatMessage(progressTrackerTitles.impact),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.step04),
-      title: intl.formatMessage(progressTrackerTitles.tasks),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.step05),
-      title: intl.formatMessage(progressTrackerTitles.skills),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.finish),
-      title: intl.formatMessage(progressTrackerTitles.review),
-    },
-  ];
+    navigate(jobBuilderTasks(locale, jobId));
+  };
+  const handleSubmit = handleUpdateJob;
+  const handleReturn = (): void => {
+    if (jobId !== null) {
+      navigate(jobBuilderEnv(locale, jobId));
+    }
+  };
+  const handleSkipToReview = async (): Promise<void> => {
+    if (jobId !== null) {
+      navigate(jobBuilderReview(locale, jobId));
+    }
+  };
+  const jobIsComplete =
+    job !== null &&
+    isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
   return (
-    <section>
-      <ProgressTracker
-        items={progressTrackerItems}
-        backgroundColor="black"
-        fontColor="white"
-        classNames="manager-jpb-tracker"
-        itemsWrapperClassNames="tracker manager-jpb-tracker-wrapper"
-      />
-      {waitingForJob ? (
-        <div
-          data-c-container="form"
-          data-c-padding="top(triple) bottom(triple)"
-        >
-          <h3
-            data-c-font-size="h3"
-            data-c-font-weight="bold"
-            data-c-margin="bottom(double)"
-          >
-            <FormattedMessage
-              id="jobBuilderImpact.jobloading"
-              defaultMessage="Job Loading..."
-              description="Message indicating that the current job is still being loaded."
-            />
-          </h3>
-        </div>
-      ) : (
+    <JobBuilderStepContainer jobId={jobId} currentPage="impact">
+      {job !== null && departments.length > 0 && (
         <JobBuilderImpact
           job={job}
           departments={departments}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
+          jobIsComplete={jobIsComplete}
+          handleSkipToReview={handleSkipToReview}
         />
       )}
-    </section>
+    </JobBuilderStepContainer>
   );
 };
 
 const mapStateToProps = (
   state: RootState,
+  ownProps: { jobId: number },
 ): {
   job: Job | null;
   departments: Department[];
+  keyTasks: JobPosterKeyTask[];
+  criteria: Criteria[];
 } => ({
-  job: getSelectedJob(state),
+  job: getJob(state, ownProps),
   departments: getDepartments(state),
+  keyTasks: getTasksByJob(state, ownProps),
+  criteria: getCriteriaByJob(state, ownProps),
 });
 
 const mapDispatchToProps = (
   dispatch: DispatchType,
 ): {
-  loadJob: (jobId: number) => void;
-  loadDepartments: () => void;
-  handleCreateJob: (newJob: Job) => Promise<boolean>;
   handleUpdateJob: (newJob: Job) => Promise<boolean>;
 } => ({
-  loadJob: (jobId: number): void => {
-    dispatch(fetchJob(jobId));
-    dispatch(setSelectedJob(jobId));
-  },
-  loadDepartments: (): void => {
-    dispatch(fetchDepartments());
-  },
-  handleCreateJob: async (newJob: Job): Promise<boolean> => {
-    const result = await dispatch(createJob(newJob));
-    if (!result.error) {
-      const resultJob = await result.payload;
-      dispatch(setSelectedJob(resultJob.id));
-    }
-    return !result.error;
-  },
   handleUpdateJob: async (newJob: Job): Promise<boolean> => {
     const result = await dispatch(updateJob(newJob));
     return !result.error;
   },
 });
 
-const JobBuilderImpactPageContainer = connect(
+export const JobBuilderImpactPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(injectIntl(JobBuilderImpactPage));
+
+export default JobBuilderImpactPageContainer;
 
 if (document.getElementById("job-builder-impact")) {
   const container = document.getElementById(
@@ -201,10 +134,12 @@ if (document.getElementById("job-builder-impact")) {
   ) as HTMLElement;
   const jobIdAttr = container.getAttribute("data-job-id");
   const jobId = jobIdAttr ? Number(jobIdAttr) : null;
-  ReactDOM.render(
-    <RootContainer>
-      <JobBuilderImpactPageContainer jobId={jobId} />
-    </RootContainer>,
-    container,
-  );
+  if (jobId) {
+    ReactDOM.render(
+      <RootContainer>
+        <JobBuilderImpactPageContainer jobId={jobId} />
+      </RootContainer>,
+      container,
+    );
+  }
 }

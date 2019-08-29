@@ -154,21 +154,21 @@ Route::group(
             Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
 
             // /* Temp Builder 01 (Intro) */
-            Route::view('builder-01', 'manager/builder-01')->name('jpb1');
+            Route::view('builder-01', 'manager/builder-01')->middleware('localOnly')->name('jpb1');
             // /* Temp Builder 02 (Job info) */
-            Route::view('builder-02', 'manager/builder-02')->name('jpb2');
+            Route::view('builder-02', 'manager/builder-02')->middleware('localOnly')->name('jpb2');
             // /* Temp Builder 03 (Work Environment) */
-            Route::view('builder-03', 'manager/builder-03')->name('jpb3');
+            Route::view('builder-03', 'manager/builder-03')->middleware('localOnly')->name('jpb3');
             // /* Temp Builder 04 (Impact) */
-            Route::view('builder-04', 'manager/builder-04')->name('jpb4');
+            Route::view('builder-04', 'manager/builder-04')->middleware('localOnly')->name('jpb4');
             // /* Temp Builder 05 (Tasks) */
-            Route::view('builder-05', 'manager/builder-05')->name('jpb5');
+            Route::view('builder-05', 'manager/builder-05')->middleware('localOnly')->name('jpb5');
             // /* Temp Builder 06 (Skills) */
-            Route::view('builder-06', 'manager/builder-06')->name('jpb6');
+            Route::view('builder-06', 'manager/builder-06')->middleware('localOnly')->name('jpb6');
             // /* Temp Builder 07 (Education) */
-            Route::view('builder-07', 'manager/builder-07')->name('jpb7');
+            Route::view('builder-07', 'manager/builder-07')->middleware('localOnly')->name('jpb7');
             // /* Temp Builder 08 (Review) */
-            Route::view('builder-08', 'manager/builder-08')->name('jpb8');
+            Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
             /* Authentication =========================================================== */
 
             // Laravel default login, logout, register, and reset routes
@@ -254,20 +254,8 @@ Route::group(
 
                 /* Job Builder */
                 Route::get(
-                    'job-builder/intro',
+                    'jobs/builder',
                     'JobBuilderController@intro'
-                );
-                Route::get(
-                    'job-builder/details',
-                    'JobBuilderController@details'
-                );
-                Route::get(
-                    'job-builder/environment',
-                    'JobBuilderController@environment'
-                );
-                Route::get(
-                    'job-builder/impact',
-                    'JobBuilderController@impact'
                 );
 
                 Route::get(
@@ -285,6 +273,18 @@ Route::group(
                 Route::get(
                     'jobs/{jobId}/builder/impact',
                     'JobBuilderController@impact'
+                )->where('jobPoster', '[0-9]+');
+                Route::get(
+                    'jobs/{jobId}/builder/tasks',
+                    'JobBuilderController@tasks'
+                )->where('jobPoster', '[0-9]+');
+                Route::get(
+                    'jobs/{jobId}/builder/skills',
+                    'JobBuilderController@skills'
+                )->where('jobPoster', '[0-9]+');
+                Route::get(
+                    'jobs/{jobId}/builder/review',
+                    'JobBuilderController@review'
                 )->where('jobPoster', '[0-9]+');
 
                 /* Delete Job */
@@ -432,7 +432,26 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
         'store', 'create', 'edit'
     ]);
+    // TODO: add policy middleware
+    Route::get('jobs/{jobPoster}/tasks', 'Api\JobTaskController@indexByJob')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:view,jobPoster');
+    Route::put('jobs/{jobPoster}/tasks', 'Api\JobTaskController@batchUpdate')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:update,jobPoster');
 
+
+     Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:view,jobPoster');
+    Route::put('jobs/{jobPoster}/criteria', 'Api\CriteriaController@batchUpdate')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:update,jobPoster');
+
+
+    Route::post('jobs/{job}/submit', 'Api\JobApiController@submitForReview')
+        ->where('job', '[0-9]+')
+        ->middleware('can:update,job');
     Route::resource('jobs', 'Api\JobApiController')->only([
         'show', 'store', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes.
@@ -440,6 +459,7 @@ Route::group(['prefix' => 'api'], function (): void {
         'store' => 'api.jobs.store',
         'update' => 'api.jobs.update'
     ]);
+
     Route::resource('managers', 'Api\ManagerApiController')->only([
         'show', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes

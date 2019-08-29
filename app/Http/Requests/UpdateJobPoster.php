@@ -11,6 +11,8 @@ use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\LanguageRequirement;
 use App\Models\JobPoster;
 use App\Models\Lookup\Frequency;
+use App\Models\Lookup\TravelRequirement;
+use App\Models\Lookup\OvertimeRequirement;
 
 class UpdateJobPoster extends FormRequest
 {
@@ -48,7 +50,7 @@ class UpdateJobPoster extends FormRequest
             'salary_min' => 'nullable|numeric',
             'salary_max' => 'nullable|numeric',
             'noc' => 'nullable|numeric',
-            'classification_code' => 'nullable|regex:/[A-Z]{2}/',
+            'classification_code' => 'nullable|exists:classifications,key',
             'classification_level' => 'nullable|numeric',
             'remote_work_allowed' => 'nullable|boolean',
             'team_size' => 'nullable|numeric',
@@ -61,6 +63,8 @@ class UpdateJobPoster extends FormRequest
             'collaborative_vs_independent' => ['nullable', $sliderRule],
             'telework_allowed_frequency_id' => ['nullable', new ValidIdRule(Frequency::class)],
             'flexible_hours_frequency_id' => ['nullable', new ValidIdRule(Frequency::class)],
+            'travel_requirement_id' => ['nullable', new ValidIdRule(TravelRequirement::class)],
+            'overtime_requirement_id' => ['nullable', new ValidIdRule(OvertimeRequirement::class)],
             'en.city' => 'nullable|string',
             'en.title' => 'nullable|string',
             'en.dept_impact' => 'nullable|string',

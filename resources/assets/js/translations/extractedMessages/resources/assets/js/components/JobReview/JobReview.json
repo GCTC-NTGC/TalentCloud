@@ -1,0 +1,232 @@
+[
+  {
+    "id": "jobBuilder.review.jobPageHeading",
+    "description": "Section title.",
+    "defaultMessage": "Job Page Heading"
+  },
+  {
+    "id": "jobBuilder.review.infoEditLink",
+    "description": "Link to edit job details.",
+    "defaultMessage": "Edit This in Step 01: Job Info"
+  },
+  {
+    "id": "jobBuilder.review.impactEditLink",
+    "description": "Link to edit impact statements.",
+    "defaultMessage": "Edit This in Step 03: Impact"
+  },
+  {
+    "id": "jobBuilder.review.tasksEditLink",
+    "description": "Link to edit tasks.",
+    "defaultMessage": "Edit This in Step 04: Tasks"
+  },
+  {
+    "id": "jobBuilder.review.skillsEditLink",
+    "description": "Link to edit skills.",
+    "defaultMessage": "Edit This in Step 05: Skills"
+  },
+  {
+    "id": "jobBuilder.review.workEnvEditLink",
+    "description": "Link to edit work environment.",
+    "defaultMessage": "Edit This in Step 02: Work Environment"
+  },
+  {
+    "id": "jobBuilder.review.managerProfileLink",
+    "description": "Link to edit a manager's profile.",
+    "defaultMessage": "Edit This in Your Profile"
+  },
+  {
+    "id": "jobBuilder.review.nullProvince",
+    "description": "Error text for missing province information.",
+    "defaultMessage": "MISSING PROVINCE"
+  },
+  {
+    "id": "jobBuilder.review.basicInformationHeading",
+    "description": "Heading for Basic Information section",
+    "defaultMessage": "Basic Information"
+  },
+  {
+    "id": "jobBuilder.review.impactHeading",
+    "description": "Heading for Impact section",
+    "defaultMessage": "Impact"
+  },
+  {
+    "id": "jobBuilder.review.tasksHeading",
+    "description": "Heading for Tasks section",
+    "defaultMessage": "Tasks"
+  },
+  {
+    "id": "jobBuilder.review.criteriaSection",
+    "description": "Title for criteria section",
+    "defaultMessage": "Criteria"
+  },
+  {
+    "id": "jobBuilder.review.educationalHeading",
+    "description": "Heading for Educational section",
+    "defaultMessage": "Education Requirements"
+  },
+  {
+    "id": "jobBuilder.review.skillsHeading",
+    "description": "Heading for Skills section",
+    "defaultMessage": "Skills You Need to Have"
+  },
+  {
+    "id": "jobBuilder.review.assetHeading",
+    "description": "Heading for Asset Skills section",
+    "defaultMessage": "Skills That Are Nice to Have"
+  },
+  {
+    "id": "jobBuilder.review.languageHeading",
+    "description": "Heading for Language section",
+    "defaultMessage": "Language Requirements"
+  },
+  {
+    "id": "jobBuilder.review.cultureSection",
+    "description": "Title for culture section",
+    "defaultMessage": "Environment & Culture"
+  },
+  {
+    "id": "jobBuilder.review.managerHeading",
+    "description": "Heading for Manager section",
+    "defaultMessage": "Manager Information"
+  },
+  {
+    "id": "jobBuilder.review.workCultureHeading",
+    "description": "Heading for Work Culture section",
+    "defaultMessage": "Work Culture"
+  },
+  {
+    "id": "jobBuilder.review.workEnvHeading",
+    "description": "Heading for Work Environment section",
+    "defaultMessage": "Work Environment"
+  },
+  {
+    "id": "jobBuilder.review.workDescription",
+    "description": "A note about the information in the work description section",
+    "defaultMessage": "Please note that some Work Environment information is only presented to the applicant after they've clicked the \"View the team's work environment and culture\" button that appears on the job poster."
+  },
+  {
+    "id": "jobBuilder.review.otherInfoHeading",
+    "description": "Heading for other info section",
+    "defaultMessage": "Other Team Information"
+  },
+  {
+    "id": "jobBuilder.review.or",
+    "description": "Displayed between language icons for the English Or French option.",
+    "defaultMessage": "or"
+  },
+  {
+    "id": "jobBuilder.review.reviewYourPoster",
+    "description": "Title for Review Job Poster section.",
+    "defaultMessage": "Review Your Job Poster for:"
+  },
+  {
+    "id": "jobBuilder.review.headsUp",
+    "description": "Description under primary title of review section",
+    "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published."
+  },
+  {
+    "id": "jobBuilder.review.remoteAllowed",
+    "description": "Text displayed when remote work is allowed.",
+    "defaultMessage": "Remote Work Allowed"
+  },
+  {
+    "id": "jobBuilder.review.remoteNotAllowed",
+    "description": "Text displayed when remote work is not allowed.",
+    "defaultMessage": "Remote Work Not Allowed"
+  },
+  {
+    "id": "jobBuilder.review.averageAnnualSalary",
+    "description": "Label for salary information.",
+    "defaultMessage": "Average Annual Salary"
+  },
+  {
+    "id": "jobBuilder.review.tCAdds",
+    "description": "Information will be added placeholder.",
+    "defaultMessage": "Talent Cloud will add this."
+  },
+  {
+    "id": "jobBuilder.review.languageProfile",
+    "description": "Information will be added placeholder.",
+    "defaultMessage": "Language Profile"
+  },
+  {
+    "id": "jobBuilder.review.duration",
+    "description": "Label for duration of Term",
+    "defaultMessage": "Duration"
+  },
+  {
+    "id": "jobBuilder.review.months",
+    "description": "Length of term in months",
+    "defaultMessage": "{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}"
+  },
+  {
+    "id": "jobBuilder.review.securityClearance",
+    "description": "Label for Security Clearance info",
+    "defaultMessage": "Security Clearance"
+  },
+  {
+    "id": "jobBuilder.review.targetStartDate",
+    "description": "Label for start date info",
+    "defaultMessage": "Target Start Date"
+  },
+  {
+    "id": "jobBuilder.review.comesLater",
+    "description": "Placeholder for information that comes later",
+    "defaultMessage": "This comes later."
+  },
+  {
+    "id": "jobBuilder.review.GovernmentClass",
+    "description": "Placeholder for information that comes later",
+    "defaultMessage": "Government Classification"
+  },
+  {
+    "id": "jobBuilder.review.managerDataLoading",
+    "description": "Placeholder text as Manager data loads.",
+    "defaultMessage": "Manager data is loading..."
+  },
+  {
+    "id": "jobBuilder.review.button.return",
+    "description": "Label of 'Previous Step' button.",
+    "defaultMessage": "Save & Return to Skills"
+  },
+  {
+    "id": "jobBuilder.review.button.submit",
+    "description": "Label of Job Review Submission Button",
+    "defaultMessage": "Send to HR for Review"
+  },
+  {
+    "id": "jobBuilder.review.confirm.title",
+    "description": "Title of Submit Confirmation modal.",
+    "defaultMessage": "Congrats! Are You Ready to Submit?"
+  },
+  {
+    "id": "jobBuilder.review.readyTosubmit",
+    "description": "Instructions on how to submit",
+    "defaultMessage": "If you're ready to submit your poster, click the Submit button below."
+  },
+  {
+    "id": "jobBuilder.review.whatHappens",
+    "description": "Rhtorical question",
+    "defaultMessage": "What happens next?"
+  },
+  {
+    "id": "jobBuilder.review.sendYourDraft",
+    "description": "Information about next steps",
+    "defaultMessage": "Talent Cloud will send your draft to your department's HR advisor who will notify you with comments."
+  },
+  {
+    "id": "jobBuilder.review.meantime",
+    "description": "Suggestion on what to do while you wait.",
+    "defaultMessage": "In the meantime, feel free to go ahead and create a screening plan for your selection process. Alternatively, you can wait for comments to come back from HR before you take the next step."
+  },
+  {
+    "id": "jobBuilder.review.confirm.cancel",
+    "description": "Cancel button of Job Review confirmation modal.",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "jobBuilder.review.confirm.submit",
+    "description": "Submit button of Job Review confirmation modal.",
+    "defaultMessage": "Yes, Submit"
+  }
+]

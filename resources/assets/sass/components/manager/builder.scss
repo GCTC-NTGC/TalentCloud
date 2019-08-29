@@ -4,9 +4,6 @@
 
 .manager-job-card {
     box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
-    >div:last-child {
-        cursor: pointer;
-    }
 }
 
 .job-builder-context-block {
@@ -86,18 +83,22 @@
     //     }
     // }
     &:first-child {
-        >div:first-child {
-            button:first-child {
-                color: rgba($clone-grey, .5);
-                pointer-events: none;
+        >div {
+            >div:first-child {
+                button:first-child {
+                    color: rgba($clone-grey, .5);
+                    pointer-events: none;
+                }
             }
         }
     }
     &:last-child {
-        >div:first-child {
-            button:last-child {
-                color: rgba($clone-grey, .5);
-                pointer-events: none;
+        >div {
+            >div:first-child {
+                button:last-child {
+                    color: rgba($clone-grey, .5);
+                    pointer-events: none;
+                }
             }
         }
     }
@@ -166,6 +167,7 @@
 $occupational-colour: #20B6FF;
 $cultural-colour: #44C553;
 $future-colour: #AD6EDD;
+$optional-colour: #f5b642;
 .jpb-skill-list {
     list-style: none;
     margin: 0;
@@ -174,7 +176,7 @@ $future-colour: #AD6EDD;
         border-bottom: 1px solid rgba($clone-grey, .4);
         padding: .5rem 0 1rem 0;
         @media #{$clone-tablet-landscape} {
-            padding: 0;
+            padding: 1rem 0 1.5rem;
         }
         &:last-child {
             border-bottom: none;
@@ -214,6 +216,9 @@ $future-colour: #AD6EDD;
                 .fa-certificate {
                     display: none;
                 }
+                .fa-book {
+                    display: none;
+                }
             }
         }
         &.cultural {
@@ -227,6 +232,9 @@ $future-colour: #AD6EDD;
                     display: inline-block;
                 }
                 .fa-certificate {
+                    display: none;
+                }
+                .fa-book {
                     display: none;
                 }
             }
@@ -244,11 +252,40 @@ $future-colour: #AD6EDD;
                 .fa-certificate {
                     display: inline-block;
                 }
+                .fa-book {
+                    display: none;
+                }
+            }
+        }
+        &.optional {
+            .jpb-skill-type {
+                background: $optional-colour;
+                text-align: center;
+                .fa-briefcase {
+                    display: none;
+                }
+                .fa-coffee {
+                    display: none;
+                }
+                .fa-certificate {
+                    display: none;
+                }
+                .fa-book {
+                    display: inline-block;
+                }
             }
         }
     }
 }
 .jpb-skill-category {
+    [data-c-input="select"] {
+        padding-top: 0;
+        padding-bottom: 0;
+        >div,
+        >div select {
+            margin-bottom: 0;
+        }
+    }
     .jpb-skill-section-title {
         i {
             margin-right: -.1rem;
@@ -293,6 +330,9 @@ $future-colour: #AD6EDD;
             .fa-certificate {
                 display: none;
             }
+            .fa-book {
+                display: none;
+            }
         }
         .jpb-skill-trigger {
             &.active {
@@ -319,6 +359,9 @@ $future-colour: #AD6EDD;
                 display: inline-block;
             }
             .fa-certificate {
+                display: none;
+            }
+            .fa-book {
                 display: none;
             }
         }
@@ -349,6 +392,9 @@ $future-colour: #AD6EDD;
             .fa-certificate {
                 display: inline-block;
             }
+            .fa-book {
+                display: none;
+            }
         }
         .jpb-skill-trigger {
             &.active {
@@ -361,13 +407,44 @@ $future-colour: #AD6EDD;
             }
         }
     }
+    &.optional {
+        .jpb-skill-section-title {
+            span {
+                background: $optional-colour;
+                vertical-align: middle;
+            }
+            .fa-briefcase {
+                display: none;
+            }
+            .fa-coffee {
+                display: none;
+            }
+            .fa-certificate {
+                display: none;
+            }
+            .fa-book {
+                display: inline-block;
+            }
+        }
+        .jpb-skill-trigger {
+            &.active {
+                background: $optional-colour;
+                border-color: $optional-colour;
+                color: white;
+                i {
+                    color: white;
+                }
+            }
+        }
+    }
 }
 .jpb-skill-target {
     .fa-bullseye {
-
+        margin-right: .5rem;
     }
     .fa-check {
         display: none;
+        margin-right: .5rem;
     }
     &.complete {
         .fa-bullseye {

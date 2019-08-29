@@ -1,143 +1,28 @@
 [
   {
-    "id": "jobDetails.titleLabel",
-    "description": "The form label displayed on the title input.",
-    "defaultMessage": "What is the job title?"
-  },
-  {
-    "id": "jobDetails.titlePlaceholder",
-    "description": "The form placeholder displayed on the title input.",
-    "defaultMessage": "e.g. Product Designer"
-  },
-  {
-    "id": "jobDetails.termLengthLabel",
-    "description": "The form label displayed on the term length input.",
-    "defaultMessage": "How long is the term (in months)?"
-  },
-  {
-    "id": "jobDetails.termLengthPlaceholder",
-    "description": "The form placeholder displayed on the term length input.",
-    "defaultMessage": "e.g. 3"
-  },
-  {
-    "id": "jobDetails.classificationLabel",
-    "description": "The form label displayed on the classification input.",
-    "defaultMessage": "What is the classification?"
-  },
-  {
-    "id": "jobDetails.classificationNullSelection",
-    "description": "The default selection option displayed on the classification input.",
-    "defaultMessage": "Select a classification..."
-  },
-  {
-    "id": "jobDetails.levelLabel",
-    "description": "The form label displayed on the level input.",
-    "defaultMessage": "What is the level?"
-  },
-  {
-    "id": "jobDetails.levelNullSelection",
-    "description": "The default selection option displayed on the level input.",
-    "defaultMessage": "Select a level..."
-  },
-  {
-    "id": "jobDetails.securityLevelLabel",
-    "description": "The form label displayed on the security level input.",
-    "defaultMessage": "What is the security level?"
-  },
-  {
-    "id": "jobDetails.securityLevelNullSelection",
-    "description": "The default selection option displayed on the security level input.",
-    "defaultMessage": "Select a security level..."
-  },
-  {
-    "id": "jobDetails.languageLabel",
-    "description": "The form label displayed on the language input.",
-    "defaultMessage": "What is the language profile?"
-  },
-  {
-    "id": "jobDetails.languageNullSelection",
-    "description": "The default selection option displayed on the language input.",
-    "defaultMessage": "Select a language profile..."
-  },
-  {
-    "id": "jobDetails.cityLabel",
-    "description": "The form label displayed on the city input.",
-    "defaultMessage": "What city is the team located in?"
-  },
-  {
-    "id": "jobDetails.cityPlaceholder",
-    "description": "The form placeholder displayed on the city input.",
-    "defaultMessage": "e.g. Ottawa"
-  },
-  {
-    "id": "jobDetails.provinceLabel",
-    "description": "The form label displayed on the province input.",
-    "defaultMessage": "What province is the team located in?"
-  },
-  {
-    "id": "jobDetails.provinceNullSelection",
-    "description": "The default selection option displayed on the province input.",
-    "defaultMessage": "Select a province..."
-  },
-  {
-    "id": "jobDetails.remoteWorkGroupLabel",
-    "description": "The form label displayed on the remote work radio group.",
-    "defaultMessage": "Select a remote work option:"
-  },
-  {
-    "id": "jobDetails.remoteWorkWorldLabel",
-    "description": "The form label displayed on the 'world' remote work radio option.",
-    "defaultMessage": "Yes, I’m willing to supervise employees anywhere in the world."
-  },
-  {
-    "id": "jobDetails.remoteWorkCanadaLabel",
-    "description": "The form label displayed on the 'canada' remote work radio option.",
-    "defaultMessage": "Yes, I’m willing to supervise employees in any province or territory in Canada."
-  },
-  {
-    "id": "jobDetails.remoteWorkNoneLabel",
-    "description": "The form label displayed on the 'none' remote work radio option.",
-    "defaultMessage": "No, I require the employee in this position to be in the same geographic location as the office."
-  },
-  {
-    "id": "jobDetails.teleworkGroupLabel",
-    "description": "The form label displayed on the telework radio group.",
-    "defaultMessage": "Select a telework option:"
-  },
-  {
-    "id": "jobDetails.flexHoursGroupLabel",
-    "description": "The form label displayed on the flex hours radio group.",
-    "defaultMessage": "Select a flexible hours option:"
-  },
-  {
-    "id": "jobDetails.frequencyAlwaysLabel",
-    "description": "The form label displayed on 'always' frequency options.",
-    "defaultMessage": "Almost Always"
-  },
-  {
-    "id": "jobDetails.frequencyFrequentlyLabel",
-    "description": "The form label displayed on 'frequently' frequency options.",
-    "defaultMessage": "Frequently"
-  },
-  {
-    "id": "jobDetails.frequencySometimesLabel",
-    "description": "The form label displayed on 'sometimes' frequency options.",
-    "defaultMessage": "Sometimes"
-  },
-  {
-    "id": "jobDetails.frequencyOccasionallyLabel",
-    "description": "The form label displayed on 'occasionally' frequency options.",
-    "defaultMessage": "Occasionally"
-  },
-  {
-    "id": "jobDetails.frequencyNeverLabel",
-    "description": "The form label displayed on 'never' frequency options.",
-    "defaultMessage": "Almost Never"
-  },
-  {
     "id": "jobDetails.heading",
     "description": "Job Details page heading",
-    "defaultMessage": "Job Information"
+    "defaultMessage": "Job Details"
+  },
+  {
+    "id": "jobDetails.SelectClassAndLvlMessage",
+    "description": "Message displayed after classification and level select boxes.",
+    "defaultMessage": "Please select a classification and level before preparing the education requirements."
+  },
+  {
+    "id": "jobDetails.educationRequirementHeader",
+    "description": "Header message displayed for the Education requirement section.",
+    "defaultMessage": "Based on the classification level you selected, this standard paragraph will appear on the job poster."
+  },
+  {
+    "id": "jobDetails.educationRequirementCopyAndPaste",
+    "description": "Footer message displayed for the Education requirement section.",
+    "defaultMessage": "If you want to customize this paragraph, copy and paste it into the textbox below."
+  },
+  {
+    "id": "jobDetails.educationRequirementReviewChanges",
+    "description": "Footer message displayed for the Education requirement section.",
+    "defaultMessage": "Your HR advisor will review your changes."
   },
   {
     "id": "jobDetails.remoteWorkGroupHeader",
@@ -170,9 +55,24 @@
     "defaultMessage": "Want to support a more gender inclusive workplace?\n                          Studies show allowing flex hours is a great way to improve opportunities for women and parents."
   },
   {
+    "id": "jobDetails.travelGroupHeader",
+    "description": "Header message displayed on the travel group input.",
+    "defaultMessage": "Is travel required?"
+  },
+  {
+    "id": "jobDetails.overtimeGroupHeader",
+    "description": "Header message displayed on the overtime group input.",
+    "defaultMessage": "Is overtime required?"
+  },
+  {
+    "id": "jobDetails.returnButtonLabel",
+    "description": "The text displayed on the Save & Return button of the Job Details form.",
+    "defaultMessage": "Save & Return to Intro"
+  },
+  {
     "id": "jobDetails.submitButtonLabel",
     "description": "The text displayed on the submit button for the Job Details form.",
-    "defaultMessage": "Next"
+    "defaultMessage": "Save & Preview"
   },
   {
     "id": "jobDetails.modalHeader",
@@ -188,6 +88,11 @@
     "id": "jobDetails.modalCancelLabel",
     "description": "The text displayed on the cancel button of the Job Details modal.",
     "defaultMessage": "Go Back"
+  },
+  {
+    "id": "jobDetails.modalMiddleLabel",
+    "description": "The text displayed on the 'Skip to Review' button of the Job Details modal.",
+    "defaultMessage": "Skip to Review"
   },
   {
     "id": "jobDetails.modalConfirmLabel",

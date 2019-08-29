@@ -7,37 +7,12 @@
   {
     "id": "jobBuilder.workEnv.openingSentence",
     "description": "Opening sentence for modal.",
-    "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\n                free to go back and edit things or move to the next step if\n                you're happy with it."
+    "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\r\n                free to go back and edit things or move to the next step if\r\n                you're happy with it."
   },
   {
     "id": "jobBuilder.workEnvModal.title",
     "description": "Header of job poster builder work environment step.",
     "defaultMessage": "Work Environment"
-  },
-  {
-    "id": "jobBuilder.workEnvModal.teamSize",
-    "description": "Title for Team size section.",
-    "defaultMessage": "Team Size"
-  },
-  {
-    "id": "jobBuilder.workEnvModal.physicalEnvLabel",
-    "description": "The label displayed on the physical environment checkbox group.",
-    "defaultMessage": "Our Physical Environment"
-  },
-  {
-    "id": "jobBuilder.workEnvModal.technologyLabel",
-    "description": "The label displayed on the technology checkbox group.",
-    "defaultMessage": "Technology"
-  },
-  {
-    "id": "jobBuilder.workEnvModal.amenitiesLabel",
-    "description": "The label displayed on the amenities checkbox group.",
-    "defaultMessage": "Amenities"
-  },
-  {
-    "id": "jobBuilder.workEnvModal.moreOnWorkEnvLabel",
-    "description": "The label displayed for the more about your environment textbox.",
-    "defaultMessage": "More About Your Environment"
   },
   {
     "id": "jobBuilder.workEnvModal.workCultureTitle",
@@ -48,6 +23,11 @@
     "id": "jobBuilder.workEnvModal.cancelLabel",
     "description": "The label displayed on modal cancel button.",
     "defaultMessage": "Go Back"
+  },
+  {
+    "id": "jobBuilder.workEnvModal.modalMiddleLabel",
+    "description": "The text displayed on the 'Skip to Review' button of the Work Env modal.",
+    "defaultMessage": "Skip to Review"
   },
   {
     "id": "jobBuilder.workEnvModal.confirmLabel",

@@ -1,42 +1,40 @@
-import React, { useEffect } from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import React from "react";
+import { injectIntl, InjectedIntlProps } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
-import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import WorkEnvForm from "./WorkEnvForm";
-import { Job } from "../../models/types";
+import { Job, JobPosterKeyTask, Criteria } from "../../models/types";
 import { DispatchType } from "../../configureStore";
 import { RootState } from "../../store/store";
+import { updateJob } from "../../store/Job/jobActions";
 import {
-  updateJob,
-  setSelectedJob,
-  createJob,
-  fetchJob,
-} from "../../store/Job/jobActions";
-import { getSelectedJob } from "../../store/Job/jobSelector";
-import { ProgressTrackerItem } from "../ProgressTracker/types";
-import {
-  progressTrackerLabels,
-  progressTrackerTitles,
-} from "../JobBuilder/jobBuilderMessages";
-import {
-  jobBuilderDetailsProgressState,
-  jobBuilderIntroProgressState,
-} from "../JobBuilder/jobBuilderHelpers";
-import { managerJobIndex, jobBuilderImpact } from "../../helpers/routes";
+  getJob,
+  getTasksByJob,
+  getCriteriaByJob,
+} from "../../store/Job/jobSelector";
 import RootContainer from "../RootContainer";
-import JobBuilderIntroPageContainer from "../JobBuilderIntro/JobBuilderIntro";
+import {
+  jobBuilderImpact,
+  jobBuilderDetails,
+  jobBuilderReview,
+} from "../../helpers/routes";
+import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
+import {
+  isJobBuilderComplete,
+  VALID_COUNT,
+} from "../JobBuilder/jobBuilderHelpers";
+import { navigate } from "../../helpers/router";
 
 interface JobBuilderWorkEnvProps {
   // The id of the edited job, or null for a new job.
-  jobId: number | null;
+  jobId: number;
   // If not null, used to prepopulate form values.
   // Note: its possible for jobId to be non-null, but job to be null, if the data hasn't been loaded yet.
   job: Job | null;
-  // This will be called when jobId is set and job is null. It should cause the job data to be loaded and passed in.
-  loadJob: (jobId: number) => void;
-  // Creates a new job. Must return the new job if successful.
-  handleCreateJob: (newJob: Job) => Promise<Job>;
+  // Tasks associated with the job, used to determine if its complete
+  keyTasks: JobPosterKeyTask[];
+  // Criteria associated with the job, used to determine if its complete
+  criteria: Criteria[];
   // Updates an existing job. Must return the updated job if successful.
   handleUpdateJob: (newJob: Job) => Promise<Job>;
 }
@@ -46,128 +44,66 @@ const JobBuilderWorkEnv: React.FunctionComponent<
 > = ({
   jobId,
   job,
-  loadJob,
-  handleCreateJob,
   handleUpdateJob,
+  keyTasks,
+  criteria,
   intl,
 }): React.ReactElement => {
-  useEffect((): void => {
-    if (jobId) {
-      loadJob(jobId);
-    }
-  }, [jobId, loadJob]);
-  const waitingForJob = jobId !== null && job === null;
-  const handleSubmit = job ? handleUpdateJob : handleCreateJob;
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
+  }
+  const handleSubmit = handleUpdateJob;
   const handleModalCancel = (): void => {};
   const handleModalConfirm = (): void => {
-    if (job !== null) {
-      window.location.href = jobBuilderImpact(intl.locale, job.id);
-    }
-    // FIXME: how to handle when job hasn't loaded yet??? RACE CONDITION HERE!
+    navigate(jobBuilderImpact(intl.locale, jobId));
   };
-  const progressTrackerItems: ProgressTrackerItem[] = [
-    {
-      state: waitingForJob ? "null" : jobBuilderIntroProgressState(job),
-      label: intl.formatMessage(progressTrackerLabels.start),
-      title: intl.formatMessage(progressTrackerTitles.welcome),
-    },
-    {
-      state: waitingForJob
-        ? "null"
-        : jobBuilderDetailsProgressState(job, intl.locale),
-      label: intl.formatMessage(progressTrackerLabels.step01),
-      title: intl.formatMessage(progressTrackerTitles.jobInfo),
-    },
-    {
-      state: "active",
-      label: intl.formatMessage(progressTrackerLabels.step02),
-      title: intl.formatMessage(progressTrackerTitles.workEnv),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.step03),
-      title: intl.formatMessage(progressTrackerTitles.impact),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.step04),
-      title: intl.formatMessage(progressTrackerTitles.tasks),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.step05),
-      title: intl.formatMessage(progressTrackerTitles.skills),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.finish),
-      title: intl.formatMessage(progressTrackerTitles.review),
-    },
-  ];
+  const handleReturn = (): void => {
+    navigate(jobBuilderDetails(locale, jobId !== null ? jobId : undefined));
+  };
+  const handleSkipToReview = async (): Promise<void> => {
+    if (jobId) {
+      navigate(jobBuilderReview(locale, jobId));
+    }
+  };
+  const jobIsComplete =
+    job !== null &&
+    isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
   return (
-    <section>
-      <ProgressTracker
-        items={progressTrackerItems}
-        backgroundColor="black"
-        fontColor="white"
-        classNames="manager-jpb-tracker"
-        itemsWrapperClassNames="tracker manager-jpb-tracker-wrapper"
-      />
-      {waitingForJob ? (
-        <div
-          data-c-container="form"
-          data-c-padding="top(triple) bottom(triple)"
-        >
-          <div data-c-background="white(100)" data-c-card data-c-padding="all(double)" data-c-radius="rounded" data-c-align="base(centre)">
-            <p>
-              <FormattedMessage
-                id="jobBuilderIntroPage.loading"
-                defaultMessage="Your job is loading..."
-                description="Message indicating that the current job is still being loaded."
-              />
-            </p>
-          </div>
-        </div>
-      ) : (
+    <JobBuilderStepContainer jobId={jobId} currentPage="env">
+      {job !== null && (
         <WorkEnvForm
           job={job}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
+          jobIsComplete={jobIsComplete}
+          handleSkipToReview={handleSkipToReview}
         />
       )}
-    </section>
+    </JobBuilderStepContainer>
   );
 };
 
 const mapStateToProps = (
   state: RootState,
+  ownProps: { jobId: number },
 ): {
   job: Job | null;
+  keyTasks: JobPosterKeyTask[];
+  criteria: Criteria[];
 } => ({
-  job: getSelectedJob(state),
+  job: getJob(state, ownProps),
+  keyTasks: getTasksByJob(state, ownProps),
+  criteria: getCriteriaByJob(state, ownProps),
 });
 
 const mapDispatchToProps = (
   dispatch: DispatchType,
 ): {
-  loadJob: (jobId: number) => void;
-  handleCreateJob: (newJob: Job) => Promise<Job>;
   handleUpdateJob: (newJob: Job) => Promise<Job>;
 } => ({
-  loadJob: (jobId: number): void => {
-    dispatch(fetchJob(jobId));
-    dispatch(setSelectedJob(jobId));
-  },
-  handleCreateJob: async (newJob: Job): Promise<Job> => {
-    const result = await dispatch(createJob(newJob));
-    if (!result.error) {
-      const resultJob = await result.payload;
-      dispatch(setSelectedJob(resultJob.id));
-      return resultJob;
-    }
-    return Promise.reject(result.payload);
-  },
   handleUpdateJob: async (newJob: Job): Promise<Job> => {
     const result = await dispatch(updateJob(newJob));
     if (!result.error) {
@@ -189,12 +125,14 @@ if (document.getElementById("job-builder-work-env")) {
   ) as HTMLElement;
   const jobIdAttr = container.getAttribute("data-job-id");
   const jobId = jobIdAttr ? Number(jobIdAttr) : null;
-  ReactDOM.render(
-    <RootContainer>
-      <JobBuilderWorkEnvContainer jobId={jobId} />
-    </RootContainer>,
-    container,
-  );
+  if (jobId) {
+    ReactDOM.render(
+      <RootContainer>
+        <JobBuilderWorkEnvContainer jobId={jobId} />
+      </RootContainer>,
+      container,
+    );
+  }
 }
 
 export default JobBuilderWorkEnvContainer;
