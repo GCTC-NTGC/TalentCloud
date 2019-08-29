@@ -281,7 +281,7 @@ const renderManagerSection = (
 ): React.ReactElement => {
   if (manager === null) {
     return (
-      <p data-c-margin="bottom(normal)">
+      <p>
         <FormattedMessage
           id="jobBuilder.review.managerDataLoading"
           defaultMessage="Manager data is loading..."
@@ -295,7 +295,9 @@ const renderManagerSection = (
     return (
       <>
         <p data-c-margin="bottom(normal)">{manager.name}</p>
-        <p data-c-margin="bottom(normal)">
+        <p
+          data-c-margin={`${managerTranslation.about_me && "{bottom(normal)"}`}
+        >
           <FormattedMessage
             id="jobBuilder.review.managerPosition"
             defaultMessage="{position} at {department}"
@@ -306,7 +308,7 @@ const renderManagerSection = (
             }}
           />
         </p>
-        <p>{managerTranslation.about_me}</p>
+        {managerTranslation.about_me && <p>{managerTranslation.about_me}</p>}
       </>
     );
   }
