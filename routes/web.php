@@ -229,8 +229,8 @@ Route::group(
 
                 /* Create Job */
                 Route::get('jobs/create', 'JobController@create')
-                    ->middleware('can:create,App\Models\JobPoster')
-                    ->name('manager.jobs.create');
+                    ->middleware('can:create,App\Models\JobPoster');
+
 
                 Route::post('jobs', 'JobController@store')
                     ->middleware('can:create,App\Models\JobPoster')
@@ -249,14 +249,14 @@ Route::group(
                 /* Edit Job */
                 Route::get('jobs/{jobPoster}/edit', 'JobController@edit')
                     ->where('jobPoster', '[0-9]+')
-                    ->middleware('can:update,jobPoster')
-                    ->name('manager.jobs.edit');
+                    ->middleware('can:update,jobPoster');
+
 
                 /* Job Builder */
                 Route::get(
                     'jobs/builder',
                     'JobBuilderController@intro'
-                );
+                )->name('manager.jobs.create');
 
                 Route::get(
                     'jobs/{jobId}/builder/intro',
@@ -285,7 +285,9 @@ Route::group(
                 Route::get(
                     'jobs/{jobId}/builder/review',
                     'JobBuilderController@review'
-                )->where('jobPoster', '[0-9]+');
+                )
+                ->where('jobPoster', '[0-9]+')
+                ->name('manager.jobs.edit');
 
                 /* Delete Job */
                 Route::delete('jobs/{jobPoster}', 'JobController@destroy')

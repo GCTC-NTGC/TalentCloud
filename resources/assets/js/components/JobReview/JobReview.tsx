@@ -44,6 +44,7 @@ import JobWorkEnv from "../JobBuilder/JobWorkEnv";
 import JobWorkCulture from "../JobBuilder/JobWorkCulture";
 import Modal from "../Modal";
 import { textToParagraphs } from "../../helpers/textToParagraphs";
+import { useUrlHash } from "../../helpers/router";
 
 interface JobReviewSectionProps {
   title: string;
@@ -304,6 +305,9 @@ export const JobReview: React.FunctionComponent<
   handleReturn,
   intl,
 }): React.ReactElement => {
+  // Scroll to element specified in the url hash, if possible
+  useUrlHash();
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const modalId = "job-review-modal";
   const modalParentRef = useRef<HTMLDivElement>(null);
@@ -700,6 +704,7 @@ export const JobReview: React.FunctionComponent<
           >
             {/* Modal trigger, same as last step. */}
             <button
+              id="submit"
               data-c-button="solid(c2)"
               data-c-radius="rounded"
               type="button"
