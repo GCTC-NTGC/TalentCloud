@@ -237,41 +237,9 @@ class JobController extends Controller
         }
     }
 
-
-    /**
-     * Create a blank job poster for the specified manager
-     *
-     * @param  \App\Models\Manager $manager Incoming Manager object.
-     * @return \Illuminate\Http\Response Job Create view
-     */
-    public function createAsManager(Manager $manager)
-    {
-        $jobPoster = new JobPoster();
-        $jobPoster->manager_id = $manager->id;
-
-        $jobPoster->save();
-
-        $defaultQuestions = $this->populateDefaultQuestions();
-        if (!empty($defaultQuestions)) {
-            $jobPoster->job_poster_questions()->saveMany($defaultQuestions);
-        }
-
-        return redirect()->route('manager.jobs.edit', $jobPoster->id);
-    }
-
-    /**
-     * Display the form for creating a new Job Poster
-     *
-     * @param  \Illuminate\Http\Request $request Incoming request object.
-     * @return \Illuminate\Http\Response Job Create view
-     */
-    public function create(Request $request)
-    {
-        return $this->populateCreateView($request);
-    }
-
     /**
      * Display the form for editing an existing Job Poster
+     * Only allows editing fields that don't appear on the react-built Job Poster Builder.
      *
      * @param  \Illuminate\Http\Request $request   Incoming request object.
      * @param  \App\Models\JobPoster    $jobPoster Job Poster object.
@@ -279,99 +247,15 @@ class JobController extends Controller
      */
     public function edit(Request $request, JobPoster $jobPoster)
     {
-        return $this->populateCreateView($request, $jobPoster);
-    }
+        $manager = $jobPoster->manager;
 
-    /**
-     * Get the manager from the request object and check if creating or editing
-     *
-     * @param  \Illuminate\Http\Request $request   Incoming request object.
-     * @param  \App\Models\JobPoster    $jobPoster Optional Job Poster object.
-     * @return \Illuminate\Http\Response
-     */
-    public function populateCreateView(Request $request, JobPoster $jobPoster = null)
-    {
-        if ($jobPoster == null || $jobPoster->manager == null) {
-            $manager = $request->user() ? $request->user()->manager : null;
-        } else {
-            $manager = $jobPoster->manager;
+        $job = $jobPoster;
+        $jobHeading = 'manager/job_edit';
+
+        if ($job->job_poster_questions === null || $job->job_poster_questions->count() === 0) {
+            $job->job_poster_questions()->saveMany($this->populateDefaultQuestions());
+            $job->refresh();
         }
-
-        if (isset($jobPoster)) {
-            $job = $jobPoster;
-            $route = ['manager.jobs.update', $jobPoster];
-            $jobHeading = 'manager/job_edit';
-        } else {
-            $job = [];
-            $defaultQuestions = $this->populateDefaultQuestions();
-            if (!empty($defaultQuestions)) {
-                $job['job_poster_questions'] = $defaultQuestions;
-            }
-            $route = ['manager.jobs.store'];
-            $jobHeading = 'manager/job_create';
-        }
-
-        $skillLangs = Lang::get('common/skills');
-
-        $softSkills = Skill::whereHas(
-            'skill_type',
-            function ($query) : void {
-                $query->where('name', '=', 'soft');
-            }
-        )->get()
-            ->mapWithKeys(
-                function ($skill) {
-                    return [
-                        $skill->id => $skill->name
-                    ];
-                }
-            )
-            ->all();
-
-        $hardSkills = Skill::whereHas(
-            'skill_type',
-            function ($query) : void {
-                $query->where('name', '=', 'hard');
-            }
-        )->get()
-            ->mapWithKeys(
-                function ($skill) {
-                    return [
-                        $skill->id => $skill->name
-                    ];
-                }
-            )
-            ->all();
-
-        asort($softSkills, SORT_LOCALE_STRING);
-        asort($hardSkills, SORT_LOCALE_STRING);
-
-        $skills = [
-            'essential' => [
-                'hard' => $hardSkills,
-                'soft' => $softSkills
-            ],
-            'asset' => [
-                'hard' => $hardSkills,
-                'soft' => $softSkills
-            ]
-        ];
-
-        $skillLevelCollection = SkillLevel::all();
-
-        $skillLevels = array();
-
-        $skillLevels['hard'] = $skillLevelCollection->mapWithKeys(
-            function ($skillLevel) use ($skillLangs) {
-                return [$skillLevel->id => $skillLangs['skill_levels']['hard'][$skillLevel->name]];
-            }
-        )->all();
-
-        $skillLevels['soft'] = $skillLevelCollection->mapWithKeys(
-            function ($skillLevel) use ($skillLangs) {
-                return [$skillLevel->id => $skillLangs['skill_levels']['soft'][$skillLevel->name]];
-            }
-        )->all();
 
         return view(
             'manager/job_create',
@@ -381,41 +265,30 @@ class JobController extends Controller
                 // Data.
                 'job' => Lang::get($jobHeading),
                 'manager' => $manager,
-                'provinces' => Province::all(),
-                'departments' => Department::all(),
-                'language_requirments' => LanguageRequirement::all(),
-                'security_clearances' => SecurityClearance::all(),
                 'job' => $job,
-                'form_action_url' => route(/** @scrutinizer ignore-type */ ...$route), // phpcs:ignore
-                'skills' => $skills,
-                'skill_levels' => $skillLevels,
-                'skill_template' => $skillLangs,
+                'form_action_url' => route('admin.jobs.update', $jobPoster),
             ]
         );
     }
 
     /**
-     * Create a new resource in storage
+     * Update a resource in storage
      * NOTE: Only saves fields that are not on the react-built Job Poster Builder
      *
      * @param  \Illuminate\Http\Request $request   Incoming request object.
      * @param  \App\Models\JobPoster    $jobPoster Optional Job Poster object.
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, JobPoster $jobPoster = null)
+    public function store(Request $request, JobPoster $jobPoster)
     {
         // Don't allow edits for published Job Posters
         // Also check auth while we're at it.
-        if (isset($jobPoster)) {
-            $this->authorize('update', $jobPoster);
-            JobPosterValidator::validateUnpublished($jobPoster);
-        } else {
-            $this->authorize('create', JobPoster::class);
-        }
+        $this->authorize('update', $jobPoster);
+        JobPosterValidator::validateUnpublished($jobPoster);
 
         $input = $request->input();
 
-        $job = (isset($jobPoster) ? $jobPoster : new JobPoster());
+        $job =  $jobPoster;
 
         if ($job->manager_id == null) {
             $job->manager_id = $request->user()->manager->id;

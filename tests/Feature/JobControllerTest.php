@@ -244,41 +244,6 @@ class JobControllerTest extends TestCase
     // }
 
     /**
-     * Ensure an Admin can create a Job Poster for a manager.
-     *
-     * @return void
-     */
-    public function testCreateAsManager() : void
-    {
-        $admin = factory(User::class)->states('admin')->create();
-        $newManager = factory(Manager::class)->create();
-
-        $response = $this->actingAs($admin)
-            ->get(route('admin.jobs.create.as_manager', $newManager));
-        $this->assertDatabaseHas('job_posters', ['manager_id'=>$newManager->id]);
-    }
-
-    /**
-     * Ensure that createAsManager creates a job that includes the default questions.
-     *
-     * @return void
-     */
-    public function testCreateAsManagerHasDefaultQuestions() : void
-    {
-        $admin = factory(User::class)->states('admin')->create();
-        $newManager = factory(Manager::class)->create();
-
-        $response = $this->actingAs($admin)
-            ->get(route('admin.jobs.create.as_manager', $newManager));
-        $newJob = JobPoster::where('manager_id', $newManager->id)->firstOrFail();
-        $questions = Lang::get('manager/job_create.questions');
-        foreach ($questions as $question) {
-            $match = $newJob->job_poster_questions->where('question', $question);
-            $this->assertNotEmpty($match);
-        }
-    }
-
-    /**
      * Ensure a manager can edit an unpublished Job Poster they created.
      *
      * @return void
@@ -324,7 +289,7 @@ class JobControllerTest extends TestCase
             'manager_id' => $manager->id
         ]);
         $jobEdit = $this->generateEditJobFormData();
-        $this->actingAs($admin)->post(route('manager.jobs.update', $job), $jobEdit);
+        $this->actingAs($admin)->post(route('admin.jobs.update', $job), $jobEdit);
         $job->refresh();
         $this->assertEquals($manager->user->id, $job->manager->user->id);
     }
@@ -360,7 +325,7 @@ class JobControllerTest extends TestCase
 
         $response = $this->followingRedirects()
             ->actingAs($this->manager->user)
-            ->post(route('manager.jobs.update', $job), $jobEdit);
+            ->post(route('admin.jobs.update', $job), $jobEdit);
         $response->assertStatus(200);
         $this->assertDatabaseHas('job_posters', $dbValues);
     }
@@ -401,7 +366,7 @@ class JobControllerTest extends TestCase
 
         $response = $this->followingRedirects()
             ->actingAs($this->manager->user)
-            ->post(route('manager.jobs.update', $job), $jobEdit);
+            ->post(route('admin.jobs.update', $job), $jobEdit);
 
         $this->assertDatabaseHas('job_posters', $dbValues);
 
@@ -430,7 +395,7 @@ class JobControllerTest extends TestCase
         );
         $response = $this->followingRedirects()
             ->actingAs($this->manager->user)
-            ->post(route('manager.jobs.update', $job), $data);
+            ->post(route('admin.jobs.update', $job), $data);
         $response->assertStatus(200);
 
         // Check the criteria has been added to job
@@ -497,7 +462,7 @@ class JobControllerTest extends TestCase
 
         $response = $this->followingRedirects()
             ->actingAs($this->manager->user)
-            ->post(route('manager.jobs.update', $job), $data);
+            ->post(route('admin.jobs.update', $job), $data);
         $response->assertStatus(200);
 
         // Check the criteria has been updated
@@ -561,7 +526,7 @@ class JobControllerTest extends TestCase
         $data = $this->generateEditJobFormData();
 
         $response = $this->actingAs($this->manager->user)
-            ->post(route('manager.jobs.update', $job), $data);
+            ->post(route('admin.jobs.update', $job), $data);
         // $response->assertStatus(200);
         // Check the criteria has been removed
         $criteriaValues = [

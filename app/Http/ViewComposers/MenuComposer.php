@@ -113,7 +113,7 @@ class MenuComposer
                     break;
                 case 'manager.jobs.create':
                 case 'manager.jobs.edit':
-                case 'manager.jobs.update':
+                case 'admin.jobs.update':
                     //$menu['items']['create_job']['active'] = true;
                     $menu['items']['jobs']['active'] = true; //TODO: restore when job poster builder complete
                     break;

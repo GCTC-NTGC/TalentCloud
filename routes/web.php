@@ -227,30 +227,10 @@ Route::group(
                     ->middleware('can:view,jobPoster')
                     ->name('manager.jobs.show');
 
-                /* Create Job */
-                Route::get('jobs/create', 'JobController@create')
-                    ->middleware('can:create,App\Models\JobPoster');
-
-
-                Route::post('jobs', 'JobController@store')
-                    ->middleware('can:create,App\Models\JobPoster')
-                    ->name('manager.jobs.store');
-
-                Route::post('jobs/{jobPoster}', 'JobController@store')
-                    ->where('jobPoster', '[0-9]+')
-                    ->middleware('can:update,jobPoster')
-                    ->name('manager.jobs.update');
-
                 Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
                     ->where('jobPoster', '[0-9]+')
                     ->middleware('can:review,jobPoster')
                     ->name('manager.jobs.applications');
-
-                /* Edit Job */
-                Route::get('jobs/{jobPoster}/edit', 'JobController@edit')
-                    ->where('jobPoster', '[0-9]+')
-                    ->middleware('can:update,jobPoster');
-
 
                 /* Job Builder */
                 Route::get(
@@ -405,9 +385,15 @@ Route::group(
         'middleware' => ['auth', 'role:admin']
     ],
     function (): void {
-        Route::get('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
-            ->middleware('can:create,App\Models\JobPoster')
-            ->name('admin.jobs.create.as_manager');
+        /* Edit Job */
+        Route::get('jobs/{jobPoster}/edit', 'JobController@edit')
+            ->where('jobPoster', '[0-9]+')
+            ->middleware('can:update,jobPoster')
+            ->name('admin.jobs.edit');
+        Route::post('jobs/{jobPoster}', 'JobController@store')
+            ->where('jobPoster', '[0-9]+')
+            ->middleware('can:update,jobPoster')
+            ->name('admin.jobs.update');
     }
 );
 
