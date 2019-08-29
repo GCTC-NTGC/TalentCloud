@@ -11,6 +11,7 @@ return [
      */
     "title" => "Browse Jobs",
     "job_index_title" => "Talent Cloud | Applicant: Browse Jobs",
+    "job_index_description" => "A list of active jobs posted to Talent Cloud.",
     "index" => [
         "null_alert" => [
             "title" => "We're improving the platform.",

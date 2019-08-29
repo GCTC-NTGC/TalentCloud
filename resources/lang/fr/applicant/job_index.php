@@ -11,6 +11,7 @@ return [
      */
     "title" => "Parcourir les emplois",
     "job_index_title" => "Nuage de talents | Candidat : Parcourir les emplois",
+    "job_index_description" => "Liste des emplois actifs publiés sur le Nuage de talents.",
     "index" => [
         "null_alert" => [
             "title" => "Nous améliorons la plate-forme.",
