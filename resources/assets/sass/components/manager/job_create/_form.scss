@@ -82,52 +82,9 @@
         text-align: center;
     }
 
-    .manager-jobs__skill-wrapper {
-        margin-bottom: 4rem;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-
-    }
-
-    .manager-jobs__add-skill-button {
-        @extend %gradient--vertical;
-        background-color: $palette--black;
-        border: none;
-        border-radius: 5px;
-        box-shadow: none;
-        cursor: pointer;
-        display: inline-block;
-        font-family: $font--sans;
-        font-size: $font-scale--regular;
-        font-weight: 400;
-        outline: none;
-        padding: $unit calc(#{$unit} * 2);
-        text-decoration: none;
-        color: $palette--font-white;
-        transition: none;
-
-        &:focus,
-        &:hover {
-            border: 2px solid $palette--white;
-            outline: none;
-            padding: calc(#{$unit} - 2px) calc((#{$unit} * 2) - 2px);
-            transition: none;
-
-            &.light-bg {
-                border: 2px solid $palette--black;
-            }
-
-        }
-
-    }
-
 }
 
-.manager-jobs__create-task,
-.manager-jobs__create-question,
-.manager-jobs__create-skill {
+.manager-jobs__create-question {
     margin: 0 0 2rem;
 
     fieldset {
