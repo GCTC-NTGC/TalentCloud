@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FormikActions } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import RadioGroup from "../Form/RadioGroup";
@@ -296,7 +296,6 @@ const JobDetails: React.FunctionComponent<
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [returnOnSubmit, setReturnOnSubmit] = useState(false);
 
   const modalParentRef = useRef<HTMLDivElement>(null);
   const { locale } = intl;
@@ -310,6 +309,7 @@ const JobDetails: React.FunctionComponent<
     "remoteWorkCanada",
     "remoteWorkWorld",
   ];
+
   const jobSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, intl.formatMessage(validationMessages.tooShort))
@@ -397,6 +397,28 @@ const JobDetails: React.FunctionComponent<
       .required(intl.formatMessage(validationMessages.required)),
   });
 
+  const handleEducationRequirements = (values: JobFormValues): string => {
+    return values.educationRequirements.length > 0
+      ? values.educationRequirements
+      : getEducationMsgForClassification(values.classification, intl);
+  };
+
+  const onReturnBackSubmit = (values: JobFormValues): void => {
+    // The following only triggers after validations pass
+    const educationRequirements = handleEducationRequirements(values);
+    const modifiedValues: JobFormValues = {
+      ...values,
+      educationRequirements,
+    };
+    handleSubmit(
+      updateJobWithValues(job || emptyJob(), locale, modifiedValues),
+    ).then((isSuccessful: boolean): void => {
+      if (isSuccessful) {
+        handleReturn();
+      }
+    });
+  };
+
   return (
     <section>
       <div
@@ -418,31 +440,27 @@ const JobDetails: React.FunctionComponent<
         <Formik
           enableReinitialize
           initialValues={initialValues}
-          validationSchema={jobSchema}
+          validationSchema={() => {
+            return jobSchema;
+          }}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
-            const educationRequirements: string =
-              values.educationRequirements.length > 0
-                ? values.educationRequirements
-                : getEducationMsgForClassification(values.classification, intl);
-            const modifiedValues: JobFormValues = {
+            const educationRequirements: string = handleEducationRequirements(
+              values,
+            );
+            const jobFormValues: JobFormValues = {
               ...values,
               educationRequirements,
             };
             handleSubmit(
-              updateJobWithValues(job || emptyJob(), locale, modifiedValues),
+              updateJobWithValues(job || emptyJob(), locale, jobFormValues),
             )
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
-                  if (returnOnSubmit) {
-                    handleReturn();
-                  } else {
-                    setIsModalVisible(true);
-                  }
+                  setIsModalVisible(true);
                 }
               })
               .finally((): void => {
-                setReturnOnSubmit(false);
                 actions.setSubmitting(false); // Required by Formik to finish the submission cycle
               });
           }}
@@ -451,7 +469,6 @@ const JobDetails: React.FunctionComponent<
             touched,
             isSubmitting,
             values,
-            submitForm,
           }): React.ReactElement => (
             <section>
               <Form
@@ -923,15 +940,7 @@ const JobDetails: React.FunctionComponent<
                       type="button"
                       disabled={isSubmitting}
                       onClick={(): void => {
-                        /** TODO:
-                         * This is a race condition, since the setState hook call is asynchronous.
-                         * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
-                         * For now, the setState always happens faster than the validation check, so it works.
-                         * See https://github.com/jaredpalmer/formik/issues/214
-                         * -- Tristan
-                         */
-                        setReturnOnSubmit(true);
-                        submitForm();
+                        onReturnBackSubmit(values);
                       }}
                     >
                       <FormattedMessage
