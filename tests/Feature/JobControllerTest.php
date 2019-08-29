@@ -200,7 +200,7 @@ class JobControllerTest extends TestCase
         $jobEdit['close_date'] = '2019-01-31';
 
         // Expected db values
-        $dbValues = array_slice($jobEdit, 0, 8);
+        $dbValues = array_slice($jobEdit, 0, 3);
 
         $admin = factory(User::class)->states('admin')->create();
         $response = $this->followingRedirects()
