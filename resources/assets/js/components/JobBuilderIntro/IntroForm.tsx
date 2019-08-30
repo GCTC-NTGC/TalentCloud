@@ -8,6 +8,7 @@ import {
 } from "react-intl";
 import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
+import nprogress from "nprogress";
 import { validationMessages } from "../Form/Messages";
 import { Job, Department } from "../../models/types";
 import { emptyJob } from "../../models/jobUtil";
@@ -213,6 +214,7 @@ const IntroForm: React.FunctionComponent<
           initialValues={initialValues}
           validationSchema={introSchema}
           onSubmit={(values, { setSubmitting }): void => {
+            nprogress.start();
             handleSubmit(updateJobWithValues(job || emptyJob(), values))
               .then((newJob: Job): void => {
                 if (languageSelection === "fr") {
@@ -222,8 +224,10 @@ const IntroForm: React.FunctionComponent<
                 }
               })
               .finally(
-                (): void => setSubmitting(false), // Required by Formik to finish the submission cycle
-              );
+                (): void => {
+                  nprogress.done()
+                  setSubmitting(false) // Required by Formik to finish the submission cycle
+                });
           }}
           render={({
             isSubmitting,
@@ -322,6 +326,7 @@ const IntroForm: React.FunctionComponent<
                 form="form"
                 data-c-button="solid(c1)"
                 data-c-radius="rounded"
+                data-c-margin="right(normal) bottom(normal)"
                 type="button"
                 disabled={isSubmitting}
                 onClick={(): void => {

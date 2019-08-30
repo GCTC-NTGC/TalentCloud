@@ -2,6 +2,7 @@
 import React, { useState, useRef } from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { Formik, Form, Field } from "formik";
+import nprogress from "nprogress";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import RadioGroup from "../Form/RadioGroup";
@@ -429,6 +430,8 @@ const JobDetails: React.FunctionComponent<
               ...values,
               educationRequirements,
             };
+
+            nprogress.start();
             handleSubmit(
               updateJobWithValues(job || emptyJob(), locale, modifiedValues),
             )
@@ -437,6 +440,7 @@ const JobDetails: React.FunctionComponent<
                   if (returnOnSubmit) {
                     handleReturn();
                   } else {
+                    nprogress.done();
                     setIsModalVisible(true);
                   }
                 }
