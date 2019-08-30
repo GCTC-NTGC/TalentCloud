@@ -1,6 +1,6 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { FormValues } from "./WorkEnvForm";
+import { WorkEnvFormValues } from "./WorkEnvForm";
 import Modal from "../Modal";
 import JobWorkEnv from "../JobBuilder/JobWorkEnv";
 
@@ -9,7 +9,7 @@ interface WorkEnvModalProps {
   modalCancel: () => void;
   isVisible: boolean;
   parentElement: Element | null;
-  values: FormValues;
+  values: WorkEnvFormValues;
   cultureSummary: string;
   jobIsComplete: boolean;
   handleSkipToReview: () => void;
