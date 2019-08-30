@@ -240,8 +240,18 @@ const sectionTitle = (title: string): React.ReactElement => {
 const languageRequirementIcons = (
   languageRequirementId: number,
 ): React.ReactElement => {
-  const enIcon = <img src="/images/icon_english_requirement.svg" />;
-  const frIcon = <img src="/images/icon_french_requirement.svg" />;
+  const enIcon = (
+    <img
+      src="/images/icon_english_requirement.svg"
+      alt="English language requirement icon."
+    />
+  );
+  const frIcon = (
+    <img
+      src="/images/icon_french_requirement.svg"
+      alt="French language requirement icon."
+    />
+  );
   switch (languageRequirementId) {
     case LanguageRequirementId.bilingualIntermediate:
     case LanguageRequirementId.bilingualAdvanced:
@@ -612,21 +622,19 @@ export const JobReview: React.FunctionComponent<
               />
             </p>
           ) : (
-            essentialCriteria.map(
-              (criterion): React.ReactElement | null => {
-                const skill = getSkillOfCriteria(criterion);
-                if (skill === null) {
-                  return null;
-                }
-                return (
-                  <Criterion
-                    criterion={criterion}
-                    skill={skill}
-                    key={criterion.id}
-                  />
-                );
-              },
-            )
+            essentialCriteria.map((criterion): React.ReactElement | null => {
+              const skill = getSkillOfCriteria(criterion);
+              if (skill === null) {
+                return null;
+              }
+              return (
+                <Criterion
+                  criterion={criterion}
+                  skill={skill}
+                  key={criterion.id}
+                />
+              );
+            })
           )}
         </JobReviewSection>
         <JobReviewSection
@@ -644,21 +652,19 @@ export const JobReview: React.FunctionComponent<
               />
             </p>
           ) : (
-            assetCriteria.map(
-              (criterion): React.ReactElement | null => {
-                const skill = getSkillOfCriteria(criterion);
-                if (skill === null) {
-                  return null;
-                }
-                return (
-                  <Criterion
-                    criterion={criterion}
-                    skill={skill}
-                    key={criterion.id}
-                  />
-                );
-              },
-            )
+            assetCriteria.map((criterion): React.ReactElement | null => {
+              const skill = getSkillOfCriteria(criterion);
+              if (skill === null) {
+                return null;
+              }
+              return (
+                <Criterion
+                  criterion={criterion}
+                  skill={skill}
+                  key={criterion.id}
+                />
+              );
+            })
           )}
         </JobReviewSection>
         <JobReviewSection
