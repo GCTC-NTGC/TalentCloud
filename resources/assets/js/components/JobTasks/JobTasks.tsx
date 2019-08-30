@@ -101,8 +101,6 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
 
-  const [returnOnSubmit, setReturnOnSubmit] = useState(false);
-
   const tasksToValues = (
     tasks: JobPosterKeyTask[],
   ): { tasks: TaskFormValues[] } => ({
@@ -119,32 +117,41 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
     formTasks: TaskFormValues[],
     canonicalTasks: JobPosterKeyTask[],
   ): JobPosterKeyTask[] => {
-    return formTasks.map(
-      (task: TaskFormValues): JobPosterKeyTask => {
-        const keyTask =
-          task.id && typeof task.id === "number"
-            ? find(canonicalTasks, task.id)
-            : null;
-        if (keyTask) {
+    return formTasks
+      .map(
+        (task: TaskFormValues): JobPosterKeyTask => {
+          const keyTask =
+            task.id && typeof task.id === "number"
+              ? find(canonicalTasks, task.id)
+              : null;
+          if (keyTask) {
+            return {
+              ...keyTask,
+              [locale]: {
+                description: task.description,
+              },
+            };
+          }
           return {
-            ...keyTask,
-            [locale]: {
-              description: task.description,
+            id: 0,
+            job_poster_id: task.jobPosterId,
+            en: {
+              description: locale === "en" ? task.description : "",
+            },
+            fr: {
+              description: locale === "fr" ? task.description : "",
             },
           };
-        }
-        return {
-          id: 0,
-          job_poster_id: task.jobPosterId,
-          en: {
-            description: locale === "en" ? task.description : "",
-          },
-          fr: {
-            description: locale === "fr" ? task.description : "",
-          },
-        };
-      },
-    );
+        },
+      )
+      .filter((task: JobPosterKeyTask) => {
+        const { description } = task[locale];
+        return (
+          description !== undefined &&
+          description !== null &&
+          description !== ""
+        );
+      });
   };
 
   const taskSchema = object().shape({
@@ -161,6 +168,16 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
   });
 
   const initialValues = keyTasks ? tasksToValues(keyTasks) : { tasks: [] };
+
+  const updateValuesAndReturn = (values: { tasks: TaskFormValues[] }): void => {
+    // The following only triggers after validations pass
+    console.log(updateTasksWithValues(values.tasks, keyTasks || emptyTasks()));
+    handleSubmit(
+      updateTasksWithValues(values.tasks, keyTasks || emptyTasks()),
+    ).then((): void => {
+      handleReturn();
+    });
+  };
 
   return (
     <div
@@ -224,14 +241,9 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                *  FIXME: However, this resets the ordering as well, to whatever order the server returns them in.
                */
               actions.resetForm(tasksToValues(updatedTasks));
-              if (returnOnSubmit) {
-                handleReturn();
-              } else {
-                setIsModalVisible(true);
-              }
+              setIsModalVisible(true);
             })
             .finally((): void => {
-              setReturnOnSubmit(false);
               actions.setSubmitting(false); // Required by Formik to finish the submission cycle
             });
         }}
@@ -240,7 +252,6 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
           values,
           errors,
           setFieldValue,
-          submitForm,
         }): React.ReactElement => (
           <>
             {values.tasks.length > 0 && (
@@ -471,15 +482,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                             type="button"
                             disabled={isSubmitting}
                             onClick={(): void => {
-                              /** TODO:
-                               * This is a race condition, since the setState hook call is asynchronous.
-                               * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
-                               * For now, the setState always happens faster than the validation check, so it works.
-                               * See https://github.com/jaredpalmer/formik/issues/214
-                               * -- Tristan
-                               */
-                              setReturnOnSubmit(true);
-                              submitForm();
+                              updateValuesAndReturn(values);
                             }}
                           >
                             <FormattedMessage
