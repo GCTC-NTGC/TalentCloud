@@ -1,0 +1,7 @@
+[
+  {
+    "id": "jobBuilder.intro.managerLoading",
+    "description": "Message indicating that the manager profile is still being loaded.",
+    "defaultMessage": "Your Manager Profile is loading..."
+  }
+]
