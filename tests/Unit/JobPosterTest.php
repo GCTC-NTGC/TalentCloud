@@ -125,6 +125,18 @@ class JobPosterTest extends TestCase
         $jobPoster->refresh();
 
         $this->assertInstanceOf(Date::class, $jobPoster->published_at);
+
+        $this->assertNotEquals($jobPoster->open_date_time, $jobPoster->published_at);
+
+        // Not yet open and not yet published.
+        $jobPoster = factory(JobPoster::class)->states('review_requested')->make();
+        $this->assertEquals(null, $jobPoster->published_at);
+
+        $jobPoster->published = true;
+        $jobPoster->save();
+        $jobPoster->refresh();
+
+        $this->assertInstanceOf(Date::class, $jobPoster->published_at);
     }
 
     /**
