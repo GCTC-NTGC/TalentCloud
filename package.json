@@ -91,7 +91,7 @@
     "testcafe": "^1.4.2",
     "ts-jest": "^24.0.2",
     "ts-loader": "^6.0.0",
-    "typescript": "^3.5.3",
+    "typescript": "^3.6.2",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.39.3"
   },
