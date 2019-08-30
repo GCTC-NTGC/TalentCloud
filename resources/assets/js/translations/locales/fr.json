@@ -231,6 +231,8 @@
   "jobBuilder.review.languageProfile": "Language Profile",
   "jobBuilder.review.managerDataLoading": "Manager data is loading...",
   "jobBuilder.review.managerHeading": "Manager Information",
+  "jobBuilder.review.managerIncomplete": "Please complete your manager profile.",
+  "jobBuilder.review.managerPosition": "{position} at {department}",
   "jobBuilder.review.managerProfileLink": "Edit This in Your Profile",
   "jobBuilder.review.meantime": "In the meantime, feel free to go ahead and create a screening plan\r\n                for your selection process. Alternatively, you can wait for\r\n                comments to come back from HR before you take the next step.",
   "jobBuilder.review.months": "{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}",

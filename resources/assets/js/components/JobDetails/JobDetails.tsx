@@ -1003,11 +1003,13 @@ const JobDetails: React.FunctionComponent<
                     data-c-padding="normal"
                     id="job-details-preview-description"
                   >
+                    <p>
                     <FormattedMessage
                       id="jobDetails.modalBody"
                       defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
                       description="The text displayed in the body of the Job Details modal."
                     />
+                    </p>
                   </div>
                   <div
                     data-c-background="grey(20)"

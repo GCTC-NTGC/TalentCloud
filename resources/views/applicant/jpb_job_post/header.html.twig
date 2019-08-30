@@ -1,0 +1,73 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Header
+
+============================================================================= #}
+<header
+    class="job-post__header">
+
+    <div
+        class="container--layout">
+
+        <div
+            class="flex-grid bottom">
+
+            <div
+                class="box lg-2of3">
+
+                <p
+                    class="job-post__header-meta">
+                    <span>
+                        {% if job.close_date_time.isFuture() %}
+                           {{ job_post.header.apply_by_label|trans }} {{ humanizeLastDay(job.close_date_time) }}
+                        {% else %}
+                            {{ job_post.header.job_closed }}
+                        {% endif %}
+                    </span>
+                    &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                    <span>
+                        {{ job_post.header.applicants_so_far|trans_choice(job.submitted_applications_count()) }}
+                    </span>
+                </p>
+
+                <h2 class="job-post__job-title">{{ job.title }}</h2>
+
+                <div class="job-post__department">
+
+                    <span>
+                        {{ job.department.name }}
+                    </span>
+
+                    <br>
+
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ job.city }}</span>,
+                        <span>{{ job.province.value }}</span>
+                    </div>
+
+                    <br>
+
+                    <div>
+                        <i class="fas fa-home"></i>
+                        <span>{{ job_post.header.remote_work_allowed[job.remote_work_allowed] }}</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div
+                class="box lg-1of3">
+                <p
+                    class="job-post__reference-id">
+                    <span>{{ job_post.header.reference_id|replace({':id':job.id}) }}</span>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</header>

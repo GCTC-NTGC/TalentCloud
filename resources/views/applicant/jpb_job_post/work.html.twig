@@ -1,0 +1,38 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Impact
+
+============================================================================= #}
+<a
+    aria-hidden="true"
+    class="job-post__anchor"
+    id="work">
+</a>
+
+<section
+    class="job-poster__work">
+
+    <h3
+        class="job-poster__work-title">
+        {{ job_post.work.title }}
+    </h3>
+
+    {% if job.job_poster_key_tasks is defined and
+        job.job_poster_key_tasks is not empty %}
+
+        <ul>
+            {% for task in job.job_poster_key_tasks %}
+                <li>
+                    {{ task.description }}
+                </li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+
+        <p>{{ noInfo }}</p>
+
+    {% endif %}
+
+</section>

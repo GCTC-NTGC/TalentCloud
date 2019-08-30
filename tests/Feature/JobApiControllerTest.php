@@ -185,9 +185,9 @@ class JobApiControllerTest extends TestCase
         $job = factory(JobPoster::class)->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $jobUpdate['work_env_features'] = [
-                'env_open_concept' => true,
-                'env_windows' => true,
-                'amenities_near_transit' => false,
+                'openConcept' => true,
+                'windows' => true,
+                'downtown' => false,
                 'invalid_feature' => 'hello world'
         ];
         $response = $this->actingAs($job->manager->user)

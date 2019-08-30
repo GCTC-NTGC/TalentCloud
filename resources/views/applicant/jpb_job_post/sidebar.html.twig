@@ -1,0 +1,86 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Sidebar
+
+============================================================================= #}
+<div
+    class="job-poster__subnav-wrapper box lg-1of4">
+
+    <nav
+        class="job-poster__subnav-sticky-wrapper">
+
+        <span
+            class="job-poster__subnav-job-title">
+            {{ job.title }}
+        </span>
+
+        <span
+            class="job-poster__subnav-department">
+            {{ job.department.name }}
+        </span>
+
+        <h3
+            class="job-poster_subnav-label">
+            {{ job_post.header.sidebar_label }}
+        </h3>
+
+        <a
+            class="job-poster__subnav-item"
+            href="#basics"
+            title="{{ job_post.basics.sidebar_title }}">
+            {{ job_post.basics.title }}
+        </a>
+
+        <a
+            class="job-poster__subnav-item"
+            href="#impact"
+            title="{{ job_post.impact.sidebar_title }}">
+            {{ job_post.impact.title }}
+        </a>
+
+        <a
+            class="job-poster__subnav-item"
+            href="#work"
+            title="{{ job_post.work.sidebar_title }}">
+            {{ job_post.work.title }}
+        </a>
+
+        <a
+            class="job-poster__subnav-item"
+            href="#criteria"
+            title="{{ job_post.criteria.sidebar_title }}">
+            {{ job_post.criteria.title }}
+        </a>
+
+        <a
+            class="job-poster__subnav-item"
+            href="#language"
+            title="{{ job_post.language.sidebar_title }}">
+            {{ job_post.language.title }}
+        </a>
+
+        <a
+            class="job-poster__subnav-item"
+            href="#culture"
+            title="{{ job_post.culture.sidebar_title }}">
+            {{ job_post.culture.title }}
+        </a>
+
+        {# <a
+            class="job-poster__subnav-item"
+            href="#know"
+            title="{{ job_post.know.sidebar_title }}">
+            {{ job_post.know.title }}
+        </a> #}
+
+        <a
+            class="job-poster__subnav-item"
+            href="#apply"
+            title="{{ job_post.apply.sidebar_title }}">
+            {{ job_post.apply.title }}
+        </a>
+
+    </nav>
+
+</div>
