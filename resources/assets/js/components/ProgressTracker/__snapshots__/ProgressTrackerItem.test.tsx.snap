@@ -1,12 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Progress Tracker should render ProgressTrackerItem correctly 1`] = `
-<div
+<li
+  aria-hidden="true"
   className="tracker-item"
   data-c-alignment="base(left)"
-  data-c-margin="top(half) right(normal) bottom(half) left(normal)"
   data-tc-tracker-state="active"
 >
+  <span
+    className="tracker-item-connect"
+    style={
+      Object {
+        "backgroundColor": "#008000",
+      }
+    }
+  />
   <div
     className="tracker-icon"
   >
@@ -14,18 +22,19 @@ exports[`Progress Tracker should render ProgressTrackerItem correctly 1`] = `
       className="fas fa-arrow-down"
     />
   </div>
-  <div>
+  <div
+    className="tracker-title"
+  >
     <span
       data-c-font-size="small"
     >
       Step 01
     </span>
-    <br />
     <span
       data-c-font-weight="bold"
     >
       Job Info
     </span>
   </div>
-</div>
+</li>
 `;

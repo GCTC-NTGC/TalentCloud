@@ -15,6 +15,7 @@ import {
   FormikValues,
 } from "formik";
 import { array, object, string } from "yup";
+import nprogress from "nprogress";
 import nanoid from "nanoid";
 
 import Modal from "../Modal";
@@ -214,6 +215,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
         initialValues={initialValues}
         validationSchema={taskSchema}
         onSubmit={(values, actions): void => {
+          nprogress.start();
           // The following only triggers after validations pass
           handleSubmit(
             updateTasksWithValues(values.tasks, keyTasks || emptyTasks()),
@@ -227,6 +229,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
               if (returnOnSubmit) {
                 handleReturn();
               } else {
+                nprogress.done();
                 setIsModalVisible(true);
               }
             })

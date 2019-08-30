@@ -2,6 +2,7 @@
 import React, { useState, useRef } from "react";
 import { Form, Field, Formik, FormikTouched, FormikErrors } from "formik";
 import * as Yup from "yup";
+import nprogress from "nprogress";
 import {
   injectIntl,
   InjectedIntlProps,
@@ -898,11 +899,15 @@ const WorkEnvForm = ({
           const formValues: FormValues = { ...values, cultureSummary };
           const oldJob = job || emptyJob();
           const updatedJob = updateJobWithValues(oldJob, locale, formValues);
+
+          nprogress.start();
           handleSubmit(updatedJob)
+
             .then((job): void => {
               if (returnOnSubmit) {
                 handleReturn();
               } else {
+                nprogress.done();
                 setIsModalVisible(true);
               }
             })
