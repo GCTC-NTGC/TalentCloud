@@ -6,6 +6,7 @@ import {
   FormattedMessage,
   defineMessages,
 } from "react-intl";
+import nprogress from "nprogress";
 import { Job, Skill, Criteria, JobPosterKeyTask } from "../../models/types";
 import Modal from "../Modal";
 import CriteriaForm from "./CriteriaForm";
@@ -309,22 +310,28 @@ export const JobBuilderSkills: React.FunctionComponent<
 
   const [isSaving, setIsSaving] = useState(false);
   const saveAndPreview = (): void => {
+    nprogress.start();
     setIsSaving(true);
     handleSubmit(jobCriteria)
       .then((criteria: Criteria[]): void => {
         criteriaDispatch({ type: "replace", payload: criteria });
+        nprogress.done();
         setIsPreviewVisible(true);
       })
       .finally((): void => setIsSaving(false));
   };
   const saveAndReturn = (): void => {
+    nprogress.start();
     setIsSaving(true);
     handleSubmit(jobCriteria)
       .then((criteria: Criteria[]): void => {
         criteriaDispatch({ type: "replace", payload: criteria });
         handleReturn();
       })
-      .finally((): void => setIsSaving(false));
+      .finally((): void => {
+        nprogress.done();
+        setIsSaving(false);
+      });
   };
 
   const renderNullCriteriaRow = (): React.ReactElement => (
@@ -1680,6 +1687,7 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-padding="normal"
               id={`${previewModalId}-description`}
             >
+              <p>
               <FormattedMessage
                 id="jobBuilder.skills.description.keepItUp"
                 defaultMessage="Here's a preview of the Skills you just entered. Feel free to
@@ -1687,6 +1695,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                 happy with it."
                 description="Body text of Keep it up! Modal"
               />
+              </p>
             </div>
 
             <div data-c-background="grey(20)" data-c-padding="normal">
@@ -1709,20 +1718,30 @@ export const JobBuilderSkills: React.FunctionComponent<
                     description="Section Header in Modal"
                   />
                 </h4>
-                {essentialCriteria.map(
-                  (criterion): React.ReactElement | null => {
-                    const skill = getSkillOfCriteria(criterion);
-                    if (skill === null) {
-                      return null;
-                    }
-                    return (
-                      <Criterion
-                        criterion={criterion}
-                        skill={skill}
-                        key={criterion.id}
-                      />
-                    );
-                  },
+                {essentialCriteria.length === 0 ? (
+                  <p>
+                    <FormattedMessage
+                      id="jobBuilder.skills.nullState"
+                      defaultMessage="You haven't added any skills yet."
+                      description="The text displayed in the skills modal when you haven't added any skills."
+                    />
+                  </p>
+                ) : (
+                  essentialCriteria.map(
+                    (criterion): React.ReactElement | null => {
+                      const skill = getSkillOfCriteria(criterion);
+                      if (skill === null) {
+                        return null;
+                      }
+                      return (
+                        <Criterion
+                          criterion={criterion}
+                          skill={skill}
+                          key={criterion.id}
+                        />
+                      );
+                    },
+                  )
                 )}
                 <h4
                   data-c-border="bottom(thin, solid, black)"
@@ -1737,19 +1756,31 @@ export const JobBuilderSkills: React.FunctionComponent<
                     description="Section Header in Modal"
                   />
                 </h4>
-                {assetCriteria.map((criterion): React.ReactElement | null => {
-                  const skill = getSkillOfCriteria(criterion);
-                  if (skill === null) {
-                    return null;
-                  }
-                  return (
-                    <Criterion
-                      criterion={criterion}
-                      skill={skill}
-                      key={criterion.id}
+                {assetCriteria.length === 0 ? (
+                  <p>
+                    <FormattedMessage
+                      id="jobBuilder.skills.nullState"
+                      defaultMessage="You haven't added any skills yet."
+                      description="The text displayed in the skills modal when you haven't added any skills."
                     />
-                  );
-                })}
+                  </p>
+                ) : (
+                  assetCriteria.map(
+                    (criterion): React.ReactElement | null => {
+                      const skill = getSkillOfCriteria(criterion);
+                      if (skill === null) {
+                        return null;
+                      }
+                      return (
+                        <Criterion
+                          criterion={criterion}
+                          skill={skill}
+                          key={criterion.id}
+                        />
+                      );
+                    },
+                  )
+                )}
               </div>
             </div>
           </div>

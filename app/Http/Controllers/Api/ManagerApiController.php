@@ -6,6 +6,7 @@ use App\Models\Manager;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateManager;
+use Illuminate\Support\Facades\Auth;
 
 class ManagerApiController extends Controller
 {
@@ -47,7 +48,21 @@ class ManagerApiController extends Controller
      */
     public function show(Manager $manager)
     {
-        return $manager->toApiArray();
+        return response()->json($manager->toApiArray());
+    }
+
+    /**
+     * Display the Manager for the current logged in user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showAuthenticated()
+    {
+        $user = Auth::user();
+        if ($user !== null && $user->manager !== null) {
+            return response()->json($user->manager->toApiArray());
+        }
+        return response()->json([]);
     }
 
     /**
@@ -62,7 +77,7 @@ class ManagerApiController extends Controller
         $request->validated();
         $manager->fill($request->input());
         $manager->save();
-        return $manager->toApiArray();
+        return response()->json($manager->toApiArray());
     }
 
     /**
