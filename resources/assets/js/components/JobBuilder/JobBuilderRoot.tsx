@@ -61,11 +61,15 @@ const routes: Routes<any, React.ReactElement> = [
 
 const JobBuilderRoot = (): React.ReactElement | null => {
   const match = useRouter(routes);
-  const tracker: HTMLElement | null = document.querySelector(".manager-jpb-tracker");
-  const trackerOffsetTop: number = tracker ? tracker.offsetTop - 50 : 0;
+  const tracker: HTMLElement | null = document.getElementById(
+    "job-builder-root",
+  );
+  const trackerOffsetTop: number = tracker ? tracker.offsetTop : 0;
   return (
     <RootContainer>
-      <ScrollToTop offsetTop={trackerOffsetTop} scrollBehaviorAuto>{match}</ScrollToTop>
+      <ScrollToTop offsetTop={trackerOffsetTop} scrollBehaviorAuto>
+        {match}
+      </ScrollToTop>
     </RootContainer>
   );
 };
