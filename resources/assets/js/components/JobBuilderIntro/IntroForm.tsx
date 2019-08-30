@@ -3,12 +3,12 @@ import {
   injectIntl,
   InjectedIntlProps,
   FormattedMessage,
-  FormattedHTMLMessage,
   defineMessages,
 } from "react-intl";
 import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
 import nprogress from "nprogress";
+import get from "lodash/get";
 import { validationMessages } from "../Form/Messages";
 import { Job, Department, Manager } from "../../models/types";
 import { emptyJob } from "../../models/jobUtil";
@@ -124,23 +124,28 @@ const initializeValues = (
     department = manager.department_id;
   }
 
+  const managerDivision = {
+    en: get(manager, "en.division", ""),
+    fr: get(manager, "fr.division", ""),
+  };
+
   let divisionEN = "";
   if (job !== null && job.en.division) {
     divisionEN = job.en.division;
-  } else if (manager.en.division) {
-    divisionEN = manager.en.division;
+  } else if (managerDivision.en) {
+    divisionEN = managerDivision.en;
   }
 
   let divisionFR = "";
   if (job !== null && job.fr.division) {
     divisionFR = job.fr.division;
-  } else if (manager.fr.division) {
-    divisionFR = manager.fr.division;
+  } else if (managerDivision.fr) {
+    divisionFR = managerDivision.fr;
   }
 
   return {
-    managerPositionEn: manager.en.position || "",
-    managerPositionFr: manager.fr.position || "",
+    managerPositionEn: get(manager, "en.position", ""),
+    managerPositionFr: get(manager, "fr.position", ""),
     department,
     divisionEN,
     divisionFR,
