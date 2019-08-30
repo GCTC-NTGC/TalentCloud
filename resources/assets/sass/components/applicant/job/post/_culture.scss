@@ -73,6 +73,7 @@
 
         .job-post__culture-manager-copy {
             text-align: center;
+            margin: 0 0 calc(#{$unit} * 1);
 
             @media #{$l-tablet} {
                 text-align: left;
@@ -120,6 +121,12 @@
 
     // Work Environment
 
+        .job-post__culture-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
         .job-post__culture-heading {
             color: $palette--font-black;
             display: block;
@@ -127,6 +134,12 @@
             font-size: $font-scale--h5;
             font-weight: 600;
             margin: $unit 0 calc(#{$unit} /2);
+        }
+
+        .job-post__culture-desc {
+            @extend %paragraph;
+            font-size: 0.8rem;
+            margin: 0 0 calc(#{$unit} * 1);
         }
 
         .job-post__culture-copy {

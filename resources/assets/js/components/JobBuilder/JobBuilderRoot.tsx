@@ -11,6 +11,7 @@ import JobBuilderImpactPage from "../JobBuilderImpact/JobBuilderImpactPage";
 import JobTasksPage from "../JobTasks/JobTasksPage";
 import JobSkillsPage from "../JobBuilderSkills/JobBuilderSkillsPage";
 import JobReviewPage from "../JobReview/JobReviewPage";
+import ScrollToTop from "../ScrollToTop";
 
 const routes: Routes<any, React.ReactElement> = [
   {
@@ -60,7 +61,17 @@ const routes: Routes<any, React.ReactElement> = [
 
 const JobBuilderRoot = (): React.ReactElement | null => {
   const match = useRouter(routes);
-  return <RootContainer>{match}</RootContainer>;
+  const tracker: HTMLElement | null = document.getElementById(
+    "job-builder-root",
+  );
+  const trackerOffsetTop: number = tracker ? tracker.offsetTop : 0;
+  return (
+    <RootContainer>
+      <ScrollToTop offsetTop={trackerOffsetTop} scrollBehaviorAuto>
+        {match}
+      </ScrollToTop>
+    </RootContainer>
+  );
 };
 
 if (document.getElementById("job-builder-root")) {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
+import nprogress from "nprogress";
 import {
   Job,
   JobPosterKeyTask,
@@ -126,6 +127,14 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
   useEffect((): void => {
     loadSkills();
   }, [loadSkills]);
+
+  useEffect((): void => {
+    if (jobId !== null && job === null) {
+      nprogress.start();
+    } else {
+      nprogress.done();
+    }
+  }, [job, jobId]);
 
   return (
     <section>

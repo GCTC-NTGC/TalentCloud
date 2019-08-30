@@ -87,6 +87,20 @@ class ManagerApiControllerTest extends TestCase
         $response->assertJsonFragment($manager->toApiArray());
     }
 
+    public function testCurrentManagerAsGuest()
+    {
+        $response = $this->json('get', 'api/currentuser/manager');
+        $response->assertUnauthorized();
+    }
+
+    public function testCurrentManagerAsManager()
+    {
+        $manager = factory(Manager::class)->create();
+        $response = $this->actingAs($manager->user)->json('get', 'api/currentuser/manager');
+        $response->assertOk();
+        $response->assertJsonFragment($manager->fresh()->toApiArray());
+    }
+
     public function testUpdateAsManager()
     {
         $manager = factory(Manager::class)->create();
