@@ -3,11 +3,12 @@ import {
   injectIntl,
   InjectedIntlProps,
   FormattedMessage,
-  FormattedHTMLMessage,
   defineMessages,
 } from "react-intl";
 import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
+import nprogress from "nprogress";
+import get from "lodash/get";
 import { validationMessages } from "../Form/Messages";
 import { Job, Department, Manager } from "../../models/types";
 import { emptyJob } from "../../models/jobUtil";
@@ -123,23 +124,28 @@ const initializeValues = (
     department = manager.department_id;
   }
 
+  const managerDivision = {
+    en: get(manager, "en.division", ""),
+    fr: get(manager, "fr.division", ""),
+  };
+
   let divisionEN = "";
   if (job !== null && job.en.division) {
     divisionEN = job.en.division;
-  } else if (manager.en.division) {
-    divisionEN = manager.en.division;
+  } else if (managerDivision.en) {
+    divisionEN = managerDivision.en;
   }
 
   let divisionFR = "";
   if (job !== null && job.fr.division) {
     divisionFR = job.fr.division;
-  } else if (manager.fr.division) {
-    divisionFR = manager.fr.division;
+  } else if (managerDivision.fr) {
+    divisionFR = managerDivision.fr;
   }
 
   return {
-    managerPositionEn: manager.en.position || "",
-    managerPositionFr: manager.fr.position || "",
+    managerPositionEn: get(manager, "en.position", ""),
+    managerPositionFr: get(manager, "fr.position", ""),
     department,
     divisionEN,
     divisionFR,
@@ -270,6 +276,7 @@ const IntroForm: React.FunctionComponent<
           onSubmit={(values, { setSubmitting }): void => {
             const updatedJob = updateJobWithValues(job || emptyJob(), values);
             const updatedManager = updateManagerWithValues(manager, values);
+            nprogress.start();
             handleSubmit(updatedJob, updatedManager)
               .then((newJob: Job): void => {
                 if (languageSelection === "fr") {
@@ -278,9 +285,10 @@ const IntroForm: React.FunctionComponent<
                   handleContinueEn(newJob);
                 }
               })
-              .finally(
-                (): void => setSubmitting(false), // Required by Formik to finish the submission cycle
-              );
+              .finally((): void => {
+                nprogress.done();
+                setSubmitting(false); // Required by Formik to finish the submission cycle
+              });
           }}
           render={({
             isSubmitting,
@@ -397,6 +405,7 @@ const IntroForm: React.FunctionComponent<
                 form="form"
                 data-c-button="solid(c1)"
                 data-c-radius="rounded"
+                data-c-margin="right(normal) bottom(normal)"
                 type="button"
                 disabled={isSubmitting}
                 onClick={(): void => {

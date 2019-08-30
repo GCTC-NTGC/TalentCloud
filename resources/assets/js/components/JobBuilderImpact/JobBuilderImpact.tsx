@@ -6,8 +6,9 @@ import {
   FormattedMessage,
   defineMessages,
 } from "react-intl";
-import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { Formik, Form, Field } from "formik";
+import nprogress from "nprogress";
 import { Job, Department } from "../../models/types";
 import { emptyJob } from "../../models/jobUtil";
 import JobImpactPreview from "./JobImpactPreview";
@@ -241,6 +242,7 @@ const JobBuilderImpact: React.FunctionComponent<
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={(values, actions): void => {
+            nprogress.start();
             // The following only triggers after validations pass
             handleSubmit(
               updateJobWithValues(
@@ -255,6 +257,7 @@ const JobBuilderImpact: React.FunctionComponent<
                   if (returnOnSubmit) {
                     handleReturn();
                   } else {
+                    nprogress.done();
                     setIsModalVisible(true);
                   }
                 }
@@ -424,9 +427,11 @@ const JobBuilderImpact: React.FunctionComponent<
                     data-c-padding="normal"
                     id={`${modalId}-description`}
                   >
+                    <p>
                     Here&apos;s a preview of the Impact Statement you just
                     entered. Feel free to go back and edit things or move to the
                     next step if you&apos;re happy with it.
+                    </p>
                   </div>
                   <div
                     data-c-background="grey(20)"

@@ -198,22 +198,45 @@ class JobController extends Controller
             ];
         }
 
-        return view(
-            'applicant/job_post',
-            [
-                'job_post' => $jobLang,
-                'manager' => $jobPoster->manager,
-                'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
-                'team_culture' => $jobPoster->manager->team_culture,
-                'work_environment' => $jobPoster->manager->work_environment,
-                'workplace_photos' => $workplacePhotos,
-                'job' => $jobPoster,
-                'criteria' => $criteria,
-                'apply_button' => $applyButton,
-                'skill_template' => Lang::get('common/skills'),
-            ]
-        );
+        $jpb_release_date = strtotime('2019-08-21 16:18:17');
+        $job_created_at = strtotime($jobPoster->created_at);
+
+        // If the job poster is created after the release of the JPB.
+        // Then, render with updated poster template.
+        // Else, render with old poster template.
+        if ($job_created_at > $jpb_release_date) {
+            // Updated job poster (JPB).
+            return view(
+                'applicant/jpb_job_post',
+                [
+                    'job_post' => $jobLang,
+                    'skill_template' => Lang::get('common/skills'),
+                    'job' => $jobPoster,
+                    'manager' => $jobPoster->manager,
+                    'criteria' => $criteria,
+                    'apply_button' => $applyButton,
+                ]
+            );
+        } else {
+            // Old job poster.
+            return view(
+                'applicant/job_post',
+                [
+                    'job_post' => $jobLang,
+                    'manager' => $jobPoster->manager,
+                    'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
+                    'team_culture' => $jobPoster->manager->team_culture,
+                    'work_environment' => $jobPoster->manager->work_environment,
+                    'workplace_photos' => $workplacePhotos,
+                    'job' => $jobPoster,
+                    'criteria' => $criteria,
+                    'apply_button' => $applyButton,
+                    'skill_template' => Lang::get('common/skills'),
+                ]
+            );
+        }
     }
+
 
     /**
      * Create a blank job poster for the specified manager

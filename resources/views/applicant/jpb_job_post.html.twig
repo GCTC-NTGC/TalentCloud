@@ -1,0 +1,34 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Job Post
+
+============================================================================= #}
+
+{% extends "layouts/base" %}
+
+{% block title %}{{ job_post.job_post_title|replace({':title':job.title, ':id':job.id}) }}{% endblock %}
+
+{% block body %}
+
+	{% include "common/alert" %}
+
+    {% include "common/goc" %}
+
+    {% include "common/header" with {'header':job_post} %}
+
+    <a id="skipLink"></a>
+
+    {% include "applicant/jpb_job_post/header" %}
+
+    {% include "applicant/jpb_job_post/layout" %}
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script async defer
+        src="{{ mix('/js/WorkEnvFeaturesRoot.js') }}">
+    </script>
+
+{% endblock %}

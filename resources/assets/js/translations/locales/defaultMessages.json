@@ -786,23 +786,23 @@
         "id": "jobBuilder.progressTracker.label.start"
       },
       {
-        "defaultMessage": "Step 01",
+        "defaultMessage": "Step 1 / 5",
         "id": "jobBuilder.progressTracker.label.step1"
       },
       {
-        "defaultMessage": "Step 02",
+        "defaultMessage": "Step 2 / 5",
         "id": "jobBuilder.progressTracker.label.step2"
       },
       {
-        "defaultMessage": "Step 03",
+        "defaultMessage": "Step 3 / 5",
         "id": "jobBuilder.progressTracker.label.step3"
       },
       {
-        "defaultMessage": "Step 04",
+        "defaultMessage": "Step 4 / 5",
         "id": "jobBuilder.progressTracker.label.step4"
       },
       {
-        "defaultMessage": "Step 05",
+        "defaultMessage": "Step 5 / 5",
         "id": "jobBuilder.progressTracker.label.step5"
       },
       {
@@ -2430,12 +2430,27 @@
         "id": "jobBuilder.review.or"
       },
       {
+        "defaultMessage": "Manager data is loading...",
+        "description": "Placeholder text as Manager data loads.",
+        "id": "jobBuilder.review.managerDataLoading"
+      },
+      {
+        "defaultMessage": "{position} at {department}",
+        "description": "Description of the Manager's position & department.",
+        "id": "jobBuilder.review.managerPosition"
+      },
+      {
+        "defaultMessage": "Please complete your manager profile.",
+        "description": "Note that the Manager's profile is incomplete and should be edited before continuing.",
+        "id": "jobBuilder.review.managerIncomplete"
+      },
+      {
         "defaultMessage": "Review Your Job Poster for:",
         "description": "Title for Review Job Poster section.",
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -2493,11 +2508,6 @@
         "defaultMessage": "Government Classification",
         "description": "Placeholder for information that comes later",
         "id": "jobBuilder.review.GovernmentClass"
-      },
-      {
-        "defaultMessage": "Manager data is loading...",
-        "description": "Placeholder text as Manager data loads.",
-        "id": "jobBuilder.review.managerDataLoading"
       },
       {
         "defaultMessage": "Save & Return to Skills",
