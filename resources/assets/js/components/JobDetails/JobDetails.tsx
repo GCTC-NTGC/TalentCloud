@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
-import { Formik, Form, Field, FormikActions } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import RadioGroup from "../Form/RadioGroup";
@@ -150,7 +150,7 @@ const overtimeRequirements: OvertimeOptionType[] = Object.keys(
   overtimeMessages,
 ) as OvertimeOptionType[];
 
-interface JobFormValues {
+interface DetailsFormValues {
   title: string;
   termLength: number | "";
   classification: string;
@@ -167,7 +167,7 @@ interface JobFormValues {
   overtime: OvertimeOptionType;
 }
 
-const isClassificationSet = (values: JobFormValues): boolean => {
+const isClassificationSet = (values: DetailsFormValues): boolean => {
   return values.classification.length > 0 && values.level !== "";
 };
 
@@ -184,8 +184,8 @@ const jobToValues = (
   job: Job | null,
   locale: string,
   intl: ReactIntl.InjectedIntl,
-): JobFormValues => {
-  const values: JobFormValues = job
+): DetailsFormValues => {
+  const values: DetailsFormValues = job
     ? {
         title: job[locale].title ? String(job[locale].title) : "", // TODO: use utility method
         termLength: job.term_qty || "",
@@ -261,7 +261,7 @@ const updateJobWithValues = (
     flexHours,
     travel,
     overtime,
-  }: JobFormValues,
+  }: DetailsFormValues,
 ): Job => ({
   ...initialJob,
   term_qty: termLength || null,
@@ -302,7 +302,11 @@ const JobDetails: React.FunctionComponent<
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
-  const initialValues: JobFormValues = jobToValues(job || null, locale, intl);
+  const initialValues: DetailsFormValues = jobToValues(
+    job || null,
+    locale,
+    intl,
+  );
 
   const remoteWorkPossibleValues: RemoteWorkType[] = [
     "remoteWorkNone",
@@ -397,16 +401,16 @@ const JobDetails: React.FunctionComponent<
       .required(intl.formatMessage(validationMessages.required)),
   });
 
-  const handleEducationRequirements = (values: JobFormValues): string => {
+  const handleEducationRequirements = (values: DetailsFormValues): string => {
     return values.educationRequirements.length > 0
       ? values.educationRequirements
       : getEducationMsgForClassification(values.classification, intl);
   };
 
-  const onReturnBackSubmit = (values: JobFormValues): void => {
+  const updateValuesAndReturn = (values: DetailsFormValues): void => {
     // The following only triggers after validations pass
     const educationRequirements = handleEducationRequirements(values);
-    const modifiedValues: JobFormValues = {
+    const modifiedValues: DetailsFormValues = {
       ...values,
       educationRequirements,
     };
@@ -440,20 +444,18 @@ const JobDetails: React.FunctionComponent<
         <Formik
           enableReinitialize
           initialValues={initialValues}
-          validationSchema={() => {
-            return jobSchema;
-          }}
+          validationSchema={jobSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
             const educationRequirements: string = handleEducationRequirements(
               values,
             );
-            const jobFormValues: JobFormValues = {
+            const detailsFormValues: DetailsFormValues = {
               ...values,
               educationRequirements,
             };
             handleSubmit(
-              updateJobWithValues(job || emptyJob(), locale, jobFormValues),
+              updateJobWithValues(job || emptyJob(), locale, detailsFormValues),
             )
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
@@ -940,7 +942,7 @@ const JobDetails: React.FunctionComponent<
                       type="button"
                       disabled={isSubmitting}
                       onClick={(): void => {
-                        onReturnBackSubmit(values);
+                        updateValuesAndReturn(values);
                       }}
                     >
                       <FormattedMessage
