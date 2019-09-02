@@ -114,16 +114,16 @@
         },
         {
             "name": "backpack/base",
-            "version": "1.1.7",
+            "version": "1.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/Base.git",
-                "reference": "8f5e1b86e43cabdeb7bff14b3e767136b9eb802d"
+                "reference": "c3c6572b78798db406dabfef272e7865514f1e4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/Base/zipball/8f5e1b86e43cabdeb7bff14b3e767136b9eb802d",
-                "reference": "8f5e1b86e43cabdeb7bff14b3e767136b9eb802d",
+                "url": "https://api.github.com/repos/Laravel-Backpack/Base/zipball/c3c6572b78798db406dabfef272e7865514f1e4a",
+                "reference": "c3c6572b78798db406dabfef272e7865514f1e4a",
                 "shasum": ""
             },
             "require": {
@@ -163,9 +163,9 @@
             "authors": [
                 {
                     "name": "Cristian Tabacitu",
-                    "role": "Chief Architect & Developer",
                     "email": "hello@tabacitu.ro",
-                    "homepage": "http://www.tabacitu.ro"
+                    "homepage": "http://www.tabacitu.ro",
+                    "role": "Chief Architect & Developer"
                 }
             ],
             "description": "Laravel Backpack's base package, which offers admin authentication and a blank admin panel using AdminLTE",
@@ -174,20 +174,20 @@
                 "backpack",
                 "base"
             ],
-            "time": "2019-08-11T07:34:37+00:00"
+            "time": "2019-09-01T16:15:53+00:00"
         },
         {
             "name": "backpack/crud",
-            "version": "3.6.29",
+            "version": "3.6.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "3c80a9f3baca205356d783af96afa9fe27e8e735"
+                "reference": "5f4e7f5e779aaeaca0bc9096c5c568fb31c8b7ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/3c80a9f3baca205356d783af96afa9fe27e8e735",
-                "reference": "3c80a9f3baca205356d783af96afa9fe27e8e735",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/5f4e7f5e779aaeaca0bc9096c5c568fb31c8b7ec",
+                "reference": "5f4e7f5e779aaeaca0bc9096c5c568fb31c8b7ec",
                 "shasum": ""
             },
             "require": {
@@ -230,9 +230,9 @@
             "authors": [
                 {
                     "name": "Cristian Tabacitu",
-                    "role": "Chief Architect & Lead Developer",
                     "email": "hello@tabacitu.ro",
-                    "homepage": "http://www.tabacitu.ro"
+                    "homepage": "http://www.tabacitu.ro",
+                    "role": "Chief Architect & Lead Developer"
                 }
             ],
             "description": "Quickly build an admin interface for your Eloquent models, using Laravel 5. Build a CMS in a matter of minutes.",
@@ -249,7 +249,7 @@
                 "read",
                 "update"
             ],
-            "time": "2019-08-23T07:51:09+00:00"
+            "time": "2019-09-01T16:23:53+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",
@@ -492,20 +492,20 @@
         },
         {
             "name": "creativeorange/gravatar",
-            "version": "v1.0.12",
+            "version": "v1.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/creativeorange/gravatar.git",
-                "reference": "865c8f20b1a20c5de105f90deeea596f7e060e25"
+                "reference": "c757291f791bf169e614b98b2ac3dad189bba2c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/creativeorange/gravatar/zipball/865c8f20b1a20c5de105f90deeea596f7e060e25",
-                "reference": "865c8f20b1a20c5de105f90deeea596f7e060e25",
+                "url": "https://api.github.com/repos/creativeorange/gravatar/zipball/c757291f791bf169e614b98b2ac3dad189bba2c9",
+                "reference": "c757291f791bf169e614b98b2ac3dad189bba2c9",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "5.*",
+                "illuminate/support": "^5.0|^6",
                 "php": ">=5.4.0"
             },
             "type": "library",
@@ -531,18 +531,18 @@
             "authors": [
                 {
                     "name": "Jaco Tijssen",
-                    "role": "Developer",
                     "email": "jaco@creativeorange.nl",
-                    "homepage": "https://www.creativeorange.nl"
+                    "homepage": "https://www.creativeorange.nl",
+                    "role": "Developer"
                 }
             ],
-            "description": "Gravatar for Laravel 5.0.x through 5.5.x package for retrieving gravatar image URLs or checking the existance of an image.",
+            "description": "A Laravel Gravatar package for retrieving gravatar image URLs or checking the existance of an image.",
             "keywords": [
                 "avatar",
                 "gravatar",
                 "laravel"
             ],
-            "time": "2019-06-03T08:45:09+00:00"
+            "time": "2019-08-29T20:00:13+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2056,16 +2056,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.23.1",
+            "version": "2.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "767617a047e5b8b8b3b0b6023a2650847ed7df02"
+                "reference": "934459c5ac0658bc765ad1e53512c7c77adcac29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/767617a047e5b8b8b3b0b6023a2650847ed7df02",
-                "reference": "767617a047e5b8b8b3b0b6023a2650847ed7df02",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/934459c5ac0658bc765ad1e53512c7c77adcac29",
+                "reference": "934459c5ac0658bc765ad1e53512c7c77adcac29",
                 "shasum": ""
             },
             "require": {
@@ -2119,7 +2119,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-08-17T13:57:34+00:00"
+            "time": "2019-08-31T16:37:55+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -5650,18 +5650,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "role": "Developer",
-                    "email": "arne@blankerts.de"
+                    "email": "arne@blankerts.de",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "role": "Developer",
-                    "email": "sebastian@phpeople.de"
+                    "email": "sebastian@phpeople.de",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "Developer",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "Developer"
                 }
             ],
             "description": "Library for handling version information and constraints",
@@ -6051,8 +6051,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
@@ -6323,8 +6323,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "The PHP Unit Testing framework.",
