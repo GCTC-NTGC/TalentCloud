@@ -16,11 +16,11 @@ test("Job Poster Builder - New Job", async t => {
     .ok()
     // Welcome page.
     .typeText(
-      Selector("input").withAttribute("id", "builder01ManagerJobTitleEN"),
+      Selector("input").withAttribute("id", "builder01ManagerManagerPositionEn"),
       "Design Manager",
     )
     .typeText(
-      Selector("input").withAttribute("id", "builder01ManagerJobTitleFR"),
+      Selector("input").withAttribute("id", "builder01ManagerManagerPositionFr"),
       "Gestionnaire de la conception",
     )
     .click(Selector("select").withAttribute("id", "builder01ManagerDepartment"))
@@ -305,6 +305,7 @@ test("Job Poster Builder - New Job", async t => {
     .wait(3000)
     .click(Selector("button").withText("Next Step"))
     // Review page.
+    .expect(Selector("p").withText("Product Designer").visible)
     .expect(Selector("p").withText("Design Manager").visible)
     .ok()
     .click(Selector("button").withText("Send to HR for Review"))
@@ -315,6 +316,6 @@ test("Job Poster Builder - New Job", async t => {
     .navigateTo("/manager/jobs")
     .expect(Selector("h1").withText("My Job Posters").visible)
     .ok()
-    .expect(Selector("a").withText("Design ManagerProduct Designer (Preview)").visible)
+    .expect(Selector("a").withText("Product Designer (Preview)").visible)
     .ok();
 });
