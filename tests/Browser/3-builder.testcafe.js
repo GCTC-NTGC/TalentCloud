@@ -16,11 +16,11 @@ test("Job Poster Builder - New Job", async t => {
     .ok()
     // Welcome page.
     .typeText(
-      Selector("input").withAttribute("id", "builder01ManagerManagerPositionEn"),
+      Selector("input").withAttribute("id", "builder01ManagerPositionEn"),
       "Design Manager",
     )
     .typeText(
-      Selector("input").withAttribute("id", "builder01ManagerManagerPositionFr"),
+      Selector("input").withAttribute("id", "builder01ManagerPositionFr"),
       "Gestionnaire de la conception",
     )
     .click(Selector("select").withAttribute("id", "builder01ManagerDepartment"))
