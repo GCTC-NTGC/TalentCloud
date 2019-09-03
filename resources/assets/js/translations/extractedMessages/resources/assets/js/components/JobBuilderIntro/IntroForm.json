@@ -1,28 +1,43 @@
 [
   {
+    "id": "jobBuilder.intro.explanation.boldText",
+    "description": "Bolded text portion of the JPB Intro explanation.",
+    "defaultMessage": "confirm that your personal information below is correct."
+  },
+  {
+    "id": "jobBuilder.intro.emailLinkTitle",
+    "description": "Title of the Talent Cloud email link.",
+    "defaultMessage": "Email Talent Cloud"
+  },
+  {
+    "id": "jobBuilder.intro.emailLinkText",
+    "description": "Visible text of the Talent Cloud email link.",
+    "defaultMessage": "Talent Cloud"
+  },
+  {
     "id": "jobBuilder.intro.jobTitleLabelEN",
-    "description": "The label displayed on the job title input.",
-    "defaultMessage": "My Job Title (English)"
+    "description": "The label displayed on the manager position input.",
+    "defaultMessage": "{name}'s Position (English)"
   },
   {
     "id": "jobBuilder.intro.jobTitlePlaceholderEN",
-    "description": "The placeholder displayed on the job title input.",
+    "description": "The placeholder displayed on the Manager Position input.",
     "defaultMessage": "e.g. Design Manager"
   },
   {
     "id": "jobBuilder.intro.jobTitleLabelFR",
-    "description": "The label displayed on the job title input.",
-    "defaultMessage": "My Job Title (Français)"
+    "description": "The label displayed on the MKanager Position input.",
+    "defaultMessage": "{name}'s Position (Français)"
   },
   {
     "id": "jobBuilder.intro.jobTitlePlaceholderFR",
-    "description": "The placeholder displayed on the job title input.",
+    "description": "The placeholder displayed on the Manager Position input.",
     "defaultMessage": "e.g. Gestionnaire de la conception"
   },
   {
     "id": "jobBuilder.intro.departmentLabel",
     "description": "The label displayed on the department select box.",
-    "defaultMessage": "My Department"
+    "defaultMessage": "{name}'s Department"
   },
   {
     "id": "jobBuilder.intro.departmentNullSelection",
@@ -32,7 +47,7 @@
   {
     "id": "jobBuilder.intro.divisionLabelEN",
     "description": "The label displayed on the division input.",
-    "defaultMessage": "My Division (English)"
+    "defaultMessage": "{name}'s Division (English)"
   },
   {
     "id": "jobBuilder.intro.divisionPlaceholderEN",
@@ -42,7 +57,7 @@
   {
     "id": "jobBuilder.intro.divisionLabelFR",
     "description": "The label displayed on the division input.",
-    "defaultMessage": "My Division (Français)"
+    "defaultMessage": "{name}'s Division (Français)"
   },
   {
     "id": "jobBuilder.intro.divisionPlaceholderFR",
@@ -55,29 +70,29 @@
     "defaultMessage": "Welcome to the Job Poster Builder"
   },
   {
-    "id": "jobBuilder.intro.subtitle01",
-    "description": "Subtitle 1 of Job Poster Builder Intro Step",
-    "defaultMessage": "This tool will help you create a job poster that attracts the right talent."
+    "id": "jobBuilder.intro.explanation",
+    "description": "Explanation of Job Poster Builder Intro Step",
+    "defaultMessage": "This tool will help you create a job poster that attracts the right talent. Before we get started on your job poster, take some time to {boldText}"
   },
   {
-    "id": "jobBuilder.intro.subtitle02",
-    "description": "Subtitle 2 of Job Poster Builder Intro Step",
-    "defaultMessage": "We’ve also provided instructions and examples to help guide you through the process but if you still have questions, contact"
+    "id": "jobBuilder.intro.formTitle",
+    "description": "The title of the profile information form.",
+    "defaultMessage": "{name}'s Profile Information"
   },
   {
-    "id": "jobBuilder.intro.beforeWeStart",
-    "description": "Before starting header of Job Poster Builder Intro Step",
-    "defaultMessage": "Before we get started please review your information."
-  },
-  {
-    "id": "jobBuilder.intro.note",
-    "description": "Ending note for hiring managers.",
-    "defaultMessage": "<strong>Note:</strong> Changing your information on this form will also change these fields in your Profile."
+    "id": "jobBuilder.intro.formDescription",
+    "description": "Explanation of why the profile information is collected.",
+    "defaultMessage": "This information is used on the Job Poster to help applicants learn more about who they'll be working with."
   },
   {
     "id": "jobBuilder.intro.completeInLanguage",
     "description": "Intstructions at bottom of form on language choice for job poster builder.",
-    "defaultMessage": "Complete the job poster in the language of your choice. We will\r\n                  handle translation."
+    "defaultMessage": "Complete the job poster in the language of your choice. We will\n                  handle translation."
+  },
+  {
+    "id": "jobBuilder.intro.contactUs",
+    "description": "Subtitle 2 of Job Poster Builder Intro Step",
+    "defaultMessage": "We’ve also provided instructions and examples to help guide you through the process but if you still have questions, contact {link}."
   },
   {
     "id": "jobBuilder.intro.continueButtonLabelEN",

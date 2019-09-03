@@ -454,4 +454,8 @@ Route::group(['prefix' => 'api'], function (): void {
         'show' => 'api.managers.show',
         'update' => 'api.managers.update'
     ]);
+
+    // User must be logged in to user currentuser routes
+    Route::get('currentuser/manager', 'Api\ManagerApiController@showAuthenticated')
+        ->middleware('auth');
 });

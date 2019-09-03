@@ -14,8 +14,6 @@ const isEmpty = (value: any | null | undefined): boolean => {
 
 const jobIntroValues = (job: Job): (string | number | null)[] => [
   job.department_id,
-  job.en.title,
-  job.fr.title,
   job.en.division,
   job.fr.division,
 ];

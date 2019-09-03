@@ -427,10 +427,10 @@ class JobPoster extends BaseModel
      */
     public function setPublishedAttribute($value) : void
     {
-        if ($value && $this->open_date_time->isPast()) {
+        if ($value) {
             $this->attributes['published_at'] = new Date();
-        } elseif ($value && $this->open_date_time->isFuture()) {
-            $this->attributes['published_at'] = $this->open_date_time;
+        } else {
+            $this->attributes['published_at'] = null;
         }
         $this->attributes['published'] = $value;
     }
@@ -481,6 +481,8 @@ class JobPoster extends BaseModel
     public function isOpen() : bool
     {
         return $this->published
+            && $this->open_date_time !== null
+            && $this->close_date_time !== null
             && $this->open_date_time->isPast()
             && $this->close_date_time->isFuture();
     }
@@ -493,6 +495,8 @@ class JobPoster extends BaseModel
     public function isClosed() : bool
     {
         return $this->published
+            && $this->open_date_time !== null
+            && $this->close_date_time !== null
             && $this->open_date_time->isPast()
             && $this->close_date_time->isPast();
     }

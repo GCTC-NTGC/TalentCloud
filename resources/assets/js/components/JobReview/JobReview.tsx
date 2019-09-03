@@ -241,8 +241,18 @@ const sectionTitle = (title: string): React.ReactElement => {
 const languageRequirementIcons = (
   languageRequirementId: number,
 ): React.ReactElement => {
-  const enIcon = <img src="/images/icon_english_requirement.svg" />;
-  const frIcon = <img src="/images/icon_french_requirement.svg" />;
+  const enIcon = (
+    <img
+      src="/images/icon_english_requirement.svg"
+      alt="English language requirement icon."
+    />
+  );
+  const frIcon = (
+    <img
+      src="/images/icon_french_requirement.svg"
+      alt="French language requirement icon."
+    />
+  );
   switch (languageRequirementId) {
     case LanguageRequirementId.bilingualIntermediate:
     case LanguageRequirementId.bilingualAdvanced:
@@ -273,6 +283,55 @@ const languageRequirementIcons = (
     default:
       return enIcon;
   }
+};
+
+const renderManagerSection = (
+  manager: Manager | null,
+  managerDeptName: string,
+  locale: "en" | "fr",
+): React.ReactElement => {
+  if (manager === null) {
+    return (
+      <p>
+        <FormattedMessage
+          id="jobBuilder.review.managerDataLoading"
+          defaultMessage="Manager data is loading..."
+          description="Placeholder text as Manager data loads."
+        />
+      </p>
+    );
+  }
+  const managerTranslation = manager[locale];
+  if (managerTranslation) {
+    return (
+      <>
+        <p data-c-margin="bottom(normal)">{manager.name}</p>
+        <p
+          data-c-margin={`${managerTranslation.about_me && "{bottom(normal)"}`}
+        >
+          <FormattedMessage
+            id="jobBuilder.review.managerPosition"
+            defaultMessage="{position} at {department}"
+            description="Description of the Manager's position & department."
+            values={{
+              position: managerTranslation.position,
+              department: managerDeptName,
+            }}
+          />
+        </p>
+        {managerTranslation.about_me && <p>{managerTranslation.about_me}</p>}
+      </>
+    );
+  }
+  return (
+    <p>
+      <FormattedMessage
+        id="jobBuilder.review.managerIncomplete"
+        defaultMessage="Please complete your manager profile."
+        description="Note that the Manager's profile is incomplete and should be edited before continuing."
+      />
+    </p>
+  );
 };
 
 interface JobReviewProps {
@@ -323,6 +382,7 @@ export const JobReview: React.FunctionComponent<
     return department !== null ? department[locale].name : "MISSING DEPARTMENT";
   };
   const departmentName = getDeptName(job.department_id);
+  const managerDeptName = manager ? getDeptName(manager.department_id) : "";
 
   // Map the skills into a dictionary for quicker access
   const skillsById = mapToObject(skills, getId);
@@ -557,19 +617,29 @@ export const JobReview: React.FunctionComponent<
           linkLabel={intl.formatMessage(messages.skillsEditLink)}
           link={jobBuilderSkills(locale, job.id)}
         >
-          {essentialCriteria.map((criterion): React.ReactElement | null => {
-            const skill = getSkillOfCriteria(criterion);
-            if (skill === null) {
-              return null;
-            }
-            return (
-              <Criterion
-                criterion={criterion}
-                skill={skill}
-                key={criterion.id}
+          {essentialCriteria.length === 0 ? (
+            <p>
+              <FormattedMessage
+                id="jobBuilder.review.skills.nullState"
+                defaultMessage="You haven't added any Nice to Have skills to this poster."
+                description="The text displayed for skills when you haven't added any skills."
               />
-            );
-          })}
+            </p>
+          ) : (
+            essentialCriteria.map((criterion): React.ReactElement | null => {
+              const skill = getSkillOfCriteria(criterion);
+              if (skill === null) {
+                return null;
+              }
+              return (
+                <Criterion
+                  criterion={criterion}
+                  skill={skill}
+                  key={criterion.id}
+                />
+              );
+            })
+          )}
         </JobReviewSection>
         <JobReviewSection
           title={intl.formatMessage(messages.assetHeading)}
@@ -577,19 +647,29 @@ export const JobReview: React.FunctionComponent<
           linkLabel={intl.formatMessage(messages.skillsEditLink)}
           link={jobBuilderSkills(locale, job.id)}
         >
-          {assetCriteria.map((criterion): React.ReactElement | null => {
-            const skill = getSkillOfCriteria(criterion);
-            if (skill === null) {
-              return null;
-            }
-            return (
-              <Criterion
-                criterion={criterion}
-                skill={skill}
-                key={criterion.id}
+          {assetCriteria.length === 0 ? (
+            <p>
+              <FormattedMessage
+                id="jobBuilder.review.skills.nullState"
+                defaultMessage="You haven't added any Nice to Have skills to this poster."
+                description="The text displayed for skills when you haven't added any skills."
               />
-            );
-          })}
+            </p>
+          ) : (
+            assetCriteria.map((criterion): React.ReactElement | null => {
+              const skill = getSkillOfCriteria(criterion);
+              if (skill === null) {
+                return null;
+              }
+              return (
+                <Criterion
+                  criterion={criterion}
+                  skill={skill}
+                  key={criterion.id}
+                />
+              );
+            })
+          )}
         </JobReviewSection>
         <JobReviewSection
           title={intl.formatMessage(messages.languageHeading)}
@@ -628,25 +708,7 @@ export const JobReview: React.FunctionComponent<
           linkLabel={intl.formatMessage(messages.managerProfileLink)}
           link={managerEditProfile(locale)}
         >
-          {manager !== null ? (
-            <>
-              {/** TODO: Double check which fields to show for the manager section */}
-              <p data-c-margin="bottom(normal)">{manager.name}</p>
-              <p data-c-margin="bottom(normal)">
-                {manager[locale].position} at{" "}
-                {getDeptName(manager.department_id)}
-              </p>
-              <p>{manager[locale].about_me}</p>
-            </>
-          ) : (
-            <p data-c-margin="bottom(normal)">
-              <FormattedMessage
-                id="jobBuilder.review.managerDataLoading"
-                defaultMessage="Manager data is loading..."
-                description="Placeholder text as Manager data loads."
-              />
-            </p>
-          )}
+          {renderManagerSection(manager, managerDeptName, locale)}
         </JobReviewSection>
         <JobReviewSection
           title={intl.formatMessage(messages.workCultureHeading)}
