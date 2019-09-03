@@ -12,13 +12,23 @@ test("Job Poster Builder - New Job", async t => {
     .useRole(managerUser)
     // Go to Job Poster Builder.
     .navigateTo("/manager/jobs/builder")
-    .expect(Selector("h3").withText("Welcome to the Job Poster Builder").visible)
+    .expect(
+      Selector("h3").withText("Welcome to the Job Poster Builder").visible,
+    )
     .ok()
     // Welcome page.
+    .selectText(
+      Selector("input").withAttribute("id", "builder01ManagerPositionEn"),
+    )
+    .pressKey("delete")
     .typeText(
       Selector("input").withAttribute("id", "builder01ManagerPositionEn"),
       "Design Manager",
     )
+    .selectText(
+      Selector("input").withAttribute("id", "builder01ManagerPositionFr"),
+    )
+    .pressKey("delete")
     .typeText(
       Selector("input").withAttribute("id", "builder01ManagerPositionFr"),
       "Gestionnaire de la conception",
@@ -30,10 +40,20 @@ test("Job Poster Builder - New Job", async t => {
         .find("option")
         .withAttribute("value", "7"),
     )
-    .typeText(Selector("input").withAttribute("id", "builder01ManagerDivisionEN"),
+    .selectText(
+      Selector("input").withAttribute("id", "builder01ManagerDivisionEN"),
+    )
+    .pressKey("delete")
+    .typeText(
+      Selector("input").withAttribute("id", "builder01ManagerDivisionEN"),
       "Digital Change",
     )
-    .typeText(Selector("input").withAttribute("id", "builder01ManagerDivisionFR"),
+    .selectText(
+      Selector("input").withAttribute("id", "builder01ManagerDivisionFR"),
+    )
+    .pressKey("delete")
+    .typeText(
+      Selector("input").withAttribute("id", "builder01ManagerDivisionFR"),
       "Changement numérique",
     )
     .click(Selector("button").withText("Continue in English"))
@@ -44,10 +64,7 @@ test("Job Poster Builder - New Job", async t => {
       Selector("input").withAttribute("id", "builder02JobTitle"),
       "Product Designer",
     )
-    .typeText(
-      Selector("input").withAttribute("id", "builder02TermLength"),
-      "7",
-    )
+    .typeText(Selector("input").withAttribute("id", "builder02TermLength"), "7")
     .click(Selector("select").withAttribute("id", "builder02Classification"))
     .click(
       Selector("select")
@@ -76,10 +93,7 @@ test("Job Poster Builder - New Job", async t => {
         .find("option")
         .withAttribute("value", "1"),
     )
-    .typeText(
-      Selector("input").withAttribute("id", "builder02City"),
-      "Ottawa",
-    )
+    .typeText(Selector("input").withAttribute("id", "builder02City"), "Ottawa")
     .click(Selector("select").withAttribute("id", "builder02Province"))
     .click(
       Selector("select")
