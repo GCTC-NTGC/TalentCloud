@@ -306,6 +306,7 @@ test("Job Poster Builder - New Job", async t => {
     .click(Selector("button").withText("Next Step"))
     // Review page.
     .expect(Selector("p").withText("Product Designer").visible)
+    .ok()
     .expect(Selector("p").withText("Design Manager").visible)
     .ok()
     .click(Selector("button").withText("Send to HR for Review"))
