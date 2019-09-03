@@ -68,8 +68,8 @@ export interface Manager {
   department_id: number | null;
   twitter_username: string | null;
   linkedin_url: string | null;
-  en?: ManagerTranslation;
-  fr?: ManagerTranslation;
+  en: ManagerTranslation;
+  fr: ManagerTranslation;
 }
 
 export interface Application {

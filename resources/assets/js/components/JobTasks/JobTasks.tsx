@@ -15,6 +15,7 @@ import {
   FormikValues,
 } from "formik";
 import { array, object, string } from "yup";
+import nprogress from "nprogress";
 import nanoid from "nanoid";
 
 import Modal from "../Modal";
@@ -171,10 +172,11 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
 
   const updateValuesAndReturn = (values: { tasks: TaskFormValues[] }): void => {
     // The following only triggers after validations pass
-    console.log(updateTasksWithValues(values.tasks, keyTasks || emptyTasks()));
+    nprogress.start();
     handleSubmit(
       updateTasksWithValues(values.tasks, keyTasks || emptyTasks()),
     ).then((): void => {
+      nprogress.done();
       handleReturn();
     });
   };
@@ -231,7 +233,9 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
         initialValues={initialValues}
         validationSchema={taskSchema}
         onSubmit={(values, actions): void => {
+          nprogress.start();
           // The following only triggers after validations pass
+          nprogress.start();
           handleSubmit(
             updateTasksWithValues(values.tasks, keyTasks || emptyTasks()),
           )
@@ -241,6 +245,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                *  FIXME: However, this resets the ordering as well, to whatever order the server returns them in.
                */
               actions.resetForm(tasksToValues(updatedTasks));
+              nprogress.done();
               setIsModalVisible(true);
             })
             .finally((): void => {
@@ -255,7 +260,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
         }): React.ReactElement => (
           <>
             {values.tasks.length > 0 && (
-              <p data-c-alignment="tl(right)">
+              <p data-c-alignment="tl(right)" data-c-margin="bottom(double)">
                 <FormattedMessage
                   id="jobTasks.taskCount.some"
                   defaultMessage="You have {taskCount, plural,
@@ -278,11 +283,13 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                 data-c-border="all(thin, solid, grey)"
                 data-c-alignment="centre"
               >
-                <FormattedMessage
-                  id="jobTasks.taskCount.none"
-                  defaultMessage="You don't have any tasks added yet!"
-                  description="Message displayed when there are no tasks present on the page."
-                />
+                <p>
+                  <FormattedMessage
+                    id="jobTasks.taskCount.none"
+                    defaultMessage="You don't have any tasks added yet!"
+                    description="Message displayed when there are no tasks present on the page."
+                  />
+                </p>
               </div>
             )}
             <Form id="job-tasks">
@@ -561,11 +568,13 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                     data-c-padding="normal"
                     id={`${modalId}-description`}
                   >
-                    <FormattedMessage
-                      id="jobTasks.modal.body"
-                      description="Text displayed above the body of the Job Task page Modal."
-                      defaultMessage="Here's a preview of the Tasks you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
-                    />
+                    <p>
+                      <FormattedMessage
+                        id="jobTasks.modal.body"
+                        description="Text displayed above the body of the Job Task page Modal."
+                        defaultMessage="Here's a preview of the Tasks you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+                      />
+                    </p>
                   </div>
                   <div data-c-background="grey(20)" data-c-padding="normal">
                     <div

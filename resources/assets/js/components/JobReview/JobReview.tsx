@@ -240,8 +240,18 @@ const sectionTitle = (title: string): React.ReactElement => {
 const languageRequirementIcons = (
   languageRequirementId: number,
 ): React.ReactElement => {
-  const enIcon = <img src="/images/icon_english_requirement.svg" />;
-  const frIcon = <img src="/images/icon_french_requirement.svg" />;
+  const enIcon = (
+    <img
+      src="/images/icon_english_requirement.svg"
+      alt="English language requirement icon."
+    />
+  );
+  const frIcon = (
+    <img
+      src="/images/icon_french_requirement.svg"
+      alt="French language requirement icon."
+    />
+  );
   switch (languageRequirementId) {
     case LanguageRequirementId.bilingualIntermediate:
     case LanguageRequirementId.bilingualAdvanced:
@@ -603,19 +613,29 @@ export const JobReview: React.FunctionComponent<
           linkLabel={intl.formatMessage(messages.skillsEditLink)}
           link={jobBuilderSkills(locale, job.id)}
         >
-          {essentialCriteria.map((criterion): React.ReactElement | null => {
-            const skill = getSkillOfCriteria(criterion);
-            if (skill === null) {
-              return null;
-            }
-            return (
-              <Criterion
-                criterion={criterion}
-                skill={skill}
-                key={criterion.id}
+          {essentialCriteria.length === 0 ? (
+            <p>
+              <FormattedMessage
+                id="jobBuilder.review.skills.nullState"
+                defaultMessage="You haven't added any Nice to Have skills to this poster."
+                description="The text displayed for skills when you haven't added any skills."
               />
-            );
-          })}
+            </p>
+          ) : (
+            essentialCriteria.map((criterion): React.ReactElement | null => {
+              const skill = getSkillOfCriteria(criterion);
+              if (skill === null) {
+                return null;
+              }
+              return (
+                <Criterion
+                  criterion={criterion}
+                  skill={skill}
+                  key={criterion.id}
+                />
+              );
+            })
+          )}
         </JobReviewSection>
         <JobReviewSection
           title={intl.formatMessage(messages.assetHeading)}
@@ -623,19 +643,29 @@ export const JobReview: React.FunctionComponent<
           linkLabel={intl.formatMessage(messages.skillsEditLink)}
           link={jobBuilderSkills(locale, job.id)}
         >
-          {assetCriteria.map((criterion): React.ReactElement | null => {
-            const skill = getSkillOfCriteria(criterion);
-            if (skill === null) {
-              return null;
-            }
-            return (
-              <Criterion
-                criterion={criterion}
-                skill={skill}
-                key={criterion.id}
+          {assetCriteria.length === 0 ? (
+            <p>
+              <FormattedMessage
+                id="jobBuilder.review.skills.nullState"
+                defaultMessage="You haven't added any Nice to Have skills to this poster."
+                description="The text displayed for skills when you haven't added any skills."
               />
-            );
-          })}
+            </p>
+          ) : (
+            assetCriteria.map((criterion): React.ReactElement | null => {
+              const skill = getSkillOfCriteria(criterion);
+              if (skill === null) {
+                return null;
+              }
+              return (
+                <Criterion
+                  criterion={criterion}
+                  skill={skill}
+                  key={criterion.id}
+                />
+              );
+            })
+          )}
         </JobReviewSection>
         <JobReviewSection
           title={intl.formatMessage(messages.languageHeading)}

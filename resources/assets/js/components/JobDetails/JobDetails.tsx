@@ -2,6 +2,7 @@
 import React, { useState, useRef } from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { Formik, Form, Field } from "formik";
+import nprogress from "nprogress";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import RadioGroup from "../Form/RadioGroup";
@@ -454,11 +455,14 @@ const JobDetails: React.FunctionComponent<
               ...values,
               educationRequirements,
             };
+
+            nprogress.start();
             handleSubmit(
               updateJobWithValues(job || emptyJob(), locale, detailsFormValues),
             )
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
+                  nprogress.done();
                   setIsModalVisible(true);
                 }
               })
@@ -1014,11 +1018,13 @@ const JobDetails: React.FunctionComponent<
                     data-c-padding="normal"
                     id="job-details-preview-description"
                   >
-                    <FormattedMessage
-                      id="jobDetails.modalBody"
-                      defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
-                      description="The text displayed in the body of the Job Details modal."
-                    />
+                    <p>
+                      <FormattedMessage
+                        id="jobDetails.modalBody"
+                        defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+                        description="The text displayed in the body of the Job Details modal."
+                      />
+                    </p>
                   </div>
                   <div
                     data-c-background="grey(20)"

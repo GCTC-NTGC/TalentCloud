@@ -17,7 +17,7 @@ interface CheckboxGroupProps {
   /** If this group has been affected by user input or a submission. */
   touched: (boolean | undefined)[] | undefined;
   /** Array of all selected values */
-  value: string[] | number[];
+  value: (string | number)[];
   /** Function which takes an id and value as arguments, and sets the field (id) to the value */
   onChange: FormikActions<any>["setFieldValue"];
   /** Function which takes an id and boolean value as arguments, and sets the field (id) to the boolean value */
@@ -36,7 +36,7 @@ const CheckboxGroup: React.FunctionComponent<CheckboxGroupProps> = ({
   onChange,
   onBlur,
 }): React.ReactElement => {
-  const handleChange = (event): void => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     // Get target checkbox element
     const target = event.currentTarget;
 

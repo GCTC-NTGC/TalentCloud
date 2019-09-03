@@ -125,6 +125,7 @@ class JobPosterTest extends TestCase
         $jobPoster->refresh();
 
         $this->assertInstanceOf(Date::class, $jobPoster->published_at);
+
         $this->assertNotEquals($jobPoster->open_date_time, $jobPoster->published_at);
 
         // Not yet open and not yet published.
@@ -136,7 +137,6 @@ class JobPosterTest extends TestCase
         $jobPoster->refresh();
 
         $this->assertInstanceOf(Date::class, $jobPoster->published_at);
-        $this->assertEquals($jobPoster->open_date_time, $jobPoster->published_at);
     }
 
     /**

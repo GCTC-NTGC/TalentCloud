@@ -80,6 +80,14 @@ class JobPosterCrudController extends CrudController
             ]
         ]);
         $this->crud->addField([
+            'name' => 'open_date_time',
+            'label' => 'Open Date',
+            'type' => 'datetime_picker',
+            'datetime_picker_options' => [
+                'format' => 'YYYY-MM-DD HH:mm:ss',
+            ],
+        ]);
+        $this->crud->addField([
             'name' => 'close_date_time',
             'label' => 'Close Date',
             'type' => 'datetime_picker',
@@ -87,7 +95,9 @@ class JobPosterCrudController extends CrudController
                 'format' => 'YYYY-MM-DD HH:mm:ss',
             ],
         ]);
-        if ($this->crud->getCurrentEntry() && !$this->crud->getCurrentEntry()->published) {
+        if ($this->crud->getCurrentEntry() &&
+            !$this->crud->getCurrentEntry()->published
+        ) {
             $this->crud->addField([
                 'name' => 'published',
                 'label' => 'Publish',
