@@ -12,15 +12,17 @@ test("Job Poster Builder - New Job", async t => {
     .useRole(managerUser)
     // Go to Job Poster Builder.
     .navigateTo("/manager/jobs/builder")
-    .expect(Selector("h3").withText("Welcome to the Job Poster Builder").visible)
+    .expect(
+      Selector("h3").withText("Welcome to the Job Poster Builder").visible,
+    )
     .ok()
     // Welcome page.
     .typeText(
-      Selector("input").withAttribute("id", "builder01ManagerPositionEn"),
+      Selector("input").withAttribute("id", "builder01ManagerJobTitleEN"),
       "Design Manager",
     )
     .typeText(
-      Selector("input").withAttribute("id", "builder01ManagerPositionFr"),
+      Selector("input").withAttribute("id", "builder01ManagerJobTitleFR"),
       "Gestionnaire de la conception",
     )
     .click(Selector("select").withAttribute("id", "builder01ManagerDepartment"))
@@ -30,10 +32,12 @@ test("Job Poster Builder - New Job", async t => {
         .find("option")
         .withAttribute("value", "7"),
     )
-    .typeText(Selector("input").withAttribute("id", "builder01ManagerDivisionEN"),
+    .typeText(
+      Selector("input").withAttribute("id", "builder01ManagerDivisionEN"),
       "Digital Change",
     )
-    .typeText(Selector("input").withAttribute("id", "builder01ManagerDivisionFR"),
+    .typeText(
+      Selector("input").withAttribute("id", "builder01ManagerDivisionFR"),
       "Changement numérique",
     )
     .click(Selector("button").withText("Continue in English"))
@@ -44,10 +48,7 @@ test("Job Poster Builder - New Job", async t => {
       Selector("input").withAttribute("id", "builder02JobTitle"),
       "Product Designer",
     )
-    .typeText(
-      Selector("input").withAttribute("id", "builder02TermLength"),
-      "7",
-    )
+    .typeText(Selector("input").withAttribute("id", "builder02TermLength"), "7")
     .click(Selector("select").withAttribute("id", "builder02Classification"))
     .click(
       Selector("select")
@@ -76,10 +77,7 @@ test("Job Poster Builder - New Job", async t => {
         .find("option")
         .withAttribute("value", "1"),
     )
-    .typeText(
-      Selector("input").withAttribute("id", "builder02City"),
-      "Ottawa",
-    )
+    .typeText(Selector("input").withAttribute("id", "builder02City"), "Ottawa")
     .click(Selector("select").withAttribute("id", "builder02Province"))
     .click(
       Selector("select")
@@ -111,10 +109,7 @@ test("Job Poster Builder - New Job", async t => {
     // Work Environment page.
     .expect(Selector("h3").withText("Work Environment").visible)
     .ok()
-    .typeText(
-      Selector("input").withAttribute("id", "teamSize"),
-      "77",
-    )
+    .typeText(Selector("input").withAttribute("id", "teamSize"), "77")
     .click(Selector("input").withAttribute("id", "smudging"))
     .click(Selector("input").withAttribute("id", "culturePace04"))
     .click(Selector("input").withAttribute("id", "mgmtStyle02"))
@@ -127,7 +122,11 @@ test("Job Poster Builder - New Job", async t => {
     .ok()
     .expect(Selector("h4").withText("Work Culture").visible)
     .ok()
-    .expect(Selector("p").withText("Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine. We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives. Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes. We are the face of the service we deliver and spend most of our time engaging directly with the public. Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.").visible)
+    .expect(
+      Selector("p").withText(
+        "Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine. We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives. Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes. We are the face of the service we deliver and spend most of our time engaging directly with the public. Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.",
+      ).visible,
+    )
     .ok()
     .click(Selector("button").withText("Next Step"))
     // Impact page.
@@ -145,7 +144,11 @@ test("Job Poster Builder - New Job", async t => {
     // Impact review.
     .expect(Selector("h5").withText("Awesome work!").visible)
     .ok()
-    .expect(Selector("p").withText("Global Affairs Canada manages Canada's diplomatic relations, provides consular services to Canadians, promotes the country's international trade, and leads Canada's international development and humanitarian assistance.").visible)
+    .expect(
+      Selector("p").withText(
+        "Global Affairs Canada manages Canada's diplomatic relations, provides consular services to Canadians, promotes the country's international trade, and leads Canada's international development and humanitarian assistance.",
+      ).visible,
+    )
     .ok()
     .expect(Selector("p").withText("Blah de blah blah.").visible)
     .ok()
@@ -158,22 +161,22 @@ test("Job Poster Builder - New Job", async t => {
     .click(Selector("button").withText("Add a Task"))
     .typeText(
       Selector("textarea").withAttribute("name", "tasks.0.description"),
-        "Chopping",
+      "Chopping",
     )
     .click(Selector("button").withText("Add a Task"))
     .typeText(
       Selector("textarea").withAttribute("name", "tasks.1.description"),
-        "Grilling",
+      "Grilling",
     )
     .click(Selector("button").withText("Add a Task"))
     .typeText(
       Selector("textarea").withAttribute("name", "tasks.2.description"),
-        "Seasoning",
+      "Seasoning",
     )
     .click(Selector("button").withText("Add a Task"))
     .typeText(
       Selector("textarea").withAttribute("name", "tasks.3.description"),
-        "Disco dancing",
+      "Disco dancing",
     )
     .click(Selector("button").withText("Save & Preview Tasks"))
     // Key Tasks review.
@@ -311,7 +314,9 @@ test("Job Poster Builder - New Job", async t => {
     .ok()
     .click(Selector("button").withText("Send to HR for Review"))
     // Review confirmation.
-    .expect(Selector("h5").withText("Congrats! Are You Ready to Submit?").visible)
+    .expect(
+      Selector("h5").withText("Congrats! Are You Ready to Submit?").visible,
+    )
     .ok()
     .click(Selector("button").withText("Yes, Submit"))
     .navigateTo("/manager/jobs")
