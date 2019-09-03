@@ -231,20 +231,6 @@ class JobApiControllerTest extends TestCase
         $this->assertDatabaseHas('job_posters', ['manager_id' => $manager->id]);
     }
 
-    /**
-     * Even an admin cannot store a job like this, if they're not also a manager
-     *
-     * @return void
-     */
-    public function testStoreRequiresManagerId(): void
-    {
-        $user = factory(User::class)->state('admin')->create();
-        $response = $this->followingRedirects()
-            ->actingAs($user)
-            ->json('post', 'api/jobs');
-        $response->assertForbidden();
-    }
-
     public function testReturnsCorrectClassificationCode(): void
     {
         $classification = Classification::inRandomOrder()->first();
