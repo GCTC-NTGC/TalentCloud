@@ -1,251 +1,251 @@
 [
   {
-    "id": "jobDetails.titleLabel",
+    "id": "jobBuilder.details.titleLabel",
     "description": "The form label displayed on the title input.",
     "defaultMessage": "What is the job title?"
   },
   {
-    "id": "jobDetails.titlePlaceholder",
+    "id": "jobBuilder.details.titlePlaceholder",
     "description": "The form placeholder displayed on the title input.",
     "defaultMessage": "e.g. Product Designer"
   },
   {
-    "id": "jobDetails.termLengthLabel",
+    "id": "jobBuilder.details.termLengthLabel",
     "description": "The form label displayed on the term length input.",
     "defaultMessage": "How long is the term (in months)?"
   },
   {
-    "id": "jobDetails.termLengthPlaceholder",
+    "id": "jobBuilder.details.termLengthPlaceholder",
     "description": "The form placeholder displayed on the term length input.",
     "defaultMessage": "e.g. 3"
   },
   {
-    "id": "jobDetails.classificationLabel",
+    "id": "jobBuilder.details.classificationLabel",
     "description": "The form label displayed on the classification input.",
     "defaultMessage": "What is the classification?"
   },
   {
-    "id": "jobDetails.classificationNullSelection",
+    "id": "jobBuilder.details.classificationNullSelection",
     "description": "The default selection option displayed on the classification input.",
     "defaultMessage": "Select a classification..."
   },
   {
-    "id": "jobDetails.levelLabel",
+    "id": "jobBuilder.details.levelLabel",
     "description": "The form label displayed on the level input.",
     "defaultMessage": "What is the level?"
   },
   {
-    "id": "jobDetails.levelNullSelection",
+    "id": "jobBuilder.details.levelNullSelection",
     "description": "The default selection option displayed on the level input.",
     "defaultMessage": "Select a level..."
   },
   {
-    "id": "jobDetails.securityLevelLabel",
+    "id": "jobBuilder.details.securityLevelLabel",
     "description": "The form label displayed on the security level input.",
     "defaultMessage": "What is the security level?"
   },
   {
-    "id": "jobDetails.securityLevelNullSelection",
+    "id": "jobBuilder.details.securityLevelNullSelection",
     "description": "The default selection option displayed on the security level input.",
     "defaultMessage": "Select a security level..."
   },
   {
-    "id": "jobDetails.languageLabel",
+    "id": "jobBuilder.details.languageLabel",
     "description": "The form label displayed on the language input.",
     "defaultMessage": "What is the language profile?"
   },
   {
-    "id": "jobDetails.languageNullSelection",
+    "id": "jobBuilder.details.languageNullSelection",
     "description": "The default selection option displayed on the language input.",
     "defaultMessage": "Select a language profile..."
   },
   {
-    "id": "jobDetails.cityLabel",
+    "id": "jobBuilder.details.cityLabel",
     "description": "The form label displayed on the city input.",
     "defaultMessage": "What city is the team located in?"
   },
   {
-    "id": "jobDetails.cityPlaceholder",
+    "id": "jobBuilder.details.cityPlaceholder",
     "description": "The form placeholder displayed on the city input.",
     "defaultMessage": "e.g. Ottawa"
   },
   {
-    "id": "jobDetails.provinceLabel",
+    "id": "jobBuilder.details.provinceLabel",
     "description": "The form label displayed on the province input.",
     "defaultMessage": "What province is the team located in?"
   },
   {
-    "id": "jobDetails.provinceNullSelection",
+    "id": "jobBuilder.details.provinceNullSelection",
     "description": "The default selection option displayed on the province input.",
     "defaultMessage": "Select a province..."
   },
   {
-    "id": "jobDetails.remoteWorkGroupLabel",
+    "id": "jobBuilder.details.remoteWorkGroupLabel",
     "description": "The form label displayed on the remote work radio group.",
     "defaultMessage": "Select a remote work option:"
   },
   {
-    "id": "jobDetails.remoteWorkWorldLabel",
+    "id": "jobBuilder.details.remoteWorkWorldLabel",
     "description": "The form label displayed on the 'world' remote work radio option.",
     "defaultMessage": "Yes, I’m willing to supervise employees anywhere in the world."
   },
   {
-    "id": "jobDetails.remoteWorkCanadaLabel",
+    "id": "jobBuilder.details.remoteWorkCanadaLabel",
     "description": "The form label displayed on the 'canada' remote work radio option.",
     "defaultMessage": "Yes, I’m willing to supervise employees in any province or territory in Canada."
   },
   {
-    "id": "jobDetails.remoteWorkNoneLabel",
+    "id": "jobBuilder.details.remoteWorkNoneLabel",
     "description": "The form label displayed on the 'none' remote work radio option.",
     "defaultMessage": "No, I require the employee in this position to be in the same geographic location as the office."
   },
   {
-    "id": "jobDetails.teleworkGroupLabel",
+    "id": "jobBuilder.details.teleworkGroupLabel",
     "description": "The form label displayed on the telework radio group.",
     "defaultMessage": "Select a telework option:"
   },
   {
-    "id": "jobDetails.flexHoursGroupLabel",
+    "id": "jobBuilder.details.flexHoursGroupLabel",
     "description": "The form label displayed on the flex hours radio group.",
     "defaultMessage": "Select a flexible hours option:"
   },
   {
-    "id": "jobDetails.travelGroupLabel",
+    "id": "jobBuilder.details.travelGroupLabel",
     "description": "The form label displayed on the travel radio group.",
     "defaultMessage": "Select a travel option:"
   },
   {
-    "id": "jobDetails.overtimeGroupLabel",
+    "id": "jobBuilder.details.overtimeGroupLabel",
     "description": "The form label displayed on the overtime radio group.",
     "defaultMessage": "Select a overtime option:"
   },
   {
-    "id": "jobDetails.educationRequirementsLabel",
+    "id": "jobBuilder.details.educationRequirementsLabel",
     "description": "The form label displayed above 'customize education requirement' textbox",
     "defaultMessage": "Customize the Education Requirement:"
   },
   {
-    "id": "jobDetails.educationRequirementPlaceholder",
+    "id": "jobBuilder.details.educationRequirementPlaceholder",
     "description": "The placeholder displayed in 'customize education requirement' textbox",
     "defaultMessage": "Paste the paragraph here to edit..."
   },
   {
-    "id": "jobDetails.classificationOptions.AS",
+    "id": "jobBuilder.details.classificationOptions.AS",
     "description": "Job Classification from list of Classifications",
     "defaultMessage": "AS - Administrative Services"
   },
   {
-    "id": "jobDetails.classificationOptions.BI",
+    "id": "jobBuilder.details.classificationOptions.BI",
     "description": "Job Classification from list of Classifications",
     "defaultMessage": "BI - Biological Sciences"
   },
   {
-    "id": "jobDetails.classificationOptions.CO",
+    "id": "jobBuilder.details.classificationOptions.CO",
     "description": "Job Classification from list of Classifications",
     "defaultMessage": "CO - Commerce"
   },
   {
-    "id": "jobDetails.classificationOptions.CR",
+    "id": "jobBuilder.details.classificationOptions.CR",
     "description": "Job Classification from list of Classifications",
     "defaultMessage": "CR - Clerical and Regulatory"
   },
   {
-    "id": "jobDetails.classificationOptions.CS",
+    "id": "jobBuilder.details.classificationOptions.CS",
     "description": "Job Classification from list of Classifications",
     "defaultMessage": "CS - Computer Systems"
   },
   {
-    "id": "jobDetails.classificationOptions.EC",
+    "id": "jobBuilder.details.classificationOptions.EC",
     "description": "Job Classification from list of Classifications",
     "defaultMessage": "EC - Economics and Social Science Services"
   },
   {
-    "id": "jobDetails.classificationOptions.EX",
+    "id": "jobBuilder.details.classificationOptions.EX",
     "description": "Job Classification from list of Classifications",
     "defaultMessage": "EX - Executive"
   },
   {
-    "id": "jobDetails.classificationOptions.FO",
+    "id": "jobBuilder.details.classificationOptions.FO",
     "description": "Job Classification from list of Classifications",
     "defaultMessage": "FO - Forestry"
   },
   {
-    "id": "jobDetails.classificationOptions.IS",
+    "id": "jobBuilder.details.classificationOptions.IS",
     "description": "Job Classification from list of Classifications",
     "defaultMessage": "IS - Information Services"
   },
   {
-    "id": "jobDetails.classificationOptions.PC",
+    "id": "jobBuilder.details.classificationOptions.PC",
     "description": "Job Classification from list of Classifications",
     "defaultMessage": "PC - Physical Sciences"
   },
   {
-    "id": "jobDetails.classificationOptions.PE",
+    "id": "jobBuilder.details.classificationOptions.PE",
     "description": "Job Classification from list of Classifications",
     "defaultMessage": "PE - Personnel Administration"
   },
   {
-    "id": "jobDetails.classificationOptions.PM",
+    "id": "jobBuilder.details.classificationOptions.PM",
     "description": "Job Classification from list of Classifications",
     "defaultMessage": "PM - Programme Administration"
   },
   {
-    "id": "jobDetails.educationMessages.AS",
+    "id": "jobBuilder.details.educationMessages.AS",
     "description": "Job Classification message from list of Classifications",
     "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above."
   },
   {
-    "id": "jobDetails.educationMessages.BI",
+    "id": "jobBuilder.details.educationMessages.BI",
     "description": "Job Classification message from list of Classifications",
     "defaultMessage": "Post-secondary degree:\nSuccessful completion of post-secondary degree in a natural, physical or applied science with specialization in a field relevant to the duties of the position."
   },
   {
-    "id": "jobDetails.educationMessages.CO",
+    "id": "jobBuilder.details.educationMessages.CO",
     "description": "Job Classification message from list of Classifications",
     "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above."
   },
   {
-    "id": "jobDetails.educationMessages.CR",
+    "id": "jobBuilder.details.educationMessages.CR",
     "description": "Job Classification message from list of Classifications",
     "defaultMessage": "2 years of secondary school, or equivalent:\nSuccessful completion of at least two years of secondary school education.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the 2 year secondary school requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school education stated above."
   },
   {
-    "id": "jobDetails.educationMessages.CS",
+    "id": "jobBuilder.details.educationMessages.CS",
     "description": "Job Classification message from list of Classifications",
     "defaultMessage": "2 years post-secondary, or equivalent:\nSuccessful completion of two years of post-secondary education in computer science, information technology, information management or another specialty relevant to this position.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the 2 year post-secondary requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above."
   },
   {
-    "id": "jobDetails.educationMessages.EC",
+    "id": "jobBuilder.details.educationMessages.EC",
     "description": "Job Classification message from list of Classifications",
     "defaultMessage": "Post-secondary degree:\nGraduation with a degree from a recognized post-secondary institution with acceptable specialization in economics, sociology or statistics.\n\nCandidates must always have a degree. The courses for the specialization must be acceptable and may have been taken at a recognized post-secondary institution, but not necessarily within a degree program in the required specialization. The specialization may also be obtained through an acceptable combination of education, training and/or experience."
   },
   {
-    "id": "jobDetails.educationMessages.EX",
+    "id": "jobBuilder.details.educationMessages.EX",
     "description": "Job Classification message from list of Classifications",
     "defaultMessage": "Post-secondary degree, or equivalent:\nPost-secondary degree, or eligibility for a recognized professional designation in one of the provinces or territories of Canada.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above."
   },
   {
-    "id": "jobDetails.educationMessages.FO",
+    "id": "jobBuilder.details.educationMessages.FO",
     "description": "Job Classification message from list of Classifications",
     "defaultMessage": "Post-secondary degree:\nGraduation with a degree in forestry or wood science from a recognized post-secondary institution.\n\nor\n\nGraduation with a degree in a related science from a recognized post-secondary institution combined with acceptable experience."
   },
   {
-    "id": "jobDetails.educationMessages.IS",
+    "id": "jobBuilder.details.educationMessages.IS",
     "description": "Job Classification message from list of Classifications",
     "defaultMessage": "Post-secondary degree, or equivalent:\nSuccessful completion of a post-secondary degree.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above."
   },
   {
-    "id": "jobDetails.educationMessages.PC",
+    "id": "jobBuilder.details.educationMessages.PC",
     "description": "Job Classification message from list of Classifications",
     "defaultMessage": "Post-secondary degree:\nSuccessful completion of a post-secondary degree with specialization in physics, geology, chemistry or some other science relevant to the position."
   },
   {
-    "id": "jobDetails.educationMessages.PE",
+    "id": "jobBuilder.details.educationMessages.PE",
     "description": "Job Classification message from list of Classifications",
     "defaultMessage": "Post-secondary degree, or equivalent:\nSuccessful completion of a post-secondary degree with specialization in human resources management, labour or industrial relations, psychology, public or business administration, organizational development, education sciences, social sciences, sociology, or another specialty relevant to this position.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above."
   },
   {
-    "id": "jobDetails.educationMessages.PM",
+    "id": "jobBuilder.details.educationMessages.PM",
     "description": "Job Classification message from list of Classifications",
     "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above."
   }

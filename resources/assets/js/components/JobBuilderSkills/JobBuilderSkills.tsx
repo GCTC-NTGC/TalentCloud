@@ -1737,7 +1737,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                         <Criterion
                           criterion={criterion}
                           skill={skill}
-                          key={criterion.id}
+                          key={skill.id}
                         />
                       );
                     },
@@ -1774,7 +1774,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                       <Criterion
                         criterion={criterion}
                         skill={skill}
-                        key={criterion.id}
+                        key={skill.id}
                       />
                     );
                   })

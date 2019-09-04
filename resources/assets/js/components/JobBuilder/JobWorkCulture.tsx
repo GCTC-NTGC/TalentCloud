@@ -18,13 +18,13 @@ interface JobWorkCultureProps {
 
 const remoteWorkMessages = defineMessages({
   always: {
-    id: "job.workCulture.remoteWorkMsg.always",
+    id: "jobBuilder.workCulture.remoteWorkMsg.always",
     defaultMessage: "Always",
     description:
       "Shown on Work Culture card when remoteWork field is set to true.",
   },
   never: {
-    id: "job.workCulture.remoteWorkMsg.never",
+    id: "jobBuilder.workCulture.remoteWorkMsg.never",
     defaultMessage: "Never",
     description:
       "Shown on Work Culture card when remoteWork field is set to false.",
@@ -64,7 +64,7 @@ export const JobWorkCulture: React.FunctionComponent<
       <div data-c-grid-item="tp(1of2) ds(1of3)">
         <p data-c-colour="c2" data-c-margin="top(quarter)">
           <FormattedMessage
-            id="job.workCulture.remoteWork"
+            id="jobBuilder.workCulture.remoteWork"
             defaultMessage="Remote Work"
             description="Label for the Remote Work field on the Work Culture card."
           />
@@ -75,7 +75,7 @@ export const JobWorkCulture: React.FunctionComponent<
           data-c-margin="bottom(half)"
         >
           <FormattedMessage
-            id="job.workCulture.remoteWorkDescription"
+            id="jobBuilder.workCulture.remoteWorkDescription"
             defaultMessage="Work from anywhere, all the time."
             description="Explanation of what Remote Work means."
           />

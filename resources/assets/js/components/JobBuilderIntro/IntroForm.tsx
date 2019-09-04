@@ -300,7 +300,7 @@ const IntroForm: React.FunctionComponent<
                 <div data-c-grid="gutter">
                   <Field
                     type="text"
-                    id="builder01ManagerManagerPositionEn"
+                    id="builder01ManagerPositionEn"
                     name="managerPositionEn"
                     label={intl.formatMessage(formMessages.jobTitleLabelEN, {
                       name: manager.name,
