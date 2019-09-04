@@ -249,23 +249,19 @@ class JobController extends Controller
     {
         $manager = $jobPoster->manager;
 
-        $job = $jobPoster;
-        $jobHeading = 'manager/job_edit';
-
-        if ($job->job_poster_questions === null || $job->job_poster_questions->count() === 0) {
-            $job->job_poster_questions()->saveMany($this->populateDefaultQuestions());
-            $job->refresh();
+        if ($jobPoster->job_poster_questions === null || $jobPoster->job_poster_questions->count() === 0) {
+            $jobPoster->job_poster_questions()->saveMany($this->populateDefaultQuestions());
+            $jobPoster->refresh();
         }
 
         return view(
             'manager/job_create',
             [
                 // Localization Strings.
-                'job_l10n' => Lang::get('manager/job_create'),
+                'job_l10n' => Lang::get('manager/job_edit'),
                 // Data.
-                'job' => Lang::get($jobHeading),
                 'manager' => $manager,
-                'job' => $job,
+                'job' => $jobPoster,
                 'form_action_url' => route('admin.jobs.update', $jobPoster),
             ]
         );
