@@ -13,24 +13,11 @@ use Carbon\Carbon;
 
 use App\Mail\JobPosterReviewRequested;
 
-use App\Models\Criteria;
 use App\Models\JobPoster;
-use App\Models\JobPosterKeyTask;
 use App\Models\JobPosterQuestion;
-use App\Models\Lookup\JobTerm;
-use App\Models\Lookup\Province;
-use App\Models\Lookup\SecurityClearance;
-use App\Models\Lookup\LanguageRequirement;
-use App\Models\Lookup\Department;
-use App\Models\Lookup\SkillLevel;
-use App\Models\Lookup\CriteriaType;
-use App\Models\Skill;
-use App\Models\Manager;
 
 use App\Services\Validation\JobPosterValidator;
 use Jenssegers\Date\Date;
-use App\Models\AssessmentPlanNotification;
-use App\Models\Assessment;
 
 class JobController extends Controller
 {
