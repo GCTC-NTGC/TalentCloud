@@ -1688,13 +1688,13 @@ export const JobBuilderSkills: React.FunctionComponent<
               id={`${previewModalId}-description`}
             >
               <p>
-              <FormattedMessage
-                id="jobBuilder.skills.description.keepItUp"
-                defaultMessage="Here's a preview of the Skills you just entered. Feel free to
+                <FormattedMessage
+                  id="jobBuilder.skills.description.keepItUp"
+                  defaultMessage="Here's a preview of the Skills you just entered. Feel free to
                 go back and edit things or move to the next step if you're
                 happy with it."
-                description="Body text of Keep it up! Modal"
-              />
+                  description="Body text of Keep it up! Modal"
+                />
               </p>
             </div>
 
@@ -1737,7 +1737,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                         <Criterion
                           criterion={criterion}
                           skill={skill}
-                          key={criterion.id}
+                          key={skill.id}
                         />
                       );
                     },
@@ -1765,21 +1765,19 @@ export const JobBuilderSkills: React.FunctionComponent<
                     />
                   </p>
                 ) : (
-                  assetCriteria.map(
-                    (criterion): React.ReactElement | null => {
-                      const skill = getSkillOfCriteria(criterion);
-                      if (skill === null) {
-                        return null;
-                      }
-                      return (
-                        <Criterion
-                          criterion={criterion}
-                          skill={skill}
-                          key={criterion.id}
-                        />
-                      );
-                    },
-                  )
+                  assetCriteria.map((criterion): React.ReactElement | null => {
+                    const skill = getSkillOfCriteria(criterion);
+                    if (skill === null) {
+                      return null;
+                    }
+                    return (
+                      <Criterion
+                        criterion={criterion}
+                        skill={skill}
+                        key={skill.id}
+                      />
+                    );
+                  })
                 )}
               </div>
             </div>
