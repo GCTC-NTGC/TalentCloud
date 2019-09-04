@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64038bf516fd7a00d989a4dc4f4bcfd8",
+    "content-hash": "0a26894f25f527977815b79bf96a48a0",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -4436,20 +4436,20 @@
         },
         {
             "name": "tightenco/parental",
-            "version": "v0.7.1",
+            "version": "v0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tightenco/parental.git",
-                "reference": "abc977a5d309af44724fce4b6d5f7b27789bfff8"
+                "reference": "8c87252ddfa2f77b38418b92c5e8b1d0e15f7d94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tightenco/parental/zipball/abc977a5d309af44724fce4b6d5f7b27789bfff8",
-                "reference": "abc977a5d309af44724fce4b6d5f7b27789bfff8",
+                "url": "https://api.github.com/repos/tightenco/parental/zipball/8c87252ddfa2f77b38418b92c5e8b1d0e15f7d94",
+                "reference": "8c87252ddfa2f77b38418b92c5e8b1d0e15f7d94",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "~5.6.0|~5.7.0|~5.8.0"
+                "illuminate/database": "~5.6.0|~5.7.0|~5.8.0|~6.0.0"
             },
             "require-dev": {
                 "orchestra/testbench": "3.8.*",
@@ -4472,7 +4472,7 @@
                 }
             ],
             "description": "A simple eloquent trait that allows relationships to be accessed through child models.",
-            "time": "2019-07-17T14:12:36+00:00"
+            "time": "2019-09-03T14:54:50+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
