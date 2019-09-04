@@ -11,5 +11,7 @@
   "province.mb.abreviation",
   "province.on.abreviation",
   "province.sk.abreviation",
-  "securityClearance.secret"
+  "securityClearance.secret",
+  "jobBuilder.preview.classification",
+  "jobBuilder.preview.province"
 ]
