@@ -36,7 +36,7 @@ class WhichPortal
     public function urlIsAdminPortal($url): bool
     {
         $baseUrl = config('app.url');
-        $adminPrefix = 'admin';
+        $adminPrefix = config('backpack.base.route_prefix', 'admin');
         $adminPattern = "#^$baseUrl/(\w+/)?$adminPrefix(/.*)?$#";
         return preg_match($adminPattern, $url);
     }
