@@ -368,34 +368,31 @@ Route::group(
                 ->name('application_reviews.update');
         });
 
-        /* Language ============================================================= */
 
-        // Route::redirect('fr', '/')->name('lang.fr');
-        // Route::redirect('en', '/')->name('lang.en');
+        /* Non-Backpack Admin Portal =========================================================== */
+        Route::group(
+            [
+                'prefix' => 'admin',
+                'middleware' => ['auth', 'role:admin']
+            ],
+            function (): void {
+                /* Edit Job */
+                Route::get('jobs/{jobPoster}/edit', 'JobController@edit')
+                    ->where('jobPoster', '[0-9]+')
+                    ->middleware('can:update,jobPoster')
+                    ->name('admin.jobs.edit');
+                Route::post('jobs/{jobPoster}', 'JobController@store')
+                    ->where('jobPoster', '[0-9]+')
+                    ->middleware('can:update,jobPoster')
+                    ->name('admin.jobs.update');
+            }
+        );
     }
 );
 
 /** ALL NON-LOCALIZED ROUTES **/
 
-/* Non-Backpack Admin Portal =========================================================== */
 
-Route::group(
-    [
-        'prefix' => 'admin',
-        'middleware' => ['auth', 'role:admin']
-    ],
-    function (): void {
-        /* Edit Job */
-        Route::get('jobs/{jobPoster}/edit', 'JobController@edit')
-            ->where('jobPoster', '[0-9]+')
-            ->middleware('can:update,jobPoster')
-            ->name('admin.jobs.edit');
-        Route::post('jobs/{jobPoster}', 'JobController@store')
-            ->where('jobPoster', '[0-9]+')
-            ->middleware('can:update,jobPoster')
-            ->name('admin.jobs.update');
-    }
-);
 
 /** API routes - currently using same default http auth, but not localized */
 Route::group(['prefix' => 'api'], function (): void {
