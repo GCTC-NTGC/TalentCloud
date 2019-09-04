@@ -284,18 +284,16 @@ class JobController extends Controller
 
         $input = $request->input();
 
-        $job =  $jobPoster;
-
-        if ($job->manager_id == null) {
-            $job->manager_id = $request->user()->manager->id;
-            $job->save();
+        if ($jobPoster->manager_id == null) {
+            $jobPoster->manager_id = $request->user()->manager->id;
+            $jobPoster->save();
         }
 
-        $this->fillAndSaveJobPoster($input, $job);
+        $this->fillAndSaveJobPoster($input, $jobPoster);
 
-        $this->fillAndSaveJobPosterQuestions($input, $job, isset($jobPoster));
+        $this->fillAndSaveJobPosterQuestions($input, $jobPoster, true);
 
-        return redirect(route('manager.jobs.show', $job->id));
+        return redirect(route('manager.jobs.show', $jobPoster->id));
     }
 
     /**
