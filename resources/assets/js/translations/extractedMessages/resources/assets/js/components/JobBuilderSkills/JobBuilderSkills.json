@@ -269,6 +269,11 @@
     "defaultMessage": "Skills the Employee Needs to Have"
   },
   {
+    "id": "jobBuilder.skills.nullState",
+    "description": "The text displayed in the skills modal when you haven't added any skills.",
+    "defaultMessage": "You haven't added any skills yet."
+  },
+  {
     "id": "jobBuilder.skills.title.niceToHave",
     "description": "Section Header in Modal",
     "defaultMessage": "Skills That Would Be Nice For the Employee to Have"

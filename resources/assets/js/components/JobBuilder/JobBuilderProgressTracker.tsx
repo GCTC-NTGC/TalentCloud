@@ -151,6 +151,7 @@ export const JobBuilderProgressTracker: React.FunctionComponent<
       fontColor="white"
       classNames="manager-jpb-tracker"
       itemsWrapperClassNames="tracker manager-jpb-tracker-wrapper"
+      dataIsLoading={dataIsLoading}
     />
   );
 };

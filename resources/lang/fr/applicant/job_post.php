@@ -88,6 +88,7 @@ return [
         'manager_department_bridge' => ' au ',
         'guest_manager_link_label' => 'Veuillez vous connecter pour voir le profil de :name.',
         'manager_link_label' => 'Voir le profil de :name.',
+        'work_culture_label' => 'Culture de travail',
         'work_environment_label' => 'Environnement de travail',
         'team_narrative_label' => 'Ce qu\'il faut savoir',
         'team_culture_label' => 'Culture d\'équipe',
@@ -100,12 +101,18 @@ return [
         'team_work_label' => 'Notre mode de fonctionnement'
     ],
     'work_environment' => [
+        'view_more_button' => 'Voir l’environnement de travail et la culture de l’équipe',
+        'modal_title' => 'Work Environment and Culture FR', // TODO: needs translation
+        'modal_more_on_env' => 'More About Your Environment FR', // TODO: needs translation
+        'modal_button' => 'Fermer',
         'remote_work_label' => 'Travail à distance :',
+        'remote_work_desc' => 'Travaillez n’importe où, en tout temps.',
         'remote_work_allowed' => [
             true => 'Autorisé',
             false => 'Non autorisé',
         ],
         'telework_label' => 'Télétravail',
+        'telework_desc' => 'Travaillez à la maison certains jours (à distance de route du bureau).',
         'telework_allowed' => [
             'never' => 'Jamais',
             'rarely' => 'Rarement',
@@ -114,6 +121,7 @@ return [
             'always' => 'Presque toujours',
         ],
         'time_flexibility_label' => 'Horaire flexible',
+        'time_flexibility_desc' => 'Choisissez vos heures de début et de fin.',
         'time_flexibility_allowed' => [
             'never' => 'Jamais',
             'rarely' => 'Rarement',
@@ -121,6 +129,21 @@ return [
             'often' => 'Habituellement',
             'always' => 'Presque toujours',
         ],
+        'travel_label' => 'Voyage',
+        'travel_desc' => 'Voir plus du Canada ou du monde.',
+        'travel' => [
+            'frequently' => 'Frequently FR', // TODO: needs translation
+            'available' => 'Opportunities available FR', // TODO: needs translation
+            'none' => 'None FR', // TODO: needs translation
+        ],
+        'overtime_label' => 'Heures supplémentaires',
+        'overtime_desc' => 'Faites des heures supplémentaires les soirs et les fins de semaine.',
+        'overtime' => [
+            'frequently' => 'Frequently FR', // TODO: needs translation
+            'available' => 'Opportunities available FR', // TODO: needs translation
+            'none' => 'None FR', // TODO: needs translation
+        ],
+
     ],
     'know' => [
         'sidebar_title' => 'Voir les informations supplémentaires pour cet emploi.',

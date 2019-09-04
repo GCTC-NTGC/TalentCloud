@@ -1,5 +1,5 @@
-import React from "react";
-import { injectIntl, InjectedIntlProps } from "react-intl";
+import React, { useEffect } from "react";
+import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import IntroForm from "./IntroForm";
@@ -8,6 +8,7 @@ import {
   Department,
   JobPosterKeyTask,
   Criteria,
+  Manager,
 } from "../../models/types";
 import { RootState } from "../../store/store";
 import {
@@ -25,11 +26,14 @@ import RootContainer from "../RootContainer";
 import { jobBuilderDetails } from "../../helpers/routes";
 import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
 import { getDepartments } from "../../store/Department/deptSelector";
-import {
-  isJobBuilderComplete,
-  VALID_COUNT,
-} from "../JobBuilder/jobBuilderHelpers";
 import { navigate } from "../../helpers/router";
+import { getSelectedManager } from "../../store/Manager/managerSelector";
+import {
+  updateManager,
+  setSelectedManager,
+  fetchManager,
+  fetchCurrentManager,
+} from "../../store/Manager/managerActions";
 
 interface JobBuilderIntroProps {
   // The id of the edited job, or null for a new job.
@@ -39,36 +43,60 @@ interface JobBuilderIntroProps {
   // If not null, used to prepopulate form values.
   // Note: its possible for jobId to be non-null, but job to be null, if the data hasn't been loaded yet.
   job: Job | null;
-  // Tasks associated with the job, if it exists
-  keyTasks: JobPosterKeyTask[];
-  // Criteria associated with the job, if it exists
-  criteria: Criteria[];
+  // The manager of this job.
+  manager: Manager | null;
   // Creates a new job. Must return the new job if successful.
   handleCreateJob: (newJob: Job) => Promise<Job>;
   // Updates an existing job. Must return the updated job if successful.
   handleUpdateJob: (newJob: Job) => Promise<Job>;
+  // Updates an existing Manager. Must return the updated manager if successful.
+  handleUpdateManager: (manager: Manager) => Promise<Manager>;
+  // Load a manager with a particular id.
+  loadManager: (managerId: number) => Promise<void>;
+  // Load the manager profile of the current authenticated user.
+  loadCurrentManager: () => Promise<void>;
 }
 
 const JobBuilderIntro: React.FunctionComponent<
   JobBuilderIntroProps & InjectedIntlProps
 > = ({
   jobId,
+  manager,
   job,
   departments,
   handleCreateJob,
   handleUpdateJob,
-  keyTasks,
-  criteria,
+  handleUpdateManager,
+  loadManager,
+  loadCurrentManager,
   intl,
 }): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
   }
-  const handleSubmit = job ? handleUpdateJob : handleCreateJob;
+  useEffect((): void => {
+    if (manager === null) {
+      if (jobId === null) {
+        loadCurrentManager();
+      }
+      if (job !== null) {
+        loadManager(job.manager_id);
+      }
+    }
+  }, [manager, jobId, job, loadCurrentManager, loadManager]);
+
+  const submitJob = job ? handleUpdateJob : handleCreateJob;
+  const handleSubmit = async (
+    updatedJob: Job,
+    updatedManager: Manager,
+  ): Promise<Job> => {
+    const jobPromise = submitJob(updatedJob);
+    await handleUpdateManager(updatedManager);
+    return jobPromise;
+  };
 
   const handleContinueEn = (newJob: Job): void => {
-    // window.location.href = jobBuilderDetails("en", newJob.id);
     navigate(jobBuilderDetails("en", newJob.id));
   };
   const handleContinueFr = (newJob: Job): void => {
@@ -78,9 +106,32 @@ const JobBuilderIntro: React.FunctionComponent<
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="intro">
       {/** Show the form when the existing job has loaded, or if this is a new job */}
-      {(job !== null || jobId === null) && (
+      {manager === null && (
+        <div
+          data-c-container="form"
+          data-c-padding="top(triple) bottom(triple)"
+        >
+          <div
+            data-c-background="white(100)"
+            data-c-card
+            data-c-padding="all(double)"
+            data-c-radius="rounded"
+            data-c-align="base(centre)"
+          >
+            <p>
+              <FormattedMessage
+                id="jobBuilder.intro.managerLoading"
+                defaultMessage="Your Manager Profile is loading..."
+                description="Message indicating that the manager profile is still being loaded."
+              />
+            </p>
+          </div>
+        </div>
+      )}
+      {manager !== null && (job !== null || jobId === null) && (
         <IntroForm
           job={job}
+          manager={manager}
           departments={departments}
           handleSubmit={handleSubmit}
           handleContinueEn={handleContinueEn}
@@ -96,11 +147,13 @@ const mapStateToProps = (
   { jobId }: { jobId: number | null },
 ): {
   job: Job | null;
+  manager: Manager | null;
   departments: Department[];
   keyTasks: JobPosterKeyTask[];
   criteria: Criteria[];
 } => ({
   job: getSelectedJob(state),
+  manager: getSelectedManager(state),
   departments: getDepartments(state),
   keyTasks: jobId !== null ? getTasksByJob(state, { jobId }) : [],
   criteria: jobId !== null ? getCriteriaByJob(state, { jobId }) : [],
@@ -111,6 +164,9 @@ const mapDispatchToProps = (
 ): {
   handleCreateJob: (newJob: Job) => Promise<Job>;
   handleUpdateJob: (newJob: Job) => Promise<Job>;
+  handleUpdateManager: (newManager: Manager) => Promise<Manager>;
+  loadManager: (id: number) => Promise<void>;
+  loadCurrentManager: () => Promise<void>;
 } => ({
   handleCreateJob: async (newJob: Job): Promise<Job> => {
     const result = await dispatch(createJob(newJob));
@@ -128,6 +184,33 @@ const mapDispatchToProps = (
       return resultJob;
     }
     return Promise.reject(result.payload);
+  },
+  handleUpdateManager: async (newManager: Manager): Promise<Manager> => {
+    const result = await dispatch(updateManager(newManager));
+    if (!result.error) {
+      const resultManager = await result.payload;
+      dispatch(setSelectedManager(resultManager.id));
+      return resultManager;
+    }
+    return Promise.reject(result.payload);
+  },
+  loadManager: async (id: number): Promise<void> => {
+    const result = await dispatch(fetchManager(id));
+    if (!result.error) {
+      const resultManager = await result.payload;
+      dispatch(setSelectedManager(resultManager.id));
+      return Promise.resolve();
+    }
+    return Promise.reject(result.error);
+  },
+  loadCurrentManager: async (): Promise<void> => {
+    const result = await dispatch(fetchCurrentManager());
+    if (!result.error) {
+      const resultManager = await result.payload;
+      dispatch(setSelectedManager(resultManager.id));
+      return Promise.resolve();
+    }
+    return Promise.reject(result.error);
   },
 });
 

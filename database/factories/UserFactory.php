@@ -56,7 +56,7 @@ $factory->state(User::class, 'priority', [
 $factory->define(Applicant::class, function (Faker\Generator $faker) {
     return [
         'twitter_username' => $faker->firstName(),
-        'linkedin_url' => $faker->url(),
+        'linkedin_url' => null,
         'tagline' => $faker->paragraph(),
         'personal_website' => $faker->url(),
         'is_snapshot' => false,
@@ -69,7 +69,7 @@ $factory->define(Applicant::class, function (Faker\Generator $faker) {
 $factory->define(Manager::class, function (Faker\Generator $faker) use ($faker_fr) {
     return [
         'twitter_username' => $faker->firstName(),
-        'linkedin_url' => $faker->url(),
+        'linkedin_url' => null,
         'department_id' => Department::inRandomOrder()->first()->id,
         'work_review_frequency_id' => Frequency::inRandomOrder()->first()->id,
         'stay_late_frequency_id' => Frequency::inRandomOrder()->first()->id,

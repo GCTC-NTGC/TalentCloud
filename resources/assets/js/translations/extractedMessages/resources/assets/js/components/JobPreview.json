@@ -1,91 +1,91 @@
 [
   {
-    "id": "jobPreview.termLength",
+    "id": "jobBuilder.preview.termLength",
     "description": "Calculated term length in months",
     "defaultMessage": "{termMonths,plural,=0{no months} one{{termMonths, number} month} other{{termMonths, number} months}}"
   },
   {
-    "id": "jobPreview.jobInformation",
+    "id": "jobBuilder.preview.jobInformation",
     "description": "Section Header for basic information",
     "defaultMessage": "Job Information"
   },
   {
-    "id": "jobPreview.jobTitle",
+    "id": "jobBuilder.preview.jobTitle",
     "description": "Job Poster Card Information Label",
     "defaultMessage": "Job Title"
   },
   {
-    "id": "jobPreview.lengthOfTheTerm",
+    "id": "jobBuilder.preview.lengthOfTheTerm",
     "description": "Job Poster Card Information Label",
     "defaultMessage": "Length of the Term"
   },
   {
-    "id": "jobPreview.securityClearance",
+    "id": "jobBuilder.preview.securityClearance",
     "description": "Job Poster Card Information Label",
     "defaultMessage": "Security Clearance"
   },
   {
-    "id": "jobPreview.languageProfile",
+    "id": "jobBuilder.preview.languageProfile",
     "description": "Job Poster Card Information Label",
     "defaultMessage": "Language Profile"
   },
   {
-    "id": "jobPreview.city",
+    "id": "jobBuilder.preview.city",
     "description": "Job Poster Card Information Label",
     "defaultMessage": "City"
   },
   {
-    "id": "jobPreview.province",
+    "id": "jobBuilder.preview.province",
     "description": "Job Poster Card Information Label",
     "defaultMessage": "Province"
   },
   {
-    "id": "jobPreview.classificationEducation",
+    "id": "jobBuilder.preview.classificationEducation",
     "description": "Section Header",
     "defaultMessage": "Classification & Education"
   },
   {
-    "id": "jobPreview.classification",
+    "id": "jobBuilder.preview.classification",
     "description": "Job Poster Card Information Label",
     "defaultMessage": "Classification"
   },
   {
-    "id": "jobPreview.level",
+    "id": "jobBuilder.preview.level",
     "description": "Job Poster Card Information Label",
     "defaultMessage": "Level"
   },
   {
-    "id": "jobPreview.education",
+    "id": "jobBuilder.preview.education",
     "description": "Job Poster Card Information Label",
     "defaultMessage": "Education"
   },
   {
-    "id": "jobPreview.workStyles",
+    "id": "jobBuilder.preview.workStyles",
     "description": "Section Header",
     "defaultMessage": "Work Styles"
   },
   {
-    "id": "jobPreview.remoteWork",
+    "id": "jobBuilder.preview.remoteWork",
     "description": "Job Poster Card Information Label",
     "defaultMessage": "Remote Work"
   },
   {
-    "id": "jobPreview.telework",
+    "id": "jobBuilder.preview.telework",
     "description": "Job Poster Card Information Label",
     "defaultMessage": "Telework"
   },
   {
-    "id": "jobPreview.flexibleHours",
+    "id": "jobBuilder.preview.flexibleHours",
     "description": "Job Poster Card Information Label",
     "defaultMessage": "Flexible Hours"
   },
   {
-    "id": "jobPreview.travel",
+    "id": "jobBuilder.preview.travel",
     "description": "Job Poster Card Information Label",
     "defaultMessage": "Travel"
   },
   {
-    "id": "jobPreview.overtime",
+    "id": "jobBuilder.preview.overtime",
     "description": "Job Poster Card Information Label",
     "defaultMessage": "Overtime"
   }

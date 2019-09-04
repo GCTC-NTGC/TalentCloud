@@ -6,7 +6,8 @@ const HISTORY = createBrowserHistory();
 
 // Current implementation adapted from https://codesandbox.io/s/vyx8q7jvk7
 
-export const useLocation = (history: History<any>): Location<any> => {
+export const useLocation = (): Location<any> => {
+  const history = HISTORY;
   const [location, setLocation] = useState(history.location);
   useEffect((): (() => void) => {
     const unListen = history.listen((newLocation): void =>
@@ -17,14 +18,32 @@ export const useLocation = (history: History<any>): Location<any> => {
   return location;
 };
 
+// Scroll to element specified in the url hash, if possible
+export const useUrlHash = (): void => {
+  const location = useLocation();
+  const [hashFound, setHashFound] = useState(false);
+  useEffect((): void => {
+    if (location.hash && !hashFound) {
+      const hash = location.hash.startsWith("#")
+        ? location.hash.substring(1)
+        : location.hash;
+      const element = document.getElementById(hash);
+      if (element) {
+        setHashFound(true);
+        window.scrollTo(0, element.offsetTop);
+      }
+    }
+  }, [location.hash, hashFound]);
+};
+
 export const useRouter = (
   routes: Routes<any, React.ReactElement>,
 ): React.ReactElement | null => {
-  const history = HISTORY;
-  const location = useLocation(history);
+  const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
   const [component, setComponent] = useState<React.ReactElement | null>(null);
 
+  // Render the result of routing
   useEffect((): void => {
     router
       .resolve(location.pathname)
