@@ -101,16 +101,9 @@
 
         <div class="box med-2of12">
 
-            {# Note:
-                - This button needs to trigger a confirmation dialogue, email Talent Cloud upon confirmation, and then change the status of the job to submitted via AJAX.
-                - This interaction should also remove the draft, class from the poster and add the submitted class.
-            #}
             <a
                 class="button--blue submit-button"
-                data-action="review"
-                data-locale="{{App.getLocale()}}"
-                data-jobid="{{ job.id }}"
-                href="{{ route('manager.jobs.review', job) }}"
+                href="{{ route('manager.jobs.edit', job) ~ '#submit' }}" {# This links to the Submit button of the Review step of the JPB#}
                 title="{{ jobs_l10n.send_this_review }}">
                 {{ jobs_l10n.send_for_review }}
             </a>

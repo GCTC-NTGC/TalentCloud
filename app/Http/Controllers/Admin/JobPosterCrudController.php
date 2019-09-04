@@ -25,8 +25,9 @@ class JobPosterCrudController extends CrudController
             $this->crud->orderBy('close_date_time', 'desc');
         }
 
-        // Add the custom blade button found in resources/views/vendor/backpack/crud/buttons/full-edit.blade.php
-        $this->crud->addButtonFromView('line', 'full_edit', 'full_edit', 'end');
+        // Add the custom blade buttons found in resources/views/vendor/backpack/crud/buttons/
+        $this->crud->addButtonFromView('line', 'job_admin_edit', 'job_admin_edit', 'end');
+        $this->crud->addButtonFromView('line', 'jbp_link', 'jpb_link', 'end');
 
         $this->crud->addColumn([
             'name' => 'title',

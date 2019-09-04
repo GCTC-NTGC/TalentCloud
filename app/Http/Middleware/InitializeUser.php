@@ -44,6 +44,7 @@ class InitializeUser
                     $applicantProfile = new Applicant();
                     $applicantProfile->user_id = $user->id;
                     $applicantProfile->save();
+                    $user->refresh();
                 }
             }
             if ($user->hasRole('manager') ||
@@ -53,6 +54,7 @@ class InitializeUser
                     $managerProfile = new Manager();
                     $managerProfile->user_id = $user->id;
                     $managerProfile->save();
+                    $user->refresh();
                 }
             }
         }

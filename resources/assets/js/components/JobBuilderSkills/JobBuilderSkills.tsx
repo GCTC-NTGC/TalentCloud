@@ -326,10 +326,10 @@ export const JobBuilderSkills: React.FunctionComponent<
     handleSubmit(jobCriteria)
       .then((criteria: Criteria[]): void => {
         criteriaDispatch({ type: "replace", payload: criteria });
+        nprogress.done();
         handleReturn();
       })
       .finally((): void => {
-        nprogress.done();
         setIsSaving(false);
       });
   };

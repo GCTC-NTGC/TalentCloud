@@ -227,36 +227,16 @@ Route::group(
                     ->middleware('can:view,jobPoster')
                     ->name('manager.jobs.show');
 
-                /* Create Job */
-                Route::get('jobs/create', 'JobController@create')
-                    ->middleware('can:create,App\Models\JobPoster')
-                    ->name('manager.jobs.create');
-
-                Route::post('jobs', 'JobController@store')
-                    ->middleware('can:create,App\Models\JobPoster')
-                    ->name('manager.jobs.store');
-
-                Route::post('jobs/{jobPoster}', 'JobController@store')
-                    ->where('jobPoster', '[0-9]+')
-                    ->middleware('can:update,jobPoster')
-                    ->name('manager.jobs.update');
-
                 Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
                     ->where('jobPoster', '[0-9]+')
                     ->middleware('can:review,jobPoster')
                     ->name('manager.jobs.applications');
 
-                /* Edit Job */
-                Route::get('jobs/{jobPoster}/edit', 'JobController@edit')
-                    ->where('jobPoster', '[0-9]+')
-                    ->middleware('can:update,jobPoster')
-                    ->name('manager.jobs.edit');
-
                 /* Job Builder */
                 Route::get(
                     'jobs/builder',
                     'JobBuilderController@intro'
-                );
+                )->name('manager.jobs.create');
 
                 Route::get(
                     'jobs/{jobId}/builder/intro',
@@ -285,7 +265,9 @@ Route::group(
                 Route::get(
                     'jobs/{jobId}/builder/review',
                     'JobBuilderController@review'
-                )->where('jobPoster', '[0-9]+');
+                )
+                ->where('jobPoster', '[0-9]+')
+                ->name('manager.jobs.edit');
 
                 /* Delete Job */
                 Route::delete('jobs/{jobPoster}', 'JobController@destroy')
@@ -386,28 +368,31 @@ Route::group(
                 ->name('application_reviews.update');
         });
 
-        /* Language ============================================================= */
 
-        // Route::redirect('fr', '/')->name('lang.fr');
-        // Route::redirect('en', '/')->name('lang.en');
+        /* Non-Backpack Admin Portal =========================================================== */
+        Route::group(
+            [
+                'prefix' => 'admin',
+                'middleware' => ['auth', 'role:admin']
+            ],
+            function (): void {
+                /* Edit Job */
+                Route::get('jobs/{jobPoster}/edit', 'JobController@edit')
+                    ->where('jobPoster', '[0-9]+')
+                    ->middleware('can:update,jobPoster')
+                    ->name('admin.jobs.edit');
+                Route::post('jobs/{jobPoster}', 'JobController@store')
+                    ->where('jobPoster', '[0-9]+')
+                    ->middleware('can:update,jobPoster')
+                    ->name('admin.jobs.update');
+            }
+        );
     }
 );
 
 /** ALL NON-LOCALIZED ROUTES **/
 
-/* Non-Backpack Admin Portal =========================================================== */
 
-Route::group(
-    [
-        'prefix' => 'admin',
-        'middleware' => ['auth', 'role:admin']
-    ],
-    function (): void {
-        Route::get('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
-            ->middleware('can:create,App\Models\JobPoster')
-            ->name('admin.jobs.create.as_manager');
-    }
-);
 
 /** API routes - currently using same default http auth, but not localized */
 Route::group(['prefix' => 'api'], function (): void {

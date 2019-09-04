@@ -151,7 +151,7 @@ const overtimeRequirements: OvertimeOptionType[] = Object.keys(
   overtimeMessages,
 ) as OvertimeOptionType[];
 
-interface JobFormValues {
+interface DetailsFormValues {
   title: string;
   termLength: number | "";
   classification: string;
@@ -168,7 +168,7 @@ interface JobFormValues {
   overtime: OvertimeOptionType;
 }
 
-const isClassificationSet = (values: JobFormValues): boolean => {
+const isClassificationSet = (values: DetailsFormValues): boolean => {
   return values.classification.length > 0 && values.level !== "";
 };
 
@@ -185,8 +185,8 @@ const jobToValues = (
   job: Job | null,
   locale: string,
   intl: ReactIntl.InjectedIntl,
-): JobFormValues => {
-  const values: JobFormValues = job
+): DetailsFormValues => {
+  const values: DetailsFormValues = job
     ? {
         title: job[locale].title ? String(job[locale].title) : "", // TODO: use utility method
         termLength: job.term_qty || "",
@@ -262,7 +262,7 @@ const updateJobWithValues = (
     flexHours,
     travel,
     overtime,
-  }: JobFormValues,
+  }: DetailsFormValues,
 ): Job => ({
   ...initialJob,
   term_qty: termLength || null,
@@ -297,20 +297,24 @@ const JobDetails: React.FunctionComponent<
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [returnOnSubmit, setReturnOnSubmit] = useState(false);
 
   const modalParentRef = useRef<HTMLDivElement>(null);
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
-  const initialValues: JobFormValues = jobToValues(job || null, locale, intl);
+  const initialValues: DetailsFormValues = jobToValues(
+    job || null,
+    locale,
+    intl,
+  );
 
   const remoteWorkPossibleValues: RemoteWorkType[] = [
     "remoteWorkNone",
     "remoteWorkCanada",
     "remoteWorkWorld",
   ];
+
   const jobSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, intl.formatMessage(validationMessages.tooShort))
@@ -398,6 +402,28 @@ const JobDetails: React.FunctionComponent<
       .required(intl.formatMessage(validationMessages.required)),
   });
 
+  const handleEducationRequirements = (values: DetailsFormValues): string => {
+    return values.educationRequirements.length > 0
+      ? values.educationRequirements
+      : getEducationMsgForClassification(values.classification, intl);
+  };
+
+  const updateValuesAndReturn = (values: DetailsFormValues): void => {
+    // The following only triggers after validations pass
+    const educationRequirements = handleEducationRequirements(values);
+    const modifiedValues: DetailsFormValues = {
+      ...values,
+      educationRequirements,
+    };
+    handleSubmit(
+      updateJobWithValues(job || emptyJob(), locale, modifiedValues),
+    ).then((isSuccessful: boolean): void => {
+      if (isSuccessful) {
+        handleReturn();
+      }
+    });
+  };
+
   return (
     <section>
       <div
@@ -422,31 +448,25 @@ const JobDetails: React.FunctionComponent<
           validationSchema={jobSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
-            const educationRequirements: string =
-              values.educationRequirements.length > 0
-                ? values.educationRequirements
-                : getEducationMsgForClassification(values.classification, intl);
-            const modifiedValues: JobFormValues = {
+            const educationRequirements: string = handleEducationRequirements(
+              values,
+            );
+            const detailsFormValues: DetailsFormValues = {
               ...values,
               educationRequirements,
             };
 
             nprogress.start();
             handleSubmit(
-              updateJobWithValues(job || emptyJob(), locale, modifiedValues),
+              updateJobWithValues(job || emptyJob(), locale, detailsFormValues),
             )
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
-                  if (returnOnSubmit) {
-                    handleReturn();
-                  } else {
-                    nprogress.done();
-                    setIsModalVisible(true);
-                  }
+                  nprogress.done();
+                  setIsModalVisible(true);
                 }
               })
               .finally((): void => {
-                setReturnOnSubmit(false);
                 actions.setSubmitting(false); // Required by Formik to finish the submission cycle
               });
           }}
@@ -455,7 +475,6 @@ const JobDetails: React.FunctionComponent<
             touched,
             isSubmitting,
             values,
-            submitForm,
           }): React.ReactElement => (
             <section>
               <Form
@@ -927,15 +946,7 @@ const JobDetails: React.FunctionComponent<
                       type="button"
                       disabled={isSubmitting}
                       onClick={(): void => {
-                        /** TODO:
-                         * This is a race condition, since the setState hook call is asynchronous.
-                         * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
-                         * For now, the setState always happens faster than the validation check, so it works.
-                         * See https://github.com/jaredpalmer/formik/issues/214
-                         * -- Tristan
-                         */
-                        setReturnOnSubmit(true);
-                        submitForm();
+                        updateValuesAndReturn(values);
                       }}
                     >
                       <FormattedMessage
@@ -1008,11 +1019,11 @@ const JobDetails: React.FunctionComponent<
                     id="job-details-preview-description"
                   >
                     <p>
-                    <FormattedMessage
-                      id="jobBuilder.details.modalBody"
-                      defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
-                      description="The text displayed in the body of the Job Details modal."
-                    />
+                      <FormattedMessage
+                        id="jobBuilder.details.modalBody"
+                        defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+                        description="The text displayed in the body of the Job Details modal."
+                      />
                     </p>
                   </div>
                   <div
