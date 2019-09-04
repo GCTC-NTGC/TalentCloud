@@ -2,6 +2,8 @@
   "assessmentPlan.criteriaTitle",
   "assessmentPlan.skillDescriptionLabel",
   "ratingGuideBuilder.criteriaName",
+  "jobBuilder.preview.province",
+  "jobBuilder.preview.classification",
   "province.ab",
   "province.mb",
   "province.nu",
@@ -11,7 +13,5 @@
   "province.mb.abreviation",
   "province.on.abreviation",
   "province.sk.abreviation",
-  "securityClearance.secret",
-  "jobBuilder.preview.classification",
-  "jobBuilder.preview.province"
+  "securityClearance.secret"
 ]
