@@ -17,7 +17,7 @@
         "rcrowe/twigbridge": "^0.11.0",
         "slevomat/coding-standard": "^5.0",
         "spatie/laravel-translatable": "^4.1",
-        "tightenco/parental": "^0.7.0",
+        "tightenco/parental": "^0.8.0",
         "twig/twig": "^2.11"
     },
     "require-dev": {
