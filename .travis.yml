@@ -5,9 +5,9 @@ php:
 
 branches:
   only:
-  - dev
-  - master
-  - /^v\d+\.\d+(\.\d+)?(-\S*)?$/ # Tagged releases, i.e. v1.0.4
+    - dev
+    - master
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/ # Tagged releases, i.e. v1.0.4
 
 sudo: required
 dist: trusty
@@ -22,7 +22,7 @@ cache:
 
 # following required for Test Cafe
 addons:
-  firefox: latest
+  # firefox: latest
   apt:
     sources:
       - google-chrome
