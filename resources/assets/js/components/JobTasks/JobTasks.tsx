@@ -59,23 +59,23 @@ interface TaskFormValues {
 
 const formMessages = defineMessages({
   taskPlaceholder: {
-    id: "jobTasks.taskPlaceholder",
+    id: "jobBuilder.tasks.taskPlaceholder",
     defaultMessage: "Try for a casual, frank, friendly tone...",
     description: "Placeholder shown inside a Task text area.",
   },
   taskLabel: {
-    id: "jobTasks.taskLabel",
+    id: "jobBuilder.tasks.taskLabel",
     defaultMessage: "Task",
     description: "Label shown above a Task text area.",
   },
   tasksRequired: {
-    id: "jobTasks.tasksRequired",
+    id: "jobBuilder.tasks.tasksRequired",
     defaultMessage: "At least one task is required.",
     description:
       "Validation message shown when a user tries to submit no tasks.",
   },
   tasksMaximum: {
-    id: "jobTasks.tasksMaximum",
+    id: "jobBuilder.tasks.tasksMaximum",
     defaultMessage: "Please remove any additional tasks before continuing.",
     description:
       "Validation message shown when a user tries to submit more than the allowed number of tasks.",
@@ -175,7 +175,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
         data-c-margin="bottom(double)"
       >
         <FormattedMessage
-          id="jobTasks.heading"
+          id="jobBuilder.tasks.heading"
           defaultMessage="Add Key Tasks"
           description="Job Tasks page heading"
         />
@@ -183,28 +183,28 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
       <ul data-c-margin="bottom(double)">
         <li>
           <FormattedMessage
-            id="jobTasks.intro.first"
+            id="jobBuilder.tasks.intro.first"
             defaultMessage="What will your new team member spend their time on? What will they deliver?"
             description="Job Tasks page first intro section"
           />
         </li>
         <li>
           <FormattedMessage
-            id="jobTasks.intro.second"
+            id="jobBuilder.tasks.intro.second"
             defaultMessage="Focus on the key tasks. You don’t need to list every detail of the job, but applicants want to know how they will be spending most of their time."
             description="Job Tasks page second intro section"
           />
         </li>
         <li>
           <FormattedMessage
-            id="jobTasks.intro.third"
+            id="jobBuilder.tasks.intro.third"
             defaultMessage="Aim to provide between four and six key tasks. (You can add as many key tasks as you want as you brainstorm here, but you can include no more than eight in the final job poster.)"
             description="Job Tasks page third intro section"
           />
         </li>
         <li>
           <FormattedMessage
-            id="jobTasks.intro.fourth"
+            id="jobBuilder.tasks.intro.fourth"
             defaultMessage="Once you have finished entering key tasks, you will move on to identify the individual skills needed to accomplish them."
             description="Job Tasks page fourth intro section"
           />
@@ -249,7 +249,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
             {values.tasks.length > 0 && (
               <p data-c-alignment="tl(right)" data-c-margin="bottom(double)">
                 <FormattedMessage
-                  id="jobTasks.taskCount.some"
+                  id="jobBuilder.tasks.taskCount.some"
                   defaultMessage="You have {taskCount, plural,
                       one {# task}
                       other {# tasks}
@@ -272,7 +272,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
               >
                 <p>
                 <FormattedMessage
-                  id="jobTasks.taskCount.none"
+                  id="jobBuilder.tasks.taskCount.none"
                   defaultMessage="You don't have any tasks added yet!"
                   description="Message displayed when there are no tasks present on the page."
                 />
@@ -352,14 +352,14 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                                             className="fas fa-exclamation-circle"
                                           />
                                           <FormattedMessage
-                                            id="jobTasks.taskCount.error.title"
+                                            id="jobBuilder.tasks.taskCount.error.title"
                                             description="Error message displayed when too many tasks are on screen."
                                             defaultMessage="Just a heads up!"
                                           />
                                         </span>
                                         <p>
                                           <FormattedMessage
-                                            id="jobTasks.taskCount.error.body"
+                                            id="jobBuilder.tasks.taskCount.error.body"
                                             description="Error message displayed when too many tasks are on screen."
                                             defaultMessage="You have exceeded the maximum number of key tasks allowed, but that’s okay. You can continue to add key tasks as you brainstorm here, but you will be asked to trim your list to 6 key tasks or fewer to proceed."
                                           />
@@ -456,7 +456,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                             }
                           >
                             <FormattedMessage
-                              id="jobTasks.addJob"
+                              id="jobBuilder.tasks.addJob"
                               description="Text on the Add Task button."
                               defaultMessage="Add a Task"
                             />
@@ -488,7 +488,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                             }}
                           >
                             <FormattedMessage
-                              id="jobTasks.previous"
+                              id="jobBuilder.tasks.previous"
                               description="Text on the Previous Step button."
                               defaultMessage="Save & Return to Impact"
                             />
@@ -505,7 +505,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                             disabled={isSubmitting}
                           >
                             <FormattedMessage
-                              id="jobTasks.preview"
+                              id="jobBuilder.tasks.preview"
                               description="Text on the Preview Tasks button."
                               defaultMessage="Save & Preview Tasks"
                             />
@@ -549,7 +549,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                     id={`${modalId}-title`}
                   >
                     <FormattedMessage
-                      id="jobTasks.modal.title"
+                      id="jobBuilder.tasks.modal.title"
                       defaultMessage="Keep it up!"
                       description="Text displayed on the title of the Job Task page Modal."
                     />
@@ -565,7 +565,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                   >
                     <p>
                     <FormattedMessage
-                      id="jobTasks.modal.body"
+                      id="jobBuilder.tasks.modal.body"
                       description="Text displayed above the body of the Job Task page Modal."
                       defaultMessage="Here's a preview of the Tasks you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
                     />
@@ -586,7 +586,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                         data-c-padding="bottom(normal)"
                       >
                         <FormattedMessage
-                          id="jobTasks.modal.body.heading"
+                          id="jobBuilder.tasks.modal.body.heading"
                           description="Text displayed above the lists of Tasks inside the Modal body."
                           defaultMessage="Tasks"
                         />
@@ -606,7 +606,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
               <Modal.Footer>
                 <Modal.FooterCancelBtn>
                   <FormattedMessage
-                    id="jobTasks.modal.cancelButtonLabel"
+                    id="jobBuilder.tasks.modal.cancelButtonLabel"
                     description="The text displayed on the cancel button of the Job Tasks modal."
                     defaultMessage="Go Back"
                   />
@@ -614,7 +614,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                 {jobIsComplete && (
                   <Modal.FooterMiddleBtn>
                     <FormattedMessage
-                      id="jobTasks.modal.middleButtonLabel"
+                      id="jobBuilder.tasks.modal.middleButtonLabel"
                       description="The text displayed on the Skip to Review button of the Job Tasks modal."
                       defaultMessage="Skip to Review"
                     />
@@ -622,7 +622,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
                 )}
                 <Modal.FooterConfirmBtn>
                   <FormattedMessage
-                    id="jobTasks.modal.confirmButtonLabel"
+                    id="jobBuilder.tasks.modal.confirmButtonLabel"
                     description="The text displayed on the confirm button of the Job Tasks modal."
                     defaultMessage="Next Step"
                   />
