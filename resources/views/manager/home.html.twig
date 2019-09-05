@@ -26,7 +26,7 @@
                 <div data-c-align="base(center)" data-c-container="medium" data-c-padding="top(double)">
                     <h1 data-c-colour="white" data-c-font-size="h1" data-c-font-weight="700" data-c-margin="top(triple) bottom(normal)">Talent Cloud<img alt="Canadian Maple Leaf" class="hero-icon" src="/images/maple-leaf.svg"></h1>
                     <p data-c-colour="white" data-c-margin="bottom(triple)">An experimental platform. Hiring made easier.</p>
-                    <a href="/manager/register" title="Sign up as a manager to demo Talent Cloud's manager portal." data-c-button="outline(white)" data-c-radius="rounded">
+                    <a href="{{ route('manager.register') }}" title="Sign up as a manager to demo Talent Cloud's manager portal." data-c-button="outline(white)" data-c-radius="rounded">
                         Sign Up
                     </a>
                 </div>
@@ -35,7 +35,7 @@
             <div data-c-padding="tb(normal)" class="tc-gradient-lr">
                 <div data-c-container="medium" data-c-align="base(center)" data-c-color="white">
                     <p data-c-padding="tb(half)">
-                        Welcome to the Talent Cloud <span data-c-font-weight="bold">manager</span> portal. <a href="/en" title="Return to the applicant portal.">Click here to return to the applicant portal.</a>
+                        Welcome to the Talent Cloud <span data-c-font-weight="bold">manager</span> portal. <a href="{{ route('home') }}" title="Return to the applicant portal.">Click here to return to the applicant portal.</a>
                     </p>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                     <h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">Available Features</h2>
                     <div class="tc-manager-feature-mobile">
                         <h3 data-c-font-size="h4" data-c-margin="top(triple) bottom(normal)">Demo Account Features</h3>
-                        <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="tb(normal)">You <span data-c-font-weight="bold">do not</span> work at a department that is <a href="/faq/#partners" title="View the departments partnered with Talent Cloud." target="_blank">partnered</a> with Talent Cloud.</p>
+                        <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="tb(normal)">You <span data-c-font-weight="bold">do not</span> work at a department that is <a href="{{ route('faq') }}#partners" title="View the departments partnered with Talent Cloud." target="_blank">partnered</a> with Talent Cloud.</p>
                         <div data-c-padding="normal" data-c-border="all(thin, solid, black)" data-c-radius="rounded">
                             <p data-c-margin="bottom(half)" data-c-font-weight="bold">Job Poster Creation</p>
                             <p data-c-font-weight="400" data-c-margin="top(quarter)">Features such as pre-populated paragraphs and suggested options based on your previous selections make it easy for you to create a job.</p>
@@ -70,7 +70,7 @@
                             <p data-c-font-weight="400" data-c-margin="top(quarter)">Create a profile that tells applicants more about you.</p>
                         </div>
                         <h3 data-c-font-size="h4" data-c-margin="top(triple) bottom(normal)">Partner Department Account Features</h3>
-                        <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="tb(normal)">You work at a department that is <a href="/faq/#partners" title="View the departments partnered with Talent Cloud." target="_blank">partnered</a> with Talent Cloud.</p>
+                        <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="tb(normal)">You work at a department that is <a href="{{ route('faq') }}#partners" title="View the departments partnered with Talent Cloud." target="_blank">partnered</a> with Talent Cloud.</p>
                         <div data-c-padding="normal" data-c-border="all(thin, solid, black)" data-c-radius="rounded">
                             <p data-c-margin="bottom(half)" data-c-font-weight="bold" data-c-color="c2">All demo account features, plus:</p>
                             <p data-c-margin="top(double) bottom(half)" data-c-font-weight="bold">Post Job</p>
@@ -92,11 +92,11 @@
                                     </th>
                                     <th scope="col">
                                         <p data-c-font-weight="bold">Demo Account</p>
-                                        <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="top(quarter)">You <span data-c-font-weight="bold">do not</span> work at a department that is <a href="/faq/#partners" title="View the departments partnered with Talent Cloud." target="_blank">partnered</a> with Talent Cloud.</p>
+                                        <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="top(quarter)">You <span data-c-font-weight="bold">do not</span> work at a department that is <a href="{{ route('faq') }}#partners" title="View the departments partnered with Talent Cloud." target="_blank">partnered</a> with Talent Cloud.</p>
                                     </th>
                                     <th scope="col">
                                         <p data-c-font-weight="bold">Partner Department</p>
-                                        <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="top(quarter)">You work at a department that is <a href="/faq/#partners" title="View the departments partnered with Talent Cloud." target="_blank">partnered</a> with Talent Cloud.</p>
+                                        <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="top(quarter)">You work at a department that is <a href="{{ route('faq') }}#partners" title="View the departments partnered with Talent Cloud." target="_blank">partnered</a> with Talent Cloud.</p>
                                     </th>
                                 </tr>
                             </thead>
@@ -200,7 +200,7 @@
 
             <div data-c-container="medium">
                 <h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="top(triple) bottom(normal)">How Can I Post a Job?</h2>
-                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">Are you a member of one of these <a href="/faq/#partners" title="View the departments partnered with Talent Cloud." target="_blank">partner departments</a>?</p>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">Are you a member of one of these <a href="{{ route('faq') }}#partners" title="View the departments partnered with Talent Cloud." target="_blank">partner departments</a>?</p>
                 <p data-c-margin="bottom(normal)">If you’re a member, <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Send an emailt to Talent Cloud.">contact Talent Cloud</a> to let us know that we should level up your account. This will allow you to post jobs on Talent Cloud, as well as provide you with all the features that come with a Partner Department Account. To be able to post a job, you’ll need to confirm that you have a classified box.</p>
                 <p data-c-margin="bottom(normal)" data-c-font-weight="bold">Not a member? You can still use Talent Cloud!</p>
                 <p data-c-margin="bottom(triple)">If you’re not a member of a partner department, you can use Talent Cloud with a demo account to create a job poster and an assessment plan, but you won’t be able to post on the live site. Your job poster and assessment plan will have to be integrated into your HR processes. If you like what you see, get in touch with your HR advisor to see how you can join the pilot.</p>
