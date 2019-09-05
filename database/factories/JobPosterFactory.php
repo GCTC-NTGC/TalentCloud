@@ -23,6 +23,26 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
     $startDate = $faker->dateTimeBetween('1 months', '2 months')->format('Y-m-d');
     $classificationCode = Classification::inRandomOrder()->first()->key;
     $classificationLevel = $faker->numberBetween(1, 6);
+    $work_env_features = [
+        'accessToExternal' => $faker->boolean(),
+        'assignedSeating' => $faker->boolean(),
+        'cafeteria' => $faker->boolean(),
+        'closeToTransit' => $faker->boolean(),
+        'collaboration' => $faker->boolean(),
+        'downtown' => $faker->boolean(),
+        'fileSharing' => $faker->boolean(),
+        'fitnessCenter' => $faker->boolean(),
+        'naturalLight' => $faker->boolean(),
+        'openConcept' => $faker->boolean(),
+        'parking' => $faker->boolean(),
+        'private' => $faker->boolean(),
+        'restaurants' => $faker->boolean(),
+        'smudging' => $faker->boolean(),
+        'taskManagement' => $faker->boolean(),
+        'versionControl' => $faker->boolean(),
+        'videoConferencing' => $faker->boolean(),
+        'windows' => $faker->boolean()
+    ];
     return [
         'job_term_id' => JobTerm::inRandomOrder()->first()->id,
         'term_qty' => $faker->numberBetween(1, 4),
@@ -46,7 +66,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
             return factory(Manager::class)->create()->id;
         },
         'team_size' => $faker->numberBetween(5, 30),
-        'work_env_features' => null, // TODO: fake features once they're nailed down
+        'work_env_features' => $work_env_features,
         'fast_vs_steady' => $faker->numberBetween(1, 4),
         'horizontal_vs_vertical' => $faker->numberBetween(1, 4),
         'experimental_vs_ongoing' => $faker->numberBetween(1, 4),
@@ -93,6 +113,14 @@ $factory->afterCreating(JobPoster::class, function ($jp) : void {
         'job_poster_id' => $jp->id
     ]));
 });
+
+$factory->state(
+    JobPoster::class,
+    'byUpgradedManager',
+    ['manager_id' => function () {
+            return factory(Manager::class)->state('upgraded')->create()->id;
+    }]
+);
 
 $factory->state(
     JobPoster::class,

@@ -87,6 +87,20 @@ class ManagerApiControllerTest extends TestCase
         $response->assertJsonFragment($manager->toApiArray());
     }
 
+    public function testCurrentManagerAsGuest()
+    {
+        $response = $this->json('get', 'api/currentuser/manager');
+        $response->assertUnauthorized();
+    }
+
+    public function testCurrentManagerAsManager()
+    {
+        $manager = factory(Manager::class)->create();
+        $response = $this->actingAs($manager->user)->json('get', 'api/currentuser/manager');
+        $response->assertOk();
+        $response->assertJsonFragment($manager->fresh()->toApiArray());
+    }
+
     public function testUpdateAsManager()
     {
         $manager = factory(Manager::class)->create();
@@ -110,7 +124,7 @@ class ManagerApiControllerTest extends TestCase
     public function testUpdateAsWrongManager()
     {
         $manager = factory(Manager::class)->create();
-        $otherManager = factory(User::class)->state('manager')->create();
+        $otherManager = factory(User::class)->create();
         $managerUpdate = $this->generateFrontendManager();
         $response = $this->actingAs($otherManager)
             ->json('put', "api/managers/$manager->id", $managerUpdate);

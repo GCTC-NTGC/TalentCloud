@@ -15,7 +15,7 @@ class LangFilesTest extends BaseTranslationTest
     public function testAllLangFilesWellFormatted() : void
     {
         foreach ($this->getAllLangFilenames() as $langFile) {
-            if (!empty($langFile)) {
+            if (! empty($langFile)) {
                 $this->assertInternalType('array', Lang::get($langFile));
             }
         }
@@ -35,12 +35,12 @@ class LangFilesTest extends BaseTranslationTest
                 App::setLocale($locale);
                 $value = Lang::get($path);
                 if ($value === '') {
-                    $fullPath = $locale . '/' . $path;
+                    $fullPath = $locale.'/'.$path;
                     array_push($emptyEntries, $fullPath);
                 }
             }
         }
-        if (!empty($emptyEntries)) {
+        if (! empty($emptyEntries)) {
             print_r("\n");
             print_r("The following lang entries are empty strings:\n");
             print_r($emptyEntries);
@@ -65,12 +65,12 @@ class LangFilesTest extends BaseTranslationTest
                 App::setLocale($locale);
                 $value = Lang::get($path);
                 if (in_array($value, $checks)) {
-                    $fullPath = $locale . '/' . $path;
+                    $fullPath = $locale.'/'.$path;
                     array_push($translationNeeded, $fullPath);
                 }
             }
         }
-        if (!empty($translationNeeded)) {
+        if (! empty($translationNeeded)) {
             print_r("\n");
             print_r("Translation needed for the following keys:\n");
             print_r($translationNeeded);
@@ -139,14 +139,14 @@ class LangFilesTest extends BaseTranslationTest
         foreach ($this->getAllLangPaths() as $path) {
             foreach ($this->locales as $locale) {
                 App::setLocale($locale);
-                if (!Lang::has($path) && !in_array($path, $this->permittedMissing[$locale])) {
+                if (! Lang::has($path) && ! in_array($path, $this->permittedMissing[$locale])) {
                     array_push($missingEntries[$locale], $path);
                 }
             }
         }
         $allMissingEntries = [];
         foreach ($this->locales as $locale) {
-            if (!empty($missingEntries[$locale])) {
+            if (! empty($missingEntries[$locale])) {
                 print_r("\n");
                 print_r("The following lang entries are missing in $locale\n");
                 print_r($missingEntries[$locale]);
@@ -186,6 +186,7 @@ class LangFilesTest extends BaseTranslationTest
         'mailto:meagan.commonda@tbs-sct.gc.ca',
         'https://twitter.com/meagancommonda/',
         'http://caid.ca/IndRecRet2017.pdf',
+        'https://talentcloud1.typeform.com/to/tWIPup'
     ];
 
     /**
@@ -213,7 +214,7 @@ class LangFilesTest extends BaseTranslationTest
             }
         }
         $identicalEntries = array_unique($identicalEntries);
-        if (!empty($identicalEntries)) {
+        if (! empty($identicalEntries)) {
             print_r("\n");
             print_r("The following lang entries are identical in multiple languages:\n");
             print_r($identicalEntries);

@@ -6,6 +6,7 @@ import fakeJob from "../../fakeData/fakeJob";
 import IntroForm from "../../components/JobBuilderIntro/IntroForm";
 import { Job } from "../../models/types";
 import { fakeDepartments } from "../../fakeData/fakeDepartments";
+import { fakeManager } from "../../fakeData/fakeManager";
 
 const stories = storiesOf("Job Poster Builder|Intro", module).addDecorator(
   withIntl,
@@ -22,6 +23,7 @@ stories
     (): React.ReactElement => (
       <IntroForm
         job={null}
+        manager={fakeManager()}
         departments={fakeDepartments()}
         handleSubmit={handleSubmit}
         handleContinueEn={action("Continue in English")}
@@ -34,6 +36,7 @@ stories
     (): React.ReactElement => (
       <IntroForm
         job={fakeJob()}
+        manager={fakeManager()}
         departments={fakeDepartments()}
         handleSubmit={handleSubmit}
         handleContinueEn={action("Continue in English")}

@@ -124,10 +124,13 @@ export const asyncAction = <
   parseResponse: (response: any) => TPayload,
   metaData: TMeta,
 ): RSAActionTemplate<TStarted, TSuccess, TFailed, TPayload, TMeta> => {
-  const tokenHeader = { "X-CSRF-TOKEN": csrfToken };
+  const basicHeaders = {
+    "X-CSRF-TOKEN": csrfToken,
+    Accept: "application/json",
+  };
   const jsonBodyHeader = { "Content-Type": "application/json" }; // informs server that the body is a json encoded string
   const headers =
-    body === null ? tokenHeader : { ...tokenHeader, ...jsonBodyHeader };
+    body === null ? basicHeaders : { ...basicHeaders, ...jsonBodyHeader };
 
   let stringBody: string | null = null;
   if (body instanceof Object) {

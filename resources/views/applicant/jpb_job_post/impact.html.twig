@@ -1,0 +1,34 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Impact
+
+============================================================================= #}
+
+<a
+    aria-hidden="true"
+    class="job-post__anchor"
+    id="impact">
+</a>
+
+<section
+    class="job-poster__impact">
+
+    <h3
+        class="job-poster__impact-title">
+        {{ job_post.impact.title }}
+    </h3>
+
+    <p>
+        {{ job.dept_impact ? job.dept_impact|nl2br : noInfo }}
+    </p>
+
+    <p>
+        {{ job.team_impact ? job.team_impact|nl2br : noInfo }}
+    </p>
+
+    <p>
+        {{ job.hire_impact ? job.hire_impact|nl2br : noInfo }}
+    </p>
+
+</section>

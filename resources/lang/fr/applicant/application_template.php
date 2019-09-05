@@ -197,7 +197,7 @@ return [
         'step_06_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 6',
         'title' => "Merci d'avoir postulé!",
         'copy_01' => "Nuage de talents est un site expérimental. Aidez-nous à améliorer le processus de dotation au fédéral en répondant à un bref sondage d'expérience. Cette information sera anonyme. En participant, vous nous aiderez directement à améliorer la plateforme.",
-        'survey_link' => 'GOOGLE',
+        'survey_link' => 'https://talentcloud1.typeform.com/to/tWIPup',
         'survey_title' => "Participer à l'enquête.",
         'survey_label' => "Participer à l'enquête",
         'copy_02' => 'Curieux de savoir quelle est la prochaine étape pour votre application? Pour en savoir plus sur le processus de dotation, consultez notre page foire aux questions.',

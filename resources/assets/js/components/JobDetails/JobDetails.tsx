@@ -2,6 +2,7 @@
 import React, { useState, useRef } from "react";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { Formik, Form, Field } from "formik";
+import nprogress from "nprogress";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import RadioGroup from "../Form/RadioGroup";
@@ -150,7 +151,7 @@ const overtimeRequirements: OvertimeOptionType[] = Object.keys(
   overtimeMessages,
 ) as OvertimeOptionType[];
 
-interface JobFormValues {
+interface DetailsFormValues {
   title: string;
   termLength: number | "";
   classification: string;
@@ -167,7 +168,7 @@ interface JobFormValues {
   overtime: OvertimeOptionType;
 }
 
-const isClassificationSet = (values: JobFormValues): boolean => {
+const isClassificationSet = (values: DetailsFormValues): boolean => {
   return values.classification.length > 0 && values.level !== "";
 };
 
@@ -184,8 +185,8 @@ const jobToValues = (
   job: Job | null,
   locale: string,
   intl: ReactIntl.InjectedIntl,
-): JobFormValues => {
-  const values: JobFormValues = job
+): DetailsFormValues => {
+  const values: DetailsFormValues = job
     ? {
         title: job[locale].title ? String(job[locale].title) : "", // TODO: use utility method
         termLength: job.term_qty || "",
@@ -261,7 +262,7 @@ const updateJobWithValues = (
     flexHours,
     travel,
     overtime,
-  }: JobFormValues,
+  }: DetailsFormValues,
 ): Job => ({
   ...initialJob,
   term_qty: termLength || null,
@@ -296,20 +297,24 @@ const JobDetails: React.FunctionComponent<
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [returnOnSubmit, setReturnOnSubmit] = useState(false);
 
   const modalParentRef = useRef<HTMLDivElement>(null);
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
-  const initialValues: JobFormValues = jobToValues(job || null, locale, intl);
+  const initialValues: DetailsFormValues = jobToValues(
+    job || null,
+    locale,
+    intl,
+  );
 
   const remoteWorkPossibleValues: RemoteWorkType[] = [
     "remoteWorkNone",
     "remoteWorkCanada",
     "remoteWorkWorld",
   ];
+
   const jobSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, intl.formatMessage(validationMessages.tooShort))
@@ -397,6 +402,28 @@ const JobDetails: React.FunctionComponent<
       .required(intl.formatMessage(validationMessages.required)),
   });
 
+  const handleEducationRequirements = (values: DetailsFormValues): string => {
+    return values.educationRequirements.length > 0
+      ? values.educationRequirements
+      : getEducationMsgForClassification(values.classification, intl);
+  };
+
+  const updateValuesAndReturn = (values: DetailsFormValues): void => {
+    // The following only triggers after validations pass
+    const educationRequirements = handleEducationRequirements(values);
+    const modifiedValues: DetailsFormValues = {
+      ...values,
+      educationRequirements,
+    };
+    handleSubmit(
+      updateJobWithValues(job || emptyJob(), locale, modifiedValues),
+    ).then((isSuccessful: boolean): void => {
+      if (isSuccessful) {
+        handleReturn();
+      }
+    });
+  };
+
   return (
     <section>
       <div
@@ -410,7 +437,7 @@ const JobDetails: React.FunctionComponent<
           data-c-margin="bottom(double)"
         >
           <FormattedMessage
-            id="jobDetails.heading"
+            id="jobBuilder.details.heading"
             defaultMessage="Job Details"
             description="Job Details page heading"
           />
@@ -421,28 +448,25 @@ const JobDetails: React.FunctionComponent<
           validationSchema={jobSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
-            const educationRequirements: string =
-              values.educationRequirements.length > 0
-                ? values.educationRequirements
-                : getEducationMsgForClassification(values.classification, intl);
-            const modifiedValues: JobFormValues = {
+            const educationRequirements: string = handleEducationRequirements(
+              values,
+            );
+            const detailsFormValues: DetailsFormValues = {
               ...values,
               educationRequirements,
             };
+
+            nprogress.start();
             handleSubmit(
-              updateJobWithValues(job || emptyJob(), locale, modifiedValues),
+              updateJobWithValues(job || emptyJob(), locale, detailsFormValues),
             )
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
-                  if (returnOnSubmit) {
-                    handleReturn();
-                  } else {
-                    setIsModalVisible(true);
-                  }
+                  nprogress.done();
+                  setIsModalVisible(true);
                 }
               })
               .finally((): void => {
-                setReturnOnSubmit(false);
                 actions.setSubmitting(false); // Required by Formik to finish the submission cycle
               });
           }}
@@ -451,7 +475,6 @@ const JobDetails: React.FunctionComponent<
             touched,
             isSubmitting,
             values,
-            submitForm,
           }): React.ReactElement => (
             <section>
               <Form
@@ -602,9 +625,8 @@ const JobDetails: React.FunctionComponent<
                       data-c-alignment="base(center)"
                     >
                       <FormattedMessage
-                        id="jobDetails.SelectClassAndLvlMessage"
-                        defaultMessage="Please select a classification and level before preparing
-                          the education requirements."
+                        id="jobBuilder.details.SelectClassAndLvlMessage"
+                        defaultMessage="Please select a classification and level before preparing the education requirements."
                         description="Message displayed after classification and level select boxes."
                       />
                     </p>
@@ -615,7 +637,7 @@ const JobDetails: React.FunctionComponent<
                         data-c-margin="bottom(normal)"
                       >
                         <FormattedMessage
-                          id="jobDetails.educationRequirementHeader"
+                          id="jobBuilder.details.educationRequirementHeader"
                           defaultMessage="Based on the classification level you selected, this standard paragraph will appear on the job poster."
                           description="Header message displayed for the Education requirement section."
                         />
@@ -633,7 +655,7 @@ const JobDetails: React.FunctionComponent<
                       <div className="job-builder-education-customization active">
                         <p data-c-margin="bottom(normal)">
                           <FormattedMessage
-                            id="jobDetails.educationRequirementCopyAndPaste"
+                            id="jobBuilder.details.educationRequirementCopyAndPaste"
                             defaultMessage="If you want to customize this paragraph, copy and paste it into the textbox below."
                             description="Footer message displayed for the Education requirement section."
                           />
@@ -643,7 +665,7 @@ const JobDetails: React.FunctionComponent<
                           data-c-margin="bottom(normal)"
                         >
                           <FormattedMessage
-                            id="jobDetails.educationRequirementReviewChanges"
+                            id="jobBuilder.details.educationRequirementReviewChanges"
                             defaultMessage="Your HR advisor will review your changes."
                             description="Footer message displayed for the Education requirement section."
                           />
@@ -740,14 +762,14 @@ const JobDetails: React.FunctionComponent<
                 />
                 <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
                   <FormattedMessage
-                    id="jobDetails.remoteWorkGroupHeader"
+                    id="jobBuilder.details.remoteWorkGroupHeader"
                     defaultMessage="Is remote work allowed?"
                     description="Header message displayed on the remote work group input."
                   />
                 </p>
                 <p data-c-margin="bottom(normal)">
                   <FormattedMessage
-                    id="jobDetails.remoteWorkGroupBody"
+                    id="jobBuilder.details.remoteWorkGroupBody"
                     defaultMessage="Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor."
                     description="Body message displayed on the remote work group input."
                   />
@@ -777,14 +799,14 @@ const JobDetails: React.FunctionComponent<
                 </RadioGroup>
                 <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
                   <FormattedMessage
-                    id="jobDetails.teleworkGroupHeader"
+                    id="jobBuilder.details.teleworkGroupHeader"
                     defaultMessage="How often is telework allowed?"
                     description="Header message displayed on the telework group input."
                   />
                 </p>
                 <p data-c-margin="bottom(normal)">
                   <FormattedMessage
-                    id="jobDetails.teleworkGroupBody"
+                    id="jobBuilder.details.teleworkGroupBody"
                     defaultMessage="Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option."
                     description="Body message displayed on the telework group input."
                   />
@@ -814,14 +836,14 @@ const JobDetails: React.FunctionComponent<
                 </RadioGroup>
                 <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
                   <FormattedMessage
-                    id="jobDetails.flexHoursGroupHeader"
+                    id="jobBuilder.details.flexHoursGroupHeader"
                     defaultMessage="How often are flexible hours allowed?"
                     description="Header message displayed on the flex hours group input."
                   />
                 </p>
                 <p data-c-margin="bottom(normal)">
                   <FormattedMessage
-                    id="jobDetails.flexHoursGroupBody"
+                    id="jobBuilder.details.flexHoursGroupBody"
                     defaultMessage={`Want to support a more gender inclusive workplace?
                           Studies show allowing flex hours is a great way to improve opportunities for women and parents.`}
                     description="Body message displayed on the flex hours group input."
@@ -852,7 +874,7 @@ const JobDetails: React.FunctionComponent<
                 </RadioGroup>
                 <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
                   <FormattedMessage
-                    id="jobDetails.travelGroupHeader"
+                    id="jobBuilder.details.travelGroupHeader"
                     defaultMessage="Is travel required?"
                     description="Header message displayed on the travel group input."
                   />
@@ -882,7 +904,7 @@ const JobDetails: React.FunctionComponent<
                 </RadioGroup>
                 <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
                   <FormattedMessage
-                    id="jobDetails.overtimeGroupHeader"
+                    id="jobBuilder.details.overtimeGroupHeader"
                     defaultMessage="Is overtime required?"
                     description="Header message displayed on the overtime group input."
                   />
@@ -924,19 +946,11 @@ const JobDetails: React.FunctionComponent<
                       type="button"
                       disabled={isSubmitting}
                       onClick={(): void => {
-                        /** TODO:
-                         * This is a race condition, since the setState hook call is asynchronous.
-                         * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
-                         * For now, the setState always happens faster than the validation check, so it works.
-                         * See https://github.com/jaredpalmer/formik/issues/214
-                         * -- Tristan
-                         */
-                        setReturnOnSubmit(true);
-                        submitForm();
+                        updateValuesAndReturn(values);
                       }}
                     >
                       <FormattedMessage
-                        id="jobDetails.returnButtonLabel"
+                        id="jobBuilder.details.returnButtonLabel"
                         defaultMessage="Save & Return to Intro"
                         description="The text displayed on the Save & Return button of the Job Details form."
                       />
@@ -953,7 +967,7 @@ const JobDetails: React.FunctionComponent<
                       disabled={isSubmitting}
                     >
                       <FormattedMessage
-                        id="jobDetails.submitButtonLabel"
+                        id="jobBuilder.details.submitButtonLabel"
                         defaultMessage="Save & Preview"
                         description="The text displayed on the submit button for the Job Details form."
                       />
@@ -991,7 +1005,7 @@ const JobDetails: React.FunctionComponent<
                       id="job-details-preview-title"
                     >
                       <FormattedMessage
-                        id="jobDetails.modalHeader"
+                        id="jobBuilder.details.modalHeader"
                         defaultMessage="You're off to a great start!"
                         description="The text displayed in the header of the Job Details modal."
                       />
@@ -1004,11 +1018,13 @@ const JobDetails: React.FunctionComponent<
                     data-c-padding="normal"
                     id="job-details-preview-description"
                   >
-                    <FormattedMessage
-                      id="jobDetails.modalBody"
-                      defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
-                      description="The text displayed in the body of the Job Details modal."
-                    />
+                    <p>
+                      <FormattedMessage
+                        id="jobBuilder.details.modalBody"
+                        defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+                        description="The text displayed in the body of the Job Details modal."
+                      />
+                    </p>
                   </div>
                   <div
                     data-c-background="grey(20)"
@@ -1075,7 +1091,7 @@ const JobDetails: React.FunctionComponent<
                 <Modal.Footer>
                   <Modal.FooterCancelBtn>
                     <FormattedMessage
-                      id="jobDetails.modalCancelLabel"
+                      id="jobBuilder.details.modalCancelLabel"
                       defaultMessage="Go Back"
                       description="The text displayed on the cancel button of the Job Details modal."
                     />
@@ -1083,7 +1099,7 @@ const JobDetails: React.FunctionComponent<
                   {jobIsComplete && (
                     <Modal.FooterMiddleBtn>
                       <FormattedMessage
-                        id="jobDetails.modalMiddleLabel"
+                        id="jobBuilder.details.modalMiddleLabel"
                         defaultMessage="Skip to Review"
                         description="The text displayed on the 'Skip to Review' button of the Job Details modal."
                       />
@@ -1091,7 +1107,7 @@ const JobDetails: React.FunctionComponent<
                   )}
                   <Modal.FooterConfirmBtn>
                     <FormattedMessage
-                      id="jobDetails.modalConfirmLabel"
+                      id="jobBuilder.details.modalConfirmLabel"
                       defaultMessage="Next Step"
                       description="The text displayed on the confirm button of the Job Details modal."
                     />
