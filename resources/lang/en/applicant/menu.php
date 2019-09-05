@@ -24,6 +24,10 @@ return [
         ],
         "faq" => [
             "name" => "FAQ"
+        ],
+        "itp" => [
+            "name" => "Indigenous Talent",
+            "link" => "/indigenous"
         ]
     ],
     "register" => "Register",

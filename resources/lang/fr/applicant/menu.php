@@ -25,6 +25,10 @@ return [
         "faq" => [
             "name" => "FAQ"
         ],
+        "itp" => [
+            "name" => "Talent autochtone",
+            "link" => "/indigenous"
+        ]
     ],
     "register" => "Inscription",
     "login" => "Ouverture de session",

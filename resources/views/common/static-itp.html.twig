@@ -8,11 +8,8 @@
 
 {% block body %}
 
-    {# Sitewide Notice ====================================================== #}
-    {% include "common/alert" %}
-
-    {# Government of Canada Banner ========================================== #}
     {% include "common/goc" %}
+{% include "common/alert" %}
 
     <div data-clone>
         <div
@@ -20,7 +17,7 @@
             {# ITP Heading ================================================== #}
             <header data-c-alignment="center" data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/bg-mountains.jpg');">
                 {% include "common/menu" %}
-                <div data-c-container="layout">
+                <div data-c-container="large" data-c-padding="top(double)">
                     <h1 data-c-colour="white" data-c-font-size="h1" data-c-font-weight="700" data-c-margin="top(triple) bottom(normal)">{{ itp.itp_hero.title }}<img alt="Canadian Maple Leaf" class="hero-icon" src="/images/maple-leaf.svg"></h1>
                     <p data-c-colour="white" data-c-margin="bottom(triple)">{{ itp.itp_hero.subtitle }}</p>
                     <span data-c-colour="white" data-c-font-weight="800">{{ itp.itp_hero.pilot }}</span>
@@ -28,19 +25,19 @@
             </header>
             {# CTA Statement Banner ========================================= #}
             <div class="gradient-left-right" data-c-padding="normal">
-                <div data-c-alignment="center" data-c-container="layout">
+                <div data-c-alignment="center" data-c-container="large">
                     <p data-c-colour="white" data-c-margin="top(half) bottom(half)">{{ itp.itp_slogan }}</p>
                 </div>
             </div>
             {# Why, When, What ============================================== #}
             <div class="itp-why">
-                <div data-c-container="layout">
+                <div data-c-container="large">
                     <div
                         data-c-grid="gutter">
                         {# Why & When --------------------------------------- #}
                         <div data-c-grid-item="equal-col tl(2of5)">
                             <div data-c-padding="top(triple) bottom(triple)">
-                                <div class="itp-why-background"></div>
+                                <div class="itp-why-background" data-c-background="grey(10)"></div>
                                 <div>
                                     <h2 data-c-font-size="h2" data-c-margin="bottom(normal)">{{ itp.itp_how.title_01 }}</h2>
                                     <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="700" data-c-margin="top(double) bottom(normal)">{{ itp.itp_how.subtitle_01 }}</h3>
@@ -61,15 +58,16 @@
                                     <h2 data-c-font-size="h2" data-c-margin="bottom(double)">
                                         {{ itp.itp_what.title_01 }}
                                     </h2>
-                                    <div data-c-alert="information" data-c-padding="half" data-c-radius="rounded" role="alert">
-                                        <span data-c-font-weight="bold" data-c-heading="h5" data-c-margin="bottom(quarter)">
-                                            <i aria-hidden="true" class="fa fa-star"></i>
-                                            {{ itp.itp_what.alert_title }}
-                                        </span>
-
-                                        <p>
-                                            {{ itp.itp_what.alert_copy }}
-                                        </p>
+                                    <div data-c-alert="information" data-c-radius="rounded" role="alert">
+                                        <div data-c-padding="half">
+                                            <span data-c-font-weight="bold" data-c-heading="h5" data-c-margin="bottom(quarter)">
+                                                <i aria-hidden="true" class="fa fa-star"></i>
+                                                {{ itp.itp_what.alert_title }}
+                                            </span>
+                                            <p>
+                                                {{ itp.itp_what.alert_copy|replace({'%email%': itp.itp_what.alert_link})|raw }}
+                                            </p>
+                                        </div>
                                     </div>
                                     <h3 data-c-font-size="h3" data-c-font-weight="700" data-c-margin="top(double) bottom(normal)">{{ itp.itp_what.subtitle_01 }}</h3>
                                     <ul>
@@ -91,7 +89,7 @@
             </div>
             {# Who ========================================================== #}
             <div data-c-overlay="black(80)" data-c-padding="top(triple) bottom(triple)" style="background-image: url('/images/kz.png');">
-                <div data-c-container="layout">
+                <div data-c-container="large">
                     <h2 data-c-colour="white" data-c-font-size="h2" data-c-margin="bottom(normal)">
                         {{ itp.itp_who.title_01 }}
                     </h2>
@@ -137,8 +135,8 @@
                 </div>
             </div>
             {# Goals, Approach, & Resources ================================= #}
-            <div class="itp-goals">
-                <div data-c-container="layout">
+            <div class="itp-goals" data-c-border="bottom(thin, solid, grey)">
+                <div data-c-container="large">
                     <div
                         data-c-grid="gutter">
                         {# Goals & Approach --------------------------------- #}
@@ -156,7 +154,7 @@
                         {# Resources ---------------------------------------- #}
                         <div data-c-grid-item="equal-col tl(2of5)">
                             <div data-c-padding="top(triple) bottom(triple)">
-                                <div class="itp-goals-background"></div>
+                                <div class="itp-goals-background" data-c-background="grey(10)"></div>
                                 <div>
                                     <h2 data-c-font-size="h2" data-c-margin="bottom(normal)">{{ itp.itp_resources.title_01 }}</h2>
                                     <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="700" data-c-margin="top(double) bottom(normal)">

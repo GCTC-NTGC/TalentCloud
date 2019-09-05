@@ -19,13 +19,19 @@
 
         {% for item in menu.items %}
 
-            <li>
+            <li
+                {% if item.link == "/indigenous" %}
+                    class="menu-itp"
+                {% endif %}>
 
                 <a
                     class="{% if item.active == true %}active{% endif %}"
                     href="{{ item.link }}"
                     title="Visit {{ item.name }}.">
-                    {{ item.name }}
+                    <span>{{ item.name }}</span>
+                    {% if item.link == "/indigenous" %}
+                        <img src="/images/bg_indigenous.jpg" alt="Indigenous Talent Portal link background.">
+                    {% endif %}
                 </a>
 
             </li>
@@ -45,13 +51,19 @@
                              document.getElementById('logout-form').submit();">
                     {{ menu.logout }}
                 </a>
-
                 <form id="logout-form" action="{{ login_modals.logout_link }}" method="POST" style="display: none;">
                     {{ csrf_field() }}
                 </form>
             </li>
 
         {% endif %}
+
+        {# <li class="menu-itp">
+            <a href="/indigenous">
+                <span>{{ menu.items.itp.name }}</span>
+                <img src="/images/bg_indigenous.jpg" alt="Indigenous Talent Portal link background.">
+            </a>
+        </li> #}
 
     </ul>
 
