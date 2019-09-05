@@ -51,26 +51,27 @@
         },
         {
             "name": "astrotomic/laravel-translatable",
-            "version": "v11.3.0",
+            "version": "v11.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Astrotomic/laravel-translatable.git",
-                "reference": "9bf19f56d4e924f1381176a1dfc47d423948001d"
+                "reference": "cce61b3a9e3fae381e9af02b10ebb4c8b37e10b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Astrotomic/laravel-translatable/zipball/9bf19f56d4e924f1381176a1dfc47d423948001d",
-                "reference": "9bf19f56d4e924f1381176a1dfc47d423948001d",
+                "url": "https://api.github.com/repos/Astrotomic/laravel-translatable/zipball/cce61b3a9e3fae381e9af02b10ebb4c8b37e10b0",
+                "reference": "cce61b3a9e3fae381e9af02b10ebb4c8b37e10b0",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "5.6.*|5.7.*|5.8.*",
-                "illuminate/database": "5.6.*|5.7.*|5.8.*",
-                "illuminate/support": "5.6.*|5.7.*|5.8.*",
+                "illuminate/contracts": "5.6.* || 5.7.* || 5.8.* || ^6.0",
+                "illuminate/database": "5.6.* || 5.7.* || 5.8.* || ^6.0",
+                "illuminate/support": "5.6.* || 5.7.* || 5.8.* || ^6.0",
                 "php": ">=7.1.3"
             },
             "require-dev": {
-                "orchestra/testbench": "3.6.*|3.7.*|3.8.*"
+                "orchestra/testbench": "3.6.* || 3.7.* || 3.8.* || ^4.0",
+                "orchestra/testbench-core": "3.6.* || 3.7.* || 3.8.* || ^4.0"
             },
             "type": "library",
             "extra": {
@@ -110,7 +111,7 @@
                 "laravel",
                 "translation"
             ],
-            "time": "2019-08-07T10:12:15+00:00"
+            "time": "2019-09-04T06:50:28+00:00"
         },
         {
             "name": "backpack/base",
@@ -2982,20 +2983,20 @@
             "authors": [
                 {
                     "name": "Freek Van der Herten",
-                    "role": "Developer",
                     "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be"
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian De Deyne",
-                    "role": "Developer",
                     "email": "sebastian@spatie.be",
-                    "homepage": "https://spatie.be"
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
                 },
                 {
                     "name": "Mohamed Said",
-                    "role": "Original idea",
-                    "email": "theMohamedSaid@gmail.com"
+                    "email": "theMohamedSaid@gmail.com",
+                    "role": "Original idea"
                 }
             ],
             "description": "A trait to make an Eloquent model hold translations",
@@ -5304,12 +5305,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracasts/Laravel-5-Generators-Extended.git",
-                "reference": "a71d2b705f1e4d0e6b97aa1ba3746907b5bc1f1b"
+                "reference": "25a7094a37922fc42cc4cfa52e257bdbd2303958"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/a71d2b705f1e4d0e6b97aa1ba3746907b5bc1f1b",
-                "reference": "a71d2b705f1e4d0e6b97aa1ba3746907b5bc1f1b",
+                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/25a7094a37922fc42cc4cfa52e257bdbd2303958",
+                "reference": "25a7094a37922fc42cc4cfa52e257bdbd2303958",
                 "shasum": ""
             },
             "require": {
@@ -5348,7 +5349,7 @@
                 "generators",
                 "laravel"
             ],
-            "time": "2019-09-04T04:55:05+00:00"
+            "time": "2019-09-04T07:42:46+00:00"
         },
         {
             "name": "laravel/dusk",
