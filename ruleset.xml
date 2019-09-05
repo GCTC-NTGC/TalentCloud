@@ -17,7 +17,8 @@
     <!-- Use Slevomat's coding standards to sniff docblocks -->
     <config name="installed_paths" value="../../slevomat/coding-standard"/>
     <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration" phpcs-only="true">
-        <exclude-pattern>*/app/Http/Controllers/*</exclude-pattern>
+        <exclude-pattern>*/app/Http/*</exclude-pattern>
+        <exclude-pattern>*/app/Policies/*</exclude-pattern>
         <type>warning</type>
     </rule>
     <!-- More docblock sniffs -->

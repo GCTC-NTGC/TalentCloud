@@ -116,6 +116,14 @@ $factory->afterCreating(JobPoster::class, function ($jp) : void {
 
 $factory->state(
     JobPoster::class,
+    'byUpgradedManager',
+    ['manager_id' => function () {
+            return factory(Manager::class)->state('upgraded')->create()->id;
+    }]
+);
+
+$factory->state(
+    JobPoster::class,
     'published',
     function (Faker\Generator $faker) {
         return [
