@@ -25,8 +25,9 @@ class JobPosterCrudController extends CrudController
             $this->crud->orderBy('close_date_time', 'desc');
         }
 
-        // Add the custom blade button found in resources/views/vendor/backpack/crud/buttons/full-edit.blade.php
-        $this->crud->addButtonFromView('line', 'full_edit', 'full_edit', 'end');
+        // Add the custom blade buttons found in resources/views/vendor/backpack/crud/buttons/
+        $this->crud->addButtonFromView('line', 'job_admin_edit', 'job_admin_edit', 'end');
+        $this->crud->addButtonFromView('line', 'jbp_link', 'jpb_link', 'end');
 
         $this->crud->addColumn([
             'name' => 'title',
@@ -80,6 +81,14 @@ class JobPosterCrudController extends CrudController
             ]
         ]);
         $this->crud->addField([
+            'name' => 'open_date_time',
+            'label' => 'Open Date',
+            'type' => 'datetime_picker',
+            'datetime_picker_options' => [
+                'format' => 'YYYY-MM-DD HH:mm:ss',
+            ],
+        ]);
+        $this->crud->addField([
             'name' => 'close_date_time',
             'label' => 'Close Date',
             'type' => 'datetime_picker',
@@ -87,7 +96,9 @@ class JobPosterCrudController extends CrudController
                 'format' => 'YYYY-MM-DD HH:mm:ss',
             ],
         ]);
-        if ($this->crud->getCurrentEntry() && !$this->crud->getCurrentEntry()->published) {
+        if ($this->crud->getCurrentEntry() &&
+            !$this->crud->getCurrentEntry()->published
+        ) {
             $this->crud->addField([
                 'name' => 'published',
                 'label' => 'Publish',

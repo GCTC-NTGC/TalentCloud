@@ -115,6 +115,21 @@
     "defaultMessage": "or"
   },
   {
+    "id": "jobBuilder.review.managerDataLoading",
+    "description": "Placeholder text as Manager data loads.",
+    "defaultMessage": "Manager data is loading..."
+  },
+  {
+    "id": "jobBuilder.review.managerPosition",
+    "description": "Description of the Manager's position & department.",
+    "defaultMessage": "{position} at {department}"
+  },
+  {
+    "id": "jobBuilder.review.managerIncomplete",
+    "description": "Note that the Manager's profile is incomplete and should be edited before continuing.",
+    "defaultMessage": "Please complete your manager profile."
+  },
+  {
     "id": "jobBuilder.review.reviewYourPoster",
     "description": "Title for Review Job Poster section.",
     "defaultMessage": "Review Your Job Poster for:"
@@ -180,9 +195,9 @@
     "defaultMessage": "Government Classification"
   },
   {
-    "id": "jobBuilder.review.managerDataLoading",
-    "description": "Placeholder text as Manager data loads.",
-    "defaultMessage": "Manager data is loading..."
+    "id": "jobBuilder.review.skills.nullState",
+    "description": "The text displayed for skills when you haven't added any skills.",
+    "defaultMessage": "You haven't added any Nice to Have skills to this poster."
   },
   {
     "id": "jobBuilder.review.button.return",

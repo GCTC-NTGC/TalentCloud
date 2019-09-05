@@ -60,85 +60,15 @@ class JobControllerTest extends TestCase
     private function generateEditJobFormData() : array
     {
         $jobForm = [
-        'term_qty' => $this->faker->numberBetween(1, 4),
         'salary_min' => $this->faker->numberBetween(60000, 80000),
         'salary_max' => $this->faker->numberBetween(80000, 100000),
         'noc' => $this->faker->numberBetween(1, 9999),
-        'classification' => $this->faker->regexify('[A-Z]{2}-0[1-5]'),
-        'manager_id' => $this->manager->id,
-        'published' => false,
-        'remote_work_allowed' => $this->faker->boolean(50),
         'open_date' => $this->faker->date('Y-m-d', strtotime('+1 day')),
         'close_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
         'start_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
-        'security_clearance' => SecurityClearance::inRandomOrder()->first()->id,
-        'language_requirement' => LanguageRequirement::inRandomOrder()->first()->id,
-        'department' => Department::inRandomOrder()->first()->id,
-        'province' => Province::inRandomOrder()->first()->id,
-        'city' => $this->faker->city,
-        'title' => [
-            'en' => $this->faker->word,
-            'fr' => $this->faker_fr->word
-        ],
-        // The form is named impact, but the controller saves it to the hire_impact field
-        'impact' => [
-            'en' => $this->faker->paragraphs(
-                2,
-                true
-            ),
-            'fr' => $this->faker_fr->paragraphs(
-                2,
-                true
-            )
-        ],
-        'branch' => [
-            'en' => $this->faker->word,
-            'fr' => $this->faker_fr->word
-        ],
-        'division' => [
-            'en' => $this->faker->word,
-            'fr' => $this->faker_fr->word
-        ],
-        'education' => [
-            'en' => $this->faker->sentence(),
-            'fr' => $this->faker_fr->sentence()
-        ],
         'submit' => '',
         ];
         return $jobForm;
-    }
-
-    /**
-     * Create form data for a single Criterion
-     *
-     * @param integer      $criteria_type_id Must be 1 or 2, for essential or asset.
-     * @param integer      $skill_id         Must be a valid skill id.
-     * @param integer      $skill_level_id   Must be 1-4.
-     * @param integer|null $crtiteria_id     Leave null if this is a new criteria.
-     * @return mixed[]
-     */
-    private function generateCriteriaFormData(int $criteria_type_id, int $skill_id, int $skill_level_id, ?int $crtiteria_id = null)
-    {
-        $age = $crtiteria_id ? 'old' : 'new';
-        $type = [1 => 'essential', 2 => 'asset'][$criteria_type_id];
-        $id = $crtiteria_id ? $crtiteria_id : 1;
-        $data['criteria'] = [
-            $age => [
-                $type => [
-                    'soft' => [
-                        $id => [
-                            'skill_id' => $skill_id,
-                            'skill_level_id' => $skill_level_id,
-                            'description' => [
-                                'en' => null,
-                                'fr' => null,
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ];
-        return $data;
     }
 
     /**
@@ -209,97 +139,6 @@ class JobControllerTest extends TestCase
         });
     }
 
-    // TODO: Managers cannot create job posters until Job Poster Builder is complete
-    // /**
-    // * Ensure a manager can view the create Job Poster form.
-    // *
-    // * @return void
-    // */
-    // public function testManagerCreateView() : void
-    // {
-    // $response = $this->actingAs($this->manager->user)
-    // ->get('manager/jobs/create');
-    // $response->assertStatus(200);
-    // $response->assertSee(e(Lang::get('manager/job_create')['title']));
-    // $response->assertViewIs('manager.job_create');
-    // $response->assertSee(e(Lang::get('manager/job_create', [], 'en')['questions']['00']));
-    // $response->assertSee(e(Lang::get('manager/job_create', [], 'fr')['questions']['00']));
-    // }
-    // /**
-    // * Ensure a manager can create a Job Poster.
-    // *
-    // * @return void
-    // */
-    // public function testManagerCreate() : void
-    // {
-    // $newJob = $this->generateEditJobFormData();
-    // $dbValues = array_slice($newJob, 0, 8);
-    // $response = $this->followingRedirects()
-    // ->actingAs($this->manager->user)
-    // ->post('manager/jobs/', $newJob);
-    // $response->assertStatus(200);
-    // $response->assertViewIs('applicant.job_post');
-    // $this->assertDatabaseHas('job_posters', $dbValues);
-    // $response->assertSee(e(Lang::get('applicant/job_post')['apply']['edit_link_title']));
-    // }
-
-    /**
-     * Ensure an Admin can create a Job Poster for a manager.
-     *
-     * @return void
-     */
-    public function testCreateAsManager() : void
-    {
-        $admin = factory(User::class)->states('admin')->create();
-        $newManager = factory(Manager::class)->create();
-
-        $response = $this->actingAs($admin)
-            ->get(route('admin.jobs.create.as_manager', $newManager));
-        $this->assertDatabaseHas('job_posters', ['manager_id'=>$newManager->id]);
-    }
-
-    /**
-     * Ensure that createAsManager creates a job that includes the default questions.
-     *
-     * @return void
-     */
-    public function testCreateAsManagerHasDefaultQuestions() : void
-    {
-        $admin = factory(User::class)->states('admin')->create();
-        $newManager = factory(Manager::class)->create();
-
-        $response = $this->actingAs($admin)
-            ->get(route('admin.jobs.create.as_manager', $newManager));
-        $newJob = JobPoster::where('manager_id', $newManager->id)->firstOrFail();
-        $questions = Lang::get('manager/job_create.questions');
-        foreach ($questions as $question) {
-            $match = $newJob->job_poster_questions->where('question', $question);
-            $this->assertNotEmpty($match);
-        }
-    }
-
-    /**
-     * Ensure a manager can edit an unpublished Job Poster they created.
-     *
-     * @return void
-     */
-    public function testManagerEditView() : void
-    {
-        $response = $this->actingAs($this->manager->user)
-        ->get('manager/jobs/' . $this->jobPoster->id . '/edit');
-
-        $response->assertStatus(200);
-        $response->assertViewIs('manager.job_create');
-        // Check for a handful of properties
-        $response->assertSee(e($this->jobPoster->city));
-        $response->assertSee(e($this->jobPoster->education));
-        $response->assertSee(e($this->jobPoster->title));
-        $response->assertSee(e($this->jobPoster->hire_impact));
-        $response->assertSee(e($this->jobPoster->branch));
-        $response->assertSee(e($this->jobPoster->division));
-        $response->assertSee(e($this->jobPoster->education));
-    }
-
     /**
      * An admin saving edits to the job should not change the jobs manager.
      *
@@ -324,45 +163,9 @@ class JobControllerTest extends TestCase
             'manager_id' => $manager->id
         ]);
         $jobEdit = $this->generateEditJobFormData();
-        $this->actingAs($admin)->post(route('manager.jobs.update', $job), $jobEdit);
+        $this->actingAs($admin)->post(route('admin.jobs.update', $job), $jobEdit);
         $job->refresh();
         $this->assertEquals($manager->user->id, $job->manager->user->id);
-    }
-
-    /**
-     * Ensure a manager cannot edit a published Job Poster they created.
-     *
-     * @return void
-     */
-    public function testManagerCanNotEditViewPublished() : void
-    {
-        $response = $this->actingAs($this->manager->user)
-        ->get('manager/jobs/' . $this->publishedJob->id . '/edit');
-
-        $response->assertStatus(403);
-    }
-
-    /**
-     * Adding a 'published' field to the create job form data should affect the created job.
-     *
-     * @return void
-     */
-    public function testManagerCannotPublishJobThroughEditView() : void
-    {
-        $job = factory(JobPoster::class)->states('draft')->create([
-            'manager_id' => $this->manager->id
-        ]);
-        $jobEdit = $this->generateEditJobFormData();
-        $jobEdit['published'] = true;
-
-        $dbValues = array_slice($jobEdit, 0, 8);
-        $dbValues['published'] = false;
-
-        $response = $this->followingRedirects()
-            ->actingAs($this->manager->user)
-            ->post(route('manager.jobs.update', $job), $jobEdit);
-        $response->assertStatus(200);
-        $this->assertDatabaseHas('job_posters', $dbValues);
     }
 
     /**
@@ -397,11 +200,12 @@ class JobControllerTest extends TestCase
         $jobEdit['close_date'] = '2019-01-31';
 
         // Expected db values
-        $dbValues = array_slice($jobEdit, 0, 8);
+        $dbValues = array_slice($jobEdit, 0, 3);
 
+        $admin = factory(User::class)->states('admin')->create();
         $response = $this->followingRedirects()
-            ->actingAs($this->manager->user)
-            ->post(route('manager.jobs.update', $job), $jobEdit);
+            ->actingAs($admin)
+            ->post(route('admin.jobs.update', $job), $jobEdit);
 
         $this->assertDatabaseHas('job_posters', $dbValues);
 
@@ -410,179 +214,5 @@ class JobControllerTest extends TestCase
         $this->assertEquals($expectedOpenDate, humanizeDate($savedJob->open_date_time));
         $this->assertEquals($expectedCloseDate, humanizeDate($savedJob->close_date_time));
         $this->assertEquals($expectedCloseTime, humanizeTime($savedJob->close_date_time));
-    }
-
-    /**
-     * Adding criteria to an existing job should work,
-     * and should create an AssessmentPlanNotification
-     *
-     * @return void
-     */
-    public function testAddCriteria(): void
-    {
-        $job = factory(JobPoster::class)->states('draft')->create([
-            'manager_id' => $this->manager->id
-        ]);
-        $data = $this->generateEditJobFormData();
-        $data = array_merge(
-            $this->generateEditJobFormData(),
-            $this->generateCriteriaFormData(2, 28, 2)
-        );
-        $response = $this->followingRedirects()
-            ->actingAs($this->manager->user)
-            ->post(route('manager.jobs.update', $job), $data);
-        $response->assertStatus(200);
-
-        // Check the criteria has been added to job
-        $criteriaValues = [
-            'criteria_type_id' => 2, // asset
-            'job_poster_id' => $job->id,
-            'skill_id' => 28,
-            'skill_level_id' => 2
-        ];
-        $this->assertDatabaseHas('criteria', $criteriaValues);
-
-        // Check the AssessmentPlanNotification has been created
-        $notificationValues = [
-            'type' => 'CREATE',
-            'job_poster_id' => $job->id,
-            'criteria_type_id' => 2, // asset
-            'criteria_type_id_new' => null,
-            'job_poster_id' => $job->id,
-            'skill_id' => 28,
-            'skill_id_new' => null,
-            'skill_level_id' => 2,
-            'skill_level_id_new' => null,
-            'acknowledged' => false
-        ];
-        $this->assertDatabaseHas('assessment_plan_notifications', $notificationValues);
-    }
-
-    /**
-     * Updating criteria in an job should work,
-     * and should create an AssessmentPlanNotification
-     *
-     * @return void
-     */
-    public function testUpdateCriteria(): void
-    {
-        $job = factory(JobPoster::class)->states('draft')->create([
-            'manager_id' => $this->manager->id
-        ]);
-        $criteria = factory(Criteria::class)->create(
-            [
-                'job_poster_id' => $job->id,
-                'criteria_type_id' => 1,
-                'skill_id' => 28,
-                'skill_level_id' => 3,
-                'description:en' => 'DESCRIPTION',
-                'description:fr' => 'DESCRIPTION'
-            ]
-        );
-        $job->criteria()->save($criteria);
-
-        $this->assertDatabaseHas('criteria', [
-            'id' => $criteria->id,
-            'criteria_type_id' => 1,
-            'job_poster_id' => $job->id,
-            'skill_id' => 28,
-            'skill_level_id' => 3
-        ]); // Sanity check
-
-        $data = $this->generateEditJobFormData();
-        $data = array_merge(
-            $this->generateEditJobFormData(),
-            $this->generateCriteriaFormData(1, 28, 4, $criteria->id) // Changed skill level
-        );
-
-        $response = $this->followingRedirects()
-            ->actingAs($this->manager->user)
-            ->post(route('manager.jobs.update', $job), $data);
-        $response->assertStatus(200);
-
-        // Check the criteria has been updated
-        $criteriaValues = [
-            'id' => $criteria->id,
-            'criteria_type_id' => 1,
-            'job_poster_id' => $job->id,
-            'skill_id' => 28,
-            'skill_level_id' => 4 // updated from 3
-        ];
-        $this->assertDatabaseHas('criteria', $criteriaValues);
-
-        // Check the AssessmentPlanNotification has been created
-        $notificationValues = [
-            'type' => 'UPDATE',
-            'job_poster_id' => $job->id,
-            'criteria_type_id' => 1,
-            'job_poster_id' => $job->id,
-            'skill_id' => 28,
-            'skill_id_new' => 28,
-            'skill_level_id' => 3,
-            'skill_level_id_new' => 4,
-            'criteria_type_id_new' => 1,
-            'acknowledged' => false
-        ];
-        $this->assertDatabaseHas('assessment_plan_notifications', $notificationValues);
-    }
-
-    /**
-     * Deleting criteria from a job should work,
-     * and should create an AssessmentPlanNotification
-     *
-     * @return void
-     */
-    public function testDeleteCriteria(): void
-    {
-        $job = factory(JobPoster::class)->states('draft')->create([
-            'manager_id' => $this->manager->id
-        ]);
-        $criteria = factory(Criteria::class)->create(
-            [
-                'job_poster_id' => $job->id,
-                'criteria_type_id' => 1,
-                'skill_id' => 28,
-                'skill_level_id' => 3,
-                'description:en' => 'DESCRIPTION',
-                'description:fr' => 'DESCRIPTION'
-            ]
-        );
-        $job->criteria()->save($criteria);
-
-        $this->assertDatabaseHas('criteria', [
-            'id' => $criteria->id,
-            'criteria_type_id' => 1,
-            'job_poster_id' => $job->id,
-            'skill_id' => 28,
-            'skill_level_id' => 3
-        ]); // Sanity check
-
-        // Delete criteria by simply not including them in the new form data.
-        $data = $this->generateEditJobFormData();
-
-        $response = $this->actingAs($this->manager->user)
-            ->post(route('manager.jobs.update', $job), $data);
-        // $response->assertStatus(200);
-        // Check the criteria has been removed
-        $criteriaValues = [
-            'id' => $criteria->id,
-        ];
-        // print_r(Criteria::find($criteria->id) ? Criteria::find($criteria->id)->toArray() : "NULL");
-        $this->assertDatabaseMissing('criteria', $criteriaValues);
-
-        // Check the AssessmentPlanNotification has been created
-        $notificationValues = [
-            'type' => 'DELETE',
-            'job_poster_id' => $job->id,
-            'criteria_type_id' => 1,
-            'criteria_type_id_new' => null,
-            'job_poster_id' => $job->id,
-            'skill_id' => 28,
-            'skill_id_new' => null,
-            'skill_level_id' => 3,
-            'skill_level_id_new' => null,
-            'acknowledged' => false
-        ];
-        $this->assertDatabaseHas('assessment_plan_notifications', $notificationValues);
     }
 }

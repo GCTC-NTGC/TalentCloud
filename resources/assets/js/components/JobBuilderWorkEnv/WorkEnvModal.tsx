@@ -1,6 +1,6 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { FormValues } from "./WorkEnvForm";
+import { WorkEnvFormValues } from "./WorkEnvForm";
 import Modal from "../Modal";
 import JobWorkEnv from "../JobBuilder/JobWorkEnv";
 
@@ -9,7 +9,7 @@ interface WorkEnvModalProps {
   modalCancel: () => void;
   isVisible: boolean;
   parentElement: Element | null;
-  values: FormValues;
+  values: WorkEnvFormValues;
   cultureSummary: string;
   jobIsComplete: boolean;
   handleSkipToReview: () => void;
@@ -60,6 +60,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
             data-c-padding="normal"
             id="work-environment-preview-body"
           >
+            <p>
             <FormattedMessage
               id="jobBuilder.workEnv.openingSentence"
               defaultMessage="Here's a preview of the Job Information you just entered. Feel
@@ -67,6 +68,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                 you're happy with it."
               description="Opening sentence for modal."
             />
+            </p>
           </div>
           <div data-c-background="grey(20)" data-c-padding="normal">
             <div
