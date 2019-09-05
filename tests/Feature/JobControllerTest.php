@@ -135,9 +135,9 @@ class JobControllerTest extends TestCase
 
         $jobPoster = factory(JobPoster::class)->states(['byUpgradedManager', 'draft'])->create();
         $response = $this->followingRedirects()
-        ->actingAs($jobPoster->manager->user)
-        ->post("manager/jobs/$jobPoster->id/review");
-        // dd($response->baseResponse->exception);
+            ->actingAs($jobPoster->manager->user)
+            ->post("manager/jobs/$jobPoster->id/review");
+
         $response->assertStatus(200);
 
         $jobPoster->refresh();
