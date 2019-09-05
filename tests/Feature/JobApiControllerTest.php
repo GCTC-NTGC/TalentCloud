@@ -185,9 +185,9 @@ class JobApiControllerTest extends TestCase
         $job = factory(JobPoster::class)->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $jobUpdate['work_env_features'] = [
-                'env_open_concept' => true,
-                'env_windows' => true,
-                'amenities_near_transit' => false,
+                'openConcept' => true,
+                'windows' => true,
+                'downtown' => false,
                 'invalid_feature' => 'hello world'
         ];
         $response = $this->actingAs($job->manager->user)
@@ -229,20 +229,6 @@ class JobApiControllerTest extends TestCase
         $this->assertAuthenticatedAs($manager->user);
         $response->assertOk();
         $this->assertDatabaseHas('job_posters', ['manager_id' => $manager->id]);
-    }
-
-    /**
-     * Even an admin cannot store a job like this, if they're not also a manager
-     *
-     * @return void
-     */
-    public function testStoreRequiresManagerId(): void
-    {
-        $user = factory(User::class)->state('admin')->create();
-        $response = $this->followingRedirects()
-            ->actingAs($user)
-            ->json('post', 'api/jobs');
-        $response->assertForbidden();
     }
 
     public function testReturnsCorrectClassificationCode(): void

@@ -2,6 +2,7 @@
 import React, { useState, useRef } from "react";
 import { Form, Field, Formik, FormikTouched, FormikErrors } from "formik";
 import * as Yup from "yup";
+import nprogress from "nprogress";
 import {
   injectIntl,
   InjectedIntlProps,
@@ -523,7 +524,7 @@ const collaborativenessList: {
 ];
 
 // shape of values used in Form
-export interface FormValues {
+export interface WorkEnvFormValues {
   teamSize?: number;
   physicalEnv: string[];
   technology: string[];
@@ -562,7 +563,7 @@ const jobToValues = (
     ...job
   }: Job,
   locale: "en" | "fr",
-): FormValues => {
+): WorkEnvFormValues => {
   const isTrueInEnvFeatures = (option): boolean =>
     work_env_features !== null &&
     hasKey(work_env_features, option) &&
@@ -626,7 +627,7 @@ const updateJobWithValues = (
     collaborativeness,
     cultureSummary,
     moreCultureSummary,
-  }: FormValues,
+  }: WorkEnvFormValues,
 ): Job => {
   const physFeatures = mapToObjectTrans(
     physEnvOptions,
@@ -674,9 +675,9 @@ const updateJobWithValues = (
 
 const renderRadioWithContext = (
   intl: ReactIntl.InjectedIntl,
-  touched: FormikTouched<FormValues>,
-  errors: FormikErrors<FormValues>,
-  values: FormValues,
+  touched: FormikTouched<WorkEnvFormValues>,
+  errors: FormikErrors<WorkEnvFormValues>,
+  values: WorkEnvFormValues,
   fieldName: string,
   label: string,
   sliderList: {
@@ -764,14 +765,13 @@ const WorkEnvForm = ({
   handleSkipToReview,
   intl,
 }: WorkEnvFormProps & InjectedIntlProps): React.ReactElement => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
 
-  const [returnOnSubmit, setReturnOnSubmit] = useState(false);
-
-  const initialValues: FormValues = job
+  const initialValues: WorkEnvFormValues = job
     ? jobToValues(job, locale)
     : {
         physicalEnv: [],
@@ -791,8 +791,6 @@ const WorkEnvForm = ({
     label: string;
   }[] = amenitiesDescriptions(intl);
 
-  const cultureSummaryRef = React.createRef<HTMLParagraphElement>();
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const modalParentRef = useRef<HTMLDivElement>(null);
   const workEnvSchema = Yup.object().shape({
     teamSize: Yup.number()
@@ -848,6 +846,20 @@ const WorkEnvForm = ({
     return cultureSummary;
   };
 
+  const updateValuesAndReturn = (values: WorkEnvFormValues): void => {
+    // If custom summary textbox is length is zero, set cultureSummary to generated text
+    const cultureSummary =
+      values.cultureSummary.length === 0
+        ? buildCultureSummary(values)
+        : values.cultureSummary;
+    const formValues: WorkEnvFormValues = { ...values, cultureSummary };
+    const oldJob = job || emptyJob();
+    const updatedJob = updateJobWithValues(oldJob, locale, formValues);
+    handleSubmit(updatedJob).then((): void => {
+      handleReturn();
+    });
+  };
+
   return (
     <div
       data-c-container="form"
@@ -881,7 +893,7 @@ const WorkEnvForm = ({
           />
         </h4>
         <p data-c-margin="bottom(normal)">
-          <FormattedMessage {...formMessages.ourWorkEnvDesc} />
+          {intl.formatMessage(formMessages.ourWorkEnvDesc)}
         </p>
       </div>
 
@@ -895,20 +907,18 @@ const WorkEnvForm = ({
             values.cultureSummary.length === 0
               ? buildCultureSummary(values)
               : values.cultureSummary;
-          const formValues: FormValues = { ...values, cultureSummary };
+          const formValues: WorkEnvFormValues = { ...values, cultureSummary };
           const oldJob = job || emptyJob();
           const updatedJob = updateJobWithValues(oldJob, locale, formValues);
+
+          nprogress.start();
           handleSubmit(updatedJob)
-            .then((job): void => {
-              if (returnOnSubmit) {
-                handleReturn();
-              } else {
-                setIsModalVisible(true);
-              }
+            .then((): void => {
+              nprogress.done();
+              setIsModalVisible(true);
             })
             .finally((): void => {
               setSubmitting(false);
-              setReturnOnSubmit(false);
             });
         }}
         render={({
@@ -918,7 +928,6 @@ const WorkEnvForm = ({
           values,
           setFieldValue,
           setFieldTouched,
-          submitForm,
         }): React.ReactElement => (
           <>
             <Form id="form" data-c-margin="bottom(normal)">
@@ -1013,13 +1022,13 @@ const WorkEnvForm = ({
                 data-c-margin="bottom(normal) top(normal)"
                 data-c-font-weight="bold"
               >
-                <FormattedMessage {...formMessages.moreOnWorkEnv} />
+                {intl.formatMessage(formMessages.moreOnWorkEnv)}
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage {...formMessages.thisIsOptional} />
+                {intl.formatMessage(formMessages.thisIsOptional)}
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage {...formMessages.moreOnWorkEnvSubtext} />
+                {intl.formatMessage(formMessages.moreOnWorkEnvSubtext)}
               </p>
               <Field
                 type="textarea"
@@ -1037,7 +1046,7 @@ const WorkEnvForm = ({
                   data-c-font-size="h4"
                   data-c-margin="top(double) bottom(normal)"
                 >
-                  <FormattedMessage {...formMessages.culture} />
+                  {intl.formatMessage(formMessages.culture)}
                 </h4>
                 <p data-c-margin="bottom(normal)">
                   <FormattedMessage
@@ -1047,7 +1056,7 @@ const WorkEnvForm = ({
                   />
                 </p>
                 <p data-c-margin="bottom(normal)">
-                  <FormattedMessage {...formMessages.cultureSubtext2} />
+                  {intl.formatMessage(formMessages.cultureSubtext2)}
                 </p>
               </div>
               {renderRadioWithContext(
@@ -1100,10 +1109,10 @@ const WorkEnvForm = ({
                   data-c-margin="bottom(normal) top(normal)"
                   data-c-font-weight="bold"
                 >
-                  <FormattedMessage {...formMessages.cultureSummary} />
+                  {intl.formatMessage(formMessages.cultureSummary)}
                 </p>
                 <p data-c-margin="bottom(normal)">
-                  <FormattedMessage {...formMessages.cultureSummarySubtext} />
+                  {intl.formatMessage(formMessages.cultureSummarySubtext)}
                 </p>
                 <ContextBlockItem subtext={buildCultureSummary(values)} />
                 <div
@@ -1127,13 +1136,13 @@ const WorkEnvForm = ({
                 grid="base(1of1)"
               />
               <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
-                <FormattedMessage {...formMessages.specialWorkCulture} />
+                {intl.formatMessage(formMessages.specialWorkCulture)}
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage {...formMessages.thisIsOptional} />
+                {intl.formatMessage(formMessages.thisIsOptional)}
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage {...formMessages.specialWorkCultureSubtext} />
+                {intl.formatMessage(formMessages.specialWorkCultureSubtext)}
               </p>
               <Field
                 type="textarea"
@@ -1160,15 +1169,7 @@ const WorkEnvForm = ({
                     type="button"
                     disabled={isSubmitting}
                     onClick={(): void => {
-                      /** TODO:
-                       * This is a race condition, since the setState hook call is asynchronous.
-                       * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
-                       * For now, the setState always happens faster than the validation check, so it works.
-                       * See https://github.com/jaredpalmer/formik/issues/214
-                       * -- Tristan
-                       */
-                      setReturnOnSubmit(true);
-                      submitForm();
+                      updateValuesAndReturn(values);
                     }}
                   >
                     <FormattedMessage

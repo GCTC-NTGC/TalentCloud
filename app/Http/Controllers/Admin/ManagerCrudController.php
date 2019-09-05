@@ -33,7 +33,6 @@ class ManagerCrudController extends CrudController
         ]);
 
         $this->crud->removeButton('update');
-        $this->crud->addButtonFromView('line', 'create_job_poster', 'create_job_poster', 'beginning');
         // Add the custom blade button found in resources/views/vendor/backpack/crud/buttons/profile_edit.blade.php.
         $this->crud->addButtonFromView('line', 'profile_edit', 'profile_edit', 'end');
     }
