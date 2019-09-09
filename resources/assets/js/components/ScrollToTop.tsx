@@ -22,7 +22,7 @@ const ScrollToTop: React.FunctionComponent<ScrollToTopProps> = ({
     }
   };
   useEffect(() => {
-    if (prevPathname !== location.pathname) {
+    if (prevPathname !== window.location.pathname) {
       // switch to auto scroll transition
       if (scrollBehaviorAuto) setScrollBehaviour("auto");
 
@@ -35,7 +35,7 @@ const ScrollToTop: React.FunctionComponent<ScrollToTopProps> = ({
       setScrollBehaviour("smooth");
     }
 
-    setPrevPathName(location.pathname);
+    setPrevPathName(window.location.pathname);
   });
   return <>{children}</>;
 };
