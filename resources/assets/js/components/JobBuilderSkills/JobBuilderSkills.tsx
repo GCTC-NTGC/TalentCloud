@@ -329,6 +329,8 @@ export const JobBuilderSkills: React.FunctionComponent<
           setIsPreviewVisible(true);
         })
         .finally((): void => setIsSaving(false));
+    } else {
+      focusOnError();
     }
   };
   const saveAndReturn = (): void => {
@@ -347,7 +349,7 @@ export const JobBuilderSkills: React.FunctionComponent<
 
   useEffect(() => {
     if (submitTouched && essentialCount === 0) focusOnError();
-  }, [submitTouched]);
+  }, [submitTouched, essentialCount]);
 
   const renderNullCriteriaRow = (): React.ReactElement => (
     <div className="jpb-skill-null" data-c-grid="gutter middle">
