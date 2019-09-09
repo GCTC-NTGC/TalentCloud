@@ -115,52 +115,6 @@
                                 data-prev-gov-email="{{ old('gov_email' ) }}"
                                 >
                             </div>
-                            {#
-                            <div
-                                class="box full">
-                                <div
-                                    class="form__input-wrapper--select">
-                                    <label
-                                        class="form__label"
-                                        for="department">
-                                        {{ register.department }}
-                                    </label>
-                                    <div
-                                        class="form__select-wrapper fas fa-chevron-down">
-                                        <select
-                                            class="form__input"
-                                            id="department"
-                                            name="department"
-                                            required
-                                            value="{{ old('department') }}">
-                                            <option value="">{{ register.not_in_gov }}</option>
-                                            {% for dept in departments %}
-                                                <option
-                                                    value="{{ dept.id }}">{{ dept.name }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div
-                                class="box full">
-                                <div
-                                    class="form__input-wrapper--select">
-                                    <label
-                                        class="form__label"
-                                        for="gov_email">
-                                        {{ register.gov_email }}
-                                    </label>
-                                    <input
-                                        class="form__input"
-                                        id="gov_email"
-                                        name="gov_email"
-                                        type="email"
-                                        value="{{ old('gov_email') }}" />
-                                </div>
-                            </div>
-                            #}
 
                             <div
                                 class="box full">
