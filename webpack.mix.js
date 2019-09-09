@@ -24,7 +24,14 @@ mix
   .js("resources/assets/js/getpdf.js", "public/js")
   .js("resources/assets/js/components/JobBuilder/JobBuilderRoot", "public/js")
   .js("resources/assets/js/components/WorkEnvFeaturesRoot", "public/js")
-  .js("resources/assets/js/components/ApplicantSkills/SkillsWordCounter", "public/js")
+  .js(
+    "resources/assets/js/components/ApplicantSkills/SkillsWordCounter",
+    "public/js",
+  )
+  .js(
+    "resources/assets/js/components/Registration/GovDeptAndEmailInputs",
+    "public/js",
+  )
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: sass,
     includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"],

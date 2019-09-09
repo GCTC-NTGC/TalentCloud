@@ -94,7 +94,7 @@ if (document.querySelectorAll("div[data-word-counter-id]")) {
   const elements = document.querySelectorAll("div[data-word-counter-id]");
 
   elements.forEach((container): void => {
-    if (container != null && container.hasAttribute("data-word-counter-id")) {
+    if (container !== null && container.hasAttribute("data-word-counter-id")) {
       const elementId = JSON.parse(container.getAttribute(
         "data-word-counter-id",
       ) as string);

@@ -296,7 +296,7 @@ Route::group(
             Route::post('logout', 'Auth\LoginController@logout')->name('manager.logout');
 
             // Registration Routes...
-            Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('manager.register');
+            Route::get('register', 'Auth\RegisterController@showManagerRegistrationForm')->name('manager.register');
             Route::post('register', 'Auth\RegisterController@register')->name('manager.register.post');
 
             // Password Reset Routes...

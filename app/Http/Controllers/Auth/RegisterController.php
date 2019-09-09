@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Applicant;
+use App\Models\Lookup\Department;
 use App\Services\Validation\Rules\PasswordFormatRule;
 use Facades\App\Services\WhichPortal;
 
@@ -59,6 +60,20 @@ class RegisterController extends AuthController
         return view('auth.register', [
             'routes' => $this->auth_routes(),
             'register' => Lang::get('common/auth/register'),
+        ]);
+    }
+
+    /**
+     * Show the manager registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showManagerRegistrationForm()
+    {
+        return view('auth.register_manager', [
+            'routes' => $this->auth_routes(),
+            'register' => Lang::get('common/auth/register'),
+            'departments' => Department::all()->map->toApiArray(),
         ]);
     }
 

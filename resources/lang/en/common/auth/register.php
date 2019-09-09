@@ -19,5 +19,8 @@ return [
     'password' => 'Password',
     'confirm_password' => 'Confirm Password',
     'register' => 'Register',
-    'auth_logo' => '/images/logo_tc_colour.png'
+    'auth_logo' => '/images/logo_tc_colour.png',
+    'department' => 'Government Department',
+    'not_in_gov' => 'Not in Government',
+    'gov_email' => 'Your Government Email',
 ];
