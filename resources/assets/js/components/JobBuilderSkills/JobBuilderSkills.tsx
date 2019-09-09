@@ -1,5 +1,5 @@
 /* eslint-disable camelcase, @typescript-eslint/camelcase */
-import React, { useState, useRef, useReducer } from "react";
+import React, { useState, useRef, useReducer, useEffect } from "react";
 import {
   InjectedIntlProps,
   injectIntl,
@@ -236,6 +236,9 @@ export const JobBuilderSkills: React.FunctionComponent<
   // When skillBeingAdded is not null, the modal to add a new skill will appear.
   const [skillBeingAdded, setSkillBeingAdded] = useState<Skill | null>(null);
 
+  // Set to true if submit button is touched
+  const [submitTouched, setSubmitTouched] = useState(false);
+
   // When criteriaBeingEdited is not null, the modal for editing that criterion will appear.
   const [
     criteriaBeingEdited,
@@ -309,16 +312,24 @@ export const JobBuilderSkills: React.FunctionComponent<
   );
 
   const [isSaving, setIsSaving] = useState(false);
+
+  const errorMessage = React.createRef<HTMLAnchorElement>();
+  const focusOnError = (): void | null =>
+    errorMessage.current && errorMessage.current.focus();
+
   const saveAndPreview = (): void => {
-    nprogress.start();
-    setIsSaving(true);
-    handleSubmit(jobCriteria)
-      .then((criteria: Criteria[]): void => {
-        criteriaDispatch({ type: "replace", payload: criteria });
-        nprogress.done();
-        setIsPreviewVisible(true);
-      })
-      .finally((): void => setIsSaving(false));
+    setSubmitTouched(true);
+    if (essentialCount > 0) {
+      nprogress.start();
+      setIsSaving(true);
+      handleSubmit(jobCriteria)
+        .then((criteria: Criteria[]): void => {
+          criteriaDispatch({ type: "replace", payload: criteria });
+          nprogress.done();
+          setIsPreviewVisible(true);
+        })
+        .finally((): void => setIsSaving(false));
+    }
   };
   const saveAndReturn = (): void => {
     nprogress.start();
@@ -333,6 +344,10 @@ export const JobBuilderSkills: React.FunctionComponent<
         setIsSaving(false);
       });
   };
+
+  useEffect(() => {
+    if (submitTouched && essentialCount === 0) focusOnError();
+  }, [submitTouched]);
 
   const renderNullCriteriaRow = (): React.ReactElement => (
     <div className="jpb-skill-null" data-c-grid="gutter middle">
@@ -1079,6 +1094,7 @@ export const JobBuilderSkills: React.FunctionComponent<
         {/* Occupational Skills */}
         {/* You can modify colour/icon using the category classes here again (occupational, cultural, future) on the "jpb-skill-category" element. */}
         <div
+          id="jpb-occupational-skills"
           className="jpb-skill-category occupational"
           data-c-margin="bottom(normal)"
           data-c-padding="normal"
@@ -1496,6 +1512,30 @@ export const JobBuilderSkills: React.FunctionComponent<
                 description="Label of Button"
               />
             </button>
+            {essentialCount === 0 && submitTouched && (
+              <div
+                role="alert"
+                data-c-alert="error"
+                data-c-radius="rounded"
+                data-c-margin="top(normal)"
+                data-c-padding="all(half)"
+                style={{
+                  display: `inline-block`,
+                }}
+              >
+                <a
+                  href="#jpb-occupational-skills"
+                  tabIndex={0}
+                  ref={errorMessage}
+                >
+                  <FormattedMessage
+                    id="jobBuilder.skills.button.previewSkills"
+                    defaultMessage="At least one 'Essential Skill' is required."
+                    description="Label of Button"
+                  />
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </div>
