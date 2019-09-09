@@ -18,7 +18,7 @@ class ReferencePolicy extends BasePolicy
      */
     public function view(User $user, Reference $reference)
     {
-        return $user->hasRole('applicant') && $reference->applicant->user->is($user);
+        return $user->isApplicant() && $reference->applicant->user->is($user);
     }
 
     /**
@@ -29,7 +29,7 @@ class ReferencePolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return $user->hasRole('applicant');
+        return $user->isApplicant();
     }
 
     /**
@@ -41,7 +41,7 @@ class ReferencePolicy extends BasePolicy
      */
     public function update(User $user, Reference $reference)
     {
-        return $user->hasRole('applicant') && $reference->applicant->user->is($user);
+        return $user->isApplicant() && $reference->applicant->user->is($user);
     }
 
     /**
@@ -53,6 +53,6 @@ class ReferencePolicy extends BasePolicy
      */
     public function delete(User $user, Reference $reference)
     {
-        return $user->hasRole('applicant') && $reference->applicant->user->is($user);
+        return $user->isApplicant() && $reference->applicant->user->is($user);
     }
 }

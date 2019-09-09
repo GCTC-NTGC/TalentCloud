@@ -14,7 +14,6 @@ class CheckUserRole
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -25,8 +24,8 @@ class CheckUserRole
      */
     public function handle(UserUpdated $event) : void
     {
-        if ($event->user->hasRole('manager') ||
-            $event->user->hasRole('admin')
+        if ($event->user->isManager() ||
+            $event->user->isAdmin()
         ) {
             $managerProfile = Manager::where('user_id', $event->user->id)->first();
             if ($managerProfile === null) {

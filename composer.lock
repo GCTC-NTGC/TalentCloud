@@ -51,26 +51,27 @@
         },
         {
             "name": "astrotomic/laravel-translatable",
-            "version": "v11.3.0",
+            "version": "v11.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Astrotomic/laravel-translatable.git",
-                "reference": "9bf19f56d4e924f1381176a1dfc47d423948001d"
+                "reference": "078a22ea96582f7f518f5418ee7e57e3746fb032"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Astrotomic/laravel-translatable/zipball/9bf19f56d4e924f1381176a1dfc47d423948001d",
-                "reference": "9bf19f56d4e924f1381176a1dfc47d423948001d",
+                "url": "https://api.github.com/repos/Astrotomic/laravel-translatable/zipball/078a22ea96582f7f518f5418ee7e57e3746fb032",
+                "reference": "078a22ea96582f7f518f5418ee7e57e3746fb032",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "5.6.*|5.7.*|5.8.*",
-                "illuminate/database": "5.6.*|5.7.*|5.8.*",
-                "illuminate/support": "5.6.*|5.7.*|5.8.*",
+                "illuminate/contracts": "5.6.* || 5.7.* || 5.8.* || ^6.0",
+                "illuminate/database": "5.6.* || 5.7.* || 5.8.* || ^6.0",
+                "illuminate/support": "5.6.* || 5.7.* || 5.8.* || ^6.0",
                 "php": ">=7.1.3"
             },
             "require-dev": {
-                "orchestra/testbench": "3.6.*|3.7.*|3.8.*"
+                "orchestra/testbench": "3.6.* || 3.7.* || 3.8.* || ^4.0",
+                "orchestra/testbench-core": "3.6.* || 3.7.* || 3.8.* || ^4.0"
             },
             "type": "library",
             "extra": {
@@ -110,7 +111,7 @@
                 "laravel",
                 "translation"
             ],
-            "time": "2019-08-07T10:12:15+00:00"
+            "time": "2019-09-05T13:59:22+00:00"
         },
         {
             "name": "backpack/base",
@@ -1917,24 +1918,24 @@
         },
         {
             "name": "mcamara/laravel-localization",
-            "version": "1.3.20",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mcamara/laravel-localization.git",
-                "reference": "af8f9f30488a83533dda3870fcc335b55cf964e0"
+                "reference": "82d06c66cdf1e3ed17783842886d87cbd5aadd43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/af8f9f30488a83533dda3870fcc335b55cf964e0",
-                "reference": "af8f9f30488a83533dda3870fcc335b55cf964e0",
+                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/82d06c66cdf1e3ed17783842886d87cbd5aadd43",
+                "reference": "82d06c66cdf1e3ed17783842886d87cbd5aadd43",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "~5.2.0||~5.3.0||~5.4.0||~5.5.0||~5.6.0||~5.7.0||~5.8.0",
-                "php": ">=7.0.0"
+                "laravel/framework": "~5.2.0||~5.3.0||~5.4.0||~5.5.0||~5.6.0||~5.7.0||~5.8.0||~6.0.0",
+                "php": ">=7.1.0"
             },
             "require-dev": {
-                "orchestra/testbench-browser-kit": "~3.4|~3.8",
+                "orchestra/testbench-browser-kit": "~3.4|~3.8|~4.0",
                 "phpunit/phpunit": "6.0.*|8.0.*"
             },
             "suggest": {
@@ -1964,8 +1965,8 @@
             "authors": [
                 {
                     "name": "Marc Cámara",
-                    "role": "Developer",
-                    "email": "mcamara88@gmail.com"
+                    "email": "mcamara88@gmail.com",
+                    "role": "Developer"
                 }
             ],
             "description": "Easy localization for Laravel",
@@ -1975,7 +1976,7 @@
                 "localization",
                 "php"
             ],
-            "time": "2019-06-28T16:04:56+00:00"
+            "time": "2019-09-08T13:56:19+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2828,28 +2829,28 @@
         },
         {
             "name": "rcrowe/twigbridge",
-            "version": "v0.11.0",
+            "version": "v0.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rcrowe/TwigBridge.git",
-                "reference": "b49db9f423170015b84993af09ab3e59bb677e0c"
+                "reference": "2054abdbd8dcde573cd86d8d3856873e2388d47b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/b49db9f423170015b84993af09ab3e59bb677e0c",
-                "reference": "b49db9f423170015b84993af09ab3e59bb677e0c",
+                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/2054abdbd8dcde573cd86d8d3856873e2388d47b",
+                "reference": "2054abdbd8dcde573cd86d8d3856873e2388d47b",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.x",
-                "illuminate/view": "5.5.*|5.6.*|5.7.*|5.8.x",
+                "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.x|6.0.*",
+                "illuminate/view": "5.5.*|5.6.*|5.7.*|5.8.x|6.0.*",
                 "php": ">=7.1",
                 "twig/twig": "~2.0"
             },
             "require-dev": {
-                "laravel/framework": "5.0.*",
+                "laravel/framework": "5.5.*",
                 "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "~4.0",
+                "phpunit/phpunit": "~6.0",
                 "satooshi/php-coveralls": "~0.6",
                 "squizlabs/php_codesniffer": "~1.5"
             },
@@ -2883,12 +2884,12 @@
             ],
             "authors": [
                 {
-                    "name": "Barry vd. Heuvel",
-                    "email": "barryvdh@gmail.com"
-                },
-                {
                     "name": "Rob Crowe",
                     "email": "hello@vivalacrowe.com"
+                },
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
                 }
             ],
             "description": "Adds the power of Twig to Laravel",
@@ -2896,7 +2897,7 @@
                 "laravel",
                 "twig"
             ],
-            "time": "2019-02-26T20:10:04+00:00"
+            "time": "2019-09-05T11:59:53+00:00"
         },
         {
             "name": "slevomat/coding-standard",
@@ -2940,26 +2941,26 @@
         },
         {
             "name": "spatie/laravel-translatable",
-            "version": "4.1.4",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-translatable.git",
-                "reference": "5913ec555db8457652db04263b542b85de962172"
+                "reference": "734bd735dc41cf745c3c6f3fb32b8364c918fe34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/5913ec555db8457652db04263b542b85de962172",
-                "reference": "5913ec555db8457652db04263b542b85de962172",
+                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/734bd735dc41cf745c3c6f3fb32b8364c918fe34",
+                "reference": "734bd735dc41cf745c3c6f3fb32b8364c918fe34",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "~5.8.0",
-                "illuminate/support": "~5.8.0",
+                "illuminate/database": "~5.8.0|^6.0",
+                "illuminate/support": "~5.8.0|^6.0",
                 "php": "^7.2"
             },
             "require-dev": {
                 "mockery/mockery": "^1.0",
-                "orchestra/testbench": "~3.8.0",
+                "orchestra/testbench": "~3.8.0|^4.0",
                 "phpunit/phpunit": "^8.0"
             },
             "type": "library",
@@ -2982,20 +2983,20 @@
             "authors": [
                 {
                     "name": "Freek Van der Herten",
-                    "role": "Developer",
                     "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be"
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian De Deyne",
-                    "role": "Developer",
                     "email": "sebastian@spatie.be",
-                    "homepage": "https://spatie.be"
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
                 },
                 {
                     "name": "Mohamed Said",
-                    "role": "Original idea",
-                    "email": "theMohamedSaid@gmail.com"
+                    "email": "theMohamedSaid@gmail.com",
+                    "role": "Original idea"
                 }
             ],
             "description": "A trait to make an Eloquent model hold translations",
@@ -3009,7 +3010,7 @@
                 "spatie",
                 "translate"
             ],
-            "time": "2019-08-29T06:18:19+00:00"
+            "time": "2019-09-04T07:42:04+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -4513,8 +4514,8 @@
             "authors": [
                 {
                     "name": "Tijs Verkoyen",
-                    "role": "Developer",
-                    "email": "css_to_inline_styles@verkoyen.eu"
+                    "email": "css_to_inline_styles@verkoyen.eu",
+                    "role": "Developer"
                 }
             ],
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
@@ -4566,19 +4567,19 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "role": "Lead Developer",
                     "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org"
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 },
                 {
                     "name": "Armin Ronacher",
-                    "role": "Project Founder",
-                    "email": "armin.ronacher@active-4.com"
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
                 },
                 {
                     "name": "Twig Team",
-                    "role": "Contributors",
-                    "homepage": "https://twig.symfony.com/contributors"
+                    "homepage": "https://twig.symfony.com/contributors",
+                    "role": "Contributors"
                 }
             ],
             "description": "Twig, the flexible, fast, and secure template language for PHP",
@@ -5095,8 +5096,8 @@
             "authors": [
                 {
                     "name": "Filipe Dobreira",
-                    "role": "Developer",
-                    "homepage": "https://github.com/filp"
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
                 }
             ],
             "description": "php error handling for cool kids",
@@ -5304,12 +5305,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracasts/Laravel-5-Generators-Extended.git",
-                "reference": "a71d2b705f1e4d0e6b97aa1ba3746907b5bc1f1b"
+                "reference": "25a7094a37922fc42cc4cfa52e257bdbd2303958"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/a71d2b705f1e4d0e6b97aa1ba3746907b5bc1f1b",
-                "reference": "a71d2b705f1e4d0e6b97aa1ba3746907b5bc1f1b",
+                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/25a7094a37922fc42cc4cfa52e257bdbd2303958",
+                "reference": "25a7094a37922fc42cc4cfa52e257bdbd2303958",
                 "shasum": ""
             },
             "require": {
@@ -5348,7 +5349,7 @@
                 "generators",
                 "laravel"
             ],
-            "time": "2019-09-04T04:55:05+00:00"
+            "time": "2019-09-04T07:42:46+00:00"
         },
         {
             "name": "laravel/dusk",

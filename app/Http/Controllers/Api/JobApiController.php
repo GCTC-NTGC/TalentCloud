@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\JobPosterReviewRequested;
 use App\Http\Controllers\Controller;
@@ -116,16 +117,19 @@ class JobApiController extends Controller
      */
     public function submitForReview(JobPoster $job)
     {
-        // Update review request timestamp.
-        $job->review_requested_at = new Date();
-        $job->save();
+        // Check to avoid submitting for review multiple times.
+        if ($job->review_requested_at === null) {
+            // Update review request timestamp.
+            $job->review_requested_at = new Date();
+            $job->save();
 
-        // Send email.
-        $reviewer_email = config('mail.reviewer_email');
-        if (isset($reviewer_email)) {
-            Mail::to($reviewer_email)->send(new JobPosterReviewRequested($job, Auth::user()));
-        } else {
-            Log::error('The reviewer email environment variable is not set.');
+            // Send email.
+            $reviewer_email = config('mail.reviewer_email');
+            if (isset($reviewer_email)) {
+                Mail::to($reviewer_email)->send(new JobPosterReviewRequested($job, Auth::user()));
+            } else {
+                Log::error('The reviewer email environment variable is not set.');
+            }
         }
 
         return response()->json($this->jobToArray($job));
