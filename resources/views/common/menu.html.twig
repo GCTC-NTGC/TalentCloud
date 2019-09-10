@@ -17,20 +17,20 @@
 
     <ul class="menu__list">
 
-        {% for item in menu.items %}
+        {% for key,item in menu.items %}
 
             <li
-                {% if item.link == "/indigenous" %}
+                {% if key == "itp" %}
                     class="menu-itp"
                 {% endif %}>
 
                 <a
-                    class="{% if item.active == true %}active{% endif %}"
+                    class="{{ item.active ? 'active' : '' }}"
                     href="{{ item.link }}"
                     title="Visit {{ item.name }}.">
                     <span>{{ item.name }}</span>
-                    {% if item.link == "/indigenous" %}
-                        <img src="/images/bg_indigenous.jpg" alt="Indigenous Talent Portal link background.">
+                    {% if key == "itp" %}
+                        <img src="/images/bg_indigenous.jpg" alt="{{ item.alt }}">
                     {% endif %}
                 </a>
 
@@ -57,13 +57,6 @@
             </li>
 
         {% endif %}
-
-        {# <li class="menu-itp">
-            <a href="/indigenous">
-                <span>{{ menu.items.itp.name }}</span>
-                <img src="/images/bg_indigenous.jpg" alt="Indigenous Talent Portal link background.">
-            </a>
-        </li> #}
 
     </ul>
 
