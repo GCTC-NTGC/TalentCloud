@@ -148,3 +148,22 @@ export function deleteProperty<T>(
   const { [key]: _, ...newObj } = obj;
   return newObj;
 }
+
+/**
+ * Iterate through the properties of the object, checking which return true for the filterFunction.
+ * Return a copy of the object, without the properties that don't pass the filter.
+ */
+export function filterObjectProps<T>(
+  obj: IndexedObject<T>,
+  filter: (value: T) => boolean,
+): IndexedObject<T> {
+  return Object.entries(obj).reduce(
+    (newObj: IndexedObject<T>, [key, value]): IndexedObject<T> => {
+      if (filter(value)) {
+        newObj[key] = value;
+      }
+      return newObj;
+    },
+    {},
+  );
+}

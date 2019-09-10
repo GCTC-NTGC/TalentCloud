@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { Job, Criteria } from "../../models/types";
+import { Job, Criteria, JobPosterKeyTask } from "../../models/types";
 import {
   JobAction,
   FETCH_JOB_STARTED,
@@ -14,8 +14,20 @@ import {
   CREATE_JOB_STARTED,
   CREATE_JOB_FAILED,
   SET_SELECTED_JOB,
+  FETCH_JOB_TASKS_SUCCEEDED,
+  BATCH_UPDATE_JOB_TASKS_SUCCEEDED,
+  FETCH_CRITERIA_SUCCEEDED,
+  BATCH_UPDATE_CRITERIA_SUCCEEDED,
+  SUBMIT_JOB_FOR_REVIEW_SUCCEEDED,
+  SUBMIT_JOB_FOR_REVIEW_STARTED,
+  SUBMIT_JOB_FOR_REVIEW_FAILED,
 } from "./jobActions";
-import { mapToObject, getId, deleteProperty } from "../../helpers/queries";
+import {
+  mapToObject,
+  getId,
+  deleteProperty,
+  filterObjectProps,
+} from "../../helpers/queries";
 
 export interface EntityState {
   jobs: {
@@ -26,6 +38,11 @@ export interface EntityState {
   criteria: {
     byId: {
       [id: number]: Criteria;
+    };
+  };
+  tasks: {
+    byJobId: {
+      [id: number]: JobPosterKeyTask[];
     };
   };
   jobEdits: {
@@ -52,6 +69,7 @@ export interface JobState {
 export const initEntities = (): EntityState => ({
   jobs: { byId: {} },
   criteria: { byId: {} },
+  tasks: { byJobId: {} },
   jobEdits: {},
 });
 
@@ -83,7 +101,10 @@ export const entitiesReducer = (
         },
         criteria: {
           byId: {
-            ...state.criteria.byId,
+            ...filterObjectProps<Criteria>(
+              state.criteria.byId,
+              (criteria): boolean => criteria.job_poster_id !== action.meta.id,
+            ),
             ...mapToObject(action.payload.criteria, getId),
           },
         },
@@ -99,6 +120,7 @@ export const entitiesReducer = (
         },
       };
     case UPDATE_JOB_SUCCEEDED:
+    case SUBMIT_JOB_FOR_REVIEW_SUCCEEDED:
       return {
         ...state,
         jobs: {
@@ -120,6 +142,32 @@ export const entitiesReducer = (
       return {
         ...state,
         jobEdits: deleteProperty<Job>(state.jobEdits, action.payload),
+      };
+    case FETCH_JOB_TASKS_SUCCEEDED:
+    case BATCH_UPDATE_JOB_TASKS_SUCCEEDED:
+      return {
+        ...state,
+        tasks: {
+          byJobId: {
+            ...state.tasks.byJobId,
+            [action.meta.jobId]: action.payload,
+          },
+        },
+      };
+    case FETCH_CRITERIA_SUCCEEDED:
+    case BATCH_UPDATE_CRITERIA_SUCCEEDED:
+      return {
+        ...state,
+        criteria: {
+          byId: {
+            ...filterObjectProps<Criteria>(
+              state.criteria.byId,
+              (criteria): boolean =>
+                criteria.job_poster_id !== action.meta.jobId,
+            ),
+            ...mapToObject(action.payload, getId),
+          },
+        },
       };
     default:
       return state;
@@ -145,6 +193,7 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
       };
     case FETCH_JOB_STARTED:
     case UPDATE_JOB_STARTED:
+    case SUBMIT_JOB_FOR_REVIEW_STARTED:
       return {
         ...state,
         jobUpdating: {
@@ -154,13 +203,9 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
     case FETCH_JOB_SUCCEEDED:
     case FETCH_JOB_FAILED:
     case UPDATE_JOB_FAILED:
-      return {
-        ...state,
-        jobUpdating: {
-          [action.meta.id]: false,
-        },
-      };
     case UPDATE_JOB_SUCCEEDED:
+    case SUBMIT_JOB_FOR_REVIEW_SUCCEEDED:
+    case SUBMIT_JOB_FOR_REVIEW_FAILED:
       return {
         ...state,
         jobUpdating: {

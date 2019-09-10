@@ -4,9 +4,6 @@
 
 .manager-job-card {
     box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
-    >div:last-child {
-        cursor: pointer;
-    }
 }
 
 .job-builder-context-block {
@@ -33,7 +30,7 @@
         }
     }
     i {
-        color: $clone-c1;
+        color: $clone-go;
         display: none;
         position: absolute;
         top: 50%;
@@ -43,53 +40,65 @@
 }
 
 .job-builder-task {
-    margin: 0 auto !important;
-    max-width: 80% !important;
-    @media screen and (min-width: 39rem) {
-        margin: 0 auto !important;
-        max-width: none !important;
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: block;
+        margin: 0 auto;
+        padding: .2rem 1rem;
     }
-    >div:first-child {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        margin: 0;
-        transform: translate(-100%, -50%);
-        button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            display: block;
-            padding: 1rem;
-        }
-    }
-    >div:nth-child(2) {
-        position: absolute;
-        top: 50%;
-        right: 0;
-        margin: 0;
-        transform: translate(100%, -50%);
-        button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            display: block;
-            padding: 1rem;
-        }
-    }
+    // margin: 0 auto !important;
+    // max-width: 80% !important;
+    // @media screen and (min-width: 39rem) {
+    //     margin: 0 auto !important;
+    //     max-width: none !important;
+    // }
+    // >div:first-child {
+    //     position: absolute;
+    //     top: 50%;
+    //     left: 0;
+    //     margin: 0;
+    //     transform: translate(-100%, -50%);
+    //     button {
+    //         background: none;
+    //         border: none;
+    //         cursor: pointer;
+    //         display: block;
+    //         padding: 1rem;
+    //     }
+    // }
+    // >div:nth-child(2) {
+    //     position: absolute;
+    //     top: 50%;
+    //     right: 0;
+    //     margin: 0;
+    //     transform: translate(100%, -50%);
+    //     button {
+    //         background: none;
+    //         border: none;
+    //         cursor: pointer;
+    //         display: block;
+    //         padding: 1rem;
+    //     }
+    // }
     &:first-child {
-        >div:first-child {
-            button:first-child {
-                color: rgba($clone-grey, .5);
-                pointer-events: none;
+        >div {
+            >div:first-child {
+                button:first-child {
+                    color: rgba($clone-grey, .5);
+                    pointer-events: none;
+                }
             }
         }
     }
     &:last-child {
-        >div:first-child {
-            button:last-child {
-                color: rgba($clone-grey, .5);
-                pointer-events: none;
+        >div {
+            >div:first-child {
+                button:last-child {
+                    color: rgba($clone-grey, .5);
+                    pointer-events: none;
+                }
             }
         }
     }
@@ -100,6 +109,589 @@
         label {
             color: $clone-stop !important;
         }
+    }
+}
+
+// Skills ======================================================================
+.jpb-skill-measure-item {
+    position: relative;
+    >div {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        img {
+            margin: 0 auto;
+            width: 65%;
+        }
+        span {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    img {
+        &:nth-child(2) {
+            display: none;
+        }
+        &:nth-child(3) {
+            display: block;
+        }
+    }
+    &.active {
+        >div {
+            display: block;
+        }
+        img {
+            &:nth-child(2) {
+                display: block;
+            }
+            &:nth-child(3) {
+                display: none;
+            }
+        }
+    }
+}
+.jpb-skill-null {
+    button {
+        background: none;
+        border: none;
+        color: rgba($clone-grey, .4);
+        display: inline-block;
+        padding: .2rem 1rem;
+        pointer-events: none;
+    }
+}
+$occupational-colour: #20B6FF;
+$cultural-colour: #44C553;
+$future-colour: #AD6EDD;
+$optional-colour: #f5b642;
+.jpb-skill-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 !important;
+    .jpb-skill {
+        border-bottom: 1px solid rgba($clone-grey, .4);
+        padding: .5rem 0 1rem 0;
+        @media #{$clone-tablet-landscape} {
+            padding: 1rem 0 1.5rem;
+        }
+        &:last-child {
+            border-bottom: none;
+        }
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            padding: .2rem 1rem;
+        }
+        &:first-child {
+            [data-tc-move-up-trigger] {
+                color: rgba($clone-grey, .4);
+                pointer-events: none;
+            }
+        }
+        &:last-child {
+            [data-tc-move-down-trigger] {
+                color: rgba($clone-grey, .4);
+                pointer-events: none;
+            }
+        }
+        i {
+            margin-right: -.1rem;
+        }
+        &.occupational {
+            .jpb-skill-type {
+                background: $occupational-colour;
+                text-align: center;
+                .fa-briefcase {
+                    display: inline-block;
+                }
+                .fa-coffee {
+                    display: none;
+                }
+                .fa-certificate {
+                    display: none;
+                }
+                .fa-book {
+                    display: none;
+                }
+            }
+        }
+        &.cultural {
+            .jpb-skill-type {
+                background: $cultural-colour;
+                text-align: center;
+                .fa-briefcase {
+                    display: none;
+                }
+                .fa-coffee {
+                    display: inline-block;
+                }
+                .fa-certificate {
+                    display: none;
+                }
+                .fa-book {
+                    display: none;
+                }
+            }
+        }
+        &.future {
+            .jpb-skill-type {
+                background: $future-colour;
+                text-align: center;
+                .fa-briefcase {
+                    display: none;
+                }
+                .fa-coffee {
+                    display: none;
+                }
+                .fa-certificate {
+                    display: inline-block;
+                }
+                .fa-book {
+                    display: none;
+                }
+            }
+        }
+        &.optional {
+            .jpb-skill-type {
+                background: $optional-colour;
+                text-align: center;
+                .fa-briefcase {
+                    display: none;
+                }
+                .fa-coffee {
+                    display: none;
+                }
+                .fa-certificate {
+                    display: none;
+                }
+                .fa-book {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}
+.jpb-skill-category {
+    [data-c-input="select"] {
+        padding-top: 0;
+        padding-bottom: 0;
+        >div,
+        >div select {
+            margin-bottom: 0;
+        }
+    }
+    .jpb-skill-section-title {
+        i {
+            margin-right: -.1rem;
+        }
+    }
+    .jpb-skill-cloud {
+        list-style: none;
+        li {
+            display: inline-block;
+            margin: 0 .5rem .5rem 0;
+        }
+    }
+    .jpb-skill-trigger {
+        .fa-plus-circle {
+
+        }
+        .fa-minus-circle {
+            display: none;
+        }
+        &.active {
+            .fa-plus-circle {
+                display: none;
+            }
+            .fa-minus-circle {
+                display: inline-block;
+            }
+        }
+    }
+    &.occupational {
+        .jpb-skill-section-title {
+            color: $occupational-colour;
+            span {
+                background: $occupational-colour;
+                vertical-align: middle;
+            }
+            .fa-briefcase {
+                display: inline-block;
+            }
+            .fa-coffee {
+                display: none;
+            }
+            .fa-certificate {
+                display: none;
+            }
+            .fa-book {
+                display: none;
+            }
+        }
+        .jpb-skill-trigger {
+            &.active {
+                background: $occupational-colour;
+                border-color: $occupational-colour;
+                color: white;
+                i {
+                    color: white;
+                }
+            }
+        }
+    }
+    &.cultural {
+        .jpb-skill-section-title {
+            color: $cultural-colour;
+            span {
+                background: $cultural-colour;
+                vertical-align: middle;
+            }
+            .fa-briefcase {
+                display: none;
+            }
+            .fa-coffee {
+                display: inline-block;
+            }
+            .fa-certificate {
+                display: none;
+            }
+            .fa-book {
+                display: none;
+            }
+        }
+        .jpb-skill-trigger {
+            &.active {
+                background: $cultural-colour;
+                border-color: $cultural-colour;
+                color: white;
+                i {
+                    color: white;
+                }
+            }
+        }
+    }
+    &.future {
+        .jpb-skill-section-title {
+            color: $future-colour;
+            span {
+                background: $future-colour;
+                vertical-align: middle;
+            }
+            .fa-briefcase {
+                display: none;
+            }
+            .fa-coffee {
+                display: none;
+            }
+            .fa-certificate {
+                display: inline-block;
+            }
+            .fa-book {
+                display: none;
+            }
+        }
+        .jpb-skill-trigger {
+            &.active {
+                background: $future-colour;
+                border-color: $future-colour;
+                color: white;
+                i {
+                    color: white;
+                }
+            }
+        }
+    }
+    &.optional {
+        .jpb-skill-section-title {
+            span {
+                background: $optional-colour;
+                vertical-align: middle;
+            }
+            .fa-briefcase {
+                display: none;
+            }
+            .fa-coffee {
+                display: none;
+            }
+            .fa-certificate {
+                display: none;
+            }
+            .fa-book {
+                display: inline-block;
+            }
+        }
+        .jpb-skill-trigger {
+            &.active {
+                background: $optional-colour;
+                border-color: $optional-colour;
+                color: white;
+                i {
+                    color: white;
+                }
+            }
+        }
+    }
+}
+.jpb-skill-target {
+    .fa-bullseye {
+        margin-right: .5rem;
+    }
+    .fa-check {
+        display: none;
+        margin-right: .5rem;
+    }
+    &.complete {
+        .fa-bullseye {
+            display: none;
+        }
+        .fa-check {
+            display: inline-block;
+        }
+    }
+}
+
+.job-builder-skills-range {
+    >p {
+
+    }
+    >div {
+        >div {
+            >i {
+                display: none;
+                font-size: $clone-font-scale-h4;
+            }
+            &.active {
+                >div {
+                    border: 1px solid black;
+                }
+                >i {
+                    display: inline-block;
+                }
+            }
+        }
+        >div:nth-child(1) {
+            >div {
+                background: #ef7f01;
+            }
+            >i {
+                color: #ef7f01;
+            }
+        }
+        >div:nth-child(2) {
+            >div {
+                background: #fed500;
+            }
+            >i {
+                background: #fed500;
+            }
+        }
+        >div:nth-child(3) {
+            >div {
+                background: #72b220;
+            }
+            >i {
+                color: #72b220;
+            }
+        }
+        >div:nth-child(4) {
+            >div {
+                background: #fed500;
+            }
+            >i {
+                color: #fed500;
+            }
+        }
+        >div:nth-child(5) {
+            >div {
+                background: #ef7f01;
+            }
+            >i {
+                color: #ef7f01;
+            }
+        }
+    }
+}
+
+.job-builder-work-env-skill {
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: .5rem;
+    }
+    .level {
+        display: none;
+    }
+    >div {
+        >div:nth-child(1) {
+            i {
+                color: $clone-go;
+                display: none;
+            }
+        }
+        >div:nth-child(3) {
+            button {
+                display: none;
+            }
+        }
+        >div:nth-child(4) {
+            .delete {
+                display: none;
+            }
+            .add {
+
+            }
+        }
+    }
+    &:nth-child(odd) {
+        background: rgba($clone-grey, .1);
+    }
+    &.active {
+        .level {
+            display: block;
+        }
+        >div {
+            >div:nth-child(1) {
+                i {
+                    display: inline-block;
+                }
+            }
+            >div:nth-child(3) {
+                button {
+                    display: inline-block;
+                }
+            }
+            >div:nth-child(4) {
+                .delete {
+                    display: inline-block;
+                }
+                .add {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.job-build-add-skill {
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: .5rem;
+    }
+}
+
+.job-builder-skill {
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: .5rem;
+    }
+    >div {
+        >div:nth-child(1) {
+            i {
+                color: $clone-go;
+            }
+        }
+    }
+    &:nth-child(odd) {
+        background: rgba($clone-grey, .1);
+    }
+}
+
+.job-builder-custom-skill-definition {
+    display: none;
+    &.active {
+        display: block;
+    }
+}
+
+.job-builder-add-skill-definition-trigger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    i {
+        margin: 0 .5rem 0 0;
+    }
+    .add {
+        display: block;
+    }
+    .remove {
+        display: none;
+    }
+    &.active {
+        .add {
+            display: none;
+        }
+        .remove {
+            display: block;
+        }
+    }
+}
+
+.job-builder-skill-level-or-block {
+    position: relative;
+    div {
+        background: $clone-c2;
+        display: block;
+        height: 1px;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(0, -50%);
+        width: 100%;
+    }
+    span {
+        background: $clone-white;
+        display: inline-block;
+        padding: .2rem .5rem;
+        position: relative;
+        z-index: 2;
+    }
+}
+
+.job-builder-education-customization {
+    display: none;
+    &.active {
+        display: block;
+    }
+}
+
+.job-builder-skill-review {
+    >div:first-child {
+        margin-top: calc(#{$clone-margin});
+        @media #{$clone-tablet-portrait} {
+            margin-top: calc(#{$clone-margin} * #{$clone-whitespace-multiplier});
+        }
+        @media #{$clone-desktop-large} {
+            margin-top: calc((#{$clone-margin} * #{$clone-whitespace-multiplier}) * #{$clone-whitespace-multiplier});
+        }
+    }
+    >div:last-child {
+        margin-bottom: calc(#{$clone-margin});
+        @media #{$clone-tablet-portrait} {
+            margin-bottom: calc(#{$clone-margin} * #{$clone-whitespace-multiplier});
+        }
+        @media #{$clone-desktop-large} {
+            margin-bottom: calc((#{$clone-margin} * #{$clone-whitespace-multiplier}) * #{$clone-whitespace-multiplier});
+        }
+    }
+}
+
+.job-builder-review-language {
+    img {
+        margin: 0 .5rem 0 0;
+        max-width: 2rem;
+        vertical-align: middle;
     }
 }
 

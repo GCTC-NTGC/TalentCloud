@@ -8,20 +8,19 @@ import {
   RatingGuideAnswer,
   Skill,
 } from "../../models/types";
+import { fakeCriterion } from "../../fakeData/fakeJob";
+import { fakeAnswers } from "../../fakeData/fakeRatingGuideAnswer";
+import { fakeQuestions } from "../../fakeData/fakeRatingGuideQuestion";
+import { fakeSkill } from "../../fakeData/fakeSkills";
+import { AssessmentTypeId } from "../../models/lookupConstants";
 import {
-  SkillLevelId,
-  SkillTypeId,
-  AssessmentTypeId,
-  CriteriaTypeId,
-} from "../../models/lookupConstants";
+  assessmentType,
+  skillLevelName,
+  criteriaType,
+} from "../../models/localizedConstants";
 import { clipboardData, ClipboardTableRowProps } from "./RatingGuideClipboard";
 
-const jediSkill: Skill = {
-  id: 1,
-  skill_type_id: SkillTypeId.Hard,
-  en: { name: "English Jedi", description: "English Laser Sword User" },
-  fr: { name: "French Jedi", description: "French Laser Sword User" },
-};
+const jediSkill: Skill = fakeSkill();
 
 jest.mock("../../store/Skill/skillSelector", (): object => {
   return {
@@ -34,94 +33,17 @@ const formatMessage = (message: FormattedMessage.MessageDescriptor): string =>
   message.defaultMessage || message.id;
 
 const someSkills: Skill[] = [
-  {
-    id: 1,
-    skill_type_id: SkillTypeId.Hard,
-    en: { name: "English jedi", description: "English Laser Sword User" },
-    fr: { name: "French jedi", description: "French Laser Sword User" },
-  },
-  {
-    id: 2,
-    skill_type_id: SkillTypeId.Hard,
-    en: {
-      name: "English hacking",
-      description: "English manipulator of technology",
-    },
-    fr: {
-      name: "French hacking",
-      description: "French manipulator of technology",
-    },
-  },
-  {
-    id: 3,
-    skill_type_id: SkillTypeId.Hard,
-    en: { name: "English ninja", description: "English silent and stealthy" },
-    fr: { name: "French ninja", description: "French silent and stealthy" },
-  },
-  {
-    id: 4,
-    skill_type_id: SkillTypeId.Soft,
-    en: { name: "English joker", description: "English teller of jokes" },
-    fr: { name: "French joker", description: "French teller of jokes" },
-  },
+  fakeSkill(),
+  fakeSkill(),
+  fakeSkill(),
+  fakeSkill(),
 ];
 
-const someCriteria: Criteria[] = [
-  {
-    id: 1,
-    criteria_type_id: CriteriaTypeId.Essential,
-    job_poster_id: 1,
-    skill_id: 1,
-    skill_level_id: SkillLevelId.Basic,
-    en: {
-      description: "English for my first critical criterion",
-    },
-    fr: {
-      description: "French for my first critical criterion",
-    },
-  },
-  {
-    id: 2,
-    criteria_type_id: CriteriaTypeId.Asset,
-    job_poster_id: 1,
-    skill_id: 2,
-    skill_level_id: SkillLevelId.Intermediate,
-    en: {
-      description: "English for my second critical criterion",
-    },
-    fr: {
-      description: "French for my second critical criterion",
-    },
-  },
-  {
-    id: 3,
-    criteria_type_id: CriteriaTypeId.Essential,
-    job_poster_id: 1,
-    skill_id: 3,
-    skill_level_id: SkillLevelId.Advanced,
-    en: {
-      description: "English for my third critical criterion",
-    },
-    fr: {
-      description: "French for my third critical criterion",
-    },
-  },
-  {
-    id: 4,
-    criteria_type_id: CriteriaTypeId.Essential,
-    job_poster_id: 1,
-    skill_id: 4,
-    skill_level_id: SkillLevelId.Expert,
-    en: {
-      description: "English for my fourth critical criterion",
-    },
-    fr: {
-      description: "French for my fourth critical criterion",
-    },
-  },
-];
+const someCriteria: Criteria[] = [1, 2, 3, 4].map(
+  (id: number): Criteria => fakeCriterion(id),
+);
 
-const someAssesments: Assessment[] = [
+const someAssessments: Assessment[] = [
   {
     id: 1,
     criterion_id: 1,
@@ -144,70 +66,12 @@ const someAssesments: Assessment[] = [
   },
 ];
 
-const someRatingGuideQuestions: RatingGuideQuestion[] = [
-  {
-    id: 1,
-    job_poster_id: 1,
-    assessment_type_id: AssessmentTypeId.NarrativeAssessment,
-    question:
-      "What is the first question of the meaning of life, the universe and everything?",
-  },
-  {
-    id: 2,
-    job_poster_id: 1,
-    assessment_type_id: AssessmentTypeId.ApplicationScreeningQuestion,
-    question:
-      "What is the second question of the meaning of life, the universe and everything?",
-  },
-  {
-    id: 3,
-    job_poster_id: 1,
-    assessment_type_id: AssessmentTypeId.GroupTest,
-    question:
-      "What is the third question of the meaning of life, the universe and everything?",
-  },
-  {
-    id: 4,
-    job_poster_id: 1,
-    assessment_type_id: AssessmentTypeId.GroupTest,
-    question:
-      "What is the fourth question of the meaning of life, the universe and everything?",
-  },
-];
+const someRatingGuideQuestions: RatingGuideQuestion[] = fakeQuestions();
 
-const someRatingGuideAnswers: RatingGuideAnswer[] = [
-  {
-    id: 1,
-    rating_guide_question_id: 1,
-    criterion_id: 1,
-    expected_answer:
-      "The first answer will make complete sense once you know the question.",
-  },
-  {
-    id: 2,
-    rating_guide_question_id: 2,
-    criterion_id: 2,
-    expected_answer:
-      "The second answer will make complete sense once you know the question.",
-  },
-  {
-    id: 3,
-    rating_guide_question_id: 3,
-    criterion_id: 3,
-    expected_answer:
-      "The third answer will make complete sense once you know the question.",
-  },
-  {
-    id: 4,
-    rating_guide_question_id: 4,
-    criterion_id: 4,
-    expected_answer:
-      "The fourth answer will make complete sense once you know the question.",
-  },
-];
+const someRatingGuideAnswers: RatingGuideAnswer[] = fakeAnswers();
 
 const defaultClipboardData = clipboardData(
-  someAssesments,
+  someAssessments,
   someCriteria,
   someSkills,
   someRatingGuideQuestions,
@@ -218,52 +82,72 @@ const defaultClipboardData = clipboardData(
 
 const expectedOutput: ClipboardTableRowProps[] = [
   {
-    id: "A2-Q2-T2-AN2",
-    title: "Application Screening Question",
-    question:
-      "What is the second question of the meaning of life, the universe and everything?",
-    skillLevel: "Intermediate",
-    criteriaTypeName: "Asset",
-    skillName: "English hacking",
-    skillDescription: "English manipulator of technology",
-    modelAnswer:
-      "The second answer will make complete sense once you know the question.",
+    id: `A${someRatingGuideQuestions[1].assessment_type_id}-Q${someRatingGuideQuestions[1].id}-T${someCriteria[1].criteria_type_id}-AN${someRatingGuideAnswers[1].id}`,
+    title: formatMessage(assessmentType(someAssessments[1].assessment_type_id)),
+    question: someRatingGuideQuestions[1].question,
+    skillLevel: formatMessage(
+      skillLevelName(
+        someCriteria[1].skill_level_id,
+        someSkills[1].skill_type_id,
+      ),
+    ),
+    criteriaTypeName: formatMessage(
+      criteriaType(someCriteria[1].criteria_type_id),
+    ),
+    skillName: someSkills[1].en.name,
+    skillDescription: someSkills[1].en.description,
+    modelAnswer: someRatingGuideAnswers[1].expected_answer,
   },
   {
-    id: "A3-Q4-T1-AN4",
-    title: "Group Test",
-    question:
-      "What is the fourth question of the meaning of life, the universe and everything?",
-    skillLevel: "Deep Level Demonstration",
-    criteriaTypeName: "Essential",
-    skillName: "English joker",
-    skillDescription: "English teller of jokes",
-    modelAnswer:
-      "The fourth answer will make complete sense once you know the question.",
+    id: `A${someRatingGuideQuestions[3].assessment_type_id}-Q${someRatingGuideQuestions[3].id}-T${someCriteria[3].criteria_type_id}-AN${someRatingGuideAnswers[3].id}`,
+    title: formatMessage(assessmentType(someAssessments[3].assessment_type_id)),
+    question: someRatingGuideQuestions[3].question,
+    skillLevel: formatMessage(
+      skillLevelName(
+        someCriteria[3].skill_level_id,
+        someSkills[3].skill_type_id,
+      ),
+    ),
+    criteriaTypeName: formatMessage(
+      criteriaType(someCriteria[3].criteria_type_id),
+    ),
+    skillName: someSkills[3].en.name,
+    skillDescription: someSkills[3].en.description,
+    modelAnswer: someRatingGuideAnswers[3].expected_answer,
   },
   {
-    id: "A3-Q3-T1-AN3",
-    title: "Group Test",
-    question:
-      "What is the third question of the meaning of life, the universe and everything?",
-    skillLevel: "Advanced",
-    criteriaTypeName: "Essential",
-    skillName: "English ninja",
-    skillDescription: "English silent and stealthy",
-    modelAnswer:
-      "The third answer will make complete sense once you know the question.",
+    id: `A${someRatingGuideQuestions[2].assessment_type_id}-Q${someRatingGuideQuestions[2].id}-T${someCriteria[2].criteria_type_id}-AN${someRatingGuideAnswers[2].id}`,
+    title: formatMessage(assessmentType(someAssessments[2].assessment_type_id)),
+    question: someRatingGuideQuestions[2].question,
+    skillLevel: formatMessage(
+      skillLevelName(
+        someCriteria[2].skill_level_id,
+        someSkills[2].skill_type_id,
+      ),
+    ),
+    criteriaTypeName: formatMessage(
+      criteriaType(someCriteria[2].criteria_type_id),
+    ),
+    skillName: someSkills[2].en.name,
+    skillDescription: someSkills[2].en.description,
+    modelAnswer: someRatingGuideAnswers[2].expected_answer,
   },
   {
-    id: "A1-Q1-T1-AN1",
-    title: "Narrative Review",
-    question:
-      "What is the first question of the meaning of life, the universe and everything?",
-    skillLevel: "Beginner",
-    criteriaTypeName: "Essential",
-    skillName: "English jedi",
-    skillDescription: "English Laser Sword User",
-    modelAnswer:
-      "The first answer will make complete sense once you know the question.",
+    id: `A${someRatingGuideQuestions[0].assessment_type_id}-Q${someRatingGuideQuestions[0].id}-T${someCriteria[0].criteria_type_id}-AN${someRatingGuideAnswers[0].id}`,
+    title: formatMessage(assessmentType(someAssessments[0].assessment_type_id)),
+    question: someRatingGuideQuestions[0].question,
+    skillLevel: formatMessage(
+      skillLevelName(
+        someCriteria[0].skill_level_id,
+        someSkills[0].skill_type_id,
+      ),
+    ),
+    criteriaTypeName: formatMessage(
+      criteriaType(someCriteria[0].criteria_type_id),
+    ),
+    skillName: someSkills[0].en.name,
+    skillDescription: someSkills[0].en.description,
+    modelAnswer: someRatingGuideAnswers[0].expected_answer,
   },
 ];
 describe("ClipboardData", (): void => {

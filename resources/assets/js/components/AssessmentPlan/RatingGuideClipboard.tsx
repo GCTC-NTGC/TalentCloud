@@ -30,7 +30,7 @@ export interface ClipboardTableRowProps {
   criteriaTypeName: string;
   skillName: string;
   skillDescription: string;
-  modelAnswer: string;
+  modelAnswer: string | null;
 }
 
 export const clipboardData = (

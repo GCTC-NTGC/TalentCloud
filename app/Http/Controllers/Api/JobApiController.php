@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use App\Mail\JobPosterReviewRequested;
 use App\Http\Controllers\Controller;
 use App\Models\JobPoster;
 use App\Models\Criteria;
-use App\Services\Validation\JobPosterValidator;
+use Jenssegers\Date\Date;
 use App\Http\Requests\UpdateJobPoster;
 use App\Http\Requests\StoreJobPoster;
 
@@ -31,10 +35,12 @@ class JobApiController extends Controller
     private function jobToArray(JobPoster $job)
     {
         $criteria = Criteria::where('job_poster_id', $job->id)->get();
-        $criteriaTranslated = [];
-        foreach ($criteria as $criterion) {
-            $criteriaTranslated[] = array_merge($criterion->toArray(), $criterion->getTranslationsArray());
-        }
+
+        $toApiArray = function ($model) {
+            return array_merge($model->toArray(), $model->getTranslationsArray());
+        };
+        $criteriaTranslated = $criteria->map($toApiArray);
+
         $jobArray = array_merge($job->toApiArray(), ['criteria' => $criteriaTranslated]);
         return $jobArray;
     }
@@ -101,5 +107,28 @@ class JobApiController extends Controller
     public function destroy($id)
     {
         // TODO: complete.
+    }
+
+    /**
+     * Submit the Job Poster for review.
+     *
+     * @param  \App\Models\JobPoster    $job Job Poster object.
+     * @return \Illuminate\Http\Response
+     */
+    public function submitForReview(JobPoster $job)
+    {
+        // Update review request timestamp.
+        $job->review_requested_at = new Date();
+        $job->save();
+
+        // Send email.
+        $reviewer_email = config('mail.reviewer_email');
+        if (isset($reviewer_email)) {
+            Mail::to($reviewer_email)->send(new JobPosterReviewRequested($job, Auth::user()));
+        } else {
+            Log::error('The reviewer email environment variable is not set.');
+        }
+
+        return response()->json($this->jobToArray($job));
     }
 }

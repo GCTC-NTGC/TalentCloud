@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef } from "react";
-import { Form, Field, Formik } from "formik";
+import { Form, Field, Formik, FormikTouched, FormikErrors } from "formik";
 import * as Yup from "yup";
+import nprogress from "nprogress";
 import {
   injectIntl,
   InjectedIntlProps,
@@ -12,7 +13,7 @@ import CheckboxGroup from "../Form/CheckboxGroup";
 import RadioGroup from "../Form/RadioGroup";
 import ContextBlock from "../ContextBlock/ContextBlock";
 import ContextBlockItem from "../ContextBlock/ContextBlockItem";
-import CopyToClipboardButton from "./CopyToClipboardButton";
+import CopyToClipboardButton from "../CopyToClipboardButton";
 import WorkEnvModal from "./WorkEnvModal";
 import RadioInput from "../Form/RadioInput";
 import NumberInput from "../Form/NumberInput";
@@ -27,6 +28,14 @@ import {
   mapToObjectTrans,
   identity,
 } from "../../helpers/queries";
+import {
+  physEnvOptions,
+  techOptions,
+  amenitiesOptions,
+  phyEnvDescriptions,
+  techDescriptions,
+  amenitiesDescriptions,
+} from "../JobBuilder/JobWorkEnv";
 
 const formMessages = defineMessages({
   ourWorkEnvDesc: {
@@ -107,6 +116,16 @@ const formMessages = defineMessages({
     defaultMessage: "Experimental vs. Ongoing Business:",
     description: "The label for the experimental radio group",
   },
+  facingLabel: {
+    id: "jobBuilder.workEnv.facingLabel",
+    defaultMessage: "Citizen Facing vs. Back Office:",
+    description: "The label for the facing radio group",
+  },
+  collaborativeLabel: {
+    id: "jobBuilder.workEnv.collaborativeLabel",
+    defaultMessage: "Collaborative vs. Independent:",
+    description: 'The label for the "colaborative vs independent" radio group',
+  },
   cultureSummary: {
     id: "jobBuilder.workEnv.cultureSummary",
     defaultMessage: "Culture Summary",
@@ -155,134 +174,6 @@ const formMessages = defineMessages({
     description: "Text indicator for optional sections within form.",
   },
 });
-
-export const physEnvMessages = defineMessages({
-  openConcept: {
-    id: "jobBuilder.workEnv.physEnv.openConcept",
-    defaultMessage: "Open Concept",
-    description: "Physical Environment checkbox group 'open concept' option.",
-  },
-  private: {
-    id: "jobBuilder.workEnv.physEnv.private",
-    defaultMessage: "Private",
-    description: "Physical Environment checkbox group 'private' option.",
-  },
-  assignedSeating: {
-    id: "jobBuilder.workEnv.physEnv.assignedSeating",
-    defaultMessage: "Assigned Seating",
-    description:
-      "Physical Environment checkbox group 'assigned seating' option.",
-  },
-  windows: {
-    id: "jobBuilder.workEnv.physEnv.windows",
-    defaultMessage: "Lots of Windows",
-    description: "Physical Environment checkbox group 'windows' option.",
-  },
-  naturalLight: {
-    id: "jobBuilder.workEnv.physEnv.naturalLight",
-    defaultMessage: "Natural Light",
-    description: "Physical Environment checkbox group 'natural light' option.",
-  },
-  smudging: {
-    id: "jobBuilder.workEnv.physEnv.smudging",
-    defaultMessage: "Suitable for Smudging",
-    description:
-      "Physical Environment checkbox group 'suitable for smudging' option.",
-  },
-});
-
-export const physEnvOptions: string[] = [
-  "openConcept",
-  "private",
-  "assignedSeating",
-  "windows",
-  "naturalLight",
-  "smudging",
-];
-
-export const techMessages = defineMessages({
-  videoConferencing: {
-    id: "jobBuilder.workEnv.technology.videoConferencing",
-    defaultMessage: "Video Conferencing (e.g. Skype, Zoom)",
-    description: "Technology checkbox group 'video conferencing' option.",
-  },
-  collaboration: {
-    id: "jobBuilder.workEnv.technology.collaboration",
-    defaultMessage: "Collaboration (e.g. Slack, Hangouts)",
-    description: "Technology checkbox group 'collaboration' option.",
-  },
-  fileSharing: {
-    id: "jobBuilder.workEnv.technology.fileSharing",
-    defaultMessage: "File Sharing (e.g. Google Drive, Dropbox)",
-    description: "Technology checkbox group 'file sharing' option.",
-  },
-  taskManagement: {
-    id: "jobBuilder.workEnv.technology.taskManagement",
-    defaultMessage: "Task Management (e.g. Trello, Asana)",
-    description: "Technology checkbox group 'task management' option.",
-  },
-  versionControl: {
-    id: "jobBuilder.workEnv.technology.versionControl",
-    defaultMessage: "Version Control (e.g. Github, Gitlab)",
-    description: "Technology checkbox group 'version control' option.",
-  },
-  accessToExternal: {
-    id: "jobBuilder.workEnv.technology.accessToExternal",
-    defaultMessage: "Access to external, unfiltered Wi-Fi.",
-    description: "Technology checkbox group 'access to external' option.",
-  },
-});
-
-export const techOptions: string[] = [
-  "videoConferencing",
-  "collaboration",
-  "fileSharing",
-  "taskManagement",
-  "versionControl",
-  "accessToExternal",
-];
-
-export const amenitiesMessages = defineMessages({
-  cafeteria: {
-    id: "jobBuilder.workEnv.amenities.cafeteria",
-    defaultMessage: "Cafeteria On-site",
-    description: "Amenities checkbox group 'cafeteria' option.",
-  },
-  closeToTransit: {
-    id: "jobBuilder.workEnv.amenities.closeToTransit",
-    defaultMessage: "Close to Transit",
-    description: "Amenities checkbox group 'close to transit' option.",
-  },
-  restaurants: {
-    id: "jobBuilder.workEnv.amenities.restaurants",
-    defaultMessage: "Walking Distance to Restaurants/Malls",
-    description: "Amenities checkbox group 'restaurants' option.",
-  },
-  downtown: {
-    id: "jobBuilder.workEnv.amenities.downtown",
-    defaultMessage: "Downtown",
-    description: "Amenities checkbox group 'downtown' option.",
-  },
-  fitnessCenter: {
-    id: "jobBuilder.workEnv.amenities.fitnessCenter",
-    defaultMessage: "Nearby Fitness Centre",
-    description: "Amenities checkbox group 'nearby fitness centre' option.",
-  },
-  parking: {
-    id: "jobBuilder.workEnv.amenities.parking",
-    defaultMessage: "Easy Access to Parking",
-    description: "Amenities checkbox group 'parking' option.",
-  },
-});
-
-export const amenitiesOptions: string[] = [
-  "cafeteria",
-  "closeToTransit",
-  "restaurants",
-  "downtown",
-  "fitnessCenter",
-  "parking",
-];
 
 const culturePaceMessages = defineMessages({
   pace01Title: {
@@ -496,8 +387,144 @@ const experimentalList: {
   },
 ];
 
+const facingMessages = defineMessages({
+  facing01Title: {
+    id: "jobBuilder.facing.01.title",
+    defaultMessage: "Citizen Facing",
+  },
+  facing01Description: {
+    id: "jobBuilder.facing.01.description",
+    defaultMessage:
+      "We are the face of the service we deliver and spend most of our time engaging directly with the public.",
+  },
+  facing02Title: {
+    id: "jobBuilder.facing.02.title",
+    defaultMessage: "Mostly Citizen Facing",
+  },
+  facing02Description: {
+    id: "jobBuilder.facing.02.description",
+    defaultMessage:
+      "We spend a lot of our time engaging directly with the public, but there is also behind the scenes work to support others.",
+  },
+  facing03Title: {
+    id: "jobBuilder.facing.03.title",
+    defaultMessage: "Mostly Back Office",
+  },
+  facing03Description: {
+    id: "jobBuilder.facing.03.description",
+    defaultMessage:
+      "We usually work behind the scenes doing important work that makes service delivery possible.",
+  },
+  facing04Title: {
+    id: "jobBuilder.facing.04.title",
+    defaultMessage: "Back Office",
+  },
+  facing04Description: {
+    id: "jobBuilder.facing.04.description",
+    defaultMessage:
+      "We work behind the scenes doing important work that makes service delivery possible. We thrive on supporting others.",
+  },
+});
+type FacingId = "facing01" | "facing02" | "facing03" | "facing04";
+const facingList: {
+  id: FacingId;
+  title: FormattedMessage.MessageDescriptor;
+  subtext: FormattedMessage.MessageDescriptor;
+}[] = [
+  {
+    id: "facing01",
+    title: facingMessages.facing01Title,
+    subtext: facingMessages.facing01Description,
+  },
+  {
+    id: "facing02",
+    title: facingMessages.facing02Title,
+    subtext: facingMessages.facing02Description,
+  },
+  {
+    id: "facing03",
+    title: facingMessages.facing03Title,
+    subtext: facingMessages.facing03Description,
+  },
+  {
+    id: "facing04",
+    title: facingMessages.facing04Title,
+    subtext: facingMessages.facing04Description,
+  },
+];
+
+const collaborativenessMessages = defineMessages({
+  collaborativeness01Title: {
+    id: "jobBuilder.collaborativeness.01.title",
+    defaultMessage: "Collaborative",
+  },
+  collaborativeness01Description: {
+    id: "jobBuilder.collaborativeness.01.description",
+    defaultMessage:
+      "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.",
+  },
+  collaborativeness02Title: {
+    id: "jobBuilder.collaborativeness.02.title",
+    defaultMessage: "Somewhat Collaborative",
+  },
+  collaborativeness02Description: {
+    id: "jobBuilder.collaborativeness.02.description",
+    defaultMessage:
+      "Our team has a diverse set of skills and we recognize each others strengths. We work together often and are quick to pitch in when someone asks for help.",
+  },
+  collaborativeness03Title: {
+    id: "jobBuilder.collaborativeness.03.title",
+    defaultMessage: "Somewhat Independent",
+  },
+  collaborativeness03Description: {
+    id: "jobBuilder.collaborativeness.03.description",
+    defaultMessage:
+      "Members of our team own their piece of the puzzle and have some freedom to choose how they get their work done.",
+  },
+  collaborativeness04Title: {
+    id: "jobBuilder.collaborativeness.04.title",
+    defaultMessage: "Independent",
+  },
+  collaborativeness04Description: {
+    id: "jobBuilder.collaborativeness.04.description",
+    defaultMessage:
+      "Members of our team own their piece of the puzzle. It doesn’t really matter how we get our work done as long as it’s high quality.",
+  },
+});
+type CollaborativenessId =
+  | "collaborativeness01"
+  | "collaborativeness02"
+  | "collaborativeness03"
+  | "collaborativeness04";
+const collaborativenessList: {
+  id: CollaborativenessId;
+  title: FormattedMessage.MessageDescriptor;
+  subtext: FormattedMessage.MessageDescriptor;
+}[] = [
+  {
+    id: "collaborativeness01",
+    title: collaborativenessMessages.collaborativeness01Title,
+    subtext: collaborativenessMessages.collaborativeness01Description,
+  },
+  {
+    id: "collaborativeness02",
+    title: collaborativenessMessages.collaborativeness02Title,
+    subtext: collaborativenessMessages.collaborativeness02Description,
+  },
+  {
+    id: "collaborativeness03",
+    title: collaborativenessMessages.collaborativeness03Title,
+    subtext: collaborativenessMessages.collaborativeness03Description,
+  },
+  {
+    id: "collaborativeness04",
+    title: collaborativenessMessages.collaborativeness04Title,
+    subtext: collaborativenessMessages.collaborativeness04Description,
+  },
+];
+
 // shape of values used in Form
-export interface FormValues {
+export interface WorkEnvFormValues {
   teamSize?: number;
   physicalEnv: string[];
   technology: string[];
@@ -506,6 +533,8 @@ export interface FormValues {
   culturePace?: CulturePaceId;
   management?: MgmtStyleId;
   experimental?: ExperiementalId;
+  facing?: FacingId;
+  collaborativeness?: CollaborativenessId;
   cultureSummary: string;
   moreCultureSummary: string;
 }
@@ -528,11 +557,13 @@ const jobToValues = (
     fast_vs_steady,
     horizontal_vs_vertical,
     experimental_vs_ongoing,
+    citizen_facing_vs_back_office,
+    collaborative_vs_independent,
     work_env_features,
     ...job
   }: Job,
   locale: "en" | "fr",
-): FormValues => {
+): WorkEnvFormValues => {
   const isTrueInEnvFeatures = (option): boolean =>
     work_env_features !== null &&
     hasKey(work_env_features, option) &&
@@ -553,6 +584,16 @@ const jobToValues = (
       "experimental",
       experimentalList,
       experimental_vs_ongoing,
+    ),
+    ...convertSliderIdFromJob(
+      "facing",
+      facingList,
+      citizen_facing_vs_back_office,
+    ),
+    ...convertSliderIdFromJob(
+      "collaborativeness",
+      collaborativenessList,
+      citizen_facing_vs_back_office,
     ),
     envDescription: job[locale].work_env_description || "",
     cultureSummary: job[locale].culture_summary || "",
@@ -582,9 +623,11 @@ const updateJobWithValues = (
     culturePace,
     management,
     experimental,
+    facing,
+    collaborativeness,
     cultureSummary,
     moreCultureSummary,
-  }: FormValues,
+  }: WorkEnvFormValues,
 ): Job => {
   const physFeatures = mapToObjectTrans(
     physEnvOptions,
@@ -615,6 +658,11 @@ const updateJobWithValues = (
       experimentalList,
       experimental,
     ),
+    citizen_facing_vs_back_office: convertSliderIdToJob(facingList, facing),
+    collaborative_vs_independent: convertSliderIdToJob(
+      collaborativenessList,
+      collaborativeness,
+    ),
     work_env_features: workEnvFeatures,
     [locale]: {
       ...job[locale],
@@ -625,30 +673,105 @@ const updateJobWithValues = (
   };
 };
 
+const renderRadioWithContext = (
+  intl: ReactIntl.InjectedIntl,
+  touched: FormikTouched<WorkEnvFormValues>,
+  errors: FormikErrors<WorkEnvFormValues>,
+  values: WorkEnvFormValues,
+  fieldName: string,
+  label: string,
+  sliderList: {
+    id: string;
+    title: FormattedMessage.MessageDescriptor;
+    subtext: FormattedMessage.MessageDescriptor;
+  }[],
+): React.ReactElement => {
+  return (
+    <div className="job-builder-culture-block" data-c-grid-item="base(1of1)">
+      <div data-c-grid="gutter">
+        <RadioGroup
+          id={fieldName}
+          label={label}
+          required
+          touched={touched[fieldName]}
+          error={errors[fieldName]}
+          value={values[fieldName]}
+          grid="base(1of1) tl(1of3)"
+        >
+          {sliderList.map(
+            ({ id, title }): React.ReactElement => {
+              return (
+                <Field
+                  key={id}
+                  name={fieldName}
+                  component={RadioInput}
+                  id={id}
+                  label={intl.formatMessage(title)}
+                  value={id}
+                  trigger
+                />
+              );
+            },
+          )}
+        </RadioGroup>
+        <ContextBlock
+          className="job-builder-context-block"
+          grid="base(1of1) tl(2of3)"
+        >
+          {sliderList.map(
+            ({ id, title, subtext }): React.ReactElement => {
+              return (
+                <ContextBlockItem
+                  key={id}
+                  contextId={id}
+                  title={intl.formatMessage(title)}
+                  subtext={intl.formatMessage(subtext)}
+                  className="job-builder-context-item"
+                  active={values[fieldName] === id}
+                />
+              );
+            },
+          )}
+        </ContextBlock>
+      </div>
+    </div>
+  );
+};
+
 interface WorkEnvFormProps {
   // Optional Job to prepopulate form values from.
   job: Job | null;
   // Submit function that runs after successful validation.
   // It must return the submitted job, if successful.
   handleSubmit: (values: Job) => Promise<Job>;
+  // The function to run when user clicks Prev Page
+  handleReturn: () => void;
   // Function to run when modal cancel is clicked.
   handleModalCancel: () => void;
   // Function to run when modal confirm is clicked.
   handleModalConfirm: () => void;
+
+  jobIsComplete: boolean;
+  handleSkipToReview: () => Promise<void>;
 }
 
 const WorkEnvForm = ({
   job,
   handleSubmit,
+  handleReturn,
   handleModalCancel,
   handleModalConfirm,
+  jobIsComplete,
+  handleSkipToReview,
   intl,
 }: WorkEnvFormProps & InjectedIntlProps): React.ReactElement => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
-  const initialValues: FormValues = job
+
+  const initialValues: WorkEnvFormValues = job
     ? jobToValues(job, locale)
     : {
         physicalEnv: [],
@@ -659,31 +782,15 @@ const WorkEnvForm = ({
         moreCultureSummary: "",
       };
 
-  // This function takes the possible values and the localized messages objects and returns an array. The array contains the name and localized label.
-  const createOptions = (
-    options: string[],
-    messages: ReactIntl.Messages,
-  ): { name: string; label: string }[] => {
-    return options.map((name: string): { name: string; label: string } => ({
-      name,
-      label: intl.formatMessage(messages[name]),
-    }));
-  };
-  const phyEnvData: { name: string; label: string }[] = createOptions(
-    physEnvOptions,
-    physEnvMessages,
+  const phyEnvData: { name: string; label: string }[] = phyEnvDescriptions(
+    intl,
   );
-  const techData: { name: string; label: string }[] = createOptions(
-    techOptions,
-    techMessages,
-  );
-  const amenitiesData: { name: string; label: string }[] = createOptions(
-    amenitiesOptions,
-    amenitiesMessages,
-  );
+  const techData: { name: string; label: string }[] = techDescriptions(intl);
+  const amenitiesData: {
+    name: string;
+    label: string;
+  }[] = amenitiesDescriptions(intl);
 
-  const cultureSummaryRef = React.createRef<HTMLParagraphElement>();
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const modalParentRef = useRef<HTMLDivElement>(null);
   const workEnvSchema = Yup.object().shape({
     teamSize: Yup.number()
@@ -702,6 +809,12 @@ const WorkEnvForm = ({
     experimental: Yup.string()
       .oneOf(experimentalList.map((item): string => item.id))
       .required(intl.formatMessage(validationMessages.checkboxRequired)),
+    facing: Yup.string()
+      .oneOf(facingList.map((item): string => item.id))
+      .required(intl.formatMessage(validationMessages.checkboxRequired)),
+    collaborativeness: Yup.string()
+      .oneOf(collaborativenessList.map((item): string => item.id))
+      .required(intl.formatMessage(validationMessages.checkboxRequired)),
   });
 
   /** Compiles and returns all the active radio buttons corresponding context box values within the culture section  */
@@ -715,12 +828,36 @@ const WorkEnvForm = ({
     const experimental = experimentalList.find(
       ({ id }): boolean => id === values.experimental,
     );
+    const facing = facingList.find(({ id }): boolean => id === values.facing);
+    const collaborativeness = collaborativenessList.find(
+      ({ id }): boolean => id === values.collaborativeness,
+    );
 
-    const cultureSummary: string = [pace, management, experimental]
+    const cultureSummary: string = [
+      pace,
+      management,
+      experimental,
+      facing,
+      collaborativeness,
+    ]
       .filter(notEmpty)
       .map((item): string => intl.formatMessage(item.subtext))
       .join(" ");
     return cultureSummary;
+  };
+
+  const updateValuesAndReturn = (values: WorkEnvFormValues): void => {
+    // If custom summary textbox is length is zero, set cultureSummary to generated text
+    const cultureSummary =
+      values.cultureSummary.length === 0
+        ? buildCultureSummary(values)
+        : values.cultureSummary;
+    const formValues: WorkEnvFormValues = { ...values, cultureSummary };
+    const oldJob = job || emptyJob();
+    const updatedJob = updateJobWithValues(oldJob, locale, formValues);
+    handleSubmit(updatedJob).then((): void => {
+      handleReturn();
+    });
   };
 
   return (
@@ -756,11 +893,12 @@ const WorkEnvForm = ({
           />
         </h4>
         <p data-c-margin="bottom(normal)">
-          <FormattedMessage {...formMessages.ourWorkEnvDesc} />
+          {intl.formatMessage(formMessages.ourWorkEnvDesc)}
         </p>
       </div>
 
       <Formik
+        enableReinitialize
         initialValues={initialValues}
         validationSchema={workEnvSchema}
         onSubmit={(values, { setSubmitting }): void => {
@@ -769,14 +907,19 @@ const WorkEnvForm = ({
             values.cultureSummary.length === 0
               ? buildCultureSummary(values)
               : values.cultureSummary;
-          const formValues: FormValues = { ...values, cultureSummary };
+          const formValues: WorkEnvFormValues = { ...values, cultureSummary };
           const oldJob = job || emptyJob();
           const updatedJob = updateJobWithValues(oldJob, locale, formValues);
+
+          nprogress.start();
           handleSubmit(updatedJob)
-            .then((job): void => {
+            .then((): void => {
+              nprogress.done();
               setIsModalVisible(true);
             })
-            .finally((): void => setSubmitting(false));
+            .finally((): void => {
+              setSubmitting(false);
+            });
         }}
         render={({
           errors,
@@ -879,13 +1022,13 @@ const WorkEnvForm = ({
                 data-c-margin="bottom(normal) top(normal)"
                 data-c-font-weight="bold"
               >
-                <FormattedMessage {...formMessages.moreOnWorkEnv} />
+                {intl.formatMessage(formMessages.moreOnWorkEnv)}
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage {...formMessages.thisIsOptional} />
+                {intl.formatMessage(formMessages.thisIsOptional)}
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage {...formMessages.moreOnWorkEnvSubtext} />
+                {intl.formatMessage(formMessages.moreOnWorkEnvSubtext)}
               </p>
               <Field
                 type="textarea"
@@ -903,7 +1046,7 @@ const WorkEnvForm = ({
                   data-c-font-size="h4"
                   data-c-margin="top(double) bottom(normal)"
                 >
-                  <FormattedMessage {...formMessages.culture} />
+                  {intl.formatMessage(formMessages.culture)}
                 </h4>
                 <p data-c-margin="bottom(normal)">
                   <FormattedMessage
@@ -913,183 +1056,70 @@ const WorkEnvForm = ({
                   />
                 </p>
                 <p data-c-margin="bottom(normal)">
-                  <FormattedMessage {...formMessages.cultureSubtext2} />
+                  {intl.formatMessage(formMessages.cultureSubtext2)}
                 </p>
               </div>
-              <div
-                className="job-builder-culture-block"
-                data-c-grid-item="base(1of1)"
-              >
-                <div data-c-grid="gutter">
-                  <RadioGroup
-                    id="culturePace"
-                    label={intl.formatMessage(
-                      formMessages.fastPacedSteadyLabel,
-                    )}
-                    required
-                    touched={touched.culturePace}
-                    error={errors.culturePace}
-                    value={values.culturePace}
-                    grid="base(1of1) tl(1of3)"
-                  >
-                    {culturePaceList.map(
-                      ({ id, title }): React.ReactElement => {
-                        return (
-                          <Field
-                            key={id}
-                            name="culturePace"
-                            component={RadioInput}
-                            id={id}
-                            label={intl.formatMessage(title)}
-                            value={id}
-                            trigger
-                          />
-                        );
-                      },
-                    )}
-                  </RadioGroup>
-                  <ContextBlock
-                    className="job-builder-context-block"
-                    grid="base(1of1) tl(2of3)"
-                  >
-                    {culturePaceList.map(
-                      ({ id, title, subtext }): React.ReactElement => {
-                        return (
-                          <ContextBlockItem
-                            key={id}
-                            contextId={id}
-                            title={intl.formatMessage(title)}
-                            subtext={intl.formatMessage(subtext)}
-                            className="job-builder-context-item"
-                            active={values.culturePace === id}
-                          />
-                        );
-                      },
-                    )}
-                  </ContextBlock>
-                </div>
-              </div>
-              <div
-                className="job-builder-culture-block"
-                data-c-grid-item="base(1of1)"
-              >
-                <div data-c-grid="gutter">
-                  <RadioGroup
-                    id="management"
-                    label={intl.formatMessage(formMessages.managementLabel)}
-                    required
-                    touched={touched.management}
-                    error={errors.management}
-                    value={values.management}
-                    grid="base(1of1) tl(1of3)"
-                  >
-                    {managementList.map(
-                      ({ id, title }): React.ReactElement => {
-                        return (
-                          <Field
-                            key={id}
-                            name="management"
-                            component={RadioInput}
-                            id={id}
-                            label={intl.formatMessage(title)}
-                            value={id}
-                            trigger
-                          />
-                        );
-                      },
-                    )}
-                  </RadioGroup>
-                  <ContextBlock
-                    className="job-builder-context-block"
-                    grid="base(1of1) tl(2of3)"
-                  >
-                    {managementList.map(
-                      ({ id, title, subtext }): React.ReactElement => {
-                        return (
-                          <ContextBlockItem
-                            key={id}
-                            contextId={id}
-                            title={intl.formatMessage(title)}
-                            subtext={intl.formatMessage(subtext)}
-                            className="job-builder-context-item"
-                            active={values.management === id}
-                          />
-                        );
-                      },
-                    )}
-                  </ContextBlock>
-                </div>
-              </div>
-              <div
-                className="job-builder-culture-block"
-                data-c-grid-item="base(1of1)"
-              >
-                <div data-c-grid="gutter">
-                  <RadioGroup
-                    id="experimental"
-                    label={intl.formatMessage(formMessages.managementLabel)}
-                    required
-                    touched={touched.experimental}
-                    error={errors.experimental}
-                    value={values.experimental}
-                    grid="base(1of1) tl(1of3)"
-                  >
-                    {experimentalList.map(
-                      ({ id, title }): React.ReactElement => {
-                        return (
-                          <Field
-                            key={id}
-                            name="experimental"
-                            component={RadioInput}
-                            id={id}
-                            label={intl.formatMessage(title)}
-                            value={id}
-                            trigger
-                          />
-                        );
-                      },
-                    )}
-                  </RadioGroup>
-                  <ContextBlock
-                    className="job-builder-context-block"
-                    grid="base(1of1) tl(2of3)"
-                  >
-                    {experimentalList.map(
-                      ({ id, title, subtext }): React.ReactElement => {
-                        return (
-                          <ContextBlockItem
-                            key={id}
-                            contextId={id}
-                            title={intl.formatMessage(title)}
-                            subtext={intl.formatMessage(subtext)}
-                            className="job-builder-context-item"
-                            active={values.experimental === id}
-                          />
-                        );
-                      },
-                    )}
-                  </ContextBlock>
-                </div>
-              </div>
+              {renderRadioWithContext(
+                intl,
+                touched,
+                errors,
+                values,
+                "culturePace",
+                intl.formatMessage(formMessages.fastPacedSteadyLabel),
+                culturePaceList,
+              )}
+              {renderRadioWithContext(
+                intl,
+                touched,
+                errors,
+                values,
+                "management",
+                intl.formatMessage(formMessages.managementLabel),
+                managementList,
+              )}
+              {renderRadioWithContext(
+                intl,
+                touched,
+                errors,
+                values,
+                "experimental",
+                intl.formatMessage(formMessages.experimentalLabel),
+                experimentalList,
+              )}
+              {renderRadioWithContext(
+                intl,
+                touched,
+                errors,
+                values,
+                "facing",
+                intl.formatMessage(formMessages.facingLabel),
+                facingList,
+              )}
+              {renderRadioWithContext(
+                intl,
+                touched,
+                errors,
+                values,
+                "collaborativeness",
+                intl.formatMessage(formMessages.collaborativeLabel),
+                collaborativenessList,
+              )}
               <div data-c-grid-item="base(1of1)">
                 <p
                   data-c-margin="bottom(normal) top(normal)"
                   data-c-font-weight="bold"
                 >
-                  <FormattedMessage {...formMessages.cultureSummary} />
+                  {intl.formatMessage(formMessages.cultureSummary)}
                 </p>
                 <p data-c-margin="bottom(normal)">
-                  <FormattedMessage {...formMessages.cultureSummarySubtext} />
+                  {intl.formatMessage(formMessages.cultureSummarySubtext)}
                 </p>
-                <ContextBlockItem
-                  subtext={buildCultureSummary(values)}
-                  reference={cultureSummaryRef}
-                />
+                <ContextBlockItem subtext={buildCultureSummary(values)} />
                 <div
                   data-c-alignment="base(centre) tl(right)"
                   data-c-margin="top(normal)"
                 >
-                  <CopyToClipboardButton reference={cultureSummaryRef} />
+                  <CopyToClipboardButton text={buildCultureSummary(values)} />
                 </div>
               </div>
               <Field
@@ -1106,13 +1136,13 @@ const WorkEnvForm = ({
                 grid="base(1of1)"
               />
               <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
-                <FormattedMessage {...formMessages.specialWorkCulture} />
+                {intl.formatMessage(formMessages.specialWorkCulture)}
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage {...formMessages.thisIsOptional} />
+                {intl.formatMessage(formMessages.thisIsOptional)}
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage {...formMessages.specialWorkCultureSubtext} />
+                {intl.formatMessage(formMessages.specialWorkCultureSubtext)}
               </p>
               <Field
                 type="textarea"
@@ -1125,23 +1155,47 @@ const WorkEnvForm = ({
                 component={TextAreaInput}
                 grid="base(1of1)"
               />
-              <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
-                {/* <!-- Modal trigger, same as last step. --> */}
-                <button
-                  form="form"
-                  type="submit"
-                  disabled={isSubmitting}
-                  data-c-button="solid(c1)"
-                  data-c-dialog-action="open"
-                  data-c-dialog-id="work-environment-preview"
-                  data-c-radius="rounded"
+              <div data-c-grid="gutter" data-c-grid-item="base(1of1)">
+                <div data-c-grid-item="base(1of1)">
+                  <hr data-c-margin="top(normal) bottom(normal)" />
+                </div>
+                <div
+                  data-c-alignment="base(centre) tp(left)"
+                  data-c-grid-item="tp(1of2)"
                 >
-                  <FormattedMessage
-                    id="jobBuilder.workEnv.submitButtonLabel"
-                    defaultMessage="Preview Work Environment"
-                    description="Label for work environment submit button."
-                  />
-                </button>
+                  <button
+                    data-c-button="outline(c2)"
+                    data-c-radius="rounded"
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={(): void => {
+                      updateValuesAndReturn(values);
+                    }}
+                  >
+                    <FormattedMessage
+                      id="jobBuilder.workEnv.saveAndReturnButtonLabel"
+                      defaultMessage="Save & Return to Job Details"
+                      description="Label for Save & Return button on Work Environment form."
+                    />
+                  </button>
+                </div>
+                <div
+                  data-c-alignment="base(centre) tp(right)"
+                  data-c-grid-item="tp(1of2)"
+                >
+                  <button
+                    data-c-button="solid(c1)"
+                    data-c-radius="rounded"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    <FormattedMessage
+                      id="jobBuilder.workEnv.submitButtonLabel"
+                      defaultMessage="Save & Preview"
+                      description="Label for work environment submit button."
+                    />
+                  </button>
+                </div>
               </div>
             </Form>
             <WorkEnvModal
@@ -1159,9 +1213,12 @@ const WorkEnvForm = ({
               cultureSummary={
                 values.cultureSummary || buildCultureSummary(values)
               }
-              physEnvData={phyEnvData}
-              techData={techData}
-              amenitiesData={amenitiesData}
+              jobIsComplete={jobIsComplete}
+              handleSkipToReview={(): void => {
+                handleSkipToReview().finally((): void => {
+                  setIsModalVisible(false);
+                });
+              }}
             />
           </>
         )}

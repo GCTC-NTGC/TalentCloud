@@ -40,6 +40,11 @@
     "defaultMessage": "This is a foundational part of who you are. You consistently demonstrate this skill or attribute, even under conditions of extreme stress or difficulty. Your peers and supervisors recognize this as a significant strength you demonstrate in the workplace, providing an example to others."
   },
   {
+    "id": "skillLevel.asset.description",
+    "description": "Description of what it means to be an 'Asset' skill.",
+    "defaultMessage": "This skill isn't required for the employee to do the job, but it provides an added benefit to their skillset and will improve the speed or effectiveness of their work."
+  },
+  {
     "id": "skillLevel.hard.basic.name",
     "description": "Single-word descriptor of basic hard skill level.",
     "defaultMessage": "Beginner"
@@ -78,6 +83,11 @@
     "id": "skillLevel.soft.expert.name",
     "description": "Single-word descriptor of soft expert skill level.",
     "defaultMessage": "Deep Level Demonstration"
+  },
+  {
+    "id": "skillLevel.asset.name",
+    "description": "Name for 'Asset' skills.",
+    "defaultMessage": "Asset / No Level Required"
   },
   {
     "id": "assessmentType.narrativeAssessment",
@@ -167,7 +177,7 @@
   {
     "id": "assessmentType.interview.description",
     "description": "Description of an assessment type, to help a manager understand when to use it.",
-    "defaultMessage": "A formal question-and-answer examination performed in real-time between the hiring-board and an applicant, questions are aimed at assessing skill expertise, level, and approach. Each question is crafted beforehand and follows the same structure between all interviewed applicants."
+    "defaultMessage": "A formal question-and-answer examination performed in real-time between the hiring-board and an applicant. Questions are aimed at assessing skill expertise, level, and approach. Each question is crafted beforehand and follows the same structure between all interviewed applicants."
   },
   {
     "id": "assessmentType.onlineExam.description",
@@ -208,5 +218,268 @@
     "id": "assessmentType.narrativeReview.standardAnswer",
     "description": "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
     "defaultMessage": "The provided description contains sufficient evidence to advance this candidate to the next screening steps."
+  },
+  {
+    "id": "province.ab",
+    "defaultMessage": "Alberta"
+  },
+  {
+    "id": "province.bc",
+    "defaultMessage": "British Columbia"
+  },
+  {
+    "id": "province.mb",
+    "defaultMessage": "Manitoba"
+  },
+  {
+    "id": "province.nl",
+    "defaultMessage": "Newfoundland and Labrador"
+  },
+  {
+    "id": "province.nb",
+    "defaultMessage": "New Brunswick"
+  },
+  {
+    "id": "province.ns",
+    "defaultMessage": "Nova Scotia"
+  },
+  {
+    "id": "province.nu",
+    "defaultMessage": "Nunavut"
+  },
+  {
+    "id": "province.nt",
+    "defaultMessage": "Northwest Territories"
+  },
+  {
+    "id": "province.on",
+    "defaultMessage": "Ontario"
+  },
+  {
+    "id": "province.pe",
+    "defaultMessage": "Prince Edward Island"
+  },
+  {
+    "id": "province.qc",
+    "defaultMessage": "Quebec"
+  },
+  {
+    "id": "province.sk",
+    "defaultMessage": "Saskatchewan"
+  },
+  {
+    "id": "province.yk",
+    "defaultMessage": "Yukon"
+  },
+  {
+    "id": "province.ab.abreviation",
+    "defaultMessage": "Alb."
+  },
+  {
+    "id": "province.bc.abreviation",
+    "defaultMessage": "B.C."
+  },
+  {
+    "id": "province.mb.abreviation",
+    "defaultMessage": "Man."
+  },
+  {
+    "id": "province.nl.abreviation",
+    "defaultMessage": "N.L."
+  },
+  {
+    "id": "province.nb.abreviation",
+    "defaultMessage": "N.B."
+  },
+  {
+    "id": "province.ns.abreviation",
+    "defaultMessage": "N.S."
+  },
+  {
+    "id": "province.nu.abreviation",
+    "defaultMessage": "Nvt."
+  },
+  {
+    "id": "province.nt.abreviation",
+    "defaultMessage": "N.W.T."
+  },
+  {
+    "id": "province.on.abreviation",
+    "defaultMessage": "Ont."
+  },
+  {
+    "id": "province.pe.abreviation",
+    "defaultMessage": "P.E.I."
+  },
+  {
+    "id": "province.qc.abreviation",
+    "defaultMessage": "Que."
+  },
+  {
+    "id": "province.sk.abreviation",
+    "defaultMessage": "Sask."
+  },
+  {
+    "id": "province.yk.abreviation",
+    "defaultMessage": "Y.T."
+  },
+  {
+    "id": "securityClearance.reliability",
+    "defaultMessage": "Reliability"
+  },
+  {
+    "id": "securityClearance.secret",
+    "defaultMessage": "Secret"
+  },
+  {
+    "id": "securityClearance.topSecret",
+    "defaultMessage": "Top Secret"
+  },
+  {
+    "id": "languageRequirement.english",
+    "defaultMessage": "English Essential"
+  },
+  {
+    "id": "languageRequirement.french",
+    "defaultMessage": "French Essential"
+  },
+  {
+    "id": "languageRequirement.bilingualIntermediate",
+    "defaultMessage": "Bilingual - Intermediate"
+  },
+  {
+    "id": "languageRequirement.bilingualAdvanced",
+    "defaultMessage": "Bilingual - Advanced"
+  },
+  {
+    "id": "languageRequirement.englishOrFrench",
+    "defaultMessage": "English or French"
+  },
+  {
+    "id": "languageRequirement.description.english",
+    "defaultMessage": "This position requires fluency in English in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in English, such as interview questions or an exam."
+  },
+  {
+    "id": "languageRequirement.description.french",
+    "defaultMessage": "This position requires fluency in French in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in French, such as interview questions or an exam."
+  },
+  {
+    "id": "languageRequirement.description.bilingualIntermediate",
+    "defaultMessage": "This position requires working knowledge of both French and English. This means that you can take on job duties in either French or English, and you have intermediate reading, writing and verbal communication skills in both official languages. As part of this selection process, your language abilities will be tested by the Public Service Commission of Canada."
+  },
+  {
+    "id": "languageRequirement.description.bilingualAdvanced",
+    "defaultMessage": "This position requires advanced knowledge of both French and English. This means that you can take on job duties in either French or English, and you have strong reading, writing and verbal communication skills in both official languages. As part of this selection process, your language abilities will be tested by the Public Service Commission of Canada Public Service Commission of Canada."
+  },
+  {
+    "id": "languageRequirement.description.englishOrFrench",
+    "defaultMessage": "For this position, you meet the language requirements if you have strong reading, writing and verbal communication skills in either English or French, or both (bilingual)."
+  },
+  {
+    "id": "languageRequirement.context.basic",
+    "defaultMessage": "You can submit this initial application in either official language of your choice (English or French)."
+  },
+  {
+    "id": "languageRequirement.context.expanded",
+    "defaultMessage": "You can complete all other steps of this assessment process in the official language of your choice, including the initial application, interview, exam and any other evaluation components."
+  },
+  {
+    "id": "department.treasuryBoard",
+    "defaultMessage": "Treasury Board of Canada Secretariat"
+  },
+  {
+    "id": "department.naturalResources",
+    "defaultMessage": "Natural Resources Canada"
+  },
+  {
+    "id": "department.transport",
+    "defaultMessage": "Transport Canada"
+  },
+  {
+    "id": "department.environmentAndClimateChange",
+    "defaultMessage": "Environment and Climate Change Canada"
+  },
+  {
+    "id": "department.employmentAndSocialDevelopment",
+    "defaultMessage": "Employment and Social Development Canada"
+  },
+  {
+    "id": "department.globalAffairs",
+    "defaultMessage": "Global Affairs Canada"
+  },
+  {
+    "id": "department.borderServices",
+    "defaultMessage": "Canada Border Services Agency"
+  },
+  {
+    "id": "department.fisheriesAndOceans",
+    "defaultMessage": "Fisheries and Oceans Canada"
+  },
+  {
+    "id": "department.innovationScience",
+    "defaultMessage": "Innovation, Science and Economic Development Canada"
+  },
+  {
+    "id": "department.publicServiceAndProcurement",
+    "defaultMessage": "Public Services and Procurement Canada"
+  },
+  {
+    "id": "department.nationalDefence",
+    "defaultMessage": "Deparmtnet of National Defence"
+  },
+  {
+    "id": "jobBuilder.details.frequencyAlwaysLabel",
+    "description": "The form label displayed on 'always' frequency options.",
+    "defaultMessage": "Almost Always"
+  },
+  {
+    "id": "jobBuilder.details.frequencyFrequentlyLabel",
+    "description": "The form label displayed on 'frequently' frequency options.",
+    "defaultMessage": "Frequently"
+  },
+  {
+    "id": "jobBuilder.details.frequencySometimesLabel",
+    "description": "The form label displayed on 'sometimes' frequency options.",
+    "defaultMessage": "Sometimes"
+  },
+  {
+    "id": "jobBuilder.details.frequencyOccasionallyLabel",
+    "description": "The form label displayed on 'occasionally' frequency options.",
+    "defaultMessage": "Occasionally"
+  },
+  {
+    "id": "jobBuilder.details.frequencyNeverLabel",
+    "description": "The form label displayed on 'never' frequency options.",
+    "defaultMessage": "Almost Never"
+  },
+  {
+    "id": "jobBuilder.details.overtimeFrequentlyLabel",
+    "description": "The form label displayed on 'frequently' overtime options",
+    "defaultMessage": "Yes, overtime is frequently required for the position."
+  },
+  {
+    "id": "jobBuilder.details.overtimeOpportunitiesAvailableLabel",
+    "description": "The form label displayed on 'overtime opportunities available' overtime options",
+    "defaultMessage": "Yes, overtime opportunities are available for those that are interested."
+  },
+  {
+    "id": "jobBuilder.details.overtimeNoneRequiredLabel",
+    "description": "The form label displayed on 'no overtime required' overtime options",
+    "defaultMessage": "No, overtime is not required for the position."
+  },
+  {
+    "id": "jobBuilder.details.travelFrequentlyLabel",
+    "description": "The form label displayed on 'frequently' travel options",
+    "defaultMessage": "Yes, travel is frequently required for the position."
+  },
+  {
+    "id": "jobBuilder.details.travelOpportunitiesAvailableLabel",
+    "description": "The form label displayed on 'travel opportunities available' travel options",
+    "defaultMessage": "Yes, travel opportunities are available for those that are interested."
+  },
+  {
+    "id": "jobBuilder.details.travelNoneRequiredLabel",
+    "description": "The form label displayed on 'no travel required' travel options",
+    "defaultMessage": "No, travel is not required for the position."
   }
 ]

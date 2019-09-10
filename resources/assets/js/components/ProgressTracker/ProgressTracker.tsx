@@ -10,6 +10,7 @@ export interface ProgressTrackerProps {
   fontColor?: string;
   classNames?: string;
   itemsWrapperClassNames?: string;
+  dataIsLoading?: boolean;
 }
 
 const ProgressTracker: React.FunctionComponent<ProgressTrackerProps> = ({
@@ -20,37 +21,72 @@ const ProgressTracker: React.FunctionComponent<ProgressTrackerProps> = ({
   fontColor,
   classNames,
   itemsWrapperClassNames,
+  dataIsLoading,
 }): React.ReactElement => {
+  const activeItemLabel = (): string => {
+    const active: ProgressTrackerItem | undefined =
+      items &&
+      items.find(({ state }) => {
+        return state === "active";
+      });
+
+    return active ? active.label : "";
+  };
+
+  const activeItemTitle = (): string => {
+    const active: ProgressTrackerItem | undefined =
+      items &&
+      items.find(({ state }) => {
+        return state === "active";
+      });
+
+    return active ? active.title : "";
+  };
+
+  const activeIndex = (): number =>
+    items
+      ? items.reduce(function(acc, { state }) {
+          state === "active" ? acc++ : acc;
+          return acc;
+        }, 0)
+      : -1;
+
   return (
     <div
-      data-c-alignment="base(centre) tl(right)"
+      data-c-alignment="base(centre)"
       data-c-background={`${backgroundColor}(${backgroundOpacity || 100})`}
       className={classNames}
+      data-c-padding="top(quarter) bottom(quarter)"
     >
-      <div
+      <ol
+        tabIndex={0}
+        role="progressbar"
+        aria-valuemin={1}
+        aria-valuemax={items && items.length}
+        aria-valuenow={activeIndex()}
+        aria-valuetext={`${activeItemLabel} : ${activeItemTitle}`}
+        className={itemsWrapperClassNames}
         data-c-container="layout"
-        data-c-padding="top(quarter) bottom(quarter)"
       >
-        <div className={itemsWrapperClassNames}>
-          {/* If items list exists, then return list of progress tracker item components. Also, progress tracker items can be passed down to the children props, and will be printed out below. */}
-          {items &&
-            items.map(
-              (item): React.ReactElement => {
-                const { state, label, title } = item;
-                return (
-                  <ProgressTrackerItemComponent
-                    key={title}
-                    state={state}
-                    label={label}
-                    title={title}
-                    fontColor={fontColor}
-                  />
-                );
-              },
-            )}
-          {children}
-        </div>
-      </div>
+        {/* If items list exists, then return list of progress tracker item components. Also, progress tracker items can be passed down to the children props, and will be printed out below. */}
+        {items &&
+          items.map(
+            (item): React.ReactElement => {
+              const { state, label, title } = item;
+              return (
+                <ProgressTrackerItemComponent
+                  key={title}
+                  state={state}
+                  label={label}
+                  title={title}
+                  fontColor={fontColor}
+                  dataIsLoading={dataIsLoading}
+                />
+              );
+            },
+          )}
+        {children}
+      </ol>
     </div>
   );
 };

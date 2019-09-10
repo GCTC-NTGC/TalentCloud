@@ -21,7 +21,7 @@
                 <div data-c-margin="bottom(triple)">
                     {% include "common/menu" %}
                 </div>
-                <div data-c-container="layout">
+                <div data-c-container="layout" data-c-alignment="centre">
                     <h2 data-c-colour="white" data-c-font-size="h2" data-c-font-weight="bold" data-c-margin="bottom(double)">
                         Build a Job Poster
                     </h2>
@@ -49,8 +49,9 @@
                     </nav>
                 </div>
             </div>
-            <!-- Progress Indicator (see step 00 for info) -->
-            <div class="manager-jpb-tracker" data-c-alignment="base(centre) tl(right)" data-c-background="black(100)" data-c-colour="white">
+            <!-- UPDATE: 06-26 -->
+            <!-- After a discussion with Lauren and Tristan, we've decided to reduce the number of steps, as well as the nomenclature associated with each one. -->
+            <div class="manager-jpb-tracker" data-c-alignment="base(centre)s" data-c-background="black(100)" data-c-colour="white">
                 <div data-c-container="layout" data-c-padding="top(quarter) bottom(quarter)">
                     <div class="tracker manager-jpb-tracker-wrapper">
                         <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
@@ -60,8 +61,8 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 01</span><br>
-                                <span data-c-font-weight="bold">Intro</span>
+                                <span data-c-font-size="small">Start</span><br>
+                                <span data-c-font-weight="bold">Welcome</span>
                             </div>
                         </div>
                         <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
@@ -71,7 +72,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 02</span><br>
+                                <span data-c-font-size="small">Step 01</span><br>
                                 <span data-c-font-weight="bold">Job Info</span>
                             </div>
                         </div>
@@ -82,7 +83,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 03</span><br>
+                                <span data-c-font-size="small">Step 02</span><br>
                                 <span data-c-font-weight="bold">Work Env.</span>
                             </div>
                         </div>
@@ -93,7 +94,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 04</span><br>
+                                <span data-c-font-size="small">Step 03</span><br>
                                 <span data-c-font-weight="bold">Impact</span>
                             </div>
                         </div>
@@ -104,7 +105,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 05</span><br>
+                                <span data-c-font-size="small">Step 04</span><br>
                                 <span data-c-font-weight="bold">Tasks</span>
                             </div>
                         </div>
@@ -115,7 +116,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 06</span><br>
+                                <span data-c-font-size="small">Step 05</span><br>
                                 <span data-c-font-weight="bold">Skills</span>
                             </div>
                         </div>
@@ -126,7 +127,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span data-c-font-size="small">Step 07</span><br>
+                                <span data-c-font-size="small">Finish</span><br>
                                 <span data-c-font-weight="bold">Review</span>
                             </div>
                         </div>
@@ -145,7 +146,7 @@
                 </ul>
                 <p data-c-font-weight="bold" data-c-margin="bottom(normal)">How our department makes an impact:</p>
                 <!-- The p tag below is where the dynamic department text goes (I used text from an old job poster as placeholder, but the real list of data is in the issue. -->
-                <p data-c-margin="bottom(double)">The Navigable Waters Act Renewal team is responsible for the implementation of the electronic system related to the Canadian Navigable Waters Act (CNWA). This work will help the Government of Canada to modernize environment and regulatory processes and introduce new processes that properly serve the public.</p>
+                <p data-c-margin="bottom(double)">As the administrative arm of the Treasury Board, the Secretariat has a dual mandate: to support the Treasury Board as a committee of ministers and to fulfil the statutory responsibilities of a central government agency.</p>
                 <form data-c-grid="gutter">
                     <div data-c-grid-item="base(1of1)" data-c-input="textarea">
                         <p data-c-font-weight="bold" data-c-margin="bottom(normal)">How our team makes an impact:</p>
@@ -153,7 +154,7 @@
                         <label for="builder04TeamImpact">Team Impact Statement</label>
                         <span>Required</span>
                         <div>
-                            <textarea id="builder04TeamImpact" placeholder="Try for a casual, frank, friendly tone..." required></textarea>
+                            <textarea id="builder04TeamImpact" placeholder="Try for a casual, frank, friendly tone..." required>The team provides government-wide Human Resources support to Chief Information Officers and other senior staff in Government of Canada departments and agencies to attract, develop, and retain digital talent. The team works on important people issues, from defining work and competencies in a digital era to promoting Women in Tech, to recruiting and retaining scarce talent in Cybersecurity and other disciplines.</textarea>
                         </div>
                         <span>This input has an error.</span>
                     </div>
@@ -163,14 +164,22 @@
                         <label for="builder04HireImpact">Team Impact Statement</label>
                         <span>Required</span>
                         <div>
-                            <textarea id="builder04HireImpact" placeholder="Remember, don't use Government speak..." required></textarea>
+                            <textarea id="builder04HireImpact" placeholder="Remember, don't use Government speak..." required>This specific role will lead a whole-of-government external (head hunter) competition to identify a diverse and representative workforce of CIOs and other IM/IT senior executive candidates in the private sector who are interested in government roles (outlined in the Digital Operations Strategic Plan: 2018-2022.</textarea>
                         </div>
                         <span>This input has an error.</span>
                     </div>
-                    <div data-c-alignment="centre" data-c-grid-item="base(1of1)" data-c-grid-item="base(1of2)">
+                    <div data-c-grid-item="base(1of1)">
+                        <hr data-c-margin="top(normal) bottom(normal)">
+                    </div>
+                    <div data-c-alignment="base(centre) tp(left)" data-c-grid-item="tp(1of2)">
+                        <a href="/builder-03" data-c-button="outline(c2)" data-c-radius="rounded" type="button">
+                            Previous Step
+                        </a>
+                    </div>
+                    <div data-c-alignment="base(centre) tp(right)" data-c-grid-item="tp(1of2)">
                         <!-- Modal trigger, same as last step. -->
-                        <button data-c-button="solid(c1)" data-c-dialog-action="open" data-c-dialog-id="example-dialog-01" data-c-radius="rounded" type="button">
-                            Next
+                        <button data-c-button="solid(c2)" data-c-dialog-action="open" data-c-dialog-id="example-dialog-01" data-c-radius="rounded" type="button">
+                            Preview Impact
                         </button>
                     </div>
                 </form>
@@ -184,7 +193,7 @@
         <div aria-describedby="example-dialog-01-description" aria-hidden="true" aria-labelledby="example-dialog-01-title" data-c-dialog data-c-dialog-id="example-dialog-01" data-c-padding="top(double) bottom(double)" role="dialog">
             <div data-c-background="white(100)" data-c-radius="rounded">
                 <div data-c-background="c1(100)" data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
-                    <h5 data-c-colour="white" data-c-font-size="h4" id="example-dialog-01-title">Awesome work!
+                    <h5 data-c-dialog-focus tabindex="0" data-c-colour="white" data-c-font-size="h4" id="example-dialog-01-title">Awesome work!
                     </h5>
                 </div>
                 <div data-c-border="bottom(thin, solid, black)">
@@ -195,23 +204,23 @@
                     <div data-c-background="grey(20)" data-c-padding="normal">
                         <div class="manager-job-card" data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
                             <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="bottom(normal)" data-c-padding="bottom(normal)">Impact</h4>
-                            <p data-c-margin="bottom(normal)">The Navigable Waters Act Renewal team is responsible for the implementation of the electronic system related to the Canadian Navigable Waters Act (CNWA). This work will help the Government of Canada to modernize environment and regulatory processes and introduce new processes that properly serve the public.</p>
-                            <p data-c-margin="bottom(normal)">Canada’s large network of navigable waters must remain open for Canadians to use. Protecting the public right of navigation is an important element of the new environmental and regulatory system in which good projects go ahead sustainably, with certainty and timely decisions, creating shared value and benefit for Canadians. The Navigable Waters Act Renewal (NWAR) team will play a key part in helping achieve this goal.</p>
-                            <p>As a member of a dynamic SCRUM team you’ll be responsible for implementing a new online public registry so Canadians can access information on proposed projects in their communities. You’ll also participate in the implementation of an internal system to manage the proposed work and will collaborate with other agencies involved in the CNWA.</p>
+                            <p data-c-margin="bottom(normal)">As the administrative arm of the Treasury Board, the Secretariat has a dual mandate: to support the Treasury Board as a committee of ministers and to fulfil the statutory responsibilities of a central government agency.</p>
+                            <p data-c-margin="bottom(normal)">The team provides government-wide Human Resources support to Chief Information Officers and other senior staff in Government of Canada departments and agencies to attract, develop, and retain digital talent. The team works on important people issues, from defining work and competencies in a digital era to promoting Women in Tech, to recruiting and retaining scarce talent in Cybersecurity and other disciplines.</p>
+                            <p>This specific role will lead a whole-of-government external (head hunter) competition to identify a diverse and representative workforce of CIOs and other IM/IT senior executive candidates in the private sector who are interested in government roles (outlined in the Digital Operations Strategic Plan: 2018-2022.</p>
                         </div>
                     </div>
                 </div>
                 <div data-c-padding="normal">
                     <div data-c-grid="gutter middle">
                         <div data-c-grid-item="base(1of2)">
-                            <button data-c-button="outline(c1)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-01" data-c-radius="rounded">
+                            <button data-c-button="outline(c2)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-01" data-c-radius="rounded">
                                 Go Back
                             </button>
                         </div>
                         <div data-c-alignment="base(right)" data-c-grid-item="base(1of2)">
-                            <button data-c-button="solid(c1)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-01" data-c-radius="rounded">
+                            <a data-c-button="solid(c2)" href="/builder-05" data-c-radius="rounded">
                                 Next Step
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

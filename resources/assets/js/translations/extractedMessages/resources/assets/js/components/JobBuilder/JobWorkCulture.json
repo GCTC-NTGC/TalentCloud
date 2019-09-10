@@ -1,0 +1,22 @@
+[
+  {
+    "id": "jobBuilder.workCulture.remoteWorkMsg.always",
+    "description": "Shown on Work Culture card when remoteWork field is set to true.",
+    "defaultMessage": "Always"
+  },
+  {
+    "id": "jobBuilder.workCulture.remoteWorkMsg.never",
+    "description": "Shown on Work Culture card when remoteWork field is set to false.",
+    "defaultMessage": "Never"
+  },
+  {
+    "id": "jobBuilder.workCulture.remoteWork",
+    "description": "Label for the Remote Work field on the Work Culture card.",
+    "defaultMessage": "Remote Work"
+  },
+  {
+    "id": "jobBuilder.workCulture.remoteWorkDescription",
+    "description": "Explanation of what Remote Work means.",
+    "defaultMessage": "Work from anywhere, all the time."
+  }
+]

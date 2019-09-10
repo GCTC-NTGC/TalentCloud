@@ -2,7 +2,7 @@
   {
     "id": "assessmentPlan.summary.skillCount",
     "description": "Labels how many skills are assessed by this assessment tool.",
-    "defaultMessage": "Assessing {count, plural, one {# skill} other {# skills}}."
+    "defaultMessage": "Assessing {count,plural,one{{count, number} skill} other{{count, number} skills}}."
   },
   {
     "id": "criteria.essential",
@@ -37,7 +37,7 @@
   {
     "id": "assessmentPlan.summary.assessmentSummary.toolSkillCount",
     "description": "Describes how many tools and skills your assessment plan involves.",
-    "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}\r\n            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}."
+    "defaultMessage": "Your plan uses {toolCount,plural,=0{no tools} one{{toolCount, number} tool} other{{toolCount, number} tools}}\r\n            to assess {skillCount,plural,=0{no skills} one{{skillCount, number} skill} other{{skillCount, number} skills}}."
   },
   {
     "id": "assessmentPlan.summary.assessmentSummary.noAssessments",

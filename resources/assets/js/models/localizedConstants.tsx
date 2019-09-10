@@ -12,6 +12,9 @@ import {
   SecurityClearanceId,
   LanguageRequirementId,
   DepartmentId,
+  FrequencyId,
+  OvertimeRequirementId,
+  TravelRequirementId,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
 
@@ -75,6 +78,12 @@ const skillLevelDescriptions = defineMessages({
       "This is a foundational part of who you are. You consistently demonstrate this skill or attribute, even under conditions of extreme stress or difficulty. Your peers and supervisors recognize this as a significant strength you demonstrate in the workplace, providing an example to others.",
     description: "Description of expert soft skill level.",
   },
+  asset: {
+    id: "skillLevel.asset.description",
+    defaultMessage:
+      "This skill isn't required for the employee to do the job, but it provides an added benefit to their skillset and will improve the speed or effectiveness of their work.",
+    description: "Description of what it means to be an 'Asset' skill.",
+  },
 });
 
 const skillLevelNames = defineMessages({
@@ -117,6 +126,11 @@ const skillLevelNames = defineMessages({
     id: "skillLevel.soft.expert.name",
     defaultMessage: "Deep Level Demonstration",
     description: "Single-word descriptor of soft expert skill level.",
+  },
+  asset: {
+    id: "skillLevel.asset.name",
+    defaultMessage: "Asset / No Level Required",
+    description: "Name for 'Asset' skills.",
   },
 });
 
@@ -221,6 +235,11 @@ const assessmentTypes = defineMessages({
   },
 });
 
+export const assetSkillName = (): FormattedMessage.MessageDescriptor =>
+  skillLevelNames.asset;
+export const assetSkillDescription = (): FormattedMessage.MessageDescriptor =>
+  skillLevelDescriptions.asset;
+
 export const assessmentType = (
   assessmentTypeId: number,
 ): FormattedMessage.MessageDescriptor => {
@@ -301,7 +320,7 @@ const assessmentTypeDescriptions = defineMessages({
   interview: {
     id: "assessmentType.interview.description",
     defaultMessage:
-      "A formal question-and-answer examination performed in real-time between the hiring-board and an applicant, questions are aimed at assessing skill expertise, level, and approach. Each question is crafted beforehand and follows the same structure between all interviewed applicants.",
+      "A formal question-and-answer examination performed in real-time between the hiring-board and an applicant. Questions are aimed at assessing skill expertise, level, and approach. Each question is crafted beforehand and follows the same structure between all interviewed applicants.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
@@ -539,11 +558,11 @@ export const securityClearance = (
 const languageRequirements = defineMessages({
   [LanguageRequirementId.english]: {
     id: "languageRequirement.english",
-    defaultMessage: "English essential",
+    defaultMessage: "English Essential",
   },
   [LanguageRequirementId.french]: {
     id: "languageRequirement.french",
-    defaultMessage: "French essential",
+    defaultMessage: "French Essential",
   },
   [LanguageRequirementId.bilingualIntermediate]: {
     id: "languageRequirement.bilingualIntermediate",
@@ -567,6 +586,74 @@ export const languageRequirement = (
     languageRequirementId,
     "invalid LanguageRequirementId",
   );
+
+const languageRequirementDescriptions = defineMessages({
+  [LanguageRequirementId.english]: {
+    id: "languageRequirement.description.english",
+    defaultMessage:
+      "This position requires fluency in English in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in English, such as interview questions or an exam.",
+  },
+  [LanguageRequirementId.french]: {
+    id: "languageRequirement.description.french",
+    defaultMessage:
+      "This position requires fluency in French in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in French, such as interview questions or an exam.",
+  },
+  [LanguageRequirementId.bilingualIntermediate]: {
+    id: "languageRequirement.description.bilingualIntermediate",
+    // TODO: turn "Public Service Commission of Canada" into a link to https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/information-candidates/language-requirements-candidates.html
+    defaultMessage:
+      "This position requires working knowledge of both French and English. This means that you can take on job duties in either French or English, and you have intermediate reading, writing and verbal communication skills in both official languages. As part of this selection process, your language abilities will be tested by the Public Service Commission of Canada.",
+  },
+  [LanguageRequirementId.bilingualAdvanced]: {
+    id: "languageRequirement.description.bilingualAdvanced",
+    // TODO: turn "Public Service Commission of Canada" into a link to https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/information-candidates/language-requirements-candidates.html
+    defaultMessage:
+      "This position requires advanced knowledge of both French and English. This means that you can take on job duties in either French or English, and you have strong reading, writing and verbal communication skills in both official languages. As part of this selection process, your language abilities will be tested by the Public Service Commission of Canada Public Service Commission of Canada.",
+  },
+  [LanguageRequirementId.englishOrFrench]: {
+    id: "languageRequirement.description.englishOrFrench",
+    defaultMessage:
+      "For this position, you meet the language requirements if you have strong reading, writing and verbal communication skills in either English or French, or both (bilingual).",
+  },
+});
+
+export const languageRequirementDescription = (
+  languageRequirementId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(
+    languageRequirementDescriptions,
+    languageRequirementId,
+    "invalid LanguageRequirementId",
+  );
+
+const languageRequirementContexts = defineMessages({
+  basic: {
+    id: "languageRequirement.context.basic",
+    defaultMessage:
+      "You can submit this initial application in either official language of your choice (English or French).",
+  },
+  expanded: {
+    id: "languageRequirement.context.expanded",
+    defaultMessage:
+      "You can complete all other steps of this assessment process in the official language of your choice, including the initial application, interview, exam and any other evaluation components.",
+  },
+});
+
+export const languageRequirementContext = (
+  languageRequirementId: number,
+): FormattedMessage.MessageDescriptor => {
+  switch (languageRequirementId) {
+    case LanguageRequirementId.bilingualIntermediate:
+    case LanguageRequirementId.bilingualAdvanced:
+      return languageRequirementContexts.expanded;
+
+    case LanguageRequirementId.englishOrFrench:
+    case LanguageRequirementId.english:
+    case LanguageRequirementId.french:
+    default:
+      return languageRequirementContexts.basic;
+  }
+};
 
 const departments = defineMessages({
   [DepartmentId.treasuryBoard]: {
@@ -625,3 +712,97 @@ export const narrativeReviewStandardQuestion = (): FormattedMessage.MessageDescr
 
 export const narrativeReviewStandardAnswer = (): FormattedMessage.MessageDescriptor =>
   standardAssessmentText.narrativeReviewAnswer;
+
+const frequencyMessages = defineMessages({
+  [FrequencyId.always]: {
+    id: "jobBuilder.details.frequencyAlwaysLabel",
+    defaultMessage: "Almost Always",
+    description: "The form label displayed on 'always' frequency options.",
+  },
+  [FrequencyId.often]: {
+    id: "jobBuilder.details.frequencyFrequentlyLabel",
+    defaultMessage: "Frequently",
+    description: "The form label displayed on 'frequently' frequency options.",
+  },
+  [FrequencyId.sometimes]: {
+    id: "jobBuilder.details.frequencySometimesLabel",
+    defaultMessage: "Sometimes",
+    description: "The form label displayed on 'sometimes' frequency options.",
+  },
+  [FrequencyId.rarely]: {
+    id: "jobBuilder.details.frequencyOccasionallyLabel",
+    defaultMessage: "Occasionally",
+    description:
+      "The form label displayed on 'occasionally' frequency options.",
+  },
+  [FrequencyId.never]: {
+    id: "jobBuilder.details.frequencyNeverLabel",
+    defaultMessage: "Almost Never",
+    description: "The form label displayed on 'never' frequency options.",
+  },
+});
+
+export const frequencyName = (
+  frequencyId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(frequencyMessages, frequencyId, "invalid FrequencyId");
+
+const overtimeRequirmentDescriptions = defineMessages({
+  [OvertimeRequirementId.frequently]: {
+    id: "jobBuilder.details.overtimeFrequentlyLabel",
+    defaultMessage: "Yes, overtime is frequently required for the position.",
+    description: "The form label displayed on 'frequently' overtime options",
+  },
+  [OvertimeRequirementId.available]: {
+    id: "jobBuilder.details.overtimeOpportunitiesAvailableLabel",
+    defaultMessage:
+      "Yes, overtime opportunities are available for those that are interested.",
+    description:
+      "The form label displayed on 'overtime opportunities available' overtime options",
+  },
+  [OvertimeRequirementId.none]: {
+    id: "jobBuilder.details.overtimeNoneRequiredLabel",
+    defaultMessage: "No, overtime is not required for the position.",
+    description:
+      "The form label displayed on 'no overtime required' overtime options",
+  },
+});
+
+export const overtimeRequirementDescription = (
+  overtimeRequirementId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(
+    overtimeRequirmentDescriptions,
+    overtimeRequirementId,
+    "invalid OvertimeRequirementId",
+  );
+
+const travelRequirementDescriptions = defineMessages({
+  [TravelRequirementId.frequently]: {
+    id: "jobBuilder.details.travelFrequentlyLabel",
+    defaultMessage: "Yes, travel is frequently required for the position.",
+    description: "The form label displayed on 'frequently' travel options",
+  },
+  [TravelRequirementId.available]: {
+    id: "jobBuilder.details.travelOpportunitiesAvailableLabel",
+    defaultMessage:
+      "Yes, travel opportunities are available for those that are interested.",
+    description:
+      "The form label displayed on 'travel opportunities available' travel options",
+  },
+  [TravelRequirementId.none]: {
+    id: "jobBuilder.details.travelNoneRequiredLabel",
+    defaultMessage: "No, travel is not required for the position.",
+    description:
+      "The form label displayed on 'no travel required' travel options",
+  },
+});
+
+export const travelRequirementDescription = (
+  travelRequirementId: number,
+): FormattedMessage.MessageDescriptor =>
+  getOrThrowError(
+    travelRequirementDescriptions,
+    travelRequirementId,
+    "invalid TravelRequirementId",
+  );

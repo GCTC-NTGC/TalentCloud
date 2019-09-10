@@ -5,16 +5,6 @@
     "defaultMessage": "Assessment {index}: {assessmentType}"
   },
   {
-    "id": "ratingGuideBuilder.essentialMissing",
-    "description": "Label for list of missing essential skills.",
-    "defaultMessage": "{count} Essential Missing:"
-  },
-  {
-    "id": "ratingGuideBuilder.assetMissing",
-    "description": "Label for list of missing asset skills.",
-    "defaultMessage": "{count} Asset Missing:"
-  },
-  {
     "id": "ratingGuideBuilder.addQuestion",
     "description": "Button text for adding a new rating guide question.",
     "defaultMessage": "Add a Question"

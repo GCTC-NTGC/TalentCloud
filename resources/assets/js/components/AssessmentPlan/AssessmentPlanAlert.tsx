@@ -67,29 +67,42 @@ export const AssessmentPlanAlert: React.FunctionComponent<
   const createNotifications = notifications.filter(
     (notification): boolean => notification.type === "CREATE",
   );
+  const skillHasChanged = (
+    notification: AssessmentPlanNotification,
+  ): boolean => {
+    return (
+      notification.skill_id_new !== null &&
+      notification.skill_id !== notification.skill_id_new
+    );
+  };
+  const levelHasChanged = (
+    notification: AssessmentPlanNotification,
+  ): boolean => {
+    return (
+      (notification.skill_level_id_new !== null &&
+        notification.skill_level_id !== notification.skill_level_id_new) ||
+      (notification.criteria_type_id_new !== null &&
+        notification.criteria_type_id !== notification.criteria_type_id_new)
+    );
+  };
+
   const updateSkillNotifications = notifications.filter(
     (notification): boolean =>
       notification.type === "UPDATE" &&
-      notification.skill_id !== notification.skill_id_new &&
-      notification.skill_id_new !== null &&
-      (notification.skill_level_id_new === null ||
-        notification.skill_level_id === notification.skill_level_id_new),
+      skillHasChanged(notification) &&
+      !levelHasChanged(notification),
   );
   const updateLevelNotifications = notifications.filter(
     (notification): boolean =>
       notification.type === "UPDATE" &&
-      notification.skill_level_id !== notification.skill_level_id_new &&
-      notification.skill_level_id_new !== null &&
-      (notification.skill_id_new === null ||
-        notification.skill_id === notification.skill_id_new),
+      !skillHasChanged(notification) &&
+      levelHasChanged(notification),
   );
   const updateBothNotifications = notifications.filter(
     (notification): boolean =>
       notification.type === "UPDATE" &&
-      notification.skill_id !== notification.skill_id_new &&
-      notification.skill_level_id !== notification.skill_level_id_new &&
-      notification.skill_id_new !== null &&
-      notification.skill_level_id_new !== null,
+      skillHasChanged(notification) &&
+      levelHasChanged(notification),
   );
   const deleteNotifications = notifications.filter(
     (notification): boolean => notification.type === "DELETE",

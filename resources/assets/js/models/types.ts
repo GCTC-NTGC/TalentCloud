@@ -43,8 +43,33 @@ export interface Job {
   collaborative_vs_independent: number | null;
   telework_allowed_frequency_id: number | null;
   flexible_hours_frequency_id: number | null;
+  travel_requirement_id: number | null;
+  overtime_requirement_id: number | null;
   en: JobTranslation;
   fr: JobTranslation;
+}
+
+export interface ManagerTranslation {
+  branch: string | null;
+  division: string | null;
+  position: string | null;
+  leadership_style: string | null;
+  expectations: string | null;
+  employee_learning: string | null;
+  career_journey: string | null;
+  learning_path: string | null;
+  about_me: string | null;
+}
+
+export interface Manager {
+  id: number;
+  user_id: number;
+  name: string;
+  department_id: number | null;
+  twitter_username: string | null;
+  linkedin_url: string | null;
+  en: ManagerTranslation;
+  fr: ManagerTranslation;
 }
 
 export interface Application {
@@ -132,6 +157,13 @@ export interface Skill {
   skill_type_id: number;
   en: SkillTranslation;
   fr: SkillTranslation;
+  is_culture_skill: boolean;
+  is_future_skill: boolean;
+  classifications: Classification[];
+}
+
+export interface Classification {
+  key: string;
 }
 
 export interface Criteria {
@@ -141,10 +173,12 @@ export interface Criteria {
   skill_id: number;
   skill_level_id: number;
   en: {
-    description: string;
+    description: string | null;
+    specificity: string | null;
   };
   fr: {
-    description: string;
+    description: string | null;
+    specificity: string | null;
   };
 }
 
@@ -181,6 +215,7 @@ export interface AssessmentPlanNotification {
   type: string;
   criteria_id: number;
   criteria_type_id: number;
+  criteria_type_id_new: number | null;
   skill_id: number;
   skill_id_new: number | null;
   skill_level_id: number;

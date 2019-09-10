@@ -1,37 +1,37 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { connect } from "react-redux";
-import { FormattedMessage, InjectedIntlProps, injectIntl } from "react-intl";
-import { Job } from "../../models/types";
+import { InjectedIntlProps, injectIntl } from "react-intl";
+import { Job, JobPosterKeyTask, Criteria } from "../../models/types";
 import { JobDetailsIntl } from "./JobDetails";
 import { RootState } from "../../store/store";
 import { DispatchType } from "../../configureStore";
+import { updateJob } from "../../store/Job/jobActions";
 import {
-  fetchJob,
-  createJob,
-  updateJob,
-  setSelectedJob,
-} from "../../store/Job/jobActions";
-import { getSelectedJob } from "../../store/Job/jobSelector";
+  getJob,
+  getTasksByJob,
+  getCriteriaByJob,
+} from "../../store/Job/jobSelector";
 import RootContainer from "../RootContainer";
-import ProgressTracker from "../ProgressTracker/ProgressTracker";
-import { ProgressTrackerItem } from "../ProgressTracker/types";
 import {
-  progressTrackerLabels,
-  progressTrackerTitles,
-} from "../JobBuilder/jobBuilderMessages";
+  jobBuilderEnv,
+  jobBuilderIntro,
+  jobBuilderReview,
+} from "../../helpers/routes";
+import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
 import {
-  jobBuilderIntroProgressState,
-  jobBuilderEnvProgressState,
-  jobImpactProgressState,
+  isJobBuilderComplete,
+  VALID_COUNT,
 } from "../JobBuilder/jobBuilderHelpers";
-import { jobBuilderEnv } from "../../helpers/routes";
+import { navigate } from "../../helpers/router";
 
 interface JobDetailsPageProps {
-  jobId: number | null;
+  jobId: number;
   job: Job | null;
-  loadJob: (jobId: number) => void;
-  handleCreateJob: (newJob: Job) => Promise<boolean>;
+  // Tasks associated with the job, used to determine if its complete
+  keyTasks: JobPosterKeyTask[];
+  // Criteria associated with the job, used to determine if its complete
+  criteria: Criteria[];
   handleUpdateJob: (newJob: Job) => Promise<boolean>;
 }
 
@@ -40,132 +40,69 @@ const JobDetailsPage: React.FunctionComponent<
 > = ({
   jobId,
   job,
-  loadJob,
-  handleCreateJob,
   handleUpdateJob,
+  keyTasks,
+  criteria,
   intl,
 }): React.ReactElement => {
-  useEffect((): void => {
-    if (jobId) {
-      loadJob(jobId);
-    }
-  }, [jobId, loadJob]);
-
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
-  const waitingForJob = jobId !== null && job === null;
   const handleModalCancel = (): void => {};
   const handleModalConfirm = (): void => {
     if (job) {
-      window.location.href = jobBuilderEnv(intl.locale, job.id);
+      navigate(jobBuilderEnv(intl.locale, jobId));
     }
-    // TODO: what do if selectJob not set yet?
   };
-  const handleSubmit = job ? handleUpdateJob : handleCreateJob;
-  const progressTrackerItems: ProgressTrackerItem[] = [
-    {
-      state: waitingForJob ? "null" : jobBuilderIntroProgressState(job),
-      label: intl.formatMessage(progressTrackerLabels.start),
-      title: intl.formatMessage(progressTrackerTitles.welcome),
-    },
-    {
-      state: "active",
-      label: intl.formatMessage(progressTrackerLabels.step01),
-      title: intl.formatMessage(progressTrackerTitles.jobInfo),
-    },
-    {
-      state: waitingForJob
-        ? "null"
-        : jobBuilderEnvProgressState(job, locale, true),
-      label: intl.formatMessage(progressTrackerLabels.step02),
-      title: intl.formatMessage(progressTrackerTitles.workEnv),
-    },
-    {
-      state: waitingForJob ? "null" : jobImpactProgressState(job, locale, true),
-      label: intl.formatMessage(progressTrackerLabels.step03),
-      title: intl.formatMessage(progressTrackerTitles.impact),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.step04),
-      title: intl.formatMessage(progressTrackerTitles.tasks),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.step05),
-      title: intl.formatMessage(progressTrackerTitles.skills),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.finish),
-      title: intl.formatMessage(progressTrackerTitles.review),
-    },
-  ];
+  const handleSubmit = handleUpdateJob;
+  const handleReturn = (): void => {
+    navigate(jobBuilderIntro(locale, jobId));
+  };
+  const handleSkipToReview = async (): Promise<void> => {
+    if (jobId !== null) {
+      navigate(jobBuilderReview(locale, jobId));
+    }
+  };
+
+  const jobIsComplete =
+    job !== null &&
+    isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
   return (
-    <section>
-      <ProgressTracker
-        items={progressTrackerItems}
-        backgroundColor="black"
-        fontColor="white"
-        classNames="manager-jpb-tracker"
-        itemsWrapperClassNames="tracker manager-jpb-tracker-wrapper"
-      />
-      {waitingForJob ? (
-        <div
-          data-c-container="form"
-          data-c-padding="top(triple) bottom(triple)"
-        >
-          <div data-c-background="white(100)" data-c-card data-c-padding="all(double)" data-c-radius="rounded" data-c-align="base(centre)">
-            <p>
-              <FormattedMessage
-                id="jobBuilderIntroPage.loading"
-                defaultMessage="Your job is loading..."
-                description="Message indicating that the current job is still being loaded."
-              />
-            </p>
-          </div>
-        </div>
-      ) : (
+    <JobBuilderStepContainer jobId={jobId} currentPage="details">
+      {job !== null && (
         <JobDetailsIntl
           job={job}
           handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
           handleModalConfirm={handleModalConfirm}
+          jobIsComplete={jobIsComplete}
+          handleSkipToReview={handleSkipToReview}
         />
       )}
-    </section>
+    </JobBuilderStepContainer>
   );
 };
 
 const mapStateToPropsPage = (
   state: RootState,
+  ownProps: { jobId: number },
 ): {
   job: Job | null;
+  keyTasks: JobPosterKeyTask[];
+  criteria: Criteria[];
 } => ({
-  job: getSelectedJob(state),
+  job: getJob(state, ownProps),
+  keyTasks: getTasksByJob(state, ownProps),
+  criteria: getCriteriaByJob(state, ownProps),
 });
 
 const mapDispatchToPropsPage = (
   dispatch: DispatchType,
 ): {
-  loadJob: (jobId: number) => void;
-  handleCreateJob: (newJob: Job) => Promise<boolean>;
   handleUpdateJob: (newJob: Job) => Promise<boolean>;
 } => ({
-  loadJob: (jobId: number): void => {
-    dispatch(fetchJob(jobId));
-    dispatch(setSelectedJob(jobId));
-  },
-  handleCreateJob: async (newJob: Job): Promise<boolean> => {
-    const result = await dispatch(createJob(newJob));
-    if (!result.error) {
-      const resultJob = await result.payload;
-      dispatch(setSelectedJob(resultJob.id));
-    }
-    return !result.error;
-  },
   handleUpdateJob: async (newJob: Job): Promise<boolean> => {
     const result = await dispatch(updateJob(newJob));
     return !result.error;
@@ -183,10 +120,14 @@ if (document.getElementById("job-builder-details")) {
   ) as HTMLElement;
   const jobIdAttr = container.getAttribute("data-job-id");
   const jobId = jobIdAttr ? Number(jobIdAttr) : null;
-  ReactDOM.render(
-    <RootContainer>
-      <JobDetailsPageContainer jobId={jobId} />
-    </RootContainer>,
-    container,
-  );
+  if (jobId) {
+    ReactDOM.render(
+      <RootContainer>
+        <JobDetailsPageContainer jobId={jobId} />
+      </RootContainer>,
+      container,
+    );
+  }
 }
+
+export default JobDetailsPageContainer;

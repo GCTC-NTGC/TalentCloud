@@ -1,12 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef } from "react";
-import {
-  injectIntl,
-  InjectedIntlProps,
-  FormattedMessage,
-  defineMessages,
-} from "react-intl";
+import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { Formik, Form, Field } from "formik";
+import nprogress from "nprogress";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import RadioGroup from "../Form/RadioGroup";
@@ -25,225 +21,28 @@ import {
   LanguageRequirementId,
   SecurityClearanceId,
   ProvinceId,
+  FrequencyId,
+  TravelRequirementId,
+  OvertimeRequirementId,
 } from "../../models/lookupConstants";
 import { emptyJob } from "../../models/jobUtil";
 import {
   securityClearance,
   languageRequirement,
   provinceName,
+  frequencyName,
+  travelRequirementDescription,
+  overtimeRequirementDescription,
 } from "../../models/localizedConstants";
-
-const formMessages = defineMessages({
-  titleLabel: {
-    id: "jobDetails.titleLabel",
-    defaultMessage: "What is the job title?",
-    description: "The form label displayed on the title input.",
-  },
-  titlePlaceholder: {
-    id: "jobDetails.titlePlaceholder",
-    defaultMessage: "e.g. Product Designer",
-    description: "The form placeholder displayed on the title input.",
-  },
-  termLengthLabel: {
-    id: "jobDetails.termLengthLabel",
-    defaultMessage: "How long is the term (in months)?",
-    description: "The form label displayed on the term length input.",
-  },
-  termLengthPlaceholder: {
-    id: "jobDetails.termLengthPlaceholder",
-    defaultMessage: "e.g. 3",
-    description: "The form placeholder displayed on the term length input.",
-  },
-  classificationLabel: {
-    id: "jobDetails.classificationLabel",
-    defaultMessage: "What is the classification?",
-    description: "The form label displayed on the classification input.",
-  },
-  classificationNullSelection: {
-    id: "jobDetails.classificationNullSelection",
-    defaultMessage: "Select a classification...",
-    description:
-      "The default selection option displayed on the classification input.",
-  },
-  levelLabel: {
-    id: "jobDetails.levelLabel",
-    defaultMessage: "What is the level?",
-    description: "The form label displayed on the level input.",
-  },
-  levelNullSelection: {
-    id: "jobDetails.levelNullSelection",
-    defaultMessage: "Select a level...",
-    description: "The default selection option displayed on the level input.",
-  },
-  securityLevelLabel: {
-    id: "jobDetails.securityLevelLabel",
-    defaultMessage: "What is the security level?",
-    description: "The form label displayed on the security level input.",
-  },
-  securityLevelNullSelection: {
-    id: "jobDetails.securityLevelNullSelection",
-    defaultMessage: "Select a security level...",
-    description:
-      "The default selection option displayed on the security level input.",
-  },
-  languageLabel: {
-    id: "jobDetails.languageLabel",
-    defaultMessage: "What is the language profile?",
-    description: "The form label displayed on the language input.",
-  },
-  languageNullSelection: {
-    id: "jobDetails.languageNullSelection",
-    defaultMessage: "Select a language profile...",
-    description:
-      "The default selection option displayed on the language input.",
-  },
-  cityLabel: {
-    id: "jobDetails.cityLabel",
-    defaultMessage: "What city is the team located in?",
-    description: "The form label displayed on the city input.",
-  },
-  cityPlaceholder: {
-    id: "jobDetails.cityPlaceholder",
-    defaultMessage: "e.g. Ottawa",
-    description: "The form placeholder displayed on the city input.",
-  },
-  provinceLabel: {
-    id: "jobDetails.provinceLabel",
-    defaultMessage: "What province is the team located in?",
-    description: "The form label displayed on the province input.",
-  },
-  provinceNullSelection: {
-    id: "jobDetails.provinceNullSelection",
-    defaultMessage: "Select a province...",
-    description:
-      "The default selection option displayed on the province input.",
-  },
-  remoteWorkGroupLabel: {
-    id: "jobDetails.remoteWorkGroupLabel",
-    defaultMessage: "Select a remote work option:",
-    description: "The form label displayed on the remote work radio group.",
-  },
-  remoteWorkWorldLabel: {
-    id: "jobDetails.remoteWorkWorldLabel",
-    defaultMessage:
-      "Yes, I’m willing to supervise employees anywhere in the world.",
-    description:
-      "The form label displayed on the 'world' remote work radio option.",
-  },
-  remoteWorkCanadaLabel: {
-    id: "jobDetails.remoteWorkCanadaLabel",
-    defaultMessage:
-      "Yes, I’m willing to supervise employees in any province or territory in Canada.",
-    description:
-      "The form label displayed on the 'canada' remote work radio option.",
-  },
-  remoteWorkNoneLabel: {
-    id: "jobDetails.remoteWorkNoneLabel",
-    defaultMessage:
-      "No, I require the employee in this position to be in the same geographic location as the office.",
-    description:
-      "The form label displayed on the 'none' remote work radio option.",
-  },
-  teleworkGroupLabel: {
-    id: "jobDetails.teleworkGroupLabel",
-    defaultMessage: "Select a telework option:",
-    description: "The form label displayed on the telework radio group.",
-  },
-  flexHoursGroupLabel: {
-    id: "jobDetails.flexHoursGroupLabel",
-    defaultMessage: "Select a flexible hours option:",
-    description: "The form label displayed on the flex hours radio group.",
-  },
-  frequencyAlwaysLabel: {
-    id: "jobDetails.frequencyAlwaysLabel",
-    defaultMessage: "Almost Always",
-    description: "The form label displayed on 'always' frequency options.",
-  },
-  frequencyFrequentlyLabel: {
-    id: "jobDetails.frequencyFrequentlyLabel",
-    defaultMessage: "Frequently",
-    description: "The form label displayed on 'frequently' frequency options.",
-  },
-  frequencySometimesLabel: {
-    id: "jobDetails.frequencySometimesLabel",
-    defaultMessage: "Sometimes",
-    description: "The form label displayed on 'sometimes' frequency options.",
-  },
-  frequencyOccasionallyLabel: {
-    id: "jobDetails.frequencyOccasionallyLabel",
-    defaultMessage: "Occasionally",
-    description:
-      "The form label displayed on 'occasionally' frequency options.",
-  },
-  frequencyNeverLabel: {
-    id: "jobDetails.frequencyNeverLabel",
-    defaultMessage: "Almost Never",
-    description: "The form label displayed on 'never' frequency options.",
-  },
-});
-
-const classificationOptionMessages = defineMessages({
-  AdministrativeServices: {
-    id: "jobDetails.classificationOptions.AS",
-    defaultMessage: "AS - Administrative Services",
-    description: "Job Classification from list of Classifications",
-  },
-  BiologicalSciences: {
-    id: "jobDetails.classificationOptions.BI",
-    defaultMessage: "BI - Biological Sciences",
-    description: "Job Classification from list of Classifications",
-  },
-  Commerce: {
-    id: "jobDetails.classificationOptions.CO",
-    defaultMessage: "CO - Commerce",
-    description: "Job Classification from list of Classifications",
-  },
-  ClericalRegulatory: {
-    id: "jobDetails.classificationOptions.CR",
-    defaultMessage: "CR - Clerical and Regulatory",
-    description: "Job Classification from list of Classifications",
-  },
-  ComputerSystems: {
-    id: "jobDetails.classificationOptions.CS",
-    defaultMessage: "CS - Computer Systems",
-    description: "Job Classification from list of Classifications",
-  },
-  EconomicsSocialSciences: {
-    id: "jobDetails.classificationOptions.EC",
-    defaultMessage: "EC - Economics and Social Science Services",
-    description: "Job Classification from list of Classifications",
-  },
-  Executive: {
-    id: "jobDetails.classificationOptions.EX",
-    defaultMessage: "EX - Executive",
-    description: "Job Classification from list of Classifications",
-  },
-  Forestry: {
-    id: "jobDetails.classificationOptions.FO",
-    defaultMessage: "FO - Forestry",
-    description: "Job Classification from list of Classifications",
-  },
-  InformationServices: {
-    id: "jobDetails.classificationOptions.IS",
-    defaultMessage: "IS - Information Services",
-    description: "Job Classification from list of Classifications",
-  },
-  PhysicalSciences: {
-    id: "jobDetails.classificationOptions.PC",
-    defaultMessage: "PC - Physical Sciences",
-    description: "Job Classification from list of Classifications",
-  },
-  PersonnelAdministration: {
-    id: "jobDetails.classificationOptions.PE",
-    defaultMessage: "PE - Personnel Administration",
-    description: "Job Classification from list of Classifications",
-  },
-  ProgrammeAdministration: {
-    id: "jobDetails.classificationOptions.PM",
-    defaultMessage: "PM - Programme Administration",
-    description: "Job Classification from list of Classifications",
-  },
-});
+import ContextBlockItem from "../ContextBlock/ContextBlockItem";
+import CopyToClipboardButton from "../CopyToClipboardButton";
+import TextAreaInput from "../Form/TextAreaInput";
+import {
+  formMessages,
+  classificationOptionMessages,
+  educationMessages,
+} from "./JobDetailsMessages";
+import { hasKey } from "../../helpers/queries";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -251,41 +50,23 @@ interface JobDetailsProps {
   // Function to run after successful form validation.
   // It must return true if the submission was succesful, false otherwise.
   handleSubmit: (values: Job) => Promise<boolean>;
+  // The function to run when user clicks Prev Page
+  handleReturn: () => void;
   // Function to run when modal cancel is clicked.
   handleModalCancel: () => void;
   // Function to run when modal confirm is clicked.
   handleModalConfirm: () => void;
+  jobIsComplete: boolean;
+  handleSkipToReview: () => Promise<void>;
 }
 
 type RemoteWorkType = "remoteWorkNone" | "remoteWorkCanada" | "remoteWorkWorld";
-const remoteWorkOptions = [
-  {
-    id: "remoteWorkWorld",
-    label: formMessages.remoteWorkWorldLabel,
-  },
-  {
-    id: "remoteWorkCanada",
-    label: formMessages.remoteWorkCanadaLabel,
-  },
-  {
-    id: "remoteWorkNone",
-    label: formMessages.remoteWorkNoneLabel,
-  },
-];
 
-interface JobFormValues {
-  title: string;
-  termLength: number | "";
-  classification: string;
-  level: number | "";
-  securityLevel: number | "";
-  language: number | "";
-  city: string;
-  province: number | "";
-  remoteWork: RemoteWorkType;
-  telework: TeleworkOptionType;
-  flexHours: FlexHourOptionType;
-}
+const remoteWorkMessages = {
+  remoteWorkWorld: formMessages.remoteWorkWorldLabel,
+  remoteWorkCanada: formMessages.remoteWorkCanadaLabel,
+  remoteWorkNone: formMessages.remoteWorkNoneLabel,
+};
 
 type TeleworkOptionType =
   | "teleworkNever"
@@ -293,34 +74,20 @@ type TeleworkOptionType =
   | "teleworkSometimes"
   | "teleworkFrequently"
   | "teleworkAlways";
-const teleworkOptions: {
-  id: TeleworkOptionType;
-  label: FormattedMessage.MessageDescriptor;
-}[] = [
-  {
-    id: "teleworkNever",
-    label: formMessages.frequencyNeverLabel,
-  },
-  {
-    id: "teleworkOccasionally",
-    label: formMessages.frequencyOccasionallyLabel,
-  },
-  {
-    id: "teleworkSometimes",
-    label: formMessages.frequencySometimesLabel,
-  },
-  {
-    id: "teleworkFrequently",
-    label: formMessages.frequencyFrequentlyLabel,
-  },
-  {
-    id: "teleworkAlways",
-    label: formMessages.frequencyAlwaysLabel,
-  },
-];
-const teleworkFrequencies: TeleworkOptionType[] = teleworkOptions.map(
-  (option): TeleworkOptionType => option.id,
-);
+
+const teleworkMessages: {
+  [key in TeleworkOptionType]: FormattedMessage.MessageDescriptor;
+} = {
+  teleworkNever: frequencyName(FrequencyId.never),
+  teleworkOccasionally: frequencyName(FrequencyId.rarely),
+  teleworkSometimes: frequencyName(FrequencyId.sometimes),
+  teleworkFrequently: frequencyName(FrequencyId.often),
+  teleworkAlways: frequencyName(FrequencyId.always),
+};
+
+const teleworkFrequencies: TeleworkOptionType[] = Object.keys(
+  teleworkMessages,
+) as TeleworkOptionType[];
 
 type FlexHourOptionType =
   | "flexHoursNever"
@@ -328,42 +95,104 @@ type FlexHourOptionType =
   | "flexHoursSometimes"
   | "flexHoursFrequently"
   | "flexHoursAlways";
-const flexHoursOptions: {
-  id: FlexHourOptionType;
-  label: FormattedMessage.MessageDescriptor;
-}[] = [
-  {
-    id: "flexHoursNever",
-    label: formMessages.frequencyNeverLabel,
-  },
-  {
-    id: "flexHoursOccasionally",
-    label: formMessages.frequencyOccasionallyLabel,
-  },
-  {
-    id: "flexHoursSometimes",
-    label: formMessages.frequencySometimesLabel,
-  },
-  {
-    id: "flexHoursFrequently",
-    label: formMessages.frequencyFrequentlyLabel,
-  },
-  {
-    id: "flexHoursAlways",
-    label: formMessages.frequencyAlwaysLabel,
-  },
-];
-const flexHourFequencies = flexHoursOptions.map(
-  (option): FlexHourOptionType => option.id,
-);
 
-const jobToValues = (job: Job | null, locale: string): JobFormValues =>
-  job
+const flexHourMessages: {
+  [key in FlexHourOptionType]: FormattedMessage.MessageDescriptor;
+} = {
+  flexHoursNever: frequencyName(FrequencyId.never),
+  flexHoursOccasionally: frequencyName(FrequencyId.sometimes),
+  flexHoursFrequently: frequencyName(FrequencyId.rarely),
+  flexHoursSometimes: frequencyName(FrequencyId.often),
+  flexHoursAlways: frequencyName(FrequencyId.always),
+};
+const flexHourFequencies: FlexHourOptionType[] = Object.keys(
+  flexHourMessages,
+) as FlexHourOptionType[];
+
+type TravelOptionType =
+  | "travelFrequently"
+  | "travelOpportunitiesAvailable"
+  | "travelNoneRequired";
+
+const travelMessages: {
+  [key in TravelOptionType]: FormattedMessage.MessageDescriptor;
+} = {
+  travelFrequently: travelRequirementDescription(
+    TravelRequirementId.frequently,
+  ),
+  travelOpportunitiesAvailable: travelRequirementDescription(
+    TravelRequirementId.available,
+  ),
+  travelNoneRequired: travelRequirementDescription(TravelRequirementId.none),
+};
+const travelRequirements: TravelOptionType[] = Object.keys(
+  travelMessages,
+) as TravelOptionType[];
+
+type OvertimeOptionType =
+  | "overtimeFrequently"
+  | "overtimeOpportunitiesAvailable"
+  | "overtimeNoneRequired";
+
+const overtimeMessages: {
+  [key in OvertimeOptionType]: FormattedMessage.MessageDescriptor;
+} = {
+  overtimeFrequently: overtimeRequirementDescription(
+    OvertimeRequirementId.frequently,
+  ),
+  overtimeOpportunitiesAvailable: overtimeRequirementDescription(
+    OvertimeRequirementId.available,
+  ),
+  overtimeNoneRequired: overtimeRequirementDescription(
+    OvertimeRequirementId.none,
+  ),
+};
+const overtimeRequirements: OvertimeOptionType[] = Object.keys(
+  overtimeMessages,
+) as OvertimeOptionType[];
+
+interface DetailsFormValues {
+  title: string;
+  termLength: number | "";
+  classification: string;
+  level: number | "";
+  educationRequirements: string;
+  securityLevel: number | "";
+  language: number | "";
+  city: string;
+  province: number | "";
+  remoteWork: RemoteWorkType;
+  telework: TeleworkOptionType;
+  flexHours: FlexHourOptionType;
+  travel: TravelOptionType;
+  overtime: OvertimeOptionType;
+}
+
+const isClassificationSet = (values: DetailsFormValues): boolean => {
+  return values.classification.length > 0 && values.level !== "";
+};
+
+const getEducationMsgForClassification = (
+  classification: string,
+  intl: ReactIntl.InjectedIntl,
+): string => {
+  return hasKey(educationMessages, classification)
+    ? intl.formatMessage(educationMessages[classification])
+    : "";
+};
+
+const jobToValues = (
+  job: Job | null,
+  locale: string,
+  intl: ReactIntl.InjectedIntl,
+): DetailsFormValues => {
+  const values: DetailsFormValues = job
     ? {
         title: job[locale].title ? String(job[locale].title) : "", // TODO: use utility method
         termLength: job.term_qty || "",
         classification: job.classification_code || "",
         level: job.classification_level || "",
+        educationRequirements: job[locale].education || "",
         securityLevel: job.security_clearance_id || "",
         language: job.language_requirement_id || "",
         city: job[locale].city || "",
@@ -378,12 +207,19 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues =>
         flexHours: job.flexible_hours_frequency_id
           ? flexHourFequencies[job.flexible_hours_frequency_id - 1]
           : "flexHoursFrequently",
+        travel: job.travel_requirement_id
+          ? travelRequirements[job.travel_requirement_id - 1]
+          : "travelFrequently",
+        overtime: job.overtime_requirement_id
+          ? overtimeRequirements[job.overtime_requirement_id - 1]
+          : "overtimeFrequently",
       }
     : {
         title: "",
         termLength: "",
         classification: "",
         level: "",
+        educationRequirements: "",
         securityLevel: "",
         language: "",
         city: "",
@@ -391,7 +227,22 @@ const jobToValues = (job: Job | null, locale: string): JobFormValues =>
         remoteWork: "remoteWorkCanada",
         telework: "teleworkFrequently",
         flexHours: "flexHoursFrequently",
+        travel: "travelFrequently",
+        overtime: "overtimeFrequently",
       };
+  // If the job has the standard education requirments saved, no need to fill the custom textbox
+  if (
+    values.classification &&
+    values.educationRequirements ===
+      getEducationMsgForClassification(values.classification, intl)
+  ) {
+    return {
+      ...values,
+      educationRequirements: "",
+    };
+  }
+  return values;
+};
 
 const updateJobWithValues = (
   initialJob: Job,
@@ -401,6 +252,7 @@ const updateJobWithValues = (
     termLength,
     classification,
     level,
+    educationRequirements,
     securityLevel,
     language,
     city,
@@ -408,7 +260,9 @@ const updateJobWithValues = (
     remoteWork,
     telework,
     flexHours,
-  }: JobFormValues,
+    travel,
+    overtime,
+  }: DetailsFormValues,
 ): Job => ({
   ...initialJob,
   term_qty: termLength || null,
@@ -420,10 +274,13 @@ const updateJobWithValues = (
   remote_work_allowed: remoteWork !== "remoteWorkNone",
   telework_allowed_frequency_id: teleworkFrequencies.indexOf(telework) + 1,
   flexible_hours_frequency_id: flexHourFequencies.indexOf(flexHours) + 1,
+  travel_requirement_id: travelRequirements.indexOf(travel) + 1,
+  overtime_requirement_id: overtimeRequirements.indexOf(overtime) + 1,
   [locale]: {
     ...initialJob[locale],
     title,
     city,
+    education: educationRequirements,
   },
 });
 
@@ -432,8 +289,11 @@ const JobDetails: React.FunctionComponent<
 > = ({
   job,
   handleSubmit,
+  handleReturn,
   handleModalCancel,
   handleModalConfirm,
+  jobIsComplete,
+  handleSkipToReview,
   intl,
 }: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -443,13 +303,18 @@ const JobDetails: React.FunctionComponent<
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
-  const initialValues: JobFormValues = jobToValues(job || null, locale);
+  const initialValues: DetailsFormValues = jobToValues(
+    job || null,
+    locale,
+    intl,
+  );
 
   const remoteWorkPossibleValues: RemoteWorkType[] = [
     "remoteWorkNone",
     "remoteWorkCanada",
     "remoteWorkWorld",
   ];
+
   const jobSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, intl.formatMessage(validationMessages.tooShort))
@@ -482,6 +347,7 @@ const JobDetails: React.FunctionComponent<
       .min(1, intl.formatMessage(validationMessages.invalidSelection))
       .max(9, intl.formatMessage(validationMessages.invalidSelection))
       .required(intl.formatMessage(validationMessages.required)),
+    educationRequirements: Yup.string(),
     securityLevel: Yup.number()
       .oneOf(
         Object.values(SecurityClearanceId),
@@ -522,10 +388,44 @@ const JobDetails: React.FunctionComponent<
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
+    travel: Yup.mixed()
+      .oneOf(
+        travelRequirements,
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
+      .required(intl.formatMessage(validationMessages.required)),
+    overtime: Yup.mixed()
+      .oneOf(
+        overtimeRequirements,
+        intl.formatMessage(validationMessages.invalidSelection),
+      )
+      .required(intl.formatMessage(validationMessages.required)),
   });
 
+  const handleEducationRequirements = (values: DetailsFormValues): string => {
+    return values.educationRequirements.length > 0
+      ? values.educationRequirements
+      : getEducationMsgForClassification(values.classification, intl);
+  };
+
+  const updateValuesAndReturn = (values: DetailsFormValues): void => {
+    // The following only triggers after validations pass
+    const educationRequirements = handleEducationRequirements(values);
+    const modifiedValues: DetailsFormValues = {
+      ...values,
+      educationRequirements,
+    };
+    handleSubmit(
+      updateJobWithValues(job || emptyJob(), locale, modifiedValues),
+    ).then((isSuccessful: boolean): void => {
+      if (isSuccessful) {
+        handleReturn();
+      }
+    });
+  };
+
   return (
-    <>
+    <section>
       <div
         data-c-container="form"
         data-c-padding="top(triple) bottom(triple)"
@@ -537,7 +437,7 @@ const JobDetails: React.FunctionComponent<
           data-c-margin="bottom(double)"
         >
           <FormattedMessage
-            id="jobDetails.heading"
+            id="jobBuilder.details.heading"
             defaultMessage="Job Details"
             description="Job Details page heading"
           />
@@ -548,15 +448,27 @@ const JobDetails: React.FunctionComponent<
           validationSchema={jobSchema}
           onSubmit={(values, actions): void => {
             // The following only triggers after validations pass
-            handleSubmit(updateJobWithValues(job || emptyJob(), locale, values))
+            const educationRequirements: string = handleEducationRequirements(
+              values,
+            );
+            const detailsFormValues: DetailsFormValues = {
+              ...values,
+              educationRequirements,
+            };
+
+            nprogress.start();
+            handleSubmit(
+              updateJobWithValues(job || emptyJob(), locale, detailsFormValues),
+            )
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
+                  nprogress.done();
                   setIsModalVisible(true);
                 }
               })
-              .finally(
-                (): void => actions.setSubmitting(false), // Required by Formik to finish the submission cycle
-              );
+              .finally((): void => {
+                actions.setSubmitting(false); // Required by Formik to finish the submission cycle
+              });
           }}
           render={({
             errors,
@@ -564,8 +476,12 @@ const JobDetails: React.FunctionComponent<
             isSubmitting,
             values,
           }): React.ReactElement => (
-            <>
-              <Form id="job-information" data-c-grid="gutter">
+            <section>
+              <Form
+                id="job-information"
+                data-c-container="form"
+                data-c-grid="gutter"
+              >
                 <Field
                   type="text"
                   name="title"
@@ -697,6 +613,91 @@ const JobDetails: React.FunctionComponent<
                     { value: 9, label: "9" },
                   ]}
                 />
+                <div data-c-grid-item="base(1of1)">
+                  {!isClassificationSet(values) ? (
+                    <p
+                      data-c-font-weight="bold"
+                      data-c-margin="bottom(normal)"
+                      data-c-colour="grey"
+                      data-c-border="all(thin, solid, grey)"
+                      data-c-background="white(100)"
+                      data-c-padding="all(normal)"
+                      data-c-alignment="base(center)"
+                    >
+                      <FormattedMessage
+                        id="jobBuilder.details.SelectClassAndLvlMessage"
+                        defaultMessage="Please select a classification and level before preparing the education requirements."
+                        description="Message displayed after classification and level select boxes."
+                      />
+                    </p>
+                  ) : (
+                    <>
+                      <p
+                        data-c-font-weight="bold"
+                        data-c-margin="bottom(normal)"
+                      >
+                        <FormattedMessage
+                          id="jobBuilder.details.educationRequirementHeader"
+                          defaultMessage="Based on the classification level you selected, this standard paragraph will appear on the job poster."
+                          description="Header message displayed for the Education requirement section."
+                        />
+                      </p>
+                      <div>
+                        <ContextBlockItem
+                          wrapperMargin="bottom(normal)"
+                          subtext={getEducationMsgForClassification(
+                            values.classification,
+                            intl,
+                          )}
+                        />
+                      </div>
+
+                      <div className="job-builder-education-customization active">
+                        <p data-c-margin="bottom(normal)">
+                          <FormattedMessage
+                            id="jobBuilder.details.educationRequirementCopyAndPaste"
+                            defaultMessage="If you want to customize this paragraph, copy and paste it into the textbox below."
+                            description="Footer message displayed for the Education requirement section."
+                          />
+                        </p>
+                        <p
+                          data-c-font-weight="bold"
+                          data-c-margin="bottom(normal)"
+                        >
+                          <FormattedMessage
+                            id="jobBuilder.details.educationRequirementReviewChanges"
+                            defaultMessage="Your HR advisor will review your changes."
+                            description="Footer message displayed for the Education requirement section."
+                          />
+                        </p>
+                        <div
+                          data-c-alignment="base(centre)"
+                          data-c-margin="top(normal) bottom(half)"
+                        >
+                          <CopyToClipboardButton
+                            text={getEducationMsgForClassification(
+                              values.classification,
+                              intl,
+                            )}
+                          />
+                        </div>
+                        <Field
+                          type="textarea"
+                          id="education_requirements"
+                          name="educationRequirements"
+                          label={intl.formatMessage(
+                            formMessages.educationRequirementsLabel,
+                          )}
+                          placeholder={intl.formatMessage(
+                            formMessages.educationRequirementPlaceholder,
+                          )}
+                          component={TextAreaInput}
+                          grid="base(1of1)"
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
                 <Field
                   name="securityLevel"
                   id="builder02SecurityLevel"
@@ -761,14 +762,14 @@ const JobDetails: React.FunctionComponent<
                 />
                 <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
                   <FormattedMessage
-                    id="jobDetails.remoteWorkGroupHeader"
+                    id="jobBuilder.details.remoteWorkGroupHeader"
                     defaultMessage="Is remote work allowed?"
                     description="Header message displayed on the remote work group input."
                   />
                 </p>
                 <p data-c-margin="bottom(normal)">
                   <FormattedMessage
-                    id="jobDetails.remoteWorkGroupBody"
+                    id="jobBuilder.details.remoteWorkGroupBody"
                     defaultMessage="Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor."
                     description="Body message displayed on the remote work group input."
                   />
@@ -782,15 +783,15 @@ const JobDetails: React.FunctionComponent<
                   touched={touched.remoteWork}
                   value={values.remoteWork}
                 >
-                  {remoteWorkOptions.map(
-                    ({ id, label }): React.ReactElement => {
+                  {Object.keys(remoteWorkMessages).map(
+                    (key): React.ReactElement => {
                       return (
                         <Field
-                          key={id}
+                          key={key}
                           name="remoteWork"
                           component={RadioInput}
-                          id={id}
-                          label={intl.formatMessage(label)}
+                          id={key}
+                          label={intl.formatMessage(remoteWorkMessages[key])}
                         />
                       );
                     },
@@ -798,14 +799,14 @@ const JobDetails: React.FunctionComponent<
                 </RadioGroup>
                 <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
                   <FormattedMessage
-                    id="jobDetails.teleworkGroupHeader"
+                    id="jobBuilder.details.teleworkGroupHeader"
                     defaultMessage="How often is telework allowed?"
                     description="Header message displayed on the telework group input."
                   />
                 </p>
                 <p data-c-margin="bottom(normal)">
                   <FormattedMessage
-                    id="jobDetails.teleworkGroupBody"
+                    id="jobBuilder.details.teleworkGroupBody"
                     defaultMessage="Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option."
                     description="Body message displayed on the telework group input."
                   />
@@ -819,15 +820,15 @@ const JobDetails: React.FunctionComponent<
                   touched={touched.telework}
                   value={values.telework}
                 >
-                  {teleworkOptions.map(
-                    ({ id, label }): React.ReactElement => {
+                  {Object.keys(teleworkMessages).map(
+                    (key): React.ReactElement => {
                       return (
                         <Field
-                          key={id}
+                          key={key}
                           name="telework"
                           component={RadioInput}
-                          id={id}
-                          label={intl.formatMessage(label)}
+                          id={key}
+                          label={intl.formatMessage(teleworkMessages[key])}
                         />
                       );
                     },
@@ -835,14 +836,14 @@ const JobDetails: React.FunctionComponent<
                 </RadioGroup>
                 <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
                   <FormattedMessage
-                    id="jobDetails.flexHoursGroupHeader"
+                    id="jobBuilder.details.flexHoursGroupHeader"
                     defaultMessage="How often are flexible hours allowed?"
                     description="Header message displayed on the flex hours group input."
                   />
                 </p>
                 <p data-c-margin="bottom(normal)">
                   <FormattedMessage
-                    id="jobDetails.flexHoursGroupBody"
+                    id="jobBuilder.details.flexHoursGroupBody"
                     defaultMessage={`Want to support a more gender inclusive workplace?
                           Studies show allowing flex hours is a great way to improve opportunities for women and parents.`}
                     description="Body message displayed on the flex hours group input."
@@ -857,35 +858,121 @@ const JobDetails: React.FunctionComponent<
                   touched={touched.flexHours}
                   value={values.flexHours}
                 >
-                  {flexHoursOptions.map(
-                    ({ id, label }): React.ReactElement => {
+                  {Object.keys(flexHourMessages).map(
+                    (key): React.ReactElement => {
                       return (
                         <Field
-                          key={id}
+                          key={key}
                           name="flexHours"
                           component={RadioInput}
-                          id={id}
-                          label={intl.formatMessage(label)}
+                          id={key}
+                          label={intl.formatMessage(flexHourMessages[key])}
                         />
                       );
                     },
                   )}
                 </RadioGroup>
-                <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
-                  <button
-                    data-c-button="solid(c1)"
-                    data-c-dialog-action="open"
-                    data-c-dialog-id="job-details-preview"
-                    data-c-radius="rounded"
-                    type="submit"
-                    disabled={isSubmitting}
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobBuilder.details.travelGroupHeader"
+                    defaultMessage="Is travel required?"
+                    description="Header message displayed on the travel group input."
+                  />
+                </p>
+                <RadioGroup
+                  id="travel"
+                  required
+                  grid="base(1of1)"
+                  label={intl.formatMessage(formMessages.travelGroupLabel)}
+                  error={errors.travel}
+                  touched={touched.travel}
+                  value={values.travel}
+                >
+                  {Object.keys(travelMessages).map(
+                    (key): React.ReactElement => {
+                      return (
+                        <Field
+                          key={key}
+                          name="travel"
+                          component={RadioInput}
+                          id={key}
+                          label={intl.formatMessage(travelMessages[key])}
+                        />
+                      );
+                    },
+                  )}
+                </RadioGroup>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
+                  <FormattedMessage
+                    id="jobBuilder.details.overtimeGroupHeader"
+                    defaultMessage="Is overtime required?"
+                    description="Header message displayed on the overtime group input."
+                  />
+                </p>
+                <RadioGroup
+                  id="overtime"
+                  required
+                  grid="base(1of1)"
+                  label={intl.formatMessage(formMessages.overtimeGroupLabel)}
+                  error={errors.overtime}
+                  touched={touched.overtime}
+                  value={values.overtime}
+                >
+                  {Object.keys(overtimeMessages).map(
+                    (key): React.ReactElement => {
+                      return (
+                        <Field
+                          key={key}
+                          name="overtime"
+                          component={RadioInput}
+                          id={key}
+                          label={intl.formatMessage(overtimeMessages[key])}
+                        />
+                      );
+                    },
+                  )}
+                </RadioGroup>
+                <div data-c-grid="gutter" data-c-grid-item="base(1of1)">
+                  <div data-c-grid-item="base(1of1)">
+                    <hr data-c-margin="top(normal) bottom(normal)" />
+                  </div>
+                  <div
+                    data-c-alignment="base(centre) tp(left)"
+                    data-c-grid-item="tp(1of2)"
                   >
-                    <FormattedMessage
-                      id="jobDetails.submitButtonLabel"
-                      defaultMessage="Next"
-                      description="The text displayed on the submit button for the Job Details form."
-                    />
-                  </button>
+                    <button
+                      data-c-button="outline(c2)"
+                      data-c-radius="rounded"
+                      type="button"
+                      disabled={isSubmitting}
+                      onClick={(): void => {
+                        updateValuesAndReturn(values);
+                      }}
+                    >
+                      <FormattedMessage
+                        id="jobBuilder.details.returnButtonLabel"
+                        defaultMessage="Save & Return to Intro"
+                        description="The text displayed on the Save & Return button of the Job Details form."
+                      />
+                    </button>
+                  </div>
+                  <div
+                    data-c-alignment="base(centre) tp(right)"
+                    data-c-grid-item="tp(1of2)"
+                  >
+                    <button
+                      data-c-button="solid(c1)"
+                      data-c-radius="rounded"
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      <FormattedMessage
+                        id="jobBuilder.details.submitButtonLabel"
+                        defaultMessage="Save & Preview"
+                        description="The text displayed on the submit button for the Job Details form."
+                      />
+                    </button>
+                  </div>
                 </div>
               </Form>
               <Modal
@@ -900,6 +987,11 @@ const JobDetails: React.FunctionComponent<
                   handleModalCancel();
                   setIsModalVisible(false);
                 }}
+                onModalMiddle={(): void => {
+                  handleSkipToReview().finally((): void => {
+                    setIsModalVisible(false);
+                  });
+                }}
               >
                 <Modal.Header>
                   <div
@@ -913,7 +1005,7 @@ const JobDetails: React.FunctionComponent<
                       id="job-details-preview-title"
                     >
                       <FormattedMessage
-                        id="jobDetails.modalHeader"
+                        id="jobBuilder.details.modalHeader"
                         defaultMessage="You're off to a great start!"
                         description="The text displayed in the header of the Job Details modal."
                       />
@@ -926,11 +1018,13 @@ const JobDetails: React.FunctionComponent<
                     data-c-padding="normal"
                     id="job-details-preview-description"
                   >
-                    <FormattedMessage
-                      id="jobDetails.modalBody"
-                      defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
-                      description="The text displayed in the body of the Job Details modal."
-                    />
+                    <p>
+                      <FormattedMessage
+                        id="jobBuilder.details.modalBody"
+                        defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
+                        description="The text displayed in the body of the Job Details modal."
+                      />
+                    </p>
                   </div>
                   <div
                     data-c-background="grey(20)"
@@ -941,46 +1035,91 @@ const JobDetails: React.FunctionComponent<
                     <JobPreview
                       title={values.title}
                       department="Department"
-                      remoteWork={values.remoteWork !== "remoteWorkNone"}
-                      language={intl.formatMessage(
-                        languageRequirement(Number(values.language)),
+                      remoteWork={intl.formatMessage(
+                        remoteWorkMessages[values.remoteWork],
                       )}
+                      language={
+                        typeof values.language === "string"
+                          ? ""
+                          : intl.formatMessage(
+                              languageRequirement(Number(values.language)),
+                            )
+                      }
                       city={values.city}
-                      province={intl.formatMessage(
-                        provinceName(Number(values.province)),
+                      province={
+                        typeof values.province === "string"
+                          ? ""
+                          : intl.formatMessage(
+                              provinceName(Number(values.province)),
+                            )
+                      }
+                      education={
+                        values.educationRequirements.length > 0
+                          ? values.educationRequirements
+                          : getEducationMsgForClassification(
+                              values.classification,
+                              intl,
+                            )
+                      }
+                      termLength={
+                        typeof values.termLength === "string"
+                          ? null
+                          : Number(values.termLength)
+                      }
+                      telework={intl.formatMessage(
+                        teleworkMessages[values.telework],
                       )}
-                      termLength={Number(values.termLength)}
-                      securityLevel={intl.formatMessage(
-                        securityClearance(Number(values.securityLevel)),
+                      flexHours={intl.formatMessage(
+                        flexHourMessages[values.flexHours],
                       )}
+                      securityLevel={
+                        typeof values.securityLevel === "string"
+                          ? ""
+                          : intl.formatMessage(
+                              securityClearance(Number(values.securityLevel)),
+                            )
+                      }
                       classification={String(values.classification)}
                       level={String(values.level)}
+                      travel={intl.formatMessage(travelMessages[values.travel])}
+                      overtime={intl.formatMessage(
+                        overtimeMessages[values.overtime],
+                      )}
                     />
                   </div>
                 </Modal.Body>
                 <Modal.Footer>
                   <Modal.FooterCancelBtn>
                     <FormattedMessage
-                      id="jobDetails.modalCancelLabel"
+                      id="jobBuilder.details.modalCancelLabel"
                       defaultMessage="Go Back"
                       description="The text displayed on the cancel button of the Job Details modal."
                     />
                   </Modal.FooterCancelBtn>
+                  {jobIsComplete && (
+                    <Modal.FooterMiddleBtn>
+                      <FormattedMessage
+                        id="jobBuilder.details.modalMiddleLabel"
+                        defaultMessage="Skip to Review"
+                        description="The text displayed on the 'Skip to Review' button of the Job Details modal."
+                      />
+                    </Modal.FooterMiddleBtn>
+                  )}
                   <Modal.FooterConfirmBtn>
                     <FormattedMessage
-                      id="jobDetails.modalConfirmLabel"
+                      id="jobBuilder.details.modalConfirmLabel"
                       defaultMessage="Next Step"
                       description="The text displayed on the confirm button of the Job Details modal."
                     />
                   </Modal.FooterConfirmBtn>
                 </Modal.Footer>
               </Modal>
-            </>
+            </section>
           )}
         />
       </div>
       <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
-    </>
+    </section>
   );
 };
 

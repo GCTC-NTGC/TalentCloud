@@ -1,6 +1,6 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { text } from "@storybook/addon-knobs";
+import { text, select } from "@storybook/addon-knobs";
 import ProgressTrackerItem from "../../../components/ProgressTracker/ProgressTrackerItem";
 import ProgressTracker from "../../../components/ProgressTracker/ProgressTracker";
 
@@ -19,12 +19,21 @@ const ProgressTrackerWrapper = (
 
 const stories = storiesOf("Job Poster Builder|Progress Tracker/Item", module);
 
+const trackerStateOptions: {
+  [key: string]: "active" | "complete" | "error" | "null";
+} = {
+  active: "active",
+  complte: "complete",
+  error: "error",
+  null: "null",
+};
+
 stories.add(
   "Active",
   (): React.ReactElement =>
     ProgressTrackerWrapper(
       <ProgressTrackerItem
-        state={text("State", "active")}
+        state={select("State", trackerStateOptions, "active")}
         label={text("Label", "Step 01")}
         title={text("Title", "Job Info")}
         fontColor={text("Font Color", "black")}
@@ -37,7 +46,7 @@ stories.add(
   (): React.ReactElement =>
     ProgressTrackerWrapper(
       <ProgressTrackerItem
-        state={text("State", "complete")}
+        state={select("State", trackerStateOptions, "active")}
         label={text("Label", "Step 02")}
         title={text("Title", "Work Env.")}
         fontColor={text("Font Color", "black")}
@@ -50,7 +59,7 @@ stories.add(
   (): React.ReactElement =>
     ProgressTrackerWrapper(
       <ProgressTrackerItem
-        state={text("State", "error")}
+        state={select("State", trackerStateOptions, "active")}
         label={text("Label", "Step 03")}
         title={text("Title", "impact")}
         fontColor={text("Font Color", "black")}
@@ -63,7 +72,7 @@ stories.add(
   (): React.ReactElement =>
     ProgressTrackerWrapper(
       <ProgressTrackerItem
-        state={text("State", "null")}
+        state={select("State", trackerStateOptions, "active")}
         label={text("Label", "Step 04")}
         title={text("Title", "Tasks")}
         fontColor={text("Font Color", "black")}

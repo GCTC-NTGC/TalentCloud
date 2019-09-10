@@ -3,6 +3,12 @@ language: php
 php:
   - '7.2'
 
+branches:
+  only:
+    - dev
+    - master
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/ # Tagged releases, i.e. v1.0.4
+
 sudo: required
 dist: trusty
 
@@ -16,7 +22,7 @@ cache:
 
 # following required for Test Cafe
 addons:
-  firefox: latest
+  # firefox: latest
   apt:
     sources:
       - google-chrome
@@ -66,7 +72,7 @@ script:
   - npm run testcafe-ci
   # unit tests
   - make phpunit
-  - make jest
+  - npm run test
 
 after_script:
   # send report to codecov.io

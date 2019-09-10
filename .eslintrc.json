@@ -12,7 +12,8 @@
     "plugin:prettier/recommended",
     "prettier",
     "prettier/@typescript-eslint",
-    "prettier/react"
+    "prettier/react",
+    "plugin:testcafe/recommended"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -26,7 +27,7 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["react", "@typescript-eslint", "react-hooks"],
+  "plugins": ["react", "@typescript-eslint", "react-hooks", "testcafe"],
   "rules": {
     "import/no-extraneous-dependencies": [
       "error",
@@ -43,13 +44,17 @@
         "extensions": [".jsx", ".tsx"]
       }
     ],
+    "react/jsx-props-no-spreading": "off",
     "jsx-a11y/label-has-for": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "jsx-a11y/label-has-associated-control": [ 2, {
-      "assert": "either",
-      "depth": 3
-    }]
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "assert": "either",
+        "depth": 3
+      }
+    ]
   },
   "settings": {
     "react": {

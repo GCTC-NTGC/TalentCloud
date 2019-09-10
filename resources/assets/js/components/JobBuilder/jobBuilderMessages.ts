@@ -7,23 +7,23 @@ export const progressTrackerLabels = defineMessages({
   },
   step01: {
     id: "jobBuilder.progressTracker.label.step1",
-    defaultMessage: "Step 01",
+    defaultMessage: "Step 1 / 5",
   },
   step02: {
     id: "jobBuilder.progressTracker.label.step2",
-    defaultMessage: "Step 02",
+    defaultMessage: "Step 2 / 5",
   },
   step03: {
     id: "jobBuilder.progressTracker.label.step3",
-    defaultMessage: "Step 03",
+    defaultMessage: "Step 3 / 5",
   },
   step04: {
     id: "jobBuilder.progressTracker.label.step4",
-    defaultMessage: "Step 04",
+    defaultMessage: "Step 4 / 5",
   },
   step05: {
     id: "jobBuilder.progressTracker.label.step5",
-    defaultMessage: "Step 05",
+    defaultMessage: "Step 5 / 5",
   },
   finish: {
     id: "jobBuilder.progressTracker.label.finish",
@@ -42,7 +42,7 @@ export const progressTrackerTitles = defineMessages({
   },
   workEnv: {
     id: "jobBuilder.progressTracker.title.workEnv",
-    defaultMessage: "Work Environment",
+    defaultMessage: "Work Env.",
   },
   impact: {
     id: "jobBuilder.progressTracker.title.impact",
@@ -62,4 +62,17 @@ export const progressTrackerTitles = defineMessages({
   },
 });
 
-export default { progressTrackerLabels, progressTrackerTitles };
+export const jobBuilderMessages = defineMessages({
+  jobLoading: {
+    id: "jobBuilder.jobLoading",
+    defaultMessage: "Your job is loading...",
+    description:
+      "Message indicating that the current job is still being loaded.",
+  },
+});
+
+export default {
+  progressTrackerLabels,
+  progressTrackerTitles,
+  jobBuilderMessages,
+};

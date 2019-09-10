@@ -73,7 +73,7 @@ class ManagerApiControllerTest extends TestCase
     public function testGetAsPublic()
     {
         $manager = factory(Manager::class)->create();
-        $response = $this->json("get", "api/managers/$manager->id");
+        $response = $this->json('get', "api/managers/$manager->id");
         $response->assertForbidden();
     }
 
@@ -81,10 +81,24 @@ class ManagerApiControllerTest extends TestCase
     {
         $manager = factory(Manager::class)->create();
         $applicantUser = factory(User::class)->state('applicant')->create();
-        $response = $this->actingAs($applicantUser)->json("get", "api/managers/$manager->id");
+        $response = $this->actingAs($applicantUser)->json('get', "api/managers/$manager->id");
         $response->assertOk();
 
         $response->assertJsonFragment($manager->toApiArray());
+    }
+
+    public function testCurrentManagerAsGuest()
+    {
+        $response = $this->json('get', 'api/currentuser/manager');
+        $response->assertUnauthorized();
+    }
+
+    public function testCurrentManagerAsManager()
+    {
+        $manager = factory(Manager::class)->create();
+        $response = $this->actingAs($manager->user)->json('get', 'api/currentuser/manager');
+        $response->assertOk();
+        $response->assertJsonFragment($manager->fresh()->toApiArray());
     }
 
     public function testUpdateAsManager()
@@ -93,7 +107,7 @@ class ManagerApiControllerTest extends TestCase
         $managerUpdate = $this->generateFrontendManager();
         $response = $this->followingRedirects()
             ->actingAs($manager->user)
-            ->json("put", "api/managers/$manager->id", $managerUpdate);
+            ->json('put', "api/managers/$manager->id", $managerUpdate);
         $response->assertOk();
         $expectedDb = array_merge(
             collect($managerUpdate)->except(['en', 'fr'])->toArray(),
@@ -113,7 +127,7 @@ class ManagerApiControllerTest extends TestCase
         $otherManager = factory(User::class)->state('manager')->create();
         $managerUpdate = $this->generateFrontendManager();
         $response = $this->actingAs($otherManager)
-            ->json("put", "api/managers/$manager->id", $managerUpdate);
+            ->json('put', "api/managers/$manager->id", $managerUpdate);
         $response->assertForbidden();
     }
 
@@ -123,7 +137,22 @@ class ManagerApiControllerTest extends TestCase
         $managerUpdate = $this->generateFrontendManager();
         $managerUpdate['department_id'] = 999; // Not a valid department id
         $response = $this->actingAs($manager->user)
-            ->json("put", "api/managers/$manager->id", $managerUpdate);
+            ->json('put', "api/managers/$manager->id", $managerUpdate);
         $response->assertStatus(422);
+    }
+
+    public function testGetManagerIncludesUserName()
+    {
+        $name = 'Test Name 1';
+        $manager = factory(Manager::class)->create();
+        $user = $manager->user;
+        $user->name = $name;
+        $user->save();
+
+        $applicantUser = factory(User::class)->state('applicant')->create();
+        $response = $this->actingAs($applicantUser)->json('get', "api/managers/$manager->id");
+        $response->assertOk();
+
+        $response->assertJsonFragment(['name' => $name]);
     }
 }

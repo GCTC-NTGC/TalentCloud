@@ -6,8 +6,9 @@ import {
   FormattedMessage,
   defineMessages,
 } from "react-intl";
-import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { Formik, Form, Field } from "formik";
+import nprogress from "nprogress";
 import { Job, Department } from "../../models/types";
 import { emptyJob } from "../../models/jobUtil";
 import JobImpactPreview from "./JobImpactPreview";
@@ -25,13 +26,18 @@ interface JobBuilderImpactProps {
    *  It must return true if the submission was succesful, false otherwise.
    */
   handleSubmit: (values: Job) => Promise<boolean>;
+  // The function to run when user clicks Prev Page
+  handleReturn: () => void;
   /** Function to run when modal cancel is clicked. */
   handleModalCancel: () => void;
   /** Function to run when modal confirm is clicked. */
   handleModalConfirm: () => void;
+
+  jobIsComplete: boolean;
+  handleSkipToReview: () => Promise<void>;
 }
 
-interface JobImpactValues {
+interface ImpactFormValues {
   teamImpact: string;
   hireImpact: string;
 }
@@ -62,7 +68,7 @@ const messages = defineMessages({
 const updateJobWithValues = (
   initialJob: Job,
   locale: "en" | "fr",
-  { teamImpact, hireImpact }: JobImpactValues,
+  { teamImpact, hireImpact }: ImpactFormValues,
   deptImpacts: { en: string; fr: string },
 ): Job => ({
   ...initialJob,
@@ -153,8 +159,11 @@ const JobBuilderImpact: React.FunctionComponent<
   departments,
   job,
   handleSubmit,
+  handleReturn,
   handleModalCancel,
   handleModalConfirm,
+  jobIsComplete,
+  handleSkipToReview,
 }): React.ReactElement => {
   const modalId = "impact-dialog";
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -163,7 +172,7 @@ const JobBuilderImpact: React.FunctionComponent<
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
-  const initialValues: JobImpactValues = {
+  const initialValues: ImpactFormValues = {
     teamImpact:
       job && job[intl.locale].team_impact ? job[intl.locale].team_impact : "",
     hireImpact:
@@ -181,6 +190,17 @@ const JobBuilderImpact: React.FunctionComponent<
     departments,
     job,
   );
+
+  const updateValuesAndReturn = (values: ImpactFormValues): void => {
+    // The following only triggers after validations pass
+    handleSubmit(
+      updateJobWithValues(job || emptyJob(), locale, values, deptImpacts),
+    ).then((isSuccessful: boolean): void => {
+      if (isSuccessful) {
+        handleReturn();
+      }
+    });
+  };
 
   return (
     <section ref={modalParentRef}>
@@ -228,9 +248,11 @@ const JobBuilderImpact: React.FunctionComponent<
         </p>
         {deptImpactStatement(departments, job, deptImpacts, locale)}
         <Formik
+          enableReinitialize
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={(values, actions): void => {
+            nprogress.start();
             // The following only triggers after validations pass
             handleSubmit(
               updateJobWithValues(
@@ -242,13 +264,13 @@ const JobBuilderImpact: React.FunctionComponent<
             )
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
+                  nprogress.done();
                   setIsModalVisible(true);
                 }
               })
-              .finally(
-                // Required by Formik to finish the submission cycle
-                (): void => actions.setSubmitting(false),
-              );
+              .finally((): void => {
+                actions.setSubmitting(false); // Required by Formik to finish the submission cycle
+              });
           }}
           render={({ values, isSubmitting }): React.ReactElement => (
             <>
@@ -312,22 +334,47 @@ const JobBuilderImpact: React.FunctionComponent<
                     />
                   </div>
                 </div>
-                <div data-c-alignment="centre" data-c-grid-item="base(1of1)">
-                  <button
-                    data-c-button="solid(c1)"
-                    data-c-dialog-action="open"
-                    data-c-dialog-id={modalId}
-                    data-c-radius="rounded"
-                    disabled={isSubmitting}
-                    form="form"
-                    type="submit"
+                <div data-c-grid="gutter" data-c-grid-item="base(1of1)">
+                  <div data-c-grid-item="base(1of1)">
+                    <hr data-c-margin="top(normal) bottom(normal)" />
+                  </div>
+                  <div
+                    data-c-alignment="base(centre) tp(left)"
+                    data-c-grid-item="tp(1of2)"
                   >
-                    <FormattedMessage
-                      id="jobBuilder.impact.button.next"
-                      defaultMessage="Next"
-                      description="Button text Next"
-                    />
-                  </button>
+                    <button
+                      data-c-button="outline(c2)"
+                      data-c-radius="rounded"
+                      type="button"
+                      disabled={isSubmitting}
+                      onClick={(): void => {
+                        updateValuesAndReturn(values);
+                      }}
+                    >
+                      <FormattedMessage
+                        id="jobBuilder.impact.button.return"
+                        defaultMessage="Save & Return to Work Environment"
+                        description="Label for Save & Return button on Impact form."
+                      />
+                    </button>
+                  </div>
+                  <div
+                    data-c-alignment="base(centre) tp(right)"
+                    data-c-grid-item="tp(1of2)"
+                  >
+                    <button
+                      data-c-button="solid(c1)"
+                      data-c-radius="rounded"
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      <FormattedMessage
+                        id="jobBuilder.impact.button.next"
+                        defaultMessage="Save & Preview"
+                        description="Label for Save & Preview button on Impact form."
+                      />
+                    </button>
+                  </div>
                 </div>
               </Form>
               <Modal
@@ -341,6 +388,11 @@ const JobBuilderImpact: React.FunctionComponent<
                 onModalCancel={(): void => {
                   handleModalCancel();
                   setIsModalVisible(false);
+                }}
+                onModalMiddle={(): void => {
+                  handleSkipToReview().finally((): void =>
+                    setIsModalVisible(false),
+                  );
                 }}
               >
                 <Modal.Header>
@@ -365,9 +417,11 @@ const JobBuilderImpact: React.FunctionComponent<
                     data-c-padding="normal"
                     id={`${modalId}-description`}
                   >
-                    Here&apos;s a preview of the Impact Statement you just
-                    entered. Feel free to go back and edit things or move to the
-                    next step if you&apos;re happy with it.
+                    <p>
+                      Here&apos;s a preview of the Impact Statement you just
+                      entered. Feel free to go back and edit things or move to
+                      the next step if you&apos;re happy with it.
+                    </p>
                   </div>
                   <div
                     data-c-background="grey(20)"
@@ -383,6 +437,11 @@ const JobBuilderImpact: React.FunctionComponent<
                 </Modal.Body>
                 <Modal.Footer>
                   <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
+                  {jobIsComplete && (
+                    <Modal.FooterMiddleBtn>
+                      Skip to Review
+                    </Modal.FooterMiddleBtn>
+                  )}
                   <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
                 </Modal.Footer>
               </Modal>

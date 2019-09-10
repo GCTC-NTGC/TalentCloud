@@ -1,0 +1,253 @@
+<!-- UPDATE 06-26 -->
+<!-- This step is obsolete, as it's been moved to Job Info. -->
+{% extends "layouts/base" %}
+
+{% block title %}
+
+    {{ itp.page_title }}
+
+{% endblock %}
+
+{% block body %}
+
+    {# Sitewide Notice ====================================================== #}
+    {% include "common/alert" %}
+
+    {# Government of Canada Banner ========================================== #}
+    {% include "common/goc" %}
+
+    <div data-clone>
+        <div data-c-background="white(100)">
+            <!-- Heading (see step 00 for info) -->
+            <div style="background-image: url('/images/bg_crowd.jpg');" data-c-overlay="black(80)" data-c-padding="bottom(triple)">
+                <div data-c-margin="bottom(triple)">
+                    {% include "common/menu" %}
+                </div>
+                <div data-c-container="layout" data-c-alignment="centre">
+                    <h2 data-c-colour="white" data-c-font-size="h2" data-c-font-weight="bold" data-c-margin="bottom(double)">
+                        Build a Job Poster
+                    </h2>
+                    <nav aria-label="breadcrumb" data-c-breadcrumbs data-c-colour="white" data-c-margin="bottom(normal)">
+                        <ol>
+                            <li>
+                                <a href="#link-to-page" title="This is the title of the page link.">
+                                    Manager Portal
+                                </a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                            <li>
+                                <a href="#link-to-page" title="This is the title of the page link.">
+                                    Job Poster Builder
+                                </a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                            <li>
+                                <a aria-current="page" href="#link-to-page" title="This is the title of the page link.">
+                                    Step 07 (Education)
+                                </a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- Progress Indicator (see step 00 for info) -->
+            <!-- Note, I've changed the alignment to remain centred. -->
+            <div class="manager-jpb-tracker" data-c-alignment="base(centre)" data-c-background="black(100)" data-c-colour="white">
+                <div data-c-container="layout" data-c-padding="top(quarter) bottom(quarter)">
+                    <div class="tracker manager-jpb-tracker-wrapper">
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 01</span><br>
+                                <span data-c-font-weight="bold">Intro</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 02</span><br>
+                                <span data-c-font-weight="bold">Job Info</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 03</span><br>
+                                <span data-c-font-weight="bold">Work Env.</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 04</span><br>
+                                <span data-c-font-weight="bold">Impact</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 05</span><br>
+                                <span data-c-font-weight="bold">Tasks</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="complete" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 06</span><br>
+                                <span data-c-font-weight="bold">Skills</span>
+                            </div>
+                        </div>
+                        {# Note that a new step has been added to the tracker. #}
+                        <div class="tracker-item" data-tc-tracker-state="active" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 07</span><br>
+                                <span data-c-font-weight="bold">Education</span>
+                            </div>
+                        </div>
+                        <div class="tracker-item" data-tc-tracker-state="null" data-c-alignment="base(left)" data-c-margin="top(half) right(normal) bottom(half) left(normal)">
+                            <div class="tracker-icon">
+                                <i class="fas fa-arrow-down"></i>
+                                <i class="fas fa-check"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div>
+                                <span data-c-font-size="small">Step 08</span><br>
+                                <span data-c-font-weight="bold">Review</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step Body -->
+            <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
+                <h3 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(double)">
+                    Education Requirements
+                </h3>
+                <p data-c-font-weight="bold" data-c-margin="bottom(normal)">Based on the classification level you selected, this standard paragraph will appear on the job poster.</p>
+                <div id="jobPosterBuilderEducationCopy">
+                    <p data-c-margin="bottom(normal)">A secondary school diploma; or<br><br>Equivalent Experience:<br>If you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum education requirement stated above.</p>
+                </div>
+                <form>
+                    <div data-c-input="radio">
+                        <label for="RG2">Please make a selection:</label>
+                        <span>Required</span>
+                        <div id="RG2" role="radiogroup" data-tc-job-builder-customization-trigger>
+                            <label for="rB1">
+                                <input checked="checked" id="rB1" required name="radioB" type="radio" />
+                                <span>I'm good with this paragraph.</span>
+                            </label>
+                            <label for="rB2">
+                                <input id="rB2" required name="radioB" type="radio" />
+                                <span>I'd like to modify this paragraph.</span>
+                            </label>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div class="job-builder-education-customization">
+                        <p data-c-margin="bottom(normal)">If you want to customize this paragraph, copy and paste it into the textbox below.</p>
+                        <p data-c-font-weight="bold" data-c-margin="bottom(normal)">Your HR advisor will review your changes.</p>
+                        <div data-c-margin="bottom(normal)" data-c-alignment="base(centre) tl(right)">
+                            <button data-c-button="solid(c2)" data-c-radius="rounded" data-tc-job-builder-education-copy-trigger type="button">
+                                <span class="default">Copy to Clipboard</span>
+                                <span class="copied" style="display: none;">Copied</span>
+                            </button>
+                        </div>
+                        <div data-c-input="textarea">
+                            <label for="TA2">Customize the Education Requirement</label>
+                            <span>Required</span>
+                            <div>
+                                <textarea id="TA2" placeholder="Paste the paragraph here to edit..."></textarea>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                    </div>
+                </form>
+                <div data-c-grid="gutter">
+                    <div data-c-grid-item="base(1of1)">
+                        <hr data-c-margin="top(normal) bottom(normal)">
+                    </div>
+                    <div data-c-alignment="base(centre) tp(left)" data-c-grid-item="tp(1of2)">
+                        <a href="/builder-06" data-c-button="outline(c2)" data-c-radius="rounded" type="button">
+                            Previous Step
+                        </a>
+                    </div>
+                    <div data-c-alignment="base(centre) tp(right)" data-c-grid-item="tp(1of2)">
+                        <!-- Modal trigger, same as last step. -->
+                        <button data-c-button="solid(c2)" data-c-dialog-action="open" data-c-dialog-id="example-dialog-01" data-c-radius="rounded" type="button">
+                            Preview Educations
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Same idea, only once on the page, anywhere inside the data-clone element. -->
+        <div data-c-dialog-overlay></div>
+
+        <!-- Preview modal, same as the last step. -->
+        <div aria-describedby="example-dialog-01-description" aria-hidden="true" aria-labelledby="example-dialog-01-title" data-c-dialog data-c-dialog-id="example-dialog-01" data-c-padding="top(double) bottom(double)" role="dialog">
+            <div data-c-background="white(100)" data-c-radius="rounded">
+                <div data-c-background="c1(100)" data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
+                    <h5 data-c-dialog-focus tabindex="0" data-c-colour="white" data-c-font-size="h4" id="example-dialog-01-title">Great work!
+                    </h5>
+                </div>
+                <div data-c-border="bottom(thin, solid, black)">
+                    <div data-c-border="bottom(thin, solid, black)" data-c-padding="normal" id="example-dialog-01-description">
+                            Here's a preview of the Education requirements you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.
+                    </div>
+                    <!-- This is where the modal content begins. -->
+                    <div data-c-background="grey(20)" data-c-padding="normal">
+                        <div class="manager-job-card" data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
+                            <h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="bottom(normal)" data-c-padding="bottom(normal)">Education</h4>
+                            <p>A secondary school diploma; or<br><br>Equivalent Experience:<br>If you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum education requirement stated above.</p>
+                        </div>
+                    </div>
+                </div>
+                <div data-c-padding="normal">
+                    <div data-c-grid="gutter middle">
+                        <div data-c-grid-item="base(1of2)">
+                            <button data-c-button="outline(c2)" data-c-dialog-action="close" data-c-dialog-id="example-dialog-01" data-c-radius="rounded">
+                                Go Back
+                            </button>
+                        </div>
+                        <div data-c-alignment="base(right)" data-c-grid-item="base(1of2)">
+                            <a href="/builder-08" data-c-button="solid(c2)" data-c-radius="rounded">
+                                Next Step
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

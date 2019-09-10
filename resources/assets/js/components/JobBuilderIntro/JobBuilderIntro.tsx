@@ -1,136 +1,114 @@
 import React, { useEffect } from "react";
-import { FormattedMessage, InjectedIntlProps, injectIntl } from "react-intl";
+import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
-import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import IntroForm from "./IntroForm";
-import { Job, Department } from "../../models/types";
-import { ProgressTrackerItem } from "../ProgressTracker/types";
+import {
+  Job,
+  Department,
+  JobPosterKeyTask,
+  Criteria,
+  Manager,
+} from "../../models/types";
 import { RootState } from "../../store/store";
-import { getSelectedJob } from "../../store/Job/jobSelector";
+import {
+  getSelectedJob,
+  getTasksByJob,
+  getCriteriaByJob,
+} from "../../store/Job/jobSelector";
 import { DispatchType } from "../../configureStore";
 import {
-  fetchJob,
   setSelectedJob,
   createJob,
   updateJob,
 } from "../../store/Job/jobActions";
 import RootContainer from "../RootContainer";
 import { jobBuilderDetails } from "../../helpers/routes";
-import {
-  progressTrackerLabels,
-  progressTrackerTitles,
-} from "../JobBuilder/jobBuilderMessages";
-import {
-  jobBuilderDetailsProgressState,
-  jobBuilderEnvProgressState,
-} from "../JobBuilder/jobBuilderHelpers";
+import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
 import { getDepartments } from "../../store/Department/deptSelector";
-import { getDepartments as fetchDepartments } from "../../store/Department/deptActions";
+import { navigate } from "../../helpers/router";
+import { getSelectedManager } from "../../store/Manager/managerSelector";
+import {
+  updateManager,
+  setSelectedManager,
+  fetchManager,
+  fetchCurrentManager,
+} from "../../store/Manager/managerActions";
 
 interface JobBuilderIntroProps {
   // The id of the edited job, or null for a new job.
   jobId: number | null;
   // List of known department options.
   departments: Department[];
-  // This is called when departments is empty to fetch departments.
-  loadDepartments: () => void;
   // If not null, used to prepopulate form values.
   // Note: its possible for jobId to be non-null, but job to be null, if the data hasn't been loaded yet.
   job: Job | null;
-  // This will be called when jobId is set and job is null. It should cause the job data to be loaded and passed in.
-  loadJob: (jobId: number) => void;
+  // The manager of this job.
+  manager: Manager | null;
   // Creates a new job. Must return the new job if successful.
   handleCreateJob: (newJob: Job) => Promise<Job>;
   // Updates an existing job. Must return the updated job if successful.
   handleUpdateJob: (newJob: Job) => Promise<Job>;
+  // Updates an existing Manager. Must return the updated manager if successful.
+  handleUpdateManager: (manager: Manager) => Promise<Manager>;
+  // Load a manager with a particular id.
+  loadManager: (managerId: number) => Promise<void>;
+  // Load the manager profile of the current authenticated user.
+  loadCurrentManager: () => Promise<void>;
 }
 
 const JobBuilderIntro: React.FunctionComponent<
   JobBuilderIntroProps & InjectedIntlProps
 > = ({
   jobId,
+  manager,
   job,
   departments,
-  loadDepartments,
-  loadJob,
   handleCreateJob,
   handleUpdateJob,
+  handleUpdateManager,
+  loadManager,
+  loadCurrentManager,
   intl,
 }): React.ReactElement => {
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw new Error("Unexpected locale");
+  }
   useEffect((): void => {
-    if (jobId) {
-      loadJob(jobId);
+    if (manager === null) {
+      if (jobId === null) {
+        loadCurrentManager();
+      }
+      if (job !== null) {
+        loadManager(job.manager_id);
+      }
     }
-  }, [jobId, loadJob]);
-  useEffect((): void => {
-    if (departments.length === 0) {
-      loadDepartments();
-    }
-  }, [departments, loadDepartments]);
-  const waitingForJob = jobId !== null && job === null;
-  const handleSubmit = job ? handleUpdateJob : handleCreateJob;
+  }, [manager, jobId, job, loadCurrentManager, loadManager]);
+
+  const submitJob = job ? handleUpdateJob : handleCreateJob;
+  const handleSubmit = async (
+    updatedJob: Job,
+    updatedManager: Manager,
+  ): Promise<Job> => {
+    const jobPromise = submitJob(updatedJob);
+    await handleUpdateManager(updatedManager);
+    return jobPromise;
+  };
 
   const handleContinueEn = (newJob: Job): void => {
-    window.location.href = jobBuilderDetails("en", newJob.id);
+    navigate(jobBuilderDetails("en", newJob.id));
   };
   const handleContinueFr = (newJob: Job): void => {
-    window.location.href = jobBuilderDetails("fr", newJob.id);
+    navigate(jobBuilderDetails("fr", newJob.id));
   };
-  const progressTrackerItems: ProgressTrackerItem[] = [
-    {
-      state: "active",
-      label: intl.formatMessage(progressTrackerLabels.start),
-      title: intl.formatMessage(progressTrackerTitles.welcome),
-    },
-    {
-      state: waitingForJob
-        ? "null"
-        : jobBuilderDetailsProgressState(job, intl.locale, true),
-      label: intl.formatMessage(progressTrackerLabels.step01),
-      title: intl.formatMessage(progressTrackerTitles.jobInfo),
-    },
-    {
-      state: waitingForJob
-        ? "null"
-        : jobBuilderEnvProgressState(job, intl.locale, true),
-      label: intl.formatMessage(progressTrackerLabels.step02),
-      title: intl.formatMessage(progressTrackerTitles.workEnv),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.step03),
-      title: intl.formatMessage(progressTrackerTitles.impact),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.step04),
-      title: intl.formatMessage(progressTrackerTitles.tasks),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.step05),
-      title: intl.formatMessage(progressTrackerTitles.skills),
-    },
-    {
-      state: "null",
-      label: intl.formatMessage(progressTrackerLabels.finish),
-      title: intl.formatMessage(progressTrackerTitles.review),
-    },
-  ];
 
   return (
-    <section>
-      <ProgressTracker
-        items={progressTrackerItems}
-        backgroundColor="black"
-        fontColor="white"
-        classNames="manager-jpb-tracker"
-        itemsWrapperClassNames="tracker manager-jpb-tracker-wrapper"
-      />
-      {waitingForJob ? (
+    <JobBuilderStepContainer jobId={jobId} currentPage="intro">
+      {/** Show the form when the existing job has loaded, or if this is a new job */}
+      {manager === null && (
         <div
-          data-c-container="copy"
+          data-c-container="form"
           data-c-padding="top(triple) bottom(triple)"
         >
           <div
@@ -142,51 +120,54 @@ const JobBuilderIntro: React.FunctionComponent<
           >
             <p>
               <FormattedMessage
-                id="jobBuilderIntroPage.loading"
-                defaultMessage="Your job is loading..."
-                description="Message indicating that the current job is still being loaded."
+                id="jobBuilder.intro.managerLoading"
+                defaultMessage="Your Manager Profile is loading..."
+                description="Message indicating that the manager profile is still being loaded."
               />
             </p>
           </div>
         </div>
-      ) : (
+      )}
+      {manager !== null && (job !== null || jobId === null) && (
         <IntroForm
           job={job}
+          manager={manager}
           departments={departments}
           handleSubmit={handleSubmit}
           handleContinueEn={handleContinueEn}
           handleContinueFr={handleContinueFr}
         />
       )}
-    </section>
+    </JobBuilderStepContainer>
   );
 };
 
 const mapStateToProps = (
   state: RootState,
+  { jobId }: { jobId: number | null },
 ): {
   job: Job | null;
+  manager: Manager | null;
   departments: Department[];
+  keyTasks: JobPosterKeyTask[];
+  criteria: Criteria[];
 } => ({
   job: getSelectedJob(state),
+  manager: getSelectedManager(state),
   departments: getDepartments(state),
+  keyTasks: jobId !== null ? getTasksByJob(state, { jobId }) : [],
+  criteria: jobId !== null ? getCriteriaByJob(state, { jobId }) : [],
 });
 
 const mapDispatchToProps = (
   dispatch: DispatchType,
 ): {
-  loadJob: (jobId: number) => void;
-  loadDepartments: () => void;
   handleCreateJob: (newJob: Job) => Promise<Job>;
   handleUpdateJob: (newJob: Job) => Promise<Job>;
+  handleUpdateManager: (newManager: Manager) => Promise<Manager>;
+  loadManager: (id: number) => Promise<void>;
+  loadCurrentManager: () => Promise<void>;
 } => ({
-  loadJob: (jobId: number): void => {
-    dispatch(fetchJob(jobId));
-    dispatch(setSelectedJob(jobId));
-  },
-  loadDepartments: (): void => {
-    dispatch(fetchDepartments());
-  },
   handleCreateJob: async (newJob: Job): Promise<Job> => {
     const result = await dispatch(createJob(newJob));
     if (!result.error) {
@@ -203,6 +184,33 @@ const mapDispatchToProps = (
       return resultJob;
     }
     return Promise.reject(result.payload);
+  },
+  handleUpdateManager: async (newManager: Manager): Promise<Manager> => {
+    const result = await dispatch(updateManager(newManager));
+    if (!result.error) {
+      const resultManager = await result.payload;
+      dispatch(setSelectedManager(resultManager.id));
+      return resultManager;
+    }
+    return Promise.reject(result.payload);
+  },
+  loadManager: async (id: number): Promise<void> => {
+    const result = await dispatch(fetchManager(id));
+    if (!result.error) {
+      const resultManager = await result.payload;
+      dispatch(setSelectedManager(resultManager.id));
+      return Promise.resolve();
+    }
+    return Promise.reject(result.error);
+  },
+  loadCurrentManager: async (): Promise<void> => {
+    const result = await dispatch(fetchCurrentManager());
+    if (!result.error) {
+      const resultManager = await result.payload;
+      dispatch(setSelectedManager(resultManager.id));
+      return Promise.resolve();
+    }
+    return Promise.reject(result.error);
   },
 });
 

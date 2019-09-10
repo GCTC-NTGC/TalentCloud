@@ -43,30 +43,5 @@
     "id": "assessmentPlan.instructions.narrativeNote",
     "description": "Note that all plans include a review of narrative evidence.",
     "defaultMessage": "Please note that all assessment plans will include a review of the narrative evidence provided by the applicant."
-  },
-  {
-    "id": "assessmentPlan.assessmentPlanBuilder.instructions",
-    "description": "Instructions on how to get started with the Assessment Plan Builder.",
-    "defaultMessage": "Your first step is to pick some assessments that will allow you to evaluate the criteria you've selected for your job poster. Below you'll find your essential criteria, followed by your asset criteria if you've selected any. The builder will save as you go, so when you're finished, feel free to move to step 2 to review your work."
-  },
-  {
-    "id": "criteria.essential",
-    "description": "What essential criteria are called.",
-    "defaultMessage": "Essential Skills"
-  },
-  {
-    "id": "assessmentPlan.essentialCriteria.nullState",
-    "description": "Text displayed when there are no essential criteria.",
-    "defaultMessage": "You have no essential skills selected for this job poster."
-  },
-  {
-    "id": "criteria.asset",
-    "description": "What asset criteria are called.",
-    "defaultMessage": "Asset Skills"
-  },
-  {
-    "id": "assessmentPlan.assetCriteria.nullState",
-    "description": "Text displayed when there are no asset criteria.",
-    "defaultMessage": "You have no asset skills selected for this job poster."
   }
 ]

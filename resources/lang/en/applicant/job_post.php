@@ -13,9 +13,9 @@ return [
     'job_post_title' => 'Talent Cloud | Applicant: Job Poster - :title (Reference number: :id)',
     'header' => [
         'time_remaining' => ':time until close',
-        "job_closed" => "Job has closed",
+        'job_closed' => 'Job has closed',
         'days_remaining' => ':count day until close|:count days until close',
-        "apply_by_label" => "Apply by",
+        'apply_by_label' => 'Apply by',
         'applicants_so_far' => ':count applicant so far|:count applicants so far',
         'reference_id' => 'Reference number: :id',
         'remote_work_allowed' => [
@@ -56,12 +56,12 @@ return [
     'criteria' => [
         'sidebar_title' => 'View this job\'s criteria information.',
         'title' => 'Criteria',
-        'education_title' => "Education Requirements",
+        'education_title' => 'Education Requirements',
         'essential_title' => 'Need to Have',
         'asset_title' => 'Nice to Have',
         'requirement_label' => 'Level Required: ',
         'level_link_title' => 'Visit the FAQ to learn about this and other skill levels.',
-        'no_info' => "No additional criteria required."
+        'no_info' => 'No additional criteria required.'
     ],
     'language' => [
         'sidebar_title' => 'View this job\'s language requirements.',
@@ -88,6 +88,7 @@ return [
         'manager_department_bridge' => ' at ',
         'guest_manager_link_label' => 'Please Log In to View :name\'s Profile.',
         'manager_link_label' => 'View :name\'s Profile.',
+        'work_culture_label' => 'Work Culture',
         'work_environment_label' => 'Work Environment',
         'team_narrative_label' => 'Things to Know',
         'team_culture_label' => 'Team Culture',
@@ -97,15 +98,21 @@ return [
         'team_link_label' => 'Team Profile',
         'operating_label' => 'Our Operating Context',
         'team_value_label' => 'What We Value',
-        'team_work_label' => 'How We Work'
+        'team_work_label' => 'How We Work',
     ],
     'work_environment' => [
+        'view_more_button' => 'View the team’s work environment and culture',
+        'modal_title' => 'Work Environment and Culture',
+        'modal_more_on_env' => 'More About Your Environment',
+        'modal_button' => 'Close',
         'remote_work_label' => 'Remote Work',
+        'remote_work_desc' => 'Work from anywhere, all the time.',
         'remote_work_allowed' => [
             true => 'Allowed',
             false => 'Not Allowed',
         ],
         'telework_label' => 'Telework',
+        'telework_desc' => 'Work from home some days (within driving distance of the office).',
         'telework_allowed' => [
             'never' => 'Never',
             'rarely' => 'Occasionally',
@@ -114,12 +121,27 @@ return [
             'always' => 'Almost always',
         ],
         'time_flexibility_label' => 'Flex Hours',
+        'time_flexibility_desc' => 'Set your own start and end times.',
         'time_flexibility_allowed' => [
             'never' => 'Never',
             'rarely' => 'Occasionally',
             'sometimes' => 'Sometimes',
             'often' => 'Frequently',
             'always' => 'Almost always',
+        ],
+        'travel_label' => 'Travel',
+        'travel_desc' => 'See more of Canada or the world.',
+        'travel' => [
+            'frequently' => 'Frequently',
+            'available' => 'Opportunities available',
+            'none' => 'None',
+        ],
+        'overtime_label' => 'Overtime',
+        'overtime_desc' => 'Work extra hours in the evenings/weekends.',
+        'overtime' => [
+            'frequently' => 'Frequently',
+            'available' => 'Opportunities available',
+            'none' => 'None',
         ],
     ],
     'know' => [
@@ -140,5 +162,5 @@ return [
         'edit_link_title'  => 'Edit this job poster.',
         'edit_link_label'  => 'Edit'
     ],
-    'no_info' => "No information provided."
+    'no_info' => 'No information provided.'
 ];

@@ -9,6 +9,7 @@ use App\Models\JobPoster;
 use App\Models\Manager;
 use App\Models\User;
 use Illuminate\Support\Facades\Config;
+use App\Models\Classification;
 
 class JobApiControllerTest extends TestCase
 {
@@ -41,7 +42,7 @@ class JobApiControllerTest extends TestCase
             'salary_min' => $this->faker->numberBetween(60000, 80000),
             'salary_max' => $this->faker->numberBetween(80000, 100000),
             'noc' => $this->faker->numberBetween(1, 9999),
-            'classification_code' => $this->faker->regexify('[A-Z]{2}'),
+            'classification_code' => Classification::inRandomOrder()->first()->key,
             'classification_level' => $this->faker->numberBetween(1, 6),
             'manager_id' => $managerId,
             'remote_work_allowed' => $this->faker->boolean(50),
@@ -65,6 +66,8 @@ class JobApiControllerTest extends TestCase
             'collaborative_vs_independent' => $this->faker->numberBetween(1, 4),
             'telework_allowed_frequency_id' => $this->faker->numberBetween(1, 4),
             'flexible_hours_frequency_id' => $this->faker->numberBetween(1, 4),
+            'travel_requirement_id'=> $this->faker->numberBetween(1, 3),
+            'overtime_requirement_id' => $this->faker->numberBetween(1, 3),
             'en' => [
                 'city' => $this->faker->city(),
                 'title' => $this->faker->word(),
@@ -123,8 +126,12 @@ class JobApiControllerTest extends TestCase
             ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertOk();
         $expectedDb = array_merge(
-            collect($jobUpdate)->except(['en', 'fr', 'work_env_features'])->toArray(),
-            ['id' => $job->id, 'manager_id' => $job->manager_id]
+            collect($jobUpdate)->except(['en', 'fr', 'work_env_features', 'classification_code'])->toArray(),
+            [
+                'id' => $job->id,
+                'manager_id' => $job->manager_id,
+                'classification_id' => Classification::where('key', $jobUpdate['classification_code'])->first()->id
+            ]
         );
         $this->assertDatabaseHas('job_posters', $expectedDb);
         $newJob = $job->fresh();
@@ -178,9 +185,9 @@ class JobApiControllerTest extends TestCase
         $job = factory(JobPoster::class)->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $jobUpdate['work_env_features'] = [
-                'env_open_concept' => true,
-                'env_windows' => true,
-                'amenities_near_transit' => false,
+                'openConcept' => true,
+                'windows' => true,
+                'downtown' => false,
                 'invalid_feature' => 'hello world'
         ];
         $response = $this->actingAs($job->manager->user)
@@ -224,17 +231,37 @@ class JobApiControllerTest extends TestCase
         $this->assertDatabaseHas('job_posters', ['manager_id' => $manager->id]);
     }
 
-    /**
-     * Even an admin cannot store a job like this, if they're not also a manager
-     *
-     * @return void
-     */
-    public function testStoreRequiresManagerId(): void
+    public function testReturnsCorrectClassificationCode(): void
     {
-        $user = factory(User::class)->state('admin')->create();
-        $response = $this->followingRedirects()
-            ->actingAs($user)
-            ->json('post', 'api/jobs');
+        $classification = Classification::inRandomOrder()->first();
+        $job = factory(JobPoster::class)->state('published')->create([
+            'classification_id' => $classification->id
+        ]);
+        $response = $this->json('get', "api/jobs/$job->id");
+        $response->assertOk();
+        $response->assertJsonFragment(['classification_code' => $classification->key]);
+    }
+
+    public function testSubmitForReview(): void
+    {
+        $job = factory(JobPoster::class)->state('draft')->create();
+        $this->assertEquals('draft', $job->status());
+        $response = $this
+            ->actingAs($job->manager->user)
+            ->json('post', "api/jobs/$job->id/submit");
+        $response->assertOk();
+        $newJob = $job->fresh();
+        $this->assertEquals('submitted', $newJob->status());
+    }
+
+    public function testSubmitForReviewFailsWithWrongManager(): void
+    {
+        $job = factory(JobPoster::class)->state('draft')->create();
+        $otherManager = factory(User::class)->state('manager')->create();
+        $this->assertEquals('draft', $job->status());
+        $response = $this
+            ->actingAs($otherManager)
+            ->json('post', "api/jobs/$job->id/submit");
         $response->assertForbidden();
     }
 }
