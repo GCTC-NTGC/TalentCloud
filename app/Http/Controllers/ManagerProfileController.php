@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Lookup\Frequency;
 use App\Models\Lookup\Department;
 use App\Models\Manager;
+use App\Services\Validation\Requests\UpdateManagerProfileValidator;
+use Illuminate\Support\Facades\Hash;
 
 class ManagerProfileController extends Controller
 {
@@ -137,11 +139,23 @@ class ManagerProfileController extends Controller
         $input = $request->input();
 
         // TODO: remove control of name in production.
-        $manager->user->name = $input['name'];
-        $manager->user->save();
+        $validator = new UpdateManagerProfileValidator($manager);
+        $validator->validate($request->all());
+
+        $user = $manager->user;
+        $user->fill([
+            'name' => $input['profile_name'],
+            'email' => $input['profile_email'],
+        ]);
+
+        if ($input['new_password']) {
+            $user->password = Hash::make($input['new_password']);
+        }
+        $user->save();
 
         $manager->fill([
             'department_id' => $input['department'],
+            'department_email' => $input['department_email'],
             'twitter_username' => $input['twitter_username'],
             'linkedin_url' => $input['linkedin_url'],
             'years_experience' => $input['years_experience'],
@@ -208,9 +222,14 @@ class ManagerProfileController extends Controller
         ]);
         $team_culture->save();
 
+
+
         // TODO: save workplace Photos.
         // Use the button that was clicked to decide which element to redirect to.
         switch ($input['submit']) {
+            case 'account_settings':
+                $hash = '#managerProfileSectionAccount';
+                break;
             case 'about_me':
                 $hash = '#managerProfileSectionAbout';
                 break;
