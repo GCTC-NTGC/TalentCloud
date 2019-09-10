@@ -112,7 +112,7 @@ return [
                     '3' => [
                         'link' => 'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
                         'title' => 'Courriel du Nuage de talents.',
-                        'label' => 'Email'
+                        'label' => 'Courriel'
                     ]
                 ]
             ]
