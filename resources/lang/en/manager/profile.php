@@ -23,6 +23,17 @@ return [
             'our_team_culture' => 'Our Team Culture',
             'save_all_sections' => 'Save All Sections'
         ],
+        'account' => [
+            'my_account' => 'My Account',
+            'my_name' => 'My Name',
+            'account_settings' => 'Account Information',
+            'reset_password' => 'Reset Password',
+            'profile_email' => 'My Email',
+            'old_password' => 'Old Password',
+            'new_password' => 'New Password',
+            'confirm_password' => 'Confirm Password',
+            'save_account_settings' => 'Save Account Settings',
+        ],
         'about' => [
             'about_me' => 'About Me',
             'my_name' => 'My Name',
@@ -30,6 +41,7 @@ return [
             'position_english' => 'Position (English)',
             'position_french' => 'Position (Français)',
             'departmental_information' => 'Departmental Information',
+            'department_email' => 'My Department Email',
             'department' => 'Department',
             'department_default_option' => 'Select your department...',
             'branch_english' => 'Branch (English)',
