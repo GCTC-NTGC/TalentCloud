@@ -29,6 +29,8 @@ use App\CRUD\TalentCloudCrudTrait as CrudTrait;
  * @property boolean $is_confirmed
  * @property boolean $is_priority
  * @property int $user_role_id
+ * @property string $gov_email
+ * @property boolean $not_in_gov
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -62,10 +64,12 @@ class User extends BaseModel implements
         'is_priority' => 'boolean',
         'user_role_id' => 'int',
         'email' => 'string',
+        'gov_email' => 'string',
+        'not_in_gov' => 'boolean',
     ];
 
     protected $fillable = [
-        'name', 'email', 'password', 'is_priority'
+        'name', 'email', 'password', 'is_priority', 'gov_email', 'not_in_gov'
     ];
 
     protected $with = ['user_role'];
