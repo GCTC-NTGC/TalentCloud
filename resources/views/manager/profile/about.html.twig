@@ -17,7 +17,7 @@
         {{about_l10n.about_me}}
     </h3>
 
-    <fieldset
+    {# <fieldset
         class="form__fieldset">
 
         <legend
@@ -48,7 +48,7 @@
 
         </div>
 
-    </fieldset>
+    </fieldset> #}
 
     <fieldset
         class="form__fieldset">
@@ -113,7 +113,7 @@
             class="flex-grid">
 
             <div
-                class="box full">
+                class="box med-1of2">
 
                 <div
                     class="form__input-wrapper--select">
@@ -146,6 +146,24 @@
 
                         </select>
                     </div>
+                </div>
+
+            </div>
+
+            <div
+                class="box med-1of2">
+
+                <div
+                class="form__input-wrapper--float active">
+                <label class="form__label" for="managerProfileDepartmentEmail">
+                    {{ about_l10n.department_email }}
+                </label>
+                <input
+                    id="managerProfileDepartmentEmail"
+                    class="form__input"
+                    type="text"
+                    name="department_email"
+                    value="{{ manager.department_email }}">
                 </div>
 
             </div>
