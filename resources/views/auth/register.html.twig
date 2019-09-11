@@ -54,21 +54,22 @@
                                 {# Form Inputs #}
                                 <div data-c-grid="gutter middle">
                                     {# Old Single Input for Name #}
-                                    <div
-                                        class="form__input-wrapper--float {{ old('email') ? "active" : '' }}">
-                                        <label
-                                            class="form__label"
-                                            for="name">
-                                            {{ register.name }}
-                                        </label>
-                                        <input
-                                            class="form__input"
-                                            id="name"
-                                            name="name"
-                                            required
-                                            type="text"
-                                            value="{{ old('name') }}" />
+                                     <div data-c-grid-item="tp(1of1)" data-c-input="text">
+                                        <label for="name">{{ register.name }}</label>
+                                        <span>Required</span>
+                                        <div>
+                                            <input
+                                                id="name"
+                                                name="name"
+                                                placeholder=""
+                                                required
+                                                type="text"
+                                                value="{{ old('name') }}"
+                                            />
+                                        </div>
+                                        <span>This input has an error.</span>
                                     </div>
+
                                     {# New First & Last Name Inputs #}
                                     {# <div data-c-grid-item="tp(1of2)" data-c-input="text">
                                         <label for="firstName">First Name</label>
@@ -86,6 +87,7 @@
                                         </div>
                                         <span>This input has an error.</span>
                                     </div> #}
+
                                     {# Email #}
                                     <div data-c-grid-item="base(1of1)" data-c-input="email">
                                         <label for="email">{{ register.email }}</label>
@@ -96,6 +98,11 @@
                                         </div>
                                         <span>This input has an error.</span>
                                     </div>
+
+                                    {# A block that other registration layouts can extend to add extra fields #}
+                                    {% block extra_fields %}
+                                    {% endblock %}
+
                                     {# Password Requirements #}
                                     <div data-c-grid-item="base(1of1)">
                                         <p data-c-margin="bottom(normal)">{{ register.password_copy }}</p>
