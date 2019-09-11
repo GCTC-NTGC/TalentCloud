@@ -410,6 +410,7 @@ const JobDetails: React.FunctionComponent<
   };
 
   const updateValuesAndReturn = (values: DetailsFormValues): void => {
+    nprogress.start();
     // The following only triggers after validations pass
     const educationRequirements = handleEducationRequirements(values);
     const modifiedValues: DetailsFormValues = {
@@ -420,6 +421,7 @@ const JobDetails: React.FunctionComponent<
       updateJobWithValues(job || emptyJob(), locale, modifiedValues),
     ).then((isSuccessful: boolean): void => {
       if (isSuccessful) {
+        nprogress.done();
         handleReturn();
       }
     });

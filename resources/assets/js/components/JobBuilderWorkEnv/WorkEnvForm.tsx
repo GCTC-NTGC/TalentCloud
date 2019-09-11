@@ -847,6 +847,7 @@ const WorkEnvForm = ({
   };
 
   const updateValuesAndReturn = (values: WorkEnvFormValues): void => {
+    nprogress.start();
     // If custom summary textbox is length is zero, set cultureSummary to generated text
     const cultureSummary =
       values.cultureSummary.length === 0
@@ -856,6 +857,7 @@ const WorkEnvForm = ({
     const oldJob = job || emptyJob();
     const updatedJob = updateJobWithValues(oldJob, locale, formValues);
     handleSubmit(updatedJob).then((): void => {
+      nprogress.done();
       handleReturn();
     });
   };
