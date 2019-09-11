@@ -21,7 +21,7 @@
             <header data-c-align="center" data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/bg_crowd.jpg');">
                 {% include "common/menu" %}
                 <div data-c-container="large" data-c-padding="top(double)">
-                    <h1 data-c-colour="white" data-c-font-size="h1" data-c-font-weight="700" data-c-margin="top(triple) bottom(normal)">{{ home.hero.title }}<img alt="Canadian Maple Leaf" class="hero-icon" src="/images/maple-leaf.svg"></h1>
+                    <h1 data-c-colour="white" data-c-font-size="h1" data-c-font-weight="700" data-c-margin="top(triple) bottom(normal)">{{ home.hero.title }}<img alt="{{ home.leaf }}" class="hero-icon" src="/images/maple-leaf.svg"></h1>
                     <p data-c-colour="white" data-c-margin="bottom(triple)">{{ home.hero.tagline }}</p>
                     <span data-c-colour="white" data-c-font-weight="800">{{ home.hero.pilot }}</span>
                 </div>
@@ -125,7 +125,7 @@
                         </div>
                     </div>
                 </div>
-                <img alt="Canadian Maple Leaf" class="home-browse-icon" src="/images/maple-leaf.svg">
+                <img alt="{{ home.leaf }}" class="home-browse-icon" src="/images/maple-leaf.svg">
             </div>
             {# How it Works ================================================= #}
             <a id="how"></a>
@@ -192,7 +192,7 @@
                     <div data-c-align="centre" data-c-grid="gutter middle">
                         <div data-c-align="tp(left)" data-c-grid-item="tp(1of2)">
                             <h2 data-c-font-size="h2">
-                                Our Blog
+                                {{ home.blogTitle }}
                             </h2>
                         </div>
                         <div data-c-align="tp(right)" data-c-grid-item="tp(1of2)">
@@ -220,7 +220,7 @@
                         </div>
                     </div>
                 </div>
-                <img alt="Canadian Maple Leaf" class="home-blog-icon" src="/images/maple-leaf.svg">
+                <img alt="{{ home.leaf }}" class="home-blog-icon" src="/images/maple-leaf.svg">
             </div>
             {# GC Jobs Banner =============================================== #}
             <div class="gradient-right-left" data-c-padding="normal">
