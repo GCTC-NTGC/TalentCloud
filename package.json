@@ -101,7 +101,7 @@
     "classnames": "^2.2.6",
     "core-js": "^3",
     "formik": "^1.5.8",
-    "history": "^4.9.0",
+    "history": "^4.10.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
