@@ -123,6 +123,7 @@ return [
             ]
         ]
     ],
+    'blogTitle' => 'Our Blog',
     'blogs' => [
         '1' => [
             'title' => 'You are now free to move about the workforce',
@@ -168,6 +169,7 @@ return [
             'fswep' => '<a href="https://www.canada.ca/en/public-service-commission/jobs/services/recruitment/students/federal-student-work-program.html" title="Visit FSWEP for more information on student opportunities." target="_blank">check out FSWEP</a>'
         ]
     ],
+    'leaf' => 'Canadian maple leaf.',
     /* Old Content */
     'home_title' => 'Talent Cloud | Applicant: Home',
     'about_card_copy_01' => 'The jobs are real.',

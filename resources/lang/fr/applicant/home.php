@@ -117,6 +117,7 @@ return [
             ]
         ]
     ],
+    'blogTitle' => 'Notre blogue',
     'blogs' => [
         '1' => [
             'title' => 'Vous pouvez maintenant naviguer dans l’effectif',
@@ -162,6 +163,8 @@ return [
             'fswep' => "<a href='https://www.canada.ca/en/public-service-commission/jobs/services/recruitment/students/federal-student-work-program.html' title='Consultez le Programme fédéral d'expérience de travail étudiant (PFETE) pour obtenir de plus amples renseignements sur les possibilités offertes aux étudiants.' target='_blank'>consulter aussi le Programme fédéral d’expérience de travail étudiant</a>"
         ]
     ],
+    'leaf' => 'Feuille d\'érable canadienne.',
+    /* Old Content */
     'home_title' => 'Nuage de talents | Candidat : Accueil',
     'about_card_copy_01' => 'De vrais emplois.',
     'about_card_copy_02' => 'Une plateforme expérimentale.',
