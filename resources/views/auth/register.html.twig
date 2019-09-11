@@ -52,8 +52,9 @@
                                     </div>
                                 {% endif %}
                                 {# Form Inputs #}
-                                {# Old Single Input for Name #}
-                                    {# <div
+                                <div data-c-grid="gutter middle">
+                                    {# Old Single Input for Name #}
+                                    <div
                                         class="form__input-wrapper--float {{ old('email') ? "active" : '' }}">
                                         <label
                                             class="form__label"
@@ -67,11 +68,9 @@
                                             required
                                             type="text"
                                             value="{{ old('name') }}" />
-                                    </div> #}
-                                {# New First & Last Name Inputs #}
-                                <div data-c-grid="gutter middle">
-                                    {# First Name #}
-                                    <div data-c-grid-item="tp(1of2)" data-c-input="text">
+                                    </div>
+                                    {# New First & Last Name Inputs #}
+                                    {# <div data-c-grid-item="tp(1of2)" data-c-input="text">
                                         <label for="firstName">First Name</label>
                                         <span>Required</span>
                                         <div>
@@ -79,7 +78,6 @@
                                         </div>
                                         <span>This input has an error.</span>
                                     </div>
-                                    {# Last Name #}
                                     <div data-c-grid-item="tp(1of2)" data-c-input="text">
                                         <label for="lastName">Last Name</label>
                                         <span>Required</span>
@@ -87,13 +85,13 @@
                                             <input id="lastName" placeholder="" required type="text" />
                                         </div>
                                         <span>This input has an error.</span>
-                                    </div>
+                                    </div> #}
                                     {# Email #}
                                     <div data-c-grid-item="base(1of1)" data-c-input="email">
                                         <label for="email">{{ register.email }}</label>
                                         <span>Required</span>
                                         <div>
-                                            <input id="email" placeholder="e.g. email@website.com" required 
+                                            <input id="email" placeholder="e.g. email@website.com" required
                                             name="email" type="email" value="{{ old('email') }}" />
                                         </div>
                                         <span>This input has an error.</span>
@@ -121,7 +119,7 @@
                                         <label for="password-confirm">{{ register.confirm_password }}</label>
                                         <span>Required</span>
                                         <div>
-                                            <input id="password-confirm" required type="password" name="password-confirmation"
+                                            <input id="password-confirm" required type="password" name="password_confirmation"
                                             autocomplete="off" />
                                             <button type="button">
                                                 <i class="fas fa-eye"></i>
