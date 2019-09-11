@@ -935,6 +935,7 @@ const WorkEnvForm = ({
                 name="teamSize"
                 component={NumberInput}
                 required
+                min={1}
                 grid="tl(1of2)"
                 id="teamSize"
                 label={intl.formatMessage(formMessages.teamSizeLabel)}
