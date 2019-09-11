@@ -15,6 +15,7 @@ use App\Mail\JobPosterReviewRequested;
 
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
+use App\Models\Manager;
 
 use App\Services\Validation\JobPosterValidator;
 use Jenssegers\Date\Date;
@@ -256,6 +257,31 @@ class JobController extends Controller
                 'form_action_url' => route('admin.jobs.update', $jobPoster),
             ]
         );
+    }
+
+    /**
+     * Create a blank job poster for the specified manager
+     *
+     * @param  \App\Models\Manager $manager Incoming Manager object.
+     * @return \Illuminate\Http\Response Job Create view
+     */
+    public function createAsManager(Manager $manager)
+    {
+        $jobPoster = new JobPoster();
+        $jobPoster->manager_id = $manager->id;
+
+        // Save manager-specific info to the job poster - equivalent to the intro step of the JPB
+        $divisionEn = $manager->translate('en') !== null ? $manager->translate('en')->division : null;
+        $divisionFr = $manager->translate('fr') !== null ? $manager->translate('fr')->division : null;
+        $jobPoster->fill([
+            'department_id' => $manager->department_id,
+            'en' => ['division' => $divisionEn],
+            'fr' => ['division' => $divisionFr],
+        ]);
+
+        $jobPoster->save();
+
+        return redirect()->route('manager.jobs.edit', $jobPoster->id);
     }
 
     /**
