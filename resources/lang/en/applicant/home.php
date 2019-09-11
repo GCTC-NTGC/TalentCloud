@@ -27,7 +27,6 @@ return [
         'title' => 'Recently Posted Jobs',
         'browse_link' => [
             'title' => 'View all jobs posted to Talent Cloud.',
-            'href' => '/jobs',
             'label' => 'Browse All Jobs'
         ],
         'null' => 'More Jobs Coming Soon!'
@@ -49,9 +48,9 @@ return [
             '2' => [
                 'title' => 'Step 2: Apply',
                 'summary' => 'TBD',
-                'copy' => "You’ll notice there is nowhere to upload your resume or cover letter as part of our application process. That’s not a glitch, we did it on purpose! Instead of telling us about your experience, we want you to tell us about yourself and how you demonstrate the skills that are needed for the position. We think that this will give applicants with unconventional life / career paths an opportunity to demonstrate how they are qualified, rather than being systematically screening out because they didn’t follow the road most travelled.\n\nThis is likely quite different from other job applications you’ve filled out, so check out our FAQ page to learn more about %levels%.",
+                'copy' => "You'll notice there is nowhere to upload your resume or cover letter as part of our application process. That’s not a glitch, we did it on purpose! Instead of telling us about your experience, we want you to tell us about yourself and how you demonstrate the skills that are needed for the position. We think that this will give applicants with unconventional life / career paths an opportunity to demonstrate how they are qualified, rather than being systematically screening out because they didn’t follow the road most travelled.\n\nThis is likely quite different from other job applications you’ve filled out, so check out our FAQ page to learn more about %levels%.",
                 'links' => [
-                    'levels' => "<a href='faq#levels' title='Learn more about skill levels on Talent Cloud.' target='_blank'>how to find your skill level</a>"
+                    'levels' => '<a href="' . route('faq') . '#levels" title="Learn more about skill levels on Talent Cloud." target="_blank">how to find your skill level</a>'
                 ]
             ],
             '3' => [
@@ -64,7 +63,7 @@ return [
                 'summary' => 'TBD',
                 'copy' => "Right now, Talent Cloud gives you the chance to show what makes you unique in your job application. This is a big change in the way government recognizes talent, but we’re working towards something even bigger.\n\nWhen you apply for a job with Talent Cloud, you tell us how you demonstrate the skills required for the position. If your application is strong, you might be considered for an interview or asked to complete a take-home exam. Let’s say you do really well, but you just narrowly miss out on the job. We think there is value in that success and we’re working towards recognizing that.\n\nWe want to make it possible for managers to give a credential, or a badge, to those who pass assessments (like a take home test) even if they don’t get the job. If you get one of these credentials you could present it in future applications and managers could choose whether to accept it in place of doing a similar test again.\n\nLet’s say you do get the job, you demonstrate the skills you said you have and gain some new ones. Your manager could give you credentials for the skills you demonstrated on the job at the end of your term. Think of it as a new type of job reference that doesn’t need an email or a phone call.\n\nWe’re still working out the details, but are committed to making sure your credentials are owned by you and that you’re able to use them both inside, and outside government.\n\nIf you’re interested in learning more, check out our proof-of-concept issuing %certs%.",
                 'links' => [
-                    'certs' => "<a href='https://open.canada.ca/en/blog/securing-future-talent-mobility-government-canada' title='Learn more about blockcert validated credentials.' target='_blank'>Blockcerts validated credentials to Canada’s Free Agents</a>"
+                    'certs' => '<a href="https://open.canada.ca/en/blog/securing-future-talent-mobility-government-canada" title="Learn more about blockcert validated credentials." target="_blank">Blockcerts validated credentials to Canada\'s Free Agents</a>'
                 ]
             ]
         ]
@@ -73,10 +72,10 @@ return [
         'title' => 'Behind the Scenes',
         'intro' => "Talent Cloud is different in a lot of ways. We're open source, iterative, trying to transform bias in hiring, and do our best to design with everyone in mind.",
         // "intro_link" => [
-        //     "os" => "<a href='' title='' target='_blank'>open source</a>",
-        //     "iterative" => "<a href='' title='' target='_blank'>iterative</a>",
-        //     "bias" => "<a href='' title='' target='_blank'>transform bias in hiring</a>",
-        //     "design" => "<a href='' title='' target='_blank'>design with everyone</a>",
+        // "os" => "<a href='' title='' target='_blank'>open source</a>",
+        // "iterative" => "<a href='' title='' target='_blank'>iterative</a>",
+        // "bias" => "<a href='' title='' target='_blank'>transform bias in hiring</a>",
+        // "design" => "<a href='' title='' target='_blank'>design with everyone</a>",
         // ],
         'items' => [
             '1' => [
@@ -95,7 +94,7 @@ return [
                 'copy' => 'GC Talent Cloud is an experimental initiative that relies solely on financial support from participating federal departments who are committed to helping build an alternative to the traditional HR model.',
                 'links' => [
                     '1' => [
-                        'link' => '/faq/#partners',
+                        'link' => route('faq') . '#partners',
                         'title' => 'Learn more about how Talent Cloud is funded.',
                         'label' => 'Learn More'
                     ]
@@ -165,16 +164,16 @@ return [
     'cta' => [
         'copy' => "Can't find the job you're looking for on Talent Cloud? %gcjobs% for more public sector opportunities. Students, be sure to %fswep% too!",
         'copy_links' => [
-            'gcjobs' => "<a href='https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en' title='Visit GC Jobs for more information.' target='_blank'>Check out GC Jobs</a>",
-            'fswep' => "<a href='https://www.canada.ca/en/public-service-commission/jobs/services/recruitment/students/federal-student-work-program.html' title='Visit FSWEP for more information on student opportunities.' target='_blank'>check out FSWEP</a>"
+            'gcjobs' => '<a href="https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="Visit GC Jobs for more information." target="_blank">Check out GC Jobs</a>',
+            'fswep' => '<a href="https://www.canada.ca/en/public-service-commission/jobs/services/recruitment/students/federal-student-work-program.html" title="Visit FSWEP for more information on student opportunities." target="_blank">check out FSWEP</a>'
         ]
     ],
     /* Old Content */
     'home_title' => 'Talent Cloud | Applicant: Home',
     'about_card_copy_01' => 'The jobs are real.',
     'about_card_copy_02' => 'The platform is experimental.',
-    'about_cta' => "Talent Cloud is the Government of Canada's experimental new hiring platform for project-based or \"gig\" employment. For the next few months, Government will be posting a few cool new jobs a week in digital, tech, and user experience design.",
-    'about_copy' => "Each poster lets you learn about the work, the teams, and the managers of each position, so you can think about where you'll fit before you apply.",
+    'about_cta' => 'Talent Cloud is the Government of Canada\'s experimental new hiring platform for project-based or "gig" employment. For the next few months, Government will be posting a few cool new jobs a week in digital, tech, and user experience design.',
+    'about_copy' => 'Each poster lets you learn about the work, the teams, and the managers of each position, so you can think about where you\'ll fit before you apply.',
     'about_copy_2' => 'Test it out and tell us what you think.',
     'about_copy_3' => 'Help us build a new hiring model for the Government of Canada.',
     'how_title' => 'How It Works',
@@ -184,7 +183,7 @@ return [
     'how_step01_title' => 'Own Your Story',
     'how_step01_copy' => 'Everyone is unique. Participate in a job selection process that lets you showcase your skills in your own way. Have access to information about the job that lets you choose your own right fit.',
     'how_step02_title' => 'Get Recognized',
-    'how_step02_copy' => "Earn and validate skills, knowledge, and abilities through Talent Cloud by applying to jobs and while you're on the job. What does this mean? Credentials earned through Talent Cloud are recognized and transferable between job applications... and one day potentially across Canada.",
+    'how_step02_copy' => 'Earn and validate skills, knowledge, and abilities through Talent Cloud by applying to jobs and while you\'re on the job. What does this mean? Credentials earned through Talent Cloud are recognized and transferable between job applications... and one day potentially across Canada.',
     'how_step03_title' => 'Contribute',
     'how_step03_copy' => 'Find meaningful work that has an impact on Canadians... and be part of the effort to design a new platform for project-based work in Government.',
     'how_step04_title' => 'Credentialing TBD',
