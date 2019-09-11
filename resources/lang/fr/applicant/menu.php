@@ -9,27 +9,31 @@ return [
      * The following language lines are used in the nav menu.
      *
      */
-    "items" => [
-        "home" => [
-            "name" => "Accueil",
+    'items' => [
+        'home' => [
+            'name' => 'Accueil',
         ],
-        "jobs" => [
-            "name" => "Parcourir les emplois",
+        'jobs' => [
+            'name' => 'Parcourir les emplois',
         ],
-        "applications" => [
-            "name" => "Mes applications",
+        'applications' => [
+            'name' => 'Mes applications',
         ],
-        "profile" => [
-            "name" => "Mon profil",
+        'profile' => [
+            'name' => 'Mon profil',
         ],
-        "faq" => [
-            "name" => "FAQ"
+        'faq' => [
+            'name' => 'FAQ'
         ],
+        'itp' => [
+            'name' => 'Talent autochtone',
+            'alt' => 'Indigenous Talent Portal link background.'
+        ]
     ],
-    "register" => "Inscription",
-    "login" => "Ouverture de session",
-    "logout" => "Se déconnecter",
-    # Button labels
-    "mobile_trigger_label" => "Menu mobile",
-    "modal_cancel_label" => "Annuler",
+    'register' => 'Inscription',
+    'login' => 'Ouverture de session',
+    'logout' => 'Se déconnecter',
+    // Button labels.
+    'mobile_trigger_label' => 'Menu mobile',
+    'modal_cancel_label' => 'Annuler',
 ];
