@@ -27,7 +27,6 @@ return [
         'title' => 'Emplois récemment affichés',
         'browse_link' => [
             'title' => 'Voir tous les postes affichés dans le Nuage de talents.',
-            'href' => '/jobs',
             'label' => 'Parcourir tous les emplois'
         ],
         'null' => 'D’autres emplois seront bientôt affichés!'
@@ -51,7 +50,7 @@ return [
                 'summary' => 'TBD',
                 'copy' => "Vous constaterez qu’il n’y a aucun endroit où télécharger votre curriculum vitæ ou votre lettre de présentation dans le cadre de notre processus de demande. Ce n’est pas un pépin, nous l’avons fait intentionnellement! Au lieu de nous parler de votre expérience, nous voulons que vous nous parliez de vous-même et que vous nous disiez en quoi vous démontrez les compétences nécessaires pour le poste. Nous croyons que cela donnera aux candidats ayant un parcours de vie ou de carrière non conventionnel l’occasion de démontrer en quoi ils sont qualifiés, plutôt que d’être systématiquement éliminés parce qu’ils n’ont pas suivi le chemin le plus emprunté.\n\nCette façon de faire est probablement très différente des autres formulaires de demande d’emploi que vous avez remplis, alors veuillez consulter notre page FAQ pour en savoir plus sur la %levels%.",
                 'links' => [
-                    'levels' => "<a href='faq#levels' title='Apprenez-en davantage sur les niveaux de compétences dans le Nuage de talents.' target='_blank'>façon de trouver votre niveau de compétence</a>"
+                    'levels' => '<a href="' . route('faq') . ' title="Apprenez-en davantage sur les niveaux de compétences dans le Nuage de talents." target="_blank">façon de trouver votre niveau de compétence</a>'
                 ]
             ],
             '3' => [
@@ -89,7 +88,7 @@ return [
                 'copy' => 'Le Nuage de talents du gouvernement du Canada est une initiative expérimentale qui repose uniquement sur l’aide financière des ministères fédéraux participants qui s’engagent à créer une solution de rechange au modèle traditionnel des RH.',
                 'links' => [
                     '1' => [
-                        'link' => '/faq/#partners',
+                        'link' => route('faq') . '#partners',
                         'title' => 'Apprenez-en davantage sur le financement du Nuage de talents.',
                         'label' => 'Pour en savoir davantage'
                     ]
