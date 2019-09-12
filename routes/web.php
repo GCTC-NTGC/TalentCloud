@@ -283,8 +283,11 @@ Route::group(
 
                 Route::view(
                     'jobs/{jobPoster}/assessment-plan',
-                    'common/redux',
-                    ['title' => Lang::get('manager/screening-plan')['title']]
+                    'manager/assessment_plan',
+                    [
+                        'title' => Lang::get('manager/screening-plan')['title'],
+                        'header' => ['title' => Lang::get('manager/screening-plan')['title']]
+                    ]
                 )
                     ->where('jobPoster', '[0-9]+')
                     ->name('manager.jobs.screening_plan');

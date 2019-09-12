@@ -33,12 +33,12 @@ const messages = {
   fr: messages_fr,
 };
 
-interface ApplicationReviewContainerProps {
+interface ApplicationReviewRootProps {
   initApplication: Application;
   reviewStatuses: ReviewStatus[];
 }
 
-interface ApplicationReviewContainerState {
+interface ApplicationReviewRootState {
   application: Application;
   isSaving: boolean;
 }
@@ -62,12 +62,12 @@ const localizations = defineMessages({
   },
 });
 
-class ApplicationReviewContainer extends React.Component<
-  ApplicationReviewContainerProps & InjectedIntlProps,
-  ApplicationReviewContainerState
+class ApplicationReviewRoot extends React.Component<
+  ApplicationReviewRootProps & InjectedIntlProps,
+  ApplicationReviewRootState
 > {
   public constructor(
-    props: ApplicationReviewContainerProps & InjectedIntlProps,
+    props: ApplicationReviewRootProps & InjectedIntlProps,
   ) {
     super(props);
     this.state = {
@@ -176,12 +176,12 @@ if (document.getElementById("application-review-container")) {
       "data-review-statuses",
     ) as string);
     const language = container.getAttribute("data-locale") as string;
-    const IntelApplicationReviewContainer = injectIntl(
-      ApplicationReviewContainer,
+    const IntlApplicationReviewRoot = injectIntl(
+      ApplicationReviewRoot,
     );
     ReactDOM.render(
       <IntlProvider locale={language} messages={messages[language]}>
-        <IntelApplicationReviewContainer
+        <IntlApplicationReviewRoot
           initApplication={applications}
           reviewStatuses={reviewStatuses}
         />
@@ -191,4 +191,4 @@ if (document.getElementById("application-review-container")) {
   }
 }
 
-export default injectIntl(ApplicationReviewContainer);
+export default injectIntl(ApplicationReviewRoot);
