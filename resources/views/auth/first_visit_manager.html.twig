@@ -1,0 +1,95 @@
+{# =============================================================================
+
+    Talent Cloud
+    Auth: Register
+
+============================================================================= #}
+
+{% extends "layouts/base" %}
+
+{% block title %}{{ first_visit.title }}{% endblock %}
+
+{% block body %}
+<div data-clone>
+        <section class="tc-auth" data-c-padding="tb(triple)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
+            <div class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
+                {# Return to the homepage link. #}
+                <a data-c-color="white" href="/" title="Return Home">
+                    <i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ first_visit.return }}
+                </a>
+                <div data-c-radius="rounded" data-c-margin="top(normal)">
+                    {# Auth UI Title Area #}
+                    <div class="tc-auth-header gradient-left-right" data-c-padding="all(double)" data-c-align="base(center)">
+                        <h1 data-c-font-size="h2" data-c-color="white">{{ first_visit.header }}</h1>
+                    </div>
+                    {# Registration Form #}
+                    <form action="{{ routes.continue }}" method="POST">
+                        {{ csrf_field() }}
+                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
+                            <div data-c-padding="top(normal)">
+                                {% if errors.any() %}
+                                    {# Clone alert box for errors. #}
+                                    <div
+                                        data-c-alert="error"
+                                        data-c-radius="rounded"
+                                        role="alert" data-c-margin="bottom(double)">
+                                        <div data-c-padding="half">
+                                            <span
+                                                data-c-heading="h5"
+                                                data-c-font-weight="bold">
+                                                <i aria-hidden="true" class="fas fa-exclamation-circle"></i>
+                                                Uh oh, something doesn't look right.
+                                            </span>
+                                            <p data-c-margin="top(quarter)">
+                                                Please check the following:
+                                            </p>
+                                            <ul>
+                                                {% for error in errors.all() %}
+                                                    <li>{{ error }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div data-c-grid-item="base(1of1)">
+                                    <p data-c-margin="bottom(normal)">{{ first_visit.explanation }}</p>
+                                </div>
+                                {# Form Inputs #}
+                                <div data-c-grid="gutter middle">
+                                    {# This div loads a React component #}
+                                    <div
+                                        id="gov-dept-and-email-inputs"
+                                        data-departments="{{ departments|json_encode() }}"
+                                        data-prev-department="{{ old('department') }}"
+                                        data-prev-gov-email="{{ old('gov_email' ) }}"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {# UI Actions #}
+                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)">
+                            <div data-c-grid="middle">
+                                <div data-c-grid-item="base(1of2)" data-c-align="base(right)">
+                                    <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
+                                        {{ first_visit.submit }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script async defer
+        src="{{ mix('/js/GovDeptAndEmailInputs.js') }}">
+    </script>
+
+{% endblock %}
+

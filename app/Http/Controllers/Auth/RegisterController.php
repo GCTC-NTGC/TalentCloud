@@ -163,7 +163,6 @@ class RegisterController extends AuthController
         $user->save();
         $user->refresh();
 
-
         // Add (or update) manager profile
         // NOTE: modifying a field in $user, and saving it, appears to create Manager object. I don't know how. -- Tristan
         // That means that after setting not_in_gov or gov_email, a manager already exists here. Adding a new one will throw an exception.

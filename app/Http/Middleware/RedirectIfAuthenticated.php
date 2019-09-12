@@ -18,7 +18,6 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        debugbar()->debug('Guest redirected to (if admin) '. backpack_url(''));
         if (Auth::guard($guard)->check()) {
             if (Auth::user()->isAdmin()) {
                 return redirect(backpack_url(''));

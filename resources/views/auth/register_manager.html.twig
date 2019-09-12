@@ -4,7 +4,6 @@
     {# This div renders a React component, to hide the email field until a dept is chosen. #}
     <div
         id="gov-dept-and-email-inputs"
-        data-clone
         data-departments="{{ departments|json_encode() }}"
         data-prev-department="{{ old('department') }}"
         data-prev-gov-email="{{ old('gov_email' ) }}"
