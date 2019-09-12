@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import { FormattedMessage } from "react-intl";
 import { Application } from "../../models/types";
 import { SelectOption } from "../Select";
@@ -120,9 +120,9 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
             description="Welcome header on app main page"
             values={{
               // TODO: Think more carefully about how to handle null fields
-              dayCount: moment().diff(
-                closeDateTime ? moment(closeDateTime) : moment(),
-                "days",
+              dayCount: dayjs().diff(
+                closeDateTime ? dayjs(closeDateTime) : dayjs(),
+                "day",
               ),
             }}
           />
