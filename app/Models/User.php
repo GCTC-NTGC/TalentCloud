@@ -205,4 +205,17 @@ class User extends BaseModel implements
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    /**
+     * Gov identity has been confirmed either if:
+     *  - they have confirmed to NOT be in government,
+     *  - OR they've added a gov email.
+     *
+     * @param [type] $user
+     * @return boolean
+     */
+    public function isGovIdentityConfirmed()
+    {
+        return $this->not_in_gov || !empty($this->gov_email);
+    }
 }

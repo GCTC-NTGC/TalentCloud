@@ -15,20 +15,8 @@ class FinishManagerRegistration
     public function handle($request, Closure $next)
     {
         $user = $request->user();
-        /**
-         * Manager registration is complete either if:
-         *  - they have confirmed to NOT be in government,
-         *  - OR they've added a gov email.
-         *
-         * @param [type] $user
-         * @return boolean
-         */
-        function isManagerRegistrationFinished($user)
-        {
-            return $user->not_in_gov || !empty($user->gov_email);
-        }
 
-        if ($user !== null && $user->isManager() && !isManagerRegistrationFinished($user)) {
+        if ($user !== null && $user->isManager() && !$user->isGovIdentityConfirmed()) {
             return redirect(route('manager.first_visit'));
         }
 
