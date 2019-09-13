@@ -9,12 +9,13 @@
   id="managerProfileSectionAccount"
   class="manager-profile__section">
 
+  {# Include Error Messages #}
+  {% include "errors/form_errors" with {'form_errors_id': 'managerProfileFormErrors'} %}
+
   <h3
     class="manager-profile__section-title">
     {{account_l10n.my_account}}
   </h3>
-
-  {% include "errors/form_errors" %}
 
   <fieldset
     class="form__fieldset">
@@ -39,11 +40,16 @@
                 class="form__input"
                 id="managerProfileName"
                 type="text"
-                name='profile_name'
-                value="{{ user.name }}" />
+                name='name'
+                value="{{ old('name', user.name) }}" />
         </div>
 
       </div>
+
+    </div>
+
+    <div
+      class="flex-grid">
 
       <div
         class="box med-1of2">
@@ -58,8 +64,26 @@
             id="managerProfileProfileEmail"
             class="form__input"
             type="text"
-            name="profile_email"
-            value="{{ user.email }}">
+            name="email"
+            value="{{ old('email', user.email) }}">
+        </div>
+
+      </div>
+
+      <div
+        class="box med-1of2">
+
+        <div
+        class="form__input-wrapper--float active">
+        <label class="form__label" for="managerProfileGovernmentEmail">
+            {{ account_l10n.government_email }}
+        </label>
+        <input
+            id="managerProfileGovernmentEmail"
+            class="form__input"
+            type="email"
+            name="government_email"
+            value="{{ manager.government_email }}">
         </div>
 
       </div>
