@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { InjectedIntlProps, injectIntl } from "react-intl";
+import { InjectedIntlProps, injectIntl, defineMessages } from "react-intl";
 import ReactDOM from "react-dom";
 import { Department } from "../../models/types";
 import Select, { SelectOption } from "../Select";
@@ -11,6 +11,31 @@ interface GovDeptAndEmailInputsProps {
   prevDeptId?: number;
   prevGovEmail?: string;
 }
+
+const messages = defineMessages({
+  notInGov: {
+    id: "govDeptAndEmail.notInGov",
+    defaultMessage: "Not in Government",
+    description:
+      "The user's option to state that they don't have a government email.",
+  },
+  department: {
+    id: "govDeptAndEmail.departmentLabel",
+    defaultMessage: "Government Department",
+    description: "Label for the Government Department input field.",
+  },
+  departmentNullSelection: {
+    id: "govDeptAndEmail.departmentNullSelection",
+    defaultMessage: "Select a Department",
+    description:
+      "Null selection option for the Government Department input field.",
+  },
+  govEmail: {
+    id: "govDeptAndEmail.govEmailLabel",
+    defaultMessage: "Your Government Email",
+    description: "Label for government email input field.",
+  },
+});
 
 export const GovDeptAndEmailInputs: React.FunctionComponent<
   GovDeptAndEmailInputsProps & InjectedIntlProps
@@ -26,7 +51,10 @@ export const GovDeptAndEmailInputs: React.FunctionComponent<
   const [govEmail, setGovEmail] = useState(prevGovEmail || "");
 
   const NOT_IN_GOV = 0;
-  const notInGovOption = { value: NOT_IN_GOV, label: "Not in Government" };
+  const notInGovOption = {
+    value: NOT_IN_GOV,
+    label: intl.formatMessage(messages.notInGov),
+  };
   const options = [
     notInGovOption,
     ...departments.map(
@@ -46,9 +74,9 @@ export const GovDeptAndEmailInputs: React.FunctionComponent<
       <Select
         id="department"
         name="department"
-        label="Government Department"
+        label={intl.formatMessage(messages.department)}
         required
-        nullSelection="Select a department"
+        nullSelection={intl.formatMessage(messages.departmentNullSelection)}
         selected={deptId}
         options={options}
         onChange={(event): void => setDeptId(getEventDeptId(event))}
@@ -57,7 +85,7 @@ export const GovDeptAndEmailInputs: React.FunctionComponent<
         <Input
           id="gov_email"
           name="gov_email"
-          label="Your Government Email"
+          label={intl.formatMessage(messages.govEmail)}
           required
           value={govEmail}
           onChange={(event): void => setGovEmail(event.target.value)}

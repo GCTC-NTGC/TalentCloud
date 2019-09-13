@@ -20,7 +20,4 @@ return [
     'confirm_password' => 'Confirmez le mot de passe',
     'register' => 'S\'inscrire',
     'auth_logo' => '/images/logo_tc_colour_fr.png',
-    'department' => 'Government Department',
-    'not_in_gov' => 'Not in Government',
-    'gov_email' => 'Your Government Email',
 ];

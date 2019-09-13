@@ -1,0 +1,22 @@
+[
+  {
+    "id": "govDeptAndEmail.notInGov",
+    "description": "The user's option to state that they don't have a government email.",
+    "defaultMessage": "Not in Government"
+  },
+  {
+    "id": "govDeptAndEmail.departmentLabel",
+    "description": "Label for the Government Department input field.",
+    "defaultMessage": "Government Department"
+  },
+  {
+    "id": "govDeptAndEmail.departmentNullSelection",
+    "description": "Null selection option for the Government Department input field.",
+    "defaultMessage": "Select a Department"
+  },
+  {
+    "id": "govDeptAndEmail.govEmailLabel",
+    "description": "Label for government email input field.",
+    "defaultMessage": "Your Government Email"
+  }
+]
