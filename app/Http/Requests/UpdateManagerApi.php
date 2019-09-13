@@ -7,7 +7,7 @@ use App\Services\Validation\Rules\ValidIdRule;
 use App\Models\Lookup\Frequency;
 use App\Models\Lookup\Department;
 
-class UpdateManager extends FormRequest
+class UpdateManagerApi extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
