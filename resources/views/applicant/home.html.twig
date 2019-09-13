@@ -98,7 +98,7 @@
                                                 </p>
                                                 <p>{{handleNullState(
                                                     jobs[i].hire_impact,
-                                                    jobs[i].hire_impact|nl2br,
+                                                    jobs[i].hire_impact|length > 250 ? jobs[i].hire_impact|slice(0, 250)|trim ~ '...' : jobs[i].hire_impact,
                                                     job_post.no_info
                                                 )}}</p>
                                             </div>
