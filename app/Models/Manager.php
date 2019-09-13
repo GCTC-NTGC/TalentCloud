@@ -15,7 +15,7 @@ use Astrotomic\Translatable\Translatable as Translatable;
  *
  * @property int $id
  * @property int $department_id
- * @property string $department_email
+ * @property string $government_email
  * @property int $work_review_frequency_id
  * @property int $stay_late_frequency_id
  * @property int $engage_team_frequency_id
@@ -83,7 +83,7 @@ class Manager extends BaseModel
     ];
     protected $fillable = [
         'department_id',
-        'department_email',
+        'government_email',
         'twitter_username',
         'linkedin_url',
         'work_review_frequency_id',

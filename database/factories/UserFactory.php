@@ -70,7 +70,7 @@ $factory->define(Manager::class, function (Faker\Generator $faker) use ($faker_f
     return [
         'twitter_username' => $faker->firstName(),
         'linkedin_url' => null,
-        'department_email' => $faker->unique()->safeEmail(),
+        'government_email' => $faker->unique()->safeEmail(),
         'department_id' => Department::inRandomOrder()->first()->id,
         'work_review_frequency_id' => Frequency::inRandomOrder()->first()->id,
         'stay_late_frequency_id' => Frequency::inRandomOrder()->first()->id,
