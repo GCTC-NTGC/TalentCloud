@@ -1,6 +1,7 @@
 {% if errors.any() %}
 
-    <div 
+    <div
+        {% if form_errors_id %} id="{{ form_errors_id }}" {% endif %}
         class="site-error">
 
         <ul>
@@ -8,7 +9,7 @@
             {% for error in errors.all() %}
 
                 <li>
-                    <span 
+                    <span
                         class="help-block">
                         <strong>{{ error }}</strong>
                     </span>
