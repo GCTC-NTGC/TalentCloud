@@ -12,6 +12,7 @@ use App\Models\Criteria;
 use Jenssegers\Date\Date;
 use App\Http\Requests\UpdateJobPoster;
 use App\Http\Requests\StoreJobPoster;
+use App\Models\Lookup\JobTerm;
 
 class JobApiController extends Controller
 {
@@ -65,6 +66,7 @@ class JobApiController extends Controller
         $data = $request->validated();
         $job = new JobPoster();
         $job->manager_id = $request->user()->manager->id;
+        $job->job_term_id = JobTerm::where('name', 'month')->first()->id; // All jobs have job terms measured in Months by default.
         $job->fill($data);
         $job->save();
         return response()->json($this->jobToArray($job));
