@@ -151,7 +151,7 @@ class JobApiControllerTest extends TestCase
     public function testUpdateAsWrongManager(): void
     {
         $job = factory(JobPoster::class)->create();
-        $otherManager = factory(User::class)->state('manager')->create();
+        $otherManager = factory(User::class)->state('upgradedManager')->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $response = $this->actingAs($otherManager)
         ->json('put', "api/jobs/$job->id", $jobUpdate);
@@ -244,7 +244,7 @@ class JobApiControllerTest extends TestCase
 
     public function testSubmitForReview(): void
     {
-        $job = factory(JobPoster::class)->state('draft')->create();
+        $job = factory(JobPoster::class)->states(['byUpgradedManager', 'draft'])->create();
         $this->assertEquals('draft', $job->status());
         $response = $this
             ->actingAs($job->manager->user)
@@ -254,10 +254,21 @@ class JobApiControllerTest extends TestCase
         $this->assertEquals('submitted', $newJob->status());
     }
 
+    public function testSubmitForReviewFailsWithDemoManager(): void
+    {
+        // Job has a demoManager by default
+        $job = factory(JobPoster::class)->state('draft')->create();
+        $this->assertEquals('draft', $job->status());
+        $response = $this
+            ->actingAs($job->manager->user)
+            ->json('post', "api/jobs/$job->id/submit");
+        $response->assertForbidden();
+    }
+
     public function testSubmitForReviewFailsWithWrongManager(): void
     {
         $job = factory(JobPoster::class)->state('draft')->create();
-        $otherManager = factory(User::class)->state('manager')->create();
+        $otherManager = factory(User::class)->state('upgradedManager')->create();
         $this->assertEquals('draft', $job->status());
         $response = $this
             ->actingAs($otherManager)

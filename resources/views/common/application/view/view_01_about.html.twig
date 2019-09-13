@@ -19,7 +19,7 @@
 
     {# Applicant Name #}
 
-        {% if auth_check() and auth_user().hasAnyRole(['manager', 'admin']) %}
+        {% if is_manager_view %}
             <div
                 class="application-preview__status">
 

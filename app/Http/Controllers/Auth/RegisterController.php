@@ -9,7 +9,6 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Models\UserRole;
 use App\Models\Applicant;
 use App\Services\Validation\Rules\PasswordFormatRule;
 use Facades\App\Services\WhichPortal;
@@ -96,8 +95,8 @@ class RegisterController extends AuthController
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
 
-        // Default to applicant role.
-        $user->user_role()->associate(UserRole::where('name', 'applicant')->first());
+        // Default to basic user.
+        $user->setRole('basic');
 
         $user->save();
 

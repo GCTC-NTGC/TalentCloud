@@ -81,20 +81,24 @@ class JobController extends Controller
      */
     public function submitForReview(Request $request, JobPoster $jobPoster)
     {
-        // Update review request timestamp.
-        $jobPoster->review_requested_at = new Date();
-        $jobPoster->save();
+        // Check to avoid submit for review multiple times.
+        if ($jobPoster->review_requested_at === null) {
+            // Update review request timestamp.
+            $jobPoster->review_requested_at = new Date();
+            $jobPoster->save();
+
+            // Send email.
+            $reviewer_email = config('mail.reviewer_email');
+            if (isset($reviewer_email)) {
+                Mail::to($reviewer_email)->send(new JobPosterReviewRequested($jobPoster, Auth::user()));
+            } else {
+                Log::error('The reviewer email environment variable is not set.');
+            }
+        }
 
         // Refresh model instance with updated DB values.
         $jobPoster = JobPoster::withCount('submitted_applications')->where('id', $jobPoster->id)->first();
 
-        // Send email.
-        $reviewer_email = config('mail.reviewer_email');
-        if (isset($reviewer_email)) {
-            Mail::to($reviewer_email)->send(new JobPosterReviewRequested($jobPoster, Auth::user()));
-        } else {
-            Log::error('The reviewer email environment variable is not set.');
-        }
 
         return view('manager/job_index/job', [
             // Localization Strings.

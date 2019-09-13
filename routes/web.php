@@ -236,7 +236,7 @@ Route::group(
 
                 Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
                     ->where('jobPoster', '[0-9]+')
-                    ->middleware('can:review,jobPoster')
+                    ->middleware('can:reviewApplicationsFor,jobPoster')
                     ->name('manager.jobs.applications');
 
                 /* Job Builder */
@@ -285,7 +285,7 @@ Route::group(
                 /* Request Review */
                 Route::post('jobs/{jobPoster}/review', 'JobController@submitForReview')
                     ->where('jobPoster', '[0-9]+')
-                    ->middleware('can:update,jobPoster')
+                    ->middleware('can:submitForReview,jobPoster')
                     ->name('manager.jobs.review');
 
                 Route::view(
@@ -443,7 +443,7 @@ Route::group(['prefix' => 'api'], function (): void {
 
     Route::post('jobs/{job}/submit', 'Api\JobApiController@submitForReview')
         ->where('job', '[0-9]+')
-        ->middleware('can:update,job');
+        ->middleware('can:submitForReview,job');
     Route::resource('jobs', 'Api\JobApiController')->only([
         'show', 'store', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes.

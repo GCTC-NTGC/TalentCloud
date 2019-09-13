@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { connect } from "react-redux";
 import RadioGroup from "../Form/RadioGroup";
 import TextInput from "../Form/TextInput";
+import NumberInput from "../Form/NumberInput";
 import SelectInput from "../Form/SelectInput";
 import JobPreview from "../JobPreview";
 import Modal from "../Modal";
@@ -409,6 +410,7 @@ const JobDetails: React.FunctionComponent<
   };
 
   const updateValuesAndReturn = (values: DetailsFormValues): void => {
+    nprogress.start();
     // The following only triggers after validations pass
     const educationRequirements = handleEducationRequirements(values);
     const modifiedValues: DetailsFormValues = {
@@ -419,6 +421,7 @@ const JobDetails: React.FunctionComponent<
       updateJobWithValues(job || emptyJob(), locale, modifiedValues),
     ).then((isSuccessful: boolean): void => {
       if (isSuccessful) {
+        nprogress.done();
         handleReturn();
       }
     });
@@ -497,10 +500,12 @@ const JobDetails: React.FunctionComponent<
                 <Field
                   type="number"
                   name="termLength"
-                  component={TextInput}
+                  component={NumberInput}
                   placeholder={intl.formatMessage(
                     formMessages.termLengthPlaceholder,
                   )}
+                  min={1}
+                  max={36}
                   required
                   grid="tl(1of2)"
                   id="builder02TermLength"
