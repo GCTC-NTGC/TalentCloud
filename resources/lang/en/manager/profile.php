@@ -32,7 +32,7 @@ return [
             'government_email' => 'My Government Email',
             'old_password' => 'Old Password',
             'new_password' => 'New Password',
-            'confirm_password' => 'Confirm Password',
+            'confirm_password' => 'Confirm New Password',
             'save_account_settings' => 'Save Account Settings',
         ],
         'about' => [
