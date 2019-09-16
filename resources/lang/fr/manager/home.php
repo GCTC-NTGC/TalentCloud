@@ -254,7 +254,7 @@ return [
             'text' => 'GC Collab'
         ],
         'twitter' => [
-            'href' => 'https://twitter.com/gc_talent?lang=en',
+            'href' => 'https://twitter.com/gc_talent?lang=fr',
             'text' => 'Twitter'
         ]
     ]
