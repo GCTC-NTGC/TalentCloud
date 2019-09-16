@@ -19,14 +19,14 @@ test("Basic Access", async t => {
     .expect(Selector("section.faq").visible)
     .ok()
     .click(Selector("a").withText("Login"))
-    .expect(Selector("form > .auth-content").visible)
+    .expect(Selector("form button[type=submit]").withText("Login").visible)
     .ok();
 });
 
 test("No Access Profile", async t => {
   await t
     .navigateTo("/profile/about")
-    .expect(Selector("form > .auth-content")())
+    .expect(Selector("form button[type=submit]").withText("Login").visible)
     .ok();
 });
 

@@ -325,3 +325,22 @@ test("Registration - Applicant", async t => {
     .expect(Selector("a").withText("My Applications").visible)
     .ok();
 });
+
+test("Registration - Manager", async t => {
+  await t
+    .navigateTo("/manager")
+    .click(Selector("a").withText("Register"))
+    .typeText(Selector("#name"), "Test Cafe")
+    .typeText(Selector("#email"), randomEmail())
+    .click(
+      Selector("#department")
+        .find("option")
+        .withText("Treasury Board of Canada Secretariat"),
+    )
+    .typeText(Selector("#gov_email"), randomEmail())
+    .typeText(Selector("#password"), "Password123!@#")
+    .typeText(Selector("#password-confirm"), "Password123!@#")
+    .click(Selector("button").withText("Register"))
+    .expect(Selector("a").withText("My Applications").visible)
+    .ok();
+});
