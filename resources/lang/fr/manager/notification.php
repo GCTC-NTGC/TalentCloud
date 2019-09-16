@@ -11,11 +11,11 @@ return [
     * ViewComposer: DemoNotificationViewComposer.php
     * View: views/manager/notification.html.twig
     */
-    'first' => 'This is a Demo Account.',
+    'first' => 'Ceci est un compte démo.',
     'link' => [
-        'text' => 'Click here',
-        'title' => 'Click here to find out how to publish a job on Talent Cloud',
-        'href' => '#upgrade'
+        'text' => 'Cliquez ici',
+        'title' => "Cliquez ici pour savoir comment publier une offre d'emploi sur Talent Cloud",
+        'href' => '#miseàjour'
     ],
-    'second' => 'to find out how to publish a job on Talent Cloud.'
+    'second' => "pour savoir comment publier une offre d'emploi sur Talent Cloud"
 ];
