@@ -193,10 +193,12 @@ const JobBuilderImpact: React.FunctionComponent<
 
   const updateValuesAndReturn = (values: ImpactFormValues): void => {
     // The following only triggers after validations pass
+    nprogress.start();
     handleSubmit(
       updateJobWithValues(job || emptyJob(), locale, values, deptImpacts),
     ).then((isSuccessful: boolean): void => {
       if (isSuccessful) {
+        nprogress.done();
         handleReturn();
       }
     });
