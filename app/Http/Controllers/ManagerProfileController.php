@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -107,6 +108,8 @@ class ManagerProfileController extends Controller
 
         $frequencies = Frequency::all();
 
+        $show_notification = Auth::user()->isDemoManager();
+
         return view('manager/profile', [
             // Localization.
             'profile_l10n' => Lang::get('manager/profile'),
@@ -121,7 +124,8 @@ class ManagerProfileController extends Controller
             'departments' => Department::all(),
             'telework_options' => $frequencies,
             'flex_hour_options' => $frequencies,
-            'radio_options' => $frequencies
+            'radio_options' => $frequencies,
+            'show_notification' => $show_notification
         ]);
     }
 
@@ -229,5 +233,18 @@ class ManagerProfileController extends Controller
         }
 
         return redirect(route('manager.profile.edit', $manager).$hash);
+    }
+
+    public function faq(Request $request)
+    {
+        $show_notification = $request->user()->isDemoManager();
+
+        return view(
+            'applicant/static_faq',
+            [
+                'faq' => Lang::get('applicant/faq'),
+                'show_notification' => $show_notification
+            ]
+        );
     }
 }
