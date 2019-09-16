@@ -9,92 +9,92 @@ return [
      * View: views/manager/home.html.twig
      */
     'hero' => [
-        'heading' => 'Talent Cloud',
-        'heading_alt' => 'Canadian Maple Leaf',
-        'subheading' => 'An experimental platform. Hiring made easier.',
+        'heading' => 'Nuage de talents',
+        'heading_alt' => 'Feuille d\'érable canadienne.',
+        'subheading' => 'Une plateforme expérimentale. L’embauche facilitée.',
         'button' => [
-            'text' => 'Sign Up',
-            'title' => 'Sign up as a manager to demo Talent Cloud\'s manager portal.'
+            'text' => 'Inscrivez-vous',
+            'title' => 'Inscrivez-vous à titre de gestionnaire pour faire l’essai du portail des gestionnaires du Nuage de talents.'
         ]
     ],
     'banner' => [
-        'content' => 'Welcome to the Talent Cloud :open manager :close portal.',
+        'content' => 'Bienvenue au portail des :open gestionnaires :close du Nuage de talents.',
         'anchor' => [
-            'text' => 'Click here to return to the applicant portal.',
-            'title' => 'Return to the applicant portal.'
+            'text' => 'Cliquez ici pour revenir au portail des candidats.',
+            'title' => 'Revenir au portail des candidats.'
         ]
     ],
     'info' => [
-        'heading' => 'What Kind of Jobs Can I Post?',
-        'content_first' => 'Talent Cloud is for externally advertised classified term positions, instead of contract or casual jobs (which typically don’t come with benefits, union representation, or worker’s rights). Using behavioural processes and business engineering, term workers can be hired quickly and easily using Talent Cloud, with an emphasis on a best fit match.',
-        'content_second' => 'The platform can be used for jobs of any classification and level.',
-        'list_heading' => 'Talent Cloud is great for:',
+        'heading' => 'Quel genre d’emplois puis-je afficher?',
+        'content_first' => 'Le Nuage de talents vise les postes de durée déterminée classifiés annoncés à l’externe, plutôt que les emplois contractuels ou occasionnels (qui ne sont habituellement pas assortis d’avantages sociaux, de représentation syndicale ou de droits des travailleurs). Grâce aux processus comportementaux et à l’ingénierie opérationnelle, les travailleurs temporaires peuvent être embauchés rapidement et facilement à l’aide du Nuage de talents, en mettant l’accent sur un jumelage optimal.',
+        'content_second' => 'La plateforme peut être utilisée pour des emplois de TOUTE classification et de TOUT niveau.',
+        'list_heading' => 'Le Nuage de talents convient parfaitement dans les cas suivants :',
         'list' => [
-            'Hiring during an election period (when you’re not sure what your budget might be next year)',
-            'Program funding of limited duration (e.g. fixed term or sunsetting programs)',
-            'Special projects (e.g. DM task teams, innovation projects)',
-            'Hiring a specialist to a team for a particular project phase'
+            'La dotation en période électorale (en cas d’incertitude quant au montant de votre budget de l’année prochaine).',
+            'La dotation en période électorale (en cas d’incertitude quant au montant de votre budget de l’année prochaine).',
+            'Les projets spéciaux (p. ex., équipes de travail du SM, projets d’innovation).',
+            'L’embauche d’un spécialiste pour une phase particulière de projet.'
         ]
     ],
     'features' => [
-        'heading' => 'Available Features',
+        'heading' => 'Fonctions disponibles',
         'mobile_table' => [
             'columns' => [
                 'demo_features' => [
-                    'heading' => 'Demo Account Features',
+                    'heading' => 'Fonctions du compte de démonstration',
                     'subheading' => [
-                        'content' => 'You :open do not :close work at a department that is :link with Talent Cloud.',
+                        'content' => 'Vous :open ne travaillez pas :close dans un ministère qui est :link au Nuage de talents.',
                         'anchor' => [
-                            'text' => 'partnered',
-                            'title' => 'View the departments partnered with Talent Cloud.'
+                            'text' => 'associé',
+                            'title' => 'Voir les ministères associés au Nuage de talents.'
                         ]
                     ],
                     'rows' => [
                         'poster_creation' => [
-                            'heading' => 'Job Poster Creation',
-                            'content' => 'Features such as pre-populated paragraphs and suggested options based on your previous selections make it easy for you to create a job.'
+                            'heading' => 'Création d’offres d’emploi',
+                            'content' => 'Des fonctions comme des paragraphes déjà remplis et des options suggérées selon vos sélections précédentes vous permettent de créer facilement un emploi.'
                         ],
                         'screening_plan' => [
-                            'heading' => 'Screening Plan',
-                            'content' => 'Build plan you\'ll use to evaluate all the skills you asked for in your job poster. Review it with your HR advisor.'
+                            'heading' => 'Plan de présélection',
+                            'content' => 'Élaborez un plan que vous utiliserez pour évaluer toutes les compétences que vous avez demandées dans votre offre d’emploi. Examinez-le avec votre conseiller en RH.'
                         ],
                         'manager_profile' => [
-                            'heading' => 'Manager Profile',
-                            'content' => 'Create a profile that tells applicants more about you.'
+                            'heading' => 'Profil du gestionnaire',
+                            'content' => 'Créez un profil qui permet aux candidats de mieux vous connaître.'
                         ]
                     ]
                 ],
                 'partner_features' => [
-                    'heading' => 'Partner Department Account Features',
+                    'heading' => 'Fonctions des comptes des ministères partenaires',
                     'subheading' => [
-                        'content' => 'You work at a department that is :link with Talent Cloud.',
+                        'content' => 'Vous travaillez dans un ministère qui est :link au Nuage de talents.',
                         'anchor' => [
-                            'text' => 'partnered',
-                            'title' => 'View the departments partnered with Talent Cloud.'
+                            'text' => 'associé',
+                            'title' => 'Voir les ministères associés au Nuage de talents.'
                         ]
                     ],
                     'rows' => [
                         [
-                            'heading' => 'All demo account features, plus:'
+                            'heading' => 'Toutes les fonctionnalités du compte de démonstration, plus :'
                         ],
                         [
-                            'heading' => 'Post Job',
-                            'content' => 'Post the position you’re staffing to the Talent Cloud website and watch high quality applicants roll in on your manager dashboard.'
+                            'heading' => 'Affichage d’un emploi',
+                            'content' => 'Affichez le poste que vous dotez sur le site Web du Nuage de talents et voyez des candidats de grande qualité apparaître sur votre tableau de bord de gestionnaire.'
                         ],
                         [
-                            'heading' => 'Applicant Tracking',
-                            'content' => 'Automatically sort applicants according to your criteria and screen them right on the platform.'
+                            'heading' => 'Suivi des candidats',
+                            'content' => 'Triez automatiquement les candidats selon vos critères et faites une sélection préliminaire directement sur la plateforme.'
                         ],
                         [
-                            'heading' => 'Personalized Support',
-                            'content' => 'Contact our team at any time for help or suggestions as you move through the staffing process.'
+                            'heading' => 'Soutien personnalisé',
+                            'content' => 'Communiquez avec notre équipe en tout temps pour obtenir de l’aide ou des suggestions pendant le processus de dotation.'
                         ],
                         [
                             'heading' => [
-                                'content' => 'Record of Decision for HR',
-                                'tag' => 'Coming Soon!'
+                                'content' => 'Compte rendu des décisions pour les RH',
+                                'tag' => 'À venir bientôt!'
                             ],
-                            'content' => 'Screen applicants, take notes, and record decisions as you go, and easily submit your paperwork to HR.'
+                            'content' => 'Présélectionnez les candidats, prenez des notes et consignez les décisions au fur et à mesure, et envoyez facilement vos documents aux RH.'
                         ]
                     ]
                 ]
@@ -103,72 +103,72 @@ return [
         'table' => [
             'columns' => [
                 'features' => [
-                    'heading' => 'Features'
+                    'heading' => 'Fonctionnalités'
                 ],
                 'demo_account' => [
-                    'heading' => 'Demo Account',
+                    'heading' => 'Compte de démonstration',
                     'subheading' => [
-                        'content' => 'You :open do not :close work at a department that is :link with Talent Cloud.',
+                        'content' => 'Vous :open ne travaillez pas :close dans un ministère qui est :link au Nuage de talents.',
                         'anchor' => [
-                            'text' => 'partnered',
-                            'title' => 'View the departments partnered with Talent Cloud.'
+                            'text' => 'associé',
+                            'title' => 'Voir les ministères associés au Nuage de talents.'
                         ]
                     ]
                 ],
                 'partner_account' => [
-                    'heading' => 'Partner Department',
+                    'heading' => 'Ministères partenaires',
                     'subheading' => [
-                        'content' => 'You work at a department that is :link with Talent Cloud.',
+                        'content' => 'Vous travaillez dans un ministère qui est :link au Nuage de talents.',
                         'anchor' => [
-                            'text' => 'partnered',
-                            'title' => 'View the departments partnered with Talent Cloud.'
+                            'text' => 'associé',
+                            'title' => 'Voir les ministères associés au Nuage de talents.'
                         ]
                     ]
                 ]
             ],
             'rows' => [
                 [
-                    'heading' => 'Job Poster Creation',
-                    'content' => 'Features such as pre-populated paragraphs and suggested options based on your previous selections make it easy for you to create a job.',
+                    'heading' => 'Création d’offres d’emploi',
+                    'content' => 'Des fonctions comme des paragraphes déjà remplis et des options suggérées selon vos sélections précédentes vous permettent de créer facilement une offre emploi.',
                     'demo' => true,
                     'partner' => true
                 ],
                 [
-                    'heading' => 'Screening Plan',
-                    'content' => 'Build plan you\'ll use to evaluate all the skills you asked for in your job poster. Review it with your HR advisor.',
+                    'heading' => 'Plan de présélection',
+                    'content' => 'Élaborez un plan que vous utiliserez pour évaluer toutes les compétences que vous avez demandées dans votre offre d’emploi. Examinez-le avec votre conseiller en RH.',
                     'demo' => true,
                     'partner' => true
                 ],
                 [
-                    'heading' => 'Manager Profile',
-                    'content' => 'Create a profile that tells applicants more about you.',
+                    'heading' => 'Profil du gestionnaire',
+                    'content' => 'Créez un profil qui permet aux candidats de mieux vous connaître.',
                     'demo' => true,
                     'partner' => true
                 ],
                 [
-                    'heading' => 'Post Job',
-                    'content' => 'Post the position you’re staffing to the Talent Cloud website and watch high quality applicants roll in on your manager dashboard.',
+                    'heading' => 'Affichage d’un emploi',
+                    'content' => 'Affichez le poste que vous dotez sur le site Web du Nuage de talents et voyez des candidats de grande qualité apparaître sur votre tableau de bord de gestionnaire.',
                     'demo' => false,
                     'partner' => true
                 ],
                 [
-                    'heading' => 'Applicant Tracking',
-                    'content' => 'Automatically sort applicants according to your criteria and screen them right on the platform.',
+                    'heading' => 'Suivi des candidats',
+                    'content' => 'Triez automatiquement les candidats selon vos critères et sélectionnez-les directement sur la plateforme.',
                     'demo' => false,
                     'partner' => true
                 ],
                 [
-                    'heading' => 'Personalized Support',
-                    'content' => 'Contact our team at any time for help or suggestions as you move through the staffing process.',
+                    'heading' => 'Soutien personnalisé',
+                    'content' => 'Communiquez avec notre équipe en tout temps pour obtenir de l’aide ou des suggestions pendant le processus de dotation.',
                     'demo' => false,
                     'partner' => true
                 ],
                 [
                     'heading' => [
-                        'content' => 'Record of Decision for HR',
-                        'tag' => 'Coming Soon!'
+                        'content' => 'Compte rendu des décisions pour les RH',
+                        'tag' => 'À venir bientôt!'
                     ],
-                    'content' => 'Screen applicants, take notes, and record decisions as you go, and easily submit your paperwork to HR.',
+                    'content' => 'Présélectionnez les candidats, prenez des notes et consignez les décisions au fur et à mesure, et envoyez facilement vos documents aux RH.',
                     'demo' => false,
                     'partner' => true
                 ]
@@ -176,78 +176,78 @@ return [
         ]
     ],
     'lower_info' => [
-        'heading' => 'How Can I Post a Job?',
+        'heading' => 'Comment puis-je afficher un emploi?',
         'content_first' => [
             'heading' => [
-                'content' => 'Are you a member of one of these',
+                'content' => 'Êtes-vous membre de l’un de ceux-ci? ',
                 'anchor' => [
-                    'title' => 'View the departments partnered with Talent Cloud.',
-                    'text' => 'partner departments'
+                    'title' => 'Voir les ministères associés au Nuage de talents.',
+                    'text' => 'Ministères partenaires.'
                 ]
             ],
-            'content_before' => 'If you’re a member,',
-            'content_after' => 'to let us know that we should level up your account. This will allow you to post jobs on Talent Cloud, as well as provide you with all the features that come with a Partner Department Account. To be able to post a job, you’ll need to confirm that you have a classified box.',
+            'content_before' => 'Si vous êtes membre,',
+            'content_after' => 'pour nous faire savoir que nous devrions mettre votre compte à niveau. Cela vous permettra d’afficher des emplois sur le Nuage de talents, ainsi que de vous procurer toutes les fonctionnalités associées à un compte de ministère partenaire. Pour pouvoir afficher un emploi, vous devrez confirmer que vous avez une case classifiée.',
             'anchor' => [
                 'href' => 'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
-                'text' => 'contact Talent Cloud',
-                'title' => 'Send an email to Talent Cloud.'
+                'text' => 'communiquer avec le Nuage de talents',
+                'title' => 'Envoyer un courriel au Nuage de talents.'
             ]
         ],
         'content_second' => [
-            'heading' => 'Not a member? You can still use Talent Cloud!',
-            'content' => 'If you’re not a member of a partner department, you can use Talent Cloud with a demo account to create a job poster and an assessment plan, but you won’t be able to post on the live site. Your job poster and assessment plan will have to be integrated into your HR processes. If you like what you see, get in touch with your HR advisor to see how you can join the pilot.'
+            'heading' => 'Pas un membre? Vous pouvez quand même utiliser le Nuage de talents!',
+            'content' => 'Si vous n’êtes pas membre d’un ministère partenaire, vous pouvez utiliser le Nuage de talents avec un compte de démonstration pour créer une offre d’emploi et un plan d’évaluation, mais vous ne pourrez pas l’afficher sur le site en direct. Votre offre d’emploi et votre plan d’évaluation devront être intégrés à vos processus de RH. Si ce que vous voyez vous plaît, communiquez avec votre conseiller en RH pour savoir comment vous pouvez vous joindre au projet pilote.'
         ]
     ],
     'steps' => [
         [
-            'button' => 'Step 1: Draft Job',
-            'heading' => 'Step 1: Draft a Job',
+            'button' => '1 : Ébauche de l’offre d’emploi',
+            'heading' => 'Étape 1 : Rédiger une offre d’emploi',
             'content' => [
-                'Use the Job Poster Builder to develop a poster that tells applicants about the impact their work will have on Canadians. Let them know about you, your team, and your work culture so you find someone that is a great fit for your team. Brainstorm the tasks that you need your new employee to perform and then list the skills required to complete them.',
-                'Once you’ve completed your job poster, we’ll handle the translations, send it to your HR advisor so they can provide advice, and check in with the signing authority.',
-                'This step is available for demo accounts.'
+                'Utilisez le générateur d’offres d’emploi pour préparer une offre qui informe les candidats de l’impact que leur travail aura sur les Canadiens. Faites-leur connaître qui vous êtes, votre équipe et votre culture de travail afin que vous trouviez quelqu’un qui s’intègre bien à votre équipe. Faites un remue-méninges sur les tâches que votre nouvel employé doit accomplir, puis énumérez les compétences nécessaires pour les accomplir.',
+                'Une fois que vous aurez terminé votre offre d’emploi, nous nous occuperons des traductions, nous les enverrons à votre conseiller en RH pour qu’il vous donne des conseils, et nous communiquerons avec le signataire autorisé.',
+                'Cette étape est disponible pour les comptes de démonstration.'
             ]
         ],
         [
-            'button' => 'Step 2: Screening Plan',
-            'heading' => 'Step 2: Create a Screening Plan',
+            'button' => '2 : Plan de présélection',
+            'heading' => 'Étape 2 : Créer un plan de présélection',
             'content' => [
-                'Build the screening plan you’ll use to evaluate all the skills you asked for in your job poster. Create a ratings guide with expected answers that you’ll use to determine whether an applicant reflects their knowledge on a particular skill. Then, share it with your HR Advisor so they can review your plan and suggest changes.',
-                'This step is available for demo accounts.'
+                'Élaborez un plan de présélection que vous utiliserez pour évaluer toutes les compétences que vous avez demandées dans votre offre d’emploi. Créez un guide de notation avec les réponses attendues que vous utiliserez pour déterminer si les connaissances d’un candidat correspondent à une compétence particulière. Partagez-le ensuite avec votre conseiller en RH pour qu’il puisse examiner votre plan et suggérer des changements.',
+                'Cette étape est disponible pour les comptes de démonstration.'
             ]
         ],
         [
-            'button' => 'Step 3: Live Job',
-            'heading' => 'Step 3: Live Job',
+            'button' => '3 : Publication de l’offre d’emploi',
+            'heading' => 'Étape 3 : Publication de l’offre d’emploi',
             'content' => [
-                'Your job will be posted on Talent Cloud as well as <a href="https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="Visit GC Jobs to learn more." target="_blank">GC Jobs</a>. As people apply, you can view the number of applicants increase on your dashboard. We will also handle priority clearance so that priorities will be clearly indicated in your list of applicants once the poster closes.',
-                'This step is only available for partner department accounts.'
+                'Votre emploi sera affiché dans le Nuage de talents ainsi que dans <a href="https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="Pour en savoir plus, visitez Emplois GC." target="_blank">Emplois GC</a>. À mesure que les gens postulent, vous pouvez voir le nombre de postulants augmenter sur votre tableau de bord. Nous traiterons également les autorisations en matière de priorité afin qu’elles soient clairement indiquées dans votre liste de candidats après la clôture de l’offre.',
+                'Cette étape n’est disponible que pour les comptes des ministères partenaires.'
             ]
         ],
         [
-            'button' => 'Step 4: Screening',
-            'heading' => 'Step 4: Screen Candidates',
+            'button' => '4 : Présélection',
+            'heading' => 'Étape 4 : Présélection des candidats',
             'content' => [
-                'Review each application right on the Talent Cloud platform. Follow your screening plan and evaluate your candidates. Use the applicant sorting tool to track who is still in the process. Coordinate with your HR Advisor to get your candidate’s security clearance and language testing.',
-                'This step is only available for partner department accounts.'
+                'Examinez chaque application directement sur la plateforme du Nuage de talents. Suivez votre plan de présélection et évaluez vos candidats. Utilisez l’outil de tri des candidats pour faire le suivi de ceux qui sont encore en processus. Coordonnez-vous avec votre conseiller en RH pour obtenir l’autorisation de sécurité et les tests linguistiques de votre candidat.',
+                'Cette étape n’est disponible que pour les comptes des ministères partenaires.'
             ]
         ],
         [
-            'button' => 'Step 5: Selection',
-            'heading' => 'Step 5: Select Final Candidate',
+            'button' => '5 : Sélection',
+            'heading' => 'Étape 5 : Sélection du candidat final',
             'content' => [
-                'Found the perfect candidate for your position? Now it’s time to work with your HR advisor and the successful candidate to collect everything you need to finalize the hire. The record of decision tool that is coming soon will allow you record your justifications as you go, and easily submit your paperwork to HR.',
-                'Time to send them a letter of offer!',
-                'This step is only available for partner department accounts.'
+                'Vous avez trouvé le candidat idéal pour votre poste? Il est maintenant temps de travailler avec votre conseiller en RH et le candidat retenu pour recueillir tout ce dont vous avez besoin pour conclure l’embauche. L’outil de compte rendu des décisions qui sera offert bientôt vous permettra de consigner vos justifications au fur et à mesure et de soumettre facilement vos documents aux RH.',
+                'Il est temps de leur envoyer une lettre d’offre!',
+                'Cette étape n’est disponible que pour les comptes des ministères partenaires.'
             ]
         ]
     ],
     'footer' => [
-        'heading' => 'Get in Touch',
-        'subheading' => 'We’d love to hear from you! Want to help us improve the platform? We’re always looking for feedback about the platform and people to user test new tools!',
+        'heading' => 'Communiquez avec nous',
+        'subheading' => 'Nous aimerions recevoir vos commentaires! Vous voulez nous aider à améliorer la plateforme? Nous sommes toujours à la recherche de commentaires sur la plateforme et de personnes pour tester les nouveaux outils!',
         'email' => [
             'href' => 'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
-            'text' => 'Email Us'
+            'text' => 'Envoyez-nous un courriel.'
         ],
         'gccollab' => [
             'href' => 'https://gccollab.ca/groups/profile/19750/talent-cloud-nuage-de-talent',
