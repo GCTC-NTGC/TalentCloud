@@ -14,7 +14,11 @@
 	{% include "common/goc" %}
 {% include "common/alert" %}
 
-    {% include "common/header" with {"header":profile_l10n} %}
+    {% include "common/header" with {"header": profile_l10n} %}
+
+    {% if show_notification %}
+    {% include "manager/notification" %}
+    {% endif %}
 
     <a id="skipLink"></a>
 

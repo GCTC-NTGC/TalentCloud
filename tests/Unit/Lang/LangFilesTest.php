@@ -198,7 +198,8 @@ class LangFilesTest extends BaseTranslationTest
         'Twitter',
         'https://twitter.com/gc_talent',
         'https://gccollab.ca/groups/profile/19750/entalent-cloud-nuage-de-talentsfrnuage-de-talents-talent-cloud',
-        'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca'
+        'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
+        '#upgrade'
     ];
 
     /**
