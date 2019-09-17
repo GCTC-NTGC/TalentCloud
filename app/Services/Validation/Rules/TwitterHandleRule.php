@@ -5,7 +5,7 @@ namespace App\Services\Validation\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Lang;
 
-class TwitterHandlerRule implements Rule
+class TwitterHandleRule implements Rule
 {
     /**
      * Validation for Twitter handlers.
@@ -28,7 +28,7 @@ class TwitterHandlerRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/' . TwitterHandlerRule::PATTERN . '/', $value);
+        return preg_match('/' . self::PATTERN . '/', $value);
     }
 
     /**

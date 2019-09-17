@@ -11,7 +11,7 @@ use App\Models\Lookup\Frequency;
 use App\Models\Lookup\Department;
 use App\Models\Manager;
 use App\Services\Validation\Rules\LinkedInUrlRule;
-use App\Services\Validation\Rules\TwitterHandlerRule;
+use App\Services\Validation\Rules\TwitterHandleRule;
 use Illuminate\Support\Facades\Hash;
 
 class ManagerProfileController extends Controller
@@ -114,7 +114,7 @@ class ManagerProfileController extends Controller
 
         $frequencies = Frequency::all();
         $linkedInUrlPattern = LinkedInUrlRule::PATTERN;
-        $twitterHandlerPattern = TwitterHandlerRule::PATTERN;
+        $twitterHandlerPattern = TwitterHandleRule::PATTERN;
 
         $show_notification = Auth::user()->isDemoManager();
 

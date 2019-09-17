@@ -7,7 +7,7 @@ use App\Services\Validation\Rules\ValidIdRule;
 use App\Models\Lookup\Frequency;
 use App\Models\Lookup\Department;
 use App\Services\Validation\Rules\LinkedInUrlRule;
-use App\Services\Validation\Rules\TwitterHandlerRule;
+use App\Services\Validation\Rules\TwitterHandleRule;
 
 class UpdateManagerApi extends FormRequest
 {
@@ -40,7 +40,7 @@ class UpdateManagerApi extends FormRequest
             'twitter_username' => [
                 'nullable', // Some people may not have a handle.
                 'max:15', // Per Twitter's Terms/Service.
-                new TwitterHandlerRule,
+                new TwitterHandleRule,
             ],
             'linkedin_url' => [
                 'nullable', // Some people may not be on LinkedIn.
