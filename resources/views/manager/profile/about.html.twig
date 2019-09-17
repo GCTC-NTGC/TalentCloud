@@ -4,7 +4,7 @@
     Manager: Profile - About Me
 
 ============================================================================= #}
-{% set linkedInPattern = '^https:\/\/[a-z]{2,3}\.linkedin\.com\/.*$' %}
+
 <a
     id="about">
 </a>
@@ -382,7 +382,7 @@
                         class="form__input"
                         id="managerProfileTwitter"
                         type="text"
-                        pattern="^[A-Za-z0-9_]+$"
+                        pattern="{{ twitterHandlerPattern }}"
                         name="twitter_username"
                         value="{{ old('twitter_username', manager.twitter_username) }}" />
                 </div>
@@ -400,7 +400,7 @@
                         class="form__input"
                         id="managerProfileLinkedin"
                         type="url"
-                        pattern="{{ linkedInPattern }}"
+                        {# pattern="{{ linkedInUrlPattern }}" #}
                         name="linkedin_url"
                         value="{{ old('linkedin_url', manager.linkedin_url) }}" />
                 </div>

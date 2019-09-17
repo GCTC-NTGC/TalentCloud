@@ -9,6 +9,10 @@ use App\Http\Requests\UpdateManagerProfileRequest;
 use App\Models\Lookup\Frequency;
 use App\Models\Lookup\Department;
 use App\Models\Manager;
+use App\Services\Validation\Rules\LinkedInUrlRule;
+use App\Services\Validation\Rules\TwitterHandlerRule;
+use Illuminate\Support\Facades\Hash;
+use TijsVerkoyen\CssToInlineStyles\Css\Rule\Rule;
 
 class ManagerProfileController extends Controller
 {
@@ -92,11 +96,13 @@ class ManagerProfileController extends Controller
      */
     public function edit(Request $request, Manager $manager)
     {
+        $workEnvironment = $manager->work_environment;
+        $teamCulture = $manager->team_culture;
 
         // TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model.
         $workplacePhotos = [];
-        if ($manager->work_environment != null) {
-            foreach ($manager->work_environment->workplace_photo_captions as $photoCaption) {
+        if ($workEnvironment != null) {
+            foreach ($workEnvironment->workplace_photo_captions as $photoCaption) {
                 $workplacePhotos[] = [
                     'id' => $photoCaption->id,
                     'alt' => $photoCaption->description,
@@ -107,6 +113,8 @@ class ManagerProfileController extends Controller
         }
 
         $frequencies = Frequency::all();
+        $linkedInUrlPattern = LinkedInUrlRule::PATTERN;
+        $twitterHandlerPattern = TwitterHandlerRule::PATTERN;
 
         return view('manager/profile', [
             // Localization.
@@ -117,12 +125,20 @@ class ManagerProfileController extends Controller
             'manager' => $manager,
             'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
             'team_culture' => $manager->team_culture,
-            'work_environment' => $manager->work_environment,
+            'work_environment' => $workEnvironment,
             'workplace_photos' => $workplacePhotos,
             'departments' => Department::all(),
             'telework_options' => $frequencies,
             'flex_hour_options' => $frequencies,
-            'radio_options' => $frequencies
+            'radio_options' => $frequencies,
+            'managerEN' => $manager->translate('en'),
+            'managerFR' => $manager->translate('fr'),
+            'workEnvEN' => $workEnvironment->translate('en'),
+            'workEnvFR' => $workEnvironment->translate('fr'),
+            'teamCultureEN' => $teamCulture->translate('en'),
+            'teamCultureFR' => $teamCulture->translate('fr'),
+            'linkedInUrlPattern' => $linkedInUrlPattern,
+            'twitterHandlerPattern' => $twitterHandlerPattern,
         ]);
     }
 
@@ -142,13 +158,16 @@ class ManagerProfileController extends Controller
         // redirect to error messages element if validation fails
         if (isset($request->validator) && $request->validator->fails()) {
             $hash = '#managerProfileFormErrors';
-            return redirect(route('manager.profile.edit', $manager).$hash)->withErrors($request->validator->messages());
+            return redirect(route('manager.profile.edit', $manager).$hash)
+                        ->withErrors($request->validator)
+                        ->withInput();
         }
 
         $validated = $request->validated();
 
         $user = $manager->user;
         $user->fill($validated);
+        $user->password = Hash::make($input['new_password']);
         $user->save();
 
         $work_environment = $manager->work_environment;
