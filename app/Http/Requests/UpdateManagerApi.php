@@ -31,6 +31,12 @@ class UpdateManagerApi extends FormRequest
         $frequencyRule = new ValidIdRule(Frequency::class);
         return [
             'department_id' => ['nullable', new ValidIdRule(Department::class)],
+            'government_email' => [
+                'nullable',
+                'string',
+                'max:191',
+                'email',
+            ],
             'twitter_username' => [
                 'nullable', // Some people may not have a handle.
                 'max:15', // Per Twitter's Terms/Service.
