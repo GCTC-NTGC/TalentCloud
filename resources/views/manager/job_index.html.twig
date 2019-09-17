@@ -25,69 +25,6 @@
 
     {% include "manager/job_index/layout" %}
 
-    {% if show_notification %}
-    <div data-clone>
-
-        <div data-c-dialog-overlay></div>
-
-        <div
-            aria-hidden="true"
-            aria-describedby="upgrade-modal-description"
-            aria-labelledby="upgrade-modal-title"
-            data-c-dialog
-            data-c-dialog-id="upgrade-modal"
-            data-c-padding="top(double) bottom(double)"
-            role="dialog">
-            <div
-                data-c-background="white(100)"
-                data-c-radius="rounded">
-                <div
-                    data-c-background="c1(100)"
-                    data-c-padding="tb(normal) right(triple) left(normal)"
-                    data-c-border="bottom(thin, solid, black)">
-                    <h5
-                        data-c-colour="white"
-                        data-c-font-size="h4"
-                        id="upgrade-modal-title"
-                        data-c-dialog-focus>
-                        Sorry about that, eh!
-                    </h5>
-                    <button
-                        data-c-colour="white"
-                        data-c-font-size="h3"
-                        data-c-dialog-action="close"
-                        data-c-dialog-id="upgrade-modal"
-                        type="button">
-                        <i class="fa fa-times-circle"></i>
-                    </button>
-                </div>
-                <div
-                    data-c-border="bottom(thin, solid, black)"
-                    data-c-padding="normal">
-                    <div id="upgrade-modal-description">
-                        <p>Job Poster review and publishing is only available to Talent Cloud's partner departments.</p>
-                        <p>To find out if you can access these features, <a href="#">click here</a>.</p>
-                    </div>
-                </div>
-                <div data-c-padding="normal">
-                    <div data-c-grid="gutter middle">
-                        <div data-c-grid-item="base(1of2)">
-                            <button
-                                data-c-button="solid(c2)"
-                                data-c-radius="rounded"
-                                data-c-dialog-action="close"
-                                data-c-dialog-id="upgrade-modal">
-                                Go back
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    {% endif %}
-
 {% endblock %}
 
 {% block scripts %}
