@@ -124,7 +124,7 @@ return [
                     ],
                     '01' => [
                         'title' => 'Paid Leave',
-                        'copy' => "Vacation: You will earn 1.25 days of vacation a month, which works out to three-weeks each year. For the first six-months, you can only use the vacation days you have earned. After that, you can start using anticipated vacation days for the rest of the year.\n\nSick leave: You will earn 1.25 days of sick leave with pay a month, which works out to 3 weeks each year but you can still take paid sick leave even if you haven’t earned the days (pending approval from your manager).\n\nFamily leave: You have up to five days each year to take care of family-related responsibilities. This covers circumstances like school or daycare being closed unexpectedly, school functions, or to care for an ill or elderly family member.\n\nPersonal leave: You have up to two days each year to take care of personal matters."
+                        'copy' => "In addition to paid holidays, there are several other types of paid leave available to you. The following are some of the most commonly used.\n\nVacation: You will earn 1.25 days of vacation a month, which works out to three-weeks each year. For the first six-months, you can only use the vacation days you have earned. After that, you can start using anticipated vacation days for the rest of the year.\n\nSick leave: You will earn 1.25 days of sick leave with pay a month, which works out to 3 weeks each year but you can still take paid sick leave even if you haven’t earned the days (pending approval from your manager).\n\nFamily leave: You have up to five days each year to take care of family-related responsibilities. This covers circumstances like school or daycare being closed unexpectedly, school functions, or to care for an ill or elderly family member.\n\nPersonal leave: You have up to two days each year to take care of personal matters."
                     ],
                     '02' => [
                         'title' => 'Health Care',
@@ -150,12 +150,12 @@ return [
                         'link01' => "<a href=\"https://www.canada.ca/en/treasury-board-secretariat/services/benefit-plans/disability-insurance-plan/disability-insurance-plan-benefits-glance.html\" title=\"Learn more about disability insurance.\" target=\"_blank\">Disability insurance</a>"
                     ],
                     '06' => [
-                        'title' => 'Long-Term Disability (LTD) insurance under the Public Service Management Insurance Plan',
+                        'title' => 'Long-Term Disability (LTD)',
                         'copy' => "Long-Term Disability insurance under the %link01% is mandatory for all employees occupying excluded or unrepresented positions. Premiums are 85% employer-paid. If you are unable to work for long periods due to a totally disabling illness or injury, this benefit pays 70% of your monthly salary after 13 weeks from the date of disability or the exhaustion of all paid sick leave, whichever is longer.\n\nIf your initial term is longer than six months and you work more than an average of 12.5 hours per week, coverage starts on your first day.",
                         'link01' => "<a href=\"https://www.canada.ca/en/treasury-board-secretariat/topics/benefit-plans/plans/management-insurance-plan.html\" title=\"Learn more about LTD benefits.\" target=\"_blank\">Public Service Management Insurance Plan</a>"
                     ],
                     '07' => [
-                        'title' => 'NEEDS TITLE, ASK MATT',
+                        'title' => 'Exceptions for Returning Employees',
                         'copy' => "Moving from gig-to-gig in the Federal Government? If you signed a contract for a term position that lasts less than six months and you are extended or if you start another term contract soon enough you could still be eligible for health care, dental, disability insurance and long-term disability. Take a closer look at the links provided above or ask the hiring manager to see if you qualify."
                     ]
                 ]
