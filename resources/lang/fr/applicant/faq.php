@@ -105,6 +105,21 @@ return [
                         ]
                     ]
                 ]
+            ],
+            '01' => [
+                'title' => 'Qui peut afficher des offres d’emploi dans le Nuage de talents?',
+                'copy' => [
+                    '00' => 'Seuls les gestionnaires des ministères ou organismes partenaires peuvent publier des offres d’emploi dans le Nuage de talents. Si vous faites partie des ministères ou organismes partenaires, cliquez sur le lien <a href="https://talent.canada.ca/fr/manager" title="Visitez le portail manager de Nuage de talents.">talent.canada.ca/fr/manager</a> pour créer un compte et envoyez-nous un courriel à l’adresse <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Envoyer un email à Nuage de talents.">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>.',
+                    '01' => 'Lorsque nous aurons confirmé l’inscription auprès du superutilisateur des Ressources humaines de votre ministère ou organisme, vous pourrez commencer à utiliser le Nuage de talents pour répondre à vos besoins en dotation!'
+                ]
+            ],
+            '02' => [
+                'title' => 'Mon ministère ou organisme n’est PAS un partenaire du Nuage de talents. Puis-je tout de même utiliser cette plateforme?',
+                'copy' => [
+                    '00' => 'À compter d’octobre 2019, le Nuage de talents offrira un ensemble limité d’outils à tous les gestionnaires du gouvernement du Canada. Ces comptes de « démonstration » donnent accès à divers outils, comme le concepteur d’offres d’emploi et le concepteur de plans de présélection.',
+                    '01' => 'Pour créer votre propre compte de démonstration, rendez-vous sur le site <a href="https://talent.canada.ca/fr/manager" title="Visitez le portail manager de Nuage de talents.">talent.canada.ca/fr/manager</a>.',
+                    '02' => 'Le Nuage de talents est accessible aux nouveaux partenaires. Si votre ministère ou organisme souhaite participer au Nuage de talents, envoyez-nous un courriel à l’adresse <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Envoyer un email à Nuage de talents.">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>.'
+                ]
             ]
         ]
     ],
