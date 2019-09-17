@@ -23,7 +23,7 @@ class LinkedInUrlRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/' . LinkedInUrlRule::PATTERN . '/', $value);
+        return preg_match('/' . self::PATTERN . '/', $value);
     }
 
     /**
