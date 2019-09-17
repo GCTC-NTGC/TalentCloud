@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
+import { SelectTypeOptionsProp } from "@storybook/addon-knobs/dist/components/types";
 import JobBuilderSkills from "../../components/JobBuilderSkills/JobBuilderSkills";
 import fakeJob, { fakeCriterion, fakeJobTasks } from "../../fakeData/fakeJob";
 import { fakeSkills } from "../../fakeData/fakeSkills";
@@ -18,7 +20,7 @@ const stories = storiesOf("Job Poster Builder|Skills", module).addDecorator(
 const skillOptions = mapToObject(
   fakeSkills(),
   (skill): string => skill.en.name,
-);
+) as SelectTypeOptionsProp;
 
 const skillLevelOptions = {
   Basic: SkillLevelId.Basic,
@@ -80,7 +82,7 @@ stories
     (): React.ReactElement => (
       <CriteriaForm
         jobPosterId={1}
-        skill={select("Skill", skillOptions, fakeSkills()[0])}
+        skill={select("Skill", skillOptions, fakeSkills()[0] as any)}
         handleSubmit={action("Submit Criteria")}
         handleCancel={action("Cancel")}
       />
@@ -104,7 +106,7 @@ stories
             CriteriaTypeId.Essential,
           ),
         }}
-        skill={select("Skill", skillOptions, fakeSkills()[0])}
+        skill={select("Skill", skillOptions, fakeSkills()[0] as any)}
         handleSubmit={action("Submit Criteria")}
         handleCancel={action("Cancel")}
       />
