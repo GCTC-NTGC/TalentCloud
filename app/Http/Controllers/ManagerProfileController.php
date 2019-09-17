@@ -13,7 +13,6 @@ use App\Models\Manager;
 use App\Services\Validation\Rules\LinkedInUrlRule;
 use App\Services\Validation\Rules\TwitterHandlerRule;
 use Illuminate\Support\Facades\Hash;
-use TijsVerkoyen\CssToInlineStyles\Css\Rule\Rule;
 
 class ManagerProfileController extends Controller
 {
