@@ -20,4 +20,5 @@ return [
     'confirm_password' => 'Confirm Password',
     'register' => 'Register',
     'auth_logo' => '/images/logo_tc_colour.png',
+    'already_have_account' => 'Already have an account?',
 ];

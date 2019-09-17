@@ -10,10 +10,10 @@ return [
      *
      */
 
-    'title' => 'Talent Cloud | Welcome to Manager Area',
-    'header' => 'Welcome to Talent Cloud\'s Manager Area',
-    'return' => 'Return to the Applicant area',
-    'explanation' => 'We\'ve noticed you\'ve never been here before! In order to access the manager area of Talent Cloud, we have to collect a little bit more information from you. This information helps us understand how to better improve our tool for managers.',
-    'submit' => 'Continue',
+    'title' => 'Nuage de talents | Bienvenue dans la zone réservée aux gestionnaires',
+    'header' => 'Bienvenue dans la zone réservée aux gestionnaires du Nuage de talents',
+    'return' => 'Revenir à la zone réservée aux candidats.',
+    'explanation' => 'Nous avons remarqué qu\'il s\'agit de votre première visite! Pour accéder à la zone réservée aux gestionnaires du Nuage de talents, nous devons recueillir un peu plus de renseignements de votre part. Ces informations nous aident à mieux comprendre la façon dont nous pouvons améliorer notre outil pour les gestionnaires.',
+    'submit' => 'Continuer',
     'auth_logo' => '/images/logo_tc_colour.png',
 ];

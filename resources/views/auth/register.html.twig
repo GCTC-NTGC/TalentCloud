@@ -56,7 +56,7 @@
                                     {# Old Single Input for Name #}
                                      <div data-c-grid-item="tp(1of1)" data-c-input="text">
                                         <label for="name">{{ register.name }}</label>
-                                        <span>Required</span>
+                                        <span>{{ trans('forms.required') }}</span>
                                         <div>
                                             <input
                                                 id="name"
@@ -67,36 +67,36 @@
                                                 value="{{ old('name') }}"
                                             />
                                         </div>
-                                        <span>This input has an error.</span>
+                                        <span>{{ trans('forms.error') }}</span>
                                     </div>
 
                                     {# New First & Last Name Inputs #}
                                     {# <div data-c-grid-item="tp(1of2)" data-c-input="text">
                                         <label for="firstName">First Name</label>
-                                        <span>Required</span>
+                                        <span>{{ trans('forms.required') }}</span>
                                         <div>
                                             <input id="firstName" placeholder="" required type="text" />
                                         </div>
-                                        <span>This input has an error.</span>
+                                        <span>T{{ trans('forms.error') }}</span>
                                     </div>
                                     <div data-c-grid-item="tp(1of2)" data-c-input="text">
                                         <label for="lastName">Last Name</label>
-                                        <span>Required</span>
+                                        <span>{{ trans('forms.required') }}</span>
                                         <div>
                                             <input id="lastName" placeholder="" required type="text" />
                                         </div>
-                                        <span>This input has an error.</span>
+                                        <span>{{ trans('forms.error') }}</span>
                                     </div> #}
 
                                     {# Email #}
                                     <div data-c-grid-item="base(1of1)" data-c-input="email">
                                         <label for="email">{{ register.email }}</label>
-                                        <span>Required</span>
+                                        <span>{{ trans('forms.required') }}</span>
                                         <div>
                                             <input id="email" placeholder="e.g. email@website.com" required
                                             name="email" type="email" value="{{ old('email') }}" />
                                         </div>
-                                        <span>This input has an error.</span>
+                                        <span>{{ trans('forms.error') }}</span>
                                     </div>
 
                                     {# A block that other registration layouts can extend to add extra fields #}
@@ -110,7 +110,7 @@
                                     {# Password #}
                                     <div data-c-grid-item="base(1of2)" data-c-input="password">
                                         <label for="password">{{ register.password }}</label>
-                                        <span>Required</span>
+                                        <span>{{ trans('forms.required') }}</span>
                                         <div>
                                             <input id="password" required type="password" name="password"
                                             autocomplete="off" />
@@ -119,12 +119,12 @@
                                                 <i class="fas fa-eye-slash"></i>
                                             </button>
                                         </div>
-                                        <span>This input has an error.</span>
+                                        <span>{{ trans('forms.error') }}</span>
                                     </div>
                                     {# Password Confirmation #}
                                     <div data-c-grid-item="base(1of2)" data-c-input="password">
                                         <label for="password-confirm">{{ register.confirm_password }}</label>
-                                        <span>Required</span>
+                                        <span>{{ trans('forms.required') }}</span>
                                         <div>
                                             <input id="password-confirm" required type="password" name="password_confirmation"
                                             autocomplete="off" />
@@ -133,7 +133,7 @@
                                                 <i class="fas fa-eye-slash"></i>
                                             </button>
                                         </div>
-                                        <span>This input has an error.</span>
+                                        <span>{{ trans('forms.error') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +143,7 @@
                             <div data-c-grid="middle">
                                 <div data-c-grid-item="base(1of2)">
                                     <a href="/login" title="Login to Talent Cloud">
-                                        Already have an account?
+                                        {{ register.already_have_account }}
                                     </a>
                                 </div>
                                 <div data-c-grid-item="base(1of2)" data-c-align="base(right)">

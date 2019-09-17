@@ -54,16 +54,16 @@
                                 {# Email Field #}
                                 <div data-c-input="email">
                                     <label for="email">{{ login.email }}</label>
-                                    <span>Required</span>
+                                    <span>{{ trans("forms.required") }}</span>
                                     <div>
                                         <input id="email" name="email" placeholder="e.g. email@website.com" required type="email" value="{{ old('email') }}"/>
                                     </div>
-                                    <span>This input has an error.</span>
+                                    <span>{{ trans("forms.error") }}</span>
                                 </div>
                                 {# Password Field #}
                                 <div data-c-input="password">
                                     <label for="password">{{ login.password }}</label>
-                                    <span>Required</span>
+                                    <span>{{ trans("forms.required") }}</span>
                                     <div>
                                         <input id="password" name="password" required type="password" />
                                         <button type="button">
@@ -71,13 +71,13 @@
                                             <i class="fas fa-eye-slash"></i>
                                         </button>
                                     </div>
-                                    <span>This input has an error.</span>
+                                    <span>{{ trans("forms.error") }}</span>
                                 </div>
                                 {# Remember Me & Password Reset #}
                                 <div data-c-grid="middle">
                                     <div data-c-grid-item="base(1of2)">
                                         <div data-c-input="checkbox" class="tc-auth-remember-me">
-                                            <span>Required</span>
+                                            <span>{{ trans("forms.required") }}</span>
                                             <div>
                                                 <label for="rememberMe">
                                                     <input
@@ -88,7 +88,7 @@
                                                     <span>{{ login.remember_me }}</span>
                                                 </label>
                                             </div>
-                                            <span>This input has an error.</span>
+                                            <span>{{ trans("forms.error") }}</span>
                                         </div>
                                     </div>
                                     <div data-c-grid-item="base(1of2)" data-c-align="base(right)">
