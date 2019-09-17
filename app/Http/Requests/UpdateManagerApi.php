@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Services\Validation\Rules\ValidIdRule;
 use App\Models\Lookup\Frequency;
 use App\Models\Lookup\Department;
+use App\Services\Validation\Rules\LinkedInUrlRule;
+use App\Services\Validation\Rules\TwitterHandlerRule;
 
 class UpdateManagerApi extends FormRequest
 {
@@ -29,21 +31,14 @@ class UpdateManagerApi extends FormRequest
         $frequencyRule = new ValidIdRule(Frequency::class);
         return [
             'department_id' => ['nullable', new ValidIdRule(Department::class)],
-            /*
-             * Twitters Terms of Service only allows ". A username can only contain
-             * alphanumeric characters (letters A-Z, numbers 0-9) with the exception
-             * of underscores"
-             * This regex will allow only alphamumeric characters and the underscore.
-             * Keep this handy if we need to validate other usernames.
-             */
             'twitter_username' => [
-                'nullable', //Some people may not have a handle.
-                'max:15', //Per Twitter's Terms/Service.
-                'regex:/^[A-Za-z0-9_]+$/',
+                'nullable', // Some people may not have a handle.
+                'max:15', // Per Twitter's Terms/Service.
+                new TwitterHandlerRule,
             ],
             'linkedin_url' => [
-                'nullable', // Some people may not be on LinkedIn
-                'regex:/^(https:\\/\\/|http:\\/\\/)?www\\.linkedin\\.com\\/in\\/[^\\/]+(\\/)?$/', // Validation for linkedIn profile URLS only.
+                'nullable', // Some people may not be on LinkedIn.
+                new LinkedInUrlRule
             ],
             'work_review_frequency_id' => ['nullable', $frequencyRule],
             'stay_late_frequency_id' => ['nullable', $frequencyRule],

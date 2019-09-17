@@ -6,9 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Services\Validation\Rules\ValidIdRule;
 use App\Models\Lookup\Frequency;
 use App\Models\Lookup\Department;
+use App\Services\Validation\Rules\LinkedInUrlRule;
 use Illuminate\Validation\Rule;
 use App\Services\Validation\Rules\PasswordCorrectRule;
 use App\Services\Validation\Rules\PasswordFormatRule;
+use App\Services\Validation\Rules\TwitterHandlerRule;
 
 class UpdateManagerProfileRequest extends FormRequest
 {
@@ -102,21 +104,14 @@ class UpdateManagerProfileRequest extends FormRequest
             '*.things_to_know' => 'nullable|string',
             '*.what_we_value' => 'nullable|string',
 
-            /*
-             * Twitters Terms of Service only allows ". A username can only contain
-             * alphanumeric characters (letters A-Z, numbers 0-9) with the exception
-             * of underscores"
-             * This regex will allow only alphamumeric characters and the underscore.
-             * Keep this handy if we need to validate other usernames.
-             */
             'twitter_username' => [
-                'nullable', //Some people may not have a handle.
-                'max:15', //Per Twitter's Terms/Service.
-                'regex:/^[A-Za-z0-9_]+$/',
+                'nullable', // Some people may not have a handle.
+                'max:15', // Per Twitter's Terms/Service.
+                new TwitterHandlerRule,
             ],
             'linkedin_url' => [
-                'nullable', // Some people may not be on LinkedIn
-                'regex:/^https:\/\/[a-z]{2,3}\.linkedin\.com\/.*$/', // Validation for linkedIn profile URLS only.
+                'nullable', // Some people may not be on LinkedIn.
+                new LinkedInUrlRule,
             ],
         ];
     }
