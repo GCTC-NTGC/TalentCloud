@@ -11,16 +11,15 @@
 
 {% block body %}
 
-	{% include "common/alert" %}
+    {% include "common/alert" %}
 
     {% include "common/goc" %}
 
-    {# {% include "common/header" with {'header':faq} %} #}
-
     <header data-clone>
-        <div data-c-overlay="black(80)" data-c-padding="tb(triple)" style="background-image: url('/images/sean-pollock.jpg');">
-            <div data-c-container="large">
-                <h1 data-c-color="white" data-c-font-weight="bold" data-c-font-size="h2">Talent Cloud FAQ</h1>
+        <div data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/sean-pollock.jpg');">
+            {% include "common/menu" %}
+            <div data-c-container="large" data-c-margin="top(triple)">
+                <h1 data-c-color="white" data-c-font-weight="bold" data-c-font-size="h2">{{ faq.faq_title }}</h1>
                 <div data-c-alignment="left" data-c-margin="top(double)">
                     <nav
                         aria-label="breadcrumb"
@@ -28,16 +27,15 @@
                         <ol>
                             <li>
                                 <a
-                                    href="/"
-                                    title="This is the title of the page link.">
-                                    Home</a>
+                                    href="{{ route('home') }}"
+                                    title="{{ faq.breadcrumbs.home.title }}">
+                                    {{ faq.breadcrumbs.home.text }}</a>
                                 <i class="fa fa-caret-right"></i>
                             </li>
                             <li>
-                                <a
-                                    href="/faq"
-                                    title="This is the title of the page link.">
-                                    FAQ</a>
+                                <p>
+                                    {{ faq.breadcrumbs.faq.text }}
+                                </p>
                                 <i class="fa fa-caret-right"></i>
                             </li>
                         </ol>

@@ -10,12 +10,22 @@ return [
     *
     */
     'title' => "Nuage de talents : mode d'emploi",
-    'faq_title' => 'Nuage de talents | Candidat : FAQ',
+    'faq_title' => 'Nuage de talents FAQ',
     'sidebar_label' => 'Sur cette page',
+    'breadcrumbs' => [
+        'home' => [
+            'title' => 'Return to the homepage.',
+            'text' => 'Accueil'
+        ],
+        'faq' => [
+            'text' => 'FAQ'
+        ]
+    ],
     'know' => [
         'sidebar_title' => 'Choses à savoir',
         'category_anchor' => 'to-know',
         'category_title' => 'Choses à savoir',
+        'expand' => 'Cliquez ici pour voir ce contenu.',
         'sections' => [
             '00' => [
                 'title' => "Pourquoi le Canada a-t-il besoin d'une plateforme pour le travail axé sur les projets?",
