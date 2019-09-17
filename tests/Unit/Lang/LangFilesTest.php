@@ -217,7 +217,8 @@ class LangFilesTest extends BaseTranslationTest
         'https://talentcloud1.typeform.com/to/tWIPup',
         'partners',
         'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
-        'GC Collab'
+        'GC Collab',
+        '#upgrade'
     ];
 
     /**
