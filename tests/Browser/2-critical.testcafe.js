@@ -1,5 +1,5 @@
 import { Selector } from "testcafe";
-import { applicantUser, adminUser } from "./helpers/roles";
+import { applicantUser, adminUser, assertIsLoggedIn } from "./helpers/roles";
 
 fixture(`Critical - Applicant Profile`).page(`talent.test`);
 
@@ -321,9 +321,8 @@ test("Registration - Applicant", async t => {
     .typeText(Selector("#email"), randomEmail())
     .typeText(Selector("#password"), "Password123!@#")
     .typeText(Selector("#password-confirm"), "Password123!@#")
-    .click(Selector("button").withText("Register"))
-    .expect(Selector("a").withText("My Applications").visible)
-    .ok();
+    .click(Selector("button").withText("Register"));
+  await assertIsLoggedIn(t);
 });
 
 test("Registration - Manager", async t => {
@@ -332,6 +331,7 @@ test("Registration - Manager", async t => {
     .click(Selector("a").withText("Register"))
     .typeText(Selector("#name"), "Test Cafe")
     .typeText(Selector("#email"), randomEmail())
+    .click(Selector("#department"))
     .click(
       Selector("#department")
         .find("option")
@@ -340,7 +340,7 @@ test("Registration - Manager", async t => {
     .typeText(Selector("#gov_email"), randomEmail())
     .typeText(Selector("#password"), "Password123!@#")
     .typeText(Selector("#password-confirm"), "Password123!@#")
-    .click(Selector("button").withText("Register"))
-    .expect(Selector("a").withText("My Applications").visible)
-    .ok();
+    .click(Selector("button").withText("Register"));
+
+  await assertIsLoggedIn(t);
 });
