@@ -218,7 +218,8 @@ class LangFilesTest extends BaseTranslationTest
         'partners',
         'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
         'GC Collab',
-        '#upgrade'
+        '#upgrade',
+        'benefits'
     ];
 
     /**
