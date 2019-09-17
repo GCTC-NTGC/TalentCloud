@@ -8,7 +8,7 @@ fixture(`Smoke`).page(`talent.test`);
 
 test("Basic Access", async t => {
   await t
-    .expect(Selector(".home__about-card").visible)
+    .expect(Selector("#home-heading").visible)
     .ok()
     .expect(Selector("a").withText("Login").visible)
     .ok()
