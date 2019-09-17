@@ -81,7 +81,7 @@ return [
         ]
     ],
     'partners' => [
-        'sidebar_title' => 'Partner Departments',
+        'sidebar_title' => 'Parner Departments',
         'category_anchor' => 'partners',
         'category_title' => 'Talent Cloud Partner Departments',
         'sections' => [
@@ -105,6 +105,73 @@ return [
                         ]
                     ]
                 ]
+            ]
+        ]
+    ],
+    'benefits' => [
+        'sidebar_title' => 'Employee Benefits',
+        'category_anchor' => 'benefits',
+        'category_title' => 'Employee Benefits',
+        'sections' => [
+            'intro' => [
+                'copy' => [
+                    '00' => [
+                        "copy" => "When you’re thinking about where to apply for a job there are several factors to consider. Salary, location, fit, and passion for the work are all important. Another super important factor is the employee benefits that are available. Unfortunately, if you’re a part of the estimated thirty-percent of Canadian employees who work in the gig economy, you’re likely working without that safety net. Many of those workers are right here at the Government of Canada (one of the largest employers of gig workers in the country), and what’s great is that if you hold a term position you can access many of the same benefits as indeterminate employees."
+                    ],
+                    '01' => [
+                        "copy" => "All jobs posted on Talent Cloud are for term positions. That means you are a Government of Canada employee for the duration of your contract. Term positions provide paid holidays and vacation leave, and offer you protection by making some benefits mandatory. The information below will be correct for most jobs posted on Talent Cloud, but we recommend asking the hiring manager, or using the first two letters in the government classification on the job poster to find the %agreement% that applies to the position. And, you can always find more information about the public service pension and benefit plans at %pension%.",
+                        "agreement" => "<a href=\"http://www.tbs-sct.gc.ca/agreements-conventions/list-eng.aspx\" title=\"Learn more about the collective bargaining agreement.\" target=\"_blank\">collective bargaining agreement</a>",
+                        "pension" => "<a href=\"https://www.canada.ca/en/treasury-board-secretariat/topics/pension-benefits.html\" title=\"Learn more about pension benefits.\" target=\"_blank\">canada.ca/pension-benefits</a>"
+                    ]
+                ]
+            ],
+            'summaries' => [
+                'title' => 'Here’s what you should expect...',
+                'categories' => [
+                    '00' => [
+                        'title' => 'Paid Holidays',
+                        'copy' => "There are 11 designated paid holidays available to you. They are: New Year’s Day, Good Friday, Easter Monday, Victoria Day, Canada Day, Labour Day, Thanksgiving, Remembrance Day, Christmas Day, Boxing Day, and a provincial or civic holiday in the area where you are employed (e.g., August Civic Holiday). Remote workers take note, this is based on the location of your team’s official office, and not the location where you do your work."
+                    ],
+                    '01' => [
+                        'title' => 'Paid Leave',
+                        'copy' => "In addition to paid holidays, there are several other types of paid leave available to you. The following are some of the most commonly used.\n\nVacation: You will earn 1.25 days of vacation a month, which works out to three-weeks each year. For the first six-months, you can only use the vacation days you have earned. After that, you can start using anticipated vacation days for the rest of the year.\n\nSick leave: You will earn 1.25 days of sick leave with pay a month, which works out to 3 weeks each year but you can still take paid sick leave even if you haven’t earned the days (pending approval from your manager).\n\nFamily leave: You have up to five days each year to take care of family-related responsibilities. This covers circumstances like school or daycare being closed unexpectedly, school functions, or to care for an ill or elderly family member.\n\nPersonal leave: You have up to two days each year to take care of personal matters."
+                    ],
+                    '02' => [
+                        'title' => 'Health Care',
+                        'copy' => "You can immediately apply for %link01% (PSHCP) coverage if your initial term position is more than six months. For most eligible health care products and services like prescription drugs, vision care, medical practitioner services, and emergency dental treatment, the plan covers 80% of the eligible expenses, with some specified maximums, after you take advantage of any benefits provided by your provincial/territorial health insurance plan or any other source of health care assistance you’re entitled to.\n\nAn application is required to enroll. %link02%.",
+                        'link01' => "<a href=\"https://www.canada.ca/en/treasury-board-secretariat/topics/benefit-plans/plans/health-care-plan.html\" title=\"Learn more about the Public Service Health Care Plan.\" target=\"_blank\">Public Service Health Care Plan</a>",
+                        'link02' => "<a href=\"https://www.njc-cnm.gc.ca/directive/d9/en\" title=\"Learn more about the plan.\" target=\"_blank\">A complete description of what is covered under the Plan can be found here</a>"
+                    ],
+                    '03' => [
+                        'title' => 'Dental Care',
+                        'copy' => "The %link01% (PSDCP) is 100% employer-paid and covers 90% of basic services and 50% of major services and orthodontics. If your initial term position is more than six months and you work more than an average 12.5 hours per week, eligibility for the PSDCP starts immediately with coverage beginning after a three month waiting period. That means that three months after you begin your term, you can start using the dental care plan.\n\nNo application form is required. %link02%.",
+                        'link01' => "<a href=\"https://www.canada.ca/en/treasury-board-secretariat/topics/benefit-plans/plans/dental-care-plan.html\" title=\"Learn more about the Public Service Dental Care Plan.\" target=\"_blank\">Public Service Dental Care Plan</a>",
+                        'link02' => "<a href=\"https://www.canada.ca/en/treasury-board-secretariat/topics/benefit-plans/plans/dental-care-plan/rules-dental-care-plan-public-service-canada.html\" title=\"Learn more about the plan.\" target=\"_blank\">A complete description of what is covered under the Plan can be found here</a>"
+                    ],
+                    '04' => [
+                        'title' => 'Pension Plan',
+                        'copy' => "If the term of your position is more than six months the good news is that you’re eligible to participate in the %link01% beginning on your first day of work. Plan members and the Government of Canada contribute equally to this defined benefit pension plan. The amount deducted from your pay will vary depending on your salary. Pension benefits are based on average salary and years of pensionable service. %link02%.",
+                        'link01' => "<a href=\"https://www.canada.ca/en/treasury-board-secretariat/services/pension-plan/active-members/new-public-service-pension.html\" title=\"Learn more about the Public Service Pension Plan.\" target=\"_blank\">public service pension plan</a>",
+                        'link02' => "<a href=\"https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/services-pension-services/pension/info/bienvenue-welcome-eng.html\" title=\"Learn more about the plan.\" target=\"_blank\">More information about the pension plan can be found here</a>"
+                    ],
+                    '05' => [
+                        'title' => 'Disability Insurance',
+                        'copy' => "%link01% is mandatory for all employees occupying a unionized position. Premiums are 85% employer-paid. If you are unable to work for long periods due to a totally disabling illness or injury, this benefit pays 70% of your monthly salary after 13 weeks from the date of disability or the exhaustion of all paid sick leave, whichever is longer.\n\nIf your initial term position is more than six months and you work more than an average 12.5 hours per week, coverage starts on your first day.",
+                        'link01' => "<a href=\"https://www.canada.ca/en/treasury-board-secretariat/services/benefit-plans/disability-insurance-plan/disability-insurance-plan-benefits-glance.html\" title=\"Learn more about disability insurance.\" target=\"_blank\">Disability insurance</a>"
+                    ],
+                    '06' => [
+                        'title' => 'Long-Term Disability (LTD)',
+                        'copy' => "Long-Term Disability insurance under the %link01% is mandatory for all employees occupying excluded or unrepresented positions. Premiums are 85% employer-paid. If you are unable to work for long periods due to a totally disabling illness or injury, this benefit pays 70% of your monthly salary after 13 weeks from the date of disability or the exhaustion of all paid sick leave, whichever is longer.\n\nIf your initial term is longer than six months and you work more than an average of 12.5 hours per week, coverage starts on your first day.",
+                        'link01' => "<a href=\"https://www.canada.ca/en/treasury-board-secretariat/topics/benefit-plans/plans/management-insurance-plan.html\" title=\"Learn more about LTD benefits.\" target=\"_blank\">Public Service Management Insurance Plan</a>"
+                    ],
+                    '07' => [
+                        'title' => 'Exceptions for Returning Employees',
+                        'copy' => "Moving from gig-to-gig in the Federal Government? If you signed a contract for a term position that lasts less than six months and you are extended or if you start another term contract soon enough you could still be eligible for health care, dental, disability insurance and long-term disability. Take a closer look at the links provided above or ask the hiring manager to see if you qualify."
+                    ]
+                ]
+            ],
+            'conclusion' => [
+                'disclaimer' => 'The summary above is for information purposes only and is not a legal document on your rights and obligations. Should there be any discrepancy between the information above and that contained in the Public Service Superannuation Act and related regulations or other applicable laws, the legislative provisions will apply. Similarly, should there be any discrepancy between the information above and that contained in the group insurance benefits plan provisions, insurance contracts, or collective agreements, the plan provisions, insurance contracts or collective agreements will apply.'
             ]
         ]
     ],

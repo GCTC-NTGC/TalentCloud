@@ -108,6 +108,73 @@ return [
             ]
         ]
     ],
+    'benefits' => [
+        'sidebar_title' => 'Avantages sociaux des employés',
+        'category_anchor' => 'benefits',
+        'category_title' => 'Avantages sociaux des employés',
+        'sections' => [
+            'intro' => [
+                'copy' => [
+                    '00' => [
+                        "copy" => "Lorsque vous songez à l’endroit où postuler pour un emploi, il y a plusieurs facteurs à prendre en considération. Le salaire, l’endroit, la compatibilité et la passion pour le travail sont tous importants. Un autre facteur extrêmement important, ce sont les avantages sociaux offerts aux employés. Malheureusement, si vous faites partie des 30 % estimés d’employés canadiens qui travaillent dans l’économie à la demande, vous travaillez probablement sans ce filet de sécurité. Un grand nombre de ces travailleurs sont ici, au gouvernement du Canada (l’un des plus importants employeurs de travailleurs de la fonction publique au pays), et ce qui est formidable, c’est que si vous occupez un poste de durée déterminée, vous pouvez bénéficier de plusieurs des mêmes avantages que les employés nommés pour une période indéterminée."
+                    ],
+                    '01' => [
+                        "copy" => "Tous les postes affichés dans le Nuage de talents sont des postes à durée déterminée. Cela signifie que vous êtes un employé du gouvernement du Canada pendant la durée de votre contrat. Les postes de durée déterminée offrent des congés payés et des congés annuels et vous garantissent une protection en rendant certains avantages sociaux obligatoires. L’information ci-dessous s’appliquera à la plupart des postes affichés sur le nuage de talents, mais nous recommandons de demander au gestionnaire responsable de l’embauche ou d’utiliser les deux premières lettres de la classification du gouvernement sur les avis d’emplois pour trouver la %agreement% correspondant au poste. De plus, vous pouvez toujours trouver plus d’information sur les régimes de pension et d’avantages sociaux de la fonction publique à l’adresse %pension%.",
+                        "agreement" => "<a href=\"https://www.tbs-sct.gc.ca/agreements-conventions/list-fra.aspx\" title=\"Pour en savoir plus sur la convention collective.\" target=\"_blank\">convention collective</a>",
+                        "pension" => "<a href=\"https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/pension-avantages-sociaux.html\" title=\"Pour en savoir plus sur les prestations de retraite.\" target=\"_blank\">https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/pension-avantages-sociaux.html</a>"
+                    ]
+                ]
+            ],
+            'summaries' => [
+                'title' => 'Voici ce à quoi vous pouvez vous attendre ...',
+                'categories' => [
+                    '00' => [
+                        'title' => 'Jours fériés payés',
+                        'copy' => "Vous avez droit à 11 jours fériés désignés payés. Les voici : Le jour de l’An, le Vendredi saint, le lundi de Pâques, la fête de la Reine, la fête du Canada, la fête du Travail, l’Action de grâces, le jour du Souvenir, le jour de Noël, le lendemain de Noël et un jour férié provincial ou municipal dans la région où vous travaillez (par exemple, congé civil du mois d’août). Travailleurs à distance prenez note, cela dépend de l’emplacement du bureau officiel de votre équipe et non celui où vous faites votre travail."
+                    ],
+                    '01' => [
+                        'title' => 'Congés payés',
+                        'copy' => "En plus des jours fériés payés, vous avez accès à plusieurs autres types de congés payés. Voici quelques-uns des plus couramment utilisés.\n\nVacances : Vous accumulerez 1,25 jour de vacances par mois, ce qui équivaut à trois semaines par année. Pour les six premiers mois, vous ne pouvez utiliser que les jours de vacances que vous avez accumulés. Par la suite, vous pouvez commencer à utiliser les jours de vacances prévus pour le reste de l’année.\n\nCongé de maladie : Vous accumulerez 1,25 jour de congé de maladie payé par mois, ce qui équivaut à trois semaines par année, mais vous pouvez quand même prendre des congés de maladie payés même si vous n’avez pas encore accumulé les journées (conditionnel à l’approbation de votre gestionnaire).\n\nCongé familial : Vous pouvez prendre jusqu’à cinq jours par année pour vous occuper de vos responsabilités familiales. Cela couvre des situations comme la fermeture inattendue d’une école ou d’une garderie, des activités scolaires ou des soins à un membre de la famille malade ou âgé.\n\nCongé personnel : Vous pouvez prendre jusqu’à deux jours par année pour vous occuper de vos affaires personnelles."
+                    ],
+                    '02' => [
+                        'title' => 'Soins de santé',
+                        'copy' => "Vous pouvez immédiatement faire une demande au titre du %link01% (RSSFP) si la durée initiale de votre poste de durée déterminée est de plus de six mois. Pour la plupart des produits et services de soins de santé admissibles, comme les médicaments sur ordonnance, les soins de la vue, les services d’un médecin et les soins dentaires d’urgence, le régime couvre 80 % des frais admissibles, avec certains plafonds précis, après avoir bénéficié de prestations offertes par votre régime provincial ou territorial d’assurance-santé ou toute autre source d’aide médicale à laquelle vous êtes admissible.\n\nVous devez présenter une demande pour vous inscrire. %link02%.",
+                        'link01' => "<a href=\"https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/regimes-assurance/regimes/regime-soins-sante.html\" title=\"Pour en savoir plus sur le Régime de soins de santé de la fonction publique.\" target=\"_blank\">Régime de soins de santé de la fonction publique</a>",
+                        'link02' => "<a href=\"https://www.njc-cnm.gc.ca/directive/d9/fr\" title=\"Pour en savoir plus sur le plan.\" target=\"_blank\">Une description complète de ce qui est couvert par le régime se trouve ici</a>"
+                    ],
+                    '03' => [
+                        'title' => 'Soins dentaires',
+                        'copy' => "Le %link01% (RSDFP) est entièrement payé par l’employeur et couvre 90 % des services de base et 50 % des principaux services et services orthodontiques. Si la durée initiale de votre poste de durée déterminée est de plus de six mois et que vous travaillez en moyenne plus de 12,5 heures par semaine, l’admissibilité au RSDFP commence immédiatement et la protection commence après une période d’attente de trois mois. Cela signifie que trois mois après le début de votre mandat, vous pouvez commencer à utiliser le régime de soins dentaires.\n\nAucun formulaire de demande n’est requis. %link02%.",
+                        'link01' => "<a href=\"https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/regimes-assurance/regimes/regime-soins-dentaires.html\" title=\"Pour en savoir plus sur le Régime de soins dentaires de la fonction publique.\" target=\"_blank\">Régime de soins dentaires de la fonction publique</a>",
+                        'link02' => "<a href=\"https://www.canada.ca/fr/treasury-board-secretariat/topics/benefit-plans/plans/dental-care-plan/rules-dental-care-plan-public-service-canada.html\" title=\"Pour en savoir plus sur le plan.\" target=\"_blank\">Une description complète de ce qui est couvert par le régime se trouve ici</a>"
+                    ],
+                    '04' => [
+                        'title' => 'Régime de pension de retraite',
+                        'copy' => "Si votre poste est d’une durée de plus de six mois, la bonne nouvelle est que vous êtes admissible à participer au %link01% à compter de votre premier jour de travail. Le gouvernement du Canada et les membres du régime contribuent à ce régime à prestations déterminées à parts égales. Le montant déduit de votre paye variera selon votre salaire. Les prestations de pension sont fondées sur le salaire moyen et les années de service ouvrant droit à pension. %link02%.",
+                        'link01' => "<a href=\"https://www.canada.ca/fr/secretariat-conseil-tresor/services/regime-retraite/participants-actifs/nouvel-employe-fonction-publique-pension.html\" title=\"Pour en savoir plus sur le Régime de pension de retraite de la fonction publique.\" target=\"_blank\">Régime de pension de retraite de la fonction publique</a>",
+                        'link02' => "<a href=\"https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/services-pension-services/pension/info/bienvenue-welcome-fra.html\" title=\"Pour en savoir plus sur le plan.\" target=\"_blank\">Pour en savoir plus sur le régime de retraite, cliquez ici</a>"
+                    ],
+                    '05' => [
+                        'title' => 'Régime d’assurance-invalidité',
+                        'copy' => "%link01% est obligatoire pour tous les employés qui occupent un poste syndiqué. Les cotisations sont payées à 85 % par l’employeur. Si vous n’êtes pas en mesure de travailler pour des périodes prolongées en raison d’une maladie ou d’une blessure qui vous rend complètement invalide, cette prestation vous verse 70 % de votre salaire mensuel après 13 semaines à partir de la date d’invalidité ou de l’épuisement de tous vos congés de maladie payés, selon laquelle des deux périodes est la plus longue.\n\nSi la durée initiale de votre poste de durée déterminée est de plus de six mois et que vous travaillez en moyenne plus de 12,5 heures par semaine, la protection commence le premier jour.",
+                        'link01' => "<a href=\"https://www.canada.ca/fr/secretariat-conseil-tresor/services/regimes-assurance/regime-assurance-invalidite/regime-assurance-invalidite-coup-oeil.html\" title=\"Pour en savoir plus sur l'assurance invalidité.\" target=\"_blank\">L’assurance-invalidité</a>"
+                    ],
+                    '06' => [
+                        'title' => 'Assurance-invalidité de longue durée (AILD)',
+                        'copy' => "L’assurance-invalidité de longue durée sous le %link01% est obligatoire pour tous les employés qui occupent des postes exclus ou non représentés. Les cotisations sont payées à 85 % par l’employeur. Si vous n’êtes pas en mesure de travailler pour des périodes prolongées en raison d’une maladie ou d’une blessure qui vous rend complètement invalide, cette prestation vous verse 70 % de votre salaire mensuel après 13 semaines à partir de la date d’invalidité ou de l’épuisement de tous vos congés de maladie payés, selon laquelle des deux périodes est la plus longue.\n\nSi la durée initiale de votre poste de durée déterminée est de six mois et que vous travaillez en moyenne plus de 12,5 heures par semaine, la protection commence le premier jour.",
+                        'link01' => "<a href=\"https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/regimes-assurance/regimes/regime-assurance-gestion.html\" title=\"Pour en savoir plus sur les prestations d'AILD.\" target=\"_blank\">Régime d’assurance pour les cadres de gestion de la fonction publique</a>"
+                    ],
+                    '07' => [
+                        'title' => 'Exceptions pour les employés de retour au travail',
+                        'copy' => "Passer d’un emploi à l’autre au gouvernement fédéral? Si la durée de votre période d’emploi initiale est de moins de six mois, mais est prolongée ou si vous commencez un autre emploi d’une durée déterminée et que vous n’avez pas connu une interruption de service trop long, vous avez peut-être droit aux soins de santé, soins dentaires, et assurance--invalidité et congé d’invalidité de longue durée. Examinez de plus près les liens fournis ci-dessus ou demandez au gestionnaire d'embauche de voir si vous êtes éligible."
+                    ]
+                ]
+            ],
+            'conclusion' => [
+                'disclaimer' => 'Le sommaire ci-dessus est à titre d’information seulement et ne constitue pas un document juridique sur vos droits et vos obligations. En cas de divergence entre les renseignements présentés ci-haut et l’information contenue dans la Loi sur la pension de la fonction publique, les règlements connexes ou d’autres lois applicables, les dispositions législatives auront préséance. Dans le même ordre d’idées, en cas de divergence entre les renseignements présentés ci-haut et ceux contenus dans les dispositions des régimes d’assurance collective, les contrats d’assurance ou les conventions collectives, les dispositions des régimes d’assurance, les contrats d’assurance ou les conventions collectives seront applicables.'
+            ]
+        ]
+    ],
     'speed' => [
         'sidebar_title' => 'Après avoir postulé',
         'category_anchor' => 'post-application',
