@@ -15,7 +15,6 @@ class CreateManagersTable extends Migration {
 		Schema::create('managers', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('government_email')->nullable();
 			$table->integer('department_id')->unsigned()->nullable()->index();
 			$table->string('twitter_username')->nullable();
 			$table->string('linkedin_username')->nullable();
