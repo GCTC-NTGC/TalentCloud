@@ -131,7 +131,7 @@ class MenuComposer
                 case 'logout':
                     $menu['items']['logout']['active'] = true;
                     break;
-                case 'faq':
+                case 'manager.faq':
                     $menu['items']['faq']['active'] = true;
                     break;
                 default:
@@ -145,6 +145,7 @@ class MenuComposer
             // TODO: restore when job poster builder complete
             // $menu['items']['create_job']['link'] = route('manager.jobs.create');
             $menu['items']['profile']['link'] = route('manager.profile');
+            $menu['items']['faq']['link'] = route('manager.faq');
 
             // Check if use is logged in, and remove invalid menu items
             if (Auth::check()) {
