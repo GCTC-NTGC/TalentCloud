@@ -293,6 +293,12 @@ Route::group(
                     )
                         ->where('jobPoster', '[0-9]+')
                         ->name('manager.jobs.screening_plan');
+
+                    /* Static - FAQ */
+                    Route::get(
+                        'faq',
+                        'ManagerProfileController@faq'
+                    )->name('manager.faq');
                 });
             });
 

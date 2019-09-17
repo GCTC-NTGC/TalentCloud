@@ -17,6 +17,10 @@
 
     {% include "common/header" with {"header":jobs_l10n} %}
 
+    {% if show_notification %}
+    {% include "manager/notification" %}
+    {% endif %}
+
     <a id="skipLink"></a>
 
     {% include "manager/job_index/layout" %}

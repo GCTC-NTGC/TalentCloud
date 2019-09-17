@@ -17,6 +17,10 @@
 
     {% include "common/header" with {'header':faq} %}
 
+    {% if show_notification %}
+    {% include "manager/notification" %}
+    {% endif %}
+
     <a id="skipLink"></a>
 
     {# FAQ Sections #}
