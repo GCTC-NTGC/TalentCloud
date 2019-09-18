@@ -22,9 +22,9 @@ return [
     'submitted_on' => 'Soumis :',
     'published_on' => 'Publié :',
     'closed_on' => 'Fermé :',
-    'in_review_for' => 'En révision pour', //time since marked for review
-    'remaining' => 'restante', //time remaining
-    'applicants' => 'Candidats', //count of applicants
+    'in_review_for' => 'En révision pour', // Time since marked for review.
+    'remaining' => 'restante', // Time remaining.
+    'applicants' => 'Candidats', // Count of applicants.
     'edit_this_poster' => 'Modifier cette affiche d\'emploi.',
     'edit_job_poster' => 'Modifier cette affiche d\'emploi.',
     'edit_this_plans' => 'Modifier le plan d\'évaluation pour ce travail.',
@@ -38,7 +38,7 @@ return [
     'no_archived_posters' => 'Vous pourrez bientôt archiver vos affiches!',
     'view_this_job_poster' => "Voir cette affiche d'emploi.",
     'view_preview_job_poster' => "Afficher un aperçu de cette affiche d'emploi.",
-    // Older version translations, still on page
+    // Older version translations, still on page.
     'job_poster' => 'Affiche d\'emploi',
     'edit' => 'Modifier',
     'screening_plan_builder' => 'Constructeur de plan d\'évaluation',
@@ -63,6 +63,18 @@ return [
             ],
             'save' => 'Enregistrer'
         ]
+    ],
+    'notification_modal' => [
+        'title' => 'Sorry about that, eh!',
+        'description' => [
+            'first' => 'Job Poster review and publishing is only available to Talent Cloud\'s partner departments.',
+            'second' => 'To find out if you can access these features,',
+            'link' => [
+                'text' => 'click here',
+                'title' => 'Find out how to access Job Poster review and publishing features.',
+                'href' => '#upgrade'
+            ]
+        ],
+        'cancel' => 'Go back'
     ]
-
 ];

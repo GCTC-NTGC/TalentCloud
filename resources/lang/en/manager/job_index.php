@@ -8,7 +8,6 @@ return [
     * Controller: Controllers\JobController.php
     * View: views/manager/job_index.html.twig
     */
-
     'title' => 'My Job Posters',
     'legend' => 'Legend:',
     'draft_poster' => 'Draft Poster',
@@ -23,9 +22,9 @@ return [
     'submitted_on' => 'Submitted On:',
     'published_on' => 'Published On:',
     'closed_on' => 'Closed On:',
-    'in_review_for' => 'In Review for', //time since marked for review
-    'remaining' => 'Remaining', //time remaining
-    'applicants' => 'Applicants', //count of applicants
+    'in_review_for' => 'In Review for', // Time since marked for review.
+    'remaining' => 'Remaining', // Time remaining.
+    'applicants' => 'Applicants', // Count of applicants.
     'edit_this_poster' => 'Edit this job poster.',
     'edit_job_poster' => 'Edit Job Poster',
     'edit_this_plans' => 'Edit screening plans for this job.',
@@ -39,7 +38,7 @@ return [
     'no_archived_posters' => 'The ability to archive your posters is coming soon!',
     'view_this_job_poster' => 'View this job poster.',
     'view_preview_job_poster' => 'View a preview of this job poster.',
-    // Older version translations, still on page
+    // Older version translations, still on page.
     'job_poster' => 'Job Poster',
     'edit' => 'Edit',
     'screening_plan_builder' => 'Screening Plan Builder',
@@ -64,5 +63,18 @@ return [
             ],
             'save' => 'Save'
         ]
+    ],
+    'notification_modal' => [
+        'title' => 'Sorry about that, eh!',
+        'description' => [
+            'first' => 'Job Poster review and publishing is only available to Talent Cloud\'s partner departments.',
+            'second' => 'To find out if you can access these features,',
+            'link' => [
+                'text' => 'click here',
+                'title' => 'Find out how to access Job Poster review and publishing features.',
+                'href' => '#upgrade'
+            ]
+        ],
+        'cancel' => 'Go back'
     ]
 ];

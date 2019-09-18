@@ -50,7 +50,7 @@
                         data-c-font-size="h4"
                         id="upgrade-modal-title"
                         data-c-dialog-focus>
-                        Sorry about that, eh!
+                        {{ jobs_l10n.notification_modal.title }}
                     </h5>
                     <button
                         data-c-colour="white"
@@ -65,8 +65,8 @@
                     data-c-border="bottom(thin, solid, black)"
                     data-c-padding="normal">
                     <div id="upgrade-modal-description">
-                        <p>Job Poster review and publishing is only available to Talent Cloud's partner departments.</p>
-                        <p>To find out if you can access these features, <a href="#">click here</a>.</p>
+                        <p>{{ jobs_l10n.notification_modal.description.first }}</p>
+                        <p>{{ jobs_l10n.notification_modal.description.second }} <a href="{{ route('manager.faq') ~ jobs_l10n.notification_modal.description.link.href }}" title="{{ jobs_l10n.notification_modal.description.link.title }}">{{ jobs_l10n.notification_modal.description.link.text }}</a>.</p>
                     </div>
                 </div>
                 <div data-c-padding="normal">
@@ -77,7 +77,7 @@
                                 data-c-radius="rounded"
                                 data-c-dialog-action="close"
                                 data-c-dialog-id="upgrade-modal">
-                                Go back
+                                {{ jobs_l10n.notification_modal.cancel }}
                             </button>
                         </div>
                     </div>
