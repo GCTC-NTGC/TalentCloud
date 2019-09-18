@@ -31,19 +31,19 @@ test("No Access Profile", async t => {
 });
 
 test("Language Switch", async t => {
+  const frenchLink = Selector("a").withText("Français");
+  const englishLink = Selector("a").withText("English");
   await t
-    .click(Selector("a").withText("Français"))
+    .click(frenchLink)
     .expect(
-      Selector(".home__hero-content.flex-grid.middle")
-        .find("div")
-        .withText("Votre prochain projet").visible,
+      Selector("p").withText(
+        "Il est désormais plus facile de postuler un emploi au gouvernement.",
+      ),
     )
     .ok()
-    .click(Selector("a").withText("English"))
+    .click(englishLink)
     .expect(
-      Selector(".home__hero-content.flex-grid.middle")
-        .find("div")
-        .withText("Your next gig").visible,
+      Selector("p").withText("Applying to government jobs just got easier."),
     )
     .ok();
 });
