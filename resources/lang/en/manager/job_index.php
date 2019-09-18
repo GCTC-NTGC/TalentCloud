@@ -65,10 +65,10 @@ return [
         ]
     ],
     'notification_modal' => [
-        'title' => 'Sorry about that, eh!',
+        'title' => 'Looks like you\'re using a demo account!',
         'description' => [
             'first' => 'Job Poster review and publishing is only available to Talent Cloud\'s partner departments.',
-            'second' => 'To find out if you can access these features,',
+            'second' => 'To find out if you can access these features, :link.',
             'link' => [
                 'text' => 'click here',
                 'title' => 'Find out how to access Job Poster review and publishing features.',

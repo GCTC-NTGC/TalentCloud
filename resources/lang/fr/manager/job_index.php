@@ -65,16 +65,16 @@ return [
         ]
     ],
     'notification_modal' => [
-        'title' => 'Sorry about that, eh!',
+        'title' => 'Il semble que vous utilisez un compte de démonstration.',
         'description' => [
-            'first' => 'Job Poster review and publishing is only available to Talent Cloud\'s partner departments.',
-            'second' => 'To find out if you can access these features,',
+            'first' => 'Seuls les ministères partenaires de Nuage des talents ont accès à l\'examen et à la publication des avis d\'emploi.',
+            'second' => ':link pour savoir si vous avez accès à ces fonctions.',
             'link' => [
-                'text' => 'click here',
-                'title' => 'Find out how to access Job Poster review and publishing features.',
+                'text' => 'Cliquez ici',
+                'title' => 'Découvrez comment accéder aux fonctions d\'examen et de publication des avis d\'emploi.',
                 'href' => '#upgrade'
             ]
         ],
-        'cancel' => 'Go back'
+        'cancel' => 'Retourner'
     ]
 ];
