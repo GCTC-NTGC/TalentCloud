@@ -186,7 +186,8 @@ class LangFilesTest extends BaseTranslationTest
         'mailto:meagan.commonda@tbs-sct.gc.ca',
         'https://twitter.com/meagancommonda/',
         'http://caid.ca/IndRecRet2017.pdf',
-        'https://talentcloud1.typeform.com/to/tWIPup'
+        'https://talentcloud1.typeform.com/to/tWIPup',
+        '#upgrade'
     ];
 
     /**

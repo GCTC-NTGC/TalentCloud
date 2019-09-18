@@ -291,6 +291,12 @@ Route::group(
                 )
                     ->where('jobPoster', '[0-9]+')
                     ->name('manager.jobs.screening_plan');
+
+                /* Static - FAQ */
+                Route::get(
+                    'faq',
+                    'ManagerProfileController@faq'
+                )->name('manager.faq');
             });
 
             // Laravel default login, logout, register, and reset routes
@@ -372,7 +378,7 @@ Route::group(
         });
 
 
-        /* Non-Backpack Admin Portal =========================================================== */
+        /* Non-Backpack Admin Portal (localized pages) =========================================================== */
         Route::group(
             [
                 'prefix' => 'admin',
@@ -392,6 +398,21 @@ Route::group(
         );
     }
 );
+
+/* Non-Backpack Admin Portal (non-localized pages) =========================================================== */
+Route::group(
+    [
+        'prefix' => 'admin',
+        'middleware' => ['auth', 'role:admin']
+    ],
+    function (): void {
+        // This page is non-localized, because the middleware that redirects to localized pages changes POSTs to GETs and messes up the request.
+        Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
+            ->middleware('can:create,App\Models\JobPoster')
+            ->name('admin.jobs.create_as_manager');
+    }
+);
+
 
 /** ALL NON-LOCALIZED ROUTES **/
 
