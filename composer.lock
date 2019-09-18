@@ -115,16 +115,16 @@
         },
         {
             "name": "backpack/base",
-            "version": "1.1.12",
+            "version": "1.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/Base.git",
-                "reference": "001c4af05b9d9ed19a513b42a3168fda17a0e963"
+                "reference": "426e56099efde930f8f8aa9aaeafd1b58a756d61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/Base/zipball/001c4af05b9d9ed19a513b42a3168fda17a0e963",
-                "reference": "001c4af05b9d9ed19a513b42a3168fda17a0e963",
+                "url": "https://api.github.com/repos/Laravel-Backpack/Base/zipball/426e56099efde930f8f8aa9aaeafd1b58a756d61",
+                "reference": "426e56099efde930f8f8aa9aaeafd1b58a756d61",
                 "shasum": ""
             },
             "require": {
@@ -176,20 +176,20 @@
                 "backpack",
                 "base"
             ],
-            "time": "2019-09-14T02:56:37+00:00"
+            "time": "2019-09-17T09:02:22+00:00"
         },
         {
             "name": "backpack/crud",
-            "version": "3.6.32",
+            "version": "3.6.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "3de118b8f9d0f9c21426cf1f7b8b4691a06aba2f"
+                "reference": "034925f67b274ea3c0dee64fcf85f3c4d19dc3da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/3de118b8f9d0f9c21426cf1f7b8b4691a06aba2f",
-                "reference": "3de118b8f9d0f9c21426cf1f7b8b4691a06aba2f",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/034925f67b274ea3c0dee64fcf85f3c4d19dc3da",
+                "reference": "034925f67b274ea3c0dee64fcf85f3c4d19dc3da",
                 "shasum": ""
             },
             "require": {
@@ -251,7 +251,7 @@
                 "read",
                 "update"
             ],
-            "time": "2019-09-17T06:43:52+00:00"
+            "time": "2019-09-17T09:04:25+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",
