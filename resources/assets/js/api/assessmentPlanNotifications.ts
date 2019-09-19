@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import axios from "axios";
-import { baseUrl, ApiResponse, parseDateStrict, axiosConfig } from "./base";
+import { baseUrl, ApiResponse, parseDateStrict, axios } from "./base";
 import { AssessmentPlanNotification } from "../models/types";
 
 export const parseAssessmentPlanNotification = (
@@ -14,10 +13,7 @@ export const getAssessmentPlanNotificationsByJob = (
   jobId: number,
 ): Promise<AssessmentPlanNotification[]> => {
   return axios
-    .get(
-      `${baseUrl()}/assessment-plan-notifications?job_poster_id=${jobId}`,
-      axiosConfig,
-    )
+    .get(`${baseUrl()}/assessment-plan-notifications?job_poster_id=${jobId}`)
     .then((response: ApiResponse): AssessmentPlanNotification[] => {
       if (!Array.isArray(response.data)) {
         throw Error("Response must be an array.");
@@ -33,7 +29,6 @@ export const updateAssessmentPlanNotification = (
     .put(
       `${baseUrl()}/assessment-plan-notifications/${notification.id}`,
       notification,
-      axiosConfig,
     )
     .then(
       (response: ApiResponse): AssessmentPlanNotification =>

@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import rootAxios from "axios";
 
 export interface ResponseData {
   [key: string]: string & ResponseData & [ResponseData];
@@ -26,12 +27,13 @@ const csrfToken: string =
   csrfElement && csrfElement.getAttribute("content")
     ? (csrfElement.getAttribute("content") as string)
     : "";
-export const axiosConfig = {
+const axiosConfig = {
   headers: {
     "X-Requested-With": "XMLHttpRequest",
     "X-CSRF-TOKEN": csrfToken,
   },
 };
+export const axios = rootAxios.create(axiosConfig);
 
 export default {
   baseUrl,

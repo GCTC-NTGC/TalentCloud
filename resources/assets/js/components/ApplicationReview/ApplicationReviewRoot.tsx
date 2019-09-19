@@ -14,7 +14,6 @@ import locale_en from "react-intl/locale-data/en";
 import locale_fr from "react-intl/locale-data/fr";
 
 import camelCase from "lodash/camelCase";
-import axios from "axios";
 import Swal from "sweetalert2";
 import messages_en from "../../localizations/en.json";
 import messages_fr from "../../localizations/fr.json";
@@ -25,7 +24,7 @@ import {
 } from "../../models/types";
 import * as route from "../../helpers/routes";
 import ApplicationReviewWithNav from "./ApplicationReviewWithNav";
-import { axiosConfig } from "../../api/base";
+import { axios } from "../../api/base";
 
 addLocaleData([...locale_en, ...locale_fr]);
 
@@ -94,11 +93,7 @@ class ApplicationReviewRoot extends React.Component<
     const { intl } = this.props;
     this.setState({ isSaving: true });
     return axios
-      .put(
-        route.applicationReviewUpdate(intl.locale, application.id),
-        review,
-        axiosConfig,
-      )
+      .put(route.applicationReviewUpdate(intl.locale, application.id), review)
       .then(response => {
         const newReview = response.data as ApplicationReview;
         this.updateReviewState(newReview);

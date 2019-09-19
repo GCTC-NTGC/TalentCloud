@@ -1,6 +1,6 @@
 import messagesEn from "./localizations/en.json";
 import messagesFr from "./localizations/fr.json";
-import { axiosConfig } from "./api/base";
+import { axios } from "./api/base";
 
 const Swal = require("sweetalert2");
 
@@ -57,7 +57,6 @@ function handleClick(e) {
         return axios({
           method: action == "delete" ? action : "post",
           url: this.getAttribute("data-href"),
-          axiosConfig,
         })
           .then(response => {
             const jobId = this.getAttribute("data-jobid");
