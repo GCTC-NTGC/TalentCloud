@@ -13,9 +13,10 @@
     padding: 3rem;
 
     i {
-        color: $palette--blue;
+        // color: $palette--blue;
+        color: white;
         font-size: $font-scale--h1;
-        text-align: center;
+        text-align: left;
         width: 100%;
     }
 
@@ -59,7 +60,7 @@
 }
 
 .job-post__apply-button {
-    background: $palette--blue;
+    background: $clone-c1;
     border-radius: 0 0 3px 3px;
     color: $palette--font-white;
     display: block;

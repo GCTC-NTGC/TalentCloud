@@ -67,7 +67,8 @@
                         }
 
                         &.active {
-                            color: lighten($palette--blue, 10%);
+                            color: $clone-c3;
+                            font-weight: 700;
                         }
 
                     }
