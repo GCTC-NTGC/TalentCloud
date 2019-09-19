@@ -153,6 +153,12 @@ Route::group(
             /* Static - ITP */
             Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
 
+            /* Temporary Blog Index */
+            Route::view('blog', 'common/blog-index')->name('blog');
+
+            /* Temporary Blog Post */
+            Route::view('post', 'common/blog-post')->name('post');
+
             // /* Temp Builder 01 (Intro) */
             Route::view('builder-01', 'manager/builder-01')->middleware('localOnly')->name('jpb1');
             // /* Temp Builder 02 (Job info) */
@@ -169,6 +175,7 @@ Route::group(
             Route::view('builder-07', 'manager/builder-07')->middleware('localOnly')->name('jpb7');
             // /* Temp Builder 08 (Review) */
             Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
+            
             /* Authentication =========================================================== */
 
             // Laravel default login, logout, register, and reset routes
