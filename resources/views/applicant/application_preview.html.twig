@@ -4,9 +4,8 @@
 
 {% block body %}
 
-	{% include "common/alert" %}
-
-    {% include "common/goc" %}
+	{% include "common/goc" %}
+{% include "common/alert" %}
 
     {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.view_title, ':job':job.title})}} %}
 

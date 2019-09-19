@@ -141,7 +141,7 @@ Route::group(
             });
 
             /* Static - FAQ */
-            Route::view('faq', 'applicant/static_faq', ['faq' => Lang::get('applicant/faq')])->name('faq');
+            Route::get('faq', 'FaqController')->name('faq');
 
             /* Static - Privacy Policy */
             Route::view('privacy', 'common/static_privacy', ['privacy' => Lang::get('common/privacy')])
@@ -152,6 +152,12 @@ Route::group(
 
             /* Static - ITP */
             Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
+
+            /* Temporary Blog Index */
+            Route::view('blog', 'common/blog-index')->name('blog');
+
+            /* Temporary Blog Post */
+            Route::view('post', 'common/blog-post')->name('post');
 
             // /* Temp Builder 01 (Intro) */
             Route::view('builder-01', 'manager/builder-01')->middleware('localOnly')->name('jpb1');
@@ -169,6 +175,7 @@ Route::group(
             Route::view('builder-07', 'manager/builder-07')->middleware('localOnly')->name('jpb7');
             // /* Temp Builder 08 (Review) */
             Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
+            
             /* Authentication =========================================================== */
 
             // Laravel default login, logout, register, and reset routes
@@ -193,6 +200,12 @@ Route::group(
         Route::group(['prefix' => config('app.manager_prefix')], function (): void {
             /* Home */
             Route::get('/', 'HomepageController@manager')->name('manager.home');
+
+            /* Static - FAQ */
+            Route::get(
+                'faq',
+                'ManagerProfileController@faq'
+            )->name('manager.faq');
 
             Route::middleware(['auth', 'role:manager'])->group(function (): void {
 
@@ -291,12 +304,6 @@ Route::group(
                 )
                     ->where('jobPoster', '[0-9]+')
                     ->name('manager.jobs.screening_plan');
-
-                /* Static - FAQ */
-                Route::get(
-                    'faq',
-                    'ManagerProfileController@faq'
-                )->name('manager.faq');
             });
 
             // Laravel default login, logout, register, and reset routes

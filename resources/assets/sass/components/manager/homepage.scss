@@ -1,0 +1,14 @@
+// Manager Homepage
+
+.tc-manager-feature-mobile {
+    @media #{$clone-tablet-landscape} {
+        display: none;
+    }
+}
+
+.tc-manager-feature-table {
+    display: none;
+    @media #{$clone-tablet-landscape} {
+        display: block;
+    }
+}

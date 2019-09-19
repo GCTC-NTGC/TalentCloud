@@ -1,10 +1,12 @@
 1. Prepare dependencies:
 composer i --no-dev --optimize-autoloader && npm run prod && npm ci --production
 
-2. Zip the TalentCloud folder, copy to server on TBS device.
+2. Update the DATE_MODIFIED string in app/Http/ViewComposers/FooterComposer.php
 
-3. WinSCP deploy.sh and TalentCloud.zip to your home directory.
+3. Zip the TalentCloud folder, copy to server on TBS device.
 
-4. Set permissions and execute:
+4. WinSCP deploy.sh and TalentCloud.zip to your home directory.
+
+5. Set permissions and execute:
 sudo chmod 775 deploy.sh
 sudo ./deploy.sh
