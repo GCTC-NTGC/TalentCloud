@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import axios from "axios";
-import { baseUrl, ApiResponse, parseDateStrict } from "./base";
+import { baseUrl, ApiResponse, parseDateStrict, axios } from "./base";
 import { AssessmentPlanNotification } from "../models/types";
 
 export const parseAssessmentPlanNotification = (
