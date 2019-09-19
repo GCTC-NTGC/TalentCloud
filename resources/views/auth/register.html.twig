@@ -64,22 +64,43 @@
                             {% endif %}
 
                             <div
-                                class="box full">
+                                class="box med-1of2">
 
                                 <div
-                                    class="form__input-wrapper--float {{ old('email') ? "active" : '' }}">
+                                    class="form__input-wrapper--float {{ old('first_name') ? "active" : '' }}">
                                     <label
                                         class="form__label"
-                                        for="name">
-                                        {{ register.name }}
+                                        for="first_name">
+                                        {{ register.first_name }}
                                     </label>
                                     <input
                                         class="form__input"
-                                        id="name"
-                                        name="name"
+                                        id="first_name"
+                                        name="first_name"
                                         required
                                         type="text"
-                                        value="{{ old('name') }}" />
+                                        value="{{ old('first_name') }}" />
+                                </div>
+
+                            </div>
+
+                            <div
+                                class="box med-1of2">
+
+                                <div
+                                    class="form__input-wrapper--float {{ old('last_name') ? "active" : '' }}">
+                                    <label
+                                        class="form__label"
+                                        for="last_name">
+                                        {{ register.last_name }}
+                                    </label>
+                                    <input
+                                        class="form__input"
+                                        id="last_name"
+                                        name="last_name"
+                                        required
+                                        type="text"
+                                        value="{{ old('last_name') }}" />
                                 </div>
 
                             </div>
