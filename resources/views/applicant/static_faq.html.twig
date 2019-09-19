@@ -11,10 +11,38 @@
 
 {% block body %}
 
-	{% include "common/goc" %}
-{% include "common/alert" %}
+    {% include "common/goc" %}
+    {% include "common/alert" %}
 
-    {% include "common/header" with {'header':faq} %}
+    <header data-clone>
+        <div data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/sean-pollock.jpg');">
+            {% include "common/menu" %}
+            <div data-c-container="large" data-c-margin="top(triple)">
+                <h1 data-c-color="white" data-c-font-weight="bold" data-c-font-size="h2">{{ faq.faq_title }}</h1>
+                <div data-c-alignment="left" data-c-margin="top(double)">
+                    <nav
+                        aria-label="breadcrumb"
+                        data-c-breadcrumbs>
+                        <ol>
+                            <li>
+                                <a
+                                    href="{{ breadcrumb_home }}"
+                                    title="{{ faq.breadcrumbs.home.title }}">
+                                    {{ faq.breadcrumbs.home.text }}</a>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                            <li>
+                                <p>
+                                    {{ faq.breadcrumbs.faq.text }}
+                                </p>
+                                <i class="fa fa-caret-right"></i>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
 
     {% if show_notification %}
     {% include "manager/notification" %}

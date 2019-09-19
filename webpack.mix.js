@@ -15,21 +15,35 @@ const path = require("path");
  */
 
 mix
-  .ts("resources/assets/js/bootstrap.js", "public/js")
+  .js("resources/assets/js/bootstrap.js", "public/js")
   .js("resources/assets/js/app.js", "public/js")
   .js("resources/assets/js/autocomplete.js", "public/js")
   .js("resources/assets/js/modernizr.js", "public/js")
-  .js("resources/assets/js/jquery-ui.min.js", "public/js")
   .js("resources/assets/js/alerts.js", "public/js")
   .js("resources/assets/js/getpdf.js", "public/js")
-  .js("resources/assets/js/components/JobBuilder/JobBuilderRoot", "public/js")
-  .js("resources/assets/js/components/WorkEnvFeaturesRoot", "public/js")
-  .js(
-    "resources/assets/js/components/ApplicantSkills/SkillsWordCounter",
+  .ts(
+    "resources/assets/js/components/AssessmentPlan/AssessmentPlanRoot.tsx",
     "public/js",
   )
-  .js(
-    "resources/assets/js/components/Registration/GovDeptAndEmailInputs",
+  .ts(
+    "resources/assets/js/components/ApplicationReview/ApplicationReviewRoot.tsx",
+    "public/js",
+  )
+  .ts(
+    "resources/assets/js/components/ApplicationReview/ReviewApplicationsRoot.tsx",
+    "public/js",
+  )
+  .ts(
+    "resources/assets/js/components/JobBuilder/JobBuilderRoot.tsx",
+    "public/js",
+  )
+  .ts("resources/assets/js/components/WorkEnvFeaturesRoot.tsx", "public/js")
+  .ts(
+    "resources/assets/js/components/ApplicantSkills/SkillsWordCounter.tsx",
+    "public/js",
+  )
+  .ts(
+    "resources/assets/js/components/Registration/GovDeptAndEmailInputs.tsx",
     "public/js",
   )
   .sass("resources/assets/sass/app.scss", "public/css", {
@@ -53,8 +67,7 @@ mix
         browsers: ">0.1%",
       }),
     ],
-  })
-  .version();
+  });
 
 mix.webpackConfig({
   resolve: {
@@ -63,3 +76,5 @@ mix.webpackConfig({
     },
   },
 });
+
+mix.version();

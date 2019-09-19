@@ -10,6 +10,16 @@
         display: block;
     }
 
+    .clone-sidebar {
+        display: none;
+        width: 95%;
+        @media #{$l-tablet} {
+            display: block;
+            position: sticky;
+            top: 0;
+        }
+    }
+
     .sidebar {
         display: none;
         padding: $section-padding;

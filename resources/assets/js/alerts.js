@@ -1,11 +1,12 @@
 import messagesEn from "./localizations/en.json";
 import messagesFr from "./localizations/fr.json";
+import { axios } from "./api/base";
 
 const Swal = require("sweetalert2");
 
 const localizations = {
   en: messagesEn,
-  fr: messagesFr
+  fr: messagesFr,
 };
 
 function localize(locale, key) {
@@ -26,17 +27,17 @@ function handleClick(e) {
       confirmButtonText: localize(locale, "button.delete"),
       success: {
         title: localize(locale, "alert.title.deleted"),
-        text: localize(locale, "alert.text.deleted")
-      }
+        text: localize(locale, "alert.text.deleted"),
+      },
     },
     review: {
       title: localize(locale, "alert.title.review"),
       confirmButtonText: localize(locale, "button.sendToTalentCloud"),
       success: {
         title: localize(locale, "alert.title.sent"),
-        text: localize(locale, "alert.text.sent")
-      }
-    }
+        text: localize(locale, "alert.text.sent"),
+      },
+    },
   };
 
   alertConfig = alertConfig[action];
@@ -55,12 +56,12 @@ function handleClick(e) {
       preConfirm: () => {
         return axios({
           method: action == "delete" ? action : "post",
-          url: this.getAttribute("data-href")
+          url: this.getAttribute("data-href"),
         })
           .then(response => {
             const jobId = this.getAttribute("data-jobid");
             const jobMarkup = indexWrapper.querySelector(
-              `div[data-jobid="${jobId}"]`
+              `div[data-jobid="${jobId}"]`,
             );
             jobMarkup.outerHTML = response.data;
           })
@@ -68,18 +69,18 @@ function handleClick(e) {
             Swal.insertQueueStep({
               title: alertConfig.success.title,
               text: alertConfig.success.text,
-              type: "success"
+              type: "success",
             });
           })
           .catch(() => {
             Swal.insertQueueStep({
               title: localize(locale, "alert.title.error"),
               text: localize(locale, "alert.text.error"),
-              type: "error"
+              type: "error",
             });
           });
-      }
-    }
+      },
+    },
   ]);
 }
 
@@ -89,17 +90,17 @@ const indexWrapper = document.querySelector(".manager-poster-index");
 // defined above.
 if (typeof indexWrapper !== "undefined" && indexWrapper != null) {
   const reviewButtons = Array.from(
-    indexWrapper.querySelectorAll('a[data-action="review"]')
+    indexWrapper.querySelectorAll('a[data-action="review"]'),
   );
   reviewButtons.forEach(button =>
-    button.addEventListener("click", handleClick)
+    button.addEventListener("click", handleClick),
   );
 
   const deleteButtons = Array.from(
-    indexWrapper.querySelectorAll('button[data-action="delete"]')
+    indexWrapper.querySelectorAll('button[data-action="delete"]'),
   );
   deleteButtons.forEach(button =>
-    button.addEventListener("click", handleClick)
+    button.addEventListener("click", handleClick),
   );
 }
 // End Manager Index ======================================

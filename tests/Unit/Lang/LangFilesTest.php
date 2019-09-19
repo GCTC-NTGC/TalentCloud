@@ -16,7 +16,7 @@ class LangFilesTest extends BaseTranslationTest
     {
         foreach ($this->getAllLangFilenames() as $langFile) {
             if (! empty($langFile)) {
-                $this->assertInternalType('array', Lang::get($langFile));
+                $this->assertIsArray(Lang::get($langFile));
             }
         }
     }
@@ -101,6 +101,20 @@ class LangFilesTest extends BaseTranslationTest
             'validation.attributes.work_experiences.new.*.description',
             'validation.attributes.work_experiences.new.*.start_date',
             'validation.attributes.work_experiences.new.*.end_date',
+            'manager/home.features.table.rows.0.demo',
+            'manager/home.features.table.rows.0.partner',
+            'manager/home.features.table.rows.1.demo',
+            'manager/home.features.table.rows.1.partner',
+            'manager/home.features.table.rows.2.demo',
+            'manager/home.features.table.rows.2.partner',
+            'manager/home.features.table.rows.3.demo',
+            'manager/home.features.table.rows.3.partner',
+            'manager/home.features.table.rows.4.demo',
+            'manager/home.features.table.rows.4.partner',
+            'manager/home.features.table.rows.5.demo',
+            'manager/home.features.table.rows.5.partner',
+            'manager/home.features.table.rows.6.demo',
+            'manager/home.features.table.rows.6.partner'
         ],
         'fr' => [
             'validation.attributes.courses.new.*.name',
@@ -118,6 +132,20 @@ class LangFilesTest extends BaseTranslationTest
             'validation.attributes.work_experiences.new.*.description',
             'validation.attributes.work_experiences.new.*.start_date',
             'validation.attributes.work_experiences.new.*.end_date',
+            'manager/home.features.table.rows.0.demo',
+            'manager/home.features.table.rows.0.partner',
+            'manager/home.features.table.rows.1.demo',
+            'manager/home.features.table.rows.1.partner',
+            'manager/home.features.table.rows.2.demo',
+            'manager/home.features.table.rows.2.partner',
+            'manager/home.features.table.rows.3.demo',
+            'manager/home.features.table.rows.3.partner',
+            'manager/home.features.table.rows.4.demo',
+            'manager/home.features.table.rows.4.partner',
+            'manager/home.features.table.rows.5.demo',
+            'manager/home.features.table.rows.5.partner',
+            'manager/home.features.table.rows.6.demo',
+            'manager/home.features.table.rows.6.partner'
         ]
     ];
 
@@ -189,6 +217,8 @@ class LangFilesTest extends BaseTranslationTest
         'https://twitter.com/meagancommonda/',
         'http://caid.ca/IndRecRet2017.pdf',
         'https://talentcloud1.typeform.com/to/tWIPup',
+        'partners',
+        'GC Collab',
         'BETA', '#how', '/jobs', '/faq#partners',
         'https://github.com/GCTC-NTGC/TalentCloud',
         '/indigenous',
@@ -200,8 +230,9 @@ class LangFilesTest extends BaseTranslationTest
         'https://gccollab.ca/groups/profile/19750/entalent-cloud-nuage-de-talentsfrnuage-de-talents-talent-cloud',
         'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
         '#upgrade',
-        'TBD',
         '/images/logo_tc_colour.png',
+        'benefits',
+        'TBD'
     ];
 
     /**

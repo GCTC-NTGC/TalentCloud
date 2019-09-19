@@ -196,3 +196,41 @@
     }
 
 }
+
+.home-hiw {
+    button {
+        display: block;
+        overflow: visible !important;
+        position: relative;
+        width: 100%;
+        z-index: 1;
+        &.active {
+            background: $clone-c1;
+            border-color: $clone-c1;
+            @media #{$clone-tablet-landscape} {
+                &::before {
+                    background: $clone-c1;
+                    content: " ";
+                    display: block;
+                    height: .5rem;
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    transform: translate(100%, -50%);
+                    width: 50%;
+                }
+            }
+        }
+    }
+    .home-hiw-content {
+        display: none;
+        position: relative;
+        z-index: 2;
+        &.active {
+            display: block;
+        }
+        a:visited {
+            color: $clone-white !important;
+        }
+    }
+}
