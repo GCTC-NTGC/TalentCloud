@@ -42,12 +42,10 @@ return [
         'step_content' => [
             '1' => [
                 'title' => 'Étape 1 : Créez un compte',
-                'summary' => 'Your account contains your experience, skills, references, and samples of your work.',
                 'copy' => 'Pour ouvrir un compte de Nuage de talents, vous n’avez qu’à fournir votre nom et votre adresse de courriel (puis choisir votre mot de passe). Vous n’avez pas besoin d’un compte pour parcourir les emplois que nous avons publiés, mais vous en aurez besoin pour postuler. Même si vous ne voyez pas d’emploi qui vous convient, vous pourriez vouloir remplir votre profil de candidat pour vous donner une longueur d’avance lorsque vous voyez un emploi qui semble parfait.'
             ],
             '2' => [
                 'title' => 'Étape 2 : Présentez une demande',
-                'summary' => 'TBD',
                 'copy' => "Vous constaterez qu’il n’y a aucun endroit où télécharger votre curriculum vitæ ou votre lettre de présentation dans le cadre de notre processus de demande. Ce n’est pas un pépin, nous l’avons fait intentionnellement! Au lieu de nous parler de votre expérience, nous voulons que vous nous parliez de vous-même et que vous nous disiez en quoi vous démontrez les compétences nécessaires pour le poste. Nous croyons que cela donnera aux candidats ayant un parcours de vie ou de carrière non conventionnel l’occasion de démontrer en quoi ils sont qualifiés, plutôt que d’être systématiquement éliminés parce qu’ils n’ont pas suivi le chemin le plus emprunté.\n\nCette façon de faire est probablement très différente des autres formulaires de demande d’emploi que vous avez remplis, alors veuillez consulter notre page FAQ pour en savoir plus sur la %levels%.",
                 'links' => [
                     'levels' => '<a href="' . route('faq') . ' title="Apprenez-en davantage sur les niveaux de compétences dans le Nuage de talents." target="_blank">façon de trouver votre niveau de compétence</a>'
@@ -55,12 +53,10 @@ return [
             ],
             '3' => [
                 'title' => 'Étape 3 : Réutilisez',
-                'summary' => 'TBD',
                 'copy' => "Lorsque vous remplissez un formulaire de demande d’emploi typique, vous l’envoyez dans un vide et ne le revoyez plus jamais. Cela signifie qu’il vous incombe de sauvegarder vos anciennes demandes d’emploi et de chercher dans des fichiers et des dossiers si vous voulez réutiliser une partie de ce contenu.\n\nLorsque vous remplissez un formulaire de demande d’emploi dans le Nuage de talents, l’information ne disparaît pas lorsque vous la soumettez. Nous la stockons pour vous afin que vous puissiez vous en servir dans des demandes d’emploi futures dans le Nuage de talents. Vous avez déjà rédigé un exposé génial qui démontre que vous continuez de vous instruire? Vous pouvez l’utiliser de nouveau, ou même le modifier légèrement, lorsque cette compétence est indiquée dans un autre emploi pour lequel vous voulez postuler."
             ],
             '4' => [
                 'title' => 'Étape 4 : Faites-vous reconnaître',
-                'summary' => 'TBD',
                 'copy' => "Le Nuage de talents vous donne maintenant l’occasion de vous démarquer dans votre demande d’emploi. Cela constitue un grand changement dans la façon dont le gouvernement reconnaît le talent, mais nous nous employons à réaliser quelque chose d’encore plus grand.\n\nLorsque vous postulez un emploi par l’intermédiaire du Nuage de talents, c’est vous qui nous dites en quoi vous démontrez les compétences requises pour le poste. Si votre demande est bien rédigée, il se pourrait que vous soyez convoqué à une entrevue ou qu’on vous demande de faire un examen à la maison. Supposons que vous connaissez beaucoup de succès, mais que vous manquez d’obtenir l’emploi de peu. Nous croyons que ce succès a de la valeur et nous nous efforçons de le reconnaître.\n\nNous voulons permettre aux gestionnaires de donner un titre de compétence, ou un insigne, à ceux qui réussissent aux évaluations (comme un examen à la maison), même s’ils n’obtiennent pas l’emploi. Si vous obtenez l’un de ces titres de compétence, vous pourriez le présenter dans des demandes futures, et les gestionnaires pourraient choisir de l’accepter plutôt que de refaire un examen semblable.\n\nSupposons que vous obtenez l’emploi, que vous démontrez les compétences que vous dites posséder et que vous en acquérez de nouvelles. Votre gestionnaire pourrait vous donner des titres de compétence pour les compétences que vous avez démontrées en cours d’emploi à la fin de votre mandat. On pourrait le considérer comme un nouveau type de référence d’emploi qui n’exige pas d’envoyer un courriel ou de faire un appel téléphonique.\n\nNous sommes encore à établir les détails, mais nous tenons résolument à nous assurer que vos titres de compétences vous appartiennent et que vous pouvez les utiliser à la fois à l’intérieur et à l’extérieur du gouvernement.\n\nPour en apprendre davantage, consultez notre démonstration de faisabilité délivrant des %certs%.",
                 'links' => [
                     'certs' => "<a href='https://ouvert.canada.ca/fr/blog/assurer-lavenir-de-la-mobilite-des-talents-au-gouvernement-du-canada' title='Renseignez-vous sur les justificatifs d’identité validés par blockcert.' target='_blank'>authentifiants validés appelés Blockcerts aux agents libres du gouvernement du Canada</a>"
@@ -88,7 +84,7 @@ return [
                 'copy' => 'Le Nuage de talents du gouvernement du Canada est une initiative expérimentale qui repose uniquement sur l’aide financière des ministères fédéraux participants qui s’engagent à créer une solution de rechange au modèle traditionnel des RH.',
                 'links' => [
                     '1' => [
-                        'link' => route('faq') . '#partners',
+                        'link' => '/faq#partners',
                         'title' => 'Apprenez-en davantage sur le financement du Nuage de talents.',
                         'label' => 'Pour en savoir davantage'
                     ]

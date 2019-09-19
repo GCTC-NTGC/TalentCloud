@@ -27,7 +27,7 @@ return [
         ],
         'itp' => [
             'name' => 'Talent autochtone',
-            'alt' => 'Indigenous Talent Portal link background.'
+            'alt' => 'Image d\'arrière-plan du Portail des talents autochtones.'
         ]
     ],
     'register' => 'Inscription',

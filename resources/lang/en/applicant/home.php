@@ -42,12 +42,10 @@ return [
         'step_content' => [
             '1' => [
                 'title' => 'Step 1: Create an Account',
-                'summary' => 'Your account contains your experience, skills, references, and samples of your work.',
                 'copy' => 'To register for a Talent Cloud account, you just need to provide your name and email address (and then choose your password). You don’t need an account to browse the jobs we have posted, but you will need one to apply. Even if you don’t see a job that’s a good fit, you might want to fill out your applicant profile to give you a head start when you see a job that looks perfect.'
             ],
             '2' => [
                 'title' => 'Step 2: Apply',
-                'summary' => 'TBD',
                 'copy' => "You'll notice there is nowhere to upload your resume or cover letter as part of our application process. That’s not a glitch, we did it on purpose! Instead of telling us about your experience, we want you to tell us about yourself and how you demonstrate the skills that are needed for the position. We think that this will give applicants with unconventional life / career paths an opportunity to demonstrate how they are qualified, rather than being systematically screening out because they didn’t follow the road most travelled.\n\nThis is likely quite different from other job applications you’ve filled out, so check out our FAQ page to learn more about %levels%.",
                 'links' => [
                     'levels' => '<a href="' . route('faq') . '#levels" title="Learn more about skill levels on Talent Cloud." target="_blank">how to find your skill level</a>'
@@ -55,12 +53,10 @@ return [
             ],
             '3' => [
                 'title' => 'Step 3: Re-use',
-                'summary' => 'TBD',
                 'copy' => "When you complete a typical job application, you send it off into a void and never see it again. That means its on you to save your old job applications and hunt through files and folders if you want to re-use any of that content.\n\nWhen you fill out a Talent Cloud job application, the information doesn’t vanish when you hit submit. We store it for you so that you can use it in future applications on Talent Cloud. Already crafted a killer narrative that demonstrates that you are a continuous learner? You can use it again, or even tweak it a bit, when that skill comes up in another job you want to apply for."
             ],
             '4' => [
                 'title' => 'Step 4: Get Recognized',
-                'summary' => 'TBD',
                 'copy' => "Right now, Talent Cloud gives you the chance to show what makes you unique in your job application. This is a big change in the way government recognizes talent, but we’re working towards something even bigger.\n\nWhen you apply for a job with Talent Cloud, you tell us how you demonstrate the skills required for the position. If your application is strong, you might be considered for an interview or asked to complete a take-home exam. Let’s say you do really well, but you just narrowly miss out on the job. We think there is value in that success and we’re working towards recognizing that.\n\nWe want to make it possible for managers to give a credential, or a badge, to those who pass assessments (like a take home test) even if they don’t get the job. If you get one of these credentials you could present it in future applications and managers could choose whether to accept it in place of doing a similar test again.\n\nLet’s say you do get the job, you demonstrate the skills you said you have and gain some new ones. Your manager could give you credentials for the skills you demonstrated on the job at the end of your term. Think of it as a new type of job reference that doesn’t need an email or a phone call.\n\nWe’re still working out the details, but are committed to making sure your credentials are owned by you and that you’re able to use them both inside, and outside government.\n\nIf you’re interested in learning more, check out our proof-of-concept issuing %certs%.",
                 'links' => [
                     'certs' => '<a href="https://open.canada.ca/en/blog/securing-future-talent-mobility-government-canada" title="Learn more about blockcert validated credentials." target="_blank">Blockcerts validated credentials to Canada\'s Free Agents</a>'
@@ -94,7 +90,7 @@ return [
                 'copy' => 'GC Talent Cloud is an experimental initiative that relies solely on financial support from participating federal departments who are committed to helping build an alternative to the traditional HR model.',
                 'links' => [
                     '1' => [
-                        'link' => route('faq') . '#partners',
+                        'link' => '/faq#partners',
                         'title' => 'Learn more about how Talent Cloud is funded.',
                         'label' => 'Learn More'
                     ]
