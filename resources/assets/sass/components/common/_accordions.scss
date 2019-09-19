@@ -198,3 +198,15 @@
         }
 
 }
+
+/* Clone Accordian */
+
+[data-clone] [data-c-accordion-group] [data-c-accordion=""]:first-of-type,
+[data-clone] [data-c-accordion-group] [data-c-accordion=""] {
+    border: none;
+    border-radius: 0;
+    [data-c-accordion-content] {
+        border: 1px solid #a3a3a36e;
+    }
+
+}

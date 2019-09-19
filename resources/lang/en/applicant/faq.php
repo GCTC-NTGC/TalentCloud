@@ -105,6 +105,21 @@ return [
                         ]
                     ]
                 ]
+            ],
+            '01' => [
+                'title' => 'Who can post jobs to Talent Cloud?',
+                'copy' => [
+                    '00' => 'Only managers from partner departments can post jobs to Talent Cloud. If you are from one of the partner departments, create an account on <a href="https://talent.canada.ca/en/manager" title="Visit the Talent Cloud manager portal.">talent.canada.ca/manager</a> and send us an email at <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Send an email to Talent Cloud.">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>.',
+                    '01' => 'After we confirm with your department’s HR Superuser, you’ll be able to start using Talent Cloud for your term staffing needs!'
+                ]
+            ],
+            '02' => [
+                'title' => 'My department is NOT a Talent Cloud partner, can I still use Talent Cloud?',
+                'copy' => [
+                    '00' => 'Starting in October 2019, Talent Cloud will be offering a limited set of tools to all Government of Canada managers. The tools available to these “demo” accounts include the job poster builder and the screening plan builder.',
+                    '01' => 'To create a demo account of your own, go to <a href="https://talent.canada.ca/en/manager" title="Visit the Talent Cloud manager portal.">talent.canada.ca/manager</a>.',
+                    '02' => 'Talent Cloud is open to new partners. If your department is interested, email us at <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Send an email to Talent Cloud.">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>.'
+                ]
             ]
         ]
     ],
