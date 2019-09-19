@@ -141,7 +141,7 @@ Route::group(
             });
 
             /* Static - FAQ */
-            Route::view('faq', 'applicant/static_faq', ['faq' => Lang::get('applicant/faq')])->name('faq');
+            Route::get('faq', 'FaqController')->name('faq');
 
             /* Static - Privacy Policy */
             Route::view('privacy', 'common/static_privacy', ['privacy' => Lang::get('common/privacy')])
@@ -200,6 +200,12 @@ Route::group(
         Route::group(['prefix' => config('app.manager_prefix')], function (): void {
             /* Home */
             Route::get('/', 'HomepageController@manager')->name('manager.home');
+
+            /* Static - FAQ */
+            Route::get(
+                'faq',
+                'ManagerProfileController@faq'
+            )->name('manager.faq');
 
             Route::middleware(['auth', 'role:manager'])->group(function (): void {
 
@@ -295,12 +301,6 @@ Route::group(
                 )
                     ->where('jobPoster', '[0-9]+')
                     ->name('manager.jobs.screening_plan');
-
-                /* Static - FAQ */
-                Route::get(
-                    'faq',
-                    'ManagerProfileController@faq'
-                )->name('manager.faq');
             });
 
             // Laravel default login, logout, register, and reset routes

@@ -46,11 +46,7 @@ class HomepageController extends Controller
     public function manager()
     {
         return view('manager/home', [
-            'hero' => [
-                'hero_logo' => '/images/logo_tc_colour.png',
-                'hero_logo_alt' => Lang::get('manager/home_hero')['logo_alt_text'],
-                'hero_tagline' => Lang::get('manager/home_hero')['tagline']
-            ]
+            'home_l10n' => Lang::get('manager/home'),
         ]);
     }
 }

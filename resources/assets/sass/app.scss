@@ -35,6 +35,7 @@ $clone-font-scale: 1.250;
 @import "components/common/itp";
 @import "components/common/tracker";
 
+@import "components/manager/homepage";
 @import "components/manager/builder";
 
 // Post-Clone Utilities (move these to their own import later Josh!
@@ -78,6 +79,21 @@ $clone-font-scale: 1.250;
 .button-plus--disabled {
   cursor: not-allowed;
   color: #7a7a7a;
+}
+
+.tc-gradient-lr {
+  background: #5b1647;
+  background: -moz-linear-gradient(-45deg, #5b1647 0%, #c90035 100%);
+  background: -webkit-linear-gradient(-45deg, #5b1647 0%,#c90035 100%);
+  background: linear-gradient(135deg, #5b1647 0%,#c90035 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b1647', endColorstr='#c90035',GradientType=1 );
+  a:visited {
+    color: $clone-white !important;
+  }
+}
+
+table thead a:visited {
+  color: $clone-white !important;
 }
 
 .card {
@@ -260,10 +276,6 @@ select:-webkit-autofill:active {
 // Home
 
 @import "components/common/home/hero";
-
-// Static Content
-
-@import "components/common/static/faq";
 
 // Application View
 
