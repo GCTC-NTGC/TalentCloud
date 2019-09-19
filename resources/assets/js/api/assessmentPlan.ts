@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import axios from "axios";
-import { ResponseData, baseUrl, ApiResponse } from "./base";
+import { ResponseData, baseUrl, ApiResponse, axiosConfig } from "./base";
 import {
   Assessment,
   RatingGuideQuestion,
@@ -43,7 +43,7 @@ const parseAssessmentPlan = (data: ResponseData): AssessmentPlan => ({
 
 export const getAssessmentPlan = (jobId: number): Promise<AssessmentPlan> => {
   return axios
-    .get(`${baseUrl()}/jobs/${jobId}/assessment-plan`)
+    .get(`${baseUrl()}/jobs/${jobId}/assessment-plan`, axiosConfig)
     .then(
       (response: ApiResponse): AssessmentPlan =>
         parseAssessmentPlan(response.data),

@@ -28,6 +28,7 @@ import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
 import * as routes from "../../helpers/routes";
 import { classificationString } from "../../models/jobUtil";
+import { axiosConfig } from "../../api/base";
 
 addLocaleData([...locale_en, ...locale_fr]);
 
@@ -95,7 +96,7 @@ class ReviewApplicationsRoot extends React.Component<
       if (application.id === applicationId) {
         return Object.assign(application, { application_review: review });
       }
-      return Object.assign({}, application);
+      return { ...application };
     });
     this.setState({ applications: updatedApplications });
   }
@@ -108,7 +109,7 @@ class ReviewApplicationsRoot extends React.Component<
     const statuses = savingStatuses.map(item =>
       item.applicationId === applicationId
         ? { applicationId, isSaving }
-        : Object.assign({}, item),
+        : { ...item },
     );
     this.setState({ savingStatuses: statuses });
   }
@@ -120,7 +121,11 @@ class ReviewApplicationsRoot extends React.Component<
     const { intl } = this.props;
     this.handleSavingStatusChange(applicationId, true);
     axios
-      .put(routes.applicationReviewUpdate(intl.locale, applicationId), review)
+      .put(
+        routes.applicationReviewUpdate(intl.locale, applicationId),
+        review,
+        axiosConfig,
+      )
       .then(response => {
         const newReview = response.data as ApplicationReview;
         this.updateReviewState(applicationId, newReview);
@@ -176,6 +181,7 @@ class ReviewApplicationsRoot extends React.Component<
         .put(
           routes.applicationReviewUpdate(intl.locale, application.id),
           submitReview,
+          axiosConfig,
         )
         .then(response => {
           const newReview = response.data as ApplicationReview;
@@ -260,9 +266,7 @@ if (document.getElementById("review-applications-container")) {
       "data-review-statuses",
     ) as string);
     const language = container.getAttribute("data-locale") as string;
-    const IntlReviewApplicationsRoot = injectIntl(
-      ReviewApplicationsRoot,
-    );
+    const IntlReviewApplicationsRoot = injectIntl(ReviewApplicationsRoot);
     ReactDOM.render(
       <IntlProvider locale={language} messages={messages[language]}>
         <IntlReviewApplicationsRoot

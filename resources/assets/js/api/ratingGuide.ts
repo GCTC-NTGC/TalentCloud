@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import axios from "axios";
-import { ResponseData, baseUrl, ApiResponse } from "./base";
+import { ResponseData, baseUrl, ApiResponse, axiosConfig } from "./base";
 import { RatingGuideAnswer, RatingGuideQuestion } from "../models/types";
 
 export const parseRatingGuideAnswer = (
@@ -28,6 +28,7 @@ export const updateRatingGuideAnswer = (
     .put(
       `${baseUrl()}/rating-guide-answers/${ratingGuideAnswer.id}`,
       ratingGuideAnswer,
+      axiosConfig,
     )
     .then(
       (response: ApiResponse): RatingGuideAnswer =>
@@ -42,6 +43,7 @@ export const updateRatingGuideQuestion = (
     .put(
       `${baseUrl()}/rating-guide-questions/${ratingGuideQuestion.id}`,
       ratingGuideQuestion,
+      axiosConfig,
     )
     .then(
       (response: ApiResponse): RatingGuideQuestion =>
@@ -53,7 +55,7 @@ export const createRatingGuideAnswer = (
   ratingGuideAnswer: RatingGuideAnswer,
 ): Promise<RatingGuideAnswer> => {
   return axios
-    .post(`${baseUrl()}/rating-guide-answers`, ratingGuideAnswer)
+    .post(`${baseUrl()}/rating-guide-answers`, ratingGuideAnswer, axiosConfig)
     .then(
       (response: ApiResponse): RatingGuideAnswer =>
         parseRatingGuideAnswer(response.data.rating_guide_answer),
@@ -64,7 +66,11 @@ export const createRatingGuideQuestion = (
   ratingGuideQuestion: RatingGuideQuestion,
 ): Promise<RatingGuideQuestion> => {
   return axios
-    .post(`${baseUrl()}/rating-guide-questions`, ratingGuideQuestion)
+    .post(
+      `${baseUrl()}/rating-guide-questions`,
+      ratingGuideQuestion,
+      axiosConfig,
+    )
     .then(
       (response: ApiResponse): RatingGuideQuestion =>
         parseRatingGuideQuestion(response.data.rating_guide_question),
@@ -72,9 +78,9 @@ export const createRatingGuideQuestion = (
 };
 
 export const deleteRatingGuideAnswer = async (id: number): Promise<void> => {
-  await axios.delete(`${baseUrl()}/rating-guide-answers/${id}`);
+  await axios.delete(`${baseUrl()}/rating-guide-answers/${id}`, axiosConfig);
 };
 
 export const deleteRatingGuideQuestion = async (id: number): Promise<void> => {
-  await axios.delete(`${baseUrl()}/rating-guide-questions/${id}`);
+  await axios.delete(`${baseUrl()}/rating-guide-questions/${id}`, axiosConfig);
 };

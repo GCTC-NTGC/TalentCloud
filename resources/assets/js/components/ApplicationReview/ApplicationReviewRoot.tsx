@@ -25,6 +25,7 @@ import {
 } from "../../models/types";
 import * as route from "../../helpers/routes";
 import ApplicationReviewWithNav from "./ApplicationReviewWithNav";
+import { axiosConfig } from "../../api/base";
 
 addLocaleData([...locale_en, ...locale_fr]);
 
@@ -66,9 +67,7 @@ class ApplicationReviewRoot extends React.Component<
   ApplicationReviewRootProps & InjectedIntlProps,
   ApplicationReviewRootState
 > {
-  public constructor(
-    props: ApplicationReviewRootProps & InjectedIntlProps,
-  ) {
+  public constructor(props: ApplicationReviewRootProps & InjectedIntlProps) {
     super(props);
     this.state = {
       application: props.initApplication,
@@ -95,7 +94,11 @@ class ApplicationReviewRoot extends React.Component<
     const { intl } = this.props;
     this.setState({ isSaving: true });
     return axios
-      .put(route.applicationReviewUpdate(intl.locale, application.id), review)
+      .put(
+        route.applicationReviewUpdate(intl.locale, application.id),
+        review,
+        axiosConfig,
+      )
       .then(response => {
         const newReview = response.data as ApplicationReview;
         this.updateReviewState(newReview);
@@ -176,9 +179,7 @@ if (document.getElementById("application-review-container")) {
       "data-review-statuses",
     ) as string);
     const language = container.getAttribute("data-locale") as string;
-    const IntlApplicationReviewRoot = injectIntl(
-      ApplicationReviewRoot,
-    );
+    const IntlApplicationReviewRoot = injectIntl(ApplicationReviewRoot);
     ReactDOM.render(
       <IntlProvider locale={language} messages={messages[language]}>
         <IntlApplicationReviewRoot
