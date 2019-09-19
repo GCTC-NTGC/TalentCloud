@@ -3,11 +3,11 @@
     Footer
 ============================================================================= #}
 <div data-clone>
-    <footer data-c-alignment="base(centre)" data-c-background="black(100)" data-c-padding="top(double) bottom(double)">
-        <div data-c-container="layout">
+    <footer data-c-alignment="base(centre)" data-c-background="grey(10)" data-c-padding="top(double) bottom(double)">
+        <div data-c-container="full">
             <div data-c-grid="gutter middle">
                 <div data-c-alignment="tp(left)" data-c-grid-item="tp(5of7)">
-                    <nav class="footer-nav" data-c-colour="white">
+                    <nav class="footer-nav">
                         <ul>
                             <li>
                                 <a
@@ -38,6 +38,7 @@
                                 </a>
                             </li>
                         </ul>
+                        <p data-c-colour="grey" data-c-font-size="small" data-c-margin="top(normal)">{{ footer.modified }} {{ date_modified }}</p>
                     </nav>
                 </div>
                 <div data-c-alignment="tp(right)" data-c-grid-item="tp(2of7)">

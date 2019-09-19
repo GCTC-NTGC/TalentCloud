@@ -91,9 +91,10 @@
     }
 
     &[class*="blue"] {
-        @extend %gradient--vertical;
+        // @extend %gradient--vertical;
         color: $palette--font-white;
-        background-color: $palette--black;
+        // background-color: $palette--black;
+        background-color: $clone-c2;
         background-clip: padding-box;
         transition: none;
 

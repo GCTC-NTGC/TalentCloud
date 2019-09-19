@@ -7,23 +7,229 @@
 
 {% extends "layouts/base" %}
 
-{% block title %}{{ home.home_title }}{% endblock %}
-
-{% block body %}
-
-	{% include "common/alert" %}
-
-    {% include "common/goc" %}
-
-    {% include "common/home/hero" %}
-
-    <a id="skipLink"></a>
-
-    {% include "applicant/home/about" %}
-
-    {% include "applicant/home/how" %}
-
-    {% include "applicant/home/team" %}
-
+{% block title %}
+    {{ home.home_title }}
 {% endblock %}
 
+{% block body %}
+    <div data-clone>
+        {% include "common/goc" %}
+        {% include "common/alert" %}
+        <div
+            data-c-background="white(100)">
+            {# Home Heading ================================================= #}
+            <header data-c-align="center" data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/bg_crowd.jpg');">
+                {% include "common/menu" %}
+                <div data-c-container="large" data-c-padding="top(double)" id="home-heading">
+                    <h1 data-c-colour="white" data-c-font-size="h1" data-c-font-weight="700" data-c-margin="top(triple) bottom(normal)">{{ home.hero.title }}<img alt="{{ home.leaf }}" class="hero-icon" src="/images/maple-leaf.svg"></h1>
+                    <p data-c-colour="white" data-c-margin="bottom(triple)">{{ home.hero.tagline }}</p>
+                    <span data-c-colour="white" data-c-font-weight="800">{{ home.hero.pilot }}</span>
+                </div>
+            </header>
+            {# Skip to Content Link #}
+            <a id="skipLink"></a>
+            {# CTA Statement Banner ========================================= #}
+            <div class="gradient-left-right" data-c-padding="normal">
+                <div data-c-align="center" data-c-container="large">
+                    <p data-c-colour="white" data-c-margin="top(half) bottom(half)">{{ home.slogan.copy }}<a href="{{ home.slogan.link.href }}" title="{{ home.slogan.link.title }}">{{ home.slogan.link.label }}</a>.
+                    </p>
+                </div>
+            </div>
+            {# Browse Jobs ================================================== #}
+            <div class="home-browse" data-c-background="white(100)" data-c-padding="top(triple) bottom(triple)" data-c-border="bottom(thin, solid, grey)">
+                <div data-c-container="large">
+                    <div data-c-align="centre" data-c-grid="gutter middle">
+                        <div data-c-align="tp(left)" data-c-grid-item="tp(1of2)">
+                            <h2 data-c-font-size="h2">
+                                {{ home.browse.title }}
+                            </h2>
+                        </div>
+                        <div data-c-align="tp(right)" data-c-grid-item="tp(1of2)">
+                            <a data-c-colour="c3" data-c-font-size="h4" data-c-font-weight="bold" href="{{ route('jobs.index') }}" title="{{ home.browse.browse_link.title }}">
+                                {{ home.browse.browse_link.label }}
+                            </a>
+                        </div>
+                    </div>
+                    <div data-c-margin="top(double)">
+                        <div data-c-grid="gutter">
+                        {% if job_count > 0 %}
+                        {% for i in 0..job_count - 1 %}
+                            <div data-c-grid-item="tl(1of3) equal-col">
+                                <div class="card" data-c-background="white(100)" data-c-radius="rounded">
+                                    <div data-c-background="black(100)" data-c-padding="normal">
+                                        <h3>
+                                            <a data-c-colour="white" data-c-font-size="h3" data-c-font-weight="bold" href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
+                                                {{ jobs[i].title }}
+                                            </a>
+                                        </h3>
+                                        <p data-c-margin="top(half)" data-c-colour="white">{{ jobs[i].department.name }}</p>
+                                    </div>
+                                    <div data-c-background="white(100)" data-c-padding="normal">
+                                        <div data-c-grid="gutter">
+                                            <div data-c-grid-item="base(1of1)">
+                                                <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                                                    {{ job_index.index.apply_by_label|trans }}
+                                                </p>
+                                                <p>{{ humanizeLastDay(jobs[i].close_date_time) }}</p>
+                                            </div>
+                                            <div data-c-grid-item="base(1of2)">
+                                                <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                                                    {{ job_index.index.location_label }}
+                                                </p>
+                                                <p>{{ jobs[i].city }}, {{ jobs[i].province.value }}</p>
+                                            </div>
+                                            <div data-c-grid-item="base(1of2)">
+                                                <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                                                    {{ job_index.index.salary_label }}
+                                                </p>
+                                                {% if (app.getLocale() == "en") %}
+                                                    <p>
+                                                        ${{ jobs[i].salary_min|number_format }} - ${{ jobs[i].salary_max|number_format }}
+                                                    </p>
+                                                {% else %}
+                                                    <p>
+                                                        {{ jobs[i].salary_min|number_format('0',' ',' ') }}&nbsp;$ - {{ jobs[i].salary_max|number_format('0',' ',' ') }}&nbsp;$
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+                                            <div data-c-grid-item="base(1of1)">
+                                                <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                                                    {{ job_post.impact.title }}
+                                                </p>
+                                                <p>{{handleNullState(
+                                                    jobs[i].impact,
+                                                    jobs[i].impact|nl2br,
+                                                    job_post.no_info
+                                                )}}</p>
+                                            </div>
+                                            <div data-c-align="base(right)" data-c-grid-item="base(1of1)">
+                                                <a href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
+                                                    {{ home.slogan.link.label }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% endif %}
+                        {% if job_count < 3 %}
+                        {% for i in job_count..2 %}
+                            <div data-c-grid-item="tl(1of3) equal-col">
+                                <div class="home-browse-null" data-c-padding="normal" data-c-radius="rounded">
+                                    <span data-c-font-size="h4" data-c-font-weight="bold">{{ home.browse.null }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <img alt="{{ home.leaf }}" class="home-browse-icon" src="/images/maple-leaf.svg">
+            </div>
+            {# How it Works ================================================= #}
+            <a id="how"></a>
+            <div data-c-background="grey(10)" data-c-padding="top(triple) bottom(triple)">
+                <div data-c-container="large">
+                    <h2 data-c-font-size="h2" data-c-margin="bottom(double)">
+                        {{ home.hiw.title }}
+                    </h2>
+                    <div class="home-hiw" data-c-grid="gutter">
+                        <div data-c-grid-item="tl(1of3)">
+                            {% set stepCounter = 0 %}
+                            {% for button in home.hiw.steps %}
+                                {% set stepCounter = stepCounter + 1 %}
+                                <button {% if stepCounter == 1 %} class="active" {% else %} data-c-margin="top(normal)" {% endif %} data-c-align="centre" data-c-button="solid(c2)" data-c-radius="rounded" data-tc-hiw-id="{{ stepCounter }}" data-tc-hiw-trigger>
+                                    <span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold">
+                                        {{ button }}
+                                    </span>
+                                </button>
+                            {% endfor %}
+                        </div>
+                        <div data-c-grid-item="tl(2of3) equal-col">
+                            {% set stepContentCounter = 0 %}
+                            {% for item in home.hiw.step_content %}
+                                {% set stepContentCounter = stepContentCounter + 1 %}
+                                <div class="home-hiw-content {% if stepContentCounter == 1 %}active{% endif %}" data-c-align="left" data-c-background="c1(100)" data-c-padding="double" data-c-radius="rounded" data-tc-hiw-id="{{ stepContentCounter }}">
+                                    <span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                                        {{ item.title }}
+                                    </span>
+                                    {# <p data-c-colour="white" data-c-margin="bottom(normal)">{{ item.summary }}</p> #}
+                                    <p data-c-margin="top(normal)" data-c-colour="white">{{ item.copy|replace({'%levels%': item.links.levels, '%certs%': item.links.certs})|raw|nl2br }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# Behind the Scenes ============================================ #}
+            <div data-c-overlay="black(80)" data-c-padding="top(triple) bottom(triple)" style="background-image: url('/images/bg_crowd.jpg');">
+                <div data-c-container="large">
+                    <h2 data-c-colour="white" data-c-font-size="h2" data-c-margin="bottom(double)">
+                        {{ home.bts.title }}
+                    </h2>
+                    <p data-c-colour="white" data-c-margin="bottom(normal)">
+                        {{ home.bts.intro|replace({'%os%': home.bts.intro_link.os, '%iterative%': home.bts.intro_link.iterative, '%bias%': home.bts.intro_link.bias, "%design%": home.bts.intro_link.design})|raw }}
+                    </p>
+                    <div data-c-grid="gutter">
+                        {% for item in home.bts.items %}
+                            <div data-c-grid-item="tl(1of3) equal-col">
+                                <div data-c-background="white(100)" data-c-padding="normal" data-c-radius="rounded">
+                                    <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">{{ item.title }}</h3>
+                                    <p data-c-margin="bottom(normal)">{{ item.copy }}</p>
+                                    {% for link in item.links %}
+                                        <a data-c-font-weight="bold" href="{{ link.link }}" title="{{ link.title }}">{{ link.label }}</a>&nbsp;&nbsp;&nbsp;
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {# Blog Posts =================================================== #}
+            <div class="home-blog" data-c-background="white(100)" data-c-padding="top(triple) bottom(triple)">
+                <div data-c-container="large">
+                    <div data-c-align="centre" data-c-grid="gutter middle">
+                        <div data-c-align="tp(left)" data-c-grid-item="tp(1of2)">
+                            <h2 data-c-font-size="h2">
+                                {{ home.blogTitle }}
+                            </h2>
+                        </div>
+                        <div data-c-align="tp(right)" data-c-grid-item="tp(1of2)">
+                            {# <a data-c-colour="c3" data-c-font-size="h4" data-c-font-weight="bold" href="" title="">
+                                View More Posts
+                            </a> #}
+                        </div>
+                    </div>
+                    <div data-c-margin="top(double)">
+                        <div data-c-grid="gutter">
+                            {% for item in home.blogs %}
+                                <div data-c-grid-item="tl(1of3) equal-col">
+                                    <p data-c-font-size="small" data-c-margin="bottom(normal)">{{ item.date }}</p>
+                                    <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                                        <a href="{{ item.link.anchor }}" title="{{ item.link.title }}">{{ item.title }}</a>
+                                    </h3>
+                                    <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">{{ item.author }}</p>
+                                    <p data-c-margin="bottom(normal)">{{ item.eta }}</p>
+                                    <p data-c-margin="bottom(normal)" data-c-padding="right(normal)">{{ item.summary }}</p>
+                                    <p data-c-margin="top(normal)">
+                                        <a data-c-button="outline(c1)" data-c-radius="rounded" href="{{ item.link.anchor }}" title="{{ item.link.title }}">{{ item.link.label }}</a>
+                                    </p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <img alt="{{ home.leaf }}" class="home-blog-icon" src="/images/maple-leaf.svg">
+            </div>
+            {# GC Jobs Banner =============================================== #}
+            <div class="gradient-right-left" data-c-padding="normal">
+                <div data-c-align="center" data-c-container="layout">
+                    <p data-c-colour="white" data-c-margin="top(half) bottom(half)">
+                        {{ home.cta.copy|replace({"%gcjobs%": home.cta.copy_links.gcjobs, "%fswep%": home.cta.copy_links.fswep})|raw }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

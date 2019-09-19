@@ -24,7 +24,6 @@
   };
 
   // User Agent Data Attributes ==============================================
-
   var ua = navigator.userAgent;
   ua = ua.toString();
   $("body").attr("id", ua);
@@ -32,6 +31,32 @@
   $(document).ready(function() {
 
     // Clone Specific UI Handlers ==============================================
+
+      // Home - How it Works ---------------------------------------------------
+      function hiwTrigger(trigger) {
+        const hiwID = $(trigger).attr("data-tc-hiw-id");
+        $("[data-tc-hiw-trigger").removeClass("active");
+        $(trigger).addClass("active");
+        $(".home-hiw-content").removeClass("active");
+        $(trigger).parents(".home-hiw").find(".home-hiw-content[data-tc-hiw-id='" + hiwID + "']").addClass("active");
+        if (window.matchMedia("screen and (min-width: 48em)").matches) {
+          // Nothing
+        } else {
+          $([document.documentElement, document.body]).animate({
+            scrollTop: $(trigger).parents(".home-hiw").find(".home-hiw-content[data-tc-hiw-id='" + hiwID + "']").offset().top
+        }, 10);
+        }
+      }
+
+      $(document).on("click", "[data-tc-hiw-trigger]", function(e) {
+        hiwTrigger(this);
+      });
+
+      $(document).on("keyup", "[data-tc-hiw-trigger]", function(e) {
+        if (e.which == 13) {
+          hiwTrigger(this);
+        }
+      });
 
     // Accordion Handlers ==================================================
 
