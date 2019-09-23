@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import nprogress from "nprogress";
 import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
@@ -77,12 +78,15 @@ const JobBuilderIntro: React.FunctionComponent<
   }
   useEffect((): void => {
     if (manager === null) {
+      nprogress.start();
       if (jobId === null) {
         loadCurrentManager();
       }
       if (job !== null) {
         loadManager(job.manager_id);
       }
+    } else {
+      nprogress.done();
     }
   }, [manager, jobId, job, loadCurrentManager, loadManager]);
 
