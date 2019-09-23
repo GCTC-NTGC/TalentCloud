@@ -328,6 +328,7 @@ test("Registration - Applicant", async t => {
 test("Registration - Manager", async t => {
   await t
     .navigateTo("/manager")
+    .wait(10000) // Wait for React components to load
     .click(Selector("a").withText("Register"))
     .typeText(Selector("#name"), "Test Cafe")
     .typeText(Selector("#email"), randomEmail())
