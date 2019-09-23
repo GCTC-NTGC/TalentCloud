@@ -2,19 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Models\Applicant;
 use App\Models\Manager;
 use App\Models\Lookup\Department;
-use App\Services\Validation\Rules\PasswordFormatRule;
-use Facades\App\Services\WhichPortal;
-use Illuminate\Auth\Events\Registered;
 
 class FirstVisitController extends AuthController
 {
