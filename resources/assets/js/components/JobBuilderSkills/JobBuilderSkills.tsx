@@ -556,6 +556,21 @@ export const JobBuilderSkills: React.FunctionComponent<
     );
   };
 
+  const submitButton = (
+    <button
+      data-c-button="solid(c2)"
+      data-c-radius="rounded"
+      type="button"
+      disabled={isSaving}
+      onClick={(): void => saveAndPreview()}
+    >
+      <FormattedMessage
+        id="jobBuilder.skills.button.previewSkills"
+        defaultMessage="Save &amp; Preview Skills"
+        description="Label of Button"
+      />
+    </button>
+  );
   return (
     <>
       <div
@@ -1067,19 +1082,7 @@ export const JobBuilderSkills: React.FunctionComponent<
           data-c-align="base(centre) tl(right)"
         >
           {/* We'll want this button to functionally be the exact same as the button at the bottom of the page, where it saves the data, and opens the preview modal. */}
-          <button
-            data-c-button="solid(c2)"
-            data-c-radius="rounded"
-            type="button"
-            disabled={isSaving}
-            onClick={(): void => saveAndPreview()}
-          >
-            <FormattedMessage
-              id="jobBuilder.skills.button.previewSkills"
-              defaultMessage="Save &amp; Preview Skills"
-              description="Label of Button"
-            />
-          </button>
+          {submitButton}
         </div>
         {/* The 3 sections below are each functionally similar and can probably be united into one component. The biggest difference between the three is that "Cultural Skills" has a categorical breakdown between "Recommended Skills" and the rest of the category. These recommendations are based directly on the way the manager answered their work environment questions, but I'm not sure how the logic works, so you'll want to check in with Lauren/Jasmita on this. */}
         <h4
@@ -1131,13 +1134,14 @@ export const JobBuilderSkills: React.FunctionComponent<
                 />
               </h5>
               {/* Category description - basically this outlines what the category means. */}
-              <p>
+              {/* <p>
+                // TODO: Add this message back in once we have copy.
                 <FormattedMessage
                   id="jobBuilder.skills.description.occupationalSkills"
-                  defaultMessage="Lorem ipsum."
+                  defaultMessage=""
                   description="Description of a category of skills"
                 />
-              </p>
+              </p> */}
             </div>
             <div
               data-c-grid-item="tp(1of3) ds(1of4)"
@@ -1218,13 +1222,14 @@ export const JobBuilderSkills: React.FunctionComponent<
                   description="Title of skills category"
                 />
               </h5>
-              <p>
+              {/* <p>
+              // TODO: Add this message back in once we have copy.
                 <FormattedMessage
                   id="jobBuilder.skills.description.culturalSkills"
-                  defaultMessage="Lorem ipsum."
+                  defaultMessage=""
                   description="Description of a category of skills"
                 />
-              </p>
+              </p> */}
             </div>
             <div
               data-c-grid-item="tp(1of3) ds(1of4)"
@@ -1331,13 +1336,14 @@ export const JobBuilderSkills: React.FunctionComponent<
                   description="Title of skills category"
                 />
               </h5>
-              <p>
+              {/* <p>
+              // TODO: Add this message back in once we have copy.
                 <FormattedMessage
                   id="jobBuilder.skills.description.futureSkills"
-                  defaultMessage="Lorem ipsum."
+                  defaultMessage=""
                   description="Description of a category of skills"
                 />
-              </p>
+              </p> */}
             </div>
             <div
               data-c-grid-item="tp(1of3) ds(1of4)"
@@ -1501,19 +1507,7 @@ export const JobBuilderSkills: React.FunctionComponent<
             data-c-grid-item="tp(1of2)"
           >
             {/* Modal trigger, same as last step. */}
-            <button
-              data-c-button="solid(c2)"
-              data-c-radius="rounded"
-              type="button"
-              disabled={isSaving}
-              onClick={(): void => saveAndPreview()}
-            >
-              <FormattedMessage
-                id="jobBuilder.skills.button.previewSkills"
-                defaultMessage="Save &amp; Preview Skills"
-                description="Label of Button"
-              />
-            </button>
+            {submitButton}
             {essentialCount === 0 && submitTouched && (
               <div
                 role="alert"
@@ -1531,7 +1525,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   ref={errorMessage}
                 >
                   <FormattedMessage
-                    id="jobBuilder.skills.button.previewSkills"
+                    id="jobBuilder.skills.essentialSkillRequiredError"
                     defaultMessage="At least one 'Essential Skill' is required."
                     description="Label of Button"
                   />
