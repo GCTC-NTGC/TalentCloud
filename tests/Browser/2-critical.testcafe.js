@@ -331,9 +331,10 @@ test("Registration - Manager", async t => {
     .click(Selector("a").withText("Register"))
     .typeText(Selector("#name"), "Test Cafe")
     .typeText(Selector("#email"), randomEmail())
-    .click(Selector("#department"))
+    .click(Selector("select").withAttribute("name", "department"))
     .click(
-      Selector("#department")
+      Selector("select")
+        .withAttribute("name", "department")
         .find("option")
         .withText("Treasury Board of Canada Secretariat"),
     )
