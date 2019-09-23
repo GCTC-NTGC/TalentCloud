@@ -13,7 +13,7 @@ return [
     "itp_hero" => [
         "title" => "Talent Cloud",
         "subtitle" => "How we're taking steps towards an Indigenous Talent Portal",
-        "pilot" => "PILOT/BETA"
+        "pilot" => "BETA"
     ],
     "itp_slogan" => "By designing an Indigenous portal, Indigenous applicants can reclaim their stories and find opportunities for career mobility.",
     "itp_how" => [
@@ -32,7 +32,8 @@ return [
     "itp_what" => [
         "title_01" => "What's being worked on right now?",
         "alert_title" => "We're engaging with Indigenous voices.",
-        "alert_copy" => "This engagement seeks to reach out to as many Indigenous perspectives as possible. If you're willing to share your insights and feedback please click here to get in touch with us. All perspectives are welcome.",
+        "alert_copy" => "This engagement seeks to reach out to as many Indigenous perspectives as possible. If you're willing to share your insights and feedback please %email%. All perspectives are welcome.",
+        "alert_link" => "<a href='mailto:meagan.commonda@tbs-sct.gc.ca' title='Email Talent Cloud.'>click here to get in touch with us</a>",
         "subtitle_01" => "What Talent Cloud is Doing",
         "tc_list" => [
             "01" => "User research on Indigenous Talent Portal: an early prototype is under development and user testing from the Indigenous community is ongoing.",

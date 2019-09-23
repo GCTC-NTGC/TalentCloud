@@ -11,9 +11,8 @@
 
 {% block body %}
 
-	{% include "common/alert" %}
-
-    {% include "common/goc" %}
+	{% include "common/goc" %}
+{% include "common/alert" %}
 
     {# {% include "common/home/hero" %} #}
 
@@ -60,7 +59,7 @@
                     <div class="tc-manager-feature-mobile">
                         {% for key, feature in home_l10n.features.mobile_table.columns %}
                         <h3 data-c-font-size="h4" data-c-margin="top(triple) bottom(normal)">{{ feature.heading }}</h3>
-                        <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="tb(normal)">{{ trans('manager/home.features.mobile_table.columns.' ~ key ~ '.subheading.content', {open: '<span data-c-font-weight="bold">', close: '</span>', link: '<a href="' ~ route('faq') ~ '#partners" title="' ~ feature.subheading.anchor.title ~ '" target="_blank">' ~ feature.subheading.anchor.text ~ '</a>'})|raw }}</p>
+                        <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="tb(normal)">{{ trans('manager/home.features.mobile_table.columns.' ~ key ~ '.subheading.content', {open: '<span data-c-font-weight="bold">', close: '</span>', link: '<a href="' ~ route('manager.faq') ~ '#partners" title="' ~ feature.subheading.anchor.title ~ '" target="_blank">' ~ feature.subheading.anchor.text ~ '</a>'})|raw }}</p>
                         <div data-c-padding="normal" data-c-border="all(thin, solid, black)" data-c-radius="rounded">
                             {% for row in feature.rows %}
                             {% if row.heading is iterable %}
@@ -82,7 +81,7 @@
                                         <p data-c-font-weight="bold">{{ column.heading }}</p>
                                         {% if column.subheading %}
                                         <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="top(quarter)">
-                                            {{ trans('manager/home.features.table.columns.' ~ key ~ '.subheading.content', {open: '<span data-c-font-weight="bold">', close: '</span>', link: '<a href="' ~ route('faq') ~ '#partners" title="' ~ column.subheading.anchor.title ~ '" target="_blank">' ~ column.subheading.anchor.text ~ '</a>'})|raw }}
+                                            {{ trans('manager/home.features.table.columns.' ~ key ~ '.subheading.content', {open: '<span data-c-font-weight="bold">', close: '</span>', link: '<a href="' ~ route('manager.faq') ~ '#partners" title="' ~ column.subheading.anchor.title ~ '" target="_blank">' ~ column.subheading.anchor.text ~ '</a>'})|raw }}
                                         </p>
                                         {% endif %}
                                     </th>
@@ -116,7 +115,7 @@
 
             <div data-c-container="medium">
                 <h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="top(triple) bottom(normal)">{{ home_l10n.lower_info.heading }}</h2>
-                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">{{ home_l10n.lower_info.content_first.heading.content }} <a href="{{ route('faq') }}#partners" title="{{ home_l10n.lower_info.content_first.heading.anchor.title }}" target="_blank">{{ home_l10n.lower_info.content_first.heading.anchor.text }}</a>?</p>
+                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">{{ home_l10n.lower_info.content_first.heading.content }} <a href="{{ route('manager.faq') }}#partners" title="{{ home_l10n.lower_info.content_first.heading.anchor.title }}" target="_blank">{{ home_l10n.lower_info.content_first.heading.anchor.text }}</a>?</p>
                 <p data-c-margin="bottom(normal)">{{ home_l10n.lower_info.content_first.content_before }} <a href="{{ home_l10n.lower_info.content_first.anchor.href }}" title="{{ home_l10n.lower_info.content_first.anchor.title }}">{{ home_l10n.lower_info.content_first.anchor.text }}</a> {{ home_l10n.lower_info.content_first.content_after }}</p>
                 <p data-c-margin="bottom(normal)" data-c-font-weight="bold">{{ home_l10n.lower_info.content_second.heading }}</p>
                 <p data-c-margin="bottom(triple)">{{ home_l10n.lower_info.content_second.content }}</p>

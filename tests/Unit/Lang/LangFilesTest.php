@@ -209,6 +209,8 @@ class LangFilesTest extends BaseTranslationTest
         'talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
         '/images/logo_canada_white.png',
         '/images/logo_goc_white.svg',
+        '/images/logo_canada_colour.png',
+        '/images/logo_goc_colour.svg',
         '1', '2', '3', '4', '5', '6',
         'Meagan Commonda',
         'mailto:meagan.commonda@tbs-sct.gc.ca',
@@ -216,10 +218,20 @@ class LangFilesTest extends BaseTranslationTest
         'http://caid.ca/IndRecRet2017.pdf',
         'https://talentcloud1.typeform.com/to/tWIPup',
         'partners',
-        'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
         'GC Collab',
+        'BETA', '#how', '/jobs', '/faq#partners',
+        'https://github.com/GCTC-NTGC/TalentCloud',
+        '/indigenous',
+        'https://gccollab.ca/blog/view/2325565/enwe-did-it-canadas-free-agents-receive-validated-skill-credentials-anchored-on-the-blockchainfrlearning-machine-et-le-nuage-de-talents-u00e9mettent-des-justificatifs-du2019identitu00e9-ancru00e9s-dans-une-chau00eene-de-blocs-aux-agents-libres-du-canada-u00e0-titre-de-validation-de-principe',
+        'https://medium.com/@meagan.commonda/can-we-talk-about-tokenism-9400c0af55fd',
+        'https://gccollab.ca/blog/view/1740665/engovcloud-first-impressionsfrgovcloud-premiu00e8res-impressions',
+        'Twitter',
+        'https://twitter.com/gc_talent',
+        'https://gccollab.ca/groups/profile/19750/entalent-cloud-nuage-de-talentsfrnuage-de-talents-talent-cloud',
+        'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
         '#upgrade',
-        'benefits'
+        'benefits',
+        'TBD'
     ];
 
     /**

@@ -14,7 +14,6 @@ import locale_en from "react-intl/locale-data/en";
 import locale_fr from "react-intl/locale-data/fr";
 
 import camelCase from "lodash/camelCase";
-import axios from "axios";
 import Swal from "sweetalert2";
 import messages_en from "../../localizations/en.json";
 import messages_fr from "../../localizations/fr.json";
@@ -28,6 +27,7 @@ import ReviewApplications from "./ReviewApplications";
 import { find } from "../../helpers/queries";
 import * as routes from "../../helpers/routes";
 import { classificationString } from "../../models/jobUtil";
+import { axios } from "../../api/base";
 
 addLocaleData([...locale_en, ...locale_fr]);
 
@@ -66,7 +66,7 @@ const localizations = defineMessages({
   },
 });
 
-class ReviewApplicationsContainer extends React.Component<
+class ReviewApplicationsRoot extends React.Component<
   ReviewApplicationsProps & InjectedIntlProps,
   ReviewApplicationsState
 > {
@@ -95,7 +95,7 @@ class ReviewApplicationsContainer extends React.Component<
       if (application.id === applicationId) {
         return Object.assign(application, { application_review: review });
       }
-      return Object.assign({}, application);
+      return { ...application };
     });
     this.setState({ applications: updatedApplications });
   }
@@ -108,7 +108,7 @@ class ReviewApplicationsContainer extends React.Component<
     const statuses = savingStatuses.map(item =>
       item.applicationId === applicationId
         ? { applicationId, isSaving }
-        : Object.assign({}, item),
+        : { ...item },
     );
     this.setState({ savingStatuses: statuses });
   }
@@ -260,12 +260,10 @@ if (document.getElementById("review-applications-container")) {
       "data-review-statuses",
     ) as string);
     const language = container.getAttribute("data-locale") as string;
-    const IntlReviewApplicationsContainer = injectIntl(
-      ReviewApplicationsContainer,
-    );
+    const IntlReviewApplicationsRoot = injectIntl(ReviewApplicationsRoot);
     ReactDOM.render(
       <IntlProvider locale={language} messages={messages[language]}>
-        <IntlReviewApplicationsContainer
+        <IntlReviewApplicationsRoot
           job={job}
           initApplications={applications}
           reviewStatuses={reviewStatuses}
@@ -276,4 +274,4 @@ if (document.getElementById("review-applications-container")) {
   }
 }
 
-export default injectIntl(ReviewApplicationsContainer);
+export default injectIntl(ReviewApplicationsRoot);
