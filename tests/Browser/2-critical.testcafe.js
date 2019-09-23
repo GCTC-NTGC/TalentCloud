@@ -328,6 +328,7 @@ test("Registration - Applicant", async t => {
 test("Registration - Manager", async t => {
   await t
     .navigateTo("/manager")
+    .wait(2000) // Wait for react elements to appear
     .click(Selector("a").withText("Register"))
     .typeText(Selector("#name"), "Test Cafe")
     .typeText(Selector("#email"), randomEmail())
