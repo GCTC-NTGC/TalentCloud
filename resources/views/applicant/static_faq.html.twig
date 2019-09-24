@@ -11,9 +11,8 @@
 
 {% block body %}
 
-    {% include "common/alert" %}
-
     {% include "common/goc" %}
+    {% include "common/alert" %}
 
     <header data-clone>
         <div data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/sean-pollock.jpg');">
@@ -27,7 +26,7 @@
                         <ol>
                             <li>
                                 <a
-                                    href="{{ route('home') }}"
+                                    href="{{ breadcrumb_home }}"
                                     title="{{ faq.breadcrumbs.home.title }}">
                                     {{ faq.breadcrumbs.home.text }}</a>
                                 <i class="fa fa-caret-right"></i>

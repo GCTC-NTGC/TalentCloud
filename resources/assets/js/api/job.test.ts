@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import moment from "moment";
+import dayjs from "dayjs";
 import { parseJobResponse } from "./job";
 
 describe("api/job", (): void => {
@@ -702,7 +702,7 @@ describe("api/job", (): void => {
       }).not.toThrow();
     });
     it("Parses the close date correctly", (): void => {
-      const expectDate = moment("2019-06-01T06:59:59+00:00").toDate();
+      const expectDate = dayjs("2019-06-01T06:59:59+00:00").toDate();
       expect(parseJobResponse(jobResponse()).job.close_date_time).toEqual(
         expectDate,
       );

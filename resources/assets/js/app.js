@@ -24,7 +24,6 @@
   };
 
   // User Agent Data Attributes ==============================================
-
   var ua = navigator.userAgent;
   ua = ua.toString();
   $("body").attr("id", ua);
