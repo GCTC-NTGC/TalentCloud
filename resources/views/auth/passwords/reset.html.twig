@@ -29,30 +29,7 @@
                         <input type="hidden" name="token" value="{{ token }}">
                         <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
                             <div data-c-padding="top(normal)">
-                                {% if errors.any() %}
-                                    {# Clone alert box for errors. #}
-                                    <div
-                                        data-c-alert="error"
-                                        data-c-radius="rounded"
-                                        role="alert" data-c-margin="bottom(double)">
-                                        <div data-c-padding="half">
-                                            <span
-                                                data-c-heading="h5"
-                                                data-c-font-weight="bold">
-                                                <i aria-hidden="true" class="fas fa-exclamation-circle"></i>
-                                                Uh oh, something doesn't look right.
-                                            </span>
-                                            <p data-c-margin="top(quarter)">
-                                                Please check the following:
-                                            </p>
-                                            <ul>
-                                                {% for error in errors.all() %}
-                                                    <li>{{ error }}</li>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                {% endif %}
+                                {% include "errors/form_errors" %}
                                 <div data-c-grid="gutter middle">
                                     {# Email #}
                                     <div data-c-grid-item="base(1of1)" data-c-input="email">
