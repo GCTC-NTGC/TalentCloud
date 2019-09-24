@@ -58,6 +58,25 @@
         }
       });
 
+      // FAQ Sidebar Accordions ------------------------------------------------
+      function faqSidebarTrigger(trigger) {
+        if ($(trigger).hasClass("active")) {
+          $(trigger).removeClass("active").next("ul").addClass("hidden");
+        }
+        else {
+          $(trigger).addClass("active").next("ul").removeClass("hidden");
+        }
+      }
+      $(document).on("click", ".sidebar-trigger", function(e) {
+        faqSidebarTrigger(this);
+      });
+
+      $(document).on("keyup", ".sidebar-trigger", function(e) {
+        if (e.which == 13) {
+          faqSidebarTrigger(this);
+        }
+      });
+
     // Accordion Handlers ==================================================
 
     function accordionTrigger(trigger) {
