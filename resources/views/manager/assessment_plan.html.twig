@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Redux view
+    Assessment Plan View
 
 ============================================================================= #}
 
@@ -11,18 +11,25 @@
 
 {% block body %}
 
-    {% include "common/alert" %}
-
     {% include "common/goc" %}
+{% include "common/alert" %}
 
     {% include "common/header" with { 'header': { 'title': title } } %}
 
     <a id="skipLink"></a>
 
     <div
-        data-clone=""
-        id="home-redux-container"
+        data-clone
+        id="assessment-plan-root"
     >
     </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script async defer
+        src="{{ mix('/js/AssessmentPlanRoot.js') }}">
+    </script>
 
 {% endblock %}

@@ -4,12 +4,11 @@
 
 // =============================================================================
 
-$clone-wide-layout: 100rem;
-$clone-copy-layout: 39rem;
+$clone-large-layout: 90rem;
 
 $clone-whitespace-multiplier: 1.25;
 
-$clone-black: rgba(20, 20, 30, 1);
+$clone-black: rgba(15, 15, 25, 1);
 
 $clone-c1: #5b1647;
 
@@ -25,13 +24,18 @@ $clone-hover-colour: $clone-c5;
 
 $clone-focus-colour: $clone-hover-colour;
 
+$clone-visited-colour: temp;
+
 $clone-alert--information: $clone-c1;
+
+$clone-font-scale: 1.250;
 
 @import "../../../node_modules/clone-framework/app/scss/clone";
 
 @import "components/common/itp";
 @import "components/common/tracker";
 
+@import "components/manager/homepage";
 @import "components/manager/builder";
 
 // Post-Clone Utilities (move these to their own import later Josh!
@@ -77,6 +81,25 @@ $clone-alert--information: $clone-c1;
   color: #7a7a7a;
 }
 
+.tc-gradient-lr {
+  background: #5b1647;
+  background: -moz-linear-gradient(-45deg, #5b1647 0%, #c90035 100%);
+  background: -webkit-linear-gradient(-45deg, #5b1647 0%,#c90035 100%);
+  background: linear-gradient(135deg, #5b1647 0%,#c90035 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b1647', endColorstr='#c90035',GradientType=1 );
+  a:visited {
+    color: $clone-white !important;
+  }
+}
+
+table thead a:visited {
+  color: $clone-white !important;
+}
+
+.card {
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+
 // Core Elements ===============================================================
 
 @import "./brands";
@@ -105,7 +128,7 @@ $unit: 1rem;
 
 html,
 body {
-  background: darken($palette--white, 5%);
+  // background: darken($palette--white, 5%);
   margin: 0;
 
   > form {
@@ -253,10 +276,6 @@ select:-webkit-autofill:active {
 // Home
 
 @import "components/common/home/hero";
-
-// Static Content
-
-@import "components/common/static/faq";
 
 // Application View
 

@@ -15,7 +15,7 @@ return [
     "logo_link" => "https://www.canada.ca/fr.html",
     "logo_link_title" => "Visiter Canada.ca.",
     "logo_alt" => "Symbole du gouvernement du Canada.",
-    "logo_url" => "/images/logo_goc_white.svg",
+    "logo_url" => "/images/logo_goc_colour.svg",
     "talent_cloud" => "Nuage de talents du GC",
     "portal" => "Portail candidat",
     "admin_portal" => "Portail gestionnaire",

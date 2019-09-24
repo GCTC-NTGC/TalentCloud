@@ -10,198 +10,152 @@
 {% block title %}{{ register.title }}{% endblock %}
 
 {% block body %}
+    <div data-clone>
+        <section class="tc-auth" data-c-padding="tb(triple)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
+            <div class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
+                {# Return to the homepage link. #}
+                <a data-c-color="white" href="/" title="Return Home">
+                    <i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ register.return }}
+                </a>
+                <div data-c-radius="rounded" data-c-margin="top(normal)">
+                    {# Auth UI Title Area #}
+                    <div class="tc-auth-header gradient-left-right" data-c-padding="all(double)" data-c-align="base(center)">
+                        <h1 data-c-font-size="h2" data-c-color="white">{{ register.header }}</h1>
+                    </div>
+                    {# Registration Form #}
+                    <form action="{{ routes.register }}" method="POST">
+                        {{ csrf_field() }}
+                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
+                            <div data-c-padding="top(normal)">
+                                {% if errors.any() %}
+                                    {# Clone alert box for errors. #}
+                                    <div
+                                        data-c-alert="error"
+                                        data-c-radius="rounded"
+                                        role="alert" data-c-margin="bottom(double)">
+                                        <div data-c-padding="half">
+                                            <span
+                                                data-c-heading="h5"
+                                                data-c-font-weight="bold">
+                                                <i aria-hidden="true" class="fas fa-exclamation-circle"></i>
+                                                Uh oh, something doesn't look right.
+                                            </span>
+                                            <p data-c-margin="top(quarter)">
+                                                Please check the following:
+                                            </p>
+                                            <ul>
+                                                {% for error in errors.all() %}
+                                                    <li>{{ error }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {# Form Inputs #}
+                                <div data-c-grid="gutter middle">
+                                    {# Old Single Input for Name #}
+                                     <div data-c-grid-item="tp(1of1)" data-c-input="text">
+                                        <label for="name">{{ register.name }}</label>
+                                        <span>{{ trans('forms.required') }}</span>
+                                        <div>
+                                            <input
+                                                id="name"
+                                                name="name"
+                                                placeholder=""
+                                                required
+                                                type="text"
+                                                value="{{ old('name') }}"
+                                            />
+                                        </div>
+                                        <span>{{ trans('forms.error') }}</span>
+                                    </div>
 
-<section
-    class="auth"
-    style="background-image: url('/images/bg_crowd.jpg');">
+                                    {# New First & Last Name Inputs #}
+                                    {# <div data-c-grid-item="tp(1of2)" data-c-input="text">
+                                        <label for="firstName">First Name</label>
+                                        <span>{{ trans('forms.required') }}</span>
+                                        <div>
+                                            <input id="firstName" placeholder="" required type="text" />
+                                        </div>
+                                        <span>T{{ trans('forms.error') }}</span>
+                                    </div>
+                                    <div data-c-grid-item="tp(1of2)" data-c-input="text">
+                                        <label for="lastName">Last Name</label>
+                                        <span>{{ trans('forms.required') }}</span>
+                                        <div>
+                                            <input id="lastName" placeholder="" required type="text" />
+                                        </div>
+                                        <span>{{ trans('forms.error') }}</span>
+                                    </div> #}
 
-    <div
-        class="auth-register">
+                                    {# Email #}
+                                    <div data-c-grid-item="base(1of1)" data-c-input="email">
+                                        <label for="email">{{ register.email }}</label>
+                                        <span>{{ trans('forms.required') }}</span>
+                                        <div>
+                                            <input id="email" placeholder="e.g. email@website.com" required
+                                            name="email" type="email" value="{{ old('email') }}" />
+                                        </div>
+                                        <span>{{ trans('forms.error') }}</span>
+                                    </div>
 
-        <a
-            class="auth-return-link"
-            href="/"
-            title="Return Home">
-            <i class="fas fa-chevron-left"></i>{{ register.return }}
-        </a>
+                                    {# A block that other registration layouts can extend to add extra fields #}
+                                    {% block extra_fields %}
+                                    {% endblock %}
 
-        <div
-            class="auth-heading">
-
-            <h1>{{ register.header }}</h1>
-
-        </div>
-
-        <form
-            action="{{ routes.register }}"
-            class="form__wrapper"
-            method="POST">
-
-            {{ csrf_field() }}
-
-            <div
-                class="auth-content">
-
-                <div
-                    class="auth-scroll-wrapper">
-
-                    <div
-                        class="auth-copy">
-
-                        <div
-                            class="flex-grid">
-
-                            {% if errors.any() %}
-                                <div class="box full">
-                                    <ul class="auth-alert">
-                                        {% for error in errors.all() %}
-                                            <li class="">
-                                                <strong>{{ error }}</strong>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
+                                    {# Password Requirements #}
+                                    <div data-c-grid-item="base(1of1)">
+                                        <p data-c-margin="bottom(normal)">{{ register.password_copy }}</p>
+                                    </div>
+                                    {# Password #}
+                                    <div data-c-grid-item="base(1of2)" data-c-input="password">
+                                        <label for="password">{{ register.password }}</label>
+                                        <span>{{ trans('forms.required') }}</span>
+                                        <div>
+                                            <input id="password" required type="password" name="password"
+                                            autocomplete="off" />
+                                            <button type="button">
+                                                <i class="fas fa-eye"></i>
+                                                <i class="fas fa-eye-slash"></i>
+                                            </button>
+                                        </div>
+                                        <span>{{ trans('forms.error') }}</span>
+                                    </div>
+                                    {# Password Confirmation #}
+                                    <div data-c-grid-item="base(1of2)" data-c-input="password">
+                                        <label for="password-confirm">{{ register.confirm_password }}</label>
+                                        <span>{{ trans('forms.required') }}</span>
+                                        <div>
+                                            <input id="password-confirm" required type="password" name="password_confirmation"
+                                            autocomplete="off" />
+                                            <button type="button">
+                                                <i class="fas fa-eye"></i>
+                                                <i class="fas fa-eye-slash"></i>
+                                            </button>
+                                        </div>
+                                        <span>{{ trans('forms.error') }}</span>
+                                    </div>
                                 </div>
-                            {% endif %}
-
-                            <div
-                                class="box full">
-
-                                <div
-                                    class="form__input-wrapper--float {{ old('email') ? "active" : '' }}">
-                                    <label
-                                        class="form__label"
-                                        for="name">
-                                        {{ register.name }}
-                                    </label>
-                                    <input
-                                        class="form__input"
-                                        id="name"
-                                        name="name"
-                                        required
-                                        type="text"
-                                        value="{{ old('name') }}" />
-                                </div>
-
                             </div>
-
-                            <div
-                                class="box full">
-
-                                <div
-                                    class="form__input-wrapper--float {{ old('email') ? "active" : '' }}">
-                                    <label
-                                        class="form__label"
-                                        for="email">
-                                        {{ register.email }}
-                                    </label>
-                                    <input
-                                        class="form__input"
-                                        id="email"
-                                        name="email"
-                                        required
-                                        type="email"
-                                        value="{{ old('email') }}" />
-                                </div>
-
-                            </div>
-
-                            <div
-                                class="box full">
-
-                                <p>{{ register.password_copy }}</p>
-
-                            </div>
-
-                            <div
-                                class="box med-1of2">
-
-                                <div
-                                    class="form__input-wrapper--float">
-                                    <label
-                                        class="form__label"
-                                        for="password">
-                                        {{ register.password }}
-                                    </label>
-                                    <input
-                                        class="form__input"
-                                        id="password"
-                                        name="password"
-                                        required
-                                        type="password"
-                                        autocomplete="off" />
-                                </div>
-
-                            </div>
-
-                            <div
-                                class="box med-1of2">
-
-                                <div
-                                    class="form__input-wrapper--float">
-                                    <label
-                                        class="form__label"
-                                        for="password-confirm">
-                                        {{ register.confirm_password }}
-                                    </label>
-                                    <input
-                                        class="form__input"
-                                        id="password-confirm"
-                                        name="password_confirmation"
-                                        required
-                                        type="password"
-                                        autocomplete="off" />
-                                </div>
-
-                            </div>
-
                         </div>
-
-                    </div>
-
+                        {# UI Actions #}
+                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)">
+                            <div data-c-grid="middle">
+                                <div data-c-grid-item="base(1of2)">
+                                    <a href="/login" title="Login to Talent Cloud">
+                                        {{ register.already_have_account }}
+                                    </a>
+                                </div>
+                                <div data-c-grid-item="base(1of2)" data-c-align="base(right)">
+                                    <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
+                                        {{ register.register }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-
             </div>
-
-            <div
-                class="auth-action-wrapper">
-
-                <div
-                    class="flex-grid">
-
-                    <div
-                        class="box small-1of2">
-
-                    </div>
-
-                    <div
-                        class="box small-1of2">
-
-                        <button
-                            class="button--blue light-bg"
-                            type="submit">
-                            {{ register.register }}
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </form>
-
+        </section>
     </div>
-
-    <a
-        class="auth-logo"
-        href="/"
-        title="Return to Talent Cloud.">
-        <img
-            alt="The Talent Cloud Logo"
-            class=""
-            src="{{ register.auth_logo }}">
-    </a>
-
-</section>
-
 {% endblock %}

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import axios from "axios";
-import { ResponseData, baseUrl, ApiResponse } from "./base";
+import { ResponseData, baseUrl, ApiResponse, axios } from "./base";
 import { RatingGuideAnswer, RatingGuideQuestion } from "../models/types";
 
 export const parseRatingGuideAnswer = (

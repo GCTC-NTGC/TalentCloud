@@ -19,5 +19,6 @@ return [
     'password' => 'Mot de passe',
     'confirm_password' => 'Confirmez le mot de passe',
     'register' => 'S\'inscrire',
-    'auth_logo' => '/images/logo_tc_colour_fr.png'
+    'auth_logo' => '/images/logo_tc_colour_fr.png',
+    'already_have_account' => 'Vous avez déjà un compte?',
 ];

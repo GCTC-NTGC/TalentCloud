@@ -16,7 +16,7 @@ class LangFilesTest extends BaseTranslationTest
     {
         foreach ($this->getAllLangFilenames() as $langFile) {
             if (! empty($langFile)) {
-                $this->assertInternalType('array', Lang::get($langFile));
+                $this->assertIsArray(Lang::get($langFile));
             }
         }
     }
@@ -101,6 +101,20 @@ class LangFilesTest extends BaseTranslationTest
             'validation.attributes.work_experiences.new.*.description',
             'validation.attributes.work_experiences.new.*.start_date',
             'validation.attributes.work_experiences.new.*.end_date',
+            'manager/home.features.table.rows.0.demo',
+            'manager/home.features.table.rows.0.partner',
+            'manager/home.features.table.rows.1.demo',
+            'manager/home.features.table.rows.1.partner',
+            'manager/home.features.table.rows.2.demo',
+            'manager/home.features.table.rows.2.partner',
+            'manager/home.features.table.rows.3.demo',
+            'manager/home.features.table.rows.3.partner',
+            'manager/home.features.table.rows.4.demo',
+            'manager/home.features.table.rows.4.partner',
+            'manager/home.features.table.rows.5.demo',
+            'manager/home.features.table.rows.5.partner',
+            'manager/home.features.table.rows.6.demo',
+            'manager/home.features.table.rows.6.partner'
         ],
         'fr' => [
             'validation.attributes.courses.new.*.name',
@@ -118,6 +132,20 @@ class LangFilesTest extends BaseTranslationTest
             'validation.attributes.work_experiences.new.*.description',
             'validation.attributes.work_experiences.new.*.start_date',
             'validation.attributes.work_experiences.new.*.end_date',
+            'manager/home.features.table.rows.0.demo',
+            'manager/home.features.table.rows.0.partner',
+            'manager/home.features.table.rows.1.demo',
+            'manager/home.features.table.rows.1.partner',
+            'manager/home.features.table.rows.2.demo',
+            'manager/home.features.table.rows.2.partner',
+            'manager/home.features.table.rows.3.demo',
+            'manager/home.features.table.rows.3.partner',
+            'manager/home.features.table.rows.4.demo',
+            'manager/home.features.table.rows.4.partner',
+            'manager/home.features.table.rows.5.demo',
+            'manager/home.features.table.rows.5.partner',
+            'manager/home.features.table.rows.6.demo',
+            'manager/home.features.table.rows.6.partner'
         ]
     ];
 
@@ -181,13 +209,30 @@ class LangFilesTest extends BaseTranslationTest
         'talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
         '/images/logo_canada_white.png',
         '/images/logo_goc_white.svg',
+        '/images/logo_canada_colour.png',
+        '/images/logo_goc_colour.svg',
         '1', '2', '3', '4', '5', '6',
         'Meagan Commonda',
         'mailto:meagan.commonda@tbs-sct.gc.ca',
         'https://twitter.com/meagancommonda/',
         'http://caid.ca/IndRecRet2017.pdf',
         'https://talentcloud1.typeform.com/to/tWIPup',
-        '#upgrade'
+        'partners',
+        'GC Collab',
+        'BETA', '#how', '/jobs', '/faq#partners',
+        'https://github.com/GCTC-NTGC/TalentCloud',
+        '/indigenous',
+        'https://gccollab.ca/blog/view/2325565/enwe-did-it-canadas-free-agents-receive-validated-skill-credentials-anchored-on-the-blockchainfrlearning-machine-et-le-nuage-de-talents-u00e9mettent-des-justificatifs-du2019identitu00e9-ancru00e9s-dans-une-chau00eene-de-blocs-aux-agents-libres-du-canada-u00e0-titre-de-validation-de-principe',
+        'https://medium.com/@meagan.commonda/can-we-talk-about-tokenism-9400c0af55fd',
+        'https://gccollab.ca/blog/view/1740665/engovcloud-first-impressionsfrgovcloud-premiu00e8res-impressions',
+        'Twitter',
+        'https://twitter.com/gc_talent',
+        'https://gccollab.ca/groups/profile/19750/entalent-cloud-nuage-de-talentsfrnuage-de-talents-talent-cloud',
+        'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
+        '#upgrade',
+        '/images/logo_tc_colour.png',
+        'benefits',
+        'TBD'
     ];
 
     /**

@@ -1,0 +1,21 @@
+{% extends "auth/register" %}
+
+{% block extra_fields %}
+    {# This div renders a React component, to hide the email field until a dept is chosen. #}
+    <div
+        id="gov-dept-and-email-inputs"
+        data-c-grid-item="base(1of1)"
+        data-departments="{{ departments|json_encode() }}"
+        data-prev-department="{{ old('department') }}"
+        data-prev-gov-email="{{ old('gov_email' ) }}"
+        >
+    </div>
+{% endblock %}
+
+{% block scripts %}
+
+    <script async defer
+        src="{{ mix('/js/GovDeptAndEmailInputs.js') }}">
+    </script>
+
+{% endblock %}

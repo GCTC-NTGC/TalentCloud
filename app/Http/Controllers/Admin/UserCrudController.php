@@ -38,6 +38,16 @@ class UserCrudController extends CrudController
             'label' => 'Role'
         ]);
         $this->crud->addColumn([
+            'name' => 'gov_email',
+            'type' => 'text',
+            'label' => 'Gov Email'
+        ]);
+        $this->crud->addColumn([
+            'name' => 'not_in_gov',
+            'type' => 'check',
+            'label' => 'Not in Gov'
+        ]);
+        $this->crud->addColumn([
             'name' => 'is_priority',
             'type' => 'check',
             'label' => 'Priority'

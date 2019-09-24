@@ -2685,6 +2685,31 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Not in Government",
+        "description": "The user's option to state that they don't have a government email.",
+        "id": "govDeptAndEmail.notInGov"
+      },
+      {
+        "defaultMessage": "Government Department",
+        "description": "Label for the Government Department input field.",
+        "id": "govDeptAndEmail.departmentLabel"
+      },
+      {
+        "defaultMessage": "Select a Department",
+        "description": "Null selection option for the Government Department input field.",
+        "id": "govDeptAndEmail.departmentNullSelection"
+      },
+      {
+        "defaultMessage": "Your Government Email",
+        "description": "Label for government email input field.",
+        "id": "govDeptAndEmail.govEmailLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Registration/GovDeptAndEmailInputs.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "You have the ability to accomplish basic tasks with steady supervision and clear direction. The tasks you’re assigned are clear and don’t involve significant complexity. Their impact is usually locally felt. As you advance in this category, you should be developing the ability to accomplish tasks of moderate complexity with steady supervision. You will also need to be able to accomplish basic tasks with little or no supervision. This level is usually associated with tasks that form the bulk of the work for lower level positions, such as junior analysts or entry level developers.",
         "description": "Description of basic hard skill level.",
         "id": "skillLevel.hard.basic.description"

@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 interface ScrollToTopProps {
   /** The top position of element relative to the viewport.  */
   offsetTop?: number;
   /** Set the scroll behavior to 'auto'. Default = 'smooth' */
   scrollBehaviorAuto?: boolean;
+  children: React.ReactElement | null;
 }
 
 const ScrollToTop: React.FunctionComponent<ScrollToTopProps> = ({
@@ -12,19 +13,30 @@ const ScrollToTop: React.FunctionComponent<ScrollToTopProps> = ({
   scrollBehaviorAuto,
   children,
 }): React.ReactElement => {
-  useEffect(() => {
-    const body: HTMLElement | null = document.querySelector("html");
-    // switch to auto scroll transition
-    body && scrollBehaviorAuto ? body.style.scrollBehavior = "auto" : null
+  const [prevPathname, setPrevPathName] = useState("");
 
-    window.scrollTo(0, 0);
-    if (offsetTop) {
-      window.scrollTo(0, offsetTop);
+  const setScrollBehaviour = (scrollBehavior): void => {
+    const body: HTMLElement | null = document.querySelector("html");
+    if (body) {
+      body.style.scrollBehavior = scrollBehavior;
+    }
+  };
+  useEffect(() => {
+    if (prevPathname !== window.location.pathname) {
+      // switch to auto scroll transition
+      if (scrollBehaviorAuto) setScrollBehaviour("auto");
+
+      window.scrollTo(0, 0);
+      if (offsetTop) {
+        window.scrollTo(0, offsetTop);
+      }
+
+      // switch back to smooth scrool transition
+      setScrollBehaviour("smooth");
     }
 
-    // switch back to smooth scrool transition
-    body && scrollBehaviorAuto ? body.style.scrollBehavior = 'smooth' : null
-  }, [children, offsetTop]);
+    setPrevPathName(window.location.pathname);
+  });
   return <>{children}</>;
 };
 

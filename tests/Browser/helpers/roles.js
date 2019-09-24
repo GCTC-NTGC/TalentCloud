@@ -27,3 +27,7 @@ export const adminUser = Role("http://talent.test/admin/login", async t => {
     )
     .pressKey("enter");
 });
+
+export const assertIsLoggedIn = async t => {
+  return t.expect(Selector("a").withText("Logout").visible).ok();
+};
