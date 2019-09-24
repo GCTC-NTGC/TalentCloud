@@ -61,7 +61,7 @@ class UpdateManagerProfileRequest extends FormRequest
                 // but must be unique if changed.
                 Rule::unique('users', 'email')->ignore($this->manager->user->id)
             ],
-            'government_email' => [
+            'gov_email' => [
                 'nullable',
                 'string',
                 'max:191',

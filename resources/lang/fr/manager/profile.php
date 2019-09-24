@@ -29,7 +29,7 @@ return [
             'account_settings' => 'Renseignements du compte',
             'reset_password' => 'Réinitialiser mon mot de passe',
             'profile_email' => 'Mon courriel',
-            'government_email' => 'Mon email du gouvernement',
+            'gov_email' => 'Mon email du gouvernement',
             'old_password' => 'Ancien mot de passe',
             'new_password' => 'Nouveau mot de passe',
             'confirm_password' => 'Confirmer le nouveau mot de passe',

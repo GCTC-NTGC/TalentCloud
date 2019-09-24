@@ -31,7 +31,6 @@ class ManagerApiControllerTest extends TestCase
     private function generateFrontendManager(): array
     {
         $manager = [
-            'government_email' => null,
             'department_id' => $this->faker->numberBetween(1, 8),
             'twitter_username' => null,
             'linkedin_url' => null,

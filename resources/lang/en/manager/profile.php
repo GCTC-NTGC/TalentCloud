@@ -29,7 +29,7 @@ return [
             'account_settings' => 'Account Information',
             'reset_password' => 'Reset Password',
             'profile_email' => 'My Email',
-            'government_email' => 'My Government Email',
+            'gov_email' => 'My Government Email',
             'old_password' => 'Old Password',
             'new_password' => 'New Password',
             'confirm_password' => 'Confirm New Password',

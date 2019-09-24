@@ -31,7 +31,7 @@ class UpdateManagerApi extends FormRequest
         $frequencyRule = new ValidIdRule(Frequency::class);
         return [
             'department_id' => ['nullable', new ValidIdRule(Department::class)],
-            'government_email' => [
+            'gov_email' => [
                 'nullable',
                 'string',
                 'max:191',

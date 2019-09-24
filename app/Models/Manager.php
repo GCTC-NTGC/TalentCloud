@@ -15,7 +15,6 @@ use Astrotomic\Translatable\Translatable as Translatable;
  *
  * @property int $id
  * @property int $department_id
- * @property string $government_email
  * @property int $work_review_frequency_id
  * @property int $stay_late_frequency_id
  * @property int $engage_team_frequency_id
@@ -56,7 +55,7 @@ use Astrotomic\Translatable\Translatable as Translatable;
  * @property string $name
  *
  * Methods
- * @method string toApiArray()
+ * @method   string toApiArray()
  */
 class Manager extends BaseModel
 {
@@ -83,7 +82,6 @@ class Manager extends BaseModel
     ];
     protected $fillable = [
         'department_id',
-        'government_email',
         'twitter_username',
         'linkedin_url',
         'work_review_frequency_id',
