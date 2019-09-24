@@ -182,6 +182,21 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Oops...",
+        "description": "Modal notification text indicating something went wrong.",
+        "id": "alert.oops"
+      },
+      {
+        "defaultMessage": "Something went wrong while saving a review. Try again later.",
+        "description": "Error message for error while saving an application review.",
+        "id": "apl.reviewSaveFailed"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicationReview/ApplicationReviewRoot.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Talent cloud veteran logo",
         "description": "Alt Text for Veteran Logo Img",
         "id": "veteranStatus.veteranLogoAlt"
@@ -338,6 +353,21 @@
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ReviewApplicationsContainer.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Save",
+        "description": "Dynamic Save button label",
+        "id": "alert.oops"
+      },
+      {
+        "defaultMessage": "Something went wrong while saving a review. Try again later.",
+        "description": "Dynamic Save button label",
+        "id": "apl.reviewSaveFailed"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicationReview/ReviewApplicationsRoot.json"
   },
   {
     "descriptors": [
@@ -1271,12 +1301,17 @@
         "id": "jobBuilder.skills.skillLevel"
       },
       {
+        "defaultMessage": "Save & Preview Skills",
+        "description": "Label of Button",
+        "id": "jobBuilder.skills.button.previewSkills"
+      },
+      {
         "defaultMessage": "Skills",
         "description": "section title",
         "id": "jobBuilder.skills.title"
       },
       {
-        "defaultMessage": "This is where you'll select the criteria that are required to do\r\n            this job effectively. Below are two bars that indicate a measurement\r\n            of your current skill selection.",
+        "defaultMessage": "This is where you'll select the criteria that are required to do\n            this job effectively. Below are two bars that indicate a measurement\n            of your current skill selection.",
         "description": "section description under title",
         "id": "jobBuilder.skills.description"
       },
@@ -1361,11 +1396,6 @@
         "id": "jobBuilder.skills.title.assetSkills"
       },
       {
-        "defaultMessage": "Save & Preview Skills",
-        "description": "Label of Button",
-        "id": "jobBuilder.skills.button.previewSkills"
-      },
-      {
         "defaultMessage": "Skill Selection",
         "description": "Title of skill selection section",
         "id": "jobBuilder.skills.title.skillSelection"
@@ -1374,11 +1404,6 @@
         "defaultMessage": "Occupational Skills",
         "description": "Title of skills category",
         "id": "jobBuilder.skills.title.occupationalSkills"
-      },
-      {
-        "defaultMessage": "Lorem ipsum.",
-        "description": "Description of a category of skills",
-        "id": "jobBuilder.skills.description.occupationalSkills"
       },
       {
         "defaultMessage": "Aim for {minOccupational} - {maxOccupational} skills.",
@@ -1396,11 +1421,6 @@
         "id": "jobBuilder.skills.title.culturalSkills"
       },
       {
-        "defaultMessage": "Lorem ipsum.",
-        "description": "Description of a category of skills",
-        "id": "jobBuilder.skills.description.culturalSkills"
-      },
-      {
         "defaultMessage": "Aim for {minCulture} - {maxCulture} skills.",
         "description": "Ranage recommendation for cultural skills in job poster",
         "id": "jobBuilder.skills.range.culturalSkills"
@@ -1409,11 +1429,6 @@
         "defaultMessage": "Future Skills",
         "description": "Title of skills category",
         "id": "jobBuilder.skills.title.futureSkills"
-      },
-      {
-        "defaultMessage": "Lorem ipsum.",
-        "description": "Description of a category of skills",
-        "id": "jobBuilder.skills.description.futureSkills"
       },
       {
         "defaultMessage": "Aim for {minFuture} - {maxFuture} skills.",
@@ -1426,7 +1441,7 @@
         "id": "jobBuilder.skills.title.missingSkill"
       },
       {
-        "defaultMessage": "Building a skills list is a huge endeavour, and it's not\r\n  surprising that Talent Cloud's list doesn't have the skill\r\n  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to\r\n  kick-off the discussion.",
+        "defaultMessage": "Building a skills list is a huge endeavour, and it's not\n  surprising that Talent Cloud's list doesn't have the skill\n  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to\n  kick-off the discussion.",
         "id": "jobBuilder.skills.instructions.missingSkills"
       },
       {
@@ -1443,6 +1458,11 @@
         "defaultMessage": "Save & Return to Tasks",
         "description": "Button Label",
         "id": "jobBuilder.skills.button.returnToTasks"
+      },
+      {
+        "defaultMessage": "At least one 'Essential Skill' is required.",
+        "description": "Label of Button",
+        "id": "jobBuilder.skills.essentialSkillRequiredError"
       },
       {
         "defaultMessage": "Key Tasks",
@@ -1470,7 +1490,7 @@
         "id": "jobBuilder.skills.title.keepItUp"
       },
       {
-        "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to\r\n                go back and edit things or move to the next step if you're\r\n                happy with it.",
+        "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to\n                go back and edit things or move to the next step if you're\n                happy with it.",
         "description": "Body text of Keep it up! Modal",
         "id": "jobBuilder.skills.description.keepItUp"
       },
@@ -2715,12 +2735,12 @@
         "id": "skillLevel.hard.basic.description"
       },
       {
-        "defaultMessage": "You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision.The approach to the tasks, and how they are delivered, is determined by the supervisor.You contribute input and advice.You are able to advance the task, even in the face of small to moderate hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision. This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers.",
+        "defaultMessage": "You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision. The approach to the tasks, and how they are delivered, is determined by the supervisor. You contribute input and advice. You are able to advance the task, even in the face of small to moderate hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision. This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers.",
         "description": "Description of intermediate skill level.",
         "id": "skillLevel.hard.intermediate.description"
       },
       {
-        "defaultMessage": "You have the ability to accomplish tasks of significant complexity or impact with supervision.You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor’s consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels. This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers.",
+        "defaultMessage": "You have the ability to accomplish tasks of significant complexity or impact with supervision. You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor’s consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels. This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers.",
         "description": "Description of advanced hard skill level.",
         "id": "skillLevel.hard.advanced.description"
       },

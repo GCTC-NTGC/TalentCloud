@@ -48,7 +48,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         );
 
         View::composer(
-            ['common/skill', 'common/relatives', 'applicant/job_post/criteria'],
+            ['common/skill', 'common/relatives', 'applicant/job_post/criteria', 'common/modals/skills_need_help'],
             'App\Http\ViewComposers\SkillComposer'
         );
 
