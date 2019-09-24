@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Auth\AuthController;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use App\Models\Manager;
 use App\Models\Lookup\Department;
+use App\Services\Validation\RegistrationValidator;
 
 class FirstVisitController extends AuthController
 {
@@ -39,13 +39,7 @@ class FirstVisitController extends AuthController
     public function finishManagerRegistration(Request $request)
     {
         $data = $request->all();
-        $validator = Validator::make(
-            $data,
-            [
-                'department' => 'required|integer',
-                'gov_email' => 'nullable|required_unless:department,0|string|email|unique:users', // gov_email is required unless department is set to 0 (Not in Goverment)
-            ]
-        );
+        $validator = RegistrationValidator::finalizeManagerValidator($data);
         $validator->validate();
 
         $user = $request->user();
