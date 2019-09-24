@@ -74,7 +74,8 @@ class RegisterController extends AuthController
         return view('auth.register_manager', [
             'routes' => $this->auth_routes(),
             'register' => Lang::get('common/auth/register'),
-            'departments' => Department::all()->map->toApiArray(),
+            'not_in_gov_option' => ['value' => 0, 'name' => Lang::get('common/auth/register.not_in_gov')],
+            'departments' => Department::all(),
         ]);
     }
 

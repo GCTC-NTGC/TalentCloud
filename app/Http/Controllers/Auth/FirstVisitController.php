@@ -26,7 +26,8 @@ class FirstVisitController extends AuthController
         return view('auth.first_visit_manager', [
             'routes' => $routes,
             'first_visit' => Lang::get('common/auth/first_manager_visit'),
-            'departments' => Department::all()->map->toApiArray(),
+            'departments' => Department::all(),
+            'not_in_gov_option' => ['value' => 0, 'name' => Lang::get('common/auth/register.not_in_gov')],
         ]);
     }
 
