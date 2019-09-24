@@ -37,7 +37,7 @@ class RegistrationValidator
      */
     public static function userValidator(array $data)
     {
-        return Validator::make($data, $this->basicRules());
+        return Validator::make($data, $this::basicRules());
     }
 
     /**
@@ -48,7 +48,7 @@ class RegistrationValidator
      */
     public static function managerValidator(array $data)
     {
-        $managerRules = array_merge($this->basicRules(), $this->managerRegistrationExtraRules());
+        $managerRules = array_merge($this::basicRules(), $this::managerRegistrationExtraRules());
         return Validator::make($data, $managerRules);
     }
 
@@ -60,6 +60,6 @@ class RegistrationValidator
      */
     public static function finalizeManagerValidator(array $data)
     {
-        return Validator::make($data, $this->managerRegistrationExtraRules());
+        return Validator::make($data, $this::managerRegistrationExtraRules());
     }
 }
