@@ -22,11 +22,7 @@ cache:
 
 # following required for Test Cafe
 addons:
-  apt:
-    sources:
-     - google-chrome
-    packages:
-     - google-chrome-stable fluxbox
+  chrome: stable
   hosts:
     - talent.test
 
