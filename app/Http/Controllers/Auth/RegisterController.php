@@ -91,8 +91,7 @@ class RegisterController extends AuthController
     protected function create(array $data)
     {
         $user = new User();
-        $user->first_name = $data['first_name'];
-        $user->last_name = $data['last_name'];
+        $user->name = $data['name'];
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
 
