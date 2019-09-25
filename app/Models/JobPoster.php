@@ -7,13 +7,17 @@
 
 namespace App\Models;
 
-use App\Events\JobSaved;
+use Astrotomic\Translatable\Translatable;
+
+use \Backpack\CRUD\CrudTrait;
+
+use Jenssegers\Date\Date;
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
-use Jenssegers\Date\Date;
-use \Backpack\CRUD\CrudTrait;
-use Astrotomic\Translatable\Translatable;
+
+use App\Events\JobSaved;
 
 /**
  * Class JobPoster
