@@ -1,4 +1,4 @@
-import { Selector } from "testcafe";
+import { Selector, Role } from "testcafe";
 import { applicantUser, adminUser, assertIsLoggedIn } from "./helpers/roles";
 
 fixture(`Critical - Applicant Profile`).page(`talent.test`);
@@ -316,6 +316,7 @@ fixture(`Critical - Registration`).page(`talent.test`);
 
 test("Registration - Applicant", async t => {
   await t
+    .useRole(Role.anonymous())
     .click(Selector("a").withText("Register"))
     .typeText(Selector("#name"), "Test Cafe")
     .typeText(Selector("#email"), randomEmail())
@@ -327,6 +328,7 @@ test("Registration - Applicant", async t => {
 
 test("Registration - Manager", async t => {
   await t
+    .useRole(Role.anonymous())
     .navigateTo("/manager")
     .click(Selector("a").withText("Register"))
     .typeText(Selector("#name"), "Test Cafe")
@@ -342,6 +344,5 @@ test("Registration - Manager", async t => {
     .typeText(Selector("#password"), "Password123!@#")
     .typeText(Selector("#password-confirm"), "Password123!@#")
     .click(Selector("button").withText("Register"));
-
   await assertIsLoggedIn(t);
 });
