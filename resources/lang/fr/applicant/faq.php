@@ -99,9 +99,9 @@ return [
     ],
     "sidebar" => [
         "users" => [
-            "applicants" => "For Applicants",
-            "managers" => "For Managers",
-            "hr" => "For HR Advisors",
+            "applicants" => "Pour les candidats",
+            "managers" => "Pour les gestionnaires",
+            "hr" => "Pour les conseillers en RH",
         ],
     ],
     "accordion" => [
@@ -109,7 +109,7 @@ return [
     ],
     /* Applicant Content */
     "applicants" => [
-        "title" => "For Applicants",
+        "title" => "Pour les candidats",
         "hash" => "applicants",
         "sections" => [
             "know" => [
@@ -555,11 +555,11 @@ return [
     ],
     /* Hiring Manager Content */
     "hiring" => [
-        "title" => "For Hiring Managers",
+        "title" => "Pour les gestionnaires recruteurs",
         "hash" => "managers",
         "sections" => [
             "keys" => [
-                "title" => "Key Information",
+                "title" => "Renseignements clés",
                 "hash" => "manager-key-questions",
                 "content" => [
                     "0" => [
@@ -632,8 +632,8 @@ return [
                     ]
                 ],
                 "links" => [
-                    "0" => "<a href=\"https://talent.canada.ca/fr/faq/#partners\" title=\"See Talent Cloud's partner departments.\">veuillez consulter la foire aux questions du site Web du Nuage de talents</a>",
-                    "1" => "<a href=\"talent.canada.ca/manager\" title=\"Visit Talent Cloud's manager portal.\">portail des gestionnaires de Nuages de talents</a>",
+                    "0" => "<a href=\"https://talent.canada.ca/fr/faq/#partners\" title=\"Voir les ministères partenaires du Nuage des talents.\">veuillez consulter la foire aux questions du site Web du Nuage de talents</a>",
+                    "1" => "<a href=\"talent.canada.ca/manager\" title=\"Visitez le portail des gestionnaires du Nuage des talents.\">portail des gestionnaires de Nuages de talents</a>",
                     "2" => "<a href=\"mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca\" title=\"Envoyer un courriel au Nuage de talents.\">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>"
                 ]
             ],
@@ -753,8 +753,8 @@ return [
                     ]
                 ],
                 "links" => [
-                    "0" => "<a href=\"https://www.tbs-sct.gc.ca/pol/doc-fra.aspx?id=12584\" title=\"Learn more about the term employment policy.\" target=\"_blank\">Politique sur l’emploi pour une période déterminée</a>",
-                    "1" => "<a href=\"https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page1800?poster=1276951&toggleLanguage=fr\" title=\"See an example of how cross-posting works.\" target=\"_blank\">En voici un exemple</a>",
+                    "0" => "<a href=\"https://www.tbs-sct.gc.ca/pol/doc-fra.aspx?id=12584\" title=\"Pour en savoir davantage sur la Politique sur l'emploi pour une période déterminée.\" target=\"_blank\">Politique sur l’emploi pour une période déterminée</a>",
+                    "1" => "<a href=\"https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page1800?poster=1276951&toggleLanguage=fr\" title=\"Voir un exemple du fonctionnement de l'affichage dans plusieurs tableaux.\" target=\"_blank\">En voici un exemple</a>",
                     "2" => "<a href=\"mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca\" title=\"Envoyer un courriel au Nuage de talents.\" target=\"_blank\">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>"
                 ]
             ],
@@ -834,8 +834,8 @@ return [
                     ]
                 ],
                 "links" => [
-                    "0" => "<a href=\"https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html\" title=\"Learn more about Qualification Standards.\" target=\"_blank\">Normes de qualification</a>",
-                    "1" => "<a href=\"https://twitter.com/CFPduCanada/status/1087387312336654336\" title=\"Learn more about job poster formats.\" target=\"_blank\">format prescrit</a>",
+                    "0" => "<a href=\"https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html\" title=\"Pour en savoir davantage sur les normes de qualification.\" target=\"_blank\">Normes de qualification</a>",
+                    "1" => "<a href=\"https://twitter.com/CFPduCanada/status/1087387312336654336\" title=\"Pour en savoir davantage sur les présentations des avis de concours.\" target=\"_blank\">format prescrit</a>",
                 ]
             ],
             "tc-assessment" => [
@@ -929,7 +929,7 @@ return [
                 ],
                 "links" => [
                     "0" => "<a href=\"mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca\" title=\"Envoyer un courriel au Nuage de talents.\" target=\"_blank\">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>",
-                    "1" => "<a href=\"https://twitter.com/gc_talent\" title=\"Visit Talent Cloud on Twitter.\" target=\"_blank\">sur Twitter @GCTalent</a>",
+                    "1" => "<a href=\"https://twitter.com/gc_talent\" title=\"Visitez le Nuage des talents sur Twitter.\" target=\"_blank\">sur Twitter @GCTalent</a>",
                 ]
             ],
             "others" => [
@@ -1015,16 +1015,16 @@ return [
     ],
     /* HR Advisor Content */
     "hr" => [
-        "title" => "For HR Advisors",
+        "title" => "Pour les conseillers en RH",
         "hash" => "hr",
         "sections" => [
             "coming-soon" => [
-                "title" => "Coming Soon!",
+                "title" => "À venir bientôt!",
                 "hash" => "hr-coming-soon",
                 "content" => [
                     "0" => [
                         "type" => "text",
-                        "copy" => "HR FAQ content for Talent Cloud is coming soon!"
+                        "copy" => "À venir bientôt le contenu de la Foire aux questions des HR sur le Nuage des talents."
                     ]
                 ]
             ]
