@@ -83,7 +83,7 @@
             class="form__input"
             type="email"
             name="gov_email"
-            value="{{ old('gov_email', manager.gov_email) }}">
+            value="{{ old('gov_email', user.gov_email) }}">
         </div>
 
       </div>
@@ -107,13 +107,13 @@
 
           <div
             class="form__input-wrapper--float">
-            <label class="form__label" for="managerProfileOldPassword">
-              {{ account_l10n.old_password }}
+            <label class="form__label" for="managerProfileCurrentPassword">
+              {{ account_l10n.current_password }}
             </label>
             <input
-              id="managerProfileOldPassword"
+              id="managerProfileCurrentPassword"
               class="form__input"
-              name="old_password"
+              name="current_password"
               type="password"
               autocomlete="off"
               value="">

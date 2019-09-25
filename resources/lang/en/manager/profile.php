@@ -30,7 +30,7 @@ return [
             'reset_password' => 'Reset Password',
             'profile_email' => 'My Email',
             'gov_email' => 'My Government Email',
-            'old_password' => 'Old Password',
+            'current_password' => 'Current Password',
             'new_password' => 'New Password',
             'confirm_password' => 'Confirm New Password',
             'save_account_settings' => 'Save Account Settings',

@@ -30,7 +30,7 @@ return [
             'reset_password' => 'Réinitialiser mon mot de passe',
             'profile_email' => 'Mon courriel',
             'gov_email' => 'Mon email du gouvernement',
-            'old_password' => 'Ancien mot de passe',
+            'current_password' => 'Mot de passe actuel',
             'new_password' => 'Nouveau mot de passe',
             'confirm_password' => 'Confirmer le nouveau mot de passe',
             'save_account_settings' => 'Enregistrer les paramètres du compte',
