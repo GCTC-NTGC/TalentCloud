@@ -114,7 +114,7 @@ class ManagerProfileController extends Controller
 
         $frequencies = Frequency::all();
         $linkedInUrlPattern = LinkedInUrlRule::PATTERN;
-        $twitterHandlerPattern = TwitterHandleRule::PATTERN;
+        $twitterHandlePattern = TwitterHandleRule::PATTERN;
 
         $show_notification = Auth::user()->isDemoManager();
 
@@ -140,7 +140,8 @@ class ManagerProfileController extends Controller
             'teamCultureEN' => $teamCulture->translate('en'),
             'teamCultureFR' => $teamCulture->translate('fr'),
             'linkedInUrlPattern' => $linkedInUrlPattern,
-            'twitterHandlerPattern' => $twitterHandlerPattern,
+            'twitterHandlePattern' => $twitterHandlePattern,
+            'show_notification' => $show_notification
         ]);
     }
 
@@ -169,7 +170,9 @@ class ManagerProfileController extends Controller
 
         $user = $manager->user;
         $user->fill($validated);
-        $user->password = Hash::make($input['new_password']);
+        if (!empty($input['new_password'])) {
+            $user->password = Hash::make($input['new_password']);
+        }
         $user->save();
 
         $work_environment = $manager->work_environment;
