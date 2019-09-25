@@ -12,7 +12,7 @@ class TwitterHandleRule implements Rule
      *
      * @var string
      */
-    const PATTERN = '^[A-Za-z0-9_]+$';
+    const PATTERN = '^[A-Za-z0-9_]{1,10}$';
 
     /**
      *
@@ -38,6 +38,6 @@ class TwitterHandleRule implements Rule
      */
     public function message()
     {
-        return Lang::get('validation.regex');
+        return Lang::get('validation.custom.twitter_handle');
     }
 }

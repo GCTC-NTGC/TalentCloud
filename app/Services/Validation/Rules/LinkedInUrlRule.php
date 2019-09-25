@@ -33,6 +33,6 @@ class LinkedInUrlRule implements Rule
      */
     public function message()
     {
-        return Lang::get('validation.regex');
+        return Lang::get('validation.custom.linkedin_url');
     }
 }
