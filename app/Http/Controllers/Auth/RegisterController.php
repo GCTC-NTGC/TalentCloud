@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Auth\AuthController;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\Applicant;
 use App\Models\Manager;
 use App\Models\Lookup\Department;
-use App\Services\Validation\Rules\PasswordFormatRule;
+use App\Services\Validation\RegistrationValidator;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Auth\Events\Registered;
 
@@ -75,11 +74,13 @@ class RegisterController extends AuthController
         return view('auth.register_manager', [
             'routes' => $this->auth_routes(),
             'register' => Lang::get('common/auth/register'),
-            'departments' => Department::all()->map->toApiArray(),
+            'not_in_gov_option' => ['value' => 0, 'name' => Lang::get('common/auth/register.not_in_gov')],
+            'departments' => Department::all(),
         ]);
     }
 
     /**
+     * OVERRIDE
      * Get a validator for an incoming registration request.
      *
      * @param  array $data Incoming registration data.
@@ -87,16 +88,7 @@ class RegisterController extends AuthController
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => [
-                'required',
-                'min:8',
-                new PasswordFormatRule,
-                'confirmed'
-            ],
-        ]);
+        return RegistrationValidator::userValidator($data);
     }
 
     /**
@@ -107,18 +99,7 @@ class RegisterController extends AuthController
      */
     protected function managerValidator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => [
-                'required',
-                'min:8',
-                new PasswordFormatRule,
-                'confirmed'
-            ],
-            'department' => 'required|integer',
-            'gov_email' => 'nullable|required_unless:department,0|string|email|unique:users', // gov_email is required unless department is set to 0 (Not in Goverment)
-        ]);
+        return RegistrationValidator::managerValidator($data);
     }
 
     /**

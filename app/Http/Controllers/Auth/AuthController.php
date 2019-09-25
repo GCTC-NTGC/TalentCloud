@@ -16,23 +16,25 @@ class AuthController extends Controller
     {
         if (WhichPortal::isManagerPortal()) {
             $routes = [
+                'home' => route('manager.home'),
                 'login' => route('manager.login'),
                 'register' => route('manager.register'),
                 'password' => [
                     'email' => route('manager.password.email'),
                     'request' => route('manager.password.request'),
                 ],
-                //'passwords.reset' => route('manager.password.reset'),
+                // 'passwords.reset' => route('manager.password.reset'),
             ];
         } else {
             $routes = [
+                'home' => route('home'),
                 'login' => route('login'),
                 'register' => route('register'),
                 'password' => [
                     'email' => route('password.email'),
                     'request' => route('password.request'),
                 ],
-                //'passwords.reset' => route('password.reset'),
+                // 'passwords.reset' => route('password.reset'),
             ];
         }
         return $routes;

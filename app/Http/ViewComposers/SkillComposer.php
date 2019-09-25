@@ -39,5 +39,6 @@ class SkillComposer
         $view->with('skills', $this->skills);
         $view->with('skill_levels', $this->skillLevels);
         $view->with('skill_template', Lang::get('common/skills'));
+        $view->with('skills_modal', Lang::get('common/skills_modals'));
     }
 }

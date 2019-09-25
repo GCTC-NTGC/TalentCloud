@@ -60,6 +60,11 @@
     "defaultMessage": "Skill Level"
   },
   {
+    "id": "jobBuilder.skills.button.previewSkills",
+    "description": "Label of Button",
+    "defaultMessage": "Save & Preview Skills"
+  },
+  {
     "id": "jobBuilder.skills.title",
     "description": "section title",
     "defaultMessage": "Skills"
@@ -150,11 +155,6 @@
     "defaultMessage": "Asset Skills"
   },
   {
-    "id": "jobBuilder.skills.button.previewSkills",
-    "description": "Label of Button",
-    "defaultMessage": "Save & Preview Skills"
-  },
-  {
     "id": "jobBuilder.skills.title.skillSelection",
     "description": "Title of skill selection section",
     "defaultMessage": "Skill Selection"
@@ -163,11 +163,6 @@
     "id": "jobBuilder.skills.title.occupationalSkills",
     "description": "Title of skills category",
     "defaultMessage": "Occupational Skills"
-  },
-  {
-    "id": "jobBuilder.skills.description.occupationalSkills",
-    "description": "Description of a category of skills",
-    "defaultMessage": "Lorem ipsum."
   },
   {
     "id": "jobBuilder.skills.range.occupationalSkills",
@@ -185,11 +180,6 @@
     "defaultMessage": "Cultural Skills"
   },
   {
-    "id": "jobBuilder.skills.description.culturalSkills",
-    "description": "Description of a category of skills",
-    "defaultMessage": "Lorem ipsum."
-  },
-  {
     "id": "jobBuilder.skills.range.culturalSkills",
     "description": "Ranage recommendation for cultural skills in job poster",
     "defaultMessage": "Aim for {minCulture} - {maxCulture} skills."
@@ -198,11 +188,6 @@
     "id": "jobBuilder.skills.title.futureSkills",
     "description": "Title of skills category",
     "defaultMessage": "Future Skills"
-  },
-  {
-    "id": "jobBuilder.skills.description.futureSkills",
-    "description": "Description of a category of skills",
-    "defaultMessage": "Lorem ipsum."
   },
   {
     "id": "jobBuilder.skills.range.futureSkills",
@@ -232,6 +217,11 @@
     "id": "jobBuilder.skills.button.returnToTasks",
     "description": "Button Label",
     "defaultMessage": "Save & Return to Tasks"
+  },
+  {
+    "id": "jobBuilder.skills.essentialSkillRequiredError",
+    "description": "Label of Button",
+    "defaultMessage": "At least one 'Essential Skill' is required."
   },
   {
     "id": "jobBuilder.skills.title.keyTasks",

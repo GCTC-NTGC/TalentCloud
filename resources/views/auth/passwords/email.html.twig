@@ -10,11 +10,12 @@
 {% block title %}{{ forgot_password.title }}{% endblock %}
 
 {% block body %}
+    {% include "common/goc" %}
     <div data-clone>
         <section class="tc-auth" data-c-padding="tb(triple)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
             <div class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
                 {# Return to the homepage link. #}
-                <a data-c-color="white" href="/" title="Return Home">
+                <a data-c-color="white" href="{{ routes.home }}" title="Return Home">
                     <i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ forgot_password.return }}
                 </a>
                 <div data-c-radius="rounded" data-c-margin="top(normal)">
@@ -34,34 +35,13 @@
                                         </span>
                                     </div>
                                 {% endif %}
-                                {% if errors.has('email') %}
-                                    {# Clone alert box for errors. #}
-                                    <div
-                                        data-c-alert="error"
-                                        data-c-radius="rounded"
-                                        role="alert" data-c-margin="bottom(double)">
-                                        <div data-c-padding="half">
-                                            <span
-                                                data-c-heading="h5"
-                                                data-c-font-weight="bold">
-                                                <i aria-hidden="true" class="fas fa-exclamation-circle"></i>
-                                                Uh oh, something doesn't look right.
-                                            </span>
-                                            <p data-c-margin="top(quarter)">
-                                                Please check the following:
-                                            </p>
-                                            <ul>
-                                                <li>{{ errors.first('email') }}</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                {% endif %}
+                                {% include "errors/form_errors" %}
                                 {# Reset Input #}
                                 <div data-c-input="email">
                                     <label for="email">{{ forgot_password.email }}</label>
                                     <span>Required</span>
                                     <div>
-                                        <input id="email" placeholder="e.g. email@website.com" required type="email" 
+                                        <input id="email" placeholder="e.g. email@website.com" required type="email"
                                         name="email"
                                         value="{{ old('email') }}" />
                                     </div>

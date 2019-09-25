@@ -1,7 +1,9 @@
-import { Selector } from "testcafe";
+import { Selector, Role } from "testcafe";
 import { applicantUser, adminUser, assertIsLoggedIn } from "./helpers/roles";
 
-fixture(`Critical - Applicant Profile`).page(`talent.test`);
+const HOMEPAGE = "https://talent.test";
+
+fixture(`Critical - Applicant Profile`).page(HOMEPAGE);
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Applicant Profile`);
@@ -22,7 +24,7 @@ test("Applicant Profile - My Skills", async t => {
       Selector("select")
         .withAttribute("name", "skill_id")
         .find("option")
-        .withAttribute("value", "24"),
+        .withText("Passion"),
     )
     .click(
       Selector(".form__radio-group-span").withText("Deep Level Demonstration"),
@@ -310,12 +312,13 @@ function randomEmail() {
   return email;
 }
 
-fixture(`Critical - Registration`).page(`talent.test`);
+fixture(`Critical - Registration`).page(HOMEPAGE);
 // Skip when writing new tests
 // fixture.skip(`Critical - Registration`);
 
 test("Registration - Applicant", async t => {
   await t
+    .useRole(Role.anonymous())
     .click(Selector("a").withText("Register"))
     .typeText(Selector("#name"), "Test Cafe")
     .typeText(Selector("#email"), randomEmail())
@@ -327,14 +330,15 @@ test("Registration - Applicant", async t => {
 
 test("Registration - Manager", async t => {
   await t
+    .useRole(Role.anonymous())
     .navigateTo("/manager")
-    .wait(10000) // Wait for React components to load
     .click(Selector("a").withText("Register"))
     .typeText(Selector("#name"), "Test Cafe")
     .typeText(Selector("#email"), randomEmail())
-    .click(Selector("#department"))
+    .click(Selector("select").withAttribute("name", "department"))
     .click(
-      Selector("#department")
+      Selector("select")
+        .withAttribute("name", "department")
         .find("option")
         .withText("Treasury Board of Canada Secretariat"),
     )
@@ -342,6 +346,5 @@ test("Registration - Manager", async t => {
     .typeText(Selector("#password"), "Password123!@#")
     .typeText(Selector("#password-confirm"), "Password123!@#")
     .click(Selector("button").withText("Register"));
-
   await assertIsLoggedIn(t);
 });

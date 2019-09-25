@@ -10,6 +10,7 @@
 {% block title %}{{ register.title }}{% endblock %}
 
 {% block body %}
+    {% include "common/goc" %}
     <div data-clone>
         <section class="tc-auth" data-c-padding="tb(triple)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
             <div class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
@@ -27,30 +28,7 @@
                         {{ csrf_field() }}
                         <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
                             <div data-c-padding="top(normal)">
-                                {% if errors.any() %}
-                                    {# Clone alert box for errors. #}
-                                    <div
-                                        data-c-alert="error"
-                                        data-c-radius="rounded"
-                                        role="alert" data-c-margin="bottom(double)">
-                                        <div data-c-padding="half">
-                                            <span
-                                                data-c-heading="h5"
-                                                data-c-font-weight="bold">
-                                                <i aria-hidden="true" class="fas fa-exclamation-circle"></i>
-                                                Uh oh, something doesn't look right.
-                                            </span>
-                                            <p data-c-margin="top(quarter)">
-                                                Please check the following:
-                                            </p>
-                                            <ul>
-                                                {% for error in errors.all() %}
-                                                    <li>{{ error }}</li>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                {% endif %}
+                                {% include "errors/form_errors" %}
                                 {# Form Inputs #}
                                 <div data-c-grid="gutter middle">
                                     {# Old Single Input for Name #}
@@ -142,7 +120,7 @@
                         <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)">
                             <div data-c-grid="middle">
                                 <div data-c-grid-item="base(1of2)">
-                                    <a href="/login" title="Login to Talent Cloud">
+                                    <a href="{{ routes.login }}" title="Login to Talent Cloud">
                                         {{ register.already_have_account }}
                                     </a>
                                 </div>

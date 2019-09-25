@@ -2,19 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use App\Http\Controllers\Auth\AuthController;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Models\Applicant;
 use App\Models\Manager;
 use App\Models\Lookup\Department;
-use App\Services\Validation\Rules\PasswordFormatRule;
-use Facades\App\Services\WhichPortal;
-use Illuminate\Auth\Events\Registered;
+use App\Services\Validation\RegistrationValidator;
 
 class FirstVisitController extends AuthController
 {
@@ -33,7 +26,8 @@ class FirstVisitController extends AuthController
         return view('auth.first_visit_manager', [
             'routes' => $routes,
             'first_visit' => Lang::get('common/auth/first_manager_visit'),
-            'departments' => Department::all()->map->toApiArray(),
+            'departments' => Department::all(),
+            'not_in_gov_option' => ['value' => 0, 'name' => Lang::get('common/auth/register.not_in_gov')],
         ]);
     }
 
@@ -46,13 +40,7 @@ class FirstVisitController extends AuthController
     public function finishManagerRegistration(Request $request)
     {
         $data = $request->all();
-        $validator = Validator::make(
-            $data,
-            [
-                'department' => 'required|integer',
-                'gov_email' => 'nullable|required_unless:department,0|string|email|unique:users', // gov_email is required unless department is set to 0 (Not in Goverment)
-            ]
-        );
+        $validator = RegistrationValidator::finalizeManagerValidator($data);
         $validator->validate();
 
         $user = $request->user();
