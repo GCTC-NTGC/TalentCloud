@@ -1,7 +1,9 @@
 import { Selector } from "testcafe";
 import { managerUser } from "./helpers/roles";
 
-fixture(`Critical - Job Poster Builder`).page(`talent.test`);
+const HOMEPAGE = "https://talent.test";
+
+fixture(`Critical - Job Poster Builder`).page(HOMEPAGE);
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Job Poster Builder`);

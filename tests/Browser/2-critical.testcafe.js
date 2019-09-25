@@ -1,7 +1,9 @@
 import { Selector, Role } from "testcafe";
 import { applicantUser, adminUser, assertIsLoggedIn } from "./helpers/roles";
 
-fixture(`Critical - Applicant Profile`).page(`talent.test`);
+const HOMEPAGE = "https://talent.test";
+
+fixture(`Critical - Applicant Profile`).page(HOMEPAGE);
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Applicant Profile`);
@@ -22,7 +24,7 @@ test("Applicant Profile - My Skills", async t => {
       Selector("select")
         .withAttribute("name", "skill_id")
         .find("option")
-        .withAttribute("value", "24"),
+        .withText("Passion"),
     )
     .click(
       Selector(".form__radio-group-span").withText("Deep Level Demonstration"),
@@ -310,7 +312,7 @@ function randomEmail() {
   return email;
 }
 
-fixture(`Critical - Registration`).page(`talent.test`);
+fixture(`Critical - Registration`).page(HOMEPAGE);
 // Skip when writing new tests
 // fixture.skip(`Critical - Registration`);
 
