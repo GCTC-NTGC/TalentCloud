@@ -28,8 +28,7 @@ class UpdateManagerProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        $manager = $this->route('manager');
-        return $manager->id !== null;
+        return $this->manager !== null;
     }
 
     /**
@@ -68,7 +67,7 @@ class UpdateManagerProfileRequest extends FormRequest
                 'email',
             ],
             // Password validation
-            'old_password' => [
+            'current_password' => [
                 'nullable',
                 'required_with:new_password',
                 new PasswordCorrectRule
@@ -106,7 +105,6 @@ class UpdateManagerProfileRequest extends FormRequest
 
             'twitter_username' => [
                 'nullable', // Some people may not have a handle.
-                'max:15', // Per Twitter's Terms/Service.
                 new TwitterHandleRule,
             ],
             'linkedin_url' => [

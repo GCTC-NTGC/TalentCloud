@@ -20,7 +20,7 @@ return [
         'user_name_label' => 'Mon nom',
         'user_email_label' => 'Mon courriel',
         'password_form_legend' => 'Réinitialiser mon mot de passe',
-        'user_old_password_label' => 'Ancien mot de passe',
+        'user_current_password_label' => 'Mot de passe actuel',
         'user_new_password_label' => 'Nouveau mot de passe',
         'user_confirm_new_password_label' => 'Confirmer le nouveau mot de passe',
         'social_media_form_legend' => 'Des médias sociaux',

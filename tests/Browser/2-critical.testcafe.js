@@ -244,7 +244,7 @@ test("Applicant Profile - About Me", async t => {
     .ok()
     // Change password.
     .typeText(
-      Selector(".form__input").withAttribute("name", "old_password"),
+      Selector(".form__input").withAttribute("name", "current_password"),
       "password",
     )
     .typeText(
