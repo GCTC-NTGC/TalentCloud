@@ -106,23 +106,21 @@
                             {% for department in departments %}
                                 {% set deparmentName = department.name %}
                                 {% set chosenName = manager.department.name %}
-                                {% if old('department_id') == department.id %}
                                     <option
                                         value="{{ department.id }}"
-                                        selected="selected">
+                                        {% if old('department_id') %}
+                                            {% if old('department_id') == department.id %}
+                                                selected="selected"
+                                            {% endif %}
+                                        {% else %}
+                                            {% if deparmentName == chosenName %}
+                                            selected="selected"
+                                            {% endif %}
+                                        {% endif %}
+                                    >
                                             {{ department.name }}
                                     </option>
-                                {% else %}
-                                <option
-                                    value="{{ department.id }}"
-                                    {% if deparmentName == chosenName %}
-                                        selected="selected"
-                                    {% endif %}>
-                                        {{ department.name }}
-                                </option>
-                                {% endif %}
                             {% endfor %}
-
                         </select>
                     </div>
                 </div>
@@ -382,8 +380,8 @@
                         class="form__input"
                         id="managerProfileTwitter"
                         type="text"
-                        pattern="{{ twitterHandlerPattern }}"
                         name="twitter_username"
+                        pattern="{{ twitterHandlerPattern }}"
                         value="{{ old('twitter_username', manager.twitter_username) }}" />
                 </div>
 
@@ -400,8 +398,8 @@
                         class="form__input"
                         id="managerProfileLinkedin"
                         type="url"
-                        {# pattern="{{ linkedInUrlPattern }}" #}
                         name="linkedin_url"
+                        pattern="{{ linkedInUrlPattern }}"
                         value="{{ old('linkedin_url', manager.linkedin_url) }}" />
                 </div>
             </div>
