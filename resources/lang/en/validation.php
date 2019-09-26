@@ -123,7 +123,7 @@ return [
     'applicant_has_relation' => 'Applicant must own this :attribute',
     'contains_object_with_attribute' => ':attribute doesn\'t contain required :relation equal to :attributeValue',
     'user_skill_unique' => 'You may only add each skill once',
-    'password_correct' => 'Old password isn\'t correct',
+    'password_correct' => 'Current password isn\'t correct',
     'user_owns_skill_declaration' => ':attribute must specify a Skill Declaration that belongs to the current user.',
     'invalid_id' => ":attribute is not a valid id.",
 
@@ -152,6 +152,8 @@ return [
         'published' => [
             'in' => 'You cannot edit a Job Poster that has been published'
         ],
+        'twitter_handle' => 'This is not a valid twitter handle.',
+        'linkedin_url' => 'This is not a valid linkedIn url.',
     ],
 
     /*

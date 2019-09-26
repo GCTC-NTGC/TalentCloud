@@ -4,6 +4,7 @@
     Manager - Profile Layout
 
 ============================================================================= #}
+
 <div class="manager-profile__section-wrapper">
 
     <div class="container--layout">
@@ -23,6 +24,11 @@
 
                         {# Builds an input field for CSRF token validation #}
                         {{ csrf_field() }}
+
+                    {# Include Account Settings #}
+
+                        {% include "manager/profile/account" with {'account_l10n': layout_l10n.account} %}
+
 
                     {# Include About Me #}
 
