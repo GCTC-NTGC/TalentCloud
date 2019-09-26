@@ -24,9 +24,10 @@ class ContainsObjectWithAttributeRule implements Rule
         $this->attributeValue = $attributeValue;
     }
 
-    protected function array_any(array $array, callable $fn) {
+    protected function array_any(array $array, callable $fn)
+    {
         foreach ($array as $value) {
-            if($fn($value)) {
+            if ($fn($value)) {
                 return true;
             }
         }
@@ -52,6 +53,6 @@ class ContainsObjectWithAttributeRule implements Rule
 
     public function message()
     {
-        return Lang::trans('validation.contains_object_with_attribute', ['relation' => $this->attributeName, 'attributeValue' => $this->attributeValue]);
+        return Lang::get('validation.contains_object_with_attribute', ['relation' => $this->attributeName, 'attributeValue' => $this->attributeValue]);
     }
 }
