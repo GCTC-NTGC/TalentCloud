@@ -39,7 +39,6 @@ class UpdateManagerApi extends FormRequest
             ],
             'twitter_username' => [
                 'nullable', // Some people may not have a handle.
-                'max:15', // Per Twitter's Terms/Service.
                 new TwitterHandleRule,
             ],
             'linkedin_url' => [
