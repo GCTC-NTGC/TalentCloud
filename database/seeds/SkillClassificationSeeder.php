@@ -1,12 +1,11 @@
 <?php
 
+use Illuminate\Database\Seeder;
+
 use App\Models\Classification;
 use App\Models\Skill;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\App;
-use phpDocumentor\Reflection\Types\Integer;
 
-class SkillClassificationSeeder extends Seeder
+class SkillClassificationSeeder extends Seeder // phpcs:ignore
 {
     /**
      * Run the Skills Classification seeds.
