@@ -17,14 +17,21 @@
 
         <a
             class="sidebar-link"
-            href="#about"
+            href="#managerProfileSectionAccount"
+            title="{{ job_post.basics.sidebar_title }}">
+            {{sidebar_l10n.my_account}}
+        </a>
+
+        <a
+            class="sidebar-link"
+            href="#managerProfileSectionAbout"
             title="{{ job_post.basics.sidebar_title }}">
             {{sidebar_l10n.about_me}}
         </a>
 
         <a
             class="sidebar-link"
-            href="#leadership"
+            href="#managerProfileSectionLeadership"
             title="{{ job_post.basics.sidebar_title }}">
             {{sidebar_l10n.leadership_style}}
         </a>
