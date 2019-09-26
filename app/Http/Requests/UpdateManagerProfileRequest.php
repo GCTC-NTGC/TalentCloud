@@ -80,10 +80,7 @@ class UpdateManagerProfileRequest extends FormRequest
             ],
 
             'department_id' => ['required', new ValidIdRule(Department::class)],
-            'telework_allowed_frequency_id' => ['required', $frequencyRule],
-            'flexible_hours_frequency_id' => ['required', $frequencyRule],
 
-            'team_size' => 'nullable|numeric|min:1',
             'years_experience' => 'nullable|numeric|min:0',
             'gc_directory_url' => 'nullable|url',
 
@@ -95,13 +92,9 @@ class UpdateManagerProfileRequest extends FormRequest
             '*.employee_learning' => 'nullable|string',
             '*.expectations' => 'nullable|string',
             '*.greatest_accomplishment' => 'nullable|string',
-            '*.how_we_work' => 'nullable|string',
             '*.leadership_style' => 'nullable|string',
             '*.learning_path' => 'nullable|string',
-            '*.operating_context' => 'nullable|string',
             '*.position' => 'nullable|string',
-            '*.things_to_know' => 'nullable|string',
-            '*.what_we_value' => 'nullable|string',
 
             'twitter_username' => [
                 'nullable', // Some people may not have a handle.
