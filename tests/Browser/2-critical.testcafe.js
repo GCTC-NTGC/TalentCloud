@@ -3,7 +3,9 @@ import { applicantUser, adminUser, assertIsLoggedIn } from "./helpers/roles";
 
 const HOMEPAGE = "https://talent.test";
 
-fixture(`Critical - Applicant Profile`).page(HOMEPAGE);
+fixture(`Critical - Applicant Profile`)
+  .page(HOMEPAGE)
+  .meta("travis", "run");
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Applicant Profile`);
