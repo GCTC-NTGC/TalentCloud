@@ -96,21 +96,8 @@ class ManagerProfileController extends Controller
      */
     public function edit(Request $request, Manager $manager)
     {
-        $workEnvironment = $manager->work_environment;
-        $teamCulture = $manager->team_culture;
-
         // TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model.
         $workplacePhotos = [];
-        if ($workEnvironment != null) {
-            foreach ($workEnvironment->workplace_photo_captions as $photoCaption) {
-                $workplacePhotos[] = [
-                    'id' => $photoCaption->id,
-                    'alt' => $photoCaption->description,
-                    'alt_fr' => $photoCaption->description,
-                    'url' => '/images/user.png'
-                ];
-            }
-        }
 
         $frequencies = Frequency::all();
         $linkedInUrlPattern = LinkedInUrlRule::PATTERN;
@@ -126,8 +113,6 @@ class ManagerProfileController extends Controller
             'user' => $manager->user,
             'manager' => $manager,
             'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
-            'team_culture' => $manager->team_culture,
-            'work_environment' => $workEnvironment,
             'workplace_photos' => $workplacePhotos,
             'departments' => Department::all(),
             'telework_options' => $frequencies,
@@ -135,10 +120,6 @@ class ManagerProfileController extends Controller
             'radio_options' => $frequencies,
             'managerEN' => $manager->translate('en'),
             'managerFR' => $manager->translate('fr'),
-            'workEnvEN' => $workEnvironment->translate('en'),
-            'workEnvFR' => $workEnvironment->translate('fr'),
-            'teamCultureEN' => $teamCulture->translate('en'),
-            'teamCultureFR' => $teamCulture->translate('fr'),
             'linkedInUrlPattern' => $linkedInUrlPattern,
             'twitterHandlePattern' => $twitterHandlePattern,
             'show_notification' => $show_notification
@@ -175,14 +156,6 @@ class ManagerProfileController extends Controller
         }
         $user->save();
 
-        $work_environment = $manager->work_environment;
-        $work_environment->fill($validated);
-        $work_environment->save();
-
-        $team_culture = $manager->team_culture;
-        $team_culture->fill($validated);
-        $team_culture->save();
-
         $manager->fill($validated);
         $manager->save();
 
@@ -193,12 +166,6 @@ class ManagerProfileController extends Controller
                 break;
             case 'about_me':
                 $hash = '#managerProfileSectionAbout';
-                break;
-            case 'team_culture':
-                $hash = '#managerProfileSectionCulture';
-                break;
-            case 'work_environment':
-                $hash = '#managerProfileSectionEnvrionment';
                 break;
             case 'leadership':
                 $hash = '#managerProfileSectionLeadership';

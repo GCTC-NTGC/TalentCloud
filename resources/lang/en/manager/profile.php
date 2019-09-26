@@ -17,6 +17,7 @@ return [
     'layout' => [
         'sidebar' => [
             'profile_sections' => 'Profile Sections',
+            'my_account' => 'My Account',
             'about_me' => 'About Me',
             'leadership_style' => 'My Leadership Style',
             'our_work_environment' => 'Our Work Environment',
