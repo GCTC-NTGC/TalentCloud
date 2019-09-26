@@ -284,6 +284,7 @@ class LangFilesTest extends BaseTranslationTest
         'https://gccollab.ca/groups/profile/19750/entalent-cloud-nuage-de-talentsfrnuage-de-talents-talent-cloud',
         'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
         '#upgrade',
+        '/images/logo_tc_colour.png',
         'benefits',
         'TBD',
         'applicants',

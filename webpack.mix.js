@@ -21,6 +21,7 @@ mix
   .js("resources/assets/js/modernizr.js", "public/js")
   .js("resources/assets/js/alerts.js", "public/js")
   .js("resources/assets/js/getpdf.js", "public/js")
+  .ts("resources/assets/js/managerRegistration.ts", "public/js")
   .ts(
     "resources/assets/js/components/AssessmentPlan/AssessmentPlanRoot.tsx",
     "public/js",

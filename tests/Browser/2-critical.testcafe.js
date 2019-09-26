@@ -1,7 +1,11 @@
-import { Selector } from "testcafe";
-import { applicantUser, adminUser } from "./helpers/roles";
+import { Selector, Role } from "testcafe";
+import { applicantUser, adminUser, assertIsLoggedIn } from "./helpers/roles";
 
-fixture(`Critical - Applicant Profile`).page(`talent.test`);
+const HOMEPAGE = "https://talent.test";
+
+fixture(`Critical - Applicant Profile`)
+  .page(HOMEPAGE)
+  .meta("travis", "run");
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Applicant Profile`);
@@ -22,7 +26,7 @@ test("Applicant Profile - My Skills", async t => {
       Selector("select")
         .withAttribute("name", "skill_id")
         .find("option")
-        .withAttribute("value", "24"),
+        .withText("Passion"),
     )
     .click(
       Selector(".form__radio-group-span").withText("Deep Level Demonstration"),
@@ -310,18 +314,39 @@ function randomEmail() {
   return email;
 }
 
-fixture(`Critical - Registration`).page(`talent.test`);
+fixture(`Critical - Registration`).page(HOMEPAGE);
 // Skip when writing new tests
 // fixture.skip(`Critical - Registration`);
 
 test("Registration - Applicant", async t => {
   await t
+    .useRole(Role.anonymous())
     .click(Selector("a").withText("Register"))
     .typeText(Selector("#name"), "Test Cafe")
     .typeText(Selector("#email"), randomEmail())
     .typeText(Selector("#password"), "Password123!@#")
     .typeText(Selector("#password-confirm"), "Password123!@#")
-    .click(Selector("button").withText("Register"))
-    .expect(Selector("a").withText("My Applications").visible)
-    .ok();
+    .click(Selector("button").withText("Register"));
+  await assertIsLoggedIn(t);
+});
+
+test("Registration - Manager", async t => {
+  await t
+    .useRole(Role.anonymous())
+    .navigateTo("/manager")
+    .click(Selector("a").withText("Register"))
+    .typeText(Selector("#name"), "Test Cafe")
+    .typeText(Selector("#email"), randomEmail())
+    .click(Selector("select").withAttribute("name", "department"))
+    .click(
+      Selector("select")
+        .withAttribute("name", "department")
+        .find("option")
+        .withText("Treasury Board of Canada Secretariat"),
+    )
+    .typeText(Selector("#gov_email"), randomEmail())
+    .typeText(Selector("#password"), "Password123!@#")
+    .typeText(Selector("#password-confirm"), "Password123!@#")
+    .click(Selector("button").withText("Register"));
+  await assertIsLoggedIn(t);
 });
