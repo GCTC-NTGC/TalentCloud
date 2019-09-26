@@ -3,7 +3,9 @@ import { managerUser } from "./helpers/roles";
 
 const HOMEPAGE = "https://talent.test";
 
-fixture(`Critical - Job Poster Builder`).page(HOMEPAGE);
+fixture(`Critical - Job Poster Builder`)
+  .page(HOMEPAGE)
+  .meta("travis", "run");
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Job Poster Builder`);
