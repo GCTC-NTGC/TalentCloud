@@ -412,9 +412,6 @@ return [
                         ]
                     ],
                 ],
-                "links" => [
-                    "0" => "",
-                ],
             ],
             "levels" => [
                 "title" => "Comment puis-je connaître le niveau de mes compétences?",
@@ -546,9 +543,6 @@ return [
                             ]
                         ]
                     ],
-                ],
-                "links" => [
-                    "0" => "",
                 ],
             ],
         ]

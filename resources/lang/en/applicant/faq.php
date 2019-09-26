@@ -412,9 +412,6 @@ return [
                         ]
                     ],
                 ],
-                "links" => [
-                    "0" => "",
-                ],
             ],
             "levels" => [
                 "title" => "How do I know what level my skills are at?",
@@ -546,9 +543,6 @@ return [
                             ]
                         ]
                     ],
-                ],
-                "links" => [
-                    "0" => "",
                 ],
             ],
         ]
