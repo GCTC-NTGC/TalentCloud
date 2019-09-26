@@ -128,7 +128,7 @@ class User extends BaseModel implements
      */
     public function isUpgradedManager(): bool
     {
-        return $this->user_role->name === 'upgradedManager';
+        return $this->isAdmin() || $this->user_role->name === 'upgradedManager';
     }
 
     /**
