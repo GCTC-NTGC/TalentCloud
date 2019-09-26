@@ -40,9 +40,8 @@ class Kernel extends HttpKernel
 
             InitializeUser::class,
 
-            //Route Tranlslation middleware
-            //'localize' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
-
+            // Route Tranlslation middleware
+            // 'localize' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
             \App\Http\Middleware\DateLocale::class,
         ],
 
@@ -70,8 +69,9 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'role' => \App\Http\Middleware\CheckRole::class,
         'localOnly' => \App\Http\Middleware\LocalOnly::class,
+        'finishManagerRegistration' => \App\Http\Middleware\FinishManagerRegistration::class,
 
-        //Localization Middleware
+        // Localization Middleware
         'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
         'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
         'localeViewPath' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,

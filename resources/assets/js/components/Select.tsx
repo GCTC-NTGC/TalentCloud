@@ -66,7 +66,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
       <select
         id={id}
         name={name}
-        value={selected || ""}
+        value={selected !== null ? selected : ""}
         onChange={onChange}
         onBlur={onBlur}
         required={required}

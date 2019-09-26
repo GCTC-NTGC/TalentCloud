@@ -10,176 +10,91 @@
 {% block title %}{{ login.title }}{% endblock %}
 
 {% block body %}
-
-<section
-    class="auth"
-    style="background-image: url('/images/bg_crowd.jpg');">
-
-    <div
-        class="auth-login">
-
-        <a
-            class="auth-return-link"
-            href="/"
-            title="Return Home">
-            <i class="fas fa-chevron-left"></i> {{ login.return }}
-        </a>
-
-        <div
-            class="auth-heading">
-
-            <h1>{{ login.header }}</h1>
-
-        </div>
-
-        <form
-            action="{{ routes.login }}"
-            class="form__wrapper"
-            method="POST">
-
-            {{ csrf_field() }}
-
-            <div
-                class="auth-content">
-
-                <div
-                    class="auth-scroll-wrapper">
-
-                    <div
-                        class="auth-copy">
-
-                        <div
-                            class="flex-grid">
-
-                            {% if errors.any() %}
-                                <div class="box full">
-                                    <ul class="auth-alert">
-                                        {% for error in errors.all() %}
-                                            <li class="">
-                                                <strong>{{ error }}</strong>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
+    {% include "common/goc" %}
+    <div data-clone>
+        <section class="tc-auth" data-c-padding="tb(triple)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
+            <div class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
+                {# Return to the homepage link. #}
+                <a data-c-color="white" href="/" title="Return Home">
+                    <i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ login.return }}
+                </a>
+                <div data-c-radius="rounded" data-c-margin="top(normal)">
+                    {# Auth UI Title Area #}
+                    <div class="tc-auth-header gradient-left-right" data-c-padding="all(double)" data-c-align="base(center)">
+                        <h1 data-c-font-size="h2" data-c-color="white">{{ login.header }}</h1>
+                    </div>
+                    {# Login Form #}
+                    <form action="{{ routes.login }}" method="POST">
+                        {{ csrf_field() }}
+                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
+                            <div data-c-padding="tb(half)">
+                                {% include "errors/form_errors" %}
+                                {# Email Field #}
+                                <div data-c-input="email">
+                                    <label for="email">{{ login.email }}</label>
+                                    <span>{{ trans("forms.required") }}</span>
+                                    <div>
+                                        <input id="email" name="email" placeholder="e.g. email@website.com" required type="email" value="{{ old('email') }}"/>
+                                    </div>
+                                    <span>{{ trans("forms.error") }}</span>
                                 </div>
-                            {% endif %}
-
-                        </div>
-
-                        <div
-                            class="form__input-wrapper--float {{ old('email') ? "active" : '' }}">
-                            <label
-                                class="form__label"
-                                for="email">
-                                {{ login.email }}
-                            </label>
-                            <input
-                                class="form__input"
-                                id="email"
-                                name="email"
-                                required
-                                type="email"
-                                value="{{ old('email') }}" />
-                        </div>
-
-                        <div
-                            class="form__input-wrapper--float">
-                            <label
-                                class="form__label"
-                                for="password">
-                                {{ login.password }}
-                            </label>
-                            <input
-                                class="form__input"
-                                id="password"
-                                name="password"
-                                required
-                                type="password"
-                                autocomplete="off" />
-                        </div>
-
-                        <div
-                            class="flex-grid middle">
-
-                            <div
-                                class="box small-1of2">
-                                <div
-                                    class="form__checkbox-wrapper">
-
-                                    <label
-                                        class="form__label">
-                                        <input
-                                            class="form__input"
-                                            {{ old('remember') ? 'checked' : '' }}
-                                            name="remember"
-                                            type="checkbox">{{ login.remember_me }}
-                                    </label>
-
+                                {# Password Field #}
+                                <div data-c-input="password">
+                                    <label for="password">{{ login.password }}</label>
+                                    <span>{{ trans("forms.required") }}</span>
+                                    <div>
+                                        <input id="password" name="password" required type="password" />
+                                        <button type="button">
+                                            <i class="fas fa-eye"></i>
+                                            <i class="fas fa-eye-slash"></i>
+                                        </button>
+                                    </div>
+                                    <span>{{ trans("forms.error") }}</span>
+                                </div>
+                                {# Remember Me & Password Reset #}
+                                <div data-c-grid="middle">
+                                    <div data-c-grid-item="base(1of2)">
+                                        <div data-c-input="checkbox" class="tc-auth-remember-me">
+                                            <span>{{ trans("forms.required") }}</span>
+                                            <div>
+                                                <label for="rememberMe">
+                                                    <input
+                                                        id="rememberMe"
+                                                        type="checkbox"
+                                                        {{ old('remember') ? 'checked' : '' }}
+                                                        name="remember"/>
+                                                    <span>{{ login.remember_me }}</span>
+                                                </label>
+                                            </div>
+                                            <span>{{ trans("forms.error") }}</span>
+                                        </div>
+                                    </div>
+                                    <div data-c-grid-item="base(1of2)" data-c-align="base(right)">
+                                        <a href="{{ routes.password.request }}">
+                                            {{ login.forgot_password }}
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div
-                                class="box small-1of2">
-                                <a
-                                    href="/register"
-                                    title="Register for Talent Cloud">
-                                    {{ login.register }}
-                                </a>
-                            </div>
-
                         </div>
-
-                    </div>
-
+                        {# UI Actions #}
+                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)">
+                            <div data-c-grid="middle">
+                                <div data-c-grid-item="base(1of2)">
+                                    <a href="{{ routes.register }}" title="Register for Talent Cloud">
+                                        {{ login.register }}
+                                    </a>
+                                </div>
+                                <div data-c-grid-item="base(1of2)" data-c-align="base(right)">
+                                    <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
+                                        {{ login.login }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-
             </div>
-
-            <div
-                class="auth-action-wrapper">
-
-                <div
-                    class="flex-grid">
-
-                    <div
-                        class="box small-1of2">
-
-                        <a
-                            class="button--red light-bg"
-                            href="{{ routes.password.request }}">
-                            {{ login.forgot_password }}
-                        </a>
-
-                    </div>
-
-                    <div
-                        class="box small-1of2">
-
-                        <button
-                            class="button--blue light-bg"
-                            type="submit">
-                            {{ login.login }}
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </form>
-
+        </section>
     </div>
-
-    <a
-        class="auth-logo"
-        href="/"
-        title="Return to Talent Cloud.">
-        <img
-            alt="The Talent Cloud Logo"
-            class=""
-            src="{{ login.auth_logo }}">
-    </a>
-
-</section>
-
 {% endblock %}
