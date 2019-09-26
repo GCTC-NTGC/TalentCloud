@@ -26,7 +26,6 @@
         "friendsofphp/php-cs-fixer": "^2.15",
         "fzaninotto/faker": "^1.8",
         "laracasts/generators": "dev-master",
-        "laravel/dusk": "^5.0.0",
         "mockery/mockery": "^1.2",
         "phpmd/phpmd": "^2.6",
         "phpunit/php-code-coverage": "^7.0",
