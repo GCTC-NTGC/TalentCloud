@@ -21,7 +21,7 @@ return [
         'user_name_label' => 'My Name',
         'user_email_label' => 'My Email',
         'password_form_legend' => 'Reset Password',
-        'user_old_password_label' => 'Old Password',
+        'user_current_password_label' => 'Current Password',
         'user_new_password_label' => 'New Password',
         'user_confirm_new_password_label' => 'Confirm New Password',
         'social_media_form_legend' => 'Social Media',

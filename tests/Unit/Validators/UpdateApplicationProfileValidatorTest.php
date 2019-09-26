@@ -117,7 +117,7 @@ class UpdateApplicationProfileValidatorTest extends TestCase
             'profile_name' => $this->applicant->user->name,
             'profile_email' => $this->applicant->user->email,
             'password' => $this->applicant->user->password,
-            'old_password' => 'Testing123!',
+            'current_password' => 'Testing123!',
             'new_password' => 'NewPassword123!',
             'new_password_confirmation' => 'NewPassword123!',
             'twitter_username' => 'Test_person',
@@ -139,7 +139,7 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $data = [
             'profile_name' => $this->applicant->user->name,
             'profile_email' => $this->applicant->user->email,
-            'old_password' => $this->password,
+            'current_password' => $this->password,
             'new_password' => 'NewPassword123!',
             'twitter_username' => 'Test_person',
             'linkedin_url' => 'www.linkedin.com/in/test-person',
@@ -160,7 +160,7 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $data = [
             'profile_name' => $this->applicant->user->name,
             'profile_email' => $this->applicant->user->email,
-            'old_password' => $this->password,
+            'current_password' => $this->password,
             'new_password' => 'NewPassword123!',
             'new_password_confirmation' => 'DifferentPassword123!',
             'twitter_username' => 'Test_person',
@@ -182,7 +182,7 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $data = [
             'profile_name' => $this->applicant->user->name,
             'profile_email' => $this->applicant->user->email,
-            'old_password' => $this->password,
+            'current_password' => $this->password,
             'new_password' => 'NewPassword',
             'new_password_confirmation' => 'NewPassword',
             'twitter_username' => 'Test_person',
@@ -204,7 +204,7 @@ class UpdateApplicationProfileValidatorTest extends TestCase
         $data = [
             'profile_name' => $this->applicant->user->name,
             'profile_email' => $this->applicant->user->email,
-            'old_password' => 'NotTheRightPassword123!',
+            'current_password' => 'NotTheRightPassword123!',
             'new_password' => 'NewPassword123!',
             'new_password_confirmation' => 'NewPassword123!',
             'twitter_username' => 'Test_person',

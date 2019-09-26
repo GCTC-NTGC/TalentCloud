@@ -31,15 +31,15 @@
             <div
                 class="box med-1of2">
 
-                <div class="form__input-wrapper--float {% if work_environment.translate('en').things_to_know %}active{% endif %}">
+                <div class="form__input-wrapper--float {% if workEnvEN.things_to_know %}active{% endif %}">
                     <label class="form__label" for="managerProfileEnvContextEN">
                         {{environment_l10n.answer_english}}
                     </label>
                     <textarea
                         class="form__textarea"
                         id="managerProfileEnvContextEN"
-                        name="things_to_know[en]">
-                        {{ work_environment.translate('en').things_to_know }}
+                        name="en[things_to_know]">
+                        {{ old('en.things_to_know', workEnvEN.things_to_know) }}
                     </textarea>
                 </div>
 
@@ -48,15 +48,15 @@
             <div
                 class="box med-1of2">
 
-                <div class="form__input-wrapper--float {% if work_environment.translate('fr').things_to_know %}active{% endif %}">
+                <div class="form__input-wrapper--float {% if workEnvFR.things_to_know %}active{% endif %}">
                     <label class="form__label" for="managerProfileEnvContextFR">
                         {{environment_l10n.answer_french}}
                     </label>
                     <textarea
                         class="form__textarea"
                         id="managerProfileEnvContextFR"
-                        name="things_to_know[fr]">
-                        {{ work_environment.translate('fr').things_to_know }}
+                        name="fr[things_to_know]">
+                        {{ old('fr.things_to_know', workEnvFR.things_to_know) }}
                     </textarea>
                 </div>
 
@@ -96,12 +96,19 @@
                                     required
                                     class="form__radio-group-input"
                                     id="telework{{ option.id }}"
-                                    name="telework"
+                                    name="telework_allowed_frequency_id"
                                     type="radio"
                                     value="{{ option.id }}"
-                                    {% if work_environment.telework_allowed_frequency.name == option.name %}
-                                        checked
-                                    {% endif %} />
+                                    {% if old('telework_allowed_frequency_id') %}
+                                        {% if old('telework_allowed_frequency_id') == option.id %}
+                                            checked
+                                        {% endif %}
+                                    {% else %}
+                                        {% if work_environment.telework_allowed_frequency.name == option.name %}
+                                            checked
+                                        {% endif %}
+                                    {% endif %}
+                                />
                                 <span
                                     class="form__radio-group-span">
                                     {{ environment_l10n.frequency[option.name] }}
@@ -147,12 +154,19 @@
                                 <input
                                     class="form__radio-group-input"
                                     id="flex_hours{{ option.id }}"
-                                    name="flex_hours"
+                                    name="flexible_hours_frequency_id"
                                     type="radio"
                                     value="{{ option.id }}"
-                                    {% if work_environment.flexible_hours_frequency.name == option.name %}
-                                        checked
-                                    {% endif %} />
+                                     {% if old('flexible_hours_frequency_id') %}
+                                        {% if old('flexible_hours_frequency_id') == option.id %}
+                                            checked
+                                        {% endif %}
+                                    {% else %}
+                                        {% if work_environment.flexible_hours_frequency.name == option.name %}
+                                            checked
+                                        {% endif %}
+                                    {% endif %}
+                                />
                                 <span
                                     class="form__radio-group-span">
                                     {{ environment_l10n.frequency[option.name] }}
@@ -211,7 +225,7 @@
                             class="form__input"
                             id="manageProfileAltEN{{ photo.id }}"
                             type="text"
-                            name="workplace_photo_captions[{{ photo.id }}][en]"
+                            name="en[workplace_photo_captions[{{ photo.id }}]]"
                             value="{{ photo.alt }}">
                         </input>
                     </div>
@@ -224,7 +238,7 @@
                             class="form__input"
                             id="manageProfileAltFR{{ photo.id }}"
                             type="text"
-                            name="workplace_photo_captions[{{ photo.id }}][fr]"
+                            name="fr[workplace_photo_captions[{{ photo.id }}]]"
                             value="{{ photo.alt_fr }}">
                         </input>
                     </div>

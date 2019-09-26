@@ -38,6 +38,6 @@ class ContainsObjectWithRelationRule implements Rule
 
     public function message()
     {
-        return Lang::trans('validation.contains_object_with_relation', ['relation' => $this->relationName]);
+        return Lang::get('validation.contains_object_with_relation', ['relation' => $this->relationName]);
     }
 }
