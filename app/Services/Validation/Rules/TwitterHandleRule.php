@@ -12,13 +12,13 @@ class TwitterHandleRule implements Rule
      *
      * @var string
      */
-    const PATTERN = '^[A-Za-z0-9_]{1,10}$';
+    const PATTERN = '^[A-Za-z0-9_]{1,15}$';
 
     /**
      *
      * Twitters Terms of Service only allows ". A username can only contain
      * alphanumeric characters (letters A-Z, numbers 0-9) with the exception
-     * of underscores"
+     * of underscores... A username cannot be longer than 15 characters."
      * This regex will allow only alphamumeric characters and the underscore.
      * Keep this handy if we need to validate other usernames.
      *
