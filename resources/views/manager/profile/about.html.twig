@@ -99,13 +99,13 @@
                             id="managerProfileDepartment"
                             name="department_id">
 
+                            {% set chosenName = manager.department.name %}
                             <option value="" disabled {% if chosenName %}selected{% endif %}>
                                 {{ about_l10n.department_default_option }}
                             </option>
 
                             {% for department in departments %}
                                 {% set deparmentName = department.name %}
-                                {% set chosenName = manager.department.name %}
                                     <option
                                         value="{{ department.id }}"
                                         {% if old('department_id') %}
@@ -114,7 +114,7 @@
                                             {% endif %}
                                         {% else %}
                                             {% if deparmentName == chosenName %}
-                                            selected="selected"
+                                                selected="selected"
                                             {% endif %}
                                         {% endif %}
                                     >
