@@ -48,7 +48,6 @@ class UpdateManagerProfileRequest extends FormRequest
      */
     public function rules()
     {
-        $frequencyRule = new ValidIdRule(Frequency::class);
         return [
             'name' => 'required|string|max:191',
             'email' => [
