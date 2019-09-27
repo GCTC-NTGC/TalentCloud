@@ -4,6 +4,7 @@
     Manager - Profile Layout
 
 ============================================================================= #}
+
 <div class="manager-profile__section-wrapper">
 
     <div class="container--layout">
@@ -24,6 +25,11 @@
                         {# Builds an input field for CSRF token validation #}
                         {{ csrf_field() }}
 
+                    {# Include Account Settings #}
+
+                        {% include "manager/profile/account" with {'account_l10n': layout_l10n.account} %}
+
+
                     {# Include About Me #}
 
                         {% include "manager/profile/about" with {'about_l10n': layout_l10n.about} %}
@@ -31,14 +37,6 @@
                     {# Include My Leadership Style #}
 
                         {% include "manager/profile/leadership" with {'leadership_l10n': layout_l10n.leadership } %}
-
-                    {# Include Our Work Environment #}
-
-                        {% include "manager/profile/environment" with {'environment_l10n': layout_l10n.environment } %}
-
-                    {# Include Our Team Culture #}
-
-                        {% include "manager/profile/culture" with {'culture_l10n': layout_l10n.culture } %}
 
                     </form>
 

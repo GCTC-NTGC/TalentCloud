@@ -204,9 +204,13 @@
 [data-clone] [data-c-accordion-group] [data-c-accordion=""]:first-of-type,
 [data-clone] [data-c-accordion-group] [data-c-accordion=""] {
     border: none;
-    border-radius: 0;
-    [data-c-accordion-content] {
-        border: 1px solid #a3a3a36e;
+    >button >div {
+        padding-right: 5rem !important;
     }
-
+    &.active {
+        >button >div,
+        >div {
+            border-color: $clone-c3 !important;
+        }
+    }
 }

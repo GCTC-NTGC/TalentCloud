@@ -55,7 +55,7 @@ use Astrotomic\Translatable\Translatable as Translatable;
  * @property string $name
  *
  * Methods
- * @method string toApiArray()
+ * @method   string toApiArray()
  */
 class Manager extends BaseModel
 {

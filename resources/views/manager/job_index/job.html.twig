@@ -100,13 +100,26 @@
         </div>
 
         <div class="box med-2of12">
-
+            {% if show_notification %}
+            <div data-clone>
+                <button
+                    class="submit-button"
+                    data-c-button="solid(c4)"
+                    data-c-radius="rounded"
+                    data-c-dialog-id="upgrade-modal"
+                    data-c-dialog-action="open"
+                    type="button">
+                    {{ jobs_l10n.send_for_review }}
+                </button>
+            </div>
+            {% else %}
             <a
                 class="button--blue submit-button"
                 href="{{ route('manager.jobs.edit', job) ~ '#submit' }}" {# This links to the Submit button of the Review step of the JPB#}
                 title="{{ jobs_l10n.send_this_review }}">
                 {{ jobs_l10n.send_for_review }}
             </a>
+            {% endif %}
 
             {% if job.status() != 'draft' %}
             <a

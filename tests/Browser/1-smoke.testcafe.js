@@ -1,7 +1,11 @@
 import { Selector } from "testcafe";
 import { managerUser, adminUser } from "./helpers/roles";
 
-fixture(`Smoke`).page(`talent.test`);
+const HOMEPAGE = "https://talent.test";
+
+fixture(`Smoke`)
+  .page(HOMEPAGE)
+  .meta("travis", "run");
 
 // Skip when writing new tests
 // fixture.skip(`Smoke`);
@@ -19,14 +23,14 @@ test("Basic Access", async t => {
     .expect(Selector("section.faq").visible)
     .ok()
     .click(Selector("a").withText("Login"))
-    .expect(Selector("form > .auth-content").visible)
+    .expect(Selector("form button[type=submit]").withText("Login").visible)
     .ok();
 });
 
 test("No Access Profile", async t => {
   await t
     .navigateTo("/profile/about")
-    .expect(Selector("form > .auth-content")())
+    .expect(Selector("form button[type=submit]").withText("Login").visible)
     .ok();
 });
 

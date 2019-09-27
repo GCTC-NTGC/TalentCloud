@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Manager;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateManager;
+use App\Http\Requests\UpdateManagerApi;
 use Illuminate\Support\Facades\Auth;
 
 class ManagerApiController extends Controller
@@ -68,14 +68,14 @@ class ManagerApiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateManager $request Incoming Form Request.
-     * @param  \App\Models\Manager              $manager Incoming Manager.
+     * @param  \App\Http\Requests\UpdateManagerApi $request Incoming Form Request.
+     * @param  \App\Models\Manager                 $manager Incoming Manager.
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateManager $request, Manager $manager)
+    public function update(UpdateManagerApi $request, Manager $manager)
     {
-        $request->validated();
-        $manager->fill($request->input());
+        $validated = $request->validated();
+        $manager->fill($validated);
         $manager->save();
         return response()->json($manager->toApiArray());
     }

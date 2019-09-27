@@ -1,0 +1,160 @@
+<span id="{{ section.hash }}"></span>
+    <h3 data-c-colour="c2" data-c-margin="top(triple) bottom(normal)" data-c-font-size="h3">{{ section.title }}</h3>
+    <div data-c-accordion-group>
+        {% set counter = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] %}
+        {% for item in section.content %}
+            {% if item.type == "title" %}
+                <span id="{{ item.hash }}"></span>
+                <h4 data-c-font-size="normal" data-c-font-weight="bold" data-c-margin="top(double) bottom(normal)">{{ item.copy }}</h4>
+            {% elseif item.type == "text" %}
+                <p>{{ item.copy|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}</p>
+            {% elseif item.type == "ul" %}
+                <ul>
+                    {% for listItem in item.items %}
+                        {% if listItem is iterable %}
+                            <li>
+                                {{ listItem.copy|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}
+                                <ul>
+                                    {% for sublistItem in listItem.items %}
+                                        {% if sublistItem is iterable %}
+                                            {# Do nothing for now... #}
+                                        {% else %}
+                                            <li>
+                                                {{ sublistItem|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li>
+                                {{ listItem|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% elseif item.type == "ol" %}
+                <ol>
+                    {% for listItem in item.items %}
+                        {% if listItem is iterable %}
+                            <li>
+                                {{ listItem.copy|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}
+                                <ol>
+                                    {% for sublistItem in listItem.items %}
+                                        {% if sublistItem is iterable %}
+                                            {# Do nothing for now... #}
+                                        {% else %}
+                                            <li>
+                                                {{ sublistItem|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ol>
+                            </li>
+                        {% else %}
+                            <li>
+                                {{ listItem|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+            {% elseif item.type == "accordion" %}
+                <div
+                    data-c-accordion
+                    data-c-background="gray(10)"
+                    data-c-margin="bottom(normal)">
+                    <button
+                        aria-expanded="false"
+                        data-c-accordion-trigger
+                        tabindex="0"
+                        type="button">
+                        <div data-c-padding="top(normal) right(triple) bottom(normal) left(normal)" data-c-border="left(thick, solid, c1)">
+                            <p data-c-heading="h4" data-c-font-weight="700">
+                                {{ item.label }}
+                            </p>
+                        </div>
+                        <span data-c-visibility="invisible">
+                            {{ faq.accordion.expand }}
+                        </span>
+                        <i
+                            aria-hidden="true"
+                            class="fa fa-plus"
+                            data-c-accordion-add>
+                        </i>
+                        <i
+                            aria-hidden="true"
+                            class="fa fa-minus"
+                            data-c-accordion-remove>
+                        </i>
+                    </button>
+                    <div
+                        aria-hidden="true"
+                        data-c-accordion-content
+                        data-c-border="left(thick, solid, c1)"
+                        data-c-padding="right(normal) left(normal)">
+                        <div data-c-padding="bottom(normal)">
+                            {% for accordionItem in item.content %}
+                                {% if accordionItem.type == "title" %}
+                                    <h4>{{ accordionItem.copy }}</h4>
+                                {% elseif accordionItem.type == "text" %}
+                                    <p>{{ accordionItem.copy|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}</p>
+                                {% elseif accordionItem.type == "ul" %}
+                                    <ul>
+                                        {% for listItem in accordionItem.items %}
+                                            {% if listItem is iterable %}
+                                                <li>
+                                                    {{ listItem.copy|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}
+                                                    <ul>
+                                                        {% for sublistItem in listItem.items %}
+                                                            {% if sublistItem is iterable %}
+                                                                {# Do nothing for now... #}
+                                                            {% else %}
+                                                                <li>
+                                                                    {{ sublistItem|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}
+                                                                </li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </ul>
+                                                </li>
+                                            {% else %}
+                                                <li>
+                                                    {{ listItem|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                {% elseif accordionItem.type == "ol" %}
+                                    <ol>
+                                        {% for listItem in accordionItem.items %}
+                                            {% if listItem is iterable %}
+                                                <li>
+                                                    {{ listItem.copy|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}
+                                                    <ol>
+                                                        {% for sublistItem in listItem.items %}
+                                                            {% if sublistItem is iterable %}
+                                                                {# Do nothing for now... #}
+                                                            {% else %}
+                                                                <li>
+                                                                    {{ sublistItem|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}
+                                                                </li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </ol>
+                                                </li>
+                                            {% else %}
+                                                <li>
+                                                    {{ listItem|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% elseif item.type == "section" %}
+                {# Coming Soon #}
+            {% endif %}
+        {% endfor %}
+    </div>
