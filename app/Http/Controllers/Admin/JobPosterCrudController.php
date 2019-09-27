@@ -6,6 +6,9 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 class JobPosterCrudController extends CrudController
 {
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+
     /**
      * Prepare the admin interface by setting the associated
      * model, setting the route, and adding custom columns/fields.
@@ -18,14 +21,14 @@ class JobPosterCrudController extends CrudController
         $this->crud->setRoute('admin/job-poster');
         $this->crud->setEntityNameStrings('Job Poster', 'Job Posters');
 
-        $this->crud->denyAccess('create');
-        $this->crud->denyAccess('delete');
-
         if (!$this->request->has('order')) {
             $this->crud->orderBy('close_date_time', 'desc');
         }
+    }
 
-        // Add the custom blade buttons found in resources/views/vendor/backpack/crud/buttons/
+    public function setupListOperation()
+    {
+        // Add the custom blade buttons found in resources/views/vendor/backpack/crud/buttons/.
         $this->crud->addButtonFromView('line', 'job_admin_edit', 'job_admin_edit', 'end');
         $this->crud->addButtonFromView('line', 'jpb_link', 'jpb_link', 'end');
 
@@ -57,6 +60,7 @@ class JobPosterCrudController extends CrudController
         ]);
         $this->crud->addColumn([
             'name' => 'manager.user.name',
+            'key' => 'manager_user_name',
             'type' => 'text',
             'label' => 'Manager'
         ]);
@@ -71,7 +75,10 @@ class JobPosterCrudController extends CrudController
                         $entry->submitted_applications_count();
                 }
         ]);
+    }
 
+    public function setupUpdateOperation()
+    {
         $this->crud->addField([
             'name' => 'title',
             'label' => 'Title',
@@ -105,17 +112,5 @@ class JobPosterCrudController extends CrudController
                 'type' => 'checkbox'
             ]);
         }
-    }
-
-    /**
-     * Action for updating an existing Job Poster in the database.
-     *
-     * @param  \Illuminate\Http\Request $request Incoming form request.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update($request) // phpcs:ignore
-    {
-        return parent::updateCrud();
     }
 }

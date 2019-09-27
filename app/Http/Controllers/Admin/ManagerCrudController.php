@@ -6,6 +6,8 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 class ManagerCrudController extends CrudController
 {
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+
     /**
      * Prepare the admin interface by setting the associated
      * model, setting the route, and adding custom columns/fields.
@@ -17,17 +19,19 @@ class ManagerCrudController extends CrudController
         $this->crud->setModel('App\Models\Manager');
         $this->crud->setRoute('admin/manager');
         $this->crud->setEntityNameStrings('manager', 'managers');
+    }
 
-        $this->crud->denyAccess('create');
-        $this->crud->denyAccess('delete');
-
+    public function setupListOperation()
+    {
         $this->crud->addColumn([
             'name' => 'user.name',
+            'key' => 'user_name',
             'type' => 'text',
             'label' => 'Name'
         ]);
         $this->crud->addColumn([
             'name' => 'user.email',
+            'key' => 'user_email',
             'type' => 'text',
             'label' => 'Email'
         ]);

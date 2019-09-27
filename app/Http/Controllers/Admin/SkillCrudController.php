@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\App;
 
 class SkillCrudController extends CrudController
 {
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+
     /**
      * Prepare the admin interface by setting the associated
      * model, setting the route, and adding custom columns/fields.
@@ -20,14 +25,6 @@ class SkillCrudController extends CrudController
      */
     public function setup() : void
     {
-        // Workaround for how the unique_translation validation
-        // works in App\Http\Requests\SkillCrudRequest.
-        $locale = 'en';
-        if (null !== $this->request->input('locale')) {
-            $locale = $this->request->input('locale');
-        }
-        App::setLocale($locale);
-
         // Eloquent model to associate with this collection
         // of views and controller actions.
         $this->crud->setModel('App\Models\Skill');
@@ -36,6 +33,80 @@ class SkillCrudController extends CrudController
         // Custom strings to display within the backpack UI,
         // things like Create Skill, Delete Skills, etc.
         $this->crud->setEntityNameStrings('skill', 'skills');
+
+        $this->crud->operation(['create', 'update'], function () {
+            // Add custom fields to the create/update views.
+            $this->crud->addField([
+                'name' => 'name',
+                'type' => 'text',
+                'label' => 'Name',
+            ]);
+
+            $this->crud->addField([
+                'name' => 'description',
+                'type' => 'textarea',
+                'label' => 'Description'
+            ]);
+
+            $this->crud->addField([
+                'name' => 'skill_type_id',
+                'label' => 'Type',
+                'type' => 'select_from_array',
+                'options' => SkillType::all()->pluck('name', 'id')->toArray(),
+                'allow_null' => false,
+            ]);
+
+            $this->crud->addField([
+                'name' => 'classifications',
+                'type' => 'select2_multiple',
+                'label' => 'Classifications (select all that apply)',
+                'entity' => 'skills',
+                'attribute' => 'key',
+                'model' => 'App\Models\Classification',
+                'pivot' => true,
+            ]);
+
+            $this->crud->addField([
+                'name' => 'is_culture_skill',
+                'label' => 'This is a culture skill',
+                'type' => 'checkbox'
+            ]);
+
+            $this->crud->addField([
+                'name' => 'is_future_skill',
+                'label' => 'This is a future skill',
+                'type' => 'checkbox'
+            ]);
+
+            // Add select2_multiple filter for classifications.
+            $this->crud->addFilter([
+                'name' => 'classifications',
+                'key' => 'classifications_filter',
+                'type' => 'select2_multiple',
+                'label' => 'Filter by classification'
+            ], function () {
+                // The options that show up in the select2.
+                return Classification::all()->pluck('key', 'id')->toArray();
+            }, function ($values) {
+                // If the filter is active.
+                foreach (json_decode($values) as $key => $value) {
+                    $this->crud->query = $this->crud->query->whereHas('classifications', function ($query) use ($value) {
+                        $query->where('id', $value);
+                    });
+                }
+            });
+        });
+    }
+
+    public function setupListOperation()
+    {
+        // Workaround for how the unique_translation validation
+        // works in App\Http\Requests\SkillCrudRequest.
+        $locale = 'en';
+        if (null !== $this->request->input('locale')) {
+            $locale = $this->request->input('locale');
+        }
+        App::setLocale($locale);
 
         // Add custom columns to the Skill index view.
         $this->crud->addColumn([
@@ -69,6 +140,7 @@ class SkillCrudController extends CrudController
 
         $this->crud->addColumn([
             'name' => 'skill_type.name',
+            'key' => 'skill_type_name',
             'type' => 'text',
             'label' => 'Type',
             'orderable' => true,
@@ -99,89 +171,15 @@ class SkillCrudController extends CrudController
             'type' => 'boolean',
             'orderable' => true,
         ]);
-
-        // Add custom fields to the create/update views.
-        $this->crud->addField([
-            'name' => 'name',
-            'type' => 'text',
-            'label' => 'Name',
-        ]);
-
-        $this->crud->addField([
-            'name' => 'description',
-            'type' => 'textarea',
-            'label' => 'Description'
-        ]);
-
-        $this->crud->addField([
-            'name' => 'skill_type_id',
-            'label' => 'Type',
-            'type' => 'select_from_array',
-            'options' => SkillType::all()->pluck('name', 'id')->toArray(),
-            'allow_null' => false,
-        ]);
-
-        $this->crud->addField([
-            'name' => 'classifications',
-            'type' => 'select2_multiple',
-            'label' => 'Classifications (select all that apply)',
-            'entity' => 'skills',
-            'attribute' => 'key',
-            'model' => 'App\Models\Classification',
-            'pivot' => true,
-        ]);
-
-        $this->crud->addField([
-            'name' => 'is_culture_skill',
-            'label' => 'This is a culture skill',
-            'type' => 'checkbox'
-        ]);
-
-        $this->crud->addField([
-            'name' => 'is_future_skill',
-            'label' => 'This is a future skill',
-            'type' => 'checkbox'
-        ]);
-
-        // Add select2_multiple filter for classifications.
-        $this->crud->addFilter([
-            'name' => 'classifications',
-            'type' => 'select2_multiple',
-            'label' => 'Filter by classification'
-        ], function () {
-            // The options that show up in the select2.
-            return Classification::all()->pluck('key', 'id')->toArray();
-        }, function ($values) {
-            // If the filter is active.
-            foreach (json_decode($values) as $key => $value) {
-                $this->crud->query = $this->crud->query->whereHas('classifications', function ($query) use ($value) {
-                    $query->where('id', $value);
-                });
-            }
-        });
     }
 
-    /**
-     * Action for creating a new Skill in the database.
-     *
-     * @param \App\Http\Requests\SkillCrudRequest $request Incoming form request.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(StoreRequest $request) // phpcs:ignore
+    public function setupCreateOperation()
     {
-        return parent::storeCrud();
+        $this->crud->setValidation(StoreRequest::class);
     }
 
-    /**
-     * Action for creating a new Skill in the database.
-     *
-     * @param \App\Http\Requests\SkillCrudRequest $request Incoming form request.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(UpdateRequest $request) // phpcs:ignore
+    public function setupUpdateOperation()
     {
-        return parent::updateCrud();
+        $this->crud->setValidation(UpdateRequest::class);
     }
 }
