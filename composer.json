@@ -21,7 +21,7 @@
         "twig/twig": "^2.11"
     },
     "require-dev": {
-        "backpack/generators": "^1.2",
+        "backpack/generators": "^2.0",
         "filp/whoops": "^2.3",
         "friendsofphp/php-cs-fixer": "^2.15",
         "fzaninotto/faker": "^1.8",
