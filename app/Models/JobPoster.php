@@ -9,7 +9,7 @@ namespace App\Models;
 
 use Astrotomic\Translatable\Translatable;
 
-use \Backpack\CRUD\CrudTrait;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 
 use Jenssegers\Date\Date;
 
