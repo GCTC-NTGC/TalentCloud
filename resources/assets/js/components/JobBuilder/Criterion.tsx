@@ -27,12 +27,7 @@ export const Criterion: React.FunctionComponent<
       </p>
       {criterion.criteria_type_id === CriteriaTypeId.Essential && (
         <p data-c-margin="bottom(half)">
-          <FormattedMessage
-            id="jobBuilder.skills.requiredSkill"
-            defaultMessage="Required Skill"
-            description="The text displayed before required skill level."
-          />
-          {`: `}
+          Required Skill:{` `}
           {intl.formatMessage(getSkillLevelName(criterion, skill))}
         </p>
       )}
