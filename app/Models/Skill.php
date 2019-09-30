@@ -74,6 +74,36 @@ class Skill extends BaseModel
     }
 
     /**
+     * Check for a null "is_culture_skill" and pass false instead.
+     *
+     * @param mixed $value Incoming value for the "is_culture_skill" attribute.
+     *
+     * @return void
+     */
+    public function setIsCultureSkillAttribute($value) : void
+    {
+        if ($value === null) {
+            $value = false;
+        }
+        $this->attributes['is_culture_skill'] = $value;
+    }
+
+    /**
+     * Check for a null "is_future_skill" and pass false instead.
+     *
+     * @param mixed $value Incoming value for the "is_future_skill" attribute.
+     *
+     * @return void
+     */
+    public function setIsFutureSkillAttribute($value) : void
+    {
+        if ($value === null) {
+            $value = false;
+        }
+        $this->attributes['is_future_skill'] = $value;
+    }
+
+    /**
      * Override the toArray() method to return the localized properties for
      * name and description. This was causing issues for ajax responses.
      *

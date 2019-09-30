@@ -436,6 +436,9 @@ class JobPoster extends BaseModel
         } else {
             $this->attributes['published_at'] = null;
         }
+        if ($value === null) {
+            $value = false;
+        }
         $this->attributes['published'] = $value;
     }
 
