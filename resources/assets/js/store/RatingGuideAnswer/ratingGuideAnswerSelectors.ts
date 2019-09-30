@@ -76,9 +76,8 @@ export const getRatingGuideAnswersByJob = createCachedSelector(
   getCurrentRatingGuideAnswers,
   getRatingGuideQuestionIdsByJob,
   (answers, jobQuestionIds): RatingGuideAnswer[] =>
-    answers.filter(
-      (answer): boolean =>
-        jobQuestionIds.includes(answer.rating_guide_question_id),
+    answers.filter((answer): boolean =>
+      jobQuestionIds.includes(answer.rating_guide_question_id),
     ),
 )((state, props): number => props.jobId);
 
@@ -119,9 +118,8 @@ export const getRatingGuideAnswersByAssessment = createCachedSelector(
   getRatingGuideQuestionIdsByJobAndAssessmentType,
   getCurrentRatingGuideAnswers, // This is here to refresh the cache when answers change
   (questionIds, answers): RatingGuideAnswer[] =>
-    answers.filter(
-      (answer): boolean =>
-        questionIds.includes(answer.rating_guide_question_id),
+    answers.filter((answer): boolean =>
+      questionIds.includes(answer.rating_guide_question_id),
     ),
 )((state, props): string => `${props.jobId} ${props.assessmentTypeId}`);
 
