@@ -1,5 +1,11 @@
 /* eslint-disable camelcase, @typescript-eslint/camelcase */
-import React, { useState, useRef, useReducer, useEffect } from "react";
+import React, {
+  useState,
+  useRef,
+  useReducer,
+  useEffect,
+  useCallback,
+} from "react";
 import {
   InjectedIntlProps,
   injectIntl,
@@ -264,6 +270,13 @@ export const JobBuilderSkills: React.FunctionComponent<
     return count >= min && count <= max;
   };
 
+  const sortAlphabetically = (a: Skill, b: Skill): number => {
+    const skillA: string = a[locale].name.toUpperCase();
+    const skillB: string = b[locale].name.toUpperCase();
+
+    return skillA.localeCompare(skillB, locale, { sensitivity: "base" });
+  };
+
   // Map the skills into a dictionary for quicker access
   const skillsById = mapToObject(skills, getId);
   const getSkillOfCriteria = (criterion: Criteria): Skill | null => {
@@ -277,20 +290,22 @@ export const JobBuilderSkills: React.FunctionComponent<
   const isOccupational = (skill: Skill): boolean =>
     job.classification_code !== null &&
     getClassifications(skill).includes(job.classification_code);
-  const occupationalSkills = skills.filter(isOccupational);
+  const occupationalSkills = skills
+    .filter(isOccupational)
+    .sort(sortAlphabetically);
   const occupationalCriteria = jobCriteria.filter((criterion): boolean => {
     const critSkill = getSkillOfCriteria(criterion);
     return critSkill !== null && isOccupational(critSkill);
   });
 
   const isCulture = (skill: Skill): boolean => skill.is_culture_skill;
-  const cultureSkills = skills.filter(isCulture);
+  const cultureSkills = skills.filter(isCulture).sort(sortAlphabetically);
   const cultureCriteria = jobCriteria.filter((criterion): boolean => {
     const skill = getSkillOfCriteria(criterion);
     return skill !== null && isCulture(skill);
   });
   const isFuture = (skill: Skill): boolean => skill.is_future_skill;
-  const futureSkills = skills.filter(isFuture);
+  const futureSkills = skills.filter(isFuture).sort(sortAlphabetically);
   const futureCriteria = jobCriteria.filter((criterion): boolean => {
     const skill = getSkillOfCriteria(criterion);
     return skill !== null && isFuture(skill);
@@ -299,7 +314,7 @@ export const JobBuilderSkills: React.FunctionComponent<
   // Optional skills are those that don't fit into the other three categories
   const isOptional = (skill: Skill): boolean =>
     !isOccupational(skill) && !isCulture(skill) && !isFuture(skill);
-  const otherSkills = skills.filter(isOptional);
+  const otherSkills = skills.filter(isOptional).sort(sortAlphabetically);
   const selectedSkillIds = jobCriteria
     .map(getSkillOfCriteria)
     .filter(notEmpty)
@@ -314,8 +329,10 @@ export const JobBuilderSkills: React.FunctionComponent<
   const [isSaving, setIsSaving] = useState(false);
 
   const errorMessage = React.createRef<HTMLAnchorElement>();
-  const focusOnError = (): void | null =>
-    errorMessage.current && errorMessage.current.focus();
+  const focusOnError = useCallback(
+    (): void | null => errorMessage.current && errorMessage.current.focus(),
+    [errorMessage],
+  );
 
   const saveAndPreview = (): void => {
     setSubmitTouched(true);
@@ -349,7 +366,7 @@ export const JobBuilderSkills: React.FunctionComponent<
 
   useEffect(() => {
     if (submitTouched && essentialCount === 0) focusOnError();
-  }, [submitTouched, essentialCount]);
+  }, [submitTouched, essentialCount, focusOnError]);
 
   const renderNullCriteriaRow = (): React.ReactElement => (
     <div className="jpb-skill-null" data-c-grid="gutter middle">
@@ -401,7 +418,7 @@ export const JobBuilderSkills: React.FunctionComponent<
           </div>
         </div>
       </div>
-      <div data-c-grid-item="base(2of10)">
+      <div data-c-grid-item="base(3of10)">
         <div data-c-grid="gutter">
           <div
             data-c-grid-item="base(1of1) tl(1of2)"
@@ -491,7 +508,7 @@ export const JobBuilderSkills: React.FunctionComponent<
               </div>
             </div>
           </div>
-          <div data-c-grid-item="base(2of10)">
+          <div data-c-grid-item="base(3of10)">
             <div data-c-grid="gutter">
               <div
                 data-c-grid-item="base(1of1) tl(1of2)"
@@ -545,11 +562,14 @@ export const JobBuilderSkills: React.FunctionComponent<
           className={`jpb-skill-trigger ${alreadySelected ? "active" : ""}`}
           data-c-button="outline(c1)"
           data-c-radius="rounded"
+          data-c-padding="all(half)"
           type="button"
           onClick={handleClick}
         >
-          <i className="fas fa-plus-circle" />
-          <i className="fas fa-minus-circle" />
+          <span data-c-padding="right(half)">
+            <i className="fas fa-plus-circle" />
+            <i className="fas fa-minus-circle" />
+          </span>
           {skill[locale].name}
         </button>
       </li>
