@@ -772,6 +772,16 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Required Skill",
+        "description": "The text displayed before required skill level.",
+        "id": "jobBuilder.skills.requiredSkill"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/Criterion.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "{termMonths,plural,=0{no months} one{{termMonths, number} month} other{{termMonths, number} months}}",
         "description": "Calculated term length in months",
         "id": "jobBuilder.preview.termLength"

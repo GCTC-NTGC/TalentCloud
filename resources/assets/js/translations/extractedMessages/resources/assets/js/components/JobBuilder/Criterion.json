@@ -1,0 +1,7 @@
+[
+  {
+    "id": "jobBuilder.skills.requiredSkill",
+    "description": "The text displayed before required skill level.",
+    "defaultMessage": "Required Skill"
+  }
+]
