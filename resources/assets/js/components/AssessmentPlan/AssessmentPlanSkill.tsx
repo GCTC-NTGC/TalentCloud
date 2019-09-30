@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   defineMessages,
   FormattedMessage,
 } from "react-intl";
@@ -73,7 +73,7 @@ const localizations = defineMessages({
 });
 
 export const AssessmentPlanSkill: React.FunctionComponent<
-  AssessmentPlanSkillProps & InjectedIntlProps
+  AssessmentPlanSkillProps & WrappedComponentProps
 > = ({
   criterion,
   skill,
@@ -90,7 +90,8 @@ export const AssessmentPlanSkill: React.FunctionComponent<
   saveTempAssessment,
   removeTempAssessment,
   intl,
-}: AssessmentPlanSkillProps & InjectedIntlProps): React.ReactElement | null => {
+}: AssessmentPlanSkillProps &
+  WrappedComponentProps): React.ReactElement | null => {
   useEffect((): void => {
     if (criterion === null || skill === null) {
       return;
@@ -373,10 +374,8 @@ const mapDispatchToProps = (
     dispatch(storeNewAssessment(assessment));
   },
 });
-// @ts-ignore
-const AssessmentPlanSkillContainer: React.FunctionComponent<
-  AssessmentPlanSkillContainerProps
-> = connect(
+
+const AssessmentPlanSkillContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(injectIntl(AssessmentPlanSkill));

@@ -1,4 +1,4 @@
-import { defineMessages, FormattedMessage } from "react-intl";
+import { defineMessages, MessageDescriptor } from "react-intl";
 import {
   AssessmentTypeId,
   AssessmentTypeIdValues,
@@ -19,14 +19,14 @@ import {
 import { getOrThrowError } from "../helpers/queries";
 
 interface SkillLevel {
-  hardBasic: FormattedMessage.MessageDescriptor;
-  hardIntermediate: FormattedMessage.MessageDescriptor;
-  hardAdvanced: FormattedMessage.MessageDescriptor;
-  hardExpert: FormattedMessage.MessageDescriptor;
-  softBasic: FormattedMessage.MessageDescriptor;
-  softIntermediate: FormattedMessage.MessageDescriptor;
-  softAdvanced: FormattedMessage.MessageDescriptor;
-  softExpert: FormattedMessage.MessageDescriptor;
+  hardBasic: MessageDescriptor;
+  hardIntermediate: MessageDescriptor;
+  hardAdvanced: MessageDescriptor;
+  hardExpert: MessageDescriptor;
+  softBasic: MessageDescriptor;
+  softIntermediate: MessageDescriptor;
+  softAdvanced: MessageDescriptor;
+  softExpert: MessageDescriptor;
 }
 
 const skillLevelDescriptions = defineMessages({
@@ -138,7 +138,7 @@ const skillLevelL10n = (
   skillLevelId: number,
   skillTypeId: number,
   l10nObj: SkillLevel,
-): FormattedMessage.MessageDescriptor => {
+): MessageDescriptor => {
   if (!SkillLevelIdValues.includes(skillLevelId)) {
     throw new Error("invalid SkillLevelIdValue");
   }
@@ -168,13 +168,13 @@ const skillLevelL10n = (
 export const skillLevelDescription = (
   skillLevelId: number,
   skillTypeId: number,
-): FormattedMessage.MessageDescriptor =>
+): MessageDescriptor =>
   skillLevelL10n(skillLevelId, skillTypeId, skillLevelDescriptions);
 
 export const skillLevelName = (
   skillLevelId: number,
   skillTypeId: number,
-): FormattedMessage.MessageDescriptor =>
+): MessageDescriptor =>
   skillLevelL10n(skillLevelId, skillTypeId, skillLevelNames);
 
 const assessmentTypes = defineMessages({
@@ -235,14 +235,11 @@ const assessmentTypes = defineMessages({
   },
 });
 
-export const assetSkillName = (): FormattedMessage.MessageDescriptor =>
-  skillLevelNames.asset;
-export const assetSkillDescription = (): FormattedMessage.MessageDescriptor =>
+export const assetSkillName = (): MessageDescriptor => skillLevelNames.asset;
+export const assetSkillDescription = (): MessageDescriptor =>
   skillLevelDescriptions.asset;
 
-export const assessmentType = (
-  assessmentTypeId: number,
-): FormattedMessage.MessageDescriptor => {
+export const assessmentType = (assessmentTypeId: number): MessageDescriptor => {
   if (!AssessmentTypeIdValues.includes(assessmentTypeId)) {
     throw new Error("invalid AssessmentTypeValue");
   }
@@ -276,9 +273,7 @@ const criteriaTypes = defineMessages({
   },
 });
 
-export const criteriaType = (
-  criteriaTypeId: number,
-): FormattedMessage.MessageDescriptor => {
+export const criteriaType = (criteriaTypeId: number): MessageDescriptor => {
   if (!CriteriaTypeIdValues.includes(criteriaTypeId)) {
     throw new Error("invalid CriteriaTypeValue");
   }
@@ -370,7 +365,7 @@ const assessmentTypeDescriptions = defineMessages({
 
 export const assessmentTypeDescription = (
   assessmentTypeId: number,
-): FormattedMessage.MessageDescriptor => {
+): MessageDescriptor => {
   if (!AssessmentTypeIdValues.includes(assessmentTypeId)) {
     throw new Error("invalid AssessmentTypeValue");
   }
@@ -466,9 +461,7 @@ const provinceNames = defineMessages({
   },
 });
 
-export const provinceName = (
-  provinceId: number,
-): FormattedMessage.MessageDescriptor =>
+export const provinceName = (provinceId: number): MessageDescriptor =>
   getOrThrowError(provinceNames, provinceId, "invalid ProvinceId");
 
 const provinceAbreviations = defineMessages({
@@ -526,9 +519,7 @@ const provinceAbreviations = defineMessages({
   },
 });
 
-export const provinceAbreviation = (
-  provinceId: number,
-): FormattedMessage.MessageDescriptor =>
+export const provinceAbreviation = (provinceId: number): MessageDescriptor =>
   getOrThrowError(provinceAbreviations, provinceId, "invalid ProvinceId");
 
 const securityClearances = defineMessages({
@@ -548,7 +539,7 @@ const securityClearances = defineMessages({
 
 export const securityClearance = (
   securityClearanceId: number,
-): FormattedMessage.MessageDescriptor =>
+): MessageDescriptor =>
   getOrThrowError(
     securityClearances,
     securityClearanceId,
@@ -580,7 +571,7 @@ const languageRequirements = defineMessages({
 
 export const languageRequirement = (
   languageRequirementId: number,
-): FormattedMessage.MessageDescriptor =>
+): MessageDescriptor =>
   getOrThrowError(
     languageRequirements,
     languageRequirementId,
@@ -619,7 +610,7 @@ const languageRequirementDescriptions = defineMessages({
 
 export const languageRequirementDescription = (
   languageRequirementId: number,
-): FormattedMessage.MessageDescriptor =>
+): MessageDescriptor =>
   getOrThrowError(
     languageRequirementDescriptions,
     languageRequirementId,
@@ -641,7 +632,7 @@ const languageRequirementContexts = defineMessages({
 
 export const languageRequirementContext = (
   languageRequirementId: number,
-): FormattedMessage.MessageDescriptor => {
+): MessageDescriptor => {
   switch (languageRequirementId) {
     case LanguageRequirementId.bilingualIntermediate:
     case LanguageRequirementId.bilingualAdvanced:
@@ -702,15 +693,13 @@ const departments = defineMessages({
   },
 });
 
-export const departmentName = (
-  departmentId: number,
-): FormattedMessage.MessageDescriptor =>
+export const departmentName = (departmentId: number): MessageDescriptor =>
   getOrThrowError(departments, departmentId, "invalid DepartmentId");
 
-export const narrativeReviewStandardQuestion = (): FormattedMessage.MessageDescriptor =>
+export const narrativeReviewStandardQuestion = (): MessageDescriptor =>
   standardAssessmentText.narrativeReviewQuestion;
 
-export const narrativeReviewStandardAnswer = (): FormattedMessage.MessageDescriptor =>
+export const narrativeReviewStandardAnswer = (): MessageDescriptor =>
   standardAssessmentText.narrativeReviewAnswer;
 
 const frequencyMessages = defineMessages({
@@ -742,9 +731,7 @@ const frequencyMessages = defineMessages({
   },
 });
 
-export const frequencyName = (
-  frequencyId: number,
-): FormattedMessage.MessageDescriptor =>
+export const frequencyName = (frequencyId: number): MessageDescriptor =>
   getOrThrowError(frequencyMessages, frequencyId, "invalid FrequencyId");
 
 const overtimeRequirmentDescriptions = defineMessages({
@@ -770,7 +757,7 @@ const overtimeRequirmentDescriptions = defineMessages({
 
 export const overtimeRequirementDescription = (
   overtimeRequirementId: number,
-): FormattedMessage.MessageDescriptor =>
+): MessageDescriptor =>
   getOrThrowError(
     overtimeRequirmentDescriptions,
     overtimeRequirementId,
@@ -800,7 +787,7 @@ const travelRequirementDescriptions = defineMessages({
 
 export const travelRequirementDescription = (
   travelRequirementId: number,
-): FormattedMessage.MessageDescriptor =>
+): MessageDescriptor =>
   getOrThrowError(
     travelRequirementDescriptions,
     travelRequirementId,

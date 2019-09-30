@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import some from "lodash/some";
-import { FormattedMessage, InjectedIntlProps, injectIntl } from "react-intl";
+import {
+  FormattedMessage,
+  WrappedComponentProps,
+  injectIntl,
+} from "react-intl";
 import { AssessmentPlanNotification, Skill } from "../../models/types";
 import {
   notificationIsUpdating,
@@ -22,7 +26,7 @@ interface AssessmentPlanAlertProps {
 }
 
 export const AssessmentPlanAlert: React.FunctionComponent<
-  AssessmentPlanAlertProps & InjectedIntlProps
+  AssessmentPlanAlertProps & WrappedComponentProps
 > = ({
   notifications,
   skills,
@@ -282,10 +286,8 @@ const mapDispatchToProps = (
     });
   },
 });
-// @ts-ignore
-export const AssessmentPlanAlertContainer: React.FunctionComponent<
-  AssessmentPlanAlertContainerProps
-> = connect(
+
+export const AssessmentPlanAlertContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(injectIntl(AssessmentPlanAlert));

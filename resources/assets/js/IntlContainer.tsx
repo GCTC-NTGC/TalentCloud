@@ -1,10 +1,6 @@
 import React from "react";
-import { IntlProvider, addLocaleData } from "react-intl";
-import localeEn from "react-intl/locale-data/en";
-import localeFr from "react-intl/locale-data/fr";
+import { IntlProvider } from "react-intl";
 import messagesFr from "./translations/locales/fr.json";
-
-addLocaleData([...localeEn, ...localeFr]);
 
 const messages = {
   en: null, // default
@@ -19,11 +15,7 @@ const IntlContainer: React.FunctionComponent<IntlContainerProps> = ({
   locale,
   children,
 }): React.ReactElement => (
-  <IntlProvider
-    textComponent={React.Fragment}
-    locale={locale}
-    messages={messages[locale]}
-  >
+  <IntlProvider locale={locale} messages={messages[locale]}>
     {children}
   </IntlProvider>
 );

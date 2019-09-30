@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
+import {
+  WrappedComponentProps,
+  injectIntl,
+  MessageDescriptor,
+} from "react-intl";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { Criteria, Skill } from "../../models/types";
@@ -32,8 +36,8 @@ const essentialSkillLevels = (
   skillTypeId: number,
 ): {
   [key: string]: {
-    name: FormattedMessage.MessageDescriptor;
-    context: FormattedMessage.MessageDescriptor;
+    name: MessageDescriptor;
+    context: MessageDescriptor;
   };
 } => ({
   basic: {
@@ -143,7 +147,7 @@ const newCriteria = (jobPosterId: number, skillId: number): Criteria => ({
 /* eslint-enable @typescript-eslint/camelcase */
 
 export const CriteriaForm: React.FunctionComponent<
-  CriteriaFormProps & InjectedIntlProps
+  CriteriaFormProps & WrappedComponentProps
 > = ({
   jobPosterId,
   criteria,

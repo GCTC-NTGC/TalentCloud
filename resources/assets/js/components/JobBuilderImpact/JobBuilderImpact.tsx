@@ -2,7 +2,7 @@
 import React, { useState, useRef } from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
@@ -153,7 +153,7 @@ const deptImpactStatement = (
 };
 
 const JobBuilderImpact: React.FunctionComponent<
-  JobBuilderImpactProps & InjectedIntlProps
+  JobBuilderImpactProps & WrappedComponentProps
 > = ({
   intl,
   departments,
