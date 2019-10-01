@@ -52,7 +52,7 @@
                 <span
                     class="job-poster__basics-content">
                     {# New jobs default to terms counted in months. #}
-                    {{ job_post.basics.duration.month|trans_choice(job.term_qty) }}
+                    {{ job_post.basics.duration.month|trans_choice(job.term_qty) ?: noInfo }}
                 </span>
 
                 <span
@@ -62,7 +62,7 @@
 
                 <span
                     class="job-poster__basics-content">
-                    {{ job.start_date_time.format(job_post.basics.start_date_format) }}
+                    {{ job.start_date_time.format(job_post.basics.start_date_format) ?: noInfo }}
                 </span>
 
             </div>
@@ -77,7 +77,7 @@
 
                 <span
                     class="job-poster__basics-content">
-                    {{ job.language_requirement.value }}
+                    {{ job.language_requirement_id ? job.language_requirement.value : noInfo }}
                 </span>
 
                 <span
@@ -87,7 +87,7 @@
 
                 <span
                     class="job-poster__basics-content">
-                    {{ job.security_clearance.value }}
+                    {{ job.security_clearance_id ? job.security_clearance.value : noInfo }}
                 </span>
 
                 <span
@@ -97,7 +97,7 @@
 
                 <span
                     class="job-poster__basics-content">
-                    {{ job.classification }}
+                    {{ job.classification ?: noInfo }}
                 </span>
 
             </div>
