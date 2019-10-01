@@ -154,6 +154,18 @@ class SkillCrudController extends CrudController
             'orderable' => true,
         ]);
 
+        $this->crud->addFilter(
+            [
+                'type' => 'simple',
+                'name' => 'noClassification',
+                'label'=> 'No Classification'
+            ],
+            false,
+            function () {
+                $this->crud->query = $this->crud->query->doesntHave('classifications');
+            }
+        );
+
         // Add select2_multiple filter for classifications.
         $this->crud->addFilter([
             'name' => 'classifications',
