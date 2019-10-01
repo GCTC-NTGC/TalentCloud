@@ -7,6 +7,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 class ManagerCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 
     /**
      * Prepare the admin interface by setting the associated
@@ -23,6 +24,8 @@ class ManagerCrudController extends CrudController
 
     public function setupListOperation()
     {
+        $this->crud->removeButton('update');
+
         $this->crud->addColumn([
             'name' => 'user.name',
             'key' => 'user_name',
@@ -35,8 +38,6 @@ class ManagerCrudController extends CrudController
             'type' => 'text',
             'label' => 'Email'
         ]);
-
-        $this->crud->removeButton('update');
 
         $this->crud->addButtonFromView('line', 'create_job_poster', 'create_job_poster', 'beginning');
         // Add the custom blade button found in resources/views/vendor/backpack/crud/buttons/profile_edit.blade.php.
