@@ -77,24 +77,6 @@ class SkillCrudController extends CrudController
                 'label' => 'This is a future skill',
                 'type' => 'checkbox'
             ]);
-
-            // Add select2_multiple filter for classifications.
-            $this->crud->addFilter([
-                'name' => 'classifications',
-                'key' => 'classifications_filter',
-                'type' => 'select2_multiple',
-                'label' => 'Filter by classification'
-            ], function () {
-                // The options that show up in the select2.
-                return Classification::all()->pluck('key', 'id')->toArray();
-            }, function ($values) {
-                // If the filter is active.
-                foreach (json_decode($values) as $key => $value) {
-                    $this->crud->query = $this->crud->query->whereHas('classifications', function ($query) use ($value) {
-                        $query->where('id', $value);
-                    });
-                }
-            });
         });
     }
 
@@ -171,6 +153,24 @@ class SkillCrudController extends CrudController
             'type' => 'boolean',
             'orderable' => true,
         ]);
+
+        // Add select2_multiple filter for classifications.
+        $this->crud->addFilter([
+            'name' => 'classifications',
+            'key' => 'classifications_filter',
+            'type' => 'select2_multiple',
+            'label' => 'Filter by classification'
+        ], function () {
+            // The options that show up in the select2.
+            return Classification::all()->pluck('key', 'id')->toArray();
+        }, function ($values) {
+            // If the filter is active.
+            foreach (json_decode($values) as $key => $value) {
+                $this->crud->query = $this->crud->query->whereHas('classifications', function ($query) use ($value) {
+                    $query->where('id', $value);
+                });
+            }
+        });
     }
 
     public function setupCreateOperation()
