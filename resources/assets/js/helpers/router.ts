@@ -1,4 +1,4 @@
-import { createBrowserHistory, Location, History } from "history";
+import { createBrowserHistory, Location } from "history";
 import UniversalRouter, { Routes } from "universal-router";
 import React, { useState, useEffect, useMemo } from "react";
 

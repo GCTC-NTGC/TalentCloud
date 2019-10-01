@@ -2,9 +2,9 @@
 import { RatingGuideAnswer } from "../models/types";
 
 export const fakeAnswer = (
-  id: number = 1,
-  ratingGuideQuestionId: number = 1,
-  criterionId: number = 1,
+  id = 1,
+  ratingGuideQuestionId = 1,
+  criterionId = 1,
 ): RatingGuideAnswer => ({
   id,
   rating_guide_question_id: ratingGuideQuestionId,
@@ -13,9 +13,9 @@ export const fakeAnswer = (
 });
 
 export const fakeAnswer2 = (
-  id: number = 2,
-  ratingGuideQuestionId: number = 2,
-  criterionId: number = 2,
+  id = 2,
+  ratingGuideQuestionId = 2,
+  criterionId = 2,
 ): RatingGuideAnswer => ({
   id,
   rating_guide_question_id: ratingGuideQuestionId,
@@ -24,9 +24,9 @@ export const fakeAnswer2 = (
 });
 
 export const fakeAnswer3 = (
-  id: number = 3,
-  ratingGuideQuestionId: number = 3,
-  criterionId: number = 3,
+  id = 3,
+  ratingGuideQuestionId = 3,
+  criterionId = 3,
 ): RatingGuideAnswer => ({
   id,
   rating_guide_question_id: ratingGuideQuestionId,
@@ -35,9 +35,9 @@ export const fakeAnswer3 = (
 });
 
 export const fakeAnswer4 = (
-  id: number = 4,
-  ratingGuideQuestionId: number = 4,
-  criterionId: number = 4,
+  id = 4,
+  ratingGuideQuestionId = 4,
+  criterionId = 4,
 ): RatingGuideAnswer => ({
   id,
   rating_guide_question_id: ratingGuideQuestionId,

@@ -17,7 +17,7 @@ const ErrorToast = (props): React.ReactElement => {
     return (): void => {
       clearInterval(timer);
     };
-  }, [error]);
+  }, [dispatchClearErrors, error]);
   return (
     <>
       {error !== undefined && (
@@ -65,8 +65,8 @@ const mapDispatchToProps = (dispatch: DispatchType): any => ({
     dispatch(clearErrors());
   },
 });
-// @ts-ignore
-const ErrorToastContainer: React.FunctionComponent = connect(
+
+const ErrorToastContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(injectIntl(ErrorToast));

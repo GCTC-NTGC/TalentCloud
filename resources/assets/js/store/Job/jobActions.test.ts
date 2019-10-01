@@ -22,12 +22,10 @@ describe("async job actions", (): void => {
 
   // If we have several tests in our test suit, we might want to
   // reset and restore the mocks after each test to avoid unexpected behaviors
-  afterEach(
-    (): void => {
-      fetchMock.reset();
-      fetchMock.restore();
-    },
-  );
+  afterEach((): void => {
+    fetchMock.reset();
+    fetchMock.restore();
+  });
 
   it("sanity test: fetch should be successfully mocked", (): Promise<void> => {
     fetchMock.getOnce(getJobEndpoint(1), {
@@ -35,12 +33,10 @@ describe("async job actions", (): void => {
       headers: { "content-type": "application/json" },
     });
     expect.assertions(2);
-    return fetch(getJobEndpoint(1)).then(
-      (res): void => {
-        expect(fetchMock.calls().length).toEqual(1);
-        expect(res.status).toEqual(200);
-      },
-    );
+    return fetch(getJobEndpoint(1)).then((res): void => {
+      expect(fetchMock.calls().length).toEqual(1);
+      expect(res.status).toEqual(200);
+    });
   });
 
   describe("FETCH_JOB actions", (): void => {
@@ -77,12 +73,10 @@ describe("async job actions", (): void => {
       const fetchJobAction = fetchJob(jobId);
 
       expect.assertions(1);
-      return store.dispatch(fetchJobAction).then(
-        (): void => {
-          // Verify that all the actions in the store are the expected ones
-          expect(store.getActions()).toMatchObject(expectedActions);
-        },
-      );
+      return store.dispatch(fetchJobAction).then((): void => {
+        // Verify that all the actions in the store are the expected ones
+        expect(store.getActions()).toMatchObject(expectedActions);
+      });
     });
 
     it("should dispatch FFETCH_JOB_FAILED when request returns non-200 status.", (): Promise<
@@ -108,11 +102,9 @@ describe("async job actions", (): void => {
       const fetchJobAction = fetchJob(jobId);
 
       expect.assertions(1);
-      return store.dispatch(fetchJobAction).then(
-        (): void => {
-          expect(store.getActions()).toEqual(expectedActions);
-        },
-      );
+      return store.dispatch(fetchJobAction).then((): void => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
     });
   });
 
@@ -141,12 +133,10 @@ describe("async job actions", (): void => {
       const updateJobAction = updateJob(job);
 
       expect.assertions(1);
-      return store.dispatch(updateJobAction).then(
-        (): void => {
-          // Verify that all the actions in the store are the expected ones
-          expect(store.getActions()).toEqual(expectedActions);
-        },
-      );
+      return store.dispatch(updateJobAction).then((): void => {
+        // Verify that all the actions in the store are the expected ones
+        expect(store.getActions()).toEqual(expectedActions);
+      });
     });
 
     it("should dispatch UPDATE_JOB_FAILED when request returns non-200 status.", (): Promise<
@@ -171,11 +161,9 @@ describe("async job actions", (): void => {
       const updateJobAction = updateJob(fakeJob(jobId));
 
       expect.assertions(1);
-      return store.dispatch(updateJobAction).then(
-        (): void => {
-          expect(store.getActions()).toEqual(expectedActions);
-        },
-      );
+      return store.dispatch(updateJobAction).then((): void => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
     });
   });
 });
