@@ -146,10 +146,7 @@ const mapDispatchToProps = (
   },
 });
 
-// @ts-ignore
-export const RatingGuideQuestionWithAnswersContainer: React.FunctionComponent<
-  RatingGuideQuestionWithAnswersContainerProps
-> = connect(
+export const RatingGuideQuestionWithAnswersContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(RatingGuideQuestionWithAnswers);

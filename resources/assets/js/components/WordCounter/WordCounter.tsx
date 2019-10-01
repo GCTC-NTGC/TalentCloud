@@ -25,7 +25,6 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   message,
   placeholder,
   strokeColor,
-  wordLimit,
 }): React.ReactElement => {
   return (
     <div

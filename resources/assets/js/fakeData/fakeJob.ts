@@ -166,7 +166,7 @@ export const fakeJob2 = (id = 1): Job => ({
   },
 });
 
-export const fakeCriterion = (id: number = 1, jobId: number = 1): Criteria => ({
+export const fakeCriterion = (id = 1, jobId = 1): Criteria => ({
   id,
   criteria_type_id: 1,
   job_poster_id: jobId,
@@ -182,7 +182,7 @@ export const fakeCriterion = (id: number = 1, jobId: number = 1): Criteria => ({
   },
 });
 
-export const fakeJobTasks = (jobId: number = 1): JobPosterKeyTask[] => [
+export const fakeJobTasks = (jobId = 1): JobPosterKeyTask[] => [
   {
     id: 1,
     job_poster_id: jobId,

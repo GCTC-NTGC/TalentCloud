@@ -5,11 +5,7 @@ import ReactDOM from "react-dom";
 import RootContainer from "../RootContainer";
 import { Job, JobPosterKeyTask, Criteria, Skill } from "../../models/types";
 import JobBuilderSkills from "./JobBuilderSkills";
-import {
-  managerJobIndex,
-  jobBuilderTasks,
-  jobBuilderReview,
-} from "../../helpers/routes";
+import { jobBuilderTasks, jobBuilderReview } from "../../helpers/routes";
 import { RootState } from "../../store/store";
 import {
   getJob,
@@ -20,10 +16,6 @@ import { getSkills } from "../../store/Skill/skillSelector";
 import { DispatchType } from "../../configureStore";
 import { batchUpdateCriteria } from "../../store/Job/jobActions";
 import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
-import {
-  isJobBuilderComplete,
-  VALID_COUNT,
-} from "../JobBuilder/jobBuilderHelpers";
 import { navigate } from "../../helpers/router";
 
 interface JobBuilderSkillsPageProps {
