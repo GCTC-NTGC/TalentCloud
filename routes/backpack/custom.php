@@ -11,10 +11,10 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Admin',
 ], function () : void {
     // Custom admin routes.
-    CRUD::resource('skill', 'SkillCrudController');
-    CRUD::resource('job-poster', 'JobPosterCrudController');
-    CRUD::resource('user', 'UserCrudController');
-    CRUD::resource('manager', 'ManagerCrudController');
-    CRUD::resource('department', 'DepartmentCrudController');
-    CRUD::resource('classification', 'ClassificationCrudController');
+    Route::crud('skill', 'SkillCrudController');
+    Route::crud('job-poster', 'JobPosterCrudController');
+    Route::crud('user', 'UserCrudController');
+    Route::crud('manager', 'ManagerCrudController');
+    Route::crud('department', 'DepartmentCrudController');
+    Route::crud('classification', 'ClassificationCrudController');
 });
