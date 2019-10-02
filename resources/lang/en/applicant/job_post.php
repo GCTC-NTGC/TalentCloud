@@ -18,6 +18,8 @@ return [
         'apply_by_label' => 'Apply by',
         'applicants_so_far' => ':count applicant so far|:count applicants so far',
         'reference_id' => 'Reference number: :id',
+        'city' => 'City',
+        'province' => 'Province',
         'remote_work_allowed' => [
             true => 'Remote Work Allowed',
             false => 'Remote Work Not Allowed',
