@@ -29,8 +29,9 @@
 
     .new-poster-button-wrapper {
 
-        @media #{$l-tablet} {
-            display: flex;
+        display: flex;
+        justify-content: center;
+        @media #{$p-tablet} {
             justify-content: flex-end;
         }
 

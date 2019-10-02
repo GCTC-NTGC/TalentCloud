@@ -18,6 +18,8 @@ return [
         'apply_by_label' => 'Postuler avant le',
         'applicants_so_far' => ':count candidat jusqu\'à présent|:count candidats jusqu\'à présent',
         'reference_id' => 'Numéro de référence : :id',
+        'city' => 'Ville',
+        'province' => 'Province',
         'remote_work_allowed' => [
             true => 'Travail à distance autorisé',
             false => 'Travail à distance non autorisé',
