@@ -51,8 +51,7 @@ class JobPosterCrudController extends CrudController
             'name' => 'status',
             'label' => 'Status',
             'type' => 'model_function',
-            'function_name' => 'status',
-            'orderable' => true,
+            'function_name' => 'status'
         ]);
         $this->crud->addColumn([
             'name' => 'published',
@@ -64,18 +63,17 @@ class JobPosterCrudController extends CrudController
             'key' => 'manager_user_name',
             'type' => 'text',
             'label' => 'Manager',
-            'orderable' => true,
+            'orderable' => false
         ]);
         $this->crud->addColumn([
             'name' => 'submitted_applications_count',
             'label' => 'Applications',
             'type' => 'closure',
-            'function' =>
-                function ($entry) {
-                    return $entry->submitted_applications_count() > 0 ?
-                        '<a href="' . route('manager.jobs.applications', $entry->id) . '">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
+            'function' => function ($entry) {
+                return $entry->submitted_applications_count() > 0 ?
+                        '<a href="' . route('manager.jobs.applications', $entry->id) . '" target="_blank">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
                         $entry->submitted_applications_count();
-                }
+            }
         ]);
     }
 
