@@ -37,7 +37,7 @@ export const useUrlHash = (): void => {
 };
 
 export const useRouter = (
-  routes: Routes<any, React.ReactElement>,
+  routes: Routes<any, any>,
 ): React.ReactElement | null => {
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
@@ -45,9 +45,13 @@ export const useRouter = (
 
   // Render the result of routing
   useEffect((): void => {
-    router
-      .resolve(location.pathname)
-      .then((result): void => setComponent(result));
+    router.resolve(location.pathname).then((result): void => {
+      const { defaultMessage } = result.title.props;
+      const h1 = document.getElementById("h1");
+      document.title = defaultMessage;
+      if (h1) h1.innerHTML = defaultMessage;
+      setComponent(result.component);
+    });
   }, [location, router]);
 
   return component;
