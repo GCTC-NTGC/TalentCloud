@@ -60,6 +60,9 @@ class DepartmentCrudController extends CrudController
         }
         App::setLocale($locale);
 
+        // Remove delete button.
+        $this->crud->removeButton('delete');
+
         // Add custom columns to the Department index view.
         $this->crud->addColumn([
             'name' => 'id',

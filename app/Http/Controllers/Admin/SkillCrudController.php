@@ -90,6 +90,9 @@ class SkillCrudController extends CrudController
         }
         App::setLocale($locale);
 
+        // Remove delete button.
+        $this->crud->removeButton('delete');
+
         // Add custom columns to the Skill index view.
         $this->crud->addColumn([
             'name' => 'id',
@@ -158,7 +161,7 @@ class SkillCrudController extends CrudController
             [
                 'type' => 'simple',
                 'name' => 'noClassification',
-                'label'=> 'No Classification'
+                'label'=> 'No classification'
             ],
             false,
             function () {
