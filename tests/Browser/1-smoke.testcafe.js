@@ -98,6 +98,6 @@ test("Admin Portal", async t => {
   await t
     .useRole(adminUser)
     .navigateTo("/admin")
-    .expect(Selector("h1").withText("Dashboard").visible)
+    .expect(Selector("h1").withText("Welcome!").visible)
     .ok();
 });
