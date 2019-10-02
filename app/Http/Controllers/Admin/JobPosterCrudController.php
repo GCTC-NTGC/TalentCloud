@@ -52,6 +52,7 @@ class JobPosterCrudController extends CrudController
             'label' => 'Status',
             'type' => 'model_function',
             'function_name' => 'status',
+            'orderable' => true,
         ]);
         $this->crud->addColumn([
             'name' => 'published',
@@ -62,7 +63,8 @@ class JobPosterCrudController extends CrudController
             'name' => 'manager.user.name',
             'key' => 'manager_user_name',
             'type' => 'text',
-            'label' => 'Manager'
+            'label' => 'Manager',
+            'orderable' => true,
         ]);
         $this->crud->addColumn([
             'name' => 'submitted_applications_count',

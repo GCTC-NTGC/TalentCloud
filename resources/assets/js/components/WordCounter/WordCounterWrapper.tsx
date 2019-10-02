@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import WordCounter, { WordCounterProps } from "./WordCounter";
-import { countNumberOfWords, sortMessages, truncateWords } from "./helpers";
+import { countNumberOfWords, sortMessages } from "./helpers";
 
 export interface WordCounterMessage {
   /** When this number is reached, the correspoding message will be displayed */

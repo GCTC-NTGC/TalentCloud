@@ -26,7 +26,7 @@ return [
     ],
     "itp_when" => [
         "title_01" => "When?",
-        "subtitle_01" => "We're aiming for Fall 2019.",
+        "subtitle_01" => "We're aiming for Winter 2020.",
         "copy_01" => "Our timelines depend on the success of our community engagement, securing an upgrade to our new cloud server environment, and the team's Privacy Impact Assessment."
     ],
     "itp_what" => [
