@@ -12,8 +12,8 @@ export const getAssessmentsByJob = createCachedSelector(
   getCurrentAssessments,
   getCriteriaIdsByJob,
   (assessments, criteriaIds): Assessment[] =>
-    assessments.filter(
-      (assessment): boolean => criteriaIds.includes(assessment.criterion_id),
+    assessments.filter((assessment): boolean =>
+      criteriaIds.includes(assessment.criterion_id),
     ),
 )((state, props: { jobId: number }): number => props.jobId);
 

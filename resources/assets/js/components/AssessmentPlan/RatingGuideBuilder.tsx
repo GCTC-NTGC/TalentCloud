@@ -95,9 +95,8 @@ const mapStateToProps = (
   assessments: getAssessmentsByJob(state, ownProps),
 });
 
-// @ts-ignore
-export const RatingGuideBuilderContainer: React.FunctionComponent<
-  RatingGuideBuilderContainerProps
-> = connect(mapStateToProps)(RatingGuideBuilder);
+export const RatingGuideBuilderContainer = connect(mapStateToProps)(
+  RatingGuideBuilder,
+);
 
 export default RatingGuideBuilderContainer;

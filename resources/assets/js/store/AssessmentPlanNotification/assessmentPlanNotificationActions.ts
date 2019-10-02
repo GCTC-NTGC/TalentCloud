@@ -42,26 +42,22 @@ export const fetchAssessmentPlanNotifications = (
       payload: { jobId },
     });
     getAssessmentPlanNotificationsByJob(jobId)
-      .then(
-        (notifications): void => {
-          dispatch({
-            type: FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_SUCCEEDED,
-            payload: notifications,
-          });
-        },
-      )
-      .catch(
-        (error): void => {
-          dispatch({
-            type: FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_FAILED,
-            payload: error,
-            meta: {
-              jobId,
-            },
-            error: true,
-          });
-        },
-      );
+      .then((notifications): void => {
+        dispatch({
+          type: FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_SUCCEEDED,
+          payload: notifications,
+        });
+      })
+      .catch((error): void => {
+        dispatch({
+          type: FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_FAILED,
+          payload: error,
+          meta: {
+            jobId,
+          },
+          error: true,
+        });
+      });
   };
 };
 
@@ -98,24 +94,20 @@ export const updateAssessmentPlanNotification = (
       payload: notification,
     });
     updateAssessmentPlanNotificationApi(notification)
-      .then(
-        (updatedNotification): void => {
-          dispatch({
-            type: UPDATE_ASSESSMENT_PLAN_NOTIFICATION_SUCCEEDED,
-            payload: updatedNotification,
-          });
-        },
-      )
-      .catch(
-        (error): void => {
-          dispatch({
-            type: UPDATE_ASSESSMENT_PLAN_NOTIFICATION_FAILED,
-            payload: error,
-            meta: notification,
-            error: true,
-          });
-        },
-      );
+      .then((updatedNotification): void => {
+        dispatch({
+          type: UPDATE_ASSESSMENT_PLAN_NOTIFICATION_SUCCEEDED,
+          payload: updatedNotification,
+        });
+      })
+      .catch((error): void => {
+        dispatch({
+          type: UPDATE_ASSESSMENT_PLAN_NOTIFICATION_FAILED,
+          payload: error,
+          meta: notification,
+          error: true,
+        });
+      });
   };
 };
 

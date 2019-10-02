@@ -82,23 +82,14 @@ export const fetchAssessmentPlan = (
   return (dispatch: ThunkDispatch<{}, {}, AssessmentPlanAction>): void => {
     dispatch(fetchAssessmentPlanStarted(jobId));
     getAssessmentPlan(jobId)
-      .then(
-        ({ assessments, questions, answers }): void => {
-          dispatch(
-            fetchAssessmentPlanSucceeded(
-              jobId,
-              assessments,
-              questions,
-              answers,
-            ),
-          );
-        },
-      )
-      .catch(
-        (error): void => {
-          dispatch(fetchAssessmentPlanFailed(jobId, error));
-        },
-      );
+      .then(({ assessments, questions, answers }): void => {
+        dispatch(
+          fetchAssessmentPlanSucceeded(jobId, assessments, questions, answers),
+        );
+      })
+      .catch((error): void => {
+        dispatch(fetchAssessmentPlanFailed(jobId, error));
+      });
   };
 };
 

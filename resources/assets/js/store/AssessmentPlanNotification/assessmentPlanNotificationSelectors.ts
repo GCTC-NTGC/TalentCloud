@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import createCachedSelector, { CreateSelectorInstance } from "re-reselect";
+import createCachedSelector from "re-reselect";
 import { RootState } from "../store";
 import { AssessmentPlanNotificationState } from "./assessmentPlanNotificationReducer";
 import { AssessmentPlanNotification } from "../../models/types";
