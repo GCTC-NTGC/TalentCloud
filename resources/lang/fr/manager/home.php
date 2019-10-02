@@ -179,10 +179,10 @@ return [
         'heading' => 'Comment puis-je afficher un emploi?',
         'content_first' => [
             'heading' => [
-                'content' => 'Êtes-vous membre de l’un de ceux-ci? ',
+                'content' => 'Êtes-vous membre d\'un de ces',
                 'anchor' => [
                     'title' => 'Voir les ministères associés au Nuage de talents.',
-                    'text' => 'Ministères partenaires.'
+                    'text' => 'ministères partenaires'
                 ]
             ],
             'content_before' => 'Si vous êtes membre,',
