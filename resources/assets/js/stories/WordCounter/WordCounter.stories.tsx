@@ -1,15 +1,13 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { withInfo } from "@storybook/addon-info";
-import { withKnobs, number, text } from "@storybook/addon-knobs";
+import { number, text } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
 import WordCounterWrapper from "../../components/WordCounter/WordCounterWrapper";
 import SkillsWordCounter from "../../components/ApplicantSkills/SkillsWordCounter";
 
-const stories = storiesOf("Components|Word Counter", module)
-  .addDecorator(withInfo)
-  .addDecorator(withKnobs)
-  .addDecorator(withIntl);
+const stories = storiesOf("Components|Word Counter", module).addDecorator(
+  withIntl,
+);
 
 const messages = [
   {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { fakeCriterion } from "../../fakeData/fakeJob";
 import { essentialSkillIdToKey, criteriaToValues } from "./CriteriaForm";
 import { CriteriaTypeId } from "../../models/lookupConstants";

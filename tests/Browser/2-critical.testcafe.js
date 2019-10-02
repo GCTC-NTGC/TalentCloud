@@ -1,4 +1,4 @@
-import { Selector, Role } from "testcafe";
+import { Selector, Role, ClientFunction } from "testcafe";
 import { applicantUser, adminUser, assertIsLoggedIn } from "./helpers/roles";
 
 const HOMEPAGE = "https://talent.test";
@@ -348,4 +348,35 @@ test("Registration - Manager", async t => {
     .typeText(Selector("#password-confirm"), "Password123!@#")
     .click(Selector("button").withText("Register"));
   await assertIsLoggedIn(t);
+});
+
+// Returns the URL of the current web page
+const getPageUrl = ClientFunction(() => window.location.href);
+
+test("Registration - First Manager Visit", async t => {
+  await t
+    .useRole(Role.anonymous())
+    .click(Selector("a").withText("Register"))
+    .typeText(Selector("#name"), "Test Cafe")
+    .typeText(Selector("#email"), randomEmail())
+    .typeText(Selector("#password"), "Password123!@#")
+    .typeText(Selector("#password-confirm"), "Password123!@#")
+    .click(Selector("button").withText("Register"));
+  await assertIsLoggedIn(t);
+  await t
+    .navigateTo("/manager")
+    .click(Selector("#department"))
+    .click(
+      Selector("#department")
+        .find("option")
+        .withText("Treasury Board of Canada Secretariat"),
+    )
+    // Gov email field should be visible after selecting a department
+    .expect(Selector("#gov_email").visible)
+    .ok()
+    .typeText(Selector("#gov_email"), randomEmail())
+    .click(Selector("button").withAttribute("type", "submit"))
+    // Should now be on the manager homepage
+    .expect(getPageUrl())
+    .match(/\/manager$/);
 });
