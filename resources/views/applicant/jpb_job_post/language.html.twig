@@ -63,6 +63,8 @@
     {% elseif job.language_requirement.id == 5 %}
         <p>{{ job_post.language.english_or_french_context_01 }}</p>
         <p>{{ job_post.language.english_or_french_context_02 }}</p>
+    {% else %}
+        <p>{{ noInfo }}</p>
     {% endif %}
 
 </section>

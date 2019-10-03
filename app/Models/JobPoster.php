@@ -7,13 +7,17 @@
 
 namespace App\Models;
 
-use App\Events\JobSaved;
+use Astrotomic\Translatable\Translatable;
+
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+
+use Jenssegers\Date\Date;
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
-use Jenssegers\Date\Date;
-use \Backpack\CRUD\CrudTrait;
-use Astrotomic\Translatable\Translatable;
+
+use App\Events\JobSaved;
 
 /**
  * Class JobPoster
@@ -431,6 +435,9 @@ class JobPoster extends BaseModel
             $this->attributes['published_at'] = new Date();
         } else {
             $this->attributes['published_at'] = null;
+        }
+        if ($value === null) {
+            $value = false;
         }
         $this->attributes['published'] = $value;
     }

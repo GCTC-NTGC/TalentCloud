@@ -27,7 +27,7 @@ return [
         ],
     ],
     "register" => "Inscription",
-    "login" => "Ouvrir une session (Compte GCcollab)",
+    "login" => "Ouvrir une session",
     "logout" => "Déconnexion",
     /* <title> tag content */
     "home_title" => "Nuage de talents | Gestionnaire : Accueil",

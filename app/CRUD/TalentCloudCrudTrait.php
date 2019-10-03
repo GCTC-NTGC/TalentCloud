@@ -2,7 +2,7 @@
 
 namespace App\CRUD;
 
-use Backpack\CRUD\CrudTrait;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 
