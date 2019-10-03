@@ -8,6 +8,10 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 class ClassificationCrudController extends CrudController
 {
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+
     /**
      * Prepare the admin interface by setting the associated
      * model, setting the route, and adding custom columns/fields.
@@ -22,10 +26,18 @@ class ClassificationCrudController extends CrudController
         $this->crud->setRoute('admin/classification');
         // Custom strings to display within the backpack UI.
         $this->crud->setEntityNameStrings('classification', 'classifications');
-        // No deleting classifications.
-        $this->crud->denyAccess('delete');
 
-        // Add custom columns to the classification index view.
+        $this->crud->operation(['create', 'update'], function () {
+            $this->crud->addField([
+                'name' => 'key',
+                'type' => 'text',
+                'label' => 'Key',
+            ]);
+        });
+    }
+
+    public function setupListOperation()
+    {
         $this->crud->addColumn([
             'name' => 'id',
             'type' => 'text',
@@ -37,36 +49,15 @@ class ClassificationCrudController extends CrudController
             'type' => 'text',
             'label' => 'Key',
         ]);
-
-        // Add custom fields to the create/update views.
-        $this->crud->addField([
-            'name' => 'key',
-            'type' => 'text',
-            'label' => 'Key',
-        ]);
     }
 
-    /**
-     * Action for creating a new classification in the database.
-     *
-     * @param \App\Http\Requests\ClassificationCrudRequest $request Incoming form request.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(StoreRequest $request) // phpcs:ignore
+    public function setupCreateOperation()
     {
-        return parent::storeCrud();
+        $this->crud->setValidation(StoreRequest::class);
     }
 
-    /**
-     * Action for updating an existing classification in the database.
-     *
-     * @param \App\Http\Requests\ClassificationCrudRequest $request Incoming form request.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(UpdateRequest $request) // phpcs:ignore
+    public function setupUpdateOperation()
     {
-        return parent::updateCrud();
+        $this->crud->setValidation(UpdateRequest::class);
     }
 }

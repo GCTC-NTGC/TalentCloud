@@ -1,5 +1,9 @@
 import React from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import {
+  injectIntl,
+  WrappedComponentProps,
+  FormattedMessage,
+} from "react-intl";
 import { connect } from "react-redux";
 import { Criteria, Assessment, Skill } from "../../models/types";
 import { find, notEmpty } from "../../helpers/queries";
@@ -133,17 +137,17 @@ const renderAssessmentTypeBlock = (
 };
 
 const AssessmentPlanTable: React.FunctionComponent<
-  AssessmentPlanTableProps & InjectedIntlProps
+  AssessmentPlanTableProps & WrappedComponentProps
 > = ({
   criteria,
   assessments,
   skills,
   intl,
-}: AssessmentPlanTableProps & InjectedIntlProps): React.ReactElement => {
+}: AssessmentPlanTableProps & WrappedComponentProps): React.ReactElement => {
   const uniqueAssessmentTypes: number[] = getUniqueAssessmentTypes(assessments);
 
   return (
-    <React.Fragment>
+    <>
       <h3
         data-c-font-size="h3"
         data-c-font-weight="bold"
@@ -236,7 +240,7 @@ const AssessmentPlanTable: React.FunctionComponent<
           },
         )}
       </div>
-    </React.Fragment>
+    </>
   );
 };
 
@@ -256,9 +260,9 @@ const mapStateToProps = (
   assessments: getAssessmentsByJob(state, ownProps),
   skills: getSkills(state),
 });
-// @ts-ignore
-const AssessmentPlanTableContainer: React.FunctionComponent<
-  AssessmentPlanTableContainerProps
-> = connect(mapStateToProps)(injectIntl(AssessmentPlanTable));
+
+const AssessmentPlanTableContainer = connect(mapStateToProps)(
+  injectIntl(AssessmentPlanTable),
+);
 
 export default AssessmentPlanTableContainer;

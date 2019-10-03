@@ -108,6 +108,14 @@ class User extends BaseModel implements
         return $this->belongsTo(\App\Models\UserRole::class);
     }
 
+    public function setIsPriorityAttribute($value)
+    {
+        if ($value === null) {
+            $value = false;
+        }
+        $this->attributes['is_priority'] = $value;
+    }
+
     // Role related functions
 
     /**

@@ -1,12 +1,9 @@
 import React from "react";
 import { addParameters, configure, addDecorator } from "@storybook/react";
 import { themes } from "@storybook/theming";
-import { addLocaleData } from "react-intl";
 import { withInfo } from "@storybook/addon-info";
 import { withKnobs } from "@storybook/addon-knobs";
 import { setIntlConfig } from "storybook-addon-intl";
-import localeEn from "react-intl/locale-data/en";
-import localeFr from "react-intl/locale-data/fr";
 import messagesFr from "../resources/assets/js/translations/locales/fr.json";
 
 addDecorator(withInfo({
@@ -44,7 +41,6 @@ if (document.querySelector("#modal-root") === null) {
 
 // Set up react-intl localization
 // Load the locale data for all your defined locales
-addLocaleData([...localeEn, ...localeFr]);
 const messages = {
   en: null, // default
   fr: messagesFr,

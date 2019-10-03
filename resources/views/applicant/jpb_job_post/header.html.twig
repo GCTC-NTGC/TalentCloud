@@ -43,8 +43,8 @@
 
                     <div>
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>{{ job.city }}</span>,
-                        <span>{{ job.province.value }}</span>
+                        <span>{{ job.city ?: job_post.header.city }}</span>,
+                        <span>{{ job.province_id ? job.province.value : job_post.header.province }}</span>
                     </div>
 
                     <br>
