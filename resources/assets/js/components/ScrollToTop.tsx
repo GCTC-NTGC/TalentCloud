@@ -40,4 +40,16 @@ const ScrollToTop: React.FunctionComponent<ScrollToTopProps> = ({
   return <>{children}</>;
 };
 
+export const scrollToTopWrapper = (
+  wrappedComponent: React.ReactElement | null,
+  offsetTop: number,
+  scrollBehaviorAuto: boolean,
+): React.ReactElement => {
+  return (
+    <ScrollToTop offsetTop={offsetTop} scrollBehaviorAuto={scrollBehaviorAuto}>
+      {wrappedComponent}
+    </ScrollToTop>
+  );
+};
+
 export default ScrollToTop;

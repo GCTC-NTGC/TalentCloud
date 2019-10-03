@@ -2,8 +2,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Routes } from "universal-router";
-import { defineMessages, FormattedMessage } from "react-intl";
-import { useRouter } from "../../helpers/router";
+import { defineMessages } from "react-intl";
+import { UseRouter } from "../../helpers/router";
 import JobBuilderIntroPageContainer from "../JobBuilderIntro/JobBuilderIntro";
 import RootContainer from "../RootContainer";
 import JobDetailsPage from "../JobDetails/JobDetailsPage";
@@ -12,7 +12,6 @@ import JobBuilderImpactPage from "../JobBuilderImpact/JobBuilderImpactPage";
 import JobTasksPage from "../JobTasks/JobTasksPage";
 import JobSkillsPage from "../JobBuilderSkills/JobBuilderSkillsPage";
 import JobReviewPage from "../JobReview/JobReviewPage";
-import ScrollToTop from "../ScrollToTop";
 
 const titles = defineMessages({
   introTitle: {
@@ -59,7 +58,7 @@ const routes: Routes<any, any> = [
       {
         path: "/builder",
         action: () => ({
-          title: <FormattedMessage {...titles.introTitle} />,
+          title: titles.introTitle,
           component: <JobBuilderIntroPageContainer jobId={null} />,
         }),
       },
@@ -69,7 +68,7 @@ const routes: Routes<any, any> = [
           {
             path: "/intro",
             action: ({ params }) => ({
-              title: <FormattedMessage {...titles.introTitle} />,
+              title: titles.introTitle,
               component: (
                 <JobBuilderIntroPageContainer jobId={Number(params.id)} />
               ),
@@ -78,42 +77,42 @@ const routes: Routes<any, any> = [
           {
             path: "/details",
             action: ({ params }) => ({
-              title: <FormattedMessage {...titles.detailsTitle} />,
+              title: titles.detailsTitle,
               component: <JobDetailsPage jobId={Number(params.id)} />,
             }),
           },
           {
             path: "/environment",
             action: ({ params }) => ({
-              title: <FormattedMessage {...titles.workEnvTitle} />,
+              title: titles.workEnvTitle,
               component: <JobBuilderWorkEnvPage jobId={Number(params.id)} />,
             }),
           },
           {
             path: "/impact",
             action: ({ params }) => ({
-              title: <FormattedMessage {...titles.impactTitle} />,
+              title: titles.impactTitle,
               component: <JobBuilderImpactPage jobId={Number(params.id)} />,
             }),
           },
           {
             path: "/tasks",
             action: ({ params }) => ({
-              title: <FormattedMessage {...titles.tasksTitle} />,
+              title: titles.tasksTitle,
               component: <JobTasksPage jobId={Number(params.id)} />,
             }),
           },
           {
             path: "/skills",
             action: ({ params }) => ({
-              title: <FormattedMessage {...titles.skillsTitle} />,
+              title: titles.skillsTitle,
               component: <JobSkillsPage jobId={Number(params.id)} />,
             }),
           },
           {
             path: "/review",
             action: ({ params }) => ({
-              title: <FormattedMessage {...titles.reviewTitle} />,
+              title: titles.reviewTitle,
               component: <JobReviewPage jobId={Number(params.id)} />,
             }),
           },
@@ -123,17 +122,10 @@ const routes: Routes<any, any> = [
   },
 ];
 
-const JobBuilderRoot = (): React.ReactElement | null => {
-  const match = useRouter(routes);
-  const tracker: HTMLElement | null = document.getElementById(
-    "job-builder-root",
-  );
-  const trackerOffsetTop: number = tracker ? tracker.offsetTop : 0;
+const JobBuilderRoot: React.FunctionComponent | null = () => {
   return (
     <RootContainer>
-      <ScrollToTop offsetTop={trackerOffsetTop} scrollBehaviorAuto>
-        {match}
-      </ScrollToTop>
+      <UseRouter routes={routes} scrollToTop />
     </RootContainer>
   );
 };

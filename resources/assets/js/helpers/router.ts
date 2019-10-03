@@ -1,6 +1,8 @@
 import { createBrowserHistory, Location } from "history";
 import UniversalRouter, { Routes } from "universal-router";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, FunctionComponent } from "react";
+import { useIntl } from "react-intl";
+import { scrollToTopWrapper } from "../components/ScrollToTop";
 
 const HISTORY = createBrowserHistory();
 
@@ -36,25 +38,33 @@ export const useUrlHash = (): void => {
   }, [location.hash, hashFound]);
 };
 
-export const useRouter = (
-  routes: Routes<any, any>,
-): React.ReactElement | null => {
+export const UseRouter: FunctionComponent<{
+  routes: Routes<any, any>;
+  scrollToTop?: boolean;
+}> = ({ routes, scrollToTop }): React.ReactElement | null => {
+  const intl = useIntl();
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
   const [component, setComponent] = useState<React.ReactElement | null>(null);
+  const tracker: HTMLElement | null = document.getElementById(
+    "job-builder-root",
+  );
+  const trackerOffsetTop: number = tracker ? tracker.offsetTop : 0;
 
   // Render the result of routing
   useEffect((): void => {
     router.resolve(location.pathname).then((result): void => {
-      const { defaultMessage } = result.title.props;
+      const title = intl.formatMessage(result.title);
       const h1 = document.querySelector("h1");
-      document.title = defaultMessage;
-      if (h1) h1.innerHTML = defaultMessage;
+      document.title = title;
+      if (h1) h1.innerHTML = title;
       setComponent(result.component);
     });
-  }, [location, router]);
+  }, [intl, location, router]);
 
-  return component;
+  return scrollToTop
+    ? scrollToTopWrapper(component, trackerOffsetTop, true)
+    : component;
 };
 
 export const navigate = (url: string): void => {
