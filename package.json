@@ -63,7 +63,7 @@
     "dayjs": "^1.8.16",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.0",
-    "enzyme-to-json": "^3.4.0",
+    "enzyme-to-json": "^3.4.2",
     "eslint": "^6",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6",
