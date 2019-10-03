@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { InjectedIntlProps, injectIntl } from "react-intl";
+import { WrappedComponentProps, injectIntl } from "react-intl";
 import nprogress from "nprogress";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
@@ -49,7 +49,7 @@ interface JobBuilderReviewPageProps {
 }
 
 const JobBuilderReviewPage: React.FunctionComponent<
-  JobBuilderReviewPageProps & InjectedIntlProps
+  JobBuilderReviewPageProps & WrappedComponentProps
 > = ({
   jobId,
   job,
