@@ -47,7 +47,7 @@ export const useRouter = (
   useEffect((): void => {
     router.resolve(location.pathname).then((result): void => {
       const { defaultMessage } = result.title.props;
-      const h1 = document.getElementById("h1");
+      const h1 = document.querySelector("h1");
       document.title = defaultMessage;
       if (h1) h1.innerHTML = defaultMessage;
       setComponent(result.component);
