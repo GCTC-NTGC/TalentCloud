@@ -2833,16 +2833,16 @@
         },
         {
             "name": "spatie/laravel-translatable",
-            "version": "4.2.0",
+            "version": "4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-translatable.git",
-                "reference": "734bd735dc41cf745c3c6f3fb32b8364c918fe34"
+                "reference": "3a07be9e1e3cc9566c6d7274b613552d5cbf4b1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/734bd735dc41cf745c3c6f3fb32b8364c918fe34",
-                "reference": "734bd735dc41cf745c3c6f3fb32b8364c918fe34",
+                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/3a07be9e1e3cc9566c6d7274b613552d5cbf4b1a",
+                "reference": "3a07be9e1e3cc9566c6d7274b613552d5cbf4b1a",
                 "shasum": ""
             },
             "require": {
@@ -2902,7 +2902,7 @@
                 "spatie",
                 "translate"
             ],
-            "time": "2019-09-04T07:42:04+00:00"
+            "time": "2019-10-03T11:05:01+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -5137,12 +5137,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracasts/Laravel-5-Generators-Extended.git",
-                "reference": "25a7094a37922fc42cc4cfa52e257bdbd2303958"
+                "reference": "8b07ce8255c6ccf862fda9be55753df7d51044c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/25a7094a37922fc42cc4cfa52e257bdbd2303958",
-                "reference": "25a7094a37922fc42cc4cfa52e257bdbd2303958",
+                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/8b07ce8255c6ccf862fda9be55753df7d51044c9",
+                "reference": "8b07ce8255c6ccf862fda9be55753df7d51044c9",
                 "shasum": ""
             },
             "require": {
@@ -5181,7 +5181,7 @@
                 "generators",
                 "laravel"
             ],
-            "time": "2019-09-04T07:42:46+00:00"
+            "time": "2019-10-04T06:39:16+00:00"
         },
         {
             "name": "mockery/mockery",
