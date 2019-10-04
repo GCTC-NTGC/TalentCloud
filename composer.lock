@@ -2721,21 +2721,21 @@
         },
         {
             "name": "rcrowe/twigbridge",
-            "version": "v0.11.1",
+            "version": "v0.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rcrowe/TwigBridge.git",
-                "reference": "2054abdbd8dcde573cd86d8d3856873e2388d47b"
+                "reference": "b8bd5db744d51adb11623547f281dfaf5ac60230"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/2054abdbd8dcde573cd86d8d3856873e2388d47b",
-                "reference": "2054abdbd8dcde573cd86d8d3856873e2388d47b",
+                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/b8bd5db744d51adb11623547f281dfaf5ac60230",
+                "reference": "b8bd5db744d51adb11623547f281dfaf5ac60230",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.x|6.0.*",
-                "illuminate/view": "5.5.*|5.6.*|5.7.*|5.8.x|6.0.*",
+                "illuminate/support": "^5.5|^6",
+                "illuminate/view": "^5.5|^6",
                 "php": ">=7.1",
                 "twig/twig": "~2.0"
             },
@@ -2789,7 +2789,7 @@
                 "laravel",
                 "twig"
             ],
-            "time": "2019-09-05T11:59:53+00:00"
+            "time": "2019-10-03T08:22:24+00:00"
         },
         {
             "name": "slevomat/coding-standard",
@@ -5137,12 +5137,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracasts/Laravel-5-Generators-Extended.git",
-                "reference": "25a7094a37922fc42cc4cfa52e257bdbd2303958"
+                "reference": "8b07ce8255c6ccf862fda9be55753df7d51044c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/25a7094a37922fc42cc4cfa52e257bdbd2303958",
-                "reference": "25a7094a37922fc42cc4cfa52e257bdbd2303958",
+                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/8b07ce8255c6ccf862fda9be55753df7d51044c9",
+                "reference": "8b07ce8255c6ccf862fda9be55753df7d51044c9",
                 "shasum": ""
             },
             "require": {
@@ -5181,7 +5181,7 @@
                 "generators",
                 "laravel"
             ],
-            "time": "2019-09-04T07:42:46+00:00"
+            "time": "2019-10-04T06:39:16+00:00"
         },
         {
             "name": "mockery/mockery",
