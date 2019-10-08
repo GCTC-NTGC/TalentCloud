@@ -7,7 +7,9 @@ use Illuminate\Auth\AuthenticationException as AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Facades\App\Services\WhichPortal;
+use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 
 class Handler extends ExceptionHandler
 {
@@ -16,8 +18,7 @@ class Handler extends ExceptionHandler
      *
      * @var array
      */
-    protected $dontReport = [
-            ];
+    protected $dontReport = [];
 
     /**
      * A list of the inputs that are never flashed for validation exceptions.
@@ -33,6 +34,23 @@ class Handler extends ExceptionHandler
     ];
 
     /**
+     * OVERRIDE
+     * A list of the internal exception types that should not be reported.
+     *
+     * @var array
+     */
+    protected $internalDontReport = [
+        AuthenticationException::class,
+        AuthorizationException::class,
+        HttpException::class,
+        HttpResponseException::class,
+        ModelNotFoundException::class,
+        SuspiciousOperationException::class,
+        //TokenMismatchException::class,
+        ValidationException::class,
+    ];
+
+    /**
      * Report or log an exception.
      *
      * @param  \Exception  $exception
@@ -40,6 +58,18 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        if ($exception instanceof TokenMismatchException) {
+            $logData = [
+                'requestToken' => request()->header('x-csrf-token'),
+                'sessionToken' => session()->token(),
+                'session' => session()->all(),
+                'user' => request()->user(),
+                'requestUrl' => request()->url()
+            ];
+            $message = '419 CSRF Token Mismatch. ' . collect($logData)->toJson();
+            Log::debug($message);
+        }
+
         parent::report($exception);
     }
 
@@ -54,6 +84,11 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof AdminException) {
             return $exception->render($request);
+        }
+        if ($exception instanceof TokenMismatchException) {
+            $newMessage = $exception->getMessage() . " " . Lang::get('errors.refresh_page');
+            $modifiedException = new TokenMismatchException($newMessage, $exception->getCode(), $exception);
+            return parent::render($request, $modifiedException);
         }
         return parent::render($request, $exception);
     }
@@ -87,7 +122,7 @@ class Handler extends ExceptionHandler
      */
     protected function renderHttpException(HttpExceptionInterface $e)
     {
-        if (! view()->exists("errors.{$e->getStatusCode()}")) {
+        if (!view()->exists("errors.{$e->getStatusCode()}")) {
             return response()->view('errors.default', [
                 'exception' => $e,
                 'goc' => Lang::get('common/goc'),
