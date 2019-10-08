@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
 import ReactDOM from "react-dom";
-import { injectIntl, InjectedIntlProps, defineMessages } from "react-intl";
+import { injectIntl, defineMessages, WrappedComponentProps } from "react-intl";
 import WordCounterWrapper from "../WordCounter/WordCounterWrapper";
 import IntlContainer from "../../IntlContainer";
 
@@ -48,7 +48,7 @@ interface SkillsWordCounterProps {
 }
 
 const SkillsWordCounter: React.FunctionComponent<
-  SkillsWordCounterProps & InjectedIntlProps
+  SkillsWordCounterProps & WrappedComponentProps
 > = ({ elementId, intl }): React.ReactElement => {
   const placeholder = intl.formatMessage(wordCounterMessages.skillsPlaceholder);
   const messages = [

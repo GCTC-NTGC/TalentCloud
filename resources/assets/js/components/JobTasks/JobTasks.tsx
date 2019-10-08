@@ -2,7 +2,7 @@
 import React, { useState, useRef } from "react";
 import {
   FormattedMessage,
-  InjectedIntlProps,
+  WrappedComponentProps,
   injectIntl,
   defineMessages,
 } from "react-intl";
@@ -82,7 +82,9 @@ const formMessages = defineMessages({
   },
 });
 
-const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
+const JobTasks: React.FunctionComponent<
+  JobTasksProps & WrappedComponentProps
+> = ({
   jobId,
   keyTasks,
   validCount,

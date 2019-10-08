@@ -85,7 +85,6 @@ class UpdateManagerProfileRequest extends FormRequest
 
             '*.about_me' => 'nullable|string',
             '*.career_journey' => 'nullable|string',
-            '*.branch' => 'nullable|string',
             '*.division' => 'nullable|string',
             '*.education' => 'nullable|string',
             '*.employee_learning' => 'nullable|string',

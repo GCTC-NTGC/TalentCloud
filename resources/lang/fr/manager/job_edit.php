@@ -1,4 +1,5 @@
 <?php
+
 return [
     /*
  * --------------------------------------------------------------------------
@@ -47,8 +48,6 @@ return [
             'departmental_information' => 'Information ministériel',
             'departmental_info_default_option' => 'Choisissez le ministère...',
             'department' => 'Département',
-            'branch_english' => 'Branche (English)',
-            'branch_french' => 'Branche (Français)',
             'division_english' => 'Division (English)',
             'division_french' => 'Division (Français)',
             'impact' => 'Impact',

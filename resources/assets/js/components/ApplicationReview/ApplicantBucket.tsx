@@ -1,5 +1,10 @@
 import React from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import {
+  injectIntl,
+  WrappedComponentProps,
+  FormattedMessage,
+  MessageDescriptor,
+} from "react-intl";
 import { Application } from "../../models/types";
 import { SelectOption } from "../Select";
 import ApplicationReview from "./ApplicationReview";
@@ -10,8 +15,8 @@ import {
 } from "./helpers";
 
 interface ApplicantBucketProps {
-  title: FormattedMessage.MessageDescriptor;
-  description: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  description: MessageDescriptor;
   applications: Application[];
   reviewStatusOptions: SelectOption[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
@@ -21,7 +26,7 @@ interface ApplicantBucketProps {
 }
 
 const ApplicantBucket: React.StatelessComponent<
-  ApplicantBucketProps & InjectedIntlProps
+  ApplicantBucketProps & WrappedComponentProps
 > = ({
   title,
   description,
@@ -32,7 +37,7 @@ const ApplicantBucket: React.StatelessComponent<
   savingStatuses,
   prioritizeVeterans,
   intl,
-}: ApplicantBucketProps & InjectedIntlProps): React.ReactElement | null => {
+}: ApplicantBucketProps & WrappedComponentProps): React.ReactElement | null => {
   if (applications.length === 0) {
     return null;
   }

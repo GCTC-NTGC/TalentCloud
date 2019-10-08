@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
   injectIntl,
@@ -32,7 +32,7 @@ const remoteWorkMessages = defineMessages({
 });
 
 export const JobWorkCulture: React.FunctionComponent<
-  JobWorkCultureProps & InjectedIntlProps
+  JobWorkCultureProps & WrappedComponentProps
 > = ({ job, intl }): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {

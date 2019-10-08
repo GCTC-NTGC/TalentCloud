@@ -41,7 +41,6 @@ use Astrotomic\Translatable\Translatable as Translatable;
  * Localized Properties:
  * @property string $about_me
  * @property string $greatest_accomplishment
- * @property string $branch
  * @property string $division
  * @property string $position
  * @property string $leadership_style
@@ -66,7 +65,6 @@ class Manager extends BaseModel
     public $translatedAttributes = [
         'about_me',
         'greatest_accomplishment',
-        'branch',
         'division',
         'position',
         'leadership_style',
