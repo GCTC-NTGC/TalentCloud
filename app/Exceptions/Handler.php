@@ -86,7 +86,7 @@ class Handler extends ExceptionHandler
             return $exception->render($request);
         }
         if ($exception instanceof TokenMismatchException) {
-            $newMessage = $exception->getMessage() . " Please refresh the page.";
+            $newMessage = $exception->getMessage() . " " . Lang::get('errors.refresh_page');
             $modifiedException = new TokenMismatchException($newMessage, $exception->getCode(), $exception);
             return parent::render($request, $modifiedException);
         }
