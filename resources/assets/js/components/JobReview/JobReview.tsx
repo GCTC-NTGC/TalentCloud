@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
@@ -350,7 +350,7 @@ interface JobReviewProps {
 }
 
 export const JobReview: React.FunctionComponent<
-  JobReviewProps & InjectedIntlProps
+  JobReviewProps & WrappedComponentProps
 > = ({
   job,
   manager,

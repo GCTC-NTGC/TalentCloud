@@ -1,6 +1,11 @@
 /* eslint-disable no-lonely-if */
 import React from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import {
+  injectIntl,
+  WrappedComponentProps,
+  FormattedMessage,
+  MessageDescriptor,
+} from "react-intl";
 import { connect } from "react-redux";
 import { RootState } from "../../store/store";
 import {
@@ -40,7 +45,7 @@ export const clipboardData = (
   ratingGuideQuestions: RatingGuideQuestion[],
   ratingGuideAnswers: RatingGuideAnswer[],
   locale: string,
-  formatMessage: (message: FormattedMessage.MessageDescriptor) => string,
+  formatMessage: (message: MessageDescriptor) => string,
   narrativeReview?: Assessment[],
 ): ClipboardTableRowProps[] => {
   let narrativeData: ClipboardTableRowProps[] = [];
@@ -244,7 +249,7 @@ interface TableProps {
 }
 
 const RatingGuideClipboard: React.FunctionComponent<
-  TableProps & InjectedIntlProps
+  TableProps & WrappedComponentProps
 > = ({
   assessments,
   criteria,
@@ -328,9 +333,9 @@ const mapStateToProps = (
   ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps),
   ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps),
 });
-// @ts-ignore
-const RatingGuideClipboardContainer: React.FunctionComponent<
-  RatingGuideClipboardContainerProps
-> = connect(mapStateToProps)(injectIntl(RatingGuideClipboard));
+
+const RatingGuideClipboardContainer = connect(mapStateToProps)(
+  injectIntl(RatingGuideClipboard),
+);
 
 export default RatingGuideClipboardContainer;

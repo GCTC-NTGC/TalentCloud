@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
@@ -186,7 +186,7 @@ const updateManagerWithValues = (
 });
 
 const IntroForm: React.FunctionComponent<
-  IntroFormProps & InjectedIntlProps
+  IntroFormProps & WrappedComponentProps
 > = ({
   job,
   manager,
@@ -195,7 +195,7 @@ const IntroForm: React.FunctionComponent<
   handleContinueEn,
   handleContinueFr,
   intl,
-}: IntroFormProps & InjectedIntlProps): React.ReactElement => {
+}: IntroFormProps & WrappedComponentProps): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.

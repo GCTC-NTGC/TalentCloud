@@ -1,5 +1,9 @@
 import React from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import {
+  injectIntl,
+  WrappedComponentProps,
+  FormattedMessage,
+} from "react-intl";
 import { Job, AssessmentPlanNotification } from "../../models/types";
 import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingGuideBuilder from "./RatingGuideBuilder";
@@ -12,7 +16,7 @@ interface AssessmentPlanProps {
 }
 
 const AssessmentPlan: React.FunctionComponent<
-  AssessmentPlanProps & InjectedIntlProps
+  AssessmentPlanProps & WrappedComponentProps
 > = ({ job, notifications, intl }): React.ReactElement => {
   const jobTitle = (
     <span data-c-colour="c5" data-c-font-size="h3">
