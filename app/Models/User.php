@@ -31,6 +31,7 @@ use App\CRUD\TalentCloudCrudTrait as CrudTrait;
  * @property int $user_role_id
  * @property string $gov_email
  * @property boolean $not_in_gov
+ * @property string $google2fa_secret
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -69,13 +70,21 @@ class User extends BaseModel implements
     ];
 
     protected $fillable = [
-        'name', 'email', 'password', 'is_priority', 'gov_email', 'not_in_gov'
+        'name',
+        'email',
+        'password',
+        'is_priority',
+        'gov_email',
+        'not_in_gov',
+        'google2fa_secret'
     ];
 
     protected $with = ['user_role'];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
+        'google2fa_secret'
     ];
 
     /**
@@ -114,6 +123,31 @@ class User extends BaseModel implements
             $value = false;
         }
         $this->attributes['is_priority'] = $value;
+    }
+
+        /**
+     * Ecrypt the user's google_2fa secret.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function setGoogle2faSecretAttribute($value)
+    {
+         $this->attributes['google2fa_secret'] = encrypt($value);
+    }
+
+    /**
+     * Decrypt the user's google_2fa secret.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getGoogle2faSecretAttribute($value)
+    {
+        if (!empty($value)) {
+            return decrypt($value);
+        }
+        return null;
     }
 
     // Role related functions
