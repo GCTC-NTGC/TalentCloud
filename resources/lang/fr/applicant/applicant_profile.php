@@ -12,10 +12,10 @@ return [
     'about_section' => [
         'about_title' => 'Mes renseignements',
         'profile_title' => 'Nuage de talents | Candidat : Profil - À propos de moi',
-        //'about_gc_disclaimer' => '',
+        // 'about_gc_disclaimer' => '',
         'gc_link' => 'https://account.gccollab.ca/profile/',
-        //'gc_link_title' => '',
-        //'gc_link_label' => '',
+        // 'gc_link_title' => '',
+        // 'gc_link_label' => '',
         'account_form_legend' => 'Renseignements du compte',
         'user_name_label' => 'Mon nom',
         'user_email_label' => 'Mon courriel',
@@ -35,5 +35,7 @@ return [
         'questions_title' => 'Choses à savoir de moi',
         'applicant_profile_question_section_title' => 'Votre histoire',
         'applicant_profile_question_context' => 'Ne pas inclure d\'informations personnelles sensibles.',
+        'two_factor_legend' => 'Two-Factor Authentication',
+        'two_factor_button_text' => 'Set up Two-Factor Authentication'
     ],
 ];

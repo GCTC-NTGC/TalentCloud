@@ -13,10 +13,10 @@ return [
     'about_section' => [
         'about_title' => 'My Information',
         'profile_title' => 'Talent Cloud | Applicant: Profile - About Me',
-        //'about_gc_disclaimer' => 'Please note that your name can be changed through your GC Account settings. Profile photos will be added as a feature at a later time.',
+        // 'about_gc_disclaimer' => 'Please note that your name can be changed through your GC Account settings. Profile photos will be added as a feature at a later time.',
         'gc_link' => 'https://account.gccollab.ca/profile/',
-        //'gc_link_title' => 'Visit your GC Account in a new tab or window.',
-        //'gc_link_label' => 'Visit GC Account',
+        // 'gc_link_title' => 'Visit your GC Account in a new tab or window.',
+        // 'gc_link_label' => 'Visit GC Account',
         'account_form_legend' => 'Account Information',
         'user_name_label' => 'My Name',
         'user_email_label' => 'My Email',
@@ -36,6 +36,8 @@ return [
         'questions_title' => 'Things to Know About Me',
         'applicant_profile_question_section_title' => 'Your Narrative',
         'applicant_profile_question_context' => 'Please don’t include any sensitive personal information.',
+        'two_factor_legend' => 'Two-Factor Authentication',
+        'two_factor_button_text' => 'Set up Two-Factor Authentication'
     ],
 
 
