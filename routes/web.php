@@ -22,6 +22,10 @@ Route::group(
         /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
         Route::group(['prefix' => config('app.applicant_prefix')], function () : void {
 
+            Route::post('/2fa', function () {
+                return redirect(URL()->previous());
+            })->name('2fa')->middleware('2fa');
+
             /* Home */
             Route::get('/', 'HomepageController@applicant')->name('home');
 
@@ -41,7 +45,7 @@ Route::group(
             });
 
             /* Require being logged in as applicant */
-            Route::middleware(['auth', 'role:applicant'])->group(function () : void {
+            Route::middleware(['auth', '2fa', 'role:applicant'])->group(function () : void {
 
             // Application permissions are handled within the controller instead of with middleware
                 /* Applications */
