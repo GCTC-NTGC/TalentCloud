@@ -138,6 +138,22 @@ Route::group(
                     ->middleware('can:view,applicant')
                     ->middleware('can:update,applicant')
                     ->name('profile.work_samples.edit');
+
+                Route::get(
+                    'profile/{applicant}/two-factor/activate',
+                    'Auth\TwoFactorController@activate'
+                )
+                ->middleware('can:view,applicant')
+                ->middleware('can:update,applicant')
+                ->name('two_factor.activate');
+
+                Route::post(
+                    'profile/{applicant}/two-factor/confirm',
+                    'Auth\TwoFactorController@confirm'
+                )
+                ->middleware('can:view,applicant')
+                ->middleware('can:update,applicant')
+                ->name('two_factor.confirm');
             });
 
             /* Static - FAQ */
@@ -431,10 +447,7 @@ Route::group(
     }
 );
 
-
 /** ALL NON-LOCALIZED ROUTES **/
-
-
 
 /** API routes - currently using same default http auth, but not localized */
 Route::group(['prefix' => 'api'], function (): void {
