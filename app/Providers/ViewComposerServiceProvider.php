@@ -102,6 +102,11 @@ class ViewComposerServiceProvider extends ServiceProvider
             'auth/two_factor',
             'App\Http\ViewComposers\TwoFactorComposer'
         );
+
+        View::composer(
+            'auth/one_time_password',
+            'App\Http\ViewComposers\OneTimePasswordComposer'
+        );
     }
 
     /**
