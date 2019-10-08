@@ -1,0 +1,50 @@
+{# =============================================================================
+
+    Talent Cloud
+    Auth: Login
+
+============================================================================= #}
+
+{% extends "layouts/base" %}
+
+{% block title %}{{ two_factor.title }}{% endblock %}
+
+{% block body %}
+    {% include "common/goc" %}
+    <div data-clone>
+        <section class="tc-auth" data-c-padding="tb(triple)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
+            <div class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
+                {# Return to the homepage link. #}
+                <a data-c-color="white" href="{{ route('home') }}" title="{{ two_factor.return_title }}">
+                    <i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ two_factor.return }}
+                </a>
+                <div data-c-radius="rounded" data-c-margin="top(normal)">
+                    <div class="tc-auth-header gradient-left-right" data-c-padding="all(double)" data-c-align="base(center)">
+                        <h1 data-c-font-size="h2" data-c-color="white">{{ two_factor.header }}</h1>
+                    </div>
+                    <form action="{{ route('two_factor.confirm', applicant.id) }}" method="POST">
+                        {{ csrf_field() }}
+                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
+                            <div data-c-grid="middle">
+                                <p>{{ two_factor.setup }}</p>
+                                <div>
+                                    <img src="{{ qr_image }}" alt="{{ two_factor.qr_alt }}" />
+                                </div>
+                                <pre>{{ secret }}</pre>
+                                <input type="hidden" name="secret" value="{{ secret }}" />
+                            </div>
+                        </div>
+                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)">
+                            <div data-c-grid="middle">
+                                <p data-c-padding="bottom(normal)">You must set up your authentication app before continuing. You will be unable to log in otherwise.</p>
+                                <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
+                                    {{ two_factor.continue_text }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
