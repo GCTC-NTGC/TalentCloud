@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import React from "react";
+import React, { FunctionComponent } from "react";
 import ReactDOM from "react-dom";
 import { Routes } from "universal-router";
-import { defineMessages } from "react-intl";
-import { UseRouter } from "../../helpers/router";
+import { defineMessages, useIntl } from "react-intl";
+import { useRouter } from "../../helpers/router";
 import JobBuilderIntroPageContainer from "../JobBuilderIntro/JobBuilderIntro";
 import RootContainer from "../RootContainer";
 import JobDetailsPage from "../JobDetails/JobDetailsPage";
@@ -12,6 +12,7 @@ import JobBuilderImpactPage from "../JobBuilderImpact/JobBuilderImpactPage";
 import JobTasksPage from "../JobTasks/JobTasksPage";
 import JobSkillsPage from "../JobBuilderSkills/JobBuilderSkillsPage";
 import JobReviewPage from "../JobReview/JobReviewPage";
+import ScrollToTop from "../ScrollToTop";
 
 const titles = defineMessages({
   introTitle: {
@@ -122,10 +123,25 @@ const routes: Routes<any, any> = [
   },
 ];
 
+const Route: React.FunctionComponent = () => {
+  const intl = useIntl();
+  const match = useRouter(routes, intl);
+  const tracker: HTMLElement | null = document.getElementById(
+    "job-builder-root",
+  );
+  const trackerOffsetTop: number = tracker ? tracker.offsetTop : 0;
+
+  return (
+    <ScrollToTop offsetTop={trackerOffsetTop} scrollBehaviorAuto>
+      {match}
+    </ScrollToTop>
+  );
+};
+
 const JobBuilderRoot: React.FunctionComponent | null = () => {
   return (
     <RootContainer>
-      <UseRouter routes={routes} scrollToTop />
+      <Route />
     </RootContainer>
   );
 };

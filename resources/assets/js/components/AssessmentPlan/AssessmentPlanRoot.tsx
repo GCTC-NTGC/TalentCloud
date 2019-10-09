@@ -2,8 +2,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Routes } from "universal-router";
-import { defineMessages } from "react-intl";
-import { UseRouter } from "../../helpers/router";
+import { defineMessages, useIntl } from "react-intl";
+import { useRouter } from "../../helpers/router";
 import AssessmentPlanContainer from "./AssessmentPlanContainer";
 import RootContainer from "../RootContainer";
 
@@ -30,9 +30,19 @@ const routes: Routes<any, any> = [
   },
 ];
 
+const Route: React.FunctionComponent = () => {
+  const intl = useIntl();
+  const match = useRouter(routes, intl);
+
+  return <>{match}</>;
+};
+
 const AssessmentPlanRoot = (): React.ReactElement | null => {
-  const match = <UseRouter routes={routes} />;
-  return <RootContainer>{match}</RootContainer>;
+  return (
+    <RootContainer>
+      <Route />
+    </RootContainer>
+  );
 };
 
 if (document.getElementById("assessment-plan-root")) {
