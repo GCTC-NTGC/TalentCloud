@@ -27,7 +27,7 @@
     "translations": "npm run translations:extract && npm run translations:check"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.2",
+    "@babel/cli": "^7.6.3",
     "@babel/core": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
     "@babel/preset-typescript": "^7.6.0",
