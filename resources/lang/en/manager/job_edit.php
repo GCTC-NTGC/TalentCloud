@@ -1,4 +1,5 @@
 <?php
+
 return [
     /*
     * --------------------------------------------------------------------------
@@ -48,8 +49,6 @@ return [
             'departmental_information' => 'Departmental Information',
             'departmental_info_default_option' => 'Select a department...',
             'department' => 'Department',
-            'branch_english' => 'Branch (English)',
-            'branch_french' => 'Branch (Français)',
             'division_english' => 'Division (English)',
             'division_french' => 'Division (Français)',
             'impact' => 'Impact',

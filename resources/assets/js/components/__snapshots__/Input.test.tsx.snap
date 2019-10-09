@@ -12,9 +12,7 @@ exports[`renders correctly 1`] = `
     label
   </label>
   <span>
-    <span>
-      Required
-    </span>
+    Required
   </span>
   <div>
     <input
@@ -29,9 +27,7 @@ exports[`renders correctly 1`] = `
     />
   </div>
   <span>
-    <span>
-      Something went wrong.
-    </span>
+    Something went wrong.
   </span>
 </div>
 `;

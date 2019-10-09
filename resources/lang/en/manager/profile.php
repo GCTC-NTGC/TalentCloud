@@ -45,8 +45,6 @@ return [
             'departmental_information' => 'Departmental Information',
             'department' => 'Department',
             'department_default_option' => 'Select your department...',
-            'branch_english' => 'Branch (English)',
-            'branch_french' => 'Branch (Français)',
             'division_english' => 'Division (English)',
             'division_french' => 'Division (Français)',
             'personal_information' => 'Personal Information',

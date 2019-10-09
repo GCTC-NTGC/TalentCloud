@@ -54,7 +54,6 @@ class UpdateManagerApi extends FormRequest
 
             'en.about_me' => 'nullable|string',
             'en.greatest_accomplishment' => 'nullable|string',
-            'en.branch' => 'nullable|string',
             'en.division' => 'nullable|string',
             'en.position' => 'nullable|string',
             'en.leadership_style' => 'nullable|string',
@@ -66,7 +65,6 @@ class UpdateManagerApi extends FormRequest
 
             'fr.about_me' => 'nullable|string',
             'fr.greatest_accomplishment' => 'nullable|string',
-            'fr.branch' => 'nullable|string',
             'fr.division' => 'nullable|string',
             'fr.position' => 'nullable|string',
             'fr.leadership_style' => 'nullable|string',

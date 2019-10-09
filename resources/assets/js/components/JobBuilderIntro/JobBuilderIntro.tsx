@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import nprogress from "nprogress";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import {
+  injectIntl,
+  WrappedComponentProps,
+  FormattedMessage,
+} from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import IntroForm from "./IntroForm";
@@ -59,7 +63,7 @@ interface JobBuilderIntroProps {
 }
 
 const JobBuilderIntro: React.FunctionComponent<
-  JobBuilderIntroProps & InjectedIntlProps
+  JobBuilderIntroProps & WrappedComponentProps
 > = ({
   jobId,
   manager,

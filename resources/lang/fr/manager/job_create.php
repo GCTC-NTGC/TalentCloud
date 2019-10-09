@@ -49,8 +49,6 @@ return [
             'departmental_information' => 'Information ministériel',
             'departmental_info_default_option' => 'Choisissez le ministère...',
             'department' => 'Département',
-            'branch_english' => 'Branche (English)',
-            'branch_french' => 'Branche (Français)',
             'division_english' => 'Division (English)',
             'division_french' => 'Division (Français)',
             'impact' => 'Impact',
@@ -94,7 +92,7 @@ return [
     ],
     /* Localizations for Default questions fuction in controller */
     'questions' => [
-        "00" => "Pourquoi êtes-vous intéressé par ce travail?",
-        "01" => "Pourquoi pensez-vous que vous serez un bon candidat pour ce poste?"
+        '00' => 'Pourquoi êtes-vous intéressé par ce travail?',
+        '01' => 'Pourquoi pensez-vous que vous serez un bon candidat pour ce poste?'
     ]
 ];

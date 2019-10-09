@@ -1,6 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef } from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import {
+  injectIntl,
+  WrappedComponentProps,
+  FormattedMessage,
+  MessageDescriptor,
+  IntlShape,
+} from "react-intl";
 import { Formik, Form, Field } from "formik";
 import nprogress from "nprogress";
 import * as Yup from "yup";
@@ -77,7 +83,7 @@ type TeleworkOptionType =
   | "teleworkAlways";
 
 const teleworkMessages: {
-  [key in TeleworkOptionType]: FormattedMessage.MessageDescriptor;
+  [key in TeleworkOptionType]: MessageDescriptor;
 } = {
   teleworkNever: frequencyName(FrequencyId.never),
   teleworkOccasionally: frequencyName(FrequencyId.rarely),
@@ -98,7 +104,7 @@ type FlexHourOptionType =
   | "flexHoursAlways";
 
 const flexHourMessages: {
-  [key in FlexHourOptionType]: FormattedMessage.MessageDescriptor;
+  [key in FlexHourOptionType]: MessageDescriptor;
 } = {
   flexHoursNever: frequencyName(FrequencyId.never),
   flexHoursOccasionally: frequencyName(FrequencyId.sometimes),
@@ -116,7 +122,7 @@ type TravelOptionType =
   | "travelNoneRequired";
 
 const travelMessages: {
-  [key in TravelOptionType]: FormattedMessage.MessageDescriptor;
+  [key in TravelOptionType]: MessageDescriptor;
 } = {
   travelFrequently: travelRequirementDescription(
     TravelRequirementId.frequently,
@@ -136,7 +142,7 @@ type OvertimeOptionType =
   | "overtimeNoneRequired";
 
 const overtimeMessages: {
-  [key in OvertimeOptionType]: FormattedMessage.MessageDescriptor;
+  [key in OvertimeOptionType]: MessageDescriptor;
 } = {
   overtimeFrequently: overtimeRequirementDescription(
     OvertimeRequirementId.frequently,
@@ -175,7 +181,7 @@ const isClassificationSet = (values: DetailsFormValues): boolean => {
 
 const getEducationMsgForClassification = (
   classification: string,
-  intl: ReactIntl.InjectedIntl,
+  intl: IntlShape,
 ): string => {
   return hasKey(educationMessages, classification)
     ? intl.formatMessage(educationMessages[classification])
@@ -185,7 +191,7 @@ const getEducationMsgForClassification = (
 const jobToValues = (
   job: Job | null,
   locale: string,
-  intl: ReactIntl.InjectedIntl,
+  intl: IntlShape,
 ): DetailsFormValues => {
   const values: DetailsFormValues = job
     ? {
@@ -286,7 +292,7 @@ const updateJobWithValues = (
 });
 
 const JobDetails: React.FunctionComponent<
-  JobDetailsProps & InjectedIntlProps
+  JobDetailsProps & WrappedComponentProps
 > = ({
   job,
   handleSubmit,
@@ -296,7 +302,7 @@ const JobDetails: React.FunctionComponent<
   jobIsComplete,
   handleSkipToReview,
   intl,
-}: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
+}: JobDetailsProps & WrappedComponentProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const modalParentRef = useRef<HTMLDivElement>(null);
@@ -1162,10 +1168,7 @@ const mapDispatchToProps = (
       },
 });
 
-// @ts-ignore
-export const JobDetailsContainer: React.FunctionComponent<
-  JobDetailsContainerProps
-> = connect(
+export const JobDetailsContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(injectIntl(JobDetails));

@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
   injectIntl,
@@ -26,7 +26,7 @@ const messages = defineMessages({
 });
 
 export const JobBasicInfo: React.FunctionComponent<
-  JobBasicInfoProps & InjectedIntlProps
+  JobBasicInfoProps & WrappedComponentProps
 > = ({ job, intl }): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
