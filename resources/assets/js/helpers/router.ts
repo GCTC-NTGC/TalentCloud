@@ -1,8 +1,7 @@
 import { createBrowserHistory, Location } from "history";
 import UniversalRouter, { Routes } from "universal-router";
-import React, { useState, useEffect, useMemo, FunctionComponent } from "react";
-import { useIntl } from "react-intl";
-import { scrollToTopWrapper } from "../components/ScrollToTop";
+import React, { useState, useEffect, useMemo } from "react";
+import { IntlShape } from "react-intl";
 
 const HISTORY = createBrowserHistory();
 
@@ -38,18 +37,13 @@ export const useUrlHash = (): void => {
   }, [location.hash, hashFound]);
 };
 
-export const UseRouter: FunctionComponent<{
-  routes: Routes<any, any>;
-  scrollToTop?: boolean;
-}> = ({ routes, scrollToTop }): React.ReactElement | null => {
-  const intl = useIntl();
+export const useRouter = (
+  routes: Routes<any, any>,
+  intl: IntlShape,
+): React.ReactElement | null => {
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
   const [component, setComponent] = useState<React.ReactElement | null>(null);
-  const tracker: HTMLElement | null = document.getElementById(
-    "job-builder-root",
-  );
-  const trackerOffsetTop: number = tracker ? tracker.offsetTop : 0;
 
   // Render the result of routing
   useEffect((): void => {
@@ -62,9 +56,7 @@ export const UseRouter: FunctionComponent<{
     });
   }, [intl, location, router]);
 
-  return scrollToTop
-    ? scrollToTopWrapper(component, trackerOffsetTop, true)
-    : component;
+  return component;
 };
 
 export const navigate = (url: string): void => {
