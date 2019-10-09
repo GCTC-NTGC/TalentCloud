@@ -178,6 +178,8 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
     ).then((): void => {
       nprogress.done();
       handleReturn();
+    }).catch((error): void => {
+      nprogress.done();
     });
   };
 
@@ -247,6 +249,9 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
               actions.resetForm(tasksToValues(updatedTasks));
               nprogress.done();
               setIsModalVisible(true);
+            })
+            .catch((error): void => {
+              nprogress.done();
             })
             .finally((): void => {
               actions.setSubmitting(false); // Required by Formik to finish the submission cycle
@@ -534,12 +539,9 @@ const JobTasks: React.FunctionComponent<JobTasksProps & InjectedIntlProps> = ({
               }}
               onModalConfirm={(): void => {
                 handleModalConfirm();
-                setIsModalVisible(false);
               }}
               onModalMiddle={(): void => {
-                handleSkipToReview().finally((): void => {
-                  setIsModalVisible(false);
-                });
+                handleSkipToReview();
               }}
             >
               <Modal.Header>
