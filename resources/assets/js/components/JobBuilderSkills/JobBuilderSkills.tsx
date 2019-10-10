@@ -1,11 +1,5 @@
 /* eslint-disable camelcase, @typescript-eslint/camelcase */
-import React, {
-  useState,
-  useRef,
-  useReducer,
-  useEffect,
-  useCallback,
-} from "react";
+import React, { useState, useRef, useReducer } from "react";
 import {
   InjectedIntlProps,
   injectIntl,
