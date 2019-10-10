@@ -126,7 +126,7 @@ export const JobWorkCulture: React.FunctionComponent<
       </div>
       <div data-c-grid-item="tp(1of2) ds(1of3)">
         <p data-c-colour="c2" data-c-margin="top(quarter)">
-         <FormattedMessage
+          <FormattedMessage
             id="jobBuilder.workCulture.travel"
             defaultMessage="Travel"
             description="Label for the Travel field on the Work Culture card."

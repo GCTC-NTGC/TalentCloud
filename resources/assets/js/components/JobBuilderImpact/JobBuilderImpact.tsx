@@ -423,7 +423,7 @@ const JobBuilderImpact: React.FunctionComponent<
                     id={`${modalId}-description`}
                   >
                     <p>
-                     <FormattedMessage
+                      <FormattedMessage
                         id="jobBuilder.impact.modalDescription"
                         defaultMessage="Here's a preview of the Impact Statement you just
                         entered. Feel free to go back and edit things or move to
@@ -446,7 +446,7 @@ const JobBuilderImpact: React.FunctionComponent<
                 </Modal.Body>
                 <Modal.Footer>
                   <Modal.FooterCancelBtn>
-                   <FormattedMessage
+                    <FormattedMessage
                       id="jobBuilder.impact.button.goBack"
                       defaultMessage="Go Back"
                       description="Label for Go Back button on Impact review modal."
@@ -459,11 +459,10 @@ const JobBuilderImpact: React.FunctionComponent<
                         defaultMessage="Skip to Review"
                         description="Label for Skip to Review button on Impact review modal."
                       />
-
                     </Modal.FooterMiddleBtn>
                   )}
                   <Modal.FooterConfirmBtn>
-                   <FormattedMessage
+                    <FormattedMessage
                       id="jobBuilder.impact.button.nextStep"
                       defaultMessage="Next Step"
                       description="Label for Next Step button on Impact review modal."
