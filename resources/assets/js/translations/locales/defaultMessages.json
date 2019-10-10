@@ -757,6 +757,21 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Copy to Clipboard",
+        "description": "Label for Copy to Clipboard button on Work Environment page.",
+        "id": "jobBuilder.clipboardButton.copy"
+      },
+      {
+        "defaultMessage": "Copied!",
+        "description": "Label for Copy to Clipboard success confirmation on Work Environment page.",
+        "id": "jobBuilder.clipboardButton.copied"
+      }
+    ],
+    "path": "resources/assets/js/components/CopyToClipboardButton.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Something went wrong!",
         "description": "Title displayed on the Error Toast component.",
         "id": "errorToast.title"

@@ -108,6 +108,8 @@
   "formValidation.tooLong": "Trop longue?",
   "formValidation.tooShort": "Trop courte?",
   "job.daysSinceClosed": "{dayCount, plural, =0 {Aucun jour} one {# jour} other {# jours}} depuis la fermeture",
+  "jobBuilder.clipboardButton.copied": "Copied!",
+  "jobBuilder.clipboardButton.copy": "Copy to Clipboard",
   "jobBuilder.collaborativeness.01.description": "Les membres de notre équipe viennent de divers milieux et ont des points de vue et des compétences variés. Nous nous appuyons sur nos points forts. Collectivement, nous nous approprions les objectifs de l’équipe et nous sommes constamment à la recherche de façons de s’entraider.",
   "jobBuilder.collaborativeness.01.title": "Collaboratif",
   "jobBuilder.collaborativeness.02.description": "Notre équipe possède un ensemble de compétences diversifiées et nous reconnaissons les forces de chacun. Nous travaillons ensemble souvent et nous intervenons rapidement quand une personne demande de l’aide.",
