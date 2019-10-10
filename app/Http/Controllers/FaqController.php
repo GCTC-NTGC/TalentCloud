@@ -18,7 +18,8 @@ class FaqController extends Controller
             'applicant/static_faq',
             [
                 'faq' => Lang::get('applicant/faq'),
-                'breadcrumb_home' => route('home')
+                'breadcrumb_home' => route('home'),
+                'applicant_sidebar_active' => 'active',
             ]
         );
     }
