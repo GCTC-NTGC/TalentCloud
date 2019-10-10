@@ -1189,6 +1189,31 @@
         "defaultMessage": "Save & Preview",
         "description": "Label for Save & Preview button on Impact form.",
         "id": "jobBuilder.impact.button.next"
+      },
+      {
+        "defaultMessage": "Awesome work!",
+        "description": "Title of modal dialog for Impact review.",
+        "id": "jobBuilder.impact.modalTitle"
+      },
+      {
+        "defaultMessage": "Here's a preview of the Impact Statement you just\n                        entered. Feel free to go back and edit things or move to\n                        the next step if you're happy with it.",
+        "description": "Description of modal dialog for Impact review.",
+        "id": "jobBuilder.impact.modalDescription"
+      },
+      {
+        "defaultMessage": "Go Back",
+        "description": "Label for Go Back button on Impact review modal.",
+        "id": "jobBuilder.impact.button.goBack"
+      },
+      {
+        "defaultMessage": "Skip to Review",
+        "description": "Label for Skip to Review button on Impact review modal.",
+        "id": "jobBuilder.impact.button.skipToReview"
+      },
+      {
+        "defaultMessage": "Next Step",
+        "description": "Label for Next Step button on Impact review modal.",
+        "id": "jobBuilder.impact.button.nextStep"
       }
     ],
     "path": "resources/assets/js/components/JobBuilderImpact/JobBuilderImpact.json"
