@@ -137,7 +137,7 @@
   {
     "id": "jobBuilder.review.headsUp",
     "description": "Description under primary title of review section",
-    "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published."
+    "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published."
   },
   {
     "id": "jobBuilder.review.remoteAllowed",
@@ -172,7 +172,7 @@
   {
     "id": "jobBuilder.review.months",
     "description": "Length of term in months",
-    "defaultMessage": "{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}"
+    "defaultMessage": "{termMonths, plural, =0 {No Months} one {# Month} other {# Months}}"
   },
   {
     "id": "jobBuilder.review.securityClearance",

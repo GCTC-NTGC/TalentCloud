@@ -197,7 +197,7 @@
   {
     "id": "assessmentType.portfolioReview.description",
     "description": "Description of an assessment type, to help a manager understand when to use it.",
-    "defaultMessage": "During the application process, applicants provide access to samples of their work to exhibit their skill level, and back-up their skill claims."
+    "defaultMessage": "During the application process, applicants provide access to samples of their work to exhibit their skill level, and back-up their skill claims. "
   },
   {
     "id": "assessmentType.referenceCheck.description",

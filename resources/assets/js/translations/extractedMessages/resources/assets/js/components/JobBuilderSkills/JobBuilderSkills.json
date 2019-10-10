@@ -72,7 +72,7 @@
   {
     "id": "jobBuilder.skills.description",
     "description": "section description under title",
-    "defaultMessage": "This is where you'll select the criteria that are required to do\r\n            this job effectively. Below are two bars that indicate a measurement\r\n            of your current skill selection."
+    "defaultMessage": "This is where you'll select the criteria that are required to do\n            this job effectively. Below are two bars that indicate a measurement\n            of your current skill selection."
   },
   {
     "id": "jobBuilder.skills.button.keyTasks",
@@ -201,7 +201,7 @@
   },
   {
     "id": "jobBuilder.skills.instructions.missingSkills",
-    "defaultMessage": "Building a skills list is a huge endeavour, and it's not\r\n  surprising that Talent Cloud's list doesn't have the skill\r\n  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to\r\n  kick-off the discussion."
+    "defaultMessage": "Building a skills list is a huge endeavour, and it's not\n  surprising that Talent Cloud's list doesn't have the skill\n  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to\n  kick-off the discussion."
   },
   {
     "id": "jobBuilder.skills.title.otherSkills",
@@ -251,7 +251,7 @@
   {
     "id": "jobBuilder.skills.description.keepItUp",
     "description": "Body text of Keep it up! Modal",
-    "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to\r\n                go back and edit things or move to the next step if you're\r\n                happy with it."
+    "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to\n                go back and edit things or move to the next step if you're\n                happy with it."
   },
   {
     "id": "jobBuilder.skills.title.needsToHave",
