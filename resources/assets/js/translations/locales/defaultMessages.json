@@ -2490,7 +2490,7 @@
         "id": "jobBuilder.review.remoteNotAllowed"
       },
       {
-        "defaultMessage": "Average Annual Salary",
+        "defaultMessage": "Annual Salary Range",
         "description": "Label for salary information.",
         "id": "jobBuilder.review.averageAnnualSalary"
       },
