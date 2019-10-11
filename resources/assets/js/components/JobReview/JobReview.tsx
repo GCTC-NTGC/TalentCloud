@@ -489,7 +489,7 @@ export const JobReview: React.FunctionComponent<
               <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
                 <FormattedMessage
                   id="jobBuilder.review.averageAnnualSalary"
-                  defaultMessage="Average Annual Salary"
+                  defaultMessage="Annual Salary Range"
                   description="Label for salary information."
                 />
               </p>
