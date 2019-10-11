@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Routes } from "universal-router";
 import { defineMessages, useIntl } from "react-intl";
-import { useRouter } from "../../helpers/router";
+import { useRouter, RouterResult } from "../../helpers/router";
 import AssessmentPlanContainer from "./AssessmentPlanContainer";
 import RootContainer from "../RootContainer";
 
@@ -15,7 +15,7 @@ const titles = defineMessages({
   },
 });
 
-const routes: Routes<any, any> = [
+const routes: Routes<{}, RouterResult> = [
   {
     path: "/:locale/manager/jobs",
     children: [
