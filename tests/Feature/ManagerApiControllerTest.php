@@ -43,7 +43,6 @@ class ManagerApiControllerTest extends TestCase
             'en' => [
                 'about_me' => $this->faker->paragraph(),
                 'greatest_accomplishment' => $this->faker->paragraph(),
-                'branch' => $this->faker->paragraph(),
                 'division' => $this->faker->word(),
                 'position' => $this->faker->word(),
                 'leadership_style' => $this->faker->paragraph(),
@@ -56,7 +55,6 @@ class ManagerApiControllerTest extends TestCase
             'fr' => [
                 'about_me' => $this->faker->paragraph(),
                 'greatest_accomplishment' => $this->faker->paragraph(),
-                'branch' => $this->faker->paragraph(),
                 'division' => $this->faker->word(),
                 'position' => $this->faker->word(),
                 'leadership_style' => $this->faker->paragraph(),

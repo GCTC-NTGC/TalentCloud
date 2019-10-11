@@ -1,5 +1,5 @@
 import React from "react";
-import { InjectedIntlProps, injectIntl } from "react-intl";
+import { WrappedComponentProps, injectIntl } from "react-intl";
 import { Job, JobPosterKeyTask, Criteria } from "../../models/types";
 import {
   ProgressTrackerItem,
@@ -47,7 +47,7 @@ const stepComesBefore = (
 };
 
 export const JobBuilderProgressTracker: React.FunctionComponent<
-  JobBuilderProgressTrackerProps & InjectedIntlProps
+  JobBuilderProgressTrackerProps & WrappedComponentProps
 > = ({
   job,
   tasks,

@@ -1,4 +1,5 @@
 <?php
+
 return [
     /*
     * --------------------------------------------------------------------------
@@ -48,8 +49,6 @@ return [
             'departmental_information' => 'Departmental Information',
             'departmental_info_default_option' => 'Select a department...',
             'department' => 'Department',
-            'branch_english' => 'Branch (English)',
-            'branch_french' => 'Branch (Français)',
             'division_english' => 'Division (English)',
             'division_french' => 'Division (Français)',
             'impact' => 'Impact',
@@ -93,7 +92,7 @@ return [
     ],
     /* Localizations for Default questions fuction in controller */
     'questions' => [
-        "00" => "Why are you interested in this job?",
-        "01" => "Why do you think you would be a good fit for this job?"
+        '00' => 'Why are you interested in this job?',
+        '01' => 'Why do you think you would be a good fit for this job?'
     ]
 ];

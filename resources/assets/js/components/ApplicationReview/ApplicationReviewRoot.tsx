@@ -3,20 +3,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 // Internationalizations
-import {
-  IntlProvider,
-  addLocaleData,
-  injectIntl,
-  InjectedIntlProps,
-  defineMessages,
-} from "react-intl";
-import locale_en from "react-intl/locale-data/en";
-import locale_fr from "react-intl/locale-data/fr";
+import { injectIntl, defineMessages, WrappedComponentProps } from "react-intl";
 
 import camelCase from "lodash/camelCase";
 import Swal from "sweetalert2";
-import messages_en from "../../localizations/en.json";
-import messages_fr from "../../localizations/fr.json";
 import {
   Application,
   ReviewStatus,
@@ -25,13 +15,7 @@ import {
 import * as route from "../../helpers/routes";
 import ApplicationReviewWithNav from "./ApplicationReviewWithNav";
 import { axios } from "../../api/base";
-
-addLocaleData([...locale_en, ...locale_fr]);
-
-const messages = {
-  en: messages_en,
-  fr: messages_fr,
-};
+import IntlContainer from "../../IntlContainer";
 
 interface ApplicationReviewRootProps {
   initApplication: Application;
@@ -63,10 +47,12 @@ const localizations = defineMessages({
 });
 
 class ApplicationReviewRoot extends React.Component<
-  ApplicationReviewRootProps & InjectedIntlProps,
+  ApplicationReviewRootProps & WrappedComponentProps,
   ApplicationReviewRootState
 > {
-  public constructor(props: ApplicationReviewRootProps & InjectedIntlProps) {
+  public constructor(
+    props: ApplicationReviewRootProps & WrappedComponentProps,
+  ) {
     super(props);
     this.state = {
       application: props.initApplication,
@@ -91,7 +77,9 @@ class ApplicationReviewRoot extends React.Component<
   protected submitReview(review: ReviewSubmitForm): Promise<void> {
     const { application } = this.state;
     const { intl } = this.props;
+
     this.setState({ isSaving: true });
+
     return axios
       .put(route.applicationReviewUpdate(intl.locale, application.id), review)
       .then(response => {
@@ -176,12 +164,12 @@ if (document.getElementById("application-review-container")) {
     const language = container.getAttribute("data-locale") as string;
     const IntlApplicationReviewRoot = injectIntl(ApplicationReviewRoot);
     ReactDOM.render(
-      <IntlProvider locale={language} messages={messages[language]}>
+      <IntlContainer locale={language}>
         <IntlApplicationReviewRoot
           initApplication={applications}
           reviewStatuses={reviewStatuses}
         />
-      </IntlProvider>,
+      </IntlContainer>,
       container,
     );
   }

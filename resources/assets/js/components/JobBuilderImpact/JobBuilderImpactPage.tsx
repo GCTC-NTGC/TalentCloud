@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { InjectedIntlProps, injectIntl } from "react-intl";
+import { WrappedComponentProps, injectIntl } from "react-intl";
 import ReactDOM from "react-dom";
 import {
   Department,
@@ -43,7 +43,7 @@ interface JobBuilderImpactPageProps {
 }
 
 const JobBuilderImpactPage: React.FunctionComponent<
-  JobBuilderImpactPageProps & InjectedIntlProps
+  JobBuilderImpactPageProps & WrappedComponentProps
 > = ({
   jobId,
   job,

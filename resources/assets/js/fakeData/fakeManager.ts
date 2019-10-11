@@ -9,7 +9,6 @@ export const fakeManager = (id = 1, user_id = 1): Manager => ({
   linkedin_url: null,
   name: "Gray O'Bryne",
   en: {
-    branch: "CIOB",
     division: "Talent Cloud",
     position: "Product Owner",
     leadership_style:
@@ -26,7 +25,6 @@ export const fakeManager = (id = 1, user_id = 1): Manager => ({
       "I like games of pretty much any short, including sports, video games and table-top. In my free time I listen to podcasts about electric cars, science and skepticism. I'm also very lucky to share a home with my wife and son (soon to add a second!)",
   },
   fr: {
-    branch: "CIOB",
     division: "Nuage de Talents",
     position: "Propriétaire du produit",
     leadership_style:

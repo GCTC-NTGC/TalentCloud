@@ -1,7 +1,7 @@
 /* eslint-disable camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef, useReducer } from "react";
 import {
-  InjectedIntlProps,
+  WrappedComponentProps,
   injectIntl,
   FormattedMessage,
   defineMessages,
@@ -188,7 +188,7 @@ export const skillAlreadySelected = (
   ) !== undefined;
 
 export const JobBuilderSkills: React.FunctionComponent<
-  JobBuilderSkillsProps & InjectedIntlProps
+  JobBuilderSkillsProps & WrappedComponentProps
 > = ({
   job,
   keyTasks,

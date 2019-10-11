@@ -3,20 +3,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 // Internationalizations
-import {
-  IntlProvider,
-  addLocaleData,
-  injectIntl,
-  InjectedIntlProps,
-  defineMessages,
-} from "react-intl";
-import locale_en from "react-intl/locale-data/en";
-import locale_fr from "react-intl/locale-data/fr";
+import { injectIntl, defineMessages, WrappedComponentProps } from "react-intl";
 
 import camelCase from "lodash/camelCase";
 import Swal from "sweetalert2";
-import messages_en from "../../localizations/en.json";
-import messages_fr from "../../localizations/fr.json";
 import {
   Job,
   Application,
@@ -28,13 +18,7 @@ import { find } from "../../helpers/queries";
 import * as routes from "../../helpers/routes";
 import { classificationString } from "../../models/jobUtil";
 import { axios } from "../../api/base";
-
-addLocaleData([...locale_en, ...locale_fr]);
-
-const messages = {
-  en: messages_en,
-  fr: messages_fr,
-};
+import IntlContainer from "../../IntlContainer";
 
 interface ReviewApplicationsProps {
   job: Job;
@@ -67,10 +51,10 @@ const localizations = defineMessages({
 });
 
 class ReviewApplicationsRoot extends React.Component<
-  ReviewApplicationsProps & InjectedIntlProps,
+  ReviewApplicationsProps & WrappedComponentProps,
   ReviewApplicationsState
 > {
-  public constructor(props: ReviewApplicationsProps & InjectedIntlProps) {
+  public constructor(props: ReviewApplicationsProps & WrappedComponentProps) {
     super(props);
     this.state = {
       applications: props.initApplications,
@@ -262,13 +246,13 @@ if (document.getElementById("review-applications-container")) {
     const language = container.getAttribute("data-locale") as string;
     const IntlReviewApplicationsRoot = injectIntl(ReviewApplicationsRoot);
     ReactDOM.render(
-      <IntlProvider locale={language} messages={messages[language]}>
+      <IntlContainer locale={language}>
         <IntlReviewApplicationsRoot
           job={job}
           initApplications={applications}
           reviewStatuses={reviewStatuses}
         />
-      </IntlProvider>,
+      </IntlContainer>,
       container,
     );
   }
