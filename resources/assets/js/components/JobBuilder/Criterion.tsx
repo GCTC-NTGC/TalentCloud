@@ -1,5 +1,5 @@
 import React from "react";
-import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
+import { WrappedComponentProps, injectIntl } from "react-intl";
 import { Criteria, Skill } from "../../models/types";
 import { getSkillLevelName } from "../../models/jobUtil";
 import { CriteriaTypeId } from "../../models/lookupConstants";
@@ -10,7 +10,7 @@ interface CriterionProps {
 }
 
 export const Criterion: React.FunctionComponent<
-  CriterionProps & InjectedIntlProps
+  CriterionProps & WrappedComponentProps
 > = ({ criterion, skill, intl }): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {

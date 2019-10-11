@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { injectIntl, FormattedMessage } from "react-intl";
+import {
+  injectIntl,
+  FormattedMessage,
+  WrappedComponentProps,
+} from "react-intl";
 import { ApiError } from "redux-api-middleware";
 import { ErrorEntity } from "../store/Error/errorReducer";
 import { clearErrors } from "../store/Error/errorActions";
@@ -22,7 +26,7 @@ interface ErrorToastProps {
   error: ErrorEntity;
   dispatchClearErrors: () => void;
 }
-const ErrorToast: React.FC<ErrorToastProps> = ({
+const ErrorToast: React.FC<ErrorToastProps & WrappedComponentProps> = ({
   error,
   dispatchClearErrors,
 }): React.ReactElement => {

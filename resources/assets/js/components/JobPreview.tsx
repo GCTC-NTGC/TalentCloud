@@ -1,7 +1,7 @@
 import React from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
@@ -50,7 +50,7 @@ const messages = defineMessages({
 });
 
 const JobPreview: React.FunctionComponent<
-  JobPreviewProps & InjectedIntlProps
+  JobPreviewProps & WrappedComponentProps
 > = ({
   title,
   city,
@@ -67,7 +67,7 @@ const JobPreview: React.FunctionComponent<
   overtime,
   level,
   intl,
-}: JobPreviewProps & InjectedIntlProps): React.ReactElement => {
+}: JobPreviewProps & WrappedComponentProps): React.ReactElement => {
   return (
     <div
       className="manager-job-card"

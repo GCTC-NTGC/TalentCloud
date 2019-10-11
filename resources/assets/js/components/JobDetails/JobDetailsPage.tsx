@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { connect } from "react-redux";
-import { InjectedIntlProps, injectIntl } from "react-intl";
+import { WrappedComponentProps, injectIntl } from "react-intl";
 import { Job, JobPosterKeyTask, Criteria } from "../../models/types";
 import { JobDetailsIntl } from "./JobDetails";
 import { RootState } from "../../store/store";
@@ -36,7 +36,7 @@ interface JobDetailsPageProps {
 }
 
 const JobDetailsPage: React.FunctionComponent<
-  JobDetailsPageProps & InjectedIntlProps
+  JobDetailsPageProps & WrappedComponentProps
 > = ({
   jobId,
   job,

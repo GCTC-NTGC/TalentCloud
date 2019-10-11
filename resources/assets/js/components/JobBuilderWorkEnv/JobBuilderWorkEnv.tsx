@@ -1,5 +1,5 @@
 import React from "react";
-import { injectIntl, InjectedIntlProps } from "react-intl";
+import { injectIntl, WrappedComponentProps } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import WorkEnvForm from "./WorkEnvForm";
@@ -40,7 +40,7 @@ interface JobBuilderWorkEnvProps {
 }
 
 const JobBuilderWorkEnv: React.FunctionComponent<
-  JobBuilderWorkEnvProps & InjectedIntlProps
+  JobBuilderWorkEnvProps & WrappedComponentProps
 > = ({
   jobId,
   job,

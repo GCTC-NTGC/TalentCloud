@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
@@ -350,7 +350,7 @@ interface JobReviewProps {
 }
 
 export const JobReview: React.FunctionComponent<
-  JobReviewProps & InjectedIntlProps
+  JobReviewProps & WrappedComponentProps
 > = ({
   job,
   manager,
@@ -489,7 +489,7 @@ export const JobReview: React.FunctionComponent<
               <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
                 <FormattedMessage
                   id="jobBuilder.review.averageAnnualSalary"
-                  defaultMessage="Average Annual Salary"
+                  defaultMessage="Annual Salary Range"
                   description="Label for salary information."
                 />
               </p>

@@ -1,6 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { FormattedMessage, InjectedIntlProps, injectIntl } from "react-intl";
+import {
+  FormattedMessage,
+  WrappedComponentProps,
+  injectIntl,
+} from "react-intl";
 import { Criteria, Skill } from "../../models/types";
 import {
   assessmentType,
@@ -27,7 +31,7 @@ interface RatingGuideNarrativeAssessmentProps {
 }
 
 export const RatingGuideNarrativeAssessment: React.FunctionComponent<
-  RatingGuideNarrativeAssessmentProps & InjectedIntlProps
+  RatingGuideNarrativeAssessmentProps & WrappedComponentProps
 > = ({
   jobId,
   assessmentIndex,
@@ -168,9 +172,8 @@ const mapStateToProps = (
   };
 };
 
-// @ts-ignore
-const RatingGuideNarrativeAssessmentContainer: React.FunctionComponent<
-  RatingGuideNarrativeAssessmentContainerProps
-> = connect(mapStateToProps)(injectIntl(RatingGuideNarrativeAssessment));
+const RatingGuideNarrativeAssessmentContainer = connect(mapStateToProps)(
+  injectIntl(RatingGuideNarrativeAssessment),
+);
 
 export default RatingGuideNarrativeAssessmentContainer;

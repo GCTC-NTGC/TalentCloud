@@ -126,42 +126,6 @@
             <div
                 class="box med-1of2">
 
-                <div class="form__input-wrapper--float {% if managerEN.branch %}active{% endif %}">
-                    <label class="form__label" for="managerProfileBranchEN">
-                        {{about_l10n.branch_english}}
-                    </label>
-                    <input
-                        required
-                        class="form__input"
-                        id="managerProfileBranchEN"
-                        type="text"
-                        name="en[branch]"
-                        value="{{ old('en.branch',  managerEN.branch) }}" />
-                </div>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if managerFR.branch %}active{% endif %}">
-                    <label class="form__label" for="managerProfileBranchFR">
-                        {{about_l10n.branch_french}}
-                    </label>
-                    <input
-                        required
-                        class="form__input"
-                        id="managerProfileBranchFR"
-                        type="text"
-                        name="fr[branch]"
-                        value="{{ old('fr.branch',  managerFR.branch) }}" />
-                </div>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
                 <div class="form__input-wrapper--float {% if managerEN.division %}active{% endif %}">
                     <label class="form__label" for="managerProfileDivision">
                         {{about_l10n.division_english}}
