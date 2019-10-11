@@ -396,6 +396,8 @@
   "jobBuilder.skills.range.culturalSkills": "Visez des compétences {minCulture} – {maxCulture}.",
   "jobBuilder.skills.range.futureSkills": "Visez des compétences {minFuture} – {maxFuture}.",
   "jobBuilder.skills.range.occupationalSkills": "Visez des compétences {minOccupational} – {maxOccupational}.",
+  "jobBuilder.skills.selectSkillLabel": "Please select a skill from our list",
+  "jobBuilder.skills.selectSkillNull": "Please select a skill",
   "jobBuilder.skills.skillLevel": "Niveau de compétences",
   "jobBuilder.skills.statusSmiley.acceptable": "Acceptable",
   "jobBuilder.skills.statusSmiley.almost": "Almost",

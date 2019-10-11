@@ -1421,6 +1421,16 @@
         "id": "jobBuilder.skills.emailLink"
       },
       {
+        "defaultMessage": "Please select a skill from our list",
+        "description": "Label for skill selection dropdown menu",
+        "id": "jobBuilder.skills.selectSkillLabel"
+      },
+      {
+        "defaultMessage": "Please select a skill",
+        "description": "Label for skill selection dropdown null/default state",
+        "id": "jobBuilder.skills.selectSkillNull"
+      },
+      {
         "defaultMessage": "Arrow icon highlighting the unhappy smiley icon.",
         "description": "Alternative text describing unhappy arrow image",
         "id": "jobBuilder.skills.alt.unhappyArrow"

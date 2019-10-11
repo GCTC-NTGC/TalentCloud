@@ -49,6 +49,16 @@ const messages = defineMessages({
     defaultMessage: "get in touch with us through email",
     description: "Text for an email link in a larger block of text",
   },
+  selectSkillLabel: {
+    id: "jobBuilder.skills.selectSkillLabel",
+    defaultMessage: "Please select a skill from our list",
+    description: "Label for skill selection dropdown menu",
+  },
+  selectSkillNull: {
+    id: "jobBuilder.skills.selectSkillNull",
+    defaultMessage: "Please select a skill",
+    description: "Label for skill selection dropdown null/default state",
+  },
 });
 
 const altMessages = defineMessages({
@@ -1467,9 +1477,9 @@ export const JobBuilderSkills: React.FunctionComponent<
               <Select
                 id="jpb-all-skills-select"
                 name="jpbAllSkillsSelect"
-                label="Please select a skill from our list"
+                label={intl.formatMessage(messages.selectSkillLabel)}
                 selected={null}
-                nullSelection="Please select a Skill"
+                nullSelection={intl.formatMessage(messages.selectSkillNull)}
                 options={unselectedOtherSkills.map(
                   (skill): SelectOption => ({
                     value: skill.id,
