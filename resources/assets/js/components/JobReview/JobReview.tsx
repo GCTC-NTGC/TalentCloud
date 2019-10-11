@@ -241,18 +241,8 @@ const sectionTitle = (title: string): React.ReactElement => {
 const languageRequirementIcons = (
   languageRequirementId: number,
 ): React.ReactElement => {
-  const enIcon = (
-    <img
-      src="/images/icon_english_requirement.svg"
-      alt="English language requirement icon."
-    />
-  );
-  const frIcon = (
-    <img
-      src="/images/icon_french_requirement.svg"
-      alt="French language requirement icon."
-    />
-  );
+  const enIcon = <img src="/images/icon_english_requirement.svg" alt="" />;
+  const frIcon = <img src="/images/icon_french_requirement.svg" alt="" />;
   switch (languageRequirementId) {
     case LanguageRequirementId.bilingualIntermediate:
     case LanguageRequirementId.bilingualAdvanced:
