@@ -18,5 +18,45 @@
     "id": "jobBuilder.workCulture.remoteWorkDescription",
     "description": "Explanation of what Remote Work means.",
     "defaultMessage": "Work from anywhere, all the time."
+  },
+  {
+    "id": "jobBuilder.workCulture.telework",
+    "description": "Label for the Telework field on the Work Culture card.",
+    "defaultMessage": "Telework"
+  },
+  {
+    "id": "jobBuilder.workCulture.teleworkDescription",
+    "description": "Explanation of what Telework means.",
+    "defaultMessage": "Work from home somedays (within driving distance of the office)."
+  },
+  {
+    "id": "jobBuilder.workCulture.flexibleHours",
+    "description": "Label for the Flexible Hours field on the Work Culture card.",
+    "defaultMessage": "Flexible Hours"
+  },
+  {
+    "id": "jobBuilder.workCulture.flexibleHoursDescription",
+    "description": "Explanation of what Flexible Hours means.",
+    "defaultMessage": "Set your own start and end times."
+  },
+  {
+    "id": "jobBuilder.workCulture.travel",
+    "description": "Label for the Travel field on the Work Culture card.",
+    "defaultMessage": "Travel"
+  },
+  {
+    "id": "jobBuilder.workCulture.travelDescription",
+    "description": "Explanation of what Travel means.",
+    "defaultMessage": "See more of Canada or the world."
+  },
+  {
+    "id": "jobBuilder.workCulture.overtime",
+    "description": "Label for the Overtime field on the Work Culture card.",
+    "defaultMessage": "Overtime"
+  },
+  {
+    "id": "jobBuilder.workCulture.overtimeDescription",
+    "description": "Explanation of what Overtime means.",
+    "defaultMessage": "Work extra hours in the evenings/on weekends."
   }
 ]
