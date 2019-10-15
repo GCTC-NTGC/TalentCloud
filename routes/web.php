@@ -212,6 +212,11 @@ Route::group(
                     'ManagerProfileController@faq'
                 )->name('manager.faq');
 
+                Route::get(
+                    'faq#managers',
+                    'ManagerProfileController@faq'
+                )->name('manager.faq.section');
+
                 Route::middleware(['auth', 'role:manager'])->group(function (): void {
 
                     Route::get('profile', 'ManagerProfileController@editAuthenticated')->name('manager.profile');

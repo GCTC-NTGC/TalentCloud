@@ -26,7 +26,6 @@ const emptyJobTranslation = (): JobTranslation => ({
   dept_impact: "",
   team_impact: "",
   hire_impact: "",
-  branch: "",
   division: "",
   education: "",
   work_env_description: "",

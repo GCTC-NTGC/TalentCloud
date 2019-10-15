@@ -149,7 +149,7 @@ class MenuComposer
             // TODO: restore when job poster builder complete
             // $menu['items']['create_job']['link'] = route('manager.jobs.create');
             $menu['items']['profile']['link'] = route('manager.profile');
-            $menu['items']['faq']['link'] = route('manager.faq');
+            $menu['items']['faq']['link'] = route('manager.faq.section');
 
             // Check if use is logged in, and remove invalid menu items
             if (Auth::check()) {

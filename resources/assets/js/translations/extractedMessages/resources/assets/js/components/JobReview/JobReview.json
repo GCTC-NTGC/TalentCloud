@@ -152,7 +152,7 @@
   {
     "id": "jobBuilder.review.averageAnnualSalary",
     "description": "Label for salary information.",
-    "defaultMessage": "Average Annual Salary"
+    "defaultMessage": "Annual Salary Range"
   },
   {
     "id": "jobBuilder.review.tCAdds",
