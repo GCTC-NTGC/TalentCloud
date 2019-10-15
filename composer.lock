@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b9e70993e943a55104f53832880afda4",
+    "content-hash": "d2cadefb59974ce7e859a8a16049fabf",
     "packages": [
         {
             "name": "astrotomic/laravel-translatable",
@@ -227,27 +227,27 @@
         },
         {
             "name": "codezero/laravel-unique-translation",
-            "version": "1.2.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codezero-be/laravel-unique-translation.git",
-                "reference": "01c59e462ac081fbb5ef11133001b4b3c01d08e7"
+                "reference": "189485f30cbdf20f9c72ff04f246adcd8ac14190"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codezero-be/laravel-unique-translation/zipball/01c59e462ac081fbb5ef11133001b4b3c01d08e7",
-                "reference": "01c59e462ac081fbb5ef11133001b4b3c01d08e7",
+                "url": "https://api.github.com/repos/codezero-be/laravel-unique-translation/zipball/189485f30cbdf20f9c72ff04f246adcd8ac14190",
+                "reference": "189485f30cbdf20f9c72ff04f246adcd8ac14190",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0"
+                "php": "^7.2"
             },
             "require-dev": {
                 "fzaninotto/faker": "~1.4",
-                "mockery/mockery": "0.9.*",
-                "orchestra/testbench": "~3.5.0",
-                "phpunit/phpunit": "~6.0",
-                "spatie/laravel-translatable": "^2.1"
+                "mockery/mockery": "1.2.*",
+                "orchestra/testbench": "~4.0",
+                "phpunit/phpunit": "~8.0",
+                "spatie/laravel-translatable": "^4.2"
             },
             "type": "library",
             "extra": {
@@ -272,7 +272,7 @@
                     "email": "ivan@codezero.be"
                 }
             ],
-            "time": "2019-05-01T11:07:31+00:00"
+            "time": "2019-10-11T16:56:28+00:00"
         },
         {
             "name": "creativeorange/gravatar",
