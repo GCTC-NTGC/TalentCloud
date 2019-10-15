@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FormattedMessage } from "react-intl";
 import { copyToClipboard } from "../helpers/clipboard";
 
 interface CopyToClipboardProps {
@@ -22,8 +23,20 @@ const CopyToClipboard: React.FunctionComponent<CopyToClipboardProps> = ({
         }, 1000);
       }}
     >
-      <span className={`default ${hidden && "hidden"}`}>Copy to Clipboard</span>
-      <span className={`copied ${!hidden && "hidden"}`}>Copied!</span>
+      <span className={`default ${hidden && "hidden"}`}>
+        <FormattedMessage
+          id="jobBuilder.clipboardButton.copy"
+          defaultMessage="Copy to Clipboard"
+          description="Label for Copy to Clipboard button on Work Environment page."
+        />
+      </span>
+      <span className={`copied ${!hidden && "hidden"}`}>
+        <FormattedMessage
+          id="jobBuilder.clipboardButton.copied"
+          defaultMessage="Copied!"
+          description="Label for Copy to Clipboard success confirmation on Work Environment page."
+        />
+      </span>
     </button>
   );
 };

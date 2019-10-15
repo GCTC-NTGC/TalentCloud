@@ -1,5 +1,9 @@
 import React from "react";
-import { WrappedComponentProps, injectIntl } from "react-intl";
+import {
+  WrappedComponentProps,
+  injectIntl,
+  FormattedMessage,
+} from "react-intl";
 import { Criteria, Skill } from "../../models/types";
 import { getSkillLevelName } from "../../models/jobUtil";
 import { CriteriaTypeId } from "../../models/lookupConstants";
@@ -27,7 +31,11 @@ export const Criterion: React.FunctionComponent<
       </p>
       {criterion.criteria_type_id === CriteriaTypeId.Essential && (
         <p data-c-margin="bottom(half)">
-          Required Skill:{` `}
+          <FormattedMessage
+            id="jobBuilder.criterion.requiredSkill"
+            defaultMessage="Required Skill:"
+            description="Label preceding skill level requirements."
+          />
           {intl.formatMessage(getSkillLevelName(criterion, skill))}
         </p>
       )}

@@ -1,4 +1,5 @@
 import React from "react";
+import { FormattedMessage } from "react-intl";
 
 interface JobImpactPreviewProps {
   deptImpact: string;
@@ -25,8 +26,11 @@ const JobImpactPreview = ({
         data-c-margin="bottom(normal)"
         data-c-padding="bottom(normal)"
       >
-        {/* TODO: Localize */}
-        Impact
+        <FormattedMessage
+          id="jobBuilder.impactPreview.title"
+          defaultMessage="Impact"
+          description="Heading for Impact preview on modal dialog."
+        />
       </h4>
       <p data-c-margin="bottom(normal)">{deptImpact}</p>
       <p data-c-margin="bottom(normal)">{teamImpact}</p>

@@ -1,0 +1,7 @@
+[
+  {
+    "id": "jobBuilder.criterion.requiredSkill",
+    "description": "Label preceding skill level requirements.",
+    "defaultMessage": "Required Skill:"
+  }
+]
