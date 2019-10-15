@@ -1751,20 +1751,20 @@
         },
         {
             "name": "mcamara/laravel-localization",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mcamara/laravel-localization.git",
-                "reference": "d228a61afd8cfe9eb7f8f7450acfa0371382407d"
+                "reference": "00ed4af3633076e98dc58d317125b7f17d3c64f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/d228a61afd8cfe9eb7f8f7450acfa0371382407d",
-                "reference": "d228a61afd8cfe9eb7f8f7450acfa0371382407d",
+                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/00ed4af3633076e98dc58d317125b7f17d3c64f4",
+                "reference": "00ed4af3633076e98dc58d317125b7f17d3c64f4",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "~5.2.0||~5.3.0||~5.4.0||~5.5.0||~5.6.0||~5.7.0||~5.8.0||~6.0.0",
+                "laravel/framework": "~5.2.0||~5.3.0||~5.4.0||~5.5.0||~5.6.0||~5.7.0||~5.8.0||^6.0",
                 "php": ">=7.1.0"
             },
             "require-dev": {
@@ -1809,7 +1809,7 @@
                 "localization",
                 "php"
             ],
-            "time": "2019-09-20T15:24:04+00:00"
+            "time": "2019-10-13T10:19:29+00:00"
         },
         {
             "name": "monolog/monolog",
