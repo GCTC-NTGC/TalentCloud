@@ -938,6 +938,46 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Job Builder: Intro",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.intro.documentTitle"
+      },
+      {
+        "defaultMessage": "Job Builder: Details",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.details.documentTitle"
+      },
+      {
+        "defaultMessage": "Job Builder: Work Environment",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.workEnv.documentTitle"
+      },
+      {
+        "defaultMessage": "Job Builder: Impact",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.impact.documentTitle"
+      },
+      {
+        "defaultMessage": "Job Builder: Tasks",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.tasks.documentTitle"
+      },
+      {
+        "defaultMessage": "Job Builder: Skills",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.skills.documentTitle"
+      },
+      {
+        "defaultMessage": "Job Builder: Review",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.review.documentTitle"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/JobBuilderRoot.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Your job is loading...",
         "description": "Message indicating that the current job is still being loaded.",
         "id": "jobBuilder.loading"

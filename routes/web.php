@@ -306,8 +306,7 @@ Route::group(
 
                     Route::view(
                         'jobs/{jobPoster}/assessment-plan',
-                        'manager/assessment_plan',
-                        ['title' => Lang::get('manager/screening-plan')['title']]
+                        'manager/assessment_plan'
                     )
                         ->where('jobPoster', '[0-9]+')
                         ->name('manager.jobs.screening_plan');
