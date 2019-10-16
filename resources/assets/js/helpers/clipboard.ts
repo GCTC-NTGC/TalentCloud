@@ -1,11 +1,30 @@
-export function copyToClipboard(text: string): void {
-  const textField = document.createElement("textarea");
-  // textField.innerText = text;
-  textField.value = text;
-  document.body.appendChild(textField);
-  textField.select();
-  document.execCommand("copy");
-  textField.remove();
+export async function copyToClipboard(
+  event,
+  text: string,
+): Promise<void | boolean> {
+  if (event.clipboardData && event.clipboardData.setData) {
+    // IE specific code path to prevent textarea being shown while dialog is visible.
+    return event.clipboardData.setData("Text", text);
+  }
+  if (
+    document.queryCommandSupported &&
+    document.queryCommandSupported("copy")
+  ) {
+    const textarea = document.createElement("textarea");
+    textarea.textContent = text;
+    textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in MS Edge.
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      return document.execCommand("copy"); // Security exception may be thrown by some browsers.
+    } catch (ex) {
+      console.warn("Copy to clipboard failed.", ex);
+      return false;
+    } finally {
+      document.body.removeChild(textarea);
+    }
+  }
+  return false;
 }
 
 export function copyElementContents(el: Element): void {
