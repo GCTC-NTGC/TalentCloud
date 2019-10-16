@@ -1830,6 +1830,16 @@
         "id": "jobBuilder.workEnv.cultureSubtext1"
       },
       {
+        "defaultMessage": "Copy to Clipboard",
+        "description": "Button to copy text to clipboard.",
+        "id": "button.copyToClipboard"
+      },
+      {
+        "defaultMessage": "Copied!",
+        "description": "Confirmation for Button to copy text to clipboard.",
+        "id": "button.copied"
+      },
+      {
         "defaultMessage": "Save & Return to Job Details",
         "description": "Label for Save & Return button on Work Environment form.",
         "id": "jobBuilder.workEnv.saveAndReturnButtonLabel"
@@ -1908,6 +1918,16 @@
         "defaultMessage": "Your HR advisor will review your changes.",
         "description": "Footer message displayed for the Education requirement section.",
         "id": "jobBuilder.details.educationRequirementReviewChanges"
+      },
+      {
+        "defaultMessage": "Copy to Clipboard",
+        "description": "Button to copy text to clipboard.",
+        "id": "button.copyToClipboard"
+      },
+      {
+        "defaultMessage": "Copied!",
+        "description": "Confirmation for Button to copy text to clipboard.",
+        "id": "button.copied"
       },
       {
         "defaultMessage": "Is remote work allowed?",
@@ -2900,7 +2920,7 @@
         "id": "assessmentType.takeHomeExam.description"
       },
       {
-        "defaultMessage": "During the application process, applicants provide access to samples of their work to exhibit their skill level, and back-up their skill claims.",
+        "defaultMessage": "During the application process, applicants provide access to samples of their work to exhibit their skill level, and back-up their skill claims. ",
         "description": "Description of an assessment type, to help a manager understand when to use it.",
         "id": "assessmentType.portfolioReview.description"
       },
