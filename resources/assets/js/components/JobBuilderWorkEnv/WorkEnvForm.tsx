@@ -1122,7 +1122,23 @@ const WorkEnvForm = ({
                   data-c-alignment="base(centre) tl(right)"
                   data-c-margin="top(normal)"
                 >
-                  <CopyToClipboardButton text={buildCultureSummary(values)} />
+                  <CopyToClipboardButton
+                    actionText={
+                      <FormattedMessage
+                        id="button.copyToClipboard"
+                        defaultMessage="Copy to Clipboard"
+                        description="Button to copy text to clipboard."
+                      />
+                    }
+                    postActionText={
+                      <FormattedMessage
+                        id="button.copied"
+                        defaultMessage="Copied!"
+                        description="Confirmation for Button to copy text to clipboard."
+                      />
+                    }
+                    textToCopy={buildCultureSummary(values)}
+                  />
                 </div>
               </div>
               <Field
