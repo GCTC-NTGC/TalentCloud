@@ -129,10 +129,15 @@ const mapStateToProps = (
   /** Whether the Add Answer button should be shown */
   allowMoreAnswers: boolean;
 } => {
+  // We decided a temp question must be saved before it can contain answers.
   return {
-    answerIds: getRatingGuideAnswerIdsByQuestion(state, ownProps),
-    tempAnswerIds: getTempRatingGuideAnswerIdsByQuestion(state, ownProps),
-    allowMoreAnswers: allowMoreAnswers(state, ownProps),
+    answerIds: ownProps.temp
+      ? []
+      : getRatingGuideAnswerIdsByQuestion(state, ownProps),
+    tempAnswerIds: ownProps.temp
+      ? []
+      : getTempRatingGuideAnswerIdsByQuestion(state, ownProps),
+    allowMoreAnswers: ownProps.temp ? false : allowMoreAnswers(state, ownProps),
   };
 };
 
