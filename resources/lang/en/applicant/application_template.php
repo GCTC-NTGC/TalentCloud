@@ -162,6 +162,8 @@ return [
         'section_01_title' => 'Basic Information',
         'citizenship_null_copy' => 'No Citizenship Selected',
         'veteran_null_copy' => 'No Veteran Status Selected',
+        'english_choice' => 'I would prefer <strong>English</strong> for this application process.',
+        'french_choice' => 'I would prefer <strong>French</strong> for this application process.',
         'language_null_copy' => 'No Language Selected',
         'long_question_null' => 'This question has not been answered.',
         'section_02_title' => 'My Experience',
