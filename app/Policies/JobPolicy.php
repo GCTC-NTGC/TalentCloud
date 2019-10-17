@@ -20,7 +20,7 @@ class JobPolicy extends BasePolicy
     {
         // Anyone can view a published job
         // Only the manager that created it can view an unpublished job
-        return $jobPoster->published ||
+        return $jobPoster->status() == 'published' ||
         (
             $user &&
             $user->isManager() &&
