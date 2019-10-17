@@ -6,6 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 class SplitUsernameFirstLast extends Migration
 {
+    // Function to separate user name into first/last name strings.
+    private function splitName($fullName)
+    {
+        $matches = array();
+        preg_match_all(
+            '/((\S+\s+)*)(\S+)/',
+            $fullName,
+            $matches
+        );
+        $firstName = $matches[1][0];
+        $lastName = $matches[3][0];
+        return [$firstName, $lastName];
+    }
+
     /**
      * Run the migrations.
      *
@@ -19,18 +33,16 @@ class SplitUsernameFirstLast extends Migration
             $table->string('last_name')->after('first_name')->nullable();
         });
 
-        // Get records from (old) name column.
-        $results = DB::table('users')->get();
+        // Get records from user table.
+        $users = DB::table('users')->get();
 
-        // Loop through the results of the name column, split the values.
-        foreach ($results as $result) {
-            $split_value = explode(' ', $result->name);
-
-            // Insert the split values into new columns.
-            DB::table('users')->where('id', $result->id)->update([
-                'first_name' => $split_value[0],
-                'last_name'  => $split_value[1]
-            ]);
+        // Loop through the name column, split values, and populate first/last names.
+        foreach ($users as $user) {
+            $fullName = $user->name;
+            $nameArray = $this->splitName($fullName);
+            $firstName = $nameArray[0];
+            $lastName = $nameArray[1];
+            DB::table('users')->where('id', $user->id)->update(['first_name' => $firstName, 'last_name' => $lastName]);
         }
 
         // Delete old name column.
