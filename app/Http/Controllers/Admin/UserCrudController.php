@@ -26,9 +26,14 @@ class UserCrudController extends CrudController
     public function setupListOperation()
     {
         $this->crud->addColumn([
-            'name' => 'name',
+            'name' => 'first_name',
             'type' => 'text',
-            'label' => 'Name'
+            'label' => 'First Name'
+        ]);
+        $this->crud->addColumn([
+            'name' => 'last_name',
+            'type' => 'text',
+            'label' => 'Last Name'
         ]);
         $this->crud->addColumn([
             'name' => 'email',
