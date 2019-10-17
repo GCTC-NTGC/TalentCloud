@@ -1,11 +1,5 @@
 /* eslint-disable camelcase, @typescript-eslint/camelcase */
-import React, {
-  useState,
-  useRef,
-  useReducer,
-  useEffect,
-  useCallback,
-} from "react";
+import React, { useState, useRef, useReducer } from "react";
 import {
   WrappedComponentProps,
   injectIntl,
@@ -48,6 +42,16 @@ const messages = defineMessages({
     id: "jobBuilder.skills.emailLink",
     defaultMessage: "get in touch with us through email",
     description: "Text for an email link in a larger block of text",
+  },
+  selectSkillLabel: {
+    id: "jobBuilder.skills.selectSkillLabel",
+    defaultMessage: "Please select a skill from our list",
+    description: "Label for skill selection dropdown menu",
+  },
+  selectSkillNull: {
+    id: "jobBuilder.skills.selectSkillNull",
+    defaultMessage: "Please select a skill",
+    description: "Label for skill selection dropdown null/default state",
   },
 });
 
@@ -328,11 +332,10 @@ export const JobBuilderSkills: React.FunctionComponent<
 
   const [isSaving, setIsSaving] = useState(false);
 
-  const errorMessage = React.createRef<HTMLAnchorElement>();
-  const focusOnError = useCallback(
-    (): void | null => errorMessage.current && errorMessage.current.focus(),
-    [errorMessage],
-  );
+  const errorMessage = useRef<HTMLAnchorElement>(null); //React.createRef<HTMLAnchorElement>();
+  const focusOnError = (): void => {
+    errorMessage.current && errorMessage.current.focus();
+  };
 
   const saveAndPreview = (): void => {
     setSubmitTouched(true);
@@ -344,8 +347,12 @@ export const JobBuilderSkills: React.FunctionComponent<
           criteriaDispatch({ type: "replace", payload: criteria });
           nprogress.done();
           setIsPreviewVisible(true);
+          setIsSaving(false);
         })
-        .finally((): void => setIsSaving(false));
+        .catch((): void => {
+          nprogress.done();
+          setIsSaving(false);
+        });
     } else {
       focusOnError();
     }
@@ -358,15 +365,13 @@ export const JobBuilderSkills: React.FunctionComponent<
         criteriaDispatch({ type: "replace", payload: criteria });
         nprogress.done();
         handleReturn();
+        setIsSaving(false);
       })
-      .finally((): void => {
+      .catch((): void => {
+        nprogress.done();
         setIsSaving(false);
       });
   };
-
-  useEffect(() => {
-    if (submitTouched && essentialCount === 0) focusOnError();
-  }, [submitTouched, essentialCount, focusOnError]);
 
   const renderNullCriteriaRow = (): React.ReactElement => (
     <div className="jpb-skill-null" data-c-grid="gutter middle">
@@ -1467,9 +1472,9 @@ export const JobBuilderSkills: React.FunctionComponent<
               <Select
                 id="jpb-all-skills-select"
                 name="jpbAllSkillsSelect"
-                label="Please select a skill from our list"
+                label={intl.formatMessage(messages.selectSkillLabel)}
                 selected={null}
-                nullSelection="Please select a Skill"
+                nullSelection={intl.formatMessage(messages.selectSkillNull)}
                 options={unselectedOtherSkills.map(
                   (skill): SelectOption => ({
                     value: skill.id,
@@ -1528,30 +1533,32 @@ export const JobBuilderSkills: React.FunctionComponent<
           >
             {/* Modal trigger, same as last step. */}
             {submitButton}
-            {essentialCount === 0 && submitTouched && (
-              <div
-                role="alert"
-                data-c-alert="error"
-                data-c-radius="rounded"
-                data-c-margin="top(normal)"
-                data-c-padding="all(half)"
-                style={{
-                  display: `inline-block`,
-                }}
+
+            <div
+              role="alert"
+              data-c-alert="error"
+              data-c-radius="rounded"
+              data-c-margin="top(normal)"
+              data-c-padding="all(half)"
+              data-c-visibility={
+                essentialCount === 0 && submitTouched ? "visible" : "invisible"
+              }
+              style={{
+                display: `inline-block`,
+              }}
+            >
+              <a
+                href="#jpb-occupational-skills"
+                tabIndex={0}
+                ref={errorMessage}
               >
-                <a
-                  href="#jpb-occupational-skills"
-                  tabIndex={0}
-                  ref={errorMessage}
-                >
-                  <FormattedMessage
-                    id="jobBuilder.skills.essentialSkillRequiredError"
-                    defaultMessage="At least one 'Essential Skill' is required."
-                    description="Label of Button"
-                  />
-                </a>
-              </div>
-            )}
+                <FormattedMessage
+                  id="jobBuilder.skills.essentialSkillRequiredError"
+                  defaultMessage="At least one 'Essential Skill' is required."
+                  description="Label of Button"
+                />
+              </a>
+            </div>
           </div>
         </div>
       </div>

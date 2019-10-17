@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fdc8d9e741f168394cdce99faf6fd64c",
+    "content-hash": "210262598386a715409b5142ca01bae5",
     "packages": [
         {
             "name": "astrotomic/laravel-translatable",
-            "version": "v11.5.1",
+            "version": "v11.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Astrotomic/laravel-translatable.git",
-                "reference": "078a22ea96582f7f518f5418ee7e57e3746fb032"
+                "reference": "d1496d1f53e40ce6ceb689aa75befea4818211f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Astrotomic/laravel-translatable/zipball/078a22ea96582f7f518f5418ee7e57e3746fb032",
-                "reference": "078a22ea96582f7f518f5418ee7e57e3746fb032",
+                "url": "https://api.github.com/repos/Astrotomic/laravel-translatable/zipball/d1496d1f53e40ce6ceb689aa75befea4818211f1",
+                "reference": "d1496d1f53e40ce6ceb689aa75befea4818211f1",
                 "shasum": ""
             },
             "require": {
@@ -68,20 +68,20 @@
                 "laravel",
                 "translation"
             ],
-            "time": "2019-09-05T13:59:22+00:00"
+            "time": "2019-10-09T08:24:20+00:00"
         },
         {
             "name": "backpack/crud",
-            "version": "4.0.7",
+            "version": "4.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "0cd48d8aeea66d64e76765d7916fccc75c5db284"
+                "reference": "941b4a4dd25b8434af0489cec5eefa99cec885a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/0cd48d8aeea66d64e76765d7916fccc75c5db284",
-                "reference": "0cd48d8aeea66d64e76765d7916fccc75c5db284",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/941b4a4dd25b8434af0489cec5eefa99cec885a3",
+                "reference": "941b4a4dd25b8434af0489cec5eefa99cec885a3",
                 "shasum": ""
             },
             "require": {
@@ -155,7 +155,7 @@
                 "read",
                 "update"
             ],
-            "time": "2019-10-06T07:48:16+00:00"
+            "time": "2019-10-12T06:22:53+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -276,27 +276,27 @@
         },
         {
             "name": "codezero/laravel-unique-translation",
-            "version": "1.2.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codezero-be/laravel-unique-translation.git",
-                "reference": "01c59e462ac081fbb5ef11133001b4b3c01d08e7"
+                "reference": "189485f30cbdf20f9c72ff04f246adcd8ac14190"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codezero-be/laravel-unique-translation/zipball/01c59e462ac081fbb5ef11133001b4b3c01d08e7",
-                "reference": "01c59e462ac081fbb5ef11133001b4b3c01d08e7",
+                "url": "https://api.github.com/repos/codezero-be/laravel-unique-translation/zipball/189485f30cbdf20f9c72ff04f246adcd8ac14190",
+                "reference": "189485f30cbdf20f9c72ff04f246adcd8ac14190",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0"
+                "php": "^7.2"
             },
             "require-dev": {
                 "fzaninotto/faker": "~1.4",
-                "mockery/mockery": "0.9.*",
-                "orchestra/testbench": "~3.5.0",
-                "phpunit/phpunit": "~6.0",
-                "spatie/laravel-translatable": "^2.1"
+                "mockery/mockery": "1.2.*",
+                "orchestra/testbench": "~4.0",
+                "phpunit/phpunit": "~8.0",
+                "spatie/laravel-translatable": "^4.2"
             },
             "type": "library",
             "extra": {
@@ -321,7 +321,7 @@
                     "email": "ivan@codezero.be"
                 }
             ],
-            "time": "2019-05-01T11:07:31+00:00"
+            "time": "2019-10-11T16:56:28+00:00"
         },
         {
             "name": "creativeorange/gravatar",
@@ -1842,20 +1842,20 @@
         },
         {
             "name": "mcamara/laravel-localization",
-            "version": "1.4.2",
+            "version": "1.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mcamara/laravel-localization.git",
-                "reference": "d228a61afd8cfe9eb7f8f7450acfa0371382407d"
+                "reference": "15d378622ed741209e974a73d635b61b9b9f6795"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/d228a61afd8cfe9eb7f8f7450acfa0371382407d",
-                "reference": "d228a61afd8cfe9eb7f8f7450acfa0371382407d",
+                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/15d378622ed741209e974a73d635b61b9b9f6795",
+                "reference": "15d378622ed741209e974a73d635b61b9b9f6795",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "~5.2.0||~5.3.0||~5.4.0||~5.5.0||~5.6.0||~5.7.0||~5.8.0||~6.0.0",
+                "laravel/framework": "~5.2.0||~5.3.0||~5.4.0||~5.5.0||~5.6.0||~5.7.0||~5.8.0||^6.0",
                 "php": ">=7.1.0"
             },
             "require-dev": {
@@ -1900,7 +1900,7 @@
                 "localization",
                 "php"
             ],
-            "time": "2019-09-20T15:24:04+00:00"
+            "time": "2019-10-15T20:52:25+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1985,16 +1985,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.25.1",
+            "version": "2.25.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "d59c6cea9c4a3547bb6c0dfec451319abdaa4fb1"
+                "reference": "443fe5f1498147e0fbc792142b5dc43e2e8a533f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/d59c6cea9c4a3547bb6c0dfec451319abdaa4fb1",
-                "reference": "d59c6cea9c4a3547bb6c0dfec451319abdaa4fb1",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/443fe5f1498147e0fbc792142b5dc43e2e8a533f",
+                "reference": "443fe5f1498147e0fbc792142b5dc43e2e8a533f",
                 "shasum": ""
             },
             "require": {
@@ -2048,7 +2048,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-10-05T15:52:23+00:00"
+            "time": "2019-10-14T14:18:59+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -4566,16 +4566,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v4.3.4",
+            "version": "v4.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "28498169dd334095fa981827992f3a24d50fed0f"
+                "reference": "fe6193b066c457c144333c06aaa869a2d42a167f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/28498169dd334095fa981827992f3a24d50fed0f",
-                "reference": "28498169dd334095fa981827992f3a24d50fed0f",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/fe6193b066c457c144333c06aaa869a2d42a167f",
+                "reference": "fe6193b066c457c144333c06aaa869a2d42a167f",
                 "shasum": ""
             },
             "require": {
@@ -4638,20 +4638,20 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-08-26T08:55:16+00:00"
+            "time": "2019-09-27T14:37:39+00:00"
         },
         {
             "name": "symfony/translation-contracts",
-            "version": "v1.1.6",
+            "version": "v1.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation-contracts.git",
-                "reference": "325b17c24f3ee23cbecfa63ba809c6d89b5fa04a"
+                "reference": "364518c132c95642e530d9b2d217acbc2ccac3e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/325b17c24f3ee23cbecfa63ba809c6d89b5fa04a",
-                "reference": "325b17c24f3ee23cbecfa63ba809c6d89b5fa04a",
+                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/364518c132c95642e530d9b2d217acbc2ccac3e6",
+                "reference": "364518c132c95642e530d9b2d217acbc2ccac3e6",
                 "shasum": ""
             },
             "require": {
@@ -4695,7 +4695,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-08-02T12:15:04+00:00"
+            "time": "2019-09-17T11:12:18+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -4811,6 +4811,7 @@
                 }
             ],
             "description": "A simple eloquent trait that allows relationships to be accessed through child models.",
+            "abandoned": "calebporzio/parental",
             "time": "2019-09-03T14:54:50+00:00"
         },
         {
@@ -4862,16 +4863,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v2.12.0",
+            "version": "v2.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "c7a85fd08348ca04b4d8f234f49583d9910906aa"
+                "reference": "ddd4134af9bfc6dba4eff7c8447444ecc45b9ee5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/c7a85fd08348ca04b4d8f234f49583d9910906aa",
-                "reference": "c7a85fd08348ca04b4d8f234f49583d9910906aa",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/ddd4134af9bfc6dba4eff7c8447444ecc45b9ee5",
+                "reference": "ddd4134af9bfc6dba4eff7c8447444ecc45b9ee5",
                 "shasum": ""
             },
             "require": {
@@ -4925,7 +4926,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-10-05T16:42:38+00:00"
+            "time": "2019-10-17T07:34:53+00:00"
         },
         {
             "name": "venturecraft/revisionable",

@@ -408,8 +408,11 @@ const JobBuilderImpact: React.FunctionComponent<
                       data-c-font-size="h4"
                       id={`${modalId}-title`}
                     >
-                      {/* TODO: Localize Title, Description, and Button Text */}
-                      Awesome work!
+                      <FormattedMessage
+                        id="jobBuilder.impact.modalTitle"
+                        defaultMessage="Awesome work!"
+                        description="Title of modal dialog for Impact review."
+                      />
                     </h5>
                   </div>
                 </Modal.Header>
@@ -420,9 +423,13 @@ const JobBuilderImpact: React.FunctionComponent<
                     id={`${modalId}-description`}
                   >
                     <p>
-                      Here&apos;s a preview of the Impact Statement you just
-                      entered. Feel free to go back and edit things or move to
-                      the next step if you&apos;re happy with it.
+                      <FormattedMessage
+                        id="jobBuilder.impact.modalDescription"
+                        defaultMessage="Here's a preview of the Impact Statement you just
+                        entered. Feel free to go back and edit things or move to
+                        the next step if you're happy with it."
+                        description="Description of modal dialog for Impact review."
+                      />
                     </p>
                   </div>
                   <div
@@ -438,13 +445,29 @@ const JobBuilderImpact: React.FunctionComponent<
                   </div>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
+                  <Modal.FooterCancelBtn>
+                    <FormattedMessage
+                      id="jobBuilder.impact.button.goBack"
+                      defaultMessage="Go Back"
+                      description="Label for Go Back button on Impact review modal."
+                    />
+                  </Modal.FooterCancelBtn>
                   {jobIsComplete && (
                     <Modal.FooterMiddleBtn>
-                      Skip to Review
+                      <FormattedMessage
+                        id="jobBuilder.impact.button.skipToReview"
+                        defaultMessage="Skip to Review"
+                        description="Label for Skip to Review button on Impact review modal."
+                      />
                     </Modal.FooterMiddleBtn>
                   )}
-                  <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
+                  <Modal.FooterConfirmBtn>
+                    <FormattedMessage
+                      id="jobBuilder.impact.button.nextStep"
+                      defaultMessage="Next Step"
+                      description="Label for Next Step button on Impact review modal."
+                    />
+                  </Modal.FooterConfirmBtn>
                 </Modal.Footer>
               </Modal>
             </>

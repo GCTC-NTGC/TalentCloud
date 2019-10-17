@@ -180,6 +180,8 @@ const JobTasks: React.FunctionComponent<
     ).then((): void => {
       nprogress.done();
       handleReturn();
+    }).catch((error): void => {
+      nprogress.done();
     });
   };
 
@@ -249,6 +251,9 @@ const JobTasks: React.FunctionComponent<
               actions.resetForm(tasksToValues(updatedTasks));
               nprogress.done();
               setIsModalVisible(true);
+            })
+            .catch((error): void => {
+              nprogress.done();
             })
             .finally((): void => {
               actions.setSubmitting(false); // Required by Formik to finish the submission cycle
@@ -536,12 +541,9 @@ const JobTasks: React.FunctionComponent<
               }}
               onModalConfirm={(): void => {
                 handleModalConfirm();
-                setIsModalVisible(false);
               }}
               onModalMiddle={(): void => {
-                handleSkipToReview().finally((): void => {
-                  setIsModalVisible(false);
-                });
+                handleSkipToReview();
               }}
             >
               <Modal.Header>

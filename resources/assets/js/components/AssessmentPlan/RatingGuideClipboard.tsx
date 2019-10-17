@@ -295,13 +295,55 @@ const RatingGuideClipboard: React.FunctionComponent<
           <table ref={tableRef}>
             <thead>
               <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Question</th>
-                <th scope="col">Criteria Type</th>
-                <th scope="col">Target Level</th>
-                <th scope="col">Skill</th>
-                <th scope="col">Skill Description</th>
-                <th scope="col">Rating Guide</th>
+                <th scope="col">
+                  <FormattedMessage
+                    id="ratingGuideBuilder.titleHeading"
+                    defaultMessage="Title"
+                    description="Text for the Title column heading."
+                  />
+                </th>
+                <th scope="col">
+                  <FormattedMessage
+                    id="ratingGuideBuilder.questionHeading"
+                    defaultMessage="Question"
+                    description="Text for the Question column heading."
+                  />
+                </th>
+                <th scope="col">
+                  <FormattedMessage
+                    id="ratingGuideBuilder.criteriaTypeHeading"
+                    defaultMessage="Criteria Type"
+                    description="Text for the Criteria Type column heading."
+                  />
+                </th>
+                <th scope="col">
+                  <FormattedMessage
+                    id="ratingGuideBuilder.targetLevelHeading"
+                    defaultMessage="Target Level"
+                    description="Text for the Target Level column heading."
+                  />
+                </th>
+                <th scope="col">
+                  <FormattedMessage
+                    id="ratingGuideBuilder.skillHeading"
+                    defaultMessage="Skill"
+                    description="Text for the Skill column heading."
+                  />
+                </th>
+                <th scope="col">
+                  <FormattedMessage
+                    id="ratingGuideBuilder.skillDescriptionHeading"
+                    defaultMessage="Skill Description"
+                    description="Text for the Skill Description column heading."
+                  />
+                </th>
+                <th scope="col">
+                  <FormattedMessage
+                    id="ratingGuideBuilder.ratingGuideHeading"
+                    defaultMessage="Rating Guide"
+                    description="Text for the Rating Guide column heading."
+                  />
+                </th>
               </tr>
             </thead>
             <tbody>

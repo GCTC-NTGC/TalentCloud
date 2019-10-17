@@ -15,7 +15,6 @@ return [
     'link' => [
         'text' => 'Cliquez ici',
         'title' => 'Cliquez ici pour savoir comment publier une offre d’emploi dans le Nuage de talents.',
-        'href' => '#upgrade'
     ],
     'second' => 'pour savoir comment afficher une offre d’emploi dans le Nuage de talents.'
 ];
