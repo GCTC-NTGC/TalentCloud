@@ -26,7 +26,8 @@ return [
         ],
         'account' => [
             'my_account' => 'My Account',
-            'my_name' => 'My Name',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
             'account_settings' => 'Account Information',
             'reset_password' => 'Reset Password',
             'profile_email' => 'My Email',
@@ -64,26 +65,26 @@ return [
 
         ],
         'leadership' => [
-            'my_leadership_style' => "My Leadership Style",
-            'my_style_values' => "My Leadership Style and Management Values",
-            'answer_english' => "Answer (English)",
-            'answer_french' => "Answer (Français)",
-            'expect_from_employees' => "What I Expect from My Employees",
-            'approach_learning_development' => "My Approach to Employee Learning and Developmment",
-            'save_leadership_style' => "Save My Leadership Style"
+            'my_leadership_style' => 'My Leadership Style',
+            'my_style_values' => 'My Leadership Style and Management Values',
+            'answer_english' => 'Answer (English)',
+            'answer_french' => 'Answer (Français)',
+            'expect_from_employees' => 'What I Expect from My Employees',
+            'approach_learning_development' => 'My Approach to Employee Learning and Developmment',
+            'save_leadership_style' => 'Save My Leadership Style'
         ],
         'environment' => [
-            'work_environment' => "Our Work Environment",
-            'things_to_know' => "Things to Know",
-            'answer_english' => "Answer (English)",
-            'answer_french' => "Answer (Français)",
-            'telework_frequency' => "How Often is Telework Allowed?",
-            'flexible_hour_frequency' => "How Often Are Flexible Hours Allowed?",
-            'environment_photos' => "Work Environment Photos",
-            'upload_image' => "Upload an Image",
-            'alt_text_english' => "Image Alt Text (English)",
-            'alt_text_french' => "Image Alt Text (Français)",
-            'save_work_environment' => "Save Our Work Environment",
+            'work_environment' => 'Our Work Environment',
+            'things_to_know' => 'Things to Know',
+            'answer_english' => 'Answer (English)',
+            'answer_french' => 'Answer (Français)',
+            'telework_frequency' => 'How Often is Telework Allowed?',
+            'flexible_hour_frequency' => 'How Often Are Flexible Hours Allowed?',
+            'environment_photos' => 'Work Environment Photos',
+            'upload_image' => 'Upload an Image',
+            'alt_text_english' => 'Image Alt Text (English)',
+            'alt_text_french' => 'Image Alt Text (Français)',
+            'save_work_environment' => 'Save Our Work Environment',
             'frequency' => [
                 'never' => 'Never',
                 'rarely' => 'Occasionally',
@@ -94,16 +95,16 @@ return [
 
         ],
         'culture' => [
-            'team_culture' => "Our Team Culture",
-            'primary_information' => "Primary Information",
-            'team_size' => "Team Size",
-            'gc_directory_link' => "GC Directory Link",
-            'operating_context' => "Our Operating Context",
-            'answer_english' => "Answer (English)",
-            'answer_french' => "Answer (Français)",
-            'what_we_value' => "What We Value",
-            'how_we_work' => "How We Work",
-            'save_team_culture' => "Save Our Team Culture"
+            'team_culture' => 'Our Team Culture',
+            'primary_information' => 'Primary Information',
+            'team_size' => 'Team Size',
+            'gc_directory_link' => 'GC Directory Link',
+            'operating_context' => 'Our Operating Context',
+            'answer_english' => 'Answer (English)',
+            'answer_french' => 'Answer (Français)',
+            'what_we_value' => 'What We Value',
+            'how_we_work' => 'How We Work',
+            'save_team_culture' => 'Save Our Team Culture'
         ]
 
     ]
