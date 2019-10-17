@@ -34,6 +34,6 @@ class TwoFactorController extends AuthController
             $applicant->user->refresh();
         }
 
-        return redirect(route('profile.about.edit', $applicant));
+        return redirect(route('recovery_codes.show'));
     }
 }

@@ -37,7 +37,8 @@ return [
         'applicant_profile_question_section_title' => 'Your Narrative',
         'applicant_profile_question_context' => 'Please don’t include any sensitive personal information.',
         'two_factor_legend' => 'Two-Factor Authentication',
-        'two_factor_button_text' => 'Set up Two-Factor Authentication'
+        'two_factor_button_text' => 'Set up Two-Factor Authentication',
+        'view_recovery_codes' => 'View Account Recovery Codes',
     ],
 
 

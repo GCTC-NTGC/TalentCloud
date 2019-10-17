@@ -161,6 +161,8 @@
 
                                 <p data-c-padding="bottom(normal)">You're currently receiving verification codes via an authenticator app on your smartphone.</p>
 
+                                <a class="button--blue light-bg" href="{{ route('recovery_codes.show') }}">{{ profile.about_section.view_recovery_codes }}</a>
+
                                 {% else %}
 
                                 <p data-c-padding="bottom(normal)">Two-factor auth blurb. <a href="" title="">Here's a useful link.</a></p>
