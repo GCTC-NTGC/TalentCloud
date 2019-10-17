@@ -23,7 +23,7 @@ Route::group(
         Route::group(['prefix' => config('app.applicant_prefix')], function () : void {
 
             Route::post('/2fa', function () {
-                return redirect(URL()->previous());
+                return redirect()->intended();
             })->name('2fa')->middleware('2fa');
 
             /* Home */
