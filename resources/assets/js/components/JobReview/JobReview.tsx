@@ -295,7 +295,7 @@ const renderManagerSection = (
   if (managerTranslation) {
     return (
       <>
-        <p data-c-margin="bottom(normal)">{manager.name}</p>
+        <p data-c-margin="bottom(normal)">{manager.first_name}</p>
         <p
           data-c-margin={`${managerTranslation.about_me && "{bottom(normal)"}`}
         >

@@ -279,9 +279,10 @@ class ApplicationReview extends React.Component<
           <div className="box lg-2of11 applicant-information">
             <span
               className="name"
-              data-name={`${application.applicant.user.name}`}
+              data-name={`${application.applicant.user.first_name} ${application.applicant.user.last_name}`}
             >
-              {application.applicant.user.name}
+              {application.applicant.user.first_name}{" "}
+              {application.applicant.user.last_name}
             </span>
             <a
               href={`mailto: ${application.applicant.user.email}`}

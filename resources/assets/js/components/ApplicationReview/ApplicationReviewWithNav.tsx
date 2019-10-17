@@ -363,7 +363,10 @@ class ApplicationReviewWithNav extends React.Component<
             </div>
 
             <div className="box lg-2of11 applicant-information">
-              <span className="name">{application.applicant.user.name}</span>
+              <span className="name">
+                {application.applicant.user.first_name}{" "}
+                {application.applicant.user.last_name}
+              </span>
               <a
                 href={`mailto: ${application.applicant.user.email}`}
                 title={intl.formatMessage(messages.emailCandidate)}

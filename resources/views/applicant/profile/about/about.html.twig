@@ -36,21 +36,38 @@
                             class="box med-1of2">
 
                             <div class="form__input-wrapper--float {% if user.name == true %}active{% endif %}">
-                                <label class="form__label" for="editProfileName">
-                                    {{ profile.about_section.user_name_label }}
+                                <label class="form__label" for="editProfileFirstName">
+                                    {{ profile.about_section.user_first_name_label }}
                                 </label>
                                 <input
                                     class="form__input"
-                                    id="editProfileName"
+                                    id="editProfileFirstName"
                                     type="text"
-                                    name="profile_name"
-                                    value="{{ user.name }}" />
+                                    name="profile_first_name"
+                                    value="{{ user.first_name }}" />
                             </div>
 
                         </div>
 
                         <div
                             class="box med-1of2">
+
+                            <div class="form__input-wrapper--float {% if user.name == true %}active{% endif %}">
+                                <label class="form__label" for="editProfileLastName">
+                                    {{ profile.about_section.user_last_name_label }}
+                                </label>
+                                <input
+                                    class="form__input"
+                                    id="editProfileLastName"
+                                    type="text"
+                                    name="profile_last_name"
+                                    value="{{ user.last_name }}" />
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="box full">
 
                             <div class="form__input-wrapper--float {% if user.email == true %}active{% endif %}">
                                 <label class="form__label" for="editProfileEmail">
