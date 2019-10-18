@@ -60,6 +60,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         '2fa' => \PragmaRX\Google2FALaravel\Middleware::class,
+        '2fa.required' => \App\Http\Middleware\Require2FA::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,

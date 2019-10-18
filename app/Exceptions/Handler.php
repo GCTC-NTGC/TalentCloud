@@ -46,7 +46,7 @@ class Handler extends ExceptionHandler
         HttpResponseException::class,
         ModelNotFoundException::class,
         SuspiciousOperationException::class,
-        //TokenMismatchException::class,
+        // TokenMismatchException::class,
         ValidationException::class,
     ];
 
@@ -85,8 +85,11 @@ class Handler extends ExceptionHandler
         if ($exception instanceof AdminException) {
             return $exception->render($request);
         }
+        if ($exception instanceof TwoFactorRequiredException) {
+            return $exception->render($request);
+        }
         if ($exception instanceof TokenMismatchException) {
-            $newMessage = $exception->getMessage() . " " . Lang::get('errors.refresh_page');
+            $newMessage = $exception->getMessage() . ' ' . Lang::get('errors.refresh_page');
             $modifiedException = new TokenMismatchException($newMessage, $exception->getCode(), $exception);
             return parent::render($request, $modifiedException);
         }
