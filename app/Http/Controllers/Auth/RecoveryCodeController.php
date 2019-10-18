@@ -15,9 +15,8 @@ class RecoveryCodeController extends AuthController
     public function show(Request $request)
     {
         $user = $request->user();
-        if ($user->recovery_codes === null || collect($user->recovery_codes)->isEmpty()) {
-            $this->generateCodesForUser($user);
-        }
+        $this->generateCodesForUser($user);
+
         return view('auth.recovery_codes', [
             'recovery_codes' => Lang::get('common/auth/recovery_codes'),
             'codes' => $user->recovery_codes,
