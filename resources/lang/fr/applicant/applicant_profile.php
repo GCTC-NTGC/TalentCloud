@@ -37,6 +37,8 @@ return [
         'applicant_profile_question_context' => 'Ne pas inclure d\'informations personnelles sensibles.',
         'two_factor_legend' => 'Two-Factor Authentication',
         'two_factor_button_text' => 'Set up Two-Factor Authentication',
-        'view_recovery_codes' => 'View Account Recovery Codes',
+        'two_factor_recovery_legend' => 'Recovery Codes',
+        'two_factor_recovery_text' => 'Your emergency recovery codes let you gain access to your account in case you lose access to your phone. For security, we only show them to you once, but you can',
+        'view_recovery_codes' => 'generate new codes',
     ],
 ];
