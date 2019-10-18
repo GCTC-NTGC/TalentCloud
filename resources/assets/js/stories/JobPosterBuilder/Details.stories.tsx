@@ -5,7 +5,6 @@ import { action } from "@storybook/addon-actions";
 import { boolean } from "@storybook/addon-knobs";
 import { JobDetailsIntl as JobDetails } from "../../components/JobDetails/JobDetails";
 import fakeJob from "../../fakeData/fakeJob";
-import { boolean } from "@storybook/addon-knobs";
 
 const stories = storiesOf("Job Poster Builder|Details", module).addDecorator(
   withIntl,
