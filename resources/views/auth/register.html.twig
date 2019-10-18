@@ -33,18 +33,18 @@
                                 <div data-c-grid="gutter middle">
                                     {# New First & Last Name Inputs #}
                                     <div data-c-grid-item="tp(1of2)" data-c-input="text">
-                                        <label for="firstName">{{ register.first_name }}</label>
+                                        <label for="first_name">{{ register.first_name }}</label>
                                         <span>{{ trans('forms.required') }}</span>
                                         <div>
-                                            <input id="firstName" placeholder="" required type="text" />
+                                            <input id="first_name" name="first_name" placeholder="" required type="text" />
                                         </div>
                                         <span>{{ trans('forms.error') }}</span>
                                     </div>
                                     <div data-c-grid-item="tp(1of2)" data-c-input="text">
-                                        <label for="lastName">{{ register.last_name }}</label>
+                                        <label for="last_name">{{ register.last_name }}</label>
                                         <span>{{ trans('forms.required') }}</span>
                                         <div>
-                                            <input id="lastName" placeholder="" required type="text" />
+                                            <input id="last_name" name="last_name" placeholder="" required type="text" />
                                         </div>
                                         <span>{{ trans('forms.error') }}</span>
                                     </div>
