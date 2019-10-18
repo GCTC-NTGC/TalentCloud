@@ -46,8 +46,8 @@
                     <a
                         class="job-post__culture-manager-profile-link"
                         href="{{ route('managers.show',{'manager':manager.id}) }}"
-                        title="{{ job_post.manager.link_title|replace({":name":manager.user.full_name}) }}">
-                        {{ job_post.culture.guest_manager_link_label|replace({":name":manager.user.full_name}) }}
+                        title="{{ job_post.manager.link_title|replace({":name":manager.user.first_name}) }}">
+                        {{ job_post.culture.guest_manager_link_label|replace({":name":manager.user.first_name}) }}
                     </a>
 
                 {% else %}
@@ -55,8 +55,8 @@
                     <a
                         class="job-post__culture-manager-profile-link"
                         href="{{ route('managers.show',{'manager':manager.id}) }}"
-                        title="{{ job_post.manager.link_title|replace({":name":manager.user.full_name}) }}">
-                        {{ job_post.culture.manager_link_label|replace({":name":manager.user.full_name}) }}
+                        title="{{ job_post.manager.link_title|replace({":name":manager.user.first_name}) }}">
+                        {{ job_post.culture.manager_link_label|replace({":name":manager.user.first_name}) }}
                     </a>
 
                 {% endif %}

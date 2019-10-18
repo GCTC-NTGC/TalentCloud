@@ -226,4 +226,14 @@ class User extends BaseModel implements
     {
         return $this->not_in_gov || !empty($this->gov_email);
     }
+
+    /**
+     * Returns a user's full name.
+     *
+     * @return string
+    */
+    public function getFullNameAttribute(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }
