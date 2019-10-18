@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2cadefb59974ce7e859a8a16049fabf",
+    "content-hash": "b86d9d95b3562e26a9a4f964f2664051",
     "packages": [
         {
             "name": "astrotomic/laravel-translatable",
@@ -224,6 +224,46 @@
                 "webprofiler"
             ],
             "time": "2019-08-29T07:01:03+00:00"
+        },
+        {
+            "name": "calebporzio/parental",
+            "version": "v0.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/calebporzio/parental.git",
+                "reference": "2784b61433102d8813916566a56cb1e2cfb40e82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/calebporzio/parental/zipball/2784b61433102d8813916566a56cb1e2cfb40e82",
+                "reference": "2784b61433102d8813916566a56cb1e2cfb40e82",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~5.6.0|~5.7.0|~5.8.0|^6.0.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "3.8.*",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Parental\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caleb Porzio",
+                    "email": "calebporzio@gmail.com"
+                }
+            ],
+            "description": "A simple eloquent trait that allows relationships to be accessed through child models.",
+            "time": "2019-10-16T18:13:27+00:00"
         },
         {
             "name": "codezero/laravel-unique-translation",
@@ -4326,47 +4366,6 @@
                 "dump"
             ],
             "time": "2019-08-26T08:26:39+00:00"
-        },
-        {
-            "name": "tightenco/parental",
-            "version": "v0.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tightenco/parental.git",
-                "reference": "8c87252ddfa2f77b38418b92c5e8b1d0e15f7d94"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tightenco/parental/zipball/8c87252ddfa2f77b38418b92c5e8b1d0e15f7d94",
-                "reference": "8c87252ddfa2f77b38418b92c5e8b1d0e15f7d94",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "~5.6.0|~5.7.0|~5.8.0|~6.0.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "3.8.*",
-                "phpunit/phpunit": "^7.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Tightenco\\Parental\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Caleb Porzio",
-                    "email": "calebporzio@gmail.com"
-                }
-            ],
-            "description": "A simple eloquent trait that allows relationships to be accessed through child models.",
-            "abandoned": "calebporzio/parental",
-            "time": "2019-09-03T14:54:50+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
