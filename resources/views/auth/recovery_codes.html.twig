@@ -23,13 +23,11 @@
                         <h1 data-c-font-size="h2" data-c-color="white">{{ recovery_codes.header }}</h1>
                     </div>
                     <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
-                        <p>{{ recovery_codes.instructions }}</p>
-                        <p>{{ recovery_codes.description }}</p>
-                        <ul>
-                            {% for code in codes %}
-                                <li>{{ code }}</li>
-                            {% endfor %}
-                        </ul>
+                        <p data-c-margin="bottom(normal)">{{ recovery_codes.instructions }}</p>
+                        <p data-c-margin="bottom(normal)">{{ recovery_codes.description }}</p>
+                        {% for code in codes %}
+                            <pre{% if loop.last %} data-c-margin="bottom(normal)"{% endif %}>{{ code }}</pre>
+                        {% endfor %}
                         <form action="{{ route('recovery_codes.generate') }}" method="POST" >
                             {{ csrf_field() }}
                             <p>{{ recovery_codes.generate_label }}</p>
