@@ -26,8 +26,8 @@ return [
         ],
         'account' => [
             'my_account' => 'Mon compte',
-            'first_name' => '',
-            'last_name' => '',
+            'first_name' => 'Prénom',
+            'last_name' => 'Nom',
             'account_settings' => 'Renseignements du compte',
             'reset_password' => 'Réinitialiser mon mot de passe',
             'profile_email' => 'Mon courriel',
