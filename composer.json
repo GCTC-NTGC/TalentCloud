@@ -7,6 +7,7 @@
         "astrotomic/laravel-translatable": "^11.1",
         "backpack/crud": "^4.0",
         "barryvdh/laravel-debugbar": "^3.2",
+        "calebporzio/parental": "^0.9.0",
         "codezero/laravel-unique-translation": "^2.0",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.1",
@@ -17,7 +18,6 @@
         "rcrowe/twigbridge": "^0.11.0",
         "slevomat/coding-standard": "^5.0",
         "spatie/laravel-translatable": "^4.1",
-        "tightenco/parental": "^0.8.0",
         "twig/twig": "^2.11"
     },
     "require-dev": {
