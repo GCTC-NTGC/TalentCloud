@@ -4,8 +4,7 @@ import { Manager } from "../models/types";
 export const fakeManager = (id = 1, user_id = 1): Manager => ({
   id,
   user_id,
-  first_name: "Gray",
-  last_name: "O'Byrne",
+  name: "Gray O'Byrne",
   department_id: 1,
   twitter_username: null,
   linkedin_url: null,
