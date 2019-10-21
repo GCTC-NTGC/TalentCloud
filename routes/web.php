@@ -23,8 +23,13 @@ Route::group(
         Route::group(['prefix' => config('app.applicant_prefix')], function () : void {
 
             Route::post('/2fa', function () {
-                return redirect(URL()->previous());
+                return redirect()->intended();
             })->name('2fa')->middleware('2fa');
+
+            Route::post('two-factor/generate_recovery_codes', 'Auth\RecoveryCodeController@generate')->name('recovery_codes.generate');
+            Route::get('two-factor/recovery_codes', 'Auth\RecoveryCodeController@show')->name('recovery_codes.show');
+            Route::get('two-factor/use_recovery_code', 'Auth\RecoveryCodeController@use')->name('recovery_codes.use');
+            Route::post('two-factor/use_recovery_code', 'Auth\RecoveryCodeController@authenticate')->name('recovery_codes.authenticate');
 
             /* Home */
             Route::get('/', 'HomepageController@applicant')->name('home');

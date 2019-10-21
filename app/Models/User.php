@@ -32,6 +32,8 @@ use App\CRUD\TalentCloudCrudTrait as CrudTrait;
  * @property string $gov_email
  * @property boolean $not_in_gov
  * @property string $google2fa_secret
+ * @property array $recovery_codes
+ * @property \Jenssegers\Date\Date $recovery_codes_generation_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -46,8 +48,8 @@ class User extends BaseModel implements
     CanResetPasswordContract,
     // Contract for use with Gates and Policies.
     AuthorizableContract
-    // Custom contract for use with openid login.
-    // \App\Services\Auth\Contracts\OidcAuthenticatable.
+// Custom contract for use with openid login.
+// \App\Services\Auth\Contracts\OidcAuthenticatable.
 {
 
     // Traits for Laravel basic authentication.
@@ -69,6 +71,13 @@ class User extends BaseModel implements
         'not_in_gov' => 'boolean',
     ];
 
+    /**
+     * @var string[] $dates
+     */
+    protected $dates = [
+        'recovery_codes_generation_date',
+    ];
+
     protected $fillable = [
         'name',
         'email',
@@ -84,7 +93,8 @@ class User extends BaseModel implements
     protected $hidden = [
         'password',
         'remember_token',
-        'google2fa_secret'
+        'google2fa_secret',
+        'recovery_codes',
     ];
 
     /**
@@ -125,7 +135,7 @@ class User extends BaseModel implements
         $this->attributes['is_priority'] = $value;
     }
 
-        /**
+    /**
      * Ecrypt the user's google_2fa secret.
      *
      * @param  string  $value
@@ -133,7 +143,7 @@ class User extends BaseModel implements
      */
     public function setGoogle2faSecretAttribute($value)
     {
-         $this->attributes['google2fa_secret'] = encrypt($value);
+        $this->attributes['google2fa_secret'] = encrypt($value);
     }
 
     /**
@@ -143,6 +153,31 @@ class User extends BaseModel implements
      * @return string
      */
     public function getGoogle2faSecretAttribute($value)
+    {
+        if (!empty($value)) {
+            return decrypt($value);
+        }
+        return null;
+    }
+
+    /**
+     * Ecrypt and serialize the user's recovery codes.
+     *
+     * @param  string[]  $value
+     * @return void
+     */
+    public function setRecoveryCodesAttribute($value)
+    {
+        $this->attributes['recovery_codes'] = encrypt($value);
+    }
+
+    /**
+     * Decrypt and deserialize the user's recovery codes.
+     *
+     * @param  string  $value
+     * @return string[]
+     */
+    public function getRecoveryCodesAttribute($value)
     {
         if (!empty($value)) {
             return decrypt($value);
@@ -206,10 +241,10 @@ class User extends BaseModel implements
     }
 
     /**
-    * Check if the user has the specified role.
-    * @param string $role This may be either 'applicant', 'manager' or 'admin'.
-    * @return boolean
-    */
+     * Check if the user has the specified role.
+     * @param string $role This may be either 'applicant', 'manager' or 'admin'.
+     * @return boolean
+     */
     public function hasRole($role)
     {
         switch ($role) {
@@ -228,8 +263,8 @@ class User extends BaseModel implements
      * Set this user to the specified role.
      *
      * @param string $role Must be either 'applicant', 'manager' or 'admin.
-    * @return void
-    */
+     * @return void
+     */
     public function setRole(string $role): void
     {
         $this->user_role()->associate(UserRole::where('name', $role)->firstOrFail());
