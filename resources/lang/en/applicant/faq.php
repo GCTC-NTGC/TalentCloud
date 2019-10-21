@@ -191,35 +191,6 @@ return [
                     '0' => '<a href="https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html" target="_blank" rel="noopener noreferrer" title="Take the tests">self-assessment tests</a>'
                 ]
             ],
-            'partners' => [
-                'title' => 'Talent Cloud Partner Departments',
-                'hash' => 'partners',
-                'content' => [
-                    '0' => [
-                        'type' => 'title',
-                        'hash' => 'partners-participating',
-                        'copy' => 'What departments are participating in this experimental staffing model?'
-                    ],
-                    '1' => [
-                        'type' => 'text',
-                        'copy' => "Talent Cloud is funded through Memorandums of Understanding (MOUs) with partner departments. This isn't a fee for service to staff using the platform. This is a group of departments co-funding an experimental alternative to the traditional HR model. Under this model, only partner departments may staff using Talent Cloud.\n\nPartner departments with signed MOUs are:"
-                    ],
-                    '2' => [
-                        'type' => 'ul',
-                        'items' => [
-                            '0' => 'Treasury Board Secretariat (host department)',
-                            '1' => 'Transport Canada',
-                            '2' => 'Global Affairs Canada',
-                            '3' => 'Natural Resources Canada',
-                            '4' => 'Canada Border Services Agency',
-                            '5' => 'Department of National Defense',
-                            '6' => 'Shared Services Canada',
-                            '7' => 'Health Canada',
-                            '8' => 'National Research Council',
-                        ]
-                    ]
-                ]
-            ],
             'benefits' => [
                 'title' => 'Employee Benefits',
                 'hash' => 'benefits',
@@ -629,6 +600,35 @@ return [
                     '0' => "<a href=\"https://talent.canada.ca/en/faq/#partners\" title=\"See Talent Cloud's partner departments.\">check out the FAQ section of the Talent Cloud website</a>",
                     '1' => "<a href=\"talent.canada.ca/manager\" title=\"Visit Talent Cloud's manager portal.\">Talent Cloud's manager portal</a>",
                     '2' => '<a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Send an email to Talent Cloud.">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>'
+                ]
+            ],
+            'partners' => [
+                'title' => 'Talent Cloud Partner Departments',
+                'hash' => 'partners',
+                'content' => [
+                    '0' => [
+                        'type' => 'title',
+                        'hash' => 'partners-participating',
+                        'copy' => 'What departments are participating in this experimental staffing model?'
+                    ],
+                    '1' => [
+                        'type' => 'text',
+                        'copy' => "Talent Cloud is funded through Memorandums of Understanding (MOUs) with partner departments. This isn't a fee for service to staff using the platform. This is a group of departments co-funding an experimental alternative to the traditional HR model. Under this model, only partner departments may staff using Talent Cloud.\n\nPartner departments with signed MOUs are:"
+                    ],
+                    '2' => [
+                        'type' => 'ul',
+                        'items' => [
+                            '0' => 'Treasury Board Secretariat (host department)',
+                            '1' => 'Transport Canada',
+                            '2' => 'Global Affairs Canada',
+                            '3' => 'Natural Resources Canada',
+                            '4' => 'Canada Border Services Agency',
+                            '5' => 'Department of National Defense',
+                            '6' => 'Shared Services Canada',
+                            '7' => 'Health Canada',
+                            '8' => 'National Research Council',
+                        ]
+                    ]
                 ]
             ],
             'tc-usage' => [
