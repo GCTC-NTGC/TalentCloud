@@ -65,7 +65,7 @@
   {
     "id": "jobBuilder.impact.teamBody",
     "description": "Body of Job Poster Builder Team Impact Section",
-    "defaultMessage": "Describe the value your team/service/initiative brings to Canadians.\r\n              It doesn’t matter if your work is direct to citizens or back office,\r\n              innovative or maintenance, top priority or ongoing. Describe how it\r\n              contributes to making Canada better the way you would to someone who\r\n              knows nothing about your work."
+    "defaultMessage": "Describe the value your team/service/initiative brings to Canadians.\n              It doesn’t matter if your work is direct to citizens or back office,\n              innovative or maintenance, top priority or ongoing. Describe how it\n              contributes to making Canada better the way you would to someone who\n              knows nothing about your work."
   },
   {
     "id": "jobBuilder.impact.hireHeader",
@@ -75,7 +75,7 @@
   {
     "id": "jobBuilder.impact.hireBody",
     "description": "Body of Job Poster Builder Hire Impact Section",
-    "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\r\n              value they’ll bring, not on specific tasks (you’ll provide these\r\n              later on). For example “In this role, you’ll contribute to…” or, “As\r\n              a member of this team, you’ll be responsible for helping us…”"
+    "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\n              value they’ll bring, not on specific tasks (you’ll provide these\n              later on). For example “In this role, you’ll contribute to…” or, “As\n              a member of this team, you’ll be responsible for helping us…”"
   },
   {
     "id": "jobBuilder.impact.button.return",
@@ -86,5 +86,30 @@
     "id": "jobBuilder.impact.button.next",
     "description": "Label for Save & Preview button on Impact form.",
     "defaultMessage": "Save & Preview"
+  },
+  {
+    "id": "jobBuilder.impact.modalTitle",
+    "description": "Title of modal dialog for Impact review.",
+    "defaultMessage": "Awesome work!"
+  },
+  {
+    "id": "jobBuilder.impact.modalDescription",
+    "description": "Description of modal dialog for Impact review.",
+    "defaultMessage": "Here's a preview of the Impact Statement you just\n                        entered. Feel free to go back and edit things or move to\n                        the next step if you're happy with it."
+  },
+  {
+    "id": "jobBuilder.impact.button.goBack",
+    "description": "Label for Go Back button on Impact review modal.",
+    "defaultMessage": "Go Back"
+  },
+  {
+    "id": "jobBuilder.impact.button.skipToReview",
+    "description": "Label for Skip to Review button on Impact review modal.",
+    "defaultMessage": "Skip to Review"
+  },
+  {
+    "id": "jobBuilder.impact.button.nextStep",
+    "description": "Label for Next Step button on Impact review modal.",
+    "defaultMessage": "Next Step"
   }
 ]

@@ -3,5 +3,40 @@
     "id": "ratingGuideBuilder.copyButton",
     "description": "Text for the 'copy ratings guide' button.",
     "defaultMessage": "Click to Copy This Ratings Guide to Your Clipboard"
+  },
+  {
+    "id": "ratingGuideBuilder.titleHeading",
+    "description": "Text for the Title column heading.",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "ratingGuideBuilder.questionHeading",
+    "description": "Text for the Question column heading.",
+    "defaultMessage": "Question"
+  },
+  {
+    "id": "ratingGuideBuilder.criteriaTypeHeading",
+    "description": "Text for the Criteria Type column heading.",
+    "defaultMessage": "Criteria Type"
+  },
+  {
+    "id": "ratingGuideBuilder.targetLevelHeading",
+    "description": "Text for the Target Level column heading.",
+    "defaultMessage": "Target Level"
+  },
+  {
+    "id": "ratingGuideBuilder.skillHeading",
+    "description": "Text for the Skill column heading.",
+    "defaultMessage": "Skill"
+  },
+  {
+    "id": "ratingGuideBuilder.skillDescriptionHeading",
+    "description": "Text for the Skill Description column heading.",
+    "defaultMessage": "Skill Description"
+  },
+  {
+    "id": "ratingGuideBuilder.ratingGuideHeading",
+    "description": "Text for the Rating Guide column heading.",
+    "defaultMessage": "Rating Guide"
   }
 ]

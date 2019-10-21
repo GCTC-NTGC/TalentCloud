@@ -35,9 +35,6 @@ export default function Modal({
   // Set up div ref to measure modal height
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Internal state to keep track of the overflow setting
-  const [overflow, setOverflow] = useState("");
-
   const handleTabKey = (e: KeyboardEvent): void => {
     if (modalRef && modalRef.current) {
       const focusableModalElements = modalRef.current.querySelectorAll(
@@ -85,17 +82,6 @@ export default function Modal({
     };
   }, [visible]);
 
-  // Runs when the children of the modal change to ensure proper height calculation
-  useEffect((): void => {
-    if (visible && modalRef && modalRef.current) {
-      const height = modalRef.current.scrollHeight;
-      const viewportHeight = window.innerHeight;
-      setOverflow(
-        height > viewportHeight ? "active--overflowing" : "active--contained",
-      );
-    }
-  }, [children, visible]);
-
   // Adds various key commands to the modal
   useEffect((): (() => void) => {
     let keyListener;
@@ -120,7 +106,7 @@ export default function Modal({
         aria-describedby={`${id}-description`}
         aria-hidden={!visible}
         aria-labelledby={`${id}-title`}
-        data-c-dialog={visible ? overflow : ""}
+        data-c-dialog={visible ? "active--overflowing" : ""}
         data-c-padding="top(double) bottom(double)"
         role="dialog"
         ref={modalRef}

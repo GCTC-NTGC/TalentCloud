@@ -25,6 +25,15 @@ class TwoFactorController extends AuthController
         ]);
     }
 
+    public function deactivate(Applicant $applicant)
+    {
+        $applicant->user->google2fa_secret = null;
+        $applicant->user->save();
+        $applicant->user->refresh();
+
+        return redirect(route('profile', $applicant));
+    }
+
     public function confirm(Request $request, Applicant $applicant)
     {
         $secret = $request->input('secret');

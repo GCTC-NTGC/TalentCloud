@@ -70,7 +70,7 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
   children,
 }): React.ReactElement => {
   // Trigger fetching of job details
-  const [isLoadingJob, setIsLoadingJob] = useState(false);
+  const [isLoadingJob, setIsLoadingJob] = useState(true);
   useEffect((): (() => void) => {
     let isSubscribed = true;
     if (jobId) {
@@ -85,7 +85,7 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
       isSubscribed = false;
     };
   }, [jobId, loadJob]);
-  const [isLoadingTasks, setIsLoadingTasks] = useState(false);
+  const [isLoadingTasks, setIsLoadingTasks] = useState(true);
   useEffect((): (() => void) => {
     let isSubscribed = true;
     if (jobId) {
@@ -100,7 +100,7 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
       isSubscribed = false;
     };
   }, [jobId, loadTasks]);
-  const [isLoadingCriteria, setIsLoadingCriteria] = useState(false);
+  const [isLoadingCriteria, setIsLoadingCriteria] = useState(true);
   useEffect((): (() => void) => {
     let isSubscribed = true;
     if (jobId) {

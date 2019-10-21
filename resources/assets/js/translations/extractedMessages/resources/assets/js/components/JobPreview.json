@@ -2,7 +2,7 @@
   {
     "id": "jobBuilder.preview.termLength",
     "description": "Calculated term length in months",
-    "defaultMessage": "{termMonths,plural,=0{no months} one{{termMonths, number} month} other{{termMonths, number} months}}"
+    "defaultMessage": "{termMonths, plural, =0 {no months} one {# month} other {# months}}"
   },
   {
     "id": "jobBuilder.preview.jobInformation",

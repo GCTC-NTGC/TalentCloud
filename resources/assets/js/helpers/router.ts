@@ -1,6 +1,7 @@
 import { createBrowserHistory, Location } from "history";
 import UniversalRouter, { Routes } from "universal-router";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, ReactElement } from "react";
+import { IntlShape, MessageDescriptor } from "react-intl";
 
 const HISTORY = createBrowserHistory();
 
@@ -36,8 +37,13 @@ export const useUrlHash = (): void => {
   }, [location.hash, hashFound]);
 };
 
+export interface RouterResult {
+  title: MessageDescriptor;
+  component: ReactElement;
+}
 export const useRouter = (
-  routes: Routes<any, React.ReactElement>,
+  routes: Routes<any, RouterResult>,
+  intl: IntlShape,
 ): React.ReactElement | null => {
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
@@ -45,10 +51,14 @@ export const useRouter = (
 
   // Render the result of routing
   useEffect((): void => {
-    router
-      .resolve(location.pathname)
-      .then((result): void => setComponent(result));
-  }, [location, router]);
+    router.resolve(location.pathname).then((result): void => {
+      const title = intl.formatMessage(result.title);
+      document.title = title;
+      const h1 = document.querySelector("h1");
+      if (h1) h1.innerHTML = title;
+      setComponent(result.component);
+    });
+  }, [intl, location, router]);
 
   return component;
 };

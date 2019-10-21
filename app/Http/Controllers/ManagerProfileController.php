@@ -187,6 +187,7 @@ class ManagerProfileController extends Controller
             [
                 'breadcrumb_home' => route('manager.home'),
                 'faq' => Lang::get('applicant/faq'),
+                'manager_sidebar_active' => 'active',
                 'show_notification' => $show_notification
             ]
         );

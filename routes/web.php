@@ -152,9 +152,17 @@ Route::group(
                     'profile/{applicant}/two-factor/activate',
                     'Auth\TwoFactorController@activate'
                 )
-                ->middleware('can:view,applicant')
-                ->middleware('can:update,applicant')
-                ->name('two_factor.activate');
+                    ->middleware('can:view,applicant')
+                    ->middleware('can:update,applicant')
+                    ->name('two_factor.activate');
+
+                Route::get(
+                    'profile/{applicant}/two-factor/deactivate',
+                    'Auth\TwoFactorController@deactivate'
+                )
+                    ->middleware('can:view,applicant')
+                    ->middleware('can:update,applicant')
+                    ->name('two_factor.deactivate');
 
                 Route::post(
                     'profile/{applicant}/two-factor/confirm',
@@ -236,6 +244,11 @@ Route::group(
                     'faq',
                     'ManagerProfileController@faq'
                 )->name('manager.faq');
+
+                Route::get(
+                    'faq#managers',
+                    'ManagerProfileController@faq'
+                )->name('manager.faq.section');
 
                 Route::middleware(['auth', 'role:manager'])->group(function (): void {
 
@@ -326,8 +339,7 @@ Route::group(
 
                     Route::view(
                         'jobs/{jobPoster}/assessment-plan',
-                        'manager/assessment_plan',
-                        ['title' => Lang::get('manager/screening-plan')['title']]
+                        'manager/assessment_plan'
                     )
                         ->where('jobPoster', '[0-9]+')
                         ->name('manager.jobs.screening_plan');
