@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\URL;
 class WhichPortal
 {
 
+    public function home()
+    {
+        if ($this->isAdminPortal()) {
+            return 'admin';
+        } else if ($this->isManagerPortal()) {
+            return route('manager.home');
+        }
+        return route('home');
+    }
+
     public function isApplicantPortal()
     {
         return !$this->isManagerPortal() && !$this->isAdminPortal();

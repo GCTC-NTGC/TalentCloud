@@ -16,4 +16,6 @@ return [
     'return' => 'Return Home',
     'header' => 'Enter One Time Password',
     'login' => 'Login',
+    'recover_link_title' => 'Use Recovery Code',
+    'recover_link' => 'Lost your authenticator device? Log in with a Recovery Code.',
 ];
