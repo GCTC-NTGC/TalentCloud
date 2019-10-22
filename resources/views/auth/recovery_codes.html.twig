@@ -28,13 +28,24 @@
                         {% for code in codes %}
                             <pre{% if loop.last %} data-c-margin="bottom(normal)"{% endif %}>{{ code }}</pre>
                         {% endfor %}
-                        <form action="{{ route('recovery_codes.generate') }}" method="POST" >
-                            {{ csrf_field() }}
-                            <p>{{ recovery_codes.generate_label }}</p>
-                            <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
-                                {{ recovery_codes.generate_button }}
-                            </button>
-                        </form>
+                        <div data-c-grid="middle">
+                            {# If we're regenerating codes every time you view them, there's no reason to have an extra button doing the same thing.
+                            <div data-c-grid-item="base(1of2)">
+                                <form action="{{ route('recovery_codes.generate') }}" method="POST" >
+                                    {{ csrf_field() }}
+                                    <p>{{ recovery_codes.generate_label }}</p>
+                                    <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
+                                        {{ recovery_codes.generate_button }}
+                                    </button>
+                                </form>
+                            </div>
+                            #}
+                            <div data-c-grid-item="base(1of1)" data-c-align="base(right)">
+                                <a href="{{ profile_url }}" data-c-button="solid(c1)" data-c-radius="rounded" title="{{ recovery_codes.profile_link_title}}">
+                                    {{ recovery_codes.profile_link_text }}
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
