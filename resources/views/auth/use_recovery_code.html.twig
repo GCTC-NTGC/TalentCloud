@@ -28,6 +28,7 @@
                             <div data-c-padding="tb(half)">
                                 {% include "errors/form_errors" %}
                                 {# recover Field #}
+                                <p>{{ recover.instructions }}</p>
                                 <div data-c-input="number">
                                     <label for="recovery_code">{{ recover.form_label }}</label>
                                     <span>{{ trans("forms.required") }}</span>
