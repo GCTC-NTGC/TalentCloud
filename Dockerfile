@@ -11,7 +11,7 @@ RUN apk update && apk upgrade && \
         libtool \
         make \
         pcre-dev && \
-    apk add --no-cache postgresql-dev imagemagick-dev && \
+    apk add --no-cache imagemagick imagemagick-dev postgresql-dev && \
         pecl install imagick && \
         pecl install xdebug && \
         docker-php-ext-enable imagick xdebug && \
