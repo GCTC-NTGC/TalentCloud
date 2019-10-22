@@ -45,7 +45,7 @@ class RecoveryCodeController extends AuthController
     {
         return view('auth.use_recovery_code', [
             'recover' => Lang::get('common/auth/use_recovery_code'),
-            'return_url' => route('home'),
+            'return_url' => redirect()->back()->getTargetUrl(),
             'otp_url' => redirect()->intended(WhichPortal::home())->getTargetUrl(),
         ]);
     }
