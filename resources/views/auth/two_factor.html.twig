@@ -22,7 +22,7 @@
                     <div class="tc-auth-header gradient-left-right" data-c-padding="all(double)" data-c-align="base(center)">
                         <h1 data-c-font-size="h2" data-c-color="white">{{ two_factor.header }}</h1>
                     </div>
-                    <form action="{{ route('two_factor.confirm', applicant.id) }}" method="POST">
+                    <form action="{{ route('two_factor.confirm') }}" method="POST">
                         {{ csrf_field() }}
                         <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
                             <div data-c-grid="middle">
