@@ -7,6 +7,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 class TwoFactorCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 
     /**
      * Prepare the admin interface by setting the associated
@@ -23,6 +24,8 @@ class TwoFactorCrudController extends CrudController
 
     public function setupListOperation()
     {
+        $this->crud->removeButton('update');
+
         $this->crud->addColumn([
             'name' => 'name',
             'type' => 'text',
@@ -35,10 +38,7 @@ class TwoFactorCrudController extends CrudController
             'label' => 'Google 2FA Secret'
         ]);
 
-        $this->crud->addColumn([
-            'name' => 'recovery_codes',
-            'type' => 'text',
-            'label' => 'Recovery Codes'
-        ]);
+        $this->crud->addButtonFromView('line', 'recovery_codes', 'recovery_codes', 'beginning');
+        $this->crud->addButtonFromView('line', 'deactivate_2fa', 'deactivate_2fa', 'end');
     }
 }
