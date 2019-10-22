@@ -15,7 +15,7 @@ return [
     'return_title' => 'Return to the home page.',
     'return' => 'Return Home',
     'header' => 'Activate Two Factor Authentication',
-    'setup' => 'Set up your two factor application by scanning the QR code. Alternatively, you can use the code below.',
+    'setup' => 'Set up your two factor application by scanning the QR code in a mobile app like Google Authenticator or Authy. Alternatively, you can use the code below.',
     'qr_alt' => 'QR Code image to use with authentication application.',
     'continue_text' => 'Continue',
 ];
