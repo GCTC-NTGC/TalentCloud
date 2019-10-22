@@ -1,7 +1,7 @@
 import React from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
@@ -123,10 +123,10 @@ interface ApplicationReviewState {
 }
 
 class ApplicationReview extends React.Component<
-  ApplicationReviewProps & InjectedIntlProps,
+  ApplicationReviewProps & WrappedComponentProps,
   ApplicationReviewState
 > {
-  public constructor(props: ApplicationReviewProps & InjectedIntlProps) {
+  public constructor(props: ApplicationReviewProps & WrappedComponentProps) {
     super(props);
     this.state = {
       selectedStatusId:

@@ -212,6 +212,11 @@ Route::group(
                     'ManagerProfileController@faq'
                 )->name('manager.faq');
 
+                Route::get(
+                    'faq#managers',
+                    'ManagerProfileController@faq'
+                )->name('manager.faq.section');
+
                 Route::middleware(['auth', 'role:manager'])->group(function (): void {
 
                     Route::get('profile', 'ManagerProfileController@editAuthenticated')->name('manager.profile');
@@ -301,8 +306,7 @@ Route::group(
 
                     Route::view(
                         'jobs/{jobPoster}/assessment-plan',
-                        'manager/assessment_plan',
-                        ['title' => Lang::get('manager/screening-plan')['title']]
+                        'manager/assessment_plan'
                     )
                         ->where('jobPoster', '[0-9]+')
                         ->name('manager.jobs.screening_plan');

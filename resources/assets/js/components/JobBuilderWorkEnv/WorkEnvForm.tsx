@@ -5,9 +5,11 @@ import * as Yup from "yup";
 import nprogress from "nprogress";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
+  MessageDescriptor,
+  IntlShape,
 } from "react-intl";
 import CheckboxGroup from "../Form/CheckboxGroup";
 import RadioGroup from "../Form/RadioGroup";
@@ -221,8 +223,8 @@ type CulturePaceId =
   | "culturePace04";
 const culturePaceList: {
   id: CulturePaceId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "culturePace01",
@@ -292,8 +294,8 @@ type MgmtStyleId =
   | "mgmtStyle04";
 const managementList: {
   id: MgmtStyleId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "mgmtStyle01",
@@ -362,8 +364,8 @@ type ExperiementalId =
   | "experimental04";
 const experimentalList: {
   id: ExperiementalId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "experimental01",
@@ -428,8 +430,8 @@ const facingMessages = defineMessages({
 type FacingId = "facing01" | "facing02" | "facing03" | "facing04";
 const facingList: {
   id: FacingId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "facing01",
@@ -498,8 +500,8 @@ type CollaborativenessId =
   | "collaborativeness04";
 const collaborativenessList: {
   id: CollaborativenessId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "collaborativeness01",
@@ -674,7 +676,7 @@ const updateJobWithValues = (
 };
 
 const renderRadioWithContext = (
-  intl: ReactIntl.InjectedIntl,
+  intl: IntlShape,
   touched: FormikTouched<WorkEnvFormValues>,
   errors: FormikErrors<WorkEnvFormValues>,
   values: WorkEnvFormValues,
@@ -682,8 +684,8 @@ const renderRadioWithContext = (
   label: string,
   sliderList: {
     id: string;
-    title: FormattedMessage.MessageDescriptor;
-    subtext: FormattedMessage.MessageDescriptor;
+    title: MessageDescriptor;
+    subtext: MessageDescriptor;
   }[],
 ): React.ReactElement => {
   return (
@@ -764,7 +766,7 @@ const WorkEnvForm = ({
   jobIsComplete,
   handleSkipToReview,
   intl,
-}: WorkEnvFormProps & InjectedIntlProps): React.ReactElement => {
+}: WorkEnvFormProps & WrappedComponentProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {

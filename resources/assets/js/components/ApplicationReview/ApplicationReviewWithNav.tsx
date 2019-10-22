@@ -1,7 +1,7 @@
 import React from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
@@ -121,10 +121,12 @@ interface ApplicationReviewWithNavState {
 }
 
 class ApplicationReviewWithNav extends React.Component<
-  ApplicationReviewWithNavProps & InjectedIntlProps,
+  ApplicationReviewWithNavProps & WrappedComponentProps,
   ApplicationReviewWithNavState
 > {
-  public constructor(props: ApplicationReviewWithNavProps & InjectedIntlProps) {
+  public constructor(
+    props: ApplicationReviewWithNavProps & WrappedComponentProps,
+  ) {
     super(props);
     this.state = {
       selectedStatusId:

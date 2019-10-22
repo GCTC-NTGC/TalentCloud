@@ -191,35 +191,6 @@ return [
                     "0" => "<a href=\"https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde/tests-autoevaluation.html\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Ouvrir les tests\">tests d'autoévaluation</a>"
                 ]
             ],
-            "partners" => [
-                "title" => "Les ministères partenaires du Nuage de talents",
-                "hash" => "partners",
-                "content" => [
-                    "0" => [
-                        "type" => "title",
-                        "hash" => "partners-participating",
-                        "copy" => "Quels ministères participent à ce modèle de dotation expérimental?"
-                    ],
-                    "1" => [
-                        "type" => "text",
-                        "copy" => "Le Nuage de talents est financé par des protocoles d'entente (PE) avec les ministères partenaires. Il ne s'agit pas de frais de service pour le personnel qui utilise la plateforme. Il s'agit d'un groupe de ministères qui cofinancent une solution de rechange expérimentale au modèle traditionnel des RH. Selon ce modèle, seuls les ministères partenaires peuvent embaucher du personnel à l'aide du Nuage de talents.\n\nLes ministères partenaires qui ont signé des PE sont les suivants :"
-                    ],
-                    "2" => [
-                        "type" => "ul",
-                        "items" => [
-                            "0" => "Secrétariat du Conseil du Trésor (ministère hôte)",
-                            "1" => "Transports Canada",
-                            "2" => "Affaires mondiales Canada",
-                            "3" => "Ressources naturelles Canada",
-                            "4" => "Agence des services frontaliers du Canada",
-                            "5" => "Ministère de la Défense nationale",
-                            "6" => "Services partagés Canada",
-                            "7" => "Santé Canada",
-                            "8" => "Conseil national de recherches Canada",
-                        ]
-                    ]
-                ]
-            ],
             "benefits" => [
                 "title" => "Avantages sociaux des employés",
                 "hash" => "benefits",
@@ -629,6 +600,35 @@ return [
                     "0" => "<a href=\"https://talent.canada.ca/fr/faq/#partners\" title=\"Voir les ministères partenaires du Nuage des talents.\">veuillez consulter la foire aux questions du site Web du Nuage de talents</a>",
                     "1" => "<a href=\"talent.canada.ca/manager\" title=\"Visitez le portail des gestionnaires du Nuage des talents.\">portail des gestionnaires de Nuages de talents</a>",
                     "2" => "<a href=\"mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca\" title=\"Envoyer un courriel au Nuage de talents.\">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>"
+                ]
+            ],
+            "partners" => [
+                "title" => "Les ministères partenaires du Nuage de talents",
+                "hash" => "partners",
+                "content" => [
+                    "0" => [
+                        "type" => "title",
+                        "hash" => "partners-participating",
+                        "copy" => "Quels ministères participent à ce modèle de dotation expérimental?"
+                    ],
+                    "1" => [
+                        "type" => "text",
+                        "copy" => "Le Nuage de talents est financé par des protocoles d'entente (PE) avec les ministères partenaires. Il ne s'agit pas de frais de service pour le personnel qui utilise la plateforme. Il s'agit d'un groupe de ministères qui cofinancent une solution de rechange expérimentale au modèle traditionnel des RH. Selon ce modèle, seuls les ministères partenaires peuvent embaucher du personnel à l'aide du Nuage de talents.\n\nLes ministères partenaires qui ont signé des PE sont les suivants :"
+                    ],
+                    "2" => [
+                        "type" => "ul",
+                        "items" => [
+                            "0" => "Secrétariat du Conseil du Trésor (ministère hôte)",
+                            "1" => "Transports Canada",
+                            "2" => "Affaires mondiales Canada",
+                            "3" => "Ressources naturelles Canada",
+                            "4" => "Agence des services frontaliers du Canada",
+                            "5" => "Ministère de la Défense nationale",
+                            "6" => "Services partagés Canada",
+                            "7" => "Santé Canada",
+                            "8" => "Conseil national de recherches Canada",
+                        ]
+                    ]
                 ]
             ],
             "tc-usage" => [

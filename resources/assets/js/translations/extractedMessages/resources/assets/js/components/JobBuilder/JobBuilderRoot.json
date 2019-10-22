@@ -1,0 +1,37 @@
+[
+  {
+    "id": "jobBuilder.intro.documentTitle",
+    "description": "The document's title shown in browser's title bar or tab.",
+    "defaultMessage": "Job Builder: Intro"
+  },
+  {
+    "id": "jobBuilder.details.documentTitle",
+    "description": "The document's title shown in browser's title bar or tab.",
+    "defaultMessage": "Job Builder: Details"
+  },
+  {
+    "id": "jobBuilder.workEnv.documentTitle",
+    "description": "The document's title shown in browser's title bar or tab.",
+    "defaultMessage": "Job Builder: Work Environment"
+  },
+  {
+    "id": "jobBuilder.impact.documentTitle",
+    "description": "The document's title shown in browser's title bar or tab.",
+    "defaultMessage": "Job Builder: Impact"
+  },
+  {
+    "id": "jobBuilder.tasks.documentTitle",
+    "description": "The document's title shown in browser's title bar or tab.",
+    "defaultMessage": "Job Builder: Tasks"
+  },
+  {
+    "id": "jobBuilder.skills.documentTitle",
+    "description": "The document's title shown in browser's title bar or tab.",
+    "defaultMessage": "Job Builder: Skills"
+  },
+  {
+    "id": "jobBuilder.review.documentTitle",
+    "description": "The document's title shown in browser's title bar or tab.",
+    "defaultMessage": "Job Builder: Review"
+  }
+]

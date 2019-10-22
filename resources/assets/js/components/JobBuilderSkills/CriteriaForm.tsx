@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
+import {
+  WrappedComponentProps,
+  injectIntl,
+  MessageDescriptor,
+  FormattedMessage,
+} from "react-intl";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { Criteria, Skill } from "../../models/types";
@@ -32,8 +37,8 @@ const essentialSkillLevels = (
   skillTypeId: number,
 ): {
   [key: string]: {
-    name: FormattedMessage.MessageDescriptor;
-    context: FormattedMessage.MessageDescriptor;
+    name: MessageDescriptor;
+    context: MessageDescriptor;
   };
 } => ({
   basic: {
@@ -143,7 +148,7 @@ const newCriteria = (jobPosterId: number, skillId: number): Criteria => ({
 /* eslint-enable @typescript-eslint/camelcase */
 
 export const CriteriaForm: React.FunctionComponent<
-  CriteriaFormProps & InjectedIntlProps
+  CriteriaFormProps & WrappedComponentProps
 > = ({
   jobPosterId,
   criteria,
@@ -210,7 +215,11 @@ export const CriteriaForm: React.FunctionComponent<
             {/* Skill Definition */}
             <div data-c-padding="all(normal)" data-c-background="grey(10)">
               <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-                Skill Definition
+                <FormattedMessage
+                  id="jobBuilder.criteriaForm.skillDefinition"
+                  defaultMessage="Skill Definition"
+                  description="Label for Skill Definition heading on Add Skill modal."
+                />
               </p>
               <div>
                 <p data-c-margin="bottom(normal)">{skill[locale].name}</p>
@@ -238,7 +247,11 @@ export const CriteriaForm: React.FunctionComponent<
                     >
                       <span>
                         <i className="fas fa-minus-circle" data-c-colour="c1" />
-                        Remove additional specificity.
+                        <FormattedMessage
+                          id="jobBuilder.criteriaForm.removeSpecificity"
+                          defaultMessage="Remove additional specificity."
+                          description="Label for 'Remove additional specificity' button on Add Skill modal."
+                        />
                       </span>
                     </button>
                   </>
@@ -250,8 +263,12 @@ export const CriteriaForm: React.FunctionComponent<
                   >
                     <span>
                       <i className="fas fa-plus-circle" data-c-colour="c1" />
-                      I'd like to add specificity to this definition. This will
-                      only apply to my job poster.
+                      <FormattedMessage
+                        id="jobBuilder.criteriaForm.addSpecificity"
+                        defaultMessage="I'd like to add specificity to this definition. This will
+                          only apply to my job poster."
+                        description="Label for 'Add additional specificity' button on Add Skill modal."
+                      />
                     </span>
                   </button>
                 )}
@@ -261,7 +278,11 @@ export const CriteriaForm: React.FunctionComponent<
             <div data-c-padding="all(normal)">
               <div className="job-builder-culture-block">
                 <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-                  Choose a Skill Level
+                  <FormattedMessage
+                    id="jobBuilder.criteriaForm.chooseSkillLevel"
+                    defaultMessage="Choose a Skill Level"
+                    description="Label for 'Choose a Skill Level' radio group heading on Add Skill modal."
+                  />
                 </p>
                 <div data-c-grid="gutter">
                   <RadioGroup
@@ -296,7 +317,13 @@ export const CriteriaForm: React.FunctionComponent<
                     >
                       {/** This empty div is required for CSS magic */}
                       <div />
-                      <span>or</span>
+                      <span>
+                        <FormattedMessage
+                          id="jobBuilder.criteriaForm.or"
+                          defaultMessage="or"
+                          description="Label for 'or' between essential/asset levels on Add Skill modal."
+                        />
+                      </span>
                     </div>
                     <Field
                       key="asset"
@@ -350,7 +377,11 @@ export const CriteriaForm: React.FunctionComponent<
                     disabled={isSubmitting}
                     onClick={handleCancel}
                   >
-                    Cancel
+                    <FormattedMessage
+                      id="jobBuilder.criteriaForm.button.cancel"
+                      defaultMessage="Cancel"
+                      description="Label for Cancel button on Add Skill modal."
+                    />
                   </button>
                 </div>
                 <div
@@ -363,7 +394,11 @@ export const CriteriaForm: React.FunctionComponent<
                     disabled={isSubmitting}
                     type="submit"
                   >
-                    Add Skill
+                    <FormattedMessage
+                      id="jobBuilder.criteriaForm.button.add"
+                      defaultMessage="Add Skill"
+                      description="Label for Add Skill button on Add Skill modal."
+                    />
                   </button>
                 </div>
               </div>

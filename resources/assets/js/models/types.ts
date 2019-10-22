@@ -7,7 +7,6 @@ export interface JobTranslation {
   dept_impact: string | null;
   team_impact: string | null;
   hire_impact: string | null;
-  branch: string | null;
   division: string | null;
   education: string | null;
   work_env_description: string | null;
@@ -50,7 +49,6 @@ export interface Job {
 }
 
 export interface ManagerTranslation {
-  branch: string | null;
   division: string | null;
   position: string | null;
   leadership_style: string | null;

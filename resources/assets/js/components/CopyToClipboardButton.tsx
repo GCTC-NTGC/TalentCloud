@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { copyToClipboard } from "../helpers/clipboard";
-import { FormattedMessage } from "react-intl";
 
 interface CopyToClipboardProps {
   actionText: string | React.ReactElement;

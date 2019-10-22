@@ -15,7 +15,6 @@ return [
     'link' => [
         'text' => 'Click here',
         'title' => 'Click here to find out how to publish a job on Talent Cloud',
-        'href' => '#upgrade'
     ],
     'second' => 'to find out how to publish a job on Talent Cloud.'
 ];

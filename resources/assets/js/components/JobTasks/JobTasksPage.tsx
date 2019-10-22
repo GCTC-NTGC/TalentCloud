@@ -1,5 +1,5 @@
 import React from "react";
-import { InjectedIntlProps, injectIntl } from "react-intl";
+import { WrappedComponentProps, injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import { JobPosterKeyTask, Job, Criteria } from "../../models/types";
@@ -38,7 +38,7 @@ interface JobTasksPageProps {
 }
 
 const JobTasksPage: React.FunctionComponent<
-  JobTasksPageProps & InjectedIntlProps
+  JobTasksPageProps & WrappedComponentProps
 > = ({
   jobId,
   job,

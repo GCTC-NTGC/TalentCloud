@@ -2,11 +2,11 @@
   {
     "id": "ratingGuideBuilder.essentialMissing",
     "description": "Label for list of missing essential skills.",
-    "defaultMessage": "{count} Essential Missing:"
+    "defaultMessage": "{count} Essential Missing: "
   },
   {
     "id": "ratingGuideBuilder.assetMissing",
     "description": "Label for list of missing asset skills.",
-    "defaultMessage": "{count} Asset Missing:"
+    "defaultMessage": "{count} Asset Missing: "
   }
 ]

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
+  MessageDescriptor,
 } from "react-intl";
 import Swal from "sweetalert2";
 import { Application } from "../../models/types";
@@ -14,8 +15,8 @@ import { ReviewStatusId } from "../../models/lookupConstants";
 import { copyToClipboard } from "../../helpers/clipboard";
 
 interface ReviewCategoryProps {
-  title: FormattedMessage.MessageDescriptor;
-  description: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  description: MessageDescriptor;
   showScreenOutAll: boolean;
   applications: Application[];
   reviewStatusOptions: SelectOption[];
@@ -45,7 +46,7 @@ const localizations = defineMessages({
 });
 
 const ReviewCategory: React.StatelessComponent<
-  ReviewCategoryProps & InjectedIntlProps
+  ReviewCategoryProps & WrappedComponentProps
 > = ({
   title,
   description,
@@ -58,7 +59,7 @@ const ReviewCategory: React.StatelessComponent<
   savingStatuses,
   prioritizeVeterans,
   intl,
-}: ReviewCategoryProps & InjectedIntlProps): React.ReactElement | null => {
+}: ReviewCategoryProps & WrappedComponentProps): React.ReactElement | null => {
   if (applications.length === 0) {
     return null;
   }

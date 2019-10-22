@@ -1,0 +1,37 @@
+[
+  {
+    "id": "jobBuilder.criteriaForm.skillDefinition",
+    "description": "Label for Skill Definition heading on Add Skill modal.",
+    "defaultMessage": "Skill Definition"
+  },
+  {
+    "id": "jobBuilder.criteriaForm.removeSpecificity",
+    "description": "Label for 'Remove additional specificity' button on Add Skill modal.",
+    "defaultMessage": "Remove additional specificity."
+  },
+  {
+    "id": "jobBuilder.criteriaForm.addSpecificity",
+    "description": "Label for 'Add additional specificity' button on Add Skill modal.",
+    "defaultMessage": "I'd like to add specificity to this definition. This will\n                          only apply to my job poster."
+  },
+  {
+    "id": "jobBuilder.criteriaForm.chooseSkillLevel",
+    "description": "Label for 'Choose a Skill Level' radio group heading on Add Skill modal.",
+    "defaultMessage": "Choose a Skill Level"
+  },
+  {
+    "id": "jobBuilder.criteriaForm.or",
+    "description": "Label for 'or' between essential/asset levels on Add Skill modal.",
+    "defaultMessage": "or"
+  },
+  {
+    "id": "jobBuilder.criteriaForm.button.cancel",
+    "description": "Label for Cancel button on Add Skill modal.",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "jobBuilder.criteriaForm.button.add",
+    "description": "Label for Add Skill button on Add Skill modal.",
+    "defaultMessage": "Add Skill"
+  }
+]

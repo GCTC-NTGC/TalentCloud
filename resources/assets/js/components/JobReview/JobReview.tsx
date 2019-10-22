@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
@@ -241,18 +241,8 @@ const sectionTitle = (title: string): React.ReactElement => {
 const languageRequirementIcons = (
   languageRequirementId: number,
 ): React.ReactElement => {
-  const enIcon = (
-    <img
-      src="/images/icon_english_requirement.svg"
-      alt="English language requirement icon."
-    />
-  );
-  const frIcon = (
-    <img
-      src="/images/icon_french_requirement.svg"
-      alt="French language requirement icon."
-    />
-  );
+  const enIcon = <img src="/images/icon_english_requirement.svg" alt="" />;
+  const frIcon = <img src="/images/icon_french_requirement.svg" alt="" />;
   switch (languageRequirementId) {
     case LanguageRequirementId.bilingualIntermediate:
     case LanguageRequirementId.bilingualAdvanced:
@@ -350,7 +340,7 @@ interface JobReviewProps {
 }
 
 export const JobReview: React.FunctionComponent<
-  JobReviewProps & InjectedIntlProps
+  JobReviewProps & WrappedComponentProps
 > = ({
   job,
   manager,
@@ -489,7 +479,7 @@ export const JobReview: React.FunctionComponent<
               <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
                 <FormattedMessage
                   id="jobBuilder.review.averageAnnualSalary"
-                  defaultMessage="Average Annual Salary"
+                  defaultMessage="Annual Salary Range"
                   description="Label for salary information."
                 />
               </p>
