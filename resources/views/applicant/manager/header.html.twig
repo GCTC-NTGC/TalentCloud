@@ -15,9 +15,9 @@
             {# <button
                 class="applicant-profile__header-photo"
                 onclick=""
-                aria-label="{{ manager.user.name }}"
+                aria-label="{{ manager.user.first_name }} {{ manager.user.last_name }}"
                 >
-                <span class="hidden">{{ manager.user.name }}</span>
+                <span class="hidden">{{ manager.user.first_name }} {{ manager.user.last_name }}</span>
                 <div
                     style="background-image:url('{{ manager_profile_photo_url }}')">
                 </div>
@@ -47,9 +47,9 @@
                             href="{{ urls.twitter|replace({":username":manager.twitter_username}) }}"
                             target="_blank"
                             rel="noopener noreferrer"
-                            title="{{ manager_profile.twitter_label|replace({":name":manager.user.name}) }}">
+                            title="{{ manager_profile.twitter_label|replace({":name":manager.user.first_name}) }}">
                             <i class="fab fa-twitter"></i>
-                            <span class="hidden">{{ manager_profile.twitter_label|replace({":name":manager.user.name}) }}</span>
+                            <span class="hidden">{{ manager_profile.twitter_label|replace({":name":manager.user.first_name}) }}</span>
                         </a>
                     </li>
 
@@ -58,9 +58,9 @@
                             href="{{ manager.linkedin_url }}"
                             target="_blank"
                             rel="noopener noreferrer"
-                            title="{{ manager_profile.linkedin_label|replace({":name":manager.user.name}) }}">
+                            title="{{ manager_profile.linkedin_label|replace({":name":manager.user.first_name}) }}">
                             <i class="fab fa-linkedin"></i>
-                            <span class="hidden">{{ manager_profile.linkedin_label|replace({":name":manager.user.name}) }}</span>
+                            <span class="hidden">{{ manager_profile.linkedin_label|replace({":name":manager.user.first_name}) }}</span>
                         </a>
                     </li>
 

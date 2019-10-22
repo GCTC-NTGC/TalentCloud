@@ -15,12 +15,12 @@
             {# <button
                 class="applicant-profile__header-photo"
                 onclick=""
-                aria-label="{{ user.name }}"
+                aria-label="{{ user.first_name }} {{ user.last_name }}"
                 >
                 <div
                     style="background-image:url('{{ manager_profile_photo_url }}')">
                 </div>
-                <span class="hidden">{{ user.name }}</span>
+                <span class="hidden">{{ user.first_name }} {{ user.last_name }}</span>
             </button> #}
 
         {# Name #}
@@ -47,9 +47,9 @@
                             href="{{ urls.twitter|replace({':username':manager.twitter_username}) }}"
                             target="_blank"
                             rel="noopener noreferrer"
-                            title="{{ header_l10n.twitter|replace({':name':user.name}) }}">
+                            title="{{ header_l10n.twitter|replace({':name':manager.user.first_name}) }}">
                             <i class="fab fa-twitter"></i>
-                            <span class="hidden">{{ header_l10n.twitter|replace({':name':user.name}) }}</span>
+                            <span class="hidden">{{ header_l10n.twitter|replace({':name':manager.user.nafirst_nameme}) }}</span>
                         </a>
                     </li>
 
@@ -58,9 +58,9 @@
                             href="{{ manager.linkedin_url }}"
                             target="_blank"
                             rel="noopener noreferrer"
-                            title="{{ header_l10n.linkedin|replace({':name':user.name}) }}">
+                            title="{{ header_l10n.linkedin|replace({':name':manager.user.first_name}) }}">
                             <i class="fab fa-linkedin"></i>
-                            <span class="hidden">{{ header_l10n.linkedin|replace({':name':user.name}) }}</span>
+                            <span class="hidden">{{ header_l10n.linkedin|replace({':name':manager.user.first_name}) }}</span>
                         </a>
                     </li>
 
