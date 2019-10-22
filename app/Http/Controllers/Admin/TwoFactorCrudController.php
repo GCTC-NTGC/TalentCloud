@@ -53,7 +53,7 @@ class TwoFactorCrudController extends CrudController
 
         $this->crud->addColumn([
             'name' => 'recovery_codes',
-            'type' => 'array',
+            'type' => 'array_count',
             'label' => 'Recovery Codes',
             'orderable' => false,
         ]);

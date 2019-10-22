@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 
-use App\Models\Applicant;
-
 class TwoFactorController extends AuthController
 {
     public function activate(Request $request)
@@ -29,6 +27,7 @@ class TwoFactorController extends AuthController
     {
         $user = $request->user();
         $user->google2fa_secret = null;
+        $user->recovery_codes = null;
         $user->save();
         $user->refresh();
 
