@@ -8,39 +8,41 @@ use App\Models\Applicant;
 
 class TwoFactorController extends AuthController
 {
-    public function activate(Applicant $applicant)
+    public function activate(Request $request)
     {
+        $user = $request->user();
         $google2fa = app('pragmarx.google2fa');
         $secret = $google2fa->generateSecretKey();
         $qrImage = $google2fa->getQRCodeInline(
             config('app.name'),
-            $applicant->user->email,
+            $user->email,
             $secret
         );
 
         return view('auth.two_factor', [
-            'applicant' => $applicant,
             'qr_image' => $qrImage,
             'secret' => $secret
         ]);
     }
 
-    public function deactivate(Applicant $applicant)
+    public function deactivate(Request $request)
     {
-        $applicant->user->google2fa_secret = null;
-        $applicant->user->save();
-        $applicant->user->refresh();
+        $user = $request->user();
+        $user->google2fa_secret = null;
+        $user->save();
+        $user->refresh();
 
-        return redirect(route('profile', $applicant));
+        return redirect()->back();
     }
 
-    public function confirm(Request $request, Applicant $applicant)
+    public function confirm(Request $request)
     {
+        $user = $request->user();
         $secret = $request->input('secret');
-        if (!empty($secret) && empty($applicant->user->google2fa_secret)) {
-            $applicant->user->google2fa_secret = $secret;
-            $applicant->user->save();
-            $applicant->user->refresh();
+        if (!empty($secret) && empty($user->google2fa_secret)) {
+            $user->google2fa_secret = $secret;
+            $user->save();
+            $user->refresh();
         }
 
         return redirect(route('recovery_codes.show'));
