@@ -60,6 +60,7 @@ class TwoFactorCrudController extends CrudController
 
         // Add the custom blade buttons (resources/views/vendor/backpack/crud/buttons).
         $this->crud->addButtonFromView('line', 'recovery_codes', 'recovery_codes', 'beginning');
+        $this->crud->addButtonFromView('line', 'activate_2fa', 'activate_2fa', 'end');
         $this->crud->addButtonFromView('line', 'deactivate_2fa', 'deactivate_2fa', 'end');
     }
 }
