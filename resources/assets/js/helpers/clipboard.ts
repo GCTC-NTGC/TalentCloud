@@ -1,7 +1,7 @@
 export async function copyToClipboard(
   event,
   text: string,
-): Promise<void | boolean> {
+): Promise<void> {
   if (event.clipboardData && event.clipboardData.setData) {
     // IE specific code path to prevent textarea being shown while dialog is visible.
     return event.clipboardData.setData("Text", text);
@@ -16,15 +16,16 @@ export async function copyToClipboard(
     document.body.appendChild(textarea);
     textarea.select();
     try {
-      return document.execCommand("copy"); // Security exception may be thrown by some browsers.
+      document.execCommand("copy"); // Security exception may be thrown by some browsers.
+      return Promise.resolve();
     } catch (ex) {
       console.warn("Copy to clipboard failed.", ex);
-      return false;
+      return Promise.reject();
     } finally {
       document.body.removeChild(textarea);
     }
   }
-  return false;
+  return Promise.reject();
 }
 
 export function copyElementContents(el: Element): void {
