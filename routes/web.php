@@ -149,27 +149,21 @@ Route::group(
                     ->name('profile.work_samples.edit');
 
                 Route::get(
-                    'profile/{applicant}/two-factor/activate',
+                    'profile/two-factor/activate',
                     'Auth\TwoFactorController@activate'
                 )
-                    ->middleware('can:view,applicant')
-                    ->middleware('can:update,applicant')
                     ->name('two_factor.activate');
 
                 Route::get(
-                    'profile/{applicant}/two-factor/deactivate',
+                    'profile/two-factor/deactivate',
                     'Auth\TwoFactorController@deactivate'
                 )
-                    ->middleware('can:view,applicant')
-                    ->middleware('can:update,applicant')
                     ->name('two_factor.deactivate');
 
                 Route::post(
-                    'profile/{applicant}/two-factor/confirm',
+                    'profile/two-factor/confirm',
                     'Auth\TwoFactorController@confirm'
                 )
-                ->middleware('can:view,applicant')
-                ->middleware('can:update,applicant')
                 ->name('two_factor.confirm');
             });
 
