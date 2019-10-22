@@ -18,190 +18,185 @@ Route::group(
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
-    function () : void {
+    function (): void {
         /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-        Route::group(['prefix' => config('app.applicant_prefix')], function () : void {
+        Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
 
-            Route::post('/2fa', function () {
-                return redirect()->intended();
-            })->name('2fa')->middleware('2fa');
-
-            Route::post('two-factor/generate_recovery_codes', 'Auth\RecoveryCodeController@generate')->name('recovery_codes.generate');
-            Route::get('two-factor/recovery_codes', 'Auth\RecoveryCodeController@show')->name('recovery_codes.show');
             Route::get('two-factor/use_recovery_code', 'Auth\RecoveryCodeController@use')->name('recovery_codes.use');
             Route::post('two-factor/use_recovery_code', 'Auth\RecoveryCodeController@authenticate')->name('recovery_codes.authenticate');
 
-            /* Home */
-            Route::get('/', 'HomepageController@applicant')->name('home');
+            /**
+             * IF user is logged in AND has activated 2fa, require one-time password.
+             * This should include all routes except those related to authentication, to avoid loops.
+             */
+            Route::middleware(['2fa'])->group(function (): void {
+                Route::post('/2fa', function () {
+                    return redirect()->intended();
+                })->name('2fa');
 
-            /* Jobs */
-            Route::get('jobs', 'JobController@index')->name('jobs.index');
+                /* Home */
+                Route::get('/', 'HomepageController@applicant')->name('home');
 
-            Route::get('jobs/{jobPoster}', 'JobController@show')
-                ->middleware('can:view,jobPoster')
-                ->name('jobs.show');
+                /* Jobs */
+                Route::get('jobs', 'JobController@index')->name('jobs.index');
 
-            /* Require being logged in */
-            Route::middleware(['auth'])->group(function () : void {
-                /* Managers */
-                Route::get('managers/{manager}', 'ManagerProfileController@show')
-                    ->middleware('can:view,manager')
-                    ->name('managers.show');
+                Route::get('jobs/{jobPoster}', 'JobController@show')
+                    ->middleware('can:view,jobPoster')
+                    ->name('jobs.show');
+
+                /* Require being logged in */
+                Route::middleware(['auth'])->group(function (): void {
+                    /* Managers */
+                    Route::get('managers/{manager}', 'ManagerProfileController@show')
+                        ->middleware('can:view,manager')
+                        ->name('managers.show');
+                });
+
+                /* Require being logged in as applicant */
+                Route::middleware(['auth', 'role:applicant'])->group(function (): void {
+
+                    // Application permissions are handled within the controller instead of with middleware
+                    /* Applications */
+                    Route::get('applications', 'ApplicationController@index')->name('applications.index');
+
+                    /* View Application */
+                    Route::get('applications/{application}', 'ApplicationController@show')
+                        ->middleware('can:view,application')
+                        ->name('applications.show');
+
+                    /* Step 01 */
+                    Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@editBasics')->name('job.application.edit.1');
+
+                    /* Step 02 */
+                    Route::get('jobs/{jobPoster}/application/step-02', 'ApplicationByJobController@editExperience')->name('job.application.edit.2');
+
+                    /* Step 03 */
+                    Route::get('jobs/{jobPoster}/application/step-03', 'ApplicationByJobController@editEssentialSkills')->name('job.application.edit.3');
+
+                    /* Step 04 */
+                    Route::get('jobs/{jobPoster}/application/step-04', 'ApplicationByJobController@editAssetSkills')->name('job.application.edit.4');
+
+                    /* Step 05 */
+                    Route::get('jobs/{jobPoster}/application/step-05', 'ApplicationByJobController@preview')->name('job.application.edit.5');
+
+                    /* Step 06 */
+                    Route::get('jobs/{jobPoster}/application/step-06', 'ApplicationByJobController@confirm')->name('job.application.edit.6');
+
+                    /* Step 06: Complete */
+                    Route::get('jobs/{jobPoster}/application/complete', 'ApplicationByJobController@complete')->name('job.application.complete');
+
+                    /* Application Update routes */
+
+                    /* Step 01 */
+                    Route::post('jobs/{jobPoster}/application/step-01/update', 'ApplicationByJobController@updateBasics')->name('job.application.update.1');
+
+                    /* Step 02 */
+                    Route::post('jobs/{jobPoster}/application/step-02/update', 'ApplicationByJobController@updateExperience')->name('job.application.update.2');
+
+                    /* Step 03 */
+                    Route::post('jobs/{jobPoster}/application/step-03/update', 'ApplicationByJobController@updateEssentialSkills')->name('job.application.update.3');
+
+                    /* Step 04 */
+                    Route::post('jobs/{jobPoster}/application/step-04/update', 'ApplicationByJobController@updateAssetSkills')->name('job.application.update.4');
+
+                    /* Step 05 */
+                    Route::post('jobs/{jobPoster}/application/submit', 'ApplicationByJobController@submit')->name('job.application.submit');
+
+                    Route::get('profile', 'ApplicantProfileController@editAuthenticated')->name('profile');
+                    Route::get('profile/about', 'ApplicantProfileController@editAuthenticated');
+
+                    /* Profile - About Me */
+                    Route::get('profile/{applicant}/about', 'ApplicantProfileController@edit')
+                        ->middleware('can:view,applicant')
+                        ->middleware('can:update,applicant')
+                        ->name('profile.about.edit');
+
+                    Route::post('profile/{applicant}/about/update', 'ApplicantProfileController@update')
+                        ->middleware('can:update,applicant')
+                        ->name('profile.about.update');
+
+                    /* Profile - My Experience */
+                    Route::get('profile/experience', 'ExperienceController@editAuthenticated');
+
+                    Route::get('profile/{applicant}/experience', 'ExperienceController@edit')
+                        ->middleware('can:view,applicant')
+                        ->middleware('can:update,applicant')
+                        ->name('profile.experience.edit');
+
+                    Route::post('profile/{applicant}/experience/update', 'ExperienceController@update')
+                        ->middleware('can:update,applicant')
+                        ->name('profile.experience.update');
+
+                    /* Profile - My Skills */
+                    Route::get('profile/skills', 'SkillDeclarationController@editAuthenticated');
+
+                    Route::get('profile/{applicant}/skills', 'SkillDeclarationController@edit')
+                        ->middleware('can:view,applicant')
+                        ->middleware('can:update,applicant')
+                        ->name('profile.skills.edit');
+
+                    /* Profile - My References */
+                    Route::get('profile/references', 'ReferencesController@editAuthenticated');
+
+                    Route::get('profile/{applicant}/references', 'ReferencesController@edit')
+                        ->middleware('can:view,applicant')
+                        ->middleware('can:update,applicant')
+                        ->name('profile.references.edit');
+
+                    /* Profile - My Portfolio */
+                    Route::get('profile/portfolio', 'WorkSamplesController@editAuthenticated');
+
+                    Route::get('profile/{applicant}/portfolio', 'WorkSamplesController@edit')
+                        ->middleware('can:view,applicant')
+                        ->middleware('can:update,applicant')
+                        ->name('profile.work_samples.edit');
+                });
+
+                /* Static - FAQ */
+                Route::get('faq', 'FaqController')->name('faq');
+
+                /* Static - Privacy Policy */
+                Route::view('privacy', 'common/static_privacy', ['privacy' => Lang::get('common/privacy')])
+                    ->name('privacy');
+
+                /* Static - Terms of Service */
+                Route::view('tos', 'common/static_tos', ['tos' => Lang::get('common/tos')])->name('tos');
+
+                /* Static - ITP */
+                Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
+
+                /* Temporary Blog Index */
+                Route::view('blog', 'common/blog-index')->name('blog');
+
+                /* Temporary Blog Post */
+                Route::view('post', 'common/blog-post')->name('post');
+
+                // /* Temp Builder 01 (Intro) */
+                Route::view('builder-01', 'manager/builder-01')->middleware('localOnly')->name('jpb1');
+                // /* Temp Builder 02 (Job info) */
+                Route::view('builder-02', 'manager/builder-02')->middleware('localOnly')->name('jpb2');
+                // /* Temp Builder 03 (Work Environment) */
+                Route::view('builder-03', 'manager/builder-03')->middleware('localOnly')->name('jpb3');
+                // /* Temp Builder 04 (Impact) */
+                Route::view('builder-04', 'manager/builder-04')->middleware('localOnly')->name('jpb4');
+                // /* Temp Builder 05 (Tasks) */
+                Route::view('builder-05', 'manager/builder-05')->middleware('localOnly')->name('jpb5');
+                // /* Temp Builder 06 (Skills) */
+                Route::view('builder-06', 'manager/builder-06')->middleware('localOnly')->name('jpb6');
+                // /* Temp Builder 07 (Education) */
+                Route::view('builder-07', 'manager/builder-07')->middleware('localOnly')->name('jpb7');
+                // /* Temp Builder 08 (Review) */
+                Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
+
+
+                Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('two_factor.activate');
+                Route::get('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('two_factor.deactivate');
+                Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('two_factor.confirm');
+
+                Route::post('two-factor/generate_recovery_codes', 'Auth\RecoveryCodeController@generate')->name('recovery_codes.generate');
+                Route::get('two-factor/recovery_codes', 'Auth\RecoveryCodeController@show')->name('recovery_codes.show');
             });
 
-            /* Require being logged in as applicant */
-            Route::middleware(['auth', '2fa', 'role:applicant'])->group(function () : void {
-
-            // Application permissions are handled within the controller instead of with middleware
-                /* Applications */
-                Route::get('applications', 'ApplicationController@index')->name('applications.index');
-
-                /* View Application */
-                Route::get('applications/{application}', 'ApplicationController@show')
-                    ->middleware('can:view,application')
-                    ->name('applications.show');
-
-                /* Step 01 */
-                Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@editBasics')->name('job.application.edit.1');
-
-                /* Step 02 */
-                Route::get('jobs/{jobPoster}/application/step-02', 'ApplicationByJobController@editExperience')->name('job.application.edit.2');
-
-                /* Step 03 */
-                Route::get('jobs/{jobPoster}/application/step-03', 'ApplicationByJobController@editEssentialSkills')->name('job.application.edit.3');
-
-                /* Step 04 */
-                Route::get('jobs/{jobPoster}/application/step-04', 'ApplicationByJobController@editAssetSkills')->name('job.application.edit.4');
-
-                /* Step 05 */
-                Route::get('jobs/{jobPoster}/application/step-05', 'ApplicationByJobController@preview')->name('job.application.edit.5');
-
-                /* Step 06 */
-                Route::get('jobs/{jobPoster}/application/step-06', 'ApplicationByJobController@confirm')->name('job.application.edit.6');
-
-                /* Step 06: Complete */
-                Route::get('jobs/{jobPoster}/application/complete', 'ApplicationByJobController@complete')->name('job.application.complete');
-
-                /* Application Update routes */
-
-                /* Step 01 */
-                Route::post('jobs/{jobPoster}/application/step-01/update', 'ApplicationByJobController@updateBasics')->name('job.application.update.1');
-
-                /* Step 02 */
-                Route::post('jobs/{jobPoster}/application/step-02/update', 'ApplicationByJobController@updateExperience')->name('job.application.update.2');
-
-                /* Step 03 */
-                Route::post('jobs/{jobPoster}/application/step-03/update', 'ApplicationByJobController@updateEssentialSkills')->name('job.application.update.3');
-
-                /* Step 04 */
-                Route::post('jobs/{jobPoster}/application/step-04/update', 'ApplicationByJobController@updateAssetSkills')->name('job.application.update.4');
-
-                /* Step 05 */
-                Route::post('jobs/{jobPoster}/application/submit', 'ApplicationByJobController@submit')->name('job.application.submit');
-
-                Route::get('profile', 'ApplicantProfileController@editAuthenticated')->name('profile');
-                Route::get('profile/about', 'ApplicantProfileController@editAuthenticated');
-
-                /* Profile - About Me */
-                Route::get('profile/{applicant}/about', 'ApplicantProfileController@edit')
-                    ->middleware('can:view,applicant')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.about.edit');
-
-                Route::post('profile/{applicant}/about/update', 'ApplicantProfileController@update')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.about.update');
-
-                /* Profile - My Experience */
-                Route::get('profile/experience', 'ExperienceController@editAuthenticated');
-
-                Route::get('profile/{applicant}/experience', 'ExperienceController@edit')
-                    ->middleware('can:view,applicant')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.experience.edit');
-
-                Route::post('profile/{applicant}/experience/update', 'ExperienceController@update')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.experience.update');
-
-                /* Profile - My Skills */
-                Route::get('profile/skills', 'SkillDeclarationController@editAuthenticated');
-
-                Route::get('profile/{applicant}/skills', 'SkillDeclarationController@edit')
-                    ->middleware('can:view,applicant')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.skills.edit');
-
-                /* Profile - My References */
-                Route::get('profile/references', 'ReferencesController@editAuthenticated');
-
-                Route::get('profile/{applicant}/references', 'ReferencesController@edit')
-                    ->middleware('can:view,applicant')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.references.edit');
-
-                /* Profile - My Portfolio */
-                Route::get('profile/portfolio', 'WorkSamplesController@editAuthenticated');
-
-                Route::get('profile/{applicant}/portfolio', 'WorkSamplesController@edit')
-                    ->middleware('can:view,applicant')
-                    ->middleware('can:update,applicant')
-                    ->name('profile.work_samples.edit');
-
-                Route::get(
-                    'profile/two-factor/activate',
-                    'Auth\TwoFactorController@activate'
-                )
-                    ->name('two_factor.activate');
-
-                Route::get(
-                    'profile/two-factor/deactivate',
-                    'Auth\TwoFactorController@deactivate'
-                )
-                    ->name('two_factor.deactivate');
-
-                Route::post(
-                    'profile/two-factor/confirm',
-                    'Auth\TwoFactorController@confirm'
-                )
-                ->name('two_factor.confirm');
-            });
-
-            /* Static - FAQ */
-            Route::get('faq', 'FaqController')->name('faq');
-
-            /* Static - Privacy Policy */
-            Route::view('privacy', 'common/static_privacy', ['privacy' => Lang::get('common/privacy')])
-                ->name('privacy');
-
-            /* Static - Terms of Service */
-            Route::view('tos', 'common/static_tos', ['tos' => Lang::get('common/tos')])->name('tos');
-
-            /* Static - ITP */
-            Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
-
-            /* Temporary Blog Index */
-            Route::view('blog', 'common/blog-index')->name('blog');
-
-            /* Temporary Blog Post */
-            Route::view('post', 'common/blog-post')->name('post');
-
-            // /* Temp Builder 01 (Intro) */
-            Route::view('builder-01', 'manager/builder-01')->middleware('localOnly')->name('jpb1');
-            // /* Temp Builder 02 (Job info) */
-            Route::view('builder-02', 'manager/builder-02')->middleware('localOnly')->name('jpb2');
-            // /* Temp Builder 03 (Work Environment) */
-            Route::view('builder-03', 'manager/builder-03')->middleware('localOnly')->name('jpb3');
-            // /* Temp Builder 04 (Impact) */
-            Route::view('builder-04', 'manager/builder-04')->middleware('localOnly')->name('jpb4');
-            // /* Temp Builder 05 (Tasks) */
-            Route::view('builder-05', 'manager/builder-05')->middleware('localOnly')->name('jpb5');
-            // /* Temp Builder 06 (Skills) */
-            Route::view('builder-06', 'manager/builder-06')->middleware('localOnly')->name('jpb6');
-            // /* Temp Builder 07 (Education) */
-            Route::view('builder-07', 'manager/builder-07')->middleware('localOnly')->name('jpb7');
-            // /* Temp Builder 08 (Review) */
-            Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
 
             /* Authentication =========================================================== */
 
@@ -250,30 +245,30 @@ Route::group(
 
                     /* Profile */
                     Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')
-                    ->middleware('can:view,manager')
-                    ->middleware('can:update,manager')
-                    ->name('manager.profile.edit');
+                        ->middleware('can:view,manager')
+                        ->middleware('can:update,manager')
+                        ->name('manager.profile.edit');
 
                     Route::post('profile/{manager}/update', 'ManagerProfileController@update')
-                    ->middleware('can:update,manager')
-                    ->name('manager.profile.update');
+                        ->middleware('can:update,manager')
+                        ->name('manager.profile.update');
 
                     /* Reviewing applications/applicants requires 2-factor authentication */
                     Route::middleware(['2fa.required'])->group(function (): void {
                         Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
-                        ->where('jobPoster', '[0-9]+')
-                        ->middleware('can:reviewApplicationsFor,jobPoster')
-                        ->name('manager.jobs.applications');
+                            ->where('jobPoster', '[0-9]+')
+                            ->middleware('can:reviewApplicationsFor,jobPoster')
+                            ->name('manager.jobs.applications');
 
                         /* View Application */
                         Route::get('applications/{application}', 'ApplicationController@show')
-                        ->middleware('can:view,application')
-                        ->name('manager.applications.show');
+                            ->middleware('can:view,application')
+                            ->name('manager.applications.show');
 
                         /* View Applicant Profile */
                         Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
-                        ->middleware('can:view,applicant')
-                        ->name('manager.applicants.show');
+                            ->middleware('can:view,applicant')
+                            ->name('manager.applicants.show');
                     });
 
                     /* Job Index */
@@ -281,9 +276,9 @@ Route::group(
 
                     /* View Job Poster */
                     Route::get('jobs/{jobPoster}', 'JobController@show')
-                    ->where('jobPoster', '[0-9]+')
-                    ->middleware('can:view,jobPoster')
-                    ->name('manager.jobs.show');
+                        ->where('jobPoster', '[0-9]+')
+                        ->middleware('can:view,jobPoster')
+                        ->name('manager.jobs.show');
 
 
                     /* Job Builder */
@@ -371,7 +366,7 @@ Route::group(
         /* AJAX calls =============================================================== */
 
         /* Require being logged in */
-        Route::middleware(['auth'])->group(function () : void {
+        Route::middleware(['auth'])->group(function (): void {
 
             Route::delete('courses/{course}', 'CourseController@destroy')
                 ->middleware('can:delete,course')
@@ -500,7 +495,7 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:update,jobPoster');
 
 
-     Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
+    Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:view,jobPoster');
     Route::put('jobs/{jobPoster}/criteria', 'Api\CriteriaController@batchUpdate')
