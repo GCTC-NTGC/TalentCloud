@@ -17,9 +17,12 @@ class ManagerCrudController extends CrudController
      */
     public function setup() : void
     {
-        $this->crud->setModel('App\Models\Manager');
+        $this->crud->setModel('App\Models\User');
         $this->crud->setRoute('admin/manager');
         $this->crud->setEntityNameStrings('manager', 'managers');
+
+        // Don't show 'basic' users.
+        $this->crud->addClause('whereIn', 'user_role_id', [2, 3]);
     }
 
     public function setupListOperation()
@@ -27,20 +30,32 @@ class ManagerCrudController extends CrudController
         $this->crud->removeButton('update');
 
         $this->crud->addColumn([
-            'name' => 'user.name',
-            'key' => 'user_name',
+            'name' => 'id',
+            'key' => 'manager_id',
+            'type' => 'number',
+            'label' => 'ID'
+        ]);
+        $this->crud->addColumn([
+            'name' => 'manager.name',
+            'key' => 'manager_name',
             'type' => 'text',
             'label' => 'Name'
         ]);
         $this->crud->addColumn([
-            'name' => 'user.email',
-            'key' => 'user_email',
+            'name' => 'email',
+            'key' => 'manager_email',
             'type' => 'text',
             'label' => 'Email'
         ]);
+        $this->crud->addColumn([
+            'name' => 'gov_email',
+            'key' => 'government_email',
+            'type' => 'text',
+            'label' => 'Government Email'
+        ]);
 
-        $this->crud->addButtonFromView('line', 'create_job_poster', 'create_job_poster', 'beginning');
         // Add the custom blade button found in resources/views/vendor/backpack/crud/buttons/profile_edit.blade.php.
+        $this->crud->addButtonFromView('line', 'create_job_poster', 'create_job_poster', 'beginning');
         $this->crud->addButtonFromView('line', 'profile_edit', 'profile_edit', 'end');
     }
 }
