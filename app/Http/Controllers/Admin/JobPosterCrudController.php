@@ -132,6 +132,25 @@ class JobPosterCrudController extends CrudController
                 'format' => 'YYYY-MM-DD HH:mm:ss',
             ],
         ]);
+        $this->crud->addField([
+            'name' => 'process_number',
+            'type' => 'number',
+            'label' => 'Process #',
+        ]);
+        $this->crud->addField([
+            'name' => 'priority_clearance_number',
+            'type' => 'number',
+            'label' => 'Priority Clearance #',
+        ]);
+        $this->crud->addField([
+            'name' => 'loo_issuance_date',
+            'type' => 'date_picker',
+            'label' => 'Letter of Offer Issuance Date',
+            'date_picker_options' => [
+               'todayBtn' => 'linked',
+               'format' => 'yyyy-mm-dd',
+            ],
+        ]);
         if ($this->crud->getCurrentEntry() &&
             !$this->crud->getCurrentEntry()->published
         ) {
