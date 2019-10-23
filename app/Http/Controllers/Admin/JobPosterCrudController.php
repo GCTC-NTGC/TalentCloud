@@ -88,6 +88,21 @@ class JobPosterCrudController extends CrudController
             ]
         ]);
         $this->crud->addField([
+            'name' => 'salary_min',
+            'type' => 'number',
+            'label' => 'Minimum Salary',
+        ]);
+        $this->crud->addField([
+            'name' => 'salary_max',
+            'type' => 'number',
+            'label' => 'Maximum Salary',
+        ]);
+        $this->crud->addField([
+            'name' => 'noc',
+            'type' => 'number',
+            'label' => 'NOC Code',
+        ]);
+        $this->crud->addField([
             'name' => 'open_date_time',
             'label' => 'Open Date',
             'type' => 'datetime_picker',
@@ -98,6 +113,14 @@ class JobPosterCrudController extends CrudController
         $this->crud->addField([
             'name' => 'close_date_time',
             'label' => 'Close Date',
+            'type' => 'datetime_picker',
+            'datetime_picker_options' => [
+                'format' => 'YYYY-MM-DD HH:mm:ss',
+            ],
+        ]);
+        $this->crud->addField([
+            'name' => 'start_date_time',
+            'label' => 'Start Date',
             'type' => 'datetime_picker',
             'datetime_picker_options' => [
                 'format' => 'YYYY-MM-DD HH:mm:ss',
