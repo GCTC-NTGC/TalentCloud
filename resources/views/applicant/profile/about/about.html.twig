@@ -145,64 +145,6 @@
 
                 </fieldset>
 
-            {# 2FA #}
-
-                <fieldset class="form__fieldset">
-
-                    <legend class="form__legend">{{ profile.about_section.two_factor_legend }}</legend>
-
-                    <div class="flex-grid">
-
-                        <div class="box med-1of2">
-
-                            <div class="form__input-wrapper--float">
-
-                                {% if applicant.user.google2fa_secret %}
-
-                                <p data-c-padding="bottom(normal)">You're currently receiving verification codes via an authenticator app on your smartphone.</p>
-                                <a href="{{ route('two_factor.deactivate') }}" title="">Deactivate Two Factor</a>
-
-                                {% else %}
-
-                                <p data-c-padding="bottom(normal)">Two-factor auth blurb. <a href="" title="">Here's a useful link.</a></p>
-                                <a class="button--blue light-bg" href="{{ route('two_factor.activate') }}">{{ profile.about_section.two_factor_button_text }}</a>
-
-                                {% endif %}
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </fieldset>
-
-            {% if applicant.user.google2fa_secret %}
-
-            {# 2FA Recovery #}
-
-                <fieldset class="form__fieldset">
-
-                    <legend class="form__legend">{{ profile.about_section.two_factor_recovery_legend }}</legend>
-
-                    <div class="flex-grid">
-
-                        <div class="box med-1of2">
-
-                            <div class="form__input-wrapper--float">
-
-                                <p data-c-padding="bottom(normal)">{{ profile.about_section.two_factor_recovery_text }} <a href="{{ route('recovery_codes.show') }}">{{ profile.about_section.view_recovery_codes }}</a>.</p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </fieldset>
-
-            {% endif %}
-
             {# Social Media #}
 
                 <fieldset

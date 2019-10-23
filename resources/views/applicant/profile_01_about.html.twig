@@ -12,7 +12,7 @@
 {% block body %}
 
 	{% include "common/goc" %}
-{% include "common/alert" %}
+    {% include "common/alert" %}
 
     {% include "common/header" with {"header":profile} %}
 
@@ -22,6 +22,73 @@
 
         {% include "applicant/profile/menu" %}
 
+        <div class="applicant-profile__about" data-clone>
+
+            <div data-c-container="medium">
+
+                <div class="form__wrapper">
+
+                    <div
+                        class="applicant-profile__data-wrapper">
+
+                        {# 2FA #}
+
+                        <h2>{{ profile.about_section.two_factor_legend }}</h2>
+
+                        <div class="flex-grid">
+
+                            <div class="box med-1of2">
+
+                                <div class="form__input-wrapper--float">
+
+                                    {% if applicant.user.google2fa_secret %}
+
+                                    <p data-c-padding="bottom(normal)">You're currently receiving verification codes via an authenticator app on your smartphone.</p>
+                                    <a href="{{ route('two_factor.deactivate') }}" title="">Deactivate Two Factor</a>
+
+                                    {% else %}
+
+                                    <p data-c-padding="bottom(normal)">Two-factor auth blurb.<br />This is a temporary location for these buttons..<br /><a href="" title="">Here's a useful link.</a></p>
+                                    <a class="button--blue light-bg" href="{{ route('two_factor.activate') }}">{{ profile.about_section.two_factor_button_text }}</a>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        {% if applicant.user.google2fa_secret %}
+
+                        {# 2FA Recovery #}
+
+                        <h2 class="form__legend">{{ profile.about_section.two_factor_recovery_legend }}</h2>
+
+                        <div class="flex-grid">
+
+                            <div class="box med-1of2">
+
+                                <div class="form__input-wrapper--float">
+
+                                    <p data-c-padding="bottom(normal)">{{ profile.about_section.two_factor_recovery_text }} <a href="{{ route('recovery_codes.show') }}">{{ profile.about_section.view_recovery_codes }}</a>.</p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
     {# Form containing all about_me editable elements #}
 
