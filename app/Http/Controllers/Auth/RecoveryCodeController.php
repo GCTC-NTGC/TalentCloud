@@ -17,9 +17,20 @@ class RecoveryCodeController extends AuthController
         $user = $request->user();
         $this->generateCodesForUser($user);
 
+        $profile_url = "";
+        if (WhichPortal::isApplicantPortal()) {
+            $profile_url = route('profile');
+        } elseif (WhichPortal::isManagerPortal()) {
+            $profile_url = route('manager.profile');
+        } elseif (WhichPortal::isAdminPortal()) {
+            // TODO: Setup a tfa page on backpack
+            $profile_url = 'admin';
+        }
+
         return view('auth.recovery_codes', [
             'recovery_codes' => Lang::get('common/auth/recovery_codes'),
             'codes' => $user->recovery_codes,
+            'profile_url' => $profile_url,
         ]);
     }
 
@@ -34,7 +45,7 @@ class RecoveryCodeController extends AuthController
     {
         return view('auth.use_recovery_code', [
             'recover' => Lang::get('common/auth/use_recovery_code'),
-            'return_url' => route('home'),
+            'return_url' => redirect()->back()->getTargetUrl(),
             'otp_url' => redirect()->intended(WhichPortal::home())->getTargetUrl(),
         ]);
     }
