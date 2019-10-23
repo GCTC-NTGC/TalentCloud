@@ -29,7 +29,7 @@ class JobPosterCrudController extends CrudController
     public function setupListOperation()
     {
         // Add the custom blade buttons found in resources/views/vendor/backpack/crud/buttons/.
-        $this->crud->addButtonFromView('line', 'job_admin_edit', 'job_admin_edit', 'beginning');
+        $this->crud->addButtonFromView('line', 'job_admin_edit', 'job_admin_edit', 'end');
         $this->crud->addButtonFromView('line', 'spb_link', 'spb_link', 'end');
         $this->crud->addButtonFromView('line', 'jpb_link', 'jpb_link', 'end');
 
