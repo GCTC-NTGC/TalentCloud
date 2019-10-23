@@ -17,14 +17,13 @@ class RecoveryCodeController extends AuthController
         $user = $request->user();
         $this->generateCodesForUser($user);
 
-        $profile_url = "";
+        $profile_url = '';
         if (WhichPortal::isApplicantPortal()) {
             $profile_url = route('profile');
         } elseif (WhichPortal::isManagerPortal()) {
             $profile_url = route('manager.profile');
         } elseif (WhichPortal::isAdminPortal()) {
-            // TODO: Setup a tfa page on backpack
-            $profile_url = 'admin';
+            $profile_url = backpack_url('2fa');
         }
 
         return view('auth.recovery_codes', [
@@ -38,7 +37,18 @@ class RecoveryCodeController extends AuthController
     {
         $user = $request->user();
         $this->generateCodesForUser($user);
-        return redirect(route('recovery_codes.show'));
+
+        $recovery_codes_url = '';
+        if (WhichPortal::isApplicantPortal()) {
+            $recovery_codes_url = route('recovery_codes.show');
+        } elseif (WhichPortal::isManagerPortal()) {
+            // TODO: add Manager specific route
+            $recovery_codes_url = route('recovery_codes.show');
+        } elseif (WhichPortal::isAdminPortal()) {
+            $recovery_codes_url = route('admin.recovery_codes.show');
+        }
+
+        return redirect($recovery_codes_url);
     }
 
     public function use(Request $request)
