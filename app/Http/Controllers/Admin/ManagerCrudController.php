@@ -27,10 +27,16 @@ class ManagerCrudController extends CrudController
         $this->crud->removeButton('update');
 
         $this->crud->addColumn([
-            'name' => 'user.name',
-            'key' => 'user_name',
+            'name' => 'user.first_name',
+            'key' => 'first_name',
             'type' => 'text',
-            'label' => 'Name'
+            'label' => 'First Name'
+        ]);
+        $this->crud->addColumn([
+            'name' => 'user.last_name',
+            'key' => 'last_name',
+            'type' => 'text',
+            'label' => 'Last Name'
         ]);
         $this->crud->addColumn([
             'name' => 'user.email',

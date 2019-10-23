@@ -32,16 +32,34 @@
         class="box med-1of2">
 
         <div class="form__input-wrapper--float active">
-            <label class="form__label" for="managerProfileName">
-                {{account_l10n.my_name}}
+            <label class="form__label" for="managerProfileFirstName">
+                {{account_l10n.first_name}}
             </label>
             <input
                 required
                 class="form__input"
-                id="managerProfileName"
+                id="managerProfileFirstName"
                 type="text"
-                name='name'
-                value="{{ old('name', user.name) }}" />
+                name='first_name'
+                value="{{ old('first_name', user.first_name) }}" />
+        </div>
+
+      </div>
+
+      <div
+        class="box med-1of2">
+
+        <div class="form__input-wrapper--float active">
+            <label class="form__label" for="managerProfileLastName">
+                {{account_l10n.last_name}}
+            </label>
+            <input
+                required
+                class="form__input"
+                id="managerProfileLastName"
+                type="text"
+                name='last_name'
+                value="{{ old('last_name', user.last_name) }}" />
         </div>
 
       </div>

@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { FormattedMessage } from "react-intl";
 import { copyToClipboard } from "../helpers/clipboard";
 
 interface CopyToClipboardProps {
-  text: string;
+  actionText: string | React.ReactElement;
+  postActionText: string | React.ReactElement;
+  textToCopy: string;
 }
 
 const CopyToClipboard: React.FunctionComponent<CopyToClipboardProps> = ({
-  text,
+  actionText,
+  postActionText,
+  textToCopy,
 }): React.ReactElement => {
   const [hidden, hideText] = useState(false);
   return (
@@ -15,28 +18,17 @@ const CopyToClipboard: React.FunctionComponent<CopyToClipboardProps> = ({
       type="button"
       data-c-button="solid(c1)"
       data-c-radius="rounded"
-      onClick={(): void => {
-        copyToClipboard(text);
-        hideText(!hidden);
-        setTimeout((): void => {
-          hideText(hidden);
-        }, 1000);
+      onClick={(event): void => {
+        copyToClipboard(event, textToCopy).then(() => {
+          hideText(!hidden);
+          setTimeout((): void => {
+            hideText(hidden);
+          }, 2000);
+        });
       }}
     >
-      <span className={`default ${hidden && "hidden"}`}>
-        <FormattedMessage
-          id="jobBuilder.clipboardButton.copy"
-          defaultMessage="Copy to Clipboard"
-          description="Label for Copy to Clipboard button on Work Environment page."
-        />
-      </span>
-      <span className={`copied ${!hidden && "hidden"}`}>
-        <FormattedMessage
-          id="jobBuilder.clipboardButton.copied"
-          defaultMessage="Copied!"
-          description="Label for Copy to Clipboard success confirmation on Work Environment page."
-        />
-      </span>
+      <span className={`default ${hidden && "hidden"}`}>{actionText}</span>
+      <span className={`copied ${!hidden && "hidden"}`}>{postActionText}</span>
     </button>
   );
 };

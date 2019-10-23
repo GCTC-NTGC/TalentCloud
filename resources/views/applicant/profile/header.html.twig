@@ -24,7 +24,7 @@
         {# Name #}
 
             <h2>
-                {{ user.name }}
+                {{ user.first_name }} {{ user.last_name }}
             </h2>
 
         {# Tagline #}
@@ -47,7 +47,7 @@
                             href="{{ urls.twitter|replace({":username":manager.twitter_username}) }}"
                             target="_blank"
                             rel="noopener noreferrer"
-                            title="{{ profile.twitter_link_title|replace(":name":user.name) }}">
+                            title="{{ profile.twitter_link_title|replace(":name":manager.user.first_name) }}">
                             <i class="fab fa-twitter"></i>
                         </a>
                     </li>
@@ -57,7 +57,7 @@
                             href="{{ applicant.linkedin_url }}"
                             target="_blank"
                             rel="noopener noreferrer"
-                            title="{{ profile.linkedin_link_title|replace(":name":user.name) }}">
+                            title="{{ profile.linkedin_link_title|replace(":name":manager.user.first_name) }}">
                             <i class="fab fa-linkedin"></i>
                         </a>
                     </li>

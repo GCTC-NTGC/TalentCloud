@@ -26,7 +26,8 @@ return [
         ],
         'account' => [
             'my_account' => 'My Account',
-            'my_name' => 'My Name',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
             'account_settings' => 'Account Information',
             'reset_password' => 'Reset Password',
             'profile_email' => 'My Email',

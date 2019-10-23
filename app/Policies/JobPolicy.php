@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\JobPoster;
 use App\Policies\BasePolicy;
+use Illuminate\Support\Facades\Log;
 
 class JobPolicy extends BasePolicy
 {
@@ -20,7 +21,7 @@ class JobPolicy extends BasePolicy
     {
         // Anyone can view a published job
         // Only the manager that created it can view an unpublished job
-        return $jobPoster->published ||
+        return $jobPoster->status() == 'published' || $jobPoster->status() == 'closed' ||
         (
             $user &&
             $user->isManager() &&
