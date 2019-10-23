@@ -11,38 +11,102 @@
 
         <div class="flex-grid">
 
-            {# Include Sidebar #}
-                {% include "manager/profile/sidebar" with {'sidebar_l10n': layout_l10n.sidebar} %}
+        {# Include Sidebar #}
+            {% include "manager/profile/sidebar" with {'sidebar_l10n': layout_l10n.sidebar} %}
 
-            {# Poster Content #}
+        {# Poster Content #}
 
-                <div class="manager-profile__content-wrapper box lg-3of4">
+            <div class="manager-profile__content-wrapper box lg-3of4">
 
-                    <form class="form__wrapper"
-                        action="{{ route('manager.profile.update', manager.id) }}"
-                        method="post">
+                <div class="applicant-profile__about" data-clone>
 
-                        {# Builds an input field for CSRF token validation #}
-                        {{ csrf_field() }}
+                        <div data-c-container="medium">
 
-                    {# Include Account Settings #}
+                            <div class="form__wrapper">
 
-                        {% include "manager/profile/account" with {'account_l10n': layout_l10n.account} %}
+                                <div
+                                    class="applicant-profile__data-wrapper">
 
+                                {# 2FA #}
 
-                    {# Include About Me #}
+                                <h2>{{ layout_l10n.two_factor.two_factor_legend }}</h2>
 
-                        {% include "manager/profile/about" with {'about_l10n': layout_l10n.about} %}
+                                <div class="flex-grid">
 
-                    {# Include My Leadership Style #}
+                                    <div class="box med-1of2">
 
-                        {% include "manager/profile/leadership" with {'leadership_l10n': layout_l10n.leadership } %}
+                                        <div class="form__input-wrapper--float">
 
-                    </form>
+                                            {% if manager.user.google2fa_secret %}
+
+                                            <p data-c-padding="bottom(normal)">{{ layout_l10n.two_factor.two_factor_active }}</p>
+                                            <a href="{{ route('two_factor.deactivate') }}" title="{{ layout_l10n.two_factor.deactivate }}">{{ layout_l10n.two_factor.deactivate }}</a>
+
+                                            {% else %}
+
+                                            <p data-c-padding="bottom(normal)">{{ layout_l10n.two_factor.two_factor_description }}</p>
+
+                                            <a class="button--blue light-bg" href="{{ route('two_factor.activate') }}">{{ layout_l10n.two_factor.two_factor_button_text }}</a>
+
+                                            {% endif %}
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                {% if manager.user.google2fa_secret %}
+
+                                {# 2FA Recovery #}
+
+                                <h2 class="form__legend">{{ layout_l10n.two_factor.two_factor_recovery_legend }}</h2>
+
+                                <div class="flex-grid">
+
+                                    <div class="box med-1of2">
+
+                                        <div class="form__input-wrapper--float">
+
+                                            <p data-c-padding="bottom(normal)">{{ layout_l10n.two_factor.two_factor_recovery_text }} <a href="{{ route('recovery_codes.show') }}">{{ layout_l10n.two_factor.view_recovery_codes }}</a>.</p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
 
                 </div>
 
+                <form class="form__wrapper"
+                    action="{{ route('manager.profile.update', manager.id) }}"
+                    method="post">
 
+                    {# Builds an input field for CSRF token validation #}
+                    {{ csrf_field() }}
+
+                {# Include Account Settings #}
+
+                    {% include "manager/profile/account" with {'account_l10n': layout_l10n.account} %}
+
+
+                {# Include About Me #}
+
+                    {% include "manager/profile/about" with {'about_l10n': layout_l10n.about} %}
+
+                {# Include My Leadership Style #}
+
+                    {% include "manager/profile/leadership" with {'leadership_l10n': layout_l10n.leadership } %}
+
+                </form>
+
+            </div>
 
         </div>
 

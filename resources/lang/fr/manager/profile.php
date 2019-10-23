@@ -64,26 +64,26 @@ return [
 
         ],
         'leadership' => [
-            'my_leadership_style' => "Mon style de leadership",
-            'my_style_values' => "Mon style de leadership et mes valeurs de gestion",
-            'answer_english' => "Réponse (English)",
-            'answer_french' => "Réponse (Français)",
+            'my_leadership_style' => 'Mon style de leadership',
+            'my_style_values' => 'Mon style de leadership et mes valeurs de gestion',
+            'answer_english' => 'Réponse (English)',
+            'answer_french' => 'Réponse (Français)',
             'expect_from_employees' => "Ce que j'attends de mes employés",
             'approach_learning_development' => "Mon approche à l'apprentissage et au développement de mes employés",
-            'save_leadership_style' => "Enregistrer Mon style de leadership"
+            'save_leadership_style' => 'Enregistrer Mon style de leadership'
         ],
         'environment' => [
-            'work_environment' => "Notre environnement de travail",
+            'work_environment' => 'Notre environnement de travail',
             'things_to_know' => "Ce qu'il faut savoir",
-            'answer_english' => "Réponse (English)",
-            'answer_french' => "Réponse (Français)",
-            'telework_frequency' => "À quelle fréquence le télétravail est-il autorisé?",
-            'flexible_hour_frequency' => "À quelle fréquence les heures flexibles sont-elles autorisées?",
+            'answer_english' => 'Réponse (English)',
+            'answer_french' => 'Réponse (Français)',
+            'telework_frequency' => 'À quelle fréquence le télétravail est-il autorisé?',
+            'flexible_hour_frequency' => 'À quelle fréquence les heures flexibles sont-elles autorisées?',
             'environment_photos' => "Photos de l'environnement de travail",
-            'upload_image' => "Télécharger un photo",
+            'upload_image' => 'Télécharger un photo',
             'alt_text_english' => "Texte alternatif de l'image (English)",
             'alt_text_french' => "Texte alternatif de l'image (Français)",
-            'save_work_environment' => "Enregistrer Notre environnement de travail",
+            'save_work_environment' => 'Enregistrer Notre environnement de travail',
             'frequency' => [
               'never' => 'Jamais',
               'rarely' => 'Rarement',
@@ -95,16 +95,25 @@ return [
         ],
         'culture' => [
             'team_culture' => "Notre culture d'équipe",
-            'primary_information' => "Informations primaires",
+            'primary_information' => 'Informations primaires',
             'team_size' => "Taille de l'équipe",
-            'gc_directory_link' => "Lien GCannuaire",
-            'operating_context' => "Notre contexte opérationnel",
-            'answer_english' => "Réponse (English)",
-            'answer_french' => "Réponse (Français)",
-            'what_we_value' => "Nos valeurs",
-            'how_we_work' => "Notre mode de fonctionnement",
+            'gc_directory_link' => 'Lien GCannuaire',
+            'operating_context' => 'Notre contexte opérationnel',
+            'answer_english' => 'Réponse (English)',
+            'answer_french' => 'Réponse (Français)',
+            'what_we_value' => 'Nos valeurs',
+            'how_we_work' => 'Notre mode de fonctionnement',
             'save_team_culture' => "Enregistrer Notre culture d'équipe"
+        ],
+        'two_factor' => [
+            'two_factor_legend' => 'Two-Factor Authentication',
+            'two_factor_button_text' => 'Set up Two-Factor Authentication',
+            'two_factor_recovery_legend' => 'Recovery Codes',
+            'two_factor_recovery_text' => 'Your emergency recovery codes let you gain access to your account in case you lose access to your phone. For security, we only show them to you once, but you can',
+            'view_recovery_codes' => 'generate new codes',
+            'two_factor_description' => 'Two-factor auth blurb.',
+            'two_factor_active' => 'You\'re currently receiving verification codes via an authenticator app on your smartphone.',
+            'two_factor_deactivate' => 'Deactivate Two-factor Authentication',
         ]
-
     ]
 ];

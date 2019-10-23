@@ -43,12 +43,12 @@
 
                                     {% if applicant.user.google2fa_secret %}
 
-                                    <p data-c-padding="bottom(normal)">You're currently receiving verification codes via an authenticator app on your smartphone.</p>
-                                    <a href="{{ route('two_factor.deactivate') }}" title="">Deactivate Two Factor</a>
+                                    <p data-c-padding="bottom(normal)">{{ profile.about_section.two_factor_active }}</p>
+                                    <a href="{{ route('two_factor.deactivate') }}" title="{{ profile.about_section.two_factor_deactivate }}">{{ profile.about_section.two_factor_deactivate }}</a>
 
                                     {% else %}
 
-                                    <p data-c-padding="bottom(normal)">Two-factor auth blurb.<br />This is a temporary location for these buttons..<br /><a href="" title="">Here's a useful link.</a></p>
+                                    <p data-c-padding="bottom(normal)">{{ profile.about_section.two_factor_description }}</p>
                                     <a class="button--blue light-bg" href="{{ route('two_factor.activate') }}">{{ profile.about_section.two_factor_button_text }}</a>
 
                                     {% endif %}

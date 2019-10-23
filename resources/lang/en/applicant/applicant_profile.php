@@ -41,6 +41,9 @@ return [
         'two_factor_recovery_legend' => 'Recovery Codes',
         'two_factor_recovery_text' => 'Your emergency recovery codes let you gain access to your account in case you lose access to your phone. For security, we only show them to you once, but you can',
         'view_recovery_codes' => 'generate new codes',
+        'two_factor_description' => 'Two-factor auth blurb.',
+        'two_factor_active' => 'You\'re currently receiving verification codes via an authenticator app on your smartphone.',
+        'two_factor_deactivate' => 'Deactivate Two-factor Authentication',
     ],
 
 
