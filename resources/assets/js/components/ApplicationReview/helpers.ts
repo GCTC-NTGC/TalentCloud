@@ -104,7 +104,9 @@ export function applicationCompare(
   }
 
   // Otherwise, sort alphabetically by name;
-  return first.applicant.user.name.localeCompare(second.applicant.user.name);
+  return first.applicant.user.last_name.localeCompare(
+    second.applicant.user.last_name,
+  );
 }
 
 /**

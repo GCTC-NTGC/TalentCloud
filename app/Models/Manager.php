@@ -160,14 +160,14 @@ class Manager extends BaseModel
     }
 
     /**
-     * Return the name of the User associated with this Manager.
+     * Return the full name of the User associated with this Manager.
      *
      * @return string
      */
     public function getNameAttribute(): string
     {
         if ($this->user !== null) {
-            return $this->user->name;
+            return $this->user->first_name . ' ' . $this->user->last_name;
         }
         return '';
     }
