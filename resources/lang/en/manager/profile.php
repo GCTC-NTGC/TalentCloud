@@ -114,7 +114,7 @@ return [
             'view_recovery_codes' => 'generate new codes',
             'two_factor_description' => 'Two-factor auth blurb.',
             'two_factor_active' => 'You\'re currently receiving verification codes via an authenticator app on your smartphone.',
-            'two_factor_deactivate' => 'Deactivate Two-factor Authentication',
+            'two_factor_deactivate' => 'Deactivate Two-factor Authentication'
         ]
     ]
 ];

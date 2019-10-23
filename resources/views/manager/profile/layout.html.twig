@@ -11,48 +11,38 @@
 
         <div class="flex-grid">
 
-        {# Include Sidebar #}
+            {# Include Sidebar #}
             {% include "manager/profile/sidebar" with {'sidebar_l10n': layout_l10n.sidebar} %}
 
-        {# Poster Content #}
+            {# Profile Content #}
 
             <div class="manager-profile__content-wrapper box lg-3of4">
 
-                <div class="applicant-profile__about" data-clone>
+                <div data-c-container="medium">
 
-                        <div data-c-container="medium">
+                    <div class="form__wrapper">
 
-                            <div class="form__wrapper">
+                        <div class="applicant-profile__about" data-clone>
 
-                                <div
-                                    class="applicant-profile__data-wrapper">
+                            <div class="applicant-profile__data-wrapper">
 
-                                {# 2FA #}
+                            {# 2FA #}
 
-                                <h2>{{ layout_l10n.two_factor.two_factor_legend }}</h2>
+                            <h2>{{ layout_l10n.two_factor.two_factor_legend }}</h2>
 
-                                <div class="flex-grid">
+                                <div class="form__input-wrapper--float">
 
-                                    <div class="box med-1of2">
+                                    {% if manager.user.google2fa_secret %}
 
-                                        <div class="form__input-wrapper--float">
+                                    <p>{{ layout_l10n.two_factor.two_factor_active }}</p>
+                                    <p><a class="button--red light-bg" href="{{ route('two_factor.deactivate') }}">{{ layout_l10n.two_factor.two_factor_deactivate }}</a></p>
 
-                                            {% if manager.user.google2fa_secret %}
+                                    {% else %}
 
-                                            <p data-c-padding="bottom(normal)">{{ layout_l10n.two_factor.two_factor_active }}</p>
-                                            <a href="{{ route('two_factor.deactivate') }}" title="{{ layout_l10n.two_factor.deactivate }}">{{ layout_l10n.two_factor.deactivate }}</a>
+                                    <p>{{ layout_l10n.two_factor.two_factor_description }}</p>
+                                    <p><a class="button--blue light-bg" href="{{ route('two_factor.activate') }}">{{ layout_l10n.layout.two_factor.two_factor_button_text }}</a></p>
 
-                                            {% else %}
-
-                                            <p data-c-padding="bottom(normal)">{{ layout_l10n.two_factor.two_factor_description }}</p>
-
-                                            <a class="button--blue light-bg" href="{{ route('two_factor.activate') }}">{{ layout_l10n.two_factor.two_factor_button_text }}</a>
-
-                                            {% endif %}
-
-                                        </div>
-
-                                    </div>
+                                    {% endif %}
 
                                 </div>
 
@@ -60,23 +50,15 @@
 
                                 {# 2FA Recovery #}
 
-                                <h2 class="form__legend">{{ layout_l10n.two_factor.two_factor_recovery_legend }}</h2>
+                                <div class="form__input-wrapper--float">
 
-                                <div class="flex-grid">
-
-                                    <div class="box med-1of2">
-
-                                        <div class="form__input-wrapper--float">
-
-                                            <p data-c-padding="bottom(normal)">{{ layout_l10n.two_factor.two_factor_recovery_text }} <a href="{{ route('recovery_codes.show') }}">{{ layout_l10n.two_factor.view_recovery_codes }}</a>.</p>
-
-                                        </div>
-
-                                    </div>
+                                    <p>{{ layout_l10n.two_factor.two_factor_recovery_text }} <a href="{{ route('recovery_codes.show') }}">{{ layout_l10n.two_factor.view_recovery_codes }}</a>.</p>
 
                                 </div>
 
-                            {% endif %}
+                                {% endif %}
+
+                            </div>
 
                         </div>
 
