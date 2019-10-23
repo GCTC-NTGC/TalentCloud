@@ -50,7 +50,7 @@ class DevSeeder extends Seeder // phpcs:ignore
         }
 
         $managerUser = User::where('email', $this->managerEmail)->first();
-        // Create the test manager if it does not exist yet
+        // Create the test manager if it does not exist yet.
         if ($managerUser === null) {
             $managerUser = factory(User::class)->state('upgradedManager')->create(['email' => $this->managerEmail]);
             $managerUser->manager()->save(factory(Manager::class)->create([
@@ -64,7 +64,7 @@ class DevSeeder extends Seeder // phpcs:ignore
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
             ]);
-            // Then create one application with a priority user
+            // Then create one application with a priority user.
             $job->job_applications()->save(factory(JobApplication::class)->create([
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
@@ -78,7 +78,7 @@ class DevSeeder extends Seeder // phpcs:ignore
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
             ]);
-            // Then create one application with a priority user
+            // Then create one application with a priority user.
             $job->job_applications()->save(factory(JobApplication::class)->create([
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
@@ -93,12 +93,12 @@ class DevSeeder extends Seeder // phpcs:ignore
             'manager_id' => $managerUser->manager->id
         ]);
 
-        // Create a Job Poster with an Assessment Plan
+        // Create a Job Poster with an Assessment Plan.
         $jobWithAssessment = factory(JobPoster::class)->state('draft')->create([
             'manager_id' => $managerUser->manager->id,
         ]);
         foreach ($jobWithAssessment->criteria as $criterion) {
-            // Create an assessment for each criterion
+            // Create an assessment for each criterion.
             factory(Assessment::class)->state('withRatingGuide')->create([
                 'criterion_id' => $criterion->id,
             ]);
@@ -114,7 +114,7 @@ class DevSeeder extends Seeder // phpcs:ignore
             ]));
         }
 
-        // Add to application profile
+        // Add to application profile.
         $applicantUser->applicant->references()->saveMany(factory(Reference::class, 3)->create([
             'applicant_id' => $applicantUser->applicant->id
         ]));

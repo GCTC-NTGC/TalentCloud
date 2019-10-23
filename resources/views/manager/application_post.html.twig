@@ -1,13 +1,14 @@
 {% extends "layouts/base" %}
 
-{% block title %}{{ [job_application.applicant.user.name, application_template.view_title]|join(': ') }}{% endblock %}
+{% block title %}{{ application_template.view_title }}: {{ applicant.user.first_name}} {{ applicant.user.last_name }}{% endblock %}
+
 
 {% block body %}
 
     {% include "common/goc" %}
-{% include "common/alert" %}
+    {% include "common/alert" %}
 
-    {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.view_title, ':job':job.title})}} %}
+    {% include "common/header" with {'header': {'title': ":title: :fname :lname"|replace({':title':application_template.view_title, ':fname':applicant.user.first_name, ':lname':applicant.user.last_name, })}} %}
 
     <a id="skipLink"></a>
 

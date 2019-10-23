@@ -153,14 +153,15 @@ const ReviewCategory: React.StatelessComponent<
   /* Code related to copying emails to clipboard */
   const [justCopied, setJustCopied] = useState(false);
   const nameEmails = applications.map(application => {
-    const { name, email } = application.applicant.user;
-    return `${name}<${email}>`;
+    const { first_name, last_name, email } = application.applicant.user; // eslint-disable-line
+    return `${first_name} ${last_name} <${email}>`; // eslint-disable-line
   });
   const emailList = nameEmails.join(",");
-  const handleCopyClick = (): void => {
-    copyToClipboard(emailList);
-    setJustCopied(true);
-    setTimeout(() => setJustCopied(false), 1000);
+  const handleCopyClick = (event): void => {
+    copyToClipboard(event, emailList).then(() => {
+      setJustCopied(true);
+      setTimeout(() => setJustCopied(false), 2000);
+    });
   };
 
   return (

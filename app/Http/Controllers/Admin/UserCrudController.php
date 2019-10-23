@@ -31,9 +31,14 @@ class UserCrudController extends CrudController
             'label' => 'ID'
         ]);
         $this->crud->addColumn([
-            'name' => 'name',
+            'name' => 'first_name',
             'type' => 'text',
-            'label' => 'Name'
+            'label' => 'First Name'
+        ]);
+        $this->crud->addColumn([
+            'name' => 'last_name',
+            'type' => 'text',
+            'label' => 'Last Name'
         ]);
         $this->crud->addColumn([
             'name' => 'user_role.name',

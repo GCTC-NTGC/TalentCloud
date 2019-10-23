@@ -65,7 +65,7 @@ class JobPosterCrudController extends CrudController
             'type' => 'check',
         ]);
         $this->crud->addColumn([
-            'name' => 'manager.user.name',
+            'name' => 'manager.user.full_name',
             'key' => 'manager_user_name',
             'type' => 'text',
             'label' => 'Manager',
