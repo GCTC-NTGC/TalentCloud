@@ -190,7 +190,7 @@ Route::group(
 
 
                 Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('two_factor.activate');
-                Route::get('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('two_factor.deactivate');
+                Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('two_factor.deactivate');
                 Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('two_factor.confirm');
 
                 Route::post('two-factor/generate_recovery_codes', 'Auth\RecoveryCodeController@generate')->name('recovery_codes.generate');
