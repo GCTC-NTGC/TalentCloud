@@ -1,4 +1,5 @@
 <?php
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -122,7 +123,7 @@ return [
     'applicant_has_relation' => 'le candidat doit posséder cet :attribute',
     'contains_object_with_attribute' => ':attribute ne contient pas la :relation egal à :attributeValue',
     'user_skill_unique' => 'cette compétence est déjà ajoutée',
-    'password_correct' => 'mot de passe incorrect',
+    'password_correct' => 'Le mot de passe actuel n\'est pas correct',
     'user_owns_skill_declaration' => ':attribute doit spécifier une déclaration de compétence qui appartient à l\' utilisateur actuel',
     'invalid_id' => ":attribute n'est pas un identifiant valide.",
 
@@ -150,6 +151,8 @@ return [
         'published' => [
             'in' => 'Vous ne pouvez pas modifier une affiche d\'emploi qui a été publié'
         ],
+        'twitter_handle' => 'Ce n\'est pas une poignée Twitter valide.',
+        'linkedin_url' => 'Ce n\'est pas une url linkedIn valide.',
     ],
     /*
     |--------------------------------------------------------------------------

@@ -3,6 +3,90 @@
     // Home: How
 
 // =============================================================================
+.home-browse {
+    overflow: hidden;
+    position: relative;
+    .home-browse-icon {
+        opacity: .05;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        transform: translate(35%, 35%) rotate(-45deg);
+        width: 50vw;
+        z-index: 1;
+    }
+    .home-browse-null {
+        border: .5rem dashed rgba($clone-grey, .3);
+        min-height: 20vh;
+        position: relative;
+        text-align: center;
+        span {
+            color: rgba($clone-grey, .3);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    >[data-c-container] {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+.home-hiw {
+    button {
+        display: block;
+        overflow: visible !important;
+        position: relative;
+        width: 100%;
+        z-index: 1;
+        &.active {
+            background: $clone-c1;
+            border-color: $clone-c1;
+            @media #{$clone-tablet-landscape} {
+                &::before {
+                    background: $clone-c1;
+                    content: " ";
+                    display: block;
+                    height: .5rem;
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    transform: translate(100%, -50%);
+                    width: 50%;
+                }
+            }
+        }
+    }
+    .home-hiw-content {
+        display: none;
+        position: relative;
+        z-index: 2;
+        &.active {
+            display: block;
+        }
+    }
+}
+
+.home-blog {
+    overflow: hidden;
+    position: relative;
+    .home-blog-icon {
+        opacity: .05;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transform: translate(-35%, 35%) rotate(45deg);
+        width: 50vw;
+        z-index: 1;
+    }
+    >[data-c-container] {
+        position: relative;
+        z-index: 2;
+    }
+}
+
 .home__how {
     background: $palette--white;
     padding: $section-padding;
@@ -29,13 +113,13 @@
 
     p {
         @extend %paragraph;
-        
+
         &:last-child {
             margin-bottom: 0;
         }
 
     }
-    
+
     a {
         color: $palette--blue;
         font-family: $font--sans;
@@ -111,4 +195,42 @@
 
     }
 
+}
+
+.home-hiw {
+    button {
+        display: block;
+        overflow: visible !important;
+        position: relative;
+        width: 100%;
+        z-index: 1;
+        &.active {
+            background: $clone-c1;
+            border-color: $clone-c1;
+            @media #{$clone-tablet-landscape} {
+                &::before {
+                    background: $clone-c1;
+                    content: " ";
+                    display: block;
+                    height: .5rem;
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    transform: translate(100%, -50%);
+                    width: 50%;
+                }
+            }
+        }
+    }
+    .home-hiw-content {
+        display: none;
+        position: relative;
+        z-index: 2;
+        &.active {
+            display: block;
+        }
+        a:visited {
+            color: $clone-white !important;
+        }
+    }
 }

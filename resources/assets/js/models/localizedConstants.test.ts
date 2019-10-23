@@ -246,9 +246,7 @@ describe("criteriaType", (): void => {
   });
 
   it("returns an asset localization", (): void => {
-    expect(criteriaType(CriteriaTypeId.Asset).id).toEqual(
-      "criteriaType.asset",
-    );
+    expect(criteriaType(CriteriaTypeId.Asset).id).toEqual("criteriaType.asset");
   });
 
   it("returns an essential localization", (): void => {
@@ -257,4 +255,3 @@ describe("criteriaType", (): void => {
     );
   });
 });
-

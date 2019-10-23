@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import moment from "moment";
+import dayjs from "dayjs";
 import { AssessmentPlanNotification } from "../../models/types";
 import { sortNotifications } from "./assessmentPlanNotificationReducer";
 
@@ -11,7 +11,7 @@ describe("Assessment Plan Notification Reducer tests", (): void => {
       } = {
         1: {
           id: 1,
-          created_at: moment("2019-05-06T14:47:29+00:00").toDate(),
+          created_at: dayjs("2019-05-06T14:47:29+00:00").toDate(),
           job_poster_id: 13,
           type: "UPDATE",
           criteria_id: 63,
@@ -25,7 +25,7 @@ describe("Assessment Plan Notification Reducer tests", (): void => {
         },
         2: {
           id: 2,
-          created_at: moment("2019-05-05T14:47:29+00:00").toDate(), // One day earlier
+          created_at: dayjs("2019-05-05T14:47:29+00:00").toDate(), // One day earlier
           job_poster_id: 13,
           type: "CREATE",
           criteria_id: 63,

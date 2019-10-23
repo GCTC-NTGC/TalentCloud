@@ -43,7 +43,7 @@ class ManagerPolicy extends BasePolicy
     public function update(User $user, Manager $manager)
     {
         //Mangers can only update their own profiles
-        return $user->hasRole('manager') &&
+        return $user->isManager() &&
             $manager->user_id == $user->id;
     }
 

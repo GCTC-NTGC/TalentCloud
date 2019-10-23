@@ -136,16 +136,12 @@ export const updateRatingGuideAnswer = (
   ): void => {
     dispatch(updateRatingGuideAnswerStarted(ratingGuideAnswer));
     updateRatingGuideAnswerApi(ratingGuideAnswer)
-      .then(
-        (updatedRatingGuideAnswer): void => {
-          dispatch(updateRatingGuideAnswerSucceeded(updatedRatingGuideAnswer));
-        },
-      )
-      .catch(
-        (error: Error): void => {
-          dispatch(updateRatingGuideAnswerFailed(ratingGuideAnswer, error));
-        },
-      );
+      .then((updatedRatingGuideAnswer): void => {
+        dispatch(updateRatingGuideAnswerSucceeded(updatedRatingGuideAnswer));
+      })
+      .catch((error: Error): void => {
+        dispatch(updateRatingGuideAnswerFailed(ratingGuideAnswer, error));
+      });
   };
 };
 
@@ -208,16 +204,12 @@ export const deleteRatingGuideAnswer = (
   ): void => {
     dispatch(deleteRatingGuideAnswerStarted(id));
     deleteRatingGuideAnswerApi(id)
-      .then(
-        (): void => {
-          dispatch(deleteRatingGuideAnswerSucceeded(id));
-        },
-      )
-      .catch(
-        (error: Error): void => {
-          dispatch(deleteRatingGuideAnswerFailed(id, error));
-        },
-      );
+      .then((): void => {
+        dispatch(deleteRatingGuideAnswerSucceeded(id));
+      })
+      .catch((error: Error): void => {
+        dispatch(deleteRatingGuideAnswerFailed(id, error));
+      });
   };
 };
 
@@ -289,21 +281,17 @@ export const storeNewRatingGuideAnswer = (
 
     dispatch(storeNewRatingGuideAnswerStarted(ratingGuideAnswer));
     createRatingGuideAnswerApi(ratingGuideAnswer)
-      .then(
-        (updatedRatingGuideAnswer): void => {
-          dispatch(
-            storeNewRatingGuideAnswerSucceeded(
-              updatedRatingGuideAnswer,
-              ratingGuideAnswer,
-            ),
-          );
-        },
-      )
-      .catch(
-        (error: Error): void => {
-          dispatch(storeNewRatingGuideAnswerFailed(ratingGuideAnswer, error));
-        },
-      );
+      .then((updatedRatingGuideAnswer): void => {
+        dispatch(
+          storeNewRatingGuideAnswerSucceeded(
+            updatedRatingGuideAnswer,
+            ratingGuideAnswer,
+          ),
+        );
+      })
+      .catch((error: Error): void => {
+        dispatch(storeNewRatingGuideAnswerFailed(ratingGuideAnswer, error));
+      });
   };
 };
 

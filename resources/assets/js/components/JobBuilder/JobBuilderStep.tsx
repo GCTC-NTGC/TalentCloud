@@ -131,10 +131,10 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
   useEffect((): void => {
     if (jobId !== null && job === null) {
       nprogress.start();
-    } else {
+    } else if (currentPage !== "intro") {
       nprogress.done();
     }
-  }, [job, jobId]);
+  }, [currentPage, job, jobId]);
 
   return (
     <section>

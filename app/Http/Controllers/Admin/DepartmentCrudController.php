@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\App;
 
 class DepartmentCrudController extends CrudController
 {
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+
     /**
      * Prepare the admin interface by setting the associated
      * model, setting the route, and adding custom columns/fields.
@@ -31,6 +35,39 @@ class DepartmentCrudController extends CrudController
         $this->crud->setRoute('admin/department');
         // Custom strings to display within the backpack UI.
         $this->crud->setEntityNameStrings('department', 'departments');
+
+        $this->crud->operation(['create', 'update'], function () {
+            $this->crud->addField([
+                'name' => 'name',
+                'type' => 'text',
+                'label' => 'Name',
+            ]);
+
+            $this->crud->addField([
+                'name' => 'impact',
+                'type' => 'textarea',
+                'label' => 'Impact',
+            ]);
+
+            $this->crud->addField([
+                'name' => 'preference',
+                'type' => 'textarea',
+                'label' => 'Preference',
+            ]);
+        });
+    }
+
+    public function setupListOperation()
+    {
+        // Required for order logic.
+        $locale = 'en';
+        if (null !== $this->request->input('locale')) {
+            $locale = $this->request->input('locale');
+        }
+        App::setLocale($locale);
+
+        // Remove delete button.
+        $this->crud->removeButton('delete');
 
         // Add custom columns to the Department index view.
         $this->crud->addColumn([
@@ -63,48 +100,15 @@ class DepartmentCrudController extends CrudController
             'label' => 'Preference',
             'orderable' => false,
         ]);
-
-        // Add custom fields to the create/update views.
-        $this->crud->addField([
-            'name' => 'name',
-            'type' => 'text',
-            'label' => 'Name',
-        ]);
-
-        $this->crud->addField([
-            'name' => 'impact',
-            'type' => 'textarea',
-            'label' => 'Impact',
-        ]);
-
-        $this->crud->addField([
-            'name' => 'preference',
-            'type' => 'textarea',
-            'label' => 'Preference',
-        ]);
     }
 
-    /**
-     * Action for creating a new department in the database.
-     *
-     * @param \App\Http\Requests\DepartmentCrudRequest $request Incoming form request.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(StoreRequest $request) // phpcs:ignore
+    public function setupCreateOperation()
     {
-        return parent::storeCrud();
+        $this->crud->setValidation(StoreRequest::class);
     }
 
-    /**
-     * Action for updating an existing department in the database.
-     *
-     * @param \App\Http\Requests\DepartmentCrudRequest $request Incoming form request.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(UpdateRequest $request) // phpcs:ignore
+    public function setupUpdateOperation()
     {
-        return parent::updateCrud();
+        $this->crud->setValidation(UpdateRequest::class);
     }
 }

@@ -1,14 +1,31 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { injectIntl, FormattedMessage } from "react-intl";
+import { ApiError } from "redux-api-middleware";
 import { ErrorEntity } from "../store/Error/errorReducer";
 import { clearErrors } from "../store/Error/errorActions";
 import { getRecentError } from "../store/Error/errorSelector";
 import { RootState } from "../store/store";
 import { DispatchType } from "../configureStore";
 
-const ErrorToast = (props): React.ReactElement => {
-  const { error, dispatchClearErrors } = props;
+const constructErrorMessage = (error: ErrorEntity): string => {
+  if (error.error instanceof ApiError) {
+    // if error was of type redux-api-middleware/ApiError, we may be able to extract extra info from the response.
+    const apiError = error.error;
+    if (apiError.status && apiError.response && apiError.response.message) {
+      return `${apiError.status} - ${apiError.response.message}`;
+    }
+  }
+  return error.message;
+};
+interface ErrorToastProps {
+  error: ErrorEntity;
+  dispatchClearErrors: () => void;
+}
+const ErrorToast: React.FC<ErrorToastProps> = ({
+  error,
+  dispatchClearErrors,
+}): React.ReactElement => {
   useEffect((): (() => void) => {
     const timer = setInterval((): void => {
       dispatchClearErrors();
@@ -17,7 +34,8 @@ const ErrorToast = (props): React.ReactElement => {
     return (): void => {
       clearInterval(timer);
     };
-  }, [error]);
+  }, [dispatchClearErrors, error]);
+
   return (
     <>
       {error !== undefined && (
@@ -34,7 +52,7 @@ const ErrorToast = (props): React.ReactElement => {
                 description="Title displayed on the Error Toast component."
               />
             </span>
-            <p>{error.message}</p>
+            <p>{constructErrorMessage(error)}</p>
           </div>
           <button
             type="button"
@@ -60,13 +78,15 @@ const mapStateToProps = (
   error: getRecentError(state),
 });
 
-const mapDispatchToProps = (dispatch: DispatchType): any => ({
+const mapDispatchToProps = (
+  dispatch: DispatchType,
+): { dispatchClearErrors: () => void } => ({
   dispatchClearErrors: (): void => {
     dispatch(clearErrors());
   },
 });
-// @ts-ignore
-const ErrorToastContainer: React.FunctionComponent = connect(
+
+const ErrorToastContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(injectIntl(ErrorToast));

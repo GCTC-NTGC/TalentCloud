@@ -135,9 +135,8 @@ const mapStateToProps = (
   };
 };
 
-// @ts-ignore
-export const AssessmentPlanBuilderContainer: React.FunctionComponent<
-  AssessmentPlanBuilderContainerProps
-> = connect(mapStateToProps)(AssessmentPlanBuilder);
+export const AssessmentPlanBuilderContainer = connect(mapStateToProps)(
+  AssessmentPlanBuilder,
+);
 
 export default AssessmentPlanBuilderContainer;

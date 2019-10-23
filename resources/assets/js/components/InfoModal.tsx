@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { Component, createRef } from "react";
 
 export interface InfoModalProps {
   /** HTML ID for modal attributes */
@@ -44,14 +44,14 @@ class InfoModal extends Component<InfoModalProps, InfoModalState> {
     const { height } = this.state;
 
     return height > viewportHeight
-      ? 'active--overflowing'
-      : 'active--contained';
+      ? "active--overflowing"
+      : "active--contained";
   };
 
   private updateBody = (visible: boolean): void => {
-    const body = document.querySelector('body');
+    const body = document.querySelector("body");
     if (body) {
-      body.style.overflow = visible ? 'hidden' : 'visible';
+      body.style.overflow = visible ? "hidden" : "visible";
     }
   };
 
@@ -86,7 +86,7 @@ class InfoModal extends Component<InfoModalProps, InfoModalState> {
           </button>
         </div>
 
-        <div data-c-dialog-overlay={visible && 'active'} />
+        <div data-c-dialog-overlay={visible && "active"} />
 
         <div
           aria-hidden={visible}

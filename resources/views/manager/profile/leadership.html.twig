@@ -4,9 +4,6 @@
     Manager: Profile - About Me
 
 ============================================================================= #}
-<a
-    id="leadership">
-</a>
 
 <section
     id="managerProfileSectionLeadership"
@@ -31,14 +28,14 @@
             <div
                 class="box med-1of2">
 
-                <div class="form__input-wrapper--float {% if manager.translate('en').leadership_style %}active{% endif %}">
+                <div class="form__input-wrapper--float {% if managerEN.leadership_style %}active{% endif %}">
                     <label class="form__label" for="managerProfileLeadershipStyleEN">
                         {{leadership_l10n.answer_english}}
                     </label>
                     <textarea
                         class="form__textarea"
                         id="managerProfileLeadershipStyleEN"
-                        name="leadership_style[en]">{{ manager.translate('en').leadership_style }}</textarea>
+                        name="en[leadership_style]">{{ old('en.leadership_style', managerEN.leadership_style) }}</textarea>
                 </div>
 
             </div>
@@ -46,14 +43,14 @@
             <div
                 class="box med-1of2">
 
-                <div class="form__input-wrapper--float {% if manager.translate('fr').leadership_style %}active{% endif %}">
+                <div class="form__input-wrapper--float {% if managerFR.leadership_style %}active{% endif %}">
                     <label class="form__label" for="managerProfileLeadershipStyleFR">
                         {{leadership_l10n.answer_french}}
                     </label>
                     <textarea
                         class="form__textarea"
                         id="managerProfileLeadershipStyleFR"
-                        name="leadership_style[fr]">{{ manager.translate('fr').leadership_style }}</textarea>
+                        name="fr[leadership_style]">{{ old('fr.leadership_style', managerFR.leadership_style) }}</textarea>
                 </div>
 
             </div>
@@ -76,21 +73,21 @@
             <div
                 class="box med-1of2">
 
-                <div class="form__input-wrapper--float {% if manager.translate('en').expectations %}active{% endif %}">
+                <div class="form__input-wrapper--float {% if managerEN.expectations %}active{% endif %}">
                     <label class="form__label" for="managerProfileExpectationsEN">
                         {{leadership_l10n.answer_english}}
                     </label>
                     <textarea
                         class="form__textarea"
                         id="managerProfileExpectationsEN"
-                        name="expectations[en]">{{ manager.translate('en').expectations }}</textarea>
+                        name="en[expectations]">{{ old('en.expectations', managerEN.expectations) }}</textarea>
                 </div>
 
             </div>
             <div
                 class="box med-1of2">
 
-                <div class="form__input-wrapper--float {% if manager.translate('fr').expectations %}active{% endif %}">
+                <div class="form__input-wrapper--float {% if managerFR.expectations %}active{% endif %}">
                     <label class="form__label" for="managerProfileExpectationsFR">
 
                         {{leadership_l10n.answer_french}}
@@ -98,7 +95,7 @@
                     <textarea
                         class="form__textarea"
                         id="managerProfileExpectationsFR"
-                        name="expectations[fr]">{{ manager.translate('fr').expectations }}</textarea>
+                        name="fr[expectations]">{{ old('fr.expectations', managerFR.expectations) }}</textarea>
                 </div>
 
             </div>
@@ -121,14 +118,14 @@
             <div
                 class="box med-1of2">
 
-                <div class="form__input-wrapper--float {% if manager.translate('en').employee_learning %}active{% endif %}">
+                <div class="form__input-wrapper--float {% if managerEN.employee_learning %}active{% endif %}">
                     <label class="form__label" for="managerProfileApproachEN">
                         {{leadership_l10n.answer_english}}
                     </label>
                     <textarea
                         class="form__textarea"
                         id="managerProfileApproachEN"
-                        name="employee_learning[en]">{{ manager.translate('en').employee_learning }}</textarea>
+                        name="en[employee_learning]">{{ old('en.employee_learning', managerEN.employee_learning) }}</textarea>
                 </div>
 
             </div>
@@ -136,14 +133,14 @@
             <div
                 class="box med-1of2">
 
-                <div class="form__input-wrapper--float {% if manager.translate('fr').employee_learning %}active{% endif %}">
+                <div class="form__input-wrapper--float {% if managerFR.employee_learning %}active{% endif %}">
                     <label class="form__label" for="managerProfileApproachFR">
                         {{leadership_l10n.answer_french}}
                     </label>
                     <textarea
                         class="form__textarea"
                         id="managerProfileApproachFR"
-                        name="employee_learning[fr]">{{ manager.translate('fr').employee_learning }}</textarea>
+                        name="fr[employee_learning]">{{ old('fr.employee_learning', managerFR.employee_learning) }}</textarea>
                 </div>
 
             </div>

@@ -1,7 +1,11 @@
 import { Selector } from "testcafe";
 import { managerUser } from "./helpers/roles";
 
-fixture(`Critical - Job Poster Builder`).page(`talent.test`);
+const HOMEPAGE = "https://talent.test";
+
+fixture(`Critical - Job Poster Builder`)
+  .page(HOMEPAGE)
+  .meta("travis", "run");
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Job Poster Builder`);
@@ -125,23 +129,40 @@ test("Job Poster Builder - New Job", async t => {
     // Work Environment page.
     .expect(Selector("h3").withText("Work Environment").visible)
     .ok()
-    .typeText(
-      Selector("input").withAttribute("id", "teamSize"),
-      "77",
-    )
+    .typeText(Selector("input").withAttribute("id", "teamSize"), "77")
+    .wait(200)
     .click(Selector("input").withAttribute("id", "smudging"))
+    .wait(200)
+    .click(Selector("input").withAttribute("id", "collaboration"))
+    .wait(200)
+    .click(Selector("input").withAttribute("id", "downtown"))
+    .wait(200)
+    // For some reason, deleting and retyping the teamSize input gets it recognized correctly
+    .selectText(Selector("input").withAttribute("id", "teamSize"))
+    .pressKey("delete")
+    .typeText(Selector("input").withAttribute("id", "teamSize"), "77")
+    .wait(200)
     .click(Selector("input").withAttribute("id", "culturePace04"))
+    .wait(200)
     .click(Selector("input").withAttribute("id", "mgmtStyle02"))
+    .wait(200)
     .click(Selector("input").withAttribute("id", "experimental03"))
+    .wait(200)
     .click(Selector("input").withAttribute("id", "facing01"))
+    .wait(200)
     .click(Selector("input").withAttribute("id", "collaborativeness04"))
+    .wait(200)
     .click(Selector("button").withText("Save & Preview"))
     // Work Environment review.
     .expect(Selector("span").withText("77").visible)
     .ok()
     .expect(Selector("h4").withText("Work Culture").visible)
     .ok()
-    .expect(Selector("p").withText("Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine. We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives. Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes. We are the face of the service we deliver and spend most of our time engaging directly with the public. Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.").visible)
+    .expect(
+      Selector("p").withText(
+        "Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine. We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives. Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes. We are the face of the service we deliver and spend most of our time engaging directly with the public. Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.",
+      ).visible,
+    )
     .ok()
     .click(Selector("button").withText("Next Step"))
     // Impact page.
@@ -159,7 +180,11 @@ test("Job Poster Builder - New Job", async t => {
     // Impact review.
     .expect(Selector("h5").withText("Awesome work!").visible)
     .ok()
-    .expect(Selector("p").withText("Global Affairs Canada manages Canada's diplomatic relations, provides consular services to Canadians, promotes the country's international trade, and leads Canada's international development and humanitarian assistance.").visible)
+    .expect(
+      Selector("p").withText(
+        "Global Affairs Canada manages Canada's diplomatic relations, provides consular services to Canadians, promotes the country's international trade, and leads Canada's international development and humanitarian assistance.",
+      ).visible,
+    )
     .ok()
     .expect(Selector("p").withText("Blah de blah blah.").visible)
     .ok()
@@ -172,22 +197,22 @@ test("Job Poster Builder - New Job", async t => {
     .click(Selector("button").withText("Add a Task"))
     .typeText(
       Selector("textarea").withAttribute("name", "tasks.0.description"),
-        "Chopping",
+      "Chopping",
     )
     .click(Selector("button").withText("Add a Task"))
     .typeText(
       Selector("textarea").withAttribute("name", "tasks.1.description"),
-        "Grilling",
+      "Grilling",
     )
     .click(Selector("button").withText("Add a Task"))
     .typeText(
       Selector("textarea").withAttribute("name", "tasks.2.description"),
-        "Seasoning",
+      "Seasoning",
     )
     .click(Selector("button").withText("Add a Task"))
     .typeText(
       Selector("textarea").withAttribute("name", "tasks.3.description"),
-        "Disco dancing",
+      "Disco dancing",
     )
     .click(Selector("button").withText("Save & Preview Tasks"))
     // Key Tasks review.
@@ -205,103 +230,11 @@ test("Job Poster Builder - New Job", async t => {
     // Skills page.
     .expect(Selector("h3").withText("Skills").visible)
     .ok()
-    .click(Selector("select").withAttribute("id", "jpb-all-skills-select"))
     .click(
-      Selector("select")
-        .withAttribute("id", "jpb-all-skills-select")
-        .find("option")
-        .withAttribute("value", "1"),
-    )
-    .expect(Selector("h5").withText("Add a skill").visible)
-    .ok()
-    .click(Selector("input").withAttribute("id", "advanced"))
-    .click(Selector("button").withText("Add Skill"))
-    .expect(Selector("h3").withText("Skills").visible)
-    .ok()
-    .click(Selector("select").withAttribute("id", "jpb-all-skills-select"))
-    .click(
-      Selector("select")
-        .withAttribute("id", "jpb-all-skills-select")
-        .find("option")
-        .withAttribute("value", "2"),
-    )
-    .expect(Selector("h5").withText("Add a skill"))
-    .ok()
-    .click(Selector("input").withAttribute("id", "intermediate"))
-    .click(Selector("button").withText("Add Skill"))
-    .expect(Selector("h3").withText("Skills").visible)
-    .ok()
-    .click(Selector("select").withAttribute("id", "jpb-all-skills-select"))
-    .click(
-      Selector("select")
-        .withAttribute("id", "jpb-all-skills-select")
-        .find("option")
-        .withAttribute("value", "3"),
-    )
-    .expect(Selector("h5").withText("Add a skill").visible)
-    .ok()
-    .click(Selector("input").withAttribute("id", "expert"))
-    .click(Selector("button").withText("Add Skill"))
-    .expect(Selector("h3").withText("Skills").visible)
-    .ok()
-    .click(Selector("select").withAttribute("id", "jpb-all-skills-select"))
-    .click(
-      Selector("select")
-        .withAttribute("id", "jpb-all-skills-select")
-        .find("option")
-        .withAttribute("value", "4"),
-    )
-    .expect(Selector("h5").withText("Add a skill").visible)
-    .ok()
-    .click(Selector("input").withAttribute("id", "basic"))
-    .click(Selector("button").withText("Add Skill"))
-    .expect(Selector("h3").withText("Skills").visible)
-    .ok()
-    .click(Selector("select").withAttribute("id", "jpb-all-skills-select"))
-    .click(
-      Selector("select")
-        .withAttribute("id", "jpb-all-skills-select")
-        .find("option")
-        .withAttribute("value", "5"),
-    )
-    .expect(Selector("h5").withText("Add a skill").visible)
-    .ok()
-    .click(Selector("input").withAttribute("id", "advanced"))
-    .click(Selector("button").withText("Add Skill"))
-    .expect(Selector("h3").withText("Skills").visible)
-    .ok()
-    .click(Selector("select").withAttribute("id", "jpb-all-skills-select"))
-    .click(
-      Selector("select")
-        .withAttribute("id", "jpb-all-skills-select")
-        .find("option")
-        .withAttribute("value", "6"),
-    )
-    .expect(Selector("h5").withText("Add a skill").visible)
-    .ok()
-    .click(Selector("input").withAttribute("id", "asset"))
-    .click(Selector("button").withText("Add Skill"))
-    .expect(Selector("h3").withText("Skills").visible)
-    .ok()
-    .click(Selector("select").withAttribute("id", "jpb-all-skills-select"))
-    .click(
-      Selector("select")
-        .withAttribute("id", "jpb-all-skills-select")
-        .find("option")
-        .withAttribute("value", "7"),
-    )
-    .expect(Selector("h5").withText("Add a skill").visible)
-    .ok()
-    .click(Selector("input").withAttribute("id", "asset"))
-    .click(Selector("button").withText("Add Skill"))
-    .expect(Selector("h3").withText("Skills").visible)
-    .ok()
-    .click(Selector("select").withAttribute("id", "jpb-all-skills-select"))
-    .click(
-      Selector("select")
-        .withAttribute("id", "jpb-all-skills-select")
-        .find("option")
-        .withAttribute("value", "8"),
+      Selector("#jpb-occupational-skills")
+        .find(".jpb-skill-cloud")
+        .find(".jpb-skill-trigger")
+        .nth(0),
     )
     .expect(Selector("h5").withText("Add a skill").visible)
     .ok()
@@ -310,11 +243,25 @@ test("Job Poster Builder - New Job", async t => {
     .expect(Selector("h3").withText("Skills").visible)
     .ok()
     .wait(3000)
+    .click(Selector("select").withAttribute("id", "jpb-all-skills-select"))
+    .click(
+      Selector("select")
+        .withAttribute("id", "jpb-all-skills-select")
+        .find("option")
+        .nth(1),
+    )
+    .expect(Selector("h5").withText("Add a skill").visible)
+    .ok()
+    .click(Selector("input").withAttribute("id", "advanced"))
+    .click(Selector("button").withText("Add Skill"))
+    .expect(Selector("h3").withText("Skills").visible)
+    .ok()
+    .wait(3000)
     .click(Selector("button").withText("Save & Preview Skills"))
     // Skills review.
     .expect(Selector("h5").withText("Keep it up!").visible)
     .ok()
-    .expect(Selector("p").withText("Front-end development").visible)
+    .expect(Selector(".criterion-item").exists)
     .ok()
     .wait(3000)
     .click(Selector("button").withText("Next Step"))
@@ -325,10 +272,13 @@ test("Job Poster Builder - New Job", async t => {
     .ok()
     .click(Selector("button").withText("Send to HR for Review"))
     // Review confirmation.
-    .expect(Selector("h5").withText("Congrats! Are You Ready to Submit?").visible)
+    .expect(
+      Selector("h5").withText("Congrats! Are You Ready to Submit?").visible,
+    )
     .ok()
+    .wait(3000)
     .click(Selector("button").withText("Yes, Submit"))
-    .navigateTo("/manager/jobs")
+    // Taken back to the Job index page
     .expect(Selector("h1").withText("My Job Posters").visible)
     .ok()
     .expect(Selector("a").withText("Product Designer (Preview)").visible)

@@ -15,6 +15,7 @@ use App\Mail\JobPosterReviewRequested;
 
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
+use App\Models\Manager;
 
 use App\Services\Validation\JobPosterValidator;
 use Jenssegers\Date\Date;
@@ -60,6 +61,8 @@ class JobController extends Controller
     public function managerIndex()
     {
         $manager = Auth::user()->manager;
+        $show_notification = Auth::user()->isDemoManager();
+
         $jobs = JobPoster::where('manager_id', $manager->id)
             ->withCount('submitted_applications')
             ->get();
@@ -69,6 +72,7 @@ class JobController extends Controller
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
             'jobs' => $jobs,
+            'show_notification' => $show_notification
         ]);
     }
 
@@ -81,20 +85,24 @@ class JobController extends Controller
      */
     public function submitForReview(Request $request, JobPoster $jobPoster)
     {
-        // Update review request timestamp.
-        $jobPoster->review_requested_at = new Date();
-        $jobPoster->save();
+        // Check to avoid submit for review multiple times.
+        if ($jobPoster->review_requested_at === null) {
+            // Update review request timestamp.
+            $jobPoster->review_requested_at = new Date();
+            $jobPoster->save();
+
+            // Send email.
+            $reviewer_email = config('mail.reviewer_email');
+            if (isset($reviewer_email)) {
+                Mail::to($reviewer_email)->send(new JobPosterReviewRequested($jobPoster, Auth::user()));
+            } else {
+                Log::error('The reviewer email environment variable is not set.');
+            }
+        }
 
         // Refresh model instance with updated DB values.
         $jobPoster = JobPoster::withCount('submitted_applications')->where('id', $jobPoster->id)->first();
 
-        // Send email.
-        $reviewer_email = config('mail.reviewer_email');
-        if (isset($reviewer_email)) {
-            Mail::to($reviewer_email)->send(new JobPosterReviewRequested($jobPoster, Auth::user()));
-        } else {
-            Log::error('The reviewer email environment variable is not set.');
-        }
 
         return view('manager/job_index/job', [
             // Localization Strings.
@@ -252,6 +260,31 @@ class JobController extends Controller
                 'form_action_url' => route('admin.jobs.update', $jobPoster),
             ]
         );
+    }
+
+    /**
+     * Create a blank job poster for the specified manager
+     *
+     * @param  \App\Models\Manager $manager Incoming Manager object.
+     * @return \Illuminate\Http\Response Job Create view
+     */
+    public function createAsManager(Manager $manager)
+    {
+        $jobPoster = new JobPoster();
+        $jobPoster->manager_id = $manager->id;
+
+        // Save manager-specific info to the job poster - equivalent to the intro step of the JPB
+        $divisionEn = $manager->translate('en') !== null ? $manager->translate('en')->division : null;
+        $divisionFr = $manager->translate('fr') !== null ? $manager->translate('fr')->division : null;
+        $jobPoster->fill([
+            'department_id' => $manager->department_id,
+            'en' => ['division' => $divisionEn],
+            'fr' => ['division' => $divisionFr],
+        ]);
+
+        $jobPoster->save();
+
+        return redirect()->route('manager.jobs.edit', $jobPoster->id);
     }
 
     /**

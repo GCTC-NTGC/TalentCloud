@@ -2,7 +2,7 @@ import { Job, JobPosterKeyTask, Criteria } from "../../models/types";
 import { ProgressTrackerState } from "../ProgressTracker/types";
 
 /** Job Builder Constants */
-export const VALID_COUNT = 6;
+export const VALID_COUNT = 8;
 
 const isFilled = (value: any | null | undefined): boolean => {
   return value !== null && value !== undefined && value !== "";

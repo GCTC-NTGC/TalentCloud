@@ -1,7 +1,11 @@
-import { Selector } from "testcafe";
-import { applicantUser, adminUser } from "./helpers/roles";
+import { Selector, Role, ClientFunction } from "testcafe";
+import { applicantUser, adminUser, assertIsLoggedIn } from "./helpers/roles";
 
-fixture(`Critical - Applicant Profile`).page(`talent.test`);
+const HOMEPAGE = "https://talent.test";
+
+fixture(`Critical - Applicant Profile`)
+  .page(HOMEPAGE)
+  .meta("travis", "run");
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Applicant Profile`);
@@ -22,7 +26,7 @@ test("Applicant Profile - My Skills", async t => {
       Selector("select")
         .withAttribute("name", "skill_id")
         .find("option")
-        .withAttribute("value", "24"),
+        .withText("Passion"),
     )
     .click(
       Selector(".form__radio-group-span").withText("Deep Level Demonstration"),
@@ -244,7 +248,7 @@ test("Applicant Profile - About Me", async t => {
     .ok()
     // Change password.
     .typeText(
-      Selector(".form__input").withAttribute("name", "old_password"),
+      Selector(".form__input").withAttribute("name", "current_password"),
       "password",
     )
     .typeText(
@@ -310,18 +314,69 @@ function randomEmail() {
   return email;
 }
 
-fixture(`Critical - Registration`).page(`talent.test`);
+fixture(`Critical - Registration`).page(HOMEPAGE);
 // Skip when writing new tests
 // fixture.skip(`Critical - Registration`);
 
 test("Registration - Applicant", async t => {
   await t
+    .useRole(Role.anonymous())
     .click(Selector("a").withText("Register"))
     .typeText(Selector("#name"), "Test Cafe")
     .typeText(Selector("#email"), randomEmail())
     .typeText(Selector("#password"), "Password123!@#")
     .typeText(Selector("#password-confirm"), "Password123!@#")
-    .click(Selector("button").withText("Register"))
-    .expect(Selector("a").withText("My Applications").visible)
-    .ok();
+    .click(Selector("button").withText("Register"));
+  await assertIsLoggedIn(t);
+});
+
+test("Registration - Manager", async t => {
+  await t
+    .useRole(Role.anonymous())
+    .navigateTo("/manager")
+    .click(Selector("a").withText("Register"))
+    .typeText(Selector("#name"), "Test Cafe")
+    .typeText(Selector("#email"), randomEmail())
+    .click(Selector("#department"))
+    .click(
+      Selector("#department")
+        .find("option")
+        .withText("Treasury Board of Canada Secretariat"),
+    )
+    .typeText(Selector("#gov_email"), randomEmail())
+    .typeText(Selector("#password"), "Password123!@#")
+    .typeText(Selector("#password-confirm"), "Password123!@#")
+    .click(Selector("button").withText("Register"));
+  await assertIsLoggedIn(t);
+});
+
+// Returns the URL of the current web page
+const getPageUrl = ClientFunction(() => window.location.href);
+
+test("Registration - First Manager Visit", async t => {
+  await t
+    .useRole(Role.anonymous())
+    .click(Selector("a").withText("Register"))
+    .typeText(Selector("#name"), "Test Cafe")
+    .typeText(Selector("#email"), randomEmail())
+    .typeText(Selector("#password"), "Password123!@#")
+    .typeText(Selector("#password-confirm"), "Password123!@#")
+    .click(Selector("button").withText("Register"));
+  await assertIsLoggedIn(t);
+  await t
+    .navigateTo("/manager")
+    .click(Selector("#department"))
+    .click(
+      Selector("#department")
+        .find("option")
+        .withText("Treasury Board of Canada Secretariat"),
+    )
+    // Gov email field should be visible after selecting a department
+    .expect(Selector("#gov_email").visible)
+    .ok()
+    .typeText(Selector("#gov_email"), randomEmail())
+    .click(Selector("button").withAttribute("type", "submit"))
+    // Should now be on the manager homepage
+    .expect(getPageUrl())
+    .match(/\/manager$/);
 });

@@ -1,14 +1,18 @@
 import { Selector } from "testcafe";
 import { managerUser, adminUser } from "./helpers/roles";
 
-fixture(`Smoke`).page(`talent.test`);
+const HOMEPAGE = "https://talent.test";
+
+fixture(`Smoke`)
+  .page(HOMEPAGE)
+  .meta("travis", "run");
 
 // Skip when writing new tests
 // fixture.skip(`Smoke`);
 
 test("Basic Access", async t => {
   await t
-    .expect(Selector(".home__about-card").visible)
+    .expect(Selector("#home-heading").visible)
     .ok()
     .expect(Selector("a").withText("Login").visible)
     .ok()
@@ -19,31 +23,31 @@ test("Basic Access", async t => {
     .expect(Selector("section.faq").visible)
     .ok()
     .click(Selector("a").withText("Login"))
-    .expect(Selector("form > .auth-content").visible)
+    .expect(Selector("form button[type=submit]").withText("Login").visible)
     .ok();
 });
 
 test("No Access Profile", async t => {
   await t
     .navigateTo("/profile/about")
-    .expect(Selector("form > .auth-content")())
+    .expect(Selector("form button[type=submit]").withText("Login").visible)
     .ok();
 });
 
 test("Language Switch", async t => {
+  const frenchLink = Selector("a").withText("Français");
+  const englishLink = Selector("a").withText("English");
   await t
-    .click(Selector("a").withText("Français"))
+    .click(frenchLink)
     .expect(
-      Selector(".home__hero-content.flex-grid.middle")
-        .find("div")
-        .withText("Votre prochain projet").visible,
+      Selector("p").withText(
+        "Il est désormais plus facile de postuler un emploi au gouvernement.",
+      ),
     )
     .ok()
-    .click(Selector("a").withText("English"))
+    .click(englishLink)
     .expect(
-      Selector(".home__hero-content.flex-grid.middle")
-        .find("div")
-        .withText("Your next gig").visible,
+      Selector("p").withText("Applying to government jobs just got easier."),
     )
     .ok();
 });
@@ -94,6 +98,6 @@ test("Admin Portal", async t => {
   await t
     .useRole(adminUser)
     .navigateTo("/admin")
-    .expect(Selector("h1").withText("Dashboard").visible)
+    .expect(Selector("h1").withText("Welcome!").visible)
     .ok();
 });

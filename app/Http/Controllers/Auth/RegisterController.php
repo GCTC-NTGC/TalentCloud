@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Auth\AuthController;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Models\UserRole;
 use App\Models\Applicant;
-use App\Services\Validation\Rules\PasswordFormatRule;
+use App\Models\Manager;
+use App\Models\Lookup\Department;
+use App\Services\Validation\RegistrationValidator;
 use Facades\App\Services\WhichPortal;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends AuthController
 {
@@ -64,6 +65,22 @@ class RegisterController extends AuthController
     }
 
     /**
+     * Show the manager registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showManagerRegistrationForm()
+    {
+        return view('auth.register_manager', [
+            'routes' => $this->auth_routes(),
+            'register' => Lang::get('common/auth/register'),
+            'not_in_gov_option' => ['value' => 0, 'name' => Lang::get('common/auth/register.not_in_gov')],
+            'departments' => Department::all(),
+        ]);
+    }
+
+    /**
+     * OVERRIDE
      * Get a validator for an incoming registration request.
      *
      * @param  array $data Incoming registration data.
@@ -71,16 +88,18 @@ class RegisterController extends AuthController
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => [
-                'required',
-                'min:8',
-                new PasswordFormatRule,
-                'confirmed'
-            ],
-        ]);
+        return RegistrationValidator::userValidator($data);
+    }
+
+    /**
+     * Get a validator for an incoming Manager registration request.
+     *
+     * @param  array $data Incoming registration data.
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function managerValidator(array $data)
+    {
+        return RegistrationValidator::managerValidator($data);
     }
 
     /**
@@ -96,14 +115,47 @@ class RegisterController extends AuthController
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
 
-        // Default to applicant role.
-        $user->user_role()->associate(UserRole::where('name', 'applicant')->first());
+        // Default to basic user.
+        $user->setRole('basic');
 
         $user->save();
 
         $user->applicant()->save(new Applicant());
 
-        return $user;
+        return $user->fresh();
+    }
+
+    /**
+     * Create a new Manager user instance after a valid registration.
+     *
+     * @param  array $data Incoming User data.
+     * @return \App\Models\User
+     */
+    protected function createManager(array $data)
+    {
+        // Create basic user
+        $user = $this->create($data);
+
+        // Save manager specific fields
+        $managerDepartment = Department::find($data['department']);
+        $inGovernment = ($managerDepartment !== null);
+        $user->not_in_gov = !$inGovernment;
+        $user->gov_email = $inGovernment ? $data['gov_email'] : null;
+        $user->save();
+        $user->refresh();
+
+        // Add (or update) manager profile
+        // NOTE: modifying a field in $user, and saving it, appears to create Manager object. I don't know how. -- Tristan
+        // That means that after setting not_in_gov or gov_email, a manager already exists here. Adding a new one will throw an exception.
+        $department_id = $inGovernment ? $managerDepartment->id : null;
+        if ($user->manager === null) {
+            $user->applicant()->save(new Manager());
+            $user->refresh();
+        }
+        $user->manager->department_id = $department_id;
+        $user->manager->save();
+
+        return $user->fresh();
     }
 
     /**
@@ -117,5 +169,24 @@ class RegisterController extends AuthController
     protected function registered(Request $request, $user)
     {
         return redirect()->intended($this->redirectTo());
+    }
+
+    /**
+     * Handle a Manager registration request for the application.
+     * This function is based off RegistersUsers->register
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function registerManager(Request $request)
+    {
+        $this->managerValidator($request->all())->validate();
+
+        event(new Registered($user = $this->createManager($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
     }
 }

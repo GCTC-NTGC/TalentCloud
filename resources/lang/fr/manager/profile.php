@@ -17,11 +17,24 @@ return [
     'layout' => [
         'sidebar' => [
             'profile_sections' => 'Sections du profile',
+            'my_account' => 'Mon compte',
             'about_me' => 'À propos de moi',
             'leadership_style' => 'Mon style de leadership',
             'our_work_environment' => 'Notre environnement de travail',
             'our_team_culture' => 'Notre culture d\'équipe',
             'save_all_sections' => 'Enregistrer toutes les sections'
+        ],
+        'account' => [
+            'my_account' => 'Mon compte',
+            'my_name' => 'Mon nom',
+            'account_settings' => 'Renseignements du compte',
+            'reset_password' => 'Réinitialiser mon mot de passe',
+            'profile_email' => 'Mon courriel',
+            'gov_email' => 'Mon email du gouvernement',
+            'current_password' => 'Mot de passe actuel',
+            'new_password' => 'Nouveau mot de passe',
+            'confirm_password' => 'Confirmer le nouveau mot de passe',
+            'save_account_settings' => 'Enregistrer les paramètres du compte',
         ],
         'about' => [
             'about_me' => 'À propos de moi',

@@ -52,7 +52,7 @@ class UpdateApplicationProfileValidator extends BaseDataValidator implements Dat
             ],
 
             // Password validation
-            'old_password' => [
+            'current_password' => [
                 'nullable',
                 'required_with:new_password',
                 new PasswordCorrectRule

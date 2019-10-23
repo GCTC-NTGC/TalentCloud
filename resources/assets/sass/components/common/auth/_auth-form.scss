@@ -4,207 +4,26 @@
     Authentication
 
 ============================================================================= */
-.auth {
-    background-postion: center;
-    background-size: cover;
+
+// Clone Rebuild
+.tc-auth {
     min-height: 100vh;
-    padding: 8rem 0 3rem;
-    position: relative;
-
-    &::before {
-        background: transparentize($palette--black, .2);
-        content: " ";
-        display: block;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-    }
-
-    .auth-register, .auth-login, .auth-email, .auth-reset {
-        background: $palette--black;
-        box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
-        height: auto;
-        margin: 0 auto;
+    .tc-auth-wrapper {
         position: relative;
-        width: 90%;
-
-        @media #{$p-tablet} {
-            margin: 0 auto;
-        }
-
-        @media #{$l-tablet} {
-            width: 50%;
-        }
-
-        .auth-return-link {
-            color: $palette--font-white;
-            font-family: $font--sans;
-            font-size: $font-scale--regular;
-            position: absolute;
-            top: -1rem;
-            left: 0;
-            text-decoration: none;
-            transform: translate(0, -100%);
-            transition: color .2s ease;
-
-            i {
-                margin: 0 .5rem 0 0;
-                transform: translate(0, 0);
-                transition: transform .2s ease;
-            }
-
-            &:hover {
-                color: $palette--blue;
-                transition: color .2s ease;
-
-                i {
-                    transform: translate(-50%, 0);
-                    transition: transform .2s ease;
-                }
-
-            }
-
-        }
-
-        .auth-heading {
-            background: $palette--white;
-            border-radius: 5px 5px 0 0;
-            //overflow: hidden;
-            padding: calc(#{$unit} * 2) calc(#{$unit} * 6) calc(#{$unit} * 2) calc(#{$unit} * 2);
+        .tc-auth-header {
             position: relative;
-
-            &::before {
-                background-color: transparentize($palette--black, .15);
-                background-image: url("/images/bg_lightning_texture.png");
-                background-position: center;
-                background-repeat: repeat;
-                background-size: 75px;
-                content: " ";
-                display: block;
-                height: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-            }
-
             h1 {
-                color: $palette--font-white;
-                font-family: $font--sans;
-                font-size: $font-scale--h3;
-                font-weight: 600;
-                margin: 0;
                 position: relative;
+                z-index: 2;
             }
         }
-
-        .auth-content {
-            background: $palette--white;
-            overflow: hidden;
-
-            .auth-copy {
-                padding: 0 2rem 2rem 2rem;
-
-                .form__checkbox-wrapper {
-                  font-family: $font--sans;
-                  font-size: $font-scale--regular;
-                }
-
-                .flex-grid {
-                    margin: 0 -1rem;
-                    justify-content: center;
-
-                    .box {
-                        padding: 0 1rem;
-
-                        .auth-alert {
-                            background: rgba(255, 0, 0, .2);
-                            color: rgba(150, 0, 0, 1);
-                            font-family: $font--sans;
-                            font-size: $font-scale--regular;
-                            font-weight: 400;
-                            width: 100%;
-                            padding: 2rem;
-                            display: block;
-                            margin: 2rem 0 0 0;
-                            border-radius: 5px;
-                            border: 1px solid red;
-
-                            li {
-                                padding: 0.5rem 0;
-                            }
-                        }
-
-                        .auth-success {
-                            background: rgba(0, 255, 0, .2);
-                            color: rgba(0, 150, 0, 1);
-                            font-family: $font--sans;
-                            font-size: $font-scale--regular;
-                            font-weight: 400;
-                            width: 100%;
-                            padding: 2rem;
-                            display: block;
-                            margin: 2rem 0 0 0;
-                            border-radius: 5px;
-                            border: 1px solid green;
-                        }
-
-                        p {
-                            @extend %paragraph;
-                            margin: 2rem 0 0 0;
-                        }
-
-                        &.small-1of2:last-child {
-                            text-align: right;
-                        }
-
-                        a {
-                            font-family: $font--sans;
-                            font-size: $font-scale--regular;
-                        }
-
-                    }
-
-                }
-
+        .tc-auth-remember-me {
+            padding-bottom: 0 !important;
+            >div {
+                border: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
-
         }
-
-        .auth-action-wrapper {
-            background: $palette--white;
-            border-radius: 0 0 5px 5px;
-            border-top: 1px solid darken($palette--white, 30%);
-            padding: 1.5rem 1rem;
-
-            .flex-grid {
-                margin: 0;
-                width: 100%;
-
-                .box {
-                    padding: 0 1rem;
-
-                    &:last-child {
-                        text-align: right;
-                    }
-
-                }
-
-            }
-
-        }
-
     }
-
-    .auth-logo {
-        display: block;
-        margin: 0 auto;
-        max-width: 60%;
-        padding: 3rem 0 0;
-        position: relative;
-        width: 15rem;
-    }
-
 }

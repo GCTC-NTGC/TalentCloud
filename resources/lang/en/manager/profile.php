@@ -17,11 +17,24 @@ return [
     'layout' => [
         'sidebar' => [
             'profile_sections' => 'Profile Sections',
+            'my_account' => 'My Account',
             'about_me' => 'About Me',
             'leadership_style' => 'My Leadership Style',
             'our_work_environment' => 'Our Work Environment',
             'our_team_culture' => 'Our Team Culture',
             'save_all_sections' => 'Save All Sections'
+        ],
+        'account' => [
+            'my_account' => 'My Account',
+            'my_name' => 'My Name',
+            'account_settings' => 'Account Information',
+            'reset_password' => 'Reset Password',
+            'profile_email' => 'My Email',
+            'gov_email' => 'My Government Email',
+            'current_password' => 'Current Password',
+            'new_password' => 'New Password',
+            'confirm_password' => 'Confirm New Password',
+            'save_account_settings' => 'Save Account Settings',
         ],
         'about' => [
             'about_me' => 'About Me',

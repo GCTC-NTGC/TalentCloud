@@ -3,6 +3,10 @@
     // Page Footer
 
 // =============================================================================
+footer {
+    flex-direction: row;
+}
+
 .footer-nav {
     ul {
         margin: -1rem;

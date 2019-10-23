@@ -7,6 +7,9 @@ use App\Models\UserRole;
 
 class UserCrudController extends CrudController
 {
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+
     /**
      * Prepare the admin interface by setting the associated
      * model, setting the route, and adding custom columns/fields.
@@ -18,10 +21,10 @@ class UserCrudController extends CrudController
         $this->crud->setModel('App\Models\User');
         $this->crud->setRoute('admin/user');
         $this->crud->setEntityNameStrings('user', 'users');
+    }
 
-        $this->crud->denyAccess('create');
-        $this->crud->denyAccess('delete');
-
+    public function setupListOperation()
+    {
         $this->crud->addColumn([
             'name' => 'name',
             'type' => 'text',
@@ -35,24 +38,37 @@ class UserCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'user_role.name',
             'type' => 'text',
+            'key' => 'user_role_name',
             'label' => 'Role'
+        ]);
+        $this->crud->addColumn([
+            'name' => 'gov_email',
+            'type' => 'text',
+            'label' => 'Gov Email'
+        ]);
+        $this->crud->addColumn([
+            'name' => 'not_in_gov',
+            'type' => 'check',
+            'label' => 'Not in Gov'
         ]);
         $this->crud->addColumn([
             'name' => 'is_priority',
             'type' => 'check',
             'label' => 'Priority'
         ]);
-
         $this->crud->addFilter([
             'name' => 'user_role',
             'type' => 'select2',
             'label' => 'Role'
-        ], function () {
-            return UserRole::all()->keyBy('id')->pluck('name', 'id')->toArray();
-        }, function ($value) : void {
-            $this->crud->addClause('where', 'user_role_id', $value);
-        });
+            ], function () {
+                return UserRole::all()->keyBy('id')->pluck('name', 'id')->toArray();
+            }, function ($value) : void {
+                $this->crud->addClause('where', 'user_role_id', $value);
+            });
+    }
 
+    public function setupUpdateOperation()
+    {
         $this->crud->addField([
             'name' => 'name',
             'label' => 'Name',
@@ -74,17 +90,5 @@ class UserCrudController extends CrudController
             'type' => 'checkbox',
             'label' => 'Priority'
         ]);
-    }
-
-    /**
-     * Action for updating an existing User in the database.
-     *
-     * @param  \Illuminate\Http\Request $request Incoming form request.
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update($request) // phpcs:ignore
-    {
-        $response = parent::updateCrud();
-        return $response;
     }
 }
