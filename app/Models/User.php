@@ -80,17 +80,14 @@ class User extends BaseModel implements
     ];
 
     protected $fillable = [
-<<<<<<< HEAD
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'is_priority',
         'gov_email',
         'not_in_gov',
         'google2fa_secret'
-=======
-        'first_name', 'last_name', 'email', 'password', 'is_priority', 'gov_email', 'not_in_gov'
->>>>>>> origin/dev
     ];
 
     protected $with = ['user_role'];
