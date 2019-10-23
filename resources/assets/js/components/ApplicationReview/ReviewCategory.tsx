@@ -157,10 +157,11 @@ const ReviewCategory: React.StatelessComponent<
     return `${first_name} ${last_name} <${email}>`; // eslint-disable-line
   });
   const emailList = nameEmails.join(",");
-  const handleCopyClick = (): void => {
-    copyToClipboard(emailList);
-    setJustCopied(true);
-    setTimeout(() => setJustCopied(false), 1000);
+  const handleCopyClick = (event): void => {
+    copyToClipboard(event, emailList).then(() => {
+      setJustCopied(true);
+      setTimeout(() => setJustCopied(false), 2000);
+    });
   };
 
   return (

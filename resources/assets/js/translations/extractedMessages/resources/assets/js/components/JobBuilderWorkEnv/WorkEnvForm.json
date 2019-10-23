@@ -300,6 +300,16 @@
     "defaultMessage": "Now let applicants know more about the personality of your team and the type of work that you usually do."
   },
   {
+    "id": "button.copyToClipboard",
+    "description": "Button to copy text to clipboard.",
+    "defaultMessage": "Copy to Clipboard"
+  },
+  {
+    "id": "button.copied",
+    "description": "Confirmation for Button to copy text to clipboard.",
+    "defaultMessage": "Copied!"
+  },
+  {
     "id": "jobBuilder.workEnv.saveAndReturnButtonLabel",
     "description": "Label for Save & Return button on Work Environment form.",
     "defaultMessage": "Save & Return to Job Details"
