@@ -141,16 +141,19 @@ class ManagerApiControllerTest extends TestCase
 
     public function testGetManagerIncludesUserName()
     {
-        $name = 'Test Name 1';
+        $first_name = 'Test';
+        $last_name = 'Name 1';
         $manager = factory(Manager::class)->create();
         $user = $manager->user;
-        $user->name = $name;
+        $user->first_name = $first_name;
+        $user->last_name = $last_name;
         $user->save();
 
         $applicantUser = factory(User::class)->state('applicant')->create();
         $response = $this->actingAs($applicantUser)->json('get', "api/managers/$manager->id");
         $response->assertOk();
 
-        $response->assertJsonFragment(['name' => $name]);
+        $response->assertJsonFragment(['first_name' => $first_name]);
+        $response->assertJsonFragment(['last_name' => $last_name]);
     }
 }

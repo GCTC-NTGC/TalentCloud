@@ -37,7 +37,8 @@ class RegisterControllerTest extends TestCase
     {
         $user = factory(User::class)->make();
         $credentials = [
-            'name' => $user->name,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
             'email' => $user->email,
             'password' => 'Test123!',
             'password_confirmation' => 'Test123!'
@@ -57,7 +58,8 @@ class RegisterControllerTest extends TestCase
     {
         $user = factory(User::class)->make();
         $credentials = [
-            'name' => $user->name,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
             'email' => $user->email,
             'password' => 'Test123!',
             'password_confirmation' => 'Test123!'
@@ -86,7 +88,8 @@ class RegisterControllerTest extends TestCase
             'email' => 'TEST@test.com'
         ]);
         $credentials = [
-            'name' => $user->name,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
             'email' => $user->email,
             'password' => 'Test123!',
             'password_confirmation' => 'Test123!'

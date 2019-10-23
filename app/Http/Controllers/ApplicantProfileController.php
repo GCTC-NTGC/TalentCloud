@@ -156,7 +156,8 @@ class ApplicantProfileController extends Controller
         $user = $applicant->user;
         $user->fill(
             [
-                'name' => $input['profile_name'],
+                'first_name' => $input['profile_first_name'],
+                'last_name' => $input['profile_last_name'],
                 'email' => $input['profile_email'], // TODO make changing email harder!
             ]
         );

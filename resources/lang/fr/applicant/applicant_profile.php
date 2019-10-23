@@ -1,4 +1,5 @@
 <?php
+
 return [
     /*
     * --------------------------------------------------------------------------
@@ -17,7 +18,8 @@ return [
         // 'gc_link_title' => '',
         // 'gc_link_label' => '',
         'account_form_legend' => 'Renseignements du compte',
-        'user_name_label' => 'Mon nom',
+        'user_first_name_label' => 'Prénom',
+        'user_last_name_label' => 'Nom',
         'user_email_label' => 'Mon courriel',
         'password_form_legend' => 'Réinitialiser mon mot de passe',
         'user_current_password_label' => 'Mot de passe actuel',

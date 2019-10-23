@@ -387,7 +387,7 @@ export const JobBuilderSkills: React.FunctionComponent<
       <div data-c-grid-item="base(6of10) tl(7of10)">
         <div data-c-grid="gutter">
           <div data-c-grid-item="base(1of1) tl(2of3)">
-            <span>0</span>
+            {/* <span>0</span>
             <span
               data-c-background="grey(40)"
               data-c-font-size="small"
@@ -397,7 +397,7 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-colour="white"
             >
               <i className="fas fa-briefcase" />
-            </span>
+            </span> */}
             <span>
               <FormattedMessage
                 id="jobBuilder.skills.addSkillBelow"
@@ -481,9 +481,9 @@ export const JobBuilderSkills: React.FunctionComponent<
           <div data-c-grid-item="base(6of10) tl(7of10)">
             <div data-c-grid="gutter">
               <div data-c-grid-item="base(1of1) tl(2of3)">
-                <span>{index + 1}</span>
+                <span data-c-margin="right(normal)">{index + 1}.</span>
                 {/* This icon will automatically update based on the class you've specified above, on the jpb-skill. */}
-                <span
+                {/* <span
                   className="jpb-skill-type"
                   data-c-font-size="small"
                   data-c-margin="rl(half)"
@@ -496,13 +496,13 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-coffee" />
                   <i className="fas fa-certificate" />
                   <i className="fas fa-book" />
-                </span>
+                </span> */}
                 {/* The skill name. */}
                 <span>{skill[locale].name}</span>
               </div>
               <div data-c-grid-item="base(1of1) tl(1of3)">
                 <span
-                  data-c-radius="rounded"
+                  data-c-radius="pill"
                   data-c-padding="tb(quarter) rl(half)"
                   data-c-border="all(thin, solid, c1)"
                   data-c-colour="c1"

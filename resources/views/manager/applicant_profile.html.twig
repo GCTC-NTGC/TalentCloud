@@ -6,7 +6,7 @@
 ============================================================================= #}
 {% extends "layouts/base" %}
 
-{% block title %}{{ [applicant.user.name, profile.title]|join(': ') }}{% endblock %}
+{% block title %}{{ profile.title }}: {{ user.first_name }} {{ user.last_name }}{% endblock %}
 
 {% block body %}
 
@@ -20,7 +20,7 @@
 
     {# Page Header #}
 
-    	{% include "common/header" with {"header":profile} %}
+    	{% include "common/header" with {'header': {'title': ":title: :fname :lname"|replace({':title':profile.title, ':fname':user.first_name, ':lname':user.last_name}) }} %}
 
 		<a id="skipLink"></a>
 
@@ -32,7 +32,7 @@
 	    	<div
 	    		class="container--copy">
 
-	    		<h2>{{ profile.content.whose_profile | replace({":name":applicant.user.name}) }}</h2>
+	    		<h2>{{ profile.content.whose_profile | replace({":name":user.first_name}) }}</h2>
 
 	    		{# {{ applicant }} #}
 

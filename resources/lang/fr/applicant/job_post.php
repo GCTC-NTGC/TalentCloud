@@ -104,8 +104,8 @@ return [
     ],
     'work_environment' => [
         'view_more_button' => 'Voir l’environnement de travail et la culture de l’équipe',
-        'modal_title' => 'Work Environment and Culture FR', // TODO: needs translation
-        'modal_more_on_env' => 'More About Your Environment FR', // TODO: needs translation
+        'modal_title' => 'Environnement de travail et culture',
+        'modal_more_on_env' => 'Plus sur votre environnement de travail',
         'modal_button' => 'Fermer',
         'remote_work_label' => 'Travail à distance :',
         'remote_work_desc' => 'Travaillez n’importe où, en tout temps.',
@@ -134,16 +134,16 @@ return [
         'travel_label' => 'Voyage',
         'travel_desc' => 'Voir plus du Canada ou du monde.',
         'travel' => [
-            'frequently' => 'Frequently FR', // TODO: needs translation
-            'available' => 'Opportunities available FR', // TODO: needs translation
-            'none' => 'None FR', // TODO: needs translation
+            'frequently' => 'Fréquemment',
+            'available' => 'Opportunités possibles',
+            'none' => 'Aucun',
         ],
         'overtime_label' => 'Heures supplémentaires',
         'overtime_desc' => 'Faites des heures supplémentaires les soirs et les fins de semaine.',
         'overtime' => [
-            'frequently' => 'Frequently FR', // TODO: needs translation
-            'available' => 'Opportunities available FR', // TODO: needs translation
-            'none' => 'None FR', // TODO: needs translation
+            'frequently' => 'Fréquemment',
+            'available' => 'Opportunités possibles',
+            'none' => 'Aucunes',
         ],
 
     ],

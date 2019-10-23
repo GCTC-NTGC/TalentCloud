@@ -686,7 +686,21 @@ const JobDetails: React.FunctionComponent<
                           data-c-margin="top(normal) bottom(half)"
                         >
                           <CopyToClipboardButton
-                            text={getEducationMsgForClassification(
+                            actionText={
+                              <FormattedMessage
+                                id="button.copyToClipboard"
+                                defaultMessage="Copy to Clipboard"
+                                description="Button to copy text to clipboard."
+                              />
+                            }
+                            postActionText={
+                              <FormattedMessage
+                                id="button.copied"
+                                defaultMessage="Copied!"
+                                description="Confirmation for Button to copy text to clipboard."
+                              />
+                            }
+                            textToCopy={getEducationMsgForClassification(
                               values.classification,
                               intl,
                             )}

@@ -24,7 +24,8 @@ use App\CRUD\TalentCloudCrudTrait as CrudTrait;
  *
  * @property int $id
  * @property string $email
- * @property string $name
+ * @property string $first_name
+ * @property string $last_name
  * @property string $password
  * @property boolean $is_confirmed
  * @property boolean $is_priority
@@ -79,6 +80,7 @@ class User extends BaseModel implements
     ];
 
     protected $fillable = [
+<<<<<<< HEAD
         'name',
         'email',
         'password',
@@ -86,6 +88,9 @@ class User extends BaseModel implements
         'gov_email',
         'not_in_gov',
         'google2fa_secret'
+=======
+        'first_name', 'last_name', 'email', 'password', 'is_priority', 'gov_email', 'not_in_gov'
+>>>>>>> origin/dev
     ];
 
     protected $with = ['user_role'];
@@ -278,7 +283,7 @@ class User extends BaseModel implements
      *
      * @return void
      */
-    public function sendPasswordResetNotification($token)
+    public function sendPasswordResetNotification($token): void
     {
         $this->notify(new ResetPasswordNotification($token));
     }
@@ -288,11 +293,20 @@ class User extends BaseModel implements
      *  - they have confirmed to NOT be in government,
      *  - OR they've added a gov email.
      *
-     * @param [type] $user
      * @return boolean
      */
-    public function isGovIdentityConfirmed()
+    public function isGovIdentityConfirmed(): bool
     {
         return $this->not_in_gov || !empty($this->gov_email);
+    }
+
+    /**
+     * Returns a user's full name.
+     *
+     * @return string
+    */
+    public function getFullNameAttribute(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 }
