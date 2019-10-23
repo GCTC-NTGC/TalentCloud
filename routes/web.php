@@ -458,6 +458,13 @@ Route::group(
         Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
             ->middleware('can:create,App\Models\JobPoster')
             ->name('admin.jobs.create_as_manager');
+
+        Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('admin.two_factor.activate');
+        Route::get('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('admin.two_factor.deactivate');
+        Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('admin.two_factor.confirm');
+
+        Route::post('two-factor/generate_recovery_codes', 'Auth\RecoveryCodeController@generate')->name('admin.recovery_codes.generate');
+        Route::get('two-factor/recovery_codes', 'Auth\RecoveryCodeController@show')->name('admin.recovery_codes.show');
     }
 );
 

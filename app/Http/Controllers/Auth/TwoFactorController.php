@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
-
-use App\Models\Applicant;
+use Facades\App\Services\WhichPortal;
 
 class TwoFactorController extends AuthController
 {
@@ -29,6 +28,7 @@ class TwoFactorController extends AuthController
     {
         $user = $request->user();
         $user->google2fa_secret = null;
+        $user->recovery_codes = null;
         $user->save();
         $user->refresh();
 
@@ -45,6 +45,16 @@ class TwoFactorController extends AuthController
             $user->refresh();
         }
 
-        return redirect(route('recovery_codes.show'));
+        $recovery_codes_url = '';
+        if (WhichPortal::isApplicantPortal()) {
+            $recovery_codes_url = route('recovery_codes.show');
+        } elseif (WhichPortal::isManagerPortal()) {
+            // TODO: add Manager specific route
+            $recovery_codes_url = route('recovery_codes.show');
+        } elseif (WhichPortal::isAdminPortal()) {
+            $recovery_codes_url = route('admin.recovery_codes.show');
+        }
+
+        return redirect($recovery_codes_url);
     }
 }
