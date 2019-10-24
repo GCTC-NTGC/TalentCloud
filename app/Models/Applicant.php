@@ -73,7 +73,7 @@ class Applicant extends BaseModel
 
     public function degrees()
     {
-        return $this->hasMany(\App\Models\Degree::class)->orderBy('end_date', 'desc');
+        return $this->morphMany(\App\Models\Degree::class, 'degreeable')->orderBy('end_date', 'desc');
     }
 
     public function courses()

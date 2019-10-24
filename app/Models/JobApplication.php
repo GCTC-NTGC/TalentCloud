@@ -45,6 +45,7 @@ use App\Services\Validation\ApplicationValidator;
  * @property \Illuminate\Database\Eloquent\Collection $job_application_answers
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  * @property \App\Models\ApplicationReview $application_review
+ * @property \Illuminate\Database\Eloquent\Collection $degrees
  */
 class JobApplication extends BaseModel {
 
@@ -131,6 +132,11 @@ class JobApplication extends BaseModel {
 
     public function application_review() {
         return $this->hasOne(ApplicationReview::class);
+    }
+
+    public function degrees()
+    {
+        return $this->morphMany(\App\Models\Degree::class, 'degreeable')->orderBy('end_date', 'desc');
     }
 
     /**

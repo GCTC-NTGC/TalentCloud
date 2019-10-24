@@ -80,7 +80,7 @@ class ExperienceController extends Controller
         if (isset($degrees['new'])) {
             foreach ($degrees['new'] as $degreeInput) {
                 $degree = new Degree();
-                $degree->applicant_id = $applicant->id;
+                $degree->degreeable_id = $applicant->id;
                 $degree->fill([
                     'degree_type_id' => $degreeInput['degree_type_id'],
                     'area_of_study' => $degreeInput['area_of_study'],

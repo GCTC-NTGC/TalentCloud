@@ -26,7 +26,7 @@ use App\Models\Applicant;
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Lookup\DegreeType $degree_type
- * @property \App\Models\Applicant $applicant
+ * @property \App\Models\Applicant|\App\Models\JobApplication $degreeable
  */
 class Degree extends BaseModel
 {
@@ -56,8 +56,8 @@ class Degree extends BaseModel
         return $this->belongsTo(\App\Models\Lookup\DegreeType::class);
     }
 
-    public function applicant()
+    public function degreeable()
     {
-        return $this->belongsTo(\App\Models\Applicant::class);
+        return $this->morphTo();
     }
 }
