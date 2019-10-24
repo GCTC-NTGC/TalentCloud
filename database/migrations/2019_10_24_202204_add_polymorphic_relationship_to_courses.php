@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPolymorphicRelationshipToDegrees extends Migration
+class AddPolymorphicRelationshipToCourses extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,16 @@ class AddPolymorphicRelationshipToDegrees extends Migration
      */
     public function up()
     {
-        Schema::table('degrees', function (Blueprint $table) {
+        Schema::table('courses', function (Blueprint $table) {
             $table->dropForeign(['applicant_id']);
 
-            $table->renameColumn('applicant_id', 'degreeable_id');
-            $table->string('degreeable_type')->default('applicant'); // Set default for existing rows.
-
+            $table->renameColumn('applicant_id', 'courseable_id');
+            $table->string('courseable_type')->default('applicant'); // Set default for existing rows.
         });
 
-        Schema::table('degrees', function (Blueprint $table) {
+        Schema::table('courses', function (Blueprint $table) {
             // Remove default for future rows
-            $table->string('degreeable_type')->default(NULL)->change();
+            $table->string('courseable_type')->default(NULL)->change();
         });
     }
 
@@ -34,9 +33,9 @@ class AddPolymorphicRelationshipToDegrees extends Migration
      */
     public function down()
     {
-        Schema::table('degrees', function (Blueprint $table) {
-            $table->renameColumn('degreeable_id', 'applicant_id');
-            $table->dropColumn('degreeable_type');
+        Schema::table('courses', function (Blueprint $table) {
+            $table->renameColumn('courseable_id', 'applicant_id');
+            $table->dropColumn('courseable_type');
 
             $table->foreign('applicant_id')->references('id')->on('applicants')->onUpdate('CASCADE')->onDelete('CASCADE');
         });

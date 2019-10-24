@@ -427,7 +427,6 @@ class ApplicationByJobController extends Controller
         if (isset($degrees['new'])) {
             foreach ($degrees['new'] as $degreeInput) {
                 $degree = new Degree();
-                $degree->applicant_id = $applicant->id;
                 $degree->fill([
                     'degree_type_id' => $degreeInput['degree_type_id'],
                     'area_of_study' => $degreeInput['area_of_study'],
@@ -437,7 +436,7 @@ class ApplicationByJobController extends Controller
                     'end_date' => $degreeInput['end_date'],
                     'blockcert_url' => $degreeInput['blockcert_url'],
                 ]);
-                $degree->save();
+                $applicant->degrees()->save($degree)
             }
         }
 
@@ -477,7 +476,6 @@ class ApplicationByJobController extends Controller
         if (isset($courses['new'])) {
             foreach ($courses['new'] as $courseInput) {
                 $course = new Course();
-                $course->applicant_id = $applicant->id;
                 $course->fill([
                     'name' => $courseInput['name'],
                     'institution' => $courseInput['institution'],
@@ -485,7 +483,7 @@ class ApplicationByJobController extends Controller
                     'start_date' => $courseInput['start_date'],
                     'end_date' => $courseInput['end_date']
                 ]);
-                $course->save();
+                $applicant->courses()->save($course);
             }
         }
 
