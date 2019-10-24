@@ -31,7 +31,10 @@ Route::group(
              */
             Route::middleware(['2fa'])->group(function (): void {
                 Route::post('/2fa', function () {
-                    return redirect()->intended();
+                    // If 2fa passes redirect to the expected url and remove it from session.
+                    $expectedUrl = session()->get('url.expected');
+                    session()->remove('url.expected');
+                    return redirect($expectedUrl);
                 })->name('2fa');
 
                 /* Home */
