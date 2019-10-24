@@ -19,8 +19,11 @@ class Google2FA
         if ($authenticator->isAuthenticated()) {
             return $next($request);
         }
-        // Unlike \PragmaRX\Google2FALaravel\Middleware, set the intended url
-        Session::put('url.intended', URL::full());
+        // Unlike \PragmaRX\Google2FALaravel\Middleware, set the intended url.
+        // Check if the intended url already exists, if not then store in global session.
+        if (!session()->has('url.expected')) {
+            Session::put('url.expected', URL::full());
+        }
         return $authenticator->makeRequestOneTimePasswordResponse();
     }
 }
