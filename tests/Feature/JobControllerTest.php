@@ -205,7 +205,7 @@ class JobControllerTest extends TestCase
             ->actingAs($admin)
             ->post(route('admin.jobs.update', $job), $jobEdit);
 
-        $savedJob = $job->fresh();
+        $savedJob = $job->refresh();
         print_r($expectedOpenDate);
         print_r($expectedOpenTime);
         print_r($savedJob->toArray());
