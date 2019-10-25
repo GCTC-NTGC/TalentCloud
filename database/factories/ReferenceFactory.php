@@ -12,9 +12,11 @@ $factory->define(Reference::class, function (Faker $faker) {
         'email' => $faker->safeEmail(),
         'description' => $faker->paragraphs(2, true),
         'relationship_id' => Relationship::inRandomOrder()->first()->id,
-        'applicant_id' => function () {
+        'referenceable_id' => function () {
+            // Default factory references to belong to Applicant, not JobApplication
             return factory(Applicant::class)->create()->id;
         },
+        'referenceable_type' => 'applicant',
     ];
 });
 
@@ -31,6 +33,6 @@ $factory->define(Project::class, function (Faker $faker) {
 
 $factory->afterCreating(Reference::class, function ($reference) : void {
     $reference->projects()->saveMany(factory(Project::class, 3)->make([
-        'applicant_id' => $reference->applicant_id
+        'applicant_id' => $reference->referenceable_id
     ]));
 });

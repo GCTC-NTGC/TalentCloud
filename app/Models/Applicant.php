@@ -93,7 +93,7 @@ class Applicant extends BaseModel
 
     public function references()
     {
-        return $this->hasMany(\App\Models\Reference::class);
+        return $this->morphMany(\App\Models\Reference::class, 'referenceable');
     }
 
     public function work_samples()

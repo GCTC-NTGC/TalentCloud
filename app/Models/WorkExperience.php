@@ -17,7 +17,7 @@ namespace App\Models;
  * @property \Jenssegers\Date\Date $start_date
  * @property \Jenssegers\Date\Date $end_date
  * @property int $experienceable_id
- * @property int $experienceable_type
+ * @property string $experienceable_type
  *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at

@@ -116,7 +116,7 @@ class DevSeeder extends Seeder // phpcs:ignore
 
         // Add to application profile.
         $applicantUser->applicant->references()->saveMany(factory(Reference::class, 3)->create([
-            'applicant_id' => $applicantUser->applicant->id
+            'referenceable_id' => $applicantUser->applicant->id
         ]));
 
         // Create several applications for test user.

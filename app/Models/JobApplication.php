@@ -49,6 +49,7 @@ use App\Services\Validation\ApplicationValidator;
  * @property \Illuminate\Database\Eloquent\Collection $degrees
  * @property \Illuminate\Database\Eloquent\Collection $courses
  * @property \Illuminate\Database\Eloquent\Collection $work_experiences
+ * @property \Illuminate\Database\Eloquent\Collection $references
  */
 class JobApplication extends BaseModel
 {
@@ -161,6 +162,11 @@ class JobApplication extends BaseModel
     public function work_experiences()
     {
         return $this->morphMany(\App\Models\WorkExperience::class, 'experienceable')->orderBy('end_date', 'desc');
+    }
+
+    public function references()
+    {
+        return $this->morphMany(\App\Models\Reference::class, 'referenceable');
     }
 
     /**
