@@ -72,16 +72,16 @@
         },
         {
             "name": "backpack/crud",
-            "version": "4.0.11",
+            "version": "4.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "fe15ec68e032476650f0247ddebbeda52d069bfa"
+                "reference": "ecf1a6764ec81100e5f6596a731043187a9a8811"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/fe15ec68e032476650f0247ddebbeda52d069bfa",
-                "reference": "fe15ec68e032476650f0247ddebbeda52d069bfa",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/ecf1a6764ec81100e5f6596a731043187a9a8811",
+                "reference": "ecf1a6764ec81100e5f6596a731043187a9a8811",
                 "shasum": ""
             },
             "require": {
@@ -155,7 +155,7 @@
                 "read",
                 "update"
             ],
-            "time": "2019-10-23T16:19:40+00:00"
+            "time": "2019-10-24T08:55:01+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -1477,16 +1477,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.3.0",
+            "version": "v6.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "80914c430fb5e49f492812d704ba6aeec03d80a2"
+                "reference": "bbaf5e956cb24512c48fc31129a5e357a09a8ea1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/80914c430fb5e49f492812d704ba6aeec03d80a2",
-                "reference": "80914c430fb5e49f492812d704ba6aeec03d80a2",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/bbaf5e956cb24512c48fc31129a5e357a09a8ea1",
+                "reference": "bbaf5e956cb24512c48fc31129a5e357a09a8ea1",
                 "shasum": ""
             },
             "require": {
@@ -1619,7 +1619,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-10-15T13:38:24+00:00"
+            "time": "2019-10-23T13:29:43+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -1884,16 +1884,16 @@
         },
         {
             "name": "mcamara/laravel-localization",
-            "version": "1.4.5",
+            "version": "1.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mcamara/laravel-localization.git",
-                "reference": "4350fdbd4e4da04510a77cf9fd19614233c500f6"
+                "reference": "72a22855d4617ad667eec2565540da2e7158c2c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/4350fdbd4e4da04510a77cf9fd19614233c500f6",
-                "reference": "4350fdbd4e4da04510a77cf9fd19614233c500f6",
+                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/72a22855d4617ad667eec2565540da2e7158c2c5",
+                "reference": "72a22855d4617ad667eec2565540da2e7158c2c5",
                 "shasum": ""
             },
             "require": {
@@ -1942,7 +1942,7 @@
                 "localization",
                 "php"
             ],
-            "time": "2019-10-17T20:28:46+00:00"
+            "time": "2019-10-25T08:31:04+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2937,16 +2937,16 @@
         },
         {
             "name": "psr/log",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd"
+                "reference": "bf73deb2b3b896a9d9c75f3f0d88185d2faa27e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
-                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/bf73deb2b3b896a9d9c75f3f0d88185d2faa27e2",
+                "reference": "bf73deb2b3b896a9d9c75f3f0d88185d2faa27e2",
                 "shasum": ""
             },
             "require": {
@@ -2955,7 +2955,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -2980,7 +2980,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2018-11-20T15:27:04+00:00"
+            "time": "2019-10-25T08:06:51+00:00"
         },
         {
             "name": "psr/simple-cache",
