@@ -200,17 +200,15 @@ class JobControllerTest extends TestCase
         $jobEdit['open_date'] = '2019-01-01';
         $jobEdit['close_date'] = '2019-01-31';
 
-        // Expected db values
-        $dbValues = array_slice($jobEdit, 0, 3);
-
         $admin = factory(User::class)->states('admin')->create();
         $response = $this->followingRedirects()
             ->actingAs($admin)
             ->post(route('admin.jobs.update', $job), $jobEdit);
 
-        $this->assertDatabaseHas('job_posters', $dbValues);
-
-        $savedJob = JobPoster::where($dbValues)->first();
+        $savedJob = $job->fresh();
+        print_r($expectedOpenDate);
+        print_r($expectedOpenTime);
+        print_r($savedJob->toArray());
         $this->assertEquals($expectedOpenTime, humanizeTime($savedJob->open_date_time));
         $this->assertEquals($expectedOpenDate, humanizeDate($savedJob->open_date_time));
         $this->assertEquals($expectedCloseDate, humanizeDate($savedJob->close_date_time));
