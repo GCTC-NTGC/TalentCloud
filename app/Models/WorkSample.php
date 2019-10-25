@@ -16,16 +16,18 @@ namespace App\Models;
  * @property int $file_type_id
  * @property string $url
  * @property string $description
- * @property string $applicant_id
+ * @property int $work_sampleable_id
+ * @property string $work_sampleable_type
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Lookup\FileType $file_type
  * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
- * @property \App\Models\Applicant $applicant
+ * @property \App\Models\Applicant|\App\Models\JobApplication $work_sampleable
  */
-class WorkSample extends BaseModel {
+class WorkSample extends BaseModel
+{
 
     protected $casts = [
         'name' => 'string',
@@ -33,7 +35,6 @@ class WorkSample extends BaseModel {
         'date_created' => 'date',
         'url' => 'string',
         'description' => 'string',
-        'applicant_id' => 'int'
     ];
     protected $fillable = [
         'name',
@@ -43,20 +44,23 @@ class WorkSample extends BaseModel {
         'description'
     ];
 
-    public function file_type() {
+    public function file_type()
+    {
         return $this->belongsTo(\App\Models\Lookup\FileType::class);
     }
 
-    public function application_work_samples() {
+    public function application_work_samples()
+    {
         return $this->hasMany(\App\Models\ApplicationWorkSample::class);
     }
 
-    public function skill_declarations() {
+    public function skill_declarations()
+    {
         return $this->belongsToMany(\App\Models\SkillDeclaration::class);
     }
 
-    public function applicant() {
-        return $this->belongsTo(\App\Models\Applicant::class);
+    public function work_sampleable()
+    {
+        return $this->morphTo();
     }
-
 }

@@ -98,7 +98,7 @@ class Applicant extends BaseModel
 
     public function work_samples()
     {
-        return $this->hasMany(\App\Models\WorkSample::class);
+        return $this->morphMany(\App\Models\WorkSample::class, 'work_sampleable');
     }
 
     public function projects()

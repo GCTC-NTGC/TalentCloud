@@ -50,6 +50,7 @@ use App\Services\Validation\ApplicationValidator;
  * @property \Illuminate\Database\Eloquent\Collection $courses
  * @property \Illuminate\Database\Eloquent\Collection $work_experiences
  * @property \Illuminate\Database\Eloquent\Collection $references
+ * @property \Illuminate\Database\Eloquent\Collection $work_samples
  */
 class JobApplication extends BaseModel
 {
@@ -167,6 +168,11 @@ class JobApplication extends BaseModel
     public function references()
     {
         return $this->morphMany(\App\Models\Reference::class, 'referenceable');
+    }
+
+    public function work_samples()
+    {
+        return $this->morphMany(\App\Models\WorkSample::class, 'work_sampleable');
     }
 
     /**
