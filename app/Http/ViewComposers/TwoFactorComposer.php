@@ -17,15 +17,20 @@ class TwoFactorComposer
     public function compose(View $view)
     {
         $confirm_url = '';
+        $profile_url = '';
         if (WhichPortal::isApplicantPortal()) {
             $confirm_url = route('two_factor.confirm');
+            $profile_url = route('profile');
         } elseif (WhichPortal::isManagerPortal()) {
             // TODO: add Manager specific route
             $confirm_url = route('two_factor.confirm');
+            $profile_url = route('manager.profile');
         } elseif (WhichPortal::isAdminPortal()) {
             $confirm_url = route('admin.two_factor.confirm');
+            $profile_url = backpack_url('2fa');
         }
         $view->with('two_factor', Lang::get('two_factor'))
-            ->with('confirm_url', $confirm_url);
+            ->with('confirm_url', $confirm_url)
+            ->with('profile_url', $profile_url);
     }
 }
