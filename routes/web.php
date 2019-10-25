@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 
 /*
@@ -25,17 +26,16 @@ Route::group(
             Route::get('two-factor/use_recovery_code', 'Auth\RecoveryCodeController@use')->name('recovery_codes.use');
             Route::post('two-factor/use_recovery_code', 'Auth\RecoveryCodeController@authenticate')->name('recovery_codes.authenticate');
 
+            Route::get('/otp', function () {
+                return view('auth/one_time_password');
+            })->name('otp');
+
             /**
              * IF user is logged in AND has activated 2fa, require one-time password.
              * This should include all routes except those related to authentication, to avoid loops.
              */
             Route::middleware(['2fa'])->group(function (): void {
-                Route::post('/2fa', function () {
-                    // If 2fa passes redirect to the expected url and remove it from session.
-                    $expectedUrl = session()->get('url.expected');
-                    session()->remove('url.expected');
-                    return redirect($expectedUrl);
-                })->name('2fa');
+                Route::post('/2fa', 'Auth\TwoFactorController@otp')->name('2fa');
 
                 /* Home */
                 Route::get('/', 'HomepageController@applicant')->name('home');
