@@ -141,8 +141,7 @@ class JobApplication extends BaseModel
 
     public function skill_declarations()
     {
-        return $this->applicant->skill_declarations()
-            ->whereIn('skill_id', $this->job_poster->criteria->pluck('skill_id'));
+        return $this->morphMany(\App\Models\SkillDeclaration::class, 'skillable');
     }
 
     public function application_review()

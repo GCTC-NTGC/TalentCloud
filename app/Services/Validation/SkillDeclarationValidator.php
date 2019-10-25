@@ -9,40 +9,40 @@ use App\Models\SkillDeclaration;
 use App\Models\Lookup\SkillLevel;
 use App\Models\Lookup\SkillStatus;
 use App\Models\Applicant;
-use App\Services\Validation\Rules\UniqueApplicantSkillRule;
+use App\Services\Validation\Rules\PolyExistsRule;
+use App\Services\Validation\Rules\UniqueSkillDeclarationRule;
 
 class SkillDeclarationValidator
 {
 
-    protected $applicant;
     protected $skill_ids;
     protected $skill_status_ids;
     protected $skill_level_ids;
 
 
-    public function __construct(Applicant $applicant)
+    public function __construct()
     {
-        $this->applicant = $applicant;
         $this->skill_ids = Skill::all()->pluck('id');
         $this->skill_status_ids = SkillStatus::all()->pluck('id');
         $this->skill_level_ids = SkillLevel::all()->pluck('id');
-
     }
 
-    public function validator(SkillDeclaration $skillDeclaration) {
-        $uniqueSkillRule = new UniqueApplicantSkillRule($this->applicant, $skillDeclaration->id);
+    public function validator(SkillDeclaration $skillDeclaration)
+    {
+        $uniqueSkillRule = new UniqueSkillDeclarationRule($skillDeclaration->skillable->skill_declarations, $skillDeclaration->id);
 
-        //Validate basic data is filled in
+        // Validate basic data is filled in
         $validator = Validator::make($skillDeclaration->getAttributes(), [
             'skill_id' => [
                 'required',
                 Rule::in($this->skill_ids->toArray()),
                 $uniqueSkillRule,
             ],
-            'applicant_id' => [
+            'skillable_id' => [
                 'required',
-                Rule::in([$this->applicant->id]),
+                new PolyExistsRule($skillDeclaration->skillable_type),
             ],
+            'skillable_type' => 'required',
             'skill_status_id' => [
                 'required',
                 Rule::in($this->skill_status_ids->toArray()),
@@ -60,6 +60,4 @@ class SkillDeclarationValidator
     {
         return $this->validator($skillDeclaration)->validate();
     }
-
-
 }

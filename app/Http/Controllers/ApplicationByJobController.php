@@ -436,7 +436,7 @@ class ApplicationByJobController extends Controller
                     'end_date' => $degreeInput['end_date'],
                     'blockcert_url' => $degreeInput['blockcert_url'],
                 ]);
-                $applicant->degrees()->save($degree)
+                $applicant->degrees()->save($degree);
             }
         }
 
@@ -592,14 +592,13 @@ class ApplicationByJobController extends Controller
             foreach ($skillDeclarations['new'] as $skillType => $typeInput) {
                 foreach ($typeInput as $criterion_id => $skillDeclarationInput) {
                     $skillDeclaration = new SkillDeclaration();
-                    $skillDeclaration->applicant_id = $applicant->id;
                     $skillDeclaration->skill_id = Criteria::find($criterion_id)->skill->id;
                     $skillDeclaration->skill_status_id = $claimedStatusId;
                     $skillDeclaration->fill([
                         'description' => $skillDeclarationInput['description'],
                         'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                     ]);
-                    $skillDeclaration->save();
+                    $applicant->skill_declarations()->save($skillDeclaration);
 
                     $referenceIds = $this->getRelativeIds($skillDeclarationInput, 'references');
                     $skillDeclaration->references()->sync($referenceIds);
@@ -676,14 +675,13 @@ class ApplicationByJobController extends Controller
             foreach ($skillDeclarations['new'] as $skillType => $typeInput) {
                 foreach ($typeInput as $criterion_id => $skillDeclarationInput) {
                     $skillDeclaration = new SkillDeclaration();
-                    $skillDeclaration->applicant_id = $applicant->id;
                     $skillDeclaration->skill_id = Criteria::find($criterion_id)->skill->id;
                     $skillDeclaration->skill_status_id = $claimedStatusId;
                     $skillDeclaration->fill([
                         'description' => $skillDeclarationInput['description'],
                         'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                     ]);
-                    $skillDeclaration->save();
+                    $applicant->skill_declarations()->save($skillDeclaration);
 
                     $referenceIds = $this->getRelativeIds($skillDeclarationInput, 'references');
                     $skillDeclaration->references()->sync($referenceIds);

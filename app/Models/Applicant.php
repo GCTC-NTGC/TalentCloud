@@ -88,7 +88,7 @@ class Applicant extends BaseModel
 
     public function skill_declarations()
     {
-        return $this->hasMany(\App\Models\SkillDeclaration::class);
+        return $this->morphMany(\App\Models\SkillDeclaration::class, 'skillable');
     }
 
     public function references()
