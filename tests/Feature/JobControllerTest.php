@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Mail;
@@ -11,14 +10,9 @@ use Illuminate\Support\Facades\Mail;
 use Jenssegers\Date\Date;
 
 use App\Models\Applicant;
-use App\Models\Lookup\Department;
 use App\Models\JobPoster;
-use App\Models\Lookup\LanguageRequirement;
 use App\Models\Manager;
 use App\Models\User;
-use App\Models\Criteria;
-use App\Models\Lookup\Province;
-use App\Models\Lookup\SecurityClearance;
 use App\Mail\JobPosterReviewRequested;
 
 class JobControllerTest extends TestCase
@@ -60,13 +54,10 @@ class JobControllerTest extends TestCase
     private function generateEditJobFormData() : array
     {
         $jobForm = [
-        'salary_min' => $this->faker->numberBetween(60000, 80000),
-        'salary_max' => $this->faker->numberBetween(80000, 100000),
-        'noc' => $this->faker->numberBetween(1, 9999),
-        'open_date' => $this->faker->date('Y-m-d', strtotime('+1 day')),
-        'close_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
-        'start_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
-        'submit' => '',
+            'open_date' => $this->faker->date('Y-m-d', strtotime('+1 day')),
+            'close_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
+            'start_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
+            'submit' => '',
         ];
         return $jobForm;
     }
