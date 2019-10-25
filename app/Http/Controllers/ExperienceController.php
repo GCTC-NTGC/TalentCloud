@@ -196,7 +196,6 @@ class ExperienceController extends Controller
         if (isset($work_experiences['new'])) {
             foreach ($work_experiences['new'] as $workExperienceInput) {
                 $workExperience = new WorkExperience();
-                $workExperience->applicant_id = $applicant->id;
                 $workExperience->fill([
                     'role' => $workExperienceInput['role'],
                     'company' => $workExperienceInput['company'],
@@ -204,7 +203,7 @@ class ExperienceController extends Controller
                     'start_date' => $workExperienceInput['start_date'],
                     'end_date' => $workExperienceInput['end_date']
                 ]);
-                $workExperience->save();
+                $applicant->work_experiences()->save($workExperience);
             }
         }
 

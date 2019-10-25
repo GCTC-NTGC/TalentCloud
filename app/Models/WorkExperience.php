@@ -16,12 +16,13 @@ namespace App\Models;
  * @property string $description
  * @property \Jenssegers\Date\Date $start_date
  * @property \Jenssegers\Date\Date $end_date
- * @property int $applicant_id
+ * @property int $experienceable_id
+ * @property int $experienceable_type
  *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
- * @property \App\Models\Applicant $applicant
+ * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
  */
 class WorkExperience extends BaseModel
 {
@@ -32,7 +33,6 @@ class WorkExperience extends BaseModel
         'description' => 'string',
         'start_date' => 'date',
         'end_date' => 'date',
-        'appliant_id' => 'int'
     ];
     protected $fillable = [
         'role',
@@ -42,8 +42,8 @@ class WorkExperience extends BaseModel
         'end_date'
     ];
 
-    public function applicant()
+    public function experienceable()
     {
-        return $this->belongsTo(\App\Models\Applicant::class);
+        return $this->morphTo();
     }
 }

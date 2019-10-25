@@ -83,7 +83,7 @@ class Applicant extends BaseModel
 
     public function work_experiences()
     {
-        return $this->hasMany(\App\Models\WorkExperience::class)->orderBy('end_date', 'desc');
+        return $this->morphMany(\App\Models\WorkExperience::class, 'experienceable')->orderBy('end_date', 'desc');
     }
 
     public function skill_declarations()
