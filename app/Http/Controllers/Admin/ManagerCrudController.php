@@ -36,16 +36,16 @@ class ManagerCrudController extends CrudController
             'label' => 'ID'
         ]);
         $this->crud->addColumn([
-            'name' => 'user.first_name',
-            'key' => 'manager_first_name',
+            'name' => 'manager.name',
+            'key' => 'manager_name',
             'type' => 'text',
-            'label' => 'First Name'
+            'label' => 'Name'
         ]);
         $this->crud->addColumn([
-            'name' => 'user.last_name',
-            'key' => 'manager_last_name',
+            'name' => 'user_role.name',
             'type' => 'text',
-            'label' => 'Last Name'
+            'key' => 'user_role_name',
+            'label' => 'Role'
         ]);
         $this->crud->addColumn([
             'name' => 'email',
@@ -58,6 +58,13 @@ class ManagerCrudController extends CrudController
             'key' => 'government_email',
             'type' => 'text',
             'label' => 'Government Email'
+        ]);
+        $this->crud->addColumn([
+            'name' => 'manager.department.name',
+            'key' => 'manager_department',
+            'type' => 'text',
+            'label' => 'Department',
+            'limit' => 70
         ]);
 
         // Add the custom blade button found in resources/views/vendor/backpack/crud/buttons/profile_edit.blade.php.
