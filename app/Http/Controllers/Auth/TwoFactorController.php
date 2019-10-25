@@ -45,6 +45,18 @@ class TwoFactorController extends AuthController
             $user->refresh();
         }
 
+        return redirect(route('otp'));
+    }
+
+    public function otp(Request $request)
+    {
+        $user = $request->user();
+        if (!empty($user->recovery_codes) && !empty($user->google2fa_secret)) {
+            $expectedUrl = session()->get('url.expected');
+            session()->remove('url.expected');
+            return redirect($expectedUrl);
+        }
+
         $recovery_codes_url = '';
         if (WhichPortal::isApplicantPortal()) {
             $recovery_codes_url = route('recovery_codes.show');
@@ -55,6 +67,6 @@ class TwoFactorController extends AuthController
             $recovery_codes_url = route('admin.recovery_codes.show');
         }
 
-        return redirect($recovery_codes_url);
+         return redirect($recovery_codes_url);
     }
 }
