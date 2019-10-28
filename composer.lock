@@ -4487,16 +4487,16 @@
         },
         {
             "name": "venturecraft/revisionable",
-            "version": "1.32.0",
+            "version": "1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/VentureCraft/revisionable.git",
-                "reference": "4e288ba15f82a5614cf10bc18698cc8a8f374498"
+                "reference": "31034cf307808eae0bf776e9c13793495d7f19f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/VentureCraft/revisionable/zipball/4e288ba15f82a5614cf10bc18698cc8a8f374498",
-                "reference": "4e288ba15f82a5614cf10bc18698cc8a8f374498",
+                "url": "https://api.github.com/repos/VentureCraft/revisionable/zipball/31034cf307808eae0bf776e9c13793495d7f19f3",
+                "reference": "31034cf307808eae0bf776e9c13793495d7f19f3",
                 "shasum": ""
             },
             "require": {
@@ -4536,7 +4536,7 @@
                 "model",
                 "revision"
             ],
-            "time": "2019-09-23T21:20:15+00:00"
+            "time": "2019-10-27T06:37:42+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
