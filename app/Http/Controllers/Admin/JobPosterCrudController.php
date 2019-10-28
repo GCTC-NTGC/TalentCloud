@@ -7,7 +7,8 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 class JobPosterCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate;
+    }
 
     /**
      * Prepare the admin interface by setting the associated
@@ -111,25 +112,28 @@ class JobPosterCrudController extends CrudController
         $this->crud->addField([
             'name' => 'open_date_time',
             'label' => 'Open Date',
-            'type' => 'datetime_picker',
-            'datetime_picker_options' => [
-                'format' => 'YYYY-MM-DD HH:mm:ss',
+            'type' => 'date_picker',
+            'date_picker_options' => [
+                'todayBtn' => 'linked',
+                'format' => 'yyyy-mm-dd',
             ],
         ]);
         $this->crud->addField([
             'name' => 'close_date_time',
             'label' => 'Close Date',
-            'type' => 'datetime_picker',
-            'datetime_picker_options' => [
-                'format' => 'YYYY-MM-DD HH:mm:ss',
+            'type' => 'date_picker',
+            'date_picker_options' => [
+                'todayBtn' => 'linked',
+                'format' => 'yyyy-mm-dd',
             ],
         ]);
         $this->crud->addField([
             'name' => 'start_date_time',
             'label' => 'Start Date',
-            'type' => 'datetime_picker',
-            'datetime_picker_options' => [
-                'format' => 'YYYY-MM-DD HH:mm:ss',
+            'type' => 'date_picker',
+            'date_picker_options' => [
+                'todayBtn' => 'linked',
+                'format' => 'yyyy-mm-dd',
             ],
         ]);
         $this->crud->addField([
@@ -160,5 +164,25 @@ class JobPosterCrudController extends CrudController
                 'type' => 'checkbox'
             ]);
         }
+    }
+
+    public function update()
+    {
+        $open_date = $this->crud->request->request->get('open_date_time');
+        $close_date = $this->crud->request->request->get('close_date_time');
+        $start_date = $this->crud->request->request->get('start_date_time');
+        $this->crud->request->request->remove('open_date_time');
+        $this->crud->request->request->remove('close_date_time');
+        $this->crud->request->request->remove('start_date_time');
+        // Manipulates the input fields to save the "end of day" timestamp for
+        // open/close/start dates.
+        $this->crud->request->request->add([
+            'open_date_time' => ptDayStartToUtcTime($open_date),
+            'close_date_time' => ptDayEndToUtcTime($close_date),
+            'start_date_time' => ptDayStartToUtcTime($start_date),
+        ]);
+        $response = $this->traitUpdate();
+
+        return $response;
     }
 }
