@@ -79,8 +79,7 @@ class TwoFactorController extends AuthController
         if (WhichPortal::isApplicantPortal()) {
             $recovery_codes_url = route('recovery_codes.show');
         } elseif (WhichPortal::isManagerPortal()) {
-            // TODO: add Manager specific route
-            $recovery_codes_url = route('recovery_codes.show');
+            $recovery_codes_url = route('manager.recovery_codes.show');
         } elseif (WhichPortal::isAdminPortal()) {
             $recovery_codes_url = route('admin.recovery_codes.show');
         }
