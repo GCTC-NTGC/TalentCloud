@@ -35,7 +35,7 @@ Route::group(
              * This should include all routes except those related to authentication, to avoid loops.
              */
             Route::middleware(['2fa'])->group(function (): void {
-                Route::post('/2fa', 'Auth\TwoFactorController@otp')->name('2fa');
+                Route::post('/2fa', 'Auth\TwoFactorController@saveAndRedirect')->name('2fa');
 
                 /* Home */
                 Route::get('/', 'HomepageController@applicant')->name('home');
