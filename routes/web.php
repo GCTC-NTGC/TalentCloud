@@ -26,16 +26,12 @@ Route::group(
             Route::get('two-factor/use_recovery_code', 'Auth\RecoveryCodeController@use')->name('recovery_codes.use');
             Route::post('two-factor/use_recovery_code', 'Auth\RecoveryCodeController@authenticate')->name('recovery_codes.authenticate');
 
-            Route::get('/otp', function () {
-                return view('auth/one_time_password');
-            })->name('otp');
-
             /**
              * IF user is logged in AND has activated 2fa, require one-time password.
              * This should include all routes except those related to authentication, to avoid loops.
              */
             Route::middleware(['2fa'])->group(function (): void {
-                Route::post('/2fa', 'Auth\TwoFactorController@saveAndRedirect')->name('2fa');
+                Route::post('/2fa', 'Auth\TwoFactorController@redirectToExpected')->name('2fa');
 
                 /* Home */
                 Route::get('/', 'HomepageController@applicant')->name('home');
@@ -236,9 +232,8 @@ Route::group(
                  */
                 Route::middleware(['2fa'])->group(function (): void {
 
-                    Route::post('/2fa', function () {
-                        return redirect()->intended();
-                    })->name('2fa');
+                    Route::post('/2fa', 'Auth\TwoFactorController@redirectToExpected')->name('manager.2fa');
+
 
                     /* Home */
                     Route::get('/', 'HomepageController@manager')->name('manager.home');
@@ -481,6 +476,8 @@ Route::group(
         Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
             ->middleware('can:create,App\Models\JobPoster')
             ->name('admin.jobs.create_as_manager');
+
+        Route::post('/2fa', 'Auth\TwoFactorController@redirectToExpected')->name('admin.2fa');
 
         Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('admin.two_factor.activate');
         Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('admin.two_factor.deactivate');

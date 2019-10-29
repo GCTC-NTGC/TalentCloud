@@ -37,9 +37,23 @@
                             </div>
                         </div>
                         <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)" data-c-grid="middle">
-                            <p data-c-padding="bottom(normal)">{{ two_factor.setup }}</p>
+                            <p data-c-padding="bottom(normal)">{{ two_factor.instructions }}</p>
+                            <div data-c-background="white(100)" data-c-grid-item="base(1of1)" data-c-padding="tb(normal)">
+                                <div data-c-padding="tb(half)">
+                                    {% include "errors/form_errors" %}
+                                    {# OTP Field #}
+                                    <div data-c-input="number">
+                                        <label for="one_time_password">{{ otp.otp_label }}</label>
+                                        <span>{{ trans("forms.required") }}</span>
+                                        <div>
+                                            <input id="one_time_password" name="one_time_password" placeholder="{{ otp.otp_placeholder }}" required autofocus type="number" value="{{ old('one_time_password') }}"/>
+                                        </div>
+                                        <span>{{ trans("forms.error") }}</span>
+                                    </div>
+                                </div>
+                            </div>
                             <div data-c-grid-item="base(1of2)">
-                                <a href="{{ profile_url }}" title="{{ otp.recover_link_title }}">
+                                <a href="{{ profile_url }}" title="{{ two_factor.cancel_link_title }}">
                                     {{ two_factor.cancel_text }}
                                 </a>
                             </div>

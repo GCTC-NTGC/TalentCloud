@@ -29,6 +29,7 @@ class TwoFactorComposer
             $profile_url = backpack_url('2fa');
         }
         $view->with('two_factor', Lang::get('two_factor'))
+            ->with('otp', Lang::get('one_time_password'))
             ->with('confirm_url', $confirm_url)
             ->with('profile_url', $profile_url);
     }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Facades\App\Services\WhichPortal;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Session;
+use PragmaRX\Google2FALaravel\Support\Authenticator;
 
 class TwoFactorController extends AuthController
 {
@@ -48,42 +50,50 @@ class TwoFactorController extends AuthController
     public function confirm(Request $request)
     {
         $user = $request->user();
-        $secret = $request->input('secret');
-        if (!empty($secret) && empty($user->google2fa_secret)) {
-            Session::put('url.secret', $secret);
+        $validatedData = $request->validate([
+            'secret' => 'required|string',
+            'one_time_password' => 'required|string',
+        ]);
+        $secret = $validatedData['secret'];
+        $one_time_password = $validatedData['one_time_password'];
+
+        // A 2fa secret is already set up, no need to do anything
+        if (!empty($user->google2fa_secret)) {
+            return redirect()->route('home');
         }
 
-        return redirect(route('otp'));
-    }
+        // Check that the one time password matches the secret
+        $authenticator = app(Authenticator::class)->boot($request);
+        $isCorrect = $authenticator->verifyGoogle2FA($secret, $one_time_password);
 
-    public function saveAndRedirect(Request $request)
-    {
-        // If user has 2FA setup, and passes OTP validation then return to expected url.
-        if (!empty($user->recovery_codes) && !empty($user->google2fa_secret)) {
-            $expectedUrl = session()->get('url.expected');
-            session()->remove('url.expected');
-            return redirect($expectedUrl);
-        }
-
-        // Check if secret is empty (first time setting up 2FA). If true then save to user.
-        $user = $request->user();
-        if (empty($user->google2fa_secret)) {
-            $user->google2fa_secret = session()->get('url.secret');
+        if ($isCorrect) {
+            // The password matched the secret! Save the secret, and authenticate
+            $user->google2fa_secret = $secret;
             $user->save();
             $user->refresh();
-            session()->remove('url.secret');
-        }
+            $authenticator->login();
+            return redirect(route('recovery_codes.show'));
+        } else {
+            $activation_url = '';
+            if (WhichPortal::isApplicantPortal()) {
+                $activation_url = route('two_factor.activate');
+            } elseif (WhichPortal::isManagerPortal()) {
+                $activation_url = route('manager.two_factor.activate');
+            } elseif (WhichPortal::isAdminPortal()) {
+                $activation_url = backpack_url('admin.two_factor.activate');
+            }
 
-        // Send first time 2FA users to receive recovery codes.
-        $recovery_codes_url = '';
-        if (WhichPortal::isApplicantPortal()) {
-            $recovery_codes_url = route('recovery_codes.show');
-        } elseif (WhichPortal::isManagerPortal()) {
-            $recovery_codes_url = route('manager.recovery_codes.show');
-        } elseif (WhichPortal::isAdminPortal()) {
-            $recovery_codes_url = route('admin.recovery_codes.show');
+            return redirect($activation_url)
+                ->withErrors(['otp' => Lang::get('two_factor.activation_otp_error')]);
         }
+    }
 
-         return redirect($recovery_codes_url);
+    public function redirectToExpected(Request $request)
+    {
+        // Assuming 2fa passes, redirect to the expected url and remove it from session.
+        // NOTE: the url.expected is set in app\Http\Middleware\Google2FA.php
+        $expectedUrl = session()->get('url.expected');
+        session()->remove('url.expected');
+        return redirect($expectedUrl);
     }
 }
