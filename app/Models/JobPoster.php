@@ -53,6 +53,9 @@ use App\Events\JobSaved;
  * @property int $flexible_hours_frequency_id
  * @property int $travel_requirement_id
  * @property int $overtime_requirement_id
+ * @property int $process_number
+ * @property int $priority_clearance_number
+ * @property \Jenssegers\Date\Date $loo_issuance_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -164,7 +167,8 @@ class JobPoster extends BaseModel
         'close_date_time',
         'start_date_time',
         'review_requested_at',
-        'published_at'
+        'published_at',
+        'loo_issuance_date',
     ];
 
     /**
@@ -199,6 +203,9 @@ class JobPoster extends BaseModel
         'flexible_hours_frequency_id',
         'travel_requirement_id',
         'overtime_requirement_id',
+        'process_number',
+        'priority_clearance_number',
+        'loo_issuance_date'
     ];
 
     /**
@@ -238,6 +245,9 @@ class JobPoster extends BaseModel
         'flexible_hours_frequency_id',
         'travel_requirement_id',
         'overtime_requirement_id',
+        'process_number',
+        'priority_clearance_number',
+        'loo_issuance_date'
     ];
 
     /**

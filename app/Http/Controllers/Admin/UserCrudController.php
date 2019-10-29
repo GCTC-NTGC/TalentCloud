@@ -26,6 +26,11 @@ class UserCrudController extends CrudController
     public function setupListOperation()
     {
         $this->crud->addColumn([
+            'name' => 'id',
+            'type' => 'number',
+            'label' => 'ID'
+        ]);
+        $this->crud->addColumn([
             'name' => 'first_name',
             'type' => 'text',
             'label' => 'First Name'
@@ -36,25 +41,25 @@ class UserCrudController extends CrudController
             'label' => 'Last Name'
         ]);
         $this->crud->addColumn([
-            'name' => 'email',
-            'type' => 'text',
-            'label' => 'Email'
-        ]);
-        $this->crud->addColumn([
             'name' => 'user_role.name',
             'type' => 'text',
             'key' => 'user_role_name',
             'label' => 'Role'
         ]);
         $this->crud->addColumn([
+            'name' => 'email',
+            'type' => 'text',
+            'label' => 'Email'
+        ]);
+        $this->crud->addColumn([
             'name' => 'gov_email',
             'type' => 'text',
-            'label' => 'Gov Email'
+            'label' => 'Government Email'
         ]);
         $this->crud->addColumn([
             'name' => 'not_in_gov',
             'type' => 'check',
-            'label' => 'Not in Gov'
+            'label' => 'In Government'
         ]);
         $this->crud->addColumn([
             'name' => 'is_priority',
