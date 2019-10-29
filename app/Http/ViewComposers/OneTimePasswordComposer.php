@@ -5,8 +5,6 @@ namespace App\Http\ViewComposers;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Lang;
 use Facades\App\Services\WhichPortal;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class OneTimePasswordComposer
 {

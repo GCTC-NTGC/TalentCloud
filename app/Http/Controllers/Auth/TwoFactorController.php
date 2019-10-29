@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Session;
 use PragmaRX\Google2FALaravel\Support\Authenticator;
 
 class TwoFactorController extends AuthController
@@ -72,7 +71,17 @@ class TwoFactorController extends AuthController
             $user->save();
             $user->refresh();
             $authenticator->login();
-            return redirect(route('recovery_codes.show'));
+
+            $recovery_codes_url = '';
+            if (WhichPortal::isApplicantPortal()) {
+                $recovery_codes_url = route('recovery_codes.show');
+            } elseif (WhichPortal::isManagerPortal()) {
+                $recovery_codes_url = route('manager.recovery_codes.show');
+            } elseif (WhichPortal::isAdminPortal()) {
+                $recovery_codes_url = route('admin.recovery_codes.show');
+            }
+
+            return redirect($recovery_codes_url);
         } else {
             $activation_url = '';
             if (WhichPortal::isApplicantPortal()) {
