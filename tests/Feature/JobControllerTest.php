@@ -196,19 +196,18 @@ class JobControllerTest extends TestCase
             'manager_id' => $this->manager->id
         ]);
 
-        $jobEdit = $this->generateEditJobFormData();
-        $jobEdit['open_date'] = '2019-01-01';
-        $jobEdit['close_date'] = '2019-01-31';
+        $jobEdit['id'] = $job->id;
+        $jobEdit['open_date_time'] = '2019-01-01';
+        $jobEdit['close_date_time'] = '2019-01-31';
+        $jobEdit['start_date_time'] = $this->faker->date('Y-m-d', strtotime('+2 weeks'));
 
         $admin = factory(User::class)->states('admin')->create();
         $response = $this->followingRedirects()
             ->actingAs($admin)
-            ->post(route('admin.jobs.update', $job), $jobEdit);
+            ->put(route('job-poster.update', $job), $jobEdit);
 
         $savedJob = $job->refresh();
-        print_r($expectedOpenDate);
-        print_r($expectedOpenTime);
-        print_r($savedJob->toArray());
+
         $this->assertEquals($expectedOpenTime, humanizeTime($savedJob->open_date_time));
         $this->assertEquals($expectedOpenDate, humanizeDate($savedJob->open_date_time));
         $this->assertEquals($expectedCloseDate, humanizeDate($savedJob->close_date_time));
