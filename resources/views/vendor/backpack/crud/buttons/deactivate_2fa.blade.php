@@ -1,3 +1,6 @@
 @if ($crud->hasAccess('update') && ($entry->google2fa_secret))
-<a href="{{ route('admin.two_factor.deactivate') }}" target="_blank" class="btn btn-sm btn-link"><i class="fa fa-edit"></i>Deactivate 2FA</a>
+<form action="{{ route('admin.two_factor.deactivate') }}" method="POST">
+    {{ csrf_field() }}
+    <button class="btn btn-sm btn-link" type="submit"><i class="fa fa-edit"></i>Deactivate 2FA</button>
+</form>
 @endif

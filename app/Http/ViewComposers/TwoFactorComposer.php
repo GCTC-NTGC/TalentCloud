@@ -20,8 +20,7 @@ class TwoFactorComposer
         if (WhichPortal::isApplicantPortal()) {
             $confirm_url = route('two_factor.confirm');
         } elseif (WhichPortal::isManagerPortal()) {
-            // TODO: add Manager specific route
-            $confirm_url = route('two_factor.confirm');
+            $confirm_url = route('manager.two_factor.confirm');
         } elseif (WhichPortal::isAdminPortal()) {
             $confirm_url = route('admin.two_factor.confirm');
         }

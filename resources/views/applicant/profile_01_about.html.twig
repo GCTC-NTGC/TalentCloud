@@ -44,7 +44,10 @@
                                     {% if applicant.user.google2fa_secret %}
 
                                     <p>{{ profile.about_section.two_factor_active }}</p>
-                                    <p><a class="button--red light-bg" href="{{ route('two_factor.deactivate') }}">{{ profile.about_section.two_factor_deactivate }}</a></p>
+                                    <form action="{{ route('two_factor.deactivate') }}" method="POST">
+                                        {{ csrf_field() }}
+                                        <button class="button--red light-bg" type="submit">{{ profile.about_section.two_factor_deactivate }}</button>
+                                    </form>
 
                                     {% else %}
 

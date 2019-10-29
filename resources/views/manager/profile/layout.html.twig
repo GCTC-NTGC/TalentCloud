@@ -35,12 +35,15 @@
                                     {% if manager.user.google2fa_secret %}
 
                                     <p>{{ layout_l10n.two_factor.two_factor_active }}</p>
-                                    <p><a class="button--red light-bg" href="{{ route('two_factor.deactivate') }}">{{ layout_l10n.two_factor.two_factor_deactivate }}</a></p>
+                                    <form action="{{ route('manager.two_factor.deactivate') }}" method="POST">
+                                        {{ csrf_field() }}
+                                        <button class="button--red light-bg" type="submit">{{ layout_l10n.two_factor.two_factor_deactivate }}</button>
+                                    </form>
 
                                     {% else %}
 
                                     <p>{{ layout_l10n.two_factor.two_factor_description }}</p>
-                                    <p><a class="button--blue light-bg" href="{{ route('two_factor.activate') }}">{{ layout_l10n.two_factor.two_factor_button_text }}</a></p>
+                                    <p><a class="button--blue light-bg" href="{{ route('manager.two_factor.activate') }}">{{ layout_l10n.two_factor.two_factor_button_text }}</a></p>
 
                                     {% endif %}
 
@@ -52,7 +55,7 @@
 
                                 <div class="form__input-wrapper--float">
 
-                                    <p>{{ layout_l10n.two_factor.two_factor_recovery_text }} <a href="{{ route('recovery_codes.show') }}">{{ layout_l10n.two_factor.view_recovery_codes }}</a>.</p>
+                                    <p>{{ layout_l10n.two_factor.two_factor_recovery_text }} <a href="{{ route('manager.recovery_codes.show') }}">{{ layout_l10n.two_factor.view_recovery_codes }}</a>.</p>
 
                                 </div>
 
