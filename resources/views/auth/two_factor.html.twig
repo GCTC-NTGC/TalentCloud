@@ -27,10 +27,10 @@
                         <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
                             <div data-c-grid data-c-grid="middle">
                                 <p>{{ two_factor.setup }}</p>
-                                <div data-c-grid-item="(1of1)" data-c-alignment="center">
+                                <div data-c-grid-item="base(1of1)" data-c-alignment="center">
                                     <img src="{{ qr_image }}" alt="{{ two_factor.qr_alt }}" />
                                 </div>
-                                <div data-c-grid-item="(1of1)" data-c-alignment="center">
+                                <div data-c-grid-item="base(1of1)" data-c-alignment="center">
                                     <span>{{ secret }}</span>
                                     <input type="hidden" name="secret" value="{{ secret }}" />
                                 </div>
@@ -38,7 +38,12 @@
                         </div>
                         <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)" data-c-grid="middle">
                             <p data-c-padding="bottom(normal)">{{ two_factor.setup }}</p>
-                            <div data-c-grid-item="(1of1)" data-c-alignment="right">
+                            <div data-c-grid-item="base(1of2)">
+                                <a href="{{ profile_url }}" title="{{ otp.recover_link_title }}">
+                                    {{ two_factor.cancel_text }}
+                                </a>
+                            </div>
+                            <div data-c-grid-item="base(1of2)" data-c-alignment="right">
                                 <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
                                     {{ two_factor.next_text }}
                                 </button>
