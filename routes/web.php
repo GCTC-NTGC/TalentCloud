@@ -153,6 +153,13 @@ Route::group(
                         ->middleware('can:view,applicant')
                         ->middleware('can:update,applicant')
                         ->name('profile.work_samples.edit');
+
+                    Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('two_factor.activate');
+                    Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('two_factor.deactivate');
+                    Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('two_factor.confirm');
+
+                    Route::post('two-factor/generate_recovery_codes', 'Auth\RecoveryCodeController@generate')->name('recovery_codes.generate');
+                    Route::get('two-factor/recovery_codes', 'Auth\RecoveryCodeController@show')->name('recovery_codes.show');
                 });
 
                 /* Static - FAQ */
@@ -190,14 +197,6 @@ Route::group(
                 Route::view('builder-07', 'manager/builder-07')->middleware('localOnly')->name('jpb7');
                 // /* Temp Builder 08 (Review) */
                 Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
-
-
-                Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('two_factor.activate');
-                Route::get('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('two_factor.deactivate');
-                Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('two_factor.confirm');
-
-                Route::post('two-factor/generate_recovery_codes', 'Auth\RecoveryCodeController@generate')->name('recovery_codes.generate');
-                Route::get('two-factor/recovery_codes', 'Auth\RecoveryCodeController@show')->name('recovery_codes.show');
             });
 
 
@@ -228,117 +227,138 @@ Route::group(
 
             Route::middleware(['finishManagerRegistration'])->group(function (): void {
 
-                /* Home */
-                Route::get('/', 'HomepageController@manager')->name('manager.home');
+                Route::get('two-factor/use_recovery_code', 'Auth\RecoveryCodeController@use')->name('manager.recovery_codes.use');
+                Route::post('two-factor/use_recovery_code', 'Auth\RecoveryCodeController@authenticate')->name('manager.recovery_codes.authenticate');
 
-                /* Static - FAQ */
-                Route::get(
-                    'faq',
-                    'ManagerProfileController@faq'
-                )->name('manager.faq');
+                /**
+                 * IF user is logged in AND has activated 2fa, require one-time password.
+                 * This should include all routes except those related to authentication, to avoid loops.
+                 */
+                Route::middleware(['2fa'])->group(function (): void {
 
-                Route::get(
-                    'faq#managers',
-                    'ManagerProfileController@faq'
-                )->name('manager.faq.section');
+                    Route::post('/2fa', function () {
+                        return redirect()->intended();
+                    })->name('2fa');
 
-                Route::middleware(['auth', 'role:manager'])->group(function (): void {
+                    /* Home */
+                    Route::get('/', 'HomepageController@manager')->name('manager.home');
 
-                    Route::get('profile', 'ManagerProfileController@editAuthenticated')->name('manager.profile');
+                    /* Static - FAQ */
+                    Route::get(
+                        'faq',
+                        'ManagerProfileController@faq'
+                    )->name('manager.faq');
 
-                    /* Profile */
-                    Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')
-                        ->middleware('can:view,manager')
-                        ->middleware('can:update,manager')
-                        ->name('manager.profile.edit');
+                    Route::get(
+                        'faq#managers',
+                        'ManagerProfileController@faq'
+                    )->name('manager.faq.section');
 
-                    Route::post('profile/{manager}/update', 'ManagerProfileController@update')
-                        ->middleware('can:update,manager')
-                        ->name('manager.profile.update');
+                    Route::middleware(['auth', 'role:manager'])->group(function (): void {
 
-                    /* Reviewing applications/applicants requires 2-factor authentication */
-                    Route::middleware(['2fa.required'])->group(function (): void {
-                        Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
+                        Route::get('profile', 'ManagerProfileController@editAuthenticated')->name('manager.profile');
+
+                        /* Profile */
+                        Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')
+                            ->middleware('can:view,manager')
+                            ->middleware('can:update,manager')
+                            ->name('manager.profile.edit');
+
+                        Route::post('profile/{manager}/update', 'ManagerProfileController@update')
+                            ->middleware('can:update,manager')
+                            ->name('manager.profile.update');
+
+                        /* Reviewing applications/applicants requires 2-factor authentication */
+                        Route::middleware(['2fa.required'])->group(function (): void {
+                            Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
+                                ->where('jobPoster', '[0-9]+')
+                                ->middleware('can:reviewApplicationsFor,jobPoster')
+                                ->name('manager.jobs.applications');
+
+                            /* View Application */
+                            Route::get('applications/{application}', 'ApplicationController@show')
+                                ->middleware('can:view,application')
+                                ->name('manager.applications.show');
+
+                            /* View Applicant Profile */
+                            Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
+                                ->middleware('can:view,applicant')
+                                ->name('manager.applicants.show');
+                        });
+
+                        /* Job Index */
+                        Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
+
+                        /* View Job Poster */
+                        Route::get('jobs/{jobPoster}', 'JobController@show')
                             ->where('jobPoster', '[0-9]+')
-                            ->middleware('can:reviewApplicationsFor,jobPoster')
-                            ->name('manager.jobs.applications');
+                            ->middleware('can:view,jobPoster')
+                            ->name('manager.jobs.show');
 
-                        /* View Application */
-                        Route::get('applications/{application}', 'ApplicationController@show')
-                            ->middleware('can:view,application')
-                            ->name('manager.applications.show');
 
-                        /* View Applicant Profile */
-                        Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
-                            ->middleware('can:view,applicant')
-                            ->name('manager.applicants.show');
+                        /* Job Builder */
+                        Route::get(
+                            'jobs/builder',
+                            'JobBuilderController@intro'
+                        )->name('manager.jobs.create');
+
+                        Route::get(
+                            'jobs/{jobId}/builder/intro',
+                            'JobBuilderController@intro'
+                        )->where('jobPoster', '[0-9]+');
+                        Route::get(
+                            'jobs/{jobId}/builder/details',
+                            'JobBuilderController@details'
+                        )->where('jobPoster', '[0-9]+');
+                        Route::get(
+                            'jobs/{jobId}/builder/environment',
+                            'JobBuilderController@environment'
+                        )->where('jobPoster', '[0-9]+');
+                        Route::get(
+                            'jobs/{jobId}/builder/impact',
+                            'JobBuilderController@impact'
+                        )->where('jobPoster', '[0-9]+');
+                        Route::get(
+                            'jobs/{jobId}/builder/tasks',
+                            'JobBuilderController@tasks'
+                        )->where('jobPoster', '[0-9]+');
+                        Route::get(
+                            'jobs/{jobId}/builder/skills',
+                            'JobBuilderController@skills'
+                        )->where('jobPoster', '[0-9]+');
+                        Route::get(
+                            'jobs/{jobId}/builder/review',
+                            'JobBuilderController@review'
+                        )
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('manager.jobs.edit');
+
+                        /* Delete Job */
+                        Route::delete('jobs/{jobPoster}', 'JobController@destroy')
+                            ->where('jobPoster', '[0-9]+')
+                            ->middleware('can:delete,jobPoster')
+                            ->name('manager.jobs.destroy');
+
+                        /* Request Review */
+                        Route::post('jobs/{jobPoster}/review', 'JobController@submitForReview')
+                            ->where('jobPoster', '[0-9]+')
+                            ->middleware('can:submitForReview,jobPoster')
+                            ->name('manager.jobs.review');
+
+                        Route::view(
+                            'jobs/{jobPoster}/assessment-plan',
+                            'manager/assessment_plan'
+                        )
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('manager.jobs.screening_plan');
+
+                        Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('manager.two_factor.activate');
+                        Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('manager.two_factor.deactivate');
+                        Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('manager.two_factor.confirm');
+
+                        Route::post('two-factor/generate_recovery_codes', 'Auth\RecoveryCodeController@generate')->name('manager.recovery_codes.generate');
+                        Route::get('two-factor/recovery_codes', 'Auth\RecoveryCodeController@show')->name('manager.recovery_codes.show');
                     });
-
-                    /* Job Index */
-                    Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
-
-                    /* View Job Poster */
-                    Route::get('jobs/{jobPoster}', 'JobController@show')
-                        ->where('jobPoster', '[0-9]+')
-                        ->middleware('can:view,jobPoster')
-                        ->name('manager.jobs.show');
-
-
-                    /* Job Builder */
-                    Route::get(
-                        'jobs/builder',
-                        'JobBuilderController@intro'
-                    )->name('manager.jobs.create');
-
-                    Route::get(
-                        'jobs/{jobId}/builder/intro',
-                        'JobBuilderController@intro'
-                    )->where('jobPoster', '[0-9]+');
-                    Route::get(
-                        'jobs/{jobId}/builder/details',
-                        'JobBuilderController@details'
-                    )->where('jobPoster', '[0-9]+');
-                    Route::get(
-                        'jobs/{jobId}/builder/environment',
-                        'JobBuilderController@environment'
-                    )->where('jobPoster', '[0-9]+');
-                    Route::get(
-                        'jobs/{jobId}/builder/impact',
-                        'JobBuilderController@impact'
-                    )->where('jobPoster', '[0-9]+');
-                    Route::get(
-                        'jobs/{jobId}/builder/tasks',
-                        'JobBuilderController@tasks'
-                    )->where('jobPoster', '[0-9]+');
-                    Route::get(
-                        'jobs/{jobId}/builder/skills',
-                        'JobBuilderController@skills'
-                    )->where('jobPoster', '[0-9]+');
-                    Route::get(
-                        'jobs/{jobId}/builder/review',
-                        'JobBuilderController@review'
-                    )
-                        ->where('jobPoster', '[0-9]+')
-                        ->name('manager.jobs.edit');
-
-                    /* Delete Job */
-                    Route::delete('jobs/{jobPoster}', 'JobController@destroy')
-                        ->where('jobPoster', '[0-9]+')
-                        ->middleware('can:delete,jobPoster')
-                        ->name('manager.jobs.destroy');
-
-                    /* Request Review */
-                    Route::post('jobs/{jobPoster}/review', 'JobController@submitForReview')
-                        ->where('jobPoster', '[0-9]+')
-                        ->middleware('can:submitForReview,jobPoster')
-                        ->name('manager.jobs.review');
-
-                    Route::view(
-                        'jobs/{jobPoster}/assessment-plan',
-                        'manager/assessment_plan'
-                    )
-                        ->where('jobPoster', '[0-9]+')
-                        ->name('manager.jobs.screening_plan');
                 });
             });
 
@@ -463,7 +483,7 @@ Route::group(
             ->name('admin.jobs.create_as_manager');
 
         Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('admin.two_factor.activate');
-        Route::get('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('admin.two_factor.deactivate');
+        Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('admin.two_factor.deactivate');
         Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('admin.two_factor.confirm');
 
         Route::post('two-factor/generate_recovery_codes', 'Auth\RecoveryCodeController@generate')->name('admin.recovery_codes.generate');

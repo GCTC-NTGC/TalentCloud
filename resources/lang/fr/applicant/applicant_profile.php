@@ -37,10 +37,13 @@ return [
         'questions_title' => 'Choses à savoir de moi',
         'applicant_profile_question_section_title' => 'Votre histoire',
         'applicant_profile_question_context' => 'Ne pas inclure d\'informations personnelles sensibles.',
-        'two_factor_legend' => 'Two-Factor Authentication',
-        'two_factor_button_text' => 'Set up Two-Factor Authentication',
+        'two_factor_legend' => 'Two-factor Authentication',
+        'two_factor_button_text' => 'Set up Two-factor Authentication',
         'two_factor_recovery_legend' => 'Recovery Codes',
         'two_factor_recovery_text' => 'Your emergency recovery codes let you gain access to your account in case you lose access to your phone. For security, we only show them to you once, but you can',
         'view_recovery_codes' => 'generate new codes',
-    ],
+        'two_factor_description' => 'Two-factor auth blurb.',
+        'two_factor_active' => 'You\'re currently receiving verification codes via an authenticator app on your smartphone.',
+        'two_factor_deactivate' => 'Deactivate Two-factor Authentication',
+    ]
 ];
