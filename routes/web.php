@@ -22,8 +22,8 @@ Route::group(
         /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
 
-            Route::get('two-factor/use_recovery_code', 'Auth\RecoveryCodeController@use')->name('recovery_codes.use');
-            Route::post('two-factor/use_recovery_code', 'Auth\RecoveryCodeController@authenticate')->name('recovery_codes.authenticate');
+            Route::get('two-factor/use-recovery-code', 'Auth\RecoveryCodeController@use')->name('recovery_codes.use');
+            Route::post('two-factor/use-recovery-code', 'Auth\RecoveryCodeController@authenticate')->name('recovery_codes.authenticate');
 
             /**
              * IF user is logged in AND has activated 2fa, require one-time password.
@@ -158,8 +158,8 @@ Route::group(
                     Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('two_factor.deactivate');
                     Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('two_factor.confirm');
 
-                    Route::post('two-factor/generate_recovery_codes', 'Auth\RecoveryCodeController@generate')->name('recovery_codes.generate');
-                    Route::get('two-factor/recovery_codes', 'Auth\RecoveryCodeController@show')->name('recovery_codes.show');
+                    Route::post('two-factor/generate-recovery-codes', 'Auth\RecoveryCodeController@generate')->name('recovery_codes.generate');
+                    Route::get('two-factor/recovery-codes', 'Auth\RecoveryCodeController@show')->name('recovery_codes.show');
                 });
 
                 /* Static - FAQ */
@@ -227,8 +227,8 @@ Route::group(
 
             Route::middleware(['finishManagerRegistration'])->group(function (): void {
 
-                Route::get('two-factor/use_recovery_code', 'Auth\RecoveryCodeController@use')->name('manager.recovery_codes.use');
-                Route::post('two-factor/use_recovery_code', 'Auth\RecoveryCodeController@authenticate')->name('manager.recovery_codes.authenticate');
+                Route::get('two-factor/use-recovery-code', 'Auth\RecoveryCodeController@use')->name('manager.recovery_codes.use');
+                Route::post('two-factor/use-recovery-code', 'Auth\RecoveryCodeController@authenticate')->name('manager.recovery_codes.authenticate');
 
                 /**
                  * IF user is logged in AND has activated 2fa, require one-time password.
@@ -356,8 +356,8 @@ Route::group(
                         Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('manager.two_factor.deactivate');
                         Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('manager.two_factor.confirm');
 
-                        Route::post('two-factor/generate_recovery_codes', 'Auth\RecoveryCodeController@generate')->name('manager.recovery_codes.generate');
-                        Route::get('two-factor/recovery_codes', 'Auth\RecoveryCodeController@show')->name('manager.recovery_codes.show');
+                        Route::post('two-factor/generate-recovery-codes', 'Auth\RecoveryCodeController@generate')->name('manager.recovery_codes.generate');
+                        Route::get('two-factor/recovery-codes', 'Auth\RecoveryCodeController@show')->name('manager.recovery_codes.show');
                     });
                 });
             });
@@ -486,8 +486,8 @@ Route::group(
         Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('admin.two_factor.deactivate');
         Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('admin.two_factor.confirm');
 
-        Route::post('two-factor/generate_recovery_codes', 'Auth\RecoveryCodeController@generate')->name('admin.recovery_codes.generate');
-        Route::get('two-factor/recovery_codes', 'Auth\RecoveryCodeController@show')->name('admin.recovery_codes.show');
+        Route::post('two-factor/generate-recovery-codes', 'Auth\RecoveryCodeController@generate')->name('admin.recovery_codes.generate');
+        Route::get('two-factor/recovery-codes', 'Auth\RecoveryCodeController@show')->name('admin.recovery_codes.show');
     }
 );
 
