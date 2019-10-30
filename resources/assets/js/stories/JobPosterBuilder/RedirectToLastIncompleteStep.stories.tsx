@@ -2,7 +2,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { select } from "@storybook/addon-knobs";
+import { select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import fakeJob, { fakeCriterion, fakeJobTasks } from "../../fakeData/fakeJob";
 import { fakeSkills } from "../../fakeData/fakeSkills";
@@ -20,12 +20,14 @@ stories.add(
   "Loading",
   (): React.ReactElement => (
     <RedirectToLastIncompleteStep
-      job={null}
-      jobIsLoading={false}
-      tasks={[]}
-      tasksIsLoading={false}
-      criteria={[]}
-      criteriaIsLoading={false}
+      job={boolean("Job is complete", false) ? fakeJob() : null}
+      jobIsLoading={boolean("Job is loading", true)}
+      tasks={boolean("Tasks are complete", false) ? fakeJobTasks() : []}
+      tasksIsLoading={boolean("Tasks are loading", true)}
+      criteria={
+        boolean("Criteria are complete", false) ? [fakeCriterion()] : []
+      }
+      criteriaIsLoading={boolean("Criteria are loading", true)}
       redirect={action("Redirect")}
     />
   ),
