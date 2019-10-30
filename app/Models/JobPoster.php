@@ -29,7 +29,7 @@ use App\Events\JobSaved;
  * @property \Jenssegers\Date\Date $close_date_time
  * @property \Jenssegers\Date\Date $start_date_time
  * @property \Jenssegers\Date\Date $review_requested_at
- * @property \Jessengers\Date\Date $published_at
+ * @property \Jenssegers\Date\Date $published_at
  * @property int $department_id
  * @property int $province_id
  * @property int $salary_min
@@ -253,7 +253,7 @@ class JobPoster extends BaseModel
     /**
      * The accessors to append to the model's array form.
      *
-     * @var array
+     * @var mixed[] $appends
      */
     protected $appends = ['classification_code'];
 
@@ -377,7 +377,7 @@ class JobPoster extends BaseModel
     // Accessors.
 
     /**
-     * The database model stores a foreign id to the classifiction table,
+     * The database model stores a foreign id to the classification table,
      * but to simplify the API, this model simply returns the key as classification_code.
      *
      * @return void
