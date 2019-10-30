@@ -258,36 +258,40 @@ Route::group(
                     /* Job Builder */
                     Route::get(
                         'jobs/builder',
-                        'JobBuilderController@intro'
+                        'JobBuilderController@show'
                     )->name('manager.jobs.create');
 
                     Route::get(
+                        'jobs/{jobId}/builder',
+                        'JobBuilderController@show'
+                    )->where('jobPoster', '[0-9]+');
+                    Route::get(
                         'jobs/{jobId}/builder/intro',
-                        'JobBuilderController@intro'
+                        'JobBuilderController@show'
                     )->where('jobPoster', '[0-9]+');
                     Route::get(
                         'jobs/{jobId}/builder/details',
-                        'JobBuilderController@details'
+                        'JobBuilderController@show'
                     )->where('jobPoster', '[0-9]+');
                     Route::get(
                         'jobs/{jobId}/builder/environment',
-                        'JobBuilderController@environment'
+                        'JobBuilderController@show'
                     )->where('jobPoster', '[0-9]+');
                     Route::get(
                         'jobs/{jobId}/builder/impact',
-                        'JobBuilderController@impact'
+                        'JobBuilderController@show'
                     )->where('jobPoster', '[0-9]+');
                     Route::get(
                         'jobs/{jobId}/builder/tasks',
-                        'JobBuilderController@tasks'
+                        'JobBuilderController@show'
                     )->where('jobPoster', '[0-9]+');
                     Route::get(
                         'jobs/{jobId}/builder/skills',
-                        'JobBuilderController@skills'
+                        'JobBuilderController@show'
                     )->where('jobPoster', '[0-9]+');
                     Route::get(
                         'jobs/{jobId}/builder/review',
-                        'JobBuilderController@review'
+                        'JobBuilderController@show'
                     )
                         ->where('jobPoster', '[0-9]+')
                         ->name('manager.jobs.edit');
