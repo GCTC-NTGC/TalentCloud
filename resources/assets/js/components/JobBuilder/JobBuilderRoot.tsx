@@ -15,6 +15,11 @@ import JobReviewPage from "../JobReview/JobReviewPage";
 import ScrollToTop from "../ScrollToTop";
 
 const titles = defineMessages({
+  rootTitle: {
+    id: "jobBuilder.root.documentTitle",
+    defaultMessage: "Job Builder",
+    description: "The document's title shown in browser's title bar or tab.",
+  },
   introTitle: {
     id: "jobBuilder.intro.documentTitle",
     defaultMessage: "Job Builder: Intro",
