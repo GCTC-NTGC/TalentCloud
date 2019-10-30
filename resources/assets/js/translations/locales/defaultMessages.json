@@ -332,7 +332,7 @@
         "id": "apl.indexPageTitle"
       },
       {
-        "defaultMessage": "{dayCount, plural,\n              =0 {No Days}\n            one {# Day}\n          other {# Days}\n        } Since Close",
+        "defaultMessage": "{dayCount, plural,\r\n              =0 {No Days}\r\n            one {# Day}\r\n          other {# Days}\r\n        } Since Close",
         "description": "Welcome header on app main page",
         "id": "job.daysSinceClosed"
       }
@@ -532,6 +532,16 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Assessment Plan Builder",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "assessmentPlan.title"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/AssessmentPlanRoot.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Select an Assessment",
         "description": "Default select element before an assessment type has been chosen",
         "id": "assessmentPlan.selectAssessment.null"
@@ -597,7 +607,7 @@
         "id": "assessmentPlan.summary.title"
       },
       {
-        "defaultMessage": "This is a summary of the work you've done above. You'll find\n      each assessment accompanied by a consolidated list of the essential and\n      asset skills attached to it.",
+        "defaultMessage": "This is a summary of the work you've done above. You'll find\r\n      each assessment accompanied by a consolidated list of the essential and\r\n      asset skills attached to it.",
         "description": "Description of Assessment Plan Summary Section",
         "id": "assessmentPlan.summary.description"
       },
@@ -607,12 +617,12 @@
         "id": "assessmentPlan.summary.assessmentSummary.title"
       },
       {
-        "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}\n            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}.",
+        "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}\r\n            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}.",
         "description": "Describes how many tools and skills your assessment plan involves.",
         "id": "assessmentPlan.summary.assessmentSummary.toolSkillCount"
       },
       {
-        "defaultMessage": "You have no assessments selected for this job poster. Add them\n              above.",
+        "defaultMessage": "You have no assessments selected for this job poster. Add them\r\n              above.",
         "description": "Place holder text for when there are no assessment summary details",
         "id": "assessmentPlan.summary.assessmentSummary.noAssessments"
       }
@@ -1231,7 +1241,7 @@
         "id": "jobBuilder.impact.teamHeader"
       },
       {
-        "defaultMessage": "Describe the value your team/service/initiative brings to Canadians.\n              It doesn’t matter if your work is direct to citizens or back office,\n              innovative or maintenance, top priority or ongoing. Describe how it\n              contributes to making Canada better the way you would to someone who\n              knows nothing about your work.",
+        "defaultMessage": "Describe the value your team/service/initiative brings to Canadians.\r\n              It doesn’t matter if your work is direct to citizens or back office,\r\n              innovative or maintenance, top priority or ongoing. Describe how it\r\n              contributes to making Canada better the way you would to someone who\r\n              knows nothing about your work.",
         "description": "Body of Job Poster Builder Team Impact Section",
         "id": "jobBuilder.impact.teamBody"
       },
@@ -1241,7 +1251,7 @@
         "id": "jobBuilder.impact.hireHeader"
       },
       {
-        "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\n              value they’ll bring, not on specific tasks (you’ll provide these\n              later on). For example “In this role, you’ll contribute to…” or, “As\n              a member of this team, you’ll be responsible for helping us…”",
+        "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\r\n              value they’ll bring, not on specific tasks (you’ll provide these\r\n              later on). For example “In this role, you’ll contribute to…” or, “As\r\n              a member of this team, you’ll be responsible for helping us…”",
         "description": "Body of Job Poster Builder Hire Impact Section",
         "id": "jobBuilder.impact.hireBody"
       },
@@ -1261,7 +1271,7 @@
         "id": "jobBuilder.impact.modalTitle"
       },
       {
-        "defaultMessage": "Here's a preview of the Impact Statement you just\n                        entered. Feel free to go back and edit things or move to\n                        the next step if you're happy with it.",
+        "defaultMessage": "Here's a preview of the Impact Statement you just\r\n                        entered. Feel free to go back and edit things or move to\r\n                        the next step if you're happy with it.",
         "description": "Description of modal dialog for Impact review.",
         "id": "jobBuilder.impact.modalDescription"
       },
@@ -1381,7 +1391,7 @@
         "id": "jobBuilder.intro.formDescription"
       },
       {
-        "defaultMessage": "Complete the job poster in the language of your choice. We will\n                  handle translation.",
+        "defaultMessage": "Complete the job poster in the language of your choice. We will\r\n                  handle translation.",
         "description": "Intstructions at bottom of form on language choice for job poster builder.",
         "id": "jobBuilder.intro.completeInLanguage"
       },
@@ -1426,7 +1436,7 @@
         "id": "jobBuilder.criteriaForm.removeSpecificity"
       },
       {
-        "defaultMessage": "I'd like to add specificity to this definition. This will\n                          only apply to my job poster.",
+        "defaultMessage": "I'd like to add specificity to this definition. This will\r\n                          only apply to my job poster.",
         "description": "Label for 'Add additional specificity' button on Add Skill modal.",
         "id": "jobBuilder.criteriaForm.addSpecificity"
       },
@@ -1536,7 +1546,7 @@
         "id": "jobBuilder.skills.title"
       },
       {
-        "defaultMessage": "This is where you'll select the criteria that are required to do\n            this job effectively. Below are two bars that indicate a measurement\n            of your current skill selection.",
+        "defaultMessage": "This is where you'll select the criteria that are required to do\r\n            this job effectively. Below are two bars that indicate a measurement\r\n            of your current skill selection.",
         "description": "section description under title",
         "id": "jobBuilder.skills.description"
       },
@@ -1666,7 +1676,7 @@
         "id": "jobBuilder.skills.title.missingSkill"
       },
       {
-        "defaultMessage": "Building a skills list is a huge endeavour, and it's not\n  surprising that Talent Cloud's list doesn't have the skill\n  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to\n  kick-off the discussion.",
+        "defaultMessage": "Building a skills list is a huge endeavour, and it's not\r\n  surprising that Talent Cloud's list doesn't have the skill\r\n  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to\r\n  kick-off the discussion.",
         "id": "jobBuilder.skills.instructions.missingSkills"
       },
       {
@@ -1715,7 +1725,7 @@
         "id": "jobBuilder.skills.title.keepItUp"
       },
       {
-        "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to\n                go back and edit things or move to the next step if you're\n                happy with it.",
+        "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to\r\n                go back and edit things or move to the next step if you're\r\n                happy with it.",
         "description": "Body text of Keep it up! Modal",
         "id": "jobBuilder.skills.description.keepItUp"
       },
@@ -2085,7 +2095,7 @@
         "id": "jobBuilder.workEnv.greatStart"
       },
       {
-        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\n                free to go back and edit things or move to the next step if\n                you're happy with it.",
+        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\r\n                free to go back and edit things or move to the next step if\r\n                you're happy with it.",
         "description": "Opening sentence for modal.",
         "id": "jobBuilder.workEnv.openingSentence"
       },
@@ -2720,7 +2730,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -2880,7 +2890,7 @@
         "id": "jobBuilder.tasks.intro.fourth"
       },
       {
-        "defaultMessage": "You have {taskCount, plural,\n                      one {# task}\n                      other {# tasks}\n                    } added.",
+        "defaultMessage": "You have {taskCount, plural,\r\n                      one {# task}\r\n                      other {# tasks}\r\n                    } added.",
         "description": "Indicates how many tasks are present on the page.",
         "id": "jobBuilder.tasks.taskCount.some"
       },

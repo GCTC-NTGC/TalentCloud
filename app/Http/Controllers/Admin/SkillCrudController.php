@@ -44,7 +44,8 @@ class SkillCrudController extends CrudController
             $this->crud->addField([
                 'name' => 'description',
                 'type' => 'textarea',
-                'label' => 'Description'
+                'label' => 'Description',
+                'limit' => 70,
             ]);
 
             $this->crud->addField([
