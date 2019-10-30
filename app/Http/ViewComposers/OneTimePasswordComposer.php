@@ -24,6 +24,8 @@ class OneTimePasswordComposer
             $logout_link = route('logout');
         }
         $view->with('otp', Lang::get('one_time_password'))
-            ->with('logout_link', $logout_link);
+            ->with([
+                'logout_link' => $logout_link,
+            ]);
     }
 }

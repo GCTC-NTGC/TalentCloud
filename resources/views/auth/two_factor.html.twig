@@ -15,7 +15,7 @@
         <section class="tc-auth" data-c-padding="tb(triple)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
             <div class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
                 {# Return to the homepage link. #}
-                <a data-c-color="white" href="{{ route('home') }}" title="{{ two_factor.return_title }}">
+                <a data-c-color="white" href="{{ profile_url }}" title="{{ two_factor.return_title }}">
                     <i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ two_factor.return }}
                 </a>
                 <div data-c-radius="rounded" data-c-margin="top(normal)">
@@ -25,20 +25,41 @@
                     <form action="{{ confirm_url }}" method="POST">
                         {{ csrf_field() }}
                         <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
-                            <div data-c-grid="middle">
+                            <div data-c-grid data-c-grid="middle">
                                 <p>{{ two_factor.setup }}</p>
-                                <div>
+                                <div data-c-grid-item="base(1of1)" data-c-alignment="center">
                                     <img src="{{ qr_image }}" alt="{{ two_factor.qr_alt }}" />
                                 </div>
-                                <pre>{{ secret }}</pre>
-                                <input type="hidden" name="secret" value="{{ secret }}" />
+                                <div data-c-grid-item="base(1of1)" data-c-alignment="center">
+                                    <span>{{ secret }}</span>
+                                    <input type="hidden" name="secret" value="{{ secret }}" />
+                                </div>
                             </div>
                         </div>
-                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)">
-                            <div data-c-grid="middle">
-                                <p data-c-padding="bottom(normal)">You must set up your authentication app before continuing. You will be unable to log in otherwise.</p>
+                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)" data-c-grid="middle">
+                            <p data-c-padding="bottom(normal)">{{ two_factor.instructions }}</p>
+                            <div data-c-background="white(100)" data-c-grid-item="base(1of1)" data-c-padding="tb(normal)">
+                                <div data-c-padding="tb(half)">
+                                    {% include "errors/form_errors" %}
+                                    {# OTP Field #}
+                                    <div data-c-input="number">
+                                        <label for="one_time_password">{{ otp.otp_label }}</label>
+                                        <span>{{ trans("forms.required") }}</span>
+                                        <div>
+                                            <input id="one_time_password" name="one_time_password" placeholder="{{ otp.otp_placeholder }}" required autofocus type="number" value="{{ old('one_time_password') }}"/>
+                                        </div>
+                                        <span>{{ trans("forms.error") }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-c-grid-item="base(1of2)">
+                                <a href="{{ profile_url }}" title="{{ two_factor.cancel_link_title }}">
+                                    {{ two_factor.cancel_text }}
+                                </a>
+                            </div>
+                            <div data-c-grid-item="base(1of2)" data-c-alignment="right">
                                 <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
-                                    {{ two_factor.continue_text }}
+                                    {{ two_factor.next_text }}
                                 </button>
                             </div>
                         </div>

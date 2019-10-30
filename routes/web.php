@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 
 /*
@@ -30,12 +31,7 @@ Route::group(
              * This should include all routes except those related to authentication, to avoid loops.
              */
             Route::middleware(['2fa'])->group(function (): void {
-                Route::post('/2fa', function () {
-                    // If 2fa passes redirect to the expected url and remove it from session.
-                    $expectedUrl = session()->get('url.expected');
-                    session()->remove('url.expected');
-                    return redirect($expectedUrl);
-                })->name('2fa');
+                Route::post('/2fa', 'Auth\TwoFactorController@redirectToExpected')->name('2fa');
 
                 /* Home */
                 Route::get('/', 'HomepageController@applicant')->name('home');
@@ -236,9 +232,8 @@ Route::group(
                  */
                 Route::middleware(['2fa'])->group(function (): void {
 
-                    Route::post('/2fa', function () {
-                        return redirect()->intended();
-                    })->name('2fa');
+                    Route::post('/2fa', 'Auth\TwoFactorController@redirectToExpected')->name('manager.2fa');
+
 
                     /* Home */
                     Route::get('/', 'HomepageController@manager')->name('manager.home');
@@ -481,6 +476,8 @@ Route::group(
         Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
             ->middleware('can:create,App\Models\JobPoster')
             ->name('admin.jobs.create_as_manager');
+
+        Route::post('/2fa', 'Auth\TwoFactorController@redirectToExpected')->name('admin.2fa');
 
         Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('admin.two_factor.activate');
         Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('admin.two_factor.deactivate');
