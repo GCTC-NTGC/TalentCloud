@@ -18,6 +18,7 @@ return [
     'active_posters' => 'My Active Posters',
     'no_active_posters' => "You don't currently have any active posters! Create a new one using the button above.",
     'preview' => '(Preview)',
+    'trans_title_placeholder' => 'Translation Required',
     'created_on' => 'Created On:',
     'submitted_on' => 'Submitted On:',
     'published_on' => 'Published On:',
