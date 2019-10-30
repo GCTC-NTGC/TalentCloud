@@ -67,12 +67,29 @@ class JobController extends Controller
             ->withCount('submitted_applications')
             ->get();
 
+
+        /*
+            Check if job has a title. Append both bool (and french title if locale is 'en').
+            Because global fallback-locale set to true (config/translatable.php) any french translatables are set to the english copy. 'getTranslationsArray()' will retreive real value of translations.
+        */
+        $locale = app()->getLocale();
+        foreach ($jobs as &$job) {
+            $jobTranslations = $job->getTranslationsArray();
+            $hasTitle = !!$jobTranslations[$locale]['title'];
+
+            $job->hasTitle = $hasTitle;
+
+            if ($locale == 'en' && !$hasTitle) {
+                $job->frenchTitle = $jobTranslations['fr']['title'];
+            }
+        }
+
         return view('manager/job_index', [
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
             'jobs' => $jobs,
-            'show_notification' => $show_notification
+            'show_notification' => $show_notification,
         ]);
     }
 
