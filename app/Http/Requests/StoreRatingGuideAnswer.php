@@ -22,7 +22,7 @@ class StoreRatingGuideAnswer extends FormRequest
             $questionId = (int) $this->input('rating_guide_question_id');
             if ($questionId) {
                 $question = RatingGuideQuestion::find($questionId);
-                return $this->user()->can('update', $question);
+                return $question && $this->user()->can('update', $question);
             }
         }
 
