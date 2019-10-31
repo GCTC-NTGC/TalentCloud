@@ -65,6 +65,7 @@ class ManagerProfileController extends Controller
             ]
         ];
 
+        $noInfo = $manager_profile['no_info'];
 
         return view('applicant/manager', [
             'manager_profile' => $manager_profile,
@@ -72,6 +73,7 @@ class ManagerProfileController extends Controller
             'manager' => $manager,
             'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
             'manager_profile_sections' => $manager_profile_sections,
+            'noInfo' => $noInfo,
         ]);
     }
 
