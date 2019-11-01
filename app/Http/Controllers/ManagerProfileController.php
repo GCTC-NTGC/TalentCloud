@@ -65,15 +65,13 @@ class ManagerProfileController extends Controller
             ]
         ];
 
-        $noInfo = $manager_profile['no_info'];
-
         return view('applicant/manager', [
             'manager_profile' => $manager_profile,
             'urls' => Lang::get('common/urls'),
             'manager' => $manager,
             'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
             'manager_profile_sections' => $manager_profile_sections,
-            'noInfo' => $noInfo,
+            'noInfo' => $manager_profile['no_info'],
         ]);
     }
 
