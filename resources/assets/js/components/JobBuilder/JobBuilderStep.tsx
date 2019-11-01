@@ -44,6 +44,7 @@ interface JobBuilderStepProps {
   skills: Skill[];
   loadSkills: () => Promise<void>;
   currentPage: JobBuilderPage | null;
+  forceIsLoading?: boolean;
   children: React.ReactNode;
 }
 
@@ -59,6 +60,7 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
   departments,
   loadDepartments,
   currentPage,
+  forceIsLoading,
   children,
 }): React.ReactElement => {
   // Trigger fetching of job details
@@ -108,7 +110,8 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
     };
   }, [jobId, loadCriteria]);
 
-  const dataIsLoading = isLoadingJob || isLoadingTasks || isLoadingCriteria;
+  const dataIsLoading =
+    forceIsLoading || isLoadingJob || isLoadingTasks || isLoadingCriteria;
 
   // Trigger fetching of other resources needed for Job Builder
   useEffect((): void => {

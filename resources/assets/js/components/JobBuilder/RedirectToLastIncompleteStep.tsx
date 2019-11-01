@@ -24,7 +24,7 @@ import {
 } from "../../store/Job/jobSelector";
 import { connect } from "react-redux";
 import JobBuilderStepContainer from "./JobBuilderStep";
-import { navigate } from "../../helpers/router";
+import { redirect } from "../../helpers/router";
 
 interface RedirectToLastIncompleteStepProps {
   jobId: number;
@@ -75,7 +75,7 @@ export const RedirectToLastIncompleteStep: React.FunctionComponent<
   criteria,
   criteriaIsLoading,
   redirect,
-}): React.ReactElement => {
+}): React.ReactElement | null => {
   const intl = useIntl();
 
   const { locale } = intl;
@@ -123,11 +123,7 @@ export const RedirectToLastIncompleteStep: React.FunctionComponent<
     }
   }, [returnToPage, redirect]);
 
-  return (
-    <div>
-      <p>Redirecting to last incomplete step...</p>
-    </div>
-  );
+  return null;
 };
 
 const mapStateToProps = (
@@ -159,9 +155,8 @@ export const RedirectToLastIncompleteStepConnected = connect(mapStateToProps)(
 );
 
 export const RedirectPage: React.FC<{ jobId: number }> = ({ jobId }) => {
-  const redirect = navigate;
   return (
-    <JobBuilderStepContainer jobId={jobId} currentPage={null}>
+    <JobBuilderStepContainer jobId={jobId} currentPage={null} forceIsLoading>
       <RedirectToLastIncompleteStepConnected
         jobId={jobId}
         maxTasksCount={VALID_COUNT}

@@ -294,6 +294,12 @@ Route::group(
                         'JobBuilderController@show'
                     )
                         ->where('jobPoster', '[0-9]+')
+                        ->name('manager.jobs.review');
+                    Route::get(
+                        'jobs/{jobId}/builder',
+                        'JobBuilderController@show'
+                    )
+                        ->where('jobPoster', '[0-9]+')
                         ->name('manager.jobs.edit');
 
                     /* Delete Job */
@@ -301,12 +307,6 @@ Route::group(
                         ->where('jobPoster', '[0-9]+')
                         ->middleware('can:delete,jobPoster')
                         ->name('manager.jobs.destroy');
-
-                    /* Request Review */
-                    Route::post('jobs/{jobPoster}/review', 'JobController@submitForReview')
-                        ->where('jobPoster', '[0-9]+')
-                        ->middleware('can:submitForReview,jobPoster')
-                        ->name('manager.jobs.review');
 
                     Route::view(
                         'jobs/{jobPoster}/assessment-plan',
