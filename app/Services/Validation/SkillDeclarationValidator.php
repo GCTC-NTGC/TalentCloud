@@ -15,18 +15,6 @@ use App\Services\Validation\Rules\UniqueSkillDeclarationRule;
 class SkillDeclarationValidator
 {
 
-    protected $skill_ids;
-    protected $skill_status_ids;
-    protected $skill_level_ids;
-
-
-    public function __construct()
-    {
-        $this->skill_ids = Skill::all()->pluck('id');
-        $this->skill_status_ids = SkillStatus::all()->pluck('id');
-        $this->skill_level_ids = SkillLevel::all()->pluck('id');
-    }
-
     public function validator(SkillDeclaration $skillDeclaration)
     {
         $uniqueSkillRule = new UniqueSkillDeclarationRule($skillDeclaration->skillable->skill_declarations, $skillDeclaration->id);
@@ -35,7 +23,7 @@ class SkillDeclarationValidator
         $validator = Validator::make($skillDeclaration->getAttributes(), [
             'skill_id' => [
                 'required',
-                Rule::in($this->skill_ids->toArray()),
+                'exists:skills,id',
                 $uniqueSkillRule,
             ],
             'skillable_id' => [
@@ -45,11 +33,11 @@ class SkillDeclarationValidator
             'skillable_type' => 'required',
             'skill_status_id' => [
                 'required',
-                Rule::in($this->skill_status_ids->toArray()),
+                'exists:skill_statuses,id',
             ],
             'skill_level_id' => [
                 'required',
-                Rule::in($this->skill_level_ids->toArray()),
+                'exists:skill_levels,id',
             ],
             'description' => 'required|string',
         ]);

@@ -16,17 +16,6 @@ use App\Services\Validation\JobApplicationAnswerValidator;
 class ApplicationValidator
 {
 
-    protected $citizenship_ids;
-    protected $veteran_status_ids;
-    protected $preferred_language_ids;
-
-    public function __construct()
-    {
-        $this->citizenship_ids = CitizenshipDeclaration::all()->pluck('id')->toArray();
-        $this->veteran_status_ids = VeteranStatus::all()->pluck('id')->toArray();
-        $this->preferred_language_ids = PreferredLanguage::all()->pluck('id')->toArray();
-    }
-
     public function validate(JobApplication $application)
     {
 
@@ -95,9 +84,9 @@ class ApplicationValidator
         // Validate the fields common to every application
         $rules = [
             'language_requirement_confirmed' => ['required', 'boolean'],
-            'citizenship_declaration_id' => ['required', Rule::in($this->citizenship_ids)],
-            'veteran_status_id' => ['required', Rule::in($this->veteran_status_ids)],
-            'preferred_language_id' => ['required', Rule::in($this->preferred_language_ids)],
+            'citizenship_declaration_id' => ['required', 'exists:citizenship_declarations,id'],
+            'veteran_status_id' => ['required', 'exists:veteran_statuses,id'],
+            'preferred_language_id' => ['required', 'exists:preferred_languages,id'],
         ];
 
         // Load application answers so they are included in application->toArray()
