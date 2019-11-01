@@ -19,9 +19,19 @@ import {
 } from "./jobBuilderHelpers";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
 import { JobBuilderPage } from "./JobBuilderStep";
+import {
+  jobBuilderIntro,
+  jobBuilderDetails,
+  jobBuilderEnv,
+  jobBuilderImpact,
+  jobBuilderTasks,
+  jobBuilderSkills,
+  jobBuilderReview,
+} from "../../helpers/routes";
 
 interface JobBuilderProgressTrackerProps {
   job: Job | null;
+  jobId: number;
   tasks: JobPosterKeyTask[];
   maxTasksCount: number;
   criteria: Criteria[];
@@ -50,6 +60,7 @@ export const JobBuilderProgressTracker: React.FunctionComponent<
   JobBuilderProgressTrackerProps & WrappedComponentProps
 > = ({
   job,
+  jobId,
   tasks,
   maxTasksCount,
   dataIsLoading,
@@ -109,36 +120,43 @@ export const JobBuilderProgressTracker: React.FunctionComponent<
   pageStates[currentPage] = "active";
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
+      link: jobBuilderIntro(locale, jobId || undefined),
       state: pageStates.intro,
       label: intl.formatMessage(progressTrackerLabels.start),
       title: intl.formatMessage(progressTrackerTitles.welcome),
     },
     {
+      link: jobBuilderDetails(locale, jobId),
       state: pageStates.details,
       label: intl.formatMessage(progressTrackerLabels.step01),
       title: intl.formatMessage(progressTrackerTitles.jobInfo),
     },
     {
+      link: jobBuilderEnv(locale, jobId),
       state: pageStates.env,
       label: intl.formatMessage(progressTrackerLabels.step02),
       title: intl.formatMessage(progressTrackerTitles.workEnv),
     },
     {
+      link: jobBuilderImpact(locale, jobId),
       state: pageStates.impact,
       label: intl.formatMessage(progressTrackerLabels.step03),
       title: intl.formatMessage(progressTrackerTitles.impact),
     },
     {
+      link: jobBuilderImpact(locale, jobId),
       state: pageStates.tasks,
       label: intl.formatMessage(progressTrackerLabels.step04),
       title: intl.formatMessage(progressTrackerTitles.tasks),
     },
     {
+      link: jobBuilderSkills(locale, jobId),
       state: pageStates.skills,
       label: intl.formatMessage(progressTrackerLabels.step05),
       title: intl.formatMessage(progressTrackerTitles.skills),
     },
     {
+      link: jobBuilderReview(locale, jobId),
       state: pageStates.review,
       label: intl.formatMessage(progressTrackerLabels.finish),
       title: intl.formatMessage(progressTrackerTitles.review),
