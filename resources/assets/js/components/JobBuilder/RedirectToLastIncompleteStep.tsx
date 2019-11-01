@@ -11,6 +11,16 @@ import {
   JobBuilderPage,
 } from "./jobBuilderHelpers";
 import { ProgressTrackerState } from "../ProgressTracker/types";
+import { RootState } from "../../store/store";
+import {
+  getJob,
+  getTasksByJob,
+  getCriteriaByJob,
+  getJobIsUpdating,
+  getTasksForJobIsUpdating,
+  getCriteriaForJobIsUpdating,
+} from "../../store/Job/jobSelector";
+import { connect } from "react-redux";
 
 interface RedirectToLastIncompleteStepProps {
   job: Job | null;
@@ -24,7 +34,7 @@ interface RedirectToLastIncompleteStepProps {
 }
 
 export type PageStates = {
-  [page in JobBuilderPage]: () => ProgressTrackerState
+  [page in JobBuilderPage]: () => ProgressTrackerState;
 };
 
 /**
@@ -48,7 +58,7 @@ export const firstIncompletePage = (
   return null;
 };
 
-const RedirectToLastIncompleteStep: React.FunctionComponent<
+export const RedirectToLastIncompleteStep: React.FunctionComponent<
   RedirectToLastIncompleteStepProps
 > = ({
   job,
@@ -108,9 +118,28 @@ const RedirectToLastIncompleteStep: React.FunctionComponent<
 
   return (
     <div>
-      <p>Loading your job...</p>
+      <p>Redirecting to last incomplete step...</p>
     </div>
   );
 };
 
-export default RedirectToLastIncompleteStep;
+const mapStateToProps = (
+  state: RootState,
+  { jobId }: { jobId: number },
+): {
+  job: Job | null;
+  jobIsLoading: boolean;
+  tasks: JobPosterKeyTask[];
+  tasksIsLoading: boolean;
+  criteria: Criteria[];
+  criteriaIsLoading: boolean;
+} => ({
+  job: getJob(state, { jobId }),
+  jobIsLoading: getJobIsUpdating(state, jobId),
+  tasks: getTasksByJob(state, { jobId }),
+  tasksIsLoading: getTasksForJobIsUpdating(state, jobId),
+  criteria: getCriteriaByJob(state, { jobId }),
+  criteriaIsLoading: getCriteriaForJobIsUpdating(state, jobId),
+});
+
+export default connect(mapStateToProps)(RedirectToLastIncompleteStep);

@@ -2,14 +2,10 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { select, boolean } from "@storybook/addon-knobs";
+import { boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import fakeJob, { fakeCriterion, fakeJobTasks } from "../../fakeData/fakeJob";
-import { fakeSkills } from "../../fakeData/fakeSkills";
-import JobReview from "../../components/JobReview/JobReview";
-import fakeDepartments from "../../fakeData/fakeDepartments";
-import { fakeManager } from "../../fakeData/fakeManager";
-import RedirectToLastIncompleteStep from "../../components/JobBuilder/RedirectToLastIncompleteStep";
+import { RedirectToLastIncompleteStep } from "../../components/JobBuilder/RedirectToLastIncompleteStep";
 import { VALID_COUNT } from "../../components/JobBuilder/jobBuilderHelpers";
 
 const stories = storiesOf(
