@@ -42,25 +42,16 @@ export function jobBuilderIntro(locale: string, jobId?: number): string {
   return `/${locale}/manager/job-builder/intro`;
 }
 
-export function jobBuilderDetails(locale: string, jobId?: number): string {
-  if (jobId) {
-    return `/${locale}/manager/jobs/${jobId}/builder/details`;
-  }
-  return `/${locale}/manager/job-builder/details`;
+export function jobBuilderDetails(locale: string, jobId: number): string {
+  return `/${locale}/manager/jobs/${jobId}/builder/details`;
 }
 
-export function jobBuilderEnv(locale: string, jobId?: number): string {
-  if (jobId) {
-    return `/${locale}/manager/jobs/${jobId}/builder/environment`;
-  }
-  return `/${locale}/manager/job-builder/environment`;
+export function jobBuilderEnv(locale: string, jobId: number): string {
+  return `/${locale}/manager/jobs/${jobId}/builder/environment`;
 }
 
-export function jobBuilderImpact(locale: string, jobId?: number): string {
-  if (jobId) {
-    return `/${locale}/manager/jobs/${jobId}/builder/impact`;
-  }
-  return `/${locale}/manager/job-builder/impact`;
+export function jobBuilderImpact(locale: string, jobId: number): string {
+  return `/${locale}/manager/jobs/${jobId}/builder/impact`;
 }
 
 export function jobBuilderTasks(locale: string, jobId: number): string {
