@@ -309,34 +309,9 @@ class JobController extends Controller
             $jobPoster->save();
         }
 
-        $this->fillAndSaveJobPoster($input, $jobPoster);
-
         $this->fillAndSaveJobPosterQuestions($input, $jobPoster, true);
 
         return redirect(route('manager.jobs.show', $jobPoster->id));
-    }
-
-    /**
-     * Fill Job Poster model's properties and save
-     * NOTE: only saves properties which don't appear on the Job Poster Builder
-     *
-     * @param  mixed[]               $input     Field values.
-     * @param  \App\Models\JobPoster $jobPoster Job Poster object.
-     * @return void
-     */
-    protected function fillAndSaveJobPoster(array $input, JobPoster $jobPoster) : void
-    {
-        $jobPoster->fill(
-            [
-                'open_date_time' => ptDayStartToUtcTime($input['open_date']),
-                'close_date_time' => ptDayEndToUtcTime($input['close_date']),
-                'start_date_time' => ptDayStartToUtcTime($input['start_date']),
-                'salary_min' => $input['salary_min'],
-                'salary_max' => $input['salary_max'],
-                'noc' => $input['noc'],
-            ]
-        );
-        $jobPoster->save();
     }
 
     /**
@@ -372,6 +347,7 @@ class JobController extends Controller
                     ]
                 ]
             );
+            $jobPoster->save();
             $jobQuestion->save();
         }
     }

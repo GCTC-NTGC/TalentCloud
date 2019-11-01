@@ -29,7 +29,7 @@ use App\Events\JobSaved;
  * @property \Jenssegers\Date\Date $close_date_time
  * @property \Jenssegers\Date\Date $start_date_time
  * @property \Jenssegers\Date\Date $review_requested_at
- * @property \Jessengers\Date\Date $published_at
+ * @property \Jenssegers\Date\Date $published_at
  * @property int $department_id
  * @property int $province_id
  * @property int $salary_min
@@ -53,6 +53,9 @@ use App\Events\JobSaved;
  * @property int $flexible_hours_frequency_id
  * @property int $travel_requirement_id
  * @property int $overtime_requirement_id
+ * @property int $process_number
+ * @property int $priority_clearance_number
+ * @property \Jenssegers\Date\Date $loo_issuance_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -164,7 +167,8 @@ class JobPoster extends BaseModel
         'close_date_time',
         'start_date_time',
         'review_requested_at',
-        'published_at'
+        'published_at',
+        'loo_issuance_date',
     ];
 
     /**
@@ -199,6 +203,9 @@ class JobPoster extends BaseModel
         'flexible_hours_frequency_id',
         'travel_requirement_id',
         'overtime_requirement_id',
+        'process_number',
+        'priority_clearance_number',
+        'loo_issuance_date'
     ];
 
     /**
@@ -238,12 +245,15 @@ class JobPoster extends BaseModel
         'flexible_hours_frequency_id',
         'travel_requirement_id',
         'overtime_requirement_id',
+        'process_number',
+        'priority_clearance_number',
+        'loo_issuance_date'
     ];
 
     /**
      * The accessors to append to the model's array form.
      *
-     * @var array
+     * @var mixed[] $appends
      */
     protected $appends = ['classification_code'];
 
@@ -367,7 +377,7 @@ class JobPoster extends BaseModel
     // Accessors.
 
     /**
-     * The database model stores a foreign id to the classifiction table,
+     * The database model stores a foreign id to the classification table,
      * but to simplify the API, this model simply returns the key as classification_code.
      *
      * @return void

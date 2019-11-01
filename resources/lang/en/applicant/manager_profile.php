@@ -25,5 +25,6 @@ return [
         "career_journey" => "My Career Journey So Far",
         "learning_path" => "My Learning Path",
         "about_me" => "A Bit About Me Outside Work"
-    ]
+    ],
+    'no_info' => 'No information provided.',
 ];

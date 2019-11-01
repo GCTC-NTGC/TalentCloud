@@ -121,11 +121,13 @@ const updateCriteriaWithValues = (
     skill_level_id: essentialKeyToId(values.level),
     en: {
       description: skill.en.description,
-      specificity: locale === "en" ? values.specificity : null,
+      specificity:
+        locale === "en" ? values.specificity : criteria.en.specificity,
     },
     fr: {
       description: skill.fr.description,
-      specificity: locale === "fr" ? values.specificity : null,
+      specificity:
+        locale === "fr" ? values.specificity : criteria.fr.specificity,
     },
   };
 };
