@@ -25,5 +25,6 @@ return [
         "career_journey" => "Mon parcours de carrière jusqu'à présent",
         "learning_path" => "Mon parcours d'apprentissage",
         "about_me" => "Un peu à propos de moi en dehors du travail"
-    ]
+    ],
+    'no_info' => 'Aucune information fournie.'
 ];
