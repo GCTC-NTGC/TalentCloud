@@ -10,6 +10,7 @@ import JobReview from "../../components/JobReview/JobReview";
 import fakeDepartments from "../../fakeData/fakeDepartments";
 import { fakeManager } from "../../fakeData/fakeManager";
 import RedirectToLastIncompleteStep from "../../components/JobBuilder/RedirectToLastIncompleteStep";
+import { VALID_COUNT } from "../../components/JobBuilder/jobBuilderHelpers";
 
 const stories = storiesOf(
   "Job Poster Builder|Redirect To Last Incomplete Step",
@@ -23,6 +24,7 @@ stories.add(
       job={boolean("Job is complete", false) ? fakeJob() : null}
       jobIsLoading={boolean("Job is loading", true)}
       tasks={boolean("Tasks are complete", false) ? fakeJobTasks() : []}
+      maxTasksCount={VALID_COUNT}
       tasksIsLoading={boolean("Tasks are loading", true)}
       criteria={
         boolean("Criteria are complete", false) ? [fakeCriterion()] : []

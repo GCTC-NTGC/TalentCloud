@@ -16,9 +16,9 @@ import {
   jobBuilderEnvProgressState,
   jobBuilderIntroProgressState,
   jobBuilderDetailsProgressState,
+  JobBuilderPage,
 } from "./jobBuilderHelpers";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
-import { JobBuilderPage } from "./JobBuilderStep";
 
 interface JobBuilderProgressTrackerProps {
   job: Job | null;

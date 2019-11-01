@@ -237,3 +237,12 @@ export const isJobBuilderComplete = (
     isCriteriaComplete(criteria, locale)
   );
 };
+
+export type JobBuilderPage =
+  | "intro"
+  | "details"
+  | "env"
+  | "impact"
+  | "tasks"
+  | "skills"
+  | "review";

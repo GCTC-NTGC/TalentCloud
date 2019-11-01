@@ -9,7 +9,7 @@ import {
   Skill,
   Department,
 } from "../../models/types";
-import { VALID_COUNT } from "./jobBuilderHelpers";
+import { VALID_COUNT, JobBuilderPage } from "./jobBuilderHelpers";
 import {
   getJob,
   getTasksByJob,
@@ -28,15 +28,6 @@ import JobBuilderProgressTracker from "./JobBuilderProgressTracker";
 import { getDepartments } from "../../store/Department/deptSelector";
 import { getDepartments as fetchDepartments } from "../../store/Department/deptActions";
 import { RootState } from "../../store/store";
-
-export type JobBuilderPage =
-  | "intro"
-  | "details"
-  | "env"
-  | "impact"
-  | "tasks"
-  | "skills"
-  | "review";
 
 interface JobBuilderStepProps {
   jobId: number | null;
