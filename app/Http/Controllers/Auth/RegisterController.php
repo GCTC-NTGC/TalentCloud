@@ -61,6 +61,7 @@ class RegisterController extends AuthController
         return view('auth.register', [
             'routes' => $this->auth_routes(),
             'register' => Lang::get('common/auth/register'),
+            'home_url' => route('home'),
         ]);
     }
 
@@ -76,6 +77,7 @@ class RegisterController extends AuthController
             'register' => Lang::get('common/auth/register'),
             'not_in_gov_option' => ['value' => 0, 'name' => Lang::get('common/auth/register.not_in_gov')],
             'departments' => Department::all(),
+            'home_url' => route('manager.home'),
         ]);
     }
 

@@ -7,7 +7,7 @@
   {
     "id": "jobBuilder.workEnv.openingSentence",
     "description": "Opening sentence for modal.",
-    "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\n                free to go back and edit things or move to the next step if\n                you're happy with it."
+    "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\r\n                free to go back and edit things or move to the next step if\r\n                you're happy with it."
   },
   {
     "id": "jobBuilder.workEnvModal.title",
