@@ -72,9 +72,10 @@ const ProgressTracker: React.FunctionComponent<ProgressTrackerProps> = ({
         {items &&
           items.map(
             (item): React.ReactElement => {
-              const { state, label, title } = item;
+              const { link, state, label, title } = item;
               return (
                 <ProgressTrackerItemComponent
+                  link={link}
                   key={title}
                   state={state}
                   label={label}

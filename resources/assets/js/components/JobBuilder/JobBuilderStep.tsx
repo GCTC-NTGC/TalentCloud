@@ -139,14 +139,17 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
 
   return (
     <section>
-      <JobBuilderProgressTracker
-        job={job}
-        tasks={keyTasks}
-        maxTasksCount={VALID_COUNT}
-        criteria={criteria}
-        dataIsLoading={dataIsLoading}
-        currentPage={currentPage}
-      />
+      {jobId !== null && (
+        <JobBuilderProgressTracker
+          job={job}
+          jobId={jobId}
+          tasks={keyTasks}
+          maxTasksCount={VALID_COUNT}
+          criteria={criteria}
+          dataIsLoading={dataIsLoading}
+          currentPage={currentPage}
+        />
+      )}
       {jobId !== null && job === null && (
         <div
           data-c-container="form"
