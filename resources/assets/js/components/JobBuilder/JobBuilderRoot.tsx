@@ -13,6 +13,7 @@ import JobTasksPage from "../JobTasks/JobTasksPage";
 import JobSkillsPage from "../JobBuilderSkills/JobBuilderSkillsPage";
 import JobReviewPage from "../JobReview/JobReviewPage";
 import ScrollToTop from "../ScrollToTop";
+import RedirectPage from "./RedirectToLastIncompleteStep";
 
 const titles = defineMessages({
   rootTitle: {
@@ -71,6 +72,13 @@ const routes: Routes<{}, RouterResult> = [
       {
         path: "/:id/builder",
         children: [
+          {
+            path: "",
+            action: ({ params }) => ({
+              title: titles.rootTitle,
+              component: <RedirectPage jobId={Number(params.id)} />,
+            }),
+          },
           {
             path: "/intro",
             action: ({ params }) => ({

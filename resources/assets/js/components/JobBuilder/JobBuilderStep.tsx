@@ -43,7 +43,7 @@ interface JobBuilderStepProps {
   loadDepartments: () => Promise<void>;
   skills: Skill[];
   loadSkills: () => Promise<void>;
-  currentPage: JobBuilderPage;
+  currentPage: JobBuilderPage | null;
   children: React.ReactNode;
 }
 

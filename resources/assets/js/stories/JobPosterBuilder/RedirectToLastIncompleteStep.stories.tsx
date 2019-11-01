@@ -17,13 +17,14 @@ stories.add(
   "Loading",
   (): React.ReactElement => (
     <RedirectToLastIncompleteStep
-      job={boolean("Job is complete", false) ? fakeJob() : null}
+      jobId={1}
+      job={boolean("Job is complete", false) ? fakeJob(1) : null}
       jobIsLoading={boolean("Job is loading", true)}
-      tasks={boolean("Tasks are complete", false) ? fakeJobTasks() : []}
+      tasks={boolean("Tasks are complete", false) ? fakeJobTasks(1) : []}
       maxTasksCount={VALID_COUNT}
       tasksIsLoading={boolean("Tasks are loading", true)}
       criteria={
-        boolean("Criteria are complete", false) ? [fakeCriterion()] : []
+        boolean("Criteria are complete", false) ? [fakeCriterion(2, 1)] : []
       }
       criteriaIsLoading={boolean("Criteria are loading", true)}
       redirect={action("Redirect")}

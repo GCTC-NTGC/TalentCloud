@@ -9,6 +9,8 @@ import {
   jobBuilderIntroProgressState,
   jobBuilderDetailsProgressState,
   JobBuilderPage,
+  VALID_COUNT,
+  pageToUrl,
 } from "./jobBuilderHelpers";
 import { ProgressTrackerState } from "../ProgressTracker/types";
 import { RootState } from "../../store/store";
@@ -21,8 +23,11 @@ import {
   getCriteriaForJobIsUpdating,
 } from "../../store/Job/jobSelector";
 import { connect } from "react-redux";
+import JobBuilderStepContainer from "./JobBuilderStep";
+import { navigate } from "../../helpers/router";
 
 interface RedirectToLastIncompleteStepProps {
+  jobId: number;
   job: Job | null;
   jobIsLoading: boolean;
   tasks: JobPosterKeyTask[];
@@ -61,6 +66,7 @@ export const firstIncompletePage = (
 export const RedirectToLastIncompleteStep: React.FunctionComponent<
   RedirectToLastIncompleteStepProps
 > = ({
+  jobId,
   job,
   jobIsLoading,
   tasks,
@@ -112,7 +118,8 @@ export const RedirectToLastIncompleteStep: React.FunctionComponent<
   const returnToPage = firstIncompletePage(pageStates, pageOrder);
   useEffect((): void => {
     if (returnToPage) {
-      redirect(returnToPage);
+      const url = pageToUrl(returnToPage)(locale, jobId);
+      redirect(url);
     }
   }, [returnToPage, redirect]);
 
@@ -133,13 +140,35 @@ const mapStateToProps = (
   tasksIsLoading: boolean;
   criteria: Criteria[];
   criteriaIsLoading: boolean;
-} => ({
-  job: getJob(state, { jobId }),
-  jobIsLoading: getJobIsUpdating(state, jobId),
-  tasks: getTasksByJob(state, { jobId }),
-  tasksIsLoading: getTasksForJobIsUpdating(state, jobId),
-  criteria: getCriteriaByJob(state, { jobId }),
-  criteriaIsLoading: getCriteriaForJobIsUpdating(state, jobId),
-});
+} => {
+  const job = getJob(state, { jobId });
+  // for isLoading args, check that job is not null, becuase job must have loaded at least once for us to trust results.
+  return {
+    job,
+    jobIsLoading: getJobIsUpdating(state, jobId) || job === null,
+    tasks: getTasksByJob(state, { jobId }),
+    tasksIsLoading: getTasksForJobIsUpdating(state, jobId) || job === null,
+    criteria: getCriteriaByJob(state, { jobId }),
+    criteriaIsLoading:
+      getCriteriaForJobIsUpdating(state, jobId) || job === null,
+  };
+};
 
-export default connect(mapStateToProps)(RedirectToLastIncompleteStep);
+export const RedirectToLastIncompleteStepConnected = connect(mapStateToProps)(
+  RedirectToLastIncompleteStep,
+);
+
+export const RedirectPage: React.FC<{ jobId: number }> = ({ jobId }) => {
+  const redirect = navigate;
+  return (
+    <JobBuilderStepContainer jobId={jobId} currentPage={null}>
+      <RedirectToLastIncompleteStepConnected
+        jobId={jobId}
+        maxTasksCount={VALID_COUNT}
+        redirect={redirect}
+      />
+    </JobBuilderStepContainer>
+  );
+};
+
+export default RedirectPage;
