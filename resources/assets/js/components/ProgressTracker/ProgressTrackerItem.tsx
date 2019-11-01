@@ -1,6 +1,10 @@
 import React from "react";
+import { useIntl } from "react-intl";
+import { navigate } from "../../helpers/router";
+import { jobBuilderMessages } from "../JobBuilder/jobBuilderMessages";
 
 interface ProgressTrackerItemProps {
+  link: string;
   state: "active" | "complete" | "error" | "null";
   label: string;
   title: string;
@@ -9,7 +13,15 @@ interface ProgressTrackerItemProps {
 }
 const ProgressTrackerItem: React.FunctionComponent<
   ProgressTrackerItemProps
-> = ({ label, title, state, fontColor, dataIsLoading }): React.ReactElement => {
+> = ({
+  link,
+  label,
+  title,
+  state,
+  fontColor,
+  dataIsLoading,
+}): React.ReactElement => {
+  const intl = useIntl();
   return (
     <li
       className="tracker-item"
@@ -37,10 +49,35 @@ const ProgressTrackerItem: React.FunctionComponent<
           {state === "active" && <i className="fas fa-arrow-down" />}
         </div>
       )}
-      <div className="tracker-title">
-        <span data-c-font-size="small">{label}</span>
-        <span data-c-font-weight="bold">{title}</span>
-      </div>
+      {state !== "null" ? (
+        <a
+          href={link}
+          title={title}
+          onClick={(e): void => {
+            e.preventDefault();
+            if (
+              window.confirm(
+                intl.formatMessage(jobBuilderMessages.unsavedChangesWarning),
+              )
+            ) {
+              navigate(link);
+            }
+          }}
+        >
+          <div className="tracker-title">
+            <span data-c-font-size="small">{label}</span>
+            <span data-c-font-weight="bold">{title}</span>
+          </div>
+        </a>
+      ) : (
+        <div
+          className="tracker-title"
+          title={intl.formatMessage(jobBuilderMessages.unreachableStep)}
+        >
+          <span data-c-font-size="small">{label}</span>
+          <span data-c-font-weight="bold">{title}</span>
+        </div>
+      )}
     </li>
   );
 };
