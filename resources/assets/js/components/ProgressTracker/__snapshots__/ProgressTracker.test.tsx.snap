@@ -30,6 +30,7 @@ exports[`Progress Tracker should render ProgressTracker with background color an
   >
     <ProgressTrackerItem
       label="Step 01"
+      link="/"
       state="active"
       title="Job Info"
     />
@@ -67,16 +68,19 @@ exports[`Progress Tracker should render ProgressTracker with children 1`] = `
   >
     <ProgressTrackerItem
       label="Step 01"
+      link="/"
       state="active"
       title="Job Info"
     />
     <ProgressTrackerItem
       label="Step 02"
+      link="/"
       state="complete"
       title="Work Env."
     />
     <ProgressTrackerItem
       label="Step 03"
+      link="/"
       state="error"
       title="Impact"
     />
@@ -116,18 +120,21 @@ exports[`Progress Tracker should render ProgressTracker with items 1`] = `
     <ProgressTrackerItem
       key="Job Info"
       label="Step 01"
+      link="/"
       state="active"
       title="Job Info"
     />
     <ProgressTrackerItem
       key="Work Env."
       label="Step 02"
+      link="/"
       state="complete"
       title="Work Env."
     />
     <ProgressTrackerItem
       key="Impact"
       label="Step 03"
+      link="/"
       state="error"
       title="Impact"
     />

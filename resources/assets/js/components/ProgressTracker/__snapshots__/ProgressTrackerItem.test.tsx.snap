@@ -1,40 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Progress Tracker should render ProgressTrackerItem correctly 1`] = `
-<li
-  aria-hidden="true"
-  className="tracker-item"
-  data-c-alignment="base(left)"
-  data-tc-tracker-state="active"
+<div
+  data-c-alignment="base(centre)"
+  data-c-background="undefined(100)"
+  data-c-padding="top(quarter) bottom(quarter)"
 >
-  <span
-    className="tracker-item-connect"
-    style={
-      Object {
-        "backgroundColor": "#008000",
-      }
-    }
-  />
-  <div
-    className="tracker-icon"
+  <ol
+    aria-valuemin={1}
+    aria-valuenow={-1}
+    aria-valuetext="function () {
+        var active = items &&
+            items.find(function (_a) {
+                var state = _a.state;
+                return state === \\"active\\";
+            });
+        return active ? active.label : \\"\\";
+    } : function () {
+        var active = items &&
+            items.find(function (_a) {
+                var state = _a.state;
+                return state === \\"active\\";
+            });
+        return active ? active.title : \\"\\";
+    }"
+    data-c-container="layout"
+    role="progressbar"
+    tabIndex={0}
   >
-    <i
-      className="fas fa-arrow-down"
+    <ProgressTrackerItem
+      label="Step 01"
+      link="/"
+      state="active"
+      title="Job Info"
     />
-  </div>
-  <div
-    className="tracker-title"
-  >
-    <span
-      data-c-font-size="small"
-    >
-      Step 01
-    </span>
-    <span
-      data-c-font-weight="bold"
-    >
-      Job Info
-    </span>
-  </div>
-</li>
+  </ol>
+</div>
 `;
