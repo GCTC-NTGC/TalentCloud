@@ -264,7 +264,9 @@ Route::group(
                     Route::get(
                         'jobs/{jobId}/builder',
                         'JobBuilderController@show'
-                    )->where('jobPoster', '[0-9]+');
+                    )
+                        ->where('jobPoster', '[0-9]+')
+                        ->name('manager.jobs.edit');
                     Route::get(
                         'jobs/{jobId}/builder/intro',
                         'JobBuilderController@show'
@@ -295,12 +297,6 @@ Route::group(
                     )
                         ->where('jobPoster', '[0-9]+')
                         ->name('manager.jobs.review');
-                    Route::get(
-                        'jobs/{jobId}/builder',
-                        'JobBuilderController@show'
-                    )
-                        ->where('jobPoster', '[0-9]+')
-                        ->name('manager.jobs.edit');
 
                     /* Delete Job */
                     Route::delete('jobs/{jobPoster}', 'JobController@destroy')
@@ -486,7 +482,8 @@ Route::group(['prefix' => 'api'], function (): void {
 
     Route::post('jobs/{job}/submit', 'Api\JobApiController@submitForReview')
         ->where('job', '[0-9]+')
-        ->middleware('can:submitForReview,job');
+        ->middleware('can:submitForReview,job')
+        ->name('api.jobs.submit');
     Route::resource('jobs', 'Api\JobApiController')->only([
         'show', 'store', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes.
