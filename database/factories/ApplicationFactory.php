@@ -44,7 +44,7 @@ $factory->afterCreating(JobApplication::class, function ($application) : void {
     foreach ($application->job_poster->criteria as $criterion) {
         factory(SkillDeclaration::class)->create([
             'skill_id' => $criterion->skill_id,
-            'applicant_id' => $application->applicant_id,
+            'skillable_id' => $application->applicant_id,
         ]);
     }
 });

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Applicant;
+use App\Models\JobApplication;
 use App\Models\Reference;
 use App\Models\Project;
 use App\Services\Validation\Requests\UpdateReferenceValidator;
@@ -59,7 +60,8 @@ class ReferencesController extends Controller
 
         if ($reference === null) {
             $reference = new Reference();
-            $reference->applicant_id = $request->user()->applicant->id;
+            $request->user()->applicant->references()->save($reference);
+            $reference->refresh();
         }
         $reference->fill([
             'name' => $request->input('name'),
@@ -79,7 +81,14 @@ class ReferencesController extends Controller
         if ($request->input('projects')) {
             foreach ($request->input('projects') as $projectInput) {
                 $project = new Project();
-                $project->applicant_id = $reference->applicant_id;
+                if ($reference->referenceable instanceof Applicant) {
+                    $project->applicant_id = $reference->referenceable->id;
+                } elseif ($reference->referenceable instanceof JobApplication) {
+                    $application = $reference->referenceable;
+                    $project->applicant_id = $application->applicant->id;
+                } else {
+                    $project->applicant_id = $request->user()->applicant->id;
+                }
                 $project->fill([
                     'name' => $projectInput['name'],
                     'start_date' => $projectInput['start_date'],
