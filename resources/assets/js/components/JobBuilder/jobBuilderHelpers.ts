@@ -256,7 +256,9 @@ export type JobBuilderPage =
   | "skills"
   | "review";
 
-export const pageToUrl = (page: JobBuilderPage) => {
+export const pageToUrlBuilder = (
+  page: JobBuilderPage,
+): ((locale: string, jobId?: number) => string) => {
   switch (page) {
     case "intro":
       return jobBuilderIntro;
@@ -271,6 +273,7 @@ export const pageToUrl = (page: JobBuilderPage) => {
     case "skills":
       return jobBuilderSkills;
     case "review":
+    default:
       return jobBuilderReview;
   }
 };

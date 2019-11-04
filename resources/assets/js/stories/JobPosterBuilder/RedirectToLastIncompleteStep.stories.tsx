@@ -27,7 +27,7 @@ stories.add(
         boolean("Criteria are complete", false) ? [fakeCriterion(2, 1)] : []
       }
       criteriaIsLoading={boolean("Criteria are loading", true)}
-      redirect={action("Redirect")}
+      handleRedirect={action("Redirect")}
     />
   ),
 );

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
+import { connect } from "react-redux";
 import { Job, JobPosterKeyTask, Criteria } from "../../models/types";
 import {
   criteriaProgressState,
@@ -10,7 +11,7 @@ import {
   jobBuilderDetailsProgressState,
   JobBuilderPage,
   VALID_COUNT,
-  pageToUrl,
+  pageToUrlBuilder,
 } from "./jobBuilderHelpers";
 import { ProgressTrackerState } from "../ProgressTracker/types";
 import { RootState } from "../../store/store";
@@ -22,7 +23,6 @@ import {
   getTasksForJobIsUpdating,
   getCriteriaForJobIsUpdating,
 } from "../../store/Job/jobSelector";
-import { connect } from "react-redux";
 import JobBuilderStepContainer from "./JobBuilderStep";
 import { redirect } from "../../helpers/router";
 
@@ -35,7 +35,7 @@ interface RedirectToLastIncompleteStepProps {
   tasksIsLoading: boolean;
   criteria: Criteria[];
   criteriaIsLoading: boolean;
-  redirect: (url: string) => void;
+  handleRedirect: (url: string) => void;
 }
 
 export type PageStates = {
@@ -52,15 +52,18 @@ export const firstIncompletePage = (
   pageStates: PageStates,
   pageOrder: JobBuilderPage[],
 ): JobBuilderPage | null => {
-  for (const page of pageOrder) {
-    const state = pageStates[page]();
-    if (state === "null") {
-      return null;
-    } else if (state === "error") {
-      return page;
-    }
+  if (pageOrder.length === 0) {
+    return null;
   }
-  return null;
+  const page = pageOrder[0];
+  const state = pageStates[page]();
+  if (state === "null") {
+    return null;
+  }
+  if (state === "error") {
+    return page;
+  }
+  return firstIncompletePage(pageStates, pageOrder.slice(1));
 };
 
 export const RedirectToLastIncompleteStep: React.FunctionComponent<
@@ -74,7 +77,7 @@ export const RedirectToLastIncompleteStep: React.FunctionComponent<
   tasksIsLoading,
   criteria,
   criteriaIsLoading,
-  redirect,
+  handleRedirect,
 }): React.ReactElement | null => {
   const intl = useIntl();
 
@@ -118,10 +121,10 @@ export const RedirectToLastIncompleteStep: React.FunctionComponent<
   const returnToPage = firstIncompletePage(pageStates, pageOrder);
   useEffect((): void => {
     if (returnToPage) {
-      const url = pageToUrl(returnToPage)(locale, jobId);
-      redirect(url);
+      const url = pageToUrlBuilder(returnToPage)(locale, jobId);
+      handleRedirect(url);
     }
-  }, [returnToPage, redirect]);
+  }, [returnToPage, handleRedirect, locale, jobId]);
 
   return null;
 };
@@ -160,7 +163,7 @@ export const RedirectPage: React.FC<{ jobId: number }> = ({ jobId }) => {
       <RedirectToLastIncompleteStepConnected
         jobId={jobId}
         maxTasksCount={VALID_COUNT}
-        redirect={redirect}
+        handleRedirect={redirect}
       />
     </JobBuilderStepContainer>
   );
