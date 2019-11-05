@@ -152,8 +152,14 @@ const initializeValues = (
   };
 };
 
-const updateJobWithValues = (job: Job, values: IntroFormValues): Job => ({
+const updateJobWithValues = (
+  job: Job,
+  values: IntroFormValues,
+  locale: string,
+): Job => ({
   ...job,
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  chosen_lang: locale,
   // eslint-disable-next-line @typescript-eslint/camelcase
   department_id: values.department || null,
   en: {
@@ -274,7 +280,11 @@ const IntroForm: React.FunctionComponent<
           initialValues={initialValues}
           validationSchema={introSchema}
           onSubmit={(values, { setSubmitting }): void => {
-            const updatedJob = updateJobWithValues(job || emptyJob(), values);
+            const updatedJob = updateJobWithValues(
+              job || emptyJob(),
+              values,
+              languageSelection,
+            );
             const updatedManager = updateManagerWithValues(manager, values);
             nprogress.start();
             handleSubmit(updatedJob, updatedManager)
