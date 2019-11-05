@@ -8,27 +8,27 @@
     "packages": [
         {
             "name": "astrotomic/laravel-translatable",
-            "version": "v11.5.2",
+            "version": "v11.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Astrotomic/laravel-translatable.git",
-                "reference": "d1496d1f53e40ce6ceb689aa75befea4818211f1"
+                "reference": "631e447e1486e9b0adab482333a4be2522683d2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Astrotomic/laravel-translatable/zipball/d1496d1f53e40ce6ceb689aa75befea4818211f1",
-                "reference": "d1496d1f53e40ce6ceb689aa75befea4818211f1",
+                "url": "https://api.github.com/repos/Astrotomic/laravel-translatable/zipball/631e447e1486e9b0adab482333a4be2522683d2a",
+                "reference": "631e447e1486e9b0adab482333a4be2522683d2a",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "5.6.* || 5.7.* || 5.8.* || ^6.0",
-                "illuminate/database": "5.6.* || 5.7.* || 5.8.* || ^6.0",
-                "illuminate/support": "5.6.* || 5.7.* || 5.8.* || ^6.0",
-                "php": ">=7.1.3"
+                "illuminate/contracts": "5.8.* || ^6.0",
+                "illuminate/database": "5.8.* || ^6.0",
+                "illuminate/support": "5.8.* || ^6.0",
+                "php": ">=7.2"
             },
             "require-dev": {
-                "orchestra/testbench": "3.6.* || 3.7.* || 3.8.* || ^4.0",
-                "orchestra/testbench-core": "3.6.* || 3.7.* || 3.8.* || ^4.0"
+                "orchestra/testbench": "3.8.* || ^4.0",
+                "phpunit/phpunit": "^8.0"
             },
             "type": "library",
             "extra": {
@@ -68,7 +68,7 @@
                 "laravel",
                 "translation"
             ],
-            "time": "2019-10-09T08:24:20+00:00"
+            "time": "2019-11-01T11:37:06+00:00"
         },
         {
             "name": "backpack/crud",
