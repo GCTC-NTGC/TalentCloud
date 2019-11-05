@@ -90,7 +90,7 @@ class ApplicationReviewRoot extends React.Component<
       .catch(() => {
         this.setState({ isSaving: false });
         Swal.fire({
-          type: "error",
+          icon: "error",
           title: intl.formatMessage(localizations.oops),
           text: intl.formatMessage(localizations.somethingWrong),
         });
