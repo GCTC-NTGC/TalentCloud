@@ -31,6 +31,7 @@ import {
   FrequencyId,
   TravelRequirementId,
   OvertimeRequirementId,
+  ClassificationId,
 } from "../../models/lookupConstants";
 import { emptyJob } from "../../models/jobUtil";
 import {
@@ -55,7 +56,7 @@ interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
   job: Job | null;
   // Function to run after successful form validation.
-  // It must return true if the submission was succesful, false otherwise.
+  // It must return true if the submission was successful, false otherwise.
   handleSubmit: (values: Job) => Promise<boolean>;
   // The function to run when user clicks Prev Page
   handleReturn: () => void;
@@ -112,7 +113,7 @@ const flexHourMessages: {
   flexHoursSometimes: frequencyName(FrequencyId.often),
   flexHoursAlways: frequencyName(FrequencyId.always),
 };
-const flexHourFequencies: FlexHourOptionType[] = Object.keys(
+const flexHourFrequencies: FlexHourOptionType[] = Object.keys(
   flexHourMessages,
 ) as FlexHourOptionType[];
 
@@ -212,7 +213,7 @@ const jobToValues = (
           ? teleworkFrequencies[job.telework_allowed_frequency_id - 1]
           : "teleworkFrequently",
         flexHours: job.flexible_hours_frequency_id
-          ? flexHourFequencies[job.flexible_hours_frequency_id - 1]
+          ? flexHourFrequencies[job.flexible_hours_frequency_id - 1]
           : "flexHoursFrequently",
         travel: job.travel_requirement_id
           ? travelRequirements[job.travel_requirement_id - 1]
@@ -237,7 +238,7 @@ const jobToValues = (
         travel: "travelFrequently",
         overtime: "overtimeFrequently",
       };
-  // If the job has the standard education requirments saved, no need to fill the custom textbox
+  // If the job has the standard education requirements saved, no need to fill the custom textbox
   if (
     values.classification &&
     values.educationRequirements ===
@@ -280,7 +281,7 @@ const updateJobWithValues = (
   province_id: province || null,
   remote_work_allowed: remoteWork !== "remoteWorkNone",
   telework_allowed_frequency_id: teleworkFrequencies.indexOf(telework) + 1,
-  flexible_hours_frequency_id: flexHourFequencies.indexOf(flexHours) + 1,
+  flexible_hours_frequency_id: flexHourFrequencies.indexOf(flexHours) + 1,
   travel_requirement_id: travelRequirements.indexOf(travel) + 1,
   overtime_requirement_id: overtimeRequirements.indexOf(overtime) + 1,
   [locale]: {
@@ -333,20 +334,7 @@ const JobDetails: React.FunctionComponent<
       .required(intl.formatMessage(validationMessages.required)),
     classification: Yup.mixed()
       .oneOf(
-        [
-          "AS",
-          "BI",
-          "CO",
-          "CR",
-          "CS",
-          "EC",
-          "EX",
-          "FO",
-          "IS",
-          "PC",
-          "PE",
-          "PM",
-        ],
+        Object.values(ClassificationId),
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
@@ -391,7 +379,7 @@ const JobDetails: React.FunctionComponent<
       .required(intl.formatMessage(validationMessages.required)),
     flexHours: Yup.mixed()
       .oneOf(
-        flexHourFequencies,
+        flexHourFrequencies,
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
@@ -598,6 +586,12 @@ const JobDetails: React.FunctionComponent<
                       value: "PM",
                       label: intl.formatMessage(
                         classificationOptionMessages.ProgrammeAdministration,
+                      ),
+                    },
+                    {
+                      value: "AD",
+                      label: intl.formatMessage(
+                        classificationOptionMessages.AdministrativeServices2,
                       ),
                     },
                   ]}

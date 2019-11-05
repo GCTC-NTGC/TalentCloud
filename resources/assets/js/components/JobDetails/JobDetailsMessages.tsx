@@ -206,6 +206,11 @@ export const classificationOptionMessages = defineMessages({
     defaultMessage: "PM - Programme Administration",
     description: "Job Classification from list of Classifications",
   },
+  AdministrativeServices2: {
+    id: "jobBuilder.details.classificationOptions.AD",
+    defaultMessage: "AD - Administrative Services",
+    description: "Job Classification from list of Classifications",
+  },
 });
 
 export const educationMessages = defineMessages({
@@ -267,6 +272,11 @@ export const educationMessages = defineMessages({
   },
   PM: {
     id: "jobBuilder.details.educationMessages.PM",
+    defaultMessage: `Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.`,
+    description: "Job Classification message from list of Classifications",
+  },
+  AD: {
+    id: "jobBuilder.details.educationMessages.AD",
     defaultMessage: `Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.`,
     description: "Job Classification message from list of Classifications",
   },
