@@ -135,6 +135,7 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
     <section>
       <JobBuilderProgressTracker
         job={job}
+        jobId={jobId}
         tasks={keyTasks}
         maxTasksCount={VALID_COUNT}
         criteria={criteria}
