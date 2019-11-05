@@ -37,6 +37,7 @@ export const emptyJob = (): Job => {
   return {
     id: 0,
     manager_id: 0,
+    chosen_lang: null,
     term_qty: null,
     open_date_time: null,
     close_date_time: null,
