@@ -9,21 +9,7 @@ exports[`Progress Tracker should render ProgressTrackerItem correctly 1`] = `
   <ol
     aria-valuemin={1}
     aria-valuenow={-1}
-    aria-valuetext="function () {
-        var active = items &&
-            items.find(function (_a) {
-                var state = _a.state;
-                return state === \\"active\\";
-            });
-        return active ? active.label : \\"\\";
-    } : function () {
-        var active = items &&
-            items.find(function (_a) {
-                var state = _a.state;
-                return state === \\"active\\";
-            });
-        return active ? active.title : \\"\\";
-    }"
+    aria-valuetext=" : "
     data-c-container="layout"
     role="progressbar"
     tabIndex={0}
