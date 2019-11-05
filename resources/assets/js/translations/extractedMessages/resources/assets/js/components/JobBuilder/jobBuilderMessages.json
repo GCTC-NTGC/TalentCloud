@@ -64,10 +64,5 @@
     "id": "jobBuilder.unsavedChangesWarning",
     "description": "Warning message for user when switching pages without saving content.",
     "defaultMessage": "Any changes you made will not be saved. If you would like to save any changes please hit save at bottom the page."
-  },
-  {
-    "id": "jobBuilder.unreachableStep",
-    "description": "Tooltip informing user to complete previous steps, before step it can become clickable.",
-    "defaultMessage": "Must complete previous steps."
   }
 ]

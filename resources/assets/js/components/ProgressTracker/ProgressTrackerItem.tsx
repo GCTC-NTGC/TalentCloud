@@ -1,7 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
-import { navigate } from "../../helpers/router";
-import { jobBuilderMessages } from "../JobBuilder/jobBuilderMessages";
+import { useIntl, defineMessages } from "react-intl";
 
 interface ProgressTrackerItemProps {
   link: string;
@@ -11,6 +9,16 @@ interface ProgressTrackerItemProps {
   fontColor?: string;
   dataIsLoading?: boolean;
 }
+
+export const messages = defineMessages({
+  unreachableStep: {
+    id: "progressTracker.unreachableStep",
+    defaultMessage: "Must complete previous steps.",
+    description:
+      "Tooltip informing user to complete previous steps, before step it can become clickable.",
+  },
+});
+
 const ProgressTrackerItem: React.FunctionComponent<
   ProgressTrackerItemProps
 > = ({
@@ -50,20 +58,7 @@ const ProgressTrackerItem: React.FunctionComponent<
         </div>
       )}
       {state !== "null" ? (
-        <a
-          href={link}
-          title={title}
-          onClick={(e): void => {
-            e.preventDefault();
-            if (
-              window.confirm(
-                intl.formatMessage(jobBuilderMessages.unsavedChangesWarning),
-              )
-            ) {
-              navigate(link);
-            }
-          }}
-        >
+        <a href={link} title={title}>
           <div className="tracker-title">
             <span data-c-font-size="small">{label}</span>
             <span data-c-font-weight="bold">{title}</span>
@@ -72,7 +67,7 @@ const ProgressTrackerItem: React.FunctionComponent<
       ) : (
         <div
           className="tracker-title"
-          title={intl.formatMessage(jobBuilderMessages.unreachableStep)}
+          title={intl.formatMessage(messages.unreachableStep)}
         >
           <span data-c-font-size="small">{label}</span>
           <span data-c-font-weight="bold">{title}</span>

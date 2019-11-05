@@ -76,12 +76,6 @@ export const jobBuilderMessages = defineMessages({
     description:
       "Warning message for user when switching pages without saving content.",
   },
-  unreachableStep: {
-    id: "jobBuilder.unreachableStep",
-    defaultMessage: "Must complete previous steps.",
-    description:
-      "Tooltip informing user to complete previous steps, before step it can become clickable.",
-  },
 });
 
 export default {
