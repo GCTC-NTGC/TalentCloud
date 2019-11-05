@@ -104,42 +104,6 @@ class JobControllerTest extends TestCase
         $response->assertDontSeeText(e($this->otherJobPoster->title));
     }
 
-    public function testSubmitForReviewFailsForDemoManager() : void
-    {
-        $jobPoster = factory(JobPoster::class)->state('draft')->create();
-
-        $response = $this->followingRedirects()
-            ->actingAs($jobPoster->manager->user)
-            ->post("manager/jobs/$jobPoster->id/review");
-
-        $response->assertForbidden();
-    }
-
-    /**
-     * Ensure a Job Poster can be submitted for review.
-     *
-     * @return void
-     */
-    public function testSubmitForReviewSucceedsForUpgradedManager() : void
-    {
-        Mail::fake();
-
-        $jobPoster = factory(JobPoster::class)->states(['byUpgradedManager', 'draft'])->create();
-        $response = $this->followingRedirects()
-            ->actingAs($jobPoster->manager->user)
-            ->post("manager/jobs/$jobPoster->id/review");
-
-        $response->assertStatus(200);
-
-        $jobPoster->refresh();
-
-        $this->assertInstanceOf(Date::class, $jobPoster->review_requested_at);
-
-        Mail::assertQueued(JobPosterReviewRequested::class, function ($mail) use ($jobPoster) {
-            return $mail->jobPoster->id === $jobPoster->id;
-        });
-    }
-
     /**
      * An admin saving edits to the job should not change the jobs manager.
      *

@@ -33,7 +33,7 @@ export const Criterion: React.FunctionComponent<
         <p data-c-margin="bottom(half)">
           <FormattedMessage
             id="jobBuilder.criterion.requiredSkill"
-            defaultMessage="Required Skill:"
+            defaultMessage="Required Level: "
             description="Label preceding skill level requirements."
           />
           {intl.formatMessage(getSkillLevelName(criterion, skill))}

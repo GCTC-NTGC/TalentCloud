@@ -10,6 +10,8 @@ use Facades\App\Services\WhichPortal;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Handler extends ExceptionHandler
 {
@@ -46,7 +48,7 @@ class Handler extends ExceptionHandler
         HttpResponseException::class,
         ModelNotFoundException::class,
         SuspiciousOperationException::class,
-        //TokenMismatchException::class,
+        // TokenMismatchException::class,
         ValidationException::class,
     ];
 
@@ -74,6 +76,27 @@ class Handler extends ExceptionHandler
     }
 
     /**
+     * OVERRIDE
+     * Get the default context variables for logging.
+     *
+     * @return array
+     */
+    protected function context()
+    {
+        try {
+            return array_filter([
+                'userId' => Auth::id(),
+                // 'email' => optional(Auth::user())->email,
+                'url' => Request::path(),
+                'method' => Request::method(),
+                'referer' => Request::header('referer', '')
+            ]);
+        } catch (Throwable $e) {
+            return [];
+        }
+    }
+
+    /**
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -86,7 +109,7 @@ class Handler extends ExceptionHandler
             return $exception->render($request);
         }
         if ($exception instanceof TokenMismatchException) {
-            $newMessage = $exception->getMessage() . " " . Lang::get('errors.refresh_page');
+            $newMessage = $exception->getMessage() . ' ' . Lang::get('errors.refresh_page');
             $modifiedException = new TokenMismatchException($newMessage, $exception->getCode(), $exception);
             return parent::render($request, $modifiedException);
         }

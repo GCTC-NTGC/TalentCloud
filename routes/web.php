@@ -258,51 +258,51 @@ Route::group(
                     /* Job Builder */
                     Route::get(
                         'jobs/builder',
-                        'JobBuilderController@intro'
+                        'JobBuilderController@show'
                     )->name('manager.jobs.create');
 
                     Route::get(
-                        'jobs/{jobId}/builder/intro',
-                        'JobBuilderController@intro'
-                    )->where('jobPoster', '[0-9]+');
-                    Route::get(
-                        'jobs/{jobId}/builder/details',
-                        'JobBuilderController@details'
-                    )->where('jobPoster', '[0-9]+');
-                    Route::get(
-                        'jobs/{jobId}/builder/environment',
-                        'JobBuilderController@environment'
-                    )->where('jobPoster', '[0-9]+');
-                    Route::get(
-                        'jobs/{jobId}/builder/impact',
-                        'JobBuilderController@impact'
-                    )->where('jobPoster', '[0-9]+');
-                    Route::get(
-                        'jobs/{jobId}/builder/tasks',
-                        'JobBuilderController@tasks'
-                    )->where('jobPoster', '[0-9]+');
-                    Route::get(
-                        'jobs/{jobId}/builder/skills',
-                        'JobBuilderController@skills'
-                    )->where('jobPoster', '[0-9]+');
-                    Route::get(
-                        'jobs/{jobId}/builder/review',
-                        'JobBuilderController@review'
+                        'jobs/{jobId}/builder',
+                        'JobBuilderController@show'
                     )
                         ->where('jobPoster', '[0-9]+')
                         ->name('manager.jobs.edit');
+                    Route::get(
+                        'jobs/{jobId}/builder/intro',
+                        'JobBuilderController@show'
+                    )->where('jobPoster', '[0-9]+');
+                    Route::get(
+                        'jobs/{jobId}/builder/details',
+                        'JobBuilderController@show'
+                    )->where('jobPoster', '[0-9]+');
+                    Route::get(
+                        'jobs/{jobId}/builder/environment',
+                        'JobBuilderController@show'
+                    )->where('jobPoster', '[0-9]+');
+                    Route::get(
+                        'jobs/{jobId}/builder/impact',
+                        'JobBuilderController@show'
+                    )->where('jobPoster', '[0-9]+');
+                    Route::get(
+                        'jobs/{jobId}/builder/tasks',
+                        'JobBuilderController@show'
+                    )->where('jobPoster', '[0-9]+');
+                    Route::get(
+                        'jobs/{jobId}/builder/skills',
+                        'JobBuilderController@show'
+                    )->where('jobPoster', '[0-9]+');
+                    Route::get(
+                        'jobs/{jobId}/builder/review',
+                        'JobBuilderController@show'
+                    )
+                        ->where('jobPoster', '[0-9]+')
+                        ->name('manager.jobs.review');
 
                     /* Delete Job */
                     Route::delete('jobs/{jobPoster}', 'JobController@destroy')
                         ->where('jobPoster', '[0-9]+')
                         ->middleware('can:delete,jobPoster')
                         ->name('manager.jobs.destroy');
-
-                    /* Request Review */
-                    Route::post('jobs/{jobPoster}/review', 'JobController@submitForReview')
-                        ->where('jobPoster', '[0-9]+')
-                        ->middleware('can:submitForReview,jobPoster')
-                        ->name('manager.jobs.review');
 
                     Route::view(
                         'jobs/{jobPoster}/assessment-plan',
@@ -482,7 +482,8 @@ Route::group(['prefix' => 'api'], function (): void {
 
     Route::post('jobs/{job}/submit', 'Api\JobApiController@submitForReview')
         ->where('job', '[0-9]+')
-        ->middleware('can:submitForReview,job');
+        ->middleware('can:submitForReview,job')
+        ->name('api.jobs.submit');
     Route::resource('jobs', 'Api\JobApiController')->only([
         'show', 'store', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes.

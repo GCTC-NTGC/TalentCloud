@@ -16,9 +16,9 @@ import {
   jobBuilderEnvProgressState,
   jobBuilderIntroProgressState,
   jobBuilderDetailsProgressState,
+  JobBuilderPage,
 } from "./jobBuilderHelpers";
 import ProgressTracker from "../ProgressTracker/ProgressTracker";
-import { JobBuilderPage } from "./JobBuilderStep";
 import {
   jobBuilderIntro,
   jobBuilderDetails,
@@ -36,7 +36,7 @@ interface JobBuilderProgressTrackerProps {
   maxTasksCount: number;
   criteria: Criteria[];
   dataIsLoading: boolean;
-  currentPage: JobBuilderPage;
+  currentPage: JobBuilderPage | null;
 }
 
 const pageOrder: { [page in JobBuilderPage]: number } = {
@@ -49,9 +49,12 @@ const pageOrder: { [page in JobBuilderPage]: number } = {
   review: 6,
 };
 const stepComesBefore = (
-  currentPage: JobBuilderPage,
+  currentPage: JobBuilderPage | null,
   referencePage: JobBuilderPage,
 ): boolean => {
+  if (currentPage === null) {
+    return true;
+  }
   const comesBefore = pageOrder[currentPage] < pageOrder[referencePage];
   return comesBefore;
 };
@@ -117,7 +120,9 @@ export const JobBuilderProgressTracker: React.FunctionComponent<
         ),
     review: "null",
   };
-  pageStates[currentPage] = "active";
+  if (currentPage) {
+    pageStates[currentPage] = "active";
+  }
   const progressTrackerItems: ProgressTrackerItem[] = [
     {
       link: jobBuilderIntro(locale, jobId || undefined),
@@ -144,7 +149,7 @@ export const JobBuilderProgressTracker: React.FunctionComponent<
       title: intl.formatMessage(progressTrackerTitles.impact),
     },
     {
-      link: jobBuilderImpact(locale, jobId),
+      link: jobBuilderTasks(locale, jobId),
       state: pageStates.tasks,
       label: intl.formatMessage(progressTrackerLabels.step04),
       title: intl.formatMessage(progressTrackerTitles.tasks),
