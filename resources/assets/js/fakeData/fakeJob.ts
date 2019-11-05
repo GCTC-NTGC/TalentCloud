@@ -4,6 +4,7 @@ import { Job, Criteria, JobPosterKeyTask } from "../models/types";
 export const fakeJob = (id = 1): Job => ({
   id,
   manager_id: 1,
+  chosen_lang: "en",
   term_qty: 12,
   open_date_time: new Date("2019-05-20T07:00:00"),
   close_date_time: new Date("2019-05-30T06:59:59"),
@@ -93,6 +94,7 @@ export const fakeJob = (id = 1): Job => ({
 export const fakeJob2 = (id = 1): Job => ({
   id,
   manager_id: 1,
+  chosen_lang: "fr",
   term_qty: 18,
   open_date_time: new Date("2019-05-01T07:00:00"),
   close_date_time: new Date("2019-05-15T06:59:59"),
