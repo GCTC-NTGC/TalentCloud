@@ -93,14 +93,14 @@ export const formMessages = defineMessages({
   remoteWorkWorldLabel: {
     id: "jobBuilder.details.remoteWorkWorldLabel",
     defaultMessage:
-      "Yes, I’m willing to supervise employees anywhere in the world.",
+      "Yes, I'm willing to supervise employees anywhere in the world.",
     description:
       "The form label displayed on the 'world' remote work radio option.",
   },
   remoteWorkCanadaLabel: {
     id: "jobBuilder.details.remoteWorkCanadaLabel",
     defaultMessage:
-      "Yes, I’m willing to supervise employees in any province or territory in Canada.",
+      "Yes, I'm willing to supervise employees in any province or territory in Canada.",
     description:
       "The form label displayed on the 'canada' remote work radio option.",
   },
