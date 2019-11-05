@@ -27,8 +27,8 @@
     "translations": "npm run translations:extract && npm run translations:check"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.4",
     "@babel/core": "^7.7.0",
+    "@babel/cli": "^7.7.0",
     "@babel/preset-react": "^7.6.3",
     "@babel/preset-typescript": "^7.7.0",
     "@fortawesome/fontawesome-free": "^5.11.2",
@@ -49,7 +49,7 @@
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.3",
     "@types/react-redux": "^7.1.5",
-    "@types/react-router-dom": "^5.1.1",
+    "@types/react-router-dom": "^5.1.2",
     "@types/redux-mock-store": "^1.0.1",
     "@types/storybook__react": "^4.0.2",
     "@types/yup": "^0.26.24",
