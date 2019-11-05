@@ -1,5 +1,14 @@
 import { Job, JobPosterKeyTask, Criteria } from "../../models/types";
 import { ProgressTrackerState } from "../ProgressTracker/types";
+import {
+  jobBuilderIntro,
+  jobBuilderDetails,
+  jobBuilderEnv,
+  jobBuilderImpact,
+  jobBuilderTasks,
+  jobBuilderSkills,
+  jobBuilderReview,
+} from "../../helpers/routes";
 
 /** Job Builder Constants */
 export const VALID_COUNT = 8;
@@ -236,4 +245,35 @@ export const isJobBuilderComplete = (
     isJobTasksComplete(tasks, maxTasksCount, locale) &&
     isCriteriaComplete(criteria, locale)
   );
+};
+
+export type JobBuilderPage =
+  | "intro"
+  | "details"
+  | "env"
+  | "impact"
+  | "tasks"
+  | "skills"
+  | "review";
+
+export const pageToUrlBuilder = (
+  page: JobBuilderPage,
+): ((locale: string, jobId?: number) => string) => {
+  switch (page) {
+    case "intro":
+      return jobBuilderIntro;
+    case "details":
+      return jobBuilderDetails;
+    case "env":
+      return jobBuilderEnv;
+    case "impact":
+      return jobBuilderImpact;
+    case "tasks":
+      return jobBuilderTasks;
+    case "skills":
+      return jobBuilderSkills;
+    case "review":
+    default:
+      return jobBuilderReview;
+  }
 };

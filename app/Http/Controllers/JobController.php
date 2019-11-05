@@ -94,41 +94,6 @@ class JobController extends Controller
     }
 
     /**
-     * Submit the Job Poster for review.
-     *
-     * @param  \Illuminate\Http\Request $request   Incoming request object.
-     * @param  \App\Models\JobPoster    $jobPoster Job Poster object.
-     * @return \Illuminate\Http\Response
-     */
-    public function submitForReview(Request $request, JobPoster $jobPoster)
-    {
-        // Check to avoid submit for review multiple times.
-        if ($jobPoster->review_requested_at === null) {
-            // Update review request timestamp.
-            $jobPoster->review_requested_at = new Date();
-            $jobPoster->save();
-
-            // Send email.
-            $reviewer_email = config('mail.reviewer_email');
-            if (isset($reviewer_email)) {
-                Mail::to($reviewer_email)->send(new JobPosterReviewRequested($jobPoster, Auth::user()));
-            } else {
-                Log::error('The reviewer email environment variable is not set.');
-            }
-        }
-
-        // Refresh model instance with updated DB values.
-        $jobPoster = JobPoster::withCount('submitted_applications')->where('id', $jobPoster->id)->first();
-
-
-        return view('manager/job_index/job', [
-            // Localization Strings.
-            'jobs_l10n' => Lang::get('manager/job_index'),
-            'job' => $jobPoster
-        ]);
-    }
-
-    /**
      * Delete a draft Job Poster.
      *
      * @param  \Illuminate\Http\Request $request   Incoming request object.

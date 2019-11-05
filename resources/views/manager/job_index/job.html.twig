@@ -115,7 +115,7 @@
             {% else %}
             <a
                 class="button--blue submit-button"
-                href="{{ route('manager.jobs.edit', job) ~ '#submit' }}" {# This links to the Submit button of the Review step of the JPB#}
+                href="{{ route('manager.jobs.review', job) ~ '#submit' }}" {# This links to the Submit button of the Review step of the JPB#}
                 title="{{ jobs_l10n.send_this_review }}">
                 {{ jobs_l10n.send_for_review }}
             </a>

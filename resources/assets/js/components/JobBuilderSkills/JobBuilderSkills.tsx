@@ -533,7 +533,8 @@ export const JobBuilderSkills: React.FunctionComponent<
               >
                 <button
                   type="button"
-                  data-c-colour="stop"
+                  data-c-colour="c1"
+                  data-c-hover-colour="stop"
                   onClick={(): void =>
                     criteriaDispatch({
                       type: "remove",
@@ -1154,7 +1155,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                 {/* Category Title */}
                 <FormattedMessage
                   id="jobBuilder.skills.title.occupationalSkills"
-                  defaultMessage="Occupational Skills"
+                  defaultMessage="Occupational Competencies"
                   description="Title of skills category"
                 />
               </h5>
@@ -1190,7 +1191,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <FormattedMessage
                     id="jobBuilder.skills.range.occupationalSkills"
                     defaultMessage="Aim for {minOccupational} - {maxOccupational} skills."
-                    description="Ranage recommendation for occupational skills in job poster"
+                    description="Ranage recommendation for occupational competencies in job poster"
                     values={{ minOccupational, maxOccupational }}
                   />
                 </span>
@@ -1203,7 +1204,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                 <FormattedMessage
                   id="jobBuilder.skills.nullText.occupationalSkills"
                   defaultMessage="You must return to Step 1 and choose a Classification."
-                  description="Placeholder text for occupational skills list."
+                  description="Placeholder text for occupational competencies list."
                 />
               </p>
             )}
@@ -1243,7 +1244,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                 </span>
                 <FormattedMessage
                   id="jobBuilder.skills.title.culturalSkills"
-                  defaultMessage="Cultural Skills"
+                  defaultMessage="Behavioural Competencies"
                   description="Title of skills category"
                 />
               </h5>
@@ -1273,7 +1274,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <FormattedMessage
                     id="jobBuilder.skills.range.culturalSkills"
                     defaultMessage="Aim for {minCulture} - {maxCulture} skills."
-                    description="Ranage recommendation for cultural skills in job poster"
+                    description="Range recommendation for behavioural competencies in job poster"
                     values={{ minCulture, maxCulture }}
                   />
                 </span>
@@ -1357,7 +1358,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                 </span>
                 <FormattedMessage
                   id="jobBuilder.skills.title.futureSkills"
-                  defaultMessage="Future Skills"
+                  defaultMessage="Public Service Competencies"
                   description="Title of skills category"
                 />
               </h5>
@@ -1387,7 +1388,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <FormattedMessage
                     id="jobBuilder.skills.range.futureSkills"
                     defaultMessage="Aim for {minFuture} - {maxFuture} skills."
-                    description="Ranage recommendation for future skills in job poster"
+                    description="Ranage recommendation for public service competencies in job poster"
                     values={{ minFuture, maxFuture }}
                   />
                 </span>

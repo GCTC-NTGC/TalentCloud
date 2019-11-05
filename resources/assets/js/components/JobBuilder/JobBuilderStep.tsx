@@ -9,7 +9,7 @@ import {
   Skill,
   Department,
 } from "../../models/types";
-import { VALID_COUNT } from "./jobBuilderHelpers";
+import { VALID_COUNT, JobBuilderPage } from "./jobBuilderHelpers";
 import {
   getJob,
   getTasksByJob,
@@ -29,15 +29,6 @@ import { getDepartments } from "../../store/Department/deptSelector";
 import { getDepartments as fetchDepartments } from "../../store/Department/deptActions";
 import { RootState } from "../../store/store";
 
-export type JobBuilderPage =
-  | "intro"
-  | "details"
-  | "env"
-  | "impact"
-  | "tasks"
-  | "skills"
-  | "review";
-
 interface JobBuilderStepProps {
   jobId: number | null;
   job: Job | null;
@@ -52,7 +43,8 @@ interface JobBuilderStepProps {
   loadDepartments: () => Promise<void>;
   skills: Skill[];
   loadSkills: () => Promise<void>;
-  currentPage: JobBuilderPage;
+  currentPage: JobBuilderPage | null;
+  forceIsLoading?: boolean;
   children: React.ReactNode;
 }
 
@@ -68,6 +60,7 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
   departments,
   loadDepartments,
   currentPage,
+  forceIsLoading,
   children,
 }): React.ReactElement => {
   // Trigger fetching of job details
@@ -117,7 +110,8 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
     };
   }, [jobId, loadCriteria]);
 
-  const dataIsLoading = isLoadingJob || isLoadingTasks || isLoadingCriteria;
+  const dataIsLoading =
+    forceIsLoading || isLoadingJob || isLoadingTasks || isLoadingCriteria;
 
   // Trigger fetching of other resources needed for Job Builder
   useEffect((): void => {
