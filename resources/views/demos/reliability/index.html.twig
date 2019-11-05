@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        {# Site Title #}
+        <title>Government of Canada: Reliability Demo Form</title>
+
+        {# Charset #}
+        <meta charset="utf-8" />
+
+        {# Compatibility #}
+        <meta
+            http-equiv="X-UA-Compatible"
+            content="IE=edge">
+
+        {# Viewport #}
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
+        {# Generic Google Fonts #}
+        <link
+            href="https://fonts.googleapis.com/css?family=Euphoria+Script|Open+Sans:400,400i,600,600i,800,800i&amp;subset=latin-ext"
+            rel="stylesheet">
+
+        {# Material Icons #}
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet">
+
+        {# Your CSS #}
+        <link
+            href="/css/reliability.css"
+            rel="stylesheet"
+            type="text/css">
+
+        {# Modernizr #}
+        <script
+            async defer
+            src="{{ mix('/js/modernizr.js') }}">
+        </script>
+
+        {# jQuery & UI #}
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
+            crossorigin="anonymous">
+        </script>
+
+        <script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha384-Dziy8F2VlJQLMShA6FHWNul/veM9bCkRUaLqr199K94ntO5QUrLJBEbYegdSkkqX"
+            crossorigin="anonymous">
+        </script>
+
+    </head>
+
+    {# Playground's Body #}
+    <body data-clone>
+
+        <header data-c-overlay="black(90)" data-c-padding="tb(triple)" style="background-image: url('/images/bg_crowd.jpg');">
+            <div data-c-container="large">
+                <h1 data-c-font-size="h2" data-c-color="white" data-c-margin="bottom(double)" data-c-font-weight="600">Reliability Screening Application and Consent Form</h1>
+                <div data-c-color="white">
+                    <nav
+                        aria-label="breadcrumb"
+                        data-c-breadcrumbs>
+                        <ol>
+                            <li>
+                                <a
+                                    href="https://talent.canada.ca"
+                                    title="This is the title of the page link.">
+                                    Talent Cloud
+                                </a>
+                                <i class="material-icons">arrow_right</i>
+                            </li>
+                            <li>
+                                <span aria-current="page">Reliability Form</span>
+                                <i class="material-icons">arrow_right</i>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <div class="gradient" data-c-padding="tb(normal)">
+            <div data-c-container="large" data-c-align="base(center)">
+                <p data-c-color="white" data-c-margin="tb(half)">Looking for a different security clearance form? Discover more here.</p>
+            </div>
+        </div>
+
+        <div data-c-padding="bottom(triple)">
+            <div data-c-container="large">
+                <div data-c-grid="gutter">
+                    <div data-c-grid-item="tl(1of4) ds(1of5)" class="sidebar-wrapper">
+                        <div class="sidebar" data-c-padding="tb(triple)">
+                            <span data-c-font-weight="bold" data-c-font-size="h4">Reliability Form</span>
+                            <nav data-c-margin="top(normal)">
+                                <ul>
+                                    <li class="sidebar-complete"><span>•</span><a href="#consent" title="">Consent &amp; Verification</a></li>
+                                    <li class="sidebar-incomplete"><span>•</span><a href="#background" title="">Background Information</a></li>
+                                    <li class="sidebar-error"><span>•</span><a href="#residence" title="">Residence</a></li>
+                                    <li class="sidebar-incomplete"><span>•</span><a href="#experience" title="">Professional Background</a></li>
+                                    <li class="sidebar-incomplete"><span>•</span><a href="#references" title="">Personal References</a></li>
+                                    <li class="sidebar-incomplete"><span>•</span><a href="#education" title="">Education &amp; Professional Designations</a></li>
+                                    <li class="sidebar-incomplete"><span>•</span><a href="#record" title="">Criminal Record</a></li>
+                                    <li class="sidebar-incomplete"><span>•</span><a href="#summary" title="">Summary</a></li>
+                                </ul>
+                            </nav>
+                            <button data-c-margin="top(double)" data-c-button="solid(go)" type="button" data-c-radius="rounded">
+                                Save My Progress
+                            </button>
+                        </div>
+                    </div>
+                    <div data-c-grid-item="tl(3of4) ds(4of5)" class="sidebar-content">
+                        <form data-c-grid="gutter">
+                            <div data-c-grid-item="base(1of1)">
+                                <p data-c-margin="top(triple)">Before you begin the clearance form, please review the information provided in the "Consent Documentation &amp; Details" section. This information describes the type of inquiries and assessments you agree to allow the Government of Canada perform in order to process your security clearance. The Government of Canada uses this form to collect personal information so that it can conduct security screening verifications, inquiries and assessments.</p>
+                            </div>
+                            {% include "demos/reliability/templates/consent" %}
+                            {% include "demos/reliability/templates/background-info" %}
+                            {% include "demos/reliability/templates/residence" %}
+                            {% include "demos/reliability/templates/experience" %}
+                            {% include "demos/reliability/templates/references" %}
+                            {% include "demos/reliability/templates/education" %}
+                            {% include "demos/reliability/templates/records" %}
+                            {% include "demos/reliability/templates/summary" %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer data-c-alignment="base(centre)" data-c-background="grey(10)" data-c-padding="top(double) bottom(double)" data-c-border="top(thin, solid, gray)">
+            <div data-c-container="full">
+                <div data-c-grid="gutter middle">
+                    <div data-c-alignment="tp(left)" data-c-grid-item="tp(5of7)">
+                        <nav class="footer-nav">
+                            <ul>
+                                <li>
+                                    <a
+                                        href="#"
+                                        title="This link is disabled for demo purposes.">
+                                        Feedback
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        title="This link is disabled for demo purposes.">
+                                        Terms &amp; Conditions
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        title="This link is disabled for demo purposes.">
+                                        Privacy Policy
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#"
+                                        title="This link is disabled for demo purposes.">
+                                        Canada.ca
+                                    </a>
+                                </li>
+                            </ul>
+                            <p data-c-colour="grey" data-c-font-size="small" data-c-margin="top(normal)">Date Modified: September 12, 2019</p>
+                        </nav>
+                    </div>
+                    <div data-c-alignment="tp(right)" data-c-grid-item="tp(2of7)">
+                        <a class="footer-logo" href="https://canada.ca" target="_blank" title="Government of Canada Logotype" rel="noopener noreferrer">
+                            <img alt="Government of Canada Logotype" class="" src="/images/logo_canada_colour.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <div data-c-dialog-overlay></div>
+
+        {% include "demos/reliability/templates/dialogs/legal-name" %}
+        {% include "demos/reliability/templates/dialogs/residence" %}
+        {% include "demos/reliability/templates/dialogs/experience" %}
+        {% include "demos/reliability/templates/dialogs/reference" %}
+        {% include "demos/reliability/templates/dialogs/education" %}
+        {% include "demos/reliability/templates/dialogs/recognition" %}
+        {% include "demos/reliability/templates/dialogs/record" %}
+
+        {# Clone's JavaScript #}
+        <script async defer
+            src="https://cdn.jsdelivr.net/npm/clone-framework/dist/js/clone.min.js">
+        </script>
+
+        {# Your JavaScript #}
+        <script src="/js/reliability.js"></script>
+
+    </body>
+
+</html>

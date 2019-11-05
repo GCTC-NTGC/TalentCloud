@@ -150,6 +150,9 @@ Route::group(
             /* Static - Terms of Service */
             Route::view('tos', 'common/static_tos', ['tos' => Lang::get('common/tos')])->name('tos');
 
+            /* Static - Reliability Form Demo */
+            Route::view('demos/reliability', 'demos/reliability/index', ['reliability' => Lang::get('common/reliability')])->name('reliability');
+
             /* Static - ITP */
             Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
 
