@@ -70,17 +70,33 @@ class JobController extends Controller
 
         /*
             Check if job has a title. Append both bool (and french title if locale is 'en').
-            Because global fallback-locale set to true (config/translatable.php) any french translatables are set to the english copy. 'getTranslationsArray()' will retreive real value of translations.
+            Because the global fallback-locale is set to true (config/translatable.php) any empty french translatables are set to the english copy. 'getTranslationsArray()' will retreive the original french values.
         */
         $locale = app()->getLocale();
-        foreach ($jobs as &$job) {
+        foreach ($jobs as $job) {
+            $chosen_lang = $job->chosen_lang;
             $jobTranslations = $job->getTranslationsArray();
-            $hasTitle = !!$jobTranslations[$locale]['title'];
 
-            $job->hasTitle = $hasTitle;
+            $locale_title = $jobTranslations[$locale]['title'];
+            $chosen_lang_title = $jobTranslations[$chosen_lang]['title'];
 
-            if ($locale == 'en' && !$hasTitle) {
-                $job->frenchTitle = $jobTranslations['fr']['title'];
+            // Check if locale title exists
+            if ($locale_title) {
+                $job->title = $locale_title;
+            // Check if the jpb was built in other language
+            } elseif ($chosen_lang_title) {
+                $job->trans_required = true;
+                $job->title = $chosen_lang_title;
+            } else {
+                // This is for rare case where user added title into other lang.
+                if ($locale == 'en') {
+                    $job->title = $jobTranslations['fr']['title'];
+                } else {
+                    $job->title = $jobTranslations['en']['title'];
+                }
+
+                $job->trans_required = $job->title;
+
             }
         }
 
