@@ -1,15 +1,35 @@
 import React from "react";
+import { useIntl, defineMessages } from "react-intl";
 
 interface ProgressTrackerItemProps {
+  link: string;
   state: "active" | "complete" | "error" | "null";
   label: string;
   title: string;
   fontColor?: string;
   dataIsLoading?: boolean;
 }
+
+export const messages = defineMessages({
+  unreachableStep: {
+    id: "progressTracker.unreachableStep",
+    defaultMessage: "Must complete previous steps.",
+    description:
+      "Tooltip informing user to complete previous steps, before step it can become clickable.",
+  },
+});
+
 const ProgressTrackerItem: React.FunctionComponent<
   ProgressTrackerItemProps
-> = ({ label, title, state, fontColor, dataIsLoading }): React.ReactElement => {
+> = ({
+  link,
+  label,
+  title,
+  state,
+  fontColor,
+  dataIsLoading,
+}): React.ReactElement => {
+  const intl = useIntl();
   return (
     <li
       className="tracker-item"
@@ -37,10 +57,22 @@ const ProgressTrackerItem: React.FunctionComponent<
           {state === "active" && <i className="fas fa-arrow-down" />}
         </div>
       )}
-      <div className="tracker-title">
-        <span data-c-font-size="small">{label}</span>
-        <span data-c-font-weight="bold">{title}</span>
-      </div>
+      {state !== "null" ? (
+        <a href={link} title={title}>
+          <div className="tracker-title">
+            <span data-c-font-size="small">{label}</span>
+            <span data-c-font-weight="bold">{title}</span>
+          </div>
+        </a>
+      ) : (
+        <div
+          className="tracker-title"
+          title={intl.formatMessage(messages.unreachableStep)}
+        >
+          <span data-c-font-size="small">{label}</span>
+          <span data-c-font-weight="bold">{title}</span>
+        </div>
+      )}
     </li>
   );
 };

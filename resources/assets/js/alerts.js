@@ -46,7 +46,7 @@ function handleClick(e) {
     {
       title: alertConfig.title,
       text: localize(locale, "alert.text.irreversible"),
-      type: "warning",
+      icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
       cancelButtonColor: "#F94D4D",
@@ -69,14 +69,14 @@ function handleClick(e) {
             Swal.insertQueueStep({
               title: alertConfig.success.title,
               text: alertConfig.success.text,
-              type: "success",
+              icon: "success",
             });
           })
           .catch(() => {
             Swal.insertQueueStep({
               title: localize(locale, "alert.title.error"),
               text: localize(locale, "alert.text.error"),
-              type: "error",
+              icon: "error",
             });
           });
       },
