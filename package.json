@@ -42,7 +42,7 @@
     "@types/enzyme": "^3.10.3",
     "@types/fetch-mock": "^7.3.0",
     "@types/intl": "^1.2.0",
-    "@types/jest": "^24.0.21",
+    "@types/jest": "^24.0.22",
     "@types/lodash": "^4.14.144",
     "@types/nanoid": "^2.1.0",
     "@types/node": "^12.12.6",
