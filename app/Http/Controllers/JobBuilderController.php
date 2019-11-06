@@ -15,6 +15,6 @@ class JobBuilderController extends Controller
     {
         return view(
             'manager/job-builder-root'
-        )->with('title', Lang::get('manager/job_builder')['review_title']);
+        )->with('title', Lang::get('manager/job_builder')['title']);
     }
 }
