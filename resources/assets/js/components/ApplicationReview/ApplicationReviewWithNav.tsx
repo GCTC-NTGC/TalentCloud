@@ -189,7 +189,7 @@ class ApplicationReviewWithNav extends React.Component<
           : intl.formatMessage(messages.screenInConfirm);
       return Swal.fire({
         title: confirmText,
-        type: "question",
+        icon: "question",
         showCancelButton: true,
         confirmButtonColor: "#0A6CBC",
         cancelButtonColor: "#F94D4D",
@@ -213,7 +213,7 @@ class ApplicationReviewWithNav extends React.Component<
         : "";
     Swal.fire({
       title: intl.formatMessage(messages.editNote),
-      type: "question",
+      icon: "question",
       input: "textarea",
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
