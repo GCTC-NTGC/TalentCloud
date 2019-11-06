@@ -21,7 +21,9 @@
                 <a
                     href="{{ route('manager.jobs.show', job) }}"
                     title="{{jobs_l10n.view_preview_job_poster}}">
-                    {{ job.hasTitle == false ? jobs_l10n.trans_title_placeholder ~ ' - '}}{{ job.frenchTitle ?: job.title }} {{ jobs_l10n.preview }}
+                    {{ job.trans_required ? jobs_l10n.trans_title_placeholder ~ ' - ' }}
+                    {{ not job.title ? jobs_l10n.empty_title ~ ' - ' }}
+                    {{ job.title }} {{ jobs_l10n.preview }}
                 </a>
             </h3>
             {% endif %}
@@ -31,6 +33,7 @@
                 <a
                     href="{{ route('manager.jobs.show', job) }}"
                     title="{{ jobs_l10n.view_this_job_poster }}">
+                    {{ job.trans_required ? jobs_l10n.trans_title_placeholder ~ ' - ' }}
                     {{ job.title }}
                 </a>
             </h3>
