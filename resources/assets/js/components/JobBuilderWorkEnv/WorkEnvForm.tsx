@@ -126,7 +126,7 @@ const formMessages = defineMessages({
   collaborativeLabel: {
     id: "jobBuilder.workEnv.collaborativeLabel",
     defaultMessage: "Collaborative vs. Independent:",
-    description: 'The label for the "colaborative vs independent" radio group',
+    description: 'The label for the "collaborative vs independent" radio group',
   },
   cultureSummary: {
     id: "jobBuilder.workEnv.cultureSummary",
@@ -256,7 +256,7 @@ const mgmtStyleMessages = defineMessages({
   style01Description: {
     id: "jobBuilder.mgmtStyle.01.description",
     defaultMessage:
-      "There’s no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.",
+      "There's no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.",
   },
   style02Title: {
     id: "jobBuilder.mgmtStyle.02.title",
@@ -265,7 +265,7 @@ const mgmtStyleMessages = defineMessages({
   style02Description: {
     id: "jobBuilder.mgmtStyle.02.description",
     defaultMessage:
-      "We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives.",
+      "We have some middle management here but make most day-to-day decisions ourselves. Don't be surprised to interact fairly often with our executives.",
   },
   style03Title: {
     id: "jobBuilder.mgmtStyle.03.title",
@@ -463,7 +463,7 @@ const collaborativenessMessages = defineMessages({
   collaborativeness01Description: {
     id: "jobBuilder.collaborativeness.01.description",
     defaultMessage:
-      "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.",
+      "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team's goals and are always looking for ways to pitch in.",
   },
   collaborativeness02Title: {
     id: "jobBuilder.collaborativeness.02.title",
@@ -490,7 +490,7 @@ const collaborativenessMessages = defineMessages({
   collaborativeness04Description: {
     id: "jobBuilder.collaborativeness.04.description",
     defaultMessage:
-      "Members of our team own their piece of the puzzle. It doesn’t really matter how we get our work done as long as it’s high quality.",
+      "Members of our team own their piece of the puzzle. It doesn't really matter how we get our work done as long as it's high quality.",
   },
 });
 type CollaborativenessId =
@@ -595,7 +595,7 @@ const jobToValues = (
     ...convertSliderIdFromJob(
       "collaborativeness",
       collaborativenessList,
-      citizen_facing_vs_back_office,
+      collaborative_vs_independent,
     ),
     envDescription: job[locale].work_env_description || "",
     cultureSummary: job[locale].culture_summary || "",

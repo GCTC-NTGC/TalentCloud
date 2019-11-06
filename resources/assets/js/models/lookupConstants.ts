@@ -101,7 +101,23 @@ export const OvertimeRequirementId = {
   none: 3,
 };
 
-export function enumToIds(enumType: any): number[] {
+export const ClassificationId = {
+  AS: 1,
+  BI: 2,
+  CO: 3,
+  CR: 4,
+  CS: 5,
+  EC: 6,
+  EX: 7,
+  FO: 8,
+  IS: 9,
+  PC: 10,
+  PE: 11,
+  PM: 12,
+  AD: 13,
+};
+
+export function enumToIds(enumType: object): number[] {
   const enumVals = Object.values(enumType);
   // Note: this first array includes the list of ids as strings, followed by the list of names as strings
   const enumIds = enumVals.filter(item => !Number.isNaN(Number(item)));
