@@ -107,7 +107,7 @@
                                     <option
                                         value="{{ option.id }}"
                                         disabled
-                                        {% if not job_application.veteran_status_id %}selected{% endif %}>>
+                                        {% if not job_application.veteran_status_id %}selected{% endif %}>
                                         {{ application_template.select_default_option }}
                                     </option>
                                     {% for option in veteran_options %}
