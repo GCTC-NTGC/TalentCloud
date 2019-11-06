@@ -1,19 +1,23 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { text } from "@storybook/addon-knobs";
+import { withIntl } from "storybook-addon-intl";
 import ProgressTracker from "../../../components/ProgressTracker/ProgressTracker";
 import { ProgressTrackerItem } from "../../../components/ProgressTracker/types";
 
 const items: ProgressTrackerItem[] = [
-  { state: "active", label: "Step 01", title: "Job Info" },
-  { state: "complete", label: "Step 02", title: "Work Env." },
-  { state: "error", label: "Step 03", title: "Impact" },
-  { state: "null", label: "Step 04", title: "Tasks" },
-  { state: "null", label: "Step 05", title: "Skills" },
-  { state: "null", label: "Step 05", title: "Review" },
+  { link: "/", state: "active", label: "Step 01", title: "Job Info" },
+  { link: "/", state: "complete", label: "Step 02", title: "Work Env." },
+  { link: "/", state: "error", label: "Step 03", title: "Impact" },
+  { link: "/", state: "null", label: "Step 04", title: "Tasks" },
+  { link: "/", state: "null", label: "Step 05", title: "Skills" },
+  { link: "/", state: "null", label: "Step 05", title: "Review" },
 ];
 
-const stories = storiesOf("Job Poster Builder|Progress Tracker", module);
+const stories = storiesOf(
+  "Job Poster Builder|Progress Tracker",
+  module,
+).addDecorator(withIntl);
 
 stories.add(
   "Tracker",
