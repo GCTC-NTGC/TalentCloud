@@ -149,7 +149,7 @@
                             name="language_requirement_confirmed"
                             type="checkbox"
                             required
-                            {{ job_application.language_requirement_confirmed ? 'checked' : ''}}/>
+                            {{ job_application.language_requirement_confirmed ? 'checked' : '' }}/>
                         <span
                             class="checkbox__wrapper">
                             <span
@@ -181,7 +181,7 @@
                         {% endif %}
                     </p>
                     <p
-                        class="error-message {{ job_application.language_requirement_confirmed ? 'hidden' : ''}}">
+                        class="error-message {{ job_application.language_requirement_confirmed ? 'hidden' : '' }} ">
                         {{ application_template.language_declaration_error_message }}
                     </p>
                 </div>
@@ -277,13 +277,11 @@
                         id="questions[{{ question.id }}]"
                         class="form__textarea"
                         name="questions[{{ question.id }}]"
-                        required>
-                        {% for userAnswer in job_application.job_application_answers %}
+                        required>{% for userAnswer in job_application.job_application_answers %}
                             {% if userAnswer.job_poster_question.id == question.id %}
                                 {{ userAnswer.answer }}
                             {% endif %}
-                        {% endfor %}
-                    </textarea>
+                        {% endfor %}</textarea>
                 </div>
 
             </div>
