@@ -160,7 +160,7 @@ test("Job Poster Builder - New Job", async t => {
     .ok()
     .expect(
       Selector("p").withText(
-        "Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine. We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives. Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes. We are the face of the service we deliver and spend most of our time engaging directly with the public. Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.",
+        "Our work is ongoing so there aren't very many deadlines.",
       ).visible,
     )
     .ok()
@@ -242,7 +242,7 @@ test("Job Poster Builder - New Job", async t => {
     .click(Selector("button").withText("Add Skill"))
     .expect(Selector("h3").withText("Skills").visible)
     .ok()
-    .wait(3000)
+    .wait(200)
     .click(Selector("select").withAttribute("id", "jpb-all-skills-select"))
     .click(
       Selector("select")
@@ -256,14 +256,14 @@ test("Job Poster Builder - New Job", async t => {
     .click(Selector("button").withText("Add Skill"))
     .expect(Selector("h3").withText("Skills").visible)
     .ok()
-    .wait(3000)
+    .wait(200)
     .click(Selector("button").withText("Save & Preview Skills"))
     // Skills review.
     .expect(Selector("h5").withText("Keep it up!").visible)
     .ok()
     .expect(Selector(".criterion-item").exists)
     .ok()
-    .wait(3000)
+    .wait(200)
     .click(Selector("button").withText("Next Step"))
     // Review page.
     .expect(Selector("p").withText("Product Designer").visible)
@@ -276,7 +276,7 @@ test("Job Poster Builder - New Job", async t => {
       Selector("h5").withText("Congrats! Are You Ready to Submit?").visible,
     )
     .ok()
-    .wait(3000)
+    .wait(200)
     .click(Selector("button").withText("Yes, Submit"))
     // Taken back to the Job index page
     .expect(Selector("h1").withText("My Job Posters").visible)
