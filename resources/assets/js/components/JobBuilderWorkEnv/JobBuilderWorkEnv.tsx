@@ -59,7 +59,7 @@ const JobBuilderWorkEnv: React.FunctionComponent<
     navigate(jobBuilderImpact(intl.locale, jobId));
   };
   const handleReturn = (): void => {
-    navigate(jobBuilderDetails(locale, jobId !== null ? jobId : undefined));
+    navigate(jobBuilderDetails(locale, jobId));
   };
   const handleSkipToReview = async (): Promise<void> => {
     if (jobId) {
