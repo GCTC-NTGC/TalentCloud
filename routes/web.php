@@ -20,6 +20,37 @@ Route::group(
     ],
     function () : void {
         /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
+
+        Route::group(['prefix' => 'demo'], function () : void {
+
+            /* Temporary Blog Index */
+            Route::view('blog', 'common/blog-index')->middleware('localOnly')->name('blog');
+
+            /* Temporary Blog Post */
+            Route::view('post', 'common/blog-post')->middleware('localOnly')->name('post');
+
+            /* Static - Reliability Form Demo */
+            Route::view('reliability', 'demos/reliability/index', ['reliability' => Lang::get('common/reliability')])->name('reliability');
+
+            // /* Temp Builder 01 (Intro) */
+            Route::view('builder-01', 'manager/builder-01')->middleware('localOnly')->name('jpb1');
+            // /* Temp Builder 02 (Job info) */
+            Route::view('builder-02', 'manager/builder-02')->middleware('localOnly')->name('jpb2');
+            // /* Temp Builder 03 (Work Environment) */
+            Route::view('builder-03', 'manager/builder-03')->middleware('localOnly')->name('jpb3');
+            // /* Temp Builder 04 (Impact) */
+            Route::view('builder-04', 'manager/builder-04')->middleware('localOnly')->name('jpb4');
+            // /* Temp Builder 05 (Tasks) */
+            Route::view('builder-05', 'manager/builder-05')->middleware('localOnly')->name('jpb5');
+            // /* Temp Builder 06 (Skills) */
+            Route::view('builder-06', 'manager/builder-06')->middleware('localOnly')->name('jpb6');
+            // /* Temp Builder 07 (Education) */
+            Route::view('builder-07', 'manager/builder-07')->middleware('localOnly')->name('jpb7');
+            // /* Temp Builder 08 (Review) */
+            Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
+        });
+
+
         Route::group(['prefix' => config('app.applicant_prefix')], function () : void {
 
             /* Home */
@@ -152,29 +183,6 @@ Route::group(
 
             /* Static - ITP */
             Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
-
-            /* Temporary Blog Index */
-            Route::view('blog', 'common/blog-index')->name('blog');
-
-            /* Temporary Blog Post */
-            Route::view('post', 'common/blog-post')->name('post');
-
-            // /* Temp Builder 01 (Intro) */
-            Route::view('builder-01', 'manager/builder-01')->middleware('localOnly')->name('jpb1');
-            // /* Temp Builder 02 (Job info) */
-            Route::view('builder-02', 'manager/builder-02')->middleware('localOnly')->name('jpb2');
-            // /* Temp Builder 03 (Work Environment) */
-            Route::view('builder-03', 'manager/builder-03')->middleware('localOnly')->name('jpb3');
-            // /* Temp Builder 04 (Impact) */
-            Route::view('builder-04', 'manager/builder-04')->middleware('localOnly')->name('jpb4');
-            // /* Temp Builder 05 (Tasks) */
-            Route::view('builder-05', 'manager/builder-05')->middleware('localOnly')->name('jpb5');
-            // /* Temp Builder 06 (Skills) */
-            Route::view('builder-06', 'manager/builder-06')->middleware('localOnly')->name('jpb6');
-            // /* Temp Builder 07 (Education) */
-            Route::view('builder-07', 'manager/builder-07')->middleware('localOnly')->name('jpb7');
-            // /* Temp Builder 08 (Review) */
-            Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
 
             /* Authentication =========================================================== */
 

@@ -1,0 +1,263 @@
+// My Custom Clone Theme
+// Please note that Clone must be included last, after all of your custom variables.
+
+// Clone Theme Variables
+// All available theme variables can be found at https://github.com/joshdrink/clone-framework/blob/master/app/scss/core/_defaults.scss
+
+// Clone: Talent Cloud Edition =================================================
+
+// Layout Variables
+$clone-large-layout: 100rem;
+$clone-medium-layout: 60rem;
+$clone-small-layout: 39rem;
+
+// Whitespace Variables
+// On Portrait Phone Devices, Media Queries exist at Tablet Landscape, and Desktop Large and are generated using the multiplier below.
+$clone-margin: 1rem;
+$clone-padding: 1rem;
+$clone-whitespace-multiplier: 1.4;
+
+// Grid Variables
+$clone-grid-columns: 12;
+$clone-grid-gutter: $clone-padding;
+
+// Main Colour Variables
+
+    // Black & White
+    $clone-white: #FFFFFF;
+    $clone-black: rgba(20, 20, 35, 1);
+
+    // gray/Gray
+    $clone-gray: rgba(150, 150, 150, 1);
+
+    // Theme Colours
+    $clone-c1: #5b1647;
+    $clone-c2: #96043e;
+    $clone-c3: #c90035;
+    $clone-c4: #0a6cbc;
+    $clone-c5: #0a6cbc;
+
+    // Go, Slow, Stop
+    $clone-go: green;
+    $clone-slow: orange;
+    $clone-stop: red;
+    $clone-error: $clone-stop;
+
+// Sitewide Colour Variables
+
+    // Text Selection
+    $clone-selection-background-colour: $clone-c5;
+
+    // Hover
+    $clone-hover-colour: $clone-c5;
+
+    // Focus
+    $clone-focus-colour: $clone-hover-colour;
+
+    // Visited Links
+    $clone-visited-colour: darken($clone-c4, 10%);
+
+    // Horizontal Rules
+    $clone-hr-colour: $clone-c2;
+
+// Component Options
+
+    // Cards
+    $clone-card-shadow: 0 3px 5px rgba(0, 0, 0, .5);
+
+// Component Colour Variables
+
+    // Accordions
+    $clone-accordion-border-colour: $clone-black;
+    $clone-accordion-alternating-background-colour: lighten($clone-gray, 35%);
+
+    // Alerts
+    $clone-alert-information: $clone-c1;
+    $clone-alert-warning: $clone-slow;
+    $clone-alert-error: $clone-stop;
+
+    // Blockquotes
+    $clone-blockquote-colour: $clone-c1;
+
+    // Carousels
+    $clone-carousel-dot-colour: $clone-c1;
+    $clone-carousel-dot-active-colour: $clone-c3;
+
+    // Code Blocks
+    $clone-code-background: $clone-black;
+
+    // Menus
+    $clone-menu-background-colour: $clone-black;
+    $clone-submenu-background-colour: $clone-c2;
+
+    $clone-menu-font-colour: $clone-white;
+    $clone-menu-divider-colour: rgba($clone-c3, .5);
+    $clone-menu-icon-colour: $clone-white;
+
+    // Pullquotes
+    $clone-pullquote-colour: $clone-c2;
+
+    // Tables
+    $clone-table-heading-colour: $clone-c1;
+    $clone-table-alternating-colour: rgba(0, 0, 0, .1); // Note that this transparency allows for a checker pattern on the grid when there is a vertical heading column,.
+
+// Font Variables
+
+    // Fonts
+    $clone-font-sans: "Open Sans", sans-serif;
+    $clone-font-serif: serif;
+    $clone-font-script: "Euphoria Script", cursive;
+    $clone-font-monospace: "Consolas", monospace;
+
+    $clone-font-default: $clone-font-sans;
+
+    // Default Line Height
+    $clone-line-height: 1.5;
+
+    // The Typography Scale
+    $clone-default-font-size: 1rem;
+    $clone-font-scale: 1.250;
+
+@import "../../../node_modules/clone-framework/app/scss/clone";
+
+[data-clone] {
+    // Your custom CSS goes here.
+    .hidden {
+        display: none;
+    }
+    .gradient {
+        background: #5b1647;
+        background: -moz-linear-gradient(-45deg, #5b1647 0%, #c90035 100%);
+        background: -webkit-linear-gradient(-45deg, #5b1647 0%,#c90035 100%);
+        background: linear-gradient(135deg, #5b1647 0%,#c90035 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b1647', endColorstr='#c90035',GradientType=1 );
+    }
+    .sidebar-wrapper {
+        position: relative;
+    }
+    .sidebar {
+        position: sticky;
+        top: 0;
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar-complete {
+            span {
+                color: $clone-go;
+                font-size: 2rem;
+                line-height: 1;
+                margin: 0 .5rem 0 0;
+                vertical-align: middle;
+            }
+        }
+        .sidebar-incomplete {
+            span {
+                color: $clone-slow;
+                font-size: 2rem;
+                line-height: 1;
+                margin: 0 .5rem 0 0;
+                vertical-align: middle;
+            }
+        }
+        .sidebar-error {
+            span {
+                color: $clone-stop;
+                font-size: 2rem;
+                line-height: 1;
+                margin: 0 .5rem 0 0;
+                vertical-align: middle;
+            }
+        }
+    }
+    .sidebar-content {
+        >div,
+        >form {
+            margin: 0 auto;
+            max-width: $clone-medium-layout;
+        }
+    }
+    h2 {
+        &[data-gc-section-status="incomplete"] {
+            i {
+                color: $clone-slow;
+                font-size: 2rem;
+                line-height: 1;
+                margin: 0 .5rem 0 0;
+                vertical-align: middle;
+                &:nth-child(1) {
+                    display: inline;
+                }
+                &:nth-child(2) {
+                    display: none;
+                }
+                &:nth-child(3) {
+                    display: none;
+                }
+            }
+        }
+        &[data-gc-section-status="error"] {
+            i {
+                color: $clone-stop;
+                font-size: 2rem;
+                line-height: 1;
+                margin: 0 .5rem 0 0;
+                vertical-align: middle;
+                &:nth-child(1) {
+                    display: none;
+                }
+                &:nth-child(2) {
+                    display: inline;
+                }
+                &:nth-child(3) {
+                    display: none;
+                }
+            }
+        }
+        &[data-gc-section-status="complete"] {
+            i {
+                color: $clone-go;
+                font-size: 2rem;
+                line-height: 1;
+                margin: 0 .5rem 0 0;
+                vertical-align: middle;
+                &:nth-child(1) {
+                    display: none;
+                }
+                &:nth-child(2) {
+                    display: none;
+                }
+                &:nth-child(3) {
+                    display: inline;
+                }
+            }
+        }
+    }
+    .reference {
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+    }
+    footer {
+        flex-direction: row;
+    }
+
+    .footer-nav {
+        ul {
+            margin: -1rem;
+            padding: 0;
+            li {
+                display: inline-block;
+                margin: 1rem;
+            }
+        }
+    }
+    .footer-logo {
+        display: inline-block;
+        max-width: 13rem;
+        width: 75%;
+        img {
+            max-width: 100%;
+        }
+    }
+}
