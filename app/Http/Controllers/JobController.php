@@ -5,20 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use Carbon\Carbon;
-
-use App\Mail\JobPosterReviewRequested;
-
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
 use App\Models\Manager;
 
 use App\Services\Validation\JobPosterValidator;
-use Jenssegers\Date\Date;
 
 class JobController extends Controller
 {
@@ -73,12 +67,15 @@ class JobController extends Controller
             Because the global fallback-locale is set to true (config/translatable.php) any empty french translatables are set to the english copy. 'getTranslationsArray()' will retreive the original french values.
         */
         $locale = app()->getLocale();
-        foreach ($jobs as $job) {
+        foreach ($jobs as &$job) {
             $chosen_lang = $job->chosen_lang;
             $jobTranslations = $job->getTranslationsArray();
 
             $locale_title = $jobTranslations[$locale]['title'];
             $chosen_lang_title = $jobTranslations[$chosen_lang]['title'];
+
+            // URL to job poster in the language manager built it in.
+            $job->link = url("/{$chosen_lang}/jobs/{$job->id}");
 
             // Check if locale title exists
             if ($locale_title) {
@@ -88,7 +85,7 @@ class JobController extends Controller
                 $job->trans_required = true;
                 $job->title = $chosen_lang_title;
             } else {
-                // This is for rare case where user added title into other lang.
+                // This is for rare case where user added title into one locale but chose to coninue in other lang.
                 if ($locale == 'en') {
                     $job->title = $jobTranslations['fr']['title'];
                 } else {
@@ -96,9 +93,9 @@ class JobController extends Controller
                 }
 
                 $job->trans_required = $job->title;
-
             }
         }
+
 
         return view('manager/job_index', [
             // Localization Strings.
