@@ -242,7 +242,7 @@ test("Job Poster Builder - New Job", async t => {
     .click(Selector("button").withText("Add Skill"))
     .expect(Selector("h3").withText("Skills").visible)
     .ok()
-    .wait(200)
+    .wait(3000)
     .click(Selector("select").withAttribute("id", "jpb-all-skills-select"))
     .click(
       Selector("select")
@@ -256,14 +256,14 @@ test("Job Poster Builder - New Job", async t => {
     .click(Selector("button").withText("Add Skill"))
     .expect(Selector("h3").withText("Skills").visible)
     .ok()
-    .wait(200)
+    .wait(3000)
     .click(Selector("button").withText("Save & Preview Skills"))
     // Skills review.
     .expect(Selector("h5").withText("Keep it up!").visible)
     .ok()
     .expect(Selector(".criterion-item").exists)
     .ok()
-    .wait(200)
+    .wait(3000)
     .click(Selector("button").withText("Next Step"))
     // Review page.
     .expect(Selector("p").withText("Product Designer").visible)
@@ -276,7 +276,7 @@ test("Job Poster Builder - New Job", async t => {
       Selector("h5").withText("Congrats! Are You Ready to Submit?").visible,
     )
     .ok()
-    .wait(200)
+    .wait(3000)
     .click(Selector("button").withText("Yes, Submit"))
     // Taken back to the Job index page
     .expect(Selector("h1").withText("My Job Posters").visible)
