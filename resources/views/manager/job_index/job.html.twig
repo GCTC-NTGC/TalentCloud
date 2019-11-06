@@ -19,9 +19,11 @@
             {% if job.status() == 'draft' or job.status() == 'submitted' %}
             <h3 class="heading--04 poster-title--preview">
                 <a
-                    href="{{ route('manager.jobs.show', job) }}"
+                    href="{{ job.preview_link }}"
                     title="{{jobs_l10n.view_preview_job_poster}}">
-                    {{ job.title ?: job.id }} {{ jobs_l10n.preview }}
+                    {{ job.trans_required ? jobs_l10n.trans_title_placeholder ~ ' - ' }}
+                    {{ not job.title ? jobs_l10n.empty_title ~ ' - ' }}
+                    {{ job.title }} {{ jobs_l10n.preview }}
                 </a>
             </h3>
             {% endif %}
@@ -29,7 +31,7 @@
             {% if job.status() == 'published' or job.status() == 'closed' %}
             <h3 class="heading--04 poster-title--link">
                 <a
-                    href="{{ route('manager.jobs.show', job) }}"
+                    href="{{ route('manager.jobs.show', job)  }}"
                     title="{{ jobs_l10n.view_this_job_poster }}">
                     {{ job.title }}
                 </a>
@@ -76,7 +78,7 @@
             {% if job.status() == 'draft' %}
             <a
                 class="edit-actions--edit-draft"
-                href="{{ route('manager.jobs.edit', job) }}"
+                href="{{ job.edit_link }}"
                 title="{{ jobs_l10n.edit_this_poster }}">
                 {{ jobs_l10n.edit_job_poster }}
             </a>
