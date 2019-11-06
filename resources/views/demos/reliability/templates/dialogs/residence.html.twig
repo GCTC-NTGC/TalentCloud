@@ -1,0 +1,188 @@
+<div
+    aria-hidden="true"
+    aria-describedby="residence-dialog-description"
+    aria-labelledby="residence-dialog-title"
+    data-c-dialog
+    data-c-dialog-id="residence-dialog"
+    data-c-padding="top(double) bottom(double)"
+    role="dialog">
+    <div
+        data-c-background="white(100)"
+        data-c-radius="rounded"
+        data-c-margin="bottom(double)">
+        <div
+            data-c-padding="tb(normal) right(triple) left(normal)"
+            data-c-border="bottom(thin, solid, black)"
+            data-c-background="c1(100)">
+            <h5
+                data-c-font-size="h4"
+                id="residence-dialog-title"
+                data-c-dialog-focus data-c-color="white">
+                Add/Edit a Residence
+            </h5>
+            <p data-c-margin="top(half)" data-c-color="white">Please complete all sections of this form.</p>
+            <button
+                data-c-dialog-action="close"
+                data-c-dialog-id="residence-dialog"
+                type="button">
+                <i class="material-icons" data-c-color="white">close</i>
+            </button>
+        </div>
+        <div
+            data-c-border="bottom(thin, solid, black)"
+            data-c-padding="normal">
+            <div id="residence-dialog-description">
+                <form data-c-grid="gutter">
+                    <div data-c-input="text" data-c-grid-item="tl(1of6)">
+                        <label for="TI2">Unit/Suite</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. 14B" required type="text" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="text" data-c-grid-item="tl(1of6)">
+                        <label for="TI2">Street Number</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. 22" required type="text" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="text" data-c-grid-item="tl(1of3)">
+                        <label for="TI2">Street Name</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. Fairmont Cr." required type="text" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="text" data-c-grid-item="tl(1of3)">
+                        <label for="TI2">Postal Code</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. A1B2C3" required type="text" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    {# Ideally this would be smart - we should leverage a database to ensure proper provinces/states appear for each country. #}
+                    <div data-c-input="select" data-c-grid-item="tl(1of3)">
+                        <label for="SEL2">Country</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="material-icons">
+                                arrow_drop_down
+                            </i>
+                            <select required id="SEL2">
+                                <option disabled>Select a country...</option>
+                                <option selected>Canada</option>
+                                <option>United States of America</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="select" data-c-grid-item="tl(1of3)">
+                        <label for="SEL2">Province or State</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="material-icons">
+                                arrow_drop_down
+                            </i>
+                            <select required id="SEL2">
+                                <option disabled selected>Select a province/state...</option>
+                                {% include "demos/reliability/templates/partials/provinces" %}
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="text" data-c-grid-item="tl(1of3)">
+                        <label for="TI2">City or Town</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. Smallville" required type="text" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="telephone" data-c-grid-item="base(1of1)">
+                        <label for="TI2">Phone Number (if applicable)</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. 555-555-5555" required type="tel" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
+                        <label>&nbsp;</label>
+                        <span>Required</span>
+                        <div>
+                            <label for="residenceCurrent">
+                                <input
+                                    id="residenceCurrent"
+                                    type="checkbox" data-gc-current-address-trigger/>
+                                <span>This is my current address.</span>
+                            </label>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="date" data-c-grid-item="tl(1of2)">
+                        <label for="DAT2">The Date you Started Living Here</label>
+                        <span>Required</span>
+                        <div>
+                            <input
+                                id="DAT2"
+                                type="date"
+                                required
+                                placeholder="yyyy-mm-dd"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-gc-current-address data-c-input="date" data-c-grid-item="tl(1of2)">
+                        <label for="DAT2">The Date you Finished Living Here</label>
+                        <span>Required</span>
+                        <div>
+                            <input
+                                id="DAT2"
+                                type="date"
+                                required
+                                placeholder="yyyy-mm-dd"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="textarea" data-c-grid-item="base(1of1)">
+                        <label for="TA2">Other Notes</label>
+                        <span>Required</span>
+                        <div>
+                            <textarea id="TA2" required placeholder="Please provide any other important context related to this residence..."></textarea>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- The following dialog actions can be customized depending on the dialog. -->
+        <div data-c-padding="normal">
+            <div data-c-grid="gutter middle">
+                <div data-c-grid-item="base(1of2)">
+                    <button
+                        data-c-button="outline(slow)"
+                        data-c-radius="rounded"
+                        data-c-dialog-action="close"
+                        data-c-dialog-id="residence-dialog">
+                        Cancel
+                    </button>
+                </div>
+                <div
+                    data-c-grid-item="base(1of2)"
+                    data-c-alignment="base(right)">
+                    <button
+                        data-c-button="solid(go)"
+                        data-c-radius="rounded"
+                        data-c-dialog-action="close"
+                        data-c-dialog-id="residence-dialog">
+                        Save Residence
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
