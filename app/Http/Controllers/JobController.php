@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
 use App\Models\Manager;
-
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Services\Validation\JobPosterValidator;
 
 class JobController extends Controller
@@ -62,38 +62,19 @@ class JobController extends Controller
             ->get();
 
 
-        /*
-            Check if job has a title. Append both bool (and french title if locale is 'en').
-            Because the global fallback-locale is set to true (config/translatable.php) any empty french translatables are set to the english copy. 'getTranslationsArray()' will retreive the original french values.
-        */
-        $locale = app()->getLocale();
+
         foreach ($jobs as &$job) {
             $chosen_lang = $job->chosen_lang;
-            $jobTranslations = $job->getTranslationsArray();
 
-            $locale_title = $jobTranslations[$locale]['title'];
-            $chosen_lang_title = $jobTranslations[$chosen_lang]['title'];
-
-            // URL to job poster in the language manager built it in.
-            $job->link = url("/{$chosen_lang}/jobs/{$job->id}");
-
-            // Check if locale title exists
-            if ($locale_title) {
-                $job->title = $locale_title;
-            // Check if the jpb was built in other language
-            } elseif ($chosen_lang_title) {
+            // Show chosen lang title if current title is empty
+            if (empty($job->title)) {
+                $job->title = $job->translate($chosen_lang)->title;
                 $job->trans_required = true;
-                $job->title = $chosen_lang_title;
-            } else {
-                // This is for rare case where user added title into one locale but chose to coninue in other lang.
-                if ($locale == 'en') {
-                    $job->title = $jobTranslations['fr']['title'];
-                } else {
-                    $job->title = $jobTranslations['en']['title'];
-                }
-
-                $job->trans_required = $job->title;
             }
+
+            // Always preview and edit in the chosen language
+            $job->preview_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.show', $job));
+            $job->edit_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.edit', $job));
         }
 
 
