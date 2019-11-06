@@ -13,7 +13,7 @@ return [
     "itp_hero" => [
         "title" => "Nuage de Talents",
         "subtitle" => "Comment nous prenons des mesures pour créer un portail des talents autochtones",
-        "pilot" => "PROJET PILOTE/BETA"
+        "pilot" => "PROJET BETA"
     ],
     "itp_slogan" => "En concevant un portail autochtone, les candidats autochtones peuvent se réapproprier leur histoire et trouver des possibilités de mobilité professionnelle.",
     "itp_how" => [
@@ -26,13 +26,14 @@ return [
     ],
     "itp_when" => [
         "title_01" => "Quels sont les échéanciers?",
-        "subtitle_01" => "Nous avons fixé l’automne 2019 comme échéancier.",
+        "subtitle_01" => "Nous avons fixé l’hiver 2020 comme échéancier.",
         "copy_01" => "Nos échéanciers dépendent d’un certain nombre de facteurs, notamment du succès de notre mobilisation communautaire, de la mise à niveau de notre nouvel environnement de serveur en nuage et de l’évaluation des facteurs relatifs à la vie privée de l’équipe."
     ],
     "itp_what" => [
         "title_01" => "Sur quoi travaille-t-on en ce moment?",
         "alert_title" => "Nous collaborons avec les collectivités autochtones pour les écouter.",
-        "alert_copy" => "Dans le cadre de cette collaboration, nous cherchons à recueillir le plus grand nombre possible de points de vue autochtones. Si vous êtes prêt à partager vos idées et vos commentaires, veuillez cliquer ici pour nous contacter. Tous les points de vue sont les bienvenus.",
+        "alert_copy" => "Dans le cadre de cette collaboration, nous cherchons à recueillir le plus grand nombre possible de points de vue autochtones. Si vous êtes prêt à partager vos idées et vos commentaires, veuillez %email%. Tous les points de vue sont les bienvenus.",
+        "alert_link" => "<a href='mailto:meagan.commonda@tbs-sct.gc.ca' title='Envoyer un courriel à Nuage de Talents.'>cliquer ici pour nous contacter</a>",
         "subtitle_01" => "Ce que fait le Nuage de talents",
         "tc_list" => [
             "01" => "Recherche d’utilisateurs sur le Portail des talents autochtones : un prototype est en cours d’élaboration et des essais utilisateurs parmi les membres de la collectivité autochtone sont en cours.",

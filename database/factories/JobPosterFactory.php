@@ -82,7 +82,6 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'dept_impact:en' => $faker->paragraph(),
         'team_impact:en' => $faker->paragraph(),
         'hire_impact:en' => $faker->paragraph(),
-        'branch:en' => $faker->word,
         'division:en' => $faker->word,
         'education:en' => $faker->sentence(),
         'work_env_description:en' => $faker->paragraph(),
@@ -93,7 +92,6 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'dept_impact:fr' => $faker->paragraph(),
         'team_impact:fr' => $faker->paragraph(),
         'hire_impact:fr' => $faker->paragraph(),
-        'branch:fr' => $faker_fr->word,
         'division:fr' => $faker_fr->word,
         'education:fr' => $faker_fr->sentence(),
         'work_env_description:fr' => $faker->paragraph(),
@@ -113,6 +111,14 @@ $factory->afterCreating(JobPoster::class, function ($jp) : void {
         'job_poster_id' => $jp->id
     ]));
 });
+
+$factory->state(
+    JobPoster::class,
+    'byUpgradedManager',
+    ['manager_id' => function () {
+            return factory(Manager::class)->state('upgraded')->create()->id;
+    }]
+);
 
 $factory->state(
     JobPoster::class,

@@ -1,6 +1,5 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
-import { injectIntl, InjectedIntlProps } from "react-intl";
 import JobWorkEnv from "./JobBuilder/JobWorkEnv";
 import IntlContainer from "../IntlContainer";
 

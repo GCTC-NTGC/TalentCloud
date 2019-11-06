@@ -46,39 +46,39 @@ class DevSeeder extends Seeder // phpcs:ignore
     {
         $adminUser = User::where('email', $this->adminEmail)->first();
         if ($adminUser === null) {
-            $adminUser = factory(User::class)->states('admin')->create(['email' => $this->adminEmail]);
+            $adminUser = factory(User::class)->state('admin')->create(['email' => $this->adminEmail]);
         }
 
         $managerUser = User::where('email', $this->managerEmail)->first();
-        // Create the test manager if it does not exist yet
+        // Create the test manager if it does not exist yet.
         if ($managerUser === null) {
-            $managerUser = factory(User::class)->states('manager')->create(['email' => $this->managerEmail]);
+            $managerUser = factory(User::class)->state('upgradedManager')->create(['email' => $this->managerEmail]);
             $managerUser->manager()->save(factory(Manager::class)->create([
                 'user_id' => $managerUser->id
             ]));
         }
 
-        factory(JobPoster::class, 3)->states('published')->create([
+        factory(JobPoster::class, 3)->state('published')->create([
             'manager_id' => $managerUser->manager->id
         ])->each(function ($job) : void {
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
             ]);
-            //Then create one application with a priority user
+            // Then create one application with a priority user.
             $job->job_applications()->save(factory(JobApplication::class)->create([
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
-                        'user_id' => factory(User::class)->states('priority')->create()->id
+                        'user_id' => factory(User::class)->state('priority')->create()->id
                     ])->id
             ]));
         });
-        factory(JobPoster::class, 3)->states('closed')->create([
+        factory(JobPoster::class, 3)->state('closed')->create([
             'manager_id' => $managerUser->manager->id
         ])->each(function ($job) : void {
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
             ]);
-            //Then create one application with a priority user
+            // Then create one application with a priority user.
             $job->job_applications()->save(factory(JobApplication::class)->create([
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
@@ -86,27 +86,27 @@ class DevSeeder extends Seeder // phpcs:ignore
                 ])->id
             ]));
         });
-        factory(JobPoster::class, 3)->states('draft')->create([
+        factory(JobPoster::class, 3)->state('draft')->create([
             'manager_id' => $managerUser->manager->id
         ]);
-        factory(JobPoster::class, 3)->states('review_requested')->create([
+        factory(JobPoster::class, 3)->state('review_requested')->create([
             'manager_id' => $managerUser->manager->id
         ]);
 
-        // Create a Job Poster with an Assessment Plan
-        $jobWithAssessment = factory(JobPoster::class)->states('draft')->create([
+        // Create a Job Poster with an Assessment Plan.
+        $jobWithAssessment = factory(JobPoster::class)->state('draft')->create([
             'manager_id' => $managerUser->manager->id,
         ]);
         foreach ($jobWithAssessment->criteria as $criterion) {
-            // Create an assessment for each criterion
-            factory(Assessment::class)->states('withRatingGuide')->create([
+            // Create an assessment for each criterion.
+            factory(Assessment::class)->state('withRatingGuide')->create([
                 'criterion_id' => $criterion->id,
             ]);
         };
 
         $applicantUser = User::where('email', $this->applicantEmail)->first();
         if ($applicantUser === null) {
-            $applicantUser = factory(User::class)->states('applicant')->create([
+            $applicantUser = factory(User::class)->state('applicant')->create([
                 'email' => $this->applicantEmail
             ]);
             $applicantUser->applicant()->save(factory(Applicant::class)->create([
@@ -114,7 +114,7 @@ class DevSeeder extends Seeder // phpcs:ignore
             ]));
         }
 
-        // Add to application profile
+        // Add to application profile.
         $applicantUser->applicant->references()->saveMany(factory(Reference::class, 3)->create([
             'applicant_id' => $applicantUser->applicant->id
         ]));
@@ -123,7 +123,7 @@ class DevSeeder extends Seeder // phpcs:ignore
         $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 3)->create([
             'applicant_id' => $applicantUser->applicant->id,
         ]));
-        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 2)->states('draft')->create([
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 2)->state('draft')->create([
             'applicant_id' => $applicantUser->applicant->id,
         ]));
     }

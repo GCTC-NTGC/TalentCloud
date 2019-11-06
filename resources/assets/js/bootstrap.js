@@ -1,7 +1,4 @@
-import "core-js"; // adds almost all polyfills
-
-// Add a global fetch implementation
-require("isomorphic-fetch");
+import "./polyfills";
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -26,10 +23,3 @@ if (token) {
     "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token",
   );
 }
-
-// Allow the root React app component to mount
-require("./redux_index.tsx");
-
-// Allow any lingering react components, not added from the root, to mount
-// TODO: Move these components into ReduxApp root component
-require("./components");

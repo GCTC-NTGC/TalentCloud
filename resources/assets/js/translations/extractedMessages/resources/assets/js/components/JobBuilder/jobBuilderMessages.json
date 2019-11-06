@@ -5,23 +5,23 @@
   },
   {
     "id": "jobBuilder.progressTracker.label.step1",
-    "defaultMessage": "Step 01"
+    "defaultMessage": "Step 1 / 5"
   },
   {
     "id": "jobBuilder.progressTracker.label.step2",
-    "defaultMessage": "Step 02"
+    "defaultMessage": "Step 2 / 5"
   },
   {
     "id": "jobBuilder.progressTracker.label.step3",
-    "defaultMessage": "Step 03"
+    "defaultMessage": "Step 3 / 5"
   },
   {
     "id": "jobBuilder.progressTracker.label.step4",
-    "defaultMessage": "Step 04"
+    "defaultMessage": "Step 4 / 5"
   },
   {
     "id": "jobBuilder.progressTracker.label.step5",
-    "defaultMessage": "Step 05"
+    "defaultMessage": "Step 5 / 5"
   },
   {
     "id": "jobBuilder.progressTracker.label.finish",
@@ -37,7 +37,7 @@
   },
   {
     "id": "jobBuilder.progressTracker.title.workEnv",
-    "defaultMessage": "Work Environment"
+    "defaultMessage": "Work Env."
   },
   {
     "id": "jobBuilder.progressTracker.title.impact",
@@ -59,5 +59,10 @@
     "id": "jobBuilder.jobLoading",
     "description": "Message indicating that the current job is still being loaded.",
     "defaultMessage": "Your job is loading..."
+  },
+  {
+    "id": "jobBuilder.unsavedChangesWarning",
+    "description": "Warning message for user when switching pages without saving content.",
+    "defaultMessage": "Any changes you made will not be saved. If you would like to save any changes please hit save at bottom the page."
   }
 ]

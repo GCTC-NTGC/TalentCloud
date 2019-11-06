@@ -42,7 +42,8 @@ class UpdateApplicationProfileValidatorTest extends TestCase
     public function testUpdatingBasicProfileIsValid() : void
     {
         $data = [
-            'profile_name' => $this->applicant->user->name,
+            'profile_first_name' => $this->applicant->user->first_name,
+            'profile_last_name' => $this->applicant->user->last_name,
             'profile_email' => $this->applicant->user->email,
             'twitter_username' => 'Test_person',
             'linkedin_url' => 'www.linkedin.com/in/test-person',
@@ -60,7 +61,8 @@ class UpdateApplicationProfileValidatorTest extends TestCase
     public function testNotValidWhenNameIsEmpty() : void
     {
         $data = [
-            'profile_name' => '',
+            'profile_first_name' => '',
+            'profile_last_name' => '',
             'profile_email' => $this->applicant->user->email,
             'twitter_username' => 'Test_person',
             'linkedin_url' => 'www.linkedin.com/in/test-person',
@@ -78,7 +80,8 @@ class UpdateApplicationProfileValidatorTest extends TestCase
     public function testNotValidWhenNEmailIsEmpty() : void
     {
         $data = [
-            'profile_name' => $this->applicant->user->name,
+            'profile_first_name' => $this->applicant->user->first_name,
+            'profile_last_name' => $this->applicant->user->last_name,
             'profile_email' => '',
             'twitter_username' => 'Test_person',
             'linkedin_url' => 'www.linkedin.com/in/test-person',
@@ -96,7 +99,8 @@ class UpdateApplicationProfileValidatorTest extends TestCase
     public function testNotValidWhenNEmailSameAsAnotherUser() : void
     {
         $data = [
-            'profile_name' => $this->applicant->user->name,
+            'profile_first_name' => $this->applicant->user->first_name,
+            'profile_last_name' => $this->applicant->user->last_name,
             'profile_email' => $this->otherApplicant->user->email,
             'twitter_username' => 'Test_person',
             'linkedin_url' => 'www.linkedin.com/in/test-person',
@@ -114,10 +118,11 @@ class UpdateApplicationProfileValidatorTest extends TestCase
     public function testUpdatePasswordValidWithOldAndConfirm() : void
     {
         $data = [
-            'profile_name' => $this->applicant->user->name,
+            'profile_first_name' => $this->applicant->user->first_name,
+            'profile_last_name' => $this->applicant->user->last_name,
             'profile_email' => $this->applicant->user->email,
             'password' => $this->applicant->user->password,
-            'old_password' => 'Testing123!',
+            'current_password' => 'Testing123!',
             'new_password' => 'NewPassword123!',
             'new_password_confirmation' => 'NewPassword123!',
             'twitter_username' => 'Test_person',
@@ -137,9 +142,10 @@ class UpdateApplicationProfileValidatorTest extends TestCase
     public function testUpdatePasswordFailsWithoutConfirm() : void
     {
         $data = [
-            'profile_name' => $this->applicant->user->name,
+            'profile_first_name' => $this->applicant->user->first_name,
+            'profile_last_name' => $this->applicant->user->last_name,
             'profile_email' => $this->applicant->user->email,
-            'old_password' => $this->password,
+            'current_password' => $this->password,
             'new_password' => 'NewPassword123!',
             'twitter_username' => 'Test_person',
             'linkedin_url' => 'www.linkedin.com/in/test-person',
@@ -158,9 +164,10 @@ class UpdateApplicationProfileValidatorTest extends TestCase
     public function testUpdatePasswordFailsWithBadConfirm() : void
     {
         $data = [
-            'profile_name' => $this->applicant->user->name,
+            'profile_first_name' => $this->applicant->user->first_name,
+            'profile_last_name' => $this->applicant->user->last_name,
             'profile_email' => $this->applicant->user->email,
-            'old_password' => $this->password,
+            'current_password' => $this->password,
             'new_password' => 'NewPassword123!',
             'new_password_confirmation' => 'DifferentPassword123!',
             'twitter_username' => 'Test_person',
@@ -180,9 +187,10 @@ class UpdateApplicationProfileValidatorTest extends TestCase
     public function testUpdatePasswordFailsWithIllegalPassword() : void
     {
         $data = [
-            'profile_name' => $this->applicant->user->name,
+            'profile_first_name' => $this->applicant->user->first_name,
+            'profile_last_name' => $this->applicant->user->last_name,
             'profile_email' => $this->applicant->user->email,
-            'old_password' => $this->password,
+            'current_password' => $this->password,
             'new_password' => 'NewPassword',
             'new_password_confirmation' => 'NewPassword',
             'twitter_username' => 'Test_person',
@@ -202,9 +210,10 @@ class UpdateApplicationProfileValidatorTest extends TestCase
     public function testUpdatePasswordFailsWithBadOldPassword() : void
     {
         $data = [
-            'profile_name' => $this->applicant->user->name,
+            'profile_first_name' => $this->applicant->user->first_name,
+            'profile_last_name' => $this->applicant->user->last_name,
             'profile_email' => $this->applicant->user->email,
-            'old_password' => 'NotTheRightPassword123!',
+            'current_password' => 'NotTheRightPassword123!',
             'new_password' => 'NewPassword123!',
             'new_password_confirmation' => 'NewPassword123!',
             'twitter_username' => 'Test_person',

@@ -4,10 +4,56 @@
 
 // =============================================================================
 .sidebar-wrapper {
-    display: none;
+    // display: none;
 
-    @media #{$l-tablet} {
-        display: block;
+    // @media #{$l-tablet} {
+    //     display: block;
+    // }
+
+    .clone-sidebar {
+        // display: none;
+        // width: 95%;
+        @media #{$l-tablet} {
+            display: block;
+            padding-right: 5rem;
+            padding-bottom: 3rem;
+            position: sticky;
+            top: 0;
+        }
+        .sidebar-trigger {
+            background: none;
+            border: none;
+            color: $clone-c2;
+            cursor: pointer;
+            display: block;
+            font-size: $clone-default-font-size;
+            margin: 0 0 1rem 0;
+            position: relative;
+            text-align: left;
+            width: 100%;
+            &.active {
+                i {
+                    transform: rotate(180deg) translate(0, 50%);
+                }
+            }
+            i {
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: rotate(0) translate(0, -50%);
+            }
+        }
+        ul {
+            list-style: none;
+            margin: 0 0 3rem;
+            padding: 0;
+            &.hidden {
+                display: none;
+            }
+            li {
+
+            }
+        }
     }
 
     .sidebar {

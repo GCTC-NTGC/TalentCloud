@@ -24,7 +24,6 @@
   };
 
   // User Agent Data Attributes ==============================================
-
   var ua = navigator.userAgent;
   ua = ua.toString();
   $("body").attr("id", ua);
@@ -32,6 +31,51 @@
   $(document).ready(function() {
 
     // Clone Specific UI Handlers ==============================================
+
+      // Home - How it Works ---------------------------------------------------
+      function hiwTrigger(trigger) {
+        const hiwID = $(trigger).attr("data-tc-hiw-id");
+        $("[data-tc-hiw-trigger").removeClass("active");
+        $(trigger).addClass("active");
+        $(".home-hiw-content").removeClass("active");
+        $(trigger).parents(".home-hiw").find(".home-hiw-content[data-tc-hiw-id='" + hiwID + "']").addClass("active");
+        if (window.matchMedia("screen and (min-width: 48em)").matches) {
+          // Nothing
+        } else {
+          $([document.documentElement, document.body]).animate({
+            scrollTop: $(trigger).parents(".home-hiw").find(".home-hiw-content[data-tc-hiw-id='" + hiwID + "']").offset().top
+        }, 10);
+        }
+      }
+
+      $(document).on("click", "[data-tc-hiw-trigger]", function(e) {
+        hiwTrigger(this);
+      });
+
+      $(document).on("keyup", "[data-tc-hiw-trigger]", function(e) {
+        if (e.which == 13) {
+          hiwTrigger(this);
+        }
+      });
+
+      // FAQ Sidebar Accordions ------------------------------------------------
+      function faqSidebarTrigger(trigger) {
+        if ($(trigger).hasClass("active")) {
+          $(trigger).removeClass("active").next("ul").addClass("hidden");
+        }
+        else {
+          $(trigger).addClass("active").next("ul").removeClass("hidden");
+        }
+      }
+      $(document).on("click", ".sidebar-trigger", function(e) {
+        faqSidebarTrigger(this);
+      });
+
+      $(document).on("keyup", ".sidebar-trigger", function(e) {
+        if (e.which == 13) {
+          faqSidebarTrigger(this);
+        }
+      });
 
     // Accordion Handlers ==================================================
 
@@ -1132,181 +1176,6 @@
     });
 
     // Create Job Handlers =================================================
-
-    // Tasks
-
-    function addTask(trigger) {
-      // Get Wrapper
-      var wrapper = $(".manager-jobs__create-task-wrapper");
-
-      // Get Template
-      var template = $(".manager-jobs__create-task.template").clone();
-
-      // Get New ID
-      if (wrapper.find(".manager-jobs__create-task").length == 0) {
-        var newID = parseInt(template.attr("data-task-id")) + 1;
-      } else {
-        var newID =
-          parseInt(
-            wrapper
-              .find("[class*='manager-jobs__create-task']")
-              .last()
-              .attr("data-task-id")
-          ) + 1;
-      }
-
-      // Remove Template Class
-      template.removeClass("template");
-
-      //TODO: replace with call to individualizeFormIdsAndNames(template, wrapper);
-      //TODO: This requires changes to JobController@create, because the id would change places
-
-      // Assign the New ID
-      template.attr("data-task-id", newID);
-
-      // Add newID as suffix to all "id" and "for" attributes
-      template.find("*[id]").each(function() {
-        $(this).attr("id", this.id + newID);
-      });
-      template.find("*[for]").each(function() {
-        $(this).attr("for", $(this).attr("for") + newID);
-      });
-
-      // Replace :id with newID in all form names
-      template.find("*[name]").each(function() {
-        $(this).attr(
-          "name",
-          $(this)
-            .attr("name")
-            .replace(":id", newID)
-        );
-      });
-
-      // Task (English)
-      //template.find("[data-form-id*='task-english']").find("label").attr("for", "taskEN" + newID);
-      //template.find("[data-form-id*='task-english']").find("input").attr("id", "taskEN" + newID);
-
-      // Task (French)
-      //template.find("[data-form-id*='task-french']").find("label").attr("for", "taskFR" + newID);
-      //template.find("[data-form-id*='task-french']").find("input").attr("id", "taskFR" + newID);
-
-      // Append Clone to the Wrapper
-      wrapper.append(template);
-
-      requiredFields();
-      labelHandlers();
-      deleteTaskTrigger();
-    }
-
-    $("#addTaskButton").on("click", function(e) {
-      e.preventDefault();
-
-      addTask(this);
-    });
-
-    $("#addTaskButton").on("keyup", function(e) {
-      if (e.which == 13) {
-        e.preventDefault();
-        addTask(this);
-      }
-    });
-
-    // Task Deletion
-
-    function deleteTask(trigger) {
-      $(trigger)
-        .parents(".manager-jobs__create-task")
-        .remove();
-    }
-
-    function deleteTaskTrigger() {
-      $(".manager-jobs__delete-task-button").on("click", function(e) {
-        e.preventDefault();
-
-        deleteTask(this);
-      });
-
-      $(".manager-jobs__delete-task-button").on("keyup", function(e) {
-        if (e.which == 13) {
-          e.preventDefault();
-          deleteTask(this);
-        }
-      });
-    }
-
-    deleteTaskTrigger();
-
-    // Skills
-
-    function addSkill(trigger) {
-      // Get Parent
-      var parent = $(trigger).parents(".manager-jobs__skill-wrapper");
-
-      // Get Wrapper
-      var wrapper = parent.find(".manager-jobs__create-skill-wrapper");
-
-      // Get Template
-      var template = parent
-        .find(".manager-jobs__create-skill.template")
-        .clone();
-
-      // Remove Template Class
-      template.removeClass("template");
-
-      //Set ids and form names to be unique
-      individualizeFormIdsAndNames(template, wrapper);
-
-      // Append Clone to the Wrapper
-      wrapper.append(template);
-
-      // Add required attr to hidden input fields
-      wrapper
-        .find(".form__select-wrapper")
-        .find("select")
-        .prop("required", true);
-
-      requiredFields();
-      labelHandlers();
-      deleteSkillTrigger();
-    }
-
-    $(".manager-jobs__add-skill-button").on("click", function(e) {
-      e.preventDefault();
-
-      addSkill(this);
-    });
-
-    $(".manager-jobs__add-skill-button").on("keyup", function(e) {
-      if (e.which == 13) {
-        e.preventDefault();
-        addSkill(this);
-      }
-    });
-
-    // Skill Deletion
-
-    function deleteSkill(trigger) {
-      $(trigger)
-        .parents(".manager-jobs__create-skill")
-        .remove();
-    }
-
-    function deleteSkillTrigger() {
-      $(".manager-jobs__delete-skill-button").on("click", function(e) {
-        e.preventDefault();
-
-        deleteSkill(this);
-      });
-
-      $(".manager-jobs__delete-skill-button").on("keyup", function(e) {
-        if (e.which == 13) {
-          e.preventDefault();
-          deleteSkill(this);
-        }
-      });
-    }
-
-    deleteSkillTrigger();
 
     // Questions
 

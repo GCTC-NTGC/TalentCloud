@@ -37,10 +37,11 @@ class UpdateApplicationProfileValidator extends BaseDataValidator implements Dat
     public function rules() : array
     {
         return [
-            // Name validation
-            'profile_name' => 'required|string|max:191',
+            // Name validation.
+            'profile_first_name' => 'required|string|max:191',
+            'profile_last_name' => 'required|string|max:191',
 
-            // Email validation
+            // Email validation.
             'profile_email' => [
                 'required',
                 'string',
@@ -51,8 +52,8 @@ class UpdateApplicationProfileValidator extends BaseDataValidator implements Dat
                 Rule::unique('users', 'email')->ignore($this->applicant->user->id)
             ],
 
-            // Password validation
-            'old_password' => [
+            // Password validation.
+            'current_password' => [
                 'nullable',
                 'required_with:new_password',
                 new PasswordCorrectRule
@@ -64,7 +65,7 @@ class UpdateApplicationProfileValidator extends BaseDataValidator implements Dat
                 'confirmed'
             ],
 
-            // Social Media Validation
+            // Social Media Validation.
             /*
              * Twitters Terms of Service only allows ". A username can only contain
              * alphanumeric characters (letters A-Z, numbers 0-9) with the exception
@@ -78,11 +79,11 @@ class UpdateApplicationProfileValidator extends BaseDataValidator implements Dat
                 'regex:/^[A-Za-z0-9_]+$/',
             ],
             'linkedin_url' => [
-                'nullable', // Some people may not be on LinkedIn
+                'nullable', // Some people may not be on LinkedIn.
                 'regex:/^(https:\\/\\/|http:\\/\\/)?www\\.linkedin\\.com\\/in\\/[^\\/]+(\\/)?$/', // Validation for linkedIn profile URLS only.
             ],
 
-            // Other Information Tagline
+            // Other Information Tagline.
             'tagline' => [
                 'nullable',
                 'string'
@@ -91,7 +92,7 @@ class UpdateApplicationProfileValidator extends BaseDataValidator implements Dat
     }
 
     /**
-     * Returns a validator made with this data
+     * Returns a validator made with this data.
      *
      * @param  mixed[] $data Data to validate.
      * @return Validator

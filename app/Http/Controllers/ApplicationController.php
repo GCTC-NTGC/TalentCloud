@@ -63,6 +63,7 @@ class ApplicationController extends Controller
             [
                 // Localized strings.
                 'post' => Lang::get('manager/application_post'), // Change text
+                'is_manager_view' => WhichPortal::isManagerPortal(),
                 // Application Template Data.
                 'application_template' => Lang::get('applicant/application_template'),
                 'application_preview' => true,

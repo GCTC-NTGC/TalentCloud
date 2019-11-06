@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
   injectIntl,
@@ -18,13 +18,13 @@ interface JobWorkCultureProps {
 
 const remoteWorkMessages = defineMessages({
   always: {
-    id: "job.workCulture.remoteWorkMsg.always",
+    id: "jobBuilder.workCulture.remoteWorkMsg.always",
     defaultMessage: "Always",
     description:
       "Shown on Work Culture card when remoteWork field is set to true.",
   },
   never: {
-    id: "job.workCulture.remoteWorkMsg.never",
+    id: "jobBuilder.workCulture.remoteWorkMsg.never",
     defaultMessage: "Never",
     description:
       "Shown on Work Culture card when remoteWork field is set to false.",
@@ -32,7 +32,7 @@ const remoteWorkMessages = defineMessages({
 });
 
 export const JobWorkCulture: React.FunctionComponent<
-  JobWorkCultureProps & InjectedIntlProps
+  JobWorkCultureProps & WrappedComponentProps
 > = ({ job, intl }): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
@@ -64,7 +64,7 @@ export const JobWorkCulture: React.FunctionComponent<
       <div data-c-grid-item="tp(1of2) ds(1of3)">
         <p data-c-colour="c2" data-c-margin="top(quarter)">
           <FormattedMessage
-            id="job.workCulture.remoteWork"
+            id="jobBuilder.workCulture.remoteWork"
             defaultMessage="Remote Work"
             description="Label for the Remote Work field on the Work Culture card."
           />
@@ -75,7 +75,7 @@ export const JobWorkCulture: React.FunctionComponent<
           data-c-margin="bottom(half)"
         >
           <FormattedMessage
-            id="job.workCulture.remoteWorkDescription"
+            id="jobBuilder.workCulture.remoteWorkDescription"
             defaultMessage="Work from anywhere, all the time."
             description="Explanation of what Remote Work means."
           />
@@ -84,53 +84,85 @@ export const JobWorkCulture: React.FunctionComponent<
       </div>
       <div data-c-grid-item="tp(1of2) ds(1of3)">
         <p data-c-colour="c2" data-c-margin="top(quarter)">
-          Telework
+          <FormattedMessage
+            id="jobBuilder.workCulture.telework"
+            defaultMessage="Telework"
+            description="Label for the Telework field on the Work Culture card."
+          />
         </p>
         <p
           data-c-font-size="small"
           data-c-colour="grey"
           data-c-margin="bottom(half)"
         >
-          Work from home somedays (within driving distance of the office).
+          <FormattedMessage
+            id="jobBuilder.workCulture.teleworkDescription"
+            defaultMessage="Work from home somedays (within driving distance of the office)."
+            description="Explanation of what Telework means."
+          />
         </p>
         <p>{telework}</p>
       </div>
       <div data-c-grid-item="tp(1of2) ds(1of3)">
         <p data-c-colour="c2" data-c-margin="top(quarter)">
-          Flexible Hours
+          <FormattedMessage
+            id="jobBuilder.workCulture.flexibleHours"
+            defaultMessage="Flexible Hours"
+            description="Label for the Flexible Hours field on the Work Culture card."
+          />
         </p>
         <p
           data-c-font-size="small"
           data-c-colour="grey"
           data-c-margin="bottom(half)"
         >
-          Set your own start and end times.
+          <FormattedMessage
+            id="jobBuilder.workCulture.flexibleHoursDescription"
+            defaultMessage="Set your own start and end times."
+            description="Explanation of what Flexible Hours means."
+          />
         </p>
         <p>{flexHours}</p>
       </div>
       <div data-c-grid-item="tp(1of2) ds(1of3)">
         <p data-c-colour="c2" data-c-margin="top(quarter)">
-          Travel
+          <FormattedMessage
+            id="jobBuilder.workCulture.travel"
+            defaultMessage="Travel"
+            description="Label for the Travel field on the Work Culture card."
+          />
         </p>
         <p
           data-c-font-size="small"
           data-c-colour="grey"
           data-c-margin="bottom(half)"
         >
-          See more of Canada or the world.
+          <FormattedMessage
+            id="jobBuilder.workCulture.travelDescription"
+            defaultMessage="See more of Canada or the world."
+            description="Explanation of what Travel means."
+          />
         </p>
         <p>{travel}</p>
       </div>
       <div data-c-grid-item="tp(1of2) ds(1of3)">
         <p data-c-colour="c2" data-c-margin="top(quarter)">
-          Overtime
+          <FormattedMessage
+            id="jobBuilder.workCulture.overtime"
+            defaultMessage="Overtime"
+            description="Label for the Overtime field on the Work Culture card."
+          />
         </p>
         <p
           data-c-font-size="small"
           data-c-colour="grey"
           data-c-margin="bottom(half)"
         >
-          Work extra hours in the evenings/on weekends.
+          <FormattedMessage
+            id="jobBuilder.workCulture.overtimeDescription"
+            defaultMessage="Work extra hours in the evenings/on weekends."
+            description="Explanation of what Overtime means."
+          />
         </p>
         <p>{overtime}</p>
       </div>

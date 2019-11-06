@@ -43,6 +43,7 @@ class SkillDeclarationController extends Controller
         return view('applicant/profile_03_skills', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_skills'),
+            'skills_modals' => Lang::get('common/skills_modals'),
         ]);
     }
 

@@ -19,11 +19,11 @@
 
     {# Applicant Name #}
 
-        {% if auth_check() and auth_user().hasAnyRole(['manager', 'admin']) %}
+        {% if is_manager_view %}
             <div
                 class="application-preview__status">
 
-                <span>Applicant: {{ applicant.user.name }}</span>
+                <span>Applicant: {{ applicant.user.first_name }} {{ applicant.user.last_name }}</span>
 
             </div>
         {% endif %}
@@ -81,32 +81,30 @@
 
         <div
             class="application-preview__status">
-            {% if job.language_requirement.id != false %}
-                <i class="fas fa-check"></i>
-                <span>
-                    {{ language_requirement }}
-                </span>
-            {% else %}
-                <i class="fas fa-times"></i>
-                <span>
-                    {{ language_requirement }}
-                </span>
-            {% endif %}
+            <i class="fas fa-{{ job.language_requirement.id ? 'check' : 'times' }}"></i>
+            <span>
+                {{ language_requirement }}
+            </span>
         </div>
 
     {# Language Choice #}
 
+        {% if job_application.preferred_language_id == 1 %}
+            {# English #}
+            {% set language_choice = application_template.preview.english_choice %}
+        {% elseif job_application.preferred_language_id == 2 %}
+            {# French #}
+            {% set language_choice = application_template.preview.french_choice %}
+        {% else %}
+            {% set language_choice = application_template.preview.language_null_copy %}
+        {% endif %}
+
         <div
             class="application-preview__status">
-            {% if job_application.preferred_language_id != false %}
-                <i class="fas fa-check"></i>
+                <i class="fas fa-{{ job_application.preferred_language_id ? 'check' : 'times' }}"></i>
                 <span>
-                    {{ preferred_language_template[job_application.preferred_language.name] }}
+                    {{ language_choice|raw|nl2br }}
                 </span>
-            {% else %}
-                <i class="fas fa-times"></i>
-                <span>{{ application_template.preview.language_null_copy }}</span>
-            {% endif %}
         </div>
 
     {# Long Form Questions #}

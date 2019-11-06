@@ -4,7 +4,8 @@
 
 // =============================================================================
 .application-post__skills-layout {
-  padding: $section-padding;
+
+    padding: $section-padding;
 
   .timer-wrapper {
     text-align: center;
@@ -62,106 +63,6 @@
 
   }
 
-    .skill-do-dont-modal {
-
-        .modal-info__wrapper {
-          padding: 0.5rem 2rem 0;
-          overflow: hidden;
-          height: 60vh;
-          overflow-y: auto;
-        }
-
-        .modal-info__subtext {
-          margin-bottom: 1rem;
-        }
-
-        .modal-info__header {
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .modal-info__list-wrapper {
-          padding: 1rem 0;
-          h3,h4,h5,h6 {
-            font-weight: 900;
-            font-size: 1.5rem;
-            &.color-green {
-              color: $palette--green;
-            }
-            &.color-red {
-              color: $palette--red;
-            }
-          }
-          ul {
-            list-style-type: none;
-            padding-left: 0;
-
-            li {
-              margin: 1rem;
-              margin-left: 0;
-
-              .list-item__title {
-                font-weight: 700;
-                margin-bottom: 0.5rem;
-                font-size: 1.2rem;
-
-                i {
-                  margin-right: 0.8rem;
-                  font-size: 1.2rem;
-                }
-              }
-
-              .list-item__content {
-                padding-left: 2rem;
-                margin-bottom: 1rem;
-              }
-            }
-          }
-        }
-
-        .modal-info__open-button {
-          color: $palette--black;
-          display: block;
-          font-family: HKGrotesk, sans-serif;
-          line-height: 20px;
-          margin: 0 0 0.5rem;
-          z-index: 1;
-          background-color: white;
-          border: none;
-          text-decoration: underline;
-          cursor: pointer;
-          margin-left: auto;
-          transition: all 0.2s ease;
-          font-size: 80%;
-
-          @media screen and (min-width: 412px) {
-            font-size: 90%;
-          }
-
-          @media #{$p-tablet} {
-            font-size: 100%;
-          }
-
-          @media #{$cinema} {
-            font-size: 110%;
-          }
-
-          &:hover {
-            color: $palette--blue;
-          }
-        }
-
-        .modal-info__close-button {
-          position: static !important;
-          i {
-            color: white;
-            position: static;
-            font-size: 1.5rem;
-          }
-        }
-
-    }
-
   .application-post__content-wrapper {
     @media #{$l-tablet} {
       padding: 0 0 0 3rem;
@@ -184,10 +85,19 @@
   }
 }
 
-.skill-do-dont-modal {
+.skill-need-help-modal {
+
+  .modal-info__header {
+    background-color: rgb(47, 47, 51);
+    background-image: url("/images/bg_lightning_texture.png");
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 75px;
+    position: relative;
+  }
 
   .modal-info__wrapper {
-    padding: 0.5rem 2rem 0;
+    padding: 2rem 2rem 0 2rem;
     overflow: hidden;
     height: 60vh;
     overflow-y: auto;
@@ -195,11 +105,6 @@
 
   .modal-info__subtext {
     margin-bottom: 1rem;
-  }
-
-  .modal-info__header {
-    display: flex;
-    justify-content: space-between;
   }
 
   .modal-info__list-wrapper {

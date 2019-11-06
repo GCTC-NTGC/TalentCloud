@@ -1,6 +1,11 @@
 /* eslint-disable no-lonely-if */
 import React from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import {
+  injectIntl,
+  WrappedComponentProps,
+  FormattedMessage,
+  MessageDescriptor,
+} from "react-intl";
 import { connect } from "react-redux";
 import { RootState } from "../../store/store";
 import {
@@ -40,7 +45,7 @@ export const clipboardData = (
   ratingGuideQuestions: RatingGuideQuestion[],
   ratingGuideAnswers: RatingGuideAnswer[],
   locale: string,
-  formatMessage: (message: FormattedMessage.MessageDescriptor) => string,
+  formatMessage: (message: MessageDescriptor) => string,
   narrativeReview?: Assessment[],
 ): ClipboardTableRowProps[] => {
   let narrativeData: ClipboardTableRowProps[] = [];
@@ -244,7 +249,7 @@ interface TableProps {
 }
 
 const RatingGuideClipboard: React.FunctionComponent<
-  TableProps & InjectedIntlProps
+  TableProps & WrappedComponentProps
 > = ({
   assessments,
   criteria,
@@ -290,13 +295,55 @@ const RatingGuideClipboard: React.FunctionComponent<
           <table ref={tableRef}>
             <thead>
               <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Question</th>
-                <th scope="col">Criteria Type</th>
-                <th scope="col">Target Level</th>
-                <th scope="col">Skill</th>
-                <th scope="col">Skill Description</th>
-                <th scope="col">Rating Guide</th>
+                <th scope="col">
+                  <FormattedMessage
+                    id="ratingGuideBuilder.titleHeading"
+                    defaultMessage="Title"
+                    description="Text for the Title column heading."
+                  />
+                </th>
+                <th scope="col">
+                  <FormattedMessage
+                    id="ratingGuideBuilder.questionHeading"
+                    defaultMessage="Question"
+                    description="Text for the Question column heading."
+                  />
+                </th>
+                <th scope="col">
+                  <FormattedMessage
+                    id="ratingGuideBuilder.criteriaTypeHeading"
+                    defaultMessage="Criteria Type"
+                    description="Text for the Criteria Type column heading."
+                  />
+                </th>
+                <th scope="col">
+                  <FormattedMessage
+                    id="ratingGuideBuilder.targetLevelHeading"
+                    defaultMessage="Target Level"
+                    description="Text for the Target Level column heading."
+                  />
+                </th>
+                <th scope="col">
+                  <FormattedMessage
+                    id="ratingGuideBuilder.skillHeading"
+                    defaultMessage="Skill"
+                    description="Text for the Skill column heading."
+                  />
+                </th>
+                <th scope="col">
+                  <FormattedMessage
+                    id="ratingGuideBuilder.skillDescriptionHeading"
+                    defaultMessage="Skill Description"
+                    description="Text for the Skill Description column heading."
+                  />
+                </th>
+                <th scope="col">
+                  <FormattedMessage
+                    id="ratingGuideBuilder.ratingGuideHeading"
+                    defaultMessage="Rating Guide"
+                    description="Text for the Rating Guide column heading."
+                  />
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -328,9 +375,9 @@ const mapStateToProps = (
   ratingGuideQuestions: getRatingGuideQuestionsByJob(state, ownProps),
   ratingGuideAnswers: getRatingGuideAnswersByJob(state, ownProps),
 });
-// @ts-ignore
-const RatingGuideClipboardContainer: React.FunctionComponent<
-  RatingGuideClipboardContainerProps
-> = connect(mapStateToProps)(injectIntl(RatingGuideClipboard));
+
+const RatingGuideClipboardContainer = connect(mapStateToProps)(
+  injectIntl(RatingGuideClipboard),
+);
 
 export default RatingGuideClipboardContainer;

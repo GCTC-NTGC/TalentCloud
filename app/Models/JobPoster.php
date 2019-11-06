@@ -7,13 +7,17 @@
 
 namespace App\Models;
 
-use App\Events\JobSaved;
+use Astrotomic\Translatable\Translatable;
+
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+
+use Jenssegers\Date\Date;
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
-use Jenssegers\Date\Date;
-use \Backpack\CRUD\CrudTrait;
-use Astrotomic\Translatable\Translatable;
+
+use App\Events\JobSaved;
 
 /**
  * Class JobPoster
@@ -25,7 +29,7 @@ use Astrotomic\Translatable\Translatable;
  * @property \Jenssegers\Date\Date $close_date_time
  * @property \Jenssegers\Date\Date $start_date_time
  * @property \Jenssegers\Date\Date $review_requested_at
- * @property \Jessengers\Date\Date $published_at
+ * @property \Jenssegers\Date\Date $published_at
  * @property int $department_id
  * @property int $province_id
  * @property int $salary_min
@@ -49,6 +53,9 @@ use Astrotomic\Translatable\Translatable;
  * @property int $flexible_hours_frequency_id
  * @property int $travel_requirement_id
  * @property int $overtime_requirement_id
+ * @property int $process_number
+ * @property int $priority_clearance_number
+ * @property \Jenssegers\Date\Date $loo_issuance_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -75,7 +82,6 @@ use Astrotomic\Translatable\Translatable;
  * @property string $dept_impact
  * @property string $team_impact
  * @property string $hire_impact
- * @property string $branch
  * @property string $division
  * @property string $education
  * @property string $work_env_description
@@ -116,7 +122,6 @@ class JobPoster extends BaseModel
         'dept_impact',
         'team_impact',
         'hire_impact',
-        'branch',
         'division',
         'education',
         'work_env_description',
@@ -162,7 +167,8 @@ class JobPoster extends BaseModel
         'close_date_time',
         'start_date_time',
         'review_requested_at',
-        'published_at'
+        'published_at',
+        'loo_issuance_date',
     ];
 
     /**
@@ -197,6 +203,9 @@ class JobPoster extends BaseModel
         'flexible_hours_frequency_id',
         'travel_requirement_id',
         'overtime_requirement_id',
+        'process_number',
+        'priority_clearance_number',
+        'loo_issuance_date'
     ];
 
     /**
@@ -236,12 +245,15 @@ class JobPoster extends BaseModel
         'flexible_hours_frequency_id',
         'travel_requirement_id',
         'overtime_requirement_id',
+        'process_number',
+        'priority_clearance_number',
+        'loo_issuance_date'
     ];
 
     /**
      * The accessors to append to the model's array form.
      *
-     * @var array
+     * @var mixed[] $appends
      */
     protected $appends = ['classification_code'];
 
@@ -365,7 +377,7 @@ class JobPoster extends BaseModel
     // Accessors.
 
     /**
-     * The database model stores a foreign id to the classifiction table,
+     * The database model stores a foreign id to the classification table,
      * but to simplify the API, this model simply returns the key as classification_code.
      *
      * @return void
@@ -427,10 +439,13 @@ class JobPoster extends BaseModel
      */
     public function setPublishedAttribute($value) : void
     {
-        if ($value && $this->open_date_time->isPast()) {
+        if ($value) {
             $this->attributes['published_at'] = new Date();
-        } elseif ($value && $this->open_date_time->isFuture()) {
-            $this->attributes['published_at'] = $this->open_date_time;
+        } else {
+            $this->attributes['published_at'] = null;
+        }
+        if ($value === null) {
+            $value = false;
         }
         $this->attributes['published'] = $value;
     }
@@ -481,6 +496,8 @@ class JobPoster extends BaseModel
     public function isOpen() : bool
     {
         return $this->published
+            && $this->open_date_time !== null
+            && $this->close_date_time !== null
             && $this->open_date_time->isPast()
             && $this->close_date_time->isFuture();
     }
@@ -493,6 +510,8 @@ class JobPoster extends BaseModel
     public function isClosed() : bool
     {
         return $this->published
+            && $this->open_date_time !== null
+            && $this->close_date_time !== null
             && $this->open_date_time->isPast()
             && $this->close_date_time->isPast();
     }

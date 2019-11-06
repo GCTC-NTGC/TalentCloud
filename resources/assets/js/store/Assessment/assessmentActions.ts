@@ -118,16 +118,12 @@ export const updateAssessment = (
   return (dispatch: ThunkDispatch<any, undefined, AssessmentAction>): void => {
     dispatch(updateAssessmentStarted(assessment));
     updateAssessmentApi(assessment)
-      .then(
-        (updatedAssessment): void => {
-          dispatch(updateAssessmentSucceeded(updatedAssessment));
-        },
-      )
-      .catch(
-        (error: Error): void => {
-          dispatch(updateAssessmentFailed(assessment, error));
-        },
-      );
+      .then((updatedAssessment): void => {
+        dispatch(updateAssessmentSucceeded(updatedAssessment));
+      })
+      .catch((error: Error): void => {
+        dispatch(updateAssessmentFailed(assessment, error));
+      });
   };
 };
 
@@ -185,16 +181,12 @@ export const deleteAssessment = (
   return (dispatch: ThunkDispatch<any, undefined, AssessmentAction>): void => {
     dispatch(deleteAssessmentStarted(id));
     deleteAssessmentApi(id)
-      .then(
-        (): void => {
-          dispatch(deleteAssessmentSucceeded(id));
-        },
-      )
-      .catch(
-        (error: Error): void => {
-          dispatch(deleteAssessmentFailed(id, error));
-        },
-      );
+      .then((): void => {
+        dispatch(deleteAssessmentSucceeded(id));
+      })
+      .catch((error: Error): void => {
+        dispatch(deleteAssessmentFailed(id, error));
+      });
   };
 };
 
@@ -253,16 +245,12 @@ export const storeNewAssessment = (
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>): void => {
     dispatch(storeNewAssessmentStarted(assessment));
     createAssessmentApi(assessment)
-      .then(
-        (updatedAssessment): void => {
-          dispatch(storeNewAssessmentSucceeded(updatedAssessment, assessment));
-        },
-      )
-      .catch(
-        (error: Error): void => {
-          dispatch(storeNewAssessmentFailed(assessment, error));
-        },
-      );
+      .then((updatedAssessment): void => {
+        dispatch(storeNewAssessmentSucceeded(updatedAssessment, assessment));
+      })
+      .catch((error: Error): void => {
+        dispatch(storeNewAssessmentFailed(assessment, error));
+      });
   };
 };
 

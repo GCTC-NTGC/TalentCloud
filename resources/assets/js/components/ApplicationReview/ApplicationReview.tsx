@@ -1,7 +1,7 @@
 import React from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
@@ -123,10 +123,10 @@ interface ApplicationReviewState {
 }
 
 class ApplicationReview extends React.Component<
-  ApplicationReviewProps & InjectedIntlProps,
+  ApplicationReviewProps & WrappedComponentProps,
   ApplicationReviewState
 > {
-  public constructor(props: ApplicationReviewProps & InjectedIntlProps) {
+  public constructor(props: ApplicationReviewProps & WrappedComponentProps) {
     super(props);
     this.state = {
       selectedStatusId:
@@ -179,7 +179,7 @@ class ApplicationReview extends React.Component<
           : intl.formatMessage(messages.screenInConfirm);
       Swal.fire({
         title: confirmText,
-        type: "question",
+        icon: "question",
         showCancelButton: true,
         confirmButtonColor: "#0A6CBC",
         cancelButtonColor: "#F94D4D",
@@ -203,7 +203,7 @@ class ApplicationReview extends React.Component<
         : "";
     Swal.fire({
       title: intl.formatMessage(messages.editNote),
-      type: "question",
+      icon: "question",
       input: "textarea",
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
@@ -279,9 +279,10 @@ class ApplicationReview extends React.Component<
           <div className="box lg-2of11 applicant-information">
             <span
               className="name"
-              data-name={`${application.applicant.user.name}`}
+              data-name={`${application.applicant.user.first_name} ${application.applicant.user.last_name}`}
             >
-              {application.applicant.user.name}
+              {application.applicant.user.first_name}{" "}
+              {application.applicant.user.last_name}
             </span>
             <a
               href={`mailto: ${application.applicant.user.email}`}
@@ -313,7 +314,7 @@ class ApplicationReview extends React.Component<
                 <img
                   alt={intl.formatMessage(messages.veteranLogo)}
                   src="/images/icon_veteran.svg"
-                />
+                />{" "}
                 <FormattedMessage
                   id="veteranStatus.veteran"
                   defaultMessage="Veteran"

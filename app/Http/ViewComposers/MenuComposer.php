@@ -21,8 +21,8 @@ class MenuComposer
         if (WhichPortal::isApplicantPortal()) {
             $menu = Lang::get('applicant/menu');
 
-            //Set active on the proper item
-            switch(Route::currentRouteName()) {
+            // Set active on the proper item
+            switch (Route::currentRouteName()) {
                 case 'home':
                     $menu['items']['home']['active'] = true;
                     break;
@@ -73,49 +73,53 @@ class MenuComposer
                 case 'faq':
                     $menu['items']['faq']['active'] = true;
                     break;
+                case 'itp':
+                    $menu['items']['itp']['active'] = true;
+                    break;
                 default:
-                    //No menu item will be active
+                    // No menu item will be active
                     break;
             }
 
-            //Set route links
+            // Set route links
             $menu['items']['home']['link'] = route('home');
             $menu['items']['jobs']['link'] = route('jobs.index');
             $menu['items']['applications']['link'] = route('applications.index');
             $menu['items']['profile']['link'] = route('profile');
             $menu['items']['faq']['link'] = route('faq');
+            $menu['items']['itp']['link'] = route('itp');
 
-            //Check if use is logged in, and remove invalid menu items
+            // Check if use is logged in, and remove invalid menu items
             if (Auth::check()) {
                 unset($menu['items']['login']);
                 unset($menu['items']['register']);
-                //TODO set profile like using user slug
+                // TODO set profile like using user slug
             } else {
                 unset($menu['items']['logout']);
                 unset($menu['items']['applications']);
                 unset($menu['items']['profile']);
             }
-        } else if (WhichPortal::isManagerPortal()) {
+        } elseif (WhichPortal::isManagerPortal()) {
             $menu = Lang::get('manager/menu');
 
-            //Set active on the proper item
-            switch(Route::currentRouteName()) {
+            // Set active on the proper item
+            switch (Route::currentRouteName()) {
                 case 'manager.home':
                     $menu['items']['home']['active'] = true;
                     break;
                 case 'manager.jobs.index':
                 case 'manager.jobs.show':
                 case 'manager.jobs.applications':
-                case 'manager.jobs.review':
                 case 'manager.applications.show':
                 case 'manager.applicants.show':
                     $menu['items']['jobs']['active'] = true;
                     break;
                 case 'manager.jobs.create':
                 case 'manager.jobs.edit':
-                case 'manager.jobs.update':
-                    //$menu['items']['create_job']['active'] = true;
-                    $menu['items']['jobs']['active'] = true; //TODO: restore when job poster builder complete
+                case 'manager.jobs.review':
+                case 'admin.jobs.update':
+                    // $menu['items']['create_job']['active'] = true;
+                    $menu['items']['jobs']['active'] = true; // TODO: restore when job poster builder complete
                     break;
                 case 'manager.profile':
                 case 'manager.profile.edit':
@@ -131,34 +135,61 @@ class MenuComposer
                 case 'logout':
                     $menu['items']['logout']['active'] = true;
                     break;
-                case 'faq':
+                case 'manager.faq':
                     $menu['items']['faq']['active'] = true;
                     break;
                 default:
-                    //No menu item will be active
+                    // No menu item will be active
                     break;
             }
 
-            //Set route links
+            // Set route links
             $menu['items']['home']['link'] = route('manager.home');
             $menu['items']['jobs']['link'] = route('manager.jobs.index');
-            //TODO: restore when job poster builder complete
-            //$menu['items']['create_job']['link'] = route('manager.jobs.create');
+            // TODO: restore when job poster builder complete
+            // $menu['items']['create_job']['link'] = route('manager.jobs.create');
             $menu['items']['profile']['link'] = route('manager.profile');
+            $menu['items']['faq']['link'] = route('manager.faq.section');
 
-            //Check if use is logged in, and remove invalid menu items
+            // Check if use is logged in, and remove invalid menu items
             if (Auth::check()) {
                 unset($menu['items']['login']);
                 unset($menu['items']['register']);
-                //TODO set profile like using user slug
+                // TODO set profile like using user slug
             } else {
                 unset($menu['items']['logout']);
                 unset($menu['items']['jobs']);
                 unset($menu['items']['create_job']);
                 unset($menu['items']['profile']);
             }
+        } elseif (WhichPortal::isAdminPortal()) {
+            // Use the manager menu, keeping only
+            $menu = Lang::get('admin/menu');
+
+
+            // Set active on the proper item
+            switch (Route::currentRouteName()) {
+                case 'admin.home':
+                    $menu['items']['home']['active'] = true;
+                    break;
+                default:
+                    // No menu item will be active
+                    break;
+            }
+
+            // Set route links
+            $menu['items']['home']['link'] = backpack_url();
+
+            // Check if use is logged in, and remove invalid menu items
+            if (Auth::check()) {
+                unset($menu['items']['login']);
+                unset($menu['items']['register']);
+                // TODO set profile like using user slug
+            } else {
+                unset($menu['items']['logout']);
+            }
         }
-        //Set login modals data
+        // Set login modals data
         if (WhichPortal::isManagerPortal()) {
             $loginModals = [
                 'modals' => Lang::get('common/login_modals'),
@@ -166,6 +197,13 @@ class MenuComposer
                 'login_link' => route('manager.login'),
                 'logout_link' => route('manager.logout'),
             ];
+        } elseif (WhichPortal::isAdminPortal()) {
+             $loginModals = [
+                'modals' => Lang::get('common/login_modals'),
+                'register_link' => route('register'),
+                'login_link' => backpack_url('login'),
+                'logout_link' => backpack_url('logout'),
+             ];
         } else {
             $loginModals = [
                 'modals' => Lang::get('common/login_modals'),

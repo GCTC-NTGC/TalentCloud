@@ -2,11 +2,14 @@
 import React, { useState, useRef } from "react";
 import { Form, Field, Formik, FormikTouched, FormikErrors } from "formik";
 import * as Yup from "yup";
+import nprogress from "nprogress";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
+  MessageDescriptor,
+  IntlShape,
 } from "react-intl";
 import CheckboxGroup from "../Form/CheckboxGroup";
 import RadioGroup from "../Form/RadioGroup";
@@ -123,7 +126,7 @@ const formMessages = defineMessages({
   collaborativeLabel: {
     id: "jobBuilder.workEnv.collaborativeLabel",
     defaultMessage: "Collaborative vs. Independent:",
-    description: 'The label for the "colaborative vs independent" radio group',
+    description: 'The label for the "collaborative vs independent" radio group',
   },
   cultureSummary: {
     id: "jobBuilder.workEnv.cultureSummary",
@@ -220,8 +223,8 @@ type CulturePaceId =
   | "culturePace04";
 const culturePaceList: {
   id: CulturePaceId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "culturePace01",
@@ -253,7 +256,7 @@ const mgmtStyleMessages = defineMessages({
   style01Description: {
     id: "jobBuilder.mgmtStyle.01.description",
     defaultMessage:
-      "There’s no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.",
+      "There's no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.",
   },
   style02Title: {
     id: "jobBuilder.mgmtStyle.02.title",
@@ -262,7 +265,7 @@ const mgmtStyleMessages = defineMessages({
   style02Description: {
     id: "jobBuilder.mgmtStyle.02.description",
     defaultMessage:
-      "We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives.",
+      "We have some middle management here but make most day-to-day decisions ourselves. Don't be surprised to interact fairly often with our executives.",
   },
   style03Title: {
     id: "jobBuilder.mgmtStyle.03.title",
@@ -291,8 +294,8 @@ type MgmtStyleId =
   | "mgmtStyle04";
 const managementList: {
   id: MgmtStyleId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "mgmtStyle01",
@@ -361,8 +364,8 @@ type ExperiementalId =
   | "experimental04";
 const experimentalList: {
   id: ExperiementalId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "experimental01",
@@ -427,8 +430,8 @@ const facingMessages = defineMessages({
 type FacingId = "facing01" | "facing02" | "facing03" | "facing04";
 const facingList: {
   id: FacingId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "facing01",
@@ -460,7 +463,7 @@ const collaborativenessMessages = defineMessages({
   collaborativeness01Description: {
     id: "jobBuilder.collaborativeness.01.description",
     defaultMessage:
-      "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.",
+      "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team's goals and are always looking for ways to pitch in.",
   },
   collaborativeness02Title: {
     id: "jobBuilder.collaborativeness.02.title",
@@ -487,7 +490,7 @@ const collaborativenessMessages = defineMessages({
   collaborativeness04Description: {
     id: "jobBuilder.collaborativeness.04.description",
     defaultMessage:
-      "Members of our team own their piece of the puzzle. It doesn’t really matter how we get our work done as long as it’s high quality.",
+      "Members of our team own their piece of the puzzle. It doesn't really matter how we get our work done as long as it's high quality.",
   },
 });
 type CollaborativenessId =
@@ -497,8 +500,8 @@ type CollaborativenessId =
   | "collaborativeness04";
 const collaborativenessList: {
   id: CollaborativenessId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "collaborativeness01",
@@ -523,7 +526,7 @@ const collaborativenessList: {
 ];
 
 // shape of values used in Form
-export interface FormValues {
+export interface WorkEnvFormValues {
   teamSize?: number;
   physicalEnv: string[];
   technology: string[];
@@ -562,7 +565,7 @@ const jobToValues = (
     ...job
   }: Job,
   locale: "en" | "fr",
-): FormValues => {
+): WorkEnvFormValues => {
   const isTrueInEnvFeatures = (option): boolean =>
     work_env_features !== null &&
     hasKey(work_env_features, option) &&
@@ -592,7 +595,7 @@ const jobToValues = (
     ...convertSliderIdFromJob(
       "collaborativeness",
       collaborativenessList,
-      citizen_facing_vs_back_office,
+      collaborative_vs_independent,
     ),
     envDescription: job[locale].work_env_description || "",
     cultureSummary: job[locale].culture_summary || "",
@@ -626,7 +629,7 @@ const updateJobWithValues = (
     collaborativeness,
     cultureSummary,
     moreCultureSummary,
-  }: FormValues,
+  }: WorkEnvFormValues,
 ): Job => {
   const physFeatures = mapToObjectTrans(
     physEnvOptions,
@@ -673,16 +676,16 @@ const updateJobWithValues = (
 };
 
 const renderRadioWithContext = (
-  intl: ReactIntl.InjectedIntl,
-  touched: FormikTouched<FormValues>,
-  errors: FormikErrors<FormValues>,
-  values: FormValues,
+  intl: IntlShape,
+  touched: FormikTouched<WorkEnvFormValues>,
+  errors: FormikErrors<WorkEnvFormValues>,
+  values: WorkEnvFormValues,
   fieldName: string,
   label: string,
   sliderList: {
     id: string;
-    title: FormattedMessage.MessageDescriptor;
-    subtext: FormattedMessage.MessageDescriptor;
+    title: MessageDescriptor;
+    subtext: MessageDescriptor;
   }[],
 ): React.ReactElement => {
   return (
@@ -763,15 +766,14 @@ const WorkEnvForm = ({
   jobIsComplete,
   handleSkipToReview,
   intl,
-}: WorkEnvFormProps & InjectedIntlProps): React.ReactElement => {
+}: WorkEnvFormProps & WrappedComponentProps): React.ReactElement => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
 
-  const [returnOnSubmit, setReturnOnSubmit] = useState(false);
-
-  const initialValues: FormValues = job
+  const initialValues: WorkEnvFormValues = job
     ? jobToValues(job, locale)
     : {
         physicalEnv: [],
@@ -791,8 +793,6 @@ const WorkEnvForm = ({
     label: string;
   }[] = amenitiesDescriptions(intl);
 
-  const cultureSummaryRef = React.createRef<HTMLParagraphElement>();
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const modalParentRef = useRef<HTMLDivElement>(null);
   const workEnvSchema = Yup.object().shape({
     teamSize: Yup.number()
@@ -848,6 +848,22 @@ const WorkEnvForm = ({
     return cultureSummary;
   };
 
+  const updateValuesAndReturn = (values: WorkEnvFormValues): void => {
+    nprogress.start();
+    // If custom summary textbox is length is zero, set cultureSummary to generated text
+    const cultureSummary =
+      values.cultureSummary.length === 0
+        ? buildCultureSummary(values)
+        : values.cultureSummary;
+    const formValues: WorkEnvFormValues = { ...values, cultureSummary };
+    const oldJob = job || emptyJob();
+    const updatedJob = updateJobWithValues(oldJob, locale, formValues);
+    handleSubmit(updatedJob).then((): void => {
+      nprogress.done();
+      handleReturn();
+    });
+  };
+
   return (
     <div
       data-c-container="form"
@@ -881,7 +897,7 @@ const WorkEnvForm = ({
           />
         </h4>
         <p data-c-margin="bottom(normal)">
-          <FormattedMessage {...formMessages.ourWorkEnvDesc} />
+          {intl.formatMessage(formMessages.ourWorkEnvDesc)}
         </p>
       </div>
 
@@ -895,20 +911,18 @@ const WorkEnvForm = ({
             values.cultureSummary.length === 0
               ? buildCultureSummary(values)
               : values.cultureSummary;
-          const formValues: FormValues = { ...values, cultureSummary };
+          const formValues: WorkEnvFormValues = { ...values, cultureSummary };
           const oldJob = job || emptyJob();
           const updatedJob = updateJobWithValues(oldJob, locale, formValues);
+
+          nprogress.start();
           handleSubmit(updatedJob)
-            .then((job): void => {
-              if (returnOnSubmit) {
-                handleReturn();
-              } else {
-                setIsModalVisible(true);
-              }
+            .then((): void => {
+              nprogress.done();
+              setIsModalVisible(true);
             })
             .finally((): void => {
               setSubmitting(false);
-              setReturnOnSubmit(false);
             });
         }}
         render={({
@@ -918,7 +932,6 @@ const WorkEnvForm = ({
           values,
           setFieldValue,
           setFieldTouched,
-          submitForm,
         }): React.ReactElement => (
           <>
             <Form id="form" data-c-margin="bottom(normal)">
@@ -926,6 +939,7 @@ const WorkEnvForm = ({
                 name="teamSize"
                 component={NumberInput}
                 required
+                min={1}
                 grid="tl(1of2)"
                 id="teamSize"
                 label={intl.formatMessage(formMessages.teamSizeLabel)}
@@ -1013,13 +1027,13 @@ const WorkEnvForm = ({
                 data-c-margin="bottom(normal) top(normal)"
                 data-c-font-weight="bold"
               >
-                <FormattedMessage {...formMessages.moreOnWorkEnv} />
+                {intl.formatMessage(formMessages.moreOnWorkEnv)}
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage {...formMessages.thisIsOptional} />
+                {intl.formatMessage(formMessages.thisIsOptional)}
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage {...formMessages.moreOnWorkEnvSubtext} />
+                {intl.formatMessage(formMessages.moreOnWorkEnvSubtext)}
               </p>
               <Field
                 type="textarea"
@@ -1037,7 +1051,7 @@ const WorkEnvForm = ({
                   data-c-font-size="h4"
                   data-c-margin="top(double) bottom(normal)"
                 >
-                  <FormattedMessage {...formMessages.culture} />
+                  {intl.formatMessage(formMessages.culture)}
                 </h4>
                 <p data-c-margin="bottom(normal)">
                   <FormattedMessage
@@ -1047,7 +1061,7 @@ const WorkEnvForm = ({
                   />
                 </p>
                 <p data-c-margin="bottom(normal)">
-                  <FormattedMessage {...formMessages.cultureSubtext2} />
+                  {intl.formatMessage(formMessages.cultureSubtext2)}
                 </p>
               </div>
               {renderRadioWithContext(
@@ -1100,17 +1114,33 @@ const WorkEnvForm = ({
                   data-c-margin="bottom(normal) top(normal)"
                   data-c-font-weight="bold"
                 >
-                  <FormattedMessage {...formMessages.cultureSummary} />
+                  {intl.formatMessage(formMessages.cultureSummary)}
                 </p>
                 <p data-c-margin="bottom(normal)">
-                  <FormattedMessage {...formMessages.cultureSummarySubtext} />
+                  {intl.formatMessage(formMessages.cultureSummarySubtext)}
                 </p>
                 <ContextBlockItem subtext={buildCultureSummary(values)} />
                 <div
                   data-c-alignment="base(centre) tl(right)"
                   data-c-margin="top(normal)"
                 >
-                  <CopyToClipboardButton text={buildCultureSummary(values)} />
+                  <CopyToClipboardButton
+                    actionText={
+                      <FormattedMessage
+                        id="button.copyToClipboard"
+                        defaultMessage="Copy to Clipboard"
+                        description="Button to copy text to clipboard."
+                      />
+                    }
+                    postActionText={
+                      <FormattedMessage
+                        id="button.copied"
+                        defaultMessage="Copied!"
+                        description="Confirmation for Button to copy text to clipboard."
+                      />
+                    }
+                    textToCopy={buildCultureSummary(values)}
+                  />
                 </div>
               </div>
               <Field
@@ -1127,13 +1157,13 @@ const WorkEnvForm = ({
                 grid="base(1of1)"
               />
               <p data-c-margin="bottom(normal)" data-c-font-weight="bold">
-                <FormattedMessage {...formMessages.specialWorkCulture} />
+                {intl.formatMessage(formMessages.specialWorkCulture)}
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage {...formMessages.thisIsOptional} />
+                {intl.formatMessage(formMessages.thisIsOptional)}
               </p>
               <p data-c-margin="bottom(normal)">
-                <FormattedMessage {...formMessages.specialWorkCultureSubtext} />
+                {intl.formatMessage(formMessages.specialWorkCultureSubtext)}
               </p>
               <Field
                 type="textarea"
@@ -1160,15 +1190,7 @@ const WorkEnvForm = ({
                     type="button"
                     disabled={isSubmitting}
                     onClick={(): void => {
-                      /** TODO:
-                       * This is a race condition, since the setState hook call is asynchronous.
-                       * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
-                       * For now, the setState always happens faster than the validation check, so it works.
-                       * See https://github.com/jaredpalmer/formik/issues/214
-                       * -- Tristan
-                       */
-                      setReturnOnSubmit(true);
-                      submitForm();
+                      updateValuesAndReturn(values);
                     }}
                   >
                     <FormattedMessage

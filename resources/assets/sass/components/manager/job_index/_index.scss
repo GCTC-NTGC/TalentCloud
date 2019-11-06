@@ -29,8 +29,9 @@
 
     .new-poster-button-wrapper {
 
-        @media #{$l-tablet} {
-            display: flex;
+        display: flex;
+        justify-content: center;
+        @media #{$p-tablet} {
             justify-content: flex-end;
         }
 
@@ -183,6 +184,7 @@
                 .submit-button {
                     display: block;
                     text-align: center;
+                    width: 100%;
                 }
 
                 .review-button {

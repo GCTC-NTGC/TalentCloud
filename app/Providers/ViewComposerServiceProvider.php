@@ -5,7 +5,6 @@ namespace App\Providers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
-use App\Http\ViewComposers\ApplicationReviewComposer;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -16,70 +15,87 @@ class ViewComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //Site Under Construction header bar
+        // Site Under Construction header bar.
         View::composer(
-            'common/alert', 'App\Http\ViewComposers\AlertComposer'
+            'common/alert',
+            'App\Http\ViewComposers\AlertComposer'
         );
 
-        // Pass App locale to all views
+        // Pass App locale to all views.
         View::share('appLocale', App::getLocale());
 
-        //Governement of Canada header bar
+        // Governement of Canada header bar.
         View::composer(
-            'common/goc', 'App\Http\ViewComposers\GocComposer'
+            'common/goc',
+            'App\Http\ViewComposers\GocComposer'
         );
 
-        //Nav menu
+        // Nav menu.
         View::composer(
-            '*', 'App\Http\ViewComposers\MenuComposer'
+            '*',
+            'App\Http\ViewComposers\MenuComposer'
         );
 
-        //Sitewide Footer
+        // Sitewide Footer.
         View::composer(
-            'common/footer', 'App\Http\ViewComposers\FooterComposer'
-        );
-
-        View::composer(
-            'applicant/profile/menu', 'App\Http\ViewComposers\ApplicantProfileMenuComposer'
-        );
-
-        View::composer(
-            ['common/skill', 'common/relatives', 'applicant/job_post/criteria',
-            'manager/job_create/criteria'], 'App\Http\ViewComposers\SkillComposer'
+            'common/footer',
+            'App\Http\ViewComposers\FooterComposer'
         );
 
         View::composer(
-            ['common/reference', 'common/modals/create_reference'], 'App\Http\ViewComposers\ReferenceComposer'
+            'applicant/profile/menu',
+            'App\Http\ViewComposers\ApplicantProfileMenuComposer'
         );
 
         View::composer(
-            ['common/sample', 'common/modals/create_sample'], 'App\Http\ViewComposers\WorkSampleComposer'
+            ['common/skill', 'common/relatives', 'applicant/job_post/criteria', 'common/modals/skills_need_help'],
+            'App\Http\ViewComposers\SkillComposer'
+        );
+
+        View::composer(
+            ['common/reference', 'common/modals/create_reference'],
+            'App\Http\ViewComposers\ReferenceComposer'
+        );
+
+        View::composer(
+            ['common/sample', 'common/modals/create_sample'],
+            'App\Http\ViewComposers\WorkSampleComposer'
         );
 
         View::composer(
             ['common/relatives','common/reference','common/relatives-projects',
              'common/sample', 'common/skill', 'common/modals/create_reference'],
-             'App\Http\ViewComposers\RelativeComposer'
+            'App\Http\ViewComposers\RelativeComposer'
         );
 
         View::composer(
-            'common/lang_menu', 'App\Http\ViewComposers\LangMenuComposer'
+            'common/lang_menu',
+            'App\Http\ViewComposers\LangMenuComposer'
         );
 
         View::composer(
-            ['applicant/application_post/common/tracker', 'applicant/application_post/common/tracker-ajax'], 'App\Http\ViewComposers\ApplicationTrackerComposer'
+            ['applicant/application_post/common/tracker', 'applicant/application_post/common/tracker-ajax'],
+            'App\Http\ViewComposers\ApplicationTrackerComposer'
         );
 
         View::composer(
-            'common/degree', 'App\Http\ViewComposers\DegreeComposer'
+            'common/degree',
+            'App\Http\ViewComposers\DegreeComposer'
         );
 
         View::composer(
-            'common/course', 'App\Http\ViewComposers\CourseComposer'
+            'common/course',
+            'App\Http\ViewComposers\CourseComposer'
         );
 
         View::composer(
-            'common/work', 'App\Http\ViewComposers\WorkExperienceComposer'
+            'common/work',
+            'App\Http\ViewComposers\WorkExperienceComposer'
+        );
+
+        View::composer(
+            'manager/notification',
+            'App\Http\ViewComposers\DemoNotificationComposer'
         );
     }
 

@@ -43,7 +43,6 @@ class ManagerApiControllerTest extends TestCase
             'en' => [
                 'about_me' => $this->faker->paragraph(),
                 'greatest_accomplishment' => $this->faker->paragraph(),
-                'branch' => $this->faker->paragraph(),
                 'division' => $this->faker->word(),
                 'position' => $this->faker->word(),
                 'leadership_style' => $this->faker->paragraph(),
@@ -56,7 +55,6 @@ class ManagerApiControllerTest extends TestCase
             'fr' => [
                 'about_me' => $this->faker->paragraph(),
                 'greatest_accomplishment' => $this->faker->paragraph(),
-                'branch' => $this->faker->paragraph(),
                 'division' => $this->faker->word(),
                 'position' => $this->faker->word(),
                 'leadership_style' => $this->faker->paragraph(),
@@ -87,6 +85,20 @@ class ManagerApiControllerTest extends TestCase
         $response->assertJsonFragment($manager->toApiArray());
     }
 
+    public function testCurrentManagerAsGuest()
+    {
+        $response = $this->json('get', 'api/currentuser/manager');
+        $response->assertUnauthorized();
+    }
+
+    public function testCurrentManagerAsManager()
+    {
+        $manager = factory(Manager::class)->create();
+        $response = $this->actingAs($manager->user)->json('get', 'api/currentuser/manager');
+        $response->assertOk();
+        $response->assertJsonFragment($manager->fresh()->toApiArray());
+    }
+
     public function testUpdateAsManager()
     {
         $manager = factory(Manager::class)->create();
@@ -110,7 +122,7 @@ class ManagerApiControllerTest extends TestCase
     public function testUpdateAsWrongManager()
     {
         $manager = factory(Manager::class)->create();
-        $otherManager = factory(User::class)->state('manager')->create();
+        $otherManager = factory(User::class)->create();
         $managerUpdate = $this->generateFrontendManager();
         $response = $this->actingAs($otherManager)
             ->json('put', "api/managers/$manager->id", $managerUpdate);
@@ -129,16 +141,19 @@ class ManagerApiControllerTest extends TestCase
 
     public function testGetManagerIncludesUserName()
     {
-        $name = 'Test Name 1';
+        $first_name = 'Test';
+        $last_name = 'Name 1';
         $manager = factory(Manager::class)->create();
         $user = $manager->user;
-        $user->name = $name;
+        $user->first_name = $first_name;
+        $user->last_name = $last_name;
         $user->save();
 
         $applicantUser = factory(User::class)->state('applicant')->create();
         $response = $this->actingAs($applicantUser)->json('get', "api/managers/$manager->id");
         $response->assertOk();
 
-        $response->assertJsonFragment(['name' => $name]);
+        $response->assertJsonFragment(['first_name' => $first_name]);
+        $response->assertJsonFragment(['last_name' => $last_name]);
     }
 }

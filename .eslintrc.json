@@ -44,6 +44,7 @@
         "extensions": [".jsx", ".tsx"]
       }
     ],
+    "react/jsx-props-no-spreading": "off",
     "jsx-a11y/label-has-for": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
@@ -61,7 +62,7 @@
     },
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".test.ts", ".test.tsx"]
       }
     }
   }

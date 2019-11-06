@@ -1,0 +1,14 @@
+{% extends "auth/register" %}
+
+{% block extra_fields %}
+    {% include "auth/manager_registration_fields" with {"copy":register} %}
+{% endblock %}
+
+{% block scripts %}
+
+    {# This script hides/shows the gov_email field depending on department selection. #}
+    <script async defer
+        src="{{ mix('/js/managerRegistration.js') }}">
+    </script>
+
+{% endblock %}

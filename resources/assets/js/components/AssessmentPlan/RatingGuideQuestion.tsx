@@ -147,10 +147,8 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps): any => ({
         dispatch(deleteRatingGuideQuestion(ratingGuideQuestionId));
       },
 });
-// @ts-ignore
-const RatingGuideQuestionContainer: React.FunctionComponent<
-  RatingGuideQuestionContainerProps
-> = connect(
+
+const RatingGuideQuestionContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(RatingGuideQuestion);

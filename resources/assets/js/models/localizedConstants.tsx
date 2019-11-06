@@ -1,4 +1,4 @@
-import { defineMessages, FormattedMessage } from "react-intl";
+import { defineMessages, MessageDescriptor } from "react-intl";
 import {
   AssessmentTypeId,
   AssessmentTypeIdValues,
@@ -19,14 +19,14 @@ import {
 import { getOrThrowError } from "../helpers/queries";
 
 interface SkillLevel {
-  hardBasic: FormattedMessage.MessageDescriptor;
-  hardIntermediate: FormattedMessage.MessageDescriptor;
-  hardAdvanced: FormattedMessage.MessageDescriptor;
-  hardExpert: FormattedMessage.MessageDescriptor;
-  softBasic: FormattedMessage.MessageDescriptor;
-  softIntermediate: FormattedMessage.MessageDescriptor;
-  softAdvanced: FormattedMessage.MessageDescriptor;
-  softExpert: FormattedMessage.MessageDescriptor;
+  hardBasic: MessageDescriptor;
+  hardIntermediate: MessageDescriptor;
+  hardAdvanced: MessageDescriptor;
+  hardExpert: MessageDescriptor;
+  softBasic: MessageDescriptor;
+  softIntermediate: MessageDescriptor;
+  softAdvanced: MessageDescriptor;
+  softExpert: MessageDescriptor;
 }
 
 const skillLevelDescriptions = defineMessages({
@@ -39,13 +39,13 @@ const skillLevelDescriptions = defineMessages({
   hardIntermediate: {
     id: "skillLevel.hard.intermediate.description",
     defaultMessage:
-      "You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision.The approach to the tasks, and how they are delivered, is determined by the supervisor.You contribute input and advice.You are able to advance the task, even in the face of small to moderate hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision. This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers.",
+      "You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision. The approach to the tasks, and how they are delivered, is determined by the supervisor. You contribute input and advice. You are able to advance the task, even in the face of small to moderate hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision. This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers.",
     description: "Description of intermediate skill level.",
   },
   hardAdvanced: {
     id: "skillLevel.hard.advanced.description",
     defaultMessage:
-      "You have the ability to accomplish tasks of significant complexity or impact with supervision.You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor’s consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels. This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers.",
+      "You have the ability to accomplish tasks of significant complexity or impact with supervision. You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor’s consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels. This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers.",
     description: "Description of advanced hard skill level.",
   },
   hardExpert: {
@@ -138,7 +138,7 @@ const skillLevelL10n = (
   skillLevelId: number,
   skillTypeId: number,
   l10nObj: SkillLevel,
-): FormattedMessage.MessageDescriptor => {
+): MessageDescriptor => {
   if (!SkillLevelIdValues.includes(skillLevelId)) {
     throw new Error("invalid SkillLevelIdValue");
   }
@@ -168,13 +168,13 @@ const skillLevelL10n = (
 export const skillLevelDescription = (
   skillLevelId: number,
   skillTypeId: number,
-): FormattedMessage.MessageDescriptor =>
+): MessageDescriptor =>
   skillLevelL10n(skillLevelId, skillTypeId, skillLevelDescriptions);
 
 export const skillLevelName = (
   skillLevelId: number,
   skillTypeId: number,
-): FormattedMessage.MessageDescriptor =>
+): MessageDescriptor =>
   skillLevelL10n(skillLevelId, skillTypeId, skillLevelNames);
 
 const assessmentTypes = defineMessages({
@@ -235,14 +235,11 @@ const assessmentTypes = defineMessages({
   },
 });
 
-export const assetSkillName = (): FormattedMessage.MessageDescriptor =>
-  skillLevelNames.asset;
-export const assetSkillDescription = (): FormattedMessage.MessageDescriptor =>
+export const assetSkillName = (): MessageDescriptor => skillLevelNames.asset;
+export const assetSkillDescription = (): MessageDescriptor =>
   skillLevelDescriptions.asset;
 
-export const assessmentType = (
-  assessmentTypeId: number,
-): FormattedMessage.MessageDescriptor => {
+export const assessmentType = (assessmentTypeId: number): MessageDescriptor => {
   if (!AssessmentTypeIdValues.includes(assessmentTypeId)) {
     throw new Error("invalid AssessmentTypeValue");
   }
@@ -276,9 +273,7 @@ const criteriaTypes = defineMessages({
   },
 });
 
-export const criteriaType = (
-  criteriaTypeId: number,
-): FormattedMessage.MessageDescriptor => {
+export const criteriaType = (criteriaTypeId: number): MessageDescriptor => {
   if (!CriteriaTypeIdValues.includes(criteriaTypeId)) {
     throw new Error("invalid CriteriaTypeValue");
   }
@@ -370,7 +365,7 @@ const assessmentTypeDescriptions = defineMessages({
 
 export const assessmentTypeDescription = (
   assessmentTypeId: number,
-): FormattedMessage.MessageDescriptor => {
+): MessageDescriptor => {
   if (!AssessmentTypeIdValues.includes(assessmentTypeId)) {
     throw new Error("invalid AssessmentTypeValue");
   }
@@ -466,9 +461,7 @@ const provinceNames = defineMessages({
   },
 });
 
-export const provinceName = (
-  provinceId: number,
-): FormattedMessage.MessageDescriptor =>
+export const provinceName = (provinceId: number): MessageDescriptor =>
   getOrThrowError(provinceNames, provinceId, "invalid ProvinceId");
 
 const provinceAbreviations = defineMessages({
@@ -526,9 +519,7 @@ const provinceAbreviations = defineMessages({
   },
 });
 
-export const provinceAbreviation = (
-  provinceId: number,
-): FormattedMessage.MessageDescriptor =>
+export const provinceAbreviation = (provinceId: number): MessageDescriptor =>
   getOrThrowError(provinceAbreviations, provinceId, "invalid ProvinceId");
 
 const securityClearances = defineMessages({
@@ -548,7 +539,7 @@ const securityClearances = defineMessages({
 
 export const securityClearance = (
   securityClearanceId: number,
-): FormattedMessage.MessageDescriptor =>
+): MessageDescriptor =>
   getOrThrowError(
     securityClearances,
     securityClearanceId,
@@ -580,7 +571,7 @@ const languageRequirements = defineMessages({
 
 export const languageRequirement = (
   languageRequirementId: number,
-): FormattedMessage.MessageDescriptor =>
+): MessageDescriptor =>
   getOrThrowError(
     languageRequirements,
     languageRequirementId,
@@ -619,7 +610,7 @@ const languageRequirementDescriptions = defineMessages({
 
 export const languageRequirementDescription = (
   languageRequirementId: number,
-): FormattedMessage.MessageDescriptor =>
+): MessageDescriptor =>
   getOrThrowError(
     languageRequirementDescriptions,
     languageRequirementId,
@@ -641,7 +632,7 @@ const languageRequirementContexts = defineMessages({
 
 export const languageRequirementContext = (
   languageRequirementId: number,
-): FormattedMessage.MessageDescriptor => {
+): MessageDescriptor => {
   switch (languageRequirementId) {
     case LanguageRequirementId.bilingualIntermediate:
     case LanguageRequirementId.bilingualAdvanced:
@@ -702,66 +693,62 @@ const departments = defineMessages({
   },
 });
 
-export const departmentName = (
-  departmentId: number,
-): FormattedMessage.MessageDescriptor =>
+export const departmentName = (departmentId: number): MessageDescriptor =>
   getOrThrowError(departments, departmentId, "invalid DepartmentId");
 
-export const narrativeReviewStandardQuestion = (): FormattedMessage.MessageDescriptor =>
+export const narrativeReviewStandardQuestion = (): MessageDescriptor =>
   standardAssessmentText.narrativeReviewQuestion;
 
-export const narrativeReviewStandardAnswer = (): FormattedMessage.MessageDescriptor =>
+export const narrativeReviewStandardAnswer = (): MessageDescriptor =>
   standardAssessmentText.narrativeReviewAnswer;
 
 const frequencyMessages = defineMessages({
   [FrequencyId.always]: {
-    id: "jobDetails.frequencyAlwaysLabel",
+    id: "jobBuilder.details.frequencyAlwaysLabel",
     defaultMessage: "Almost Always",
     description: "The form label displayed on 'always' frequency options.",
   },
   [FrequencyId.often]: {
-    id: "jobDetails.frequencyFrequentlyLabel",
+    id: "jobBuilder.details.frequencyFrequentlyLabel",
     defaultMessage: "Frequently",
     description: "The form label displayed on 'frequently' frequency options.",
   },
   [FrequencyId.sometimes]: {
-    id: "jobDetails.frequencySometimesLabel",
+    id: "jobBuilder.details.frequencySometimesLabel",
     defaultMessage: "Sometimes",
     description: "The form label displayed on 'sometimes' frequency options.",
   },
   [FrequencyId.rarely]: {
-    id: "jobDetails.frequencyOccasionallyLabel",
+    id: "jobBuilder.details.frequencyOccasionallyLabel",
     defaultMessage: "Occasionally",
     description:
       "The form label displayed on 'occasionally' frequency options.",
   },
   [FrequencyId.never]: {
-    id: "jobDetails.frequencyNeverLabel",
+    id: "jobBuilder.details.frequencyNeverLabel",
     defaultMessage: "Almost Never",
     description: "The form label displayed on 'never' frequency options.",
   },
 });
 
-export const frequencyName = (
-  frequencyId: number,
-): FormattedMessage.MessageDescriptor =>
+export const frequencyName = (frequencyId: number): MessageDescriptor =>
   getOrThrowError(frequencyMessages, frequencyId, "invalid FrequencyId");
 
 const overtimeRequirmentDescriptions = defineMessages({
   [OvertimeRequirementId.frequently]: {
-    id: "jobDetails.overtimeFrequentlyLabel",
+    id: "jobBuilder.details.overtimeFrequentlyLabel",
     defaultMessage: "Yes, overtime is frequently required for the position.",
     description: "The form label displayed on 'frequently' overtime options",
   },
   [OvertimeRequirementId.available]: {
-    id: "jobDetails.overtimeOpportunitiesAvailableLabel",
+    id: "jobBuilder.details.overtimeOpportunitiesAvailableLabel",
     defaultMessage:
       "Yes, overtime opportunities are available for those that are interested.",
     description:
       "The form label displayed on 'overtime opportunities available' overtime options",
   },
   [OvertimeRequirementId.none]: {
-    id: "jobDetails.overtimeNoneRequiredLabel",
+    id: "jobBuilder.details.overtimeNoneRequiredLabel",
     defaultMessage: "No, overtime is not required for the position.",
     description:
       "The form label displayed on 'no overtime required' overtime options",
@@ -770,7 +757,7 @@ const overtimeRequirmentDescriptions = defineMessages({
 
 export const overtimeRequirementDescription = (
   overtimeRequirementId: number,
-): FormattedMessage.MessageDescriptor =>
+): MessageDescriptor =>
   getOrThrowError(
     overtimeRequirmentDescriptions,
     overtimeRequirementId,
@@ -779,19 +766,19 @@ export const overtimeRequirementDescription = (
 
 const travelRequirementDescriptions = defineMessages({
   [TravelRequirementId.frequently]: {
-    id: "jobDetails.travelFrequentlyLabel",
+    id: "jobBuilder.details.travelFrequentlyLabel",
     defaultMessage: "Yes, travel is frequently required for the position.",
     description: "The form label displayed on 'frequently' travel options",
   },
   [TravelRequirementId.available]: {
-    id: "jobDetails.travelOpportunitiesAvailableLabel",
+    id: "jobBuilder.details.travelOpportunitiesAvailableLabel",
     defaultMessage:
       "Yes, travel opportunities are available for those that are interested.",
     description:
       "The form label displayed on 'travel opportunities available' travel options",
   },
   [TravelRequirementId.none]: {
-    id: "jobDetails.travelNoneRequiredLabel",
+    id: "jobBuilder.details.travelNoneRequiredLabel",
     defaultMessage: "No, travel is not required for the position.",
     description:
       "The form label displayed on 'no travel required' travel options",
@@ -800,7 +787,7 @@ const travelRequirementDescriptions = defineMessages({
 
 export const travelRequirementDescription = (
   travelRequirementId: number,
-): FormattedMessage.MessageDescriptor =>
+): MessageDescriptor =>
   getOrThrowError(
     travelRequirementDescriptions,
     travelRequirementId,

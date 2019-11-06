@@ -22,6 +22,7 @@ use App\Services\Validation\ApplicationValidator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\Lookup\ReviewStatus;
+use Facades\App\Services\WhichPortal;
 
 class ApplicationByJobController extends Controller
 {
@@ -271,6 +272,7 @@ class ApplicationByJobController extends Controller
                 // Applicant Data.
                 'applicant' => $applicant,
                 'job_application' => $application,
+                'is_manager_view' => WhichPortal::isManagerPortal(),
             ]
         );
     }

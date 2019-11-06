@@ -27,22 +27,26 @@ $factory->define(User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'name' => $faker->name(),
+        'first_name' => $faker->firstName(),
+        'last_name' => $faker->lastName(),
         'email' => $faker->unique()->safeEmail(),
         'password' => $password ? : $password = Hash::make('password'),
         'is_confirmed' => 1,
-        'user_role_id' => UserRole::inRandomOrder()->first()->id,
+        'user_role_id' => UserRole::where('name', 'basic')->first()->id, // Users should default to basic user role.
         'remember_token' => str_random(10),
         'is_priority' => $faker->boolean(10), // 10% chance of true
     ];
 });
 
-$factory->state(User::class, 'manager', [
-    'user_role_id' => UserRole::where('name', 'manager')->first()->id
-]);
+$factory->state(User::class, 'upgradedManager', function (Faker\Generator $faker) {
+    return [
+        'user_role_id' => UserRole::where('name', 'upgradedManager')->first()->id,
+        'gov_email' => $faker->unique()->safeEmail(),
+    ];
+});
 
 $factory->state(User::class, 'applicant', [
-    'user_role_id' => UserRole::where('name', 'applicant')->first()->id
+    'user_role_id' => UserRole::where('name', 'basic')->first()->id
 ]);
 
 $factory->state(User::class, 'admin', [
@@ -56,7 +60,7 @@ $factory->state(User::class, 'priority', [
 $factory->define(Applicant::class, function (Faker\Generator $faker) {
     return [
         'twitter_username' => $faker->firstName(),
-        'linkedin_url' => $faker->url(),
+        'linkedin_url' => null,
         'tagline' => $faker->paragraph(),
         'personal_website' => $faker->url(),
         'is_snapshot' => false,
@@ -69,7 +73,7 @@ $factory->define(Applicant::class, function (Faker\Generator $faker) {
 $factory->define(Manager::class, function (Faker\Generator $faker) use ($faker_fr) {
     return [
         'twitter_username' => $faker->firstName(),
-        'linkedin_url' => $faker->url(),
+        'linkedin_url' => null,
         'department_id' => Department::inRandomOrder()->first()->id,
         'work_review_frequency_id' => Frequency::inRandomOrder()->first()->id,
         'stay_late_frequency_id' => Frequency::inRandomOrder()->first()->id,
@@ -77,12 +81,13 @@ $factory->define(Manager::class, function (Faker\Generator $faker) use ($faker_f
         'development_opportunity_frequency_id' => Frequency::inRandomOrder()->first()->id,
         'refuse_low_value_work_frequency_id' => Frequency::inRandomOrder()->first()->id,
         'years_experience' => $faker->numberBetween(2, 25),
-        'user_id' => function () {
-            return factory(User::class)->states('manager')->create()->id;
+        'user_id' => function () use ($faker) {
+            return factory(User::class)->create([
+                'gov_email' => $faker->unique()->safeEmail(),
+            ])->id;
         },
         'about_me:en' => $faker->paragraphs(3, true),
         'greatest_accomplishment:en' => $faker->paragraphs(3, true),
-        'branch:en' => $faker->word(),
         'division:en' => $faker->word(),
         'position:en' => $faker->word(),
         'leadership_style:en' => $faker->paragraphs(2, true),
@@ -93,7 +98,6 @@ $factory->define(Manager::class, function (Faker\Generator $faker) use ($faker_f
         'education:en' => $faker->paragraphs(3, true),
         'about_me:fr' => $faker_fr->paragraphs(3, true),
         'greatest_accomplishment:fr' => $faker_fr->paragraphs(3, true),
-        'branch:fr' => $faker_fr->word(),
         'division:fr' => $faker_fr->word(),
         'position:fr' => $faker_fr->word(),
         'leadership_style:fr' => $faker_fr->paragraphs(2, true),
@@ -104,6 +108,12 @@ $factory->define(Manager::class, function (Faker\Generator $faker) use ($faker_f
         'education:fr' => $faker_fr->paragraphs(3, true),
     ];
 });
+
+$factory->state(Manager::class, 'upgraded', [
+    'user_id' => function () {
+        return factory(User::class)->state('upgradedManager')->create()->id;
+    },
+]);
 
 $factory->afterCreating(Manager::class, function ($manager) : void {
     $manager->team_culture()->save(factory(TeamCulture::class)->create([

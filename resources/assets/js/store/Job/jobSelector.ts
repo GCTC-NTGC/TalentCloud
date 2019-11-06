@@ -26,6 +26,14 @@ const getTaskState = (
   state: RootState,
 ): { [jobId: number]: JobPosterKeyTask[] } => entities(state).tasks.byJobId;
 
+const getCriteriaForJobUpdatingState = (
+  state: RootState,
+): { [id: number]: boolean } => ui(state).criteriaUpdatingByJob;
+
+const getTasksForJobUpdatingState = (
+  state: RootState,
+): { [id: number]: boolean } => ui(state).tasksUpdatingByJob;
+
 export const getJob = createCachedSelector(
   getJobState,
   (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
@@ -99,6 +107,22 @@ export const getCriteriaIdsByJob = createCachedSelector(
   getCriteriaByJob,
   (criteria): number[] => criteria.map(getId),
 )((state, ownProps): number => ownProps.jobId);
+
+export const getCriteriaForJobIsUpdating = (
+  state: RootState,
+  id: number,
+): boolean => {
+  const updating = getCriteriaForJobUpdatingState(state);
+  return hasKey(updating, id) ? updating[id] : false;
+};
+
+export const getTasksForJobIsUpdating = (
+  state: RootState,
+  id: number,
+): boolean => {
+  const updating = getTasksForJobUpdatingState(state);
+  return hasKey(updating, id) ? updating[id] : false;
+};
 
 export const getTasksByJob = createCachedSelector(
   getTaskState,

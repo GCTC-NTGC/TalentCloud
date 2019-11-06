@@ -4,7 +4,6 @@ import difference from "lodash/difference";
 import intersection from "lodash/intersection";
 import { createSelector } from "reselect";
 import {
-  getCriteriaById,
   getCriteriaIdsByJob,
   getCriteriaState,
   getCriteria,
@@ -61,9 +60,8 @@ export const getCriteriaByJobAndAssessmentType = createCachedSelector(
   getCriteriaState,
   (criteriaIds: number[], criteriaState): Criteria[] =>
     criteriaIds
-      .map(
-        (id: number): Criteria | null =>
-          hasKey(criteriaState, id) ? criteriaState[id] : null,
+      .map((id: number): Criteria | null =>
+        hasKey(criteriaState, id) ? criteriaState[id] : null,
       )
       .filter(notEmpty),
 )(
@@ -141,11 +139,10 @@ export const getCriteriaUnansweredForQuestion = createCachedSelector(
 
     // All the criteria this question may test -
     const assessmentCriteria: Criteria[] = questionTypeAssessments
-      .map(
-        (assessment): Criteria | null =>
-          hasKey(criteriaState, assessment.criterion_id)
-            ? criteriaState[assessment.criterion_id]
-            : null,
+      .map((assessment): Criteria | null =>
+        hasKey(criteriaState, assessment.criterion_id)
+          ? criteriaState[assessment.criterion_id]
+          : null,
       )
       .filter(notEmpty)
       .filter(
@@ -188,9 +185,8 @@ export const getCriteriaUnansweredForAssessmentType = createCachedSelector(
   getCriteriaState,
   (criteriaIds: number[], criteriaState): Criteria[] =>
     criteriaIds
-      .map(
-        (id: number): Criteria | null =>
-          hasKey(criteriaState, id) ? criteriaState[id] : null,
+      .map((id: number): Criteria | null =>
+        hasKey(criteriaState, id) ? criteriaState[id] : null,
       )
       .filter(notEmpty),
 )(
@@ -202,12 +198,9 @@ export const getCriteriaToSkills = createSelector(
   getSkillState,
   getCriteria,
   (skillState, criteria): { [criteriaId: number]: Skill | null } =>
-    mapToObjectTrans(
-      criteria,
-      getId,
-      (criterion): Skill | null =>
-        hasKey(skillState, criterion.skill_id)
-          ? skillState[criterion.skill_id]
-          : null,
+    mapToObjectTrans(criteria, getId, (criterion): Skill | null =>
+      hasKey(skillState, criterion.skill_id)
+        ? skillState[criterion.skill_id]
+        : null,
     ),
 );

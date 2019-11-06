@@ -13,9 +13,10 @@
     padding: 3rem;
 
     i {
-        color: $palette--blue;
+        // color: $palette--blue;
+        color: white;
         font-size: $font-scale--h1;
-        text-align: center;
+        text-align: left;
         width: 100%;
     }
 
@@ -25,7 +26,7 @@
     color: $palette--font-white;
     font-family: $font--sans;
     font-size: $font-scale--h3;
-    margin: 0 0 2rem 0;
+    margin: 0 0 3rem 0;
 }
 
 .job-post__apply-content,
@@ -35,10 +36,23 @@
     font-family: $font--sans;
     font-size: $font-scale--regular;
     line-height: 1.5;
+
+}
+
+.job-post__apply-content-preference {
+    margin: 1rem 0 0 0;
+
+    @media #{$p-tablet} {
+        margin: 0;
+    }
 }
 
 .job-post__apply-content {
-    margin: 0 0 3rem 0;
+    margin: 1rem 0 3rem 0;
+
+    @media #{$p-tablet} {
+        margin: 0 0 3rem 0;
+    }
 }
 
 .job-post__apply-content-preference:not(:last-child) {
@@ -46,7 +60,7 @@
 }
 
 .job-post__apply-button {
-    background: $palette--blue;
+    background: $clone-c1;
     border-radius: 0 0 3px 3px;
     color: $palette--font-white;
     display: block;

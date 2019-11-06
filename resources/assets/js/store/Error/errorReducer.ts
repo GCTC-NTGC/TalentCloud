@@ -6,6 +6,7 @@ export interface ErrorEntity {
   type: string;
   name: string;
   message: string;
+  error: Error;
 }
 
 export interface ErrorState {
@@ -27,6 +28,7 @@ const errorReducer = (state = initState(), action: AppAction): ErrorState => {
           type: errorAction.type,
           name: errorAction.payload.name,
           message: errorAction.payload.message,
+          error: errorAction.payload,
         },
       ],
     };

@@ -24,11 +24,14 @@ use App\CRUD\TalentCloudCrudTrait as CrudTrait;
  *
  * @property int $id
  * @property string $email
- * @property string $name
+ * @property string $first_name
+ * @property string $last_name
  * @property string $password
  * @property boolean $is_confirmed
  * @property boolean $is_priority
  * @property int $user_role_id
+ * @property string $gov_email
+ * @property boolean $not_in_gov
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -48,7 +51,8 @@ class User extends BaseModel implements
 {
 
     // Traits for Laravel basic authentication.
-    use Authenticatable, CanResetPassword;
+    use Authenticatable;
+    use CanResetPassword;
     // Trait for working with Gates and Policies.
     use Authorizable;
     // Trait for notifications.
@@ -61,10 +65,12 @@ class User extends BaseModel implements
         'is_priority' => 'boolean',
         'user_role_id' => 'int',
         'email' => 'string',
+        'gov_email' => 'string',
+        'not_in_gov' => 'boolean',
     ];
 
     protected $fillable = [
-        'name', 'email', 'password', 'is_priority'
+        'first_name', 'last_name', 'email', 'password', 'is_priority', 'gov_email', 'not_in_gov'
     ];
 
     protected $with = ['user_role'];
@@ -103,40 +109,97 @@ class User extends BaseModel implements
         return $this->belongsTo(\App\Models\UserRole::class);
     }
 
-    // Role related functions
-
-    /**
-    * Abort with an HTTP error if user doesn't have correct roles
-    * @param string|array $roles
-    */
-    public function authorizeRoles($roles)
+    public function setIsPriorityAttribute($value)
     {
-        if (is_array($roles)) {
-            return $this->hasAnyRole($roles) ||
-                 abort(401, 'This action is unauthorized.');
+        if ($value === null) {
+            $value = false;
         }
-        return $this->hasRole($roles) ||
-             abort(401, 'This action is unauthorized.');
+        $this->attributes['is_priority'] = $value;
     }
 
+    // Role related functions.
+
     /**
-    * Check multiple roles
-    * @param array $roles
-    */
-    public function hasAnyRole($roles)
+     * Returns true if this user has the Applicant role.
+     *
+     * @return boolean
+     */
+    public function isApplicant(): bool
     {
-        return in_array($this->user_role->name, $roles);
-        // return null !== $this->roles()->whereIn(‘name’, $roles)->first();
+        // Currently, every user can create an Applicant profile and apply to jobs.
+        return true;
     }
 
     /**
-    * Check one role
-    * @param string $role
+     * Returns true if this user has the upgradedManager role.
+     *
+     * @return boolean
+     */
+    public function isUpgradedManager(): bool
+    {
+        return $this->isAdmin() || $this->user_role->name === 'upgradedManager';
+    }
+
+    /**
+     * Returns true this user has the demoManager role.
+     *
+     * @return boolean
+     */
+    public function isDemoManager(): bool
+    {
+        // Currently, every non-upgradedManager user can be considered a demoManager.
+        return !$this->isUpgradedManager();
+    }
+
+    /**
+     * Returns true if this user has the demoManager or upgradedManager role.
+     *
+     * @return boolean
+     */
+    public function isManager(): bool
+    {
+        // Currently, every user can use the Manager portal as a demoManager.
+        return $this->isDemoManager() || $this->isUpgradedManager();
+    }
+
+    /**
+     * Returns true if this user has the Admin role.
+     *
+     * @return boolean
+     */
+    public function isAdmin(): bool
+    {
+        return $this->user_role->name === 'admin';
+    }
+
+    /**
+    * Check if the user has the specified role.
+    * @param string $role This may be either 'applicant', 'manager' or 'admin'.
+    * @return boolean
     */
     public function hasRole($role)
     {
-        return $this->user_role->name == $role;
-        // return null !== $this->roles()->where(‘name’, $role)->first();
+        switch ($role) {
+            case 'applicant':
+                return $this->isApplicant();
+            case 'manager':
+                return $this->isManager();
+            case 'admin':
+                return $this->isAdmin();
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * Set this user to the specified role.
+     *
+     * @param string $role Must be either 'applicant', 'manager' or 'admin.
+    * @return void
+    */
+    public function setRole(string $role): void
+    {
+        $this->user_role()->associate(UserRole::where('name', $role)->firstOrFail());
     }
 
     /**
@@ -147,8 +210,30 @@ class User extends BaseModel implements
      *
      * @return void
      */
-    public function sendPasswordResetNotification($token)
+    public function sendPasswordResetNotification($token): void
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    /**
+     * Gov identity has been confirmed either if:
+     *  - they have confirmed to NOT be in government,
+     *  - OR they've added a gov email.
+     *
+     * @return boolean
+     */
+    public function isGovIdentityConfirmed(): bool
+    {
+        return $this->not_in_gov || !empty($this->gov_email);
+    }
+
+    /**
+     * Returns a user's full name.
+     *
+     * @return string
+    */
+    public function getFullNameAttribute(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 }

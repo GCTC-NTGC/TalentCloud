@@ -1,1 +1,4 @@
-<a href="{{ route('admin.jobs.create.as_manager', $entry->id) }} " class="btn btn-xs btn-default"><i class="fa fa-edit"></i>Create Job Poster</a>
+<form action="{{ route('admin.jobs.create_as_manager', $entry->id) }}" method="POST">
+     @csrf
+    <button class="btn btn-sm btn-link" type="submit"><i class="fa fa-edit"></i>Create Job Poster</button>
+</form>

@@ -1,7 +1,7 @@
 import React from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
@@ -121,10 +121,12 @@ interface ApplicationReviewWithNavState {
 }
 
 class ApplicationReviewWithNav extends React.Component<
-  ApplicationReviewWithNavProps & InjectedIntlProps,
+  ApplicationReviewWithNavProps & WrappedComponentProps,
   ApplicationReviewWithNavState
 > {
-  public constructor(props: ApplicationReviewWithNavProps & InjectedIntlProps) {
+  public constructor(
+    props: ApplicationReviewWithNavProps & WrappedComponentProps,
+  ) {
     super(props);
     this.state = {
       selectedStatusId:
@@ -187,7 +189,7 @@ class ApplicationReviewWithNav extends React.Component<
           : intl.formatMessage(messages.screenInConfirm);
       return Swal.fire({
         title: confirmText,
-        type: "question",
+        icon: "question",
         showCancelButton: true,
         confirmButtonColor: "#0A6CBC",
         cancelButtonColor: "#F94D4D",
@@ -211,7 +213,7 @@ class ApplicationReviewWithNav extends React.Component<
         : "";
     Swal.fire({
       title: intl.formatMessage(messages.editNote),
-      type: "question",
+      icon: "question",
       input: "textarea",
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
@@ -361,7 +363,10 @@ class ApplicationReviewWithNav extends React.Component<
             </div>
 
             <div className="box lg-2of11 applicant-information">
-              <span className="name">{application.applicant.user.name}</span>
+              <span className="name">
+                {application.applicant.user.first_name}{" "}
+                {application.applicant.user.last_name}
+              </span>
               <a
                 href={`mailto: ${application.applicant.user.email}`}
                 title={intl.formatMessage(messages.emailCandidate)}

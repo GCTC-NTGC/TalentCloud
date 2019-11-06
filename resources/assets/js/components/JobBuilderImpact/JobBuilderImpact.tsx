@@ -2,12 +2,13 @@
 import React, { useState, useRef } from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
-import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { Formik, Form, Field } from "formik";
+import nprogress from "nprogress";
 import { Job, Department } from "../../models/types";
 import { emptyJob } from "../../models/jobUtil";
 import JobImpactPreview from "./JobImpactPreview";
@@ -36,7 +37,7 @@ interface JobBuilderImpactProps {
   handleSkipToReview: () => Promise<void>;
 }
 
-interface JobImpactValues {
+interface ImpactFormValues {
   teamImpact: string;
   hireImpact: string;
 }
@@ -67,7 +68,7 @@ const messages = defineMessages({
 const updateJobWithValues = (
   initialJob: Job,
   locale: "en" | "fr",
-  { teamImpact, hireImpact }: JobImpactValues,
+  { teamImpact, hireImpact }: ImpactFormValues,
   deptImpacts: { en: string; fr: string },
 ): Job => ({
   ...initialJob,
@@ -152,7 +153,7 @@ const deptImpactStatement = (
 };
 
 const JobBuilderImpact: React.FunctionComponent<
-  JobBuilderImpactProps & InjectedIntlProps
+  JobBuilderImpactProps & WrappedComponentProps
 > = ({
   intl,
   departments,
@@ -171,8 +172,7 @@ const JobBuilderImpact: React.FunctionComponent<
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
-  const [returnOnSubmit, setReturnOnSubmit] = useState(false);
-  const initialValues: JobImpactValues = {
+  const initialValues: ImpactFormValues = {
     teamImpact:
       job && job[intl.locale].team_impact ? job[intl.locale].team_impact : "",
     hireImpact:
@@ -190,6 +190,19 @@ const JobBuilderImpact: React.FunctionComponent<
     departments,
     job,
   );
+
+  const updateValuesAndReturn = (values: ImpactFormValues): void => {
+    // The following only triggers after validations pass
+    nprogress.start();
+    handleSubmit(
+      updateJobWithValues(job || emptyJob(), locale, values, deptImpacts),
+    ).then((isSuccessful: boolean): void => {
+      if (isSuccessful) {
+        nprogress.done();
+        handleReturn();
+      }
+    });
+  };
 
   return (
     <section ref={modalParentRef}>
@@ -241,6 +254,7 @@ const JobBuilderImpact: React.FunctionComponent<
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={(values, actions): void => {
+            nprogress.start();
             // The following only triggers after validations pass
             handleSubmit(
               updateJobWithValues(
@@ -252,26 +266,15 @@ const JobBuilderImpact: React.FunctionComponent<
             )
               .then((isSuccessful: boolean): void => {
                 if (isSuccessful) {
-                  if (returnOnSubmit) {
-                    handleReturn();
-                  } else {
-                    setIsModalVisible(true);
-                  }
+                  nprogress.done();
+                  setIsModalVisible(true);
                 }
               })
-              .finally(
-                // Required by Formik to finish the submission cycle
-                (): void => {
-                  setReturnOnSubmit(false);
-                  actions.setSubmitting(false);
-                },
-              );
+              .finally((): void => {
+                actions.setSubmitting(false); // Required by Formik to finish the submission cycle
+              });
           }}
-          render={({
-            values,
-            isSubmitting,
-            submitForm,
-          }): React.ReactElement => (
+          render={({ values, isSubmitting }): React.ReactElement => (
             <>
               <Form id="form" data-c-grid="gutter">
                 <div data-c-grid-item="base(1of1)" data-c-input="textarea">
@@ -347,15 +350,7 @@ const JobBuilderImpact: React.FunctionComponent<
                       type="button"
                       disabled={isSubmitting}
                       onClick={(): void => {
-                        /** TODO:
-                         * This is a race condition, since the setState hook call is asynchronous.
-                         * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
-                         * For now, the setState always happens faster than the validation check, so it works.
-                         * See https://github.com/jaredpalmer/formik/issues/214
-                         * -- Tristan
-                         */
-                        setReturnOnSubmit(true);
-                        submitForm();
+                        updateValuesAndReturn(values);
                       }}
                     >
                       <FormattedMessage
@@ -413,8 +408,11 @@ const JobBuilderImpact: React.FunctionComponent<
                       data-c-font-size="h4"
                       id={`${modalId}-title`}
                     >
-                      {/* TODO: Localize Title, Description, and Button Text */}
-                      Awesome work!
+                      <FormattedMessage
+                        id="jobBuilder.impact.modalTitle"
+                        defaultMessage="Awesome work!"
+                        description="Title of modal dialog for Impact review."
+                      />
                     </h5>
                   </div>
                 </Modal.Header>
@@ -424,9 +422,15 @@ const JobBuilderImpact: React.FunctionComponent<
                     data-c-padding="normal"
                     id={`${modalId}-description`}
                   >
-                    Here&apos;s a preview of the Impact Statement you just
-                    entered. Feel free to go back and edit things or move to the
-                    next step if you&apos;re happy with it.
+                    <p>
+                      <FormattedMessage
+                        id="jobBuilder.impact.modalDescription"
+                        defaultMessage="Here's a preview of the Impact Statement you just
+                        entered. Feel free to go back and edit things or move to
+                        the next step if you're happy with it."
+                        description="Description of modal dialog for Impact review."
+                      />
+                    </p>
                   </div>
                   <div
                     data-c-background="grey(20)"
@@ -441,13 +445,29 @@ const JobBuilderImpact: React.FunctionComponent<
                   </div>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Modal.FooterCancelBtn>Go Back</Modal.FooterCancelBtn>
+                  <Modal.FooterCancelBtn>
+                    <FormattedMessage
+                      id="jobBuilder.impact.button.goBack"
+                      defaultMessage="Go Back"
+                      description="Label for Go Back button on Impact review modal."
+                    />
+                  </Modal.FooterCancelBtn>
                   {jobIsComplete && (
                     <Modal.FooterMiddleBtn>
-                      Skip to Review
+                      <FormattedMessage
+                        id="jobBuilder.impact.button.skipToReview"
+                        defaultMessage="Skip to Review"
+                        description="Label for Skip to Review button on Impact review modal."
+                      />
                     </Modal.FooterMiddleBtn>
                   )}
-                  <Modal.FooterConfirmBtn>Next Step</Modal.FooterConfirmBtn>
+                  <Modal.FooterConfirmBtn>
+                    <FormattedMessage
+                      id="jobBuilder.impact.button.nextStep"
+                      defaultMessage="Next Step"
+                      description="Label for Next Step button on Impact review modal."
+                    />
+                  </Modal.FooterConfirmBtn>
                 </Modal.Footer>
               </Modal>
             </>

@@ -10,172 +10,83 @@
 {% block title %}{{ reset_password.title }}{% endblock %}
 
 {% block body %}
-
-<section
-    class="auth"
-    style="background-image: url('/images/bg_crowd.jpg');">
-
-    <div
-        class="auth-reset">
-
-        <div
-            class="auth-heading">
-
-            <h1>{{ reset_password.header }}</h1>
-
-        </div>
-
-        <form
-            action="{{ routes.password.request }}"
-            class="form__wrapper"
-            method="POST">
-
-            {{ csrf_field() }}
-
-            <input type="hidden" name="token" value="{{ token }}">
-
-            <div
-                class="auth-content">
-
-                <div
-                    class="auth-scroll-wrapper">
-
-                    <div
-                        class="auth-copy">
-
-                        <div
-                            class="flex-grid">
-
-                            {% if errors.any() %}
-                                <div class="box full">
-                                    <ul class="auth-alert">
-                                        {% for error in errors.all() %}
-                                            <li class="">
-                                                <strong>{{ error }}</strong>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            {% endif %}
-
-                            <div
-                                class="box full">
-
-                                <div
-                                    class="form__input-wrapper--float {% if old('email') %} active {% endif %} {% if email %} active {% endif %}">
-                                    <label
-                                        class="form__label"
-                                        for="email">
-                                        {{ reset_password.email }}
-                                    </label>
-                                    <input
-                                        class="form__input"
-                                        id="email"
-                                        name="email"
-                                        required
-                                        type="email"
-                                        value="{{ old('email') }}" />
-                                </div>
-
-                            </div>
-
-                            <div
-                                class="box full">
-
-                                <p>{{ reset_password.password_copy }}</p>
-
-                            </div>
-
-                            <div
-                                class="box med-1of2">
-
-                                <div
-                                    class="form__input-wrapper--float">
-                                    <label
-                                        class="form__label"
-                                        for="password">
-                                        {{ reset_password.password }}
-                                    </label>
-                                    <input
-                                        class="form__input"
-                                        id="password"
-                                        name="password"
-                                        required
-                                        type="password"
-                                        autocomplete="off" />
-                                </div>
-
-                            </div>
-
-                            <div
-                                class="box med-1of2">
-
-                                <div
-                                    class="form__input-wrapper--float">
-                                    <label
-                                        class="form__label"
-                                        for="password-confirm">
-                                        {{ reset_password.confirm_password }}
-                                    </label>
-                                    <input
-                                        class="form__input"
-                                        id="password-confirm"
-                                        name="password_confirmation"
-                                        required
-                                        type="password"
-                                        autocomplete="off" />
-                                </div>
-
-                            </div>
-
-                        </div>
-
+    {% include "common/goc" %}
+    <div data-clone>
+        <section class="tc-auth" data-c-padding="tb(triple)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
+            <div class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
+                {# Return to the homepage link. #}
+                <a data-c-color="white" href="{{ routes.home }}" title="Return Home">
+                    <i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ reset_password.return }}
+                </a>
+                <div data-c-radius="rounded" data-c-margin="top(normal)">
+                    {# Auth UI Title Area #}
+                    <div class="tc-auth-header gradient-left-right" data-c-padding="all(double)" data-c-align="base(center)">
+                        <h1 data-c-font-size="h2" data-c-color="white">{{ reset_password.header }}</h1>
                     </div>
-
-                </div>
-
-                <div
-                    class="auth-action-wrapper">
-
-                    <div
-                        class="flex-grid">
-
-                        <div
-                            class="box small-1of2">
-
+                    {# Password Form #}
+                    <form action="{{ routes.password.request }}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="token" value="{{ token }}">
+                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
+                            <div data-c-padding="top(normal)">
+                                {% include "errors/form_errors" %}
+                                <div data-c-grid="gutter middle">
+                                    {# Email #}
+                                    <div data-c-grid-item="base(1of1)" data-c-input="email">
+                                        <label for="email">{{ reset_password.email }}</label>
+                                        <span>Required</span>
+                                        <div>
+                                            <input id="email" placeholder="e.g. email@website.com" required
+                                            name="email" type="email" value="{{ old('email') }}" />
+                                        </div>
+                                        <span>This input has an error.</span>
+                                    </div>
+                                    {# Password Requirements #}
+                                    <div data-c-grid-item="base(1of1)">
+                                        <p data-c-margin="bottom(normal)">{{ reset_password.password_copy }}</p>
+                                    </div>
+                                    {# Password #}
+                                    <div data-c-grid-item="base(1of2)" data-c-input="password">
+                                        <label for="password">{{ reset_password.password }}</label>
+                                        <span>Required</span>
+                                        <div>
+                                            <input id="password" required type="password" name="password"
+                                            autocomplete="off" />
+                                            <button type="button">
+                                                <i class="fas fa-eye"></i>
+                                                <i class="fas fa-eye-slash"></i>
+                                            </button>
+                                        </div>
+                                        <span>This input has an error.</span>
+                                    </div>
+                                    {# Password Confirmation #}
+                                    <div data-c-grid-item="base(1of2)" data-c-input="password">
+                                        <label for="password-confirm">{{ reset_password.confirm_password }}</label>
+                                        <span>Required</span>
+                                        <div>
+                                            <input id="password-confirm" required type="password" name="password_confirmation"
+                                            autocomplete="off" />
+                                            <button type="button">
+                                                <i class="fas fa-eye"></i>
+                                                <i class="fas fa-eye-slash"></i>
+                                            </button>
+                                        </div>
+                                        <span>This input has an error.</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                        <div
-                            class="box small-1of2">
-
-                            <button
-                                class="button--blue light-bg"
-                                type="submit">
-                                {{ reset_password.submit }}
-                            </button>
-
+                        {# UI Actions #}
+                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)">
+                            <div data-c-align="base(right)">
+                                <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
+                                    {{ reset_password.submit }}
+                                </button>
+                            </div>
                         </div>
-
-                    </div>
-
+                    </form>
                 </div>
-
             </div>
-
-        </form>
-
+        </section>
     </div>
-
-    <a
-        class="auth-logo"
-        href="/"
-        title="Return to Talent Cloud.">
-        <img
-            alt="The Talent Cloud Logo"
-            class=""
-            src="{{ reset_password.auth_logo }}">
-    </a>
-
-</section>
-
 {% endblock %}

@@ -1,7 +1,7 @@
 import React from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
@@ -42,7 +42,7 @@ export interface JobPreviewProps {
 
 const messages = defineMessages({
   termLength: {
-    id: "jobPreview.termLength",
+    id: "jobBuilder.preview.termLength",
     defaultMessage:
       "{termMonths, plural, =0 {no months} one {# month} other {# months}}",
     description: "Calculated term length in months",
@@ -50,7 +50,7 @@ const messages = defineMessages({
 });
 
 const JobPreview: React.FunctionComponent<
-  JobPreviewProps & InjectedIntlProps
+  JobPreviewProps & WrappedComponentProps
 > = ({
   title,
   city,
@@ -67,7 +67,7 @@ const JobPreview: React.FunctionComponent<
   overtime,
   level,
   intl,
-}: JobPreviewProps & InjectedIntlProps): React.ReactElement => {
+}: JobPreviewProps & WrappedComponentProps): React.ReactElement => {
   return (
     <div
       className="manager-job-card"
@@ -83,7 +83,7 @@ const JobPreview: React.FunctionComponent<
         data-c-padding="bottom(normal)"
       >
         <FormattedMessage
-          id="jobPreview.jobInformation"
+          id="jobBuilder.preview.jobInformation"
           defaultMessage="Job Information"
           description="Section Header for basic information"
         />
@@ -92,7 +92,7 @@ const JobPreview: React.FunctionComponent<
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
-              id="jobPreview.jobTitle"
+              id="jobBuilder.preview.jobTitle"
               defaultMessage="Job Title"
               description="Job Poster Card Information Label"
             />
@@ -103,7 +103,7 @@ const JobPreview: React.FunctionComponent<
           <div data-c-grid-item="tp(1of2)">
             <p data-c-colour="c3" data-c-margin="bottom(quarter)">
               <FormattedMessage
-                id="jobPreview.lengthOfTheTerm"
+                id="jobBuilder.preview.lengthOfTheTerm"
                 defaultMessage="Length of the Term"
                 description="Job Poster Card Information Label"
               />
@@ -118,7 +118,7 @@ const JobPreview: React.FunctionComponent<
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
-              id="jobPreview.securityClearance"
+              id="jobBuilder.preview.securityClearance"
               defaultMessage="Security Clearance"
               description="Job Poster Card Information Label"
             />
@@ -128,7 +128,7 @@ const JobPreview: React.FunctionComponent<
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
-              id="jobPreview.languageProfile"
+              id="jobBuilder.preview.languageProfile"
               defaultMessage="Language Profile"
               description="Job Poster Card Information Label"
             />
@@ -138,7 +138,7 @@ const JobPreview: React.FunctionComponent<
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
-              id="jobPreview.city"
+              id="jobBuilder.preview.city"
               defaultMessage="City"
               description="Job Poster Card Information Label"
             />
@@ -148,7 +148,7 @@ const JobPreview: React.FunctionComponent<
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
-              id="jobPreview.province"
+              id="jobBuilder.preview.province"
               defaultMessage="Province"
               description="Job Poster Card Information Label"
             />
@@ -164,7 +164,7 @@ const JobPreview: React.FunctionComponent<
         data-c-padding="bottom(normal)"
       >
         <FormattedMessage
-          id="jobPreview.classificationEducation"
+          id="jobBuilder.preview.classificationEducation"
           defaultMessage="Classification &amp; Education"
           description="Section Header"
         />
@@ -173,7 +173,7 @@ const JobPreview: React.FunctionComponent<
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
-              id="jobPreview.classification"
+              id="jobBuilder.preview.classification"
               defaultMessage="Classification"
               description="Job Poster Card Information Label"
             />
@@ -183,7 +183,7 @@ const JobPreview: React.FunctionComponent<
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
-              id="jobPreview.level"
+              id="jobBuilder.preview.level"
               defaultMessage="Level"
               description="Job Poster Card Information Label"
             />
@@ -193,7 +193,7 @@ const JobPreview: React.FunctionComponent<
         <div data-c-grid-item="base(1of1)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
-              id="jobPreview.education"
+              id="jobBuilder.preview.education"
               defaultMessage="Education"
               description="Job Poster Card Information Label"
             />
@@ -209,7 +209,7 @@ const JobPreview: React.FunctionComponent<
         data-c-padding="bottom(normal)"
       >
         <FormattedMessage
-          id="jobPreview.workStyles"
+          id="jobBuilder.preview.workStyles"
           defaultMessage="Work Styles"
           description="Section Header"
         />
@@ -218,7 +218,7 @@ const JobPreview: React.FunctionComponent<
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
-              id="jobPreview.remoteWork"
+              id="jobBuilder.preview.remoteWork"
               defaultMessage="Remote Work"
               description="Job Poster Card Information Label"
             />
@@ -228,7 +228,7 @@ const JobPreview: React.FunctionComponent<
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
-              id="jobPreview.telework"
+              id="jobBuilder.preview.telework"
               defaultMessage="Telework"
               description="Job Poster Card Information Label"
             />
@@ -238,7 +238,7 @@ const JobPreview: React.FunctionComponent<
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">
             <FormattedMessage
-              id="jobPreview.flexibleHours"
+              id="jobBuilder.preview.flexibleHours"
               defaultMessage="Flexible Hours"
               description="Job Poster Card Information Label"
             />
@@ -249,7 +249,7 @@ const JobPreview: React.FunctionComponent<
           <div data-c-grid-item="tp(1of2)">
             <p data-c-colour="c3" data-c-margin="bottom(quarter)">
               <FormattedMessage
-                id="jobPreview.travel"
+                id="jobBuilder.preview.travel"
                 defaultMessage="Travel"
                 description="Job Poster Card Information Label"
               />
@@ -261,7 +261,7 @@ const JobPreview: React.FunctionComponent<
           <div data-c-grid-item="tp(1of2)">
             <p data-c-colour="c3" data-c-margin="bottom(quarter)">
               <FormattedMessage
-                id="jobPreview.overtime"
+                id="jobBuilder.preview.overtime"
                 defaultMessage="Overtime"
                 description="Job Poster Card Information Label"
               />

@@ -18,6 +18,8 @@ return [
         'apply_by_label' => 'Apply by',
         'applicants_so_far' => ':count applicant so far|:count applicants so far',
         'reference_id' => 'Reference number: :id',
+        'city' => 'City',
+        'province' => 'Province',
         'remote_work_allowed' => [
             true => 'Remote Work Allowed',
             false => 'Remote Work Not Allowed',
@@ -102,9 +104,9 @@ return [
     ],
     'work_environment' => [
         'view_more_button' => 'View the team’s work environment and culture',
-        'modal_title' => 'Work Environement and Culture',
+        'modal_title' => 'Work Environment and Culture',
         'modal_more_on_env' => 'More About Your Environment',
-        'modal_button' => 'Okay',
+        'modal_button' => 'Close',
         'remote_work_label' => 'Remote Work',
         'remote_work_desc' => 'Work from anywhere, all the time.',
         'remote_work_allowed' => [

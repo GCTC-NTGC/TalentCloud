@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { InjectedIntlProps, injectIntl } from "react-intl";
+import { WrappedComponentProps, injectIntl } from "react-intl";
+import nprogress from "nprogress";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import RootContainer from "../RootContainer";
@@ -48,7 +49,7 @@ interface JobBuilderReviewPageProps {
 }
 
 const JobBuilderReviewPage: React.FunctionComponent<
-  JobBuilderReviewPageProps & InjectedIntlProps
+  JobBuilderReviewPageProps & WrappedComponentProps
 > = ({
   jobId,
   job,
@@ -75,10 +76,12 @@ const JobBuilderReviewPage: React.FunctionComponent<
   const handleReturn = (): void => {
     // Go to Previous page
     navigate(jobBuilderSkills(locale, jobId));
+    nprogress.done();
   };
   const handleContinue = (): void => {
     // Continue to next page
     window.location.href = managerJobIndex(locale);
+    nprogress.start();
   };
   const jobIsComplete =
     job !== null &&

@@ -7,12 +7,12 @@
   {
     "id": "skillLevel.hard.intermediate.description",
     "description": "Description of intermediate skill level.",
-    "defaultMessage": "You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision.The approach to the tasks, and how they are delivered, is determined by the supervisor.You contribute input and advice.You are able to advance the task, even in the face of small to moderate hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision. This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers."
+    "defaultMessage": "You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision. The approach to the tasks, and how they are delivered, is determined by the supervisor. You contribute input and advice. You are able to advance the task, even in the face of small to moderate hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision. This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers."
   },
   {
     "id": "skillLevel.hard.advanced.description",
     "description": "Description of advanced hard skill level.",
-    "defaultMessage": "You have the ability to accomplish tasks of significant complexity or impact with supervision.You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor’s consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels. This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers."
+    "defaultMessage": "You have the ability to accomplish tasks of significant complexity or impact with supervision. You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor’s consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels. This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers."
   },
   {
     "id": "skillLevel.hard.expert.description",
@@ -197,7 +197,7 @@
   {
     "id": "assessmentType.portfolioReview.description",
     "description": "Description of an assessment type, to help a manager understand when to use it.",
-    "defaultMessage": "During the application process, applicants provide access to samples of their work to exhibit their skill level, and back-up their skill claims."
+    "defaultMessage": "During the application process, applicants provide access to samples of their work to exhibit their skill level, and back-up their skill claims. "
   },
   {
     "id": "assessmentType.referenceCheck.description",
@@ -428,57 +428,57 @@
     "defaultMessage": "Deparmtnet of National Defence"
   },
   {
-    "id": "jobDetails.frequencyAlwaysLabel",
+    "id": "jobBuilder.details.frequencyAlwaysLabel",
     "description": "The form label displayed on 'always' frequency options.",
     "defaultMessage": "Almost Always"
   },
   {
-    "id": "jobDetails.frequencyFrequentlyLabel",
+    "id": "jobBuilder.details.frequencyFrequentlyLabel",
     "description": "The form label displayed on 'frequently' frequency options.",
     "defaultMessage": "Frequently"
   },
   {
-    "id": "jobDetails.frequencySometimesLabel",
+    "id": "jobBuilder.details.frequencySometimesLabel",
     "description": "The form label displayed on 'sometimes' frequency options.",
     "defaultMessage": "Sometimes"
   },
   {
-    "id": "jobDetails.frequencyOccasionallyLabel",
+    "id": "jobBuilder.details.frequencyOccasionallyLabel",
     "description": "The form label displayed on 'occasionally' frequency options.",
     "defaultMessage": "Occasionally"
   },
   {
-    "id": "jobDetails.frequencyNeverLabel",
+    "id": "jobBuilder.details.frequencyNeverLabel",
     "description": "The form label displayed on 'never' frequency options.",
     "defaultMessage": "Almost Never"
   },
   {
-    "id": "jobDetails.overtimeFrequentlyLabel",
+    "id": "jobBuilder.details.overtimeFrequentlyLabel",
     "description": "The form label displayed on 'frequently' overtime options",
     "defaultMessage": "Yes, overtime is frequently required for the position."
   },
   {
-    "id": "jobDetails.overtimeOpportunitiesAvailableLabel",
+    "id": "jobBuilder.details.overtimeOpportunitiesAvailableLabel",
     "description": "The form label displayed on 'overtime opportunities available' overtime options",
     "defaultMessage": "Yes, overtime opportunities are available for those that are interested."
   },
   {
-    "id": "jobDetails.overtimeNoneRequiredLabel",
+    "id": "jobBuilder.details.overtimeNoneRequiredLabel",
     "description": "The form label displayed on 'no overtime required' overtime options",
     "defaultMessage": "No, overtime is not required for the position."
   },
   {
-    "id": "jobDetails.travelFrequentlyLabel",
+    "id": "jobBuilder.details.travelFrequentlyLabel",
     "description": "The form label displayed on 'frequently' travel options",
     "defaultMessage": "Yes, travel is frequently required for the position."
   },
   {
-    "id": "jobDetails.travelOpportunitiesAvailableLabel",
+    "id": "jobBuilder.details.travelOpportunitiesAvailableLabel",
     "description": "The form label displayed on 'travel opportunities available' travel options",
     "defaultMessage": "Yes, travel opportunities are available for those that are interested."
   },
   {
-    "id": "jobDetails.travelNoneRequiredLabel",
+    "id": "jobBuilder.details.travelNoneRequiredLabel",
     "description": "The form label displayed on 'no travel required' travel options",
     "defaultMessage": "No, travel is not required for the position."
   }

@@ -53,6 +53,7 @@ const NumberInput: React.FunctionComponent<NumberInputProps> = ({
       </span>
       <div>
         <input
+          required
           id={id}
           name={name}
           placeholder={placeholder}

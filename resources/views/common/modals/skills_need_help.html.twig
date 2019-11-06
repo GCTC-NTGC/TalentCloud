@@ -1,0 +1,136 @@
+{# =============================================================================
+
+    Talent Cloud
+    Skill Info Modal
+
+============================================================================= #}
+
+<section
+    data-clone>
+
+    <div
+        data-c-dialog-overlay></div>
+
+    <div
+        aria-hidden="true"
+        aria-describedby="skill-need-help-modal-description"
+        aria-labelledby="skill-need-help-modal-title"
+        data-c-dialog
+        data-c-dialog-id="skill-need-help-modal"
+        data-c-padding="top(double) bottom(double)"
+        role="dialog"
+        class="skill-need-help-modal">
+        <div
+            data-c-background="white(100)"
+            data-c-radius="rounded">
+            <div
+                data-c-background="c5(100)"
+                data-c-padding="tb(normal) right(normal) left(normal)"
+                class="modal-info__header">
+                <h3
+                    id="skill-need-help-modal-title"
+                    data-c-font-size="h4"
+                    data-c-color="white">
+                    {{ skills_modal.modals.need_help.title }}
+                </h3>
+                <button
+                    data-c-dialog-action="close"
+                    data-c-dialog-id="skill-need-help-modal"
+                    data-c-color="white"
+                    type="button"
+                    aria-label="{{ skills_modal.modals.need_help.header_button_text }}">
+                    <i
+                        class="fa fa-times"
+                        data-c-font-size="normal"></i>
+                </button>
+            </div>
+            <div
+                data-c-padding="normal"
+                class="modal-info__wrapper">
+                <div
+                    id="skill-need-help-modal-description">
+                    {% for subtext in skills_modal.modals.need_help.subtext %}
+                        <p
+                            class="modal-info__subtext">
+                            {{ subtext }}
+                        </p>
+                    {% endfor %}
+                </div>
+                <div
+                    class="modal-info__list-wrapper">
+                    <h4
+                        class="color-green">
+                        {{ skills_modal.modals.need_help.example_lists.dos_example_list.title }}
+                    </h4>
+                    <ul>
+                        {% for example in skills_modal.modals.need_help.example_lists.dos_example_list.examples %}
+                            <li>
+                                <p
+                                    class="list-item__title">
+                                    <i
+                                        class="far fa-check-circle"></i>
+                                    {{ example.name }}
+                                </p>
+                                <p
+                                    class="list-item__content">
+                                    {{ example.content }}
+                                </p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <h4
+                        class="color-red">
+                        {{ skills_modal.modals.need_help.example_lists.donts_example_list.title }}
+                    </h4>
+                    <ul>
+                        {% for example in skills_modal.modals.need_help.example_lists.donts_example_list.examples %}
+                            <li>
+                                <p
+                                    class="list-item__title">
+                                    <i
+                                        class="far fa-times-circle"></i>
+                                    {{ example.name }}
+                                </p>
+                                {% if example.content is iterable %}
+                                    {% for single_content in example.content %}
+                                        <p
+                                            class="list-item__content">
+                                            {{ single_content }}
+                                        </p>
+                                    {% endfor %}
+                                {% else %}
+                                    <p
+                                        class="list-item__content">
+                                        {{ example.content }}
+                                    </p>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!-- The following dialog actions can be customized depending on the dialog. -->
+            <div
+                data-c-padding="normal"
+                data-c-border="top(thin, solid, grey)">
+                <div
+                    data-c-grid="gutter middle">
+                    <div
+                        data-c-grid-item="base(1of2)"></div>
+                    <div
+                        data-c-grid-item="base(1of2)"
+                        data-c-alignment="base(right)">
+                        <button
+                            data-c-dialog-focus
+                            data-c-button="solid(c5)"
+                            data-c-radius="rounded"
+                            data-c-dialog-action="close"
+                            data-c-dialog-id="skill-need-help-modal">
+                            {{ skills_modal.modals.need_help.close_button_text }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

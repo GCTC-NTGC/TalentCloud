@@ -69,22 +69,19 @@ const AssessmentPlanFetchContainer: React.FunctionComponent<
   // Similar to componentDidMount and componentDidUpdate:
   useEffect((): void => {
     dispatchFetchJob();
-  }, [jobId]);
+  }, [dispatchFetchJob, jobId]);
   useEffect((): void => {
     dispatchFetchAssessmentPlan();
-  }, [jobId]);
+  }, [dispatchFetchAssessmentPlan, jobId]);
   useEffect((): void => {
     dispatchFetchSkills();
-  }, []);
+  }, [dispatchFetchSkills]);
   useEffect((): void => {
     dispatchFetchNotifications();
-  }, []);
+  }, [dispatchFetchNotifications]);
   return <AssessmentPlan job={job} notifications={notifications} />;
 };
-// @ts-ignore
-const AssessmentPlanContainer: React.FunctionComponent<
-  AssessmentPlanContainerProps
-> = connect(
+const AssessmentPlanContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(AssessmentPlanFetchContainer);

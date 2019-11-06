@@ -133,18 +133,14 @@ export const updateRatingGuideQuestion = (
   ): void => {
     dispatch(updateRatingGuideQuestionStarted(ratingGuideQuestion));
     updateRatingGuideQuestionApi(ratingGuideQuestion)
-      .then(
-        (updatedRatingGuideQuestion): void => {
-          dispatch(
-            updateRatingGuideQuestionSucceeded(updatedRatingGuideQuestion),
-          );
-        },
-      )
-      .catch(
-        (error: Error): void => {
-          dispatch(updateRatingGuideQuestionFailed(ratingGuideQuestion, error));
-        },
-      );
+      .then((updatedRatingGuideQuestion): void => {
+        dispatch(
+          updateRatingGuideQuestionSucceeded(updatedRatingGuideQuestion),
+        );
+      })
+      .catch((error: Error): void => {
+        dispatch(updateRatingGuideQuestionFailed(ratingGuideQuestion, error));
+      });
   };
 };
 
@@ -207,16 +203,12 @@ export const deleteRatingGuideQuestion = (
   ): void => {
     dispatch(deleteRatingGuideQuestionStarted(id));
     deleteRatingGuideQuestionApi(id)
-      .then(
-        (): void => {
-          dispatch(deleteRatingGuideQuestionSucceeded(id));
-        },
-      )
-      .catch(
-        (error: Error): void => {
-          dispatch(deleteRatingGuideQuestionFailed(id, error));
-        },
-      );
+      .then((): void => {
+        dispatch(deleteRatingGuideQuestionSucceeded(id));
+      })
+      .catch((error: Error): void => {
+        dispatch(deleteRatingGuideQuestionFailed(id, error));
+      });
   };
 };
 
@@ -288,23 +280,17 @@ export const storeNewRatingGuideQuestion = (
 
     dispatch(storeNewRatingGuideQuestionStarted(ratingGuideQuestion));
     createRatingGuideQuestionApi(ratingGuideQuestion)
-      .then(
-        (updatedRatingGuideQuestion): void => {
-          dispatch(
-            storeNewRatingGuideQuestionSucceeded(
-              updatedRatingGuideQuestion,
-              ratingGuideQuestion,
-            ),
-          );
-        },
-      )
-      .catch(
-        (error: Error): void => {
-          dispatch(
-            storeNewRatingGuideQuestionFailed(ratingGuideQuestion, error),
-          );
-        },
-      );
+      .then((updatedRatingGuideQuestion): void => {
+        dispatch(
+          storeNewRatingGuideQuestionSucceeded(
+            updatedRatingGuideQuestion,
+            ratingGuideQuestion,
+          ),
+        );
+      })
+      .catch((error: Error): void => {
+        dispatch(storeNewRatingGuideQuestionFailed(ratingGuideQuestion, error));
+      });
   };
 };
 

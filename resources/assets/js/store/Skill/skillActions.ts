@@ -43,16 +43,12 @@ export const fetchSkills = (): ThunkAction<void, any, {}, SkillAction> => {
   return (dispatch: ThunkDispatch<any, undefined, SkillAction>): void => {
     dispatch(fetchSkillsStarted());
     getSkills()
-      .then(
-        (skills): void => {
-          dispatch(FetchSkillsSucceeded(skills));
-        },
-      )
-      .catch(
-        (error: Error): void => {
-          dispatch(FetchSkillsFailed(error));
-        },
-      );
+      .then((skills): void => {
+        dispatch(FetchSkillsSucceeded(skills));
+      })
+      .catch((error: Error): void => {
+        dispatch(FetchSkillsFailed(error));
+      });
   };
 };
 

@@ -2,30 +2,24 @@
 
 exports[`Progress Tracker should render ProgressTrackerItem correctly 1`] = `
 <div
-  className="tracker-item"
-  data-c-alignment="base(left)"
-  data-c-margin="top(half) right(normal) bottom(half) left(normal)"
-  data-tc-tracker-state="active"
+  data-c-alignment="base(centre)"
+  data-c-background="undefined(100)"
+  data-c-padding="top(quarter) bottom(quarter)"
 >
-  <div
-    className="tracker-icon"
+  <ol
+    aria-valuemin={1}
+    aria-valuenow={-1}
+    aria-valuetext=" : "
+    data-c-container="layout"
+    role="progressbar"
+    tabIndex={0}
   >
-    <i
-      className="fas fa-arrow-down"
+    <ProgressTrackerItem
+      label="Step 01"
+      link="/"
+      state="active"
+      title="Job Info"
     />
-  </div>
-  <div>
-    <span
-      data-c-font-size="small"
-    >
-      Step 01
-    </span>
-    <br />
-    <span
-      data-c-font-weight="bold"
-    >
-      Job Info
-    </span>
-  </div>
+  </ol>
 </div>
 `;

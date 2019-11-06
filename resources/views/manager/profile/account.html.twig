@@ -1,0 +1,203 @@
+{# =============================================================================
+
+    Talent Cloud
+    Manager: Profile - Account
+
+============================================================================= #}
+
+<section
+  id="managerProfileSectionAccount"
+  class="manager-profile__section">
+
+  {# Include Error Messages #}
+  {% include "errors/form_errors" with {'form_errors_id': 'managerProfileFormErrors'} %}
+
+  <h3
+    class="manager-profile__section-title">
+    {{ account_l10n.my_account }}
+  </h3>
+
+  <fieldset
+    class="form__fieldset">
+
+    <legend
+      class="form_legend">
+      {{ account_l10n.account_settings }}
+    </legend>
+
+    <div
+      class="flex-grid">
+
+      <div
+        class="box med-1of2">
+
+        <div class="form__input-wrapper--float active">
+            <label class="form__label" for="managerProfileFirstName">
+                {{ account_l10n.first_name }}
+            </label>
+            <input
+                required
+                class="form__input"
+                id="managerProfileFirstName"
+                type="text"
+                name='first_name'
+                value="{{ old('first_name', user.first_name) }}" />
+        </div>
+
+      </div>
+
+      <div
+        class="box med-1of2">
+
+        <div class="form__input-wrapper--float active">
+            <label class="form__label" for="managerProfileLastName">
+                {{ account_l10n.last_name }}
+            </label>
+            <input
+                required
+                class="form__input"
+                id="managerProfileLastName"
+                type="text"
+                name='last_name'
+                value="{{ old('last_name', user.last_name) }}" />
+        </div>
+
+      </div>
+
+    </div>
+
+    <div
+      class="flex-grid">
+
+      <div
+        class="box med-1of2">
+
+        <div
+          class="form__input-wrapper--float active">
+          <label class="form__label" for="managerProfileProfileEmail">
+            {{ account_l10n.profile_email }}
+          </label>
+          <input
+            required
+            id="managerProfileProfileEmail"
+            class="form__input"
+            type="text"
+            name="email"
+            value="{{ old('email', user.email) }}">
+        </div>
+
+      </div>
+
+      <div
+        class="box med-1of2">
+
+        <div
+        class="form__input-wrapper--float active">
+        <label class="form__label" for="managerProfileGovernmentEmail">
+            {{ account_l10n.gov_email }}
+        </label>
+        <input
+            id="managerProfileGovernmentEmail"
+            class="form__input"
+            type="email"
+            name="gov_email"
+            value="{{ old('gov_email', user.gov_email) }}">
+        </div>
+
+      </div>
+    </div>
+
+  </fieldset>
+
+  <fieldset
+    class="form__fieldset">
+
+      <legend
+        class="form_legend">
+        {{ account_l10n.reset_password }}
+      </legend>
+
+      <div
+        class="flex-grid">
+
+        <div
+          class="box med-1of2">
+
+          <div
+            class="form__input-wrapper--float">
+            <label class="form__label" for="managerProfileCurrentPassword">
+              {{ account_l10n.current_password }}
+            </label>
+            <input
+              id="managerProfileCurrentPassword"
+              class="form__input"
+              name="current_password"
+              type="password"
+              autocomplete="off"
+              value="">
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        class="flex-grid">
+
+        <div
+          class="box med-1of2">
+
+          <div
+            class="form__input-wrapper--float">
+            <label class="form__label" for="managerProfileNewPassword">
+              {{ account_l10n.new_password }}
+            </label>
+            <input
+              id="managerProfileNewPassword"
+              class="form__input"
+              name="new_password"
+              type="password"
+              autocomplete="off"
+              value="">
+          </div>
+
+        </div>
+
+        <div
+          class="box med-1of2">
+
+          <div
+            class="form__input-wrapper--float">
+            <label class="form__label" for="managerProfileConfirmPassword">
+              {{ account_l10n.confirm_password }}
+            </label>
+            <input
+              id="managerProfileConfirmPassword"
+              class="form__input"
+              name="new_password_confirmation"
+              type="password"
+              autocomplete="off"
+              value="">
+          </div>
+
+        </div>
+
+      </div>
+
+  </fieldset>
+
+  <div class="flex-grid manager-profile-action">
+
+        <div class="box full">
+            <button
+                class="button--blue light-bg"
+                type="submit"
+                name="submit"
+                value="account_settings">
+                {{ account_l10n.save_account_settings }}
+            </button>
+        </div>
+
+    </div>
+
+</section>

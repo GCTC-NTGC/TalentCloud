@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
   injectIntl,
@@ -18,7 +18,7 @@ interface JobBasicInfoProps {
 
 const messages = defineMessages({
   termLength: {
-    id: "jobPreview.termLength",
+    id: "jobBuilder.preview.termLength",
     defaultMessage:
       "{termMonths, plural, =0 {no months} one {# month} other {# months}}",
     description: "Calculated term length in months",
@@ -26,7 +26,7 @@ const messages = defineMessages({
 });
 
 export const JobBasicInfo: React.FunctionComponent<
-  JobBasicInfoProps & InjectedIntlProps
+  JobBasicInfoProps & WrappedComponentProps
 > = ({ job, intl }): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
@@ -49,7 +49,7 @@ export const JobBasicInfo: React.FunctionComponent<
       <div data-c-grid-item="tp(1of2)">
         <p data-c-colour="c3" data-c-margin="bottom(quarter)">
           <FormattedMessage
-            id="jobPreview.jobTitle"
+            id="jobBuilder.preview.jobTitle"
             defaultMessage="Job Title"
             description="Job Poster Card Information Label"
           />
@@ -59,7 +59,7 @@ export const JobBasicInfo: React.FunctionComponent<
       <div data-c-grid-item="tp(1of2)">
         <p data-c-colour="c3" data-c-margin="bottom(quarter)">
           <FormattedMessage
-            id="jobPreview.lengthOfTheTerm"
+            id="jobBuilder.preview.lengthOfTheTerm"
             defaultMessage="Length of the Term"
             description="Job Poster Card Information Label"
           />
@@ -73,7 +73,7 @@ export const JobBasicInfo: React.FunctionComponent<
       <div data-c-grid-item="tp(1of2)">
         <p data-c-colour="c3" data-c-margin="bottom(quarter)">
           <FormattedMessage
-            id="jobPreview.securityClearance"
+            id="jobBuilder.preview.securityClearance"
             defaultMessage="Security Clearance"
             description="Job Poster Card Information Label"
           />
@@ -83,7 +83,7 @@ export const JobBasicInfo: React.FunctionComponent<
       <div data-c-grid-item="tp(1of2)">
         <p data-c-colour="c3" data-c-margin="bottom(quarter)">
           <FormattedMessage
-            id="jobPreview.languageProfile"
+            id="jobBuilder.preview.languageProfile"
             defaultMessage="Language Profile"
             description="Job Poster Card Information Label"
           />
@@ -93,7 +93,7 @@ export const JobBasicInfo: React.FunctionComponent<
       <div data-c-grid-item="tp(1of2)">
         <p data-c-colour="c3" data-c-margin="bottom(quarter)">
           <FormattedMessage
-            id="jobPreview.city"
+            id="jobBuilder.preview.city"
             defaultMessage="City"
             description="Job Poster Card Information Label"
           />
@@ -103,7 +103,7 @@ export const JobBasicInfo: React.FunctionComponent<
       <div data-c-grid-item="tp(1of2)">
         <p data-c-colour="c3" data-c-margin="bottom(quarter)">
           <FormattedMessage
-            id="jobPreview.province"
+            id="jobBuilder.preview.province"
             defaultMessage="Province"
             description="Job Poster Card Information Label"
           />

@@ -164,6 +164,8 @@ return [
         'section_01_title' => 'Renseignements généraux',
         'citizenship_null_copy' => 'Aucun statut de citoyenneté sélectionné',
         'veteran_null_copy' => 'Aucun statut de vétéran sélectionné',
+        'english_choice' => "Je préfère <strong>l'anglais</strong> pour ce processus de candidature.",
+        'french_choice' => 'Je préfère <strong>le français</strong> pour ce processus de candidature.',
         'language_null_copy' => 'Aucune langue sélectionnée',
         'long_question_null' => "Cette question n'a pas de réponse.",
         'section_02_title' => 'Mon expérience',

@@ -17,11 +17,25 @@ return [
     'layout' => [
         'sidebar' => [
             'profile_sections' => 'Sections du profile',
+            'my_account' => 'Mon compte',
             'about_me' => 'À propos de moi',
             'leadership_style' => 'Mon style de leadership',
             'our_work_environment' => 'Notre environnement de travail',
             'our_team_culture' => 'Notre culture d\'équipe',
             'save_all_sections' => 'Enregistrer toutes les sections'
+        ],
+        'account' => [
+            'my_account' => 'Mon compte',
+            'first_name' => 'Prénom',
+            'last_name' => 'Nom',
+            'account_settings' => 'Renseignements du compte',
+            'reset_password' => 'Réinitialiser mon mot de passe',
+            'profile_email' => 'Mon courriel',
+            'gov_email' => 'Mon email du gouvernement',
+            'current_password' => 'Mot de passe actuel',
+            'new_password' => 'Nouveau mot de passe',
+            'confirm_password' => 'Confirmer le nouveau mot de passe',
+            'save_account_settings' => 'Enregistrer les paramètres du compte',
         ],
         'about' => [
             'about_me' => 'À propos de moi',
@@ -32,8 +46,6 @@ return [
             'departmental_information' => 'Renseignements ministériels',
             'department' => 'Ministère',
             'department_default_option' => 'Choisir votre ministère...',
-            'branch_english' => 'Branche (English)',
-            'branch_french' => 'Branche (Français)',
             'division_english' => 'Division (English)',
             'division_french' => 'Division (Français)',
             'personal_information' => 'Renseignements personnels',
@@ -53,26 +65,26 @@ return [
 
         ],
         'leadership' => [
-            'my_leadership_style' => "Mon style de leadership",
-            'my_style_values' => "Mon style de leadership et mes valeurs de gestion",
-            'answer_english' => "Réponse (English)",
-            'answer_french' => "Réponse (Français)",
+            'my_leadership_style' => 'Mon style de leadership',
+            'my_style_values' => 'Mon style de leadership et mes valeurs de gestion',
+            'answer_english' => 'Réponse (English)',
+            'answer_french' => 'Réponse (Français)',
             'expect_from_employees' => "Ce que j'attends de mes employés",
             'approach_learning_development' => "Mon approche à l'apprentissage et au développement de mes employés",
-            'save_leadership_style' => "Enregistrer Mon style de leadership"
+            'save_leadership_style' => 'Enregistrer Mon style de leadership'
         ],
         'environment' => [
-            'work_environment' => "Notre environnement de travail",
+            'work_environment' => 'Notre environnement de travail',
             'things_to_know' => "Ce qu'il faut savoir",
-            'answer_english' => "Réponse (English)",
-            'answer_french' => "Réponse (Français)",
-            'telework_frequency' => "À quelle fréquence le télétravail est-il autorisé?",
-            'flexible_hour_frequency' => "À quelle fréquence les heures flexibles sont-elles autorisées?",
+            'answer_english' => 'Réponse (English)',
+            'answer_french' => 'Réponse (Français)',
+            'telework_frequency' => 'À quelle fréquence le télétravail est-il autorisé?',
+            'flexible_hour_frequency' => 'À quelle fréquence les heures flexibles sont-elles autorisées?',
             'environment_photos' => "Photos de l'environnement de travail",
-            'upload_image' => "Télécharger un photo",
+            'upload_image' => 'Télécharger un photo',
             'alt_text_english' => "Texte alternatif de l'image (English)",
             'alt_text_french' => "Texte alternatif de l'image (Français)",
-            'save_work_environment' => "Enregistrer Notre environnement de travail",
+            'save_work_environment' => 'Enregistrer Notre environnement de travail',
             'frequency' => [
               'never' => 'Jamais',
               'rarely' => 'Rarement',
@@ -84,14 +96,14 @@ return [
         ],
         'culture' => [
             'team_culture' => "Notre culture d'équipe",
-            'primary_information' => "Informations primaires",
+            'primary_information' => 'Informations primaires',
             'team_size' => "Taille de l'équipe",
-            'gc_directory_link' => "Lien GCannuaire",
-            'operating_context' => "Notre contexte opérationnel",
-            'answer_english' => "Réponse (English)",
-            'answer_french' => "Réponse (Français)",
-            'what_we_value' => "Nos valeurs",
-            'how_we_work' => "Notre mode de fonctionnement",
+            'gc_directory_link' => 'Lien GCannuaire',
+            'operating_context' => 'Notre contexte opérationnel',
+            'answer_english' => 'Réponse (English)',
+            'answer_french' => 'Réponse (Français)',
+            'what_we_value' => 'Nos valeurs',
+            'how_we_work' => 'Notre mode de fonctionnement',
             'save_team_culture' => "Enregistrer Notre culture d'équipe"
         ]
 
