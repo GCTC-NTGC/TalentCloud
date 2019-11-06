@@ -334,7 +334,7 @@ const JobDetails: React.FunctionComponent<
       .required(intl.formatMessage(validationMessages.required)),
     classification: Yup.mixed()
       .oneOf(
-        Object.values(ClassificationId),
+        Object.keys(ClassificationId),
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
