@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl, defineMessages } from "react-intl";
+import { navigate } from "../../helpers/router";
 
 interface ProgressTrackerItemProps {
   link: string;
@@ -58,7 +59,14 @@ const ProgressTrackerItem: React.FunctionComponent<
         </div>
       )}
       {state !== "null" ? (
-        <a href={link} title={title}>
+        <a
+          href={link}
+          title={title}
+          onClick={e => {
+            e.preventDefault();
+            navigate(link);
+          }}
+        >
           <div className="tracker-title">
             <span data-c-font-size="small">{label}</span>
             <span data-c-font-weight="bold">{title}</span>
