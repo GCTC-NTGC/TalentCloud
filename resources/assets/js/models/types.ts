@@ -17,6 +17,7 @@ export interface JobTranslation {
 export interface Job {
   id: number;
   manager_id: number;
+  chosen_lang: string | null;
   term_qty: number | null;
   open_date_time: Date | null;
   close_date_time: Date | null;

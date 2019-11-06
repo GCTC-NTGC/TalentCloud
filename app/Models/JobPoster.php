@@ -24,6 +24,7 @@ use App\Events\JobSaved;
  *
  * @property int $id
  * @property int $job_term_id
+ * @property string $chosen_lang
  * @property int $term_qty
  * @property \Jenssegers\Date\Date $open_date_time
  * @property \Jenssegers\Date\Date $close_date_time
@@ -176,6 +177,7 @@ class JobPoster extends BaseModel
      */
     protected $fillable = [
         'job_term_id',
+        'chosen_lang',
         'term_qty',
         'open_date_time',
         'close_date_time',
@@ -217,6 +219,7 @@ class JobPoster extends BaseModel
     protected $visible = [
         'id',
         'manager_id',
+        'chosen_lang',
         'term_qty',
         'open_date_time',
         'close_date_time',
