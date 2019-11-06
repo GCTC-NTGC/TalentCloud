@@ -1,0 +1,58 @@
+{# Open Graph #}
+<meta 
+    property="og:url"
+    content="{{ url_current() }}" />
+<meta 
+    property="og:type"
+    content="article" />
+<meta 
+    property="og:title"
+    content="{{ socialTitle }}" />
+<meta 
+    property="og:description"
+    content="{{ socialDescription }}" />
+{# Design Note: Open Graph images should be 1:1 ratio, minimum 1080px by 1080px. #}
+<meta 
+    property="og:image"
+    {% if socialImageOpenGraphEn %}
+        {% if (app.getLocale() == "en") %}
+            content="{{ url('/') }}/images/{{ socialImageOpenGraphEn }}"
+        {% elseif (app.getLocale() == "fr") %}
+            content="{{ url('/') }}/images/{{ socialImageOpenGraphFr }}"
+        {% endif %}
+    {% else %}
+        {% if (app.getLocale() == "en") %}
+            content="{{ url('/') }}/images/social-card-en.png"
+        {% elseif (app.getLocale() == "fr") %}
+            content="{{ url('/') }}/images/social-card-fr.png"
+        {% endif %}
+    {% endif %}/>
+{# Twitter #}
+<meta 
+    name="twitter:card"
+    content="summary" />
+<meta 
+    name="twitter:site"
+    content="@GC_Talent" />
+<meta 
+    name="twitter:title"
+    content="{{ socialTitle }}" />
+<meta 
+    name="twitter:description"
+    content="{{ socialDescription }}" />
+{# Design Note: Twitter images should be 1:1 ratio, minimum 144px by 144px. #}
+<meta 
+    name="twitter:image"
+    {% if socialImageTwitterEn %}
+        {% if (app.getLocale() == "en") %}
+            content="{{ url('/') }}/images/{{ socialImageTwitterEn }}"
+        {% elseif (app.getLocale() == "fr") %}
+            content="{{ url('/') }}/images/{{ socialImageTwitterFr }}"
+        {% endif %}
+    {% else %}
+        {% if (app.getLocale() == "en") %}
+            content="{{ url('/') }}/images/social-card-en.png"
+        {% elseif (app.getLocale() == "fr") %}
+            content="{{ url('/') }}/images/img/social-card-fr.png"
+        {% endif %}
+    {% endif %}/>

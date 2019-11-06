@@ -9,6 +9,17 @@
 
 {% block title %}{{ job_post.job_post_title|replace({':title':job.title, ':id':job.id}) }}{% endblock %}
 
+{% block socialMeta %}
+    {% set socialTitle = job_post.job_post_title|replace({':title':job.title, ':id':job.id}) %}
+    {% set socialDescription = job.hire_impact ? job.hire_impact|nl2br : noInfo %}
+    {# Pass in images if you need custom ones! #}
+    {% set socialImageOpenGraphEn = "social-card-job-en.png" %}
+    {% set socialImageOpenGraphFr = "social-card-job-fr.png" %}
+    {% set socialImageTwitterEn = "social-card-job-en.png" %}
+    {% set socialImageTwitterFr = "social-card-job-fr.png" %}
+    {% include "layouts/social" %}
+{% endblock %}
+
 {% block body %}
 
 	{% include "common/goc" %}
