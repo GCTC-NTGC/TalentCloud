@@ -8,6 +8,7 @@ describe("api/job", (): void => {
       id: 13,
       job_term_id: 2,
       term_qty: 1,
+      chosen_lang: "en",
       open_date_time: "2019-05-17T07:00:00+00:00",
       close_date_time: "2019-06-01T06:59:59+00:00",
       start_date_time: "2019-06-08T07:00:00+00:00",

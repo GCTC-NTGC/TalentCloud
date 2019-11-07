@@ -18,6 +18,8 @@ return [
     'active_posters' => 'Mes affiches actives',
     'no_active_posters' => "Vous n'avez actuellement aucune affiche active! Créez-en un nouveau en utilisant le bouton ci-dessus.",
     'preview' => '(Aperçu)',
+    'empty_title' => 'Titre manquant',
+    'trans_title_placeholder' => 'Traduction requise',
     'created_on' => 'Créé :',
     'submitted_on' => 'Soumis :',
     'published_on' => 'Publié :',
