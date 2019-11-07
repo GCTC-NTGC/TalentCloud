@@ -13,8 +13,14 @@ import JobTasksPage from "../JobTasks/JobTasksPage";
 import JobSkillsPage from "../JobBuilderSkills/JobBuilderSkillsPage";
 import JobReviewPage from "../JobReview/JobReviewPage";
 import ScrollToTop from "../ScrollToTop";
+import RedirectPage from "./RedirectToLastIncompleteStep";
 
 const titles = defineMessages({
+  rootTitle: {
+    id: "jobBuilder.root.documentTitle",
+    defaultMessage: "Job Builder",
+    description: "The document's title shown in browser's title bar or tab.",
+  },
   introTitle: {
     id: "jobBuilder.intro.documentTitle",
     defaultMessage: "Job Builder: Intro",
@@ -66,6 +72,13 @@ const routes: Routes<{}, RouterResult> = [
       {
         path: "/:id/builder",
         children: [
+          {
+            path: "",
+            action: ({ params }) => ({
+              title: titles.rootTitle,
+              component: <RedirectPage jobId={Number(params.id)} />,
+            }),
+          },
           {
             path: "/intro",
             action: ({ params }) => ({

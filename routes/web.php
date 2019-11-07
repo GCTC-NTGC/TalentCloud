@@ -21,7 +21,38 @@ Route::group(
     ],
     function (): void {
         /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-        Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
+
+        Route::group(['prefix' => 'demo'], function () : void {
+
+            /* Temporary Blog Index */
+            Route::view('blog', 'common/blog-index')->middleware('localOnly')->name('blog');
+
+            /* Temporary Blog Post */
+            Route::view('post', 'common/blog-post')->middleware('localOnly')->name('post');
+
+            /* Static - Reliability Form Demo */
+            Route::view('reliability', 'demos/reliability/index', ['reliability' => Lang::get('common/reliability')])->name('reliability');
+
+            // /* Temp Builder 01 (Intro) */
+            Route::view('builder-01', 'manager/builder-01')->middleware('localOnly')->name('jpb1');
+            // /* Temp Builder 02 (Job info) */
+            Route::view('builder-02', 'manager/builder-02')->middleware('localOnly')->name('jpb2');
+            // /* Temp Builder 03 (Work Environment) */
+            Route::view('builder-03', 'manager/builder-03')->middleware('localOnly')->name('jpb3');
+            // /* Temp Builder 04 (Impact) */
+            Route::view('builder-04', 'manager/builder-04')->middleware('localOnly')->name('jpb4');
+            // /* Temp Builder 05 (Tasks) */
+            Route::view('builder-05', 'manager/builder-05')->middleware('localOnly')->name('jpb5');
+            // /* Temp Builder 06 (Skills) */
+            Route::view('builder-06', 'manager/builder-06')->middleware('localOnly')->name('jpb6');
+            // /* Temp Builder 07 (Education) */
+            Route::view('builder-07', 'manager/builder-07')->middleware('localOnly')->name('jpb7');
+            // /* Temp Builder 08 (Review) */
+            Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
+        });
+
+
+        Route::group(['prefix' => config('app.applicant_prefix')], function () : void {
 
             Route::get('two-factor/use-recovery-code', 'Auth\RecoveryCodeController@use')->name('recovery_codes.use');
             Route::post('two-factor/use-recovery-code', 'Auth\RecoveryCodeController@authenticate')->name('recovery_codes.authenticate');
@@ -294,51 +325,58 @@ Route::group(
                         /* Job Builder */
                         Route::get(
                             'jobs/builder',
-                            'JobBuilderController@intro'
+                            'JobBuilderController@show'
                         )->name('manager.jobs.create');
 
                         Route::get(
-                            'jobs/{jobId}/builder/intro',
-                            'JobBuilderController@intro'
-                        )->where('jobPoster', '[0-9]+');
-                        Route::get(
-                            'jobs/{jobId}/builder/details',
-                            'JobBuilderController@details'
-                        )->where('jobPoster', '[0-9]+');
-                        Route::get(
-                            'jobs/{jobId}/builder/environment',
-                            'JobBuilderController@environment'
-                        )->where('jobPoster', '[0-9]+');
-                        Route::get(
-                            'jobs/{jobId}/builder/impact',
-                            'JobBuilderController@impact'
-                        )->where('jobPoster', '[0-9]+');
-                        Route::get(
-                            'jobs/{jobId}/builder/tasks',
-                            'JobBuilderController@tasks'
-                        )->where('jobPoster', '[0-9]+');
-                        Route::get(
-                            'jobs/{jobId}/builder/skills',
-                            'JobBuilderController@skills'
-                        )->where('jobPoster', '[0-9]+');
-                        Route::get(
-                            'jobs/{jobId}/builder/review',
-                            'JobBuilderController@review'
+                            'jobs/{jobId}/builder',
+                            'JobBuilderController@show'
                         )
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.edit');
+
+                        Route::get(
+                            'jobs/{jobId}/builder/intro',
+                            'JobBuilderController@show'
+                        )->where('jobPoster', '[0-9]+');
+
+                        Route::get(
+                            'jobs/{jobId}/builder/details',
+                            'JobBuilderController@show'
+                        )->where('jobPoster', '[0-9]+');
+
+                        Route::get(
+                            'jobs/{jobId}/builder/environment',
+                            'JobBuilderController@show'
+                        )->where('jobPoster', '[0-9]+');
+
+                        Route::get(
+                            'jobs/{jobId}/builder/impact',
+                            'JobBuilderController@show'
+                        )->where('jobPoster', '[0-9]+');
+
+                        Route::get(
+                            'jobs/{jobId}/builder/tasks',
+                            'JobBuilderController@show'
+                        )->where('jobPoster', '[0-9]+');
+
+                        Route::get(
+                            'jobs/{jobId}/builder/skills',
+                            'JobBuilderController@show'
+                        )->where('jobPoster', '[0-9]+');
+
+                        Route::get(
+                            'jobs/{jobId}/builder/review',
+                            'JobBuilderController@show'
+                        )
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('manager.jobs.review');
 
                         /* Delete Job */
                         Route::delete('jobs/{jobPoster}', 'JobController@destroy')
                             ->where('jobPoster', '[0-9]+')
                             ->middleware('can:delete,jobPoster')
                             ->name('manager.jobs.destroy');
-
-                        /* Request Review */
-                        Route::post('jobs/{jobPoster}/review', 'JobController@submitForReview')
-                            ->where('jobPoster', '[0-9]+')
-                            ->middleware('can:submitForReview,jobPoster')
-                            ->name('manager.jobs.review');
 
                         Route::view(
                             'jobs/{jobPoster}/assessment-plan',
@@ -532,7 +570,8 @@ Route::group(['prefix' => 'api'], function (): void {
 
     Route::post('jobs/{job}/submit', 'Api\JobApiController@submitForReview')
         ->where('job', '[0-9]+')
-        ->middleware('can:submitForReview,job');
+        ->middleware('can:submitForReview,job')
+        ->name('api.jobs.submit');
     Route::resource('jobs', 'Api\JobApiController')->only([
         'show', 'store', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes.

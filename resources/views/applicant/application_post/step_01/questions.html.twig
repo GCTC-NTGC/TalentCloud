@@ -12,49 +12,56 @@
 
         {# Citizenship #}
 
-            <div
-                class="application-post__citizenship">
+        <div
+            class="application-post__citizenship">
 
-                <h3>
-                    {# {{ application_template.citizenship_title }} #}
-                    {{ application_template.claim_title }}
-                </h3>
+            <h3>
+                {# {{ application_template.citizenship_title }} #}
+                {{ application_template.claim_title }}
+            </h3>
+
+            <div
+                class="form_wrapper">
 
                 <div
-                    class="form_wrapper">
+                    class="flex-grid">
+
+                    <p>
+                        {{ application_template.citizenship_content }}
+                    </p>
 
                     <div
-                        class="flex-grid">
-
-                        <p>{{ application_template.citizenship_content }}</p>
+                        class="box full">
 
                         <div
-                            class="box full">
-
+                            class="form__input-wrapper--select">
+                            <label
+                                class="form__label"
+                                for="citizenship_declaration_id">
+                                {{ application_template.citizenship_label }}
+                            </label>
                             <div
-                                class="form__input-wrapper--select">
-                                <label
-                                    class="form__label"
-                                    for="citizenship_declaration_id">
-                                    {{ application_template.citizenship_label }}
-                                </label>
-                                <div
-                                    class="form__select-wrapper fas fa-chevron-down">
-                                    <select
-                                        id="citizenship_declaration_id"
-                                        class="form__input"
-                                        required
-                                        name="citizenship_declaration_id" >
-                                        <option value="" disabled selected>{{ application_template.select_default_option }}</option>
-                                        {% for option in citizenship_options %}
-                                            <option
-                                                value="{{ option.id }}"
-                                                {% if option.id == job_application.citizenship_declaration_id %}selected{% endif %}>{{ citizenship_declaration_template[option.name] }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
+                                class="form__select-wrapper fas fa-chevron-down">
+                                <select
+                                    id="citizenship_declaration_id"
+                                    class="form__input"
+                                    required
+                                    name="citizenship_declaration_id">
+                                    <option
+                                        value=""
+                                        disabled
+                                        {% if not job_application.citizenship_declaration_id %}selected{% endif %}>
+                                        {{ application_template.select_default_option }}
+                                    </option>
+                                    {% for option in citizenship_options %}
+                                        <option
+                                            value="{{ option.id }}" {% if option.id == job_application.citizenship_declaration_id %} selected
+                                            {% endif %}>
+                                            {{ citizenship_declaration_template[option.name] }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
                             </div>
-
                         </div>
 
                     </div>
@@ -62,51 +69,56 @@
                 </div>
 
             </div>
+
+        </div>
 
         {# Veterans #}
 
-            <div
-                class="application-post__veterans">
+        <div
+            class="application-post__veterans">
 
-                {# <h3>
-                    {{ application_template.veterans_title }}
-                </h3> #}
+            <div
+                class="form_wrapper">
 
                 <div
-                    class="form_wrapper">
+                    class="flex-grid">
+
+                    <p>
+                        {{ application_template.veterans_content }}
+                    </p>
 
                     <div
-                        class="flex-grid">
-
-                        <p>{{ application_template.veterans_content }}</p>
+                        class="box full">
 
                         <div
-                            class="box full">
-
+                            class="form__input-wrapper--select">
+                            <label
+                                class="form__label"
+                                for="veteran_status_id">
+                                {{ application_template.veterans_label }}
+                            </label>
                             <div
-                                class="form__input-wrapper--select">
-                                <label
-                                    class="form__label"
-                                    for="veteran_status_id">
-                                    {{ application_template.veterans_label }}
-                                </label>
-                                <div
-                                    class="form__select-wrapper fas fa-chevron-down">
-                                    <select
-                                        id="veteran_status_id"
-                                        class="form__input"
-                                        required
-                                        name="veteran_status_id">
-                                        <option value="" disabled selected>{{ application_template.select_default_option }}</option>
-                                        {% for option in veteran_options %}
-                                            <option
-                                                value="{{ option.id }}"
-                                                {% if option.id == job_application.veteran_status_id %}selected{% endif %}>{{ veteran_status_template[option.name] }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
+                                class="form__select-wrapper fas fa-chevron-down">
+                                <select
+                                    id="veteran_status_id"
+                                    class="form__input"
+                                    required
+                                    name="veteran_status_id">
+                                    <option
+                                        value="{{ option.id }}"
+                                        disabled
+                                        {% if not job_application.veteran_status_id %}selected{% endif %}>
+                                        {{ application_template.select_default_option }}
+                                    </option>
+                                    {% for option in veteran_options %}
+                                        <option
+                                            value="{{ option.id }}" {% if option.id == job_application.veteran_status_id %} selected
+                                            {% endif %}>
+                                            {{ veteran_status_template[option.name] }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
                             </div>
-
                         </div>
 
                     </div>
@@ -115,100 +127,118 @@
 
             </div>
 
+        </div>
+
         {# Language Requirement Declaration:
-            - Only one of these checkboxes appears on any given job application.
-            - This checkbox MUST be checked in order to submit the application.
-        #}
-        <div class="application-post__language-declaration">
-            <span>{{ application_template.language_declaration }}</span>
+                                    - Only one of these checkboxes appears on any given job application.
+                                    - This checkbox MUST be checked in order to submit the application.
+                                #}
+        <div
+            class="application-post__language-declaration">
+            <span>
+                {{ application_template.language_declaration }}
+            </span>
             {% if job.language_requirement.id is not empty %}
-            <div class="form__input-wrapper--checkbox">
-                <label
-                    class="form-label"
-                    for="language_requirement_confirmed">
-                    <input
-                        id="language_requirement_confirmed" name="language_requirement_confirmed"
-                        type="checkbox"
-                        required
-                        {{ job_application.language_requirement_confirmed ? 'checked' : ''}}
-                    />
-                    <span
-                        class="checkbox__wrapper"
-                    >
-                        <span class="checkbox__content">
-                            <i class="fa fa-check{{ job_application.language_requirement_confirmed ? '' : ' hidden' }}"></i>
+                <div
+                    class="form__input-wrapper--checkbox">
+                    <label
+                        class="form-label"
+                        for="language_requirement_confirmed">
+                        <input
+                            id="language_requirement_confirmed"
+                            name="language_requirement_confirmed"
+                            type="checkbox"
+                            required
+                            {{ job_application.language_requirement_confirmed ? 'checked' : '' }}/>
+                        <span
+                            class="checkbox__wrapper">
+                            <span
+                                class="checkbox__content">
+                                <i
+                                    class="fa fa-check{{ job_application.language_requirement_confirmed ? '' : ' hidden' }}"></i>
+                            </span>
                         </span>
-                    </span>
-                </label>
-                <p class="box fit">
-                    {% if job.language_requirement.id == 1 %}
-                        {# English Essential #}
-                        {{ application_template.english_essential }}
-                    {% elseif job.language_requirement.id == 2 %}
-                        {# French Essential #}
-                        {{ application_template.french_essential }}
-                    {% elseif job.language_requirement.id == 3 %}
-                        {# Bilingual Intermediate #}
-                        {{ application_template.bilingual_intermediate }}
-                    {% elseif job.language_requirement.id == 4 %}
-                        {# Bilingual Advanced #}
-                        {{ application_template.bilingual_advanced }}
-                    {% elseif job.language_requirement.id == 5 %}
-                        {# English or French #}
-                        {{ application_template.english_or_french }}
-                    {% else %}
-                        {# nothing #}
-                    {% endif %}
-                </p>
-                <p class="error-message {{ job_application.language_requirement_confirmed ? 'hidden' : ''}}">{{ application_template.language_declaration_error_message }}</p>
-            </div>
+                    </label>
+                    <p
+                        class="box fit">
+                        {% if job.language_requirement.id == 1 %}
+                            {# English Essential #}
+                            {{ application_template.english_essential }}
+                        {% elseif job.language_requirement.id == 2 %}
+                            {# French Essential #}
+                            {{ application_template.french_essential }}
+                        {% elseif job.language_requirement.id == 3 %}
+                            {# Bilingual Intermediate #}
+                            {{ application_template.bilingual_intermediate }}
+                        {% elseif job.language_requirement.id == 4 %}
+                            {# Bilingual Advanced #}
+                            {{ application_template.bilingual_advanced }}
+                        {% elseif job.language_requirement.id == 5 %}
+                            {# English or French #}
+                            {{ application_template.english_or_french }}
+                            {% else %}
+                            {# nothing #}
+                        {% endif %}
+                    </p>
+                    <p
+                        class="error-message {{ job_application.language_requirement_confirmed ? 'hidden' : '' }} ">
+                        {{ application_template.language_declaration_error_message }}
+                    </p>
+                </div>
             {% endif %}
         </div>
 
         {# Language for Process #}
 
-            <div
-                class="application-post__veterans">
+        <div
+            class="application-post__veterans">
 
-                {# <h3>
-                    {{ application_template.language_title }}
-                </h3> #}
+            {# <h3>
+                                                        {{ application_template.language_title }}
+                                                    </h3> #}
+
+            <div
+                class="form_wrapper">
 
                 <div
-                    class="form_wrapper">
+                    class="flex-grid">
+
+                    <p>
+                        {{ application_template.language_copy }}
+                    </p>
 
                     <div
-                        class="flex-grid">
-
-                        <p>{{ application_template.language_copy }}</p>
+                        class="box full">
 
                         <div
-                            class="box full">
-
+                            class="form__input-wrapper--select">
+                            <label
+                                class="form__label"
+                                for="preferred_language_id">
+                                {{ application_template.language_label }}
+                            </label>
                             <div
-                                class="form__input-wrapper--select">
-                                <label
-                                    class="form__label"
-                                    for="preferred_language_id">
-                                    {{ application_template.language_label }}
-                                </label>
-                                <div
-                                    class="form__select-wrapper fas fa-chevron-down">
-                                    <select
-                                        id="preferred_language_id"
-                                        class="form__input"
-                                        required
-                                        name="preferred_language_id">
-                                        <option value="" disabled selected>{{ application_template.select_default_option }}</option>
-                                        {% for option in language_options %}
-                                            <option
-                                                value="{{ option.id }}"
-                                                {% if option.id == job_application.preferred_language_id %}selected{% endif %}>{{ preferred_language_template[option.name] }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
+                                class="form__select-wrapper fas fa-chevron-down">
+                                <select
+                                    id="preferred_language_id"
+                                    class="form__input"
+                                    required
+                                    name="preferred_language_id">
+                                    <option
+                                        value=""
+                                        disabled
+                                        {% if not job_application.preferred_language_id %}selected{% endif %}>
+                                        {{ application_template.select_default_option }}
+                                    </option>
+                                    {% for option in language_options %}
+                                        <option
+                                            value="{{ option.id }}" {% if option.id == job_application.preferred_language_id %} selected
+                                            {% endif %}>
+                                            {{ preferred_language_template[option.name] }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
                             </div>
-
                         </div>
 
                     </div>
@@ -216,6 +246,8 @@
                 </div>
 
             </div>
+
+        </div>
 
         <h3>
             {{ application_template.question_title }}
@@ -223,7 +255,8 @@
 
         {% for question in job.job_poster_questions %}
 
-            <div class="application-post__long-form-question">
+            <div
+                class="application-post__long-form-question">
 
                 <span>
                     {{ question.question }}
@@ -244,7 +277,11 @@
                         id="questions[{{ question.id }}]"
                         class="form__textarea"
                         name="questions[{{ question.id }}]"
-                        required>{% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}{{ userAnswer.answer }}{% endif %}{% endfor %}</textarea>
+                        required>{% for userAnswer in job_application.job_application_answers %}
+                            {% if userAnswer.job_poster_question.id == question.id %}
+                                {{ userAnswer.answer }}
+                            {% endif %}
+                        {% endfor %}</textarea>
                 </div>
 
             </div>

@@ -45,6 +45,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
     ];
     return [
         'job_term_id' => JobTerm::inRandomOrder()->first()->id,
+        'chosen_lang' => $faker->randomElement(['en', 'fr']),
         'term_qty' => $faker->numberBetween(1, 4),
         'open_date_time' => ptDayStartToUtcTime($openDate),
         'close_date_time' => ptDayEndToUtcTime($closeDate),

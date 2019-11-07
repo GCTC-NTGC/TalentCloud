@@ -1,9 +1,11 @@
 {% extends "layouts/base" %}
 
+{% block title %}{{ title }}{% endblock %}
+
 {% block body %}
 
     {% include "common/goc" %}
-{% include "common/alert" %}
+    {% include "common/alert" %}
 
     {% include "common/header" with { 'header': { 'title': title } } %}
 
@@ -24,5 +26,3 @@
     </script>
 
 {% endblock %}
-
-

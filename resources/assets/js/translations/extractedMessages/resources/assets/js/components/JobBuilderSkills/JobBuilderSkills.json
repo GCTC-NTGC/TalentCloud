@@ -172,36 +172,36 @@
   {
     "id": "jobBuilder.skills.title.occupationalSkills",
     "description": "Title of skills category",
-    "defaultMessage": "Occupational Skills"
+    "defaultMessage": "Occupational Competencies"
   },
   {
     "id": "jobBuilder.skills.range.occupationalSkills",
-    "description": "Ranage recommendation for occupational skills in job poster",
+    "description": "Ranage recommendation for occupational competencies in job poster",
     "defaultMessage": "Aim for {minOccupational} - {maxOccupational} skills."
   },
   {
     "id": "jobBuilder.skills.nullText.occupationalSkills",
-    "description": "Placeholder text for occupational skills list.",
+    "description": "Placeholder text for occupational competencies list.",
     "defaultMessage": "You must return to Step 1 and choose a Classification."
   },
   {
     "id": "jobBuilder.skills.title.culturalSkills",
     "description": "Title of skills category",
-    "defaultMessage": "Cultural Skills"
+    "defaultMessage": "Behavioural Competencies"
   },
   {
     "id": "jobBuilder.skills.range.culturalSkills",
-    "description": "Ranage recommendation for cultural skills in job poster",
+    "description": "Range recommendation for behavioural competencies in job poster",
     "defaultMessage": "Aim for {minCulture} - {maxCulture} skills."
   },
   {
     "id": "jobBuilder.skills.title.futureSkills",
     "description": "Title of skills category",
-    "defaultMessage": "Future Skills"
+    "defaultMessage": "Public Service Competencies"
   },
   {
     "id": "jobBuilder.skills.range.futureSkills",
-    "description": "Ranage recommendation for future skills in job poster",
+    "description": "Ranage recommendation for public service competencies in job poster",
     "defaultMessage": "Aim for {minFuture} - {maxFuture} skills."
   },
   {
