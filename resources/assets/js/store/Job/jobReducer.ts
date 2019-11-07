@@ -21,6 +21,14 @@ import {
   SUBMIT_JOB_FOR_REVIEW_SUCCEEDED,
   SUBMIT_JOB_FOR_REVIEW_STARTED,
   SUBMIT_JOB_FOR_REVIEW_FAILED,
+  FETCH_CRITERIA_STARTED,
+  FETCH_CRITERIA_FAILED,
+  BATCH_UPDATE_CRITERIA_FAILED,
+  BATCH_UPDATE_CRITERIA_STARTED,
+  FETCH_JOB_TASKS_STARTED,
+  BATCH_UPDATE_JOB_TASKS_STARTED,
+  FETCH_JOB_TASKS_FAILED,
+  BATCH_UPDATE_JOB_TASKS_FAILED,
 } from "./jobActions";
 import {
   mapToObject,
@@ -57,6 +65,12 @@ export interface UiState {
   criteriaUpdating: {
     [id: number]: boolean;
   };
+  criteriaUpdatingByJob: {
+    [jobId: number]: boolean;
+  };
+  tasksUpdatingByJob: {
+    [jobId: number]: boolean;
+  };
   creatingJob: boolean;
   selectedJobId: number | null;
 }
@@ -76,6 +90,8 @@ export const initEntities = (): EntityState => ({
 export const initUi = (): UiState => ({
   jobUpdating: {},
   criteriaUpdating: {},
+  criteriaUpdatingByJob: {},
+  tasksUpdatingByJob: {},
   creatingJob: false,
   selectedJobId: null,
 });
@@ -197,6 +213,7 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
       return {
         ...state,
         jobUpdating: {
+          ...state.jobUpdating,
           [action.meta.id]: true,
         },
       };
@@ -209,6 +226,7 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
       return {
         ...state,
         jobUpdating: {
+          ...state.jobUpdating,
           [action.meta.id]: false,
         },
       };
@@ -216,6 +234,46 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
       return {
         ...state,
         selectedJobId: action.payload.jobId,
+      };
+    case FETCH_JOB_TASKS_STARTED:
+    case BATCH_UPDATE_JOB_TASKS_STARTED:
+      return {
+        ...state,
+        tasksUpdatingByJob: {
+          ...state.tasksUpdatingByJob,
+          [action.meta.jobId]: true,
+        }
+      };
+    case FETCH_JOB_TASKS_FAILED:
+    case FETCH_JOB_TASKS_SUCCEEDED:
+    case BATCH_UPDATE_JOB_TASKS_FAILED:
+    case BATCH_UPDATE_JOB_TASKS_SUCCEEDED:
+      return {
+        ...state,
+        tasksUpdatingByJob: {
+          ...state.tasksUpdatingByJob,
+          [action.meta.jobId]: false,
+        }
+      };
+    case FETCH_CRITERIA_STARTED:
+    case BATCH_UPDATE_CRITERIA_STARTED:
+      return {
+        ...state,
+        criteriaUpdatingByJob: {
+          ...state.criteriaUpdatingByJob,
+          [action.meta.jobId]: true,
+        }
+      };
+    case FETCH_CRITERIA_FAILED:
+    case FETCH_CRITERIA_SUCCEEDED:
+    case BATCH_UPDATE_CRITERIA_FAILED:
+    case BATCH_UPDATE_CRITERIA_SUCCEEDED:
+      return {
+        ...state,
+        criteriaUpdatingByJob: {
+          ...state.criteriaUpdatingByJob,
+          [action.meta.jobId]: false,
+        }
       };
     default:
       return state;

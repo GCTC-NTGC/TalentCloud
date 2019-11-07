@@ -60,6 +60,7 @@ const ReviewCategory: React.StatelessComponent<
   prioritizeVeterans,
   intl,
 }: ReviewCategoryProps & WrappedComponentProps): React.ReactElement | null => {
+  const [justCopied, setJustCopied] = useState(false);
   if (applications.length === 0) {
     return null;
   }
@@ -72,7 +73,7 @@ const ReviewCategory: React.StatelessComponent<
   const handleScreenOutAllClick = (): void => {
     Swal.fire({
       title: intl.formatMessage(localizations.screenOutAllConfirm),
-      type: "question",
+      icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
       cancelButtonColor: "#F94D4D",
@@ -151,7 +152,6 @@ const ReviewCategory: React.StatelessComponent<
   ];
 
   /* Code related to copying emails to clipboard */
-  const [justCopied, setJustCopied] = useState(false);
   const nameEmails = applications.map(application => {
     const { first_name, last_name, email } = application.applicant.user; // eslint-disable-line
     return `${first_name} ${last_name} <${email}>`; // eslint-disable-line

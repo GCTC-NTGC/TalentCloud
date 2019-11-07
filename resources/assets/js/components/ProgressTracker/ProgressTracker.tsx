@@ -13,6 +13,10 @@ export interface ProgressTrackerProps {
   dataIsLoading?: boolean;
 }
 
+const isActiveItem = ({ state }) => {
+  return state === "active";
+};
+
 const ProgressTracker: React.FunctionComponent<ProgressTrackerProps> = ({
   items,
   children,
@@ -23,33 +27,10 @@ const ProgressTracker: React.FunctionComponent<ProgressTrackerProps> = ({
   itemsWrapperClassNames,
   dataIsLoading,
 }): React.ReactElement => {
-  const activeItemLabel = (): string => {
-    const active: ProgressTrackerItem | undefined =
-      items &&
-      items.find(({ state }) => {
-        return state === "active";
-      });
-
-    return active ? active.label : "";
-  };
-
-  const activeItemTitle = (): string => {
-    const active: ProgressTrackerItem | undefined =
-      items &&
-      items.find(({ state }) => {
-        return state === "active";
-      });
-
-    return active ? active.title : "";
-  };
-
-  const activeIndex = (): number =>
-    items
-      ? items.reduce(function(acc, { state }) {
-          state === "active" ? acc++ : acc;
-          return acc;
-        }, 0)
-      : -1;
+  const active = items !== undefined ? items.find(isActiveItem) : undefined;
+  const activeItemLabel = active !== undefined ? active.label : "";
+  const activeItemTitle = active !== undefined ? active.title : "";
+  const activeIndex = items ? items.findIndex(isActiveItem) : -1;
 
   return (
     <div
@@ -63,7 +44,7 @@ const ProgressTracker: React.FunctionComponent<ProgressTrackerProps> = ({
         role="progressbar"
         aria-valuemin={1}
         aria-valuemax={items && items.length}
-        aria-valuenow={activeIndex()}
+        aria-valuenow={activeIndex}
         aria-valuetext={`${activeItemLabel} : ${activeItemTitle}`}
         className={itemsWrapperClassNames}
         data-c-container="layout"
@@ -72,9 +53,10 @@ const ProgressTracker: React.FunctionComponent<ProgressTrackerProps> = ({
         {items &&
           items.map(
             (item): React.ReactElement => {
-              const { state, label, title } = item;
+              const { link, state, label, title } = item;
               return (
                 <ProgressTrackerItemComponent
+                  link={link}
                   key={title}
                   state={state}
                   label={label}

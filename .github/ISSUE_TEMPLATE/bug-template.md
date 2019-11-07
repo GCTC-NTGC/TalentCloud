@@ -10,6 +10,12 @@ assignees: ''
 # Description
 A clear and concise description of what the bug is.
 
+# Technical Info
+
+**Device:** Mobile, Desktop, Laptop
+**Operating System:** iOS, Android, Windows, MacOs, etc.
+**Browser:** Chrome, Firefox, IE11, etc.
+
 # Steps to Reproduce
 Steps to reproduce the behavior. Example:
 1. Go to '...'

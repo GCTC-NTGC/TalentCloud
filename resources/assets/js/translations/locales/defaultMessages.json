@@ -832,7 +832,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Required Skill:",
+        "defaultMessage": "Required Level: ",
         "description": "Label preceding skill level requirements.",
         "id": "jobBuilder.criterion.requiredSkill"
       }
@@ -941,12 +941,22 @@
         "defaultMessage": "Your job is loading...",
         "description": "Message indicating that the current job is still being loaded.",
         "id": "jobBuilder.jobLoading"
+      },
+      {
+        "defaultMessage": "Any changes you made will not be saved. If you would like to save any changes please hit save at bottom the page.",
+        "description": "Warning message for user when switching pages without saving content.",
+        "id": "jobBuilder.unsavedChangesWarning"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/jobBuilderMessages.json"
   },
   {
     "descriptors": [
+      {
+        "defaultMessage": "Job Builder",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.root.documentTitle"
+      },
       {
         "defaultMessage": "Job Builder: Intro",
         "description": "The document's title shown in browser's title bar or tab.",
@@ -1636,38 +1646,38 @@
         "id": "jobBuilder.skills.title.skillSelection"
       },
       {
-        "defaultMessage": "Occupational Skills",
+        "defaultMessage": "Occupational Competencies",
         "description": "Title of skills category",
         "id": "jobBuilder.skills.title.occupationalSkills"
       },
       {
         "defaultMessage": "Aim for {minOccupational} - {maxOccupational} skills.",
-        "description": "Ranage recommendation for occupational skills in job poster",
+        "description": "Ranage recommendation for occupational competencies in job poster",
         "id": "jobBuilder.skills.range.occupationalSkills"
       },
       {
         "defaultMessage": "You must return to Step 1 and choose a Classification.",
-        "description": "Placeholder text for occupational skills list.",
+        "description": "Placeholder text for occupational competencies list.",
         "id": "jobBuilder.skills.nullText.occupationalSkills"
       },
       {
-        "defaultMessage": "Cultural Skills",
+        "defaultMessage": "Behavioural Competencies",
         "description": "Title of skills category",
         "id": "jobBuilder.skills.title.culturalSkills"
       },
       {
         "defaultMessage": "Aim for {minCulture} - {maxCulture} skills.",
-        "description": "Ranage recommendation for cultural skills in job poster",
+        "description": "Range recommendation for behavioural competencies in job poster",
         "id": "jobBuilder.skills.range.culturalSkills"
       },
       {
-        "defaultMessage": "Future Skills",
+        "defaultMessage": "Public Service Competencies",
         "description": "Title of skills category",
         "id": "jobBuilder.skills.title.futureSkills"
       },
       {
         "defaultMessage": "Aim for {minFuture} - {maxFuture} skills.",
-        "description": "Ranage recommendation for future skills in job poster",
+        "description": "Ranage recommendation for public service competencies in job poster",
         "id": "jobBuilder.skills.range.futureSkills"
       },
       {
@@ -2956,6 +2966,16 @@
       }
     ],
     "path": "resources/assets/js/components/JobTasks/JobTasks.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Must complete previous steps.",
+        "description": "Tooltip informing user to complete previous steps, before step it can become clickable.",
+        "id": "progressTracker.unreachableStep"
+      }
+    ],
+    "path": "resources/assets/js/components/ProgressTracker/ProgressTrackerItem.json"
   },
   {
     "descriptors": [

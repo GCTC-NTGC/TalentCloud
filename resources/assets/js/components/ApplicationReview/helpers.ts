@@ -12,7 +12,7 @@ export function isScreenedOut(application: Application): boolean {
   return application.application_review &&
     application.application_review.review_status
     ? application.application_review.review_status.name === "screened_out"
-    : false; // non-reviewed applicaitons have not been screened-out yet
+    : false; // non-reviewed applications have not been screened-out yet
 }
 
 /**
@@ -110,7 +110,7 @@ export function applicationCompare(
 }
 
 /**
- * Compare function used for sorting applications, which priotizes veterans over all others.
+ * Compare function used for sorting applications, which prioritizes veterans over all others.
  */
 export function applicationComparePrioritizeVeterans(
   first: Application,

@@ -9,27 +9,14 @@ exports[`Progress Tracker should render ProgressTracker with background color an
   <ol
     aria-valuemin={1}
     aria-valuenow={-1}
-    aria-valuetext="function () {
-        var active = items &&
-            items.find(function (_a) {
-                var state = _a.state;
-                return state === \\"active\\";
-            });
-        return active ? active.label : \\"\\";
-    } : function () {
-        var active = items &&
-            items.find(function (_a) {
-                var state = _a.state;
-                return state === \\"active\\";
-            });
-        return active ? active.title : \\"\\";
-    }"
+    aria-valuetext=" : "
     data-c-container="layout"
     role="progressbar"
     tabIndex={0}
   >
     <ProgressTrackerItem
       label="Step 01"
+      link="/"
       state="active"
       title="Job Info"
     />
@@ -46,37 +33,26 @@ exports[`Progress Tracker should render ProgressTracker with children 1`] = `
   <ol
     aria-valuemin={1}
     aria-valuenow={-1}
-    aria-valuetext="function () {
-        var active = items &&
-            items.find(function (_a) {
-                var state = _a.state;
-                return state === \\"active\\";
-            });
-        return active ? active.label : \\"\\";
-    } : function () {
-        var active = items &&
-            items.find(function (_a) {
-                var state = _a.state;
-                return state === \\"active\\";
-            });
-        return active ? active.title : \\"\\";
-    }"
+    aria-valuetext=" : "
     data-c-container="layout"
     role="progressbar"
     tabIndex={0}
   >
     <ProgressTrackerItem
       label="Step 01"
+      link="/"
       state="active"
       title="Job Info"
     />
     <ProgressTrackerItem
       label="Step 02"
+      link="/"
       state="complete"
       title="Work Env."
     />
     <ProgressTrackerItem
       label="Step 03"
+      link="/"
       state="error"
       title="Impact"
     />
@@ -93,22 +69,8 @@ exports[`Progress Tracker should render ProgressTracker with items 1`] = `
   <ol
     aria-valuemax={3}
     aria-valuemin={1}
-    aria-valuenow={1}
-    aria-valuetext="function () {
-        var active = items &&
-            items.find(function (_a) {
-                var state = _a.state;
-                return state === \\"active\\";
-            });
-        return active ? active.label : \\"\\";
-    } : function () {
-        var active = items &&
-            items.find(function (_a) {
-                var state = _a.state;
-                return state === \\"active\\";
-            });
-        return active ? active.title : \\"\\";
-    }"
+    aria-valuenow={0}
+    aria-valuetext="Step 01 : Job Info"
     data-c-container="layout"
     role="progressbar"
     tabIndex={0}
@@ -116,18 +78,21 @@ exports[`Progress Tracker should render ProgressTracker with items 1`] = `
     <ProgressTrackerItem
       key="Job Info"
       label="Step 01"
+      link="/"
       state="active"
       title="Job Info"
     />
     <ProgressTrackerItem
       key="Work Env."
       label="Step 02"
+      link="/"
       state="complete"
       title="Work Env."
     />
     <ProgressTrackerItem
       key="Impact"
       label="Step 03"
+      link="/"
       state="error"
       title="Impact"
     />
