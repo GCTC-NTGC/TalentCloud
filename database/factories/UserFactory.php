@@ -4,6 +4,7 @@ use App\Models\Applicant;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\Manager;
+use App\Models\HrAdvisor;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\Frequency;
 use App\Models\TeamCulture;
@@ -49,6 +50,10 @@ $factory->state(User::class, 'applicant', [
     'user_role_id' => UserRole::where('name', 'basic')->first()->id
 ]);
 
+$factory->state(User::class, 'hr_advisor', [
+    'user_role_id' => UserRole::where('name', 'hr_advisor')->first()->id
+]);
+
 $factory->state(User::class, 'admin', [
     'user_role_id' => UserRole::where('name', 'admin')->first()->id
 ]);
@@ -66,6 +71,15 @@ $factory->define(Applicant::class, function (Faker\Generator $faker) {
         'is_snapshot' => false,
         'user_id' => function () {
             return factory(User::class)->states('applicant')->create()->id;
+        },
+    ];
+});
+
+$factory->define(HrAdvisor::class, function () {
+    return [
+        'department_id' => null,
+        'user_id' => function () {
+            return factory(User::class)->create()->id;
         },
     ];
 });

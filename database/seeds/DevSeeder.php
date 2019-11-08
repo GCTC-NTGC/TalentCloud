@@ -35,6 +35,14 @@ class DevSeeder extends Seeder // phpcs:ignore
      */
     protected $applicantEmail = 'applicant@test.com';
 
+    /**
+     * This seeder attaches all applicant objects to this user.
+     * Note: all seeded users have 'password' for a password.
+     *
+     * @var string
+     */
+    protected $hrAdvisorEmail = 'hr_advisor@test.com';
+
 
 
     /**
@@ -47,6 +55,11 @@ class DevSeeder extends Seeder // phpcs:ignore
         $adminUser = User::where('email', $this->adminEmail)->first();
         if ($adminUser === null) {
             $adminUser = factory(User::class)->state('admin')->create(['email' => $this->adminEmail]);
+        }
+
+        $hrUser = User::where('email', $this->hrAdvisorEmail)->first();
+        if ($hrUser === null) {
+            $hrUser = factory(User::class)->state('hr_advisor')->create(['email' => $this->hrAdvisorEmail]);
         }
 
         $managerUser = User::where('email', $this->managerEmail)->first();
