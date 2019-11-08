@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Applicant;
 use App\Models\Manager;
+use App\Models\HrAdvisor;
 use App\Models\Lookup\Department;
 use App\Services\Validation\RegistrationValidator;
 use Facades\App\Services\WhichPortal;
@@ -37,7 +38,13 @@ class RegisterController extends AuthController
      */
     protected function redirectTo()
     {
-        $redirectTo = WhichPortal::isManagerPortal() ? route('manager.home') : route('home');
+        if (WhichPortal::isManagerPortal()) {
+            $redirectTo = WhichPortal::isManagerPortal() ? route('manager.home') : route('home');
+        } elseif (WhichPortal::isHrPortal()) {
+            $redirectTo = WhichPortal::isHrPortal() ? route('hr_advisor.home') : route('home');
+        } else {
+            $redirectTo = route('home');
+        }
         return $redirectTo;
     }
 
@@ -82,6 +89,22 @@ class RegisterController extends AuthController
     }
 
     /**
+     * Show the hr_advisor registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showHrRegistrationForm()
+    {
+        return view('auth.register_manager', [
+            'routes' => $this->auth_routes(),
+            'register' => Lang::get('common/auth/register'),
+            'not_in_gov_option' => ['value' => 0, 'name' => Lang::get('common/auth/register.not_in_gov')],
+            'departments' => Department::all(),
+            'home_url' => route('hr_advisor.home'),
+        ]);
+    }
+
+    /**
      * OVERRIDE
      * Get a validator for an incoming registration request.
      *
@@ -102,6 +125,17 @@ class RegisterController extends AuthController
     protected function managerValidator(array $data)
     {
         return RegistrationValidator::managerValidator($data);
+    }
+
+    /**
+     * Get a validator for an incoming HR Advisor registration request.
+     *
+     * @param  array $data Incoming registration data.
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function hrValidator(array $data)
+    {
+        return RegistrationValidator::hrValidator($data);
     }
 
     /**
@@ -162,6 +196,37 @@ class RegisterController extends AuthController
     }
 
     /**
+     * Create a new HR Advisor user instance after a valid registration.
+     *
+     * @param  array $data Incoming User data.
+     * @return \App\Models\User
+     */
+    protected function createHrAdvisor(array $data)
+    {
+        // Create basic user.
+        $user = $this->create($data);
+
+        // Save hr_advisor specific fields (same as manager).
+        $hrDepartment = Department::find($data['department']);
+        $inGovernment = ($hrDepartment !== null);
+        $user->not_in_gov = !$inGovernment;
+        $user->gov_email = $inGovernment ? $data['gov_email'] : null;
+
+        $user->setRole('hr_advisor');
+        $user->save();
+        $user->refresh();
+
+        $user->hr_advisor()->save(new HrAdvisor());
+
+        $department_id = $inGovernment ? $hrDepartment->id : null;
+        $user->hr_advisor->department_id = $department_id;
+        $user->hr_advisor->user_id === $user->id;
+        $user->hr_advisor->save();
+
+        return $user->fresh();
+    }
+
+    /**
      * OVERRIDE
      * The user has been registered.
      *
@@ -191,5 +256,23 @@ class RegisterController extends AuthController
 
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());
+    }
+
+    /**
+     * Handle a HR Advisor registration request for the application.
+     * This function is based off RegistersUsers->register
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function registerHrAdvisor(Request $request)
+    {
+        $this->hrValidator($request->all())->validate();
+
+        event(new Registered($user = $this->createHrAdvisor($request->all())));
+
+        $this->guard()->login($user);
+
+        return redirect(route('hr_advisor.home'));
     }
 }
