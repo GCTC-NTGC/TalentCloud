@@ -202,7 +202,7 @@ class User extends BaseModel implements
             case 'manager':
                 return $this->isManager();
             case 'hr_advisor':
-                return $this->ishrAdvisor();
+                return $this->isHrAdvisor();
             case 'admin':
                 return $this->isAdmin();
             default:
