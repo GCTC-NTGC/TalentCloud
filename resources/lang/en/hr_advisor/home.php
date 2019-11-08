@@ -14,7 +14,7 @@ return [
         'subheading' => 'An experimental platform. Hiring made easier.',
     ],
     'banner' => [
-        'content' => 'Welcome to the Talent Cloud :open HR :close portal.',
+        'content' => 'Welcome to the Talent Cloud :open HR Advisor :close portal.',
         'anchor' => [
             'text' => 'Click here to return to the applicant portal.',
             'title' => 'Return to the applicant portal.'

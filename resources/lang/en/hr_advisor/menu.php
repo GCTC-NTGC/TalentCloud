@@ -17,7 +17,7 @@ return [
     'login' => 'Login',
     'logout' => 'Logout',
     /* <title> tag content */
-    'home_title' => 'Talent Cloud | HR Portal: Home',
+    'home_title' => 'Talent Cloud | HR Advisor Portal: Home',
     // Button labels.
     'mobile_trigger_label' => 'Mobile Menu',
     'modal_cancel_label' => 'Cancel',

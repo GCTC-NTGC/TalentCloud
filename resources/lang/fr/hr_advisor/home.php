@@ -14,7 +14,7 @@ return [
         'subheading' => 'Une plateforme expérimentale. L’embauche facilitée.',
     ],
     'banner' => [
-        'content' => 'Bienvenue au portail de :open RH :close du Nuage de talents.',
+        'content' => 'Bienvenue au portail de :open conseillers en RH :close du Nuage de talents.',
         'anchor' => [
             'text' => 'Cliquez ici pour revenir au portail des candidats.',
             'title' => 'Revenir au portail des candidats.'

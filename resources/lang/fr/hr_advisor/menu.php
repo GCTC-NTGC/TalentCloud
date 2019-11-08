@@ -17,7 +17,7 @@ return [
     'login' => 'Ouvrir une session',
     'logout' => 'Déconnexion',
     /* <title> tag content */
-    'home_title' => 'Nuage de talents | Portail de RH : Accueil',
+    'home_title' => 'Nuage de talents | Portail de conseillers en RH : Accueil',
     // Button labels.
     'mobile_trigger_label' => 'Menu mobile',
     'modal_cancel_label' => 'Annuler',
