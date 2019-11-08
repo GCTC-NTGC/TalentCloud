@@ -432,7 +432,18 @@ Route::group(
             'prefix' => config('app.hr_prefix'),
         ], function (): void {
 
-            Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
+            Route::middleware(['finishHrRegistration'])->group(function (): void {
+
+                Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
+            });
+
+            // These routes must be excluded from the finishManagerRegistration middleware to avoid an infinite loop of redirects
+            Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
+                Route::get('first-visit', 'Auth\FirstVisitController@showFirstVisitHrForm')
+                    ->name('hr_advisor.first_visit');
+                Route::post('finish_registration', 'Auth\FirstVisitController@finishHrRegistration')
+                    ->name('hr_advisor.finish_registration');
+            });
 
             // Laravel default login, logout, register, and reset routes
             Route::get('login', 'Auth\LoginController@showLoginForm')->name('hr_advisor.login');
@@ -453,18 +464,18 @@ Route::group(
 );
 
 /* Non-Backpack Admin Portal (non-localized pages) =========================================================== */
-Route::group(
-    [
-        'prefix' => 'admin',
-        'middleware' => ['auth', 'role:admin']
-    ],
-    function (): void {
-        // This page is non-localized, because the middleware that redirects to localized pages changes POSTs to GETs and messes up the request.
-        Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
-            ->middleware('can:create,App\Models\JobPoster')
-            ->name('admin.jobs.create_as_manager');
-    }
-);
+        Route::group(
+            [
+            'prefix' => 'admin',
+            'middleware' => ['auth', 'role:admin']
+            ],
+            function (): void {
+            // This page is non-localized, because the middleware that redirects to localized pages changes POSTs to GETs and messes up the request.
+                Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
+                ->middleware('can:create,App\Models\JobPoster')
+                ->name('admin.jobs.create_as_manager');
+            }
+        );
 
 
 
@@ -473,65 +484,65 @@ Route::group(
 
 
 /** API routes - currently using same default http auth, but not localized */
-Route::group(['prefix' => 'api'], function (): void {
-    // Protected by a gate in the controller, instead of policy middleware
-    Route::get('jobs/{jobPoster}/assessment-plan', 'AssessmentPlanController@getForJob');
-    // Public, not protected by policy or gate
-    Route::get('skills', 'Api\SkillController@index');
-    Route::get('departments', 'Api\DepartmentController@index');
+        Route::group(['prefix' => 'api'], function (): void {
+            // Protected by a gate in the controller, instead of policy middleware
+            Route::get('jobs/{jobPoster}/assessment-plan', 'AssessmentPlanController@getForJob');
+            // Public, not protected by policy or gate
+            Route::get('skills', 'Api\SkillController@index');
+            Route::get('departments', 'Api\DepartmentController@index');
 
-    // Resource Routes are protected by policies in controllers instead of middleware.
-    Route::resource('assessments', 'AssessmentController')->except([
-        'create', 'edit', 'index'
-    ]);
-    Route::apiResource('rating-guide-answers', 'RatingGuideAnswerController')->except([
-        'index'
-    ])->parameters([
-        'rating-guide-answers' => 'ratingGuideAnswer'
-    ]);
-    Route::resource('rating-guide-questions', 'RatingGuideQuestionController')->except([
-        'create', 'edit', 'index'
-    ]);
-    Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
-        'store', 'create', 'edit'
-    ]);
-    // TODO: add policy middleware
-    Route::get('jobs/{jobPoster}/tasks', 'Api\JobTaskController@indexByJob')
-        ->where('jobPoster', '[0-9]+')
-        ->middleware('can:view,jobPoster');
-    Route::put('jobs/{jobPoster}/tasks', 'Api\JobTaskController@batchUpdate')
-        ->where('jobPoster', '[0-9]+')
-        ->middleware('can:update,jobPoster');
-
-
-     Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
-        ->where('jobPoster', '[0-9]+')
-        ->middleware('can:view,jobPoster');
-    Route::put('jobs/{jobPoster}/criteria', 'Api\CriteriaController@batchUpdate')
-        ->where('jobPoster', '[0-9]+')
-        ->middleware('can:update,jobPoster');
+            // Resource Routes are protected by policies in controllers instead of middleware.
+            Route::resource('assessments', 'AssessmentController')->except([
+                'create', 'edit', 'index'
+            ]);
+            Route::apiResource('rating-guide-answers', 'RatingGuideAnswerController')->except([
+                'index'
+            ])->parameters([
+                'rating-guide-answers' => 'ratingGuideAnswer'
+            ]);
+            Route::resource('rating-guide-questions', 'RatingGuideQuestionController')->except([
+                'create', 'edit', 'index'
+            ]);
+            Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
+                'store', 'create', 'edit'
+            ]);
+            // TODO: add policy middleware
+            Route::get('jobs/{jobPoster}/tasks', 'Api\JobTaskController@indexByJob')
+                ->where('jobPoster', '[0-9]+')
+                ->middleware('can:view,jobPoster');
+            Route::put('jobs/{jobPoster}/tasks', 'Api\JobTaskController@batchUpdate')
+                ->where('jobPoster', '[0-9]+')
+                ->middleware('can:update,jobPoster');
 
 
-    Route::post('jobs/{job}/submit', 'Api\JobApiController@submitForReview')
-        ->where('job', '[0-9]+')
-        ->middleware('can:submitForReview,job')
-        ->name('api.jobs.submit');
-    Route::resource('jobs', 'Api\JobApiController')->only([
-        'show', 'store', 'update'
-    ])->names([ // Specify custom names because default names collied with existing routes.
-        'show' => 'api.jobs.show',
-        'store' => 'api.jobs.store',
-        'update' => 'api.jobs.update'
-    ]);
+             Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
+                ->where('jobPoster', '[0-9]+')
+                ->middleware('can:view,jobPoster');
+            Route::put('jobs/{jobPoster}/criteria', 'Api\CriteriaController@batchUpdate')
+                ->where('jobPoster', '[0-9]+')
+                ->middleware('can:update,jobPoster');
 
-    Route::resource('managers', 'Api\ManagerApiController')->only([
-        'show', 'update'
-    ])->names([ // Specify custom names because default names collied with existing routes
-        'show' => 'api.managers.show',
-        'update' => 'api.managers.update'
-    ]);
 
-    // User must be logged in to user currentuser routes
-    Route::get('currentuser/manager', 'Api\ManagerApiController@showAuthenticated')
-        ->middleware('auth');
-});
+            Route::post('jobs/{job}/submit', 'Api\JobApiController@submitForReview')
+                ->where('job', '[0-9]+')
+                ->middleware('can:submitForReview,job')
+                ->name('api.jobs.submit');
+            Route::resource('jobs', 'Api\JobApiController')->only([
+                'show', 'store', 'update'
+            ])->names([ // Specify custom names because default names collied with existing routes.
+                'show' => 'api.jobs.show',
+                'store' => 'api.jobs.store',
+                'update' => 'api.jobs.update'
+            ]);
+
+            Route::resource('managers', 'Api\ManagerApiController')->only([
+                'show', 'update'
+            ])->names([ // Specify custom names because default names collied with existing routes
+                'show' => 'api.managers.show',
+                'update' => 'api.managers.update'
+            ]);
+
+            // User must be logged in to user currentuser routes
+            Route::get('currentuser/manager', 'Api\ManagerApiController@showAuthenticated')
+                ->middleware('auth');
+        });
