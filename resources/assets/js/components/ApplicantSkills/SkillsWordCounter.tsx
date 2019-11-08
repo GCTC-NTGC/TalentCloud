@@ -99,14 +99,16 @@ const addHardSkillButton: HTMLElement | null = document.getElementById(
 const updateWordCounters = (): void => {
   // Find all skills textarea elements
   if (document.querySelectorAll("div[data-word-counter-id]")) {
-    const elements = document.querySelectorAll("div[data-word-counter-id]");
+    const wordCounters = document.querySelectorAll("div[data-word-counter-id]");
 
-    elements.forEach((container): void => {
+    console.dir(wordCounters);
+
+    wordCounters.forEach((wordCounter): void => {
       if (
-        container !== null &&
-        container.hasAttribute("data-word-counter-id")
+        wordCounter !== null &&
+        wordCounter.hasAttribute("data-word-counter-id")
       ) {
-        const { previousElementSibling } = container;
+        const { previousElementSibling } = wordCounter;
 
         const textarea =
           previousElementSibling && previousElementSibling.lastElementChild;
@@ -120,19 +122,24 @@ const updateWordCounters = (): void => {
           <IntlContainer locale={locale}>
             <SkillsWordCounterIntl elementId={elementId} />
           </IntlContainer>,
-          container,
+          wordCounter,
         );
       }
     });
   }
 };
 
+// TODO: Find better solution then firing this event listener last by using setTimeout.
 if (addSoftSkillButton) {
-  addSoftSkillButton.addEventListener("click", updateWordCounters);
+  setTimeout(() => {
+    addSoftSkillButton.addEventListener("click", updateWordCounters);
+  }, 1000);
 }
 
 if (addHardSkillButton) {
-  addHardSkillButton.addEventListener("click", updateWordCounters);
+  setTimeout(() => {
+    addHardSkillButton.addEventListener("click", updateWordCounters);
+  }, 1000);
 }
 
 updateWordCounters();
