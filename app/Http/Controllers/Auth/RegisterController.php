@@ -211,14 +211,16 @@ class RegisterController extends AuthController
         $inGovernment = ($hrDepartment !== null);
         $user->not_in_gov = !$inGovernment;
         $user->gov_email = $inGovernment ? $data['gov_email'] : null;
-
         $user->setRole('hr_advisor');
+
         $user->save();
         $user->refresh();
 
-        $user->hr_advisor()->save(new HrAdvisor());
-
         $department_id = $inGovernment ? $hrDepartment->id : null;
+        if ($user->hr_advisor === null) {
+            $user->hr_advisor()->save(new HrAdvisor());
+            $user->refresh();
+        }
         $user->hr_advisor->department_id = $department_id;
         $user->hr_advisor->user_id === $user->id;
         $user->hr_advisor->save();
