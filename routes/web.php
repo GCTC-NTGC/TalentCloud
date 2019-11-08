@@ -407,7 +407,6 @@ Route::group(
                 ->name('application_reviews.update');
         });
 
-
         /* Non-Backpack Admin Portal (localized pages) =========================================================== */
         Route::group(
             [
@@ -426,6 +425,30 @@ Route::group(
                     ->name('admin.jobs.update');
             }
         );
+
+        /* HR Advisor Portal =========================================================== */
+
+        Route::group([
+            'prefix' => config('app.hr_prefix'),
+        ], function (): void {
+
+            Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
+
+            // Laravel default login, logout, register, and reset routes
+            Route::get('login', 'Auth\LoginController@showLoginForm')->name('hr_advisor.login');
+            Route::post('login', 'Auth\LoginController@login')->name('hr_advisor.login.post');
+            Route::post('logout', 'Auth\LoginController@logout')->name('hr_advisor.logout');
+
+            // Registration Routes...
+            Route::get('register', 'Auth\RegisterController@showHrRegistrationForm')->name('hr_advisor.register');
+            Route::post('register', 'Auth\RegisterController@registerHrAdvisor')->name('hr_advisor.register.post');
+
+            // Password Reset Routes...
+            Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('hr_advisor.password.request');
+            Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('hr_advisor.password.email');
+            Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('hr_advisor.password.reset');
+            Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('hr_advisor.password.reset.post');
+        });
     }
 );
 
@@ -442,6 +465,7 @@ Route::group(
             ->name('admin.jobs.create_as_manager');
     }
 );
+
 
 
 /** ALL NON-LOCALIZED ROUTES **/
