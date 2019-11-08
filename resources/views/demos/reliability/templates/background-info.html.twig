@@ -1,0 +1,535 @@
+<div data-c-grid-item="base(1of1)">
+    <span id="background"></span>
+    <h2 data-c-font-size="h3" data-gc-section-status="incomplete" data-c-margin="top(triple) bottom(normal)"><i class="material-icons">error</i><i class="material-icons">warning</i><i class="material-icons">check_circle</i>Background Information</h2>
+    <hr data-c-margin="tb(double)">
+    <h3 data-c-font-size="h4" data-c-color="c3" data-c-margin="top(double) bottom(normal)">Legal Name &amp; Contact Information</h3>
+</div>
+<div data-c-input="text" data-c-grid-item="ds(1of3)">
+    <label for="TI2">Surname</label>
+    <span>Required</span>
+    <div>
+        <input id="TI2" placeholder="e.g. Kent" required type="text" />
+    </div>
+    <span>This input has an error.</span>
+</div>
+<div data-c-input="text" data-c-grid-item="ds(1of3)">
+    <label for="TI2">All Official Given Names (No Initials)</label>
+    <span>Required</span>
+    <div>
+        <input id="TI2" placeholder="e.g. Clark" required type="text" />
+    </div>
+    <span>This input has an error.</span>
+</div>
+<div data-c-input="text" data-c-grid-item="ds(1of3)">
+    <label for="TI2">Commonly Used Name</label>
+    <span>Required</span>
+    <div>
+        <input id="TI2" placeholder="e.g. Clarky" required type="text" />
+    </div>
+    <span>This input has an error.</span>
+</div>
+<div data-c-input="radio" data-c-grid-item="base(1of1)">
+    <label for="birthName">My legal name at birth:</label>
+    <span>Required</span>
+    <div id="birthName" role="radiogroup">
+        <label for="birthNameSame" data-gc-birth-name-same-trigger>
+            <input id="birthNameSame" required name="birthName" type="radio" />
+            <span>Is the same as the name above.</span>
+        </label>
+        <label for="birthNameDifferent" data-gc-birth-name-different-trigger>
+            <input id="birthNameDifferent" required name="birthName" type="radio" />
+            <span>Is different than the name above.</span>
+        </label>
+    </div>
+    <span>This input has an error.</span>
+</div>
+{# Different Birth Name #}
+<div data-gc-birth-name-different class="hidden" data-c-grid-item="base(1of1)">
+    <div data-c-grid="gutter">
+        <div data-c-input="text" data-c-grid-item="tl(1of2)">
+            <label for="TI2">Surname at Birth</label>
+            <span>Required</span>
+            <div>
+                <input id="TI2" placeholder="e.g. El" required type="text" />
+            </div>
+            <span>This input has an error.</span>
+        </div>
+        <div data-c-input="text" data-c-grid-item="tl(1of2)">
+            <label for="TI2">Given Names at Birth (No Initials)</label>
+            <span>Required</span>
+            <div>
+                <input id="TI2" placeholder="e.g. Kal" required type="text" />
+            </div>
+            <span>This input has an error.</span>
+        </div>
+    </div>
+</div>
+{# Nicknames/Aliases #}
+<div data-c-input="text" data-c-grid-item="base(1of1)">
+    <label for="TI2">Nicknames or Aliases (Also Known As)</label>
+    <span>Required</span>
+    <div>
+        <input id="TI2" placeholder="e.g. Superman" required type="text" />
+    </div>
+    <span>This input has an error.</span>
+</div>
+{# Date of Birth, Gender, OL #}
+<div data-c-input="date" data-c-grid-item="base(1of1)">
+    <label for="DAT2">Your Date of Birth</label>
+    <span>Required</span>
+    <div>
+        <input
+            id="DAT2"
+            type="date"
+            required
+            placeholder="yyyy-mm-dd"/>
+    </div>
+    <span>This input has an error.</span>
+</div>
+<div data-c-input="radio" data-c-grid-item="base(1of1)">
+    <label for="gender">Your Gender:</label>
+    <span>Required</span>
+    <div id="gender" role="radiogroup">
+        <label for="genderFemale">
+            <input id="genderFemale" required name="gender" type="radio" />
+            <span>Female</span>
+        </label>
+        <label for="genderMale">
+            <input id="genderMale" required name="gender" type="radio" />
+            <span>Male</span>
+        </label>
+        <label for="genderX">
+            <input id="genderX" required name="gender" type="radio" />
+            <span>X</span>
+        </label>
+    </div>
+    <span>This input has an error.</span>
+</div>
+<div data-c-input="radio" data-c-grid-item="base(1of1)">
+    <label for="OL">My Preferred Official Language:</label>
+    <span>Required</span>
+    <div id="OL" role="radiogroup">
+        <label for="OLEnglish">
+            <input id="OLEnglish" required name="OL" type="radio" />
+            <span>English</span>
+        </label>
+        <label for="OLFrench">
+            <input id="OLFrench" required name="OL" type="radio" />
+            <span>French</span>
+        </label>
+    </div>
+    <span>This input has an error.</span>
+</div>
+{# Phone Mumbers #}
+<div data-c-input="text" data-c-grid-item="tl(1of2)">
+    <label for="TI2">Daytime Telephone</label>
+    <span>Required</span>
+    <div>
+        <input id="TI2" placeholder="e.g. 555-555-5555" required type="tel" />
+    </div>
+    <span>This input has an error.</span>
+</div>
+<div data-c-input="text" data-c-grid-item="tl(1of2)">
+    <label for="TI2">Evening Telephone</label>
+    <span>Required</span>
+    <div>
+        <input id="TI2" placeholder="e.g. 555-555-5555" required type="tel" />
+    </div>
+    <span>This input has an error.</span>
+</div>
+{# Emails #}
+<div data-c-input="email" data-c-grid-item="tl(1of2)">
+    <label for="EM2">Personal Email</label>
+    <span>Required</span>
+    <div>
+        <input id="EM2" placeholder="e.g. supes@krypton.com" required type="email" />
+    </div>
+    <span>This input has an error.</span>
+</div>
+<div data-c-input="email" data-c-grid-item="tl(1of2)">
+    <label for="EM2">Work Email</label>
+    <span>Required</span>
+    <div>
+        <input id="EM2" placeholder="e.g. clark@dailyplanet.com" required type="email" />
+    </div>
+    <span>This input has an error.</span>
+</div>
+
+{# Previous Names #}
+<div data-c-grid-item="base(1of1)">
+    <h3 data-c-font-size="h4" data-c-color="c3" data-c-margin="top(double) bottom(normal)">Previous Legal Names</h3>
+</div>
+<div data-c-grid-item="base(1of1)">
+    <p data-c-margin="bottom(double)">Have you previously had different legal names? If not, you can leave this section blank. If you have had different legal names in the past, please add each one using the button.</p>
+    <div data-gc-legal-names data-c-margin="bottom(double)">
+        <div data-gc-legal-names-null data-c-border="all(thin, solid, gray)" data-c-background="gray(10)" data-c-radius="rounded" data-c-padding="normal" data-c-align="base(center)">
+            <p>You haven't added any previous names yet.</p>
+        </div>
+    </div>
+    <div data-c-align="base(right)">
+        <button data-c-button="solid(c1)" data-c-radius="rounded" data-c-dialog-id="legal-name-dialog" data-c-dialog-action="open" type="button">
+            Add a Previous Legal Name
+        </button>
+    </div>
+</div>
+
+{# Citizenship #}
+<div data-c-grid-item="base(1of1)">
+    <h3 data-c-font-size="h4" data-c-color="c3" data-c-margin="top(double) bottom(normal)">Citizenship</h3>
+</div>
+<div data-c-input="radio" data-c-grid-item="base(1of1)">
+    <label for="citizenCanada">Are you a Canadian citizen?</label>
+    <span>Required</span>
+    <div id="citizenCanada" role="radiogroup">
+        <label for="citizenCanadaYes" data-gc-citizen-true-trigger>
+            <input id="citizenCanadaYes" required name="citizenCanada" type="radio" />
+            <span>Yes, I am a Canadian citizen.</span>
+        </label>
+        <label for="citizenCanadaNo" data-gc-citizen-false-trigger>
+            <input id="citizenCanadaNo" required name="citizenCanada" type="radio" />
+            <span>No, I'm not a Canadian citizen.</span>
+        </label>
+    </div>
+    <span>This input has an error.</span>
+</div>
+{# Foreign Citizenship #}
+<div data-gc-citizen-false class="hidden" data-c-grid-item="base(1of1)">
+    <div data-c-grid="gutter">
+        <div data-c-input="text" data-c-grid-item="base(1of1)">
+            <label for="TI2">What foreign citizenship do you hold?</label>
+            <span>Required</span>
+            <div>
+                <input id="TI2" placeholder="e.g. United States of America" required type="text" />
+            </div>
+            <span>This input has an error.</span>
+        </div>
+    </div>
+</div>
+{# Multiple Citizenships #}
+<div data-c-input="radio" data-c-grid-item="base(1of1)">
+    <label for="multipleCitizen">Do you hold multiple citizenships?</label>
+    <span>Required</span>
+    <div id="multipleCitizen" role="radiogroup">
+        <label for="multipleCitizenYes" data-gc-multiple-citizen-true-trigger>
+            <input id="multipleCitizenYes" required name="multipleCitizen" type="radio" />
+            <span>Yes, I have multiple citizenships.</span>
+        </label>
+        <label for="multipleCitizenNo" data-gc-multiple-citizen-false-trigger>
+            <input id="multipleCitizenNo" required name="multipleCitizen" type="radio" />
+            <span>No, I do not have multiple citizenships.</span>
+        </label>
+    </div>
+    <span>This input has an error.</span>
+</div>
+{# Multiple Citizenships #}
+<div data-gc-multiple-citizen-true class="hidden" data-c-grid-item="base(1of1)">
+    <div data-c-grid="gutter">
+        <div data-c-input="text" data-c-grid-item="base(1of1)">
+            <label for="TI2">Please list all countries that have granted you citizenship.</label>
+            <span>Required</span>
+            <div>
+                <input id="TI2" placeholder="e.g. United States of America, Mexico" required type="text" />
+            </div>
+            <span>This input has an error.</span>
+        </div>
+    </div>
+</div>
+{# Place of Birth #}
+<div data-c-input="select" data-c-grid-item="ds(1of3)">
+    <label for="SEL2">Country of Birth</label>
+    <span>Required</span>
+    <div>
+        <i class="material-icons">
+            arrow_drop_down
+        </i>
+        <select required id="SEL2" data-gc-home-select>
+            <option disabled>Select a country...</option>
+            <option selected value="Canada">Canada</option>
+            <option>United States of America</option>
+        </select>
+    </div>
+    <span>This input has an error.</span>
+</div>
+<div data-c-input="select" data-c-grid-item="ds(1of3)">
+    <label for="SEL2">Province or State of Birth</label>
+    <span>Required</span>
+    <div>
+        <i class="material-icons">
+            arrow_drop_down
+        </i>
+        <select required id="SEL2">
+            <option disabled selected>Select a province/state...</option>
+            {% include "demos/reliability/templates/partials/provinces" %}
+        </select>
+    </div>
+    <span>This input has an error.</span>
+</div>
+<div data-c-input="text" data-c-grid-item="ds(1of3)">
+    <label for="TI2">City or Town of Birth</label>
+    <span>Required</span>
+    <div>
+        <input id="TI2" placeholder="e.g. Smallville" required type="text" />
+    </div>
+    <span>This input has an error.</span>
+</div>
+{# Born outside of Canada #}
+<div data-gc-foreign-born class="hidden" data-c-grid-item="base(1of1)">
+    <div data-c-grid="gutter">
+        <div data-c-grid-item="base(1of1)">
+            <p data-c-margin="bottom(normal)">As someone born outside of Canada...</p>
+        </div>
+        <div data-c-input="date" data-c-grid-item="base(1of1)">
+            <label for="DAT2">Date of Entry into Canada</label>
+            <span>Required</span>
+            <div>
+                <input
+                    id="DAT2"
+                    type="date"
+                    required/>
+            </div>
+            <span>This input has an error.</span>
+        </div>
+        {# Naturalization #}
+        <div data-c-input="radio" data-c-grid-item="base(1of1)">
+            <label for="naturalized">Are you a naturalized Canadian citizen?</label>
+            <span>Required</span>
+            <div id="naturalized" role="radiogroup">
+                <label for="naturalizedYes" data-gc-naturalization-true-trigger>
+                    <input id="naturalizedYes" required name="naturalized" type="radio" />
+                    <span>Yes</span>
+                </label>
+                <label for="naturalizedNo" data-gc-naturalization-false-trigger>
+                    <input id="naturalizedNo" required name="naturalized" type="radio" />
+                    <span>No</span>
+                </label>
+            </div>
+            <span>This input has an error.</span>
+        </div>
+            {# If yes #}
+            <div data-gc-naturalization-true class="hidden" data-c-grid-item="base(1of1)">
+                <div data-c-grid="gutter">
+                    <div data-c-input="number" data-c-grid-item="tl(1of2)">
+                        <label for="NUM2">Certificate Number</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="NUM2" placeholder="0" required type="number" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="date" data-c-grid-item="tl(1of2)">
+                        <label for="DAT2">Date of Issue</label>
+                        <span>Required</span>
+                        <div>
+                            <input
+                                id="DAT2"
+                                type="date"
+                                required
+                                placeholder="yyyy-mm-dd"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                </div>
+            </div>
+            {# If no #}
+            <div data-gc-naturalization-false class="hidden" data-c-grid-item="base(1of1)">
+                <div data-c-grid="gutter">
+                    <div data-c-input="radio" data-c-grid-item="base(1of1)">
+                        <label for="naturalizedApplication">Have you applied for a Canadian citizenship?</label>
+                        <span>Required</span>
+                        <div id="naturalizedApplication" role="radiogroup">
+                            <label for="naturalizedApplicationYes" data-gc-naturalization-application-true-trigger>
+                                <input id="naturalizedApplicationYes" required name="naturalizedApplication" type="radio" />
+                                <span>Yes</span>
+                            </label>
+                            <label for="naturalizedApplicationNo" data-gc-naturalization-application-false-trigger>
+                                <input id="naturalizedApplicationNo" required name="naturalizedApplication" type="radio" />
+                                <span>No</span>
+                            </label>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                        {# If yes #}
+                        <div data-gc-naturalization-application-true class="hidden" data-c-grid-item="base(1of1)">
+                            <p data-c-margin="bottom(normal)">If applicable, attach a copy of your permanent resident status, landed documentation or refugee status to this form. If you were born abroad but have Canadian parents, attach a copy of your certificate or registration of birth abroad to this form.</p>
+                            <div data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-background="gray(10)">
+                                <div data-c-grid>
+                                    <div data-c-grid-item="base(1of3)" data-c-padding="normal">
+                                        <p>Permanent Residency</p>
+                                    </div>
+                                    <div data-c-grid-item="base(2of3)" data-c-padding="normal">
+                                        <input type="file" id="input" multiple>
+                                    </div>
+                                    <div data-c-grid-item="base(1of3)" data-c-padding="normal">
+                                        <p>Refugee Status</p>
+                                    </div>
+                                    <div data-c-grid-item="base(2of3)" data-c-padding="normal">
+                                        <input type="file" id="input" multiple>
+                                    </div>
+                                    <div data-c-grid-item="base(1of3)" data-c-padding="normal">
+                                        <p>Birth Certificate or Registration</p>
+                                    </div>
+                                    <div data-c-grid-item="base(2of3)" data-c-padding="normal">
+                                        <input type="file" id="input" multiple>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {# If no #}
+                        <div data-gc-naturalization-application-false class="hidden" data-c-grid-item="base(1of1)">
+                            <p data-c-margin="bottom(normal)">Please indicate your status in Canada by attaching copies of the documents that support your status declaration to this form.</p>
+                            <div data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-background="gray(10)">
+                                <div data-c-grid>
+                                    <div data-c-grid-item="base(1of3)" data-c-padding="normal">
+                                        <p>Work Permit</p>
+                                    </div>
+                                    <div data-c-grid-item="base(2of3)" data-c-padding="normal">
+                                        <input type="file" id="input" multiple>
+                                    </div>
+                                    <div data-c-grid-item="base(1of3)" data-c-padding="normal">
+                                        <p>Study Permit</p>
+                                    </div>
+                                    <div data-c-grid-item="base(2of3)" data-c-padding="normal">
+                                        <input type="file" id="input" multiple>
+                                    </div>
+                                    <div data-c-grid-item="base(1of3)" data-c-padding="normal">
+                                        <p>Protected Person</p>
+                                    </div>
+                                    <div data-c-grid-item="base(2of3)" data-c-padding="normal">
+                                        <input type="file" id="input" multiple>
+                                    </div>
+                                    <div data-c-grid-item="base(1of3)" data-c-padding="normal">
+                                        <p>Visitor Visa</p>
+                                    </div>
+                                    <div data-c-grid-item="base(2of3)" data-c-padding="normal">
+                                        <input type="file" id="input" multiple>
+                                    </div>
+                                    <div data-c-grid-item="base(1of3)" data-c-padding="normal">
+                                        <p>Other</p>
+                                    </div>
+                                    <div data-c-grid-item="base(2of3)" data-c-padding="normal">
+                                        <input type="file" id="input" multiple>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+{# Previous Screening #}
+<div data-c-grid-item="base(1of1)">
+    <h3 data-c-font-size="h4" data-c-color="c3" data-c-margin="top(double) bottom(normal)">Previous Security Screening</h3>
+</div>
+<div data-c-grid-item="base(1of1)">
+    <p data-c-margin="bottom(normal)">Have you <span data-c-font-weight="bold">previously applied</span> for a security status and/or clearance with:</p>
+    <ul>
+        <li>a Government of Canada institution</li>
+        <li>a foreign government</li>
+        <li>an international body (such as NATO)</li>
+    </ul>
+</div>
+<div data-c-input="radio" data-c-grid-item="base(1of1)">
+    <label for="screeningApplication">Please confirm:</label>
+    <span>Required</span>
+    <div id="screeningApplication" role="radiogroup">
+        <label for="screeningApplicationTrue" data-gc-screen-apply-true-trigger>
+            <input id="screeningApplicationTrue" required name="screeningApplication" type="radio" />
+            <span>Yes, I have applied.</span>
+        </label>
+        <label for="screeningApplicationFalse" data-gc-screen-apply-false-trigger>
+            <input id="screeningApplicationFalse" required name="screeningApplication" type="radio" />
+            <span>No, I've never applied.</span>
+        </label>
+    </div>
+    <span>This input has an error.</span>
+</div>
+{# True stuff here. #}
+<div data-c-grid-item="base(1of1)" data-gc-screen-apply-true class="hidden">
+    <p data-c-margin="bottom(double)">Provide the name of the Government of Canada institution, the foreign government or the international body, the year, and the level of security screening that was required in your most recent application.</p>
+    {% include "demos/reliability/templates/partials/screening" %}
+</div>
+<div data-c-grid-item="base(1of1)">
+    <p data-c-margin="bottom(normal)">Have you previously been <span data-c-font-weight="bold">granted</span> a reliability status and/or security clearance with:</p>
+    <ul>
+        <li>a Government of Canada institution</li>
+        <li>a foreign government</li>
+        <li>an international body (such as NATO)</li>
+    </ul>
+</div>
+<div data-c-input="radio" data-c-grid-item="base(1of1)">
+    <label for="screeningGranted">Please confirm:</label>
+    <span>Required</span>
+    <div id="screeningGranted" role="radiogroup">
+        <label for="screeningGrantedTrue" data-gc-screen-granted-true-trigger>
+            <input id="screeningGrantedTrue" required name="screeningGranted" type="radio" />
+            <span>Yes, I have been granted clearance.</span>
+        </label>
+        <label for="screeningGrantedFalse" data-gc-screen-granted-false-trigger>
+            <input id="screeningGrantedFalse" required name="screeningGranted" type="radio" />
+            <span>No, I've never been granted clearance.</span>
+        </label>
+    </div>
+    <span>This input has an error.</span>
+</div>
+{# True stuff here. #}
+<div data-c-grid-item="base(1of1)" data-gc-screen-granted-true class="hidden">
+    <p data-c-margin="bottom(double)">Provide the name of the Government of Canada institution, the foreign government or the international body, the year, and the level of your most recently granted security screening.</p>
+    {% include "demos/reliability/templates/partials/screening" %}
+</div>
+<div data-c-grid-item="base(1of1)">
+    <p data-c-margin="bottom(normal)">Has your security screening ever been <span data-c-font-weight="bold">revoked or cancelled</span> by:</p>
+    <ul>
+        <li>a Government of Canada institution</li>
+        <li>a foreign government</li>
+        <li>an international body (such as NATO)</li>
+    </ul>
+</div>
+<div data-c-input="radio" data-c-grid-item="base(1of1)">
+    <label for="screeningRevoked">Please confirm:</label>
+    <span>Required</span>
+    <div id="screeningRevoked" role="radiogroup">
+        <label for="screeningRevokedTrue" data-gc-screen-revoked-true-trigger>
+            <input id="screeningRevokedTrue" required name="screeningRevoked" type="radio" />
+            <span>Yes, my clearance has been cancelled or revoked.</span>
+        </label>
+        <label for="screeningRevokedFalse" data-gc-screen-revoked-false-trigger>
+            <input id="screeningRevokedFalse" required name="screeningRevoked" type="radio" />
+            <span>No, my clearance has never been cancelled or revoked.</span>
+        </label>
+    </div>
+    <span>This input has an error.</span>
+</div>
+{# True stuff here. #}
+<div data-c-grid-item="base(1of1)" data-gc-screen-revoked-true class="hidden">
+    <p data-c-margin="bottom(double)">Provide the name of the Government of Canada institution, the foreign government or the international body, the year, and an explanation.</p>
+    {% include "demos/reliability/templates/partials/screening" %}
+</div>
+<div data-c-grid-item="base(1of1)">
+    <p data-c-margin="bottom(normal)">Have you ever been <span data-c-font-weight="bold">denied a reliability status or security clearance</span> by:</p>
+    <ul>
+        <li>a Government of Canada institution</li>
+        <li>a foreign government</li>
+        <li>an international body (such as NATO)</li>
+    </ul>
+</div>
+<div data-c-input="radio" data-c-grid-item="base(1of1)">
+    <label for="screeningDenied">Please confirm:</label>
+    <span>Required</span>
+    <div id="screeningDenied" role="radiogroup">
+        <label for="screeningDeniedTrue" data-gc-screen-denied-true-trigger>
+            <input id="screeningDeniedTrue" required name="screeningDenied" type="radio" />
+            <span>Yes, I have been denied clearance.</span>
+        </label>
+        <label for="screeningDeniedFalse" data-gc-screen-denied-false-trigger>
+            <input id="screeningDeniedFalse" required name="screeningDenied" type="radio" />
+            <span>No, I've never been denied clearance.</span>
+        </label>
+    </div>
+    <span>This input has an error.</span>
+</div>
+{# True stuff here. #}
+<div data-c-grid-item="base(1of1)" data-gc-screen-denied-true class="hidden">
+    <p data-c-margin="bottom(double)">Provide the name of the Government of Canada institution, the foreign government or the international body, the year, and an explanation.</p>
+    {% include "demos/reliability/templates/partials/screening" %}
+</div>

@@ -5,20 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use Carbon\Carbon;
-
-use App\Mail\JobPosterReviewRequested;
-
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
 use App\Models\Manager;
-
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Services\Validation\JobPosterValidator;
-use Jenssegers\Date\Date;
 
 class JobController extends Controller
 {
@@ -67,47 +61,29 @@ class JobController extends Controller
             ->withCount('submitted_applications')
             ->get();
 
+
+
+        foreach ($jobs as &$job) {
+            $chosen_lang = $job->chosen_lang;
+
+            // Show chosen lang title if current title is empty
+            if (empty($job->title)) {
+                $job->title = $job->translate($chosen_lang)->title;
+                $job->trans_required = true;
+            }
+
+            // Always preview and edit in the chosen language
+            $job->preview_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.show', $job));
+            $job->edit_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.edit', $job));
+        }
+
+
         return view('manager/job_index', [
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
             'jobs' => $jobs,
-            'show_notification' => $show_notification
-        ]);
-    }
-
-    /**
-     * Submit the Job Poster for review.
-     *
-     * @param  \Illuminate\Http\Request $request   Incoming request object.
-     * @param  \App\Models\JobPoster    $jobPoster Job Poster object.
-     * @return \Illuminate\Http\Response
-     */
-    public function submitForReview(Request $request, JobPoster $jobPoster)
-    {
-        // Check to avoid submit for review multiple times.
-        if ($jobPoster->review_requested_at === null) {
-            // Update review request timestamp.
-            $jobPoster->review_requested_at = new Date();
-            $jobPoster->save();
-
-            // Send email.
-            $reviewer_email = config('mail.reviewer_email');
-            if (isset($reviewer_email)) {
-                Mail::to($reviewer_email)->send(new JobPosterReviewRequested($jobPoster, Auth::user()));
-            } else {
-                Log::error('The reviewer email environment variable is not set.');
-            }
-        }
-
-        // Refresh model instance with updated DB values.
-        $jobPoster = JobPoster::withCount('submitted_applications')->where('id', $jobPoster->id)->first();
-
-
-        return view('manager/job_index/job', [
-            // Localization Strings.
-            'jobs_l10n' => Lang::get('manager/job_index'),
-            'job' => $jobPoster
+            'show_notification' => $show_notification,
         ]);
     }
 

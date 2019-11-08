@@ -1,4 +1,5 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+import { LocaleValue } from "yup";
 import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 
 export interface JobTranslation {
@@ -17,6 +18,7 @@ export interface JobTranslation {
 export interface Job {
   id: number;
   manager_id: number;
+  chosen_lang: string | null;
   term_qty: number | null;
   open_date_time: Date | null;
   close_date_time: Date | null;

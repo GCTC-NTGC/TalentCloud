@@ -1,0 +1,7 @@
+[
+  {
+    "id": "progressTracker.unreachableStep",
+    "description": "Tooltip informing user to complete previous steps, before step it can become clickable.",
+    "defaultMessage": "Must complete previous steps."
+  }
+]

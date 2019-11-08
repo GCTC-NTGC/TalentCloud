@@ -66,3 +66,7 @@ export const useRouter = (
 export const navigate = (url: string): void => {
   HISTORY.push(url);
 };
+
+export const redirect = (url: string): void => {
+  HISTORY.replace(url);
+};

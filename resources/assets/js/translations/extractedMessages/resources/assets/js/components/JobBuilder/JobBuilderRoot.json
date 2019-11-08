@@ -1,5 +1,10 @@
 [
   {
+    "id": "jobBuilder.root.documentTitle",
+    "description": "The document's title shown in browser's title bar or tab.",
+    "defaultMessage": "Job Builder"
+  },
+  {
     "id": "jobBuilder.intro.documentTitle",
     "description": "The document's title shown in browser's title bar or tab.",
     "defaultMessage": "Job Builder: Intro"

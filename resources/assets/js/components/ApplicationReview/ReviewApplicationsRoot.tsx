@@ -112,7 +112,7 @@ class ReviewApplicationsRoot extends React.Component<
       })
       .catch(() => {
         Swal.fire({
-          type: "error",
+          icon: "error",
           title: intl.formatMessage(localizations.oops),
           text: intl.formatMessage(localizations.somethingWrong),
         });
@@ -172,7 +172,7 @@ class ReviewApplicationsRoot extends React.Component<
           if (!errorThrown) {
             errorThrown = true;
             Swal.fire({
-              type: "error",
+              icon: "error",
               title: intl.formatMessage(localizations.oops),
               text: intl.formatMessage(localizations.somethingWrong),
             });
