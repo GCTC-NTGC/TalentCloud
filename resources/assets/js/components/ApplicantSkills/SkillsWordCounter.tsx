@@ -89,25 +89,52 @@ const SkillsWordCounter: React.FunctionComponent<
   );
 };
 
-// Find all skills textarea elements
-if (document.querySelectorAll("div[data-word-counter-id]")) {
-  const elements = document.querySelectorAll("div[data-word-counter-id]");
+const addSoftSkillButton: HTMLElement | null = document.getElementById(
+  "add-soft-skill",
+);
+const addHardSkillButton: HTMLElement | null = document.getElementById(
+  "add-hard-skill",
+);
 
-  elements.forEach((container): void => {
-    if (container !== null && container.hasAttribute("data-word-counter-id")) {
-      const elementId = JSON.parse(container.getAttribute(
-        "data-word-counter-id",
-      ) as string);
-      const SkillsWordCounterIntl = injectIntl(SkillsWordCounter);
-      const locale = document.documentElement.lang;
-      ReactDOM.render(
-        <IntlContainer locale={locale}>
-          <SkillsWordCounterIntl elementId={elementId} />
-        </IntlContainer>,
-        container,
-      );
-    }
-  });
+const updateWordCounters = (): void => {
+  // Find all skills textarea elements
+  if (document.querySelectorAll("div[data-word-counter-id]")) {
+    const elements = document.querySelectorAll("div[data-word-counter-id]");
+
+    elements.forEach((container): void => {
+      if (
+        container !== null &&
+        container.hasAttribute("data-word-counter-id")
+      ) {
+        const { previousElementSibling } = container;
+
+        const textarea =
+          previousElementSibling && previousElementSibling.lastElementChild;
+        const elementId: string = textarea
+          ? textarea.id
+          : "error element is null";
+
+        const SkillsWordCounterIntl = injectIntl(SkillsWordCounter);
+        const locale = document.documentElement.lang;
+        ReactDOM.render(
+          <IntlContainer locale={locale}>
+            <SkillsWordCounterIntl elementId={elementId} />
+          </IntlContainer>,
+          container,
+        );
+      }
+    });
+  }
+};
+
+if (addSoftSkillButton) {
+  addSoftSkillButton.addEventListener("click", updateWordCounters);
 }
+
+if (addHardSkillButton) {
+  addHardSkillButton.addEventListener("click", updateWordCounters);
+}
+
+updateWordCounters();
 
 export default injectIntl(SkillsWordCounter);
