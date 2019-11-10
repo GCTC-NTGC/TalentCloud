@@ -60,9 +60,9 @@ yarn-error.log
 !.vscode/extensions.json
 
 ## Compiled Assets
-/public/css
-/public/js
-/public/mix-manifest.json
+# /public/css
+# /public/js
+# /public/mix-manifest.json
 
 ## tc-docker
 .setup
