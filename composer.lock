@@ -4610,16 +4610,16 @@
     "packages-dev": [
         {
             "name": "backpack/generators",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/Generators.git",
-                "reference": "7c1c056359fa7a682feea600b1c74a988d614d23"
+                "reference": "a25518c22533939c8739789d3fc496bbf30b8904"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/Generators/zipball/7c1c056359fa7a682feea600b1c74a988d614d23",
-                "reference": "7c1c056359fa7a682feea600b1c74a988d614d23",
+                "url": "https://api.github.com/repos/Laravel-Backpack/Generators/zipball/a25518c22533939c8739789d3fc496bbf30b8904",
+                "reference": "a25518c22533939c8739789d3fc496bbf30b8904",
                 "shasum": ""
             },
             "require": {
@@ -4666,7 +4666,7 @@
                 "request",
                 "view"
             ],
-            "time": "2019-09-28T08:33:39+00:00"
+            "time": "2019-11-11T06:00:02+00:00"
         },
         {
             "name": "composer/semver",
