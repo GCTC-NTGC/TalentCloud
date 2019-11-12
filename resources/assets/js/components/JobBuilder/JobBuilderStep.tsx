@@ -9,7 +9,7 @@ import {
   Skill,
   Department,
 } from "../../models/types";
-import { VALID_COUNT } from "./jobBuilderHelpers";
+import { VALID_COUNT, JobBuilderPage } from "./jobBuilderHelpers";
 import {
   getJob,
   getTasksByJob,
@@ -29,15 +29,6 @@ import { getDepartments } from "../../store/Department/deptSelector";
 import { getDepartments as fetchDepartments } from "../../store/Department/deptActions";
 import { RootState } from "../../store/store";
 
-export type JobBuilderPage =
-  | "intro"
-  | "details"
-  | "env"
-  | "impact"
-  | "tasks"
-  | "skills"
-  | "review";
-
 interface JobBuilderStepProps {
   jobId: number | null;
   job: Job | null;
@@ -52,7 +43,9 @@ interface JobBuilderStepProps {
   loadDepartments: () => Promise<void>;
   skills: Skill[];
   loadSkills: () => Promise<void>;
-  currentPage: JobBuilderPage;
+  currentPage: JobBuilderPage | null;
+  forceIsLoading?: boolean;
+  children: React.ReactNode;
 }
 
 const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
@@ -67,10 +60,11 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
   departments,
   loadDepartments,
   currentPage,
+  forceIsLoading,
   children,
 }): React.ReactElement => {
   // Trigger fetching of job details
-  const [isLoadingJob, setIsLoadingJob] = useState(false);
+  const [isLoadingJob, setIsLoadingJob] = useState(true);
   useEffect((): (() => void) => {
     let isSubscribed = true;
     if (jobId) {
@@ -85,7 +79,7 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
       isSubscribed = false;
     };
   }, [jobId, loadJob]);
-  const [isLoadingTasks, setIsLoadingTasks] = useState(false);
+  const [isLoadingTasks, setIsLoadingTasks] = useState(true);
   useEffect((): (() => void) => {
     let isSubscribed = true;
     if (jobId) {
@@ -100,7 +94,7 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
       isSubscribed = false;
     };
   }, [jobId, loadTasks]);
-  const [isLoadingCriteria, setIsLoadingCriteria] = useState(false);
+  const [isLoadingCriteria, setIsLoadingCriteria] = useState(true);
   useEffect((): (() => void) => {
     let isSubscribed = true;
     if (jobId) {
@@ -116,7 +110,8 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
     };
   }, [jobId, loadCriteria]);
 
-  const dataIsLoading = isLoadingJob || isLoadingTasks || isLoadingCriteria;
+  const dataIsLoading =
+    forceIsLoading || isLoadingJob || isLoadingTasks || isLoadingCriteria;
 
   // Trigger fetching of other resources needed for Job Builder
   useEffect((): void => {
@@ -140,6 +135,7 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
     <section>
       <JobBuilderProgressTracker
         job={job}
+        jobId={jobId}
         tasks={keyTasks}
         maxTasksCount={VALID_COUNT}
         criteria={criteria}

@@ -1,6 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { FormattedMessage, InjectedIntlProps, injectIntl } from "react-intl";
+import {
+  FormattedMessage,
+  WrappedComponentProps,
+  injectIntl,
+} from "react-intl";
 import { Skill, Criteria } from "../../models/types";
 import { CriteriaTypeId } from "../../models/lookupConstants";
 import { RootState } from "../../store/store";
@@ -16,7 +20,7 @@ interface RatingGuideMissingProps {
 }
 
 export const RatingGuideMissing: React.FunctionComponent<
-  RatingGuideMissingProps & InjectedIntlProps
+  RatingGuideMissingProps & WrappedComponentProps
 > = ({
   missingCriteria,
   criteriaToSkills,
@@ -104,9 +108,8 @@ const mapStateToProps = (
   };
 };
 
-// @ts-ignore
-const RatingGuideMissingContainer: React.FunctionComponent<
-  RatingGuideMissingContainerProps
-> = connect(mapStateToProps)(injectIntl(RatingGuideMissing));
+const RatingGuideMissingContainer = connect(mapStateToProps)(
+  injectIntl(RatingGuideMissing),
+);
 
 export default RatingGuideMissingContainer;

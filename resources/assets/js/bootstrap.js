@@ -1,7 +1,4 @@
-import "core-js"; // adds almost all polyfills
-
-// Add a global fetch implementation
-require("isomorphic-fetch");
+import "./polyfills";
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

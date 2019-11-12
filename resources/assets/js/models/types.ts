@@ -7,7 +7,6 @@ export interface JobTranslation {
   dept_impact: string | null;
   team_impact: string | null;
   hire_impact: string | null;
-  branch: string | null;
   division: string | null;
   education: string | null;
   work_env_description: string | null;
@@ -18,6 +17,7 @@ export interface JobTranslation {
 export interface Job {
   id: number;
   manager_id: number;
+  chosen_lang: string | null;
   term_qty: number | null;
   open_date_time: Date | null;
   close_date_time: Date | null;
@@ -50,7 +50,6 @@ export interface Job {
 }
 
 export interface ManagerTranslation {
-  branch: string | null;
   division: string | null;
   position: string | null;
   leadership_style: string | null;
@@ -124,8 +123,10 @@ export interface Applicant {
 
 export interface User {
   id: number;
+
+  first_name: string;
+  last_name: string;
   email: string;
-  name: string;
   is_confirmed: boolean;
   user_role_id: number;
   created_at: Date;

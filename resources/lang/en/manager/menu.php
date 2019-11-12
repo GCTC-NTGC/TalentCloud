@@ -15,10 +15,6 @@ return [
         'jobs' => [
             'name' => 'My Job Posters',
         ],
-        // TODO: restore when job poster builder complete
-        // "create_job" => [
-        // "name" => "Create Job Poster",
-        // ],
         'profile' => [
             'name' => 'My Profile',
         ],
@@ -34,7 +30,7 @@ return [
     'profile_title' => 'Talent Cloud | Manager: My Profile',
     'job_index_title' => 'Talent Cloud | Manager: My Job Posters',
     'job_create_title' => 'Talent Cloud | Manager: Create a Job Poster',
-    // Button labels
+    // Button labels.
     'mobile_trigger_label' => 'Mobile Menu',
     'modal_cancel_label' => 'Cancel',
     'delete_label' => 'Delete',

@@ -1,5 +1,5 @@
 import React from "react";
-import { injectIntl, InjectedIntlProps } from "react-intl";
+import { injectIntl, WrappedComponentProps } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import WorkEnvForm from "./WorkEnvForm";
@@ -40,7 +40,7 @@ interface JobBuilderWorkEnvProps {
 }
 
 const JobBuilderWorkEnv: React.FunctionComponent<
-  JobBuilderWorkEnvProps & InjectedIntlProps
+  JobBuilderWorkEnvProps & WrappedComponentProps
 > = ({
   jobId,
   job,
@@ -59,7 +59,7 @@ const JobBuilderWorkEnv: React.FunctionComponent<
     navigate(jobBuilderImpact(intl.locale, jobId));
   };
   const handleReturn = (): void => {
-    navigate(jobBuilderDetails(locale, jobId !== null ? jobId : undefined));
+    navigate(jobBuilderDetails(locale, jobId));
   };
   const handleSkipToReview = async (): Promise<void> => {
     if (jobId) {

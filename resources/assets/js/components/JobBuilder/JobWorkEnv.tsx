@@ -1,10 +1,11 @@
 import React from "react";
 import {
-  InjectedIntl,
   defineMessages,
   FormattedMessage,
-  InjectedIntlProps,
+  WrappedComponentProps,
   injectIntl,
+  IntlShape,
+  MessageDescriptor,
 } from "react-intl";
 
 export const physEnvMessages = defineMessages({
@@ -139,8 +140,8 @@ export const amenitiesOptions: string[] = [
 // The array contains the name and localized label.
 const createOptions = (
   options: string[],
-  messages: ReactIntl.Messages,
-  intl: InjectedIntl,
+  messages: Record<string, MessageDescriptor>,
+  intl: IntlShape,
 ): { name: string; label: string }[] => {
   return options.map((name: string): { name: string; label: string } => ({
     name,
@@ -149,15 +150,15 @@ const createOptions = (
 };
 
 export const phyEnvDescriptions = (
-  intl: InjectedIntl,
+  intl: IntlShape,
 ): { name: string; label: string }[] =>
   createOptions(physEnvOptions, physEnvMessages, intl);
 export const techDescriptions = (
-  intl: InjectedIntl,
+  intl: IntlShape,
 ): { name: string; label: string }[] =>
   createOptions(techOptions, techMessages, intl);
 export const amenitiesDescriptions = (
-  intl: InjectedIntl,
+  intl: IntlShape,
 ): { name: string; label: string }[] =>
   createOptions(amenitiesOptions, amenitiesMessages, intl);
 
@@ -167,7 +168,7 @@ interface JobWorkEnv {
 }
 
 export const JobWorkEnv: React.FunctionComponent<
-  JobWorkEnv & InjectedIntlProps
+  JobWorkEnv & WrappedComponentProps
 > = ({ teamSize, selectedEnvOptions, intl }): React.ReactElement => {
   const phyEnvData: { name: string; label: string }[] = phyEnvDescriptions(
     intl,

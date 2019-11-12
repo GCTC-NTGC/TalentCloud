@@ -65,13 +65,13 @@ class ManagerProfileController extends Controller
             ]
         ];
 
-
         return view('applicant/manager', [
             'manager_profile' => $manager_profile,
             'urls' => Lang::get('common/urls'),
             'manager' => $manager,
             'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
             'manager_profile_sections' => $manager_profile_sections,
+            'noInfo' => $manager_profile['no_info'],
         ]);
     }
 
@@ -187,6 +187,7 @@ class ManagerProfileController extends Controller
             [
                 'breadcrumb_home' => route('manager.home'),
                 'faq' => Lang::get('applicant/faq'),
+                'manager_sidebar_active' => 'active',
                 'show_notification' => $show_notification
             ]
         );

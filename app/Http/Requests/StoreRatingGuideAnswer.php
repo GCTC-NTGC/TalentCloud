@@ -17,14 +17,15 @@ class StoreRatingGuideAnswer extends FormRequest
      */
     public function authorize()
     {
-        // Ensure the user can make answers, and is the owner of the question it answers.
+        // Ensure the user can make answers, question exists, and user is the owner of the question it answers.
         if ($this->user()->can('create', RatingGuideAnswer::class)) {
-            $questionId = (int) $this->input("rating_guide_question_id");
+            $questionId = (int) $this->input('rating_guide_question_id');
             if ($questionId) {
                 $question = RatingGuideQuestion::find($questionId);
-                return $question && $question->job_poster->manager->user_id === $this->user()->id;
+                return $question && $this->user()->can('update', $question);
             }
         }
+
         return false;
     }
 

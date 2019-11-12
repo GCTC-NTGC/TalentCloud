@@ -69,6 +69,13 @@ export const jobBuilderMessages = defineMessages({
     description:
       "Message indicating that the current job is still being loaded.",
   },
+  unsavedChangesWarning: {
+    id: "jobBuilder.unsavedChangesWarning",
+    defaultMessage:
+      "Any changes you made will not be saved. If you would like to save any changes please hit save at bottom the page.",
+    description:
+      "Warning message for user when switching pages without saving content.",
+  },
 });
 
 export default {

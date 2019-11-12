@@ -1,0 +1,41 @@
+<div data-c-grid-item="base(1of1)">
+    <span id="record"></span>
+    <h2 data-gc-section-status="incomplete" data-c-margin="top(triple) bottom(normal)"><i class="material-icons">error</i><i class="material-icons">warning</i><i class="material-icons">check_circle</i>Criminal Record</h2>
+    <hr data-c-margin="tb(double)">
+    <p data-c-margin="bottom(normal)">If you have ever been convicted of a criminal offence in Canada or outside Canada for which you have not been granted a record suspension or pardon, provide information on:</p>
+    <ul data-c-margin="bottom(normal)">
+        <li>any criminal convictions in Canada for any offence under an act of Parliament that is an indictable offence or punishable by summary conviction</li>
+        <li>any conviction and criminal conviction outside Canada for any act that if committed in Canada would constitute an indictable offence or be punishable by summary conviction under an act of Parliament</li>
+    </ul>
+    <p>Have you ever been convicted of a criminal offence in Canada or outside Canada for which you have not been granted a record suspension or pardon?</p>
+</div>
+{# Conviction #}
+<div data-c-input="radio" data-c-grid-item="base(1of1)">
+    <label for="recordConviction">Confirm whether you've been convicted as described above.</label>
+    <span>Required</span>
+    <div id="recordConviction" role="radiogroup">
+        <label for="recordConvictionYes" data-gc-record-true-trigger>
+            <input id="recordConvictionYes" required name="recordConviction" type="radio" />
+            <span>Yes, I have been convicted.</span>
+        </label>
+        <label for="recordConvictionNo" data-gc-record-false-trigger>
+            <input id="recordConvictionNo" required name="recordConviction" type="radio" />
+            <span>No, I have no been convicted.</span>
+        </label>
+    </div>
+    <span>This input has an error.</span>
+</div>
+{# Records #}
+<div data-c-grid-item="base(1of1)" data-gc-record-true class="hidden">
+    <p data-c-margin="bottom(normal)">Provide the details below. You can add a record by clicking the button and completing the form.</p>
+    <div data-gc-residence data-c-margin="bottom(double)">
+        <div data-gc-residence-null data-c-border="all(thin, solid, gray)" data-c-background="gray(10)" data-c-radius="rounded" data-c-padding="normal" data-c-align="base(center)">
+            <p>You haven't added any information yet.</p>
+        </div>
+    </div>
+    <div data-c-align="base(right)">
+        <button data-c-button="solid(c1)" data-c-radius="rounded" data-c-dialog-id="record-dialog" data-c-dialog-action="open" type="button">
+            Add a Record
+        </button>
+    </div>
+</div>

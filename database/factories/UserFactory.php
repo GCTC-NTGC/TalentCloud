@@ -27,7 +27,8 @@ $factory->define(User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'name' => $faker->name(),
+        'first_name' => $faker->firstName(),
+        'last_name' => $faker->lastName(),
         'email' => $faker->unique()->safeEmail(),
         'password' => $password ? : $password = Hash::make('password'),
         'is_confirmed' => 1,
@@ -87,7 +88,6 @@ $factory->define(Manager::class, function (Faker\Generator $faker) use ($faker_f
         },
         'about_me:en' => $faker->paragraphs(3, true),
         'greatest_accomplishment:en' => $faker->paragraphs(3, true),
-        'branch:en' => $faker->word(),
         'division:en' => $faker->word(),
         'position:en' => $faker->word(),
         'leadership_style:en' => $faker->paragraphs(2, true),
@@ -98,7 +98,6 @@ $factory->define(Manager::class, function (Faker\Generator $faker) use ($faker_f
         'education:en' => $faker->paragraphs(3, true),
         'about_me:fr' => $faker_fr->paragraphs(3, true),
         'greatest_accomplishment:fr' => $faker_fr->paragraphs(3, true),
-        'branch:fr' => $faker_fr->word(),
         'division:fr' => $faker_fr->word(),
         'position:fr' => $faker_fr->word(),
         'leadership_style:fr' => $faker_fr->paragraphs(2, true),

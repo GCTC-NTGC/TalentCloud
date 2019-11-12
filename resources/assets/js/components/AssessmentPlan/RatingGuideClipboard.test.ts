@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-undef */
-import { FormattedMessage } from "react-intl";
+import { MessageDescriptor } from "react-intl";
 import {
   Criteria,
   Assessment,
@@ -29,7 +29,7 @@ jest.mock("../../store/Skill/skillSelector", (): object => {
   };
 });
 
-const formatMessage = (message: FormattedMessage.MessageDescriptor): string =>
+const formatMessage = (message: MessageDescriptor): string =>
   message.defaultMessage || message.id;
 
 const someSkills: Skill[] = [

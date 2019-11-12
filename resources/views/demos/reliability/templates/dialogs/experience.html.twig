@@ -1,0 +1,367 @@
+<div
+    aria-hidden="true"
+    aria-describedby="experience-dialog-description"
+    aria-labelledby="experience-dialog-title"
+    data-c-dialog
+    data-c-dialog-id="experience-dialog"
+    data-c-padding="top(double) bottom(double)"
+    role="dialog">
+    <div
+        data-c-background="white(100)"
+        data-c-radius="rounded"
+        data-c-margin="bottom(double)">
+        <div
+            data-c-padding="tb(normal) right(triple) left(normal)"
+            data-c-border="bottom(thin, solid, black)"
+            data-c-background="c1(100)">
+            <h5
+                data-c-font-size="h4"
+                id="experience-dialog-title"
+                data-c-dialog-focus data-c-color="white">
+                Add/Edit Professional Experience
+            </h5>
+            <p data-c-margin="top(half)" data-c-color="white">Please complete all sections of this form.</p>
+            <button
+                data-c-dialog-action="close"
+                data-c-dialog-id="experience-dialog"
+                type="button">
+                <i class="material-icons" data-c-color="white">close</i>
+            </button>
+        </div>
+        <div
+            data-c-border="bottom(thin, solid, black)"
+            data-c-padding="normal">
+            <div id="experience-dialog-description">
+                <form data-c-grid="gutter">
+                    <div data-c-input="radio" data-c-grid-item="base(1of1)">
+                        <label for="experienceStatus">Select a status for this employment record:</label>
+                        <span>Required</span>
+                        <div id="experienceStatus" role="radiogroup">
+                            <label for="experienceStatus1">
+                                <input id="experienceStatus1" required name="experienceStatus" type="radio" data-gc-experience-unemployed-false-trigger/>
+                                <span>Employed</span>
+                            </label>
+                            <label for="experienceStatus2">
+                                <input id="experienceStatus2" required name="experienceStatus" type="radio" data-gc-experience-unemployed-false-trigger/>
+                                <span>Self-employed</span>
+                            </label>
+                            <label for="experienceStatus3">
+                                <input id="experienceStatus3" required name="experienceStatus" type="radio" data-gc-experience-unemployed-false-trigger/>
+                                <span>Student</span>
+                            </label>
+                            <label for="experienceStatus4">
+                                <input id="experienceStatus4" required name="experienceStatus" type="radio" data-gc-experience-unemployed-false-trigger/>
+                                <span>Retired</span>
+                            </label>
+                            <label for="experienceStatus5">
+                                <input id="experienceStatus5" required name="experienceStatus" type="radio" data-gc-experience-unemployed-true-trigger/>
+                                <span>Unemployed</span>
+                            </label>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
+                        <label>Confirm whether this is your current status:</label>
+                        <span>Required</span>
+                        <div>
+                            <label for="experienceCurrent">
+                                <input
+                                    id="experienceCurrent"
+                                    type="checkbox" data-gc-current-experience-trigger/>
+                                <span>This is my current employment status.</span>
+                            </label>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="date" data-c-grid-item="tl(1of2)">
+                        <label for="DAT2">The Date you Started this Employment/Education</label>
+                        <span>Required</span>
+                        <div>
+                            <input
+                                id="DAT2"
+                                type="date"
+                                required
+                                placeholder="yyyy-mm-dd"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-gc-current-experience data-c-input="date" data-c-grid-item="tl(1of2)">
+                        <label for="DAT2">The Date you Stopped this Employment/Education</label>
+                        <span>Required</span>
+                        <div>
+                            <input
+                                id="DAT2"
+                                type="date"
+                                required
+                                placeholder="yyyy-mm-dd"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    {# Unemployed #}
+                    <div data-gc-experience-unemployed-true class="hidden" data-c-grid-item="base(1of1)">
+                        <div data-c-grid="gutter">
+
+                        </div>
+                    </div>
+                    {# Employment #}
+                    <div data-gc-experience-unemployed-false data-c-grid-item="base(1of1)" class="hidden">
+                        <div data-c-grid="gutter">
+                            <div data-c-input="text" data-c-grid-item="tl(1of3)">
+                                <label for="TI2">Name of Company/Institution</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="TI2" placeholder="e.g. The Daily Planet" required type="text" />
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-input="text" data-c-grid-item="tl(1of3)">
+                                <label for="TI2">Job Title/Field of Study</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="TI2" placeholder="e.g. Journalist" required type="text" />
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-input="text" data-c-grid-item="tl(1of3)">
+                                <label for="TI2">Group Level/Rank</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="TI2" placeholder="e.g. Senior Manager" required type="text" />
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-input="textarea" data-c-grid-item="base(1of1)">
+                                <label for="TA2">Nature of Employment</label>
+                                <span>Required</span>
+                                <div>
+                                    <textarea id="TA2" required placeholder="e.g. As a journalist at the Daily Planet I..."></textarea>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-input="email" data-c-grid-item="tl(1of2)">
+                                <label for="EM2">Work Email</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="EM2" placeholder="e.g. clark@dailyplanet.com" required type="email" />
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-input="telephone" data-c-grid-item="tl(1of2)">
+                                <label for="TI2">Work Phone</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="TI2" placeholder="e.g. 555-555-5555" required type="tel" />
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-input="text" data-c-grid-item="tl(1of6)">
+                                <label for="TI2">Unit/Suite</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="TI2" placeholder="e.g. 14B" type="text" />
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-input="text" data-c-grid-item="tl(1of6)">
+                                <label for="TI2">Street Number</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="TI2" placeholder="e.g. 22" required type="text" />
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-input="text" data-c-grid-item="tl(1of3)">
+                                <label for="TI2">Street Name</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="TI2" placeholder="e.g. Fairmont Cr." required type="text" />
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-input="text" data-c-grid-item="tl(1of3)">
+                                <label for="TI2">Postal Code</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="TI2" placeholder="e.g. A1B2C3" required type="text" />
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            {# Ideally this would be smart - we should leverage a database to ensure proper provinces/states appear for each country. #}
+                            <div data-c-input="select" data-c-grid-item="tl(1of3)">
+                                <label for="SEL2">Country</label>
+                                <span>Required</span>
+                                <div>
+                                    <i class="material-icons">
+                                        arrow_drop_down
+                                    </i>
+                                    <select required id="SEL2">
+                                        <option disabled>Select a country...</option>
+                                        <option selected>Canada</option>
+                                        <option>United States of America</option>
+                                    </select>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-input="select" data-c-grid-item="tl(1of3)">
+                                <label for="SEL2">Province or State</label>
+                                <span>Required</span>
+                                <div>
+                                    <i class="material-icons">
+                                        arrow_drop_down
+                                    </i>
+                                    <select required id="SEL2">
+                                        <option disabled selected>Select a province/state...</option>
+                                        {% include "demos/reliability/templates/partials/provinces" %}
+                                    </select>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-input="text" data-c-grid-item="tl(1of3)">
+                                <label for="TI2">City or Town</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="TI2" placeholder="e.g. Smallville" required type="text" />
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            {# Foreign Government #}
+                            <div data-c-input="radio" data-c-grid-item="base(1of1)">
+                                <label for="experienceForeignGov">Did this employment involve working with a foreign government, firm or agency?</label>
+                                <span>Required</span>
+                                <div id="experienceForeignGov" role="radiogroup">
+                                    <label for="experienceForeignGovYes">
+                                        <input id="experienceForeignGovYes" required name="experienceForeignGov" type="radio" />
+                                        <span>Yes</span>
+                                    </label>
+                                    <label for="experienceForeignGovNo">
+                                        <input id="experienceForeignGovNo" required name="experienceForeignGov" type="radio" />
+                                        <span>No</span>
+                                    </label>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            {# Dismissal #}
+                            <div data-c-input="radio" data-c-grid-item="base(1of1)">
+                                <label for="experienceDismissal">Were you dismissed or asked to resign from this position?</label>
+                                <span>Required</span>
+                                <div id="experienceDismissal" role="radiogroup">
+                                    <label for="experienceDismissalYes" data-gc-experience-dismissal-true-trigger>
+                                        <input id="experienceDismissalYes" required name="experienceDismissal" type="radio" />
+                                        <span>Yes</span>
+                                    </label>
+                                    <label for="experienceDismissalNo" data-gc-experience-dismissal-false-trigger>
+                                        <input id="experienceDismissalNo" required name="experienceDismissal" type="radio" />
+                                        <span>No</span>
+                                    </label>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            {# Dismissal Explanation #}
+                            <div data-gc-experience-dismissal-true class="hidden" data-c-grid-item="base(1of1)">
+                                <div data-c-grid="gutter">
+                                    <div data-c-input="textarea" data-c-grid-item="base(1of1)">
+                                        <label for="TA2">Please provide an explanation for your dismissal:</label>
+                                        <span>Required</span>
+                                        <div>
+                                            <textarea id="TA2" required placeholder="e.g. There was an event that occurred..."></textarea>
+                                        </div>
+                                        <span>This input has an error.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {# Supervisor #}
+                            <div data-c-input="radio" data-c-grid-item="base(1of1)">
+                                <label for="experienceSupervisor">Would your employment be jeopardized if this supervisor were to be contacted for a professional reference?</label>
+                                <span>Required</span>
+                                <div id="experienceSupervisor" role="radiogroup">
+                                    <label for="experienceSupervisorYes" data-gc-experience-supervisor-true-trigger>
+                                        <input id="experienceSupervisorYes" required name="experienceSupervisor" type="radio" />
+                                        <span>Yes</span>
+                                    </label>
+                                    <label for="experienceSupervisorNo" data-gc-experience-supervisor-false-trigger>
+                                        <input id="experienceSupervisorNo" required name="experienceSupervisor" type="radio" />
+                                        <span>No</span>
+                                    </label>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            {# Supervisor Alt #}
+                            <div data-gc-experience-supervisor-true class="hidden" data-c-grid-item="base(1of1)">
+                                <div data-c-grid="gutter">
+                                    <div data-c-input="textarea" data-c-grid-item="base(1of1)">
+                                        <label for="TA2">Please explain why your job might be at risk:</label>
+                                        <span>Required</span>
+                                        <div>
+                                            <textarea id="TA2" required placeholder="e.g. There was an event that occurred..."></textarea>
+                                        </div>
+                                        <span>This input has an error.</span>
+                                    </div>
+                                    <div data-c-grid-item="base(1of1)">
+                                        <p data-c-margin="bottom(normal)">Please provide information for an alternate contact if possible.</p>
+                                    </div>
+                                    <div data-c-input="text" data-c-grid-item="tl(1of2)">
+                                        <label for="TI2">Contact's Name</label>
+                                        <span>Required</span>
+                                        <div>
+                                            <input id="TI2" placeholder="e.g. Lois Lane" type="text" />
+                                        </div>
+                                        <span>This input has an error.</span>
+                                    </div>
+                                    <div data-c-input="text" data-c-grid-item="tl(1of2)">
+                                        <label for="TI2">Job Title/Field of Study</label>
+                                        <span>Required</span>
+                                        <div>
+                                            <input id="TI2" placeholder="e.g. Journalist" type="text" />
+                                        </div>
+                                        <span>This input has an error.</span>
+                                    </div>
+                                    <div data-c-input="email" data-c-grid-item="tl(1of2)">
+                                        <label for="EM2">Work Email</label>
+                                        <span>Required</span>
+                                        <div>
+                                            <input id="EM2" placeholder="e.g. lois@dailyplanet.com" type="email" />
+                                        </div>
+                                        <span>This input has an error.</span>
+                                    </div>
+                                    <div data-c-input="telephone" data-c-grid-item="tl(1of2)">
+                                        <label for="TI2">Work Phone</label>
+                                        <span>Required</span>
+                                        <div>
+                                            <input id="TI2" placeholder="e.g. 555-555-5555" type="tel" />
+                                        </div>
+                                        <span>This input has an error.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- The following dialog actions can be customized depending on the dialog. -->
+        <div data-c-padding="normal">
+            <div data-c-grid="gutter middle">
+                <div data-c-grid-item="base(1of2)">
+                    <button
+                        data-c-button="outline(slow)"
+                        data-c-radius="rounded"
+                        data-c-dialog-action="close"
+                        data-c-dialog-id="experience-dialog">
+                        Cancel
+                    </button>
+                </div>
+                <div
+                    data-c-grid-item="base(1of2)"
+                    data-c-alignment="base(right)">
+                    <button
+                        data-c-button="solid(go)"
+                        data-c-radius="rounded"
+                        data-c-dialog-action="close"
+                        data-c-dialog-id="experience-dialog">
+                        Save Experience
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

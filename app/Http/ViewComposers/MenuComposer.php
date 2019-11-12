@@ -110,13 +110,13 @@ class MenuComposer
                 case 'manager.jobs.index':
                 case 'manager.jobs.show':
                 case 'manager.jobs.applications':
-                case 'manager.jobs.review':
                 case 'manager.applications.show':
                 case 'manager.applicants.show':
                     $menu['items']['jobs']['active'] = true;
                     break;
                 case 'manager.jobs.create':
                 case 'manager.jobs.edit':
+                case 'manager.jobs.review':
                 case 'admin.jobs.update':
                     // $menu['items']['create_job']['active'] = true;
                     $menu['items']['jobs']['active'] = true; // TODO: restore when job poster builder complete
@@ -149,7 +149,7 @@ class MenuComposer
             // TODO: restore when job poster builder complete
             // $menu['items']['create_job']['link'] = route('manager.jobs.create');
             $menu['items']['profile']['link'] = route('manager.profile');
-            $menu['items']['faq']['link'] = route('manager.faq');
+            $menu['items']['faq']['link'] = route('manager.faq.section');
 
             // Check if use is logged in, and remove invalid menu items
             if (Auth::check()) {

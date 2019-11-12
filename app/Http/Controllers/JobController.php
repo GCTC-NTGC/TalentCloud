@@ -77,41 +77,6 @@ class JobController extends Controller
     }
 
     /**
-     * Submit the Job Poster for review.
-     *
-     * @param  \Illuminate\Http\Request $request   Incoming request object.
-     * @param  \App\Models\JobPoster    $jobPoster Job Poster object.
-     * @return \Illuminate\Http\Response
-     */
-    public function submitForReview(Request $request, JobPoster $jobPoster)
-    {
-        // Check to avoid submit for review multiple times.
-        if ($jobPoster->review_requested_at === null) {
-            // Update review request timestamp.
-            $jobPoster->review_requested_at = new Date();
-            $jobPoster->save();
-
-            // Send email.
-            $reviewer_email = config('mail.reviewer_email');
-            if (isset($reviewer_email)) {
-                Mail::to($reviewer_email)->send(new JobPosterReviewRequested($jobPoster, Auth::user()));
-            } else {
-                Log::error('The reviewer email environment variable is not set.');
-            }
-        }
-
-        // Refresh model instance with updated DB values.
-        $jobPoster = JobPoster::withCount('submitted_applications')->where('id', $jobPoster->id)->first();
-
-
-        return view('manager/job_index/job', [
-            // Localization Strings.
-            'jobs_l10n' => Lang::get('manager/job_index'),
-            'job' => $jobPoster
-        ]);
-    }
-
-    /**
      * Delete a draft Job Poster.
      *
      * @param  \Illuminate\Http\Request $request   Incoming request object.
@@ -309,34 +274,9 @@ class JobController extends Controller
             $jobPoster->save();
         }
 
-        $this->fillAndSaveJobPoster($input, $jobPoster);
-
         $this->fillAndSaveJobPosterQuestions($input, $jobPoster, true);
 
         return redirect(route('manager.jobs.show', $jobPoster->id));
-    }
-
-    /**
-     * Fill Job Poster model's properties and save
-     * NOTE: only saves properties which don't appear on the Job Poster Builder
-     *
-     * @param  mixed[]               $input     Field values.
-     * @param  \App\Models\JobPoster $jobPoster Job Poster object.
-     * @return void
-     */
-    protected function fillAndSaveJobPoster(array $input, JobPoster $jobPoster) : void
-    {
-        $jobPoster->fill(
-            [
-                'open_date_time' => ptDayStartToUtcTime($input['open_date']),
-                'close_date_time' => ptDayEndToUtcTime($input['close_date']),
-                'start_date_time' => ptDayStartToUtcTime($input['start_date']),
-                'salary_min' => $input['salary_min'],
-                'salary_max' => $input['salary_max'],
-                'noc' => $input['noc'],
-            ]
-        );
-        $jobPoster->save();
     }
 
     /**
@@ -372,6 +312,7 @@ class JobController extends Controller
                     ]
                 ]
             );
+            $jobPoster->save();
             $jobQuestion->save();
         }
     }

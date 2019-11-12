@@ -1,0 +1,7 @@
+[
+  {
+    "id": "assessmentPlan.title",
+    "description": "The document's title shown in browser's title bar or tab.",
+    "defaultMessage": "Assessment Plan Builder"
+  }
+]

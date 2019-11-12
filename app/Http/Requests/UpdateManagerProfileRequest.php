@@ -49,7 +49,8 @@ class UpdateManagerProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:191',
+            'first_name' => 'required|string|max:191',
+            'last_name' => 'required|string|max:191',
             'email' => [
                 'required',
                 'string',
@@ -85,7 +86,6 @@ class UpdateManagerProfileRequest extends FormRequest
 
             '*.about_me' => 'nullable|string',
             '*.career_journey' => 'nullable|string',
-            '*.branch' => 'nullable|string',
             '*.division' => 'nullable|string',
             '*.education' => 'nullable|string',
             '*.employee_learning' => 'nullable|string',

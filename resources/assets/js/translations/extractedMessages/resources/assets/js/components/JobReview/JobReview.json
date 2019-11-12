@@ -152,7 +152,7 @@
   {
     "id": "jobBuilder.review.averageAnnualSalary",
     "description": "Label for salary information.",
-    "defaultMessage": "Average Annual Salary"
+    "defaultMessage": "Annual Salary Range"
   },
   {
     "id": "jobBuilder.review.tCAdds",
@@ -172,7 +172,7 @@
   {
     "id": "jobBuilder.review.months",
     "description": "Length of term in months",
-    "defaultMessage": "{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}"
+    "defaultMessage": "{termMonths, plural, =0 {No Months} one {# Month} other {# Months}}"
   },
   {
     "id": "jobBuilder.review.securityClearance",

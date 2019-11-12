@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
 } from "react-intl";
@@ -152,8 +152,14 @@ const initializeValues = (
   };
 };
 
-const updateJobWithValues = (job: Job, values: IntroFormValues): Job => ({
+const updateJobWithValues = (
+  job: Job,
+  values: IntroFormValues,
+  locale: string,
+): Job => ({
   ...job,
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  chosen_lang: locale,
   // eslint-disable-next-line @typescript-eslint/camelcase
   department_id: values.department || null,
   en: {
@@ -186,7 +192,7 @@ const updateManagerWithValues = (
 });
 
 const IntroForm: React.FunctionComponent<
-  IntroFormProps & InjectedIntlProps
+  IntroFormProps & WrappedComponentProps
 > = ({
   job,
   manager,
@@ -195,7 +201,7 @@ const IntroForm: React.FunctionComponent<
   handleContinueEn,
   handleContinueFr,
   intl,
-}: IntroFormProps & InjectedIntlProps): React.ReactElement => {
+}: IntroFormProps & WrappedComponentProps): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
@@ -274,7 +280,11 @@ const IntroForm: React.FunctionComponent<
           initialValues={initialValues}
           validationSchema={introSchema}
           onSubmit={(values, { setSubmitting }): void => {
-            const updatedJob = updateJobWithValues(job || emptyJob(), values);
+            const updatedJob = updateJobWithValues(
+              job || emptyJob(),
+              values,
+              languageSelection,
+            );
             const updatedManager = updateManagerWithValues(manager, values);
             nprogress.start();
             handleSubmit(updatedJob, updatedManager)

@@ -332,7 +332,7 @@
         "id": "apl.indexPageTitle"
       },
       {
-        "defaultMessage": "{dayCount,plural,=0{No Days} one{{dayCount, number} Day} other{{dayCount, number} Days}} Since Close",
+        "defaultMessage": "{dayCount, plural,\r\n              =0 {No Days}\r\n            one {# Day}\r\n          other {# Days}\r\n        } Since Close",
         "description": "Welcome header on app main page",
         "id": "job.daysSinceClosed"
       }
@@ -467,12 +467,12 @@
         "id": "assessmentPlan.alert.explanation"
       },
       {
-        "defaultMessage": "{skills} {count,plural,one{was} other{were}} added.",
+        "defaultMessage": "{skills} {count, plural, one {was} other {were} } added.",
         "description": "Description of the new criteria that have been added to this job.",
         "id": "assessmentPlan.alert.created"
       },
       {
-        "defaultMessage": "{skills} {count,plural,one{was} other{were}} updated.",
+        "defaultMessage": "{skills} {count, plural, one {was} other {were} } updated.",
         "description": "Description of the criteria that had their level changed.",
         "id": "assessmentPlan.alert.skillLevelUpdated"
       },
@@ -487,7 +487,7 @@
         "id": "assessmentPlan.alert.skillAndLevelUpdated"
       },
       {
-        "defaultMessage": "{skills} {count,plural,one{was} other{were}} removed.",
+        "defaultMessage": "{skills} {count, plural, one {was} other {were} } removed.",
         "description": "Description of criteria which were removed from the job.",
         "id": "assessmentPlan.alert.deleted"
       }
@@ -532,6 +532,16 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Assessment Plan Builder",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "assessmentPlan.title"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/AssessmentPlanRoot.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Select an Assessment",
         "description": "Default select element before an assessment type has been chosen",
         "id": "assessmentPlan.selectAssessment.null"
@@ -572,7 +582,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Assessing {count,plural,one{{count, number} skill} other{{count, number} skills}}.",
+        "defaultMessage": "Assessing {count, plural,\n                one {# skill}\n                other {# skills}\n              }.",
         "description": "Labels how many skills are assessed by this assessment tool.",
         "id": "assessmentPlan.summary.skillCount"
       },
@@ -607,7 +617,7 @@
         "id": "assessmentPlan.summary.assessmentSummary.title"
       },
       {
-        "defaultMessage": "Your plan uses {toolCount,plural,=0{no tools} one{{toolCount, number} tool} other{{toolCount, number} tools}}\r\n            to assess {skillCount,plural,=0{no skills} one{{skillCount, number} skill} other{{skillCount, number} skills}}.",
+        "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}\r\n            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}.",
         "description": "Describes how many tools and skills your assessment plan involves.",
         "id": "assessmentPlan.summary.assessmentSummary.toolSkillCount"
       },
@@ -685,6 +695,41 @@
         "defaultMessage": "Click to Copy This Ratings Guide to Your Clipboard",
         "description": "Text for the 'copy ratings guide' button.",
         "id": "ratingGuideBuilder.copyButton"
+      },
+      {
+        "defaultMessage": "Title",
+        "description": "Text for the Title column heading.",
+        "id": "ratingGuideBuilder.titleHeading"
+      },
+      {
+        "defaultMessage": "Question",
+        "description": "Text for the Question column heading.",
+        "id": "ratingGuideBuilder.questionHeading"
+      },
+      {
+        "defaultMessage": "Criteria Type",
+        "description": "Text for the Criteria Type column heading.",
+        "id": "ratingGuideBuilder.criteriaTypeHeading"
+      },
+      {
+        "defaultMessage": "Target Level",
+        "description": "Text for the Target Level column heading.",
+        "id": "ratingGuideBuilder.targetLevelHeading"
+      },
+      {
+        "defaultMessage": "Skill",
+        "description": "Text for the Skill column heading.",
+        "id": "ratingGuideBuilder.skillHeading"
+      },
+      {
+        "defaultMessage": "Skill Description",
+        "description": "Text for the Skill Description column heading.",
+        "id": "ratingGuideBuilder.skillDescriptionHeading"
+      },
+      {
+        "defaultMessage": "Rating Guide",
+        "description": "Text for the Rating Guide column heading.",
+        "id": "ratingGuideBuilder.ratingGuideHeading"
       }
     ],
     "path": "resources/assets/js/components/AssessmentPlan/RatingGuideClipboard.json"
@@ -692,12 +737,12 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "{count} Essential Missing:",
+        "defaultMessage": "{count} Essential Missing: ",
         "description": "Label for list of missing essential skills.",
         "id": "ratingGuideBuilder.essentialMissing"
       },
       {
-        "defaultMessage": "{count} Asset Missing:",
+        "defaultMessage": "{count} Asset Missing: ",
         "description": "Label for list of missing asset skills.",
         "id": "ratingGuideBuilder.assetMissing"
       }
@@ -718,6 +763,21 @@
       }
     ],
     "path": "resources/assets/js/components/AssessmentPlan/RatingGuideNarrativeAssessment.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Copy to Clipboard",
+        "description": "Label for Copy to Clipboard button on Work Environment page.",
+        "id": "jobBuilder.clipboardButton.copy"
+      },
+      {
+        "defaultMessage": "Copied!",
+        "description": "Label for Copy to Clipboard success confirmation on Work Environment page.",
+        "id": "jobBuilder.clipboardButton.copied"
+      }
+    ],
+    "path": "resources/assets/js/components/CopyToClipboardButton.json"
   },
   {
     "descriptors": [
@@ -772,7 +832,17 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "{termMonths,plural,=0{no months} one{{termMonths, number} month} other{{termMonths, number} months}}",
+        "defaultMessage": "Required Level: ",
+        "description": "Label preceding skill level requirements.",
+        "id": "jobBuilder.criterion.requiredSkill"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/Criterion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "{termMonths, plural, =0 {no months} one {# month} other {# months}}",
         "description": "Calculated term length in months",
         "id": "jobBuilder.preview.termLength"
       },
@@ -871,9 +941,59 @@
         "defaultMessage": "Your job is loading...",
         "description": "Message indicating that the current job is still being loaded.",
         "id": "jobBuilder.jobLoading"
+      },
+      {
+        "defaultMessage": "Any changes you made will not be saved. If you would like to save any changes please hit save at bottom the page.",
+        "description": "Warning message for user when switching pages without saving content.",
+        "id": "jobBuilder.unsavedChangesWarning"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/jobBuilderMessages.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Job Builder",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.root.documentTitle"
+      },
+      {
+        "defaultMessage": "Job Builder: Intro",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.intro.documentTitle"
+      },
+      {
+        "defaultMessage": "Job Builder: Details",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.details.documentTitle"
+      },
+      {
+        "defaultMessage": "Job Builder: Work Environment",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.workEnv.documentTitle"
+      },
+      {
+        "defaultMessage": "Job Builder: Impact",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.impact.documentTitle"
+      },
+      {
+        "defaultMessage": "Job Builder: Tasks",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.tasks.documentTitle"
+      },
+      {
+        "defaultMessage": "Job Builder: Skills",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.skills.documentTitle"
+      },
+      {
+        "defaultMessage": "Job Builder: Review",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "jobBuilder.review.documentTitle"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/JobBuilderRoot.json"
   },
   {
     "descriptors": [
@@ -906,6 +1026,46 @@
         "defaultMessage": "Work from anywhere, all the time.",
         "description": "Explanation of what Remote Work means.",
         "id": "jobBuilder.workCulture.remoteWorkDescription"
+      },
+      {
+        "defaultMessage": "Telework",
+        "description": "Label for the Telework field on the Work Culture card.",
+        "id": "jobBuilder.workCulture.telework"
+      },
+      {
+        "defaultMessage": "Work from home somedays (within driving distance of the office).",
+        "description": "Explanation of what Telework means.",
+        "id": "jobBuilder.workCulture.teleworkDescription"
+      },
+      {
+        "defaultMessage": "Flexible Hours",
+        "description": "Label for the Flexible Hours field on the Work Culture card.",
+        "id": "jobBuilder.workCulture.flexibleHours"
+      },
+      {
+        "defaultMessage": "Set your own start and end times.",
+        "description": "Explanation of what Flexible Hours means.",
+        "id": "jobBuilder.workCulture.flexibleHoursDescription"
+      },
+      {
+        "defaultMessage": "Travel",
+        "description": "Label for the Travel field on the Work Culture card.",
+        "id": "jobBuilder.workCulture.travel"
+      },
+      {
+        "defaultMessage": "See more of Canada or the world.",
+        "description": "Explanation of what Travel means.",
+        "id": "jobBuilder.workCulture.travelDescription"
+      },
+      {
+        "defaultMessage": "Overtime",
+        "description": "Label for the Overtime field on the Work Culture card.",
+        "id": "jobBuilder.workCulture.overtime"
+      },
+      {
+        "defaultMessage": "Work extra hours in the evenings/on weekends.",
+        "description": "Explanation of what Overtime means.",
+        "id": "jobBuilder.workCulture.overtimeDescription"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/JobWorkCulture.json"
@@ -1114,9 +1274,44 @@
         "defaultMessage": "Save & Preview",
         "description": "Label for Save & Preview button on Impact form.",
         "id": "jobBuilder.impact.button.next"
+      },
+      {
+        "defaultMessage": "Awesome work!",
+        "description": "Title of modal dialog for Impact review.",
+        "id": "jobBuilder.impact.modalTitle"
+      },
+      {
+        "defaultMessage": "Here's a preview of the Impact Statement you just\r\n                        entered. Feel free to go back and edit things or move to\r\n                        the next step if you're happy with it.",
+        "description": "Description of modal dialog for Impact review.",
+        "id": "jobBuilder.impact.modalDescription"
+      },
+      {
+        "defaultMessage": "Go Back",
+        "description": "Label for Go Back button on Impact review modal.",
+        "id": "jobBuilder.impact.button.goBack"
+      },
+      {
+        "defaultMessage": "Skip to Review",
+        "description": "Label for Skip to Review button on Impact review modal.",
+        "id": "jobBuilder.impact.button.skipToReview"
+      },
+      {
+        "defaultMessage": "Next Step",
+        "description": "Label for Next Step button on Impact review modal.",
+        "id": "jobBuilder.impact.button.nextStep"
       }
     ],
     "path": "resources/assets/js/components/JobBuilderImpact/JobBuilderImpact.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Impact",
+        "description": "Heading for Impact preview on modal dialog.",
+        "id": "jobBuilder.impactPreview.title"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilderImpact/JobImpactPreview.json"
   },
   {
     "descriptors": [
@@ -1241,9 +1436,59 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Skill Definition",
+        "description": "Label for Skill Definition heading on Add Skill modal.",
+        "id": "jobBuilder.criteriaForm.skillDefinition"
+      },
+      {
+        "defaultMessage": "Remove additional specificity.",
+        "description": "Label for 'Remove additional specificity' button on Add Skill modal.",
+        "id": "jobBuilder.criteriaForm.removeSpecificity"
+      },
+      {
+        "defaultMessage": "I'd like to add specificity to this definition. This will\r\n                          only apply to my job poster.",
+        "description": "Label for 'Add additional specificity' button on Add Skill modal.",
+        "id": "jobBuilder.criteriaForm.addSpecificity"
+      },
+      {
+        "defaultMessage": "Choose a Skill Level",
+        "description": "Label for 'Choose a Skill Level' radio group heading on Add Skill modal.",
+        "id": "jobBuilder.criteriaForm.chooseSkillLevel"
+      },
+      {
+        "defaultMessage": "or",
+        "description": "Label for 'or' between essential/asset levels on Add Skill modal.",
+        "id": "jobBuilder.criteriaForm.or"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Label for Cancel button on Add Skill modal.",
+        "id": "jobBuilder.criteriaForm.button.cancel"
+      },
+      {
+        "defaultMessage": "Add Skill",
+        "description": "Label for Add Skill button on Add Skill modal.",
+        "id": "jobBuilder.criteriaForm.button.add"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilderSkills/CriteriaForm.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "get in touch with us through email",
         "description": "Text for an email link in a larger block of text",
         "id": "jobBuilder.skills.emailLink"
+      },
+      {
+        "defaultMessage": "Please select a skill from our list",
+        "description": "Label for skill selection dropdown menu",
+        "id": "jobBuilder.skills.selectSkillLabel"
+      },
+      {
+        "defaultMessage": "Please select a skill",
+        "description": "Label for skill selection dropdown null/default state",
+        "id": "jobBuilder.skills.selectSkillNull"
       },
       {
         "defaultMessage": "Arrow icon highlighting the unhappy smiley icon.",
@@ -1401,38 +1646,38 @@
         "id": "jobBuilder.skills.title.skillSelection"
       },
       {
-        "defaultMessage": "Occupational Skills",
+        "defaultMessage": "Occupational Competencies",
         "description": "Title of skills category",
         "id": "jobBuilder.skills.title.occupationalSkills"
       },
       {
         "defaultMessage": "Aim for {minOccupational} - {maxOccupational} skills.",
-        "description": "Ranage recommendation for occupational skills in job poster",
+        "description": "Ranage recommendation for occupational competencies in job poster",
         "id": "jobBuilder.skills.range.occupationalSkills"
       },
       {
         "defaultMessage": "You must return to Step 1 and choose a Classification.",
-        "description": "Placeholder text for occupational skills list.",
+        "description": "Placeholder text for occupational competencies list.",
         "id": "jobBuilder.skills.nullText.occupationalSkills"
       },
       {
-        "defaultMessage": "Cultural Skills",
+        "defaultMessage": "Behavioural Competencies",
         "description": "Title of skills category",
         "id": "jobBuilder.skills.title.culturalSkills"
       },
       {
         "defaultMessage": "Aim for {minCulture} - {maxCulture} skills.",
-        "description": "Ranage recommendation for cultural skills in job poster",
+        "description": "Range recommendation for behavioural competencies in job poster",
         "id": "jobBuilder.skills.range.culturalSkills"
       },
       {
-        "defaultMessage": "Future Skills",
+        "defaultMessage": "Public Service Competencies",
         "description": "Title of skills category",
         "id": "jobBuilder.skills.title.futureSkills"
       },
       {
         "defaultMessage": "Aim for {minFuture} - {maxFuture} skills.",
-        "description": "Ranage recommendation for future skills in job poster",
+        "description": "Ranage recommendation for public service competencies in job poster",
         "id": "jobBuilder.skills.range.futureSkills"
       },
       {
@@ -1830,6 +2075,16 @@
         "id": "jobBuilder.workEnv.cultureSubtext1"
       },
       {
+        "defaultMessage": "Copy to Clipboard",
+        "description": "Button to copy text to clipboard.",
+        "id": "button.copyToClipboard"
+      },
+      {
+        "defaultMessage": "Copied!",
+        "description": "Confirmation for Button to copy text to clipboard.",
+        "id": "button.copied"
+      },
+      {
         "defaultMessage": "Save & Return to Job Details",
         "description": "Label for Save & Return button on Work Environment form.",
         "id": "jobBuilder.workEnv.saveAndReturnButtonLabel"
@@ -1908,6 +2163,16 @@
         "defaultMessage": "Your HR advisor will review your changes.",
         "description": "Footer message displayed for the Education requirement section.",
         "id": "jobBuilder.details.educationRequirementReviewChanges"
+      },
+      {
+        "defaultMessage": "Copy to Clipboard",
+        "description": "Button to copy text to clipboard.",
+        "id": "button.copyToClipboard"
+      },
+      {
+        "defaultMessage": "Copied!",
+        "description": "Confirmation for Button to copy text to clipboard.",
+        "id": "button.copied"
       },
       {
         "defaultMessage": "Is remote work allowed?",
@@ -2180,7 +2445,7 @@
         "id": "jobBuilder.details.classificationOptions.PM"
       },
       {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
+        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.\n    ",
         "description": "Job Classification message from list of Classifications",
         "id": "jobBuilder.details.educationMessages.AS"
       },
@@ -2245,7 +2510,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "{termMonths,plural,=0{no months} one{{termMonths, number} month} other{{termMonths, number} months}}",
+        "defaultMessage": "{termMonths, plural, =0 {no months} one {# month} other {# months}}",
         "description": "Calculated term length in months",
         "id": "jobBuilder.preview.termLength"
       },
@@ -2490,7 +2755,7 @@
         "id": "jobBuilder.review.remoteNotAllowed"
       },
       {
-        "defaultMessage": "Average Annual Salary",
+        "defaultMessage": "Annual Salary Range",
         "description": "Label for salary information.",
         "id": "jobBuilder.review.averageAnnualSalary"
       },
@@ -2510,7 +2775,7 @@
         "id": "jobBuilder.review.duration"
       },
       {
-        "defaultMessage": "{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}",
+        "defaultMessage": "{termMonths, plural, =0 {No Months} one {# Month} other {# Months}}",
         "description": "Length of term in months",
         "id": "jobBuilder.review.months"
       },
@@ -2635,7 +2900,7 @@
         "id": "jobBuilder.tasks.intro.fourth"
       },
       {
-        "defaultMessage": "You have {taskCount,plural,one{{taskCount, number} task} other{{taskCount, number} tasks}} added.",
+        "defaultMessage": "You have {taskCount, plural,\r\n                      one {# task}\r\n                      other {# tasks}\r\n                    } added.",
         "description": "Indicates how many tasks are present on the page.",
         "id": "jobBuilder.tasks.taskCount.some"
       },
@@ -2701,6 +2966,16 @@
       }
     ],
     "path": "resources/assets/js/components/JobTasks/JobTasks.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Must complete previous steps.",
+        "description": "Tooltip informing user to complete previous steps, before step it can become clickable.",
+        "id": "progressTracker.unreachableStep"
+      }
+    ],
+    "path": "resources/assets/js/components/ProgressTracker/ProgressTrackerItem.json"
   },
   {
     "descriptors": [
@@ -2900,7 +3175,7 @@
         "id": "assessmentType.takeHomeExam.description"
       },
       {
-        "defaultMessage": "During the application process, applicants provide access to samples of their work to exhibit their skill level, and back-up their skill claims.",
+        "defaultMessage": "During the application process, applicants provide access to samples of their work to exhibit their skill level, and back-up their skill claims. ",
         "description": "Description of an assessment type, to help a manager understand when to use it.",
         "id": "assessmentType.portfolioReview.description"
       },

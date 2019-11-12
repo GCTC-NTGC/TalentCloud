@@ -1,7 +1,7 @@
 /* eslint-disable camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef, useReducer } from "react";
 import {
-  InjectedIntlProps,
+  WrappedComponentProps,
   injectIntl,
   FormattedMessage,
   defineMessages,
@@ -42,6 +42,16 @@ const messages = defineMessages({
     id: "jobBuilder.skills.emailLink",
     defaultMessage: "get in touch with us through email",
     description: "Text for an email link in a larger block of text",
+  },
+  selectSkillLabel: {
+    id: "jobBuilder.skills.selectSkillLabel",
+    defaultMessage: "Please select a skill from our list",
+    description: "Label for skill selection dropdown menu",
+  },
+  selectSkillNull: {
+    id: "jobBuilder.skills.selectSkillNull",
+    defaultMessage: "Please select a skill",
+    description: "Label for skill selection dropdown null/default state",
   },
 });
 
@@ -188,7 +198,7 @@ export const skillAlreadySelected = (
   ) !== undefined;
 
 export const JobBuilderSkills: React.FunctionComponent<
-  JobBuilderSkillsProps & InjectedIntlProps
+  JobBuilderSkillsProps & WrappedComponentProps
 > = ({
   job,
   keyTasks,
@@ -377,7 +387,7 @@ export const JobBuilderSkills: React.FunctionComponent<
       <div data-c-grid-item="base(6of10) tl(7of10)">
         <div data-c-grid="gutter">
           <div data-c-grid-item="base(1of1) tl(2of3)">
-            <span>0</span>
+            {/* <span>0</span>
             <span
               data-c-background="grey(40)"
               data-c-font-size="small"
@@ -387,7 +397,7 @@ export const JobBuilderSkills: React.FunctionComponent<
               data-c-colour="white"
             >
               <i className="fas fa-briefcase" />
-            </span>
+            </span> */}
             <span>
               <FormattedMessage
                 id="jobBuilder.skills.addSkillBelow"
@@ -471,9 +481,9 @@ export const JobBuilderSkills: React.FunctionComponent<
           <div data-c-grid-item="base(6of10) tl(7of10)">
             <div data-c-grid="gutter">
               <div data-c-grid-item="base(1of1) tl(2of3)">
-                <span>{index + 1}</span>
+                <span data-c-margin="right(normal)">{index + 1}.</span>
                 {/* This icon will automatically update based on the class you've specified above, on the jpb-skill. */}
-                <span
+                {/* <span
                   className="jpb-skill-type"
                   data-c-font-size="small"
                   data-c-margin="rl(half)"
@@ -486,13 +496,13 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <i className="fas fa-coffee" />
                   <i className="fas fa-certificate" />
                   <i className="fas fa-book" />
-                </span>
+                </span> */}
                 {/* The skill name. */}
                 <span>{skill[locale].name}</span>
               </div>
               <div data-c-grid-item="base(1of1) tl(1of3)">
                 <span
-                  data-c-radius="rounded"
+                  data-c-radius="pill"
                   data-c-padding="tb(quarter) rl(half)"
                   data-c-border="all(thin, solid, c1)"
                   data-c-colour="c1"
@@ -523,7 +533,8 @@ export const JobBuilderSkills: React.FunctionComponent<
               >
                 <button
                   type="button"
-                  data-c-colour="stop"
+                  data-c-colour="c1"
+                  data-c-hover-colour="stop"
                   onClick={(): void =>
                     criteriaDispatch({
                       type: "remove",
@@ -1144,7 +1155,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                 {/* Category Title */}
                 <FormattedMessage
                   id="jobBuilder.skills.title.occupationalSkills"
-                  defaultMessage="Occupational Skills"
+                  defaultMessage="Occupational Competencies"
                   description="Title of skills category"
                 />
               </h5>
@@ -1180,7 +1191,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <FormattedMessage
                     id="jobBuilder.skills.range.occupationalSkills"
                     defaultMessage="Aim for {minOccupational} - {maxOccupational} skills."
-                    description="Ranage recommendation for occupational skills in job poster"
+                    description="Ranage recommendation for occupational competencies in job poster"
                     values={{ minOccupational, maxOccupational }}
                   />
                 </span>
@@ -1193,7 +1204,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                 <FormattedMessage
                   id="jobBuilder.skills.nullText.occupationalSkills"
                   defaultMessage="You must return to Step 1 and choose a Classification."
-                  description="Placeholder text for occupational skills list."
+                  description="Placeholder text for occupational competencies list."
                 />
               </p>
             )}
@@ -1233,7 +1244,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                 </span>
                 <FormattedMessage
                   id="jobBuilder.skills.title.culturalSkills"
-                  defaultMessage="Cultural Skills"
+                  defaultMessage="Behavioural Competencies"
                   description="Title of skills category"
                 />
               </h5>
@@ -1263,7 +1274,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <FormattedMessage
                     id="jobBuilder.skills.range.culturalSkills"
                     defaultMessage="Aim for {minCulture} - {maxCulture} skills."
-                    description="Ranage recommendation for cultural skills in job poster"
+                    description="Range recommendation for behavioural competencies in job poster"
                     values={{ minCulture, maxCulture }}
                   />
                 </span>
@@ -1347,7 +1358,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                 </span>
                 <FormattedMessage
                   id="jobBuilder.skills.title.futureSkills"
-                  defaultMessage="Future Skills"
+                  defaultMessage="Public Service Competencies"
                   description="Title of skills category"
                 />
               </h5>
@@ -1377,7 +1388,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <FormattedMessage
                     id="jobBuilder.skills.range.futureSkills"
                     defaultMessage="Aim for {minFuture} - {maxFuture} skills."
-                    description="Ranage recommendation for future skills in job poster"
+                    description="Ranage recommendation for public service competencies in job poster"
                     values={{ minFuture, maxFuture }}
                   />
                 </span>
@@ -1462,9 +1473,9 @@ export const JobBuilderSkills: React.FunctionComponent<
               <Select
                 id="jpb-all-skills-select"
                 name="jpbAllSkillsSelect"
-                label="Please select a skill from our list"
+                label={intl.formatMessage(messages.selectSkillLabel)}
                 selected={null}
-                nullSelection="Please select a Skill"
+                nullSelection={intl.formatMessage(messages.selectSkillNull)}
                 options={unselectedOtherSkills.map(
                   (skill): SelectOption => ({
                     value: skill.id,

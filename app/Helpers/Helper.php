@@ -102,7 +102,7 @@ if (!function_exists('humanizeLastDay')) {
      */
     function humanizeLastDay(Date $datetime) : string
     {
-        $lastday = $datetime->sub("1 day");
+        $lastday = $datetime->sub('1 day');
 
         return humanizeDate($lastday);
     }

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
+  MessageDescriptor,
 } from "react-intl";
 import Swal from "sweetalert2";
 import { Application } from "../../models/types";
@@ -14,8 +15,8 @@ import { ReviewStatusId } from "../../models/lookupConstants";
 import { copyToClipboard } from "../../helpers/clipboard";
 
 interface ReviewCategoryProps {
-  title: FormattedMessage.MessageDescriptor;
-  description: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  description: MessageDescriptor;
   showScreenOutAll: boolean;
   applications: Application[];
   reviewStatusOptions: SelectOption[];
@@ -45,7 +46,7 @@ const localizations = defineMessages({
 });
 
 const ReviewCategory: React.StatelessComponent<
-  ReviewCategoryProps & InjectedIntlProps
+  ReviewCategoryProps & WrappedComponentProps
 > = ({
   title,
   description,
@@ -58,7 +59,8 @@ const ReviewCategory: React.StatelessComponent<
   savingStatuses,
   prioritizeVeterans,
   intl,
-}: ReviewCategoryProps & InjectedIntlProps): React.ReactElement | null => {
+}: ReviewCategoryProps & WrappedComponentProps): React.ReactElement | null => {
+  const [justCopied, setJustCopied] = useState(false);
   if (applications.length === 0) {
     return null;
   }
@@ -71,7 +73,7 @@ const ReviewCategory: React.StatelessComponent<
   const handleScreenOutAllClick = (): void => {
     Swal.fire({
       title: intl.formatMessage(localizations.screenOutAllConfirm),
-      type: "question",
+      icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
       cancelButtonColor: "#F94D4D",
@@ -150,16 +152,16 @@ const ReviewCategory: React.StatelessComponent<
   ];
 
   /* Code related to copying emails to clipboard */
-  const [justCopied, setJustCopied] = useState(false);
   const nameEmails = applications.map(application => {
-    const { name, email } = application.applicant.user;
-    return `${name}<${email}>`;
+    const { first_name, last_name, email } = application.applicant.user; // eslint-disable-line
+    return `${first_name} ${last_name} <${email}>`; // eslint-disable-line
   });
   const emailList = nameEmails.join(",");
-  const handleCopyClick = (): void => {
-    copyToClipboard(emailList);
-    setJustCopied(true);
-    setTimeout(() => setJustCopied(false), 1000);
+  const handleCopyClick = (event): void => {
+    copyToClipboard(event, emailList).then(() => {
+      setJustCopied(true);
+      setTimeout(() => setJustCopied(false), 2000);
+    });
   };
 
   return (

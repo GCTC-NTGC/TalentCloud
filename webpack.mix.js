@@ -17,6 +17,7 @@ const path = require("path");
 mix
   .js("resources/assets/js/bootstrap.js", "public/js")
   .js("resources/assets/js/app.js", "public/js")
+  .js("resources/assets/js/reliability.js", "public/js")
   .js("resources/assets/js/autocomplete.js", "public/js")
   .js("resources/assets/js/modernizr.js", "public/js")
   .js("resources/assets/js/alerts.js", "public/js")
@@ -64,6 +65,28 @@ mix
         browsers: ">0.1%",
       }),
     ],
+  })
+  .sass("resources/assets/sass/reliability.scss", "public/css", {
+    implementation: sass,
+    includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"],
+  })
+  .options({
+    processCssUrls: false,
+    postCss: [
+      cssnano({
+        preset: [
+          "default",
+          {
+            discardComments: {
+              removeAll: true,
+            },
+          },
+        ],
+      }),
+      autoprefixer({
+        browsers: ">0.1%",
+      }),
+    ],
   });
 
 mix.webpackConfig({
@@ -71,6 +94,7 @@ mix.webpackConfig({
     alias: {
       "@": path.resolve(__dirname, "resources/assets/js"),
     },
+    mainFields: ["browser", "main", "module"],
   },
 });
 

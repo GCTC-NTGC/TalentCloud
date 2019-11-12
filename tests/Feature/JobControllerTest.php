@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Mail;
@@ -11,14 +10,9 @@ use Illuminate\Support\Facades\Mail;
 use Jenssegers\Date\Date;
 
 use App\Models\Applicant;
-use App\Models\Lookup\Department;
 use App\Models\JobPoster;
-use App\Models\Lookup\LanguageRequirement;
 use App\Models\Manager;
 use App\Models\User;
-use App\Models\Criteria;
-use App\Models\Lookup\Province;
-use App\Models\Lookup\SecurityClearance;
 use App\Mail\JobPosterReviewRequested;
 
 class JobControllerTest extends TestCase
@@ -60,13 +54,10 @@ class JobControllerTest extends TestCase
     private function generateEditJobFormData() : array
     {
         $jobForm = [
-        'salary_min' => $this->faker->numberBetween(60000, 80000),
-        'salary_max' => $this->faker->numberBetween(80000, 100000),
-        'noc' => $this->faker->numberBetween(1, 9999),
-        'open_date' => $this->faker->date('Y-m-d', strtotime('+1 day')),
-        'close_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
-        'start_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
-        'submit' => '',
+            'open_date' => $this->faker->date('Y-m-d', strtotime('+1 day')),
+            'close_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
+            'start_date' => $this->faker->date('Y-m-d', strtotime('+2 weeks')),
+            'submit' => '',
         ];
         return $jobForm;
     }
@@ -111,42 +102,6 @@ class JobControllerTest extends TestCase
 
         $response->assertSee(e($this->jobPoster->title));
         $response->assertDontSeeText(e($this->otherJobPoster->title));
-    }
-
-    public function testSubmitForReviewFailsForDemoManager() : void
-    {
-        $jobPoster = factory(JobPoster::class)->state('draft')->create();
-
-        $response = $this->followingRedirects()
-            ->actingAs($jobPoster->manager->user)
-            ->post("manager/jobs/$jobPoster->id/review");
-
-        $response->assertForbidden();
-    }
-
-    /**
-     * Ensure a Job Poster can be submitted for review.
-     *
-     * @return void
-     */
-    public function testSubmitForReviewSucceedsForUpgradedManager() : void
-    {
-        Mail::fake();
-
-        $jobPoster = factory(JobPoster::class)->states(['byUpgradedManager', 'draft'])->create();
-        $response = $this->followingRedirects()
-            ->actingAs($jobPoster->manager->user)
-            ->post("manager/jobs/$jobPoster->id/review");
-
-        $response->assertStatus(200);
-
-        $jobPoster->refresh();
-
-        $this->assertInstanceOf(Date::class, $jobPoster->review_requested_at);
-
-        Mail::assertQueued(JobPosterReviewRequested::class, function ($mail) use ($jobPoster) {
-            return $mail->jobPoster->id === $jobPoster->id;
-        });
     }
 
     /**
@@ -205,21 +160,18 @@ class JobControllerTest extends TestCase
             'manager_id' => $this->manager->id
         ]);
 
-        $jobEdit = $this->generateEditJobFormData();
-        $jobEdit['open_date'] = '2019-01-01';
-        $jobEdit['close_date'] = '2019-01-31';
-
-        // Expected db values
-        $dbValues = array_slice($jobEdit, 0, 3);
+        $jobEdit['id'] = $job->id;
+        $jobEdit['open_date_time'] = '2019-01-01';
+        $jobEdit['close_date_time'] = '2019-01-31';
+        $jobEdit['start_date_time'] = $this->faker->date('Y-m-d', strtotime('+2 weeks'));
 
         $admin = factory(User::class)->states('admin')->create();
         $response = $this->followingRedirects()
             ->actingAs($admin)
-            ->post(route('admin.jobs.update', $job), $jobEdit);
+            ->put(route('job-poster.update', $job), $jobEdit);
 
-        $this->assertDatabaseHas('job_posters', $dbValues);
+        $savedJob = $job->refresh();
 
-        $savedJob = JobPoster::where($dbValues)->first();
         $this->assertEquals($expectedOpenTime, humanizeTime($savedJob->open_date_time));
         $this->assertEquals($expectedOpenDate, humanizeDate($savedJob->open_date_time));
         $this->assertEquals($expectedCloseDate, humanizeDate($savedJob->close_date_time));

@@ -9,10 +9,10 @@ use App\Models\Lookup\Department;
 use App\Models\Lookup\Province;
 use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\LanguageRequirement;
-use App\Models\JobPoster;
 use App\Models\Lookup\Frequency;
 use App\Models\Lookup\TravelRequirement;
 use App\Models\Lookup\OvertimeRequirement;
+use Illuminate\Validation\Rule;
 
 class UpdateJobPoster extends FormRequest
 {
@@ -39,6 +39,7 @@ class UpdateJobPoster extends FormRequest
         $dateFormatRule = "date_format:$dateFormat";
         $sliderRule = 'between:1,4';
         return [
+            'chosen_lang' => ['nullable', Rule::in(['en', 'fr'])],
             'term_qty' => 'nullable|numeric',
             'open_date_time' =>['nullable', $dateFormatRule],
             'close_date_time' => ['nullable', $dateFormatRule],
@@ -71,7 +72,6 @@ class UpdateJobPoster extends FormRequest
             'en.team_impact' => 'nullable|string',
             'en.hire_impact' => 'nullable|string',
             'en.division' => 'nullable|string',
-            'en.branch' => 'nullable|string',
             'en.education' => 'nullable|string',
             'en.work_env_description' => 'nullable|string',
             'en.culture_summary' => 'nullable|string',
@@ -82,7 +82,6 @@ class UpdateJobPoster extends FormRequest
             'fr.team_impact' => 'nullable|string',
             'fr.hire_impact' => 'nullable|string',
             'fr.division' => 'nullable|string',
-            'fr.branch' => 'nullable|string',
             'fr.education' => 'nullable|string',
             'fr.work_env_description' => 'nullable|string',
             'fr.culture_summary' => 'nullable|string',

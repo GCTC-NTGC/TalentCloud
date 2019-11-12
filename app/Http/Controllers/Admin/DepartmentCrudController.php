@@ -82,6 +82,7 @@ class DepartmentCrudController extends CrudController
             'type' => 'text',
             'label' => 'Name',
             'orderable' => true,
+            'limit' => 70,
             'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {
                 return $query->orderBy('name->' . $locale, $columnDirection)->select('*');
             }
@@ -92,6 +93,7 @@ class DepartmentCrudController extends CrudController
             'type' => 'text',
             'label' => 'Impact',
             'orderable' => false,
+            'limit' => 70,
         ]);
 
         $this->crud->addColumn([
@@ -99,6 +101,7 @@ class DepartmentCrudController extends CrudController
             'type' => 'text',
             'label' => 'Preference',
             'orderable' => false,
+            'limit' => 70,
         ]);
     }
 

@@ -45,6 +45,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
     ];
     return [
         'job_term_id' => JobTerm::inRandomOrder()->first()->id,
+        'chosen_lang' => $faker->randomElement(['en', 'fr']),
         'term_qty' => $faker->numberBetween(1, 4),
         'open_date_time' => ptDayStartToUtcTime($openDate),
         'close_date_time' => ptDayEndToUtcTime($closeDate),
@@ -82,7 +83,6 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'dept_impact:en' => $faker->paragraph(),
         'team_impact:en' => $faker->paragraph(),
         'hire_impact:en' => $faker->paragraph(),
-        'branch:en' => $faker->word,
         'division:en' => $faker->word,
         'education:en' => $faker->sentence(),
         'work_env_description:en' => $faker->paragraph(),
@@ -93,7 +93,6 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'dept_impact:fr' => $faker->paragraph(),
         'team_impact:fr' => $faker->paragraph(),
         'hire_impact:fr' => $faker->paragraph(),
-        'branch:fr' => $faker_fr->word,
         'division:fr' => $faker_fr->word,
         'education:fr' => $faker_fr->sentence(),
         'work_env_description:fr' => $faker->paragraph(),

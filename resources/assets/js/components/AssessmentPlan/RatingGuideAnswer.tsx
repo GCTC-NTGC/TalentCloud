@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { connect } from "react-redux";
-import { defineMessages, InjectedIntlProps, injectIntl } from "react-intl";
+import { defineMessages, WrappedComponentProps, injectIntl } from "react-intl";
 import {
   RatingGuideAnswer as RatingGuideAnswerModel,
   Skill,
@@ -88,7 +88,7 @@ const getAvailableCriteria = (
 };
 
 const RatingGuideAnswer: React.FunctionComponent<
-  RatingGuideAnswerProps & InjectedIntlProps
+  RatingGuideAnswerProps & WrappedComponentProps
 > = ({
   answer,
   unansweredCriteria,
@@ -271,10 +271,8 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
       ? dispatchProps.editTempAnswer
       : dispatchProps.updateAnswer,
 });
-// @ts-ignore
-const RatingGuideAnswerContainer: React.FunctionComponent<
-  RatingGuideAnswerContainerProps
-> = connect(
+
+const RatingGuideAnswerContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,

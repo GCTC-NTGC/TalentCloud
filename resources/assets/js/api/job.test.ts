@@ -8,6 +8,7 @@ describe("api/job", (): void => {
       id: 13,
       job_term_id: 2,
       term_qty: 1,
+      chosen_lang: "en",
       open_date_time: "2019-05-17T07:00:00+00:00",
       close_date_time: "2019-06-01T06:59:59+00:00",
       start_date_time: "2019-06-08T07:00:00+00:00",
@@ -31,7 +32,6 @@ describe("api/job", (): void => {
       title: "I hadn't quite dull.",
       hire_impact:
         "Delectus facilis nesciunt aut est distinctio sunt. Sunt minus sed minus quaerat eos.\n\nExcepturi voluptate nesciunt voluptatem et. Facilis occaecati iusto asperiores placeat vel dolores. Delectus magni inventore et eos. Ea ullam recusandae sunt accusantium.",
-      branch: "eveniet",
       division: "et",
       education: "Veritatis dolorem soluta doloribus doloribus occaecati.",
       manager: {
@@ -53,7 +53,6 @@ describe("api/job", (): void => {
           "Soluta fugit nisi sit quas ut. Sed omnis mollitia officia illum quae aperiam. Minima fugit velit laboriosam ut quaerat.\n\nIpsa illum ad culpa alias. Sunt similique hic repudiandae. Doloremque et nobis et iure eos praesentium nulla.\n\nQuisquam voluptates error libero repellat ea delectus qui. Ut ut et est consectetur. Id deserunt modi ea consectetur. Reiciendis quo animi consequatur accusantium explicabo nobis non.",
         greatest_accomplishment:
           "Adipisci sint deleniti enim ipsum aliquid. Et reprehenderit distinctio qui qui fugiat dolorem. Saepe delectus ullam praesentium. Tempora quia labore est.\n\nSint labore quisquam aut illo. Sunt id iusto fuga dicta totam aspernatur eum rerum. Dolorum maiores omnis vel eos dolor tempora sed.\n\nDoloremque itaque voluptatem reiciendis dolorum. Ea et beatae et vel assumenda dolor. Autem dolorem consequatur a qui pariatur. Et odio fugiat est explicabo commodi eum.",
-        branch: "sed",
         division: "quibusdam",
         position: "ut",
         work_experience: null,
@@ -93,7 +92,6 @@ describe("api/job", (): void => {
               "Et esse provident qui. Commodi beatae explicabo harum impedit qui provident dolorem repudiandae. Et exercitationem quasi dolores deleniti.\n\nQuo dolores qui quia eum non. Et perspiciatis nisi recusandae in voluptatem sunt. Voluptatum facilis dolores tempora. Hic assumenda nam quis quidem sint et consequatur.\n\nAliquam molestias et quis culpa minima eos. Delectus et nam et nulla eligendi. Ea porro quia nostrum. Error distinctio eius nisi unde ut.",
             greatest_accomplishment:
               "Placeat ut sint id architecto voluptatem. Repellat architecto harum temporibus et assumenda possimus.\n\nReiciendis suscipit quia neque laudantium quam placeat. Voluptate quibusdam rem est provident. Et doloribus dolores aperiam aut consequatur aliquid at. Placeat maxime aliquid vero rerum doloribus rerum.\n\nUt sed optio ducimus voluptates consequatur. Quisquam fuga amet quae ut. Consequatur sit quia non qui rerum et laudantium.",
-            branch: "dolore",
             division: "omnis",
             position: "qui",
             leadership_style:
@@ -119,7 +117,6 @@ describe("api/job", (): void => {
               "Soluta fugit nisi sit quas ut. Sed omnis mollitia officia illum quae aperiam. Minima fugit velit laboriosam ut quaerat.\n\nIpsa illum ad culpa alias. Sunt similique hic repudiandae. Doloremque et nobis et iure eos praesentium nulla.\n\nQuisquam voluptates error libero repellat ea delectus qui. Ut ut et est consectetur. Id deserunt modi ea consectetur. Reiciendis quo animi consequatur accusantium explicabo nobis non.",
             greatest_accomplishment:
               "Adipisci sint deleniti enim ipsum aliquid. Et reprehenderit distinctio qui qui fugiat dolorem. Saepe delectus ullam praesentium. Tempora quia labore est.\n\nSint labore quisquam aut illo. Sunt id iusto fuga dicta totam aspernatur eum rerum. Dolorum maiores omnis vel eos dolor tempora sed.\n\nDoloremque itaque voluptatem reiciendis dolorum. Ea et beatae et vel assumenda dolor. Autem dolorem consequatur a qui pariatur. Et odio fugiat est explicabo commodi eum.",
-            branch: "sed",
             division: "quibusdam",
             position: "ut",
             leadership_style:
@@ -149,7 +146,6 @@ describe("api/job", (): void => {
           title: "White Rabbit noticed.",
           hire_impact:
             "Fugiat temporibus provident sed accusantium est tenetur nisi. Qui nesciunt velit necessitatibus quam accusantium. Voluptatum aut sed qui soluta voluptatem.\n\nIpsam facilis aut qui et id eaque architecto. Et nihil aliquam suscipit. Dolor placeat voluptas velit velit laboriosam sed nostrum soluta.",
-          branch: "omnis",
           division: "omnis",
           education: "Maiores qui eum repellendus ut quisquam ipsa.",
           created_at: "2019-05-08T14:15:04+00:00",
@@ -163,7 +159,6 @@ describe("api/job", (): void => {
           title: "I hadn't quite dull.",
           hire_impact:
             "Delectus facilis nesciunt aut est distinctio sunt. Sunt minus sed minus quaerat eos.\n\nExcepturi voluptate nesciunt voluptatem et. Facilis occaecati iusto asperiores placeat vel dolores. Delectus magni inventore et eos. Ea ullam recusandae sunt accusantium.",
-          branch: "eveniet",
           division: "et",
           education: "Veritatis dolorem soluta doloribus doloribus occaecati.",
           created_at: "2019-05-08T14:15:04+00:00",
@@ -175,7 +170,6 @@ describe("api/job", (): void => {
         title: "White Rabbit noticed.",
         hire_impact:
           "Fugiat temporibus provident sed accusantium est tenetur nisi. Qui nesciunt velit necessitatibus quam accusantium. Voluptatum aut sed qui soluta voluptatem.\n\nIpsam facilis aut qui et id eaque architecto. Et nihil aliquam suscipit. Dolor placeat voluptas velit velit laboriosam sed nostrum soluta.",
-        branch: "omnis",
         division: "omnis",
         education: "Maiores qui eum repellendus ut quisquam ipsa.",
       },
@@ -184,7 +178,6 @@ describe("api/job", (): void => {
         title: "I hadn't quite dull.",
         hire_impact:
           "Delectus facilis nesciunt aut est distinctio sunt. Sunt minus sed minus quaerat eos.\n\nExcepturi voluptate nesciunt voluptatem et. Facilis occaecati iusto asperiores placeat vel dolores. Delectus magni inventore et eos. Ea ullam recusandae sunt accusantium.",
-        branch: "eveniet",
         division: "et",
         education: "Veritatis dolorem soluta doloribus doloribus occaecati.",
       },

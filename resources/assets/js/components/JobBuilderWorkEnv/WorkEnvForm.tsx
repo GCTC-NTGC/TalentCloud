@@ -5,9 +5,11 @@ import * as Yup from "yup";
 import nprogress from "nprogress";
 import {
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
   FormattedMessage,
   defineMessages,
+  MessageDescriptor,
+  IntlShape,
 } from "react-intl";
 import CheckboxGroup from "../Form/CheckboxGroup";
 import RadioGroup from "../Form/RadioGroup";
@@ -124,7 +126,7 @@ const formMessages = defineMessages({
   collaborativeLabel: {
     id: "jobBuilder.workEnv.collaborativeLabel",
     defaultMessage: "Collaborative vs. Independent:",
-    description: 'The label for the "colaborative vs independent" radio group',
+    description: 'The label for the "collaborative vs independent" radio group',
   },
   cultureSummary: {
     id: "jobBuilder.workEnv.cultureSummary",
@@ -221,8 +223,8 @@ type CulturePaceId =
   | "culturePace04";
 const culturePaceList: {
   id: CulturePaceId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "culturePace01",
@@ -254,7 +256,7 @@ const mgmtStyleMessages = defineMessages({
   style01Description: {
     id: "jobBuilder.mgmtStyle.01.description",
     defaultMessage:
-      "There’s no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.",
+      "There's no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.",
   },
   style02Title: {
     id: "jobBuilder.mgmtStyle.02.title",
@@ -263,7 +265,7 @@ const mgmtStyleMessages = defineMessages({
   style02Description: {
     id: "jobBuilder.mgmtStyle.02.description",
     defaultMessage:
-      "We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives.",
+      "We have some middle management here but make most day-to-day decisions ourselves. Don't be surprised to interact fairly often with our executives.",
   },
   style03Title: {
     id: "jobBuilder.mgmtStyle.03.title",
@@ -292,8 +294,8 @@ type MgmtStyleId =
   | "mgmtStyle04";
 const managementList: {
   id: MgmtStyleId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "mgmtStyle01",
@@ -362,8 +364,8 @@ type ExperiementalId =
   | "experimental04";
 const experimentalList: {
   id: ExperiementalId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "experimental01",
@@ -428,8 +430,8 @@ const facingMessages = defineMessages({
 type FacingId = "facing01" | "facing02" | "facing03" | "facing04";
 const facingList: {
   id: FacingId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "facing01",
@@ -461,7 +463,7 @@ const collaborativenessMessages = defineMessages({
   collaborativeness01Description: {
     id: "jobBuilder.collaborativeness.01.description",
     defaultMessage:
-      "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.",
+      "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team's goals and are always looking for ways to pitch in.",
   },
   collaborativeness02Title: {
     id: "jobBuilder.collaborativeness.02.title",
@@ -488,7 +490,7 @@ const collaborativenessMessages = defineMessages({
   collaborativeness04Description: {
     id: "jobBuilder.collaborativeness.04.description",
     defaultMessage:
-      "Members of our team own their piece of the puzzle. It doesn’t really matter how we get our work done as long as it’s high quality.",
+      "Members of our team own their piece of the puzzle. It doesn't really matter how we get our work done as long as it's high quality.",
   },
 });
 type CollaborativenessId =
@@ -498,8 +500,8 @@ type CollaborativenessId =
   | "collaborativeness04";
 const collaborativenessList: {
   id: CollaborativenessId;
-  title: FormattedMessage.MessageDescriptor;
-  subtext: FormattedMessage.MessageDescriptor;
+  title: MessageDescriptor;
+  subtext: MessageDescriptor;
 }[] = [
   {
     id: "collaborativeness01",
@@ -593,7 +595,7 @@ const jobToValues = (
     ...convertSliderIdFromJob(
       "collaborativeness",
       collaborativenessList,
-      citizen_facing_vs_back_office,
+      collaborative_vs_independent,
     ),
     envDescription: job[locale].work_env_description || "",
     cultureSummary: job[locale].culture_summary || "",
@@ -674,7 +676,7 @@ const updateJobWithValues = (
 };
 
 const renderRadioWithContext = (
-  intl: ReactIntl.InjectedIntl,
+  intl: IntlShape,
   touched: FormikTouched<WorkEnvFormValues>,
   errors: FormikErrors<WorkEnvFormValues>,
   values: WorkEnvFormValues,
@@ -682,8 +684,8 @@ const renderRadioWithContext = (
   label: string,
   sliderList: {
     id: string;
-    title: FormattedMessage.MessageDescriptor;
-    subtext: FormattedMessage.MessageDescriptor;
+    title: MessageDescriptor;
+    subtext: MessageDescriptor;
   }[],
 ): React.ReactElement => {
   return (
@@ -764,7 +766,7 @@ const WorkEnvForm = ({
   jobIsComplete,
   handleSkipToReview,
   intl,
-}: WorkEnvFormProps & InjectedIntlProps): React.ReactElement => {
+}: WorkEnvFormProps & WrappedComponentProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
@@ -1122,7 +1124,23 @@ const WorkEnvForm = ({
                   data-c-alignment="base(centre) tl(right)"
                   data-c-margin="top(normal)"
                 >
-                  <CopyToClipboardButton text={buildCultureSummary(values)} />
+                  <CopyToClipboardButton
+                    actionText={
+                      <FormattedMessage
+                        id="button.copyToClipboard"
+                        defaultMessage="Copy to Clipboard"
+                        description="Button to copy text to clipboard."
+                      />
+                    }
+                    postActionText={
+                      <FormattedMessage
+                        id="button.copied"
+                        defaultMessage="Copied!"
+                        description="Confirmation for Button to copy text to clipboard."
+                      />
+                    }
+                    textToCopy={buildCultureSummary(values)}
+                  />
                 </div>
               </div>
               <Field

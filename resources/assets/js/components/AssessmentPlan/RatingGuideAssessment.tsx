@@ -1,5 +1,9 @@
 import React, { ReactElement } from "react";
-import { InjectedIntlProps, injectIntl, FormattedMessage } from "react-intl";
+import {
+  WrappedComponentProps,
+  injectIntl,
+  FormattedMessage,
+} from "react-intl";
 import { connect } from "react-redux";
 import { createTempRatingGuideQuestion } from "../../store/RatingGuideQuestion/ratingGuideQuestionActions";
 import {
@@ -31,7 +35,7 @@ interface RatingGuideAssessmentProps {
 }
 
 const RatingGuideAssessment: React.FunctionComponent<
-  RatingGuideAssessmentProps & InjectedIntlProps
+  RatingGuideAssessmentProps & WrappedComponentProps
 > = ({
   jobId,
   assessmentIndex,
@@ -134,10 +138,8 @@ const mapDispatchToProps = (
     );
   },
 });
-// @ts-ignore
-const RatingGuideAssessmentContainer: React.FunctionComponent<
-  RatingGuideAssessmentContainerProps
-> = connect(
+
+const RatingGuideAssessmentContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(injectIntl(RatingGuideAssessment));

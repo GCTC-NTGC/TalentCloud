@@ -1,6 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef } from "react";
-import { injectIntl, InjectedIntlProps, FormattedMessage } from "react-intl";
+import {
+  injectIntl,
+  WrappedComponentProps,
+  FormattedMessage,
+  MessageDescriptor,
+  IntlShape,
+} from "react-intl";
 import { Formik, Form, Field } from "formik";
 import nprogress from "nprogress";
 import * as Yup from "yup";
@@ -25,6 +31,7 @@ import {
   FrequencyId,
   TravelRequirementId,
   OvertimeRequirementId,
+  ClassificationId,
 } from "../../models/lookupConstants";
 import { emptyJob } from "../../models/jobUtil";
 import {
@@ -49,7 +56,7 @@ interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
   job: Job | null;
   // Function to run after successful form validation.
-  // It must return true if the submission was succesful, false otherwise.
+  // It must return true if the submission was successful, false otherwise.
   handleSubmit: (values: Job) => Promise<boolean>;
   // The function to run when user clicks Prev Page
   handleReturn: () => void;
@@ -77,7 +84,7 @@ type TeleworkOptionType =
   | "teleworkAlways";
 
 const teleworkMessages: {
-  [key in TeleworkOptionType]: FormattedMessage.MessageDescriptor;
+  [key in TeleworkOptionType]: MessageDescriptor;
 } = {
   teleworkNever: frequencyName(FrequencyId.never),
   teleworkOccasionally: frequencyName(FrequencyId.rarely),
@@ -98,7 +105,7 @@ type FlexHourOptionType =
   | "flexHoursAlways";
 
 const flexHourMessages: {
-  [key in FlexHourOptionType]: FormattedMessage.MessageDescriptor;
+  [key in FlexHourOptionType]: MessageDescriptor;
 } = {
   flexHoursNever: frequencyName(FrequencyId.never),
   flexHoursOccasionally: frequencyName(FrequencyId.sometimes),
@@ -106,7 +113,7 @@ const flexHourMessages: {
   flexHoursSometimes: frequencyName(FrequencyId.often),
   flexHoursAlways: frequencyName(FrequencyId.always),
 };
-const flexHourFequencies: FlexHourOptionType[] = Object.keys(
+const flexHourFrequencies: FlexHourOptionType[] = Object.keys(
   flexHourMessages,
 ) as FlexHourOptionType[];
 
@@ -116,7 +123,7 @@ type TravelOptionType =
   | "travelNoneRequired";
 
 const travelMessages: {
-  [key in TravelOptionType]: FormattedMessage.MessageDescriptor;
+  [key in TravelOptionType]: MessageDescriptor;
 } = {
   travelFrequently: travelRequirementDescription(
     TravelRequirementId.frequently,
@@ -136,7 +143,7 @@ type OvertimeOptionType =
   | "overtimeNoneRequired";
 
 const overtimeMessages: {
-  [key in OvertimeOptionType]: FormattedMessage.MessageDescriptor;
+  [key in OvertimeOptionType]: MessageDescriptor;
 } = {
   overtimeFrequently: overtimeRequirementDescription(
     OvertimeRequirementId.frequently,
@@ -175,7 +182,7 @@ const isClassificationSet = (values: DetailsFormValues): boolean => {
 
 const getEducationMsgForClassification = (
   classification: string,
-  intl: ReactIntl.InjectedIntl,
+  intl: IntlShape,
 ): string => {
   return hasKey(educationMessages, classification)
     ? intl.formatMessage(educationMessages[classification])
@@ -185,7 +192,7 @@ const getEducationMsgForClassification = (
 const jobToValues = (
   job: Job | null,
   locale: string,
-  intl: ReactIntl.InjectedIntl,
+  intl: IntlShape,
 ): DetailsFormValues => {
   const values: DetailsFormValues = job
     ? {
@@ -206,7 +213,7 @@ const jobToValues = (
           ? teleworkFrequencies[job.telework_allowed_frequency_id - 1]
           : "teleworkFrequently",
         flexHours: job.flexible_hours_frequency_id
-          ? flexHourFequencies[job.flexible_hours_frequency_id - 1]
+          ? flexHourFrequencies[job.flexible_hours_frequency_id - 1]
           : "flexHoursFrequently",
         travel: job.travel_requirement_id
           ? travelRequirements[job.travel_requirement_id - 1]
@@ -231,7 +238,7 @@ const jobToValues = (
         travel: "travelFrequently",
         overtime: "overtimeFrequently",
       };
-  // If the job has the standard education requirments saved, no need to fill the custom textbox
+  // If the job has the standard education requirements saved, no need to fill the custom textbox
   if (
     values.classification &&
     values.educationRequirements ===
@@ -274,7 +281,7 @@ const updateJobWithValues = (
   province_id: province || null,
   remote_work_allowed: remoteWork !== "remoteWorkNone",
   telework_allowed_frequency_id: teleworkFrequencies.indexOf(telework) + 1,
-  flexible_hours_frequency_id: flexHourFequencies.indexOf(flexHours) + 1,
+  flexible_hours_frequency_id: flexHourFrequencies.indexOf(flexHours) + 1,
   travel_requirement_id: travelRequirements.indexOf(travel) + 1,
   overtime_requirement_id: overtimeRequirements.indexOf(overtime) + 1,
   [locale]: {
@@ -286,7 +293,7 @@ const updateJobWithValues = (
 });
 
 const JobDetails: React.FunctionComponent<
-  JobDetailsProps & InjectedIntlProps
+  JobDetailsProps & WrappedComponentProps
 > = ({
   job,
   handleSubmit,
@@ -296,7 +303,7 @@ const JobDetails: React.FunctionComponent<
   jobIsComplete,
   handleSkipToReview,
   intl,
-}: JobDetailsProps & InjectedIntlProps): React.ReactElement => {
+}: JobDetailsProps & WrappedComponentProps): React.ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const modalParentRef = useRef<HTMLDivElement>(null);
@@ -327,20 +334,7 @@ const JobDetails: React.FunctionComponent<
       .required(intl.formatMessage(validationMessages.required)),
     classification: Yup.mixed()
       .oneOf(
-        [
-          "AS",
-          "BI",
-          "CO",
-          "CR",
-          "CS",
-          "EC",
-          "EX",
-          "FO",
-          "IS",
-          "PC",
-          "PE",
-          "PM",
-        ],
+        Object.keys(ClassificationId),
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
@@ -385,7 +379,7 @@ const JobDetails: React.FunctionComponent<
       .required(intl.formatMessage(validationMessages.required)),
     flexHours: Yup.mixed()
       .oneOf(
-        flexHourFequencies,
+        flexHourFrequencies,
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
@@ -594,6 +588,12 @@ const JobDetails: React.FunctionComponent<
                         classificationOptionMessages.ProgrammeAdministration,
                       ),
                     },
+                    {
+                      value: "AD",
+                      label: intl.formatMessage(
+                        classificationOptionMessages.AdministrativeServices2,
+                      ),
+                    },
                   ]}
                 />
                 <Field
@@ -680,7 +680,21 @@ const JobDetails: React.FunctionComponent<
                           data-c-margin="top(normal) bottom(half)"
                         >
                           <CopyToClipboardButton
-                            text={getEducationMsgForClassification(
+                            actionText={
+                              <FormattedMessage
+                                id="button.copyToClipboard"
+                                defaultMessage="Copy to Clipboard"
+                                description="Button to copy text to clipboard."
+                              />
+                            }
+                            postActionText={
+                              <FormattedMessage
+                                id="button.copied"
+                                defaultMessage="Copied!"
+                                description="Confirmation for Button to copy text to clipboard."
+                              />
+                            }
+                            textToCopy={getEducationMsgForClassification(
                               values.classification,
                               intl,
                             )}
@@ -1162,10 +1176,7 @@ const mapDispatchToProps = (
       },
 });
 
-// @ts-ignore
-export const JobDetailsContainer: React.FunctionComponent<
-  JobDetailsContainerProps
-> = connect(
+export const JobDetailsContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(injectIntl(JobDetails));

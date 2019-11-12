@@ -27,7 +27,7 @@
                 class="box full">
                 <h4
                     class="job-post__culture-subtitle manager">
-                    {{ job_post.culture.manager_title }}, {{ manager.user.name }}
+                    {{ job_post.culture.manager_title }}, {{ manager.user.first_name }} {{ manager.user.last_name }}
                 </h4>
             </div>
 
@@ -46,8 +46,8 @@
                     <a
                         class="job-post__culture-manager-profile-link"
                         href="{{ route('managers.show',{'manager':manager.id}) }}"
-                        title="{{ job_post.manager.link_title|replace({":name":manager.user.name}) }}">
-                        {{ job_post.culture.guest_manager_link_label|replace({":name":manager.user.name}) }}
+                        title="{{ job_post.manager.link_title|replace({":name":manager.user.first_name}) }}">
+                        {{ job_post.culture.guest_manager_link_label|replace({":name":manager.user.first_name}) }}
                     </a>
 
                 {% else %}
@@ -55,8 +55,8 @@
                     <a
                         class="job-post__culture-manager-profile-link"
                         href="{{ route('managers.show',{'manager':manager.id}) }}"
-                        title="{{ job_post.manager.link_title|replace({":name":manager.user.name}) }}">
-                        {{ job_post.culture.manager_link_label|replace({":name":manager.user.name}) }}
+                        title="{{ job_post.manager.link_title|replace({":name":manager.user.first_name}) }}">
+                        {{ job_post.culture.manager_link_label|replace({":name":manager.user.first_name}) }}
                     </a>
 
                 {% endif %}

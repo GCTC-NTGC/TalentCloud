@@ -61,6 +61,7 @@ class RegisterController extends AuthController
         return view('auth.register', [
             'routes' => $this->auth_routes(),
             'register' => Lang::get('common/auth/register'),
+            'home_url' => route('home'),
         ]);
     }
 
@@ -76,6 +77,7 @@ class RegisterController extends AuthController
             'register' => Lang::get('common/auth/register'),
             'not_in_gov_option' => ['value' => 0, 'name' => Lang::get('common/auth/register.not_in_gov')],
             'departments' => Department::all(),
+            'home_url' => route('manager.home'),
         ]);
     }
 
@@ -111,7 +113,8 @@ class RegisterController extends AuthController
     protected function create(array $data)
     {
         $user = new User();
-        $user->name = $data['name'];
+        $user->first_name = $data['first_name'];
+        $user->last_name = $data['last_name'];
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
 
@@ -133,10 +136,10 @@ class RegisterController extends AuthController
      */
     protected function createManager(array $data)
     {
-        // Create basic user
+        // Create basic user.
         $user = $this->create($data);
 
-        // Save manager specific fields
+        // Save manager specific fields.
         $managerDepartment = Department::find($data['department']);
         $inGovernment = ($managerDepartment !== null);
         $user->not_in_gov = !$inGovernment;
@@ -144,7 +147,7 @@ class RegisterController extends AuthController
         $user->save();
         $user->refresh();
 
-        // Add (or update) manager profile
+        // Add (or update) manager profile.
         // NOTE: modifying a field in $user, and saving it, appears to create Manager object. I don't know how. -- Tristan
         // That means that after setting not_in_gov or gov_email, a manager already exists here. Adding a new one will throw an exception.
         $department_id = $inGovernment ? $managerDepartment->id : null;

@@ -38,6 +38,7 @@ class JobApiControllerTest extends TestCase
     {
         $dateFormat = Config::get('app.api_datetime_format');
         $job = [
+            'chosen_lang' => $this->faker->randomElement(['en', 'fr']),
             'term_qty' => $this->faker->numberBetween(1, 4),
             'salary_min' => $this->faker->numberBetween(60000, 80000),
             'salary_max' => $this->faker->numberBetween(80000, 100000),
@@ -74,7 +75,6 @@ class JobApiControllerTest extends TestCase
                 'dept_impact' => $this->faker->paragraph(),
                 'team_impact' => $this->faker->paragraph(),
                 'hire_impact' => $this->faker->paragraph(),
-                'branch' => $this->faker->word(),
                 'division' => $this->faker->word(),
                 'education' => $this->faker->word(),
                 'work_env_description' => $this->faker->paragraph(),
@@ -87,7 +87,6 @@ class JobApiControllerTest extends TestCase
                 'dept_impact' => $this->faker->paragraph(),
                 'team_impact' => $this->faker->paragraph(),
                 'hire_impact' => $this->faker->paragraph(),
-                'branch' => $this->faker->word(),
                 'division' => $this->faker->word(),
                 'education' => $this->faker->word(),
                 'work_env_description' => $this->faker->paragraph(),

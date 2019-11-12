@@ -41,7 +41,6 @@ use Astrotomic\Translatable\Translatable as Translatable;
  * Localized Properties:
  * @property string $about_me
  * @property string $greatest_accomplishment
- * @property string $branch
  * @property string $division
  * @property string $position
  * @property string $leadership_style
@@ -66,7 +65,6 @@ class Manager extends BaseModel
     public $translatedAttributes = [
         'about_me',
         'greatest_accomplishment',
-        'branch',
         'division',
         'position',
         'leadership_style',
@@ -162,14 +160,14 @@ class Manager extends BaseModel
     }
 
     /**
-     * Return the name of the User associated with this Manager.
+     * Return the full name of the User associated with this Manager.
      *
      * @return string
      */
     public function getNameAttribute(): string
     {
         if ($this->user !== null) {
-            return $this->user->name;
+            return $this->user->first_name . ' ' . $this->user->last_name;
         }
         return '';
     }
