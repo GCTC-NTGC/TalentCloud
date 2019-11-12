@@ -33,8 +33,6 @@ class JobApplicationAnswerValidator {
     }
 
     public function validator(JobApplicationAnswer $answer) {
-
-
         return Validator::make($answer->toArray(), $this->rules());
     }
 

@@ -16,24 +16,21 @@ use App\Services\Validation\JobApplicationAnswerValidator;
 class ApplicationValidator
 {
 
-    public function validate(JobApplication $application)
+    public function validator(JobApplication $application)
     {
-
         $backendRules = [
             'job_poster_id' => 'required',
             'application_status_id' => 'required',
-            'applicant_id' => 'required'
+            'applicant_id' => 'required',
         ];
         $data = $application->toArray();
 
         $rules = array_merge(
             $backendRules,
-            // $this->basicsValidator($application)->getRules(),
-            $this->experienceValidator($application)->getRules(),
-            // $this->essentialSkillsValidator($application)->getRules(),
-            $this->affirmationValidator($application)->getRules()
+            $this->experienceRules,
+            $this->affirmationRules
+            // $this->basicRules($application),
         );
-
 
         // Combining and simplifiying error messages
         $rules = array_merge(
@@ -48,7 +45,12 @@ class ApplicationValidator
         );
 
         // Validate basic data is filled in
-        Validator::make($data, $rules)->validate();
+        return Validator::make($data, $rules);
+    }
+
+    public function validate(JobApplication $application)
+    {
+        $this->validator($application)->validate();
     }
 
     /**
@@ -70,16 +72,18 @@ class ApplicationValidator
     protected function addNestedValidatorRules($nestedAttribute, $validatorRules, $rules = [])
     {
         // prepend the attribute name of each validator rule with the nested attribute name
-        $newRules = $this->arrayMapKeys(function ($key) use ($nestedAttribute) {
+        $newRules = $this->arrayMapKeys(
+            function ($key) use ($nestedAttribute) {
                 return implode('.', [$nestedAttribute, $key]);
-        },
-            $validatorRules);
+            },
+            $validatorRules
+        );
         // Merge new rules with old rules
         $rules = array_merge($rules, $newRules);
         return $rules;
     }
 
-    public function basicsValidator(JobApplication $application)
+    public function basicRules(JobApplication $application)
     {
         // Validate the fields common to every application
         $rules = [
@@ -105,8 +109,11 @@ class ApplicationValidator
             $attribute = implode('.', ['job_application_answers', $key]);
             $rules = $this->addNestedValidatorRules($attribute, $answerValidatorFactory->rules(), $rules);
         }
-
-        $validator = Validator::make($application->toArray(), $rules);
+        return $rules;
+    }
+    public function basicsValidator(JobApplication $application)
+    {
+        $validator = Validator::make($application->toArray(), $this->basicRules($application));
         return $validator;
     }
 
@@ -116,10 +123,10 @@ class ApplicationValidator
         return $validator->passes();
     }
 
+    public $experienceRules = ['experience_saved' => 'required|boolean|accepted'];
     public function experienceValidator(JobApplication $application)
     {
-        $rules = ['experience_saved' => 'required|boolean|accepted'];
-        return Validator::make($application->toArray(), $rules);
+        return Validator::make($application->toArray(), $this->experienceRules);
     }
 
     public function experienceComplete(JobApplication $application)
@@ -175,21 +182,21 @@ class ApplicationValidator
         return $this->assetSkillsValidator($application)->passes();
     }
 
+    public $affirmationRules = [
+        'submission_signature' => [
+            'required',
+            'string',
+            'max:191',
+        ],
+        'submission_date' => [
+            'required',
+            'string',
+            'max:191',
+        ]
+    ];
     public function affirmationValidator(JobApplication $application)
     {
-        $rules = [
-            'submission_signature' => [
-                'required',
-                'string',
-                'max:191',
-            ],
-            'submission_date' => [
-                'required',
-                'string',
-                'max:191',
-            ]
-        ];
-        return Validator::make($application->toArray(), $rules);
+        return Validator::make($application->toArray(), $this->affirmationRules);
     }
 
     public function affirmationComplete(JobApplication $application)
