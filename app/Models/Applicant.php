@@ -103,6 +103,6 @@ class Applicant extends BaseModel
 
     public function projects()
     {
-        return $this->hasMany(\App\Models\Project::class);
+        return $this->morphMany(\App\Models\Project::class, 'projectable');
     }
 }

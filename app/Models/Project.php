@@ -14,12 +14,12 @@ namespace App\Models;
  * @property string $name
  * @property \Jenssegers\Date\Date $start_date
  * @property \Jenssegers\Date\Date $end_date
- * @property int $applicant_id
+ * @property int $projectable_id
  *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
- * @property \Illuminate\Database\Eloquent\Collection $references
+ * @property \App\Models\Applicant|\App\Models\JobApplication $projectable
  */
 class Project extends BaseModel {
 
@@ -27,7 +27,7 @@ class Project extends BaseModel {
         'name' => 'string',
         'start_date' => 'date',
         'end_date' => 'date',
-        'applicant_id' => 'int'
+        'projectable_id' => 'int'
     ];
     protected $fillable = [
         'name',
@@ -39,7 +39,7 @@ class Project extends BaseModel {
         return $this->belongsToMany(\App\Models\Reference::class);
     }
 
-    public function applicant() {
-        return $this->belongsTo(\App\Models\Applicant::class);
+    public function projectable() {
+        return $this->morphTo();
     }
 }

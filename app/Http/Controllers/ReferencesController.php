@@ -81,14 +81,7 @@ class ReferencesController extends Controller
         if ($request->input('projects')) {
             foreach ($request->input('projects') as $projectInput) {
                 $project = new Project();
-                if ($reference->referenceable instanceof Applicant) {
-                    $project->applicant_id = $reference->referenceable->id;
-                } elseif ($reference->referenceable instanceof JobApplication) {
-                    $application = $reference->referenceable;
-                    $project->applicant_id = $application->applicant->id;
-                } else {
-                    $project->applicant_id = $request->user()->applicant->id;
-                }
+                $project->projectable()->save($reference->referenceable);
                 $project->fill([
                     'name' => $projectInput['name'],
                     'start_date' => $projectInput['start_date'],

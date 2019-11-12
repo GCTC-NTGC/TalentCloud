@@ -24,6 +24,7 @@ class ApplicationValidator
             'application_status_id' => 'required',
             'applicant_id' => 'required'
         ];
+        $data = $application->toArray();
 
         $rules = array_merge(
             $backendRules,
@@ -33,7 +34,6 @@ class ApplicationValidator
             $this->affirmationValidator($application)->getRules()
         );
 
-        $data = $application->toArray();
 
         // Combining and simplifiying error messages
         $rules = array_merge(
@@ -138,15 +138,15 @@ class ApplicationValidator
             $skillDeclarationRules[] = new ContainsObjectWithAttributeRule('skill_id', $criteria->skill_id);
         }
         $rules['skill_declarations'] = $skillDeclarationRules;
-        $application->applicant->load('skill_declarations');
+        $application->load('skill_declarations');
 
         // Validate that those declarations are complete
-        $skilDeclarationValidatorFactory = new SkillDeclarationValidator();
+        $skillDeclarationValidatorFactory = new SkillDeclarationValidator();
         $relevantSkillIds = $application->job_poster->criteria->where('criteria_type_id', $criteriaTypeId)->pluck('skill_id');
         foreach ($application->skill_declarations as $key => $declaration) {
             if ($relevantSkillIds->contains($declaration->skill_id)) {
                 $attribute = implode('.', ['skill_declarations', $key]);
-                $skillDeclarationValidator = $skilDeclarationValidatorFactory->validator($declaration);
+                $skillDeclarationValidator = $skillDeclarationValidatorFactory->validator($declaration);
                 $rules = $this->addNestedValidatorRules($attribute, $skillDeclarationValidator->getRules(), $rules);
             }
         }
