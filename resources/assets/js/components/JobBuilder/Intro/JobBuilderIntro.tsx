@@ -14,31 +14,31 @@ import {
   JobPosterKeyTask,
   Criteria,
   Manager,
-} from "../../models/types";
-import { RootState } from "../../store/store";
+} from "../../../models/types";
+import { RootState } from "../../../store/store";
 import {
   getSelectedJob,
   getTasksByJob,
   getCriteriaByJob,
-} from "../../store/Job/jobSelector";
-import { DispatchType } from "../../configureStore";
+} from "../../../store/Job/jobSelector";
+import { DispatchType } from "../../../configureStore";
 import {
   setSelectedJob,
   createJob,
   updateJob,
-} from "../../store/Job/jobActions";
-import RootContainer from "../RootContainer";
-import { jobBuilderDetails } from "../../helpers/routes";
-import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
-import { getDepartments } from "../../store/Department/deptSelector";
-import { navigate } from "../../helpers/router";
-import { getSelectedManager } from "../../store/Manager/managerSelector";
+} from "../../../store/Job/jobActions";
+import RootContainer from "../../RootContainer";
+import { jobBuilderDetails } from "../../../helpers/routes";
+import JobBuilderStepContainer from "../JobBuilderStep";
+import { getDepartments } from "../../../store/Department/deptSelector";
+import { navigate } from "../../../helpers/router";
+import { getSelectedManager } from "../../../store/Manager/managerSelector";
 import {
   updateManager,
   setSelectedManager,
   fetchManager,
   fetchCurrentManager,
-} from "../../store/Manager/managerActions";
+} from "../../../store/Manager/managerActions";
 
 interface JobBuilderIntroProps {
   // The id of the edited job, or null for a new job.

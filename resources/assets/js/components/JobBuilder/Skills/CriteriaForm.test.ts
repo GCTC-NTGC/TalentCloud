@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { fakeCriterion } from "../../fakeData/fakeJob";
+import { fakeCriterion } from "../../../fakeData/fakeJob";
 import { essentialSkillIdToKey, criteriaToValues } from "./CriteriaForm";
-import { CriteriaTypeId } from "../../models/lookupConstants";
-import { Criteria } from "../../models/types";
+import { CriteriaTypeId } from "../../../models/lookupConstants";
+import { Criteria } from "../../../models/types";
 
 describe("CriteriaForm", (): void => {
   describe("essentialSkillIdToKey", (): void => {
