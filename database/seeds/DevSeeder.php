@@ -36,7 +36,7 @@ class DevSeeder extends Seeder // phpcs:ignore
     protected $applicantEmail = 'applicant@test.com';
 
     /**
-     * This seeder attaches all applicant objects to this user.
+     * This seeder attaches all hr_advisor objects to this user.
      * Note: all seeded users have 'password' for a password.
      *
      * @var string
