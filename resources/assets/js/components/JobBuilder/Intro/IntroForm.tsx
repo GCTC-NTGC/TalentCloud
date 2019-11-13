@@ -9,12 +9,12 @@ import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
 import nprogress from "nprogress";
 import get from "lodash/get";
-import { validationMessages } from "../Form/Messages";
-import { Job, Department, Manager } from "../../models/types";
-import { emptyJob } from "../../models/jobUtil";
-import SelectInput from "../Form/SelectInput";
-import TextInput from "../Form/TextInput";
-import { getId } from "../../helpers/queries";
+import { validationMessages } from "../../Form/Messages";
+import { Job, Department, Manager } from "../../../models/types";
+import { emptyJob } from "../../../models/jobUtil";
+import SelectInput from "../../Form/SelectInput";
+import TextInput from "../../Form/TextInput";
+import { getId } from "../../../helpers/queries";
 
 const pageMessages = defineMessages({
   explanationBoldText: {

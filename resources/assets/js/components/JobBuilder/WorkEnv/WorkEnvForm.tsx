@@ -11,25 +11,25 @@ import {
   MessageDescriptor,
   IntlShape,
 } from "react-intl";
-import CheckboxGroup from "../Form/CheckboxGroup";
-import RadioGroup from "../Form/RadioGroup";
-import ContextBlock from "../ContextBlock/ContextBlock";
-import ContextBlockItem from "../ContextBlock/ContextBlockItem";
-import CopyToClipboardButton from "../CopyToClipboardButton";
+import CheckboxGroup from "../../Form/CheckboxGroup";
+import RadioGroup from "../../Form/RadioGroup";
+import ContextBlock from "../../ContextBlock/ContextBlock";
+import ContextBlockItem from "../../ContextBlock/ContextBlockItem";
+import CopyToClipboardButton from "../../CopyToClipboardButton";
 import WorkEnvModal from "./WorkEnvModal";
-import RadioInput from "../Form/RadioInput";
-import NumberInput from "../Form/NumberInput";
-import CheckboxInput from "../Form/CheckboxInput";
-import TextAreaInput from "../Form/TextAreaInput";
-import { validationMessages } from "../Form/Messages";
-import { Job } from "../../models/types";
-import { emptyJob } from "../../models/jobUtil";
+import RadioInput from "../../Form/RadioInput";
+import NumberInput from "../../Form/NumberInput";
+import CheckboxInput from "../../Form/CheckboxInput";
+import TextAreaInput from "../../Form/TextAreaInput";
+import { validationMessages } from "../../Form/Messages";
+import { Job } from "../../../models/types";
+import { emptyJob } from "../../../models/jobUtil";
 import {
   notEmpty,
   hasKey,
   mapToObjectTrans,
   identity,
-} from "../../helpers/queries";
+} from "../../../helpers/queries";
 import {
   physEnvOptions,
   techOptions,
@@ -37,7 +37,7 @@ import {
   phyEnvDescriptions,
   techDescriptions,
   amenitiesDescriptions,
-} from "../JobBuilder/JobWorkEnv";
+} from "../JobWorkEnv";
 
 const formMessages = defineMessages({
   ourWorkEnvDesc: {
