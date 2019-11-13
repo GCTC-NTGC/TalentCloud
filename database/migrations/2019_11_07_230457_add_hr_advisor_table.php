@@ -19,6 +19,11 @@ class AddHrAdvisorTable extends Migration
             $table->integer('department_id')->unsigned()->nullable()->index();
             $table->timestamps();
         });
+
+        Schema::table('hr_advisors', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('department_id')->references('id')->on('departments')->onUpdate('CASCADE')->onDelete('NO ACTION');
+        });
     }
 
 
