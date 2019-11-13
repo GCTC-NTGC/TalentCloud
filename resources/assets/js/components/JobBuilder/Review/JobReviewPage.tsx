@@ -3,7 +3,7 @@ import { WrappedComponentProps, injectIntl } from "react-intl";
 import nprogress from "nprogress";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
-import RootContainer from "../RootContainer";
+import RootContainer from "../../RootContainer";
 import {
   Job,
   JobPosterKeyTask,
@@ -11,30 +11,30 @@ import {
   Skill,
   Manager,
   Department,
-} from "../../models/types";
-import { managerJobIndex, jobBuilderSkills } from "../../helpers/routes";
-import { RootState } from "../../store/store";
+} from "../../../models/types";
+import { managerJobIndex, jobBuilderSkills } from "../../../helpers/routes";
+import { RootState } from "../../../store/store";
 import {
   getJob,
   getTasksByJob,
   getCriteriaByJob,
-} from "../../store/Job/jobSelector";
-import { getSkills } from "../../store/Skill/skillSelector";
-import { DispatchType } from "../../configureStore";
-import { submitJobForReview } from "../../store/Job/jobActions";
-import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
+} from "../../../store/Job/jobSelector";
+import { getSkills } from "../../../store/Skill/skillSelector";
+import { DispatchType } from "../../../configureStore";
+import { submitJobForReview } from "../../../store/Job/jobActions";
+import JobBuilderStepContainer from "../JobBuilderStep";
 import {
   isJobBuilderComplete,
   VALID_COUNT,
-} from "../JobBuilder/jobBuilderHelpers";
+} from "../jobBuilderHelpers";
 import JobReview from "./JobReview";
-import { getDepartments } from "../../store/Department/deptSelector";
-import { getSelectedManager } from "../../store/Manager/managerSelector";
+import { getDepartments } from "../../../store/Department/deptSelector";
+import { getSelectedManager } from "../../../store/Manager/managerSelector";
 import {
   fetchManager,
   setSelectedManager,
-} from "../../store/Manager/managerActions";
-import { navigate } from "../../helpers/router";
+} from "../../../store/Manager/managerActions";
+import { navigate } from "../../../helpers/router";
 
 interface JobBuilderReviewPageProps {
   jobId: number;

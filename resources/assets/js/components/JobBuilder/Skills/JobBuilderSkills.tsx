@@ -7,14 +7,14 @@ import {
   defineMessages,
 } from "react-intl";
 import nprogress from "nprogress";
-import { Job, Skill, Criteria, JobPosterKeyTask } from "../../models/types";
-import Modal from "../Modal";
+import { Job, Skill, Criteria, JobPosterKeyTask } from "../../../models/types";
+import Modal from "../../Modal";
 import CriteriaForm from "./CriteriaForm";
-import { mapToObject, getId, hasKey, notEmpty } from "../../helpers/queries";
-import { CriteriaTypeId } from "../../models/lookupConstants";
-import Select, { SelectOption } from "../Select";
-import { getSkillLevelName } from "../../models/jobUtil";
-import Criterion from "../JobBuilder/Criterion";
+import { mapToObject, getId, hasKey, notEmpty } from "../../../helpers/queries";
+import { CriteriaTypeId } from "../../../models/lookupConstants";
+import Select, { SelectOption } from "../../Select";
+import { getSkillLevelName } from "../../../models/jobUtil";
+import Criterion from "../Criterion";
 
 interface JobBuilderSkillsProps {
   // The job being built
@@ -332,7 +332,7 @@ export const JobBuilderSkills: React.FunctionComponent<
 
   const [isSaving, setIsSaving] = useState(false);
 
-  const errorMessage = useRef<HTMLAnchorElement>(null); //React.createRef<HTMLAnchorElement>();
+  const errorMessage = useRef<HTMLAnchorElement>(null); // React.createRef<HTMLAnchorElement>();
   const focusOnError = (): void => {
     errorMessage.current && errorMessage.current.focus();
   };

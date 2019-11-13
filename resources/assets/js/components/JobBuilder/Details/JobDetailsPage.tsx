@@ -1,46 +1,42 @@
 import React from "react";
-import { injectIntl, WrappedComponentProps } from "react-intl";
-import { connect } from "react-redux";
 import ReactDOM from "react-dom";
-import WorkEnvForm from "./WorkEnvForm";
-import { Job, JobPosterKeyTask, Criteria } from "../../models/types";
-import { DispatchType } from "../../configureStore";
-import { RootState } from "../../store/store";
-import { updateJob } from "../../store/Job/jobActions";
+import { connect } from "react-redux";
+import { WrappedComponentProps, injectIntl } from "react-intl";
+import { Job, JobPosterKeyTask, Criteria } from "../../../models/types";
+import { JobDetailsIntl } from "./JobDetails";
+import { RootState } from "../../../store/store";
+import { DispatchType } from "../../../configureStore";
+import { updateJob } from "../../../store/Job/jobActions";
 import {
   getJob,
   getTasksByJob,
   getCriteriaByJob,
-} from "../../store/Job/jobSelector";
-import RootContainer from "../RootContainer";
+} from "../../../store/Job/jobSelector";
+import RootContainer from "../../RootContainer";
 import {
-  jobBuilderImpact,
-  jobBuilderDetails,
+  jobBuilderEnv,
+  jobBuilderIntro,
   jobBuilderReview,
-} from "../../helpers/routes";
-import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
+} from "../../../helpers/routes";
+import JobBuilderStepContainer from "../JobBuilderStep";
 import {
   isJobBuilderComplete,
   VALID_COUNT,
-} from "../JobBuilder/jobBuilderHelpers";
-import { navigate } from "../../helpers/router";
+} from "../jobBuilderHelpers";
+import { navigate } from "../../../helpers/router";
 
-interface JobBuilderWorkEnvProps {
-  // The id of the edited job, or null for a new job.
+interface JobDetailsPageProps {
   jobId: number;
-  // If not null, used to prepopulate form values.
-  // Note: its possible for jobId to be non-null, but job to be null, if the data hasn't been loaded yet.
   job: Job | null;
   // Tasks associated with the job, used to determine if its complete
   keyTasks: JobPosterKeyTask[];
   // Criteria associated with the job, used to determine if its complete
   criteria: Criteria[];
-  // Updates an existing job. Must return the updated job if successful.
-  handleUpdateJob: (newJob: Job) => Promise<Job>;
+  handleUpdateJob: (newJob: Job) => Promise<boolean>;
 }
 
-const JobBuilderWorkEnv: React.FunctionComponent<
-  JobBuilderWorkEnvProps & WrappedComponentProps
+const JobDetailsPage: React.FunctionComponent<
+  JobDetailsPageProps & WrappedComponentProps
 > = ({
   jobId,
   job,
@@ -53,26 +49,29 @@ const JobBuilderWorkEnv: React.FunctionComponent<
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
-  const handleSubmit = handleUpdateJob;
   const handleModalCancel = (): void => {};
   const handleModalConfirm = (): void => {
-    navigate(jobBuilderImpact(intl.locale, jobId));
+    if (job) {
+      navigate(jobBuilderEnv(intl.locale, jobId));
+    }
   };
+  const handleSubmit = handleUpdateJob;
   const handleReturn = (): void => {
-    navigate(jobBuilderDetails(locale, jobId));
+    navigate(jobBuilderIntro(locale, jobId));
   };
   const handleSkipToReview = async (): Promise<void> => {
-    if (jobId) {
+    if (jobId !== null) {
       navigate(jobBuilderReview(locale, jobId));
     }
   };
+
   const jobIsComplete =
     job !== null &&
     isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
   return (
-    <JobBuilderStepContainer jobId={jobId} currentPage="env">
+    <JobBuilderStepContainer jobId={jobId} currentPage="details">
       {job !== null && (
-        <WorkEnvForm
+        <JobDetailsIntl
           job={job}
           handleSubmit={handleSubmit}
           handleReturn={handleReturn}
@@ -86,7 +85,7 @@ const JobBuilderWorkEnv: React.FunctionComponent<
   );
 };
 
-const mapStateToProps = (
+const mapStateToPropsPage = (
   state: RootState,
   ownProps: { jobId: number },
 ): {
@@ -99,40 +98,36 @@ const mapStateToProps = (
   criteria: getCriteriaByJob(state, ownProps),
 });
 
-const mapDispatchToProps = (
+const mapDispatchToPropsPage = (
   dispatch: DispatchType,
 ): {
-  handleUpdateJob: (newJob: Job) => Promise<Job>;
+  handleUpdateJob: (newJob: Job) => Promise<boolean>;
 } => ({
-  handleUpdateJob: async (newJob: Job): Promise<Job> => {
+  handleUpdateJob: async (newJob: Job): Promise<boolean> => {
     const result = await dispatch(updateJob(newJob));
-    if (!result.error) {
-      const resultJob = await result.payload;
-      return resultJob;
-    }
-    return Promise.reject(result.payload);
+    return !result.error;
   },
 });
 
-const JobBuilderWorkEnvContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(injectIntl(JobBuilderWorkEnv));
+const JobDetailsPageContainer = connect(
+  mapStateToPropsPage,
+  mapDispatchToPropsPage,
+)(injectIntl(JobDetailsPage));
 
-if (document.getElementById("job-builder-work-env")) {
-  const container: HTMLElement = document.getElementById(
-    "job-builder-work-env",
+if (document.getElementById("job-builder-details")) {
+  const container = document.getElementById(
+    "job-builder-details",
   ) as HTMLElement;
   const jobIdAttr = container.getAttribute("data-job-id");
   const jobId = jobIdAttr ? Number(jobIdAttr) : null;
   if (jobId) {
     ReactDOM.render(
       <RootContainer>
-        <JobBuilderWorkEnvContainer jobId={jobId} />
+        <JobDetailsPageContainer jobId={jobId} />
       </RootContainer>,
       container,
     );
   }
 }
 
-export default JobBuilderWorkEnvContainer;
+export default JobDetailsPageContainer;
