@@ -11,19 +11,19 @@ import { Formik, Form, Field } from "formik";
 import nprogress from "nprogress";
 import * as Yup from "yup";
 import { connect } from "react-redux";
-import RadioGroup from "../Form/RadioGroup";
-import TextInput from "../Form/TextInput";
-import NumberInput from "../Form/NumberInput";
-import SelectInput from "../Form/SelectInput";
-import JobPreview from "../JobPreview";
-import Modal from "../Modal";
-import { RootState } from "../../store/store";
-import { getJob as selectJob } from "../../store/Job/jobSelector";
-import { Job } from "../../models/types";
-import { DispatchType } from "../../configureStore";
-import { updateJob, createJob } from "../../store/Job/jobActions";
-import { validationMessages } from "../Form/Messages";
-import RadioInput from "../Form/RadioInput";
+import RadioGroup from "../../Form/RadioGroup";
+import TextInput from "../../Form/TextInput";
+import NumberInput from "../../Form/NumberInput";
+import SelectInput from "../../Form/SelectInput";
+import JobPreview from "../../JobPreview";
+import Modal from "../../Modal";
+import { RootState } from "../../../store/store";
+import { getJob as selectJob } from "../../../store/Job/jobSelector";
+import { Job } from "../../../models/types";
+import { DispatchType } from "../../../configureStore";
+import { updateJob, createJob } from "../../../store/Job/jobActions";
+import { validationMessages } from "../../Form/Messages";
+import RadioInput from "../../Form/RadioInput";
 import {
   LanguageRequirementId,
   SecurityClearanceId,
@@ -32,8 +32,8 @@ import {
   TravelRequirementId,
   OvertimeRequirementId,
   ClassificationId,
-} from "../../models/lookupConstants";
-import { emptyJob } from "../../models/jobUtil";
+} from "../../../models/lookupConstants";
+import { emptyJob } from "../../../models/jobUtil";
 import {
   securityClearance,
   languageRequirement,
@@ -41,16 +41,16 @@ import {
   frequencyName,
   travelRequirementDescription,
   overtimeRequirementDescription,
-} from "../../models/localizedConstants";
-import ContextBlockItem from "../ContextBlock/ContextBlockItem";
-import CopyToClipboardButton from "../CopyToClipboardButton";
-import TextAreaInput from "../Form/TextAreaInput";
+} from "../../../models/localizedConstants";
+import ContextBlockItem from "../../ContextBlock/ContextBlockItem";
+import CopyToClipboardButton from "../../CopyToClipboardButton";
+import TextAreaInput from "../../Form/TextAreaInput";
 import {
   formMessages,
   classificationOptionMessages,
   educationMessages,
 } from "./JobDetailsMessages";
-import { hasKey } from "../../helpers/queries";
+import { hasKey } from "../../../helpers/queries";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.

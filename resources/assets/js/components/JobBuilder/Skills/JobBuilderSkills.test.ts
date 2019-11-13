@@ -1,6 +1,6 @@
-import { Criteria, Skill } from "../../models/types";
-import { fakeCriterion } from "../../fakeData/fakeJob";
-import { fakeSkill2 } from "../../fakeData/fakeSkills";
+import { Criteria, Skill } from "../../../models/types";
+import { fakeCriterion } from "../../../fakeData/fakeJob";
+import { fakeSkill2 } from "../../../fakeData/fakeSkills";
 import { skillAlreadySelected } from "./JobBuilderSkills";
 
 describe("Job Builder Skills", (): void => {

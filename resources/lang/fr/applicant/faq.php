@@ -597,7 +597,7 @@ return [
                     ]
                 ],
                 "links" => [
-                    "0" => "<a href=\"https://talent.canada.ca/fr/faq/#partners\" title=\"Voir les ministères partenaires du Nuage des talents.\">veuillez consulter la foire aux questions du site Web du Nuage de talents</a>",
+                    "0" => "<a href=\"#partners\" title=\"Voir les ministères partenaires du Nuage des talents.\">veuillez consulter la foire aux questions du site Web du Nuage de talents</a>",
                     "1" => "<a href=\"talent.canada.ca/manager\" title=\"Visitez le portail des gestionnaires du Nuage des talents.\">portail des gestionnaires de Nuages de talents</a>",
                     "2" => "<a href=\"mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca\" title=\"Envoyer un courriel au Nuage de talents.\">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>"
                 ]

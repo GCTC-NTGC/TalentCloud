@@ -46,6 +46,10 @@ $factory->state(User::class, 'upgradedManager', function (Faker\Generator $faker
     ];
 });
 
+$factory->state(User::class, 'hr_advisor', [
+    'user_role_id' => UserRole::where('name', 'hr_advisor')->first()->id
+]);
+
 $factory->state(User::class, 'applicant', [
     'user_role_id' => UserRole::where('name', 'basic')->first()->id
 ]);

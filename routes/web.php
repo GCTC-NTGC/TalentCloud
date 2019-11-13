@@ -221,7 +221,7 @@ Route::group(
                 )->name('manager.faq');
 
                 Route::get(
-                    'faq#managers',
+                    'faq#manager-who',
                     'ManagerProfileController@faq'
                 )->name('manager.faq.section');
 
