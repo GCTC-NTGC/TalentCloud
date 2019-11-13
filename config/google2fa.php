@@ -12,7 +12,7 @@ return [
 
     /*
      * Lifetime in minutes.
-     * In case you need your users to be asked for a new one time passwords from time to time.
+     * In case you need your users to be asked for a new one-time passwords from time to time.
      */
 
     'lifetime' => 43800, // Don't prompt while signed in.
@@ -36,17 +36,17 @@ return [
     'session_var' => 'google2fa',
 
     /*
-     * One Time Password request input name
+     * One-time Password request input name
      */
     'otp_input' => 'one_time_password',
 
     /*
-     * One Time Password Window
+     * One-time Password Window
      */
     'window' => 1,
 
     /*
-     * Forbid user to reuse One Time Passwords.
+     * Forbid user to reuse One-time Passwords.
      */
     'forbid_old_passwords' => false,
 
@@ -56,16 +56,16 @@ return [
     'otp_secret_column' => 'google2fa_secret',
 
     /*
-     * One Time Password View
+     * One-time Password View
      */
     'view' => 'auth.one_time_password',
 
     /*
-     * One Time Password error message
+     * One-time Password error message
      */
     'error_messages' => [
-        'wrong_otp'       => "The 'One Time Password' typed was wrong.",
-        'cannot_be_empty' => 'One Time Password cannot be empty.',
+        'wrong_otp'       => "The 'One-time Password' typed was wrong.",
+        'cannot_be_empty' => 'One-time Password cannot be empty.',
         'unknown'         => 'An unknown error has occurred. Please try again.',
     ],
 

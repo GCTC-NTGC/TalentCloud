@@ -2,21 +2,21 @@ import React from "react";
 import { WrappedComponentProps, injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
-import RootContainer from "../RootContainer";
-import { Job, JobPosterKeyTask, Criteria, Skill } from "../../models/types";
+import RootContainer from "../../RootContainer";
+import { Job, JobPosterKeyTask, Criteria, Skill } from "../../../models/types";
 import JobBuilderSkills from "./JobBuilderSkills";
-import { jobBuilderTasks, jobBuilderReview } from "../../helpers/routes";
-import { RootState } from "../../store/store";
+import { jobBuilderTasks, jobBuilderReview } from "../../../helpers/routes";
+import { RootState } from "../../../store/store";
 import {
   getJob,
   getTasksByJob,
   getCriteriaByJob,
-} from "../../store/Job/jobSelector";
-import { getSkills } from "../../store/Skill/skillSelector";
-import { DispatchType } from "../../configureStore";
-import { batchUpdateCriteria } from "../../store/Job/jobActions";
-import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
-import { navigate } from "../../helpers/router";
+} from "../../../store/Job/jobSelector";
+import { getSkills } from "../../../store/Skill/skillSelector";
+import { DispatchType } from "../../../configureStore";
+import { batchUpdateCriteria } from "../../../store/Job/jobActions";
+import JobBuilderStepContainer from "../JobBuilderStep";
+import { navigate } from "../../../helpers/router";
 
 interface JobBuilderSkillsPageProps {
   jobId: number;

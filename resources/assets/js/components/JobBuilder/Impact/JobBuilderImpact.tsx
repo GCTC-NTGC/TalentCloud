@@ -9,13 +9,13 @@ import {
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import nprogress from "nprogress";
-import { Job, Department } from "../../models/types";
-import { emptyJob } from "../../models/jobUtil";
+import { Job, Department } from "../../../models/types";
+import { emptyJob } from "../../../models/jobUtil";
 import JobImpactPreview from "./JobImpactPreview";
-import Modal from "../Modal";
-import { validationMessages } from "../Form/Messages";
-import TextAreaInput from "../Form/TextAreaInput";
-import { find } from "../../helpers/queries";
+import Modal from "../../Modal";
+import { validationMessages } from "../../Form/Messages";
+import TextAreaInput from "../../Form/TextAreaInput";
+import { find } from "../../../helpers/queries";
 
 interface JobBuilderImpactProps {
   /** Optional Job to prepopulate form values from. */
