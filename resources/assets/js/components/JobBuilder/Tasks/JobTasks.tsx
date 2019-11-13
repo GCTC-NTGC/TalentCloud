@@ -18,12 +18,12 @@ import { array, object, string } from "yup";
 import nprogress from "nprogress";
 import nanoid from "nanoid";
 
-import Modal from "../Modal";
-import { validationMessages } from "../Form/Messages";
-import TextAreaInput from "../Form/TextAreaInput";
-import { JobPosterKeyTask } from "../../models/types";
-import { find } from "../../helpers/queries";
-import { emptyTasks } from "../../models/jobUtil";
+import Modal from "../../Modal";
+import { validationMessages } from "../../Form/Messages";
+import TextAreaInput from "../../Form/TextAreaInput";
+import { JobPosterKeyTask } from "../../../models/types";
+import { find } from "../../../helpers/queries";
+import { emptyTasks } from "../../../models/jobUtil";
 
 interface JobTasksProps {
   /** Job ID to pass to tasks. */

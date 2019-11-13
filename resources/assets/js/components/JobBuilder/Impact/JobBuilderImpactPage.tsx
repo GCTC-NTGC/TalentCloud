@@ -7,29 +7,26 @@ import {
   Job,
   JobPosterKeyTask,
   Criteria,
-} from "../../models/types";
+} from "../../../models/types";
 import JobBuilderImpact from "./JobBuilderImpact";
 import {
   jobBuilderTasks,
   jobBuilderEnv,
   jobBuilderReview,
-} from "../../helpers/routes";
-import { RootState } from "../../store/store";
-import { DispatchType } from "../../configureStore";
-import { updateJob } from "../../store/Job/jobActions";
-import { getDepartments } from "../../store/Department/deptSelector";
-import RootContainer from "../RootContainer";
+} from "../../../helpers/routes";
+import { RootState } from "../../../store/store";
+import { DispatchType } from "../../../configureStore";
+import { updateJob } from "../../../store/Job/jobActions";
+import { getDepartments } from "../../../store/Department/deptSelector";
+import RootContainer from "../../RootContainer";
 import {
   getJob,
   getTasksByJob,
   getCriteriaByJob,
-} from "../../store/Job/jobSelector";
-import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
-import {
-  isJobBuilderComplete,
-  VALID_COUNT,
-} from "../JobBuilder/jobBuilderHelpers";
-import { navigate } from "../../helpers/router";
+} from "../../../store/Job/jobSelector";
+import JobBuilderStepContainer from "../JobBuilderStep";
+import { isJobBuilderComplete, VALID_COUNT } from "../jobBuilderHelpers";
+import { navigate } from "../../../helpers/router";
 
 interface JobBuilderImpactPageProps {
   jobId: number;

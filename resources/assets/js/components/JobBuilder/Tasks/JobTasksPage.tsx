@@ -2,28 +2,28 @@ import React from "react";
 import { WrappedComponentProps, injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
-import { JobPosterKeyTask, Job, Criteria } from "../../models/types";
+import { JobPosterKeyTask, Job, Criteria } from "../../../models/types";
 import {
   VALID_COUNT,
   isJobBuilderComplete,
-} from "../JobBuilder/jobBuilderHelpers";
+} from "../jobBuilderHelpers";
 import JobTasks from "./JobTasks";
 import {
   jobBuilderSkills,
   jobBuilderImpact,
   jobBuilderReview,
-} from "../../helpers/routes";
-import { RootState } from "../../store/store";
+} from "../../../helpers/routes";
+import { RootState } from "../../../store/store";
 import {
   getJob,
   getTasksByJob,
   getCriteriaByJob,
-} from "../../store/Job/jobSelector";
-import { DispatchType } from "../../configureStore";
-import { batchUpdateJobTasks } from "../../store/Job/jobActions";
-import RootContainer from "../RootContainer";
-import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
-import { navigate } from "../../helpers/router";
+} from "../../../store/Job/jobSelector";
+import { DispatchType } from "../../../configureStore";
+import { batchUpdateJobTasks } from "../../../store/Job/jobActions";
+import RootContainer from "../../RootContainer";
+import JobBuilderStepContainer from "../JobBuilderStep";
+import { navigate } from "../../../helpers/router";
 
 interface JobTasksPageProps {
   jobId: number;
