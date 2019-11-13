@@ -221,8 +221,7 @@ class JobApplication extends BaseModel
                 }
                 break;
             case 'preview':
-                if (
-                    $validator->basicsComplete($this) &&
+                if ($validator->basicsComplete($this) &&
                     $validator->experienceComplete($this) &&
                     $validator->essentialSkillsComplete($this) &&
                     $validator->assetSkillsComplete($this)
@@ -242,10 +241,17 @@ class JobApplication extends BaseModel
         return $status;
     }
 
+    public function isDraft(): bool
+    {
+        return $this->application_status->name === 'draft';
+    }
+
     /**
-     * Returns true if this application meets all the essential criteria.
+     * Returns true if this meets all the essential criteria.
      * That means it has attached an SkillDeclaration for each essential criterion,
      * with a level at least as high as the required level.
+     * NOTE: If this application is in draft status, it will use
+     *  SkillDeclarations from the the applicants profile for this check.
      *
      * @return boolean
      */
@@ -256,10 +262,10 @@ class JobApplication extends BaseModel
                 return $value->criteria_type->name == 'essential';
             }
         );
+        $source = $this->isDraft() ? $this->applicant : $this;
         foreach ($essentialCriteria as $criterion) {
-            $skillDeclaration = $this->skill_declarations->where('skill_id', $criterion->skill_id)->first();
-            if (
-                $skillDeclaration === null ||
+            $skillDeclaration = $source->skill_declarations->where('skill_id', $criterion->skill_id)->first();
+            if ($skillDeclaration === null ||
                 $skillDeclaration->skill_level_id < $criterion->skill_level_id
             ) {
                 return false;
@@ -302,8 +308,7 @@ class JobApplication extends BaseModel
         $this->courses()->saveMany($applicant->courses->map->replicate);
         $this->work_experiences()->saveMany($applicant->work_experiences->map->replicate);
 
-        $copyWithHistory = function($model)
-        {
+        $copyWithHistory = function ($model) {
             return [
                 'old' => $model,
                 'new' => $model->replicate()
@@ -323,7 +328,6 @@ class JobApplication extends BaseModel
         $this->skill_declarations()->saveMany($skillDeclarationMap->pluck('new'));
 
         // Replicate copies shallow attributes, but not relationships. We have to copy those ourselves.
-
         function findNewFromOld($mapping, $old)
         {
             $matchingItem = $mapping->first(function ($value) use ($old) {

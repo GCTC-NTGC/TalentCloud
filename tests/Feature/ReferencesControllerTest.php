@@ -33,9 +33,7 @@ class ReferencesControllerTest extends TestCase
     public function testViewEditForm(): void
     {
         // Save several references to applicant.
-        $this->applicant->references()->saveMany(factory(Reference::class, 3)->create([
-            'applicant_id' => $this->applicant->id
-        ]));
+        $this->applicant->references()->saveMany(factory(Reference::class, 3)->create());
 
         $response = $this->actingAs($this->applicant->user)
             ->get(route('profile.references.edit', $this->applicant->id));
@@ -117,10 +115,12 @@ class ReferencesControllerTest extends TestCase
         $input = $this->makeReferenceForm();
         $response = $this->actingAs($this->applicant->user)->json('POST', 'references', $input);
         $refDb = collect($input)->forget('projects')->toArray();
-        $refDb['applicant_id'] = $this->applicant->id;
+        $refDb['referencable_id'] = $this->applicant->id;
+        $refDb['referencable_type'] = 'applicant';
         $this->assertDatabaseHas('references', $refDb);
         foreach ($input['projects'] as $project) {
-            $project['applicant_id'] = $this->applicant->id;
+            $project['projectable_id'] = $this->applicant->id;
+            $project['projectable_type'] = 'applicant';
             $this->assertDatabaseHas('projects', $project);
         }
     }
@@ -132,18 +132,21 @@ class ReferencesControllerTest extends TestCase
      */
     public function testUpdateReference(): void
     {
-        $ref = factory(Reference::class)->create(['applicant_id' => $this->applicant->id]);
+        $ref = factory(Reference::class)->create();
+        $this->application->references()->save($ref);
         $oldProjects = $ref->projects;
         $input = $this->makeReferenceForm();
         $response = $this->actingAs($this->applicant->user)->json('PUT', "references/$ref->id", $input);
         $refDb = collect($input)->forget('projects')->toArray();
         $refDb['id'] = $ref->id;
-        $refDb['applicant_id'] = $this->applicant->id;
+        $refDb['referencable_id'] = $this->applicant->id;
+        $refDb['referencable_type'] = 'applicant';
         // Ensure reference with same id but new values exists in db
         $this->assertDatabaseHas('references', $refDb);
         // Ensure projects submitted in new request all exist
         foreach ($input['projects'] as $project) {
-            $project['applicant_id'] = $this->applicant->id;
+            $project['projectable_id'] = $this->applicant->id;
+            $project['projectable_type'] = 'applicant';
             $this->assertDatabaseHas('projects', $project);
         }
         // Ensure old projects have been deleted
@@ -159,7 +162,8 @@ class ReferencesControllerTest extends TestCase
      */
     public function testDeleteReference(): void
     {
-        $ref = factory(Reference::class)->create(['applicant_id' => $this->applicant->id]);
+        $ref = factory(Reference::class)->create();
+        $this->application->references()->save($ref);
         $oldProjects = $ref->projects;
         $input = $this->makeReferenceForm();
         $response = $this->actingAs($this->applicant->user)->json('DELETE', "references/$ref->id");

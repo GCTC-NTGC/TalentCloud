@@ -21,11 +21,11 @@ class JobApplicationTest extends TestCase
      */
     public function testMeetsEssentialCriteria(): void
     {
-        //Using make avoids creating criteria in factory
+        // Using make avoids creating criteria in factory
         $jobPoster = factory(JobPoster::class)->states('published')->make();
         $jobPoster->save();
 
-        //Sanity test
+        // Sanity test
         $this->assertEmpty($jobPoster->criteria);
 
         $jobPoster->criteria()->save(factory(Criteria::class)->create([
@@ -39,49 +39,74 @@ class JobApplicationTest extends TestCase
             'skill_level_id' => 4
         ]));
 
-        //Using make instead of create avoids creating skillDeclarations in factory
-
-        //This application doesn't have the correct skill declarations
+        // Using make instead of create avoids creating skillDeclarations in factory
+        // This application doesn't have the correct skill declarations
         $applicationNoSkills = factory(JobApplication::class)->make([
             'job_poster_id' => $jobPoster->id
         ]);
         $applicationNoSkills->save();
         $this->assertFalse($applicationNoSkills->meetsEssentialCriteria());
 
-        //The second skill declaration is too low a skill level
+        // The second skill declaration is too low a skill level
         $applicationBadSkills = factory(JobApplication::class)->make([
             'job_poster_id' => $jobPoster->id
         ]);
         $applicationBadSkills->save();
-        $applicationBadSkills->applicant->skill_declarations()->save(factory(SkillDeclaration::class)->create([
+        $applicationBadSkills->skill_declarations()->save(factory(SkillDeclaration::class)->create([
             'skill_id' => 1,
-            'skill_level_id' => 3,
-            'applicant_id' => $applicationBadSkills->applicant->id,
+            'skill_level_id' => 3
         ]));
-        $applicationBadSkills->applicant->skill_declarations()->save(factory(SkillDeclaration::class)->create([
+        $applicationBadSkills->skill_declarations()->save(factory(SkillDeclaration::class)->create([
             'skill_id' => 2,
             'skill_level_id' => 3,
-            'applicant_id' => $applicationBadSkills->applicant->id,
         ]));
         $this->assertFalse($applicationBadSkills->meetsEssentialCriteria());
 
-        //Both skill declarations meed the required skill level
+        // Both skill declarations meed the required skill level
         $applicationGoodSkills = factory(JobApplication::class)->make([
             'job_poster_id' => $jobPoster->id
         ]);
         $applicationGoodSkills->save();
-        $applicationGoodSkills->applicant->skill_declarations()->save(factory(SkillDeclaration::class)->create([
+        $applicationGoodSkills->skill_declarations()->save(factory(SkillDeclaration::class)->create([
             'skill_id' => 1,
             'skill_level_id' => 3,
-            'applicant_id' => $applicationGoodSkills->applicant->id,
         ]));
-        $applicationGoodSkills->applicant->skill_declarations()->save(factory(SkillDeclaration::class)->create([
+        $applicationGoodSkills->skill_declarations()->save(factory(SkillDeclaration::class)->create([
             'skill_id' => 2,
             'skill_level_id' => 4,
-            'applicant_id' => $applicationGoodSkills->applicant->id,
         ]));
         $this->assertTrue($applicationGoodSkills->meetsEssentialCriteria());
 
+        // Should check applicant profile skills, not application skills, for draft posters
+        // So draft poster with skills, whith empty profile, should fail
+        $draftApplicationEmptyProfile = factory(JobApplication::class)->state('draft')->make([
+            'job_poster_id' => $jobPoster->id
+        ]);
+        $draftApplicationEmptyProfile->save();
+        $draftApplicationEmptyProfile->skill_declarations()->save(factory(SkillDeclaration::class)->create([
+            'skill_id' => 1,
+            'skill_level_id' => 3,
+        ]));
+        $draftApplicationEmptyProfile->skill_declarations()->save(factory(SkillDeclaration::class)->create([
+            'skill_id' => 2,
+            'skill_level_id' => 4,
+        ]));
+        $this->assertFalse($draftApplicationEmptyProfile->meetsEssentialCriteria());
 
+        // Should check applicant profile skills, not application skills, for draft posters
+        // So draft poster with no skills, but with skilled applicant profile, should succeed
+        $draftApplication = factory(JobApplication::class)->state('draft')->make([
+            'job_poster_id' => $jobPoster->id
+        ]);
+        $draftApplication->save();
+        $draftApplication->applicant->skill_declarations()->save(factory(SkillDeclaration::class)->create([
+            'skill_id' => 1,
+            'skill_level_id' => 3,
+        ]));
+        $draftApplication->applicant->skill_declarations()->save(factory(SkillDeclaration::class)->create([
+            'skill_id' => 2,
+            'skill_level_id' => 4,
+        ]));
+        $this->assertTrue($draftApplication->meetsEssentialCriteria());
     }
 }
