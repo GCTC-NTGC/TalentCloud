@@ -2140,6 +2140,61 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Approved",
+        "description": "Text displayed for a Job Status of Approved.",
+        "id": "jobCard.status.approved"
+      },
+      {
+        "defaultMessage": "Closed",
+        "description": "Text displayed for a Job Status of Closed.",
+        "id": "jobCard.status.closed"
+      },
+      {
+        "defaultMessage": "Complete",
+        "description": "Text displayed for a Job Status of Complete.",
+        "id": "jobCard.status.complete"
+      },
+      {
+        "defaultMessage": "Draft",
+        "description": "Text displayed for a Job Status of Draft.",
+        "id": "jobCard.status.draft"
+      },
+      {
+        "defaultMessage": "Published",
+        "description": "Text displayed for a Job Status of Published.",
+        "id": "jobCard.status.published"
+      },
+      {
+        "defaultMessage": "In Review",
+        "description": "Text displayed for a Job Status of In Review.",
+        "id": "jobCard.status.review"
+      },
+      {
+        "defaultMessage": "{applicants, plural,\n                  =0 {No Applicants}\n                  one {# Applicant}\n                  other {# Applicants}\n                }",
+        "description": "Text displaying how many applicants have applied to this Job.",
+        "id": "jobCard.applicants"
+      },
+      {
+        "defaultMessage": "Time with Manager: {managerTime, plural,\n                    one {# day}\n                    other {# days}\n                  }",
+        "description": "Text displaying how long a job post has been claimed by a manager.",
+        "id": "jobCard.managerTime"
+      },
+      {
+        "defaultMessage": "Time with you: <s>{userTime, plural,\n                    one {# day}\n                    other {# days}\n                  }</s>",
+        "description": "Text displaying how long a job has been claimed by the current user.",
+        "id": "jobCard.userTime"
+      },
+      {
+        "defaultMessage": "No New Activity",
+        "description": "Fallback text for no new activity on a Job.",
+        "id": "jobCard.noActivity"
+      }
+    ],
+    "path": "resources/assets/js/components/JobCard.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Job Details",
         "description": "Job Details page heading",
         "id": "jobBuilder.details.heading"
