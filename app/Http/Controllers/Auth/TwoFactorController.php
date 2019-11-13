@@ -61,7 +61,7 @@ class TwoFactorController extends AuthController
             return redirect()->route('home');
         }
 
-        // Check that the one time password matches the secret
+        // Check that the one-time password matches the secret
         $authenticator = app(Authenticator::class)->boot($request);
         $isCorrect = $authenticator->verifyGoogle2FA($secret, $one_time_password);
 

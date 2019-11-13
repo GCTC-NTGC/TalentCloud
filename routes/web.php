@@ -266,7 +266,7 @@ Route::group(
                             ->middleware('can:update,manager')
                             ->name('manager.profile.update');
 
-                        /* Reviewing applications/applicants requires 2-factor authentication */
+                        /* Reviewing applications/applicants requires two-factor authentication */
                         Route::middleware(['2fa.required'])->group(function (): void {
                             Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
                                 ->where('jobPoster', '[0-9]+')
