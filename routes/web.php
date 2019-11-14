@@ -437,7 +437,7 @@ Route::group(
                 Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
             });
 
-            // These routes must be excluded from the finishManagerRegistration middleware to avoid an infinite loop of redirects
+            // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects
             Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
                 Route::get('first-visit', 'Auth\FirstVisitController@showFirstVisitHrForm')
                     ->name('hr_advisor.first_visit');
@@ -546,12 +546,9 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('auth');
 
     // HR Portal - Claims
-    Route::post('hr/{job}/claim', 'Api\HrAdvisorController@update')
+    Route::resource('hr', 'HrAdvisorController');
+    Route::post('hr/{job}/claim', 'Api\HrAdvisorController@store')
         ->where('job', '[0-9]+');
     Route::post('hr/{job}/unclaim', 'Api\HrAdvisorController@destroy')
         ->where('job', '[0-9]+');
-
-    Route::resource('hr', 'Api\HrAdvisorController')->only([
-        'show', 'update', 'destroy'
-    ]);
 });

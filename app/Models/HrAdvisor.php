@@ -43,11 +43,12 @@ class HrAdvisor extends BaseModel
         return $this->belongsTo(\App\Models\Lookup\Department::class);
     }
 
-    public function jobs_claimed() //phpcs:ignore
+    public function claimed_jobs() //phpcs:ignore
     {
-        return $this->hasMany(\App\Models\JobPoster::class)
-        ->withPivot('jobs_claimed')
-        ->withTimestamps();
+        return $this->belongsToMany(
+            \App\Models\JobPoster::class,
+            'claimed_jobs'
+        );
     }
 
     /**

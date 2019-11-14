@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateHrAdvisorApi;
 use App\Models\HrAdvisor;
 use App\Models\JobPoster;
 use Illuminate\Http\Request;
@@ -21,11 +22,15 @@ class HrAdvisorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * // @param  \App\Http\Requests\UpdateHrAdvisorApi $request
+     * @param  \App\Models\HrAdvisor  $hrAdvisor
+     * @param  \App\Models\JobPoster  $jobPoster
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(HrAdvisor $hrAdvisor, JobPoster $jobPoster)
     {
+        // if ($request->validated()) {};
+        return response()->json($this->claimJob($hrAdvisor, $jobPoster));
     }
 
     /**
@@ -41,20 +46,14 @@ class HrAdvisorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateHrAdvisorApi $request Validates input.
      * @param  \App\Models\HrAdvisor  $hrAdvisor
      * @param  \App\Models\JobPoster  $jobPoster
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateHrAdvisorApi $request, HrAdvisor $hrAdvisor, JobPoster $jobPoster)
+    public function update(HrAdvisor $hrAdvisor, JobPoster $jobPoster)
     {
-        if ($request->validated()) {
-            $hrAdvisor->jobs_claimed()->attach([
-                'job_poster_id' => $jobPoster->id,
-                'hr_advisor_id' => $hrAdvisor->id
-            ]);
-        };
-        return response();
+        $hrAdvisor->claimed_jobs()->attach($jobPoster->id);
+        return response()->json();
     }
 
     /**
@@ -66,8 +65,19 @@ class HrAdvisorController extends Controller
      */
     public function destroy(HrAdvisor $hrAdvisor, JobPoster $jobPoster)
     {
-        $hrAdvisor->jobs_claimed()->detach($jobPoster->id);
-        return response();
+        $hrAdvisor->claimed_jobs()->detach($jobPoster->id);
+        return response()->json();
+    }
+
+    /**
+     * Return the array of values used to represent this object in an api response.
+     * This array should contain no nested objects (besides translations).
+     *
+     * @return mixed[]
+     */
+    public function toApiArray($model)
+    {
+        return array_merge($model->toArray());
     }
 
     /**
@@ -79,6 +89,9 @@ class HrAdvisorController extends Controller
      */
     public function claimJob(HrAdvisor $hrAdvisor, JobPoster $jobPoster)
     {
-        return true;
+        // $hrAdvisor = HrAdvisor::find(1);
+        $jobPoster = JobPoster::find($hrAdvisor->id);
+        $hrAdvisor->claimed_jobs()->attach($jobPoster);
+        return response()->json();
     }
 }
