@@ -545,10 +545,9 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::get('currentuser/manager', 'Api\ManagerApiController@showAuthenticated')
         ->middleware('auth');
 
-    // HR Portal - Claims
-    Route::resource('hr', 'HrAdvisorController');
-    Route::post('hr/{job}/claim', 'Api\HrAdvisorController@store')
+    // Claim / unclaim job routes, HR portal
+    Route::post('jobs/{job}/claim', 'Api\ClaimJobApiController@store')
         ->where('job', '[0-9]+');
-    Route::post('hr/{job}/unclaim', 'Api\HrAdvisorController@destroy')
+    Route::post('jobs/{job}/unclaim', 'Api\ClaimJobApiController@destroy')
         ->where('job', '[0-9]+');
 });
