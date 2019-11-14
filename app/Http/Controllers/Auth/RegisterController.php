@@ -39,9 +39,9 @@ class RegisterController extends AuthController
     protected function redirectTo()
     {
         if (WhichPortal::isManagerPortal()) {
-            $redirectTo = WhichPortal::isManagerPortal() ? route('manager.home') : route('home');
+            $redirectTo = route('manager.home');
         } elseif (WhichPortal::isHrPortal()) {
-            $redirectTo = WhichPortal::isHrPortal() ? route('hr_advisor.home') : route('home');
+            $redirectTo = route('hr_advisor.home');
         } else {
             $redirectTo = route('home');
         }

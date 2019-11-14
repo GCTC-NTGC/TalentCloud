@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import fakeJob from "../../fakeData/fakeJob";
-import IntroForm from "../../components/JobBuilderIntro/IntroForm";
+import IntroForm from "../../components/JobBuilder/Intro/IntroForm";
 import { Job } from "../../models/types";
 import { fakeDepartments } from "../../fakeData/fakeDepartments";
 import { fakeManager } from "../../fakeData/fakeManager";

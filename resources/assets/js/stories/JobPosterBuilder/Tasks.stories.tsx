@@ -4,7 +4,7 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { number, boolean } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
-import { JobTasksIntl as JobTasks } from "../../components/JobTasks/JobTasks";
+import { JobTasksIntl as JobTasks } from "../../components/JobBuilder/Tasks/JobTasks";
 import { fakeJobTasks } from "../../fakeData/fakeJob";
 import { JobPosterKeyTask } from "../../models/types";
 
