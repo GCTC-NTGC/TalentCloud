@@ -306,7 +306,10 @@ class JobPoster extends BaseModel
 
     public function hr_advisors() // phpcs:ignore
     {
-        return $this->hasMany(\App\Models\HrAdvisor::class);
+        return $this->hasMany(\App\Models\HrAdvisor::class)
+            ->withPivot('jobs_claimed')
+            ->withtimestamps();
+        ;
     }
 
     public function job_applications() // phpcs:ignore

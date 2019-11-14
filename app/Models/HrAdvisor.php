@@ -45,7 +45,9 @@ class HrAdvisor extends BaseModel
 
     public function jobs_claimed() //phpcs:ignore
     {
-        return $this->hasMany(\App\Models\JobPoster::class);
+        return $this->hasMany(\App\Models\JobPoster::class)
+        ->withPivot('jobs_claimed')
+        ->withTimestamps();
     }
 
     /**

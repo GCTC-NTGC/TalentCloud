@@ -544,4 +544,14 @@ Route::group(['prefix' => 'api'], function (): void {
     // User must be logged in to user currentuser routes
     Route::get('currentuser/manager', 'Api\ManagerApiController@showAuthenticated')
         ->middleware('auth');
+
+    // HR Portal - Claims
+    Route::post('hr/{job}/claim', 'Api\HrAdvisorController@update')
+        ->where('job', '[0-9]+');
+    Route::post('hr/{job}/unclaim', 'Api\HrAdvisorController@destroy')
+        ->where('job', '[0-9]+');
+
+    Route::resource('hr', 'Api\HrAdvisorController')->only([
+        'show', 'update', 'destroy'
+    ]);
 });
