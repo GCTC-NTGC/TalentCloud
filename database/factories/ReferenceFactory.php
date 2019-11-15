@@ -25,14 +25,16 @@ $factory->define(Project::class, function (Faker $faker) {
         'name' => $faker->sentence(),
         'start_date' => $faker->dateTimeBetween('-3 years', '-1 years'),
         'end_date' => $faker->dateTimeBetween('-1 years', '-1 day'),
-        'applicant_id' => function () {
+        'projectable_id' => function () {
+            // Default factory references to belong to Applicant, not JobApplication
             return factory(Applicant::class)->create()->id;
         },
+        'projectable_type' => 'applicant',
     ];
 });
 
 $factory->afterCreating(Reference::class, function ($reference) : void {
     $reference->projects()->saveMany(factory(Project::class, 3)->make([
-        'applicant_id' => $reference->referenceable_id
+        'projectable_id' => $reference->referenceable_id
     ]));
 });
