@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\ApplicationByJobController;
+use App\Models\Applicant;
 use App\Models\JobApplication;
 use App\Models\JobPoster;
 use App\Models\Manager;
@@ -35,6 +37,7 @@ class ApplicationByJobControllerTest extends TestCase
             ->get(route('manager.jobs.applications', $job->id));
         $response->assertStatus(403);
     }
+
     public function testIndexView() : void
     {
         $manager = factory(Manager::class)->create();
@@ -49,4 +52,26 @@ class ApplicationByJobControllerTest extends TestCase
             $response->assertSee($application->applicant->user->name);
         }
     }
+
+    public function testSubmit() : void
+    {
+        $job = factory(JobPoster::class)->state('published')->create();
+        $applicant = factory(Applicant::class)->create();
+        $application = factory(JobApplication::class)->state('draft')->create([
+            'job_poster_id' => $job->id,
+            'applicant_id' => $applicant->id
+        ]);
+        $formData = [
+            'submission_signature' => 'John Doe',
+            'submission_date' => \Carbon\Carbon::now()->toDateTimeString(),
+            'submit' => 'submit'
+        ];
+        $response = $this->actingAs($applicant->user)
+            ->post(route('job.application.submit', $job), $formData);
+        dd($response->baseResponse);
+        $response->assertRedirect(route('job.application.complete', $job));
+        $this->assertEquals('submitted', $application->fresh()->application_status->name);
+    }
+
+    // TODO: test that data has been copied from profile to appliation
 }
