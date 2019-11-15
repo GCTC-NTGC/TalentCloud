@@ -5,10 +5,7 @@ namespace App\Services\Validation\Requests;
 use App\Services\Validation\BaseDataValidator;
 use App\Services\Validation\Contracts\DataValidator;
 use App\Models\Applicant;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Validator;
-use App\Services\Validation\Rules\PasswordCorrectRule;
-use App\Services\Validation\Rules\PasswordFormatRule;
+use Illuminate\Validation\Validator;
 
 class UpdateApplicationProfileValidator extends BaseDataValidator implements DataValidator
 {
@@ -37,34 +34,6 @@ class UpdateApplicationProfileValidator extends BaseDataValidator implements Dat
     public function rules() : array
     {
         return [
-            // Name validation.
-            'profile_first_name' => 'required|string|max:191',
-            'profile_last_name' => 'required|string|max:191',
-
-            // Email validation.
-            'profile_email' => [
-                'required',
-                'string',
-                'max:191',
-                'email',
-                // Email may match existing email for this user,
-                // but must be unique if changed.
-                Rule::unique('users', 'email')->ignore($this->applicant->user->id)
-            ],
-
-            // Password validation.
-            'current_password' => [
-                'nullable',
-                'required_with:new_password',
-                new PasswordCorrectRule
-            ],
-            'new_password' => [
-                'nullable',
-                'min:8',
-                new PasswordFormatRule,
-                'confirmed'
-            ],
-
             // Social Media Validation.
             /*
              * Twitters Terms of Service only allows ". A username can only contain
@@ -95,9 +64,9 @@ class UpdateApplicationProfileValidator extends BaseDataValidator implements Dat
      * Returns a validator made with this data.
      *
      * @param  mixed[] $data Data to validate.
-     * @return Validator
+     * @return \Illuminate\Validation\Validator
      */
-    public function validator(array $data) : \Illuminate\Validation\Validator
+    public function validator(array $data) : Validator
     {
         return Validator::make($data, $this->rules());
     }

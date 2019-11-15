@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Lookup\ApplicantProfileQuestion;
 use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
@@ -27,25 +26,12 @@ class ApplicantProfileController extends Controller
      */
     public function show(Request $request, Applicant $applicant)
     {
-        /*
-         * TODO:
-         * Josh, to loop through answers&question data, leverage this data structure:
-         * applicant
-         *     [applicant_profile_answers]
-         *         answer
-         *         applicant_profile_question
-         *             id
-         *             value // The question text
-         *             description // Question description text
-         */
-
         return view(
             'manager/applicant_profile',
             [
-                // Localization Strings.
+                // Localized strings.
                 'profile' => Lang::get('manager/applicant_profile'), // Change text
-                // User Data.
-                'user' => $applicant->user,
+                // Applicant data.
                 'applicant' => $applicant,
                 'profile_photo_url' => '/images/user.png', // TODO: get real photos.
             ]
@@ -99,12 +85,12 @@ class ApplicantProfileController extends Controller
             [
                 // Localized strings.
                 'profile' => $profileText,
-                // Applicant Profile Questions.
-                'applicant_profile_questions' => $profileQuestionForms,
-                // User Data.
-                'user' => $applicant->user,
+                // Applicant data.
                 'applicant' => $applicant,
                 'profile_photo_url' => '/images/user.png', // TODO: get real photos.
+                // Applicant Profile Questions.
+                'applicant_profile_questions' => $profileQuestionForms,
+                // Update route.
                 'form_submit_action' => route('profile.about.update', $applicant)
             ]
         );
@@ -152,19 +138,6 @@ class ApplicantProfileController extends Controller
             ]
         );
         $applicant->save();
-
-        $user = $applicant->user;
-        $user->fill(
-            [
-                'first_name' => $input['profile_first_name'],
-                'last_name' => $input['profile_last_name'],
-                'email' => $input['profile_email'], // TODO make changing email harder!
-            ]
-        );
-        if ($input['new_password']) {
-            $user->password = Hash::make($input['new_password']); // TODO: change password in seperate form!
-        }
-        $user->save();
 
         return redirect()->route('profile.about.edit', $applicant);
     }

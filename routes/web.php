@@ -184,6 +184,10 @@ Route::group(
             /* Static - ITP */
             Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
 
+            /* Temp - Account Settings */
+            Route::view('settings', 'common/settings')->name('settings');
+
+
             /* Authentication =========================================================== */
 
             // Laravel default login, logout, register, and reset routes
@@ -432,14 +436,14 @@ Route::group(
 /* Non-Backpack Admin Portal (non-localized pages) =========================================================== */
 Route::group(
     [
-        'prefix' => 'admin',
-        'middleware' => ['auth', 'role:admin']
+    'prefix' => 'admin',
+    'middleware' => ['auth', 'role:admin']
     ],
     function (): void {
-        // This page is non-localized, because the middleware that redirects to localized pages changes POSTs to GETs and messes up the request.
+    // This page is non-localized, because the middleware that redirects to localized pages changes POSTs to GETs and messes up the request.
         Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
-            ->middleware('can:create,App\Models\JobPoster')
-            ->name('admin.jobs.create_as_manager');
+        ->middleware('can:create,App\Models\JobPoster')
+        ->name('admin.jobs.create_as_manager');
     }
 );
 
@@ -480,7 +484,7 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:update,jobPoster');
 
 
-     Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
+        Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:view,jobPoster');
     Route::put('jobs/{jobPoster}/criteria', 'Api\CriteriaController@batchUpdate')

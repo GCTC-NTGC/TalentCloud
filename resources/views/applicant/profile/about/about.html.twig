@@ -1,267 +1,107 @@
 {# =============================================================================
 
-    Talent Cloud
-    Applicant: Profile - About Info
+Talent Cloud
+Applicant: Profile - About
 
 ============================================================================= #}
-<div class="applicant-profile__about" data-clone>
 
-    <div data-c-container="medium">
-
-        <div class="form__wrapper">
-
-            <div
-                class="applicant-profile__data-wrapper">
-
-                <h2>{{ profile.about_section.about_title }}</h2>
-
-                {% include "errors/form_errors" %}
-
-            </div>
-
-            {# Account Info #}
-
-                <fieldset
-                    class="form__fieldset">
-
-                    <legend
-                        class="form__legend">
-                        {{ profile.about_section.account_form_legend }}
-                    </legend>
-
-                    <div
-                        class="flex-grid">
-
-                        <div
-                            class="box med-1of2">
-
-                            <div class="form__input-wrapper--float {% if user.first_name == true %}active{% endif %}">
-                                <label class="form__label" for="editProfileFirstName">
-                                    {{ profile.about_section.user_first_name_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="editProfileFirstName"
-                                    type="text"
-                                    name="profile_first_name"
-                                    value="{{ user.first_name }}" />
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <div class="form__input-wrapper--float {% if user.last_name == true %}active{% endif %}">
-                                <label class="form__label" for="editProfileLastName">
-                                    {{ profile.about_section.user_last_name_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="editProfileLastName"
-                                    type="text"
-                                    name="profile_last_name"
-                                    value="{{ user.last_name }}" />
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box full">
-
-                            <div class="form__input-wrapper--float {% if user.email == true %}active{% endif %}">
-                                <label class="form__label" for="editProfileEmail">
-                                    {{ profile.about_section.user_email_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="editProfileEmail"
-                                    type="email"
-                                    name="profile_email"
-                                    value="{{ user.email }}" />
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </fieldset>
-
-            {# Password #}
-
-                <fieldset
-                    class="form__fieldset">
-
-                    <legend
-                        class="form__legend">
-                        {{ profile.about_section.password_form_legend }}
-                    </legend>
-
-                    <div
-                        class="flex-grid">
-
-                        <div
-                            class="box med-1of2">
-
-                            <div class="form__input-wrapper--float">
-                                <label class="form__label" for="editProfileCurrentPassword">
-                                    {{ profile.about_section.user_current_password_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="editProfileCurrentPassword"
-                                    type="password"
-                                    name="current_password"
-                                    autocomplete="off"
-                                    value="" />
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div
-                        class="flex-grid">
-
-                        <div
-                            class="box med-1of2">
-
-                            <div class="form__input-wrapper--float">
-                                <label class="form__label" for="editProfilePassword">
-                                    {{ profile.about_section.user_new_password_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="editProfilePassword"
-                                    type="password"
-                                    name="new_password"
-                                    autocomplete="off"
-                                    value="" />
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <div class="form__input-wrapper--float">
-                                <label class="form__label" for="editProfileConfirmPassword">
-                                    {{ profile.about_section.user_confirm_new_password_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="editProfileConfirmPassword"
-                                    type="password"
-                                    name="new_password_confirmation"
-                                    autocomplete="off"
-                                    value="" />
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </fieldset>
-
-            {# Social Media #}
-
-                <fieldset
-                    class="form__fieldset">
-
-                    <legend
-                        class="form__legend">
-                        {{ profile.about_section.social_media_form_legend }}
-                    </legend>
-
-                    <div
-                        class="flex-grid">
-
-                        <div
-                            class="box med-1of2">
-
-                            <div class="form__input-wrapper--float {% if applicant.twitter_username %}active{% endif %}">
-                                <label class="form__label" for="editProfileTwitter">
-                                    {{ profile.about_section.twitter_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="editProfileTwitter"
-                                    type="text"
-                                    name="twitter_username"
-                                    value="{{ applicant.twitter_username }}" />
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <div class="form__input-wrapper--float {% if applicant.linkedin_url %}active{% endif %}">
-                                <label class="form__label" for="editProfileLinkedin">
-                                    {{ profile.about_section.linkedin_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="editProfileLinkedin"
-                                    type="text"
-                                    name="linkedin_url"
-                                    value="{{ applicant.linkedin_url }}" />
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </fieldset>
-
-            {# Other Info #}
-
-                <fieldset
-                    class="form__fieldset">
-
-                    <legend
-                        class="form__legend">
-                        {{ profile.about_section.other_form_legend }}
-                    </legend>
-
-                    <div
-                        class="flex-grid">
-
-                        <div
-                            class="box full">
-
-                            <div class="form__input-wrapper--float {% if applicant.tagline == true %}active{% endif %}">
-                                <label class="form__label" for="editProfileTagline">
-                                    {{ profile.about_section.tagline_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="editProfileTagline"
-                                    type="text"
-                                    name="tagline"
-                                    value="{{ applicant.tagline }}" />
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </fieldset>
-
-            <span
-                class="centre">
-
-                <button
-                    class="button--blue light-bg"
-                    name="submit"
-                    type="submit"
-                    value="about">
-                    Save Changes
-                </button>
-
-            </span>
-
-        </div>
-
-    </div>
-
+<div
+	class="applicant-profile__about"
+	data-clone>
+	<div
+		data-c-container="medium">
+		<div
+			class="form__wrapper">
+			<div
+				class="applicant-profile__data-wrapper">
+				<h2>
+					{{ profile.about_section.about_title }}
+				</h2>
+				{% include "errors/form_errors" %}
+			</div>
+			{# Social Media #}
+			<fieldset
+				class="form__fieldset">
+				<legend
+					class="form__legend">
+					{{ profile.about_section.social_media_form_legend }}
+				</legend>
+				<div
+					class="flex-grid">
+					<div
+						class="box med-1of2">
+						<div
+							class="form__input-wrapper--float {% if applicant.twitter_username %}active{% endif %}">
+							<label
+								class="form__label"
+								for="editProfileTwitter">
+								{{ profile.about_section.twitter_label }}
+							</label>
+							<input
+								class="form__input"
+								id="editProfileTwitter"
+								type="text"
+								name="twitter_username"
+								value="{{ applicant.twitter_username }}"/>
+						</div>
+					</div>
+					<div
+						class="box med-1of2">
+						<div
+							class="form__input-wrapper--float {% if applicant.linkedin_url %}active{% endif %}">
+							<label
+								class="form__label"
+								for="editProfileLinkedin">
+								{{ profile.about_section.linkedin_label }}
+							</label>
+							<input
+								class="form__input"
+								id="editProfileLinkedin"
+								type="text"
+								name="linkedin_url"
+								value="{{ applicant.linkedin_url }}"/>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+			{# Other Info #}
+			<fieldset
+				class="form__fieldset">
+				<legend
+					class="form__legend">
+					{{ profile.about_section.other_form_legend }}
+				</legend>
+				<div
+					class="flex-grid">
+					<div
+						class="box full">
+						<div
+							class="form__input-wrapper--float {% if applicant.tagline == true %}active{% endif %}">
+							<label
+								class="form__label"
+								for="editProfileTagline">
+								{{ profile.about_section.tagline_label }}
+							</label>
+							<input
+								class="form__input"
+								id="editProfileTagline"
+								type="text"
+								name="tagline"
+								value="{{ applicant.tagline }}"/>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+			<span
+				class="centre">
+				<button
+					class="button--blue light-bg"
+					name="submit"
+					type="submit"
+					value="about">
+					Save Changes
+				</button>
+			</span>
+		</div>
+	</div>
 </div>
