@@ -61,6 +61,8 @@
 
                         <form action="{{ form_submit_action }}" method="post">
 
+                        {% include "errors/form_errors" %}
+
                         {{ csrf_field() }}
 
                         <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="personal">{{ settings.heading.personal }}</h2>
