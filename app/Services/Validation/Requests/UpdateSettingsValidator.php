@@ -6,7 +6,7 @@ use App\Services\Validation\BaseDataValidator;
 use App\Services\Validation\Contracts\DataValidator;
 use App\Models\User;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
 use App\Services\Validation\Rules\PasswordCorrectRule;
 use App\Services\Validation\Rules\PasswordFormatRule;
 
@@ -38,11 +38,11 @@ class UpdateSettingsValidator extends BaseDataValidator implements DataValidator
     {
         return [
             // Name validation.
-            'profile_first_name' => 'required|string|max:191',
-            'profile_last_name' => 'required|string|max:191',
+            'first_name' => 'required|string|max:191',
+            'last_name' => 'required|string|max:191',
 
             // Email validation.
-            'profile_email' => [
+            'email_address' => [
                 'required',
                 'string',
                 'max:191',
@@ -70,9 +70,9 @@ class UpdateSettingsValidator extends BaseDataValidator implements DataValidator
      * Returns a validator made with this data.
      *
      * @param  mixed[] $data Data to validate.
-     * @return \Illuminate\Validation\Validator
+     * @return \Illuminate\Support\Facades\Validator
      */
-    public function validator(array $data) : Validator
+    public function validator(array $data) : \Illuminate\Validation\Validator
     {
         return Validator::make($data, $this->rules());
     }

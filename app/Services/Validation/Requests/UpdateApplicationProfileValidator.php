@@ -5,7 +5,7 @@ namespace App\Services\Validation\Requests;
 use App\Services\Validation\BaseDataValidator;
 use App\Services\Validation\Contracts\DataValidator;
 use App\Models\Applicant;
-use Illuminate\Validation\Validator;
+use \Illuminate\Support\Facades\Validator;
 
 class UpdateApplicationProfileValidator extends BaseDataValidator implements DataValidator
 {
@@ -64,9 +64,9 @@ class UpdateApplicationProfileValidator extends BaseDataValidator implements Dat
      * Returns a validator made with this data.
      *
      * @param  mixed[] $data Data to validate.
-     * @return \Illuminate\Validation\Validator
+     * @return \Illuminate\Support\Facades\Validator
      */
-    public function validator(array $data) : Validator
+    public function validator(array $data) : \Illuminate\Validation\Validator
     {
         return Validator::make($data, $this->rules());
     }

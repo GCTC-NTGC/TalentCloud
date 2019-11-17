@@ -65,6 +65,17 @@ Route::group(
 
             /* Require being logged in */
             Route::middleware(['auth'])->group(function () : void {
+
+                /* Account Settings */
+                Route::get('settings', 'SettingsController@show')
+                    ->name('settings');
+
+                Route::post('settings', 'SettingsController@edit')
+                    ->name('settings.edit');
+
+                Route::post('settings', 'SettingsController@update')
+                    ->name('settings.update');
+
                 /* Managers */
                 Route::get('managers/{manager}', 'ManagerProfileController@show')
                     ->middleware('can:view,manager')
@@ -183,9 +194,6 @@ Route::group(
 
             /* Static - ITP */
             Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
-
-            /* Temp - Account Settings */
-            Route::view('settings', 'common/settings')->name('settings');
 
 
             /* Authentication =========================================================== */

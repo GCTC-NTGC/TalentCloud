@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -21,10 +22,10 @@ class SettingsController extends Controller
     public function show(Request $request, User $user)
     {
         return view(
-            'settings',
+            'common/settings',
             [
                 // Localized strings.
-                'profile' => Lang::get('common/settings'),
+                // 'profile' => Lang::get('common/settings'),
                 // User data.
                 'user' => $user,
             ]
@@ -53,10 +54,10 @@ class SettingsController extends Controller
     public function edit(Request $request, User $user)
     {
         return view(
-            'settings',
+            'common/settings',
             [
                 // Localized strings.
-                'profile' => Lang::get('common/settings'),
+                // 'profile' => Lang::get('common/settings'),
                 // User data.
                 'user' => $user,
                 // Update route.
@@ -74,7 +75,7 @@ class SettingsController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user = $this->user;
+        $this->user = $user;
 
         $validator = new UpdateSettingsValidator($user);
         $validator->validate($request->all());
@@ -83,9 +84,9 @@ class SettingsController extends Controller
 
         $user->fill(
             [
-                'first_name' => $input['profile_first_name'],
-                'last_name' => $input['profile_last_name'],
-                'email' => $input['profile_email'], // TODO make changing email harder!
+                'first_name' => $input['first_name'],
+                'last_name' => $input['last_name'],
+                'email' => $input['email_address'], // TODO make changing email harder!
             ]
         );
 

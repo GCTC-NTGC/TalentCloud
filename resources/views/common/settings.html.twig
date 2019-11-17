@@ -1,668 +1,266 @@
 {# =============================================================================
 
-Talent Cloud
-Account Settings
+    Talent Cloud
+    Account Settings
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
 {% block title %}
-	My Account Settings
+    My Account Settings
 {% endblock %}
 {% block body %}
-	{# FIP Banner #}
-	{% include "common/goc" %}
-	{# BETA Alert Banner #}
-	{% include "common/alert" %}
-	<div
-		data-clone>
-		{# Page Header #}
-		<header
-			class="hero"
-			data-c-overlay="black(90)"
-			data-c-padding="tb(triple)"
-			data-c-align="base(center) tp(left)"
-			style="background-image: url('/images/bg_crowd.jpg');">
-			<div
-				data-c-container="large">
-				<h1
-					class="logotype"
-					data-c-font-size="h1"
-					data-c-font-weight="600"
-					data-c-color="white"
-					data-c-margin="bottom(double)">
-					My Account Settings
-				</h1>
-				<div
-					data-c-color="white">
-					{# DEV: replace with breadcrumb component #}
-					<nav
-						aria-label="breadcrumb"
-						data-c-breadcrumbs>
-						<ol>
-							<li>
-								<a
-									href="/"
-									title="This is the title of the page link.">
-									Talent Cloud
-								</a>
-								<i
-									class="fas fa-caret-right"/>
-							</li>
-							<li>
-								<span
-									aria-current="page">
-									My Account
-								</span>
-								<i
-									class="fas fa-caret-right"/>
-							</li>
-						</ol>
-					</nav>
-				</div>
-			</div>
-		</header>
-		{# Page Container #}
-		<div
-			data-c-container="large">
-			<div
-				data-c-grid="gutter">
-				{# Sidebar #}
-				<div
-					data-c-grid-item="tl(1of4) ds(1of5)"
-					class="sidebar-wrapper">
-					<div
-						class="clone-sidebar"
-						data-c-padding="tb(triple)">
-						<span
-							data-c-font-weight="bold"
-							data-c-font-size="h4">
-							My Account
-						</span>
-						<nav
-							data-c-margin="top(normal)">
-							<ul>
-								<li><a href="#personal" title="">Personal Information</a></li>
-								<li><a href="#goc" title="">GoC Information</a></li>
-								<li><a href="#password" title="">My Password</a></li>
-								<li><a href="#auth" title="">2-factor Authentication</a></li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-				{# Page Content #}
-				<div
-					data-c-grid-item="tl(3of4) ds(4of5)">
-					<div
-						class="clone-sidebar-content"
-						data-c-padding="bottom(triple)">
-						<h2
-							data-c-margin="bottom(normal)"
-							data-c-padding="top(triple)"
-							data-c-font-size="h2"
-							id="personal">
-							Personal Information
-						</h2>
-						<p
-							data-c-margin="bottom(double)">
-							This information is used to identify you on the platform.
-						</p>
-						<div
-							data-c-grid="gutter">
-							<div
-								data-c-grid-item="tp(1of2)"
-								data-c-input="text">
-								<label
-									for="TI2">
-									My First Name
-								</label>
-								<span>
-									Required
-								</span>
-								<div>
-									<input
-										id="TI2"
-										placeholder="e.g. Clark"
-										required
-										type="text"/>
-								</div>
-								<span>
-									This input has an error.
-								</span>
-							</div>
-							<div
-								data-c-grid-item="tp(1of2)"
-								data-c-input="text">
-								<label
-									for="TI2">
-									My Last Name
-								</label>
-								<span>
-									Required
-								</span>
-								<div>
-									<input
-										id="TI2"
-										placeholder="e.g. Kent"
-										required
-										type="text"/>
-								</div>
-								<span>
-									This input has an error.
-								</span>
-							</div>
-							<div
-								data-c-grid-item="base(1of1)"
-								data-c-input="email">
-								<label
-									for="EM2">
-									My Username/Email
-								</label>
-								<span>
-									Required
-								</span>
-								<div>
-									<input
-										id="EM2"
-										placeholder="e.g. name@website.com"
-										required
-										type="email"/>
-								</div>
-								<span>
-									This input has an error.
-								</span>
-							</div>
-							<div
-								data-c-grid-item="base(1of1)"
-								data-c-align="base(center) tp(right)">
-								<button
-									data-c-button="outline(c1)"
-									data-c-radius="rounded">
-									Save Personal Information
-								</button>
-							</div>
-						</div>
-						{# OLD #}
-						{# Account Info #}
-						{# OLD #}
-							<fieldset
-							class="form__fieldset">
-							<legend
-								class="form__legend">
-								{{ profile.about_section.account_form_legend }}
-							</legend>
-							<div
-								class="flex-grid">
-								<div
-									class="box med-1of2">
-									<div
-										class="form__input-wrapper--float {% if user.first_name == true %}active{% endif %}">
-										<label
-											class="form__label"
-											for="editProfileFirstName">
-											{{ profile.about_section.user_first_name_label }}
-										</label>
-										<input
-											class="form__input"
-											id="editProfileFirstName"
-											type="text"
-											name="profile_first_name"
-											value="{{ user.first_name }}"/>
-									</div>
-								</div>
-								<div
-									class="box med-1of2">
-									<div
-										class="form__input-wrapper--float {% if user.last_name == true %}active{% endif %}">
-										<label
-											class="form__label"
-											for="editProfileLastName">
-											{{ profile.about_section.user_last_name_label }}
-										</label>
-										<input
-											class="form__input"
-											id="editProfileLastName"
-											type="text"
-											name="profile_last_name"
-											value="{{ user.last_name }}"/>
-									</div>
-								</div>
-								<div
-									class="box full">
-									<div
-										class="form__input-wrapper--float {% if user.email == true %}active{% endif %}">
-										<label
-											class="form__label"
-											for="editProfileEmail">
-											{{ profile.about_section.user_email_label }}
-										</label>
-										<input
-											class="form__input"
-											id="editProfileEmail"
-											type="email"
-											name="profile_email"
-											value="{{ user.email }}"/>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-						{# OLD #}
-						{# Password #}
-						{# OLD #}
-							<fieldset
-							class="form__fieldset">
-							<legend
-								class="form__legend">
-								{{ profile.about_section.password_form_legend }}
-							</legend>
-							<div
-								class="flex-grid">
-								<div
-									class="box med-1of2">
-									<div
-										class="form__input-wrapper--float">
-										<label
-											class="form__label"
-											for="editProfileCurrentPassword">
-											{{ profile.about_section.user_current_password_label }}
-										</label>
-										<input
-											class="form__input"
-											id="editProfileCurrentPassword"
-											type="password"
-											name="current_password"
-											autocomplete="off"
-											value=""/>
-									</div>
-								</div>
-							</div>
-							<div
-								class="flex-grid">
-								<div
-									class="box med-1of2">
-									<div
-										class="form__input-wrapper--float">
-										<label
-											class="form__label"
-											for="editProfilePassword">
-											{{ profile.about_section.user_new_password_label }}
-										</label>
-										<input
-											class="form__input"
-											id="editProfilePassword"
-											type="password"
-											name="new_password"
-											autocomplete="off"
-											value=""/>
-									</div>
-								</div>
-								<div
-									class="box med-1of2">
-									<div
-										class="form__input-wrapper--float">
-										<label
-											class="form__label"
-											for="editProfileConfirmPassword">
-											{{ profile.about_section.user_confirm_new_password_label }}
-										</label>
-										<input
-											class="form__input"
-											id="editProfileConfirmPassword"
-											type="password"
-											name="new_password_confirmation"
-											autocomplete="off"
-											value=""/>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-						<hr
-							data-c-margin="top(triple)">
-						{# GoC Account Info #}
-						{# DEV: this section should only appear for users who have visited the manager portal and completed the extra registration steps #}
-							<h2
-							data-c-margin="bottom(normal)"
-							data-c-padding="top(triple)"
-							data-c-font-size="h2"
-							id="goc">
-							Government of Canada Information
-						</h2>
-						<p
-							data-c-margin="bottom(normal)">
-							This information is used to identify your role within the Government of Canada on the manager and HR adviser portals.
-						</p>
-						<div
-							data-c-grid="gutter">
-							<div
-								data-c-grid-item="base(1of1)">
-								<div
-									data-c-alert="information"
-									data-c-radius="rounded"
-									role="alert"
-									data-c-margin="bottom(normal)">
-									<div
-										data-c-padding="half">
-										<p
-											data-c-margin="bottom(half)"
-											data-c-heading="h5"
-											data-c-font-weight="bold">
-											<i
-												class="fas fa-exclamation-circle"/>
-											My current department: Treasury Board of Canada Secretariat
-										</p>
-										<p
-											data-c-margin="bottom(half)">
-											In order to change your department, you'll need to
-											<a
-												href=""
-												title="">
-												contact Talent Cloud
-											</a>
-											directly.
-										</p>
-										<p>
-											We require you to get in touch because your department determines how you interact with job posters, applicants, and HR advisers. In order to have this information changed, we need to verify your department independently of the platform.
-										</p>
-									</div>
-								</div>
-							</div>
-							<div
-								data-c-grid-item="base(1of1)"
-								data-c-input="email">
-								<label
-									for="EM2">
-									My Government Email
-								</label>
-								<span>
-									Required
-								</span>
-								<div>
-									<input
-										id="EM2"
-										placeholder="e.g. first.last@canada.ca"
-										required
-										type="email"/>
-								</div>
-								<span>
-									This input has an error.
-								</span>
-							</div>
-							<div
-								data-c-grid-item="base(1of1)"
-								data-c-align="base(center) tp(right)">
-								<button
-									data-c-button="outline(c1)"
-									data-c-radius="rounded">
-									Save Government Information
-								</button>
-							</div>
-						</div>
-						<hr
-						data-c-margin="top(triple)">
-						{# Password Reset #}
-						<h2
-							data-c-margin="bottom(normal)"
-							data-c-padding="top(triple)"
-							data-c-font-size="h2"
-							id="password">
-							My Password
-						</h2>
-						<p
-							data-c-margin="bottom(normal)">
-							You can use this section to change your password. Passwords must contain 1 character from each of the following criteria:
-						</p>
-						<ul
-							data-c-margin="bottom(double)">
-							<li>
-								Lower-case characters (a-z)
-							</li>
-							<li>
-								Upper-case characters (A-Z)
-							</li>
-							<li>
-								Digits (0-9)
-							</li>
-							<li>
-								Non-alphanumeric symbols (%, $, !, etc.)
-							</li>
-						</ul>
-						<div
-							data-c-grid="gutter">
-							<div
-								data-c-grid-item="base(1of1)"
-								data-c-input="password">
-								<label
-									for="p2">
-									My Current Password
-								</label>
-								<span>
-									Required
-								</span>
-								<div>
-									<input
-										id="p2"
-										required
-										type="password"/>
-									<button
-										type="button">
-										<i
-											class="fas fa-eye"/>
-										<i
-											class="fas fa-eye-slash"/>
-									</button>
-								</div>
-								<span>
-									This input has an error.
-								</span>
-							</div>
-							<div
-								data-c-grid-item="tp(1of2)"
-								data-c-input="password">
-								<label
-									for="p2">
-									My New Password
-								</label>
-								<span>
-									Required
-								</span>
-								<div>
-									<input
-										id="p2"
-										required
-										type="password"/>
-									<button
-										type="button">
-										<i
-											class="fas fa-eye"/>
-										<i
-											class="fas fa-eye-slash"/>
-									</button>
-								</div>
-								<span>
-									This input has an error.
-								</span>
-							</div>
-							<div
-								data-c-grid-item="tp(1of2)"
-								data-c-input="password">
-								<label
-									for="p2">
-									Repeat New Password
-								</label>
-								<span>
-									Required
-								</span>
-								<div>
-									<input
-										id="p2"
-										required
-										type="password"/>
-									<button
-										type="button">
-										<i
-											class="fas fa-eye"/>
-										<i
-											class="fas fa-eye-slash"/>
-									</button>
-								</div>
-								<span>
-									This input has an error.
-								</span>
-							</div>
-							<div
-								data-c-grid-item="base(1of1)"
-								data-c-align="base(center) tp(right)">
-								<button
-									data-c-button="outline(c1)"
-									data-c-radius="rounded">
-									Submit New Password
-								</button>
-							</div>
-						</div>
-						<hr
-						data-c-margin="top(triple)">
-						{# 2FA #}
-						<h2
-							data-c-margin="bottom(normal)"
-							data-c-padding="top(triple)"
-							data-c-font-size="h2"
-							id="auth">
-							2-factor Authentication
-						</h2>
-						<p
-							data-c-margin="bottom(normal)">
-							2-factor authentication helps protect your account by adding a second layer of security beyond your username and password. Talent Cloud implements this second layer using a standard that asks for a one-time password when you log into the site. These one-time passwords are set up through apps such as Google Authenticator or Authy, and provide you with the ability to generate the one-time password on demand.
-						</p>
-						<div
-							data-c-grid="gutter middle">
-							<div
-								data-c-grid-item="tp(1of2)"
-								data-c-align="base(center) tp(left)">
-								<p
-									data-c-font-size="h4"
-									data-c-font-weight="bold">
-									2-factor Status:
-									<span
-										data-c-color="stop">
-										OFF
-									</span>
-								</p>
-							</div>
-							<div
-								data-c-grid-item="tp(1of2)"
-								data-c-align="base(center) tp(right)">
-								<button
-									data-c-button="outline(c1)"
-									data-c-radius="rounded"
-									data-c-dialog-id="example-dialog-01"
-									data-c-dialog-action="open"
-									type="button">
-									Turn 2-factor On
-								</button>
-							</div>
-						</div>
-						{# DEV: This is an example of what the auth section should like when 2FA is turned on. I know there was discussion around not showing recovery codes to the user, so if this is best practice, we can just add a blurb here instead of the accordion. #}
-						<div
-							data-c-grid="gutter middle">
-							<div
-								data-c-grid-item="tp(1of2)"
-								data-c-align="base(center) tp(left)">
-								<p
-									data-c-font-size="h4"
-									data-c-font-weight="bold">
-									2-factor Status:
-									<span
-										data-c-color="go">
-										ON
-									</span>
-								</p>
-							</div>
-							<div
-								data-c-grid-item="tp(1of2)"
-								data-c-align="base(center) tp(right)">
-								<button
-									data-c-button="outline(c3)"
-									data-c-radius="rounded"
-									data-c-dialog-id="example-dialog-01"
-									data-c-dialog-action="open"
-									type="button">
-									Turn 2-factor Off
-								</button>
-							</div>
-							<div
-								data-c-grid-item="base(1of1)">
-								<div
-									data-c-accordion-group
-									data-c-margin="top(normal)">
-									<div
-										data-c-accordion
-										data-c-background="white(100)"
-										data-c-radius="rounded">
-										<button
-											data-c-background="c1(100)"
-											aria-expanded="false"
-											data-c-accordion-trigger
-											tabindex="0"
-											type="button">
-											<div
-												data-c-padding="top(normal) right bottom(normal) left(normal)">
-												<p
-													data-c-heading="h4"
-													data-c-font-weight="bold"
-													data-c-color="white">
-													View my recovery codes...
-												</p>
-											</div>
-											<span
-												data-c-visibility="invisible">
-												Click to view...
-											</span>
-											<i
-												class="fas fa-plus-circle"
-												data-c-accordion-add
-												data-c-colour="white"/>
-											<i
-												class="fas fa-minus-circle"
-												data-c-accordion-remove
-												data-c-colour="white"/>
-										</button>
-										<div
-											aria-hidden="true"
-											data-c-accordion-content
-											data-c-padding="right(normal) left(normal)"
-											data-c-background="gray(10)">
-											<div
-												data-c-padding="bottom(normal)">
-												<ul
-													data-c-padding="top(normal)">
-													<li>
-														12345-12345-12345
-													</li>
-													<li>
-														12345-12345-12345
-													</li>
-													<li>
-														12345-12345-12345
-													</li>
-													<li>
-														12345-12345-12345
-													</li>
-													<li>
-														12345-12345-12345
-													</li>
-													<li>
-														12345-12345-12345
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    {# FIP Banner #}
+    {% include "common/goc" %}
+    {# BETA Alert Banner #}
+    {% include "common/alert" %}
+    <a id="skipLink"></a>
+    <div data-clone>
+        {# Page Header #}
+        <header class="hero" data-c-overlay="black(90)" data-c-padding="tb(triple)" data-c-align="base(center) tp(left)" style="background-image: url('/images/bg_crowd.jpg');">
+            <div data-c-container="large">
+                <h1 class="logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-margin="bottom(double)">
+                    My Account Settings
+                </h1>
+                <div data-c-color="white">
+                    {# DEV: replace with breadcrumb component #}
+                    <nav aria-label="breadcrumb" data-c-breadcrumbs>
+                        <ol>
+                            <li>
+                                <a href="/" title="This is the title of the page link.">Talent Cloud</a>
+                                <i class="fas fa-caret-right"></i>
+                            </li>
+                            <li>
+                                <span aria-current="page">My Account</span>
+                                <i class="fas fa-caret-right"></i>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        {# Page Container #}
+        <div data-c-container="large">
+            <div data-c-grid="gutter">
+                {# Sidebar #}
+                <div data-c-grid-item="tl(1of4) ds(1of5)" class="sidebar-wrapper">
+                    <div class="clone-sidebar" data-c-padding="tb(triple)">
+                        <span data-c-font-weight="bold" data-c-font-size="h4">My Account</span>
+                        <nav data-c-margin="top(normal)">
+                            <ul>
+                                <li><a href="#personal" title="">Personal Information</a></li>
+                                <li><a href="#goc" title="">GoC Information</a></li>
+                                <li><a href="#password" title="">My Password</a></li>
+                                <li><a href="#auth" title="">2-factor Authentication</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                {# Page Content #}
+                <div data-c-grid-item="tl(3of4) ds(4of5)">
+                    <div class="clone-sidebar-content" data-c-padding="bottom(triple)">
+
+                        <form action="{{ form_submit_action }}" method="post">
+
+                        {{ csrf_field() }}
+
+                        <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="personal">Personal Information</h2>
+                        <p data-c-margin="bottom(double)">This information is used to identify you on the platform.</p>
+                        <div data-c-grid="gutter">
+                            <div data-c-grid-item="tp(1of2)" data-c-input="text">
+                                <label for="first_name">My First Name</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="first_name" placeholder="e.g. Clark" required type="text" value="{{ user.first_name }}"/>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)" data-c-input="text">
+                                <label for="last_name">My Last Name</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="last_name" placeholder="e.g. Kent" required type="text" value="{{ user.last_name }}"/>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-grid-item="base(1of1)" data-c-input="email">
+                                <label for="email_address">My Username/Email</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="email_address" placeholder="e.g. name@website.com" required type="email" value="{{ user.email }}"/>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-grid-item="base(1of1)" data-c-align="base(center) tp(right)">
+                                <button data-c-button="outline(c1)" data-c-radius="rounded">
+                                    Save Personal Information
+                                </button>
+                            </div>
+                        </div>
+
+                        </form>
+
+                        <hr data-c-margin="top(triple)">
+                        {# GoC Account Info #}
+                        {# DEV: this section should only appear for users who have visited the manager portal and completed the extra registration steps
+                        <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="goc">Government of Canada Information</h2>
+                        <p data-c-margin="bottom(normal)">This information is used to identify your role within the Government of Canada on the manager and HR adviser portals.</p>
+                        <div data-c-grid="gutter">
+                            <div
+                                data-c-grid-item="base(1of1)">
+                                <div data-c-alert="information" data-c-radius="rounded" role="alert" data-c-margin="bottom(normal)">
+                                    <div
+                                        data-c-padding="half">
+                                        <p data-c-margin="bottom(half)" data-c-heading="h5" data-c-font-weight="bold">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            My current department: Treasury Board of Canada Secretariat
+                                        </p>
+                                        <p data-c-margin="bottom(half)">
+                                            In order to change your department, you'll need to
+                                            <a href="" title="">contact Talent Cloud</a>
+                                            directly.
+                                        </p>
+                                        <p>We require you to get in touch because your department determines how you interact with job posters, applicants, and HR advisers. In order to have this information changed, we need to verify your department independently of the platform.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-c-grid-item="base(1of1)" data-c-input="email">
+                                <label for="EM2">My Government Email</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="EM2" placeholder="e.g. first.last@canada.ca" required type="email"/>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-grid-item="base(1of1)" data-c-align="base(center) tp(right)">
+                                <button data-c-button="outline(c1)" data-c-radius="rounded">
+                                    Save Government Information
+                                </button>
+                            </div>
+                        </div>
+                        <hr data-c-margin="top(triple)"> #}
+                        {# Password Reset #}
+
+                        <form action="{{ form_submit_action }}" method="post">
+
+                        {{ csrf_field() }}
+
+                        <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="password">My Password</h2>
+                        <p data-c-margin="bottom(normal)">You can use this section to change your password. Passwords must contain 1 character from each of the following criteria:</p>
+                        <ul data-c-margin="bottom(double)">
+                            <li>Lower-case characters (a-z)</li>
+                            <li>Upper-case characters (A-Z)</li>
+                            <li>Digits (0-9)</li>
+                            <li>Non-alphanumeric symbols (%, $, !, etc.)</li>
+                        </ul>
+                        <div data-c-grid="gutter">
+                            <div data-c-grid-item="base(1of1)" data-c-input="password">
+                                <label for="current_password">My Current Password</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="current_password" required type="password" value="" autocomplete="off"/>
+                                    <button type="button">
+                                        <i class="fas fa-eye"></i>
+                                        <i class="fas fa-eye-slash"></i>
+                                    </button>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)" data-c-input="password">
+                                <label for="new_password">My New Password</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="new_password" required type="password" autocomplete="off"/>
+                                    <button type="button">
+                                        <i class="fas fa-eye"></i>
+                                        <i class="fas fa-eye-slash"></i>
+                                    </button>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)" data-c-input="password">
+                                <label for="confirm_password">Confirm New Password</label>
+                                <span>Required</span>
+                                <div>
+                                    <input id="confirm_password" required type="password" autocomplete="off"/>
+                                    <button type="button">
+                                        <i class="fas fa-eye"></i>
+                                        <i class="fas fa-eye-slash"></i>
+                                    </button>
+                                </div>
+                                <span>This input has an error.</span>
+                            </div>
+                            <div data-c-grid-item="base(1of1)" data-c-align="base(center) tp(right)">
+                                <button data-c-button="outline(c1)" data-c-radius="rounded">
+                                    Submit New Password
+                                </button>
+                            </div>
+                        </div>
+
+                        </form>
+
+                        {# 2FA #}
+                        {#
+                        <hr data-c-margin="top(triple)">
+                        <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="auth">2-factor Authentication</h2>
+                        <p data-c-margin="bottom(normal)">2-factor authentication helps protect your account by adding a second layer of security beyond your username and password. Talent Cloud implements this second layer using a standard that asks for a one-time password when you log into the site. These one-time passwords are set up through apps such as Google Authenticator or Authy, and provide you with the ability to generate the one-time password on demand.</p>
+                        <div data-c-grid="gutter middle">
+                            <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+                                <p data-c-font-size="h4" data-c-font-weight="bold">2-factor Status:
+                                    <span data-c-color="stop">OFF</span>
+                                </p>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                                <button data-c-button="outline(c1)" data-c-radius="rounded" data-c-dialog-id="example-dialog-01" data-c-dialog-action="open" type="button">
+                                    Turn 2-factor On
+                                </button>
+                            </div>
+                        </div> #}
+                        {# DEV: This is an example of what the auth section should like when 2FA is turned on. I know there was discussion around not showing recovery codes to the user, so if this is best practice, we can just add a blurb here instead of the accordion.
+                        <div data-c-grid="gutter middle">
+                            <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+                                <p data-c-font-size="h4" data-c-font-weight="bold">2-factor Status:
+                                    <span data-c-color="go">ON</span>
+                                </p>
+                            </div>
+                            <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                                <button data-c-button="outline(c3)" data-c-radius="rounded" data-c-dialog-id="example-dialog-01" data-c-dialog-action="open" type="button">
+                                    Turn 2-factor Off
+                                </button>
+                            </div>
+                            <div data-c-grid-item="base(1of1)">
+                                <div data-c-accordion-group data-c-margin="top(normal)">
+                                    <div data-c-accordion data-c-background="white(100)" data-c-radius="rounded">
+                                        <button data-c-background="c1(100)" aria-expanded="false" data-c-accordion-trigger tabindex="0" type="button">
+                                            <div data-c-padding="top(normal) right bottom(normal) left(normal)">
+                                                <p data-c-heading="h4" data-c-font-weight="bold" data-c-color="white">
+                                                    View my recovery codes...
+                                                </p>
+                                            </div>
+                                            <span data-c-visibility="invisible">
+                                                Click to view...
+                                            </span>
+                                            <i class="fas fa-plus-circle" data-c-accordion-add data-c-colour="white"></i>
+                                            <i class="fas fa-minus-circle" data-c-accordion-remove data-c-colour="white"></i>
+                                        </button>
+                                        <div aria-hidden="true" data-c-accordion-content data-c-padding="right(normal) left(normal)" data-c-background="gray(10)">
+                                            <div data-c-padding="bottom(normal)">
+                                                <ul data-c-padding="top(normal)">
+                                                    <li>12345-12345-12345</li>
+                                                    <li>12345-12345-12345</li>
+                                                    <li>12345-12345-12345</li>
+                                                    <li>12345-12345-12345</li>
+                                                    <li>12345-12345-12345</li>
+                                                    <li>12345-12345-12345</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> #}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
