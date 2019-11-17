@@ -19,7 +19,7 @@
         <header class="hero" data-c-overlay="black(90)" data-c-padding="tb(triple)" data-c-align="base(center) tp(left)" style="background-image: url('/images/bg_crowd.jpg');">
             <div data-c-container="large">
                 <h1 class="logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-margin="bottom(double)">
-                    My Account Settings
+                    {{ settings.title }}
                 </h1>
                 <div data-c-color="white">
                     {# DEV: replace with breadcrumb component #}
@@ -44,13 +44,13 @@
                 {# Sidebar #}
                 <div data-c-grid-item="tl(1of4) ds(1of5)" class="sidebar-wrapper">
                     <div class="clone-sidebar" data-c-padding="tb(triple)">
-                        <span data-c-font-weight="bold" data-c-font-size="h4">My Account</span>
+                        <span data-c-font-weight="bold" data-c-font-size="h4">{{ settings.sidebar_title }}</span>
                         <nav data-c-margin="top(normal)">
                             <ul>
-                                <li><a href="#personal" title="">Personal Information</a></li>
-                                <li><a href="#goc" title="">GoC Information</a></li>
-                                <li><a href="#password" title="">My Password</a></li>
-                                <li><a href="#auth" title="">2-factor Authentication</a></li>
+                                <li><a href="#personal" title="">{{ settings.heading.personal }}</a></li>
+                                <li><a href="#goc" title="">{{ settings.heading.goc }}</a></li>
+                                <li><a href="#password" title="">{{ settings.heading.password }}</a></li>
+                                <li><a href="#auth" title="">{{ settings.heading.two_factor }}</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -63,36 +63,36 @@
 
                         {{ csrf_field() }}
 
-                        <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="personal">Personal Information</h2>
-                        <p data-c-margin="bottom(double)">This information is used to identify you on the platform.</p>
+                        <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="personal">{{ settings.heading.personal }}</h2>
+                        <p data-c-margin="bottom(double)">{{ settings.personal_copy }}</p>
                         <div data-c-grid="gutter">
                             <div data-c-grid-item="tp(1of2)" data-c-input="text">
-                                <label for="first_name">My First Name</label>
-                                <span>Required</span>
+                                <label for="first_name">{{ settings.first_name_label }}</label>
+                                <span>{{ settings.required }}</span>
                                 <div>
                                     <input id="first_name" placeholder="e.g. Clark" required type="text" value="{{ user.first_name }}"/>
                                 </div>
-                                <span>This input has an error.</span>
+                                <span>{{ settings.error }}</span>
                             </div>
                             <div data-c-grid-item="tp(1of2)" data-c-input="text">
-                                <label for="last_name">My Last Name</label>
-                                <span>Required</span>
+                                <label for="last_name">{{ settings.last_name_label }}</label>
+                                <span>{{ settings.required }}</span>
                                 <div>
                                     <input id="last_name" placeholder="e.g. Kent" required type="text" value="{{ user.last_name }}"/>
                                 </div>
-                                <span>This input has an error.</span>
+                                <span>{{ settings.error }}</span>
                             </div>
                             <div data-c-grid-item="base(1of1)" data-c-input="email">
-                                <label for="email_address">My Username/Email</label>
-                                <span>Required</span>
+                                <label for="email_address">{{ settings.email_label }}</label>
+                                <span>{{ settings.required }}</span>
                                 <div>
                                     <input id="email_address" placeholder="e.g. name@website.com" required type="email" value="{{ user.email }}"/>
                                 </div>
-                                <span>This input has an error.</span>
+                                <span>{{ settings.error }}</span>
                             </div>
                             <div data-c-grid-item="base(1of1)" data-c-align="base(center) tp(right)">
                                 <button data-c-button="outline(c1)" data-c-radius="rounded">
-                                    Save Personal Information
+                                    {{ settings.personal_save }}
                                 </button>
                             </div>
                         </div>
@@ -102,8 +102,8 @@
                         <hr data-c-margin="top(triple)">
                         {# GoC Account Info #}
                         {# DEV: this section should only appear for users who have visited the manager portal and completed the extra registration steps
-                        <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="goc">Government of Canada Information</h2>
-                        <p data-c-margin="bottom(normal)">This information is used to identify your role within the Government of Canada on the manager and HR adviser portals.</p>
+                        <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="goc">{{ settings.heading.goc }}</h2>
+                        <p data-c-margin="bottom(normal)">{{ settings.goc_copy }}</p>
                         <div data-c-grid="gutter">
                             <div
                                 data-c-grid-item="base(1of1)">
@@ -124,16 +124,16 @@
                                 </div>
                             </div>
                             <div data-c-grid-item="base(1of1)" data-c-input="email">
-                                <label for="EM2">My Government Email</label>
-                                <span>Required</span>
+                                <label for="EM2">{{ settings.gov_email_label }}</label>
+                                <span{{ settings.required }}</span>
                                 <div>
                                     <input id="EM2" placeholder="e.g. first.last@canada.ca" required type="email"/>
                                 </div>
-                                <span>This input has an error.</span>
+                                <span>{{ settings.error }}</span>
                             </div>
                             <div data-c-grid-item="base(1of1)" data-c-align="base(center) tp(right)">
                                 <button data-c-button="outline(c1)" data-c-radius="rounded">
-                                    Save Government Information
+                                    {{ settings.goc_save }}
                                 </button>
                             </div>
                         </div>
@@ -144,18 +144,18 @@
 
                         {{ csrf_field() }}
 
-                        <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="password">My Password</h2>
-                        <p data-c-margin="bottom(normal)">You can use this section to change your password. Passwords must contain 1 character from each of the following criteria:</p>
+                        <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="password">{{ settings.heading.password }}</h2>
+                        <p data-c-margin="bottom(normal)">{{ settings.password_copy.p1 }}</p>
                         <ul data-c-margin="bottom(double)">
-                            <li>Lower-case characters (a-z)</li>
-                            <li>Upper-case characters (A-Z)</li>
-                            <li>Digits (0-9)</li>
-                            <li>Non-alphanumeric symbols (%, $, !, etc.)</li>
+                            <li>{{ settings.password_copy.li1 }}</li>
+                            <li>{{ settings.password_copy.li2 }}</li>
+                            <li>{{ settings.password_copy.li3 }}</li>
+                            <li>{{ settings.password_copy.li4 }}</li>
                         </ul>
                         <div data-c-grid="gutter">
                             <div data-c-grid-item="base(1of1)" data-c-input="password">
-                                <label for="current_password">My Current Password</label>
-                                <span>Required</span>
+                                <label for="current_password">{{ settings.password_label }}</label>
+                                <span>{{ settings.required }}</span>
                                 <div>
                                     <input id="current_password" required type="password" value="" autocomplete="off"/>
                                     <button type="button">
@@ -163,11 +163,11 @@
                                         <i class="fas fa-eye-slash"></i>
                                     </button>
                                 </div>
-                                <span>This input has an error.</span>
+                                <span>{{ settings.error }}</span>
                             </div>
                             <div data-c-grid-item="tp(1of2)" data-c-input="password">
-                                <label for="new_password">My New Password</label>
-                                <span>Required</span>
+                                <label for="new_password">{{ settings.new_password_label }}</label>
+                                <span>{{ settings.required }}</span>
                                 <div>
                                     <input id="new_password" required type="password" autocomplete="off"/>
                                     <button type="button">
@@ -175,11 +175,11 @@
                                         <i class="fas fa-eye-slash"></i>
                                     </button>
                                 </div>
-                                <span>This input has an error.</span>
+                                <span>{{ settings.error }}</span>
                             </div>
                             <div data-c-grid-item="tp(1of2)" data-c-input="password">
-                                <label for="confirm_password">Confirm New Password</label>
-                                <span>Required</span>
+                                <label for="confirm_password">{{ settings.confirm_password_label }}</label>
+                                <span>{{ settings.required }}</span>
                                 <div>
                                     <input id="confirm_password" required type="password" autocomplete="off"/>
                                     <button type="button">
@@ -187,11 +187,11 @@
                                         <i class="fas fa-eye-slash"></i>
                                     </button>
                                 </div>
-                                <span>This input has an error.</span>
+                                <span>{{ settings.error }}</span>
                             </div>
                             <div data-c-grid-item="base(1of1)" data-c-align="base(center) tp(right)">
                                 <button data-c-button="outline(c1)" data-c-radius="rounded">
-                                    Submit New Password
+                                    {{ settings.password_save }}
                                 </button>
                             </div>
                         </div>

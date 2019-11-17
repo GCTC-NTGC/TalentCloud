@@ -5,7 +5,7 @@ namespace App\Services\Validation\Requests;
 use App\Services\Validation\BaseDataValidator;
 use App\Services\Validation\Contracts\DataValidator;
 use App\Models\Applicant;
-use \Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Validator;
 
 class UpdateApplicationProfileValidator extends BaseDataValidator implements DataValidator
 {

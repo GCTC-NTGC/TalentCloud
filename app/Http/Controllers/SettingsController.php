@@ -21,11 +21,13 @@ class SettingsController extends Controller
      */
     public function show(Request $request, User $user)
     {
+        $user = $request->user();
+
         return view(
             'common/settings',
             [
                 // Localized strings.
-                // 'profile' => Lang::get('common/settings'),
+                'settings' => Lang::get('common/settings'),
                 // User data.
                 'user' => $user,
             ]
@@ -41,7 +43,7 @@ class SettingsController extends Controller
     public function editAuthenticated(Request $request)
     {
         $user = $request->user();
-        return redirect(route('settings.edit', $user));
+        return redirect(route('settings.show', $user));
     }
 
     /**
@@ -53,11 +55,13 @@ class SettingsController extends Controller
      */
     public function edit(Request $request, User $user)
     {
+        $user = $request->user();
+
         return view(
             'common/settings',
             [
                 // Localized strings.
-                // 'profile' => Lang::get('common/settings'),
+                'settings' => Lang::get('common/settings'),
                 // User data.
                 'user' => $user,
                 // Update route.
@@ -75,8 +79,6 @@ class SettingsController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $this->user = $user;
-
         $validator = new UpdateSettingsValidator($user);
         $validator->validate($request->all());
 
@@ -95,6 +97,6 @@ class SettingsController extends Controller
         }
         $user->save();
 
-        return redirect()->route('settings.edit', $user);
+        return redirect()->route('settings.show', $user);
     }
 }

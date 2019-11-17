@@ -63,15 +63,13 @@ Route::group(
                 ->middleware('can:view,jobPoster')
                 ->name('jobs.show');
 
+
             /* Require being logged in */
             Route::middleware(['auth'])->group(function () : void {
 
                 /* Account Settings */
                 Route::get('settings', 'SettingsController@show')
-                    ->name('settings');
-
-                Route::post('settings', 'SettingsController@edit')
-                    ->name('settings.edit');
+                    ->name('settings.show');
 
                 Route::post('settings', 'SettingsController@update')
                     ->name('settings.update');
