@@ -113,6 +113,8 @@ class ApplicationValidator
     }
     public function basicsValidator(JobApplication $application)
     {
+        // Load application answers so they are included in application->toArray().
+        $application->load('job_application_answers');
         $validator = Validator::make($application->toArray(), $this->basicRules($application));
         return $validator;
     }
