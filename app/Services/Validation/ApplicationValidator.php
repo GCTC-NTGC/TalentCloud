@@ -85,28 +85,20 @@ class ApplicationValidator
 
     public function basicRules(JobApplication $application)
     {
-
-        $questionIds = $application->job_poster->job_poster_questions->pluck('id')->toArray();
-
         // Validate the fields common to every application
         $rules = [
             'language_requirement_confirmed' => ['required', 'boolean'],
             'citizenship_declaration_id' => ['required', 'exists:citizenship_declarations,id'],
             'veteran_status_id' => ['required', 'exists:veteran_statuses,id'],
             'preferred_language_id' => ['required', 'exists:preferred_languages,id'],
-
-            // Validate all related answers as well.
-            'job_application_answers.*.answer' => 'required|string',
-            // Ensure no related answers are for the wrong job poster.
-            'job_application_answers.*.job_poster_question_id' => [
-                'required',
-                Rule::in($questionIds),
-            ],
-            'job_application_answers.*.job_application_id' => [
-                'required',
-                Rule::in([$this->application->id]),
-            ]
         ];
+
+        // Merge with Answer rules, that ensure each answer is complete
+        $anwswerValidator = new JobApplicationAnswerValidator($application);
+        $answerRules = collect($anwswerValidator->rules())->map(function ($rule) {
+            return implode('.', ['job_application_answers.*', $rule]);
+        })->toArray();
+        $rules = array_merge($rules, $answerRules);
 
         // Validate that each question has been answered
         $jobPosterQuestionRules = [];
