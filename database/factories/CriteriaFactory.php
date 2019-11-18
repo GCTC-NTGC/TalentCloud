@@ -24,9 +24,9 @@ $factory->define(Criteria::class, function (Faker\Generator $faker) use ($faker_
 });
 
 $factory->state(Criteria::class, 'essential', [
-    'criteria_type_id' => CriteriaType::where('name', 'essential')
+    'criteria_type_id' => CriteriaType::where('name', 'essential')->first()->id
 ]);
 
 $factory->state(Criteria::class, 'asset', [
-    'criteria_type_id' => CriteriaType::where('name', 'asset')
+    'criteria_type_id' => CriteriaType::where('name', 'asset')->first()->id
 ]);

@@ -95,10 +95,11 @@ class ApplicationValidator
 
         // Merge with Answer rules, that ensure each answer is complete
         $anwswerValidator = new JobApplicationAnswerValidator($application);
-        $answerRules = collect($anwswerValidator->rules())->map(function ($rule) {
-            return implode('.', ['job_application_answers.*', $rule]);
-        })->toArray();
-        $rules = array_merge($rules, $answerRules);
+        $rules = $this->addNestedValidatorRules(
+            'job_application_answers.*',
+            $anwswerValidator->rules(),
+            $rules
+        );
 
         // Validate that each question has been answered
         $jobPosterQuestionRules = [];
