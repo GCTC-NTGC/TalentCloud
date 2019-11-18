@@ -15,6 +15,7 @@ $factory->define(JobApplication::class, function (Faker\Generator $faker) {
         'job_poster_id' => function () {
             return factory(JobPoster::class)->states('published')->create()->id;
         },
+        'language_requirement_confirmed' => true,
         'application_status_id' => ApplicationStatus::where('name', 'submitted')->firstOrFail()->id,
         'citizenship_declaration_id' => CitizenshipDeclaration::inRandomOrder()->first()->id,
         'veteran_status_id' => VeteranStatus::inRandomOrder()->first()->id,
@@ -30,7 +31,7 @@ $factory->define(JobApplication::class, function (Faker\Generator $faker) {
 $factory->state(JobApplication::class, 'draft', [
     'application_status_id' => ApplicationStatus::where('name', 'draft')->firstOrFail()->id,
     'submission_signature' => null,
-    'submission_date' => null
+    'submission_date' => null,
 ]);
 
 $factory->afterCreating(JobApplication::class, function ($application) : void {
