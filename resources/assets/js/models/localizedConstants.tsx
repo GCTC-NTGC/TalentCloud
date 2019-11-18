@@ -18,17 +18,6 @@ import {
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
 
-interface SkillLevel {
-  hardBasic: MessageDescriptor;
-  hardIntermediate: MessageDescriptor;
-  hardAdvanced: MessageDescriptor;
-  hardExpert: MessageDescriptor;
-  softBasic: MessageDescriptor;
-  softIntermediate: MessageDescriptor;
-  softAdvanced: MessageDescriptor;
-  softExpert: MessageDescriptor;
-}
-
 const skillLevelDescriptions = defineMessages({
   hardBasic: {
     id: "skillLevel.hard.basic.description",
@@ -137,7 +126,14 @@ const skillLevelNames = defineMessages({
 const skillLevelL10n = (
   skillLevelId: number,
   skillTypeId: number,
-  l10nObj: SkillLevel,
+  l10nObj: Record<
+    string,
+    {
+      id: string;
+      defaultMessage: string;
+      description: string;
+    }
+  >,
 ): MessageDescriptor => {
   if (!SkillLevelIdValues.includes(skillLevelId)) {
     throw new Error("invalid SkillLevelIdValue");

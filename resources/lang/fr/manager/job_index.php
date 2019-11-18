@@ -70,11 +70,9 @@ return [
         'title' => 'Il semble que vous utilisez un compte de démonstration.',
         'description' => [
             'first' => 'Seuls les ministères partenaires de Nuage des talents ont accès à l\'examen et à la publication des avis d\'emploi.',
-            'second' => ':link pour savoir si vous avez accès à ces fonctions.',
             'link' => [
-                'text' => 'Cliquez ici',
+                'text' => 'Découvrez comment accéder aux fonctions d\'examen et de publication des avis d\'emploi',
                 'title' => 'Découvrez comment accéder aux fonctions d\'examen et de publication des avis d\'emploi.',
-                'href' => '#upgrade'
             ]
         ],
         'cancel' => 'Retourner'
