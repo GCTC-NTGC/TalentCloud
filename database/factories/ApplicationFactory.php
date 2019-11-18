@@ -34,6 +34,14 @@ $factory->state(JobApplication::class, 'draft', [
     'submission_date' => null,
 ]);
 
+$factory->state(JobApplication::class, 'submitted', function (Faker\Generator $faker) {
+    return [
+        'application_status_id' => ApplicationStatus::where('name', 'submitted')->firstOrFail()->id,
+        'submission_signature' => $faker->name(),
+        'submission_date' => $faker->dateTimeBetween('yesterday', 'tomorrow')->format('Y-m-d H:i:s'),
+    ];
+});
+
 $factory->afterCreating(JobApplication::class, function ($application) : void {
     foreach ($application->job_poster->job_poster_questions as $question) {
         $answer = factory(JobApplicationAnswer::class)->create([
@@ -42,10 +50,18 @@ $factory->afterCreating(JobApplication::class, function ($application) : void {
         ]);
         $application->job_application_answers()->save($answer);
     }
+    if ($application->isDraft()) {
+        $skillableType = 'applicant';
+        $owner = $application->applicant;
+    } else {
+        $skillableType = 'application';
+        $owner = $application;
+    }
     foreach ($application->job_poster->criteria as $criterion) {
-        factory(SkillDeclaration::class)->create([
+        $owner->skill_declarations()->save(factory(SkillDeclaration::class)->create([
             'skill_id' => $criterion->skill_id,
-            'skillable_id' => $application->applicant_id,
-        ]);
+            'skillable_id' => $owner->id,
+            'skillable_type' => $skillableType,
+        ]));
     }
 });

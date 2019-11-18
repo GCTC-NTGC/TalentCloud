@@ -139,21 +139,27 @@ class ApplicationValidator
     {
         $rules = [];
 
+        // If application is still a draft, check skills attached to applicant profile. If submitted, use application itself.
+        $skillDeclarationsAttribute = $application->isDraft() ? 'applicant.skill_declarations' : 'skill_declarations';
+        $application->load($skillDeclarationsAttribute);
+        $skillDeclarations = $application->isDraft()
+            ? $application->applicant->skill_declarations
+            : $application->skill_declarations;
+
         $skillDeclarationRules = [];
         $criteriaTypeId = CriteriaType::where('name', $criteria_type)->firstOrFail()->id;
         foreach ($application->job_poster->criteria->where('criteria_type_id', $criteriaTypeId) as $criteria) {
             // Validate that every essential skill has a corresponding declaration
             $skillDeclarationRules[] = new ContainsObjectWithAttributeRule('skill_id', $criteria->skill_id);
         }
-        $rules['skill_declarations'] = $skillDeclarationRules;
-        $application->load('skill_declarations');
+        $rules[$skillDeclarationsAttribute] = $skillDeclarationRules;
 
         // Validate that those declarations are complete
         $skillDeclarationValidatorFactory = new SkillDeclarationValidator();
         $relevantSkillIds = $application->job_poster->criteria->where('criteria_type_id', $criteriaTypeId)->pluck('skill_id');
-        foreach ($application->skill_declarations as $key => $declaration) {
+        foreach ($skillDeclarations as $key => $declaration) {
             if ($relevantSkillIds->contains($declaration->skill_id)) {
-                $attribute = implode('.', ['skill_declarations', $key]);
+                $attribute = implode('.', [$skillDeclarationsAttribute, $key]);
                 $skillDeclarationValidator = $skillDeclarationValidatorFactory->validator($declaration);
                 $rules = $this->addNestedValidatorRules($attribute, $skillDeclarationValidator->getRules(), $rules);
             }

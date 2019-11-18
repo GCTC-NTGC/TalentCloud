@@ -6,6 +6,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\JobApplication;
 use App\Models\Applicant;
+use App\Models\JobApplicationAnswer;
+use App\Models\JobPoster;
 use App\Services\Validation\ApplicationValidator;
 
 class ApplicationValidatorTest extends TestCase
@@ -22,16 +24,34 @@ class ApplicationValidatorTest extends TestCase
             'applicant_id' => $applicant->id
         ]);
         $applicant->job_applications()->save($completeApplication);
-        $this->assertEquals([], $validator->basicsValidator($completeApplication->fresh())->errors()->toArray());
         $this->assertTrue($validator->basicsComplete($completeApplication));
 
-
-        // Removing Answers should invalidate basic step
+        // Removing Answers should invalidate basic step.
         $incompleteApplication = factory(JobApplication::class)->create([
             'applicant_id' => $applicant->id
         ]);
         $incompleteApplication->job_application_answers()->delete();
         $this->assertFalse($validator->basicsComplete($incompleteApplication));
+
+        // Having one answer empty should invalidate basic step.
+        $wrongApp1 = factory(JobApplication::class)->create([
+            'applicant_id' => $applicant->id
+        ]);
+        $answer = $wrongApp1->job_application_answers->first();
+        $answer->answer = '';
+        $answer->save();
+        $this->assertFalse($validator->basicsComplete($wrongApp1));
+
+        // Having an extra answer, related to the wrong job, should invalidate.
+        $wrongApp2 = factory(JobApplication::class)->create([
+            'applicant_id' => $applicant->id
+        ]);
+        $job2 = factory(JobPoster::class)->create();
+        $wrongApp2->job_application_answers()->save(factory(JobApplicationAnswer::class)->create([
+            'job_application_id' => $wrongApp2->id,
+            'job_poster_question_id' => $job2->job_poster_questions->first()->id
+        ]));
+        $this->assertFalse($validator->basicsComplete($wrongApp2));
     }
 
     public function testExperienceComplete(): void
@@ -48,5 +68,54 @@ class ApplicationValidatorTest extends TestCase
             'experience_saved' => true
         ]);
         $this->assertTrue($validator->experienceComplete($completeApp));
+    }
+
+    public function testSkillsComplete(): void
+    {
+        $validator = new ApplicationValidator();
+
+        $applicant = factory(Applicant::class)->create();
+        $validator = new ApplicationValidator();
+
+        // Factory should create declarations for all criteria, saving them to applicant.
+        $completeApplication = factory(JobApplication::class)->state('submitted')->create([
+            'applicant_id' => $applicant->id
+        ]);
+        $applicant->job_applications()->save($completeApplication);
+        $this->assertTrue($validator->essentialSkillsComplete($completeApplication));
+        $this->assertTrue($validator->assetSkillsComplete($completeApplication));
+
+        // Ensure validation also works correctly for drafts
+        // (because in drafts, application, instead of applicANT, skills are validated).
+        $completeDraft = factory(JobApplication::class)->state('draft')->create([
+            'applicant_id' => $applicant->id
+        ]);
+        $applicant->job_applications()->save($completeDraft);
+        $this->assertTrue($validator->essentialSkillsComplete($completeDraft));
+        $this->assertTrue($validator->assetSkillsComplete($completeDraft));
+
+        // Missing skills should make it invalid.
+        $missingSkills = factory(JobApplication::class)->state('draft')->create([
+            'applicant_id' => $applicant->id
+        ]);
+        $applicant->job_applications()->save($missingSkills);
+        $applicant->skill_declarations()->delete();
+        $this->assertFalse($validator->essentialSkillsComplete($missingSkills));
+        $this->assertFalse($validator->assetSkillsComplete($missingSkills));
+
+        // An incomplete skill declaration should make it invalid.
+        $incompleteSkills = factory(JobApplication::class)->state('draft')->create([
+            'applicant_id' => $applicant->id
+        ]);
+        $essentialCriteria = $incompleteSkills->job_poster->criteria->where('criteria_type.name', 'essential')->first();
+        $assetCriteria = $incompleteSkills->job_poster->criteria->where('criteria_type.name', 'asset')->first();
+        $essentialDec = $applicant->skill_declarations->where('skill_id', $essentialCriteria->skill_id)->first();
+        $assetDec = $applicant->skill_declarations->where('skill_id', $assetCriteria->skill_id)->first();
+        $essentialDec->description = null;
+        $assetDec->description = '';
+        $essentialDec->save();
+        $assetDec->save();
+        $this->assertFalse($validator->essentialSkillsComplete($incompleteSkills->fresh()));
+        $this->assertFalse($validator->assetSkillsComplete($incompleteSkills->fresh()));
     }
 }
