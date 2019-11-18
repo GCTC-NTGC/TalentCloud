@@ -8,5 +8,7 @@ return [
     | The following language lines are used by exception messages.
     |
     */
-    'refresh_page' => 'Veuillez rafraîchir la page.',
+    'title' => '',
+    'refresh_page' => '',
+    'two_factor_required' => ''
 ];

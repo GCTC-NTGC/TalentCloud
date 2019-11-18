@@ -105,7 +105,16 @@ return [
             'what_we_value' => 'Nos valeurs',
             'how_we_work' => 'Notre mode de fonctionnement',
             'save_team_culture' => "Enregistrer Notre culture d'équipe"
+        ],
+        'two_factor' => [
+            'two_factor_legend' => '',
+            'two_factor_button_text' => '',
+            'two_factor_recovery_legend' => '',
+            'two_factor_recovery_text' => '',
+            'view_recovery_codes' => '',
+            'two_factor_description' => '',
+            'two_factor_active' => '',
+            'two_factor_deactivate' => ''
         ]
-
     ]
 ];

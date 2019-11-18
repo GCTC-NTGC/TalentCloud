@@ -12,7 +12,7 @@
 {% block body %}
 
 	{% include "common/goc" %}
-{% include "common/alert" %}
+    {% include "common/alert" %}
 
     {% include "common/header" with {"header":profile} %}
 
@@ -22,8 +22,67 @@
 
         {% include "applicant/profile/menu" %}
 
+        <div class="applicant-profile__about" data-clone>
 
-    {# Form containing all about_me editable elements #}
+            <div data-c-container="medium">
+
+                <div class="form__wrapper">
+
+                    <div
+                        class="applicant-profile__data-wrapper">
+
+                        {# 2FA #}
+
+                        <div class="flex-grid">
+
+                            <div class="box full">
+
+                                <h2>{{ profile.about_section.two_factor_legend }}</h2>
+
+                                <div class="form__input-wrapper--float">
+
+                                    {% if applicant.user.google2fa_secret %}
+
+                                    <p>{{ profile.about_section.two_factor_active }}</p>
+                                    <form action="{{ route('two_factor.deactivate') }}" method="POST">
+                                        {{ csrf_field() }}
+                                        <button class="button--red light-bg" type="submit">{{ profile.about_section.two_factor_deactivate }}</button>
+                                    </form>
+
+                                    {% else %}
+
+                                    <p>{{ profile.about_section.two_factor_description }}</p>
+                                    <p><a class="button--blue light-bg" href="{{ route('two_factor.activate') }}">{{ profile.about_section.two_factor_button_text }}</a></p>
+
+                                    {% endif %}
+
+                                </div>
+
+                                {% if applicant.user.google2fa_secret %}
+
+                                {# 2FA Recovery #}
+
+                                <div class="form__input-wrapper--float">
+
+                                    <p>{{ profile.about_section.two_factor_recovery_text }} <a href="{{ route('recovery_codes.show') }}">{{ profile.about_section.view_recovery_codes }}</a>.</p>
+
+                                </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {# Form containing all about_me editable elements #}
 
         <form action="{{ form_submit_action }}" method="post">
 

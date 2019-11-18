@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 
 class AdminException extends Exception
@@ -39,9 +40,9 @@ class AdminException extends Exception
         return response()->view(
             'errors/admin',
             [
-                'exception' => $this,
-                'error' => [
-                    "title" => "Error"
+            'exception' => $this,
+            'error' => [
+                'title' => Lang::get('errors.title'),
                 ],
                 'links' => $this->links
             ],
@@ -51,9 +52,9 @@ class AdminException extends Exception
 
     /**
      * Override, custom exception doesn't return a status code.
-     *
-     * @return mixed
-     */
+    *
+    * @return mixed
+    */
     public function getStatusCode()
     {
         return 500;

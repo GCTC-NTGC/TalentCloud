@@ -37,5 +37,13 @@ return [
         'questions_title' => 'Choses à savoir de moi',
         'applicant_profile_question_section_title' => 'Votre histoire',
         'applicant_profile_question_context' => 'Ne pas inclure d\'informations personnelles sensibles.',
-    ],
+        'two_factor_legend' => '',
+        'two_factor_button_text' => '',
+        'two_factor_recovery_legend' => '',
+        'two_factor_recovery_text' => '',
+        'view_recovery_codes' => '',
+        'two_factor_description' => '',
+        'two_factor_active' => '',
+        'two_factor_deactivate' => ''
+    ]
 ];

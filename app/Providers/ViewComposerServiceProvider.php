@@ -97,6 +97,16 @@ class ViewComposerServiceProvider extends ServiceProvider
             'manager/notification',
             'App\Http\ViewComposers\DemoNotificationComposer'
         );
+
+        View::composer(
+            'auth/two_factor',
+            'App\Http\ViewComposers\TwoFactorComposer'
+        );
+
+        View::composer(
+            'auth/one_time_password',
+            'App\Http\ViewComposers\OneTimePasswordComposer'
+        );
     }
 
     /**
