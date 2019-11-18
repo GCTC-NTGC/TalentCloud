@@ -547,9 +547,9 @@ Route::group(['prefix' => 'api'], function (): void {
 
     // Claim / unclaim job routes, HR portal
     Route::post('jobs/{job}/claim', 'Api\ClaimJobApiController@store')
-        ->middleware('auth')
+        ->middleware('can:claim,job')
         ->where('job', '[0-9]+');
     Route::post('jobs/{job}/unclaim', 'Api\ClaimJobApiController@destroy')
-        ->middleware('auth')
+        ->middleware('can:unClaim,job')
         ->where('job', '[0-9]+');
 });
