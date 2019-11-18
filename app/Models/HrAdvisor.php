@@ -10,6 +10,10 @@ namespace App\Models;
  * @property int $department_id
  *
  * @property \App\Models\User $user
+ * @property \App\Models\Lookup\Department $department
+ * @property \Illuminate\Database\Eloquent\Collection $job_posters
+ * @property \Jenssegers\Date\Date $created_at
+ * @property \Jenssegers\Date\Date $updated_at
  *
  * Computed Properties
  * @property string $name
@@ -37,6 +41,14 @@ class HrAdvisor extends BaseModel
     public function department()
     {
         return $this->belongsTo(\App\Models\Lookup\Department::class);
+    }
+
+    public function claimed_jobs() //phpcs:ignore
+    {
+        return $this->belongsToMany(
+            \App\Models\JobPoster::class,
+            'claimed_jobs'
+        );
     }
 
     /**
