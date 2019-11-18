@@ -76,10 +76,12 @@ Route::group(
                     Route::get('settings', 'SettingsController@show')
                         ->name('settings.show');
 
-                    Route::post('settings', 'SettingsController@update')
-                        ->name('settings.update');
-
-
+                    Route::post('settings', 'SettingsController@updatePersonal')
+                        ->name('settings.updatePersonal');
+                    Route::post('settings', 'SettingsController@updatePassword')
+                        ->name('settings.updatePassword');
+                    // Route::post('settings', 'SettingsController@update')
+                        // ->name('settings.updateGoc');
                     Route::get('jobs/{jobPoster}', 'JobController@show')
                         ->middleware('can:view,jobPoster')
                         ->name('jobs.show');

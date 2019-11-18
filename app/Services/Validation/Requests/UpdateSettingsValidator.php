@@ -37,20 +37,6 @@ class UpdateSettingsValidator extends BaseDataValidator implements DataValidator
     public function rules() : array
     {
         return [
-            // Name validation.
-            'first_name' => 'required|string|max:191',
-            'last_name' => 'required|string|max:191',
-
-            // Email validation.
-            'email_address' => [
-                'required',
-                'string',
-                'max:191',
-                'email',
-                // Email may match existing email for this user, must be unique if changed.
-                Rule::unique('users', 'email')->ignore($this->user->id)
-            ],
-
             // Password validation.
             'current_password' => [
                 'nullable',
