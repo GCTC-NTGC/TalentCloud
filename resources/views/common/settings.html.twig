@@ -60,11 +60,8 @@
                     <div class="clone-sidebar-content" data-c-padding="bottom(triple)">
 
                         <form action="{{ form_submit_action }}" method="post">
-
-                        {% include "errors/form_errors" %}
-
                         {{ csrf_field() }}
-
+                        {% include "errors/form_errors" %}
                         <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="personal">{{ settings.heading.personal }}</h2>
                         <p data-c-margin="bottom(double)">{{ settings.personal_copy }}</p>
                         <div data-c-grid="gutter">
@@ -143,9 +140,7 @@
                         {# Password Reset #}
 
                         <form action="{{ form_submit_action }}" method="post">
-
                         {{ csrf_field() }}
-
                         <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="password">{{ settings.heading.password }}</h2>
                         <p data-c-margin="bottom(normal)">{{ settings.password_copy.p1 }}</p>
                         <ul data-c-margin="bottom(double)">
@@ -201,41 +196,51 @@
                         </form>
 
                         {# 2FA #}
-                        {#
+
                         <hr data-c-margin="top(triple)">
-                        <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="auth">2-factor Authentication</h2>
-                        <p data-c-margin="bottom(normal)">2-factor authentication helps protect your account by adding a second layer of security beyond your username and password. Talent Cloud implements this second layer using a standard that asks for a one-time password when you log into the site. These one-time passwords are set up through apps such as Google Authenticator or Authy, and provide you with the ability to generate the one-time password on demand.</p>
+                        <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="auth">{{ settings.heading.two_factor }}</h2>
+                        <p data-c-margin="bottom(normal)">{% if user.google2fa_secret %}{{ settings.two_factor_active }}{% else %}{{ settings.two_factor_description }}{% endif %}</p>
                         <div data-c-grid="gutter middle">
+                        {% if not user.google2fa_secret %}
                             <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
-                                <p data-c-font-size="h4" data-c-font-weight="bold">2-factor Status:
-                                    <span data-c-color="stop">OFF</span>
+                                <p data-c-font-size="h4" data-c-font-weight="bold">{{ settings.two_factor_status }}
+                                    <span data-c-color="stop">{{ settings.two_factor_off }}</span>
                                 </p>
                             </div>
                             <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
-                                <button data-c-button="outline(c1)" data-c-radius="rounded" data-c-dialog-id="example-dialog-01" data-c-dialog-action="open" type="button">
-                                    Turn 2-factor On
-                                </button>
+                                <a href="{{ route('two_factor.activate') }}" data-c-button="outline(c1)" data-c-radius="rounded" data-c-dialog-id="example-dialog-01" data-c-dialog-action="open" type="submit">
+                                        {{ settings.two_factor_button_text }}
+                                </a>
                             </div>
-                        </div> #}
-                        {# DEV: This is an example of what the auth section should like when 2FA is turned on. I know there was discussion around not showing recovery codes to the user, so if this is best practice, we can just add a blurb here instead of the accordion.
-                        <div data-c-grid="gutter middle">
+
+                            {% else %}
+
+                            {# DEV: This is an example of what the auth section should like when 2FA is turned on. I know there was discussion around not showing recovery codes to the user, so if this is best practice, we can just add a blurb here instead of the accordion. #}
+
                             <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
-                                <p data-c-font-size="h4" data-c-font-weight="bold">2-factor Status:
-                                    <span data-c-color="go">ON</span>
+                                <p data-c-font-size="h4" data-c-font-weight="bold">{{ settings.two_factor_status }}
+                                    <span data-c-color="go">{{ settings.two_factor_on }}</span>
                                 </p>
                             </div>
+
                             <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
-                                <button data-c-button="outline(c3)" data-c-radius="rounded" data-c-dialog-id="example-dialog-01" data-c-dialog-action="open" type="button">
-                                    Turn 2-factor Off
-                                </button>
+                                <form action="{{ route('two_factor.deactivate') }}" method="POST">
+                                {{ csrf_field() }}
+                                    <button data-c-button="outline(c3)" data-c-radius="rounded" data-c-dialog-id="example-dialog-01" data-c-dialog-action="open" type="submit">
+                                        {{ settings.two_factor_deactivate }}
+                                    </button>
+                                </form>
                             </div>
+
+
+                            {# 2FA Recovery #}
                             <div data-c-grid-item="base(1of1)">
                                 <div data-c-accordion-group data-c-margin="top(normal)">
                                     <div data-c-accordion data-c-background="white(100)" data-c-radius="rounded">
                                         <button data-c-background="c1(100)" aria-expanded="false" data-c-accordion-trigger tabindex="0" type="button">
                                             <div data-c-padding="top(normal) right bottom(normal) left(normal)">
                                                 <p data-c-heading="h4" data-c-font-weight="bold" data-c-color="white">
-                                                    View my recovery codes...
+                                                    {{ settings.two_factor_recovery_text }} <a href="{{ route('recovery_codes.show') }}">{{ settings.view_recovery_codes }}</a>.
                                                 </p>
                                             </div>
                                             <span data-c-visibility="invisible">
@@ -259,8 +264,11 @@
                                     </div>
                                 </div>
                             </div>
+
+                        {% endif %}
+
                         </div>
-                    </div> #}
+                    </div>
                 </div>
             </div>
         </div>

@@ -70,27 +70,20 @@ Route::group(
                 Route::get('jobs', 'JobController@index')->name('jobs.index');
 
             /* Require being logged in */
-            Route::middleware(['auth'])->group(function () : void {
+                Route::middleware(['auth'])->group(function () : void {
 
-                /* Account Settings */
-                Route::get('settings', 'SettingsController@show')
-                    ->name('settings.show');
+                    /* Account Settings */
+                    Route::get('settings', 'SettingsController@show')
+                        ->name('settings.show');
 
-                Route::post('settings', 'SettingsController@update')
-                    ->name('settings.update');
+                    Route::post('settings', 'SettingsController@update')
+                        ->name('settings.update');
 
-                /* Managers */
-                Route::get('managers/{manager}', 'ManagerProfileController@show')
-                    ->middleware('can:view,manager')
-                    ->name('managers.show');
-            });
 
-                Route::get('jobs/{jobPoster}', 'JobController@show')
-                    ->middleware('can:view,jobPoster')
-                    ->name('jobs.show');
+                    Route::get('jobs/{jobPoster}', 'JobController@show')
+                        ->middleware('can:view,jobPoster')
+                        ->name('jobs.show');
 
-                /* Require being logged in */
-                Route::middleware(['auth'])->group(function (): void {
                     /* Managers */
                     Route::get('managers/{manager}', 'ManagerProfileController@show')
                         ->middleware('can:view,manager')

@@ -36,5 +36,16 @@ return [
      'password_label' => '',
      'new_password_label' => '',
      'confirm_password_label' => '',
-     'password_save' => ''
+     'password_save' => '',
+     'two_factor_legend' => '',
+     'two_factor_button_text' => '',
+     'two_factor_recovery_legend' => '',
+     'two_factor_recovery_text' => '',
+     'view_recovery_codes' => '',
+     'two_factor_description' => '',
+     'two_factor_active' => '',
+     'two_factor_deactivate' => '',
+     'two_factor_status' => '',
+     'two_factor_on' => '',
+     'two_factor_off' => ''
 ];
