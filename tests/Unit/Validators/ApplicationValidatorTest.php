@@ -5,8 +5,8 @@ namespace Tests\Unit\Validators;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\JobApplication;
+use App\Models\Applicant;
 use App\Services\Validation\ApplicationValidator;
-use Illuminate\Support\Facades\Validator;
 
 class ApplicationValidatorTest extends TestCase
 {
@@ -15,18 +15,38 @@ class ApplicationValidatorTest extends TestCase
     public function testBasicsComplete(): void
     {
         $applicant = factory(Applicant::class)->create();
-        $application = new JobApplication();
-        $applicant->job_applications()->save($application);
-
-        // Test that empty application is not complete.
         $validator = new ApplicationValidator();
-        $this->assertFalse($validator->basicsComplete($application));
 
         // Factory should create a basics-complete application.
         $completeApplication = factory(JobApplication::class)->create([
             'applicant_id' => $applicant->id
         ]);
         $applicant->job_applications()->save($completeApplication);
-        $validator->assertTrue($validator->basicsComplete($completeApplication));
+        $this->assertEquals([], $validator->basicsValidator($completeApplication->fresh())->errors()->toArray());
+        $this->assertTrue($validator->basicsComplete($completeApplication));
+
+
+        // Removing Answers should invalidate basic step
+        $incompleteApplication = factory(JobApplication::class)->create([
+            'applicant_id' => $applicant->id
+        ]);
+        $incompleteApplication->job_application_answers()->delete();
+        $this->assertFalse($validator->basicsComplete($incompleteApplication));
+    }
+
+    public function testExperienceComplete(): void
+    {
+        $validator = new ApplicationValidator();
+
+        // For experience step to be complete, 'experienc_saved' simply needs to be true.
+        $application = factory(JobApplication::class)->create([
+            'experience_saved' => false
+        ]);
+        $this->assertFalse($validator->experienceComplete($application));
+
+        $completeApp = factory(JobApplication::class)->create([
+            'experience_saved' => true
+        ]);
+        $this->assertTrue($validator->experienceComplete($completeApp));
     }
 }
