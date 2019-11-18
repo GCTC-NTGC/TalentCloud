@@ -76,7 +76,6 @@ class ClaimJobApiController extends Controller
      */
     public function claimJob(HrAdvisor $hrAdvisor, JobPoster $job)
     {
-        $job = JobPoster::find($job->id);
         $hrAdvisor->claimed_jobs()->attach($job);
     }
 
@@ -89,7 +88,6 @@ class ClaimJobApiController extends Controller
      */
     public function unclaimJob(HrAdvisor $hrAdvisor, JobPoster $job)
     {
-        $job = JobPoster::find($job->id);
         $hrAdvisor->claimed_jobs()->detach($job);
     }
 }
