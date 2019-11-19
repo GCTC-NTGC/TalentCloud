@@ -23,7 +23,7 @@ class LangFilesTest extends BaseTranslationTest
 
     /**
      * Tests for lang entries that are empty strings.
-     * If tests are run with --verbose, displays wich keys have empty values.
+     * If tests are run with --verbose, displays which keys have empty values.
      *
      * @return void
      */
@@ -52,7 +52,7 @@ class LangFilesTest extends BaseTranslationTest
     /**
      * Tests for lang entries that are set to values that obviously indicate
      * a missing translation, like 'TRANSLATION NEEDED'.
-     * If tests are run with --verbose, displays wich keys have these values.
+     * If tests are run with --verbose, displays which keys have these values.
      *
      * @return void
      */
@@ -154,7 +154,7 @@ class LangFilesTest extends BaseTranslationTest
      * or that are present in one language but not another. Ignores keys
      * in $this->permittedMissing.
      *
-     * If tests are run with --verbose, displays wich keys are missing.
+     * If tests are run with --verbose, displays which keys are missing.
      *
      * @return void
      */
@@ -188,7 +188,7 @@ class LangFilesTest extends BaseTranslationTest
 
     /**
      * The list of keys that are expected to have identical values in multiple languages.
-     * If tests are run with --verbose, displays wich keys have identical values.
+     * If tests are run with --verbose, displays which keys have identical values.
      *
      * @var mixed[]
      */
@@ -316,7 +316,7 @@ class LangFilesTest extends BaseTranslationTest
 
     /**
      * Tests lang files for identical values in multiple languages.
-     * If tests are run with --verbose, displays wich keys have identical values.
+     * If tests are run with --verbose, displays which keys have identical values.
      *
      * @return void
      */

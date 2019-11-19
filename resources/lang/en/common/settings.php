@@ -1,12 +1,11 @@
 <?php
 /*
-* --------------------------------------------------------------------------
-* Settings Language Lines
-* --------------------------------------------------------------------------
-*
-* The following language lines are used in the Settings page
+| --------------------------------------------------------------------------
+| Settings Language Lines
+| --------------------------------------------------------------------------
+|
+| The following language lines are used in the Settings page
 */
-
 return [
      'title' => 'My Account Settings',
      'sidebar_title' => 'My Account',

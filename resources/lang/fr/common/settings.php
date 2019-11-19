@@ -1,12 +1,11 @@
 <?php
 /*
-* --------------------------------------------------------------------------
-* Settings Language Lines
-* --------------------------------------------------------------------------
-*
-* The following language lines are used in the Settings page
+| --------------------------------------------------------------------------
+| Settings Language Lines
+| --------------------------------------------------------------------------
+|
+| The following language lines are used in the Settings page
 */
-
 return [
      'title' => '',
      'sidebar_title' => '',
@@ -18,9 +17,9 @@ return [
      ],
      'personal_copy' => '',
      'required' => '',
-     'error' => '',
-     'first_name_label' => '',
-     'last_name_label' => '',
+     'error' => 'Erreur',
+     'first_name_label' => 'Prénom',
+     'last_name_label' => 'Nom',
      'email_label' => '',
      'personal_save' => '',
      'government_copy' => '',
@@ -37,15 +36,15 @@ return [
      'new_password_label' => '',
      'confirm_password_label' => '',
      'password_save' => '',
-     'two_factor_legend' => '',
-     'two_factor_button_text' => '',
-     'two_factor_recovery_legend' => '',
-     'two_factor_recovery_text' => '',
-     'view_recovery_codes' =>'',
-     'two_factor_inactive' => '',
-     'two_factor_active' => '',
-     'two_factor_deactivate' => '',
-     'two_factor_status' => '',
-     'two_factor_on' => '',
-     'two_factor_off' => ''
+     'two_factor_legend' => 'Authentification à deux facteurs',
+     'two_factor_button_text' => 'Configuration de l’authentification à deux facteurs',
+     'two_factor_recovery_legend' => 'Codes de récupération',
+     'two_factor_recovery_text' => 'Vos codes de récupération d’urgence vous permettent d’accéder à votre compte si vous n’avez plus accès à votre téléphone. Pour des raisons de sécurité, nous vous les montrons une seule fois, mais vous pouvez générer de nouveaux codes.',
+     'view_recovery_codes' => 'Découvrez vos codes de récupération.',
+     'two_factor_inactive' => 'Texte sur l’authentification à deux facteurs',
+     'two_factor_active' => 'Vous recevez actuellement des codes de vérification au moyen d’une application d’authentification sur votre téléphone intelligent.',
+     'two_factor_deactivate' => 'Désactivez l’authentification à deux facteurs.',
+     'two_factor_status' => 'Statut :',
+     'two_factor_on' => 'Activée',
+     'two_factor_off' => 'Désactivées'
 ];
