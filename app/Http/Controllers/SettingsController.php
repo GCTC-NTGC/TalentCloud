@@ -31,9 +31,7 @@ class SettingsController extends Controller
                 // Localized strings.
                 'settings' => Lang::get('common/settings'),
                 // User data.
-                'user' => $user,
-                // Update routes.
-                'form_submit_action' => route('settings.update', $user)
+                'user' => $user
             ]
         );
     }
@@ -51,35 +49,6 @@ class SettingsController extends Controller
     }
 
     /**
-     * Check authorization and update.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        $this->authorize('update', $user);
-
-        $input = $request->input();
-
-        // Use the button that was clicked to decide which element to redirect to.
-        switch ($input['submit']) {
-            case 'personal':
-                $route = 'settings.personal.update';
-                break;
-            case 'password':
-                $route = 'settings.password.update';
-                break;
-            default:
-                $route = 'settings.edit';
-                break;
-        }
-
-        return redirect()->route($route, $user);
-    }
-
-    /**
      * Update personal information
      *
      * @param    \Illuminate\Http\Request $request
@@ -88,15 +57,18 @@ class SettingsController extends Controller
      */
     public function updatePersonal(Request $request, User $user)
     {
+        $user = $request->user();
+
         $validData = $request->validate([
             'first_name' => 'required|string|max:191',
             'last_name' => 'required|string|max:191',
             'email_address' => [
                 'required',
-                'email',
+                'string',
                 'max:191',
+                // 'email',
                 // Email may match existing email for this user, must be unique if changed.
-                Rule::unique('users', 'email')->ignore($user->email)
+                Rule::unique('users', 'email')->ignore($user->id)
             ],
         ]);
 
@@ -106,11 +78,12 @@ class SettingsController extends Controller
             'email' => $validData['email_address'],
         ]);
 
-        return redirect()->route('settings.edit', $user);
+        // dd('Update personal information successful.');
+        return redirect()->route('settings.edit');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update password.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \App\Models\User $user
@@ -126,8 +99,26 @@ class SettingsController extends Controller
 
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
 
-        dd('Password change successful.');
+        // dd('Update password successful.');
+        return redirect()->route('settings.edit');
+    }
 
-        return redirect()->route('settings.edit', $user);
+    /**
+     * Update government information.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function updateGovernment(Request $request, User $user)
+    {
+        $validData = $request->validate([
+            'gov_email' => 'nullable|required_unless:department,0|string|email|unique:users'
+        ]);
+
+        User::find(auth()->user()->id)->update(['gov_email' => $validData['gov_email']]);
+
+        // dd('Update government information successful.');
+        return redirect()->route('settings.edit');
     }
 }

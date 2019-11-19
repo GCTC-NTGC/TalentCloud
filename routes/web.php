@@ -78,14 +78,14 @@ Route::group(
                     Route::get('settings', 'SettingsController@edit')
                         ->name('settings.edit');
 
-                    Route::post('settings', 'SettingsController@update')
-                        ->name('settings.update');
-
                     Route::post('settings/personal/update', 'SettingsController@updatePersonal')
                         ->name('settings.personal.update');
 
                     Route::post('settings/password/update', 'SettingsController@updatePassword')
                         ->name('settings.password.update');
+
+                    Route::post('settings/government/update', 'SettingsController@updateGovernment')
+                        ->name('settings.government.update');
 
                     Route::get('jobs/{jobPoster}', 'JobController@show')
                         ->middleware('can:view,jobPoster')
