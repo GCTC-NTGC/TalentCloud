@@ -138,13 +138,13 @@ class JobApplicationTest extends TestCase
         $forgetFields = [
             'id',
             'created_at', 'updated_at',
-                'degreeable_type', 'degreeable_id',
-                'courseable_type', 'courseable_id',
-                'experienceable_type', 'experienceable_id',
-                'projectable_type', 'projectable_id',
-                'referenceable_type', 'referenceable_id',
-                'work_sampleable_type', 'work_sampleable_id',
-                'skillable_type', 'skillable_id'
+            'degreeable_type', 'degreeable_id',
+            'courseable_type', 'courseable_id',
+            'experienceable_type', 'experienceable_id',
+            'projectable_type', 'projectable_id',
+            'referenceable_type', 'referenceable_id',
+            'work_sampleable_type', 'work_sampleable_id',
+            'skillable_type', 'skillable_id'
         ];
         $this->assertEquals(
             collect($target->attributesToArray())->except($forgetFields),

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Http\Controllers\ApplicationByJobController;
 use App\Models\Applicant;
+use App\Models\Degree;
 use App\Models\JobApplication;
 use App\Models\JobPoster;
 use App\Models\Manager;
@@ -68,10 +69,84 @@ class ApplicationByJobControllerTest extends TestCase
         ];
         $response = $this->actingAs($applicant->user)
             ->post(route('job.application.submit', $job), $formData);
-        dd($response->baseResponse);
         $response->assertRedirect(route('job.application.complete', $job));
         $this->assertEquals('submitted', $application->fresh()->application_status->name);
     }
 
-    // TODO: test that data has been copied from profile to appliation
+    public function testSubmitFailsForIncompleteApplication() : void
+    {
+        $job = factory(JobPoster::class)->state('published')->create();
+        $applicant = factory(Applicant::class)->create();
+        $application = factory(JobApplication::class)->state('draft')->create([
+            'job_poster_id' => $job->id,
+            'applicant_id' => $applicant->id
+        ]);
+        $applicant->skill_declarations()->delete();
+        $formData = [
+            'submission_signature' => 'John Doe',
+            'submission_date' => \Carbon\Carbon::now()->toDateTimeString(),
+            'submit' => 'submit'
+        ];
+        $response = $this->actingAs($applicant->user)
+            ->post(route('job.application.submit', $job), $formData);
+        $response->assertRedirect(route('job.application.edit.6', $job));
+        $this->assertEquals('draft', $application->fresh()->application_status->name);
+    }
+
+    protected function degreeIsCopyOfOriginal(Degree $original, Degree $copy): bool
+    {
+        $forgetFields = [
+            'id',
+            'created_at', 'updated_at',
+            'degreeable_type', 'degreeable_id',
+        ];
+        $originalData = collect($original->attributesToArray())->except($forgetFields);
+        $copyData = collect($copy->attributesToArray())->except($forgetFields);
+        return $original->id !== $copy->id &&
+            $originalData == $copyData;
+    }
+
+    public function testSubmitCopiesProfileData() : void
+    {
+        $job = factory(JobPoster::class)->state('published')->create();
+        $applicant = factory(Applicant::class)->create();
+        $degree = factory(Degree::class)->create([
+            'degreeable_id' => $applicant->id
+        ]);
+        $applicant->degrees()->save($degree);
+        $application = factory(JobApplication::class)->state('draft')->create([
+            'job_poster_id' => $job->id,
+            'applicant_id' => $applicant->id
+        ]);
+        $formData = [
+            'submission_signature' => 'John Doe',
+            'submission_date' => \Carbon\Carbon::now()->toDateTimeString(),
+            'submit' => 'submit'
+        ];
+        $this->actingAs($applicant->user)
+            ->post(route('job.application.submit', $job), $formData);
+
+        $this->assertNull($application->degrees->find($degree->id));
+        $this->assertTrue($this->degreeIsCopyOfOriginal($degree, $application->degrees->first()));
+    }
+
+    public function testSubmitDoesntCopyForInvalidApplication() : void
+    {
+        $job = factory(JobPoster::class)->state('published')->create();
+        $applicant = factory(Applicant::class)->create();
+        $application = factory(JobApplication::class)->state('draft')->create([
+            'job_poster_id' => $job->id,
+            'applicant_id' => $applicant->id
+        ]);
+        $applicant->skill_declarations()->delete();
+        $formData = [
+            'submission_signature' => 'John Doe',
+            'submission_date' => \Carbon\Carbon::now()->toDateTimeString(),
+            'submit' => 'submit'
+        ];
+        $this->actingAs($applicant->user)
+            ->post(route('job.application.submit', $job), $formData);
+
+        $this->assertEmpty($application->degrees);
+    }
 }
