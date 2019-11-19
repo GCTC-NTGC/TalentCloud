@@ -71,21 +71,19 @@ export const redirect = (url: string): void => {
   HISTORY.replace(url);
 };
 
-export const Link: React.FC<{ url: string, title: string }> = ({
-  url,
+export const Link: React.FC<{ href: string; title: string }> = ({
+  href,
   title,
   children,
-}): React.ReactElement => {
-  return (
-    <a
-      href={url}
-      title={title}
-      onClick={(event): void => {
-        event.preventDefault();
-        navigate(url);
-      }}
-    >
-      {children}
-    </a>
-  );
-};
+}): React.ReactElement => (
+  <a
+    href={href}
+    title={title}
+    onClick={(event): void => {
+      event.preventDefault();
+      navigate(href);
+    }}
+  >
+    {children}
+  </a>
+);

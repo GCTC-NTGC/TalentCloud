@@ -202,11 +202,9 @@ const JobReviewSection: React.FunctionComponent<JobReviewSectionProps> = ({
             data-c-grid-item="tp(1of2)"
             data-c-alignment="base(centre) tp(right)"
           >
-            <Link url={link} title={linkLabel}>
-              <>
-                <i data-c-colour="c2" className="fas fa-edit" />
-                {linkLabel}
-              </>
+            <Link href={link} title={linkLabel}>
+              <i data-c-colour="c2" className="fas fa-edit" />
+              {linkLabel}
             </Link>
           </div>
         </div>
