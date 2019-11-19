@@ -89,27 +89,15 @@ class ApplicationByJobControllerTest extends TestCase
         ];
         $response = $this->actingAs($applicant->user)
             ->post(route('job.application.submit', $job), $formData);
-        $response->assertRedirect(route('job.application.edit.6', $job));
+        $response->assertSessionHasErrors();
         $this->assertEquals('draft', $application->fresh()->application_status->name);
-    }
-
-    protected function degreeIsCopyOfOriginal(Degree $original, Degree $copy): bool
-    {
-        $forgetFields = [
-            'id',
-            'created_at', 'updated_at',
-            'degreeable_type', 'degreeable_id',
-        ];
-        $originalData = collect($original->attributesToArray())->except($forgetFields);
-        $copyData = collect($copy->attributesToArray())->except($forgetFields);
-        return $original->id !== $copy->id &&
-            $originalData == $copyData;
     }
 
     public function testSubmitCopiesProfileData() : void
     {
         $job = factory(JobPoster::class)->state('published')->create();
         $applicant = factory(Applicant::class)->create();
+        $applicant->degrees()->delete();
         $degree = factory(Degree::class)->create([
             'degreeable_id' => $applicant->id
         ]);
@@ -126,8 +114,18 @@ class ApplicationByJobControllerTest extends TestCase
         $this->actingAs($applicant->user)
             ->post(route('job.application.submit', $job), $formData);
 
+        $copy = $application->degrees->first();
+        $forgetFields = [
+            'id',
+            'created_at', 'updated_at',
+            'degreeable_type', 'degreeable_id',
+        ];
+        $originalData = collect($degree->attributesToArray())->except($forgetFields);
+        $copyData = collect($copy->attributesToArray())->except($forgetFields);
+
         $this->assertNull($application->degrees->find($degree->id));
-        $this->assertTrue($this->degreeIsCopyOfOriginal($degree, $application->degrees->first()));
+        $this->assertNotEquals($degree->id, $copy->id);
+        $this->assertEquals($originalData, $copyData);
     }
 
     public function testSubmitDoesntCopyForInvalidApplication() : void

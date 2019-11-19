@@ -18,5 +18,6 @@ $factory->define(Degree::class, function (Faker $faker) {
             return factory(Applicant::class)->create()->id;
         },
         'degreeable_type' => 'applicant',
+        'blockcert_url' => null,
     ];
 });
