@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
-use App\Services\Validation\Requests\UpdateSettingsValidator;
-use App\Services\Validation\PersonalInfoValidator;
+use App\Services\Validation\Rules\PasswordCorrectRule;
+use App\Services\Validation\Rules\PasswordFormatRule;
 
 class SettingsController extends Controller
 {
@@ -20,7 +21,7 @@ class SettingsController extends Controller
      * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, User $user)
+    public function edit(Request $request, User $user)
     {
         $user = $request->user();
 
@@ -31,12 +32,81 @@ class SettingsController extends Controller
                 'settings' => Lang::get('common/settings'),
                 // User data.
                 'user' => $user,
-                // Update route.
-                'form_submit_action_personal' => route('settings.updatePersonal', $user),
-                'form_submit_action_password' => route('settings.updatePassword', $user),
-                // 'form_submit_action_goc' => route('settings.update', $user)
+                // Update routes.
+                'form_submit_action' => route('settings.update', $user)
             ]
         );
+    }
+
+    /**
+     * Show the form for editing the logged-in user's settings
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function editAuthenticated(Request $request)
+    {
+        $user = $request->user();
+        return redirect(route('settings.edit', $user));
+    }
+
+    /**
+     * Check authorization and update.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user)
+    {
+        $this->authorize('update', $user);
+
+        $input = $request->input();
+
+        // Use the button that was clicked to decide which element to redirect to.
+        switch ($input['submit']) {
+            case 'personal':
+                $route = 'settings.personal.update';
+                break;
+            case 'password':
+                $route = 'settings.password.update';
+                break;
+            default:
+                $route = 'settings.edit';
+                break;
+        }
+
+        return redirect()->route($route, $user);
+    }
+
+    /**
+     * Update personal information
+     *
+     * @param    \Illuminate\Http\Request $request
+     * @param  \App\Models\User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePersonal(Request $request, User $user)
+    {
+        $validData = $request->validate([
+            'first_name' => 'required|string|max:191',
+            'last_name' => 'required|string|max:191',
+            'email_address' => [
+                'required',
+                'email',
+                'max:191',
+                // Email may match existing email for this user, must be unique if changed.
+                Rule::unique('users', 'email')->ignore($user->email)
+            ],
+        ]);
+
+        User::find(auth()->user()->id)->update([
+            'first_name' => $validData['first_name'],
+            'last_name' => $validData['last_name'],
+            'email' => $validData['email_address'],
+        ]);
+
+        return redirect()->route('settings.edit', $user);
     }
 
     /**
@@ -48,41 +118,16 @@ class SettingsController extends Controller
      */
     public function updatePassword(Request $request, User $user)
     {
-        $validator = new UpdateSettingsValidator($user);
-        $validator->validate($request->all());
-        $input = $request->input();
+        $request->validate([
+            'current_password' => ['required', new PasswordCorrectRule],
+            'new_password' => ['required', new PasswordFormatRule],
+            'new_confirm_password' => ['same:new_password'],
+        ]);
 
-        if ($input['new_password']) {
-            $user->password = Hash::make($input['new_password']);
-        }
-        $user->save();
+        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
 
-        return redirect()->route('settings.show', $user);
-    }
+        dd('Password change successful.');
 
-    /**
-     * Update personal information
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function updatePersonal(Request $request, User $user)
-    {
-        $validator = new PersonalInfoValidator($user);
-        $validator->validate($request->all());
-        $input = $request->input();
-
-        $user->fill(
-            [
-                'first_name' => $input['first_name'],
-                'last_name' => $input['last_name'],
-                'email' => $input['email_address'], // TODO make changing email harder!
-            ]
-        );
-
-        $user->save();
-
-        return redirect()->route('settings.show', $user);
+        return redirect()->route('settings.edit', $user);
     }
 }
