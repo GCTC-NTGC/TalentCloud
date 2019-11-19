@@ -117,6 +117,15 @@ export const ClassificationId = {
   AD: 13,
 };
 
+export enum JobStatus {
+  Approved = "Approved",
+  Closed = "Closed",
+  Complete = "Complete",
+  Draft = "Draft",
+  Published = "Published",
+  Review = "Review",
+}
+
 export function enumToIds(enumType: object): number[] {
   const enumVals = Object.values(enumType);
   // Note: this first array includes the list of ids as strings, followed by the list of names as strings

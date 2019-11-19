@@ -1,14 +1,6 @@
 import React from "react";
 import { useIntl, defineMessages, FormattedMessage } from "react-intl";
-
-export enum JobStatus {
-  Approved = "Approved",
-  Closed = "Closed",
-  Complete = "Complete",
-  Draft = "Draft",
-  Published = "Published",
-  Review = "Review",
-}
+import { JobStatus } from "../models/lookupConstants";
 
 interface Link {
   url: string | null;
