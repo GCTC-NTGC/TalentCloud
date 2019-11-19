@@ -276,10 +276,6 @@ class JobApplication extends BaseModel
      */
     public function isDraft() : bool
     {
-        if ($this->application_status_id == '1') {
-            return true;
-        }
-
-        return false;
+        return $this->application_status->name === 'draft';
     }
 }

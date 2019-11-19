@@ -60,7 +60,7 @@ class ApplicationController extends Controller
 
 
         // If the application status is draft then get data through the applicant model. Else, grab the data from the application itself.
-        if (!$application->isDraft()) {
+        if ($application->isDraft()) {
             $source = $application->applicant;
         } else {
             $source = $application;
@@ -103,8 +103,6 @@ class ApplicationController extends Controller
                 'review_statuses' => ReviewStatus::all(),
             ]
         );
-
-
     }
 
     /**
