@@ -3,6 +3,7 @@
 namespace App\Services\Validation;
 
 use App\Models\JobApplication;
+use App\Models\JobApplicationAnswer;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator as BaseValidator;
@@ -29,7 +30,6 @@ class ApplicationValidator
             $backendRules,
             $this->experienceRules,
             $this->affirmationRules
-            // $this->basicRules($application),
         );
 
         // Combining and simplifiying error messages
@@ -51,6 +51,11 @@ class ApplicationValidator
     public function validate(JobApplication $application)
     {
         $this->validator($application)->validate();
+    }
+
+    public function validateComplete(JobApplication $application): bool
+    {
+        return $this->validator($application)->passes();
     }
 
     /**

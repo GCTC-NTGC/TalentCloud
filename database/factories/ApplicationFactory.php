@@ -20,6 +20,7 @@ $factory->define(JobApplication::class, function (Faker\Generator $faker) {
         'citizenship_declaration_id' => CitizenshipDeclaration::inRandomOrder()->first()->id,
         'veteran_status_id' => VeteranStatus::inRandomOrder()->first()->id,
         'preferred_language_id' => PreferredLanguage::inRandomOrder()->first()->id,
+        'experience_saved' => true,
         'submission_signature' => $faker->name(),
         'submission_date' => $faker->dateTimeBetween('yesterday', 'tomorrow')->format('Y-m-d H:i:s'),
         'applicant_id' => function () {
@@ -39,6 +40,7 @@ $factory->state(JobApplication::class, 'submitted', function (Faker\Generator $f
         'application_status_id' => ApplicationStatus::where('name', 'submitted')->firstOrFail()->id,
         'submission_signature' => $faker->name(),
         'submission_date' => $faker->dateTimeBetween('yesterday', 'tomorrow')->format('Y-m-d H:i:s'),
+        'experience_saved' => true,
     ];
 });
 
