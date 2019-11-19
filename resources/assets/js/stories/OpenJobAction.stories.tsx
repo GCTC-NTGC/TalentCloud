@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { text, select, array } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
 import OpenJobAction from "../components/OpenJobAction";
-import { JobStatus } from "../models/types";
+import { JobStatus } from "../models/lookupConstants";
 
 const stories = storiesOf("Components|Open Job Action", module).addDecorator(
   withIntl,

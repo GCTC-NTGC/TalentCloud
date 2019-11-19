@@ -1,5 +1,4 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import { LocaleValue } from "yup";
 import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 
 export interface JobTranslation {
@@ -48,15 +47,6 @@ export interface Job {
   overtime_requirement_id: number | null;
   en: JobTranslation;
   fr: JobTranslation;
-}
-
-export enum JobStatus {
-  Approved = "Approved",
-  Closed = "Closed",
-  Complete = "Complete",
-  Draft = "Draft",
-  Published = "Published",
-  Review = "Review",
 }
 
 export interface ManagerTranslation {

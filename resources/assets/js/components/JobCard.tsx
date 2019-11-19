@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl, defineMessages, FormattedMessage } from "react-intl";
-import { JobStatus } from "../models/types";
+import { JobStatus } from "../models/lookupConstants";
 
 interface Link {
   url: string | null;
