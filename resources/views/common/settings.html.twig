@@ -8,17 +8,21 @@
 {% block title %}
 	{{ settings.title }}
 {% endblock %}
+
 {% block body %}
+	{# Skip navigation #}
+	<a id="skipLink"></a>
 	{# FIP Banner #}
 	{% include "common/goc" %}
 	{# BETA Alert Banner #}
 	{% include "common/alert" %}
-	<a id="skipLink"></a>
 	<div
 		data-clone>
 		{# Page Header #}
-		<header class="hero" data-c-overlay="black(90)" data-c-padding="tb(triple)" data-c-align="base(center) tp(left)" style="background-image: url('/images/bg_crowd.jpg');">
-			<div data-c-container="large">
+		<header class="hero" data-c-overlay="black(90)" data-c-align="base(center) tp(left)" style="background-image: url('/images/bg_crowd.jpg');">
+			{% include "common/menu" %}
+			<div data-c-container="large" data-c-padding="tb(triple)">
+
 				<h1 class="logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-margin="bottom(double)">
 					{{ settings.title }}
 				</h1>
@@ -32,7 +36,7 @@
 								<i class="fas fa-caret-right"></i>
 							</li>
 							<li>
-								<span aria-current="page">My Account</span>
+								<span aria-current="page">Settings</span>
 								<i class="fas fa-caret-right"></i>
 							</li>
 						</ol>
@@ -40,6 +44,29 @@
 				</div>
 			</div>
 		</header>
+
+		{# Error alert #}
+		{% if session_has('errors') %}
+			<div data-c-container="medium" data-c-margin="top(1)">
+				{% include "errors/form_errors" %}
+			</div>
+		{% endif %}
+
+		{# Success alert #}
+		{% if session_has('success') %}
+			<div data-c-alert="information" data-c-container="medium" data-c-radius="rounded" role="alert" data-c-margin="top(1)">
+				<div data-c-padding="half">
+					<p data-c-font-weight="bold" data-c-heading="h5">
+						<i aria-hidden="true" class="fa fa-check-circle"></i>
+						All good in the hood.
+					</p>
+					<p data-c-margin="top(quarter)">
+						{{ session_get('success') }}
+					</p>
+				</div>
+			</div>
+		{% endif %}
+
 		{# Page Container #}
 		<div data-c-container="large">
 			<div
@@ -75,7 +102,6 @@
 							{{ csrf_field() }}
 							<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="personal">{{ settings.heading.personal }}</h2>
 							<p data-c-margin="bottom(double)">{{ settings.personal_copy }}</p>
-							{% include "errors/form_errors" %}
 							<div data-c-grid="gutter">
 								<div data-c-grid-item="tp(1of2)" data-c-input="text">
 									<label for="first_name">{{ settings.first_name_label }}</label>
@@ -116,28 +142,31 @@
 								<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="government">
 									{{ settings.heading.government }}</h2>
 								<p data-c-margin="bottom(normal)">{{ settings.government_copy }}</p>
-								{% include "errors/form_errors" %}
+
 								<div data-c-grid="gutter">
-									<div data-c-grid-item="base(1of1)">{% include "errors/form_errors" %}
+									<div data-c-grid-item="base(1of1)">
 										<div data-c-alert="information" data-c-radius="rounded" role="alert" data-c-margin="bottom(normal)">
 											<div data-c-padding="half">
 												<p data-c-margin="bottom(half)" data-c-heading="h5" data-c-font-weight="bold">
 													<i class="fas fa-exclamation-circle"></i>
-													My current department: Treasury Board of Canada Secretariat
+													{{ settings.government_dept }}
+													{% if user.manager.department %}
+														{{ user.manager.department.name }}
+													{% else %}
+														{{ settings.no_department }}
+													{% endif %}
 												</p>
-												<p data-c-margin="bottom(half)">
-													In order to change your department, you'll need to
-													<a href="" title="">contact Talent Cloud</a>
-													directly.
+												<p data-c-margin="bottom(half)">{{ settings.dept_change_copy.one }}
+													<a href="{{ settings.dept_change_copy.two }}" title="{{ settings.dept_change_copy.three }}">{{ settings.dept_change_copy.four }}</a>
 												</p>
-												<p>We require you to get in touch because your department determines how you interact with job posters, applicants, and HR advisers. In order to have this information changed, we need to verify your department independently of the platform.</p>
+												<p>{{ settings.dept_change_copy.five }}</p>
 											</div>
 										</div>
 										<div data-c-grid-item="base(1of1)" data-c-input="email">
 											<label for="gov_email">{{ settings.gov_email_label }}</label>
 											<span>{{ settings.required }}</span>
 											<div>
-												<input id="gov_email" name="gov_email" placeholder="e.g. clark.kent@canada.ca" required type="email"/>
+												<input id="gov_email" name="gov_email" placeholder="e.g. clark.kent@canada.ca" required type="email" value="{{ user.gov_email }}"/>
 											</div>
 											<span>{{ settings.error }}</span>
 										</div>
@@ -155,13 +184,12 @@
 						<form action="{{ route('settings.password.update') }}" method="POST">
 							{{ csrf_field() }}
 							<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="password">{{ settings.heading.password }}</h2>
-							<p data-c-margin="bottom(normal)">{{ settings.password_copy.p1 }}</p>
-							{% include "errors/form_errors" %}
+							<p data-c-margin="bottom(normal)">{{ settings.password_copy.one }}</p>
 							<ul data-c-margin="bottom(double)">
-								<li>{{ settings.password_copy.li1 }}</li>
-								<li>{{ settings.password_copy.li2 }}</li>
-								<li>{{ settings.password_copy.li3 }}</li>
-								<li>{{ settings.password_copy.li4 }}</li>
+								<li>{{ settings.password_copy.two }}</li>
+								<li>{{ settings.password_copy.three }}</li>
+								<li>{{ settings.password_copy.four }}</li>
+								<li>{{ settings.password_copy.five }}</li>
 							</ul>
 							<div data-c-grid="gutter">
 								<div data-c-grid-item="base(1of1)" data-c-input="password">
@@ -231,17 +259,14 @@
 										{{ settings.two_factor_button_text }}
 									</a>
 								</div>
-
 							{% else %}
 
 								{# DEV: This is an example of what the auth section should like when 2FA is turned on. I know there was discussion around not showing recovery codes to the user, so if this is best practice, we can just add a blurb here instead of the accordion. #}
-
 								<div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
 									<p data-c-font-size="h4" data-c-font-weight="bold">{{ settings.two_factor_status }}
 										<span data-c-color="go">{{ settings.two_factor_on }}</span>
 									</p>
 								</div>
-
 								<div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
 									<form action="{{ route('two_factor.deactivate') }}" method="POST">
 										{{ csrf_field() }}
@@ -263,7 +288,7 @@
 													</p>
 												</div>
 												<span data-c-visibility="invisible">
-													Click to view...
+													{{ settings.expand_hidden }}
 												</span>
 												<i class="fas fa-plus-circle" data-c-accordion-add data-c-colour="white"></i>
 												<i class="fas fa-minus-circle" data-c-accordion-remove data-c-colour="white"></i>
@@ -271,21 +296,16 @@
 											<div aria-hidden="true" data-c-accordion-content data-c-padding="right(normal) left(normal)" data-c-background="gray(10)">
 												<div data-c-padding="bottom(normal)">
 													<ul data-c-padding="top(normal)">
-														<li>12345-12345-12345</li>
-														<li>12345-12345-12345</li>
-														<li>12345-12345-12345</li>
-														<li>12345-12345-12345</li>
-														<li>12345-12345-12345</li>
-														<li>12345-12345-12345</li>
+														{% for code in user.recovery_codes %}
+															<li>{{ code }}</li>
+														{% endfor %}
 													</ul>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-
 							{% endif %}
-
 						</div>
 					</div>
 				</div>

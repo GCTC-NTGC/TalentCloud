@@ -17,12 +17,8 @@ class RecoveryCodeController extends AuthController
         $user = $request->user();
         $this->generateCodesForUser($user);
 
-        $profile_url = '';
-        if (WhichPortal::isApplicantPortal()) {
-            $profile_url = route('profile');
-        } elseif (WhichPortal::isManagerPortal()) {
-            $profile_url = route('manager.profile');
-        } elseif (WhichPortal::isAdminPortal()) {
+        $profile_url = 'settings';
+        if (WhichPortal::isAdminPortal()) {
             $profile_url = backpack_url('2fa');
         }
 

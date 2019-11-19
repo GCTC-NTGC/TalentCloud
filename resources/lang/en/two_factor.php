@@ -10,7 +10,7 @@
 */
 return [
     'title' => 'Activate Two-factor Authentication',
-    'return' => 'Return to Profile',
+    'return' => 'Return to Settings',
     'header' => 'Activate Two-factor Authentication',
     'setup' => 'Set up your Two-factor Authentication application by scanning the QR code in a mobile app like Google Authenticator or Authy. Alternatively, you can use the code below.',
     'qr_alt' => 'QR Code image to use with authentication application.',
@@ -18,6 +18,6 @@ return [
     'instructions' => 'After setting up your authentication application, enter the One-time Password and continue.',
     'next_text' => 'Next',
     'cancel_text' => 'Cancel',
-    'cancel_link_title' => 'Profile',
+    'cancel_link_title' => 'Settings',
     'activation_otp_error' => 'Something was wrong with your One-time Password. We have generated a new Two-factor Authentication secret key for you.'
 ];

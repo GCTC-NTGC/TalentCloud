@@ -98,6 +98,7 @@ class MenuComposer
                 unset($menu['items']['logout']);
                 unset($menu['items']['applications']);
                 unset($menu['items']['profile']);
+                unset($menu['items']['settings']);
             }
         } elseif (WhichPortal::isManagerPortal()) {
             $menu = Lang::get('manager/menu');
@@ -161,6 +162,7 @@ class MenuComposer
                 unset($menu['items']['jobs']);
                 unset($menu['items']['create_job']);
                 unset($menu['items']['profile']);
+                unset($menu['items']['settings']);
             }
         } elseif (WhichPortal::isAdminPortal()) {
             // Use the manager menu, keeping only
@@ -187,6 +189,7 @@ class MenuComposer
                 // TODO set profile like using user slug
             } else {
                 unset($menu['items']['logout']);
+                unset($menu['items']['settings']);
             }
         }
         // Set login modals data
@@ -196,6 +199,7 @@ class MenuComposer
                 'register_link' => route('manager.register'),
                 'login_link' => route('manager.login'),
                 'logout_link' => route('manager.logout'),
+                'settings_link' => route('settings.edit'),
             ];
         } elseif (WhichPortal::isAdminPortal()) {
              $loginModals = [
@@ -203,6 +207,7 @@ class MenuComposer
                 'register_link' => route('register'),
                 'login_link' => backpack_url('login'),
                 'logout_link' => backpack_url('logout'),
+                'settings_link' => route('settings.edit'),
              ];
         } else {
             $loginModals = [
@@ -210,6 +215,7 @@ class MenuComposer
                 'register_link' => route('register'),
                 'login_link' => route('login'),
                 'logout_link' => route('logout'),
+                'settings_link' => route('settings.edit'),
             ];
         }
 

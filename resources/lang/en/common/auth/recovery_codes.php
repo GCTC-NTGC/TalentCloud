@@ -17,6 +17,6 @@ return [
     'description' => 'Here are your codes:',
     'generate_label' => 'You may generate a new set of Recovery Codes. This will delete your old codes.',
     'generate_button' => 'Generate new Recovery Codes.',
-    'profile_link_title' => 'Profile',
-    'profile_link_text' => 'Return to Profile'
+    'profile_link_title' => 'Settings',
+    'profile_link_text' => 'Return to Settings'
 ];

@@ -34,12 +34,8 @@ class TwoFactorController extends AuthController
         $user->save();
         $user->refresh();
 
-        $profile_url = '';
-        if (WhichPortal::isApplicantPortal()) {
-            $profile_url = route('profile');
-        } elseif (WhichPortal::isManagerPortal()) {
-            $profile_url = route('manager.profile');
-        } elseif (WhichPortal::isAdminPortal()) {
+        $profile_url = show('settings');
+        if (WhichPortal::isAdminPortal()) {
             $profile_url = backpack_url('2fa');
         }
 

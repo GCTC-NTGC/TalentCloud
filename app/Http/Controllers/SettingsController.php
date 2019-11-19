@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Services\Validation\Rules\PasswordCorrectRule;
@@ -78,8 +79,7 @@ class SettingsController extends Controller
             'email' => $validData['email_address'],
         ]);
 
-        // dd('Update personal information successful.');
-        return redirect()->route('settings.edit');
+        return redirect()->route('settings.edit')->withSuccess('Change of personal information was successful.');
     }
 
     /**
@@ -99,8 +99,7 @@ class SettingsController extends Controller
 
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
 
-        // dd('Update password successful.');
-        return redirect()->route('settings.edit');
+        return redirect()->route('settings.edit')->withSuccess('Change of password was successful.');
     }
 
     /**
@@ -118,7 +117,8 @@ class SettingsController extends Controller
 
         User::find(auth()->user()->id)->update(['gov_email' => $validData['gov_email']]);
 
-        // dd('Update government information successful.');
-        return redirect()->route('settings.edit');
+        Session::flash('success', 'Success Message.');
+
+        return redirect()->route('settings.edit')->withSuccess('Change of government email address was successful.');
     }
 }

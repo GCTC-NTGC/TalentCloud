@@ -17,6 +17,6 @@ return [
     'description' => 'Voici vos codes :',
     'generate_label' => 'Vous pouvez générer un nouvel ensemble de codes de récupération. Cette action supprimera vos anciens codes.',
     'generate_button' => 'Générez de nouveaux codes de récupération.',
-    'profile_link_title' => 'Profil',
-    'profile_link_text' => 'Retour au Profil'
+    'profile_link_title' => 'Paramètres',
+    'profile_link_text' => 'Retour au paramètres'
 ];

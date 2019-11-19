@@ -49,7 +49,7 @@
                             rel="noopener noreferrer"
                             title="{{ header_l10n.twitter|replace({':name':manager.user.first_name}) }}">
                             <i class="fab fa-twitter"></i>
-                            <span class="hidden">{{ header_l10n.twitter|replace({':name':manager.user.nafirst_nameme}) }}</span>
+                            <span class="hidden">{{ header_l10n.twitter|replace({':name': manager.user.first_name}) }}</span>
                         </a>
                     </li>
 
@@ -58,9 +58,9 @@
                             href="{{ manager.linkedin_url }}"
                             target="_blank"
                             rel="noopener noreferrer"
-                            title="{{ header_l10n.linkedin|replace({':name':manager.user.first_name}) }}">
+                            title="{{ header_l10n.linkedin|replace({':name': manager.user.first_name}) }}">
                             <i class="fab fa-linkedin"></i>
-                            <span class="hidden">{{ header_l10n.linkedin|replace({':name':manager.user.first_name}) }}</span>
+                            <span class="hidden">{{ header_l10n.linkedin|replace({':name': manager.user.first_name}) }}</span>
                         </a>
                     </li>
 

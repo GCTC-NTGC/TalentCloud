@@ -23,6 +23,15 @@ return [
      'email_label' => '',
      'personal_save' => '',
      'government_copy' => '',
+     'government_dept' => 'Current department:',
+     'no_department' => 'N/A (not in government)',
+     'dept_change_copy' => [
+        'one' => '',
+        'two' => '',
+        'three' => '',
+        'four' => '', // repeats in title attribute
+        'five' => '',
+     ],
      'gov_email_label' => '',
      'government_save' => '',
      'password_copy' => [
@@ -46,5 +55,6 @@ return [
      'two_factor_deactivate' => 'Désactivez l’authentification à deux facteurs.',
      'two_factor_status' => 'Statut :',
      'two_factor_on' => 'Activée',
-     'two_factor_off' => 'Désactivées'
+     'two_factor_off' => 'Désactivées',
+     'expand_hidden' => 'Click to view...'
 ];
