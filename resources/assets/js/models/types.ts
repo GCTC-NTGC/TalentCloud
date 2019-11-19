@@ -50,6 +50,15 @@ export interface Job {
   fr: JobTranslation;
 }
 
+export enum JobStatus {
+  Approved = "Approved",
+  Closed = "Closed",
+  Complete = "Complete",
+  Draft = "Draft",
+  Published = "Published",
+  Review = "Review",
+}
+
 export interface ManagerTranslation {
   division: string | null;
   position: string | null;

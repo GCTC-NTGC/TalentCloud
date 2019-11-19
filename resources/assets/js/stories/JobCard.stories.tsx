@@ -2,7 +2,8 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { text, boolean, number } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
-import JobCard, { JobStatus } from "../components/JobCard";
+import JobCard from "../components/JobCard";
+import { JobStatus } from "../models/types";
 
 const stories = storiesOf("Components|Job Card", module).addDecorator(withIntl);
 
