@@ -771,14 +771,13 @@ class ApplicationByJobController extends Controller
                 'submission_date' => $request->input('submission_date'),
             ]);
 
-            // TODO: Is it okay to do this before validation? What if validation fails?
-            $application->saveProfileSnapshot();
-
+            // Error out of this process now if application is not complete.
             $validator = new ApplicationValidator();
             $validator->validate($application);
 
             // Change status to 'submitted'.
             $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
+            $application->saveProfileSnapshot();
         }
 
         $application->save();
