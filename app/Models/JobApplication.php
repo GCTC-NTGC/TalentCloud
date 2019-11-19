@@ -241,6 +241,11 @@ class JobApplication extends BaseModel
         return $status;
     }
 
+    /**
+     * Check if the status of the application is 'draft'
+     *
+     * @return boolean
+     */
     public function isDraft(): bool
     {
         return $this->application_status->name === 'draft';
