@@ -25,45 +25,6 @@ Route::group(
 
         Route::group(['prefix' => 'demo'], function (): void {
 
-            Route::get('applications/{application}', function (JobApplication $application) {
-                // debugbar()->measure('Application->toArray()', function () use ($application) {
-                //     $data = $application->toArray();
-                // });
-                // debugbar()->measure('Application->toArray() 2x', function () use ($application) {
-                //     $data = $application->toArray();
-                //     $data = $application->toArray();
-                // });
-                // debugbar()->measure('Application->toArray() after loading skills', function () use ($application) {
-                //     $application->load('skill_declarations');
-                //     $data = $application->toArray();
-                // });
-                // debugbar()->measure('Application-: validate all sections', function () use ($application) {
-                //     $validator = new ApplicationValidator();
-                //     $validator->basicsComplete($application);
-                //     $validator->experienceComplete($application);
-                //     $validator->essentialSkillsComplete($application);
-                //     $validator->assetSkillsComplete($application);
-                // });
-                debugbar()->measure('Application-: save snapshot', function () use ($application) {
-                    $application->saveProfileSnapshot();
-                });
-                debugbar()->measure('Application-: validate all sections', function () use ($application) {
-                    $validator = new ApplicationValidator();
-                    $validator->basicsComplete($application);
-                    $validator->experienceComplete($application);
-                    $validator->essentialSkillsComplete($application);
-                    $validator->assetSkillsComplete($application);
-                });
-                debugbar()->measure('Application-: validate', function () use ($application) {
-                    $validator = new ApplicationValidator();
-                    $validator->validate($application);
-                });
-
-
-
-                return view('layouts/base');
-            });
-
             /* Temporary Blog Index */
             Route::view('blog', 'common/blog-index')->middleware('localOnly')->name('blog');
 
