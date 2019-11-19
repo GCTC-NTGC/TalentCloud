@@ -267,4 +267,19 @@ class JobApplication extends BaseModel
     {
         return $this->meetsEssentialCriteria();
     }
+
+
+    /**
+     * Check if the status of the application is 'draft'
+     *
+     * @return boolean
+     */
+    public function isDraft() : bool
+    {
+        if ($this->application_status_id == '1') {
+            return true;
+        }
+
+        return false;
+    }
 }
