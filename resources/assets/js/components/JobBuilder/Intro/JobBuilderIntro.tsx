@@ -14,31 +14,31 @@ import {
   JobPosterKeyTask,
   Criteria,
   Manager,
-} from "../../models/types";
-import { RootState } from "../../store/store";
+} from "../../../models/types";
+import { RootState } from "../../../store/store";
 import {
   getSelectedJob,
   getTasksByJob,
   getCriteriaByJob,
-} from "../../store/Job/jobSelector";
-import { DispatchType } from "../../configureStore";
+} from "../../../store/Job/jobSelector";
+import { DispatchType } from "../../../configureStore";
 import {
   setSelectedJob,
   createJob,
   updateJob,
-} from "../../store/Job/jobActions";
-import RootContainer from "../RootContainer";
-import { jobBuilderDetails } from "../../helpers/routes";
-import JobBuilderStepContainer from "../JobBuilder/JobBuilderStep";
-import { getDepartments } from "../../store/Department/deptSelector";
-import { navigate } from "../../helpers/router";
-import { getSelectedManager } from "../../store/Manager/managerSelector";
+} from "../../../store/Job/jobActions";
+import RootContainer from "../../RootContainer";
+import { jobBuilderDetails } from "../../../helpers/routes";
+import JobBuilderStepContainer from "../JobBuilderStep";
+import { getDepartments } from "../../../store/Department/deptSelector";
+import { navigate } from "../../../helpers/router";
+import { getSelectedManager } from "../../../store/Manager/managerSelector";
 import {
   updateManager,
   setSelectedManager,
   fetchManager,
   fetchCurrentManager,
-} from "../../store/Manager/managerActions";
+} from "../../../store/Manager/managerActions";
 
 interface JobBuilderIntroProps {
   // The id of the edited job, or null for a new job.
@@ -62,9 +62,8 @@ interface JobBuilderIntroProps {
   loadCurrentManager: () => Promise<void>;
 }
 
-const JobBuilderIntro: React.FunctionComponent<
-  JobBuilderIntroProps & WrappedComponentProps
-> = ({
+const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps &
+  WrappedComponentProps> = ({
   jobId,
   manager,
   job,
@@ -104,11 +103,16 @@ const JobBuilderIntro: React.FunctionComponent<
     return jobPromise;
   };
 
-  const handleContinueEn = (newJob: Job): void => {
-    navigate(jobBuilderDetails("en", newJob.id));
-  };
-  const handleContinueFr = (newJob: Job): void => {
-    navigate(jobBuilderDetails("fr", newJob.id));
+  const handleContinue = (chosenLang: string, newJob: Job): void => {
+    if (locale === chosenLang) {
+      navigate(jobBuilderDetails(chosenLang, newJob.id));
+    } else {
+      const baseUrl = window.location.origin;
+      window.location.href = `${baseUrl}${jobBuilderDetails(
+        chosenLang,
+        newJob.id,
+      )}`;
+    }
   };
 
   return (
@@ -142,8 +146,7 @@ const JobBuilderIntro: React.FunctionComponent<
           manager={manager}
           departments={departments}
           handleSubmit={handleSubmit}
-          handleContinueEn={handleContinueEn}
-          handleContinueFr={handleContinueFr}
+          handleContinue={handleContinue}
         />
       )}
     </JobBuilderStepContainer>

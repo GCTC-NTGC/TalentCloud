@@ -13,8 +13,7 @@ return [
     */
     'first' => 'Il s’agit d’un compte de démonstration.',
     'link' => [
-        'text' => 'Cliquez ici',
+        'text' => 'Savoir comment publier une offre d’emploi dans le Nuage de talents',
         'title' => 'Cliquez ici pour savoir comment publier une offre d’emploi dans le Nuage de talents.',
     ],
-    'second' => 'pour savoir comment afficher une offre d’emploi dans le Nuage de talents.'
 ];

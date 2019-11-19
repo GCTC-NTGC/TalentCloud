@@ -65,7 +65,7 @@
                     data-c-padding="normal">
                     <div id="upgrade-modal-description">
                         <p>{{ jobs_l10n.notification_modal.description.first }}</p>
-                        <p>{{ trans('manager/job_index.notification_modal.description.second', {link: '<a href="' ~ route('manager.faq.section') ~ '" title="' ~ jobs_l10n.notification_modal.description.link.title ~ '">' ~ jobs_l10n.notification_modal.description.link.text ~ '</a>'})|raw }}</p>
+                        <p><a href="{{ route('manager.faq.section') }}" title="{{ jobs_l10n.notification_modal.description.link.title }}">{{ jobs_l10n.notification_modal.description.link.text }}</a>.</p>
                     </div>
                 </div>
                 <div data-c-padding="normal">
