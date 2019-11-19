@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\JobApplication;
-use App\Services\Validation\ApplicationValidator;
 use Illuminate\Support\Facades\Lang;
 
 /*
