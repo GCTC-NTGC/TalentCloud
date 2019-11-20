@@ -26,9 +26,10 @@ $factory->define(Project::class, function (Faker $faker) {
         'start_date' => $faker->dateTimeBetween('-3 years', '-1 years'),
         'end_date' => $faker->dateTimeBetween('-1 years', '-1 day'),
         'projectable_id' => function () {
+            // Default factory references to belong to Applicant, not JobApplication.
             return factory(Applicant::class)->create()->id;
         },
-        'projectable_type' => 'applicant'
+        'projectable_type' => 'applicant',
     ];
 });
 

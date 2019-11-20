@@ -221,8 +221,7 @@ class JobApplication extends BaseModel
                 }
                 break;
             case 'preview':
-                if (
-                    $validator->basicsComplete($this) &&
+                if ($validator->basicsComplete($this) &&
                     $validator->experienceComplete($this) &&
                     $validator->essentialSkillsComplete($this) &&
                     $validator->assetSkillsComplete($this)
@@ -243,9 +242,21 @@ class JobApplication extends BaseModel
     }
 
     /**
-     * Returns true if this application meets all the essential criteria.
+     * Check if the status of the application is 'draft'
+     *
+     * @return boolean
+     */
+    public function isDraft(): bool
+    {
+        return $this->application_status->name === 'draft';
+    }
+
+    /**
+     * Returns true if this meets all the essential criteria.
      * That means it has attached an SkillDeclaration for each essential criterion,
      * with a level at least as high as the required level.
+     * NOTE: If this application is in draft status, it will use
+     *  SkillDeclarations from the the applicants profile for this check.
      *
      * @return boolean
      */
@@ -256,10 +267,10 @@ class JobApplication extends BaseModel
                 return $value->criteria_type->name == 'essential';
             }
         );
+        $source = $this->isDraft() ? $this->applicant : $this;
         foreach ($essentialCriteria as $criterion) {
-            $skillDeclaration = $this->skill_declarations->where('skill_id', $criterion->skill_id)->first();
-            if (
-                $skillDeclaration === null ||
+            $skillDeclaration = $source->skill_declarations->where('skill_id', $criterion->skill_id)->first();
+            if ($skillDeclaration === null ||
                 $skillDeclaration->skill_level_id < $criterion->skill_level_id
             ) {
                 return false;
@@ -287,9 +298,9 @@ class JobApplication extends BaseModel
      */
     public function saveProfileSnapshot(): void
     {
-        $applicant = $this->applicant;
+        $applicant = $this->applicant->fresh();
 
-        // Delete previous snapshot
+        // Delete previous snapshot.
         $this->degrees()->delete();
         $this->courses()->delete();
         $this->work_experiences()->delete();
@@ -298,12 +309,11 @@ class JobApplication extends BaseModel
         $this->work_samples()->delete();
         $this->skill_declarations()->delete();
 
-        $this->degrees()->saveMany($applicant->degrees->map->replicate);
-        $this->courses()->saveMany($applicant->courses->map->replicate);
-        $this->work_experiences()->saveMany($applicant->work_experiences->map->replicate);
+        $this->degrees()->saveMany($applicant->degrees->map->replicate());
+        $this->courses()->saveMany($applicant->courses->map->replicate());
+        $this->work_experiences()->saveMany($applicant->work_experiences->map->replicate());
 
-        $copyWithHistory = function($model)
-        {
+        $copyWithHistory = function ($model) {
             return [
                 'old' => $model,
                 'new' => $model->replicate()
@@ -316,42 +326,37 @@ class JobApplication extends BaseModel
         $workSampleMap = $applicant->work_samples->map($copyWithHistory);
         $skillDeclarationMap = $applicant->skill_declarations->map($copyWithHistory);
 
-        // First link new projects, references, work samples and skill declarations to this application
+        // First link new projects, references, work samples and skill declarations to this application.
         $this->projects()->saveMany($projectMap->pluck('new'));
         $this->references()->saveMany($referenceMap->pluck('new'));
         $this->work_samples()->saveMany($workSampleMap->pluck('new'));
         $this->skill_declarations()->saveMany($skillDeclarationMap->pluck('new'));
 
-        // Replicate copies shallow attributes, but not relationships. We have to copy those ourselves.
-
-        function findNewFromOld($mapping, $old)
-        {
+        $findNewFromOld = function ($mapping, $old) {
             $matchingItem = $mapping->first(function ($value) use ($old) {
                 return $value['old']->id === $old->id;
             });
             return $matchingItem['new'];
-        }
-
-        $findNewReferenceFromOld = function ($old) use ($referenceMap) {
-            return findNewFromOld($referenceMap, $old);
         };
 
-        $findNewSkillDeclarationFromOld = function ($old) use ($skillDeclarationMap) {
-            return findNewFromOld($skillDeclarationMap, $old);
+        // Replicate copies shallow attributes, but not relationships. We have to copy those ourselves.
+        $findNewReferenceFromOld = function ($old) use ($findNewFromOld, $referenceMap) {
+            return $findNewFromOld($referenceMap, $old);
         };
 
-        // Link projects and references
+        $findNewSkillDeclarationFromOld = function ($old) use ($findNewFromOld, $skillDeclarationMap) {
+            return $findNewFromOld($skillDeclarationMap, $old);
+        };
+
+        // Link projects and references.
         foreach ($projectMap as $item) {
             $old = $item['old'];
             $newProj = $item['new'];
-            Log::debug($old->references);
-            Log::debug(findNewFromOld($referenceMap, $old->references->first()));
             $newReferences = $old->references->map($findNewReferenceFromOld);
-            Log::debug($newReferences);
             $newProj->references()->sync($newReferences);
         }
 
-        // Link references and skills
+        // Link references and skills.
         foreach ($referenceMap as $item) {
             $old = $item['old'];
             $newRef = $item['new'];
@@ -359,7 +364,7 @@ class JobApplication extends BaseModel
             $newRef->skill_declarations()->sync($newSkillDecs);
         }
 
-        // Link work samples and skills
+        // Link work samples and skills.
         foreach ($workSampleMap as $item) {
             $old = $item['old'];
             $newSample = $item['new'];

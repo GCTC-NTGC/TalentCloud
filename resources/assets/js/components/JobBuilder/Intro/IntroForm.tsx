@@ -9,12 +9,12 @@ import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
 import nprogress from "nprogress";
 import get from "lodash/get";
-import { validationMessages } from "../Form/Messages";
-import { Job, Department, Manager } from "../../models/types";
-import { emptyJob } from "../../models/jobUtil";
-import SelectInput from "../Form/SelectInput";
-import TextInput from "../Form/TextInput";
-import { getId } from "../../helpers/queries";
+import { validationMessages } from "../../Form/Messages";
+import { Job, Department, Manager } from "../../../models/types";
+import { emptyJob } from "../../../models/jobUtil";
+import SelectInput from "../../Form/SelectInput";
+import TextInput from "../../Form/TextInput";
+import { getId } from "../../../helpers/queries";
 
 const pageMessages = defineMessages({
   explanationBoldText: {
@@ -107,10 +107,10 @@ interface IntroFormProps {
   // Runs after successful validation.
   // It must (asyncronously) return the resulting job, if successful.
   handleSubmit: (job: Job, manager: Manager) => Promise<Job>;
-  // Continues the JobBuilder in English.
-  handleContinueEn: (job: Job) => void;
-  // Continues the JobBuilder in French.
-  handleContinueFr: (job: Job) => void;
+  // Continues to next step in JobBuilder.
+  handleContinue: (chosenLang: "en" | "fr", job: Job) => void;
+  // // Continues the JobBuilder in French.
+  // handleContinueFr: (job: Job) => void;
 }
 
 const initializeValues = (
@@ -191,15 +191,13 @@ const updateManagerWithValues = (
   },
 });
 
-const IntroForm: React.FunctionComponent<
-  IntroFormProps & WrappedComponentProps
-> = ({
+const IntroForm: React.FunctionComponent<IntroFormProps &
+  WrappedComponentProps> = ({
   job,
   manager,
   departments,
   handleSubmit,
-  handleContinueEn,
-  handleContinueFr,
+  handleContinue,
   intl,
 }: IntroFormProps & WrappedComponentProps): React.ReactElement => {
   const { locale } = intl;
@@ -290,9 +288,9 @@ const IntroForm: React.FunctionComponent<
             handleSubmit(updatedJob, updatedManager)
               .then((newJob: Job): void => {
                 if (languageSelection === "fr") {
-                  handleContinueFr(newJob);
+                  handleContinue("fr", newJob);
                 } else {
-                  handleContinueEn(newJob);
+                  handleContinue("en", newJob);
                 }
               })
               .finally((): void => {

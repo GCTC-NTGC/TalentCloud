@@ -12,7 +12,7 @@ import {
   Skill,
   Department,
   Manager,
-} from "../../models/types";
+} from "../../../models/types";
 import {
   jobBuilderDetails,
   jobBuilderTasks,
@@ -20,31 +20,31 @@ import {
   jobBuilderSkills,
   managerEditProfile,
   jobBuilderEnv,
-} from "../../helpers/routes";
+} from "../../../helpers/routes";
 import {
   find,
   mapToObject,
   hasKey,
   getId,
   notEmpty,
-} from "../../helpers/queries";
+} from "../../../helpers/queries";
 import {
   provinceName,
   securityClearance,
   languageRequirement,
   languageRequirementDescription,
   languageRequirementContext,
-} from "../../models/localizedConstants";
+} from "../../../models/localizedConstants";
 import {
   CriteriaTypeId,
   LanguageRequirementId,
-} from "../../models/lookupConstants";
-import Criterion from "../JobBuilder/Criterion";
-import JobWorkEnv from "../JobBuilder/JobWorkEnv";
-import JobWorkCulture from "../JobBuilder/JobWorkCulture";
-import Modal from "../Modal";
-import { textToParagraphs } from "../../helpers/textToParagraphs";
-import { useUrlHash } from "../../helpers/router";
+} from "../../../models/lookupConstants";
+import Criterion from "../Criterion";
+import JobWorkEnv from "../JobWorkEnv";
+import JobWorkCulture from "../JobWorkCulture";
+import Modal from "../../Modal";
+import { textToParagraphs } from "../../../helpers/textToParagraphs";
+import { useUrlHash } from "../../../helpers/router";
 
 interface JobReviewSectionProps {
   title: string;

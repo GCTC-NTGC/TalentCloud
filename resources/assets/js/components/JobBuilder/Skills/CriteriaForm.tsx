@@ -7,20 +7,20 @@ import {
 } from "react-intl";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
-import { Criteria, Skill } from "../../models/types";
-import { validationMessages } from "../Form/Messages";
-import TextAreaInput from "../Form/TextAreaInput";
-import RadioGroup from "../Form/RadioGroup";
-import { SkillLevelId, CriteriaTypeId } from "../../models/lookupConstants";
-import RadioInput from "../Form/RadioInput";
+import { Criteria, Skill } from "../../../models/types";
+import { validationMessages } from "../../Form/Messages";
+import TextAreaInput from "../../Form/TextAreaInput";
+import RadioGroup from "../../Form/RadioGroup";
+import { SkillLevelId, CriteriaTypeId } from "../../../models/lookupConstants";
+import RadioInput from "../../Form/RadioInput";
 import {
   skillLevelName,
   assetSkillName,
   skillLevelDescription,
   assetSkillDescription,
-} from "../../models/localizedConstants";
-import ContextBlockItem from "../ContextBlock/ContextBlockItem";
-import ContextBlock from "../ContextBlock/ContextBlock";
+} from "../../../models/localizedConstants";
+import ContextBlockItem from "../../ContextBlock/ContextBlockItem";
+import ContextBlock from "../../ContextBlock/ContextBlock";
 
 interface CriteriaFormProps {
   // The Job Poster this criteria will belong to.
