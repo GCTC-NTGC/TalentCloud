@@ -33,7 +33,7 @@ class ClaimJobApiControllerTest extends TestCase
         // Claim job poster
         $response = $this->followingRedirects()
             ->actingAs($hrAdvisor->user)
-            ->json('post', "api/jobs/$job->id/claim");
+            ->json('put', "api/jobs/$job->id/claim");
         $response->assertOk();
         $expectedIds = array_merge(
             ['job_poster_id' => $job->id],
@@ -44,7 +44,7 @@ class ClaimJobApiControllerTest extends TestCase
         // Unclaim job poster
         $response = $this->followingRedirects()
             ->actingAs($hrAdvisor->user)
-            ->json('post', "api/jobs/$job->id/unclaim");
+            ->json('delete', "api/jobs/$job->id/claim");
         $response->assertOk();
         $this->assertDatabaseMissing('claimed_jobs', $expectedIds);
     }
