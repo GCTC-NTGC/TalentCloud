@@ -70,3 +70,20 @@ export const navigate = (url: string): void => {
 export const redirect = (url: string): void => {
   HISTORY.replace(url);
 };
+
+export const Link: React.FC<{ href: string; title: string }> = ({
+  href,
+  title,
+  children,
+}): React.ReactElement => (
+  <a
+    href={href}
+    title={title}
+    onClick={(event): void => {
+      event.preventDefault();
+      navigate(href);
+    }}
+  >
+    {children}
+  </a>
+);
