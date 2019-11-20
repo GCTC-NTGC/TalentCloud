@@ -2,7 +2,7 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 import { JobStatus } from "../models/lookupConstants";
 
-interface OpenJobActionProps {
+export interface UnclaimedJob {
   title: string;
   createdAt: string;
   status: JobStatus;
@@ -10,7 +10,9 @@ interface OpenJobActionProps {
   hrAdvisors: string[];
 }
 
-const OpenJobAction: React.FunctionComponent<OpenJobActionProps> = ({
+export interface UnclaimedJobCardProps extends UnclaimedJob {}
+
+const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
   title,
   createdAt,
   status,
@@ -123,4 +125,4 @@ const OpenJobAction: React.FunctionComponent<OpenJobActionProps> = ({
   );
 };
 
-export default OpenJobAction;
+export default UnclaimedJobCard;
