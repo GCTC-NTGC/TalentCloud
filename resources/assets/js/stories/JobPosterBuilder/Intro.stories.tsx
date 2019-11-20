@@ -26,8 +26,7 @@ stories
         manager={fakeManager()}
         departments={fakeDepartments()}
         handleSubmit={handleSubmit}
-        handleContinueEn={action("Continue in English")}
-        handleContinueFr={action("Continue in French")}
+        handleContinue={action("Continue in English")}
       />
     ),
   )
@@ -39,8 +38,7 @@ stories
         manager={fakeManager()}
         departments={fakeDepartments()}
         handleSubmit={handleSubmit}
-        handleContinueEn={action("Continue in English")}
-        handleContinueFr={action("Continue in French")}
+        handleContinue={action("Continue in English")}
       />
     ),
   );
