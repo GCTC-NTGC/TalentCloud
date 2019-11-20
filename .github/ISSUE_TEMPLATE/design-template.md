@@ -42,18 +42,17 @@ Each version should contain the following:
 
 Prototype Link:
 
-#### Changes
+### Changes
 **Please list all changes made to this version from the last, and indicate why that change was made when appropriate.**
 
 - we added a bulleted list
   - this was done as a result of...
 - etc.
 
-#### Screenshot
+### Screenshot
 
-#### Version Specific Research
+### Research/Feedback & Outcomes
 **Please include notes, links, images, etc. that are associated with any research performed on this version only. Outline any outcomes required in the next version.**
 
-<hr>
-
-Repeat versions as necessary.
+## Version 2
+**Repeat versions as necessary.**
