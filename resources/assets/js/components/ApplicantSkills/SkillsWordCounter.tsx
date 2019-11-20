@@ -47,9 +47,8 @@ interface SkillsWordCounterProps {
   elementId: string;
 }
 
-const SkillsWordCounter: React.FunctionComponent<
-  SkillsWordCounterProps & WrappedComponentProps
-> = ({ elementId, intl }): React.ReactElement => {
+const SkillsWordCounter: React.FunctionComponent<SkillsWordCounterProps &
+  WrappedComponentProps> = ({ elementId, intl }): React.ReactElement => {
   const placeholder = intl.formatMessage(wordCounterMessages.skillsPlaceholder);
   const messages = [
     {
@@ -100,8 +99,6 @@ const updateWordCounters = (): void => {
   // Find all skills textarea elements
   if (document.querySelectorAll("div[data-word-counter-id]")) {
     const wordCounters = document.querySelectorAll("div[data-word-counter-id]");
-
-    console.dir(wordCounters);
 
     wordCounters.forEach((wordCounter): void => {
       if (
