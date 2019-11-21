@@ -3,7 +3,7 @@ name: Design Template
 about: This template provides a template for the key aspects of the design process
   for a new task or feature.
 title: "[Design] - User(s) / Feature / Subfeature"
-labels: Design Feature
+labels: Design
 assignees: ''
 
 ---
