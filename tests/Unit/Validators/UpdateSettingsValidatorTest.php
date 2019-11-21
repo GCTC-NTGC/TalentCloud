@@ -5,12 +5,14 @@ namespace Tests\Unit\Validators;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Applicant;
-use App\Services\Validation\Requests\UpdateSettingsValidator;
+use App\Models\User;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
+use App\Services\Validation\Rules\PasswordCorrectRule;
+use App\Services\Validation\Rules\PasswordFormatRule;
 
 class UpdateSettingsValidatorTest extends TestCase
 {
-
     use RefreshDatabase;
 
     /**
@@ -22,14 +24,14 @@ class UpdateSettingsValidatorTest extends TestCase
     {
         parent::setUp();
 
-        $this->password = 'Testing123!';
-        $this->badPassword = 'WrongPassword123!';
-
-        $this->user = factory(\App\Models\User::class)->create([
+        $this->user = factory(User::class)->create([
             'password' => Hash::make('Testing123!')
         ]);
-        $this->otherApplicant = factory(Applicant::class)->create();
+
+        $this->otherUser = factory(User::class)->create();
     }
+
+
 
     /**
      * Ensure profiles can be updated with valid data.
@@ -41,10 +43,14 @@ class UpdateSettingsValidatorTest extends TestCase
         $data = [
             'first_name' => $this->user->first_name,
             'last_name' => $this->user->last_name,
-            'email_address' => $this->user->email,
+            'email' => $this->user->email,
+            'current_password' => 'Testing123!',
+            'new_password' => 'NewPassword123!',
+            'new_confirm_password' => 'NewPassword123!',
         ];
-        $validator = new UpdateSettingsValidator($this->user);
-        $this->assertTrue($validator->isValid($data));
+        $this->be($this->user);
+        $validator = Validator::make($data, $this->rules());
+        $this->assertFalse($validator->fails());
     }
 
     /**
@@ -57,10 +63,14 @@ class UpdateSettingsValidatorTest extends TestCase
         $data = [
             'first_name' => '',
             'last_name' => '',
-            'email_address' => $this->user->email,
+            'email' => $this->user->email,
+            'current_password' => 'Testing123!',
+            'new_password' => 'NewPassword123!',
+            'new_confirm_password' => 'NewPassword123!',
         ];
-        $validator = new UpdateSettingsValidator($this->user);
-        $this->assertFalse($validator->isValid($data));
+        $this->be($this->user);
+        $validator = Validator::make($data, $this->rules());
+        $this->assertTrue($validator->fails());
     }
 
     /**
@@ -73,10 +83,14 @@ class UpdateSettingsValidatorTest extends TestCase
         $data = [
             'first_name' => $this->user->first_name,
             'last_name' => $this->user->last_name,
-            'email_address' => '',
+            'email' => '',
+            'current_password' => 'Testing123!',
+            'new_password' => 'NewPassword123!',
+            'new_confirm_password' => 'NewPassword123!',
         ];
-        $validator = new UpdateSettingsValidator($this->user);
-        $this->assertFalse($validator->isValid($data));
+        $this->be($this->user);
+        $validator = Validator::make($data, $this->rules());
+        $this->assertTrue($validator->fails());
     }
 
     /**
@@ -89,10 +103,14 @@ class UpdateSettingsValidatorTest extends TestCase
         $data = [
             'first_name' => $this->user->first_name,
             'last_name' => $this->user->last_name,
-            'email_address' => $this->otherApplicant->user->email,
+            'email' => $this->otherUser->email,
+            'current_password' => 'Testing123!',
+            'new_password' => 'NewPassword123!',
+            'new_confirm_password' => 'NewPassword123!',
         ];
-        $validator = new UpdateSettingsValidator($this->user);
-        $this->assertFalse($validator->isValid($data));
+        $this->be($this->user);
+        $validator = Validator::make($data, $this->rules());
+        $this->assertTrue($validator->fails());
     }
 
     /**
@@ -105,15 +123,15 @@ class UpdateSettingsValidatorTest extends TestCase
         $data = [
             'first_name' => $this->user->first_name,
             'last_name' => $this->user->last_name,
-            'email_address' => $this->user->email,
+            'email' => $this->user->email,
             'password' => $this->user->password,
             'current_password' => 'Testing123!',
             'new_password' => 'NewPassword123!',
-            'new_password_confirmation' => 'NewPassword123!',
+            'new_confirm_password' => 'NewPassword123!',
         ];
         $this->be($this->user);
-        $validator = new UpdateSettingsValidator($this->user);
-        $this->assertTrue($validator->isValid($data));
+        $validator = Validator::make($data, $this->rules());
+        $this->assertFalse($validator->fails());
     }
 
     /**
@@ -126,13 +144,14 @@ class UpdateSettingsValidatorTest extends TestCase
         $data = [
             'first_name' => $this->user->first_name,
             'last_name' => $this->user->last_name,
-            'email_address' => $this->user->email,
-            'current_password' => $this->password,
+            'email' => $this->user->email,
+            'current_password' => 'Testing123!',
             'new_password' => 'NewPassword123!',
+            'new_confirm_password' => ''
         ];
         $this->be($this->user);
-        $validator = new UpdateSettingsValidator($this->user);
-        $this->assertFalse($validator->isValid($data));
+        $validator = Validator::make($data, $this->rules());
+        $this->assertTrue($validator->fails());
     }
 
     /**
@@ -145,14 +164,14 @@ class UpdateSettingsValidatorTest extends TestCase
         $data = [
             'first_name' => $this->user->first_name,
             'last_name' => $this->user->last_name,
-            'email_address' => $this->user->email,
-            'current_password' => $this->password,
+            'email' => $this->user->email,
+            'current_password' => 'Testing123!',
             'new_password' => 'NewPassword123!',
-            'new_password_confirmation' => 'DifferentPassword123!',
+            'new_confirm_password' => 'DifferentPassword123!',
         ];
         $this->be($this->user);
-        $validator = new UpdateSettingsValidator($this->user);
-        $this->assertFalse($validator->isValid($data));
+        $validator = Validator::make($data, $this->rules());
+        $this->assertTrue($validator->fails());
     }
 
     /**
@@ -165,14 +184,14 @@ class UpdateSettingsValidatorTest extends TestCase
         $data = [
             'first_name' => $this->user->first_name,
             'last_name' => $this->user->last_name,
-            'email_address' => $this->user->email,
-            'current_password' => $this->password,
+            'email' => $this->user->email,
+            'current_password' => 'Testing123!',
             'new_password' => 'NewPassword',
-            'new_password_confirmation' => 'NewPassword',
+            'new_confirm_password' => 'NewPassword',
         ];
         $this->be($this->user);
-        $validator = new UpdateSettingsValidator($this->user);
-        $this->assertFalse($validator->isValid($data));
+        $validator = Validator::make($data, $this->rules());
+        $this->assertTrue($validator->fails());
     }
 
     /**
@@ -185,13 +204,33 @@ class UpdateSettingsValidatorTest extends TestCase
         $data = [
             'first_name' => $this->user->first_name,
             'last_name' => $this->user->last_name,
-            'email_address' => $this->user->email,
+            'email' => $this->user->email,
             'current_password' => 'NotTheRightPassword123!',
             'new_password' => 'NewPassword123!',
-            'new_password_confirmation' => 'NewPassword123!',
+            'new_confirm_password' => 'NewPassword123!',
         ];
         $this->be($this->user);
-        $validator = new UpdateSettingsValidator($this->user);
-        $this->assertFalse($validator->isValid($data));
+        $validator = Validator::make($data, $this->rules());
+        $this->assertTrue($validator->fails());
+    }
+
+    public function rules()
+    {
+        return
+        [
+            'first_name' => 'required|string|max:191',
+            'last_name' => 'required|string|max:191',
+            'email' => [
+                'required',
+                'string',
+                'max:191',
+                'email:dns',
+                // Email may match existing email for this user, must be unique if changed.
+                Rule::unique('users', 'email')->ignore($this->user->id)
+            ],
+            'current_password' => ['required', new PasswordCorrectRule],
+            'new_password' => ['required', new PasswordFormatRule],
+            'new_confirm_password' => ['required', 'same:new_password']
+        ];
     }
 }

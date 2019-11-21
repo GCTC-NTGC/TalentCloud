@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Services\Validation\Rules\PasswordCorrectRule;
 use App\Services\Validation\Rules\PasswordFormatRule;
@@ -38,21 +37,9 @@ class SettingsController extends Controller
     }
 
     /**
-     * Show the form for editing the logged-in user's settings
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function editAuthenticated(Request $request)
-    {
-        $user = $request->user();
-        return redirect(route('settings.edit', $user));
-    }
-
-    /**
      * Update personal information
      *
-     * @param    \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request $request
      * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
@@ -63,23 +50,23 @@ class SettingsController extends Controller
         $validData = $request->validate([
             'first_name' => 'required|string|max:191',
             'last_name' => 'required|string|max:191',
-            'email_address' => [
+            'email' => [
                 'required',
                 'string',
                 'max:191',
-                // 'email',
+                'email:dns',
                 // Email may match existing email for this user, must be unique if changed.
                 Rule::unique('users', 'email')->ignore($user->id)
-            ],
+            ]
         ]);
 
         User::find(auth()->user()->id)->update([
             'first_name' => $validData['first_name'],
             'last_name' => $validData['last_name'],
-            'email' => $validData['email_address'],
+            'email' => $validData['email'],
         ]);
 
-        return redirect()->route('settings.edit')->withSuccess('Change of personal information was successful.');
+        return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_personal'));
     }
 
     /**
@@ -94,12 +81,12 @@ class SettingsController extends Controller
         $request->validate([
             'current_password' => ['required', new PasswordCorrectRule],
             'new_password' => ['required', new PasswordFormatRule],
-            'new_confirm_password' => ['same:new_password'],
+            'new_confirm_password' => ['required', 'same:new_password']
         ]);
 
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
 
-        return redirect()->route('settings.edit')->withSuccess('Change of password was successful.');
+        return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_password'));
     }
 
     /**
@@ -112,13 +99,11 @@ class SettingsController extends Controller
     public function updateGovernment(Request $request, User $user)
     {
         $validData = $request->validate([
-            'gov_email' => 'nullable|required_unless:department,0|string|email|unique:users'
+            'gov_email' => 'nullable|required_unless:department,0|email:dns|unique:users|max:191'
         ]);
 
         User::find(auth()->user()->id)->update(['gov_email' => $validData['gov_email']]);
 
-        Session::flash('success', 'Success Message.');
-
-        return redirect()->route('settings.edit')->withSuccess('Change of government email address was successful.');
+        return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_government'));
     }
 }

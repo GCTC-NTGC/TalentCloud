@@ -69,12 +69,14 @@ Route::group(
                 /* Jobs */
                 Route::get('jobs', 'JobController@index')->name('jobs.index');
 
+                Route::get('jobs/{jobPoster}', 'JobController@show')
+                    ->middleware('can:view,jobPoster')
+                    ->name('jobs.show');
+
             /* Require being logged in */
                 Route::middleware(['auth'])->group(function () : void {
 
                     /* Account Settings */
-                    Route::get('settings', 'SettingsController@editauthenticated');
-
                     Route::get('settings', 'SettingsController@edit')
                         ->name('settings.edit');
 
@@ -86,10 +88,6 @@ Route::group(
 
                     Route::post('settings/government/update', 'SettingsController@updateGovernment')
                         ->name('settings.government.update');
-
-                    Route::get('jobs/{jobPoster}', 'JobController@show')
-                        ->middleware('can:view,jobPoster')
-                        ->name('jobs.show');
 
                     /* Managers */
                     Route::get('managers/{manager}', 'ManagerProfileController@show')

@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Applicant;
 use App\Services\Validation\Requests\UpdateApplicationProfileValidator;
+use Illuminate\Support\Facades\Hash;
 
 class UpdateApplicationProfileValidatorTest extends TestCase
 {
@@ -21,9 +22,7 @@ class UpdateApplicationProfileValidatorTest extends TestCase
     {
         parent::setUp();
 
-        $this->applicant = factory(Applicant::class)->create([
-            'user_id' => $this->user->id
-        ]);
+        $this->applicant = factory(Applicant::class)->create();
     }
 
     /**
