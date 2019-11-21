@@ -7,17 +7,12 @@
 
 namespace App\Models;
 
-use App\Models\Lookup\VeteranStatus;
-use App\Models\Lookup\PreferredLanguage;
-use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Applicant;
-use App\Models\SkillDeclaration;
 use App\Models\ApplicationReview;
 use Illuminate\Notifications\Notifiable;
 use App\Events\ApplicationSaved;
 use App\Events\ApplicationRetrieved;
 use App\Services\Validation\ApplicationValidator;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Class JobApplication
@@ -34,6 +29,8 @@ use Illuminate\Support\Facades\Log;
  * @property string $submission_date
  * @property boolean $experience_saved
  * @property boolean $language_requirement_confirmed
+ * @property string $user_name
+ * @property string $user_email
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -299,6 +296,10 @@ class JobApplication extends BaseModel
     public function saveProfileSnapshot(): void
     {
         $applicant = $this->applicant->fresh();
+
+        $this->user_name = $applicant->user->name;
+        $this->user_email = $applicant->user->email;
+        $this->save();
 
         // Delete previous snapshot.
         $this->degrees()->delete();
