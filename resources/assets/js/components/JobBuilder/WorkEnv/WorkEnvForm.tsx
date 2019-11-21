@@ -64,9 +64,9 @@ const formMessages = defineMessages({
     description: "The label displayed on the technology checkbox group.",
   },
   amenitiesLabel: {
-    id: "jobBuilder.workEnv.technologyLabel",
-    defaultMessage: "Technology",
-    description: "The label displayed on the technology checkbox group.",
+    id: "jobBuilder.workEnv.amenitiesLabel",
+    defaultMessage: "Amenities",
+    description: "The label displayed on the amenities checkbox group.",
   },
   moreOnWorkEnv: {
     id: "jobBuilder.workEnv.moreOnWorkEnv",
@@ -973,7 +973,7 @@ const WorkEnvForm = ({
               </CheckboxGroup>
               <CheckboxGroup
                 id="technology"
-                label="Technology"
+                label={intl.formatMessage(formMessages.technologyLabel)}
                 grid="base(1of1)"
                 value={values.technology}
                 error={errors.technology}
@@ -999,7 +999,7 @@ const WorkEnvForm = ({
               </CheckboxGroup>
               <CheckboxGroup
                 id="amenities"
-                label="Amenities"
+                label={intl.formatMessage(formMessages.amenitiesLabel)}
                 grid="base(1of1)"
                 value={values.amenities}
                 error={errors.amenities}
