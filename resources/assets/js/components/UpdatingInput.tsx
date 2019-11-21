@@ -31,10 +31,7 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
   public triggerSave(): void {
     const { value, minLength, handleSave } = this.props;
     if (value !== undefined) {
-      if (
-        value.toString().length > (minLength || 3) ||
-        value.toString().length === 0
-      ) {
+      if (value.toString().length > (minLength || 3)) {
         handleSave();
       }
     }
@@ -76,7 +73,9 @@ class UpdatingInput extends Component<UpdatingInputProps, UpdatingInputState> {
             }
           }
         }}
-        onBlur={handleSave}
+        onBlur={(event: React.ChangeEvent<HTMLInputElement>) => {
+          if (event.target.value.length > 0) handleSave();
+        }}
         errorText={errorText}
       />
     );
