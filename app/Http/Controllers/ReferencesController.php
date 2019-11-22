@@ -71,8 +71,6 @@ class ReferencesController extends Controller
         ]);
         $reference->save();
 
-        $reference->load('projects');
-
         // TODO: As soon as you can interact with projects outside of references,
         // this will become a dangerous operation.
         $reference->projects()->delete();
@@ -81,14 +79,13 @@ class ReferencesController extends Controller
         if ($request->input('projects')) {
             foreach ($request->input('projects') as $projectInput) {
                 $project = new Project();
-                $project->projectable()->save($reference->referenceable);
                 $project->fill([
                     'name' => $projectInput['name'],
                     'start_date' => $projectInput['start_date'],
                     'end_date' => $projectInput['end_date'],
                 ]);
-                $project->save();
-                $newProjects[] = $project->id;
+                $reference->referenceable->projects()->save($project);
+                $newProjects[] = $project->fresh()->id;
             }
         }
         $reference->projects()->sync($newProjects);
@@ -98,7 +95,7 @@ class ReferencesController extends Controller
         $reference->skill_declarations()->sync($skillIds);
 
         // If an ajax request, return the new object.
-        if ($request->ajax()) {
+        if ($request->wantsJson()) {
             $reference->load('relationship');
             $reference->load('projects');
             return $reference->toJson();
