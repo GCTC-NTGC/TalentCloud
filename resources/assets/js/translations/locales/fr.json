@@ -441,7 +441,7 @@
   "jobBuilder.tasks.intro.first": "À quoi le nouveau membre de votre équipe consacrera-t-il son temps? Quelles sont les tâches à exécuter?",
   "jobBuilder.tasks.intro.fourth": "Une fois que vous aurez terminé d’entrer les tâches principales, vous passerez à la détermination des compétences individuelles nécessaires à l’exécution de ces tâches.",
   "jobBuilder.tasks.intro.second": "Mettez l’accent sur les tâches à exécuter. Vous n’avez pas à donner tous les détails de l’emploi, mais les candidats souhaitent savoir comment ils vont passer la plus grande partie de leur temps.",
-  "jobBuilder.tasks.intro.third": "Visez à indiquer de quatre à six tâches principales. (Tout au long du remue-méninges, vous pouvez ajouter autant de tâches principales que vous le souhaitez ici, mais vous ne pouvez pas en inclure plus de huit dans l’offre d’emploi finale.)",
+  "jobBuilder.tasks.intro.third": "Visez à indiquer de quatre à six tâches principales. (Tout au long du remue-méninges, vous pouvez ajouter autant de tâches principales que vous le souhaitez ici, mais vous ne pouvez pas en inclure plus de six dans l’offre d’emploi finale.)",
   "jobBuilder.tasks.modal.body": "Voici un aperçu des tâches que vous venez de saisir. N’hésitez pas à retourner à la page précédente pour corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait.",
   "jobBuilder.tasks.modal.body.heading": "Tâches",
   "jobBuilder.tasks.modal.cancelButtonLabel": "Retour en arrière",
