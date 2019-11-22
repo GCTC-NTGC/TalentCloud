@@ -24,19 +24,6 @@ return [
             'our_team_culture' => 'Our Team Culture',
             'save_all_sections' => 'Save All Sections'
         ],
-        'account' => [
-            'my_account' => 'My Account',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'account_settings' => 'Account Information',
-            'reset_password' => 'Reset Password',
-            'profile_email' => 'My Email',
-            'gov_email' => 'My Government Email',
-            'current_password' => 'Current Password',
-            'new_password' => 'New Password',
-            'confirm_password' => 'Confirm New Password',
-            'save_account_settings' => 'Save Account Settings',
-        ],
         'about' => [
             'about_me' => 'About Me',
             'my_name' => 'My Name',
@@ -105,16 +92,6 @@ return [
             'what_we_value' => 'What We Value',
             'how_we_work' => 'How We Work',
             'save_team_culture' => 'Save Our Team Culture'
-        ],
-        'two_factor' => [
-            'two_factor_legend' => 'Two-factor Authentication',
-            'two_factor_button_text' => 'Set up Two-factor Authentication',
-            'two_factor_recovery_legend' => 'Recovery Codes',
-            'two_factor_recovery_text' => 'Your emergency recovery codes let you gain access to your account in case you lose access to your phone. For security, we only show them to you once, but you can',
-            'view_recovery_codes' => 'generate new codes',
-            'two_factor_description' => 'Two-factor auth blurb.',
-            'two_factor_active' => 'You\'re currently receiving verification codes via an authenticator application on your smartphone.',
-            'two_factor_deactivate' => 'Deactivate Two-factor Authentication'
         ]
     ]
 ];

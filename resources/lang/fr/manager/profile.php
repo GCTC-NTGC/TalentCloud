@@ -24,19 +24,6 @@ return [
             'our_team_culture' => 'Notre culture d\'équipe',
             'save_all_sections' => 'Enregistrer toutes les sections'
         ],
-        'account' => [
-            'my_account' => 'Mon compte',
-            'first_name' => 'Prénom',
-            'last_name' => 'Nom',
-            'account_settings' => 'Renseignements du compte',
-            'reset_password' => 'Réinitialiser mon mot de passe',
-            'profile_email' => 'Mon courriel',
-            'gov_email' => 'Mon email du gouvernement',
-            'current_password' => 'Mot de passe actuel',
-            'new_password' => 'Nouveau mot de passe',
-            'confirm_password' => 'Confirmer le nouveau mot de passe',
-            'save_account_settings' => 'Enregistrer les paramètres du compte',
-        ],
         'about' => [
             'about_me' => 'À propos de moi',
             'my_name' => 'Mon prénom et nom',
@@ -105,16 +92,6 @@ return [
             'what_we_value' => 'Nos valeurs',
             'how_we_work' => 'Notre mode de fonctionnement',
             'save_team_culture' => "Enregistrer Notre culture d'équipe"
-        ],
-        'two_factor' => [
-            'two_factor_legend' => '',
-            'two_factor_button_text' => '',
-            'two_factor_recovery_legend' => '',
-            'two_factor_recovery_text' => '',
-            'view_recovery_codes' => '',
-            'two_factor_description' => '',
-            'two_factor_active' => '',
-            'two_factor_deactivate' => ''
         ]
     ]
 ];
