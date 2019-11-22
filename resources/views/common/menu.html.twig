@@ -34,19 +34,16 @@
 			</li>
 		{% else %}
 			<li>
-				<a href="{{ login_modals.settings_link }}">
-					<i class="fa fa-user-cog"></i>
-					<span class="hidden">{{ menu.settings }}</span>
-				</a>
+				<a href="{{ login_modals.settings_link }}">{{ menu.settings }}</a>
 			</li>
-			<li>
-				<a href="{{ login_modals.logout_link }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-					{{ menu.logout }}
-				</a>
-				<form id="logout-form" action="{{ login_modals.logout_link }}" method="POST" style="display: none;">
-					{{ csrf_field() }}
-				</form>
-			</li>
-		{% endif %}
-	</ul>
-</nav>
+		</a>
+	</li>
+	<li>
+		<a href="{{ login_modals.logout_link }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+			{{ menu.logout }}
+		</a>
+		<form id="logout-form" action="{{ login_modals.logout_link }}" method="POST" style="display: none;">
+			{{ csrf_field() }}
+		</form>
+	</li>
+{% endif %}</ul></nav>

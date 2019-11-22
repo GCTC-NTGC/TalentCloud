@@ -25,6 +25,7 @@ return [
     'register' => 'Inscription',
     'login' => 'Ouvrir une session',
     'logout' => 'Déconnexion',
+    'settings' => 'Paramètres',
     /* <title> tag content */
     'home_title' => 'Nuage de talents | Gestionnaire : Accueil',
     'profile_title' => 'Nuage de talents | Gestionnaire : Mon profil',
