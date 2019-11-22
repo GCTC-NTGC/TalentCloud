@@ -207,7 +207,7 @@
   {
     "id": "jobBuilder.review.button.submit",
     "description": "Label of Job Review Submission Button",
-    "defaultMessage": "Send to HR for Review"
+    "defaultMessage": "Looks good!"
   },
   {
     "id": "jobBuilder.review.confirm.title",
