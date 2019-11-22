@@ -11,15 +11,15 @@ return [
     |
     */
 
-    'title' => 'One Time Password',
+    'title' => 'One-time Password',
     'return_title' => 'Return to the home page.',
     'return' => 'Return Home',
-    'header' => 'Enter One Time Password',
+    'header' => 'Enter One-time Password',
     'login' => 'Login',
     'next' => 'Next',
-    'otp_label' => 'One Time Password',
+    'otp_label' => 'One-time Password',
     'otp_placeholder' => 'e.g. 123456',
     'recover_link_title' => 'Use Recovery Code',
     'recover_link' => 'Lost your authenticator device? Log in with a Recovery Code.',
-    'cancel' => 'Cancel',
+    'cancel' => 'Cancel'
 ];

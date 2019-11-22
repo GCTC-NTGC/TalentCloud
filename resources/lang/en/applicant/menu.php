@@ -25,7 +25,8 @@ return [
         'name' => 'FAQ'
     ],
     'itp' => [
-        'name' => 'Indigenous Talent'
+        'name' => 'Indigenous Talent',
+        'alt' => 'Indigenous Talent Portal link background.'
     ]
 ],
 'register' => 'Register',

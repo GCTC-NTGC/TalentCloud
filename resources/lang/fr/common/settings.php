@@ -23,8 +23,8 @@ return [
      'email_label' => '',
      'personal_save' => '',
      'government_copy' => '',
-     'government_dept' => 'Current department:',
-     'no_department' => 'N/A (not in government)',
+     'government_dept' => '',
+     'no_department' => '',
      'dept_change_copy' => [
         'one' => '',
         'two' => '',
@@ -35,11 +35,11 @@ return [
      'gov_email_label' => '',
      'government_save' => '',
      'password_copy' => [
-        'p1' => '',
-        'li1' => '',
-        'li2' => '',
-        'li3' => '',
-        'li4' => '',
+        'one' => '',
+        'two' => '',
+        'three' => '',
+        'four' => '',
+        'five' => '',
      ],
      'password_label' => '',
      'new_password_label' => '',
@@ -56,5 +56,5 @@ return [
      'two_factor_status' => 'Statut :',
      'two_factor_on' => 'Activée',
      'two_factor_off' => 'Désactivées',
-     'expand_hidden' => 'Click to view...'
+     'expand_hidden' => ''
 ];
