@@ -9,7 +9,7 @@ import {
   Skill,
   Department,
 } from "../../models/types";
-import { VALID_COUNT, JobBuilderPage } from "./jobBuilderHelpers";
+import { NUM_OF_TASKS, JobBuilderPage } from "./jobBuilderHelpers";
 import {
   getJob,
   getTasksByJob,
@@ -137,7 +137,6 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
         job={job}
         jobId={jobId}
         tasks={keyTasks}
-        maxTasksCount={VALID_COUNT}
         criteria={criteria}
         dataIsLoading={dataIsLoading}
         currentPage={currentPage}
