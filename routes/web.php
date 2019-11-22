@@ -266,6 +266,8 @@ Route::group(
                         'ManagerProfileController@faq'
                     )->name('manager.faq.section');
 
+
+
                     Route::middleware(['auth', 'role:manager'])->group(function (): void {
 
                         Route::get('profile', 'ManagerProfileController@editAuthenticated')->name('manager.profile');
@@ -363,6 +365,7 @@ Route::group(
                             ->middleware('can:delete,jobPoster')
                             ->name('manager.jobs.destroy');
 
+                        /* Screening Plan Builder */
                         Route::view(
                             'jobs/{jobPoster}/assessment-plan',
                             'manager/assessment_plan'
@@ -370,6 +373,20 @@ Route::group(
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.screening_plan');
 
+                        /* Account Settings */
+                        Route::get('settings', 'SettingsController@edit')
+                        ->name('manager.settings.edit');
+
+                        Route::post('settings/personal/update', 'SettingsController@updatePersonal')
+                        ->name('manager.settings.personal.update');
+
+                        Route::post('settings/password/update', 'SettingsController@updatePassword')
+                        ->name('manager.settings.password.update');
+
+                        Route::post('settings/government/update', 'SettingsController@updateGovernment')
+                        ->name('manager.settings.government.update');
+
+                        /* Two-factor Authentication */
                         Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('manager.two_factor.activate');
                         Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('manager.two_factor.deactivate');
                         Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('manager.two_factor.confirm');

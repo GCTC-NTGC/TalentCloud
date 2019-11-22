@@ -14,7 +14,7 @@
 
 	<ul class="menu__list">
 		{% for key,item in menu.items %}
-			<li {% if key == "itp" %} class="menu-itp" style="padding-right:1.5em;" {% endif %}>
+			<li {% if key == "itp" %} class="menu-itp" {% endif %}>
 				<a class="{{ item.active ? 'active' : '' }}" href="{{ item.link }}" title="Visit {{ item.name }}.">
 					<span>{{ item.name }}</span>
 					{% if key == "itp" %}
@@ -25,20 +25,17 @@
 
 		{% endfor %}
 
-		<li aria-hidden="true">|</li>
-
 		{% if auth_guest() %}
-			<li style="padding-left:1.5em;">
+			<li>
 				<a href="{{ login_modals.login_link }}">{{ menu.login }}</a>
 			</li>
 			<li>
 				<a href="{{ login_modals.register_link }}">{{ menu.register }}</a>
 			</li>
 		{% else %}
-			<li style="padding-left:2em;">
+			<li>
 				<a href="{{ login_modals.settings_link }}">
 					<i class="fa fa-user-cog"></i>
-
 					<span class="hidden">{{ menu.settings }}</span>
 				</a>
 			</li>

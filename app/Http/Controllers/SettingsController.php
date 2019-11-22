@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Services\Validation\Rules\PasswordCorrectRule;
 use App\Services\Validation\Rules\PasswordFormatRule;
+use Facades\App\Services\WhichPortal;
 
 class SettingsController extends Controller
 {
@@ -25,14 +26,30 @@ class SettingsController extends Controller
     {
         $user = $request->user();
 
-        return view(
-            'common/settings',
-            [
+        if (WhichPortal::isManagerPortal()) {
+            $routes = [
                 // Localized strings.
                 'settings' => Lang::get('common/settings'),
                 // User data.
-                'user' => $user
-            ]
+                'user' => $user,
+                // Update routes.
+                'submit_personal' => route('manager.settings.personal.update'),
+                'submit_password' => route('manager.settings.password.update'),
+                'submit_government' => route('manager.settings.government.update')
+            ];
+        } else {
+            $routes = [
+                'settings' => Lang::get('common/settings'),
+                'user' => $user,
+                'submit_personal' => route('settings.personal.update'),
+                'submit_password' => route('settings.password.update'),
+                'submit_government' => route('settings.government.update')
+            ];
+        }
+
+        return view(
+            'common/settings',
+            $routes
         );
     }
 
@@ -66,7 +83,11 @@ class SettingsController extends Controller
             'email' => $validData['email'],
         ]);
 
-        return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_personal'));
+        if (WhichPortal::isManagerPortal()) {
+            return redirect()->route('manager.settings.edit')->withSuccess(Lang::get('success.update_personal'));
+        } else {
+            return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_personal'));
+        }
     }
 
     /**
@@ -86,7 +107,11 @@ class SettingsController extends Controller
 
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
 
-        return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_password'));
+        if (WhichPortal::isManagerPortal()) {
+            return redirect()->route('manager.settings.edit')->withSuccess(Lang::get('success.update_password'));
+        } else {
+            return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_password'));
+        }
     }
 
     /**
@@ -104,6 +129,10 @@ class SettingsController extends Controller
 
         User::find(auth()->user()->id)->update(['gov_email' => $validData['gov_email']]);
 
-        return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_government'));
+        if (WhichPortal::isManagerPortal()) {
+            return redirect()->route('manager.settings.edit')->withSuccess(Lang::get('success.update_government'));
+        } else {
+             return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_government'));
+        }
     }
 }

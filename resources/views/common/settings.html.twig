@@ -98,7 +98,7 @@
 				{# Page Content #}
 				<div data-c-grid-item="tl(3of4) ds(4of5)">
 					<div class="clone-sidebar-content" data-c-padding="bottom(triple)">
-						<form action="{{ route('settings.personal.update') }}" method="POST">
+						<form action="{{ submit_personal }}" method="POST">
 							{{ csrf_field() }}
 							<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="personal">{{ settings.heading.personal }}</h2>
 							<p data-c-margin="bottom(double)">{{ settings.personal_copy }}</p>
@@ -138,7 +138,7 @@
 						{% if user.gov_email %}
 							{# GoC Account Info #}
 							{# DEV: this section should only appear for users who have visited the manager portal and completed the extra registration steps #}
-								<form action="{{ route('settings.government.update') }}" method="POST"> {{ csrf_field() }}
+								<form action="{{ submit_password }}" method="POST"> {{ csrf_field() }}
 								<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="government">
 									{{ settings.heading.government }}</h2>
 								<p data-c-margin="bottom(normal)">{{ settings.government_copy }}</p>
@@ -181,7 +181,7 @@
 							<hr data-c-margin="top(triple)">
 						{% endif %}
 						{# Password Reset #}
-						<form action="{{ route('settings.password.update') }}" method="POST">
+						<form action="{{ submit_government }}" method="POST">
 							{{ csrf_field() }}
 							<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="password">{{ settings.heading.password }}</h2>
 							<p data-c-margin="bottom(normal)">{{ settings.password_copy.one }}</p>

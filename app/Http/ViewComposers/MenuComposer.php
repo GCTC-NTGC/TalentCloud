@@ -199,7 +199,7 @@ class MenuComposer
                 'register_link' => route('manager.register'),
                 'login_link' => route('manager.login'),
                 'logout_link' => route('manager.logout'),
-                'settings_link' => route('settings.edit'),
+                'settings_link' => route('manager.settings.edit'),
             ];
         } elseif (WhichPortal::isAdminPortal()) {
              $loginModals = [
