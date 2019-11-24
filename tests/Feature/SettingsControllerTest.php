@@ -49,7 +49,7 @@ class SettingsControllerTest extends TestCase
     }
 
     /**
-     * Ensure an applicant can update personal information with valid data.
+     * Ensure update personal information succeeds with valid data.
      *
      * @return void
      */
@@ -137,7 +137,7 @@ class SettingsControllerTest extends TestCase
     }
 
     /**
-     * Ensure old password and new password confirmation are valid FOR changing password.
+     * Ensure update password succeeds with valid data.
      *
      * @return void
      */
@@ -263,7 +263,7 @@ class SettingsControllerTest extends TestCase
         $response->assertOk();
         $response->assertDontSee(Lang::get(e('common/settings.heading.government')));
         // Manager, visible (with gov_email).
-        $response = $this->actingAs($this->manager->user)->get('settings');
+        $response = $this->actingAs($this->manager->user)->get('manager/settings');
         $response->assertOk();
         $response->assertSee(Lang::get(e('common/settings.heading.government')));
         // Applicant, visible (with gov_email).
@@ -280,13 +280,13 @@ class SettingsControllerTest extends TestCase
      */
     public function testUpdateGovernmentInfoWithValidData() : void
     {
-        // Applicant, not visible (without gov_email).
-        $response = $this->actingAs($this->manager->user)->get('manager/settings');
+        $this->applicant->user->gov_email = 'applicant@test.com';
+        $response = $this->actingAs($this->applicant->user)->get('settings');
         $response->assertOk();
         $data = [
-            'gov_email' => 'manager@tbs-sct.gc.ca'
+            'gov_email' => 'applicant@tbs-sct.gc.ca'
         ];
-        $response = $this->followingRedirects()->post(route('manager.settings.government.update'), $data);
+        $response = $this->followingRedirects()->post(route('settings.government.update'), $data);
         $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.update_government')));
@@ -301,12 +301,12 @@ class SettingsControllerTest extends TestCase
      */
     public function testGovernmentInfoNotValidWhenEmpty() : void
     {
-        $response = $this->actingAs($this->manager->user)->get('manager/settings');
+        $response = $this->actingAs($this->manager->user)->get('settings');
         $response->assertOk();
         $data = [
             'gov_email' => ''
         ];
-        $response = $this->followingRedirects()->post(route('manager.settings.government.update'), $data);
+        $response = $this->followingRedirects()->post(route('settings.government.update'), $data);
         $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
@@ -321,16 +321,83 @@ class SettingsControllerTest extends TestCase
      */
     public function testGovernmentInfoNotValidWithNoDNS() : void
     {
-        $response = $this->actingAs($this->manager->user)->get('manager/settings');
+        $this->applicant->user->gov_email = 'applicant@tbs-sct.gc.ca';
+        $response = $this->actingAs($this->applicant->user)->get('settings');
         $response->assertOk();
         $data = [
-            'gov_email' => 'manager@tbs-sct.gc.xyz'
+            'gov_email' => 'applicant@tbs-sct.gc.xyz'
         ];
-        $response = $this->followingRedirects()->post(route('manager.settings.government.update'), $data);
+        $response = $this->followingRedirects()->post(route('settings.government.update'), $data);
         $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
         // Password was not updated.
         $this->assertDatabaseMissing('users', $data);
+    }
+
+    /**
+     * Ensure update personal information succeeds with valid data, manager routes.
+     *
+     * @return void
+     */
+    public function testManagerUpdatePersonalInfoWithValidData() : void
+    {
+        $response = $this->actingAs($this->manager->user)->get('manager/settings');
+        $response->assertOk();
+        $data = [
+            'first_name' => 'Sally',
+            'last_name' => 'Jones',
+            'email' => 'sallyjones@test.com'
+        ];
+        $response = $this->followingRedirects()->post(route('manager.settings.personal.update'), $data);
+        $response->assertOk();
+        // Success notification visible.
+        $response->assertSee(e(Lang::get('success.update_personal')));
+        // Data was updated.
+        $this->assertDatabaseHas('users', $data);
+    }
+
+    /**
+     * Ensure update password succeeds with valid data, manager routes.
+     *
+     * @return void
+     */
+    public function testManagerUpdatePasswordWithValidData() : void
+    {
+        $response = $this->actingAs($this->manager->user)->get('manager/settings');
+        $response->assertOk();
+        /* $password = ['password' => $this->manager->user->password];
+        $data = [
+            'current_password' => 'Manager123!',
+            'new_password' => 'NewManager123!',
+            'new_confirm_password' => 'NewManager123!',
+        ];
+        $response = $this->followingRedirects()->post(route('manager.settings.password.update'), $data);
+        $response->assertOk();
+        // Success notification visible.
+        $response->assertSee(e(Lang::get('success.update_password')));
+        // Password was updated.
+        $this->assertDatabaseMissing('users', $password); */
+    }
+
+    /**
+     * Ensure government email succeeds with valid data, manager routes.
+     *
+     * @return void
+     */
+    public function testManagerUpdateGovernmentInfoWithValidData() : void
+    {
+        // Applicant, not visible (without gov_email).
+        $response = $this->actingAs($this->manager->user)->get('manager/settings');
+        $response->assertOk();
+        $data = [
+            'gov_email' => 'manager@tbs-sct.gc.ca'
+        ];
+        $response = $this->followingRedirects()->post(route('manager.settings.government.update'), $data);
+        $response->assertOk();
+        // Success notification visible.
+        $response->assertSee(e(Lang::get('success.update_government')));
+        // Government info was updated.
+        $this->assertDatabaseHas('users', $data);
     }
 }

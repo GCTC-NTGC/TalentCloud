@@ -14,7 +14,6 @@ use Facades\App\Services\WhichPortal;
 
 class SettingsController extends Controller
 {
-
     /**
      * Display the specified resource.
      *
@@ -25,31 +24,22 @@ class SettingsController extends Controller
     public function edit(Request $request, User $user)
     {
         $user = $request->user();
+        $routePrefix = $this->getRoutePrefix();
 
-        if (WhichPortal::isManagerPortal()) {
-            $routes = [
-                // Localized strings.
-                'settings' => Lang::get('common/settings'),
-                // User data.
-                'user' => $user,
-                // Update routes.
-                'submit_personal' => route('manager.settings.personal.update'),
-                'submit_password' => route('manager.settings.password.update'),
-                'submit_government' => route('manager.settings.government.update')
-            ];
-        } else {
-            $routes = [
-                'settings' => Lang::get('common/settings'),
-                'user' => $user,
-                'submit_personal' => route('settings.personal.update'),
-                'submit_password' => route('settings.password.update'),
-                'submit_government' => route('settings.government.update')
-            ];
-        }
+        $data = [
+            // Localized strings.
+            'settings' => Lang::get('common/settings'),
+            // User data.
+            'user' => $user,
+            // Update routes.
+            'submit_personal' => route($routePrefix . 'settings.personal.update'),
+            'submit_password' => route($routePrefix . 'settings.password.update'),
+            'submit_government' => route($routePrefix . 'settings.government.update')
+        ];
 
         return view(
             'common/settings',
-            $routes
+            $data
         );
     }
 
@@ -63,15 +53,15 @@ class SettingsController extends Controller
     public function updatePersonal(Request $request, User $user)
     {
         $user = $request->user();
+        $routePrefix = $this->getRoutePrefix();
 
         $validData = $request->validate([
             'first_name' => 'required|string|max:191',
             'last_name' => 'required|string|max:191',
             'email' => [
                 'required',
-                'string',
-                'max:191',
                 'email:dns',
+                'max:191',
                 // Email may match existing email for this user, must be unique if changed.
                 Rule::unique('users', 'email')->ignore($user->id)
             ]
@@ -85,35 +75,30 @@ class SettingsController extends Controller
             ]);
         }
 
-        if (WhichPortal::isManagerPortal()) {
-            return redirect()->route('manager.settings.edit')->withSuccess(Lang::get('success.update_personal'));
-        } else {
-            return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_personal'));
-        }
+        return redirect()->route($routePrefix . 'settings.edit')->withSuccess(Lang::get('success.update_personal'));
     }
 
     /**
      * Update password.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function updatePassword(Request $request, User $user)
+    public function updatePassword(Request $request)
     {
-        $request->validate([
+        $validData = $request->validate([
             'current_password' => ['required', new PasswordCorrectRule],
             'new_password' => ['required', new PasswordFormatRule],
             'new_confirm_password' => ['required', 'same:new_password']
         ]);
 
-        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+        $routePrefix = $this->getRoutePrefix();
 
-        if (WhichPortal::isManagerPortal()) {
-            return redirect()->route('manager.settings.edit')->withSuccess(Lang::get('success.update_password'));
-        } else {
-            return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_password'));
+        if ($validData) {
+            User::find(auth()->user()->id)->update(['password'=> Hash::make($validData['new_password'])]);
         }
+
+        return redirect()->route($routePrefix . 'settings.edit')->withSuccess(Lang::get('success.update_password'));
     }
 
     /**
@@ -125,16 +110,31 @@ class SettingsController extends Controller
      */
     public function updateGovernment(Request $request, User $user)
     {
+        $user = $request->user();
+        $routePrefix = $this->getRoutePrefix();
+
         $validData = $request->validate([
-            'gov_email' => 'nullable|required_unless:department,0|email:dns|unique:users|max:191'
+            'gov_email' => 'nullable|required_unless:department,0|email:dns|max:191',
+                            Rule::unique('users', 'gov_email')->ignore($user->id)
         ]);
 
-        User::find(auth()->user()->id)->update(['gov_email' => $validData['gov_email']]);
-
-        if (WhichPortal::isManagerPortal()) {
-            return redirect()->route('manager.settings.edit')->withSuccess(Lang::get('success.update_government'));
-        } else {
-             return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_government'));
+        if ($validData) {
+            User::find(auth()->user()->id)->update(['gov_email' => $validData['gov_email']]);
         }
+
+        return redirect()->route($routePrefix . 'settings.edit')->withSuccess(Lang::get('success.update_government'));
+    }
+
+    /**
+     * @return string
+     */
+    public function getRoutePrefix(): string
+    {
+        if (WhichPortal::isApplicantPortal()) {
+            $routePrefix = '';
+        } else {
+            $routePrefix = 'manager.';
+        }
+        return $routePrefix;
     }
 }
