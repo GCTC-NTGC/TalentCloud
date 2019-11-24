@@ -138,7 +138,7 @@
 						{% if user.gov_email %}
 							{# GoC Account Info #}
 							{# DEV: this section should only appear for users who have visited the manager portal and completed the extra registration steps #}
-								<form action="{{ submit_password }}" method="POST"> {{ csrf_field() }}
+								<form action="{{ submit_government }}" method="POST"> {{ csrf_field() }}
 								<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="government">
 									{{ settings.heading.government }}</h2>
 								<p data-c-margin="bottom(normal)">{{ settings.government_copy }}</p>
@@ -181,7 +181,7 @@
 							<hr data-c-margin="top(triple)">
 						{% endif %}
 						{# Password Reset #}
-						<form action="{{ submit_government }}" method="POST">
+						<form action="{{ submit_password }}" method="POST">
 							{{ csrf_field() }}
 							<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="password">{{ settings.heading.password }}</h2>
 							<p data-c-margin="bottom(normal)">{{ settings.password_copy.one }}</p>

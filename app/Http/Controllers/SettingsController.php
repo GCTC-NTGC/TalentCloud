@@ -77,11 +77,13 @@ class SettingsController extends Controller
             ]
         ]);
 
-        User::find(auth()->user()->id)->update([
-            'first_name' => $validData['first_name'],
-            'last_name' => $validData['last_name'],
-            'email' => $validData['email'],
-        ]);
+        if ($validData) {
+            User::find(auth()->user()->id)->update([
+                'first_name' => $validData['first_name'],
+                'last_name' => $validData['last_name'],
+                'email' => $validData['email'],
+            ]);
+        }
 
         if (WhichPortal::isManagerPortal()) {
             return redirect()->route('manager.settings.edit')->withSuccess(Lang::get('success.update_personal'));
