@@ -10,8 +10,8 @@
 */
 return [
     'title' => 'View your Recovery Codes',
-    'return_title' => 'Return to the Home page.',
-    'return' => 'Return Home',
+    'return_title' => 'Return to Settings',
+    'return' => 'Return to Settings',
     'header' => 'View your Recovery Codes',
     'instructions' => 'Keep these in a safe place. You can use them if you lose your access to your phone. Each Recovery Code may only be used once.',
     'description' => 'Here are your codes:',

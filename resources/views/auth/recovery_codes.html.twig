@@ -18,7 +18,7 @@
 			<div
 				class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
 				{# Return to the homepage link. #}
-				<a data-c-color="white" href="{{ route('home') }}" title="{{ recovery_codes.return_title }}">
+				<a data-c-color="white" href="{{ settings_url }}" title="{{ recovery_codes.return_title }}">
 					<i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ recovery_codes.return }}
 				</a>
 				<div data-c-radius="rounded" data-c-margin="top(normal)">
@@ -33,7 +33,7 @@
 						{% endfor %}
 						<div data-c-grid="middle">
 							<div data-c-grid-item="base(1of1)" data-c-align="base(right)">
-								<a href="{{ route('settings.edit') }}" data-c-button="solid(c1)" data-c-radius="rounded" title="{{ recovery_codes.profile_link_title }}">
+								<a href="{{ settings_url }}" data-c-button="solid(c1)" data-c-radius="rounded" title="{{ recovery_codes.profile_link_title }}">
 									{{ recovery_codes.profile_link_text }}
 								</a>
 							</div>

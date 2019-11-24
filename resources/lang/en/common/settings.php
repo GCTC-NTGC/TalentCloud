@@ -49,13 +49,12 @@ return [
      'two_factor_legend' => 'Two-factor Authentication',
      'two_factor_button_text' => 'Set up Two-factor Authentication',
      'two_factor_recovery_legend' => 'Recovery Codes',
-     'two_factor_recovery_text' => 'Your emergency recovery codes let you gain access to your account in case you lose access to your phone. For security, we only show them to you once, but you can',
+     'two_factor_recovery_text' => 'Emergency recovery codes let you gain access to your account in case you lose access to your phone. For security, we only show them to you once, but you can',
      'view_recovery_codes' => 'generate new codes',
      'two_factor_inactive' => 'Two-factor authentication helps protect your account by adding a second layer of security beyond your username and password. Talent Cloud implements this second layer using a standard that asks for a one-time password when you log into the site. These one-time passwords are set up through applications such as Google Authenticator or Authy, and provide you with the ability to generate the one-time password on demand.',
      'two_factor_active' => 'You\'re currently receiving verification codes via an authenticator application on your smartphone.',
      'two_factor_deactivate' => 'Deactivate Two-factor Authentication',
      'two_factor_status' => 'Status:',
      'two_factor_on' => 'On',
-     'two_factor_off' => 'Off',
-     'expand_hidden' => 'Click to view...'
+     'two_factor_off' => 'Off'
 ];

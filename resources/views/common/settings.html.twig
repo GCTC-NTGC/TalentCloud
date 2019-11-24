@@ -237,16 +237,21 @@
 						</form>
 
 						{# 2FA #}
-
 						<hr data-c-margin="top(triple)">
 						<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="auth">{{ settings.heading.two_factor }}</h2>
-						<p data-c-margin="bottom(normal)">
-							{% if user.google2fa_secret %}
+						{% if user.google2fa_secret %}
+							<p data-c-margin="bottom(normal)">
 								{{ settings.two_factor_active }}
-							{% else %}
+							</p>
+							{# 2FA Recovery #}
+							<p data-c-margin="bottom(normal)">
+								{{ settings.two_factor_recovery_text }} <a href="{{ generate_recovery_codes }}">{{ settings.view_recovery_codes }}</a>.
+							</p>
+						{% else %}
+							<p data-c-margin="bottom(normal)">
 								{{ settings.two_factor_inactive }}
-							{% endif %}
-						</p>
+							</p>
+						{% endif %}
 						<div data-c-grid="gutter middle">
 							{% if not user.google2fa_secret %}
 								<div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
@@ -255,20 +260,18 @@
 									</p>
 								</div>
 								<div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
-									<a href="{{ route('two_factor.activate') }}" data-c-button="outline(c1)" data-c-radius="rounded" data-c-dialog-id="example-dialog-01" data-c-dialog-action="open">
+									<a href="{{ activate_two_factor }}" data-c-button="outline(c1)" data-c-radius="rounded" data-c-dialog-id="example-dialog-01" data-c-dialog-action="open">
 										{{ settings.two_factor_button_text }}
 									</a>
 								</div>
 							{% else %}
-
-								{# DEV: This is an example of what the auth section should like when 2FA is turned on. I know there was discussion around not showing recovery codes to the user, so if this is best practice, we can just add a blurb here instead of the accordion. #}
 								<div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
 									<p data-c-font-size="h4" data-c-font-weight="bold">{{ settings.two_factor_status }}
 										<span data-c-color="go">{{ settings.two_factor_on }}</span>
 									</p>
 								</div>
 								<div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
-									<form action="{{ route('two_factor.deactivate') }}" method="POST">
+									<form action="{{ deactivate_two_factor }}" method="POST">
 										{{ csrf_field() }}
 										<button data-c-button="outline(c3)" data-c-radius="rounded" data-c-dialog-id="example-dialog-01" data-c-dialog-action="open" type="submit">
 											{{ settings.two_factor_deactivate }}
@@ -276,35 +279,6 @@
 									</form>
 								</div>
 
-								{# 2FA Recovery #}
-								<div data-c-grid-item="base(1of1)">
-									<div data-c-accordion-group data-c-margin="top(normal)">
-										<div data-c-accordion data-c-background="white(100)" data-c-radius="rounded">
-											<button data-c-background="c1(100)" aria-expanded="false" data-c-accordion-trigger tabindex="0" type="button">
-												<div data-c-padding="top(normal) right bottom(normal) left(normal)">
-													<p data-c-heading="h4" data-c-font-weight="bold" data-c-color="white">
-														{{ settings.two_factor_recovery_text }}
-														<a href="{{ route('recovery_codes.show') }}">{{ settings.view_recovery_codes }}</a>.
-													</p>
-												</div>
-												<span data-c-visibility="invisible">
-													{{ settings.expand_hidden }}
-												</span>
-												<i class="fas fa-plus-circle" data-c-accordion-add data-c-colour="white"></i>
-												<i class="fas fa-minus-circle" data-c-accordion-remove data-c-colour="white"></i>
-											</button>
-											<div aria-hidden="true" data-c-accordion-content data-c-padding="right(normal) left(normal)" data-c-background="gray(10)">
-												<div data-c-padding="bottom(normal)">
-													<ul data-c-padding="top(normal)">
-														{% for code in user.recovery_codes %}
-															<li>{{ code }}</li>
-														{% endfor %}
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
 							{% endif %}
 						</div>
 					</div>

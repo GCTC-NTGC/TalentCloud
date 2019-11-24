@@ -34,7 +34,10 @@ class SettingsController extends Controller
             // Update routes.
             'submit_personal' => route($routePrefix . 'settings.personal.update'),
             'submit_password' => route($routePrefix . 'settings.password.update'),
-            'submit_government' => route($routePrefix . 'settings.government.update')
+            'submit_government' => route($routePrefix . 'settings.government.update'),
+            'activate_two_factor' => route($routePrefix . 'two_factor.activate'),
+            'deactivate_two_factor' => route($routePrefix . 'two_factor.deactivate'),
+            'generate_recovery_codes' => route($routePrefix . 'recovery_codes.show')
         ];
 
         return view(

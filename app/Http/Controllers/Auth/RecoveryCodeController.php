@@ -17,15 +17,19 @@ class RecoveryCodeController extends AuthController
         $user = $request->user();
         $this->generateCodesForUser($user);
 
-        $profile_url = 'settings';
+        $settings_url = '';
         if (WhichPortal::isAdminPortal()) {
-            $profile_url = backpack_url('2fa');
+            $settings_url = backpack_url('2fa');
+        } elseif (WhichPortal::isManagerPortal()) {
+            $settings_url = route('manager.settings.edit');
+        } elseif (WhichPortal::isApplicantPortal()) {
+            $settings_url = route('settings.edit');
         }
 
         return view('auth.recovery_codes', [
             'recovery_codes' => Lang::get('common/auth/recovery_codes'),
             'codes' => $user->recovery_codes,
-            'profile_url' => $profile_url,
+            'settings_url' => $settings_url,
         ]);
     }
 

@@ -48,13 +48,12 @@ return [
      'two_factor_legend' => 'Authentification à deux facteurs',
      'two_factor_button_text' => 'Configuration de l’authentification à deux facteurs',
      'two_factor_recovery_legend' => 'Codes de récupération',
-     'two_factor_recovery_text' => 'Vos codes de récupération d’urgence vous permettent d’accéder à votre compte si vous n’avez plus accès à votre téléphone. Pour des raisons de sécurité, nous vous les montrons une seule fois, mais vous pouvez générer de nouveaux codes.',
+     'two_factor_recovery_text' => 'Codes de récupération d’urgence vous permettent d’accéder à votre compte si vous n’avez plus accès à votre téléphone. Pour des raisons de sécurité, nous vous les montrons une seule fois, mais vous pouvez générer de nouveaux codes.',
      'view_recovery_codes' => 'Découvrez vos codes de récupération.',
      'two_factor_inactive' => 'Texte sur l’authentification à deux facteurs',
      'two_factor_active' => 'Vous recevez actuellement des codes de vérification au moyen d’une application d’authentification sur votre téléphone intelligent.',
      'two_factor_deactivate' => 'Désactivez l’authentification à deux facteurs.',
      'two_factor_status' => 'Statut :',
      'two_factor_on' => 'Activée',
-     'two_factor_off' => 'Désactivées',
-     'expand_hidden' => ''
+     'two_factor_off' => 'Désactivées'
 ];

@@ -10,8 +10,8 @@
 */
 return [
     'title' => 'Découvrez vos codes de récupération',
-    'return_title' => 'Revenez à la page d’accueil.',
-    'return' => 'Retour à la page d’accueil',
+    'return_title' => 'Retour au paramètres',
+    'return' => 'Retour au paramètres',
     'header' => 'Découvrez vos codes de récupération.',
     'instructions' => 'Gardez-les en lieu sûr. Vous pouvez les utiliser si vous ne pouvez plus accéder à votre téléphone. Chaque code de récupération ne peut être utilisé qu’une fois.',
     'description' => 'Voici vos codes :',
