@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
 import { managerUser, adminUser } from "./helpers/roles";
 
-const HOMEPAGE = "https://talent.test";
+const HOMEPAGE = "https://localhost";
 
 fixture(`Smoke`)
   .page(HOMEPAGE)

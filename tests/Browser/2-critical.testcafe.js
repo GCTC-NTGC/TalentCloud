@@ -1,7 +1,7 @@
 import { Selector, Role, ClientFunction } from "testcafe";
 import { applicantUser, adminUser, assertIsLoggedIn } from "./helpers/roles";
 
-const HOMEPAGE = "https://talent.test";
+const HOMEPAGE = "https://localhost";
 
 fixture(`Critical - Applicant Profile`)
   .page(HOMEPAGE)

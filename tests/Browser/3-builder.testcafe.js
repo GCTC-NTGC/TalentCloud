@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
 import { managerUser } from "./helpers/roles";
 
-const HOMEPAGE = "https://talent.test";
+const HOMEPAGE = "https://localhost";
 
 fixture(`Critical - Job Poster Builder`)
   .page(HOMEPAGE)
