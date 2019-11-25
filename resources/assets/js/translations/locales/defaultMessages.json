@@ -2810,7 +2810,7 @@
         "id": "jobBuilder.review.button.return"
       },
       {
-        "defaultMessage": "Send to HR for Review",
+        "defaultMessage": "Looks good!",
         "description": "Label of Job Review Submission Button",
         "id": "jobBuilder.review.button.submit"
       },
