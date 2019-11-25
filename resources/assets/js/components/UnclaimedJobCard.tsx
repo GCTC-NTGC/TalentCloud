@@ -2,15 +2,13 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 import { JobStatus } from "../models/lookupConstants";
 
-export interface UnclaimedJob {
+export interface UnclaimedJobCardProps {
   title: string;
   createdAt: string;
   status: JobStatus;
   hiringManagers: string[];
   hrAdvisors: string[];
 }
-
-export interface UnclaimedJobCardProps extends UnclaimedJob {}
 
 const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
   title,

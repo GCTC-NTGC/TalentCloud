@@ -4,7 +4,6 @@ import { text, select, array } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
 import UnclaimedJobCard from "../components/UnclaimedJobCard";
 import { JobStatus } from "../models/lookupConstants";
-import UnclaimedJobGrid from "../components/UnclaimedJobGrid";
 
 const stories = storiesOf("Components|Unclaimed Job Card", module).addDecorator(
   withIntl,
@@ -105,7 +104,28 @@ stories
     "Grid",
     (): React.ReactElement => (
       <div data-c-container="large" data-c-padding="tb(triple)">
-        <UnclaimedJobGrid unclaimedJobs={unclaimedJobs} />
+        <div data-c-grid="gutter">
+          {unclaimedJobs.map(
+            ({
+              title,
+              createdAt,
+              status,
+              hiringManagers,
+              hrAdvisors,
+            }): React.ReactElement => {
+              return (
+                <UnclaimedJobCard
+                  key={title}
+                  title={title}
+                  createdAt={createdAt}
+                  status={status}
+                  hiringManagers={hiringManagers}
+                  hrAdvisors={hrAdvisors}
+                />
+              );
+            },
+          )}
+        </div>
       </div>
     ),
   );
