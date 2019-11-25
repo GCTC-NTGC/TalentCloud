@@ -22,8 +22,6 @@ cache:
 # following required for Test Cafe
 addons:
   chrome: stable
-  hosts:
-    - talent.test
 
 before_install:
   # free port 5432
@@ -41,6 +39,8 @@ install:
   - travis_retry npm install
   # database
   - psql -c 'create database talentcloud;' -U postgres
+  - psql -c 'create user talentcloud;' -U postgres
+  - psql -c 'grant all privileges on database talentcloud to talentcloud;' -U postgres
   - travis_retry php artisan migrate:fresh
   - travis_retry php artisan db:seed
   # laravel mix
@@ -50,7 +50,7 @@ before_script:
   # setup headless browser for tests
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   # start web server port 8000
-  - php artisan serve &
+  # php artisan serve &
   # required for Test Cafe
   - 'export DISPLAY=:99.0'
   - 'sh -e /etc/init.d/xvfb start'
