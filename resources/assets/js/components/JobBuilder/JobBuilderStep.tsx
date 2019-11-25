@@ -9,7 +9,7 @@ import {
   Skill,
   Department,
 } from "../../models/types";
-import { NUM_OF_TASKS, JobBuilderPage } from "./jobBuilderHelpers";
+import { JobBuilderPage } from "./jobBuilderHelpers";
 import {
   getJob,
   getTasksByJob,
