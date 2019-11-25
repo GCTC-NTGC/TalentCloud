@@ -15,7 +15,7 @@
         "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "test": "jest test",
+        "test": "jest test --collect-coverage --coverageDirectory=./report/jest",
         "test-watch": "jest --config=jest.config.js --watch",
         "storybook": "start-storybook -s ./public -p 1234",
         "snapshot-update": "jest --updateSnapshot",
@@ -125,7 +125,7 @@
         "yup": "^0.27.0"
     },
     "jest-junit": {
-        "outputDirectory": "./report/",
+        "outputDirectory": "./report/jest",
         "outputName": "junit.jest.xml"
     },
     "repository": {

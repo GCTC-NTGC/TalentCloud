@@ -23,7 +23,7 @@
         <env name="HIDE_LOCALE_IN_URL" value="true"/>
     </php>
     <logging>
-        <log type="junit" target="./report/junit.phpunit.xml" />
+        <log type="junit" target="./report/phpunit/junit.phpunit.xml" />
         <log type="coverage-html" target="./report/phpunit"/>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
     </logging>
