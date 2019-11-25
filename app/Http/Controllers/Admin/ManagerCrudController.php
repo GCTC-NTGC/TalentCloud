@@ -30,7 +30,7 @@ class ManagerCrudController extends CrudController
         $this->crud->removeButton('update');
 
         $this->crud->addColumn([
-            'name' => 'id',
+            'name' => 'manager.id',
             'key' => 'manager_id',
             'type' => 'number',
             'label' => 'ID'
