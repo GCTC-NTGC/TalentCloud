@@ -417,7 +417,7 @@
   "jobBuilder.skills.statusSmiley.essential.awesome": "Fantastique",
   "jobBuilder.skills.statusSmiley.essential.tooFew": "Insuffisant",
   "jobBuilder.skills.statusSmiley.essential.tooMany": "Trop",
-  "jobBuilder.skills.statusSmiley.essentialTitle": "Le nombre total des compétences fondamentales",
+  "jobBuilder.skills.statusSmiley.essentialTitle": "Le nombre des compétences fondamentales",
   "jobBuilder.skills.statusSmiley.title": "Le nombre total des compétences",
   "jobBuilder.skills.statusSmiley.tooFew": "Insuffisant",
   "jobBuilder.skills.statusSmiley.tooMany": "Trop",
