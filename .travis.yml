@@ -40,6 +40,7 @@ install:
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - travis_retry npm install
   # database
+  - psql -c 'create database talentcloud;' -U postgres
   - travis_retry php artisan migrate:fresh
   - travis_retry php artisan db:seed
   # laravel mix
