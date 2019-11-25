@@ -4597,7 +4597,7 @@
         "id": "jobBuilder.tasks.intro.second"
       },
       {
-        "defaultMessage": "Aim to provide between four and six key tasks. (You can add as many key tasks as you want as you brainstorm here, but you can include no more than eight in the final job poster.)",
+        "defaultMessage": "Aim to provide between four and six key tasks. (You can add as many key tasks as you want as you brainstorm here, but you can include no more than six in the final job poster.)",
         "description": "Job Tasks page third intro section",
         "id": "jobBuilder.tasks.intro.third"
       },
