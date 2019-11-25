@@ -39,7 +39,7 @@ install:
   - travis_retry npm install
   # database
   - psql -c 'create database talentcloud;' -U postgres
-  - psql -c 'create user talentcloud;' -U postgres
+  - psql -c 'create user talentcloud with password "talentcloud";' -U postgres
   - psql -c 'grant all privileges on database talentcloud to talentcloud;' -U postgres
   - travis_retry php artisan migrate:fresh
   - travis_retry php artisan db:seed
