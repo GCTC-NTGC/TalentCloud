@@ -96,7 +96,7 @@ class ApplicantProfileController extends Controller
                 // Applicant Profile Questions.
                 'applicant_profile_questions' => $profileQuestionForms,
                 // Update route.
-                'form_submit_action' => route('profile.about.update', $applicant)
+                'form_submit_action' => route('profile.about.update', $applicant),
                 'linkedInUrlPattern' => $linkedInUrlPattern,
                 'twitterHandlePattern' => $twitterHandlePattern,
             ]
