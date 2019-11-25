@@ -1,19 +1,8 @@
 build:
-  services:
-    postgres: 9.6
   environment:
     php:
       version: 7.2
-      ini:
-        memory_limit: -1
     node: v12.13.1
-    variables:
-      DB_DATABASE: scrutinizer
-      DB_USERNAME: scrutinizer
-      DB_PASSWORD: scrutinizer
-  dependencies:
-    after:
-      - npm run dev
   tests:
     stop_on_failure: true
     override:
