@@ -44,7 +44,7 @@ import JobWorkEnv from "../JobWorkEnv";
 import JobWorkCulture from "../JobWorkCulture";
 import Modal from "../../Modal";
 import { textToParagraphs } from "../../../helpers/textToParagraphs";
-import { useUrlHash } from "../../../helpers/router";
+import { useUrlHash, Link } from "../../../helpers/router";
 
 interface JobReviewSectionProps {
   title: string;
@@ -202,10 +202,10 @@ const JobReviewSection: React.FunctionComponent<JobReviewSectionProps> = ({
             data-c-grid-item="tp(1of2)"
             data-c-alignment="base(centre) tp(right)"
           >
-            <a href={link}>
+            <Link href={link} title={linkLabel}>
               <i data-c-colour="c2" className="fas fa-edit" />
               {linkLabel}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -339,9 +339,8 @@ interface JobReviewProps {
   handleReturn: () => void;
 }
 
-export const JobReview: React.FunctionComponent<
-  JobReviewProps & WrappedComponentProps
-> = ({
+export const JobReview: React.FunctionComponent<JobReviewProps &
+  WrappedComponentProps> = ({
   job,
   manager,
   tasks,
@@ -765,7 +764,7 @@ export const JobReview: React.FunctionComponent<
             >
               <FormattedMessage
                 id="jobBuilder.review.button.submit"
-                defaultMessage="Send to HR for Review"
+                defaultMessage="Looks good!"
                 description="Label of Job Review Submission Button"
               />
             </button>

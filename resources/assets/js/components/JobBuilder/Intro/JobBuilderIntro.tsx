@@ -62,9 +62,8 @@ interface JobBuilderIntroProps {
   loadCurrentManager: () => Promise<void>;
 }
 
-const JobBuilderIntro: React.FunctionComponent<
-  JobBuilderIntroProps & WrappedComponentProps
-> = ({
+const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps &
+  WrappedComponentProps> = ({
   jobId,
   manager,
   job,
@@ -104,11 +103,16 @@ const JobBuilderIntro: React.FunctionComponent<
     return jobPromise;
   };
 
-  const handleContinueEn = (newJob: Job): void => {
-    navigate(jobBuilderDetails("en", newJob.id));
-  };
-  const handleContinueFr = (newJob: Job): void => {
-    navigate(jobBuilderDetails("fr", newJob.id));
+  const handleContinue = (chosenLang: string, newJob: Job): void => {
+    if (locale === chosenLang) {
+      navigate(jobBuilderDetails(chosenLang, newJob.id));
+    } else {
+      const baseUrl = window.location.origin;
+      window.location.href = `${baseUrl}${jobBuilderDetails(
+        chosenLang,
+        newJob.id,
+      )}`;
+    }
   };
 
   return (
@@ -142,8 +146,7 @@ const JobBuilderIntro: React.FunctionComponent<
           manager={manager}
           departments={departments}
           handleSubmit={handleSubmit}
-          handleContinueEn={handleContinueEn}
-          handleContinueFr={handleContinueFr}
+          handleContinue={handleContinue}
         />
       )}
     </JobBuilderStepContainer>

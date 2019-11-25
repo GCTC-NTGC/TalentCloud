@@ -9,6 +9,8 @@ use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
 use App\Http\Controllers\Controller;
 use App\Services\Validation\Requests\UpdateApplicationProfileValidator;
+use App\Services\Validation\Rules\LinkedInUrlRule;
+use App\Services\Validation\Rules\TwitterHandleRule;
 
 class ApplicantProfileController extends Controller
 {
@@ -80,6 +82,9 @@ class ApplicantProfileController extends Controller
             array_push($profileQuestionForms, $formValues);
         }
 
+        $linkedInUrlPattern = LinkedInUrlRule::PATTERN;
+        $twitterHandlePattern = TwitterHandleRule::PATTERN;
+
         return view(
             'applicant/profile_01_about',
             [
@@ -92,6 +97,8 @@ class ApplicantProfileController extends Controller
                 'applicant_profile_questions' => $profileQuestionForms,
                 // Update route.
                 'form_submit_action' => route('profile.about.update', $applicant)
+                'linkedInUrlPattern' => $linkedInUrlPattern,
+                'twitterHandlePattern' => $twitterHandlePattern,
             ]
         );
     }
