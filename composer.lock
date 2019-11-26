@@ -72,16 +72,16 @@
         },
         {
             "name": "backpack/crud",
-            "version": "4.0.21",
+            "version": "4.0.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "186a91c66bdf02dfe69f42a121c6fc986b404da2"
+                "reference": "9b611865c41143f8ebf2ab39be7af3b564bb0f8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/186a91c66bdf02dfe69f42a121c6fc986b404da2",
-                "reference": "186a91c66bdf02dfe69f42a121c6fc986b404da2",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/9b611865c41143f8ebf2ab39be7af3b564bb0f8d",
+                "reference": "9b611865c41143f8ebf2ab39be7af3b564bb0f8d",
                 "shasum": ""
             },
             "require": {
@@ -155,7 +155,7 @@
                 "read",
                 "update"
             ],
-            "time": "2019-11-23T09:45:15+00:00"
+            "time": "2019-11-25T15:41:20+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",
