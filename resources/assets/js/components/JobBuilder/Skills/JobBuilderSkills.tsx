@@ -666,7 +666,7 @@ export const JobBuilderSkills: React.FunctionComponent<
               <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
                 <FormattedMessage
                   id="jobBuilder.skills.statusSmiley.essentialTitle"
-                  defaultMessage="Total Number of Essential Skills"
+                  defaultMessage="Number of Essential Skills"
                   description="Title of skill status tracker"
                 />
               </p>
@@ -1055,7 +1055,7 @@ export const JobBuilderSkills: React.FunctionComponent<
                   <p data-c-font-size="small" data-c-font-weight="bold">
                     <FormattedMessage
                       id="jobBuilder.skills.statusSmiley.tooMany"
-                      defaultMessage="tooMany"
+                      defaultMessage="Too Many"
                       description="Description of quantity of skills"
                     />
                   </p>

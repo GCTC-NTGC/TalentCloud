@@ -23,10 +23,7 @@ import { getSkills } from "../../../store/Skill/skillSelector";
 import { DispatchType } from "../../../configureStore";
 import { submitJobForReview } from "../../../store/Job/jobActions";
 import JobBuilderStepContainer from "../JobBuilderStep";
-import {
-  isJobBuilderComplete,
-  VALID_COUNT,
-} from "../jobBuilderHelpers";
+import { isJobBuilderComplete } from "../jobBuilderHelpers";
 import JobReview from "./JobReview";
 import { getDepartments } from "../../../store/Department/deptSelector";
 import { getSelectedManager } from "../../../store/Manager/managerSelector";
@@ -48,9 +45,8 @@ interface JobBuilderReviewPageProps {
   loadManager: (managerId: number) => Promise<void>;
 }
 
-const JobBuilderReviewPage: React.FunctionComponent<
-  JobBuilderReviewPageProps & WrappedComponentProps
-> = ({
+const JobBuilderReviewPage: React.FunctionComponent<JobBuilderReviewPageProps &
+  WrappedComponentProps> = ({
   jobId,
   job,
   skills,
@@ -84,8 +80,7 @@ const JobBuilderReviewPage: React.FunctionComponent<
     nprogress.start();
   };
   const jobIsComplete =
-    job !== null &&
-    isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
+    job !== null && isJobBuilderComplete(job, keyTasks, criteria, locale);
 
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="review">
