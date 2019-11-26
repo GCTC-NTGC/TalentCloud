@@ -764,7 +764,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
             >
               <FormattedMessage
                 id="jobBuilder.review.button.submit"
-                defaultMessage="Send to HR for Review"
+                defaultMessage="Looks good!"
                 description="Label of Job Review Submission Button"
               />
             </button>

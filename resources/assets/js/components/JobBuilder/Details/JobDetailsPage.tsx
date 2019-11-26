@@ -19,10 +19,7 @@ import {
   jobBuilderReview,
 } from "../../../helpers/routes";
 import JobBuilderStepContainer from "../JobBuilderStep";
-import {
-  isJobBuilderComplete,
-  VALID_COUNT,
-} from "../jobBuilderHelpers";
+import { isJobBuilderComplete } from "../jobBuilderHelpers";
 import { navigate } from "../../../helpers/router";
 
 interface JobDetailsPageProps {
@@ -35,9 +32,8 @@ interface JobDetailsPageProps {
   handleUpdateJob: (newJob: Job) => Promise<boolean>;
 }
 
-const JobDetailsPage: React.FunctionComponent<
-  JobDetailsPageProps & WrappedComponentProps
-> = ({
+const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps &
+  WrappedComponentProps> = ({
   jobId,
   job,
   handleUpdateJob,
@@ -66,8 +62,7 @@ const JobDetailsPage: React.FunctionComponent<
   };
 
   const jobIsComplete =
-    job !== null &&
-    isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
+    job !== null && isJobBuilderComplete(job, keyTasks, criteria, locale);
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="details">
       {job !== null && (

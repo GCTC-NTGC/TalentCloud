@@ -1,0 +1,37 @@
+[
+  {
+    "id": "jobBuilder.workEnv.greatStart",
+    "description": "Kicker message at the start of the modal.",
+    "defaultMessage": "You're off to a great start!"
+  },
+  {
+    "id": "jobBuilder.workEnv.openingSentence",
+    "description": "Opening sentence for modal.",
+    "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\r\n                free to go back and edit things or move to the next step if\r\n                you're happy with it."
+  },
+  {
+    "id": "jobBuilder.workEnvModal.title",
+    "description": "Header of job poster builder work environment step.",
+    "defaultMessage": "Work Environment"
+  },
+  {
+    "id": "jobBuilder.workEnvModal.workCultureTitle",
+    "description": "The title displayed for the work culture section on modal.",
+    "defaultMessage": "Work Culture"
+  },
+  {
+    "id": "jobBuilder.workEnvModal.cancelLabel",
+    "description": "The label displayed on modal cancel button.",
+    "defaultMessage": "Go Back"
+  },
+  {
+    "id": "jobBuilder.workEnvModal.modalMiddleLabel",
+    "description": "The text displayed on the 'Skip to Review' button of the Work Env modal.",
+    "defaultMessage": "Skip to Review"
+  },
+  {
+    "id": "jobBuilder.workEnvModal.confirmLabel",
+    "description": "The label displayed on modal confirm button.",
+    "defaultMessage": "Next Step"
+  }
+]
