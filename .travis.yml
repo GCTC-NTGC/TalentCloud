@@ -11,8 +11,8 @@ branches:
 
 dist: trusty
 
-#services:
-  # docker
+services:
+  - docker
 
 cache:
   directories:
@@ -22,14 +22,16 @@ cache:
 # following required for Test Cafe
 addons:
   chrome: stable
+  hosts:
+    - talent.test
 
 before_install:
   # free port 5432
-  # sudo service postgresql stop
+  - sudo service postgresql stop
   # latest composer version
-  - travis_retry composer self-update
+  - composer self-update
   # latest npm@6 version
-  - travis_retry npm i -g npm@^6
+  - npm i -g npm@^6
 
 install:
   # environment
@@ -37,14 +39,6 @@ install:
   # dependencies
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - travis_retry npm install
-  # database
-  - psql -c 'create database talentcloud;' -U postgres
-  - psql -c 'create user talentcloud with password "talentcloud";' -U postgres
-  - psql -c 'grant all privileges on database talentcloud to talentcloud;' -U postgres
-  - travis_retry php artisan migrate:fresh
-  - travis_retry php artisan db:seed
-  # laravel mix
-  - npm run dev
 
 before_script:
   # setup headless browser for tests
@@ -59,30 +53,30 @@ before_script:
 
 script:
   # build application / database containers
-  # make docker-start
-  # make gen-certs
-  # travis_retry make build-db
-  # make set-perms
+  - make docker-start
+  - make gen-certs
+  - travis_retry make build-db
+  - make set-perms
   # laravel mix
-  # npm run dev
+  - npm run dev
   # browser tests
   - npm run testcafe-ci
   # prepare code coverage
   - mkdir -p ./report/
-  # ci_env=`bash <(curl -s https://codecov.io/env)`
-  # docker run $ci_env gctcntgc/talentcloud sh
+  - ci_env=`bash <(curl -s https://codecov.io/env)`
+  - docker run $ci_env gctcntgc/talentcloud sh
   # Jest tests
   - npm run test
   # send Jest report to codecov.io
   - bash <(curl -s https://codecov.io/bash) -cF javascript
   # PHPUnit tests
-  - ./vendor/bin/phpunit --coverage-clover=coverage.xml
+  - make phpunit
   # send PHPUnit report to codecov.io
   - bash <(curl -s https://codecov.io/bash) -cF php
 
 #after_script:
   # tear down
-  # make docker-stop
+  - make docker-stop
 
 # Slack notifications / do not send emails
 notifications:

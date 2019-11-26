@@ -1,8 +1,14 @@
 build:
   environment:
-    php:
-      version: 7.2
+    php: 7.2
     node: v12.13.1
+  dependencies:
+    override:
+      - composer selfupdate
+      - composer install --no-interaction --prefer-dist --no-suggest
+      - npm install
+  project_setup:
+    override: true
   tests:
     stop_on_failure: true
     override:
