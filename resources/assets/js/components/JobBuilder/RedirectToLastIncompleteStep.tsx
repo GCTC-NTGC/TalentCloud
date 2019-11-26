@@ -10,7 +10,6 @@ import {
   jobBuilderIntroProgressState,
   jobBuilderDetailsProgressState,
   JobBuilderPage,
-  VALID_COUNT,
   pageToUrlBuilder,
 } from "./jobBuilderHelpers";
 import { ProgressTrackerState } from "../ProgressTracker/types";
@@ -31,7 +30,6 @@ interface RedirectToLastIncompleteStepProps {
   job: Job | null;
   jobIsLoading: boolean;
   tasks: JobPosterKeyTask[];
-  maxTasksCount: number;
   tasksIsLoading: boolean;
   criteria: Criteria[];
   criteriaIsLoading: boolean;
@@ -66,14 +64,11 @@ export const firstIncompletePage = (
   return firstIncompletePage(pageStates, pageOrder.slice(1));
 };
 
-export const RedirectToLastIncompleteStep: React.FunctionComponent<
-  RedirectToLastIncompleteStepProps
-> = ({
+export const RedirectToLastIncompleteStep: React.FunctionComponent<RedirectToLastIncompleteStepProps> = ({
   jobId,
   job,
   jobIsLoading,
   tasks,
-  maxTasksCount,
   tasksIsLoading,
   criteria,
   criteriaIsLoading,
@@ -98,9 +93,7 @@ export const RedirectToLastIncompleteStep: React.FunctionComponent<
     impact: () =>
       jobIsLoading ? "null" : jobImpactProgressState(job, locale, false),
     tasks: () =>
-      tasksIsLoading
-        ? "null"
-        : jobTasksProgressState(tasks, maxTasksCount, locale, false),
+      tasksIsLoading ? "null" : jobTasksProgressState(tasks, locale, false),
     skills: () =>
       criteriaIsLoading
         ? "null"
@@ -162,7 +155,6 @@ export const RedirectPage: React.FC<{ jobId: number }> = ({ jobId }) => {
     <JobBuilderStepContainer jobId={jobId} currentPage={null} forceIsLoading>
       <RedirectToLastIncompleteStepConnected
         jobId={jobId}
-        maxTasksCount={VALID_COUNT}
         handleRedirect={redirect}
       />
     </JobBuilderStepContainer>
