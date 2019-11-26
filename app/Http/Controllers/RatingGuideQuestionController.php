@@ -20,29 +20,24 @@ class RatingGuideQuestionController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', RatingGuideQuestion::class);
-        try {
-            $job_poster_id = (int)$request->json('job_poster_id');
-            $assessment_type_id = (int)$request->json('assessment_type_id');
-            $question = $request->json('question');
 
-            JobPoster::findOrFail($job_poster_id);
-            AssessmentType::findOrFail($assessment_type_id);
+        $job_poster_id = (int)$request->json('job_poster_id');
+        $assessment_type_id = (int)$request->json('assessment_type_id');
+        $question = $request->json('question');
 
-            $ratingGuideQuestion = new RatingGuideQuestion([
-                'job_poster_id' => $job_poster_id,
-                'assessment_type_id' => $assessment_type_id,
-                'question' => $question,
-            ]);
-            // Check that this user is allowed to create an Assessment for this criterion.
-            $this->authorize('update', $ratingGuideQuestion);
+        JobPoster::findOrFail($job_poster_id);
+        AssessmentType::findOrFail($assessment_type_id);
 
-            $ratingGuideQuestion->save();
-            $ratingGuideQuestion->refresh();
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage()
-            ], 400);
-        }
+        $ratingGuideQuestion = new RatingGuideQuestion([
+            'job_poster_id' => $job_poster_id,
+            'assessment_type_id' => $assessment_type_id,
+            'question' => $question,
+        ]);
+        // Check that this user is allowed to create an Assessment for this criterion.
+        $this->authorize('update', $ratingGuideQuestion);
+
+        $ratingGuideQuestion->save();
+        $ratingGuideQuestion->refresh();
 
         return [
             'success' => "Successfully created rating guide question $ratingGuideQuestion->id",
@@ -77,27 +72,18 @@ class RatingGuideQuestionController extends Controller
     public function update(Request $request, RatingGuideQuestion $ratingGuideQuestion)
     {
         $this->authorize('update', $ratingGuideQuestion);
-        try {
-            $job_poster_id = (int)$request->json('job_poster_id');
-            $assessment_type_id = (int)$request->json('assessment_type_id');
-            $question = $request->json('question');
 
-            JobPoster::findOrFail($job_poster_id);
-            AssessmentType::findOrFail($assessment_type_id);
+        $job_poster_id = (int)$request->json('job_poster_id');
+        $assessment_type_id = (int)$request->json('assessment_type_id');
+        $question = $request->json('question');
 
-            if (empty($question)) {
-                throw new \InvalidArgumentException('Question is required.');
-            }
+        JobPoster::findOrFail($job_poster_id);
+        AssessmentType::findOrFail($assessment_type_id);
 
-            $ratingGuideQuestion->job_poster_id = $job_poster_id;
-            $ratingGuideQuestion->assessment_type_id = $assessment_type_id;
-            $ratingGuideQuestion->question = $question;
-            $ratingGuideQuestion->save();
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage()
-            ], 400);
-        }
+        $ratingGuideQuestion->job_poster_id = $job_poster_id;
+        $ratingGuideQuestion->assessment_type_id = $assessment_type_id;
+        $ratingGuideQuestion->question = $question;
+        $ratingGuideQuestion->save();
 
         return [
             'success' => "Successfully updated rating guide question $ratingGuideQuestion->id",
