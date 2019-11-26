@@ -15,6 +15,7 @@ class FirstVisitController extends AuthController
     /**
      * Show the form for completing Manager registration on first visit.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function showFirstVisitManagerForm()
@@ -66,7 +67,9 @@ class FirstVisitController extends AuthController
         $user->manager->save();
 
         $user->refresh();
-        return redirect(route('manager.home'));
+        $expectedUrl = session()->remove('url.expected');
+        session()->remove('url.expected');
+        return redirect($expectedUrl);
     }
 
     /**

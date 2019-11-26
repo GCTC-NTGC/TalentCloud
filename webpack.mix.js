@@ -61,9 +61,6 @@ mix
           },
         ],
       }),
-      autoprefixer({
-        browsers: ">0.1%",
-      }),
     ],
   })
   .sass("resources/assets/sass/reliability.scss", "public/css", {
@@ -82,9 +79,6 @@ mix
             },
           },
         ],
-      }),
-      autoprefixer({
-        browsers: ">0.1%",
       }),
     ],
   });
