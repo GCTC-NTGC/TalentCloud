@@ -113,11 +113,16 @@ class TwoFactorController extends AuthController
 
     protected function rememberDevice(Request $request)
     {
+        $user = $request->user();
         $remember = $request->input('remember_device');
+
         if ($remember) {
+            if (empty($user->getRememberDeviceToken())) {
+                $user->cycleRememberDeviceToken();
+            }
             Cookie::queue(
-                'remember_device',
-                'yes',
+                $user->getRememberDeviceKey(),
+                $user->getRememberDeviceToken(),
                 config('google2fa.lifetime')
             );
         }
