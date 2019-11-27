@@ -16,9 +16,10 @@ class Google2FA
     public function handle($request, Closure $next)
     {
         $authenticator = app(Authenticator::class)->boot($request);
-        $remember = $request->cookie('remember_device');
+        $user = $request->user();
+        $remember = $request->cookie($user->getRememberDeviceKey());
 
-        if ($authenticator->isAuthenticated() || $remember === 'yes') {
+        if ($authenticator->isAuthenticated() || ($remember !== null && $remember === $user->getRememberDeviceToken())) {
             if (!$authenticator->isAuthenticated()) {
                 Log::notice('User skipped OTP entry with known device.', ['id' => $request->user()->id]);
             }
