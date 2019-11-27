@@ -103,8 +103,6 @@ class ManagerProfileController extends Controller
         $linkedInUrlPattern = LinkedInUrlRule::PATTERN;
         $twitterHandlePattern = TwitterHandleRule::PATTERN;
 
-        $show_notification = Auth::user()->isDemoManager();
-
         return view('manager/profile', [
             // Localization.
             'profile_l10n' => Lang::get('manager/profile'),
@@ -122,7 +120,6 @@ class ManagerProfileController extends Controller
             'managerFR' => $manager->translate('fr'),
             'linkedInUrlPattern' => $linkedInUrlPattern,
             'twitterHandlePattern' => $twitterHandlePattern,
-            'show_notification' => $show_notification
         ]);
     }
 
@@ -180,15 +177,12 @@ class ManagerProfileController extends Controller
 
     public function faq(Request $request)
     {
-        $show_notification = $request->user() && $request->user()->isDemoManager();
-
         return view(
             'applicant/static_faq',
             [
                 'breadcrumb_home' => route('manager.home'),
                 'faq' => Lang::get('applicant/faq'),
                 'manager_sidebar_active' => 'active',
-                'show_notification' => $show_notification
             ]
         );
     }

@@ -14,13 +14,10 @@ class JobBuilderController extends Controller
      */
     public function show()
     {
-        $show_notification = Auth::user()->isDemoManager();
-
         return view(
             'manager/job-builder-root'
         )->with([
             'title' => Lang::get('manager/job_builder.title'),
-            'show_notification' => $show_notification,
         ]);
     }
 }
