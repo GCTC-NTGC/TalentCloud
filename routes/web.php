@@ -553,6 +553,6 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:unClaim,job')
         ->where('job', '[0-9]+');
 
-    Route::get('hr-advisors/{hrAdvisor}', 'Api\HrAdvisorController@view')
+    Route::get('hr-advisors/{hrAdvisor}', 'Api\HrAdvisorController@show')
         ->middleware('can:view,hrAdvisor');
 });
