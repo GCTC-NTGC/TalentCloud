@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Str;
+
 trait RememberDeviceTrait
 {
     /**
@@ -44,5 +46,26 @@ trait RememberDeviceTrait
     public function getRememberDeviceTokenName()
     {
         return $this->rememberDeviceTokenName;
+    }
+
+    /**
+     * Refresh the "remember device" token for the User.
+     *
+     * @return void
+     */
+    public function cycleRememberDeviceToken()
+    {
+        $this->setRememberDeviceToken(Str::random(60));
+    }
+
+    /**
+     * Get a key to be used by a cookie for the
+     * remember device token.
+     *
+     * @return string
+     */
+    public function getRememberDeviceKey(): string
+    {
+        return 'remember_device_'.sha1(static::class);
     }
 }

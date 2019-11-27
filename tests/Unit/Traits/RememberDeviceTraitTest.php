@@ -32,4 +32,12 @@ class RememberDeviceTraitTest extends TestCase
         $user->setRememberDeviceToken(true);
         $this->assertNull($user->getRememberDeviceToken());
     }
+
+    public function testCycleTokenSavesNewToken()
+    {
+        $user = new User;
+        $user->cycleRememberDeviceToken();
+        $this->assertNotEmpty($user->getRememberDeviceToken());
+        $this->assertSame(60, strlen($user->getRememberDeviceToken()));
+    }
 }
