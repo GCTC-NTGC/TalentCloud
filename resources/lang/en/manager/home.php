@@ -11,7 +11,7 @@ return [
     'hero' => [
         'heading' => 'Talent Cloud',
         'heading_alt' => 'Canadian Maple Leaf',
-        'subheading' => 'An experimental platform. Hiring made easier.',
+        'subheading' => 'Hiring for government just got easier.',
         'button' => [
             'text' => 'Sign Up',
             'title' => 'Sign up as a manager to demo Talent Cloud\'s manager portal.'
@@ -26,7 +26,7 @@ return [
     ],
     'info' => [
         'heading' => 'What Kind of Jobs Can I Post?',
-        'content_first' => 'Talent Cloud is for externally advertised classified term positions, instead of contract or casual jobs (which typically don’t come with benefits, union representation, or worker’s rights). Using behavioural processes and business engineering, term workers can be hired quickly and easily using Talent Cloud, with an emphasis on a best fit match.',
+        'content_first' => 'Talent Cloud is for externally advertised classified term positions, instead of contract or casual jobs (which typically don’t come with benefits or union representation). Using behavioural processes and business engineering, term workers can be hired quickly and easily using Talent Cloud, with an emphasis on a best fit match.',
         'content_second' => 'The platform can be used for jobs of any classification and level.',
         'list_heading' => 'Term hiring is great for:',
         'list' => [
@@ -225,15 +225,15 @@ return [
             ]
         ],
         [
-            'button' => 'Step 4: Screening',
-            'heading' => 'Step 4: Screen Candidates',
+            'button' => 'Step 4: Assess Candidates',
+            'heading' => 'Step 4: Assess Candidates',
             'content' => [
                 'Review each application right on the Talent Cloud platform. Follow your screening plan and evaluate your candidates. Use the applicant sorting tool to track who is still in the process. Coordinate with your HR Advisor to get your candidate’s security clearance and language testing.',
                 'This step is only available for partner department accounts.'
             ]
         ],
         [
-            'button' => 'Step 5: Selection',
+            'button' => 'Step 5: Finalize',
             'heading' => 'Step 5: Select Final Candidate',
             'content' => [
                 'Found the perfect candidate for your position? Now it’s time to work with your HR advisor and the successful candidate to collect everything you need to finalize the hire. The record of decision tool that is coming soon will allow you record your justifications as you go, and easily submit your paperwork to HR.',
