@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use PragmaRX\Google2FALaravel\Support\Authenticator;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
@@ -18,6 +19,11 @@ class Google2FA
         $authenticator = app(Authenticator::class)->boot($request);
         $user = $request->user();
         $remember = $request->cookie($user->getRememberDeviceKey());
+
+        // If tokens do not match, cookie is no longer valid.
+        if ($remember !== null && $remember !== $user->getRememberDeviceToken()) {
+            Cookie::forget($user->getRememberDeviceKey());
+        }
 
         if ($authenticator->isAuthenticated() || ($remember !== null && $remember === $user->getRememberDeviceToken())) {
             if (!$authenticator->isAuthenticated()) {
