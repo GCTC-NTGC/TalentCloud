@@ -68,6 +68,7 @@ export interface Manager {
   department_id: number | null;
   twitter_username: string | null;
   linkedin_url: string | null;
+  is_demo_manager: boolean;
   en: ManagerTranslation;
   fr: ManagerTranslation;
 }

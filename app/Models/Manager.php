@@ -52,6 +52,7 @@ use Astrotomic\Translatable\Translatable as Translatable;
  *
  * Computed Properties
  * @property string $name
+ * @property boolean $is_demo_manager
  *
  * Methods
  * @method   string toApiArray()
@@ -95,7 +96,22 @@ class Manager extends BaseModel
      *
      * @var array
      */
-    protected $appends = ['name'];
+    protected $appends = ['name', 'is_demo_manager'];
+
+    /**
+     * The attributes that should be visible in arrays.
+     *
+     * @var array
+     */
+    protected $visible = [
+        'id',
+        'user_id',
+        'name',
+        'department_id',
+        'twitter_username',
+        'linkedin_url',
+        'is_demo_manager'
+    ];
 
     public function user()
     {
@@ -170,6 +186,19 @@ class Manager extends BaseModel
             return $this->user->first_name . ' ' . $this->user->last_name;
         }
         return '';
+    }
+
+    /**
+     * Return whether this is a Demo Manager.
+     *
+     * @return boolean
+     */
+    public function getIsDemoManagerAttribute(): bool
+    {
+        if ($this->user !== null) {
+            return $this->user->isDemoManager();
+        }
+        return true;
     }
 
     /**
