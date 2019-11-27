@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\JobPoster;
+use App\Models\Lookup\Department;
+use App\Models\User;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Illuminate\Support\Facades\Log;
 
 class JobPosterCrudController extends CrudController
 {
@@ -33,6 +37,8 @@ class JobPosterCrudController extends CrudController
         $this->crud->addButtonFromView('line', 'job_admin_edit', 'job_admin_edit', 'end');
         $this->crud->addButtonFromView('line', 'spb_link', 'spb_link', 'end');
         $this->crud->addButtonFromView('line', 'jpb_link', 'jpb_link', 'end');
+        $this->crud->addButtonFromView('line', 'job_poster_link', 'job_poster_link', 'end');
+
 
         $this->crud->addColumn([
             'name' => 'id',
@@ -43,16 +49,6 @@ class JobPosterCrudController extends CrudController
             'name' => 'title',
             'type' => 'text',
             'label' => 'Title'
-        ]);
-        $this->crud->addColumn([
-            'name' => 'open_date_time',
-            'type' => 'datetime',
-            'label' => 'Open Date'
-        ]);
-        $this->crud->addColumn([
-            'name' => 'close_date_time',
-            'type' => 'datetime',
-            'label' => 'Close Date'
         ]);
         $this->crud->addColumn([
             'name' => 'status',
@@ -66,22 +62,62 @@ class JobPosterCrudController extends CrudController
             'type' => 'check',
         ]);
         $this->crud->addColumn([
-            'name' => 'manager.user.full_name',
-            'key' => 'manager_user_name',
-            'type' => 'text',
+            'name' => 'manager_user_name',
+            'type' => 'closure',
             'label' => 'Manager',
-            'orderable' => false
+            'orderable' => false,
+            'function' => function ($entry) {
+                $full_name = $entry->manager->user->full_name;
+                $manager_id = $entry->manager->user->id;
+                return '<a href="' . route('manager.profile.edit', $manager_id) . '" target="_blank">' . $full_name . '</a>';
+            }
+        ]);
+        $this->crud->addColumn([
+            'name' => 'department.name',
+            'label' => 'Department',
+            'type' => 'text'
         ]);
         $this->crud->addColumn([
             'name' => 'submitted_applications_count',
-            'label' => 'Applications',
-            'type' => 'closure',
-            'function' => function ($entry) {
-                return $entry->submitted_applications_count() > 0 ?
-                        '<a href="' . route('manager.jobs.applications', $entry->id) . '" target="_blank">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
-                        $entry->submitted_applications_count();
-            }
+            'label' => 'Total Applications',
+            'type' => 'model_function',
+            'function_name' => 'submitted_applications_count'
         ]);
+
+        // Filters.
+        $this->crud->addFilter([
+            'name' => 'departments',
+            'type' => 'select2_multiple',
+            'label' => 'Departments'
+        ], function () {
+            return Department::all()->pluck('name', 'id')->toArray();
+        }, function ($values) {
+            $this->crud->addClause('WhereHas', 'department', function ($query) use ($values) {
+                foreach (json_decode($values) as $key => $value) {
+                    if ($key === 0) {
+                        $query->where('id', $value);
+                    } else {
+                        $query->orWhere('id', $value);
+                    }
+                }
+            });
+        });
+
+        $this->crud->addFilter([
+            'name' => 'status',
+            'type' => 'dropdown',
+            'label' => 'Status',
+        ], [
+            'draft' => 'draft',
+            'published' => 'published',
+            'closed' => 'closed',
+            'submitted' => 'submitted'
+        ], function ($value) {
+            $jobPosters = JobPoster::all();
+            foreach ($jobPosters as $jobPoster) {
+                Log::debug($jobPoster->status());
+            }
+        });
     }
 
     public function setupUpdateOperation()
