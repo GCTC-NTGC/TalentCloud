@@ -28,12 +28,12 @@ return [
         'heading' => 'What Kind of Jobs Can I Post?',
         'content_first' => 'Talent Cloud is for externally advertised classified term positions, instead of contract or casual jobs (which typically don’t come with benefits, union representation, or worker’s rights). Using behavioural processes and business engineering, term workers can be hired quickly and easily using Talent Cloud, with an emphasis on a best fit match.',
         'content_second' => 'The platform can be used for jobs of any classification and level.',
-        'list_heading' => 'Talent Cloud is great for:',
+        'list_heading' => 'Term hiring is great for:',
         'list' => [
-            'Hiring during an election period (when you’re not sure what your budget might be next year)',
-            'Program funding of limited duration (e.g. fixed term or sunsetting programs)',
-            'Special projects (e.g. DM task teams, innovation projects)',
-            'Hiring a specialist to a team for a particular project phase'
+            'Backfilling for employees on leave.',
+            'Sunsetting programs or cases where next year\'s budget is currently unclear.',
+            'Special projects (e.g. DM task teams, innovation projects).',
+            'Getting a specialist on a team for a particular project phase.'
         ]
     ],
     'features' => [
@@ -52,7 +52,7 @@ return [
                     'rows' => [
                         'poster_creation' => [
                             'heading' => 'Job Poster Creation',
-                            'content' => 'Features such as pre-populated paragraphs and suggested options based on your previous selections make it easy for you to create a job.'
+                            'content' => 'Create a job poster more easily using Talent Cloud features such as pre-populated paragraphs and suggested options based on your previous selections.'
                         ],
                         'screening_plan' => [
                             'heading' => 'Screening Plan',
@@ -83,7 +83,7 @@ return [
                         ],
                         [
                             'heading' => 'Applicant Tracking',
-                            'content' => 'Automatically sort applicants according to your criteria and screen them right on the platform.'
+                            'content' => 'Talent Cloud pre-filters applicants into categories such as Veterans, Priorities, Canadians and non-Canadians. Sort applicants according to your criteria and screen them right on the platform.'
                         ],
                         [
                             'heading' => 'Personalized Support',
@@ -195,7 +195,7 @@ return [
         ],
         'content_second' => [
             'heading' => 'Not a member? You can still use Talent Cloud!',
-            'content' => 'If you’re not a member of a partner department, you can use Talent Cloud with a demo account to create a job poster and an assessment plan, but you won’t be able to post on the live site. Your job poster and assessment plan will have to be integrated into your HR processes. If you like what you see, get in touch with your HR advisor to see how you can join the pilot.'
+            'content' => 'If you’re not a member of a partner department, you can use Talent Cloud with a demo account to create a job poster and an assessment plan, but you won’t be able to post on the live site. Your job poster and assessment plan will have to be integrated into your department\'s regular HR processes. If you like what you see, get in touch with your HR advisor to see how you can join the pilot.'
         ]
     ],
     'steps' => [
@@ -220,7 +220,7 @@ return [
             'button' => 'Step 3: Live Job',
             'heading' => 'Step 3: Live Job',
             'content' => [
-                'Your job will be posted on Talent Cloud as well as <a href="https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="Visit GC Jobs to learn more." target="_blank">GC Jobs</a>. As people apply, you can view the number of applicants increase on your dashboard. We will also handle priority clearance so that priorities will be clearly indicated in your list of applicants once the poster closes.',
+                'Your job will be posted on Talent Cloud as well as <a href="https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="Visit GC Jobs to learn more." target="_blank">GC Jobs</a>. As people apply, you can view the number of applicants increasing on your dashboard. We will also handle priority clearance so that priorities will be clearly indicated in your list of applicants once the poster closes.',
                 'This step is only available for partner department accounts.'
             ]
         ],
