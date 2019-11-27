@@ -9,6 +9,10 @@
 
     {% include "common/header" with { 'header': { 'title': title } } %}
 
+    {% if show_notification %}
+        {% include "manager/notification" %}
+    {% endif %}
+
     <a id="skipLink"></a>
 
     <div
