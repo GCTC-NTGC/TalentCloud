@@ -86,6 +86,8 @@ class LoginController extends AuthController
     {
         $this->guard()->logout();
 
+        // Invalidates any existing 2FA verified devices.
+        $request->user()->cycleRememberDeviceToken();
         $request->session()->invalidate();
 
         // This causes logout to redirect to the same page as login.
