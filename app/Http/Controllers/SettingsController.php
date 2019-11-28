@@ -50,10 +50,9 @@ class SettingsController extends Controller
      * Update personal information
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function updatePersonal(Request $request, User $user)
+    public function updatePersonal(Request $request)
     {
         $user = $request->user();
         $routePrefix = $this->getRoutePrefix();
@@ -108,10 +107,9 @@ class SettingsController extends Controller
      * Update government information.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function updateGovernment(Request $request, User $user)
+    public function updateGovernment(Request $request)
     {
         $user = $request->user();
         $routePrefix = $this->getRoutePrefix();
