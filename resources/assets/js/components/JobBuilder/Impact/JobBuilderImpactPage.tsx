@@ -25,7 +25,7 @@ import {
   getCriteriaByJob,
 } from "../../../store/Job/jobSelector";
 import JobBuilderStepContainer from "../JobBuilderStep";
-import { isJobBuilderComplete, VALID_COUNT } from "../jobBuilderHelpers";
+import { isJobBuilderComplete } from "../jobBuilderHelpers";
 import { navigate } from "../../../helpers/router";
 
 interface JobBuilderImpactPageProps {
@@ -39,9 +39,8 @@ interface JobBuilderImpactPageProps {
   handleUpdateJob: (newJob: Job) => Promise<boolean>;
 }
 
-const JobBuilderImpactPage: React.FunctionComponent<
-  JobBuilderImpactPageProps & WrappedComponentProps
-> = ({
+const JobBuilderImpactPage: React.FunctionComponent<JobBuilderImpactPageProps &
+  WrappedComponentProps> = ({
   jobId,
   job,
   departments,
@@ -72,8 +71,7 @@ const JobBuilderImpactPage: React.FunctionComponent<
     }
   };
   const jobIsComplete =
-    job !== null &&
-    isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
+    job !== null && isJobBuilderComplete(job, keyTasks, criteria, locale);
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="impact">
       {job !== null && departments.length > 0 && (

@@ -45,9 +45,8 @@ const localizations = defineMessages({
   },
 });
 
-const ReviewCategory: React.StatelessComponent<
-  ReviewCategoryProps & WrappedComponentProps
-> = ({
+const ReviewCategory: React.StatelessComponent<ReviewCategoryProps &
+  WrappedComponentProps> = ({
   title,
   description,
   showScreenOutAll,
@@ -110,7 +109,7 @@ const ReviewCategory: React.StatelessComponent<
       },
       description: {
         id: "apl.veteransAndCitizens.description",
-        defaultMessage: "",
+        defaultMessage: " ",
         description: "description of list of Veterans and Canadian citizens",
       },
       applications: applications.filter(
@@ -125,7 +124,7 @@ const ReviewCategory: React.StatelessComponent<
       },
       description: {
         id: "apl.nonCitizens.description",
-        defaultMessage: "",
+        defaultMessage: " ",
         description: "description of list of non-citizen applicants",
       },
       applications: applications.filter(
@@ -141,7 +140,7 @@ const ReviewCategory: React.StatelessComponent<
       },
       description: {
         id: "apl.unqualified.description",
-        defaultMessage: "",
+        defaultMessage: " ",
         description:
           "description of list of applicants who do not meet the essential criteria",
       },
