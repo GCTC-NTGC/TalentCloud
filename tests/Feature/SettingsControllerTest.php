@@ -63,6 +63,7 @@ class SettingsControllerTest extends TestCase
             'email' => 'joeblow@test.com'
         ];
         $response = $this->followingRedirects()->post(route('settings.personal.update'), $data);
+        $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.update_personal')));
         // Data was updated.
@@ -84,6 +85,7 @@ class SettingsControllerTest extends TestCase
             'email' => $this->applicant->user->email,
         ];
         $response = $this->followingRedirects()->post(route('settings.personal.update'), $data);
+        $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
         // Data was not updated.
@@ -105,6 +107,7 @@ class SettingsControllerTest extends TestCase
             'email' => '',
         ];
         $response = $this->followingRedirects()->post(route('settings.personal.update'), $data);
+        $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
         // Data was not updated.
@@ -126,6 +129,7 @@ class SettingsControllerTest extends TestCase
             'email' => $this->manager->user->email,
         ];
         $response = $this->followingRedirects()->post(route('settings.personal.update'), $data);
+        $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
         // Data was not updated.
@@ -148,6 +152,7 @@ class SettingsControllerTest extends TestCase
             'new_confirm_password' => 'NewPassword123!',
         ];
         $response = $this->followingRedirects()->post(route('settings.password.update'), $data);
+        $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.update_password')));
         // Password was updated.
@@ -170,6 +175,7 @@ class SettingsControllerTest extends TestCase
             'new_confirm_password' => ''
         ];
         $response = $this->followingRedirects()->post(route('settings.password.update'), $data);
+        $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
         // Password was not updated.
@@ -192,6 +198,7 @@ class SettingsControllerTest extends TestCase
             'new_confirm_password' => 'DifferentPassword123!',
         ];
         $response = $this->followingRedirects()->post(route('settings.password.update'), $data);
+        $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
         // Password was not updated.
@@ -214,6 +221,7 @@ class SettingsControllerTest extends TestCase
             'new_confirm_password' => 'NewPassword',
         ];
         $response = $this->followingRedirects()->post(route('settings.password.update'), $data);
+        $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
         // Password was not updated.
@@ -236,6 +244,7 @@ class SettingsControllerTest extends TestCase
             'new_confirm_password' => 'NewPassword123!',
         ];
         $response = $this->followingRedirects()->post(route('settings.password.update'), $data);
+        $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
         // Password was not updated.
@@ -278,6 +287,7 @@ class SettingsControllerTest extends TestCase
             'gov_email' => 'applicant@tbs-sct.gc.ca'
         ];
         $response = $this->followingRedirects()->post(route('settings.government.update'), $data);
+        $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.update_government')));
         // Government info was updated.
@@ -297,6 +307,7 @@ class SettingsControllerTest extends TestCase
             'gov_email' => ''
         ];
         $response = $this->followingRedirects()->post(route('settings.government.update'), $data);
+        $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
         // Password was not updated.
@@ -317,6 +328,7 @@ class SettingsControllerTest extends TestCase
             'gov_email' => 'applicant@tbs-sct.gc.xyz'
         ];
         $response = $this->followingRedirects()->post(route('settings.government.update'), $data);
+        $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
         // Password was not updated.
@@ -338,6 +350,7 @@ class SettingsControllerTest extends TestCase
             'email' => 'sallyjones@test.com'
         ];
         $response = $this->followingRedirects()->post(route('manager.settings.personal.update'), $data);
+        $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.update_personal')));
         // Data was updated.
@@ -381,6 +394,7 @@ class SettingsControllerTest extends TestCase
             'gov_email' => 'manager@tbs-sct.gc.ca'
         ];
         $response = $this->followingRedirects()->post(route('manager.settings.government.update'), $data);
+        $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.update_government')));
         // Government info was updated.
