@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\JobPoster;
 use App\Models\Lookup\Department;
-use App\Models\User;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Illuminate\Support\Facades\Log;
 
 class JobPosterCrudController extends CrudController
 {
@@ -67,9 +64,7 @@ class JobPosterCrudController extends CrudController
             'label' => 'Manager',
             'orderable' => false,
             'function' => function ($entry) {
-                $full_name = $entry->manager->user->full_name;
-                $manager_id = $entry->manager->user->id;
-                return '<a href="' . route('manager.profile.edit', $manager_id) . '" target="_blank">' . $full_name . '</a>';
+                return '<a href="' . route('manager.profile.edit', $entry->manager->user->id) . '" target="_blank">' . $entry->manager->user->full_name . '</a>';
             }
         ]);
         $this->crud->addColumn([
@@ -101,22 +96,6 @@ class JobPosterCrudController extends CrudController
                     }
                 }
             });
-        });
-
-        $this->crud->addFilter([
-            'name' => 'status',
-            'type' => 'dropdown',
-            'label' => 'Status',
-        ], [
-            'draft' => 'draft',
-            'published' => 'published',
-            'closed' => 'closed',
-            'submitted' => 'submitted'
-        ], function ($value) {
-            $jobPosters = JobPoster::all();
-            foreach ($jobPosters as $jobPoster) {
-                Log::debug($jobPoster->status());
-            }
         });
     }
 
