@@ -22,7 +22,6 @@
 					{% endif %}
 				</a>
 			</li>
-
 		{% endfor %}
 
 		{% if auth_guest() %}
@@ -36,14 +35,14 @@
 			<li>
 				<a href="{{ login_modals.settings_link }}">{{ menu.settings }}</a>
 			</li>
-		</a>
-	</li>
-	<li>
-		<a href="{{ login_modals.logout_link }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-			{{ menu.logout }}
-		</a>
-		<form id="logout-form" action="{{ login_modals.logout_link }}" method="POST" style="display: none;">
-			{{ csrf_field() }}
-		</form>
-	</li>
-{% endif %}</ul></nav>
+			<li>
+				<a href="{{ login_modals.logout_link }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+					{{ menu.logout }}
+				</a>
+				<form id="logout-form" action="{{ login_modals.logout_link }}" method="POST" style="display: none;">
+					{{ csrf_field() }}
+				</form>
+			</li>
+		{% endif %}
+	</ul>
+</nav>
