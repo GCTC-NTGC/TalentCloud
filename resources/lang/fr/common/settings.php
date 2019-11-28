@@ -55,5 +55,6 @@ return [
     'two_factor_deactivate' => 'Désactivez l’authentification à deux facteurs.',
     'two_factor_status' => 'Statut :',
     'two_factor_on' => 'Activée',
-    'two_factor_off' => 'Désactivées'
+    'two_factor_off' => 'Désactivées',
+    'success_title' => 'Tout va bien.'
 ];

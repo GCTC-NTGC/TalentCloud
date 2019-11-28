@@ -56,5 +56,6 @@ return [
      'two_factor_deactivate' => 'Deactivate Two-factor Authentication',
      'two_factor_status' => 'Status:',
      'two_factor_on' => 'On',
-     'two_factor_off' => 'Off'
+     'two_factor_off' => 'Off',
+     'success_title' => 'All good in the hood.'
 ];
