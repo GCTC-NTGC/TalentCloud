@@ -1,7 +1,7 @@
 import { Selector, Role, ClientFunction } from "testcafe";
 import { applicantUser, adminUser, assertIsLoggedIn } from "./helpers/roles";
 
-const HOMEPAGE = "http://talent.test";
+const HOMEPAGE = "https://talent.test";
 
 fixture(`Critical - Applicant Profile`)
   .page(HOMEPAGE)
@@ -16,7 +16,7 @@ test("Applicant Profile - My Skills", async t => {
     // Logged in as admin (empty skills page).
     .useRole(adminUser)
     // Go to My Skills page.
-    .navigateTo(`/profile/skills`)
+    .navigateTo("/profile/skills")
     .expect(Selector("h1").withText("My Skills").visible)
     .ok()
     // Add soft skill (Passion).
@@ -74,7 +74,7 @@ test("Applicant Profile - My Skills", async t => {
     .expect(Selector("span").withText("Passion").exists)
     .notOk(); */
     // Save and refresh.
-    .navigateTo(`/profile/skills`)
+    .navigateTo("/profile/skills")
     .expect(Selector("span").withText("Passion").visible)
     .ok()
     .expect(Selector("span").withText("Docker").visible)
@@ -86,7 +86,7 @@ test("Applicant Profile - My Experience", async t => {
     // Logged in as applicant.
     .useRole(applicantUser)
     // Go to My Experience page.
-    .navigateTo(`/profile/experience`)
+    .navigateTo("/profile/experience")
     .expect(Selector("h1").withText("My Experience").visible)
     .ok()
     // Add new diploma.
@@ -163,7 +163,7 @@ test("Applicant Profile - My References", async t => {
     // Logged in as applicant.
     .useRole(adminUser)
     // Go to My References page.
-    .navigateTo(`/profile/references`)
+    .navigateTo("/profile/references")
     .expect(Selector("h1").withText("My References").visible)
     .ok()
     .click(Selector("button").withText("Add Reference"))
@@ -195,7 +195,7 @@ test("Applicant Profile - My References", async t => {
       "Richard is the CEO of Cool Funny, we had some laughs.",
     )
     .click(Selector("button").withAttribute("value", "references[1]"))
-    .navigateTo(`/profile/references`)
+    .navigateTo("/profile/references")
     .expect(Selector("button").withText("Richard Cranium").visible)
     .ok();
 });
@@ -205,7 +205,7 @@ test("Applicant Profile - My Work Samples", async t => {
     // Logged in as applicant.
     .useRole(applicantUser)
     // Go to My Work Samples page.
-    .navigateTo(`/profile/portfolio`)
+    .navigateTo("/profile/portfolio")
     .expect(Selector("h1").withText("My Work Samples").visible)
     .ok()
     // Add new work sample.
@@ -233,7 +233,7 @@ test("Applicant Profile - My Work Samples", async t => {
       "A website that is both cool and funny.",
     )
     .click(Selector("button").withAttribute("value", "work_samples[1]"))
-    .navigateTo(`/profile/portfolio`)
+    .navigateTo("/profile/portfolio")
     .expect(Selector("button").withText("Cool Funny").visible)
     .ok();
 });
@@ -243,7 +243,7 @@ test("Applicant Profile - About Me", async t => {
     // Logged in as applicant.
     .useRole(applicantUser)
     // Go to About Me page.
-    .navigateTo(`/profile/about`)
+    .navigateTo("/profile/about")
     .expect(Selector("h1").withText("About Me").visible)
     .ok()
     // Change password.
@@ -333,7 +333,7 @@ test("Registration - Applicant", async t => {
 test("Registration - Manager", async t => {
   await t
     .useRole(Role.anonymous())
-    .navigateTo(`/manager`)
+    .navigateTo("/manager")
     .click(Selector("a").withText("Register"))
     .typeText(Selector("#name"), "Test Cafe")
     .typeText(Selector("#email"), randomEmail())
@@ -364,7 +364,7 @@ test("Registration - First Manager Visit", async t => {
     .click(Selector("button").withText("Register"));
   await assertIsLoggedIn(t);
   await t
-    .navigateTo(`/manager`)
+    .navigateTo("/manager")
     .click(Selector("#department"))
     .click(
       Selector("#department")

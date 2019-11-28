@@ -29,7 +29,7 @@ before_install:
   # free port 5432
   - sudo service postgresql stop
   # latest composer version
-  - composer self-update
+  - travis_retry composer self-update
   # latest npm@6 version
   - npm i -g npm@^6
 
@@ -74,7 +74,7 @@ script:
   # send PHPUnit report to codecov.io
   - bash <(curl -s https://codecov.io/bash) -cF php
 
-#after_script:
+after_script:
   # tear down
   - make docker-stop
 

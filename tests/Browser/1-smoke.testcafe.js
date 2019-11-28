@@ -1,7 +1,7 @@
 import { Selector } from "testcafe";
 import { managerUser, adminUser } from "./helpers/roles";
 
-const HOMEPAGE = "http://talent.test";
+const HOMEPAGE = "https://talent.test";
 
 fixture(`Smoke`)
   .page(HOMEPAGE)
@@ -29,7 +29,7 @@ test("Basic Access", async t => {
 
 test("No Access Profile", async t => {
   await t
-    .navigateTo(`/profile/about`)
+    .navigateTo("/profile/about")
     .expect(Selector("form button[type=submit]").withText("Login").visible)
     .ok();
 });
@@ -89,7 +89,7 @@ test("User Accounts", async t => {
 test("Manager Job Posters", async t => {
   await t
     .useRole(managerUser)
-    .navigateTo(`/manager/jobs`)
+    .navigateTo("/manager/jobs")
     .expect(Selector(".manager-poster-index").visible)
     .ok();
 });
@@ -97,7 +97,7 @@ test("Manager Job Posters", async t => {
 test("Admin Portal", async t => {
   await t
     .useRole(adminUser)
-    .navigateTo(`/admin`)
+    .navigateTo("/admin")
     .expect(Selector("h1").withText("Welcome!").visible)
     .ok();
 });
