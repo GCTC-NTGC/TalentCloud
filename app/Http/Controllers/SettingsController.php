@@ -54,7 +54,6 @@ class SettingsController extends Controller
      */
     public function updatePersonal(Request $request)
     {
-        $user = $request->user();
         $routePrefix = $this->getRoutePrefix();
 
         $validData = $request->validate([
@@ -65,7 +64,7 @@ class SettingsController extends Controller
                 'email:dns',
                 'max:191',
                 // Email may match existing email for this user, must be unique if changed.
-                Rule::unique('users', 'email')->ignore($user->id)
+                Rule::unique('users', 'email')->ignore(User::find(auth()->user()->id))
             ]
         ]);
 
@@ -88,13 +87,13 @@ class SettingsController extends Controller
      */
     public function updatePassword(Request $request)
     {
+        $routePrefix = $this->getRoutePrefix();
+
         $validData = $request->validate([
             'current_password' => ['required', new PasswordCorrectRule],
             'new_password' => ['required', new PasswordFormatRule],
             'new_confirm_password' => ['required', 'same:new_password']
         ]);
-
-        $routePrefix = $this->getRoutePrefix();
 
         if ($validData) {
             User::find(auth()->user()->id)->update(['password'=> Hash::make($validData['new_password'])]);
@@ -111,12 +110,11 @@ class SettingsController extends Controller
      */
     public function updateGovernment(Request $request)
     {
-        $user = $request->user();
         $routePrefix = $this->getRoutePrefix();
 
         $validData = $request->validate([
             'gov_email' => 'nullable|required_unless:department,0|email:dns|max:191',
-                            Rule::unique('users', 'gov_email')->ignore($user->id)
+                            Rule::unique('users', 'gov_email')->ignore(User::find(auth()->user()->id))
         ]);
 
         if ($validData) {
