@@ -16,7 +16,7 @@ return [
         'two_factor' => 'Authentification à deux facteurs'
     ],
     'personal_copy' => 'Cette information sert à vous identifier sur la plateforme.',
-    'required' => 'Renseignements obligatoires',
+    'required' => 'Champs obligatoires',
     'error' => 'Erreur',
     'first_name_label' => 'Prénom',
     'last_name_label' => 'Nom',
