@@ -1,15 +1,13 @@
 <?php
-
+/*
+|--------------------------------------------------------------------------
+| Use Recovery Code Language Lines
+|--------------------------------------------------------------------------
+|
+| The following language lines are used by auth\use_recovery_code
+|
+*/
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Use Recovery Code Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used by auth\use_recovery_code
-    |
-    */
-
     'title' => 'Use a Recovery Code',
     'return_title' => 'One-time Password.',
     'return' => 'Back to One-time Password',

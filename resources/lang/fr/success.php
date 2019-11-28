@@ -8,8 +8,8 @@
 |
 */
 return [
-    'title' => '',
-    'update_personal' => '',
-    'update_password' => '',
-    'update_government' => ''
+    'title' => 'Tout va bien.',
+    'update_personal' => 'La modification des renseignements personnels a été faite avec succès.',
+    'update_password' => 'La modification du mot de passe a été faite avec succès.',
+    'update_government' => 'La modification de l’adresse électronique gouvernementale a été faite avec succès.'
 ];
