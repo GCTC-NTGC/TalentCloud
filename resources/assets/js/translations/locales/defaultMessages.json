@@ -1771,6 +1771,36 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Find out how to access Job Poster review and publishing features.",
+        "description": "Title of link to further information.",
+        "id": "demoSubmitJobModal.link.title"
+      },
+      {
+        "defaultMessage": "Looks like you're using a demo account!",
+        "description": "Title of modal explaining that demo managers cannot submit jobs.",
+        "id": "demoSubmitJobModal.title"
+      },
+      {
+        "defaultMessage": "Job Poster review and publishing is only available to Talent Cloud's partner departments.",
+        "description": "Summary explanation of why user cannot submit job.",
+        "id": "demoSubmitJobModal.explanation"
+      },
+      {
+        "defaultMessage": "To find out if you can access these features, <a>click here</a>.",
+        "description": "Explanation of where to find more information.",
+        "id": "demoSubmitJobModal.link"
+      },
+      {
+        "defaultMessage": "Go back",
+        "description": "Cancel button of Demo Submit Job modal.",
+        "id": "demoSubmitJobModal.cancel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/Review/DemoSubmitJobModal.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Job Page Heading",
         "description": "Section title.",
         "id": "jobBuilder.review.jobPageHeading"
