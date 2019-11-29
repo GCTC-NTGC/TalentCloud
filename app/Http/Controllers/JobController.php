@@ -55,7 +55,6 @@ class JobController extends Controller
     public function managerIndex()
     {
         $manager = Auth::user()->manager;
-        $show_notification = Auth::user()->isDemoManager();
 
         $jobs = JobPoster::where('manager_id', $manager->id)
             ->withCount('submitted_applications')
@@ -83,7 +82,6 @@ class JobController extends Controller
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
             'jobs' => $jobs,
-            'show_notification' => $show_notification,
         ]);
     }
 
