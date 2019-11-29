@@ -148,18 +148,17 @@ class JobPosterTest extends TestCase
     {
         $jobPoster = factory(JobPoster::class)->make();
 
-        $jobPoster->classification = null;
+        $jobPoster->classification = 'CS-03';
         $this->assertEquals(
-            "$jobPoster->classification_code-$jobPoster->classification_level",
+            $jobPoster->classification->key . '-' . $jobPoster->classification_level,
             $jobPoster->classification
         );
 
-        $jobPoster->classification = 'CS-03';
         $jobPoster->classification_level = null;
         $this->assertEquals('CS-03', $jobPoster->classification);
 
         $jobPoster->classification_level = 5;
-        $jobPoster->classification_code = null;
+        $jobPoster->classification_id = null;
         $this->assertEquals('CS-03', $jobPoster->classification);
 
         $jobPoster->classification_level = null;
