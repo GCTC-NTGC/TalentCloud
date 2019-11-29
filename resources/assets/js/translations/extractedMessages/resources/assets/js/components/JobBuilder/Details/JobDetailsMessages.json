@@ -87,12 +87,12 @@
   {
     "id": "jobBuilder.details.remoteWorkWorldLabel",
     "description": "The form label displayed on the 'world' remote work radio option.",
-    "defaultMessage": "Yes, I’m willing to supervise employees anywhere in the world."
+    "defaultMessage": "Yes, I'm willing to supervise employees anywhere in the world."
   },
   {
     "id": "jobBuilder.details.remoteWorkCanadaLabel",
     "description": "The form label displayed on the 'canada' remote work radio option.",
-    "defaultMessage": "Yes, I’m willing to supervise employees in any province or territory in Canada."
+    "defaultMessage": "Yes, I'm willing to supervise employees in any province or territory in Canada."
   },
   {
     "id": "jobBuilder.details.remoteWorkNoneLabel",
@@ -190,6 +190,11 @@
     "defaultMessage": "PM - Programme Administration"
   },
   {
+    "id": "jobBuilder.details.classificationOptions.AD",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "AD - Administrative Services"
+  },
+  {
     "id": "jobBuilder.details.educationMessages.AS",
     "description": "Job Classification message from list of Classifications",
     "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.\n    "
@@ -246,6 +251,11 @@
   },
   {
     "id": "jobBuilder.details.educationMessages.PM",
+    "description": "Job Classification message from list of Classifications",
+    "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above."
+  },
+  {
+    "id": "jobBuilder.details.educationMessages.AD",
     "description": "Job Classification message from list of Classifications",
     "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above."
   }
