@@ -60,7 +60,7 @@ stories
       <JobBuilderSkills
         job={{
           ...fakeJob(),
-          classification_code: select(
+          classification_id: select(
             "Classification",
             classificationOptions,
             "CS",

@@ -249,13 +249,6 @@ class JobPoster extends BaseModel
     ];
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var mixed[] $appends
-     */
-    protected $appends = ['classification_code'];
-
-    /**
      * @var mixed[] $dispatchesEvents
      */
     protected $dispatchesEvents = [
@@ -375,11 +368,6 @@ class JobPoster extends BaseModel
     {
         return $this->withCount('submitted_applications')->where('id', $value)->first() ?? abort(404);
     }
-
-    // @codeCoverageIgnoreEnd
-    // Accessors.
-
-    // Mutators.
 
     /**
      * Intercept setting the "published" attribute, and set the

@@ -198,7 +198,7 @@ const jobToValues = (
     ? {
         title: job[locale].title ? String(job[locale].title) : "", // TODO: use utility method
         termLength: job.term_qty || "",
-        classification: job.classification_code || "",
+        classification: job.classification_id || "",
         level: job.classification_level || "",
         educationRequirements: job[locale].education || "",
         securityLevel: job.security_clearance_id || "",
@@ -274,7 +274,7 @@ const updateJobWithValues = (
 ): Job => ({
   ...initialJob,
   term_qty: termLength || null,
-  classification_code: classification,
+  classification_id: classification,
   classification_level: level || null,
   security_clearance_id: securityLevel || null,
   language_requirement_id: language || null,
@@ -292,9 +292,8 @@ const updateJobWithValues = (
   },
 });
 
-const JobDetails: React.FunctionComponent<
-  JobDetailsProps & WrappedComponentProps
-> = ({
+const JobDetails: React.FunctionComponent<JobDetailsProps &
+  WrappedComponentProps> = ({
   job,
   handleSubmit,
   handleReturn,

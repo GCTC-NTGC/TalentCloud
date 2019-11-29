@@ -564,7 +564,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
                 />
               </p>
               <p>
-                {job.classification_code}-0{job.classification_level}
+                {job.classification_id}-{job.classification_level}
               </p>
             </div>
           </div>
@@ -818,7 +818,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
               <FormattedMessage
                 id="jobBuilder.review.whatHappens"
                 defaultMessage="What happens next?"
-                description="Rhtorical question"
+                description="Rhetorical question"
               />
             </p>
             <p data-c-margin="bottom(normal)">

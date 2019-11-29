@@ -52,7 +52,7 @@ const jobDetailsValues = (
   locale: string,
 ): (string | number | null | boolean)[] => [
   job.term_qty,
-  job.classification_code,
+  job.classification_id,
   job.classification_level,
   job.security_clearance_id,
   job.language_requirement_id,

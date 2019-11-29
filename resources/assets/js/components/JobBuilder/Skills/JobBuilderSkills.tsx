@@ -25,7 +25,7 @@ interface JobBuilderSkillsProps {
   initialCriteria: Criteria[];
   // The list of all possible skills
   skills: Skill[];
-  // The function to run when user clicks Save. Must return the updated list of criteria if successufl.
+  // The function to run when user clicks Save. Must return the updated list of criteria if successful.
   handleSubmit: (criteria: Criteria[]) => Promise<Criteria[]>;
   // The function to run when user clicks Prev Pag
   handleReturn: () => void;
@@ -181,7 +181,7 @@ const criteriaReducer = (
         (criterion): boolean => criterion.skill_id !== action.payload.skillId,
       );
     case "replace":
-      // Totally replace the saved list of criteria with the recieved payload
+      // Totally replace the saved list of criteria with the received payload
       return action.payload;
 
     default:
@@ -197,9 +197,8 @@ export const skillAlreadySelected = (
     (criterion): boolean => criterion.skill_id === skill.id,
   ) !== undefined;
 
-export const JobBuilderSkills: React.FunctionComponent<
-  JobBuilderSkillsProps & WrappedComponentProps
-> = ({
+export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
+  WrappedComponentProps> = ({
   job,
   keyTasks,
   initialCriteria,
@@ -292,8 +291,8 @@ export const JobBuilderSkills: React.FunctionComponent<
   const getClassifications = (skill: Skill): string[] =>
     skill.classifications.map((classification): string => classification.key);
   const isOccupational = (skill: Skill): boolean =>
-    job.classification_code !== null &&
-    getClassifications(skill).includes(job.classification_code);
+    job.classification_id !== null &&
+    getClassifications(skill).includes(job.classification_id);
   const occupationalSkills = skills
     .filter(isOccupational)
     .sort(sortAlphabetically);
@@ -1198,8 +1197,8 @@ export const JobBuilderSkills: React.FunctionComponent<
               </div>
             </div>
             {/* This is the list of skills. Clicking a skill button should trigger the "Edit skill" modal so that the user can edit the definition/level before adding it. If they DO add it, you can assign an "active" class to the respective button so indicate that it's selected. This will change it's colour and icon automatically. This is also the area where "Culture Skills" is split into the two categories - see the Culture Skills section below for what that looks like. */}
-            {(job.classification_code === "" ||
-              job.classification_code === null) && (
+            {(job.classification_id === "" ||
+              job.classification_id === null) && (
               <p data-c-font-weight="bold" data-c-grid-item="base(1of1)">
                 <FormattedMessage
                   id="jobBuilder.skills.nullText.occupationalSkills"
