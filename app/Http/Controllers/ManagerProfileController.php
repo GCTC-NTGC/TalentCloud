@@ -177,12 +177,15 @@ class ManagerProfileController extends Controller
 
     public function faq(Request $request)
     {
+        $show_demo_notification = $request->user() && $request->user()->isDemoManager();
+
         return view(
             'applicant/static_faq',
             [
                 'breadcrumb_home' => route('manager.home'),
                 'faq' => Lang::get('applicant/faq'),
                 'manager_sidebar_active' => 'active',
+                'show_demo_notification' => $show_demo_notification,
             ]
         );
     }

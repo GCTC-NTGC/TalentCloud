@@ -46,6 +46,10 @@
         </div>
     </header>
 
+    {% if show_demo_notification %}
+        {% include "manager/notification" %}
+    {% endif %}
+
     <a id="skipLink"></a>
 
     {# FAQ Sections #}
