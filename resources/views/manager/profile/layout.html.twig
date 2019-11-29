@@ -7,94 +7,106 @@
 
 <div class="manager-profile__section-wrapper">
 
-    <div class="container--layout">
+	<div class="container--layout">
 
-        <div class="flex-grid">
+		<div
+			class="flex-grid">
 
-            {# Include Sidebar #}
-            {% include "manager/profile/sidebar" with {'sidebar_l10n': layout_l10n.sidebar} %}
+			{# Include Sidebar #}
+			{% include "manager/profile/sidebar" with {'sidebar_l10n': layout_l10n.sidebar} %}
 
-            {# Profile Content #}
+			{# Profile Content #}
 
-            <div class="manager-profile__content-wrapper box lg-3of4">
+			<div class="manager-profile__content-wrapper box lg-3of4">
 
-                <div data-c-container="medium">
+				<div data-c-container="medium">
 
-                    <div class="form__wrapper">
+					<div class="form__wrapper">
 
-                        <div class="applicant-profile__about" data-clone>
+						<div class="applicant-profile__about" data-clone>
 
-                            <div class="applicant-profile__data-wrapper">
+							<div
+								class="applicant-profile__data-wrapper">
 
-                            {# 2FA #}
+								{# 2FA #}
 
-                            <h2>{{ layout_l10n.two_factor.two_factor_legend }}</h2>
+								<h2>{{ layout_l10n.two_factor.two_factor_legend }}</h2>
 
-                                <div class="form__input-wrapper--float">
+								<div class="form__input-wrapper--float">
 
-                                    {% if manager.user.google2fa_secret %}
+									{% if manager.user.google2fa_secret %}
 
-                                    <p>{{ layout_l10n.two_factor.two_factor_active }}</p>
-                                    <form action="{{ route('manager.two_factor.deactivate') }}" method="POST">
-                                        {{ csrf_field() }}
-                                        <button class="button--red light-bg" type="submit">{{ layout_l10n.two_factor.two_factor_deactivate }}</button>
-                                    </form>
+										<p>{{ layout_l10n.two_factor.two_factor_active }}</p>
 
-                                    {% else %}
+										<div class="form__input-wrapper--float">
+											<p>{{ layout_l10n.two_factor.two_factor_recovery_text }}
+												<a href="{{ route('manager.recovery_codes.show') }}">{{ layout_l10n.two_factor.view_recovery_codes }}</a>.</p>
+										</div>
 
-                                    <p>{{ layout_l10n.two_factor.two_factor_description }}</p>
-                                    <p><a class="button--blue light-bg" href="{{ route('manager.two_factor.activate') }}">{{ layout_l10n.two_factor.two_factor_button_text }}</a></p>
+										<form action="{{ route('manager.two_factor.deactivate') }}" method="POST">
+											{{ csrf_field() }}
+											<button class="button--red light-bg" type="submit">{{ layout_l10n.two_factor.two_factor_deactivate }}</button>
+										</form>
 
-                                    {% endif %}
+									{% else %}
 
-                                </div>
+										<p>
+											{{ layout_l10n.two_factor.two_factor_inactive.one }}
+										</p>
+										<p>
+											{{ layout_l10n.two_factor.two_factor_inactive.two }}
+										</p>
+										<ul data-c-margin="bottom(normal)">
+											<li>{{ layout_l10n.two_factor.two_factor_inactive.three }}</li>
+											<li>{{ layout_l10n.two_factor.two_factor_inactive.four }}</li>
+											<li>{{ layout_l10n.two_factor.two_factor_inactive.five }}</li>
+											<li>{{ layout_l10n.two_factor.two_factor_inactive.six }}</li>
+											<li>{{ layout_l10n.two_factor.two_factor_inactive.seven }}</li>
+											<li>{{ layout_l10n.two_factor.two_factor_inactive.eight }}</li>
+											<li>{{ layout_l10n.two_factor.two_factor_inactive.nine }}</li>
+											<li>{{ layout_l10n.two_factor.two_factor_inactive.ten }}</li>
+										</ul>
+										<p data-c-margin="bottom(normal)">
+											{{ layout_l10n.two_factor.two_factor_inactive.eleven }}
+										</p>
+										<p>
+											<a class="button--blue light-bg" href="{{ route('manager.two_factor.activate') }}">{{ layout_l10n.two_factor.two_factor_button_text }}</a>
+										</p>
 
-                                {% if manager.user.google2fa_secret %}
+									{% endif %}
 
-                                {# 2FA Recovery #}
+								</div>
 
-                                <div class="form__input-wrapper--float">
+							</div>
 
-                                    <p>{{ layout_l10n.two_factor.two_factor_recovery_text }} <a href="{{ route('manager.recovery_codes.show') }}">{{ layout_l10n.two_factor.view_recovery_codes }}</a>.</p>
+						</div>
 
-                                </div>
+					</div>
 
-                                {% endif %}
+					<form
+						class="form__wrapper" action="{{ route('manager.profile.update', manager.id) }}" method="post">
 
-                            </div>
+						{# Builds an input field for CSRF token validation #}
+						{{ csrf_field() }}
 
-                        </div>
+						{# Include Account Settings #}
 
-                    </div>
+						{% include "manager/profile/account" with {'account_l10n': layout_l10n.account} %}
 
-                </div>
+						{# Include About Me #}
 
-                <form class="form__wrapper"
-                    action="{{ route('manager.profile.update', manager.id) }}"
-                    method="post">
+						{% include "manager/profile/about" with {'about_l10n': layout_l10n.about} %}
 
-                    {# Builds an input field for CSRF token validation #}
-                    {{ csrf_field() }}
+						{# Include My Leadership Style #}
 
-                {# Include Account Settings #}
+						{% include "manager/profile/leadership" with {'leadership_l10n': layout_l10n.leadership } %}
 
-                    {% include "manager/profile/account" with {'account_l10n': layout_l10n.account} %}
+					</form>
 
+				</div>
 
-                {# Include About Me #}
+			</div>
 
-                    {% include "manager/profile/about" with {'about_l10n': layout_l10n.about} %}
+		</div>
 
-                {# Include My Leadership Style #}
-
-                    {% include "manager/profile/leadership" with {'leadership_l10n': layout_l10n.leadership } %}
-
-                </form>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
+	</div>
