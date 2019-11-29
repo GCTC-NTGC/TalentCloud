@@ -1,18 +1,38 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, defineMessages, useIntl } from "react-intl";
+import Modal from "../../Modal";
+import { managerFaq } from "../../../helpers/routes";
 
-export const DemoSubmitJobModal: React.FC = () => {
+interface DemoSubmitJobModalProps {
+  isVisible: boolean;
+  handleCancel: () => void;
+  parentElement: Element | null;
+}
+
+const messages = defineMessages({
+  linkTitle: {
+    id: "demoSubmitJobModal.link.title",
+    defaultMessage:
+      "Find out how to access Job Poster review and publishing features.",
+    description: "Title of link to further information.",
+  },
+});
+
+export const DemoSubmitJobModal: React.FC<DemoSubmitJobModalProps> = ({
+  isVisible,
+  handleCancel,
+  parentElement,
+}) => {
+  const intl = useIntl();
   return (
-    <div
-      aria-hidden="true"
-      aria-describedby="upgrade-modal-description"
-      aria-labelledby="upgrade-modal-title"
-      data-c-dialog
-      data-c-dialog-id="upgrade-modal"
-      data-c-padding="top(double) bottom(double)"
-      role="dialog"
+    <Modal
+      id="demo-submit-job-modal"
+      visible={isVisible}
+      onModalCancel={handleCancel}
+      onModalConfirm={handleCancel}
+      parentElement={parentElement}
     >
-      <div data-c-background="white(100)" data-c-radius="rounded">
+      <Modal.Header>
         <div
           data-c-background="c1(100)"
           data-c-padding="tb(normal) right(triple) left(normal)"
@@ -30,17 +50,10 @@ export const DemoSubmitJobModal: React.FC = () => {
               description="Title of modal explaining that demo managers cannot submit jobs."
             />
           </h5>
-          <button
-            data-c-colour="white"
-            data-c-font-size="h3"
-            data-c-dialog-action="close"
-            data-c-dialog-id="upgrade-modal"
-            type="button"
-          >
-            <i className="fa fa-times-circle"></i>
-          </button>
         </div>
-        <div data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
+      </Modal.Header>
+      <Modal.Body>
+        <div data-c-padding="normal">
           <div id="upgrade-modal-description">
             <p>
               <FormattedMessage
@@ -49,24 +62,37 @@ export const DemoSubmitJobModal: React.FC = () => {
                 description="Summary explanation of why user cannot submit job."
               />
             </p>
-            <p>This is the link part</p>
+            <p>
+              <FormattedMessage
+                id="demoSubmitJobModal.link"
+                defaultMessage="To find out if you can access these features, <a>click here</a>."
+                description="Explanation of where to find more information."
+                values={{
+                  a: msg => (
+                    <a
+                      href={managerFaq(intl.locale, "manager-who")}
+                      title={intl.formatMessage(messages.linkTitle)}
+                    >
+                      {msg}
+                    </a>
+                  ),
+                }}
+              />
+            </p>
           </div>
         </div>
-        <div data-c-padding="normal">
-          <div data-c-grid="gutter middle">
-            <div data-c-grid-item="base(1of2)">
-              <button
-                data-c-button="solid(c2)"
-                data-c-radius="rounded"
-                data-c-dialog-action="close"
-                data-c-dialog-id="upgrade-modal"
-              >
-                Go Back
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Modal.FooterCancelBtn>
+          <FormattedMessage
+            id="demoSubmitJobModal.cancel"
+            defaultMessage="Go back"
+            description="Cancel button of Demo Submit Job modal."
+          />
+        </Modal.FooterCancelBtn>
+      </Modal.Footer>
+    </Modal>
   );
 };
+
+export default DemoSubmitJobModal;
