@@ -22,7 +22,7 @@ Route::group(
     function (): void {
         /* Routes used for local demos */
         /* If creating public demos, make sure to add a meta robots noindex, nofollow tag */
-        Route::group(['prefix' => 'demo'], function () : void {
+        Route::group(['prefix' => 'demo'], function (): void {
 
             /* Temporary Blog Index */
             Route::view('blog', 'common/blog-index')->middleware('localOnly')->name('blog');
@@ -51,10 +51,19 @@ Route::group(
             Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
         });
 
-        Route::group(['prefix' => config('app.applicant_prefix')], function () : void {
+        Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
 
             Route::get('two-factor/use-recovery-code', 'Auth\RecoveryCodeController@use')->name('recovery_codes.use');
             Route::post('two-factor/use-recovery-code', 'Auth\RecoveryCodeController@authenticate')->name('recovery_codes.authenticate');
+
+            /* Require being logged in */
+            Route::middleware(['auth'])->group(function () : void {
+
+                /* Managers */
+                Route::get('managers/{manager}', 'ManagerProfileController@show')
+                    ->middleware('can:view,manager')
+                    ->name('managers.show');
+            });
 
             /*
              * IF user is logged in AND has activated 2fa, require one-time password.
@@ -72,28 +81,6 @@ Route::group(
                 Route::get('jobs/{jobPoster}', 'JobController@show')
                     ->middleware('can:view,jobPoster')
                     ->name('jobs.show');
-
-            /* Require being logged in */
-                Route::middleware(['auth'])->group(function () : void {
-
-                    /* Account Settings */
-                    Route::get('settings', 'SettingsController@edit')
-                        ->name('settings.edit');
-
-                    Route::post('settings/personal/update', 'SettingsController@updatePersonal')
-                        ->name('settings.personal.update');
-
-                    Route::post('settings/password/update', 'SettingsController@updatePassword')
-                        ->name('settings.password.update');
-
-                    Route::post('settings/government/update', 'SettingsController@updateGovernment')
-                        ->name('settings.government.update');
-
-                    /* Managers */
-                    Route::get('managers/{manager}', 'ManagerProfileController@show')
-                        ->middleware('can:view,manager')
-                        ->name('managers.show');
-                });
 
                 /* Require being logged in as applicant */
                 Route::middleware(['auth', 'role:applicant'])->group(function (): void {
@@ -194,6 +181,35 @@ Route::group(
                         ->middleware('can:update,applicant')
                         ->name('profile.work_samples.edit');
 
+                    /* Account Settings */
+                    Route::get('settings', 'ApplicantSettingsController@edit')
+                    ->name('settings.edit');
+
+                    Route::post(
+                        'settings/{applicant}/personal/update',
+                        'ApplicantSettingsController@updatePersonal'
+                    )
+                        ->middleware('can:view,applicant')
+                        ->middleware('can:update,applicant')
+                        ->name('settings.personal.update');
+
+                    Route::post(
+                        'settings/{applicant}/password/update',
+                        'ApplicantSettingsController@updatePassword'
+                    )
+                        ->middleware('can:view,applicant')
+                        ->middleware('can:update,applicant')
+                        ->name('settings.password.update');
+
+                    Route::post(
+                        'settings/{applicant}/government/update',
+                        'ApplicantSettingsController@updateGovernment'
+                    )
+                        ->middleware('can:view,applicant')
+                        ->middleware('can:update,applicant')
+                        ->name('settings.government.update');
+
+                    /* 2FA Settings */
                     Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('two_factor.activate');
                     Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('two_factor.deactivate');
                     Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('two_factor.confirm');
@@ -235,9 +251,7 @@ Route::group(
         });
 
         /* Manager Portal =========================================================== */
-        Route::group([
-            'prefix' => config('app.manager_prefix'),
-        ], function (): void {
+        Route::group(['prefix' => config('app.manager_prefix')], function (): void {
 
             Route::middleware(['finishManagerRegistration'])->group(function (): void {
 
@@ -265,8 +279,6 @@ Route::group(
                         'faq#managers',
                         'ManagerProfileController@faq'
                     )->name('manager.faq.section');
-
-
 
                     Route::middleware(['auth', 'role:manager'])->group(function (): void {
 
@@ -374,17 +386,32 @@ Route::group(
                             ->name('manager.jobs.screening_plan');
 
                         /* Account Settings */
-                        Route::get('settings', 'SettingsController@edit')
-                        ->name('manager.settings.edit');
+                        Route::get('settings', 'ManagerSettingsController@edit')
+                            ->name('manager.settings.edit');
 
-                        Route::post('settings/personal/update', 'SettingsController@updatePersonal')
-                        ->name('manager.settings.personal.update');
+                        Route::post(
+                            'settings/{manager}/personal/update',
+                            'ManagerSettingsController@updatePersonal'
+                        )
+                            ->middleware('can:view,manager')
+                            ->middleware('can:update,manager')
+                            ->name('manager.settings.personal.update');
 
-                        Route::post('settings/password/update', 'SettingsController@updatePassword')
-                        ->name('manager.settings.password.update');
+                        Route::post(
+                            'settings/{manager}/password/update',
+                            'ManagerSettingsController@updatePassword'
+                        )
+                            ->middleware('can:view,manager')
+                            ->middleware('can:update,manager')
+                            ->name('manager.settings.password.update');
 
-                        Route::post('settings/government/update', 'SettingsController@updateGovernment')
-                        ->name('manager.settings.government.update');
+                        Route::post(
+                            'settings/{manager}/government/update',
+                            'ManagerSettingsController@updateGovernment'
+                        )
+                            ->middleware('can:view,manager')
+                            ->middleware('can:update,manager')
+                            ->name('manager.settings.government.update');
 
                         /* Two-factor Authentication */
                         Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('manager.two_factor.activate');
