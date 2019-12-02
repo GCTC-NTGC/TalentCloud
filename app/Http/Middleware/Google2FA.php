@@ -18,21 +18,27 @@ class Google2FA
     {
         $authenticator = app(Authenticator::class)->boot($request);
         $user = $request->user();
-        $remember = $user !== null
-            ? $request->cookie($user->getRememberDeviceKey())
-            : null;
 
-        // If tokens do not match, cookie is no longer valid.
-        if ($remember !== null && $remember !== $user->getRememberDeviceToken()) {
-            Cookie::forget($user->getRememberDeviceKey());
-        }
+        if ($user !== null) {
+            $remember = $request->cookie($user->getRememberDeviceKey());
 
-        if ($authenticator->isAuthenticated() || ($remember !== null && $remember === $user->getRememberDeviceToken())) {
-            if (!$authenticator->isAuthenticated()) {
-                Log::notice('User skipped OTP entry with known device.', ['id' => $request->user()->id]);
+            // If tokens do not match, cookie is no longer valid.
+            if ($remember !== null && $remember !== $user->getRememberDeviceToken()) {
+                Cookie::forget($user->getRememberDeviceKey());
             }
-            return $next($request);
+
+            if ($authenticator->isAuthenticated() || ($remember !== null && $remember === $user->getRememberDeviceToken())) {
+                if (!$authenticator->isAuthenticated()) {
+                    Log::notice('User skipped OTP entry with known device.', ['id' => $request->user()->id]);
+                }
+                return $next($request);
+            }
+        } else {
+            if ($authenticator->isAuthenticated()) {
+                return $next($request);
+            }
         }
+
         // Unlike \PragmaRX\Google2FALaravel\Middleware, set the intended url.
         // Check if the intended url already exists, if not then store in global session.
         if (!session()->has('url.expected')) {
