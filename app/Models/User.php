@@ -17,7 +17,8 @@ use Illuminate\Notifications\Notifiable;
 use App\Events\UserCreated;
 use App\Events\UserUpdated;
 use App\Notifications\ResetPasswordNotification;
-use App\CRUD\TalentCloudCrudTrait as CrudTrait;
+use App\Traits\TalentCloudCrudTrait as CrudTrait;
+use App\Traits\RememberDeviceTrait;
 
 /**
  * Class User
@@ -49,8 +50,8 @@ class User extends BaseModel implements
     CanResetPasswordContract,
     // Contract for use with Gates and Policies.
     AuthorizableContract
-// Custom contract for use with openid login.
-// \App\Services\Auth\Contracts\OidcAuthenticatable.
+    // Custom contract for use with openid login.
+    // \App\Services\Auth\Contracts\OidcAuthenticatable.
 {
 
     // Traits for Laravel basic authentication.
@@ -62,6 +63,8 @@ class User extends BaseModel implements
     use Notifiable;
     // Trait for Backpack.
     use CrudTrait;
+    // Trait for 2FA device memory.
+    use RememberDeviceTrait;
 
     protected $casts = [
         'is_confirmed' => 'boolean',

@@ -19,5 +19,6 @@ return [
     'otp_placeholder' => 'e.g. 123456',
     'recover_link_title' => 'Use Recovery Code',
     'recover_link' => 'Lost your authenticator device? Log in with a Recovery Code.',
-    'cancel' => 'Cancel'
+    'cancel' => 'Cancel',
+    'remember_device' => 'Don\'t ask for a one time password again on this device for 30 days.'
 ];

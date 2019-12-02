@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Support\Facades\Lang;
 use PragmaRX\Google2FALaravel\Support\Authenticator;
@@ -22,7 +23,7 @@ class TwoFactorController extends AuthController
 
         return view('auth.two_factor', [
             'qr_image' => $qrImage,
-            'secret' => $secret
+            'secret' => $secret,
         ]);
     }
 
@@ -56,21 +57,23 @@ class TwoFactorController extends AuthController
         $secret = $validatedData['secret'];
         $one_time_password = $validatedData['one_time_password'];
 
-        // A 2fa secret is already set up, no need to do anything
+        // A 2fa secret is already set up, no need to do anything.
         if (!empty($user->google2fa_secret)) {
             return redirect()->route('home');
         }
 
-        // Check that the one-time password matches the secret
+        // Check that the one time password matches the secret.
         $authenticator = app(Authenticator::class)->boot($request);
         $isCorrect = $authenticator->verifyGoogle2FA($secret, $one_time_password);
 
         if ($isCorrect) {
-            // The password matched the secret! Save the secret, and authenticate
+            // The password matched the secret! Save the secret, and authenticate.
             $user->google2fa_secret = $secret;
             $user->save();
             $user->refresh();
             $authenticator->login();
+
+            $this->rememberDevice($request);
 
             $recovery_codes_url = '';
             if (WhichPortal::isApplicantPortal()) {
@@ -99,10 +102,29 @@ class TwoFactorController extends AuthController
 
     public function redirectToExpected(Request $request)
     {
+        $this->rememberDevice($request);
         // Assuming 2fa passes, redirect to the expected url and remove it from session.
-        // NOTE: the url.expected is set in app\Http\Middleware\Google2FA.php
+        // NOTE: the url.expected is set in app\Http\Middleware\Google2FA.php.
         $expectedUrl = session()->get('url.expected');
         session()->remove('url.expected');
+
         return redirect($expectedUrl);
+    }
+
+    protected function rememberDevice(Request $request)
+    {
+        $user = $request->user();
+        $remember = $request->input('remember_device');
+
+        if ($remember) {
+            if (empty($user->getRememberDeviceToken())) {
+                $user->cycleRememberDeviceToken();
+            }
+            Cookie::queue(
+                $user->getRememberDeviceKey(),
+                $user->getRememberDeviceToken(),
+                config('google2fa.lifetime')
+            );
+        }
     }
 }
