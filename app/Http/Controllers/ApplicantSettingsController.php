@@ -56,7 +56,7 @@ class ApplicantSettingsController extends Controller
             'last_name' => 'required|string|max:191',
             'email' => [
                 'required',
-                'email:dns',
+                'email:rfc',
                 'max:191',
                 // Email may match existing email for this user, must be unique if changed.
                 Rule::unique('users', 'email')->ignore($applicant->user->id)
@@ -106,7 +106,7 @@ class ApplicantSettingsController extends Controller
     public function updateGovernment(Request $request, Applicant $applicant)
     {
         $validData = $request->validate([
-            'gov_email' => 'nullable|required_unless:department,0|email:dns|max:191',
+            'gov_email' => 'nullable|required_unless:department,0|email:rfc|max:191',
                             Rule::unique('users', 'gov_email')->ignore($applicant->user->id)
         ]);
 
