@@ -15,7 +15,7 @@
     "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "test": "jest test",
+    "test": "jest test --collect-coverage --coverageDirectory=./report/jest",
     "test-watch": "jest --config=jest.config.js --watch",
     "storybook": "start-storybook -s ./public -p 1234",
     "snapshot-update": "jest --updateSnapshot",
@@ -74,6 +74,7 @@
     "eslint-plugin-testcafe": "^0.2.1",
     "fetch-mock": "^8.0.0",
     "jest": "^24.9.0",
+    "jest-junit": "^9.0.0",
     "laravel-mix": "^5.0.0",
     "nanoid": "^2.1.7",
     "node-sass": "^4.13.0",
@@ -122,6 +123,10 @@
     "sweetalert2": "^9.4.1",
     "universal-router": "^8.3.0",
     "yup": "^0.27.0"
+  },
+  "jest-junit": {
+    "outputDirectory": "./report/jest",
+    "outputName": "junit.jest.xml"
   },
   "repository": {
     "type": "git",

@@ -9,7 +9,6 @@ branches:
     - master
     - /^v\d+\.\d+(\.\d+)?(-\S*)?$/ # Tagged releases, i.e. v1.0.4
 
-sudo: required
 dist: trusty
 
 services:
@@ -60,21 +59,22 @@ script:
   - make set-perms
   # laravel mix
   - npm run dev
-  # prepare code coverage
-  - ci_env=`bash <(curl -s https://codecov.io/env)`
-  - docker run $ci_env gctcntgc/talentcloud sh
   # browser tests
   - npm run testcafe-ci
-  # unit tests
-  - make phpunit
+  # prepare code coverage
+  - mkdir -p ./report/
+  - ci_env=`bash <(curl -s https://codecov.io/env)`
+  - docker run $ci_env gctcntgc/talentcloud sh
+  # Jest tests
   - npm run test
+  # send Jest report to codecov.io
+  - bash <(curl -s https://codecov.io/bash) -cF javascript
+  # PHPUnit tests
+  - make phpunit
+  # send PHPUnit report to codecov.io
+  - bash <(curl -s https://codecov.io/bash) -cF php
 
 after_script:
-  # send report to codecov.io
-  - bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
-  # send report to scrutinizer
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
   # tear down
   - make docker-stop
 
