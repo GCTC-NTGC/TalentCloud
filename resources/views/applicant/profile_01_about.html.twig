@@ -7,100 +7,109 @@
 
 {% extends "layouts/base" %}
 
-{% block title %}{{ profile.about_section.profile_title }}{% endblock %}
+{% block title %}
+	{{ profile.about_section.profile_title }}
+{% endblock %}
 
 {% block body %}
 
 	{% include "common/goc" %}
-    {% include "common/alert" %}
+	{% include "common/alert" %}
 
-    {% include "common/header" with {"header":profile} %}
+	{% include "common/header" with {"header": profile} %}
 
-    <a id="skipLink"></a>
+	<a id="skipLink"></a>
 
-    {# Menu #}
+	{# Menu #}
 
-        {% include "applicant/profile/menu" %}
+	{% include "applicant/profile/menu" %}
 
-        <div class="applicant-profile__about" data-clone>
+	<div class="applicant-profile__about" data-clone>
 
-            <div data-c-container="medium">
+		<div data-c-container="medium">
 
-                <div class="form__wrapper">
+			<div class="form__wrapper">
 
-                    <div
-                        class="applicant-profile__data-wrapper">
+				<div
+					class="applicant-profile__data-wrapper">
 
-                        {# 2FA #}
+					{# 2FA #}
 
-                        <div class="flex-grid">
+					<h2>{{ profile.about_section.two_factor_legend }}</h2>
 
-                            <div class="box full">
+					<div class="form__input-wrapper--float">
 
-                                <h2>{{ profile.about_section.two_factor_legend }}</h2>
+						{% if applicant.user.google2fa_secret %}
 
-                                <div class="form__input-wrapper--float">
+							<p>{{ profile.about_section.two_factor_active }}</p>
 
-                                    {% if applicant.user.google2fa_secret %}
+							<div class="form__input-wrapper--float">
+								<p>{{ profile.about_section.two_factor_recovery_text }}
+									<a href="{{ route('recovery_codes.show') }}">{{ profile.about_section.view_recovery_codes }}</a>.</p>
+							</div>
 
-                                    <p>{{ profile.about_section.two_factor_active }}</p>
-                                    <form action="{{ route('two_factor.deactivate') }}" method="POST">
-                                        {{ csrf_field() }}
-                                        <button class="button--red light-bg" type="submit">{{ profile.about_section.two_factor_deactivate }}</button>
-                                    </form>
+							<form action="{{ route('two_factor.deactivate') }}" method="POST">
+								{{ csrf_field() }}
+								<button class="button--red light-bg" type="submit">{{ profile.about_section.two_factor_deactivate }}</button>
+							</form>
 
-                                    {% else %}
+						{% else %}
 
-                                    <p>{{ profile.about_section.two_factor_description }}</p>
-                                    <p><a class="button--blue light-bg" href="{{ route('two_factor.activate') }}">{{ profile.about_section.two_factor_button_text }}</a></p>
+							<p>
+								{{ profile.about_section.two_factor_inactive.one }}
+							</p>
+							<p>
+								{{ profile.about_section.two_factor_inactive.two }}
+							</p>
+							<ul data-c-margin="bottom(normal)">
+								<li>{{ profile.about_section.two_factor_inactive.three }}</li>
+								<li>{{ profile.about_section.two_factor_inactive.four }}</li>
+								<li>{{ profile.about_section.two_factor_inactive.five }}</li>
+								<li>{{ profile.about_section.two_factor_inactive.six }}</li>
+								<li>{{ profile.about_section.two_factor_inactive.seven }}</li>
+								<li>{{ profile.about_section.two_factor_inactive.eight }}</li>
+								<li>{{ profile.about_section.two_factor_inactive.nine }}</li>
+								<li>{{ profile.about_section.two_factor_inactive.ten }}</li>
+							</ul>
+							<p data-c-margin="bottom(normal)">
+								{{ profile.about_section.two_factor_inactive.eleven }}
+							</p>
+							<p>
+								<a class="button--blue light-bg" href="{{ route('two_factor.activate') }}">{{ profile.about_section.two_factor_button_text }}</a>
+							</p>
 
-                                    {% endif %}
+						{% endif %}
 
-                                </div>
+					</div>
 
-                                {% if applicant.user.google2fa_secret %}
+				</div>
 
-                                {# 2FA Recovery #}
+			</div>
 
-                                <div class="form__input-wrapper--float">
+		</div>
 
-                                    <p>{{ profile.about_section.two_factor_recovery_text }} <a href="{{ route('recovery_codes.show') }}">{{ profile.about_section.view_recovery_codes }}</a>.</p>
+	</div>
 
-                                </div>
+	{# Form containing all about_me editable elements #}
 
-                                {% endif %}
+	<form
+		action="{{ form_submit_action }}" method="post">
 
-                            </div>
+		{# Builds an input field for CSRF token validation #}
+		{{ csrf_field() }}
 
-                        </div>
+		{# About #}
 
-                    </div>
+		{% include "applicant/profile/about/about" %}
 
-                </div>
+		{# Questions #}
 
-            </div>
+		{% include "applicant/profile/about/questions" %}
 
-        </div>
+	</form>
 
-        {# Form containing all about_me editable elements #}
+	{# Modals #}
 
-        <form action="{{ form_submit_action }}" method="post">
-
-            {# Builds an input field for CSRF token validation #}
-            {{ csrf_field() }}
-
-            {# About #}
-
-                {% include "applicant/profile/about/about" %}
-
-            {# Questions #}
-
-                {% include "applicant/profile/about/questions" %}
-
-        </form>
-
-    {# Modals #}
-
-        {% include "common/modal" with {"page":profile} %}
+	{% include "common/modal" with {"page": profile} %}
 
 {% endblock %}

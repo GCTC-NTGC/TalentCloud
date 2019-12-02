@@ -107,6 +107,11 @@ class ViewComposerServiceProvider extends ServiceProvider
             'auth/one_time_password',
             'App\Http\ViewComposers\OneTimePasswordComposer'
         );
+
+        View::composer(
+            'manager/*',
+            'App\Http\ViewComposers\ManagerPortalComposer'
+        );
     }
 
     /**

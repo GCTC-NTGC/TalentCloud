@@ -1,16 +1,14 @@
 <?php
-
+/*
+|--------------------------------------------------------------------------
+| Two-factor Authentication Language Lines
+|--------------------------------------------------------------------------
+|
+| The following language lines are displayed on views relating
+| to two-factor authentication.
+|
+*/
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Two-factor Authentication Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are displayed on views relating
-    | to two-factor authentication.
-    |
-    */
-
     'title' => 'Activate Two-factor Authentication',
     'return' => 'Return to Profile',
     'header' => 'Activate Two-factor Authentication',

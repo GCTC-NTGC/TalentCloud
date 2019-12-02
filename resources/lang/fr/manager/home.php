@@ -11,7 +11,7 @@ return [
     'hero' => [
         'heading' => 'Nuage de talents',
         'heading_alt' => 'Feuille d\'érable canadienne.',
-        'subheading' => 'Une plateforme expérimentale. L’embauche facilitée.',
+        'subheading' => 'Embaucher pour le gouvernement est maintenant plus facile.',
         'button' => [
             'text' => 'Inscrivez-vous',
             'title' => 'Inscrivez-vous à titre de gestionnaire pour faire l’essai du portail des gestionnaires du Nuage de talents.'
@@ -26,14 +26,14 @@ return [
     ],
     'info' => [
         'heading' => 'Quel genre d’emplois puis-je afficher?',
-        'content_first' => 'Le Nuage de talents vise les postes de durée déterminée classifiés annoncés à l’externe, plutôt que les emplois contractuels ou occasionnels (qui ne sont habituellement pas assortis d’avantages sociaux, de représentation syndicale ou de droits des travailleurs). Grâce aux processus comportementaux et à l’ingénierie opérationnelle, les travailleurs temporaires peuvent être embauchés rapidement et facilement à l’aide du Nuage de talents, en mettant l’accent sur un jumelage optimal.',
+        'content_first' => 'Le Nuage de talents vise les postes de durée déterminée classifiés annoncés à l’externe, plutôt que les emplois contractuels ou occasionnels (qui ne sont habituellement pas assortis d’avantages sociaux our de représentation syndicale). Grâce aux processus comportementaux et à l’ingénierie opérationnelle, les travailleurs temporaires peuvent être embauchés rapidement et facilement à l’aide du Nuage de talents, en mettant l’accent sur un jumelage optimal.',
         'content_second' => 'La plateforme peut être utilisée pour des emplois de TOUTE classification et de TOUT niveau.',
-        'list_heading' => 'Le Nuage de talents convient parfaitement dans les cas suivants :',
+        'list_heading' => 'L’embauche pour une période déterminée convient parfaitement dans les cas suivants :',
         'list' => [
-            'La dotation en période électorale (en cas d’incertitude quant au montant de votre budget de l’année prochaine).',
-            'La dotation en période électorale (en cas d’incertitude quant au montant de votre budget de l’année prochaine).',
+            'Remplacement des employés en congé.',
+            'Programmes arrivant à échéance ou cas où le budget de l’année prochaine n’est pas clair.',
             'Les projets spéciaux (p. ex., équipes de travail du SM, projets d’innovation).',
-            'L’embauche d’un spécialiste pour une phase particulière de projet.'
+            'Embauche d’un spécialiste pour une phase particulière de projet.'
         ]
     ],
     'features' => [
@@ -52,7 +52,7 @@ return [
                     'rows' => [
                         'poster_creation' => [
                             'heading' => 'Création d’offres d’emploi',
-                            'content' => 'Des fonctions comme des paragraphes déjà remplis et des options suggérées selon vos sélections précédentes vous permettent de créer facilement un emploi.'
+                            'content' => 'Créez une affiche d’emploi plus facilement en utilisant les fonctions du Nuage de talents, comme des paragraphes préremplis et des options suggérées en fonction de vos sélections précédentes.'
                         ],
                         'screening_plan' => [
                             'heading' => 'Plan de présélection',
@@ -83,7 +83,7 @@ return [
                         ],
                         [
                             'heading' => 'Suivi des candidats',
-                            'content' => 'Triez automatiquement les candidats selon vos critères et faites une sélection préliminaire directement sur la plateforme.'
+                            'content' => 'Le Nuage de talents filtre les candidats dans des catégories comme les anciens combattants, les priorités, les Canadiens et les non-Canadiens. Triez les candidats selon vos critères et faites une sélection préliminaire directement sur la plateforme.'
                         ],
                         [
                             'heading' => 'Soutien personnalisé',
@@ -195,7 +195,7 @@ return [
         ],
         'content_second' => [
             'heading' => 'Pas un membre? Vous pouvez quand même utiliser le Nuage de talents!',
-            'content' => 'Si vous n’êtes pas membre d’un ministère partenaire, vous pouvez utiliser le Nuage de talents avec un compte de démonstration pour créer une offre d’emploi et un plan d’évaluation, mais vous ne pourrez pas l’afficher sur le site en direct. Votre offre d’emploi et votre plan d’évaluation devront être intégrés à vos processus de RH. Si ce que vous voyez vous plaît, communiquez avec votre conseiller en RH pour savoir comment vous pouvez vous joindre au projet pilote.'
+            'content' => 'Si vous n’êtes pas membre d’un ministère partenaire, vous pouvez utiliser le Nuage de talents avec un compte de démonstration pour créer une offre d’emploi et un plan d’évaluation, mais vous ne pourrez pas l’afficher sur le site en direct. Votre offre d’emploi et votre plan d’évaluation devront être intégrés aux processus de RH. Si ce que vous voyez vous plaît, communiquez avec votre conseiller en RH pour savoir comment vous pouvez vous joindre au projet pilote.'
         ]
     ],
     'steps' => [
@@ -225,15 +225,15 @@ return [
             ]
         ],
         [
-            'button' => '4 : Présélection',
-            'heading' => 'Étape 4 : Présélection des candidats',
+            'button' => '4: Évaluer les candidats',
+            'heading' => 'Étape 4: Évaluer les candidats',
             'content' => [
                 'Examinez chaque application directement sur la plateforme du Nuage de talents. Suivez votre plan de présélection et évaluez vos candidats. Utilisez l’outil de tri des candidats pour faire le suivi de ceux qui sont encore en processus. Coordonnez-vous avec votre conseiller en RH pour obtenir l’autorisation de sécurité et les tests linguistiques de votre candidat.',
                 'Cette étape n’est disponible que pour les comptes des ministères partenaires.'
             ]
         ],
         [
-            'button' => '5 : Sélection',
+            'button' => '5: Finaliser',
             'heading' => 'Étape 5 : Sélection du candidat final',
             'content' => [
                 'Vous avez trouvé le candidat idéal pour votre poste? Il est maintenant temps de travailler avec votre conseiller en RH et le candidat retenu pour recueillir tout ce dont vous avez besoin pour conclure l’embauche. L’outil de compte rendu des décisions qui sera offert bientôt vous permettra de consigner vos justifications au fur et à mesure et de soumettre facilement vos documents aux RH.',
