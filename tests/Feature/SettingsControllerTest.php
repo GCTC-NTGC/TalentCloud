@@ -344,29 +344,6 @@ class SettingsControllerTest extends TestCase
     }
 
     /**
-     * Ensure government email requires a valid DNS.
-     *
-     * @return void
-     */
-    public function testGovernmentInfoNotValidWithNoDNS() : void
-    {
-        $this->applicant->user->gov_email = 'applicant@tbs-sct.gc.ca';
-        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
-        $response->assertOk();
-        $data = [
-            'gov_email' => 'applicant@tbs-sct.gc.xyz'
-        ];
-        $response = $this->followingRedirects()
-            ->actingAs($this->applicant->user)
-            ->post(route('settings.government.update', $this->applicant), $data);
-        $response->assertOk();
-        // Error message visible.
-        $response->assertSee(e(Lang::get('forms.alert')));
-        // Password was not updated.
-        $this->assertDatabaseMissing('users', $data);
-    }
-
-    /**
      * Ensure update personal information succeeds with valid data, manager routes.
      *
      * @return void
