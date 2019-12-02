@@ -20,7 +20,7 @@ const pageMessages = defineMessages({
   explanationBoldText: {
     id: "jobBuilder.intro.explanation.boldText",
     defaultMessage: "confirm that your personal information below is correct.",
-    description: "Bolded text portion of the JPB Intro explanation.",
+    description: "Bold text portion of the JPB Intro explanation.",
   },
   emailLinkTitle: {
     id: "jobBuilder.intro.emailLinkTitle",
@@ -48,7 +48,7 @@ const formMessages = defineMessages({
   jobTitleLabelFR: {
     id: "jobBuilder.intro.jobTitleLabelFR",
     defaultMessage: "{name}'s Position (Français)",
-    description: "The label displayed on the MKanager Position input.",
+    description: "The label displayed on the Manager Position input.",
   },
   jobTitlePlaceholderFR: {
     id: "jobBuilder.intro.jobTitlePlaceholderFR",
@@ -105,7 +105,7 @@ interface IntroFormProps {
   // List of known department options.
   departments: Department[];
   // Runs after successful validation.
-  // It must (asyncronously) return the resulting job, if successful.
+  // It must (asynchronously) return the resulting job, if successful.
   handleSubmit: (job: Job, manager: Manager) => Promise<Job>;
   // Continues to next step in JobBuilder.
   handleContinue: (chosenLang: "en" | "fr", job: Job) => void;
@@ -262,7 +262,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
             defaultMessage="{name}'s Profile Information"
             description="The title of the profile information form."
             values={{
-              name: manager.name,
+              name: manager.user.first_name,
             }}
           />
         </h4>
@@ -311,7 +311,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     id="builder01ManagerPositionEn"
                     name="managerPositionEn"
                     label={intl.formatMessage(formMessages.jobTitleLabelEN, {
-                      name: manager.name,
+                      name: manager.user.first_name,
                     })}
                     placeholder={intl.formatMessage(
                       formMessages.jobTitlePlaceholderEN,
@@ -325,7 +325,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     id="builder01ManagerPositionFr"
                     name="managerPositionFr"
                     label={intl.formatMessage(formMessages.jobTitleLabelFR, {
-                      name: manager.name,
+                      name: manager.user.first_name,
                     })}
                     placeholder={intl.formatMessage(
                       formMessages.jobTitlePlaceholderFR,
@@ -338,7 +338,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     name="department"
                     id="builder01ManagerDepartment"
                     label={intl.formatMessage(formMessages.departmentLabel, {
-                      name: manager.name,
+                      name: manager.user.first_name,
                     })}
                     grid="base(1of1)"
                     component={SelectInput}
@@ -360,7 +360,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     id="builder01ManagerDivisionEN"
                     name="divisionEN"
                     label={intl.formatMessage(formMessages.divisionLabelEN, {
-                      name: manager.name,
+                      name: manager.user.first_name,
                     })}
                     placeholder={intl.formatMessage(
                       formMessages.divisionPlaceholderEN,
@@ -374,7 +374,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     id="builder01ManagerDivisionFR"
                     name="divisionFR"
                     label={intl.formatMessage(formMessages.divisionLabelFR, {
-                      name: manager.name,
+                      name: manager.user.first_name,
                     })}
                     placeholder={intl.formatMessage(
                       formMessages.divisionPlaceholderFR,
@@ -390,7 +390,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                   id="jobBuilder.intro.completeInLanguage"
                   defaultMessage="Complete the job poster in the language of your choice. We will
                   handle translation."
-                  description="Intstructions at bottom of form on language choice for job poster builder."
+                  description="Instructions at bottom of form on language choice for job poster builder."
                 />{" "}
                 <FormattedMessage
                   id="jobBuilder.intro.contactUs"

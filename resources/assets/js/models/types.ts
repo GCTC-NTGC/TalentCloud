@@ -1,5 +1,4 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import { LocaleValue } from "yup";
 import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 
 export interface JobTranslation {
@@ -70,6 +69,7 @@ export interface Manager {
   linkedin_url: string | null;
   en: ManagerTranslation;
   fr: ManagerTranslation;
+  user: User;
 }
 
 export interface Application {
@@ -83,11 +83,11 @@ export interface Application {
   applicant_snapshot_id: number;
   submission_signature: string;
   submission_date: string;
-  exerience_saved: boolean;
+  experience_saved: boolean;
   created_at: Date;
   updated_at: Date;
   veteran_status: VeteranStatus;
-  citizenship_declaration: CitizeshipDeclaration;
+  citizenship_declaration: CitizenshipDeclaration;
   applicant: Applicant;
   application_review: ApplicationReview | undefined;
   meets_essential_criteria: boolean;
@@ -105,7 +105,7 @@ type CitizenshipDeclarationName =
   | "work_permit_open"
   | "work_permit_closed"
   | "not_entitled";
-export interface CitizeshipDeclaration {
+export interface CitizenshipDeclaration {
   id: number;
   name: CitizenshipDeclarationName;
 }
@@ -124,7 +124,6 @@ export interface Applicant {
 
 export interface User {
   id: number;
-
   first_name: string;
   last_name: string;
   email: string;
