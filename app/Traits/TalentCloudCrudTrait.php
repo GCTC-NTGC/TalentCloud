@@ -1,6 +1,6 @@
 <?php
 
-namespace App\CRUD;
+namespace App\Traits;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Support\Facades\DB;
@@ -21,15 +21,15 @@ trait TalentCloudCrudTrait
      */
     public static function isColumnNullable(string $column_name) : bool
     {
-        // create an instance of the model to be able to get the table name
+        // Create an instance of the model to be able to get the table name.
         $instance = new static();
         $conn = DB::connection($instance->getConnectionName());
-        $table = Config::get('database.connections.'.Config::get('database.default').'.pr e fix').$instance->getTable();
-        // MongoDB columns are alway nullable
+        $table = Config::get('database.connections.'.Config::get('database.default').'.prefix').$instance->getTable();
+        // MongoDB columns are alway nullable.
         if ($conn->getConfig()['driver'] === 'mongodb') {
             return true;
         }
-        // register the enum, json, jsonb, and citext column types, because Doctrine doesn't support it
+        // Register the enum, json, jsonb, and citext column types, because Doctrine doesn't support it.
         $conn->getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
         $conn->getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('json', 'json_array');
         $conn->getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('jsonb', 'json_array');

@@ -84,6 +84,9 @@ class LoginController extends AuthController
      */
     public function logout(Request $request)
     {
+        // Invalidates any existing 2FA verified devices.
+        $request->user()->cycleRememberDeviceToken();
+
         $this->guard()->logout();
 
         $request->session()->invalidate();
