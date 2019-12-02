@@ -7157,16 +7157,16 @@
         },
         {
             "name": "symfony/thanks",
-            "version": "v1.2.3",
+            "version": "v1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/thanks.git",
-                "reference": "ca52a68fcd472b94b3384133df577c6ab47835fd"
+                "reference": "6021b6862da1e91d3673aab0f2045a91d0f5ac79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/thanks/zipball/ca52a68fcd472b94b3384133df577c6ab47835fd",
-                "reference": "ca52a68fcd472b94b3384133df577c6ab47835fd",
+                "url": "https://api.github.com/repos/symfony/thanks/zipball/6021b6862da1e91d3673aab0f2045a91d0f5ac79",
+                "reference": "6021b6862da1e91d3673aab0f2045a91d0f5ac79",
                 "shasum": ""
             },
             "require": {
@@ -7196,7 +7196,7 @@
                 }
             ],
             "description": "Encourages sending ⭐ and 💵 to fellow PHP package maintainers (not limited to Symfony components)!",
-            "time": "2019-11-29T10:21:21+00:00"
+            "time": "2019-11-29T16:13:13+00:00"
         },
         {
             "name": "theseer/tokenizer",
