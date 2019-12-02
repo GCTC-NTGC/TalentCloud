@@ -27,12 +27,14 @@ return [
     'itp' => [
         'name' => 'Talent autochtone',
         'alt' => 'Image d\'arrière-plan du Portail des talents autochtones.'
+    ],
+    'settings' => [
+        'name' => 'Paramètres'
     ]
 ],
 'register' => 'Inscription',
 'login' => 'Ouverture de session',
 'logout' => 'Se déconnecter',
-'settings' => 'Paramètres',
 // Button labels.
 'mobile_trigger_label' => 'Menu mobile',
 'modal_cancel_label' => 'Annuler',

@@ -21,11 +21,13 @@ return [
         'faq' => [
             'name' => 'FAQ'
         ],
+        'settings' => [
+            'name' => 'Settings'
+        ]
     ],
     'register' => 'Register',
     'login' => 'Login',
     'logout' => 'Logout',
-    'settings' => 'Settings',
     /* <title> tag content */
     'home_title' => 'Talent Cloud | Manager: Home',
     'profile_title' => 'Talent Cloud | Manager: My Profile',
