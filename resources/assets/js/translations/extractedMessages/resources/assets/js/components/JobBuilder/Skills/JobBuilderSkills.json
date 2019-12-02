@@ -97,7 +97,7 @@
   {
     "id": "jobBuilder.skills.statusSmiley.essentialTitle",
     "description": "Title of skill status tracker",
-    "defaultMessage": "Total Number of Essential Skills"
+    "defaultMessage": "Number of Essential Skills"
   },
   {
     "id": "jobBuilder.skills.statusSmiley.essential.tooFew",
@@ -152,7 +152,7 @@
   {
     "id": "jobBuilder.skills.statusSmiley.tooMany",
     "description": "Description of quantity of skills",
-    "defaultMessage": "tooMany"
+    "defaultMessage": "Too Many"
   },
   {
     "id": "jobBuilder.skills.title.essentialSkills",
