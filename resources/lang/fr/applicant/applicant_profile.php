@@ -1,14 +1,13 @@
 <?php
-
+/*
+| --------------------------------------------------------------------------
+| Applicant Profile Language Lines
+| --------------------------------------------------------------------------
+|
+| The following language lines are used in the applicant profile.
+|
+*/
 return [
-    /*
-    * --------------------------------------------------------------------------
-    * Applicant Profile Language Lines
-    * --------------------------------------------------------------------------
-    *
-    * The following language lines are used in the applicant profile.
-    *
-    */
     'title' => 'À propos de moi',
     'about_section' => [
         'about_title' => 'Mes renseignements',

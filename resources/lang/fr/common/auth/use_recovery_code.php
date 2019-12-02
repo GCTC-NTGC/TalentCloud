@@ -12,7 +12,7 @@ return [
     'return_title' => 'Mot de passe à usage unique.',
     'return' => 'Retour au mot de passe à usage unique',
     'header' => 'Utiliser un code de récupération ',
-    'instructions' => 'Entrer un code de récupération. Souvenez-vous, chaque code ne peut être utilisé qu’une fois.',
+    'instructions' => 'Entrer un code de récupération. Souvenez-vous, chaque code ne peut être utilisé qu\'une fois.',
     'form_label' => 'Code de récupération',
     'placeholder' => 'p. ex. 1234abcd-efgh5678',
     'submit' => 'Ouverture de session',

@@ -7,36 +7,36 @@
 
 <div class="manager-profile__section-wrapper">
 
-	<div class="container--layout">
+  <div class="container--layout">
 
-		<div class="flex-grid">
+    <div class="flex-grid">
 
-			{# Include Sidebar #}
-			{% include "manager/profile/sidebar" with {'sidebar_l10n': layout_l10n.sidebar} %}
+      {# Include Sidebar #}
+      {% include "manager/profile/sidebar" with {'sidebar_l10n': layout_l10n.sidebar} %}
 
-			{# Profile Content #}
+      {# Profile Content #}
 
-			<div class="manager-profile__content-wrapper box lg-3of4">
+      <div class="manager-profile__content-wrapper box lg-3of4">
 
-				<form class="form__wrapper" action="{{ route('manager.profile.update', manager.id) }}" method="post">
+        <form class="form__wrapper" action="{{ route('manager.profile.update', manager.id) }}" method="post">
 
-					{# Builds an input field for CSRF token validation #}
-					{{ csrf_field() }}
+          {# Builds an input field for CSRF token validation #}
+          {{ csrf_field() }}
 
-					{# Include About Me #}
+          {# Include About Me #}
 
-					{% include "manager/profile/about" with {'about_l10n': layout_l10n.about} %}
+          {% include "manager/profile/about" with {'about_l10n': layout_l10n.about} %}
 
-					{# Include My Leadership Style #}
+          {# Include My Leadership Style #}
 
-					{% include "manager/profile/leadership" with {'leadership_l10n': layout_l10n.leadership } %}
+          {% include "manager/profile/leadership" with {'leadership_l10n': layout_l10n.leadership } %}
 
-				</form>
+        </form>
 
-			</div>
+      </div>
 
-		</div>
+    </div>
 
-	</div>
+  </div>
 
 </div>
