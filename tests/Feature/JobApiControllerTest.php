@@ -129,7 +129,7 @@ class JobApiControllerTest extends TestCase
             [
                 'id' => $job->id,
                 'manager_id' => $job->manager_id,
-                'classification_id' => Classification::where('id', $jobUpdate['classification_id'])->first()->id
+                'classification_id' => $job->classification_id
             ]
         );
         $this->assertDatabaseHas('job_posters', $expectedDb);
