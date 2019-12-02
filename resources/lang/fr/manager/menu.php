@@ -22,7 +22,7 @@ return [
             'name' => 'FAQ'
         ],
         'settings' => [
-            'Paramètres'
+            'name' => 'Paramètres'
         ]
     ],
     'register' => 'Inscription',
