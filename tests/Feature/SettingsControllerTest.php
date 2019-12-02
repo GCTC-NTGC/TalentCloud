@@ -71,7 +71,6 @@ class SettingsControllerTest extends TestCase
         $response = $this->followingRedirects()
             ->actingAs($this->applicant->user)
             ->post(route('settings.personal.update', $this->applicant), $data);
-        dump($response);
         $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.update_personal')));
