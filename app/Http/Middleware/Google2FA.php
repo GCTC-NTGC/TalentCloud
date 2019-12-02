@@ -18,7 +18,9 @@ class Google2FA
     {
         $authenticator = app(Authenticator::class)->boot($request);
         $user = $request->user();
-        $remember = $request->cookie($user->getRememberDeviceKey());
+        $remember = $user !== null
+            ? $request->cookie($user->getRememberDeviceKey())
+            : null;
 
         // If tokens do not match, cookie is no longer valid.
         if ($remember !== null && $remember !== $user->getRememberDeviceToken()) {
