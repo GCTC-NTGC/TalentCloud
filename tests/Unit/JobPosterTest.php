@@ -138,30 +138,4 @@ class JobPosterTest extends TestCase
 
         $this->assertInstanceOf(Date::class, $jobPoster->published_at);
     }
-
-    /**
-     * Ensure the classification mutator functions correctly.
-     *
-     * @return void
-     */
-    public function testJobPosterClassificationAccessor() : void
-    {
-        $jobPoster = factory(JobPoster::class)->make();
-
-        $jobPoster->classification = 'CS-03';
-        $this->assertEquals(
-            $jobPoster->classification->key . '-' . $jobPoster->classification_level,
-            $jobPoster->classification
-        );
-
-        $jobPoster->classification_level = null;
-        $this->assertEquals('CS-03', $jobPoster->classification);
-
-        $jobPoster->classification_level = 5;
-        $jobPoster->classification_id = null;
-        $this->assertEquals('CS-03', $jobPoster->classification);
-
-        $jobPoster->classification_level = null;
-        $this->assertEquals('CS-03', $jobPoster->classification);
-    }
 }
