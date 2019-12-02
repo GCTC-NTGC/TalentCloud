@@ -30,6 +30,7 @@ class Google2FA
             if ($authenticator->isAuthenticated() || ($remember !== null && $remember === $user->getRememberDeviceToken())) {
                 if (!$authenticator->isAuthenticated()) {
                     Log::notice('User skipped OTP entry with known device.', ['id' => $request->user()->id]);
+                    $authenticator->login();
                 }
                 return $next($request);
             }
