@@ -125,11 +125,10 @@ class JobApiControllerTest extends TestCase
             ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertOk();
         $expectedDb = array_merge(
-            collect($jobUpdate)->except(['en', 'fr', 'work_env_features', 'classification_id'])->toArray(),
+            collect($jobUpdate)->except(['en', 'fr', 'work_env_features'])->toArray(),
             [
                 'id' => $job->id,
                 'manager_id' => $job->manager_id,
-                'classification_id' => $job->classification_id
             ]
         );
         $this->assertDatabaseHas('job_posters', $expectedDb);
