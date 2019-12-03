@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Classification;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Config;
 use App\Services\Validation\Rules\ValidIdRule;
@@ -51,7 +52,7 @@ class UpdateJobPoster extends FormRequest
             'salary_min' => 'nullable|numeric',
             'salary_max' => 'nullable|numeric',
             'noc' => 'nullable|numeric',
-            'classification_code' => 'nullable|exists:classifications,key',
+            'classification_id' => ['nullable', new ValidIdRule(Classification::class)],
             'classification_level' => 'nullable|numeric',
             'remote_work_allowed' => 'nullable|boolean',
             'team_size' => 'nullable|numeric',
