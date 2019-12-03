@@ -8,7 +8,9 @@ export const fakeManager = (
 ): Manager => ({
   id,
   user_id,
-  name: "Gray O'Byrne",
+  full_name: "Gray O'Byrne",
+  first_name: "Gray",
+  last_name: "O'Byrne",
   department_id: 1,
   twitter_username: null,
   linkedin_url: null,
