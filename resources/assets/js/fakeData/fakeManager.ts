@@ -1,13 +1,18 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Manager } from "../models/types";
 
-export const fakeManager = (id = 1, user_id = 1): Manager => ({
+export const fakeManager = (
+  id = 1,
+  user_id = 1,
+  is_demo_manager = false,
+): Manager => ({
   id,
   user_id,
   name: "Gray O'Byrne",
   department_id: 1,
   twitter_username: null,
   linkedin_url: null,
+  is_demo_manager,
   en: {
     division: "Talent Cloud",
     position: "Product Owner",
