@@ -154,6 +154,10 @@ class ManagerApiControllerTest extends TestCase
         $response = $this->actingAs($applicantUser)->json('get', "api/managers/$manager->id");
         $response->assertOk();
 
-        $response->assertJsonFragment(['name' => $name]);
+        $response->assertJsonFragment([
+            'full_name' => $name,
+            'first_name' => $first_name,
+            'last_name' => $last_name
+        ]);
     }
 }

@@ -51,7 +51,9 @@ use Astrotomic\Translatable\Translatable as Translatable;
  * @property string $learning_path
  *
  * Computed Properties
- * @property string $name
+ * @property string $full_name
+ * @property string $first_name
+ * @property string $last_name
  * @property boolean $is_demo_manager
  *
  * Methods
@@ -96,7 +98,7 @@ class Manager extends BaseModel
      *
      * @var array
      */
-    protected $appends = ['name', 'is_demo_manager'];
+    protected $appends = ['first_name', 'last_name', 'full_name', 'is_demo_manager'];
 
     /**
      * The attributes that should be visible in arrays.
@@ -106,7 +108,9 @@ class Manager extends BaseModel
     protected $visible = [
         'id',
         'user_id',
-        'name',
+        'first_name',
+        'last_name',
+        'full_name',
         'department_id',
         'twitter_username',
         'linkedin_url',
@@ -180,10 +184,36 @@ class Manager extends BaseModel
      *
      * @return string
      */
-    public function getNameAttribute(): string
+    public function getFullNameAttribute(): string
     {
         if ($this->user !== null) {
             return $this->user->first_name . ' ' . $this->user->last_name;
+        }
+        return '';
+    }
+
+    /**
+     * Return the first name of the User associated with this Manager.
+     *
+     * @return string
+     */
+    public function getFirstNameAttribute(): string
+    {
+        if ($this->user !== null) {
+            return $this->user->first_name;
+        }
+        return '';
+    }
+
+    /**
+     * Return the last name of the User associated with this Manager.
+     *
+     * @return string
+     */
+    public function getLastNameAttribute(): string
+    {
+        if ($this->user !== null) {
+            return $this->user->last_name;
         }
         return '';
     }
