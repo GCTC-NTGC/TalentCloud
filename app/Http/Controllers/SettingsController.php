@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Applicant;
 use App\Services\Validation\Rules\PasswordCorrectRule;
 use App\Services\Validation\Rules\PasswordFormatRule;
+use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-class ApplicantSettingsController extends Controller
+class SettingsController extends Controller
 {
     /**
      * Display the specified resource.
@@ -28,12 +29,12 @@ class ApplicantSettingsController extends Controller
             // Applicant data.
             'user' => $user,
             // Update routes.
-            'submit_personal' => route('settings.personal.update', $user->applicant),
-            'submit_password' => route('settings.password.update', $user->applicant),
-            'submit_government' => route('settings.government.update', $user->applicant),
-            'activate_two_factor' => route('two_factor.activate'),
-            'deactivate_two_factor' => route('two_factor.deactivate'),
-            'generate_recovery_codes' => route('recovery_codes.show')
+            'submit_personal' => route(WhichPortal::prefixRoute('settings.personal.update'), $user->applicant),
+            'submit_password' => route(WhichPortal::prefixRoute('settings.password.update'), $user->applicant),
+            'submit_government' => route(WhichPortal::prefixRoute('settings.government.update'), $user->applicant),
+            'activate_two_factor' => route(WhichPortal::prefixRoute('two_factor.activate')),
+            'deactivate_two_factor' => route(WhichPortal::prefixRoute('two_factor.deactivate')),
+            'generate_recovery_codes' => route(WhichPortal::prefixRoute('recovery_codes.show'))
         ];
 
         return view(
@@ -71,7 +72,7 @@ class ApplicantSettingsController extends Controller
             ]);
         }
 
-        return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_personal'));
+        return redirect()->route(WhichPortal::prefixRoute('settings.edit'))->withSuccess(Lang::get('success.update_personal'));
     }
 
     /**
@@ -93,7 +94,7 @@ class ApplicantSettingsController extends Controller
             $applicant->user->update(['password'=> Hash::make($validData['new_password'])]);
         }
 
-        return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_password'));
+        return redirect()->route(WhichPortal::prefixRoute('settings.edit'))->withSuccess(Lang::get('success.update_password'));
     }
 
     /**
@@ -114,6 +115,6 @@ class ApplicantSettingsController extends Controller
             $applicant->user->update(['gov_email' => $validData['gov_email']]);
         }
 
-        return redirect()->route('settings.edit')->withSuccess(Lang::get('success.update_government'));
+        return redirect()->route(WhichPortal::prefixRoute('settings.edit'))->withSuccess(Lang::get('success.update_government'));
     }
 }

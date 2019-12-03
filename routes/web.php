@@ -182,12 +182,12 @@ Route::group(
                         ->name('profile.work_samples.edit');
 
                     /* Account Settings */
-                    Route::get('settings', 'ApplicantSettingsController@edit')
+                    Route::get('settings', 'SettingsController@edit')
                     ->name('settings.edit');
 
                     Route::post(
                         'settings/{applicant}/personal/update',
-                        'ApplicantSettingsController@updatePersonal'
+                        'SettingsController@updatePersonal'
                     )
                         ->middleware('can:view,applicant')
                         ->middleware('can:update,applicant')
@@ -195,7 +195,7 @@ Route::group(
 
                     Route::post(
                         'settings/{applicant}/password/update',
-                        'ApplicantSettingsController@updatePassword'
+                        'SettingsController@updatePassword'
                     )
                         ->middleware('can:view,applicant')
                         ->middleware('can:update,applicant')
@@ -203,7 +203,7 @@ Route::group(
 
                     Route::post(
                         'settings/{applicant}/government/update',
-                        'ApplicantSettingsController@updateGovernment'
+                        'SettingsController@updateGovernment'
                     )
                         ->middleware('can:view,applicant')
                         ->middleware('can:update,applicant')
@@ -386,12 +386,12 @@ Route::group(
                             ->name('manager.jobs.screening_plan');
 
                         /* Account Settings */
-                        Route::get('settings', 'ManagerSettingsController@edit')
+                        Route::get('settings', 'SettingsController@edit')
                             ->name('manager.settings.edit');
 
                         Route::post(
                             'settings/{manager}/personal/update',
-                            'ManagerSettingsController@updatePersonal'
+                            'SettingsController@updatePersonal'
                         )
                             ->middleware('can:view,manager')
                             ->middleware('can:update,manager')
@@ -399,7 +399,7 @@ Route::group(
 
                         Route::post(
                             'settings/{manager}/password/update',
-                            'ManagerSettingsController@updatePassword'
+                            'SettingsController@updatePassword'
                         )
                             ->middleware('can:view,manager')
                             ->middleware('can:update,manager')
@@ -407,7 +407,7 @@ Route::group(
 
                         Route::post(
                             'settings/{manager}/government/update',
-                            'ManagerSettingsController@updateGovernment'
+                            'SettingsController@updateGovernment'
                         )
                             ->middleware('can:view,manager')
                             ->middleware('can:update,manager')
