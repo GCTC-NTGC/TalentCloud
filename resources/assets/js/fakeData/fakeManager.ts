@@ -22,7 +22,7 @@ export const fakeManager = (id = 1, user_id = 1): Manager => ({
     learning_path:
       "I did Physics back in school, but honestly I find learning on the job way more fun than academia. These days, my main learning path is to work with people who are better than me and absorb as much as I can. I also do a fair share of throwing myself at new problems I know little about. It often leads to uncomfortable situations… but is great for learning.",
     about_me:
-      "I like games of pretty much any short, including sports, video games and table-top. In my free time I listen to podcasts about electric cars, science and skepticism. I'm also very lucky to share a home with my wife and son (soon to add a second!)",
+      "I like games of pretty much any short, including sports, video games and table-top. In my free time I listen to podcasts about electric cars, science and scepticism. I'm also very lucky to share a home with my wife and son (soon to add a second!)",
   },
   fr: {
     division: "Nuage de Talents",
@@ -40,6 +40,7 @@ export const fakeManager = (id = 1, user_id = 1): Manager => ({
     about_me:
       "J'aime presque tous les jeux, y compris les sports, les jeux vidéo et les jeux de table. Dans mes temps libres, j'écoute des balados sur les voitures électriques, la science et le scepticisme. J'ai aussi l'énorme chance de partager une maison avec ma femme et mon fils (et bientôt, un deuxième enfant!).",
   },
+  user: this.user,
 });
 
 export default { fakeManager };

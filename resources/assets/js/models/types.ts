@@ -69,6 +69,7 @@ export interface Manager {
   linkedin_url: string | null;
   en: ManagerTranslation;
   fr: ManagerTranslation;
+  user: User;
 }
 
 export interface Application {
@@ -123,7 +124,6 @@ export interface Applicant {
 
 export interface User {
   id: number;
-
   first_name: string;
   last_name: string;
   email: string;
