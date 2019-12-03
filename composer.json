@@ -22,6 +22,7 @@
     },
     "require-dev": {
         "backpack/generators": "^2.0",
+        "barryvdh/laravel-ide-helper": "^2.6",
         "filp/whoops": "^2.3",
         "friendsofphp/php-cs-fixer": "^2.15",
         "fzaninotto/faker": "^1.8",
@@ -78,6 +79,11 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
         ]
     },
     "minimum-stability": "dev",
