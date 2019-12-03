@@ -7,7 +7,11 @@ import {
   Criteria,
   Skill,
 } from "./types";
-import { CriteriaTypeId } from "./lookupConstants";
+import {
+  CriteriaTypeId,
+  getKeyByValue,
+  ClassificationId,
+} from "./lookupConstants";
 import { assetSkillName, skillLevelName } from "./localizedConstants";
 
 const pad = (n: number, width: number, z = "0"): string => {
@@ -16,7 +20,10 @@ const pad = (n: number, width: number, z = "0"): string => {
 
 export const classificationString = (job: Job): string => {
   return job.classification_id && job.classification_level
-    ? `${job.classification_id}-${pad(job.classification_level, 2)}`
+    ? `${getKeyByValue(ClassificationId, job.classification_id)}-${pad(
+        job.classification_level,
+        2,
+      )}`
     : "";
 };
 
