@@ -32,6 +32,7 @@ import {
   TravelRequirementId,
   OvertimeRequirementId,
   ClassificationId,
+  getKeyByValue,
 } from "../../../models/lookupConstants";
 import { emptyJob } from "../../../models/jobUtil";
 import {
@@ -41,15 +42,12 @@ import {
   frequencyName,
   travelRequirementDescription,
   overtimeRequirementDescription,
+  classificationCodeOption,
 } from "../../../models/localizedConstants";
 import ContextBlockItem from "../../ContextBlock/ContextBlockItem";
 import CopyToClipboardButton from "../../CopyToClipboardButton";
 import TextAreaInput from "../../Form/TextAreaInput";
-import {
-  formMessages,
-  classificationOptionMessages,
-  educationMessages,
-} from "./JobDetailsMessages";
+import { formMessages, educationMessages } from "./JobDetailsMessages";
 import { hasKey } from "../../../helpers/queries";
 
 interface JobDetailsProps {
@@ -162,7 +160,7 @@ const overtimeRequirements: OvertimeOptionType[] = Object.keys(
 interface DetailsFormValues {
   title: string;
   termLength: number | "";
-  classification: string;
+  classification: number | "";
   level: number | "";
   educationRequirements: string;
   securityLevel: number | "";
@@ -176,17 +174,20 @@ interface DetailsFormValues {
   overtime: OvertimeOptionType;
 }
 
+const classificationCode = (classification: number | string) =>
+  getKeyByValue(ClassificationId, classification);
+
 const isClassificationSet = (values: DetailsFormValues): boolean => {
-  return values.classification.length > 0 && values.level !== "";
+  return values.classification !== "" && values.level !== "";
 };
 
 const getEducationMsgForClassification = (
-  classification: string,
+  classification: number | string,
   intl: IntlShape,
 ): string => {
-  return hasKey(educationMessages, classification)
-    ? intl.formatMessage(educationMessages[classification])
-    : "";
+  return hasKey(educationMessages, classificationCode(classification))
+    ? intl.formatMessage(educationMessages[classificationCode(classification)])
+    : "he";
 };
 
 const jobToValues = (
@@ -274,7 +275,7 @@ const updateJobWithValues = (
 ): Job => ({
   ...initialJob,
   term_qty: termLength || null,
-  classification_id: classification,
+  classification_id: classification || null,
   classification_level: level || null,
   security_clearance_id: securityLevel || null,
   language_requirement_id: language || null,
@@ -331,9 +332,9 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
       .min(1, intl.formatMessage(validationMessages.tooShort))
       .max(36, intl.formatMessage(validationMessages.tooLong))
       .required(intl.formatMessage(validationMessages.required)),
-    classification: Yup.mixed()
+    classification: Yup.number()
       .oneOf(
-        Object.keys(ClassificationId),
+        Object.values(ClassificationId),
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
@@ -514,86 +515,13 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
                   nullSelection={intl.formatMessage(
                     formMessages.classificationNullSelection,
                   )}
-                  options={[
-                    {
-                      value: "AS",
-                      label: intl.formatMessage(
-                        classificationOptionMessages.AdministrativeServices,
-                      ),
-                    },
-                    {
-                      value: "BI",
-                      label: intl.formatMessage(
-                        classificationOptionMessages.BiologicalSciences,
-                      ),
-                    },
-                    {
-                      value: "CO",
-                      label: intl.formatMessage(
-                        classificationOptionMessages.Commerce,
-                      ),
-                    },
-                    {
-                      value: "CR",
-                      label: intl.formatMessage(
-                        classificationOptionMessages.ClericalRegulatory,
-                      ),
-                    },
-                    {
-                      value: "CS",
-                      label: intl.formatMessage(
-                        classificationOptionMessages.ComputerSystems,
-                      ),
-                    },
-                    {
-                      value: "EC",
-                      label: intl.formatMessage(
-                        classificationOptionMessages.EconomicsSocialSciences,
-                      ),
-                    },
-                    {
-                      value: "EX",
-                      label: intl.formatMessage(
-                        classificationOptionMessages.Executive,
-                      ),
-                    },
-                    {
-                      value: "FO",
-                      label: intl.formatMessage(
-                        classificationOptionMessages.Forestry,
-                      ),
-                    },
-                    {
-                      value: "IS",
-                      label: intl.formatMessage(
-                        classificationOptionMessages.InformationServices,
-                      ),
-                    },
-                    {
-                      value: "PC",
-                      label: intl.formatMessage(
-                        classificationOptionMessages.PhysicalSciences,
-                      ),
-                    },
-                    {
-                      value: "PE",
-                      label: intl.formatMessage(
-                        classificationOptionMessages.PersonnelAdministration,
-                      ),
-                    },
-                    {
-                      value: "PM",
-                      label: intl.formatMessage(
-                        classificationOptionMessages.ProgrammeAdministration,
-                      ),
-                    },
-                    {
-                      value: "AD",
-                      label: intl.formatMessage(
-                        classificationOptionMessages.AdministrativeServices2,
-                      ),
-                    },
-                  ]}
+                  options={Object.values(ClassificationId).map((id: number): {
+                    value: number;
+                    label: string;
+                  } => ({
+                    value: id,
+                    label: intl.formatMessage(classificationCodeOption(id)),
+                  }))}
                 />
                 <Field
                   name="level"
