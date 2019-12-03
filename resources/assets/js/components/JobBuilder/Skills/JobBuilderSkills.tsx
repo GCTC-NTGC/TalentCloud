@@ -11,7 +11,11 @@ import { Job, Skill, Criteria, JobPosterKeyTask } from "../../../models/types";
 import Modal from "../../Modal";
 import CriteriaForm from "./CriteriaForm";
 import { mapToObject, getId, hasKey, notEmpty } from "../../../helpers/queries";
-import { CriteriaTypeId } from "../../../models/lookupConstants";
+import {
+  CriteriaTypeId,
+  getKeyByValue,
+  ClassificationId,
+} from "../../../models/lookupConstants";
 import Select, { SelectOption } from "../../Select";
 import { getSkillLevelName } from "../../../models/jobUtil";
 import Criterion from "../Criterion";
@@ -292,7 +296,9 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
     skill.classifications.map((classification): string => classification.key);
   const isOccupational = (skill: Skill): boolean =>
     job.classification_id !== null &&
-    getClassifications(skill).includes(job.classification_id);
+    getClassifications(skill).includes(
+      getKeyByValue(ClassificationId, job.classification_id),
+    );
   const occupationalSkills = skills
     .filter(isOccupational)
     .sort(sortAlphabetically);
@@ -1197,7 +1203,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
               </div>
             </div>
             {/* This is the list of skills. Clicking a skill button should trigger the "Edit skill" modal so that the user can edit the definition/level before adding it. If they DO add it, you can assign an "active" class to the respective button so indicate that it's selected. This will change it's colour and icon automatically. This is also the area where "Culture Skills" is split into the two categories - see the Culture Skills section below for what that looks like. */}
-            {(job.classification_id === "" ||
+            {(job.classification_id === undefined ||
               job.classification_id === null) && (
               <p data-c-font-weight="bold" data-c-grid-item="base(1of1)">
                 <FormattedMessage
