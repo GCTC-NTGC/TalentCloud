@@ -83,8 +83,8 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "@php artisan clear-compiled",
-            "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:meta"
+            "@php artisan ide-helper:generate .vscode/_ide_helper.php",
+            "@php artisan ide-helper:meta vscode/.phpstorm.meta.php"
         ]
     },
     "minimum-stability": "dev",

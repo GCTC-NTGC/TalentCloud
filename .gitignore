@@ -68,6 +68,6 @@ yarn-error.log
 .setup
 
 ## IDE helper
-_ide_helper.php
-_ide_helper_models.php
-.phpstorm.meta.php
+.vscode/_ide_helper.php
+.vscode/_ide_helper_models.php
+.vscode/.phpstorm.meta.php
