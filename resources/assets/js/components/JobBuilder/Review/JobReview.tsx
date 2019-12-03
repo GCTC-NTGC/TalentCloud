@@ -45,6 +45,7 @@ import JobWorkCulture from "../JobWorkCulture";
 import Modal from "../../Modal";
 import { textToParagraphs } from "../../../helpers/textToParagraphs";
 import { useUrlHash, Link } from "../../../helpers/router";
+import { classificationString } from "../../../models/jobUtil";
 
 interface JobReviewSectionProps {
   title: string;
@@ -563,9 +564,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
                   description="Placeholder for information that comes later"
                 />
               </p>
-              <p>
-                {job.classification_id}-{job.classification_level}
-              </p>
+              <p>{classificationString(job)}</p>
             </div>
           </div>
         </JobReviewSection>

@@ -6,6 +6,7 @@ import {
   defineMessages,
 } from "react-intl";
 import textToParagraphs from "../helpers/textToParagraphs";
+import { getKeyByValue, ClassificationId } from "../models/lookupConstants";
 
 export interface JobPreviewProps {
   /** Title of the Job Poster */
@@ -49,9 +50,8 @@ const messages = defineMessages({
   },
 });
 
-const JobPreview: React.FunctionComponent<
-  JobPreviewProps & WrappedComponentProps
-> = ({
+const JobPreview: React.FunctionComponent<JobPreviewProps &
+  WrappedComponentProps> = ({
   title,
   city,
   education,
@@ -178,7 +178,7 @@ const JobPreview: React.FunctionComponent<
               description="Job Poster Card Information Label"
             />
           </p>
-          <p>{classification}</p>
+          <p>{getKeyByValue(ClassificationId, classification)}</p>
         </div>
         <div data-c-grid-item="tp(1of2)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">
