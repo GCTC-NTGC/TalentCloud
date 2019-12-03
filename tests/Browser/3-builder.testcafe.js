@@ -74,7 +74,7 @@ test("Job Poster Builder - New Job", async t => {
       Selector("select")
         .withAttribute("id", "builder02Classification")
         .find("option")
-        .withAttribute("value", "AS"),
+        .withAttribute("value", "1"),
     )
     .click(Selector("select").withAttribute("id", "builder02Level"))
     .click(
