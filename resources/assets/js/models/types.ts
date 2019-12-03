@@ -72,7 +72,6 @@ export interface Manager {
   is_demo_manager: boolean;
   en: ManagerTranslation;
   fr: ManagerTranslation;
-  user: User;
 }
 
 export interface Application {
