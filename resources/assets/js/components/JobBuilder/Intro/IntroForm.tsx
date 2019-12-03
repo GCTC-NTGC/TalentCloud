@@ -262,7 +262,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
             defaultMessage="{name}'s Profile Information"
             description="The title of the profile information form."
             values={{
-              name: manager.user.first_name,
+              name: manager.first_name,
             }}
           />
         </h4>
@@ -311,7 +311,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     id="builder01ManagerPositionEn"
                     name="managerPositionEn"
                     label={intl.formatMessage(formMessages.jobTitleLabelEN, {
-                      name: manager.user.first_name,
+                      name: manager.first_name,
                     })}
                     placeholder={intl.formatMessage(
                       formMessages.jobTitlePlaceholderEN,
@@ -325,7 +325,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     id="builder01ManagerPositionFr"
                     name="managerPositionFr"
                     label={intl.formatMessage(formMessages.jobTitleLabelFR, {
-                      name: manager.user.first_name,
+                      name: manager.first_name,
                     })}
                     placeholder={intl.formatMessage(
                       formMessages.jobTitlePlaceholderFR,
@@ -338,7 +338,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     name="department"
                     id="builder01ManagerDepartment"
                     label={intl.formatMessage(formMessages.departmentLabel, {
-                      name: manager.user.first_name,
+                      name: manager.first_name,
                     })}
                     grid="base(1of1)"
                     component={SelectInput}
@@ -360,7 +360,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     id="builder01ManagerDivisionEN"
                     name="divisionEN"
                     label={intl.formatMessage(formMessages.divisionLabelEN, {
-                      name: manager.user.first_name,
+                      name: manager.first_name,
                     })}
                     placeholder={intl.formatMessage(
                       formMessages.divisionPlaceholderEN,
@@ -374,7 +374,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     id="builder01ManagerDivisionFR"
                     name="divisionFR"
                     label={intl.formatMessage(formMessages.divisionLabelFR, {
-                      name: manager.user.first_name,
+                      name: manager.first_name,
                     })}
                     placeholder={intl.formatMessage(
                       formMessages.divisionPlaceholderFR,
