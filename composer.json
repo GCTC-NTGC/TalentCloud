@@ -78,8 +78,7 @@
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover",
-            "@ide-helper"
+            "@php artisan package:discover"
         ],
         "ide-helper": [
             "@php artisan clear-compiled",
