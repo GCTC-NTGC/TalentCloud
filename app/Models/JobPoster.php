@@ -61,6 +61,7 @@ use App\Events\JobSaved;
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property int $submitted_applications_count
+ * @property string $classification_message
  *
  * @property \App\Models\Lookup\Department $department
  * @property \App\Models\Lookup\JobTerm $job_term
@@ -245,7 +246,7 @@ class JobPoster extends BaseModel
         'priority_clearance_number',
         'loo_issuance_date',
         'classification_id',
-        'classification_level',
+        'classification_level'
     ];
 
     /**
@@ -510,6 +511,32 @@ class JobPoster extends BaseModel
         }
 
         return $status;
+    }
+
+    /**
+     * The database model stores a foreign id to the classification table,
+     * but to simplify the API, this model simply returns the key as classification_code.
+     *
+     * @return void
+     */
+    public function getClassificationCodeAttribute()
+    {
+        if ($this->classification_id !== null) {
+            $classification = Classification::find($this->classification_id);
+            return $classification->key;
+        }
+        return null;
+    }
+
+    /**
+     *
+     * Get the full government classification messsage
+     *
+     * @return string
+     */
+    public function getClassificationMessageAttribute(): string
+    {
+        return $this->classification->key . '-0' . $this->classification_level;
     }
 
     /**
