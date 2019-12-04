@@ -35,19 +35,19 @@
 				</h3>
 			{% endif %}
 			{% if job.created_at %}
-				<span class="poster-date-time--draft">{{ job.classification.key }}-{{ job.classification_level }} - {{ jobs_l10n.created_on }}
+				<span class="poster-date-time--draft">{{ job.classification_message }} - {{ jobs_l10n.created_on }}
 					{{ humanizeDate(job.created_at) }}</span>
 			{% endif %}
 			{% if job.review_requested_at %}
-				<span class="poster-date-time--submitted">{{ job.classification.key }}-{{ job.classification_level }} - {{ jobs_l10n.submitted_on }}
+				<span class="poster-date-time--submitted">{{ job.classification_message }} - {{ jobs_l10n.submitted_on }}
 					{{ humanizeDate(job.review_requested_at) }}</span>
 			{% endif %}
 			{% if job.published_at %}
-				<span class="poster-date-time--published">{{ job.classification.key }}-{{ job.classification_level }} - {{ jobs_l10n.published_on }}
+				<span class="poster-date-time--published">{{ job.classification_message }} - {{ jobs_l10n.published_on }}
 					{{ humanizeDate(job.published_at) }}</span>
 			{% endif %}
 			{% if job.close_date_time %}
-				<span class="poster-date-time--closed">{{ job.classification.key }}-{{ job.classification_level }} - {{ jobs_l10n.closed_on }}
+				<span class="poster-date-time--closed">{{ job.classification_message }} - {{ jobs_l10n.closed_on }}
 					{{ humanizeDate(job.close_date_time) }}</span>
 			{% endif %}
 		</div>
