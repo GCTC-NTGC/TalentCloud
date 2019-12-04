@@ -1025,7 +1025,10 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
                               securityClearance(Number(values.securityLevel)),
                             )
                       }
-                      classification={String(values.classification)}
+                      classification={getKeyByValue(
+                        ClassificationId,
+                        values.classification,
+                      )}
                       level={String(values.level)}
                       travel={intl.formatMessage(travelMessages[values.travel])}
                       overtime={intl.formatMessage(
