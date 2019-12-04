@@ -331,12 +331,12 @@ class JobPoster extends BaseModel
         return $this->belongsTo(\App\Models\Lookup\OvertimeRequirement::class);
     }
 
-    public function classification()
+    public function classification() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Classification::class);
     }
-
-    // Artificial Relations
+    // @codeCoverageIgnoreEnd
+    /* Artificial Relations */
 
     /**
      * Get all of the Job Applications submitted to this
@@ -351,7 +351,7 @@ class JobPoster extends BaseModel
         });
     }
 
-    // Overrides
+    /* Overrides */
 
     /**
      * Retrieve the model for a bound value.
@@ -390,7 +390,8 @@ class JobPoster extends BaseModel
         $this->attributes['published'] = $value;
     }
 
-    // Methods
+    /* Methods */
+
     public function submitted_applications_count() //phpcs:ignore
     {
         return $this->submitted_applications()->count();
@@ -403,8 +404,8 @@ class JobPoster extends BaseModel
      */
     public function applyBy(): array
     {
-        $localCloseDate = new Date($this->close_date_time); // This initializes the date object in UTC time
-        $localCloseDate->setTimezone(new \DateTimeZone(self::TIMEZONE)); // Then set the time zone for display
+        $localCloseDate = new Date($this->close_date_time); // This initializes the date object in UTC time.
+        $localCloseDate->setTimezone(new \DateTimeZone(self::TIMEZONE)); // Then set the time zone for display.
         $displayDate = [
             'date' => $localCloseDate->format(self::DATE_FORMAT[App::getLocale()]),
             'time' => $localCloseDate->format(self::TIME_FORMAT[App::getLocale()])
