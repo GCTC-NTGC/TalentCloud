@@ -193,7 +193,8 @@ return array(
     |
     */
     'type_overrides' => array(
-
+        'integer' => 'int',
+        'boolean' => 'bool'
     ),
 
     /*

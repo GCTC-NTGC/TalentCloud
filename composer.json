@@ -78,13 +78,14 @@
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover"
+            "@php artisan package:discover",
+            "@ide-helper"
         ],
-        "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+        "ide-helper": [
             "@php artisan clear-compiled",
             "@php artisan ide-helper:generate .vscode/_ide_helper.php",
-            "@php artisan ide-helper:meta vscode/.phpstorm.meta.php"
+            "@php artisan ide-helper:models",
+            "@php artisan ide-helper:meta"
         ]
     },
     "minimum-stability": "dev",
