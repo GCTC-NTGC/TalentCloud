@@ -63,13 +63,15 @@ export interface ManagerTranslation {
 export interface Manager {
   id: number;
   user_id: number;
-  name: string;
+  full_name: string;
+  first_name: string;
+  last_name: string;
   department_id: number | null;
   twitter_username: string | null;
   linkedin_url: string | null;
+  is_demo_manager: boolean;
   en: ManagerTranslation;
   fr: ManagerTranslation;
-  user: User;
 }
 
 export interface Application {

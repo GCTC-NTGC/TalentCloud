@@ -1,13 +1,20 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Manager } from "../models/types";
 
-export const fakeManager = (id = 1, user_id = 1): Manager => ({
+export const fakeManager = (
+  id = 1,
+  user_id = 1,
+  is_demo_manager = false,
+): Manager => ({
   id,
   user_id,
-  name: "Gray O'Byrne",
+  full_name: "Gray O'Byrne",
+  first_name: "Gray",
+  last_name: "O'Byrne",
   department_id: 1,
   twitter_username: null,
   linkedin_url: null,
+  is_demo_manager,
   en: {
     division: "Talent Cloud",
     position: "Product Owner",
@@ -40,7 +47,6 @@ export const fakeManager = (id = 1, user_id = 1): Manager => ({
     about_me:
       "J'aime presque tous les jeux, y compris les sports, les jeux vidéo et les jeux de table. Dans mes temps libres, j'écoute des balados sur les voitures électriques, la science et le scepticisme. J'ai aussi l'énorme chance de partager une maison avec ma femme et mon fils (et bientôt, un deuxième enfant!).",
   },
-  user: this.user,
 });
 
 export default { fakeManager };
