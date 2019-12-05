@@ -15,7 +15,7 @@ class LangFilesTest extends BaseTranslationTest
     public function testAllLangFilesWellFormatted() : void
     {
         foreach ($this->getAllLangFilenames() as $langFile) {
-            if (!empty($langFile) && $langFile != 'applicant') {
+            if (!empty($langFile)) {
                 $this->assertIsArray(Lang::get($langFile));
             }
         }
