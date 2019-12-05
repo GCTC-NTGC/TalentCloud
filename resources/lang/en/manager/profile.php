@@ -24,19 +24,6 @@ return [
             'our_team_culture' => 'Our Team Culture',
             'save_all_sections' => 'Save All Sections'
         ],
-        'account' => [
-            'my_account' => 'My Account',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'account_settings' => 'Account Information',
-            'reset_password' => 'Reset Password',
-            'profile_email' => 'My Email',
-            'gov_email' => 'My Government Email',
-            'current_password' => 'Current Password',
-            'new_password' => 'New Password',
-            'confirm_password' => 'Confirm New Password',
-            'save_account_settings' => 'Save Account Settings',
-        ],
         'about' => [
             'about_me' => 'About Me',
             'my_name' => 'My Name',
@@ -105,28 +92,6 @@ return [
             'what_we_value' => 'What We Value',
             'how_we_work' => 'How We Work',
             'save_team_culture' => 'Save Our Team Culture'
-        ],
-        'two_factor' => [
-            'two_factor_legend' => 'Two-factor Authentication',
-            'two_factor_button_text' => 'Set up Two-factor Authentication',
-            'two_factor_recovery_legend' => 'Recovery Codes',
-            'two_factor_recovery_text' => 'Emergency recovery codes let you gain access to your account in case you lose access to your phone. For security, we only show them to you once, but you can',
-            'view_recovery_codes' => 'generate new codes',
-            'two_factor_inactive' => [
-                'one' => 'Even a strong password isn\'t enough to protect your account. If you use the same password on different websites, click on hyperlinks in email messages, or download anything on the internet, you are at risk of having your password stolen. And if someone else gets access to your account, they can do all kinds of bad things.',
-                'two' => 'Using two-factor authentication (2FA) adds an extra layer of security when you sign into Talent Cloud. To use 2FA, you\'ll have to install an authenticator app that uses the time-based one-time password algorithm standard on a separate device, like your cell phone. Compatible applications include:',
-                'three' => '1Password for iOS, Android, OS X, Windows',
-                'four' => 'Authy for iOS, Android, Chrome, OS X',
-                'five' => 'FreeOTP for iOS, Android and Pebble',
-                'six' => 'Google Authenticator for iOS',
-                'seven' => 'Google Authenticator for Android',
-                'eight' => 'Google Authenticator (port) on Windows Store',
-                'nine' => 'LastPass Authenticator for iOS, Android, OS X',
-                'ten' => 'Windows Microsoft Authenticator for Windows Phone',
-                'eleven' => 'To turn on 2FA, you need to associate your phone (or some other device) with your Talent Cloud account by scanning a QR code. This will give you the ability to generate a one-time password on demand when you log in. Once you use 2FA, you won\'t have to use it again for another 30 days on that device. (You\'ll still need to enter your user name and password.)'
-            ],
-            'two_factor_active' => 'You\'re currently receiving verification codes via an authenticator application on your smartphone.',
-            'two_factor_deactivate' => 'Deactivate Two-factor Authentication'
         ]
     ]
 ];

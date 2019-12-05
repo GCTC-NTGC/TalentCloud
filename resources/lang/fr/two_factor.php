@@ -10,7 +10,7 @@
 */
 return [
     'title' => 'Activez l\'authentification à deux facteurs',
-    'return' => 'Revenez au profil',
+    'return' => 'Revenez au paramètres',
     'header' => 'Activez l\'authentification à deux facteurs',
     'setup' => 'Configurez votre application d\'authentification à deux facteurs en balayant le code QR dans une application mobile comme Google Authenticator ou Authy. Vous pouvez aussi utiliser le code ci-dessous.',
     'qr_alt' => 'Image du code QR à utiliser avec l\'application d\'authentification.',

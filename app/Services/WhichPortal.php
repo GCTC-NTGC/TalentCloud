@@ -12,7 +12,7 @@ class WhichPortal
     {
         if ($this->isAdminPortal()) {
             return 'admin';
-        } else if ($this->isManagerPortal()) {
+        } elseif ($this->isManagerPortal()) {
             return route('manager.home');
         }
         return route('home');
@@ -49,5 +49,17 @@ class WhichPortal
         $adminPrefix = config('backpack.base.route_prefix', 'admin');
         $adminPattern = "#^$baseUrl/(\w+/)?$adminPrefix(/.*)?$#";
         return preg_match($adminPattern, $url);
+    }
+
+    public function prefixRoute($routeName): string
+    {
+        if (WhichPortal::isApplicantPortal()) {
+            return $routeName;
+        } elseif (WhichPortal::isManagerPortal()) {
+            return 'manager.' . $routeName;
+        } elseif (WhichPortal::isAdminPortal()) {
+            return 'admin.' . $routeName;
+        }
+        return $routeName;
     }
 }
