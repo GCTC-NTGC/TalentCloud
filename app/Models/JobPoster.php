@@ -517,26 +517,28 @@ class JobPoster extends BaseModel
      * The database model stores a foreign id to the classification table,
      * but to simplify the API, this model simply returns the key as classification_code.
      *
-     * @return void
+     * @return string|null
      */
     public function getClassificationCodeAttribute()
     {
         if ($this->classification_id !== null) {
-            $classification = Classification::find($this->classification_id);
-            return $classification->key;
+            return $this->classification->key;
         }
         return null;
     }
 
     /**
      *
-     * Get the full government classification messsage
+     * Get the full government classification message.
      *
-     * @return string
+     * @return string|null
      */
-    public function getClassificationMessageAttribute(): string
+    public function getClassificationMessageAttribute()
     {
-        return $this->classification->key . '-0' . $this->classification_level;
+        if ($this->classification_id !== null && $this->classification_level !== null) {
+            return $this->classification->key . '-0' . $this->classification_level;
+        }
+        return null;
     }
 
     /**
