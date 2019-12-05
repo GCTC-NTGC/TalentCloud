@@ -43,7 +43,7 @@ class JobApiControllerTest extends TestCase
             'salary_min' => $this->faker->numberBetween(60000, 80000),
             'salary_max' => $this->faker->numberBetween(80000, 100000),
             'noc' => $this->faker->numberBetween(1, 9999),
-            'classification_code' => Classification::inRandomOrder()->first()->key,
+            'classification_id' => Classification::inRandomOrder()->first()->id,
             'classification_level' => $this->faker->numberBetween(1, 6),
             'manager_id' => $managerId,
             'remote_work_allowed' => $this->faker->boolean(50),
@@ -67,7 +67,7 @@ class JobApiControllerTest extends TestCase
             'collaborative_vs_independent' => $this->faker->numberBetween(1, 4),
             'telework_allowed_frequency_id' => $this->faker->numberBetween(1, 4),
             'flexible_hours_frequency_id' => $this->faker->numberBetween(1, 4),
-            'travel_requirement_id'=> $this->faker->numberBetween(1, 3),
+            'travel_requirement_id' => $this->faker->numberBetween(1, 3),
             'overtime_requirement_id' => $this->faker->numberBetween(1, 3),
             'en' => [
                 'city' => $this->faker->city(),
@@ -98,7 +98,7 @@ class JobApiControllerTest extends TestCase
     }
 
     /**
-     * A guest user should be able to retreive a published job.
+     * A guest user should be able to retrieve a published job.
      *
      * @return void
      */
@@ -125,11 +125,10 @@ class JobApiControllerTest extends TestCase
             ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertOk();
         $expectedDb = array_merge(
-            collect($jobUpdate)->except(['en', 'fr', 'work_env_features', 'classification_code'])->toArray(),
+            collect($jobUpdate)->except(['en', 'fr', 'work_env_features'])->toArray(),
             [
                 'id' => $job->id,
                 'manager_id' => $job->manager_id,
-                'classification_id' => Classification::where('key', $jobUpdate['classification_code'])->first()->id
             ]
         );
         $this->assertDatabaseHas('job_posters', $expectedDb);
@@ -153,7 +152,7 @@ class JobApiControllerTest extends TestCase
         $otherManager = factory(User::class)->state('upgradedManager')->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $response = $this->actingAs($otherManager)
-        ->json('put', "api/jobs/$job->id", $jobUpdate);
+            ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertForbidden();
     }
 
@@ -184,10 +183,10 @@ class JobApiControllerTest extends TestCase
         $job = factory(JobPoster::class)->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $jobUpdate['work_env_features'] = [
-                'openConcept' => true,
-                'windows' => true,
-                'downtown' => false,
-                'invalid_feature' => 'hello world'
+            'openConcept' => true,
+            'windows' => true,
+            'downtown' => false,
+            'invalid_feature' => 'hello world'
         ];
         $response = $this->actingAs($job->manager->user)
             ->json('put', "api/jobs/$job->id", $jobUpdate);
@@ -230,7 +229,7 @@ class JobApiControllerTest extends TestCase
         $this->assertDatabaseHas('job_posters', ['manager_id' => $manager->id]);
     }
 
-    public function testReturnsCorrectClassificationCode(): void
+    public function testReturnsCorrectClassification(): void
     {
         $classification = Classification::inRandomOrder()->first();
         $job = factory(JobPoster::class)->state('published')->create([
@@ -238,7 +237,7 @@ class JobApiControllerTest extends TestCase
         ]);
         $response = $this->json('get', "api/jobs/$job->id");
         $response->assertOk();
-        $response->assertJsonFragment(['classification_code' => $classification->key]);
+        $response->assertJsonFragment(['classification_id' => $classification->id]);
     }
 
     public function testSubmitForReview(): void
