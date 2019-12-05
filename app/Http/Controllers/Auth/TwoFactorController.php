@@ -20,10 +20,19 @@ class TwoFactorController extends AuthController
             $user->email,
             $secret
         );
+         $profile_url = '';
+        if (WhichPortal::isApplicantPortal()) {
+            $profile_url = route('settings.edit');
+        } elseif (WhichPortal::isManagerPortal()) {
+            $profile_url = route('manager.settings.edit');
+        } elseif (WhichPortal::isAdminPortal()) {
+            $profile_url = backpack_url('2fa');
+        }
 
         return view('auth.two_factor', [
             'qr_image' => $qrImage,
             'secret' => $secret,
+            'profile_url' => $profile_url,
         ]);
     }
 
@@ -37,7 +46,7 @@ class TwoFactorController extends AuthController
 
         $profile_url = '';
         if (WhichPortal::isApplicantPortal()) {
-                $profile_url = route('settings.edit');
+            $profile_url = route('settings.edit');
         } elseif (WhichPortal::isManagerPortal()) {
             $profile_url = route('manager.settings.edit');
         } elseif (WhichPortal::isAdminPortal()) {

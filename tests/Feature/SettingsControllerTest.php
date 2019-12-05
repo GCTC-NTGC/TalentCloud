@@ -35,6 +35,7 @@ class SettingsControllerTest extends TestCase
             'password' => Hash::make('Manager123!')
         ]);
 
+
         $this->manager = factory(Manager::class)->create([
             'user_id' => $this->managerUser->id
         ]);
@@ -61,7 +62,8 @@ class SettingsControllerTest extends TestCase
      */
     public function testUpdatePersonalInfoWithValidData() : void
     {
-        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
         $response->assertOk();
         $data = [
             'first_name' => 'Joe',
@@ -70,7 +72,7 @@ class SettingsControllerTest extends TestCase
         ];
         $response = $this->followingRedirects()
             ->actingAs($this->applicant->user)
-            ->post(route('settings.personal.update', $this->applicant), $data);
+            ->post(route('settings.personal.update', $this->applicant->user), $data);
         $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.update_personal')));
@@ -85,7 +87,8 @@ class SettingsControllerTest extends TestCase
      */
     public function testPersonalInfoNotValidWhenNameIsEmpty() : void
     {
-        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
         $response->assertOk();
         $data = [
             'first_name' => '',
@@ -94,7 +97,7 @@ class SettingsControllerTest extends TestCase
         ];
         $response = $this->followingRedirects()
             ->actingAs($this->applicant->user)
-            ->post(route('settings.personal.update', $this->applicant), $data);
+            ->post(route('settings.personal.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
@@ -109,7 +112,8 @@ class SettingsControllerTest extends TestCase
      */
     public function testPersonalInfoNotValidWhenEmailIsEmpty() : void
     {
-        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
         $response->assertOk();
         $data = [
             'first_name' => $this->applicant->user->first_name,
@@ -118,7 +122,7 @@ class SettingsControllerTest extends TestCase
         ];
         $response = $this->followingRedirects()
             ->actingAs($this->applicant->user)
-            ->post(route('settings.personal.update', $this->applicant), $data);
+            ->post(route('settings.personal.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
@@ -133,7 +137,8 @@ class SettingsControllerTest extends TestCase
      */
     public function testPersonalInfoNotValidWhenEmailSameAsAnotherUser() : void
     {
-        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
         $response->assertOk();
         $data = [
             'first_name' => $this->applicant->user->first_name,
@@ -142,7 +147,7 @@ class SettingsControllerTest extends TestCase
         ];
         $response = $this->followingRedirects()
             ->actingAs($this->applicant->user)
-            ->post(route('settings.personal.update', $this->applicant), $data);
+            ->post(route('settings.personal.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
@@ -157,7 +162,8 @@ class SettingsControllerTest extends TestCase
      */
     public function testUpdatePasswordWithValidData() : void
     {
-        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
         $response->assertOk();
         $password = ['password' => $this->applicant->user->password];
         $data = [
@@ -167,7 +173,7 @@ class SettingsControllerTest extends TestCase
         ];
         $response = $this->followingRedirects()
             ->actingAs($this->applicant->user)
-            ->post(route('settings.password.update', $this->applicant), $data);
+            ->post(route('settings.password.update', $this->applicant->user), $data);
         $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.update_password')));
@@ -182,7 +188,8 @@ class SettingsControllerTest extends TestCase
      */
     public function testUpdatePasswordFailsWithoutConfirm() : void
     {
-        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
         $response->assertOk();
         $password = ['password' => $this->applicant->user->password];
         $data = [
@@ -192,7 +199,7 @@ class SettingsControllerTest extends TestCase
         ];
         $response = $this->followingRedirects()
             ->actingAs($this->applicant->user)
-            ->post(route('settings.password.update', $this->applicant), $data);
+            ->post(route('settings.password.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
@@ -207,7 +214,8 @@ class SettingsControllerTest extends TestCase
      */
     public function testUpdatePasswordFailsWithBadConfirm() : void
     {
-        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
         $response->assertOk();
         $password = ['password' => $this->applicant->user->password];
         $data = [
@@ -217,7 +225,7 @@ class SettingsControllerTest extends TestCase
         ];
         $response = $this->followingRedirects()
             ->actingAs($this->applicant->user)
-            ->post(route('settings.password.update', $this->applicant), $data);
+            ->post(route('settings.password.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
@@ -232,7 +240,8 @@ class SettingsControllerTest extends TestCase
      */
     public function testUpdatePasswordFailsWithIllegalPassword() : void
     {
-        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
         $response->assertOk();
         $password = ['password' => $this->applicant->user->password];
         $data = [
@@ -242,7 +251,7 @@ class SettingsControllerTest extends TestCase
         ];
         $response = $this->followingRedirects()
             ->actingAs($this->applicant->user)
-            ->post(route('settings.password.update', $this->applicant), $data);
+            ->post(route('settings.password.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
@@ -257,7 +266,8 @@ class SettingsControllerTest extends TestCase
      */
     public function testUpdatePasswordFailsWithBadOldPassword() : void
     {
-        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
         $response->assertOk();
         $password = ['password' => $this->applicant->user->password];
         $data = [
@@ -267,7 +277,7 @@ class SettingsControllerTest extends TestCase
         ];
         $response = $this->followingRedirects()
             ->actingAs($this->applicant->user)
-            ->post(route('settings.password.update', $this->applicant), $data);
+            ->post(route('settings.password.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
@@ -283,11 +293,12 @@ class SettingsControllerTest extends TestCase
     public function testViewGovernmentInfo() : void
     {
         // Applicant, not visible (without gov_email).
-        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
         $response->assertOk();
         $response->assertDontSee(Lang::get(e('common/settings.heading.government')));
         // Manager, visible (with gov_email).
-        $response = $this->actingAs($this->manager->user)->get(route('manager.settings.edit'));
+        $response = $this->actingAs($this->manager->user)->get(route('manager.settings.edit', $this->manager->user));
         $response->assertOk();
         $response->assertSee(Lang::get(e('common/settings.heading.government')));
         // Applicant, visible (with gov_email).
@@ -305,14 +316,15 @@ class SettingsControllerTest extends TestCase
     public function testUpdateGovernmentInfoWithValidData() : void
     {
         $this->applicant->user->gov_email = 'applicant@test.com';
-        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
         $response->assertOk();
         $data = [
             'gov_email' => 'applicant@tbs-sct.gc.ca'
         ];
         $response = $this->followingRedirects()
             ->actingAs($this->applicant->user)
-            ->post(route('settings.government.update', $this->applicant), $data);
+            ->post(route('settings.government.update', $this->applicant->user), $data);
         $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.update_government')));
@@ -327,14 +339,15 @@ class SettingsControllerTest extends TestCase
      */
     public function testGovernmentInfoNotValidWhenEmpty() : void
     {
-        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
         $response->assertOk();
         $data = [
             'gov_email' => ''
         ];
         $response = $this->followingRedirects()
             ->actingAs($this->applicant->user)
-            ->post(route('settings.government.update', $this->applicant), $data);
+            ->post(route('settings.government.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
         $response->assertSee(e(Lang::get('forms.alert')));
@@ -349,16 +362,18 @@ class SettingsControllerTest extends TestCase
      */
     public function testManagerUpdatePersonalInfoWithValidData() : void
     {
-        $response = $this->actingAs($this->manager->user)->get(route('manager.settings.edit'));
+        $response = $this->actingAs($this->manager->user)->get(route('manager.settings.edit', $this->manager->user));
         $response->assertOk();
         $data = [
             'first_name' => 'Sally',
             'last_name' => 'Jones',
             'email' => 'sallyjones@test.com'
         ];
+        print_r($this->manager->user->toArray());
         $response = $this->followingRedirects()
             ->actingAs($this->manager->user)
-            ->post(route('manager.settings.personal.update', $this->manager), $data);
+            ->post(route('manager.settings.personal.update', $this->manager->user), $data);
+        print_r($response->baseResponse->status());
         $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.update_personal')));
@@ -373,7 +388,8 @@ class SettingsControllerTest extends TestCase
      */
     public function testManagerUpdatePasswordWithValidData() : void
     {
-        $response = $this->actingAs($this->manager->user)->get(route('manager.settings.edit'));
+        $response = $this->actingAs($this->manager->user)
+            ->get(route('manager.settings.edit', $this->manager->user));
         $response->assertOk();
         $password = ['password' => $this->manager->user->password];
         $data = [
@@ -383,7 +399,7 @@ class SettingsControllerTest extends TestCase
         ];
         $response = $this->followingRedirects()
             ->actingAs($this->manager->user)
-            ->post(route('manager.settings.password.update', $this->manager), $data);
+            ->post(route('manager.settings.password.update', $this->manager->user), $data);
         $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.update_password')));
@@ -399,14 +415,15 @@ class SettingsControllerTest extends TestCase
     public function testManagerUpdateGovernmentInfoWithValidData() : void
     {
         // Applicant, not visible (without gov_email).
-        $response = $this->actingAs($this->manager->user)->get(route('manager.settings.edit'));
+        $response = $this->actingAs($this->manager->user)
+            ->get(route('manager.settings.edit', $this->manager->user));
         $response->assertOk();
         $data = [
             'gov_email' => 'manager@tbs-sct.gc.ca'
         ];
         $response = $this->followingRedirects()
             ->actingAs($this->manager->user)
-            ->post(route('manager.settings.government.update', $this->manager), $data);
+            ->post(route('manager.settings.government.update', $this->manager->user), $data);
         $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.update_government')));

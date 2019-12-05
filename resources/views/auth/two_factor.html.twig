@@ -18,7 +18,7 @@
 			<div
 				class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
 				{# Return to the homepage link. #}
-				<a data-c-color="white" href="{{ route('settings.edit') }}" title="{{ two_factor.return_title }}">
+				<a data-c-color="white" href="{{ profile_url }}" title="{{ two_factor.return_title }}">
 					<i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ two_factor.return }}
 				</a>
 				<div data-c-radius="rounded" data-c-margin="top(normal)">
@@ -56,7 +56,7 @@
 								</div>
 							</div>
 							<div data-c-grid-item="base(1of2)">
-								<a href="{{ route('settings.edit') }}" title="{{ two_factor.cancel_link_title }}">
+								<a href="{{ profile_url }}" title="{{ two_factor.cancel_link_title }}">
 									{{ two_factor.cancel_text }}
 								</a>
 							</div>

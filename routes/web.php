@@ -182,31 +182,32 @@ Route::group(
                         ->name('profile.work_samples.edit');
 
                     /* Account Settings */
-                    Route::get('settings', 'SettingsController@edit')
-                    ->name('settings.edit');
+                    Route::get('settings', 'SettingsController@editAuthenticated')
+                        // Permission is checked in controller.
+                        ->name('settings.edit');
 
                     Route::post(
-                        'settings/{applicant}/personal/update',
+                        'settings/{user}/personal/update',
                         'SettingsController@updatePersonal'
                     )
-                        ->middleware('can:view,applicant')
-                        ->middleware('can:update,applicant')
+                        ->middleware('can:view,user')
+                        ->middleware('can:update,user')
                         ->name('settings.personal.update');
 
                     Route::post(
-                        'settings/{applicant}/password/update',
+                        'settings/{user}/password/update',
                         'SettingsController@updatePassword'
                     )
-                        ->middleware('can:view,applicant')
-                        ->middleware('can:update,applicant')
+                        ->middleware('can:view,user')
+                        ->middleware('can:update,user')
                         ->name('settings.password.update');
 
                     Route::post(
-                        'settings/{applicant}/government/update',
+                        'settings/{user}/government/update',
                         'SettingsController@updateGovernment'
                     )
-                        ->middleware('can:view,applicant')
-                        ->middleware('can:update,applicant')
+                        ->middleware('can:view,user')
+                        ->middleware('can:update,user')
                         ->name('settings.government.update');
 
                     /* 2FA Settings */
@@ -386,31 +387,32 @@ Route::group(
                             ->name('manager.jobs.screening_plan');
 
                         /* Account Settings */
-                        Route::get('settings', 'SettingsController@edit')
+                        Route::get('settings', 'SettingsController@editAuthenticated')
+                            // Permissions are checked in Controller.
                             ->name('manager.settings.edit');
 
                         Route::post(
-                            'settings/{manager}/personal/update',
+                            'settings/{user}/personal/update',
                             'SettingsController@updatePersonal'
                         )
-                            ->middleware('can:view,manager')
-                            ->middleware('can:update,manager')
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
                             ->name('manager.settings.personal.update');
 
                         Route::post(
-                            'settings/{manager}/password/update',
+                            'settings/{user}/password/update',
                             'SettingsController@updatePassword'
                         )
-                            ->middleware('can:view,manager')
-                            ->middleware('can:update,manager')
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
                             ->name('manager.settings.password.update');
 
                         Route::post(
-                            'settings/{manager}/government/update',
+                            'settings/{user}/government/update',
                             'SettingsController@updateGovernment'
                         )
-                            ->middleware('can:view,manager')
-                            ->middleware('can:update,manager')
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
                             ->name('manager.settings.government.update');
 
                         /* Two-factor Authentication */
