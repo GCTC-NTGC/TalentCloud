@@ -247,4 +247,29 @@ export const asyncPost = <
     metaData,
   );
 
+export const asyncDelete = <
+  TStarted extends string,
+  TSuccess extends string,
+  TFailed extends string,
+  TPayload,
+  TMeta
+>(
+  endpoint: string,
+  startedType: TStarted,
+  succeededType: TSuccess,
+  failedType: TFailed,
+  parseResponse: (response: any) => TPayload,
+  metaData: TMeta,
+): RSAActionTemplate<TStarted, TSuccess, TFailed, TPayload, TMeta> =>
+  asyncAction(
+    endpoint,
+    "DELETE",
+    null,
+    startedType,
+    succeededType,
+    failedType,
+    parseResponse,
+    metaData,
+  );
+
 export default asyncAction;

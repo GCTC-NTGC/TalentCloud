@@ -74,6 +74,15 @@ export interface Manager {
   fr: ManagerTranslation;
 }
 
+export interface HrAdvisor {
+  id: number;
+  user_id: number;
+  first_name: string;
+  last_name: string;
+  department_id: number;
+  claimed_job_ids: number;
+}
+
 export interface Application {
   id: number;
   job_poster_id: number;
