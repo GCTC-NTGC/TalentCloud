@@ -1,14 +1,9 @@
 <?php
 
-/**
- * Created by Reliese Model.
- * Date: Thu, 12 Jul 2018 22:39:27 +0000.
- */
-
 namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
-use Astrotomic\Translatable\Translatable as Translatable;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class ExperienceLevel
@@ -18,7 +13,6 @@ use Astrotomic\Translatable\Translatable as Translatable;
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
- * @property \Illuminate\Database\Eloquent\Collection $experience_level_translations
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  *
  * Localized Properties:
@@ -26,16 +20,10 @@ use Astrotomic\Translatable\Translatable as Translatable;
  */
 class ExperienceLevel extends BaseModel
 {
+    use HasTranslations;
 
-    use Translatable;
-
-    public $translatedAttributes = ['value'];
+    public $translatable = ['value'];
     protected $fillable = [];
-
-    public function experience_level_translations() //phpcs:ignore
-    {
-        return $this->hasMany(\App\Models\Lookup\ExperienceLevelTranslation::class);
-    }
 
     public function skill_declarations() //phpcs:ignore
     {
