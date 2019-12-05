@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="vendor/autoload.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false">
+<phpunit backupGlobals="false" backupStaticAttributes="false" bootstrap="vendor/autoload.php" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false" stopOnFailure="false">
     <testsuites>
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
@@ -24,13 +16,14 @@
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
-        <env name="CACHE_DRIVER" value="array"/>
-        <env name="SESSION_DRIVER" value="array"/>
-        <env name="QUEUE_DRIVER" value="sync"/>
-        <env name="MAIL_DRIVER" value="array"/>
+        <env name="CACHE_DRIVER" value="file"/>
+        <env name="SESSION_DRIVER" value="database"/>
+        <env name="QUEUE_DRIVER" value="database" />
+        <env name="MAIL_DRIVER" value="smtp"/>
         <env name="HIDE_LOCALE_IN_URL" value="true"/>
     </php>
-	<logging>
+    <logging>
+        <log type="junit" target="./report/phpunit/junit.phpunit.xml" />
         <log type="coverage-html" target="./report/phpunit"/>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
     </logging>

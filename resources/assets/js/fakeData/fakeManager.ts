@@ -1,13 +1,20 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Manager } from "../models/types";
 
-export const fakeManager = (id = 1, user_id = 1): Manager => ({
+export const fakeManager = (
+  id = 1,
+  user_id = 1,
+  is_demo_manager = false,
+): Manager => ({
   id,
   user_id,
-  name: "Gray O'Byrne",
+  full_name: "Gray O'Byrne",
+  first_name: "Gray",
+  last_name: "O'Byrne",
   department_id: 1,
   twitter_username: null,
   linkedin_url: null,
+  is_demo_manager,
   en: {
     division: "Talent Cloud",
     position: "Product Owner",
@@ -22,7 +29,7 @@ export const fakeManager = (id = 1, user_id = 1): Manager => ({
     learning_path:
       "I did Physics back in school, but honestly I find learning on the job way more fun than academia. These days, my main learning path is to work with people who are better than me and absorb as much as I can. I also do a fair share of throwing myself at new problems I know little about. It often leads to uncomfortable situations… but is great for learning.",
     about_me:
-      "I like games of pretty much any short, including sports, video games and table-top. In my free time I listen to podcasts about electric cars, science and skepticism. I'm also very lucky to share a home with my wife and son (soon to add a second!)",
+      "I like games of pretty much any short, including sports, video games and table-top. In my free time I listen to podcasts about electric cars, science and scepticism. I'm also very lucky to share a home with my wife and son (soon to add a second!)",
   },
   fr: {
     division: "Nuage de Talents",
