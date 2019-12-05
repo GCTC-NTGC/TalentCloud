@@ -94,6 +94,10 @@ use App\Events\JobSaved;
  * @method boolean isOpen()
  * @method string timeRemaining()
  * @method mixed[] toApiArray()
+ *
+ * Computed Properties
+ * @property string|null $classification_code
+ * @property string|null $classification_message
  */
 class JobPoster extends BaseModel
 {
