@@ -61,7 +61,6 @@ use App\Events\JobSaved;
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property int $submitted_applications_count
- * @property string $classification_message
  *
  * @property \App\Models\Lookup\Department $department
  * @property \App\Models\Lookup\JobTerm $job_term
@@ -251,6 +250,16 @@ class JobPoster extends BaseModel
         'loo_issuance_date',
         'classification_id',
         'classification_level'
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var string[] $appends
+     */
+    protected $appends = [
+        'classification_code',
+        'classification_message'
     ];
 
     /**
