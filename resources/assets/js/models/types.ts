@@ -1,5 +1,5 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
+import { ReviewStatusId, ReviewStatusName, JobStatus } from "./lookupConstants";
 
 export interface JobTranslation {
   city: string | null;
@@ -247,4 +247,38 @@ export interface JobPosterKeyTask {
   fr: {
     description: string;
   };
+}
+
+interface Link {
+  url: string | null;
+  text: string;
+  title: string;
+}
+
+interface Activity {
+  count: number;
+  new: Link;
+}
+
+export interface JobAction {
+  activity: Activity;
+  applicants: number;
+  classification: string;
+  draft: Link;
+  managerTime: number;
+  owned: boolean;
+  preview: Link;
+  screeningPlan: Link;
+  summary: Link;
+  status: JobStatus;
+  title: string;
+  userTime: number;
+}
+
+export interface UnclaimedJob {
+  title: string;
+  createdAt: string;
+  status: JobStatus;
+  hiringManagers: string[];
+  hrAdvisors: string[];
 }
