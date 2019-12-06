@@ -49,9 +49,8 @@ const messages = defineMessages({
   },
 });
 
-const JobPreview: React.FunctionComponent<
-  JobPreviewProps & WrappedComponentProps
-> = ({
+const JobPreview: React.FunctionComponent<JobPreviewProps &
+  WrappedComponentProps> = ({
   title,
   city,
   education,
@@ -188,7 +187,7 @@ const JobPreview: React.FunctionComponent<
               description="Job Poster Card Information Label"
             />
           </p>
-          <p>{level}</p>
+          <p>0{level}</p>
         </div>
         <div data-c-grid-item="base(1of1)">
           <p data-c-colour="c3" data-c-margin="bottom(quarter)">

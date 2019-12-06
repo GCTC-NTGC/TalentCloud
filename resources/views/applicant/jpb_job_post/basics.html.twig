@@ -4,104 +4,64 @@
     Applicant: Jobs - Post: Basics
 
 ============================================================================= #}
-<a
-    aria-hidden="true"
-    class="job-post__anchor"
-    id="basics">
-</a>
-
+<a aria-hidden="true" class="job-post__anchor" id="basics"></a>
 <section
-    class="job-poster__basics">
+	class="job-poster__basics">
 
-    {# Basics Content #}
+	{# Basics Content #}
+	<div class="flex-grid">
+		<div class="box full">
+			<h3 class="job-poster__basics-title" id="jobPosterContentTitleBasics">
+				{{ job_post.basics.title }}
+			</h3>
+		</div>
 
-        <div
-            class="flex-grid">
+		<div class="box med-1of2">
+			<span class="job-poster__basics-label">
+				{{ job_post.basics.salary_label }}
+			</span>
+			<span class="job-poster__basics-content">
+				{% if (app.getLocale() == "en") %}
+					${{ job.salary_min|number_format }} - ${{ job.salary_max|number_format }}
+				{% else %}
+					{{ job.salary_min|number_format('0',' ',' ') }}&nbsp;$ - {{ job.salary_max|number_format('0',' ',' ') }}&nbsp;$
+				{% endif %}
+			</span>
+			<span class="job-poster__basics-label">
+				{{ job_post.basics.duration_label }}
+			</span>
+			<span
+				class="job-poster__basics-content">
+				{# New jobs default to terms counted in months. #}
+				{{ job_post.basics.duration.month|trans_choice(job.term_qty) ?: noInfo }}
+			</span>
+			<span class="job-poster__basics-label">
+				{{ job_post.basics.start_label }}
+			</span>
+			<span class="job-poster__basics-content">
+				{{ job.start_date_time.format(job_post.basics.start_date_format) ?: noInfo }}
+			</span>
+		</div>
 
-            <div
-                class="box full">
-                <h3
-                    class="job-poster__basics-title"
-                    id="jobPosterContentTitleBasics">
-                    {{ job_post.basics.title }}
-                </h3>
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <span
-                    class="job-poster__basics-label">
-                    {{ job_post.basics.salary_label }}
-                </span>
-
-                <span
-                    class="job-poster__basics-content">
-                    {% if (app.getLocale() == "en") %}
-                        ${{ job.salary_min|number_format }} - ${{ job.salary_max|number_format }}
-                    {% else %}
-                        {{ job.salary_min|number_format('0',' ',' ') }}&nbsp;$ - {{ job.salary_max|number_format('0',' ',' ') }}&nbsp;$
-                    {% endif %}
-                </span>
-
-                <span
-                    class="job-poster__basics-label">
-                    {{ job_post.basics.duration_label }}
-                </span>
-
-                <span
-                    class="job-poster__basics-content">
-                    {# New jobs default to terms counted in months. #}
-                    {{ job_post.basics.duration.month|trans_choice(job.term_qty) ?: noInfo }}
-                </span>
-
-                <span
-                    class="job-poster__basics-label">
-                    {{ job_post.basics.start_label }}
-                </span>
-
-                <span
-                    class="job-poster__basics-content">
-                    {{ job.start_date_time.format(job_post.basics.start_date_format) ?: noInfo }}
-                </span>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <span
-                    class="job-poster__basics-label">
-                    {{ job_post.basics.language_label }}
-                </span>
-
-                <span
-                    class="job-poster__basics-content">
-                    {{ job.language_requirement_id ? job.language_requirement.value : noInfo }}
-                </span>
-
-                <span
-                    class="job-poster__basics-label">
-                    {{ job_post.basics.security_label }}
-                </span>
-
-                <span
-                    class="job-poster__basics-content">
-                    {{ job.security_clearance_id ? job.security_clearance.value : noInfo }}
-                </span>
-
-                <span
-                    class="job-poster__basics-label">
-                    {{ job_post.basics.classification_label }}
-                </span>
-
-                <span
-                    class="job-poster__basics-content">
-                    {{ job.classification ?: noInfo }}
-                </span>
-
-            </div>
-
-        </div>
-
+		<div class="box med-1of2">
+			<span class="job-poster__basics-label">
+				{{ job_post.basics.language_label }}
+			</span>
+			<span class="job-poster__basics-content">
+				{{ job.language_requirement_id ? job.language_requirement.value : noInfo }}
+			</span>
+			<span class="job-poster__basics-label">
+				{{ job_post.basics.security_label }}
+			</span>
+			<span class="job-poster__basics-content">
+				{{ job.security_clearance_id ? job.security_clearance.value : noInfo }}
+			</span>
+			<span class="job-poster__basics-label">
+				{{ job_post.basics.classification_label }}
+			</span>
+			<span class="job-poster__basics-content">
+				{{ job.classification_message ?: noInfo }}
+			</span>
+		</div>
+	</div>
 </section>

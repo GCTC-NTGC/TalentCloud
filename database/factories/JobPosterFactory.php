@@ -21,8 +21,6 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
     $closeDate = $faker->dateTimeBetween('now', '1 months')->format('Y-m-d');
     $openDate = $faker->dateTimeBetween('-1 months', 'now')->format('Y-m-d');
     $startDate = $faker->dateTimeBetween('1 months', '2 months')->format('Y-m-d');
-    $classificationCode = Classification::inRandomOrder()->first()->key;
-    $classificationLevel = $faker->numberBetween(1, 6);
     $work_env_features = [
         'accessToExternal' => $faker->boolean(),
         'assignedSeating' => $faker->boolean(),
@@ -57,9 +55,8 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'salary_min' => $faker->numberBetween(60000, 80000),
         'salary_max' => $faker->numberBetween(80000, 100000),
         'noc' => $faker->numberBetween(1, 9999),
-        'classification_code' => $classificationCode,
-        'classification_level' => $classificationLevel,
-        'classification' => "$classificationCode-$classificationLevel",
+        'classification_id' => Classification::inRandomOrder()->first()->id,
+        'classification_level' => $faker->numberBetween(1, 6),
         'security_clearance_id' => SecurityClearance::inRandomOrder()->first()->id,
         'language_requirement_id' => LanguageRequirement::inRandomOrder()->first()->id,
         'remote_work_allowed' => $faker->boolean(50),
