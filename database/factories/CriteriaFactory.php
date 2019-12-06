@@ -5,10 +5,20 @@ use App\Models\Lookup\CriteriaType;
 use App\Models\JobPoster;
 use App\Models\Skill;
 use App\Models\Lookup\SkillLevel;
+use Faker\Factory;
+use Faker\Generator;
 
-$faker_fr = Faker\Factory::create('fr');
+$faker_fr = Factory::create('fr');
 
-$factory->define(Criteria::class, function (Faker\Generator $faker) use ($faker_fr) {
+$factory->define(Criteria::class, function (Generator $faker) use ($faker_fr) {
+    $description = [
+        'en' => $faker->paragraphs(2, true),
+        'fr' => $faker_fr->paragraphs(2, true),
+    ];
+    $specificity = [
+        'en' => $faker->sentence(),
+        'fr' => $faker_fr->sentence(),
+    ];
     return [
         'criteria_type_id' => CriteriaType::inRandomOrder()->first()->id,
         'job_poster_id' => function () {
@@ -16,9 +26,7 @@ $factory->define(Criteria::class, function (Faker\Generator $faker) use ($faker_
         },
         'skill_id' => Skill::inRandomOrder()->first()->id,
         'skill_level_id' => SkillLevel::inRandomOrder()->first()->id,
-        'description:en' => $faker->paragraphs(2, true),
-        'description:fr' => $faker_fr->paragraphs(2, true),
-        'specificity:en' => $faker->sentence(),
-        'specificity:fr' => $faker_fr->sentence(),
+        'description' => json_encode($description),
+        'specificity' => json_encode($specificity)
     ];
 });
