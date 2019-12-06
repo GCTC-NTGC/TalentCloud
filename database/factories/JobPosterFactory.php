@@ -75,26 +75,46 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'travel_requirement_id' => TravelRequirement::inRandomOrder()->first()->id,
         'overtime_requirement_id' => OvertimeRequirement::inRandomOrder()->first()->id,
         'published' => false,
-        'city:en' => $faker->city,
-        'title:en' => $faker->unique()->realText(27, 1),
-        'dept_impact:en' => $faker->paragraph(),
-        'team_impact:en' => $faker->paragraph(),
-        'hire_impact:en' => $faker->paragraph(),
-        'division:en' => $faker->word,
-        'education:en' => $faker->sentence(),
-        'work_env_description:en' => $faker->paragraph(),
-        'culture_summary:en' => $faker->paragraph(),
-        'culture_special:en' => $faker->paragraph(),
-        'city:fr' => $faker_fr->city,
-        'title:fr' => $faker_fr->unique()->realText(27, 1),
-        'dept_impact:fr' => $faker->paragraph(),
-        'team_impact:fr' => $faker->paragraph(),
-        'hire_impact:fr' => $faker->paragraph(),
-        'division:fr' => $faker_fr->word,
-        'education:fr' => $faker_fr->sentence(),
-        'work_env_description:fr' => $faker->paragraph(),
-        'culture_summary:fr' => $faker->paragraph(),
-        'culture_special:fr' => $faker->paragraph(),
+        'city' => [
+            'en' => $faker->city,
+            'fr' => $faker_fr->city
+        ],
+        'title' => [
+            'en' => $faker->unique()->realText(27, 1),
+            'fr' => $faker_fr->unique()->realText(27, 1)
+        ],
+        'dept_impact' => [
+            'en' => $faker->paragraph(),
+            'fr' => $faker_fr->paragraph()
+        ],
+        'team_impact' => [
+            'en' => $faker->paragraph(),
+            'fr' => $faker_fr->paragraph()
+        ],
+        'hire_impact' => [
+            'en' => $faker->paragraph(),
+            'fr' => $faker_fr->paragraph()
+        ],
+        'division' => [
+            'en' => $faker->word,
+            'fr' => $faker_fr->word
+        ],
+        'education' => [
+            'en' => $faker->sentence(),
+            'fr' => $faker_fr->sentence()
+        ],
+        'work_env_description' => [
+            'en' => $faker->paragraph(),
+            'fr' => $faker_fr->paragraph()
+        ],
+        'culture_summary' => [
+            'en' => $faker->paragraph(),
+            'fr' => $faker_fr->paragraph()
+        ],
+        'culture_special' => [
+            'en' => $faker->paragraph(),
+            'fr' => $faker_fr->paragraph()
+        ]
     ];
 });
 

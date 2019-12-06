@@ -7,12 +7,9 @@
 
 namespace App\Models;
 
-use Astrotomic\Translatable\Translatable;
-
+use Spatie\Translatable\HasTranslations;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-
 use Jenssegers\Date\Date;
-
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
@@ -101,7 +98,7 @@ use App\Events\JobSaved;
 class JobPoster extends BaseModel
 {
     use CrudTrait;
-    use Translatable;
+    use HasTranslations;
     use Notifiable;
 
     const DATE_FORMAT = [
@@ -117,7 +114,7 @@ class JobPoster extends BaseModel
     /**
      * @var string[] $translatedAttributes
      */
-    public $translatedAttributes = [
+    public $translatable = [
         'city',
         'title',
         'dept_impact',
@@ -320,11 +317,6 @@ class JobPoster extends BaseModel
         return $this->hasMany(\App\Models\JobPosterQuestion::class);
     }
 
-    public function job_poster_translations() // phpcs:ignore
-    {
-        return $this->hasMany(\App\Models\JobPosterTranslation::class);
-    }
-
     public function telework_allowed_frequency() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
@@ -349,6 +341,7 @@ class JobPoster extends BaseModel
     {
         return $this->belongsTo(\App\Models\Classification::class);
     }
+
     // @codeCoverageIgnoreEnd
     /* Artificial Relations */
 
