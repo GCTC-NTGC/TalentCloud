@@ -18,10 +18,10 @@ Route::group(
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
-    function () : void {
+    function (): void {
         /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
 
-        Route::group(['prefix' => 'demo'], function () : void {
+        Route::group(['prefix' => 'demo'], function (): void {
 
             /* Temporary Blog Index */
             Route::view('blog', 'common/blog-index')->middleware('localOnly')->name('blog');
@@ -51,7 +51,7 @@ Route::group(
         });
 
 
-        Route::group(['prefix' => config('app.applicant_prefix')], function () : void {
+        Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
 
             /* Home */
             Route::get('/', 'HomepageController@applicant')->name('home');
@@ -64,7 +64,7 @@ Route::group(
                 ->name('jobs.show');
 
             /* Require being logged in */
-            Route::middleware(['auth'])->group(function () : void {
+            Route::middleware(['auth'])->group(function (): void {
                 /* Managers */
                 Route::get('managers/{manager}', 'ManagerProfileController@show')
                     ->middleware('can:view,manager')
@@ -72,9 +72,9 @@ Route::group(
             });
 
             /* Require being logged in as applicant */
-            Route::middleware(['auth', 'role:applicant'])->group(function () : void {
+            Route::middleware(['auth', 'role:applicant'])->group(function (): void {
 
-            // Application permissions are handled within the controller instead of with middleware
+                // Application permissions are handled within the controller instead of with middleware
                 /* Applications */
                 Route::get('applications', 'ApplicationController@index')->name('applications.index');
 
@@ -231,37 +231,37 @@ Route::group(
 
                     /* Profile */
                     Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')
-                    ->middleware('can:view,manager')
-                    ->middleware('can:update,manager')
-                    ->name('manager.profile.edit');
+                        ->middleware('can:view,manager')
+                        ->middleware('can:update,manager')
+                        ->name('manager.profile.edit');
 
                     Route::post('profile/{manager}/update', 'ManagerProfileController@update')
-                    ->middleware('can:update,manager')
-                    ->name('manager.profile.update');
+                        ->middleware('can:update,manager')
+                        ->name('manager.profile.update');
 
                     /* View Application */
                     Route::get('applications/{application}', 'ApplicationController@show')
-                    ->middleware('can:view,application')
-                    ->name('manager.applications.show');
+                        ->middleware('can:view,application')
+                        ->name('manager.applications.show');
 
                     /* View Applicant Profile */
                     Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
-                    ->middleware('can:view,applicant')
-                    ->name('manager.applicants.show');
+                        ->middleware('can:view,applicant')
+                        ->name('manager.applicants.show');
 
                     /* Job Index */
                     Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
 
                     /* View Job Poster */
                     Route::get('jobs/{jobPoster}', 'JobController@show')
-                    ->where('jobPoster', '[0-9]+')
-                    ->middleware('can:view,jobPoster')
-                    ->name('manager.jobs.show');
+                        ->where('jobPoster', '[0-9]+')
+                        ->middleware('can:view,jobPoster')
+                        ->name('manager.jobs.show');
 
                     Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
-                    ->where('jobPoster', '[0-9]+')
-                    ->middleware('can:reviewApplicationsFor,jobPoster')
-                    ->name('manager.jobs.applications');
+                        ->where('jobPoster', '[0-9]+')
+                        ->middleware('can:reviewApplicationsFor,jobPoster')
+                        ->name('manager.jobs.applications');
 
                     /* Job Builder */
                     Route::get(
@@ -348,7 +348,7 @@ Route::group(
         /* AJAX calls =============================================================== */
 
         /* Require being logged in */
-        Route::middleware(['auth'])->group(function () : void {
+        Route::middleware(['auth'])->group(function (): void {
 
             Route::delete('courses/{course}', 'CourseController@destroy')
                 ->middleware('can:delete,course')
@@ -480,7 +480,7 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:update,jobPoster');
 
 
-     Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
+    Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:view,jobPoster');
     Route::put('jobs/{jobPoster}/criteria', 'Api\CriteriaController@batchUpdate')

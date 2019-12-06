@@ -3,6 +3,7 @@
 namespace App\Services\Validation;
 
 use App\Models\JobApplication;
+use App\Models\JobApplicationAnswer;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator as BaseValidator;
@@ -16,24 +17,20 @@ use App\Services\Validation\JobApplicationAnswerValidator;
 class ApplicationValidator
 {
 
-    public function validate(JobApplication $application)
+    public function validator(JobApplication $application)
     {
-
         $backendRules = [
             'job_poster_id' => 'required',
             'application_status_id' => 'required',
-            'applicant_id' => 'required'
+            'applicant_id' => 'required',
         ];
+        $data = $application->toArray();
 
         $rules = array_merge(
             $backendRules,
-            // $this->basicsValidator($application)->getRules(),
-            $this->experienceValidator($application)->getRules(),
-            // $this->essentialSkillsValidator($application)->getRules(),
-            $this->affirmationValidator($application)->getRules()
+            $this->experienceRules,
+            $this->affirmationRules
         );
-
-        $data = $application->toArray();
 
         // Combining and simplifiying error messages
         $rules = array_merge(
@@ -48,7 +45,17 @@ class ApplicationValidator
         );
 
         // Validate basic data is filled in
-        Validator::make($data, $rules)->validate();
+        return Validator::make($data, $rules);
+    }
+
+    public function validate(JobApplication $application)
+    {
+        $this->validator($application)->validate();
+    }
+
+    public function validateComplete(JobApplication $application): bool
+    {
+        return $this->validator($application)->passes();
     }
 
     /**
@@ -70,16 +77,18 @@ class ApplicationValidator
     protected function addNestedValidatorRules($nestedAttribute, $validatorRules, $rules = [])
     {
         // prepend the attribute name of each validator rule with the nested attribute name
-        $newRules = $this->arrayMapKeys(function ($key) use ($nestedAttribute) {
+        $newRules = $this->arrayMapKeys(
+            function ($key) use ($nestedAttribute) {
                 return implode('.', [$nestedAttribute, $key]);
-        },
-            $validatorRules);
+            },
+            $validatorRules
+        );
         // Merge new rules with old rules
         $rules = array_merge($rules, $newRules);
         return $rules;
     }
 
-    public function basicsValidator(JobApplication $application)
+    public function basicRules(JobApplication $application)
     {
         // Validate the fields common to every application
         $rules = [
@@ -89,8 +98,13 @@ class ApplicationValidator
             'preferred_language_id' => ['required', 'exists:preferred_languages,id'],
         ];
 
-        // Load application answers so they are included in application->toArray()
-        $application->load('job_application_answers');
+        // Merge with Answer rules, that ensure each answer is complete
+        $anwswerValidator = new JobApplicationAnswerValidator($application);
+        $rules = $this->addNestedValidatorRules(
+            'job_application_answers.*',
+            $anwswerValidator->rules(),
+            $rules
+        );
 
         // Validate that each question has been answered
         $jobPosterQuestionRules = [];
@@ -98,15 +112,14 @@ class ApplicationValidator
             $jobPosterQuestionRules[] = new ContainsObjectWithAttributeRule('job_poster_question_id', $question->id);
         }
         $rules['job_application_answers'] = $jobPosterQuestionRules;
-        $answerValidatorFactory = new JobApplicationAnswerValidator($application);
 
-        // Validate that each answer is complete
-        foreach ($application->job_application_answers as $key => $answer) {
-            $attribute = implode('.', ['job_application_answers', $key]);
-            $rules = $this->addNestedValidatorRules($attribute, $answerValidatorFactory->rules(), $rules);
-        }
-
-        $validator = Validator::make($application->toArray(), $rules);
+        return $rules;
+    }
+    public function basicsValidator(JobApplication $application)
+    {
+        // Load application answers so they are included in application->toArray().
+        $application->load('job_application_answers');
+        $validator = Validator::make($application->toArray(), $this->basicRules($application));
         return $validator;
     }
 
@@ -116,10 +129,10 @@ class ApplicationValidator
         return $validator->passes();
     }
 
+    public $experienceRules = ['experience_saved' => 'required|boolean|accepted'];
     public function experienceValidator(JobApplication $application)
     {
-        $rules = ['experience_saved' => 'required|boolean|accepted'];
-        return Validator::make($application->toArray(), $rules);
+        return Validator::make($application->attributesToArray(), $this->experienceRules);
     }
 
     public function experienceComplete(JobApplication $application)
@@ -131,22 +144,28 @@ class ApplicationValidator
     {
         $rules = [];
 
+        // If application is still a draft, check skills attached to applicant profile. If submitted, use application itself.
+        $skillDeclarationsAttribute = $application->isDraft() ? 'applicant.skill_declarations' : 'skill_declarations';
+        $application->load($skillDeclarationsAttribute);
+        $skillDeclarations = $application->isDraft()
+            ? $application->applicant->skill_declarations
+            : $application->skill_declarations;
+
         $skillDeclarationRules = [];
         $criteriaTypeId = CriteriaType::where('name', $criteria_type)->firstOrFail()->id;
         foreach ($application->job_poster->criteria->where('criteria_type_id', $criteriaTypeId) as $criteria) {
             // Validate that every essential skill has a corresponding declaration
             $skillDeclarationRules[] = new ContainsObjectWithAttributeRule('skill_id', $criteria->skill_id);
         }
-        $rules['skill_declarations'] = $skillDeclarationRules;
-        $application->applicant->load('skill_declarations');
+        $rules[$skillDeclarationsAttribute] = $skillDeclarationRules;
 
         // Validate that those declarations are complete
-        $skilDeclarationValidatorFactory = new SkillDeclarationValidator();
+        $skillDeclarationValidatorFactory = new SkillDeclarationValidator();
         $relevantSkillIds = $application->job_poster->criteria->where('criteria_type_id', $criteriaTypeId)->pluck('skill_id');
-        foreach ($application->skill_declarations as $key => $declaration) {
+        foreach ($skillDeclarations as $key => $declaration) {
             if ($relevantSkillIds->contains($declaration->skill_id)) {
-                $attribute = implode('.', ['skill_declarations', $key]);
-                $skillDeclarationValidator = $skilDeclarationValidatorFactory->validator($declaration);
+                $attribute = implode('.', [$skillDeclarationsAttribute, $key]);
+                $skillDeclarationValidator = $skillDeclarationValidatorFactory->validator($declaration);
                 $rules = $this->addNestedValidatorRules($attribute, $skillDeclarationValidator->getRules(), $rules);
             }
         }
@@ -175,21 +194,21 @@ class ApplicationValidator
         return $this->assetSkillsValidator($application)->passes();
     }
 
+    public $affirmationRules = [
+        'submission_signature' => [
+            'required',
+            'string',
+            'max:191',
+        ],
+        'submission_date' => [
+            'required',
+            'string',
+            'max:191',
+        ]
+    ];
     public function affirmationValidator(JobApplication $application)
     {
-        $rules = [
-            'submission_signature' => [
-                'required',
-                'string',
-                'max:191',
-            ],
-            'submission_date' => [
-                'required',
-                'string',
-                'max:191',
-            ]
-        ];
-        return Validator::make($application->toArray(), $rules);
+        return Validator::make($application->toArray(), $this->affirmationRules);
     }
 
     public function affirmationComplete(JobApplication $application)
