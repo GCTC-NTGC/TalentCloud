@@ -1,14 +1,9 @@
 <?php
 
-/**
- * Created by Reliese Model.
- * Date: Thu, 12 Jul 2018 22:39:27 +0000.
- */
-
 namespace App\Models;
 
 use App\Models\BaseModel;
-use Astrotomic\Translatable\Translatable as Translatable;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class JobPosterKeyTask
@@ -23,16 +18,16 @@ use Astrotomic\Translatable\Translatable as Translatable;
  * Localized Properties:
  * @property string $description
  */
+
 class JobPosterKeyTask extends BaseModel
 {
+    use HasTranslations;
 
-    use Translatable;
-
-    public $translatedAttributes = ['description'];
+    public $translatable = ['description'];
+    protected $fillable = [];
     protected $casts = [
         'job_poster_id' => 'int'
     ];
-    protected $fillable = [];
 
     public function job_poster() //phpcs:ignore
     {
