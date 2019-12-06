@@ -92,7 +92,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
                 })}
               </p>
             ) : (
-              <p data-c-color="stop">
+              <p data-c-color="stop" data-c-margin="bottom(normal)">
                 <FormattedMessage
                   id="openJobCard.unclaimed"
                   description="Message displayed if not HR managers have claimed a job."
