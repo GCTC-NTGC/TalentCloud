@@ -14,7 +14,7 @@ class DepartmentControllerTest extends TestCase
     {
         $response = $this->json('get', 'api/departments');
         $response->assertOk();
-        // This is one of the departments added by mmigrations. Should always be present after refreshing database
+        // This is one of the departments added by migrations. Should always be present after refreshing database
         $exampleDept = [
             'id' => 1,
             'en' => [

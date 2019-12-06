@@ -18,13 +18,13 @@ $factory->define(Criteria::class, function (Generator $faker) use ($faker_fr) {
         },
         'skill_id' => Skill::inRandomOrder()->first()->id,
         'skill_level_id' => SkillLevel::inRandomOrder()->first()->id,
-        'description' => json_encode([
+        'description' => [
             'en' => $faker->paragraphs(2, true),
             'fr' => $faker_fr->paragraphs(2, true),
-        ]),
-        'specificity' => json_encode([
+        ],
+        'specificity' => [
             'en' => $faker->sentence(),
             'fr' => $faker_fr->sentence(),
-        ])
+        ]
     ];
 });

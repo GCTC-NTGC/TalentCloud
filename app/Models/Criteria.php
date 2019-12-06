@@ -36,7 +36,7 @@ class Criteria extends BaseModel
 
     use HasTranslations;
 
-    public $transatable = ['description', 'specificity'];
+    public $translatable = ['description', 'specificity'];
 
     protected $table = 'criteria';
 
