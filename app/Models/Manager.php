@@ -8,7 +8,7 @@
 namespace App\Models;
 
 use App\CRUD\TalentCloudCrudTrait as CrudTrait;
-use Astrotomic\Translatable\Translatable as Translatable;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Manager
@@ -61,11 +61,11 @@ use Astrotomic\Translatable\Translatable as Translatable;
  */
 class Manager extends BaseModel
 {
-    use Translatable;
+    use HasTranslations;
     // Trait for Backpack
     use CrudTrait;
 
-    public $translatedAttributes = [
+    public $translatable = [
         'about_me',
         'greatest_accomplishment',
         'division',
@@ -141,19 +141,7 @@ class Manager extends BaseModel
     {
         return $this->hasOne(\App\Models\TeamCulture::class)->withDefault();
     }
-    /*
-    * @property \App\Models\Lookup\Frequency $review_options
-    * @property \App\Models\Lookup\Frequency $staylate
-    * @property \App\Models\Lookup\Frequency $engage
-    * @property \App\Models\Lookup\Frequency $opportunities
-    * @property \App\Models\Lookup\Frequency $low_value_work_requests
-    *
-    * work_review_frequency
-    * stay_late_frequency
-    * engage_team_frequency
-    * development_opportunity_frequency
-    * refuse_low_value_work_frequency
-    */
+
     public function work_review_frequency() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);

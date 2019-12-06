@@ -86,26 +86,46 @@ $factory->define(Manager::class, function (Faker\Generator $faker) use ($faker_f
                 'gov_email' => $faker->unique()->safeEmail(),
             ])->id;
         },
-        'about_me:en' => $faker->paragraphs(3, true),
-        'greatest_accomplishment:en' => $faker->paragraphs(3, true),
-        'division:en' => $faker->word(),
-        'position:en' => $faker->word(),
-        'leadership_style:en' => $faker->paragraphs(2, true),
-        'employee_learning:en' => $faker->paragraphs(2, true),
-        'expectations:en' => $faker->paragraphs(2, true),
-        'career_journey:en' => $faker->paragraphs(3, true),
-        'learning_path:en' => $faker->paragraphs(3, true),
-        'education:en' => $faker->paragraphs(3, true),
-        'about_me:fr' => $faker_fr->paragraphs(3, true),
-        'greatest_accomplishment:fr' => $faker_fr->paragraphs(3, true),
-        'division:fr' => $faker_fr->word(),
-        'position:fr' => $faker_fr->word(),
-        'leadership_style:fr' => $faker_fr->paragraphs(2, true),
-        'employee_learning:fr' => $faker_fr->paragraphs(2, true),
-        'expectations:fr' => $faker_fr->paragraphs(2, true),
-        'career_journey:fr' => $faker_fr->paragraphs(3, true),
-        'learning_path:fr' => $faker_fr->paragraphs(3, true),
-        'education:fr' => $faker_fr->paragraphs(3, true),
+        'about_me' => [
+            'en' => $faker->paragraphs(3, true),
+            'fr' => $faker_fr->paragraphs(3, true),
+        ],
+        'greatest_accomplishment' => [
+            'en' => $faker->paragraphs(3, true),
+            'fr' => $faker_fr->paragraphs(3, true),
+        ],
+        'division' => [
+            'en' => $faker->word(),
+            'fr' => $faker_fr->word(),
+        ],
+        'position' => [
+            'en' => $faker->word(),
+            'fr' => $faker_fr->word(),
+        ],
+        'leadership_style' => [
+            'en' => $faker->paragraphs(2, true),
+            'fr' => $faker_fr->paragraphs(2, true),
+        ],
+        'employee_learning' => [
+            'en' => $faker->paragraphs(2, true),
+            'fr' => $faker_fr->paragraphs(2, true),
+        ],
+        'expectations' => [
+            'en' => $faker->paragraphs(2, true),
+            'fr' => $faker_fr->paragraphs(2, true),
+        ],
+        'career_journey' => [
+            'en' => $faker->paragraphs(3, true),
+            'fr' => $faker_fr->paragraphs(3, true),
+        ],
+        'learning_path' => [
+            'en' => $faker->paragraphs(3, true),
+            'fr' => $faker_fr->paragraphs(3, true),
+        ],
+        'education' => [
+            'en' => $faker->paragraphs(3, true),
+            'fr' => $faker_fr->paragraphs(3, true),
+        ],
     ];
 });
 
