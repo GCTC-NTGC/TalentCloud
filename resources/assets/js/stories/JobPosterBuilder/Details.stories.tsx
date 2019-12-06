@@ -28,7 +28,7 @@ stories
         handleReturn={action("Save and Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
-        jobIsComplete={boolean("Job is Commplete", false)}
+        jobIsComplete={boolean("Job is Complete", false)}
         handleSkipToReview={handleSkipToReview}
       />
     ),
@@ -42,7 +42,7 @@ stories
         handleReturn={action("Save and Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
-        jobIsComplete={boolean("Job is Commplete", false)}
+        jobIsComplete={boolean("Job is Complete", false)}
         handleSkipToReview={handleSkipToReview}
       />
     ),

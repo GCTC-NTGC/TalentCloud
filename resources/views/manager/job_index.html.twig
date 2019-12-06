@@ -16,15 +16,13 @@
 
     {% include "common/header" with {"header":jobs_l10n} %}
 
-    {% if show_notification %}
     {% include "manager/notification" %}
-    {% endif %}
 
     <a id="skipLink"></a>
 
     {% include "manager/job_index/layout" %}
 
-    {% if show_notification %}
+    {% if show_demo_notification %}
     <div data-clone>
 
         <div data-c-dialog-overlay></div>
