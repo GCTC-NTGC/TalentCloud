@@ -25,12 +25,12 @@ class ClaimJobApiControllerTest extends TestCase
 
     public function testClaimAndUnclaim(): void
     {
-        // Factories
+        // Factories.
         $hrAdvisor = factory(HrAdvisor::class)->create();
         $job = factory(JobPoster::class)->states(['draft'])->create();
         $this->assertEquals('draft', $job->status());
 
-        // Claim job poster
+        // Claim job poster.
         $response = $this->followingRedirects()
             ->actingAs($hrAdvisor->user)
             ->json('put', "api/jobs/$job->id/claim");
@@ -41,7 +41,7 @@ class ClaimJobApiControllerTest extends TestCase
         );
         $this->assertDatabaseHas('claimed_jobs', $expectedIds);
 
-        // Unclaim job poster
+        // Unclaim job poster.
         $response = $this->followingRedirects()
             ->actingAs($hrAdvisor->user)
             ->json('delete', "api/jobs/$job->id/claim");

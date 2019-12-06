@@ -79,12 +79,6 @@ $factory->define(Applicant::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->afterCreatingState(User::class, 'hr_advisor', function ($user) {
-    $user->hr_advisor()->save(factory(HrAdvisor::class)->create([
-        'user_id' => $user->id,
-    ]));
-});
-
 $factory->define(HrAdvisor::class, function () {
     return [
         'department_id' => null,
