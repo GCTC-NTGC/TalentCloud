@@ -30,9 +30,8 @@ interface RatingGuideNarrativeAssessmentProps {
   criteriaToSkill: { [criteriaId: number]: Skill | null };
 }
 
-export const RatingGuideNarrativeAssessment: React.FunctionComponent<
-  RatingGuideNarrativeAssessmentProps & WrappedComponentProps
-> = ({
+export const RatingGuideNarrativeAssessment: React.FunctionComponent<RatingGuideNarrativeAssessmentProps &
+  WrappedComponentProps> = ({
   jobId,
   assessmentIndex,
   assessedCriteria,

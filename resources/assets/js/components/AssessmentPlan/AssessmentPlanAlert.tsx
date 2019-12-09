@@ -25,9 +25,8 @@ interface AssessmentPlanAlertProps {
   handleDismiss: () => void;
 }
 
-export const AssessmentPlanAlert: React.FunctionComponent<
-  AssessmentPlanAlertProps & WrappedComponentProps
-> = ({
+export const AssessmentPlanAlert: React.FunctionComponent<AssessmentPlanAlertProps &
+  WrappedComponentProps> = ({
   notifications,
   skills,
   isFetching,

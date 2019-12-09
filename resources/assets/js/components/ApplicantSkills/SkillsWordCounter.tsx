@@ -47,9 +47,8 @@ interface SkillsWordCounterProps {
   elementId: string;
 }
 
-const SkillsWordCounter: React.FunctionComponent<
-  SkillsWordCounterProps & WrappedComponentProps
-> = ({ elementId, intl }): React.ReactElement => {
+const SkillsWordCounter: React.FunctionComponent<SkillsWordCounterProps &
+  WrappedComponentProps> = ({ elementId, intl }): React.ReactElement => {
   const placeholder = intl.formatMessage(wordCounterMessages.skillsPlaceholder);
   const messages = [
     {

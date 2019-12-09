@@ -36,7 +36,7 @@ const ScrollToTop: React.FunctionComponent<ScrollToTopProps> = ({
     }
 
     setPrevPathName(window.location.pathname);
-  });
+  }, [prevPathname, scrollBehaviorAuto, offsetTop]);
   return <>{children}</>;
 };
 
