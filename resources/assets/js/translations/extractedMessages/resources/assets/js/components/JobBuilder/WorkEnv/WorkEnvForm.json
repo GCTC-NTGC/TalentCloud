@@ -20,6 +20,11 @@
     "defaultMessage": "Technology"
   },
   {
+    "id": "jobBuilder.workEnv.amenitiesLabel",
+    "description": "The label displayed on the amenities checkbox group.",
+    "defaultMessage": "Amenities"
+  },
+  {
     "id": "jobBuilder.workEnv.moreOnWorkEnv",
     "description": "The title for the more about your environment textbox.",
     "defaultMessage": "More about your Environment"
@@ -71,7 +76,7 @@
   },
   {
     "id": "jobBuilder.workEnv.collaborativeLabel",
-    "description": "The label for the \"colaborative vs independent\" radio group",
+    "description": "The label for the \"collaborative vs independent\" radio group",
     "defaultMessage": "Collaborative vs. Independent:"
   },
   {
@@ -157,7 +162,7 @@
   },
   {
     "id": "jobBuilder.mgmtStyle.01.description",
-    "defaultMessage": "There’s no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives."
+    "defaultMessage": "There's no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives."
   },
   {
     "id": "jobBuilder.mgmtStyle.02.title",
@@ -165,7 +170,7 @@
   },
   {
     "id": "jobBuilder.mgmtStyle.02.description",
-    "defaultMessage": "We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives."
+    "defaultMessage": "We have some middle management here but make most day-to-day decisions ourselves. Don't be surprised to interact fairly often with our executives."
   },
   {
     "id": "jobBuilder.mgmtStyle.03.title",
@@ -253,7 +258,7 @@
   },
   {
     "id": "jobBuilder.collaborativeness.01.description",
-    "defaultMessage": "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in."
+    "defaultMessage": "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team's goals and are always looking for ways to pitch in."
   },
   {
     "id": "jobBuilder.collaborativeness.02.title",
@@ -277,7 +282,7 @@
   },
   {
     "id": "jobBuilder.collaborativeness.04.description",
-    "defaultMessage": "Members of our team own their piece of the puzzle. It doesn’t really matter how we get our work done as long as it’s high quality."
+    "defaultMessage": "Members of our team own their piece of the puzzle. It doesn't really matter how we get our work done as long as it's high quality."
   },
   {
     "id": "jobBuilder.workEnv.title",

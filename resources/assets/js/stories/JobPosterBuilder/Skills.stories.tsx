@@ -35,9 +35,9 @@ const criteriaTypeOptions = {
 };
 
 const classificationOptions = {
-  CS: "CS",
-  EX: "EX",
-  None: null,
+  CS: 1,
+  EX: 2,
+  3: null,
 };
 
 function sleep(ms): Promise<void> {
@@ -60,11 +60,7 @@ stories
       <JobBuilderSkills
         job={{
           ...fakeJob(),
-          classification_code: select(
-            "Classification",
-            classificationOptions,
-            "CS",
-          ),
+          classification_id: select("Classification", classificationOptions, 1),
         }}
         keyTasks={fakeJobTasks()}
         initialCriteria={[]}

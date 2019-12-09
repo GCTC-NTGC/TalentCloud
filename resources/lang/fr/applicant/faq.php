@@ -627,6 +627,8 @@ return [
                             "6" => "Services partagés Canada",
                             "7" => "Santé Canada",
                             "8" => "Conseil national de recherches Canada",
+                            "9" => "Emploi et Développement social Canada",
+                            "10" => "Gendarmerie royale du Canada"
                         ]
                     ]
                 ]

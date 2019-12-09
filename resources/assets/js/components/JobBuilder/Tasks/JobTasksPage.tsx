@@ -3,10 +3,7 @@ import { WrappedComponentProps, injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import { JobPosterKeyTask, Job, Criteria } from "../../../models/types";
-import {
-  VALID_COUNT,
-  isJobBuilderComplete,
-} from "../jobBuilderHelpers";
+import { NUM_OF_TASKS, isJobBuilderComplete } from "../jobBuilderHelpers";
 import JobTasks from "./JobTasks";
 import {
   jobBuilderSkills,
@@ -37,9 +34,8 @@ interface JobTasksPageProps {
   ) => Promise<JobPosterKeyTask[]>;
 }
 
-const JobTasksPage: React.FunctionComponent<
-  JobTasksPageProps & WrappedComponentProps
-> = ({
+const JobTasksPage: React.FunctionComponent<JobTasksPageProps &
+  WrappedComponentProps> = ({
   jobId,
   job,
   keyTasks,
@@ -67,15 +63,14 @@ const JobTasksPage: React.FunctionComponent<
     navigate(jobBuilderReview(locale, jobId));
   };
   const jobIsComplete =
-    job !== null &&
-    isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
+    job !== null && isJobBuilderComplete(job, keyTasks, criteria, locale);
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="tasks">
       {job !== null && (
         <JobTasks
           jobId={jobId}
           keyTasks={keyTasks}
-          validCount={VALID_COUNT}
+          validCount={NUM_OF_TASKS}
           handleSubmit={handleSubmit}
           handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}

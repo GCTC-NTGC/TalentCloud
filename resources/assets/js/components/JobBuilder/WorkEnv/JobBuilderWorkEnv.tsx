@@ -19,10 +19,7 @@ import {
   jobBuilderReview,
 } from "../../../helpers/routes";
 import JobBuilderStepContainer from "../JobBuilderStep";
-import {
-  isJobBuilderComplete,
-  VALID_COUNT,
-} from "../jobBuilderHelpers";
+import { isJobBuilderComplete } from "../jobBuilderHelpers";
 import { navigate } from "../../../helpers/router";
 
 interface JobBuilderWorkEnvProps {
@@ -39,9 +36,8 @@ interface JobBuilderWorkEnvProps {
   handleUpdateJob: (newJob: Job) => Promise<Job>;
 }
 
-const JobBuilderWorkEnv: React.FunctionComponent<
-  JobBuilderWorkEnvProps & WrappedComponentProps
-> = ({
+const JobBuilderWorkEnv: React.FunctionComponent<JobBuilderWorkEnvProps &
+  WrappedComponentProps> = ({
   jobId,
   job,
   handleUpdateJob,
@@ -67,8 +63,7 @@ const JobBuilderWorkEnv: React.FunctionComponent<
     }
   };
   const jobIsComplete =
-    job !== null &&
-    isJobBuilderComplete(job, keyTasks, VALID_COUNT, criteria, locale);
+    job !== null && isJobBuilderComplete(job, keyTasks, criteria, locale);
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="env">
       {job !== null && (

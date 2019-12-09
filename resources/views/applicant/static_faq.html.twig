@@ -7,7 +7,9 @@
 
 {% extends "layouts/base" %}
 
-{% block title %}{{ faq.faq_title }}{% endblock %}
+{% block title %}
+	{{ faq.faq_title }}
+{% endblock %}
 
 {% block body %}
 
@@ -44,8 +46,8 @@
         </div>
     </header>
 
-    {% if show_notification %}
-    {% include "manager/notification" %}
+    {% if show_demo_notification %}
+        {% include "manager/notification" %}
     {% endif %}
 
     <a id="skipLink"></a>

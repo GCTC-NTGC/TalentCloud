@@ -177,21 +177,6 @@
         "id": "apl.reviewSaveFailed"
       }
     ],
-    "path": "resources/assets/js/components/ApplicationReview/ApplicationReviewContainer.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Oops...",
-        "description": "Modal notification text indicating something went wrong.",
-        "id": "alert.oops"
-      },
-      {
-        "defaultMessage": "Something went wrong while saving a review. Try again later.",
-        "description": "Error message for error while saving an application review.",
-        "id": "apl.reviewSaveFailed"
-      }
-    ],
     "path": "resources/assets/js/components/ApplicationReview/ApplicationReviewRoot.json"
   },
   {
@@ -338,21 +323,6 @@
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ReviewApplications.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Save",
-        "description": "Dynamic Save button label",
-        "id": "alert.oops"
-      },
-      {
-        "defaultMessage": "Something went wrong while saving a review. Try again later.",
-        "description": "Dynamic Save button label",
-        "id": "apl.reviewSaveFailed"
-      }
-    ],
-    "path": "resources/assets/js/components/ApplicationReview/ReviewApplicationsContainer.json"
   },
   {
     "descriptors": [
@@ -767,21 +737,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Copy to Clipboard",
-        "description": "Label for Copy to Clipboard button on Work Environment page.",
-        "id": "jobBuilder.clipboardButton.copy"
-      },
-      {
-        "defaultMessage": "Copied!",
-        "description": "Label for Copy to Clipboard success confirmation on Work Environment page.",
-        "id": "jobBuilder.clipboardButton.copied"
-      }
-    ],
-    "path": "resources/assets/js/components/CopyToClipboardButton.json"
-  },
-  {
-    "descriptors": [
-      {
         "defaultMessage": "Something went wrong!",
         "description": "Title displayed on the Error Toast component.",
         "id": "errorToast.title"
@@ -838,6 +793,634 @@
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/Criterion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Job Details",
+        "description": "Job Details page heading",
+        "id": "jobBuilder.details.heading"
+      },
+      {
+        "defaultMessage": "Please select a classification and level before preparing the education requirements.",
+        "description": "Message displayed after classification and level select boxes.",
+        "id": "jobBuilder.details.SelectClassAndLvlMessage"
+      },
+      {
+        "defaultMessage": "Based on the classification level you selected, this standard paragraph will appear on the job poster.",
+        "description": "Header message displayed for the Education requirement section.",
+        "id": "jobBuilder.details.educationRequirementHeader"
+      },
+      {
+        "defaultMessage": "If you want to customize this paragraph, copy and paste it into the textbox below.",
+        "description": "Footer message displayed for the Education requirement section.",
+        "id": "jobBuilder.details.educationRequirementCopyAndPaste"
+      },
+      {
+        "defaultMessage": "Your HR advisor will review your changes.",
+        "description": "Footer message displayed for the Education requirement section.",
+        "id": "jobBuilder.details.educationRequirementReviewChanges"
+      },
+      {
+        "defaultMessage": "Copy to Clipboard",
+        "description": "Button to copy text to clipboard.",
+        "id": "button.copyToClipboard"
+      },
+      {
+        "defaultMessage": "Copied!",
+        "description": "Confirmation for Button to copy text to clipboard.",
+        "id": "button.copied"
+      },
+      {
+        "defaultMessage": "Is remote work allowed?",
+        "description": "Header message displayed on the remote work group input.",
+        "id": "jobBuilder.details.remoteWorkGroupHeader"
+      },
+      {
+        "defaultMessage": "Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor.",
+        "description": "Body message displayed on the remote work group input.",
+        "id": "jobBuilder.details.remoteWorkGroupBody"
+      },
+      {
+        "defaultMessage": "How often is telework allowed?",
+        "description": "Header message displayed on the telework group input.",
+        "id": "jobBuilder.details.teleworkGroupHeader"
+      },
+      {
+        "defaultMessage": "Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option.",
+        "description": "Body message displayed on the telework group input.",
+        "id": "jobBuilder.details.teleworkGroupBody"
+      },
+      {
+        "defaultMessage": "How often are flexible hours allowed?",
+        "description": "Header message displayed on the flex hours group input.",
+        "id": "jobBuilder.details.flexHoursGroupHeader"
+      },
+      {
+        "defaultMessage": "Want to support a more gender inclusive workplace?\n                          Studies show allowing flex hours is a great way to improve opportunities for women and parents.",
+        "description": "Body message displayed on the flex hours group input.",
+        "id": "jobBuilder.details.flexHoursGroupBody"
+      },
+      {
+        "defaultMessage": "Is travel required?",
+        "description": "Header message displayed on the travel group input.",
+        "id": "jobBuilder.details.travelGroupHeader"
+      },
+      {
+        "defaultMessage": "Is overtime required?",
+        "description": "Header message displayed on the overtime group input.",
+        "id": "jobBuilder.details.overtimeGroupHeader"
+      },
+      {
+        "defaultMessage": "Save & Return to Intro",
+        "description": "The text displayed on the Save & Return button of the Job Details form.",
+        "id": "jobBuilder.details.returnButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Preview",
+        "description": "The text displayed on the submit button for the Job Details form.",
+        "id": "jobBuilder.details.submitButtonLabel"
+      },
+      {
+        "defaultMessage": "You're off to a great start!",
+        "description": "The text displayed in the header of the Job Details modal.",
+        "id": "jobBuilder.details.modalHeader"
+      },
+      {
+        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
+        "description": "The text displayed in the body of the Job Details modal.",
+        "id": "jobBuilder.details.modalBody"
+      },
+      {
+        "defaultMessage": "Go Back",
+        "description": "The text displayed on the cancel button of the Job Details modal.",
+        "id": "jobBuilder.details.modalCancelLabel"
+      },
+      {
+        "defaultMessage": "Skip to Review",
+        "description": "The text displayed on the 'Skip to Review' button of the Job Details modal.",
+        "id": "jobBuilder.details.modalMiddleLabel"
+      },
+      {
+        "defaultMessage": "Next Step",
+        "description": "The text displayed on the confirm button of the Job Details modal.",
+        "id": "jobBuilder.details.modalConfirmLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/Details/JobDetails.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "What is the job title?",
+        "description": "The form label displayed on the title input.",
+        "id": "jobBuilder.details.titleLabel"
+      },
+      {
+        "defaultMessage": "e.g. Product Designer",
+        "description": "The form placeholder displayed on the title input.",
+        "id": "jobBuilder.details.titlePlaceholder"
+      },
+      {
+        "defaultMessage": "How long is the term (in months)?",
+        "description": "The form label displayed on the term length input.",
+        "id": "jobBuilder.details.termLengthLabel"
+      },
+      {
+        "defaultMessage": "e.g. 3",
+        "description": "The form placeholder displayed on the term length input.",
+        "id": "jobBuilder.details.termLengthPlaceholder"
+      },
+      {
+        "defaultMessage": "What is the classification?",
+        "description": "The form label displayed on the classification input.",
+        "id": "jobBuilder.details.classificationLabel"
+      },
+      {
+        "defaultMessage": "Select a classification...",
+        "description": "The default selection option displayed on the classification input.",
+        "id": "jobBuilder.details.classificationNullSelection"
+      },
+      {
+        "defaultMessage": "What is the level?",
+        "description": "The form label displayed on the level input.",
+        "id": "jobBuilder.details.levelLabel"
+      },
+      {
+        "defaultMessage": "Select a level...",
+        "description": "The default selection option displayed on the level input.",
+        "id": "jobBuilder.details.levelNullSelection"
+      },
+      {
+        "defaultMessage": "What is the security level?",
+        "description": "The form label displayed on the security level input.",
+        "id": "jobBuilder.details.securityLevelLabel"
+      },
+      {
+        "defaultMessage": "Select a security level...",
+        "description": "The default selection option displayed on the security level input.",
+        "id": "jobBuilder.details.securityLevelNullSelection"
+      },
+      {
+        "defaultMessage": "What is the language profile?",
+        "description": "The form label displayed on the language input.",
+        "id": "jobBuilder.details.languageLabel"
+      },
+      {
+        "defaultMessage": "Select a language profile...",
+        "description": "The default selection option displayed on the language input.",
+        "id": "jobBuilder.details.languageNullSelection"
+      },
+      {
+        "defaultMessage": "What city is the team located in?",
+        "description": "The form label displayed on the city input.",
+        "id": "jobBuilder.details.cityLabel"
+      },
+      {
+        "defaultMessage": "e.g. Ottawa",
+        "description": "The form placeholder displayed on the city input.",
+        "id": "jobBuilder.details.cityPlaceholder"
+      },
+      {
+        "defaultMessage": "What province is the team located in?",
+        "description": "The form label displayed on the province input.",
+        "id": "jobBuilder.details.provinceLabel"
+      },
+      {
+        "defaultMessage": "Select a province...",
+        "description": "The default selection option displayed on the province input.",
+        "id": "jobBuilder.details.provinceNullSelection"
+      },
+      {
+        "defaultMessage": "Select a remote work option:",
+        "description": "The form label displayed on the remote work radio group.",
+        "id": "jobBuilder.details.remoteWorkGroupLabel"
+      },
+      {
+        "defaultMessage": "Yes, I'm willing to supervise employees anywhere in the world.",
+        "description": "The form label displayed on the 'world' remote work radio option.",
+        "id": "jobBuilder.details.remoteWorkWorldLabel"
+      },
+      {
+        "defaultMessage": "Yes, I'm willing to supervise employees in any province or territory in Canada.",
+        "description": "The form label displayed on the 'canada' remote work radio option.",
+        "id": "jobBuilder.details.remoteWorkCanadaLabel"
+      },
+      {
+        "defaultMessage": "No, I require the employee in this position to be in the same geographic location as the office.",
+        "description": "The form label displayed on the 'none' remote work radio option.",
+        "id": "jobBuilder.details.remoteWorkNoneLabel"
+      },
+      {
+        "defaultMessage": "Select a telework option:",
+        "description": "The form label displayed on the telework radio group.",
+        "id": "jobBuilder.details.teleworkGroupLabel"
+      },
+      {
+        "defaultMessage": "Select a flexible hours option:",
+        "description": "The form label displayed on the flex hours radio group.",
+        "id": "jobBuilder.details.flexHoursGroupLabel"
+      },
+      {
+        "defaultMessage": "Select a travel option:",
+        "description": "The form label displayed on the travel radio group.",
+        "id": "jobBuilder.details.travelGroupLabel"
+      },
+      {
+        "defaultMessage": "Select a overtime option:",
+        "description": "The form label displayed on the overtime radio group.",
+        "id": "jobBuilder.details.overtimeGroupLabel"
+      },
+      {
+        "defaultMessage": "Customize the Education Requirement:",
+        "description": "The form label displayed above 'customize education requirement' textbox",
+        "id": "jobBuilder.details.educationRequirementsLabel"
+      },
+      {
+        "defaultMessage": "Paste the paragraph here to edit...",
+        "description": "The placeholder displayed in 'customize education requirement' textbox",
+        "id": "jobBuilder.details.educationRequirementPlaceholder"
+      },
+      {
+        "defaultMessage": "AS - Administrative Services",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.AS"
+      },
+      {
+        "defaultMessage": "BI - Biological Sciences",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.BI"
+      },
+      {
+        "defaultMessage": "CO - Commerce",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.CO"
+      },
+      {
+        "defaultMessage": "CR - Clerical and Regulatory",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.CR"
+      },
+      {
+        "defaultMessage": "CS - Computer Systems",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.CS"
+      },
+      {
+        "defaultMessage": "EC - Economics and Social Science Services",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.EC"
+      },
+      {
+        "defaultMessage": "EX - Executive",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.EX"
+      },
+      {
+        "defaultMessage": "FO - Forestry",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.FO"
+      },
+      {
+        "defaultMessage": "IS - Information Services",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.IS"
+      },
+      {
+        "defaultMessage": "PC - Physical Sciences",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.PC"
+      },
+      {
+        "defaultMessage": "PE - Personnel Administration",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.PE"
+      },
+      {
+        "defaultMessage": "PM - Programme Administration",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.PM"
+      },
+      {
+        "defaultMessage": "AD - Administrative Services",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.AD"
+      },
+      {
+        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.\n    ",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.AS"
+      },
+      {
+        "defaultMessage": "Post-secondary degree:\nSuccessful completion of post-secondary degree in a natural, physical or applied science with specialization in a field relevant to the duties of the position.",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.BI"
+      },
+      {
+        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.CO"
+      },
+      {
+        "defaultMessage": "2 years of secondary school, or equivalent:\nSuccessful completion of at least two years of secondary school education.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the 2 year secondary school requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school education stated above.",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.CR"
+      },
+      {
+        "defaultMessage": "2 years post-secondary, or equivalent:\nSuccessful completion of two years of post-secondary education in computer science, information technology, information management or another specialty relevant to this position.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the 2 year post-secondary requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.CS"
+      },
+      {
+        "defaultMessage": "Post-secondary degree:\nGraduation with a degree from a recognized post-secondary institution with acceptable specialization in economics, sociology or statistics.\n\nCandidates must always have a degree. The courses for the specialization must be acceptable and may have been taken at a recognized post-secondary institution, but not necessarily within a degree program in the required specialization. The specialization may also be obtained through an acceptable combination of education, training and/or experience.",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.EC"
+      },
+      {
+        "defaultMessage": "Post-secondary degree, or equivalent:\nPost-secondary degree, or eligibility for a recognized professional designation in one of the provinces or territories of Canada.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.EX"
+      },
+      {
+        "defaultMessage": "Post-secondary degree:\nGraduation with a degree in forestry or wood science from a recognized post-secondary institution.\n\nor\n\nGraduation with a degree in a related science from a recognized post-secondary institution combined with acceptable experience.",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.FO"
+      },
+      {
+        "defaultMessage": "Post-secondary degree, or equivalent:\nSuccessful completion of a post-secondary degree.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.IS"
+      },
+      {
+        "defaultMessage": "Post-secondary degree:\nSuccessful completion of a post-secondary degree with specialization in physics, geology, chemistry or some other science relevant to the position.",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.PC"
+      },
+      {
+        "defaultMessage": "Post-secondary degree, or equivalent:\nSuccessful completion of a post-secondary degree with specialization in human resources management, labour or industrial relations, psychology, public or business administration, organizational development, education sciences, social sciences, sociology, or another specialty relevant to this position.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.PE"
+      },
+      {
+        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.PM"
+      },
+      {
+        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.AD"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/Details/JobDetailsMessages.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Hire Impact Statement",
+        "description": "Label for hire impact statement text area",
+        "id": "jobBuilder.impact.hireLabel"
+      },
+      {
+        "defaultMessage": "Team Impact Statement",
+        "description": "Label for team impact statement text area",
+        "id": "jobBuilder.impact.teamLabel"
+      },
+      {
+        "defaultMessage": "Remember, don't use Government speak...",
+        "id": "jobBuilder.impact.hirePlaceholder"
+      },
+      {
+        "defaultMessage": "Try for a casual, frank, friendly tone...",
+        "id": "jobBuilder.impact.teamPlaceholder"
+      },
+      {
+        "defaultMessage": "You must select a Department for this Job.",
+        "description": "Message warning user that they must have a department selected to complete impact statements.",
+        "id": "jobBuilder.impact.selectDepartment"
+      },
+      {
+        "defaultMessage": "Loading department data...",
+        "description": "Placeholder message while department data is being retrieved from the server.",
+        "id": "jobBuilder.impact.departmentsLoading"
+      },
+      {
+        "defaultMessage": "Error: Unknown Department selected.",
+        "description": "Error message shown when the job has a department selected for which data has not been passed to this component.",
+        "id": "jobBuilder.impact.unknownDepartment"
+      },
+      {
+        "defaultMessage": "Create an Impact Statement",
+        "description": "Header of Job Poster Builder Impact Step",
+        "id": "jobBuilder.impact.title"
+      },
+      {
+        "defaultMessage": "Working in the federal government offers an important opportunity to have a broad impact for Canadians.",
+        "description": "Bullet Point on Job Poster Builder Impact Step",
+        "id": "jobBuilder.impact.points.opportunity"
+      },
+      {
+        "defaultMessage": "This is your chance to highlight what makes your work valuable and interesting.",
+        "description": "Bullet Point on Job Poster Builder Impact Step",
+        "id": "jobBuilder.impact.points.highlight"
+      },
+      {
+        "defaultMessage": "Your impact statement is the first thing that applicants will see when they click your job poster so make sure it counts!",
+        "description": "Bullet Point on Job Poster Builder Impact Step",
+        "id": "jobBuilder.impact.points.counts"
+      },
+      {
+        "defaultMessage": "How our department makes an impact:",
+        "description": "Header of Department Impact Section on Job Poster Builder Impact Step",
+        "id": "jobBuilder.impact.header.department"
+      },
+      {
+        "defaultMessage": "How our team makes an impact:",
+        "description": "Header of Job Poster Builder Team Impact Section",
+        "id": "jobBuilder.impact.teamHeader"
+      },
+      {
+        "defaultMessage": "Describe the value your team/service/initiative brings to Canadians.\r\n              It doesn’t matter if your work is direct to citizens or back office,\r\n              innovative or maintenance, top priority or ongoing. Describe how it\r\n              contributes to making Canada better the way you would to someone who\r\n              knows nothing about your work.",
+        "description": "Body of Job Poster Builder Team Impact Section",
+        "id": "jobBuilder.impact.teamBody"
+      },
+      {
+        "defaultMessage": "How the new hire makes an impact:",
+        "description": "Header of Job Poster Builder Hire Impact Section",
+        "id": "jobBuilder.impact.hireHeader"
+      },
+      {
+        "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\r\n              value they’ll bring, not on specific tasks (you’ll provide these\r\n              later on). For example “In this role, you’ll contribute to…” or, “As\r\n              a member of this team, you’ll be responsible for helping us…”",
+        "description": "Body of Job Poster Builder Hire Impact Section",
+        "id": "jobBuilder.impact.hireBody"
+      },
+      {
+        "defaultMessage": "Save & Return to Work Environment",
+        "description": "Label for Save & Return button on Impact form.",
+        "id": "jobBuilder.impact.button.return"
+      },
+      {
+        "defaultMessage": "Save & Preview",
+        "description": "Label for Save & Preview button on Impact form.",
+        "id": "jobBuilder.impact.button.next"
+      },
+      {
+        "defaultMessage": "Awesome work!",
+        "description": "Title of modal dialog for Impact review.",
+        "id": "jobBuilder.impact.modalTitle"
+      },
+      {
+        "defaultMessage": "Here's a preview of the Impact Statement you just\r\n                        entered. Feel free to go back and edit things or move to\r\n                        the next step if you're happy with it.",
+        "description": "Description of modal dialog for Impact review.",
+        "id": "jobBuilder.impact.modalDescription"
+      },
+      {
+        "defaultMessage": "Go Back",
+        "description": "Label for Go Back button on Impact review modal.",
+        "id": "jobBuilder.impact.button.goBack"
+      },
+      {
+        "defaultMessage": "Skip to Review",
+        "description": "Label for Skip to Review button on Impact review modal.",
+        "id": "jobBuilder.impact.button.skipToReview"
+      },
+      {
+        "defaultMessage": "Next Step",
+        "description": "Label for Next Step button on Impact review modal.",
+        "id": "jobBuilder.impact.button.nextStep"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/Impact/JobBuilderImpact.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Impact",
+        "description": "Heading for Impact preview on modal dialog.",
+        "id": "jobBuilder.impactPreview.title"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/Impact/JobImpactPreview.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "confirm that your personal information below is correct.",
+        "description": "Bolded text portion of the JPB Intro explanation.",
+        "id": "jobBuilder.intro.explanation.boldText"
+      },
+      {
+        "defaultMessage": "Email Talent Cloud",
+        "description": "Title of the Talent Cloud email link.",
+        "id": "jobBuilder.intro.emailLinkTitle"
+      },
+      {
+        "defaultMessage": "Talent Cloud",
+        "description": "Visible text of the Talent Cloud email link.",
+        "id": "jobBuilder.intro.emailLinkText"
+      },
+      {
+        "defaultMessage": "{name}'s Position (English)",
+        "description": "The label displayed on the manager position input.",
+        "id": "jobBuilder.intro.jobTitleLabelEN"
+      },
+      {
+        "defaultMessage": "e.g. Design Manager",
+        "description": "The placeholder displayed on the Manager Position input.",
+        "id": "jobBuilder.intro.jobTitlePlaceholderEN"
+      },
+      {
+        "defaultMessage": "{name}'s Position (Français)",
+        "description": "The label displayed on the MKanager Position input.",
+        "id": "jobBuilder.intro.jobTitleLabelFR"
+      },
+      {
+        "defaultMessage": "e.g. Gestionnaire de la conception",
+        "description": "The placeholder displayed on the Manager Position input.",
+        "id": "jobBuilder.intro.jobTitlePlaceholderFR"
+      },
+      {
+        "defaultMessage": "{name}'s Department",
+        "description": "The label displayed on the department select box.",
+        "id": "jobBuilder.intro.departmentLabel"
+      },
+      {
+        "defaultMessage": "Select a department...",
+        "description": "The default selection option displayed on the department select box.",
+        "id": "jobBuilder.intro.departmentNullSelection"
+      },
+      {
+        "defaultMessage": "{name}'s Division (English)",
+        "description": "The label displayed on the division input.",
+        "id": "jobBuilder.intro.divisionLabelEN"
+      },
+      {
+        "defaultMessage": "e.g. Digital Change",
+        "description": "The placeholder displayed on the division input.",
+        "id": "jobBuilder.intro.divisionPlaceholderEN"
+      },
+      {
+        "defaultMessage": "{name}'s Division (Français)",
+        "description": "The label displayed on the division input.",
+        "id": "jobBuilder.intro.divisionLabelFR"
+      },
+      {
+        "defaultMessage": "e.g. Changement numérique",
+        "description": "The placeholder displayed on the division input.",
+        "id": "jobBuilder.intro.divisionPlaceholderFR"
+      },
+      {
+        "defaultMessage": "Welcome to the Job Poster Builder",
+        "description": "Header of Job Poster Builder Intro Step",
+        "id": "jobBuilder.intro.welcome"
+      },
+      {
+        "defaultMessage": "This tool will help you create a job poster that attracts the right talent. Before we get started on your job poster, take some time to {boldText}",
+        "description": "Explanation of Job Poster Builder Intro Step",
+        "id": "jobBuilder.intro.explanation"
+      },
+      {
+        "defaultMessage": "{name}'s Profile Information",
+        "description": "The title of the profile information form.",
+        "id": "jobBuilder.intro.formTitle"
+      },
+      {
+        "defaultMessage": "This information is used on the Job Poster to help applicants learn more about who they'll be working with.",
+        "description": "Explanation of why the profile information is collected.",
+        "id": "jobBuilder.intro.formDescription"
+      },
+      {
+        "defaultMessage": "Complete the job poster in the language of your choice. We will\r\n                  handle translation.",
+        "description": "Intstructions at bottom of form on language choice for job poster builder.",
+        "id": "jobBuilder.intro.completeInLanguage"
+      },
+      {
+        "defaultMessage": "We’ve also provided instructions and examples to help guide you through the process but if you still have questions, contact {link}.",
+        "description": "Subtitle 2 of Job Poster Builder Intro Step",
+        "id": "jobBuilder.intro.contactUs"
+      },
+      {
+        "defaultMessage": "Continue in English",
+        "description": "Label displayed on submit button for continuation of job builder in english.",
+        "id": "jobBuilder.intro.continueButtonLabelEN"
+      },
+      {
+        "defaultMessage": "Continuer en Français",
+        "description": "Label displayed on submit button for continuation of job builder in french.",
+        "id": "jobBuilder.intro.continueButtonLabelFR"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/Intro/IntroForm.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Your Manager Profile is loading...",
+        "description": "Message indicating that the manager profile is still being loaded.",
+        "id": "jobBuilder.intro.managerLoading"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/Intro/JobBuilderIntro.json"
   },
   {
     "descriptors": [
@@ -941,11 +1524,6 @@
         "defaultMessage": "Your job is loading...",
         "description": "Message indicating that the current job is still being loaded.",
         "id": "jobBuilder.jobLoading"
-      },
-      {
-        "defaultMessage": "Any changes you made will not be saved. If you would like to save any changes please hit save at bottom the page.",
-        "description": "Warning message for user when switching pages without saving content.",
-        "id": "jobBuilder.unsavedChangesWarning"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/jobBuilderMessages.json"
@@ -1188,1419 +1766,32 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Hire Impact Statement",
-        "description": "Label for hire impact statement text area",
-        "id": "jobBuilder.impact.hireLabel"
+        "defaultMessage": "Find out how to access Job Poster review and publishing features.",
+        "description": "Title of link to further information.",
+        "id": "demoSubmitJobModal.link.title"
       },
       {
-        "defaultMessage": "Team Impact Statement",
-        "description": "Label for team impact statement text area",
-        "id": "jobBuilder.impact.teamLabel"
+        "defaultMessage": "Looks like you're using a demo account!",
+        "description": "Title of modal explaining that demo managers cannot submit jobs.",
+        "id": "demoSubmitJobModal.title"
       },
       {
-        "defaultMessage": "Remember, don't use Government speak...",
-        "id": "jobBuilder.impact.hirePlaceholder"
+        "defaultMessage": "Job Poster review and publishing is only available to Talent Cloud's partner departments.",
+        "description": "Summary explanation of why user cannot submit job.",
+        "id": "demoSubmitJobModal.explanation"
       },
       {
-        "defaultMessage": "Try for a casual, frank, friendly tone...",
-        "id": "jobBuilder.impact.teamPlaceholder"
+        "defaultMessage": "To find out if you can access these features, <a>click here</a>.",
+        "description": "Explanation of where to find more information.",
+        "id": "demoSubmitJobModal.link"
       },
       {
-        "defaultMessage": "You must select a Department for this Job.",
-        "description": "Message warning user that they must have a department selected to complete impact statements.",
-        "id": "jobBuilder.impact.selectDepartment"
-      },
-      {
-        "defaultMessage": "Loading department data...",
-        "description": "Placeholder message while department data is being retrieved from the server.",
-        "id": "jobBuilder.impact.departmentsLoading"
-      },
-      {
-        "defaultMessage": "Error: Unknown Department selected.",
-        "description": "Error message shown when the job has a department selected for which data has not been passed to this component.",
-        "id": "jobBuilder.impact.unknownDepartment"
-      },
-      {
-        "defaultMessage": "Create an Impact Statement",
-        "description": "Header of Job Poster Builder Impact Step",
-        "id": "jobBuilder.impact.title"
-      },
-      {
-        "defaultMessage": "Working in the federal government offers an important opportunity to have a broad impact for Canadians.",
-        "description": "Bullet Point on Job Poster Builder Impact Step",
-        "id": "jobBuilder.impact.points.opportunity"
-      },
-      {
-        "defaultMessage": "This is your chance to highlight what makes your work valuable and interesting.",
-        "description": "Bullet Point on Job Poster Builder Impact Step",
-        "id": "jobBuilder.impact.points.highlight"
-      },
-      {
-        "defaultMessage": "Your impact statement is the first thing that applicants will see when they click your job poster so make sure it counts!",
-        "description": "Bullet Point on Job Poster Builder Impact Step",
-        "id": "jobBuilder.impact.points.counts"
-      },
-      {
-        "defaultMessage": "How our department makes an impact:",
-        "description": "Header of Department Impact Section on Job Poster Builder Impact Step",
-        "id": "jobBuilder.impact.header.department"
-      },
-      {
-        "defaultMessage": "How our team makes an impact:",
-        "description": "Header of Job Poster Builder Team Impact Section",
-        "id": "jobBuilder.impact.teamHeader"
-      },
-      {
-        "defaultMessage": "Describe the value your team/service/initiative brings to Canadians.\r\n              It doesn’t matter if your work is direct to citizens or back office,\r\n              innovative or maintenance, top priority or ongoing. Describe how it\r\n              contributes to making Canada better the way you would to someone who\r\n              knows nothing about your work.",
-        "description": "Body of Job Poster Builder Team Impact Section",
-        "id": "jobBuilder.impact.teamBody"
-      },
-      {
-        "defaultMessage": "How the new hire makes an impact:",
-        "description": "Header of Job Poster Builder Hire Impact Section",
-        "id": "jobBuilder.impact.hireHeader"
-      },
-      {
-        "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\r\n              value they’ll bring, not on specific tasks (you’ll provide these\r\n              later on). For example “In this role, you’ll contribute to…” or, “As\r\n              a member of this team, you’ll be responsible for helping us…”",
-        "description": "Body of Job Poster Builder Hire Impact Section",
-        "id": "jobBuilder.impact.hireBody"
-      },
-      {
-        "defaultMessage": "Save & Return to Work Environment",
-        "description": "Label for Save & Return button on Impact form.",
-        "id": "jobBuilder.impact.button.return"
-      },
-      {
-        "defaultMessage": "Save & Preview",
-        "description": "Label for Save & Preview button on Impact form.",
-        "id": "jobBuilder.impact.button.next"
-      },
-      {
-        "defaultMessage": "Awesome work!",
-        "description": "Title of modal dialog for Impact review.",
-        "id": "jobBuilder.impact.modalTitle"
-      },
-      {
-        "defaultMessage": "Here's a preview of the Impact Statement you just\r\n                        entered. Feel free to go back and edit things or move to\r\n                        the next step if you're happy with it.",
-        "description": "Description of modal dialog for Impact review.",
-        "id": "jobBuilder.impact.modalDescription"
-      },
-      {
-        "defaultMessage": "Go Back",
-        "description": "Label for Go Back button on Impact review modal.",
-        "id": "jobBuilder.impact.button.goBack"
-      },
-      {
-        "defaultMessage": "Skip to Review",
-        "description": "Label for Skip to Review button on Impact review modal.",
-        "id": "jobBuilder.impact.button.skipToReview"
-      },
-      {
-        "defaultMessage": "Next Step",
-        "description": "Label for Next Step button on Impact review modal.",
-        "id": "jobBuilder.impact.button.nextStep"
+        "defaultMessage": "Go back",
+        "description": "Cancel button of Demo Submit Job modal.",
+        "id": "demoSubmitJobModal.cancel"
       }
     ],
-    "path": "resources/assets/js/components/JobBuilderImpact/JobBuilderImpact.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Impact",
-        "description": "Heading for Impact preview on modal dialog.",
-        "id": "jobBuilder.impactPreview.title"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilderImpact/JobImpactPreview.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "confirm that your personal information below is correct.",
-        "description": "Bolded text portion of the JPB Intro explanation.",
-        "id": "jobBuilder.intro.explanation.boldText"
-      },
-      {
-        "defaultMessage": "Email Talent Cloud",
-        "description": "Title of the Talent Cloud email link.",
-        "id": "jobBuilder.intro.emailLinkTitle"
-      },
-      {
-        "defaultMessage": "Talent Cloud",
-        "description": "Visible text of the Talent Cloud email link.",
-        "id": "jobBuilder.intro.emailLinkText"
-      },
-      {
-        "defaultMessage": "{name}'s Position (English)",
-        "description": "The label displayed on the manager position input.",
-        "id": "jobBuilder.intro.jobTitleLabelEN"
-      },
-      {
-        "defaultMessage": "e.g. Design Manager",
-        "description": "The placeholder displayed on the Manager Position input.",
-        "id": "jobBuilder.intro.jobTitlePlaceholderEN"
-      },
-      {
-        "defaultMessage": "{name}'s Position (Français)",
-        "description": "The label displayed on the MKanager Position input.",
-        "id": "jobBuilder.intro.jobTitleLabelFR"
-      },
-      {
-        "defaultMessage": "e.g. Gestionnaire de la conception",
-        "description": "The placeholder displayed on the Manager Position input.",
-        "id": "jobBuilder.intro.jobTitlePlaceholderFR"
-      },
-      {
-        "defaultMessage": "{name}'s Department",
-        "description": "The label displayed on the department select box.",
-        "id": "jobBuilder.intro.departmentLabel"
-      },
-      {
-        "defaultMessage": "Select a department...",
-        "description": "The default selection option displayed on the department select box.",
-        "id": "jobBuilder.intro.departmentNullSelection"
-      },
-      {
-        "defaultMessage": "{name}'s Division (English)",
-        "description": "The label displayed on the division input.",
-        "id": "jobBuilder.intro.divisionLabelEN"
-      },
-      {
-        "defaultMessage": "e.g. Digital Change",
-        "description": "The placeholder displayed on the division input.",
-        "id": "jobBuilder.intro.divisionPlaceholderEN"
-      },
-      {
-        "defaultMessage": "{name}'s Division (Français)",
-        "description": "The label displayed on the division input.",
-        "id": "jobBuilder.intro.divisionLabelFR"
-      },
-      {
-        "defaultMessage": "e.g. Changement numérique",
-        "description": "The placeholder displayed on the division input.",
-        "id": "jobBuilder.intro.divisionPlaceholderFR"
-      },
-      {
-        "defaultMessage": "Welcome to the Job Poster Builder",
-        "description": "Header of Job Poster Builder Intro Step",
-        "id": "jobBuilder.intro.welcome"
-      },
-      {
-        "defaultMessage": "This tool will help you create a job poster that attracts the right talent. Before we get started on your job poster, take some time to {boldText}",
-        "description": "Explanation of Job Poster Builder Intro Step",
-        "id": "jobBuilder.intro.explanation"
-      },
-      {
-        "defaultMessage": "{name}'s Profile Information",
-        "description": "The title of the profile information form.",
-        "id": "jobBuilder.intro.formTitle"
-      },
-      {
-        "defaultMessage": "This information is used on the Job Poster to help applicants learn more about who they'll be working with.",
-        "description": "Explanation of why the profile information is collected.",
-        "id": "jobBuilder.intro.formDescription"
-      },
-      {
-        "defaultMessage": "Complete the job poster in the language of your choice. We will\r\n                  handle translation.",
-        "description": "Intstructions at bottom of form on language choice for job poster builder.",
-        "id": "jobBuilder.intro.completeInLanguage"
-      },
-      {
-        "defaultMessage": "We’ve also provided instructions and examples to help guide you through the process but if you still have questions, contact {link}.",
-        "description": "Subtitle 2 of Job Poster Builder Intro Step",
-        "id": "jobBuilder.intro.contactUs"
-      },
-      {
-        "defaultMessage": "Continue in English",
-        "description": "Label displayed on submit button for continuation of job builder in english.",
-        "id": "jobBuilder.intro.continueButtonLabelEN"
-      },
-      {
-        "defaultMessage": "Continuer en Français",
-        "description": "Label displayed on submit button for continuation of job builder in french.",
-        "id": "jobBuilder.intro.continueButtonLabelFR"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilderIntro/IntroForm.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Your Manager Profile is loading...",
-        "description": "Message indicating that the manager profile is still being loaded.",
-        "id": "jobBuilder.intro.managerLoading"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilderIntro/JobBuilderIntro.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Skill Definition",
-        "description": "Label for Skill Definition heading on Add Skill modal.",
-        "id": "jobBuilder.criteriaForm.skillDefinition"
-      },
-      {
-        "defaultMessage": "Remove additional specificity.",
-        "description": "Label for 'Remove additional specificity' button on Add Skill modal.",
-        "id": "jobBuilder.criteriaForm.removeSpecificity"
-      },
-      {
-        "defaultMessage": "I'd like to add specificity to this definition. This will\r\n                          only apply to my job poster.",
-        "description": "Label for 'Add additional specificity' button on Add Skill modal.",
-        "id": "jobBuilder.criteriaForm.addSpecificity"
-      },
-      {
-        "defaultMessage": "Choose a Skill Level",
-        "description": "Label for 'Choose a Skill Level' radio group heading on Add Skill modal.",
-        "id": "jobBuilder.criteriaForm.chooseSkillLevel"
-      },
-      {
-        "defaultMessage": "or",
-        "description": "Label for 'or' between essential/asset levels on Add Skill modal.",
-        "id": "jobBuilder.criteriaForm.or"
-      },
-      {
-        "defaultMessage": "Cancel",
-        "description": "Label for Cancel button on Add Skill modal.",
-        "id": "jobBuilder.criteriaForm.button.cancel"
-      },
-      {
-        "defaultMessage": "Add Skill",
-        "description": "Label for Add Skill button on Add Skill modal.",
-        "id": "jobBuilder.criteriaForm.button.add"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilderSkills/CriteriaForm.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "get in touch with us through email",
-        "description": "Text for an email link in a larger block of text",
-        "id": "jobBuilder.skills.emailLink"
-      },
-      {
-        "defaultMessage": "Please select a skill from our list",
-        "description": "Label for skill selection dropdown menu",
-        "id": "jobBuilder.skills.selectSkillLabel"
-      },
-      {
-        "defaultMessage": "Please select a skill",
-        "description": "Label for skill selection dropdown null/default state",
-        "id": "jobBuilder.skills.selectSkillNull"
-      },
-      {
-        "defaultMessage": "Arrow icon highlighting the unhappy smiley icon.",
-        "description": "Alternative text describing unhappy arrow image",
-        "id": "jobBuilder.skills.alt.unhappyArrow"
-      },
-      {
-        "defaultMessage": "Unhappy coloured smiley icon.",
-        "description": "Alternative text describing unhappy smiley image",
-        "id": "jobBuilder.skills.alt.unhappySmiley"
-      },
-      {
-        "defaultMessage": "Unhappy grayscale smiley icon.",
-        "description": "Alternative text describing unhappy grayscale smiley image",
-        "id": "jobBuilder.skills.alt.unhappyGraySmiley"
-      },
-      {
-        "defaultMessage": "Arrow icon highlighting the neutral smiley icon.",
-        "description": "Alternative text describing neutral arrow image",
-        "id": "jobBuilder.skills.alt.neutralArrow"
-      },
-      {
-        "defaultMessage": "neutral coloured smiley icon.",
-        "description": "Alternative text describing neutral smiley image",
-        "id": "jobBuilder.skills.alt.neutralSmiley"
-      },
-      {
-        "defaultMessage": "neutral grayscale smiley icon.",
-        "description": "Alternative text describing neutral grayscale smiley image",
-        "id": "jobBuilder.skills.alt.neutralGraySmiley"
-      },
-      {
-        "defaultMessage": "Arrow icon highlighting the happy smiley icon.",
-        "description": "Alternative text describing happy arrow image",
-        "id": "jobBuilder.skills.alt.happyArrow"
-      },
-      {
-        "defaultMessage": "happy coloured smiley icon.",
-        "description": "Alternative text describing happy smiley image",
-        "id": "jobBuilder.skills.alt.happySmiley"
-      },
-      {
-        "defaultMessage": "happy grayscale smiley icon.",
-        "description": "Alternative text describing happy grayscale smiley image",
-        "id": "jobBuilder.skills.alt.happyGraySmiley"
-      },
-      {
-        "defaultMessage": "Add skills below to proceed.",
-        "description": "Placeholder skill title / instructions to add skill",
-        "id": "jobBuilder.skills.addSkillBelow"
-      },
-      {
-        "defaultMessage": "Skill Level",
-        "description": "Placeholder label",
-        "id": "jobBuilder.skills.skillLevel"
-      },
-      {
-        "defaultMessage": "Save & Preview Skills",
-        "description": "Label of Button",
-        "id": "jobBuilder.skills.button.previewSkills"
-      },
-      {
-        "defaultMessage": "Skills",
-        "description": "section title",
-        "id": "jobBuilder.skills.title"
-      },
-      {
-        "defaultMessage": "This is where you'll select the criteria that are required to do\r\n            this job effectively. Below are two bars that indicate a measurement\r\n            of your current skill selection.",
-        "description": "section description under title",
-        "id": "jobBuilder.skills.description"
-      },
-      {
-        "defaultMessage": "View Key Tasks",
-        "description": "Button label",
-        "id": "jobBuilder.skills.button.keyTasks"
-      },
-      {
-        "defaultMessage": "Your Skills List",
-        "description": "List section title",
-        "id": "jobBuilder.skills.listTitle"
-      },
-      {
-        "defaultMessage": "Total Number of Essential Skills",
-        "description": "Title of skill status tracker",
-        "id": "jobBuilder.skills.statusSmiley.essentialTitle"
-      },
-      {
-        "defaultMessage": "Too Few",
-        "description": "Description of quantity of skills",
-        "id": "jobBuilder.skills.statusSmiley.essential.tooFew"
-      },
-      {
-        "defaultMessage": "Almost",
-        "description": "Description of quantity of skills",
-        "id": "jobBuilder.skills.statusSmiley.essential.almost"
-      },
-      {
-        "defaultMessage": "Awesome",
-        "description": "Description of quantity of skills",
-        "id": "jobBuilder.skills.statusSmiley.essential.awesome"
-      },
-      {
-        "defaultMessage": "Acceptable",
-        "description": "Description of quantity of skills",
-        "id": "jobBuilder.skills.statusSmiley.essential.acceptable"
-      },
-      {
-        "defaultMessage": "Too Many",
-        "description": "Description of quantity of skills",
-        "id": "jobBuilder.skills.statusSmiley.essential.tooMany"
-      },
-      {
-        "defaultMessage": "Total Number of Skills",
-        "description": "Title of skill quantity evaluator",
-        "id": "jobBuilder.skills.statusSmiley.title"
-      },
-      {
-        "defaultMessage": "Too Few",
-        "description": "Description of quantity of skills",
-        "id": "jobBuilder.skills.statusSmiley.tooFew"
-      },
-      {
-        "defaultMessage": "Almost",
-        "description": "Description of quantity of skills",
-        "id": "jobBuilder.skills.statusSmiley.almost"
-      },
-      {
-        "defaultMessage": "Awesome",
-        "description": "Description of quantity of skills",
-        "id": "jobBuilder.skills.statusSmiley.awesome"
-      },
-      {
-        "defaultMessage": "Acceptable",
-        "description": "Description of quantity of skills",
-        "id": "jobBuilder.skills.statusSmiley.acceptable"
-      },
-      {
-        "defaultMessage": "tooMany",
-        "description": "Description of quantity of skills",
-        "id": "jobBuilder.skills.statusSmiley.tooMany"
-      },
-      {
-        "defaultMessage": "Essential Skills",
-        "description": "Title of essential skills list",
-        "id": "jobBuilder.skills.title.essentialSkills"
-      },
-      {
-        "defaultMessage": "Asset Skills",
-        "description": "Title of asset skills list",
-        "id": "jobBuilder.skills.title.assetSkills"
-      },
-      {
-        "defaultMessage": "Skill Selection",
-        "description": "Title of skill selection section",
-        "id": "jobBuilder.skills.title.skillSelection"
-      },
-      {
-        "defaultMessage": "Occupational Competencies",
-        "description": "Title of skills category",
-        "id": "jobBuilder.skills.title.occupationalSkills"
-      },
-      {
-        "defaultMessage": "Aim for {minOccupational} - {maxOccupational} skills.",
-        "description": "Ranage recommendation for occupational competencies in job poster",
-        "id": "jobBuilder.skills.range.occupationalSkills"
-      },
-      {
-        "defaultMessage": "You must return to Step 1 and choose a Classification.",
-        "description": "Placeholder text for occupational competencies list.",
-        "id": "jobBuilder.skills.nullText.occupationalSkills"
-      },
-      {
-        "defaultMessage": "Behavioural Competencies",
-        "description": "Title of skills category",
-        "id": "jobBuilder.skills.title.culturalSkills"
-      },
-      {
-        "defaultMessage": "Aim for {minCulture} - {maxCulture} skills.",
-        "description": "Range recommendation for behavioural competencies in job poster",
-        "id": "jobBuilder.skills.range.culturalSkills"
-      },
-      {
-        "defaultMessage": "Public Service Competencies",
-        "description": "Title of skills category",
-        "id": "jobBuilder.skills.title.futureSkills"
-      },
-      {
-        "defaultMessage": "Aim for {minFuture} - {maxFuture} skills.",
-        "description": "Ranage recommendation for public service competencies in job poster",
-        "id": "jobBuilder.skills.range.futureSkills"
-      },
-      {
-        "defaultMessage": "Can't find the skill you need?",
-        "description": "Title of instructions for missing skill",
-        "id": "jobBuilder.skills.title.missingSkill"
-      },
-      {
-        "defaultMessage": "Building a skills list is a huge endeavour, and it's not\r\n  surprising that Talent Cloud's list doesn't have the skill\r\n  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to\r\n  kick-off the discussion.",
-        "id": "jobBuilder.skills.instructions.missingSkills"
-      },
-      {
-        "defaultMessage": "Other Skills",
-        "description": "Title of other skills section",
-        "id": "jobBuilder.skills.title.otherSkills"
-      },
-      {
-        "defaultMessage": "There are no extra skills added.",
-        "description": "Placeholder when there are no other skills",
-        "id": "jobBuilder.skills.placeholder.otherSkills"
-      },
-      {
-        "defaultMessage": "Save & Return to Tasks",
-        "description": "Button Label",
-        "id": "jobBuilder.skills.button.returnToTasks"
-      },
-      {
-        "defaultMessage": "At least one 'Essential Skill' is required.",
-        "description": "Label of Button",
-        "id": "jobBuilder.skills.essentialSkillRequiredError"
-      },
-      {
-        "defaultMessage": "Key Tasks",
-        "description": "Title of Key Tasks Section",
-        "id": "jobBuilder.skills.title.keyTasks"
-      },
-      {
-        "defaultMessage": "Back to Skills",
-        "description": "The text displayed on the cancel button of the Key Tasks modal on the Job Builder Skills step.",
-        "id": "jobBuilder.skills.tasksModalCancelLabel"
-      },
-      {
-        "defaultMessage": "Add a skill",
-        "description": "Title of Add a skill Section",
-        "id": "jobBuilder.skills.title.addASkill"
-      },
-      {
-        "defaultMessage": "Edit skill",
-        "description": "Title of Edit skill Modal",
-        "id": "jobBuilder.skills.title.editSkill"
-      },
-      {
-        "defaultMessage": "Keep it up!",
-        "description": "Title of Keep it up! Modal",
-        "id": "jobBuilder.skills.title.keepItUp"
-      },
-      {
-        "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to\r\n                go back and edit things or move to the next step if you're\r\n                happy with it.",
-        "description": "Body text of Keep it up! Modal",
-        "id": "jobBuilder.skills.description.keepItUp"
-      },
-      {
-        "defaultMessage": "Skills the Employee Needs to Have",
-        "description": "Section Header in Modal",
-        "id": "jobBuilder.skills.title.needsToHave"
-      },
-      {
-        "defaultMessage": "You haven't added any skills yet.",
-        "description": "The text displayed in the skills modal when you haven't added any skills.",
-        "id": "jobBuilder.skills.nullState"
-      },
-      {
-        "defaultMessage": "Skills That Would Be Nice For the Employee to Have",
-        "description": "Section Header in Modal",
-        "id": "jobBuilder.skills.title.niceToHave"
-      },
-      {
-        "defaultMessage": "Go Back",
-        "description": "The text displayed on the cancel button of the Job Builder Skills Preview modal.",
-        "id": "jobBuilder.skills.previewModalCancelLabel"
-      },
-      {
-        "defaultMessage": "Skip to Review",
-        "description": "The text displayed on the 'Skip to Review' button of the Job Builder Skills Preview modal.",
-        "id": "jobBuilder.skills.previewModalMiddleLabel"
-      },
-      {
-        "defaultMessage": "Next Step",
-        "description": "The text displayed on the confirm button of the Job Builder Skills Preview modal.",
-        "id": "jobBuilder.skills.previewModalConfirmLabel"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilderSkills/JobBuilderSkills.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Share a little about your physical space, the technology used by your team, and the amenities close to your office. Check all that apply.",
-        "description": "Section 1 description of Job Poster Builder Work Environment Step",
-        "id": "jobBuilder.workEnv.ourWorkEnvDesc"
-      },
-      {
-        "defaultMessage": "Team Size",
-        "description": "The label displayed on the team size input.",
-        "id": "jobBuilder.workEnv.teamSizeLabel"
-      },
-      {
-        "defaultMessage": "Our Physical Environment",
-        "description": "The label displayed on the physical environment checkbox group.",
-        "id": "jobBuilder.workEnv.physicalEnvLabel"
-      },
-      {
-        "defaultMessage": "Technology",
-        "description": "The label displayed on the technology checkbox group.",
-        "id": "jobBuilder.workEnv.technologyLabel"
-      },
-      {
-        "defaultMessage": "More about your Environment",
-        "description": "The title for the more about your environment textbox.",
-        "id": "jobBuilder.workEnv.moreOnWorkEnv"
-      },
-      {
-        "defaultMessage": "Anything else you'd like to add about your work environment? Highlight features of the physical environment, technology and amenities specific to your team.",
-        "description": "Subtext displayed for the more about your environment textbox.",
-        "id": "jobBuilder.workEnv.moreOnWorkEnvSubtext"
-      },
-      {
-        "defaultMessage": "More About Your Environment",
-        "description": "The label displayed for the more about your environment textbox.",
-        "id": "jobBuilder.workEnv.moreOnWorkEnvLabel"
-      },
-      {
-        "defaultMessage": "Try for a casual, frank, friendly tone.",
-        "description": "The placeholder displayed for the more about your environment textbox.",
-        "id": "jobBuilder.workEnv.moreOnWorkEnvPlaceholder"
-      },
-      {
-        "defaultMessage": "Our Culture",
-        "description": "Section 2 radio group title of our culture step.",
-        "id": "jobBuilder.workEnv.culture"
-      },
-      {
-        "defaultMessage": "Based on your selections, we'll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team.",
-        "description": "Subtext 2 displayed of the our culture section.",
-        "id": "jobBuilder.workEnv.cultureSubtext2"
-      },
-      {
-        "defaultMessage": "Fast-paced vs. Steady:",
-        "description": "The label for the fast-paced vs. steady radio group",
-        "id": "jobBuilder.workEnv.fastPacedSteadyLabel"
-      },
-      {
-        "defaultMessage": "Horizontal vs. Vertical:",
-        "description": "The label for the management radio group",
-        "id": "jobBuilder.workEnv.managementLabel"
-      },
-      {
-        "defaultMessage": "Experimental vs. Ongoing Business:",
-        "description": "The label for the experimental radio group",
-        "id": "jobBuilder.workEnv.experimentalLabel"
-      },
-      {
-        "defaultMessage": "Citizen Facing vs. Back Office:",
-        "description": "The label for the facing radio group",
-        "id": "jobBuilder.workEnv.facingLabel"
-      },
-      {
-        "defaultMessage": "Collaborative vs. Independent:",
-        "description": "The label for the \"colaborative vs independent\" radio group",
-        "id": "jobBuilder.workEnv.collaborativeLabel"
-      },
-      {
-        "defaultMessage": "Culture Summary",
-        "description": "The header for the culture summary section.",
-        "id": "jobBuilder.workEnv.cultureSummary"
-      },
-      {
-        "defaultMessage": "Here is the short paragraph summarizing your work culture which will appear on the job poster. Copy and paste it into the text box below if you want to customize it to the personality of your team and the way you work.",
-        "description": "The subtext for the culture summary section.",
-        "id": "jobBuilder.workEnv.cultureSummarySubtext"
-      },
-      {
-        "defaultMessage": "Customize your culture summary:",
-        "description": "The label for the custom culture summary textbox.",
-        "id": "jobBuilder.workEnv.customCultureSummaryLabel"
-      },
-      {
-        "defaultMessage": "Paste here to edit the paragraph.",
-        "description": "The placeholder for the custom culture summary textbox.",
-        "id": "jobBuilder.workEnv.customCultureSummaryPlaceholder"
-      },
-      {
-        "defaultMessage": "Anything Special About Your Work Culture?",
-        "description": "Title for subsection in our work culture.",
-        "id": "jobBuilder.workEnv.specialWorkCulture"
-      },
-      {
-        "defaultMessage": "Does your team care a lot about something else? Proud of the team's record of getting results? Strong commitment to mental wellness? Actively involved in advancing diversity and inclusion? LGBTQ+ champions? Here's a chance to let applicants know about the culture of the team they'll potentially be joining.",
-        "description": "Subtext for subsection in our work culture.",
-        "id": "jobBuilder.workEnv.specialWorkCultureSubtext"
-      },
-      {
-        "defaultMessage": "More About Your Work Culture",
-        "description": "The label for the 'more on work culture' textarea.",
-        "id": "jobBuilder.workEnv.specialWorkCultureLabel"
-      },
-      {
-        "defaultMessage": "Try for a casual, frank, friendly tone.",
-        "description": "Default placeholder for textarea element",
-        "id": "jobBuilder.workEnv.textAreaPlaceholder1"
-      },
-      {
-        "defaultMessage": "This is optional.",
-        "description": "Text indicator for optional sections within form.",
-        "id": "jobBuilder.workEnv.thisIsOptional"
-      },
-      {
-        "defaultMessage": "Very Fast-paced",
-        "id": "jobBuilder.culturePace.01.title"
-      },
-      {
-        "defaultMessage": "Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!",
-        "id": "jobBuilder.culturePace.01.description"
-      },
-      {
-        "defaultMessage": "Fast-paced",
-        "id": "jobBuilder.culturePace.02.title"
-      },
-      {
-        "defaultMessage": "Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes!",
-        "id": "jobBuilder.culturePace.02.description"
-      },
-      {
-        "defaultMessage": "Steady",
-        "id": "jobBuilder.culturePace.03.title"
-      },
-      {
-        "defaultMessage": "Our deadlines are regular and predictable, we balance a couple of tasks at a time, and our priorities change occasionally. We keep things on an even keel.",
-        "id": "jobBuilder.culturePace.03.description"
-      },
-      {
-        "defaultMessage": "Very Steady",
-        "id": "jobBuilder.culturePace.04.title"
-      },
-      {
-        "defaultMessage": "Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine.",
-        "id": "jobBuilder.culturePace.04.description"
-      },
-      {
-        "defaultMessage": "Horizontal",
-        "id": "jobBuilder.mgmtStyle.01.title"
-      },
-      {
-        "defaultMessage": "There’s no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.",
-        "id": "jobBuilder.mgmtStyle.01.description"
-      },
-      {
-        "defaultMessage": "Somewhat Horizontal",
-        "id": "jobBuilder.mgmtStyle.02.title"
-      },
-      {
-        "defaultMessage": "We have some middle management here but make most day-to-day decisions ourselves. Don’t be surprised to interact fairly often with our executives.",
-        "id": "jobBuilder.mgmtStyle.02.description"
-      },
-      {
-        "defaultMessage": "Somewhat Vertical",
-        "id": "jobBuilder.mgmtStyle.03.title"
-      },
-      {
-        "defaultMessage": "Our team has a clearly defined role. We check in regularly with middle-management for approvals and updates on the strategic vision of our executives.",
-        "id": "jobBuilder.mgmtStyle.03.description"
-      },
-      {
-        "defaultMessage": "Vertical",
-        "id": "jobBuilder.mgmtStyle.04.title"
-      },
-      {
-        "defaultMessage": "Our team has a clearly defined role. We check in often with middle-management for approvals and updates on the strategic vision of our executives.",
-        "id": "jobBuilder.mgmtStyle.04.description"
-      },
-      {
-        "defaultMessage": "Experimental",
-        "id": "jobBuilder.experimental.01.title"
-      },
-      {
-        "defaultMessage": "Our work is defined by trying out brand new ideas, methods, and activities to address persistent problems that traditional approaches have failed to solve.",
-        "id": "jobBuilder.experimental.01.description"
-      },
-      {
-        "defaultMessage": "Somewhat Experimental",
-        "id": "jobBuilder.experimental.02.title"
-      },
-      {
-        "defaultMessage": "We try out new and proven ideas, methods, and activities to improve how we do our work.",
-        "id": "jobBuilder.experimental.02.description"
-      },
-      {
-        "defaultMessage": "Somewhat Predictable Work",
-        "id": "jobBuilder.experimental.03.title"
-      },
-      {
-        "defaultMessage": "Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes.",
-        "id": "jobBuilder.experimental.03.description"
-      },
-      {
-        "defaultMessage": "Predictable Work",
-        "id": "jobBuilder.experimental.04.title"
-      },
-      {
-        "defaultMessage": "Most of our work involves administrative tasks are repeated on a regular basis. Consistency is key here, so we follow a standard process with tried and true tools.",
-        "id": "jobBuilder.experimental.04.description"
-      },
-      {
-        "defaultMessage": "Citizen Facing",
-        "id": "jobBuilder.facing.01.title"
-      },
-      {
-        "defaultMessage": "We are the face of the service we deliver and spend most of our time engaging directly with the public.",
-        "id": "jobBuilder.facing.01.description"
-      },
-      {
-        "defaultMessage": "Mostly Citizen Facing",
-        "id": "jobBuilder.facing.02.title"
-      },
-      {
-        "defaultMessage": "We spend a lot of our time engaging directly with the public, but there is also behind the scenes work to support others.",
-        "id": "jobBuilder.facing.02.description"
-      },
-      {
-        "defaultMessage": "Mostly Back Office",
-        "id": "jobBuilder.facing.03.title"
-      },
-      {
-        "defaultMessage": "We usually work behind the scenes doing important work that makes service delivery possible.",
-        "id": "jobBuilder.facing.03.description"
-      },
-      {
-        "defaultMessage": "Back Office",
-        "id": "jobBuilder.facing.04.title"
-      },
-      {
-        "defaultMessage": "We work behind the scenes doing important work that makes service delivery possible. We thrive on supporting others.",
-        "id": "jobBuilder.facing.04.description"
-      },
-      {
-        "defaultMessage": "Collaborative",
-        "id": "jobBuilder.collaborativeness.01.title"
-      },
-      {
-        "defaultMessage": "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team’s goals and are always looking for ways to pitch in.",
-        "id": "jobBuilder.collaborativeness.01.description"
-      },
-      {
-        "defaultMessage": "Somewhat Collaborative",
-        "id": "jobBuilder.collaborativeness.02.title"
-      },
-      {
-        "defaultMessage": "Our team has a diverse set of skills and we recognize each others strengths. We work together often and are quick to pitch in when someone asks for help.",
-        "id": "jobBuilder.collaborativeness.02.description"
-      },
-      {
-        "defaultMessage": "Somewhat Independent",
-        "id": "jobBuilder.collaborativeness.03.title"
-      },
-      {
-        "defaultMessage": "Members of our team own their piece of the puzzle and have some freedom to choose how they get their work done.",
-        "id": "jobBuilder.collaborativeness.03.description"
-      },
-      {
-        "defaultMessage": "Independent",
-        "id": "jobBuilder.collaborativeness.04.title"
-      },
-      {
-        "defaultMessage": "Members of our team own their piece of the puzzle. It doesn’t really matter how we get our work done as long as it’s high quality.",
-        "id": "jobBuilder.collaborativeness.04.description"
-      },
-      {
-        "defaultMessage": "Work Environment",
-        "description": "Header of job poster builder work environment step.",
-        "id": "jobBuilder.workEnv.title"
-      },
-      {
-        "defaultMessage": "Applicants care a lot about the team they'll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they'll be a good fit, and can reduce the number of \"wishful thinking\" applications that slow down the screening process.",
-        "description": "Description of job poster builder work environment step.",
-        "id": "jobBuilder.workEnv.stepDescription"
-      },
-      {
-        "defaultMessage": "Our Work Environment",
-        "description": "Section 1 of Job Poster Builder Work Environment Step",
-        "id": "jobBuilder.workEnv.ourWorkEnv"
-      },
-      {
-        "defaultMessage": "Now let applicants know more about the personality of your team and the type of work that you usually do.",
-        "description": "Subtext 1 displayed of the our culture section.",
-        "id": "jobBuilder.workEnv.cultureSubtext1"
-      },
-      {
-        "defaultMessage": "Copy to Clipboard",
-        "description": "Button to copy text to clipboard.",
-        "id": "button.copyToClipboard"
-      },
-      {
-        "defaultMessage": "Copied!",
-        "description": "Confirmation for Button to copy text to clipboard.",
-        "id": "button.copied"
-      },
-      {
-        "defaultMessage": "Save & Return to Job Details",
-        "description": "Label for Save & Return button on Work Environment form.",
-        "id": "jobBuilder.workEnv.saveAndReturnButtonLabel"
-      },
-      {
-        "defaultMessage": "Save & Preview",
-        "description": "Label for work environment submit button.",
-        "id": "jobBuilder.workEnv.submitButtonLabel"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilderWorkEnv/WorkEnvForm.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "You're off to a great start!",
-        "description": "Kicker message at the start of the modal.",
-        "id": "jobBuilder.workEnv.greatStart"
-      },
-      {
-        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\r\n                free to go back and edit things or move to the next step if\r\n                you're happy with it.",
-        "description": "Opening sentence for modal.",
-        "id": "jobBuilder.workEnv.openingSentence"
-      },
-      {
-        "defaultMessage": "Work Environment",
-        "description": "Header of job poster builder work environment step.",
-        "id": "jobBuilder.workEnvModal.title"
-      },
-      {
-        "defaultMessage": "Work Culture",
-        "description": "The title displayed for the work culture section on modal.",
-        "id": "jobBuilder.workEnvModal.workCultureTitle"
-      },
-      {
-        "defaultMessage": "Go Back",
-        "description": "The label displayed on modal cancel button.",
-        "id": "jobBuilder.workEnvModal.cancelLabel"
-      },
-      {
-        "defaultMessage": "Skip to Review",
-        "description": "The text displayed on the 'Skip to Review' button of the Work Env modal.",
-        "id": "jobBuilder.workEnvModal.modalMiddleLabel"
-      },
-      {
-        "defaultMessage": "Next Step",
-        "description": "The label displayed on modal confirm button.",
-        "id": "jobBuilder.workEnvModal.confirmLabel"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilderWorkEnv/WorkEnvModal.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Job Details",
-        "description": "Job Details page heading",
-        "id": "jobBuilder.details.heading"
-      },
-      {
-        "defaultMessage": "Please select a classification and level before preparing the education requirements.",
-        "description": "Message displayed after classification and level select boxes.",
-        "id": "jobBuilder.details.SelectClassAndLvlMessage"
-      },
-      {
-        "defaultMessage": "Based on the classification level you selected, this standard paragraph will appear on the job poster.",
-        "description": "Header message displayed for the Education requirement section.",
-        "id": "jobBuilder.details.educationRequirementHeader"
-      },
-      {
-        "defaultMessage": "If you want to customize this paragraph, copy and paste it into the textbox below.",
-        "description": "Footer message displayed for the Education requirement section.",
-        "id": "jobBuilder.details.educationRequirementCopyAndPaste"
-      },
-      {
-        "defaultMessage": "Your HR advisor will review your changes.",
-        "description": "Footer message displayed for the Education requirement section.",
-        "id": "jobBuilder.details.educationRequirementReviewChanges"
-      },
-      {
-        "defaultMessage": "Copy to Clipboard",
-        "description": "Button to copy text to clipboard.",
-        "id": "button.copyToClipboard"
-      },
-      {
-        "defaultMessage": "Copied!",
-        "description": "Confirmation for Button to copy text to clipboard.",
-        "id": "button.copied"
-      },
-      {
-        "defaultMessage": "Is remote work allowed?",
-        "description": "Header message displayed on the remote work group input.",
-        "id": "jobBuilder.details.remoteWorkGroupHeader"
-      },
-      {
-        "defaultMessage": "Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor.",
-        "description": "Body message displayed on the remote work group input.",
-        "id": "jobBuilder.details.remoteWorkGroupBody"
-      },
-      {
-        "defaultMessage": "How often is telework allowed?",
-        "description": "Header message displayed on the telework group input.",
-        "id": "jobBuilder.details.teleworkGroupHeader"
-      },
-      {
-        "defaultMessage": "Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option.",
-        "description": "Body message displayed on the telework group input.",
-        "id": "jobBuilder.details.teleworkGroupBody"
-      },
-      {
-        "defaultMessage": "How often are flexible hours allowed?",
-        "description": "Header message displayed on the flex hours group input.",
-        "id": "jobBuilder.details.flexHoursGroupHeader"
-      },
-      {
-        "defaultMessage": "Want to support a more gender inclusive workplace?\n                          Studies show allowing flex hours is a great way to improve opportunities for women and parents.",
-        "description": "Body message displayed on the flex hours group input.",
-        "id": "jobBuilder.details.flexHoursGroupBody"
-      },
-      {
-        "defaultMessage": "Is travel required?",
-        "description": "Header message displayed on the travel group input.",
-        "id": "jobBuilder.details.travelGroupHeader"
-      },
-      {
-        "defaultMessage": "Is overtime required?",
-        "description": "Header message displayed on the overtime group input.",
-        "id": "jobBuilder.details.overtimeGroupHeader"
-      },
-      {
-        "defaultMessage": "Save & Return to Intro",
-        "description": "The text displayed on the Save & Return button of the Job Details form.",
-        "id": "jobBuilder.details.returnButtonLabel"
-      },
-      {
-        "defaultMessage": "Save & Preview",
-        "description": "The text displayed on the submit button for the Job Details form.",
-        "id": "jobBuilder.details.submitButtonLabel"
-      },
-      {
-        "defaultMessage": "You're off to a great start!",
-        "description": "The text displayed in the header of the Job Details modal.",
-        "id": "jobBuilder.details.modalHeader"
-      },
-      {
-        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
-        "description": "The text displayed in the body of the Job Details modal.",
-        "id": "jobBuilder.details.modalBody"
-      },
-      {
-        "defaultMessage": "Go Back",
-        "description": "The text displayed on the cancel button of the Job Details modal.",
-        "id": "jobBuilder.details.modalCancelLabel"
-      },
-      {
-        "defaultMessage": "Skip to Review",
-        "description": "The text displayed on the 'Skip to Review' button of the Job Details modal.",
-        "id": "jobBuilder.details.modalMiddleLabel"
-      },
-      {
-        "defaultMessage": "Next Step",
-        "description": "The text displayed on the confirm button of the Job Details modal.",
-        "id": "jobBuilder.details.modalConfirmLabel"
-      }
-    ],
-    "path": "resources/assets/js/components/JobDetails/JobDetails.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "What is the job title?",
-        "description": "The form label displayed on the title input.",
-        "id": "jobBuilder.details.titleLabel"
-      },
-      {
-        "defaultMessage": "e.g. Product Designer",
-        "description": "The form placeholder displayed on the title input.",
-        "id": "jobBuilder.details.titlePlaceholder"
-      },
-      {
-        "defaultMessage": "How long is the term (in months)?",
-        "description": "The form label displayed on the term length input.",
-        "id": "jobBuilder.details.termLengthLabel"
-      },
-      {
-        "defaultMessage": "e.g. 3",
-        "description": "The form placeholder displayed on the term length input.",
-        "id": "jobBuilder.details.termLengthPlaceholder"
-      },
-      {
-        "defaultMessage": "What is the classification?",
-        "description": "The form label displayed on the classification input.",
-        "id": "jobBuilder.details.classificationLabel"
-      },
-      {
-        "defaultMessage": "Select a classification...",
-        "description": "The default selection option displayed on the classification input.",
-        "id": "jobBuilder.details.classificationNullSelection"
-      },
-      {
-        "defaultMessage": "What is the level?",
-        "description": "The form label displayed on the level input.",
-        "id": "jobBuilder.details.levelLabel"
-      },
-      {
-        "defaultMessage": "Select a level...",
-        "description": "The default selection option displayed on the level input.",
-        "id": "jobBuilder.details.levelNullSelection"
-      },
-      {
-        "defaultMessage": "What is the security level?",
-        "description": "The form label displayed on the security level input.",
-        "id": "jobBuilder.details.securityLevelLabel"
-      },
-      {
-        "defaultMessage": "Select a security level...",
-        "description": "The default selection option displayed on the security level input.",
-        "id": "jobBuilder.details.securityLevelNullSelection"
-      },
-      {
-        "defaultMessage": "What is the language profile?",
-        "description": "The form label displayed on the language input.",
-        "id": "jobBuilder.details.languageLabel"
-      },
-      {
-        "defaultMessage": "Select a language profile...",
-        "description": "The default selection option displayed on the language input.",
-        "id": "jobBuilder.details.languageNullSelection"
-      },
-      {
-        "defaultMessage": "What city is the team located in?",
-        "description": "The form label displayed on the city input.",
-        "id": "jobBuilder.details.cityLabel"
-      },
-      {
-        "defaultMessage": "e.g. Ottawa",
-        "description": "The form placeholder displayed on the city input.",
-        "id": "jobBuilder.details.cityPlaceholder"
-      },
-      {
-        "defaultMessage": "What province is the team located in?",
-        "description": "The form label displayed on the province input.",
-        "id": "jobBuilder.details.provinceLabel"
-      },
-      {
-        "defaultMessage": "Select a province...",
-        "description": "The default selection option displayed on the province input.",
-        "id": "jobBuilder.details.provinceNullSelection"
-      },
-      {
-        "defaultMessage": "Select a remote work option:",
-        "description": "The form label displayed on the remote work radio group.",
-        "id": "jobBuilder.details.remoteWorkGroupLabel"
-      },
-      {
-        "defaultMessage": "Yes, I’m willing to supervise employees anywhere in the world.",
-        "description": "The form label displayed on the 'world' remote work radio option.",
-        "id": "jobBuilder.details.remoteWorkWorldLabel"
-      },
-      {
-        "defaultMessage": "Yes, I’m willing to supervise employees in any province or territory in Canada.",
-        "description": "The form label displayed on the 'canada' remote work radio option.",
-        "id": "jobBuilder.details.remoteWorkCanadaLabel"
-      },
-      {
-        "defaultMessage": "No, I require the employee in this position to be in the same geographic location as the office.",
-        "description": "The form label displayed on the 'none' remote work radio option.",
-        "id": "jobBuilder.details.remoteWorkNoneLabel"
-      },
-      {
-        "defaultMessage": "Select a telework option:",
-        "description": "The form label displayed on the telework radio group.",
-        "id": "jobBuilder.details.teleworkGroupLabel"
-      },
-      {
-        "defaultMessage": "Select a flexible hours option:",
-        "description": "The form label displayed on the flex hours radio group.",
-        "id": "jobBuilder.details.flexHoursGroupLabel"
-      },
-      {
-        "defaultMessage": "Select a travel option:",
-        "description": "The form label displayed on the travel radio group.",
-        "id": "jobBuilder.details.travelGroupLabel"
-      },
-      {
-        "defaultMessage": "Select a overtime option:",
-        "description": "The form label displayed on the overtime radio group.",
-        "id": "jobBuilder.details.overtimeGroupLabel"
-      },
-      {
-        "defaultMessage": "Customize the Education Requirement:",
-        "description": "The form label displayed above 'customize education requirement' textbox",
-        "id": "jobBuilder.details.educationRequirementsLabel"
-      },
-      {
-        "defaultMessage": "Paste the paragraph here to edit...",
-        "description": "The placeholder displayed in 'customize education requirement' textbox",
-        "id": "jobBuilder.details.educationRequirementPlaceholder"
-      },
-      {
-        "defaultMessage": "AS - Administrative Services",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.AS"
-      },
-      {
-        "defaultMessage": "BI - Biological Sciences",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.BI"
-      },
-      {
-        "defaultMessage": "CO - Commerce",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.CO"
-      },
-      {
-        "defaultMessage": "CR - Clerical and Regulatory",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.CR"
-      },
-      {
-        "defaultMessage": "CS - Computer Systems",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.CS"
-      },
-      {
-        "defaultMessage": "EC - Economics and Social Science Services",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.EC"
-      },
-      {
-        "defaultMessage": "EX - Executive",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.EX"
-      },
-      {
-        "defaultMessage": "FO - Forestry",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.FO"
-      },
-      {
-        "defaultMessage": "IS - Information Services",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.IS"
-      },
-      {
-        "defaultMessage": "PC - Physical Sciences",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.PC"
-      },
-      {
-        "defaultMessage": "PE - Personnel Administration",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.PE"
-      },
-      {
-        "defaultMessage": "PM - Programme Administration",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.PM"
-      },
-      {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.\n    ",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.AS"
-      },
-      {
-        "defaultMessage": "Post-secondary degree:\nSuccessful completion of post-secondary degree in a natural, physical or applied science with specialization in a field relevant to the duties of the position.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.BI"
-      },
-      {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.CO"
-      },
-      {
-        "defaultMessage": "2 years of secondary school, or equivalent:\nSuccessful completion of at least two years of secondary school education.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the 2 year secondary school requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.CR"
-      },
-      {
-        "defaultMessage": "2 years post-secondary, or equivalent:\nSuccessful completion of two years of post-secondary education in computer science, information technology, information management or another specialty relevant to this position.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the 2 year post-secondary requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.CS"
-      },
-      {
-        "defaultMessage": "Post-secondary degree:\nGraduation with a degree from a recognized post-secondary institution with acceptable specialization in economics, sociology or statistics.\n\nCandidates must always have a degree. The courses for the specialization must be acceptable and may have been taken at a recognized post-secondary institution, but not necessarily within a degree program in the required specialization. The specialization may also be obtained through an acceptable combination of education, training and/or experience.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.EC"
-      },
-      {
-        "defaultMessage": "Post-secondary degree, or equivalent:\nPost-secondary degree, or eligibility for a recognized professional designation in one of the provinces or territories of Canada.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.EX"
-      },
-      {
-        "defaultMessage": "Post-secondary degree:\nGraduation with a degree in forestry or wood science from a recognized post-secondary institution.\n\nor\n\nGraduation with a degree in a related science from a recognized post-secondary institution combined with acceptable experience.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.FO"
-      },
-      {
-        "defaultMessage": "Post-secondary degree, or equivalent:\nSuccessful completion of a post-secondary degree.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.IS"
-      },
-      {
-        "defaultMessage": "Post-secondary degree:\nSuccessful completion of a post-secondary degree with specialization in physics, geology, chemistry or some other science relevant to the position.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.PC"
-      },
-      {
-        "defaultMessage": "Post-secondary degree, or equivalent:\nSuccessful completion of a post-secondary degree with specialization in human resources management, labour or industrial relations, psychology, public or business administration, organizational development, education sciences, social sciences, sociology, or another specialty relevant to this position.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.PE"
-      },
-      {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.PM"
-      }
-    ],
-    "path": "resources/assets/js/components/JobDetails/JobDetailsMessages.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "{termMonths, plural, =0 {no months} one {# month} other {# months}}",
-        "description": "Calculated term length in months",
-        "id": "jobBuilder.preview.termLength"
-      },
-      {
-        "defaultMessage": "Job Information",
-        "description": "Section Header for basic information",
-        "id": "jobBuilder.preview.jobInformation"
-      },
-      {
-        "defaultMessage": "Job Title",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.jobTitle"
-      },
-      {
-        "defaultMessage": "Length of the Term",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.lengthOfTheTerm"
-      },
-      {
-        "defaultMessage": "Security Clearance",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.securityClearance"
-      },
-      {
-        "defaultMessage": "Language Profile",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.languageProfile"
-      },
-      {
-        "defaultMessage": "City",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.city"
-      },
-      {
-        "defaultMessage": "Province",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.province"
-      },
-      {
-        "defaultMessage": "Classification & Education",
-        "description": "Section Header",
-        "id": "jobBuilder.preview.classificationEducation"
-      },
-      {
-        "defaultMessage": "Classification",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.classification"
-      },
-      {
-        "defaultMessage": "Level",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.level"
-      },
-      {
-        "defaultMessage": "Education",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.education"
-      },
-      {
-        "defaultMessage": "Work Styles",
-        "description": "Section Header",
-        "id": "jobBuilder.preview.workStyles"
-      },
-      {
-        "defaultMessage": "Remote Work",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.remoteWork"
-      },
-      {
-        "defaultMessage": "Telework",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.telework"
-      },
-      {
-        "defaultMessage": "Flexible Hours",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.flexibleHours"
-      },
-      {
-        "defaultMessage": "Travel",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.travel"
-      },
-      {
-        "defaultMessage": "Overtime",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.overtime"
-      }
-    ],
-    "path": "resources/assets/js/components/JobPreview.json"
+    "path": "resources/assets/js/components/JobBuilder/Review/DemoSubmitJobModal.json"
   },
   {
     "descriptors": [
@@ -2810,7 +2001,7 @@
         "id": "jobBuilder.review.button.return"
       },
       {
-        "defaultMessage": "Send to HR for Review",
+        "defaultMessage": "Looks good!",
         "description": "Label of Job Review Submission Button",
         "id": "jobBuilder.review.button.submit"
       },
@@ -2850,7 +2041,346 @@
         "id": "jobBuilder.review.confirm.submit"
       }
     ],
-    "path": "resources/assets/js/components/JobReview/JobReview.json"
+    "path": "resources/assets/js/components/JobBuilder/Review/JobReview.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Skill Definition",
+        "description": "Label for Skill Definition heading on Add Skill modal.",
+        "id": "jobBuilder.criteriaForm.skillDefinition"
+      },
+      {
+        "defaultMessage": "Remove additional specificity.",
+        "description": "Label for 'Remove additional specificity' button on Add Skill modal.",
+        "id": "jobBuilder.criteriaForm.removeSpecificity"
+      },
+      {
+        "defaultMessage": "I'd like to add specificity to this definition. This will\r\n                          only apply to my job poster.",
+        "description": "Label for 'Add additional specificity' button on Add Skill modal.",
+        "id": "jobBuilder.criteriaForm.addSpecificity"
+      },
+      {
+        "defaultMessage": "Choose a Skill Level",
+        "description": "Label for 'Choose a Skill Level' radio group heading on Add Skill modal.",
+        "id": "jobBuilder.criteriaForm.chooseSkillLevel"
+      },
+      {
+        "defaultMessage": "or",
+        "description": "Label for 'or' between essential/asset levels on Add Skill modal.",
+        "id": "jobBuilder.criteriaForm.or"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Label for Cancel button on Add Skill modal.",
+        "id": "jobBuilder.criteriaForm.button.cancel"
+      },
+      {
+        "defaultMessage": "Add Skill",
+        "description": "Label for Add Skill button on Add Skill modal.",
+        "id": "jobBuilder.criteriaForm.button.add"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/Skills/CriteriaForm.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "get in touch with us through email",
+        "description": "Text for an email link in a larger block of text",
+        "id": "jobBuilder.skills.emailLink"
+      },
+      {
+        "defaultMessage": "Please select a skill from our list",
+        "description": "Label for skill selection dropdown menu",
+        "id": "jobBuilder.skills.selectSkillLabel"
+      },
+      {
+        "defaultMessage": "Please select a skill",
+        "description": "Label for skill selection dropdown null/default state",
+        "id": "jobBuilder.skills.selectSkillNull"
+      },
+      {
+        "defaultMessage": "Arrow icon highlighting the unhappy smiley icon.",
+        "description": "Alternative text describing unhappy arrow image",
+        "id": "jobBuilder.skills.alt.unhappyArrow"
+      },
+      {
+        "defaultMessage": "Unhappy coloured smiley icon.",
+        "description": "Alternative text describing unhappy smiley image",
+        "id": "jobBuilder.skills.alt.unhappySmiley"
+      },
+      {
+        "defaultMessage": "Unhappy grayscale smiley icon.",
+        "description": "Alternative text describing unhappy grayscale smiley image",
+        "id": "jobBuilder.skills.alt.unhappyGraySmiley"
+      },
+      {
+        "defaultMessage": "Arrow icon highlighting the neutral smiley icon.",
+        "description": "Alternative text describing neutral arrow image",
+        "id": "jobBuilder.skills.alt.neutralArrow"
+      },
+      {
+        "defaultMessage": "neutral coloured smiley icon.",
+        "description": "Alternative text describing neutral smiley image",
+        "id": "jobBuilder.skills.alt.neutralSmiley"
+      },
+      {
+        "defaultMessage": "neutral grayscale smiley icon.",
+        "description": "Alternative text describing neutral grayscale smiley image",
+        "id": "jobBuilder.skills.alt.neutralGraySmiley"
+      },
+      {
+        "defaultMessage": "Arrow icon highlighting the happy smiley icon.",
+        "description": "Alternative text describing happy arrow image",
+        "id": "jobBuilder.skills.alt.happyArrow"
+      },
+      {
+        "defaultMessage": "happy coloured smiley icon.",
+        "description": "Alternative text describing happy smiley image",
+        "id": "jobBuilder.skills.alt.happySmiley"
+      },
+      {
+        "defaultMessage": "happy grayscale smiley icon.",
+        "description": "Alternative text describing happy grayscale smiley image",
+        "id": "jobBuilder.skills.alt.happyGraySmiley"
+      },
+      {
+        "defaultMessage": "Add skills below to proceed.",
+        "description": "Placeholder skill title / instructions to add skill",
+        "id": "jobBuilder.skills.addSkillBelow"
+      },
+      {
+        "defaultMessage": "Skill Level",
+        "description": "Placeholder label",
+        "id": "jobBuilder.skills.skillLevel"
+      },
+      {
+        "defaultMessage": "Save & Preview Skills",
+        "description": "Label of Button",
+        "id": "jobBuilder.skills.button.previewSkills"
+      },
+      {
+        "defaultMessage": "Skills",
+        "description": "section title",
+        "id": "jobBuilder.skills.title"
+      },
+      {
+        "defaultMessage": "This is where you'll select the criteria that are required to do\r\n            this job effectively. Below are two bars that indicate a measurement\r\n            of your current skill selection.",
+        "description": "section description under title",
+        "id": "jobBuilder.skills.description"
+      },
+      {
+        "defaultMessage": "View Key Tasks",
+        "description": "Button label",
+        "id": "jobBuilder.skills.button.keyTasks"
+      },
+      {
+        "defaultMessage": "Your Skills List",
+        "description": "List section title",
+        "id": "jobBuilder.skills.listTitle"
+      },
+      {
+        "defaultMessage": "Number of Essential Skills",
+        "description": "Title of skill status tracker",
+        "id": "jobBuilder.skills.statusSmiley.essentialTitle"
+      },
+      {
+        "defaultMessage": "Too Few",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.essential.tooFew"
+      },
+      {
+        "defaultMessage": "Almost",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.essential.almost"
+      },
+      {
+        "defaultMessage": "Awesome",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.essential.awesome"
+      },
+      {
+        "defaultMessage": "Acceptable",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.essential.acceptable"
+      },
+      {
+        "defaultMessage": "Too Many",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.essential.tooMany"
+      },
+      {
+        "defaultMessage": "Total Number of Skills",
+        "description": "Title of skill quantity evaluator",
+        "id": "jobBuilder.skills.statusSmiley.title"
+      },
+      {
+        "defaultMessage": "Too Few",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.tooFew"
+      },
+      {
+        "defaultMessage": "Almost",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.almost"
+      },
+      {
+        "defaultMessage": "Awesome",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.awesome"
+      },
+      {
+        "defaultMessage": "Acceptable",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.acceptable"
+      },
+      {
+        "defaultMessage": "Too Many",
+        "description": "Description of quantity of skills",
+        "id": "jobBuilder.skills.statusSmiley.tooMany"
+      },
+      {
+        "defaultMessage": "Essential Skills",
+        "description": "Title of essential skills list",
+        "id": "jobBuilder.skills.title.essentialSkills"
+      },
+      {
+        "defaultMessage": "Asset Skills",
+        "description": "Title of asset skills list",
+        "id": "jobBuilder.skills.title.assetSkills"
+      },
+      {
+        "defaultMessage": "Skill Selection",
+        "description": "Title of skill selection section",
+        "id": "jobBuilder.skills.title.skillSelection"
+      },
+      {
+        "defaultMessage": "Occupational Competencies",
+        "description": "Title of skills category",
+        "id": "jobBuilder.skills.title.occupationalSkills"
+      },
+      {
+        "defaultMessage": "Aim for {minOccupational} - {maxOccupational} skills.",
+        "description": "Ranage recommendation for occupational competencies in job poster",
+        "id": "jobBuilder.skills.range.occupationalSkills"
+      },
+      {
+        "defaultMessage": "You must return to Step 1 and choose a Classification.",
+        "description": "Placeholder text for occupational competencies list.",
+        "id": "jobBuilder.skills.nullText.occupationalSkills"
+      },
+      {
+        "defaultMessage": "Behavioural Competencies",
+        "description": "Title of skills category",
+        "id": "jobBuilder.skills.title.culturalSkills"
+      },
+      {
+        "defaultMessage": "Aim for {minCulture} - {maxCulture} skills.",
+        "description": "Range recommendation for behavioural competencies in job poster",
+        "id": "jobBuilder.skills.range.culturalSkills"
+      },
+      {
+        "defaultMessage": "Public Service Competencies",
+        "description": "Title of skills category",
+        "id": "jobBuilder.skills.title.futureSkills"
+      },
+      {
+        "defaultMessage": "Aim for {minFuture} - {maxFuture} skills.",
+        "description": "Ranage recommendation for public service competencies in job poster",
+        "id": "jobBuilder.skills.range.futureSkills"
+      },
+      {
+        "defaultMessage": "Can't find the skill you need?",
+        "description": "Title of instructions for missing skill",
+        "id": "jobBuilder.skills.title.missingSkill"
+      },
+      {
+        "defaultMessage": "Building a skills list is a huge endeavour, and it's not\r\n  surprising that Talent Cloud's list doesn't have the skill\r\n  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to\r\n  kick-off the discussion.",
+        "id": "jobBuilder.skills.instructions.missingSkills"
+      },
+      {
+        "defaultMessage": "Other Skills",
+        "description": "Title of other skills section",
+        "id": "jobBuilder.skills.title.otherSkills"
+      },
+      {
+        "defaultMessage": "There are no extra skills added.",
+        "description": "Placeholder when there are no other skills",
+        "id": "jobBuilder.skills.placeholder.otherSkills"
+      },
+      {
+        "defaultMessage": "Save & Return to Tasks",
+        "description": "Button Label",
+        "id": "jobBuilder.skills.button.returnToTasks"
+      },
+      {
+        "defaultMessage": "At least one 'Essential Skill' is required.",
+        "description": "Label of Button",
+        "id": "jobBuilder.skills.essentialSkillRequiredError"
+      },
+      {
+        "defaultMessage": "Key Tasks",
+        "description": "Title of Key Tasks Section",
+        "id": "jobBuilder.skills.title.keyTasks"
+      },
+      {
+        "defaultMessage": "Back to Skills",
+        "description": "The text displayed on the cancel button of the Key Tasks modal on the Job Builder Skills step.",
+        "id": "jobBuilder.skills.tasksModalCancelLabel"
+      },
+      {
+        "defaultMessage": "Add a skill",
+        "description": "Title of Add a skill Section",
+        "id": "jobBuilder.skills.title.addASkill"
+      },
+      {
+        "defaultMessage": "Edit skill",
+        "description": "Title of Edit skill Modal",
+        "id": "jobBuilder.skills.title.editSkill"
+      },
+      {
+        "defaultMessage": "Keep it up!",
+        "description": "Title of Keep it up! Modal",
+        "id": "jobBuilder.skills.title.keepItUp"
+      },
+      {
+        "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to\r\n                go back and edit things or move to the next step if you're\r\n                happy with it.",
+        "description": "Body text of Keep it up! Modal",
+        "id": "jobBuilder.skills.description.keepItUp"
+      },
+      {
+        "defaultMessage": "Skills the Employee Needs to Have",
+        "description": "Section Header in Modal",
+        "id": "jobBuilder.skills.title.needsToHave"
+      },
+      {
+        "defaultMessage": "You haven't added any skills yet.",
+        "description": "The text displayed in the skills modal when you haven't added any skills.",
+        "id": "jobBuilder.skills.nullState"
+      },
+      {
+        "defaultMessage": "Skills That Would Be Nice For the Employee to Have",
+        "description": "Section Header in Modal",
+        "id": "jobBuilder.skills.title.niceToHave"
+      },
+      {
+        "defaultMessage": "Go Back",
+        "description": "The text displayed on the cancel button of the Job Builder Skills Preview modal.",
+        "id": "jobBuilder.skills.previewModalCancelLabel"
+      },
+      {
+        "defaultMessage": "Skip to Review",
+        "description": "The text displayed on the 'Skip to Review' button of the Job Builder Skills Preview modal.",
+        "id": "jobBuilder.skills.previewModalMiddleLabel"
+      },
+      {
+        "defaultMessage": "Next Step",
+        "description": "The text displayed on the confirm button of the Job Builder Skills Preview modal.",
+        "id": "jobBuilder.skills.previewModalConfirmLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/Skills/JobBuilderSkills.json"
   },
   {
     "descriptors": [
@@ -2890,7 +2420,7 @@
         "id": "jobBuilder.tasks.intro.second"
       },
       {
-        "defaultMessage": "Aim to provide between four and six key tasks. (You can add as many key tasks as you want as you brainstorm here, but you can include no more than eight in the final job poster.)",
+        "defaultMessage": "Aim to provide between four and six key tasks. (You can add as many key tasks as you want as you brainstorm here, but you can include no more than six in the final job poster.)",
         "description": "Job Tasks page third intro section",
         "id": "jobBuilder.tasks.intro.third"
       },
@@ -2965,7 +2495,472 @@
         "id": "jobBuilder.tasks.modal.confirmButtonLabel"
       }
     ],
-    "path": "resources/assets/js/components/JobTasks/JobTasks.json"
+    "path": "resources/assets/js/components/JobBuilder/Tasks/JobTasks.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Share a little about your physical space, the technology used by your team, and the amenities close to your office. Check all that apply.",
+        "description": "Section 1 description of Job Poster Builder Work Environment Step",
+        "id": "jobBuilder.workEnv.ourWorkEnvDesc"
+      },
+      {
+        "defaultMessage": "Team Size",
+        "description": "The label displayed on the team size input.",
+        "id": "jobBuilder.workEnv.teamSizeLabel"
+      },
+      {
+        "defaultMessage": "Our Physical Environment",
+        "description": "The label displayed on the physical environment checkbox group.",
+        "id": "jobBuilder.workEnv.physicalEnvLabel"
+      },
+      {
+        "defaultMessage": "Technology",
+        "description": "The label displayed on the technology checkbox group.",
+        "id": "jobBuilder.workEnv.technologyLabel"
+      },
+      {
+        "defaultMessage": "Amenities",
+        "description": "The label displayed on the amenities checkbox group.",
+        "id": "jobBuilder.workEnv.amenitiesLabel"
+      },
+      {
+        "defaultMessage": "More about your Environment",
+        "description": "The title for the more about your environment textbox.",
+        "id": "jobBuilder.workEnv.moreOnWorkEnv"
+      },
+      {
+        "defaultMessage": "Anything else you'd like to add about your work environment? Highlight features of the physical environment, technology and amenities specific to your team.",
+        "description": "Subtext displayed for the more about your environment textbox.",
+        "id": "jobBuilder.workEnv.moreOnWorkEnvSubtext"
+      },
+      {
+        "defaultMessage": "More About Your Environment",
+        "description": "The label displayed for the more about your environment textbox.",
+        "id": "jobBuilder.workEnv.moreOnWorkEnvLabel"
+      },
+      {
+        "defaultMessage": "Try for a casual, frank, friendly tone.",
+        "description": "The placeholder displayed for the more about your environment textbox.",
+        "id": "jobBuilder.workEnv.moreOnWorkEnvPlaceholder"
+      },
+      {
+        "defaultMessage": "Our Culture",
+        "description": "Section 2 radio group title of our culture step.",
+        "id": "jobBuilder.workEnv.culture"
+      },
+      {
+        "defaultMessage": "Based on your selections, we'll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team.",
+        "description": "Subtext 2 displayed of the our culture section.",
+        "id": "jobBuilder.workEnv.cultureSubtext2"
+      },
+      {
+        "defaultMessage": "Fast-paced vs. Steady:",
+        "description": "The label for the fast-paced vs. steady radio group",
+        "id": "jobBuilder.workEnv.fastPacedSteadyLabel"
+      },
+      {
+        "defaultMessage": "Horizontal vs. Vertical:",
+        "description": "The label for the management radio group",
+        "id": "jobBuilder.workEnv.managementLabel"
+      },
+      {
+        "defaultMessage": "Experimental vs. Ongoing Business:",
+        "description": "The label for the experimental radio group",
+        "id": "jobBuilder.workEnv.experimentalLabel"
+      },
+      {
+        "defaultMessage": "Citizen Facing vs. Back Office:",
+        "description": "The label for the facing radio group",
+        "id": "jobBuilder.workEnv.facingLabel"
+      },
+      {
+        "defaultMessage": "Collaborative vs. Independent:",
+        "description": "The label for the \"collaborative vs independent\" radio group",
+        "id": "jobBuilder.workEnv.collaborativeLabel"
+      },
+      {
+        "defaultMessage": "Culture Summary",
+        "description": "The header for the culture summary section.",
+        "id": "jobBuilder.workEnv.cultureSummary"
+      },
+      {
+        "defaultMessage": "Here is the short paragraph summarizing your work culture which will appear on the job poster. Copy and paste it into the text box below if you want to customize it to the personality of your team and the way you work.",
+        "description": "The subtext for the culture summary section.",
+        "id": "jobBuilder.workEnv.cultureSummarySubtext"
+      },
+      {
+        "defaultMessage": "Customize your culture summary:",
+        "description": "The label for the custom culture summary textbox.",
+        "id": "jobBuilder.workEnv.customCultureSummaryLabel"
+      },
+      {
+        "defaultMessage": "Paste here to edit the paragraph.",
+        "description": "The placeholder for the custom culture summary textbox.",
+        "id": "jobBuilder.workEnv.customCultureSummaryPlaceholder"
+      },
+      {
+        "defaultMessage": "Anything Special About Your Work Culture?",
+        "description": "Title for subsection in our work culture.",
+        "id": "jobBuilder.workEnv.specialWorkCulture"
+      },
+      {
+        "defaultMessage": "Does your team care a lot about something else? Proud of the team's record of getting results? Strong commitment to mental wellness? Actively involved in advancing diversity and inclusion? LGBTQ+ champions? Here's a chance to let applicants know about the culture of the team they'll potentially be joining.",
+        "description": "Subtext for subsection in our work culture.",
+        "id": "jobBuilder.workEnv.specialWorkCultureSubtext"
+      },
+      {
+        "defaultMessage": "More About Your Work Culture",
+        "description": "The label for the 'more on work culture' textarea.",
+        "id": "jobBuilder.workEnv.specialWorkCultureLabel"
+      },
+      {
+        "defaultMessage": "Try for a casual, frank, friendly tone.",
+        "description": "Default placeholder for textarea element",
+        "id": "jobBuilder.workEnv.textAreaPlaceholder1"
+      },
+      {
+        "defaultMessage": "This is optional.",
+        "description": "Text indicator for optional sections within form.",
+        "id": "jobBuilder.workEnv.thisIsOptional"
+      },
+      {
+        "defaultMessage": "Very Fast-paced",
+        "id": "jobBuilder.culturePace.01.title"
+      },
+      {
+        "defaultMessage": "Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!",
+        "id": "jobBuilder.culturePace.01.description"
+      },
+      {
+        "defaultMessage": "Fast-paced",
+        "id": "jobBuilder.culturePace.02.title"
+      },
+      {
+        "defaultMessage": "Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes!",
+        "id": "jobBuilder.culturePace.02.description"
+      },
+      {
+        "defaultMessage": "Steady",
+        "id": "jobBuilder.culturePace.03.title"
+      },
+      {
+        "defaultMessage": "Our deadlines are regular and predictable, we balance a couple of tasks at a time, and our priorities change occasionally. We keep things on an even keel.",
+        "id": "jobBuilder.culturePace.03.description"
+      },
+      {
+        "defaultMessage": "Very Steady",
+        "id": "jobBuilder.culturePace.04.title"
+      },
+      {
+        "defaultMessage": "Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine.",
+        "id": "jobBuilder.culturePace.04.description"
+      },
+      {
+        "defaultMessage": "Horizontal",
+        "id": "jobBuilder.mgmtStyle.01.title"
+      },
+      {
+        "defaultMessage": "There's no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.",
+        "id": "jobBuilder.mgmtStyle.01.description"
+      },
+      {
+        "defaultMessage": "Somewhat Horizontal",
+        "id": "jobBuilder.mgmtStyle.02.title"
+      },
+      {
+        "defaultMessage": "We have some middle management here but make most day-to-day decisions ourselves. Don't be surprised to interact fairly often with our executives.",
+        "id": "jobBuilder.mgmtStyle.02.description"
+      },
+      {
+        "defaultMessage": "Somewhat Vertical",
+        "id": "jobBuilder.mgmtStyle.03.title"
+      },
+      {
+        "defaultMessage": "Our team has a clearly defined role. We check in regularly with middle-management for approvals and updates on the strategic vision of our executives.",
+        "id": "jobBuilder.mgmtStyle.03.description"
+      },
+      {
+        "defaultMessage": "Vertical",
+        "id": "jobBuilder.mgmtStyle.04.title"
+      },
+      {
+        "defaultMessage": "Our team has a clearly defined role. We check in often with middle-management for approvals and updates on the strategic vision of our executives.",
+        "id": "jobBuilder.mgmtStyle.04.description"
+      },
+      {
+        "defaultMessage": "Experimental",
+        "id": "jobBuilder.experimental.01.title"
+      },
+      {
+        "defaultMessage": "Our work is defined by trying out brand new ideas, methods, and activities to address persistent problems that traditional approaches have failed to solve.",
+        "id": "jobBuilder.experimental.01.description"
+      },
+      {
+        "defaultMessage": "Somewhat Experimental",
+        "id": "jobBuilder.experimental.02.title"
+      },
+      {
+        "defaultMessage": "We try out new and proven ideas, methods, and activities to improve how we do our work.",
+        "id": "jobBuilder.experimental.02.description"
+      },
+      {
+        "defaultMessage": "Somewhat Predictable Work",
+        "id": "jobBuilder.experimental.03.title"
+      },
+      {
+        "defaultMessage": "Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes.",
+        "id": "jobBuilder.experimental.03.description"
+      },
+      {
+        "defaultMessage": "Predictable Work",
+        "id": "jobBuilder.experimental.04.title"
+      },
+      {
+        "defaultMessage": "Most of our work involves administrative tasks are repeated on a regular basis. Consistency is key here, so we follow a standard process with tried and true tools.",
+        "id": "jobBuilder.experimental.04.description"
+      },
+      {
+        "defaultMessage": "Citizen Facing",
+        "id": "jobBuilder.facing.01.title"
+      },
+      {
+        "defaultMessage": "We are the face of the service we deliver and spend most of our time engaging directly with the public.",
+        "id": "jobBuilder.facing.01.description"
+      },
+      {
+        "defaultMessage": "Mostly Citizen Facing",
+        "id": "jobBuilder.facing.02.title"
+      },
+      {
+        "defaultMessage": "We spend a lot of our time engaging directly with the public, but there is also behind the scenes work to support others.",
+        "id": "jobBuilder.facing.02.description"
+      },
+      {
+        "defaultMessage": "Mostly Back Office",
+        "id": "jobBuilder.facing.03.title"
+      },
+      {
+        "defaultMessage": "We usually work behind the scenes doing important work that makes service delivery possible.",
+        "id": "jobBuilder.facing.03.description"
+      },
+      {
+        "defaultMessage": "Back Office",
+        "id": "jobBuilder.facing.04.title"
+      },
+      {
+        "defaultMessage": "We work behind the scenes doing important work that makes service delivery possible. We thrive on supporting others.",
+        "id": "jobBuilder.facing.04.description"
+      },
+      {
+        "defaultMessage": "Collaborative",
+        "id": "jobBuilder.collaborativeness.01.title"
+      },
+      {
+        "defaultMessage": "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team's goals and are always looking for ways to pitch in.",
+        "id": "jobBuilder.collaborativeness.01.description"
+      },
+      {
+        "defaultMessage": "Somewhat Collaborative",
+        "id": "jobBuilder.collaborativeness.02.title"
+      },
+      {
+        "defaultMessage": "Our team has a diverse set of skills and we recognize each others strengths. We work together often and are quick to pitch in when someone asks for help.",
+        "id": "jobBuilder.collaborativeness.02.description"
+      },
+      {
+        "defaultMessage": "Somewhat Independent",
+        "id": "jobBuilder.collaborativeness.03.title"
+      },
+      {
+        "defaultMessage": "Members of our team own their piece of the puzzle and have some freedom to choose how they get their work done.",
+        "id": "jobBuilder.collaborativeness.03.description"
+      },
+      {
+        "defaultMessage": "Independent",
+        "id": "jobBuilder.collaborativeness.04.title"
+      },
+      {
+        "defaultMessage": "Members of our team own their piece of the puzzle. It doesn't really matter how we get our work done as long as it's high quality.",
+        "id": "jobBuilder.collaborativeness.04.description"
+      },
+      {
+        "defaultMessage": "Work Environment",
+        "description": "Header of job poster builder work environment step.",
+        "id": "jobBuilder.workEnv.title"
+      },
+      {
+        "defaultMessage": "Applicants care a lot about the team they'll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they'll be a good fit, and can reduce the number of \"wishful thinking\" applications that slow down the screening process.",
+        "description": "Description of job poster builder work environment step.",
+        "id": "jobBuilder.workEnv.stepDescription"
+      },
+      {
+        "defaultMessage": "Our Work Environment",
+        "description": "Section 1 of Job Poster Builder Work Environment Step",
+        "id": "jobBuilder.workEnv.ourWorkEnv"
+      },
+      {
+        "defaultMessage": "Now let applicants know more about the personality of your team and the type of work that you usually do.",
+        "description": "Subtext 1 displayed of the our culture section.",
+        "id": "jobBuilder.workEnv.cultureSubtext1"
+      },
+      {
+        "defaultMessage": "Copy to Clipboard",
+        "description": "Button to copy text to clipboard.",
+        "id": "button.copyToClipboard"
+      },
+      {
+        "defaultMessage": "Copied!",
+        "description": "Confirmation for Button to copy text to clipboard.",
+        "id": "button.copied"
+      },
+      {
+        "defaultMessage": "Save & Return to Job Details",
+        "description": "Label for Save & Return button on Work Environment form.",
+        "id": "jobBuilder.workEnv.saveAndReturnButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Preview",
+        "description": "Label for work environment submit button.",
+        "id": "jobBuilder.workEnv.submitButtonLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvForm.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "You're off to a great start!",
+        "description": "Kicker message at the start of the modal.",
+        "id": "jobBuilder.workEnv.greatStart"
+      },
+      {
+        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\r\n                free to go back and edit things or move to the next step if\r\n                you're happy with it.",
+        "description": "Opening sentence for modal.",
+        "id": "jobBuilder.workEnv.openingSentence"
+      },
+      {
+        "defaultMessage": "Work Environment",
+        "description": "Header of job poster builder work environment step.",
+        "id": "jobBuilder.workEnvModal.title"
+      },
+      {
+        "defaultMessage": "Work Culture",
+        "description": "The title displayed for the work culture section on modal.",
+        "id": "jobBuilder.workEnvModal.workCultureTitle"
+      },
+      {
+        "defaultMessage": "Go Back",
+        "description": "The label displayed on modal cancel button.",
+        "id": "jobBuilder.workEnvModal.cancelLabel"
+      },
+      {
+        "defaultMessage": "Skip to Review",
+        "description": "The text displayed on the 'Skip to Review' button of the Work Env modal.",
+        "id": "jobBuilder.workEnvModal.modalMiddleLabel"
+      },
+      {
+        "defaultMessage": "Next Step",
+        "description": "The label displayed on modal confirm button.",
+        "id": "jobBuilder.workEnvModal.confirmLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvModal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "{termMonths, plural, =0 {no months} one {# month} other {# months}}",
+        "description": "Calculated term length in months",
+        "id": "jobBuilder.preview.termLength"
+      },
+      {
+        "defaultMessage": "Job Information",
+        "description": "Section Header for basic information",
+        "id": "jobBuilder.preview.jobInformation"
+      },
+      {
+        "defaultMessage": "Job Title",
+        "description": "Job Poster Card Information Label",
+        "id": "jobBuilder.preview.jobTitle"
+      },
+      {
+        "defaultMessage": "Length of the Term",
+        "description": "Job Poster Card Information Label",
+        "id": "jobBuilder.preview.lengthOfTheTerm"
+      },
+      {
+        "defaultMessage": "Security Clearance",
+        "description": "Job Poster Card Information Label",
+        "id": "jobBuilder.preview.securityClearance"
+      },
+      {
+        "defaultMessage": "Language Profile",
+        "description": "Job Poster Card Information Label",
+        "id": "jobBuilder.preview.languageProfile"
+      },
+      {
+        "defaultMessage": "City",
+        "description": "Job Poster Card Information Label",
+        "id": "jobBuilder.preview.city"
+      },
+      {
+        "defaultMessage": "Province",
+        "description": "Job Poster Card Information Label",
+        "id": "jobBuilder.preview.province"
+      },
+      {
+        "defaultMessage": "Classification & Education",
+        "description": "Section Header",
+        "id": "jobBuilder.preview.classificationEducation"
+      },
+      {
+        "defaultMessage": "Classification",
+        "description": "Job Poster Card Information Label",
+        "id": "jobBuilder.preview.classification"
+      },
+      {
+        "defaultMessage": "Level",
+        "description": "Job Poster Card Information Label",
+        "id": "jobBuilder.preview.level"
+      },
+      {
+        "defaultMessage": "Education",
+        "description": "Job Poster Card Information Label",
+        "id": "jobBuilder.preview.education"
+      },
+      {
+        "defaultMessage": "Work Styles",
+        "description": "Section Header",
+        "id": "jobBuilder.preview.workStyles"
+      },
+      {
+        "defaultMessage": "Remote Work",
+        "description": "Job Poster Card Information Label",
+        "id": "jobBuilder.preview.remoteWork"
+      },
+      {
+        "defaultMessage": "Telework",
+        "description": "Job Poster Card Information Label",
+        "id": "jobBuilder.preview.telework"
+      },
+      {
+        "defaultMessage": "Flexible Hours",
+        "description": "Job Poster Card Information Label",
+        "id": "jobBuilder.preview.flexibleHours"
+      },
+      {
+        "defaultMessage": "Travel",
+        "description": "Job Poster Card Information Label",
+        "id": "jobBuilder.preview.travel"
+      },
+      {
+        "defaultMessage": "Overtime",
+        "description": "Job Poster Card Information Label",
+        "id": "jobBuilder.preview.overtime"
+      }
+    ],
+    "path": "resources/assets/js/components/JobPreview.json"
   },
   {
     "descriptors": [

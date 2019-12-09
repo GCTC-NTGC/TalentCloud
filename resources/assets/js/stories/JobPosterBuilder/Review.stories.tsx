@@ -26,27 +26,52 @@ const languageOptions = {
   "English or French": 5,
 };
 
-stories.add(
-  "Complete Job",
-  (): React.ReactElement => (
-    <JobReview
-      job={{
-        ...fakeJob(),
-        language_requirement_id: select(
-          "Language Requirement",
-          languageOptions,
-          1,
-        ),
-      }}
-      manager={fakeManager()}
-      tasks={fakeJobTasks()}
-      criteria={[fakeCriterion()]}
-      skills={fakeSkills()}
-      departments={fakeDepartments()}
-      validForSubmission
-      handleSubmit={handleSubmit}
-      handleContinue={action("Continue")}
-      handleReturn={action("handleReturn")}
-    />
-  ),
-);
+stories
+  .add(
+    "Complete Job",
+    (): React.ReactElement => (
+      <JobReview
+        job={{
+          ...fakeJob(),
+          language_requirement_id: select(
+            "Language Requirement",
+            languageOptions,
+            1,
+          ),
+        }}
+        manager={fakeManager()}
+        tasks={fakeJobTasks()}
+        criteria={[fakeCriterion()]}
+        skills={fakeSkills()}
+        departments={fakeDepartments()}
+        validForSubmission
+        handleSubmit={handleSubmit}
+        handleContinue={action("Continue")}
+        handleReturn={action("handleReturn")}
+      />
+    ),
+  )
+  .add(
+    "Demo Manager",
+    (): React.ReactElement => (
+      <JobReview
+        job={{
+          ...fakeJob(),
+          language_requirement_id: select(
+            "Language Requirement",
+            languageOptions,
+            1,
+          ),
+        }}
+        manager={fakeManager(1, 1, true)}
+        tasks={fakeJobTasks()}
+        criteria={[fakeCriterion()]}
+        skills={fakeSkills()}
+        departments={fakeDepartments()}
+        validForSubmission
+        handleSubmit={handleSubmit}
+        handleContinue={action("Continue")}
+        handleReturn={action("handleReturn")}
+      />
+    ),
+  );

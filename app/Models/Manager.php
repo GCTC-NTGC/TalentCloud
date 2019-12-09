@@ -51,7 +51,10 @@ use Astrotomic\Translatable\Translatable as Translatable;
  * @property string $learning_path
  *
  * Computed Properties
- * @property string $name
+ * @property string $full_name
+ * @property string $first_name
+ * @property string $last_name
+ * @property boolean $is_demo_manager
  *
  * Methods
  * @method   string toApiArray()
@@ -95,7 +98,24 @@ class Manager extends BaseModel
      *
      * @var array
      */
-    protected $appends = ['name'];
+    protected $appends = ['first_name', 'last_name', 'full_name', 'is_demo_manager'];
+
+    /**
+     * The attributes that should be visible in arrays.
+     *
+     * @var array
+     */
+    protected $visible = [
+        'id',
+        'user_id',
+        'first_name',
+        'last_name',
+        'full_name',
+        'department_id',
+        'twitter_username',
+        'linkedin_url',
+        'is_demo_manager'
+    ];
 
     public function user()
     {
@@ -164,12 +184,51 @@ class Manager extends BaseModel
      *
      * @return string
      */
-    public function getNameAttribute(): string
+    public function getFullNameAttribute(): string
     {
         if ($this->user !== null) {
             return $this->user->first_name . ' ' . $this->user->last_name;
         }
         return '';
+    }
+
+    /**
+     * Return the first name of the User associated with this Manager.
+     *
+     * @return string
+     */
+    public function getFirstNameAttribute(): string
+    {
+        if ($this->user !== null) {
+            return $this->user->first_name;
+        }
+        return '';
+    }
+
+    /**
+     * Return the last name of the User associated with this Manager.
+     *
+     * @return string
+     */
+    public function getLastNameAttribute(): string
+    {
+        if ($this->user !== null) {
+            return $this->user->last_name;
+        }
+        return '';
+    }
+
+    /**
+     * Return whether this is a Demo Manager.
+     *
+     * @return boolean
+     */
+    public function getIsDemoManagerAttribute(): bool
+    {
+        if ($this->user !== null) {
+            return $this->user->isDemoManager();
+        }
+        return true;
     }
 
     /**

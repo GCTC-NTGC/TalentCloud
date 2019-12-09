@@ -10,4 +10,6 @@ module.exports = {
   transformIgnorePatterns: [
     "/node_modules/(?!intl-messageformat|intl-messageformat-parser).+\\.js$",
   ],
+  // JUnit reporting.
+  reporters: ["default", "jest-junit"],
 };
