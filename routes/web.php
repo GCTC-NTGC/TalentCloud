@@ -552,4 +552,7 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::delete('jobs/{job}/claim', 'Api\ClaimJobApiController@destroy')
         ->middleware('can:unClaim,job')
         ->where('job', '[0-9]+');
+
+    Route::get('hr-advisors/{hrAdvisor}', 'Api\HrAdvisorController@show')
+        ->middleware('can:view,hrAdvisor');
 });
