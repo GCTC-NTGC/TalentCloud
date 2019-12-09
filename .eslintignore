@@ -1,0 +1,2 @@
+# Ignore js files in the asset root for now.
+resources/assets/js/*.js
