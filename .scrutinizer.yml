@@ -15,7 +15,7 @@ build:
       - php-scrutinizer-run
       - phpcs-run app/ database/factories/ database/seeds/ routes/ --standard=ruleset.xml
       - js-scrutinizer-run
-      - eslint-run "resources/assets/js/**"
+      - eslint-run resources/assets/js/
 filter:
   paths:
     - app/

@@ -3,3 +3,5 @@ resources/assets/js/*.js
 resources/assets/js/@types/*
 resources/assets/js/**/*.json
 resources/assets/js/**/*.test.tsx.snap
+
+public/packages/
