@@ -12,14 +12,14 @@ use Illuminate\Http\Request;
 class CriteriaController extends Controller
 {
 /**
-     * Converts a Criteria to the shape sent and recieved by the api.
+     * Converts a Criteria to the shape sent and received by the api.
      *
      * @param Criteria $model
      * @return void
      */
     public function toApiArray(Criteria $model)
     {
-        return array_merge($model->toArray(), $model->getTranslationsArray());
+        return array_merge($model->toArray(), $model->getTranslations());
     }
 
     /**
@@ -31,8 +31,8 @@ class CriteriaController extends Controller
     public function indexByJob(JobPoster $jobPoster)
     {
         $toApiArray = array($this, 'toApiArray');
-        $criteriaAray = Criteria::where('job_poster_id', $jobPoster->id)->get()->map($toApiArray);
-        return response()->json($criteriaAray);
+        $criteriaArray = Criteria::where('job_poster_id', $jobPoster->id)->get()->map($toApiArray);
+        return response()->json($criteriaArray);
     }
 
     /**
@@ -77,8 +77,8 @@ class CriteriaController extends Controller
             }
         }
 
-        $criteriaAray = Criteria::where('job_poster_id', $jobPoster->id)->get()->map($toApiArray);
-        return response()->json($criteriaAray);
+        $criteriaArray = Criteria::where('job_poster_id', $jobPoster->id)->get()->map($toApiArray);
+        return response()->json($criteriaArray);
     }
 
     /**
@@ -103,8 +103,8 @@ class CriteriaController extends Controller
     /**
      * Update an existing Job Criteria and create a notification if necessary.
      *
-     * @param  \App\Models\Criteria $oldCriteria Existing Critera.
-     * @param  mixed[] $newData Updated version of the Critera.
+     * @param  \App\Models\Criteria $oldCriteria Existing Criteria.
+     * @param  mixed[] $newData Updated version of the Criteria.
      * @return void
      */
     protected function updateCriteria(Criteria $oldCriteria, $newData): void

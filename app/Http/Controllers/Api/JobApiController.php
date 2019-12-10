@@ -38,7 +38,7 @@ class JobApiController extends Controller
         $criteria = Criteria::where('job_poster_id', $job->id)->get();
 
         $toApiArray = function ($model) {
-            return array_merge($model->toArray(), $model->getTranslationsArray());
+            return array_merge($model->toArray(), $model->getTranslations());
         };
         $criteriaTranslated = $criteria->map($toApiArray);
 

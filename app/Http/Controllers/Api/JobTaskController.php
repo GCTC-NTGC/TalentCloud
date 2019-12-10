@@ -17,7 +17,7 @@ class JobTaskController extends Controller
      */
     public function toApiArray(JobPosterKeyTask $model)
     {
-        return array_merge($model->toArray(), $model->getTranslationsArray());
+        return array_merge($model->toArray(), $model->getTranslations());
     }
 
     public function indexByJob(JobPoster $jobPoster)
