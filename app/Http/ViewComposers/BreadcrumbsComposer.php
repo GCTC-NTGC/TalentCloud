@@ -5,6 +5,7 @@ namespace App\Http\ViewComposers;
 use Facades\App\Services\WhichPortal;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 
 class BreadcrumbsComposer
@@ -36,12 +37,15 @@ class BreadcrumbsComposer
     public function compose(View $view)
     {
         $segments = $this->parseSegments();
+        $breadcrumbs_lang = Lang::get('common/breadcrumbs')['applicant'];
 
         if (WhichPortal::isManagerPortal()) {
             $segments = $segments->slice(1);
+            $breadcrumbs_lang = Lang::get('common/breadcrumbs')['manager'];
         }
 
         $view->with('breadcrumbs', $segments);
+        $view->with('breadcrumbs_lang', $breadcrumbs_lang);
     }
 
     /**
