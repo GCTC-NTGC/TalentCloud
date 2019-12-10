@@ -5,3 +5,4 @@ resources/assets/js/**/*.json
 resources/assets/js/**/*.test.tsx.snap
 
 public/packages/
+vendor/
