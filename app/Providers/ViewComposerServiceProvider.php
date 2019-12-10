@@ -102,6 +102,12 @@ class ViewComposerServiceProvider extends ServiceProvider
             'manager/*',
             'App\Http\ViewComposers\ManagerPortalComposer'
         );
+
+        // Breadcrumb composer
+        View::composer(
+            'common/breadcrumbs',
+            'App\Http\ViewComposers\BreadcrumbsComposer'
+        );
     }
 
     /**
