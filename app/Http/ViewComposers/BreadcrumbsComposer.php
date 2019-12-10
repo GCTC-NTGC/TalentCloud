@@ -37,7 +37,7 @@ class BreadcrumbsComposer
     {
         $segments = $this->parseSegments();
 
-        if (WhichPortal::isManagerPortal() || (WhichPortal::isHrPortal())) {
+        if (WhichPortal::isManagerPortal()) {
             $segments = $segments->slice(1);
         }
 
