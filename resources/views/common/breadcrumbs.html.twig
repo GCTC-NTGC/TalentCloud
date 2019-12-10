@@ -1,0 +1,21 @@
+
+<nav aria-label="breadcrumb" data-c-breadcrumbs>
+    <ol>
+      {% for key, url in breadcrumbs %}
+        {% if loop.first %}
+        <li>
+          <a href={{ url(url) }}>{{ breadcrumbs_lang.home }}</a>
+          <i class="fas fa-caret-right"></i>
+        </li>
+        {% else %}
+        <li>
+          <a href="{{ url(url) }}">
+            {{ breadcrumbs_lang[key] ?: key }}
+          </a>
+          <i class="fas fa-caret-right"></i>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ol>
+</nav>
+
