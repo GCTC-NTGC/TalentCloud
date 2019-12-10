@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Lookup\Department;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Illuminate\Support\Facades\App;
 
 class JobPosterCrudController extends CrudController
 {
@@ -30,6 +31,13 @@ class JobPosterCrudController extends CrudController
 
     public function setupListOperation()
     {
+        // Required for order logic.
+        $locale = 'en';
+        if (null !== $this->request->input('locale')) {
+            $locale = $this->request->input('locale');
+        }
+        App::setLocale($locale);
+
         // Add the custom blade buttons found in resources/views/vendor/backpack/crud/buttons/.
         $this->crud->addButtonFromView('line', 'job_admin_edit', 'job_admin_edit', 'end');
         $this->crud->addButtonFromView('line', 'spb_link', 'spb_link', 'end');
@@ -45,7 +53,10 @@ class JobPosterCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'title',
             'type' => 'text',
-            'label' => 'Title'
+            'label' => 'Title',
+            'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {
+                return $query->orderBy('title->' . $locale, $columnDirection)->select('*');
+            }
         ]);
         $this->crud->addColumn([
             'name' => 'status',
