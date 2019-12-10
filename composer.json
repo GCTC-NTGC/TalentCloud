@@ -4,7 +4,6 @@
     "license": "MIT",
     "require": {
         "php": "7.2.*",
-        "astrotomic/laravel-translatable": "^11.1",
         "backpack/crud": "^4.0",
         "barryvdh/laravel-debugbar": "^3.2",
         "calebporzio/parental": "^0.9.0",
