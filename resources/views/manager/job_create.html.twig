@@ -4,20 +4,19 @@
     Manager: Create Job Poster
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
-{% block title %}{{ job_l10n.title }}: {{ job.title }}{% endblock %}
-
+{% block title %}
+	{{ job_l10n.title }}:
+	{% if (app.getLocale() == "en") %}
+		{{ job.title.en }}
+	{% else %}
+		{{ job.title.fr }}
+	{% endif %}
+{% endblock %}
 {% block body %}
-
 	{% include "common/goc" %}
-{% include "common/alert" %}
-
-        {% include "common/header" with {"header": job_l10n} %}
-
-    <a id="skipLink"></a>
-
-        {% include "manager/job_create/layout" with {"layout_l10n": job_l10n.layout} %}
-
+	{% include "common/alert" %}
+	{% include "common/header" with {"header": job_l10n} %}
+	<a id="skipLink"></a>
+	{% include "manager/job_create/layout" with {"layout_l10n": job_l10n.layout} %}
 {% endblock %}

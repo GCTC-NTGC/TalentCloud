@@ -4,35 +4,26 @@
     Review Applicants
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
-{% block title %}{{ jobs_l10n.review_applicants }}: {{ job.title }}{% endblock %}
-
-{% block body %}
-
-	{% include "common/goc" %}
-    {% include "common/alert" %}
-
-    {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':jobs_l10n.review_applicants, ':job':job.title}) }} %}
-
-    <a id="skipLink"></a>
-
-    <div
-        id="review-applications-container"
-        data-job="{{ job|json_encode() }}"
-        data-applications="{{ applications|json_encode() }}"
-        data-review-statuses="{{ review_statuses|json_encode() }}"
-        data-locale="{{App.getLocale()}}"
-    >
-    </div>
-
+{% block title %}
+	{{ jobs_l10n.review_applicants }}:
+	{% if (App.getLocale()) == 'en' %}
+		{{ job.title.en }}
+	{% else %}
+		{{ job.title.fr}}
+	{% endif %}
 {% endblock %}
-
+{% block body %}
+	{% include "common/goc" %}
+	{% include "common/alert" %}
+	{% if (App.getLocale()) == 'en' %}
+		{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': jobs_l10n.review_applicants, ':job': job.title.en}) }} %}
+	{% else %}
+		{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': jobs_l10n.review_applicants, ':job': job.title.fr}) }} %}
+	{% endif %}
+	<a id="skipLink"></a>
+	<div id="review-applications-container" data-job="{{ job|json_encode() }}" data-applications="{{ applications|json_encode() }}" data-review-statuses="{{ review_statuses|json_encode() }}" data-locale="{{App.getLocale()}}"></div>
+{% endblock %}
 {% block scripts %}
-
-    <script async defer
-        src="{{ mix('/js/ReviewApplicationsRoot.js') }}">
-    </script>
-
+	<script async defer src="{{ mix('/js/ReviewApplicationsRoot.js') }}"></script>
 {% endblock %}

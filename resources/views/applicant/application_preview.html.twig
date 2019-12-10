@@ -1,21 +1,21 @@
 {% extends "layouts/base" %}
-
-{% block title %}{{ ":title: :job"|replace({':title':application_template.view_title, ':job':job.title}) }}{% endblock %}
-
+{% block title %}
+	{% if (app.getLocale() == "en") %}
+		{{ ":title: :job"|replace({':title': application_template.view_title, ':job': job.title.en}) }}
+	{% else %}
+		{{ ":title: :job"|replace({':title': application_template.view_title, ':job': job.title.fr}) }}
+	{% endif %}
+{% endblock %}
 {% block body %}
-
 	{% include "common/goc" %}
-    {% include "common/alert" %}
-
-    {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.view_title, ':job':job.title})}} %}
-
+	{% include "common/alert" %}
+	{% if (app.getLocale() == "en") %}
+		{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.view_title, ':job': job.title.en})}} %}
+	{% else %}
+		{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.view_title, ':job': job.title.fr})}} %}
+	{% endif %}
 	<a id="skipLink"></a>
-
-    <section
-		class="application__view-layout submitted">
-
-    	{% include "common/application/view/view_layout" %}
-
+	<section class="application__view-layout submitted">
+		{% include "common/application/view/view_layout" %}
 	</section>
-
 {% endblock %}

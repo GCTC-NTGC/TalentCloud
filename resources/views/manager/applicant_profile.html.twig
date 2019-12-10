@@ -5,70 +5,43 @@
 
 ============================================================================= #}
 {% extends "layouts/base" %}
-
-{% block title %}{{ profile.title }}: {{ user.first_name }} {{ user.last_name }}{% endblock %}
-
+{% block title %}
+	{{ profile.title }}:
+	{{ user.first_name }}
+	{{ user.last_name }}
+{% endblock %}
 {% block body %}
-
 	{# Alert #}
-
-		{% include "common/alert" %}
-
+	{% include "common/alert" %}
 	{# Government of Canada #}
-
-    	{% include "common/goc" %}
-
-    {# Page Header #}
-
-    	{% include "common/header" with {'header': {'title': ":title: :fname :lname"|replace({':title':profile.title, ':fname':user.first_name, ':lname':user.last_name}) }} %}
-
-		<a id="skipLink"></a>
-
-    {# Content #}
-
-    	<section
-    		class="applicant-profile-preview">
-
-	    	<div
-	    		class="container--copy">
-
-	    		<h2>{{ profile.content.whose_profile | replace({":name":user.first_name}) }}</h2>
-
-	    		{# {{ applicant }} #}
-
-	    		{% if applicant.applicant_profile_answers is empty %}
-
-	    			<p>{{profile.content.no_applicant_answers}}</p>
-
-		    	{% else %}
-
-		    		{% for question in applicant.applicant_profile_answers %}
-
-						<div class="question">
-
-							<h3>{{ question.applicant_profile_question.question }}</h3>
-
-							<p>{{ question.applicant_profile_question.description }}</p>
-
-
-							{% if question.answer is empty %}
-
-								<p><em>{{profile.content.no_applicant_answer}}</em></p>
-
-							{% else %}
-
-								<p><span class="bold">{{ profile.content.their_answer }}</span>{{ question.answer }}</p>
-
-							{% endif %}
-
-						</div>
-
-		    		{% endfor %}
-
-		    	{% endif %}
-
-	    	</div>
-
-    	</section>
-
+	{% include "common/goc" %}
+	{# Page Header #}
+	{% include "common/header" with {'header': {'title': ":title: :fname :lname"|replace({':title': profile.title, ':fname': user.first_name, ':lname': user.last_name}) }} %}
+	<a id="skipLink"></a>
+	{# Content #}
+	<section class="applicant-profile-preview">
+		<div class="container--copy">
+			<h2>{{ profile.content.whose_profile|replace({":name": user.first_name}) }}</h2>
+			{# {{ applicant }} #}
+			{% if applicant.applicant_profile_answers is empty %}
+				<p>{{ profile.content.no_applicant_answers }}</p>
+			{% else %}
+				{% for question in applicant.applicant_profile_answers %}
+					<div class="question">
+						<h3>{{ question.applicant_profile_question.question }}</h3>
+						<p>{{ question.applicant_profile_question.description }}</p>
+						{% if question.answer is empty %}
+							<p>
+								<em>{{ profile.content.no_applicant_answer }}</em>
+							</p>
+						{% else %}
+							<p>
+								<span class="bold">{{ profile.content.their_answer }}</span>
+								{{ question.answer }}</p>
+						{% endif %}
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	</section>
 {% endblock %}
