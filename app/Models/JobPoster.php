@@ -204,6 +204,16 @@ class JobPoster extends BaseModel
         'loo_issuance_date',
         'classification_id',
         'classification_level',
+        'city',
+        'title',
+        'dept_impact',
+        'team_impact',
+        'hire_impact',
+        'division',
+        'education',
+        'work_env_description',
+        'culture_summary',
+        'culture_special',
     ];
 
     /**
@@ -246,7 +256,17 @@ class JobPoster extends BaseModel
         'priority_clearance_number',
         'loo_issuance_date',
         'classification_id',
-        'classification_level'
+        'classification_level',
+        'city',
+        'title',
+        'dept_impact',
+        'team_impact',
+        'hire_impact',
+        'division',
+        'education',
+        'work_env_description',
+        'culture_summary',
+        'culture_special'
     ];
 
     /**
@@ -555,7 +575,7 @@ class JobPoster extends BaseModel
      */
     public function toApiArray(): array
     {
-        $jobWithTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
+        $jobWithTranslations = array_merge($this->toArray(), $this->getTranslations());
         return $jobWithTranslations;
     }
 }

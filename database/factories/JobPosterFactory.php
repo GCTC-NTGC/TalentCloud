@@ -76,8 +76,8 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'overtime_requirement_id' => OvertimeRequirement::inRandomOrder()->first()->id,
         'published' => false,
         'city' => [
-            'en' => $faker->city,
-            'fr' => $faker_fr->city
+            'en' => $faker->city(),
+            'fr' => $faker_fr->city()
         ],
         'title' => [
             'en' => $faker->unique()->realText(27, 1),
@@ -96,8 +96,8 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
             'fr' => $faker_fr->paragraph()
         ],
         'division' => [
-            'en' => $faker->word,
-            'fr' => $faker_fr->word
+            'en' => $faker->word(),
+            'fr' => $faker_fr->word()
         ],
         'education' => [
             'en' => $faker->sentence(),

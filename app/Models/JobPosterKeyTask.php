@@ -23,8 +23,12 @@ class JobPosterKeyTask extends BaseModel
 {
     use HasTranslations;
 
-    public $translatable = ['description'];
-    protected $fillable = [];
+    public $translatable = [
+        'description'
+    ];
+    protected $fillable = [
+        'description'
+    ];
     protected $casts = [
         'job_poster_id' => 'int'
     ];

@@ -24,8 +24,14 @@ class JobPosterQuestion extends BaseModel
 {
     use HasTranslations;
 
-    public $translatable = ['question', 'description'];
-    protected $fillable = [];
+    public $translatable = [
+        'question',
+        'description'
+    ];
+    protected $fillable = [
+        'question',
+        'description'
+    ];
     protected $casts = [
         'job_poster_id' => 'int'
     ];

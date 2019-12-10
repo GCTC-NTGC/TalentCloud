@@ -62,7 +62,6 @@ use Spatie\Translatable\HasTranslations;
 class Manager extends BaseModel
 {
     use HasTranslations;
-    // Trait for Backpack
     use CrudTrait;
 
     public $translatable = [
@@ -90,7 +89,17 @@ class Manager extends BaseModel
         'engage_team_frequency_id',
         'development_opportunity_frequency_id',
         'refuse_low_value_work_frequency_id',
-        'years_experience'
+        'years_experience',
+        'about_me',
+        'greatest_accomplishment',
+        'division',
+        'position',
+        'leadership_style',
+        'employee_learning',
+        'expectations',
+        'education',
+        'career_journey',
+        'learning_path'
     ];
 
     /**
@@ -114,7 +123,17 @@ class Manager extends BaseModel
         'department_id',
         'twitter_username',
         'linkedin_url',
-        'is_demo_manager'
+        'is_demo_manager',
+        'about_me',
+        'greatest_accomplishment',
+        'division',
+        'position',
+        'leadership_style',
+        'employee_learning',
+        'expectations',
+        'education',
+        'career_journey',
+        'learning_path'
     ];
 
     public function user()
@@ -227,7 +246,7 @@ class Manager extends BaseModel
      */
     public function toApiArray()
     {
-        $withTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
+        $withTranslations = array_merge($this->toArray(), $this->getTranslations());
         return $withTranslations;
     }
 }

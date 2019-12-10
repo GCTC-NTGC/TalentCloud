@@ -34,7 +34,8 @@ class WorkEnvironment extends BaseModel
     ];
     protected $fillable = [
         'telework_allowed_frequency_id',
-        'flexible_hours_frequency_id'
+        'flexible_hours_frequency_id',
+        'things_to_know'
     ];
     protected $with = [
         'telework_allowed_frequency',

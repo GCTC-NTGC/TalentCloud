@@ -36,7 +36,10 @@ class Criteria extends BaseModel
 
     use HasTranslations;
 
-    public $translatable = ['description', 'specificity'];
+    public $translatable = [
+        'description',
+        'specificity'
+    ];
 
     protected $table = 'criteria';
 
@@ -50,6 +53,8 @@ class Criteria extends BaseModel
         'skill_id',
         'criteria_type_id',
         'skill_level_id',
+        'description',
+        'specificity'
     ];
     protected $with = [
         'criteria_type',

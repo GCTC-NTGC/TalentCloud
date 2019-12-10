@@ -41,7 +41,11 @@ class TeamCulture extends BaseModel
     ];
     protected $fillable = [
         'team_size',
-        'gc_directory_url'
+        'gc_directory_url',
+        'narrative_text',
+        'operating_context',
+        'what_we_value',
+        'how_we_work'
     ];
 
     public function manager()
