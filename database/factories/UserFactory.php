@@ -83,7 +83,7 @@ $factory->define(HrAdvisor::class, function () {
     return [
         'department_id' => null,
         'user_id' => function () {
-            return factory(User::class)->create()->id;
+            return factory(User::class)->state('hr_advisor')->create()->id;
         },
     ];
 });
