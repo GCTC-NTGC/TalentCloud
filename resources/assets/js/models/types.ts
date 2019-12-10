@@ -27,7 +27,7 @@ export interface Job {
   salary_min: number | null;
   salary_max: number | null;
   noc: number | null;
-  classification_code: string | null;
+  classification_id: number | null;
   classification_level: number | null;
   security_clearance_id: number | null;
   language_requirement_id: number | null;

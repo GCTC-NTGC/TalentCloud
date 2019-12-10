@@ -74,7 +74,7 @@ test("Job Poster Builder - New Job", async t => {
       Selector("select")
         .withAttribute("id", "builder02Classification")
         .find("option")
-        .withAttribute("value", "CS"),
+        .withAttribute("value", "1"),
     )
     .click(Selector("select").withAttribute("id", "builder02Level"))
     .click(
@@ -121,7 +121,7 @@ test("Job Poster Builder - New Job", async t => {
     .ok()
     .expect(Selector("p").withText("Ontario").visible)
     .ok()
-    .expect(Selector("p").withText("CS").visible)
+    .expect(Selector("p").withText("AS").visible)
     .ok()
     .expect(Selector("p").withText("3").visible)
     .ok()
