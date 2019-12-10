@@ -4,49 +4,19 @@
     Manager: Profile Sidebar
 
 ============================================================================= #}
-<div
-    class="sidebar-wrapper box lg-1of4">
-
-    <nav
-        class="sidebar">
-
-        <h3
-            class="sidebar-label">
-            {{sidebar_l10n.profile_sections}}
-        </h3>
-
-        <a
-            class="sidebar-link"
-            href="#managerProfileSectionAccount"
-            title="{{ job_post.basics.sidebar_title }}">
-            {{sidebar_l10n.my_account}}
-        </a>
-
-        <a
-            class="sidebar-link"
-            href="#managerProfileSectionAbout"
-            title="{{ job_post.basics.sidebar_title }}">
-            {{sidebar_l10n.about_me}}
-        </a>
-
-        <a
-            class="sidebar-link"
-            href="#managerProfileSectionLeadership"
-            title="{{ job_post.basics.sidebar_title }}">
-            {{sidebar_l10n.leadership_style}}
-        </a>
-
-        {# This button doesn't do anything since its not part of the form. Removing it for now.
-        <button
-            class="sidebar-button"
-            title="Save all sections."
-            type="submit"
-            name="submit"
-            value="all">
-            {{sidebar_l10n.save_all_sections}}
-        </button>
-        #}
-
-    </nav>
-
+<div class="sidebar-wrapper box lg-1of4">
+	<nav class="sidebar">
+		<h3 class="sidebar-label">
+			{{ sidebar_l10n.profile_sections }}
+		</h3>
+		<a class="sidebar-link" href="#managerProfileSectionAccount" title="{{ job_post.basics.sidebar_title }}">
+			{{ sidebar_l10n.my_account }}
+		</a>
+		<a class="sidebar-link" href="#managerProfileSectionAbout" title="{{ job_post.basics.sidebar_title }}">
+			{{ sidebar_l10n.about_me }}
+		</a>
+		<a class="sidebar-link" href="#managerProfileSectionLeadership" title="{{ job_post.basics.sidebar_title }}">
+			{{ sidebar_l10n.leadership_style }}
+		</a>
+	</nav>
 </div>

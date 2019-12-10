@@ -84,16 +84,16 @@ class UpdateManagerProfileRequest extends FormRequest
             'years_experience' => 'nullable|numeric|min:0',
             'gc_directory_url' => 'nullable|url',
 
-            '*.about_me' => 'nullable|string',
-            '*.career_journey' => 'nullable|string',
-            '*.division' => 'nullable|string',
-            '*.education' => 'nullable|string',
-            '*.employee_learning' => 'nullable|string',
-            '*.expectations' => 'nullable|string',
-            '*.greatest_accomplishment' => 'nullable|string',
-            '*.leadership_style' => 'nullable|string',
-            '*.learning_path' => 'nullable|string',
-            '*.position' => 'nullable|string',
+            'about_me.*' => 'nullable|string',
+            'career_journey.*' => 'nullable|string',
+            'division.*' => 'nullable|string',
+            'education.*' => 'nullable|string',
+            'employee_learning.*' => 'nullable|string',
+            'expectations.*' => 'nullable|string',
+            'greatest_accomplishment.*' => 'nullable|string',
+            'leadership_style.*' => 'nullable|string',
+            'learning_path.*' => 'nullable|string',
+            'position.*' => 'nullable|string',
 
             'twitter_username' => [
                 'nullable', // Some people may not have a handle.

@@ -4,48 +4,26 @@
     Manager - Profile Layout
 
 ============================================================================= #}
-
 <div class="manager-profile__section-wrapper">
-
-    <div class="container--layout">
-
-        <div class="flex-grid">
-
-            {# Include Sidebar #}
-                {% include "manager/profile/sidebar" with {'sidebar_l10n': layout_l10n.sidebar} %}
-
-            {# Poster Content #}
-
-                <div class="manager-profile__content-wrapper box lg-3of4">
-
-                    <form class="form__wrapper"
-                        action="{{ route('manager.profile.update', manager.id) }}"
-                        method="post">
-
-                        {# Builds an input field for CSRF token validation #}
-                        {{ csrf_field() }}
-
-                    {# Include Account Settings #}
-
-                        {% include "manager/profile/account" with {'account_l10n': layout_l10n.account} %}
-
-
-                    {# Include About Me #}
-
-                        {% include "manager/profile/about" with {'about_l10n': layout_l10n.about} %}
-
-                    {# Include My Leadership Style #}
-
-                        {% include "manager/profile/leadership" with {'leadership_l10n': layout_l10n.leadership } %}
-
-                    </form>
-
-                </div>
-
-
-
-        </div>
-
-    </div>
-
+	<div class="container--layout">
+		<div
+			class="flex-grid">
+			{# Include Sidebar #}
+			{% include "manager/profile/sidebar" with {'sidebar_l10n': layout_l10n.sidebar} %}
+			{# Poster Content #}
+			<div class="manager-profile__content-wrapper box lg-3of4">
+				<form
+					class="form__wrapper" action="{{ route('manager.profile.update', manager.id) }}" method="post">
+					{# Builds an input field for CSRF token validation #}
+					{{ csrf_field() }}
+					{# Include Account Settings #}
+					{% include "manager/profile/account" with {'account_l10n': layout_l10n.account} %}
+					{# Include About Me #}
+					{% include "manager/profile/about" with {'about_l10n': layout_l10n.about} %}
+					{# Include My Leadership Style #}
+					{% include "manager/profile/leadership" with {'leadership_l10n': layout_l10n.leadership } %}
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
