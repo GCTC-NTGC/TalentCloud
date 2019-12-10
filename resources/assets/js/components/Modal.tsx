@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { createContext, useContext, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
 interface ModalProps {
@@ -68,7 +62,10 @@ export default function Modal({
   };
 
   // Collection of key codes and event listeners
-  const keyListenersMap = new Map([[27, onModalCancel], [9, handleTabKey]]);
+  const keyListenersMap = new Map([
+    [27, onModalCancel],
+    [9, handleTabKey],
+  ]);
 
   // Runs every time visible changes to set the overflow on the modal and update the body overflow
   useEffect((): (() => void) => {

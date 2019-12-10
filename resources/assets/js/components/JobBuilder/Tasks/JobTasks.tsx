@@ -177,7 +177,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
         nprogress.done();
         handleReturn();
       })
-      .catch((error): void => {
+      .catch((): void => {
         nprogress.done();
       });
   };
@@ -249,7 +249,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
               nprogress.done();
               setIsModalVisible(true);
             })
-            .catch((error): void => {
+            .catch((): void => {
               nprogress.done();
             })
             .finally((): void => {
