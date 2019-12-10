@@ -5,4 +5,4 @@ export const getHrAdvisorEndpoint = (id: number): string =>
 
 export const getClaimJobEndpoint = (advisorId: number, jobId: number): string =>
   // TODO: Modify route
-  `${baseUrl()}/jobs/${jobId}/claim`;
+  `${getHrAdvisorEndpoint(advisorId)}/claims/${jobId}`;

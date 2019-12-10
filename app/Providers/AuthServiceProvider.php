@@ -72,6 +72,12 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isAdmin() ||
                 $user->isManager() && $jobPoster->manager->user_id === $user->id;
         });
+        Gate::define('advisor-claim-job', function ($advisor, $jobPoster) {
+            return $advisor->user->can('claim', $jobPoster);
+        });
+        Gate::define('advisor-unclaim-job', function ($advisor, $jobPoster) {
+            return $advisor->user->can('unclaim', $jobPoster);
+        });
     }
 
     public function register(): void
