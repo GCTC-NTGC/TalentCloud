@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import { FormattedMessage } from "react-intl";
 import { JobAction, UnclaimedJob } from "../../models/types";
 import JobCard from "../JobCard";
 import UnclaimedJobCard from "../UnclaimedJobCard";
 import { JobStatus } from "../../models/lookupConstants";
-import { defineMessages, FormattedMessage } from "react-intl";
+import RootContainer from "../RootContainer";
+import { jobActions, unclaimedJobs } from "./fixtures";
 
 interface CompletedJobsAccordionProps {
   completedJobActions: JobAction[];
@@ -211,3 +214,20 @@ const JobIndexPage: React.FunctionComponent<JobIndexPageProps> = ({
 };
 
 export default JobIndexPage;
+
+const JobIndexPageRoot: React.FunctionComponent | null = () => {
+  return (
+    <RootContainer>
+      <JobIndexPage
+        jobActions={jobActions}
+        unclaimedJobs={unclaimedJobs}
+        departmentName="Treasury Board of Canada Secretariat"
+      />
+    </RootContainer>
+  );
+};
+
+if (document.getElementById("hr-job-index-root")) {
+  const root = document.getElementById("hr-job-index-root");
+  ReactDOM.render(<JobIndexPageRoot />, root);
+}
