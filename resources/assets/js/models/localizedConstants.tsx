@@ -266,7 +266,7 @@ const criteriaTypes = defineMessages({
   essential: {
     id: "criteriaType.essential",
     defaultMessage: "Essential",
-    description: "Title of an esential criteria type.",
+    description: "Title of an essential criteria type.",
   },
 });
 

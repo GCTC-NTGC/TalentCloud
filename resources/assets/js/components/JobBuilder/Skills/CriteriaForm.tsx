@@ -98,7 +98,7 @@ export const criteriaToValues = (
   criteria: Criteria,
   locale: "en" | "fr",
 ): FormValues => ({
-  specificity: criteria[locale].specificity || "",
+  specificity: criteria.specificity[locale] || "",
   level:
     criteria.criteria_type_id === CriteriaTypeId.Asset
       ? "asset"
@@ -124,8 +124,8 @@ const updateCriteriaWithValues = (
       fr: skill.description.fr,
     },
     specificity: {
-      en: locale === "en" ? values.specificity : criteria.specificity.en,
-      fr: locale === "fr" ? values.specificity : criteria.specificity.fr,
+      en: criteria.specificity.en,
+      fr: criteria.specificity.fr,
     },
   };
 };
@@ -163,7 +163,7 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
   const stringNotEmpty = (value: string | null): boolean =>
     value !== null && (value as string).length !== 0;
   const [showSpecificity, setShowSpecificity] = useState(
-    criteria !== undefined && stringNotEmpty(criteria[locale].specificity),
+    criteria !== undefined && stringNotEmpty(criteria.specificity[locale]),
   );
 
   const initialValues: FormValues =
@@ -221,9 +221,9 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                 />
               </p>
               <div>
-                <p data-c-margin="bottom(normal)">{skill[locale].name}</p>
+                <p data-c-margin="bottom(normal)">{skill.name[locale]}</p>
                 <p data-c-margin="bottom(normal)">
-                  {skill[locale].description}
+                  {skill.description[locale]}
                 </p>
                 {showSpecificity ? (
                   <>
