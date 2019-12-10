@@ -2,14 +2,14 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
+use App\Models\Classification;
 use App\Models\JobPoster;
+
 use App\Models\Manager;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
-use App\Models\Classification;
+use Tests\TestCase;
 
 class JobApiControllerTest extends TestCase
 {
@@ -43,7 +43,7 @@ class JobApiControllerTest extends TestCase
             'salary_min' => $this->faker->numberBetween(60000, 80000),
             'salary_max' => $this->faker->numberBetween(80000, 100000),
             'noc' => $this->faker->numberBetween(1, 9999),
-            'classification_id' => Classification::inRandomOrder()->first()->id,
+            'classification_id' => 1,
             'classification_level' => $this->faker->numberBetween(1, 6),
             'manager_id' => $managerId,
             'remote_work_allowed' => $this->faker->boolean(50),
@@ -135,9 +135,7 @@ class JobApiControllerTest extends TestCase
         $newJob = $job->fresh();
         // json columns don't seem to work with normal assertDatabaseHas
         $this->assertEquals($jobUpdate['work_env_features'], $newJob->work_env_features);
-        $translations = $newJob->getTranslationsArray();
-        $this->assertArraySubset($jobUpdate['en'], $translations['en']);
-        $this->assertArraySubset($jobUpdate['fr'], $translations['fr']);
+        $response->assertJsonFragment($newJob->getTranslations());
     }
 
     /**

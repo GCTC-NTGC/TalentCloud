@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\User;
 use App\Models\Manager;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ManagerApiControllerTest extends TestCase
 {
@@ -114,9 +114,7 @@ class ManagerApiControllerTest extends TestCase
         $this->assertDatabaseHas('managers', $expectedDb);
 
         $newManager = $manager->fresh();
-        $translations = $newManager->getTranslationsArray();
-        $this->assertArraySubset($managerUpdate['en'], $translations['en']);
-        $this->assertArraySubset($managerUpdate['fr'], $translations['fr']);
+        $response->assertJsonFragment($newManager->getTranslations());
     }
 
     public function testUpdateAsWrongManager()
