@@ -15,9 +15,9 @@ return [
         'job-index' => 'Job Index'
     ],
     'manager' => [
-
+        'home' => 'Home',
     ],
     'applicant' => [
-
+        'home' => 'Home',
     ],
 ];
