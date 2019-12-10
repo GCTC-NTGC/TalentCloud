@@ -66,7 +66,7 @@ class JobController extends Controller
 
             // Show chosen lang title if current title is empty.
             if (empty($job->title)) {
-                $job->title = $job->translate($chosen_lang)->title;
+                $job->title = $job->getTranslation('title', $chosen_lang);
                 $job->trans_required = true;
             }
 
@@ -247,12 +247,12 @@ class JobController extends Controller
         $jobPoster->manager_id = $manager->id;
 
         // Save manager-specific info to the job poster - equivalent to the intro step of the JPB
-        $divisionEn = $manager->translate('en') !== null ? $manager->translate('en')->division : null;
-        $divisionFr = $manager->translate('fr') !== null ? $manager->translate('fr')->division : null;
+        $divisionEn = $manager->getTranslation('division', 'en');
+        $divisionFr = $manager->getTranslation('division', 'fr');
         $jobPoster->fill([
             'department_id' => $manager->department_id,
-            'en' => ['division' => $divisionEn],
-            'fr' => ['division' => $divisionFr],
+            'division' => ['en' => $divisionEn],
+            'division' => ['fr' => $divisionFr],
         ]);
 
         $jobPoster->save();
@@ -310,13 +310,14 @@ class JobController extends Controller
             $jobQuestion->job_poster_id = $jobPoster->id;
             $jobQuestion->fill(
                 [
-                    'en' => [
-                        'question' => $question['question']['en'],
-                        'description' => $question['description']['en']
+                    'question' => [
+                        'en' => $question['question']['en'],
+                        'fr' => $question['question']['fr']
+
                     ],
-                    'fr' => [
-                        'question' => $question['question']['fr'],
-                        'description' => $question['description']['fr']
+                    'description' => [
+                        'en' => $question['description']['en'],
+                        'fr' => $question['description']['fr']
                     ]
                 ]
             );
@@ -348,11 +349,9 @@ class JobController extends Controller
             $jobQuestion = new JobPosterQuestion();
             $jobQuestion->fill(
                 [
-                    'en' => [
-                        'question' => $defaultQuestions['en'][$i],
-                    ],
-                    'fr' => [
-                        'question' => $defaultQuestions['fr'][$i],
+                    'question' => [
+                        'en' => $defaultQuestions['en'][$i],
+                        'fr' => $defaultQuestions['fr'][$i],
                     ]
                 ]
             );

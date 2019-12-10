@@ -110,7 +110,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
       (task: JobPosterKeyTask): TaskFormValues => ({
         id: task.id,
         jobPosterId: task.job_poster_id,
-        description: task[locale].description,
+        description: task.description[locale],
       }),
     ),
   });

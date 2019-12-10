@@ -13,9 +13,8 @@ interface CriterionProps {
   skill: Skill;
 }
 
-export const Criterion: React.FunctionComponent<
-  CriterionProps & WrappedComponentProps
-> = ({ criterion, skill, intl }): React.ReactElement => {
+export const Criterion: React.FunctionComponent<CriterionProps &
+  WrappedComponentProps> = ({ criterion, skill, intl }): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unknown intl.locale");
@@ -27,7 +26,7 @@ export const Criterion: React.FunctionComponent<
       data-c-margin="top(normal) bottom(double)"
     >
       <p data-c-font-weight="bold" data-c-margin="bottom(half)">
-        {skill[locale].name}
+        {skill.name[locale]}
       </p>
       {criterion.criteria_type_id === CriteriaTypeId.Essential && (
         <p data-c-margin="bottom(half)">
@@ -39,8 +38,8 @@ export const Criterion: React.FunctionComponent<
           {intl.formatMessage(getSkillLevelName(criterion, skill))}
         </p>
       )}
-      <p>{criterion[locale].description}</p>
-      {criterion[locale].specificity && <p>{criterion[locale].specificity}</p>}
+      <p>{criterion.description[locale]}</p>
+      {criterion.specificity[locale] && <p>{criterion.specificity[locale]}</p>}
     </div>
   );
 };

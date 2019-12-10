@@ -79,10 +79,10 @@ const updateJobWithValues = (
     fr: deptImpacts.fr,
   },
   [locale]: {
-    ...initialJob[locale],
+    ...initialJob,
     dept_impact: deptImpacts[locale],
-    team_impact: teamImpact,
-    hire_impact: hireImpact,
+    team_impact: teamImpact[locale],
+    hire_impact: hireImpact[locale],
   },
 });
 
@@ -171,9 +171,9 @@ const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
   }
   const initialValues: ImpactFormValues = {
     teamImpact:
-      job && job[intl.locale].team_impact ? job[intl.locale].team_impact : "",
+      job && job.team_impact[intl.locale] ? job.team_impact[intl.locale] : "",
     hireImpact:
-      job && job[intl.locale].hire_impact ? job[intl.locale].hire_impact : "",
+      job && job.hire_impact[intl.locale] ? job.hire_impact[intl.locale] : "",
   };
   const validationSchema = Yup.object().shape({
     teamImpact: Yup.string().required(

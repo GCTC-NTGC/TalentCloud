@@ -415,7 +415,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
             defaultMessage="Review Your Job Poster for:"
             description="Title for Review Job Poster section."
           />{" "}
-          <span data-c-colour="c2">{job[locale].title}</span>
+          <span data-c-colour="c2">{job.title[locale]}</span>
         </h3>
         <p>
           <FormattedMessage
@@ -431,7 +431,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           link={jobBuilderDetails(locale, job.id)}
         >
           <p data-c-font-weight="bold" data-c-margin="bottom(half)">
-            {job[locale].title}
+            {job.title[locale]}
           </p>
           <p data-c-margin="bottom(normal)">{departmentName}</p>
           <p data-c-margin="bottom(half)">
@@ -442,7 +442,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
             >
               &nbsp;&nbsp;
             </i>
-            {job[locale].city},{" "}
+            {job.city[locale]},{" "}
             {job.province_id !== null
               ? intl.formatMessage(provinceName(job.province_id))
               : intl.formatMessage(messages.nullProvince)}
@@ -574,9 +574,9 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           linkLabel={intl.formatMessage(messages.impactEditLink)}
           link={jobBuilderImpact(locale, job.id)}
         >
-          <p data-c-margin="bottom(normal)">{job[locale].dept_impact}</p>
-          <p data-c-margin="bottom(normal)">{job[locale].team_impact}</p>
-          <p>{job[locale].hire_impact}</p>
+          <p data-c-margin="bottom(normal)">{job.dept_impact[locale]}</p>
+          <p data-c-margin="bottom(normal)">{job.team_impact[locale]}</p>
+          <p>{job.hire_impact[locale]}</p>
         </JobReviewSection>
         <JobReviewSection
           title={intl.formatMessage(messages.tasksHeading)}
@@ -586,7 +586,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           <ul>
             {tasks.map(
               (task: JobPosterKeyTask): React.ReactElement => (
-                <li key={task.id}>{task[locale].description}</li>
+                <li key={task.id}>{task.description[locale]}</li>
               ),
             )}
           </ul>
@@ -598,7 +598,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           linkLabel={intl.formatMessage(messages.infoEditLink)}
           link={jobBuilderDetails(locale, job.id)}
         >
-          {textToParagraphs(job[locale].education || "")}
+          {textToParagraphs(job.education[locale] || "")}
         </JobReviewSection>
         <JobReviewSection
           title={intl.formatMessage(messages.skillsHeading)}

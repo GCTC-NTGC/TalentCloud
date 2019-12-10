@@ -171,7 +171,7 @@ export const jobImpactProgressState = (
 const isKeyTaskComplete = (
   task: JobPosterKeyTask,
   locale: "en" | "fr",
-): boolean => isFilled(task[locale].description);
+): boolean => isFilled(task.description[locale]);
 const isJobTasksComplete = (
   tasks: JobPosterKeyTask[],
   locale: "en" | "fr",
@@ -199,10 +199,7 @@ export const jobTasksProgressState = (
 const isCriterionComplete = (
   criterion: Criteria,
   locale: "en" | "fr",
-): boolean => {
-  const { description } = criterion[locale];
-  return description !== null && description.length > 0;
-};
+): boolean => isFilled(criterion.description[locale]);
 // FIXME: There is currently no way to know the difference between an untouched list, and one where criteria have been added then removed
 const isCriteriaUntouched = (criteria: Criteria[]): boolean =>
   criteria.length === 0;
