@@ -119,13 +119,10 @@ const updateCriteriaWithValues = (
         ? CriteriaTypeId.Asset
         : CriteriaTypeId.Essential,
     skill_level_id: essentialKeyToId(values.level),
-    description: {
-      en: skill.description.en,
-      fr: skill.description.fr,
-    },
-    specificity: {
-      en: criteria.specificity.en,
-      fr: criteria.specificity.fr,
+    [locale]: {
+      ...criteria,
+      description: skill.description[locale],
+      specificity: criteria.specificity[locale],
     },
   };
 };

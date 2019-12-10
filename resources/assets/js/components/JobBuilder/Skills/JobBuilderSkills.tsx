@@ -504,7 +504,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
                   <i className="fas fa-book" />
                 </span> */}
                 {/* The skill name. */}
-                <span>{skill.name}</span>
+                <span>{skill.name[locale]}</span>
               </div>
               <div data-c-grid-item="base(1of1) tl(1of3)">
                 <span
@@ -582,7 +582,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
             <i className="fas fa-plus-circle" />
             <i className="fas fa-minus-circle" />
           </span>
-          {skill.name}
+          {skill.name[locale]}
         </button>
       </li>
     );
