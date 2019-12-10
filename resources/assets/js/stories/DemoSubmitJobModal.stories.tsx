@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { storiesOf } from "@storybook/react";
 import { boolean } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
