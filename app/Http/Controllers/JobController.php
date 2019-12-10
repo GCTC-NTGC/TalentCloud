@@ -86,6 +86,21 @@ class JobController extends Controller
     }
 
     /**
+     * Display a listing of a hr adviser's JobPosters.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function hrIndex()
+    {
+        return view('hr_advisor/job_index', [
+            'breadcrumbs_lang' => Lang::get('common/breadcrumbs')['hr']
+        ]);
+    }
+
+
+
+
+    /**
      * Delete a draft Job Poster.
      *
      * @param  \Illuminate\Http\Request $request   Incoming request object.
