@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase, camelcase */
 import { MessageDescriptor } from "react-intl";
-import {
-  Job,
-  JobTranslation,
-  JobPosterKeyTask,
-  Criteria,
-  Skill,
-} from "./types";
+import { Job, JobPosterKeyTask, Criteria, Skill } from "./types";
 import {
   CriteriaTypeId,
   getKeyByValue,
@@ -26,19 +20,6 @@ export const classificationString = (job: Job): string => {
       )}`
     : "";
 };
-
-const emptyJobTranslation = (): JobTranslation => ({
-  city: "",
-  title: "",
-  dept_impact: "",
-  team_impact: "",
-  hire_impact: "",
-  division: "",
-  education: "",
-  work_env_description: "",
-  culture_summary: "",
-  culture_special: "",
-});
 
 export const emptyJob = (): Job => {
   return {
@@ -72,8 +53,46 @@ export const emptyJob = (): Job => {
     flexible_hours_frequency_id: null,
     travel_requirement_id: null,
     overtime_requirement_id: null,
-    en: emptyJobTranslation(),
-    fr: emptyJobTranslation(),
+    city: {
+      en: "",
+      fr: "",
+    },
+    title: {
+      en: "",
+      fr: "",
+    },
+    dept_impact: {
+      en: "",
+      fr: "",
+    },
+    team_impact: {
+      en: "",
+      fr: "",
+    },
+    hire_impact: {
+      en: "",
+      fr: "",
+    },
+    division: {
+      en: "",
+      fr: "",
+    },
+    education: {
+      en: "",
+      fr: "",
+    },
+    work_env_description: {
+      en: "",
+      fr: "",
+    },
+    culture_summary: {
+      en: "",
+      fr: "",
+    },
+    culture_special: {
+      en: "",
+      fr: "",
+    },
   };
 };
 
@@ -81,11 +100,9 @@ export const emptyTasks = (): JobPosterKeyTask[] => [
   {
     id: 0,
     job_poster_id: 0,
-    en: {
-      description: "",
-    },
-    fr: {
-      description: "",
+    description: {
+      en: "",
+      fr: "",
     },
   },
 ];

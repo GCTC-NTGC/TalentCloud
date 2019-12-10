@@ -174,7 +174,7 @@ interface DetailsFormValues {
   overtime: OvertimeOptionType;
 }
 
-const classificationCode = (classification: number | string) =>
+const classificationCode = (classification: number | string): number | string =>
   getKeyByValue(ClassificationId, classification);
 
 const isClassificationSet = (values: DetailsFormValues): boolean => {
@@ -197,14 +197,14 @@ const jobToValues = (
 ): DetailsFormValues => {
   const values: DetailsFormValues = job
     ? {
-        title: job[locale].title ? String(job[locale].title) : "", // TODO: use utility method
+        title: job.title[locale] ? String(job.title[locale]) : "", // TODO: use utility method
         termLength: job.term_qty || "",
         classification: job.classification_id || "",
         level: job.classification_level || "",
-        educationRequirements: job[locale].education || "",
+        educationRequirements: job.education[locale] || "",
         securityLevel: job.security_clearance_id || "",
         language: job.language_requirement_id || "",
-        city: job[locale].city || "",
+        city: job.city[locale] || "",
         province: job.province_id || "",
         remoteWork: job.remote_work_allowed
           ? "remoteWorkCanada"
@@ -286,10 +286,9 @@ const updateJobWithValues = (
   travel_requirement_id: travelRequirements.indexOf(travel) + 1,
   overtime_requirement_id: overtimeRequirements.indexOf(overtime) + 1,
   [locale]: {
-    ...initialJob[locale],
-    title,
-    city,
-    education: educationRequirements,
+    title: title[locale],
+    city: city[locale],
+    education: educationRequirements[locale],
   },
 });
 

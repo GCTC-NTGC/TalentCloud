@@ -23,7 +23,7 @@ interface JobBuilderImpactProps {
   /** The list of known departments. Used to determine the Department statement. */
   departments: Department[];
   /** Function to run after successful form validation.
-   *  It must return true if the submission was succesful, false otherwise.
+   *  It must return true if the submission was successful, false otherwise.
    */
   handleSubmit: (values: Job) => Promise<boolean>;
   // The function to run when user clicks Prev Page
@@ -72,13 +72,11 @@ const updateJobWithValues = (
   deptImpacts: { en: string; fr: string },
 ): Job => ({
   ...initialJob,
-  en: {
-    ...initialJob.en,
-    dept_impact: deptImpacts.en,
-  },
-  fr: {
-    ...initialJob.fr,
-    dept_impact: deptImpacts.fr,
+  dept_impact: {
+    ...initialJob.dept_impact,
+    en: deptImpacts.en,
+    ...initialJob.dept_impact,
+    fr: deptImpacts.fr,
   },
   [locale]: {
     ...initialJob[locale],
@@ -100,8 +98,8 @@ const determineDeptImpact = (
     return { en: "", fr: "" };
   }
   return {
-    en: dept.en.impact,
-    fr: dept.fr.impact,
+    en: dept.impact.en,
+    fr: dept.impact.fr,
   };
 };
 
@@ -152,9 +150,8 @@ const deptImpactStatement = (
   return <p data-c-margin="bottom(double)">{deptImpacts[locale]}</p>;
 };
 
-const JobBuilderImpact: React.FunctionComponent<
-  JobBuilderImpactProps & WrappedComponentProps
-> = ({
+const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
+  WrappedComponentProps> = ({
   intl,
   departments,
   job,

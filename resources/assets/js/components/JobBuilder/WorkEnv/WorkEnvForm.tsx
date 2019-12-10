@@ -597,9 +597,9 @@ const jobToValues = (
       collaborativenessList,
       collaborative_vs_independent,
     ),
-    envDescription: job[locale].work_env_description || "",
-    cultureSummary: job[locale].culture_summary || "",
-    moreCultureSummary: job[locale].culture_special || "",
+    envDescription: job.work_env_description[locale] || "",
+    cultureSummary: job.culture_summary[locale] || "",
+    moreCultureSummary: job.culture_special[locale] || "",
   };
 };
 
@@ -666,10 +666,16 @@ const updateJobWithValues = (
       collaborativeness,
     ),
     work_env_features: workEnvFeatures,
-    [locale]: {
+    work_env_description: {
       ...job[locale],
       work_env_description: envDescription || null,
+    },
+    culture_summary: {
+      ...job[locale],
       culture_summary: cultureSummary || null,
+    },
+    culture_special: {
+      ...job[locale],
       culture_special: moreCultureSummary || null,
     },
   };

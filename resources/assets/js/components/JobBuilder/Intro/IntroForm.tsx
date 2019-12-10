@@ -125,27 +125,27 @@ const initializeValues = (
   }
 
   const managerDivision = {
-    en: get(manager, "en.division", ""),
-    fr: get(manager, "fr.division", ""),
+    en: get(manager, "division.en", ""),
+    fr: get(manager, "division.fr", ""),
   };
 
   let divisionEN = "";
-  if (job !== null && job.en.division) {
-    divisionEN = job.en.division;
+  if (job !== null && job.division.en) {
+    divisionEN = job.division.en;
   } else if (managerDivision.en) {
     divisionEN = managerDivision.en;
   }
 
   let divisionFR = "";
-  if (job !== null && job.fr.division) {
-    divisionFR = job.fr.division;
+  if (job !== null && job.division.fr) {
+    divisionFR = job.division.fr;
   } else if (managerDivision.fr) {
     divisionFR = managerDivision.fr;
   }
 
   return {
-    managerPositionEn: get(manager, "en.position", ""),
-    managerPositionFr: get(manager, "fr.position", ""),
+    managerPositionEn: get(manager, "position.en", ""),
+    managerPositionFr: get(manager, "position.fr", ""),
     department,
     divisionEN,
     divisionFR,
@@ -162,13 +162,10 @@ const updateJobWithValues = (
   chosen_lang: locale,
   // eslint-disable-next-line @typescript-eslint/camelcase
   department_id: values.department || null,
-  en: {
-    ...job.en,
-    division: values.divisionEN || null,
-  },
-  fr: {
-    ...job.fr,
-    division: values.divisionFR || null,
+  division: {
+    ...job.division,
+    en: values.divisionEN || null,
+    fr: values.divisionFR || null,
   },
 });
 
@@ -179,15 +176,15 @@ const updateManagerWithValues = (
   ...manager,
   // eslint-disable-next-line @typescript-eslint/camelcase
   department_id: values.department || null,
-  en: {
-    ...manager.en,
-    position: values.managerPositionEn || null,
-    division: values.divisionEN || null,
+  division: {
+    ...manager.division,
+    en: values.divisionEN || null,
+    fr: values.divisionFR || null,
   },
-  fr: {
-    ...manager.fr,
-    position: values.managerPositionFr || null,
-    division: values.divisionFR || null,
+  position: {
+    ...manager.position,
+    en: values.managerPositionEn || null,
+    fr: values.managerPositionFr || null,
   },
 });
 

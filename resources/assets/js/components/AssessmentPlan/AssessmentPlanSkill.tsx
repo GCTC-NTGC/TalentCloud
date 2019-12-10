@@ -72,9 +72,8 @@ const localizations = defineMessages({
   },
 });
 
-export const AssessmentPlanSkill: React.FunctionComponent<
-  AssessmentPlanSkillProps & WrappedComponentProps
-> = ({
+export const AssessmentPlanSkill: React.FunctionComponent<AssessmentPlanSkillProps &
+  WrappedComponentProps> = ({
   criterion,
   skill,
   assessments,
@@ -137,9 +136,9 @@ export const AssessmentPlanSkill: React.FunctionComponent<
   const skillLevelDescription = intl.formatMessage(
     SkillLevelDescriptionMessage(criterion.skill_level_id, skill.skill_type_id),
   );
-  const skillDescription = criterion[intl.locale].description
-    ? criterion[intl.locale].description
-    : skill[intl.locale].description;
+  const skillDescription = criterion.description[intl.locale]
+    ? criterion.description[intl.locale]
+    : skill.description[intl.locale];
   const assessmentTypeOptions = enumToIds(AssessmentTypeId).map(
     (typeId): SelectOption => {
       return {
@@ -231,7 +230,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<
               defaultMessage="{skillName} - {skillLevel}"
               description="Title of a skill section in the Assessment Plan Builder."
               values={{
-                skillName: skill[intl.locale].name,
+                skillName: skill.name[intl.locale],
                 skillLevel,
               }}
             />

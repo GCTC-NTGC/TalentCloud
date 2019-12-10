@@ -1,19 +1,6 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 
-export interface JobTranslation {
-  city: string | null;
-  title: string | null;
-  dept_impact: string | null;
-  team_impact: string | null;
-  hire_impact: string | null;
-  division: string | null;
-  education: string | null;
-  work_env_description: string | null;
-  culture_summary: string | null;
-  culture_special: string | null;
-}
-
 export interface Job {
   id: number;
   manager_id: number;
@@ -45,19 +32,46 @@ export interface Job {
   flexible_hours_frequency_id: number | null;
   travel_requirement_id: number | null;
   overtime_requirement_id: number | null;
-  en: JobTranslation;
-  fr: JobTranslation;
-}
-
-export interface ManagerTranslation {
-  division: string | null;
-  position: string | null;
-  leadership_style: string | null;
-  expectations: string | null;
-  employee_learning: string | null;
-  career_journey: string | null;
-  learning_path: string | null;
-  about_me: string | null;
+  city: {
+    en: string | null;
+    fr: string | null;
+  };
+  title: {
+    en: string | null;
+    fr: string | null;
+  };
+  dept_impact: {
+    en: string | null;
+    fr: string | null;
+  };
+  team_impact: {
+    en: string | null;
+    fr: string | null;
+  };
+  hire_impact: {
+    en: string | null;
+    fr: string | null;
+  };
+  division: {
+    en: string | null;
+    fr: string | null;
+  };
+  education: {
+    en: string | null;
+    fr: string | null;
+  };
+  work_env_description: {
+    en: string | null;
+    fr: string | null;
+  };
+  culture_summary: {
+    en: string | null;
+    fr: string | null;
+  };
+  culture_special: {
+    en: string | null;
+    fr: string | null;
+  };
 }
 
 export interface Manager {
@@ -70,8 +84,38 @@ export interface Manager {
   twitter_username: string | null;
   linkedin_url: string | null;
   is_demo_manager: boolean;
-  en: ManagerTranslation;
-  fr: ManagerTranslation;
+  division: {
+    en: string | null;
+    fr: string | null;
+  };
+  position: {
+    en: string | null;
+    fr: string | null;
+  };
+  leadership_style: {
+    en: string | null;
+    fr: string | null;
+  };
+  expectations: {
+    en: string | null;
+    fr: string | null;
+  };
+  employee_learning: {
+    en: string | null;
+    fr: string | null;
+  };
+  career_journey: {
+    en: string | null;
+    fr: string | null;
+  };
+  learning_path: {
+    en: string | null;
+    fr: string | null;
+  };
+  about_me: {
+    en: string | null;
+    fr: string | null;
+  };
 }
 
 export interface Application {
@@ -150,16 +194,17 @@ export interface ReviewStatus {
   name: ReviewStatusName;
 }
 
-export interface SkillTranslation {
-  name: string;
-  description: string;
-}
-
 export interface Skill {
   id: number;
   skill_type_id: number;
-  en: SkillTranslation;
-  fr: SkillTranslation;
+  name: {
+    en: string;
+    fr: string;
+  };
+  description: {
+    en: string;
+    fr: string;
+  };
   is_culture_skill: boolean;
   is_future_skill: boolean;
   classifications: Classification[];
@@ -175,13 +220,13 @@ export interface Criteria {
   job_poster_id: number;
   skill_id: number;
   skill_level_id: number;
-  en: {
-    description: string | null;
-    specificity: string | null;
+  description: {
+    en: string | null;
+    fr: string | null;
   };
-  fr: {
-    description: string | null;
-    specificity: string | null;
+  specificity: {
+    en: string | null;
+    fr: string | null;
   };
 }
 
@@ -227,24 +272,23 @@ export interface AssessmentPlanNotification {
   created_at: Date;
 }
 
-export interface DepartmentTranslation {
-  name: string;
-  impact: string;
-}
-
 export interface Department {
   id: number;
-  en: DepartmentTranslation;
-  fr: DepartmentTranslation;
+  name: {
+    en: string;
+    fr: string;
+  };
+  impact: {
+    en: string;
+    fr: string;
+  };
 }
 
 export interface JobPosterKeyTask {
   id: number;
   job_poster_id: number;
-  en: {
-    description: string;
-  };
-  fr: {
-    description: string;
+  description: {
+    en: string;
+    fr: string;
   };
 }

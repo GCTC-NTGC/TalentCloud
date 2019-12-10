@@ -19,7 +19,7 @@ const stories = storiesOf("Job Poster Builder|Skills", module).addDecorator(
 
 const skillOptions = mapToObject(
   fakeSkills(),
-  (skill): string => skill.en.name,
+  (skill): string => skill.name.en,
 ) as SelectTypeOptionsProp;
 
 const skillLevelOptions = {

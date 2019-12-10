@@ -25,9 +25,8 @@ interface AssessmentPlanAlertProps {
   handleDismiss: () => void;
 }
 
-export const AssessmentPlanAlert: React.FunctionComponent<
-  AssessmentPlanAlertProps & WrappedComponentProps
-> = ({
+export const AssessmentPlanAlert: React.FunctionComponent<AssessmentPlanAlertProps &
+  WrappedComponentProps> = ({
   notifications,
   skills,
   isFetching,
@@ -66,7 +65,7 @@ export const AssessmentPlanAlert: React.FunctionComponent<
   const skillsById = mapToObject(skills, getId);
   const skillName = (skillId: number): string =>
     hasKey(skillsById, skillId)
-      ? skillsById[skillId][intl.locale].name
+      ? skillsById[skillId].name[intl.locale]
       : "UNKNOWN SKILL";
   const createNotifications = notifications.filter(
     (notification): boolean => notification.type === "CREATE",

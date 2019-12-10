@@ -23,8 +23,8 @@ const isEmpty = (value: any | null | undefined): boolean => {
 
 const jobIntroValues = (job: Job): (string | number | null)[] => [
   job.department_id,
-  job.en.division,
-  job.fr.division,
+  job.division.en,
+  job.division.fr,
 ];
 const isJobBuilderIntroComplete = (job: Job): boolean => {
   return jobIntroValues(job).every(isFilled);
@@ -60,8 +60,8 @@ const jobDetailsValues = (
   job.remote_work_allowed,
   job.telework_allowed_frequency_id,
   job.flexible_hours_frequency_id,
-  job[locale].title,
-  job[locale].city,
+  job.title[locale],
+  job.city[locale],
 ];
 
 export const isJobBuilderDetailsComplete = (
@@ -109,14 +109,14 @@ const jobEnvValues = (job: Job, locale: string): (string | number | null)[] => [
   job.citizen_facing_vs_back_office,
   job.collaborative_vs_independent,
   job.work_env_features,
-  job[locale].culture_summary,
+  job.culture_summary[locale],
 ];
 const jobEnvValuesOptional = (
   job: Job,
   locale: string,
 ): (string | number | null)[] => [
-  job[locale].work_env_description,
-  job[locale].culture_special,
+  job.work_env_description[locale],
+  job.culture_special[locale],
 ];
 
 const isJobBuilderEnvComplete = (job: Job, locale: string): boolean => {
@@ -147,9 +147,9 @@ export const jobBuilderEnvProgressState = (
 };
 
 const jobImpactValues = (job: Job, locale: "en" | "fr"): (string | null)[] => [
-  job[locale].dept_impact,
-  job[locale].team_impact,
-  job[locale].hire_impact,
+  job.dept_impact[locale],
+  job.team_impact[locale],
+  job.hire_impact[locale],
 ];
 const isJobImpactComplete = (job: Job, locale: "en" | "fr"): boolean => {
   return jobImpactValues(job, locale).every(isFilled);

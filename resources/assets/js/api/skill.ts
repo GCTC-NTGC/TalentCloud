@@ -1,14 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { ResponseData, baseUrl, ApiResponse, axios } from "./base";
-import { Skill, SkillTranslation } from "../models/types";
-import { hasKey } from "../helpers/queries";
-
-export const parseSkillTranslation = (
-  data: ResponseData,
-): SkillTranslation => ({
-  name: data.name,
-  description: data.description,
-});
+import { baseUrl, ApiResponse, axios } from "./base";
+import { Skill } from "../models/types";
 
 export const parseSkill = (data: any): Skill => data;
 

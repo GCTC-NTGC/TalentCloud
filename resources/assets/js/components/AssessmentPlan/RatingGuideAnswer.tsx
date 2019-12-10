@@ -87,9 +87,8 @@ const getAvailableCriteria = (
   return [...availableCriteria, answerCriterion];
 };
 
-const RatingGuideAnswer: React.FunctionComponent<
-  RatingGuideAnswerProps & WrappedComponentProps
-> = ({
+const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps &
+  WrappedComponentProps> = ({
   answer,
   unansweredCriteria,
   answerCriterion,
@@ -117,7 +116,7 @@ const RatingGuideAnswer: React.FunctionComponent<
         : null;
       return {
         value: criterion.id,
-        label: skill ? skill[intl.locale].name : "",
+        label: skill ? skill.name[intl.locale] : "",
       };
     },
   );

@@ -119,15 +119,13 @@ const updateCriteriaWithValues = (
         ? CriteriaTypeId.Asset
         : CriteriaTypeId.Essential,
     skill_level_id: essentialKeyToId(values.level),
-    en: {
-      description: skill.en.description,
-      specificity:
-        locale === "en" ? values.specificity : criteria.en.specificity,
+    description: {
+      en: skill.description.en,
+      fr: skill.description.fr,
     },
-    fr: {
-      description: skill.fr.description,
-      specificity:
-        locale === "fr" ? values.specificity : criteria.fr.specificity,
+    specificity: {
+      en: locale === "en" ? values.specificity : criteria.specificity.en,
+      fr: locale === "fr" ? values.specificity : criteria.specificity.fr,
     },
   };
 };
@@ -138,20 +136,19 @@ const newCriteria = (jobPosterId: number, skillId: number): Criteria => ({
   job_poster_id: jobPosterId,
   skill_id: skillId,
   skill_level_id: SkillLevelId.Basic,
-  en: {
-    description: null,
-    specificity: null,
+  description: {
+    en: null,
+    fr: null,
   },
-  fr: {
-    description: null,
-    specificity: null,
+  specificity: {
+    en: null,
+    fr: null,
   },
 });
 /* eslint-enable @typescript-eslint/camelcase */
 
-export const CriteriaForm: React.FunctionComponent<
-  CriteriaFormProps & WrappedComponentProps
-> = ({
+export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
+  WrappedComponentProps> = ({
   jobPosterId,
   criteria,
   skill,

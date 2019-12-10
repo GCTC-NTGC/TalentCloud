@@ -137,11 +137,9 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
           return {
             id: 0,
             job_poster_id: task.jobPosterId,
-            en: {
-              description: locale === "en" ? task.description : "",
-            },
-            fr: {
-              description: locale === "fr" ? task.description : "",
+            description: {
+              en: locale === "en" ? task.description : "",
+              fr: locale === "fr" ? task.description : "",
             },
           };
         },

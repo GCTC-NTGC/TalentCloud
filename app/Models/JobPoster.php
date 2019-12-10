@@ -112,7 +112,7 @@ class JobPoster extends BaseModel
     const TIMEZONE = 'America/Toronto';
 
     /**
-     * @var string[] $translatedAttributes
+     * @var string[] $translatable
      */
     public $translatable = [
         'city',

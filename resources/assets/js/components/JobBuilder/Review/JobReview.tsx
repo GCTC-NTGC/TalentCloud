@@ -705,8 +705,8 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           linkLabel={intl.formatMessage(messages.workEnvEditLink)}
           link={jobBuilderEnv(locale, job.id)}
         >
-          {job[locale].culture_summary && <p>{job[locale].culture_summary}</p>}
-          {job[locale].culture_special && <p>{job[locale].culture_special}</p>}
+          {job.culture_summary[locale] && <p>{job.culture_summary[locale]}</p>}
+          {job.culture_special[locale] && <p>{job.culture_special[locale]}</p>}
         </JobReviewSection>
         <JobReviewSection
           title={intl.formatMessage(messages.workEnvHeading)}
@@ -825,7 +825,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
                 <FormattedMessage
                   id="jobBuilder.review.whatHappens"
                   defaultMessage="What happens next?"
-                  description="Rhtorical question"
+                  description="Rhetorical question"
                 />
               </p>
               <p data-c-margin="bottom(normal)">

@@ -79,11 +79,11 @@ export const clipboardData = (
                   criteriaType(narrativeCriterion.criteria_type_id),
                 ),
           skillName:
-            narrativeSkill === undefined ? "" : narrativeSkill[locale].name,
+            narrativeSkill === undefined ? "" : narrativeSkill.name[locale],
           skillDescription:
             narrativeSkill === undefined
               ? ""
-              : narrativeSkill[locale].description,
+              : narrativeSkill.description[locale],
           modelAnswer: "",
           id:
             narrativeCriterion === undefined
@@ -149,11 +149,11 @@ export const clipboardData = (
             ? ""
             : formatMessage(criteriaType(criterionByAnswer.criteria_type_id)),
         skillName:
-          skillByCriterion === undefined ? "" : skillByCriterion[locale].name,
+          skillByCriterion === undefined ? "" : skillByCriterion.name[locale],
         skillDescription:
           skillByCriterion === undefined
             ? ""
-            : skillByCriterion[locale].description,
+            : skillByCriterion.description[locale],
         modelAnswer: answer.expected_answer ? answer.expected_answer : "",
         id:
           questionByAnswer === undefined || criterionByAnswer === undefined
@@ -248,9 +248,8 @@ interface TableProps {
   narrativeReview?: Assessment[];
 }
 
-const RatingGuideClipboard: React.FunctionComponent<
-  TableProps & WrappedComponentProps
-> = ({
+const RatingGuideClipboard: React.FunctionComponent<TableProps &
+  WrappedComponentProps> = ({
   assessments,
   criteria,
   skills,
