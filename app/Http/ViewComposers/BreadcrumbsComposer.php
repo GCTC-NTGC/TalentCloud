@@ -42,6 +42,9 @@ class BreadcrumbsComposer
         if (WhichPortal::isManagerPortal()) {
             $segments = $segments->slice(1);
             $breadcrumbs_lang = Lang::get('common/breadcrumbs')['manager'];
+        } elseif (WhichPortal::isHrPortal()) {
+            $segments = $segments->slice(1);
+            $breadcrumbs_lang = Lang::get('common/breadcrumbs')['hr'];
         }
 
         $view->with('breadcrumbs', $segments);
