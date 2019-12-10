@@ -48,28 +48,34 @@ export type ClaimJobAction = AsyncFsaActions<
   typeof CLAIM_JOB_FAILED,
   {},
   {
+    hrAdvisorId: number;
     jobId: number;
   }
 >;
 
 export const claimJob = (
+  hrAdvisorId: number,
   jobId: number,
 ): RSAActionTemplate<
   typeof CLAIM_JOB_STARTED,
   typeof CLAIM_JOB_SUCCEEDED,
   typeof CLAIM_JOB_FAILED,
   {},
-  { jobId: number }
+  {
+    hrAdvisorId: number;
+    jobId: number;
+  }
 > =>
   asyncPut(
-    getClaimJobEndpoint(jobId),
+    getClaimJobEndpoint(hrAdvisorId, jobId),
     {},
     CLAIM_JOB_STARTED,
     CLAIM_JOB_SUCCEEDED,
     CLAIM_JOB_FAILED,
-    response => ({}),
-    { jobId },
+    () => ({}),
+    { hrAdvisorId, jobId },
   );
+
 export const UNCLAIM_JOB_STARTED = "HR ADVISOR: UNCLAIM JOB STARTED";
 export const UNCLAIM_JOB_SUCCEEDED = "HR ADVISOR: UNCLAIM JOB SUCCEEDED";
 export const UNCLAIM_JOB_FAILED = "HR ADVISOR: UNCLAIM JOB FAILED";
@@ -80,26 +86,28 @@ export type UnclaimJobAction = AsyncFsaActions<
   typeof UNCLAIM_JOB_FAILED,
   {},
   {
+    hrAdvisorId: number;
     jobId: number;
   }
 >;
 
 export const unclaimJob = (
+  hrAdvisorId: number,
   jobId: number,
 ): RSAActionTemplate<
   typeof UNCLAIM_JOB_STARTED,
   typeof UNCLAIM_JOB_SUCCEEDED,
   typeof UNCLAIM_JOB_FAILED,
   {},
-  { jobId: number }
+  { hrAdvisorId: number; jobId: number }
 > =>
   asyncDelete(
-    getClaimJobEndpoint(jobId),
+    getClaimJobEndpoint(hrAdvisorId, jobId),
     UNCLAIM_JOB_STARTED,
     UNCLAIM_JOB_SUCCEEDED,
     UNCLAIM_JOB_FAILED,
-    response => ({}),
-    { jobId },
+    () => ({}),
+    { hrAdvisorId, jobId },
   );
 
 export type HrAdvisorAction =

@@ -80,7 +80,7 @@ export interface HrAdvisor {
   first_name: string;
   last_name: string;
   department_id: number;
-  claimed_job_ids: number;
+  claimed_job_ids: number[];
 }
 
 export interface Application {
