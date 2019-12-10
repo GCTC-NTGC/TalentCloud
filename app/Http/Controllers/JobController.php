@@ -91,9 +91,7 @@ class JobController extends Controller
      */
     public function hrIndex()
     {
-        return view('hr_advisor/job_index', [
-            'breadcrumbs_lang' => Lang::get('common/breadcrumbs')['hr']
-        ]);
+        return view('hr_advisor/job_index', []);
     }
 
 
