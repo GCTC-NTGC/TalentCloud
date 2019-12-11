@@ -55,7 +55,7 @@ export const initState = (): HrAdvisorState => ({
 
 const addClaimedJob = (advisor: HrAdvisor, jobId: number): HrAdvisor => ({
   ...advisor,
-  claimed_job_ids: uniq([jobId, ...advisor.claimed_job_ids]),
+  claimed_job_ids: uniq([jobId, ...advisor.claimed_job_ids]).sort(),
 });
 
 const removeClaimedJob = (advisor: HrAdvisor, jobId: number): HrAdvisor => ({
@@ -84,23 +84,33 @@ export const entitiesReducer = (
         hrAdvisors: {
           byId: {
             ...state.hrAdvisors.byId,
-            [action.meta.hrAdvisorId]: addClaimedJob(
-              state.hrAdvisors.byId[action.meta.hrAdvisorId],
-              action.meta.jobId,
-            ),
+            // Only modify the state if the advisor already exists
+            ...(state.hrAdvisors.byId[action.meta.hrAdvisorId]
+              ? {
+                  [action.meta.hrAdvisorId]: addClaimedJob(
+                    state.hrAdvisors.byId[action.meta.hrAdvisorId],
+                    action.meta.jobId,
+                  ),
+                }
+              : {}),
           },
         },
       };
-    case CLAIM_JOB_FAILED:
+    case UNCLAIM_JOB_SUCCEEDED:
       return {
         ...state,
         hrAdvisors: {
           byId: {
             ...state.hrAdvisors.byId,
-            [action.meta.hrAdvisorId]: removeClaimedJob(
-              state.hrAdvisors.byId[action.meta.hrAdvisorId],
-              action.meta.jobId,
-            ),
+            // Only modify the state if the advisor already exists
+            ...(state.hrAdvisors.byId[action.meta.hrAdvisorId]
+              ? {
+                  [action.meta.hrAdvisorId]: removeClaimedJob(
+                    state.hrAdvisors.byId[action.meta.hrAdvisorId],
+                    action.meta.jobId,
+                  ),
+                }
+              : {}),
           },
         },
       };
@@ -128,7 +138,7 @@ export const uiReducer = (
         ...state,
         hrAdvisorUpdating: {
           ...state.hrAdvisorUpdating,
-          [action.meta.id]: true,
+          [action.meta.id]: false,
         },
       };
     case CLAIM_JOB_STARTED:

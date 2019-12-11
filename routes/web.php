@@ -558,12 +558,10 @@ Route::group(['prefix' => 'api'], function (): void {
 
     Route::put('hr-advisors/{hrAdvisor}/claims/{job}', 'Api\ClaimJobApiController@claimJob')
         ->middleware('can:update,hrAdvisor')
-        ->where('can:advisor-claim-job,[hrAdvisor,job]') // TODO: make sure this gate works
         ->where('hrAdvisor', '[0-9]+')
         ->where('job', '[0-9]+');
     Route::delete('hr-advisors/{hrAdvisor}/claims/{job}', 'Api\ClaimJobApiController@unclaimJob')
         ->middleware('can:update,hrAdvisor')
-        ->where('can:advisor-unclaim-job,[hrAdvisor,job]') // TODO: make sure this gate works
         ->where('hrAdvisor', '[0-9]+')
         ->where('job', '[0-9]+');
 });
