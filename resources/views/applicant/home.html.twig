@@ -37,7 +37,22 @@
             </div>
             {# Browse Jobs ================================================== #}
             <div class="home-browse" data-c-background="white(100)" data-c-padding="top(triple) bottom(triple)" data-c-border="bottom(thin, solid, grey)">
-                <div data-c-container="large">
+                {# Holiday Message #}
+                    <div data-c-container="medium">
+                        <div data-c-border="all(thick, solid, c5)" data-c-padding="all(2)" data-c-radius="rounded" data-c-align="base(center) tl(left)" style="background: #e6f0f8; position: relative;">
+                            {# <img src="/images/holiday-snowflake.svg" alt="A decorative snowflake icon." style="position: absolute; top: 0; left: 0; transform: translate(-25%, -25%); width: 10rem;"> #}
+                            <div data-c-grid="gutter(all, 2) middle">
+                                <div data-c-grid-item="tl(2of3)">
+                                    <h2 data-c-font="script" data-c-font-size="h1" data-c-font-weight="bold" data-c-color="c5" data-c-margin="bottom(1)" data-c-padding="bottom(1)" data-c-border="bottom(thin, solid, c5)">Holiday Message Title</h2>
+                                    <p data-c-color="c5">Holiday Message: Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minus error debitis voluptate sint voluptas asperiores alias, commodi harum sunt ea dignissimos voluptatum veniam reiciendis laborum accusantium laudantium aliquam nihil.</p>
+                                </div>
+                                <div data-c-grid-item="tl(1of3)">
+                                    <img src="/images/holiday-snowman.svg" alt="A decorative snowman standing joyfully in the falling snow." style="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {# <div data-c-container="large">
                     <div data-c-align="centre" data-c-grid="gutter middle">
                         <div data-c-align="tp(left)" data-c-grid-item="tp(1of2)">
                             <h2 data-c-font-size="h2">
@@ -52,79 +67,79 @@
                     </div>
                     <div data-c-margin="top(double)">
                         <div data-c-grid="gutter">
-                        {% if job_count > 0 %}
-                        {% for i in 0..job_count - 1 %}
-                            <div data-c-grid-item="tl(1of3) equal-col">
-                                <div class="card" data-c-background="white(100)" data-c-radius="rounded">
-                                    <div data-c-background="black(100)" data-c-padding="normal">
-                                        <h3>
-                                            <a data-c-colour="white" data-c-font-size="h3" data-c-font-weight="bold" href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
-                                                {{ jobs[i].title }}
-                                            </a>
-                                        </h3>
-                                        <p data-c-margin="top(half)" data-c-colour="white">{{ jobs[i].department.name }}</p>
-                                    </div>
-                                    <div data-c-background="white(100)" data-c-padding="normal">
-                                        <div data-c-grid="gutter">
-                                            <div data-c-grid-item="base(1of1)">
-                                                <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                                                    {{ job_index.index.apply_by_label|trans }}
-                                                </p>
-                                                <p>{{ humanizeLastDay(jobs[i].close_date_time) }}</p>
+                            {% if job_count > 0 %}
+                                {% for i in 0..job_count - 1 %}
+                                    <div data-c-grid-item="tl(1of3) equal-col">
+                                        <div class="card" data-c-background="white(100)" data-c-radius="rounded">
+                                            <div data-c-background="black(100)" data-c-padding="normal">
+                                                <h3>
+                                                    <a data-c-colour="white" data-c-font-size="h3" data-c-font-weight="bold" href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
+                                                        {{ jobs[i].title }}
+                                                    </a>
+                                                </h3>
+                                                <p data-c-margin="top(half)" data-c-colour="white">{{ jobs[i].department.name }}</p>
                                             </div>
-                                            <div data-c-grid-item="base(1of2)">
-                                                <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                                                    {{ job_index.index.location_label }}
-                                                </p>
-                                                <p>{{ jobs[i].city }}, {{ jobs[i].province.value }}</p>
-                                            </div>
-                                            <div data-c-grid-item="base(1of2)">
-                                                <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                                                    {{ job_index.index.salary_label }}
-                                                </p>
-                                                {% if (app.getLocale() == "en") %}
-                                                    <p>
-                                                        ${{ jobs[i].salary_min|number_format }} - ${{ jobs[i].salary_max|number_format }}
-                                                    </p>
-                                                {% else %}
-                                                    <p>
-                                                        {{ jobs[i].salary_min|number_format('0',' ',' ') }}&nbsp;$ - {{ jobs[i].salary_max|number_format('0',' ',' ') }}&nbsp;$
-                                                    </p>
-                                                {% endif %}
-                                            </div>
-                                            <div data-c-grid-item="base(1of1)">
-                                                <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                                                    {{ job_post.impact.title }}
-                                                </p>
-                                                <p>{{handleNullState(
-                                                    jobs[i].hire_impact,
-                                                    jobs[i].hire_impact|nl2br,
-                                                    job_post.no_info
-                                                )}}</p>
-                                            </div>
-                                            <div data-c-align="base(right)" data-c-grid-item="base(1of1)">
-                                                <a href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
-                                                    {{ home.slogan.link.label }}
-                                                </a>
+                                            <div data-c-background="white(100)" data-c-padding="normal">
+                                                <div data-c-grid="gutter">
+                                                    <div data-c-grid-item="base(1of1)">
+                                                        <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                                                            {{ job_index.index.apply_by_label|trans }}
+                                                        </p>
+                                                        <p>{{ humanizeLastDay(jobs[i].close_date_time) }}</p>
+                                                    </div>
+                                                    <div data-c-grid-item="base(1of2)">
+                                                        <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                                                            {{ job_index.index.location_label }}
+                                                        </p>
+                                                        <p>{{ jobs[i].city }}, {{ jobs[i].province.value }}</p>
+                                                    </div>
+                                                    <div data-c-grid-item="base(1of2)">
+                                                        <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                                                            {{ job_index.index.salary_label }}
+                                                        </p>
+                                                        {% if (app.getLocale() == "en") %}
+                                                            <p>
+                                                                ${{ jobs[i].salary_min|number_format }} - ${{ jobs[i].salary_max|number_format }}
+                                                            </p>
+                                                        {% else %}
+                                                            <p>
+                                                                {{ jobs[i].salary_min|number_format('0',' ',' ') }}&nbsp;$ - {{ jobs[i].salary_max|number_format('0',' ',' ') }}&nbsp;$
+                                                            </p>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div data-c-grid-item="base(1of1)">
+                                                        <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+                                                            {{ job_post.impact.title }}
+                                                        </p>
+                                                        <p>{{handleNullState(
+                                                            jobs[i].hire_impact,
+                                                            jobs[i].hire_impact|nl2br,
+                                                            job_post.no_info
+                                                        )}}</p>
+                                                    </div>
+                                                    <div data-c-align="base(right)" data-c-grid-item="base(1of1)">
+                                                        <a href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
+                                                            {{ home.slogan.link.label }}
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                        {% endif %}
-                        {% if job_count < 3 %}
-                        {% for i in job_count..2 %}
-                            <div data-c-grid-item="tl(1of3) equal-col">
-                                <div class="home-browse-null" data-c-padding="normal" data-c-radius="rounded">
-                                    <span data-c-font-size="h4" data-c-font-weight="bold">{{ home.browse.null }}</span>
-                                </div>
-                            </div>
-                        {% endfor %}
-                        {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            {% if job_count < 3 %}
+                                {% for i in job_count..2 %}
+                                    <div data-c-grid-item="tl(1of3) equal-col">
+                                        <div class="home-browse-null" data-c-padding="normal" data-c-radius="rounded">
+                                            <span data-c-font-size="h4" data-c-font-weight="bold">{{ home.browse.null }}</span>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
-                </div>
+                </div> #}
                 <img alt="{{ home.leaf }}" class="home-browse-icon" src="/images/maple-leaf.svg">
             </div>
             {# How it Works ================================================= #}
@@ -146,7 +161,7 @@
                                 </button>
                             {% endfor %}
                         </div>
-                        <div data-c-grid-item="tl(2of3) equal-col">
+                        <div data-c-grid-item="tl(2of3)">
                             {% set stepContentCounter = 0 %}
                             {% for item in home.hiw.step_content %}
                                 {% set stepContentCounter = stepContentCounter + 1 %}
