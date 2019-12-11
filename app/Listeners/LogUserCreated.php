@@ -26,6 +26,6 @@ class LogUserCreated
      */
     public function handle(UserCreated $event)
     {
-        Log::notice('User created: '.$event->user);
+        Log::notice('User created: ' . $event->user);
     }
 }

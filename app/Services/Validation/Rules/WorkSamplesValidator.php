@@ -26,11 +26,11 @@ class WorkSamplesValidator
         Validator::make($workSamplesValidator->getAttributes(), [
             'applicant_id' => [
             'required',
-               Rule::in($applicant_ids->toArray()),
+                Rule::in($applicant_ids->toArray()),
             ],
             'file_type_id' => [
             'required',
-               Rule::in($this->file_type_id->toArray()),
+                Rule::in($this->file_type_id->toArray()),
             ]
        
         ])->validate();

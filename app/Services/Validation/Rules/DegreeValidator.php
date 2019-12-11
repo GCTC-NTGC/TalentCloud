@@ -28,11 +28,11 @@ class DegreeValidator
         Validator::make($degreeValidator->getAttributes(), [
             'applicant_id' => [
             'required',
-               Rule::in($applicant_ids->toArray()),
+                Rule::in($applicant_ids->toArray()),
             ],
             'degree_type_id' => [
             'required',
-               Rule::in($this->degree_type_id->toArray()),
+                Rule::in($this->degree_type_id->toArray()),
             ]
 
         ])->validate();
