@@ -1,3 +1,12 @@
+name-template: v$NEXT_PATCH_VERSION
+tag-template: v$NEXT_PATCH_VERSION
+categories:
+  - title: 🚀 Front-end
+    label: front-end
+  - title: 🎉 Back-end
+    label: back-end
+  - title: 🐛 Bugfixes
+    label: bug
 template: |
   ## Changes since last release:
 
