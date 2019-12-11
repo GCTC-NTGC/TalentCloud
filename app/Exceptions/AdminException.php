@@ -41,7 +41,7 @@ class AdminException extends Exception
             [
                 'exception' => $this,
                 'error' => [
-                    "title" => "Error"
+                    'title' => 'Error'
                 ],
                 'links' => $this->links
             ],

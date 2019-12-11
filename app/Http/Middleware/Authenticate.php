@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Middleware;
+
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Facades\App\Services\WhichPortal;
 
@@ -17,6 +18,6 @@ class Authenticate extends Middleware
             return route('manager.login');
         } else {
             return route('login');
-        }            
+        }
     }
 }

@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+
 use App\Models\WorkEnvironment;
 
 /**
@@ -20,13 +21,15 @@ use App\Models\WorkEnvironment;
  *
  * @property \App\Models\WorkEnvironment $work_environment
  */
-class WorkEnvironmentTranslation extends BaseModel {
+class WorkEnvironmentTranslation extends BaseModel
+{
 
     protected $fillable = [
         'things_to_know'
     ];
 
-    public function work_environment() {
+    public function work_environment()
+    {
         return $this->belongsTo(\App\Models\WorkEnvironment::class);
     }
 }

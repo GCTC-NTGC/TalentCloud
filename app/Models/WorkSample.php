@@ -25,7 +25,8 @@ namespace App\Models;
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  * @property \App\Models\Applicant $applicant
  */
-class WorkSample extends BaseModel {
+class WorkSample extends BaseModel
+{
 
     protected $casts = [
         'name' => 'string',
@@ -43,20 +44,23 @@ class WorkSample extends BaseModel {
         'description'
     ];
 
-    public function file_type() {
+    public function file_type()
+    {
         return $this->belongsTo(\App\Models\Lookup\FileType::class);
     }
 
-    public function application_work_samples() {
+    public function application_work_samples()
+    {
         return $this->hasMany(\App\Models\ApplicationWorkSample::class);
     }
 
-    public function skill_declarations() {
+    public function skill_declarations()
+    {
         return $this->belongsToMany(\App\Models\SkillDeclaration::class);
     }
 
-    public function applicant() {
+    public function applicant()
+    {
         return $this->belongsTo(\App\Models\Applicant::class);
     }
-
 }

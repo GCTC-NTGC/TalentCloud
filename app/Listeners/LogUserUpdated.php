@@ -16,7 +16,6 @@ class LogUserUpdated
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -27,6 +26,6 @@ class LogUserUpdated
      */
     public function handle(UserUpdated $event)
     {
-        Log::notice("User updated: ".$event->user);
+        Log::notice('User updated: '.$event->user);
     }
 }

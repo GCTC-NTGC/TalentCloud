@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+
 use App\Models\SkillDeclaration;
 
 /**
@@ -25,7 +26,8 @@ use App\Models\SkillDeclaration;
  * @property \Illuminate\Database\Eloquent\Collection $projects
  * @property \Illuminate\Database\Eloquent\Collection $skill_declaractions
  */
-class Reference extends BaseModel {
+class Reference extends BaseModel
+{
 
     protected $casts = [
         'name' => 'string',
@@ -41,20 +43,23 @@ class Reference extends BaseModel {
         'description'
     ];
 
-    public function relationship() {
+    public function relationship()
+    {
         return $this->belongsTo(\App\Models\Lookup\Relationship::class);
     }
 
-    public function applicant() {
+    public function applicant()
+    {
         return $this->belongsTo(\App\Models\Applicant::class);
     }
 
-    public function projects() {
+    public function projects()
+    {
         return $this->belongsToMany(\App\Models\Project::class);
     }
 
-    public function skill_declarations() {
+    public function skill_declarations()
+    {
         return $this->belongsToMany(\App\Models\SkillDeclaration::class);
     }
-
 }
