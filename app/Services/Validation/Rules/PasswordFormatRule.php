@@ -19,12 +19,12 @@ class PasswordFormatRule implements Rule
      * https://laraveldaily.com/how-to-create-custom-validation-rules-laravel/
      */
 
-    public function passes($attribute, $value) {
+    public function passes($attribute, $value){
         $passwordPattern = "~^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[.!@#$%^&*]).*$~";
         return preg_match($passwordPattern, $value);
     }
 
-    public function message() {
+    public function message(){
         return Lang::get('validation.custom.password');
     }
 

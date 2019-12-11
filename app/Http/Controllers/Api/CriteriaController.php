@@ -12,11 +12,11 @@ use Illuminate\Http\Request;
 class CriteriaController extends Controller
 {
 /**
-     * Converts a Criteria to the shape sent and received by the api.
-     *
-     * @param Criteria $model
-     * @return void
-     */
+ * Converts a Criteria to the shape sent and received by the api.
+ *
+ * @param Criteria $model
+ * @return void
+ */
     public function toApiArray(Criteria $model)
     {
         return array_merge($model->toArray(), $model->getTranslations());
@@ -30,7 +30,7 @@ class CriteriaController extends Controller
      */
     public function indexByJob(JobPoster $jobPoster)
     {
-        $toApiArray = array($this, 'toApiArray');
+        $toApiArray = array ($this, 'toApiArray');
         $criteriaArray = Criteria::where('job_poster_id', $jobPoster->id)->get()->map($toApiArray);
         return response()->json($criteriaArray);
     }
@@ -44,7 +44,7 @@ class CriteriaController extends Controller
      */
     public function batchUpdate(Request $request, JobPoster $jobPoster)
     {
-        $toApiArray = array($this, 'toApiArray');
+        $toApiArray = array ($this, 'toApiArray');
 
         $newCriteria = collect($request->input()); // TODO: switch to validated
         $oldCriteria = $jobPoster->criteria;
@@ -62,7 +62,7 @@ class CriteriaController extends Controller
             }
         }
 
-        $isUnsaved = function ($criteria, $savedIds): bool {
+        $isUnsaved = function($criteria, $savedIds): bool {
             return !array_key_exists('id', $criteria) || !in_array($criteria['id'], $savedIds);
         };
 
@@ -163,7 +163,7 @@ class CriteriaController extends Controller
         $newSkillId = null,
         $newSkillLevelId = null,
         $newCriteriaTypeId = null
-    ) {
+    ){
         $notification = new AssessmentPlanNotification();
         $notification->job_poster_id = $criteria->job_poster_id;
         $notification->type = $type;

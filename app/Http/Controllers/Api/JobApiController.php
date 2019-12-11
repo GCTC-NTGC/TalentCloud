@@ -29,7 +29,7 @@ class JobApiController extends Controller
      * Convert a job poster to the array expected by API requests,
      * with all criteria,
      * and with translation arrays in both languages.
-    *
+     *
      * @param  \App\Models\JobPoster $job Incoming Job Poster object.
      * @return mixed[]
      */
@@ -37,7 +37,7 @@ class JobApiController extends Controller
     {
         $criteria = Criteria::where('job_poster_id', $job->id)->get();
 
-        $toApiArray = function ($model) {
+        $toApiArray = function($model){
             return array_merge($model->toArray(), $model->getTranslations());
         };
         $criteriaTranslated = $criteria->map($toApiArray);

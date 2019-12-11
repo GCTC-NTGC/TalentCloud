@@ -30,7 +30,7 @@ class ApplicationTrackerComposer
         if (isset($view->getData()['job_application'])) {
             $job_application = $view->getData()['job_application'];
             if ($job_application != null && $job_application instanceof JobApplication) {
-                foreach($app_tracker['items'] as $key => $value) {
+                foreach ($app_tracker['items'] as $key => $value) {
                     $app_tracker['items'][$key]['status'] = $job_application->getSectionStatus($key);
                 }
             }

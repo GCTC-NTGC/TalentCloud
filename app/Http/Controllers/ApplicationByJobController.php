@@ -159,10 +159,10 @@ class ApplicationByJobController extends Controller
         $this->authorize('update', $application);
 
         $criteria = [
-            'essential' => $jobPoster->criteria->filter(function ($value, $key) {
+            'essential' => $jobPoster->criteria->filter(function($value, $key){
                 return $value->criteria_type->name == 'essential';
             }),
-            'asset' => $jobPoster->criteria->filter(function ($value, $key) {
+            'asset' => $jobPoster->criteria->filter(function($value, $key){
                 return $value->criteria_type->name == 'asset';
             }),
         ];
@@ -204,10 +204,10 @@ class ApplicationByJobController extends Controller
         $this->authorize('update', $application);
 
         $criteria = [
-            'essential' => $jobPoster->criteria->filter(function ($value, $key) {
+            'essential' => $jobPoster->criteria->filter(function($value, $key){
                 return $value->criteria_type->name == 'essential';
             }),
-            'asset' => $jobPoster->criteria->filter(function ($value, $key) {
+            'asset' => $jobPoster->criteria->filter(function($value, $key){
                 return $value->criteria_type->name == 'asset';
             }),
         ];
@@ -246,10 +246,10 @@ class ApplicationByJobController extends Controller
 
         $this->authorize('view', $application);
         $criteria = [
-            'essential' => $jobPoster->criteria->filter(function ($value, $key) {
+            'essential' => $jobPoster->criteria->filter(function($value, $key){
                 return $value->criteria_type->name == 'essential';
             }),
-            'asset' => $jobPoster->criteria->filter(function ($value, $key) {
+            'asset' => $jobPoster->criteria->filter(function($value, $key){
                 return $value->criteria_type->name == 'asset';
             }),
         ];
@@ -458,7 +458,7 @@ class ApplicationByJobController extends Controller
                     ]);
                     $degree->save();
                 } else {
-                    Log::warning("Applicant $applicant->id attempted to update degree with invalid id: $id");
+                    Log::warning("applicant $applicant->id attempted to update degree with invalid id: $id");
                 }
             }
         }
@@ -504,7 +504,7 @@ class ApplicationByJobController extends Controller
                     ]);
                     $course->save();
                 } else {
-                    Log::warning("Applicant $applicant->id attempted to update course with invalid id: $id");
+                    Log::warning("applicant $applicant->id attempted to update course with invalid id: $id");
                 }
             }
         }
@@ -550,7 +550,7 @@ class ApplicationByJobController extends Controller
                     ]);
                     $workExperience->save();
                 } else {
-                    Log::warning("Applicant $applicant->id attempted to update work_experience with invalid id: $id");
+                    Log::warning("applicant $applicant->id attempted to update work_experience with invalid id: $id");
                 }
             }
         }
@@ -633,7 +633,7 @@ class ApplicationByJobController extends Controller
                         $sampleIds = $this->getRelativeIds($skillDeclarationInput, 'samples');
                         $skillDeclaration->work_samples()->sync($sampleIds);
                     } else {
-                        Log::warning("Applicant $applicant->id attempted to update skill declaration with invalid id: $id");
+                        Log::warning("applicant $applicant->id attempted to update skill declaration with invalid id: $id");
                     }
                 }
             }
@@ -717,7 +717,7 @@ class ApplicationByJobController extends Controller
                         $sampleIds = $this->getRelativeIds($skillDeclarationInput, 'samples');
                         $skillDeclaration->work_samples()->sync($sampleIds);
                     } else {
-                        Log::warning("Applicant $applicant->id attempted to update skill declaration with invalid id: $id");
+                        Log::warning("applicant $applicant->id attempted to update skill declaration with invalid id: $id");
                     }
                 }
             }

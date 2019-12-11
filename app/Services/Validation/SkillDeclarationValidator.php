@@ -29,7 +29,7 @@ class SkillDeclarationValidator
 
     }
 
-    public function validator(SkillDeclaration $skillDeclaration) {
+    public function validator(SkillDeclaration $skillDeclaration){
         $uniqueSkillRule = new UniqueApplicantSkillRule($this->applicant, $skillDeclaration->id);
 
         //Validate basic data is filled in

@@ -46,7 +46,7 @@ class ContainsObjectWithAttributeRule implements Rule
         // debugbar()->debug($value);
         // debugbar()->debug($this->attributeName);
         // debugbar()->debug($this->attributeValue);
-        return $this->array_any($value, function ($object) {
+        return $this->array_any($value, function($object){
             return $object[$this->attributeName] == $this->attributeValue;
         });
     }

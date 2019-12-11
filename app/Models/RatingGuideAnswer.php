@@ -36,7 +36,8 @@ class RatingGuideAnswer extends BaseModel
      */
     public function setCriterionIdAttribute($value): void
     {
-        if (empty($value)) { // will check for empty string, null values
+        if (empty($value)) {
+// will check for empty string, null values
             $this->attributes['criterion_id'] = null;
         } else {
             $this->attributes['criterion_id'] = $value;

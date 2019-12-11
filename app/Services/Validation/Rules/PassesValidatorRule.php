@@ -31,7 +31,7 @@ class ContainsObjectWithRelationRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return $value->contains(function ($object) {
+        return $value->contains(function($object){
             $object->getRelationValue($this->relationName)->is($this->relationValue);
         });
     }

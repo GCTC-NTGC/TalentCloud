@@ -6,16 +6,16 @@ use App\Models\Lookup\AssessmentType;
 use App\Models\RatingGuideQuestion;
 use App\Models\RatingGuideAnswer;
 
-$factory->define(Assessment::class, function (Faker\Generator $faker) {
+$factory->define(Assessment::class, function(Faker\Generator $faker){
     return [
-        'criterion_id' => function () {
+        'criterion_id' => function(){
             return factory(Criteria::class)->create()->id;
         },
         'assessment_type_id' => AssessmentType::inRandomOrder()->first()->id,
     ];
 });
 
-$factory->afterMakingState(Assessment::class, 'withRatingGuide', function ($assessment, $faker): void {
+$factory->afterMakingState(Assessment::class, 'withRatingGuide', function($assessment, $faker): void {
     // Create a RatingGuideQuestion, and an accompanying RatingGuideAnswer
     $question = factory(RatingGuideQuestion::class)->create([
         'job_poster_id' => $assessment->criterion->job_poster_id,

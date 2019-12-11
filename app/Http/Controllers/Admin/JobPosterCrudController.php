@@ -54,7 +54,7 @@ class JobPosterCrudController extends CrudController
             'name' => 'title',
             'type' => 'text',
             'label' => 'Title',
-            'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {
+            'orderLogic' => function($query, $column, $columnDirection) use ($locale) {
                 return $query->orderBy('title->' . $locale, $columnDirection)->select('*');
             }
         ]);
@@ -74,7 +74,7 @@ class JobPosterCrudController extends CrudController
             'type' => 'closure',
             'label' => 'Manager',
             'orderable' => false,
-            'function' => function ($entry) {
+            'function' => function($entry){
                 return '<a href="' . route('manager.profile.edit', $entry->manager->user->id) . '" target="_blank">' . $entry->manager->user->full_name . '</a>';
             }
         ]);
@@ -95,10 +95,10 @@ class JobPosterCrudController extends CrudController
             'name' => 'departments',
             'type' => 'select2_multiple',
             'label' => 'Departments'
-        ], function () {
+        ], function(){
             return Department::all()->pluck('name', 'id')->toArray();
-        }, function ($values) {
-            $this->crud->addClause('WhereHas', 'department', function ($query) use ($values) {
+        }, function($values){
+            $this->crud->addClause('WhereHas', 'department', function($query) use ($values) {
                 foreach (json_decode($values) as $key => $value) {
                     if ($key === 0) {
                         $query->where('id', $value);
@@ -177,8 +177,8 @@ class JobPosterCrudController extends CrudController
             'type' => 'date_picker',
             'label' => 'Letter of Offer Issuance Date',
             'date_picker_options' => [
-               'todayBtn' => 'linked',
-               'format' => 'yyyy-mm-dd',
+                'todayBtn' => 'linked',
+                'format' => 'yyyy-mm-dd',
             ],
         ]);
         if ($this->crud->getCurrentEntry() &&

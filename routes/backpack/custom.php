@@ -9,7 +9,7 @@ Route::group([
     'prefix' => config('backpack.base.route_prefix', 'admin'),
     'middleware' => ['web', config('backpack.base.middleware_key', 'admin')],
     'namespace' => 'App\Http\Controllers\Admin',
-], function () : void {
+], function() : void {
     // Custom admin routes.
     Route::crud('skill', 'SkillCrudController');
     Route::crud('job-poster', 'JobPosterCrudController');

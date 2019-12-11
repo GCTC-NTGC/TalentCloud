@@ -65,7 +65,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function defineGates(): void
     {
-        Gate::define('view-assessment-plan', function ($user, $jobPoster) {
+        Gate::define('view-assessment-plan', function($user, $jobPoster){
             return $user->isAdmin() ||
                 $user->isManager() && $jobPoster->manager->user_id === $user->id;
         });

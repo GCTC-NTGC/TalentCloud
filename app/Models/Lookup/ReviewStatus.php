@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Lang;
  * Acessors:
  * @property string $translation
  */
-class ReviewStatus extends BaseModel {
+class ReviewStatus extends BaseModel{
 
     protected $fillable = [];
 
-    public function getTranslationAttribute() {
+    public function getTranslationAttribute(){
         return Lang::get('common/lookup/review_status')[$this->name];
     }
 

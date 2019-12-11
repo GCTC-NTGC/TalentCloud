@@ -10,10 +10,10 @@ use Faker\Generator;
 
 $faker_fr = Factory::create('fr');
 
-$factory->define(Criteria::class, function (Generator $faker) use ($faker_fr) {
+$factory->define(Criteria::class, function(Generator $faker) use ($faker_fr) {
     return [
         'criteria_type_id' => CriteriaType::inRandomOrder()->first()->id,
-        'job_poster_id' => function () {
+        'job_poster_id' => function(){
             return factory(JobPoster::class)->create()->id;
         },
         'skill_id' => Skill::inRandomOrder()->first()->id,

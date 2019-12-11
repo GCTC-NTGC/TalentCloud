@@ -20,7 +20,7 @@ namespace App\Models;
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Lookup\ApplicantProfileQuestion $applicant_profile_question
  */
-class ApplicantProfileAnswer extends BaseModel {
+class ApplicantProfileAnswer extends BaseModel{
 
     protected $casts = [
         'applicant_id' => 'int',
@@ -34,11 +34,11 @@ class ApplicantProfileAnswer extends BaseModel {
         'applicant_profile_question'
     ];
 
-    public function applicant() {
+    public function applicant(){
         return $this->belongsTo(\App\Models\Applicant::class);
     }
 
-    public function applicant_profile_question() {
+    public function applicant_profile_question(){
         return $this->belongsTo(\App\Models\Lookup\ApplicantProfileQuestion::class);
     }
 

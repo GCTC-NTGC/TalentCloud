@@ -23,12 +23,12 @@ class ApplicantPolicy extends BasePolicy
         $user_id = $user->id;
         return JobPoster::whereHas(
             'manager',
-            function ($q) use ($user_id) {
+            function($q) use ($user_id) {
                 $q->where('user_id', $user_id);
             }
         )->whereHas(
             'submitted_applications',
-            function ($q) use ($applicant_id) {
+            function($q) use ($applicant_id) {
                     $q->where('applicant_id', $applicant_id);
             }
         )->get()->isNotEmpty();
@@ -43,7 +43,7 @@ class ApplicantPolicy extends BasePolicy
      */
     public function view(User $user, Applicant $applicant)
     {
-        $authApplicant =  $user->isApplicant() &&
+        $authApplicant = $user->isApplicant() &&
             $applicant->user->is($user);
         $authManager = $user->isManager() && $this->ownsJobApplicantAppliedTo($user, $applicant);
         return $authApplicant || $authManager;

@@ -7,7 +7,7 @@ use App\Models\Manager;
 
 $faker_fr = Factory::create('fr');
 
-$factory->define(TeamCulture::class, function (Generator $faker) use ($faker_fr) {
+$factory->define(TeamCulture::class, function(Generator $faker) use ($faker_fr) {
     return [
         'team_size' => $faker->numberBetween(5, 15),
         'gc_directory_url' => $faker->url(),
@@ -27,7 +27,7 @@ $factory->define(TeamCulture::class, function (Generator $faker) use ($faker_fr)
             'en' => $faker->paragraph(),
             'fr' => $faker_fr->paragraph()
         ],
-        'manager_id' => function () {
+        'manager_id' => function(){
             return factory(Manager::class)->create()->id;
         }
     ];

@@ -21,8 +21,8 @@ class RatingGuideQuestionController extends Controller
     {
         $this->authorize('create', RatingGuideQuestion::class);
 
-        $job_poster_id = (int)$request->json('job_poster_id');
-        $assessment_type_id = (int)$request->json('assessment_type_id');
+        $job_poster_id = (int) $request->json('job_poster_id');
+        $assessment_type_id = (int) $request->json('assessment_type_id');
         $question = $request->json('question');
 
         JobPoster::findOrFail($job_poster_id);
@@ -73,8 +73,8 @@ class RatingGuideQuestionController extends Controller
     {
         $this->authorize('update', $ratingGuideQuestion);
 
-        $job_poster_id = (int)$request->json('job_poster_id');
-        $assessment_type_id = (int)$request->json('assessment_type_id');
+        $job_poster_id = (int) $request->json('job_poster_id');
+        $assessment_type_id = (int) $request->json('assessment_type_id');
         $question = $request->json('question');
 
         JobPoster::findOrFail($job_poster_id);

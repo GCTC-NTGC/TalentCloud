@@ -9,7 +9,7 @@ use DateTimeInterface;
 use Jenssegers\Date\Date;
 use DateTime;
 
-abstract class BaseModel extends Eloquent {
+abstract class BaseModel extends Eloquent{
     //Override date functions to return Jenssegers Data instead of Carbon
 
     /**

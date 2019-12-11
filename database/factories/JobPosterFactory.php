@@ -17,7 +17,7 @@ use App\Models\Lookup\OvertimeRequirement;
 
 $faker_fr = Faker\Factory::create('fr');
 
-$factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker_fr) {
+$factory->define(JobPoster::class, function(Faker\Generator $faker) use ($faker_fr) {
     $closeDate = $faker->dateTimeBetween('now', '1 months')->format('Y-m-d');
     $openDate = $faker->dateTimeBetween('-1 months', 'now')->format('Y-m-d');
     $startDate = $faker->dateTimeBetween('1 months', '2 months')->format('Y-m-d');
@@ -60,7 +60,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'security_clearance_id' => SecurityClearance::inRandomOrder()->first()->id,
         'language_requirement_id' => LanguageRequirement::inRandomOrder()->first()->id,
         'remote_work_allowed' => $faker->boolean(50),
-        'manager_id' => function () {
+        'manager_id' => function(){
             return factory(Manager::class)->create()->id;
         },
         'team_size' => $faker->numberBetween(5, 30),
@@ -118,7 +118,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
     ];
 });
 
-$factory->afterCreating(JobPoster::class, function ($jp) : void {
+$factory->afterCreating(JobPoster::class, function($jp) : void {
     $jp->criteria()->saveMany(factory(Criteria::class, 5)->make([
         'job_poster_id' => $jp->id
     ]));
@@ -133,7 +133,7 @@ $factory->afterCreating(JobPoster::class, function ($jp) : void {
 $factory->state(
     JobPoster::class,
     'byUpgradedManager',
-    ['manager_id' => function () {
+    ['manager_id' => function(){
             return factory(Manager::class)->state('upgraded')->create()->id;
     }]
 );
@@ -141,7 +141,7 @@ $factory->state(
 $factory->state(
     JobPoster::class,
     'published',
-    function (Faker\Generator $faker) {
+    function(Faker\Generator $faker){
         return [
             'published' => true,
             'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks')
@@ -152,7 +152,7 @@ $factory->state(
 $factory->state(
     JobPoster::class,
     'closed',
-    function (Faker\Generator $faker) {
+    function(Faker\Generator $faker){
         return [
             'published' => true,
             'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks'),
@@ -164,7 +164,7 @@ $factory->state(
 $factory->state(
     JobPoster::class,
     'draft',
-    function (Faker\Generator $faker) {
+    function(Faker\Generator $faker){
         return [
             'published' => false,
             'open_date_time' => ptDayStartToUtcTime($faker->dateTimeBetween('5 days', '10 days')->format('Y-m-d')),
@@ -178,7 +178,7 @@ $factory->state(
 $factory->state(
     JobPoster::class,
     'review_requested',
-    function (Faker\Generator $faker) {
+    function(Faker\Generator $faker){
         return [
             'published' => false,
             'open_date_time' => ptDayStartToUtcTime($faker->dateTimeBetween('5 days', '10 days')->format('Y-m-d')),

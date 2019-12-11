@@ -70,9 +70,9 @@ class UserCrudController extends CrudController
             'name' => 'user_role',
             'type' => 'select2',
             'label' => 'Role'
-            ], function () {
+            ], function(){
                 return UserRole::all()->keyBy('id')->pluck('name', 'id')->toArray();
-            }, function ($value) : void {
+            }, function($value) : void {
                 $this->crud->addClause('where', 'user_role_id', $value);
             });
     }

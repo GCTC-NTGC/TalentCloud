@@ -27,7 +27,7 @@ class ClassificationCrudController extends CrudController
         // Custom strings to display within the backpack UI.
         $this->crud->setEntityNameStrings('classification', 'classifications');
 
-        $this->crud->operation(['create', 'update'], function () {
+        $this->crud->operation(['create', 'update'], function(){
             $this->crud->addField([
                 'name' => 'key',
                 'type' => 'text',

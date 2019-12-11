@@ -8,7 +8,7 @@ use Faker\Generator;
 
 $faker_fr = Factory::create('fr');
 
-$factory->define(WorkEnvironment::class, function (Generator $faker) use ($faker_fr) {
+$factory->define(WorkEnvironment::class, function(Generator $faker) use ($faker_fr) {
     return [
         'telework_allowed_frequency_id' => Frequency::inRandomOrder()->first()->id,
         'flexible_hours_frequency_id' => Frequency::inRandomOrder()->first()->id,
@@ -16,7 +16,7 @@ $factory->define(WorkEnvironment::class, function (Generator $faker) use ($faker
             'en' => $faker->paragraph(),
             'fr' => $faker_fr->paragraph()
         ],
-        'manager_id' => function () {
+        'manager_id' => function(){
             return factory(Manager::class)->create()->id;
         }
     ];

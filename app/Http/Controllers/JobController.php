@@ -126,12 +126,12 @@ class JobController extends Controller
         // TODO: replace route('manager.show',manager.id) in templates with link using slug.
         $criteria = [
             'essential' => $jobPoster->criteria->filter(
-                function ($value, $key) {
+                function($value, $key){
                     return $value->criteria_type->name == 'essential';
                 }
             ),
             'asset' => $jobPoster->criteria->filter(
-                function ($value, $key) {
+                function($value, $key){
                     return $value->criteria_type->name == 'asset';
                 }
             ),

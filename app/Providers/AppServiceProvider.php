@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(WhichPortal::class, function ($app) {
+        $this->app->singleton(WhichPortal::class, function($app){
             return new WhichPortal();
         });
     }

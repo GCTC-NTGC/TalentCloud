@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Lang;
  *
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  */
-class SkillStatus extends BaseModel {
+class SkillStatus extends BaseModel{
 
     protected $fillable = [
         'name'
@@ -29,12 +29,12 @@ class SkillStatus extends BaseModel {
      */
     protected $appends = ['status'];
 
-    public function skill_declarations() {
+    public function skill_declarations(){
         return $this->hasMany(\App\Models\SkillDeclaration::class);
     }
 
     // Accessors
-    public function getStatusAttribute() {
+    public function getStatusAttribute(){
         return Lang::get('common/skills.status')[$this->name];
     }
 }

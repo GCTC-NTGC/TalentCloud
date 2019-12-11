@@ -18,10 +18,10 @@ Route::group(
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
-    function () : void {
+    function() : void {
         /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
 
-        Route::group(['prefix' => 'demo'], function () : void {
+        Route::group(['prefix' => 'demo'], function() : void {
 
             /* Temporary Blog Index */
             Route::view('blog', 'common/blog-index')->middleware('localOnly')->name('blog');
@@ -51,7 +51,7 @@ Route::group(
         });
 
 
-        Route::group(['prefix' => config('app.applicant_prefix')], function () : void {
+        Route::group(['prefix' => config('app.applicant_prefix')], function() : void {
 
             /* Home */
             Route::get('/', 'HomepageController@applicant')->name('home');
@@ -64,7 +64,7 @@ Route::group(
                 ->name('jobs.show');
 
             /* Require being logged in */
-            Route::middleware(['auth'])->group(function () : void {
+            Route::middleware(['auth'])->group(function() : void {
                 /* Managers */
                 Route::get('managers/{manager}', 'ManagerProfileController@show')
                     ->middleware('can:view,manager')
@@ -72,7 +72,7 @@ Route::group(
             });
 
             /* Require being logged in as applicant */
-            Route::middleware(['auth', 'role:applicant'])->group(function () : void {
+            Route::middleware(['auth', 'role:applicant'])->group(function() : void {
 
             // Application permissions are handled within the controller instead of with middleware
                 /* Applications */
@@ -207,9 +207,9 @@ Route::group(
 
         Route::group([
             'prefix' => config('app.manager_prefix'),
-        ], function (): void {
+        ], function(): void {
 
-            Route::middleware(['finishManagerRegistration'])->group(function (): void {
+            Route::middleware(['finishManagerRegistration'])->group(function(): void {
 
                 /* Home */
                 Route::get('/', 'HomepageController@manager')->name('manager.home');
@@ -225,7 +225,7 @@ Route::group(
                     'ManagerProfileController@faq'
                 )->name('manager.faq.section');
 
-                Route::middleware(['auth', 'role:manager'])->group(function (): void {
+                Route::middleware(['auth', 'role:manager'])->group(function(): void {
 
                     Route::get('profile', 'ManagerProfileController@editAuthenticated')->name('manager.profile');
 
@@ -322,7 +322,7 @@ Route::group(
             });
 
             // These routes must be excluded from the finishManagerRegistration middleware to avoid an infinite loop of redirects
-            Route::middleware(['auth', 'role:manager'])->group(function (): void {
+            Route::middleware(['auth', 'role:manager'])->group(function(): void {
                 Route::get('first-visit', 'Auth\FirstVisitController@showFirstVisitManagerForm')
                     ->name('manager.first_visit');
                 Route::post('finish_registration', 'Auth\FirstVisitController@finishManagerRegistration')
@@ -348,7 +348,7 @@ Route::group(
         /* AJAX calls =============================================================== */
 
         /* Require being logged in */
-        Route::middleware(['auth'])->group(function () : void {
+        Route::middleware(['auth'])->group(function() : void {
 
             Route::delete('courses/{course}', 'CourseController@destroy')
                 ->middleware('can:delete,course')
@@ -414,7 +414,7 @@ Route::group(
                 'prefix' => 'admin',
                 'middleware' => ['auth', 'role:admin']
             ],
-            function (): void {
+            function(): void {
                 /* Edit Job */
                 Route::get('jobs/{jobPoster}/edit', 'JobController@edit')
                     ->where('jobPoster', '[0-9]+')
@@ -435,7 +435,7 @@ Route::group(
         'prefix' => 'admin',
         'middleware' => ['auth', 'role:admin']
     ],
-    function (): void {
+    function(): void {
         // This page is non-localized, because the middleware that redirects to localized pages changes POSTs to GETs and messes up the request.
         Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
             ->middleware('can:create,App\Models\JobPoster')
@@ -449,7 +449,7 @@ Route::group(
 
 
 /** API routes - currently using same default http auth, but not localized */
-Route::group(['prefix' => 'api'], function (): void {
+Route::group(['prefix' => 'api'], function(): void {
     // Protected by a gate in the controller, instead of policy middleware
     Route::get('jobs/{jobPoster}/assessment-plan', 'AssessmentPlanController@getForJob');
     // Public, not protected by policy or gate
@@ -480,7 +480,7 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:update,jobPoster');
 
 
-     Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
+        Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:view,jobPoster');
     Route::put('jobs/{jobPoster}/criteria', 'Api\CriteriaController@batchUpdate')
@@ -494,7 +494,7 @@ Route::group(['prefix' => 'api'], function (): void {
         ->name('api.jobs.submit');
     Route::resource('jobs', 'Api\JobApiController')->only([
         'show', 'store', 'update'
-    ])->names([ // Specify custom names because default names collied with existing routes.
+    ])->names([// Specify custom names because default names collied with existing routes.
         'show' => 'api.jobs.show',
         'store' => 'api.jobs.store',
         'update' => 'api.jobs.update'
@@ -502,7 +502,7 @@ Route::group(['prefix' => 'api'], function (): void {
 
     Route::resource('managers', 'Api\ManagerApiController')->only([
         'show', 'update'
-    ])->names([ // Specify custom names because default names collied with existing routes
+    ])->names([// Specify custom names because default names collied with existing routes
         'show' => 'api.managers.show',
         'update' => 'api.managers.update'
     ]);

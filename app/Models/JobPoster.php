@@ -373,7 +373,7 @@ class JobPoster extends BaseModel
      */
     public function submitted_applications() // phpcs:ignore
     {
-        return $this->hasMany(\App\Models\JobApplication::class)->whereDoesntHave('application_status', function ($query): void {
+        return $this->hasMany(\App\Models\JobApplication::class)->whereDoesntHave('application_status', function($query): void {
             $query->where('name', 'draft');
         });
     }

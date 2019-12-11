@@ -21,8 +21,8 @@ class AssessmentController extends Controller
         $this->authorize('create', Assessment::class);
 
         try {
-            $criterion_id = (int)$request->json('criterion_id');
-            $assessment_type_id = (int)$request->json('assessment_type_id');
+            $criterion_id = (int) $request->json('criterion_id');
+            $assessment_type_id = (int) $request->json('assessment_type_id');
             $criteria = Criteria::findOrFail($criterion_id);
             AssessmentType::findOrFail($assessment_type_id);
 
@@ -73,8 +73,8 @@ class AssessmentController extends Controller
     {
         $this->authorize('update', $assessment);
         try {
-            $criterion_id = (int)$request->json('criterion_id');
-            $assessment_type_id = (int)$request->json('assessment_type_id');
+            $criterion_id = (int) $request->json('criterion_id');
+            $assessment_type_id = (int) $request->json('assessment_type_id');
             $criteria = Criteria::findOrFail($criterion_id);
             AssessmentType::findOrFail($assessment_type_id);
 

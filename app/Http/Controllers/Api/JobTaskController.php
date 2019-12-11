@@ -22,7 +22,7 @@ class JobTaskController extends Controller
 
     public function indexByJob(JobPoster $jobPoster)
     {
-        $toApiArray = array($this, 'toApiArray');
+        $toApiArray = array ($this, 'toApiArray');
         $taskArray = JobPosterKeyTask::where('job_poster_id', $jobPoster->id)->get()->map($toApiArray);
         return response()->json($taskArray);
     }
@@ -36,7 +36,7 @@ class JobTaskController extends Controller
      */
     public function batchUpdate(BatchUpdateJobTask $request, JobPoster $jobPoster)
     {
-        $toApiArray = array($this, 'toApiArray');
+        $toApiArray = array ($this, 'toApiArray');
 
         $newTasks = collect($request->validated()); // Collection of JobPosterKeyTasks.
         $oldTasks = $jobPoster->job_poster_key_tasks;

@@ -33,7 +33,7 @@ class SkillCrudController extends CrudController
         // things like Create Skill, Delete Skills, etc.
         $this->crud->setEntityNameStrings('skill', 'skills');
 
-        $this->crud->operation(['create', 'update'], function () {
+        $this->crud->operation(['create', 'update'], function(){
             // Add custom fields to the create/update views.
             $this->crud->addField([
                 'name' => 'name',
@@ -105,10 +105,10 @@ class SkillCrudController extends CrudController
             'name' => 'name',
             'type' => 'text',
             'label' => 'Name',
-            'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
+            'searchLogic' => function($query, $column, $searchTerm) use ($locale) : void {
                 $query->orWhere('name->' . $locale, 'like', "%$searchTerm%");
             },
-            'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {
+            'orderLogic' => function($query, $column, $columnDirection) use ($locale) {
                 return $query->orderBy('name->' . $locale, $columnDirection)->select('*');
             }
         ]);
@@ -117,7 +117,7 @@ class SkillCrudController extends CrudController
             'name' => 'description',
             'type' => 'text',
             'label' => 'Description',
-            'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
+            'searchLogic' => function($query, $column, $searchTerm) use ($locale) : void {
                 $query->orWhere('description->' . $locale, 'like', "%$searchTerm%");
             },
             'orderable' => false,
@@ -129,7 +129,7 @@ class SkillCrudController extends CrudController
             'type' => 'text',
             'label' => 'Type',
             'orderable' => true,
-            'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {
+            'orderLogic' => function($query, $column, $columnDirection) use ($locale) {
                 return $query->orderBy('skill_type_id', $columnDirection)->select('*');
             }
         ]);
@@ -163,13 +163,13 @@ class SkillCrudController extends CrudController
             'key' => 'classifications_filter',
             'type' => 'select2_multiple',
             'label' => 'Filter by classification'
-        ], function () {
+        ], function(){
             // The options that show up in the select2.
             return Classification::all()->pluck('key', 'id')->toArray();
-        }, function ($values) {
+        }, function($values){
             // If the filter is active.
             foreach (json_decode($values) as $key => $value) {
-                $this->crud->query = $this->crud->query->whereHas('classifications', function ($query) use ($value) {
+                $this->crud->query = $this->crud->query->whereHas('classifications', function($query) use ($value) {
                     $query->where('id', $value);
                 });
             }
@@ -183,7 +183,7 @@ class SkillCrudController extends CrudController
                 'label'=> 'No classification'
             ],
             false,
-            function () {
+            function(){
                 $this->crud->query = $this->crud->query->doesntHave('classifications');
             }
         );

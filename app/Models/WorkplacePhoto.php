@@ -19,7 +19,7 @@ namespace App\Models;
  * 
  * @property \App\Models\WorkplacePhotoCaption $workplace_photo_caption
  */
-class WorkplacePhoto extends BaseModel {
+class WorkplacePhoto extends BaseModel{
 
     protected $casts = [
         'image' => 'boolean',
@@ -29,7 +29,7 @@ class WorkplacePhoto extends BaseModel {
         'image'
     ];
 
-    public function workplace_photo_caption() {
+    public function workplace_photo_caption(){
         return $this->hasOne(\App\Models\WorkplacePhotoCaption::class);
     }
 

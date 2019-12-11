@@ -21,7 +21,7 @@ namespace App\Models;
  * @property \App\Models\WorkEnvironment $work_environment
  * @property \App\Models\WorkplacePhoto $workplace_photo
  */
-class WorkplacePhotoCaption extends BaseModel {
+class WorkplacePhotoCaption extends BaseModel{
 
     protected $casts = [
         'work_environment_id' => 'int',
@@ -32,11 +32,11 @@ class WorkplacePhotoCaption extends BaseModel {
         'description'
     ];
 
-    public function work_environment() {
+    public function work_environment(){
         return $this->belongsTo(\App\Models\WorkEnvironment::class);
     }
 
-    public function workplace_photo() {
+    public function workplace_photo(){
         return $this->belongsTo(\App\Models\WorkplacePhoto::class);
     }
 

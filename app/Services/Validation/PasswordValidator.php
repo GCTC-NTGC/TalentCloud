@@ -21,7 +21,7 @@ class PasswordValidator
         ];
     }
 
-    public function messages() {
+    public function messages(){
         return Lang::get('validation.custom.password');
     }
 }

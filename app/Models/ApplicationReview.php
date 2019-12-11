@@ -37,15 +37,15 @@ class ApplicationReview extends Model
      */
     protected $with = ['review_status'];
 
-    public function job_application() {
+    public function job_application(){
         return $this->belongsTo(JobApplication::class);
     }
 
-    public function review_status() {
+    public function review_status(){
         return $this->belongsTo(ReviewStatus::class);
     }
 
-    public function getStatusAttribute() {
+    public function getStatusAttribute(){
         return $this->review_status->translation;
     }
 }

@@ -20,7 +20,7 @@ namespace App\Models;
  * @property \App\Models\JobApplication $job_application
  * @property \App\Models\JobPosterQuestion $job_poster_question
  */
-class JobApplicationAnswer extends BaseModel {
+class JobApplicationAnswer extends BaseModel{
 
     protected $casts = [
         'job_poster_questions_id' => 'int',
@@ -30,11 +30,11 @@ class JobApplicationAnswer extends BaseModel {
         'answer'
     ];
 
-    public function job_application() {
+    public function job_application(){
         return $this->belongsTo(\App\Models\JobApplication::class);
     }
 
-    public function job_poster_question() {
+    public function job_poster_question(){
         return $this->belongsTo(\App\Models\JobPosterQuestion::class);
     }
 

@@ -26,12 +26,12 @@ class ExperienceController extends Controller
     }
 
     /**
-    * Show the form for editing the applicant's experience
-    *
-    * @param  \Illuminate\Http\Request $request   Incoming request object.
-    * @param  \App\Models\Applicant    $applicant Incoming applicant object.
-    * @return \Illuminate\Http\Response
-    */
+     * Show the form for editing the applicant's experience
+     *
+     * @param  \Illuminate\Http\Request $request   Incoming request object.
+     * @param  \App\Models\Applicant    $applicant Incoming applicant object.
+     * @return \Illuminate\Http\Response
+     */
     public function edit(Request $request, Applicant $applicant)
     {
         return view('applicant/profile_02_experience', [
@@ -111,7 +111,7 @@ class ExperienceController extends Controller
                     ]);
                     $degree->save();
                 } else {
-                    Log::warning("Applicant $applicant->id attempted to update degree with invalid id: $id");
+                    Log::warning("applicant $applicant->id attempted to update degree with invalid id: $id");
                 }
             }
         }
@@ -168,7 +168,7 @@ class ExperienceController extends Controller
                     ]);
                     $course->save();
                 } else {
-                    Log::warning("Applicant $applicant->id attempted to update course with invalid id: $id");
+                    Log::warning("applicant $applicant->id attempted to update course with invalid id: $id");
                 }
             }
         }
@@ -225,7 +225,7 @@ class ExperienceController extends Controller
                     ]);
                     $workExperience->save();
                 } else {
-                    Log::warning("Applicant $applicant->id attempted to update work_experience with invalid id: $id");
+                    Log::warning("applicant $applicant->id attempted to update work_experience with invalid id: $id");
                 }
             }
         }

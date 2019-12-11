@@ -29,7 +29,7 @@ class DepartmentCrudController extends CrudController
         // Custom strings to display within the backpack UI.
         $this->crud->setEntityNameStrings('department', 'departments');
 
-        $this->crud->operation(['create', 'update'], function () {
+        $this->crud->operation(['create', 'update'], function(){
             $this->crud->addField([
                 'name' => 'name',
                 'type' => 'text',
@@ -76,7 +76,7 @@ class DepartmentCrudController extends CrudController
             'label' => 'Name',
             'orderable' => true,
             'limit' => 70,
-            'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {
+            'orderLogic' => function($query, $column, $columnDirection) use ($locale) {
                 return $query->orderBy('name->' . $locale, $columnDirection)->select('*');
             }
         ]);

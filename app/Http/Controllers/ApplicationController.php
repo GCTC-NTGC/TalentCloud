@@ -40,18 +40,17 @@ class ApplicationController extends Controller
     public function show(JobApplication $application)
     {
         $criteria = [
-            'essential' => $application->job_poster->criteria->filter(function ($value, $key) {
+            'essential' => $application->job_poster->criteria->filter(function($value, $key){
                 return $value->criteria_type->name == 'essential';
             }),
-            'asset' => $application->job_poster->criteria->filter(function ($value, $key) {
+            'asset' => $application->job_poster->criteria->filter(function($value, $key){
                 return $value->criteria_type->name == 'asset';
             }),
         ];
 
         // Display slightly different views on different portals.
         $view = WhichPortal::isManagerPortal() ?
-            'manager/application_post' :
-            'applicant/application_preview';
+            'manager/application_post' : 'applicant/application_preview';
 
         if (WhichPortal::isManagerPortal()) {
             // Load things required for review component.

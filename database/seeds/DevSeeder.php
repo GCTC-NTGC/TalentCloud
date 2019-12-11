@@ -60,7 +60,7 @@ class DevSeeder extends Seeder // phpcs:ignore
 
         factory(JobPoster::class, 3)->state('published')->create([
             'manager_id' => $managerUser->manager->id
-        ])->each(function ($job) : void {
+        ])->each(function($job) : void {
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
             ]);
@@ -74,7 +74,7 @@ class DevSeeder extends Seeder // phpcs:ignore
         });
         factory(JobPoster::class, 3)->state('closed')->create([
             'manager_id' => $managerUser->manager->id
-        ])->each(function ($job) : void {
+        ])->each(function($job) : void {
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
             ]);
