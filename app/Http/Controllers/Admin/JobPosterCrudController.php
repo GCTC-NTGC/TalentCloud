@@ -54,6 +54,9 @@ class JobPosterCrudController extends CrudController
             'name' => 'title',
             'type' => 'text',
             'label' => 'Title',
+            'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
+                $query->orWhere('title->' . $locale, 'ilike', "%$searchTerm%");
+            },
             'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {
                 return $query->orderBy('title->' . $locale, $columnDirection)->select('*');
             }
