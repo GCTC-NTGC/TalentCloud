@@ -13,14 +13,14 @@ class BreadcrumbsComposer
     /**
      * The request instance.
      *
-     * @var \Illuminate\Http\Request
+     * @var Request
      */
     protected $request;
 
     /**
      * Initialize a new composer instance.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request Request being made.
      * @return void
      */
     public function __construct(Request $request)
@@ -31,7 +31,8 @@ class BreadcrumbsComposer
     /**
      * Bind data to the view.
      *
-     * @param  \Illuminate\View\View  $view
+     * @param View $view View being rendered.
+     *
      * @return void
      */
     public function compose(View $view)
@@ -51,7 +52,7 @@ class BreadcrumbsComposer
     /**
      * Parse the request route segments.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     protected function parseSegments()
     {
