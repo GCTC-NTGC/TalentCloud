@@ -74,6 +74,7 @@ use App\Events\JobSaved;
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_questions
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_translations
  * @property \Illuminate\Database\Eloquent\Collection $submitted_applications
+ * @property \Illuminate\Database\Eloquent\Collection $comments
  * @property \App\Models\Lookup\Frequency $telework_allowed_frequency
  * @property \App\Models\Lookup\Frequency $flexible_hours_frequency
  *
@@ -348,6 +349,11 @@ class JobPoster extends BaseModel
     public function classification() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Classification::class);
+    }
+
+    public function comments() // phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\Comment::class);
     }
     // @codeCoverageIgnoreEnd
     /* Artificial Relations */
