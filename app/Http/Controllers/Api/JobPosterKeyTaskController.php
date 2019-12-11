@@ -4,27 +4,22 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BatchUpdateJobTask;
+use App\Http\Resources\JobPosterKeyTask as TaskResource;
 use App\Models\JobPoster;
 use App\Models\JobPosterKeyTask;
 
-class JobTaskController extends Controller
+class JobPosterKeyTaskController extends Controller
 {
     /**
-     * Converts a JobPosterKeyTask to an array appropriate for the api.
+     * Returns all Tasks by JobPoster ID.
      *
-     * @param  JobPosterKeyTask $model Incoming Job Poster Key Task object.
-     * @return array
+     * @param  \App\Models\JobPoster $jobPoster Incoming Job Poster object.
+     * @return \Illuminate\Http\Response
      */
-    public function toApiArray(JobPosterKeyTask $model)
-    {
-        return array_merge($model->toArray(), $model->getTranslations());
-    }
-
     public function indexByJob(JobPoster $jobPoster)
     {
-        $toApiArray = array($this, 'toApiArray');
-        $taskArray = JobPosterKeyTask::where('job_poster_id', $jobPoster->id)->get()->map($toApiArray);
-        return response()->json($taskArray);
+        $tasksByJob = JobPosterKeyTask::where('job_poster_id', $jobPoster->id)->get();
+        return TaskResource::collection($tasksByJob);
     }
 
     /**
@@ -36,8 +31,6 @@ class JobTaskController extends Controller
      */
     public function batchUpdate(BatchUpdateJobTask $request, JobPoster $jobPoster)
     {
-        $toApiArray = array($this, 'toApiArray');
-
         $newTasks = collect($request->validated()); // Collection of JobPosterKeyTasks.
         $oldTasks = $jobPoster->job_poster_key_tasks;
 
@@ -65,8 +58,7 @@ class JobTaskController extends Controller
             }
         }
 
-        $taskArray = $jobPoster->fresh()->job_poster_key_tasks->map($toApiArray);
-        return response()->json($taskArray);
+        return TaskResource::collection($jobPoster->fresh()->job_poster_key_tasks);
     }
 
     /**

@@ -472,10 +472,10 @@ Route::group(['prefix' => 'api'], function (): void {
         'store', 'create', 'edit'
     ]);
     // TODO: add policy middleware
-    Route::get('jobs/{jobPoster}/tasks', 'Api\JobTaskController@indexByJob')
+    Route::get('jobs/{jobPoster}/tasks', 'Api\JobPosterKeyTaskController@indexByJob')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:view,jobPoster');
-    Route::put('jobs/{jobPoster}/tasks', 'Api\JobTaskController@batchUpdate')
+    Route::put('jobs/{jobPoster}/tasks', 'Api\JobPosterKeyTaskController@batchUpdate')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:update,jobPoster');
 
