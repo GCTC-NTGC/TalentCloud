@@ -1406,16 +1406,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.6.2",
+            "version": "v6.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "27efba7e13aaf91a87ae9a63db158e943eb71410"
+                "reference": "ba4204f3a8b9672b6116398c165bd9c0c6eac077"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/27efba7e13aaf91a87ae9a63db158e943eb71410",
-                "reference": "27efba7e13aaf91a87ae9a63db158e943eb71410",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/ba4204f3a8b9672b6116398c165bd9c0c6eac077",
+                "reference": "ba4204f3a8b9672b6116398c165bd9c0c6eac077",
                 "shasum": ""
             },
             "require": {
@@ -1548,7 +1548,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-12-05T13:49:53+00:00"
+            "time": "2019-12-10T16:01:57+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -2288,16 +2288,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "0.4.0",
+            "version": "0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "51a9bf6f5612a8a19f1e1e03385bd03cea62c7b1"
+                "reference": "0331e880c0a1eb8e10d1af2fcab90fa1dd6a07ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/51a9bf6f5612a8a19f1e1e03385bd03cea62c7b1",
-                "reference": "51a9bf6f5612a8a19f1e1e03385bd03cea62c7b1",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/0331e880c0a1eb8e10d1af2fcab90fa1dd6a07ee",
+                "reference": "0331e880c0a1eb8e10d1af2fcab90fa1dd6a07ee",
                 "shasum": ""
             },
             "require": {
@@ -2332,7 +2332,7 @@
                 "MIT"
             ],
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
-            "time": "2019-11-21T20:52:51+00:00"
+            "time": "2019-12-05T20:43:52+00:00"
         },
         {
             "name": "prologue/alerts",
@@ -2869,21 +2869,21 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "6.0.0",
+            "version": "6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "85e3329381d420e74b2da8b352b6041076ac00e8"
+                "reference": "263d3a9d85604c0ad9cd1c4283dd3f279127027e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/85e3329381d420e74b2da8b352b6041076ac00e8",
-                "reference": "85e3329381d420e74b2da8b352b6041076ac00e8",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/263d3a9d85604c0ad9cd1c4283dd3f279127027e",
+                "reference": "263d3a9d85604c0ad9cd1c4283dd3f279127027e",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1",
-                "phpstan/phpdoc-parser": "0.3.5 - 0.4.0",
+                "phpstan/phpdoc-parser": "0.3.5 - 0.4.1",
                 "squizlabs/php_codesniffer": "^3.5.3"
             },
             "require-dev": {
@@ -2893,7 +2893,7 @@
                 "phpstan/phpstan": "0.11.19|0.12",
                 "phpstan/phpstan-phpunit": "0.11.2|0.12",
                 "phpstan/phpstan-strict-rules": "0.11.1|0.12",
-                "phpunit/phpunit": "7.5.17|8.4.3"
+                "phpunit/phpunit": "7.5.18|8.5.0"
             },
             "type": "phpcodesniffer-standard",
             "autoload": {
@@ -2906,7 +2906,7 @@
                 "MIT"
             ],
             "description": "Slevomat Coding Standard for PHP_CodeSniffer complements Consistence Coding Standard by providing sniffs with additional checks.",
-            "time": "2019-12-04T15:45:40+00:00"
+            "time": "2019-12-09T14:09:58+00:00"
         },
         {
             "name": "spatie/laravel-translatable",
