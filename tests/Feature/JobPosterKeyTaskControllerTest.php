@@ -7,7 +7,7 @@ use App\Models\JobPosterKeyTask;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class JobTaskControllerTest extends TestCase
+class JobPosterKeyTaskControllerTest extends TestCase
 {
     use RefreshDatabase;
 
