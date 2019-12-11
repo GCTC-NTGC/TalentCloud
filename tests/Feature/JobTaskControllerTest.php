@@ -13,9 +13,9 @@ class JobTaskControllerTest extends TestCase
 
     /**
      *  Converts a JobPosterKeyTask to shape sent and received through the api.
-    *
-    * @var callable
-    */
+     *
+     * @var callable
+     */
     protected $toApiArray;
 
     /**
@@ -58,8 +58,8 @@ class JobTaskControllerTest extends TestCase
             $this->assertDatabaseHas(
                 'job_poster_key_tasks',
                 [
-                    'description->en' => $task['description->en'],
-                    'description->fr' => $task['description->fr']
+                    'description->en' => $task->getTranslation('description', 'en'),
+                    'description->fr' => $task->getTranslation('description', 'fr')
                 ]
             );
         }
@@ -109,15 +109,17 @@ class JobTaskControllerTest extends TestCase
 
         $task0 = factory(JobPosterKeyTask::class)->create(['job_poster_id' => $job->id]);
 
+        $enDescription = 'This is new description text';
+        $frDescription = null;
         $newTaskArray = [
             [
                 'id' => $task0->id,
                 'job_poster_id' => $job->id,
                 'description' => [
-                    'en' => 'This is new description text',
-                    'fr' => null
+                    'en' => $enDescription,
+                    'fr' => $frDescription
                 ]
-            ],
+            ]
         ];
         $response = $this->actingAs($job->manager->user)
             ->json('put', "api/jobs/$job->id/tasks", $newTaskArray);
@@ -129,8 +131,8 @@ class JobTaskControllerTest extends TestCase
             'job_poster_key_tasks',
             [
                 'id' => $task0->id,
-                'description->en' => $task0->getTranslation('description', 'en'),
-                'description->fr' => $task0->getTranslation('description', 'fr')
+                'description->en' => $enDescription,
+                'description->fr' => $frDescription
             ]
         );
     }

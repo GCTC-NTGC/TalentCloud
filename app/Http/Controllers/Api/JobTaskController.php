@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\JobPosterKeyTask;
-use App\Models\JobPoster;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BatchUpdateJobTask;
+use App\Models\JobPoster;
+use App\Models\JobPosterKeyTask;
 
 class JobTaskController extends Controller
 {
@@ -48,7 +48,7 @@ class JobTaskController extends Controller
             $newTask = $newTasks->firstWhere('id', $task['id']);
             if ($newTask) {
                 $savedNewTaskIds[] = $newTask['id'];
-                $task->fill(collect($newTask)->only(['en', 'fr'])->toArray());
+                $task->fill(collect($newTask)->toArray());
                 $task->save();
             } else {
                 $task->delete();
@@ -60,7 +60,7 @@ class JobTaskController extends Controller
             if ($this->isUnsaved($task, $savedNewTaskIds)) {
                 $jobPosterTask = new JobPosterKeyTask();
                 $jobPosterTask->job_poster_id = $jobPoster->id;
-                $jobPosterTask->fill(collect($task)->only(['en', 'fr'])->toArray());
+                $jobPosterTask->fill(collect($task)->toArray());
                 $jobPosterTask->save();
             }
         }

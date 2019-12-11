@@ -32,10 +32,10 @@ class BatchUpdateCriteria extends FormRequest
             '*.criteria_type_id' => ['required', new ValidIdRule(CriteriaType::class)],
             '*.skill_id' => ['required', new ValidIdRule(Skill::class)],
             '*.skill_level_id' => ['required', new ValidIdRule(SkillLevel::class)],
-            '*.en.description' => 'nullable|string',
-            '*.en.specificity' => 'nullable|string',
-            '*.fr.description' => 'nullable|string',
-            '*.fr.specificity' => 'nullable|string',
+            '*.description.en' => 'nullable|string',
+            '*.description.fr' => 'nullable|string',
+            '*.specificity.en' => 'nullable|string',
+            '*.specificity.fr' => 'nullable|string',
         ];
     }
 }
