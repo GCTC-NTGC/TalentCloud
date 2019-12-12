@@ -18,4 +18,9 @@ class HrAdvisorPolicy extends BasePolicy
     {
         return $user->isHrAdvisor() && $hrAdvisor->user_id === $user->id;
     }
+
+    public function update(User $user, HrAdvisor $hrAdvisor)
+    {
+        return $user->isHrAdvisor() && $hrAdvisor->user_id === $user->id;
+    }
 }
