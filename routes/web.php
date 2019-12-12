@@ -510,4 +510,10 @@ Route::group(['prefix' => 'api'], function (): void {
     // User must be logged in to user currentuser routes
     Route::get('currentuser/manager', 'Api\ManagerApiController@showAuthenticated')
         ->middleware('auth');
+
+    // Comment model routes
+    Route::get('jobs/{jobPoster}/comments', 'Api\CommentController@indexByJob')
+        ->where('jobPoster', '[0-9]+');
+    Route::post('jobs/{jobPoster}/comments', 'Api\CommentController@store')
+        ->where('jobPoster', '[0-9]+');
 });
