@@ -225,6 +225,9 @@ class JobApplicationTest extends TestCase
         $this->assertEquals($refCopy->projects->first()->id, $projectCopy->id);
         $this->assertEquals($refCopy->skill_declarations->first()->id, $skillCopy->id);
         $this->assertEquals($sampleCopy->skill_declarations->first()->id, $skillCopy->id);
+
+        $this->assertEquals($applicant->user->name, $application->user_name);
+        $this->assertEquals($applicant->user->email, $application->user_email);
     }
 
     /**

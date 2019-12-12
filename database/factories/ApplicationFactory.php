@@ -58,6 +58,9 @@ $factory->afterCreating(JobApplication::class, function ($application) : void {
     } else {
         $skillableType = 'application';
         $owner = $application;
+
+        $application->user_name = $application->applicant->user->name;
+        $application->user_email = $application->applicant->user->email;
     }
     foreach ($application->job_poster->criteria as $criterion) {
         $owner->skill_declarations()->save(factory(SkillDeclaration::class)->create([
