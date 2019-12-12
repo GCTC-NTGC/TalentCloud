@@ -1,7 +1,5 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-
 use App\Models\Comment;
 use App\Models\Lookup\CommentType;
 use App\Models\JobPoster;
