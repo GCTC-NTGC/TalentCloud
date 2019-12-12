@@ -16,7 +16,7 @@ class CommentSeeder extends Seeder
         $job_posters = JobPoster::all();
 
         $job_posters->each(function ($job_poster) {
-            $job_poster->comments()->save(factory(App\Models\Comment::class)->make());
+            $job_poster->comments()->saveMany(factory(App\Models\Comment::class, 5)->make());
         });
     }
 }
