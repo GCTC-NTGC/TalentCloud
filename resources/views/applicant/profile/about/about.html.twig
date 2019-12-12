@@ -187,7 +187,9 @@
                                     id="editProfileTwitter"
                                     type="text"
                                     name="twitter_username"
-                                    value="{{ applicant.twitter_username }}" />
+                                    pattern="{{ twitterHandlePattern }}"
+                                    value="{{ applicant.twitter_username }}"
+                                    autocomplete="off" />
                             </div>
 
                         </div>
@@ -204,7 +206,9 @@
                                     id="editProfileLinkedin"
                                     type="text"
                                     name="linkedin_url"
-                                    value="{{ applicant.linkedin_url }}" />
+                                    pattern="{{ linkedInUrlPattern }}"
+                                    value="{{ applicant.linkedin_url }}"
+                                    autocomplete="off" />
                             </div>
 
                         </div>

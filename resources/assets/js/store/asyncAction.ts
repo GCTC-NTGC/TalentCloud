@@ -90,7 +90,7 @@ const csrfToken: string =
     ? (csrfElement.getAttribute("content") as string)
     : "";
 
-function jsonDateReplacer(key, value) {
+function jsonDateReplacer(key, value): string | any {
   if (this[key] instanceof Date) {
     return dayjs(value).format("YYYY-MM-DDTHH:mm:ssZ");
   }

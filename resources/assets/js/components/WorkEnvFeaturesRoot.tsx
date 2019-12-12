@@ -9,14 +9,15 @@ interface WorkEnvOptions {
 
 const extractSelectedEnvOptions = (workEnvOptions: WorkEnvOptions): string[] =>
   Object.entries(workEnvOptions)
-    .filter(([key, value]): boolean => value) // Filter out options set to false
-    .map(([key, value]): string => key); // Map to a list of the keys
+    .filter(([, value]): boolean => value) // Filter out options set to false
+    .map(([key]): string => key); // Map to a list of the keys
 
 if (document.getElementById("work-env-features-section")) {
   const container = document.getElementById("work-env-features-section");
   if (container != null) {
-    const workEnvOptions = JSON.parse(container.dataset
-      .workEnvOptions as string);
+    const workEnvOptions = JSON.parse(
+      container.dataset.workEnvOptions as string,
+    );
     const selectedEnvOptions = extractSelectedEnvOptions(workEnvOptions);
     const teamSize = JSON.parse(container.dataset.teamSize as string);
     const locale = document.documentElement.lang;

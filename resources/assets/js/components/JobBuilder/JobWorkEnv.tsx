@@ -167,9 +167,12 @@ interface JobWorkEnv {
   selectedEnvOptions: string[];
 }
 
-export const JobWorkEnv: React.FunctionComponent<
-  JobWorkEnv & WrappedComponentProps
-> = ({ teamSize, selectedEnvOptions, intl }): React.ReactElement => {
+export const JobWorkEnv: React.FunctionComponent<JobWorkEnv &
+  WrappedComponentProps> = ({
+  teamSize,
+  selectedEnvOptions,
+  intl,
+}): React.ReactElement => {
   const phyEnvData: { name: string; label: string }[] = phyEnvDescriptions(
     intl,
   );

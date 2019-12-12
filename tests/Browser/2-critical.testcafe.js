@@ -1,5 +1,9 @@
 import { Selector, Role, ClientFunction } from "testcafe";
-import { applicantUser, adminUser, assertIsLoggedIn } from "./helpers/roles";
+import {
+  emptyApplicantUser,
+  adminUser,
+  assertIsLoggedIn,
+} from "./helpers/roles";
 
 const HOMEPAGE = "https://talent.test";
 
@@ -84,7 +88,7 @@ test("Applicant Profile - My Skills", async t => {
 test("Applicant Profile - My Experience", async t => {
   await t
     // Logged in as applicant.
-    .useRole(applicantUser)
+    .useRole(emptyApplicantUser)
     // Go to My Experience page.
     .navigateTo("/profile/experience")
     .expect(Selector("h1").withText("My Experience").visible)
@@ -161,7 +165,7 @@ test("Applicant Profile - My Experience", async t => {
 test("Applicant Profile - My References", async t => {
   await t
     // Logged in as applicant.
-    .useRole(adminUser)
+    .useRole(emptyApplicantUser)
     // Go to My References page.
     .navigateTo("/profile/references")
     .expect(Selector("h1").withText("My References").visible)
@@ -203,7 +207,7 @@ test("Applicant Profile - My References", async t => {
 test("Applicant Profile - My Work Samples", async t => {
   await t
     // Logged in as applicant.
-    .useRole(applicantUser)
+    .useRole(emptyApplicantUser)
     // Go to My Work Samples page.
     .navigateTo("/profile/portfolio")
     .expect(Selector("h1").withText("My Work Samples").visible)
@@ -241,7 +245,7 @@ test("Applicant Profile - My Work Samples", async t => {
 test("Applicant Profile - About Me", async t => {
   await t
     // Logged in as applicant.
-    .useRole(applicantUser)
+    .useRole(emptyApplicantUser)
     // Go to About Me page.
     .navigateTo("/profile/about")
     .expect(Selector("h1").withText("About Me").visible)
@@ -284,7 +288,7 @@ test("Applicant Profile - About Me", async t => {
     // Relog to check password change.
     .click(Selector("a").withText("Logout"))
     .click(Selector("a").withText("Login"))
-    .typeText(Selector("#email"), "applicant@test.com")
+    .typeText(Selector("#email"), "newApplicant@test.com")
     .typeText(Selector("#password"), "Password123!@#")
     .click(Selector("button").withText("Login"))
     .expect(Selector("a").withText("My Applications").visible)

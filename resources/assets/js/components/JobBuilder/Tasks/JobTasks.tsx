@@ -82,9 +82,8 @@ const formMessages = defineMessages({
   },
 });
 
-const JobTasks: React.FunctionComponent<
-  JobTasksProps & WrappedComponentProps
-> = ({
+const JobTasks: React.FunctionComponent<JobTasksProps &
+  WrappedComponentProps> = ({
   jobId,
   keyTasks,
   validCount,
@@ -175,14 +174,14 @@ const JobTasks: React.FunctionComponent<
   const updateValuesAndReturn = (values: { tasks: TaskFormValues[] }): void => {
     // The following only triggers after validations pass
     nprogress.start();
-    handleSubmit(
-      updateTasksWithValues(values.tasks, keyTasks || emptyTasks()),
-    ).then((): void => {
-      nprogress.done();
-      handleReturn();
-    }).catch((error): void => {
-      nprogress.done();
-    });
+    handleSubmit(updateTasksWithValues(values.tasks, keyTasks || emptyTasks()))
+      .then((): void => {
+        nprogress.done();
+        handleReturn();
+      })
+      .catch((): void => {
+        nprogress.done();
+      });
   };
 
   return (
@@ -220,7 +219,7 @@ const JobTasks: React.FunctionComponent<
         <li>
           <FormattedMessage
             id="jobBuilder.tasks.intro.third"
-            defaultMessage="Aim to provide between four and six key tasks. (You can add as many key tasks as you want as you brainstorm here, but you can include no more than eight in the final job poster.)"
+            defaultMessage="Aim to provide between four and six key tasks. (You can add as many key tasks as you want as you brainstorm here, but you can include no more than six in the final job poster.)"
             description="Job Tasks page third intro section"
           />
         </li>
@@ -252,7 +251,7 @@ const JobTasks: React.FunctionComponent<
               nprogress.done();
               setIsModalVisible(true);
             })
-            .catch((error): void => {
+            .catch((): void => {
               nprogress.done();
             })
             .finally((): void => {

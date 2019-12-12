@@ -44,7 +44,9 @@ import JobWorkEnv from "../JobWorkEnv";
 import JobWorkCulture from "../JobWorkCulture";
 import Modal from "../../Modal";
 import { textToParagraphs } from "../../../helpers/textToParagraphs";
-import { useUrlHash } from "../../../helpers/router";
+import { useUrlHash, Link } from "../../../helpers/router";
+import { classificationString } from "../../../models/jobUtil";
+import DemoSubmitJobModal from "./DemoSubmitJobModal";
 
 interface JobReviewSectionProps {
   title: string;
@@ -202,10 +204,10 @@ const JobReviewSection: React.FunctionComponent<JobReviewSectionProps> = ({
             data-c-grid-item="tp(1of2)"
             data-c-alignment="base(centre) tp(right)"
           >
-            <a href={link}>
+            <Link href={link} title={linkLabel}>
               <i data-c-colour="c2" className="fas fa-edit" />
               {linkLabel}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -295,7 +297,7 @@ const renderManagerSection = (
   if (managerTranslation) {
     return (
       <>
-        <p data-c-margin="bottom(normal)">{manager.name}</p>
+        <p data-c-margin="bottom(normal)">{manager.full_name}</p>
         <p
           data-c-margin={`${managerTranslation.about_me && "{bottom(normal)"}`}
         >
@@ -339,9 +341,8 @@ interface JobReviewProps {
   handleReturn: () => void;
 }
 
-export const JobReview: React.FunctionComponent<
-  JobReviewProps & WrappedComponentProps
-> = ({
+export const JobReview: React.FunctionComponent<JobReviewProps &
+  WrappedComponentProps> = ({
   job,
   manager,
   tasks,
@@ -564,9 +565,7 @@ export const JobReview: React.FunctionComponent<
                   description="Placeholder for information that comes later"
                 />
               </p>
-              <p>
-                {job.classification_code}-0{job.classification_level}
-              </p>
+              <p>{classificationString(job)}</p>
             </div>
           </div>
         </JobReviewSection>
@@ -765,7 +764,7 @@ export const JobReview: React.FunctionComponent<
             >
               <FormattedMessage
                 id="jobBuilder.review.button.submit"
-                defaultMessage="Send to HR for Review"
+                defaultMessage="Looks good!"
                 description="Label of Job Review Submission Button"
               />
             </button>
@@ -773,88 +772,96 @@ export const JobReview: React.FunctionComponent<
         </div>
       </div>
       <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
-      <Modal
-        id={modalId}
-        visible={isModalVisible}
-        onModalCancel={(): void => setIsModalVisible(false)}
-        onModalConfirm={async (): Promise<void> => {
-          try {
-            await handleSubmit(job);
-            handleContinue();
-          } catch {
-            setIsModalVisible(false);
-          }
-        }}
-        parentElement={modalParentRef.current}
-      >
-        <Modal.Header>
-          <div
-            data-c-background="c1(100)"
-            data-c-border="bottom(thin, solid, black)"
-            data-c-padding="normal"
-          >
-            <h5
-              data-c-colour="white"
-              data-c-font-size="h4"
-              id={`${modalId}-title`}
+      {manager === null || manager.is_demo_manager ? (
+        <DemoSubmitJobModal
+          isVisible={isModalVisible}
+          handleCancel={(): void => setIsModalVisible(false)}
+          parentElement={modalParentRef.current}
+        />
+      ) : (
+        <Modal
+          id={modalId}
+          visible={isModalVisible}
+          onModalCancel={(): void => setIsModalVisible(false)}
+          onModalConfirm={async (): Promise<void> => {
+            try {
+              await handleSubmit(job);
+              handleContinue();
+            } catch {
+              setIsModalVisible(false);
+            }
+          }}
+          parentElement={modalParentRef.current}
+        >
+          <Modal.Header>
+            <div
+              data-c-background="c1(100)"
+              data-c-border="bottom(thin, solid, black)"
+              data-c-padding="normal"
             >
+              <h5
+                data-c-colour="white"
+                data-c-font-size="h4"
+                id={`${modalId}-title`}
+              >
+                <FormattedMessage
+                  id="jobBuilder.review.confirm.title"
+                  defaultMessage="Congrats! Are You Ready to Submit?"
+                  description="Title of Submit Confirmation modal."
+                />
+              </h5>
+            </div>
+          </Modal.Header>
+          <Modal.Body>
+            <div data-c-padding="normal">
+              <p data-c-margin="bottom(normal)">
+                <FormattedMessage
+                  id="jobBuilder.review.readyTosubmit"
+                  defaultMessage="If you're ready to submit your poster, click the Submit button below."
+                  description="Instructions on how to submit"
+                />
+              </p>
+              <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                <FormattedMessage
+                  id="jobBuilder.review.whatHappens"
+                  defaultMessage="What happens next?"
+                  description="Rhtorical question"
+                />
+              </p>
+              <p data-c-margin="bottom(normal)">
+                <FormattedMessage
+                  id="jobBuilder.review.sendYourDraft"
+                  defaultMessage="Talent Cloud will send your draft to your department's HR advisor who will notify you with comments."
+                  description="Information about next steps"
+                />
+              </p>
+              <p>
+                <FormattedMessage
+                  id="jobBuilder.review.meantime"
+                  defaultMessage="In the meantime, feel free to go ahead and create a screening plan for your selection process. Alternatively, you can wait for comments to come back from HR before you take the next step."
+                  description="Suggestion on what to do while you wait."
+                />
+              </p>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Modal.FooterCancelBtn>
               <FormattedMessage
-                id="jobBuilder.review.confirm.title"
-                defaultMessage="Congrats! Are You Ready to Submit?"
-                description="Title of Submit Confirmation modal."
+                id="jobBuilder.review.confirm.cancel"
+                defaultMessage="Cancel"
+                description="Cancel button of Job Review confirmation modal."
               />
-            </h5>
-          </div>
-        </Modal.Header>
-        <Modal.Body>
-          <div data-c-padding="normal">
-            <p data-c-margin="bottom(normal)">
+            </Modal.FooterCancelBtn>
+            <Modal.FooterConfirmBtn>
               <FormattedMessage
-                id="jobBuilder.review.readyTosubmit"
-                defaultMessage="If you're ready to submit your poster, click the Submit button below."
-                description="Instructions on how to submit"
+                id="jobBuilder.review.confirm.submit"
+                defaultMessage="Yes, Submit"
+                description="Submit button of Job Review confirmation modal."
               />
-            </p>
-            <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-              <FormattedMessage
-                id="jobBuilder.review.whatHappens"
-                defaultMessage="What happens next?"
-                description="Rhtorical question"
-              />
-            </p>
-            <p data-c-margin="bottom(normal)">
-              <FormattedMessage
-                id="jobBuilder.review.sendYourDraft"
-                defaultMessage="Talent Cloud will send your draft to your department's HR advisor who will notify you with comments."
-                description="Information about next steps"
-              />
-            </p>
-            <p>
-              <FormattedMessage
-                id="jobBuilder.review.meantime"
-                defaultMessage="In the meantime, feel free to go ahead and create a screening plan for your selection process. Alternatively, you can wait for comments to come back from HR before you take the next step."
-                description="Suggestion on what to do while you wait."
-              />
-            </p>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Modal.FooterCancelBtn>
-            <FormattedMessage
-              id="jobBuilder.review.confirm.cancel"
-              defaultMessage="Cancel"
-              description="Cancel button of Job Review confirmation modal."
-            />
-          </Modal.FooterCancelBtn>
-          <Modal.FooterConfirmBtn>
-            <FormattedMessage
-              id="jobBuilder.review.confirm.submit"
-              defaultMessage="Yes, Submit"
-              description="Submit button of Job Review confirmation modal."
-            />
-          </Modal.FooterConfirmBtn>
-        </Modal.Footer>
-      </Modal>
+            </Modal.FooterConfirmBtn>
+          </Modal.Footer>
+        </Modal>
+      )}
     </>
   );
 };

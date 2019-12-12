@@ -17,6 +17,7 @@ class FinishManagerRegistration
         $user = $request->user();
 
         if ($user !== null && $user->isManager() && !$user->isGovIdentityConfirmed()) {
+            $request->session()->put('url.expected', $request->url());
             return redirect(route('manager.first_visit'));
         }
 

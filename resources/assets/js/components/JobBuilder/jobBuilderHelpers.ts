@@ -11,7 +11,7 @@ import {
 } from "../../helpers/routes";
 
 /** Job Builder Constants */
-export const VALID_COUNT = 8;
+export const NUM_OF_TASKS = 6;
 
 const isFilled = (value: any | null | undefined): boolean => {
   return value !== null && value !== undefined && value !== "";
@@ -52,7 +52,7 @@ const jobDetailsValues = (
   locale: string,
 ): (string | number | null | boolean)[] => [
   job.term_qty,
-  job.classification_code,
+  job.classification_id,
   job.classification_level,
   job.security_clearance_id,
   job.language_requirement_id,
@@ -174,12 +174,11 @@ const isKeyTaskComplete = (
 ): boolean => isFilled(task[locale].description);
 const isJobTasksComplete = (
   tasks: JobPosterKeyTask[],
-  maxCount: number,
   locale: "en" | "fr",
 ): boolean => {
   return (
     tasks.length > 0 &&
-    tasks.length <= maxCount &&
+    tasks.length <= NUM_OF_TASKS &&
     tasks.every((task): boolean => isKeyTaskComplete(task, locale))
   );
 };
@@ -188,14 +187,13 @@ const isJobTasksUntouched = (tasks: JobPosterKeyTask[]): boolean =>
   tasks.length === 0;
 export const jobTasksProgressState = (
   tasks: JobPosterKeyTask[],
-  maxCount: number,
   locale: "en" | "fr",
   allowUntouched = false,
 ): ProgressTrackerState => {
   if (allowUntouched && isJobTasksUntouched(tasks)) {
     return "null";
   }
-  return isJobTasksComplete(tasks, maxCount, locale) ? "complete" : "error";
+  return isJobTasksComplete(tasks, locale) ? "complete" : "error";
 };
 
 const isCriterionComplete = (
@@ -233,7 +231,6 @@ export const criteriaProgressState = (
 export const isJobBuilderComplete = (
   job: Job,
   tasks: JobPosterKeyTask[],
-  maxTasksCount: number,
   criteria: Criteria[],
   locale: "en" | "fr",
 ): boolean => {
@@ -242,7 +239,7 @@ export const isJobBuilderComplete = (
     isJobBuilderDetailsComplete(job, locale) &&
     isJobBuilderEnvComplete(job, locale) &&
     isJobImpactComplete(job, locale) &&
-    isJobTasksComplete(tasks, maxTasksCount, locale) &&
+    isJobTasksComplete(tasks, locale) &&
     isCriteriaComplete(criteria, locale)
   );
 };

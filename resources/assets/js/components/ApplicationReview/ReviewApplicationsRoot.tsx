@@ -237,12 +237,12 @@ if (document.getElementById("review-applications-container")) {
     container.hasAttribute("data-locale")
   ) {
     const job = JSON.parse(container.getAttribute("data-job") as string);
-    const applications = JSON.parse(container.getAttribute(
-      "data-applications",
-    ) as string);
-    const reviewStatuses = JSON.parse(container.getAttribute(
-      "data-review-statuses",
-    ) as string);
+    const applications = JSON.parse(
+      container.getAttribute("data-applications") as string,
+    );
+    const reviewStatuses = JSON.parse(
+      container.getAttribute("data-review-statuses") as string,
+    );
     const language = container.getAttribute("data-locale") as string;
     const IntlReviewApplicationsRoot = injectIntl(ReviewApplicationsRoot);
     ReactDOM.render(

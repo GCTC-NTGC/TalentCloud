@@ -13,10 +13,10 @@
         "fideloper/proxy": "^4.1",
         "jenssegers/date": "^3.4",
         "laravel/framework": "^6.0",
-        "laravel/tinker": "^1.0",
+        "laravel/tinker": "^2.0",
         "mcamara/laravel-localization": "^1.3",
         "rcrowe/twigbridge": "^0.11.0",
-        "slevomat/coding-standard": "^5.0",
+        "slevomat/coding-standard": "^6.0",
         "spatie/laravel-translatable": "^4.1",
         "twig/twig": "^2.11"
     },
