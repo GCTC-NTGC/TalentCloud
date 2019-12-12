@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Lookup\Department;
 use App\Http\Controllers\Controller;
+use App\Models\Lookup\Department;
 
 class DepartmentController extends Controller
 {
     /**
-     * Return all skills as an array
+     * Return all departments as an array
      *
      * @return mixed
      */

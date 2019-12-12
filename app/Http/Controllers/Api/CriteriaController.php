@@ -3,55 +3,42 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CriteriaResource;
+use App\Models\Assessment;
+use App\Models\AssessmentPlanNotification;
 use App\Models\Criteria;
 use App\Models\JobPoster;
-use App\Models\AssessmentPlanNotification;
-use App\Models\Assessment;
 use Illuminate\Http\Request;
 
 class CriteriaController extends Controller
 {
-/**
-     * Converts a Criteria to the shape sent and received by the api.
-     *
-     * @param Criteria $model
-     * @return void
-     */
-    public function toApiArray(Criteria $model)
-    {
-        return array_merge($model->toArray(), $model->getTranslations());
-    }
-
     /**
-     * Get the set of criteria associated with a Job.
+     * Returns all criteria by JobPoster ID.
      *
-     * @param JobPoster $jobPoster
+     * @param  \App\Models\JobPoster $jobPoster Incoming Job Poster object.
      * @return \Illuminate\Http\Response
      */
     public function indexByJob(JobPoster $jobPoster)
     {
-        $toApiArray = array($this, 'toApiArray');
-        $criteriaArray = Criteria::where('job_poster_id', $jobPoster->id)->get()->map($toApiArray);
-        return response()->json($criteriaArray);
+        $criteriaByJob = Criteria::where('job_poster_id', $jobPoster->id)->get();
+        return CriteriaResource::collection($criteriaByJob);
     }
 
     /**
      * Update the set of criteria associated with a Job.
      *
-     * @param Request $request
-     * @param JobPoster $jobPoster
+     * @param  Request $request
+     * @param  JobPoster $jobPoster
      * @return \Illuminate\Http\Response
      */
     public function batchUpdate(Request $request, JobPoster $jobPoster)
     {
-        $toApiArray = array($this, 'toApiArray');
-
         $newCriteria = collect($request->input()); // TODO: switch to validated
         $oldCriteria = $jobPoster->criteria;
 
         $updatedIds = [];
 
-        // First, delete old criteria that weren't resubmitted, and update those that were
+        // First, delete old criteria that weren't resubmitted, and update those that were.
         foreach ($oldCriteria as $criteria) {
             $newData = $newCriteria->firstWhere('id', $criteria['id']);
             if ($newData) {
@@ -66,7 +53,7 @@ class CriteriaController extends Controller
             return !array_key_exists('id', $criteria) || !in_array($criteria['id'], $savedIds);
         };
 
-        // Now, save any new criteria that remain
+        // Now, save any new criteria that remain.
         foreach ($newCriteria as $criteriaData) {
             if ($isUnsaved($criteriaData, $updatedIds)) {
                 $criteria = new Criteria();
@@ -77,8 +64,7 @@ class CriteriaController extends Controller
             }
         }
 
-        $criteriaArray = Criteria::where('job_poster_id', $jobPoster->id)->get()->map($toApiArray);
-        return response()->json($criteriaArray);
+        return CriteriaResource::collection($jobPoster->fresh()->criteria);
     }
 
     /**
@@ -90,7 +76,6 @@ class CriteriaController extends Controller
     protected function createCriteria(Criteria $criteria)
     {
         $criteria->save();
-
         $notification = $this->makeAssessmentPlanNotification(
             'CREATE',
             $criteria
@@ -109,7 +94,7 @@ class CriteriaController extends Controller
      */
     protected function updateCriteria(Criteria $oldCriteria, $newData): void
     {
-        // We only need to create a notification when the non-descriptive fields change
+        // We only need to create a notification when the non-descriptive fields change.
         if ($oldCriteria->skill_level_id != $newData['skill_level_id']
             || $oldCriteria->skill_id != $newData['skill_id']
         ) {
@@ -122,7 +107,7 @@ class CriteriaController extends Controller
             );
             $notification->save();
         }
-        // Get just the data that can be changed
+        // Get just the data that can be changed.
         $fillableData = collect($newData)->except(['id', 'job_poster_id'])->toArray();
         $oldCriteria->fill($fillableData);
         $oldCriteria->save();
