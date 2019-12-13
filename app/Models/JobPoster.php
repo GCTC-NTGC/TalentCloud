@@ -89,7 +89,6 @@ use App\Events\JobSaved;
  * Methods
  * @method boolean isOpen()
  * @method string timeRemaining()
- * @method mixed[] toApiArray()
  *
  * Computed Properties
  * @property string|null $classification_code
@@ -565,17 +564,5 @@ class JobPoster extends BaseModel
             return $this->classification->key . '-0' . $this->classification_level;
         }
         return null;
-    }
-
-    /**
-     * Return the array of values used to represent this object in an api response.
-     * This array should contain no nested objects (besides translations).
-     *
-     * @return mixed[]
-     */
-    public function toApiArray(): array
-    {
-        $jobWithTranslations = array_merge($this->toArray(), $this->getTranslations());
-        return $jobWithTranslations;
     }
 }

@@ -19,6 +19,7 @@ use App\Models\Criteria;
 use App\Models\Course;
 use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\Lookup\ReviewStatus;
@@ -47,7 +48,7 @@ class ApplicationByJobController extends Controller
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
-            'job' => $jobPoster->toApiArray(),
+            'job' => new JsonResource($jobPoster),
             'applications' => $applications,
             'review_statuses' => ReviewStatus::all()
         ]);

@@ -55,9 +55,6 @@ use Spatie\Translatable\HasTranslations;
  * @property string $first_name
  * @property string $last_name
  * @property boolean $is_demo_manager
- *
- * Methods
- * @method   string toApiArray()
  */
 class Manager extends BaseModel
 {
@@ -236,17 +233,5 @@ class Manager extends BaseModel
             return $this->user->isDemoManager();
         }
         return true;
-    }
-
-    /**
-     * Return the array of values used to represent this object in an api response.
-     * This array should contain no nested objects (besides translations).
-     *
-     * @return mixed[]
-     */
-    public function toApiArray()
-    {
-        $withTranslations = array_merge($this->toArray(), $this->getTranslations());
-        return $withTranslations;
     }
 }
