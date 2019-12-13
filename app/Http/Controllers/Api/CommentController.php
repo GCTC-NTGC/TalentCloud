@@ -20,9 +20,8 @@ class CommentController extends Controller
      */
     public function indexByJob(JobPoster $jobPoster)
     {
-      Log::debug($jobPoster->id);
           $comments = Comment::where('job_poster_id', $jobPoster->id)->get();
-          return new ResourceCollection($comments);
+          return response()->json(new ResourceCollection($comments));
     }
 
     /**
@@ -37,6 +36,6 @@ class CommentController extends Controller
           $comment = new Comment();
           $comment->fill($data);
           $comment->save();
-          return new JsonResource($comment);
+          return response()->json(new JsonResource($comment));
     }
 }
