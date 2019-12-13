@@ -102,4 +102,30 @@ class JobPolicy extends BasePolicy
             $jobPoster->manager->user->id == $user->id &&
             $jobPoster->isClosed();
     }
+
+     /**
+     * Determine whether the user can view the comments.
+     *
+     * @param \App\Models\User $user
+     * @param \App\Models\Comment $comment
+     * @return bool
+     */
+    public function viewComments(User $user)
+    {
+        // Only the manager that created a comment can view the comment.
+        // Only Hr advisors who have claimed a job can view the comments.
+        return true;
+    }
+
+    /**
+     * Determine whether the user can create a comment
+     *
+     * @param \App\Models\User $user User to test against
+     * @return bool
+     */
+    public function storeComment(User $user)
+    {
+        // Any manager or HR adviser can create a new comment.
+        return true;
+    }
 }
