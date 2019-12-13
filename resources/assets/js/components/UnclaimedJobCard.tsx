@@ -4,6 +4,7 @@ import { JobStatus } from "../models/lookupConstants";
 
 export interface UnclaimedJobCardProps {
   title: string;
+  url: string;
   createdAt: string;
   status: JobStatus;
   hiringManagers: string[];
@@ -12,6 +13,7 @@ export interface UnclaimedJobCardProps {
 
 const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
   title,
+  url,
   createdAt,
   status,
   hiringManagers,
@@ -23,7 +25,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
       className="tc-hr-job-card"
     >
       <div data-c-card data-c-radius="rounded" data-c-background="white(100)">
-        <a href="" title="" style={{ textDecoration: "none" }}>
+        <a href={url} title="" style={{ textDecoration: "none" }}>
           <div data-c-background="black(100)" data-c-padding="all(normal)">
             <div data-c-grid="gutter middle">
               <div data-c-grid-item="base(1of1)">
