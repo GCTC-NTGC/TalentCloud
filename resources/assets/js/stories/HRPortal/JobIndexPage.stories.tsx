@@ -2,6 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { text } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
+import { action } from "@storybook/addon-actions";
 import JobIndexPage from "../../components/HRPortal/JobIndexPage";
 import { jobActions, unclaimedJobs } from "../../components/HRPortal/fixtures";
 
@@ -15,7 +16,10 @@ stories
     (): React.ReactElement => (
       <JobIndexPage
         jobActions={jobActions}
-        unclaimedJobs={unclaimedJobs}
+        unclaimedJobs={unclaimedJobs.map(unclaimed => ({
+          ...unclaimed,
+          claimJob: action(`Claim Job ${unclaimed.title}`),
+        }))}
         departmentName={text(
           "Department",
           "Treasury Board of Canada Secretariat",

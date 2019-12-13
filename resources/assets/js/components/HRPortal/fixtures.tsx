@@ -123,6 +123,7 @@ export const unclaimedJobs = [
     status: JobStatus.Draft,
     hiringManagers: ["Rebecca Appleby"],
     hrAdvisors: [],
+    claimJob: (): void => {},
   },
   {
     title: "AS02 - Executive Assisstant",
@@ -131,6 +132,7 @@ export const unclaimedJobs = [
     status: JobStatus.Draft,
     hiringManagers: ["Rebecca Appleby"],
     hrAdvisors: ["Rebecca Appleby", "Jack Little"],
+    claimJob: (): void => {},
   },
   {
     title: "ET03 - Business Analyst",
@@ -139,6 +141,7 @@ export const unclaimedJobs = [
     status: JobStatus.Review,
     hiringManagers: ["Robin Browne"],
     hrAdvisors: [],
+    claimJob: (): void => {},
   },
   {
     title: "FG05 - Long-term Care Specialist",
@@ -147,6 +150,7 @@ export const unclaimedJobs = [
     status: JobStatus.Draft,
     hiringManagers: ["Braeden McDoogal"],
     hrAdvisors: ["Caitlyn Summers", "Jack Little"],
+    claimJob: (): void => {},
   },
   {
     title: "CS03 - Digital Product Designer",
@@ -155,5 +159,6 @@ export const unclaimedJobs = [
     status: JobStatus.Review,
     hiringManagers: ["Amelie Lachance"],
     hrAdvisors: [],
+    claimJob: (): void => {},
   },
 ];

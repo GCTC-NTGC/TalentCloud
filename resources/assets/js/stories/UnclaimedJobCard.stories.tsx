@@ -2,6 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { text, select, array } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
+import { action } from "@storybook/addon-actions";
 import UnclaimedJobCard from "../components/UnclaimedJobCard";
 import { JobStatus } from "../models/lookupConstants";
 import { unclaimedJobs } from "../components/HRPortal/fixtures";
@@ -36,6 +37,7 @@ stories
             "Props",
           )}
           hrAdvisors={[]}
+          claimJob={action("Claim Job")}
         />
       </div>
     ),
@@ -61,6 +63,7 @@ stories
             ",",
             "Props",
           )}
+          claimJob={action("Claim Job")}
         />
       </div>
     ),
@@ -88,6 +91,7 @@ stories
                   status={status}
                   hiringManagers={hiringManagers}
                   hrAdvisors={hrAdvisors}
+                  claimJob={action("Claim Job")}
                 />
               );
             },
