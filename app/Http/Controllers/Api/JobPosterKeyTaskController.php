@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BatchUpdateJobTask;
-use App\Http\Resources\JobPosterKeyTask as TaskResource;
 use App\Models\JobPoster;
 use App\Models\JobPosterKeyTask;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class JobPosterKeyTaskController extends Controller
 {
@@ -19,7 +19,7 @@ class JobPosterKeyTaskController extends Controller
     public function indexByJob(JobPoster $jobPoster)
     {
         $tasksByJob = JobPosterKeyTask::where('job_poster_id', $jobPoster->id)->get();
-        return TaskResource::collection($tasksByJob);
+        return JsonResource::collection($tasksByJob);
     }
 
     /**
@@ -58,7 +58,7 @@ class JobPosterKeyTaskController extends Controller
             }
         }
 
-        return TaskResource::collection($jobPoster->fresh()->job_poster_key_tasks);
+        return JsonResource::collection($jobPoster->fresh()->job_poster_key_tasks);
     }
 
     /**

@@ -488,11 +488,11 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:update,jobPoster');
 
 
-    Route::post('jobs/{job}/submit', 'Api\JobApiController@submitForReview')
+    Route::post('jobs/{job}/submit', 'Api\JobController@submitForReview')
         ->where('job', '[0-9]+')
         ->middleware('can:submitForReview,job')
         ->name('api.jobs.submit');
-    Route::resource('jobs', 'Api\JobApiController')->only([
+    Route::resource('jobs', 'Api\JobController')->only([
         'show', 'store', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes.
         'show' => 'api.jobs.show',
@@ -500,7 +500,7 @@ Route::group(['prefix' => 'api'], function (): void {
         'update' => 'api.jobs.update'
     ]);
 
-    Route::resource('managers', 'Api\ManagerApiController')->only([
+    Route::resource('managers', 'Api\ManagerController')->only([
         'show', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes
         'show' => 'api.managers.show',
@@ -508,6 +508,6 @@ Route::group(['prefix' => 'api'], function (): void {
     ]);
 
     // User must be logged in to user currentuser routes
-    Route::get('currentuser/manager', 'Api\ManagerApiController@showAuthenticated')
+    Route::get('currentuser/manager', 'Api\ManagerController@showAuthenticated')
         ->middleware('auth');
 });

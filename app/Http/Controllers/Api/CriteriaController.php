@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CriteriaResource;
 use App\Models\Assessment;
 use App\Models\AssessmentPlanNotification;
 use App\Models\Criteria;
 use App\Models\JobPoster;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class CriteriaController extends Controller
 {
@@ -21,7 +21,7 @@ class CriteriaController extends Controller
     public function indexByJob(JobPoster $jobPoster)
     {
         $criteriaByJob = Criteria::where('job_poster_id', $jobPoster->id)->get();
-        return CriteriaResource::collection($criteriaByJob);
+        return JsonResource::collection($criteriaByJob);
     }
 
     /**
@@ -33,7 +33,7 @@ class CriteriaController extends Controller
      */
     public function batchUpdate(Request $request, JobPoster $jobPoster)
     {
-        $newCriteria = collect($request->input()); // TODO: switch to validated
+        $newCriteria = collect($request->input()); // TODO: switch to validated.
         $oldCriteria = $jobPoster->criteria;
 
         $updatedIds = [];
@@ -64,7 +64,7 @@ class CriteriaController extends Controller
             }
         }
 
-        return CriteriaResource::collection($jobPoster->fresh()->criteria);
+        return JsonResource::collection($jobPoster->fresh()->criteria);
     }
 
     /**

@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
-use App\Mail\JobPosterReviewRequested;
 use App\Http\Controllers\Controller;
-use App\Models\JobPoster;
-use App\Models\Criteria;
-use App\Models\Lookup\JobTerm;
-use Jenssegers\Date\Date;
-use App\Http\Requests\UpdateJobPoster;
 use App\Http\Requests\StoreJobPoster;
+use App\Http\Requests\UpdateJobPoster;
+use App\Mail\JobPosterReviewRequested;
+use App\Models\JobPoster;
+use App\Models\Lookup\JobTerm;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Jenssegers\Date\Date;
 
-class JobApiController extends Controller
+class JobController extends Controller
 {
     /**
      * Class constructor
@@ -26,29 +26,9 @@ class JobApiController extends Controller
     }
 
     /**
-     * Convert a job poster to the array expected by API requests,
-     * with all criteria,
-     * and with translation arrays in both languages.
-    *
-     * @param  \App\Models\JobPoster $job Incoming Job Poster object.
-     * @return mixed[]
-     */
-    private function jobToArray(JobPoster $job)
-    {
-        $criteria = Criteria::where('job_poster_id', $job->id)->get();
-
-        $toApiArray = function ($model) {
-            return array_merge($model->toArray(), $model->getTranslations());
-        };
-        $criteriaTranslated = $criteria->map($toApiArray);
-
-        $jobArray = array_merge($job->toApiArray(), ['criteria' => $criteriaTranslated]);
-        return $jobArray;
-    }
-    /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function index()
     {
@@ -70,7 +50,8 @@ class JobApiController extends Controller
         $job->job_term_id = JobTerm::where('name', 'month')->value('id');
         $job->fill($data);
         $job->save();
-        return response()->json($this->jobToArray($job));
+        $job->load('criteria');
+        return new JsonResource($job);
     }
 
     /**
@@ -81,7 +62,8 @@ class JobApiController extends Controller
      */
     public function show(JobPoster $job)
     {
-        return response()->json($this->jobToArray($job));
+        $job->load('criteria');
+        return new JsonResource($job);
     }
 
     /**
@@ -100,16 +82,18 @@ class JobApiController extends Controller
         // Defaulting JPB updated jobs to monthly for now.
         $job->job_term_id = JobTerm::where('name', 'month')->value('id');
         $job->save();
-        return response()->json($this->jobToArray($job->fresh()));
+        $job->fresh();
+        $job->load('criteria');
+        return new JsonResource($job);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  integer $id Job Poster ID.
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         // TODO: complete.
     }
@@ -117,7 +101,7 @@ class JobApiController extends Controller
     /**
      * Submit the Job Poster for review.
      *
-     * @param  \App\Models\JobPoster    $job Job Poster object.
+     * @param  \App\Models\JobPoster $job Job Poster object.
      * @return \Illuminate\Http\Response
      */
     public function submitForReview(JobPoster $job)
@@ -136,7 +120,8 @@ class JobApiController extends Controller
                 Log::error('The reviewer email environment variable is not set.');
             }
         }
+        $job->load('criteria');
 
-        return response()->json($this->jobToArray($job));
+        return new JsonResource($job);
     }
 }

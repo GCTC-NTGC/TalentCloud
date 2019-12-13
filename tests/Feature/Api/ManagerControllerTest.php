@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature\Api;
 
 use App\Models\Manager;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ManagerApiControllerTest extends TestCase
+class ManagerControllerTest extends TestCase
 {
     use RefreshDatabase;
 

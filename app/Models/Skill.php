@@ -102,18 +102,4 @@ class Skill extends BaseModel
         }
         $this->attributes['is_future_skill'] = $value;
     }
-
-    /**
-     * Override the toArray() method to return the localized properties for
-     * name and description. This was causing issues for ajax responses.
-     *
-     * @return mixed[]
-     */
-    public function toArray() : array
-    {
-        $array = parent::toArray();
-        $array['name'] = $this->name;
-        $array['description'] = $this->description;
-        return $array;
-    }
 }

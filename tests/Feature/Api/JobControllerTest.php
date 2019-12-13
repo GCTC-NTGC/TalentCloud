@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature\Api;
 
 use App\Models\Classification;
 use App\Models\JobPoster;
@@ -11,7 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 
-class JobApiControllerTest extends TestCase
+class JobControllerTest extends TestCase
 {
     use RefreshDatabase;
 

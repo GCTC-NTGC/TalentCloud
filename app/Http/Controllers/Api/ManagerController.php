@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Manager;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateManagerApi;
+use App\Models\Manager;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
-class ManagerApiController extends Controller
+class ManagerController extends Controller
 {
     /**
      * Class constructor.
@@ -48,7 +49,7 @@ class ManagerApiController extends Controller
      */
     public function show(Manager $manager)
     {
-        return response()->json($manager->toApiArray());
+        return new JsonResource($manager);
     }
 
     /**
@@ -60,7 +61,7 @@ class ManagerApiController extends Controller
     {
         $user = Auth::user();
         if ($user !== null && $user->manager !== null) {
-            return response()->json($user->manager->toApiArray());
+            return new JsonResource($user->manager);
         }
         return response()->json([]);
     }
@@ -77,7 +78,7 @@ class ManagerApiController extends Controller
         $validated = $request->validated();
         $manager->fill($validated);
         $manager->save();
-        return response()->json($manager->toApiArray());
+        return new JsonResource($manager);
     }
 
     /**
