@@ -24,7 +24,7 @@ class Comment extends Model
      *
      * @var array
      */
-    protected $fillable = ['comment', 'location'];
+    protected $fillable = ['job_poster_id', 'user_id', 'comment', 'location', 'type_id'];
 
     public function job_poster() // phpcs:ignore
     {
