@@ -407,7 +407,6 @@ Route::group(
                 ->name('application_reviews.update');
         });
 
-
         /* Non-Backpack Admin Portal (localized pages) =========================================================== */
         Route::group(
             [
@@ -426,6 +425,41 @@ Route::group(
                     ->name('admin.jobs.update');
             }
         );
+
+        /* HR Advisor Portal =========================================================== */
+
+        Route::group([
+            'prefix' => config('app.hr_prefix'),
+        ], function (): void {
+
+            Route::middleware(['finishHrRegistration'])->group(function (): void {
+
+                Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
+            });
+
+            // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects
+            Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
+                Route::get('first-visit', 'Auth\FirstVisitController@showFirstVisitHrForm')
+                    ->name('hr_advisor.first_visit');
+                Route::post('finish_registration', 'Auth\FirstVisitController@finishHrRegistration')
+                    ->name('hr_advisor.finish_registration');
+            });
+
+            // Laravel default login, logout, register, and reset routes
+            Route::get('login', 'Auth\LoginController@showLoginForm')->name('hr_advisor.login');
+            Route::post('login', 'Auth\LoginController@login')->name('hr_advisor.login.post');
+            Route::post('logout', 'Auth\LoginController@logout')->name('hr_advisor.logout');
+
+            // Registration Routes...
+            Route::get('register', 'Auth\RegisterController@showHrRegistrationForm')->name('hr_advisor.register');
+            Route::post('register', 'Auth\RegisterController@registerHrAdvisor')->name('hr_advisor.register.post');
+
+            // Password Reset Routes...
+            Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('hr_advisor.password.request');
+            Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('hr_advisor.password.email');
+            Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('hr_advisor.password.reset');
+            Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('hr_advisor.password.reset.post');
+        });
     }
 );
 
@@ -480,7 +514,7 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:update,jobPoster');
 
 
-     Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
+    Route::get('jobs/{jobPoster}/criteria', 'Api\CriteriaController@indexByJob')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:view,jobPoster');
     Route::put('jobs/{jobPoster}/criteria', 'Api\CriteriaController@batchUpdate')
@@ -510,4 +544,24 @@ Route::group(['prefix' => 'api'], function (): void {
     // User must be logged in to user currentuser routes
     Route::get('currentuser/manager', 'Api\ManagerApiController@showAuthenticated')
         ->middleware('auth');
+
+    // Claim / unclaim job routes, HR portal
+    Route::put('jobs/{job}/claim', 'Api\ClaimJobApiController@store')
+        ->middleware('can:claim,job')
+        ->where('job', '[0-9]+');
+    Route::delete('jobs/{job}/claim', 'Api\ClaimJobApiController@destroy')
+        ->middleware('can:unClaim,job')
+        ->where('job', '[0-9]+');
+
+    Route::get('hr-advisors/{hrAdvisor}', 'Api\HrAdvisorController@show')
+        ->middleware('can:view,hrAdvisor');
+
+    Route::put('hr-advisors/{hrAdvisor}/claims/{job}', 'Api\ClaimJobApiController@claimJob')
+        ->middleware('can:update,hrAdvisor')
+        ->where('hrAdvisor', '[0-9]+')
+        ->where('job', '[0-9]+');
+    Route::delete('hr-advisors/{hrAdvisor}/claims/{job}', 'Api\ClaimJobApiController@unclaimJob')
+        ->middleware('can:update,hrAdvisor')
+        ->where('hrAdvisor', '[0-9]+')
+        ->where('job', '[0-9]+');
 });

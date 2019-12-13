@@ -85,7 +85,7 @@ class Criteria extends BaseModel
 
     public function criteria_translations() //phpcs:ignore
     {
-        return $this->hasMany(\App\Models\Lookup\CriteriaTypeTranslation::class);
+        return $this->hasMany(\App\Models\CriteriaTranslation::class);
     }
 
     /**

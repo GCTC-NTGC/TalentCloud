@@ -1,0 +1,52 @@
+[
+  {
+    "id": "jobCard.status.approved",
+    "description": "Text displayed for a Job Status of Approved.",
+    "defaultMessage": "Approved"
+  },
+  {
+    "id": "jobCard.status.closed",
+    "description": "Text displayed for a Job Status of Closed.",
+    "defaultMessage": "Closed"
+  },
+  {
+    "id": "jobCard.status.complete",
+    "description": "Text displayed for a Job Status of Complete.",
+    "defaultMessage": "Complete"
+  },
+  {
+    "id": "jobCard.status.draft",
+    "description": "Text displayed for a Job Status of Draft.",
+    "defaultMessage": "Draft"
+  },
+  {
+    "id": "jobCard.status.published",
+    "description": "Text displayed for a Job Status of Published.",
+    "defaultMessage": "Published"
+  },
+  {
+    "id": "jobCard.status.review",
+    "description": "Text displayed for a Job Status of In Review.",
+    "defaultMessage": "In Review"
+  },
+  {
+    "id": "jobCard.applicants",
+    "description": "Text displaying how many applicants have applied to this Job.",
+    "defaultMessage": "{applicants, plural,\n                  =0 {No Applicants}\n                  one {# Applicant}\n                  other {# Applicants}\n                }"
+  },
+  {
+    "id": "jobCard.managerTime",
+    "description": "Text displaying how long a job post has been claimed by a manager.",
+    "defaultMessage": "Time with Manager: {managerTime, plural,\n                    one {# day}\n                    other {# days}\n                  }"
+  },
+  {
+    "id": "jobCard.userTime",
+    "description": "Text displaying how long a job has been claimed by the current user.",
+    "defaultMessage": "Time with you: <s>{userTime, plural,\n                    one {# day}\n                    other {# days}\n                  }</s>"
+  },
+  {
+    "id": "jobCard.noActivity",
+    "description": "Fallback text for no new activity on a Job.",
+    "defaultMessage": "No New Activity"
+  }
+]
