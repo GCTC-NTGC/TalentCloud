@@ -15,9 +15,12 @@ interface AssessmentPlanProps {
   notifications: AssessmentPlanNotification[];
 }
 
-const AssessmentPlan: React.FunctionComponent<
-  AssessmentPlanProps & WrappedComponentProps
-> = ({ job, notifications, intl }): React.ReactElement => {
+const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps &
+  WrappedComponentProps> = ({
+  job,
+  notifications,
+  intl,
+}): React.ReactElement => {
   const jobTitle = (
     <span data-c-colour="c5" data-c-font-size="h3">
       {job && ` ${job[intl.locale].title}`}

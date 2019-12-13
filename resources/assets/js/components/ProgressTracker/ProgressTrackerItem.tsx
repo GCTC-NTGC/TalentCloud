@@ -20,9 +20,7 @@ export const messages = defineMessages({
   },
 });
 
-const ProgressTrackerItem: React.FunctionComponent<
-  ProgressTrackerItemProps
-> = ({
+const ProgressTrackerItem: React.FunctionComponent<ProgressTrackerItemProps> = ({
   link,
   label,
   title,

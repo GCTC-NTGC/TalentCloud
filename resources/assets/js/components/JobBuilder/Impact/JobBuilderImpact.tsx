@@ -152,9 +152,8 @@ const deptImpactStatement = (
   return <p data-c-margin="bottom(double)">{deptImpacts[locale]}</p>;
 };
 
-const JobBuilderImpact: React.FunctionComponent<
-  JobBuilderImpactProps & WrappedComponentProps
-> = ({
+const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
+  WrappedComponentProps> = ({
   intl,
   departments,
   job,
