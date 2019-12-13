@@ -102,11 +102,16 @@ const JobIndexPage: React.FunctionComponent<JobIndexPageProps> = ({
   unclaimedJobs,
   departmentName,
 }) => {
-  const notCompletedJobActions: JobCardProps[] = jobActions.filter(
-    jobAction => jobAction.status !== JobStatus.Complete,
+  const notCompletedJobActions: JobCardProps[] = useMemo(
+    () =>
+      jobActions.filter(jobAction => jobAction.status !== JobStatus.Complete),
+    [jobActions],
   );
-  const completedJobActions: JobCardProps[] = jobActions.filter(
-    jobAction => jobAction.status === JobStatus.Complete,
+
+  const completedJobActions: JobCardProps[] = useMemo(
+    () =>
+      jobActions.filter(jobAction => jobAction.status === JobStatus.Complete),
+    [jobActions],
   );
 
   return (
