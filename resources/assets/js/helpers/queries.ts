@@ -167,3 +167,8 @@ export function filterObjectProps<T>(
     {},
   );
 }
+
+/** Return a copy of the list with duplicate elements removed */
+export function uniq<T>(x: T[]): T[] {
+  return Array.from(new Set(x));
+}

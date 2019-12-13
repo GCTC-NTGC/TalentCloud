@@ -63,4 +63,27 @@ class RegistrationValidator
     {
         return Validator::make($data, self::managerRegistrationExtraRules());
     }
+
+    /**
+     * Get a validator for an incoming HR Advisor registration request.
+     *
+     * @param  array $data Incoming registration data.
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public static function hrValidator(array $data)
+    {
+        $hrRules = array_merge(self::basicRules(), self::managerRegistrationExtraRules());
+        return Validator::make($data, $hrRules);
+    }
+
+    /**
+     * Get a validator for an incoming finishHrRegistration request.
+     *
+     * @param  array $data Incoming registration data.
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public static function finalizeHrValidator(array $data)
+    {
+        return Validator::make($data, self::managerRegistrationExtraRules());
+    }
 }

@@ -83,7 +83,7 @@ class JobPolicy extends BasePolicy
     public function submitForReview(User $user, JobPoster $jobPoster)
     {
         // Only upgradedManagers can submit jobs for review, only their own jobs, and only if they're still drafts.
-        // NOTE: this is one of the only permissions to require an upgradedManager, as opposed to a demoManager.var
+        // NOTE: this is one of the only permissions to require an upgradedManager, as opposed to a demoManager.
         return $user->isUpgradedManager() &&
             $jobPoster->manager->user->id == $user->id &&
             $jobPoster->status() === 'draft';
@@ -127,5 +127,27 @@ class JobPolicy extends BasePolicy
     {
         // Any manager or HR adviser can create a new comment.
         return true;
+    /**
+     * Determine whether the user can 'claim' this job.
+     *
+     * @param User $user
+     * @param JobPoster $jobPoster
+     * @return boolean
+     */
+    public function claim(User $user, JobPoster $jobPoster) : bool
+    {
+        return $user->isHrAdvisor();
+    }
+
+    /**
+     * Determine whether the user can 'unclaim' this job.
+     *
+     * @param User $user
+     * @param JobPoster $jobPoster
+     * @return boolean
+     */
+    public function unClaim(User $user, JobPoster $jobPoster) : bool
+    {
+        return $this->claim($user, $jobPoster);
     }
 }

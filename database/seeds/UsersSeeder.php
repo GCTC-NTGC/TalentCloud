@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\Manager;
 use App\Models\Applicant;
+use App\Models\HrAdvisor;
 
 class UsersSeeder extends Seeder
 {
@@ -16,6 +17,6 @@ class UsersSeeder extends Seeder
     {
         factory(Manager::class, 10)->create();
         factory(Applicant::class, 5)->create();
+        factory(HrAdvisor::class, 1)->create();
     }
-
 }
