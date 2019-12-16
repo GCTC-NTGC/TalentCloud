@@ -40,6 +40,6 @@ class CriteriaType extends BaseModel
 
     public function criteria_type_translations() //phpcs:ignore
     {
-        return $this->hasMany(\App\Models\CriteriaTypeTranslation::class);
+        return $this->hasMany(\App\Models\Lookup\CriteriaTypeTranslation::class);
     }
 }
