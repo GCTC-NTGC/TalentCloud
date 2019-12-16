@@ -27,7 +27,7 @@ export interface Job {
   salary_min: number | null;
   salary_max: number | null;
   noc: number | null;
-  classification_code: string | null;
+  classification_id: number | null;
   classification_level: number | null;
   security_clearance_id: number | null;
   language_requirement_id: number | null;
@@ -63,13 +63,15 @@ export interface ManagerTranslation {
 export interface Manager {
   id: number;
   user_id: number;
-  name: string;
+  full_name: string;
+  first_name: string;
+  last_name: string;
   department_id: number | null;
   twitter_username: string | null;
   linkedin_url: string | null;
+  is_demo_manager: boolean;
   en: ManagerTranslation;
   fr: ManagerTranslation;
-  user: User;
 }
 
 export interface Application {

@@ -87,9 +87,8 @@ const getAvailableCriteria = (
   return [...availableCriteria, answerCriterion];
 };
 
-const RatingGuideAnswer: React.FunctionComponent<
-  RatingGuideAnswerProps & WrappedComponentProps
-> = ({
+const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps &
+  WrappedComponentProps> = ({
   answer,
   unansweredCriteria,
   answerCriterion,

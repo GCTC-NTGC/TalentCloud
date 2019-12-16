@@ -55,9 +55,7 @@ interface AssessmentPlanFetchContainerProps {
   dispatchFetchNotifications: () => void;
 }
 
-const AssessmentPlanFetchContainer: React.FunctionComponent<
-  AssessmentPlanFetchContainerProps
-> = ({
+const AssessmentPlanFetchContainer: React.FunctionComponent<AssessmentPlanFetchContainerProps> = ({
   jobId,
   job,
   notifications,

@@ -136,9 +136,8 @@ const renderAssessmentTypeBlock = (
   );
 };
 
-const AssessmentPlanTable: React.FunctionComponent<
-  AssessmentPlanTableProps & WrappedComponentProps
-> = ({
+const AssessmentPlanTable: React.FunctionComponent<AssessmentPlanTableProps &
+  WrappedComponentProps> = ({
   criteria,
   assessments,
   skills,

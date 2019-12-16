@@ -340,7 +340,8 @@
                         type="text"
                         name="twitter_username"
                         pattern="{{ twitterHandlePattern }}"
-                        value="{{ old('twitter_username', manager.twitter_username) }}" />
+                        value="{{ old('twitter_username', manager.twitter_username) }}"
+                        autocomplete="off" />
                 </div>
 
             </div>
@@ -358,7 +359,8 @@
                         type="url"
                         name="linkedin_url"
                         pattern="{{ linkedInUrlPattern }}"
-                        value="{{ old('linkedin_url', manager.linkedin_url) }}" />
+                        value="{{ old('linkedin_url', manager.linkedin_url) }}"
+                        autocomplete="off" />
                 </div>
             </div>
 

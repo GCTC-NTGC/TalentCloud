@@ -37,9 +37,7 @@ interface RatingGuideQuestionProps {
   updateQuestion: (question: RatingGuideQuestionModel) => void;
 }
 
-const RatingGuideQuestion: React.FunctionComponent<
-  RatingGuideQuestionProps
-> = ({
+const RatingGuideQuestion: React.FunctionComponent<RatingGuideQuestionProps> = ({
   question,
   questionIndex,
   isUpdating,

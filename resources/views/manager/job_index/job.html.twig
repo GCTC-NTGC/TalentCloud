@@ -6,153 +6,131 @@
 ============================================================================= #}
 <div data-jobid="{{ job.id }}" class="poster {{ job.status() }}">
 
-    <div class="flex-grid middle gutter">
+	<div class="flex-grid middle gutter">
 
-        <div class="box med-1of12 poster-status">
-            <i class="fas fa-pencil-alt"></i>
-            <i class="fas fa-hourglass-half"></i>
-            <i class="fas fa-exclamation-circle action-required"></i>
-        </div>
+		<div class="box med-1of12 poster-status">
+			<i class="fas fa-pencil-alt"></i>
+			<i class="fas fa-hourglass-half"></i>
+			<i class="fas fa-exclamation-circle action-required"></i>
+		</div>
 
-        <div class="box med-4of12">
+		<div class="box med-4of12">
 
-            {% if job.status() == 'draft' or job.status() == 'submitted' %}
-            <h3 class="heading--04 poster-title--preview">
-                <a
-                    href="{{ job.preview_link }}"
-                    title="{{jobs_l10n.view_preview_job_poster}}">
-                    {{ job.trans_required ? jobs_l10n.trans_title_placeholder ~ ' - ' }}
-                    {{ not job.title ? jobs_l10n.empty_title ~ ' - ' }}
-                    {{ job.title }} {{ jobs_l10n.preview }}
-                </a>
-            </h3>
-            {% endif %}
+			{% if job.status() == 'draft' or job.status() == 'submitted' %}
+				<h3 class="heading--04 poster-title--preview">
+					<a href="{{ job.preview_link }}" title="{{ jobs_l10n.view_preview_job_poster }}">
+						{{ job.trans_required ? jobs_l10n.trans_title_placeholder ~ ' - ' }}
+						{{ not job.title ? jobs_l10n.empty_title ~ ' - ' }}
+						{{ job.title }}
+						{{ jobs_l10n.preview }}
+					</a>
+				</h3>
+			{% endif %}
 
-            {% if job.status() == 'published' or job.status() == 'closed' %}
-            <h3 class="heading--04 poster-title--link">
-                <a
-                    href="{{ route('manager.jobs.show', job)  }}"
-                    title="{{ jobs_l10n.view_this_job_poster }}">
-                    {{ job.title }}
-                </a>
-            </h3>
-            {% endif %}
-            {% if job.created_at %}<span class="poster-date-time--draft">{{ job.classification }} - {{ jobs_l10n.created_on }} {{ humanizeDate(job.created_at) }}</span>{% endif %}
-            {% if job.review_requested_at %}<span class="poster-date-time--submitted">{{ job.classification }} - {{ jobs_l10n.submitted_on }} {{ humanizeDate(job.review_requested_at) }}</span>{% endif %}
-            {% if job.published_at %}<span class="poster-date-time--published">{{ job.classification }} - {{ jobs_l10n.published_on }} {{ humanizeDate(job.published_at) }}</span>{% endif %}
-            {% if job.close_date_time %}<span class="poster-date-time--closed">{{ job.classification }} - {{ jobs_l10n.closed_on }} {{ humanizeDate(job.close_date_time) }}</span>{% endif %}
-        </div>
+			{% if job.status() == 'published' or job.status() == 'closed' %}
+				<h3 class="heading--04 poster-title--link">
+					<a href="{{ route('manager.jobs.show', job) }}" title="{{ jobs_l10n.view_this_job_poster }}">
+						{{ job.title }}
+					</a>
+				</h3>
+			{% endif %}
+			{% if job.created_at %}
+				<span class="poster-date-time--draft">{{ job.classification_message }} - {{ jobs_l10n.created_on }}
+					{{ humanizeDate(job.created_at) }}</span>
+			{% endif %}
+			{% if job.review_requested_at %}
+				<span class="poster-date-time--submitted">{{ job.classification_message }} - {{ jobs_l10n.submitted_on }}
+					{{ humanizeDate(job.review_requested_at) }}</span>
+			{% endif %}
+			{% if job.published_at %}
+				<span class="poster-date-time--published">{{ job.classification_message }} - {{ jobs_l10n.published_on }}
+					{{ humanizeDate(job.published_at) }}</span>
+			{% endif %}
+			{% if job.close_date_time %}
+				<span class="poster-date-time--closed">{{ job.classification_message }} - {{ jobs_l10n.closed_on }}
+					{{ humanizeDate(job.close_date_time) }}</span>
+			{% endif %}
+		</div>
 
-        <div class="box med-2of12 poster-measurements">
+		<div class="box med-2of12 poster-measurements">
 
-            {# Note: The "measurement--comments element is removed from the UI until commenting is built. There is nothing to do with this element until then. #}
-            {#<div class="measurement--comments">
+			{# Note: The "measurement--comments element is removed from the UI until commenting is built. There is nothing to do with this element until then. #}
+			{#<div class="measurement--comments">
                 <i class="fas fa-comments"></i>
                 <span>3 Comments</span>
             </div>#}
 
-            {% if job.review_requested_at %}
-            <div class="measurement--timer">
-                <i class="fas fa-stopwatch"></i>
-                <span>{{ jobs_l10n.in_review_for }} {{ humanizeDateDiff(job.review_requested_at) }}</span>
-            </div>
-            {% endif %}
+				{% if job.review_requested_at %}
+					<div class="measurement--timer"> <i class="fas fa-stopwatch"></i>
+					<span>{{ jobs_l10n.in_review_for }}
+						{{ humanizeDateDiff(job.review_requested_at) }}</span>
+				</div>
+			{% endif %}
 
-            {% if job.close_date_time %}
-            <div class="measurement--countdown">
-                <i class="fas fa-clock"></i>
-                <span>{{ humanizeDateDiff(job.close_date_time) }} {{ jobs_l10n.remaining }}</span>
-            </div>
-            {% endif %}
+			{% if job.close_date_time %}
+				<div class="measurement--countdown">
+					<i class="fas fa-clock"></i>
+					<span>{{ humanizeDateDiff(job.close_date_time) }}
+						{{ jobs_l10n.remaining }}</span>
+				</div>
+			{% endif %}
 
-            {% if job.submitted_applications_count %}
-            <div class="measurement--applicants">
-                <i class="fas fa-users"></i>
-                <span>{{ job.submitted_applications_count }} {{ jobs_l10n.applicants }}</span>
-            </div>
-            {% endif %}
-        </div>
+			{% if job.submitted_applications_count %}
+				<div class="measurement--applicants">
+					<i class="fas fa-users"></i>
+					<span>{{ job.submitted_applications_count }}
+						{{ jobs_l10n.applicants }}</span>
+				</div>
+			{% endif %}
+		</div>
 
-        <div class="box med-2of12 edit-actions">
+		<div class="box med-2of12 edit-actions">
 
-            {% if job.status() == 'draft' %}
-            <a
-                class="edit-actions--edit-draft"
-                href="{{ job.edit_link }}"
-                title="{{ jobs_l10n.edit_this_poster }}">
-                {{ jobs_l10n.edit_job_poster }}
-            </a>
-            {% endif %}
+			{% if job.status() == 'draft' %}
+				<a class="edit-actions--edit-draft" href="{{ job.edit_link }}" title="{{ jobs_l10n.edit_this_poster }}">
+					{{ jobs_l10n.edit_job_poster }}
+				</a>
+			{% endif %}
 
-            <a
-                href="{{ route('manager.jobs.screening_plan', job) }}"
-                title="{{ jobs_l10n.edit_this_plans }}">
-                {{ jobs_l10n.edit_screening_plans }}
-            </a>
+			<a href="{{ route('manager.jobs.screening_plan', job) }}" title="{{ jobs_l10n.edit_this_plans }}">
+				{{ jobs_l10n.edit_screening_plans }}
+			</a>
 
-            {# Note:
-                - This button is unnecessary until assessment tools are a platform feature.
-            #}
-            {#<a
-                href="Note: Needs Assessment Tool route."
-                title="Edit the assessment tools for this job.">
-                Edit Assessment Tools
-            </a>#}
+		</div>
 
-        </div>
+		<div class="box med-2of12">
+			{% if show_notification %}
+				<div data-clone>
+					<button class="submit-button" data-c-button="solid(c4)" data-c-radius="rounded" data-c-dialog-id="upgrade-modal" data-c-dialog-action="open" type="button">
+						{{ jobs_l10n.send_for_review }}
+					</button>
+				</div>
+			{% else %}
+				<a class="button--blue submit-button" href="{{ route('manager.jobs.review', job) ~ '#submit' }}" {# This links to the Submit button of the Review step of the JPB #} title="{{ jobs_l10n.send_this_review }}">
+					{{ jobs_l10n.send_for_review }}
+				</a>
+			{% endif %}
 
-        <div class="box med-2of12">
-            {% if show_demo_notification %}
-            <div data-clone>
-                <button
-                    class="submit-button"
-                    data-c-button="solid(c4)"
-                    data-c-radius="rounded"
-                    data-c-dialog-id="upgrade-modal"
-                    data-c-dialog-action="open"
-                    type="button">
-                    {{ jobs_l10n.send_for_review }}
-                </button>
-            </div>
-            {% else %}
-            <a
-                class="button--blue submit-button"
-                href="{{ route('manager.jobs.review', job) ~ '#submit' }}" {# This links to the Submit button of the Review step of the JPB#}
-                title="{{ jobs_l10n.send_this_review }}">
-                {{ jobs_l10n.send_for_review }}
-            </a>
-            {% endif %}
+			{% if job.status() != 'draft' %}
+				<a class="button--blue review-button{% if job.status() == 'submitted' or job.status() == 'published' %} disabled{% endif %}" href="{{ route('manager.jobs.applications', job) }}" title="{{ jobs_l10n.review_this_applicants }}">
+					{{ jobs_l10n.review_applicants }}
+				</a>
+			{% endif %}
+		</div>
 
-            {% if job.status() != 'draft' %}
-            <a
-                class="button--blue review-button{% if job.status() == 'submitted' or job.status() == 'published' %} disabled{% endif %}"
-                href="{{ route('manager.jobs.applications', job) }}"
-                title="{{ jobs_l10n.review_this_applicants }}">
-                {{ jobs_l10n.review_applicants }}
-            </a>
-            {% endif %}
-        </div>
+		<div class="box med-1of12 poster-deletion">
 
-        <div class="box med-1of12 poster-deletion">
-
-            {# Note:
+			{# Note:
                 - This needs to trigger a confirmation modal and then delete the draft job poster via an AJAX call.
                 - This button is only visible when the job poster has the "draft" class on it.
-                - This button should be disabled server side if the job is not in a draft state.
-            #}
-            {% if job.status() == 'draft' %}
-            <button
-                data-action="delete"
-                data-locale="{{App.getLocale()}}"
-                data-jobid="{{ job.id }}"
-                data-href="{{ route('manager.jobs.destroy', job) }}"
-                title="{{ jobs_l10n.delete_this_poster }}"
-                type="button">
-                <i class="fas fa-trash-alt"></i>
-            </button>
-            {% endif %}
-        </div>
+                - This button should be disabled server side if the job is not in a draft state. #}
+			{% if job.status() == 'draft' %}
+				<button data-action="delete" data-locale="{{ App.getLocale() }}" data-jobid="{{ job.id }}" data-href="{{ route('manager.jobs.destroy', job) }}" title="{{ jobs_l10n.delete_this_poster }}" type="button">
+					<i class="fas fa-trash-alt"></i>
+				</button>
+			{% endif %}
+		</div>
 
-    </div>
+	</div>
 
 </div>

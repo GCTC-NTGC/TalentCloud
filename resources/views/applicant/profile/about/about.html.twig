@@ -36,30 +36,31 @@ Applicant: Profile - About
 								for="editProfileTwitter">
 								{{ profile.about_section.twitter_label }}
 							</label>
-							<input
-								class="form__input"
-								id="editProfileTwitter"
-								type="text"
-								name="twitter_username"
-								value="{{ applicant.twitter_username }}"/>
+                            <input
+                                class="form__input"
+                                id="editProfileTwitter"
+                                type="text"
+                                name="twitter_username"
+                                pattern="{{ twitterHandlePattern }}"
+                                value="{{ applicant.twitter_username }}"
+                                autocomplete="off" />
 						</div>
 					</div>
 					<div
 						class="box med-1of2">
-						<div
-							class="form__input-wrapper--float {% if applicant.linkedin_url %}active{% endif %}">
-							<label
-								class="form__label"
-								for="editProfileLinkedin">
-								{{ profile.about_section.linkedin_label }}
-							</label>
-							<input
-								class="form__input"
-								id="editProfileLinkedin"
-								type="text"
-								name="linkedin_url"
-								value="{{ applicant.linkedin_url }}"/>
-						</div>
+                        <div class="form__input-wrapper--float {% if applicant.linkedin_url %}active{% endif %}">
+                            <label class="form__label" for="editProfileLinkedin">
+                                {{ profile.about_section.linkedin_label }}
+                            </label>
+                            <input
+                                class="form__input"
+                                id="editProfileLinkedin"
+                                type="text"
+                                name="linkedin_url"
+                                pattern="{{ linkedInUrlPattern }}"
+                                value="{{ applicant.linkedin_url }}"
+                                autocomplete="off" />
+                        </div>
 					</div>
 				</div>
 			</fieldset>
