@@ -34,6 +34,8 @@ trait RememberDeviceTrait
     public function setRememberDeviceToken($value)
     {
         if (! empty($this->getRememberDeviceTokenName())) {
+            // Make sure new value is immediately saved to db, as well as to model object.
+            $this->where('id', $this->id)->update([$this->getRememberDeviceTokenName() => $value]);
             $this->{$this->getRememberDeviceTokenName()} = $value;
         }
     }
