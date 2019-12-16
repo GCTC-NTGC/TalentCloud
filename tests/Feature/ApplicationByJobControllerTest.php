@@ -50,7 +50,7 @@ class ApplicationByJobControllerTest extends TestCase
             ->get(route('manager.jobs.applications', $job->id));
         $response->assertOk();
         foreach ($job->job_applications as $application) {
-            $response->assertSee($application->applicant->user->name);
+            $response->assertSee($application->applicant->user->full_name);
         }
     }
 

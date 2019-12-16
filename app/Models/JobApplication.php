@@ -297,7 +297,7 @@ class JobApplication extends BaseModel
     {
         $applicant = $this->applicant->fresh();
 
-        $this->user_name = $applicant->user->name;
+        $this->user_name = $applicant->user->full_name;
         $this->user_email = $applicant->user->email;
         $this->save();
 
