@@ -71,5 +71,6 @@ return [
      'two_factor_status' => 'Status:',
      'two_factor_on' => 'On',
      'two_factor_off' => 'Off',
+     'forget_remembered_devices' => 'Forget all trusted devices.',
      'success_title' => 'All good in the hood.'
 ];

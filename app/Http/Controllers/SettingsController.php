@@ -51,6 +51,7 @@ class SettingsController extends Controller
             'submit_government' => route(WhichPortal::prefixRoute('settings.government.update'), $user),
             'activate_two_factor' => route(WhichPortal::prefixRoute('two_factor.activate')),
             'deactivate_two_factor' => route(WhichPortal::prefixRoute('two_factor.deactivate')),
+            'forget_remembered_devices' => route(WhichPortal::prefixRoute('two_factor.forget')),
             'generate_recovery_codes' => route(WhichPortal::prefixRoute('recovery_codes.show'))
         ];
 

@@ -213,6 +213,7 @@ Route::group(
                     /* 2FA Settings */
                     Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('two_factor.activate');
                     Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('two_factor.deactivate');
+                    Route::post('two-factor/forget', 'Auth\TwoFactorController@forget')->name('two_factor.forget');
                     Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('two_factor.confirm');
 
                     Route::post('two-factor/generate-recovery-codes', 'Auth\RecoveryCodeController@generate')->name('recovery_codes.generate');
@@ -418,6 +419,7 @@ Route::group(
                         /* Two-factor Authentication */
                         Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('manager.two_factor.activate');
                         Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('manager.two_factor.deactivate');
+                        Route::post('two-factor/forget', 'Auth\TwoFactorController@forget')->name('manager.two_factor.forget');
                         Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('manager.two_factor.confirm');
 
                         Route::post('two-factor/generate-recovery-codes', 'Auth\RecoveryCodeController@generate')->name('manager.recovery_codes.generate');
@@ -551,6 +553,7 @@ Route::group(
 
         Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('admin.two_factor.activate');
         Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('admin.two_factor.deactivate');
+        Route::post('two-factor/forget', 'Auth\TwoFactorController@forget')->name('admin.two_factor.forget');
         Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('admin.two_factor.confirm');
 
         Route::post('two-factor/generate-recovery-codes', 'Auth\RecoveryCodeController@generate')->name('admin.recovery_codes.generate');

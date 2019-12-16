@@ -70,5 +70,6 @@ return [
     'two_factor_status' => 'Statut :',
     'two_factor_on' => 'Activée',
     'two_factor_off' => 'Désactivées',
+    'forget_remembered_devices' => 'Oubliez tous les appareils de confiance.',
     'success_title' => 'Tout va bien.'
 ];

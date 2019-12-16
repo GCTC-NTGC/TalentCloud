@@ -53,7 +53,7 @@ class TwoFactorController extends AuthController
             $profile_url = backpack_url('2fa');
         }
 
-        return redirect($profile_url);
+        return redirect($profile_url)->withSuccess(Lang::get('success.two_factor_deactivate'));
     }
 
     public function confirm(Request $request)
@@ -135,5 +135,12 @@ class TwoFactorController extends AuthController
                 config('google2fa.lifetime')
             );
         }
+    }
+
+    protected function forget(Request $request)
+    {
+        $user = $request->user();
+        $user->cycleRememberDeviceToken();
+        return redirect()->back()->withSuccess(Lang::get('success.two_factor_forget'));
     }
 }

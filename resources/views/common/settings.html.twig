@@ -294,6 +294,14 @@
 										</button>
 									</form>
 								</div>
+								<div data-c-grid-item="tp(1of1)" data-c-align="base(center) tp(right)">
+									<form action="{{ forget_remembered_devices }}" method="POST">
+										{{ csrf_field() }}
+										<button data-c-button="outline(c3)" data-c-radius="rounded" data-c-dialog-action="open" type="submit">
+											{{ settings.forget_remembered_devices }}
+										</button>
+									</form>
+								</div>
 							{% endif %}
 						</div>
 					</div>
