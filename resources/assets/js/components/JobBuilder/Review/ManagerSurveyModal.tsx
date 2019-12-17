@@ -1,11 +1,10 @@
 import React from "react";
-import { FormattedMessage, defineMessages, useIntl } from "react-intl";
+import { defineMessages, useIntl } from "react-intl";
 import Modal from "../../Modal";
-import { managerFaq } from "../../../helpers/routes";
+import { managerJobIndex } from "../../../helpers/routes";
 
 interface ManagerSurveyModalProps {
   isVisible: boolean;
-  handleCancel: () => void;
   parentElement: Element | null;
 }
 
@@ -18,7 +17,7 @@ export const managerSurveyMessages = defineMessages({
   managerSurveyExplanation: {
     id: "managerSurveyModal.explanation",
     defaultMessage:
-      "Your feedback helps us improve our tools! Please take a few minutes to complete this <a>survey</a>.",
+      "Your feedback helps us improve our tools! Please take a few minutes to complete a survey.",
     description: "Explanation of how to get to manager survey.",
   },
   managerSurveyLinkTitle: {
@@ -26,11 +25,25 @@ export const managerSurveyMessages = defineMessages({
     defaultMessage: "Link to manager survey.",
     description: "Title of link to further information.",
   },
+  managerSurveyLink: {
+    id: "managerSurveyModal.link",
+    defaultMessage: "Take me to the survey",
+    description: "Link to manager survey.",
+  },
+  jobPosterLink: {
+    id: "managerSurveyModal.jobPosterLink",
+    defaultMessage: "Go back to <a>My Job Posters</>.",
+    description: "Link to job poster index.",
+  },
+  jobPosterLinkTitle: {
+    id: "managerSurveyModal.jobPosterLinkTitle",
+    defaultMessage: "Visit My Job Posters.",
+    description: "Title for link to job poster index.",
+  },
 });
 
 export const ManagerSurveyModal: React.FC<ManagerSurveyModalProps> = ({
   isVisible,
-  handleCancel,
   parentElement,
 }) => {
   const intl = useIntl();
@@ -38,8 +51,8 @@ export const ManagerSurveyModal: React.FC<ManagerSurveyModalProps> = ({
     <Modal
       id="manager-survey-modal"
       visible={isVisible}
-      onModalCancel={handleCancel}
-      onModalConfirm={handleCancel}
+      onModalCancel={(): void => {}}
+      onModalConfirm={(): void => {}}
       parentElement={parentElement}
     >
       <Modal.Header>
@@ -64,34 +77,41 @@ export const ManagerSurveyModal: React.FC<ManagerSurveyModalProps> = ({
             <p>
               {intl.formatMessage(
                 managerSurveyMessages.managerSurveyExplanation,
-                {
-                  a: msg => (
-                    <a
-                      href="https://talentcloud1.typeform.com/to/MrOkgK"
-                      title={intl.formatMessage(
-                        managerSurveyMessages.managerSurveyLinkTitle,
-                      )}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
-                      {msg}
-                    </a>
-                  ),
-                },
               )}
+            </p>
+            <p data-c-margin="top(normal)">
+              {intl.formatMessage(managerSurveyMessages.jobPosterLink, {
+                a: msg => (
+                  <a
+                    href={managerJobIndex(intl.locale)}
+                    title={intl.formatMessage(
+                      managerSurveyMessages.jobPosterLinkTitle,
+                    )}
+                  >
+                    {msg}
+                  </a>
+                ),
+              })}
             </p>
           </div>
         </div>
       </Modal.Body>
-      <Modal.Footer>
-        <Modal.FooterCancelBtn>
-          <FormattedMessage
-            id="managerSurveyModal.cancel"
-            defaultMessage="Go back to My Job Posters"
-            description="Cancel button of Demo Submit Job modal."
-          />
-        </Modal.FooterCancelBtn>
-      </Modal.Footer>
+      <div data-c-padding="half" data-c-alignment="base(right)">
+        <a
+          data-c-button="solid(c1)"
+          data-c-dialog-action="close"
+          data-c-radius="rounded"
+          style={{ textDecoration: "none" }}
+          href="https://talentcloud1.typeform.com/to/MrOkgK"
+          title={intl.formatMessage(
+            managerSurveyMessages.managerSurveyLinkTitle,
+          )}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          {intl.formatMessage(managerSurveyMessages.managerSurveyLink)}
+        </a>
+      </div>
     </Modal>
   );
 };
