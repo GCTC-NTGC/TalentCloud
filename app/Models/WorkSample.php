@@ -21,7 +21,6 @@ namespace App\Models;
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Lookup\FileType $file_type
- * @property \Illuminate\Database\Eloquent\Collection $application_work_samples
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  * @property \App\Models\Applicant $applicant
  */
@@ -47,11 +46,6 @@ class WorkSample extends BaseModel
     public function file_type()
     {
         return $this->belongsTo(\App\Models\Lookup\FileType::class);
-    }
-
-    public function application_work_samples()
-    {
-        return $this->hasMany(\App\Models\ApplicationWorkSample::class);
     }
 
     public function skill_declarations()

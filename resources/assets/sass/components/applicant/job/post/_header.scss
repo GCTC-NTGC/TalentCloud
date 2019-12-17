@@ -35,7 +35,7 @@
 }
 
 .job-post__header-meta {
-    color: lighten($palette--blue, 10%);
+    color: $clone-c3;
     display: block;
     font-size: $font-scale--regular;
     line-height: 1.5;
@@ -70,7 +70,7 @@
     }
 
     i {
-        color: $palette--blue;
+        color: $clone-c3;
         font-size: $font-scale--regular;
         margin: 0 calc(#{$unit} / 2) 0 0;
         vertical-align: middle;
