@@ -4,29 +4,27 @@
 
 ============================================================================= #}
 {% if errors.any() %}
-    {# Added data-clone because so this can be included in old non-clone templates #}
-    <div data-clone>
-        <div
+	{# Added data-clone because so this can be included in old non-clone templates #}
+	<div data-clone>
+		<div
             {% if form_errors_id %} id="{{ form_errors_id }}" {% endif %}
             data-c-alert="error"
             data-c-radius="rounded"
             role="alert">
             <div data-c-padding="half">
-                <span
-                    data-c-heading="h5"
-                    data-c-font-weight="bold">
-                    <i aria-hidden="true" class="fas fa-exclamation-circle"></i>
-                    {{ trans('forms.alert') }}
-                </span>
-                <p data-c-margin="top(quarter)">
-                    {{ trans('forms.alert_copy') }}
-                </p>
-                <ul>
-                    {% for error in errors.all() %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </div>
+				<span data-c-heading="h6" data-c-font-weight="bold">
+					<i aria-hidden="true" class="fas fa-exclamation-circle"></i>
+					{{ trans('forms.alert') }}
+				</span>
+				<p data-c-margin="top(quarter)">
+					{{ trans('forms.alert_copy') }}
+				</p>
+				<ul>
+					{% for error in errors.all() %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
 {% endif %}

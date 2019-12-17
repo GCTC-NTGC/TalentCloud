@@ -20,10 +20,10 @@ class TwoFactorComposer
         $profile_url = '';
         if (WhichPortal::isApplicantPortal()) {
             $confirm_url = route('two_factor.confirm');
-            $profile_url = route('profile');
+            $profile_url = route('settings.edit');
         } elseif (WhichPortal::isManagerPortal()) {
             $confirm_url = route('manager.two_factor.confirm');
-            $profile_url = route('manager.profile');
+            $profile_url = route('manager.settings.edit');
         } elseif (WhichPortal::isAdminPortal()) {
             $confirm_url = route('admin.two_factor.confirm');
             $profile_url = backpack_url('2fa');

@@ -55,7 +55,7 @@ return [
      'view_recovery_codes' => 'generate new codes',
      'two_factor_inactive' => [
         'one' => 'Even a strong password isn\'t enough to protect your account. If you use the same password on different websites, click on hyperlinks in email messages, or download anything on the internet, you are at risk of having your password stolen. And if someone else gets access to your account, they can do all kinds of bad things.',
-        'two' => 'Using two-factor authentication (2FA) adds an extra layer of security when you sign into Talent Cloud. To use 2FA, you\'ll have to install an authenticator app that uses the time-based one-time password algorithm standard on a separate device, like your cell phone. Compatible apps include:',
+        'two' => 'Using two-factor authentication (2FA) adds an extra layer of security when you sign into Talent Cloud. To use 2FA, you\'ll have to install an authenticator app that uses the time-based one-time password algorithm standard on a separate device, like your cell phone. Compatible applications include:',
         'three' => '1Password for iOS, Android, OS X, Windows',
         'four' => 'Authy for iOS, Android, Chrome, OS X',
         'five' => 'FreeOTP for iOS, Android and Pebble',

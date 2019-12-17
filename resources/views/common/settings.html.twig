@@ -54,7 +54,7 @@
 		{% if session_has('success') %}
 			<div data-c-alert="information" data-c-container="medium" data-c-radius="rounded" role="alert" data-c-margin="top(1)">
 				<div data-c-padding="half">
-					<p data-c-font-weight="bold" data-c-heading="h5">
+					<p data-c-font-weight="bold" data-c-heading="h6">
 						<i aria-hidden="true" class="fa fa-check-circle"></i>
 						{{ settings.success_title }}
 					</p>
@@ -145,7 +145,7 @@
 									<div data-c-grid-item="base(1of1)">
 										<div data-c-alert="information" data-c-radius="rounded" role="alert" data-c-margin="bottom(normal)">
 											<div data-c-padding="half">
-												<p data-c-margin="bottom(half)" data-c-heading="h5" data-c-font-weight="bold">
+												<p data-c-margin="bottom(half)" data-c-heading="h6" data-c-font-weight="bold">
 													<i class="fas fa-exclamation-circle"></i>
 													{{ settings.government_dept }}
 													{% if user.manager.department %}
