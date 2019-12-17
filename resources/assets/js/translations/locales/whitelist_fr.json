@@ -3,7 +3,6 @@
   "assessmentPlan.skillDescriptionLabel",
   "ratingGuideBuilder.questionHeading",
   "ratingGuideBuilder.criteriaName",
-  "jobBuilder.details.classificationOptions.CO",
   "jobBuilder.impactPreview.title",
   "jobBuilder.intro.continueButtonLabelEN",
   "jobBuilder.intro.continueButtonLabelFR",
@@ -21,5 +20,6 @@
   "province.mb.abreviation",
   "province.on.abreviation",
   "province.sk.abreviation",
-  "securityClearance.secret"
+  "securityClearance.secret",
+  "jobBuilder.details.classificationOptions.CO"
 ]
