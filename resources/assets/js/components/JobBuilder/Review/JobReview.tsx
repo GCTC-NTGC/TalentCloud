@@ -47,6 +47,7 @@ import { textToParagraphs } from "../../../helpers/textToParagraphs";
 import { useUrlHash, Link } from "../../../helpers/router";
 import { classificationString } from "../../../models/jobUtil";
 import DemoSubmitJobModal from "./DemoSubmitJobModal";
+import ManagerSurveyModal from "./ManagerSurveyModal";
 
 interface JobReviewSectionProps {
   title: string;
@@ -359,6 +360,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
   useUrlHash();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isSurveyModalVisible, setIsSurveyModalVisible] = useState(false);
   const modalId = "job-review-modal";
   const modalParentRef = useRef<HTMLDivElement>(null);
 
@@ -771,7 +773,11 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           </div>
         </div>
       </div>
-      <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
+      <div
+        data-c-dialog-overlay={
+          isModalVisible || isSurveyModalVisible ? "active" : ""
+        }
+      />
       {manager === null || manager.is_demo_manager ? (
         <DemoSubmitJobModal
           isVisible={isModalVisible}
@@ -786,7 +792,8 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           onModalConfirm={async (): Promise<void> => {
             try {
               await handleSubmit(job);
-              handleContinue();
+              setIsModalVisible(false);
+              setIsSurveyModalVisible(true);
             } catch {
               setIsModalVisible(false);
             }
@@ -862,6 +869,14 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           </Modal.Footer>
         </Modal>
       )}
+      <ManagerSurveyModal
+        isVisible={isSurveyModalVisible}
+        handleCancel={(): void => {
+          setIsSurveyModalVisible(false);
+          handleContinue();
+        }}
+        parentElement={modalParentRef.current}
+      />
     </>
   );
 };
