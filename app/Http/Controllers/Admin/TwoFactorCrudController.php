@@ -38,7 +38,7 @@ class TwoFactorCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([
-            'name' => 'name',
+            'name' => 'full_name',
             'type' => 'text',
             'label' => 'Name',
             'orderable' => false
