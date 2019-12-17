@@ -304,7 +304,7 @@ class User extends BaseModel implements
      * Returns a user's full name.
      *
      * @return string
-    */
+     */
     public function getFullNameAttribute(): string
     {
         return $this->first_name . ' ' . $this->last_name;

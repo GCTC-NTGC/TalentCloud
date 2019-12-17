@@ -12,11 +12,11 @@ use Illuminate\Http\Request;
 class CriteriaController extends Controller
 {
 /**
-     * Converts a Criteria to the shape sent and recieved by the api.
-     *
-     * @param Criteria $model
-     * @return void
-     */
+ * Converts a Criteria to the shape sent and recieved by the api.
+ *
+ * @param Criteria $model
+ * @return void
+ */
     public function toApiArray(Criteria $model)
     {
         return array_merge($model->toArray(), $model->getTranslationsArray());

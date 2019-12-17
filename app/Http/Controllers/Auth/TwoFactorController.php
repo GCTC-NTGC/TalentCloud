@@ -20,7 +20,7 @@ class TwoFactorController extends AuthController
             $user->email,
             $secret
         );
-         $profile_url = '';
+            $profile_url = '';
         if (WhichPortal::isApplicantPortal()) {
             $profile_url = route('settings.edit');
         } elseif (WhichPortal::isManagerPortal()) {

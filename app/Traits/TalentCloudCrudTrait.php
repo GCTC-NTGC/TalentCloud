@@ -24,7 +24,7 @@ trait TalentCloudCrudTrait
         // Create an instance of the model to be able to get the table name.
         $instance = new static();
         $conn = DB::connection($instance->getConnectionName());
-        $table = Config::get('database.connections.'.Config::get('database.default').'.prefix').$instance->getTable();
+        $table = Config::get('database.connections.' . Config::get('database.default') . '.prefix') . $instance->getTable();
         // MongoDB columns are alway nullable.
         if ($conn->getConfig()['driver'] === 'mongodb') {
             return true;
