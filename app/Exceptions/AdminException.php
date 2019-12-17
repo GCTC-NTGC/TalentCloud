@@ -52,9 +52,9 @@ class AdminException extends Exception
 
     /**
      * Override, custom exception doesn't return a status code.
-    *
-    * @return mixed
-    */
+     *
+     * @return mixed
+     */
     public function getStatusCode()
     {
         return 500;

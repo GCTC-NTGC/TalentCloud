@@ -209,13 +209,13 @@ class MenuComposer
                 'settings_link' => route('manager.settings.edit'),
             ];
         } elseif (WhichPortal::isAdminPortal()) {
-             $loginModals = [
+                $loginModals = [
                 'modals' => Lang::get('common/login_modals'),
                 'register_link' => route('register'),
                 'login_link' => backpack_url('login'),
                 'logout_link' => backpack_url('logout'),
                 'settings_link' => route('settings.edit'),
-             ];
+                ];
         } else {
             $loginModals = [
                 'modals' => Lang::get('common/login_modals'),

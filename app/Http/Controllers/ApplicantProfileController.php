@@ -77,7 +77,7 @@ class ApplicantProfileController extends Controller
                 'description' => $question->description,
                 'answer' => $answer,
                 'answer_label' => $profileText['about_section']['answer_label'],
-                'input_name' => $this->answerFormInputName.'['.$question->id.']'
+                'input_name' => $this->answerFormInputName . '[' . $question->id . ']'
             ];
             array_push($profileQuestionForms, $formValues);
         }
@@ -128,7 +128,7 @@ class ApplicantProfileController extends Controller
                 )->first();
                 if ($answer == null) {
                     $answer = new ApplicantProfileAnswer();
-                    $answer->applicant_id =$applicant->id;
+                    $answer->applicant_id = $applicant->id;
                     $answer->applicant_profile_question_id = $question->id;
                 }
                 $answer->answer = $request->input($answerName);

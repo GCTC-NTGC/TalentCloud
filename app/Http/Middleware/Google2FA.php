@@ -23,9 +23,9 @@ class Google2FA
             $remember = $request->cookie($user->getRememberDeviceKey());
             // If tokens do not match, cookie is no longer valid.
             if ($remember !== null && $remember !== $user->getRememberDeviceToken()) {
-                 Cookie::queue(
-                     Cookie::forget($user->getRememberDeviceKey())
-                 );
+                    Cookie::queue(
+                        Cookie::forget($user->getRememberDeviceKey())
+                    );
             }
 
             if ($authenticator->isAuthenticated() || ($remember !== null && $remember === $user->getRememberDeviceToken())) {

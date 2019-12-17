@@ -20,8 +20,8 @@ trait RememberDeviceTrait
      */
     public function getRememberDeviceToken()
     {
-        if (! empty($this->getRememberDeviceTokenName())) {
-            return (string) $this->{$this->getRememberDeviceTokenName()};
+        if (!empty($this->getRememberDeviceTokenName())) {
+            return (string)$this->{$this->getRememberDeviceTokenName()};
         }
     }
 
@@ -33,7 +33,7 @@ trait RememberDeviceTrait
      */
     public function setRememberDeviceToken($value)
     {
-        if (! empty($this->getRememberDeviceTokenName())) {
+        if (!empty($this->getRememberDeviceTokenName())) {
             $this->{$this->getRememberDeviceTokenName()} = $value;
         }
     }
@@ -70,6 +70,6 @@ trait RememberDeviceTrait
      */
     public function getRememberDeviceKey(): string
     {
-        return 'remember_device_'.sha1(static::class);
+        return 'remember_device_' . sha1(static::class);
     }
 }

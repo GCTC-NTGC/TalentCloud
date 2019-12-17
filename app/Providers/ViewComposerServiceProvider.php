@@ -64,7 +64,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         View::composer(
             ['common/relatives','common/reference','common/relatives-projects',
-             'common/sample', 'common/skill', 'common/modals/create_reference'],
+                'common/sample', 'common/skill', 'common/modals/create_reference'],
             'App\Http\ViewComposers\RelativeComposer'
         );
 
