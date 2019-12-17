@@ -7,8 +7,6 @@
 
 namespace App\Models;
 
-use App\Models\SkillDeclaration;
-
 /**
  * Class Reference
  *

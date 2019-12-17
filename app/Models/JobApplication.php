@@ -218,7 +218,8 @@ class JobApplication extends BaseModel
                 }
                 break;
             case 'preview':
-                if ($validator->basicsComplete($this) &&
+                if (
+                    $validator->basicsComplete($this) &&
                     $validator->experienceComplete($this) &&
                     $validator->essentialSkillsComplete($this) &&
                     $validator->assetSkillsComplete($this)
@@ -267,7 +268,8 @@ class JobApplication extends BaseModel
         $source = $this->isDraft() ? $this->applicant : $this;
         foreach ($essentialCriteria as $criterion) {
             $skillDeclaration = $source->skill_declarations->where('skill_id', $criterion->skill_id)->first();
-            if ($skillDeclaration === null ||
+            if (
+                $skillDeclaration === null ||
                 $skillDeclaration->skill_level_id < $criterion->skill_level_id
             ) {
                 return false;

@@ -3,12 +3,7 @@
 namespace App\Services\Validation;
 
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use App\Models\Skill;
 use App\Models\SkillDeclaration;
-use App\Models\Lookup\SkillLevel;
-use App\Models\Lookup\SkillStatus;
-use App\Models\Applicant;
 use App\Services\Validation\Rules\PolyExistsRule;
 use App\Services\Validation\Rules\UniqueSkillDeclarationRule;
 

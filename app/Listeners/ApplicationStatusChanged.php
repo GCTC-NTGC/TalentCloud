@@ -17,7 +17,6 @@ class ApplicationStatusChanged
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -32,24 +31,24 @@ class ApplicationStatusChanged
 
         if (Auth::check()) {
             $user = Auth::user();
-            $userText = "{id=".$user->id.", email=".$user->email."}";
+            $userText = '{id=' . $user->id . ', email=' . $user->email . '}';
         } else {
-            $userText = "{null}";
+            $userText = '{null}';
         }
 
-        //Log when application is first created
-        if($application->wasRecentlyCreated) {
-            $applicationText = "{id=".$application->id.", status=".$application->application_status->name."}";
+        // Log when application is first created
+        if ($application->wasRecentlyCreated) {
+            $applicationText = '{id=' . $application->id . ', status=' . $application->application_status->name . '}';
 
-            Log::notice("Application created: application ".$applicationText." has been created by user ".$userText);
+            Log::notice('Application created: application ' . $applicationText . ' has been created by user ' . $userText);
         }
-        //Log if application status has been changed
-        else if ($application->application_status_id != $application->getOriginal('application_status_id')) {
+        // Log if application status has been changed
+        elseif ($application->application_status_id != $application->getOriginal('application_status_id')) {
             $freshApplication = $application->fresh();
-            $applicationText = "{id=".$freshApplication->id."}";
-            $statusText = "{".$freshApplication->application_status->name."}";
+            $applicationText = '{id=' . $freshApplication->id . '}';
+            $statusText = '{' . $freshApplication->application_status->name . '}';
 
-            Log::notice("Application status changed: application ".$applicationText." has been changed to ".$statusText." by user ".$userText);
+            Log::notice('Application status changed: application ' . $applicationText . ' has been changed to ' . $statusText . ' by user ' . $userText);
         }
     }
 }

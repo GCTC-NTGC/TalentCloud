@@ -21,7 +21,8 @@ namespace App\Models;
  *
  * @property \App\Models\Applicant|\App\Models\JobApplication $projectable
  */
-class Project extends BaseModel {
+class Project extends BaseModel
+{
 
     protected $casts = [
         'name' => 'string',
@@ -35,11 +36,13 @@ class Project extends BaseModel {
         'end_date'
     ];
 
-    public function references() {
+    public function references()
+    {
         return $this->belongsToMany(\App\Models\Reference::class);
     }
 
-    public function projectable() {
+    public function projectable()
+    {
         return $this->morphTo();
     }
 }

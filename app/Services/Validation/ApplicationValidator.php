@@ -3,14 +3,8 @@
 namespace App\Services\Validation;
 
 use App\Models\JobApplication;
-use App\Models\JobApplicationAnswer;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Validator as BaseValidator;
-use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\CriteriaType;
-use App\Models\Lookup\VeteranStatus;
-use App\Models\Lookup\PreferredLanguage;
 use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
 use App\Services\Validation\JobApplicationAnswerValidator;
 
@@ -99,10 +93,10 @@ class ApplicationValidator
         ];
 
         // Merge with Answer rules, that ensure each answer is complete
-        $anwswerValidator = new JobApplicationAnswerValidator($application);
+        $answerValidator = new JobApplicationAnswerValidator($application);
         $rules = $this->addNestedValidatorRules(
             'job_application_answers.*',
-            $anwswerValidator->rules(),
+            $answerValidator->rules(),
             $rules
         );
 

@@ -25,7 +25,8 @@ namespace App\Models;
  * @property \App\Models\Lookup\CourseStatus $course_status
  * @property \App\Models\Applicant|\App\Models\JobApplication $courseable
  */
-class Course extends BaseModel {
+class Course extends BaseModel
+{
 
     protected $casts = [
         'name' => 'string',
@@ -42,11 +43,13 @@ class Course extends BaseModel {
         'end_date'
     ];
 
-    public function course_status() {
+    public function course_status()
+    {
         return $this->belongsTo(\App\Models\Lookup\CourseStatus::class);
     }
 
-    public function courseable() {
+    public function courseable()
+    {
         return $this->morphTo();
     }
 }
