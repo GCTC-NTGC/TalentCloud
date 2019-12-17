@@ -871,10 +871,6 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
       )}
       <ManagerSurveyModal
         isVisible={isSurveyModalVisible}
-        handleCancel={(): void => {
-          setIsSurveyModalVisible(false);
-          handleContinue();
-        }}
         parentElement={modalParentRef.current}
       />
     </>
