@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+
 use App\Models\Applicant;
 
 /**
@@ -25,7 +26,8 @@ use App\Models\Applicant;
  * @property \App\Models\Lookup\CourseStatus $course_status
  * @property \App\Models\Applicant $applicant
  */
-class Course extends BaseModel {
+class Course extends BaseModel
+{
 
     protected $casts = [
         'name' => 'string',
@@ -43,11 +45,13 @@ class Course extends BaseModel {
         'end_date'
     ];
 
-    public function course_status() {
+    public function course_status()
+    {
         return $this->belongsTo(\App\Models\Lookup\CourseStatus::class);
     }
 
-    public function applicant() {
+    public function applicant()
+    {
         return $this->belongsTo(\App\Models\Applicant::class);
     }
 }

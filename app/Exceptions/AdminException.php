@@ -40,9 +40,9 @@ class AdminException extends Exception
         return response()->view(
             'errors/admin',
             [
-            'exception' => $this,
-            'error' => [
-                'title' => Lang::get('errors.title'),
+                'exception' => $this,
+                'error' => [
+                    'title' => Lang::get('errors.title'),
                 ],
                 'links' => $this->links
             ],

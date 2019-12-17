@@ -17,7 +17,6 @@ class LogApplicationRetrieved
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -33,7 +32,7 @@ class LogApplicationRetrieved
         if (Auth::check()) {
             $user = Auth::user();
 
-            //Don't bother logging when an applicant views their own application
+            // Don't bother logging when an applicant views their own application
             if ($application->applicant->user->id != $user->id) {
                 $applicationText = "{id=$application->id}";
                 $userText = "{id=$user->id, email=$user->email}";
