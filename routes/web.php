@@ -297,22 +297,21 @@ Route::group(
                             ->name('manager.profile.update');
 
                         /* Reviewing applications/applicants requires two-factor authentication */
-                        Route::middleware(['2fa.required'])->group(function (): void {
-                            Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
-                                ->where('jobPoster', '[0-9]+')
-                                ->middleware('can:reviewApplicationsFor,jobPoster')
-                                ->name('manager.jobs.applications');
+                        // TODO: Eventually we'll want to wrap the routes for viewing applications in the 2fa.required middleware
+                        Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
+                            ->where('jobPoster', '[0-9]+')
+                            ->middleware('can:reviewApplicationsFor,jobPoster')
+                            ->name('manager.jobs.applications');
 
-                            /* View Application */
-                            Route::get('applications/{application}', 'ApplicationController@show')
-                                ->middleware('can:view,application')
-                                ->name('manager.applications.show');
+                        /* View Application */
+                        Route::get('applications/{application}', 'ApplicationController@show')
+                            ->middleware('can:view,application')
+                            ->name('manager.applications.show');
 
-                            /* View Applicant Profile */
-                            Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
-                                ->middleware('can:view,applicant')
-                                ->name('manager.applicants.show');
-                        });
+                        /* View Applicant Profile */
+                        Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
+                            ->middleware('can:view,applicant')
+                            ->name('manager.applicants.show');
 
                         /* Job Index */
                         Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
